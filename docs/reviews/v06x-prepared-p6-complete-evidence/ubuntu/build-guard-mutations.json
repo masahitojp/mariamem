@@ -1,0 +1,92 @@
+{
+  "source_commit": "c7960d604f525c15d66fc003b0341989c4719267",
+  "positive": "PASS",
+  "negative": [
+    {
+      "mutation": "contract",
+      "rejected": true,
+      "error": "wrong build contract"
+    },
+    {
+      "mutation": "source",
+      "rejected": true,
+      "error": "build source differs"
+    },
+    {
+      "mutation": "guest",
+      "rejected": true,
+      "error": "guest identity differs"
+    },
+    {
+      "mutation": "linked",
+      "rejected": true,
+      "error": "linked guest differs"
+    },
+    {
+      "mutation": "one-build",
+      "rejected": true,
+      "error": "independent rebuild evidence missing/different"
+    },
+    {
+      "mutation": "different-builds",
+      "rejected": true,
+      "error": "independent rebuild evidence missing/different"
+    },
+    {
+      "mutation": "experimental",
+      "rejected": true,
+      "error": "experimental guest patch"
+    },
+    {
+      "mutation": "source-file",
+      "rejected": true,
+      "error": "modified guest source differs"
+    },
+    {
+      "mutation": "overlay",
+      "rejected": true,
+      "error": "source overlays differ"
+    },
+    {
+      "mutation": "toolchain",
+      "rejected": true,
+      "error": "toolchain archives differ"
+    },
+    {
+      "mutation": "regen-source",
+      "rejected": true,
+      "error": "build source differs"
+    },
+    {
+      "mutation": "regen-result",
+      "rejected": true,
+      "error": "generation inputs differ"
+    },
+    {
+      "mutation": "inventory",
+      "rejected": true,
+      "error": "generated source inventory differs"
+    },
+    {
+      "mutation": "provenance",
+      "rejected": true,
+      "error": "generated provenance differs"
+    },
+    {
+      "mutation": "converter",
+      "rejected": true,
+      "error": "converter identity/output differs: converter_commit"
+    },
+    {
+      "mutation": "patch",
+      "rejected": true,
+      "error": "converter identity/output differs: patches_sha256"
+    },
+    {
+      "mutation": "translation",
+      "rejected": true,
+      "error": "converter identity/output differs: files_sha256"
+    }
+  ],
+  "result": "PASS"
+}

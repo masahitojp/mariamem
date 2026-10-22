@@ -1,0 +1,306 @@
+{
+  "scope": "P4 active EXECUTE exits only; not full P4/P5/P6",
+  "cases": {
+    "ordinary-error": {
+      "prepare": {
+        "parameters": [
+          "03646566000000013f000c3f0000000000068000000000"
+        ],
+        "columns": [],
+        "warnings": 0
+      },
+      "error_packets": [
+        {
+          "error_packet": "ff6c062334353030307034206f7264696e61727920636f6e74726f6c",
+          "errno": 1644,
+          "sqlstate": "45000"
+        }
+      ],
+      "ordinary_SQL_error_keeps_DB_usable": true,
+      "ordinary_prepared_after": 0,
+      "result": "PASS",
+      "cleanup_counter_limit": "fatal DB cases cannot expose Prepared_stmt_count; native count is checked separately",
+      "target_logs": "",
+      "target_log_removed": true,
+      "shared_lineage_retained_while_baseline_alive": true,
+      "sibling_usable_and_unchanged": true,
+      "baseline_reusable_with_prepared_QUERY": true,
+      "lineage_temporary_removed": true
+    },
+    "go-cancel": {
+      "witness": {
+        "actor_id": 3,
+        "lock_owner": 3,
+        "uncommitted_write_hidden": true
+      },
+      "consumer": {
+        "phase": "finished",
+        "kind": "cancel",
+        "result": "PASS",
+        "open_after": 0,
+        "execute_error": "context canceled",
+        "cleanup_errors": [
+          "context canceled"
+        ]
+      },
+      "consumer_events": [
+        {
+          "phase": "prepared",
+          "connection_id": 3,
+          "kind": "cancel",
+          "open_after": 0
+        },
+        {
+          "phase": "submitted",
+          "connection_id": 3,
+          "kind": "cancel",
+          "open_after": 0
+        },
+        {
+          "phase": "finished",
+          "kind": "cancel",
+          "result": "PASS",
+          "open_after": 0,
+          "execute_error": "context canceled",
+          "cleanup_errors": [
+            "context canceled"
+          ]
+        }
+      ],
+      "consumer_stderr": "",
+      "fatal_DB": {
+        "code": "unusable",
+        "closed": true,
+        "message": "host_control: database instance terminated: SQL client disconnected during query: EOF",
+        "new_SQL_admission_rejected": true
+      },
+      "result": "PASS",
+      "cleanup_counter_limit": "fatal DB cases cannot expose Prepared_stmt_count; native count is checked separately",
+      "target_logs": "",
+      "target_log_removed": true,
+      "shared_lineage_retained_while_baseline_alive": true,
+      "sibling_usable_and_unchanged": true,
+      "baseline_reusable_with_prepared_QUERY": true,
+      "lineage_temporary_removed": true
+    },
+    "go-deadline": {
+      "witness": {
+        "actor_id": 3,
+        "lock_owner": 3,
+        "uncommitted_write_hidden": true
+      },
+      "consumer": {
+        "phase": "finished",
+        "kind": "deadline",
+        "result": "PASS",
+        "open_after": 0,
+        "execute_error": "context deadline exceeded",
+        "cleanup_errors": [
+          "context deadline exceeded"
+        ]
+      },
+      "consumer_events": [
+        {
+          "phase": "prepared",
+          "connection_id": 3,
+          "kind": "deadline",
+          "open_after": 0
+        },
+        {
+          "phase": "submitted",
+          "connection_id": 3,
+          "kind": "deadline",
+          "open_after": 0
+        },
+        {
+          "phase": "finished",
+          "kind": "deadline",
+          "result": "PASS",
+          "open_after": 0,
+          "execute_error": "context deadline exceeded",
+          "cleanup_errors": [
+            "context deadline exceeded"
+          ]
+        }
+      ],
+      "consumer_stderr": "",
+      "fatal_DB": {
+        "code": "unusable",
+        "closed": true,
+        "message": "host_control: database instance terminated: SQL client disconnected during query: EOF",
+        "new_SQL_admission_rejected": true
+      },
+      "result": "PASS",
+      "cleanup_counter_limit": "fatal DB cases cannot expose Prepared_stmt_count; native count is checked separately",
+      "target_logs": "",
+      "target_log_removed": true,
+      "shared_lineage_retained_while_baseline_alive": true,
+      "sibling_usable_and_unchanged": true,
+      "baseline_reusable_with_prepared_QUERY": true,
+      "lineage_temporary_removed": true
+    },
+    "active-eof": {
+      "prepare": {
+        "parameters": [
+          "03646566000000013f000c3f0000000000068000000000"
+        ],
+        "columns": [],
+        "warnings": 0
+      },
+      "witness": {
+        "actor_id": 3,
+        "lock_owner": 3,
+        "uncommitted_write_hidden": true
+      },
+      "execution_outcome": {
+        "error": "OperationalError(2013, 'Lost connection to MySQL server during query')"
+      },
+      "fatal_DB": {
+        "code": "unusable",
+        "closed": true,
+        "message": "host_control: database instance terminated: SQL client disconnected during query: EOF",
+        "new_SQL_admission_rejected": true
+      },
+      "result": "PASS",
+      "cleanup_counter_limit": "fatal DB cases cannot expose Prepared_stmt_count; native count is checked separately",
+      "target_logs": "",
+      "target_log_removed": true,
+      "shared_lineage_retained_while_baseline_alive": true,
+      "sibling_usable_and_unchanged": true,
+      "baseline_reusable_with_prepared_QUERY": true,
+      "lineage_temporary_removed": true
+    },
+    "active-reset": {
+      "witness": {
+        "actor_id": 3,
+        "lock_owner": 3,
+        "uncommitted_write_hidden": true
+      },
+      "consumer": {
+        "phase": "finished",
+        "kind": "reset",
+        "result": "PASS",
+        "open_after": 0,
+        "execute_error": "invalid connection",
+        "cleanup_errors": [
+          "invalid connection"
+        ],
+        "transport_failed": true
+      },
+      "consumer_events": [
+        {
+          "phase": "prepared",
+          "connection_id": 3,
+          "kind": "reset",
+          "open_after": 0
+        },
+        {
+          "phase": "submitted",
+          "connection_id": 3,
+          "kind": "reset",
+          "open_after": 0
+        },
+        {
+          "phase": "finished",
+          "kind": "reset",
+          "result": "PASS",
+          "open_after": 0,
+          "execute_error": "invalid connection",
+          "cleanup_errors": [
+            "invalid connection"
+          ],
+          "transport_failed": true
+        }
+      ],
+      "consumer_stderr": "[mysql] 2026/10/22 22:27:56 connection.go:189 closing connection:close tcp 127.0.0.1:34426->127.0.0.1:42557: use of closed network connection\n[mysql] 2026/10/22 22:27:56 packets.go:58 read tcp 127.0.0.1:34426->127.0.0.1:42557: use of closed network connection\n",
+      "fatal_DB": {
+        "code": "unusable",
+        "closed": true,
+        "message": "host_control: database instance terminated: SQL client disconnected during query: read tcp4 127.0.0.1:42557->127.0.0.1:34426: read: connection reset by peer",
+        "new_SQL_admission_rejected": true
+      },
+      "result": "PASS",
+      "cleanup_counter_limit": "fatal DB cases cannot expose Prepared_stmt_count; native count is checked separately",
+      "target_logs": "",
+      "target_log_removed": true,
+      "shared_lineage_retained_while_baseline_alive": true,
+      "sibling_usable_and_unchanged": true,
+      "baseline_reusable_with_prepared_QUERY": true,
+      "lineage_temporary_removed": true
+    },
+    "host-deadline": {
+      "prepare": {
+        "parameters": [
+          "03646566000000013f000c3f0000000000068000000000"
+        ],
+        "columns": [],
+        "warnings": 0
+      },
+      "witness": {
+        "actor_id": 3,
+        "lock_owner": 3,
+        "uncommitted_write_hidden": true
+      },
+      "execution_outcome": {
+        "packets": [
+          {
+            "error_packet": "ffdd072348593030306d617269616d656d2071756572792074696d6564206f75743b20646174616261736520696e7374616e6365207465726d696e61746564",
+            "errno": 2013,
+            "sqlstate": "HY000"
+          }
+        ]
+      },
+      "fatal_DB": {
+        "code": "unusable",
+        "closed": true,
+        "message": "host_control: database instance terminated: context deadline exceeded",
+        "new_SQL_admission_rejected": true
+      },
+      "result": "PASS",
+      "cleanup_counter_limit": "fatal DB cases cannot expose Prepared_stmt_count; native count is checked separately",
+      "target_logs": "",
+      "target_log_removed": true,
+      "shared_lineage_retained_while_baseline_alive": true,
+      "sibling_usable_and_unchanged": true,
+      "baseline_reusable_with_prepared_QUERY": true,
+      "lineage_temporary_removed": true
+    },
+    "active-db-close": {
+      "prepare": {
+        "parameters": [
+          "03646566000000013f000c3f0000000000068000000000"
+        ],
+        "columns": [],
+        "warnings": 0
+      },
+      "witness": {
+        "actor_id": 3,
+        "lock_owner": 3,
+        "uncommitted_write_hidden": true
+      },
+      "execution_outcome": {
+        "error": "OperationalError(2013, 'Lost connection to MySQL server during query')"
+      },
+      "explicit_Close_new_SQL_rejected": true,
+      "result": "PASS",
+      "cleanup_counter_limit": "fatal DB cases cannot expose Prepared_stmt_count; native count is checked separately",
+      "target_logs": "",
+      "target_log_removed": true,
+      "shared_lineage_retained_while_baseline_alive": true,
+      "sibling_usable_and_unchanged": true,
+      "baseline_reusable_with_prepared_QUERY": true,
+      "lineage_temporary_removed": true
+    }
+  },
+  "failures": {},
+  "result": "PASS",
+  "native_reference": {
+    "native_connection_cleanup": "PASS",
+    "shared_observable_outcomes": "PASS",
+    "disposition_difference": "native retains server and other connections; mariamem invalidates target DB, preserves independent siblings/baseline",
+    "product_only": [
+      "host-deadline",
+      "active-db-close"
+    ]
+  }
+}

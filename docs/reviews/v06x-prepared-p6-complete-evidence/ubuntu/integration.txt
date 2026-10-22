@@ -1,0 +1,27 @@
++ go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/control ./internal/prepared . -count=1
+ok  	github.com/masahitojp/mariamem/internal/artifacts	1.012s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	3.181s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	1.594s
+ok  	github.com/masahitojp/mariamem/internal/guest	1.017s
+ok  	github.com/masahitojp/mariamem/internal/host	1.017s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.076s
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	1.269s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.128s
+ok  	github.com/masahitojp/mariamem/internal/control	1.012s
+ok  	github.com/masahitojp/mariamem/internal/prepared	1.361s
+ok  	github.com/masahitojp/mariamem	1.018s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/gointegration	12.070s
++ go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/godefault	2.376s
++ go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	0.695s
++ go build -p 1 -o /tmp/mariamem-integration-_wosicyj/mariamem-host ./cmd/mariamem-host
+Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
++ /opt/hostedtoolcache/Python/3.14.9/x64/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py tests/test_routine_runtime.py tests/test_text_multi_runtime.py -q
+................................                                         [100%]
+32 passed in 58.40s
++ /opt/hostedtoolcache/Python/3.14.9/x64/bin/python tests/snapshots.py
+{"passed": true, "checks": 33, "error": null, "evidence": "<repository>/tests/evidence/snapshots.json"}
++ /opt/hostedtoolcache/Python/3.14.9/x64/bin/python scripts/check_prepared_consumers.py --host /tmp/mariamem-integration-_wosicyj/mariamem-host --output /tmp/mariamem-integration-_wosicyj/prepared-consumers
+PASS: Go prepared / Python normal controls and exact accepted-exception tripwires; Python functional FAIL retained

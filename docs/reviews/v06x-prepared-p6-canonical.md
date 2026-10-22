@@ -1,11 +1,14 @@
-# Prepared P6 — canonical candidate, verification pending
+# Prepared P6 — scoped candidate verification complete
 
-P6 is implemented on `experiment/prepared-canonical`; **P6 acceptance remains
-pending the new canonical-source and both-platform CI results**. The next review
-is whether these results satisfy the existing P6 conditions. Main adoption,
-target version, Qualification, Product Validation and publication are separate
-Human decisions. No new engine/driver workaround or broader compatibility claim
-is introduced.
+P6 scoped verification is complete at source_commit
+`c7960d604f525c15d66fc003b0341989c4719267` with Go1.26.10 and the existing
+Human-accepted consumer exceptions. [CI39859160329](https://github.com/masahitojp/mariamem/actions/runs/39859160329)
+passed all four jobs. Main adoption, target version, Qualification, Product
+Validation and publication remain separate Human decisions. See the
+[Human Review](v06x-prepared-p6-human-review.md) and
+[final receipts](v06x-prepared-p6-complete-evidence/receipt.json).
+
+## Earlier preparation and failed integration run
 
 [CI39798209370](https://github.com/masahitojp/mariamem/actions/runs/39798209370)
 confirmed two independent canonical source builds and99-file independent Go
@@ -16,9 +19,9 @@ now explicitly require native PREPARE metadata and RESET/CLOSE/reuse; historical
 text-only callers retain their explicit rejection expectation. There is no
 accept-either-result fallback. Runtime, guest inputs and generated Go are unchanged.
 
-The remaining material gap is complete current-source runtime/consumer/J1 replay:
-the failed integration step skipped downstream jobs, so those checks cannot be
-counted as PASS. See the [CI repair receipt](v06x-prepared-p6-ci-fix-evidence/receipt.json).
+At that failed run the remaining gap was complete runtime/consumer/J1 replay.
+Those skipped checks were not counted as PASS; final CI39859160329 now supplies
+the successful current-source execution. See the [CI repair receipt](v06x-prepared-p6-ci-fix-evidence/receipt.json).
 
 ## Inputs and ownership
 
@@ -37,7 +40,7 @@ counted as PASS. See the [CI repair receipt](v06x-prepared-p6-ci-fix-evidence/re
 - Converter `730057c146463f663e8774587bc96fb2bea91af8` plus the same13 patches;
   The initial receipts use Go1.26.8. The Human subsequently requested the
   Go1.26.10 security update (forward compatibility1.27.3); current-source
-  new-Go regeneration/runtime/audit results are pending a new candidate CI.
+  new-Go regeneration/runtime/audit results now pass in CI39859160329.
   LLVM23.1.0, WASIXCC0.4.7, Binaryen133 and the pinned legacy-EH sysroots remain
   unchanged. No shibukawa converter dependency is introduced.
 
@@ -90,10 +93,9 @@ The [candidate workflow](../../.github/workflows/prepared-canonical.yml) binds a
 steps to the pushed commit and includes the full P1–P5 replay, actual native
 control, routines/DEFINER/auth, installed wheel and SQLAlchemy/GORM, J1 controls,
 retained-library audit and17 independently mutated build-evidence rejections.
-It is candidate verification, not Qualification. In the interim,
-`release/generated-go-build.json` deliberately records `completed=false`, empty
-source-build repetitions until the candidate ledger is closed; the confirmed
-source-build and regeneration results above remain in their original CI receipts.
+It is candidate verification, not Qualification. `release/generated-go-build.json`
+now records the completed canonical source/regeneration proof from CI39859160329;
+build/license receipts retain their exact tested source_commit and Go1.26.10.
 
 ## J1 and accepted failures
 
@@ -135,9 +137,9 @@ links prior both-platform native and MariaDB-driver evidence.
 | Selected Go/Python real consumers | PASS matching locally | clean0ca1a14 host, Python3.14.8 / OpenSSL3.5.9; accepted functional FAIL remains FAIL |
 | Original upstream notices / retained-library attribution | PASS locally | six pinned source archives;12 positive symbol families in clean host |
 | Full source Go tests/vet and final inventories | PASS locally | `check-final.txt`:22 inventory/source tests +774 other source tests,41 explicit SKIP, Go tests/vet and public allowlist |
-| Two independent canonical source guest builds | PASS at1b4e41e | CI39798209370, fresh Linux arm64 builder, exact expected guest/link hashes |
-| Both-OS independent regeneration/build guard | PASS at1b4e41e |99-file identity and build guard, original same-SHA receipts |
-| Full semantic/consumer/J1 replay after integration repair | PENDING new CI |2 obsolete assertions failed; downstream checks SKIP, not PASS |
+| Two independent canonical source guest builds | PASS atc7960d6 | CI39859160329, exact expected guest/link hashes |
+| Both-OS independent regeneration/build guard | PASS atc7960d6 |99-file identity, original same-SHA receipts |
+| Full semantic/consumer/J1 replay after integration repair | PASS atc7960d6 | Both OSes; accepted functional FAILs retained;17 guard mutations rejected |
 | Qualification / Product Validation / release | NOT RUN | separate decisions |
 
 No new performance improvement is claimed. The remaining production maintenance

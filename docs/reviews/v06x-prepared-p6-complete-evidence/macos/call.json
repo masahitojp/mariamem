@@ -1,0 +1,64 @@
+{
+  "scope": "P3 minimal one OUT plus two ordinary results only",
+  "result": "PASS",
+  "server_ps_multi_results_advertised": true,
+  "version": "12.3.3-MariaDB-embedded",
+  "prepare": {
+    "parameters": [
+      "03646566000000013f000c3f0000000000068000000000"
+    ],
+    "columns": [],
+    "warnings": 0
+  },
+  "results": [
+    {
+      "columns": [
+        "036465660000000b66697273745f76616c7565000c3f0002000000038100000000"
+      ],
+      "metadata_end": "fe00000a00",
+      "rows": [
+        "00000b000000"
+      ],
+      "terminal": "fe00000a00",
+      "status": 10
+    },
+    {
+      "columns": [
+        "036465660000000c7365636f6e645f76616c7565000c3f0002000000038100000000",
+        "036465660000000b65787472615f76616c7565000c3f0002000000038100000000"
+      ],
+      "metadata_end": "fe00000a00",
+      "rows": [
+        "00001600000021000000"
+      ],
+      "terminal": "fe00000a00",
+      "status": 10
+    },
+    {
+      "columns": [
+        "0364656604746573741370726570617265645f70335f6d696e696d616c1370726570617265645f70335f6d696e696d616c017601760c3f000b000000030000000000"
+      ],
+      "metadata_end": "fe00000a10",
+      "rows": [
+        "00002c000000"
+      ],
+      "terminal": "fe00000a10",
+      "status": 4106
+    },
+    {
+      "ok_packet": "00000002000000",
+      "status": 2
+    }
+  ],
+  "following_select": "PASS",
+  "close_ping": "PASS",
+  "native_comparison": "PASS",
+  "host_diagnostics": {
+    "runtime": {
+      "runtime_pid": 52286,
+      "host_pid": 52286
+    },
+    "logs": "",
+    "closed_logs": ""
+  }
+}

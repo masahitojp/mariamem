@@ -1,0 +1,42 @@
+[32m==>[0m [1mDownloading bottle manifests[0m
+✔︎ Bottle Manifest mariadb-connector-c (3.4.9)
+[34m==>[0m [1mWould install 1 formula:[0m
+mariadb-connector-c
+[32m==>[0m [1mFetching downloads for: [32mmariadb-connector-c[39m[0m
+✔︎ Bottle mariadb-connector-c (3.4.9)
+[34m==>[0m [1mPouring mariadb-connector-c--3.4.9.arm64_sequoia.bottle.tar.gz[0m
+🍺  /opt/homebrew/Cellar/mariadb-connector-c/3.4.9: 164 files, 1.5MB
+[32m==>[0m [1mCaveats[0m
+[34m==>[0m [1mmariadb-connector-c[0m
+mariadb-connector-c is keg-only, which means it was not symlinked into /opt/homebrew,
+because it conflicts with mariadb.
+
+If you need to have mariadb-connector-c first in your PATH, run:
+  echo 'export PATH="/opt/homebrew/opt/mariadb-connector-c/bin:$PATH"' >> <runner>/.bash_profile
+
+For compilers to find mariadb-connector-c you may need to set:
+  export LDFLAGS="-L/opt/homebrew/opt/mariadb-connector-c/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/mariadb-connector-c/include"
+
+For pkgconf to find mariadb-connector-c you may need to set:
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/mariadb-connector-c/lib/pkgconfig"
+Collecting https://files.pythonhosted.org/packages/c4/ba/cedef19833be88e07bfff11964441cda8a998f1628dd3b2fa3e7751d36e0/mariadb-1.1.14.tar.gz#sha256=e6d702a53eccf20922e47f2f45cfb5c7a0c2c6c0a46e4ee2d8a80d0ff4a52f34
+  Downloading mariadb-1.1.14.tar.gz (111 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: packaging in /Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages (from mariadb==1.1.14) (26.3)
+Building wheels for collected packages: mariadb
+  Building wheel for mariadb (pyproject.toml): started
+  Building wheel for mariadb (pyproject.toml): finished with status 'done'
+  Created wheel for mariadb: filename=mariadb-1.1.14-cp314-cp314-macosx_10_15_universal2.whl size=119948 sha256=34da44daff56d069f32c0de5dc30e8ccc145c83f456ac05bf97977beab41243f
+  Stored in directory: <runner>/Library/Caches/pip/wheels/f5/cd/c3/ef61c4e2421cd8f1587b7eb0fcebc1fb891ebbc34cf886c9a1
+Successfully built mariadb
+Installing collected packages: mariadb
+Successfully installed mariadb-1.1.14
+
+[notice] A new release of pip is available: 26.2.1 -> 26.2.2
+[notice] To update, run: python -m pip install --upgrade pip

@@ -1,0 +1,2723 @@
+{
+  "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "platform": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+  "scope": "minimum routine SQL and persistence, not account privilege enforcement",
+  "host_sha256": "f3b81d376f482fe9f145a43839ce739a7ecadb51d345bf836531bf501e3bc3d1",
+  "guest_identity": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "fresh": {
+    "identity": {
+      "outcome": "OK",
+      "sets": [
+        [
+          [
+            "12.3.3-MariaDB-embedded",
+            "root@localhost",
+            "root@localhost",
+            1
+          ]
+        ]
+      ]
+    },
+    "cases": [
+      {
+        "case": "bounded_0_definer_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": null,
+        "security": "DEFINER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_0_definer_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_0_definer_procedure`()\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_0_definer_function",
+        "kind": "FUNCTION",
+        "definer_clause": null,
+        "security": "DEFINER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_0_definer_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_0_definer_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_0_invoker_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": null,
+        "security": "INVOKER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_0_invoker_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_0_invoker_procedure`()\n    SQL SECURITY INVOKER\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_0_invoker_function",
+        "kind": "FUNCTION",
+        "definer_clause": null,
+        "security": "INVOKER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_0_invoker_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_0_invoker_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\n    SQL SECURITY INVOKER\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_1_definer_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "CURRENT_USER",
+        "security": "DEFINER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_1_definer_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_1_definer_procedure`()\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_1_definer_function",
+        "kind": "FUNCTION",
+        "definer_clause": "CURRENT_USER",
+        "security": "DEFINER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_1_definer_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_1_definer_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_1_invoker_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "CURRENT_USER",
+        "security": "INVOKER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_1_invoker_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_1_invoker_procedure`()\n    SQL SECURITY INVOKER\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_1_invoker_function",
+        "kind": "FUNCTION",
+        "definer_clause": "CURRENT_USER",
+        "security": "INVOKER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_1_invoker_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_1_invoker_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\n    SQL SECURITY INVOKER\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_2_definer_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "'root'@'localhost'",
+        "security": "DEFINER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_2_definer_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_2_definer_procedure`()\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_2_definer_function",
+        "kind": "FUNCTION",
+        "definer_clause": "'root'@'localhost'",
+        "security": "DEFINER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_2_definer_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_2_definer_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_2_invoker_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "'root'@'localhost'",
+        "security": "INVOKER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_2_invoker_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_2_invoker_procedure`()\n    SQL SECURITY INVOKER\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_2_invoker_function",
+        "kind": "FUNCTION",
+        "definer_clause": "'root'@'localhost'",
+        "security": "INVOKER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_2_invoker_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_2_invoker_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\n    SQL SECURITY INVOKER\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_3_definer_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "'absent_owner'@'example.invalid'",
+        "security": "DEFINER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "absent_owner@example.invalid",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_3_definer_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`absent_owner`@`example.invalid` PROCEDURE `bounded_3_definer_procedure`()\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_3_definer_function",
+        "kind": "FUNCTION",
+        "definer_clause": "'absent_owner'@'example.invalid'",
+        "security": "DEFINER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "absent_owner@example.invalid",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_3_definer_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`absent_owner`@`example.invalid` FUNCTION `bounded_3_definer_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_3_invoker_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "'absent_owner'@'example.invalid'",
+        "security": "INVOKER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "absent_owner@example.invalid",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_3_invoker_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`absent_owner`@`example.invalid` PROCEDURE `bounded_3_invoker_procedure`()\n    SQL SECURITY INVOKER\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_3_invoker_function",
+        "kind": "FUNCTION",
+        "definer_clause": "'absent_owner'@'example.invalid'",
+        "security": "INVOKER",
+        "create": {
+          "outcome": "OK",
+          "sets": [
+            null
+          ]
+        },
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "absent_owner@example.invalid",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_3_invoker_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`absent_owner`@`example.invalid` FUNCTION `bounded_3_invoker_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\n    SQL SECURITY INVOKER\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "first_child": {
+    "identity": {
+      "outcome": "OK",
+      "sets": [
+        [
+          [
+            "12.3.3-MariaDB-embedded",
+            "root@localhost",
+            "root@localhost",
+            1
+          ]
+        ]
+      ]
+    },
+    "cases": [
+      {
+        "case": "bounded_0_definer_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": null,
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_0_definer_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_0_definer_procedure`()\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_0_definer_function",
+        "kind": "FUNCTION",
+        "definer_clause": null,
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_0_definer_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_0_definer_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_0_invoker_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": null,
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_0_invoker_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_0_invoker_procedure`()\n    SQL SECURITY INVOKER\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_0_invoker_function",
+        "kind": "FUNCTION",
+        "definer_clause": null,
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_0_invoker_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_0_invoker_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\n    SQL SECURITY INVOKER\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_1_definer_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "CURRENT_USER",
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_1_definer_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_1_definer_procedure`()\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_1_definer_function",
+        "kind": "FUNCTION",
+        "definer_clause": "CURRENT_USER",
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_1_definer_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_1_definer_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_1_invoker_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "CURRENT_USER",
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_1_invoker_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_1_invoker_procedure`()\n    SQL SECURITY INVOKER\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_1_invoker_function",
+        "kind": "FUNCTION",
+        "definer_clause": "CURRENT_USER",
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_1_invoker_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_1_invoker_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\n    SQL SECURITY INVOKER\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_2_definer_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "'root'@'localhost'",
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_2_definer_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_2_definer_procedure`()\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_2_definer_function",
+        "kind": "FUNCTION",
+        "definer_clause": "'root'@'localhost'",
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_2_definer_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_2_definer_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_2_invoker_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "'root'@'localhost'",
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_2_invoker_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_2_invoker_procedure`()\n    SQL SECURITY INVOKER\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_2_invoker_function",
+        "kind": "FUNCTION",
+        "definer_clause": "'root'@'localhost'",
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_2_invoker_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_2_invoker_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\n    SQL SECURITY INVOKER\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_3_definer_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "'absent_owner'@'example.invalid'",
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "absent_owner@example.invalid",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_3_definer_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`absent_owner`@`example.invalid` PROCEDURE `bounded_3_definer_procedure`()\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_3_definer_function",
+        "kind": "FUNCTION",
+        "definer_clause": "'absent_owner'@'example.invalid'",
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "absent_owner@example.invalid",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_3_definer_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`absent_owner`@`example.invalid` FUNCTION `bounded_3_definer_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_3_invoker_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "'absent_owner'@'example.invalid'",
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "absent_owner@example.invalid",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_3_invoker_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`absent_owner`@`example.invalid` PROCEDURE `bounded_3_invoker_procedure`()\n    SQL SECURITY INVOKER\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_3_invoker_function",
+        "kind": "FUNCTION",
+        "definer_clause": "'absent_owner'@'example.invalid'",
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "absent_owner@example.invalid",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_3_invoker_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`absent_owner`@`example.invalid` FUNCTION `bounded_3_invoker_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\n    SQL SECURITY INVOKER\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "second_child": {
+    "identity": {
+      "outcome": "OK",
+      "sets": [
+        [
+          [
+            "12.3.3-MariaDB-embedded",
+            "root@localhost",
+            "root@localhost",
+            1
+          ]
+        ]
+      ]
+    },
+    "cases": [
+      {
+        "case": "bounded_0_definer_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": null,
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_0_definer_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_0_definer_procedure`()\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_0_definer_function",
+        "kind": "FUNCTION",
+        "definer_clause": null,
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_0_definer_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_0_definer_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_0_invoker_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": null,
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_0_invoker_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_0_invoker_procedure`()\n    SQL SECURITY INVOKER\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_0_invoker_function",
+        "kind": "FUNCTION",
+        "definer_clause": null,
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_0_invoker_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_0_invoker_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\n    SQL SECURITY INVOKER\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_1_definer_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "CURRENT_USER",
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_1_definer_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_1_definer_procedure`()\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_1_definer_function",
+        "kind": "FUNCTION",
+        "definer_clause": "CURRENT_USER",
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_1_definer_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_1_definer_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_1_invoker_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "CURRENT_USER",
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_1_invoker_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_1_invoker_procedure`()\n    SQL SECURITY INVOKER\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_1_invoker_function",
+        "kind": "FUNCTION",
+        "definer_clause": "CURRENT_USER",
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_1_invoker_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_1_invoker_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\n    SQL SECURITY INVOKER\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_2_definer_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "'root'@'localhost'",
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_2_definer_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_2_definer_procedure`()\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_2_definer_function",
+        "kind": "FUNCTION",
+        "definer_clause": "'root'@'localhost'",
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_2_definer_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_2_definer_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_2_invoker_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "'root'@'localhost'",
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_2_invoker_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` PROCEDURE `bounded_2_invoker_procedure`()\n    SQL SECURITY INVOKER\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_2_invoker_function",
+        "kind": "FUNCTION",
+        "definer_clause": "'root'@'localhost'",
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "root@localhost",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_2_invoker_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`root`@`localhost` FUNCTION `bounded_2_invoker_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\n    SQL SECURITY INVOKER\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_3_definer_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "'absent_owner'@'example.invalid'",
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "absent_owner@example.invalid",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_3_definer_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`absent_owner`@`example.invalid` PROCEDURE `bounded_3_definer_procedure`()\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_3_definer_function",
+        "kind": "FUNCTION",
+        "definer_clause": "'absent_owner'@'example.invalid'",
+        "security": "DEFINER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "absent_owner@example.invalid",
+                "DEFINER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_3_definer_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`absent_owner`@`example.invalid` FUNCTION `bounded_3_definer_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_3_invoker_procedure",
+        "kind": "PROCEDURE",
+        "definer_clause": "'absent_owner'@'example.invalid'",
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                7,
+                "root@localhost",
+                "root@localhost"
+              ]
+            ],
+            null
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "absent_owner@example.invalid",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_3_invoker_procedure",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`absent_owner`@`example.invalid` PROCEDURE `bounded_3_invoker_procedure`()\n    SQL SECURITY INVOKER\nSELECT 7, CURRENT_USER(), USER()",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "case": "bounded_3_invoker_function",
+        "kind": "FUNCTION",
+        "definer_clause": "'absent_owner'@'example.invalid'",
+        "security": "INVOKER",
+        "execute": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "7|root@localhost|root@localhost"
+              ]
+            ]
+          ]
+        },
+        "metadata": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "absent_owner@example.invalid",
+                "INVOKER"
+              ]
+            ]
+          ]
+        },
+        "show_create": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                "bounded_3_invoker_function",
+                "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION",
+                "CREATE DEFINER=`absent_owner`@`example.invalid` FUNCTION `bounded_3_invoker_function`() RETURNS varchar(255) CHARSET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci\n    DETERMINISTIC\n    SQL SECURITY INVOKER\nRETURN CONCAT('7|',COALESCE(CURRENT_USER(),'NULL'),'|',COALESCE(USER(),'NULL'))",
+                "utf8mb4",
+                "utf8mb4_uca1400_ai_ci",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ]
+          ]
+        },
+        "connection_health": {
+          "outcome": "OK",
+          "sets": [
+            [
+              [
+                19
+              ]
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "bounded_result": "PASS: 16 Fresh cases and their definitions/results in two Forks; no privilege-enforcement claim"
+}

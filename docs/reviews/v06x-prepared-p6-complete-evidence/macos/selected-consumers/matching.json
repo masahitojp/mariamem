@@ -1,0 +1,43 @@
+{
+  "scope": "diagnostic native parity only; no new limitation accepted",
+  "functional_acceptance": "FAIL",
+  "human_disposition": "ACCEPTED_BOUNDED_EXCEPTIONS",
+  "matching": "PASS",
+  "cext_client_environments": {
+    "actual": {
+      "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+      "os": "Darwin",
+      "architecture": "arm64",
+      "openssl": "OpenSSL 3.5.7 9 Jun 2026",
+      "python_minor": "3.14",
+      "soabi": "cpython-314-darwin",
+      "connector": "26.7.0",
+      "connector_have_cext": true,
+      "connector_sources_sha256": "7945eab736effa50c861b2b7200a1e8bee35cf85af9009105baa0993df6c7c56",
+      "extension_file": "_mysql_connector.cpython-314-darwin.so",
+      "extension_sha256": "fb8d19a69ed9d302225bd446881276cc9c140539b44f3b4944f2730448c1bc3e",
+      "direct_import": "PASS"
+    },
+    "native": {
+      "python": "3.14.8 (v3.14.8:8e6e75d9102, Sep 30 2026, 14:34:30) [Clang 21.0.0 (clang-2100.1.1.101)]",
+      "os": "Darwin",
+      "architecture": "arm64",
+      "openssl": "OpenSSL 3.5.9 29 Sep 2026",
+      "python_minor": "3.14",
+      "soabi": "cpython-314-darwin",
+      "connector": "26.7.0",
+      "connector_have_cext": true,
+      "connector_sources_sha256": "7945eab736effa50c861b2b7200a1e8bee35cf85af9009105baa0993df6c7c56",
+      "extension_file": "_mysql_connector.cpython-314-darwin.so",
+      "extension_sha256": "fb8d19a69ed9d302225bd446881276cc9c140539b44f3b4944f2730448c1bc3e",
+      "direct_import": "PASS"
+    }
+  },
+  "different_cases": [],
+  "reference_profiles": [
+    "fresh-linux-native",
+    "recorded-macos-python314-native-cext"
+  ],
+  "different_edge_modes": [],
+  "disposition_sha256": "291aedf2c85e61f43b5b28ad3c32bff2901181a629f1e78014de2f6f554ed1af"
+}

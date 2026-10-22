@@ -1,0 +1,89 @@
+{
+  "scope": "two MariaDB driver cases only, not full P5 or adoption",
+  "result": "PASS",
+  "environment": {
+    "python": "3.14.9 (main, Oct 21 2026, 14:50:29) [GCC 13.3.0]",
+    "os": "Linux",
+    "architecture": "x86_64",
+    "driver": "1.1.14",
+    "connector_c": [
+      3,
+      3,
+      17
+    ],
+    "extension_sha256": "4fe63ea52036ad787b74135d246a282f9bd806bc10aa5c06107f2d942f716378"
+  },
+  "cases": {
+    "nul_projection": {
+      "result": "PASS",
+      "cursor_options": {
+        "binary": true
+      },
+      "cleanup_errors": [],
+      "engine_version": "12.3.3-MariaDB-embedded",
+      "before": {
+        "Com_stmt_execute": 0,
+        "Com_stmt_prepare": 0
+      },
+      "row": [
+        {
+          "type": "bytes",
+          "hex": "410042"
+        },
+        "410042",
+        3,
+        {
+          "type": "bytes",
+          "hex": "410042"
+        }
+      ],
+      "after": {
+        "Com_stmt_execute": 1,
+        "Com_stmt_prepare": 1
+      },
+      "binary_execution_observed": true,
+      "following_query": [
+        [
+          1
+        ]
+      ]
+    },
+    "prepared_call": {
+      "result": "PASS",
+      "cursor_options": {
+        "binary": true
+      },
+      "cleanup_errors": [],
+      "engine_version": "12.3.3-MariaDB-embedded",
+      "before": {
+        "Com_stmt_execute": 0,
+        "Com_stmt_prepare": 0
+      },
+      "resultsets": [
+        [
+          [
+            7
+          ]
+        ],
+        [
+          [
+            8
+          ]
+        ]
+      ],
+      "terminal_drained": true,
+      "after": {
+        "Com_stmt_execute": 1,
+        "Com_stmt_prepare": 1
+      },
+      "binary_execution_observed": true,
+      "following_query": [
+        [
+          1
+        ]
+      ]
+    }
+  },
+  "host_sha256": "8a7a7154b16240be7676abe43f629affa27cab472cc03083619ddaba46ce2676",
+  "native_matching": "PASS"
+}

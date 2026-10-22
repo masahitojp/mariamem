@@ -1,0 +1,815 @@
+{
+  "source_commit": "c7960d604f525c15d66fc003b0341989c4719267",
+  "baseline_source_commit": "22a8c64305e706408ebcd54cfd7ecc45426802ad",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39859160329",
+  "run_result": "PASS (four jobs)",
+  "go": "1.26.10",
+  "scope": "P6 scoped candidate acceptance with existing Human exceptions; not main adoption, Qualification, Product Validation or release",
+  "files": [
+    {
+      "file": "macos/license-audit.json",
+      "original_sha256": "3cfeb5c76dc684f4e2d9621206fe59aca07a21e7439b4e24abc93583f917cf3e",
+      "stored_sha256": "3cfeb5c76dc684f4e2d9621206fe59aca07a21e7439b4e24abc93583f917cf3e",
+      "bytes": 18398
+    },
+    {
+      "file": "macos/gorm.txt",
+      "original_sha256": "0b2c3db63318261b80c412385f8b04e72f1215ef7806fc5b4a9dc518cdabf407",
+      "stored_sha256": "0b2c3db63318261b80c412385f8b04e72f1215ef7806fc5b4a9dc518cdabf407",
+      "bytes": 341
+    },
+    {
+      "file": "macos/execute.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/p3-matrix.json",
+      "original_sha256": "5b4ecbeff6a44b866808fe354ff3a691444e33085b97259aae6d4a51a79e5e24",
+      "stored_sha256": "5b4ecbeff6a44b866808fe354ff3a691444e33085b97259aae6d4a51a79e5e24",
+      "bytes": 59749
+    },
+    {
+      "file": "macos/fresh-native-matching.json",
+      "original_sha256": "4c90171d0fabf428160dafa14d0edef0e06e6a10c781a3e520e48bb79d85dbd4",
+      "stored_sha256": "4c90171d0fabf428160dafa14d0edef0e06e6a10c781a3e520e48bb79d85dbd4",
+      "bytes": 1772
+    },
+    {
+      "file": "macos/wheel.txt",
+      "original_sha256": "5274d85231a7667b905717c363f4d3f6131f726683ac6107dcb6fd668224d423",
+      "stored_sha256": "5274d85231a7667b905717c363f4d3f6131f726683ac6107dcb6fd668224d423",
+      "bytes": 1054
+    },
+    {
+      "file": "macos/j1-identities.json",
+      "original_sha256": "668b09b4ed9b287dbf2154dbbbc329fb91c7002bbaacf86b58efc14f87032806",
+      "stored_sha256": "668b09b4ed9b287dbf2154dbbbc329fb91c7002bbaacf86b58efc14f87032806",
+      "bytes": 11438
+    },
+    {
+      "file": "macos/runtime.json",
+      "original_sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+      "stored_sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+      "bytes": 9161
+    },
+    {
+      "file": "macos/unsigned.json",
+      "original_sha256": "8dcbf5a74b3c5872a22b20eb4e6600eec7a8c3558f4fe9080d6af3d162d8fb3d",
+      "stored_sha256": "8dcbf5a74b3c5872a22b20eb4e6600eec7a8c3558f4fe9080d6af3d162d8fb3d",
+      "bytes": 6502
+    },
+    {
+      "file": "macos/go-routines.txt",
+      "original_sha256": "5c4ee35e491ef1d5b9a49fba84f163ba6e31d840101fd78cf563d41434c5d263",
+      "stored_sha256": "5c4ee35e491ef1d5b9a49fba84f163ba6e31d840101fd78cf563d41434c5d263",
+      "bytes": 6167
+    },
+    {
+      "file": "macos/heap-0.txt",
+      "original_sha256": "a466b40802d02e3daa6eb54ab02387d5d2235f07b2fac99aab913b3223c9c92e",
+      "stored_sha256": "a466b40802d02e3daa6eb54ab02387d5d2235f07b2fac99aab913b3223c9c92e",
+      "bytes": 1060
+    },
+    {
+      "file": "macos/heap-1.txt",
+      "original_sha256": "b475c61f11fff94456755c76d0cd246e5cb997d24aeffcda07a9d3298438125e",
+      "stored_sha256": "b475c61f11fff94456755c76d0cd246e5cb997d24aeffcda07a9d3298438125e",
+      "bytes": 1224
+    },
+    {
+      "file": "macos/source.json",
+      "original_sha256": "460dbc6e4d98405914ce5fdb7c2e54f9def9ccf0b3027e45e104cb289be32ecf",
+      "stored_sha256": "460dbc6e4d98405914ce5fdb7c2e54f9def9ccf0b3027e45e104cb289be32ecf",
+      "bytes": 153
+    },
+    {
+      "file": "macos/j1.txt",
+      "original_sha256": "ed84ce76cc8b05b60e9fb8e1a190a7bd8e107220e8df64bd1ee42efac43d1bd6",
+      "stored_sha256": "f056adf1a014c75719b7ab0708823c5e5a28bda58859acbe1d52228e02bcec0d",
+      "bytes": 49
+    },
+    {
+      "file": "macos/unsigned.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/matrix.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/mariadb-driver.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/check.txt",
+      "original_sha256": "10028712afcea98411302045b4cbbc89d4dd2a9ca2aef90069ffbf6e69e28cd8",
+      "stored_sha256": "6eb0ba67a5c1c0ffde51efb8235fa7281a16be83dfcc59fee12dee200dc2cb5d",
+      "bytes": 5058
+    },
+    {
+      "file": "macos/runtime.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/repair.json",
+      "original_sha256": "05a72a55aaa9ac2e974e7c7dfc1d306ca89c576151cc2088d54a5ad64990844f",
+      "stored_sha256": "05a72a55aaa9ac2e974e7c7dfc1d306ca89c576151cc2088d54a5ad64990844f",
+      "bytes": 25332
+    },
+    {
+      "file": "macos/p3-matrix.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/sqlalchemy.txt",
+      "original_sha256": "00b25a8e6641c41f559167a28c32db3163ed54768c3ae67a34f8c0822b475e31",
+      "stored_sha256": "9e32b8f2fe5a72850ff61da123fa33951faa8501ec74d69d3c85e8549252a162",
+      "bytes": 1232
+    },
+    {
+      "file": "macos/definer.txt",
+      "original_sha256": "dea2709db65117e939f7c4ef035ab55eff82eed2e11e24dd597aa1adbc51c893",
+      "stored_sha256": "dea2709db65117e939f7c4ef035ab55eff82eed2e11e24dd597aa1adbc51c893",
+      "bytes": 65
+    },
+    {
+      "file": "macos/active.json",
+      "original_sha256": "c8a613b3fc7725b36e1ac9890aa37d696ad96410575b7f59705513e3f157d0c7",
+      "stored_sha256": "c8a613b3fc7725b36e1ac9890aa37d696ad96410575b7f59705513e3f157d0c7",
+      "bytes": 9829
+    },
+    {
+      "file": "macos/p4-lifetime.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/p4-lifetime.json",
+      "original_sha256": "2d5efb7d0283e9b589cc7bdd6e7250da2984d25af8a636962d98a3d9034aa652",
+      "stored_sha256": "2d5efb7d0283e9b589cc7bdd6e7250da2984d25af8a636962d98a3d9034aa652",
+      "bytes": 7389
+    },
+    {
+      "file": "macos/time.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/mariadb-install.txt",
+      "original_sha256": "3b2b4744ba432ef5658371251afcddd8155d73885e8b3620a32e3d63ffc73a2a",
+      "stored_sha256": "c2db0bb6ae520da1f71fdb12f2abf493bcc4ad272dd7ebf505d7e1b0662cffc1",
+      "bytes": 2570
+    },
+    {
+      "file": "macos/auth.txt",
+      "original_sha256": "ffeb4e2a7a7ac9fb6161e1ae90e64143a98002beffc10d69c91aa1753b1d30d8",
+      "stored_sha256": "ffeb4e2a7a7ac9fb6161e1ae90e64143a98002beffc10d69c91aa1753b1d30d8",
+      "bytes": 3279
+    },
+    {
+      "file": "macos/selected-consumers.txt",
+      "original_sha256": "7825245be3302823dd56027088fdade35cd4c5d9549b097053d7f019701dc758",
+      "stored_sha256": "7825245be3302823dd56027088fdade35cd4c5d9549b097053d7f019701dc758",
+      "bytes": 115
+    },
+    {
+      "file": "macos/call.json",
+      "original_sha256": "6de7dcf88ba5b571e82fd3fb700154dd7a7592fbdda8a4db481595349a651ad9",
+      "stored_sha256": "6de7dcf88ba5b571e82fd3fb700154dd7a7592fbdda8a4db481595349a651ad9",
+      "bytes": 1542
+    },
+    {
+      "file": "macos/license-audit.txt",
+      "original_sha256": "c9738a084840c226e2c2c85e3feb6250b5e4715a20855150df430c96bd176811",
+      "stored_sha256": "c9738a084840c226e2c2c85e3feb6250b5e4715a20855150df430c96bd176811",
+      "bytes": 75
+    },
+    {
+      "file": "macos/build-guard-mutations.json",
+      "original_sha256": "377fcc9ca4bfd2368d4121a0e797c02a137508ec32e514530490a409f9518087",
+      "stored_sha256": "377fcc9ca4bfd2368d4121a0e797c02a137508ec32e514530490a409f9518087",
+      "bytes": 2121
+    },
+    {
+      "file": "macos/build-guard.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/mmap-1-race.txt",
+      "original_sha256": "c3958b6ee6f996bb1b36ff9090bc02f9169a8b825d361b34f53538e4283cd6d6",
+      "stored_sha256": "c3958b6ee6f996bb1b36ff9090bc02f9169a8b825d361b34f53538e4283cd6d6",
+      "bytes": 1224
+    },
+    {
+      "file": "macos/execute.json",
+      "original_sha256": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+      "stored_sha256": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+      "bytes": 51967
+    },
+    {
+      "file": "macos/time.json",
+      "original_sha256": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+      "stored_sha256": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+      "bytes": 3187
+    },
+    {
+      "file": "macos/definer.json",
+      "original_sha256": "dd1eb8a2d299faf3fe707f497a51359219f8ab8cd30c8869053e2c07868b3a5e",
+      "stored_sha256": "dd1eb8a2d299faf3fe707f497a51359219f8ab8cd30c8869053e2c07868b3a5e",
+      "bytes": 71270
+    },
+    {
+      "file": "macos/build-guard-mutations.txt",
+      "original_sha256": "f7b570043177eed30d7fc3a6040caa2bbdb6409e285b1137e1c1f808f6d3c73b",
+      "stored_sha256": "f7b570043177eed30d7fc3a6040caa2bbdb6409e285b1137e1c1f808f6d3c73b",
+      "bytes": 77
+    },
+    {
+      "file": "macos/long-data.json",
+      "original_sha256": "41bbc555fa3a9186e6ea40268a178aac7961041e3d484cebda77a21619100c63",
+      "stored_sha256": "41bbc555fa3a9186e6ea40268a178aac7961041e3d484cebda77a21619100c63",
+      "bytes": 40999
+    },
+    {
+      "file": "macos/mariadb-driver.json",
+      "original_sha256": "df76e2e3139b1d90278faf4ab877197cbde614a45329108acc55cb7b663a02b5",
+      "stored_sha256": "df76e2e3139b1d90278faf4ab877197cbde614a45329108acc55cb7b663a02b5",
+      "bytes": 1899
+    },
+    {
+      "file": "macos/go-routines.json",
+      "original_sha256": "5c4ee35e491ef1d5b9a49fba84f163ba6e31d840101fd78cf563d41434c5d263",
+      "stored_sha256": "5c4ee35e491ef1d5b9a49fba84f163ba6e31d840101fd78cf563d41434c5d263",
+      "bytes": 6167
+    },
+    {
+      "file": "macos/regeneration.json",
+      "original_sha256": "d174121600146a2854857e3a3db4defe5b4326f6b0ceced7f00fa398a036ca64",
+      "stored_sha256": "d174121600146a2854857e3a3db4defe5b4326f6b0ceced7f00fa398a036ca64",
+      "bytes": 16925
+    },
+    {
+      "file": "macos/matrix.json",
+      "original_sha256": "f737f4134b368bb354643ec301aa056f49dc06753d3682933aef06a5c9b4beb5",
+      "stored_sha256": "f737f4134b368bb354643ec301aa056f49dc06753d3682933aef06a5c9b4beb5",
+      "bytes": 20528
+    },
+    {
+      "file": "macos/repair.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/active.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/guest.json",
+      "original_sha256": "8d94394f934c95871412f4d0caf7dd358d3c6b68701ee2ad393eae70e3cfd8e4",
+      "stored_sha256": "8d94394f934c95871412f4d0caf7dd358d3c6b68701ee2ad393eae70e3cfd8e4",
+      "bytes": 22304
+    },
+    {
+      "file": "macos/mariadb-install.json",
+      "original_sha256": "b1fac766521c47e10d13f4498da319433261fb1ddcacc4c73f6db1b3f38f0a64",
+      "stored_sha256": "b1fac766521c47e10d13f4498da319433261fb1ddcacc4c73f6db1b3f38f0a64",
+      "bytes": 433
+    },
+    {
+      "file": "macos/j1-results.json",
+      "original_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "stored_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "bytes": 617
+    },
+    {
+      "file": "macos/regeneration.txt",
+      "original_sha256": "8cb869f23313a579ab58fef08a2125bb5600d9de8f1105ca83d72945d3c02826",
+      "stored_sha256": "6946fda66ee6a2b0280a10a77c7244859e13c19fc1b8eb9dc9cc7846c731a22e",
+      "bytes": 15089
+    },
+    {
+      "file": "macos/prepared-binding.txt",
+      "original_sha256": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+      "stored_sha256": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+      "bytes": 82
+    },
+    {
+      "file": "macos/long-data.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/mmap-0.txt",
+      "original_sha256": "5ba1e294166a0bacbc8fb4888029a07ff71109adac09acdb656bf7f3fc948db9",
+      "stored_sha256": "5ba1e294166a0bacbc8fb4888029a07ff71109adac09acdb656bf7f3fc948db9",
+      "bytes": 1060
+    },
+    {
+      "file": "macos/mmap-1.txt",
+      "original_sha256": "f7cff9f07c21cf01924637fcd0b03af3dc85a77176a12a4c6ee0eb55c0589d01",
+      "stored_sha256": "f7cff9f07c21cf01924637fcd0b03af3dc85a77176a12a4c6ee0eb55c0589d01",
+      "bytes": 1224
+    },
+    {
+      "file": "macos/call.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "macos/integration.txt",
+      "original_sha256": "1b77f62114be3f488304354fa6fb5775d40dce0278619d264f44ceea2f8f05ce",
+      "stored_sha256": "cb7711363f083ecad39c2b2a191333b2f470193071393844e18b48a52554f996",
+      "bytes": 2544
+    },
+    {
+      "file": "macos/heap-1-race.txt",
+      "original_sha256": "f9bdd8d714f0dbc5dab8dcee5244af7df51bfe5f2ec33f3c537a6be65e643a2f",
+      "stored_sha256": "f9bdd8d714f0dbc5dab8dcee5244af7df51bfe5f2ec33f3c537a6be65e643a2f",
+      "bytes": 1224
+    },
+    {
+      "file": "macos/gorm/summary.json",
+      "original_sha256": "185818e5aeaf2bcbcc8cb749af5824b93d71f4b9660fde105532fb89d41bdb14",
+      "stored_sha256": "185818e5aeaf2bcbcc8cb749af5824b93d71f4b9660fde105532fb89d41bdb14",
+      "bytes": 436
+    },
+    {
+      "file": "macos/sqlalchemy/summary.json",
+      "original_sha256": "45fc97c151489cdb8f65efb185691a83d2cd33930d735f0970e2fcabcea034f2",
+      "stored_sha256": "45fc97c151489cdb8f65efb185691a83d2cd33930d735f0970e2fcabcea034f2",
+      "bytes": 2019
+    },
+    {
+      "file": "macos/selected-consumers/consumers.json",
+      "original_sha256": "c4593ca2fd7ea87408d23c7693839d0acf6894a81011a58e0c798750c6b770a6",
+      "stored_sha256": "c4593ca2fd7ea87408d23c7693839d0acf6894a81011a58e0c798750c6b770a6",
+      "bytes": 6969
+    },
+    {
+      "file": "macos/selected-consumers/edges.json",
+      "original_sha256": "dd7a9540a8a5b118cfed39ba5c01f0dcf7308ab0a59503d36b3e4e1fa0e36600",
+      "stored_sha256": "dd7a9540a8a5b118cfed39ba5c01f0dcf7308ab0a59503d36b3e4e1fa0e36600",
+      "bytes": 3886
+    },
+    {
+      "file": "macos/selected-consumers/matching.json",
+      "original_sha256": "4c90171d0fabf428160dafa14d0edef0e06e6a10c781a3e520e48bb79d85dbd4",
+      "stored_sha256": "4c90171d0fabf428160dafa14d0edef0e06e6a10c781a3e520e48bb79d85dbd4",
+      "bytes": 1772
+    },
+    {
+      "file": "macos/selected-consumers/environment.json",
+      "original_sha256": "baef8423732bc95f5a472457c04a448a69480adeac39dbb626f30a6e34ec88b4",
+      "stored_sha256": "baef8423732bc95f5a472457c04a448a69480adeac39dbb626f30a6e34ec88b4",
+      "bytes": 584
+    },
+    {
+      "file": "ubuntu/license-audit.json",
+      "original_sha256": "f0f5f884a74f31bd06c8756c09394316f08ec09840852c557e33cc8f6ca7185b",
+      "stored_sha256": "f0f5f884a74f31bd06c8756c09394316f08ec09840852c557e33cc8f6ca7185b",
+      "bytes": 18395
+    },
+    {
+      "file": "ubuntu/gorm.txt",
+      "original_sha256": "69263c721d1a30a63b7b1000726309f50bc11aab577b77301d88bb2beda755f0",
+      "stored_sha256": "69263c721d1a30a63b7b1000726309f50bc11aab577b77301d88bb2beda755f0",
+      "bytes": 340
+    },
+    {
+      "file": "ubuntu/execute.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/p3-matrix.json",
+      "original_sha256": "d8d1adb0d7e070afa2d2ad71c8075310862235da16b26e5eb8be0022929c95fd",
+      "stored_sha256": "d8d1adb0d7e070afa2d2ad71c8075310862235da16b26e5eb8be0022929c95fd",
+      "bytes": 59749
+    },
+    {
+      "file": "ubuntu/fresh-native-matching.json",
+      "original_sha256": "876294b67b2f128f262474396fdfd7d36b96ba6fee5ed2f0bd6d4e471c0be6a8",
+      "stored_sha256": "876294b67b2f128f262474396fdfd7d36b96ba6fee5ed2f0bd6d4e471c0be6a8",
+      "bytes": 333
+    },
+    {
+      "file": "ubuntu/wheel.txt",
+      "original_sha256": "20ac439f0f09be2613f4ac2a601ede13a0cf342d0f6d6863b75e7c8cc3fd5818",
+      "stored_sha256": "20ac439f0f09be2613f4ac2a601ede13a0cf342d0f6d6863b75e7c8cc3fd5818",
+      "bytes": 1061
+    },
+    {
+      "file": "ubuntu/j1-identities.json",
+      "original_sha256": "ec5aaa457b68cc61f91d91fb6deeb1f489d9758dbdd0083cadbd5f796f484926",
+      "stored_sha256": "ec5aaa457b68cc61f91d91fb6deeb1f489d9758dbdd0083cadbd5f796f484926",
+      "bytes": 11438
+    },
+    {
+      "file": "ubuntu/runtime.json",
+      "original_sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+      "stored_sha256": "856325c8f83064aa098a78cbeaeba949dd62656e788aa4a3c596067d0a619d95",
+      "bytes": 9161
+    },
+    {
+      "file": "ubuntu/unsigned.json",
+      "original_sha256": "8e99099d26cb9a55936b6a87b558e1fdea13dd37ecb1628d3812cfbd24234007",
+      "stored_sha256": "8e99099d26cb9a55936b6a87b558e1fdea13dd37ecb1628d3812cfbd24234007",
+      "bytes": 6502
+    },
+    {
+      "file": "ubuntu/go-routines.txt",
+      "original_sha256": "5327067fe3c7d7bb03c0886ba319a02a633a704c5fe3531fc4743036f3b946a6",
+      "stored_sha256": "5327067fe3c7d7bb03c0886ba319a02a633a704c5fe3531fc4743036f3b946a6",
+      "bytes": 6167
+    },
+    {
+      "file": "ubuntu/heap-0.txt",
+      "original_sha256": "e30d2e3e27669b1825270b7084aae17f9a81c644bd2c84b67cc7eacba33f8c59",
+      "stored_sha256": "e30d2e3e27669b1825270b7084aae17f9a81c644bd2c84b67cc7eacba33f8c59",
+      "bytes": 1060
+    },
+    {
+      "file": "ubuntu/heap-1.txt",
+      "original_sha256": "67644406205bc1bb43f478f034411664e0f02bf22ff47e71f020aeb9c99d04e5",
+      "stored_sha256": "67644406205bc1bb43f478f034411664e0f02bf22ff47e71f020aeb9c99d04e5",
+      "bytes": 1224
+    },
+    {
+      "file": "ubuntu/source.json",
+      "original_sha256": "460dbc6e4d98405914ce5fdb7c2e54f9def9ccf0b3027e45e104cb289be32ecf",
+      "stored_sha256": "460dbc6e4d98405914ce5fdb7c2e54f9def9ccf0b3027e45e104cb289be32ecf",
+      "bytes": 153
+    },
+    {
+      "file": "ubuntu/j1.txt",
+      "original_sha256": "0b435cb847282da1ad8f2dff2b5f7388603e19acc88414c7dbbd99e73238bce4",
+      "stored_sha256": "f056adf1a014c75719b7ab0708823c5e5a28bda58859acbe1d52228e02bcec0d",
+      "bytes": 49
+    },
+    {
+      "file": "ubuntu/unsigned.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/matrix.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/mariadb-driver.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/check.txt",
+      "original_sha256": "28cb0d558aa1e83f72b7ae23998f66404ad0b756290c1c304fb5daae39e61d6f",
+      "stored_sha256": "c43abfe92d5b718b23b839f055994cf6a45e5ff56f799be7eb7bef69696639b6",
+      "bytes": 4988
+    },
+    {
+      "file": "ubuntu/runtime.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/repair.json",
+      "original_sha256": "a77819815c7c334c8d180751ba71253dfa0bd8860b72d153b7912ff00a21edd3",
+      "stored_sha256": "a77819815c7c334c8d180751ba71253dfa0bd8860b72d153b7912ff00a21edd3",
+      "bytes": 25332
+    },
+    {
+      "file": "ubuntu/p3-matrix.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/sqlalchemy.txt",
+      "original_sha256": "dc83f57234d95323954e59ec58884ffbbeef5f5fa9bd8510f5809984d9bf92a8",
+      "stored_sha256": "7095972dd085a0e8a26836aa30d4dc108fed3c752caf10f68f838b1134eee9a1",
+      "bytes": 1016
+    },
+    {
+      "file": "ubuntu/definer.txt",
+      "original_sha256": "dea2709db65117e939f7c4ef035ab55eff82eed2e11e24dd597aa1adbc51c893",
+      "stored_sha256": "dea2709db65117e939f7c4ef035ab55eff82eed2e11e24dd597aa1adbc51c893",
+      "bytes": 65
+    },
+    {
+      "file": "ubuntu/active.json",
+      "original_sha256": "6e00aa604d52e3d87ec85ed49348a0e14ebfff13ca530e5db81a1813ce2dda50",
+      "stored_sha256": "6e00aa604d52e3d87ec85ed49348a0e14ebfff13ca530e5db81a1813ce2dda50",
+      "bytes": 9829
+    },
+    {
+      "file": "ubuntu/p4-lifetime.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/p4-lifetime.json",
+      "original_sha256": "a17ba4d8e36bd73f6103d573ea9b1d2fa85c3f2f83029e1474a83647cabe094f",
+      "stored_sha256": "a17ba4d8e36bd73f6103d573ea9b1d2fa85c3f2f83029e1474a83647cabe094f",
+      "bytes": 7389
+    },
+    {
+      "file": "ubuntu/time.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/mariadb-install.txt",
+      "original_sha256": "0458465889756d2a133f06bb44d85675968d65c1e3edaa2e62b7116fb9037859",
+      "stored_sha256": "ebd243732a85abcaeac976bed172c8c5b752913dbfbd339b58adae252532f147",
+      "bytes": 5845
+    },
+    {
+      "file": "ubuntu/auth.txt",
+      "original_sha256": "3d713de99f6660b5dba45943c4bc629651b81f993938c4e89252321e4437c55b",
+      "stored_sha256": "3d713de99f6660b5dba45943c4bc629651b81f993938c4e89252321e4437c55b",
+      "bytes": 3279
+    },
+    {
+      "file": "ubuntu/selected-consumers.txt",
+      "original_sha256": "7825245be3302823dd56027088fdade35cd4c5d9549b097053d7f019701dc758",
+      "stored_sha256": "7825245be3302823dd56027088fdade35cd4c5d9549b097053d7f019701dc758",
+      "bytes": 115
+    },
+    {
+      "file": "ubuntu/call.json",
+      "original_sha256": "bdc1fa30b9a31a4b3e0f4d5fa69a0b30f4cdb394e246ba81a3f060f265c4ab00",
+      "stored_sha256": "bdc1fa30b9a31a4b3e0f4d5fa69a0b30f4cdb394e246ba81a3f060f265c4ab00",
+      "bytes": 1542
+    },
+    {
+      "file": "ubuntu/license-audit.txt",
+      "original_sha256": "c9738a084840c226e2c2c85e3feb6250b5e4715a20855150df430c96bd176811",
+      "stored_sha256": "c9738a084840c226e2c2c85e3feb6250b5e4715a20855150df430c96bd176811",
+      "bytes": 75
+    },
+    {
+      "file": "ubuntu/build-guard-mutations.json",
+      "original_sha256": "377fcc9ca4bfd2368d4121a0e797c02a137508ec32e514530490a409f9518087",
+      "stored_sha256": "377fcc9ca4bfd2368d4121a0e797c02a137508ec32e514530490a409f9518087",
+      "bytes": 2121
+    },
+    {
+      "file": "ubuntu/build-guard.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/mmap-1-race.txt",
+      "original_sha256": "1bd04ab4d77124fbdfa088bdb29a87e28f8a7a56aeb5d978c51af9e5f69809a9",
+      "stored_sha256": "1bd04ab4d77124fbdfa088bdb29a87e28f8a7a56aeb5d978c51af9e5f69809a9",
+      "bytes": 1224
+    },
+    {
+      "file": "ubuntu/execute.json",
+      "original_sha256": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+      "stored_sha256": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
+      "bytes": 51967
+    },
+    {
+      "file": "ubuntu/time.json",
+      "original_sha256": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+      "stored_sha256": "cb48c260e61eb49b15327bce355c9af151866748300562b3aacd06cd5e73730a",
+      "bytes": 3187
+    },
+    {
+      "file": "ubuntu/definer.json",
+      "original_sha256": "69378f8779eb5c63d1b288aaaf69db5369e1cb4ec1096a9e20af969212b9a6e0",
+      "stored_sha256": "69378f8779eb5c63d1b288aaaf69db5369e1cb4ec1096a9e20af969212b9a6e0",
+      "bytes": 71241
+    },
+    {
+      "file": "ubuntu/build-guard-mutations.txt",
+      "original_sha256": "f7b570043177eed30d7fc3a6040caa2bbdb6409e285b1137e1c1f808f6d3c73b",
+      "stored_sha256": "f7b570043177eed30d7fc3a6040caa2bbdb6409e285b1137e1c1f808f6d3c73b",
+      "bytes": 77
+    },
+    {
+      "file": "ubuntu/long-data.json",
+      "original_sha256": "41bbc555fa3a9186e6ea40268a178aac7961041e3d484cebda77a21619100c63",
+      "stored_sha256": "41bbc555fa3a9186e6ea40268a178aac7961041e3d484cebda77a21619100c63",
+      "bytes": 40999
+    },
+    {
+      "file": "ubuntu/mariadb-driver.json",
+      "original_sha256": "27c8705b72d649b35ecfd878b9976271c30d397e84bdc5383f004821fe019059",
+      "stored_sha256": "27c8705b72d649b35ecfd878b9976271c30d397e84bdc5383f004821fe019059",
+      "bytes": 1862
+    },
+    {
+      "file": "ubuntu/go-routines.json",
+      "original_sha256": "5327067fe3c7d7bb03c0886ba319a02a633a704c5fe3531fc4743036f3b946a6",
+      "stored_sha256": "5327067fe3c7d7bb03c0886ba319a02a633a704c5fe3531fc4743036f3b946a6",
+      "bytes": 6167
+    },
+    {
+      "file": "ubuntu/regeneration.json",
+      "original_sha256": "009ecf115f5d6d6a76141465a3b06fc763b29a69e8531709d82139c8752d142a",
+      "stored_sha256": "009ecf115f5d6d6a76141465a3b06fc763b29a69e8531709d82139c8752d142a",
+      "bytes": 16925
+    },
+    {
+      "file": "ubuntu/matrix.json",
+      "original_sha256": "d83aea818b4d50dcf4ae4662b9bc30f725a7d2f6915f4ad2034c378b4e9bdefd",
+      "stored_sha256": "d83aea818b4d50dcf4ae4662b9bc30f725a7d2f6915f4ad2034c378b4e9bdefd",
+      "bytes": 20528
+    },
+    {
+      "file": "ubuntu/repair.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/active.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/guest.json",
+      "original_sha256": "8d94394f934c95871412f4d0caf7dd358d3c6b68701ee2ad393eae70e3cfd8e4",
+      "stored_sha256": "8d94394f934c95871412f4d0caf7dd358d3c6b68701ee2ad393eae70e3cfd8e4",
+      "bytes": 22304
+    },
+    {
+      "file": "ubuntu/mariadb-install.json",
+      "original_sha256": "f5c3a6d3f2cfa20ed39e9775943e7a88e4ba0f1d63f113fa89c41d00f24a1412",
+      "stored_sha256": "f5c3a6d3f2cfa20ed39e9775943e7a88e4ba0f1d63f113fa89c41d00f24a1412",
+      "bytes": 396
+    },
+    {
+      "file": "ubuntu/j1-results.json",
+      "original_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "stored_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "bytes": 617
+    },
+    {
+      "file": "ubuntu/regeneration.txt",
+      "original_sha256": "aebe08bbfa9cdef3d77afa2a168fb5374227c23d9aad6b7c7c4a29862e0af472",
+      "stored_sha256": "6946fda66ee6a2b0280a10a77c7244859e13c19fc1b8eb9dc9cc7846c731a22e",
+      "bytes": 15089
+    },
+    {
+      "file": "ubuntu/prepared-binding.txt",
+      "original_sha256": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+      "stored_sha256": "96b9f05cf0b5a4413c9bc60b254b8255070291cc24091f73e376f46e641259c6",
+      "bytes": 82
+    },
+    {
+      "file": "ubuntu/long-data.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/mmap-0.txt",
+      "original_sha256": "8a64fbff9a5e35675f4750dda524db65da80d526f6bc94a150facea7f2940940",
+      "stored_sha256": "8a64fbff9a5e35675f4750dda524db65da80d526f6bc94a150facea7f2940940",
+      "bytes": 1060
+    },
+    {
+      "file": "ubuntu/mmap-1.txt",
+      "original_sha256": "ed4daa72287f893558d120ec8e570b0b66039b75a056a138344b390ac01d0b38",
+      "stored_sha256": "ed4daa72287f893558d120ec8e570b0b66039b75a056a138344b390ac01d0b38",
+      "bytes": 1224
+    },
+    {
+      "file": "ubuntu/call.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ubuntu/integration.txt",
+      "original_sha256": "54614018a14f27ddd8d69ab9cc6aef05ed7119e27271690c8848b9eff659c94e",
+      "stored_sha256": "ee73d3aa24d66be1d745976b423ccf9d8332e33fbaebca2fc3354453603ccbd2",
+      "bytes": 2377
+    },
+    {
+      "file": "ubuntu/heap-1-race.txt",
+      "original_sha256": "878a9671b9a6b514601419ca3a52fbd11f6fa09f89f49b4433b07be070d8da06",
+      "stored_sha256": "878a9671b9a6b514601419ca3a52fbd11f6fa09f89f49b4433b07be070d8da06",
+      "bytes": 1224
+    },
+    {
+      "file": "ubuntu/gorm/summary.json",
+      "original_sha256": "8b32cb356b5c551ab6e12df557fa5c733d7e04549224e98a1e24a347ccfde05e",
+      "stored_sha256": "8b32cb356b5c551ab6e12df557fa5c733d7e04549224e98a1e24a347ccfde05e",
+      "bytes": 435
+    },
+    {
+      "file": "ubuntu/sqlalchemy/summary.json",
+      "original_sha256": "969ed343a09fbb914cebb4b856a4e00993a2c3fed262f40178d5c91b0625875e",
+      "stored_sha256": "969ed343a09fbb914cebb4b856a4e00993a2c3fed262f40178d5c91b0625875e",
+      "bytes": 1802
+    },
+    {
+      "file": "ubuntu/selected-consumers/consumers.json",
+      "original_sha256": "c123631c7695a11e012618557be039b1921863662f90d5f30d4b396608c3363f",
+      "stored_sha256": "c123631c7695a11e012618557be039b1921863662f90d5f30d4b396608c3363f",
+      "bytes": 6002
+    },
+    {
+      "file": "ubuntu/selected-consumers/edges.json",
+      "original_sha256": "3c1c6c88be4173606b68211661210f8cf391868d539b07d4081682c88d4e9a47",
+      "stored_sha256": "3c1c6c88be4173606b68211661210f8cf391868d539b07d4081682c88d4e9a47",
+      "bytes": 2762
+    },
+    {
+      "file": "ubuntu/selected-consumers/matching.json",
+      "original_sha256": "876294b67b2f128f262474396fdfd7d36b96ba6fee5ed2f0bd6d4e471c0be6a8",
+      "stored_sha256": "876294b67b2f128f262474396fdfd7d36b96ba6fee5ed2f0bd6d4e471c0be6a8",
+      "bytes": 333
+    },
+    {
+      "file": "ubuntu/selected-consumers/environment.json",
+      "original_sha256": "137d3807317f6954b6a162f6ff92573197187280839eb26050edf96137a2becb",
+      "stored_sha256": "137d3807317f6954b6a162f6ff92573197187280839eb26050edf96137a2becb",
+      "bytes": 790
+    },
+    {
+      "file": "ledger-tests.txt",
+      "original_sha256": "c869a68de1bd5800a2a6e555b382d5e2539e8d622b3bd02e3225a84c59c1b0d6",
+      "stored_sha256": "c869a68de1bd5800a2a6e555b382d5e2539e8d622b3bd02e3225a84c59c1b0d6",
+      "bytes": 179
+    },
+    {
+      "file": "dependencies.txt",
+      "original_sha256": "5d10c8d42dfd86f8b5a20b80ae637faa353140b0b6bb3d039c7e95e61b50794e",
+      "stored_sha256": "5d10c8d42dfd86f8b5a20b80ae637faa353140b0b6bb3d039c7e95e61b50794e",
+      "bytes": 1141
+    }
+  ],
+  "platforms": {
+    "macos": {
+      "independent_generation": "99 files PASS",
+      "J1": "6 expected outcomes PASS",
+      "guard": "positive PASS and17 mutations rejected",
+      "library_audit": "12 positive component families, clean Go1.26.10 host",
+      "consumer_matching": "PASS",
+      "consumer_functional_acceptance": "FAIL, accepted bounded exceptions retained",
+      "mariadb_driver": "PASS"
+    },
+    "ubuntu": {
+      "independent_generation": "99 files PASS",
+      "J1": "6 expected outcomes PASS",
+      "guard": "positive PASS and17 mutations rejected",
+      "library_audit": "12 positive component families, clean Go1.26.10 host",
+      "consumer_matching": "PASS",
+      "consumer_functional_acceptance": "FAIL, accepted bounded exceptions retained",
+      "mariadb_driver": "PASS"
+    }
+  },
+  "scrubbing": "Runner/home prefixes and traceback trailing whitespace only; no SQL, packet, error, value, profile hash or oracle normalization.",
+  "bookkeeping_boundary": {
+    "tested_runtime_source_commit": "c7960d604f525c15d66fc003b0341989c4719267",
+    "changed_tracked_files": [
+      "README.md",
+      "docs/go.md",
+      "docs/project-status.md",
+      "docs/python.md",
+      "docs/reviews/v06x-prepared-p6-canonical.md",
+      "python/license-inventory.json",
+      "release/distribution-licenses.json",
+      "release/generated-go-build.json",
+      "release/generated-license-evidence.json"
+    ],
+    "source_semantics": "Only docs, canonical build/audit bookkeeping and mirrored legal inventory. No changes to runtime, guest/source patches, converter, generation scripts, input/toolchain manifests or workflows.",
+    "validation": "81 source/inventory/release-guard tests PASS; no unchanged runtime rebuilt or retested."
+  }
+}

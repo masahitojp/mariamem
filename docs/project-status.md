@@ -1045,46 +1045,37 @@ a submitted verification run does not publish or approve a release.
 See [release workflow](releasing.md).
 
 
-## Prepared P6 canonical ownership — in progress
+## Prepared P6 canonical ownership — complete, main adoption awaiting Human
 
-Candidate branch `experiment/prepared-canonical` starts from main source_commit
-`22a8c64305e706408ebcd54cfd7ecc45426802ad`. It imports tested authored files from
-`5d729eff7bd64aa5de3d2b5464e728c3a52fb7ed` without merging the experimental
-commit history. Existing preparation/source patch management carries the exact
-three-file prepared repair as the next version-specific guest/input.json entry;
-recipe guest/source.patch remains unchanged. No new engine behavior or converter
-patch is introduced. The incoming Wasm identity is explicitly the reviewed
-8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40.
-Canonical inventories/generated source, exact J1/data/TLS binding, retained-library
-attribution, selected normal-CI consumers and precise public-guide exceptions are
-implemented. Local regeneration matched all99 files; J1 failure/protected controls
-and the selected Go/Python consumer comparison passed, retaining the accepted
-functional FAILs. CI39798209370 confirmed two canonical source builds plus both-platform99-file
-independent regeneration/build guards at1b4e41e. It then stopped on two obsolete
-Python assertions demanding Prepared rejection; those are replaced by strict
-native-metadata/RESET/CLOSE/reuse checks, with negative mutation coverage. Full
-current-source runtime/consumer/J1 replay is pending the repaired candidate CI;
-P6 is not complete and no main adoption is claimed.
-See the [P6 candidate report](reviews/v06x-prepared-p6-canonical.md) for source
-identities, local proof limits, generation steps and pending gates. Existing
-release guards remain enabled; no Qualification or release is started.
+The scoped P6 candidate is source_commit
+`c7960d604f525c15d66fc003b0341989c4719267` against main baseline
+`22a8c64305e706408ebcd54cfd7ecc45426802ad`.
+[CI39859160329](https://github.com/masahitojp/mariamem/actions/runs/39859160329)
+passes all four jobs with Go1.26.10: two independent canonical guest source builds,
+both-platform99-file Go regeneration, J1 failure/protected/race controls, complete
+prepared matrices, installed/ORM regressions, exact accepted consumer exceptions,
+clean-host library audits and positive/17-negative build guards. Earlier dated
+P6-pending statements describe prior milestones and are superseded here.
 
+Canonical build/license ledgers now bind the original new-Go CI receipts;
+no earlier compiler result is relabeled. Normal-CI selected consumers, exact
+edge/profile mutation tripwires, ordered source patch ownership and public-guide
+limits are in place. MariaDB guest identity remains
+`8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40`.
+The [P6 Human Review](reviews/v06x-prepared-p6-human-review.md) recommends main
+adoption; this is not Human approval. Completion/evidence bookkeeping is kept on
+`experiment/prepared-p6-records` without moving the CI-tested candidate ref.
 
-## Prepared candidate toolchain security update — in progress
+The Human-requested `chore/go-1.26.10` update is included (source_commit
+`0cf9970533f719c765ef2b19802e5c6a509d5b48`, cherry-pick9272889). The new compiler
+was actually used for current CI host builds, generation and runtime checks.
+Go1.27.3 is the forward-compatibility check pin, not a PASS claimed by P6;
+its actual external-consumer run remains in later Qualification. Go minimum1.26.0,
+MariaDB/WASIX/Binaryen inputs and converter13 patches are unchanged.
+[GO-2026-6809](https://pkg.go.dev/vuln/GO-2026-6809) is the toolchain remediation
+basis; no specific mariamem exploitability claim is made.
 
-The Human requested incorporation of `chore/go-1.26.10` during P6. Source_commit
-`0cf9970533f719c765ef2b19802e5c6a509d5b48` is cherry-picked into the prepared
-candidate (integration commit9272889), preserving the Prepared consumer dependency
-when resolving the development-guide overlap. Build/generation/CI pins now use
-Go1.26.10; the later external forward-compat check uses Go1.27.3. Go minimum1.26.0,
-MariaDB/WASIX/Binaryen/converter pins and the13 converter patches are unchanged.
-The canonical translator, adapter and memory32 fixture had their own older Go
-selectors; those and the new P6 workflow are aligned too. Dedicated source guards
-bind them to the authoritative toolchain pin.
-
-[GO-2026-6809](https://pkg.go.dev/vuln/GO-2026-6809) identifies the corrected
-crypto/x509 certificate verification behavior. This is toolchain remediation,
-not evidence that a specific mariamem use case was exploitable. Earlier Go1.26.8
-CI/build/license receipts remain historical; new-Go reproduction/runtime/library
-audit results must come from the new candidate CI. No existing PASS is relabeled,
-no main integration or publication is approved by this toolchain update.
+Main adoption, target version, final Qualification, Product Validation and
+publication remain separate decisions. No broader shared-memory proof or new
+performance improvement is claimed. Guides use current-source-build wording and retain publishedv0.5.3 history.
+Record the Human approval and actual integration SHA on main adoption.

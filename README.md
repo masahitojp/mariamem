@@ -170,10 +170,9 @@ outside product support and compatibility testing; events remain unavailable
 in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
 accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](docs/decisions/routine-support-scope.md).
-The Prepared candidate adds real server-side execution for Go explicit/implicit
-Prepare and Python prepared cursors. It is not in published v0.5.3; main adoption
-and release remain separate decisions. `DELIMITER` is a client directive, and
-this does not add a general dump importer.
+Current source builds add real server-side execution for Go explicit/implicit
+Prepare and Python prepared cursors. This is not in published v0.5.3.
+`DELIMITER` is a client directive; this does not add a general dump importer.
 
 Oracle mysql-connector-python26.7.0 has two accepted, native-matched limits:
 prepared CALL result traversal can fail and leave that connection unusable;
@@ -195,7 +194,7 @@ Server-side cursors / COM_STMT_FETCH remain unsupported.
 - Multiple connections and normal commit/rollback are supported. Current
   session capacity is 16; excess connections get recoverable MySQL error 1040.
   This is not a permanent capacity or parallel-throughput guarantee.
-- Prepared support is candidate-only as described above; published v0.5.3 does not include it.
+- Prepared support is available in current source builds; published v0.5.3 does not include it.
 - Interrupted active SQL invalidates that database. Close it and start or fork
   another. Forced reclamation of hung execution is not guaranteed.
 - This is a test database, not a production service or security boundary.

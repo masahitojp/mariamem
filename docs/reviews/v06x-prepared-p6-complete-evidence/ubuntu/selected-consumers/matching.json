@@ -1,0 +1,9 @@
+{
+  "scope": "diagnostic native parity only; no new limitation accepted",
+  "functional_acceptance": "FAIL",
+  "human_disposition": "ACCEPTED_BOUNDED_EXCEPTIONS",
+  "matching": "PASS",
+  "different_cases": [],
+  "different_edge_modes": [],
+  "disposition_sha256": "291aedf2c85e61f43b5b28ad3c32bff2901181a629f1e78014de2f6f554ed1af"
+}

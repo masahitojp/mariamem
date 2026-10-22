@@ -1,0 +1,16 @@
+=== RUN   TestJoinAllocationLastAccess
+=== RUN   TestJoinAllocationLastAccess/early-free
+    probe_test.go:177: backing=mmap protected=true case=early-free map=268435472 reused=268435472 result=268693519 canary=165 raw_frees=1
+=== RUN   TestJoinAllocationLastAccess/completed-before-free
+    probe_test.go:177: backing=mmap protected=true case=completed-before-free map=268435472 reused=268435472 result=268693519 canary=165 raw_frees=1
+=== RUN   TestJoinAllocationLastAccess/no-post-unlock-wake
+    probe_test.go:177: backing=mmap protected=true case=no-post-unlock-wake map=268435472 reused=268435472 result=268693519 canary=165 raw_frees=1
+=== RUN   TestJoinAllocationLastAccess/detached-self-free
+    probe_test.go:177: backing=mmap protected=true case=detached-self-free map=268435472 reused=268435472 result=268693519 canary=165 raw_frees=1
+--- PASS: TestJoinAllocationLastAccess (0.01s)
+    --- PASS: TestJoinAllocationLastAccess/early-free (0.01s)
+    --- PASS: TestJoinAllocationLastAccess/completed-before-free (0.00s)
+    --- PASS: TestJoinAllocationLastAccess/no-post-unlock-wake (0.00s)
+    --- PASS: TestJoinAllocationLastAccess/detached-self-free (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/probe	0.023s

@@ -1,0 +1,77 @@
+Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1400 kB]
+Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1706 kB]
+Get:9 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1146 kB]
+Get:10 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1222 kB]
+Get:11 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [633 kB]
+Get:12 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [571 kB]
+Fetched 7060 kB in 1s (10.2 MB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libmariadb3 mariadb-common
+The following packages will be REMOVED:
+  libmysqlclient-dev
+The following NEW packages will be installed:
+  libmariadb-dev libmariadb3 mariadb-common
+0 upgraded, 3 newly installed, 1 to remove and 4 not upgraded.
+Need to get 499 kB of archives.
+After this operation, 7434 kB disk space will be freed.
+Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+Get:2 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 mariadb-common all 1:10.11.14-0ubuntu0.24.04.1 [28.6 kB]
+Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 libmariadb3 amd64 1:10.11.14-0ubuntu0.24.04.1 [196 kB]
+Get:4 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 libmariadb-dev amd64 1:10.11.14-0ubuntu0.24.04.1 [274 kB]
+Fetched 499 kB in 12s (41.9 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 215503 files and directories currently installed.)
+Removing libmysqlclient-dev (8.0.46-0ubuntu0.24.04.4) ...
+Selecting previously unselected package mariadb-common.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 215476 files and directories currently installed.)
+Preparing to unpack .../mariadb-common_1%3a10.11.14-0ubuntu0.24.04.1_all.deb ...
+Unpacking mariadb-common (1:10.11.14-0ubuntu0.24.04.1) ...
+Selecting previously unselected package libmariadb3:amd64.
+Preparing to unpack .../libmariadb3_1%3a10.11.14-0ubuntu0.24.04.1_amd64.deb ...
+Unpacking libmariadb3:amd64 (1:10.11.14-0ubuntu0.24.04.1) ...
+Selecting previously unselected package libmariadb-dev.
+Preparing to unpack .../libmariadb-dev_1%3a10.11.14-0ubuntu0.24.04.1_amd64.deb ...
+Unpacking libmariadb-dev (1:10.11.14-0ubuntu0.24.04.1) ...
+Setting up mariadb-common (1:10.11.14-0ubuntu0.24.04.1) ...
+update-alternatives: using /etc/mysql/mariadb.cnf to provide /etc/mysql/my.cnf (my.cnf) in auto mode
+Setting up libmariadb3:amd64 (1:10.11.14-0ubuntu0.24.04.1) ...
+Setting up libmariadb-dev (1:10.11.14-0ubuntu0.24.04.1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Not building database; man-db/auto-update is not 'true'.
+Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+Collecting https://files.pythonhosted.org/packages/c4/ba/cedef19833be88e07bfff11964441cda8a998f1628dd3b2fa3e7751d36e0/mariadb-1.1.14.tar.gz#sha256=e6d702a53eccf20922e47f2f45cfb5c7a0c2c6c0a46e4ee2d8a80d0ff4a52f34
+  Downloading mariadb-1.1.14.tar.gz (111 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: packaging in /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages (from mariadb==1.1.14) (26.3)
+Building wheels for collected packages: mariadb
+  Building wheel for mariadb (pyproject.toml): started
+  Building wheel for mariadb (pyproject.toml): finished with status 'done'
+  Created wheel for mariadb: filename=mariadb-1.1.14-cp314-cp314-linux_x86_64.whl size=207013 sha256=1445bcdca5e699109d10fef2daf3f35bf7a9546881473e4643bd15d8af623ef3
+  Stored in directory: <runner>/.cache/pip/wheels/f5/cd/c3/ef61c4e2421cd8f1587b7eb0fcebc1fb891ebbc34cf886c9a1
+Successfully built mariadb
+Installing collected packages: mariadb
+Successfully installed mariadb-1.1.14

@@ -1,0 +1,78 @@
+{
+  "source_commit": "c7960d604f525c15d66fc003b0341989c4719267",
+  "runs": [
+    {
+      "name": "1-start",
+      "mode": "start",
+      "returncode": 0,
+      "suite_seconds": 2.9577614579998226,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "2.541",
+          "timestamp": "2026-10-22T22:31:46.010849+00:00",
+          "hostname": "sjc22-bm212-195b2c10-2f24-4b9e-ae49-095a902e71e9-CEAC7E89B68C.local"
+        }
+      ]
+    },
+    {
+      "name": "2-fork",
+      "mode": "fork",
+      "returncode": 0,
+      "suite_seconds": 1.7434367500000008,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "1.367",
+          "timestamp": "2026-10-22T22:31:48.947659+00:00",
+          "hostname": "sjc22-bm212-195b2c10-2f24-4b9e-ae49-095a902e71e9-CEAC7E89B68C.local"
+        }
+      ]
+    },
+    {
+      "name": "3-fork",
+      "mode": "fork",
+      "returncode": 0,
+      "suite_seconds": 1.5002650000001267,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "1.144",
+          "timestamp": "2026-10-22T22:31:50.670453+00:00",
+          "hostname": "sjc22-bm212-195b2c10-2f24-4b9e-ae49-095a902e71e9-CEAC7E89B68C.local"
+        }
+      ]
+    },
+    {
+      "name": "4-start",
+      "mode": "start",
+      "returncode": 0,
+      "suite_seconds": 2.301738749999913,
+      "junit": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "11",
+          "time": "1.982",
+          "timestamp": "2026-10-22T22:31:52.160990+00:00",
+          "hostname": "sjc22-bm212-195b2c10-2f24-4b9e-ae49-095a902e71e9-CEAC7E89B68C.local"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}
