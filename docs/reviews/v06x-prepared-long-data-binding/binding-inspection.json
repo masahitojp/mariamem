@@ -1,0 +1,34 @@
+{
+  "guest_sha256": "f5ce001d5bad34e766c3f92b6d83f429ad6767153971fc219b52d37563fb496a",
+  "functions": {
+    "code/p3/p3_pure.go": {
+      "current_file": "p3/p3_pure.go",
+      "normalized_sha256": "ed283d10ae0c72b68b111efacdfbf08a87772ed0e8fa27e8b05ed1debece667b",
+      "previous_normalized_sha256": "ed283d10ae0c72b68b111efacdfbf08a87772ed0e8fa27e8b05ed1debece667b",
+      "byte_identical": true
+    },
+    "code/p8/p8_pure.go": {
+      "current_file": "p8/p8_pure.go",
+      "normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "previous_normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "byte_identical": true
+    },
+    "code/p5/p5_pure.go": {
+      "current_file": "p5/p5_pure.go",
+      "normalized_sha256": "33b932bca2adfbc3005deed2c8849fe4d604f570eb8c2f7f3d62d4dad2ea6c1f",
+      "previous_normalized_sha256": "33b932bca2adfbc3005deed2c8849fe4d604f570eb8c2f7f3d62d4dad2ea6c1f",
+      "byte_identical": true
+    }
+  },
+  "memory_init": {
+    "file": "code/p7/p7_pure.go",
+    "function": "Fn67",
+    "normalized_sha256": "31d6cc11d138a4a5cb31f8fac1236e77f489d66f1068e69d34d5859496362e13",
+    "byte_identical": true
+  },
+  "data_sha256": "4be6f7aef0b235b79bc3faee6a345309d1639ad79918a742211995a1f1372da3",
+  "data_bytes": 6856155,
+  "segment_declarations": [
+    "m.DataSegs = [][]byte{wasm2goData_data_bin[0:6213030], wasm2goData_data_bin[6213030:6855650], wasm2goData_data_bin[6855650:6856155]}"
+  ]
+}

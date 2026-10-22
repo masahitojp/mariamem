@@ -871,9 +871,12 @@ chunks to the public embedded API, retains only parameter-presence/deferred-erro
 state in the bridge, and adds omission/NULL/type reuse plus reset/close handling.
 Native25-case capture/replay PASS, including1MiB aggregate crossing, index64 and
 native1105 capacity/error recovery. Local118 Python/C checks and3 Go race
-packages PASS. New guest build/identity, exact binding and actual both-OS runtime
-acceptance remain pending; the unchanged old binding rejects unknown input.
-The source branch runs source/units only; this is not LONG_DATA/P4 completion.
+packages PASS. Source CI39714836816 passes guest build and both-OS units at425c821.
+The [exact new guest binding](reviews/v06x-prepared-long-data-binding/reproduce.md)
+passes local source-only checks: three lifetime functions, full initializer and
+TLS remain identical; data identities and the single guest pin are updated, and
+prior P3 input is explicitly rejected. Actual both-OS runtime acceptance remains
+pending; source/unit success is not LONG_DATA/P4 completion.
 
 No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release

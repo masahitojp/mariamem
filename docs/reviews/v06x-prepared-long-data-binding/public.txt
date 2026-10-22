@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<user>/src/mysqlmem/publish/mariamem/scripts/check_public.py", line 79, in <module>
+    result = check()
+  File "<user>/src/mysqlmem/publish/mariamem/scripts/check_public.py", line 74, in check
+    raise ValueError("\n".join(errors))
+ValueError: local path or credential-like content: docs/reviews/v06x-prepared-long-data-binding/adapter.txt
+local path or credential-like content: docs/reviews/v06x-prepared-long-data-binding/translation.txt

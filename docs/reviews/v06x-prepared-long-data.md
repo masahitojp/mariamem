@@ -150,3 +150,11 @@ resource/failure exits. Arbitrary malformed-packet combinations or universal
 shared-memory correctness are not proved by this matrix. P5 consumers and P6
 canonical/J1/independent generation remain separate, without deferring required
 P4 acceptance to Qualification. No main merge, version choice or release occurs.
+
+## Exact binding continuation
+
+Source CI39714836816 passes guest-source and both supported-OS unit jobs at425c821;
+development-runtime is skipped by source-branch policy. The [new binding record](v06x-prepared-long-data-binding/reproduce.md)
+pins guest f5ce001d and validates complete unchanged lifetime functions/init/TLS,
+changed data identities and explicit prior-P3 rejection. Actual LONG_DATA25 and
+full regression runtime acceptance remain pending.

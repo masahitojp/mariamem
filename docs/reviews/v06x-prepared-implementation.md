@@ -740,3 +740,11 @@ remain unchanged and fail closed. The eventual prepared-product gate requires
 all old P1/P2/P3/P4-lifetime controls plus the25 new cases on both OSes. LONG_DATA
 and P4 remain incomplete until that gate and remaining cancellation/resource
 work close; no main adoption, Qualification or release is implied.
+
+### P4 LONG_DATA exact binding continuation
+
+[Source39714836816 and binding evidence](v06x-prepared-long-data-binding/reproduce.md)
+verify guest f5ce001d from425c821 with unchanged fixed converter13 patches.
+Lifetime functions/init/TLS are identical to P3; data and single-guest identity
+are repinned with old-P3 rejection. Both-OS actual runtime acceptance is next,
+not yet PASS. Full P4 and P5/P6 remain unfinished.

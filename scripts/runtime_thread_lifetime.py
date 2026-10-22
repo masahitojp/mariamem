@@ -7,10 +7,10 @@ before installing the handoff; this is a single-guest binding, not a generic ABI
 import hashlib
 import re
 
-# Candidate-only P3 CALL binding: canonical release inputs remain the routine guest
+# Candidate-only P4 LONG_DATA binding: canonical release inputs remain the routine guest
 # until P6. See tests/fixtures/prepared-p2-binding and the implementation review.
 # A fresh source build must match this single identity before development use.
-GUEST_SHA256 = "e6d6021a5753492169aeacbbc787e693e1730026b6da9960ef8c6ace296ac37a"
+GUEST_SHA256 = "f5ce001d5bad34e766c3f92b6d83f429ad6767153971fc219b52d37563fb496a"
 FUNCTIONS = {
     "code/p3/p3_pure.go": ("Fn153", "ed283d10ae0c72b68b111efacdfbf08a87772ed0e8fa27e8b05ed1debece667b"),
     "code/p8/p8_pure.go": ("Fn131", "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"),

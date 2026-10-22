@@ -1,0 +1,46 @@
+{
+  "functions": {
+    "Fn153": {
+      "non_numeric_structure_identical": true,
+      "changed_literal_occurrences": 0,
+      "literal_pairs": [],
+      "deltas": []
+    },
+    "Fn131": {
+      "non_numeric_structure_identical": true,
+      "changed_literal_occurrences": 0,
+      "literal_pairs": [],
+      "deltas": []
+    },
+    "Fn214": {
+      "non_numeric_structure_identical": true,
+      "changed_literal_occurrences": 0,
+      "literal_pairs": [],
+      "deltas": []
+    }
+  },
+  "memory_init_changes": {
+    "non_numeric_structure_identical": true,
+    "literal_pairs": []
+  },
+  "data_sha256": "4be6f7aef0b235b79bc3faee6a345309d1639ad79918a742211995a1f1372da3",
+  "data_segments": [
+    {
+      "start": 0,
+      "end": 6213030,
+      "sha256": "197ae860478424744e60cf2a4634c874fe5cbea7064d4b83a169b9c5dcf3f21f"
+    },
+    {
+      "start": 6213030,
+      "end": 6855650,
+      "sha256": "0afebb7a97398fefa2efccf09f178f71e0a7e70af1635fc66c30e5aab68139d1"
+    },
+    {
+      "start": 6855650,
+      "end": 6856155,
+      "sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df"
+    }
+  ],
+  "TLS_bytes": 505,
+  "TLS_content_identical_to_previous": true
+}
