@@ -139,3 +139,8 @@ Local checks caught an old handwritten runtimekind guest constant and a copied
 updated to the fixed guest identity; the text log was renamed. The existing tests
 and allowlist were retained, and the complete source check passed afterward.
 `check-intermediate.txt` preserves the latter failure; it is not final evidence.
+
+Owned scratch/build/download/cache copies and the completed helper worktree were
+removed after preservation (about5.8GiB before cleanup,164KiB compact local
+evidence remains). The helper intermediate source ref is retained, with no owned
+path over1GiB or cleanup debt. See `v06x-prepared-p6-evidence/cleanup.json`.

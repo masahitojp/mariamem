@@ -1,0 +1,19 @@
+{
+  "before_bytes": 4316868608,
+  "after_bytes": 199995392,
+  "applied": true,
+  "decisions": [
+    {
+      "path": "<repository>/build/experiment-work/prepared-canonical",
+      "classification": "DELETE",
+      "code": "completed_recreatable_state",
+      "reason": "completed owned scratch/worktree; compact knowledge exported before removal",
+      "automatic": true,
+      "bytes": 4117041152
+    }
+  ],
+  "retained_large_paths": [],
+  "cleanup_debt": [],
+  "scope": "Only owned prepared-canonical scratch/worktree and separately verified duplicate development-guest download; other worktrees/caches untouched.",
+  "note": "Initial sandbox denial partially removed worktree. Escalated cleanup completed; exact owned stale Git worktree registration removed separately. Intermediate helper source_commit preserved by retained experiment/prepared-canonical-work ref."
+}

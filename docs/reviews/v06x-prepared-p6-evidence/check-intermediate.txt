@@ -69,8 +69,8 @@ ___________ test_skill_is_repository_only_source_coverage_unchanged ____________
 >       files = {p.relative_to(root).as_posix() for p in public_files(root)}
                                                          ^^^^^^^^^^^^^^^^^^
 
-tests/test_release_prepare.py:135: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_release_prepare.py:135:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 root = PosixPath('<repository>')
 

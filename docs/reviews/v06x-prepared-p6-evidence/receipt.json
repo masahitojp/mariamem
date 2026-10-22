@@ -224,8 +224,9 @@
     {
       "file": "check-intermediate.txt",
       "original_sha256": "945a3dd5464d5f653d1e9312808f611b60b0066300e3384ac6524e75357eeedc",
-      "stored_sha256": "9997c5ff500024917e73aadee04907452029238ce63428c00457e8f385ab346e",
-      "bytes": 9893
+      "stored_sha256": "822df113b02f6d62f5ad471994028b20e4ab2e08ba7648716e4c007813fbe3e4",
+      "bytes": 9891,
+      "formatting": "Two pytest traceback padding lines had trailing spaces removed; no values/errors changed."
     },
     {
       "file": "check-final.txt",
@@ -238,10 +239,16 @@
       "original_sha256": "df4bc6c7c235753f71ca4149de30df67ec8af99f8130b8f59de92abfacbb45a9",
       "stored_sha256": "df4bc6c7c235753f71ca4149de30df67ec8af99f8130b8f59de92abfacbb45a9",
       "bytes": 94485
+    },
+    {
+      "file": "cleanup.json",
+      "original_sha256": "05dc496fdcffb6aa13c2369ffe2b92157a508f83ccb0a473c6f9c0fa3961e81f",
+      "stored_sha256": "05dc496fdcffb6aa13c2369ffe2b92157a508f83ccb0a473c6f9c0fa3961e81f",
+      "bytes": 872
     }
   ],
   "J1_scope": "Same historical failure assertions; exact constructors/addresses/callees bound to current generated guest; not general shared-memory correctness",
-  "scrubbing": "Runner/user-home prefixes only; original/stored hashes distinguished. No SQL or oracle values normalized.",
+  "scrubbing": "Runner/user-home prefixes only unless an individual row explicitly records traceback whitespace formatting; original/stored hashes distinguished. No SQL or oracle values normalized.",
   "canonical_source_independent_builds": "PENDING new candidate CI",
   "local_generated_inventory": {
     "generated_files": 62,
