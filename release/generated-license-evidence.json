@@ -6,97 +6,347 @@
     "Imported functions are host requirements, not copied library function bodies; examples require generated definitions.",
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
-  "audit_source_commit": null,
+  "audit_source_commit": "bbd3ce4e9c140b6d9023cabe5a889a4751aa09f9",
   "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
   "linked_sha256": "7450e04846de36177151b36bdd027c97fbea46e90b00b3412db20e01e3711da6",
   "symbol_map_sha256": "23460ba9664600f750ed53c1e0817af7126252446c1e338faa214ca95246d1a3",
   "symbol_map_entries": 21752,
   "generated_provenance_sha256": "c20f8a4cd4117921c525cf467a8684ea1bd9ac7f86b494bd5975b031095d3b62",
-  "method": "Fixed Binaryen133 -O2 flags plus --symbolmap reproduce incoming reviewed guest byte-for-byte; exact map pinned. Clean-source host retention audit pending.",
+  "method": "Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.",
   "retained_symbols": {
     "MariaDB": {
       "pattern": "^(mysql_server_init|mysql_real_query)$",
-      "named_matches": 0,
-      "generated_definitions": 0,
-      "host_named_definitions": 0,
-      "examples": []
+      "named_matches": 2,
+      "generated_definitions": 2,
+      "host_named_definitions": 2,
+      "examples": [
+        {
+          "index": 5738,
+          "symbol": "mysql_server_init",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn5738",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 5852,
+          "symbol": "mysql_real_query",
+          "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
+          "generated_function": "Fn5852",
+          "host_symbol_retained": true
+        }
+      ]
     },
     "lite4mariadb": {
       "pattern": "^l4m_",
-      "named_matches": 0,
-      "generated_definitions": 0,
-      "host_named_definitions": 0,
-      "examples": []
+      "named_matches": 7,
+      "generated_definitions": 7,
+      "host_named_definitions": 4,
+      "examples": [
+        {
+          "index": 244,
+          "symbol": "l4m_open",
+          "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
+          "generated_function": "Fn244",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 246,
+          "symbol": "l4m_close",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn246",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 247,
+          "symbol": "l4m_free",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn247",
+          "host_symbol_retained": true
+        }
+      ]
     },
     "WASIX libc": {
       "pattern": "^(pthread_|__pthread|__wasi|__wasilibc|__imported_wasix_)",
-      "named_matches": 0,
-      "generated_definitions": 0,
-      "host_named_definitions": 0,
-      "examples": []
+      "named_matches": 79,
+      "generated_definitions": 51,
+      "host_named_definitions": 39,
+      "examples": [
+        {
+          "index": 69,
+          "symbol": "__pthread_mutex_trylock",
+          "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+          "generated_function": "Fn69",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 71,
+          "symbol": "__wasi_clock_time_get",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn71",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 72,
+          "symbol": "__wasi_fd_fdstat_get",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn72",
+          "host_symbol_retained": true
+        }
+      ]
     },
     "wolfSSL": {
       "pattern": "^(wolfSSL_|wc_|wolfCrypt)",
-      "named_matches": 0,
-      "generated_definitions": 0,
-      "host_named_definitions": 0,
-      "examples": []
+      "named_matches": 1982,
+      "generated_definitions": 1982,
+      "host_named_definitions": 344,
+      "examples": [
+        {
+          "index": 1265,
+          "symbol": "wolfSSL_ResourceFree",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn1265",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 1343,
+          "symbol": "wolfSSL_ERR_func_error_string",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn1343",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 1397,
+          "symbol": "wolfSSL_CTX_set_groups",
+          "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+          "generated_function": "Fn1397",
+          "host_symbol_retained": true
+        }
+      ]
     },
     "zlib": {
       "pattern": "^(deflate|inflate|crc32|adler32)",
-      "named_matches": 0,
-      "generated_definitions": 0,
-      "host_named_definitions": 0,
-      "examples": []
+      "named_matches": 15,
+      "generated_definitions": 15,
+      "host_named_definitions": 14,
+      "examples": [
+        {
+          "index": 4490,
+          "symbol": "crc32_z",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn4490",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 6778,
+          "symbol": "adler32",
+          "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
+          "generated_function": "Fn6778",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 6786,
+          "symbol": "deflateInit_",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn6786",
+          "host_symbol_retained": true
+        }
+      ]
     },
     "PCRE2": {
       "pattern": "^_?pcre2_",
-      "named_matches": 0,
-      "generated_definitions": 0,
-      "host_named_definitions": 0,
-      "examples": []
+      "named_matches": 23,
+      "generated_definitions": 23,
+      "host_named_definitions": 8,
+      "examples": [
+        {
+          "index": 7274,
+          "symbol": "pcre2_match_data_free_8",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn7274",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 7277,
+          "symbol": "_pcre2_strncmp_8",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn7277",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 7282,
+          "symbol": "_pcre2_compile_process_capture_list",
+          "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
+          "generated_function": "Fn7282",
+          "host_symbol_retained": true
+        }
+      ]
     },
     "fmt": {
       "pattern": "^_ZN3fmt",
-      "named_matches": 0,
-      "generated_definitions": 0,
-      "host_named_definitions": 0,
-      "examples": []
+      "named_matches": 62,
+      "generated_definitions": 62,
+      "host_named_definitions": 59,
+      "examples": [
+        {
+          "index": 10818,
+          "symbol": "_ZN3fmt3v1219basic_memory_bufferIcLm500E12my_allocatorIcEE4growERNS0_6detail6bufferIcEEm",
+          "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
+          "generated_function": "Fn10818",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 11189,
+          "symbol": "_ZN3fmt3v126detail5valueINS0_7contextEE13format_customI6StringEEvPvRNS0_13parse_contextIcEERS3_",
+          "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+          "generated_function": "Fn11189",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 11190,
+          "symbol": "_ZN3fmt3v126detail18parse_format_specsIcEEPKT_S5_S5_RNS1_20dynamic_format_specsIS3_EERNS0_13parse_contextIS3_EENS1_4typeE",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn11190",
+          "host_symbol_retained": true
+        }
+      ]
     },
     "libc++": {
       "pattern": "^_ZNSt3__2",
-      "named_matches": 0,
-      "generated_definitions": 0,
-      "host_named_definitions": 0,
-      "examples": []
+      "named_matches": 756,
+      "generated_definitions": 756,
+      "host_named_definitions": 358,
+      "examples": [
+        {
+          "index": 4596,
+          "symbol": "_ZNSt3__221__throw_runtime_errorEPKc",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn4596",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 4597,
+          "symbol": "_ZNSt3__212__next_primeEm",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn4597",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 4598,
+          "symbol": "_ZNSt3__222__throw_overflow_errorB8ne200100EPKc",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn4598",
+          "host_symbol_retained": true
+        }
+      ]
     },
     "libc++abi": {
       "pattern": "^__cxa_",
-      "named_matches": 0,
-      "generated_definitions": 0,
-      "host_named_definitions": 0,
-      "examples": []
+      "named_matches": 27,
+      "generated_definitions": 27,
+      "host_named_definitions": 14,
+      "examples": [
+        {
+          "index": 1090,
+          "symbol": "__cxa_pure_virtual",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn1090",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 1126,
+          "symbol": "__cxa_allocate_exception",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn1126",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 1127,
+          "symbol": "__cxa_free_exception",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn1127",
+          "host_symbol_retained": true
+        }
+      ]
     },
     "libunwind": {
       "pattern": "^_Unwind_",
-      "named_matches": 0,
-      "generated_definitions": 0,
-      "host_named_definitions": 0,
-      "examples": []
+      "named_matches": 7,
+      "generated_definitions": 7,
+      "host_named_definitions": 7,
+      "examples": [
+        {
+          "index": 1117,
+          "symbol": "_Unwind_CallPersonality",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn1117",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 1118,
+          "symbol": "_Unwind_RaiseException",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn1118",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 1119,
+          "symbol": "_Unwind_DeleteException",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn1119",
+          "host_symbol_retained": true
+        }
+      ]
     },
     "compiler-rt": {
       "pattern": "^__(ashlti3|fixunstfsi|floatunsitf|fixtfsi|floatsitf|udivti3|multi3)$",
-      "named_matches": 0,
-      "generated_definitions": 0,
-      "host_named_definitions": 0,
-      "examples": []
+      "named_matches": 5,
+      "generated_definitions": 5,
+      "host_named_definitions": 3,
+      "examples": [
+        {
+          "index": 113,
+          "symbol": "__ashlti3",
+          "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+          "generated_function": "Fn113",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 170,
+          "symbol": "__udivti3",
+          "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
+          "generated_function": "Fn170",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 171,
+          "symbol": "__multi3",
+          "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
+          "generated_function": "Fn171",
+          "host_symbol_retained": true
+        }
+      ]
     },
     "dlmalloc": {
       "pattern": "^(dlmalloc|dlfree|dlrealloc)",
-      "named_matches": 0,
-      "generated_definitions": 0,
-      "host_named_definitions": 0,
-      "examples": []
+      "named_matches": 2,
+      "generated_definitions": 2,
+      "host_named_definitions": 2,
+      "examples": [
+        {
+          "index": 152,
+          "symbol": "dlmalloc",
+          "generated_file": "internal/generatedgo/code/p1/p1_pure.go",
+          "generated_function": "Fn152",
+          "host_symbol_retained": true
+        },
+        {
+          "index": 153,
+          "symbol": "dlfree",
+          "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+          "generated_function": "Fn153",
+          "host_symbol_retained": true
+        }
+      ]
     }
   },
   "historical_evidence": {
@@ -104,8 +354,13 @@
     "path": "release/generated-license-evidence.json",
     "sha256": "d6be8ec2d2b3601a77d34e437b967508a0cb9f54373b68aa74c374b9f00f9067"
   },
-  "result": "PENDING clean-host retained-symbol audit",
-  "host_check": {},
+  "result": "PASS: positive retained-function evidence for all12 recorded component families",
+  "host_check": {
+    "source_commit": "bbd3ce4e9c140b6d9023cabe5a889a4751aa09f9",
+    "sha256": "c88f18caaa6902ec948ec853b13baf38c19b5fea48f70258bc09671fccb629d1",
+    "buildinfo": "mariamem-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.4-0.20261022135144-bbd3ce4e9c14\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=bbd3ce4e9c140b6d9023cabe5a889a4751aa09f9\n\tbuild\tvcs.time=2026-10-22T13:51:44Z\n\tbuild\tvcs.modified=false\n",
+    "note": "Diagnostic attribution, not new release approval."
+  },
   "previous_attribution": {
     "source_commit": "808df8b614906a9cd918229e2754d33a5a76dc4b",
     "path": "release/generated-license-evidence.json",

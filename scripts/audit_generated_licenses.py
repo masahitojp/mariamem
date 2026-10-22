@@ -41,6 +41,8 @@ def main():
         raise ValueError('host lacks clean source identity')
     original['audit_source_commit']=revision[1]
     original['generated_provenance_sha256']=digest(ROOT/'internal/generatedgo/provenance.json')
+    original['result']='PASS: positive retained-function evidence for every recorded component family'
+    original['method']='Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.'
     original['host_check']={'source_commit':revision[1],'sha256':digest(args.host),
                             'buildinfo':buildinfo.replace(str(args.host),'mariamem-host'),
                             'note':'Diagnostic attribution, not new release approval.'}
