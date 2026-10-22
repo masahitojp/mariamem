@@ -103,7 +103,7 @@
     "runtime_instance_test.go": "40de1a7d5d2d63e71fb88446a91552a076c9d32685e9116f4eab044d92a5657c",
     "runtime_thread_lifetime.go": "0f7233995a883fd29fb8bf4af08eaa39f1ed35bd42565e945e8b0864e81c26ed"
   },
-  "go_buildinfo": "/home/runner/work/_temp/prepared-p1-native/mariamem-dev-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n",
+  "go_buildinfo": "<runner-temp>/prepared-p1-native/mariamem-dev-host: go1.26.8\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n",
   "guest_record_sha256": "b6ccc65eb349863263fa99998018efc110965cceb76466ab2c5d19dccabac86d",
   "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
   "host_source_inventory": {

@@ -34,14 +34,15 @@
       "smoke": "PASS"
     }
   },
-  "storage": "Selected raw JSON/logs preserved byte-for-byte; development receipt factored, original hash retained. No runner-path scrubbing.",
+  "storage": "Selected raw packet JSON/logs preserved byte-for-byte; development receipt factored, original hash retained. Only build-info executable runner prefixes scrubbed; see buildinfo-storage.json.",
   "files_sha256": {
+    "buildinfo-storage.json": "2618bb2fdd73f41631b11516014b48c42bdf0c574b602ba89f503c54ba5e8c55",
     "macos-15/active.json": "fec0be5c614e553f71df4e96ab66fc7fff852db0c16ee43966dcfc0a414b95e3",
     "macos-15/active.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "macos-15/baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
     "macos-15/binding-mutations.txt": "6b553ab065620d766010a813957b774bec1d823a13418035e432bdd51f4f054b",
     "macos-15/call.json": "f72657135c7adc05a5d323b59d9d080f9f70ece4adafc1c1f7ccac02bbc109e9",
-    "macos-15/development-summary.json": "d662a1280a28283fae63c6ab6d134a0dbf289f0fd245ff12b99455e032fef66b",
+    "macos-15/development-summary.json": "2fb80889f60e0142956bf698d2da3aa8e62b73754d41dfb68ade508ad2d30b15",
     "macos-15/execute.json": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
     "macos-15/go-unit.txt": "741f2262a092d936817e9d1b961e1bda200b452a6e80f8d2b68cc3cdcdf53726",
     "macos-15/inputs.txt": "d7832a58d61fa0c4d3fca4cd0e44f38875606eaa557bfb276b49bd7103b46b52",
@@ -61,7 +62,7 @@
     "ubuntu-24.04/baseline-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
     "ubuntu-24.04/binding-mutations.txt": "e5c33bb1e5baf958200f06b5120706feee92913ab92ef12a506ce012429ac74a",
     "ubuntu-24.04/call.json": "7684ba62c95fb505b27107639a6db862b5276228b48a6454bad2013c648a2cff",
-    "ubuntu-24.04/development-summary.json": "4cdd4588dfe784fa16b722a34b7f80e84f44ddbe688264d770a2ad83e47c0d58",
+    "ubuntu-24.04/development-summary.json": "7029c10ea425f0705f13cb86deb72fac9ec5eb7690dc183bc5d5a5c830e883e2",
     "ubuntu-24.04/execute.json": "d3e6bdea3c136378f6b840e04a4fbe92f9c44e0bfa2c4bf19d49257c75cb0475",
     "ubuntu-24.04/go-unit.txt": "2744b2e5966b786c6ec2d51a2843d4e3ff3e826809c438dc2f1a9402cf391e91",
     "ubuntu-24.04/inputs.txt": "b0a9662b28567eb5eb3d902c6fae1644d500f06d157e3bce32821fba603a7659",

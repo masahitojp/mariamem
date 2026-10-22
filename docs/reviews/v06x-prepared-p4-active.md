@@ -137,8 +137,9 @@ reuse, target log removal and final lineage cleanup PASS. These are bounded
 cooperative-work observations, not a forced-stop guarantee or a measurement
 of inaccessible statement counters in the failed target.
 
-Evidence preserves selected raw JSON/log bytes with SHA256 receipts; no path
-scrubbing was applied. The complete clean-source inventory is stored once,
+Evidence preserves selected raw packet JSON/log bytes with SHA256 receipts.
+Only executable runner prefixes in the factored Go build-info strings are
+scrubbed; buildinfo-storage.json retains original/stored hashes. The complete clean-source inventory is stored once,
 with per-platform installed-host deltas and original development-receipt hashes.
 Installed inventories can be reconstructed from that source map and delta.
 Raw generated inventories and converter identities remain in each summary.
