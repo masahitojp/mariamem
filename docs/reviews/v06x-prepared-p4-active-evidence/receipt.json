@@ -39,8 +39,9 @@
   "saved_files_sha256": {
     "canonical-inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
     "classifier-oracle.json": "db6af3551796a61d1cc2890e9c3c73132aaf25c2d77624dbf2e2168da67de776",
-    "consumer-buildinfo.txt": "ea0f5e4b318520fe87b23cc9facf96dab077a8b0a10ded141b95bacf46453e08",
+    "consumer-buildinfo.txt": "76089b6e864e53d82325470c9a231f5646019de18d6adc4d862502e4e9eb6fa2",
     "diagnostic-unit.txt": "41899a88fe0afe2e20f50b4b46c30917156ee9e26e8b750b3b2e9d09e5cecced",
+    "log-storage.json": "b8b7ba3ef0ec06e9a588b5c8b5dba1fa6e1a03957d2cd779bb1f1eadeeb0a14e",
     "native-initial.json": "7d6f66e398643f1d6e2aff8f763b73cfa6fb9a23358438c6334eb54c4fe28598",
     "native.json": "e18bea57fb4eff077fed6e79f26c24b2ce86615ea3502676c3f302e3e704b0e3",
     "old-classifier-oracle.txt": "a57b01a4e34d2363af0dee4395b1532c13e76264939d6aa1ccb4e1c46ac617cb",

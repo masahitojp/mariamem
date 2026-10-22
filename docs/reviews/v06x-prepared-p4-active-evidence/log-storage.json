@@ -1,0 +1,8 @@
+[
+  {
+    "file": "consumer-buildinfo.txt",
+    "original_sha256": "ea0f5e4b318520fe87b23cc9facf96dab077a8b0a10ded141b95bacf46453e08",
+    "stored_sha256": "76089b6e864e53d82325470c9a231f5646019de18d6adc4d862502e4e9eb6fa2",
+    "reason": "Strip trailing tab emitted by go version -m; build fields unchanged"
+  }
+]
