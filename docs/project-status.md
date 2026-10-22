@@ -892,6 +892,12 @@ P3/first7 P4 gates, smoke,122 Python/C checks,3 Go race packages and20 installed
 mutations also PASS per OS. Native fixtures/comparator remain unchanged.
 Full P4 still requires executing-query cancellation/timeout/disconnect and the
 remaining resource/failure matrix; P5/P6 and production acceptance remain pending.
+The next [P4 active-exit candidate](reviews/v06x-prepared-p4-active.md) adds
+execution-witnessed cancellation/deadline/TCP exits and Close with independent
+Fork/baseline cleanup controls. Native5-case controls PASS; actual both-OS7-case
+guest acceptance is pending. A bounded shared-control status classification
+repair preserves unusable for fatal deadlines while keeping request timeout
+classification. No guest/converter/Generated Go input is changed.
 
 No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release

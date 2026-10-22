@@ -1,0 +1,23 @@
+...................                                                      [100%]
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_prepared_active_probe.py::test_native_inventory_execution_witness_and_resource_boundaries
+PASSED tests/test_prepared_active_probe.py::test_reference_gate_rejects_missing_evidence_or_wrong_disposition[witness]
+PASSED tests/test_prepared_active_probe.py::test_reference_gate_rejects_missing_evidence_or_wrong_disposition[rollback]
+PASSED tests/test_prepared_active_probe.py::test_reference_gate_rejects_missing_evidence_or_wrong_disposition[resource-count]
+PASSED tests/test_prepared_active_probe.py::test_reference_gate_rejects_missing_evidence_or_wrong_disposition[context-error]
+PASSED tests/test_prepared_active_probe.py::test_reference_gate_rejects_missing_evidence_or_wrong_disposition[pool-leak]
+PASSED tests/test_prepared_active_probe.py::test_reference_gate_rejects_missing_evidence_or_wrong_disposition[metadata]
+PASSED tests/test_prepared_active_probe.py::test_reference_gate_rejects_missing_evidence_or_wrong_disposition[fatal-state]
+PASSED tests/test_prepared_active_probe.py::test_reference_gate_rejects_missing_evidence_or_wrong_disposition[admission]
+PASSED tests/test_prepared_active_probe.py::test_reference_gate_rejects_missing_evidence_or_wrong_disposition[sibling]
+PASSED tests/test_prepared_active_probe.py::test_reference_gate_rejects_missing_evidence_or_wrong_disposition[baseline]
+PASSED tests/test_prepared_active_probe.py::test_reference_gate_rejects_missing_evidence_or_wrong_disposition[lineage]
+PASSED tests/test_prepared_p4_lifetime.py::test_native_lifetime_inventory_and_boundaries
+PASSED tests/test_prepared_p4_lifetime.py::test_comparison_preserves_native_packets_counters_and_consumer_failures
+PASSED tests/test_prepared_long_data_probe.py::test_complete_native_inventory_and_healthy_following_queries
+PASSED tests/test_prepared_long_data_probe.py::test_deferred_native_error_lifetimes_are_not_weakened
+PASSED tests/test_prepared_long_data_probe.py::test_stream_request_omits_only_marked_inline_values_and_retains_bitmap
+PASSED tests/test_prepared_long_data_probe.py::test_comparison_retains_packets_type_metadata_and_capacity_errors
+PASSED tests/test_prepared_long_data_probe.py::test_parameter_alias_difference_remains_a_hard_native_failure
+19 passed in 0.30s

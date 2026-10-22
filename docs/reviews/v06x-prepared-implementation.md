@@ -772,3 +772,12 @@ LONG_DATA/native comparisons including the previously wrong parameter names,
 plus the previous runtime gates and cleanup controls on both OSes. No oracle
 or native fixture was weakened. Full P4 (active-query cancellation/disconnect
 and remaining failure/resource paths), P5/P6 and adoption remain unfinished.
+
+## P4 active EXECUTE exit candidate
+
+[Candidate and bounded matrix](v06x-prepared-p4-active.md) uses a SQL execution
+witness before client cancellation, deadlines, EOF/reset and DB.Close. Native5
+controls PASS; actual guest7-case and both-OS acceptance remain pending. A small
+shared-control classification repair restores unusable for invalidated-DB status
+without changing ordinary request timeout behavior. Guest/converter/binding
+identities and prior gates remain unchanged. Full P4/P5/P6 remain unfinished.

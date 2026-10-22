@@ -222,7 +222,7 @@ func (m *manager) call(ctx context.Context, r Request) (result map[string]any, e
 	switch r.Op {
 	case "status":
 		if e := d.server.Failure(); e != nil {
-			return map[string]any{"closed": true}, fmt.Errorf("database instance terminated: %w", e)
+			return map[string]any{"closed": true}, diagnostic.Wrap("unusable", "host_control", fmt.Errorf("database instance terminated: %w", e))
 		}
 		return map[string]any{"state": "ready", "active_connections": d.server.Active(), "busy": d.server.Busy(), "logs": d.logs()}, nil
 	case "logs":
@@ -303,9 +303,8 @@ func replyError(r map[string]any, e error) {
 	if errors.As(e, &reject) {
 		code = reject.Code
 	}
-	if errors.Is(e, context.Canceled) || errors.Is(e, context.DeadlineExceeded) {
-		code = "timeout"
-	}
+	code = diagnostic.ControlCode(e, code)
+
 	r["error"] = map[string]string{"code": code, "stage": stage, "message": e.Error()}
 }
 

@@ -1,0 +1,9 @@
+{
+  "old_precedence_replay": "EXPECTED FAIL",
+  "old_source_baseline_commit": "54b9332c27c4e2db5fcc6972eee5ea1c5fbc9732",
+  "old_source_clause_sha256": "d9d0a68f851066b693ba31c7258bc8f428930b7b02e6e2b0e10daa1db4a54d57",
+  "method": "Replay original unconditional deadline precedence in new pure owner; not a run of old whole runtime",
+  "restored_fixed_source_sha256": "20b7fbb0d2356e4845c25e42d35b8574336eed9d1372c263254776597f199158",
+  "byte_exact_restoration": true,
+  "fixed_owner_suite": "see diagnostic-unit.txt"
+}
