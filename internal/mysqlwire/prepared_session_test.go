@@ -88,6 +88,7 @@ func TestPreparedSessionOwnershipNoResponseAndUnwind(t *testing.T) {
 		if r.Operation == 22 {
 			result.StatementID = uint32(len(calls))
 			result.ParamCount = 1
+			result.Parameters = []guest.Column{preparedParameter()}
 			if corrupt {
 				result.Rows = [][]*guest.Cell{{}}
 			}

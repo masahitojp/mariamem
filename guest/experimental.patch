@@ -21,6 +21,20 @@
 +       Match set_conversion_functions before selecting the type handler. */
 +    param->unsigned_flag= client_param->is_unsigned;
 +#endif
+@@ -6641,0 +6652,13 @@
++
++#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
++/* Public C API adapter obtains parser-owned items, never parses client SQL.
++   The borrowed list is used synchronously before the statement can close. */
++extern "C" void *mariamem_stmt_parameter_items(MYSQL_STMT *api_stmt)
++{
++  THD *thd= static_cast<THD *>(api_stmt->mysql->thd);
++  Prepared_statement *stmt= find_prepared_statement(thd, api_stmt->stmt_id);
++  if (!stmt || stmt->param_count != api_stmt->param_count)
++    return NULL;
++  return static_cast<void *>(&stmt->lex->param_list);
++}
++#endif
 --- a/libmysqld/libmysql.c
 +++ b/libmysqld/libmysql.c
 @@ -1753,0 +1754,8 @@
@@ -63,28 +77,119 @@
 +  field_end= field + stmt->field_count;
 +  stmt_field= stmt->fields;
 +  my_bind= stmt->bind_result_done ? stmt->bind : 0;
-@@ -2614,0 +2636,4 @@
+@@ -1888,0 +1910,11 @@
++
++#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
++  {
++    extern MYSQL_RES *mariamem_stmt_parameter_metadata(MYSQL_STMT *);
++    MYSQL_RES *result= mariamem_stmt_parameter_metadata(stmt);
++    if (!result)
++      set_stmt_error(stmt, CR_OUT_OF_MEMORY, unknown_sqlstate, NULL);
++    DBUG_RETURN(result);
++  }
++#endif
++
+@@ -2614,0 +2647,4 @@
 +#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
 +    if (stmt->last_errno)
 +      DBUG_RETURN(1);
 +#endif
-@@ -2887,0 +2913,3 @@
+@@ -2887,0 +2924,3 @@
 +#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
 +    case MYSQL_TYPE_YEAR:
 +#endif
-@@ -2892,0 +2921,3 @@
+@@ -2892,0 +2932,3 @@
 +#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
 +    case MYSQL_TYPE_INT24:
 +#endif
-@@ -2916,0 +2948,3 @@
+@@ -2916,0 +2959,3 @@
 +#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
 +    case MYSQL_TYPE_NEWDATE:
 +#endif
-@@ -2925,0 +2960,7 @@
+@@ -2925,0 +2971,7 @@
 +#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)
 +    /* Preserve the wire type for Item_param::setup_conversion. */
 +    case MYSQL_TYPE_BIT:
 +    case MYSQL_TYPE_ENUM:
 +    case MYSQL_TYPE_SET:
 +    case MYSQL_TYPE_GEOMETRY:
++#endif
+--- a/libmysqld/lib_sql.cc
++++ b/libmysqld/lib_sql.cc
+@@ -1145,0 +1146,7 @@
++#ifdef __wasi__
++  /* Metadata allocation failure must be returned before strlen dereferences. */
++  if (!client_field->db || !client_field->table || !client_field->name ||
++      !client_field->org_table || !client_field->org_name)
++    return true;
++#endif
++
+@@ -1479,0 +1487,68 @@
++
++#ifdef __wasi__
++extern "C" void *mariamem_stmt_parameter_items(MYSQL_STMT *);
++
++/* An independent MYSQL_RES owns all copied parameter descriptors. Reuse the
++   embedded protocol's Item -> MYSQL_FIELD conversion (including charset/flags),
++   without dispatching SQL, appending a result, or changing execution bindings. */
++extern "C" MYSQL_RES *mariamem_stmt_parameter_metadata(MYSQL_STMT *stmt)
++{
++  MYSQL *mysql= stmt->mysql;
++  THD *thd= static_cast<THD *>(mysql->thd);
++  if (!thd || mysql->status != MYSQL_STATUS_READY)
++    return NULL;
++  List<Item> *items= static_cast<List<Item> *>(mariamem_stmt_parameter_items(stmt));
++  if (!items || items->elements != stmt->param_count)
++    return NULL;
++  MYSQL_RES *result= static_cast<MYSQL_RES *>(my_malloc(
++      PSI_NOT_INSTRUMENTED, sizeof(MYSQL_RES), MYF(MY_WME | MY_ZEROFILL)));
++  if (!result)
++    return NULL;
++  MYSQL_DATA data= {};
++  EQR info= {};
++  data.embedded_info= &info;
++  init_alloc_root(PSI_NOT_INSTRUMENTED, &data.alloc, 8192, 0, MYF(0));
++  info.fields_list= static_cast<MYSQL_FIELD *>(alloc_root(
++      &data.alloc, sizeof(MYSQL_FIELD) * items->elements));
++  bool failed= !info.fields_list;
++  if (!failed)
++  {
++    bzero(info.fields_list, sizeof(MYSQL_FIELD) * items->elements);
++    THD *previous_thd= current_thd;
++    MYSQL_DATA *previous_data= thd->cur_data;
++    /* Formatting only: do not dock/undock the SQL worker or alter its
++       stack/mysys/kill state as store_globals/reset_globals would. */
++    set_current_thd(thd);
++    thd->cur_data= &data;
++    {
++      Protocol_text protocol(thd);
++      List_iterator_fast<Item> it(*items);
++      Item *item;
++      uint pos= 0;
++      while ((item= it++))
++      {
++        if (protocol.store_item_metadata(thd, item, pos++) ||
++            !info.fields_list[pos-1].catalog)
++        {
++          failed= true;
++          break;
++        }
++      }
++    }
++    thd->cur_data= previous_data;
++    set_current_thd(previous_thd);
++  }
++  if (failed)
++  {
++    free_root(&data.alloc, MYF(0));
++    my_free(result);
++    return NULL;
++  }
++  result->methods= mysql->methods;
++  result->eof= 1;
++  result->fields= info.fields_list;
++  result->field_count= items->elements;
++  result->field_alloc= data.alloc;
++  return result;
++}
 +#endif

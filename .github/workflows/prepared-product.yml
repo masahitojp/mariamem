@@ -1,7 +1,7 @@
 name: Prepared staged source, unit and development runtime (not adoption)
 on:
   push:
-    branches: [experiment/prepared-product, experiment/prepared-execute, experiment/prepared-time-width, experiment/prepared-p2-repair, experiment/prepared-param-order, experiment/prepared-call, experiment/prepared-long-data]
+    branches: [experiment/prepared-product, experiment/prepared-execute, experiment/prepared-time-width, experiment/prepared-p2-repair, experiment/prepared-param-order, experiment/prepared-call, experiment/prepared-long-data, experiment/prepared-param-metadata]
 permissions:
   contents: read
 jobs:

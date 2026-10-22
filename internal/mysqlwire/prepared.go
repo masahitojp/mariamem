@@ -6,11 +6,6 @@ import (
 	"github.com/masahitojp/mariamem/internal/preparedproto"
 )
 
-// Pinned native 12.3.3's generic parameter descriptor; the embedded metadata API
-// itself returns NULL. Production adoption requires the expanded native matrix.
-func preparedParameter() guest.Column {
-	return guest.Column{Catalog: "def", Name: "?", Type: 6, Charset: 63, Flags: 128}
-}
 func preparedColumn(c guest.Column) ([]byte, error) {
 	var b []byte
 	for _, s := range []string{c.Catalog, c.DB, c.Table, c.OrgTable, c.Name, c.OrgName} {
@@ -49,7 +44,7 @@ func preparePackets(r guest.Result, generation, wireID uint32) ([][]byte, error)
 	if !r.OK {
 		return packets(r)
 	}
-	if r.BinaryRows || r.Rows != nil || wireID == 0 || r.StatementID == 0 || r.ParamCount > 65535 || len(r.Columns) > 65535 {
+	if r.BinaryRows || r.Rows != nil || wireID == 0 || r.StatementID == 0 || r.ParamCount > 65535 || uint32(len(r.Parameters)) != r.ParamCount || len(r.Columns) > 65535 {
 		return nil, errors.New("invalid prepared metadata")
 	}
 	b := append([]byte{0}, le32(wireID)...)
@@ -59,11 +54,11 @@ func preparePackets(r guest.Result, generation, wireID uint32) ([][]byte, error)
 	b = append(b, le16(r.Warnings)...)
 	out := [][]byte{b}
 	if r.ParamCount != 0 {
-		column, err := preparedColumn(preparedParameter())
-		if err != nil {
-			return nil, err
-		}
-		for i := uint32(0); i < r.ParamCount; i++ {
+		for _, parameter := range r.Parameters {
+			column, err := preparedColumn(parameter)
+			if err != nil {
+				return nil, err
+			}
 			out = append(out, column)
 		}
 		out = append(out, eofPacket(r.Status, 0))

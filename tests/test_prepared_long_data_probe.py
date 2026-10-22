@@ -50,3 +50,15 @@ def test_comparison_retains_packets_type_metadata_and_capacity_errors():
     changed=copy.deepcopy(c);changed['trace'][0][0]['error_packet']='00'
     assert comparable(c)!=comparable(changed)
     assert set(comparable(c))=={'prepare','trace','following_query','no_response_adjacency'}
+
+
+def test_parameter_alias_difference_remains_a_hard_native_failure():
+    original=fixture()['cases']['chunks-binary-mixed-parameters']
+    changed=copy.deepcopy(original)
+    packet=bytes.fromhex(changed['prepare'][0]['parameters'][0])
+    # Native parameter name is the SQL alias "a"; replacing it by "?" was the
+    # observed guest defect. Keep every other descriptor byte unchanged.
+    needle=b'\x01a\x00\x0c'
+    assert packet.count(needle)==1
+    changed['prepare'][0]['parameters'][0]=packet.replace(needle,b'\x01?\x00\x0c').hex()
+    assert comparable(original)!=comparable(changed)

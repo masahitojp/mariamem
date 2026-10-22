@@ -80,7 +80,15 @@ static MYSQL_RES *mysql_stmt_result_metadata(MYSQL_STMT *s){
  for(unsigned i=0;i<m->count;i++){MYSQL_FIELD *f=m->fields+i;f->name="c";f->org_name=f->table=f->org_table=f->db="";f->catalog="def";f->name_length=1;f->catalog_length=3;f->type=s->type?s->type:3;f->charsetnr=63;f->length=11;}
  return m;
 }
-static void mysql_free_result(MYSQL_RES *m){free(m->fields);free(m);}
+static int fail_param_metadata,wrong_param_count,param_metadata_live;
+static MYSQL_RES *mysql_stmt_param_metadata(MYSQL_STMT *s){
+ if(!s->params || fail_param_metadata){s->errno_=2008;return NULL;}
+ MYSQL_RES *m=calloc(1,sizeof(*m));assert(m);m->count=s->params+wrong_param_count;
+ m->fields=calloc(m->count,sizeof(*m->fields));assert(m->fields);param_metadata_live++;
+ for(unsigned i=0;i<m->count;i++){MYSQL_FIELD *f=m->fields+i;f->name="engine alias";f->org_name=f->table=f->org_table=f->db="";f->catalog="def";f->name_length=12;f->catalog_length=3;f->type=6;f->charsetnr=63;f->flags=128;}
+ return m;
+}
+static void mysql_free_result(MYSQL_RES *m){if(m->count && m->fields[0].name && !strcmp(m->fields[0].name,"engine alias"))param_metadata_live--;free(m->fields);free(m);}
 static unsigned mysql_num_fields(MYSQL_RES *m){return m->count;}
 static MYSQL_FIELD *mysql_fetch_fields(MYSQL_RES *m){return m->fields;}
 static int mysql_stmt_bind_param(MYSQL_STMT *s,MYSQL_BIND *b){
@@ -154,6 +162,15 @@ static char *call(unsigned op,uint32_t generation,uint32_t id,const char *body){
 static void expect(char *reply,const char *fragment){assert(reply);if(!strstr(reply,fragment)){fputs(reply,stderr);abort();}free(reply);}
 int main(int argc,char **argv){
  assert(!ps_begin_session()&&ps_generation==1);
+ if(argc==2 && !strcmp(argv[1],"parameter-metadata")) {
+  char *r=call(22,1,0,"SELECT ?");assert(r && strstr(r,"engine alias") && strstr(r,"\"parameters\":["));free(r);
+  assert(!param_metadata_live && live==1);assert(!ps_clear() && !live);
+  fail_param_metadata=1;expect(call(22,1,0,"SELECT ?"),"\"errno\":2008");assert(!live && !param_metadata_live);fail_param_metadata=0;
+  wrong_param_count=1;r=call(22,1,0,"SELECT ?");free(r);assert(!live && !param_metadata_live);wrong_param_count=0;
+  fail_entry=1;r=call(22,1,0,"SELECT ?");assert(!r && !live && !param_metadata_live);fail_entry=0;
+  fail_buffer=1;r=call(22,1,0,"SELECT ?");assert(!r && !live && !param_metadata_live);fail_buffer=0;
+  puts("{\"metadata_ownership\":\"PASS\"}");return 0;
+ }
  if(argc==2 && !strcmp(argv[1],"long-data")) {
   expect(call(22,1,0,"SELECT ?"),"\"ok\":true");
   unsigned char chunk[5]={0,0,'A',0,'B'},empty[2]={0,0},bad[3]={9,0,'x'};

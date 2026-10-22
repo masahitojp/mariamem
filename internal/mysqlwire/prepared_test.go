@@ -8,7 +8,7 @@ import (
 )
 
 func preparedResult() guest.Result {
-	return guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, StatementID: 99, ParamCount: 65, Status: 2, Columns: make([]guest.Column, 65)}
+	return guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, StatementID: 99, ParamCount: 65, Parameters: make([]guest.Column, 65), Status: 2, Columns: make([]guest.Column, 65)}
 }
 func TestPrepareMetadataBeyondPrototypeCounts(t *testing.T) {
 	r := preparedResult()
@@ -28,6 +28,7 @@ func TestPrepareMetadataBeyondPrototypeCounts(t *testing.T) {
 		}
 	}
 	r.ParamCount = 0
+	r.Parameters = nil
 	r.Columns = nil
 	p, e = preparePackets(r, 7, 4)
 	if e != nil || len(p) != 1 {
@@ -56,5 +57,38 @@ func TestPrepareKeepsNativeErrorPacket(t *testing.T) {
 	p, e := preparePackets(r, 7, 0)
 	if e != nil || len(p) != 1 || !bytes.Equal(p[0], ErrorPacket(1064, "42000", "syntax error")) {
 		t.Fatal(p, e)
+	}
+}
+
+// A generic descriptor is only a test input. Production must forward each
+// engine-owned descriptor and reject missing metadata instead of inventing it.
+func preparedParameter() guest.Column {
+	return guest.Column{Catalog: "def", Name: "?", Type: 6, Charset: 63, Flags: 128}
+}
+func TestPrepareForwardsParameterNamesAndRejectsMissingDescriptors(t *testing.T) {
+	r := preparedResult()
+	r.ParamCount = 2
+	first := preparedParameter()
+	first.Name = "engine alias"
+	second := preparedParameter()
+	second.Name = "日本語"
+	second.Flags = 0x100
+	r.Parameters = []guest.Column{first, second}
+	r.Columns = nil
+	packets, err := preparePackets(r, 7, 3)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for i, field := range r.Parameters {
+		want, _ := preparedColumn(field)
+		if !bytes.Equal(packets[i+1], want) {
+			t.Fatal("parameter metadata lost", i)
+		}
+	}
+	for _, bad := range [][]guest.Column{nil, {first}, {first, second, first}} {
+		r.Parameters = bad
+		if _, err := preparePackets(r, 7, 3); err == nil {
+			t.Fatal("missing/excess metadata accepted")
+		}
 	}
 }

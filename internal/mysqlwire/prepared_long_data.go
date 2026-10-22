@@ -26,7 +26,7 @@ func (s *preparedSession) sendLongData(payload []byte, call preparedCall) ([][]b
 	if err != nil {
 		return nil, err
 	}
-	if r.BinaryRows || r.Columns != nil || r.Rows != nil || r.StatementID != 0 || r.ParamCount != 0 {
+	if r.BinaryRows || r.Parameters != nil || r.Columns != nil || r.Rows != nil || r.StatementID != 0 || r.ParamCount != 0 {
 		return nil, errors.New("invalid prepared LONG_DATA acknowledgement")
 	}
 	index := binary.LittleEndian.Uint16(payload[4:])

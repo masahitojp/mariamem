@@ -43,6 +43,7 @@ type Result struct {
 	SessionGeneration  uint32    `json:"session_generation"`
 	StatementID        uint32    `json:"statement_id"`
 	ParamCount         uint32    `json:"param_count"`
+	Parameters         []Column  `json:"parameters"`
 	Results            []Result  `json:"results"`
 	OK                 bool      `json:"ok"`
 	Ready              bool      `json:"ready"`

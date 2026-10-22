@@ -748,3 +748,11 @@ verify guest f5ce001d from425c821 with unchanged fixed converter13 patches.
 Lifetime functions/init/TLS are identical to P3; data and single-guest identity
 are repinned with old-P3 rejection. Both-OS actual runtime acceptance is next,
 not yet PASS. Full P4 and P5/P6 remain unfinished.
+
+### LONG_DATA strict metadata gate failure
+
+[CI39718930329 analysis and source repair](v06x-prepared-param-metadata.md):
+both-OS prior runtime gates PASS; LONG_DATA strict comparison FAIL despite all25
+individual assertions passing. Replace the generic parameter descriptor with
+engine-owned metadata rather than relaxing aliases in the native oracle.
+The source-repair branch must rebuild before another exact binding/runtime gate.

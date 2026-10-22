@@ -1,0 +1,178 @@
+........................................................................ [ 59%]
+.................................................                        [100%]
+==================================== PASSES ====================================
+___________________ test_exact_apply_and_double_application ____________________
+----------------------------- Captured stdout call -----------------------------
+patching file 'sql/sql_prepare.cc'
+_ test_pin_mutations_rejected[after_sha256-0000000000000000000000000000000000000000000000000000000000000000] _
+----------------------------- Captured stdout call -----------------------------
+patching file 'sql/sql_prepare.cc'
+___________________ test_exact_apply_and_double_application ____________________
+----------------------------- Captured stdout call -----------------------------
+patching file 'sql/sql_prepare.cc'
+patching file 'libmysqld/libmysql.c'
+patching file 'libmysqld/lib_sql.cc'
+___________________ test_mutated_pins_rejected[after_sha256] ___________________
+----------------------------- Captured stdout call -----------------------------
+patching file 'sql/sql_prepare.cc'
+patching file 'libmysqld/libmysql.c'
+patching file 'libmysqld/lib_sql.cc'
+___________ test_real_source_functions[False-before-True-expected0] ____________
+----------------------------- Captured stdout call -----------------------------
+{"version": "before", "wasi": true, "sanitizers": false, "result": {"accepted_types": 0, "metadata_refreshed": false, "scope": "extracted functions with mock dependencies"}}
+____________ test_real_source_functions[False-after-True-expected1] ____________
+----------------------------- Captured stdout call -----------------------------
+{"version": "after", "wasi": true, "sanitizers": false, "result": {"accepted_types": 7, "metadata_refreshed": true, "scope": "extracted functions with mock dependencies"}}
+___________ test_real_source_functions[False-after-False-expected2] ____________
+----------------------------- Captured stdout call -----------------------------
+{"version": "after", "wasi": false, "sanitizers": false, "result": {"accepted_types": 0, "metadata_refreshed": false, "scope": "extracted functions with mock dependencies"}}
+____________ test_real_source_functions[True-before-True-expected0] ____________
+----------------------------- Captured stdout call -----------------------------
+{"version": "before", "wasi": true, "sanitizers": true, "result": {"accepted_types": 0, "metadata_refreshed": false, "scope": "extracted functions with mock dependencies"}}
+____________ test_real_source_functions[True-after-True-expected1] _____________
+----------------------------- Captured stdout call -----------------------------
+{"version": "after", "wasi": true, "sanitizers": true, "result": {"accepted_types": 7, "metadata_refreshed": true, "scope": "extracted functions with mock dependencies"}}
+____________ test_real_source_functions[True-after-False-expected2] ____________
+----------------------------- Captured stdout call -----------------------------
+{"version": "after", "wasi": false, "sanitizers": true, "result": {"accepted_types": 0, "metadata_refreshed": false, "scope": "extracted functions with mock dependencies"}}
+________ test_extracted_parameter_descriptor_order[False-before-True-0] ________
+----------------------------- Captured stdout call -----------------------------
+{"version": "before", "wasi": true, "sanitizers": false, "result": {"matching_descriptors": 0, "cases": 8, "scope": "extracted parameter functions with mock dependencies"}}
+________ test_extracted_parameter_descriptor_order[False-after-True-8] _________
+----------------------------- Captured stdout call -----------------------------
+{"version": "after", "wasi": true, "sanitizers": false, "result": {"matching_descriptors": 8, "cases": 8, "scope": "extracted parameter functions with mock dependencies"}}
+________ test_extracted_parameter_descriptor_order[False-after-False-0] ________
+----------------------------- Captured stdout call -----------------------------
+{"version": "after", "wasi": false, "sanitizers": false, "result": {"matching_descriptors": 0, "cases": 8, "scope": "extracted parameter functions with mock dependencies"}}
+________ test_extracted_parameter_descriptor_order[True-before-True-0] _________
+----------------------------- Captured stdout call -----------------------------
+{"version": "before", "wasi": true, "sanitizers": true, "result": {"matching_descriptors": 0, "cases": 8, "scope": "extracted parameter functions with mock dependencies"}}
+_________ test_extracted_parameter_descriptor_order[True-after-True-8] _________
+----------------------------- Captured stdout call -----------------------------
+{"version": "after", "wasi": true, "sanitizers": true, "result": {"matching_descriptors": 8, "cases": 8, "scope": "extracted parameter functions with mock dependencies"}}
+________ test_extracted_parameter_descriptor_order[True-after-False-0] _________
+----------------------------- Captured stdout call -----------------------------
+{"version": "after", "wasi": false, "sanitizers": true, "result": {"matching_descriptors": 0, "cases": 8, "scope": "extracted parameter functions with mock dependencies"}}
+=========================== short test summary info ============================
+PASSED tests/test_prepared_api.py::test_dynamic_prepared_owner_and_failure_cleanup[normal]
+PASSED tests/test_prepared_api.py::test_dynamic_prepared_owner_and_failure_cleanup[address-undefined-sanitizers]
+PASSED tests/test_routine_schema.py::test_reviewed_native_metadata_matches_pinned_ddl
+PASSED tests/test_routine_schema.py::test_source_identity_mismatch_is_not_accepted[source_commit-0000000000000000000000000000000000000000]
+PASSED tests/test_routine_schema.py::test_source_identity_mismatch_is_not_accepted[server_version-13.1.0]
+PASSED tests/test_routine_schema.py::test_source_identity_mismatch_is_not_accepted[source_file-other.sql]
+PASSED tests/test_routine_schema.py::test_sql_byte_mutation_rejected
+PASSED tests/test_routine_schema.py::test_source_anchor_and_ddl_are_separately_bound[missing]
+PASSED tests/test_routine_schema.py::test_source_anchor_and_ddl_are_separately_bound[duplicate]
+PASSED tests/test_routine_schema.py::test_source_anchor_and_ddl_are_separately_bound[changed]
+PASSED tests/test_routine_schema.py::test_expected_signature_cannot_drift_from_ddl[nullable]
+PASSED tests/test_routine_schema.py::test_expected_signature_cannot_drift_from_ddl[type]
+PASSED tests/test_routine_schema.py::test_expected_signature_cannot_drift_from_ddl[collation]
+PASSED tests/test_routine_schema.py::test_expected_signature_cannot_drift_from_ddl[order]
+PASSED tests/test_routine_schema.py::test_expected_signature_cannot_drift_from_ddl[key]
+PASSED tests/test_routine_schema.py::test_expected_signature_cannot_drift_from_ddl[engine]
+PASSED tests/test_routine_schema.py::test_table_version_is_actual_source_version
+PASSED tests/test_routine_schema.py::test_c_startup_helper_oracles
+PASSED tests/test_routine_schema.py::test_driver_adapter_keeps_boot_mode_with_timing
+PASSED tests/test_thread_lifetime_binding.py::test_bound_function_change_is_rejected[code/p3/p3_pure.go]
+PASSED tests/test_thread_lifetime_binding.py::test_bound_function_change_is_rejected[code/p8/p8_pure.go]
+PASSED tests/test_thread_lifetime_binding.py::test_bound_function_change_is_rejected[code/p5/p5_pure.go]
+PASSED tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[False-code/p3/p3_pure.go-15246220]
+PASSED tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[False-code/p5/p5_pure.go-15244801]
+PASSED tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[True-code/p3/p3_pure.go-15246220]
+PASSED tests/test_thread_lifetime_binding.py::test_another_address_relocation_is_not_accepted[True-code/p5/p5_pure.go-15244801]
+PASSED tests/test_thread_lifetime_binding.py::test_duplicate_module_hook_is_rejected
+PASSED tests/test_thread_lifetime_binding.py::test_late_yield_contract_change_is_rejected
+PASSED tests/test_thread_lifetime_binding.py::test_guest_and_required_file_identity
+PASSED tests/test_thread_lifetime_binding.py::test_old_guest_is_not_an_alternate_allowed_identity[baseline_guest_sha256]
+PASSED tests/test_thread_lifetime_binding.py::test_old_guest_is_not_an_alternate_allowed_identity[previous_guest_sha256]
+PASSED tests/test_thread_lifetime_binding.py::test_old_guest_is_not_an_alternate_allowed_identity[p1_guest_sha256]
+PASSED tests/test_thread_lifetime_binding.py::test_old_guest_is_not_an_alternate_allowed_identity[initial_p2_guest_sha256]
+PASSED tests/test_thread_lifetime_binding.py::test_old_guest_is_not_an_alternate_allowed_identity[type_repair_guest_sha256]
+PASSED tests/test_thread_lifetime_binding.py::test_old_guest_is_not_an_alternate_allowed_identity[p2_guest_sha256]
+PASSED tests/test_thread_lifetime_binding.py::test_old_guest_is_not_an_alternate_allowed_identity[p3_guest_sha256]
+PASSED tests/test_thread_lifetime_binding.py::test_memory_initialization_binding[False]
+PASSED tests/test_thread_lifetime_binding.py::test_memory_initialization_binding[True]
+PASSED tests/test_dev_guest_tools.py::test_bound_guest
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[source]
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[wasm]
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[tool]
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[missing]
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[contract]
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[linked]
+PASSED tests/test_dev_guest_tools.py::test_guest_rejects_wrong_identity_and_provenance[patch]
+PASSED tests/test_dev_guest_tools.py::test_canonical_and_release_outputs_rejected[build/generated-release]
+PASSED tests/test_dev_guest_tools.py::test_canonical_and_release_outputs_rejected[internal/generatedgo]
+PASSED tests/test_dev_guest_tools.py::test_canonical_and_release_outputs_rejected[python/mariamem/_native]
+PASSED tests/test_dev_guest_tools.py::test_canonical_and_release_outputs_rejected[release]
+PASSED tests/test_dev_guest_tools.py::test_existing_and_symlink_outputs_rejected
+PASSED tests/test_dev_guest_tools.py::test_stale_generated_candidate_cannot_be_installed
+PASSED tests/test_dev_guest_tools.py::test_translation_binds_guest_converter_patches_and_complete_inventory
+PASSED tests/test_dev_guest_tools.py::test_partial_generation_never_emits_success_or_canonical_output
+PASSED tests/test_dev_guest_tools.py::test_existing_release_guard_rejects_dev_receipts
+PASSED tests/test_dev_guest_tools.py::test_dev_and_release_entrypoints_parse
+PASSED tests/test_dev_guest_tools.py::test_missing_installation_provenance_rejected
+PASSED tests/test_dev_guest_tools.py::test_external_release_namespace_rejected
+PASSED tests/test_dev_guest_tools.py::test_historical_guest_origin_allows_only_bound_host_stage_changes
+PASSED tests/test_prepared_time_patch.py::test_exact_apply_and_double_application
+PASSED tests/test_prepared_time_patch.py::test_pin_mutations_rejected[source_commit-other]
+PASSED tests/test_prepared_time_patch.py::test_pin_mutations_rejected[file-other.cc]
+PASSED tests/test_prepared_time_patch.py::test_pin_mutations_rejected[patch_sha256-0000000000000000000000000000000000000000000000000000000000000000]
+PASSED tests/test_prepared_time_patch.py::test_pin_mutations_rejected[before_sha256-0000000000000000000000000000000000000000000000000000000000000000]
+PASSED tests/test_prepared_time_patch.py::test_pin_mutations_rejected[after_sha256-0000000000000000000000000000000000000000000000000000000000000000]
+PASSED tests/test_prepared_time_patch.py::test_changed_complete_source_rejected_before_mutation
+PASSED tests/test_prepared_time_patch.py::test_checked_command_failure_is_not_hidden
+PASSED tests/test_prepared_time_patch.py::test_repository_patch_input_binding
+PASSED tests/test_prepared_source_patch.py::test_exact_apply_and_double_application
+PASSED tests/test_prepared_source_patch.py::test_check_all_preimages_before_any_mutation[libmysqld/libmysql.c]
+PASSED tests/test_prepared_source_patch.py::test_check_all_preimages_before_any_mutation[libmysqld/lib_sql.cc]
+PASSED tests/test_prepared_source_patch.py::test_mutated_pins_rejected[source_commit]
+PASSED tests/test_prepared_source_patch.py::test_mutated_pins_rejected[patch_sha256]
+PASSED tests/test_prepared_source_patch.py::test_mutated_pins_rejected[component_fixture_sha256]
+PASSED tests/test_prepared_source_patch.py::test_mutated_pins_rejected[parameter_fixture_sha256]
+PASSED tests/test_prepared_source_patch.py::test_mutated_pins_rejected[before_sha256]
+PASSED tests/test_prepared_source_patch.py::test_mutated_pins_rejected[after_sha256]
+PASSED tests/test_prepared_source_patch.py::test_mutated_pins_rejected[file]
+PASSED tests/test_prepared_source_patch.py::test_command_failure_not_hidden
+PASSED tests/test_prepared_source_patch.py::test_repository_binding_and_time_repair_preserved
+PASSED tests/test_prepared_source_patch.py::test_repository_binding_is_after_portability
+PASSED tests/test_prepared_source_patch.py::test_wrong_preparation_phase_rejected_before_mutation
+PASSED tests/test_prepared_source_patch.py::test_real_source_functions[False-before-True-expected0]
+PASSED tests/test_prepared_source_patch.py::test_real_source_functions[False-after-True-expected1]
+PASSED tests/test_prepared_source_patch.py::test_real_source_functions[False-after-False-expected2]
+PASSED tests/test_prepared_source_patch.py::test_real_source_functions[True-before-True-expected0]
+PASSED tests/test_prepared_source_patch.py::test_real_source_functions[True-after-True-expected1]
+PASSED tests/test_prepared_source_patch.py::test_real_source_functions[True-after-False-expected2]
+PASSED tests/test_prepared_param_order.py::test_extracted_parameter_descriptor_order[False-before-True-0]
+PASSED tests/test_prepared_param_order.py::test_extracted_parameter_descriptor_order[False-after-True-8]
+PASSED tests/test_prepared_param_order.py::test_extracted_parameter_descriptor_order[False-after-False-0]
+PASSED tests/test_prepared_param_order.py::test_extracted_parameter_descriptor_order[True-before-True-0]
+PASSED tests/test_prepared_param_order.py::test_extracted_parameter_descriptor_order[True-after-True-8]
+PASSED tests/test_prepared_param_order.py::test_extracted_parameter_descriptor_order[True-after-False-0]
+PASSED tests/test_prepared_param_order.py::test_common_type_native_controls_have_complete_oracles
+PASSED tests/test_prepared_p2_matrix.py::test_ok_uint64_status_warnings_and_diagnostic_info
+PASSED tests/test_prepared_p2_matrix.py::test_comparison_preserves_semantics_and_all_failure_evidence
+PASSED tests/test_prepared_p2_matrix.py::test_statement_request_null_and_reused_descriptors
+PASSED tests/test_prepared_p2_matrix.py::test_scenario_failure_keeps_trace_and_attempts_following_query
+PASSED tests/test_prepared_p2_matrix.py::test_terminal_db_failure_cannot_poison_later_scenario
+PASSED tests/test_prepared_p2_matrix.py::test_scenario_teardown_failure_is_not_hidden
+PASSED tests/test_prepared_p2_repair_probe.py::test_schema_control_rejects_duplicate_execution_and_stale_metadata[none]
+PASSED tests/test_prepared_p2_repair_probe.py::test_schema_control_rejects_duplicate_execution_and_stale_metadata[double-execution]
+PASSED tests/test_prepared_p2_repair_probe.py::test_schema_control_rejects_duplicate_execution_and_stale_metadata[stale-column-count]
+PASSED tests/test_prepared_p2_repair_probe.py::test_all_repair_scenarios_have_a_native_oracle
+PASSED tests/test_prepared_p2_repair_probe.py::test_selected_scenarios_preserve_original20
+PASSED tests/test_prepared_call_probe.py::test_minimal_reference_has_two_results_out_and_terminal
+PASSED tests/test_prepared_call_probe.py::test_raw_reader_preserves_error_and_does_not_read_past_it[False]
+PASSED tests/test_prepared_call_probe.py::test_raw_reader_preserves_error_and_does_not_read_past_it[True]
+PASSED tests/test_prepared_p3_matrix.py::test_full_matrix_has_complete_pinned_native_controls
+PASSED tests/test_prepared_p3_matrix.py::test_expected_terminal_sql_error_preserves_complete_prefix[False]
+PASSED tests/test_prepared_p3_matrix.py::test_expected_terminal_sql_error_preserves_complete_prefix[True]
+PASSED tests/test_prepared_p3_matrix.py::test_reuse_preserves_bitmap_and_values_without_repeating_descriptors
+PASSED tests/test_prepared_p3_matrix.py::test_comparison_keeps_errors_metadata_status_and_following_query
+PASSED tests/test_prepared_p4_lifetime.py::test_native_lifetime_inventory_and_boundaries
+PASSED tests/test_prepared_p4_lifetime.py::test_comparison_preserves_native_packets_counters_and_consumer_failures
+PASSED tests/test_prepared_long_data_probe.py::test_complete_native_inventory_and_healthy_following_queries
+PASSED tests/test_prepared_long_data_probe.py::test_deferred_native_error_lifetimes_are_not_weakened
+PASSED tests/test_prepared_long_data_probe.py::test_stream_request_omits_only_marked_inline_values_and_retains_bitmap
+PASSED tests/test_prepared_long_data_probe.py::test_comparison_retains_packets_type_metadata_and_capacity_errors
+PASSED tests/test_prepared_long_data_probe.py::test_parameter_alias_difference_remains_a_hard_native_failure
+121 passed in 6.90s

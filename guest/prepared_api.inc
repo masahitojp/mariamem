@@ -466,12 +466,22 @@ static char *ps_prepare(MYSQL *db, const unsigned char *sql, size_t size)
     return error;
   }
   if (meta && mysql_num_fields(meta) != columns) {mysql_free_result(meta);mysql_stmt_close(stmt);return NULL;}
+  MYSQL_RES *param_meta= params ? mysql_stmt_param_metadata(stmt) : NULL;
+  if (params && !param_meta) {
+    if (meta) mysql_free_result(meta);
+    char *error= ps_error(stmt);mysql_stmt_close(stmt);return error;
+  }
+  if (param_meta && mysql_num_fields(param_meta) != params) {
+    mysql_free_result(param_meta);if (meta) mysql_free_result(meta);
+    mysql_stmt_close(stmt);return NULL;
+  }
   ps_entry *e= calloc(1,sizeof(*e));
-  if (!e) { if (meta) mysql_free_result(meta); mysql_stmt_close(stmt); return NULL; }
+  if (!e) { if (meta) mysql_free_result(meta); if (param_meta) mysql_free_result(param_meta); mysql_stmt_close(stmt); return NULL; }
   e->stmt= stmt; e->id= ++ps_next;
   buf_t b= {0}; char text[160];
   snprintf(text,sizeof(text),"{\"ok\":true,\"statement_id\":%u,\"param_count\":%lu,\"columns\":",e->id,params);
-  int failed= buf_puts(&b,text) || ps_columns(&b,meta) || wire_state(&b) || buf_putc(&b,'}');
+  int failed= buf_puts(&b,text) || ps_columns(&b,meta) || buf_puts(&b,",\"parameters\":") || ps_columns(&b,param_meta) || wire_state(&b) || buf_putc(&b,'}');
+  if (param_meta) mysql_free_result(param_meta);
   if (meta) mysql_free_result(meta);
   if (failed) { free(b.p); mysql_stmt_close(stmt); free(e); return NULL; }
   e->next= ps_entries; ps_entries= e;

@@ -24,9 +24,9 @@ def tree(tmp_path):
     (root / 'guest').mkdir(parents=True)
     (root / 'tests/fixtures').mkdir(parents=True)
     files, delta = [], ''
-    for name in ['sql/sql_prepare.cc', 'libmysqld/libmysql.c']:
+    for name in ['sql/sql_prepare.cc', 'libmysqld/libmysql.c', 'libmysqld/lib_sql.cc']:
         p = source / name
-        p.parent.mkdir(parents=True)
+        p.parent.mkdir(parents=True,exist_ok=True)
         p.write_bytes(b'old\n')
         delta += '--- a/'+name+'\n+++ b/'+name+'\n@@ -1 +1 @@\n-old\n+new\n'
         files.append(dict(file=name, before_sha256=sha(b'old\n'), after_sha256=sha(b'new\n')))
@@ -56,9 +56,10 @@ def test_exact_apply_and_double_application(tree):
         patch.apply(source, root)
 
 
-def test_check_all_preimages_before_any_mutation(tree):
+@pytest.mark.parametrize("changed_file", ["libmysqld/libmysql.c", "libmysqld/lib_sql.cc"])
+def test_check_all_preimages_before_any_mutation(tree, changed_file):
     root, source = tree
-    (source / 'libmysqld/libmysql.c').write_bytes(b'unrelated\nold\n')
+    (source / changed_file).write_bytes(b'unrelated\nold\n')
     with pytest.raises(ValueError, match='preimage'):
         patch.apply(source, root)
     assert (source / 'sql/sql_prepare.cc').read_bytes() == b'old\n'

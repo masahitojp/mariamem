@@ -877,6 +877,12 @@ passes local source-only checks: three lifetime functions, full initializer and
 TLS remain identical; data identities and the single guest pin are updated, and
 prior P3 input is explicitly rejected. Actual both-OS runtime acceptance remains
 pending; source/unit success is not LONG_DATA/P4 completion.
+[Runtime CI39718930329 failure analysis](reviews/v06x-prepared-param-metadata.md)
+now confirms both-OS generation/previous regressions PASS and LONG_DATA strict
+comparison FAIL: aliased parameter names were incorrectly fixed to `?`.
+An engine-owned parameter metadata extension is a source-repair candidate; new
+guest build, binding review and actual runtime acceptance remain pending.
+The comparator/native fixtures are preserved; this does not close LONG_DATA/P4.
 
 No scope reduction is accepted.
 Exception acceptance, main adoption, target version, Qualification and release

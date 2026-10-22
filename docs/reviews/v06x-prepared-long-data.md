@@ -158,3 +158,11 @@ development-runtime is skipped by source-branch policy. The [new binding record]
 pins guest f5ce001d and validates complete unchanged lifetime functions/init/TLS,
 changed data identities and explicit prior-P3 rejection. Actual LONG_DATA25 and
 full regression runtime acceptance remain pending.
+
+## Both-OS runtime gate: metadata mismatch blocks acceptance
+
+CI39718930329 at e5f77f0 compiles/installs and passes previous regressions on
+both OSes. LONG_DATA25 individual assertions pass but strict comparison fails
+24 cases:91 parameter names per OS differ. [Root cause and repair candidate](v06x-prepared-param-metadata.md)
+preserve the oracle and implement engine-owned PREPARE metadata in a separate
+source branch. New guest/binding/runtime acceptance is pending; no feature PASS.
