@@ -923,8 +923,15 @@ SQLAlchemy/GORM anchors. Local native Go modes and Python CRUD/typed binary/text
 controls PASS, but native Python prepared CALL result traversal and C untyped
 NUL projection expose new functional failures. Their original FAIL oracles are
 retained; separate native-matching diagnostics cannot grant functional acceptance.
-New native Python3.14 and both-OS actual guest/regression CI are pending. P5 stays
-open even if the diagnostic CI matches native; these two constraints have no
+[CI39760963205](https://github.com/masahitojp/mariamem/actions/runs/39760963205)
+passed the fresh Linux Python3.14 native control, both-OS units/source build,
+and Ubuntu actual guest consumer matching plus installed/ORM regressions.
+Mac guest observations were captured, but matching failed because Linux lacked
+a native C-extension control; subsequent Mac regressions were skipped.
+The [comparison-gate diagnosis](reviews/v06x-prepared-p5-ci-diagnosis.md) supplies
+a separate Mac Python3.14 native control with client binary/source/ABI binding;
+the corrected both-OS CI is pending. P5 stays open even if diagnostic matching
+passes; these two functional constraints have no
 Human acceptance yet. Runtime/guest/converter/canonical generation inputs remain
 unchanged, and no default connection is forced to pure mode.
 

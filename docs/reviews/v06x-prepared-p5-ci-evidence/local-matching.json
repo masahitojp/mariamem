@@ -1,0 +1,7 @@
+{
+  "scope": "diagnostic native parity only; no new limitation accepted",
+  "functional_acceptance": "FAIL",
+  "human_disposition": "PENDING",
+  "matching": "FAIL",
+  "error": "AssertionError('required normal consumer did not finish')"
+}

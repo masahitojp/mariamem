@@ -127,6 +127,8 @@ jobs:
           python -c 'import json,os;assert json.load(open("build/prepared-p5-native/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
           test -z "$(git status --porcelain)"
           docker image inspect mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1 --format '{{json .}}' > build/prepared-p5-native/image.json
+      - name: Native connector availability, without import workarounds
+        run: python tests/v06_prepared_connector_environment.py --output build/prepared-p5-native/environment.json
       - name: Native real consumer observation with functional failures retained
         run: |
           go build -race -trimpath -buildvcs=false -o "$RUNNER_TEMP/prepared-p5-native-consumer" ./tests/prepared_consumer
@@ -254,6 +256,9 @@ jobs:
         run: |
           python -m pip install -r tests/consumer/sqlalchemy-requirements.txt mysql-connector-python==26.7.0 setuptools wheel
           python tests/v06_prepared_p5_stage.py --development "$RUNNER_TEMP/prepared-p1-native" --work "$RUNNER_TEMP/prepared-p5-private" --output build/prepared-p1/p5-stage.json > build/prepared-p1/p5-stage.txt 2>&1
+      - name: Actual guest connector profile, without import workarounds
+        if: github.ref == 'refs/heads/experiment/prepared-consumers'
+        run: python tests/v06_prepared_connector_environment.py --output build/prepared-p1/p5-environment.json
       - name: P5 real consumers and explicit native-failure characterization, not acceptance
         if: github.ref == 'refs/heads/experiment/prepared-consumers'
         run: |
@@ -262,7 +267,7 @@ jobs:
           python tests/v06_prepared_consumers.py --host "$RUNNER_TEMP/prepared-p1-native/mariamem-dev-host" --consumer "$RUNNER_TEMP/prepared-p5-consumer" --output build/prepared-p1/p5-consumers.json > build/prepared-p1/p5-consumers.txt 2>&1
           consumer_exit=$?
           set -e
-          python tests/v06_prepared_p5_compare.py --actual build/prepared-p1/p5-consumers.json --native "$RUNNER_TEMP/prepared-p5-native-control/consumers.json" --consumer-exit "$consumer_exit" --output build/prepared-p1/p5-matching.json > build/prepared-p1/p5-matching.txt 2>&1
+          python tests/v06_prepared_p5_compare.py --actual build/prepared-p1/p5-consumers.json --native "$RUNNER_TEMP/prepared-p5-native-control/consumers.json" --native-cext tests/fixtures/prepared-p5-native-macos314.json --actual-environment build/prepared-p1/p5-environment.json --native-cext-environment tests/fixtures/prepared-p5-native-macos314-environment.json --consumer-exit "$consumer_exit" --output build/prepared-p1/p5-matching.json > build/prepared-p1/p5-matching.txt 2>&1
           python tests/v06_prepared_consumer_edges.py --host "$RUNNER_TEMP/prepared-p1-native/mariamem-dev-host" --output build/prepared-p1/p5-edges.json > build/prepared-p1/p5-edges.txt 2>&1
       - name: P5 installed Python lifecycle, routines and text regressions
         if: github.ref == 'refs/heads/experiment/prepared-consumers'

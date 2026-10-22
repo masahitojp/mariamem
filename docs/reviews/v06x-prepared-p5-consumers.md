@@ -15,7 +15,17 @@ functional failures remain FAIL and need a separate Human disposition. Neither
 CI success nor the accepted syntax-error presentation exception grants that
 new disposition. No pure-mode forcing, server emulation or driver patch is used.
 
-## Finite matrix and current evidence
+## Current CI status
+
+The table below preserves the initial candidate state. The subsequent
+[CI diagnosis and corrected comparison boundary](v06x-prepared-p5-ci-diagnosis.md)
+records CI39760963205: Ubuntu actual guest/installed regressions/ORM anchors PASS;
+macOS observations captured but missing C-native reference blocked matching and
+later regressions. Both-OS units/source build PASS. Mac Python3.14 native
+reference now exists; the revised CI remains pending. These diagnostic outcomes
+do not resolve the functional failures or complete P5.
+
+## Initial finite matrix and evidence
 
 | Item | Local fixed native12.3.3 control | Actual guest / canonical environment |
 | --- | --- | --- |

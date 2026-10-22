@@ -1,0 +1,12 @@
+{
+  "python": "3.14.8 (main, Oct 21 2026, 01:08:25) [GCC 14.2.0]",
+  "os": "Linux",
+  "architecture": "aarch64",
+  "openssl": "OpenSSL 3.5.7 9 Jun 2026",
+  "soabi": "cpython-314-aarch64-linux-gnu",
+  "connector": "26.7.0",
+  "connector_have_cext": true,
+  "extension_file": "_mysql_connector.cpython-314-aarch64-linux-gnu.so",
+  "extension_sha256": "6bc59d08c486b7a262db45e66673dc57e88d01a2d31cfc2dfa78fa11c07d63c1",
+  "direct_import": "PASS"
+}

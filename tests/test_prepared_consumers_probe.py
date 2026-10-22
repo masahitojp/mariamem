@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import pytest
 from v06_prepared_consumers import compare_reference
-from v06_prepared_p5_compare import compare_observations
+from v06_prepared_p5_compare import compare_observations, verify_cext_profile
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -68,3 +68,70 @@ def test_only_optional_explicit_cext_can_skip_without_forcing_default():
     assert compare_observations(r,r)==[]
     r['cases']['default']['implementation']='CMySQLConnection'
     assert compare_observations(r,native())==['default']
+
+
+def primary_without_cext():
+    r=native()
+    r['cases']['cext']={'result':'SKIP','reason':'explicit C extension unavailable'}
+    r['failures'].pop('cext')
+    r['cases']['default']=copy.deepcopy(r['cases']['pure'])
+    r['cases']['default']['mode']='default'
+    return r
+
+
+def test_required_default_cext_needs_real_native_control():
+    with pytest.raises(ValueError,match='missing required native C-extension control'):
+        compare_observations(native(),primary_without_cext())
+    assert compare_observations(native(),primary_without_cext(),native())==[]
+
+
+@pytest.mark.parametrize('mutation',['value','error','missing-normal','wrong-class','qualified'])
+def test_secondary_reference_is_not_a_weak_fallback(mutation):
+    secondary=native()
+    c=secondary['cases']['cext']
+    if mutation=='value':c['prepared_values'][1]=-18
+    elif mutation=='error':c['error']='different native failure'
+    elif mutation=='missing-normal':del c['crud_binary_table_and_text_controls']
+    elif mutation=='wrong-class':c['implementation']='MySQLConnection'
+    else:secondary['result']='PASS'
+    try:diff=compare_observations(native(),primary_without_cext(),secondary)
+    except AssertionError:return
+    assert diff==['default','cext']
+
+
+def cext_environment():
+    return json.loads((ROOT/'tests/fixtures/prepared-p5-native-macos314-environment.json').read_text())
+
+
+def test_recorded_python314_control_preserves_full_failure():
+    r=json.loads((ROOT/'tests/fixtures/prepared-p5-native-macos314.json').read_text())
+    assert compare_observations(native(),primary_without_cext(),r)==[]
+    with pytest.raises(AssertionError):compare_reference(r,r)
+    verify_cext_profile(cext_environment(),cext_environment())
+
+
+@pytest.mark.parametrize('key',['os','architecture','python_minor','soabi','connector','extension_file','extension_sha256','connector_sources_sha256','direct_import','connector_have_cext','openssl'])
+def test_recorded_cext_control_rejects_different_client(key):
+    r=cext_environment();r[key]='different'
+    with pytest.raises(AssertionError):verify_cext_profile(r,cext_environment())
+
+
+@pytest.mark.parametrize('profile',['missing','wrong','valid'])
+def test_cli_requires_cext_client_binding_and_keeps_functional_fail(tmp_path,monkeypatch,profile):
+    import sys
+    import v06_prepared_p5_compare as m
+    for name,data in [('actual',native()),('primary',primary_without_cext()),('env',cext_environment())]:
+        (tmp_path/(name+'.json')).write_text(json.dumps(data))
+    output=tmp_path/'result.json'
+    argv=['compare','--actual',str(tmp_path/'actual.json'),'--native',str(tmp_path/'primary.json'),'--native-cext',str(ROOT/'tests/fixtures/prepared-p5-native-macos314.json'),'--consumer-exit','1','--output',str(output)]
+    if profile!='missing':
+        if profile=='wrong':
+            r=cext_environment();r['extension_sha256']='0'*64;(tmp_path/'env.json').write_text(json.dumps(r))
+        argv+=['--actual-environment',str(tmp_path/'env.json'),'--native-cext-environment',str(ROOT/'tests/fixtures/prepared-p5-native-macos314-environment.json')]
+    monkeypatch.setattr(sys,'argv',argv)
+    if profile=='valid':m.main()
+    else:
+        with pytest.raises(SystemExit):m.main()
+    r=json.loads(output.read_text())
+    assert r['matching']==('PASS' if profile=='valid' else 'FAIL')
+    assert r['functional_acceptance']=='FAIL' and r['human_disposition']=='PENDING'
