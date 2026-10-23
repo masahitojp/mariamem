@@ -732,20 +732,28 @@ and diagnostic/official-reference requirements. Source investigation now support
 a bounded prototype proposal; runtime validation, mechanism selection and broader
 driver coverage remain unfinished. No routing compatibility support is established by that source investigation.
 
-**Connection switching — bounded spike approved; native CI pending.**
+**Connection switching — native CI passed; Human Review and two scope checks remain.**
 The [post-Prepared routing design](reviews/v06x-connection-routing-design.md)
 reuses the existing source findings and compares explicit injection, framework
 adapters and scoped Python driver routing. It proposes a bounded real-guest
 spike with pool-generation, concurrent-scope, expired-target and original-endpoint
 sentinel oracles; Go keeps child-owned configuration/pools. The Human approved
 spike execution after design commit `dfa6b21`. The
-[local spike checkpoint](reviews/v06x-connection-routing-spike.md) records12
-macOS cases PASS and4 deliberate defects detected; Connector/Python is SKIP
-on Homebrew Python3.14.8/OpenSSL4.0.3 because its import fails. R7 and Ubuntu
-verification remain unfinished, so the spike is not complete. Native CI runs
-the fixed-source experiment next; API selection and production adoption remain
-separate Human decisions. Preparation/import and broader framework coverage
-remain companion decisions, not silently excluded from v0.6.
+[native result review](reviews/v06x-connection-routing-human-review.md) records
+[CI40026373681](https://github.com/masahitojp/mariamem/actions/runs/40026373681)
+at prototype `dd3b44d`:13 executed cases PASS and4 deliberate defects detected
+on each OS. Connector/Python's default/prepared path passed on both; explicit C
+is SKIP on Ubuntu because its extension requires a newer OpenSSL symbol. The
+[local checkpoint](reviews/v06x-connection-routing-spike.md) retains its earlier
+Homebrew import SKIP. Review found that explicit old-session-state (R2) and
+unknown-physical-ownership (R3) oracles are still missing; CI success does not
+close the full approved spike. The recommendation, awaiting Human decision, is
+to proceed to productization design for scoped Python routing plus a SQLAlchemy
+adapter and explicit injection/child-owned Go pools, closing those two checks
+before recommending production implementation. API selection, implementation,
+main adoption and release remain separate decisions. Preparation/import and
+broader framework coverage remain companion decisions, not silently excluded
+from v0.6.
 
 **Prepared Statements — complete and adopted on main.** See the final P6
 completion/adoption entry below. The following sequence preserves the dated

@@ -1,0 +1,89 @@
+{
+  "run_id": 40026373681,
+  "url": "https://github.com/masahitojp/mariamem/actions/runs/40026373681",
+  "candidate_source_commit": "dd3b44d46012093fa7dfa05f0ed8f5b8729740a2",
+  "runtime_source_commit": "dfa6b21c4b4fb2c6e5e7e5db0d21eeef52394776",
+  "conclusion": "success",
+  "review_date": "2026-10-24",
+  "metadata_source": "GitHub Actions run/jobs/artifacts API, retrieved at Human completion report; digest is API-reported archive digest, not recomputed from extracted files.",
+  "artifacts": [
+    {
+      "platform": "macos-15",
+      "job_id": 120663485113,
+      "job_conclusion": "success",
+      "artifact_id": 12532862067,
+      "artifact_name": "connection-routing-macos-15-dd3b44d46012093fa7dfa05f0ed8f5b8729740a2",
+      "archive_digest": "sha256:fe766aeae02c1ffa1e5bb637b5a00dd9b53bbba0351fa474ddd73bc217c1eb6a",
+      "evidence_hashes_matched": 15,
+      "prototype_hashes_matched": 5,
+      "control_pass": 13,
+      "intentional_defects_detected": 4,
+      "sentinel_attempts": 0,
+      "all_hosts_reaped": true,
+      "connector_modes": [
+        {
+          "mode": "default",
+          "actual_class": "CMySQLConnection",
+          "marker": "B",
+          "prepared": true,
+          "rollback": true,
+          "commit": true
+        },
+        {
+          "mode": "pure",
+          "actual_class": "MySQLConnection",
+          "marker": "B",
+          "prepared": true,
+          "rollback": true,
+          "commit": true
+        },
+        {
+          "mode": "c",
+          "actual_class": "CMySQLConnection",
+          "marker": "B",
+          "prepared": true,
+          "rollback": true,
+          "commit": true
+        }
+      ]
+    },
+    {
+      "platform": "ubuntu-24.04",
+      "job_id": 120663484583,
+      "job_conclusion": "success",
+      "artifact_id": 12532932606,
+      "artifact_name": "connection-routing-ubuntu-24.04-dd3b44d46012093fa7dfa05f0ed8f5b8729740a2",
+      "archive_digest": "sha256:71bcc170eccbea254aeb1356b37063d97f067d94992b8a5e5cab2da03259aa90",
+      "evidence_hashes_matched": 15,
+      "prototype_hashes_matched": 5,
+      "control_pass": 13,
+      "intentional_defects_detected": 4,
+      "sentinel_attempts": 0,
+      "all_hosts_reaped": true,
+      "connector_modes": [
+        {
+          "mode": "default",
+          "actual_class": "MySQLConnection",
+          "marker": "B",
+          "prepared": true,
+          "rollback": true,
+          "commit": true
+        },
+        {
+          "mode": "pure",
+          "actual_class": "MySQLConnection",
+          "marker": "B",
+          "prepared": true,
+          "rollback": true,
+          "commit": true
+        },
+        {
+          "mode": "c",
+          "status": "SKIP",
+          "reason": "explicit C extension unavailable; default/pure executed"
+        }
+      ]
+    }
+  ],
+  "review_limit": "Executable control complete=true means its 13 cases passed; it is not proof of every clause of design R1-R8."
+}

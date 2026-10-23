@@ -1,0 +1,29 @@
+{
+  "system": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+  "mutation": "ignore_retired",
+  "connector_import_error": null,
+  "packages": {
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "mysql-connector-python": "26.7.0"
+  },
+  "cases": [
+    {
+      "row": "R5",
+      "name": "retired-context",
+      "status": "FAIL",
+      "error_type": "AssertionError",
+      "error": "Expected rejection: expired_target",
+      "traceback": "Traceback (most recent call last):\n  File \"<spike>/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<spike>/tests/spikes/connection_routing/campaign.py\", line 203, in retired\n    return ctx.run(lambda:expect('expired_target',delayed_call))\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<spike>/tests/spikes/connection_routing/campaign.py\", line 203, in <lambda>\n    return ctx.run(lambda:expect('expired_target',delayed_call))\n                          ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<spike>/tests/spikes/connection_routing/campaign.py\", line 75, in expect\n    raise AssertionError('Expected rejection: ' + code)\nAssertionError: Expected rejection: expired_target\n",
+      "sentinel_attempts": 0
+    }
+  ],
+  "sentinel_attempts": 0,
+  "observations": {
+    "physical_connects": 1,
+    "pool_rejected": 0
+  },
+  "all_hosts_reaped": true,
+  "passed": false
+}
