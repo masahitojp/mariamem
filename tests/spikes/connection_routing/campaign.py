@@ -24,7 +24,7 @@ try:
 except (ImportError, AttributeError) as error:
     connector = None
     connector_import_error = repr(error)
-from sqlalchemy import create_engine, text, URL
+from sqlalchemy import create_engine, event, text, URL
 from router import Router, RouteError
 
 
@@ -80,7 +80,7 @@ def main():
     parser.add_argument('--host', required=True)
     parser.add_argument('--go-consumer', required=True)
     parser.add_argument('--output', required=True)
-    parser.add_argument('--mutation', choices=['no_pool_check','fallback','ignore_retired','global_target'])
+    parser.add_argument('--mutation', choices=['no_pool_check','fallback','ignore_retired','global_target','retain_session','adopt_unknown'])
     args=parser.parse_args()
     result={'system':platform.platform(),'python':sys.version,'mutation':args.mutation,
             'connector_import_error':connector_import_error,'packages':{k:importlib.metadata.version(k) for k in ['PyMySQL','SQLAlchemy','mysql-connector-python']},'cases':[]}
@@ -98,6 +98,8 @@ def main():
             result['cases'].append(dict(row=row,name=name,status='SKIP',reason=str(e)))
         except BaseException as e:
             result['cases'].append(dict(row=row,name=name,status='FAIL',error_type=type(e).__name__,error=str(e),traceback=traceback.format_exc(),sentinel_attempts=sentinel.attempts-before))
+            if e.args and isinstance(e.args[0],dict):
+                result['cases'][-1]['observation']=e.args[0]
         print(row,name,result['cases'][-1]['status'],flush=True)
     try:
         setup=mariamem.start(host_binary=args.host)
@@ -152,6 +154,79 @@ def main():
             unknown=create_engine(URL.create('mysql+pymysql',**{k:info(a)[k] for k in ['host','port','database']}))
             events.append(expect('unknown_profile',lambda:router.enroll(unknown)));unknown.dispose()
             return events
+        def r2_session():
+            observed=[]; physical=[]
+            # A -> A is intentional: target markers alone cannot detect reuse
+            # between two generations bound to the same live child.
+            for index,db in enumerate([a,a,b,a]):
+                with router.bind(db,cleanup=False):
+                    with engine.connect() as c:
+                        raw=c.connection.dbapi_connection
+                        value=marker(raw)
+                        state=query(raw,'SELECT @mariamem_route_scope')[0][0]
+                        assert state is None, {'marker':value,'leaked_scope':state,'step':index}
+                        for sql,errno in [('SELECT value FROM mariamem_route_temp',1146),
+                                          ('EXECUTE mariamem_route_stmt',1243)]:
+                            try:query(raw,sql)
+                            except pymysql.err.MySQLError as error:
+                                assert error.args[0]==errno, error.args
+                            else:raise AssertionError('Prior session state survived: '+sql)
+                        assert all(raw is not old for old in physical), 'Physical session reused'
+                        assert value==('B' if db is b else 'A'), value
+                        token='scope-'+str(index)
+                        query(raw,'SET @mariamem_route_scope=%s',(token,))
+                        query(raw,'CREATE TEMPORARY TABLE mariamem_route_temp(value INT)')
+                        query(raw,'INSERT INTO mariamem_route_temp VALUES(17)')
+                        query(raw,"PREPARE mariamem_route_stmt FROM 'SELECT @mariamem_route_scope'")
+                        assert query(raw,'EXECUTE mariamem_route_stmt')[0][0]==token
+                        assert query(raw,'SELECT value FROM mariamem_route_temp')[0][0]==17
+                        physical.append(raw)
+                        observed.append({'marker':value,'fresh_user_variable':True,
+                                         'temporary_table_absent':True,'statement_absent':True,
+                                         'distinct_physical_connection':True})
+            return {'generations':observed,'same_child_transition_tested':True}
+        def r3_unknown():
+            legacy=create_engine(url,pool_size=1,max_overflow=0,pool_timeout=2)
+            # Seed only a known local child's connection, without routing tags.
+            # Remove this bootstrap hook before enrollment: subsequent physical
+            # connections use the engine's ordinary registered-profile creator.
+            def seed_local(dialect,record,cargs,cparams):
+                # Do not mutate cparams: SQLAlchemy retains that dictionary for
+                # future connects even after a do_connect listener is removed.
+                return pymysql.connect(**dict(info(a),autocommit=False))
+            event.listen(legacy,'do_connect',seed_local)
+            active=None;tx=None
+            try:
+                active=legacy.connect()
+                event.remove(legacy,'do_connect',seed_local)
+                raw=active.connection.dbapi_connection
+                assert getattr(raw,'_mariamem_route',None) is None
+                tx=active.begin()
+                assert marker(raw)=='A'
+                assert query(raw,'SELECT @@in_transaction')[0][0]==1
+                with router.bind(b):
+                    rejection=expect('active_pool',lambda:router.enroll(legacy))
+                assert raw.open, 'Rejected enrollment closed an external active handle'
+                assert query(raw,'SELECT @@in_transaction')[0][0]==1
+                tx.rollback();tx=None;active.close();active=None
+                # Unknown physical ownership, with a matching logical profile.
+                router.enroll(legacy)
+                with router.bind(b) as lease:
+                    with legacy.connect() as c:
+                        replacement=c.connection.dbapi_connection
+                        actual=marker(replacement)
+                        assert actual=='B', {'requested':'B','observed':actual,'unknown_owner':True}
+                        assert replacement is not raw and not raw.open
+                        assert replacement._mariamem_route is lease
+                return {'first_active_enrollment':rejection,'original_marker':'A',
+                        'untagged_original':True,'idle_original_closed':True,
+                        'replacement_marker':actual,'replacement_owned_by_current_scope':True}
+            finally:
+                if tx is not None:tx.rollback()
+                if active is not None:active.close()
+                if seed_local in list(legacy.dialect.dispatch.do_connect):
+                    event.remove(legacy,'do_connect',seed_local)
+                legacy.dispose()
         def parallel():
             barrier=threading.Barrier(2)
             def worker(db,expected):
@@ -287,10 +362,10 @@ def main():
                 left.wait_disconnected();right.wait_disconnected();left.close();right.close()
             return {'children':observed,'prepared_once':True,'first_test':'define preparation and binding fixture','second_test':'reuse fixture; add assertions only'}
         if args.mutation:
-            selected={'no_pool_check':('R2','idle-generation',r2),'fallback':('R5','missing-target',no_target),'ignore_retired':('R5','retired-context',retired),'global_target':('R4','parallel-targets',parallel)}[args.mutation]
+            selected={'no_pool_check':('R2','idle-generation',r2),'fallback':('R5','missing-target',no_target),'ignore_retired':('R5','retired-context',retired),'global_target':('R4','parallel-targets',parallel),'retain_session':('R2','idle-session-state',r2_session),'adopt_unknown':('R3','unknown-physical-ownership',r3_unknown)}[args.mutation]
             case(*selected)
         else:
-            for entry in [('R1','direct-alias-deferred-reconnect',r1),('R2','idle-generation',r2),('R3','registration-rejections',r3),('R4','parallel-targets',parallel),('R4','nested-thread-context',r4_context),('R4','async-task-context',r4_async),('R5','retired-context',retired),('R5','failure-cleanup',r5_failures),('R5','missing-target',no_target),('R6','options-and-schema',r6),('R7','connector-prepared',r7_python),('R7','go-owned-pools',r7_go),('R8','two-test-workflows',r8)]:case(*entry)
+            for entry in [('R1','direct-alias-deferred-reconnect',r1),('R2','idle-generation',r2),('R2','idle-session-state',r2_session),('R3','registration-rejections',r3),('R3','unknown-physical-ownership',r3_unknown),('R4','parallel-targets',parallel),('R4','nested-thread-context',r4_context),('R4','async-task-context',r4_async),('R5','retired-context',retired),('R5','failure-cleanup',r5_failures),('R5','missing-target',no_target),('R6','options-and-schema',r6),('R7','connector-prepared',r7_python),('R7','go-owned-pools',r7_go),('R8','two-test-workflows',r8)]:case(*entry)
     except BaseException as e:
         result['fatal']={'type':type(e).__name__,'message':str(e),'traceback':traceback.format_exc()}
     finally:

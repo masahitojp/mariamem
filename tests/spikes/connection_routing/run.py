@@ -11,11 +11,45 @@ import sys
 
 BASE = 'dfa6b21c4b4fb2c6e5e7e5db0d21eeef52394776'
 GUEST = '8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40'
-MUTATIONS = {'no_pool_check':'R2', 'fallback':'R5', 'ignore_retired':'R5', 'global_target':'R4'}
+MUTATIONS = {'no_pool_check':('R2','idle-generation'), 'fallback':('R5','missing-target'),
+             'ignore_retired':('R5','retired-context'), 'global_target':('R4','parallel-targets'),
+             'retain_session':('R2','idle-session-state'),
+             'adopt_unknown':('R3','unknown-physical-ownership')}
+CASES = {'direct-alias-deferred-reconnect', 'idle-generation', 'idle-session-state',
+         'registration-rejections', 'unknown-physical-ownership', 'parallel-targets',
+         'nested-thread-context', 'async-task-context', 'retired-context', 'failure-cleanup',
+         'missing-target', 'options-and-schema', 'connector-prepared', 'go-owned-pools',
+         'two-test-workflows'}
 
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def assess(data, mode, exit_code, allow_connector_import_skip=False):
+    """Fail closed on a missing case or a mutation failing for the wrong reason."""
+    cases=data.get('cases',[])
+    clean=not any(data.get(k) for k in ['fatal','close_errors','uninstall_error']) and data.get('all_hosts_reaped',False)
+    if mode=='control':
+        skipped=[x for x in cases if x['status']=='SKIP']
+        allowed=(not skipped or (allow_connector_import_skip and len(skipped)==1 and skipped[0]['name']=='connector-prepared' and data.get('connector_import_error')))
+        accepted=(clean and len(cases)==len(CASES)
+                  and {x['name'] for x in cases}==CASES
+                  and {x['row'] for x in cases}=={f'R{i}' for i in range(1,9)}
+                  and all(x['status'] in ('PASS','SKIP') for x in cases)
+                  and bool(allowed) and data.get('sentinel_attempts')==0
+                  and exit_code==(1 if skipped else 0))
+        complete=accepted and not skipped
+        return {'exit':exit_code,'accepted_for_local_partial':accepted,'complete':complete,'accepted':complete or (allow_connector_import_skip and accepted)}
+    failures=[x for x in cases if x['status']=='FAIL']
+    accepted=clean and exit_code==1 and len(cases)==1 and len(failures)==1 and (failures[0]['row'],failures[0]['name'])==MUTATIONS[mode]
+    if mode=='fallback':accepted=accepted and data.get('sentinel_attempts',0)>0
+    else:accepted=accepted and failures[0]['error_type']=='AssertionError' and data.get('sentinel_attempts')==0
+    if mode=='retain_session':
+        accepted=accepted and failures[0].get('observation')=={'marker':'A','leaked_scope':'scope-0','step':1}
+    if mode=='adopt_unknown':
+        accepted=accepted and failures[0].get('observation')=={'requested':'B','observed':'A','unknown_owner':True}
+    return {'exit':exit_code,'accepted':accepted,'detected_expected_defect':accepted}
 
 
 def main():
@@ -76,22 +110,10 @@ def main():
             receipt['runs'][mode]={'exit':r.returncode,'accepted':False,'reason':'campaign did not produce evidence'}
             continue
         data=json.loads(target.read_text())
-        clean=not any(data.get(k) for k in ['fatal','close_errors','uninstall_error']) and data['all_hosts_reaped']
-        if mode=='control':
-            skipped=[x for x in data['cases'] if x['status']=='SKIP']
-            allowed=(not skipped or (a.allow_connector_import_skip and len(skipped)==1 and skipped[0]['name']=='connector-prepared' and data['connector_import_error']))
-            accepted=clean and len(data['cases'])==13 and {x['row'] for x in data['cases']}=={f'R{i}' for i in range(1,9)} and not any(x['status']=='FAIL' for x in data['cases']) and bool(allowed) and data['sentinel_attempts']==0
-            complete=accepted and not skipped
-            receipt['runs'][mode]={'exit':r.returncode,'accepted_for_local_partial':accepted,'complete':complete,'accepted':complete or (a.allow_connector_import_skip and accepted)}
-        else:
-            failures=[x for x in data['cases'] if x['status']=='FAIL']
-            accepted=clean and r.returncode==1 and len(data['cases'])==1 and len(failures)==1 and failures[0]['row']==MUTATIONS[mode]
-            # A fatal setup/import/cleanup error is never a successful mutation.
-            if mode=='fallback':accepted=accepted and data['sentinel_attempts']>0
-            else:accepted=accepted and failures[0]['error_type']=='AssertionError' and data['sentinel_attempts']==0
-            receipt['runs'][mode]={'exit':r.returncode,'accepted':accepted,'detected_expected_defect':accepted}
+        receipt['runs'][mode]=assess(data,mode,r.returncode,a.allow_connector_import_skip)
         print(mode,receipt['runs'][mode],flush=True)
     receipt['complete']=receipt['runs']['control'].get('complete',False) and all(x['accepted'] for x in receipt['runs'].values())
+    receipt['case_contract']='routing-r1-r8-session-ownership-v2'
     receipt['run_ok']=all(x['accepted'] for x in receipt['runs'].values())
     receipt['evidence']={f.name:digest(f) for f in evidence.iterdir() if f.is_file() and f.name!='inputs.json'}
     (evidence/'inputs.json').write_text(json.dumps(receipt,indent=2)+'\n')

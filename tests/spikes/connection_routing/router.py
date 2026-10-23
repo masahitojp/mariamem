@@ -159,13 +159,16 @@ class Router:
         if not self.match(engine.url.host, engine.url.port):
             raise RouteError('unknown_profile', 'Register the intended logical profile explicitly.')
         # User explicitly enrolled this idle engine; discard its old idle sessions.
-        engine.dispose()
+        if self.mutation != 'adopt_unknown':
+            engine.dispose()
 
         def checkout(conn, record, proxy):
             lease = self.target()
             conn._mariamem_pool_record = record
             owner = getattr(conn, '_mariamem_route', None)
-            if self.mutation != 'no_pool_check' and owner is not lease:
+            skip_check = (self.mutation in ('no_pool_check', 'retain_session')
+                          or (self.mutation == 'adopt_unknown' and owner is None))
+            if not skip_check and owner is not lease:
                 with self.lock:
                     self.observations['pool_rejected'] += 1
                 record.invalidate()

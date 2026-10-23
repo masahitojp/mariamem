@@ -28,6 +28,8 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.14'
+      - name: Routing receipt gate tests
+        run: python -m unittest discover -s spike/tests -p test_connection_routing_contract.py -v
       - name: Fixed inputs and connector import receipt
         run: |
           mkdir -p "$RUNNER_TEMP/connection-routing/evidence"

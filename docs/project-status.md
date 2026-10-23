@@ -732,7 +732,7 @@ and diagnostic/official-reference requirements. Source investigation now support
 a bounded prototype proposal; runtime validation, mechanism selection and broader
 driver coverage remain unfinished. No routing compatibility support is established by that source investigation.
 
-**Connection switching — native CI passed; Human Review and two scope checks remain.**
+**Connection switching — productization design authorized; two scope checks in verification.**
 The [post-Prepared routing design](reviews/v06x-connection-routing-design.md)
 reuses the existing source findings and compares explicit injection, framework
 adapters and scoped Python driver routing. It proposes a bounded real-guest
@@ -747,13 +747,18 @@ is SKIP on Ubuntu because its extension requires a newer OpenSSL symbol. The
 [local checkpoint](reviews/v06x-connection-routing-spike.md) retains its earlier
 Homebrew import SKIP. Review found that explicit old-session-state (R2) and
 unknown-physical-ownership (R3) oracles are still missing; CI success does not
-close the full approved spike. The recommendation, awaiting Human decision, is
-to proceed to productization design for scoped Python routing plus a SQLAlchemy
-adapter and explicit injection/child-owned Go pools, closing those two checks
-before recommending production implementation. API selection, implementation,
-main adoption and release remain separate decisions. Preparation/import and
-broader framework coverage remain companion decisions, not silently excluded
-from v0.6.
+close the full approved spike. On2026-10-24 the Human authorized proceeding
+with [productization design and those two checks](reviews/v06x-connection-routing-product-design.md)
+for scoped Python routing plus a SQLAlchemy adapter and explicit
+injection/child-owned Go pools. The authored campaign now has15 positive cases
+and six deliberate defects, including same-child session-state reuse and
+unknown physical ownership; the new real-guest outcomes remain pending.
+The design proposes early registered-profile protection before application
+imports and explicit engine enrollment, with the saved advanced Connector
+factory boundary visible for Human Review. API selection, production
+implementation, main adoption and release remain separate decisions.
+Preparation/import and broader framework coverage remain companion decisions,
+not silently excluded from v0.6.
 
 **Prepared Statements — complete and adopted on main.** See the final P6
 completion/adoption entry below. The following sequence preserves the dated
