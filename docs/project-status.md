@@ -732,7 +732,7 @@ and diagnostic/official-reference requirements. Source investigation now support
 a bounded prototype proposal; runtime validation, mechanism selection and broader
 driver coverage remain unfinished. No routing compatibility support is established by that source investigation.
 
-**Connection switching — productization design authorized; two scope checks in verification.**
+**Connection switching — bounded spike complete; production implementation awaits Human Review.**
 The [post-Prepared routing design](reviews/v06x-connection-routing-design.md)
 reuses the existing source findings and compares explicit injection, framework
 adapters and scoped Python driver routing. It proposes a bounded real-guest
@@ -745,18 +745,26 @@ at prototype `dd3b44d`:13 executed cases PASS and4 deliberate defects detected
 on each OS. Connector/Python's default/prepared path passed on both; explicit C
 is SKIP on Ubuntu because its extension requires a newer OpenSSL symbol. The
 [local checkpoint](reviews/v06x-connection-routing-spike.md) retains its earlier
-Homebrew import SKIP. Review found that explicit old-session-state (R2) and
-unknown-physical-ownership (R3) oracles are still missing; CI success does not
-close the full approved spike. On2026-10-24 the Human authorized proceeding
+Homebrew import SKIP. That review found missing explicit old-session-state (R2)
+and unknown-physical-ownership (R3) oracles, so the13-case CI did not close the
+full approved spike. On2026-10-24 the Human authorized proceeding
 with [productization design and those two checks](reviews/v06x-connection-routing-product-design.md)
 for scoped Python routing plus a SQLAlchemy adapter and explicit
-injection/child-owned Go pools. The authored campaign now has15 positive cases
-and six deliberate defects, including same-child session-state reuse and
-unknown physical ownership; the new real-guest outcomes remain pending.
+injection/child-owned Go pools. The
+[completion and implementation review](reviews/v06x-connection-routing-implementation-review.md)
+confirms [CI40032530547](https://github.com/masahitojp/mariamem/actions/runs/40032530547)
+at `2851246`:15 cases PASS and all six deliberate defects detected on each OS.
+Same-child session-state reuse and unknown physical ownership are now explicitly
+checked, with zero control original-endpoint attempts and completed host cleanup.
+The approved bounded spike is complete; Ubuntu explicit C retains its allowed
+environment SKIP, while required default/pure actually ran.
 The design proposes early registered-profile protection before application
 imports and explicit engine enrollment, with the saved advanced Connector
-factory boundary visible for Human Review. API selection, production
-implementation, main adoption and release remain separate decisions.
+factory boundary visible for Human Review. The recommendation, awaiting Human
+approval, is production implementation within that declared entry/ownership
+boundary and its finite acceptance checks. Early pytest enforcement and
+production cleanup are implementation work, not already-proven spike behavior.
+API selection, main adoption and release remain separate decisions.
 Preparation/import and broader framework coverage remain companion decisions,
 not silently excluded from v0.6.
 

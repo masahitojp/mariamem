@@ -1,0 +1,356 @@
+{
+  "system": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+  "mutation": null,
+  "connector_import_error": null,
+  "packages": {
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "mysql-connector-python": "26.7.0"
+  },
+  "cases": [
+    {
+      "row": "R1",
+      "name": "direct-alias-deferred-reconnect",
+      "status": "PASS",
+      "detail": {
+        "markers": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "saved_class_alias": true,
+        "deferred_before_install": true
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R2",
+      "name": "idle-generation",
+      "status": "PASS",
+      "detail": {
+        "markers": [
+          "A",
+          "B",
+          "A"
+        ],
+        "held_idle_diagnostic": true,
+        "physical_connects": 8,
+        "pool_rejected": 2
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R2",
+      "name": "idle-session-state",
+      "status": "PASS",
+      "detail": {
+        "generations": [
+          {
+            "marker": "A",
+            "fresh_user_variable": true,
+            "temporary_table_absent": true,
+            "statement_absent": true,
+            "distinct_physical_connection": true
+          },
+          {
+            "marker": "A",
+            "fresh_user_variable": true,
+            "temporary_table_absent": true,
+            "statement_absent": true,
+            "distinct_physical_connection": true
+          },
+          {
+            "marker": "B",
+            "fresh_user_variable": true,
+            "temporary_table_absent": true,
+            "statement_absent": true,
+            "distinct_physical_connection": true
+          },
+          {
+            "marker": "A",
+            "fresh_user_variable": true,
+            "temporary_table_absent": true,
+            "statement_absent": true,
+            "distinct_physical_connection": true
+          }
+        ],
+        "same_child_transition_tested": true
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R3",
+      "name": "registration-rejections",
+      "status": "PASS",
+      "detail": [
+        {
+          "code": "active_pool",
+          "stage": "connection_binding",
+          "message": "active_pool: Return existing connections before enrolling this engine."
+        },
+        {
+          "code": "custom_creator",
+          "stage": "connection_binding",
+          "message": "custom_creator: Provide an explicit test-owned factory adapter."
+        },
+        {
+          "code": "unknown_profile",
+          "stage": "connection_binding",
+          "message": "unknown_profile: Register the intended logical profile explicitly."
+        }
+      ],
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R3",
+      "name": "unknown-physical-ownership",
+      "status": "PASS",
+      "detail": {
+        "first_active_enrollment": {
+          "code": "active_pool",
+          "stage": "connection_binding",
+          "message": "active_pool: Return existing connections before enrolling this engine."
+        },
+        "original_marker": "A",
+        "untagged_original": true,
+        "idle_original_closed": true,
+        "replacement_marker": "B",
+        "replacement_owned_by_current_scope": true
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R4",
+      "name": "parallel-targets",
+      "status": "PASS",
+      "detail": [
+        [
+          "A",
+          "A",
+          "A"
+        ],
+        [
+          "B",
+          "B",
+          "B"
+        ]
+      ],
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R4",
+      "name": "nested-thread-context",
+      "status": "PASS",
+      "detail": {
+        "markers": [
+          "A",
+          "B",
+          "A",
+          "A"
+        ],
+        "unpropagated": {
+          "code": "missing_target",
+          "stage": "connection_binding",
+          "message": "missing_target: Enter the test fixture before opening this profile."
+        }
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R4",
+      "name": "async-task-context",
+      "status": "PASS",
+      "detail": {
+        "markers": [
+          "A",
+          "B"
+        ],
+        "note": "sync DBAPI in asyncio tasks; no async driver claim"
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R5",
+      "name": "retired-context",
+      "status": "PASS",
+      "detail": {
+        "code": "expired_target",
+        "stage": "connection_binding",
+        "message": "expired_target: Join background work before leaving its test fixture."
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R5",
+      "name": "failure-cleanup",
+      "status": "PASS",
+      "detail": [
+        {
+          "stage": "setup",
+          "preserved": "setup original",
+          "notes": []
+        },
+        {
+          "stage": "test",
+          "preserved": "test original",
+          "notes": []
+        },
+        {
+          "stage": "cleanup",
+          "preserved": "cleanup original",
+          "notes": [
+            "routing cleanup also failed: OSError"
+          ]
+        },
+        {
+          "code": "closed_target",
+          "stage": "connection_binding",
+          "message": "closed_target: Acquire a new child before opening a connection."
+        }
+      ],
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R5",
+      "name": "missing-target",
+      "status": "PASS",
+      "detail": {
+        "code": "missing_target",
+        "stage": "connection_binding",
+        "message": "missing_target: Enter the test fixture before opening this profile."
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R6",
+      "name": "options-and-schema",
+      "status": "PASS",
+      "detail": {
+        "rejections": [
+          {
+            "code": "transport_conflict",
+            "stage": "connection_binding",
+            "message": "transport_conflict: Use the registered TCP profile explicitly."
+          },
+          {
+            "code": "option_file",
+            "stage": "connection_binding",
+            "message": "option_file: Resolve this profile to explicit test connection settings."
+          },
+          {
+            "code": "tls_unavailable",
+            "stage": "connection_binding",
+            "message": "tls_unavailable: This local target has no TLS; select an explicit test profile."
+          },
+          {
+            "code": "unsupported_factory",
+            "stage": "connection_binding",
+            "message": "unsupported_factory: Use the enrolled unpooled factory or an explicit adapter."
+          }
+        ],
+        "settings": [
+          "app",
+          0,
+          "utf8mb4"
+        ]
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R7",
+      "name": "connector-prepared",
+      "status": "PASS",
+      "detail": [
+        {
+          "mode": "default",
+          "actual_class": "MySQLConnection",
+          "marker": "B",
+          "prepared": true,
+          "rollback": true,
+          "commit": true
+        },
+        {
+          "mode": "pure",
+          "actual_class": "MySQLConnection",
+          "marker": "B",
+          "prepared": true,
+          "rollback": true,
+          "commit": true
+        },
+        {
+          "mode": "c",
+          "status": "SKIP",
+          "reason": "explicit C extension unavailable; default/pure executed"
+        }
+      ],
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R7",
+      "name": "go-owned-pools",
+      "status": "PASS",
+      "detail": [
+        {
+          "implicit": "A",
+          "interpolate": false,
+          "marker": "A",
+          "owned_pool": true,
+          "rollback_rows": 0,
+          "schema": "app"
+        },
+        {
+          "implicit": "B",
+          "interpolate": false,
+          "marker": "B",
+          "owned_pool": true,
+          "rollback_rows": 0,
+          "schema": "app"
+        }
+      ],
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R8",
+      "name": "two-test-workflows",
+      "status": "PASS",
+      "detail": {
+        "children": [
+          {
+            "mode": "injection",
+            "marker": "seed",
+            "own_rows": 1
+          },
+          {
+            "mode": "injection",
+            "marker": "seed",
+            "own_rows": 1
+          },
+          {
+            "mode": "routing",
+            "marker": "seed",
+            "own_rows": 1
+          },
+          {
+            "mode": "routing",
+            "marker": "seed",
+            "own_rows": 1
+          }
+        ],
+        "prepared_once": true,
+        "first_test": "define preparation and binding fixture",
+        "second_test": "reuse fixture; add assertions only"
+      },
+      "sentinel_attempts": 0
+    }
+  ],
+  "sentinel_attempts": 0,
+  "observations": {
+    "physical_connects": 31,
+    "pool_rejected": 7
+  },
+  "all_hosts_reaped": true,
+  "passed": true
+}

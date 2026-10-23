@@ -1,0 +1,29 @@
+{
+  "system": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+  "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "mutation": "global_target",
+  "connector_import_error": null,
+  "packages": {
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "mysql-connector-python": "26.7.0"
+  },
+  "cases": [
+    {
+      "row": "R4",
+      "name": "parallel-targets",
+      "status": "FAIL",
+      "error_type": "AssertionError",
+      "error": "['B', 'B', 'B']",
+      "traceback": "Traceback (most recent call last):\n  File \"<spike>/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<spike>/tests/spikes/connection_routing/campaign.py\", line 245, in parallel\n    observed = [f.result(timeout=15) for f in futures]\n                ~~~~~~~~^^^^^^^^^^^^\n  File \"<python-prefix>/lib/python3.14/concurrent/futures/_base.py\", line 454, in result\n    return self.__get_result()\n           ~~~~~~~~~~~~~~~~~^^\n  File \"<python-prefix>/lib/python3.14/concurrent/futures/_base.py\", line 396, in __get_result\n    raise self._exception\n  File \"<python-prefix>/lib/python3.14/concurrent/futures/thread.py\", line 86, in run\n    result = ctx.run(self.task)\n  File \"<python-prefix>/lib/python3.14/concurrent/futures/thread.py\", line 73, in run\n    return fn(*args, **kwargs)\n  File \"<spike>/tests/spikes/connection_routing/campaign.py\", line 241, in worker\n    assert observed==[expected]*3, observed\n           ^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ['B', 'B', 'B']\n",
+      "sentinel_attempts": 0
+    }
+  ],
+  "sentinel_attempts": 0,
+  "observations": {
+    "physical_connects": 2,
+    "pool_rejected": 0
+  },
+  "all_hosts_reaped": true,
+  "passed": false
+}

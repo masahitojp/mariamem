@@ -1,0 +1,34 @@
+{
+  "system": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+  "mutation": "retain_session",
+  "connector_import_error": null,
+  "packages": {
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "mysql-connector-python": "26.7.0"
+  },
+  "cases": [
+    {
+      "row": "R2",
+      "name": "idle-session-state",
+      "status": "FAIL",
+      "error_type": "AssertionError",
+      "error": "{'marker': 'A', 'leaked_scope': 'scope-0', 'step': 1}",
+      "traceback": "Traceback (most recent call last):\n  File \"<spike>/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<spike>/tests/spikes/connection_routing/campaign.py\", line 167, in r2_session\n    assert state is None, {'marker':value,'leaked_scope':state,'step':index}\n           ^^^^^^^^^^^^^\nAssertionError: {'marker': 'A', 'leaked_scope': 'scope-0', 'step': 1}\n",
+      "sentinel_attempts": 0,
+      "observation": {
+        "marker": "A",
+        "leaked_scope": "scope-0",
+        "step": 1
+      }
+    }
+  ],
+  "sentinel_attempts": 0,
+  "observations": {
+    "physical_connects": 1,
+    "pool_rejected": 0
+  },
+  "all_hosts_reaped": true,
+  "passed": false
+}
