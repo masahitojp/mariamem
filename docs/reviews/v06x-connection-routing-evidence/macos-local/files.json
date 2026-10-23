@@ -1,5 +1,5 @@
 {
-  "transformation": "absolute checkout path replaced with <repo>; .log renamed .txt for public-source policy; inputs.json evidence hashes refer to original files",
+  "transformation": "absolute checkout path replaced with <repo>; .log renamed .txt for public-source policy; inputs.json evidence hashes refer to original files; trailing whitespace removed from host-buildinfo.txt",
   "files": {
     "control.json": {
       "original_filename": "control.json",
@@ -34,8 +34,8 @@
     "host-buildinfo.txt": {
       "original_filename": "host-buildinfo.txt",
       "original_sha256": "39f547c821e9694b0546627d1617fe3df2a9fcf51451146bf7e14051c9909d82",
-      "stored_sha256": "c98c98683f1adcfb0ba3417776303edba86947cc492573b1880f97ae4d2da8e5",
-      "stored_bytes": 496
+      "stored_sha256": "a90989591ffe65724268a65a96b12899d99729ea0f76f5f66e83188849b87de5",
+      "stored_bytes": 495
     },
     "source.json": {
       "original_filename": "source.json",

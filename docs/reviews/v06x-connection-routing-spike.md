@@ -153,8 +153,9 @@ runtime and prototype separately and runs this same matrix on both supported OSe
 CI result collection and the final Human recommendation remain pending.
 
 Saved [files.json](v06x-connection-routing-evidence/macos-local/files.json)
-distinguishes original and stored SHA256; only absolute checkout paths become
-`<repo>`. Hashes inside the original runner receipt refer to its original files.
+distinguishes original and stored SHA256: absolute checkout paths become
+`<repo>`, log extensions become `.txt`, and host buildinfo trailing whitespace
+is removed. Hashes inside the original runner receipt refer to its original files.
 Compact logs/JSON and prototype source are retained; the disposable host,
 compiler/module caches and venv are removed after preservation. This checkpoint
 must not be used as a completed-spike or production-adoption receipt.

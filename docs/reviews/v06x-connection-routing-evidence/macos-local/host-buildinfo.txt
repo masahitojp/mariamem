@@ -1,6 +1,6 @@
 <repo>/build/experiment-work/connection-routing-build/temp/mariamem-host: go1.26.10
 	path	github.com/masahitojp/mariamem/cmd/mariamem-host
-	mod	github.com/masahitojp/mariamem	v0.5.4-0.20261023140551-dfa6b21c4b4f	
+	mod	github.com/masahitojp/mariamem	v0.5.4-0.20261023140551-dfa6b21c4b4f
 	build	-buildmode=exe
 	build	-compiler=gc
 	build	-trimpath=true
