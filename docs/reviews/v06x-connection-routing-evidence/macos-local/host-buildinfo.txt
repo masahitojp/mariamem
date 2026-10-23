@@ -1,0 +1,14 @@
+<repo>/build/experiment-work/connection-routing-build/temp/mariamem-host: go1.26.10
+	path	github.com/masahitojp/mariamem/cmd/mariamem-host
+	mod	github.com/masahitojp/mariamem	v0.5.4-0.20261023140551-dfa6b21c4b4f	
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	-trimpath=true
+	build	CGO_ENABLED=0
+	build	GOARCH=arm64
+	build	GOOS=darwin
+	build	GOARM64=v8.0
+	build	vcs=git
+	build	vcs.revision=dfa6b21c4b4fb2c6e5e7e5db0d21eeef52394776
+	build	vcs.time=2026-10-23T14:05:51Z
+	build	vcs.modified=false

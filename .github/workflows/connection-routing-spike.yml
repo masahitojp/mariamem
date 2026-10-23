@@ -1,0 +1,46 @@
+name: Connection routing spike
+on:
+  push:
+    branches: [experiment/connection-routing]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          path: spike
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: dfa6b21c4b4fb2c6e5e7e5db0d21eeef52394776
+          path: runtime
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Fixed inputs and connector import receipt
+        run: |
+          mkdir -p "$RUNNER_TEMP/connection-routing/evidence"
+          python -m pip install --no-cache-dir --report "$RUNNER_TEMP/connection-routing/evidence/dependencies.json" -r spike/tests/spikes/connection_routing/requirements.txt
+          git -C spike rev-parse HEAD > "$RUNNER_TEMP/connection-routing/evidence/prototype-source.txt"
+          test "$(git -C spike rev-parse HEAD)" = "$GITHUB_SHA"
+          python runtime/tests/v06_prepared_connector_environment.py --output "$RUNNER_TEMP/connection-routing/evidence/connector-environment.json"
+      - name: Real guest routing and deliberate defect oracles
+        run: |
+          python spike/scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/connection-routing" --min-free-gib 4 --budget-gib 8 --timeout 2400 -- python spike/tests/spikes/connection_routing/run.py --runtime-root runtime --output "$RUNNER_TEMP/connection-routing"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: connection-routing-${{ matrix.os }}-${{ github.sha }}
+          path: ${{ runner.temp }}/connection-routing/evidence
+          if-no-files-found: error

@@ -732,14 +732,19 @@ and diagnostic/official-reference requirements. Source investigation now support
 a bounded prototype proposal; runtime validation, mechanism selection and broader
 driver coverage remain unfinished. No routing compatibility support is established by that source investigation.
 
-**Connection switching — design ready for Human Review, not implemented.**
+**Connection switching — bounded spike approved; native CI pending.**
 The [post-Prepared routing design](reviews/v06x-connection-routing-design.md)
 reuses the existing source findings and compares explicit injection, framework
 adapters and scoped Python driver routing. It proposes a bounded real-guest
 spike with pool-generation, concurrent-scope, expired-target and original-endpoint
-sentinel oracles; Go keeps child-owned configuration/pools. The Human requested
-this design work on 2026-10-23. Spike execution, API selection and production
-adoption are not yet approved. Preparation/import and broader framework coverage
+sentinel oracles; Go keeps child-owned configuration/pools. The Human approved
+spike execution after design commit `dfa6b21`. The
+[local spike checkpoint](reviews/v06x-connection-routing-spike.md) records12
+macOS cases PASS and4 deliberate defects detected; Connector/Python is SKIP
+on Homebrew Python3.14.8/OpenSSL4.0.3 because its import fails. R7 and Ubuntu
+verification remain unfinished, so the spike is not complete. Native CI runs
+the fixed-source experiment next; API selection and production adoption remain
+separate Human decisions. Preparation/import and broader framework coverage
 remain companion decisions, not silently excluded from v0.6.
 
 **Prepared Statements — complete and adopted on main.** See the final P6

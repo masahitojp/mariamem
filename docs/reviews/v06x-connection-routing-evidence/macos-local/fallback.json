@@ -1,0 +1,29 @@
+{
+  "system": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "mutation": "fallback",
+  "connector_import_error": "AttributeError(\"module 'ssl' has no attribute 'PROTOCOL_TLSv1'\")",
+  "packages": {
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "mysql-connector-python": "26.7.0"
+  },
+  "cases": [
+    {
+      "row": "R5",
+      "name": "missing-target",
+      "status": "FAIL",
+      "error_type": "OperationalError",
+      "error": "(2013, 'Lost connection to MySQL server during query')",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 229, in no_target\n    def no_target():return expect('missing_target',lambda:saved_py_alias(**original))\n                           ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 70, in expect\n    fn()\n    ~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 229, in <lambda>\n    def no_target():return expect('missing_target',lambda:saved_py_alias(**original))\n                                                          ~~~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 88, in py_init\n    return init(conn, *args, **kw)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 373, in __init__\n    self.connect()\n    ~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 95, in py_connect\n    return connect(conn, sock)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 701, in connect\n    self._get_server_information()\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 1186, in _get_server_information\n    packet = self._read_packet()\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 779, in _read_packet\n    packet_header = self._read_bytes(4)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 834, in _read_bytes\n    raise err.OperationalError(\n        CR.CR_SERVER_LOST, \"Lost connection to MySQL server during query\"\n    )\npymysql.err.OperationalError: (2013, 'Lost connection to MySQL server during query')\n",
+      "sentinel_attempts": 1
+    }
+  ],
+  "sentinel_attempts": 1,
+  "observations": {
+    "physical_connects": 0,
+    "pool_rejected": 0
+  },
+  "all_hosts_reaped": true,
+  "passed": false
+}

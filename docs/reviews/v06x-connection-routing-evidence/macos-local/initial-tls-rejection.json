@@ -1,0 +1,153 @@
+{
+  "system": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "mutation": null,
+  "connector_import_error": "AttributeError(\"module 'ssl' has no attribute 'PROTOCOL_TLSv1'\")",
+  "packages": {
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "mysql-connector-python": "26.7.0"
+  },
+  "cases": [
+    {
+      "row": "R1",
+      "name": "direct-alias-deferred-reconnect",
+      "status": "FAIL",
+      "error_type": "RouteError",
+      "error": "tls_unavailable: This local target has no TLS; select an explicit test profile.",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 125, in r1\n    with make() as c: observed.append(marker(c))\n         ~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 124, in <lambda>\n    for make in [lambda:pymysql.connect(**original),lambda:saved_py_alias(**original)]:\n                        ~~~~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 87, in py_init\n    return init(conn, *args, **kw)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 373, in __init__\n    self.connect()\n    ~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 102, in py_connect\n    raise RouteError('tls_unavailable', 'This local target has no TLS; select an explicit test profile.')\nrouter.RouteError: tls_unavailable: This local target has no TLS; select an explicit test profile.\n",
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R2",
+      "name": "idle-generation",
+      "status": "FAIL",
+      "error_type": "RouteError",
+      "error": "tls_unavailable: This local target has no TLS; select an explicit test profile.",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 138, in r2\n    with engine.connect() as c: observed.append(c.scalar(text('SELECT value FROM marker WHERE id=1')))\n         ~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py\", line 3295, in connect\n    return self._connection_cls(self)\n           ~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py\", line 144, in __init__\n    self._dbapi_connection = engine.raw_connection()\n                             ~~~~~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py\", line 3319, in raw_connection\n    return self.pool.connect()\n           ~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 448, in connect\n    return _ConnectionFairy._checkout(self)\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 1290, in _checkout\n    fairy = _ConnectionRecord.checkout(pool)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 712, in checkout\n    rec = pool._do_get()\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/impl.py\", line 178, in _do_get\n    with util.safe_reraise():\n         ~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py\", line 122, in __exit__\n    raise exc_value.with_traceback(exc_tb)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/impl.py\", line 176, in _do_get\n    return self._create_connection()\n           ~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 389, in _create_connection\n    return _ConnectionRecord(self)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 674, in __init__\n    self.__connect()\n    ~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 900, in __connect\n    with util.safe_reraise():\n         ~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py\", line 122, in __exit__\n    raise exc_value.with_traceback(exc_tb)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 896, in __connect\n    self.dbapi_connection = connection = pool._invoke_creator(self)\n                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/create.py\", line 667, in connect\n    return dialect.connect(*cargs_tup, **cparams)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py\", line 630, in connect\n    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501\n           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 87, in py_init\n    return init(conn, *args, **kw)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 373, in __init__\n    self.connect()\n    ~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 102, in py_connect\n    raise RouteError('tls_unavailable', 'This local target has no TLS; select an explicit test profile.')\nrouter.RouteError: tls_unavailable: This local target has no TLS; select an explicit test profile.\n",
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R3",
+      "name": "registration-rejections",
+      "status": "FAIL",
+      "error_type": "RouteError",
+      "error": "tls_unavailable: This local target has no TLS; select an explicit test profile.",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 144, in r3\n    with engine.connect() as c:\n         ~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py\", line 3295, in connect\n    return self._connection_cls(self)\n           ~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py\", line 144, in __init__\n    self._dbapi_connection = engine.raw_connection()\n                             ~~~~~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py\", line 3319, in raw_connection\n    return self.pool.connect()\n           ~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 448, in connect\n    return _ConnectionFairy._checkout(self)\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 1290, in _checkout\n    fairy = _ConnectionRecord.checkout(pool)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 712, in checkout\n    rec = pool._do_get()\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/impl.py\", line 178, in _do_get\n    with util.safe_reraise():\n         ~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py\", line 122, in __exit__\n    raise exc_value.with_traceback(exc_tb)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/impl.py\", line 176, in _do_get\n    return self._create_connection()\n           ~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 389, in _create_connection\n    return _ConnectionRecord(self)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 674, in __init__\n    self.__connect()\n    ~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 900, in __connect\n    with util.safe_reraise():\n         ~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py\", line 122, in __exit__\n    raise exc_value.with_traceback(exc_tb)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 896, in __connect\n    self.dbapi_connection = connection = pool._invoke_creator(self)\n                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/create.py\", line 667, in connect\n    return dialect.connect(*cargs_tup, **cparams)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py\", line 630, in connect\n    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501\n           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 87, in py_init\n    return init(conn, *args, **kw)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 373, in __init__\n    self.connect()\n    ~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 102, in py_connect\n    raise RouteError('tls_unavailable', 'This local target has no TLS; select an explicit test profile.')\nrouter.RouteError: tls_unavailable: This local target has no TLS; select an explicit test profile.\n",
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R4",
+      "name": "parallel-targets",
+      "status": "FAIL",
+      "error_type": "RouteError",
+      "error": "tls_unavailable: This local target has no TLS; select an explicit test profile.",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 170, in parallel\n    return [f.result(timeout=15) for f in futures]\n            ~~~~~~~~^^^^^^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.8_3/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/_base.py\", line 454, in result\n    return self.__get_result()\n           ~~~~~~~~~~~~~~~~~^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.8_3/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/_base.py\", line 396, in __get_result\n    raise self._exception\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.8_3/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/thread.py\", line 86, in run\n    result = ctx.run(self.task)\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.8_3/Frameworks/Python.framework/Versions/3.14/lib/python3.14/concurrent/futures/thread.py\", line 73, in run\n    return fn(*args, **kwargs)\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 162, in worker\n    with engine.begin() as c:\n         ~~~~~~~~~~~~^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.8_3/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py\", line 141, in __enter__\n    return next(self.gen)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py\", line 3259, in begin\n    with self.connect() as conn:\n         ~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py\", line 3295, in connect\n    return self._connection_cls(self)\n           ~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py\", line 144, in __init__\n    self._dbapi_connection = engine.raw_connection()\n                             ~~~~~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py\", line 3319, in raw_connection\n    return self.pool.connect()\n           ~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 448, in connect\n    return _ConnectionFairy._checkout(self)\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 1290, in _checkout\n    fairy = _ConnectionRecord.checkout(pool)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 712, in checkout\n    rec = pool._do_get()\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/impl.py\", line 178, in _do_get\n    with util.safe_reraise():\n         ~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py\", line 122, in __exit__\n    raise exc_value.with_traceback(exc_tb)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/impl.py\", line 176, in _do_get\n    return self._create_connection()\n           ~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 389, in _create_connection\n    return _ConnectionRecord(self)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 674, in __init__\n    self.__connect()\n    ~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 900, in __connect\n    with util.safe_reraise():\n         ~~~~~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py\", line 122, in __exit__\n    raise exc_value.with_traceback(exc_tb)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py\", line 896, in __connect\n    self.dbapi_connection = connection = pool._invoke_creator(self)\n                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/create.py\", line 667, in connect\n    return dialect.connect(*cargs_tup, **cparams)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py\", line 630, in connect\n    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501\n           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 87, in py_init\n    return init(conn, *args, **kw)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 373, in __init__\n    self.connect()\n    ~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 102, in py_connect\n    raise RouteError('tls_unavailable', 'This local target has no TLS; select an explicit test profile.')\nrouter.RouteError: tls_unavailable: This local target has no TLS; select an explicit test profile.\n",
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R4",
+      "name": "nested-thread-context",
+      "status": "FAIL",
+      "error_type": "RouteError",
+      "error": "tls_unavailable: This local target has no TLS; select an explicit test profile.",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 174, in r4_context\n    with saved_py_alias(**original) as c: observed.append(marker(c))\n         ~~~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 87, in py_init\n    return init(conn, *args, **kw)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 373, in __init__\n    self.connect()\n    ~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 102, in py_connect\n    raise RouteError('tls_unavailable', 'This local target has no TLS; select an explicit test profile.')\nrouter.RouteError: tls_unavailable: This local target has no TLS; select an explicit test profile.\n",
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R4",
+      "name": "async-task-context",
+      "status": "FAIL",
+      "error_type": "RouteError",
+      "error": "tls_unavailable: This local target has no TLS; select an explicit test profile.",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 195, in r4_async\n    return {'markers':asyncio.run(run()),'note':'sync DBAPI in asyncio tasks; no async driver claim'}\n                      ~~~~~~~~~~~^^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.8_3/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py\", line 205, in run\n    return runner.run(main)\n           ~~~~~~~~~~^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.8_3/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py\", line 128, in run\n    return self._loop.run_until_complete(task)\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"/opt/homebrew/Cellar/python@3.14/3.14.8_3/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/base_events.py\", line 720, in run_until_complete\n    return future.result()\n           ~~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 194, in run\n    async def run():return await asyncio.gather(task(a,'A'),task(b,'B'))\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 190, in task\n    with saved_py_alias(**original) as c: value=marker(c)\n         ~~~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 87, in py_init\n    return init(conn, *args, **kw)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 373, in __init__\n    self.connect()\n    ~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 102, in py_connect\n    raise RouteError('tls_unavailable', 'This local target has no TLS; select an explicit test profile.')\nrouter.RouteError: tls_unavailable: This local target has no TLS; select an explicit test profile.\n",
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R5",
+      "name": "retired-context",
+      "status": "PASS",
+      "detail": {
+        "code": "expired_target",
+        "stage": "connection_binding",
+        "message": "expired_target: Join background work before leaving its test fixture."
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R5",
+      "name": "failure-cleanup",
+      "status": "FAIL",
+      "error_type": "RouteError",
+      "error": "tls_unavailable: This local target has no TLS; select an explicit test profile.",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 208, in r5_failures\n    c=saved_py_alias(**original);assert marker(c)=='A'\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 87, in py_init\n    return init(conn, *args, **kw)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 373, in __init__\n    self.connect()\n    ~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 102, in py_connect\n    raise RouteError('tls_unavailable', 'This local target has no TLS; select an explicit test profile.')\nrouter.RouteError: tls_unavailable: This local target has no TLS; select an explicit test profile.\n",
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R5",
+      "name": "missing-target",
+      "status": "PASS",
+      "detail": {
+        "code": "missing_target",
+        "stage": "connection_binding",
+        "message": "missing_target: Enter the test fixture before opening this profile."
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R6",
+      "name": "options-and-schema",
+      "status": "FAIL",
+      "error_type": "RouteError",
+      "error": "tls_unavailable: This local target has no TLS; select an explicit test profile.",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 234, in r6\n    with saved_py_alias(**dict(original,charset='utf8mb4',autocommit=False)) as c:\n         ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 87, in py_init\n    return init(conn, *args, **kw)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 373, in __init__\n    self.connect()\n    ~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 102, in py_connect\n    raise RouteError('tls_unavailable', 'This local target has no TLS; select an explicit test profile.')\nrouter.RouteError: tls_unavailable: This local target has no TLS; select an explicit test profile.\n",
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R7",
+      "name": "connector-prepared",
+      "status": "SKIP",
+      "reason": "AttributeError(\"module 'ssl' has no attribute 'PROTOCOL_TLSv1'\")"
+    },
+    {
+      "row": "R7",
+      "name": "go-owned-pools",
+      "status": "PASS",
+      "detail": [
+        {
+          "implicit": "A",
+          "interpolate": false,
+          "marker": "A",
+          "owned_pool": true,
+          "rollback_rows": 0,
+          "schema": "app"
+        },
+        {
+          "implicit": "B",
+          "interpolate": false,
+          "marker": "B",
+          "owned_pool": true,
+          "rollback_rows": 0,
+          "schema": "app"
+        }
+      ],
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R8",
+      "name": "two-test-workflows",
+      "status": "FAIL",
+      "error_type": "RouteError",
+      "error": "tls_unavailable: This local target has no TLS; select an explicit test profile.",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/campaign.py\", line 275, in r8\n    with saved_py_alias(**original) as c:\n         ~~~~~~~~~~~~~~^^^^^^^^^^^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 87, in py_init\n    return init(conn, *args, **kw)\n  File \"<repo>/build/experiment-work/connection-routing-build/temp/venv/lib/python3.14/site-packages/pymysql/connections.py\", line 373, in __init__\n    self.connect()\n    ~~~~~~~~~~~~^^\n  File \"<repo>/build/experiment-work/connection-routing/worktree/tests/spikes/connection_routing/router.py\", line 102, in py_connect\n    raise RouteError('tls_unavailable', 'This local target has no TLS; select an explicit test profile.')\nrouter.RouteError: tls_unavailable: This local target has no TLS; select an explicit test profile.\n",
+      "sentinel_attempts": 0
+    }
+  ],
+  "sentinel_attempts": 0,
+  "observations": {
+    "physical_connects": 0,
+    "pool_rejected": 0
+  },
+  "all_hosts_reaped": true,
+  "passed": false
+}

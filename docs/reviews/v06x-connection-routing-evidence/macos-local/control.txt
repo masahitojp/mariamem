@@ -1,0 +1,13 @@
+R1 direct-alias-deferred-reconnect PASS
+R2 idle-generation PASS
+R3 registration-rejections PASS
+R4 parallel-targets PASS
+R4 nested-thread-context PASS
+R4 async-task-context PASS
+R5 retired-context PASS
+R5 failure-cleanup PASS
+R5 missing-target PASS
+R6 options-and-schema PASS
+R7 connector-prepared SKIP
+R7 go-owned-pools PASS
+R8 two-test-workflows PASS
