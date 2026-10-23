@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location('routing_spike_run',ROOT/'tests/spikes/connection_routing/run.py')
 runner=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(runner)
-OLD=ROOT/'docs/reviews/v06x-connection-routing-evidence/ci-40026373681/macos-15/control.json'
+OLD=ROOT/'docs/reviews/v06x-connection-routing-evidence/ci-40032530547/macos-15/control.json'
 
 
 class RoutingReceiptContract(unittest.TestCase):
@@ -17,7 +17,7 @@ class RoutingReceiptContract(unittest.TestCase):
         data=json.loads(OLD.read_text())
         # Synthetic rows exercise receipt validation, not the actual new cases.
         data['cases'] += [{'row':row,'name':name,'status':'PASS'} for row,name in
-                         [('R2','idle-session-state'),('R3','unknown-physical-ownership')]]
+                         [('R6','schema-profile-boundary'),('R6','deferred-tls-before-install')]]
         return data
 
     def test_old_success_does_not_close_new_scope(self):
@@ -65,9 +65,33 @@ class RoutingReceiptContract(unittest.TestCase):
                     self.assertFalse(runner.assess(broken,mode,exit_code)['accepted'])
 
     def test_existing_mutation_receipts_still_accepted(self):
-        for mode in ['no_pool_check','fallback','ignore_retired','global_target']:
+        for mode in ['no_pool_check','ignore_retired','global_target','retain_session','adopt_unknown']:
             data=json.loads((OLD.parent/(mode+'.json')).read_text())
             self.assertTrue(runner.assess(data,mode,1)['accepted'])
+
+    def test_fallback_requires_specific_assertion_not_an_arbitrary_error(self):
+        old=json.loads((OLD.parent/'fallback.json').read_text())
+        self.assertFalse(runner.assess(old,'fallback',1)['accepted'])
+        data=copy.deepcopy(old)
+        data['cases'][0].update(error_type='AssertionError',
+                               observation={'reason':'original_endpoint_contacted',
+                                            'sentinel_delta':1,'driver_errno':2013})
+        self.assertTrue(runner.assess(data,'fallback',1)['detected_expected_defect'])
+        for damage in ['sql_error','wrong_errno','wrong_type','wrong_reason','no_contact','case_no_contact','two_contacts','wrong_case','fatal','cleanup']:
+            with self.subTest(damage=damage):
+                broken=copy.deepcopy(data);case=broken['cases'][0]
+                if damage=='sql_error':
+                    case.update(error_type='OperationalError',error="(1054, 'Unknown column')")
+                if damage=='wrong_errno':case['observation']['driver_errno']=1054
+                if damage=='wrong_type':case['error_type']='RuntimeError'
+                if damage=='wrong_reason':case['observation']['reason']='unexpected_sql_error'
+                if damage=='no_contact':broken['sentinel_attempts']=0
+                if damage=='case_no_contact':case['sentinel_attempts']=0
+                if damage=='two_contacts':broken['sentinel_attempts']=2
+                if damage=='wrong_case':case['name']='other-case'
+                if damage=='fatal':broken['fatal']={'stage':'setup'}
+                if damage=='cleanup':broken['all_hosts_reaped']=False
+                self.assertFalse(runner.assess(broken,'fallback',1)['accepted'])
 
 
 if __name__=='__main__':unittest.main()

@@ -115,6 +115,8 @@ def main():
         for db,value in [(a,'A'),(b,'B')]:
             with direct(db) as c: query(c,'UPDATE marker SET value=%s WHERE id=1',(value,))
         delayed=saved_py_alias(**original,defer_connect=True)
+        delayed_tls=saved_py_alias(**original,defer_connect=True,ssl={'check_hostname':False})
+        delayed_other_schema=saved_py_alias(**dict(original,database='other_app',defer_connect=True))
         url=URL.create('mysql+pymysql',username=original['user'],password=original['password'],host=original['host'],port=original['port'],database='app')
         engine=create_engine(url,pool_size=4,max_overflow=0,pool_timeout=2)
         router.install();router.enroll(engine)
@@ -301,7 +303,17 @@ def main():
                 closing.close()
                 details.append(expect('closed_target',lambda:saved_py_alias(**original)))
             return details
-        def no_target():return expect('missing_target',lambda:saved_py_alias(**original))
+        def no_target():
+            before=sentinel.attempts
+            try:return expect('missing_target',lambda:saved_py_alias(**original))
+            except pymysql.err.OperationalError as error:
+                # The controlled original listener deliberately closes without
+                # sending a handshake. Only that exact transport failure plus
+                # its observed contact constitutes this mutation's oracle.
+                if error.args[0]==2013 and sentinel.attempts-before==1:
+                    raise AssertionError({'reason':'original_endpoint_contacted',
+                                          'sentinel_delta':1,'driver_errno':2013}) from error
+                raise
         def r6():
             rejected=[]
             with router.bind(a):
@@ -316,6 +328,32 @@ def main():
                     query(c,'INSERT INTO writes(value) VALUES (%s)',('rollback-python',));c.rollback()
                     assert query(c,"SELECT COUNT(*) FROM writes WHERE value='rollback-python'")[0][0]==0
             return {'rejections':rejected,'settings':actual}
+        def r6_schema():
+            rejected=[]
+            with router.bind(a):
+                for options in [dict(original,database='other_app'),
+                                {k:v for k,v in original.items() if k!='database'}]:
+                    rejected.append(expect('schema_mismatch',lambda options=options:saved_py_alias(**options)))
+                rejected.append(expect('schema_mismatch',delayed_other_schema.connect))
+                other_engine=create_engine(url.set(database='other_app'))
+                try:rejected.append(expect('schema_mismatch',lambda:router.enroll(other_engine)))
+                finally:other_engine.dispose()
+                if connector:
+                    for factory in [connector.connect,saved_connector_alias]:
+                        options={k:v for k,v in dict(original,database='other_app').items() if k!='connect_timeout'}
+                        rejected.append(expect('schema_mismatch',lambda factory=factory:factory(**options)))
+            return {'registered_schema':'app','other_schema':'other_app',
+                    'same_endpoint_rejected':rejected,'missing_schema_rejected':True}
+        def r6_deferred_tls():
+            # The object's required-TLS state predates our constructor hook.
+            assert delayed_tls._ssl_required is True
+            assert not hasattr(delayed_tls,'_mariamem_explicit_tls')
+            with router.bind(a):
+                refusal=expect('tls_unavailable',delayed_tls.connect)
+            assert delayed_tls._ssl_required is True
+            assert getattr(delayed_tls,'_sock',None) is None
+            return {'constructed_before_install':True,'required_tls_retained':True,
+                    'socket_not_opened':True,'refusal':refusal}
         def r7_python():
             if connector is None: raise NotImplementedError(connector_import_error)
             modes=[]
@@ -365,7 +403,7 @@ def main():
             selected={'no_pool_check':('R2','idle-generation',r2),'fallback':('R5','missing-target',no_target),'ignore_retired':('R5','retired-context',retired),'global_target':('R4','parallel-targets',parallel),'retain_session':('R2','idle-session-state',r2_session),'adopt_unknown':('R3','unknown-physical-ownership',r3_unknown)}[args.mutation]
             case(*selected)
         else:
-            for entry in [('R1','direct-alias-deferred-reconnect',r1),('R2','idle-generation',r2),('R2','idle-session-state',r2_session),('R3','registration-rejections',r3),('R3','unknown-physical-ownership',r3_unknown),('R4','parallel-targets',parallel),('R4','nested-thread-context',r4_context),('R4','async-task-context',r4_async),('R5','retired-context',retired),('R5','failure-cleanup',r5_failures),('R5','missing-target',no_target),('R6','options-and-schema',r6),('R7','connector-prepared',r7_python),('R7','go-owned-pools',r7_go),('R8','two-test-workflows',r8)]:case(*entry)
+            for entry in [('R1','direct-alias-deferred-reconnect',r1),('R2','idle-generation',r2),('R2','idle-session-state',r2_session),('R3','registration-rejections',r3),('R3','unknown-physical-ownership',r3_unknown),('R4','parallel-targets',parallel),('R4','nested-thread-context',r4_context),('R4','async-task-context',r4_async),('R5','retired-context',retired),('R5','failure-cleanup',r5_failures),('R5','missing-target',no_target),('R6','options-and-schema',r6),('R6','schema-profile-boundary',r6_schema),('R6','deferred-tls-before-install',r6_deferred_tls),('R7','connector-prepared',r7_python),('R7','go-owned-pools',r7_go),('R8','two-test-workflows',r8)]:case(*entry)
     except BaseException as e:
         result['fatal']={'type':type(e).__name__,'message':str(e),'traceback':traceback.format_exc()}
     finally:

@@ -36,8 +36,9 @@ class Lease:
 
 
 class Router:
-    def __init__(self, host, port, *, mutation=None):
+    def __init__(self, host, port, *, schema='app', mutation=None):
         self.endpoint = (host, port)
+        self.schema = schema
         self.mutation = mutation
         self.current = ContextVar('mariamem_spike_scope', default=None)
         self.global_target = None
@@ -57,8 +58,19 @@ class Router:
             raise RouteError('closed_target', 'Acquire a new child before opening a connection.')
         return lease
 
-    def match(self, host, port):
-        return (host or 'localhost', int(port or 3306)) == self.endpoint
+    def require_schema(self, schema):
+        if isinstance(schema,bytes):
+            schema=schema.decode('utf8')
+        if schema != self.schema:
+            raise RouteError('schema_mismatch', 'Use the registered schema or explicit child connection settings.')
+
+    def match(self, host, port, schema):
+        if (host or 'localhost', int(port or 3306)) != self.endpoint:
+            return False
+        # Another schema on this endpoint is unsupported, never an implicit
+        # route to this child or a fallback to the application's original DB.
+        self.require_schema(schema)
+        return True
 
     def tag(self, conn, lease):
         conn._mariamem_route = lease
@@ -79,7 +91,8 @@ class Router:
         factory = connector.connect if connector else None
 
         def py_init(conn, *args, **kw):
-            if router.match(kw.get('host'), kw.get('port')):
+            schema=kw.get('database') if kw.get('database') is not None else kw.get('db')
+            if router.match(kw.get('host'), kw.get('port'), schema):
                 if kw.get('read_default_file') or kw.get('read_default_group'):
                     raise RouteError('option_file', 'Resolve this profile to explicit test connection settings.')
                 if kw.get('unix_socket'):
@@ -89,8 +102,9 @@ class Router:
 
         def py_connect(conn, sock=None):
             prior = getattr(conn, '_mariamem_route', None)
-            if not prior and not router.match(conn.host, conn.port):
+            if not prior and not router.match(conn.host, conn.port, conn.db):
                 return connect(conn, sock)
+            router.require_schema(conn.db)
             if router.mutation == 'fallback' and router.current.get() is None:
                 return connect(conn, sock)
             lease = router.target()
@@ -113,8 +127,10 @@ class Router:
         def my_connect(conn, **kw):
             prior = getattr(conn, '_mariamem_route', None)
             host, port = kw.get('host', getattr(conn, '_host', None)), kw.get('port', getattr(conn, '_port', None))
-            if not prior and not router.match(host, port):
+            schema=kw.get('database', getattr(conn, '_database', None))
+            if not prior and not router.match(host, port, schema):
                 return connector_connect(conn, **kw)
+            router.require_schema(schema)
             lease = router.target()
             with lease.lock:
                 if not lease.live and router.mutation != 'ignore_retired':
@@ -132,7 +148,7 @@ class Router:
                 return result
 
         def my_factory(*args, **kw):
-            if router.match(kw.get('host'), kw.get('port')) and any(kw.get(k) for k in
+            if router.match(kw.get('host'), kw.get('port'), kw.get('database')) and any(kw.get(k) for k in
                     ('pool_name', 'pool_size', 'option_files', 'read_default_file', 'dns_srv', 'failover')):
                 raise RouteError('unsupported_factory', 'Use the enrolled unpooled factory or an explicit adapter.')
             return factory(*args, **kw)
@@ -156,7 +172,7 @@ class Router:
                 or getattr(creator, '__name__', None) != 'connect'
                 or list(engine.dialect.dispatch.do_connect)):
             raise RouteError('custom_creator', 'Provide an explicit test-owned factory adapter.')
-        if not self.match(engine.url.host, engine.url.port):
+        if not self.match(engine.url.host, engine.url.port, engine.url.database):
             raise RouteError('unknown_profile', 'Register the intended logical profile explicitly.')
         # User explicitly enrolled this idle engine; discard its old idle sessions.
         if self.mutation != 'adopt_unknown':

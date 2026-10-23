@@ -732,7 +732,7 @@ and diagnostic/official-reference requirements. Source investigation now support
 a bounded prototype proposal; runtime validation, mechanism selection and broader
 driver coverage remain unfinished. No routing compatibility support is established by that source investigation.
 
-**Connection switching — bounded spike complete; production implementation awaits Human Review.**
+**Connection switching — implementation conditionally approved; review corrections in verification.**
 The [post-Prepared routing design](reviews/v06x-connection-routing-design.md)
 reuses the existing source findings and compares explicit injection, framework
 adapters and scoped Python driver routing. It proposes a bounded real-guest
@@ -756,15 +756,21 @@ confirms [CI40032530547](https://github.com/masahitojp/mariamem/actions/runs/400
 at `2851246`:15 cases PASS and all six deliberate defects detected on each OS.
 Same-child session-state reuse and unknown physical ownership are now explicitly
 checked, with zero control original-endpoint attempts and completed host cleanup.
-The approved bounded spike is complete; Ubuntu explicit C retains its allowed
-environment SKIP, while required default/pure actually ran.
+That bounded campaign passed; Ubuntu explicit C retains its allowed environment
+SKIP, while required default/pure actually ran. Its subsequent review identified
+additional gate/schema/TLS conditions, recorded below rather than silently
+counted as covered by those15 cases.
 The design proposes early registered-profile protection before application
 imports and explicit engine enrollment, with the saved advanced Connector
-factory boundary visible for Human Review. The recommendation, awaiting Human
-approval, is production implementation within that declared entry/ownership
-boundary and its finite acceptance checks. Early pytest enforcement and
-production cleanup are implementation work, not already-proven spike behavior.
-API selection, main adoption and release remain separate decisions.
+factory boundary visible for Human Review. On2026-10-24 the Human conditionally
+approved production implementation and requested
+[four review corrections](reviews/v06x-connection-routing-review-fixes.md):
+strict fallback failure classification, schema-aware profile matching,
+pre-install deferred required-TLS coverage, and explicit `ownership="test"`
+disposal authority. The authored campaign now requires17 cases and six strict
+mutations; those new native outcomes remain pending. Early pytest enforcement
+and production cleanup remain implementation acceptance work. Main adoption
+and release remain separate decisions; approval does not imply they have begun.
 Preparation/import and broader framework coverage remain companion decisions,
 not silently excluded from v0.6.
 

@@ -19,7 +19,7 @@ CASES = {'direct-alias-deferred-reconnect', 'idle-generation', 'idle-session-sta
          'registration-rejections', 'unknown-physical-ownership', 'parallel-targets',
          'nested-thread-context', 'async-task-context', 'retired-context', 'failure-cleanup',
          'missing-target', 'options-and-schema', 'connector-prepared', 'go-owned-pools',
-         'two-test-workflows'}
+         'two-test-workflows','schema-profile-boundary','deferred-tls-before-install'}
 
 
 def digest(path):
@@ -43,8 +43,13 @@ def assess(data, mode, exit_code, allow_connector_import_skip=False):
         return {'exit':exit_code,'accepted_for_local_partial':accepted,'complete':complete,'accepted':complete or (allow_connector_import_skip and accepted)}
     failures=[x for x in cases if x['status']=='FAIL']
     accepted=clean and exit_code==1 and len(cases)==1 and len(failures)==1 and (failures[0]['row'],failures[0]['name'])==MUTATIONS[mode]
-    if mode=='fallback':accepted=accepted and data.get('sentinel_attempts',0)>0
-    else:accepted=accepted and failures[0]['error_type']=='AssertionError' and data.get('sentinel_attempts')==0
+    accepted=accepted and failures[0]['error_type']=='AssertionError'
+    if mode=='fallback':
+        accepted=(accepted and data.get('sentinel_attempts')==1
+                  and failures[0].get('sentinel_attempts')==1
+                  and failures[0].get('observation')=={'reason':'original_endpoint_contacted',
+                                                     'sentinel_delta':1,'driver_errno':2013})
+    else:accepted=accepted and data.get('sentinel_attempts')==0
     if mode=='retain_session':
         accepted=accepted and failures[0].get('observation')=={'marker':'A','leaked_scope':'scope-0','step':1}
     if mode=='adopt_unknown':
@@ -113,7 +118,7 @@ def main():
         receipt['runs'][mode]=assess(data,mode,r.returncode,a.allow_connector_import_skip)
         print(mode,receipt['runs'][mode],flush=True)
     receipt['complete']=receipt['runs']['control'].get('complete',False) and all(x['accepted'] for x in receipt['runs'].values())
-    receipt['case_contract']='routing-r1-r8-session-ownership-v2'
+    receipt['case_contract']='routing-r1-r8-profile-tls-v3'
     receipt['run_ok']=all(x['accepted'] for x in receipt['runs'].values())
     receipt['evidence']={f.name:digest(f) for f in evidence.iterdir() if f.is_file() and f.name!='inputs.json'}
     (evidence/'inputs.json').write_text(json.dumps(receipt,indent=2)+'\n')
