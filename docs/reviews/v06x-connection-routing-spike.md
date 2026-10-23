@@ -36,6 +36,8 @@ raw handles, custom creators or Connector's built-in pools.
   Go driver1.9.3. Installed package sources/wheel hashes and actual prototype
   file hashes are in [inputs.json](v06x-connection-routing-evidence/macos-local/inputs.json)
   and [dependencies.json](v06x-connection-routing-evidence/macos-local/dependencies.json).
+  The subsequent CI candidate adds explicit end-of-result draining only to the
+  locally skipped Connector case; that change has no local runtime PASS yet.
 - Authored prototype only:
   [router.py](../../tests/spikes/connection_routing/router.py),
   [campaign.py](../../tests/spikes/connection_routing/campaign.py),

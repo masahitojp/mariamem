@@ -249,14 +249,14 @@ def main():
                 with router.bind(b):
                     c=saved_connector_alias(**kw,**extra)
                     try:
-                        cur=c.cursor(prepared=True);cur.execute('SELECT value FROM marker WHERE id=%s',(1,));value=cur.fetchone()[0]
+                        cur=c.cursor(prepared=True);cur.execute('SELECT value FROM marker WHERE id=%s',(1,));value=cur.fetchone()[0];assert cur.fetchone() is None
                         if isinstance(value,bytes):value=value.decode()
                         assert value=='B',value
                         cur.close();c.autocommit=False
                         cur=c.cursor(prepared=True);cur.execute('INSERT INTO writes(value) VALUES (%s)',('connector-rollback',));c.rollback();cur.close()
-                        cur=c.cursor(prepared=True);cur.execute('SELECT COUNT(*) FROM writes WHERE value=%s',('connector-rollback',));assert cur.fetchone()[0]==0;cur.close()
+                        cur=c.cursor(prepared=True);cur.execute('SELECT COUNT(*) FROM writes WHERE value=%s',('connector-rollback',));assert cur.fetchone()[0]==0;assert cur.fetchone() is None;cur.close()
                         cur=c.cursor(prepared=True);cur.execute('INSERT INTO writes(value) VALUES (%s)',('connector-commit-'+label,));c.commit();cur.close()
-                        cur=c.cursor(prepared=True);cur.execute('SELECT COUNT(*) FROM writes WHERE value=%s',('connector-commit-'+label,));assert cur.fetchone()[0]==1;cur.close()
+                        cur=c.cursor(prepared=True);cur.execute('SELECT COUNT(*) FROM writes WHERE value=%s',('connector-commit-'+label,));assert cur.fetchone()[0]==1;assert cur.fetchone() is None;cur.close()
                         modes.append({'mode':label,'actual_class':type(c).__name__,'marker':value,'prepared':True,'rollback':True,'commit':True})
                     finally:c.close()
             if not connector.HAVE_CEXT:
