@@ -1,0 +1,34 @@
+{
+  "system": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+  "mutation": "adopt_unknown",
+  "connector_import_error": null,
+  "packages": {
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "mysql-connector-python": "26.7.0"
+  },
+  "cases": [
+    {
+      "row": "R3",
+      "name": "unknown-physical-ownership",
+      "status": "FAIL",
+      "error_type": "AssertionError",
+      "error": "{'requested': 'B', 'observed': 'A', 'unknown_owner': True}",
+      "traceback": "Traceback (most recent call last):\n  File \"<spike>/tests/spikes/connection_routing/campaign.py\", line 94, in case\n    detail=fn()\n  File \"<spike>/tests/spikes/connection_routing/campaign.py\", line 220, in r3_unknown\n    assert actual=='B', {'requested':'B','observed':actual,'unknown_owner':True}\n           ^^^^^^^^^^^\nAssertionError: {'requested': 'B', 'observed': 'A', 'unknown_owner': True}\n",
+      "sentinel_attempts": 0,
+      "observation": {
+        "requested": "B",
+        "observed": "A",
+        "unknown_owner": true
+      }
+    }
+  ],
+  "sentinel_attempts": 0,
+  "observations": {
+    "physical_connects": 0,
+    "pool_rejected": 0
+  },
+  "all_hosts_reaped": true,
+  "passed": false
+}

@@ -1,0 +1,23 @@
+{
+  "run_id": 40035962925,
+  "candidate_source_commit": "006f68dd476dfc77c8fe3c1d5f66af37b2007513",
+  "conclusion": "success",
+  "control_cases_pass": 17,
+  "strict_mutations_detected": 6,
+  "case_contract": "routing-r1-r8-profile-tls-v3",
+  "implementation": "conditionally approved; corrections verified; main adoption/release separate",
+  "artifacts": [
+    {
+      "platform": "macos-15",
+      "job_id": 120695370963,
+      "artifact_id": 12537411594,
+      "api_archive_digest": "sha256:0ed4673e640a0c8c97682bf28012fafcc61e41cdce4d231d6b15a12c74d1c2e8"
+    },
+    {
+      "platform": "ubuntu-24.04",
+      "job_id": 120695370670,
+      "artifact_id": 12536983183,
+      "api_archive_digest": "sha256:6df59b28f538cec15dc8cb8515279f8f20839af19e2cc932a51a038672a4cb3f"
+    }
+  ]
+}

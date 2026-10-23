@@ -732,7 +732,7 @@ and diagnostic/official-reference requirements. Source investigation now support
 a bounded prototype proposal; runtime validation, mechanism selection and broader
 driver coverage remain unfinished. No routing compatibility support is established by that source investigation.
 
-**Connection switching — implementation conditionally approved; review corrections in verification.**
+**Connection switching — implementation conditionally approved; review corrections verified.**
 The [post-Prepared routing design](reviews/v06x-connection-routing-design.md)
 reuses the existing source findings and compares explicit injection, framework
 adapters and scoped Python driver routing. It proposes a bounded real-guest
@@ -768,7 +768,9 @@ approved production implementation and requested
 strict fallback failure classification, schema-aware profile matching,
 pre-install deferred required-TLS coverage, and explicit `ownership="test"`
 disposal authority. The authored campaign now requires17 cases and six strict
-mutations; those new native outcomes remain pending. Early pytest enforcement
+mutations; [CI40035962925](https://github.com/masahitojp/mariamem/actions/runs/40035962925)
+passed both OSes at `006f68d`, verifying those corrections with source-bound evidence.
+Production implementation continues under that approval. Early pytest enforcement
 and production cleanup remain implementation acceptance work. Main adoption
 and release remain separate decisions; approval does not imply they have begun.
 Preparation/import and broader framework coverage remain companion decisions,

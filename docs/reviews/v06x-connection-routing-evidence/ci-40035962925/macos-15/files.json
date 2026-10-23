@@ -1,0 +1,145 @@
+{
+  "transform": "Known CI paths replaced with placeholders; .log renamed .txt. inputs.evidence refers to original hashes. Outcomes unchanged.",
+  "files": [
+    {
+      "original_name": "adopt_unknown.json",
+      "stored_name": "adopt_unknown.json",
+      "original_sha256": "2ed407e94775dbd51da8fa7b2aa0f83780c6a0ad0a7aa80d431dad6adbf10f74",
+      "stored_sha256": "32b4553001614c247b7b97bf1da35d3782fa3958389ce27886eb1a793cfc8919",
+      "stored_bytes": 1286
+    },
+    {
+      "original_name": "adopt_unknown.log",
+      "stored_name": "adopt_unknown.txt",
+      "original_sha256": "a007f23713da5e3242f0c51b8cd1275c408c68732bd062b22a88c00bef53d404",
+      "stored_sha256": "a007f23713da5e3242f0c51b8cd1275c408c68732bd062b22a88c00bef53d404",
+      "stored_bytes": 35
+    },
+    {
+      "original_name": "connector-environment.json",
+      "stored_name": "connector-environment.json",
+      "original_sha256": "baef8423732bc95f5a472457c04a448a69480adeac39dbb626f30a6e34ec88b4",
+      "stored_sha256": "baef8423732bc95f5a472457c04a448a69480adeac39dbb626f30a6e34ec88b4",
+      "stored_bytes": 584
+    },
+    {
+      "original_name": "control.json",
+      "stored_name": "control.json",
+      "original_sha256": "399e62f264cb85593b0f97c6cd3ad10d77b581431cf2c694b638c718e5ae946d",
+      "stored_sha256": "399e62f264cb85593b0f97c6cd3ad10d77b581431cf2c694b638c718e5ae946d",
+      "stored_bytes": 11120
+    },
+    {
+      "original_name": "control.log",
+      "stored_name": "control.txt",
+      "original_sha256": "3065d2166692ecf03907eff79d054cdcc89785a052961fbbd634c7cbcfbdf75b",
+      "stored_sha256": "3065d2166692ecf03907eff79d054cdcc89785a052961fbbd634c7cbcfbdf75b",
+      "stored_bytes": 483
+    },
+    {
+      "original_name": "dependencies.json",
+      "stored_name": "dependencies.json",
+      "original_sha256": "3c322cf68f8dc83b54a9846d7a31bda8bb4208a63394993c456a4efdd037d3ff",
+      "stored_sha256": "3c322cf68f8dc83b54a9846d7a31bda8bb4208a63394993c456a4efdd037d3ff",
+      "stored_bytes": 33819
+    },
+    {
+      "original_name": "fallback.json",
+      "stored_name": "fallback.json",
+      "original_sha256": "b20375efcb3b94fb037036bb1ca146f69481fcde995896f08df57bc6f9566e24",
+      "stored_sha256": "6a0cb34aa4fa2694faa7d4bae096b5cb5cd0083d9b92f5bf8ff60205836f4987",
+      "stored_bytes": 3240
+    },
+    {
+      "original_name": "fallback.log",
+      "stored_name": "fallback.txt",
+      "original_sha256": "9bf008786b66c4450d646a3c38101b01a20c6d8ab6ebe8870dc291b108840a77",
+      "stored_sha256": "9bf008786b66c4450d646a3c38101b01a20c6d8ab6ebe8870dc291b108840a77",
+      "stored_bytes": 23
+    },
+    {
+      "original_name": "global_target.json",
+      "stored_name": "global_target.json",
+      "original_sha256": "4c2ee27e33687d5b498084499cca3fffa9407d0652cfc409564a3269f738e568",
+      "stored_sha256": "ce181773df18c6552006b33a35d6cfaddf8cccca2fdec19fb5dca714e4e78c93",
+      "stored_bytes": 1752
+    },
+    {
+      "original_name": "global_target.log",
+      "stored_name": "global_target.txt",
+      "original_sha256": "6c99e6025f9f02516173b4328e3e2ece5267fddabcc1020b6ad75dab45281476",
+      "stored_sha256": "6c99e6025f9f02516173b4328e3e2ece5267fddabcc1020b6ad75dab45281476",
+      "stored_bytes": 25
+    },
+    {
+      "original_name": "go-consumer-build.txt",
+      "stored_name": "go-consumer-build.txt",
+      "original_sha256": "bc341a6fc6cd5119497626cfa7308723f86f7225818b7c510b976030d8f41c30",
+      "stored_sha256": "bc341a6fc6cd5119497626cfa7308723f86f7225818b7c510b976030d8f41c30",
+      "stored_bytes": 101
+    },
+    {
+      "original_name": "host-build.txt",
+      "stored_name": "host-build.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_bytes": 0
+    },
+    {
+      "original_name": "ignore_retired.json",
+      "stored_name": "ignore_retired.json",
+      "original_sha256": "d864c1a01b5b8936494a58c829a14fbda2845420b0060662d048c70467914c73",
+      "stored_sha256": "09dc175b2101d49ba78b7ab90ee073358c48c12411c1993f878dda94de4f92d9",
+      "stored_bytes": 1497
+    },
+    {
+      "original_name": "ignore_retired.log",
+      "stored_name": "ignore_retired.txt",
+      "original_sha256": "1b777871931d45fbed4e54888c8e9a230205fe19456275c2ea775643865185be",
+      "stored_sha256": "1b777871931d45fbed4e54888c8e9a230205fe19456275c2ea775643865185be",
+      "stored_bytes": 24
+    },
+    {
+      "original_name": "inputs.json",
+      "stored_name": "inputs.json",
+      "original_sha256": "cd1eabf07cdba561ed2ffa2f3002cb61bf5a789c7017f9f650e8c50020e3a4ac",
+      "stored_sha256": "79d9f1a0e284aec1a9a8a79a9e830e241257707c45881abee8605f6c9de5a421",
+      "stored_bytes": 48579
+    },
+    {
+      "original_name": "no_pool_check.json",
+      "stored_name": "no_pool_check.json",
+      "original_sha256": "9bb13aae1d4ceeb44f42a3fa8bc3a3ef0c8b892289e300ff915214e444b5b4b0",
+      "stored_sha256": "ee201bb4551f3fc47439d8ca567eb8921d7b17d3aadce60c87f0cde93c7ab3f2",
+      "stored_bytes": 1044
+    },
+    {
+      "original_name": "no_pool_check.log",
+      "stored_name": "no_pool_check.txt",
+      "original_sha256": "6550a037e28349f23284882dbeffcf5bbe6be0e6144dd7961be3a294c8dd612a",
+      "stored_sha256": "6550a037e28349f23284882dbeffcf5bbe6be0e6144dd7961be3a294c8dd612a",
+      "stored_bytes": 24
+    },
+    {
+      "original_name": "prototype-source.txt",
+      "stored_name": "prototype-source.txt",
+      "original_sha256": "c8e15740d36d9c57b7485f22f70fd0c8c0f83a2b0fce3512b2c7d0f2f4e445b0",
+      "stored_sha256": "c8e15740d36d9c57b7485f22f70fd0c8c0f83a2b0fce3512b2c7d0f2f4e445b0",
+      "stored_bytes": 41
+    },
+    {
+      "original_name": "retain_session.json",
+      "stored_name": "retain_session.json",
+      "original_sha256": "8777dff5faceb567d52e3d3af0ba46153e086bae44dc70df36aaff030424ee12",
+      "stored_sha256": "4c7f6e18cd0e425722f95b6eebeeca9c01ab74cbd74beac2bad9b1750b6591d7",
+      "stored_bytes": 1262
+    },
+    {
+      "original_name": "retain_session.log",
+      "stored_name": "retain_session.txt",
+      "original_sha256": "c68b477109fd71eddd46907983092c959053a6180b19076d691511984c099eb4",
+      "stored_sha256": "c68b477109fd71eddd46907983092c959053a6180b19076d691511984c099eb4",
+      "stored_bytes": 27
+    }
+  ]
+}

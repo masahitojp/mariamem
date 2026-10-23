@@ -129,3 +129,21 @@ implementation approval gate is introduced by this follow-up.
 Local preparation: six receipt-gate tests PASS; pinned TLS constructor probe,
 Python syntax,137 local file-link targets, version check and diff check PASS.
 No unchanged guest/runtime build or broad integration was run locally.
+
+## Native correction results — 2026-10-24
+
+[CI40035962925](https://github.com/masahitojp/mariamem/actions/runs/40035962925)
+passed on exact source_commit `006f68dd476dfc77c8fe3c1d5f66af37b2007513`.
+Both OSes passed17 controls and detected all six exact mutations, including the
+strict fallback observation. Schema mismatch/missing schema and pre-install
+required TLS reject before socket/original-target access. All control sentinel
+counts are zero and all hosts reaped. Required Connector default/pure executed;
+explicit Ubuntu C retains its known allowed import SKIP. All19 original evidence
+hashes and five prototype hashes matched per platform.
+
+[Saved summary and evidence](v06x-connection-routing-evidence/ci-40035962925/summary.json)
+retain artifact IDs/API archive digests; per-platform files.json binds scrubbed
+paths and original/stored hashes. Earlier pending text describes the pre-CI
+checkpoint. The added conditions are now verified for the spike; continue the
+already-approved product implementation, with ownership semantics above and its
+separate production acceptance tests. No new Human implementation gate is needed.

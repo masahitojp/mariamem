@@ -1,0 +1,349 @@
+{
+  "version": "1",
+  "pip_version": "26.2.1",
+  "install": [
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/a9/4b/0a906d8184f011ff8dbd4722743783867589b33269d2c5fff238d636fdcb/pymysql-1.2.3-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "14f1c68e2ed859243ae5ca41ffbe677027fc46bc136a9f0be8a4e928e5e7415a"
+          },
+          "hash": "sha256=14f1c68e2ed859243ae5ca41ffbe677027fc46bc136a9f0be8a4e928e5e7415a"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "PyMySQL",
+        "version": "1.2.3",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "Pure Python MySQL Driver",
+        "description": "[![Documentation Status](https://readthedocs.org/projects/pymysql/badge/?version=latest)](https://pymysql.readthedocs.io/)\n[![codecov](https://codecov.io/gh/PyMySQL/PyMySQL/branch/main/graph/badge.svg?token=ppEuaNXBW4)](https://codecov.io/gh/PyMySQL/PyMySQL)\n[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/PyMySQL/PyMySQL)\n\n# PyMySQL\n\nThis package contains a pure-Python MySQL and MariaDB client library, based on\n[PEP 249](https://www.python.org/dev/peps/pep-0249/).\n\n## Requirements\n\n- Python -- one of the following:\n  - [CPython](https://www.python.org/) : 3.9 and newer\n  - [PyPy](https://pypy.org/) : Latest 3.x version\n- MySQL Server -- one of the following:\n  - [MySQL](https://www.mysql.com/) LTS versions\n  - [MariaDB](https://mariadb.org/) LTS versions\n\n## Installation\n\nPackage is uploaded on [PyPI](https://pypi.org/project/PyMySQL).\n\nYou can install it with pip:\n\n    $ python3 -m pip install PyMySQL\n\nTo use \"sha256_password\" or \"caching_sha2_password\" for authenticate,\nyou need to install additional dependency:\n\n    $ python3 -m pip install PyMySQL[rsa]\n\nTo use MariaDB's \"ed25519\" authentication method, you need to install\nadditional dependency:\n\n    $ python3 -m pip install PyMySQL[ed25519]\n\n## Documentation\n\nDocumentation is available online: <https://pymysql.readthedocs.io/>\n\nFor support, please refer to the\n[StackOverflow](https://stackoverflow.com/questions/tagged/pymysql).\n\n## Example\n\nThe following examples make use of a simple table\n\n``` sql\nCREATE TABLE `users` (\n    `id` int(11) NOT NULL AUTO_INCREMENT,\n    `email` varchar(255) COLLATE utf8_bin NOT NULL,\n    `password` varchar(255) COLLATE utf8_bin NOT NULL,\n    PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin\nAUTO_INCREMENT=1 ;\n```\n\n``` python\nimport pymysql.cursors\n\n# Connect to the database\nconnection = pymysql.connect(\n    host=\"localhost\",\n    user=\"user\",\n    password=\"passwd\",\n    database=\"db\",\n    cursorclass=pymysql.cursors.DictCursor,\n)\n\nwith connection:\n    with connection.cursor() as cursor:\n        # Create a new record\n        sql = \"INSERT INTO `users` (`email`, `password`) VALUES (%s, %s)\"\n        cursor.execute(sql, (\"webmaster@python.org\", \"very-secret\"))\n\n    # connection is not autocommit by default. So you must commit to save\n    # your changes.\n    connection.commit()\n\n    with connection.cursor() as cursor:\n        # Read a single record\n        sql = \"SELECT `id`, `password` FROM `users` WHERE `email`=%s\"\n        cursor.execute(sql, (\"webmaster@python.org\",))\n        result = cursor.fetchone()\n        print(result)\n```\n\nThis example will print:\n\n``` python\n{\"password\": \"very-secret\", \"id\": 1}\n```\n\n## Resources\n\n- DB-API 2.0: <https://www.python.org/dev/peps/pep-0249/>\n- MySQL Reference Manuals: <https://dev.mysql.com/doc/>\n- Getting Help With MariaDB <https://mariadb.com/kb/en/getting-help-with-mariadb/>\n- MySQL client/server protocol:\n  <https://dev.mysql.com/doc/internals/en/client-server-protocol.html>\n- \"Connector\" channel in MySQL Community Slack:\n  <https://lefred.be/mysql-community-on-slack/>\n- PyMySQL mailing list:\n  <https://groups.google.com/forum/#!forum/pymysql-users>\n\n## License\n\nPyMySQL is released under the MIT License. See LICENSE for more\ninformation.\n",
+        "description_content_type": "text/markdown",
+        "keywords": [
+          "MySQL"
+        ],
+        "author_email": "Inada Naoki <songofacandy@gmail.com>, Yutaka Matsubara <yutaka.matsubara@gmail.com>",
+        "license_expression": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Intended Audience :: Developers",
+          "Topic :: Database"
+        ],
+        "requires_dist": [
+          "cryptography>=46.0.7; extra == \"rsa\"",
+          "PyNaCl>=1.6.2; extra == \"ed25519\""
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "Project, https://github.com/PyMySQL/PyMySQL",
+          "Documentation, https://pymysql.readthedocs.io/",
+          "Changelog, https://github.com/PyMySQL/PyMySQL/blob/main/CHANGELOG.md"
+        ],
+        "provides_extra": [
+          "rsa",
+          "ed25519"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/ab/c0/4a6503c9d22d6d00a5631082ab1484222ecf7d573db791e0f53161bf7745/sqlalchemy-2.0.54-cp314-cp314-macosx_11_0_arm64.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "abd6b21bc58e91c1932eb5d6d7f1bd44a551dfec7b6a7f517c3638ccd67233a0"
+          },
+          "hash": "sha256=abd6b21bc58e91c1932eb5d6d7f1bd44a551dfec7b6a7f517c3638ccd67233a0"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "SQLAlchemy",
+        "version": "2.0.54",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "Database Abstraction Library",
+        "description": "SQLAlchemy\n==========\n\n|PyPI| |Python| |Downloads|\n\n.. |PyPI| image:: https://img.shields.io/pypi/v/sqlalchemy\n    :target: https://pypi.org/project/sqlalchemy\n    :alt: PyPI\n\n.. |Python| image:: https://img.shields.io/pypi/pyversions/sqlalchemy\n    :target: https://pypi.org/project/sqlalchemy\n    :alt: PyPI - Python Version\n\n.. |Downloads| image:: https://static.pepy.tech/badge/sqlalchemy/month\n    :target: https://pepy.tech/project/sqlalchemy\n    :alt: PyPI - Downloads\n\n\nThe Python SQL Toolkit and Object Relational Mapper\n\nIntroduction\n-------------\n\nSQLAlchemy is the Python SQL toolkit and Object Relational Mapper\nthat gives application developers the full power and\nflexibility of SQL. SQLAlchemy provides a full suite\nof well known enterprise-level persistence patterns,\ndesigned for efficient and high-performing database\naccess, adapted into a simple and Pythonic domain\nlanguage.\n\nMajor SQLAlchemy features include:\n\n* An industrial strength ORM, built\n  from the core on the identity map, unit of work,\n  and data mapper patterns.   These patterns\n  allow transparent persistence of objects\n  using a declarative configuration system.\n  Domain models\n  can be constructed and manipulated naturally,\n  and changes are synchronized with the\n  current transaction automatically.\n* A relationally-oriented query system, exposing\n  the full range of SQL's capabilities\n  explicitly, including joins, subqueries,\n  correlation, and most everything else,\n  in terms of the object model.\n  Writing queries with the ORM uses the same\n  techniques of relational composition you use\n  when writing SQL.  While you can drop into\n  literal SQL at any time, it's virtually never\n  needed.\n* A comprehensive and flexible system\n  of eager loading for related collections and objects.\n  Collections are cached within a session,\n  and can be loaded on individual access, all\n  at once using joins, or by query per collection\n  across the full result set.\n* A Core SQL construction system and DBAPI\n  interaction layer.  The SQLAlchemy Core is\n  separate from the ORM and is a full database\n  abstraction layer in its own right, and includes\n  an extensible Python-based SQL expression\n  language, schema metadata, connection pooling,\n  type coercion, and custom types.\n* All primary and foreign key constraints are\n  assumed to be composite and natural.  Surrogate\n  integer primary keys are of course still the\n  norm, but SQLAlchemy never assumes or hardcodes\n  to this model.\n* Database introspection and generation.  Database\n  schemas can be \"reflected\" in one step into\n  Python structures representing database metadata;\n  those same structures can then generate\n  CREATE statements right back out - all within\n  the Core, independent of the ORM.\n\nSQLAlchemy's philosophy:\n\n* SQL databases behave less and less like object\n  collections the more size and performance start to\n  matter; object collections behave less and less like\n  tables and rows the more abstraction starts to matter.\n  SQLAlchemy aims to accommodate both of these\n  principles.\n* An ORM doesn't need to hide the \"R\".   A relational\n  database provides rich, set-based functionality\n  that should be fully exposed.   SQLAlchemy's\n  ORM provides an open-ended set of patterns\n  that allow a developer to construct a custom\n  mediation layer between a domain model and\n  a relational schema, turning the so-called\n  \"object relational impedance\" issue into\n  a distant memory.\n* The developer, in all cases, makes all decisions\n  regarding the design, structure, and naming conventions\n  of both the object model as well as the relational\n  schema.   SQLAlchemy only provides the means\n  to automate the execution of these decisions.\n* With SQLAlchemy, there's no such thing as\n  \"the ORM generated a bad query\" - you\n  retain full control over the structure of\n  queries, including how joins are organized,\n  how subqueries and correlation is used, what\n  columns are requested.  Everything SQLAlchemy\n  does is ultimately the result of a developer-initiated \n  decision.\n* Don't use an ORM if the problem doesn't need one.\n  SQLAlchemy consists of a Core and separate ORM\n  component.   The Core offers a full SQL expression\n  language that allows Pythonic construction\n  of SQL constructs that render directly to SQL\n  strings for a target database, returning\n  result sets that are essentially enhanced DBAPI\n  cursors.\n* Transactions should be the norm.  With SQLAlchemy's\n  ORM, nothing goes to permanent storage until\n  commit() is called.  SQLAlchemy encourages applications\n  to create a consistent means of delineating\n  the start and end of a series of operations.\n* Never render a literal value in a SQL statement.\n  Bound parameters are used to the greatest degree\n  possible, allowing query optimizers to cache\n  query plans effectively and making SQL injection\n  attacks a non-issue.\n\nDocumentation\n-------------\n\nLatest documentation is at:\n\nhttps://www.sqlalchemy.org/docs/\n\nInstallation / Requirements\n---------------------------\n\nFull documentation for installation is at\n`Installation <https://www.sqlalchemy.org/docs/intro.html#installation>`_.\n\nGetting Help / Development / Bug reporting\n------------------------------------------\n\nPlease refer to the `SQLAlchemy Community Guide <https://www.sqlalchemy.org/support.html>`_.\n\nCode of Conduct\n---------------\n\nAbove all, SQLAlchemy places great emphasis on polite, thoughtful, and\nconstructive communication between users and developers.\nPlease see our current Code of Conduct at\n`Code of Conduct <https://www.sqlalchemy.org/codeofconduct.html>`_.\n\nLicense\n-------\n\nSQLAlchemy is distributed under the `MIT license\n<https://www.opensource.org/licenses/mit-license.php>`_.\n\n",
+        "description_content_type": "text/x-rst",
+        "home_page": "https://www.sqlalchemy.org",
+        "author": "Mike Bayer",
+        "author_email": "mike_mp@zzzcomputing.com",
+        "license": "MIT",
+        "license_file": [
+          "LICENSE",
+          "AUTHORS"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.7",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Programming Language :: Python :: 3.15",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Topic :: Database :: Front-Ends"
+        ],
+        "requires_dist": [
+          "importlib-metadata; python_version < \"3.8\"",
+          "greenlet>=1; platform_machine == \"aarch64\" or (platform_machine == \"ppc64le\" or (platform_machine == \"x86_64\" or (platform_machine == \"amd64\" or (platform_machine == \"AMD64\" or (platform_machine == \"win32\" or platform_machine == \"WIN32\")))))",
+          "typing-extensions>=4.6.0",
+          "greenlet>=1; extra == \"asyncio\"",
+          "mypy>=0.910; extra == \"mypy\"",
+          "pyodbc; extra == \"mssql\"",
+          "pymssql; extra == \"mssql-pymssql\"",
+          "pyodbc; extra == \"mssql-pyodbc\"",
+          "mysqlclient>=1.4.0; extra == \"mysql\"",
+          "mysql-connector-python; extra == \"mysql-connector\"",
+          "mariadb!=1.1.10,!=1.1.2,!=1.1.5,>=1.0.1; extra == \"mariadb-connector\"",
+          "cx_oracle>=8; extra == \"oracle\"",
+          "oracledb>=1.0.1; extra == \"oracle-oracledb\"",
+          "psycopg2>=2.7; extra == \"postgresql\"",
+          "pg8000>=1.29.1; extra == \"postgresql-pg8000\"",
+          "greenlet>=1; extra == \"postgresql-asyncpg\"",
+          "asyncpg; extra == \"postgresql-asyncpg\"",
+          "psycopg2-binary; extra == \"postgresql-psycopg2binary\"",
+          "psycopg2cffi; extra == \"postgresql-psycopg2cffi\"",
+          "psycopg>=3.0.7; extra == \"postgresql-psycopg\"",
+          "psycopg[binary]>=3.0.7; extra == \"postgresql-psycopgbinary\"",
+          "pymysql; extra == \"pymysql\"",
+          "greenlet>=1; extra == \"aiomysql\"",
+          "aiomysql>=0.2.0; extra == \"aiomysql\"",
+          "greenlet>=1; extra == \"aioodbc\"",
+          "aioodbc; extra == \"aioodbc\"",
+          "greenlet>=1; extra == \"asyncmy\"",
+          "asyncmy>=0.2.12; extra == \"asyncmy\"",
+          "greenlet>=1; extra == \"aiosqlite\"",
+          "aiosqlite; extra == \"aiosqlite\"",
+          "typing_extensions!=3.10.0.1; extra == \"aiosqlite\"",
+          "sqlcipher3_binary; extra == \"sqlcipher\""
+        ],
+        "requires_python": ">=3.7",
+        "project_url": [
+          "Documentation, https://docs.sqlalchemy.org",
+          "Issue Tracker, https://github.com/sqlalchemy/sqlalchemy/"
+        ],
+        "provides_extra": [
+          "asyncio",
+          "mypy",
+          "mssql",
+          "mssql-pymssql",
+          "mssql-pyodbc",
+          "mysql",
+          "mysql-connector",
+          "mariadb-connector",
+          "oracle",
+          "oracle-oracledb",
+          "postgresql",
+          "postgresql-pg8000",
+          "postgresql-asyncpg",
+          "postgresql-psycopg2binary",
+          "postgresql-psycopg2cffi",
+          "postgresql-psycopg",
+          "postgresql-psycopgbinary",
+          "pymysql",
+          "aiomysql",
+          "aioodbc",
+          "asyncmy",
+          "aiosqlite",
+          "sqlcipher"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/eb/46/a2383cebea1cf22e07a0bc7b6e5035baac04de18415df188d257b68abab2/mysql_connector_python-26.7.0-cp314-cp314-macosx_14_0_arm64.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "c02cc3d5e4763ddc960fce521bd353b242cfec4c6a936234916f2597bfd656cd"
+          },
+          "hash": "sha256=c02cc3d5e4763ddc960fce521bd353b242cfec4c6a936234916f2597bfd656cd"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "mysql-connector-python",
+        "version": "26.7.0",
+        "dynamic": [
+          "author",
+          "classifier",
+          "description",
+          "description-content-type",
+          "keywords",
+          "license",
+          "license-file",
+          "project-url",
+          "provides-extra",
+          "requires-python",
+          "summary"
+        ],
+        "summary": "A self-contained Python driver for communicating with MySQL servers, using an API that is compliant with the Python Database API Specification v2.0 (PEP 249).",
+        "description": "MySQL Connector/Python\n======================\n\n\n\n.. image::\n    https://img.shields.io/pypi/v/mysql-connector-python.svg\n    :target: https://pypi.org/project/mysql-connector-python/\n\n.. image::\n    https://img.shields.io/pypi/pyversions/mysql-connector-python.svg\n    :target: https://pypi.org/project/mysql-connector-python/\n\n.. image::\n    https://img.shields.io/pypi/l/mysql-connector-python.svg\n    :target: https://pypi.org/project/mysql-connector-python/\n\n\n\n\n\nMySQL Connector/Python enables Python programs to access MySQL databases, using\nan API that is compliant with the `Python Database API Specification v2.0\n(PEP 249) <https://www.python.org/dev/peps/pep-0249/>`__.\n\n\n\n\n\n\n\n\nFeatures\n--------\n\n* `Asynchronous Connectivity <https://dev.mysql.com/doc/connector-python/en/connector-python-asyncio.html>`__\n* `C-extension <https://dev.mysql.com/doc/connector-python/en/connector-python-cext.html>`__\n* `Telemetry <https://dev.mysql.com/doc/connector-python/en/connector-python-opentelemetry.html>`__\n\n\n\n\nLicensing\n---------\n\nPlease refer to the `README.txt <https://github.com/mysql/mysql-connector-python/blob/trunk/README.txt>`__ and `LICENSE.txt <https://github.com/mysql/mysql-connector-python/blob/trunk/LICENSE.txt>`__\nfiles, available in this repository, for further details.\n\nContributing\n------------\n\nWe greatly appreciate feedback from our users, including bug reports and code contributions. Your input helps us improve, and we thank you for any issues you report or code you contribute. Please refer to the `CONTRIBUTING.md <https://github.com/mysql/mysql-connector-python/blob/trunk/CONTRIBUTING.md>`__ document for additional information.\n\nInstallation\n------------\n\nConnector/Python contains the Classic and X DevAPI connector APIs, which are\ninstalled separately. Any of these can be installed from a binary\nor source distribution.\n\nBinaries are distributed in the following package formats:\n\n* `RPM <https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/packaging_and_distributing_software/introduction-to-rpm_packaging-and-distributing-software>`__\n* `WHEEL <https://packaging.python.org/en/latest/discussions/package-formats/#what-is-a-wheel>`__\n\nOn the other hand, the source code is distributed as a compressed file\nfrom which a wheel package can be built.\n\nThe recommended way to install Connector/Python is via `pip <https://pip.pypa.io/>`__,\nwhich relies on WHEEL packages. For such a reason, it is the installation procedure\nthat is going to be described moving forward.\n\nPlease, refer to the official MySQL documentation `Connector/Python Installation\n<https://dev.mysql.com/doc/connector-python/en/connector-python-installation.html>`__ to\nknow more about installing from an RPM, or building and installing a WHEEL package from\na source distribution.\n\nBefore installing a package with `pip <https://pip.pypa.io/>`__, it is strongly suggested\nto have the most recent ``pip`` version installed on your system.\nIf your system already has ``pip`` installed, you might need to update it. Or you can use\nthe `standalone pip installer <https://pip.pypa.io/en/latest/installation/>`__.\n\n\n\n\n\n.. code-block:: bash\n\n    $ pip install mysql-connector-python\n\n\n\n\n\nInstallation Options\n++++++++++++++++++++\n\nConnector packages included in MySQL Connector/Python allow you to install\noptional dependencies to unleash certain functionalities.\n\n\n.. code-block:: bash\n\n    # 3rd party packages to unleash the telemetry functionality are installed\n    $ pip install mysql-connector-python[telemetry]\n\n\n\n\n\nThis installation option can be seen as a shortcut to install all the\ndependencies needed by a particular feature. Mind that this is optional\nand you are free to install the required dependencies by yourself.\n\n\n\nAvailable options:\n\n* dns-srv\n* gssapi\n* webauthn\n* telemetry\n\n\n\n\n\n\n\nSample Code\n-----------------------------------\n\n.. code:: python\n\n    import mysql.connector\n\n    # Connect to server\n    cnx = mysql.connector.connect(\n        host=\"127.0.0.1\",\n        port=3306,\n        user=\"mike\",\n        password=\"s3cre3t!\")\n\n    # Get a cursor\n    cur = cnx.cursor()\n\n    # Execute a query\n    cur.execute(\"SELECT CURDATE()\")\n\n    # Fetch one result\n    row = cur.fetchone()\n    print(\"Current date is: {0}\".format(row[0]))\n\n    # Close connection\n    cnx.close()\n\n\n\n\n\n\n\nHeatWave GenAI and Machine Learning Support\n-------------------------------------------\n\nMySQL Connector/Python now includes an optional API for integrating directly with MySQL HeatWave's AI and Machine Learning capabilities. This new SDK is designed to reduce the time required to generate proofs-of-concept (POCs) by providing an intuitive Pythonic interface that automates the management of SQL tables and procedures.\n\nThe new ``mysql.ai`` module offers two primary components:\n\n* **GenAI:** Provides implementations of LangChain's abstract ``LLM``, ``VectorStore``, and ``Embeddings`` classes (``MyLLM``, ``MyVectorStore``, ``MyEmbeddings``). This ensures full interoperability with existing LangChain pipelines, allowing developers to easily substitute existing components with HeatWave-backed versions.\n* **AutoML:** Provides Scikit-Learn compatible estimators (``MyClassifier``, ``MyRegressor``, ``MyAnomalyDetector``, ``MyGenericTransformer``) that inherit from standard Scikit-Learn mixins. These components accept Pandas DataFrames and can be dropped directly into existing Scikit-Learn pipelines and grid searches.\n\n**Note on Dependencies:** These features introduce dependencies on ``langchain``, ``pandas``, and ``scikit-learn``. To keep existing installations unchanged and the base connector lightweight, these dependencies are **not installed by default**. You must install them separately to use the ``mysql.ai`` features.\n\n**Example: GenAI Chatbot with Memory**\n\nThis example demonstrates how to use ``MyLLM`` within a loop to create a simple chatbot that maintains conversation history.\n\n.. code:: python\n\n    from collections import deque\n    from mysql import connector\n    from mysql.ai.genai import MyLLM\n\n    def run_chatbot(db_connection, chat_history_size=5):\n        # Initialize MyLLM with the database connection\n        my_llm = MyLLM(db_connection)\n\n        # Maintain a limited history for context\n        chat_history = deque(maxlen=chat_history_size)\n        system_msg = \"System: You are a helpful AI assistant.\"\n\n        while True:\n            user_input = input(\"\\nUser: \")\n            if user_input.lower() in [\"exit\", \"quit\"]:\n                break\n\n            # Format history and invoke the LLM\n            history = [system_msg] + list(chat_history) + [f\"User: {user_input}\"]\n            prompt = \"\\n\".join(history)\n\n            # Invoke HeatWave GenAI\n            response = my_llm.invoke(prompt)\n            print(f\"Bot: {response}\")\n\n            # Update history\n            chat_history.append(f\"User: {user_input}\")\n            chat_history.append(f\"Bot: {response}\")\n\n    # Usage\n    with connector.connect(user='root', database='mlcorpus') as db_connection:\n        run_chatbot(db_connection)\n\n**Example: HeatWave AutoML in a Scikit-Learn Pipeline**\n\nThis example shows how to use ``MyClassifier`` as a drop-in replacement within a standard Scikit-Learn pipeline.\n\n.. code:: python\n\n    import pandas as pd\n    from mysql import connector\n    from sklearn.pipeline import Pipeline\n    from sklearn.preprocessing import StandardScaler\n    from mysql.ai.ml import MyClassifier\n\n    # 1. Setup Data (Pandas DataFrame)\n    X = pd.DataFrame([[0.5, 0.1], [1.0, 0.8], [0.1, 0.2]], columns=[\"feat1\", \"feat2\"])\n    y = pd.Series([0, 1, 0], name=\"target\")\n\n    # 2. Connect and Train\n    with connector.connect(user='root', database='mlcorpus') as db_connection:\n        # Initialize the HeatWave classifier\n        clf = MyClassifier(db_connection)\n\n        # Create a standard Scikit-Learn pipeline\n        pipe = Pipeline([\n            (\"scaler\", StandardScaler()),\n            (\"mysql_clf\", clf)\n        ])\n\n        # Fit the model (automates upload and training on HeatWave)\n        pipe.fit(X, y)\n\n        # Predict\n        preds = pipe.predict(X)\n        print(f\"Predictions: {preds}\")\n\n        # Score\n        score = pipe.score(X, y)\n        print(f\"Accuracy: {score}\")\n\n\n\n\n\nAdditional Resources\n--------------------\n\n- `MySQL Connector/Python Developer Guide <https://dev.mysql.com/doc/connector-python/en/>`__\n\n- `MySQL Connector/Python Forum <http://forums.mysql.com/list.php?50>`__\n- `MySQL Public Bug Tracker <https://bugs.mysql.com>`__\n- `Slack <https://mysqlcommunity.slack.com>`__ (`Sign-up <https://lefred.be/mysql-community-on-slack/>`__ required if you do not have an Oracle account)\n- `Stack Overflow <https://stackoverflow.com/questions/tagged/mysql-connector-python>`__\n- `Oracle Blogs <https://blogs.oracle.com/search.html?q=connector-python>`__\n\n\n",
+        "description_content_type": "text/x-rst",
+        "keywords": [
+          "mysql",
+          "database",
+          "db",
+          "connector",
+          "driver"
+        ],
+        "author": "Oracle and/or its affiliates",
+        "author_email": "",
+        "license": "GNU GPLv2 (with FOSS License Exception)",
+        "license_file": [
+          "LICENSE.txt"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "Intended Audience :: Education",
+          "License :: OSI Approved :: GNU General Public License (GPL)",
+          "Operating System :: MacOS :: MacOS X",
+          "Operating System :: Microsoft :: Windows",
+          "Operating System :: POSIX :: Linux",
+          "Operating System :: Unix",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Topic :: Database",
+          "Topic :: Software Development",
+          "Topic :: Software Development :: Libraries :: Python Modules",
+          "Typing :: Typed"
+        ],
+        "requires_dist": [
+          "dnspython==2.6.1; extra == \"dns-srv\"",
+          "gssapi==1.8.3; extra == \"gssapi\"",
+          "fido2==1.1.2; extra == \"webauthn\"",
+          "opentelemetry-api==1.33.1; extra == \"telemetry\"",
+          "opentelemetry-sdk==1.33.1; extra == \"telemetry\"",
+          "opentelemetry-exporter-otlp-proto-http==1.33.1; extra == \"telemetry\""
+        ],
+        "requires_python": ">=3.10",
+        "project_url": [
+          "Homepage, https://dev.mysql.com/doc/connector-python/en/",
+          "Documentation, https://dev.mysql.com/doc/connector-python/en/",
+          "Downloads, https://dev.mysql.com/downloads/connector/python/",
+          "Release Notes, https://dev.mysql.com/doc/relnotes/connector-python/en/",
+          "Source Code, https://github.com/mysql/mysql-connector-python",
+          "Bug System, https://bugs.mysql.com/",
+          "Slack, https://mysqlcommunity.slack.com/messages/connectors",
+          "Forums, https://forums.mysql.com/list.php?50",
+          "Blog, https://blogs.oracle.com/mysql/"
+        ],
+        "provides_extra": [
+          "dns-srv",
+          "gssapi",
+          "webauthn",
+          "telemetry"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+          },
+          "hash": "sha256=481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": false,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "typing_extensions",
+        "version": "4.16.0",
+        "summary": "Backported and Experimental Type Hints for Python 3.9+",
+        "description": "# Typing Extensions\n\n[![Chat at https://gitter.im/python/typing](https://badges.gitter.im/python/typing.svg)](https://gitter.im/python/typing)\n\n[Documentation](https://typing-extensions.readthedocs.io/en/latest/#) –\n[PyPI](https://pypi.org/project/typing-extensions/)\n\n## Overview\n\nThe `typing_extensions` module serves two related purposes:\n\n- Enable use of new type system features on older Python versions. For example,\n  `typing.TypeGuard` is new in Python 3.10, but `typing_extensions` allows\n  users on previous Python versions to use it too.\n- Enable experimentation with new type system PEPs before they are accepted and\n  added to the `typing` module.\n\n`typing_extensions` is treated specially by static type checkers such as\nmypy and pyright. Objects defined in `typing_extensions` are treated the same\nway as equivalent forms in `typing`.\n\n`typing_extensions` uses\n[Semantic Versioning](https://semver.org/). The\nmajor version will be incremented only for backwards-incompatible changes.\nTherefore, it's safe to depend\non `typing_extensions` like this: `typing_extensions ~=x.y`,\nwhere `x.y` is the first version that includes all features you need.\n[This](https://packaging.python.org/en/latest/specifications/version-specifiers/#compatible-release)\nis equivalent to `typing_extensions >=x.y, <(x+1)`. Do not depend on `~= x.y.z`\nunless you really know what you're doing; that defeats the purpose of\nsemantic versioning.\n\n## Included items\n\nSee [the documentation](https://typing-extensions.readthedocs.io/en/latest/#) for a\ncomplete listing of module contents.\n\n## Contributing\n\nSee [CONTRIBUTING.md](https://github.com/python/typing_extensions/blob/main/CONTRIBUTING.md)\nfor how to contribute to `typing_extensions`.\n\n",
+        "description_content_type": "text/markdown",
+        "keywords": [
+          "annotations",
+          "backport",
+          "checker",
+          "checking",
+          "function",
+          "hinting",
+          "hints",
+          "type",
+          "typechecking",
+          "typehinting",
+          "typehints",
+          "typing"
+        ],
+        "author_email": "\"Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Michael Lee\" <levkivskyi@gmail.com>",
+        "license_expression": "PSF-2.0",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Console",
+          "Intended Audience :: Developers",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3 :: Only",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Programming Language :: Python :: 3.15",
+          "Topic :: Software Development"
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "Bug Tracker, https://github.com/python/typing_extensions/issues",
+          "Changes, https://github.com/python/typing_extensions/blob/main/CHANGELOG.md",
+          "Documentation, https://typing-extensions.readthedocs.io/",
+          "Home, https://github.com/python/typing_extensions",
+          "Q & A, https://github.com/python/typing/discussions",
+          "Repository, https://github.com/python/typing_extensions"
+        ]
+      }
+    }
+  ],
+  "environment": {
+    "implementation_name": "cpython",
+    "implementation_version": "3.14.7",
+    "os_name": "posix",
+    "platform_machine": "arm64",
+    "platform_release": "24.6.0",
+    "platform_system": "Darwin",
+    "platform_version": "Darwin Kernel Version 24.6.0: Tue Jul 21 20:51:34 PDT 2026; root:xnu-11417.140.69.711.44~1/RELEASE_ARM64_VMAPPLE",
+    "python_full_version": "3.14.7",
+    "platform_python_implementation": "CPython",
+    "python_version": "3.14",
+    "sys_platform": "darwin"
+  }
+}
