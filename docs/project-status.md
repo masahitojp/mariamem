@@ -74,8 +74,8 @@ remain an embedded restriction (1235). DEFINER metadata is retained, but account
 existence/privileges are not enforced under skip-grant-tables. See the
 [scope decision](decisions/routine-support-scope.md) and
 [candidate report](reviews/routine-canonical-adoption.md).
-Binary prepared productization and its unapproved prototype limits were not
-adopted; that product requirement remains open.
+Binary prepared was not adopted at this routine milestone. Its subsequent
+P1–P6 completion and main adoption are recorded in the final P6 entry below.
 
 [CI39406398732](https://github.com/masahitojp/mariamem/actions/runs/39406398732)
 passed independent two-source-build reproduction, all99 generated files on macOS
@@ -732,7 +732,20 @@ and diagnostic/official-reference requirements. Source investigation now support
 a bounded prototype proposal; runtime validation, mechanism selection and broader
 driver coverage remain unfinished. No routing compatibility support is established by that source investigation.
 
-**Prepared Statements — implementation approved, in progress.** Python
+**Connection switching — design ready for Human Review, not implemented.**
+The [post-Prepared routing design](reviews/v06x-connection-routing-design.md)
+reuses the existing source findings and compares explicit injection, framework
+adapters and scoped Python driver routing. It proposes a bounded real-guest
+spike with pool-generation, concurrent-scope, expired-target and original-endpoint
+sentinel oracles; Go keeps child-owned configuration/pools. The Human requested
+this design work on 2026-10-23. Spike execution, API selection and production
+adoption are not yet approved. Preparation/import and broader framework coverage
+remain companion decisions, not silently excluded from v0.6.
+
+**Prepared Statements — complete and adopted on main.** See the final P6
+completion/adoption entry below. The following sequence preserves the dated
+investigation and implementation milestones; its pending statements are not
+current remaining work. Python
 `cursor(prepared=True)` and Go explicit DB/Tx/Conn Prepare remain required for the
 one-line-switching goal; interpolation or application SQL changes are not a
 substitute. The original [prepared alternatives/spike decision](reviews/v06x-prepared-design.md)
@@ -997,8 +1010,8 @@ compatibility or introduce automatic cache policy before use-case evidence.
 **Wire practical coverage (v0.6.x scope):** main now serves text COM_QUERY,
 COM_INIT_DB, COM_PING, COM_QUIT and COM_SET_OPTION, including text multiple
 statements/results and the required handshake flags. Published v0.5.3 remains
-the earlier text-only baseline. Server-side prepared commands are the current
-implementation gap, with production implementation now approved and in progress.
+the earlier text-only baseline. Server-side prepared commands are now adopted
+on main through P6; see its final completion/adoption entry below.
 COM_RESET_CONNECTION/pool session reset and other optional commands/flags remain
 separate capability-map items; COM_STMT_RESET is not a session reset. Host framing
 and guest semantics both need acceptance. No broader protocol implementation is
