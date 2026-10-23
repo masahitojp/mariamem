@@ -1045,7 +1045,7 @@ a submitted verification run does not publish or approve a release.
 See [release workflow](releasing.md).
 
 
-## Prepared P6 canonical ownership — complete, main adoption awaiting Human
+## Prepared P6 canonical ownership — complete, adopted on main
 
 The scoped P6 candidate is source_commit
 `c7960d604f525c15d66fc003b0341989c4719267` against main baseline
@@ -1062,9 +1062,13 @@ no earlier compiler result is relabeled. Normal-CI selected consumers, exact
 edge/profile mutation tripwires, ordered source patch ownership and public-guide
 limits are in place. MariaDB guest identity remains
 `8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40`.
-The [P6 Human Review](reviews/v06x-prepared-p6-human-review.md) recommends main
-adoption; this is not Human approval. Completion/evidence bookkeeping is kept on
-`experiment/prepared-p6-records` without moving the CI-tested candidate ref.
+The [P6 Human Review](reviews/v06x-prepared-p6-human-review.md) recommended main
+adoption. The Human approved main adoption on 2026-10-23. Main was fast-forwarded
+to integration source_commit `eb4abca3bde4b29ece3af6f0e8a8f4d0b48a5b00`
+from `experiment/prepared-p6-records`, including completion/evidence bookkeeping
+without moving the CI-tested candidate ref. Its runtime/generation inputs are
+unchanged from CI-tested source_commit `c7960d604f525c15d66fc003b0341989c4719267`;
+the additional records and this approval entry are not new Qualification evidence.
 
 The Human-requested `chore/go-1.26.10` update is included (source_commit
 `0cf9970533f719c765ef2b19802e5c6a509d5b48`, cherry-pick9272889). The new compiler
@@ -1075,7 +1079,7 @@ MariaDB/WASIX/Binaryen inputs and converter13 patches are unchanged.
 [GO-2026-6809](https://pkg.go.dev/vuln/GO-2026-6809) is the toolchain remediation
 basis; no specific mariamem exploitability claim is made.
 
-Main adoption, target version, final Qualification, Product Validation and
-publication remain separate decisions. No broader shared-memory proof or new
+Main adoption is complete. Target version, final Qualification, Product Validation
+and publication remain separate decisions and have not been initiated here.
+No broader shared-memory proof or new
 performance improvement is claimed. Guides use current-source-build wording and retain publishedv0.5.3 history.
-Record the Human approval and actual integration SHA on main adoption.
