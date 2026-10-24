@@ -1,0 +1,7 @@
+{"event": "source_start", "id": "cb8979f6590653370a2c3fefe4e88fcb", "runtime_pid": 48156, "host_pid": 48156}
+{"event": "prepare_start"}
+{"event": "preparation_original_profile_refused"}
+{"event": "prepare_error", "stage": "migration", "oracle": "revision_failure", "exception": "ProgrammingError", "original_exception": "ProgrammingError", "errno": 1146}
+{"event": "partial_source_state", "tables": ["alembic_version", "users"], "columns": ["id", "name", "rating"], "revision": "m1_initial"}
+{"event": "preparation_engines_disposed"}
+{"event": "source_cleanup", "closed": true, "host_reaped": true, "directory_removed": true}

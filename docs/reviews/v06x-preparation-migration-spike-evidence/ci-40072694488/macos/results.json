@@ -1,0 +1,89 @@
+{
+  "source_commit": "84c8ee16e09ad63475f7185f04292e4624761a7c",
+  "fixture_origin": "repository-authored example; not an existing production application",
+  "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "platform": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+  "packages": {
+    "Alembic": "1.18.4",
+    "SQLAlchemy": "2.0.54",
+    "PyMySQL": "1.2.3",
+    "pytest": "9.0.2"
+  },
+  "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "host_sha256": "e37a0521f53e9b762125ee09252a575d09a9835889ddee6f80bf57ba5921c673",
+  "host_buildinfo": "<runner>/work/_temp/migration/temp/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.0.0-20261024070333-84c8ee16e09a\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=84c8ee16e09ad63475f7185f04292e4624761a7c\n\tbuild\tvcs.time=2026-10-24T07:03:33Z\n\tbuild\tvcs.modified=false\n",
+  "fixture_files": {
+    "application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+    "conftest.py": "290115077bfc372d941ba2d5a0b011d74c6a6944bd328ba768b491f6a229e3f4",
+    "migrations/env.py": "c99f06628878c0bed82471a6fd84fed47f7c5e980e98f8ba91fa9048148a5a8a",
+    "migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+    "migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006",
+    "observe.py": "a8767b7e3c8d73b5f7d3620287b2aab11665e899a6e233245ea518357fd6e7c2",
+    "reproduce.md": "6b3097007389bf4ab8896062ce4df5c3bc13069e3855671ad9cd807693d882df",
+    "requirements.txt": "f33a423963af83267e2f0ba4db1870979002702b0fd72406eb97fce2e9934df1",
+    "run.py": "dac60e89dd70ee26818525276a52d48e4051526fc1ed4e6d06f631a6e47ba10b",
+    "workflow.py": "cfa1397f9326f0996bbb602ff2f6ea669b49e476ca1d75b1e47952edb5c26f2c"
+  },
+  "sdk_files": {
+    "python/mariamem/__init__.py": "341f8e1abdd852f2bb3948923f9141a942791e64bc90eb21687fd38ec6599c88",
+    "python/mariamem/_artifacts.py": "2557677b0c7f606c2f678de25c2cabc4fc8aab6ceb8bee901c6b72b5ffee6e53",
+    "python/mariamem/_routing_drivers.py": "f6509aac80ad06a59b9f200282ace1f62e8c3e584fa25bcc87061c4627cadc2a",
+    "python/mariamem/_routing_sqlalchemy.py": "1205c6641952e76e203dccdd89be7293ba573f52b95ae62bc67b8e317d02fecd",
+    "python/mariamem/_session.py": "6f22376d8fbda3fd091e5a58ca8fb28f3709478c6c13459f46cb2c12830b76e8",
+    "python/mariamem/_version.py": "c09be0766c97a793050804dae9f8ef65abf0ea99d1a94b0b6c675bd18e8ffd2a",
+    "python/mariamem/pytest_plugin.py": "139b2ca3cc843ae99da303a8a0c1732faf50c3fe7cf0cede7737b8cbb47a3d33",
+    "python/mariamem/routing.py": "63615030123c559761402df26546d675af6b5af003e065c2227325f3fb4d2c7d",
+    "python/mariamem/snapshot.py": "7bafba5d2577ffb2666009f76a1b786d4fa3c9931315275d6a9827afb28798be"
+  },
+  "runs": {
+    "success": {
+      "exit": 0,
+      "counts": {
+        "tests": 2,
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0,
+      "accepted": true
+    },
+    "revision_failure": {
+      "exit": 1,
+      "counts": {
+        "tests": 2,
+        "errors": 2,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0,
+      "accepted": true
+    },
+    "seed_failure": {
+      "exit": 1,
+      "counts": {
+        "tests": 2,
+        "errors": 2,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0,
+      "accepted": true
+    }
+  },
+  "original_endpoint_contacts": 0,
+  "complete": true,
+  "evidence": {
+    "alembic-version.txt": "9ab229122d7a33d2913cc2131918d99037d163ad3af6ef6d8ee7203ffaa7f3ce",
+    "dependencies.json": "2d9ce37dd314e54bad6464cfe079c1fd6ab29d372a25b6acff35680e78f0ec1e",
+    "host-build.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "revision_failure/events.jsonl": "630fa6493eff4d8bb3b1a05a689553b1f136bc93278ba67c31fc012c67846a6d",
+    "revision_failure/pytest.txt": "4dd4925847e4628d04b9e5dfdad0ed534c0a1c22a51cf5760d755342d636ff10",
+    "revision_failure/pytest.xml": "b1554c5b27112de5a04eb39f90a05c66869f7a97bd27378b122cb60561efc18d",
+    "seed_failure/events.jsonl": "272c7ce2b9ddaa72364117fce68d88ca1c7d9ef379fa4a805ea4ec47eccb5ee7",
+    "seed_failure/pytest.txt": "6f99f3dc87a396f1fb6ee9a8dfc513e194ed13c39ffba79f39fbfad5d3ce08a2",
+    "seed_failure/pytest.xml": "f875c5632c67fba7ee72f60c1abbf3fef09408c56872445be3350e5eb5299c2f",
+    "success/events.jsonl": "e139a4dd539dbf6c055abb23ec868bff0565877a4128c12af9befebca1f519fb",
+    "success/pytest.txt": "4d4324b86087ac7c37dae6b8dbfadf37a051796a0d773b900a32b6a8e3e201ad",
+    "success/pytest.xml": "020e97f1c3b0173db650a23e2b6bb3a6cd64f24bbf2799f9242d3148ce281135"
+  }
+}

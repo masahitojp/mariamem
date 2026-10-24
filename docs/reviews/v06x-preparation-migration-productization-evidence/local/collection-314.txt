@@ -1,0 +1,6 @@
+tests/preparation_migration_acceptance/workflow.py::test_01_application_commit[first]
+tests/preparation_migration_acceptance/workflow.py::test_01_application_commit[second]
+tests/preparation_migration_acceptance/workflow.py::test_02_next_test_has_prepared_state[first]
+tests/preparation_migration_acceptance/workflow.py::test_02_next_test_has_prepared_state[second]
+
+4 tests collected in 0.13s

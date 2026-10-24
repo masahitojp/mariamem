@@ -1,0 +1,114 @@
+{
+  "source_commit": "84c8ee16e09ad63475f7185f04292e4624761a7c",
+  "run_id": 40072694488,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/40072694488",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "id": 120809358065,
+      "name": "native (ubuntu-24.04)",
+      "conclusion": "success"
+    },
+    {
+      "id": 120809358221,
+      "name": "native (macos-15)",
+      "conclusion": "success"
+    }
+  ],
+  "platforms": {
+    "macos": {
+      "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+      "packages": {
+        "Alembic": "1.18.4",
+        "SQLAlchemy": "2.0.54",
+        "PyMySQL": "1.2.3",
+        "pytest": "9.0.2"
+      },
+      "complete": true,
+      "runs": {
+        "success": {
+          "exit": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          },
+          "original_endpoint_contacts": 0,
+          "accepted": true
+        },
+        "revision_failure": {
+          "exit": 1,
+          "counts": {
+            "tests": 2,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          },
+          "original_endpoint_contacts": 0,
+          "accepted": true
+        },
+        "seed_failure": {
+          "exit": 1,
+          "counts": {
+            "tests": 2,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          },
+          "original_endpoint_contacts": 0,
+          "accepted": true
+        }
+      },
+      "original_endpoint_contacts": 0,
+      "independent_assessment": "PASS"
+    },
+    "ubuntu": {
+      "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+      "packages": {
+        "Alembic": "1.18.4",
+        "SQLAlchemy": "2.0.54",
+        "PyMySQL": "1.2.3",
+        "pytest": "9.0.2"
+      },
+      "complete": true,
+      "runs": {
+        "success": {
+          "exit": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          },
+          "original_endpoint_contacts": 0,
+          "accepted": true
+        },
+        "revision_failure": {
+          "exit": 1,
+          "counts": {
+            "tests": 2,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          },
+          "original_endpoint_contacts": 0,
+          "accepted": true
+        },
+        "seed_failure": {
+          "exit": 1,
+          "counts": {
+            "tests": 2,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          },
+          "original_endpoint_contacts": 0,
+          "accepted": true
+        }
+      },
+      "original_endpoint_contacts": 0,
+      "independent_assessment": "PASS"
+    }
+  }
+}

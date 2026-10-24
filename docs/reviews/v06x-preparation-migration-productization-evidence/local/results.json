@@ -1,0 +1,53 @@
+{
+  "base_commit": "bfcab22c974f9bc4bb0dfd8e2d1f438eace89dc7",
+  "scope": "worktree classifier and collection only; not a native runtime receipt",
+  "runs": {
+    "311": {
+      "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "packages": {
+        "pytest": "7.0.0",
+        "pytest-xdist": "3.8.0",
+        "Alembic": "1.18.4",
+        "SQLAlchemy": "2.0.54",
+        "PyMySQL": "1.2.3"
+      },
+      "exit_code": 0,
+      "summary": "48 passed in 0.03s",
+      "collection": "4 cases collected; no runtime execution"
+    },
+    "314": {
+      "python": "3.14.9 (main, Oct 21 2026, 06:02:15) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "packages": {
+        "pytest": "9.0.2",
+        "pytest-xdist": "3.8.0",
+        "Alembic": "1.18.4",
+        "SQLAlchemy": "2.0.54",
+        "PyMySQL": "1.2.3"
+      },
+      "exit_code": 0,
+      "summary": "48 passed in 0.05s",
+      "collection": "4 cases collected; no runtime execution"
+    }
+  },
+  "tested_worktree_inputs": {
+    "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+    "tests/preparation_migration_acceptance/conftest.py": "97761301e03a35982eaeab6a85ddad901c0e3b3ce9e6f2b71824fa264ab8e037",
+    "tests/preparation_migration_acceptance/migrations/env.py": "c99f06628878c0bed82471a6fd84fed47f7c5e980e98f8ba91fa9048148a5a8a",
+    "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+    "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006",
+    "tests/preparation_migration_acceptance/observe.py": "4cd178a9bc0bfce462bf7dd9c7b72858bf3b6fc2cd28fe94804006b66e685eb5",
+    "tests/preparation_migration_acceptance/run.py": "2d8b145bb207f6de17883d7d969fe640b23c30ba8ac12490c8fd544f6b8a5d42",
+    "tests/preparation_migration_acceptance/workflow.py": "34853f80a4ab1e83c38776b158a2ad410820d84f5f51e7393982fbb02158146f",
+    "tests/test_preparation_migration_acceptance.py": "95af85e123fc3c499ff89e58cd646f6f4003a57a305855d7885a21ab6b120a95",
+    "tests/test_preparation_migration_spike.py": "f0393d02c70c6784b2329ea0838968c2c95512fe406c33e9ca3649b157673dc0"
+  },
+  "evidence_sha256": {
+    "dependencies-314.json": "6ab0fbd818d1a7d035fa1de939524966a68cb0ce87f4390e14ad2e31239f5f77",
+    "files.json": "2dd82a35fce86b1a594517e6773eab1312b7774200670cbd26d8d796d72988a8",
+    "pytest-311.txt": "0dbab68005debfea8a5b6e50f5ff1f0e301366ce23cdb8dc229c9090cf28b79f",
+    "pytest-314.txt": "0d5ba5d68ac0f6b63dbaa8592c94a3f1fdd94fa87e8f2eabca6f9a4c4867a8ce",
+    "collection-311.txt": "66679565cbf19d1838484177705e550984b495e86bdab738c5ed0d8c335ff891",
+    "collection-314.txt": "95277506d0b0744aa1a561f6040dce619536c61f010aba44a8a4bbf959257762",
+    "dependencies-311.json": "afda606d6b5f6910073b538e9f6a5936fa4698a3cc18380796639b6016f74e02"
+  }
+}

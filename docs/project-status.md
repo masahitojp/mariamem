@@ -835,6 +835,35 @@ The [live task and baseline examples](reviews/v06x-shadow-maria-entry-design.md#
 define the desired starting contents separately from which application,
 endpoint and connection resources survive between tests.
 
+**Preparation/import — recipe/stable-test main adoption approved.**
+The [preparation/import design](reviews/v06x-preparation-import-design.md) reuses
+existing migration/dump source evidence and the adopted callback/marker. It
+recommends a bounded actual migration-chain/seed-to-two-tests check first, while
+keeping native-client and library dump import alternatives explicit. This is a
+Human-approved bounded spike, recorded in the
+[migration execution record](reviews/v06x-preparation-migration-spike.md); it is
+not importer/productization approval by itself. Local macOS results and
+[CI40072694488](https://github.com/masahitojp/mariamem/actions/runs/40072694488)
+passed the authored Alembic/seed, two independent application tests and two exact
+failed-preparation oracles on macOS/Ubuntu at84c8ee1. The
+[Human Review](reviews/v06x-preparation-migration-human-review.md) recommends
+recipe/acceptance productization. Its acceptance conditions retain native
+Python3.11/pytest7 and Python3.14/pytest9 coverage plus migration-specific xdist
+worker preparation/isolation checks on both OSes. These conditions passed in
+[CI40079827071](https://github.com/masahitojp/mariamem/actions/runs/40079827071)
+at exact source_commit `94d51e6ea6a663aaabfee92d2103bae1c7fefbf4`. The Human has now approved proceeding with the
+[recipe and stable-test productization candidate](reviews/v06x-preparation-migration-productization.md).
+The [explicit Alembic recipe](preparing-test-data.md) is implemented; the expanded
+native acceptance matrix and receipt reassessment are complete. The
+[main-adoption Human Review](reviews/v06x-preparation-migration-adoption-review.md)
+recommended the recipe/stable tests; the Human approved main adoption after
+reviewing the completed acceptance. The selected integration retains production
+tests and supporting records, excluding the spike executable/workflow. This does
+not approve an importer, Qualification or release.
+Automatic preparation
+routing remains excluded from0.6.0; live and broader diagnostics/framework
+coverage remain separate decisions.
+
 **Prepared Statements — complete and adopted on main.** See the final P6
 completion/adoption entry below. The following sequence preserves the dated
 investigation and implementation milestones; its pending statements are not

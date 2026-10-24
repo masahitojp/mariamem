@@ -1,0 +1,12 @@
+{"event": "source_start", "worker": "gw1", "id": "321b0186ca0f0fae6c63923f6c88885d", "runtime_pid": 12500, "host_pid": 12500}
+{"event": "prepare_start", "worker": "gw1"}
+{"event": "preparation_original_profile_refused", "worker": "gw1"}
+{"event": "migration_complete", "worker": "gw1"}
+{"event": "prepared_state", "worker": "gw1", "revision": "m2_addresses", "rows": [[1, "legacy", 0], [2, "seed", 5]], "addresses": [[1, 2, "seed@example.test"]], "columns": ["id", "name", "rating"], "foreign_key_verified": true, "unique_verified": true}
+{"event": "preparation_engines_disposed", "worker": "gw1"}
+{"event": "preparation_disconnected", "worker": "gw1", "active_connections": 0}
+{"event": "snapshot_attempt", "worker": "gw1"}
+{"event": "snapshot_success", "worker": "gw1"}
+{"event": "test_pass", "worker": "gw1", "name": "commit", "child": "e2a350022bbe2b913563bc1d2370ad35", "cycle": "second"}
+{"event": "test_pass", "worker": "gw1", "name": "independent_initial_state", "child": "183dc3b86b6b3a5fdd048406fd37044b", "cycle": "second"}
+{"event": "source_cleanup", "worker": "gw1", "closed": true, "host_reaped": true, "directory_removed": true}

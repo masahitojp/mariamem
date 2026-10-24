@@ -1,0 +1,149 @@
+{
+  "source_commit": "94d51e6ea6a663aaabfee92d2103bae1c7fefbf4",
+  "host_reused": false,
+  "fixture_origin": "repository-authored example; not an existing production application",
+  "python": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "platform": "macOS-15.7.9-arm64-arm-64bit",
+  "packages": {
+    "Alembic": "1.18.4",
+    "SQLAlchemy": "2.0.54",
+    "PyMySQL": "1.2.3",
+    "pytest": "7.0.0",
+    "pytest-xdist": "3.8.0",
+    "execnet": "2.1.2"
+  },
+  "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "host_sha256": "ce286ddf0648b6a3353539433562088012797739dd3eef63b392a479b08b4e37",
+  "host_buildinfo": "<runner>/work/_temp/migration/py311/temp/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.0.0-20261024085313-94d51e6ea6a6\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=94d51e6ea6a663aaabfee92d2103bae1c7fefbf4\n\tbuild\tvcs.time=2026-10-24T08:53:13Z\n\tbuild\tvcs.modified=false\n",
+  "fixture_files": {
+    "application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+    "conftest.py": "97761301e03a35982eaeab6a85ddad901c0e3b3ce9e6f2b71824fa264ab8e037",
+    "migrations/env.py": "c99f06628878c0bed82471a6fd84fed47f7c5e980e98f8ba91fa9048148a5a8a",
+    "migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+    "migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006",
+    "observe.py": "4cd178a9bc0bfce462bf7dd9c7b72858bf3b6fc2cd28fe94804006b66e685eb5",
+    "reproduce.md": "fe5fa2148d50ad81d8820fc7b46da00da28e7e4d5e8f63270affc9da29e2b866",
+    "requirements.txt": "c72f7f3015eec89595280aeb2bbdef83363014b3d4547bbb73416ed096a367b7",
+    "run.py": "2d8b145bb207f6de17883d7d969fe640b23c30ba8ac12490c8fd544f6b8a5d42",
+    "workflow.py": "34853f80a4ab1e83c38776b158a2ad410820d84f5f51e7393982fbb02158146f"
+  },
+  "sdk_files": {
+    "python/mariamem/__init__.py": "341f8e1abdd852f2bb3948923f9141a942791e64bc90eb21687fd38ec6599c88",
+    "python/mariamem/_artifacts.py": "2557677b0c7f606c2f678de25c2cabc4fc8aab6ceb8bee901c6b72b5ffee6e53",
+    "python/mariamem/_routing_drivers.py": "f6509aac80ad06a59b9f200282ace1f62e8c3e584fa25bcc87061c4627cadc2a",
+    "python/mariamem/_routing_sqlalchemy.py": "1205c6641952e76e203dccdd89be7293ba573f52b95ae62bc67b8e317d02fecd",
+    "python/mariamem/_session.py": "6f22376d8fbda3fd091e5a58ca8fb28f3709478c6c13459f46cb2c12830b76e8",
+    "python/mariamem/_version.py": "c09be0766c97a793050804dae9f8ef65abf0ea99d1a94b0b6c675bd18e8ffd2a",
+    "python/mariamem/pytest_plugin.py": "139b2ca3cc843ae99da303a8a0c1732faf50c3fe7cf0cede7737b8cbb47a3d33",
+    "python/mariamem/routing.py": "63615030123c559761402df26546d675af6b5af003e065c2227325f3fb4d2c7d",
+    "python/mariamem/snapshot.py": "7bafba5d2577ffb2666009f76a1b786d4fa3c9931315275d6a9827afb28798be"
+  },
+  "runs": {
+    "serial-success": {
+      "mode": "success",
+      "workers": 1,
+      "exit": 0,
+      "counts": {
+        "tests": 4,
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0,
+      "accepted": true
+    },
+    "serial-revision_failure": {
+      "mode": "revision_failure",
+      "workers": 1,
+      "exit": 1,
+      "counts": {
+        "tests": 4,
+        "errors": 4,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0,
+      "accepted": true
+    },
+    "serial-seed_failure": {
+      "mode": "seed_failure",
+      "workers": 1,
+      "exit": 1,
+      "counts": {
+        "tests": 4,
+        "errors": 4,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0,
+      "accepted": true
+    },
+    "xdist-success": {
+      "mode": "success",
+      "workers": 2,
+      "exit": 0,
+      "counts": {
+        "tests": 4,
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0,
+      "accepted": true
+    },
+    "xdist-revision_failure": {
+      "mode": "revision_failure",
+      "workers": 2,
+      "exit": 1,
+      "counts": {
+        "tests": 4,
+        "errors": 4,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0,
+      "accepted": true
+    },
+    "xdist-seed_failure": {
+      "mode": "seed_failure",
+      "workers": 2,
+      "exit": 1,
+      "counts": {
+        "tests": 4,
+        "errors": 4,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0,
+      "accepted": true
+    }
+  },
+  "original_endpoint_contacts": 0,
+  "complete": true,
+  "evidence": {
+    "alembic-version.txt": "9ab229122d7a33d2913cc2131918d99037d163ad3af6ef6d8ee7203ffaa7f3ce",
+    "dependencies.json": "df8c9c89251563144dd8fef7875f783528f2431bb0d25fd0f14d69cc562acc96",
+    "host-build.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "serial-revision_failure/events-main.jsonl": "80426a126e3e295c9aa99188256c5919418fb0347e8c1cb16d2ec8bf56f0ed95",
+    "serial-revision_failure/pytest.txt": "0f635e808d04a45d9df538f6c78ebbaf0b4f2d3c81df9135a0a37c358a9efcfb",
+    "serial-revision_failure/pytest.xml": "d2b725c9bec66d589f67d0991be851c4361e3c3296f11dfe920e47a67e777c2c",
+    "serial-seed_failure/events-main.jsonl": "41edafba57cee8441def53cd8752eed93817991ef8432b4ab36e6a5fdc224d9b",
+    "serial-seed_failure/pytest.txt": "210601eb10c402ef5177926c924d727fd017919eea3fc9e6b3869a2ddd09e6be",
+    "serial-seed_failure/pytest.xml": "4e89ea007501fb868e8594ab1263acf89dabfa4da53a3ecc465933e3cf1a4277",
+    "serial-success/events-main.jsonl": "abad05992e65eba7f9b8c29a6ed54b84efc18197917c682661ed152cd8eceba2",
+    "serial-success/pytest.txt": "88d267ef05983ed3dc3740cd8da419c667c9f880c16444fce3774754175b7907",
+    "serial-success/pytest.xml": "f5b78aa74058b33fb129b86d669b32f4933da1d2ca7eb08c91c20ad991274259",
+    "xdist-revision_failure/events-gw0.jsonl": "ac2a248decbf49b7a6b72d768a6f7901646fe8630aa4ac228dc6179f8d86e428",
+    "xdist-revision_failure/events-gw1.jsonl": "e96659646762b47fc6a87da44108711e96726fd6748dbd76a2509f898296ca9c",
+    "xdist-revision_failure/pytest.txt": "4dad7d3155111b155960c4bcadeaf8307024fcdbe534a5e6b4fc2f02ad73558a",
+    "xdist-revision_failure/pytest.xml": "ab9b78da976872202fbc5de53d055591527d19fee73740e5c0d6ac5e25b5aa38",
+    "xdist-seed_failure/events-gw0.jsonl": "a7aa34c807338374ee5abcfab207cd60ad210e6d39dc398c5c93234c9b48e61f",
+    "xdist-seed_failure/events-gw1.jsonl": "eb5c775163f9e079cc01750838d5d5da7389548311cb878295a4ab79ea343902",
+    "xdist-seed_failure/pytest.txt": "8c321f945f06913c817b82eae9a4509f7f6771380181fcbd13d246872daec863",
+    "xdist-seed_failure/pytest.xml": "b8fb798b2efcc7e4b159444cd45073ac7bbb3bae6d82839c2c2b5e68e94f01b1",
+    "xdist-success/events-gw0.jsonl": "ce3ffd20b74a819e5c778e12d68bf2d3fd943621c094e398f603d89d09530ce2",
+    "xdist-success/events-gw1.jsonl": "0d1fd29c05cfa5fcb2ea9700be8c88615eacea3dbbf2c18a6c8588e4ac2c9080",
+    "xdist-success/pytest.txt": "8391b14bc92d564194570dd63578a4a6c3fd5a6c9f7c82d45ba981b8a1f7e444",
+    "xdist-success/pytest.xml": "161fe87b2534dcaaa37591464d055c970af962c3bfb823862213c96589e627ff"
+  }
+}

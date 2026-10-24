@@ -1,0 +1,8 @@
+{"event": "source_start", "worker": "gw1", "id": "a5533d7318accb82c30e4a82b7f49a69", "runtime_pid": 3653, "host_pid": 3653}
+{"event": "prepare_start", "worker": "gw1"}
+{"event": "preparation_original_profile_refused", "worker": "gw1"}
+{"event": "migration_complete", "worker": "gw1"}
+{"event": "prepare_error", "worker": "gw1", "stage": "seed", "oracle": "seed_failure", "exception": "ProgrammingError", "original_exception": "ProgrammingError", "errno": 1146}
+{"event": "partial_source_state", "worker": "gw1", "tables": ["addresses", "alembic_version", "users"], "columns": ["id", "name", "rating"], "revision": "m2_addresses"}
+{"event": "preparation_engines_disposed", "worker": "gw1"}
+{"event": "source_cleanup", "worker": "gw1", "closed": true, "host_reaped": true, "directory_removed": true}
