@@ -865,6 +865,15 @@ Automatic preparation
 routing remains excluded from0.6.0; live and broader diagnostics/framework
 coverage remain separate decisions.
 
+**Dump import — comparison design, awaiting Human decision.** The
+[dump comparison proposal](reviews/v06x-dump-import-design.md) reuses the source
+inventory and completed migration lifecycle. It recommends comparing an optional
+native client with a bounded library reader on the same freshly produced,
+identified MariaDB12.3.3 application dump. MySQL-produced/external legacy inputs
+remain visible follow-ups, not established compatibility. No dump was executed,
+importer/API selected or spike/productization approved by this design step.
+
+
 **Prepared Statements — complete and adopted on main.** See the final P6
 completion/adoption entry below. The following sequence preserves the dated
 investigation and implementation milestones; its pending statements are not
