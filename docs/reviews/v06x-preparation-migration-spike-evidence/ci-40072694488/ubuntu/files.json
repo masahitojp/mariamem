@@ -1,0 +1,72 @@
+{
+  "artifact_name": "migration-ubuntu-24.04-84c8ee16e09ad63475f7185f04292e4624761a7c",
+  "source_commit": "84c8ee16e09ad63475f7185f04292e4624761a7c",
+  "transformation": "Runner/repository paths replaced with <runner>/<repo> (XML-escaped in JUnit); trailing whitespace removed. results.json evidence hashes refer to original bytes.",
+  "files": {
+    "alembic-version.txt": {
+      "original_sha256": "9ab229122d7a33d2913cc2131918d99037d163ad3af6ef6d8ee7203ffaa7f3ce",
+      "stored_sha256": "9ab229122d7a33d2913cc2131918d99037d163ad3af6ef6d8ee7203ffaa7f3ce",
+      "bytes": 15
+    },
+    "dependencies.json": {
+      "original_sha256": "3188ad1e1115a69dc2c19965edecc3654f97371dd9e5ed734439cdbc68a8ec36",
+      "stored_sha256": "d46080949222db76953c03a78423b9dca8dbb917f0633347ecf4179d0630d788",
+      "bytes": 67970
+    },
+    "host-build.txt": {
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "results.json": {
+      "original_sha256": "148e2542333cac911a73cefb7e79b102393d1079372c5d12b70b3b9ae236dd8a",
+      "stored_sha256": "2c45803426bbdeddca9bef0422f72af4c90922aa029ec659baea09e6a07a129e",
+      "bytes": 4954
+    },
+    "revision_failure/events.jsonl": {
+      "original_sha256": "944e6ad9b0c8bb984f2f21473606d02f99d3baa84da28d68f1d91316d7649516",
+      "stored_sha256": "944e6ad9b0c8bb984f2f21473606d02f99d3baa84da28d68f1d91316d7649516",
+      "bytes": 624
+    },
+    "revision_failure/pytest.txt": {
+      "original_sha256": "c2bee0a567362faf02180b950d43cfe8da7be750f0ccc04afeb092148b2425e5",
+      "stored_sha256": "c2bee0a567362faf02180b950d43cfe8da7be750f0ccc04afeb092148b2425e5",
+      "bytes": 15042
+    },
+    "revision_failure/pytest.xml": {
+      "original_sha256": "5137e4d7a9aa87ff89df52c81c7e319aae5ec1ad1ec46b98dd95626f0ce8d825",
+      "stored_sha256": "3c0d733b9e1e672f1f79c4f263be1bfe9ab203548d9d0c8c4c157cbe146da3c7",
+      "bytes": 15114
+    },
+    "seed_failure/events.jsonl": {
+      "original_sha256": "7100dfb72272e59eaa7abe456365bed076596c1b9f13683ecbf6345591daa2fa",
+      "stored_sha256": "7100dfb72272e59eaa7abe456365bed076596c1b9f13683ecbf6345591daa2fa",
+      "bytes": 662
+    },
+    "seed_failure/pytest.txt": {
+      "original_sha256": "c1d45e40432138baec579dc2c545447572b4a04c854989f26a4d80d767a17a26",
+      "stored_sha256": "c1d45e40432138baec579dc2c545447572b4a04c854989f26a4d80d767a17a26",
+      "bytes": 10896
+    },
+    "seed_failure/pytest.xml": {
+      "original_sha256": "7b5806aa63d1589400cc87d73177c74ba6adb89c9ab908311ca99c7095b29efb",
+      "stored_sha256": "9407190944536f9363a1c7b118d55d0f3ba086d1a70ba58084d7b5e9822d6f81",
+      "bytes": 10956
+    },
+    "success/events.jsonl": {
+      "original_sha256": "78e1fbe7824964d5a0865209b97a23db1ad84736cb848df24dcd5f4d320a83db",
+      "stored_sha256": "78e1fbe7824964d5a0865209b97a23db1ad84736cb848df24dcd5f4d320a83db",
+      "bytes": 900
+    },
+    "success/pytest.txt": {
+      "original_sha256": "648f61b28a6ca4eb85ba2122b740c102b9a1ab7253ec32bb3c23bf9e19d5ad8c",
+      "stored_sha256": "648f61b28a6ca4eb85ba2122b740c102b9a1ab7253ec32bb3c23bf9e19d5ad8c",
+      "bytes": 98
+    },
+    "success/pytest.xml": {
+      "original_sha256": "af562b966a526a75bd6662a58d44b14d101981d98ce9fce514d12aa8ffa9028a",
+      "stored_sha256": "43dccda45d5a3f4229692cc41822330cb2cf8cf08473f9e634db3cd5d2b6b7df",
+      "bytes": 488
+    }
+  }
+}

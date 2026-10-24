@@ -1,0 +1,72 @@
+{
+  "artifact_name": "migration-macos-15-84c8ee16e09ad63475f7185f04292e4624761a7c",
+  "source_commit": "84c8ee16e09ad63475f7185f04292e4624761a7c",
+  "transformation": "Runner/repository paths replaced with <runner>/<repo> (XML-escaped in JUnit); trailing whitespace removed. results.json evidence hashes refer to original bytes.",
+  "files": {
+    "alembic-version.txt": {
+      "original_sha256": "9ab229122d7a33d2913cc2131918d99037d163ad3af6ef6d8ee7203ffaa7f3ce",
+      "stored_sha256": "9ab229122d7a33d2913cc2131918d99037d163ad3af6ef6d8ee7203ffaa7f3ce",
+      "bytes": 15
+    },
+    "dependencies.json": {
+      "original_sha256": "2d9ce37dd314e54bad6464cfe079c1fd6ab29d372a25b6acff35680e78f0ec1e",
+      "stored_sha256": "7e4d09d3db7242aa1e3dfa95fda4b6e8d9cc8d24254b8ca6cbf3fa055295eca0",
+      "bytes": 63029
+    },
+    "host-build.txt": {
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "results.json": {
+      "original_sha256": "c924d5910fa480007e9fec762244925368a4906b65fa547b75f205533a68a91e",
+      "stored_sha256": "2df85636b4a2b9005cc62192dda10cfbb80fe7d20b30965d4a2dc047e1d61a04",
+      "bytes": 4985
+    },
+    "revision_failure/events.jsonl": {
+      "original_sha256": "630fa6493eff4d8bb3b1a05a689553b1f136bc93278ba67c31fc012c67846a6d",
+      "stored_sha256": "630fa6493eff4d8bb3b1a05a689553b1f136bc93278ba67c31fc012c67846a6d",
+      "bytes": 626
+    },
+    "revision_failure/pytest.txt": {
+      "original_sha256": "4dd4925847e4628d04b9e5dfdad0ed534c0a1c22a51cf5760d755342d636ff10",
+      "stored_sha256": "4dd4925847e4628d04b9e5dfdad0ed534c0a1c22a51cf5760d755342d636ff10",
+      "bytes": 15930
+    },
+    "revision_failure/pytest.xml": {
+      "original_sha256": "b1554c5b27112de5a04eb39f90a05c66869f7a97bd27378b122cb60561efc18d",
+      "stored_sha256": "a57bb230604364a37e5d6d676c4c7ff0ef312049e84e11cb0ce5481ce2572007",
+      "bytes": 16056
+    },
+    "seed_failure/events.jsonl": {
+      "original_sha256": "272c7ce2b9ddaa72364117fce68d88ca1c7d9ef379fa4a805ea4ec47eccb5ee7",
+      "stored_sha256": "272c7ce2b9ddaa72364117fce68d88ca1c7d9ef379fa4a805ea4ec47eccb5ee7",
+      "bytes": 664
+    },
+    "seed_failure/pytest.txt": {
+      "original_sha256": "6f99f3dc87a396f1fb6ee9a8dfc513e194ed13c39ffba79f39fbfad5d3ce08a2",
+      "stored_sha256": "6f99f3dc87a396f1fb6ee9a8dfc513e194ed13c39ffba79f39fbfad5d3ce08a2",
+      "bytes": 11520
+    },
+    "seed_failure/pytest.xml": {
+      "original_sha256": "f875c5632c67fba7ee72f60c1abbf3fef09408c56872445be3350e5eb5299c2f",
+      "stored_sha256": "2807f8b2e658e173bef2f4e698e0a1fb305d8994422a60c3416309617744a806",
+      "bytes": 11634
+    },
+    "success/events.jsonl": {
+      "original_sha256": "e139a4dd539dbf6c055abb23ec868bff0565877a4128c12af9befebca1f519fb",
+      "stored_sha256": "e139a4dd539dbf6c055abb23ec868bff0565877a4128c12af9befebca1f519fb",
+      "bytes": 902
+    },
+    "success/pytest.txt": {
+      "original_sha256": "4d4324b86087ac7c37dae6b8dbfadf37a051796a0d773b900a32b6a8e3e201ad",
+      "stored_sha256": "4d4324b86087ac7c37dae6b8dbfadf37a051796a0d773b900a32b6a8e3e201ad",
+      "bytes": 98
+    },
+    "success/pytest.xml": {
+      "original_sha256": "020e97f1c3b0173db650a23e2b6bb3a6cd64f24bbf2799f9242d3148ce281135",
+      "stored_sha256": "dd947030f23bf957ff520d856215742d7abb9af2411147a900c567fe24906df1",
+      "bytes": 542
+    }
+  }
+}
