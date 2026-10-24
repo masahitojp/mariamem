@@ -1,0 +1,6 @@
+bringing up nodes...
+bringing up nodes...
+
+....                                                                     [100%]
+- generated xml file: <runner>/work/_temp/migration/py311/evidence/xdist-success/pytest.xml -
+4 passed in 1.40s

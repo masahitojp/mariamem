@@ -140,6 +140,6 @@ prepares a fresh baseline. Another xdist worker has an independent chain and
 may continue. The recipe adds no automatic retry or database repair policy.
 
 The [candidate acceptance record](reviews/v06x-preparation-migration-productization.md)
-distinguishes completed spike evidence from the pending Python3.11/pytest7,
-Python3.14/pytest9 and two-worker native checks. Arbitrary legacy applications,
+records the completed Python3.11/pytest7, Python3.14/pytest9 and two-worker
+native checks on macOS and Ubuntu. Arbitrary legacy applications,
 Django/mysqlclient and dump import remain separate coverage decisions.

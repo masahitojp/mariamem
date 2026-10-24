@@ -1,0 +1,561 @@
+{
+  "run_id": 40079827071,
+  "url": "https://github.com/masahitojp/mariamem/actions/runs/40079827071",
+  "source_commit": "94d51e6ea6a663aaabfee92d2103bae1c7fefbf4",
+  "conclusion": "success",
+  "jobs": {
+    "macos": 120830863509,
+    "ubuntu": 120830863657
+  },
+  "verification": "All downloaded raw evidence/fixture/SDK hashes matched. XML counts independently parsed; worker-local events reassessed with candidate strict classifier. Same host digest for both Python versions within each OS. Artifact ZIP digests reported by GitHub, not locally recomputed.",
+  "platforms": {
+    "macos": {
+      "311": {
+        "python": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]",
+        "platform": "macOS-15.7.9-arm64-arm-64bit",
+        "packages": {
+          "Alembic": "1.18.4",
+          "SQLAlchemy": "2.0.54",
+          "PyMySQL": "1.2.3",
+          "pytest": "7.0.0",
+          "pytest-xdist": "3.8.0",
+          "execnet": "2.1.2"
+        },
+        "host_sha256": "ce286ddf0648b6a3353539433562088012797739dd3eef63b392a479b08b4e37",
+        "host_reused": false,
+        "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+        "scenarios": {
+          "serial-success": {
+            "counts": {
+              "tests": 4,
+              "errors": 0,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "reassessed": true
+          },
+          "serial-revision_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "reassessed": true
+          },
+          "serial-seed_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "reassessed": true
+          },
+          "xdist-success": {
+            "counts": {
+              "tests": 4,
+              "errors": 0,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "reassessed": true
+          },
+          "xdist-revision_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "reassessed": true
+          },
+          "xdist-seed_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "reassessed": true
+          }
+        },
+        "source_hosts": {
+          "serial-success": [
+            {
+              "worker": "main",
+              "id": "5b113e8c93380b136f3478712abe747f",
+              "host_pid": 12126
+            }
+          ],
+          "serial-revision_failure": [
+            {
+              "worker": "main",
+              "id": "a869932667393f89a48aa143ebb21fba",
+              "host_pid": 12130
+            }
+          ],
+          "serial-seed_failure": [
+            {
+              "worker": "main",
+              "id": "96cb9d01ec9cacbb6c95de27d1594e29",
+              "host_pid": 12139
+            }
+          ],
+          "xdist-success": [
+            {
+              "worker": "gw1",
+              "id": "9f6e58d924f6f4c4ad8606770445046e",
+              "host_pid": 12151
+            },
+            {
+              "worker": "gw0",
+              "id": "4f9baa634c076da50c61189c325a0021",
+              "host_pid": 12150
+            }
+          ],
+          "xdist-revision_failure": [
+            {
+              "worker": "gw1",
+              "id": "a6978e4ccd25385ae19583b4861fa597",
+              "host_pid": 12295
+            },
+            {
+              "worker": "gw0",
+              "id": "cec5fee556557d187d88b5f8c0d5f3d9",
+              "host_pid": 12296
+            }
+          ],
+          "xdist-seed_failure": [
+            {
+              "worker": "gw1",
+              "id": "d458a3c1e2bf94c27d17b6a701b66e6a",
+              "host_pid": 12381
+            },
+            {
+              "worker": "gw0",
+              "id": "0ff61dbad3ae2c952e78a4a89a5fbe29",
+              "host_pid": 12380
+            }
+          ]
+        }
+      },
+      "314": {
+        "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+        "platform": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+        "packages": {
+          "Alembic": "1.18.4",
+          "SQLAlchemy": "2.0.54",
+          "PyMySQL": "1.2.3",
+          "pytest": "9.0.2",
+          "pytest-xdist": "3.8.0",
+          "execnet": "2.1.2"
+        },
+        "host_sha256": "ce286ddf0648b6a3353539433562088012797739dd3eef63b392a479b08b4e37",
+        "host_reused": true,
+        "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+        "scenarios": {
+          "serial-success": {
+            "counts": {
+              "tests": 4,
+              "errors": 0,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "reassessed": true
+          },
+          "serial-revision_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "reassessed": true
+          },
+          "serial-seed_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "reassessed": true
+          },
+          "xdist-success": {
+            "counts": {
+              "tests": 4,
+              "errors": 0,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "reassessed": true
+          },
+          "xdist-revision_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "reassessed": true
+          },
+          "xdist-seed_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "reassessed": true
+          }
+        },
+        "source_hosts": {
+          "serial-success": [
+            {
+              "worker": "main",
+              "id": "0c361f6db7cd2da46b00d6d4f2c0116c",
+              "host_pid": 12408
+            }
+          ],
+          "serial-revision_failure": [
+            {
+              "worker": "main",
+              "id": "a2fa076d0fef03bca2f780728f1ecba1",
+              "host_pid": 12413
+            }
+          ],
+          "serial-seed_failure": [
+            {
+              "worker": "main",
+              "id": "7a9a0ebf6f3e3b44961931d67f61a62b",
+              "host_pid": 12420
+            }
+          ],
+          "xdist-success": [
+            {
+              "worker": "gw1",
+              "id": "321b0186ca0f0fae6c63923f6c88885d",
+              "host_pid": 12500
+            },
+            {
+              "worker": "gw0",
+              "id": "1c5db4a4d0056dd65281e34441365b3a",
+              "host_pid": 12499
+            }
+          ],
+          "xdist-revision_failure": [
+            {
+              "worker": "gw1",
+              "id": "143dec461a9d1a51cec86d9cc6b2b89d",
+              "host_pid": 12655
+            },
+            {
+              "worker": "gw0",
+              "id": "52d617fdd30c71fa074cfbc7b2a3362b",
+              "host_pid": 12654
+            }
+          ],
+          "xdist-seed_failure": [
+            {
+              "worker": "gw1",
+              "id": "1b55f960899de12ebc8b1cfaacc76d6d",
+              "host_pid": 12687
+            },
+            {
+              "worker": "gw0",
+              "id": "0bfb4ce25f32bb46d52f1ce7154bba76",
+              "host_pid": 12686
+            }
+          ]
+        }
+      }
+    },
+    "ubuntu": {
+      "311": {
+        "python": "3.11.17 (main, Oct  1 2026, 14:32:31) [GCC 13.3.0]",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "packages": {
+          "Alembic": "1.18.4",
+          "SQLAlchemy": "2.0.54",
+          "PyMySQL": "1.2.3",
+          "pytest": "7.0.0",
+          "pytest-xdist": "3.8.0",
+          "execnet": "2.1.2"
+        },
+        "host_sha256": "559c0a194200458a0383ab2391e95b5c8ef70b56229d3e411de6ad46232d9362",
+        "host_reused": false,
+        "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+        "scenarios": {
+          "serial-success": {
+            "counts": {
+              "tests": 4,
+              "errors": 0,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "reassessed": true
+          },
+          "serial-revision_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "reassessed": true
+          },
+          "serial-seed_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "reassessed": true
+          },
+          "xdist-success": {
+            "counts": {
+              "tests": 4,
+              "errors": 0,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "reassessed": true
+          },
+          "xdist-revision_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "reassessed": true
+          },
+          "xdist-seed_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "reassessed": true
+          }
+        },
+        "source_hosts": {
+          "serial-success": [
+            {
+              "worker": "main",
+              "id": "e45ac535a8b67d17bb007acad3363e1b",
+              "host_pid": 3536
+            }
+          ],
+          "serial-revision_failure": [
+            {
+              "worker": "main",
+              "id": "14861606f4e84897ad96e133a34f4a2c",
+              "host_pid": 3548
+            }
+          ],
+          "serial-seed_failure": [
+            {
+              "worker": "main",
+              "id": "9f1d1163cfb68b3de961220b6d236191",
+              "host_pid": 3560
+            }
+          ],
+          "xdist-success": [
+            {
+              "worker": "gw1",
+              "id": "00a257b1f5d26e0b9aaa38e783708f41",
+              "host_pid": 3581
+            },
+            {
+              "worker": "gw0",
+              "id": "82c2248156e33db8d626809ee9a3d499",
+              "host_pid": 3582
+            }
+          ],
+          "xdist-revision_failure": [
+            {
+              "worker": "gw1",
+              "id": "c22ec96bcc88460c716e706e81d1208c",
+              "host_pid": 3617
+            },
+            {
+              "worker": "gw0",
+              "id": "07743ed400d4e34f7cc2aeeda024cb76",
+              "host_pid": 3618
+            }
+          ],
+          "xdist-seed_failure": [
+            {
+              "worker": "gw1",
+              "id": "a5533d7318accb82c30e4a82b7f49a69",
+              "host_pid": 3653
+            },
+            {
+              "worker": "gw0",
+              "id": "b4f044381ba2d07f5277882d80b9a240",
+              "host_pid": 3663
+            }
+          ]
+        }
+      },
+      "314": {
+        "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "packages": {
+          "Alembic": "1.18.4",
+          "SQLAlchemy": "2.0.54",
+          "PyMySQL": "1.2.3",
+          "pytest": "9.0.2",
+          "pytest-xdist": "3.8.0",
+          "execnet": "2.1.2"
+        },
+        "host_sha256": "559c0a194200458a0383ab2391e95b5c8ef70b56229d3e411de6ad46232d9362",
+        "host_reused": true,
+        "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+        "scenarios": {
+          "serial-success": {
+            "counts": {
+              "tests": 4,
+              "errors": 0,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "reassessed": true
+          },
+          "serial-revision_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "reassessed": true
+          },
+          "serial-seed_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "reassessed": true
+          },
+          "xdist-success": {
+            "counts": {
+              "tests": 4,
+              "errors": 0,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "reassessed": true
+          },
+          "xdist-revision_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "reassessed": true
+          },
+          "xdist-seed_failure": {
+            "counts": {
+              "tests": 4,
+              "errors": 4,
+              "failures": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "reassessed": true
+          }
+        },
+        "source_hosts": {
+          "serial-success": [
+            {
+              "worker": "main",
+              "id": "17d66e0da281e9fef27656866858dc79",
+              "host_pid": 3722
+            }
+          ],
+          "serial-revision_failure": [
+            {
+              "worker": "main",
+              "id": "14c4ca282c342452678e4488ec640061",
+              "host_pid": 3735
+            }
+          ],
+          "serial-seed_failure": [
+            {
+              "worker": "main",
+              "id": "3be30478ce7aab564a7a8938daf6dffb",
+              "host_pid": 3747
+            }
+          ],
+          "xdist-success": [
+            {
+              "worker": "gw1",
+              "id": "8e8ce01cb82c60f29b43c3ba70e43bdb",
+              "host_pid": 3767
+            },
+            {
+              "worker": "gw0",
+              "id": "415c77490079d194fd5fa77d7b3fd2cc",
+              "host_pid": 3768
+            }
+          ],
+          "xdist-revision_failure": [
+            {
+              "worker": "gw1",
+              "id": "dde8db9f3741b5add00de360d1d02433",
+              "host_pid": 3803
+            },
+            {
+              "worker": "gw0",
+              "id": "abc4a2dd6740de1bfc9f3ec9199511aa",
+              "host_pid": 3804
+            }
+          ],
+          "xdist-seed_failure": [
+            {
+              "worker": "gw1",
+              "id": "2167b3e9d97c76c048f85ee5bf5b4b46",
+              "host_pid": 3838
+            },
+            {
+              "worker": "gw0",
+              "id": "b08f05a025a13f53d8c0d90f1c2c2509",
+              "host_pid": 3847
+            }
+          ]
+        }
+      }
+    }
+  }
+}

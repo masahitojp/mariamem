@@ -1,0 +1,130 @@
+{
+  "normalization": "Runner/repository home prefixes scrubbed (including package README examples); XML placeholders escaped; trailing whitespace removed. Nested results.evidence hashes refer to original bytes, not normalized copies. Package archive hashes are unchanged.",
+  "files": {
+    "alembic-version.txt": {
+      "original_sha256": "9ab229122d7a33d2913cc2131918d99037d163ad3af6ef6d8ee7203ffaa7f3ce",
+      "stored_sha256": "9ab229122d7a33d2913cc2131918d99037d163ad3af6ef6d8ee7203ffaa7f3ce",
+      "bytes": 15
+    },
+    "dependencies.json": {
+      "original_sha256": "d1c379609cc40147d97c208d2639a115065caf06e971e1066beaa5d36c976524",
+      "stored_sha256": "761476e4cc7add126347efb18794554de82b9f94387f5e64d43367ed1d5a7a16",
+      "bytes": 70784
+    },
+    "host-build.txt": {
+      "original_sha256": "e3761e5b9850764da62a7536c788b9f552acba1b8c75c0b5a18fcb744373b884",
+      "stored_sha256": "e3761e5b9850764da62a7536c788b9f552acba1b8c75c0b5a18fcb744373b884",
+      "bytes": 60
+    },
+    "results.json": {
+      "original_sha256": "d84554866efffff681dd23381114492d5ff729c5ff063cf4b49e04958660014f",
+      "stored_sha256": "48b6aca34f7d29ba93961df8f1b26e19d54cb84d4a0835135eca651acedc03b2",
+      "bytes": 7433
+    },
+    "serial-revision_failure/events-main.jsonl": {
+      "original_sha256": "6e6056688bf34e5433693f48373110d2ca571ed52f09650f5c948d74bc40edf7",
+      "stored_sha256": "6e6056688bf34e5433693f48373110d2ca571ed52f09650f5c948d74bc40edf7",
+      "bytes": 752
+    },
+    "serial-revision_failure/pytest.txt": {
+      "original_sha256": "aaf931c659f8979362a20c796337d4c0ebad8f2b74154e05f58f74cdaa4fd565",
+      "stored_sha256": "aaf931c659f8979362a20c796337d4c0ebad8f2b74154e05f58f74cdaa4fd565",
+      "bytes": 31710
+    },
+    "serial-revision_failure/pytest.xml": {
+      "original_sha256": "36cc4c004652bd355d67d74578738166117f3719641f57cfa130b296e803b4a9",
+      "stored_sha256": "b56368da3f2162033cf6405234677a048846ddab0fc56cc27eb6e142631bd33b",
+      "bytes": 31918
+    },
+    "serial-seed_failure/events-main.jsonl": {
+      "original_sha256": "7a5ba06b87e5650f1897f547820bdfe855754ef41e0b5be8068659252fb17de1",
+      "stored_sha256": "7a5ba06b87e5650f1897f547820bdfe855754ef41e0b5be8068659252fb17de1",
+      "bytes": 808
+    },
+    "serial-seed_failure/pytest.txt": {
+      "original_sha256": "176478cf6dfc1a33e48c34fdc6ef46e79f305936458df501b90aec18ad632c85",
+      "stored_sha256": "176478cf6dfc1a33e48c34fdc6ef46e79f305936458df501b90aec18ad632c85",
+      "bytes": 22850
+    },
+    "serial-seed_failure/pytest.xml": {
+      "original_sha256": "f12b8ac77c3a05e15f25d49de3975409e4d3441e2024cf88d2d3e665fe5b1732",
+      "stored_sha256": "529fccbfb8dc5639ae542703bf329aa2077a00f5c92481d530cce39ddf8d1c52",
+      "bytes": 23034
+    },
+    "serial-success/events-main.jsonl": {
+      "original_sha256": "4987c0df6615d12623c5ce4a56361179d25ffbf7c3355ac483b8916c640100f3",
+      "stored_sha256": "4987c0df6615d12623c5ce4a56361179d25ffbf7c3355ac483b8916c640100f3",
+      "bytes": 1419
+    },
+    "serial-success/pytest.txt": {
+      "original_sha256": "5d0f6e026fc73df781e7c016826fb69bb3d321262ada9d3f183ceae39d81fb8c",
+      "stored_sha256": "5d0f6e026fc73df781e7c016826fb69bb3d321262ada9d3f183ceae39d81fb8c",
+      "bytes": 98
+    },
+    "serial-success/pytest.xml": {
+      "original_sha256": "74e144a85f96cbb7e49c4380bf01f1400224e8ecc1beb7eafacc3bf27cbbe38a",
+      "stored_sha256": "8a6e4875236e4100973dcf6957e572a0c22ea60e4f78c6a666ee5b73579f2721",
+      "bytes": 830
+    },
+    "xdist-revision_failure/events-gw0.jsonl": {
+      "original_sha256": "8700e28baf89e1e4383aa018832db00e225c0ce0fc21a920948e067c81ac26ae",
+      "stored_sha256": "8700e28baf89e1e4383aa018832db00e225c0ce0fc21a920948e067c81ac26ae",
+      "bytes": 745
+    },
+    "xdist-revision_failure/events-gw1.jsonl": {
+      "original_sha256": "026a3b5615a176d39ad3c96784a6b231d43594fe5882e43336f2496892690b8c",
+      "stored_sha256": "026a3b5615a176d39ad3c96784a6b231d43594fe5882e43336f2496892690b8c",
+      "bytes": 745
+    },
+    "xdist-revision_failure/pytest.txt": {
+      "original_sha256": "baf3c8e8bcce733633250329a5ee87ad2cf9c29f3a040d773d32cda3f46e3eb4",
+      "stored_sha256": "baf3c8e8bcce733633250329a5ee87ad2cf9c29f3a040d773d32cda3f46e3eb4",
+      "bytes": 32147
+    },
+    "xdist-revision_failure/pytest.xml": {
+      "original_sha256": "0fb7f519fd6b3e7fa98d9cfdf04cef8821ddad0fc899a8602e34c16aef7ece19",
+      "stored_sha256": "b6c8e8478474f5346d3a881ff3b284be25463042182c704a95e0c810d630b07b",
+      "bytes": 31944
+    },
+    "xdist-seed_failure/events-gw0.jsonl": {
+      "original_sha256": "f4d582071853e71a920393427eef1b43d3052f22acfdcda326b7b8c510288a5b",
+      "stored_sha256": "f4d582071853e71a920393427eef1b43d3052f22acfdcda326b7b8c510288a5b",
+      "bytes": 800
+    },
+    "xdist-seed_failure/events-gw1.jsonl": {
+      "original_sha256": "cb03986bdfa9fa1c1518020c25a4973babc87a252571fd073c62d3a547ceb256",
+      "stored_sha256": "cb03986bdfa9fa1c1518020c25a4973babc87a252571fd073c62d3a547ceb256",
+      "bytes": 800
+    },
+    "xdist-seed_failure/pytest.txt": {
+      "original_sha256": "9d124da62447b52920c8601903ce5d4b8b1599584df97fe0956f5c90e4cab916",
+      "stored_sha256": "9d124da62447b52920c8601903ce5d4b8b1599584df97fe0956f5c90e4cab916",
+      "bytes": 23287
+    },
+    "xdist-seed_failure/pytest.xml": {
+      "original_sha256": "adf95dba027d30496803a0c43f03029b33cae6349967940a6849bb83bd606672",
+      "stored_sha256": "f5c6e0bb5c06fa0cb8385cb3c70e802daaea570af30f7437a56ed66f74a5e9db",
+      "bytes": 23060
+    },
+    "xdist-success/events-gw0.jsonl": {
+      "original_sha256": "607376a72fcc46a1fcaedd70d1643b59f30b44e0dc859c1be05231a1668afd09",
+      "stored_sha256": "607376a72fcc46a1fcaedd70d1643b59f30b44e0dc859c1be05231a1668afd09",
+      "bytes": 1142
+    },
+    "xdist-success/events-gw1.jsonl": {
+      "original_sha256": "22ade992fbb3be0516f1d3eec433f6afa58fa1e07440ddc47fae107555dab6c3",
+      "stored_sha256": "22ade992fbb3be0516f1d3eec433f6afa58fa1e07440ddc47fae107555dab6c3",
+      "bytes": 1144
+    },
+    "xdist-success/pytest.txt": {
+      "original_sha256": "f7234442cf09589b75bca438f60f7d1168797d7fdf09280a3585ab0a30eb8246",
+      "stored_sha256": "f7234442cf09589b75bca438f60f7d1168797d7fdf09280a3585ab0a30eb8246",
+      "bytes": 141
+    },
+    "xdist-success/pytest.xml": {
+      "original_sha256": "c1a4eeb1fdda13c520fd7ea1c90328c816bbf3e0b3144ec477f540031c337d2f",
+      "stored_sha256": "3c4bab620e26490d464ad6a67219e4c136eca2c513a7df2d9a25d95b54b9d013",
+      "bytes": 856
+    }
+  }
+}

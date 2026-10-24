@@ -18,9 +18,11 @@ changes are needed. Preparation uses an explicit source URL, tests retain normal
 application SQL/transactions and the approved marker, and each worker owns its
 baseline. Alembic is the concrete example, not a restriction on mariamem_prepare.
 
-Local classifier/collection checks pass; native acceptance is pending CI.
-Do not treat this candidate as adopted or the new matrix as passed. After CI,
-return to Human Review with downloaded receipts and a main-adoption recommendation.
+Local classifier/collection checks and the expanded native acceptance passed.
+[CI40079827071](https://github.com/masahitojp/mariamem/actions/runs/40079827071)
+tested exact source_commit `94d51e6ea6a663aaabfee92d2103bae1c7fefbf4` on both
+OSes. Downloaded raw receipts were hash-checked and independently reassessed.
+The candidate is ready for main-adoption Human Review; it is not yet adopted.
 The strongest limitation remains input breadth: this authored application does
 not establish arbitrary legacy env.py, dump import or other frameworks.
 
@@ -50,9 +52,9 @@ not establish arbitrary legacy env.py, dump import or other frameworks.
 | Python3.11/pytest7 classifier, including original spike oracles | PASS locally; saved inputs/output below |
 | Python3.14/pytest9 classifier, including original spike oracles | PASS locally; saved inputs/output below |
 | Four application test cases collect with plugin/xdist on both interpreters | PASS locally; collection only, not native execution |
-| Python3.11 native migration/seed/isolation and both failure oracles | PENDING on both OSes |
-| Python3.14 native regression on this candidate | PENDING on both OSes; prior spike is not substituted |
-| Migration-specific two-worker reuse/isolation and failure oracles, both interpreters | PENDING on both OSes |
+| Python3.11 native migration/seed/isolation and both failure oracles | PASS on both OSes at94d51e6 |
+| Python3.14 native regression on this candidate | PASS on both OSes at94d51e6; prior spike is not substituted |
+| Migration-specific two-worker reuse/isolation and failure oracles, both interpreters | PASS on both OSes at94d51e6 |
 | Public source/version and diff/reference checks | PASS locally before submission |
 | Qualification/performance/dump import/external application | Not run; outside this candidate |
 
@@ -72,6 +74,29 @@ zero original contacts and source cleanup. Failures require the original
 ProgrammingError1146 with the exact injected SQL-derived oracle/stage in each
 worker, no Snapshot/test admission and cleanup. Another worker's result cannot
 hide a failed/missing worker. Worker-local files prevent concurrent JSONL writes.
+
+## Native CI receipts
+
+[Assessment and job identities](v06x-preparation-migration-productization-evidence/ci-40079827071/assessment.json)
+record all six scenarios per interpreter/OS and distinct source-host PIDs per
+worker. [Artifact identities](v06x-preparation-migration-productization-evidence/ci-40079827071/artifacts.json)
+are GitHub-reported ZIP digests, not locally recomputed ZIP hashes. Each platform
+has py311/py314 results, events, JUnit and dependency receipts with files.json
+original/stored SHA256 and normalization rules. Nested raw hashes are not claimed
+to hash normalized copies.
+
+| OS | Actual minimum Python | Actual current Python | Serial / xdist / both failures |
+| --- | --- | --- | --- |
+| macOS15 arm64 |3.11.9 / pytest7.0.0 |3.14.7 / pytest9.0.2 | PASS for both interpreter environments |
+| Ubuntu24.04 x86_64 |3.11.17 / pytest7.0.0 |3.14.8 / pytest9.0.2 | PASS for both interpreter environments |
+
+All use xdist3.8.0, Alembic1.18.4, SQLAlchemy2.0.54 and PyMySQL1.2.3.
+Within each OS the two interpreter environments used the identical host hash;
+source/Go stamp and guest identity were verified. Original-endpoint contacts
+were zero; every scenario's source hosts were reaped and directories removed.
+Intentional negative pytest invocations reported four setup errors each; the
+strict outer gate accepted the exact injected SQL-derived oracle/stage/1146,
+not arbitrary errors. Runtime/test code is unchanged in this receipt follow-up.
 
 ## Conditions retained
 

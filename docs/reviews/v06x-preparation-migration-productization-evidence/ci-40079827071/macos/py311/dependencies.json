@@ -1,0 +1,1028 @@
+{
+  "version": "1",
+  "pip_version": "26.2.1",
+  "install": [
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/fe/c3/2834a3328cdd2718bb2a05a4b9c16dc79cf7bfb80ae4f4cb9520cd86bf27/pytest-7.0.0-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "42901e6bd4bd4a0e533358a86e848427a49005a3256f657c5c8f8dd35ef137a9"
+          },
+          "hash": "sha256=42901e6bd4bd4a0e533358a86e848427a49005a3256f657c5c8f8dd35ef137a9"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.1",
+        "name": "pytest",
+        "version": "7.0.0",
+        "platform": [
+          "unix",
+          "linux",
+          "osx",
+          "cygwin",
+          "win32"
+        ],
+        "summary": "pytest: simple powerful testing with Python",
+        "description": ".. image:: https://github.com/pytest-dev/pytest/raw/main/doc/en/img/pytest_logo_curves.svg\n   :target: https://docs.pytest.org/en/stable/\n   :align: center\n   :height: 200\n   :alt: pytest\n\n\n------\n\n.. image:: https://img.shields.io/pypi/v/pytest.svg\n    :target: https://pypi.org/project/pytest/\n\n.. image:: https://img.shields.io/conda/vn/conda-forge/pytest.svg\n    :target: https://anaconda.org/conda-forge/pytest\n\n.. image:: https://img.shields.io/pypi/pyversions/pytest.svg\n    :target: https://pypi.org/project/pytest/\n\n.. image:: https://codecov.io/gh/pytest-dev/pytest/branch/main/graph/badge.svg\n    :target: https://codecov.io/gh/pytest-dev/pytest\n    :alt: Code coverage Status\n\n.. image:: https://github.com/pytest-dev/pytest/workflows/main/badge.svg\n    :target: https://github.com/pytest-dev/pytest/actions?query=workflow%3Amain\n\n.. image:: https://results.pre-commit.ci/badge/github/pytest-dev/pytest/main.svg\n   :target: https://results.pre-commit.ci/latest/github/pytest-dev/pytest/main\n   :alt: pre-commit.ci status\n\n.. image:: https://img.shields.io/badge/code%20style-black-000000.svg\n    :target: https://github.com/psf/black\n\n.. image:: https://www.codetriage.com/pytest-dev/pytest/badges/users.svg\n    :target: https://www.codetriage.com/pytest-dev/pytest\n\n.. image:: https://readthedocs.org/projects/pytest/badge/?version=latest\n    :target: https://pytest.readthedocs.io/en/latest/?badge=latest\n    :alt: Documentation Status\n\n.. image:: https://img.shields.io/badge/Discord-pytest--dev-blue\n    :target: https://discord.com/invite/pytest-dev\n    :alt: Discord\n\n.. image:: https://img.shields.io/badge/Libera%20chat-%23pytest-orange\n    :target: https://web.libera.chat/#pytest\n    :alt: Libera chat\n\n\nThe ``pytest`` framework makes it easy to write small tests, yet\nscales to support complex functional testing for applications and libraries.\n\nAn example of a simple test:\n\n.. code-block:: python\n\n    # content of test_sample.py\n    def inc(x):\n        return x + 1\n\n\n    def test_answer():\n        assert inc(3) == 5\n\n\nTo execute it::\n\n    $ pytest\n    ============================= test session starts =============================\n    collected 1 items\n\n    test_sample.py F\n\n    ================================== FAILURES ===================================\n    _________________________________ test_answer _________________________________\n\n        def test_answer():\n    >       assert inc(3) == 5\n    E       assert 4 == 5\n    E        +  where 4 = inc(3)\n\n    test_sample.py:5: AssertionError\n    ========================== 1 failed in 0.04 seconds ===========================\n\n\nDue to ``pytest``'s detailed assertion introspection, only plain ``assert`` statements are used. See `getting-started <https://docs.pytest.org/en/stable/getting-started.html#our-first-test-run>`_ for more examples.\n\n\nFeatures\n--------\n\n- Detailed info on failing `assert statements <https://docs.pytest.org/en/stable/how-to/assert.html>`_ (no need to remember ``self.assert*`` names)\n\n- `Auto-discovery\n  <https://docs.pytest.org/en/stable/explanation/goodpractices.html#python-test-discovery>`_\n  of test modules and functions\n\n- `Modular fixtures <https://docs.pytest.org/en/stable/explanation/fixtures.html>`_ for\n  managing small or parametrized long-lived test resources\n\n- Can run `unittest <https://docs.pytest.org/en/stable/how-to/unittest.html>`_ (or trial),\n  `nose <https://docs.pytest.org/en/stable/how-to/nose.html>`_ test suites out of the box\n\n- Python 3.6+ and PyPy3\n\n- Rich plugin architecture, with over 850+ `external plugins <https://docs.pytest.org/en/latest/reference/plugin_list.html>`_ and thriving community\n\n\nDocumentation\n-------------\n\nFor full documentation, including installation, tutorials and PDF documents, please see https://docs.pytest.org/en/stable/.\n\n\nBugs/Requests\n-------------\n\nPlease use the `GitHub issue tracker <https://github.com/pytest-dev/pytest/issues>`_ to submit bugs or request features.\n\n\nChangelog\n---------\n\nConsult the `Changelog <https://docs.pytest.org/en/stable/changelog.html>`__ page for fixes and enhancements of each version.\n\n\nSupport pytest\n--------------\n\n`Open Collective`_ is an online funding platform for open and transparent communities.\nIt provides tools to raise money and share your finances in full transparency.\n\nIt is the platform of choice for individuals and companies that want to make one-time or\nmonthly donations directly to the project.\n\nSee more details in the `pytest collective`_.\n\n.. _Open Collective: https://opencollective.com\n.. _pytest collective: https://opencollective.com/pytest\n\n\npytest for enterprise\n---------------------\n\nAvailable as part of the Tidelift Subscription.\n\nThe maintainers of pytest and thousands of other packages are working with Tidelift to deliver commercial support and\nmaintenance for the open source dependencies you use to build your applications.\nSave time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use.\n\n`Learn more. <https://tidelift.com/subscription/pkg/pypi-pytest?utm_source=pypi-pytest&utm_medium=referral&utm_campaign=enterprise&utm_term=repo>`_\n\nSecurity\n^^^^^^^^\n\npytest has never been associated with a security vulnerability, but in any case, to report a\nsecurity vulnerability please use the `Tidelift security contact <https://tidelift.com/security>`_.\nTidelift will coordinate the fix and disclosure.\n\n\nLicense\n-------\n\nCopyright Holger Krekel and others, 2004.\n\nDistributed under the terms of the `MIT`_ license, pytest is free and open source software.\n\n.. _`MIT`: https://github.com/pytest-dev/pytest/blob/main/LICENSE\n\n\n",
+        "description_content_type": "text/x-rst",
+        "keywords": [
+          "test",
+          "unittest"
+        ],
+        "home_page": "https://docs.pytest.org/en/latest/",
+        "author": "Holger Krekel, Bruno Oliveira, Ronny Pfannschmidt, Floris Bruynooghe, Brianna Laugher, Florian Bruhin and others",
+        "license": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 6 - Mature",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: MIT License",
+          "Operating System :: MacOS :: MacOS X",
+          "Operating System :: Microsoft :: Windows",
+          "Operating System :: POSIX",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3 :: Only",
+          "Programming Language :: Python :: 3.6",
+          "Programming Language :: Python :: 3.7",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Topic :: Software Development :: Libraries",
+          "Topic :: Software Development :: Testing",
+          "Topic :: Utilities"
+        ],
+        "requires_dist": [
+          "attrs (>=19.2.0)",
+          "iniconfig",
+          "packaging",
+          "pluggy (<2.0,>=0.12)",
+          "py (>=1.8.2)",
+          "tomli (>=1.0.0)",
+          "importlib-metadata (>=0.12) ; python_version < \"3.8\"",
+          "atomicwrites (>=1.0) ; sys_platform == \"win32\"",
+          "colorama ; sys_platform == \"win32\"",
+          "argcomplete ; extra == 'testing'",
+          "hypothesis (>=3.56) ; extra == 'testing'",
+          "mock ; extra == 'testing'",
+          "nose ; extra == 'testing'",
+          "pygments (>=2.7.2) ; extra == 'testing'",
+          "requests ; extra == 'testing'",
+          "xmlschema ; extra == 'testing'"
+        ],
+        "requires_python": ">=3.6",
+        "project_url": [
+          "Changelog, https://docs.pytest.org/en/stable/changelog.html",
+          "Twitter, https://twitter.com/pytestdotorg",
+          "Source, https://github.com/pytest-dev/pytest",
+          "Tracker, https://github.com/pytest-dev/pytest/issues"
+        ],
+        "provides_extra": [
+          "testing"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/40/9e/2b38731e0fc536806f16490e1a12d7f0dc2a1235aa8cc07bcc75416a7daa/pluggy-1.7.0-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "7dd7b0d8832ba3cb632c306926ded123429211b83641b35dc5c41ad2d34f9bec"
+          },
+          "hash": "sha256=7dd7b0d8832ba3cb632c306926ded123429211b83641b35dc5c41ad2d34f9bec"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "pluggy",
+        "version": "1.7.0",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "plugin and hook calling mechanisms for python",
+        "description": "====================================================\npluggy - A minimalist production ready plugin system\n====================================================\n\n|pypi| |conda-forge| |versions| |github-actions| |gitter| |black| |codecov|\n\nThis is the core framework used by the `pytest`_, `tox`_, and `devpi`_ projects.\n\nPlease `read the docs`_ to learn more!\n\nA definitive example\n====================\n.. code-block:: python\n\n    import pluggy\n\n    hookspec = pluggy.HookspecMarker(\"myproject\")\n    hookimpl = pluggy.HookimplMarker(\"myproject\")\n\n\n    class MySpec:\n        \"\"\"A hook specification namespace.\"\"\"\n\n        @hookspec\n        def myhook(self, arg1, arg2):\n            \"\"\"My special little hook that you can customize.\"\"\"\n\n\n    class Plugin_1:\n        \"\"\"A hook implementation namespace.\"\"\"\n\n        @hookimpl\n        def myhook(self, arg1, arg2):\n            print(\"inside Plugin_1.myhook()\")\n            return arg1 + arg2\n\n\n    class Plugin_2:\n        \"\"\"A 2nd hook implementation namespace.\"\"\"\n\n        @hookimpl\n        def myhook(self, arg1, arg2):\n            print(\"inside Plugin_2.myhook()\")\n            return arg1 - arg2\n\n\n    # create a manager and add the spec\n    pm = pluggy.PluginManager(\"myproject\")\n    pm.add_hookspecs(MySpec)\n\n    # register plugins\n    pm.register(Plugin_1())\n    pm.register(Plugin_2())\n\n    # call our ``myhook`` hook\n    results = pm.hook.myhook(arg1=1, arg2=2)\n    print(results)\n\n\nRunning this directly gets us::\n\n    $ python docs/examples/toy-example.py\n    inside Plugin_2.myhook()\n    inside Plugin_1.myhook()\n    [-1, 3]\n\n\n.. badges\n\n.. |pypi| image:: https://img.shields.io/pypi/v/pluggy.svg\n    :target: https://pypi.org/pypi/pluggy\n\n.. |versions| image:: https://img.shields.io/pypi/pyversions/pluggy.svg\n    :target: https://pypi.org/pypi/pluggy\n\n.. |github-actions| image:: https://github.com/pytest-dev/pluggy/workflows/test/badge.svg\n    :target: https://github.com/pytest-dev/pluggy/actions\n\n.. |conda-forge| image:: https://img.shields.io/conda/vn/conda-forge/pluggy.svg\n    :target: https://anaconda.org/conda-forge/pytest\n\n.. |gitter| image:: https://badges.gitter.im/pytest-dev/pluggy.svg\n    :alt: Join the chat at https://gitter.im/pytest-dev/pluggy\n    :target: https://gitter.im/pytest-dev/pluggy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge\n\n.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg\n    :target: https://github.com/psf/black\n\n.. |codecov| image:: https://codecov.io/gh/pytest-dev/pluggy/branch/main/graph/badge.svg\n    :target: https://codecov.io/gh/pytest-dev/pluggy\n    :alt: Code coverage Status\n\n.. links\n.. _pytest:\n    https://pytest.org\n.. _tox:\n    https://tox.wiki/\n.. _devpi:\n    https://doc.devpi.net\n.. _read the docs:\n   https://pluggy.readthedocs.io/en/latest/\n\n\nSupport pluggy\n--------------\n\n`Open Collective`_ is an online funding platform for open and transparent communities.\nIt provides tools to raise money and share your finances in full transparency.\n\nIt is the platform of choice for individuals and companies that want to make one-time or\nmonthly donations directly to the project.\n\n``pluggy`` is part of the ``pytest-dev`` project, see more details in the `pytest collective`_.\n\n.. _Open Collective: https://opencollective.com\n.. _pytest collective: https://opencollective.com/pytest\n",
+        "description_content_type": "text/x-rst",
+        "author": "Holger Krekel",
+        "maintainer_email": "pytest core team <core@pytest.org>",
+        "license": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 6 - Mature",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: MIT License",
+          "Operating System :: POSIX",
+          "Operating System :: Microsoft :: Windows",
+          "Operating System :: MacOS :: MacOS X",
+          "Topic :: Software Development :: Testing",
+          "Topic :: Software Development :: Libraries",
+          "Topic :: Utilities",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3 :: Only",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14"
+        ],
+        "requires_python": ">=3.10",
+        "project_url": [
+          "Homepage, https://github.com/pytest-dev/pluggy",
+          "Documentation, https://pluggy.readthedocs.io/",
+          "Changelog, https://pluggy.readthedocs.io/en/latest/changelog.html",
+          "Repository, https://github.com/pytest-dev/pluggy",
+          "Issues, https://github.com/pytest-dev/pluggy/issues",
+          "Funding, https://tidelift.com/subscription/pkg/pypi-pluggy"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/d2/29/6533c317b74f707ea28f8d633734dbda2119bbadfc61b2f3640ba835d0f7/alembic-1.18.4-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "a5ed4adcf6d8a4cb575f3d759f071b03cd6e5c7618eb796cb52497be25bfe19a"
+          },
+          "hash": "sha256=a5ed4adcf6d8a4cb575f3d759f071b03cd6e5c7618eb796cb52497be25bfe19a"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "alembic",
+        "version": "1.18.4",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "A database migration tool for SQLAlchemy.",
+        "description": "Alembic is a database migrations tool written by the author\nof `SQLAlchemy <http://www.sqlalchemy.org>`_.  A migrations tool\noffers the following functionality:\n\n* Can emit ALTER statements to a database in order to change\n  the structure of tables and other constructs\n* Provides a system whereby \"migration scripts\" may be constructed;\n  each script indicates a particular series of steps that can \"upgrade\" a\n  target database to a new version, and optionally a series of steps that can\n  \"downgrade\" similarly, doing the same steps in reverse.\n* Allows the scripts to execute in some sequential manner.\n\nThe goals of Alembic are:\n\n* Very open ended and transparent configuration and operation.   A new\n  Alembic environment is generated from a set of templates which is selected\n  among a set of options when setup first occurs. The templates then deposit a\n  series of scripts that define fully how database connectivity is established\n  and how migration scripts are invoked; the migration scripts themselves are\n  generated from a template within that series of scripts. The scripts can\n  then be further customized to define exactly how databases will be\n  interacted with and what structure new migration files should take.\n* Full support for transactional DDL.   The default scripts ensure that all\n  migrations occur within a transaction - for those databases which support\n  this (Postgresql, Microsoft SQL Server), migrations can be tested with no\n  need to manually undo changes upon failure.\n* Minimalist script construction.  Basic operations like renaming\n  tables/columns, adding/removing columns, changing column attributes can be\n  performed through one line commands like alter_column(), rename_table(),\n  add_constraint(). There is no need to recreate full SQLAlchemy Table\n  structures for simple operations like these - the functions themselves\n  generate minimalist schema structures behind the scenes to achieve the given\n  DDL sequence.\n* \"auto generation\" of migrations. While real world migrations are far more\n  complex than what can be automatically determined, Alembic can still\n  eliminate the initial grunt work in generating new migration directives\n  from an altered schema.  The ``--autogenerate`` feature will inspect the\n  current status of a database using SQLAlchemy's schema inspection\n  capabilities, compare it to the current state of the database model as\n  specified in Python, and generate a series of \"candidate\" migrations,\n  rendering them into a new migration script as Python directives. The\n  developer then edits the new file, adding additional directives and data\n  migrations as needed, to produce a finished migration. Table and column\n  level changes can be detected, with constraints and indexes to follow as\n  well.\n* Full support for migrations generated as SQL scripts.   Those of us who\n  work in corporate environments know that direct access to DDL commands on a\n  production database is a rare privilege, and DBAs want textual SQL scripts.\n  Alembic's usage model and commands are oriented towards being able to run a\n  series of migrations into a textual output file as easily as it runs them\n  directly to a database. Care must be taken in this mode to not invoke other\n  operations that rely upon in-memory SELECTs of rows - Alembic tries to\n  provide helper constructs like bulk_insert() to help with data-oriented\n  operations that are compatible with script-based DDL.\n* Non-linear, dependency-graph versioning.   Scripts are given UUID\n  identifiers similarly to a DVCS, and the linkage of one script to the next\n  is achieved via human-editable markers within the scripts themselves.\n  The structure of a set of migration files is considered as a\n  directed-acyclic graph, meaning any migration file can be dependent\n  on any other arbitrary set of migration files, or none at\n  all.  Through this open-ended system, migration files can be organized\n  into branches, multiple roots, and mergepoints, without restriction.\n  Commands are provided to produce new branches, roots, and merges of\n  branches automatically.\n* Provide a library of ALTER constructs that can be used by any SQLAlchemy\n  application. The DDL constructs build upon SQLAlchemy's own DDLElement base\n  and can be used standalone by any application or script.\n* At long last, bring SQLite and its inability to ALTER things into the fold,\n  but in such a way that SQLite's very special workflow needs are accommodated\n  in an explicit way that makes the most of a bad situation, through the\n  concept of a \"batch\" migration, where multiple changes to a table can\n  be batched together to form a series of instructions for a single, subsequent\n  \"move-and-copy\" workflow.   You can even use \"move-and-copy\" workflow for\n  other databases, if you want to recreate a table in the background\n  on a busy system.\n\nDocumentation and status of Alembic is at https://alembic.sqlalchemy.org/\n\nThe SQLAlchemy Project\n======================\n\nAlembic is part of the `SQLAlchemy Project <https://www.sqlalchemy.org>`_ and\nadheres to the same standards and conventions as the core project.\n\nDevelopment / Bug reporting / Pull requests\n___________________________________________\n\nPlease refer to the\n`SQLAlchemy Community Guide <https://www.sqlalchemy.org/develop.html>`_ for\nguidelines on coding and participating in this project.\n\nCode of Conduct\n_______________\n\nAbove all, SQLAlchemy places great emphasis on polite, thoughtful, and\nconstructive communication between users and developers.\nPlease see our current Code of Conduct at\n`Code of Conduct <https://www.sqlalchemy.org/codeofconduct.html>`_.\n\nLicense\n=======\n\nAlembic is distributed under the `MIT license\n<https://opensource.org/licenses/MIT>`_.\n",
+        "description_content_type": "text/x-rst",
+        "author_email": "Mike Bayer <mike_mp@zzzcomputing.com>",
+        "license_expression": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "Environment :: Console",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Topic :: Database :: Front-Ends"
+        ],
+        "requires_dist": [
+          "SQLAlchemy>=1.4.23",
+          "Mako",
+          "typing-extensions>=4.12",
+          "tomli; python_version < \"3.11\"",
+          "tzdata; extra == \"tz\""
+        ],
+        "requires_python": ">=3.10",
+        "project_url": [
+          "Homepage, https://alembic.sqlalchemy.org",
+          "Documentation, https://alembic.sqlalchemy.org/en/latest/",
+          "Changelog, https://alembic.sqlalchemy.org/en/latest/changelog.html",
+          "Source, https://github.com/sqlalchemy/alembic/",
+          "Issue Tracker, https://github.com/sqlalchemy/alembic/issues/"
+        ],
+        "provides_extra": [
+          "tz"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/76/bf/7339b18ef05c03335a32f077e450c8040eab0c952c2964e32cd889eafc22/sqlalchemy-2.0.54-cp311-cp311-macosx_11_0_arm64.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "7d03084f3352dd92048cb19c71d90f116d076c9c7937e0ebc7752c4685de6d38"
+          },
+          "hash": "sha256=7d03084f3352dd92048cb19c71d90f116d076c9c7937e0ebc7752c4685de6d38"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "SQLAlchemy",
+        "version": "2.0.54",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "Database Abstraction Library",
+        "description": "SQLAlchemy\n==========\n\n|PyPI| |Python| |Downloads|\n\n.. |PyPI| image:: https://img.shields.io/pypi/v/sqlalchemy\n    :target: https://pypi.org/project/sqlalchemy\n    :alt: PyPI\n\n.. |Python| image:: https://img.shields.io/pypi/pyversions/sqlalchemy\n    :target: https://pypi.org/project/sqlalchemy\n    :alt: PyPI - Python Version\n\n.. |Downloads| image:: https://static.pepy.tech/badge/sqlalchemy/month\n    :target: https://pepy.tech/project/sqlalchemy\n    :alt: PyPI - Downloads\n\n\nThe Python SQL Toolkit and Object Relational Mapper\n\nIntroduction\n-------------\n\nSQLAlchemy is the Python SQL toolkit and Object Relational Mapper\nthat gives application developers the full power and\nflexibility of SQL. SQLAlchemy provides a full suite\nof well known enterprise-level persistence patterns,\ndesigned for efficient and high-performing database\naccess, adapted into a simple and Pythonic domain\nlanguage.\n\nMajor SQLAlchemy features include:\n\n* An industrial strength ORM, built\n  from the core on the identity map, unit of work,\n  and data mapper patterns.   These patterns\n  allow transparent persistence of objects\n  using a declarative configuration system.\n  Domain models\n  can be constructed and manipulated naturally,\n  and changes are synchronized with the\n  current transaction automatically.\n* A relationally-oriented query system, exposing\n  the full range of SQL's capabilities\n  explicitly, including joins, subqueries,\n  correlation, and most everything else,\n  in terms of the object model.\n  Writing queries with the ORM uses the same\n  techniques of relational composition you use\n  when writing SQL.  While you can drop into\n  literal SQL at any time, it's virtually never\n  needed.\n* A comprehensive and flexible system\n  of eager loading for related collections and objects.\n  Collections are cached within a session,\n  and can be loaded on individual access, all\n  at once using joins, or by query per collection\n  across the full result set.\n* A Core SQL construction system and DBAPI\n  interaction layer.  The SQLAlchemy Core is\n  separate from the ORM and is a full database\n  abstraction layer in its own right, and includes\n  an extensible Python-based SQL expression\n  language, schema metadata, connection pooling,\n  type coercion, and custom types.\n* All primary and foreign key constraints are\n  assumed to be composite and natural.  Surrogate\n  integer primary keys are of course still the\n  norm, but SQLAlchemy never assumes or hardcodes\n  to this model.\n* Database introspection and generation.  Database\n  schemas can be \"reflected\" in one step into\n  Python structures representing database metadata;\n  those same structures can then generate\n  CREATE statements right back out - all within\n  the Core, independent of the ORM.\n\nSQLAlchemy's philosophy:\n\n* SQL databases behave less and less like object\n  collections the more size and performance start to\n  matter; object collections behave less and less like\n  tables and rows the more abstraction starts to matter.\n  SQLAlchemy aims to accommodate both of these\n  principles.\n* An ORM doesn't need to hide the \"R\".   A relational\n  database provides rich, set-based functionality\n  that should be fully exposed.   SQLAlchemy's\n  ORM provides an open-ended set of patterns\n  that allow a developer to construct a custom\n  mediation layer between a domain model and\n  a relational schema, turning the so-called\n  \"object relational impedance\" issue into\n  a distant memory.\n* The developer, in all cases, makes all decisions\n  regarding the design, structure, and naming conventions\n  of both the object model as well as the relational\n  schema.   SQLAlchemy only provides the means\n  to automate the execution of these decisions.\n* With SQLAlchemy, there's no such thing as\n  \"the ORM generated a bad query\" - you\n  retain full control over the structure of\n  queries, including how joins are organized,\n  how subqueries and correlation is used, what\n  columns are requested.  Everything SQLAlchemy\n  does is ultimately the result of a developer-initiated \n  decision.\n* Don't use an ORM if the problem doesn't need one.\n  SQLAlchemy consists of a Core and separate ORM\n  component.   The Core offers a full SQL expression\n  language that allows Pythonic construction\n  of SQL constructs that render directly to SQL\n  strings for a target database, returning\n  result sets that are essentially enhanced DBAPI\n  cursors.\n* Transactions should be the norm.  With SQLAlchemy's\n  ORM, nothing goes to permanent storage until\n  commit() is called.  SQLAlchemy encourages applications\n  to create a consistent means of delineating\n  the start and end of a series of operations.\n* Never render a literal value in a SQL statement.\n  Bound parameters are used to the greatest degree\n  possible, allowing query optimizers to cache\n  query plans effectively and making SQL injection\n  attacks a non-issue.\n\nDocumentation\n-------------\n\nLatest documentation is at:\n\nhttps://www.sqlalchemy.org/docs/\n\nInstallation / Requirements\n---------------------------\n\nFull documentation for installation is at\n`Installation <https://www.sqlalchemy.org/docs/intro.html#installation>`_.\n\nGetting Help / Development / Bug reporting\n------------------------------------------\n\nPlease refer to the `SQLAlchemy Community Guide <https://www.sqlalchemy.org/support.html>`_.\n\nCode of Conduct\n---------------\n\nAbove all, SQLAlchemy places great emphasis on polite, thoughtful, and\nconstructive communication between users and developers.\nPlease see our current Code of Conduct at\n`Code of Conduct <https://www.sqlalchemy.org/codeofconduct.html>`_.\n\nLicense\n-------\n\nSQLAlchemy is distributed under the `MIT license\n<https://www.opensource.org/licenses/mit-license.php>`_.\n\n",
+        "description_content_type": "text/x-rst",
+        "home_page": "https://www.sqlalchemy.org",
+        "author": "Mike Bayer",
+        "author_email": "mike_mp@zzzcomputing.com",
+        "license": "MIT",
+        "license_file": [
+          "LICENSE",
+          "AUTHORS"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.7",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Programming Language :: Python :: 3.15",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Topic :: Database :: Front-Ends"
+        ],
+        "requires_dist": [
+          "importlib-metadata; python_version < \"3.8\"",
+          "greenlet>=1; platform_machine == \"aarch64\" or (platform_machine == \"ppc64le\" or (platform_machine == \"x86_64\" or (platform_machine == \"amd64\" or (platform_machine == \"AMD64\" or (platform_machine == \"win32\" or platform_machine == \"WIN32\")))))",
+          "typing-extensions>=4.6.0",
+          "greenlet>=1; extra == \"asyncio\"",
+          "mypy>=0.910; extra == \"mypy\"",
+          "pyodbc; extra == \"mssql\"",
+          "pymssql; extra == \"mssql-pymssql\"",
+          "pyodbc; extra == \"mssql-pyodbc\"",
+          "mysqlclient>=1.4.0; extra == \"mysql\"",
+          "mysql-connector-python; extra == \"mysql-connector\"",
+          "mariadb!=1.1.10,!=1.1.2,!=1.1.5,>=1.0.1; extra == \"mariadb-connector\"",
+          "cx_oracle>=8; extra == \"oracle\"",
+          "oracledb>=1.0.1; extra == \"oracle-oracledb\"",
+          "psycopg2>=2.7; extra == \"postgresql\"",
+          "pg8000>=1.29.1; extra == \"postgresql-pg8000\"",
+          "greenlet>=1; extra == \"postgresql-asyncpg\"",
+          "asyncpg; extra == \"postgresql-asyncpg\"",
+          "psycopg2-binary; extra == \"postgresql-psycopg2binary\"",
+          "psycopg2cffi; extra == \"postgresql-psycopg2cffi\"",
+          "psycopg>=3.0.7; extra == \"postgresql-psycopg\"",
+          "psycopg[binary]>=3.0.7; extra == \"postgresql-psycopgbinary\"",
+          "pymysql; extra == \"pymysql\"",
+          "greenlet>=1; extra == \"aiomysql\"",
+          "aiomysql>=0.2.0; extra == \"aiomysql\"",
+          "greenlet>=1; extra == \"aioodbc\"",
+          "aioodbc; extra == \"aioodbc\"",
+          "greenlet>=1; extra == \"asyncmy\"",
+          "asyncmy>=0.2.12; extra == \"asyncmy\"",
+          "greenlet>=1; extra == \"aiosqlite\"",
+          "aiosqlite; extra == \"aiosqlite\"",
+          "typing_extensions!=3.10.0.1; extra == \"aiosqlite\"",
+          "sqlcipher3_binary; extra == \"sqlcipher\""
+        ],
+        "requires_python": ">=3.7",
+        "project_url": [
+          "Documentation, https://docs.sqlalchemy.org",
+          "Issue Tracker, https://github.com/sqlalchemy/sqlalchemy/"
+        ],
+        "provides_extra": [
+          "asyncio",
+          "mypy",
+          "mssql",
+          "mssql-pymssql",
+          "mssql-pyodbc",
+          "mysql",
+          "mysql-connector",
+          "mariadb-connector",
+          "oracle",
+          "oracle-oracledb",
+          "postgresql",
+          "postgresql-pg8000",
+          "postgresql-asyncpg",
+          "postgresql-psycopg2binary",
+          "postgresql-psycopg2cffi",
+          "postgresql-psycopg",
+          "postgresql-psycopgbinary",
+          "pymysql",
+          "aiomysql",
+          "aioodbc",
+          "asyncmy",
+          "aiosqlite",
+          "sqlcipher"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/a9/4b/0a906d8184f011ff8dbd4722743783867589b33269d2c5fff238d636fdcb/pymysql-1.2.3-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "14f1c68e2ed859243ae5ca41ffbe677027fc46bc136a9f0be8a4e928e5e7415a"
+          },
+          "hash": "sha256=14f1c68e2ed859243ae5ca41ffbe677027fc46bc136a9f0be8a4e928e5e7415a"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "PyMySQL",
+        "version": "1.2.3",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "Pure Python MySQL Driver",
+        "description": "[![Documentation Status](https://readthedocs.org/projects/pymysql/badge/?version=latest)](https://pymysql.readthedocs.io/)\n[![codecov](https://codecov.io/gh/PyMySQL/PyMySQL/branch/main/graph/badge.svg?token=ppEuaNXBW4)](https://codecov.io/gh/PyMySQL/PyMySQL)\n[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/PyMySQL/PyMySQL)\n\n# PyMySQL\n\nThis package contains a pure-Python MySQL and MariaDB client library, based on\n[PEP 249](https://www.python.org/dev/peps/pep-0249/).\n\n## Requirements\n\n- Python -- one of the following:\n  - [CPython](https://www.python.org/) : 3.9 and newer\n  - [PyPy](https://pypy.org/) : Latest 3.x version\n- MySQL Server -- one of the following:\n  - [MySQL](https://www.mysql.com/) LTS versions\n  - [MariaDB](https://mariadb.org/) LTS versions\n\n## Installation\n\nPackage is uploaded on [PyPI](https://pypi.org/project/PyMySQL).\n\nYou can install it with pip:\n\n    $ python3 -m pip install PyMySQL\n\nTo use \"sha256_password\" or \"caching_sha2_password\" for authenticate,\nyou need to install additional dependency:\n\n    $ python3 -m pip install PyMySQL[rsa]\n\nTo use MariaDB's \"ed25519\" authentication method, you need to install\nadditional dependency:\n\n    $ python3 -m pip install PyMySQL[ed25519]\n\n## Documentation\n\nDocumentation is available online: <https://pymysql.readthedocs.io/>\n\nFor support, please refer to the\n[StackOverflow](https://stackoverflow.com/questions/tagged/pymysql).\n\n## Example\n\nThe following examples make use of a simple table\n\n``` sql\nCREATE TABLE `users` (\n    `id` int(11) NOT NULL AUTO_INCREMENT,\n    `email` varchar(255) COLLATE utf8_bin NOT NULL,\n    `password` varchar(255) COLLATE utf8_bin NOT NULL,\n    PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin\nAUTO_INCREMENT=1 ;\n```\n\n``` python\nimport pymysql.cursors\n\n# Connect to the database\nconnection = pymysql.connect(\n    host=\"localhost\",\n    user=\"user\",\n    password=\"passwd\",\n    database=\"db\",\n    cursorclass=pymysql.cursors.DictCursor,\n)\n\nwith connection:\n    with connection.cursor() as cursor:\n        # Create a new record\n        sql = \"INSERT INTO `users` (`email`, `password`) VALUES (%s, %s)\"\n        cursor.execute(sql, (\"webmaster@python.org\", \"very-secret\"))\n\n    # connection is not autocommit by default. So you must commit to save\n    # your changes.\n    connection.commit()\n\n    with connection.cursor() as cursor:\n        # Read a single record\n        sql = \"SELECT `id`, `password` FROM `users` WHERE `email`=%s\"\n        cursor.execute(sql, (\"webmaster@python.org\",))\n        result = cursor.fetchone()\n        print(result)\n```\n\nThis example will print:\n\n``` python\n{\"password\": \"very-secret\", \"id\": 1}\n```\n\n## Resources\n\n- DB-API 2.0: <https://www.python.org/dev/peps/pep-0249/>\n- MySQL Reference Manuals: <https://dev.mysql.com/doc/>\n- Getting Help With MariaDB <https://mariadb.com/kb/en/getting-help-with-mariadb/>\n- MySQL client/server protocol:\n  <https://dev.mysql.com/doc/internals/en/client-server-protocol.html>\n- \"Connector\" channel in MySQL Community Slack:\n  <https://lefred.be/mysql-community-on-slack/>\n- PyMySQL mailing list:\n  <https://groups.google.com/forum/#!forum/pymysql-users>\n\n## License\n\nPyMySQL is released under the MIT License. See LICENSE for more\ninformation.\n",
+        "description_content_type": "text/markdown",
+        "keywords": [
+          "MySQL"
+        ],
+        "author_email": "Inada Naoki <songofacandy@gmail.com>, Yutaka Matsubara <yutaka.matsubara@gmail.com>",
+        "license_expression": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Intended Audience :: Developers",
+          "Topic :: Database"
+        ],
+        "requires_dist": [
+          "cryptography>=46.0.7; extra == \"rsa\"",
+          "PyNaCl>=1.6.2; extra == \"ed25519\""
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "Project, https://github.com/PyMySQL/PyMySQL",
+          "Documentation, https://pymysql.readthedocs.io/",
+          "Changelog, https://github.com/PyMySQL/PyMySQL/blob/main/CHANGELOG.md"
+        ],
+        "provides_extra": [
+          "rsa",
+          "ed25519"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/6d/a0/053d6af3e8f871e0073b4a36732d9e65be77a72e5434c31b94f6af78a6bb/mako-1.4.3-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "723296007c870bfd6b3f0c3230dba7198096e5269297ebf5e4eff9e7ffa39d4f"
+          },
+          "hash": "sha256=723296007c870bfd6b3f0c3230dba7198096e5269297ebf5e4eff9e7ffa39d4f"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "Mako",
+        "version": "1.4.3",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "A super-fast templating language that borrows the best ideas from the existing templating languages.",
+        "description": "=========================\nMako Templates for Python\n=========================\n\nMako is a template library written in Python. It provides a familiar, non-XML \nsyntax which compiles into Python modules for maximum performance. Mako's \nsyntax and API borrows from the best ideas of many others, including Django\ntemplates, Cheetah, Myghty, and Genshi. Conceptually, Mako is an embedded \nPython (i.e. Python Server Page) language, which refines the familiar ideas\nof componentized layout and inheritance to produce one of the most \nstraightforward and flexible models available, while also maintaining close \nties to Python calling and scoping semantics.\n\nNutshell\n========\n\n::\n\n    <%inherit file=\"base.html\"/>\n    <%\n        rows = [[v for v in range(0,10)] for row in range(0,10)]\n    %>\n    <table>\n        % for row in rows:\n            ${makerow(row)}\n        % endfor\n    </table>\n\n    <%def name=\"makerow(row)\">\n        <tr>\n        % for name in row:\n            <td>${name}</td>\\\n        % endfor\n        </tr>\n    </%def>\n\nPhilosophy\n===========\n\nPython is a great scripting language. Don't reinvent the wheel...your templates can handle it !\n\nDocumentation\n==============\n\nSee documentation for Mako at https://docs.makotemplates.org/en/latest/\n\nLicense\n========\n\nMako is licensed under an MIT-style license (see LICENSE).\nOther incorporated projects may be licensed under different licenses.\nAll licenses allow for non-commercial and commercial use.\n",
+        "description_content_type": "text/x-rst",
+        "author_email": "Mike Bayer <mike@zzzcomputing.com>",
+        "license_expression": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Web Environment",
+          "Intended Audience :: Developers",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Programming Language :: Python :: 3.15",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Topic :: Internet :: WWW/HTTP :: Dynamic Content"
+        ],
+        "requires_dist": [
+          "MarkupSafe>=2.0",
+          "pytest; extra == \"testing\"",
+          "Babel; extra == \"babel\"",
+          "lingua>=4.16; extra == \"lingua\""
+        ],
+        "requires_python": ">=3.10",
+        "project_url": [
+          "Homepage, https://www.makotemplates.org/",
+          "Documentation, https://docs.makotemplates.org",
+          "Issue Tracker, https://github.com/sqlalchemy/mako"
+        ],
+        "provides_extra": [
+          "testing",
+          "babel",
+          "lingua"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/6c/14/0b05f79b4733e264a18d08fe08fa1df7347630ff32a6cb82180d9dccec55/markupsafe-3.0.4-cp311-cp311-macosx_11_0_arm64.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "7d3391b2188d18737cb2fa147028b1096236eaa7e156446c650a489fa2cadc91"
+          },
+          "hash": "sha256=7d3391b2188d18737cb2fa147028b1096236eaa7e156446c650a489fa2cadc91"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "MarkupSafe",
+        "version": "3.0.4",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "Safely add untrusted strings to HTML/XML markup.",
+        "description": "<div align=\"center\"><img src=\"https://raw.githubusercontent.com/pallets/markupsafe/refs/heads/stable/docs/_static/markupsafe-name.svg\" alt=\"\" height=\"150\"></div>\n\n# MarkupSafe\n\nMarkupSafe implements a text object that escapes characters so it is\nsafe to use in HTML and XML. Characters that have special meanings are\nreplaced so that they display as the actual characters. This mitigates\ninjection attacks, meaning untrusted user input can safely be displayed\non a page.\n\n\n## Examples\n\n```pycon\n>>> from markupsafe import Markup, escape\n\n>>> # escape replaces special characters and wraps in Markup\n>>> escape(\"<script>alert(document.cookie);</script>\")\nMarkup('&lt;script&gt;alert(document.cookie);&lt;/script&gt;')\n\n>>> # wrap in Markup to mark text \"safe\" and prevent escaping\n>>> Markup(\"<strong>Hello</strong>\")\nMarkup('<strong>hello</strong>')\n\n>>> escape(Markup(\"<strong>Hello</strong>\"))\nMarkup('<strong>hello</strong>')\n\n>>> # Markup is a str subclass\n>>> # methods and operators escape their arguments\n>>> template = Markup(\"Hello <em>{name}</em>\")\n>>> template.format(name='\"World\"')\nMarkup('Hello <em>&#34;World&#34;</em>')\n```\n\n## Donate\n\nThe Pallets organization develops and supports MarkupSafe and other\npopular packages. In order to grow the community of contributors and\nusers, and allow the maintainers to devote more time to the projects,\n[please donate today][].\n\n[please donate today]: https://palletsprojects.com/donate\n\n## Contributing\n\nSee our [detailed contributing documentation][contrib] for many ways to\ncontribute, including reporting issues, requesting features, asking or answering\nquestions, and making PRs.\n\n[contrib]: https://palletsprojects.com/contributing/\n",
+        "description_content_type": "text/markdown",
+        "maintainer_email": "Pallets <contact@palletsprojects.com>",
+        "license_expression": "BSD-3-Clause",
+        "license_file": [
+          "LICENSE.txt"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Web Environment",
+          "Intended Audience :: Developers",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+          "Topic :: Text Processing :: Markup :: HTML",
+          "Typing :: Typed"
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "Donate, https://palletsprojects.com/donate",
+          "Documentation, https://markupsafe.palletsprojects.com/",
+          "Changes, https://markupsafe.palletsprojects.com/page/changes/",
+          "Source, https://github.com/pallets/markupsafe/",
+          "Chat, https://discord.gg/pallets"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+          },
+          "hash": "sha256=481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "typing_extensions",
+        "version": "4.16.0",
+        "summary": "Backported and Experimental Type Hints for Python 3.9+",
+        "description": "# Typing Extensions\n\n[![Chat at https://gitter.im/python/typing](https://badges.gitter.im/python/typing.svg)](https://gitter.im/python/typing)\n\n[Documentation](https://typing-extensions.readthedocs.io/en/latest/#) –\n[PyPI](https://pypi.org/project/typing-extensions/)\n\n## Overview\n\nThe `typing_extensions` module serves two related purposes:\n\n- Enable use of new type system features on older Python versions. For example,\n  `typing.TypeGuard` is new in Python 3.10, but `typing_extensions` allows\n  users on previous Python versions to use it too.\n- Enable experimentation with new type system PEPs before they are accepted and\n  added to the `typing` module.\n\n`typing_extensions` is treated specially by static type checkers such as\nmypy and pyright. Objects defined in `typing_extensions` are treated the same\nway as equivalent forms in `typing`.\n\n`typing_extensions` uses\n[Semantic Versioning](https://semver.org/). The\nmajor version will be incremented only for backwards-incompatible changes.\nTherefore, it's safe to depend\non `typing_extensions` like this: `typing_extensions ~=x.y`,\nwhere `x.y` is the first version that includes all features you need.\n[This](https://packaging.python.org/en/latest/specifications/version-specifiers/#compatible-release)\nis equivalent to `typing_extensions >=x.y, <(x+1)`. Do not depend on `~= x.y.z`\nunless you really know what you're doing; that defeats the purpose of\nsemantic versioning.\n\n## Included items\n\nSee [the documentation](https://typing-extensions.readthedocs.io/en/latest/#) for a\ncomplete listing of module contents.\n\n## Contributing\n\nSee [CONTRIBUTING.md](https://github.com/python/typing_extensions/blob/main/CONTRIBUTING.md)\nfor how to contribute to `typing_extensions`.\n\n",
+        "description_content_type": "text/markdown",
+        "keywords": [
+          "annotations",
+          "backport",
+          "checker",
+          "checking",
+          "function",
+          "hinting",
+          "hints",
+          "type",
+          "typechecking",
+          "typehinting",
+          "typehints",
+          "typing"
+        ],
+        "author_email": "\"Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Michael Lee\" <levkivskyi@gmail.com>",
+        "license_expression": "PSF-2.0",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Environment :: Console",
+          "Intended Audience :: Developers",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3 :: Only",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Programming Language :: Python :: 3.15",
+          "Topic :: Software Development"
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "Bug Tracker, https://github.com/python/typing_extensions/issues",
+          "Changes, https://github.com/python/typing_extensions/blob/main/CHANGELOG.md",
+          "Documentation, https://typing-extensions.readthedocs.io/",
+          "Home, https://github.com/python/typing_extensions",
+          "Q & A, https://github.com/python/typing/discussions",
+          "Repository, https://github.com/python/typing_extensions"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/56/43/4ca9e49d27a1fcf6bece6f6aec0ea46bb9112489b93d4b688fb415457bdb/iniconfig-2.3.1-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "9121e2c1fdb355232495be3194c8dfe87ccc2d5dee45947b78e68f499790d7a7"
+          },
+          "hash": "sha256=9121e2c1fdb355232495be3194c8dfe87ccc2d5dee45947b78e68f499790d7a7"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "iniconfig",
+        "version": "2.3.1",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "brain-dead simple config-ini parsing",
+        "description": "iniconfig: brain-dead simple parsing of ini files\n=======================================================\n\niniconfig is a small and simple INI-file parser module\nhaving a unique set of features:\n\n* maintains order of sections and entries\n* supports multi-line values with or without line-continuations\n* supports \"#\" comments everywhere\n* raises errors with proper line-numbers\n* no bells and whistles like automatic substitutions\n* iniconfig raises an Error if two sections have the same name.\n\nIf you encounter issues or have feature wishes please report them to:\n\n    https://github.com/pytest-dev/iniconfig/issues\n\nBasic Example\n===================================\n\nIf you have an ini file like this:\n\n.. code-block:: ini\n\n    # content of example.ini\n    [section1] # comment\n    name1=value1  # comment\n    name1b=value1,value2  # comment\n\n    [section2]\n    name2=\n        line1\n        line2\n\nuse ``IniConfig.parse()`` to strip inline comments from values:\n\n.. code-block:: pycon\n\n    >>> import iniconfig\n    >>> ini = iniconfig.IniConfig.parse(\"example.ini\")\n    >>> ini['section1']['name1'] # raises KeyError if not exists\n    'value1'\n    >>> ini.get('section1', 'name1b', [], lambda x: x.split(\",\"))\n    ['value1', 'value2']\n    >>> ini.get('section1', 'notexist', [], lambda x: x.split(\",\"))\n    []\n    >>> [x.name for x in list(ini)]\n    ['section1', 'section2']\n    >>> list(list(ini)[0].items())\n    [('name1', 'value1'), ('name1b', 'value1,value2')]\n    >>> 'section1' in ini\n    True\n    >>> 'inexistendsection' in ini\n    False\n\nThe ``IniConfig()`` constructor preserves inline comments in values for backward\ncompatibility. Use ``IniConfig.parse(..., strip_inline_comments=False)`` to\npreserve them when using the parsing method.\n",
+        "description_content_type": "text/x-rst",
+        "author_email": "Ronny Pfannschmidt <opensource@ronnypfannschmidt.de>, Holger Krekel <holger.krekel@gmail.com>",
+        "license_expression": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 4 - Beta",
+          "Intended Audience :: Developers",
+          "Operating System :: MacOS :: MacOS X",
+          "Operating System :: Microsoft :: Windows",
+          "Operating System :: POSIX",
+          "Programming Language :: Python :: 3 :: Only",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Programming Language :: Python :: 3.15",
+          "Topic :: Software Development :: Libraries",
+          "Topic :: Utilities"
+        ],
+        "requires_python": ">=3.10",
+        "project_url": [
+          "Homepage, https://github.com/pytest-dev/iniconfig"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"
+          },
+          "hash": "sha256=d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "packaging",
+        "version": "26.3",
+        "summary": "Core utilities for Python packages",
+        "description": "packaging\n=========\n\n.. start-intro\n\nReusable core utilities for various Python Packaging\n`interoperability specifications <https://packaging.python.org/specifications/>`_.\n\nThis library provides utilities that implement the interoperability\nspecifications which have clearly one correct behaviour (eg: :pep:`440`)\nor benefit greatly from having a single shared implementation (eg: :pep:`425`).\n\n.. end-intro\n\nThe ``packaging`` project includes the following: version handling, specifiers,\nmarkers, requirements, tags, metadata, lockfiles, utilities.\n\nDocumentation\n-------------\n\nThe `documentation`_ provides information and the API for the following:\n\n- Version Handling\n- Specifiers\n- Markers\n- Licenses\n- Requirements\n- Metadata\n- Tags\n- Lockfiles (pylock)\n- Direct URL helpers\n- Dependency groups\n- Errors\n- Utilities\n\nInstallation\n------------\n\nUse ``pip`` to install these utilities::\n\n    pip install packaging\n\nThe ``packaging`` library uses calendar-based versioning (``YY.N``).\n\nDiscussion\n----------\n\nIf you run into bugs, you can file them in our `issue tracker`_.\n\nYou can also join discussions on `GitHub Discussions`_ to ask questions or get involved.\n\n.. _`documentation`: https://packaging.pypa.io/\n.. _`issue tracker`: https://github.com/pypa/packaging/issues\n.. _`GitHub Discussions`: https://github.com/pypa/packaging/discussions\n\n\nCode of Conduct\n---------------\n\nEveryone interacting in the packaging project's codebases, issue trackers, chat\nrooms, and mailing lists is expected to follow the `PSF Code of Conduct`_.\n\n.. _PSF Code of Conduct: https://github.com/pypa/.github/blob/main/CODE_OF_CONDUCT.md\n\nContributing\n------------\n\nThe ``CONTRIBUTING.rst`` file outlines how to contribute to this project as\nwell as how to report a potential security issue. The documentation for this\nproject also covers information about `project development`_ and `security`_.\n\n.. _`project development`: https://packaging.pypa.io/en/latest/development/\n.. _`security`: https://packaging.pypa.io/en/latest/security/\n\nProject History\n---------------\n\nPlease review the ``CHANGELOG.rst`` file or the `Changelog documentation`_ for\nrecent changes and project history.\n\n.. _`Changelog documentation`: https://packaging.pypa.io/en/latest/changelog/\n\n",
+        "description_content_type": "text/x-rst",
+        "author_email": "Donald Stufft <donald@stufft.io>",
+        "license_expression": "Apache-2.0 OR BSD-2-Clause",
+        "license_file": [
+          "LICENSE",
+          "LICENSE.APACHE",
+          "LICENSE.BSD"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3 :: Only",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Programming Language :: Python :: 3.15",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Programming Language :: Python :: Free Threading :: 4 - Resilient",
+          "Typing :: Typed"
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "Documentation, https://packaging.pypa.io/",
+          "Source, https://github.com/pypa/packaging"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9"
+          },
+          "hash": "sha256=2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.5",
+        "name": "Pygments",
+        "version": "2.21.0",
+        "summary": "Pygments is a syntax highlighting package written in Python.",
+        "description": "Pygments\n~~~~~~~~\n\nPygments is a syntax highlighting package written in Python.\n\nIt is a generic syntax highlighter suitable for use in code hosting, forums,\nwikis or other applications that need to prettify source code.  Highlights\nare:\n\n* a wide range of over 500 languages and other text formats is supported\n* special attention is paid to details, increasing quality by a fair amount\n* support for new languages and formats are added easily\n* a number of output formats, presently HTML, LaTeX, RTF, SVG, all image\n  formats that PIL supports and ANSI sequences\n* it is usable as a command-line tool and as a library\n\nCopyright 2006-present by the Pygments team, see ``AUTHORS``.\nLicensed under the BSD, see ``LICENSE`` for details.\n",
+        "description_content_type": "text/x-rst",
+        "keywords": [
+          "syntax",
+          "highlighting"
+        ],
+        "author_email": "Georg Brandl <georg@python.org>",
+        "maintainer": "Matthäus G. Chajdas",
+        "maintainer_email": "Georg Brandl <georg@python.org>, Jean Abou Samra <jean@abou-samra.fr>",
+        "license_expression": "BSD-2-Clause",
+        "license_file": [
+          "AUTHORS",
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 6 - Mature",
+          "Intended Audience :: Developers",
+          "Intended Audience :: End Users/Desktop",
+          "Intended Audience :: System Administrators",
+          "Operating System :: OS Independent",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Programming Language :: Python :: 3.15",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Topic :: Text Processing :: Filters",
+          "Topic :: Utilities"
+        ],
+        "requires_dist": [
+          "colorama>=0.4.6; extra == 'windows-terminal'"
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "Homepage, https://pygments.org",
+          "Documentation, https://pygments.org/docs",
+          "Source, https://github.com/pygments/pygments",
+          "Bug Tracker, https://github.com/pygments/pygments/issues",
+          "Changelog, https://github.com/pygments/pygments/blob/master/CHANGES"
+        ],
+        "provides_extra": [
+          "plugins",
+          "windows-terminal"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/ca/31/d4e37e9e550c2b92a9cbc2e4d0b7420a27224968580b5a447f420847c975/pytest_xdist-3.8.0-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "202ca578cfeb7370784a8c33d6d05bc6e13b4f25b5053c30a152269fd10f0b88"
+          },
+          "hash": "sha256=202ca578cfeb7370784a8c33d6d05bc6e13b4f25b5053c30a152269fd10f0b88"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "pytest-xdist",
+        "version": "3.8.0",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "pytest xdist plugin for distributed testing, most importantly across multiple CPUs",
+        "description": "============\npytest-xdist\n============\n\n.. image:: http://img.shields.io/pypi/v/pytest-xdist.svg\n    :alt: PyPI version\n    :target: https://pypi.python.org/pypi/pytest-xdist\n\n.. image:: https://img.shields.io/conda/vn/conda-forge/pytest-xdist.svg\n    :target: https://anaconda.org/conda-forge/pytest-xdist\n\n.. image:: https://img.shields.io/pypi/pyversions/pytest-xdist.svg\n    :alt: Python versions\n    :target: https://pypi.python.org/pypi/pytest-xdist\n\n.. image:: https://github.com/pytest-dev/pytest-xdist/workflows/test/badge.svg\n    :target: https://github.com/pytest-dev/pytest-xdist/actions\n\n.. image:: https://img.shields.io/badge/code%20style-black-000000.svg\n    :target: https://github.com/ambv/black\n\nThe `pytest-xdist`_ plugin extends pytest with new test execution modes, the most used being distributing\ntests across multiple CPUs to speed up test execution::\n\n    pytest -n auto\n\nWith this call, pytest will spawn a number of workers processes equal to the number of available CPUs, and distribute\nthe tests randomly across them.\n\nDocumentation\n=============\n\nDocumentation is available at `Read The Docs <https://pytest-xdist.readthedocs.io>`__.\n",
+        "description_content_type": "text/x-rst",
+        "author_email": "holger krekel and contributors <pytest-dev@python.org>, holger@merlinux.eu",
+        "license_expression": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Framework :: Pytest",
+          "Intended Audience :: Developers",
+          "Operating System :: POSIX",
+          "Operating System :: Microsoft :: Windows",
+          "Operating System :: MacOS :: MacOS X",
+          "Topic :: Software Development :: Testing",
+          "Topic :: Software Development :: Quality Assurance",
+          "Topic :: Utilities",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3 :: Only",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13"
+        ],
+        "requires_dist": [
+          "execnet>=2.1",
+          "pytest>=7.0.0",
+          "filelock; extra == \"testing\"",
+          "psutil>=3.0; extra == \"psutil\"",
+          "setproctitle; extra == \"setproctitle\""
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "Homepage, https://github.com/pytest-dev/pytest-xdist",
+          "Documentation, https://pytest-xdist.readthedocs.io/en/latest",
+          "Changelog, https://pytest-xdist.readthedocs.io/en/latest/changelog.html",
+          "Source, https://github.com/pytest-dev/pytest-xdist",
+          "Tracker, https://github.com/pytest-dev/pytest-xdist/issues"
+        ],
+        "provides_extra": [
+          "testing",
+          "psutil",
+          "setproctitle"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/ab/84/02fc1827e8cdded4aa65baef11296a9bbe595c474f0d6d758af082d849fd/execnet-2.1.2-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "67fba928dd5a544b783f6056f449e5e3931a5c378b128bc18501f7ea79e296ec"
+          },
+          "hash": "sha256=67fba928dd5a544b783f6056f449e5e3931a5c378b128bc18501f7ea79e296ec"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "execnet",
+        "version": "2.1.2",
+        "summary": "execnet: rapid multi-Python deployment",
+        "description": "execnet: distributed Python deployment and communication\n========================================================\n\n.. image:: https://img.shields.io/pypi/v/execnet.svg\n    :target: https://pypi.org/project/execnet/\n\n.. image:: https://anaconda.org/conda-forge/execnet/badges/version.svg\n    :target: https://anaconda.org/conda-forge/execnet\n\n.. image:: https://img.shields.io/pypi/pyversions/execnet.svg\n    :target: https://pypi.org/project/execnet/\n\n.. image:: https://github.com/pytest-dev/execnet/workflows/test/badge.svg\n    :target: https://github.com/pytest-dev/execnet/actions?query=workflow%3Atest\n\n.. image:: https://img.shields.io/badge/code%20style-black-000000.svg\n    :target: https://github.com/python/black\n\n.. _execnet: https://execnet.readthedocs.io\n\nexecnet_ provides carefully tested means to ad-hoc interact with Python\ninterpreters across version, platform and network barriers.  It provides\na minimal and fast API targeting the following uses:\n\n* distribute tasks to local or remote processes\n* write and deploy hybrid multi-process applications\n* write scripts to administer multiple hosts\n\nFeatures\n--------\n\n* zero-install bootstrapping: no remote installation required!\n\n* flexible communication: send/receive as well as\n  callback/queue mechanisms supported\n\n* simple serialization of python builtin types (no pickling)\n\n* grouped creation and robust termination of processes\n\n* interoperable between Windows and Unix-ish systems.\n\n* integrates with different threading models, including standard\n  os threads, eventlet and gevent based systems.\n",
+        "description_content_type": "text/x-rst",
+        "author": "holger krekel and others",
+        "license_expression": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: MIT License",
+          "Operating System :: MacOS :: MacOS X",
+          "Operating System :: Microsoft :: Windows",
+          "Operating System :: POSIX",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Topic :: Software Development :: Libraries",
+          "Topic :: System :: Distributed Computing",
+          "Topic :: System :: Networking"
+        ],
+        "requires_dist": [
+          "hatch; extra == 'testing'",
+          "pre-commit; extra == 'testing'",
+          "pytest; extra == 'testing'",
+          "tox; extra == 'testing'"
+        ],
+        "requires_python": ">=3.8",
+        "project_url": [
+          "Homepage, https://execnet.readthedocs.io/en/latest/"
+        ],
+        "provides_extra": [
+          "testing"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309"
+          },
+          "hash": "sha256=c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "attrs",
+        "version": "26.1.0",
+        "summary": "Classes Without Boilerplate",
+        "description": "<p align=\"center\">\n  <a href=\"https://www.attrs.org/\">\n    <img src=\"https://raw.githubusercontent.com/python-attrs/attrs/main/docs/_static/attrs_logo.svg\" width=\"35%\" alt=\"attrs\" />\n  </a>\n</p>\n\n\n*attrs* is the Python package that will bring back the **joy** of **writing classes** by relieving you from the drudgery of implementing object protocols (aka [dunder methods](https://www.attrs.org/en/latest/glossary.html#term-dunder-methods)).\nTrusted by NASA for [Mars missions since 2020](https://github.com/readme/featured/nasa-ingenuity-helicopter)!\n\nIts main goal is to help you to write **concise** and **correct** software without slowing down your code.\n\n\n## Sponsors\n\n*attrs* would not be possible without our [amazing sponsors](https://github.com/sponsors/hynek).\nEspecially those generously supporting us at the *The Organization* tier and higher:\n\n<!-- sponsor-break-begin -->\n\n<p align=\"center\">\n\n<!-- [[[cog\nimport pathlib, tomllib\n\nfor sponsor in tomllib.loads(pathlib.Path(\"pyproject.toml\").read_text())[\"tool\"][\"sponcon\"][\"sponsors\"]:\n      print(f'<a href=\"{sponsor[\"url\"]}\"><img title=\"{sponsor[\"title\"]}\" src=\"https://www.attrs.org/en/26.1.0/_static/sponsors/{sponsor[\"img\"]}\" width=\"190\" /></a>')\n]]] -->\n<a href=\"https://www.variomedia.de/\"><img title=\"Variomedia AG\" src=\"https://www.attrs.org/en/26.1.0/_static/sponsors/Variomedia.svg\" width=\"190\" /></a>\n<a href=\"https://tidelift.com/?utm_source=lifter&utm_medium=referral&utm_campaign=hynek\"><img title=\"Tidelift\" src=\"https://www.attrs.org/en/26.1.0/_static/sponsors/Tidelift.svg\" width=\"190\" /></a>\n<a href=\"https://kraken.tech/\"><img title=\"Kraken Tech\" src=\"https://www.attrs.org/en/26.1.0/_static/sponsors/Kraken.svg\" width=\"190\" /></a>\n<a href=\"https://privacy-solutions.org/\"><img title=\"Privacy Solutions\" src=\"https://www.attrs.org/en/26.1.0/_static/sponsors/Privacy-Solutions.svg\" width=\"190\" /></a>\n<a href=\"https://filepreviews.io/\"><img title=\"FilePreviews\" src=\"https://www.attrs.org/en/26.1.0/_static/sponsors/FilePreviews.svg\" width=\"190\" /></a>\n<a href=\"https://www.testmuai.com/?utm_medium=sponsor&utm_source=structlog\"><img title=\"TestMu AI\" src=\"https://www.attrs.org/en/26.1.0/_static/sponsors/TestMu-AI.svg\" width=\"190\" /></a>\n<a href=\"https://polar.sh/\"><img title=\"Polar\" src=\"https://www.attrs.org/en/26.1.0/_static/sponsors/Polar.svg\" width=\"190\" /></a>\n<!-- [[[end]]] -->\n\n</p>\n\n<!-- sponsor-break-end -->\n\n<p align=\"center\">\n   <strong>Please consider <a href=\"https://github.com/sponsors/hynek\">joining them</a> to help make <em>attrs</em>’s maintenance more sustainable!</strong>\n</p>\n\n<!-- teaser-end -->\n\n## Example\n\n*attrs* gives you a class decorator and a way to declaratively define the attributes on that class:\n\n<!-- code-begin -->\n\n```pycon\n>>> from attrs import asdict, define, make_class, Factory\n\n>>> @define\n... class SomeClass:\n...     a_number: int = 42\n...     list_of_numbers: list[int] = Factory(list)\n...\n...     def hard_math(self, another_number):\n...         return self.a_number + sum(self.list_of_numbers) * another_number\n\n\n>>> sc = SomeClass(1, [1, 2, 3])\n>>> sc\nSomeClass(a_number=1, list_of_numbers=[1, 2, 3])\n\n>>> sc.hard_math(3)\n19\n>>> sc == SomeClass(1, [1, 2, 3])\nTrue\n>>> sc != SomeClass(2, [3, 2, 1])\nTrue\n\n>>> asdict(sc)\n{'a_number': 1, 'list_of_numbers': [1, 2, 3]}\n\n>>> SomeClass()\nSomeClass(a_number=42, list_of_numbers=[])\n\n>>> C = make_class(\"C\", [\"a\", \"b\"])\n>>> C(\"foo\", \"bar\")\nC(a='foo', b='bar')\n```\n\nAfter *declaring* your attributes, *attrs* gives you:\n\n- a concise and explicit overview of the class's attributes,\n- a nice human-readable `__repr__`,\n- equality-checking methods,\n- an initializer,\n- and much more,\n\n*without* writing dull boilerplate code again and again and *without* runtime performance penalties.\n\n---\n\nThis example uses *attrs*'s modern APIs that have been introduced in version 20.1.0, and the *attrs* package import name that has been added in version 21.3.0.\nThe classic APIs (`@attr.s`, `attr.ib`, plus their serious-business aliases) and the `attr` package import name will remain **indefinitely**.\n\nCheck out [*On The Core API Names*](https://www.attrs.org/en/latest/names.html) for an in-depth explanation!\n\n\n### Hate Type Annotations!?\n\nNo problem!\nTypes are entirely **optional** with *attrs*.\nSimply assign `attrs.field()` to the attributes instead of annotating them with types:\n\n```python\nfrom attrs import define, field\n\n@define\nclass SomeClass:\n    a_number = field(default=42)\n    list_of_numbers = field(factory=list)\n```\n\n\n## Data Classes\n\nOn the tin, *attrs* might remind you of `dataclasses` (and indeed, `dataclasses` [are a descendant](https://hynek.me/articles/import-attrs/) of *attrs*).\nIn practice it does a lot more and is more flexible.\nFor instance, it allows you to define [special handling of NumPy arrays for equality checks](https://www.attrs.org/en/stable/comparison.html#customization), allows more ways to [plug into the initialization process](https://www.attrs.org/en/stable/init.html#hooking-yourself-into-initialization), has a replacement for `__init_subclass__`, and allows for stepping through the generated methods using a debugger.\n\nFor more details, please refer to our [comparison page](https://www.attrs.org/en/stable/why.html#data-classes), but generally speaking, we are more likely to commit crimes against nature to make things work that one would expect to work, but that are quite complicated in practice.\n\n\n## Project Information\n\n- [**Changelog**](https://www.attrs.org/en/stable/changelog.html)\n- [**Documentation**](https://www.attrs.org/)\n- [**PyPI**](https://pypi.org/project/attrs/)\n- [**Source Code**](https://github.com/python-attrs/attrs)\n- [**Contributing**](https://github.com/python-attrs/attrs/blob/main/.github/CONTRIBUTING.md)\n- [**Third-party Extensions**](https://github.com/python-attrs/attrs/wiki/Extensions-to-attrs)\n- **Get Help**: use the `python-attrs` tag on [Stack Overflow](https://stackoverflow.com/questions/tagged/python-attrs)\n\n\n### *attrs* for Enterprise\n\nAvailable as part of the [Tidelift Subscription](https://tidelift.com/?utm_source=lifter&utm_medium=referral&utm_campaign=hynek).\n\nThe maintainers of *attrs* and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source packages you use to build your applications.\nSave time, reduce risk, and improve code health, while paying the maintainers of the exact packages you use.\n\n## Release Information\n\n### Backwards-incompatible Changes\n\n- Field aliases are now resolved *before* calling `field_transformer`, so transformers receive fully populated `Attribute` objects with usable `alias` values instead of `None`.\n  The new `Attribute.alias_is_default` flag indicates whether the alias was auto-generated (`True`) or explicitly set by the user (`False`).\n  [#1509](https://github.com/python-attrs/attrs/issues/1509)\n\n\n### Changes\n\n- Fix type annotations for `attrs.validators.optional()`, so it no longer rejects tuples with more than one validator.\n  [#1496](https://github.com/python-attrs/attrs/issues/1496)\n- The `attrs.validators.disabled()` contextmanager can now be nested.\n  [#1513](https://github.com/python-attrs/attrs/issues/1513)\n- Frozen classes can set `on_setattr=attrs.setters.NO_OP` in addition to `None`.\n  [#1515](https://github.com/python-attrs/attrs/issues/1515)\n- It's now possible to pass *attrs* **instances** in addition to *attrs* **classes** to `attrs.fields()`.\n  [#1529](https://github.com/python-attrs/attrs/issues/1529)\n\n\n\n---\n\n[Full changelog →](https://www.attrs.org/en/stable/changelog.html)\n",
+        "description_content_type": "text/markdown",
+        "keywords": [
+          "attribute",
+          "boilerplate",
+          "class"
+        ],
+        "author_email": "Hynek Schlawack <hs@ox.cx>",
+        "license_expression": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Development Status :: 5 - Production/Stable",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: 3.11",
+          "Programming Language :: Python :: 3.12",
+          "Programming Language :: Python :: 3.13",
+          "Programming Language :: Python :: 3.14",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Typing :: Typed"
+        ],
+        "requires_python": ">=3.9",
+        "project_url": [
+          "Documentation, https://www.attrs.org/",
+          "Changelog, https://www.attrs.org/en/stable/changelog.html",
+          "GitHub, https://github.com/python-attrs/attrs",
+          "Funding, https://github.com/sponsors/hynek",
+          "Tidelift, https://tidelift.com/subscription/pkg/pypi-attrs?utm_source=pypi-attrs&utm_medium=pypi"
+        ]
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/f6/f0/10642828a8dfb741e5f3fbaac830550a518a775c7fff6f04a007259b0548/py-1.11.0-py2.py3-none-any.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "607c53218732647dff4acdfcd50cb62615cedf612e72d1724fb1a0cc6405b378"
+          },
+          "hash": "sha256=607c53218732647dff4acdfcd50cb62615cedf612e72d1724fb1a0cc6405b378"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.1",
+        "name": "py",
+        "version": "1.11.0",
+        "platform": [
+          "unix",
+          "linux",
+          "osx",
+          "cygwin",
+          "win32"
+        ],
+        "summary": "library with cross-python path, ini-parsing, io, code, log facilities",
+        "description": ".. image:: https://img.shields.io/pypi/v/py.svg\n    :target: https://pypi.org/project/py\n\n.. image:: https://img.shields.io/conda/vn/conda-forge/py.svg\n    :target: https://anaconda.org/conda-forge/py\n\n.. image:: https://img.shields.io/pypi/pyversions/py.svg\n  :target: https://pypi.org/project/py\n\n.. image:: https://github.com/pytest-dev/py/workflows/build/badge.svg\n  :target: https://github.com/pytest-dev/py/actions\n\n\n**NOTE**: this library is in **maintenance mode** and should not be used in new code.\n\nThe py lib is a Python development support library featuring\nthe following tools and modules:\n\n* ``py.path``:  uniform local and svn path objects  -> please use pathlib/pathlib2 instead\n* ``py.apipkg``:  explicit API control and lazy-importing -> please use the standalone package instead\n* ``py.iniconfig``:  easy parsing of .ini files -> please use the standalone package instead\n* ``py.code``: dynamic code generation and introspection (deprecated, moved to ``pytest`` as a implementation detail).\n\n**NOTE**: prior to the 1.4 release this distribution used to\ncontain py.test which is now its own package, see https://docs.pytest.org\n\nFor questions and more information please visit https://py.readthedocs.io\n\nBugs and issues: https://github.com/pytest-dev/py\n\nAuthors: Holger Krekel and others, 2004-2017\n\n\n",
+        "home_page": "https://py.readthedocs.io/",
+        "author": "holger krekel, Ronny Pfannschmidt, Benjamin Peterson and others",
+        "author_email": "pytest-dev@python.org",
+        "license": "MIT license",
+        "classifier": [
+          "Development Status :: 6 - Mature",
+          "Intended Audience :: Developers",
+          "License :: OSI Approved :: MIT License",
+          "Operating System :: POSIX",
+          "Operating System :: Microsoft :: Windows",
+          "Operating System :: MacOS :: MacOS X",
+          "Topic :: Software Development :: Testing",
+          "Topic :: Software Development :: Libraries",
+          "Topic :: Utilities",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 2",
+          "Programming Language :: Python :: 2.7",
+          "Programming Language :: Python :: 3",
+          "Programming Language :: Python :: 3.5",
+          "Programming Language :: Python :: 3.6",
+          "Programming Language :: Python :: 3.7",
+          "Programming Language :: Python :: 3.8",
+          "Programming Language :: Python :: 3.9",
+          "Programming Language :: Python :: 3.10",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy"
+        ],
+        "requires_python": ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+      }
+    },
+    {
+      "download_info": {
+        "url": "https://files.pythonhosted.org/packages/bc/00/ee01b7ed4579180fff07142d290257f25ba786f23f3ec6005f620933c2f5/tomli-2.5.0-cp311-cp311-macosx_11_0_arm64.whl",
+        "archive_info": {
+          "hashes": {
+            "sha256": "eff8babca5a7999bc137acbc7482a8b7e17ffca5075ab41f5d770ab408c7bfef"
+          },
+          "hash": "sha256=eff8babca5a7999bc137acbc7482a8b7e17ffca5075ab41f5d770ab408c7bfef"
+        }
+      },
+      "is_direct": false,
+      "is_yanked": false,
+      "requested": true,
+      "metadata": {
+        "metadata_version": "2.4",
+        "name": "tomli",
+        "version": "2.5.0",
+        "dynamic": [
+          "license-file"
+        ],
+        "summary": "A lil' TOML parser",
+        "description": "[![Build Status](https://github.com/hukkin/tomli/actions/workflows/tests.yaml/badge.svg?branch=master)](https://github.com/hukkin/tomli/actions?query=workflow%3ATests+branch%3Amaster+event%3Apush)\n[![PyPI version](https://img.shields.io/pypi/v/tomli)](https://pypi.org/project/tomli)\n\n# Tomli\n\n> A lil' TOML parser\n\n**Table of Contents** *generated with [mdformat-toc](https://github.com/hukkin/mdformat-toc)*\n\n<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->\n\n- [Intro](#intro)\n- [Installation](#installation)\n- [Usage](#usage)\n  - [Parse a TOML string](#parse-a-toml-string)\n  - [Parse a TOML file](#parse-a-toml-file)\n  - [Handle invalid TOML](#handle-invalid-toml)\n  - [Construct `decimal.Decimal`s from TOML floats](#construct-decimaldecimals-from-toml-floats)\n  - [Building a `tomli`/`tomllib` compatibility layer](#building-a-tomlitomllib-compatibility-layer)\n- [FAQ](#faq)\n  - [Why this parser?](#why-this-parser)\n  - [Is comment preserving round-trip parsing supported?](#is-comment-preserving-round-trip-parsing-supported)\n  - [Is there a `dumps`, `write` or `encode` function?](#is-there-a-dumps-write-or-encode-function)\n  - [How do TOML types map into Python types?](#how-do-toml-types-map-into-python-types)\n- [Performance](#performance)\n  - [Mypyc generated wheel](#mypyc-generated-wheel)\n  - [Pure Python](#pure-python)\n\n<!-- mdformat-toc end -->\n\n## Intro<a name=\"intro\"></a>\n\nTomli is a Python library for parsing [TOML](https://toml.io).\nVersion 2.4.0 and later are compatible with [TOML v1.1.0](https://toml.io/en/v1.1.0).\nOlder versions are [TOML v1.0.0](https://toml.io/en/v1.0.0) compatible.\n\nA version of Tomli, the `tomllib` module,\nwas added to the standard library in Python 3.11\nvia [PEP 680](https://www.python.org/dev/peps/pep-0680/).\nTomli provides a TOML v1.1.0 compatible backport for Pythons older than 3.15.\nOn the other hand, installing `tomli<2.4` allows TOML v1.0.0 parsing on Python 3.15+.\n\nTomli uses [mypyc](https://github.com/mypyc/mypyc)\nto generate binary wheels for most of the widely used platforms,\nso some may prefer it over `tomllib` for improved performance.\nPure Python wheels are available on any platform and should perform the same as `tomllib`.\n\n## Installation<a name=\"installation\"></a>\n\n```bash\npip install tomli\n```\n\n## Usage<a name=\"usage\"></a>\n\n### Parse a TOML string<a name=\"parse-a-toml-string\"></a>\n\n```python\nimport tomli\n\ntoml_str = \"\"\"\n[[players]]\nname = \"Lehtinen\"\nnumber = 26\n\n[[players]]\nname = \"Numminen\"\nnumber = 27\n\"\"\"\n\ntoml_dict = tomli.loads(toml_str)\nassert toml_dict == {\n    \"players\": [{\"name\": \"Lehtinen\", \"number\": 26}, {\"name\": \"Numminen\", \"number\": 27}]\n}\n```\n\n### Parse a TOML file<a name=\"parse-a-toml-file\"></a>\n\n```python\nimport tomli\n\nwith open(\"path_to_file/conf.toml\", \"rb\") as f:\n    toml_dict = tomli.load(f)\n```\n\nThe file must be opened in binary mode (with the `\"rb\"` flag).\nBinary mode will enforce decoding the file as UTF-8 with universal newlines disabled,\nboth of which are required to correctly parse TOML.\n\n### Handle invalid TOML<a name=\"handle-invalid-toml\"></a>\n\n```python\nimport tomli\n\ntry:\n    toml_dict = tomli.loads(\"]] this is invalid TOML [[\")\nexcept tomli.TOMLDecodeError:\n    print(\"Yep, definitely not valid.\")\n```\n\nNote that error messages are considered informational only.\nThey should not be assumed to stay constant across Tomli versions.\n\n### Construct `decimal.Decimal`s from TOML floats<a name=\"construct-decimaldecimals-from-toml-floats\"></a>\n\n```python\nfrom decimal import Decimal\nimport tomli\n\ntoml_dict = tomli.loads(\"precision-matters = 0.982492\", parse_float=Decimal)\nassert isinstance(toml_dict[\"precision-matters\"], Decimal)\nassert toml_dict[\"precision-matters\"] == Decimal(\"0.982492\")\n```\n\nNote that `decimal.Decimal` can be replaced with another callable that converts a TOML float from string to a Python type.\nThe `decimal.Decimal` is, however, a practical choice for use cases where float inaccuracies can not be tolerated.\n\nIllegal types are `dict` and `list`, and their subtypes.\nA `ValueError` will be raised if `parse_float` produces illegal types.\n\n### Building a `tomli`/`tomllib` compatibility layer<a name=\"building-a-tomlitomllib-compatibility-layer\"></a>\n\nPython versions 3.11+ ship with a version of Tomli:\nthe `tomllib` standard library module.\nTo build code that uses the standard library if available,\nbut still works seamlessly with Python 3.6+,\ndo the following.\n\nInstead of a hard Tomli dependency, use the following\n[dependency specifier](https://packaging.python.org/en/latest/specifications/dependency-specifiers/)\nto only require Tomli when the standard library module is not available:\n\n```\ntomli >= 1.1.0 ; python_version < \"3.11\"\n```\n\nThen, in your code, import a TOML parser using the following fallback mechanism:\n\n```python\nimport sys\n\nif sys.version_info >= (3, 11):\n    import tomllib\nelse:\n    import tomli as tomllib\n\ntomllib.loads(\"['This parses fine with Python 3.6+']\")\n```\n\n## FAQ<a name=\"faq\"></a>\n\n### Why this parser?<a name=\"why-this-parser\"></a>\n\n- it's lil'\n- pure Python with zero dependencies\n- the fastest pure Python parser [\\*](#pure-python):\n  14x as fast as [tomlkit](https://pypi.org/project/tomlkit/),\n  2.1x as fast as [toml](https://pypi.org/project/toml/)\n- outputs [basic data types](#how-do-toml-types-map-into-python-types) only\n- 100% spec compliant: passes all tests in\n  [toml-lang/toml-test](https://github.com/toml-lang/toml-test)\n  test suite\n- thoroughly tested: 100% branch coverage\n\n### Is comment preserving round-trip parsing supported?<a name=\"is-comment-preserving-round-trip-parsing-supported\"></a>\n\nNo.\n\nThe `tomli.loads` function returns a plain `dict` that is populated with builtin types and types from the standard library only.\nPreserving comments requires a custom type to be returned so will not be supported,\nat least not by the `tomli.loads` and `tomli.load` functions.\n\nLook into [TOML Kit](https://github.com/sdispater/tomlkit) if preservation of style is what you need.\n\n### Is there a `dumps`, `write` or `encode` function?<a name=\"is-there-a-dumps-write-or-encode-function\"></a>\n\n[Tomli-W](https://github.com/hukkin/tomli-w) is the write-only counterpart of Tomli, providing `dump` and `dumps` functions.\n\nThe core library does not include write capability, as most TOML use cases are read-only, and Tomli intends to be minimal.\n\n### How do TOML types map into Python types?<a name=\"how-do-toml-types-map-into-python-types\"></a>\n\n| TOML type        | Python type         | Details                                                      |\n| ---------------- | ------------------- | ------------------------------------------------------------ |\n| Document Root    | `dict`              |                                                              |\n| Key              | `str`               |                                                              |\n| String           | `str`               |                                                              |\n| Integer          | `int`               |                                                              |\n| Float            | `float`             |                                                              |\n| Boolean          | `bool`              |                                                              |\n| Offset Date-Time | `datetime.datetime` | `tzinfo` attribute set to an instance of `datetime.timezone` |\n| Local Date-Time  | `datetime.datetime` | `tzinfo` attribute set to `None`                             |\n| Local Date       | `datetime.date`     |                                                              |\n| Local Time       | `datetime.time`     |                                                              |\n| Array            | `list`              |                                                              |\n| Table            | `dict`              |                                                              |\n| Inline Table     | `dict`              |                                                              |\n\n## Performance<a name=\"performance\"></a>\n\nThe `benchmark/` folder in this repository contains a performance benchmark for comparing the various Python TOML parsers.\n\nBelow are the results for commit [064e492](https://github.com/hukkin/tomli/tree/064e492919b2338def788753b8c981c9131334c0).\n\n### Mypyc generated wheel<a name=\"mypyc-generated-wheel\"></a>\n\n```console\nfoo@bar:~/dev/tomli$ python --version\nPython 3.14.2\nfoo@bar:~/dev/tomli$ pip freeze\npytomlpp==1.1.0\nrtoml==0.13.0\ntoml==0.10.2\ntomli @ file://<runner>/dev/tomli\ntomlkit==0.13.3\nfoo@bar:~/dev/tomli$ python benchmark/run.py\nParsing data.toml 5000 times:\n------------------------------------------------------\n    parser |  exec time | performance (more is better)\n-----------+------------+-----------------------------\n     rtoml |    0.328 s | baseline (100%)\n  pytomlpp |    0.365 s | 89.75%\n     tomli |    0.838 s | 39.12%\n      toml |     3.01 s | 10.90%\n   tomlkit |     20.7 s | 1.59%\n```\n\n### Pure Python<a name=\"pure-python\"></a>\n\n```console\nfoo@bar:~/dev/tomli$ python benchmark/run.py\nParsing data.toml 5000 times:\n------------------------------------------------------\n    parser |  exec time | performance (more is better)\n-----------+------------+-----------------------------\n     rtoml |    0.323 s | baseline (100%)\n  pytomlpp |    0.365 s | 88.40%\n     tomli |     1.44 s | 22.36%\n      toml |     3.03 s | 10.65%\n   tomlkit |     20.6 s | 1.57%\n```\n",
+        "description_content_type": "text/markdown",
+        "keywords": [
+          "toml"
+        ],
+        "author_email": "Taneli Hukkinen <hukkin@users.noreply.github.com>",
+        "license_expression": "MIT",
+        "license_file": [
+          "LICENSE"
+        ],
+        "classifier": [
+          "Operating System :: MacOS",
+          "Operating System :: Microsoft :: Windows",
+          "Operating System :: POSIX :: Linux",
+          "Programming Language :: Python :: 3 :: Only",
+          "Programming Language :: Python :: Implementation :: CPython",
+          "Programming Language :: Python :: Implementation :: PyPy",
+          "Topic :: Software Development :: Libraries :: Python Modules",
+          "Typing :: Typed"
+        ],
+        "requires_python": ">=3.8",
+        "project_url": [
+          "Homepage, https://github.com/hukkin/tomli",
+          "Changelog, https://github.com/hukkin/tomli/blob/master/CHANGELOG.md"
+        ]
+      }
+    }
+  ],
+  "environment": {
+    "implementation_name": "cpython",
+    "implementation_version": "3.11.9",
+    "os_name": "posix",
+    "platform_machine": "arm64",
+    "platform_release": "24.6.0",
+    "platform_system": "Darwin",
+    "platform_version": "Darwin Kernel Version 24.6.0: Tue Jul 21 20:51:34 PDT 2026; root:xnu-11417.140.69.711.44~1/RELEASE_ARM64_VMAPPLE",
+    "python_full_version": "3.11.9",
+    "platform_python_implementation": "CPython",
+    "python_version": "3.11",
+    "sys_platform": "darwin"
+  }
+}
