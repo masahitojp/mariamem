@@ -1,0 +1,12 @@
+{
+  "dependencies-311.json": {
+    "original_sha256": "9a185d730745fabcd675b53e7c9244325ad5755b6b9416fd6d7230afb496c43c",
+    "stored_sha256": "afda606d6b5f6910073b538e9f6a5936fa4698a3cc18380796639b6016f74e02",
+    "normalization": "Repository/workspace prefixes scrubbed; home-prefix examples in upstream package descriptions replaced with <home>/. Package archive hashes are unchanged."
+  },
+  "dependencies-314.json": {
+    "original_sha256": "6ab0fbd818d1a7d035fa1de939524966a68cb0ce87f4390e14ad2e31239f5f77",
+    "stored_sha256": "6ab0fbd818d1a7d035fa1de939524966a68cb0ce87f4390e14ad2e31239f5f77",
+    "normalization": "Repository/workspace prefixes scrubbed; home-prefix examples in upstream package descriptions replaced with <home>/. Package archive hashes are unchanged."
+  }
+}

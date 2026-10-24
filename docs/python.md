@@ -169,6 +169,9 @@ its own baseline. There is no automatic run-wide baseline, cross-worker cache
 or cross-run reuse policy. Prepare each worker's baseline from migrations/seed
 with `snapshot()`; a saved Snapshot artifact is not an input in this version.
 
+For a migration/seed callback using explicit Alembic configuration, see
+[prepare once, test independently](preparing-test-data.md).
+
 Unreleased source builds add `@pytest.mark.shadow_maria` for existing application
 connections, `mariamem_prepare` for session preparation and optional
 `mariamem_app_db`, `mariamem_router`, `mariamem_sqlalchemy_engines` fixtures.

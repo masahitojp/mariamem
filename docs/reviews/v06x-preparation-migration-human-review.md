@@ -11,7 +11,13 @@ Base runtime is adopted main
 `93c201756879f51bb30c92945f2e3bb509e3c16e`.
 These inputs/decision are reconstructed from the preceding task and repository.
 
-## Decision now
+## Decision — answered: proceed with productization
+
+The Human approved this bounded recipe/test productization after the acceptance
+correction at `bfcab22`; see the
+[current implementation/acceptance record](v06x-preparation-migration-productization.md).
+The recommendation and evidence below retain the pre-implementation context;
+main integration and release remain separate decisions.
 
 Recommend proceeding to productization of an **explicit Alembic migration/seed
 recipe and retained regression tests**, using the existing preparation callback

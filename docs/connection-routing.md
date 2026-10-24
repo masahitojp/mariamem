@@ -118,6 +118,9 @@ def mariamem_sqlalchemy_engines():
     return (engine,)
 ```
 
+For a concrete Alembic migration/seed callback with explicit URL configuration,
+see [prepare once, test independently](preparing-test-data.md).
+
 Then ordinary application tests use one marker:
 
 ```python
