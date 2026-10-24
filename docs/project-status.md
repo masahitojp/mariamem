@@ -835,7 +835,7 @@ The [live task and baseline examples](reviews/v06x-shadow-maria-entry-design.md#
 define the desired starting contents separately from which application,
 endpoint and connection resources survive between tests.
 
-**Preparation/import — recipe/stable-test main adoption approved.**
+**Preparation/import — recipe/stable tests adopted on main.**
 The [preparation/import design](reviews/v06x-preparation-import-design.md) reuses
 existing migration/dump source evidence and the adopted callback/marker. It
 recommends a bounded actual migration-chain/seed-to-two-tests check first, while
@@ -857,8 +857,9 @@ The [explicit Alembic recipe](preparing-test-data.md) is implemented; the expand
 native acceptance matrix and receipt reassessment are complete. The
 [main-adoption Human Review](reviews/v06x-preparation-migration-adoption-review.md)
 recommended the recipe/stable tests; the Human approved main adoption after
-reviewing the completed acceptance. The selected integration retains production
-tests and supporting records, excluding the spike executable/workflow. This does
+reviewing the completed acceptance. The
+[selected main landing](reviews/v06x-preparation-migration-main-adoption.md)
+retains production tests and supporting records, excluding the spike executable/workflow. This does
 not approve an importer, Qualification or release.
 Automatic preparation
 routing remains excluded from0.6.0; live and broader diagnostics/framework
