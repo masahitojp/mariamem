@@ -110,6 +110,18 @@ and the import/session-scoped SQL boundary remains prominent in the guide.
 No runtime source, tests, workflow, guest or generated input is changed by this
 adoption follow-up. It does not create new Qualification or release evidence.
 
+## Main integration identity
+
+Main fast-forwarded from `9f29194bbddd6a9431a4a250bd2f93ee813734af` to
+`bbde3f559a57ebf57f3d8d7ca2df8b530c7cde1f` on2026-10-24, following the
+Human's explicit approval. That landing contains tested candidate
+`204f106264def67d32da8ac7733be052c928a26c` plus the adoption documentation and
+native receipts. `git diff --quiet 204f106264def67d32da8ac7733be052c928a26c bbde3f559a57ebf57f3d8d7ca2df8b530c7cde1f -- . ':!docs'`
+passed: implementation, tests, workflows, Python metadata, guest and generated
+inputs match the tested candidate. This subsequent record is documentation-only;
+its commit is not relabelled as the source of the earlier CI. Publication and
+Qualification have not been started.
+
 ## Continuing constraints
 
 Source support is3.11+, while published v0.5.3 retains its historical metadata.

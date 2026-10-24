@@ -732,7 +732,7 @@ and diagnostic/official-reference requirements. Source investigation now support
 a bounded prototype proposal; runtime validation, mechanism selection and broader
 driver coverage remain unfinished. No routing compatibility support is established by that source investigation.
 
-**Connection switching — main adoption approved; unreleased.**
+**Connection switching — adopted on main; unreleased.**
 On2026-10-24 the Human approved integrating candidate
 `204f106264def67d32da8ac7733be052c928a26c` after
 [CI40061580952](https://github.com/masahitojp/mariamem/actions/runs/40061580952).
@@ -741,6 +741,10 @@ marker/preparation tests with2 workers;3.11/3.14 compatibility and canonical
 source checks passed. Ubuntu explicit Connector C retains its allowed SKIP;
 default/pure ran. The [implementation/adoption record](reviews/v06x-shadow-maria-implementation.md)
 contains saved native receipts, exact identities and the five follow-ups.
+Main fast-forwarded from9f29194 to
+`bbde3f559a57ebf57f3d8d7ca2df8b530c7cde1f`; its non-documentation tree is
+identical to the tested204f106 candidate. A subsequent documentation-only
+commit records that landing and does not replace its CI source identity.
 Qualification, version placement and release remain separate. The following
 paragraphs preserve the earlier investigation and approval sequence; their
 implementation/adoption-pending statements describe those stages.
