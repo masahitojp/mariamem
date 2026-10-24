@@ -835,12 +835,14 @@ The [live task and baseline examples](reviews/v06x-shadow-maria-entry-design.md#
 define the desired starting contents separately from which application,
 endpoint and connection resources survive between tests.
 
-**Next preparation/import review — proposed, not implemented.**
+**Preparation/import — bounded migration check authorized.**
 The [preparation/import design](reviews/v06x-preparation-import-design.md) reuses
 existing migration/dump source evidence and the adopted callback/marker. It
 recommends a bounded actual migration-chain/seed-to-two-tests check first, while
 keeping native-client and library dump import alternatives explicit. This is a
-Human Review proposal, not importer/spike authorization. Automatic preparation
+Human-approved bounded spike, recorded in the
+[migration execution record](reviews/v06x-preparation-migration-spike.md); it is
+not importer/productization approval. Automatic preparation
 routing remains excluded from0.6.0; live and broader diagnostics/framework
 coverage remain separate decisions.
 

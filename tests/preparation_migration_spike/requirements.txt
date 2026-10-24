@@ -1,0 +1,11 @@
+Alembic==1.18.4
+SQLAlchemy==2.0.54
+PyMySQL==1.2.3
+pytest==9.0.2
+Mako==1.4.3
+MarkupSafe==3.0.4
+typing-extensions==4.16.0
+iniconfig==2.3.1
+packaging==26.3
+pluggy==1.7.0
+Pygments==2.21.0

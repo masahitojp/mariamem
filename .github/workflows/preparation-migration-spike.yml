@@ -1,0 +1,43 @@
+name: Preparation migration spike
+on:
+  push:
+    branches: [experiment/preparation-migrations]
+    paths:
+      - 'tests/preparation_migration_spike/**'
+      - 'tests/test_preparation_migration_spike.py'
+      - '.github/workflows/preparation-migration-spike.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Fixed development-only tools
+        run: |
+          mkdir -p "$RUNNER_TEMP/migration/evidence"
+          python -m pip install --no-cache-dir --report "$RUNNER_TEMP/migration/evidence/dependencies.json" -r tests/preparation_migration_spike/requirements.txt
+      - name: Failure-oracle classification
+        run: python -m pytest tests/test_preparation_migration_spike.py -q
+      - name: Source-bound migration, seed, isolation and failed preparation
+        run: |
+          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/migration" --min-free-gib 4 --budget-gib 8 --timeout 1800 -- python tests/preparation_migration_spike/run.py --runtime-root "$GITHUB_WORKSPACE" --source-commit "$GITHUB_SHA" --output "$RUNNER_TEMP/migration"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: migration-${{ matrix.os }}-${{ github.sha }}
+          path: ${{ runner.temp }}/migration/evidence
+          if-no-files-found: error
