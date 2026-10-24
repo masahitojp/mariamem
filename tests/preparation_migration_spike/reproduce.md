@@ -37,6 +37,12 @@ mistaken for an all-or-nothing migration guarantee.
 For an application whose Alembic environment reads `sqlalchemy.url`:
 
 ```python
+import pytest
+import sqlalchemy
+import alembic.config
+import alembic.command
+# application and seed_with_explicit_settings are your application's entries.
+
 @pytest.fixture(scope="session")
 def mariamem_prepare():
     def prepare(db):

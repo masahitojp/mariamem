@@ -842,7 +842,10 @@ recommends a bounded actual migration-chain/seed-to-two-tests check first, while
 keeping native-client and library dump import alternatives explicit. This is a
 Human-approved bounded spike, recorded in the
 [migration execution record](reviews/v06x-preparation-migration-spike.md); it is
-not importer/productization approval. Automatic preparation
+not importer/productization approval. Local macOS results passed the authored
+Alembic/seed, two independent application tests and two exact failed-preparation
+oracles; both-OS focused CI is the next evidence step, not a new support claim.
+Automatic preparation
 routing remains excluded from0.6.0; live and broader diagnostics/framework
 coverage remain separate decisions.
 

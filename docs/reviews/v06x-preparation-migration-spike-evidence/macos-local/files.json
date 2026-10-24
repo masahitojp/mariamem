@@ -1,0 +1,71 @@
+{
+  "source_commit": "4c6c3174debca83e359e82516864bf3ca54dff29",
+  "transformation": "Repository/home paths replaced with <repo>/<user>; trailing whitespace normalized. results.json evidence hashes refer to original bytes.",
+  "files": {
+    "alembic-version.txt": {
+      "original_sha256": "9ab229122d7a33d2913cc2131918d99037d163ad3af6ef6d8ee7203ffaa7f3ce",
+      "stored_sha256": "9ab229122d7a33d2913cc2131918d99037d163ad3af6ef6d8ee7203ffaa7f3ce",
+      "bytes": 15
+    },
+    "dependencies.json": {
+      "original_sha256": "876ece289df76eaaf9b125d10aa63f7d23a2e724ca4a2ff7004ac112355ac3ea",
+      "stored_sha256": "891b57a2ede3595dffa30a61cae708ae03fd0d86b6f1d8f3a8f15415a248e3fa",
+      "bytes": 63024
+    },
+    "host-build.txt": {
+      "original_sha256": "418d5c48de807dd877348d5e8a41f9b49f1e858d39d90371547ef43327101258",
+      "stored_sha256": "418d5c48de807dd877348d5e8a41f9b49f1e858d39d90371547ef43327101258",
+      "bytes": 41
+    },
+    "results.json": {
+      "original_sha256": "6949c7542aa53316fa4e19a5d9582f93ed45a24cc4323ecdbec0eef3b0454cb8",
+      "stored_sha256": "4eb48c64e436b417fb43f99055b3e3f3536c721d05646444e4d6426dec9c5a33",
+      "bytes": 4993
+    },
+    "revision_failure/events.jsonl": {
+      "original_sha256": "fe8bc4a9b5c92fc130e331eaf676777c057840e1c3a0203e27bab4844b625242",
+      "stored_sha256": "fe8bc4a9b5c92fc130e331eaf676777c057840e1c3a0203e27bab4844b625242",
+      "bytes": 626
+    },
+    "revision_failure/pytest.txt": {
+      "original_sha256": "ba3d0668f0420ed5c09c20f5687f681e10ff205dbc64984e8fdbc181a29126dc",
+      "stored_sha256": "ba3d0668f0420ed5c09c20f5687f681e10ff205dbc64984e8fdbc181a29126dc",
+      "bytes": 15738
+    },
+    "revision_failure/pytest.xml": {
+      "original_sha256": "7ae37b1aaa4e1f21bc25ef5965df07c451492e8ee01729c426a21ed87902c2f3",
+      "stored_sha256": "26aefce8778cbdf2ff618995bc50a8c644a9293e165bfd3243d9145fb87420f6",
+      "bytes": 16295
+    },
+    "seed_failure/events.jsonl": {
+      "original_sha256": "021db3c21ab1afb420a64ab2ac7600c1e090e76641e4de7bed108492d4535a0f",
+      "stored_sha256": "021db3c21ab1afb420a64ab2ac7600c1e090e76641e4de7bed108492d4535a0f",
+      "bytes": 664
+    },
+    "seed_failure/pytest.txt": {
+      "original_sha256": "cf992278079effbaa19da56b9740d0abf37aaef9851cb27df518270a3c852c4c",
+      "stored_sha256": "cf992278079effbaa19da56b9740d0abf37aaef9851cb27df518270a3c852c4c",
+      "bytes": 11256
+    },
+    "seed_failure/pytest.xml": {
+      "original_sha256": "588b818adcba5fe7ee8950b712fa6953f59b071e11b7f9afd11cc21718af12d1",
+      "stored_sha256": "72a1c71788de7459d059ff85c56aff651acc8b6d2bdfa71f207c75f8e3247de1",
+      "bytes": 11785
+    },
+    "success/events.jsonl": {
+      "original_sha256": "15104ea0d7e1c3d7444e8f700c550abf66febf4f324ebe176d2ca585c5a63039",
+      "stored_sha256": "15104ea0d7e1c3d7444e8f700c550abf66febf4f324ebe176d2ca585c5a63039",
+      "bytes": 902
+    },
+    "success/pytest.txt": {
+      "original_sha256": "355d583096898400ff1643fe30852895cda708d83caf4db3d5eadae37184c8d1",
+      "stored_sha256": "355d583096898400ff1643fe30852895cda708d83caf4db3d5eadae37184c8d1",
+      "bytes": 98
+    },
+    "success/pytest.xml": {
+      "original_sha256": "a9806c1f9576556773900b64a582da408c0565fe02363620ad9459a16c370503",
+      "stored_sha256": "0a175e3bafe330c392bcf1d2f111a7f9cad2c99cbd2c2af4b01ed16aa6c40f55",
+      "bytes": 485
+    }
+  }
+}

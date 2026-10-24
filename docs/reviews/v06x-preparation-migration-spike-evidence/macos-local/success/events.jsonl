@@ -1,0 +1,12 @@
+{"event": "source_start", "id": "34ad7f159ecb98701a06fd02f7e3c234", "runtime_pid": 48105, "host_pid": 48105}
+{"event": "prepare_start"}
+{"event": "preparation_original_profile_refused"}
+{"event": "migration_complete"}
+{"event": "prepared_state", "revision": "m2_addresses", "rows": [[1, "legacy", 0], [2, "seed", 5]], "addresses": [[1, 2, "seed@example.test"]], "columns": ["id", "name", "rating"], "foreign_key_verified": true, "unique_verified": true}
+{"event": "preparation_engines_disposed"}
+{"event": "preparation_disconnected", "active_connections": 0}
+{"event": "snapshot_attempt"}
+{"event": "snapshot_success"}
+{"event": "test_pass", "name": "commit", "child": "6ffc4413c9bf982d5870f2d72abc1333"}
+{"event": "test_pass", "name": "independent_initial_state", "child": "7d21b2bd1c4069296c56ec0b25e0f7ee"}
+{"event": "source_cleanup", "closed": true, "host_reaped": true, "directory_removed": true}
