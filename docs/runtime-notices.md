@@ -96,7 +96,7 @@ publication or platform acceptance is performed by these scripts.
 
 ## Recheck recorded coverage
 
-Offline committed-file validation (Python 3.9+):
+Offline committed-file validation (Python 3.11+):
 
 ```sh
 python3 scripts/runtime_notices.py

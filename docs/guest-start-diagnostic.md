@@ -67,7 +67,7 @@ python3 diagnose_guest_start.py \
   --timeout 120
 ```
 
-Use a new output directory for every attempt. Python 3.9+ is sufficient; Go and a
+Use a new output directory for every attempt. Python 3.11+ is sufficient; Go and a
 repository checkout are not required. The NativeDir must be explicitly supplied;
 there is no runtime lookup or fallback. No tracing/backtrace variables are added.
 Without `--acceptance-env`, the script inherits its current environment.

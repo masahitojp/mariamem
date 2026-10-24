@@ -10,8 +10,9 @@ the unchanged main-adoption/release boundary.
 ## Current Human Review state
 
 The Human accepted the [marker/preparation surface and naming direction](v06x-shadow-maria-entry-design.md)
-after inspecting the fixture-based candidate. Implementation of that new surface
-is next; main adoption is not approved. No repeat naming approval is required.
+after inspecting the fixture-based candidate. The new surface is implemented in
+the [marker/preparation candidate](v06x-shadow-maria-implementation.md); updated
+native acceptance and main adoption are pending. No repeat naming approval is required.
 Preparation uses explicit DB settings in0.6.0; automatic preparation routing is
 reserved for0.6.x reconsideration. Live is a separate task and scope decision.
 
@@ -20,8 +21,8 @@ passed for source_commit `0698698eb77bbb4df91aea0d83f62e901b711d77` on both OSes
 17 control cases, all six strict injected defects, and4 real pytest tests with
 two workers. Default/pure Connector executed on both; explicit C executed on
 macOS and retains the permitted Ubuntu SKIP. This establishes the old fixture
-candidate, not the new marker/preparation entry. Updated entry tests and future
-Python3.11 verification remain outstanding.
+candidate, not the new marker/preparation entry. The new report records local entry tests onPython3.11/3.14; updated native
+acceptance remains outstanding.
 
 The sections below preserve the pre-CI implementation/local-evidence checkpoint;
 their pending-CI statements and old API names are historical, superseded by this

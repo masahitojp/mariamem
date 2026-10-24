@@ -77,14 +77,13 @@ _active = None
 
 
 def _attach_cleanup(primary, error):
-    # add_note is unavailable on the supported Python3.9/3.10 boundary.
     primary.cleanup_errors = getattr(primary, "cleanup_errors", ()) + (error,)
     if hasattr(primary, "add_note"):
         primary.add_note("mariamem routing cleanup also failed: " +
                          (error.code if isinstance(error, RoutingError) else type(error).__name__))
 
 
-class Registry:
+class Router:
     """Installed profile guard; use install() to acquire it."""
 
     def __init__(self, profiles, drivers, cleanup_timeout):
@@ -238,7 +237,7 @@ class Registry:
             finally:
                 self._current.reset(token)
 
-    def enroll(self, engine, *, profile, ownership):
+    def register_engine(self, engine, *, profile, ownership):
         """Hand off a quiescent engine. Only ownership='test' is supported."""
         if ownership != "test":
             raise self._error("ownership_required", "Hand off a quiescent test-owned engine explicitly.")
@@ -269,7 +268,7 @@ class Registry:
         from sqlalchemy import create_engine
         engine = create_engine(url, **options)
         try:
-            return self.enroll(engine, profile=profile, ownership="test")
+            return self.register_engine(engine, profile=profile, ownership="test")
         except BaseException:
             engine.dispose()
             raise
@@ -317,7 +316,7 @@ def install(*, profiles, drivers=("pymysql",), cleanup_timeout=5):
     with _install_lock:
         if _active is not None:
             raise RoutingError("already_installed", "Reuse the installed registry; nest bindings instead.")
-        registry = Registry(profiles, drivers, cleanup_timeout)
+        registry = Router(profiles, drivers, cleanup_timeout)
         try:
             from ._routing_drivers import install_driver
             for driver in registry.drivers:

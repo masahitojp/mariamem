@@ -23,7 +23,9 @@ per test session and reuse the live baseline. See the
 Supported platforms are **macOS 15+ / Apple Silicon (arm64)** and
 **Ubuntu 24.04 LTS / x86_64**. Other platforms are not supported.
 Release validation uses Go 1.26.10 and Python 3.14. Package minimums are
-Go 1.26.0 and Python 3.9; they are not a tested matrix of all later versions.
+Go 1.26.0 and Python 3.11; they are not a tested matrix of all later versions.
+The Python3.11 minimum applies to current source builds; published v0.5.3
+retains its original Python3.9 metadata.
 External Go consumers passed on macOS arm64 with Go 1.26.8 and
 1.27.0/1.27.1/1.27.2 historically; the current forward-compat check uses
 Go 1.27.3. GO-2026-6809 affects Go <1.26.10 and 1.27.0–1.27.2. See
@@ -151,7 +153,7 @@ Both languages provide preparation and independent child acquisition. See the
 fixture integration is described in the Python guide.
 
 Unreleased source builds also offer opt-in [application connection routing](docs/connection-routing.md):
-keep ordinary Python connection calls while a fixture selects an independent
+keep ordinary Python connection calls while `@pytest.mark.shadow_maria` selects an independent
 child. Configure before application imports and explicitly enroll existing pools.
 This feature is not included in published v0.5.3.
 

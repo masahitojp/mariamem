@@ -51,9 +51,9 @@ Python versions. Child Close follows the caller/fixture's existing lifecycle.
 Pytest enables protection from static configuration in its early plugin hook,
 before conftest/test imports. It integrates the existing session baseline and
 function child. Each xdist worker retains its own registry/baseline; there is no
-cross-worker/cross-run shared baseline. No minimum Python/pytest/platform change.
+cross-worker/cross-run shared baseline. The approved source Python minimum is3.11; pytest/platform minimums are unchanged.
 
-## Approved application-test entry — implementation pending
+## Approved application-test entry
 
 On2026-10-24 the Human accepted the
 [marker/preparation entry and naming direction](../reviews/v06x-shadow-maria-entry-design.md#approved-public-surface--not-yet-implemented).
@@ -67,9 +67,9 @@ Approved controller/adapter names are `mariamem_router`,
 `mariamem_sqlalchemy_engines`, `routing.Router` and `register_engine`.
 Extras are `routing-pymysql`, `routing-sqlalchemy` and
 `routing-mysql-connector`. Superseded unreleased candidate names require no
-compatibility aliases; existing published APIs remain. The tested candidate
-uses the old `enroll`/`Registry`/fixture names and has not yet implemented this
-approved surface. Ownership semantics above are unchanged by renaming.
+compatibility aliases; existing published APIs remain. CI40045368302 tested the old `enroll`/`Registry`/fixture names. The replacement
+entry is now implemented; updated native acceptance is pending. Ownership
+semantics above are unchanged by renaming.
 
 Live behavior remains a separate task, including a0.6.0 scope decision based on
 required internal changes. Neither marker approval nor this contract adds reset,
@@ -83,7 +83,9 @@ during connect, ownership/disposal boundaries, drain failure/retry, diagnostic
 redaction, verification-floor/current Python/pytest and early-import/worker tests.
 As directed by the Human on2026-10-24, future verification excludes EOL
 Python3.9/3.10 and starts at3.11; prior receipts remain historical evidence.
-This verification policy does not itself change package minimum metadata. Both
+The later implementation authorization explicitly raised package metadata and
+advertised source support to Python3.11+, dropping3.9/3.10. Historical receipts
+and published release metadata are not rewritten. Both
 native OSes remain required; explicit Ubuntu Connector C may retain its known
 import SKIP, while default/pure must execute. Tests cannot call accepted Prepared
 exceptions PASS; their [decision](prepared-consumer-exceptions.md) is unchanged.

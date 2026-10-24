@@ -130,7 +130,7 @@ def main():
     counts={key:sum(int(s.get(key,'0')) for s in suites) for key in ['tests','errors','failures','skipped']}
     receipt['pytest_workflow']={'exit':r.returncode,'counts':counts,'accepted':r.returncode==0 and counts=={'tests':4,'errors':0,'failures':0,'skipped':0}}
     receipt['complete']=receipt['runs']['control'].get('complete',False) and all(x['accepted'] for x in receipt['runs'].values()) and receipt['pytest_workflow']['accepted']
-    receipt['case_contract']='production-routing-r1-r8-profile-tls-v1'
+    receipt['case_contract']='production-routing-r1-r8-shadow-maria-v1'
     receipt['run_ok']=all(x['accepted'] for x in receipt['runs'].values()) and receipt['pytest_workflow']['accepted']
     receipt['evidence']={f.name:digest(f) for f in evidence.iterdir() if f.is_file() and f.name!='inputs.json'}
     (evidence/'inputs.json').write_text(json.dumps(receipt,indent=2)+'\n')

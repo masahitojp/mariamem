@@ -5,6 +5,9 @@ managed host per root lineage. Public save/load APIs are removed. See
 [API changes and migration](changes-since-v050.md) and
 [installation](../README.md#installation).
 
+Current unreleased source requires Python3.11 or newer; Python3.9/3.10 are no
+longer supported. Published v0.5.3 retains its original package metadata.
+
 ## A disposable database
 
 Use `mariamem.start()` to acquire a database and `connection_info()` to connect
@@ -166,10 +169,11 @@ its own baseline. There is no automatic run-wide baseline, cross-worker cache
 or cross-run reuse policy. Prepare each worker's baseline from migrations/seed
 with `snapshot()`; a saved Snapshot artifact is not an input in this version.
 
-Unreleased source builds add opt-in `mariamem_routed`, `mariamem_routes` and
-`mariamem_route_engines` fixtures for existing application connection code.
+Unreleased source builds add `@pytest.mark.shadow_maria` for existing application
+connections, `mariamem_prepare` for session preparation and optional
+`mariamem_app_db`, `mariamem_router`, `mariamem_sqlalchemy_engines` fixtures.
 Declare the original endpoint/schema before application imports, prepare that
-schema in the baseline, and explicitly enroll quiescent pools. See the
+schema using explicit preparation DB settings, and explicitly register quiescent pools. See the
 [routing guide](connection-routing.md) for configuration, first/second-test
 examples, ownership, supported entries and actionable failures. These fixtures
 are not included in published v0.5.3; existing fixtures above retain their defaults.

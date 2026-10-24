@@ -1,7 +1,7 @@
 # Scoped application connections
 
 This is an unreleased source feature, not part of published v0.5.3. It lets a
-test fixture supply an independent MariaDB child while the application keeps
+pytest marker supply an independent MariaDB child while the application keeps
 its ordinary driver calls, SQL, commits and rollbacks. Preparation still happens
 once through migrations/seed; each test gets its own mutable child.
 
@@ -12,9 +12,9 @@ importing `mariamem.routing` alone do not install hooks or load optional drivers
 
 ## Direct binding
 
-Install the optional `routing` extra for PyMySQL1.2.3, `routing-sqlalchemy` for
-SQLAlchemy2.0.54 with PyMySQL, or `routing-connector` for Connector/Python26.7.0.
-Select the driver explicitly when installing the registry; PyMySQL is the default.
+Install the optional `routing-pymysql` extra for PyMySQL1.2.3, `routing-sqlalchemy` for
+SQLAlchemy2.0.54 with PyMySQL, or `routing-mysql-connector` for Connector/Python26.7.0.
+Select the driver explicitly when installing the router; PyMySQL is the default.
 Other versions receive an actionable refusal; explicit child configuration is
 available without interception. Existing [Prepared exceptions](decisions/prepared-consumer-exceptions.md)
 remain applicable.
@@ -54,10 +54,10 @@ problems are reported as driver availability failures, not guest SQL failures.
 ## Existing SQLAlchemy engines
 
 ```python
-routes.enroll(application.engine, profile="app", ownership="test")
+routes.register_engine(application.engine, profile="app", ownership="test")
 ```
 
-Enroll the default `mysql+pymysql` QueuePool before application activity. The
+Register the default `mysql+pymysql` QueuePool before application activity. The
 caller hands off a quiescent, test-owned engine: enrollment may discard its idle
 pool, but an active checkout/transaction refuses the transition and is preserved.
 Use `routes.create_engine(url, profile="app", **options)` at an application test
@@ -90,30 +90,41 @@ contain no credentials. Empty configuration preserves existing behavior.
 If plugin auto-loading is disabled, load `-p mariamem.pytest_plugin` explicitly.
 Protection begins when this plugin's early guard runs; it cannot undo SQL already
 executed by an earlier plugin or application import. A collection-time connection
-attempt receives `missing_target`; move that work into application/preparation
-setup under the intended binding. Cold engine construction can remain at import.
+attempt receives `missing_target`; defer application SQL to a marked test or
+its function fixtures. Preparation instead receives explicit DB settings, as
+below. Cold engine construction can remain at import.
 
-Prepare `app` with the existing
-[session baseline fixture](python.md#pytest-fixtures). For SQLAlchemy, explicitly
-list the application's quiescent engines once:
+Prepare `app` once using `mariamem_prepare`. It is a session fixture returning a
+callback that receives the source DB. Pass its connection settings explicitly
+to migration/seed code; preparation-time automatic connection switching is not
+included in0.6.0. Create the application's schema as part of preparation. For
+SQLAlchemy, also list the application's quiescent engines once:
 
 ```python
 # conftest.py
 import pytest
 
 @pytest.fixture(scope="session")
-def mariamem_route_engines():
+def mariamem_prepare():
+    def prepare(db):
+        migrate(db.connection_info())
+        seed(db.connection_info())
+        # Finish commits and close preparation connections before returning.
+    return prepare
+
+@pytest.fixture(scope="session")
+def mariamem_sqlalchemy_engines():
     from application.database import engine
     return (engine,)
 ```
 
-Then ordinary application tests use one fixture entry:
+Then ordinary application tests use one marker:
 
 ```python
 import pytest
 import application
 
-pytestmark = pytest.mark.usefixtures("mariamem_routed")
+pytestmark = pytest.mark.shadow_maria
 
 def test_create():
     application.create_user()
@@ -124,8 +135,34 @@ def test_update():
     # a separate child starts from the same prepared baseline
 ```
 
-`mariamem_routes` exposes the session registry; `mariamem_routed` yields that
-test's child; `mariamem_route_engines` defaults to no engines. Each xdist worker
+The marker accepts no arguments. Function, class and module use all create one
+independent child per test. `fork`, `live` and `prepare` marker options are not
+supported. If a test needs direct SQL as well, request `mariamem_app_db`; it is
+the exact same child as the marker and `mariamem_fork`, not another DB. Requesting
+`mariamem_app_db` alone is also an explicit opt-in to the same binding. Unmarked
+tests not requesting it create no routed DB; configured early guards remain.
+
+`mariamem_prepare` defaults to `None` (no-op). An override can prepare through
+fixture setup and return `None`, or return a callable taking the source DB.
+Other values receive a pytest usage error; callback return values are ignored.
+Preparation runs once per worker in the default Snapshot chain, before the
+disconnect wait and consuming capture. A setup/callback failure stops that
+chain, creates no Snapshot/child, and preserves the original error while the
+source fixture performs cleanup. A callback must close its own SQL resources.
+
+A custom `mariamem_server` still feeds this chain. Overriding `mariamem_snapshot`
+replaces its preparation/capture body, so the custom fixture owns those steps.
+Overriding `mariamem_fork` owns child construction and can bypass the Snapshot
+chain. The marker does not run preparation a second time.
+
+Function-scoped application fixtures run under marker activation. For explicit
+setup/teardown dependency ordering, let them request `mariamem_app_db`. Session-
+scoped applications cannot acquire a per-test target during their setup: stop or
+reconfigure their resources at a suitable boundary. Stable-endpoint/live reset
+is a separate design task, not implied by host reuse or this marker.
+
+`mariamem_router` exposes the session registry; `mariamem_app_db` yields that
+test's child; `mariamem_sqlalchemy_engines` defaults to no engines. Each xdist worker
 owns its registry and existing session baseline. Synchronous DBAPI calls in
 asyncio tasks retain task-local selection; async drivers are a separate boundary.
 Explicitly propagate context to application threads and join cooperative work

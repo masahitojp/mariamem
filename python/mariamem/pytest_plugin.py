@@ -11,6 +11,24 @@ def pytest_addoption(parser):
                      help="Register name=host:port/schema before application imports")
 
 
+def pytest_configure(config):
+    config.addinivalue_line("markers", "shadow_maria: use an independent DB and redirect registered application connections")
+
+
+def pytest_collection_modifyitems(items):
+    for item in items:
+        for marker in item.iter_markers("shadow_maria"):
+            if marker.args or marker.kwargs:
+                raise pytest.UsageError("shadow_maria accepts no arguments; prepare via mariamem_prepare. live/shared modes are not implemented.")
+
+
+@pytest.fixture(autouse=True)
+def _shadow_maria(request):
+    if request.node.get_closest_marker("shadow_maria") is not None:
+        request.getfixturevalue("mariamem_app_db")
+    yield
+
+
 def _profile_definitions(lines):
     from urllib.parse import unquote, urlsplit
     from .routing import Profile
@@ -44,7 +62,7 @@ def pytest_load_initial_conftests(early_config, parser, args):
     except (ValueError, TypeError, RuntimeError) as error:
         # Do not include rejected config text: it might contain credentials.
         raise pytest.UsageError("mariamem routing could not start; use name=host:port/schema and a tested driver. Inspect the chained cause.") from error
-    early_config._mariamem_routes = registry
+    early_config._mariamem_router = registry
     early_config.add_cleanup(registry.close)
     outcome = yield
     if outcome.excinfo is not None:
@@ -55,25 +73,25 @@ def pytest_load_initial_conftests(early_config, parser, args):
 
 
 @pytest.fixture(scope="session")
-def mariamem_routes(pytestconfig):
-    registry = getattr(pytestconfig, "_mariamem_routes", None)
+def mariamem_router(pytestconfig):
+    registry = getattr(pytestconfig, "_mariamem_router", None)
     if registry is None:
-        raise pytest.UsageError("Declare mariamem_route_profiles in pytest configuration before using mariamem_routed.")
+        raise pytest.UsageError("Declare mariamem_route_profiles in pytest configuration before using shadow_maria or mariamem_app_db.")
     return registry
 
 
 @pytest.fixture(scope="session")
-def mariamem_route_engines():
-    """Override with quiescent, test-owned SQLAlchemy engines to enroll."""
+def mariamem_sqlalchemy_engines():
+    """Override with quiescent, test-owned SQLAlchemy engines to register."""
     return ()
 
 
 @pytest.fixture
-def mariamem_routed(mariamem_routes, mariamem_route_engines, mariamem_fork):
-    profile = next(iter(mariamem_routes.profiles))
-    for engine in mariamem_route_engines:
-        mariamem_routes.enroll(engine, profile=profile, ownership="test")
-    with mariamem_routes.bind(profile, mariamem_fork):
+def mariamem_app_db(mariamem_router, mariamem_sqlalchemy_engines, mariamem_fork):
+    profile = next(iter(mariamem_router.profiles))
+    for engine in mariamem_sqlalchemy_engines:
+        mariamem_router.register_engine(engine, profile=profile, ownership="test")
+    with mariamem_router.bind(profile, mariamem_fork):
         yield mariamem_fork
     mariamem_fork.wait_disconnected()
 
@@ -90,7 +108,17 @@ def mariamem_server(mariamem_options):
 
 
 @pytest.fixture(scope="session")
-def mariamem_snapshot(mariamem_server):
+def mariamem_prepare():
+    """Override with preparation side effects or a callback accepting the source DB."""
+    return None
+
+
+@pytest.fixture(scope="session")
+def mariamem_snapshot(mariamem_server, mariamem_prepare):
+    if mariamem_prepare is not None:
+        if not callable(mariamem_prepare):
+            raise pytest.UsageError("mariamem_prepare must return None or a callable accepting the preparation DB.")
+        mariamem_prepare(mariamem_server)
     mariamem_server.wait_disconnected()
     with mariamem_server.snapshot() as saved:
         yield saved

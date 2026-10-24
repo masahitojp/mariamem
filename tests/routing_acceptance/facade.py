@@ -70,7 +70,7 @@ class Router:
         if self.mutation == "adopt_unknown":
             engine.dispose = lambda: None
         try:
-            result = self.registry.enroll(engine, profile="app", ownership="test")
+            result = self.registry.register_engine(engine, profile="app", ownership="test")
         finally:
             engine.dispose = dispose
         adapter = self.registry._adapters[engine]

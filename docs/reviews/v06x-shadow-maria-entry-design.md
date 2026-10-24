@@ -2,8 +2,10 @@
 
 2026-10-24. Design basis source_commit:
 `5651e23d8a6cc57ecaac0c45228da6b4108ed789` on `feat/connection-routing`.
-Status: **Human-approved entry/naming direction; implementation and verification
-outstanding.** On2026-10-24 the Human accepted the recommended surface below.
+Status at approval: **Human-approved entry/naming direction.** Implementation
+now has a separate [candidate report](v06x-shadow-maria-implementation.md);
+updated native acceptance is pending. The design below records the approved
+contract, not a claim that the old CI exercised the new entry. On2026-10-24 the Human accepted the recommended surface below.
 This is approval to proceed with that direction, not main adoption, Qualification
 or release approval. The old fixture implementation remains the tested candidate.
 

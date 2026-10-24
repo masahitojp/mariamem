@@ -790,7 +790,9 @@ This does not verify the subsequently approved marker/preparation entry.
 On 2026-10-24 the Human removed EOL Python3.9/3.10 from future
 verification. The routing compatibility job now uses Python3.11/pytest7
 and Python3.14/pytest9; earlier3.9 receipts remain historical evidence.
-This changes the verification floor, not the published `python_requires` metadata. The earlier experiment is referenced at fixed commits rather than
+The subsequent Human implementation authorization also raised current source
+`python_requires` and advertised support to3.11+, dropping3.9/3.10. Published
+release metadata remains historical. The earlier experiment is referenced at fixed commits rather than
 merged wholesale. Main adoption and release still require separate decisions.
 
 The Human subsequently approved the marker-based user entry
@@ -803,7 +805,9 @@ approval. Migration/seed receives preparation DB settings explicitly; registered
 application connections are switched during the tests. The approved callback
 entry is `mariamem_prepare`; direct test DB access is `mariamem_app_db`.
 Controller/adapter names and extras are listed in the accepted entry design.
-Implementation, updated acceptance and main adoption remain outstanding.
+The [entry implementation](reviews/v06x-shadow-maria-implementation.md) now
+uses the approved names and preparation callback. Local checks pass on3.11/3.14;
+updated native acceptance and main adoption remain outstanding.
 Automatic preparation routing is
 [retained for0.6.x reconsideration](reviews/v06x-shadow-maria-entry-design.md#reconsider-preparation-routing-in06x),
 not approved implementation. Shared modes are not approved by the naming

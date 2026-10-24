@@ -72,7 +72,7 @@ def test_install_failure_restores_prior_hooks():
 
 
 def test_uninstalled_registry_cannot_present_a_binding_as_active():
-    registry = routing.Registry({"app": PROFILE}, ("pymysql",), .05)
+    registry = routing.Router({"app": PROFILE}, ("pymysql",), .05)
     with pytest.raises(routing.RoutingError, match="uninstalled_registry"):
         with registry:
             pytest.fail("uninstalled guard was presented as active")
@@ -210,7 +210,7 @@ def test_pool_disposal_authority_and_sibling_survival(routes):
         disposals.append(1)
         original_dispose(*args, **kwargs)
     engine.dispose = dispose
-    routes.enroll(engine, profile="app", ownership="test")
+    routes.register_engine(engine, profile="app", ownership="test")
     assert len(disposals) == 1
     with routes.bind("app", DB()):
         a = connect(routes); ar = Record(a)
@@ -235,15 +235,15 @@ def test_pool_active_and_custom_creator_refuse(routes, monkeypatch):
     original = engine.pool.checkedout
     monkeypatch.setattr(engine.pool, "checkedout", lambda: 1)
     with pytest.raises(routing.RoutingError, match="active_pool"):
-        routes.enroll(engine, profile="app", ownership="test")
+        routes.register_engine(engine, profile="app", ownership="test")
     assert engine.pool is not None
     monkeypatch.setattr(engine.pool, "checkedout", original)
     with pytest.raises(routing.RoutingError, match="ownership_required"):
-        routes.enroll(engine, profile="app", ownership="application")
+        routes.register_engine(engine, profile="app", ownership="application")
     calls = []
     custom = create_engine("mysql+pymysql://original@127.0.0.1:3307/app", creator=lambda: calls.append(1))
     with pytest.raises(routing.RoutingError, match="custom_creator"):
-        routes.enroll(custom, profile="app", ownership="test")
+        routes.register_engine(custom, profile="app", ownership="test")
     assert not calls
     engine.dispose(); custom.dispose()
 
