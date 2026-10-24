@@ -847,8 +847,10 @@ not importer/productization approval. Local macOS results and
 passed the authored Alembic/seed, two independent application tests and two exact
 failed-preparation oracles on macOS/Ubuntu at84c8ee1. The
 [Human Review](reviews/v06x-preparation-migration-human-review.md) recommends
-recipe/acceptance productization, with Python3.11 native migration confirmation
-still needed; no productization or main adoption has been approved.
+recipe/acceptance productization. Its acceptance conditions retain native
+Python3.11/pytest7 and Python3.14/pytest9 coverage plus migration-specific xdist
+worker preparation/isolation checks on both OSes; the minimum-version and xdist
+checks remain unverified. No productization or main adoption has been approved.
 Automatic preparation
 routing remains excluded from0.6.0; live and broader diagnostics/framework
 coverage remain separate decisions.
