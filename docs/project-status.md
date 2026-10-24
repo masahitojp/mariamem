@@ -781,14 +781,39 @@ is implemented on `feat/connection-routing` from current main `9f29194`, with
 the [continuing routing contract](decisions/connection-routing-contract.md).
 Optional public routing, explicit SQLAlchemy ownership and early pytest entry
 are present; local32 routing tests pass on both Python3.9/pytest7 and Python3.14/pytest9.
-Local macOS native has16 control PASS/1 Connector import SKIP, six injected
-faults detected and real pytest4/2 workers PASS. Both-OS production acceptance
-including actual Connector execution remains pending.
+The old fixture entry passed both-OS production acceptance at source
+`0698698eb77bbb4df91aea0d83f62e901b711d77` in
+[CI40045368302](https://github.com/masahitojp/mariamem/actions/runs/40045368302):
+17 control cases, six exact defect injections and4 pytest tests with2 workers
+on each OS. Ubuntu explicit Connector C is the known SKIP; default/pure ran.
+This does not verify the subsequently approved marker/preparation entry.
 On 2026-10-24 the Human removed EOL Python3.9/3.10 from future
 verification. The routing compatibility job now uses Python3.11/pytest7
 and Python3.14/pytest9; earlier3.9 receipts remain historical evidence.
 This changes the verification floor, not the published `python_requires` metadata. The earlier experiment is referenced at fixed commits rather than
 merged wholesale. Main adoption and release still require separate decisions.
+
+The Human subsequently approved the marker-based user entry
+`shadow_maria` and the recommended naming direction. The
+[accepted entry design](reviews/v06x-shadow-maria-entry-design.md)
+compares pgmem fork/live options with the current consuming-Snapshot contract.
+After clarifying the difference from pgmem, the Human decided that0.6.0 excludes
+preparation-time automatic connection switching, superseding the provisional
+approval. Migration/seed receives preparation DB settings explicitly; registered
+application connections are switched during the tests. The approved callback
+entry is `mariamem_prepare`; direct test DB access is `mariamem_app_db`.
+Controller/adapter names and extras are listed in the accepted entry design.
+Implementation, updated acceptance and main adoption remain outstanding.
+Automatic preparation routing is
+[retained for0.6.x reconsideration](reviews/v06x-shadow-maria-entry-design.md#reconsider-preparation-routing-in06x),
+not approved implementation. Shared modes are not approved by the naming
+direction. The Human decided on
+2026-10-24 that live behavior will be examined as a separate task; inclusion in
+0.6.0 remains a scope decision based on the required internal changes. No
+`live=True` behavior is currently implemented or implied by marker adoption.
+The [live task and baseline examples](reviews/v06x-shadow-maria-entry-design.md#live-baseline-and-pending-task)
+define the desired starting contents separately from which application,
+endpoint and connection resources survive between tests.
 
 **Prepared Statements — complete and adopted on main.** See the final P6
 completion/adoption entry below. The following sequence preserves the dated

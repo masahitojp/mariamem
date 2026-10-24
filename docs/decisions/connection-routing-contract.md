@@ -33,7 +33,7 @@ decision does not relabel it as verification of the production replacement.
 
 ## Ownership and lifecycle
 
-`enroll(..., ownership="test")` hands over administration of a quiescent test
+`register_engine(..., ownership="test")` hands over administration of a quiescent test
 engine's pool, not ownership of the Python Engine object or child DB/Snapshot.
 Caller stops application activity before enrollment. Existing checked-out
 connections/transactions reject enrollment without closing or rolling them back.
@@ -52,6 +52,28 @@ Pytest enables protection from static configuration in its early plugin hook,
 before conftest/test imports. It integrates the existing session baseline and
 function child. Each xdist worker retains its own registry/baseline; there is no
 cross-worker/cross-run shared baseline. No minimum Python/pytest/platform change.
+
+## Approved application-test entry — implementation pending
+
+On2026-10-24 the Human accepted the
+[marker/preparation entry and naming direction](../reviews/v06x-shadow-maria-entry-design.md#approved-public-surface--not-yet-implemented).
+The normal entry is no-argument `@pytest.mark.shadow_maria`; optional
+`mariamem_app_db` exposes the same per-test child. `mariamem_prepare` returns a
+session preparation callback taking the source DB, once per worker before
+Snapshot. For0.6.0, preparation receives explicit DB settings; automatic
+preparation routing is excluded and retained for0.6.x reconsideration.
+
+Approved controller/adapter names are `mariamem_router`,
+`mariamem_sqlalchemy_engines`, `routing.Router` and `register_engine`.
+Extras are `routing-pymysql`, `routing-sqlalchemy` and
+`routing-mysql-connector`. Superseded unreleased candidate names require no
+compatibility aliases; existing published APIs remain. The tested candidate
+uses the old `enroll`/`Registry`/fixture names and has not yet implemented this
+approved surface. Ownership semantics above are unchanged by renaming.
+
+Live behavior remains a separate task, including a0.6.0 scope decision based on
+required internal changes. Neither marker approval nor this contract adds reset,
+shared-state modes, multiple profiles or preparation-time implicit routing.
 
 ## Acceptance and separate decisions
 
