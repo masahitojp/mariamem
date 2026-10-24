@@ -780,9 +780,10 @@ The [production candidate](reviews/v06x-connection-routing-productization.md)
 is implemented on `feat/connection-routing` from current main `9f29194`, with
 the [continuing routing contract](decisions/connection-routing-contract.md).
 Optional public routing, explicit SQLAlchemy ownership and early pytest entry
-are present; local31 tests pass on both Python3.9/pytest7 and Python3.14/pytest9.
-Production17-case/six-mutation and real pytest/xdist native acceptance remains
-pending. The earlier experiment is referenced at fixed commits rather than
+are present; local32 routing tests pass on both Python3.9/pytest7 and Python3.14/pytest9.
+Local macOS native has16 control PASS/1 Connector import SKIP, six injected
+faults detected and real pytest4/2 workers PASS. Both-OS production acceptance
+including actual Connector execution remains pending. The earlier experiment is referenced at fixed commits rather than
 merged wholesale. Main adoption and release still require separate decisions.
 
 **Prepared Statements — complete and adopted on main.** See the final P6

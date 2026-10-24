@@ -1,0 +1,377 @@
+{
+  "system": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "mutation": null,
+  "connector_import_error": "AttributeError(\"module 'ssl' has no attribute 'PROTOCOL_TLSv1'\")",
+  "packages": {
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "mysql-connector-python": "26.7.0"
+  },
+  "cases": [
+    {
+      "row": "R1",
+      "name": "direct-alias-deferred-reconnect",
+      "status": "PASS",
+      "detail": {
+        "markers": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "saved_class_alias": true,
+        "deferred_before_install": true
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R2",
+      "name": "idle-generation",
+      "status": "PASS",
+      "detail": {
+        "markers": [
+          "A",
+          "B",
+          "A"
+        ],
+        "held_idle_diagnostic": true,
+        "physical_connects": 8,
+        "pool_rejected": 2
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R2",
+      "name": "idle-session-state",
+      "status": "PASS",
+      "detail": {
+        "generations": [
+          {
+            "marker": "A",
+            "fresh_user_variable": true,
+            "temporary_table_absent": true,
+            "statement_absent": true,
+            "distinct_physical_connection": true
+          },
+          {
+            "marker": "A",
+            "fresh_user_variable": true,
+            "temporary_table_absent": true,
+            "statement_absent": true,
+            "distinct_physical_connection": true
+          },
+          {
+            "marker": "B",
+            "fresh_user_variable": true,
+            "temporary_table_absent": true,
+            "statement_absent": true,
+            "distinct_physical_connection": true
+          },
+          {
+            "marker": "A",
+            "fresh_user_variable": true,
+            "temporary_table_absent": true,
+            "statement_absent": true,
+            "distinct_physical_connection": true
+          }
+        ],
+        "same_child_transition_tested": true
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R3",
+      "name": "registration-rejections",
+      "status": "PASS",
+      "detail": [
+        {
+          "code": "active_pool",
+          "stage": "connection_binding",
+          "message": "active_pool: Return active connections/transactions before enrollment or close."
+        },
+        {
+          "code": "custom_creator",
+          "stage": "connection_binding",
+          "message": "custom_creator: Provide an explicit test-owned factory adapter."
+        },
+        {
+          "code": "unknown_profile",
+          "stage": "connection_binding",
+          "message": "unknown_profile: Enroll an engine for the registered profile."
+        }
+      ],
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R3",
+      "name": "unknown-physical-ownership",
+      "status": "PASS",
+      "detail": {
+        "first_active_enrollment": {
+          "code": "active_pool",
+          "stage": "connection_binding",
+          "message": "active_pool: Return active connections/transactions before enrollment or close."
+        },
+        "original_marker": "A",
+        "untagged_original": true,
+        "idle_original_closed": true,
+        "replacement_marker": "B",
+        "replacement_owned_by_current_scope": true
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R4",
+      "name": "parallel-targets",
+      "status": "PASS",
+      "detail": [
+        [
+          "A",
+          "A",
+          "A"
+        ],
+        [
+          "B",
+          "B",
+          "B"
+        ]
+      ],
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R4",
+      "name": "nested-thread-context",
+      "status": "PASS",
+      "detail": {
+        "markers": [
+          "A",
+          "B",
+          "A",
+          "A"
+        ],
+        "unpropagated": {
+          "code": "missing_target",
+          "stage": "connection_binding",
+          "message": "missing_target: Enter the test binding before opening this profile."
+        }
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R4",
+      "name": "async-task-context",
+      "status": "PASS",
+      "detail": {
+        "markers": [
+          "A",
+          "B"
+        ],
+        "note": "sync DBAPI in asyncio tasks; no async driver claim"
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R5",
+      "name": "retired-context",
+      "status": "PASS",
+      "detail": {
+        "code": "expired_target",
+        "stage": "connection_binding",
+        "message": "expired_target: Join application work before leaving its test binding."
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R5",
+      "name": "failure-cleanup",
+      "status": "PASS",
+      "detail": [
+        {
+          "stage": "setup",
+          "preserved": "setup original",
+          "notes": []
+        },
+        {
+          "stage": "test",
+          "preserved": "test original",
+          "notes": []
+        },
+        {
+          "stage": "cleanup",
+          "preserved": "cleanup original",
+          "notes": [
+            "mariamem routing cleanup also failed: cleanup_failed"
+          ]
+        },
+        {
+          "code": "closed_target",
+          "stage": "connection_binding",
+          "message": "closed_target: Acquire a live child before opening a connection."
+        }
+      ],
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R5",
+      "name": "missing-target",
+      "status": "PASS",
+      "detail": {
+        "code": "missing_target",
+        "stage": "connection_binding",
+        "message": "missing_target: Enter the test binding before opening this profile."
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R6",
+      "name": "options-and-schema",
+      "status": "PASS",
+      "detail": {
+        "rejections": [
+          {
+            "code": "transport_conflict",
+            "stage": "connection_binding",
+            "message": "transport_conflict: Use the registered TCP profile explicitly."
+          },
+          {
+            "code": "option_file",
+            "stage": "connection_binding",
+            "message": "option_file: Resolve this profile to explicit test settings."
+          },
+          {
+            "code": "tls_unavailable",
+            "stage": "connection_binding",
+            "message": "tls_unavailable: This child has no TLS; select an explicit local test profile."
+          }
+        ],
+        "settings": [
+          "app",
+          0,
+          "utf8mb4"
+        ]
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R6",
+      "name": "schema-profile-boundary",
+      "status": "PASS",
+      "detail": {
+        "registered_schema": "app",
+        "other_schema": "other_app",
+        "same_endpoint_rejected": [
+          {
+            "code": "schema_mismatch",
+            "stage": "connection_binding",
+            "message": "schema_mismatch: Use the registered schema or explicit child settings."
+          },
+          {
+            "code": "schema_mismatch",
+            "stage": "connection_binding",
+            "message": "schema_mismatch: Use the registered schema or explicit child settings."
+          },
+          {
+            "code": "schema_mismatch",
+            "stage": "connection_binding",
+            "message": "schema_mismatch: Use the registered schema or explicit child settings."
+          },
+          {
+            "code": "schema_mismatch",
+            "stage": "connection_binding",
+            "message": "schema_mismatch: Use the registered schema or explicit child settings."
+          }
+        ],
+        "missing_schema_rejected": true
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R6",
+      "name": "deferred-tls-before-install",
+      "status": "PASS",
+      "detail": {
+        "constructed_before_install": true,
+        "required_tls_retained": true,
+        "socket_not_opened": true,
+        "refusal": {
+          "code": "tls_unavailable",
+          "stage": "connection_binding",
+          "message": "tls_unavailable: This child has no TLS; select an explicit local test profile."
+        }
+      },
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R7",
+      "name": "connector-prepared",
+      "status": "SKIP",
+      "reason": "AttributeError(\"module 'ssl' has no attribute 'PROTOCOL_TLSv1'\")"
+    },
+    {
+      "row": "R7",
+      "name": "go-owned-pools",
+      "status": "PASS",
+      "detail": [
+        {
+          "implicit": "A",
+          "interpolate": false,
+          "marker": "A",
+          "owned_pool": true,
+          "rollback_rows": 0,
+          "schema": "app"
+        },
+        {
+          "implicit": "B",
+          "interpolate": false,
+          "marker": "B",
+          "owned_pool": true,
+          "rollback_rows": 0,
+          "schema": "app"
+        }
+      ],
+      "sentinel_attempts": 0
+    },
+    {
+      "row": "R8",
+      "name": "two-test-workflows",
+      "status": "PASS",
+      "detail": {
+        "children": [
+          {
+            "mode": "injection",
+            "marker": "seed",
+            "own_rows": 1
+          },
+          {
+            "mode": "injection",
+            "marker": "seed",
+            "own_rows": 1
+          },
+          {
+            "mode": "routing",
+            "marker": "seed",
+            "own_rows": 1
+          },
+          {
+            "mode": "routing",
+            "marker": "seed",
+            "own_rows": 1
+          }
+        ],
+        "prepared_once": true,
+        "first_test": "define preparation and binding fixture",
+        "second_test": "reuse fixture; add assertions only"
+      },
+      "sentinel_attempts": 0
+    }
+  ],
+  "sentinel_attempts": 0,
+  "observations": {
+    "physical_connects": 30,
+    "pool_rejected": 7
+  },
+  "all_hosts_reaped": true,
+  "passed": false
+}

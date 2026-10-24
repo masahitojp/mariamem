@@ -13,13 +13,14 @@
   "command": "PYTHONPATH=python <owned-venv>/python -m pytest tests/test_routing.py tests/test_routing_pytest.py tests/test_routing_receipts.py tests/test_python_diagnostics.py tests/test_development_scope.py tests/test_ci_publication_workflow.py tests/test_packaging_license_mirrors.py tests/test_canonical_toolchain_pins.py -q",
   "result": {
     "exit": 0,
-    "passed": 112,
+    "passed": 113,
     "subtests_passed": 25
   },
   "files": {
     "python/mariamem/_routing_drivers.py": "f6509aac80ad06a59b9f200282ace1f62e8c3e584fa25bcc87061c4627cadc2a",
-    "python/mariamem/routing.py": "465a336f5a3b934565d76ae4fa54f00fe40f6028b701f152aedf8e193628cd73",
+    "python/mariamem/routing.py": "0392826e45a725f0dc5fe1fca3d6219b52d57f84b29bbc3ee314f3c263af39f6",
     "python/mariamem/_routing_sqlalchemy.py": "1205c6641952e76e203dccdd89be7293ba573f52b95ae62bc67b8e317d02fecd",
     "python/mariamem/pytest_plugin.py": "4ccee8b4e237c9df473ff761bbfd86f4f58b1589a16cff5779e6fb1f89262b22"
-  }
+  },
+  "tested_source_commit": "a3bac987afaa9fa3eed12ce1cf3bf11b8fe4f919"
 }

@@ -12,6 +12,7 @@
   "command": "PYTHONPATH=python <owned-minvenv>/python -m pytest tests/test_routing.py tests/test_routing_pytest.py tests/test_routing_receipts.py -q",
   "result": {
     "exit": 0,
-    "passed": 31
-  }
+    "passed": 32
+  },
+  "tested_source_commit": "a3bac987afaa9fa3eed12ce1cf3bf11b8fe4f919"
 }

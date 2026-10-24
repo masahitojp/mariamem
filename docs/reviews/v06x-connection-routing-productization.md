@@ -12,10 +12,10 @@ the unchanged main-adoption/release boundary.
 The candidate implements optional public Python routing, an explicitly owned
 SQLAlchemy adapter and early pytest integration. Local lifecycle/early-plugin/
 receipt tests pass on Python3.14.8/pytest9.0.2 and Python3.9.6/pytest7.0.0:
-31 tests each. The3.14 run additionally reports25 receipt subtests. These tests
+32 routing tests each. The3.14 selected source-check run totals113 tests
+and25 receipt subtests. These tests
 exercise real pinned driver/framework hooks with fake connections where no guest
-is needed; they do not establish native SQL acceptance. **Production-native
-acceptance remains pending.** The earlier spike PASS is not substituted for it.
+is needed; they do not establish native SQL acceptance. **Both-OS production-native acceptance remains pending.** The earlier spike PASS is not substituted for it.
 
 The user can configure the original endpoint/schema once and use the ordinary
 application driver code under `mariamem_routed`. Existing settings/pool injection
@@ -52,7 +52,7 @@ final Qualification by this task.
 
 ## Verification and remaining gate
 
-- Local31 tests PASS at both Python/pytest boundaries above; no minimum-version
+- Local32 routing tests PASS at both Python/pytest boundaries above; no minimum-version
   change needed. Scope/conflict/failed-connect/retirement/drain/pool ownership,
   conftest/module import, CLI/config, collection failure, malformed-input secrecy,
   worker registration and strict receipt matching are covered.
@@ -62,6 +62,13 @@ final Qualification by this task.
 - Current guest SHA256 remains
   `8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40`;
   Go1.26.10/converter/guest patches and accepted Prepared exceptions are unchanged.
+- Local macOS native at source_commit
+  `a3bac987afaa9fa3eed12ce1cf3bf11b8fe4f919`:16 control PASS,
+  Connector import1 SKIP; six injected faults detected at their exact oracles;
+  real pytest4/2 workers PASS; no control original-endpoint contact and all
+  campaign hosts reaped. The local receipt deliberately records `complete=false`;
+  this is partial evidence, not full acceptance. The only subsequent changes
+  before CI handoff are documentation/evidence.
 - Native replacement17+6 and real pytest4 tests, with exact host/candidate
   identity and required Connector modes, still need results from the candidate
   workflow. macOS Homebrew's known Connector import problem must remain a local
@@ -75,3 +82,21 @@ Disposable local environments use the experiment-workspace lifecycle with a4GiB
 budget and8GiB free-space reserve. Source/results are committed; recreateable
 venvs/cache are removed after saving compact receipts. CI remains responsible
 for its submitted candidate; Codex hands off rather than supervising it.
+
+## Evidence and reproduction
+
+[Local Python3.14 source checks](v06x-connection-routing-productization-evidence/local-python314.json),
+[minimum-version checks](v06x-connection-routing-productization-evidence/local-python39.json),
+[native inputs/results](v06x-connection-routing-productization-evidence/macos-local/inputs.json),
+[control cases](v06x-connection-routing-productization-evidence/macos-local/control.json)
+and [original/stored hashes](v06x-connection-routing-productization-evidence/macos-local/files.json)
+retain the result. Path scrubbing and trailing-whitespace normalization account
+for original/stored hash differences; the input receipt refers to original bytes.
+
+Recreate a bounded workspace and a Python3.14 venv with
+`tests/routing_acceptance/requirements.txt` and `unit-requirements.txt`. From a
+clean candidate checkout run `tests/routing_acceptance/run.py --runtime-root <repo>
+--source-commit <full-commit-SHA> --output <workspace>`. The runner validates
+commit identity, builds/identifies the host, executes the control, six mutations
+and real pytest workflow, and saves hashes. Only the local Homebrew diagnostic
+uses `--allow-connector-import-skip`; CI never uses it.

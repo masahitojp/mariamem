@@ -1,0 +1,29 @@
+{
+  "system": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "mutation": "ignore_retired",
+  "connector_import_error": "AttributeError(\"module 'ssl' has no attribute 'PROTOCOL_TLSv1'\")",
+  "packages": {
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "mysql-connector-python": "26.7.0"
+  },
+  "cases": [
+    {
+      "row": "R5",
+      "name": "retired-context",
+      "status": "FAIL",
+      "error_type": "AssertionError",
+      "error": "Expected rejection: expired_target",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/tests/routing_acceptance/campaign.py\", line 95, in case\n    detail=fn()\n  File \"<repo>/tests/routing_acceptance/campaign.py\", line 281, in retired\n    return ctx.run(lambda:expect('expired_target',delayed_call))\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<repo>/tests/routing_acceptance/campaign.py\", line 281, in <lambda>\n    return ctx.run(lambda:expect('expired_target',delayed_call))\n                          ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<repo>/tests/routing_acceptance/campaign.py\", line 76, in expect\n    raise AssertionError('Expected rejection: ' + code)\nAssertionError: Expected rejection: expired_target\n",
+      "sentinel_attempts": 0
+    }
+  ],
+  "sentinel_attempts": 0,
+  "observations": {
+    "physical_connects": 1,
+    "pool_rejected": 0
+  },
+  "all_hosts_reaped": true,
+  "passed": false
+}

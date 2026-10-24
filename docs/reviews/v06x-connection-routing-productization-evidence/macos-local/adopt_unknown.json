@@ -1,0 +1,34 @@
+{
+  "system": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "mutation": "adopt_unknown",
+  "connector_import_error": "AttributeError(\"module 'ssl' has no attribute 'PROTOCOL_TLSv1'\")",
+  "packages": {
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "mysql-connector-python": "26.7.0"
+  },
+  "cases": [
+    {
+      "row": "R3",
+      "name": "unknown-physical-ownership",
+      "status": "FAIL",
+      "error_type": "AssertionError",
+      "error": "{'requested': 'B', 'observed': 'A', 'unknown_owner': True}",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/tests/routing_acceptance/campaign.py\", line 95, in case\n    detail=fn()\n  File \"<repo>/tests/routing_acceptance/campaign.py\", line 221, in r3_unknown\n    assert actual=='B', {'requested':'B','observed':actual,'unknown_owner':True}\n           ^^^^^^^^^^^\nAssertionError: {'requested': 'B', 'observed': 'A', 'unknown_owner': True}\n",
+      "sentinel_attempts": 0,
+      "observation": {
+        "requested": "B",
+        "observed": "A",
+        "unknown_owner": true
+      }
+    }
+  ],
+  "sentinel_attempts": 0,
+  "observations": {
+    "physical_connects": 0,
+    "pool_rejected": 0
+  },
+  "all_hosts_reaped": true,
+  "passed": false
+}

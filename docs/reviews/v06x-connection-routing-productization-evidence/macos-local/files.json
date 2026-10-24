@@ -1,0 +1,126 @@
+{
+  "source_commit": "a3bac987afaa9fa3eed12ce1cf3bf11b8fe4f919",
+  "transformation": "Repository/home paths replaced with <repo>/<user>; trailing whitespace removed; .log stored as .txt. inputs.json evidence hashes refer to original bytes. Stale empty console.log excluded.",
+  "files": {
+    "adopt_unknown.json": {
+      "original_name": "adopt_unknown.json",
+      "original_sha256": "5cc191e7ee7d8c86927b3dffe09cfc7d63613ddf1ac602e2e019b899be2d4e4a",
+      "stored_sha256": "c054c7b1d58ea57d244a4f4cd129c6776c88480b7eb9d6e1500b6a2456a6dbd3",
+      "bytes": 1318
+    },
+    "adopt_unknown.txt": {
+      "original_name": "adopt_unknown.log",
+      "original_sha256": "a007f23713da5e3242f0c51b8cd1275c408c68732bd062b22a88c00bef53d404",
+      "stored_sha256": "a007f23713da5e3242f0c51b8cd1275c408c68732bd062b22a88c00bef53d404",
+      "bytes": 35
+    },
+    "control.json": {
+      "original_name": "control.json",
+      "original_sha256": "847eaeb64d4337cbf8e44f1d4f61bc56e6c82438fc5339ed2fe0b9bce473c930",
+      "stored_sha256": "847eaeb64d4337cbf8e44f1d4f61bc56e6c82438fc5339ed2fe0b9bce473c930",
+      "bytes": 9934
+    },
+    "control.txt": {
+      "original_name": "control.log",
+      "original_sha256": "023cb2a0f23e1515349360c79188504fc5f3035bc91fbce75bccdddda980607c",
+      "stored_sha256": "023cb2a0f23e1515349360c79188504fc5f3035bc91fbce75bccdddda980607c",
+      "bytes": 483
+    },
+    "dependencies.json": {
+      "original_name": "dependencies.json",
+      "original_sha256": "aefdacb2932fc80239a6206bb1adbeb1e379d7e4fa606864cc7c180775b9b716",
+      "stored_sha256": "21b11152342ab5159d67efe2032935467ec031793c4c87ab99aadfc5cb0b3f0a",
+      "bytes": 67886
+    },
+    "fallback.json": {
+      "original_name": "fallback.json",
+      "original_sha256": "db20e69f1286bd68602ca0ed8ef52a6118b945a90ab6ffd088c3853b55c6df48",
+      "stored_sha256": "44c0e56b6e0be5f0b9ec62d458fdac8191829642beca812f4379b8105bfea9b9",
+      "bytes": 3870
+    },
+    "fallback.txt": {
+      "original_name": "fallback.log",
+      "original_sha256": "9bf008786b66c4450d646a3c38101b01a20c6d8ab6ebe8870dc291b108840a77",
+      "stored_sha256": "9bf008786b66c4450d646a3c38101b01a20c6d8ab6ebe8870dc291b108840a77",
+      "bytes": 23
+    },
+    "global_target.json": {
+      "original_name": "global_target.json",
+      "original_sha256": "8eff0ab81366f0b9b22d4314f14cf9660af50f010c6ff42f063c7c148537403b",
+      "stored_sha256": "7da80fc2ffb9086b69170f14b1910604df3d201e467d2006ebe39e6246db6f36",
+      "bytes": 2048
+    },
+    "global_target.txt": {
+      "original_name": "global_target.log",
+      "original_sha256": "6c99e6025f9f02516173b4328e3e2ece5267fddabcc1020b6ad75dab45281476",
+      "stored_sha256": "6c99e6025f9f02516173b4328e3e2ece5267fddabcc1020b6ad75dab45281476",
+      "bytes": 25
+    },
+    "go-consumer-build.txt": {
+      "original_name": "go-consumer-build.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "host-build.txt": {
+      "original_name": "host-build.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "ignore_retired.json": {
+      "original_name": "ignore_retired.json",
+      "original_sha256": "74175943f4a23d63153abdf08aced545ff76d22526612c9a941961ef3e4e28de",
+      "stored_sha256": "cf81c4878cdc27b373752b0a1a4977f332b1cd13c9876fee8ded65069e771876",
+      "bytes": 1513
+    },
+    "ignore_retired.txt": {
+      "original_name": "ignore_retired.log",
+      "original_sha256": "1b777871931d45fbed4e54888c8e9a230205fe19456275c2ea775643865185be",
+      "stored_sha256": "1b777871931d45fbed4e54888c8e9a230205fe19456275c2ea775643865185be",
+      "bytes": 24
+    },
+    "inputs.json": {
+      "original_name": "inputs.json",
+      "original_sha256": "180ed9373aea98fbad824cb4f227eca2e3d1c2ab42b6b7e5f2467af5843723a0",
+      "stored_sha256": "c84507d2eb8d42643f2d5c428269c31a3e5baeb51aa4e3177411682cce890888",
+      "bytes": 49427
+    },
+    "no_pool_check.json": {
+      "original_name": "no_pool_check.json",
+      "original_sha256": "c771714d7db9ef57ae19efb362616971b81dfbaa53e8998a135bd1cdbe615243",
+      "stored_sha256": "1e196bac0e63fe713cd9672415c80fd01a1934bd4c8793c400d98128b7e1c84c",
+      "bytes": 1076
+    },
+    "no_pool_check.txt": {
+      "original_name": "no_pool_check.log",
+      "original_sha256": "6550a037e28349f23284882dbeffcf5bbe6be0e6144dd7961be3a294c8dd612a",
+      "stored_sha256": "6550a037e28349f23284882dbeffcf5bbe6be0e6144dd7961be3a294c8dd612a",
+      "bytes": 24
+    },
+    "pytest-native.txt": {
+      "original_name": "pytest-native.log",
+      "original_sha256": "454db101a78676945c793b05eb7bbd1586f44aba3715d639fb72d0bad95b90c5",
+      "stored_sha256": "454db101a78676945c793b05eb7bbd1586f44aba3715d639fb72d0bad95b90c5",
+      "bytes": 141
+    },
+    "pytest-native.xml": {
+      "original_name": "pytest-native.xml",
+      "original_sha256": "6e7c42593dc3f6bc7c6ab66c011605e3d3b8fe11011e624d06c68f449d20d5b0",
+      "stored_sha256": "38702a1e961ab9226b2e56afbd4cce882ce89fda3ad591862a9ebb699d3bfd19",
+      "bytes": 811
+    },
+    "retain_session.json": {
+      "original_name": "retain_session.json",
+      "original_sha256": "e77c80b0b52446b683f6d82deba09717c43332c05926b1adfeaf4df2f25479bf",
+      "stored_sha256": "a288d30245f7328bdcb06d611099ec6ee7827f61fc4b968b0c83e3f4829e5872",
+      "bytes": 1294
+    },
+    "retain_session.txt": {
+      "original_name": "retain_session.log",
+      "original_sha256": "c68b477109fd71eddd46907983092c959053a6180b19076d691511984c099eb4",
+      "stored_sha256": "c68b477109fd71eddd46907983092c959053a6180b19076d691511984c099eb4",
+      "bytes": 27
+    }
+  }
+}
