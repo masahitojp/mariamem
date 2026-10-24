@@ -4,7 +4,8 @@
 `5651e23d8a6cc57ecaac0c45228da6b4108ed789` on `feat/connection-routing`.
 Status at approval: **Human-approved entry/naming direction.** Implementation
 now has a separate [candidate report](v06x-shadow-maria-implementation.md);
-updated native acceptance is pending. The design below records the approved
+updated native acceptance passed inCI40061580952 and the Human approved main
+integration. The design below records the approved
 contract, not a claim that the old CI exercised the new entry. On2026-10-24 the Human accepted the recommended surface below.
 This is approval to proceed with that direction, not main adoption, Qualification
 or release approval. The old fixture implementation remains the tested candidate.
@@ -24,8 +25,8 @@ entry does not remove these requirements or promise arbitrary live takeover.
 The Human assigned live behavior to a separate task. Preparation-time automatic
 routing is excluded from0.6.0 and retained for0.6.x reconsideration.
 
-The next gate is main adoption after implementing and verifying this approved
-surface. There is no second request to approve the same naming direction.
+The surface was implemented and verified inCI40061580952; the Human then
+approved main integration. Qualification/release remain separate decisions.
 
 ## Human decision — preparation routing excluded from0.6.0
 
@@ -127,7 +128,7 @@ Inspected public source, not a pgmem runtime test:
 not just performance knobs. The pgmem example does not establish that mariamem
 has equivalent support.
 
-## Approved public surface — not yet implemented
+## Approved public surface
 
 | Entry | Meaning |
 | --- | --- |
@@ -151,7 +152,7 @@ profile/driver settings (`mariamem_route_profiles`, `mariamem_route_drivers`,
 `--mariamem-route`) are unchanged by this naming decision. Historical receipts
 retain the actual old names used by their source; do not rewrite them.
 
-Intended usage, pending implementation:
+Approved usage (implemented and verified by the subsequent candidate):
 
 ```python
 @pytest.fixture(scope="session")

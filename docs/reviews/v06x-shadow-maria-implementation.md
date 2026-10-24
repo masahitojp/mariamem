@@ -1,4 +1,4 @@
-# shadow_maria implementation — candidate acceptance pending
+# shadow_maria implementation — acceptance passed; main adoption approved
 
 2026-10-24. Branch: `feat/connection-routing`. Approved design/source_commit:
 `48a6da087ba9912e8135ac58e72dfecea4bdc015`, resolved with
@@ -9,10 +9,12 @@ records the seven reviewed gaps and their implementation contract.
 ## Current result and next gate
 
 The approved marker, preparation fixture and public names are implemented.
-Local3.11/pytest7 and3.14/pytest9 checks pass. **Updated native acceptance is
-pending**; the next Human decision is main adoption after those results, not
-another approval of the same entry direction. No main merge, Qualification or
-release is authorized by this implementation.
+[CI40061580952](https://github.com/masahitojp/mariamem/actions/runs/40061580952)
+passed at exact source_commit `204f106264def67d32da8ac7733be052c928a26c`.
+The Human approved main integration on2026-10-24 and requested the five
+recordkeeping/usage clarifications below. Main integration records the tested
+candidate separately from these documentation/evidence-only follow-ups.
+Qualification and release remain separate, unstarted decisions.
 
 The strongest remaining condition is that ordinary application fixtures must
 start SQL under the test binding. Import/session-scoped application SQL does not
@@ -69,12 +71,44 @@ existing exact-source `tests/routing_acceptance/run.py` workflow.
   that direct access/Fork/controller see the same child. Its existing strict
   four-test/two-worker gate remains. The17-case/six-mutation routing acceptance
   remains intact; only the test facade's production method spelling changes.
-  Those native results must come from the newly submitted exact candidate.
+  Those native results passed on the exact candidate204f106; see saved receipts below.
 
 Earlier [CI40045368302](https://github.com/masahitojp/mariamem/actions/runs/40045368302)
 passed both OSes at0698698, verifying the previous entry/core. It does not prove
 the new marker/preparation workflow. Ubuntu explicit Connector C retains its
 permitted environment SKIP; required default/pure must execute in updated CI.
+
+## Native CI receipts and adoption follow-up
+
+The [run metadata](v06x-shadow-maria-implementation-evidence/ci-40061580952/run.json),
+[job results](v06x-shadow-maria-implementation-evidence/ci-40061580952/jobs.json),
+[artifact IDs/digests](v06x-shadow-maria-implementation-evidence/ci-40061580952/artifacts.json)
+and [independent assessment](v06x-shadow-maria-implementation-evidence/ci-40061580952/assessment.json)
+are retained in the repository. Native [macOS inputs](v06x-shadow-maria-implementation-evidence/ci-40061580952/macos/inputs.json)
+and [Ubuntu inputs](v06x-shadow-maria-implementation-evidence/ci-40061580952/ubuntu/inputs.json)
+bind host, guest, SDK, consumer and test identities. Each platform's `files.json`
+records original/stored hashes and runner-path/whitespace transformations.
+The input receipt's evidence hashes refer to original bytes; scrubbed copies are
+verified using stored hashes. Hosted artifact digests are recorded as reported
+by GitHub, not claimed as independently recomputed ZIP digests.
+
+| Gate | Result |
+| --- | --- |
+| Python3.11/pytest7 and3.14/pytest9 compatibility jobs | PASS |
+| Canonical `verify.py check` source job | PASS |
+| Native17 control cases per OS | PASS |
+| Six exact injected defects per OS | All detected by independent receipt assessment |
+| New marker/default preparation chain,4 real tests/2 workers per OS | PASS |
+| Original endpoint and campaign host cleanup | Zero control contacts; all campaign hosts reaped |
+| Connector default/pure prepared behavior | PASS on both OSes |
+| Explicit Connector C | PASS macOS; permitted environment SKIP Ubuntu |
+
+The Human's five adoption follow-ups are addressed: current pending wording is
+removed; native receipts are saved; the next release must document Python3.11+
+(and dropping3.9/3.10); the callback return is explicitly not a teardown hook;
+and the import/session-scoped SQL boundary remains prominent in the guide.
+No runtime source, tests, workflow, guest or generated input is changed by this
+adoption follow-up. It does not create new Qualification or release evidence.
 
 ## Continuing constraints
 

@@ -145,6 +145,10 @@ tests not requesting it create no routed DB; configured early guards remain.
 `mariamem_prepare` defaults to `None` (no-op). An override can prepare through
 fixture setup and return `None`, or return a callable taking the source DB.
 Other values receive a pytest usage error; callback return values are ignored.
+**Returning a cleanup function does not register or execute teardown.** Close
+preparation SQL connections inside the callback using context managers or
+`try/finally`, before it returns and before Snapshot. The callback's returned
+value is not a finalizer.
 Preparation runs once per worker in the default Snapshot chain, before the
 disconnect wait and consuming capture. A setup/callback failure stops that
 chain, creates no Snapshot/child, and preserves the original error while the

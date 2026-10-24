@@ -732,7 +732,18 @@ and diagnostic/official-reference requirements. Source investigation now support
 a bounded prototype proposal; runtime validation, mechanism selection and broader
 driver coverage remain unfinished. No routing compatibility support is established by that source investigation.
 
-**Connection switching — implementation conditionally approved; review corrections verified.**
+**Connection switching — main adoption approved; unreleased.**
+On2026-10-24 the Human approved integrating candidate
+`204f106264def67d32da8ac7733be052c928a26c` after
+[CI40061580952](https://github.com/masahitojp/mariamem/actions/runs/40061580952).
+Both native OSes passed17 control cases, six exact injected defects, and4 real
+marker/preparation tests with2 workers;3.11/3.14 compatibility and canonical
+source checks passed. Ubuntu explicit Connector C retains its allowed SKIP;
+default/pure ran. The [implementation/adoption record](reviews/v06x-shadow-maria-implementation.md)
+contains saved native receipts, exact identities and the five follow-ups.
+Qualification, version placement and release remain separate. The following
+paragraphs preserve the earlier investigation and approval sequence; their
+implementation/adoption-pending statements describe those stages.
 The [post-Prepared routing design](https://github.com/masahitojp/mariamem/blob/fbcb38e3cf00d620a5d39c8ac6df3ff4803ada21/docs/reviews/v06x-connection-routing-design.md)
 reuses the existing source findings and compares explicit injection, framework
 adapters and scoped Python driver routing. It proposes a bounded real-guest
@@ -793,7 +804,7 @@ and Python3.14/pytest9; earlier3.9 receipts remain historical evidence.
 The subsequent Human implementation authorization also raised current source
 `python_requires` and advertised support to3.11+, dropping3.9/3.10. Published
 release metadata remains historical. The earlier experiment is referenced at fixed commits rather than
-merged wholesale. Main adoption and release still require separate decisions.
+merged wholesale. Main adoption is now approved; release remains separate.
 
 The Human subsequently approved the marker-based user entry
 `shadow_maria` and the recommended naming direction. The
@@ -806,8 +817,9 @@ application connections are switched during the tests. The approved callback
 entry is `mariamem_prepare`; direct test DB access is `mariamem_app_db`.
 Controller/adapter names and extras are listed in the accepted entry design.
 The [entry implementation](reviews/v06x-shadow-maria-implementation.md) now
-uses the approved names and preparation callback. Local checks pass on3.11/3.14;
-updated native acceptance and main adoption remain outstanding.
+uses the approved names and preparation callback. Local and CI compatibility
+checks pass on3.11/3.14; updated native acceptance passed at204f106 and the
+Human approved main integration. This is not final Qualification or release.
 Automatic preparation routing is
 [retained for0.6.x reconsideration](reviews/v06x-shadow-maria-entry-design.md#reconsider-preparation-routing-in06x),
 not approved implementation. Shared modes are not approved by the naming

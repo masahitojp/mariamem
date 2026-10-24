@@ -1,0 +1,29 @@
+{
+  "system": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+  "mutation": "no_pool_check",
+  "connector_import_error": null,
+  "packages": {
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "mysql-connector-python": "26.7.0"
+  },
+  "cases": [
+    {
+      "row": "R2",
+      "name": "idle-generation",
+      "status": "FAIL",
+      "error_type": "AssertionError",
+      "error": "['A', 'A', 'A']",
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/tests/routing_acceptance/campaign.py\", line 95, in case\n    detail=fn()\n  File \"<repo>/tests/routing_acceptance/campaign.py\", line 144, in r2\n    assert observed==['A','B','A'], observed\n           ^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ['A', 'A', 'A']\n",
+      "sentinel_attempts": 0
+    }
+  ],
+  "sentinel_attempts": 0,
+  "observations": {
+    "physical_connects": 1,
+    "pool_rejected": 0
+  },
+  "all_hosts_reaped": true,
+  "passed": false
+}

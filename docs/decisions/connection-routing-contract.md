@@ -1,4 +1,4 @@
-# Scoped connection routing — conditional implementation approval
+# Scoped connection routing — main adoption approved
 
 On2026-10-24 the Human conditionally approved production implementation following
 the [implementation review](https://github.com/masahitojp/mariamem/blob/c22bc213da4bfd97b42f1f5d80e59bd54274d141/docs/reviews/v06x-connection-routing-implementation-review.md).
@@ -9,6 +9,12 @@ Both OSes passed17 spike cases and six strict mutations in
 at source_commit `006f68dd476dfc77c8fe3c1d5f66af37b2007513`.
 The source-bound evidence remains at that pushed experimental lineage; this
 decision does not relabel it as verification of the production replacement.
+
+On2026-10-24, after the approved marker/preparation replacement passed both-OS
+[CI40061580952](https://github.com/masahitojp/mariamem/actions/runs/40061580952)
+at source_commit `204f106264def67d32da8ac7733be052c928a26c`, the Human approved
+main integration. [Native receipts and follow-ups](../reviews/v06x-shadow-maria-implementation.md#native-ci-receipts-and-adoption-follow-up)
+retain the exact-source evidence. Qualification/release remain separate.
 
 ## Approved boundary
 
@@ -56,7 +62,7 @@ cross-worker/cross-run shared baseline. The approved source Python minimum is3.1
 ## Approved application-test entry
 
 On2026-10-24 the Human accepted the
-[marker/preparation entry and naming direction](../reviews/v06x-shadow-maria-entry-design.md#approved-public-surface--not-yet-implemented).
+[marker/preparation entry and naming direction](../reviews/v06x-shadow-maria-entry-design.md#approved-public-surface).
 The normal entry is no-argument `@pytest.mark.shadow_maria`; optional
 `mariamem_app_db` exposes the same per-test child. `mariamem_prepare` returns a
 session preparation callback taking the source DB, once per worker before
@@ -68,7 +74,7 @@ Approved controller/adapter names are `mariamem_router`,
 Extras are `routing-pymysql`, `routing-sqlalchemy` and
 `routing-mysql-connector`. Superseded unreleased candidate names require no
 compatibility aliases; existing published APIs remain. CI40045368302 tested the old `enroll`/`Registry`/fixture names. The replacement
-entry is now implemented; updated native acceptance is pending. Ownership
+entry passed updated native acceptance inCI40061580952. Ownership
 semantics above are unchanged by renaming.
 
 Live behavior remains a separate task, including a0.6.0 scope decision based on
@@ -90,7 +96,7 @@ native OSes remain required; explicit Ubuntu Connector C may retain its known
 import SKIP, while default/pure must execute. Tests cannot call accepted Prepared
 exceptions PASS; their [decision](prepared-consumer-exceptions.md) is unchanged.
 
-API implementation under this contract is approved. Main adoption, version
+API implementation and main adoption under this contract are approved. Version
 placement, Qualification and release remain separate Human decisions. Broader
 frameworks, migration/dump preparation and other capability-map work remain
 visible companion work, not implicitly supported or removed from v0.6.

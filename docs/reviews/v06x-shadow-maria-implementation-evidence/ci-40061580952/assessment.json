@@ -1,0 +1,113 @@
+{
+  "source_commit": "204f106264def67d32da8ac7733be052c928a26c",
+  "run_id": 40061580952,
+  "platforms": {
+    "macos": {
+      "artifact_name": "routing-macos-15-204f106264def67d32da8ac7733be052c928a26c",
+      "independent_assessment": "PASS",
+      "cases": {
+        "PASS": 17,
+        "FAIL": 0,
+        "SKIP": 0
+      },
+      "mutations": {
+        "no_pool_check": true,
+        "fallback": true,
+        "ignore_retired": true,
+        "global_target": true,
+        "retain_session": true,
+        "adopt_unknown": true
+      },
+      "pytest": {
+        "exit": 0,
+        "counts": {
+          "tests": 4,
+          "errors": 0,
+          "failures": 0,
+          "skipped": 0
+        },
+        "accepted": true
+      },
+      "sentinel_attempts": 0,
+      "all_hosts_reaped": true,
+      "connector": [
+        {
+          "mode": "default",
+          "actual_class": "CMySQLConnection",
+          "marker": "B",
+          "prepared": true,
+          "rollback": true,
+          "commit": true
+        },
+        {
+          "mode": "pure",
+          "actual_class": "MySQLConnection",
+          "marker": "B",
+          "prepared": true,
+          "rollback": true,
+          "commit": true
+        },
+        {
+          "mode": "c",
+          "actual_class": "CMySQLConnection",
+          "marker": "B",
+          "prepared": true,
+          "rollback": true,
+          "commit": true
+        }
+      ]
+    },
+    "ubuntu": {
+      "artifact_name": "routing-ubuntu-24.04-204f106264def67d32da8ac7733be052c928a26c",
+      "independent_assessment": "PASS",
+      "cases": {
+        "PASS": 17,
+        "FAIL": 0,
+        "SKIP": 0
+      },
+      "mutations": {
+        "no_pool_check": true,
+        "fallback": true,
+        "ignore_retired": true,
+        "global_target": true,
+        "retain_session": true,
+        "adopt_unknown": true
+      },
+      "pytest": {
+        "exit": 0,
+        "counts": {
+          "tests": 4,
+          "errors": 0,
+          "failures": 0,
+          "skipped": 0
+        },
+        "accepted": true
+      },
+      "sentinel_attempts": 0,
+      "all_hosts_reaped": true,
+      "connector": [
+        {
+          "mode": "default",
+          "actual_class": "MySQLConnection",
+          "marker": "B",
+          "prepared": true,
+          "rollback": true,
+          "commit": true
+        },
+        {
+          "mode": "pure",
+          "actual_class": "MySQLConnection",
+          "marker": "B",
+          "prepared": true,
+          "rollback": true,
+          "commit": true
+        },
+        {
+          "mode": "c",
+          "status": "SKIP",
+          "reason": "explicit C extension unavailable; default/pure executed"
+        }
+      ]
+    }
+  }
+}

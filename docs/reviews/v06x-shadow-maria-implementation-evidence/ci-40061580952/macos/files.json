@@ -1,0 +1,133 @@
+{
+  "source_commit": "204f106264def67d32da8ac7733be052c928a26c",
+  "artifact_name": "routing-macos-15-204f106264def67d32da8ac7733be052c928a26c",
+  "transformation": "Runner/repository paths replaced with <runner>/<repo>; trailing whitespace removed; .log saved as .txt. inputs.json evidence hashes refer to original bytes.",
+  "files": {
+    "adopt_unknown.json": {
+      "original_name": "adopt_unknown.json",
+      "original_sha256": "2fb8341f5232db1dcd39df1eb204d8a14dec94327d998852ebaf96b9a074cd5f",
+      "stored_sha256": "875a7ab55bce64b3ac13394e2b579c040312855e93b59eae0e34ef971f54a39f",
+      "bytes": 1270
+    },
+    "adopt_unknown.txt": {
+      "original_name": "adopt_unknown.log",
+      "original_sha256": "a007f23713da5e3242f0c51b8cd1275c408c68732bd062b22a88c00bef53d404",
+      "stored_sha256": "a007f23713da5e3242f0c51b8cd1275c408c68732bd062b22a88c00bef53d404",
+      "bytes": 35
+    },
+    "connector-environment.json": {
+      "original_name": "connector-environment.json",
+      "original_sha256": "baef8423732bc95f5a472457c04a448a69480adeac39dbb626f30a6e34ec88b4",
+      "stored_sha256": "baef8423732bc95f5a472457c04a448a69480adeac39dbb626f30a6e34ec88b4",
+      "bytes": 584
+    },
+    "control.json": {
+      "original_name": "control.json",
+      "original_sha256": "2f3a3865b1b6a1d767368e827ac11679ea461ee0eab4200b9b6a64a92520a7cb",
+      "stored_sha256": "2f3a3865b1b6a1d767368e827ac11679ea461ee0eab4200b9b6a64a92520a7cb",
+      "bytes": 11075
+    },
+    "control.txt": {
+      "original_name": "control.log",
+      "original_sha256": "3065d2166692ecf03907eff79d054cdcc89785a052961fbbd634c7cbcfbdf75b",
+      "stored_sha256": "3065d2166692ecf03907eff79d054cdcc89785a052961fbbd634c7cbcfbdf75b",
+      "bytes": 483
+    },
+    "dependencies.json": {
+      "original_name": "dependencies.json",
+      "original_sha256": "45c9813c0e97a0324c1952928d7e321c90669ffa934a1d809789f98ad8486732",
+      "stored_sha256": "b6d506f4009b981429a804a5b0f5a57879ec334b14cd9d6bda5c457180047e51",
+      "bytes": 67925
+    },
+    "fallback.json": {
+      "original_name": "fallback.json",
+      "original_sha256": "38c4119bd6e22fd2af17113a9c998297bb7e9f3a5a8e8d6b6025d68d317a527f",
+      "stored_sha256": "d83c5895b5c578866a0b50f7a24c398f373585b92cae111aa75e3b33ca716e4a",
+      "bytes": 3802
+    },
+    "fallback.txt": {
+      "original_name": "fallback.log",
+      "original_sha256": "9bf008786b66c4450d646a3c38101b01a20c6d8ab6ebe8870dc291b108840a77",
+      "stored_sha256": "9bf008786b66c4450d646a3c38101b01a20c6d8ab6ebe8870dc291b108840a77",
+      "bytes": 23
+    },
+    "global_target.json": {
+      "original_name": "global_target.json",
+      "original_sha256": "063114a8af05d76054297f5ff57607ea9e51887797c256674f645aa466f968d7",
+      "stored_sha256": "d67427ee279504bbd42b19662e1aff891f7fce31fab67f2758b79141b23dcaab",
+      "bytes": 1868
+    },
+    "global_target.txt": {
+      "original_name": "global_target.log",
+      "original_sha256": "6c99e6025f9f02516173b4328e3e2ece5267fddabcc1020b6ad75dab45281476",
+      "stored_sha256": "6c99e6025f9f02516173b4328e3e2ece5267fddabcc1020b6ad75dab45281476",
+      "bytes": 25
+    },
+    "go-consumer-build.txt": {
+      "original_name": "go-consumer-build.txt",
+      "original_sha256": "bc341a6fc6cd5119497626cfa7308723f86f7225818b7c510b976030d8f41c30",
+      "stored_sha256": "bc341a6fc6cd5119497626cfa7308723f86f7225818b7c510b976030d8f41c30",
+      "bytes": 101
+    },
+    "host-build.txt": {
+      "original_name": "host-build.txt",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stored_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "ignore_retired.json": {
+      "original_name": "ignore_retired.json",
+      "original_sha256": "1618bd059bd291940728deb17247682a614e34390c7c4dcdeaea1c6172da9a49",
+      "stored_sha256": "251a06045d2d1f6325763aeac2925797457c10767f4b95f9d2ce9c9755877c3a",
+      "bytes": 1465
+    },
+    "ignore_retired.txt": {
+      "original_name": "ignore_retired.log",
+      "original_sha256": "1b777871931d45fbed4e54888c8e9a230205fe19456275c2ea775643865185be",
+      "stored_sha256": "1b777871931d45fbed4e54888c8e9a230205fe19456275c2ea775643865185be",
+      "bytes": 24
+    },
+    "inputs.json": {
+      "original_name": "inputs.json",
+      "original_sha256": "aa1946508ce663acd64b1545559fed8a8d2bc3164a8ca77d67d8a8b6cba2b063",
+      "stored_sha256": "a32da9132a61a26c1bc6380a625acbc5ac84f50c8abc7e88b062467ea497a4bd",
+      "bytes": 49438
+    },
+    "no_pool_check.json": {
+      "original_name": "no_pool_check.json",
+      "original_sha256": "073d41305efee64b10a1beb57da87fc2a4fd6ace554b719d5cb688263dcacc8e",
+      "stored_sha256": "80ce3bd361ccece9384603e9da7530946ca0f3de99c799dfcd6c158b9d330dc7",
+      "bytes": 1028
+    },
+    "no_pool_check.txt": {
+      "original_name": "no_pool_check.log",
+      "original_sha256": "6550a037e28349f23284882dbeffcf5bbe6be0e6144dd7961be3a294c8dd612a",
+      "stored_sha256": "6550a037e28349f23284882dbeffcf5bbe6be0e6144dd7961be3a294c8dd612a",
+      "bytes": 24
+    },
+    "pytest-native.txt": {
+      "original_name": "pytest-native.log",
+      "original_sha256": "e0294efa2bab92d8db455943348bd729ec22a2c9ac2b8702eb261f1abc0758d5",
+      "stored_sha256": "e0294efa2bab92d8db455943348bd729ec22a2c9ac2b8702eb261f1abc0758d5",
+      "bytes": 141
+    },
+    "pytest-native.xml": {
+      "original_name": "pytest-native.xml",
+      "original_sha256": "23e01ca95a1e54f031b664e657a9b1097caa0f92b5f7c0698b6cc04d57f9ca7a",
+      "stored_sha256": "7977d256610f0f17a5ac553647b1c54f5aa7b2f880a1263aa45f9374b278368b",
+      "bytes": 868
+    },
+    "retain_session.json": {
+      "original_name": "retain_session.json",
+      "original_sha256": "98b56554a9c802cadc8cba5e2405f6cf2bccb69983f4a032f2546d1d0e9f26ae",
+      "stored_sha256": "30cb3ae98b7b6557f48c75c42676a67362126dabb2378cedb9f5445a4581ea5c",
+      "bytes": 1246
+    },
+    "retain_session.txt": {
+      "original_name": "retain_session.log",
+      "original_sha256": "c68b477109fd71eddd46907983092c959053a6180b19076d691511984c099eb4",
+      "stored_sha256": "c68b477109fd71eddd46907983092c959053a6180b19076d691511984c099eb4",
+      "bytes": 27
+    }
+  }
+}

@@ -243,6 +243,18 @@ The request has a five-second timeout, no polling/retries, and errors cannot fai
 consumer smoke or require another release/runtime verification. See the
 [official discovery guidance](https://pkg.go.dev/about#adding-a-package).
 
+## Next release notes — Python minimum and application-test entry
+
+Before the first release containing `shadow_maria`, its versioned release notes
+must explicitly state that Python support now starts at3.11 and3.9/3.10 are
+dropped. Current source `python_requires` is `>=3.11`; published v0.5.3 retains
+its historical metadata. Also describe the new marker/preparation entry and
+that preparation uses explicit DB settings (no preparation-time automatic
+routing). See the [adopted implementation](reviews/v06x-shadow-maria-implementation.md).
+This is a required notes handoff, not a selected release version, generated notes
+file, release preparation or publication approval. Main adoption alone is not
+Qualification or release evidence.
+
 ## Known limitations and release preparation
 
 Full generated guest `-race` remains **GENERAL SHARED-MEMORY MODEL WORK REQUIRED**;

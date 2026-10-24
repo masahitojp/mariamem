@@ -1,0 +1,17 @@
+R1 direct-alias-deferred-reconnect PASS
+R2 idle-generation PASS
+R2 idle-session-state PASS
+R3 registration-rejections PASS
+R3 unknown-physical-ownership PASS
+R4 parallel-targets PASS
+R4 nested-thread-context PASS
+R4 async-task-context PASS
+R5 retired-context PASS
+R5 failure-cleanup PASS
+R5 missing-target PASS
+R6 options-and-schema PASS
+R6 schema-profile-boundary PASS
+R6 deferred-tls-before-install PASS
+R7 connector-prepared PASS
+R7 go-owned-pools PASS
+R8 two-test-workflows PASS
