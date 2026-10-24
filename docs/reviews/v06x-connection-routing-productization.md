@@ -100,3 +100,14 @@ clean candidate checkout run `tests/routing_acceptance/run.py --runtime-root <re
 commit identity, builds/identifies the host, executes the control, six mutations
 and real pytest workflow, and saves hashes. Only the local Homebrew diagnostic
 uses `--allow-connector-import-skip`; CI never uses it.
+
+## Verification-version policy update — 2026-10-24
+
+The Human directed that Python3.9/3.10 need no further verification because
+both are EOL ([lifecycle reference](https://endoflife.date/python)). Future
+routing compatibility jobs use Python3.11/pytest7 and Python3.14/pytest9.
+The3.9 results above remain dated evidence; no3.11 PASS is claimed yet.
+Published package minimum metadata is unchanged by this CI-only policy update.
+Run40045368302 was submitted before this change and retains its original matrix.
+The workflow change will take effect on the next submission; no duplicate native
+campaign is started solely for this version-policy change.

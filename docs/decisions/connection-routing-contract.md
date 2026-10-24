@@ -58,7 +58,10 @@ cross-worker/cross-run shared baseline. No minimum Python/pytest/platform change
 Production replacement must preserve the17-case/six-mutation SQL oracles and
 their exact failure classification. Add hook install/unwind/conflict, retirement
 during connect, ownership/disposal boundaries, drain failure/retry, diagnostic
-redaction, minimum/current Python/pytest and early-import/worker tests. Both
+redaction, verification-floor/current Python/pytest and early-import/worker tests.
+As directed by the Human on2026-10-24, future verification excludes EOL
+Python3.9/3.10 and starts at3.11; prior receipts remain historical evidence.
+This verification policy does not itself change package minimum metadata. Both
 native OSes remain required; explicit Ubuntu Connector C may retain its known
 import SKIP, while default/pure must execute. Tests cannot call accepted Prepared
 exceptions PASS; their [decision](prepared-consumer-exceptions.md) is unchanged.

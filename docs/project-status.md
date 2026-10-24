@@ -783,7 +783,11 @@ Optional public routing, explicit SQLAlchemy ownership and early pytest entry
 are present; local32 routing tests pass on both Python3.9/pytest7 and Python3.14/pytest9.
 Local macOS native has16 control PASS/1 Connector import SKIP, six injected
 faults detected and real pytest4/2 workers PASS. Both-OS production acceptance
-including actual Connector execution remains pending. The earlier experiment is referenced at fixed commits rather than
+including actual Connector execution remains pending.
+On 2026-10-24 the Human removed EOL Python3.9/3.10 from future
+verification. The routing compatibility job now uses Python3.11/pytest7
+and Python3.14/pytest9; earlier3.9 receipts remain historical evidence.
+This changes the verification floor, not the published `python_requires` metadata. The earlier experiment is referenced at fixed commits rather than
 merged wholesale. Main adoption and release still require separate decisions.
 
 **Prepared Statements — complete and adopted on main.** See the final P6
