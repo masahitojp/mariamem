@@ -835,6 +835,15 @@ The [live task and baseline examples](reviews/v06x-shadow-maria-entry-design.md#
 define the desired starting contents separately from which application,
 endpoint and connection resources survive between tests.
 
+**Next preparation/import review — proposed, not implemented.**
+The [preparation/import design](reviews/v06x-preparation-import-design.md) reuses
+existing migration/dump source evidence and the adopted callback/marker. It
+recommends a bounded actual migration-chain/seed-to-two-tests check first, while
+keeping native-client and library dump import alternatives explicit. This is a
+Human Review proposal, not importer/spike authorization. Automatic preparation
+routing remains excluded from0.6.0; live and broader diagnostics/framework
+coverage remain separate decisions.
+
 **Prepared Statements — complete and adopted on main.** See the final P6
 completion/adoption entry below. The following sequence preserves the dated
 investigation and implementation milestones; its pending statements are not
