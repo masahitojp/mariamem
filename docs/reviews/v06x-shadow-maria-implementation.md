@@ -20,6 +20,24 @@ have a per-test target. The early guard refuses it rather than touching the
 original DB. The guide documents explicit preparation settings and application
 lifetime/fixture dependencies; live/reset remains a separate task.
 
+Local verification source_commit: `e61d10f493b76c698a83253b57f5c38c4db482b0`.
+[Inputs and source hashes](v06x-shadow-maria-implementation-evidence/inputs.json),
+[Python3.11 log](v06x-shadow-maria-implementation-evidence/python311.txt),
+[Python3.14 log](v06x-shadow-maria-implementation-evidence/python314.txt), and
+[original/stored hashes](v06x-shadow-maria-implementation-evidence/files.json)
+retain environment and results. Paths were scrubbed and trailing whitespace
+normalized; that explains differences between original and stored hashes.
+Versions were Python3.11.17/pytest7.0.0 and Python3.14.9/pytest9.0.2 on macOS arm64.
+Subsequent changes before CI submission are documentation/evidence only.
+
+Reproduce with an isolated Python3.11 or3.14 venv and
+`tests/routing_acceptance/unit-requirements.txt`. Run
+`PYTHONPATH=python <venv>/python -m pytest tests/test_routing.py tests/test_routing_pytest.py tests/test_routing_receipts.py -q`.
+The3.14 selection additionally includes diagnostics, development scope,
+CI/publication workflow, packaging-license mirror and canonical toolchain suites
+listed in the input receipt's exact command arrays. Native acceptance is run by the
+existing exact-source `tests/routing_acceptance/run.py` workflow.
+
 ## Review-gap disposition
 
 | Gap | Implemented response and evidence |

@@ -1,0 +1,66 @@
+{
+  "source_commit": "e61d10f493b76c698a83253b57f5c38c4db482b0",
+  "design_source_commit": "48a6da087ba9912e8135ac58e72dfecea4bdc015",
+  "kind": "local Python entry/lifecycle/source checks; no native guest acceptance",
+  "files": {
+    "python/setup.cfg": "22dfa75ccf9dea63b58f11098c3bc6b6933eae61244be3fa027b8972c69b67cd",
+    "python/mariamem/routing.py": "63615030123c559761402df26546d675af6b5af003e065c2227325f3fb4d2c7d",
+    "python/mariamem/pytest_plugin.py": "139b2ca3cc843ae99da303a8a0c1732faf50c3fe7cf0cede7737b8cbb47a3d33",
+    "tests/test_routing.py": "99ed49a0a4514ec5a102bc58064dc050c8cb2ec8fae11a1d50a235365f0cc8a2",
+    "tests/test_routing_pytest.py": "0d76e26d81267c99c4edeb7ab28417adf3d9aa1a3d032d52ba0ce4efdc14c10f",
+    "tests/routing_acceptance/facade.py": "52352c7fd53e6e2c42d2e2e4de5b911b871a86fcf33b4e3d0de431396e01a113",
+    "tests/routing_acceptance/run.py": "c14d8eb8362f34ccd81b570ce7df390e9b594c542deb12887982d67b51b7ec97",
+    "tests/routing_acceptance/test_pytest_native.py": "72377d476f64ff459ca610aa56a4d9d0acf9d51a0c057e30459e5ba9dde28cd8",
+    ".github/workflows/connection-routing.yml": "2910e16c2a06cbb5ea5c48c1caf51ac2968fd5de1231957a2dd15a09b7e9adad"
+  },
+  "environments": {
+    "py311": {
+      "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "platform": "macOS-27.0.1-arm64-arm-64bit",
+      "packages": {
+        "pytest": "7.0.0",
+        "pytest-xdist": "3.8.0",
+        "PyMySQL": "1.2.3",
+        "SQLAlchemy": "2.0.54"
+      }
+    },
+    "py314": {
+      "python": "3.14.9 (main, Oct 21 2026, 06:02:15) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+      "packages": {
+        "pytest": "9.0.2",
+        "pytest-xdist": "3.8.0",
+        "PyMySQL": "1.2.3",
+        "SQLAlchemy": "2.0.54"
+      }
+    }
+  },
+  "commands": {
+    "py311": [
+      "python",
+      "-m",
+      "pytest",
+      "tests/test_routing.py",
+      "tests/test_routing_pytest.py",
+      "tests/test_routing_receipts.py",
+      "-q"
+    ],
+    "py314": [
+      "python",
+      "-m",
+      "pytest",
+      "tests/test_routing.py",
+      "tests/test_routing_pytest.py",
+      "tests/test_routing_receipts.py",
+      "tests/test_python_diagnostics.py",
+      "tests/test_development_scope.py",
+      "tests/test_ci_publication_workflow.py",
+      "tests/test_packaging_license_mirrors.py",
+      "tests/test_canonical_toolchain_pins.py",
+      "-q"
+    ]
+  },
+  "command_environment": {
+    "PYTHONPATH": "python"
+  }
+}

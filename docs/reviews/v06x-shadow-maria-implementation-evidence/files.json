@@ -1,0 +1,31 @@
+{
+  "source_commit": "e61d10f493b76c698a83253b57f5c38c4db482b0",
+  "transformation": "Repository/home paths replaced with <repo>/<user>; trailing whitespace normalized. Original and stored hashes are recorded separately.",
+  "files": {
+    "inputs.json": {
+      "original_sha256": "5c5460f227f1343148e8e71798b6e87bb7f2912b9350f7ab0cb9eee69fb5c649",
+      "stored_sha256": "5c5460f227f1343148e8e71798b6e87bb7f2912b9350f7ab0cb9eee69fb5c649",
+      "bytes": 2525
+    },
+    "python311.txt": {
+      "original_sha256": "0f9bcdad42815ecba7cdc62f9285a71e47484479015226b26924da0beb342309",
+      "stored_sha256": "4de97601bf20a0fd05584574449793dc6065d60a0a4c8d1e9d7b05d2d3d830cb",
+      "bytes": 195
+    },
+    "python311.xml": {
+      "original_sha256": "dc372597dbc443364ea352646ceb70360a3b06ae3a9586d87dc45d25f4875ca9",
+      "stored_sha256": "f7d6b9dfba84265187d0dc92ac6cba49d2684d319be29b62e5ee8db29e50f70a",
+      "bytes": 7391
+    },
+    "python314.txt": {
+      "original_sha256": "dc8a6b216949887e68af887f4d0357b61c313419d8ac924774a4a82995709d47",
+      "stored_sha256": "dc8a6b216949887e68af887f4d0357b61c313419d8ac924774a4a82995709d47",
+      "bytes": 256
+    },
+    "python314.xml": {
+      "original_sha256": "c438c9e85b878b83e5841ea49dd4ae9d5043c85d5c20ee16403b5bde0a6e55c4",
+      "stored_sha256": "74e3009780d667817dbd14959b4698331ae8719142e149fe242c463aad5f2262",
+      "bytes": 19277
+    }
+  }
+}
