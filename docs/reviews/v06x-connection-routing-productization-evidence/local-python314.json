@@ -1,0 +1,25 @@
+{
+  "kind": "local source/lifecycle tests; not native SQL qualification",
+  "python": "3.14.8 (main, Sep 30 2026, 17:55:09) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "os": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "openssl": "OpenSSL 4.0.3 29 Sep 2026",
+  "versions": {
+    "pytest": "9.0.2",
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "pytest-xdist": "3.8.0",
+    "mysql-connector-python": "26.7.0"
+  },
+  "command": "PYTHONPATH=python <owned-venv>/python -m pytest tests/test_routing.py tests/test_routing_pytest.py tests/test_routing_receipts.py tests/test_python_diagnostics.py tests/test_development_scope.py tests/test_ci_publication_workflow.py tests/test_packaging_license_mirrors.py tests/test_canonical_toolchain_pins.py -q",
+  "result": {
+    "exit": 0,
+    "passed": 112,
+    "subtests_passed": 25
+  },
+  "files": {
+    "python/mariamem/_routing_drivers.py": "f6509aac80ad06a59b9f200282ace1f62e8c3e584fa25bcc87061c4627cadc2a",
+    "python/mariamem/routing.py": "465a336f5a3b934565d76ae4fa54f00fe40f6028b701f152aedf8e193628cd73",
+    "python/mariamem/_routing_sqlalchemy.py": "1205c6641952e76e203dccdd89be7293ba573f52b95ae62bc67b8e317d02fecd",
+    "python/mariamem/pytest_plugin.py": "4ccee8b4e237c9df473ff761bbfd86f4f58b1589a16cff5779e6fb1f89262b22"
+  }
+}

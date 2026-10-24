@@ -36,7 +36,7 @@ jobs:
         with:
           python-version: '3.14'
       - if: needs.scope.outputs.check_scope != 'docs'
-        run: python -m pip install 'pytest>=7' 'PyMySQL>=1.1,<2'
+        run: python -m pip install -r tests/routing_acceptance/unit-requirements.txt
       - run: python scripts/verify.py check --scope '${{ needs.scope.outputs.check_scope }}'
 
   integration:
@@ -54,5 +54,5 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: '3.14'
-      - run: python -m pip install 'pytest>=7' 'PyMySQL>=1.1,<2' mysql-connector-python==26.7.0
+      - run: python -m pip install -r tests/routing_acceptance/unit-requirements.txt mysql-connector-python==26.7.0
       - run: python scripts/verify.py integration

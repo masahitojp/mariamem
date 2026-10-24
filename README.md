@@ -150,6 +150,11 @@ Both languages provide preparation and independent child acquisition. See the
 [Python guide](docs/python.md#share-preparation-isolate-mutations). Python pytest
 fixture integration is described in the Python guide.
 
+Unreleased source builds also offer opt-in [application connection routing](docs/connection-routing.md):
+keep ordinary Python connection calls while a fixture selects an independent
+child. Configure before application imports and explicitly enroll existing pools.
+This feature is not included in published v0.5.3.
+
 ## Reuse expensive preparation within a test session
 
 Baselines are process-local and retain fixed, private immutable blocks in memory.

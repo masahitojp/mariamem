@@ -1,0 +1,14 @@
+{
+  "source_commit": "fbcb38e3cf00d620a5d39c8ac6df3ff4803ada21",
+  "original_ci_run": 40032530547,
+  "purpose": "Saved real receipts for testing stricter decision gates; synthetic added rows are not runtime evidence.",
+  "files": {
+    "control.json": "52903a312b3e16b076f99264282c2b79ff780ac167317162ddc3c29a96a0add0",
+    "fallback.json": "b94a9cda75db829929306dedf7487b07f87abb5e83cef289d827abb54635a43e",
+    "no_pool_check.json": "9b27befaa367bd95ef7e9428510956a574053cba1b215146e26aef86343ab3a5",
+    "ignore_retired.json": "c787b8211d640885418ebdea8d4641a8ed6e98d5b2446d4ec9165cd4824627b5",
+    "global_target.json": "c901c7973964619856a1626c12ab6f71302036b47c222348d0dc0780d4fd30a7",
+    "retain_session.json": "46b140ea04fd89712588a86071dee419920384065bd5c61a4f936b3f2573591f",
+    "adopt_unknown.json": "d352937d24ad82c7e9d368d3f5d0b8e12de579c51f1610fb64fd6623ee372875"
+  }
+}

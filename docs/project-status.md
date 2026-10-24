@@ -74,8 +74,8 @@ remain an embedded restriction (1235). DEFINER metadata is retained, but account
 existence/privileges are not enforced under skip-grant-tables. See the
 [scope decision](decisions/routine-support-scope.md) and
 [candidate report](reviews/routine-canonical-adoption.md).
-Binary prepared productization and its unapproved prototype limits were not
-adopted; that product requirement remains open.
+Binary prepared was not adopted at this routine milestone. Its subsequent
+P1–P6 completion and main adoption are recorded in the final P6 entry below.
 
 [CI39406398732](https://github.com/masahitojp/mariamem/actions/runs/39406398732)
 passed independent two-source-build reproduction, all99 generated files on macOS
@@ -732,7 +732,63 @@ and diagnostic/official-reference requirements. Source investigation now support
 a bounded prototype proposal; runtime validation, mechanism selection and broader
 driver coverage remain unfinished. No routing compatibility support is established by that source investigation.
 
-**Prepared Statements — implementation approved, in progress.** Python
+**Connection switching — implementation conditionally approved; review corrections verified.**
+The [post-Prepared routing design](https://github.com/masahitojp/mariamem/blob/fbcb38e3cf00d620a5d39c8ac6df3ff4803ada21/docs/reviews/v06x-connection-routing-design.md)
+reuses the existing source findings and compares explicit injection, framework
+adapters and scoped Python driver routing. It proposes a bounded real-guest
+spike with pool-generation, concurrent-scope, expired-target and original-endpoint
+sentinel oracles; Go keeps child-owned configuration/pools. The Human approved
+spike execution after design commit `dfa6b21`. The
+[native result review](https://github.com/masahitojp/mariamem/blob/fbcb38e3cf00d620a5d39c8ac6df3ff4803ada21/docs/reviews/v06x-connection-routing-human-review.md) records
+[CI40026373681](https://github.com/masahitojp/mariamem/actions/runs/40026373681)
+at prototype `dd3b44d`:13 executed cases PASS and4 deliberate defects detected
+on each OS. Connector/Python's default/prepared path passed on both; explicit C
+is SKIP on Ubuntu because its extension requires a newer OpenSSL symbol. The
+[local checkpoint](https://github.com/masahitojp/mariamem/blob/fbcb38e3cf00d620a5d39c8ac6df3ff4803ada21/docs/reviews/v06x-connection-routing-spike.md) retains its earlier
+Homebrew import SKIP. That review found missing explicit old-session-state (R2)
+and unknown-physical-ownership (R3) oracles, so the13-case CI did not close the
+full approved spike. On2026-10-24 the Human authorized proceeding
+with [productization design and those two checks](https://github.com/masahitojp/mariamem/blob/fbcb38e3cf00d620a5d39c8ac6df3ff4803ada21/docs/reviews/v06x-connection-routing-product-design.md)
+for scoped Python routing plus a SQLAlchemy adapter and explicit
+injection/child-owned Go pools. The
+[completion and implementation review](https://github.com/masahitojp/mariamem/blob/fbcb38e3cf00d620a5d39c8ac6df3ff4803ada21/docs/reviews/v06x-connection-routing-implementation-review.md)
+confirms [CI40032530547](https://github.com/masahitojp/mariamem/actions/runs/40032530547)
+at `2851246`:15 cases PASS and all six deliberate defects detected on each OS.
+Same-child session-state reuse and unknown physical ownership are now explicitly
+checked, with zero control original-endpoint attempts and completed host cleanup.
+That bounded campaign passed; Ubuntu explicit C retains its allowed environment
+SKIP, while required default/pure actually ran. Its subsequent review identified
+additional gate/schema/TLS conditions, recorded below rather than silently
+counted as covered by those15 cases.
+The design proposes early registered-profile protection before application
+imports and explicit engine enrollment, with the saved advanced Connector
+factory boundary visible for Human Review. On2026-10-24 the Human conditionally
+approved production implementation and requested
+[four review corrections](https://github.com/masahitojp/mariamem/blob/fbcb38e3cf00d620a5d39c8ac6df3ff4803ada21/docs/reviews/v06x-connection-routing-review-fixes.md):
+strict fallback failure classification, schema-aware profile matching,
+pre-install deferred required-TLS coverage, and explicit `ownership="test"`
+disposal authority. The authored campaign now requires17 cases and six strict
+mutations; [CI40035962925](https://github.com/masahitojp/mariamem/actions/runs/40035962925)
+passed both OSes at `006f68d`, verifying those corrections with source-bound evidence.
+Production implementation continues under that approval. Early pytest enforcement
+and production cleanup remain implementation acceptance work. Main adoption
+and release remain separate decisions; approval does not imply they have begun.
+Preparation/import and broader framework coverage remain companion decisions,
+not silently excluded from v0.6.
+
+The [production candidate](reviews/v06x-connection-routing-productization.md)
+is implemented on `feat/connection-routing` from current main `9f29194`, with
+the [continuing routing contract](decisions/connection-routing-contract.md).
+Optional public routing, explicit SQLAlchemy ownership and early pytest entry
+are present; local31 tests pass on both Python3.9/pytest7 and Python3.14/pytest9.
+Production17-case/six-mutation and real pytest/xdist native acceptance remains
+pending. The earlier experiment is referenced at fixed commits rather than
+merged wholesale. Main adoption and release still require separate decisions.
+
+**Prepared Statements — complete and adopted on main.** See the final P6
+completion/adoption entry below. The following sequence preserves the dated
+investigation and implementation milestones; its pending statements are not
+current remaining work. Python
 `cursor(prepared=True)` and Go explicit DB/Tx/Conn Prepare remain required for the
 one-line-switching goal; interpolation or application SQL changes are not a
 substitute. The original [prepared alternatives/spike decision](reviews/v06x-prepared-design.md)
@@ -997,8 +1053,8 @@ compatibility or introduce automatic cache policy before use-case evidence.
 **Wire practical coverage (v0.6.x scope):** main now serves text COM_QUERY,
 COM_INIT_DB, COM_PING, COM_QUIT and COM_SET_OPTION, including text multiple
 statements/results and the required handshake flags. Published v0.5.3 remains
-the earlier text-only baseline. Server-side prepared commands are the current
-implementation gap, with production implementation now approved and in progress.
+the earlier text-only baseline. Server-side prepared commands are now adopted
+on main through P6; see its final completion/adoption entry below.
 COM_RESET_CONNECTION/pool session reset and other optional commands/flags remain
 separate capability-map items; COM_STMT_RESET is not a session reset. Host framing
 and guest semantics both need acceptance. No broader protocol implementation is

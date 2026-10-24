@@ -58,6 +58,15 @@ func TestItems(t *testing.T) {
 ```
 
 The application may use its own connections, commit and roll back normally.
+
+For application tests, pass a new child-owned `*sql.DB` through your normal
+application/GORM construction seam. Keep separate pools for separate children;
+do not switch one existing pool between endpoints. Explicit prepared execution
+can use `mysql.ParseDSN(child.DSN())`, set `InterpolateParams=false`, then
+`mysql.NewConnector` and `sql.OpenDB`. Close statements/pool before the child.
+The [tested consumer](../tests/routing_acceptance/go_consumer.go) exercises this
+pattern. Python's optional [routing helper](connection-routing.md) is a separate
+integration; it does not change the Go API or the current DSN default.
 Per-test isolation comes from disposing of the DB, not from a test transaction
 imposed by mariamem. Close driver connections and pools before the DB.
 

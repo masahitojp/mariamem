@@ -45,6 +45,7 @@ def check(scope="full"):
         if scope == "python":
             env = os.environ.copy()
             env.pop("MARIAMEM_TEST_HOST", None)
+            env.pop("MARIAMEM_ROUTING_HOST", None)
             env.pop("MARIAMEM_NATIVE_DIR", None)
             env["PYTHONPATH"] = str(ROOT / "python")
             run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer",
@@ -56,6 +57,7 @@ def check(scope="full"):
     run([sys.executable, "scripts/verify_generated_runtime.py"])
     env = os.environ.copy()
     env.pop("MARIAMEM_TEST_HOST", None)
+    env.pop("MARIAMEM_ROUTING_HOST", None)
     env.pop("MARIAMEM_NATIVE_DIR", None)
     env["PYTHONPATH"] = str(ROOT / "python")
     run([sys.executable, "-m", "pytest", *SOURCE_TESTS, "-q"], env=env)
@@ -70,6 +72,7 @@ def check(scope="full"):
     # even if a developer has a native bundle configured in their shell.
     env = os.environ.copy()
     env.pop("MARIAMEM_TEST_HOST", None)
+    env.pop("MARIAMEM_ROUTING_HOST", None)
     env.pop("MARIAMEM_NATIVE_DIR", None)
     env["PYTHONPATH"] = str(ROOT / "python")
     run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer", "--ignore=tests/historical",
@@ -111,6 +114,10 @@ def integration():
         run([sys.executable, "tests/snapshots.py"], env=env)
         run([sys.executable, "scripts/check_prepared_consumers.py", "--host", host,
              "--output", Path(temporary)/"prepared-consumers"], env=env)
+        candidate = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+        run([sys.executable, "tests/routing_acceptance/run.py", "--runtime-root", ROOT,
+             "--source-commit", candidate, "--host", host,
+             "--output", Path(temporary)/"routing-consumers"], env=env)
 
 
 def main():

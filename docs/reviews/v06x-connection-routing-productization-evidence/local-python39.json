@@ -1,0 +1,17 @@
+{
+  "kind": "local minimum-version lifecycle/early-plugin/receipt tests; not native SQL qualification",
+  "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "os": "macOS-27.0.1-arm64-arm-64bit",
+  "openssl": "LibreSSL 2.8.3",
+  "versions": {
+    "pytest": "7.0.0",
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54",
+    "pytest-xdist": "3.8.0"
+  },
+  "command": "PYTHONPATH=python <owned-minvenv>/python -m pytest tests/test_routing.py tests/test_routing_pytest.py tests/test_routing_receipts.py -q",
+  "result": {
+    "exit": 0,
+    "passed": 31
+  }
+}

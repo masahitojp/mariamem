@@ -166,6 +166,14 @@ its own baseline. There is no automatic run-wide baseline, cross-worker cache
 or cross-run reuse policy. Prepare each worker's baseline from migrations/seed
 with `snapshot()`; a saved Snapshot artifact is not an input in this version.
 
+Unreleased source builds add opt-in `mariamem_routed`, `mariamem_routes` and
+`mariamem_route_engines` fixtures for existing application connection code.
+Declare the original endpoint/schema before application imports, prepare that
+schema in the baseline, and explicitly enroll quiescent pools. See the
+[routing guide](connection-routing.md) for configuration, first/second-test
+examples, ownership, supported entries and actionable failures. These fixtures
+are not included in published v0.5.3; existing fixtures above retain their defaults.
+
 ## Connections, timeouts and failures
 
 Current session capacity is 16; this is not a permanent API limit or throughput
