@@ -203,7 +203,7 @@ def main():
                 active=legacy.connect()
                 event.remove(legacy,'do_connect',seed_local)
                 raw=active.connection.dbapi_connection
-                assert getattr(raw,'_mariamem_route',None) is None
+                assert getattr(raw,'_mariamem_resource',None) is None
                 tx=active.begin()
                 assert marker(raw)=='A'
                 assert query(raw,'SELECT @@in_transaction')[0][0]==1

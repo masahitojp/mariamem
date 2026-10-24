@@ -71,6 +71,17 @@ def test_install_failure_restores_prior_hooks():
     assert pymysql.connections.Connection.connect is original
 
 
+def test_uninstalled_registry_cannot_present_a_binding_as_active():
+    registry = routing.Registry({"app": PROFILE}, ("pymysql",), .05)
+    with pytest.raises(routing.RoutingError, match="uninstalled_registry"):
+        with registry:
+            pytest.fail("uninstalled guard was presented as active")
+    with pytest.raises(routing.RoutingError, match="uninstalled_registry"):
+        with registry.bind("app", DB()):
+            pytest.fail("uninstalled guard admitted a binding")
+    registry.close()
+
+
 def test_hook_conflict_is_reported_and_can_retry(routes, monkeypatch):
     installed = pymysql.connections.Connection.connect
     other = lambda *args, **kwargs: None
@@ -174,6 +185,9 @@ def test_drain_timeout_preserves_original_error_and_close_retry(routes):
     with pytest.raises(routing.RoutingError, match="drain_timeout"):
         routes.close()
     assert not routes._closed
+    with pytest.raises(routing.RoutingError, match="closed_registry"):
+        with routes.bind("app", DB("B")):
+            pytest.fail("failed close admitted a new binding")
     with resource.lease.condition:
         resource.checked_out = False
         resource.lease.condition.notify_all()

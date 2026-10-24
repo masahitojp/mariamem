@@ -111,6 +111,12 @@ class Registry:
         return RoutingError(code, action, profile=next(iter(self.profiles)),
                             lease=lease, driver=driver)
 
+    def _require_installed(self):
+        if self._closed or self._closing:
+            raise self._error("closed_registry", "Finish registry.close() and install a new registry.")
+        if _active is not self:
+            raise self._error("uninstalled_registry", "Use routing.install() before binding or enrolling resources.")
+
     def _patch(self, owner, name, function):
         original = getattr(owner, name)
         self._patches.append((owner, name, original, function))
@@ -210,8 +216,7 @@ class Registry:
         if profile not in self.profiles:
             raise self._error("unknown_profile", "Select a registered profile.")
         with self._lock:
-            if self._closed or self._closing:
-                raise self._error("closed_registry", "Install a new routing registry.")
+            self._require_installed()
             if database.closed:
                 raise self._error("closed_target", "Acquire a live child before binding.")
             lease = _Lease(profile, database)
@@ -240,8 +245,7 @@ class Registry:
         if profile not in self.profiles:
             raise self._error("unknown_profile", "Select a registered profile.")
         with self._lock:
-            if self._closed or self._closing:
-                raise self._error("closed_registry", "Install a live registry before enrollment.")
+            self._require_installed()
             self._sqlalchemy()
             from ._routing_sqlalchemy import Adapter
             if engine in self._adapters:
@@ -260,6 +264,7 @@ class Registry:
             raise self._error("unsupported_adapter_version", "Use SQLAlchemy2.0.54 or explicit child configuration.")
 
     def create_engine(self, url, *, profile, **options):
+        self._require_installed()
         self._sqlalchemy()
         from sqlalchemy import create_engine
         engine = create_engine(url, **options)
@@ -294,6 +299,7 @@ class Registry:
                 _active = None
 
     def __enter__(self):
+        self._require_installed()
         return self
 
     def __exit__(self, kind, error, traceback):
