@@ -1229,8 +1229,15 @@ The candidate branch is `experiment/dump-reader-productization`, based on
 main82877a2fc1d87d0d7cfe130c5467d3625bb6e16a. The
 [format/API contract](reviews/v06x-dump-reader-product-contract.md) fixes the
 producer profile, bounds, discard-on-error behavior and installed-package gates.
-Implementation is in progress; the new helper has no runtime acceptance receipt
-yet. Prior spike PASS is not product acceptance. The host status correction is
+Candidate07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207 passes all five jobs in
+[CI40207664068](https://github.com/masahitojp/mariamem/actions/runs/40207664068),
+including installed-wheel comparison on both OS/Python boundaries and full
+integration. The [saved receipt](reviews/v06x-dump-reader-evidence/ci-40207664068/assessment.json)
+is new product-candidate evidence; prior spike PASS is not relabeled. The
+[adoption review](reviews/v06x-dump-reader-adoption-review.md) recommends completing
+the maintained main/PR differential gate and separating historical delta approval
+from continuing source binding before main adoption. Runtime validation is PASS;
+that CI handoff remains unfinished. The host status correction is
 an isolated prerequisite commit; its adoption, main integration, Qualification
 and release remain separate Human decisions. Guest, generated code and release
 ledgers are unchanged.
