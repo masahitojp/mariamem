@@ -1,0 +1,31 @@
+Installing MariaDB/MySQL system tables in '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-relocated-data' ...
+OK
+
+To start mariadbd at boot time you have to copy
+support-files/mariadb.service to the right place for your system
+
+
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MariaDB root USER !
+To do so, start the server, then issue the following command:
+
+'/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb-secure-installation'
+
+which will also give you the option of removing the test
+databases and anonymous user created by default.  This is
+strongly recommended for production servers.
+
+See the MariaDB Documentation at https://mariadb.com/docs
+
+You can start the MariaDB daemon with:
+cd '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1' ; /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd-safe --datadir='/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-relocated-data'
+
+You can test the MariaDB daemon with mariadb-test-run.pl
+cd '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/mariadb-test' ; perl mariadb-test-run.pl
+
+Please report any problems at https://mariadb.org/jira
+
+The latest information about MariaDB is available at https://mariadb.org/.
+
+Consider joining MariaDB's strong and vibrant community:
+https://mariadb.org/get-involved/
+

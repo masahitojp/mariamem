@@ -12,6 +12,12 @@ The review recommends conditional approval; it is not Human execution approval.
 Producer acquisition preflight remains incomplete as recorded below. No dump
 generation/import or prototype execution has started.
 
+Subsequent execution status: the Human approved the spike, then requested a stop
+at native acquisition preflight before review. See the
+[preflight review](v06x-dump-acquisition-review.md) for its receipts and the
+separately preserved work performed before that stop. The proposal below retains
+its original decision context; it is not the current execution-status record.
+
 ## Human Review — one decision now
 
 **Recommend a bounded comparison spike of an external native client and an

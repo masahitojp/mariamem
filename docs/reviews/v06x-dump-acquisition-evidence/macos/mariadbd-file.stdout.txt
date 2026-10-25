@@ -1,0 +1,1 @@
+/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd: Mach-O 64-bit executable arm64

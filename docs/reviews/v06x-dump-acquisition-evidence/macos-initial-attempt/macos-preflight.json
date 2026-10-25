@@ -1,0 +1,464 @@
+{
+  "result": "FAIL",
+  "stage": "initialize",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "architecture": "arm64",
+  "source_commit": "b5accce74e3a7e1347ef0cd2abad63cab493b122",
+  "formula_commit": "1db0348859ae3b2e0de9babe91dfb3673bdfb729",
+  "dump_generated": false,
+  "reader_executed": false,
+  "bottle": {
+    "cellar": "/opt/homebrew/Cellar",
+    "url": "https://ghcr.io/v2/homebrew/core/mariadb/12.3/blobs/sha256:6c25ed808b4270ee2dc80093895c3ffc71bc92e591c78aa1fe3ccf37cc10f74f",
+    "sha256": "6c25ed808b4270ee2dc80093895c3ffc71bc92e591c78aa1fe3ccf37cc10f74f"
+  },
+  "excluded_external_symlinks": [
+    {
+      "path": "mariadb@12.3/12.3.3_1/bin/rcmysql",
+      "target": "../../../../etc/init.d/mysql"
+    }
+  ],
+  "environment": {
+    "DYLD_LIBRARY_PATH": "/opt/homebrew/opt/openssl@4/lib:/opt/homebrew/opt/pcre2/lib:/opt/homebrew/opt/lz4/lib:/opt/homebrew/opt/xz/lib:/opt/homebrew/opt/zstd/lib"
+  },
+  "dependencies": {
+    "/opt/homebrew/opt/openssl@4/lib": {
+      "realpath": "/opt/homebrew/Cellar/openssl@4/4.0.3/lib",
+      "receipt": {
+        "homebrew_version": "7.0.7-32-g19e9e67",
+        "used_options": [],
+        "unused_options": [],
+        "built_as_bottle": true,
+        "built_prefix": "/opt/homebrew",
+        "poured_from_bottle": true,
+        "loaded_from_api": true,
+        "loaded_from_internal_api": true,
+        "installed_on_request": false,
+        "changed_files": [
+          "lib/pkgconfig/libcrypto.pc",
+          "lib/pkgconfig/libssl.pc",
+          "lib/pkgconfig/openssl.pc"
+        ],
+        "linkage_files": [
+          "bin/openssl",
+          "lib/libcrypto.4.dylib",
+          "lib/libssl.4.dylib",
+          "lib/ossl-modules/legacy.dylib"
+        ],
+        "binary_relocation_files": [
+          "lib/libcrypto.4.dylib",
+          "lib/libcrypto.a"
+        ],
+        "time": 1791909775,
+        "source_modified_time": 1790689495,
+        "compiler": "clang",
+        "aliases": [
+          "openssl"
+        ],
+        "runtime_dependencies": [
+          {
+            "full_name": "ca-certificates",
+            "version": "2026-09-25",
+            "revision": 0,
+            "bottle_rebuild": 0,
+            "pkg_version": "2026-09-25",
+            "declared_directly": true
+          }
+        ],
+        "source": {
+          "spec": "stable",
+          "versions": {
+            "stable": "4.0.3",
+            "head": null,
+            "version_scheme": 0,
+            "compatibility_version": null
+          },
+          "path": "/Users/masahito/Library/Caches/Homebrew/api/internal/packages.arm64_golden_gate.jws.json",
+          "tap_git_head": null,
+          "tap": "homebrew/core"
+        },
+        "arch": "arm64",
+        "built_on": {
+          "os": "Macintosh",
+          "os_version": "macOS 27.0",
+          "cpu_family": "dunno",
+          "xcode": "27.0",
+          "clt": "27.0.0.0.1788430756",
+          "preferred_perl": "5.34"
+        }
+      },
+      "dylibs": {
+        "libcrypto.4.dylib": "eb4e14b7f6ef10df40a60f7a078920c44e6b24be23f76eb1f657142becfeb4e7",
+        "libssl.4.dylib": "d223211e5bc6bfa664a8e066024d026f95f5b571c7b17376312344710d142aa7",
+        "libssl.dylib": "d223211e5bc6bfa664a8e066024d026f95f5b571c7b17376312344710d142aa7",
+        "libcrypto.dylib": "eb4e14b7f6ef10df40a60f7a078920c44e6b24be23f76eb1f657142becfeb4e7"
+      }
+    },
+    "/opt/homebrew/opt/pcre2/lib": {
+      "realpath": "/opt/homebrew/Cellar/pcre2/10.49/lib",
+      "receipt": {
+        "homebrew_version": "7.0.7-9-gcc9ff03",
+        "used_options": [],
+        "unused_options": [],
+        "built_as_bottle": true,
+        "poured_from_bottle": true,
+        "loaded_from_api": true,
+        "loaded_from_internal_api": true,
+        "installed_on_request": true,
+        "changed_files": [
+          "bin/pcre2-config",
+          "lib/pkgconfig/libpcre2-16.pc",
+          "lib/pkgconfig/libpcre2-32.pc",
+          "lib/pkgconfig/libpcre2-8.pc",
+          "lib/pkgconfig/libpcre2-posix.pc"
+        ],
+        "linkage_files": [
+          "bin/pcre2grep",
+          "bin/pcre2test",
+          "lib/libpcre2-16.0.dylib",
+          "lib/libpcre2-32.0.dylib",
+          "lib/libpcre2-8.0.dylib",
+          "lib/libpcre2-posix.3.dylib"
+        ],
+        "binary_relocation_files": [],
+        "time": 1790745705,
+        "source_modified_time": 1790596947,
+        "compiler": "clang",
+        "aliases": [],
+        "runtime_dependencies": [],
+        "source": {
+          "spec": "stable",
+          "versions": {
+            "stable": "10.49",
+            "head": null,
+            "version_scheme": 0,
+            "compatibility_version": null
+          },
+          "path": "/Users/masahito/Library/Caches/Homebrew/api/internal/packages.arm64_golden_gate.jws.json",
+          "tap_git_head": null,
+          "tap": "homebrew/core"
+        },
+        "arch": "arm64",
+        "built_on": {
+          "os": "Macintosh",
+          "os_version": "macOS 27",
+          "cpu_family": "dunno",
+          "xcode": "27.0",
+          "clt": "27.0.0.0.1788430756",
+          "preferred_perl": "5.34"
+        }
+      },
+      "dylibs": {
+        "libpcre2-16.0.dylib": "f734f0c39e4ca5304cceb3c12949c0f0b07172e9f7c72b2461968d73750da29b",
+        "libpcre2-8.0.dylib": "1c0890a01bd446b5174e4ce7c35e1e14f39d2e88b7b5160572198ec26647d2da",
+        "libpcre2-16.dylib": "f734f0c39e4ca5304cceb3c12949c0f0b07172e9f7c72b2461968d73750da29b",
+        "libpcre2-32.0.dylib": "004498093fdc76803b06ac9ac870ffafe0f82e417e240f12690a45d591df3e7a",
+        "libpcre2-32.dylib": "004498093fdc76803b06ac9ac870ffafe0f82e417e240f12690a45d591df3e7a",
+        "libpcre2-posix.3.dylib": "e46f62936dca153d041cab828c66024825613fa1708d56a6d1599ce9857b7a4f",
+        "libpcre2-8.dylib": "1c0890a01bd446b5174e4ce7c35e1e14f39d2e88b7b5160572198ec26647d2da",
+        "libpcre2-posix.dylib": "e46f62936dca153d041cab828c66024825613fa1708d56a6d1599ce9857b7a4f"
+      }
+    },
+    "/opt/homebrew/opt/lz4/lib": {
+      "realpath": "/opt/homebrew/Cellar/lz4/1.10.0/lib",
+      "receipt": {
+        "homebrew_version": "4.3.20-36-gf0be97f",
+        "used_options": [],
+        "unused_options": [],
+        "built_as_bottle": true,
+        "poured_from_bottle": true,
+        "loaded_from_api": true,
+        "installed_as_dependency": true,
+        "installed_on_request": false,
+        "changed_files": [
+          "lib/pkgconfig/liblz4.pc"
+        ],
+        "time": 1771163548,
+        "source_modified_time": 1721582989,
+        "compiler": "clang",
+        "aliases": [],
+        "runtime_dependencies": [],
+        "source": {
+          "spec": "stable",
+          "versions": {
+            "stable": "1.10.0",
+            "head": null,
+            "version_scheme": 0,
+            "compatibility_version": null
+          },
+          "path": "/Users/masahito/Library/Caches/Homebrew/api/formula.jws.json",
+          "tap_git_head": null,
+          "tap": "homebrew/core"
+        },
+        "arch": "arm64",
+        "built_on": {
+          "os": "Macintosh",
+          "os_version": "macOS 15",
+          "cpu_family": "dunno",
+          "xcode": "16.0",
+          "clt": "16.0.0.0.1.1724870825",
+          "preferred_perl": "5.34"
+        }
+      },
+      "dylibs": {
+        "liblz4.1.10.0.dylib": "3ce8bec34557e6a5c76129cef6588dc59959caa51e1e54321f45ea7c6e528e07",
+        "liblz4.dylib": "3ce8bec34557e6a5c76129cef6588dc59959caa51e1e54321f45ea7c6e528e07",
+        "liblz4.1.dylib": "3ce8bec34557e6a5c76129cef6588dc59959caa51e1e54321f45ea7c6e528e07"
+      }
+    },
+    "/opt/homebrew/opt/xz/lib": {
+      "realpath": "/opt/homebrew/Cellar/xz/5.8.4/lib",
+      "receipt": {
+        "homebrew_version": "6.0.22-323-gde1ac14",
+        "used_options": [],
+        "unused_options": [],
+        "built_as_bottle": true,
+        "poured_from_bottle": true,
+        "loaded_from_api": true,
+        "loaded_from_internal_api": true,
+        "installed_on_request": false,
+        "changed_files": [
+          "lib/pkgconfig/liblzma.pc"
+        ],
+        "linkage_files": [
+          "bin/lzmadec",
+          "bin/lzmainfo",
+          "bin/xz",
+          "bin/xzdec",
+          "lib/liblzma.5.dylib"
+        ],
+        "binary_relocation_files": [],
+        "time": 1789971684,
+        "source_modified_time": 1788964466,
+        "compiler": "clang",
+        "aliases": [],
+        "runtime_dependencies": [],
+        "source": {
+          "spec": "stable",
+          "versions": {
+            "stable": "5.8.4",
+            "head": null,
+            "version_scheme": 1,
+            "compatibility_version": null
+          },
+          "path": "/Users/masahito/Library/Caches/Homebrew/api/internal/packages.arm64_tahoe.jws.json",
+          "tap_git_head": null,
+          "tap": "homebrew/core"
+        },
+        "arch": "arm64",
+        "built_on": {
+          "os": "Macintosh",
+          "os_version": "macOS 26.6",
+          "cpu_family": "dunno",
+          "xcode": "27.0",
+          "clt": "27.0.0.0.1788430756",
+          "preferred_perl": "5.34"
+        }
+      },
+      "dylibs": {
+        "liblzma.dylib": "41cdf225f3e10fb54f952c8eca11c8a847d095470540dc42736ae7bd761beaa4",
+        "liblzma.5.dylib": "41cdf225f3e10fb54f952c8eca11c8a847d095470540dc42736ae7bd761beaa4"
+      }
+    },
+    "/opt/homebrew/opt/zstd/lib": {
+      "realpath": "/opt/homebrew/Cellar/zstd/1.5.7_1/lib",
+      "receipt": {
+        "homebrew_version": "5.0.13-24-g70b5921",
+        "used_options": [],
+        "unused_options": [],
+        "built_as_bottle": true,
+        "poured_from_bottle": true,
+        "loaded_from_api": true,
+        "installed_as_dependency": true,
+        "installed_on_request": false,
+        "changed_files": [
+          "lib/pkgconfig/libzstd.pc"
+        ],
+        "time": 1771163549,
+        "source_modified_time": 1739923464,
+        "compiler": "clang",
+        "aliases": [
+          "pzstd"
+        ],
+        "runtime_dependencies": [
+          {
+            "full_name": "lz4",
+            "version": "1.10.0",
+            "revision": 0,
+            "bottle_rebuild": 1,
+            "pkg_version": "1.10.0",
+            "declared_directly": true
+          },
+          {
+            "full_name": "xz",
+            "version": "5.8.2",
+            "revision": 0,
+            "bottle_rebuild": 0,
+            "pkg_version": "5.8.2",
+            "declared_directly": true
+          }
+        ],
+        "source": {
+          "spec": "stable",
+          "versions": {
+            "stable": "1.5.7",
+            "head": null,
+            "version_scheme": 0,
+            "compatibility_version": null
+          },
+          "path": "/Users/masahito/Library/Caches/Homebrew/api/formula.jws.json",
+          "tap_git_head": null,
+          "tap": "homebrew/core"
+        },
+        "arch": "arm64",
+        "built_on": {
+          "os": "Macintosh",
+          "os_version": "macOS 15.7",
+          "cpu_family": "dunno",
+          "xcode": "26.2",
+          "clt": "26.2.0.0.1.1764812424",
+          "preferred_perl": "5.34"
+        }
+      },
+      "dylibs": {
+        "libzstd.1.dylib": "69d8dee81bccdee425d167300d11431f3c5ecc34a3011400e536aa89f7756189",
+        "libzstd.dylib": "69d8dee81bccdee425d167300d11431f3c5ecc34a3011400e536aa89f7756189",
+        "libzstd.1.5.7.dylib": "69d8dee81bccdee425d167300d11431f3c5ecc34a3011400e536aa89f7756189"
+      }
+    }
+  },
+  "executables": {
+    "mariadbd": {
+      "sha256": "43dfcb6255928381f546a6e2bf9f7458c480cd785ca3c51be9ec3e0f3fe5e684",
+      "file": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd: Mach-O 64-bit executable arm64",
+      "loader": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd:\n\t/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices (compatibility version 1.0.0, current version 1226.0.0)\n\t@@HOMEBREW_PREFIX@@/opt/pcre2/lib/libpcre2-8.0.dylib (compatibility version 17.0.0, current version 17.1.0)\n\t/usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.12)\n\t@@HOMEBREW_PREFIX@@/opt/openssl@4/lib/libssl.4.dylib (compatibility version 4.0.0, current version 4.0.0)\n\t@@HOMEBREW_PREFIX@@/opt/openssl@4/lib/libcrypto.4.dylib (compatibility version 4.0.0, current version 4.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2200.27.0)\n",
+      "version": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd  Ver 12.3.3-MariaDB for osx10.23 on arm64 (Homebrew)"
+    },
+    "mariadb": {
+      "sha256": "04471f896bcc095d1bd23746f60d203b3b80593520d4f11397c93c1eb8f523ba",
+      "file": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb: Mach-O 64-bit executable arm64",
+      "loader": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb:\n\t/usr/lib/libedit.3.dylib (compatibility version 2.0.0, current version 3.0.0)\n\t/usr/lib/libncurses.5.4.dylib (compatibility version 5.4.0, current version 5.4.0)\n\t@@HOMEBREW_PREFIX@@/opt/openssl@4/lib/libssl.4.dylib (compatibility version 4.0.0, current version 4.0.0)\n\t@@HOMEBREW_PREFIX@@/opt/openssl@4/lib/libcrypto.4.dylib (compatibility version 4.0.0, current version 4.0.0)\n\t/usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.12)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2200.27.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)\n",
+      "version": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb from 12.3.3-MariaDB, client 15.2 for osx10.23 (arm64) using  EditLine wrapper"
+    },
+    "mariadb-dump": {
+      "sha256": "930361158b7df4a7e1c23a2575bcc755f89bbc43fce537f5bc0b5b2fcf6ab4ac",
+      "file": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb-dump: Mach-O 64-bit executable arm64",
+      "loader": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb-dump:\n\t@@HOMEBREW_PREFIX@@/opt/openssl@4/lib/libssl.4.dylib (compatibility version 4.0.0, current version 4.0.0)\n\t@@HOMEBREW_PREFIX@@/opt/openssl@4/lib/libcrypto.4.dylib (compatibility version 4.0.0, current version 4.0.0)\n\t/usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.12)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2200.27.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)\n",
+      "version": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb-dump from 12.3.3-MariaDB, client 10.20 for osx10.23 (arm64)"
+    }
+  },
+  "commands": [
+    {
+      "argv": [
+        "file",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd"
+      ],
+      "exit_code": 0,
+      "stdout": "mariadbd-file.stdout.txt",
+      "stderr": "mariadbd-file.stderr.txt"
+    },
+    {
+      "argv": [
+        "otool",
+        "-L",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd"
+      ],
+      "exit_code": 0,
+      "stdout": "mariadbd-loader.stdout.txt",
+      "stderr": "mariadbd-loader.stderr.txt"
+    },
+    {
+      "argv": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd",
+        "--no-defaults",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "mariadbd-version.stdout.txt",
+      "stderr": "mariadbd-version.stderr.txt"
+    },
+    {
+      "argv": [
+        "file",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb"
+      ],
+      "exit_code": 0,
+      "stdout": "mariadb-file.stdout.txt",
+      "stderr": "mariadb-file.stderr.txt"
+    },
+    {
+      "argv": [
+        "otool",
+        "-L",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb"
+      ],
+      "exit_code": 0,
+      "stdout": "mariadb-loader.stdout.txt",
+      "stderr": "mariadb-loader.stderr.txt"
+    },
+    {
+      "argv": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb",
+        "--no-defaults",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "mariadb-version.stdout.txt",
+      "stderr": "mariadb-version.stderr.txt"
+    },
+    {
+      "argv": [
+        "file",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb-dump"
+      ],
+      "exit_code": 0,
+      "stdout": "mariadb-dump-file.stdout.txt",
+      "stderr": "mariadb-dump-file.stderr.txt"
+    },
+    {
+      "argv": [
+        "otool",
+        "-L",
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb-dump"
+      ],
+      "exit_code": 0,
+      "stdout": "mariadb-dump-loader.stdout.txt",
+      "stderr": "mariadb-dump-loader.stderr.txt"
+    },
+    {
+      "argv": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb-dump",
+        "--no-defaults",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "mariadb-dump-version.stdout.txt",
+      "stderr": "mariadb-dump-version.stderr.txt"
+    },
+    {
+      "argv": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb-dump",
+        "--no-defaults",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "mariadb-dump-help.stdout.txt",
+      "stderr": "mariadb-dump-help.stderr.txt"
+    },
+    {
+      "argv": [
+        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb-install-db",
+        "--no-defaults",
+        "--basedir=/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1",
+        "--datadir=/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-data",
+        "--auth-root-authentication-method=normal",
+        "--skip-test-db"
+      ],
+      "exit_code": 1,
+      "stdout": "macos-install-db.stdout.txt",
+      "stderr": "macos-install-db.stderr.txt"
+    }
+  ],
+  "skip_definer_help_present": false,
+  "error": "macos-install-db: exit 1"
+}

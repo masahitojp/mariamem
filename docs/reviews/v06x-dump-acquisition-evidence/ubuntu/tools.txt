@@ -1,0 +1,20 @@
+x86_64
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.5 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+5ff0bff4f2391b3fffcb9cfee95546fd5ad37e835c20a5e4f75a168f22b68b90  /usr/sbin/mariadbd
+d720d1f98dea0e2c8806aac985d2b159da8b36f838043512ea788de077dabbda  /usr/bin/mariadb
+f9fc38479694c3a27260281e09fccb5c6e8788361f3e72d54ad36ac8a03cec05  /usr/bin/mariadb-dump
+mariadbd  Ver 12.3.3-MariaDB-ubu2404 for debian-linux-gnu on x86_64 (mariadb.org binary distribution)
+mariadb from 12.3.3-MariaDB, client 15.2 for debian-linux-gnu (x86_64) using  EditLine wrapper
+mariadb-dump from 12.3.3-MariaDB, client 10.20 for debian-linux-gnu (x86_64)

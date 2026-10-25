@@ -1,0 +1,29 @@
+2026-10-25 15:35:28 0 [Warning] Setting lower_case_table_names=2 because file system for /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-relocated-data/ is case insensitive
+2026-10-25 15:35:28 0 [Note] Starting MariaDB 12.3.3-MariaDB source revision 83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e server_uid 0dPsPissz5EDmkH7o+q6Aq/1nfU= as process 69707
+2026-10-25 15:35:28 0 [Note] InnoDB: Compressed tables use zlib 1.2.12
+2026-10-25 15:35:28 0 [Note] InnoDB: Number of transaction pools: 1
+2026-10-25 15:35:28 0 [Note] InnoDB: Using generic crc32 instructions
+2026-10-25 15:35:28 0 [Note] InnoDB: innodb_buffer_pool_size_max=8388608m, innodb_buffer_pool_size=128m
+2026-10-25 15:35:28 0 [Note] InnoDB: Completed initialization of buffer pool
+2026-10-25 15:35:28 0 [Note] InnoDB: End of log at LSN=45538
+2026-10-25 15:35:28 0 [Note] InnoDB: Opened 3 undo tablespaces
+2026-10-25 15:35:28 0 [Note] InnoDB: 128 rollback segments in 3 undo tablespaces are active.
+2026-10-25 15:35:28 0 [Note] InnoDB: Setting file './ibtmp1' size to 12.000MiB. Physically writing the file full; Please wait ...
+2026-10-25 15:35:28 0 [Note] InnoDB: File './ibtmp1' size is now 12.000MiB.
+2026-10-25 15:35:28 0 [Note] InnoDB: log sequence number 45538; transaction id 14
+2026-10-25 15:35:28 0 [Note] Plugin 'FEEDBACK' is disabled.
+2026-10-25 15:35:28 0 [Note] Plugin 'wsrep-provider' is disabled.
+2026-10-25 15:35:28 0 [Note] InnoDB: Loading buffer pool(s) from /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-relocated-data/ib_buffer_pool
+2026-10-25 15:35:28 0 [Note] InnoDB: Buffer pool(s) load completed at 261025 15:35:28
+2026-10-25 15:35:29 0 [Note] Server socket created on IP: '127.0.0.1', port: '58740'.
+2026-10-25 15:35:29 0 [Note] mariadbd: Event Scheduler: Loaded 0 events
+2026-10-25 15:35:29 0 [Note] /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd: ready for connections.
+Version: '12.3.3-MariaDB'  socket: '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/m.sock'  port: 58740  Homebrew
+2026-10-25 15:35:29 0 [Note] /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd (initiated by: unknown): Normal shutdown
+2026-10-25 15:35:29 0 [Note] InnoDB: FTS optimize thread exiting.
+2026-10-25 15:35:29 0 [Note] InnoDB: Starting shutdown...
+2026-10-25 15:35:29 0 [Note] InnoDB: Dumping buffer pool(s) to /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-relocated-data/ib_buffer_pool
+2026-10-25 15:35:29 0 [Note] InnoDB: Buffer pool(s) dump completed at 261025 15:35:29
+2026-10-25 15:35:29 0 [Note] InnoDB: Removed temporary tablespace data file: "./ibtmp1"
+2026-10-25 15:35:29 0 [Note] Shutdown completed; log sequence number 45538; transaction id 15
+2026-10-25 15:35:29 0 [Note] /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd: Shutdown complete

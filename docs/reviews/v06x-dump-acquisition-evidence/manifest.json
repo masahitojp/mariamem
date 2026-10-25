@@ -1,0 +1,32 @@
+{
+  "scope": "native acquisition preflight only; Human requested stop before comparison review",
+  "base_source_commit": "b5accce74e3a7e1347ef0cd2abad63cab493b122",
+  "candidate_source_commit": "d19ab2efbd3badf7b2d69d5061fd8788ae836daa",
+  "candidate_branch": "experiment/dump-import",
+  "later_producer_source_commit": "6d81a2f99d0b5bd09bb5ab48dbf1ae23ca27e149",
+  "parked_comparison_source_commit": "03cad716fd3a0a44558ef0133566b85f6ec8b1ba",
+  "guest_import_executed": false,
+  "pre_stop_extra_work": [
+    "Canonical dump generation on Ubuntu in CI40169803732",
+    "macOS native reference success and three synthetic failure inputs",
+    "Go host build on macOS; no guest import",
+    "17 framing/classifier unit tests on Python3.14; no library-to-guest execution"
+  ],
+  "extra_evidence": "build/experiment-work/dump-import/evidence/outside-preflight-review",
+  "macos_execution_source_context": {
+    "recorded_source_commit": "b5accce74e3a7e1347ef0cd2abad63cab493b122",
+    "note": "Preflight harness ran before its commit; exact bytes then committed as d19ab2e, not relabelled as an exact-commit CI execution.",
+    "preflight_harness_sha256": "d5b24ac0165494bbd27584338edbee218ee3490997908f784b44c958559f3b41"
+  },
+  "ubuntu_ci": {
+    "run_id": 40169643384,
+    "job_id": 121097696314,
+    "url": "https://github.com/masahitojp/mariamem/actions/runs/40169643384",
+    "head_sha": "d19ab2efbd3badf7b2d69d5061fd8788ae836daa",
+    "conclusion": "success",
+    "artifact_id": 12590042717,
+    "artifact_digest": "sha256:b1eff87b61233e188a1090994ead12c66754000c5e0bdc408a37d92bae02694e"
+  },
+  "workspace_budget_gib": 4,
+  "minimum_free_gib": 8
+}

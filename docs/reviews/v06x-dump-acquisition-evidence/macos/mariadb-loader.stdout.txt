@@ -1,0 +1,8 @@
+/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb:
+	/usr/lib/libedit.3.dylib (compatibility version 2.0.0, current version 3.0.0)
+	/usr/lib/libncurses.5.4.dylib (compatibility version 5.4.0, current version 5.4.0)
+	/opt/homebrew/opt/openssl@4/lib/libssl.4.dylib (compatibility version 4.0.0, current version 4.0.0)
+	/opt/homebrew/opt/openssl@4/lib/libcrypto.4.dylib (compatibility version 4.0.0, current version 4.0.0)
+	/usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.12)
+	/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2200.27.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)

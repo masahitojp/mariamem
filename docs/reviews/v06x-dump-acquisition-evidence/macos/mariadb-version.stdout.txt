@@ -1,0 +1,1 @@
+/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb from 12.3.3-MariaDB, client 15.2 for osx10.23 (arm64) using  EditLine wrapper

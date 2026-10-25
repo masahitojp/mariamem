@@ -1,0 +1,31 @@
+Installing MariaDB/MySQL system tables in '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-data' ...
+
+Installation of system tables failed!  Examine the logs in
+/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-data for more information.
+
+The problem could be conflicting information in an external
+my.cnf files. You can ignore these by doing:
+
+    shell> /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb-install-db --defaults-file=~/.my.cnf
+
+You can also try to start the mariadbd daemon with:
+
+    shell> /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd --skip-grant-tables --general-log &
+
+and use the command line tool /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb
+to connect to the mysql database and look at the grant tables:
+
+    shell> /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb -u root mysql
+    MariaDB> show tables;
+
+Try '/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd --help' if you have problems with paths.  Using
+--general-log gives you a log in /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-data that may be helpful.
+
+The latest information about mariadb-install-db is available at
+https://mariadb.com/docs/server/clients-and-utilities/deployment-tools/mariadb-install-db
+You can find the latest source at https://downloads.mariadb.org and
+the MariaDB discuss email list at https://lists.mariadb.org/postorius/lists/discuss.lists.mariadb.org/
+
+Please check all of the above before submitting a bug report
+at https://mariadb.org/jira
+

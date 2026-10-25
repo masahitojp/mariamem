@@ -1,0 +1,29 @@
+{
+  "owned_removed_bytes": 1589198848,
+  "retained_large_paths": [],
+  "owned_cleanup_debt": [],
+  "receipt": {
+    "owner": "mariamem-experiment-v1",
+    "name": "dump-import",
+    "repo": "/Users/masahito/src/mysqlmem/publish/mariamem",
+    "state": "cleaned",
+    "base_sha": "b5accce74e3a7e1347ef0cd2abad63cab493b122",
+    "created": 1792908876.076063,
+    "min_free_gib": 8.0,
+    "budget_gib": 4.0,
+    "disposable": [
+      "temp",
+      "worktree"
+    ],
+    "evidence": "evidence",
+    "branch": "experiment/dump-import",
+    "source": {
+      "branch": "experiment/dump-import",
+      "sha": "6d81a2f99d0b5bd09bb5ab48dbf1ae23ca27e149"
+    },
+    "archived_files": 0,
+    "cleaned": 1792911415.968002
+  },
+  "parked_source_ref": "experiment/dump-import-parked",
+  "parked_source_commit": "03cad716fd3a0a44558ef0133566b85f6ec8b1ba"
+}

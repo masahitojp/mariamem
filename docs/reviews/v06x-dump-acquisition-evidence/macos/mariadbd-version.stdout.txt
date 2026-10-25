@@ -1,0 +1,1 @@
+/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/dump-import/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd  Ver 12.3.3-MariaDB for osx10.23 on arm64 (Homebrew)

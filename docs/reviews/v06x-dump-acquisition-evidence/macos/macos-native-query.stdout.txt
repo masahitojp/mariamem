@@ -1,0 +1,3 @@
+12.3.3-MariaDB	arm64
+root	localhost
+1

@@ -875,13 +875,18 @@ importer/API selected or spike/productization approved by this design step.
 The2026-10-25 review response fixes reuse/extension of the existing
 users/addresses migration app, retained root@localhost DEFINER/SQL SECURITY,
 producer options and observation normalization, and explicitly defers
-views/triggers. Native acquisition routes are identified, but exact executable
-version/hash/startup receipts for macOS arm64 and Ubuntu x86_64 remain missing;
-the local cached Linux arm64 image does not satisfy either native matrix target.
-Human approval remains pending. If approved, bounded acquisition preflight comes
-first; dump generation and reader execution remain blocked until both platform
-preflights close. Productization, main integration, Qualification and release
-remain separate gates.
+views/triggers. Native acquisition routes were identified at that design step.
+On2026-10-25, the Human approved the bounded spike and subsequently narrowed
+the current task to native acquisition preflight, then review. Both native
+toolchains now have actual12.3.3 version/hash/startup receipts; see the
+[preflight Human Review](reviews/v06x-dump-acquisition-review.md) for exact
+candidate/source identities, Linux CI40169643384, local Mac relocation/dependency
+limits and the weaker Linux version assertions. The local Linux arm64 image is
+not a native-platform receipt. Additional work performed before the stop request
+is preserved separately and is not preflight acceptance evidence; guest dump
+import remains unexecuted. The task is stopped for preflight review; no route
+recommendation or comparison completion is claimed. Productization, main
+integration, Qualification and release remain separate gates.
 
 
 **Prepared Statements — complete and adopted on main.** See the final P6
