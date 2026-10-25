@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "source_commit": "353bf9291d96785f8dcaa3585cec00e56242256e",
+  "result": "PASS",
+  "scope": "bounded native producer preflight on observed Ubuntu x86_64 only",
+  "run": {
+    "id": 40173427178,
+    "url": "https://github.com/masahitojp/mariamem/actions/runs/40173427178",
+    "head_sha": "353bf9291d96785f8dcaa3585cec00e56242256e",
+    "conclusion": "success"
+  },
+  "job": {
+    "id": 121108944640,
+    "url": "https://github.com/masahitojp/mariamem/actions/runs/40173427178/job/121108944640",
+    "name": "native-acquisition",
+    "runner_labels": [
+      "ubuntu-24.04"
+    ],
+    "conclusion": "success"
+  },
+  "artifact": {
+    "id": 12591445500,
+    "name": "dump-native-preflight-353bf9291d96785f8dcaa3585cec00e56242256e",
+    "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12591445500",
+    "digest": "sha256:4339934709a3e928310ffebc721281bbbd697ef130da17af8c9515335a664be6",
+    "computed_zip_digest": "sha256:4339934709a3e928310ffebc721281bbbd697ef130da17af8c9515335a664be6",
+    "zip_digest_matches": true,
+    "members": [
+      "container.json",
+      "create-definer-routines.txt",
+      "drop-probe-schema.txt",
+      "dump-help.txt",
+      "image.json",
+      "mariadb-dump-version.txt",
+      "mariadb-version.txt",
+      "mariadbd-version.txt",
+      "observed.json",
+      "probe-absent-after.txt",
+      "probe-absent-before.txt",
+      "producer-probe.json",
+      "producer-probe.sql",
+      "result.json",
+      "startup-query.txt",
+      "tcp-root-login.txt",
+      "tcp-routine-metadata.txt",
+      "tcp-routine-results.txt"
+    ],
+    "all_extracted_members_byte_equal": true
+  },
+  "assertions": {
+    "result_json": "PASS",
+    "producer_probe_json": "PASS",
+    "schema_count_after": 0,
+    "observed_source_commit": "353bf9291d96785f8dcaa3585cec00e56242256e",
+    "tcp_login": [
+      "root@127.0.0.1",
+      "root@%"
+    ],
+    "routine_metadata": "probe_function\tFUNCTION\troot@localhost\tDEFINER\nprobe_procedure\tPROCEDURE\troot@localhost\tDEFINER\n",
+    "routine_results": [
+      17,
+      19
+    ],
+    "dump_markers": [
+      "CREATE DEFINER=`root`@`localhost` FUNCTION `probe_function`",
+      "CREATE DEFINER=`root`@`localhost` PROCEDURE `probe_procedure`"
+    ],
+    "diagnostic_dump_sha256": "6ab704ff278acc72fc8bb807c9c57eaf908957892d86e9c371d421be81a09b1f",
+    "application_dump_generated": false,
+    "dump_imported": false,
+    "reader_executed": false,
+    "native_identity_rechecked_against_source_pin": true
+  },
+  "stderr_receipt": {
+    "present_in_artifact": false,
+    "status": "not captured on success",
+    "local_note": "producer-probe.stderr.txt",
+    "local_note_is_captured_stderr": false,
+    "empty_stderr_proven": false
+  },
+  "local_added_files": [
+    "run.json",
+    "jobs.json",
+    "artifacts.json",
+    "producer-probe.stderr.txt",
+    "assessment.json",
+    "SHA256SUMS.json"
+  ],
+  "boundaries": {
+    "application_dump_comparison": "stopped; separate Human decision",
+    "views_triggers": "outside corpus coverage",
+    "cold_Mac_setup_cost": "not verified",
+    "productization_main_Qualification_release": "not performed"
+  },
+  "prior_receipt_identity": {
+    "40169643384": {
+      "source_commit": "d19ab2efbd3badf7b2d69d5061fd8788ae836daa",
+      "scope": "acquisition"
+    },
+    "40172057245": {
+      "source_commit": "f94a2d4895a838faca3e3bfcafa3aa4ce3a18033",
+      "scope": "socket-only acquisition"
+    }
+  }
+}

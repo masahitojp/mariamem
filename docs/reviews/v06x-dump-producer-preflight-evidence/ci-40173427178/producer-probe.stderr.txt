@@ -1,0 +1,7 @@
+LOCAL ARCHIVE NOTE - NOT CAPTURED STDERR
+
+Artifact 12591445500 does not contain producer-probe.stderr.txt.
+The helper at source_commit 353bf9291d96785f8dcaa3585cec00e56242256e writes that file only
+on subprocess.CalledProcessError. Successful-command stderr was not persisted.
+This local note records the missing receipt; it is not captured stderr and
+does not establish that stderr was empty. No CI artifact bytes were changed.

@@ -20,7 +20,7 @@
   "syntax": "PASS",
   "workflow_syntax_and_single_job_scope": "PASS",
   "public_source_files": 5250,
-  "native_TCP_producer_execution": "pending next CI submission",
+  "native_TCP_producer_execution": "Native result is indexed separately at ci-40173427178/assessment.json; this record describes local tests only.",
   "previous_native_CI": {
     "run_id": 40172057245,
     "job_id": 121104788865,

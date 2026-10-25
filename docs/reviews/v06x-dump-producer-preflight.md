@@ -11,6 +11,20 @@ Branch: `experiment/dump-import`. Three files changed: the existing native
 workflow, Linux helper and its tests. Product/runtime/guest/converter inputs
 remain unchanged.
 
+**Native producer preflight: PASS on exact source_commit
+`353bf9291d96785f8dcaa3585cec00e56242256e`.**
+[Run40173427178](https://github.com/masahitojp/mariamem/actions/runs/40173427178),
+[job121108944640](https://github.com/masahitojp/mariamem/actions/runs/40173427178/job/121108944640),
+and [artifact12591445500](https://github.com/masahitojp/mariamem/actions/runs/40173427178/artifacts/12591445500)
+are archived with their metadata in
+[ci-40173427178/](v06x-dump-producer-preflight-evidence/ci-40173427178/).
+The [assessment](v06x-dump-producer-preflight-evidence/ci-40173427178/assessment.json)
+and [checksums](v06x-dump-producer-preflight-evidence/ci-40173427178/SHA256SUMS.json)
+bind the receipts to this source and observed Ubuntu x86_64 control. Application
+dump production/comparison, guest import and parser execution remain stopped;
+resumption requires a separate Human decision. Views/triggers, cold Mac and
+setup-cost evidence are outside this result.
+
 ## What the previous evidence proves
 
 [CI40172057245](https://github.com/masahitojp/mariamem/actions/runs/40172057245),
@@ -79,10 +93,33 @@ and [checksums](v06x-dump-producer-preflight-evidence/SHA256SUMS.json) preserve
 this scope and previous CI receipts.
 
 The Git tests directly exercise real Git. The Docker tests use fixture binaries
-and subprocess outputs; they prove rejection/wiring/cleanup logic, not native
-Docker behavior or successful TCP routine creation. **Actual TCP/root dump and
-definer execution on353bf92 is pending the next native CI submission.** The
-handoff returns that exact source and run URL. No old receipt is relabelled;
-neither local mocks nor an acquisition PASS proves the stopped dump-import
-comparison. A future successful probe closes only this bounded native producer
-path on its observed host, before any separately authorized producer resumption.
+and subprocess outputs; they prove rejection/wiring/cleanup logic. The separate
+native CI receipt now proves successful TCP routine creation/execution and
+diagnostic dump connection on353bf92 for the observed Ubuntu host only:
+
+| Native assertion | Saved result |
+| --- | --- |
+| Overall result / producer probe | PASS / PASS |
+| Exact source | observed.source.source_commit =353bf9291d96785f8dcaa3585cec00e56242256e |
+| TCP login | USER()=root@127.0.0.1; CURRENT_USER()=root@% |
+| Routine metadata | Both procedure/function use root@localhost and SQL SECURITY DEFINER |
+| Routine results | 17 /19 |
+| Diagnostic dump | Both CREATE DEFINER markers present;3347 bytes; SHA2566ab704ff278acc72fc8bb807c9c57eaf908957892d86e9c371d421be81a09b1f |
+| Probe schema after cleanup | schema_count_after=0 |
+| Application dump generated / dump imported / reader executed | false / false / false |
+
+The authenticated ZIP digest is
+`sha256:4339934709a3e928310ffebc721281bbbd697ef130da17af8c9515335a664be6`,
+matching artifacts.json. All18 extracted artifact members matched their ZIP
+bytes before the local assessment/checksum files were added. The archive did
+not contain producer-probe.stderr.txt: successful-command stderr is not saved
+by this helper. The local file of that name is explicitly an archival absence
+note, not captured stderr or proof of empty stderr; assessment.json distinguishes
+it from original artifact members.
+
+No old receipt is relabelled:40169643384 remains d19ab2e acquisition,
+40172057245 remains f94a2d4 socket-only acquisition, and40173427178 is353bf92
+bounded producer preflight. Neither these local tests nor the native PASS proves
+the stopped application dump/import comparison. This result closes only the
+bounded native producer path on its observed host; no productization, main
+integration, Qualification or release was performed.

@@ -56,9 +56,9 @@ Local verification passed:
 - Public-source boundary check (5250 files on the experiment candidate), plus
   diff formatting. No runtime acceptance or broad release check was run.
 
-These are local code/negative-control results, not a native execution PASS for
-f94a2d4. The strengthened acquisition workflow is the next CI submission; its
-run URL is returned in the handoff. The old CI40169643384 receipt remains bound
+At the original handoff these were local code/negative-control results, not a
+native execution PASS for f94a2d4; the native run followed separately. The old
+CI40169643384 receipt remains bound
 to d19ab2e and is not relabelled. Do not reuse the old workflow as an automatic
 input gate; any later gate receipt must come from the asserted exact-source
 workflow and preserve these host/scope limits. Even a new acquisition PASS does
@@ -69,3 +69,13 @@ query does not prove the producer's explicit TCP/root/dump/DEFINER path. The
 [producer preflight follow-up](v06x-dump-producer-preflight.md) adds that bounded
 probe and direct local tests for the previously uncovered functions. This
 clarification does not relabel the old six tests or old CI scope.
+
+The subsequent bounded producer preflight
+[CI40173427178](https://github.com/masahitojp/mariamem/actions/runs/40173427178)
+passed on exact source_commit `353bf9291d96785f8dcaa3585cec00e56242256e`.
+[Its saved assessment](v06x-dump-producer-preflight-evidence/ci-40173427178/assessment.json)
+binds job121108944640 and artifact12591445500, verified ZIP digest, TCP/root
+dump connection, both selected definer routines, results17/19 and schema cleanup0.
+This is observed Ubuntu x86_64 producer preflight only. Application dump/import
+comparison remains stopped; Mac TCP/cold setup, setup-cost and views/triggers
+coverage are not claimed. CI40172057245 retains its f94a2d4 socket-only scope.

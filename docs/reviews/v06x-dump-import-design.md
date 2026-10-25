@@ -18,6 +18,12 @@ at native acquisition preflight before review. See the
 separately preserved work performed before that stop. The proposal below retains
 its original decision context; it is not the current execution-status record.
 
+Current status: acquisition evidence is accepted for the observed hosts;
+bounded producer preflight passed on353bf92 inCI40173427178 for Ubuntu x86_64.
+See the [saved producer receipt](v06x-dump-producer-preflight.md). Application
+dump/comparison and import remain stopped, with resumption a separate Human
+decision. No main integration, Qualification or release is performed here.
+
 ## Human Review — one decision now
 
 **Recommend a bounded comparison spike of an external native client and an

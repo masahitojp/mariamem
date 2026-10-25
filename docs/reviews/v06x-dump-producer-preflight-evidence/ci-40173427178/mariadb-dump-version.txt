@@ -1,0 +1,1 @@
+mariadb-dump from 12.3.3-MariaDB, client 10.20 for debian-linux-gnu (x86_64)

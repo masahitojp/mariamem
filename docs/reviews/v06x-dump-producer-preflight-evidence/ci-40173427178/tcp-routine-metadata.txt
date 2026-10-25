@@ -1,0 +1,2 @@
+probe_function	FUNCTION	root@localhost	DEFINER
+probe_procedure	PROCEDURE	root@localhost	DEFINER

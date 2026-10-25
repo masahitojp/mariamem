@@ -865,7 +865,7 @@ Automatic preparation
 routing remains excluded from0.6.0; live and broader diagnostics/framework
 coverage remain separate decisions.
 
-**Dump import — acquisition evidence accepted; comparison stopped.** The
+**Dump import — acquisition + bounded producer preflight PASS; comparison stopped.** The
 [dump comparison proposal](reviews/v06x-dump-import-design.md) reuses the source
 inventory and completed migration lifecycle. It recommends comparing an optional
 native client with a bounded library reader on the same freshly produced,
@@ -896,15 +896,21 @@ The Human requested that missing path and direct source/capture negative tests;
 the [producer preflight follow-up](reviews/v06x-dump-producer-preflight.md) records
 source_commit `353bf9291d96785f8dcaa3585cec00e56242256e`. Its25 local tests
 passed (real temporary Git repos for source identity; Docker fixtures for
-capture/probe). Actual native TCP/root dump connection, retained definer metadata,
-routine execution and probe cleanup remain pending the new CI handoff. The
-workflow runs this bounded native preflight only; application dump production,
-guest import and reader comparison stay stopped. The earlier acquisition-only
-receipts are not expanded into producer/gate/import evidence.
+capture/probe). [CI40173427178](https://github.com/masahitojp/mariamem/actions/runs/40173427178)
+passed on exact353bf92: native TCP/root diagnostic dump connection, both retained
+root@localhost DEFINER routines, execution results17/19 and probe schema cleanup0
+were asserted. The [saved CI assessment](reviews/v06x-dump-producer-preflight-evidence/ci-40173427178/assessment.json)
+binds job121108944640, artifact12591445500, metadata and verified ZIP/file hashes.
+This producer result is limited to the observed Ubuntu x86_64 control.
+Application dump production/comparison, guest import and parser execution remain
+stopped; resumption is a separate Human decision. No views/triggers coverage is
+added. The earlier acquisition-only receipts remain at their original sources:
+40169643384/d19ab2e acquisition and40172057245/f94a2d4 socket-only acquisition.
 Cold Mac/setup-cost claims require a separate clean-machine run with warm/cold
 cohorts distinguished. That work is not part of this acceptance. Comparison
 remains stopped; no route recommendation or comparison completion is claimed.
-Productization, main integration, Qualification and release remain separate gates.
+This work performs no productization, main integration, Qualification or release;
+those remain separate gates.
 
 
 **Prepared Statements — complete and adopted on main.** See the final P6
