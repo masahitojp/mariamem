@@ -62,6 +62,33 @@ type Result struct {
 	Columns            []Column  `json:"columns"`
 	Rows               [][]*Cell `json:"rows"`
 }
+
+// UnmarshalJSON converts MariaDB's internal unsigned 32-bit status to the
+// two-byte status used by its network protocol. Internal-only flags such as
+// SERVER_STATUS_RETURNED_ROW (1<<16) must not make a valid reply undecodable.
+func (r *Result) UnmarshalJSON(data []byte) error {
+	type fields Result
+	var decoded struct {
+		fields
+		Status json.RawMessage `json:"server_status"`
+	}
+	if err := json.Unmarshal(data, &decoded); err != nil {
+		return err
+	}
+	var status uint32
+	if len(decoded.Status) != 0 {
+		if string(decoded.Status) == "null" {
+			return errors.New("invalid null server_status")
+		}
+		if err := json.Unmarshal(decoded.Status, &status); err != nil {
+			return fmt.Errorf("invalid server_status: %w", err)
+		}
+	}
+	decoded.fields.Status = uint16(status)
+	*r = Result(decoded.fields)
+	return nil
+}
+
 type response struct {
 	result              Result
 	err                 error
