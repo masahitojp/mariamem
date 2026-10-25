@@ -1,0 +1,17 @@
+{
+  "mysql_com.pinned.h": {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "include/mysql_com.h",
+    "sha256": "75f5644c62eb9f20882b1730dc6525e45c4b1e58f3c4f97ff229e1aa7cbc986d"
+  },
+  "protocol.pinned.cc": {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "sql/protocol.cc",
+    "sha256": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242"
+  },
+  "facts": {
+    "SERVER_STATUS_RETURNED_ROW": 65536,
+    "SERVER_STATUS_AUTOCOMMIT": 2,
+    "native_status_wire_bits": 16
+  }
+}

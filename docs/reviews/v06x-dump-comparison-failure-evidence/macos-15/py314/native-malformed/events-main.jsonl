@@ -1,0 +1,6 @@
+{"event": "source_start", "worker": "main", "id": "57c090a1453f894858299639022ea099", "runtime_pid": 17403, "host_pid": 17403}
+{"event": "prepare_start", "worker": "main", "route": "native", "mode": "malformed"}
+{"event": "partial_source_state", "worker": "main", "tables": ["addresses", "alembic_version", "user_import_values", "users"]}
+{"event": "prepare_error", "worker": "main", "route": "native", "mode": "malformed", "reason": "native_client_error", "stage": "native_client", "location": {"ordinal": null, "line_start": 203, "line_end": 203, "byte_start": 7418, "byte_end": 7451}, "errno": 1064, "sqlstate": "42000", "exit_code": 1, "original_exception": null, "next_action": "Inspect the preserved original-file location against the native control; discard this source before retrying."}
+{"event": "preparation_connections_closed", "worker": "main"}
+{"event": "source_cleanup", "worker": "main", "closed": true, "host_reaped": true, "directory_removed": true}

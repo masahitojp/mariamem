@@ -1,0 +1,99 @@
+{
+  "source_commit": "5a9661d821150b3992466fa49a071a213cbaab78",
+  "run_id": 40188523035,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/40188523035",
+  "overall": "FAIL",
+  "cause": "server_status 65538 cannot decode into guest.Result.Status uint16",
+  "query": "SELECT app.app_user_rating(1,3), app.app_user_rating(2,-2)",
+  "status_decomposition": {
+    "raw": 65538,
+    "returned_row": 65536,
+    "autocommit": 2,
+    "wire_low16": 2
+  },
+  "cohorts": {
+    "ubuntu-24.04": {
+      "result": "FAIL",
+      "routes": {
+        "native": {
+          "import_completion": "PASS",
+          "comparison": "FAIL",
+          "cause": "(2013, 'mariamem database instance terminated: json: cannot unmarshal number 65538 into Go struct field Result.result.server_status of type uint16')",
+          "source_cleanup": {
+            "closed": true,
+            "host_reaped": true,
+            "directory_removed": true
+          },
+          "snapshot_attempted": false
+        },
+        "reader": {
+          "import_completion": "PASS",
+          "comparison": "FAIL",
+          "cause": "(2013, 'mariamem database instance terminated: json: cannot unmarshal number 65538 into Go struct field Result.result.server_status of type uint16')",
+          "source_cleanup": {
+            "closed": true,
+            "host_reaped": true,
+            "directory_removed": true
+          },
+          "snapshot_attempted": false
+        }
+      },
+      "interpreters": {
+        "py311": {
+          "result": "FAIL",
+          "success_cases": "setup errors before Snapshot",
+          "negative_controls": "6/6 accepted"
+        },
+        "py314": {
+          "result": "FAIL",
+          "success_cases": "setup errors before Snapshot",
+          "negative_controls": "6/6 accepted"
+        }
+      }
+    },
+    "macos-15": {
+      "result": "FAIL",
+      "routes": {
+        "native": {
+          "import_completion": "PASS",
+          "comparison": "FAIL",
+          "cause": "(2013, 'mariamem database instance terminated: json: cannot unmarshal number 65538 into Go struct field Result.result.server_status of type uint16')",
+          "source_cleanup": {
+            "closed": true,
+            "host_reaped": true,
+            "directory_removed": true
+          },
+          "snapshot_attempted": false
+        },
+        "reader": {
+          "import_completion": "PASS",
+          "comparison": "FAIL",
+          "cause": "(2013, 'mariamem database instance terminated: json: cannot unmarshal number 65538 into Go struct field Result.result.server_status of type uint16')",
+          "source_cleanup": {
+            "closed": true,
+            "host_reaped": true,
+            "directory_removed": true
+          },
+          "snapshot_attempted": false
+        }
+      },
+      "interpreters": {
+        "py311": {
+          "result": "FAIL",
+          "success_cases": "setup errors before Snapshot",
+          "negative_controls": "6/6 accepted"
+        },
+        "py314": {
+          "result": "FAIL",
+          "success_cases": "setup errors before Snapshot",
+          "negative_controls": "6/6 accepted"
+        }
+      }
+    }
+  },
+  "negative_scenarios_accepted": 24,
+  "successful_lifecycle_scenarios_failed": 8,
+  "snapshot_attempts_in_success_cohorts": 0,
+  "child_test_bodies_entered": 0,
+  "product_runtime_modified": false
+}

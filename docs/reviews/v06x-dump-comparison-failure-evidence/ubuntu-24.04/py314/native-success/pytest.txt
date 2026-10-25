@@ -1,0 +1,62 @@
+EE                                                                       [100%]
+==================================== ERRORS ====================================
+_________________ ERROR at setup of test_01_application_commit _________________
+python/mariamem/pytest_plugin.py:121: in mariamem_snapshot
+    mariamem_prepare(mariamem_server)
+tests/dump_import_spike/conftest.py:37: in prepare
+    observation = observe(connection)
+                  ^^^^^^^^^^^^^^^^^^^
+tests/dump_import_spike/oracles.py:72: in observe
+    cursor.execute('SELECT app.app_user_rating(1,3), app.app_user_rating(2,-2)')
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/cursors.py:170: in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/cursors.py:335: in _query
+    conn.query(q)
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/connections.py:581: in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/connections.py:857: in _read_query_result
+    result.read()
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/connections.py:1290: in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/connections.py:810: in _read_packet
+    packet.raise_for_error()
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/protocol.py:219: in raise_for_error
+    err.raise_mysql_exception(self._data)
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/err.py:154: in raise_mysql_exception
+    raise errorclass(errno, errval, sqlstate=sqlstate)
+E   pymysql.err.OperationalError: (2013, 'mariamem database instance terminated: json: cannot unmarshal number 65538 into Go struct field Result.result.server_status of type uint16')
+__________ ERROR at setup of test_02_next_test_has_imported_baseline ___________
+python/mariamem/pytest_plugin.py:121: in mariamem_snapshot
+    mariamem_prepare(mariamem_server)
+tests/dump_import_spike/conftest.py:37: in prepare
+    observation = observe(connection)
+                  ^^^^^^^^^^^^^^^^^^^
+tests/dump_import_spike/oracles.py:72: in observe
+    cursor.execute('SELECT app.app_user_rating(1,3), app.app_user_rating(2,-2)')
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/cursors.py:170: in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/cursors.py:335: in _query
+    conn.query(q)
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/connections.py:581: in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/connections.py:857: in _read_query_result
+    result.read()
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/connections.py:1290: in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/connections.py:810: in _read_packet
+    packet.raise_for_error()
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/protocol.py:219: in raise_for_error
+    err.raise_mysql_exception(self._data)
+/opt/hostedtoolcache/Python/3.14.8/x64/lib/python3.14/site-packages/pymysql/err.py:154: in raise_mysql_exception
+    raise errorclass(errno, errval, sqlstate=sqlstate)
+E   pymysql.err.OperationalError: (2013, 'mariamem database instance terminated: json: cannot unmarshal number 65538 into Go struct field Result.result.server_status of type uint16')
+=========================== short test summary info ============================
+ERROR tests/dump_import_spike/workflow.py::test_01_application_commit - pymysql.err.OperationalError: (2013, 'mariamem database instance terminated: json: cannot unmarshal number 65538 into Go struct field Result.result.server_status of type uint16')
+ERROR tests/dump_import_spike/workflow.py::test_02_next_test_has_imported_baseline - pymysql.err.OperationalError: (2013, 'mariamem database instance terminated: json: cannot unmarshal number 65538 into Go struct field Result.result.server_status of type uint16')
+2 errors in 0.41s

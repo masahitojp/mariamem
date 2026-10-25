@@ -1,0 +1,136 @@
+{
+  "result": "FAIL",
+  "dump_sha256": "081ef0273c3625cb1d2a143415b90e9845bc2132312853a047eed09c8807e87c",
+  "source_commit": "5a9661d821150b3992466fa49a071a213cbaab78",
+  "host_source_commit": "5a9661d821150b3992466fa49a071a213cbaab78",
+  "host_buildinfo": "/home/runner/work/_temp/dump-work/comparison/temp/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.4-0.20261025110936-5a9661d82115\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=5a9661d821150b3992466fa49a071a213cbaab78\n\tbuild\tvcs.time=2026-10-25T11:09:36Z\n\tbuild\tvcs.modified=false\n",
+  "host_sha256": "8c1e1763022e7d0fd2b58b019a0f4344aeb99fc2c59bf88c0f8a965666a2a7ee",
+  "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "binding": {
+    "schema": 1,
+    "result": "BOUND",
+    "source_commit": "5a9661d821150b3992466fa49a071a213cbaab78",
+    "canonical_dump_sha256": "081ef0273c3625cb1d2a143415b90e9845bc2132312853a047eed09c8807e87c",
+    "origin_manifest_sha256": "2850011163620f3a9e6c8dd0b343e54835c6d8b475706b0671302121de8a0b10",
+    "verified_inputs": {
+      "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+      "tests/preparation_migration_acceptance/conftest.py": "97761301e03a35982eaeab6a85ddad901c0e3b3ce9e6f2b71824fa264ab8e037",
+      "tests/preparation_migration_acceptance/migrations/env.py": "c99f06628878c0bed82471a6fd84fed47f7c5e980e98f8ba91fa9048148a5a8a",
+      "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+      "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006",
+      "tests/preparation_migration_acceptance/observe.py": "4cd178a9bc0bfce462bf7dd9c7b72858bf3b6fc2cd28fe94804006b66e685eb5",
+      "tests/preparation_migration_acceptance/run.py": "2d8b145bb207f6de17883d7d969fe640b23c30ba8ac12490c8fd544f6b8a5d42",
+      "tests/preparation_migration_acceptance/workflow.py": "34853f80a4ab1e83c38776b158a2ad410820d84f5f51e7393982fbb02158146f",
+      "tests/dump_import_spike/producer.py": "ddfced54c4d4ef0affd4ae4039f7313a8b232ea95bf6e71df81269c464d08e63"
+    },
+    "origin_source_commit": "6d81a2f99d0b5bd09bb5ab48dbf1ae23ca27e149",
+    "preserved_artifact_source_commit": "03cad716fd3a0a44558ef0133566b85f6ec8b1ba",
+    "dump_regenerated": true,
+    "provenance": "Original producer PASS remains bound to origin_source_commit; fresh candidate production is recorded separately.",
+    "candidate_producer": {
+      "result": "PASS",
+      "source_commit": "5a9661d821150b3992466fa49a071a213cbaab78",
+      "manifest_sha256": "59d4b5ae405dee96249d68142002631595d1352a69ae0dc2c359ad51a5ee2c36",
+      "dump_sha256": "081ef0273c3625cb1d2a143415b90e9845bc2132312853a047eed09c8807e87c",
+      "reproduced_exact_canonical_bytes": true
+    }
+  },
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+  "packages": {
+    "pytest": "9.0.2",
+    "PyMySQL": "1.2.3",
+    "SQLAlchemy": "2.0.54"
+  },
+  "runs": {
+    "native-success": {
+      "accepted": false,
+      "exit_code": 1,
+      "counts": {
+        "tests": 2,
+        "errors": 2,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0
+    },
+    "reader-success": {
+      "accepted": false,
+      "exit_code": 1,
+      "counts": {
+        "tests": 2,
+        "errors": 2,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0
+    },
+    "native-sql_failure": {
+      "accepted": true,
+      "exit_code": 1,
+      "counts": {
+        "tests": 2,
+        "errors": 2,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0
+    },
+    "native-malformed": {
+      "accepted": true,
+      "exit_code": 1,
+      "counts": {
+        "tests": 2,
+        "errors": 2,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0
+    },
+    "native-source": {
+      "accepted": true,
+      "exit_code": 1,
+      "counts": {
+        "tests": 2,
+        "errors": 2,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0
+    },
+    "reader-sql_failure": {
+      "accepted": true,
+      "exit_code": 1,
+      "counts": {
+        "tests": 2,
+        "errors": 2,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0
+    },
+    "reader-malformed": {
+      "accepted": true,
+      "exit_code": 1,
+      "counts": {
+        "tests": 2,
+        "errors": 2,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0
+    },
+    "reader-source": {
+      "accepted": true,
+      "exit_code": 1,
+      "counts": {
+        "tests": 2,
+        "errors": 2,
+        "failures": 0,
+        "skipped": 0
+      },
+      "original_endpoint_contacts": 0
+    }
+  },
+  "original_endpoint_contacts": 0
+}

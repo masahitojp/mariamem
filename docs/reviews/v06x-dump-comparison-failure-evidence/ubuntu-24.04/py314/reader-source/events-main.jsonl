@@ -1,0 +1,6 @@
+{"event": "source_start", "worker": "main", "id": "3f29daedde724412e4f365c7eecf73ac", "runtime_pid": 4660, "host_pid": 4660}
+{"event": "prepare_start", "worker": "main", "route": "reader", "mode": "source"}
+{"event": "partial_source_state", "worker": "main", "tables": []}
+{"event": "prepare_error", "worker": "main", "route": "reader", "mode": "source", "reason": "unsupported_client_command", "stage": "preflight", "location": {"ordinal": 91, "byte_start": 7418, "byte_end": 7451, "line_start": 203, "line_end": 203}, "errno": null, "sqlstate": null, "original_exception": null, "next_action": "Inspect the preserved original-file location against the native control; discard this source before retrying."}
+{"event": "preparation_connections_closed", "worker": "main"}
+{"event": "source_cleanup", "worker": "main", "closed": true, "host_reaped": true, "directory_removed": true}

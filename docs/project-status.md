@@ -865,7 +865,7 @@ Automatic preparation
 routing remains excluded from0.6.0; live and broader diagnostics/framework
 coverage remain separate decisions.
 
-**Dump import — bounded comparison resumed after preflight; candidate prepared.** The
+**Dump import — native reference PASS; guest comparison blocked by runtime status decoding.** The
 [dump comparison proposal](reviews/v06x-dump-import-design.md) reuses the source
 inventory and completed migration lifecycle. It recommends comparing an optional
 native client with a bounded library reader on the same freshly produced,
@@ -917,6 +917,17 @@ before two-child lifecycle and failure/admission controls on both OS/interpreter
 boundaries. Local input verification and focused tests passed; native/guest
 comparison results are not claimed before the CI handoff. No views/triggers
 coverage, route recommendation or comparison completion is claimed here.
+[CI40188523035](https://github.com/masahitojp/mariamem/actions/runs/40188523035)
+on exact5a9661d subsequently reproduced/bound the canonical bytes and passed
+native references on Ubuntu x86_64 and Mac arm64. Both guest import routes
+completed import, then failed at the data-reading function: internal JSON status
+65538 cannot decode into the host's uint16 field. Complete comparison and
+two-child behavior remain unproven; all eight positive lifecycle cohorts failed
+in setup before Snapshot. The24 negative scenarios passed their classifiers.
+The [failure review and saved evidence](reviews/v06x-dump-comparison-ci-failure.md)
+recommend a separately approved, bounded host decoder correction and unchanged
+comparison rerun. No runtime fix or new CI submission has been performed;
+the design requires a separate scope decision at this blocker.
 This work performs no productization, main integration, Qualification or release;
 those remain separate gates.
 

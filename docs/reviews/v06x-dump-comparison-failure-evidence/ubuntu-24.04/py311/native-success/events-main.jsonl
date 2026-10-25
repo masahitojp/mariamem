@@ -1,0 +1,4 @@
+{"event": "source_start", "worker": "main", "id": "230c7ff76c59160fa2fcaa10b08d270b", "runtime_pid": 3814, "host_pid": 3814}
+{"event": "prepare_start", "worker": "main", "route": "native", "mode": "success"}
+{"event": "preparation_connections_closed", "worker": "main"}
+{"event": "source_cleanup", "worker": "main", "closed": true, "host_reaped": true, "directory_removed": true}
