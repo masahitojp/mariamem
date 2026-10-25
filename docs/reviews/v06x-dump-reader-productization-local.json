@@ -1,0 +1,27 @@
+{
+  "source_commit": "2d76ba1b3f206fd1c644ddc72ce72a28eea9f498",
+  "branch": "experiment/dump-reader-productization",
+  "base_source_commit": "82877a2fc1d87d0d7cfe130c5467d3625bb6e16a",
+  "host_prerequisite_commit": "057ee1c787d615b54dcd2518ef97948937d342e8",
+  "local_checks": {
+    "focused_tests": {
+      "passed": 63,
+      "python": "3.14",
+      "command": "PYTHONPATH=python python -m pytest tests/test_dump_import.py tests/test_dump_import_acceptance.py tests/test_dump_product_binding.py -q"
+    },
+    "acquisition_unit_tests": {
+      "passed": 25
+    },
+    "pytest_collection": {
+      "collected": 1032,
+      "errors": 0
+    },
+    "public_source_check": "PASS",
+    "staged_diff_check": "PASS"
+  },
+  "installed_wheel_tested_locally": false,
+  "real_guest_import_tested_locally": false,
+  "new_ci_result": null,
+  "canonical_dump_sha256": "081ef0273c3625cb1d2a143415b90e9845bc2132312853a047eed09c8807e87c",
+  "scope": "Candidate implementation only; host adoption/main integration/Qualification/release separate"
+}

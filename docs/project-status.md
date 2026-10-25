@@ -973,18 +973,28 @@ matrices passed with16 child test passes and24 accepted negative scenarios.
 The experimental host delta is recorded and unchanged. The authorized spike
 exit criterion is satisfied: **comparison complete, conditional on that host
 correction**. The new receipt and closure are linked from the current exit status.
-Host correction adoption and library / external client / defer / productization
-remain for the separate post-spike review; none is selected or started here.
+At spike closure, host correction adoption and route/productization selection
+remained separate post-spike decisions.
 The [post-spike Human Review](reviews/v06x-dump-post-spike-review.md) now recommends
 starting bounded Python library productization, with a supported-format/resource
 contract, explicit preparation entry and maintained differential acceptance fixed
-first. The parser is still test-only; this recommendation is awaiting the Human's
+first. The review's recommendation originally awaited the Human's
 route/scope decision. The demonstrated external-client recipe is the alternative
 if bounded parser ownership cannot be accepted. Host correction adoption remains
 separate and is required by both routes; no implementation or integration is
 authorized merely by the review.
-This work performs no productization, main integration, Qualification or release;
-those remain separate gates.
+The Human subsequently selected the explicit Python `import_dump(db, path)`
+helper for test preparation and authorized bounded productization. Implementation
+is active on `experiment/dump-reader-productization`, starting from main82877a2
+with the host correction isolated in its own experimental prerequisite commit.
+Candidate2d76ba1b3f206fd1c644ddc72ce72a28eea9f498 has
+[local contract checks](reviews/v06x-dump-reader-productization-local.json)
+(63 focused tests and25 acquisition guard tests PASS). Its
+[contract and usage](https://github.com/masahitojp/mariamem/blob/2d76ba1b3f206fd1c644ddc72ce72a28eea9f498/docs/importing-dump.md)
+are ready for separate installed-wheel CI. It has no installed-package runtime
+acceptance receipt yet; the
+spike PASS is not relabeled. Host correction adoption, main integration,
+Qualification and release remain separate decisions.
 
 
 **Prepared Statements — complete and adopted on main.** See the final P6
