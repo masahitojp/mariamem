@@ -19,6 +19,9 @@ def sha(path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--workspace', type=Path, required=True)
+    parser.add_argument('--bottle-key', default='arm64_golden_gate')
+    parser.add_argument('--formula-json', type=Path)
+    parser.add_argument('--formula-source', type=Path)
     args = parser.parse_args()
     workspace = args.workspace.resolve()
     temp, evidence = workspace / 'temp', workspace / 'evidence'
@@ -31,16 +34,19 @@ def main():
     process = None
     try:
         assert platform.system() == 'Darwin' and platform.machine() == 'arm64'
-        formula = json.loads((evidence / 'homebrew-formula.json').read_text())
+        formula = json.loads((args.formula_json or evidence / 'homebrew-formula.json').read_text())
         assert formula['versions']['stable'] == '12.3.3'
-        content = json.loads(subprocess.check_output(['gh', 'api',
-            'repos/Homebrew/homebrew-core/contents/Formula/m/mariadb@12.3.rb?ref='
-            + report['formula_commit']], text=True))
-        formula_bytes = base64.b64decode(content['content'])
+        if args.formula_source:
+            formula_bytes = args.formula_source.read_bytes()
+        else:
+            content = json.loads(subprocess.check_output(['gh', 'api',
+                'repos/Homebrew/homebrew-core/contents/Formula/m/mariadb@12.3.rb?ref='
+                + report['formula_commit']], text=True))
+            formula_bytes = base64.b64decode(content['content'])
         assert hashlib.sha256(formula_bytes).hexdigest() == formula['ruby_source_checksum']['sha256']
         (evidence / 'mariadb@12.3.rb').write_bytes(formula_bytes)
-        bottle = temp / 'mariadb-12.3.3.arm64_golden_gate.bottle.tar.gz'
-        pin = formula['bottle']['stable']['files']['arm64_golden_gate']
+        bottle = temp / ('mariadb-12.3.3.'+args.bottle_key+'.bottle.tar.gz')
+        pin = formula['bottle']['stable']['files'][args.bottle_key]
         assert sha(bottle) == pin['sha256']
         report['bottle'] = pin
         excluded = []
