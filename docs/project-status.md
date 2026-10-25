@@ -890,9 +890,17 @@ This acceptance is not reusable-gate, setup-cost or dump-import evidence.
 The [Linux guard follow-up](reviews/v06x-dump-acquisition-guard.md) records
 source_commit `f94a2d4895a838faca3e3bfcafa3aa4ce3a18033`: exact per-program
 version/ELF architecture/hash, pinned image and source-SHA assertions replace
-the weak searches. Its local mutation checks passed; native CI verification is
-pending handoff, and no reusable automatic input gate is claimed from the old
-receipt. The workflow now runs acquisition only, with the producer job removed.
+the weak searches. CI40172057245 passed on exact f94a2d4, covering native
+identities and socket startup, not the explicit TCP producer/definer path.
+The Human requested that missing path and direct source/capture negative tests;
+the [producer preflight follow-up](reviews/v06x-dump-producer-preflight.md) records
+source_commit `353bf9291d96785f8dcaa3585cec00e56242256e`. Its25 local tests
+passed (real temporary Git repos for source identity; Docker fixtures for
+capture/probe). Actual native TCP/root dump connection, retained definer metadata,
+routine execution and probe cleanup remain pending the new CI handoff. The
+workflow runs this bounded native preflight only; application dump production,
+guest import and reader comparison stay stopped. The earlier acquisition-only
+receipts are not expanded into producer/gate/import evidence.
 Cold Mac/setup-cost claims require a separate clean-machine run with warm/cold
 cohorts distinguished. That work is not part of this acceptance. Comparison
 remains stopped; no route recommendation or comparison completion is claimed.

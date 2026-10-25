@@ -1,0 +1,33 @@
+{
+  "source_commit": "353bf9291d96785f8dcaa3585cec00e56242256e",
+  "local_tests": {
+    "interpreter": "Python3.14",
+    "normal": {
+      "methods": 25,
+      "result": "PASS"
+    },
+    "optimized": {
+      "methods": 25,
+      "result": "PASS"
+    },
+    "boundaries": {
+      "parsed_receipt_and_ELF": 6,
+      "real_Git_source_identity": 6,
+      "capture_with_mock_Docker": 6,
+      "TCP_probe_with_mock_Docker": 7
+    }
+  },
+  "syntax": "PASS",
+  "workflow_syntax_and_single_job_scope": "PASS",
+  "public_source_files": 5250,
+  "native_TCP_producer_execution": "pending next CI submission",
+  "previous_native_CI": {
+    "run_id": 40172057245,
+    "job_id": 121104788865,
+    "source_commit": "f94a2d4895a838faca3e3bfcafa3aa4ce3a18033",
+    "result": "PASS",
+    "connection_scope": "socket acquisition only; no TCP producer proof"
+  },
+  "application_dump_comparison_resumed": false,
+  "cold_Mac_run": false
+}

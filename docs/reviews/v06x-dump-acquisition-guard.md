@@ -47,8 +47,10 @@ job does not start or discard an additional dump experiment.
 Local verification passed:
 
 - Six unittest methods, including per-program version/path/hash/architecture,
-  program inventory, source commit/tag/abbreviation, host/image/startup and ELF
-  header mutations. The same tests also passed under `python3 -O`.
+  program inventory, forged source commit/tag/abbreviation receipt fields passed
+  to `validate`, host/image/startup and ELF header mutations. These six methods
+  did not call `source_identity` or `capture`; their PASS is not direct local
+  proof of either function. The same tests also passed under `python3 -O`.
 - Touched Python syntax checks; YAML parsing and workflow structure checks for
   acquisition-only jobs and explicit GitHub source-SHA wiring.
 - Public-source boundary check (5250 files on the experiment candidate), plus
@@ -61,3 +63,9 @@ to d19ab2e and is not relabelled. Do not reuse the old workflow as an automatic
 input gate; any later gate receipt must come from the asserted exact-source
 workflow and preserve these host/scope limits. Even a new acquisition PASS does
 not authorize the stopped dump comparison or prove setup cost/import behavior.
+
+Subsequent status: CI40172057245 passed on exact f94a2d4. Its socket startup
+query does not prove the producer's explicit TCP/root/dump/DEFINER path. The
+[producer preflight follow-up](v06x-dump-producer-preflight.md) adds that bounded
+probe and direct local tests for the previously uncovered functions. This
+clarification does not relabel the old six tests or old CI scope.

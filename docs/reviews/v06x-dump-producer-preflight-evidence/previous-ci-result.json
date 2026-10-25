@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "scope": "native acquisition only on observed host",
+  "dump_generated": false,
+  "reader_executed": false,
+  "source_commit": "f94a2d4895a838faca3e3bfcafa3aa4ce3a18033",
+  "pin_sha256": "b274adeca6154766eaf9fb7ecbf1588640bdae3415b3fc2b13a39eccf1fc461c"
+}

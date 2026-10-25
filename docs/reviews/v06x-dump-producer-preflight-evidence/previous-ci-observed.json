@@ -1,0 +1,54 @@
+{
+  "source": {
+    "object_sha": "f94a2d4895a838faca3e3bfcafa3aa4ce3a18033",
+    "object_type": "commit",
+    "source_commit": "f94a2d4895a838faca3e3bfcafa3aa4ce3a18033"
+  },
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64"
+  },
+  "image_ref": "mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e",
+  "programs": {
+    "mariadbd": {
+      "path": "/usr/sbin/mariadbd",
+      "sha256": "5ff0bff4f2391b3fffcb9cfee95546fd5ad37e835c20a5e4f75a168f22b68b90",
+      "version": "mariadbd  Ver 12.3.3-MariaDB-ubu2404 for debian-linux-gnu on x86_64 (mariadb.org binary distribution)",
+      "architecture": {
+        "format": "ELF",
+        "bits": 64,
+        "byte_order": "little",
+        "machine": 62
+      }
+    },
+    "mariadb": {
+      "path": "/usr/bin/mariadb",
+      "sha256": "d720d1f98dea0e2c8806aac985d2b159da8b36f838043512ea788de077dabbda",
+      "version": "mariadb from 12.3.3-MariaDB, client 15.2 for debian-linux-gnu (x86_64) using  EditLine wrapper",
+      "architecture": {
+        "format": "ELF",
+        "bits": 64,
+        "byte_order": "little",
+        "machine": 62
+      }
+    },
+    "mariadb-dump": {
+      "path": "/usr/bin/mariadb-dump",
+      "sha256": "f9fc38479694c3a27260281e09fccb5c6e8788361f3e72d54ad36ac8a03cec05",
+      "version": "mariadb-dump from 12.3.3-MariaDB, client 10.20 for debian-linux-gnu (x86_64)",
+      "architecture": {
+        "format": "ELF",
+        "bits": 64,
+        "byte_order": "little",
+        "machine": 62
+      }
+    }
+  },
+  "image": {
+    "id": "sha256:dfff46ef3f9d674ab66853ee68066e495af7942bfa4255dc39ce2ff64ac05cbe",
+    "os": "linux",
+    "architecture": "amd64"
+  },
+  "container_image": "sha256:dfff46ef3f9d674ab66853ee68066e495af7942bfa4255dc39ce2ff64ac05cbe",
+  "startup_query": "12.3.3-MariaDB-ubu2404\tx86_64\nroot\tlocalhost\n1\n"
+}
