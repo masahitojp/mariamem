@@ -1,0 +1,23 @@
+{
+  "source_commit": "9494e755a5e7d79a9702e1d1dc7c1caae993e801",
+  "host": "local macOS arm64",
+  "go_version": "go1.26.10",
+  "go_test_packages": [
+    "./internal/guest",
+    "./internal/mysqlwire"
+  ],
+  "go_test_result": "PASS",
+  "python": "3.14",
+  "pytest": "9.0.2",
+  "binding_framing_classifier_tests": 32,
+  "acquisition_unittests": 25,
+  "exact_committed_candidate_binding_tests": 15,
+  "public_source_check_files": 5269,
+  "diff_check": "PASS",
+  "application_comparison": "NOT_RUN_LOCALLY",
+  "input_binding": {
+    "result": "INPUTS_VERIFIED",
+    "dump_regenerated": false
+  },
+  "boundary": "Focused approved regression checks; no Qualification or release evidence."
+}

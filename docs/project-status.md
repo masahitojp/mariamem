@@ -928,6 +928,19 @@ The [failure review and saved evidence](reviews/v06x-dump-comparison-ci-failure.
 recommend a separately approved, bounded host decoder correction and unchanged
 comparison rerun. No runtime fix or new CI submission has been performed;
 the design requires a separate scope decision at this blocker.
+The Human then approved the bounded host correction, explicit binding delta and
+unchanged comparison rerun. New experiment source_commit
+`9494e755a5e7d79a9702e1d1dc7c1caae993e801` decodes unsigned32 internal status
+and projects its protocol low16 bits. The delta manifest pins the decoder and
+two regression files; guest/generated/canonical SQL/producer/oracles are
+unchanged. Local Go1.26.10 guest/mysqlwire package tests,32 binding/framing
+tests,25 acquisition unittests and public-source checks passed;15 binding tests
+also passed on the exact committed candidate. Saved
+[local checks and input binding](reviews/v06x-dump-status-decode-evidence/local-checks.json)
+are INPUTS_VERIFIED only, with no local dump regeneration/comparison claim.
+The new candidate is prepared for the same native/guest comparison CI; its
+runtime matrix result is not yet established. The failed5a9661d receipt remains
+unchanged and is not relabeled as a corrected PASS.
 This work performs no productization, main integration, Qualification or release;
 those remain separate gates.
 
