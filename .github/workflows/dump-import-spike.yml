@@ -1,4 +1,4 @@
-name: Dump native acquisition preflight
+name: Dump native producer preflight
 on:
   push:
     branches: [experiment/dump-import]
@@ -7,6 +7,7 @@ on:
       - 'tests/dump_import_spike/linux_acquisition.py'
       - 'tests/dump_import_spike/linux-native-pin.json'
       - 'tests/dump_import_spike/test_linux_acquisition.py'
+      - 'tests/dump_import_spike/producer.py'
       - 'scripts/git_identity.py'
   workflow_dispatch:
 permissions:
@@ -26,7 +27,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
       - name: Exact identity mutation controls
         run: python3 -m unittest discover -s tests/dump_import_spike -p test_linux_acquisition.py -v
-      - name: Assert source and each native executable identity
+      - name: Assert native identities and exact TCP producer path
         env:
           NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
           EXPECTED_SOURCE_COMMIT: ${{ github.sha }}
