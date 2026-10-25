@@ -975,6 +975,14 @@ exit criterion is satisfied: **comparison complete, conditional on that host
 correction**. The new receipt and closure are linked from the current exit status.
 Host correction adoption and library / external client / defer / productization
 remain for the separate post-spike review; none is selected or started here.
+The [post-spike Human Review](reviews/v06x-dump-post-spike-review.md) now recommends
+starting bounded Python library productization, with a supported-format/resource
+contract, explicit preparation entry and maintained differential acceptance fixed
+first. The parser is still test-only; this recommendation is awaiting the Human's
+route/scope decision. The demonstrated external-client recipe is the alternative
+if bounded parser ownership cannot be accepted. Host correction adoption remains
+separate and is required by both routes; no implementation or integration is
+authorized merely by the review.
 This work performs no productization, main integration, Qualification or release;
 those remain separate gates.
 
