@@ -1237,7 +1237,10 @@ is new product-candidate evidence; prior spike PASS is not relabeled. The
 [adoption review](reviews/v06x-dump-reader-adoption-review.md) recommends completing
 the maintained main/PR differential gate and separating historical delta approval
 from continuing source binding before main adoption. Runtime validation is PASS;
-that CI handoff remains unfinished. The host status correction is
+the Human requested its CI follow-up. The
+[maintained-CI changes](reviews/v06x-dump-reader-ci-handoff.md) add main/PR triggers,
+current clean source/tree binding and negative controls; their new exact-source
+CI result is still required. The host status correction is
 an isolated prerequisite commit; its adoption, main integration, Qualification
 and release remain separate Human decisions. Guest, generated code and release
 ledgers are unchanged.

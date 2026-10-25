@@ -19,31 +19,11 @@ def digest(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
-def validate_host_delta(root):
-    """Only the separately approved, hash-pinned host correction may differ."""
-    approval = json.loads((root/'tests/dump_import_acceptance/approved-host-delta.json').read_text())
-    require(approval['baseline_source_commit'] == ORIGIN, 'host delta baseline changed')
-    changed = subprocess.check_output(['git', 'diff', '--name-only', ORIGIN, 'HEAD', '--',
-        'cmd', 'internal', 'python/mariamem', 'python/setup.cfg', 'guest', 'go.mod', 'go.sum', 'release'], cwd=root, text=True)
-    # Include local edits during development as well as exact committed candidates.
-    local = subprocess.check_output(['git', 'diff', '--name-only', 'HEAD', '--',
-        'cmd', 'internal', 'python/mariamem', 'python/setup.cfg', 'guest', 'go.mod', 'go.sum', 'release'], cwd=root, text=True)
-    paths = set(changed.splitlines()) | set(local.splitlines())
-    paths.update(subprocess.check_output(['git', 'ls-files', '--others', '--exclude-standard', '--',
-        'cmd', 'internal', 'python/mariamem', 'python/setup.cfg', 'guest', 'go.mod', 'go.sum', 'release'], cwd=root, text=True).splitlines())
-    require(paths == set(approval['files']) | {'python/mariamem/dump.py', 'python/mariamem/__init__.py', 'python/setup.cfg'}, 'unapproved runtime/build input delta')
-    for name, pin in approval['files'].items():
-        require(name in {'internal/guest/guest.go', 'internal/guest/status_test.go',
-                         'internal/mysqlwire/status_decode_test.go'}, 'unapproved host delta path')
-        original = subprocess.run(['git', 'show', ORIGIN+':'+name], cwd=root, capture_output=True)
-        require((digest(original.stdout) if original.returncode == 0 else None) == pin['before_sha256'],
-                'host delta original hash mismatch: '+name)
-        committed = subprocess.run(['git', 'show', 'HEAD:'+name], cwd=root, capture_output=True)
-        if name in changed.splitlines():
-            require(committed.returncode == 0 and digest(committed.stdout) == pin['after_sha256'],
-                    'host delta committed hash mismatch: '+name)
-        require(digest((root/name).read_bytes()) == pin['after_sha256'], 'host delta hash mismatch: '+name)
-    return approval
+def current_source(expected_source):
+    """Bind a clean current commit/tree, independently of historical experiment deltas."""
+    source = source_identity(expected_source)
+    tree = subprocess.check_output(['git', 'rev-parse', 'HEAD^{tree}'], cwd=ROOT, text=True).strip()
+    return dict(source_commit=source['source_commit'], source_tree_sha=tree)
 
 
 def validate_inputs(root=ROOT, here=HERE):
@@ -59,8 +39,9 @@ def validate_inputs(root=ROOT, here=HERE):
         require(actual == expected, 'migration/seed input changed: '+name)
         inputs[name] = actual
     producer = 'tests/dump_import_acceptance/producer.py'
-    original_producer = subprocess.check_output(['git', 'show', ORIGIN+':tests/dump_import_spike/producer.py'], cwd=root)
-    require((root/producer).read_bytes() == original_producer, 'producer input changed')
+    original_producer = (root/producer).read_bytes()
+    require(digest(original_producer) == 'ddfced54c4d4ef0affd4ae4039f7313a8b232ea95bf6e71df81269c464d08e63',
+            'producer input changed')
     inputs[producer] = digest(original_producer)
     tree = ast.parse(original_producer)
     literals = {n.targets[0].id: ast.literal_eval(n.value) for n in tree.body
@@ -69,10 +50,9 @@ def validate_inputs(root=ROOT, here=HERE):
     for key, name in [('extension_sql', 'EXTENSION'), ('extension_values_decimal_strings_binary_hex', 'VALUES'),
                       ('producer_options', 'OPTIONS')]:
         require(manifest[key] == literals[name], 'manifest/producer mismatch: '+key)
-    approval = validate_host_delta(root)
     return dict(canonical_dump_sha256=DUMP_SHA256, origin_manifest_sha256=digest(manifest_raw),
                 verified_inputs=inputs, origin_source_commit=ORIGIN, preserved_artifact_source_commit=PARKED,
-                approved_host_delta=approval, verified_product_sources={name: digest((root/name).read_bytes()) for name in ['python/mariamem/dump.py', 'python/mariamem/__init__.py', 'python/setup.cfg']})
+                verified_product_sources={name: digest((root/name).read_bytes()) for name in ['python/mariamem/dump.py', 'python/mariamem/__init__.py', 'python/setup.cfg']})
 
 
 def producer_receipt(directory, expected_source):
@@ -94,13 +74,14 @@ def producer_receipt(directory, expected_source):
 
 
 def bind(expected_source, producer_output=None):
-    source = source_identity(expected_source)
-    result = dict(schema=1, result='INPUTS_VERIFIED', source_commit=source['source_commit'],
+    source = current_source(expected_source)
+    result = dict(schema=2, result='INPUTS_VERIFIED', **source,
                   **validate_inputs(), dump_regenerated=False,
                   provenance='Original producer PASS remains bound to origin_source_commit; fresh candidate production is recorded separately.')
     if producer_output is not None:
         result['candidate_producer'] = producer_receipt(producer_output, expected_source)
         result.update(result='BOUND', dump_regenerated=True)
+    require(current_source(expected_source) == source, 'source changed while binding')
     return result
 
 

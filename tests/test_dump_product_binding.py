@@ -3,13 +3,14 @@ import json
 from pathlib import Path
 import shutil
 import sys
-import tempfile
+import subprocess
 from unittest.mock import patch
 
 import pytest
 
 sys.path.insert(0, str(Path(__file__).parent/'dump_import_acceptance'))
 import bind_input
+import linux_acquisition
 
 
 def test_existing_canonical_input_matches_current_producer_and_migrations():
@@ -42,7 +43,7 @@ def test_changed_source_input_is_rejected(name):
 
 
 def test_old_origin_pass_is_not_relabelled_as_candidate_generation():
-    with patch.object(bind_input, 'source_identity', return_value={'source_commit': '1'*40}):
+    with patch.object(bind_input, 'current_source', return_value={'source_commit': '1'*40, 'source_tree_sha': '2'*40}):
         result = bind_input.bind('1'*40)
     assert result['source_commit'] == '1'*40
     assert result['origin_source_commit'] == bind_input.ORIGIN
@@ -65,25 +66,62 @@ def test_fresh_producer_receipt_requires_exact_candidate_and_bytes(tmp_path):
         bind_input.producer_receipt(tmp_path, candidate)
 
 
-@pytest.mark.parametrize('name', ['internal/guest/guest.go', 'internal/guest/status_test.go',
-                                 'internal/mysqlwire/status_decode_test.go'])
-def test_host_delta_is_hash_pinned(name):
-    original = Path.read_bytes
-    target = bind_input.ROOT/name
-    def changed(path):
-        return b'unapproved host edit' if path == target else original(path)
-    with patch.object(Path, 'read_bytes', changed), pytest.raises(ValueError, match='host delta hash mismatch'):
-        bind_input.validate_host_delta(bind_input.ROOT)
+@pytest.fixture
+def repository(tmp_path, monkeypatch):
+    def git(*args):
+        return subprocess.check_output(['git', *args], cwd=tmp_path, text=True).strip()
+    git('init', '-q')
+    git('config', 'user.name', 'Binding test')
+    git('config', 'user.email', 'binding@example.test')
+    (tmp_path/'source').write_text('baseline')
+    git('add', '.')
+    git('commit', '-qm', 'baseline')
+    monkeypatch.setattr(bind_input, 'ROOT', tmp_path)
+    monkeypatch.setattr(linux_acquisition, 'ROOT', tmp_path)
+    return tmp_path, git
 
 
-@pytest.mark.parametrize('name', ['guest/wire_core.inc', 'internal/generatedgo/main.go',
-                                 'cmd/mariamem-host/main.go', 'go.mod'])
-def test_runtime_delta_does_not_allow_other_paths(name):
-    original = bind_input.subprocess.check_output
-    def changed(command, **kwargs):
-        value = original(command, **kwargs)
-        if command[:3] == ['git', 'diff', '--name-only']:
-            return value+name+'\n'
-        return value
-    with patch.object(bind_input.subprocess, 'check_output', changed), pytest.raises(ValueError, match='unapproved runtime/build'):
-        bind_input.validate_host_delta(bind_input.ROOT)
+def test_current_source_accepts_new_committed_runtime_without_experiment_history(repository):
+    root, git = repository
+    first = git('rev-parse', 'HEAD')
+    old = bind_input.current_source(first)
+    (root/'internal').mkdir()
+    (root/'internal/new.go').write_text('package internal\n')
+    git('add', '.')
+    git('commit', '-qm', 'ordinary future runtime change')
+    second = git('rev-parse', 'HEAD')
+    current = bind_input.current_source(second)
+    assert current['source_commit'] == second != first
+    assert current['source_tree_sha'] != old['source_tree_sha']
+    with pytest.raises(ValueError): bind_input.current_source(first)
+
+
+@pytest.mark.parametrize('kind', ['tracked', 'untracked', 'tag', 'abbreviated'])
+def test_current_source_rejects_dirty_or_noncommit_identity(repository, kind):
+    root, git = repository
+    source = git('rev-parse', 'HEAD')
+    if kind == 'tracked': (root/'source').write_text('dirty')
+    if kind == 'untracked': (root/'extra').write_text('dirty')
+    if kind == 'tag':
+        git('tag', '-am', 'tag object', 'v-test')
+        source = git('rev-parse', 'v-test')
+    if kind == 'abbreviated': source = source[:7]
+    with pytest.raises(ValueError): bind_input.current_source(source)
+
+
+def test_saved_binding_rejects_source_tree_and_product_hash_mutations(tmp_path):
+    current = dict(source_commit='1'*40, source_tree_sha='2'*40,
+                   verified_product_sources={'python/mariamem/dump.py': '3'*64})
+    path = tmp_path/'binding.json'
+    for mutated in [dict(current, source_commit='4'*40), dict(current, source_tree_sha='5'*40),
+                    dict(current, verified_product_sources={'python/mariamem/dump.py': '6'*64})]:
+        path.write_text(json.dumps(mutated))
+        with patch.object(bind_input, 'bind', return_value=current), pytest.raises(ValueError, match='binding mismatch'):
+            bind_input.check_binding(path, '1'*40)
+
+
+def test_binding_rechecks_source_after_reading_inputs():
+    first = dict(source_commit='1'*40, source_tree_sha='2'*40)
+    second = dict(first, source_tree_sha='3'*40)
+    with patch.object(bind_input, 'current_source', side_effect=[first, second]), pytest.raises(ValueError, match='source changed'):
+        bind_input.bind('1'*40)
