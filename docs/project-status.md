@@ -865,7 +865,7 @@ Automatic preparation
 routing remains excluded from0.6.0; live and broader diagnostics/framework
 coverage remain separate decisions.
 
-**Dump import — comparison design, awaiting Human decision.** The
+**Dump import — acquisition evidence accepted; comparison stopped.** The
 [dump comparison proposal](reviews/v06x-dump-import-design.md) reuses the source
 inventory and completed migration lifecycle. It recommends comparing an optional
 native client with a bounded library reader on the same freshly produced,
@@ -884,9 +884,19 @@ candidate/source identities, Linux CI40169643384, local Mac relocation/dependenc
 limits and the weaker Linux version assertions. The local Linux arm64 image is
 not a native-platform receipt. Additional work performed before the stop request
 is preserved separately and is not preflight acceptance evidence; guest dump
-import remains unexecuted. The task is stopped for preflight review; no route
-recommendation or comparison completion is claimed. Productization, main
-integration, Qualification and release remain separate gates.
+import remains unexecuted. The Human subsequently accepted the acquisition
+evidence for the observed hosts only: macOS27.0.1 arm64 and Ubuntu24.04 x86_64.
+This acceptance is not reusable-gate, setup-cost or dump-import evidence.
+The [Linux guard follow-up](reviews/v06x-dump-acquisition-guard.md) records
+source_commit `f94a2d4895a838faca3e3bfcafa3aa4ce3a18033`: exact per-program
+version/ELF architecture/hash, pinned image and source-SHA assertions replace
+the weak searches. Its local mutation checks passed; native CI verification is
+pending handoff, and no reusable automatic input gate is claimed from the old
+receipt. The workflow now runs acquisition only, with the producer job removed.
+Cold Mac/setup-cost claims require a separate clean-machine run with warm/cold
+cohorts distinguished. That work is not part of this acceptance. Comparison
+remains stopped; no route recommendation or comparison completion is claimed.
+Productization, main integration, Qualification and release remain separate gates.
 
 
 **Prepared Statements — complete and adopted on main.** See the final P6
