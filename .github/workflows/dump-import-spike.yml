@@ -1,4 +1,4 @@
-name: Dump import spike preflight
+name: Dump import spike
 on:
   push:
     branches: [experiment/dump-import]
@@ -42,4 +42,32 @@ jobs:
         with:
           name: dump-native-preflight-${{ github.sha }}
           path: build/dump-preflight
+          if-no-files-found: error
+  canonical-input:
+    needs: native-acquisition
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      mariadb:
+        image: mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+        ports: ['3307:3306']
+        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - run: python -m pip install --no-cache-dir Alembic==1.18.4 SQLAlchemy==2.0.54 PyMySQL==1.2.3
+      - name: Produce fixed extended migration application once
+        env:
+          NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
+        run: |
+          python scripts/experiment_disk.py --work-dir build/dump-input --min-free-gib 4 --budget-gib 1 --timeout 180 -- python tests/dump_import_spike/producer.py --container "$NATIVE_CONTAINER" --output build/dump-input
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: dump-canonical-input-${{ github.sha }}
+          path: build/dump-input
           if-no-files-found: error
