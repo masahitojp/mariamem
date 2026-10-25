@@ -230,3 +230,9 @@ Current internal architecture and technical limits belong in
 [architecture](v04-generated-go-architecture.md); published historical
 measurements are [evidence](../benchmarks/v043-characterization.md), not a
 performance promise.
+
+## Dump preparation
+
+The unreleased bounded `import_dump(db, path)` helper is described in the
+[dump preparation guide](importing-dump.md), including the `dump` extra, supported
+MariaDB producer profile and failure cleanup. It is not a general SQL-file runner.

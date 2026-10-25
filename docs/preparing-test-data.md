@@ -8,7 +8,8 @@ committed changes do not become the next test's starting data.
 `mariamem_prepare` is not tied to Alembic. It accepts a callback that receives
 the preparation DB; that callback can invoke your own setup code. The concrete
 recipe below uses synchronous Alembic with SQLAlchemy/PyMySQL. It does not
-implement dump import, rewrite SQL or automatically redirect preparation SQL.
+rewrite SQL or automatically redirect preparation SQL. The separate
+[dump preparation recipe](importing-dump.md) describes the bounded reader in unreleased source builds.
 
 ## An existing Alembic application
 
@@ -142,4 +143,6 @@ may continue. The recipe adds no automatic retry or database repair policy.
 The [candidate acceptance record](reviews/v06x-preparation-migration-productization.md)
 records the completed Python3.11/pytest7, Python3.14/pytest9 and two-worker
 native checks on macOS and Ubuntu. Arbitrary legacy applications,
-Django/mysqlclient and dump import remain separate coverage decisions.
+and Django/mysqlclient remain separate coverage decisions. The bounded
+[dump recipe](importing-dump.md) has its own native comparison and installed-package
+acceptance; it does not extend this migration recipe to arbitrary dump formats.

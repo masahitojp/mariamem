@@ -232,3 +232,4 @@ def start(**options):
 
 
 from .snapshot import Snapshot
+from .dump import DumpImportError, import_dump

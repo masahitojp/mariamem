@@ -1,0 +1,103 @@
+{
+  "source_commit": "07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+  "run_id": 40207664068,
+  "result": "PASS",
+  "jobs": {
+    "development-integration": {
+      "id": 121211973989,
+      "conclusion": "success"
+    },
+    "native-reference": {
+      "id": 121211974188,
+      "conclusion": "success"
+    },
+    "development-checks": {
+      "id": 121211974213,
+      "conclusion": "success"
+    },
+    "guest-comparison (macos-15)": {
+      "id": 121212176795,
+      "conclusion": "success"
+    },
+    "guest-comparison (ubuntu-24.04)": {
+      "id": 121212176797,
+      "conclusion": "success"
+    }
+  },
+  "artifacts": {
+    "12605101458": {
+      "name": "dump-product-comparison-ubuntu-24.04-07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+      "archive_sha256": "d16e71e2bca9bcd815090efea0131ad0f40cca08bf0aaac0868090152d4eeef6",
+      "reports": {
+        "comparison/evidence/campaign.json": {
+          "result": "PASS",
+          "source_commit": "07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+          "scenario_count": 0,
+          "variant_result": null
+        },
+        "comparison/evidence/py311/results.json": {
+          "result": "PASS",
+          "source_commit": "07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+          "scenario_count": 8,
+          "variant_result": "PASS"
+        },
+        "comparison/evidence/py314/results.json": {
+          "result": "PASS",
+          "source_commit": "07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+          "scenario_count": 8,
+          "variant_result": "PASS"
+        }
+      }
+    },
+    "12604572990": {
+      "name": "dump-product-comparison-macos-15-07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+      "archive_sha256": "8fcc8ab219cf53c238d0b4319ae080dcd0fbf8aaea982addb15cf8f0cc134d6c",
+      "reports": {
+        "comparison/evidence/campaign.json": {
+          "result": "PASS",
+          "source_commit": "07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+          "scenario_count": 0,
+          "variant_result": null
+        },
+        "comparison/evidence/macos-reference/reference.json": {
+          "result": "PASS",
+          "source_commit": "07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+          "scenario_count": 4,
+          "variant_result": null
+        },
+        "comparison/evidence/py311/results.json": {
+          "result": "PASS",
+          "source_commit": "07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+          "scenario_count": 8,
+          "variant_result": "PASS"
+        },
+        "comparison/evidence/py314/results.json": {
+          "result": "PASS",
+          "source_commit": "07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+          "scenario_count": 8,
+          "variant_result": "PASS"
+        }
+      }
+    },
+    "12604406137": {
+      "name": "dump-product-native-07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+      "archive_sha256": "5feece78ecab0dc65744a243537320427baf2c12ae8ac9377b22f662fe2bd176",
+      "reports": {
+        "native/reference.json": {
+          "result": "PASS",
+          "source_commit": "07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+          "scenario_count": 4,
+          "variant_result": null
+        },
+        "variant/reference.json": {
+          "result": "PASS",
+          "source_commit": "07c9d7ec26ea57bc2ff0c192d6b2cffd686b4207",
+          "scenario_count": 0,
+          "variant_result": null
+        }
+      }
+    }
+  },
+  "scope": "Bounded installed Python helper and isolated host correction; not main adoption or Qualification/release",
+  "archives": "Original ZIP bytes encoded as base64 for text-only public-source policy; decode then verify archive_sha256 before inspection."
+}

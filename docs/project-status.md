@@ -1219,3 +1219,34 @@ Main adoption is complete. Target version, final Qualification, Product Validati
 and publication remain separate decisions and have not been initiated here.
 No broader shared-memory proof or new
 performance improvement is claimed. Guides use current-source-build wording and retain publishedv0.5.3 history.
+
+## Bounded dump reader and host status prerequisite — adopted on main, unreleased
+
+On2026-10-26 the Human explicitly approved two separately identified parts of
+the [reviewed candidate](reviews/v06x-dump-reader-final-review.md):
+
+1. **Host status prerequisite:** `internal/guest/guest.go` plus guest/mysqlwire
+   tests, landed independently in commit `02b58b3`. Internal unsigned32 status is
+   validated and projected to its low16 protocol flags.
+2. **Bounded Python dump reader:** explicit `mariamem.import_dump`, the optional
+   `dump` extra, maintained tests, [guide](importing-dump.md) and main/PR workflow,
+   selected as a separate product commit on top of the prerequisite.
+
+The landing is constructed directly from stable main
+`82877a2fc1d87d0d7cfe130c5467d3625bb6e16a`; experimental/design history is not merged.
+Runtime, SDK, tests and workflow match tested candidate
+`e3c55ca14acd2e6813e8815bb96e4307b6b1d625`. Guide wording and this Human decision
+record are adoption bookkeeping. Original
+[CI40211613827](https://github.com/masahitojp/mariamem/actions/runs/40211613827)
+and [saved receipt](reviews/v06x-dump-reader-evidence/ci-40211613827/assessment.json)
+remain bound to that candidate; they are not Qualification or a PASS relabeled
+to the new main SHA. The new main source is submitted to its normal workflows.
+
+The supported format remains the finite MariaDB12.3.3 producer profile, with
+explicit errors, source discard and independent prepared children. Go has no new
+dump API. Parser maintenance remains bounded by the documented profile and native
+differential gate. Views/triggers, other producers/MySQL/legacy/Django inputs,
+large-input performance and cold/setup-cost claims remain outside this adoption.
+Guest/generated code, canonical generation inputs, release ledgers and version
+metadata are unchanged. Target version, Qualification and release remain separate
+Human decisions.
