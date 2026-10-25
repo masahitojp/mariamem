@@ -8,7 +8,8 @@ committed changes do not become the next test's starting data.
 `mariamem_prepare` is not tied to Alembic. It accepts a callback that receives
 the preparation DB; that callback can invoke your own setup code. The concrete
 recipe below uses synchronous Alembic with SQLAlchemy/PyMySQL. It does not
-implement dump import, rewrite SQL or automatically redirect preparation SQL.
+rewrite SQL or automatically redirect preparation SQL. The separate
+[dump preparation recipe](importing-dump.md) describes the bounded reader candidate.
 
 ## An existing Alembic application
 

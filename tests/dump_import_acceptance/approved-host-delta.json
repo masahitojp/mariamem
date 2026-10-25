@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "baseline_source_commit": "6d81a2f99d0b5bd09bb5ab48dbf1ae23ca27e149",
+  "failed_candidate_source_commit": "5a9661d821150b3992466fa49a071a213cbaab78",
+  "approval": "Human approved host-only status decoder correction, regression checks, explicit binding delta and unchanged comparison rerun after failure review 7b098b57ffa37ee0b2ce37297fa28f54f711d3aa. No guest/generated/productization/main/Qualification/release approval.",
+  "files": {
+    "internal/guest/guest.go": {
+      "before_sha256": "77b696866b1cb1e3015389519ba4a74b2aeb62977aec18c1b44d157e2094db54",
+      "after_sha256": "9927caadd560d36f54f39d683fbfd2874c64857cdced63662fef0554b1fc54d0"
+    },
+    "internal/guest/status_test.go": {
+      "before_sha256": null,
+      "after_sha256": "dda4dd3dc5209ac183677faba9ae508d9c9576ee37ae2f3506b56c9241d8694c"
+    },
+    "internal/mysqlwire/status_decode_test.go": {
+      "before_sha256": null,
+      "after_sha256": "5f010095915f8d95eff890ca93f38fa3587e92fdf627b9ea2dc88a6ddce19fd1"
+    }
+  },
+  "experimental_only": true,
+  "spike_pass_condition": "All dump comparison PASS results depend on this exact experimental host correction. Host adoption is a separate decision after the spike.",
+  "status_contract": {
+    "input": "unsigned 32-bit integer",
+    "minimum": 0,
+    "maximum": 4294967295,
+    "protocol_projection": "status & 0xffff",
+    "preserved_protocol_bits": "all low16 bits, including transaction, autocommit, more-results, cursor, last-row and prepared OUT-parameter flags",
+    "rejected": [
+      "negative",
+      "fractional",
+      "above uint32",
+      "string",
+      "boolean",
+      "object",
+      "array",
+      "explicit null"
+    ],
+    "missing_status": "zero, including ready envelope",
+    "nested_results": "same validation and projection; invalid nested status rejects the entire result",
+    "failure_atomicity": "no partial Result replacement"
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "fixture_origin": "existing repository-authored migration application, extended",
+  "source_commit": "6d81a2f99d0b5bd09bb5ab48dbf1ae23ca27e149",
+  "migration_owner": {
+    "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+    "tests/preparation_migration_acceptance/conftest.py": "97761301e03a35982eaeab6a85ddad901c0e3b3ce9e6f2b71824fa264ab8e037",
+    "tests/preparation_migration_acceptance/migrations/env.py": "c99f06628878c0bed82471a6fd84fed47f7c5e980e98f8ba91fa9048148a5a8a",
+    "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+    "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006",
+    "tests/preparation_migration_acceptance/observe.py": "4cd178a9bc0bfce462bf7dd9c7b72858bf3b6fc2cd28fe94804006b66e685eb5",
+    "tests/preparation_migration_acceptance/run.py": "2d8b145bb207f6de17883d7d969fe640b23c30ba8ac12490c8fd544f6b8a5d42",
+    "tests/preparation_migration_acceptance/workflow.py": "34853f80a4ab1e83c38776b158a2ad410820d84f5f51e7393982fbb02158146f"
+  },
+  "base_users": [
+    [
+      1,
+      "legacy",
+      0
+    ],
+    [
+      2,
+      "seed",
+      5
+    ]
+  ],
+  "base_addresses": [
+    [
+      1,
+      2,
+      "seed@example.test"
+    ]
+  ],
+  "revision": "m2_addresses",
+  "extension_sql": [
+    "CREATE TABLE user_import_values (\n        id INT NOT NULL PRIMARY KEY, user_id INT NOT NULL,\n        exact_value DECIMAL(20,6) NOT NULL, note LONGTEXT NULL,\n        payload VARBINARY(32) NULL,\n        CONSTRAINT fk_import_user FOREIGN KEY(user_id) REFERENCES users(id)\n    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+    "CREATE DEFINER='root'@'localhost' PROCEDURE app_user_values(IN requested_user INT)\n       READS SQL DATA SQL SECURITY DEFINER\n       BEGIN\n         SELECT id,user_id,exact_value,note,payload FROM user_import_values\n           WHERE user_id=requested_user ORDER BY id;\n         SELECT requested_user AS selected_user;\n       END",
+    "CREATE DEFINER='root'@'localhost' FUNCTION app_user_rating(requested_user INT, delta INT)\n       RETURNS INT DETERMINISTIC READS SQL DATA SQL SECURITY DEFINER\n       BEGIN\n         DECLARE current_rating INT;\n         SELECT rating INTO current_rating FROM users WHERE id=requested_user;\n         RETURN current_rating + delta;\n       END"
+  ],
+  "extension_values_decimal_strings_binary_hex": [
+    [
+      1,
+      1,
+      "12345678901234.123456",
+      null,
+      null
+    ],
+    [
+      2,
+      2,
+      "-1.000001",
+      "",
+      ""
+    ],
+    [
+      3,
+      2,
+      "0.100000",
+      "日本語🙂 'quoted' \"double\" \\ path; newline\nend",
+      "00273b5cff"
+    ],
+    [
+      4,
+      1,
+      "0.000000",
+      "backslash\\semicolon;quote'",
+      "00"
+    ]
+  ],
+  "producer_options": [
+    "--no-defaults",
+    "--protocol=tcp",
+    "--host=127.0.0.1",
+    "--port=3306",
+    "--user=root",
+    "--opt",
+    "--single-transaction",
+    "--skip-lock-tables",
+    "--skip-add-locks",
+    "--routines",
+    "--triggers",
+    "--skip-events",
+    "--hex-blob",
+    "--default-character-set=utf8mb4",
+    "--tz-utc",
+    "--order-by-primary",
+    "--skip-dump-date",
+    "app"
+  ],
+  "excluded": [
+    "views",
+    "triggers",
+    "events",
+    "packages",
+    "MySQL dumps",
+    "external legacy apps"
+  ],
+  "sql_mode": "STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+  "timezone": "+00:00",
+  "charset": "utf8mb4",
+  "collation": "utf8mb4_unicode_ci",
+  "definer": "root@localhost",
+  "sql_security": "DEFINER",
+  "result": "PASS",
+  "server": [
+    "12.3.3-MariaDB-ubu2404",
+    "x86_64"
+  ],
+  "dump_argv": [
+    "docker",
+    "exec",
+    "e07b034a283f7da9c60865160ed155ff8be29767f4b2419e0088a846113930f6",
+    "mariadb-dump",
+    "--no-defaults",
+    "--protocol=tcp",
+    "--host=127.0.0.1",
+    "--port=3306",
+    "--user=root",
+    "--opt",
+    "--single-transaction",
+    "--skip-lock-tables",
+    "--skip-add-locks",
+    "--routines",
+    "--triggers",
+    "--skip-events",
+    "--hex-blob",
+    "--default-character-set=utf8mb4",
+    "--tz-utc",
+    "--order-by-primary",
+    "--skip-dump-date",
+    "app"
+  ],
+  "dump_sha256": "081ef0273c3625cb1d2a143415b90e9845bc2132312853a047eed09c8807e87c"
+}

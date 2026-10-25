@@ -1,0 +1,172 @@
+name: Dump reader product candidate
+on:
+  push:
+    branches: [experiment/dump-reader-productization]
+    paths:
+      - '.github/workflows/dump-import-productization.yml'
+      - 'tests/dump_import_acceptance/**'
+      - 'tests/test_dump_import_acceptance.py'
+      - 'tests/test_dump_product_binding.py'
+      - 'scripts/git_identity.py'
+      - 'python/**'
+      - 'tests/test_dump_import.py'
+      - 'internal/guest/**'
+      - 'internal/mysqlwire/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-reference:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      mariadb:
+        image: mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+        ports: ['3307:3306']
+        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Fixed test-only dependencies
+        run: python -m pip install --no-cache-dir pytest==9.0.2 setuptools==80.9.0 wheel==0.45.1 -r tests/preparation_migration_acceptance/requirements.txt
+      - name: Input, framing and failure classifier controls
+        run: |
+          python -m unittest discover -s tests/dump_import_acceptance -p test_linux_acquisition.py -v
+          PYTHONPATH=python python -m pytest tests/test_dump_import.py tests/test_dump_product_binding.py tests/test_dump_import_acceptance.py -q
+      - name: Exact producer preflight and canonical byte binding
+        env:
+          NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
+        run: |
+          python tests/dump_import_acceptance/linux_acquisition.py --container "$NATIVE_CONTAINER" --expected-source-commit "$GITHUB_SHA" --output build/dump-reference/evidence/acquisition
+          python scripts/experiment_disk.py --work-dir build/dump-reference --min-free-gib 4 --budget-gib 1 --timeout 180 -- python tests/dump_import_acceptance/producer.py --container "$NATIVE_CONTAINER" --output build/dump-reference/evidence/candidate-producer
+          python tests/dump_import_acceptance/bind_input.py --expected-source-commit "$GITHUB_SHA" --producer-output build/dump-reference/evidence/candidate-producer --output build/dump-reference/evidence/binding.json
+      - name: Fresh native reference using the exact canonical bytes
+        env:
+          CLIENT_COMMAND: '["docker","run","--rm","-i","--network=host","--entrypoint=mariadb","mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e"]'
+        run: |
+          python scripts/experiment_disk.py --work-dir build/dump-reference --min-free-gib 4 --budget-gib 1 --timeout 300 -- python tests/dump_import_acceptance/native_reference.py --port 3307 --expected-source-commit "$GITHUB_SHA" --binding build/dump-reference/evidence/binding.json --client-command "$CLIENT_COMMAND" --output build/dump-reference/evidence/native
+      - name: Fresh same-application variant and native round trip
+        env:
+          NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
+        run: python tests/dump_import_acceptance/variant.py --container "$NATIVE_CONTAINER" --expected-source-commit "$GITHUB_SHA" --output build/dump-reference/evidence/variant
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: dump-product-native-${{ github.sha }}
+          path: build/dump-reference/evidence
+          if-no-files-found: error
+  guest-comparison:
+    needs: native-reference
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        id: minimum
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        id: current
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: dump-product-native-${{ github.sha }}
+          path: build/dump-ubuntu-reference
+      - name: Pinned interpreter consumers
+        env:
+          MINIMUM_PYTHON: ${{ steps.minimum.outputs.python-path }}
+          CURRENT_PYTHON: ${{ steps.current.outputs.python-path }}
+        run: |
+          "$MINIMUM_PYTHON" -m pip install --no-cache-dir pytest==7.0.0 setuptools==80.9.0 wheel==0.45.1 -r tests/preparation_migration_acceptance/requirements.txt
+          "$CURRENT_PYTHON" -m pip install --no-cache-dir pytest==9.0.2 setuptools==80.9.0 wheel==0.45.1 -r tests/preparation_migration_acceptance/requirements.txt
+          python scripts/git_identity.py inspect HEAD
+          "$CURRENT_PYTHON" scripts/build_alpha.py --ci-candidate
+          "$MINIMUM_PYTHON" -m pip install --no-deps build/dist/*.whl
+          "$CURRENT_PYTHON" -m pip install --no-deps build/dist/*.whl
+          "$MINIMUM_PYTHON" -m pytest tests/test_dump_import.py tests/test_dump_product_binding.py tests/test_dump_import_acceptance.py -q
+          "$CURRENT_PYTHON" -m pytest tests/test_dump_import.py tests/test_dump_product_binding.py tests/test_dump_import_acceptance.py -q
+      - name: Native Mac dependency availability (no setup-cost claim)
+        if: runner.os == 'macOS'
+        run: brew install openssl@4 pcre2 lz4 xz zstd
+      - name: Host status decoding and wire regression checks
+        run: go test ./internal/guest ./internal/mysqlwire
+      - name: Pinned Mac native server/client acquisition
+        if: runner.os == 'macOS'
+        run: |
+          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/dump-work" --min-free-gib 4 --budget-gib 8 --timeout 600 -- python tests/dump_import_acceptance/prepare_macos.py --workspace "$RUNNER_TEMP/dump-work/acquisition" --expected-source-commit "$GITHUB_SHA"
+      - name: Native client, reader, independent children, failure/admission oracles
+        env:
+          MINIMUM_PYTHON: ${{ steps.minimum.outputs.python-path }}
+          CURRENT_PYTHON: ${{ steps.current.outputs.python-path }}
+        shell: bash
+        run: |
+          mac_args=()
+          if [ "$RUNNER_OS" = macOS ]; then
+            mac_args=(--macos-acquisition "$RUNNER_TEMP/dump-work/acquisition")
+          fi
+          "$CURRENT_PYTHON" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/dump-work" --min-free-gib 4 --budget-gib 8 --timeout 2400 -- "$CURRENT_PYTHON" tests/dump_import_acceptance/campaign.py --workspace "$RUNNER_TEMP/dump-work/comparison" --expected-source-commit "$GITHUB_SHA" --reference build/dump-ubuntu-reference/native/reference.json --minimum-python "$MINIMUM_PYTHON" --current-python "$CURRENT_PYTHON" "${mac_args[@]}"
+      - name: Remove owned reproducible scratch after process completion
+        if: always()
+        run: |
+          python - <<'PYCODE'
+          import os,sys
+          from pathlib import Path
+          sys.path.insert(0,'scripts')
+          from experiment_workspace import remove_disposable_tree
+          root=Path(os.environ['RUNNER_TEMP'])/'dump-work'
+          for relative in ['acquisition/temp','comparison/temp']:
+              path=root/relative
+              if path.exists(): remove_disposable_tree(path)
+          PYCODE
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: dump-product-comparison-${{ matrix.os }}-${{ github.sha }}
+          path: ${{ runner.temp }}/dump-work/*/evidence
+          if-no-files-found: error
+  development-checks:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - run: python -m pip install -r tests/routing_acceptance/unit-requirements.txt -r tests/preparation_migration_acceptance/requirements.txt
+      - run: python scripts/verify.py check
+  development-integration:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - run: python -m pip install -r tests/routing_acceptance/unit-requirements.txt mysql-connector-python==26.7.0
+      - run: python scripts/verify.py integration

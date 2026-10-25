@@ -1219,3 +1219,18 @@ Main adoption is complete. Target version, final Qualification, Product Validati
 and publication remain separate decisions and have not been initiated here.
 No broader shared-memory proof or new
 performance improvement is claimed. Guides use current-source-build wording and retain publishedv0.5.3 history.
+
+## Bounded dump reader product candidate — implementation authorized
+
+After the comparison at c417e21ba7dabefa5d95600ea322091732430c97 and
+[CI40197606173](https://github.com/masahitojp/mariamem/actions/runs/40197606173),
+the Human selected the explicit Python library helper for test preparation.
+The candidate branch is `experiment/dump-reader-productization`, based on
+main82877a2fc1d87d0d7cfe130c5467d3625bb6e16a. The
+[format/API contract](reviews/v06x-dump-reader-product-contract.md) fixes the
+producer profile, bounds, discard-on-error behavior and installed-package gates.
+Implementation is in progress; the new helper has no runtime acceptance receipt
+yet. Prior spike PASS is not product acceptance. The host status correction is
+an isolated prerequisite commit; its adoption, main integration, Qualification
+and release remain separate Human decisions. Guest, generated code and release
+ledgers are unchanged.
