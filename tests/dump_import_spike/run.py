@@ -60,7 +60,8 @@ def assess(route, mode, code, counts, events, contacts):
             return False
         if mode == 'sql_failure':
             return (error.get('stage') == 'execute' and error.get('reason') == 'sql_error'
-                    and error.get('errno') == 1146 and error.get('original_exception') == 'ProgrammingError'
+                    and error.get('errno') == 1146 and error.get('sqlstate') == '42S02'
+                    and error.get('original_exception') == 'ProgrammingError'
                     and 'spike_partial' in partial[0].get('tables', [])
                     and start <= input_bytes(mode).index(b'INSERT INTO missing_dump_oracle') < end)
         expected = {'malformed': 'unterminated_quote', 'source': 'unsupported_client_command'}[mode]

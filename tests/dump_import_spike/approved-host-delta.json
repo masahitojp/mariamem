@@ -16,5 +16,27 @@
       "before_sha256": null,
       "after_sha256": "5f010095915f8d95eff890ca93f38fa3587e92fdf627b9ea2dc88a6ddce19fd1"
     }
+  },
+  "experimental_only": true,
+  "spike_pass_condition": "All dump comparison PASS results depend on this exact experimental host correction. Host adoption is a separate decision after the spike.",
+  "status_contract": {
+    "input": "unsigned 32-bit integer",
+    "minimum": 0,
+    "maximum": 4294967295,
+    "protocol_projection": "status & 0xffff",
+    "preserved_protocol_bits": "all low16 bits, including transaction, autocommit, more-results, cursor, last-row and prepared OUT-parameter flags",
+    "rejected": [
+      "negative",
+      "fractional",
+      "above uint32",
+      "string",
+      "boolean",
+      "object",
+      "array",
+      "explicit null"
+    ],
+    "missing_status": "zero, including ready envelope",
+    "nested_results": "same validation and projection; invalid nested status rejects the entire result",
+    "failure_atomicity": "no partial Result replacement"
   }
 }

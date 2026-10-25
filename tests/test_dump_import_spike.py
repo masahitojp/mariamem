@@ -76,6 +76,7 @@ def scenario(route, mode):
             reason={'sql_failure': 'sql_error', 'malformed': 'unterminated_quote',
                     'source': 'unsupported_client_command'}[mode],
             errno=1146 if mode == 'sql_failure' else None,
+            sqlstate='42S02' if mode == 'sql_failure' else None,
             original_exception='ProgrammingError' if mode == 'sql_failure' else None)
     else:
         error = dict(stage='native_client', reason='sandbox_rejected_client_command' if mode == 'source' else 'native_client_error',
@@ -109,7 +110,12 @@ def test_failure_and_admission_mutations(route, mode):
                 mutant = copy.deepcopy(events)
                 next(e for e in mutant if e['event'] == 'prepare_error')[key] = wrong
                 assert not assess(route, mode, code, counts, mutant, 0)
-            if route == 'native':
-                mutant = copy.deepcopy(events)
-                next(e for e in mutant if e['event'] == 'prepare_error')['sqlstate'] = 'HY000'
-                assert not assess(route, mode, code, counts, mutant, 0)
+
+
+@pytest.mark.parametrize('route', ['reader', 'native'])
+@pytest.mark.parametrize('wrong_state', ['HY000', '42000', None])
+def test_sql_failure_requires_exact_sqlstate(route, wrong_state):
+    code, counts, events = scenario(route, 'sql_failure')
+    assert assess(route, 'sql_failure', code, counts, events, 0)
+    next(e for e in events if e['event'] == 'prepare_error')['sqlstate'] = wrong_state
+    assert not assess(route, 'sql_failure', code, counts, events, 0)
