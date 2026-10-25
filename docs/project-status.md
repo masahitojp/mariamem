@@ -1239,8 +1239,17 @@ the maintained main/PR differential gate and separating historical delta approva
 from continuing source binding before main adoption. Runtime validation is PASS;
 the Human requested its CI follow-up. The
 [maintained-CI changes](reviews/v06x-dump-reader-ci-handoff.md) add main/PR triggers,
-current clean source/tree binding and negative controls; their new exact-source
-CI result is still required. The host status correction is
+current clean source/tree binding and negative controls. Exact candidate
+e3c55ca14acd2e6813e8815bb96e4307b6b1d625 now passes all five jobs in
+[CI40211613827](https://github.com/masahitojp/mariamem/actions/runs/40211613827).
+The [new saved receipt](reviews/v06x-dump-reader-evidence/ci-40211613827/assessment.json)
+verifies schema2 current-source bindings and both installed OS/Python matrices.
+The [follow-up adoption review](reviews/v06x-dump-reader-final-review.md) closes
+the prior CI handoff blocker and recommends main adoption of the bounded helper,
+explicitly including acceptance of its host prerequisite. Main/PR trigger coverage
+is configured/tested; actual main/PR event delivery and branch protection are not
+claimed by the experiment-branch push receipt. No Human adoption decision has
+been recorded yet. The host status correction is
 an isolated prerequisite commit; its adoption, main integration, Qualification
 and release remain separate Human decisions. Guest, generated code and release
 ledgers are unchanged.

@@ -1,0 +1,96 @@
+{
+  "source_commit": "e3c55ca14acd2e6813e8815bb96e4307b6b1d625",
+  "source_tree_sha": "b4f54e335bf22d9aa20330f129d891912b0e95e2",
+  "run_id": 40211613827,
+  "result": "PASS",
+  "event": "push",
+  "jobs": {
+    "development-integration": {
+      "id": 121223845529,
+      "conclusion": "success"
+    },
+    "development-checks": {
+      "id": 121223845720,
+      "conclusion": "success"
+    },
+    "native-reference": {
+      "id": 121223845814,
+      "conclusion": "success"
+    },
+    "guest-comparison (ubuntu-24.04)": {
+      "id": 121224021805,
+      "conclusion": "success"
+    },
+    "guest-comparison (macos-15)": {
+      "id": 121224021813,
+      "conclusion": "success"
+    }
+  },
+  "artifacts": {
+    "12606352058": {
+      "name": "dump-product-comparison-macos-15-e3c55ca14acd2e6813e8815bb96e4307b6b1d625",
+      "archive_sha256": "b4c3374b659af2482406c4e912bbc1f905b2ad202c6e9df847ff98d63027731e",
+      "reports": {
+        "comparison/evidence/campaign.json": {
+          "result": "PASS",
+          "source_commit": "e3c55ca14acd2e6813e8815bb96e4307b6b1d625"
+        },
+        "comparison/evidence/macos-reference/reference.json": {
+          "result": "PASS",
+          "source_commit": "e3c55ca14acd2e6813e8815bb96e4307b6b1d625"
+        },
+        "comparison/evidence/py311/results.json": {
+          "result": "PASS",
+          "source_commit": "e3c55ca14acd2e6813e8815bb96e4307b6b1d625"
+        },
+        "comparison/evidence/py314/results.json": {
+          "result": "PASS",
+          "source_commit": "e3c55ca14acd2e6813e8815bb96e4307b6b1d625"
+        }
+      }
+    },
+    "12605448061": {
+      "name": "dump-product-native-e3c55ca14acd2e6813e8815bb96e4307b6b1d625",
+      "archive_sha256": "6fdf3fcdfbad62b703e15afeb5ed6e5da5a2cc688572d01f863ccb8076fdf97d",
+      "reports": {
+        "native/reference.json": {
+          "result": "PASS",
+          "source_commit": "e3c55ca14acd2e6813e8815bb96e4307b6b1d625"
+        },
+        "variant/reference.json": {
+          "result": "PASS",
+          "source_commit": "e3c55ca14acd2e6813e8815bb96e4307b6b1d625"
+        }
+      }
+    },
+    "12605354563": {
+      "name": "dump-product-comparison-ubuntu-24.04-e3c55ca14acd2e6813e8815bb96e4307b6b1d625",
+      "archive_sha256": "95ec0f884e5373f1668b0805d6cdfd0ccffe9a154159e22457b5e1564e2d8f0b",
+      "reports": {
+        "comparison/evidence/campaign.json": {
+          "result": "PASS",
+          "source_commit": "e3c55ca14acd2e6813e8815bb96e4307b6b1d625"
+        },
+        "comparison/evidence/py311/results.json": {
+          "result": "PASS",
+          "source_commit": "e3c55ca14acd2e6813e8815bb96e4307b6b1d625"
+        },
+        "comparison/evidence/py314/results.json": {
+          "result": "PASS",
+          "source_commit": "e3c55ca14acd2e6813e8815bb96e4307b6b1d625"
+        }
+      }
+    }
+  },
+  "verified_counts": {
+    "interpreter_reports": 4,
+    "accepted_scenarios": 32,
+    "positive_child_passes": 16,
+    "negative_scenarios": 24,
+    "reader_exact_sqlstate_failures": 4,
+    "variants": 4
+  },
+  "binding_schema": 2,
+  "scope": "Candidate verification; not main/PR event delivery, host adoption, Qualification or release",
+  "archive_representation": "Lossless base64; decode ZIP bytes before verifying GitHub archive SHA256."
+}
