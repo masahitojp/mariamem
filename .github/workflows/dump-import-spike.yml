@@ -1,0 +1,45 @@
+name: Dump import spike preflight
+on:
+  push:
+    branches: [experiment/dump-import]
+    paths:
+      - '.github/workflows/dump-import-spike.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-acquisition:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      mariadb:
+        image: mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+        ports: ['3307:3306']
+        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Source and native executable receipts only
+        env:
+          NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
+        run: |
+          mkdir -p build/dump-preflight
+          python3 scripts/git_identity.py inspect HEAD > build/dump-preflight/source.json
+          uname -a > build/dump-preflight/host.txt
+          cat /etc/os-release > build/dump-preflight/os-release.txt
+          test "$(uname -m)" = x86_64
+          docker inspect "$NATIVE_CONTAINER" > build/dump-preflight/container.json
+          docker image inspect mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e > build/dump-preflight/image.json
+          docker exec "$NATIVE_CONTAINER" sh -c 'uname -m; cat /etc/os-release; sha256sum /usr/sbin/mariadbd /usr/bin/mariadb /usr/bin/mariadb-dump; mariadbd --no-defaults --version; mariadb --no-defaults --version; mariadb-dump --no-defaults --version' > build/dump-preflight/tools.txt
+          docker exec "$NATIVE_CONTAINER" mariadb-dump --no-defaults --help > build/dump-preflight/dump-help.txt
+          docker exec "$NATIVE_CONTAINER" mariadb --no-defaults --user=root --batch --skip-column-names --execute="SELECT VERSION(), @@version_compile_machine; SELECT user,host FROM mysql.user WHERE user='root' AND host='localhost'; SELECT 1;" > build/dump-preflight/startup-query.txt
+          grep -q '12.3.3' build/dump-preflight/startup-query.txt
+          grep -q 'x86_64' build/dump-preflight/tools.txt
+          printf '%s\n' '{"result":"PASS","scope":"native acquisition only","dump_generated":false,"reader_executed":false}' > build/dump-preflight/result.json
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: dump-native-preflight-${{ github.sha }}
+          path: build/dump-preflight
+          if-no-files-found: error
