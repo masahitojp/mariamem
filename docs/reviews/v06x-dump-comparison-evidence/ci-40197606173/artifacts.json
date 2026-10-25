@@ -1,0 +1,65 @@
+{
+  "total_count": 3,
+  "artifacts": [
+    {
+      "id": 12600419576,
+      "node_id": "MDg6QXJ0aWZhY3QxMjYwMDQxOTU3Ng==",
+      "name": "dump-comparison-macos-15-c417e21ba7dabefa5d95600ea322091732430c97",
+      "size_in_bytes": 154081,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12600419576",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12600419576/zip",
+      "expired": false,
+      "digest": "sha256:87ff62464abe12a9b1be10ba0c85846c44d23ede0226a656d2a2751485df421e",
+      "created_at": "2026-10-25T13:35:36Z",
+      "updated_at": "2026-10-25T13:35:36Z",
+      "expires_at": "2027-01-23T13:26:20Z",
+      "workflow_run": {
+        "id": 40197606173,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "experiment/dump-import",
+        "head_sha": "c417e21ba7dabefa5d95600ea322091732430c97"
+      }
+    },
+    {
+      "id": 12600259646,
+      "node_id": "MDg6QXJ0aWZhY3QxMjYwMDI1OTY0Ng==",
+      "name": "dump-comparison-ubuntu-24.04-c417e21ba7dabefa5d95600ea322091732430c97",
+      "size_in_bytes": 111643,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12600259646",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12600259646/zip",
+      "expired": false,
+      "digest": "sha256:d809ad4788cf8caff2764eed7a89cb76cde9246aed7aef5c9e271ea21cfcb0aa",
+      "created_at": "2026-10-25T13:34:47Z",
+      "updated_at": "2026-10-25T13:34:47Z",
+      "expires_at": "2027-01-23T13:26:20Z",
+      "workflow_run": {
+        "id": 40197606173,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "experiment/dump-import",
+        "head_sha": "c417e21ba7dabefa5d95600ea322091732430c97"
+      }
+    },
+    {
+      "id": 12599693998,
+      "node_id": "MDg6QXJ0aWZhY3QxMjU5OTY5Mzk5OA==",
+      "name": "dump-native-reference-c417e21ba7dabefa5d95600ea322091732430c97",
+      "size_in_bytes": 42716,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12599693998",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12599693998/zip",
+      "expired": false,
+      "digest": "sha256:4137e2890393975ddd0192b5306155ba93b42527197deb52d40b4fdf7316066e",
+      "created_at": "2026-10-25T13:27:21Z",
+      "updated_at": "2026-10-25T13:27:21Z",
+      "expires_at": "2027-01-23T13:26:20Z",
+      "workflow_run": {
+        "id": 40197606173,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "experiment/dump-import",
+        "head_sha": "c417e21ba7dabefa5d95600ea322091732430c97"
+      }
+    }
+  ]
+}

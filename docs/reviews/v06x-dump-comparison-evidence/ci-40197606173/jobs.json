@@ -1,0 +1,481 @@
+{
+  "total_count": 3,
+  "jobs": [
+    {
+      "id": 121181728703,
+      "run_id": 40197606173,
+      "workflow_name": "Dump bounded comparison spike",
+      "head_branch": "experiment/dump-import",
+      "run_url": "https://api.github.com/repos/masahitojp/mariamem/actions/runs/40197606173",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUnVIOc8AAAAcNv5vvw",
+      "head_sha": "c417e21ba7dabefa5d95600ea322091732430c97",
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/jobs/121181728703",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/40197606173/job/121181728703",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-25T13:26:21Z",
+      "started_at": "2026-10-25T13:26:23Z",
+      "completed_at": "2026-10-25T13:27:25Z",
+      "name": "native-reference",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-25T13:26:24Z",
+          "completed_at": "2026-10-25T13:26:25Z"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-25T13:26:25Z",
+          "completed_at": "2026-10-25T13:26:45Z"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-25T13:26:45Z",
+          "completed_at": "2026-10-25T13:26:59Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-25T13:26:59Z",
+          "completed_at": "2026-10-25T13:26:59Z"
+        },
+        {
+          "name": "Fixed test-only dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-25T13:26:59Z",
+          "completed_at": "2026-10-25T13:27:06Z"
+        },
+        {
+          "name": "Input, framing and failure classifier controls",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-25T13:27:06Z",
+          "completed_at": "2026-10-25T13:27:14Z"
+        },
+        {
+          "name": "Exact producer preflight and canonical byte binding",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-25T13:27:14Z",
+          "completed_at": "2026-10-25T13:27:17Z"
+        },
+        {
+          "name": "Fresh native reference using the exact canonical bytes",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-25T13:27:17Z",
+          "completed_at": "2026-10-25T13:27:20Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-25T13:27:20Z",
+          "completed_at": "2026-10-25T13:27:21Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-25T13:27:21Z",
+          "completed_at": "2026-10-25T13:27:22Z"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-25T13:27:22Z",
+          "completed_at": "2026-10-25T13:27:22Z"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-25T13:27:22Z",
+          "completed_at": "2026-10-25T13:27:22Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-25T13:27:22Z",
+          "completed_at": "2026-10-25T13:27:22Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/masahitojp/mariamem/check-runs/121181728703",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000000984,
+      "runner_name": "GitHub Actions 1000000984",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 121181983291,
+      "run_id": 40197606173,
+      "workflow_name": "Dump bounded comparison spike",
+      "head_branch": "experiment/dump-import",
+      "run_url": "https://api.github.com/repos/masahitojp/mariamem/actions/runs/40197606173",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUnVIOc8AAAAcNwJSOw",
+      "head_sha": "c417e21ba7dabefa5d95600ea322091732430c97",
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/jobs/121181983291",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/40197606173/job/121181983291",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-25T13:27:25Z",
+      "started_at": "2026-10-25T13:27:27Z",
+      "completed_at": "2026-10-25T13:34:51Z",
+      "name": "guest-comparison (ubuntu-24.04)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-25T13:27:28Z",
+          "completed_at": "2026-10-25T13:27:30Z"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-25T13:27:30Z",
+          "completed_at": "2026-10-25T13:27:42Z"
+        },
+        {
+          "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-25T13:27:42Z",
+          "completed_at": "2026-10-25T13:27:52Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-25T13:27:52Z",
+          "completed_at": "2026-10-25T13:27:52Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-25T13:27:52Z",
+          "completed_at": "2026-10-25T13:27:53Z"
+        },
+        {
+          "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-25T13:27:53Z",
+          "completed_at": "2026-10-25T13:27:54Z"
+        },
+        {
+          "name": "Pinned interpreter consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-25T13:27:54Z",
+          "completed_at": "2026-10-25T13:28:26Z"
+        },
+        {
+          "name": "Native Mac dependency availability (no setup-cost claim)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 8,
+          "started_at": "2026-10-25T13:28:26Z",
+          "completed_at": "2026-10-25T13:28:26Z"
+        },
+        {
+          "name": "Host status decoding and wire regression checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-25T13:28:26Z",
+          "completed_at": "2026-10-25T13:31:32Z"
+        },
+        {
+          "name": "Pinned Mac native server/client acquisition",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 10,
+          "started_at": "2026-10-25T13:31:32Z",
+          "completed_at": "2026-10-25T13:31:32Z"
+        },
+        {
+          "name": "Native client, reader, independent children, failure/admission oracles",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-25T13:31:32Z",
+          "completed_at": "2026-10-25T13:34:45Z"
+        },
+        {
+          "name": "Remove owned reproducible scratch after process completion",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-25T13:34:45Z",
+          "completed_at": "2026-10-25T13:34:45Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-25T13:34:45Z",
+          "completed_at": "2026-10-25T13:34:47Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-10-25T13:34:47Z",
+          "completed_at": "2026-10-25T13:34:47Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-10-25T13:34:47Z",
+          "completed_at": "2026-10-25T13:34:47Z"
+        },
+        {
+          "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-10-25T13:34:47Z",
+          "completed_at": "2026-10-25T13:34:48Z"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-25T13:34:48Z",
+          "completed_at": "2026-10-25T13:34:48Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-10-25T13:34:48Z",
+          "completed_at": "2026-10-25T13:34:48Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/masahitojp/mariamem/check-runs/121181983291",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000000986,
+      "runner_name": "GitHub Actions 1000000986",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 121181983298,
+      "run_id": 40197606173,
+      "workflow_name": "Dump bounded comparison spike",
+      "head_branch": "experiment/dump-import",
+      "run_url": "https://api.github.com/repos/masahitojp/mariamem/actions/runs/40197606173",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUnVIOc8AAAAcNwJSQg",
+      "head_sha": "c417e21ba7dabefa5d95600ea322091732430c97",
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/jobs/121181983298",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/40197606173/job/121181983298",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-25T13:27:25Z",
+      "started_at": "2026-10-25T13:27:29Z",
+      "completed_at": "2026-10-25T13:35:42Z",
+      "name": "guest-comparison (macos-15)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-25T13:27:29Z",
+          "completed_at": "2026-10-25T13:27:32Z"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-25T13:27:32Z",
+          "completed_at": "2026-10-25T13:27:47Z"
+        },
+        {
+          "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-25T13:27:47Z",
+          "completed_at": "2026-10-25T13:28:05Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-25T13:28:05Z",
+          "completed_at": "2026-10-25T13:28:05Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-25T13:28:05Z",
+          "completed_at": "2026-10-25T13:28:05Z"
+        },
+        {
+          "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-25T13:28:05Z",
+          "completed_at": "2026-10-25T13:28:05Z"
+        },
+        {
+          "name": "Pinned interpreter consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-25T13:28:05Z",
+          "completed_at": "2026-10-25T13:28:23Z"
+        },
+        {
+          "name": "Native Mac dependency availability (no setup-cost claim)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-25T13:28:23Z",
+          "completed_at": "2026-10-25T13:28:27Z"
+        },
+        {
+          "name": "Host status decoding and wire regression checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-25T13:28:27Z",
+          "completed_at": "2026-10-25T13:32:04Z"
+        },
+        {
+          "name": "Pinned Mac native server/client acquisition",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-25T13:32:04Z",
+          "completed_at": "2026-10-25T13:32:15Z"
+        },
+        {
+          "name": "Native client, reader, independent children, failure/admission oracles",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-25T13:32:15Z",
+          "completed_at": "2026-10-25T13:35:34Z"
+        },
+        {
+          "name": "Remove owned reproducible scratch after process completion",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-25T13:35:34Z",
+          "completed_at": "2026-10-25T13:35:34Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-25T13:35:34Z",
+          "completed_at": "2026-10-25T13:35:36Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-10-25T13:35:36Z",
+          "completed_at": "2026-10-25T13:35:36Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-10-25T13:35:36Z",
+          "completed_at": "2026-10-25T13:35:36Z"
+        },
+        {
+          "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-10-25T13:35:36Z",
+          "completed_at": "2026-10-25T13:35:36Z"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-25T13:35:36Z",
+          "completed_at": "2026-10-25T13:35:37Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-10-25T13:35:37Z",
+          "completed_at": "2026-10-25T13:35:39Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/masahitojp/mariamem/check-runs/121181983298",
+      "labels": [
+        "macos-15"
+      ],
+      "runner_id": 1000000985,
+      "runner_name": "GitHub Actions 1000000985",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

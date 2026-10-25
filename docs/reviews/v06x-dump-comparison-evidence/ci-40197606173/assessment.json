@@ -1,0 +1,167 @@
+{
+  "run_id": 40197606173,
+  "source_commit": "c417e21ba7dabefa5d95600ea322091732430c97",
+  "result": "PASS",
+  "spike_exit": "COMPARISON_COMPLETE",
+  "conditional_on_experimental_host_correction": true,
+  "host_correction_adopted": false,
+  "route_or_productization_decision": "SEPARATE_POST_SPIKE_REVIEW",
+  "canonical_dump_sha256": "081ef0273c3625cb1d2a143415b90e9845bc2132312853a047eed09c8807e87c",
+  "matrix": {
+    "ubuntu-24.04": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "host_sha256": "46d8a518d093e608db16359ddb15343e22bf215fe3266edeac36e8e51177dab0",
+      "direct_routes": {
+        "native": "PASS",
+        "reader": "PASS"
+      },
+      "interpreters": {
+        "py311": {
+          "python": "3.11.17 (main, Oct  1 2026, 14:32:31) [GCC 13.3.0]",
+          "packages": {
+            "pytest": "7.0.0",
+            "PyMySQL": "1.2.3",
+            "SQLAlchemy": "2.0.54"
+          },
+          "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+          "routes": {
+            "native-success": "PASS",
+            "reader-success": "PASS",
+            "native-sql_failure": "PASS",
+            "native-malformed": "PASS",
+            "native-source": "PASS",
+            "reader-sql_failure": "PASS",
+            "reader-malformed": "PASS",
+            "reader-source": "PASS"
+          }
+        },
+        "py314": {
+          "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+          "packages": {
+            "pytest": "9.0.2",
+            "PyMySQL": "1.2.3",
+            "SQLAlchemy": "2.0.54"
+          },
+          "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+          "routes": {
+            "native-success": "PASS",
+            "reader-success": "PASS",
+            "native-sql_failure": "PASS",
+            "native-malformed": "PASS",
+            "native-source": "PASS",
+            "reader-sql_failure": "PASS",
+            "reader-malformed": "PASS",
+            "reader-source": "PASS"
+          }
+        }
+      }
+    },
+    "macos-15": {
+      "platform": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+      "host_sha256": "4c63be194be85990096cc16f867b72a9c5b3f0f758a837a0ef961e746179a62b",
+      "direct_routes": {
+        "native": "PASS",
+        "reader": "PASS"
+      },
+      "interpreters": {
+        "py311": {
+          "python": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]",
+          "packages": {
+            "pytest": "7.0.0",
+            "PyMySQL": "1.2.3",
+            "SQLAlchemy": "2.0.54"
+          },
+          "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+          "routes": {
+            "native-success": "PASS",
+            "reader-success": "PASS",
+            "native-sql_failure": "PASS",
+            "native-malformed": "PASS",
+            "native-source": "PASS",
+            "reader-sql_failure": "PASS",
+            "reader-malformed": "PASS",
+            "reader-source": "PASS"
+          }
+        },
+        "py314": {
+          "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+          "packages": {
+            "pytest": "9.0.2",
+            "PyMySQL": "1.2.3",
+            "SQLAlchemy": "2.0.54"
+          },
+          "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+          "routes": {
+            "native-success": "PASS",
+            "reader-success": "PASS",
+            "native-sql_failure": "PASS",
+            "native-malformed": "PASS",
+            "native-source": "PASS",
+            "reader-sql_failure": "PASS",
+            "reader-malformed": "PASS",
+            "reader-source": "PASS"
+          }
+        }
+      }
+    }
+  },
+  "positive_scenarios": 8,
+  "child_tests_passed": 16,
+  "negative_scenarios": 24,
+  "reader_sqlstate_observations": [
+    {
+      "os": "ubuntu-24.04",
+      "python": "py311",
+      "errno": 1146,
+      "sqlstate": "42S02",
+      "location": {
+        "ordinal": 92,
+        "byte_start": 7479,
+        "byte_end": 7525,
+        "line_start": 203,
+        "line_end": 204
+      }
+    },
+    {
+      "os": "ubuntu-24.04",
+      "python": "py314",
+      "errno": 1146,
+      "sqlstate": "42S02",
+      "location": {
+        "ordinal": 92,
+        "byte_start": 7479,
+        "byte_end": 7525,
+        "line_start": 203,
+        "line_end": 204
+      }
+    },
+    {
+      "os": "macos-15",
+      "python": "py311",
+      "errno": 1146,
+      "sqlstate": "42S02",
+      "location": {
+        "ordinal": 92,
+        "byte_start": 7479,
+        "byte_end": 7525,
+        "line_start": 203,
+        "line_end": 204
+      }
+    },
+    {
+      "os": "macos-15",
+      "python": "py314",
+      "errno": 1146,
+      "sqlstate": "42S02",
+      "location": {
+        "ordinal": 92,
+        "byte_start": 7479,
+        "byte_end": 7525,
+        "line_start": 203,
+        "line_end": 204
+      }
+    }
+  ],
+  "focused_gate_tests": 38,
+  "original_endpoint_contacts": 0
+}

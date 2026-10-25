@@ -1,0 +1,9 @@
+{
+  "run_id": 40197606173,
+  "job_id": 121181728703,
+  "source": "GitHub job log",
+  "excerpts": [
+    "2026-10-25T13:27:07.5583028Z \n2026-10-25T13:27:07.5583303Z ----------------------------------------------------------------------\n2026-10-25T13:27:07.5583847Z Ran 25 tests in 0.161s\n2026-10-25T13:27:07.5584056Z \n2026-10-25T13:27:07.5584175Z OK",
+    "2026-10-25T13:27:07.5584175Z OK\n2026-10-25T13:27:14.0250105Z ......................................                                   [100%]\n2026-10-25T13:27:14.0250739Z 38 passed in 5.93s\n2026-10-25T13:27:14.1380410Z ##[group]Run python tests/dump_import_spike/linux_acquisition.py --container \"$NATIVE_CONTAINER\" --expected-source-commit \"$GITHUB_SHA\" --output build/dump-reference/evidence/acquisition\n2026-10-25T13:27:14.1381822Z \u001b[36;1mpython tests/dump_import_spike/linux_acquisition.py --container \"$NATIVE_CONTAINER\" --expected-source-commit \"$GITHUB_SHA\" --output build/dump-reference/evidence/acquisition\u001b[0m"
+  ]
+}

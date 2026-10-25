@@ -865,7 +865,7 @@ Automatic preparation
 routing remains excluded from0.6.0; live and broader diagnostics/framework
 coverage remain separate decisions.
 
-**Dump import — prior matrix PASS conditional on experimental host correction; new SQLSTATE exit gate open.** The
+**Dump import — comparison complete, conditional on experimental host correction; post-spike decisions separate.** The
 [dump comparison proposal](reviews/v06x-dump-import-design.md) reuses the source
 inventory and completed migration lifecycle. It recommends comparing an optional
 native client with a bounded library reader on the same freshly produced,
@@ -960,11 +960,21 @@ absent states in focused mutation tests. Its38 focused tests passed on the
 exact commit; the host correction's before/after hashes and unsigned32/low16
 contract are recorded unchanged. **Spike PASS is conditional on that experimental
 correction; adopting it is a separate post-spike decision.** The
-[current exit status](reviews/v06x-dump-spike-exit-status.md) leaves comparison
-completion open until a new bounded CI PASS receipt is verified and saved.
+[current exit status](reviews/v06x-dump-spike-exit-status.md) defines the new
+bounded CI PASS receipt required for comparison closure.
 After that closure, a separate spike review chooses library / external client /
 defer / productization. Earlier route recommendations are not approval or a
 substitute for this sequence, and earlier receipts retain their original sources.
+[CI40197606173](https://github.com/masahitojp/mariamem/actions/runs/40197606173)
+passed on exactc417e21. All three artifact ZIPs have been saved and independently
+matched to GitHub's SHA256 digests. The stronger SQLSTATE gate passed, including
+38 focused tests and four observed reader1146/42S02 failures; both OS/Python
+matrices passed with16 child test passes and24 accepted negative scenarios.
+The experimental host delta is recorded and unchanged. The authorized spike
+exit criterion is satisfied: **comparison complete, conditional on that host
+correction**. The new receipt and closure are linked from the current exit status.
+Host correction adoption and library / external client / defer / productization
+remain for the separate post-spike review; none is selected or started here.
 This work performs no productization, main integration, Qualification or release;
 those remain separate gates.
 
