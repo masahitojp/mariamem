@@ -1,0 +1,35 @@
+{
+  "source_commit": "c417e21ba7dabefa5d95600ea322091732430c97",
+  "baseline_source_commit": "9494e755a5e7d79a9702e1d1dc7c1caae993e801",
+  "boundary": "test-only classifier, negative mutations, experimental delta documentation; no runtime change",
+  "focused_tests": {
+    "result": "PASS",
+    "count": 38,
+    "python": "3.14",
+    "pytest": "9.0.2",
+    "wrong_sqlstate_controls": [
+      "HY000",
+      "42000",
+      null
+    ],
+    "routes": [
+      "reader",
+      "native"
+    ],
+    "exact_committed_candidate": true
+  },
+  "acquisition_unittests": {
+    "result": "PASS",
+    "count": 25
+  },
+  "public_source_check": {
+    "result": "PASS",
+    "files": 5271
+  },
+  "diff_check": "PASS",
+  "experimental_host_hashes": "UNCHANGED",
+  "local_binding": "INPUTS_VERIFIED",
+  "dump_regenerated": false,
+  "bounded_ci": "NOT_YET_SUBMITTED",
+  "spike_exit": "OPEN_UNTIL_NEW_CI_RECEIPT_VERIFIED"
+}

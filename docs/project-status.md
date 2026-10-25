@@ -865,7 +865,7 @@ Automatic preparation
 routing remains excluded from0.6.0; live and broader diagnostics/framework
 coverage remain separate decisions.
 
-**Dump import — bounded comparison PASS on observed hosts; productization separate.** The
+**Dump import — prior matrix PASS conditional on experimental host correction; new SQLSTATE exit gate open.** The
 [dump comparison proposal](reviews/v06x-dump-import-design.md) reuses the source
 inventory and completed migration lifecycle. It recommends comparing an optional
 native client with a bounded library reader on the same freshly produced,
@@ -953,6 +953,18 @@ reference versioned openssl@4 libraries. No global link change, cold-host or
 setup-cost claim follows from that result. Reader format ownership and promotion
 of its observed SQLSTATE into the deterministic gate remain productization
 conditions; views/triggers remain outside scope.
+The Human subsequently required a deterministic reader SQLSTATE gate before
+spike closure. New experiment source_commit
+`c417e21ba7dabefa5d95600ea322091732430c97` requires42S02 and rejects wrong or
+absent states in focused mutation tests. Its38 focused tests passed on the
+exact commit; the host correction's before/after hashes and unsigned32/low16
+contract are recorded unchanged. **Spike PASS is conditional on that experimental
+correction; adopting it is a separate post-spike decision.** The
+[current exit status](reviews/v06x-dump-spike-exit-status.md) leaves comparison
+completion open until a new bounded CI PASS receipt is verified and saved.
+After that closure, a separate spike review chooses library / external client /
+defer / productization. Earlier route recommendations are not approval or a
+substitute for this sequence, and earlier receipts retain their original sources.
 This work performs no productization, main integration, Qualification or release;
 those remain separate gates.
 
