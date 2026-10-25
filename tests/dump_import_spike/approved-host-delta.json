@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "baseline_source_commit": "6d81a2f99d0b5bd09bb5ab48dbf1ae23ca27e149",
+  "failed_candidate_source_commit": "5a9661d821150b3992466fa49a071a213cbaab78",
+  "approval": "Human approved host-only status decoder correction, regression checks, explicit binding delta and unchanged comparison rerun after failure review 7b098b57ffa37ee0b2ce37297fa28f54f711d3aa. No guest/generated/productization/main/Qualification/release approval.",
+  "files": {
+    "internal/guest/guest.go": {
+      "before_sha256": "77b696866b1cb1e3015389519ba4a74b2aeb62977aec18c1b44d157e2094db54",
+      "after_sha256": "9927caadd560d36f54f39d683fbfd2874c64857cdced63662fef0554b1fc54d0"
+    },
+    "internal/guest/status_test.go": {
+      "before_sha256": null,
+      "after_sha256": "dda4dd3dc5209ac183677faba9ae508d9c9576ee37ae2f3506b56c9241d8694c"
+    },
+    "internal/mysqlwire/status_decode_test.go": {
+      "before_sha256": null,
+      "after_sha256": "5f010095915f8d95eff890ca93f38fa3587e92fdf627b9ea2dc88a6ddce19fd1"
+    }
+  }
+}

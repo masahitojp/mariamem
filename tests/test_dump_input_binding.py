@@ -63,3 +63,27 @@ def test_fresh_producer_receipt_requires_exact_candidate_and_bytes(tmp_path):
     (tmp_path/'application.sql').write_bytes(b'changed dump')
     with pytest.raises(ValueError, match='exact canonical dump bytes'):
         bind_input.producer_receipt(tmp_path, candidate)
+
+
+@pytest.mark.parametrize('name', ['internal/guest/guest.go', 'internal/guest/status_test.go',
+                                 'internal/mysqlwire/status_decode_test.go'])
+def test_host_delta_is_hash_pinned(name):
+    original = Path.read_bytes
+    target = bind_input.ROOT/name
+    def changed(path):
+        return b'unapproved host edit' if path == target else original(path)
+    with patch.object(Path, 'read_bytes', changed), pytest.raises(ValueError, match='host delta hash mismatch'):
+        bind_input.validate_host_delta(bind_input.ROOT)
+
+
+@pytest.mark.parametrize('name', ['guest/wire_core.inc', 'internal/generatedgo/main.go',
+                                 'cmd/mariamem-host/main.go', 'go.mod'])
+def test_runtime_delta_does_not_allow_other_paths(name):
+    original = bind_input.subprocess.check_output
+    def changed(command, **kwargs):
+        value = original(command, **kwargs)
+        if command[:3] == ['git', 'diff', '--name-only']:
+            return value+name+'\n'
+        return value
+    with patch.object(bind_input.subprocess, 'check_output', changed), pytest.raises(ValueError, match='unapproved runtime/build'):
+        bind_input.validate_host_delta(bind_input.ROOT)

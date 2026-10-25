@@ -19,6 +19,33 @@ def digest(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
+def validate_host_delta(root):
+    """Only the separately approved, hash-pinned host correction may differ."""
+    approval = json.loads((root/'tests/dump_import_spike/approved-host-delta.json').read_text())
+    require(approval['baseline_source_commit'] == ORIGIN, 'host delta baseline changed')
+    changed = subprocess.check_output(['git', 'diff', '--name-only', ORIGIN, 'HEAD', '--',
+        'cmd', 'internal', 'python/mariamem', 'guest', 'go.mod', 'go.sum', 'release'], cwd=root, text=True)
+    # Include local edits during development as well as exact committed candidates.
+    local = subprocess.check_output(['git', 'diff', '--name-only', 'HEAD', '--',
+        'cmd', 'internal', 'python/mariamem', 'guest', 'go.mod', 'go.sum', 'release'], cwd=root, text=True)
+    paths = set(changed.splitlines()) | set(local.splitlines())
+    paths.update(subprocess.check_output(['git', 'ls-files', '--others', '--exclude-standard', '--',
+        'cmd', 'internal', 'python/mariamem', 'guest', 'go.mod', 'go.sum', 'release'], cwd=root, text=True).splitlines())
+    require(paths == set(approval['files']), 'unapproved runtime/build input delta')
+    for name, pin in approval['files'].items():
+        require(name in {'internal/guest/guest.go', 'internal/guest/status_test.go',
+                         'internal/mysqlwire/status_decode_test.go'}, 'unapproved host delta path')
+        original = subprocess.run(['git', 'show', ORIGIN+':'+name], cwd=root, capture_output=True)
+        require((digest(original.stdout) if original.returncode == 0 else None) == pin['before_sha256'],
+                'host delta original hash mismatch: '+name)
+        committed = subprocess.run(['git', 'show', 'HEAD:'+name], cwd=root, capture_output=True)
+        if name in changed.splitlines():
+            require(committed.returncode == 0 and digest(committed.stdout) == pin['after_sha256'],
+                    'host delta committed hash mismatch: '+name)
+        require(digest((root/name).read_bytes()) == pin['after_sha256'], 'host delta hash mismatch: '+name)
+    return approval
+
+
 def validate_inputs(root=ROOT, here=HERE):
     raw = (here/'input/application.sql').read_bytes()
     manifest_raw = (here/'input/input-manifest.json').read_bytes()
@@ -42,11 +69,10 @@ def validate_inputs(root=ROOT, here=HERE):
     for key, name in [('extension_sql', 'EXTENSION'), ('extension_values_decimal_strings_binary_hex', 'VALUES'),
                       ('producer_options', 'OPTIONS')]:
         require(manifest[key] == literals[name], 'manifest/producer mismatch: '+key)
-    changed = subprocess.check_output(['git', 'diff', '--name-only', ORIGIN, 'HEAD', '--',
-        'cmd', 'internal', 'python/mariamem', 'guest', 'go.mod', 'go.sum', 'release'], cwd=root, text=True)
-    require(not changed.strip(), 'runtime/build inputs changed from canonical producer source')
+    approval = validate_host_delta(root)
     return dict(canonical_dump_sha256=DUMP_SHA256, origin_manifest_sha256=digest(manifest_raw),
-                verified_inputs=inputs, origin_source_commit=ORIGIN, preserved_artifact_source_commit=PARKED)
+                verified_inputs=inputs, origin_source_commit=ORIGIN, preserved_artifact_source_commit=PARKED,
+                approved_host_delta=approval)
 
 
 def producer_receipt(directory, expected_source):

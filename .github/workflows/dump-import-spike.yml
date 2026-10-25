@@ -8,6 +8,8 @@ on:
       - 'tests/test_dump_import_spike.py'
       - 'tests/test_dump_input_binding.py'
       - 'scripts/git_identity.py'
+      - 'internal/guest/**'
+      - 'internal/mysqlwire/**'
   workflow_dispatch:
 permissions:
   contents: read
@@ -93,6 +95,8 @@ jobs:
       - name: Native Mac dependency availability (no setup-cost claim)
         if: runner.os == 'macOS'
         run: brew install openssl@4 pcre2 lz4 xz zstd
+      - name: Host status decoding and wire regression checks
+        run: go test ./internal/guest ./internal/mysqlwire
       - name: Pinned Mac native server/client acquisition
         if: runner.os == 'macOS'
         run: |
