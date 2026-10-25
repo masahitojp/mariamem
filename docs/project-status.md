@@ -865,7 +865,7 @@ Automatic preparation
 routing remains excluded from0.6.0; live and broader diagnostics/framework
 coverage remain separate decisions.
 
-**Dump import — acquisition + bounded producer preflight PASS; comparison stopped.** The
+**Dump import — bounded comparison resumed after preflight; candidate prepared.** The
 [dump comparison proposal](reviews/v06x-dump-import-design.md) reuses the source
 inventory and completed migration lifecycle. It recommends comparing an optional
 native client with a bounded library reader on the same freshly produced,
@@ -902,13 +902,21 @@ root@localhost DEFINER routines, execution results17/19 and probe schema cleanup
 were asserted. The [saved CI assessment](reviews/v06x-dump-producer-preflight-evidence/ci-40173427178/assessment.json)
 binds job121108944640, artifact12591445500, metadata and verified ZIP/file hashes.
 This producer result is limited to the observed Ubuntu x86_64 control.
-Application dump production/comparison, guest import and parser execution remain
-stopped; resumption is a separate Human decision. No views/triggers coverage is
-added. The earlier acquisition-only receipts remain at their original sources:
+At that receipt gate, application dump production/comparison, guest import and
+parser execution were stopped. The earlier acquisition-only receipts remain at their original sources:
 40169643384/d19ab2e acquisition and40172057245/f94a2d4 socket-only acquisition.
 Cold Mac/setup-cost claims require a separate clean-machine run with warm/cold
-cohorts distinguished. That work is not part of this acceptance. Comparison
-remains stopped; no route recommendation or comparison completion is claimed.
+cohorts distinguished. That work is not part of this acceptance.
+The Human subsequently explicitly resumed the bounded comparison. The
+[resumption record](reviews/v06x-dump-comparison-resume.md) pins candidate
+source_commit `5a9661d821150b3992466fa49a071a213cbaab78` after353bf92 and
+preserves canonical081ef027/original6d81a2f provenance. The new workflow must
+reproduce the exact canonical bytes with the exact candidate producer, bind the
+new manifest, rerun native references, then probe guest native client -> reader
+before two-child lifecycle and failure/admission controls on both OS/interpreter
+boundaries. Local input verification and focused tests passed; native/guest
+comparison results are not claimed before the CI handoff. No views/triggers
+coverage, route recommendation or comparison completion is claimed here.
 This work performs no productization, main integration, Qualification or release;
 those remain separate gates.
 
