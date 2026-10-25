@@ -6,6 +6,12 @@ This is the next design decision after migration recipe adoption. It reuses
 existing source findings; no fresh dump, parser prototype, client import or
 native execution is claimed here.
 
+2026-10-25 review response: the fixed-input decisions below address the Human's
+conditions on design candidate `76990376eaa5fcf24d6aab9cf62d1358e59bab10`.
+The review recommends conditional approval; it is not Human execution approval.
+Producer acquisition preflight remains incomplete as recorded below. No dump
+generation/import or prototype execution has started.
+
 ## Human Review — one decision now
 
 **Recommend a bounded comparison spike of an external native client and an
@@ -57,13 +63,120 @@ before choosing a minimal prototype, but no dependency is approved here.
 
 ## Fixed input and scope before execution
 
-Create one small repository-authored application schema/data set, distinct from
-an external legacy app. Produce its dump with an identified MariaDB12.3.3 native
-server/client, rather than hand-writing something described as tool output.
-Use ordinary InnoDB schema, constraints and rows, plus one procedure and function.
-Include exact decimals, NULL/empty/Unicode values, binary bytes and text with
-quotes, backslashes and semicolons; routine bodies must require statement framing.
-Record actual emitted directives/comments before declaring the reader boundary.
+### Same application, extended input
+
+Reuse the authored application in
+[`tests/preparation_migration_acceptance/`](../../tests/preparation_migration_acceptance/),
+as required by the [prior condition](v06x-preparation-import-design.md#human-review).
+Apply its unchanged `m1_initial` -> `m2_addresses` revisions and successful seed
+to native `app`: users `(1,'legacy',0)`, `(2,'seed',5)`, address
+`(1,2,'seed@example.test')`, and `alembic_version='m2_addresses'`. Preserve their
+columns, unique constraints and FK; do not replace this corpus or change the
+existing migration acceptance owner. The spike adds a separate test-only
+extension after the original preparation, with a manifest of its SQL and seed:
+
+- Add `user_import_values`, an InnoDB table with a primary key, an explicitly
+  named FK to `users.id`, `DECIMAL(20,6)`, nullable text and `VARBINARY` columns.
+  Keep the two original users/one address unchanged. Added rows cover positive
+  and negative exact decimal strings, SQL NULL versus empty string/bytes,
+  Unicode, quotes, backslashes, semicolons and bytes including 00/27/3B/5C/FF.
+  Record the exact expected values and hashes before dump production.
+- Add one read-only procedure returning this user's imported values and one
+  deterministic function computing a user's rating plus an argument. Use
+  compound BEGIN/END bodies with multiple internal semicolons. Assert exact
+  results, drain procedure results, and run a subsequent SELECT.
+- Keep original child checks: the first commits user3; the second sees only
+  users1/2 and the original address and rejects an invalid FK. Also check the
+  extension's exact rows and routine results in both children.
+
+Views and triggers are explicitly deferred from this first corpus. Pass
+`--triggers` but assert zero source triggers/views; this tests neither feature.
+The final recommendation must name both exclusions. Packages and events remain
+outside the existing product scope. This extension establishes no arbitrary
+legacy-app or MySQL-produced-dump compatibility.
+
+### DEFINER and SQL SECURITY
+
+Fix both routines to `DEFINER='root'@'localhost' SQL SECURITY DEFINER` on the
+producer. Use the existing native root account on producer/reference; confirm
+its existence before routine creation. Preserve DEFINER and SQL SECURITY in the
+original dump and in all three imports, and compare their metadata exactly.
+Do not use `--skip-definer`, rewrite clauses or create guest accounts. This
+chooses an aligned producer definer, not normalization. The
+[adopted routine contract](../decisions/routine-support-scope.md#definer-syntax-and-persistence-not-grant-enforcement)
+already accepts explicit definers without enforcing account existence under
+guest skip-grant-tables. It does not establish security-context equivalence.
+Do not use CURRENT_USER/privilege-sensitive routine behavior as an equality
+oracle. If this exact policy fails, report the blocker; do not remove routines.
+
+### Producer options and comparison policy
+
+Produce one canonical dump with the Ubuntu x86_64 identified12.3.3 producer;
+transfer its bytes unchanged to both OS matrices. Do not produce a replacement
+dump per route or OS. The fixed command profile is:
+
+```sh
+mariadb-dump --no-defaults --protocol=tcp --host=127.0.0.1 --port=PORT --user=root \
+  --opt --single-transaction --skip-lock-tables --skip-add-locks \
+  --routines --triggers --skip-events --hex-blob \
+  --default-character-set=utf8mb4 --tz-utc --order-by-primary \
+  --skip-dump-date app
+```
+
+PORT is a recorded test endpoint; authentication is supplied separately without
+logging secrets. No `--databases`, `--all-databases`, `--compact`, `--compatible`,
+`--force` or `--skip-definer`. Capture the pinned binary's version and help and
+validate every option before producing data. `--skip-definer` availability is
+not assumed or required: the selected policy retains the clause. Unsupported
+selected options stop preflight; do not silently change this profile. Official
+[option documentation](https://mariadb.com/docs/server/clients-and-utilities/backup-restore-and-import-clients/mariadb-dump)
+is background; the exact12.3.3 help and observed output own this spike's format.
+
+Set producer schema/table text charset/collation to `utf8mb4/utf8mb4_unicode_ci`,
+session TIME_ZONE to `+00:00` and SQL_MODE to
+`STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION` before
+creating/seeding the app. Record the full native configuration and routine
+creation context. Each destination precreates empty `app` with the same charset
+and collation and selects it explicitly. Do not strip emitted session SQL or
+executable comments; inventory actual directives before defining the reader.
+
+Comparison normalization applies to collected observations only, never dump
+bytes. Fix these rules before execution:
+
+| Item | Classification and oracle |
+| --- | --- |
+| Tables/columns/constraints, engine and charset/collation | Compare exact semantic metadata, names, types, defaults, nullability, indexes and FK targets/actions; sort metadata collections by identity, retaining column/index member order. Do not rewrite engines/collations or rename constraints. |
+| AUTO_INCREMENT | Compare column attribute and next counter against the clean native import before child mutations; no counter normalization. |
+| TIME_ZONE and SQL_MODE | Execute emitted save/set/restore statements; compare session values before/after import and routine creation SQL_MODE. Normalize SQL_MODE only as a sorted set of flags. |
+| CREATE DATABASE / USE | Precreate/select app explicitly; no --databases, so no CREATE DATABASE is requested. Preserve/execute any emitted USE app and compare selected schema. Unexpected CREATE DATABASE or another schema target stops format closure rather than being discarded. |
+| LOCK TABLES | Excluded by skip-add-locks; skip-lock-tables concerns producer locking. Unexpected emitted locks stop format closure, not silent skip. |
+| FOREIGN_KEY_CHECKS / UNIQUE_CHECKS / SQL_NOTES | Execute and restore all emitted settings; compare session entry/exit values and explicitly test FK/unique enforcement afterward. Do not infer enforcement from a restored flag alone. |
+| Table/FK/statement order | Preserve exact dump execution order. Normalize only observation collection order; verify FK metadata and behavior. |
+| Rows | Compare sorted primary-key rows with exact Decimal strings, NULL distinctions, Unicode code points and binary hex; no value normalization. |
+| Routine definitions/behavior | Compare bodies, DEFINER, SQL SECURITY, creation charset/collation and SQL_MODE, plus exact results; compare observed definitions structurally, without broad text substitution. |
+| Volatile observations | Ignore only routine CREATED/LAST_ALTERED times, table CREATE_TIME/UPDATE_TIME/CHECK_TIME, row-count estimates and physical allocation statistics in cross-engine equality; retain raw values. No other metadata exclusions without a recorded design decision. |
+| Dump comments | Preserve bytes, including executable/version comments and sandbox directive. Ordinary comment timestamps/host text are not a SQL equivalence oracle; retain them in the original artifact. |
+
+### Native acquisition preflight — incomplete, execution blocked
+
+The acquisition routes are fixed below. Availability of a formula or an old CI
+receipt is not a receipt for installed/runnable12.3.3 binaries in this spike.
+
+| Platform | Acquisition route and current evidence | Required before dump/prototype execution |
+| --- | --- | --- |
+| macOS15+ arm64 | [Homebrew mariadb@12.3](https://formulae.brew.sh/formula/mariadb@12.3) lists12.3.3 and Apple Silicon bottles (checked2026-10-25). Standard local Cellar/opt paths checked here have no installation. | Pin the formula commit and matching OS bottle URL/SHA256 plus dependency receipts; acquire into the approved disposable workspace, identify/hash Mach-O arm64 mariadbd, mariadb and mariadb-dump, capture version/help, and verify temporary native server startup/query. No brew service or shared data directory. |
+| Ubuntu24.04 x86_64 | Reuse the acquisition route in [.github/workflows/prepared-canonical.yml](../../.github/workflows/prepared-canonical.yml): mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1. Existing receipts report12.3.3-MariaDB-ubu2404. | Resolve and retain the linux/amd64 child manifest digest, run on actual Ubuntu x86_64, hash the three executables, capture version/help and verify server startup/query. The index pin and prior receipt alone do not close this condition. |
+
+Read-only local image inspection on2026-10-25 found that index pin cached as
+**linux/arm64**, image ID
+`sha256:23ccfa2f2df26837c8f397a8f9a070ad728768c095d246edd07cd8d24e9ec40c`.
+This Linux VM image is neither a macOS native receipt nor an Ubuntu x86_64 one.
+Neither native toolchain preflight is closed by this design update. After Human
+approval, acquisition/version/hash/startup checks are the first bounded work;
+if either platform cannot be acquired, stop before dump generation or reader
+execution, return missing-input evidence and a concrete next step/cost estimate.
+No substitution with an unrecorded version, emulated platform or Linux-only
+matrix is authorized. Installation/build budget must be fixed before acquisition.
 
 Pin source_commit/tag_object_sha with git_identity where Git is used. Record
 native server/client version, executable hash or platform-specific image digest,

@@ -872,6 +872,16 @@ native client with a bounded library reader on the same freshly produced,
 identified MariaDB12.3.3 application dump. MySQL-produced/external legacy inputs
 remain visible follow-ups, not established compatibility. No dump was executed,
 importer/API selected or spike/productization approved by this design step.
+The2026-10-25 review response fixes reuse/extension of the existing
+users/addresses migration app, retained root@localhost DEFINER/SQL SECURITY,
+producer options and observation normalization, and explicitly defers
+views/triggers. Native acquisition routes are identified, but exact executable
+version/hash/startup receipts for macOS arm64 and Ubuntu x86_64 remain missing;
+the local cached Linux arm64 image does not satisfy either native matrix target.
+Human approval remains pending. If approved, bounded acquisition preflight comes
+first; dump generation and reader execution remain blocked until both platform
+preflights close. Productization, main integration, Qualification and release
+remain separate gates.
 
 
 **Prepared Statements — complete and adopted on main.** See the final P6
