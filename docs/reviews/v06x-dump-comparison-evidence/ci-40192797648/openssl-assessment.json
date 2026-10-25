@@ -1,0 +1,28 @@
+{
+  "run_id": 40192797648,
+  "job_id": 121167409586,
+  "result": "NO_OBSERVED_IMPACT",
+  "warning": "openssl@4 was installed but not linked because openssl@3 is already linked.",
+  "installed_openssl_realpath": "/opt/homebrew/Cellar/openssl@4/4.0.2/lib",
+  "dylib_hashes": {
+    "libcrypto.4.dylib": "0f4e17192a6a572102b5c7b80c06b483e46e50b4b6b4d2e15c799b64c527cb42",
+    "libssl.4.dylib": "90d5644c0d0d21d00908c6dc6f54b61e0f962fc1af940449c5e5e290e5f8b17f",
+    "libssl.dylib": "90d5644c0d0d21d00908c6dc6f54b61e0f962fc1af940449c5e5e290e5f8b17f",
+    "libcrypto.dylib": "0f4e17192a6a572102b5c7b80c06b483e46e50b4b6b4d2e15c799b64c527cb42"
+  },
+  "native_executables": {
+    "mariadbd": {
+      "sha256": "3f7826b3e4415119604575b3dd8a45e8e96a5b4a63995e87f0ad217bd2015582",
+      "loader": "/Users/runner/work/_temp/dump-work/acquisition/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadbd:\n\t/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices (compatibility version 1.0.0, current version 1226.0.0)\n\t/opt/homebrew/opt/pcre2/lib/libpcre2-8.0.dylib (compatibility version 17.0.0, current version 17.1.0)\n\t/usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.12)\n\t/opt/homebrew/opt/openssl@4/lib/libssl.4.dylib (compatibility version 4.0.0, current version 4.0.0)\n\t/opt/homebrew/opt/openssl@4/lib/libcrypto.4.dylib (compatibility version 4.0.0, current version 4.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1351.0.0)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 1900.178.0)\n"
+    },
+    "mariadb": {
+      "sha256": "a4ed14f1f8d1727aa2b14e433c4368575c0bd09bd281c17b5a4e4615da80eaa8",
+      "loader": "/Users/runner/work/_temp/dump-work/acquisition/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb:\n\t/usr/lib/libedit.3.dylib (compatibility version 2.0.0, current version 3.0.0)\n\t/usr/lib/libncurses.5.4.dylib (compatibility version 5.4.0, current version 5.4.0)\n\t/opt/homebrew/opt/openssl@4/lib/libssl.4.dylib (compatibility version 4.0.0, current version 4.0.0)\n\t/opt/homebrew/opt/openssl@4/lib/libcrypto.4.dylib (compatibility version 4.0.0, current version 4.0.0)\n\t/usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.12)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 1900.178.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1351.0.0)\n"
+    },
+    "mariadb-dump": {
+      "sha256": "3ffbaff0ccb65088ae4bfdaace2ce3396ce89d8392b2d3739e1a705cd4519ea1",
+      "loader": "/Users/runner/work/_temp/dump-work/acquisition/temp/macos-native/mariadb@12.3/12.3.3_1/bin/mariadb-dump:\n\t/opt/homebrew/opt/openssl@4/lib/libssl.4.dylib (compatibility version 4.0.0, current version 4.0.0)\n\t/opt/homebrew/opt/openssl@4/lib/libcrypto.4.dylib (compatibility version 4.0.0, current version 4.0.0)\n\t/usr/lib/libz.1.dylib (compatibility version 1.0.0, current version 1.2.12)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 1900.178.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1351.0.0)\n"
+    }
+  },
+  "explanation": "These executables reference the versioned openssl@4 opt path explicitly; global brew link is unnecessary for this observed run. Startup, native reference and comparison succeeded. This is not a TLS handshake test or clean-machine/setup-cost claim."
+}

@@ -1,0 +1,104 @@
+{
+  "source_commit": "9494e755a5e7d79a9702e1d1dc7c1caae993e801",
+  "run_id": 40192797648,
+  "result": "PASS",
+  "matrix": {
+    "ubuntu-24.04": {
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "host_sha256": "cf00cfc7442b74bef6221536cfedec4d6d956c4ed65a65a06e3dd5497ad1193f",
+      "direct_routes": {
+        "native": "PASS",
+        "reader": "PASS"
+      },
+      "interpreters": {
+        "py311": {
+          "python": "3.11.17 (main, Oct  1 2026, 14:32:31) [GCC 13.3.0]",
+          "packages": {
+            "pytest": "7.0.0",
+            "PyMySQL": "1.2.3",
+            "SQLAlchemy": "2.0.54"
+          },
+          "routes": {
+            "native-success": "PASS",
+            "reader-success": "PASS",
+            "native-sql_failure": "PASS",
+            "native-malformed": "PASS",
+            "native-source": "PASS",
+            "reader-sql_failure": "PASS",
+            "reader-malformed": "PASS",
+            "reader-source": "PASS"
+          }
+        },
+        "py314": {
+          "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+          "packages": {
+            "pytest": "9.0.2",
+            "PyMySQL": "1.2.3",
+            "SQLAlchemy": "2.0.54"
+          },
+          "routes": {
+            "native-success": "PASS",
+            "reader-success": "PASS",
+            "native-sql_failure": "PASS",
+            "native-malformed": "PASS",
+            "native-source": "PASS",
+            "reader-sql_failure": "PASS",
+            "reader-malformed": "PASS",
+            "reader-source": "PASS"
+          }
+        }
+      }
+    },
+    "macos-15": {
+      "platform": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+      "host_sha256": "c7e2c170beffea8e311a42fa320b558efa85cbcb5d1736ec65a4102fc01b873a",
+      "direct_routes": {
+        "native": "PASS",
+        "reader": "PASS"
+      },
+      "interpreters": {
+        "py311": {
+          "python": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]",
+          "packages": {
+            "pytest": "7.0.0",
+            "PyMySQL": "1.2.3",
+            "SQLAlchemy": "2.0.54"
+          },
+          "routes": {
+            "native-success": "PASS",
+            "reader-success": "PASS",
+            "native-sql_failure": "PASS",
+            "native-malformed": "PASS",
+            "native-source": "PASS",
+            "reader-sql_failure": "PASS",
+            "reader-malformed": "PASS",
+            "reader-source": "PASS"
+          }
+        },
+        "py314": {
+          "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+          "packages": {
+            "pytest": "9.0.2",
+            "PyMySQL": "1.2.3",
+            "SQLAlchemy": "2.0.54"
+          },
+          "routes": {
+            "native-success": "PASS",
+            "reader-success": "PASS",
+            "native-sql_failure": "PASS",
+            "native-malformed": "PASS",
+            "native-source": "PASS",
+            "reader-sql_failure": "PASS",
+            "reader-malformed": "PASS",
+            "reader-source": "PASS"
+          }
+        }
+      }
+    }
+  },
+  "positive_scenarios": 8,
+  "child_tests_passed": 16,
+  "negative_scenarios": 24,
+  "original_endpoint_contacts": 0,
+  "recommendation": "productize a bounded library path, subject to separate Human Review; no productization performed"
+}

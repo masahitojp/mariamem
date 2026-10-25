@@ -865,7 +865,7 @@ Automatic preparation
 routing remains excluded from0.6.0; live and broader diagnostics/framework
 coverage remain separate decisions.
 
-**Dump import — native reference PASS; guest comparison blocked by runtime status decoding.** The
+**Dump import — bounded comparison PASS on observed hosts; productization separate.** The
 [dump comparison proposal](reviews/v06x-dump-import-design.md) reuses the source
 inventory and completed migration lifecycle. It recommends comparing an optional
 native client with a bounded library reader on the same freshly produced,
@@ -941,6 +941,18 @@ are INPUTS_VERIFIED only, with no local dump regeneration/comparison claim.
 The new candidate is prepared for the same native/guest comparison CI; its
 runtime matrix result is not yet established. The failed5a9661d receipt remains
 unchanged and is not relabeled as a corrected PASS.
+[CI40192797648](https://github.com/masahitojp/mariamem/actions/runs/40192797648)
+subsequently passed on exact9494e75: fresh canonical byte reproduction/binding,
+both native references, both guest routes on Mac arm64/Ubuntu x86_64 with
+Python3.11/3.14,16 child test passes and24 negative scenarios. The
+[completion report](reviews/v06x-dump-comparison-completion.md) links verified
+artifact ZIP receipts and recommends a bounded library productization direction
+for separate Human Review. No productization is authorized by the PASS. The Mac
+OpenSSL global-link warning had no observed impact: native executables explicitly
+reference versioned openssl@4 libraries. No global link change, cold-host or
+setup-cost claim follows from that result. Reader format ownership and promotion
+of its observed SQLSTATE into the deterministic gate remain productization
+conditions; views/triggers remain outside scope.
 This work performs no productization, main integration, Qualification or release;
 those remain separate gates.
 
