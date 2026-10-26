@@ -32,11 +32,13 @@ def assess(kind,code,counts,events,failures):
     if {e['schema'] for e in starts}!={e['schema'] for e in removed}:return False
     if not all(e['db_version'].startswith('12.3.3-MariaDB') for e in ready):return False
     if len(named('browser_started'))!=1 or len(named('browser_closed'))!=1:return False
+    if named('browser_started')[0].get('version')!='141.0.7390.37':return False
     if kind=='python':
         if len({e['pid'] for e in before})!=1 or len({e['http_url'] for e in before})!=1 or len(named('native_reset'))!=3:return False
         migrations=named('migration_chain')
         if len(migrations)!=1 or migrations[0]['revisions']!=['0001_initial','0002_status']:return False
     else:
+        if any(e.get('exit_code')!=0 for e in reaped):return False
         if len({e['schema'] for e in before})!=3 or len({e['pid'] for e in before})!=3:return False
     return True
 
@@ -61,7 +63,7 @@ def main():
     report=dict(result='FAIL',scope='native MariaDB reference; no mariamem or live API executed',
         source_commit=args.expected_source_commit,host_platform=platform.platform(),python=sys.version,
         packages={n:importlib.metadata.version(n) for n in ['Django','mysqlclient','playwright','pytest']},
-        native_client_library=MySQLdb._mysql.get_client_info(),go_app_sha256=hashlib.sha256(args.go_app.read_bytes()).hexdigest(),
+        native_client_library=MySQLdb._mysql.get_client_info(),native_client_module_sha256=hashlib.sha256(Path(MySQLdb._mysql.__file__).read_bytes()).hexdigest(),go_app_sha256=hashlib.sha256(args.go_app.read_bytes()).hexdigest(),
         go_buildinfo=buildinfo,inputs={str(f.relative_to(ROOT)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(HERE.rglob('*')) if f.is_file() and '__pycache__' not in f.parts},runs={})
     try:
         for kind in ['python','go']:

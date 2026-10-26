@@ -1,0 +1,65 @@
+name: E2E native browser control
+on:
+  push:
+    branches: [experiment/e2e-native-control]
+    paths:
+      - '.github/workflows/e2e-native-control.yml'
+      - 'tests/e2e_native_control/**'
+      - 'tests/test_e2e_native_oracles.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/e2e-browsers
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.14']
+    services:
+      mariadb:
+        image: mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+        ports: ['3307:3306']
+        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Native client and fixed browser dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pkg-config default-libmysqlclient-dev build-essential
+          python -m pip install --no-cache-dir -r tests/e2e_native_control/requirements.lock.txt
+          python -m playwright install --with-deps chromium --only-shell
+      - name: Source, native acquisition and strict result oracles
+        env:
+          NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
+        run: |
+          python scripts/git_identity.py inspect HEAD
+          python -m pytest tests/test_e2e_native_oracles.py -q
+          python tests/dump_import_acceptance/linux_acquisition.py --container "$NATIVE_CONTAINER" --expected-source-commit "$GITHUB_SHA" --output build/e2e-control/acquisition
+      - name: Source-stamped application build
+        run: go build -trimpath -o build/e2e-go-orders ./tests/e2e_native_control/goapp
+      - name: Native browser and real lifecycle defect injections
+        run: |
+          python scripts/experiment_disk.py --work-dir build/e2e-control --min-free-gib 4 --budget-gib 3 --timeout 600 -- python tests/e2e_native_control/run.py --port 3307 --go-app build/e2e-go-orders --expected-source-commit "$GITHUB_SHA" --output build/e2e-control/positive
+          python scripts/experiment_disk.py --work-dir build/e2e-control --min-free-gib 4 --budget-gib 3 --timeout 600 -- python tests/e2e_native_control/run.py --port 3307 --go-app build/e2e-go-orders --expected-source-commit "$GITHUB_SHA" --output build/e2e-control/skip-reset --mutation skip-reset
+          python scripts/experiment_disk.py --work-dir build/e2e-control --min-free-gib 4 --budget-gib 3 --timeout 600 -- python tests/e2e_native_control/run.py --port 3307 --go-app build/e2e-go-orders --expected-source-commit "$GITHUB_SHA" --output build/e2e-control/restart-app --mutation restart-app
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: e2e-native-py${{ matrix.python }}-${{ github.sha }}
+          path: build/e2e-control
+          if-no-files-found: error

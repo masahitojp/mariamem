@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"encoding/json"
 	_ "github.com/go-sql-driver/mysql"
@@ -9,7 +10,9 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"os/signal"
 	"strconv"
+	"syscall"
 	"time"
 )
 
@@ -93,5 +96,18 @@ func main() {
 	}
 	json.NewEncoder(os.Stdout).Encode(map[string]any{"address": listener.Addr().String(), "pid": os.Getpid()})
 	server := &http.Server{Handler: mux, ReadHeaderTimeout: 5 * time.Second}
-	log.Fatal(server.Serve(listener))
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+	done := make(chan struct{})
+	go func() {
+		<-ctx.Done()
+		deadline, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+		defer cancel()
+		server.Shutdown(deadline)
+		close(done)
+	}()
+	if err := server.Serve(listener); err != nil && err != http.ErrServerClosed {
+		log.Fatal(err)
+	}
+	<-done
 }

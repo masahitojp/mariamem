@@ -1,6 +1,6 @@
 {
   "scope": "native reference only; no mariamem or reset API implementation",
-  "python": "3.11",
+  "python": "3.11 local; 3.11/3.14 CI",
   "browser": {
     "package": "playwright==1.56.0",
     "engine": "chromium-headless-shell",
@@ -32,7 +32,10 @@
     "mariamem",
     "stable-endpoint guest reset",
     "multi-worker",
-    "Python3.14",
     "native macOS MariaDB server"
+  ],
+  "python_matrix": [
+    "3.11",
+    "3.14"
   ]
 }

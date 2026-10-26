@@ -15,11 +15,11 @@ def fixture(kind):
     for i,name in enumerate(names):
         pid=10 if kind=='python' else 10+i;schema='app' if kind=='python' else 'app'+str(i)
         if kind=='go' or i==0:
-            events += [dict(event='app_started',pid=pid,schema=schema),dict(event='app_ready',pid=pid,db_version='12.3.3-MariaDB'),dict(event='app_reaped',pid=pid,reaped=True),dict(event='schema_removed',schema=schema)]
+            events += [dict(event='app_started',pid=pid,schema=schema),dict(event='app_ready',pid=pid,db_version='12.3.3-MariaDB'),dict(event='app_reaped',pid=pid,reaped=True,exit_code=0),dict(event='schema_removed',schema=schema)]
         before.append(dict(event='case_before',name=name,pid=pid,http_url='http://local',schema=schema,rows=baseline))
         after.append(dict(event='case_after',name=name,rows=baseline+[[['ORDER-A',3,'ready'],['FAILED-A',4,'ready']][i]] if i<2 else baseline))
         if kind=='python':events.append(dict(event='native_reset'))
-    events+=before+after+[dict(event='browser_started'),dict(event='browser_closed')]
+    events+=before+after+[dict(event='browser_started',version='141.0.7390.37'),dict(event='browser_closed')]
     if kind=='python':events.append(dict(event='migration_chain',revisions=['0001_initial','0002_status']))
     return dict(code=1,counts=dict(tests=3,errors=0,failures=1,skipped=0),events=events,
                 failures=[dict(name=names[1],message='E2E_EXPECTED_FAILURE_AFTER_COMMIT')])

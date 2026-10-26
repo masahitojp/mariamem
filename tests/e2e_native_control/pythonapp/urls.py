@@ -11,7 +11,7 @@ class OrderForm(forms.ModelForm):
         fields=['sku','quantity']
         labels={'sku':'SKU','quantity':'Quantity'}
 def orders(request):
-    form=OrderForm(request.POST if request.method=='POST' else None)
+    form=OrderForm(request.POST if request.method=='POST' else None,label_suffix='')
     if request.method=='POST' and form.is_valid():
         form.save()
         return redirect('/orders?created=1')

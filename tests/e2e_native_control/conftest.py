@@ -92,7 +92,7 @@ def server(name,env,kind):
             if process.poll() is None:process.terminate()
             try:process.wait(timeout=5)
             except subprocess.TimeoutExpired:process.kill();process.wait(timeout=5)
-            record('app_reaped',pid=process.pid,reaped=process.poll() is not None)
+            record('app_reaped',pid=process.pid,reaped=process.poll() is not None,exit_code=process.returncode)
 
 
 @pytest.fixture(scope='session')
