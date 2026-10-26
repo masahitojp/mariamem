@@ -3,5 +3,10 @@
   "container_removed": true,
   "native_schema_count_before_container_stop": 0,
   "all_app_and_browser_cleanup": "verified in source0776d7a raw event streams",
-  "scope": "Only this task disposable resources; no other container touched"
+  "scope": "Only this task disposable resources; no other container touched",
+  "workspace_removed": true,
+  "owned_workspace_bytes_before": 1487654912,
+  "downloaded_native_image_removed": true,
+  "source_preserved_in": "refs/heads/experiment/e2e-native-control at0776d7a368a1e162e3884bec9a84b23031ad8e59",
+  "system_dependencies": "pkgconf and MariaDB Connector/C installed with authorization; retained as system development dependencies"
 }
