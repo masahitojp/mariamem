@@ -7,7 +7,7 @@ on this candidate; previous experiment receipts do not qualify the correction.
 The stable base is `bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4`. Selected files come
 from `a1baaad83922d9ac6ff7fe46d64db3fbfcde542f` (experiment/live-host); that ref
 and [CI40349469630](https://github.com/masahitojp/mariamem/actions/runs/40349469630)
-remain unchanged. The [adoption review](https://github.com/masahitojp/mariamem/blob/c718344/docs/reviews/v06x-live-host-adoption-review.md)
+remain unchanged. The [adoption review](https://github.com/masahitojp/mariamem/blob/c71834493ad2742100e1ee96da853b237c5b4abe/docs/reviews/v06x-live-host-adoption-review.md)
 contains the original F1–F3 conditions and bounded evidence.
 
 The selection includes public Go/Python Live, the internal endpoint and control
@@ -50,3 +50,30 @@ remain outside this candidate.
 Local verification and fresh CI results must be recorded against their exact
 source after execution. A passing matrix permits a new Human main adoption
 review; it is not publication approval.
+
+## Local verification on df3e683
+
+Exact source `df3e68393ca5734cfc73e1837013d30bb620e7d1` has
+[checksum-bearing local evidence](v06x-live-main-evidence/local-df3e683/assessment.json).
+Both Python versions pass 63 focused tests. Live/control/public Go race tests pass.
+Three overlays restoring the old Go adapter, shared adapter and endpoint Close
+are all rejected by the new tests; those deliberate test failures remain raw
+failures in the archive. Full canonical check passes 22 source oracles and 1040
+pytest cases, with 45 SKIPs, 76 subtests and the existing shadow_maria warning.
+The initial repo-local TMPDIR attempt failed 3 unchanged benchmark-tool tests;
+external-TMPDIR rerun passes without changing those tests or their validation.
+
+Full local integration is **FAIL**, with an independently reproduced environment
+blocker: local Python3.14.9/OpenSSL4.0.3 cannot import fixed Connector/Python26.7.0
+because ssl.PROTOCOL_TLSv1 is absent. No ssl aliases, driver patches, exception
+relaxation or new native profile were introduced. All canonical Go runtime/race
+and integration groups, Python SQL/lifecycle 31 PASS/1 SKIP and Snapshot 33 checks
+finish before that blocker. Routing separately passes its full control, 6 defect
+oracles and 4 pytest cases on local Python3.11.17/OpenSSL3.6.5. The Python3.14
+routing attempt retains its import failure (its 4 pytest cases do pass).
+
+These are local candidate results, not a full integration PASS or both-platform
+Live evidence. Fresh CI must satisfy the unchanged full canonical integration,
+fixed prepared-consumer native profile and all Live/browser/native/installed
+conditions. The later documentation/evidence commit does not alter executable
+source from df3e683. No previous CI receipt is rebound to this candidate.

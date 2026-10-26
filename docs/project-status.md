@@ -8,7 +8,7 @@ Version themes are direction; they are not release approval.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Live main candidate — correction and verification in progress
+## Live main candidate — fresh CI required
 
 The Human authorized preparing a minimal main-oriented Live candidate after the
 conditional adoption review. The stable base remains
@@ -17,7 +17,10 @@ conditional adoption review. The stable base remains
 runtime/SDK, tests, native/browser controls and the Live guide, adds maintained
 main/PR CI and actual-adapter cleanup retry tests, and excludes exploratory
 review history. See the [candidate record](reviews/v06x-live-main-candidate.md).
-Fresh candidate CI is required. Main integration, Qualification and publication
+Local focused/race and canonical check pass on `df3e683`; full local integration
+retains a Connector/Python import failure on Python3.14.9/OpenSSL4.0.3. This is
+not a full integration PASS. Fresh candidate CI must pass all unchanged runtime,
+native-reference, browser and installed-consumer gates. Main integration, Qualification and publication
 remain separate decisions. Published v0.5.3 does not provide this API.
 
 ## Product contract

@@ -57,8 +57,9 @@ A reset restores database contents, not application caches/cookies or worker sta
 
 Use status()/Status() for state, generation and active physical connections.
 After close, endpoint metadata stays readable but the address is unusable. Close
-preserves its original error on repeated calls. Repeated Close also retries any
-unresolved child disposal; successful retry does not erase the original error. Context-manager cleanup preserves an
+preserves its original error on repeated calls. Go repeated Close retries unresolved child disposal. Python retains failed
+children in its shared host for retry at host shutdown; repeated Python close
+raises its stored error. Successful disposal retry does not erase the original error. Context-manager cleanup preserves an
 application exception together with a cleanup error. A failed Live does not
 terminate other databases sharing the Python host.
 
