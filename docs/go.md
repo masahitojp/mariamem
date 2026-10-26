@@ -200,3 +200,6 @@ development checks, [release notes](../release/NOTES-v0.5.3.md)
 and [API migration](changes-since-v050.md).
 The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.
+
+The unreleased Live candidate supports a stable endpoint across sequential browser
+E2E cases. See the [Live guide](live.md) for connection draining and reset ownership.

@@ -1,0 +1,2 @@
+CREATE TABLE orders_order(id INT PRIMARY KEY AUTO_INCREMENT,sku VARCHAR(64) NOT NULL UNIQUE,quantity INT UNSIGNED NOT NULL DEFAULT 1,status VARCHAR(16) NOT NULL DEFAULT 'ready') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO orders_order(sku,quantity,status) VALUES('SEED',2,'ready');

@@ -232,4 +232,5 @@ def start(**options):
 
 
 from .snapshot import Snapshot
+from .live import Live
 from .dump import DumpImportError, import_dump

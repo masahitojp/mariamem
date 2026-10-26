@@ -236,3 +236,6 @@ performance promise.
 The unreleased bounded `import_dump(db, path)` helper is described in the
 [dump preparation guide](importing-dump.md), including the `dump` extra, supported
 MariaDB producer profile and failure cleanup. It is not a general SQL-file runner.
+
+The unreleased Live candidate supports a stable endpoint across sequential browser
+E2E cases. See the [Live guide](live.md) for connection draining and reset ownership.

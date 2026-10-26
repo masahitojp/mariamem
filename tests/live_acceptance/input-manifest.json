@@ -1,0 +1,9 @@
+{
+  "scope": "Go app live variant differs only in MaxIdleConns(0), with explicit physical reconnect boundary. Existing native business files remain pinned separately.",
+  "derived_from": "ab085d3c432b6b1483b7b937500b775d4a3faf53",
+  "native_control": "Fresh native MariaDB12.3.3 at the same candidate, binary digest bound to variant",
+  "files": {
+    "tests/live_acceptance/goapp/main.go": "b9c169590f073c535a7b850ef4c4e1f27db0433e9385b28698f45020f1d60e0c",
+    "tests/live_acceptance/go_owner/main.go": "b65175061c8c3e6ad32ea6f702170dc2f0ca4b99bf52bf669bde1cb3bec97fb2"
+  }
+}

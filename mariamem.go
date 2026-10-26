@@ -63,6 +63,7 @@ type backend interface {
 	Close(context.Context) error
 	SnapshotHeap(context.Context, bool) (*stored.Owned, bool, error)
 	Active() int
+	Capacity() int
 	Failure() error
 }
 

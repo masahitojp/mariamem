@@ -8,6 +8,18 @@ Version themes are direction; they are not release approval.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Live main candidate — correction and verification in progress
+
+The Human authorized preparing a minimal main-oriented Live candidate after the
+conditional adoption review. The stable base remains
+`bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4`; the original CI-tested experiment
+`a1baaad83922d9ac6ff7fe46d64db3fbfcde542f` remains fixed. The new candidate selects
+runtime/SDK, tests, native/browser controls and the Live guide, adds maintained
+main/PR CI and actual-adapter cleanup retry tests, and excludes exploratory
+review history. See the [candidate record](reviews/v06x-live-main-candidate.md).
+Fresh candidate CI is required. Main integration, Qualification and publication
+remain separate decisions. Published v0.5.3 does not provide this API.
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally

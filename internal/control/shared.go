@@ -17,6 +17,7 @@ import (
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/host"
+	endpoint "github.com/masahitojp/mariamem/internal/live"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
 	"github.com/masahitojp/mariamem/internal/snapshot"
 )
@@ -29,6 +30,7 @@ type Request struct {
 	Target          uint64 `json:"target"`
 	Rollback        bool   `json:"rollback"`
 	Timeout         string `json:"timeout"`
+	DrainTimeout    string `json:"drain_timeout"`
 	QueryTimeout    string `json:"query_timeout"`
 	StartupTimeout  string `json:"startup_timeout"`
 	ShutdownTimeout string `json:"shutdown_timeout"`
@@ -52,6 +54,7 @@ type baseline struct {
 type manager struct {
 	mu      sync.Mutex
 	seq     uint64
+	lives   map[uint64]*endpoint.Endpoint
 	dbs     map[uint64]*db
 	snaps   map[uint64]*baseline
 	pending map[uint64]context.CancelFunc
@@ -59,7 +62,7 @@ type manager struct {
 }
 
 func newManager() *manager {
-	return &manager{dbs: map[uint64]*db{}, snaps: map[uint64]*baseline{}, pending: map[uint64]context.CancelFunc{}}
+	return &manager{lives: map[uint64]*endpoint.Endpoint{}, dbs: map[uint64]*db{}, snaps: map[uint64]*baseline{}, pending: map[uint64]context.CancelFunc{}}
 }
 func duration(s string, fallback time.Duration) (time.Duration, error) {
 	if s == "" {
@@ -105,7 +108,7 @@ func (d *db) logs() string {
 	return string(b)
 }
 func (m *manager) next() uint64 { m.seq++; return m.seq }
-func (m *manager) create(ctx context.Context, r Request, base *baseline) (map[string]any, error) {
+func makeDB(ctx context.Context, r Request, base *baseline) (*db, error) {
 	q, st, sh := 30*time.Second, 120*time.Second, 30*time.Second
 	if base != nil {
 		q, st, sh = base.query, base.startup, base.shutdown
@@ -146,6 +149,15 @@ func (m *manager) create(ctx context.Context, r Request, base *baseline) (map[st
 		d.close()
 		return nil, e
 	}
+	return d, nil
+}
+func (m *manager) create(ctx context.Context, r Request, base *baseline) (map[string]any, error) {
+	d, err := makeDB(ctx, r, base)
+	if err != nil {
+		return nil, err
+	}
+	s := d.server
+
 	m.mu.Lock()
 	id := m.next()
 	m.dbs[id] = d
@@ -154,6 +166,10 @@ func (m *manager) create(ctx context.Context, r Request, base *baseline) (map[st
 }
 func (m *manager) call(ctx context.Context, r Request) (result map[string]any, err error) {
 	switch r.Op {
+	case "live_create":
+		return m.createLive(ctx, r)
+	case "live_reset", "live_close", "live_status":
+		return m.callLive(ctx, r)
 	case "start":
 		if r.TransferPath != "" {
 			b, e := snapshot.Import(r.TransferPath, runtimekind.GuestSHA256)
@@ -269,23 +285,34 @@ func (m *manager) call(ctx context.Context, r Request) (result map[string]any, e
 		return nil, errors.New("operation is not implemented")
 	}
 }
-func (m *manager) cleanup() {
+func (m *manager) cleanup() error {
 	m.mu.Lock()
+	lives := m.lives
+	m.lives = map[uint64]*endpoint.Endpoint{}
 	dbs := m.dbs
 	snaps := m.snaps
 	m.dbs = map[uint64]*db{}
 	m.snaps = map[uint64]*baseline{}
 	m.mu.Unlock()
 	var wg sync.WaitGroup
+	var cleanupMu sync.Mutex
+	var cleanupErr error
+	collect := func(err error) { cleanupMu.Lock(); cleanupErr = errors.Join(cleanupErr, err); cleanupMu.Unlock() }
+	for _, live := range lives {
+		wg.Add(1)
+		go func() { defer wg.Done(); collect(live.FinalCleanup()) }()
+	}
+	wg.Wait()
 	for _, d := range dbs {
 		wg.Add(1)
-		go func() { defer wg.Done(); d.gate <- struct{}{}; defer func() { <-d.gate }(); _ = d.close() }()
+		go func() { defer wg.Done(); d.gate <- struct{}{}; defer func() { <-d.gate }(); collect(d.close()) }()
 	}
 	for _, b := range snaps {
 		wg.Add(1)
-		go func() { defer wg.Done(); b.mu.Lock(); defer b.mu.Unlock(); _ = b.owned.Close() }()
+		go func() { defer wg.Done(); b.mu.Lock(); defer b.mu.Unlock(); collect(b.owned.Close()) }()
 	}
 	wg.Wait()
+	return cleanupErr
 }
 func replyError(r map[string]any, e error) {
 	if e == nil {
@@ -323,7 +350,7 @@ func runWith(parent context.Context, in io.Reader, out io.Writer, m *manager, op
 	var encMu sync.Mutex
 	enc := json.NewEncoder(out)
 	send := func(v any) error { encMu.Lock(); defer encMu.Unlock(); return enc.Encode(v) }
-	if e := send(map[string]any{"event": "ready", "protocol": 2, "pid": os.Getpid(), "guest_sha256": runtimekind.GuestSHA256}); e != nil {
+	if e := send(map[string]any{"event": "ready", "protocol": 2, "capabilities": []string{"live-v1"}, "pid": os.Getpid(), "guest_sha256": runtimekind.GuestSHA256}); e != nil {
 		return e
 	}
 	messages := make(chan Request)
@@ -370,7 +397,7 @@ loop:
 			}
 			if r.Op == "shutdown" {
 				m.mu.Lock()
-				idle := len(m.dbs) == 0 && len(m.snaps) == 0 && len(m.pending) == 0
+				idle := len(m.dbs) == 0 && len(m.snaps) == 0 && len(m.lives) == 0 && len(m.pending) == 0
 				m.mu.Unlock()
 				if idle {
 					_ = send(map[string]any{"id": r.ID, "ok": true})
@@ -396,13 +423,21 @@ loop:
 				defer m.wg.Done()
 				defer stop()
 				result, e := operation(ctx, r)
-				if ctx.Err() != nil && result != nil {
+				committed := r.Op == "live_reset" && e == nil && result != nil && result["live_committed"] == true
+				if ctx.Err() != nil && result != nil && !committed {
 					if value, ok := result["database"].(map[string]any); ok {
 						if handle, ok := value["handle"].(uint64); ok {
 							_, cleanup := m.call(context.Background(), Request{Op: "db_close", Handle: handle})
 							e = errors.Join(e, cleanup)
 						}
 						delete(result, "database")
+					}
+					if value, ok := result["live"].(map[string]any); ok {
+						if handle, ok := value["handle"].(uint64); ok {
+							_, cleanup := m.call(context.Background(), Request{Op: "live_close", Handle: handle})
+							e = errors.Join(e, cleanup)
+						}
+						delete(result, "live")
 					}
 					if handle, ok := result["snapshot"].(uint64); ok {
 						_, cleanup := m.call(context.Background(), Request{Op: "snapshot_close", Handle: handle})
@@ -426,12 +461,12 @@ loop:
 		}
 	}
 	cancelOwner()
-	done := make(chan struct{})
-	go func() { m.wg.Wait(); m.cleanup(); close(done) }()
+	done := make(chan error, 1)
+	go func() { m.wg.Wait(); done <- m.cleanup() }()
 	select {
-	case <-done:
+	case cleanupErr := <-done:
+		return errors.Join(terminal, cleanupErr)
 	case <-time.After(45 * time.Second):
 		return errors.New("shared host cooperative cleanup timed out")
 	}
-	return terminal
 }

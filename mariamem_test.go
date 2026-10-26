@@ -28,6 +28,7 @@ type fakeBackend struct {
 
 func (f *fakeBackend) Close(context.Context) error { f.closes++; return f.closeErr }
 func (f *fakeBackend) Active() int                 { return f.active }
+func (f *fakeBackend) Capacity() int               { return 16 }
 func (f *fakeBackend) Failure() error              { return f.failure }
 func (f *fakeBackend) SnapshotHeap(ctx context.Context, r bool) (*stored.Owned, bool, error) {
 	return f.snapshot(ctx, r)

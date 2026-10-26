@@ -1,0 +1,4 @@
+<!doctype html><html><body><h1>Orders</h1><a href="/orders">New order</a>
+{% if created %}<p>Order created</p>{% endif %}
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Save</button></form>
+<ul>{% for order in orders %}<li data-testid="order">{{ order.sku }}:{{ order.quantity }}:{{ order.status }}</li>{% endfor %}</ul></body></html>
