@@ -1250,3 +1250,22 @@ large-input performance and cold/setup-cost claims remain outside this adoption.
 Guest/generated code, canonical generation inputs, release ledgers and version
 metadata are unchanged. Target version, Qualification and release remain separate
 Human decisions.
+
+## v0.6.x dogfood replanning — framework and E2E coverage
+
+On2026-10-26 the Human requested replanning before continuing Django adapter
+work, explicitly including browser E2E and the live-use question. The
+[replanned dogfood schedule](reviews/v06x-dogfood-replanned.md) registers ordinary
+Go/Python framework tests and long-lived separate-process Web/browser/worker
+workloads, with native controls, isolation/failure oracles and resource/effort
+observations. It preserves metadata-heavy/dbt-like and parallel-resource targets.
+The proposed sequence is input manifests and Django/E2E requirements, then
+separate adapter/live designs, bounded reviewed experiments, implementation and
+capability/version-scope reconciliation. Existing adopted features and receipts
+are reused as foundations; the plan is not new runtime evidence.
+
+The Human has requested planning and review, not a new live implementation.
+Keeping an application alive, preserving its endpoint and retaining physical
+sessions are separate choices. E2E is an explicit investigation target; live's
+0.6.0 inclusion remains a Human scope decision based on evidence. No framework
+or browser/worker/tool versions are newly advertised as supported by this plan.
