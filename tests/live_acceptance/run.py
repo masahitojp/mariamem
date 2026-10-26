@@ -33,6 +33,7 @@ def assess(kind,code,counts,events,failures,reference,mutation=None):
         closed=get('live_closed')
         if len(get('live_created'))!=1 or len(closed)!=1 or not closed[0]['close_returned'] or closed[0]['active_before_close']!=0:return False
         if closed[0]['status']['state']!='closed' or closed[0]['status']['active_connections']!=0:return False
+    if kind.startswith('go') and not all(e['exit_code']==0 for e in reaped):return False
     before,after=get('case_before'),get('case_after')
     normalized=lambda seq:[{'name':e['name'],'rows':e['rows']} for e in seq]
     intentional=(code==1 and counts==dict(tests=3,errors=0,failures=1,skipped=0) and len(failures)==1 and failures[0]['name']=='test_02_fail_after_commit' and 'E2E_EXPECTED_FAILURE_AFTER_COMMIT' in failures[0]['message'])
@@ -67,7 +68,11 @@ def main():
     reference=json.loads((HERE/'native-reference.json').read_text())['interpreters'][f'{sys.version_info.major}.{sys.version_info.minor}']
     native=json.loads((args.native_reference/'result.json').read_text())
     assert native['source_commit']==args.expected_source_commit and native['result']=='PASS_NATIVE_CONTROL'
-    assert native['go_app_sha256']==hashlib.sha256(args.go_live_app.read_bytes()).hexdigest()
+    variant=json.loads((args.native_reference/'app-variant.json').read_text())
+    assert variant['result']=='PASS_NATIVE_VARIANT' and variant['source_commit']==args.expected_source_commit
+    assert variant['source_sha256']==derived['files']['tests/live_acceptance/goapp/main.go']
+    assert variant['binary_sha256']==native['go_app_sha256']
+    assert '\tpath\tgithub.com/masahitojp/mariamem/tests/live_acceptance/goapp' in native['go_buildinfo']
     native_events,_,_=parsed(args.native_reference/'go')
     for key in ['case_before','case_after']:
         assert [{'name':e['name'],'rows':e['rows']} for e in native_events if e['event']==key]==reference['observation']['go'][key]
@@ -76,7 +81,7 @@ def main():
     import MySQLdb
     report=dict(result='FAIL',source_commit=args.expected_source_commit,python=sys.version,packages=packages,
         platform=dict(system=platform.system(),machine=platform.machine(),mysqlclient_library=MySQLdb.get_client_info()),
-        scope='Public Go/Python host-owned Live; original Go Fork control; source SDK',native_reference=native,
+        scope='Public Go/Python host-owned Live; original Go Fork control; source SDK',native_reference=native,native_variant=variant,
         prior_native_reference=reference,binary_buildinfo=binaries,binary_hashes={k:hashlib.sha256(getattr(args,k).read_bytes()).hexdigest() for k in binaries},runs={})
     env=dict(os.environ,E2E_GUEST_HOST=str(args.host.resolve()),E2E_GO_OWNER=str(args.go_owner.resolve()),
              PYTHONPATH=os.pathsep.join([str(ROOT/'python'),str(HERE)]),PYTHONDONTWRITEBYTECODE='1',PYTEST_DISABLE_PLUGIN_AUTOLOAD='1',PYTEST_ADDOPTS='')
