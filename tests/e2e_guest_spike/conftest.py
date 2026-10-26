@@ -22,7 +22,9 @@ SCHEMA='e2e_app'
 
 
 def info_env(info):
-    return dict(os.environ,E2E_DB_HOST=info['host'],E2E_DB_PORT=str(info['port']),E2E_DB_NAME=SCHEMA)
+    return dict(os.environ,E2E_DB_HOST=info['host'],E2E_DB_PORT=str(info['port']),E2E_DB_NAME=SCHEMA,
+                PYTHONUNBUFFERED='1',E2E_CHILD_DIAGNOSTICS='1',
+                PYTHONPATH=os.pathsep.join([str(HERE/'diagnostics'),os.environ.get('PYTHONPATH','')]))
 
 
 def connect(info):

@@ -74,7 +74,7 @@ jobs:
         run: |
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-            "$py" -m pytest tests/test_e2e_guest_relay.py tests/test_e2e_guest_oracles.py tests/test_e2e_native_oracles.py -q
+            "$py" -m pytest tests/test_e2e_guest_relay.py tests/test_e2e_guest_oracles.py tests/test_e2e_native_oracles.py tests/test_e2e_child_diagnostics.py -q
             for scenario in positive skip-reset restart-app; do
               args=()
               if [[ "$scenario" != positive ]]; then args=(--mutation "$scenario"); fi
