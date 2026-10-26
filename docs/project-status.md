@@ -1353,3 +1353,10 @@ cleanup and a real Go Live acceptance path in addition to the existing Go Fork
 control. This is a proposed implementation boundary, not an approved public API
 or Go-host implementation. The existing separate-live/version scope decision
 and explicit preparation-settings policy remain in force.
+The [pinned design review](reviews/v06x-live-host-design-review.md) recommends
+implementing that bounded candidate, with the strongest limitation explicit:
+application work and physical DB sessions must quiesce before reset. It records
+current CI blind spots (Go Live path, cancellation commit, late handles and
+parent-baseline lifetime) and required candidate tests. The decision to adopt
+and implement this new public lifecycle remains with the Human; the existing
+prototype approval/result is not relabeled as that decision.
