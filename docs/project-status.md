@@ -1360,3 +1360,19 @@ current CI blind spots (Go Live path, cancellation commit, late handles and
 parent-baseline lifetime) and required candidate tests. The decision to adopt
 and implement this new public lifecycle remains with the Human; the existing
 prototype approval/result is not relabeled as that decision.
+
+The Human then explicitly approved proceeding with the bounded Go-owned Live
+implementation. The [implementation/local result](reviews/v06x-live-host-results.md)
+records candidate `ca74140090d74ff118d0c902fc3bb96410573978`, experiment/live-host,
+selected directly against stable mainbf3a29c. It implements common Go endpoint/
+reset ownership, explicit public Go/Python Live lifecycle, capability discovery,
+late-handle collection and deterministic cancellation commitment. Local macOS
+arm64/Python3.11 public browser paths, actual defects on both languages, real SQL
+busy/lifetime/failure controls, canonical check, race tests and installed-wheel/
+external-Go consumers pass with their own checksums. Fresh native comparison uses
+an explicitly recorded Go idle-pool variant; its local server is Linux amd64
+under Docker Desktop, not a native Mac/Ubuntu-host acquisition claim.
+Both-platform/Python-version candidate CI owns the next canonical integration
+and browser/installed matrix. Main adoption, version inclusion, Qualification
+and release have not been approved. Guest/generated inputs and release ledgers
+remain unchanged; the caller must quiesce app work and physical connections.

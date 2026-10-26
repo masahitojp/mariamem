@@ -1,0 +1,416 @@
+{
+  "source_commit": "ca74140090d74ff118d0c902fc3bb96410573978",
+  "base_commit": "bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4",
+  "result": "PASS_LOCAL_PUBLIC_LIVE_CANDIDATE",
+  "raw_archive_sha256": "66bb58465cfc26a6b035b98f4592ba33f8503f9868c7f001799578ee45929dc4",
+  "local_host": "macOS-27.0.1-arm64-arm-64bit",
+  "scope": "macOS arm64/Python3.11.17 source SDK and Go1.26.10; fresh native12.3.3 Linux amd64 server under Docker Desktop emulation; installed candidate wheel and external local-replacement Go module",
+  "canonical_check": {
+    "result": "PASS",
+    "source_commit": "ca74140090d74ff118d0c902fc3bb96410573978",
+    "python_passed": 1028,
+    "python_skipped": 45,
+    "subtests_passed": 76,
+    "source_guard_passed": 22,
+    "go_test_all": "PASS",
+    "go_vet": "PASS"
+  },
+  "race": {
+    "result": "PASS",
+    "packages": [
+      "internal/live",
+      "internal/control",
+      "root public API"
+    ]
+  },
+  "installed": {
+    "result": "PASS_INSTALLED_LIVE",
+    "wheel_sha256": "7a3deaf199bd03fd18d110dcae9ba3ed11f84e18e857557aa3418e2c240fe2f1",
+    "python": "PASS_INSTALLED_PYTHON_LIVE",
+    "go": "PASS_EXTERNAL_GO_LIVE",
+    "publication": false
+  },
+  "initial_failures": [
+    {
+      "source_commit": "26bc82fda9d14d102eb49b01c126dc1574a96bf7",
+      "scope": "canonical publication inventory",
+      "result": "FAIL",
+      "reason": "New live.go and live_test.go needed explicit public-source allowlist entries; all other checks passed"
+    },
+    {
+      "scope": "local Linux acquisition guard",
+      "result": "FAIL_HOST_MISMATCH",
+      "reason": "Observed Darwin arm64 is outside pinned Linux x86_64 host gate; preserve original guard result. Image/program identities individually matched. Native semantics are separately observed.",
+      "source_commit": "26bc82fda9d14d102eb49b01c126dc1574a96bf7"
+    }
+  ],
+  "ci_matrix": "Not yet run on this source; planned macOS15/Ubuntu24.04 with Python3.11/3.14",
+  "normal_check_skips": "45 opt-in/conditional tests remain explicit; canonical runtime integration and both-platform acceptance are assigned to candidate CI",
+  "not_claimed": [
+    "physical SQL session continuity",
+    "background-job generation fencing",
+    "automatic pool retirement",
+    "parallel tests sharing one Live",
+    "main adoption",
+    "Qualification/release",
+    "performance/setup cost"
+  ],
+  "runs": [
+    {
+      "source_commit": "26bc82fda9d14d102eb49b01c126dc1574a96bf7",
+      "scenario": "native",
+      "result": "PASS_NATIVE_CONTROL",
+      "runs": {
+        "python": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        }
+      }
+    },
+    {
+      "source_commit": "26bc82fda9d14d102eb49b01c126dc1574a96bf7",
+      "scenario": "positive",
+      "result": "PASS_PUBLIC_LIVE",
+      "runs": {
+        "python": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go-live": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go-fork": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 4,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      }
+    },
+    {
+      "source_commit": "26bc82fda9d14d102eb49b01c126dc1574a96bf7",
+      "scenario": "skip-reset",
+      "result": "MUTATION_DETECTED",
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          }
+        },
+        "go-live": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          }
+        },
+        "go-fork": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 4,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      }
+    },
+    {
+      "source_commit": "26bc82fda9d14d102eb49b01c126dc1574a96bf7",
+      "scenario": "restart-app",
+      "result": "MUTATION_DETECTED",
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go-live": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go-fork": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 4,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      }
+    },
+    {
+      "source_commit": "ca74140090d74ff118d0c902fc3bb96410573978",
+      "scenario": "native",
+      "result": "PASS_NATIVE_CONTROL",
+      "runs": {
+        "python": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        }
+      }
+    },
+    {
+      "source_commit": "ca74140090d74ff118d0c902fc3bb96410573978",
+      "scenario": "positive",
+      "result": "PASS_PUBLIC_LIVE",
+      "runs": {
+        "python": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go-live": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go-fork": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 4,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      }
+    },
+    {
+      "source_commit": "ca74140090d74ff118d0c902fc3bb96410573978",
+      "scenario": "skip-reset",
+      "result": "MUTATION_DETECTED",
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          }
+        },
+        "go-live": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          }
+        },
+        "go-fork": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 4,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      }
+    },
+    {
+      "source_commit": "ca74140090d74ff118d0c902fc3bb96410573978",
+      "scenario": "restart-app",
+      "result": "MUTATION_DETECTED",
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go-live": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go-fork": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 4,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      }
+    }
+  ],
+  "native_resource_cleanup": {
+    "container": "mariamem-live-host-native",
+    "container_id": "2f19d369e043f7e9a83c54c245cf8416ad2e6ec5eee1c88666c90ef537d53738",
+    "schema_count_after": 0,
+    "container_removed": true,
+    "anonymous_volume_removed": true,
+    "downloaded_image_removed": true,
+    "previous_images_untouched": true
+  },
+  "workspace_cleanup": {
+    "applied": true,
+    "before_bytes": 4760326144,
+    "after_bytes": 295985152,
+    "owned_removed_bytes": 4465917952,
+    "retained_large_paths": [],
+    "cleanup_debt": [],
+    "synthetic_pytest_repositories": 53,
+    "fixture_history_archive": "pytest-fixture-histories.zip.base64",
+    "mock_gitfile": "Removed exact synthetic gitdir: private-repository-metadata fixture from test_public_source_excludes_git_metadata; not a real repository."
+  }
+}
