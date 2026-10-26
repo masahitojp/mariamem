@@ -24,7 +24,8 @@ func TestOrders(t *testing.T) {
 		t.Skip("set MARIAMEM_RUN_LIVE_EXAMPLES=1 for this runnable example")
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
-	defer cancel()
+	// Cancel only after application and database owners have closed.
+	t.Cleanup(cancel)
 	source, err := mariamem.Start(ctx, mariamem.Options{})
 	if err != nil {
 		t.Fatal(err)
