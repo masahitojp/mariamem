@@ -1376,3 +1376,23 @@ Both-platform/Python-version candidate CI owns the next canonical integration
 and browser/installed matrix. Main adoption, version inclusion, Qualification
 and release have not been approved. Guest/generated inputs and release ledgers
 remain unchanged; the caller must quiesce app work and physical connections.
+
+The [Go-owned Live CI result](reviews/v06x-live-host-ci-results.md) confirms
+CI40349469630 success on exact candidate
+`a1baaad83922d9ac6ff7fe46d64db3fbfcde542f`: fresh Ubuntu native references for
+Python3.11/3.14, macOS15 arm64/Python3.11.9+3.14.7 and Ubuntu24.04 x86_64/
+Python3.11.17+3.14.8 public Go/Python Live/browser/real-control paths. Canonical
+check/integration and Live core races pass on both hosts; installed candidate
+wheel/default host and exact local-replacement external Go consumers also pass.
+[Original artifacts/digests and raw re-assessment](reviews/v06x-live-host-evidence/ci-40349469630/assessment.json)
+retain the fixed source. Earlier ca74140/df018fd failures keep their original
+source/results. The tested ref remains unchanged; candidate adoption/version
+scope, Qualification and release await separate Human decisions. Application
+work and physical sessions must quiesce before Reset; no session continuity,
+delayed-job fencing or broad Django adapter support is inferred.
+
+Independent Django investigation results were extended on
+[experiment/django-test-lifecycle at ac2cf6b](https://github.com/masahitojp/mariamem/blob/ac2cf6b5bc6b6e8a8066e5986f6000648523cb50/docs/reviews/v06x-django-mixed-results.md).
+Their local mixed suites, failed-migration owner cleanup and minimal settings/
+parent recipe are separate stable-main-based W3 observations, not tests added
+to or relabeled as this Live CI receipt.
