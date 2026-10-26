@@ -1301,5 +1301,15 @@ row/lifecycle evidence and full cleanup. The
 retains original source identities and earlier failures. This is macOS arm64
 apps/browser with Linux amd64 native MariaDB12.3.3 under Docker Desktop CPU
 emulation, not native Ubuntu-host or mariamem/live compatibility PASS. The native
-Ubuntu3.11/3.14 workflow is ready for CI submission; guest live/reset and product
-adapter implementation remain separate work.
+Ubuntu workflow subsequently passes both jobs in
+[CI40286173347](https://github.com/masahitojp/mariamem/actions/runs/40286173347)
+at exact3446b5c927239542fb4203d5c6b4a4342c6b4984, covering Python3.11.17/3.14.8,
+Python/Go browser controls and both actual lifecycle defects.
+[Saved CI evidence](reviews/v06x-e2e-native-control-evidence/ci-40286173347/assessment.json)
+binds original artifact digests and verified raw observations. The
+[reference review](reviews/v06x-e2e-native-control-review.md) recommends using
+this concrete app for the next mariamem comparison: existing Go Fork/configuration
+first, with Python stable-endpoint reset as a separately bounded design. Guest
+live/reset and product adapter implementation remain separate work. Neither
+this native receipt nor the earlier emulated-server Mac result is mariamem E2E
+PASS or a claim that the whole dogfood plan is complete.

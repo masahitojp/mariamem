@@ -154,3 +154,14 @@ the next CI run must establish GitHub acceptance and native execution. The
 [first-attempt record](v06x-e2e-native-control-evidence/ci-first-attempt.json)
 distinguishes the inferred configuration diagnosis from unavailable detailed
 GitHub annotations. Local results remain bound to0776d7a, not the new CI SHA.
+
+## Ubuntu CI result — exact3446b5c
+
+[CI40286173347](https://github.com/masahitojp/mariamem/actions/runs/40286173347)
+now passes both native Ubuntu24.04 jobs: Python3.11.17 and3.14.8. Each executes
+Python/Go positive controls plus the two real Python lifecycle defects. The
+[new assessment](v06x-e2e-native-control-evidence/ci-40286173347/assessment.json)
+verifies original artifact digests, raw XML/events, source/Go identity and exact
+defect classifications. Earlier local results remain bound to0776d7a.
+The [reference review](v06x-e2e-native-control-review.md) recommends using this
+fixture for the next mariamem comparison, with native-versus-live limits explicit.

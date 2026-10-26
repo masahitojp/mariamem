@@ -1,0 +1,229 @@
+{
+  "source_commit": "3446b5c927239542fb4203d5c6b4a4342c6b4984",
+  "run_id": 40286173347,
+  "result": "PASS_NATIVE_CONTROL_AND_MUTATIONS",
+  "scope": "Ubuntu24.04 x86_64 native MariaDB reference; Python3.11/3.14; no mariamem/browser or live/reset support claim",
+  "jobs": {
+    "native-browser (3.11)": {
+      "id": 121450249234,
+      "conclusion": "success"
+    },
+    "native-browser (3.14)": {
+      "id": 121450249509,
+      "conclusion": "success"
+    }
+  },
+  "artifacts": {
+    "12633938715": {
+      "name": "e2e-native-py3.14-3446b5c927239542fb4203d5c6b4a4342c6b4984",
+      "archive_sha256": "2ff7b420bf29e877349a92647aaf537c1b05b1785ad1d66a1d1f46954a4de679",
+      "reports": {
+        "positive": {
+          "result": "PASS_NATIVE_CONTROL",
+          "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+          "host_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "native_client_library": "8.0.46",
+          "observations": {
+            "python": {
+              "counts": {
+                "tests": 3,
+                "errors": 0,
+                "failures": 1,
+                "skipped": 0
+              },
+              "app_starts": 1,
+              "reaped_apps": 1,
+              "schema_removals": 1,
+              "result": "PASS"
+            },
+            "go": {
+              "counts": {
+                "tests": 3,
+                "errors": 0,
+                "failures": 1,
+                "skipped": 0
+              },
+              "app_starts": 3,
+              "reaped_apps": 3,
+              "schema_removals": 3,
+              "result": "PASS"
+            }
+          }
+        },
+        "skip-reset": {
+          "result": "MUTATION_DETECTED",
+          "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+          "host_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "native_client_library": "8.0.46",
+          "observations": {
+            "python": {
+              "counts": {
+                "tests": 3,
+                "errors": 2,
+                "failures": 0,
+                "skipped": 0
+              },
+              "app_starts": 1,
+              "reaped_apps": 1,
+              "schema_removals": 1,
+              "result": "DETECTED"
+            },
+            "go": {
+              "counts": {
+                "tests": 3,
+                "errors": 0,
+                "failures": 1,
+                "skipped": 0
+              },
+              "app_starts": 3,
+              "reaped_apps": 3,
+              "schema_removals": 3,
+              "result": "PASS"
+            }
+          }
+        },
+        "restart-app": {
+          "result": "MUTATION_DETECTED",
+          "python": "3.14.8 (main, Oct  1 2026, 02:38:33) [GCC 13.3.0]",
+          "host_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "native_client_library": "8.0.46",
+          "observations": {
+            "python": {
+              "counts": {
+                "tests": 3,
+                "errors": 0,
+                "failures": 1,
+                "skipped": 0
+              },
+              "app_starts": 4,
+              "reaped_apps": 4,
+              "schema_removals": 1,
+              "result": "DETECTED"
+            },
+            "go": {
+              "counts": {
+                "tests": 3,
+                "errors": 0,
+                "failures": 1,
+                "skipped": 0
+              },
+              "app_starts": 3,
+              "reaped_apps": 3,
+              "schema_removals": 3,
+              "result": "PASS"
+            }
+          }
+        }
+      }
+    },
+    "12633614439": {
+      "name": "e2e-native-py3.11-3446b5c927239542fb4203d5c6b4a4342c6b4984",
+      "archive_sha256": "5a50a210f0561d3be732441f7eed312b2f6625fe3054124ef7ed10192fbaffd0",
+      "reports": {
+        "positive": {
+          "result": "PASS_NATIVE_CONTROL",
+          "python": "3.11.17 (main, Oct  1 2026, 14:32:31) [GCC 13.3.0]",
+          "host_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "native_client_library": "8.0.46",
+          "observations": {
+            "python": {
+              "counts": {
+                "tests": 3,
+                "errors": 0,
+                "failures": 1,
+                "skipped": 0
+              },
+              "app_starts": 1,
+              "reaped_apps": 1,
+              "schema_removals": 1,
+              "result": "PASS"
+            },
+            "go": {
+              "counts": {
+                "tests": 3,
+                "errors": 0,
+                "failures": 1,
+                "skipped": 0
+              },
+              "app_starts": 3,
+              "reaped_apps": 3,
+              "schema_removals": 3,
+              "result": "PASS"
+            }
+          }
+        },
+        "skip-reset": {
+          "result": "MUTATION_DETECTED",
+          "python": "3.11.17 (main, Oct  1 2026, 14:32:31) [GCC 13.3.0]",
+          "host_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "native_client_library": "8.0.46",
+          "observations": {
+            "python": {
+              "counts": {
+                "tests": 3,
+                "errors": 2,
+                "failures": 0,
+                "skipped": 0
+              },
+              "app_starts": 1,
+              "reaped_apps": 1,
+              "schema_removals": 1,
+              "result": "DETECTED"
+            },
+            "go": {
+              "counts": {
+                "tests": 3,
+                "errors": 0,
+                "failures": 1,
+                "skipped": 0
+              },
+              "app_starts": 3,
+              "reaped_apps": 3,
+              "schema_removals": 3,
+              "result": "PASS"
+            }
+          }
+        },
+        "restart-app": {
+          "result": "MUTATION_DETECTED",
+          "python": "3.11.17 (main, Oct  1 2026, 14:32:31) [GCC 13.3.0]",
+          "host_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "native_client_library": "8.0.46",
+          "observations": {
+            "python": {
+              "counts": {
+                "tests": 3,
+                "errors": 0,
+                "failures": 1,
+                "skipped": 0
+              },
+              "app_starts": 4,
+              "reaped_apps": 4,
+              "schema_removals": 1,
+              "result": "DETECTED"
+            },
+            "go": {
+              "counts": {
+                "tests": 3,
+                "errors": 0,
+                "failures": 1,
+                "skipped": 0
+              },
+              "app_starts": 3,
+              "reaped_apps": 3,
+              "schema_removals": 3,
+              "result": "PASS"
+            }
+          }
+        }
+      }
+    }
+  },
+  "verified_totals": {
+    "normal_campaigns": 2,
+    "detected_real_mutations": 4,
+    "raw_browser_cases": 36
+  },
+  "count_note": "Raw browser cases include exact intentional failures and mutation setup errors;36 is NOT a count of passing tests. Parent classification was independently rechecked against raw XML/events.",
+  "archive_encoding": "Lossless base64 of original GitHub ZIP; decode before checking archive_sha256"
+}
