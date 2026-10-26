@@ -1,0 +1,38 @@
+{
+  "scope": "native reference only; no mariamem or reset API implementation",
+  "python": "3.11",
+  "browser": {
+    "package": "playwright==1.56.0",
+    "engine": "chromium-headless-shell",
+    "revision": "1194",
+    "version": "141.0.7390.37"
+  },
+  "native_image": "mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e",
+  "native_server_version": "12.3.3-MariaDB-ubu2404",
+  "native_server_architecture": "x86_64",
+  "go_toolchain": "go1.26.10",
+  "limits": {
+    "campaign_timeout_seconds": 900,
+    "pytest_timeout_seconds": 240,
+    "app_startup_seconds": 30,
+    "app_shutdown_seconds": 5,
+    "workspace_budget_gib": 3,
+    "container_memory_gib": 1
+  },
+  "python_lifetime": "same Web process/HTTP address; native flush/reseed between sequential cases",
+  "go_lifetime": "new child Web process and native schema per case",
+  "expected_pytest_result_per_language": {
+    "tests": 3,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failure": "test_02_fail_after_commit: E2E_EXPECTED_FAILURE_AFTER_COMMIT"
+  },
+  "unexecuted_axes": [
+    "mariamem",
+    "stable-endpoint guest reset",
+    "multi-worker",
+    "Python3.14",
+    "native macOS MariaDB server"
+  ]
+}
