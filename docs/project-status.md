@@ -1289,3 +1289,18 @@ Inputs and expected native/guest/Fork/cleanup outcomes are fixed in the existing
 application/migration bytes and stable runtime base remain unchanged. This is
 test-only investigation and examples, with no product lifecycle adapter or
 preparation routing. No new execution PASS is claimed before running the extension.
+
+The [mixed/failure extension result](reviews/v06x-django-mixed-results.md) on
+source903e68cc021d894e56afdf6fba0bb70030de972e passes locally on macOS arm64,
+Python3.11.17/3.14.9:64 mixed suites/576 test passes,8 expected migration-failure
+assessments and8 recipe assessments. Each runner has four distinct actual orders,
+matching native and all guest/Fork routes. Standard fixtures make required seed
+explicit across transactional flushes. Migration setup leaves partial DDL on
+both native and guest; no test bodies run. The parent discards failed guest
+owners and explicitly removes owned native schemas, preserving errno1146,
+original error chains and process exit1. The runnable
+[settings/parent recipe](examples/django/README.md) also passes direct CLI checks.
+Recommend this explicit entry first; no new product adapter was implemented or
+adopted. Ubuntu, independent multi-test-module projects and broader alias/parallel/
+async/external-resource compatibility remain unverified. Original92dc7fa receipts
+and the separate Live candidate ref retain their own source identity.

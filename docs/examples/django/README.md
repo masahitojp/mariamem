@@ -76,3 +76,7 @@ This recipe uses one server per runner invocation. The
 reuse between runner invocations; it does not replace Django's per-test isolation.
 Supported-host and broader-project acceptance remain separate from the local
 experiment observations.
+
+The [source-bound local verification](../../reviews/v06x-django-mixed-results.md)
+records normal/error recipe runs on macOS arm64/Python3.11.17 and3.14.9, plus the
+normal public CLI forms on Python3.11.17. Ubuntu has not been observed here.

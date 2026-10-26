@@ -1,0 +1,73 @@
+{
+  "source_commit": "903e68cc021d894e56afdf6fba0bb70030de972e",
+  "runtime_base_commit": "bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4",
+  "result": "PASS_LOCAL_MIXED_MIGRATION_FAILURE_AND_RECIPE",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "native_scope": "MariaDB12.3.3 Linux amd64 image under Docker Desktop emulation; limited image/program/TCP preflight, not Ubuntu-host or native-Mac-server acquisition",
+  "interpreters": {
+    "3.11": {
+      "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "mixed_suites": 32,
+      "mixed_tests_passed": 288,
+      "distinct_orders": {
+        "manage": 4,
+        "pytest": 4
+      },
+      "migration_failure_assessments": 4,
+      "recipe_assessments": 4,
+      "native_schemas_removed": true,
+      "guest_owners_cleaned": true
+    },
+    "3.14": {
+      "python": "3.14.9 (main, Oct 21 2026, 06:02:15) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "mixed_suites": 32,
+      "mixed_tests_passed": 288,
+      "distinct_orders": {
+        "manage": 4,
+        "pytest": 4
+      },
+      "migration_failure_assessments": 4,
+      "recipe_assessments": 4,
+      "native_schemas_removed": true,
+      "guest_owners_cleaned": true
+    }
+  },
+  "totals": {
+    "mixed_suite_assessments": 64,
+    "mixed_test_passes": 576,
+    "migration_failure_assessments": 8,
+    "recipe_assessments": 8
+  },
+  "recipe_uninstrumented_cli": "Python3.11 manage6 OK/shuffle137, pytest12 passes using normal plugin autoload",
+  "failure_oracle": "Exact errno1146 and original Django->MySQLdb ProgrammingError chain, zero admitted bodies, partial DDL marker and two applied migrations; original process exit1 retained",
+  "sqlstate": "Not asserted in this experiment",
+  "failed_owner_policy": "No Snapshot capture or next-test admission; discard guest owner or explicitly drop uniquely owned native test schema after recording partial state",
+  "native_cleanup": {
+    "schema_count_after": 0,
+    "container_removed": true,
+    "container_id": "fc16aa91f59b99a676223812df59789c5d94d3c220b0456c2b65f67870404c49",
+    "anonymous_volume_removed": true,
+    "volume": "c74cbae0620e797e6c128f34fa7b2909fd0ed226f024af4737ea09d5eb7fb5ee",
+    "task_downloaded_image_removed": true,
+    "preexisting_images_untouched": true
+  },
+  "workspace_cleanup": {
+    "applied": true,
+    "owned_removed_bytes": 1130020864,
+    "retained_large_paths": [],
+    "cleanup_debt": []
+  },
+  "raw_archive_sha256": "6545385fcff3a5c34b8b0bd6b45c186f46bcfed3858b20025564396e08926950",
+  "recommendation": "Use explicit settings and a parent server owner with standard per-test fixture/serialization policy first; no new public adapter for the observed single-DB cases",
+  "not_claimed": [
+    "Ubuntu execution",
+    "whole W3/dogfood completion",
+    "independent multi-test-module projects",
+    "multiple aliases/routers",
+    "parallel/async/external resources",
+    "arbitrary app/migration compatibility",
+    "performance/cold setup",
+    "main adoption",
+    "Qualification/release"
+  ]
+}
