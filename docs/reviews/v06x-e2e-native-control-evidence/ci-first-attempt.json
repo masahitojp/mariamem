@@ -1,0 +1,10 @@
+{
+  "run_id": 40285909685,
+  "source_commit": "0776d7a368a1e162e3884bec9a84b23031ad8e59",
+  "conclusion": "failure",
+  "jobs": [],
+  "scope": "Workflow rejected before native CI tests; not a failed browser execution",
+  "correction_source_commit": "3446b5c927239542fb4203d5c6b4a4342c6b4984",
+  "correction": "Replace job-level runner.temp expression with a relative owned browser path and include browser scratch in disk budget",
+  "diagnosis": "job-level expression/context issue inferred from configuration; no per-job annotation was available. Corrected workflow acceptance must be established by its new run."
+}

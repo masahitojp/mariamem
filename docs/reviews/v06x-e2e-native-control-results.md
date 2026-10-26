@@ -142,3 +142,15 @@ rules? Go's per-test child/configuration path can be compared using existing
 Fork first. Do not introduce a general Django adapter or promise physical-session
 preservation merely to obtain a green browser test. Review the exact reference
 app and minimum target before selecting a live mechanism.
+
+## Native CI submission correction
+
+Initial [run40285909685](https://github.com/masahitojp/mariamem/actions/runs/40285909685)
+at0776d7a was rejected before any jobs ran. Its workflow used runner.temp in a
+job-level environment expression. Source3446b5c927239542fb4203d5c6b4a4342c6b4984
+changes only that workflow: an owned relative browser directory replaces the
+expression, and the disk guard includes browser scratch. YAML/path checks pass;
+the next CI run must establish GitHub acceptance and native execution. The
+[first-attempt record](v06x-e2e-native-control-evidence/ci-first-attempt.json)
+distinguishes the inferred configuration diagnosis from unavailable detailed
+GitHub annotations. Local results remain bound to0776d7a, not the new CI SHA.
