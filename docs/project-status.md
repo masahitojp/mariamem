@@ -1313,3 +1313,17 @@ first, with Python stable-endpoint reset as a separately bounded design. Guest
 live/reset and product adapter implementation remain separate work. Neither
 this native receipt nor the earlier emulated-server Mac result is mariamem E2E
 PASS or a claim that the whole dogfood plan is complete.
+
+The Human subsequently authorized the actual mariamem comparison and bounded
+live implementation where required by this browser use case. The
+[guest/live experiment result](reviews/v06x-e2e-guest-live-results.md) records local
+macOS arm64/Python3.11 PASS on exact candidate
+`16eb116d8056581364f3a609f9b97f885796e040`: same-process Python with a test-only
+stable TCP relay, actual Go public Snapshot/Fork, native-matched UI/commit/failure
+isolation, real busy/failure controls and full cleanup. Both actual reset/app
+lifecycle defects are detected; focused tests pass26. Native observations are
+reused from original3446b5c, not relabeled as a new native run. Both-platform
+Python3.11/3.14 experiment CI is the next evidence. No public live API, main
+integration or release is adopted. Physical SQL-session continuity, general
+Django adapters, background workers and parallel-worker acceptance remain outside
+this bounded result and registered as later dogfood work.
