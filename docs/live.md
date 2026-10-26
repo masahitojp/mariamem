@@ -3,6 +3,8 @@
 This guide describes the approved implementation candidate, not the published
 v0.5.3 package. It is verified only as specified in the candidate's own receipts.
 
+Runnable source examples are available for [Django + pytest + Playwright and Go HTTP tests](examples/live/README.md). They start the maintained orders applications once and restore the database before each sequential test.
+
 Use Live when an application stays running while sequential tests each need the
 same initial database. Prepare with explicit settings, commit and close the
 preparation connections, then capture a Snapshot. Keep that Snapshot open until
