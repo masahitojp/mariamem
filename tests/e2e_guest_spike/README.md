@@ -47,3 +47,11 @@ unchanged runtime once per OS. It is experiment CI, not main adoption or release
 Qualification. Disk guards bound campaign storage/time; workspace teardown is
 separate. Baseline source is consumed, each child is closed, the app/browser and
 host are reaped, and the host's temporary directory must disappear.
+
+
+The child harness explicitly uses numeric HTTP SERVER_NAME for the fixed
+127.0.0.1 listener. Diagnostic CI40301522009 found macOS runserver blocked in
+stdlib reverse DNS before readiness. This opt-in startup adjustment preserves
+WSGI SERVER_PORT/environment and other bind behavior; native application files
+and SQL remain byte-identical, while the old native Ubuntu startup reference did
+not use the adjustment. See the CI diagnosis and its original artifact receipt.

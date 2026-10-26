@@ -24,3 +24,32 @@ product code, SQL, startup timeout and acceptance oracles are unchanged.
 This is a diagnostic candidate, not a claimed fix for the startup failure.
 The existing two-platform CI will build exact new source and provide the next
 observation; do not relabel the earlier local PASS or failed CI as that source.
+
+
+## Root cause observed in diagnostic CI40301522009
+
+[Run40301522009](https://github.com/masahitojp/mariamem/actions/runs/40301522009/job/121500301571)
+fails on original sourceff1175e941652721fb228f64dcb86f234c87efbb. Three stack
+snapshots show the same startup path: Django runserver → WSGIServer.server_bind
+→ HTTPServer.server_bind → socket.getfqdn. System checks completed; the HTTP
+server is waiting for reverse DNS before serving requests. Ubuntu succeeds;
+macOS focused27, Go browser and both live SQL controls pass. macOS Python3.14
+is not reached. The
+[original artifact and assessment](v06x-e2e-guest-live-evidence/ci-40301522009/assessment.json)
+retain the verified GitHub ZIP digest and original source identity.
+
+The fix is explicitly a test-harness startup adjustment: opt-in child code binds
+an IPv4 `127.0.0.1` HTTP server with its numeric address as SERVER_NAME, preserving
+the allocated SERVER_PORT and WSGI environment initialization. It skips the
+otherwise unused reverse lookup for this fixed local address. All other HTTP
+bind addresses retain the original implementation. The application source,
+migrations, SQL, browser actions and30-second readiness deadline remain fixed.
+The prior native Ubuntu reference ran without this harness adjustment; it remains
+that original reference, not a newly matched native startup observation.
+
+Local real-subprocess tests pass3 on macOS arm64/Python3.11: with deliberately
+broken reverse DNS the fixed server handles an actual WSGI HTTP request and
+reports the correct SERVER_NAME/PORT; opt-out detects that exact resolver error;
+a hostname bind still invokes original resolution. These tests join experiment
+CI for both interpreters/platforms. Actual Django E2E on the fixed candidate is
+to be verified by that CI; the local HTTP check is not a relabeled browser PASS.

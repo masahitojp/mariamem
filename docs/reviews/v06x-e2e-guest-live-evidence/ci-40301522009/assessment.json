@@ -1,0 +1,19 @@
+{
+  "source_commit": "ff1175e941652721fb228f64dcb86f234c87efbb",
+  "run_id": 40301522009,
+  "job_id": 121500301571,
+  "artifact_id": 12641560348,
+  "artifact_sha256": "08018f8d3e704a455c630923cf651ca89cb2bcd8f94de39a6a7d58e5edbf732d",
+  "result": "FAIL",
+  "observed_failure": "Python3.11.9 Django HTTPServer.server_bind blocked at socket.getfqdn in three consecutive 10-second stack snapshots; no app readiness within30 seconds",
+  "macos": {
+    "focused_tests": "27 PASS",
+    "python_browser": "3 setup errors",
+    "go_browser": "PASS parent assessment",
+    "live_controls": "2 PASS",
+    "python_3_14": "not reached"
+  },
+  "ubuntu_job_conclusion": "success",
+  "proposed_fix": "Opt-in test-harness HTTPServer bind uses numeric SERVER_NAME for explicit IPv4 127.0.0.1; other binds retain original behavior. No changes to native app bytes, SQL, 30-second readiness gate or product code.",
+  "local_verification": "3 real-subprocess HTTP tests PASS on macOS arm64/Python3.11: broken reverse resolver with/without workaround, WSGI SERVER_NAME/PORT and original hostname resolution"
+}
