@@ -216,3 +216,15 @@ v0.6.x investigation. Once agreed, P0/P1 starts with a concrete Django applicati
 runner and separate-process/browser topology; return the requirements and bounded
 adapter/live experiment proposals before expensive implementation. Other rows
 remain scheduled through their explicit dependencies rather than being forgotten.
+
+## First milestone refinement — user-provided Python/Go E2E guides
+
+After approving investigation, the Human proposed the pgmem Python/Go E2E guides
+as a useful first reach. The [guide-target/source investigation](v06x-e2e-guide-target.md)
+now fixes that first behavioral target: Python worker-local app reuse with stable
+endpoint reset, and Go child launch with explicit settings/per-test Fork first.
+It records the different lifecycles and the optional startup-capture/session-reuse
+extensions separately. This refines P0/P1 priority: plain browser E2E does not
+wait for general Django TestCase/pytest-django adapter implementation. W3's full
+runner coverage, W5 workers and W7/W8 remain in the whole plan. Execution manifests
+and native controls remain unfinished; source inspection is not a runtime PASS.

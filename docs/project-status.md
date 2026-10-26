@@ -1277,3 +1277,14 @@ budgets remain prerequisites for their respective runtime work. Current CI does
 not validate unimplemented E2E/live semantics. The immediate next deliverable is
 the W3/W4 input/lifecycle manifest; this review does not select an adapter API
 or approve a live implementation.
+
+The Human then authorized P0/P1 investigation and proposed the pgmem Python/Go
+E2E guides as the first useful reach. The
+[guide-target investigation](reviews/v06x-e2e-guide-target.md) pins reference
+source3433a40bd4167daea2d8e364666bd5fcf18ef654 and separates Python worker-local
+stable-endpoint reset from Go's permitted per-test app/Fork launch. Ordinary
+settings plus a real child app/browser are the first targets; general Django
+runner adapters and background workers remain later registered work. Current
+mariamem has Fork/settings primitives but no verified live endpoint reset. App/
+runtime/browser manifests and native controls are still to be completed; this
+source-only result is not compatibility or E2E PASS and adopts no new live API.

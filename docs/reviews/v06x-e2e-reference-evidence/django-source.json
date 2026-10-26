@@ -1,0 +1,61 @@
+{
+  "project": "django/django",
+  "version": "5.2.8",
+  "source_commit": "47fe39af56ecd0ad73b9c7562511015e96b91b80",
+  "role": "source reference for Python3.14-compatible Django line; not a new mariamem support claim or latest-release claim",
+  "files": {
+    "django/test/testcases.py": {
+      "sha256": "e59aa3d56b2b39a38e7c4ac9e8ce01ae535ab18ce375a216fedcb3ea2d4e37e0",
+      "git_blob_sha": "98ca963834a921cd748d7ada6f907190865e83df",
+      "matching_lines": [
+        216,
+        345,
+        1094,
+        1199,
+        1253,
+        1366,
+        1460,
+        1480,
+        1729
+      ]
+    },
+    "django/db/backends/base/creation.py": {
+      "sha256": "00540bff1cf8f23633653747977af777fdafff11b224c30435798451c6d1bf8f",
+      "git_blob_sha": "6856fdb59676f691d3eeb3e2dc154f023202d42d",
+      "matching_lines": [
+        32,
+        66,
+        78,
+        96,
+        111,
+        187,
+        243,
+        271,
+        283,
+        292,
+        316
+      ]
+    },
+    "django/db/backends/mysql/base.py": {
+      "sha256": "9981f41d33fd543d089b3b5d896e5f19f9da16be0bcc0a83c7416d1ac009db96",
+      "git_blob_sha": "eb0e361d8dcbef2658b4191a4e2ca949d1a8d850",
+      "matching_lines": [
+        255,
+        265
+      ]
+    },
+    "django/core/management/commands/runserver.py": {
+      "sha256": "7d1302538a209c1bdabfd6f7d67f26128fae6d49475f00dd8a4551c47589d2a2",
+      "git_blob_sha": "0cf841b747f1f6eae66d413cf0cad6f8283557d8",
+      "matching_lines": [
+        39,
+        53,
+        59,
+        114,
+        116,
+        126
+      ]
+    }
+  },
+  "runtime_executed": false
+}

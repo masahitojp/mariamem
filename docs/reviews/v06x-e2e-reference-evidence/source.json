@@ -1,0 +1,39 @@
+{
+  "project": "shibukawa/pgmem",
+  "source_commit": "3433a40bd4167daea2d8e364666bd5fcf18ef654",
+  "git_tree_sha": "eb9f3ef78805b0ff505af2a5af526dc0fc7e1fbc",
+  "identity_endpoint": "https://api.github.com/repos/shibukawa/pgmem/git/commits/3433a40bd4167daea2d8e364666bd5fcf18ef654",
+  "files": {
+    "website/src/content/docs/guides/python/e2e-testing.mdx": {
+      "sha256": "4f1ff8507e4fdf307064aadca28d3c1572746558aa83bf284ef76888f46f5ab3",
+      "git_blob_sha": "9075be349b081537e0962e94774a5bfeb5311ef9",
+      "line_count": 87
+    },
+    "website/src/content/docs/guides/go/e2e-testing.mdx": {
+      "sha256": "fb6521f9b87e58c4bad17f1cce74feae30c693c6ff5e477eacc30a6f1c19aed3",
+      "git_blob_sha": "ebd6f86c6c70517ed64b6301d909021cf7444954",
+      "line_count": 31
+    },
+    "packages/python/src/pgmem/pytest_plugin.py": {
+      "sha256": "dcdc969108789d364fb2d0b16d6ce484013b8de1751f95854c7a709fcf9e6d14",
+      "git_blob_sha": "872854695f5c27c99cef61fd940a30fdbc2338fb",
+      "line_count": 283
+    },
+    "pgmemtest/pgmemtest.go": {
+      "sha256": "9556fceee1ae06665051defffddfb6bf5c367951fa02ac8a0d159ea6a330c335",
+      "git_blob_sha": "a6b521bc925451e99539faed46598dc33b51d57f",
+      "line_count": 444
+    },
+    "reset.go": {
+      "sha256": "8a42052f8e47227dde13670ede4e127067f09cdc811bd39d920ecda3165bef3f",
+      "git_blob_sha": "9a234ee93ac6dda8d91a8a084b8e19159c013155",
+      "line_count": 36
+    }
+  },
+  "deployed_documentation": [
+    "https://shibukawa.github.io/pgmem/guides/python/e2e-testing/",
+    "https://shibukawa.github.io/pgmem/guides/go/e2e-testing/"
+  ],
+  "deployment_commit_verified": false,
+  "scope": "Read-only source/guide inspection; no reference runtime executed; no mariamem support claim."
+}
