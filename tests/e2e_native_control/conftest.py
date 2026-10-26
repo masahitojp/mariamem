@@ -145,7 +145,9 @@ def browser_page(request,application,browser):
                 record('native_reset',method='Django flush plus seed_baseline',schema=name)
             if os.environ.get('E2E_MUTATE_RESTART_APP')=='1':
                 url,health=stack.enter_context(server(name,env,kind))
-        assert rows(name)==[['SEED',2,'ready']]
+        baseline_rows=rows(name)
+        record('baseline_checked',name=request.node.name,rows=baseline_rows)
+        assert baseline_rows==[['SEED',2,'ready']]
         record('case_before',name=request.node.name,pid=health['pid'],http_url=url,schema=name,rows=rows(name))
         ctx=browser.new_context();stack.callback(ctx.close)
         page=ctx.new_page();page.set_default_timeout(10000)

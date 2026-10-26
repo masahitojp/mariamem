@@ -43,6 +43,31 @@ def assess(kind,code,counts,events,failures):
     return True
 
 
+def mutation_detected(mutation,code,counts,events,failures):
+    named=lambda name:[e for e in events if e['event']==name]
+    if code!=1 or not named('browser_closed'):return False
+    starts,reaped=named('app_started'),named('app_reaped')
+    if {e['pid'] for e in starts}!={e['pid'] for e in reaped} or not all(e['reaped'] for e in reaped):return False
+    if len(named('schema_removed'))!=1:return False
+    if mutation=='skip-reset':
+        expected=[['SEED',2,'ready'],['ORDER-A',3,'ready']]
+        checks=named('baseline_checked')
+        return (counts==dict(tests=3,errors=2,failures=0,skipped=0) and not failures
+                and len(starts)==1 and not named('native_reset') and len(checks)==3
+                and checks[1]['rows']==checks[2]['rows']==expected
+                and len(named('case_after'))==1 and named('case_after')[0]['rows']==expected)
+    before,after=named('case_before'),named('case_after')
+    baseline=[['SEED',2,'ready']]
+    return (counts==dict(tests=3,errors=0,failures=1,skipped=0)
+            and len(failures)==1 and failures[0]['name']=='test_02_fail_after_commit'
+            and 'E2E_EXPECTED_FAILURE_AFTER_COMMIT' in failures[0]['message']
+            and len(starts)==4 and len(before)==len(after)==3
+            and len({e['pid'] for e in before})==len({e['http_url'] for e in before})==3
+            and len(named('native_reset'))==3
+            and all(e['rows']==baseline for e in before)
+            and [e['rows'] for e in after]==[baseline+[['ORDER-A',3,'ready']],baseline+[['FAILED-A',4,'ready']],baseline])
+
+
 def main():
     p=argparse.ArgumentParser()
     p.add_argument('--output',type=Path,required=True)
@@ -82,7 +107,8 @@ def main():
             failures=[dict(name=c.get('name'),message=f.get('message','')) for c in xml.findall('.//testcase') for f in c.findall('failure')]
             accepted=assess(kind,process.returncode,counts,events,failures)
             if args.mutation and kind=='python':
-                report['runs'][kind]=dict(result='DETECTED' if not accepted else 'MISSED',exit_code=process.returncode,counts=counts)
+                detected=not accepted and mutation_detected(args.mutation,process.returncode,counts,events,failures)
+                report['runs'][kind]=dict(result='DETECTED' if detected else 'MISSED_OR_UNRELATED_FAILURE',exit_code=process.returncode,counts=counts)
             else:report['runs'][kind]=dict(result='PASS' if accepted else 'FAIL',exit_code=process.returncode,counts=counts)
             print(kind,report['runs'][kind],flush=True)
         expected='DETECTED' if args.mutation else 'PASS'
