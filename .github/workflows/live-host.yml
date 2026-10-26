@@ -133,7 +133,7 @@ jobs:
         run: |
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-            "$py" -m pytest tests/test_live_unit.py tests/test_live_oracles.py tests/test_e2e_numeric_bind.py tests/test_e2e_child_diagnostics.py -q > "build/live-evidence/py$version-unit.txt" 2>&1
+            PYTHONPATH="$PWD/python" "$py" -m pytest tests/test_live_unit.py tests/test_live_oracles.py tests/test_e2e_numeric_bind.py tests/test_e2e_child_diagnostics.py -q > "build/live-evidence/py$version-unit.txt" 2>&1
             for scenario in positive skip-reset restart-app; do
               run_case() {
                 "$py" scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$py" tests/live_acceptance/run.py --host build/mariamem-host --go-app build/go-orders --go-live-app build/go-live-orders --go-owner build/go-owner --native-reference "build/reference/py$version/reference" --expected-source-commit "$GITHUB_SHA" --output "build/live-evidence/py$version/$scenario" "$@"

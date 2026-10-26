@@ -1,0 +1,17 @@
+{
+  "source_commit": "ca74140090d74ff118d0c902fc3bb96410573978",
+  "run_id": 40330300896,
+  "job_id": 121598593586,
+  "artifact_id": 12655309491,
+  "url": "https://github.com/masahitojp/mariamem/actions/runs/40330300896/job/121598593586",
+  "result": "FAIL",
+  "scope": "Ubuntu job only; no assertion about unfinished macOS job",
+  "cause": "Focused pytest command omitted source SDK PYTHONPATH; test_live_unit collection raised ModuleNotFoundError: mariamem",
+  "canonical_check": "PASS",
+  "canonical_integration": "PASS",
+  "live_race": "PASS",
+  "browser_acceptance": "NOT_STARTED",
+  "installed_acceptance": "SKIPPED",
+  "original_upload_zip_sha256_from_job_log": "76c59694fcdfaa15519ef19fa92d4d11a9e2a862d80f4e4a31ccb3a6a23df26a",
+  "archive_note": "Repacked downloaded artifact files; not the original upload ZIP bytes."
+}

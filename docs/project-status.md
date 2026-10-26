@@ -1264,3 +1264,13 @@ continuity, automatic preparation routing and live marker arguments remain
 outside this candidate. Main adoption, version scope, Qualification and release
 are separate Human decisions. Runtime/browser/installed acceptance is to be
 recorded on each exact candidate; no earlier experiment PASS is relabeled.
+
+The first Live host candidate CI on `ca74140090d74ff118d0c902fc3bb96410573978`
+failed in the Ubuntu focused pytest collection: the command omitted the source
+SDK path and could not import mariamem. Canonical check, runtime integration and
+Live race tests passed in that job; browser acceptance did not start and installed
+acceptance was skipped. The [original failure receipt](reviews/v06x-live-host-evidence/ci-40330300896-ubuntu/assessment.json)
+preserves that source/result. The workflow correction sets PYTHONPATH only for
+the focused source tests, matching verify.py; installed-wheel acceptance keeps
+its independent import environment. The exact four focused test files pass locally
+(51 tests, Python 3.11); the corrected candidate requires a new CI run.
