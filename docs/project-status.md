@@ -1250,3 +1250,17 @@ large-input performance and cold/setup-cost claims remain outside this adoption.
 Guest/generated code, canonical generation inputs, release ledgers and version
 metadata are unchanged. Target version, Qualification and release remain separate
 Human decisions.
+
+## Django standard test lifecycle — bounded W3 investigation
+
+While the separate Live candidate CI was pending, the Human authorized continuing
+W3: standard manage.py test/TestCase/TransactionTestCase and pytest-django with
+the same W4 orders app, migrations and seed. The [fixed-input experiment owner](../tests/django_lifecycle/README.md)
+starts directly from stable main bf3a29c and compares native12.3.3, ordinary
+explicit guest settings and two independent Snapshot/Fork copies at runner
+granularity. Pinned Django5.2.8/mysqlclient2.2.7/pytest9.0.2/pytest-django4.12.0
+exercise rollback, real commits, default flush, serialized seed restoration,
+constraint recovery, original-target protection and failure cleanup. No runtime
+result or adapter support is claimed before execution. Product adapter/per-test
+Fork design and main adoption remain later decisions; the pending Live ref is
+not an input to this work.
