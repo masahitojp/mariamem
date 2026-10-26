@@ -73,3 +73,8 @@ later dogfood work. No performance/setup-cost claim is made.
 
 Reproduction and the bounded implementation contract are retained on the exact
 [candidate](https://github.com/masahitojp/mariamem/tree/16eb116d8056581364f3a609f9b97f885796e040/tests/e2e_guest_spike).
+
+The disposable worktree, standalone build checkout, binaries, browser, venv and
+Go caches were removed after evidence preservation (about2.04GiB). The cleanup
+helper reports no retained large paths or cleanup debt in this experiment; the
+exact candidate branch and compact receipts remain.

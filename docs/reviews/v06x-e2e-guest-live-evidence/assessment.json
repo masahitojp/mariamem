@@ -314,5 +314,12 @@
         "mysqlclient_library": "3.4.11"
       }
     }
-  ]
+  ],
+  "workspace_cleanup": {
+    "result": "PASS",
+    "owned_workspace_removed_bytes": 2192293888,
+    "retained_large_paths": [],
+    "cleanup_debt": [],
+    "note": "Owned worktree, binaries, standalone source, browser, venv and Go caches removed; compact receipts remain. Exact experiment branch retained."
+  }
 }
