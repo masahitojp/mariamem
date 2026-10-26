@@ -1,8 +1,8 @@
 # Selected Live main candidate
 
 This branch prepares the bounded stable-endpoint API for a separate main adoption
-decision. It has not been integrated, qualified or released. Fresh CI must pass
-on this candidate; previous experiment receipts do not qualify the correction.
+decision. It has not been integrated, qualified or released. Fresh CI now passes
+on exact candidate 6edcd29; previous experiment receipts remain separate.
 
 The stable base is `bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4`. Selected files come
 from `a1baaad83922d9ac6ff7fe46d64db3fbfcde542f` (experiment/live-host); that ref
@@ -77,3 +77,35 @@ Live evidence. Fresh CI must satisfy the unchanged full canonical integration,
 fixed prepared-consumer native profile and all Live/browser/native/installed
 conditions. The later documentation/evidence commit does not alter executable
 source from df3e683. No previous CI receipt is rebound to this candidate.
+
+## Fresh CI on 6edcd29
+
+[CI40417099015](https://github.com/masahitojp/mariamem/actions/runs/40417099015)
+passes all four jobs on exact source_commit
+`6edcd29e65d3a669d5be6520abf6be2e61fa3445`. The
+[saved assessment](v06x-live-main-evidence/ci-40417099015/assessment.json) and
+[receipt validator](v06x-live-main-evidence/ci-40417099015/validate.py) verify all
+four original ZIP digests, API source/job binding and uncompressed member hashes,
+then re-apply candidate predicates to raw XML/events. No guest was rerun to
+collect this receipt; no old receipt was relabelled.
+
+| Observed host | Python | Live/browser/defects | Installed scope |
+| --- | --- | --- | --- |
+| macOS arm64 | 3.11.9 / 3.14.7 | PASS both interpreters | Python3.14 wheel + external Go PASS |
+| Ubuntu x86_64 | 3.11.17 / 3.14.8 | PASS both interpreters | Python3.14 wheel + external Go PASS |
+
+Fresh native application controls pass for both Python versions on Ubuntu with
+MariaDB12.3.3. Each guest host passes canonical check (1040 PASS/45 explicit SKIP/
+76 subtests), full integration including the fixed prepared-consumer tripwire,
+and Live/control/public Go race suites. There are 8 positive public Live routes,
+16 actual lifecycle defects detected, 12 Fork control campaigns, 48 real SQL
+controls and 212 focused test passes. Raw browser tests intentionally retain the
+exact post-commit assertion failure; it is required by the isolation oracle.
+Passing CI is not a claim that all raw subprocesses exited 0.
+
+This supplies the fresh candidate evidence required by F1/F2; F3's selected diff
+is still the main-adoption review object. The local Python3.14.9/OpenSSL4 failure
+remains FAIL; passing CI establishes only its recorded environments. No main
+integration, version inclusion, Qualification or release decision is made here.
+The experiment/live-main-candidate ref stays fixed at 6edcd29; this documentation
+branch preserves the receipt without changing that tested implementation.

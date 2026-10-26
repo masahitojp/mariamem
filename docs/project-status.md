@@ -8,7 +8,7 @@ Version themes are direction; they are not release approval.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Live main candidate — fresh CI required
+## Live main candidate — fresh CI passed; main adoption undecided
 
 The Human authorized preparing a minimal main-oriented Live candidate after the
 conditional adoption review. The stable base remains
@@ -19,9 +19,16 @@ main/PR CI and actual-adapter cleanup retry tests, and excludes exploratory
 review history. See the [candidate record](reviews/v06x-live-main-candidate.md).
 Local focused/race and canonical check pass on `df3e683`; full local integration
 retains a Connector/Python import failure on Python3.14.9/OpenSSL4.0.3. This is
-not a full integration PASS. Fresh candidate CI must pass all unchanged runtime,
-native-reference, browser and installed-consumer gates. Main integration, Qualification and publication
-remain separate decisions. Published v0.5.3 does not provide this API.
+not a full local integration PASS. Fresh [CI40417099015](https://github.com/masahitojp/mariamem/actions/runs/40417099015)
+passes all four jobs on exact candidate `6edcd29e65d3a669d5be6520abf6be2e61fa3445`:
+fresh native references for Python3.11/3.14, macOS arm64 and Ubuntu x86_64
+canonical check/integration, actual-adapter race, public Go/Python Live/browser
+and installed-consumer gates. The [checksum-bearing receipt](reviews/v06x-live-main-evidence/ci-40417099015/assessment.json)
+retains original artifacts and revalidates their raw observations. CI covers
+its recorded Python/OpenSSL profiles; the local OpenSSL4 failure is unchanged.
+The candidate ref remains fixed; this follow-up only records evidence. Main
+integration, Qualification and publication remain separate decisions. Published
+v0.5.3 does not provide this API.
 
 ## Product contract
 
