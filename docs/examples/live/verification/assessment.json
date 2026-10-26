@@ -1,0 +1,44 @@
+{
+  "source_commit": "28fdbb265a32b2e568b331a036cdc87387544a1c",
+  "runtime_candidate_commit": "df018fdbf74eed565dac534c4b983b63a0363bd7",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "scope": "Runnable source examples on local macOS arm64; no new candidate CI observation",
+  "result": "PASS_LOCAL_EXAMPLES",
+  "python311": {
+    "version": "3.11.17",
+    "browser_tests_passed": 2
+  },
+  "python314": {
+    "version": "3.14.9",
+    "browser_tests_passed": 2
+  },
+  "go": {
+    "version": "go1.26.10",
+    "http_subtests_passed": 2,
+    "application_cleanup": "PASS",
+    "default_optin": "SKIP_AS_DESIGNED"
+  },
+  "initial_failure": {
+    "source_commit": "1b23f40134e515766bcdf9cffd9d279f4e465599",
+    "result": "FAIL",
+    "reason": "Go example canceled exec.CommandContext before t.Cleanup, killing the app after both HTTP subtests passed. Fixed by registering cancellation as the last cleanup."
+  },
+  "binary_reuse": {
+    "source_commit": "1b23f40134e515766bcdf9cffd9d279f4e465599",
+    "identity": "git_identity.verify_go_binary passed on original clean worktree",
+    "reason": "Only example cleanup changed; runtime and maintained app sources are byte-identical. Full binary identities/hashes preserved in archive."
+  },
+  "raw_archive_sha256": "147070d69a3863b8381fb9adaba8ef8f526722125d7fa38c7c0827731cd78f60",
+  "not_claimed": [
+    "Ubuntu execution",
+    "candidate CI PASS",
+    "main adoption",
+    "release"
+  ],
+  "cleanup": {
+    "applied": true,
+    "owned_removed_bytes": 2276057088,
+    "retained_large_paths": [],
+    "cleanup_debt": []
+  }
+}

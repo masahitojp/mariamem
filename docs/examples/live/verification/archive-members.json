@@ -1,0 +1,23 @@
+{
+  "evidence/binary-identities.json": "2d8972f9f19ebcb2b0b56d6e714810a39a9b74e0e824649aaf00944a19d6e976",
+  "evidence/browser-install.txt": "6a89f7f191bf9d3993340ac21523dd6f5de6085e5ad3db9307bcc449824b2c4b",
+  "evidence/console.log": "bc341a6fc6cd5119497626cfa7308723f86f7225818b7c510b976030d8f41c30",
+  "evidence/dependencies.txt": "f8b1b2788bd59d6c28a1f07a166d956f66ba957fe8d4d168a47044358a66e06e",
+  "evidence/dependencies314.txt": "82e5be3520506cfede3b33aece0114bd581e45c0a14e0af329fedd120cada61d",
+  "evidence/go-optin.txt": "69b1177fe706cdd5c93f8dce4f6d896bb0a0b0cab57add03e20bdb893c4fb5c4",
+  "evidence/go-tests.txt": "8ef00394059be3e400c2f317fd781d469fdf8fb7ba62633925dc12937b9634b8",
+  "evidence/initial-go-tests.txt": "62c9f7f3d113eb91652f564477eafdc4706e73a133beae514a73b4f83da9803d",
+  "evidence/initial-source.json": "018a75bdc04bd4db4935dc61ef02beeea336e2bd1dea27cdbb426d71d0136495",
+  "evidence/python-tests.txt": "d3d1f267b88b0eb806a7e3e6ea800cf1d1eddef34d00f8c0463aed50fa4b6c7b",
+  "evidence/python311-tests.txt": "2038ee84aabb6138c152776b48c23bd8dc4ce58f5f35da1df60738b00a4b2c7a",
+  "evidence/python314-tests.txt": "c721667ab3bff17b494f42b5ff836033ea345ac4265c0cb8497f894c5731563d",
+  "evidence/source.json": "1828a2ce02bd3e8d14125cb7aecd51cd614e4e7e59b17ed3fd850531528202c8",
+  "temp/pytest/django-live0/server.txt": "bca1540e1e13fbca7ad834bd50c02196512227dce72f223d6fe2028403c141c9",
+  "temp/pytest/django-livecurrent/server.txt": "bca1540e1e13fbca7ad834bd50c02196512227dce72f223d6fe2028403c141c9",
+  "temp/pytest-final311/django-live0/server.txt": "0c6bcd15c32d04a56b9ce1176d56a6137d36e96c82d3aa0510335a6fca51fada",
+  "temp/pytest-final311/django-livecurrent/server.txt": "0c6bcd15c32d04a56b9ce1176d56a6137d36e96c82d3aa0510335a6fca51fada",
+  "temp/pytest-final314/django-live0/server.txt": "7b8c8e1eff64dd943e7981e0ebf604c8becb710d41325fc58960ffa5bbeceb3d",
+  "temp/pytest-final314/django-livecurrent/server.txt": "7b8c8e1eff64dd943e7981e0ebf604c8becb710d41325fc58960ffa5bbeceb3d",
+  "temp/verify-final.sh": "41438adf3e09230988deaf0da67b817260e9fbbe6dc80881bae418cb72919b81",
+  "temp/verify.sh": "329e6238558c1d2176c519c8a2730ac37b01ea3be5f50a62bd3426d853816bcd"
+}

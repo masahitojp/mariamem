@@ -1274,3 +1274,16 @@ preserves that source/result. The workflow correction sets PYTHONPATH only for
 the focused source tests, matching verify.py; installed-wheel acceptance keeps
 its independent import environment. The exact four focused test files pass locally
 (51 tests, Python 3.11); the corrected candidate requires a new CI run.
+
+While candidate CI was pending, the Human authorized runnable E2E usage examples
+on a separate docs/live-e2e-examples branch. The [Django browser and Go HTTP
+examples](examples/live/README.md) reuse the maintained orders applications and
+public Live APIs, keep one application running, and restore seed data before each
+sequential case. Local macOS arm64 checks pass on sample source
+`28fdbb265a32b2e568b331a036cdc87387544a1c`: two browser cases each on Python
+3.11.17 and 3.14.9, two Go1.26.10 HTTP subtests with normal app cleanup, and the
+expected opt-in skip under an ordinary Go test invocation. The original sample's
+Go cleanup failure remains bound to its original source in the
+[checksummed local receipt](examples/live/verification/assessment.json). These
+examples add no SDK/runtime changes and do not change the pending Live candidate
+ref or provide Ubuntu/candidate-CI evidence.

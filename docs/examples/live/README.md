@@ -86,3 +86,9 @@ cancellation and cleanup behavior.
 The commands write recreatable output only beneath `build/live-example`.
 After the tests finish, that directory can be removed. A sample run is not a
 cross-platform acceptance or main-adoption decision for the Live candidate.
+
+Local macOS arm64 verification of these source examples is recorded with
+[original observations and checksums](verification/assessment.json): Python
+3.11.17 and 3.14.9 each pass both browser cases; Go1.26.10 passes both HTTP
+cases and application cleanup. The initial Go example cleanup failure is kept
+under its original source identity.
