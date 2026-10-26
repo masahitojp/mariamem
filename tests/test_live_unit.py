@@ -1,4 +1,5 @@
 """Public Live ownership and late-handle collection through a framed subprocess."""
+import threading
 import time
 
 import pytest
@@ -37,8 +38,16 @@ def prepared(host):
 
 def wait_handles(session, expected):
     deadline=time.monotonic()+3
-    while session.request('stats')['handles']!=expected:
-        assert time.monotonic()<deadline,'late handle leaked'
+    while True:
+        handles=session.request('stats')['handles']
+        # A baseline-only host count can precede the late creation, or follow
+        # live_close's reply while the SDK cleanup owner still holds its ref.
+        with session._lock:
+            pending=len(session._pending)
+            refs=session._refs
+        if handles==expected and pending==0 and refs==1:
+            return
+        assert time.monotonic()<deadline, (handles,pending,refs)
         time.sleep(.005)
 
 
@@ -125,3 +134,72 @@ def test_application_error_preserved_with_cleanup_error(live_host):
         assert saved._session._refs==1 and live.closed
         with pytest.raises(mariamem.HostError):live.close()
         assert saved._session._refs==1
+
+
+@pytest.mark.parametrize('phase',['creation_reply','reference_release'])
+def test_cleanup_waiter_covers_both_asynchronous_boundaries(live_host,monkeypatch,phase):
+    with prepared(live_host) as saved:
+        session=saved._session
+        allow_cleanup=threading.Event()
+        releasing=threading.Event()
+        released=threading.Event()
+        waiting=threading.Event()
+        finished=threading.Event()
+        errors=[]
+        main_thread=threading.current_thread()
+        original_release=session.release
+        original_sleep=time.sleep
+
+        def gated_release():
+            if threading.current_thread() is main_thread:
+                return original_release()
+            releasing.set()
+            try:
+                assert allow_cleanup.wait(10),'cleanup gate timed out'
+                original_release()
+            finally:
+                released.set()
+
+        def observe():
+            try:
+                wait_handles(session,1)
+            except BaseException as error:
+                errors.append(error)
+            finally:
+                finished.set()
+
+        worker=threading.Thread(target=observe)
+
+        def gated_sleep(seconds):
+            if threading.current_thread() is worker:
+                waiting.set()
+                assert allow_cleanup.wait(10),'observation gate timed out'
+            else:
+                original_sleep(seconds)
+
+        with monkeypatch.context() as patch:
+            patch.setattr(session,'release',gated_release)
+            patch.setattr(time,'sleep',gated_sleep)
+            with pytest.raises(TimeoutError):
+                session.request('late_live',handle=saved._handle,response_timeout=.01)
+            if phase=='reference_release':
+                session.request('release_slow')
+                assert releasing.wait(3),'late close did not reach SDK release'
+            assert session.request('stats')['handles']==1
+            with session._lock:
+                assert session._refs==(1 if phase=='creation_reply' else 2)
+                assert bool(session._pending)==(phase=='creation_reply')
+            worker.start()
+            try:
+                # Require the real helper to reach another observation cycle.
+                # The former host-count-only helper returns early in both cases.
+                assert waiting.wait(3),'waiter returned before cleanup completed'
+                assert not finished.is_set()
+            finally:
+                allow_cleanup.set()
+                session.request('release_slow')
+                worker.join(5)
+                assert not worker.is_alive()
+                assert released.wait(3),'late cleanup did not release its owner'
+            assert not errors,errors
+            assert session._refs==1 and not session.failed
