@@ -1396,3 +1396,15 @@ Independent Django investigation results were extended on
 Their local mixed suites, failed-migration owner cleanup and minimal settings/
 parent recipe are separate stable-main-based W3 observations, not tests added
 to or relabeled as this Live CI receipt.
+
+The Human requested the next Live adoption review. The
+[pinned candidate review](reviews/v06x-live-host-adoption-review.md) recommends
+conditional acceptance of a1baaad as the basis for a minimal main candidate,
+with direct integration held. The real-use CI matrix and installed consumers
+are confirmed. Main/PR scheduling for actual Live acceptance is still absent;
+production adapters cache terminal Close errors while the cleanup retry test
+uses a transient fake, so retry/final-disposal policy and adapter-level coverage
+must be reconciled. Main file selection/adoption wording also remains to be
+prepared. This is Codex's recommendation, not a new Human approval or an
+integration/release action. The CI-tested ref stays fixed; no code or test was
+changed by this review.
