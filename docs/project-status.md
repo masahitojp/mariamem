@@ -1269,3 +1269,11 @@ Keeping an application alive, preserving its endpoint and retaining physical
 sessions are separate choices. E2E is an explicit investigation target; live's
 0.6.0 inclusion remains a Human scope decision based on evidence. No framework
 or browser/worker/tool versions are newly advertised as supported by this plan.
+
+The [source-based plan review](reviews/v06x-dogfood-plan-review.md) pins plan
+`8e283754f4df31635224160fa4bd194360da9e13` and recommends this investigation
+order. Concrete Django/app/runner/browser/worker/tool manifests and execution
+budgets remain prerequisites for their respective runtime work. Current CI does
+not validate unimplemented E2E/live semantics. The immediate next deliverable is
+the W3/W4 input/lifecycle manifest; this review does not select an adapter API
+or approve a live implementation.
