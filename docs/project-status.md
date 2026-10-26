@@ -1250,3 +1250,17 @@ large-input performance and cold/setup-cost claims remain outside this adoption.
 Guest/generated code, canonical generation inputs, release ledgers and version
 metadata are unchanged. Target version, Qualification and release remain separate
 Human decisions.
+
+## Go-owned Live implementation — Human approved, candidate in progress
+
+The Human approved implementing the bounded
+[Go-owned Live design](reviews/v06x-live-host-design.md), reviewed at original
+fdca312a3b4640da09f45f7c009840eb31c28e3a, after the successful browser experiment
+ab085d3/CI40304818129. Implementation proceeds on experiment/live-host directly
+from stable main bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4. It adds explicit Go
+and Python Snapshot.Live/live, fixed endpoint, physical-connection drain and
+reset/close; application work/connections must quiesce before reset. SQL-session
+continuity, automatic preparation routing and live marker arguments remain
+outside this candidate. Main adoption, version scope, Qualification and release
+are separate Human decisions. Runtime/browser/installed acceptance is to be
+recorded on each exact candidate; no earlier experiment PASS is relabeled.

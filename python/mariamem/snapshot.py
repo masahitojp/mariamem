@@ -23,6 +23,11 @@ class Snapshot:
         from . import Database
         return Database(**{**self._options, **options, "snapshot": self})
 
+    def live(self):
+        """Borrow this open baseline for a host-owned stable endpoint."""
+        from .live import Live
+        return Live._from_snapshot(self)
+
     def close(self):
         from . import HostError
         with self._lock:

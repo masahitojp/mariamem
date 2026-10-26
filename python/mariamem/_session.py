@@ -48,6 +48,7 @@ class Session:
             if isinstance(value, BaseException):
                 raise value
             self.guest_identity = value.get("guest_sha256")
+            self.capabilities = tuple(value.get("capabilities", ()))
             if value.get("protocol") != 2:
                 raise HostError("Invalid host greeting; expected control protocol 2. Use files from the same matching platform wheel or native bundle",
                                 code="guest_connection", stage="host_control", closed=True)
@@ -105,7 +106,24 @@ class Session:
         except (OSError, ValueError) as exc:
             self._fail(HostError("Shared host control pipe closed: " + str(exc),
                                  code="unusable", stage="host_control", closed=True))
-        if not pending.ready.wait(response_timeout):
+        try:
+            ready = pending.ready.wait(response_timeout)
+        except BaseException:
+            # An interrupted caller no longer owns a late-created resource.
+            with self._lock:
+                if pending.ready.is_set():
+                    value = pending.value
+                    if not isinstance(value, BaseException):
+                        self._refs += 1
+                        threading.Thread(target=self._late, args=(value,), daemon=True).start()
+                else:
+                    pending.abandoned = True
+                    try:
+                        self._send(dict(op="cancel", target=identifier))
+                    except (OSError, ValueError):
+                        pass
+            raise
+        if not ready:
             with self._lock:
                 if not pending.ready.is_set():
                     pending.abandoned = True
@@ -174,6 +192,8 @@ class Session:
         try:
             if "database" in reply:
                 self.request("db_close", handle=reply["database"]["handle"], response_timeout=60)
+            if "live" in reply:
+                self.request("live_close", handle=reply["live"]["handle"], response_timeout=None)
             if "snapshot" in reply:
                 self.request("snapshot_close", handle=reply["snapshot"], response_timeout=60)
         except Exception:
