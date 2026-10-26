@@ -4,6 +4,7 @@ import hashlib
 import importlib.metadata
 import json
 import os
+import platform
 from pathlib import Path
 import subprocess
 import sys
@@ -48,6 +49,8 @@ def browser_assessment(kind,code,counts,events,failures,reference):
     resets,closed=named('guest_reset'),named('relay_closed')
     return (len({e['pid'] for e in before})==len({e['http_url'] for e in before})==len({e['db_port'] for e in before})==1
             and len(resets)==3 and [e['generation'] for e in resets]==[1,2,3] and all(e['old_closed'] for e in resets)
+            and [e['child_id'] for e in resets]==[e['child_id'] for e in before]
+            and [e['port'] for e in resets]==[e['db_port'] for e in before]
             and len(closed)==1 and closed[0]['active']==closed[0]['forced_clients']==0
             and closed[0]['threads_stopped'] and closed[0]['child_closed'])
 
@@ -69,11 +72,13 @@ def main():
     from git_identity import verify_go_binary,require_commit
     require_commit(ROOT,args.expected_source_commit)
     builds={name:verify_go_binary(ROOT,getattr(args,name).resolve(),args.expected_source_commit) for name in ['host','go_app','go_owner']}
+    import MySQLdb
     pins=validate_inputs();ref=json.loads((HERE/'native-reference.json').read_text())['interpreters'][f'{sys.version_info.major}.{sys.version_info.minor}']
     packages={n:importlib.metadata.version(n) for n in ['Django','mysqlclient','playwright','pytest']};assert packages==ref['packages']
     out=args.output.resolve();out.mkdir(parents=True)
     report=dict(result='FAIL',scope='Test-only consumer/relay over existing SDK, no product API change',source_commit=args.expected_source_commit,
-        sdk_mode='source SDK with exact source/binary identity',python=sys.version,packages=packages,native_reference=ref,
+        sdk_mode='source SDK with exact source/binary identity',python=sys.version,packages=packages,
+        platform=dict(system=platform.system(),machine=platform.machine(),mysqlclient_library=MySQLdb.get_client_info()),native_reference=ref,
         input_pins=pins,binary_buildinfo=builds,binary_hashes={name:hashlib.sha256(getattr(args,name).read_bytes()).hexdigest() for name in builds},runs={})
     env=dict(os.environ,E2E_GUEST_HOST=str(args.host.resolve()),E2E_GO_APP=str(args.go_app.resolve()),E2E_GO_OWNER=str(args.go_owner.resolve()),
              PYTHONPATH=os.pathsep.join([str(ROOT/'python'),str(HERE)]),PYTHONDONTWRITEBYTECODE='1',PYTEST_DISABLE_PLUGIN_AUTOLOAD='1',PYTEST_ADDOPTS='')
