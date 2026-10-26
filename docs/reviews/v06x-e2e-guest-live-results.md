@@ -1,4 +1,4 @@
-# Real browser guest/live comparison — local result and CI handoff
+# Real browser guest/live comparison — local and CI results
 
 The bounded local comparison passes on exact candidate
 `16eb116d8056581364f3a609f9b97f885796e040`, branch
@@ -35,7 +35,7 @@ identify the exact candidate. This is not installed-wheel acceptance.
 | Actual unnecessary app-restart defect | DETECTED by PID/lifecycle evidence |
 | Browser/app/relay/child/host cleanup | PASS; no forced relay clients, host directories removed |
 | Focused tests including evidence-corruption negatives | 26 PASS |
-| Ubuntu and Python3.14 on guest candidate | Awaiting experiment CI; no local PASS claimed |
+| Ubuntu and Python3.14 on local candidate16eb116 | Not executed locally; later exact-candidate CI results below |
 
 Each ordinary browser invocation deliberately produces two passes and one
 specified assertion failure. The parent checks that exact failure, the committed
@@ -78,3 +78,45 @@ The disposable worktree, standalone build checkout, binaries, browser, venv and
 Go caches were removed after evidence preservation (about2.04GiB). The cleanup
 helper reports no retained large paths or cleanup debt in this experiment; the
 exact candidate branch and compact receipts remain.
+
+
+## Both-platform CI result on exactab085d3
+
+[CI40304818129](https://github.com/masahitojp/mariamem/actions/runs/40304818129)
+succeeds on exact source_commit
+`ab085d3c432b6b1483b7b937500b775d4a3faf53`. Both jobs and all four interpreter/OS
+combinations pass the bounded comparison, both actual lifecycle-defect injections
+and real transaction/reset-failure controls. These receipts are new evidence for
+ab085d3, not a relabeling of the original16eb116 local result.
+
+| OS / architecture | Python | mysqlclient native library | Positive / skipped reset / restarted app |
+| --- | --- | --- | --- |
+| macOS15 arm64 | 3.11.9 | Connector/C3.4.9 | PASS / DETECTED / DETECTED |
+| macOS15 arm64 | 3.14.7 | Connector/C3.4.9 | PASS / DETECTED / DETECTED |
+| Ubuntu24.04 x86_64 | 3.11.17 | MySQL client8.0.46 | PASS / DETECTED / DETECTED |
+| Ubuntu24.04 x86_64 | 3.14.8 | MySQL client8.0.46 | PASS / DETECTED / DETECTED |
+
+The [saved receipt](v06x-e2e-guest-live-evidence/ci-40304818129/assessment.json)
+contains original run/job/artifact metadata, losslessly encoded original ZIPs,
+GitHub-verified archive digests and per-member/file checksums. Raw pytest XML and
+lifecycle events were checked again using the exact candidate's positive assessor,
+specific mutation row/PID signatures and SQL-control/cleanup observations. All12
+campaigns record successful cleanup; their live controls each pass two tests.
+Ordinary browser suites retain their one deliberately asserted failure.
+
+The initial macOS16eb116 and diagnosticff1175e CI failures remain bound to their
+original sources. The [diagnosis](v06x-e2e-guest-live-ci-diagnosis.md) records three
+snapshots blocked in HTTPServer's reverse DNS lookup. The passing candidate uses
+an explicit numeric HTTP SERVER_NAME only for its fixed127.0.0.1 child listener;
+it preserves actual WSGI port/environment, application bytes, SQL and the30-second
+readiness deadline. All passing Python app logs contain the harness adjustment
+marker. This confirms the adjusted harness succeeds on observed hosts; it does
+not establish the resolver's underlying environment defect. The original native
+Ubuntu reference used its original startup behavior.
+
+The useful E2E workflows now have bounded experimental evidence on both OSes.
+The next design review concerns moving endpoint ownership/reset to the Go host
+and defining the public Go/Python lifecycle API. The verified implementation is
+still a Python test-only relay over existing Snapshot/Fork. Go-host live behavior,
+public API adoption and productization have not been implemented or approved by
+this CI result. Broader dogfood work remains as listed above.

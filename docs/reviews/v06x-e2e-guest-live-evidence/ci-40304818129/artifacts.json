@@ -1,0 +1,45 @@
+{
+  "total_count": 2,
+  "artifacts": [
+    {
+      "id": 12642402755,
+      "node_id": "MDg6QXJ0aWZhY3QxMjY0MjQwMjc1NQ==",
+      "name": "e2e-guest-ubuntu-24.04-ab085d3c432b6b1483b7b937500b775d4a3faf53",
+      "size_in_bytes": 58430,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12642402755",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12642402755/zip",
+      "expired": false,
+      "digest": "sha256:1ea527bc58ef05b256bb99b820a21d31abf5ab4d6cd4022815fd666014dfc048",
+      "created_at": "2026-10-26T10:24:33Z",
+      "updated_at": "2026-10-26T10:24:33Z",
+      "expires_at": "2027-01-24T10:06:43Z",
+      "workflow_run": {
+        "id": 40304818129,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "experiment/e2e-guest-live",
+        "head_sha": "ab085d3c432b6b1483b7b937500b775d4a3faf53"
+      }
+    },
+    {
+      "id": 12642137456,
+      "node_id": "MDg6QXJ0aWZhY3QxMjY0MjEzNzQ1Ng==",
+      "name": "e2e-guest-macos-15-ab085d3c432b6b1483b7b937500b775d4a3faf53",
+      "size_in_bytes": 59476,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12642137456",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12642137456/zip",
+      "expired": false,
+      "digest": "sha256:c8ff1b794ada63bf3533cfb01b85bdf8440c5ee9d5682e4103f5a212a4e1702b",
+      "created_at": "2026-10-26T10:14:20Z",
+      "updated_at": "2026-10-26T10:14:20Z",
+      "expires_at": "2027-01-24T10:06:43Z",
+      "workflow_run": {
+        "id": 40304818129,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "experiment/e2e-guest-live",
+        "head_sha": "ab085d3c432b6b1483b7b937500b775d4a3faf53"
+      }
+    }
+  ]
+}

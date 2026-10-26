@@ -1322,8 +1322,24 @@ macOS arm64/Python3.11 PASS on exact candidate
 stable TCP relay, actual Go public Snapshot/Fork, native-matched UI/commit/failure
 isolation, real busy/failure controls and full cleanup. Both actual reset/app
 lifecycle defects are detected; focused tests pass26. Native observations are
-reused from original3446b5c, not relabeled as a new native run. Both-platform
-Python3.11/3.14 experiment CI is the next evidence. No public live API, main
+reused from original3446b5c, not relabeled as a new native run. The subsequent both-platform
+Python3.11/3.14 experiment CI succeeds on its own source as recorded below. No public live API, main
 integration or release is adopted. Physical SQL-session continuity, general
 Django adapters, background workers and parallel-worker acceptance remain outside
 this bounded result and registered as later dogfood work.
+
+
+The subsequent [CI40304818129](https://github.com/masahitojp/mariamem/actions/runs/40304818129)
+passes on exact source_commit `ab085d3c432b6b1483b7b937500b775d4a3faf53`:
+macOS15 arm64/Python3.11.9+3.14.7 and Ubuntu24.04 x86_64/Python3.11.17+3.14.8.
+The four positive comparisons, eight actual lifecycle-defect detections and all
+real SQL busy/failure controls and teardown observations were cross-checked from
+raw XML/events. [Original CI receipts and checksums](reviews/v06x-e2e-guest-live-evidence/ci-40304818129/assessment.json)
+are retained on the design branch; the CI-tested experiment ref is unchanged.
+The earlier macOS failures remain original16eb116/ff1175e evidence. Their HTTP
+server stalled in reverse DNS; the fixed candidate uses a documented numeric
+HTTP bind adjustment in the child test harness while retaining the original
+application bytes/SQL/readiness gate. This is bounded guest E2E/live evidence,
+not Go-host live implementation. Moving endpoint ownership into Go and selecting
+the public API is the next design review; main adoption and release remain
+separate. The broader dogfood plan is not complete.

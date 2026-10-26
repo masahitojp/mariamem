@@ -1,0 +1,600 @@
+{
+  "source_commit": "ab085d3c432b6b1483b7b937500b775d4a3faf53",
+  "run_id": 40304818129,
+  "result": "PASS_BOUNDED_GUEST_E2E",
+  "raw_verification": "Exact-candidate positive assessor reapplied to raw XML/events; actual mutation row/PID signatures, SQL live controls, numeric HTTP bind and cleanup independently checked",
+  "positive_matrix_rows": 4,
+  "real_mutations_detected": 8,
+  "reference_source": "3446b5c927239542fb4203d5c6b4a4342c6b4984",
+  "reference_run": 40286173347,
+  "scope": "Source Python SDK and Go public API; Python test-only live relay; browser UI and failure isolation",
+  "not_claimed": [
+    "Go host live implementation",
+    "public live API",
+    "physical SQL session continuity",
+    "parallel worker acceptance",
+    "background workers",
+    "installed-wheel acceptance",
+    "performance/setup cost",
+    "main adoption",
+    "Qualification/release"
+  ],
+  "observations": [
+    {
+      "os": "macos",
+      "python": "3.11.9",
+      "scenario": "positive",
+      "result": "PASS_GUEST_COMPARISON",
+      "platform": {
+        "system": "Darwin",
+        "machine": "arm64",
+        "mysqlclient_library": "3.4.9"
+      },
+      "runs": {
+        "python": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "binary_hashes": {
+        "host": "2ffa3b47dacd0b26d1abf0271a95457bf0e97957a1ad005a0f4d9a8c6b0ea898",
+        "go_app": "ff236471c807a046dc98ac39e32fc311f14293cac36751fe987a6d6407138b3f",
+        "go_owner": "91319f8c53bd7ad4f53816c55d9cdf1b700ed59758e23457a88be98060263169"
+      }
+    },
+    {
+      "os": "macos",
+      "python": "3.11.9",
+      "scenario": "skip-reset",
+      "result": "MUTATION_DETECTED",
+      "platform": {
+        "system": "Darwin",
+        "machine": "arm64",
+        "mysqlclient_library": "3.4.9"
+      },
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "binary_hashes": {
+        "host": "2ffa3b47dacd0b26d1abf0271a95457bf0e97957a1ad005a0f4d9a8c6b0ea898",
+        "go_app": "ff236471c807a046dc98ac39e32fc311f14293cac36751fe987a6d6407138b3f",
+        "go_owner": "91319f8c53bd7ad4f53816c55d9cdf1b700ed59758e23457a88be98060263169"
+      }
+    },
+    {
+      "os": "macos",
+      "python": "3.11.9",
+      "scenario": "restart-app",
+      "result": "MUTATION_DETECTED",
+      "platform": {
+        "system": "Darwin",
+        "machine": "arm64",
+        "mysqlclient_library": "3.4.9"
+      },
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "binary_hashes": {
+        "host": "2ffa3b47dacd0b26d1abf0271a95457bf0e97957a1ad005a0f4d9a8c6b0ea898",
+        "go_app": "ff236471c807a046dc98ac39e32fc311f14293cac36751fe987a6d6407138b3f",
+        "go_owner": "91319f8c53bd7ad4f53816c55d9cdf1b700ed59758e23457a88be98060263169"
+      }
+    },
+    {
+      "os": "macos",
+      "python": "3.14.7",
+      "scenario": "positive",
+      "result": "PASS_GUEST_COMPARISON",
+      "platform": {
+        "system": "Darwin",
+        "machine": "arm64",
+        "mysqlclient_library": "3.4.9"
+      },
+      "runs": {
+        "python": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "binary_hashes": {
+        "host": "2ffa3b47dacd0b26d1abf0271a95457bf0e97957a1ad005a0f4d9a8c6b0ea898",
+        "go_app": "ff236471c807a046dc98ac39e32fc311f14293cac36751fe987a6d6407138b3f",
+        "go_owner": "91319f8c53bd7ad4f53816c55d9cdf1b700ed59758e23457a88be98060263169"
+      }
+    },
+    {
+      "os": "macos",
+      "python": "3.14.7",
+      "scenario": "skip-reset",
+      "result": "MUTATION_DETECTED",
+      "platform": {
+        "system": "Darwin",
+        "machine": "arm64",
+        "mysqlclient_library": "3.4.9"
+      },
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "binary_hashes": {
+        "host": "2ffa3b47dacd0b26d1abf0271a95457bf0e97957a1ad005a0f4d9a8c6b0ea898",
+        "go_app": "ff236471c807a046dc98ac39e32fc311f14293cac36751fe987a6d6407138b3f",
+        "go_owner": "91319f8c53bd7ad4f53816c55d9cdf1b700ed59758e23457a88be98060263169"
+      }
+    },
+    {
+      "os": "macos",
+      "python": "3.14.7",
+      "scenario": "restart-app",
+      "result": "MUTATION_DETECTED",
+      "platform": {
+        "system": "Darwin",
+        "machine": "arm64",
+        "mysqlclient_library": "3.4.9"
+      },
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "binary_hashes": {
+        "host": "2ffa3b47dacd0b26d1abf0271a95457bf0e97957a1ad005a0f4d9a8c6b0ea898",
+        "go_app": "ff236471c807a046dc98ac39e32fc311f14293cac36751fe987a6d6407138b3f",
+        "go_owner": "91319f8c53bd7ad4f53816c55d9cdf1b700ed59758e23457a88be98060263169"
+      }
+    },
+    {
+      "os": "ubuntu",
+      "python": "3.11.17",
+      "scenario": "positive",
+      "result": "PASS_GUEST_COMPARISON",
+      "platform": {
+        "system": "Linux",
+        "machine": "x86_64",
+        "mysqlclient_library": "8.0.46"
+      },
+      "runs": {
+        "python": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "binary_hashes": {
+        "host": "5e75c6bb2c87faa231cc689fc8f59194f6bd3fd09d7d067997b43967a30905ba",
+        "go_app": "fb943ddbe76667cde621b429275478ffe6ef3490ac27fc4c755082a00fced75d",
+        "go_owner": "bde53d53aa3203a8401005469e4fd634bc043d1408d95f2a5be85ccb19fdab1c"
+      }
+    },
+    {
+      "os": "ubuntu",
+      "python": "3.11.17",
+      "scenario": "skip-reset",
+      "result": "MUTATION_DETECTED",
+      "platform": {
+        "system": "Linux",
+        "machine": "x86_64",
+        "mysqlclient_library": "8.0.46"
+      },
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "binary_hashes": {
+        "host": "5e75c6bb2c87faa231cc689fc8f59194f6bd3fd09d7d067997b43967a30905ba",
+        "go_app": "fb943ddbe76667cde621b429275478ffe6ef3490ac27fc4c755082a00fced75d",
+        "go_owner": "bde53d53aa3203a8401005469e4fd634bc043d1408d95f2a5be85ccb19fdab1c"
+      }
+    },
+    {
+      "os": "ubuntu",
+      "python": "3.11.17",
+      "scenario": "restart-app",
+      "result": "MUTATION_DETECTED",
+      "platform": {
+        "system": "Linux",
+        "machine": "x86_64",
+        "mysqlclient_library": "8.0.46"
+      },
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "binary_hashes": {
+        "host": "5e75c6bb2c87faa231cc689fc8f59194f6bd3fd09d7d067997b43967a30905ba",
+        "go_app": "fb943ddbe76667cde621b429275478ffe6ef3490ac27fc4c755082a00fced75d",
+        "go_owner": "bde53d53aa3203a8401005469e4fd634bc043d1408d95f2a5be85ccb19fdab1c"
+      }
+    },
+    {
+      "os": "ubuntu",
+      "python": "3.14.8",
+      "scenario": "positive",
+      "result": "PASS_GUEST_COMPARISON",
+      "platform": {
+        "system": "Linux",
+        "machine": "x86_64",
+        "mysqlclient_library": "8.0.46"
+      },
+      "runs": {
+        "python": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "binary_hashes": {
+        "host": "5e75c6bb2c87faa231cc689fc8f59194f6bd3fd09d7d067997b43967a30905ba",
+        "go_app": "fb943ddbe76667cde621b429275478ffe6ef3490ac27fc4c755082a00fced75d",
+        "go_owner": "bde53d53aa3203a8401005469e4fd634bc043d1408d95f2a5be85ccb19fdab1c"
+      }
+    },
+    {
+      "os": "ubuntu",
+      "python": "3.14.8",
+      "scenario": "skip-reset",
+      "result": "MUTATION_DETECTED",
+      "platform": {
+        "system": "Linux",
+        "machine": "x86_64",
+        "mysqlclient_library": "8.0.46"
+      },
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "binary_hashes": {
+        "host": "5e75c6bb2c87faa231cc689fc8f59194f6bd3fd09d7d067997b43967a30905ba",
+        "go_app": "fb943ddbe76667cde621b429275478ffe6ef3490ac27fc4c755082a00fced75d",
+        "go_owner": "bde53d53aa3203a8401005469e4fd634bc043d1408d95f2a5be85ccb19fdab1c"
+      }
+    },
+    {
+      "os": "ubuntu",
+      "python": "3.14.8",
+      "scenario": "restart-app",
+      "result": "MUTATION_DETECTED",
+      "platform": {
+        "system": "Linux",
+        "machine": "x86_64",
+        "mysqlclient_library": "8.0.46"
+      },
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "live-controls": {
+          "result": "PASS",
+          "exit_code": 0,
+          "counts": {
+            "tests": 2,
+            "errors": 0,
+            "failures": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "binary_hashes": {
+        "host": "5e75c6bb2c87faa231cc689fc8f59194f6bd3fd09d7d067997b43967a30905ba",
+        "go_app": "fb943ddbe76667cde621b429275478ffe6ef3490ac27fc4c755082a00fced75d",
+        "go_owner": "bde53d53aa3203a8401005469e4fd634bc043d1408d95f2a5be85ccb19fdab1c"
+      }
+    }
+  ]
+}
