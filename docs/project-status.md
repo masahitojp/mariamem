@@ -1343,3 +1343,13 @@ application bytes/SQL/readiness gate. This is bounded guest E2E/live evidence,
 not Go-host live implementation. Moving endpoint ownership into Go and selecting
 the public API is the next design review; main adoption and release remain
 separate. The broader dogfood plan is not complete.
+
+Following the successful bounded E2E campaign, the Human requested continuing to
+the next design review. The [Go-owned Live proposal](reviews/v06x-live-host-design.md)
+defines a stable endpoint over fresh Snapshot children, explicit Go/Python
+create/reset/close, baseline lifetime, physical-session drain and reset commit/
+cancellation semantics. It identifies required shared-control/SDK late-handle
+cleanup and a real Go Live acceptance path in addition to the existing Go Fork
+control. This is a proposed implementation boundary, not an approved public API
+or Go-host implementation. The existing separate-live/version scope decision
+and explicit preparation-settings policy remain in force.
