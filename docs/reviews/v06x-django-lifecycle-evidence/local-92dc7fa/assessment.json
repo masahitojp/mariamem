@@ -1,0 +1,114 @@
+{
+  "source_commit": "92dc7faddd16ad330a080b52a0a01614600eed66",
+  "base_commit": "bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4",
+  "result": "PASS_BOUNDED_LOCAL_DJANGO_LIFECYCLE",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "native_scope": "Linux amd64 MariaDB12.3.3 under Docker Desktop emulation on macOS arm64",
+  "matrix": {
+    "3.11": {
+      "source_commit": "92dc7faddd16ad330a080b52a0a01614600eed66",
+      "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "routes": {
+        "native": {
+          "suites": 10,
+          "passed": 18,
+          "expected_failed_tests": 2
+        },
+        "guest-standard": {
+          "suites": 10,
+          "passed": 18,
+          "expected_failed_tests": 2
+        },
+        "fork-1": {
+          "suites": 10,
+          "passed": 18,
+          "expected_failed_tests": 2
+        },
+        "fork-2": {
+          "suites": 10,
+          "passed": 18,
+          "expected_failed_tests": 2
+        }
+      },
+      "source_consumed": true,
+      "guest_host_reaped": true,
+      "guest_temp_removed": true,
+      "native_original_removed": true
+    },
+    "3.14": {
+      "source_commit": "92dc7faddd16ad330a080b52a0a01614600eed66",
+      "python": "3.14.9 (main, Oct 21 2026, 06:02:15) [Clang 21.0.0 (clang-2100.3.34.2)]",
+      "routes": {
+        "native": {
+          "suites": 10,
+          "passed": 18,
+          "expected_failed_tests": 2
+        },
+        "guest-standard": {
+          "suites": 10,
+          "passed": 18,
+          "expected_failed_tests": 2
+        },
+        "fork-1": {
+          "suites": 10,
+          "passed": 18,
+          "expected_failed_tests": 2
+        },
+        "fork-2": {
+          "suites": 10,
+          "passed": 18,
+          "expected_failed_tests": 2
+        }
+      },
+      "source_consumed": true,
+      "guest_host_reaped": true,
+      "guest_temp_removed": true,
+      "native_original_removed": true
+    }
+  },
+  "counts": {
+    "suite_assessments_passed": 80,
+    "raw_tests_passed": 144,
+    "expected_failed_tests": 16,
+    "unexpected_errors": 0,
+    "skips": 0
+  },
+  "event_comparison": "PASS native vs all guest routes for projected baseline/autocommit/atomic/commit/recovery events",
+  "failure_identity_post_assessment": "PASS exact first-test failure identity/marker and successful second-test identity across both runners/routes/interpreters",
+  "source_hash_and_function_spans": "six installed framework modules in each interpreter, preserved in archive",
+  "raw_archive_sha256": "1710dd346cb8e8d7f53541d798ce4d784ff0b70b7595c2bc10d64e7ec05fc975",
+  "initial_stop": "Version argv[0] full-path display differed from pin basename; binary hashes matched; no comparison started. Original preflight-initial-failure.json and console.log retained.",
+  "native_cleanup": {
+    "schema_count_after": 0,
+    "container_removed": true,
+    "container_id": "a5758e8502ccd3a7dbda45314ee9d3a99dc076a4724f1272b149320c30be4d84",
+    "anonymous_volume_removed": true,
+    "volume": "d4c1630ef8420d3cff129e497cf5674b159c1f8a56284f8894dce5fa2ed28868",
+    "downloaded_image_removed": true,
+    "preexisting_images_untouched": true
+  },
+  "workspace_cleanup": {
+    "applied": true,
+    "owned_removed_bytes": 1128808448,
+    "retained_large_paths": [],
+    "cleanup_debt": []
+  },
+  "recommendation": "Explicit settings/ownership recipe first; no new public adapter needed for observed single-DB runner semantics. Per-test Fork is a separate design.",
+  "remaining": [
+    "Ubuntu x86_64 execution and exact-source both-host CI",
+    "migration failure before admission",
+    "mixed-class/module order interactions",
+    "multiple aliases/routers",
+    "parallel runners/xdist",
+    "async/external held resources"
+  ],
+  "not_claimed": [
+    "whole W3/dogfood completion",
+    "general Django adapter support",
+    "per-test Fork",
+    "performance/cold setup cost",
+    "Live result",
+    "main adoption",
+    "Qualification/release"
+  ]
+}

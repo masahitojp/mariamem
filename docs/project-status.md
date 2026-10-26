@@ -1264,3 +1264,18 @@ constraint recovery, original-target protection and failure cleanup. No runtime
 result or adapter support is claimed before execution. Product adapter/per-test
 Fork design and main adoption remain later decisions; the pending Live ref is
 not an input to this work.
+
+The [W3 local result](reviews/v06x-django-lifecycle-results.md) on exact source
+`92dc7faddd16ad330a080b52a0a01614600eed66` matches all80 suite assessments on
+macOS arm64/Python3.11.17+3.14.9: native12.3.3 under Linux-amd64 Docker emulation,
+ordinary guest settings, and two independent runner-granularity Fork campaigns.
+Raw counts are144 passes plus16 exact intentional post-commit failures, with
+zero unexpected errors/skips; native/guest lifecycle/row/commit/recovery events
+match. Standard flush removes migration seed; serialized rollback restores it.
+Original-target sentinel protection and schema/host/temp cleanup pass. Source
+investigation and checksummed raw receipts support an explicit settings/ownership
+recipe first; no new product adapter has been implemented or adopted. Ubuntu,
+mixed-class/module interactions, migration-failure admission, multiple aliases,
+parallel/async/external resources remain unverified. The local investigation
+is complete within its bound; whole W3/dogfood and supported-host adoption remain
+open. Workspace and owned native resources have been cleaned.
