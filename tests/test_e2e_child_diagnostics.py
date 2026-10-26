@@ -8,7 +8,7 @@ import unittest
 
 class ChildDiagnostics(unittest.TestCase):
     def test_stalled_child_emits_stack_and_exits_normally(self):
-        directory=Path(__file__).parent/'e2e_guest_spike/diagnostics'
+        directory=Path(__file__).parent/'live_acceptance/diagnostics'
         env=dict(os.environ,PYTHONPATH=str(directory),E2E_CHILD_DIAGNOSTICS='1',PYTHONUNBUFFERED='1')
         result=subprocess.run([sys.executable,'-c','import time; time.sleep(11); print("child finished")'],
                               env=env,capture_output=True,text=True,timeout=20)

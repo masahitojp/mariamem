@@ -34,7 +34,7 @@ with make_server('127.0.0.1', 0, app) as server:
 
 class NumericBind(unittest.TestCase):
     def run_child(self, enabled, program=PROGRAM):
-        directory=Path(__file__).parent/'e2e_guest_spike/diagnostics'
+        directory=Path(__file__).parent/'live_acceptance/diagnostics'
         env=dict(os.environ,PYTHONPATH=str(directory),E2E_NUMERIC_HTTP_BIND=enabled,E2E_CHILD_DIAGNOSTICS='0')
         return subprocess.run([sys.executable,'-c',program],env=env,capture_output=True,text=True,timeout=10)
 

@@ -60,11 +60,11 @@ def main():
     args=parser.parse_args();sys.path.insert(0,str(ROOT/'scripts'))
     from git_identity import verify_go_binary
     binaries={key:verify_go_binary(ROOT,getattr(args,key).resolve(),args.expected_source_commit) for key in ['host','go_app','go_live_app','go_owner']}
-    pins=json.loads((HERE.parent/'e2e_guest_spike/input-pins.json').read_text())
+    pins=json.loads((HERE/'native-input-pins.json').read_text())
     for name,h in pins['files'].items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==h,name
     derived=json.loads((HERE/'input-manifest.json').read_text())
     for name,h in derived['files'].items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==h,name
-    reference=json.loads((HERE.parent/'e2e_guest_spike/native-reference.json').read_text())['interpreters'][f'{sys.version_info.major}.{sys.version_info.minor}']
+    reference=json.loads((HERE/'native-reference.json').read_text())['interpreters'][f'{sys.version_info.major}.{sys.version_info.minor}']
     native=json.loads((args.native_reference/'result.json').read_text())
     assert native['source_commit']==args.expected_source_commit and native['result']=='PASS_NATIVE_CONTROL'
     assert native['go_app_sha256']==hashlib.sha256(args.go_live_app.read_bytes()).hexdigest()
