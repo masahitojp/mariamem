@@ -1274,3 +1274,18 @@ preserves that source/result. The workflow correction sets PYTHONPATH only for
 the focused source tests, matching verify.py; installed-wheel acceptance keeps
 its independent import environment. The exact four focused test files pass locally
 (51 tests, Python 3.11); the corrected candidate requires a new CI run.
+
+The subsequent [Mac CI failure40335866184](https://github.com/masahitojp/mariamem/actions/runs/40335866184/job/121624305836)
+on exact df018fdbf74eed565dac534c4b983b63a0363bd7 passed canonical check/integration,
+Live race and Python3.11 public browser/control campaigns, then failed one
+Python3.14 unit assertion: host handles were already closed while the asynchronous
+SDK cleanup still held its final temporary Session reference. The
+[original artifact and checksummed diagnosis](reviews/v06x-live-host-evidence/ci-40335866184-macos/assessment.json)
+remain bound to that source. Mac3.14 browser and installed acceptance did not run.
+Test-only correction2434876dbc69a9637f06b93339cb45ceafa20b67 waits for host handles,
+pending replies and Session references together. Two deterministic gated cases
+cover both the not-yet-created handle and the closed-handle/not-yet-released
+reference; restoring the old waiter makes both fail on both local interpreters.
+Focused ownership/oracle/HTTP-harness checks pass84 each on Python3.11.17 and
+3.14.9, plus160 repeated asynchronous cases. Product SDK/runtime and workflow
+are unchanged; corrected exact-source CI must run before a new candidate PASS.

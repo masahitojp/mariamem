@@ -1,0 +1,35 @@
+{
+  "source_commit": "df018fdbf74eed565dac534c4b983b63a0363bd7",
+  "run_id": 40335866184,
+  "job_id": 121624305836,
+  "artifact_id": 12660361588,
+  "artifact_sha256": "a6ac24b0f913dd98473573320c53003f05630e788245ccba3ec41e7358d2ebf1",
+  "url": "https://github.com/masahitojp/mariamem/actions/runs/40335866184/job/121624305836",
+  "result": "FAIL_MACOS_PY314_CLEANUP_TEST_RACE",
+  "cause": "The test observed host handles=1 before the late-cleanup thread released its extra Python Session reference; _refs was still 2. Host-count-only waiting can also return before a pending late creation is processed.",
+  "observed_passes": [
+    "Mac canonical check/integration/live race",
+    "Mac Python3.11 focused tests and public browser/defect/SQL controls"
+  ],
+  "not_run": [
+    "Mac Python3.14 browser campaigns",
+    "Mac installed-consumer acceptance"
+  ],
+  "failed_case": "test_late_live_creation_is_closed_without_terminating_baseline",
+  "failed_assertion": "session._refs == 1 (observed 2)",
+  "correction_source_commit": "2434876dbc69a9637f06b93339cb45ceafa20b67",
+  "correction": "Test-only waiter requires expected host handles AND no pending replies AND one baseline Session reference, with the existing bounded deadline. No runtime or SDK change.",
+  "local_checks": {
+    "python311": "84 passed",
+    "python314": "84 passed",
+    "negative_control": "Old host-count-only waiter rejected deterministically at both pending-create and pending-reference-release boundaries on both interpreters",
+    "negative_raw_failures": 4,
+    "stress": "20 repetitions of four asynchronous cases per interpreter: 160 passes total"
+  },
+  "local_python_versions": [
+    "3.11.17",
+    "3.14.9"
+  ],
+  "new_ci": "Not yet submitted at collection time",
+  "cleanup": "Completed: both task venvs, local scratch and downloaded temporary copies removed after verifying preserved evidence."
+}
