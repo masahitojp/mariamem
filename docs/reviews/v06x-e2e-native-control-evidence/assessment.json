@@ -1,0 +1,160 @@
+{
+  "source_commit": "0776d7a368a1e162e3884bec9a84b23031ad8e59",
+  "branch": "experiment/e2e-native-control",
+  "scope": "Local functional native reference, macOS arm64 browser/apps with Linux amd64 MariaDB under Docker Desktop CPU emulation; no native Ubuntu host or mariamem run",
+  "result": "PASS_NATIVE_CONTROL_AND_MUTATIONS",
+  "native_schema_count_after": 0,
+  "local_python": "3.11.17",
+  "browser": "Playwright1.56.0 Chromium headless shell141.0.7390.37 revision1194",
+  "reports": {
+    "final-control": {
+      "result": "PASS_NATIVE_CONTROL",
+      "runs": {
+        "python": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        }
+      },
+      "python": {
+        "app_start_count": 1,
+        "pids": [
+          74086
+        ],
+        "schemas_removed": [
+          "e2e_1028eefab975_python"
+        ]
+      },
+      "go": {
+        "app_start_count": 3,
+        "pids": [
+          74198,
+          74218,
+          74221
+        ],
+        "schemas_removed": [
+          "e2e_31361c348d4e_01",
+          "e2e_31361c348d4e_02",
+          "e2e_31361c348d4e_03"
+        ]
+      }
+    },
+    "skip-reset": {
+      "result": "MUTATION_DETECTED",
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 2,
+            "failures": 0,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        }
+      },
+      "python": {
+        "app_start_count": 1,
+        "pids": [
+          74380
+        ],
+        "schemas_removed": [
+          "e2e_eceed15e2354_python"
+        ]
+      },
+      "go": {
+        "app_start_count": 3,
+        "pids": [
+          74425,
+          74436,
+          74438
+        ],
+        "schemas_removed": [
+          "e2e_6c52f87d3576_01",
+          "e2e_6c52f87d3576_02",
+          "e2e_6c52f87d3576_03"
+        ]
+      }
+    },
+    "restart-app": {
+      "result": "MUTATION_DETECTED",
+      "runs": {
+        "python": {
+          "result": "DETECTED",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        },
+        "go": {
+          "result": "PASS",
+          "exit_code": 1,
+          "counts": {
+            "tests": 3,
+            "errors": 0,
+            "failures": 1,
+            "skipped": 0
+          }
+        }
+      },
+      "python": {
+        "app_start_count": 4,
+        "pids": [
+          74578,
+          74604,
+          74624,
+          74655
+        ],
+        "schemas_removed": [
+          "e2e_e0a98ec865e9_python"
+        ]
+      },
+      "go": {
+        "app_start_count": 3,
+        "pids": [
+          74685,
+          74696,
+          74698
+        ],
+        "schemas_removed": [
+          "e2e_e728193100be_01",
+          "e2e_e728193100be_02",
+          "e2e_e728193100be_03"
+        ]
+      }
+    }
+  },
+  "raw_archive_sha256": "d7c1235e6e7b2e35aec4dba530431715e2509ebfe5a046fdf87afcd4e57e813d",
+  "raw_archive_encoding": "Lossless base64 ZIP; decode before checking raw_archive_sha256",
+  "initial_failure": "29c8515: Go control PASS, Python DOM label mismatch caused two nonintentional failures; original reports retained. Corrected in b1734d3; never relabeled. First Go worktree build stamped parent3b22a88 and was rejected before campaign; independent clean checkout corrected identity.",
+  "verification": "3 focused oracle tests PASS; real positive and two mutation campaigns passed at0776d7a",
+  "ci_status": "Not submitted yet; Ubuntu3.11/3.14 are new verification, not local PASS"
+}

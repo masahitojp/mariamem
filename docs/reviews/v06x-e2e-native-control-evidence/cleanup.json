@@ -1,0 +1,7 @@
+{
+  "container_name": "mariamem-e2e-native-control",
+  "container_removed": true,
+  "native_schema_count_before_container_stop": 0,
+  "all_app_and_browser_cleanup": "verified in source0776d7a raw event streams",
+  "scope": "Only this task disposable resources; no other container touched"
+}

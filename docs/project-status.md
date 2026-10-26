@@ -1288,3 +1288,18 @@ runner adapters and background workers remain later registered work. Current
 mariamem has Fork/settings primitives but no verified live endpoint reset. App/
 runtime/browser manifests and native controls are still to be completed; this
 source-only result is not compatibility or E2E PASS and adopts no new live API.
+
+After the Human requested an executable result before further review,
+[native browser controls](reviews/v06x-e2e-native-control-results.md) were authored
+and executed at source0776d7a368a1e162e3884bec9a84b23031ad8e59 on
+`experiment/e2e-native-control`. Both Django/mysqlclient and Go child applications
+completed real Chromium UI/commit/intentional-failure/next-test-baseline controls.
+Python retained one app PID/HTTP address; Go used separate child PIDs/schemas.
+Actual skipped-reset and restarted-app defects were detected with their specific
+row/lifecycle evidence and full cleanup. The
+[saved local assessment](reviews/v06x-e2e-native-control-evidence/assessment.json)
+retains original source identities and earlier failures. This is macOS arm64
+apps/browser with Linux amd64 native MariaDB12.3.3 under Docker Desktop CPU
+emulation, not native Ubuntu-host or mariamem/live compatibility PASS. The native
+Ubuntu3.11/3.14 workflow is ready for CI submission; guest live/reset and product
+adapter implementation remain separate work.
