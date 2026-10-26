@@ -16,7 +16,7 @@ def check_baseline(expected):
     with connection.cursor() as cursor:
         cursor.execute('SELECT DATABASE()')
         name = cursor.fetchone()[0]
-        assert name == os.environ['W3_TEST_NAME'], name
+        assert name == os.environ.get('W3_TEST_NAME', connection.settings_dict['TEST']['NAME']), name
         cursor.execute("SELECT name FROM django_migrations WHERE app='orders' ORDER BY name")
         assert cursor.fetchall() == (('0001_initial',), ('0002_status',))
     actual = rows()

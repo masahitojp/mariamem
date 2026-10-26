@@ -74,3 +74,25 @@ Record hashes and function locations with the raw observations. Compare the
 standard settings route, runner-granularity Fork recipe and a potential lifecycle
 adapter only after those observations exist. A public adapter, per-test Fork,
 multiple aliases, async and parallel runners require their own design decision.
+
+## Mixed-suite and migration-failure extension
+
+run_mixed.py keeps the same original application hashes and package/native pins.
+It adds four explicit class/group orders for each runner, standard per-test seed
+fixtures where needed, and native/ordinary-guest/two independent Fork routes.
+Django's own TestCase-first ordering remains authoritative for its --shuffle/
+--reverse runs. The test-only pytest collection plugin keeps classes contiguous
+while permuting groups and methods; it does not replace lifecycle fixtures.
+
+An extra third migration reuses the original first two migration classes, creates
+a marker table, then fails with missing-table errno1146. The observation must
+retain original error chains and partial DDL, with zero admitted test bodies.
+Fresh guest owners are discarded after each failure; a native test schema is
+dropped explicitly by its parent after preserving the state. No failed source is
+captured in a Snapshot. The minimal runnable settings/parent recipe in
+docs/examples/django is checked both for normal mixed tests and that same setup
+failure, including original process exit and host/temp cleanup.
+
+Use the same run.py arguments with tests/django_lifecycle/run_mixed.py and a fresh
+output directory. This extends the investigation; it does not rewrite original
+92dc7fa receipts or claim Ubuntu, product adapter or release acceptance.

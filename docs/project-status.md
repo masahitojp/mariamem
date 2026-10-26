@@ -1279,3 +1279,13 @@ mixed-class/module interactions, migration-failure admission, multiple aliases,
 parallel/async/external resources remain unverified. The local investigation
 is complete within its bound; whole W3/dogfood and supported-host adoption remain
 open. Workspace and owned native resources have been cleaned.
+
+The Human authorized the next bounded W3 extension while Live CI was pending:
+mixed TestCase/TransactionTestCase/pytest fixture groups under fixed normal,
+reverse and shuffle orders; an extra migration with partial DDL then exact
+missing-table failure; and a runnable explicit-settings/parent-owner recipe.
+Inputs and expected native/guest/Fork/cleanup outcomes are fixed in the existing
+[experiment manifest](../tests/django_lifecycle/input-manifest.json). The original
+application/migration bytes and stable runtime base remain unchanged. This is
+test-only investigation and examples, with no product lifecycle adapter or
+preparation routing. No new execution PASS is claimed before running the extension.

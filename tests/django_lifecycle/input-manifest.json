@@ -68,5 +68,47 @@
     "https://github.com/django/django/blob/5.2.8/django/db/backends/base/creation.py",
     "https://github.com/pytest-dev/pytest-django/blob/v4.12.0/pytest_django/fixtures.py",
     "https://pypi.org/project/pytest-django/4.12.0/"
-  ]
+  ],
+  "mixed_and_failure_extension": {
+    "orders": [
+      "normal",
+      "reverse",
+      "shuffle-137",
+      "shuffle-911-reverse"
+    ],
+    "runner_test_counts": {
+      "manage": 6,
+      "pytest": 12
+    },
+    "routes": [
+      "native",
+      "guest-standard",
+      "fork-1",
+      "fork-2"
+    ],
+    "migration_failure": {
+      "module": "failure_migrations",
+      "file": "0003_partial_failure.py",
+      "sql_operation": 2,
+      "errno": 1146,
+      "missing_table": "w3_missing_migration_table",
+      "partial_table": "w3_partial_ddl",
+      "no_test_body_admission": true,
+      "failed_source_policy": "close/discard whole guest owner; explicitly drop task-owned native test schema after recording partial state"
+    },
+    "seed_policy": "Standard orders_seed.json fixture matches the existing SEED migration row; do not rely on a prior class retaining it",
+    "pytest_order_policy": "Collection-only permutations after standard plugin ordering, preserve contiguous class and function-parameter groups; no DB fixture override",
+    "recipe": "docs/examples/django/run_tests.py",
+    "local_hosts": [
+      "macOS arm64"
+    ],
+    "python": [
+      "3.11",
+      "3.14"
+    ],
+    "ubuntu_status": "not yet observed",
+    "budget_gib": 6,
+    "min_free_gib": 8,
+    "timeout_seconds": 1200
+  }
 }
