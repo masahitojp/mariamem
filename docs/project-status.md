@@ -8,6 +8,58 @@ Version themes are direction; they are not release approval.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Live main adoption — Human approved; protected PR pending
+
+The Human authorized preparing a minimal main-oriented Live candidate after the
+conditional adoption review. The stable base remains
+`bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4`; the original CI-tested experiment
+`a1baaad83922d9ac6ff7fe46d64db3fbfcde542f` remains fixed. The new candidate selects
+runtime/SDK, tests, native/browser controls and the Live guide, adds maintained
+main/PR CI and actual-adapter cleanup retry tests, and excludes exploratory
+review history. See the [candidate record](reviews/v06x-live-main-candidate.md).
+Local focused/race and canonical check pass on `df3e683`; full local integration
+retains a Connector/Python import failure on Python3.14.9/OpenSSL4.0.3. This is
+not a full local integration PASS. Fresh [CI40417099015](https://github.com/masahitojp/mariamem/actions/runs/40417099015)
+passes all four jobs on exact candidate `6edcd29e65d3a669d5be6520abf6be2e61fa3445`:
+fresh native references for Python3.11/3.14, macOS arm64 and Ubuntu x86_64
+canonical check/integration, actual-adapter race, public Go/Python Live/browser
+and installed-consumer gates. The [checksum-bearing receipt](reviews/v06x-live-main-evidence/ci-40417099015/assessment.json)
+retains original artifacts and revalidates their raw observations. CI covers
+its recorded Python/OpenSSL profiles; the local OpenSSL4 failure is unchanged.
+The candidate ref remains fixed; that receipt did not itself authorize adoption.
+The subsequent Human integration decision is recorded below; Qualification and
+publication remain separate. Published v0.5.3 does not provide this API.
+
+The [prior adoption review](reviews/v06x-live-main-adoption-review.md) held
+integration for fresh correction CI and Live required-check activation. The
+[current recommendation](reviews/v06x-live-correction-adoption-review.md) supports
+adoption of exact `c1ee8d32e309dbef514d45db37f12fbb53acb7a9`, with Live required
+activation/readback as an approved-integration step. The Human has now
+authorized this adoption; see the [decision and integration procedure](reviews/v06x-live-main-adoption.md).
+The subsequent review requested user-facing OpenSSL4 documentation, repository
+protection and interrupted ordinary-operation coverage. These corrections are on
+`experiment/live-review-fixes`, with [focused evidence and policy readback](reviews/v06x-live-review-fixes/README.md).
+Both Python versions pass99 focused tests, including12 start/fork/snapshot/status/
+close interruption cases; missing-cleanup and double-close mutations are detected.
+The product runtime is unchanged from6edcd29. Main protection now requires
+`check`, `integration` and `Live required gate` (strict, GitHub Actions app15368,
+administrators included), confirmed by a separate
+[API readback](reviews/v06x-live-main-adoption/policy-assessment.json). The reviewed workflow
+wiring now passes [CI40435625453](https://github.com/masahitojp/mariamem/actions/runs/40435625453)
+on exact c1ee8d3: all six jobs, including scope and Live required gate, succeed.
+The [checksum-bearing receipt](reviews/v06x-live-main-evidence/ci-40435625453/assessment.json)
+revalidates raw full-matrix scope/aggregate logs and all native/browser/installed
+controls. Each host's default-Python3.14 canonical check has1083 PASS/45 SKIP/
+76 subtests; the new12 ordinary-interruption cases run there. The per-minor Live
+focused loop remains53 cases per cell; local99-case results stay separately
+identified. Old CI/local receipts retain their original source identities and
+outcomes. Live required-check activation is complete; protected PR integration
+is pending and will be declared complete only after merge and identity/policy
+verification. The already-applied protection was explicitly approved in the
+linked Human decision. No Qualification, version change or publication occurred.
+Guide-only skip observation/model acceptance, docs/reviews skip policy and wider
+Go/native interruption coverage remain separate, undecided post-adoption work.
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally

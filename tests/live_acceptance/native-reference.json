@@ -1,0 +1,334 @@
+{
+  "native_source_commit": "3446b5c927239542fb4203d5c6b4a4342c6b4984",
+  "run_id": 40286173347,
+  "interpreters": {
+    "3.14": {
+      "artifact_id": 12633938715,
+      "archive_digest": "sha256:2ff7b420bf29e877349a92647aaf537c1b05b1785ad1d66a1d1f46954a4de679",
+      "packages": {
+        "Django": "5.2.8",
+        "mysqlclient": "2.2.7",
+        "playwright": "1.56.0",
+        "pytest": "9.0.2"
+      },
+      "observation": {
+        "python": {
+          "case_before": [
+            {
+              "name": "test_01_commit_order",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_02_fail_after_commit",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_03_next_case_sees_only_baseline",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            }
+          ],
+          "case_after": [
+            {
+              "name": "test_01_commit_order",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ],
+                [
+                  "ORDER-A",
+                  3,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_02_fail_after_commit",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ],
+                [
+                  "FAILED-A",
+                  4,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_03_next_case_sees_only_baseline",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            }
+          ]
+        },
+        "go": {
+          "case_before": [
+            {
+              "name": "test_01_commit_order",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_02_fail_after_commit",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_03_next_case_sees_only_baseline",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            }
+          ],
+          "case_after": [
+            {
+              "name": "test_01_commit_order",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ],
+                [
+                  "ORDER-A",
+                  3,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_02_fail_after_commit",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ],
+                [
+                  "FAILED-A",
+                  4,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_03_next_case_sees_only_baseline",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "3.11": {
+      "artifact_id": 12633614439,
+      "archive_digest": "sha256:5a50a210f0561d3be732441f7eed312b2f6625fe3054124ef7ed10192fbaffd0",
+      "packages": {
+        "Django": "5.2.8",
+        "mysqlclient": "2.2.7",
+        "playwright": "1.56.0",
+        "pytest": "9.0.2"
+      },
+      "observation": {
+        "python": {
+          "case_before": [
+            {
+              "name": "test_01_commit_order",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_02_fail_after_commit",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_03_next_case_sees_only_baseline",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            }
+          ],
+          "case_after": [
+            {
+              "name": "test_01_commit_order",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ],
+                [
+                  "ORDER-A",
+                  3,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_02_fail_after_commit",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ],
+                [
+                  "FAILED-A",
+                  4,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_03_next_case_sees_only_baseline",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            }
+          ]
+        },
+        "go": {
+          "case_before": [
+            {
+              "name": "test_01_commit_order",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_02_fail_after_commit",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_03_next_case_sees_only_baseline",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            }
+          ],
+          "case_after": [
+            {
+              "name": "test_01_commit_order",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ],
+                [
+                  "ORDER-A",
+                  3,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_02_fail_after_commit",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ],
+                [
+                  "FAILED-A",
+                  4,
+                  "ready"
+                ]
+              ]
+            },
+            {
+              "name": "test_03_next_case_sees_only_baseline",
+              "rows": [
+                [
+                  "SEED",
+                  2,
+                  "ready"
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

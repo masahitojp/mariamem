@@ -236,3 +236,22 @@ performance promise.
 The unreleased bounded `import_dump(db, path)` helper is described in the
 [dump preparation guide](importing-dump.md), including the `dump` extra, supported
 MariaDB producer profile and failure cleanup. It is not a general SQL-file runner.
+
+The unreleased Live candidate supports a stable endpoint across sequential browser
+E2E cases. See the [Live guide](live.md) for connection draining and reset ownership.
+
+## Local OpenSSL4 and Connector/Python
+
+Homebrew Python3.14 with OpenSSL4 can fail to import Oracle
+mysql-connector-python26.7.0 because `ssl.PROTOCOL_TLSv1` is absent. The observed
+combination is Python3.14.9/OpenSSL4.0.3. CPython conditionally omits protocol
+constants for methods unavailable in OpenSSL4; this connector accesses those
+constants during import. This happens before connecting to mariamem. It is
+separate from the native-matched prepared-result limitations above.
+
+Record the Python/OpenSSL versions and original import error when reporting a
+local integration failure. Use the CI-supported Python/OpenSSL profile for the
+fixed consumer checks; retain FAIL for the affected local run. Do not add ssl
+aliases, patch the connector or change drivers to label that run PASS. The
+current OpenSSL3 CI environment does not cover this OpenSSL4 combination. See
+[local verification](development.md#local-verification).

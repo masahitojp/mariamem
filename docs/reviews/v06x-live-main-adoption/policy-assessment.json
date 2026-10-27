@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-10-27T04:02:26.711903+00:00",
+  "template": "docs/reviews/v06x-live-review-fixes/protection-with-live.json",
+  "intervening_settings_change": false,
+  "method": "PATCH required_status_checks only; retain unrelated settings and any extra contexts",
+  "required_contexts": {
+    "check": 15368,
+    "integration": 15368,
+    "Live required gate": 15368
+  },
+  "strict": true,
+  "enforce_admins": true,
+  "result": "PASS_POLICY_READBACK",
+  "main_integration_complete": false
+}

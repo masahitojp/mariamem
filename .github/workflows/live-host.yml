@@ -1,0 +1,185 @@
+name: Live E2E
+on:
+  push:
+    branches: [main, experiment/live-main-candidate, experiment/live-review-fixes]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  scope:
+    runs-on: ubuntu-24.04
+    outputs:
+      run_live: ${{ steps.scope.outputs.run_live }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - id: scope
+        run: python scripts/live_ci.py scope --candidate-sha '${{ github.sha }}' --github-output
+  native-reference:
+    needs: scope
+    if: needs.scope.outputs.run_live == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.14']
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: build/e2e-browsers
+    services:
+      mariadb:
+        image: mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+        ports: ['3307:3306']
+        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Fixed browser and client inputs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pkg-config default-libmysqlclient-dev build-essential
+          python -m pip install --no-cache-dir -r tests/e2e_native_control/requirements.lock.txt
+          python -m playwright install --with-deps chromium --only-shell
+      - name: Native input guard and exact-source app
+        env:
+          NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
+        run: |
+          python scripts/git_identity.py inspect HEAD
+          python tests/dump_import_acceptance/linux_acquisition.py --container "$NATIVE_CONTAINER" --expected-source-commit "$GITHUB_SHA" --output build/live-native/acquisition
+          go build -p 1 -trimpath -o build/go-live-orders ./tests/live_acceptance/goapp
+      - name: Fresh native control for the reconnecting Go variant
+        run: python scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 4 --timeout 600 -- python tests/live_acceptance/native.py --port 3307 --go-app build/go-live-orders --expected-source-commit "$GITHUB_SHA" --output build/live-native/reference
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: live-native-py${{ matrix.python }}-${{ github.sha }}
+          path: build/live-native
+          if-no-files-found: error
+  live:
+    needs: [scope, native-reference]
+    if: needs.scope.outputs.run_live == 'true'
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, ubuntu-24.04]
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: build/e2e-browsers
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        id: py311
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        id: py314
+        with:
+          python-version: '3.14'
+      - name: Native client development library
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == Linux ]]; then
+            sudo apt-get update
+            sudo apt-get install -y pkg-config default-libmysqlclient-dev build-essential
+          else
+            brew install pkgconf mariadb-connector-c
+            echo "PKG_CONFIG_PATH=$(brew --prefix mariadb-connector-c)/lib/pkgconfig" >> "$GITHUB_ENV"
+          fi
+      - name: Pinned SDK/browser and existing regression inputs
+        shell: bash
+        env:
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
+        run: |
+          python scripts/git_identity.py inspect HEAD
+          for py in "$PY311" "$PY314"; do
+            "$py" -m pip install --no-cache-dir -r tests/e2e_native_control/requirements.lock.txt -r tests/routing_acceptance/unit-requirements.txt -r tests/preparation_migration_acceptance/requirements.txt mysql-connector-python==26.7.0 build==1.6.1 wheel==0.48.0 setuptools==84.0.0
+          done
+          if [[ "$RUNNER_OS" == Linux ]]; then
+            python -m playwright install --with-deps chromium --only-shell
+          else
+            python -m playwright install chromium --only-shell
+          fi
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: live-native-py3.11-${{ github.sha }}
+          path: build/reference/py3.11
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: live-native-py3.14-${{ github.sha }}
+          path: build/reference/py3.14
+      - name: Canonical changed-boundary checks
+        run: |
+          mkdir -p build/live-evidence
+          python scripts/verify.py check > build/live-evidence/check.txt 2>&1
+          python scripts/verify.py integration > build/live-evidence/integration.txt 2>&1
+          go test -race ./internal/live ./internal/control . > build/live-evidence/live-race.txt 2>&1
+      - name: Exact-source acceptance executables
+        run: |
+          CGO_ENABLED=0 go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host
+          CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-orders ./tests/e2e_native_control/goapp
+          CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-live-orders ./tests/live_acceptance/goapp
+          CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-owner ./tests/live_acceptance/go_owner
+      - name: Public Go/Python browser Live, Fork control and actual defects
+        shell: bash
+        env:
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
+        run: |
+          for py in "$PY311" "$PY314"; do
+            version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+            PYTHONPATH="$PWD/python" "$py" -m pytest tests/test_live_unit.py tests/test_live_oracles.py tests/test_e2e_numeric_bind.py tests/test_e2e_child_diagnostics.py -q > "build/live-evidence/py$version-unit.txt" 2>&1
+            for scenario in positive skip-reset restart-app; do
+              run_case() {
+                "$py" scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$py" tests/live_acceptance/run.py --host build/mariamem-host --go-app build/go-orders --go-live-app build/go-live-orders --go-owner build/go-owner --native-reference "build/reference/py$version/reference" --expected-source-commit "$GITHUB_SHA" --output "build/live-evidence/py$version/$scenario" "$@"
+              }
+              if [[ "$scenario" == positive ]]; then run_case; else run_case --mutation "$scenario"; fi
+            done
+          done
+      - name: Installed wheel and external Go module
+        shell: bash
+        run: python tests/live_acceptance/installed.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/installed
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: live-host-${{ matrix.os }}-${{ github.sha }}
+          path: build/live-evidence
+          if-no-files-found: error
+
+  required:
+    name: Live required gate
+    if: always()
+    needs: [scope, native-reference, live]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Require complete selected matrix
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: python scripts/live_ci.py gate

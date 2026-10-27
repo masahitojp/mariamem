@@ -222,3 +222,6 @@ Project code is [GPL-2.0-only](LICENSE); components retain their own licenses in
 from [shyim/lite4mariadb](https://github.com/shyim/lite4mariadb) and MariaDB Server.
 The original testing API was informed by [shibukawa/pgmem](https://github.com/shibukawa/pgmem);
 mariamem's product contract is defined independently.
+
+The unreleased Live candidate supports a stable endpoint across sequential browser
+E2E cases. See the [Live guide](docs/live.md) for connection draining and reset ownership.

@@ -1,0 +1,214 @@
+{
+  "check-external-tmp.txt": {
+    "bytes": 6581,
+    "sha256": "4fc0c95d73c5081c1cef1eb30aa77c52727e86279a1ca79410d1da718cb9fbb9"
+  },
+  "check.txt": {
+    "bytes": 23598,
+    "sha256": "7d9a47f7b27d6be8ee3f3d7ee512baabe94564c82f649edaea1ddd0825a4c7e0"
+  },
+  "focused-go.txt": {
+    "bytes": 160,
+    "sha256": "eeddce2160990bd9fa4279b3fe38bd3a1f2519a87e6d9bc334f5b4ad9aad8956"
+  },
+  "focused-python-3.11.txt": {
+    "bytes": 100,
+    "sha256": "12c5e35642c1cb2c2a36dc7532fbd37ecadaa3e32360d6ea1e982291f4f832e8"
+  },
+  "focused-python-3.14.txt": {
+    "bytes": 100,
+    "sha256": "ee444abe261b738c69579df1566e716a5786ae5a580c4357c11ee64dc582d233"
+  },
+  "integration.txt": {
+    "bytes": 8070,
+    "sha256": "7ef8fe3ad28f39ba4c754cca67295d4e2db6451bfff75cf4ca00bebc8fc5c265"
+  },
+  "local-environment.json": {
+    "bytes": 655,
+    "sha256": "30b2190f5a102ef1f3df70384e90aea286f03bfaff6f10bf6cdad2007e188fa0"
+  },
+  "mutations.json": {
+    "bytes": 875,
+    "sha256": "448b4cfc5d5bb523a2926483ee74e088ca042faf6e200dd0d3e5a9a9e1bd0437"
+  },
+  "old-endpoint-close.txt": {
+    "bytes": 179,
+    "sha256": "207cd2fbf1463059b265c453cbe986d477718e3be90c79b328d0e5beb6fa4b15"
+  },
+  "old-go-adapter.txt": {
+    "bytes": 311,
+    "sha256": "bfdda4bc9e80f76a2bf1128c7369e42fd32c03ec82ce57072a6d607ae5e3605c"
+  },
+  "old-shared-adapter.txt": {
+    "bytes": 166,
+    "sha256": "331be2056355c1c6c0b02e01c25c1e811272567b79752e9b2fd21ac3b82a9c0d"
+  },
+  "routing-py3.11/adopt_unknown.json": {
+    "bytes": 1343,
+    "sha256": "6173768c82feb4f1d54ef948c0cdc32299c1516bb8db694fb1f0596b400cfc33"
+  },
+  "routing-py3.11/adopt_unknown.log": {
+    "bytes": 35,
+    "sha256": "a007f23713da5e3242f0c51b8cd1275c408c68732bd062b22a88c00bef53d404"
+  },
+  "routing-py3.11/control.json": {
+    "bytes": 11053,
+    "sha256": "ecfaf5980266ad3832e97a6d18d061a74bc80b4c73f5db91451d6d9642d07b5b"
+  },
+  "routing-py3.11/control.log": {
+    "bytes": 483,
+    "sha256": "3065d2166692ecf03907eff79d054cdcc89785a052961fbbd634c7cbcfbdf75b"
+  },
+  "routing-py3.11/fallback.json": {
+    "bytes": 4431,
+    "sha256": "8dd716b2b635cdbd93c53972e8cba53b96122933a562d6805df285e5d5db536a"
+  },
+  "routing-py3.11/fallback.log": {
+    "bytes": 23,
+    "sha256": "9bf008786b66c4450d646a3c38101b01a20c6d8ab6ebe8870dc291b108840a77"
+  },
+  "routing-py3.11/global_target.json": {
+    "bytes": 2223,
+    "sha256": "45189c46177fcca814f66faed31799f6cf91ab7c1e54ff943ec07f6a7de335d1"
+  },
+  "routing-py3.11/global_target.log": {
+    "bytes": 25,
+    "sha256": "6c99e6025f9f02516173b4328e3e2ece5267fddabcc1020b6ad75dab45281476"
+  },
+  "routing-py3.11/ignore_retired.json": {
+    "bytes": 1616,
+    "sha256": "a62a42554f8a9aeebb8ff513552584558f2bd1ea62ae7177d4aaa9e352a6c83a"
+  },
+  "routing-py3.11/ignore_retired.log": {
+    "bytes": 24,
+    "sha256": "1b777871931d45fbed4e54888c8e9a230205fe19456275c2ea775643865185be"
+  },
+  "routing-py3.11/inputs.json": {
+    "bytes": 49093,
+    "sha256": "5a0bd9941123ed4573d21aeca79c143b17ac8670dcb5a8013deaf35670bc931a"
+  },
+  "routing-py3.11/no_pool_check.json": {
+    "bytes": 1101,
+    "sha256": "268a0472d94347f633e5bd44010ab5a3529477ade311c02806adce400e2c4d58"
+  },
+  "routing-py3.11/no_pool_check.log": {
+    "bytes": 24,
+    "sha256": "6550a037e28349f23284882dbeffcf5bbe6be0e6144dd7961be3a294c8dd612a"
+  },
+  "routing-py3.11/pytest-native.log": {
+    "bytes": 141,
+    "sha256": "aad92ba8106ec1d7074ea66cb3fd0a30862e376a44bb4ed4537993582458f041"
+  },
+  "routing-py3.11/pytest-native.xml": {
+    "bytes": 810,
+    "sha256": "4ed49b521910cf08125ce4904f4da3efc17d0f4d362b14486cf106e7118f4448"
+  },
+  "routing-py3.11/retain_session.json": {
+    "bytes": 1319,
+    "sha256": "34dcb0fa605efe32fe3fe47ae4ade9141ebb972facaba88707ee1a5d97b2ba4f"
+  },
+  "routing-py3.11/retain_session.log": {
+    "bytes": 27,
+    "sha256": "c68b477109fd71eddd46907983092c959053a6180b19076d691511984c099eb4"
+  },
+  "routing-py3.14/adopt_unknown.json": {
+    "bytes": 1396,
+    "sha256": "6500abbf73ba63efe4069b5124bcf539411c529aad09fd7470f8250ed3fa197a"
+  },
+  "routing-py3.14/adopt_unknown.log": {
+    "bytes": 35,
+    "sha256": "a007f23713da5e3242f0c51b8cd1275c408c68732bd062b22a88c00bef53d404"
+  },
+  "routing-py3.14/control.json": {
+    "bytes": 9934,
+    "sha256": "20be5189034da2ea16ca918bfe1d2e04c1b892bfa425d553e9e1b91f30040dc5"
+  },
+  "routing-py3.14/control.log": {
+    "bytes": 483,
+    "sha256": "023cb2a0f23e1515349360c79188504fc5f3035bc91fbce75bccdddda980607c"
+  },
+  "routing-py3.14/fallback.json": {
+    "bytes": 4431,
+    "sha256": "b2490cb5ec488d2c7d103ac25d7cd357a941c9e8393a2d461d15c23eac45256c"
+  },
+  "routing-py3.14/fallback.log": {
+    "bytes": 23,
+    "sha256": "9bf008786b66c4450d646a3c38101b01a20c6d8ab6ebe8870dc291b108840a77"
+  },
+  "routing-py3.14/global_target.json": {
+    "bytes": 2157,
+    "sha256": "40e78e390d6f07d82318c498a26cc22d24ed77abcc1d922aa0381c7124c0205d"
+  },
+  "routing-py3.14/global_target.log": {
+    "bytes": 25,
+    "sha256": "6c99e6025f9f02516173b4328e3e2ece5267fddabcc1020b6ad75dab45281476"
+  },
+  "routing-py3.14/go-consumer-build.txt": {
+    "bytes": 101,
+    "sha256": "bc341a6fc6cd5119497626cfa7308723f86f7225818b7c510b976030d8f41c30"
+  },
+  "routing-py3.14/ignore_retired.json": {
+    "bytes": 1669,
+    "sha256": "8cabe49cb9d6b11a2e9676778d5991edc280cb27d701b50920bd8236f97a9a4d"
+  },
+  "routing-py3.14/ignore_retired.log": {
+    "bytes": 24,
+    "sha256": "1b777871931d45fbed4e54888c8e9a230205fe19456275c2ea775643865185be"
+  },
+  "routing-py3.14/inputs.json": {
+    "bytes": 49201,
+    "sha256": "17d229be1470d4f0313b1b56af06c93a7c9ef25ad11aa3f669e2b20d79722798"
+  },
+  "routing-py3.14/no_pool_check.json": {
+    "bytes": 1154,
+    "sha256": "481c0c45dd84c9c976407d09af871bc907d50c370f15079079823196454e47b9"
+  },
+  "routing-py3.14/no_pool_check.log": {
+    "bytes": 24,
+    "sha256": "6550a037e28349f23284882dbeffcf5bbe6be0e6144dd7961be3a294c8dd612a"
+  },
+  "routing-py3.14/pytest-native.log": {
+    "bytes": 141,
+    "sha256": "cf580301f4ab331cef9b0e44dd6bd216f96fc708c82ecec0d52687b6e338bbd6"
+  },
+  "routing-py3.14/pytest-native.xml": {
+    "bytes": 810,
+    "sha256": "929b6a23dd36e049f6200adafb03615b7bd8be45a3395b45af15516b7b21e168"
+  },
+  "routing-py3.14/retain_session.json": {
+    "bytes": 1372,
+    "sha256": "3b73d925f1c36192f9d26929c97be73b15a7ad1432fcea0b76493c1ab2afee6c"
+  },
+  "routing-py3.14/retain_session.log": {
+    "bytes": 27,
+    "sha256": "c68b477109fd71eddd46907983092c959053a6180b19076d691511984c099eb4"
+  },
+  "routing.txt": {
+    "bytes": 560,
+    "sha256": "228290c328fa703fc5d6592d86e45adb4deabf55c9937b84bd511294947526da"
+  },
+  "routing311.txt": {
+    "bytes": 557,
+    "sha256": "2dddc4d379fce9e7ec912200375ac389051ef38b3325f735159c1c6a39640359"
+  },
+  "setup-3.11.txt": {
+    "bytes": 4785,
+    "sha256": "94de67dd50c002678cc248b19b1e50b2654a1b081c9677b2d866694d9426678d"
+  },
+  "setup-3.14.txt": {
+    "bytes": 4297,
+    "sha256": "e8e860852c2c971b77b8d39e461a87f0518e8fd8c9febafdaa9d03c01040d30c"
+  },
+  "snapshots.json": {
+    "bytes": 1388,
+    "sha256": "7369ce549ee028b3540d111a9dc069e46ed586a2a8fbc9239083dc871f365885"
+  },
+  "source-identity.json": {
+    "bytes": 153,
+    "sha256": "8e691e641694c0deda39e7742dd2635f2971503e29a22167b94f691a37d143e9"
+  },
+  "tmp-path-regression.txt": {
+    "bytes": 98,
+    "sha256": "bef8623b25b25ab880ba85efeef2d92c7d65627f885fe3b9c983593ce2c4795b"
+  }
+}

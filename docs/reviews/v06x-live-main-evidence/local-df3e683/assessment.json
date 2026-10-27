@@ -1,0 +1,93 @@
+{
+  "source_commit": "df3e68393ca5734cfc73e1837013d30bb620e7d1",
+  "base_source_commit": "bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4",
+  "selected_source_commit": "a1baaad83922d9ac6ff7fe46d64db3fbfcde542f",
+  "host_buildinfo": "<candidate-host>: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.4-0.20261026211620-df3e68393ca5\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=df3e68393ca5734cfc73e1837013d30bb620e7d1\n\tbuild\tvcs.time=2026-10-26T21:16:20Z\n\tbuild\tvcs.modified=false\n",
+  "host_sha256": "5b36f49e877dcd9c8143705db3408f42b7efaa6ebb1eb43525bcb8d24af19d06",
+  "runtime_delta": {
+    "live.go": {
+      "before_sha256": "c5b98cf5817046e5f07588e0abb8c1325ad611fc2a9e66d441a4181bbfda0b1c",
+      "after_sha256": "897315a116f8c86f769c2b921d1fed844cccdc0389c8e59ec1571316240f098c"
+    },
+    "internal/control/live.go": {
+      "before_sha256": "5a37e4c34ccf9b43c31d24ab4e2d7fa2d95fc1f7947a079139d6834a55d611a7",
+      "after_sha256": "16531830124a792ba10db38c6d5672ae552f380388b6169ea3334824e4b9c2c7"
+    },
+    "internal/live/endpoint.go": {
+      "before_sha256": "e0f2860bec4618c552126f8d4b9620b4a5682e2cc69d6498fc4583a6238e2e61",
+      "after_sha256": "c60b29ee47e7755840541f9d9764215a0654b7bbe4eb5f091297e6028b97ac88"
+    }
+  },
+  "focused_python": {
+    "3.11": "63 PASS",
+    "3.14": "63 PASS"
+  },
+  "focused_go_race": {
+    "result": "PASS",
+    "packages": [
+      "internal/live",
+      "internal/control",
+      "."
+    ]
+  },
+  "old_adapter_and_endpoint_mutations": {
+    "result": "PASS",
+    "detected": 3,
+    "expected_test_exit": 1
+  },
+  "canonical_check": {
+    "result": "PASS",
+    "python": "3.14.9",
+    "source_oracles_passed": 22,
+    "pytest_passed": 1040,
+    "pytest_skipped": 45,
+    "subtests_passed": 76,
+    "warning": "pre-existing shadow_maria marker warning"
+  },
+  "initial_check": {
+    "result": "FAIL",
+    "failures": 3,
+    "reason": "unchanged final_latency tests reject repository-local TMPDIR",
+    "external_tmp_focused_rerun": "6 PASS"
+  },
+  "canonical_integration": {
+    "result": "FAIL",
+    "blocked_at": "Connector/Python26.7.0 import on local Python3.14.9 / OpenSSL4.0.3: ssl.PROTOCOL_TLSv1 absent",
+    "completed": [
+      "all canonical Go race packages",
+      "gointegration",
+      "godefault",
+      "generatedmemory",
+      "Python SQL/lifecycle:31 PASS,1 SKIP",
+      "Snapshots:33 checks PASS"
+    ],
+    "not_completed": [
+      "prepared consumer profile gate",
+      "routing (separately executed below)"
+    ]
+  },
+  "routing": {
+    "3.14": {
+      "result": "FAIL",
+      "reason": "same standalone Connector import blocker",
+      "pytest_native": "4 PASS"
+    },
+    "3.11": {
+      "result": "PASS",
+      "complete": true,
+      "defects_detected": 6,
+      "pytest_native": "4 PASS"
+    }
+  },
+  "fresh_candidate_ci": "required; full integration/native/Live browser/installed gates unchanged",
+  "main_integration": false,
+  "qualification": false,
+  "release": false,
+  "archive": {
+    "file": "logs.zip.base64",
+    "decoded_sha256": "1f55b1d7a0a154b5eef853a60b8fc1a1dad7da8cd9ecc71058995293bd438dd3",
+    "decoded_bytes": 73683,
+    "members": 53
+  },
+  "host_buildinfo_header_normalized": true
+}

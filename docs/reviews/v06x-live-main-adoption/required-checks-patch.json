@@ -1,0 +1,17 @@
+{
+  "strict": true,
+  "checks": [
+    {
+      "context": "check",
+      "app_id": 15368
+    },
+    {
+      "context": "integration",
+      "app_id": 15368
+    },
+    {
+      "context": "Live required gate",
+      "app_id": 15368
+    }
+  ]
+}

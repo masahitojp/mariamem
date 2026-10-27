@@ -84,6 +84,19 @@ before tools, builds or performance work. Identity failures should cost Git chec
 
 ## Local verification
 
+Homebrew Python3.14 linked to OpenSSL4 has a known local verification constraint:
+fixed Oracle Connector/Python26.7.0 can fail at import with
+`AttributeError: module 'ssl' has no attribute 'PROTOCOL_TLSv1'`. CPython's
+[OpenSSL4 adaptation](https://github.com/python/cpython/commit/3364e7e62fa24d0e19133fb0f90b1c24ef1110c5)
+conditionally omits version-specific protocol constants; this client still
+accesses them unconditionally. This standalone import failure precedes any
+mariamem connection and does not establish a runtime regression. Record Python,
+`ssl.OPENSSL_VERSION` and the original exception. Full local integration remains
+FAIL in that environment; use the CI-supported Python/OpenSSL profile for the
+fixed consumer gate. Do not synthesize ssl constants, patch the driver or relax
+the native profile to report PASS. Current OpenSSL3 CI cannot detect this local
+OpenSSL4 constraint. See the [Python driver note](python.md#local-openssl4-and-connectorpython).
+
 Choose verification from the changed boundary, not the file extension or the
 fact that a branch is being merged. Start with focused checks. Expand only when
 a focused failure or an actual dependency requires it, and explain the exact
