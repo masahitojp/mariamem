@@ -1,0 +1,58 @@
+{
+  "result": "PASS_PUBLIC_EXAMPLES",
+  "source_commit": "342e63ea4233eeea5f03f05292041e2c56df2e38",
+  "python": "3.14.9 (main, Oct 21 2026, 06:02:15) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "binary_identity": {
+    "host": "/Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/temp/bin/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.4-0.20261027072420-342e63ea4233\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=342e63ea4233eeea5f03f05292041e2c56df2e38\n\tbuild\tvcs.time=2026-10-27T07:24:20Z\n\tbuild\tvcs.modified=false\n",
+    "go_app": "/Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/temp/bin/go-orders: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/tests/live_acceptance/goapp\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.4-0.20261027072420-342e63ea4233\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=342e63ea4233eeea5f03f05292041e2c56df2e38\n\tbuild\tvcs.time=2026-10-27T07:24:20Z\n\tbuild\tvcs.modified=false\n"
+  },
+  "input_sha256": {
+    "docs/examples/live/go/live_test.go": "c4e08312562ad4bdf7d5ab8c56adbe8a5f6c1965aeaf8d347572428ff60ee040",
+    "docs/examples/live/python/test_orders.py": "fb90398876206cf4c8ea70805d0ede0bac3d44eefa38a8f9f33c6f5b5dc60219",
+    "docs/examples/live/verify.py": "6c2551c539120d9196dbdc076f4e0ea7a540cfdbbd17109ba477bc075ca1262d",
+    "tests/e2e_native_control/goapp/schema.sql": "20deaf353b53a7b056fb6df2bdbb14891cd652e16ff382c1fc30a0455955467b",
+    "tests/e2e_native_control/pythonapp/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/manage.py": "53887b1c1dbae2d76ea18a55bd9cda69bbbf9045dcededfc4bb855c3b27fe407",
+    "tests/e2e_native_control/pythonapp/orders/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/orders/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/orders/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/orders/management/commands/seed_baseline.py": "1eb4c8f96bb7df4daac6a57c7eb5858de134505d6b4f74a5eedeeee67064bb49",
+    "tests/e2e_native_control/pythonapp/orders/migrations/0001_initial.py": "67742c2448bb246afb40093e3867d12d9e713fec683cbc7fda2aee5920c03058",
+    "tests/e2e_native_control/pythonapp/orders/migrations/0002_status.py": "5ee59c165fbb6d2cdda5b29b0ef4ea7ee876157b966353d87d23a0e365f1d466",
+    "tests/e2e_native_control/pythonapp/orders/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/orders/models.py": "e751807321ff8bde129581ec99e0968ca607ecae11761ff24ff98b7162a5f25b",
+    "tests/e2e_native_control/pythonapp/settings.py": "ef7b84ac2813564a963b4057f34e55f1202306a40dbb47256b957dd9c770917a",
+    "tests/e2e_native_control/pythonapp/urls.py": "d5f2168142a55f4c7dede51ab9af64fdbbdec7514ec1d389c2241edc5325f9d7",
+    "tests/live_acceptance/goapp/main.go": "b9c169590f073c535a7b850ef4c4e1f27db0433e9385b28698f45020f1d60e0c"
+  },
+  "runs": {
+    "go": {
+      "result": "PASS",
+      "command": [
+        "go",
+        "test",
+        "-p",
+        "1",
+        "-count=1",
+        "-json",
+        "./docs/examples/live/go"
+      ],
+      "exit_code": 0
+    },
+    "python": {
+      "result": "PASS",
+      "command": [
+        "/Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/temp/venv/bin/python",
+        "-m",
+        "pytest",
+        "docs/examples/live/python/test_orders.py",
+        "-v",
+        "--basetemp",
+        "/Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/evidence/functional/pytest-temp",
+        "--junitxml",
+        "/Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/evidence/functional/pytest.xml"
+      ],
+      "exit_code": 0
+    }
+  }
+}

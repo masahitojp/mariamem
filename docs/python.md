@@ -113,6 +113,8 @@ with `snapshot()`; a saved Snapshot artifact is not an input in this version.
 
 For a migration/seed callback using explicit Alembic configuration, see
 [prepare once, test independently](preparing-test-data.md).
+For ordinary `manage.py test` or pytest-django ownership, see the
+[Django standard-runner recipe](django-testing.md).
 
 Unreleased source builds add `@pytest.mark.shadow_maria` for existing application
 connections, `mariamem_prepare` for session preparation and optional

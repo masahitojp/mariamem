@@ -151,6 +151,8 @@ Both languages provide preparation and independent child acquisition. See the
 [Go guide](docs/go.md#prepare-once-fork-independent-databases) and
 [Python guide](docs/python.md#share-preparation-isolate-mutations). Python pytest
 fixture integration is described in the Python guide.
+For ordinary `manage.py test` or pytest-django, see the
+[Django standard-runner recipe](docs/django-testing.md).
 
 Unreleased source builds also offer opt-in [application connection routing](docs/connection-routing.md):
 keep ordinary Python connection calls while `@pytest.mark.shadow_maria` selects an independent

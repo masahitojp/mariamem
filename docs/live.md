@@ -9,6 +9,11 @@ same initial database. Prepare with explicit settings, commit and close the
 preparation connections, then capture a Snapshot. Keep that Snapshot open until
 all resets finish. A Live owns one stable localhost endpoint over private Forks.
 
+For complete runnable examples, see [reuse one application across sequential
+tests](examples/live/README.md). Python uses Django and a real browser with a
+fresh context per case; Go uses HTTP E2E. Both require application quiescence
+and physical SQL connection retirement before Reset.
+
 ```python
 with source.snapshot() as prepared:
     with prepared.live() as live:
