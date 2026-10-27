@@ -8,7 +8,7 @@ Version themes are direction; they are not release approval.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Live main candidate — correction CI passed; adoption decision pending
+## Live main adoption — Human approved; protected PR pending
 
 The Human authorized preparing a minimal main-oriented Live candidate after the
 conditional adoption review. The stable base remains
@@ -26,24 +26,25 @@ canonical check/integration, actual-adapter race, public Go/Python Live/browser
 and installed-consumer gates. The [checksum-bearing receipt](reviews/v06x-live-main-evidence/ci-40417099015/assessment.json)
 retains original artifacts and revalidates their raw observations. CI covers
 its recorded Python/OpenSSL profiles; the local OpenSSL4 failure is unchanged.
-The candidate ref remains fixed; this follow-up only records evidence. Main
-integration, Qualification and publication remain separate decisions. Published
-v0.5.3 does not provide this API.
+The candidate ref remains fixed; that receipt did not itself authorize adoption.
+The subsequent Human integration decision is recorded below; Qualification and
+publication remain separate. Published v0.5.3 does not provide this API.
 
 The [prior adoption review](reviews/v06x-live-main-adoption-review.md) held
 integration for fresh correction CI and Live required-check activation. The
 [current recommendation](reviews/v06x-live-correction-adoption-review.md) supports
 adoption of exact `c1ee8d32e309dbef514d45db37f12fbb53acb7a9`, with Live required
-activation/readback as an approved-integration step. Human adoption is pending.
+activation/readback as an approved-integration step. The Human has now
+authorized this adoption; see the [decision and integration procedure](reviews/v06x-live-main-adoption.md).
 The subsequent review requested user-facing OpenSSL4 documentation, repository
 protection and interrupted ordinary-operation coverage. These corrections are on
 `experiment/live-review-fixes`, with [focused evidence and policy readback](reviews/v06x-live-review-fixes/README.md).
 Both Python versions pass99 focused tests, including12 start/fork/snapshot/status/
 close interruption cases; missing-cleanup and double-close mutations are detected.
-The product runtime is unchanged from6edcd29. Main now requires `check` and
-`integration` (strict, GitHub Actions app15368, administrators included). The new
-always-reported `Live required gate` has a concrete activation payload for the
-Human-approved adoption step; it is not yet required on main. Its new workflow
+The product runtime is unchanged from6edcd29. Main protection now requires
+`check`, `integration` and `Live required gate` (strict, GitHub Actions app15368,
+administrators included), confirmed by a separate
+[API readback](reviews/v06x-live-main-adoption/policy-assessment.json). The reviewed workflow
 wiring now passes [CI40435625453](https://github.com/masahitojp/mariamem/actions/runs/40435625453)
 on exact c1ee8d3: all six jobs, including scope and Live required gate, succeed.
 The [checksum-bearing receipt](reviews/v06x-live-main-evidence/ci-40435625453/assessment.json)
@@ -52,7 +53,12 @@ controls. Each host's default-Python3.14 canonical check has1083 PASS/45 SKIP/
 76 subtests; the new12 ordinary-interruption cases run there. The per-minor Live
 focused loop remains53 cases per cell; local99-case results stay separately
 identified. Old CI/local receipts retain their original source identities and
-outcomes. No main integration, required Live activation or release occurred.
+outcomes. Live required-check activation is complete; protected PR integration
+is pending and will be declared complete only after merge and identity/policy
+verification. The already-applied protection was explicitly approved in the
+linked Human decision. No Qualification, version change or publication occurred.
+Guide-only skip observation/model acceptance, docs/reviews skip policy and wider
+Go/native interruption coverage remain separate, undecided post-adoption work.
 
 ## Product contract
 

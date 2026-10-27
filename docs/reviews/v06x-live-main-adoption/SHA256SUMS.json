@@ -1,0 +1,6 @@
+{
+  "policy-assessment.json": "2f0800dd5744d031bee95a669726dd0524289ca5211e269b32e843f55111245f",
+  "protection-before.json": "9374102b683861a40087f7a7598f122d08ef656cc42e9ee2d8c07d86ebf56d94",
+  "protection-readback.json": "cecf3a40c15d8bbfa63ecf35b48e9399b72e2c381a314ba19c25c5a10b55485d",
+  "required-checks-patch.json": "413a1bc7cf6250d3f061474ce967ece04858e4fdcb984739a3d841bc9bd505fc"
+}
