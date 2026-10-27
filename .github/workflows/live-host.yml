@@ -159,6 +159,16 @@ jobs:
               if [[ "$scenario" == positive ]]; then run_case; else run_case --mutation "$scenario"; fi
             done
           done
+      - name: Runnable public documentation examples
+        shell: bash
+        env:
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
+        run: |
+          for py in "$PY311" "$PY314"; do
+            version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+            "$py" scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$py" docs/examples/live/verify.py --host build/mariamem-host --go-app build/go-live-orders --expected-source-commit "$GITHUB_SHA" --output "build/live-evidence/examples-py$version"
+          done
       - name: Installed wheel and external Go module
         shell: bash
         run: python tests/live_acceptance/installed.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/installed

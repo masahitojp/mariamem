@@ -66,3 +66,73 @@ defer setupDB.Close()
                            cwd=project, env=env, check=True, timeout=300)
             import shutil
             shutil.rmtree(project / 'prepared', ignore_errors=True)
+
+
+"""Focused structure and result-oracle checks; no guest or browser execution."""
+import ast
+import importlib.util
+import json
+from pathlib import Path
+
+import pytest
+
+ROOT = Path(__file__).resolve().parents[1]
+EXAMPLES = ROOT / 'docs/examples/live'
+spec = importlib.util.spec_from_file_location('live_example_verify', EXAMPLES / 'verify.py')
+owner = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(owner)
+
+
+def test_python_example_structure():
+    path = EXAMPLES / 'python/test_orders.py'
+    tree = ast.parse(path.read_text())
+    funcs = {n.name: n for n in tree.body if isinstance(n, ast.FunctionDef)}
+    application = ast.get_source_segment(path.read_text(), funcs['application'])
+    page = ast.get_source_segment(path.read_text(), funcs['page'])
+    assert application.count("manage(env, 'migrate', '--noinput')") == 1
+    assert application.index('source.wait_disconnected()') < application.index('source.snapshot()')
+    assert application.index('prepared.live()') < application.index('subprocess.Popen(')
+    assert 'app.wait(timeout=5)' in application
+    assert page.index("assert state['admission_open']") < page.index('live.reset(')
+    assert page.index("state['admission_open'] = False") < page.index('live.reset(')
+    assert page.index('live.reset(') < page.index('browser.new_context()')
+    assert "['SEED:2:ready']" in page
+    assert "['SEED:2:ready', 'NEW:3:ready']" in path.read_text()
+    assert '._session' not in path.read_text()
+
+
+def test_go_example_and_maintained_inputs():
+    source = (EXAMPLES / 'go/live_test.go').read_text()
+    assert 'if !t.Run(name,' in source and 'stop admitting tests' in source
+    assert source.index('pool.Close(); err') < source.index('source.Snapshot(')
+    assert 'if live != nil {' in source
+    assert source.index('prepared.Live(ctx)') < source.index('app.Start()')
+    assert 'live.ConnectionInfo() != endpoint' in source
+    assert 'SEED:2:ready' in source and 'NEW:3:ready' in source
+    assert 'tests/e2e_native_control/goapp/schema.sql' in source
+    assert 'db.SetMaxIdleConns(0)' in (ROOT / 'tests/live_acceptance/goapp/main.go').read_text()
+    assert 'CONN_MAX_AGE' in (ROOT / 'tests/e2e_native_control/pythonapp/settings.py').read_text()
+
+
+@pytest.mark.parametrize('action', ['pass', 'fail', 'skip'])
+def test_go_result_requires_both_cases_without_skips(tmp_path, action):
+    log = tmp_path / 'go.json'
+    log.write_text('\n'.join(json.dumps(dict(Action=a, Test=n)) for n, a in [
+        ('TestOrders', 'pass'), ('TestOrders/first', 'pass'), ('TestOrders/second', action)]))
+    assert owner.go_passed(log) == (action == 'pass')
+
+
+@pytest.mark.parametrize('tests,skips,failures,accepted', [(2, 0, 0, True), (1, 0, 0, False),
+                                                        (2, 1, 0, False), (2, 0, 1, False)])
+def test_python_result_requires_two_executed_cases(tmp_path, tests, skips, failures, accepted):
+    result = tmp_path / 'pytest.xml'
+    result.write_text(f'<testsuites><testsuite tests="{tests}" skipped="{skips}" failures="{failures}" errors="0"/></testsuites>')
+    assert owner.python_passed(result) == accepted
+
+
+def test_workflow_executes_exact_examples_and_keeps_existing_owners():
+    workflow = (ROOT / '.github/workflows/live-host.yml').read_text()
+    assert 'docs/examples/live/verify.py --host build/mariamem-host --go-app build/go-live-orders' in workflow
+    for existing in ['tests/live_acceptance/native.py', 'tests/live_acceptance/run.py',
+                     'tests/live_acceptance/installed.py', 'positive skip-reset restart-app']:
+        assert existing in workflow
