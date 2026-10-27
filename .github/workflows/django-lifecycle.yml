@@ -93,11 +93,14 @@ jobs:
         os: [macos-15, ubuntu-24.04]
         python: ['3.11', '3.14']
     env:
-      GOCACHE: ${{ runner.temp }}/django-cache/go-build
-      GOPATH: ${{ runner.temp }}/django-cache/gopath
-      GOMODCACHE: ${{ runner.temp }}/django-cache/modcache
       PYTHONPATH: python
     steps:
+      - name: Job-owned Go cache paths
+        shell: bash
+        run: |
+          echo "GOCACHE=$RUNNER_TEMP/django-cache/go-build" >> "$GITHUB_ENV"
+          echo "GOPATH=$RUNNER_TEMP/django-cache/gopath" >> "$GITHUB_ENV"
+          echo "GOMODCACHE=$RUNNER_TEMP/django-cache/modcache" >> "$GITHUB_ENV"
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           fetch-depth: 0

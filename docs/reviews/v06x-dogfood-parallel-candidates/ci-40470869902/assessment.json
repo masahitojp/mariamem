@@ -1,0 +1,55 @@
+{
+  "pr_head": "63e896a3e86858cef344c9652f2c2f403f99cd9d",
+  "actual_ci_source_commit": "6084ec76173d701861925181ae72dbdaec2780b6",
+  "shared_tree": "b140e74bc764559591251dbd986cd87c256f94a9",
+  "live_run": "https://github.com/masahitojp/mariamem/actions/runs/40470869902",
+  "development_run": "https://github.com/masahitojp/mariamem/actions/runs/40470869868",
+  "django_definition_failure": "https://github.com/masahitojp/mariamem/actions/runs/40470823631",
+  "django_functional_result": "NOT_RUN",
+  "examples": [
+    {
+      "artifact": "live-host-macos-15-6084ec76173d701861925181ae72dbdaec2780b6",
+      "cell": "examples-py3.11",
+      "source_commit": "6084ec76173d701861925181ae72dbdaec2780b6",
+      "result": "PASS_PUBLIC_EXAMPLES",
+      "runs": {
+        "go": "PASS",
+        "python": "PASS"
+      },
+      "original_result_sha256": "973818a4a3331a88d83e4e622fe566398df2bb77850322504bb2966c192eeddb"
+    },
+    {
+      "artifact": "live-host-macos-15-6084ec76173d701861925181ae72dbdaec2780b6",
+      "cell": "examples-py3.14",
+      "source_commit": "6084ec76173d701861925181ae72dbdaec2780b6",
+      "result": "PASS_PUBLIC_EXAMPLES",
+      "runs": {
+        "go": "PASS",
+        "python": "PASS"
+      },
+      "original_result_sha256": "94812d8665c64a02d456038154a26127a6aa0b52d922a3afa4fa31495a3a78d2"
+    },
+    {
+      "artifact": "live-host-ubuntu-24.04-6084ec76173d701861925181ae72dbdaec2780b6",
+      "cell": "examples-py3.11",
+      "source_commit": "6084ec76173d701861925181ae72dbdaec2780b6",
+      "result": "PASS_PUBLIC_EXAMPLES",
+      "runs": {
+        "go": "PASS",
+        "python": "PASS"
+      },
+      "original_result_sha256": "fc5aa2f5d6242986de9ac7b24d9fc370d5ae8ef073c466baf67c7c84e242fc3a"
+    },
+    {
+      "artifact": "live-host-ubuntu-24.04-6084ec76173d701861925181ae72dbdaec2780b6",
+      "cell": "examples-py3.14",
+      "source_commit": "6084ec76173d701861925181ae72dbdaec2780b6",
+      "result": "PASS_PUBLIC_EXAMPLES",
+      "runs": {
+        "go": "PASS",
+        "python": "PASS"
+      },
+      "original_result_sha256": "e4c5cd92bd6cad1c9f19f93adf45614f24ac6dd1c1bd4e1fada42a967f9ad5b8"
+    }
+  ]
+}
