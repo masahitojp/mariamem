@@ -8,29 +8,41 @@ Version themes are direction; they are not release approval.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Dogfood recipes, guides and CI improvement — approved adoption, not yet merged
+## Dogfood recipes, guides and CI improvement adopted on main — unreleased
 
 The Human approved main adoption of PR3's bounded candidate
 `d389306f9ae0514824f79fccbe2800776786a7ac`: the ordinary Django standard-runner
 recipe, public Python browser/Go HTTP Live examples, sequential/parallel
 Snapshot/Fork documentation and Live CI deduplication/compiler-cache changes.
 The starting main base is `250bceb80be4cfc9f7c844d888af864fc1d38d25`.
-See the [decision and integration procedure](reviews/v06x-dogfood-main-adoption.md).
-This is approval to integrate through the protected PR, not completed adoption.
+PR3 squash-merged on 2026-10-27 to main source_commit
+`ebb97260788710b2065e81481b2c2f516d6f7e52`, from checked PR head
+`0490b43a21dceeab10b33d94b5b92bf383e4055e`. The actual final PR CI source was
+`730bd17c935928dd37e2cd7df14aa115c40e89a7`; all three have identical tree
+`c98a74c854d59cf19f1584a7cb5fa994e0f6632b`. See the
+[decision](reviews/v06x-dogfood-main-adoption.md) and
+[completion receipt](reviews/v06x-dogfood-main-completion/README.md).
+This closes the approved protected-PR integration; no bypass was used.
 
 The reviewed actual PR CI source is `3ed2c8e0790499c215869e33154272b062c35a88`,
 whose tree matches that candidate. Development40492425939, Django40492425975,
 Live40492426087 and incidental dump regression40492426188 all succeeded.
 Django has native references for both Python minors plus four guest cells;
 Live has both-host public examples, failure controls and installed consumers.
-Receipts retain the tested source; documentation/decision updates require their
-own strict-base PR checks and do not inherit runtime PASS under a new SHA.
+The final strict-base PR checks also passed: Development40502167065,
+Django40502166621, Live40502166546 and dump regression40502166708. GitHub's
+20 successful checks bind the PR head; execution/receipt provenance retains the
+actual CI merge SHA above. The selected code matches reviewed d389306; later
+changes only record documentation/evidence. Post-merge API readback confirms
+all three app-bound required contexts, strict freshness and admin enforcement.
 
 Accepted limitations: the new manual parallel guide snippets were checked
 statically, with existing parallel runtime anchors retained; their exact
 execution is not claimed. Django's workflow is not a required protection context.
-Live's new compiler caches missed on this first run and saved successfully;
-warm-cache speedup remains unmeasured. Multi-alias/parallel/async or arbitrary
+Live's new compiler caches missed on the first run and saved successfully;
+the final PR run restored the native and both host caches. Observed host-job
+times fell, but a controlled cache-only speedup remains unmeasured.
+Multi-alias/parallel/async or arbitrary
 Django projects and blanket compatibility are outside this recipe evidence.
 The existing three required contexts, strict freshness, administrator enforcement
 and guide-only skip policy are unchanged. No product/runtime/guest/generated or
