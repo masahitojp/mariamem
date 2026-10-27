@@ -8,6 +8,35 @@ Version themes are direction; they are not release approval.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Dogfood recipes, guides and CI improvement — approved adoption, not yet merged
+
+The Human approved main adoption of PR3's bounded candidate
+`d389306f9ae0514824f79fccbe2800776786a7ac`: the ordinary Django standard-runner
+recipe, public Python browser/Go HTTP Live examples, sequential/parallel
+Snapshot/Fork documentation and Live CI deduplication/compiler-cache changes.
+The starting main base is `250bceb80be4cfc9f7c844d888af864fc1d38d25`.
+See the [decision and integration procedure](reviews/v06x-dogfood-main-adoption.md).
+This is approval to integrate through the protected PR, not completed adoption.
+
+The reviewed actual PR CI source is `3ed2c8e0790499c215869e33154272b062c35a88`,
+whose tree matches that candidate. Development40492425939, Django40492425975,
+Live40492426087 and incidental dump regression40492426188 all succeeded.
+Django has native references for both Python minors plus four guest cells;
+Live has both-host public examples, failure controls and installed consumers.
+Receipts retain the tested source; documentation/decision updates require their
+own strict-base PR checks and do not inherit runtime PASS under a new SHA.
+
+Accepted limitations: the new manual parallel guide snippets were checked
+statically, with existing parallel runtime anchors retained; their exact
+execution is not claimed. Django's workflow is not a required protection context.
+Live's new compiler caches missed on this first run and saved successfully;
+warm-cache speedup remains unmeasured. Multi-alias/parallel/async or arbitrary
+Django projects and blanket compatibility are outside this recipe evidence.
+The existing three required contexts, strict freshness, administrator enforcement
+and guide-only skip policy are unchanged. No product/runtime/guest/generated or
+release ledger change is included. Qualification, version and publication remain
+separate Human decisions.
+
 ## Live endpoints adopted on main — unreleased
 
 The Human approved both the previously applied protection and the selected Live

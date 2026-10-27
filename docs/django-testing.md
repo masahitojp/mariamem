@@ -35,7 +35,7 @@ bodies, and discard the failed guest owner. These expected failures are kept as
 raw failures; a parent assessment can PASS only when the specified failure and
 cleanup are observed.
 
-## Evidence and maintained CI proposal
+## Evidence and maintained CI
 
 The selected donor is source_commit
 `ac2cf6b5bc6b6e8a8066e5986f6000648523cb50`. Its local lifecycle receipt belongs to
@@ -46,23 +46,29 @@ are historical evidence, not Ubuntu acceptance or fresh results for this
 candidate. Read the original reports with `git show ac2cf6b5:docs/reviews/v06x-django-lifecycle-results.md`
 and `git show ac2cf6b5:docs/reviews/v06x-django-mixed-results.md`.
 
-This candidate starts at main source_commit
-`250bceb80be4cfc9f7c844d888af864fc1d38d25`, after Live adoption. The
-[workflow](../.github/workflows/django-lifecycle.yml) proposes ownership of fresh
-exact-source evidence: Ubuntu native MariaDB12.3.3 references for each Python
-minor, then Ubuntu24.04 x86_64 and macOS15 arm64 guest/entry comparisons on
-Python3.11 and3.14. The existing native acquisition guard binds the image,
+The [workflow](../.github/workflows/django-lifecycle.yml) passed fresh native
+MariaDB12.3.3 references on Ubuntu24.04 x86_64 for Python3.11 and3.14, followed by
+guest/entry comparisons on Ubuntu24.04 x86_64 and macOS15 arm64 for both minors.
+All six cells passed in [CI40492425975](https://github.com/masahitojp/mariamem/actions/runs/40492425975).
+The approved candidate is `d389306f9ae0514824f79fccbe2800776786a7ac`; the actual
+PR CI source_commit is `3ed2c8e0790499c215869e33154272b062c35a88`, with an identical
+tree. See the [adoption record](reviews/v06x-dogfood-main-adoption.md) for exact
+identities and limitations. This is bounded recipe evidence, not a claim that
+arbitrary Django projects are supported.
+
+The existing native acquisition guard binds the image,
 server/client executable hashes, startup identity and current source. Guest
 jobs reject mismatched sources, tracked inputs, package pins, Python minors,
 missing suites and missing failed-migration or cleanup results. Host binaries
 must pass `scripts/git_identity.py`'s exact clean source/toolchain check. No old
 receipt is renamed as candidate evidence. CI retains raw outputs and source-bound
 JSON in artifacts; it installs no browser and repeats no broad xdist census.
-The coordinator owns submission and subsequent evidence review; this proposal
-has not been submitted by this worker.
+The six-cell results include partial-migration failure, original nonzero exits,
+no test admission after failed setup and owner disposal. Pure ownership and
+receipt mutation checks supplement these real database comparisons. This
+workflow reports CI results but is not currently a branch-protection required
+context; required-check policy is a separate decision.
 
-Fresh functional cells are **not run** at candidate preparation. Pure ownership
-and receipt mutation checks do not establish native/runtime compatibility.
 The local Homebrew Python3.14/OpenSSL4 Oracle Connector/Python26.7.0 import FAIL
 remains as documented in [local verification](development.md#local-verification).
 This mysqlclient recipe neither exercises nor resolves that connector gap;

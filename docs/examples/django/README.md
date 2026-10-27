@@ -86,6 +86,6 @@ isolation; this entry does not prepare or reuse a Snapshot.
 Supported-host and broader-project acceptance remain separate from historical
 local observations.
 
-The [Django guide](../../django-testing.md) records original receipt identities,
-the fresh Ubuntu/macOS/Python3.11/3.14 workflow proposal and not-run cells.
+The [Django guide](../../django-testing.md) records original receipt identities
+and the successful native and Ubuntu/macOS/Python3.11/3.14 comparison matrix.
 Historical local receipts are not acceptance evidence for this candidate.

@@ -1,0 +1,650 @@
+{
+  "reviewed_head": "d389306f9ae0514824f79fccbe2800776786a7ac",
+  "actual_ci_source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+  "shared_tree": "a2ed60283d62023a2ea754f8160c5c60291edcba",
+  "runs": [
+    {
+      "id": 40492425975,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/40492425975",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "native (3.11)",
+          "id": 122149396263,
+          "conclusion": "success"
+        },
+        {
+          "name": "native (3.14)",
+          "id": 122149396468,
+          "conclusion": "success"
+        },
+        {
+          "name": "recipe (macos-15, 3.11)",
+          "id": 122150108912,
+          "conclusion": "success"
+        },
+        {
+          "name": "recipe (ubuntu-24.04, 3.14)",
+          "id": 122150109008,
+          "conclusion": "success"
+        },
+        {
+          "name": "recipe (macos-15, 3.14)",
+          "id": 122150109017,
+          "conclusion": "success"
+        },
+        {
+          "name": "recipe (ubuntu-24.04, 3.11)",
+          "id": 122150109124,
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 40492426087,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/40492426087",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "scope",
+          "id": 122149397315,
+          "conclusion": "success"
+        },
+        {
+          "name": "native-reference (3.14)",
+          "id": 122149533799,
+          "conclusion": "success"
+        },
+        {
+          "name": "native-reference (3.11)",
+          "id": 122149533825,
+          "conclusion": "success"
+        },
+        {
+          "name": "live (ubuntu-24.04)",
+          "id": 122150425360,
+          "conclusion": "success"
+        },
+        {
+          "name": "live (macos-15)",
+          "id": 122150425431,
+          "conclusion": "success"
+        },
+        {
+          "name": "Live required gate",
+          "id": 122169148967,
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 40492425939,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/40492425939",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "scope",
+          "id": 122149396524,
+          "conclusion": "success"
+        },
+        {
+          "name": "integration",
+          "id": 122149554036,
+          "conclusion": "success"
+        },
+        {
+          "name": "check",
+          "id": 122149554635,
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 40492426188,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/40492426188",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "native-reference",
+          "id": 122149400310,
+          "conclusion": "success"
+        },
+        {
+          "name": "development-checks",
+          "id": 122149400590,
+          "conclusion": "success"
+        },
+        {
+          "name": "development-integration",
+          "id": 122149400765,
+          "conclusion": "success"
+        },
+        {
+          "name": "guest-comparison (ubuntu-24.04)",
+          "id": 122149828184,
+          "conclusion": "success"
+        },
+        {
+          "name": "guest-comparison (macos-15)",
+          "id": 122149828255,
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "required_protection": {
+    "strict": true,
+    "enforce_admins": true,
+    "checks": [
+      {
+        "context": "check",
+        "app_id": 15368
+      },
+      {
+        "context": "integration",
+        "app_id": 15368
+      },
+      {
+        "context": "Live required gate",
+        "app_id": 15368
+      }
+    ]
+  },
+  "django": [
+    {
+      "artifact": "django-macos-15-3.11-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "django-macos-15-3.11-3ed2c8e0790499c215869e33154272b062c35a88/acceptance/result.json",
+      "original_result_sha256": "dbfa8ddc619bbbbd48bd067ded0fafafcf74fc0950fc2885698fbd282c56d6b4",
+      "result": "PASS",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "host": {
+        "system": "Darwin",
+        "machine": "arm64"
+      },
+      "python_minor": "3.11",
+      "suite_count": 18,
+      "failure_count": 2,
+      "recipe_count": 4,
+      "owner": {
+        "source_closed": true,
+        "host_reaped": true,
+        "temp_removed": true
+      },
+      "failure_owner_manage": {
+        "source_closed": true,
+        "host_reaped": true,
+        "temp_removed": true
+      },
+      "failure_owner_pytest": {
+        "source_closed": true,
+        "host_reaped": true,
+        "temp_removed": true
+      },
+      "native_reference_sha256": "611ceab53e0f39ef366ed6a4329a65ea6df56ebdebfcf8140c832e085b78f97d",
+      "failure_oracles": {
+        "manage": {
+          "result": "PASS_FAILURE_DETECTED_BEFORE_TEST_BODY",
+          "exit_code": 1,
+          "partial_ddl": 1,
+          "baseline_captured": false,
+          "bodies_admitted": []
+        },
+        "pytest": {
+          "result": "PASS_FAILURE_DETECTED_BEFORE_TEST_BODY",
+          "exit_code": 1,
+          "partial_ddl": 1,
+          "baseline_captured": false,
+          "bodies_admitted": []
+        }
+      }
+    },
+    {
+      "artifact": "django-macos-15-3.14-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "django-macos-15-3.14-3ed2c8e0790499c215869e33154272b062c35a88/acceptance/result.json",
+      "original_result_sha256": "f5c92c266fa49ac7de2ec6771542d3871d9b38b232f9307ac7eaf6992630dfb1",
+      "result": "PASS",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "host": {
+        "system": "Darwin",
+        "machine": "arm64"
+      },
+      "python_minor": "3.14",
+      "suite_count": 18,
+      "failure_count": 2,
+      "recipe_count": 4,
+      "owner": {
+        "source_closed": true,
+        "host_reaped": true,
+        "temp_removed": true
+      },
+      "failure_owner_manage": {
+        "source_closed": true,
+        "host_reaped": true,
+        "temp_removed": true
+      },
+      "failure_owner_pytest": {
+        "source_closed": true,
+        "host_reaped": true,
+        "temp_removed": true
+      },
+      "native_reference_sha256": "9eb7185f0e3cec76025a384e9b2a40041eacbf22700eabeee34458c76136213f",
+      "failure_oracles": {
+        "manage": {
+          "result": "PASS_FAILURE_DETECTED_BEFORE_TEST_BODY",
+          "exit_code": 1,
+          "partial_ddl": 1,
+          "baseline_captured": false,
+          "bodies_admitted": []
+        },
+        "pytest": {
+          "result": "PASS_FAILURE_DETECTED_BEFORE_TEST_BODY",
+          "exit_code": 1,
+          "partial_ddl": 1,
+          "baseline_captured": false,
+          "bodies_admitted": []
+        }
+      }
+    },
+    {
+      "artifact": "django-native-3.11-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "django-native-3.11-3ed2c8e0790499c215869e33154272b062c35a88/reference/result.json",
+      "original_result_sha256": "611ceab53e0f39ef366ed6a4329a65ea6df56ebdebfcf8140c832e085b78f97d",
+      "result": "PASS",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "host": {
+        "system": "Linux",
+        "machine": "x86_64"
+      },
+      "python_minor": "3.11",
+      "suite_count": 18,
+      "failure_count": 2,
+      "recipe_count": 0,
+      "native_schemas_removed": true,
+      "failure_oracles": {
+        "manage": {
+          "result": "PASS_FAILURE_DETECTED_BEFORE_TEST_BODY",
+          "exit_code": 1,
+          "partial_ddl": 1,
+          "baseline_captured": false,
+          "bodies_admitted": []
+        },
+        "pytest": {
+          "result": "PASS_FAILURE_DETECTED_BEFORE_TEST_BODY",
+          "exit_code": 1,
+          "partial_ddl": 1,
+          "baseline_captured": false,
+          "bodies_admitted": []
+        }
+      }
+    },
+    {
+      "artifact": "django-native-3.14-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "django-native-3.14-3ed2c8e0790499c215869e33154272b062c35a88/reference/result.json",
+      "original_result_sha256": "9eb7185f0e3cec76025a384e9b2a40041eacbf22700eabeee34458c76136213f",
+      "result": "PASS",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "host": {
+        "system": "Linux",
+        "machine": "x86_64"
+      },
+      "python_minor": "3.14",
+      "suite_count": 18,
+      "failure_count": 2,
+      "recipe_count": 0,
+      "native_schemas_removed": true,
+      "failure_oracles": {
+        "manage": {
+          "result": "PASS_FAILURE_DETECTED_BEFORE_TEST_BODY",
+          "exit_code": 1,
+          "partial_ddl": 1,
+          "baseline_captured": false,
+          "bodies_admitted": []
+        },
+        "pytest": {
+          "result": "PASS_FAILURE_DETECTED_BEFORE_TEST_BODY",
+          "exit_code": 1,
+          "partial_ddl": 1,
+          "baseline_captured": false,
+          "bodies_admitted": []
+        }
+      }
+    },
+    {
+      "artifact": "django-ubuntu-24.04-3.11-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "django-ubuntu-24.04-3.11-3ed2c8e0790499c215869e33154272b062c35a88/acceptance/result.json",
+      "original_result_sha256": "a6565d6de156e7d7753e664c7d4f0d7cbcf062d23a0b559c5a6dd8746f61c177",
+      "result": "PASS",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "host": {
+        "system": "Linux",
+        "machine": "x86_64"
+      },
+      "python_minor": "3.11",
+      "suite_count": 18,
+      "failure_count": 2,
+      "recipe_count": 4,
+      "owner": {
+        "source_closed": true,
+        "host_reaped": true,
+        "temp_removed": true
+      },
+      "failure_owner_manage": {
+        "source_closed": true,
+        "host_reaped": true,
+        "temp_removed": true
+      },
+      "failure_owner_pytest": {
+        "source_closed": true,
+        "host_reaped": true,
+        "temp_removed": true
+      },
+      "native_reference_sha256": "611ceab53e0f39ef366ed6a4329a65ea6df56ebdebfcf8140c832e085b78f97d",
+      "failure_oracles": {
+        "manage": {
+          "result": "PASS_FAILURE_DETECTED_BEFORE_TEST_BODY",
+          "exit_code": 1,
+          "partial_ddl": 1,
+          "baseline_captured": false,
+          "bodies_admitted": []
+        },
+        "pytest": {
+          "result": "PASS_FAILURE_DETECTED_BEFORE_TEST_BODY",
+          "exit_code": 1,
+          "partial_ddl": 1,
+          "baseline_captured": false,
+          "bodies_admitted": []
+        }
+      }
+    },
+    {
+      "artifact": "django-ubuntu-24.04-3.14-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "django-ubuntu-24.04-3.14-3ed2c8e0790499c215869e33154272b062c35a88/acceptance/result.json",
+      "original_result_sha256": "b4a686125151235936213536d5b64c1e22dd2c99581534ebe70f48218a90cf1d",
+      "result": "PASS",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "host": {
+        "system": "Linux",
+        "machine": "x86_64"
+      },
+      "python_minor": "3.14",
+      "suite_count": 18,
+      "failure_count": 2,
+      "recipe_count": 4,
+      "owner": {
+        "source_closed": true,
+        "host_reaped": true,
+        "temp_removed": true
+      },
+      "failure_owner_manage": {
+        "source_closed": true,
+        "host_reaped": true,
+        "temp_removed": true
+      },
+      "failure_owner_pytest": {
+        "source_closed": true,
+        "host_reaped": true,
+        "temp_removed": true
+      },
+      "native_reference_sha256": "9eb7185f0e3cec76025a384e9b2a40041eacbf22700eabeee34458c76136213f",
+      "failure_oracles": {
+        "manage": {
+          "result": "PASS_FAILURE_DETECTED_BEFORE_TEST_BODY",
+          "exit_code": 1,
+          "partial_ddl": 1,
+          "baseline_captured": false,
+          "bodies_admitted": []
+        },
+        "pytest": {
+          "result": "PASS_FAILURE_DETECTED_BEFORE_TEST_BODY",
+          "exit_code": 1,
+          "partial_ddl": 1,
+          "baseline_captured": false,
+          "bodies_admitted": []
+        }
+      }
+    }
+  ],
+  "live": [
+    {
+      "artifact": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88/examples-py3.11/result.json",
+      "original_result_sha256": "0f412c8c25d3689638f0cdf378036dd2826afdfd206bbbc59c9ec256fa4d26e1",
+      "result": "PASS_PUBLIC_EXAMPLES",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "go": "PASS",
+        "python": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88/examples-py3.14/result.json",
+      "original_result_sha256": "699b403ce60b4bcdb1454d53b42f90a526ca5a95292c1bc7eff4044c01aaa03b",
+      "result": "PASS_PUBLIC_EXAMPLES",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "go": "PASS",
+        "python": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88/installed/result.json",
+      "original_result_sha256": "e280e6c9c9c9a739675cd4c15dade151d5c5867c161d91e4f3e251b7445dd7ab",
+      "result": "PASS_INSTALLED_LIVE",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88"
+    },
+    {
+      "artifact": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88/py3.11/positive/result.json",
+      "original_result_sha256": "8be6ff329d59497ff1fecddf0d913a9a46c629c902593399c9f206471d5972a8",
+      "result": "PASS_PUBLIC_LIVE",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "python": "PASS",
+        "go-live": "PASS",
+        "go-fork": "PASS",
+        "live-controls": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88/py3.11/restart-app/result.json",
+      "original_result_sha256": "65d49b913a02b17fb5aa7417e1e19c65917393416c57a9336506261681363c75",
+      "result": "MUTATION_DETECTED",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "python": "DETECTED",
+        "go-live": "DETECTED",
+        "go-fork": "PASS",
+        "live-controls": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88/py3.11/skip-reset/result.json",
+      "original_result_sha256": "23064a8f943d4defe88a2579f8ba89302164c49b499d0eccb07f40d3677d4bd7",
+      "result": "MUTATION_DETECTED",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "python": "DETECTED",
+        "go-live": "DETECTED",
+        "go-fork": "PASS",
+        "live-controls": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88/py3.14/positive/result.json",
+      "original_result_sha256": "f2a8bb9c9e8a489b37fbdecf81fcca4478f87d6161e580e2df89816ec16e5117",
+      "result": "PASS_PUBLIC_LIVE",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "python": "PASS",
+        "go-live": "PASS",
+        "go-fork": "PASS",
+        "live-controls": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88/py3.14/restart-app/result.json",
+      "original_result_sha256": "312bf33c46e15cb5480b8951a6825b4a2014337811a398e8af33cc692ae44d74",
+      "result": "MUTATION_DETECTED",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "python": "DETECTED",
+        "go-live": "DETECTED",
+        "go-fork": "PASS",
+        "live-controls": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-macos-15-3ed2c8e0790499c215869e33154272b062c35a88/py3.14/skip-reset/result.json",
+      "original_result_sha256": "e113807df70b7d66bb6744f70cd9ea5563efb97333464282b20fb69684ac9e58",
+      "result": "MUTATION_DETECTED",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "python": "DETECTED",
+        "go-live": "DETECTED",
+        "go-fork": "PASS",
+        "live-controls": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88/examples-py3.11/result.json",
+      "original_result_sha256": "54b27777f3134075148cbca3b3bc2da21313e3d0d383f7b51acdbf3d685638b5",
+      "result": "PASS_PUBLIC_EXAMPLES",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "go": "PASS",
+        "python": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88/examples-py3.14/result.json",
+      "original_result_sha256": "17d4ace302f7885fe32dd778c1e934b128fedb9fa679e4e166cf11d021a6f3b5",
+      "result": "PASS_PUBLIC_EXAMPLES",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "go": "PASS",
+        "python": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88/installed/result.json",
+      "original_result_sha256": "36e9c857d0f121e337be7baa48c48065f7d1bba01c743d7d65e94196052fba40",
+      "result": "PASS_INSTALLED_LIVE",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88"
+    },
+    {
+      "artifact": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88/py3.11/positive/result.json",
+      "original_result_sha256": "4cbe891b765ae6d2789ad407dd2bb19786365aab868c4fdcd1643364b81d419c",
+      "result": "PASS_PUBLIC_LIVE",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "python": "PASS",
+        "go-live": "PASS",
+        "go-fork": "PASS",
+        "live-controls": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88/py3.11/restart-app/result.json",
+      "original_result_sha256": "9fe091dbbc5d7fa0d31798341ad6eae37cfa55e7b9a015dd83939c571efd1924",
+      "result": "MUTATION_DETECTED",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "python": "DETECTED",
+        "go-live": "DETECTED",
+        "go-fork": "PASS",
+        "live-controls": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88/py3.11/skip-reset/result.json",
+      "original_result_sha256": "42ca213c4987f3d2a50b839fbe234fcb20735fd9c650fe438c7f14b066efcbf2",
+      "result": "MUTATION_DETECTED",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "python": "DETECTED",
+        "go-live": "DETECTED",
+        "go-fork": "PASS",
+        "live-controls": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88/py3.14/positive/result.json",
+      "original_result_sha256": "57ac0ede3dd6f68df8b8bee7ae31e863f79e48410cb8701f136c9571983aecee",
+      "result": "PASS_PUBLIC_LIVE",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "python": "PASS",
+        "go-live": "PASS",
+        "go-fork": "PASS",
+        "live-controls": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88/py3.14/restart-app/result.json",
+      "original_result_sha256": "3fbe33d1636440cb45e9162b04b7449f225b9f93c85926ce8180944a493043cf",
+      "result": "MUTATION_DETECTED",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "python": "DETECTED",
+        "go-live": "DETECTED",
+        "go-fork": "PASS",
+        "live-controls": "PASS"
+      }
+    },
+    {
+      "artifact": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88",
+      "path": "live-host-ubuntu-24.04-3ed2c8e0790499c215869e33154272b062c35a88/py3.14/skip-reset/result.json",
+      "original_result_sha256": "eda7a5ad7077b35a3a4aec5021892c5baff78d9f4ce3fa85ea8fb0c0bc85422c",
+      "result": "MUTATION_DETECTED",
+      "source_commit": "3ed2c8e0790499c215869e33154272b062c35a88",
+      "runs": {
+        "python": "DETECTED",
+        "go-live": "DETECTED",
+        "go-fork": "PASS",
+        "live-controls": "PASS"
+      }
+    }
+  ],
+  "canonical_layout": [
+    {
+      "job": "live (ubuntu-24.04)",
+      "canonical": {
+        "Discard restored test results": "success",
+        "Canonical check": "skipped",
+        "Canonical integration": "success",
+        "Live race checks on both hosts": "success"
+      }
+    },
+    {
+      "job": "live (macos-15)",
+      "canonical": {
+        "Discard restored test results": "success",
+        "Canonical check": "success",
+        "Canonical integration": "skipped",
+        "Live race checks on both hosts": "success"
+      }
+    }
+  ],
+  "cache": {
+    "first_restore": "MISS on native and both host jobs",
+    "save": "observed native, Ubuntu host and macOS host cache saves in completed run log",
+    "warm_speedup": "UNMEASURED"
+  },
+  "manual_parallel_guide_execution": "NOT_RUN; static documentation acceptance only",
+  "raw_artifact_zip_digest_verification": "NOT_PERFORMED; artifact JSON records GitHub-reported digests, result hashes bind locally downloaded files"
+}
