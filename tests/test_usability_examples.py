@@ -14,13 +14,32 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def python_lifecycle_blocks(text):
+    """Extract manual snippets, regardless of the pytest section's position."""
+    sections = re.split(r'(?m)(^## .*\n)', text)
+    included = [sections[0]]
+    for index in range(1, len(sections), 2):
+        heading, body = sections[index:index + 2]
+        if heading.strip() not in ('## pytest fixtures', '## Installation'):
+            included.append(body)
+    return re.findall(r'```python\n(.*?)```', '\n'.join(included), re.S)
+
+
+@pytest.mark.parametrize('fixture_first', [False, True])
+def test_manual_extraction_survives_fixture_section_reordering(fixture_first):
+    fixture = '## pytest fixtures\n```python\n@pytest.fixture\ndef baseline(): pass\n```\n'
+    manual = '## Share preparation, isolate mutations\n```python\nwith source.snapshot() as saved: pass\n```\n'
+    installation = '## Installation\n```python\ninstall_only()\n```\n'
+    text = installation + (fixture + manual if fixture_first else manual + fixture)
+    assert python_lifecycle_blocks(text) == ['with source.snapshot() as saved: pass\n']
+
+
 @pytest.mark.parametrize('document', ['README.md', 'docs/python.md'])
 def test_python_lifecycle_examples(document, tmp_path):
     host = os.environ.get('MARIAMEM_TEST_HOST')
     if not host:
         pytest.skip('requires real host')
-    text = (ROOT / document).read_text().split('## pytest fixtures')[0]
-    blocks = re.findall(r'```python\n(.*?)```', text, re.S)
+    blocks = python_lifecycle_blocks((ROOT / document).read_text())
     assert blocks
     source = 'import mariamem\nimport pymysql\n' + '\n'.join(blocks)
     source = source.replace('mariamem.start(snapshot=baseline)', f'mariamem.start(snapshot=baseline, host_binary={host!r})')
