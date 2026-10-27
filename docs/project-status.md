@@ -30,6 +30,8 @@ The candidate ref remains fixed; this follow-up only records evidence. Main
 integration, Qualification and publication remain separate decisions. Published
 v0.5.3 does not provide this API.
 
+The [adoption review](reviews/v06x-live-main-adoption-review.md) holds integration
+until fresh correction CI and Live required-check activation at adoption.
 The subsequent review requested user-facing OpenSSL4 documentation, repository
 protection and interrupted ordinary-operation coverage. These corrections are on
 `experiment/live-review-fixes`, with [focused evidence and policy readback](reviews/v06x-live-review-fixes/README.md).
