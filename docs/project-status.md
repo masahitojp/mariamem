@@ -8,7 +8,7 @@ Version themes are direction; they are not release approval.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Live main candidate — review corrections require fresh CI
+## Live main candidate — correction CI passed; adoption decision pending
 
 The Human authorized preparing a minimal main-oriented Live candidate after the
 conditional adoption review. The stable base remains
@@ -30,8 +30,11 @@ The candidate ref remains fixed; this follow-up only records evidence. Main
 integration, Qualification and publication remain separate decisions. Published
 v0.5.3 does not provide this API.
 
-The [adoption review](reviews/v06x-live-main-adoption-review.md) holds integration
-until fresh correction CI and Live required-check activation at adoption.
+The [prior adoption review](reviews/v06x-live-main-adoption-review.md) held
+integration for fresh correction CI and Live required-check activation. The
+[current recommendation](reviews/v06x-live-correction-adoption-review.md) supports
+adoption of exact `c1ee8d32e309dbef514d45db37f12fbb53acb7a9`, with Live required
+activation/readback as an approved-integration step. Human adoption is pending.
 The subsequent review requested user-facing OpenSSL4 documentation, repository
 protection and interrupted ordinary-operation coverage. These corrections are on
 `experiment/live-review-fixes`, with [focused evidence and policy readback](reviews/v06x-live-review-fixes/README.md).
@@ -41,8 +44,15 @@ The product runtime is unchanged from6edcd29. Main now requires `check` and
 `integration` (strict, GitHub Actions app15368, administrators included). The new
 always-reported `Live required gate` has a concrete activation payload for the
 Human-approved adoption step; it is not yet required on main. Its new workflow
-wiring requires fresh CI before adoption. Old CI/local receipts retain their
-original source identities and outcomes. No main integration or release occurred.
+wiring now passes [CI40435625453](https://github.com/masahitojp/mariamem/actions/runs/40435625453)
+on exact c1ee8d3: all six jobs, including scope and Live required gate, succeed.
+The [checksum-bearing receipt](reviews/v06x-live-main-evidence/ci-40435625453/assessment.json)
+revalidates raw full-matrix scope/aggregate logs and all native/browser/installed
+controls. Each host's default-Python3.14 canonical check has1083 PASS/45 SKIP/
+76 subtests; the new12 ordinary-interruption cases run there. The per-minor Live
+focused loop remains53 cases per cell; local99-case results stay separately
+identified. Old CI/local receipts retain their original source identities and
+outcomes. No main integration, required Live activation or release occurred.
 
 ## Product contract
 
