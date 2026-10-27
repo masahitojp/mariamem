@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import sys
+import threading
 import time
 
 import pytest
@@ -19,7 +20,7 @@ def fake_host(tmp_path):
     path = tmp_path / "host"
     path.write_text("#!" + sys.executable + "\n" + r'''
 import json,os,sys,threading,time
-lock=threading.Lock();handles={};seq=0;release_slow=threading.Event()
+lock=threading.Lock();handles={};seq=0;release_slow=threading.Event();close_calls=[]
 
 def send(v):
  with lock:
@@ -36,6 +37,7 @@ def call(r):
   out.update(ok=False,error={'code':'guest_start','stage':'guest_launch','message':'injected guest startup failure'})
   send(out);return
  if op in ('slow','late_database','late_snapshot'):release_slow.wait(5)
+ if r.get('gate_reply'):release_slow.wait(5)
  if op=='release_slow':release_slow.set()
  if op in ('start','fork','late_database'):
   with lock:seq+=1;h=seq;handles[h]='db'
@@ -45,11 +47,12 @@ def call(r):
   with lock:seq+=1;h=seq;handles[h]='snapshot';handles.pop(r.get('handle'),None)
   out.update(snapshot=h,closed=True)
  elif op in ('db_close','snapshot_close'):
-  with lock:handles.pop(r['handle'],None)
+  with lock:close_calls.append({'op':op,'handle':r['handle']});handles.pop(r['handle'],None)
   out['closed']=True
  elif op=='status':out.update(state='ready',active_connections=0,busy=False)
  elif op=='logs':out['logs']='log tail'
- elif op=='stats':out['handles']=len(handles)
+ elif op=='stats':
+  with lock:out.update(handles=len(handles),handle_types=dict(handles),close_calls=list(close_calls))
  elif op=='shutdown':send(out);os._exit(0)
  send(out)
 print(json.dumps({'event':'ready','protocol':2,'guest_sha256':'guest','pid':os.getpid()}),flush=True)
@@ -264,3 +267,68 @@ def test_child_start_failure_keeps_closed_flag_and_preserves_baseline(fake_host,
             assert baseline._session.request("stats")["handles"] == 1
             with baseline.fork() as child:
                 assert child.status()["state"] == "ready"
+
+
+@pytest.mark.parametrize("operation", ["start", "fork", "snapshot", "status", "db_close", "snapshot_close"])
+@pytest.mark.parametrize("phase", ["before_reply", "reply_ready"])
+def test_interrupt_existing_requests_reclaims_once_and_preserves_sibling(fake_host, monkeypatch, operation, phase):
+    import mariamem._session as module
+    session = Session(fake_host)
+    session.retain()
+    try:
+        source = session.request("start")["database"]["handle"]
+        baseline = session.request("snapshot", handle=source)["snapshot"]
+        sibling = session.request("fork", handle=baseline)["database"]["handle"]
+        target = baseline
+        expected = {str(baseline): "snapshot", str(sibling): "db"}
+        if operation in ("snapshot", "db_close", "status"):
+            target = session.request("fork", handle=baseline)["database"]["handle"]
+            if operation == "status":
+                expected[str(target)] = "db"
+        elif operation == "snapshot_close":
+            db = session.request("fork", handle=baseline)["database"]["handle"]
+            target = session.request("snapshot", handle=db)["snapshot"]
+        if phase == "reply_ready":
+            session.request("release_slow")
+        original = module._Reply
+        caller = threading.current_thread()
+        class InterruptReply(original):
+            def __init__(self):
+                super().__init__()
+                if threading.current_thread() is not caller:
+                    return
+                wait = self.ready.wait
+                def interrupted(timeout=None):
+                    if phase == "reply_ready":
+                        assert wait(3), "reply did not reach the already-ready boundary"
+                    raise KeyboardInterrupt("injected request interruption")
+                self.ready.wait = interrupted
+        with monkeypatch.context() as patch:
+            patch.setattr(module, "_Reply", InterruptReply)
+            with pytest.raises(KeyboardInterrupt, match="injected"):
+                session.request(operation, handle=target, gate_reply=True)
+        session.request("release_slow")
+        until = time.monotonic() + 3
+        while True:
+            stats = session.request("stats")
+            with session._lock:
+                settled = not session._pending and session._refs == 1
+            if settled and stats["handle_types"] == expected:
+                break
+            assert time.monotonic() < until, (stats, session._refs)
+            time.sleep(.005)
+        calls = stats["close_calls"]
+        if operation in ("start", "fork", "snapshot"):
+            assert len(calls) == 1, calls
+            assert calls[0]["op"] == ("snapshot_close" if operation == "snapshot" else "db_close")
+            assert str(calls[0]["handle"]) not in expected
+        elif operation in ("db_close", "snapshot_close"):
+            assert calls == [{"op": operation, "handle": target}]
+        else:
+            assert calls == []
+        assert session.request("status", handle=sibling)["state"] == "ready"
+        assert not session.failed and session._process.poll() is None
+    finally:
+        session.release()
+    assert session._process.poll() == 0 and not session.root.exists()
+    assert not session._reader.is_alive()

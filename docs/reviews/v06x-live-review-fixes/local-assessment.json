@@ -1,0 +1,88 @@
+{
+  "tested_worktree_parent_commit": "ef4ff798ac677b7649f8a4c5a7b2ce53a66c888a",
+  "tested_files_sha256": {
+    "python/mariamem/_session.py": "b0a56a6672dfeb98100ea4e13037861809e41aedb53a6011262d129ed35255f4",
+    "tests/test_owned_snapshot_unit.py": "4cd78c58a827f9078790cc783f342f28f1727bc2c2258864637ca574ae10190a",
+    "tests/test_live_unit.py": "0d29c681dfb518a96e34b5089df19b3378bac6cecac6f11f711016851cceb309",
+    "tests/test_live_ci_workflow.py": "67a39836103a9e92c2b3f988ead9834e3ca32b160046eb3c8a3ed2baaa1ad9c1",
+    "scripts/live_ci.py": "a7f6ce25048498a23077c7afc060c060dd8941b0fde8e7b2e62e41069fa687ed",
+    ".github/workflows/live-host.yml": "2660d6ca7c4242e89eeed507a15cd922dfa19d3ffd8afaa075966c3c876b5ce4"
+  },
+  "focused_python": {
+    "3.11": "99 PASS, thread-exception warnings treated as errors",
+    "3.14": "99 PASS, thread-exception warnings treated as errors"
+  },
+  "interrupt_cases": {
+    "operations": [
+      "start",
+      "fork",
+      "snapshot",
+      "status",
+      "db_close",
+      "snapshot_close"
+    ],
+    "phases": [
+      "before_reply",
+      "reply_ready"
+    ],
+    "cases_per_interpreter": 12,
+    "oracle": [
+      "exact retained sibling/baseline handles",
+      "one close per orphan resource",
+      "no double close for close operations",
+      "pending empty and refs restored",
+      "sibling usable",
+      "final host reaped and root removed"
+    ]
+  },
+  "mutations": [
+    {
+      "mutation": "missing-interrupt-cleanup",
+      "python": "311",
+      "returncode": 1,
+      "expected_failures": 6,
+      "detected": true,
+      "mutated_source_sha256": "0fa870d98c1830fe882688dfe6b9f90179f4147c5d372704ca332c2135ce651e"
+    },
+    {
+      "mutation": "missing-interrupt-cleanup",
+      "python": "314",
+      "returncode": 1,
+      "expected_failures": 6,
+      "detected": true,
+      "mutated_source_sha256": "0fa870d98c1830fe882688dfe6b9f90179f4147c5d372704ca332c2135ce651e"
+    },
+    {
+      "mutation": "duplicate-late-close",
+      "python": "311",
+      "returncode": 1,
+      "expected_failures": 6,
+      "detected": true,
+      "mutated_source_sha256": "47b6313d0c20a6aa1fbb7b360f806f67ff9c152778c71418c8651397a5e363c5"
+    },
+    {
+      "mutation": "duplicate-late-close",
+      "python": "314",
+      "returncode": 1,
+      "expected_failures": 6,
+      "detected": true,
+      "mutated_source_sha256": "47b6313d0c20a6aa1fbb7b360f806f67ff9c152778c71418c8651397a5e363c5"
+    }
+  ],
+  "initial_harness": "99 PASS with injected background-thread interruption warnings; corrected to target caller only, strict reruns supersede it",
+  "archive_sha256": "08fe9b994f204395708d1696182984cdd59be477efab48dd10caa904ce0b7a6e",
+  "fresh_ci": "required; existing CI40417099015 remains bound to6edcd29",
+  "product_runtime_changed": false,
+  "main_integrated": false,
+  "qualification_or_release": false,
+  "cli_checks": {
+    "python": [
+      "3.11",
+      "3.14"
+    ],
+    "scope_source_commit": "ef4ff798ac677b7649f8a4c5a7b2ce53a66c888a",
+    "selected_and_guide_only_gate": "PASS",
+    "scope_github_output": "PASS",
+    "yaml_parser": "Ruby YAML PASS"
+  }
+}

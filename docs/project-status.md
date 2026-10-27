@@ -8,7 +8,7 @@ Version themes are direction; they are not release approval.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Live main candidate — fresh CI passed; main adoption undecided
+## Live main candidate — review corrections require fresh CI
 
 The Human authorized preparing a minimal main-oriented Live candidate after the
 conditional adoption review. The stable base remains
@@ -29,6 +29,18 @@ its recorded Python/OpenSSL profiles; the local OpenSSL4 failure is unchanged.
 The candidate ref remains fixed; this follow-up only records evidence. Main
 integration, Qualification and publication remain separate decisions. Published
 v0.5.3 does not provide this API.
+
+The subsequent review requested user-facing OpenSSL4 documentation, repository
+protection and interrupted ordinary-operation coverage. These corrections are on
+`experiment/live-review-fixes`, with [focused evidence and policy readback](reviews/v06x-live-review-fixes/README.md).
+Both Python versions pass99 focused tests, including12 start/fork/snapshot/status/
+close interruption cases; missing-cleanup and double-close mutations are detected.
+The product runtime is unchanged from6edcd29. Main now requires `check` and
+`integration` (strict, GitHub Actions app15368, administrators included). The new
+always-reported `Live required gate` has a concrete activation payload for the
+Human-approved adoption step; it is not yet required on main. Its new workflow
+wiring requires fresh CI before adoption. Old CI/local receipts retain their
+original source identities and outcomes. No main integration or release occurred.
 
 ## Product contract
 

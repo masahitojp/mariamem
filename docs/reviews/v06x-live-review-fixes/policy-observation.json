@@ -1,0 +1,21 @@
+{
+  "saved_at_utc": "2026-10-27T00:25:01.098326+00:00",
+  "before": {
+    "branch_protection_status": 404,
+    "rulesets": []
+  },
+  "after": "protection-readback.json",
+  "enforced_contexts": [
+    "check",
+    "integration"
+  ],
+  "app_id": 15368,
+  "strict": true,
+  "enforce_admins": true,
+  "future_activation": {
+    "context": "Live required gate",
+    "when": "after fresh candidate CI and as part of Human-approved main adoption",
+    "payload": "protection-with-live.json"
+  },
+  "ci_detects_policy_drift": false
+}

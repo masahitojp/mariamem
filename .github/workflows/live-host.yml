@@ -1,38 +1,29 @@
 name: Live E2E
 on:
   push:
-    branches: [main, experiment/live-main-candidate]
-    paths:
-      - '.github/workflows/live-host.yml'
-      - '*.go'
-      - 'go.mod'
-      - 'go.sum'
-      - 'internal/**'
-      - 'cmd/**'
-      - 'python/**'
-      - 'scripts/**'
-      - 'tests/**'
-      - 'guest/**'
-      - 'release/**'
+    branches: [main, experiment/live-main-candidate, experiment/live-review-fixes]
   pull_request:
     branches: [main]
-    paths:
-      - '.github/workflows/live-host.yml'
-      - '*.go'
-      - 'go.mod'
-      - 'go.sum'
-      - 'internal/**'
-      - 'cmd/**'
-      - 'python/**'
-      - 'scripts/**'
-      - 'tests/**'
-      - 'guest/**'
-      - 'release/**'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
+  scope:
+    runs-on: ubuntu-24.04
+    outputs:
+      run_live: ${{ steps.scope.outputs.run_live }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - id: scope
+        run: python scripts/live_ci.py scope --candidate-sha '${{ github.sha }}' --github-output
   native-reference:
+    needs: scope
+    if: needs.scope.outputs.run_live == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     strategy:
@@ -81,7 +72,8 @@ jobs:
           path: build/live-native
           if-no-files-found: error
   live:
-    needs: native-reference
+    needs: [scope, native-reference]
+    if: needs.scope.outputs.run_live == 'true'
     runs-on: ${{ matrix.os }}
     timeout-minutes: 55
     strategy:
@@ -176,3 +168,18 @@ jobs:
           name: live-host-${{ matrix.os }}-${{ github.sha }}
           path: build/live-evidence
           if-no-files-found: error
+
+  required:
+    name: Live required gate
+    if: always()
+    needs: [scope, native-reference, live]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Require complete selected matrix
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: python scripts/live_ci.py gate
