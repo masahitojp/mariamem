@@ -49,6 +49,15 @@ and guide-only skip policy are unchanged. No product/runtime/guest/generated or
 release ledger change is included. Qualification, version and publication remain
 separate Human decisions.
 
+The next independent Django input investigation (2026-10-28) recommends
+Oscar4.2.1's sandbox, source_commit `d0a70850abf8e4229d4971aa7e8f4643326ec9f3`.
+The [source-selection and acceptance proposal](reviews/v06x-independent-django-input.md)
+pins inspected source/fixture/migration inputs and records native-first gates.
+This investigation installed or ran no upstream code: dependency locks,
+native references and all new guest cells remain NOT_RUN. Execution and any
+later adapter/runtime change remain separate decisions; existing Django/Live
+adoption is not reopened.
+
 ## Live endpoints adopted on main — unreleased
 
 The Human approved both the previously applied protection and the selected Live
