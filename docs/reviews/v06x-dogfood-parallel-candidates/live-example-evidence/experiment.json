@@ -1,0 +1,23 @@
+{
+  "owner": "mariamem-experiment-v1",
+  "name": "live-examples-check",
+  "repo": "<WORKER_ROOT>",
+  "state": "completed",
+  "base_sha": "250bceb80be4cfc9f7c844d888af864fc1d38d25",
+  "created": 1793085131.393402,
+  "min_free_gib": 16.0,
+  "budget_gib": 8.0,
+  "disposable": [
+    "temp",
+    "worktree"
+  ],
+  "evidence": "evidence",
+  "branch": "experiment/live-examples-check",
+  "command": [
+    "bash",
+    "<WORKER_ROOT>/build/experiment-work/live-examples-check/temp/campaign.sh"
+  ],
+  "returncode": 0,
+  "peak_owned_bytes": 3796381696,
+  "minimum_free_bytes": 78381608960
+}

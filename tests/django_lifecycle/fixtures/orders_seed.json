@@ -1,0 +1,1 @@
+[{"model":"orders.order","pk":1,"fields":{"sku":"SEED","quantity":2,"status":"ready"}}]

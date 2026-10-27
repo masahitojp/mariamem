@@ -1,0 +1,10 @@
+E2E_NUMERIC_HTTP_BIND address=127.0.0.1 port=54997
+[27/Oct/2026 02:30:15] "GET /healthz HTTP/1.1" 200 77
+[27/Oct/2026 02:30:17] "GET /healthz HTTP/1.1" 200 77
+[27/Oct/2026 02:30:18] "GET /orders HTTP/1.1" 200 622
+[27/Oct/2026 02:30:18] "POST /orders HTTP/1.1" 302 0
+[27/Oct/2026 02:30:18] "GET /orders?created=1 HTTP/1.1" 200 682
+[27/Oct/2026 02:30:18] "GET /healthz HTTP/1.1" 200 77
+[27/Oct/2026 02:30:18] "GET /orders HTTP/1.1" 200 622
+[27/Oct/2026 02:30:18] "POST /orders HTTP/1.1" 302 0
+[27/Oct/2026 02:30:18] "GET /orders?created=1 HTTP/1.1" 200 682

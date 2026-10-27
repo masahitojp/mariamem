@@ -72,35 +72,135 @@ imposed by mariamem. Close driver connections and pools before the DB.
 
 ## Prepare once, Fork independent databases
 
-Prepare migrations/fixtures through the usual driver, commit, close all clients
-and wait for disconnect cleanup. Then create the fixed baseline:
+### Sequential and parallel cases
+
+Prepare migrations/seed once, commit and close every preparation connection,
+then wait for disconnect cleanup before capture. Successful Snapshot consumes
+the source DB. Each child owns its own pool, which closes before that child.
+
+The following example first runs cases sequentially, then runs the same cases
+with bounded goroutine concurrency against the same unchanged baseline. Each
+case sees only the seed and its own insert. Return errors to the caller rather
+than failing a test from a background goroutine.
 
 ```go
-// setupDB is a database returned by Start; its SQL preparation is complete.
-if err := setupDB.WaitDisconnected(ctx); err != nil {
-    return err
-}
-baseline, err := setupDB.Snapshot(ctx, mariamem.SnapshotOptions{})
-if err != nil {
-    return err
-}
-defer baseline.Close()
-// Successful Snapshot has ended setupDB.
+package example
 
-first, err := baseline.Fork(ctx)
-if err != nil {
-    return err
-}
-defer first.Close()
+import (
+	"context"
+	"database/sql"
+	"errors"
+	"fmt"
+	"sync"
+	"testing"
 
-second, err := baseline.Fork(ctx)
-if err != nil {
-    return err
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem"
+)
+
+func TestSnapshotCases(t *testing.T) {
+	if err := snapshotCases(context.Background()); err != nil {
+		t.Fatal(err)
+	}
 }
-defer second.Close()
-// first and second start with the same schema/data.
-// Committed writes or schema changes in first cannot appear in second.
+
+func prepareUsers(ctx context.Context, db *mariamem.Database) (err error) {
+	pool, err := sql.Open("mysql", db.DSN())
+	if err != nil {
+		return err
+	}
+	defer func() { err = errors.Join(err, pool.Close()) }()
+	// ExecContext uses autocommit; explicit migration transactions must commit too.
+	if _, err := pool.ExecContext(ctx, "CREATE TABLE users(id INT PRIMARY KEY) ENGINE=InnoDB"); err != nil {
+		return err
+	}
+	_, err = pool.ExecContext(ctx, "INSERT INTO users VALUES(1)")
+	return err
+}
+
+func checkChild(ctx context.Context, baseline *mariamem.Snapshot, id int) (err error) {
+	child, err := baseline.Fork(ctx)
+	if err != nil {
+		return err
+	}
+	defer func() { err = errors.Join(err, child.Close()) }()
+	pool, err := sql.Open("mysql", child.DSN())
+	if err != nil {
+		return err
+	}
+	defer func() { err = errors.Join(err, pool.Close()) }() // Before child.Close.
+	if _, err := pool.ExecContext(ctx, "INSERT INTO users VALUES(?)", id); err != nil {
+		return err
+	}
+	var count int
+	if err := pool.QueryRowContext(ctx, "SELECT COUNT(*) FROM users").Scan(&count); err != nil {
+		return err
+	}
+	if count != 2 {
+		return fmt.Errorf("child %d: count = %d, want 2", id, count)
+	}
+	return nil
+}
+
+func snapshotCases(ctx context.Context) (err error) {
+	source, err := mariamem.Start(ctx, mariamem.Options{})
+	if err != nil {
+		return err
+	}
+	defer func() { err = errors.Join(err, source.Close()) }()
+	if err := prepareUsers(ctx, source); err != nil {
+		return err
+	} // The preparation pool has closed; never retain it across capture.
+	if err := source.WaitDisconnected(ctx); err != nil {
+		return err
+	}
+	baseline, err := source.Snapshot(ctx, mariamem.SnapshotOptions{})
+	if err != nil {
+		return err
+	}
+	defer func() { err = errors.Join(err, baseline.Close()) }()
+	// source is now consumed; its deferred Close is safe and idempotent.
+
+	ids := []int{2, 3, 4, 5}
+	// Sequential: one child and its SQL work finish before the next Fork.
+	for _, id := range ids {
+		if err := checkChild(ctx, baseline, id); err != nil {
+			return err
+		}
+	}
+
+	// Parallel: at most two child lifecycles run at once.
+	slots := make(chan struct{}, 2)
+	results := make(chan error, len(ids))
+	var children sync.WaitGroup
+	for _, id := range ids {
+		slots <- struct{}{}
+		children.Add(1)
+		go func(id int) {
+			defer children.Done()
+			defer func() { <-slots }()
+			results <- checkChild(ctx, baseline, id)
+		}(id)
+	}
+	children.Wait() // All pools/children close before baseline.Close can run.
+	close(results)
+	for childErr := range results {
+		err = errors.Join(err, childErr)
+	}
+	return err // Includes startup, SQL, assertion and cleanup errors.
+}
 ```
+
+Save the example in `snapshot_test.go` and run it with `go test` in a module
+with mariamem and the MySQL driver installed. The buffered result channel holds
+one result per case, so errors cannot block the join. All submitted cases finish even if one fails; the example collects their
+errors rather than cancelling siblings. Choose a concurrency bound appropriate
+to your workload and host resources; it is not a throughput promise.
+
+To compare timing, measure wall elapsed time around the sequential loop and
+around the whole parallel batch including `Wait`. Overlapping child operation
+durations cannot be summed to obtain the parallel batch's elapsed time. Report
+preparation/capture separately, or state explicitly when it is included.
 
 Snapshot fixes schema/data, not a running server or SQL file. Fork starts a new
 mutable database; connections and active transactions are not inherited.
@@ -202,4 +302,6 @@ The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.
 
 Unreleased main supports stable Live endpoints across sequential browser E2E
-cases. See the [Live guide](live.md) for connection draining and reset ownership.
+cases. Use independent Forks for concurrent cases; Live does not promise a
+parallel shared mutable endpoint. See the [Live guide](live.md) for connection
+draining and reset ownership.

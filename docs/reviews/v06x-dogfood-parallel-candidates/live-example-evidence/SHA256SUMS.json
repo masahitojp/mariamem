@@ -1,0 +1,13 @@
+{
+  "binary-sha256.json": "ea256fab5e932b9a52d1a48b907d3211636bca8505b3e2d6ee0ccd59a9a46ed2",
+  "campaign.sh": "c63bcbb197753db9fab005c87f570da59ede626af67cd0027d480baa7b31cfb0",
+  "campaign.txt": "90fd4a5a6dba0e5836163cf2ad5e5895ebba1775774482f0a5bbe231ce4ed227",
+  "django-server.txt": "2d4d04de67319984a4452179ccaca2d7e7ab5ba2a5c3bee78586fdc318ebb803",
+  "experiment.json": "06b5bac3d1045f2d2833fa8ec99ae0b6d39d5e91bdaccc49866b036b6db236f3",
+  "functional/go.txt": "424471b93b70d78394d50314c3e0c48a2909a7c221ee51a827763eb50bee3782",
+  "functional/pytest.xml": "a23b0617d37f9bc69cee0d52a8507c31999cc8055ffbb01844d2ae81722a25e2",
+  "functional/python.txt": "08371c937d02ec11ed5eaead06ffc1ca1d3820318200b73ec7c0b13264d22dfe",
+  "functional/result.json": "a1b47e5ed16df0751d99621e2012d12668c702e67fb895e9a1b9e637a2311fc7",
+  "original-SHA256SUMS.json": "599213375554bbc00c473006969a7b4f4b1aa0817196d9c2e58be8515aa232c4",
+  "sanitization.json": "89c27980857c6ccd61183f1c0964ea2b6f57c2557b0b2dd42288b3377eefdcf5"
+}

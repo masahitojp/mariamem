@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       run_live: ${{ steps.scope.outputs.run_live }}
+      ubuntu_check: ${{ steps.scope.outputs.ubuntu_check }}
+      macos_integration: ${{ steps.scope.outputs.macos_integration }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -46,7 +48,13 @@ jobs:
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.10'
-          cache: false
+          cache: true
+          cache-dependency-path: |
+            go.sum
+            .github/workflows/live-host.yml
+            tests/live_acceptance/native.py
+      - name: Discard restored test results
+        run: go clean -testcache
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: ${{ matrix.python }}
@@ -89,7 +97,12 @@ jobs:
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.10'
-          cache: false
+          cache: true
+          cache-dependency-path: |
+            go.sum
+            .github/workflows/live-host.yml
+      - name: Discard restored test results
+        run: go clean -testcache
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         id: py311
         with:
@@ -131,12 +144,19 @@ jobs:
         with:
           name: live-native-py3.14-${{ github.sha }}
           path: build/reference/py3.14
-      - name: Canonical changed-boundary checks
+      - name: Evidence directory
+        run: mkdir -p build/live-evidence
+      # Development owns Ubuntu check and macOS integration on full PR/main diffs.
+      # Other events and reduced Development scopes retain local canonical runs.
+      - name: Canonical check
+        if: runner.os != 'Linux' || needs.scope.outputs.ubuntu_check != 'false'
+        run: python scripts/verify.py check > build/live-evidence/check.txt 2>&1
+      - name: Canonical integration
+        if: runner.os != 'macOS' || needs.scope.outputs.macos_integration != 'false'
+        run: python scripts/verify.py integration > build/live-evidence/integration.txt 2>&1
+      - name: Live race checks on both hosts
         run: |
-          mkdir -p build/live-evidence
-          python scripts/verify.py check > build/live-evidence/check.txt 2>&1
-          python scripts/verify.py integration > build/live-evidence/integration.txt 2>&1
-          go test -race ./internal/live ./internal/control . > build/live-evidence/live-race.txt 2>&1
+          go test -race -count=1 ./internal/live ./internal/control . > build/live-evidence/live-race.txt 2>&1
       - name: Exact-source acceptance executables
         run: |
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host
@@ -158,6 +178,16 @@ jobs:
               }
               if [[ "$scenario" == positive ]]; then run_case; else run_case --mutation "$scenario"; fi
             done
+          done
+      - name: Runnable public documentation examples
+        shell: bash
+        env:
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
+        run: |
+          for py in "$PY311" "$PY314"; do
+            version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+            "$py" scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$py" docs/examples/live/verify.py --host build/mariamem-host --go-app build/go-live-orders --expected-source-commit "$GITHUB_SHA" --output "build/live-evidence/examples-py$version"
           done
       - name: Installed wheel and external Go module
         shell: bash

@@ -1,0 +1,11 @@
+{
+  "campaign.sh": "f48ffcd1cec51a0c7f48e1cbf904d6a678ccf76b5207aab053a79844344eaadc",
+  "django-server.txt": "2d4d04de67319984a4452179ccaca2d7e7ab5ba2a5c3bee78586fdc318ebb803",
+  "campaign.txt": "45021c35f03bdd1a2fe3e28be7fc84e3a7b4444739161faeffd148fd331d946e",
+  "experiment.json": "b967ccdb3886a858531dd31d16bf3e6a5e24eec098103f6edb21d545c6cf7884",
+  "binary-sha256.json": "ea256fab5e932b9a52d1a48b907d3211636bca8505b3e2d6ee0ccd59a9a46ed2",
+  "functional/result.json": "58fa4c9279702a8550835bff50d66609c3e4355da1c6e16d8ddf0e0c74a69d0c",
+  "functional/python.txt": "cc10bc6aa358a3c04e2d40a968c37e77a2b8f34b57d2fe4a941a294505b1b3b0",
+  "functional/pytest.xml": "a23b0617d37f9bc69cee0d52a8507c31999cc8055ffbb01844d2ae81722a25e2",
+  "functional/go.txt": "424471b93b70d78394d50314c3e0c48a2909a7c221ee51a827763eb50bee3782"
+}

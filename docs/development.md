@@ -239,6 +239,29 @@ See [phase 1 evidence](reviews/v05-fast-feedback-phase1.md) and the
 [approved dev guest design](reviews/v05-dev-guest-build-design.md) and
 [implementation validation](reviews/v05-dev-guest-build-validation.md).
 
+### Maintained Live CI reuse
+
+For full PR and main-push diffs, Development owns the Ubuntu canonical `check`
+and macOS canonical `integration`; Live retains macOS `check`, Ubuntu
+`integration`, both-host Live race tests and the native/browser/installed matrix.
+Live derives delegation from the same event diff and selector as Development.
+Reduced Development scopes, unavailable diffs, manual runs and experiment pushes
+keep local canonical invocations. The three protected contexts remain separate:
+`check`, `integration`, and `Live required gate`; the Live gate alone does not
+attest the delegated Development jobs. The paired workflow contract tests detect
+changes to their owners, commands, triggers and conditions.
+
+Live's native and host jobs use setup-go's GitHub-managed module/build cache.
+Its pinned action keys entries by platform, architecture, Go version and declared
+dependency hashes; the workflow is included in those hashes, with separate native
+and host namespaces. Restored test results are invalidated with `go clean
+-testcache`, and Live race checks use `-count=1`. Candidate executables are still
+built through Go and checked against their actual embedded source identity.
+This does not reuse an old PASS receipt or a packaged host. Release workflows and
+local task-cache lifecycle are unchanged. Cache misses execute ordinary builds;
+these runs make no cold-setup or measured speedup claim. See the
+[CI change record](reviews/v06x-live-ci-dedup-cache.md).
+
 ### Single-pass unqualified guest development
 
 This is a developer route, not a release qualification command. First prepare

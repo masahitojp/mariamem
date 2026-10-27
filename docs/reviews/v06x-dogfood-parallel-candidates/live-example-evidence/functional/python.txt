@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.9, pytest-9.0.2, pluggy-1.7.0 -- <WORKER_ROOT>/build/experiment-work/live-examples-check/temp/venv/bin/python
+cachedir: .pytest_cache
+rootdir: <WORKER_ROOT>/build/experiment-work/live-examples-check/temp/source
+collecting ... collected 2 items
+
+docs/examples/live/python/test_orders.py::test_create_order_from_fresh_baseline[first] PASSED [ 50%]
+docs/examples/live/python/test_orders.py::test_create_order_from_fresh_baseline[second] PASSED [100%]
+
+- generated xml file: <WORKER_ROOT>/build/experiment-work/live-examples-check/evidence/functional/pytest.xml -
+============================== 2 passed in 5.62s ===============================

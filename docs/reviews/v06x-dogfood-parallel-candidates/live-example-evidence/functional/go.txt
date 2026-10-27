@@ -1,0 +1,16 @@
+{"Time":"2026-10-27T16:30:11.126024+09:00","Action":"start","Package":"github.com/masahitojp/mariamem/docs/examples/live/go"}
+{"Time":"2026-10-27T16:30:12.173058+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Test":"TestOrders"}
+{"Time":"2026-10-27T16:30:12.173137+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Test":"TestOrders","Output":"=== RUN   TestOrders\n"}
+{"Time":"2026-10-27T16:30:12.641725+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Test":"TestOrders/first"}
+{"Time":"2026-10-27T16:30:12.641792+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Test":"TestOrders/first","Output":"=== RUN   TestOrders/first\n"}
+{"Time":"2026-10-27T16:30:12.693952+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Test":"TestOrders/first","Output":"--- PASS: TestOrders/first (0.05s)\n"}
+{"Time":"2026-10-27T16:30:12.694002+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Test":"TestOrders/first","Elapsed":0.05}
+{"Time":"2026-10-27T16:30:12.694031+09:00","Action":"run","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Test":"TestOrders/second"}
+{"Time":"2026-10-27T16:30:12.694037+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Test":"TestOrders/second","Output":"=== RUN   TestOrders/second\n"}
+{"Time":"2026-10-27T16:30:12.745587+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Test":"TestOrders/second","Output":"--- PASS: TestOrders/second (0.05s)\n"}
+{"Time":"2026-10-27T16:30:12.745643+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Test":"TestOrders/second","Elapsed":0.05}
+{"Time":"2026-10-27T16:30:12.748832+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Test":"TestOrders","Output":"--- PASS: TestOrders (0.58s)\n"}
+{"Time":"2026-10-27T16:30:12.748857+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Test":"TestOrders","Elapsed":0.58}
+{"Time":"2026-10-27T16:30:12.748866+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Output":"PASS\n"}
+{"Time":"2026-10-27T16:30:12.749882+09:00","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Output":"ok  \tgithub.com/masahitojp/mariamem/docs/examples/live/go\t1.624s\n"}
+{"Time":"2026-10-27T16:30:12.749903+09:00","Action":"pass","Package":"github.com/masahitojp/mariamem/docs/examples/live/go","Elapsed":1.624}

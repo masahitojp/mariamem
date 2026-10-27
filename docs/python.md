@@ -36,13 +36,108 @@ Close your driver connections before database cleanup.
 `close()` is idempotent. `closed` reports disposal or host termination; call
 `close()` to release wrapper resources after termination as well.
 
+## pytest fixtures
+
+Install the `pytest` extra and PyMySQL for these examples; pytest-xdist is a
+separate optional test-runner plugin. The package registers its fixtures through
+the pytest plugin entry point.
+
+| Fixture | Scope | Responsibility |
+|---|---|---|
+| `mariamem_options` | session | Start options; default `{}` |
+| `mariamem_server` | session | Preparation DB; consumed by successful Snapshot |
+| `mariamem_snapshot` | session | Fixed baseline; initial state by default |
+| `mariamem_fork` | function | Independent mutable DB for one test |
+| `mariamem_connection_info` | function | Driver arguments for that test's DB |
+
+Use these fixtures as the primary test path. Override `mariamem_snapshot` in
+`conftest.py` to run migrations/seed once per session. The preparation connection
+closes before capture; successful capture consumes `mariamem_server`:
+
+```python
+import pytest
+import pymysql
+
+@pytest.fixture(scope="session")
+def mariamem_snapshot(mariamem_server):
+    with pymysql.connect(**mariamem_server.connection_info()) as conn:
+        with conn.cursor() as cur:
+            cur.execute("CREATE TABLE users(id INT PRIMARY KEY) ENGINE=InnoDB")
+            cur.execute("INSERT INTO users VALUES(1)")
+        conn.commit()
+    mariamem_server.wait_disconnected()
+    with mariamem_server.snapshot() as baseline:
+        yield baseline
+```
+
+Put the tests in `test_users.py`. Each request for `mariamem_connection_info`
+depends on a function-scoped `mariamem_fork`; its fixture closes the child after
+the test. The test closes its own SQL connection before that teardown:
+
+```python
+import pymysql
+
+
+class TestUsers:
+    def test_commit(self, mariamem_connection_info):
+        with pymysql.connect(**mariamem_connection_info) as conn:
+            with conn.cursor() as cur:
+                cur.execute("INSERT INTO users VALUES(2)")
+            conn.commit()
+
+    def test_initial_state(self, mariamem_connection_info):
+        with pymysql.connect(**mariamem_connection_info) as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT id FROM users ORDER BY id")
+                assert cur.fetchall() == ((1,),)
+```
+
+Either order, or either test alone, sees the same baseline. A class groups tests;
+it does not share one mutable database. Use the function-scoped fixtures for per-test mutable state.
+
+Run the same tests sequentially with ordinary pytest, or distribute them across
+processes with the separately installed pytest-xdist plugin:
+
+```sh
+python -m pytest test_users.py          # Sequential: one session baseline.
+python -m pytest -n 4 test_users.py     # Parallel: one session baseline per worker.
+```
+
+Each pytest-xdist worker has its own session fixtures and therefore prepares
+its own baseline. A session fixture is worker-local, not shared across workers.
+Tests assigned to that worker receive independent children from its baseline.
+Fixture dependency teardown closes each child before the worker's baseline.
+There is no automatic run-wide baseline, cross-worker cache
+or cross-run reuse policy. Prepare each worker's baseline from migrations/seed
+with `snapshot()`; a saved Snapshot artifact is not an input in this version.
+
+For a migration/seed callback using explicit Alembic configuration, see
+[prepare once, test independently](preparing-test-data.md).
+For ordinary `manage.py test` or pytest-django ownership, see the
+[Django standard-runner recipe](django-testing.md).
+
+Unreleased source builds add `@pytest.mark.shadow_maria` for existing application
+connections, `mariamem_prepare` for session preparation and optional
+`mariamem_app_db`, `mariamem_router`, `mariamem_sqlalchemy_engines` fixtures.
+Declare the original endpoint/schema before application imports, prepare that
+schema using explicit preparation DB settings, and explicitly register quiescent pools. See the
+[routing guide](connection-routing.md) for configuration, first/second-test
+examples, ownership, supported entries and actionable failures. These fixtures
+are not included in published v0.5.3; existing fixtures above retain their defaults.
+
 ## Share preparation, isolate mutations
+
+### Sequential Forks in one process
 
 A Snapshot fixes the current schema/data as a baseline. It does not retain a
 running server or read a SQL fixture file. Load SQL fixtures through your driver
-before taking it.
+before taking it. This manual example runs one child at a time:
 
 ```python
+import mariamem
+import pymysql
+
+
 with mariamem.start() as setup_db:
     with pymysql.connect(**setup_db.connection_info()) as conn:
         with conn.cursor() as cur:
@@ -53,11 +148,15 @@ with mariamem.start() as setup_db:
 
     with setup_db.snapshot() as baseline:
         with baseline.fork() as db:
-            # Initial users: [1]. This test may commit arbitrary changes.
-            pass
+            with pymysql.connect(**db.connection_info()) as conn:
+                with conn.cursor() as cur:
+                    cur.execute("INSERT INTO users VALUES(2)")
+                conn.commit()
         with baseline.fork() as db:
-            # Initial users: [1] again, independent of the previous test.
-            pass
+            with pymysql.connect(**db.connection_info()) as conn:
+                with conn.cursor() as cur:
+                    cur.execute("SELECT id FROM users ORDER BY id")
+                    assert cur.fetchall() == ((1,),)
 ```
 
 Successful `snapshot()` ends the source DB. Close all SQL clients, then call
@@ -81,6 +180,56 @@ Snapshot content stays in memory; no user-managed filesystem artifact is needed.
 overrides. `mariamem.start(snapshot=baseline, ...)` also creates a child from the
 owned baseline, using the supplied start options. These are alternative
 creation routes, not successive steps.
+
+## Parallel Forks in one process
+
+For manual concurrency, share one open Snapshot between threads in the same
+process. Each task acquires its own child and SQL connection. This is separate
+from pytest-xdist, whose workers prepare independent baselines.
+
+```python
+from concurrent.futures import ThreadPoolExecutor
+
+import mariamem
+import pymysql
+
+
+def check_child(baseline, user_id):
+    with baseline.fork() as db:
+        with pymysql.connect(**db.connection_info()) as conn:
+            with conn.cursor() as cur:
+                cur.execute("INSERT INTO users VALUES(%s)", (user_id,))
+            conn.commit()
+            with conn.cursor() as cur:
+                cur.execute("SELECT COUNT(*) FROM users")
+                assert cur.fetchone() == (2,)  # Seed + this child's own insert.
+    # SQL connection closes before the child, including on an exception.
+
+
+with mariamem.start() as setup_db:
+    with pymysql.connect(**setup_db.connection_info()) as conn:
+        with conn.cursor() as cur:
+            cur.execute("CREATE TABLE users(id INT PRIMARY KEY) ENGINE=InnoDB")
+            cur.execute("INSERT INTO users VALUES(1)")
+        conn.commit()
+    setup_db.wait_disconnected()
+    with setup_db.snapshot() as baseline:
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            futures = [executor.submit(check_child, baseline, i) for i in range(2, 6)]
+            for future in futures:
+                future.result()  # Propagate startup, SQL, assertion or cleanup errors.
+        # Executor exit joins every submitted task before baseline exit closes it.
+```
+
+If a result raises, executor teardown still waits for all submitted tasks,
+including their connection/child cleanup, before the baseline closes. The first
+observed exception propagates to the caller. Bound concurrency to your workload
+and host resources; this example makes no throughput or timing promise.
+
+For a timing comparison, measure wall elapsed time around the entire sequential
+loop or the entire parallel batch, including its join. Summing overlapping child
+operation durations does not give the parallel batch's elapsed time. State
+separately whether preparation/capture is included.
 
 ## Snapshot ownership and host lifetime
 
@@ -115,71 +264,6 @@ retaining the same backing. Ordinary heap acquisition does not perform a full
 content reread. Fork reuses the fixed blocks and copies changes privately;
 it does not fully hash content on every Fork. Internal import/transfer boundaries
 and borrowed-mapping copies retain their content validation.
-
-## pytest fixtures
-
-| Fixture | Scope | Responsibility |
-|---|---|---|
-| `mariamem_options` | session | Start options; default `{}` |
-| `mariamem_server` | session | Preparation DB; consumed by successful Snapshot |
-| `mariamem_snapshot` | session | Fixed baseline; initial state by default |
-| `mariamem_fork` | function | Independent mutable DB for one test |
-| `mariamem_connection_info` | function | Driver arguments for that test's DB |
-
-Override `mariamem_snapshot` in `conftest.py` to prepare expensive setup once:
-
-```python
-import pytest
-import pymysql
-
-@pytest.fixture(scope="session")
-def mariamem_snapshot(mariamem_server):
-    with pymysql.connect(**mariamem_server.connection_info()) as conn:
-        with conn.cursor() as cur:
-            cur.execute("CREATE TABLE users(id INT PRIMARY KEY) ENGINE=InnoDB")
-            cur.execute("INSERT INTO users VALUES(1)")
-        conn.commit()
-    mariamem_server.wait_disconnected()
-    with mariamem_server.snapshot() as baseline:
-        yield baseline
-```
-
-Every test receives an independent database:
-
-```python
-class TestUsers:
-    def test_commit(self, mariamem_connection_info):
-        with pymysql.connect(**mariamem_connection_info) as conn:
-            with conn.cursor() as cur:
-                cur.execute("INSERT INTO users VALUES(2)")
-            conn.commit()
-
-    def test_initial_state(self, mariamem_connection_info):
-        with pymysql.connect(**mariamem_connection_info) as conn:
-            with conn.cursor() as cur:
-                cur.execute("SELECT id FROM users ORDER BY id")
-                assert cur.fetchall() == ((1,),)
-```
-
-Either order, or either test alone, sees the same baseline. A class groups tests;
-it does not share one mutable database. Use the function-scoped fixtures for per-test mutable state.
-
-Each pytest-xdist worker has its own session fixtures and therefore prepares
-its own baseline. There is no automatic run-wide baseline, cross-worker cache
-or cross-run reuse policy. Prepare each worker's baseline from migrations/seed
-with `snapshot()`; a saved Snapshot artifact is not an input in this version.
-
-For a migration/seed callback using explicit Alembic configuration, see
-[prepare once, test independently](preparing-test-data.md).
-
-Unreleased source builds add `@pytest.mark.shadow_maria` for existing application
-connections, `mariamem_prepare` for session preparation and optional
-`mariamem_app_db`, `mariamem_router`, `mariamem_sqlalchemy_engines` fixtures.
-Declare the original endpoint/schema before application imports, prepare that
-schema using explicit preparation DB settings, and explicitly register quiescent pools. See the
-[routing guide](connection-routing.md) for configuration, first/second-test
-examples, ownership, supported entries and actionable failures. These fixtures
-are not included in published v0.5.3; existing fixtures above retain their defaults.
 
 ## Connections, timeouts and failures
 
@@ -238,7 +322,9 @@ The unreleased bounded `import_dump(db, path)` helper is described in the
 MariaDB producer profile and failure cleanup. It is not a general SQL-file runner.
 
 Unreleased main supports stable Live endpoints across sequential browser E2E
-cases. See the [Live guide](live.md) for connection draining and reset ownership.
+cases. Use independent Forks for concurrent cases; Live does not promise a
+parallel shared mutable endpoint. See the [Live guide](live.md) for connection
+draining and reset ownership.
 
 ## Local OpenSSL4 and Connector/Python
 
