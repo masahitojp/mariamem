@@ -1,0 +1,120 @@
+from pathlib import Path
+import ast,base64,hashlib,io,json,re,subprocess,xml.etree.ElementTree as ET,zipfile
+TASK=Path(__file__).parent
+SHA='cf3991234efa3897a7a50466b07e29a97af2aa7c'
+PR_HEAD='fcc6bd856867afdf5909c8fec4abd5c586ec434e'
+MAIN='212bb07ffb8e89669c32d6b5a7ba94fc7aa18b2c'
+meta=json.loads((TASK/'artifacts.json').read_text());run=json.loads((TASK/'run.json').read_text());jobs=json.loads((TASK/'jobs.json').read_text())['jobs']
+assert run['head_sha']==PR_HEAD and run['status']=='completed' and run['conclusion']=='success'
+assert len(jobs)==6 and all(j['head_sha']==PR_HEAD and j['conclusion']=='success' for j in jobs)
+assert all(a['workflow_run']['id']==run['id'] and a['workflow_run']['head_sha']==PR_HEAD for a in meta['artifacts'])
+assert subprocess.check_output(['git','cat-file','-t',MAIN],text=True).strip()=='commit'
+raw_commit=(TASK/'tested-merge.commit.txt').read_bytes()
+assert hashlib.sha1(b'commit '+str(len(raw_commit)).encode()+b'\0'+raw_commit).hexdigest()==SHA
+TREE=raw_commit.splitlines()[0].decode().removeprefix('tree ')
+assert subprocess.check_output(['git','rev-parse',MAIN+'^{tree}'],text=True).strip()==TREE
+assert subprocess.check_output(['git','rev-parse',PR_HEAD+'^{tree}'],text=True).strip()==TREE
+# Read predicates from the landed commit's identical tree; never relabel CI as MAIN.
+
+def source(path):return subprocess.check_output(['git','show',MAIN+':'+path],text=True)
+def function(path,name,extra=None):
+ tree=ast.parse(source(path));node=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name==name);ns={} if extra is None else dict(extra);exec(compile(ast.Module(body=[node],type_ignores=[]),path,'exec'),ns);return ns[name]
+assess=function('tests/live_acceptance/run.py','assess')
+native_assess=function('tests/e2e_native_control/run.py','assess')
+require=function('tests/dump_import_acceptance/linux_acquisition.py','require')
+validate_acquisition=function('tests/dump_import_acceptance/linux_acquisition.py','validate',dict(require=require,re=re))
+pin=json.loads(source('tests/dump_import_acceptance/linux-native-pin.json'))
+variant_pin=json.loads(source('tests/live_acceptance/input-manifest.json'))['files']['tests/live_acceptance/goapp/main.go']
+archives={};members={}
+for artifact in meta['artifacts']:
+ p=TASK/(str(artifact['id'])+'.zip.base64');raw=base64.decodebytes(p.read_bytes());assert artifact['digest']=='sha256:'+hashlib.sha256(raw).hexdigest()
+ z=zipfile.ZipFile(io.BytesIO(raw));assert z.testzip() is None;archives[artifact['name']]=z
+ members[str(artifact['id'])]={n:hashlib.sha256(z.read(n)).hexdigest() for n in z.namelist() if not n.endswith('/')}
+def read(z,name):return json.loads(z.read(name))
+def parsed(z,prefix):
+ events=[json.loads(line) for line in z.read(prefix+'/events.jsonl').decode().splitlines()]
+ xml=ET.fromstring(z.read(prefix+'/pytest.xml'));counts={k:sum(int(s.get(k,0)) for s in xml.findall('.//testsuite')) for k in ['tests','errors','failures','skipped']}
+ failures=[dict(name=c.get('name'),message=f.get('message','')) for c in xml.findall('.//testcase') for f in c.findall('failure')]
+ return events,counts,failures
+native={};assessment={'source_commit':SHA,'run_id':run['id'],'url':run['html_url'],'result':'PASS_CI_BOUND_LIVE_CANDIDATE','jobs':[dict(id=j['id'],name=j['name'],conclusion=j['conclusion']) for j in jobs],'native':{},'matrix':[],'installed':{},'qualification_or_release':False}
+for version in ['3.11','3.14']:
+ z=archives['live-native-py'+version+'-'+SHA];r=read(z,'reference/result.json');a=read(z,'acquisition/result.json');probe=read(z,'acquisition/producer-probe.json');observed=read(z,'acquisition/observed.json');variant=read(z,'reference/app-variant.json')
+ assert r['source_commit']==a['source_commit']==variant['source_commit']==SHA
+ assert r['result']=='PASS_NATIVE_CONTROL' and a['result']=='PASS' and probe['result']=='PASS'
+ assert str(probe['schema_count_after']).strip()=='0' and not a['application_dump_generated'] and not a['dump_imported'] and not a['reader_executed']
+ validate_acquisition(observed,pin,SHA)
+ assert variant['source_sha256']==variant_pin and variant['binary_sha256']==r['go_app_sha256'] and variant['result']=='PASS_NATIVE_VARIANT'
+ for kind in ['python','go']:
+  es,counts,failures=parsed(z,'reference/'+kind);assert r['runs'][kind]['counts']==counts
+  assert native_assess(kind,r['runs'][kind]['exit_code'],counts,es,failures)
+ native[version]=(r,variant)
+ assessment['native'][version]=dict(result='PASS_NATIVE_CONTROL_AND_ACQUISITION',python=r['python'].split()[0],source_commit=SHA,variant_source_sha256=variant_pin)
+for platform,system,machine in [('macos-15','Darwin','arm64'),('ubuntu-24.04','Linux','x86_64')]:
+ z=archives['live-host-'+platform+'-'+SHA]
+ canonical=z.read('check.txt').decode();assert '1083 passed, 45 skipped' in canonical and '76 subtests passed' in canonical
+ race=z.read('live-race.txt').decode();assert all('github.com/masahitojp/mariamem/'+p in race for p in ['internal/live','internal/control']) and re.search(r'ok\s+github.com/masahitojp/mariamem\s',race)
+ assert 'PASS: Go prepared / Python normal controls and exact accepted-exception tripwires' in z.read('integration.txt').decode()
+ for version in ['3.11','3.14']:
+  assert '53 passed' in z.read('py'+version+'-unit.txt').decode()
+  outcomes=[]
+  for scenario,mutation in [('positive',None),('skip-reset','skip-reset'),('restart-app','restart-app')]:
+   prefix='py'+version+'/'+scenario;r=read(z,prefix+'/result.json')
+   assert r['source_commit']==SHA and r['platform']['system']==system and r['platform']['machine']==machine
+   assert r['result']==('PASS_PUBLIC_LIVE' if mutation is None else 'MUTATION_DETECTED')
+   assert r['native_reference']==native[version][0] and r['native_variant']==native[version][1]
+   for build in r['binary_buildinfo'].values():assert 'vcs.revision='+SHA in build and 'vcs.modified=false' in build and 'go1.26.10' in build
+   for kind in ['python','go-live','go-fork']:
+    es,counts,failures=parsed(z,prefix+'/'+kind);entry=r['runs'][kind];assert counts==entry['counts']
+    effective=mutation if kind!='go-fork' else None
+    reference=r['prior_native_reference']['observation']['python' if kind=='python' else 'go']
+    assert assess(kind,entry['exit_code'],counts,es,failures,reference,effective),(platform,version,scenario,kind)
+   es,counts,_=parsed(z,prefix+'/live-controls');assert counts==dict(tests=4,errors=0,failures=0,skipped=0)
+   get=lambda name:[e for e in es if e['event']==name]
+   assert len(get('guest_host_cleanup'))==4 and all(e['reaped'] and e['directory_removed'] for e in get('guest_host_cleanup'))
+   busy=get('busy_control_pass');assert len(busy)==2 and {e['transaction'] for e in busy}=={True,False} and all(e['new_handshake_refused'] and e['old_data_preserved'] and e['busy_code']=='busy' for e in busy)
+   parent=get('parent_lifetime_control_pass');assert len(parent)==1 and parent[0]['old_child_preserved'] and parent[0]['reset_refused']
+   fault=get('failed_replace_control_pass');assert len(fault)==1 and all(fault[0][k] for k in ['no_admission','explicit_retry','original_cause_retained','old_endpoint_closed'])
+   outcomes.append(dict(scenario=scenario,result=r['result'],live_languages=['python','go'],go_fork_control='PASS',real_controls=4))
+  assessment['matrix'].append(dict(host=platform,architecture=machine,python=r['python'].split()[0],focused_tests_passed=53,canonical_check='1083 passed/45 explicit skips/76 subtest passes',runtime_integration='PASS by successful exact-source CI step; raw output retained',live_core_race='PASS',campaigns=outcomes))
+ installed=read(z,'installed/result.json');assert installed['source_commit']==SHA and installed['result']=='PASS_INSTALLED_LIVE'
+ py=installed['python'];go=installed['go'];assert py['result']=='PASS_INSTALLED_PYTHON_LIVE' and all(py[k] for k in ['source_consumed','host_reaped','directory_removed']) and '/site-packages/mariamem/__init__.py' in py['module']
+ assert go['result']=='PASS_EXTERNAL_GO_LIVE' and all(go[k] for k in ['busy_refused','closed_parent_refused','source_consumed']) and go['sum_after_reset']==1
+ assessment['installed'][platform]=dict(python='PASS_INSTALLED_PYTHON_LIVE',python_version_scope='default3.14 interpreter only',go='PASS_EXTERNAL_GO_LIVE with exact local source replacement',wheel_sha256=installed['wheel_sha256'])
+assessment['counts']={'native_application_controls':4,'public_live_positive_routes':8,'actual_lifecycle_defects_detected':16,'go_fork_control_campaigns':12,'real_control_tests':48,'focused_tests_passed':212}
+assessment['not_claimed']=['main adoption','Qualification/release','physical SQL session continuity','application job fencing','automatic pool retirement','parallel tests sharing one Live','broad Django adapter compatibility','cold/setup/performance improvement']
+# Verify actual scope/aggregate logs against the exact candidate gate.
+assert len(meta['artifacts']) == 4
+jobmap = {j['name']: j for j in jobs}
+assert set(jobmap) == {'scope', 'Live required gate', 'native-reference (3.11)', 'native-reference (3.14)', 'live (macos-15)', 'live (ubuntu-24.04)'}
+scope_raw = base64.decodebytes((TASK/'scope-job.txt.base64').read_bytes())
+required_raw = base64.decodebytes((TASK/'required-job.txt.base64').read_bytes())
+scope_log = scope_raw.decode()
+required_log = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', required_raw.decode())
+assert '"source_commit": "'+SHA+'"' in scope_log and re.search(r'"run_live"\s*:\s*true', scope_log)
+match = re.search(r'NEEDS_JSON:\s*(\{)', required_log)
+assert match, 'aggregate dependencies absent from raw log'
+needs, _ = json.JSONDecoder().raw_decode(required_log[match.start(1):])
+assert needs['scope']['outputs']['run_live'] == 'true'
+function('scripts/live_ci.py', 'verify_gate')(needs)
+assert 'PASS: Live required gate' in required_log
+assessment['gate'] = {'result': 'PASS_SELECTED_FULL_MATRIX', 'scope_job_id': jobmap['scope']['id'], 'required_job_id': jobmap['Live required gate']['id'], 'needs': needs, 'scope_log_sha256': hashlib.sha256(scope_raw).hexdigest(), 'required_log_sha256': hashlib.sha256(required_raw).hexdigest(), 'guide_only_github_skip_observed': False}
+protection = json.loads((TASK/'protection-readback.json').read_text())
+checks = protection['required_status_checks']
+assert checks['strict'] and protection['enforce_admins']['enabled']
+assert {c['context'] for c in checks['checks']} == {'check', 'integration', 'Live required gate'}
+assert all(c['app_id'] == 15368 for c in checks['checks'])
+assessment['policy'] = {'required_now': ['check', 'integration', 'Live required gate'], 'live_required_activation': 'active; verified after protected merge', 'external_policy_not_proven_by_ci': True}
+assessment['interruption_coverage'] = {'new_cases': 12, 'canonical_ci': 'default Python3.14 on both hosts', 'local': '99 focused PASS on each Python3.11/3.14 with missing-cleanup and duplicate-close mutation rejection; prior correction evidence', 'ci_focused_loop': '53 existing cases on each OS/Python cell; not99'}
+# The PR API binds branch head, tested merge source and actual squash/main separately.
+before=json.loads((TASK/'pr-before.json').read_text());after=json.loads((TASK/'pr-after.json').read_text());main=json.loads((TASK/'main-after.json').read_text())
+assert before['head']['sha']==after['head']['sha']==PR_HEAD
+assert before['merge_commit_sha']==SHA and before['base']['sha']=='bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4'
+assert before['mergeable_state']=='clean' and after['merged'] is True
+assert after['merge_commit_sha']==main['commit']['sha']==MAIN
+for name in ['development-run.json']:
+ d=json.loads((TASK/name).read_text());assert d['conclusion']=='success' and d['head_sha']==PR_HEAD
+jd=json.loads((TASK/'development-jobs.json').read_text())['jobs']
+assert {j['name'] for j in jd}=={'scope','check','integration'} and all(j['conclusion']=='success' and j['head_sha']==PR_HEAD for j in jd)
+assessment['integration']={'result':'PASS_PROTECTED_PR_ADOPTION','pr':1,'pr_head_source_commit':PR_HEAD,'tested_merge_source_commit':SHA,'main_source_commit':MAIN,'identical_tree_sha':TREE,'merged_at':after['merged_at'],'pr_checks_from_head_metadata':'all successful; artifact sources separately bound to tested merge commit','ci_relabelled_as_main':False}
+(TASK/'assessment.json').write_text(json.dumps(assessment,indent=2)+'\n');(TASK/'artifact-members.json').write_text(json.dumps(members,indent=2)+'\n')
+print(json.dumps(dict(result=assessment['result'],source_commit=SHA,counts=assessment['counts'])))

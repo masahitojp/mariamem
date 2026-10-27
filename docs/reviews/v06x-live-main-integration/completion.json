@@ -1,0 +1,18 @@
+{
+  "pr": 1,
+  "url": "https://github.com/masahitojp/mariamem/pull/1",
+  "head_source_commit": "fcc6bd856867afdf5909c8fec4abd5c586ec434e",
+  "tested_merge_source_commit": "cf3991234efa3897a7a50466b07e29a97af2aa7c",
+  "main_source_commit": "212bb07ffb8e89669c32d6b5a7ba94fc7aa18b2c",
+  "tree_sha": "1fa0450ad351833631df4b1079c013604fa10323",
+  "merged_at": "2026-10-27T05:34:27Z",
+  "required_checks": {
+    "check": 15368,
+    "integration": 15368,
+    "Live required gate": 15368
+  },
+  "strict": true,
+  "enforce_admins": true,
+  "result": "PASS_PROTECTED_PR_MERGE_AND_POLICY_READBACK",
+  "qualification_or_release": false
+}

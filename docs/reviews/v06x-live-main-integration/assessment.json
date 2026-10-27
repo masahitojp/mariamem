@@ -1,0 +1,301 @@
+{
+  "source_commit": "cf3991234efa3897a7a50466b07e29a97af2aa7c",
+  "run_id": 40448056639,
+  "url": "https://github.com/masahitojp/mariamem/actions/runs/40448056639",
+  "result": "PASS_CI_BOUND_LIVE_CANDIDATE",
+  "jobs": [
+    {
+      "id": 122003934551,
+      "name": "scope",
+      "conclusion": "success"
+    },
+    {
+      "id": 122004019307,
+      "name": "native-reference (3.11)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122004019373,
+      "name": "native-reference (3.14)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122004556806,
+      "name": "live (macos-15)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122004556839,
+      "name": "live (ubuntu-24.04)",
+      "conclusion": "success"
+    },
+    {
+      "id": 122014521082,
+      "name": "Live required gate",
+      "conclusion": "success"
+    }
+  ],
+  "native": {
+    "3.11": {
+      "result": "PASS_NATIVE_CONTROL_AND_ACQUISITION",
+      "python": "3.11.17",
+      "source_commit": "cf3991234efa3897a7a50466b07e29a97af2aa7c",
+      "variant_source_sha256": "b9c169590f073c535a7b850ef4c4e1f27db0433e9385b28698f45020f1d60e0c"
+    },
+    "3.14": {
+      "result": "PASS_NATIVE_CONTROL_AND_ACQUISITION",
+      "python": "3.14.8",
+      "source_commit": "cf3991234efa3897a7a50466b07e29a97af2aa7c",
+      "variant_source_sha256": "b9c169590f073c535a7b850ef4c4e1f27db0433e9385b28698f45020f1d60e0c"
+    }
+  },
+  "matrix": [
+    {
+      "host": "macos-15",
+      "architecture": "arm64",
+      "python": "3.11.9",
+      "focused_tests_passed": 53,
+      "canonical_check": "1083 passed/45 explicit skips/76 subtest passes",
+      "runtime_integration": "PASS by successful exact-source CI step; raw output retained",
+      "live_core_race": "PASS",
+      "campaigns": [
+        {
+          "scenario": "positive",
+          "result": "PASS_PUBLIC_LIVE",
+          "live_languages": [
+            "python",
+            "go"
+          ],
+          "go_fork_control": "PASS",
+          "real_controls": 4
+        },
+        {
+          "scenario": "skip-reset",
+          "result": "MUTATION_DETECTED",
+          "live_languages": [
+            "python",
+            "go"
+          ],
+          "go_fork_control": "PASS",
+          "real_controls": 4
+        },
+        {
+          "scenario": "restart-app",
+          "result": "MUTATION_DETECTED",
+          "live_languages": [
+            "python",
+            "go"
+          ],
+          "go_fork_control": "PASS",
+          "real_controls": 4
+        }
+      ]
+    },
+    {
+      "host": "macos-15",
+      "architecture": "arm64",
+      "python": "3.14.7",
+      "focused_tests_passed": 53,
+      "canonical_check": "1083 passed/45 explicit skips/76 subtest passes",
+      "runtime_integration": "PASS by successful exact-source CI step; raw output retained",
+      "live_core_race": "PASS",
+      "campaigns": [
+        {
+          "scenario": "positive",
+          "result": "PASS_PUBLIC_LIVE",
+          "live_languages": [
+            "python",
+            "go"
+          ],
+          "go_fork_control": "PASS",
+          "real_controls": 4
+        },
+        {
+          "scenario": "skip-reset",
+          "result": "MUTATION_DETECTED",
+          "live_languages": [
+            "python",
+            "go"
+          ],
+          "go_fork_control": "PASS",
+          "real_controls": 4
+        },
+        {
+          "scenario": "restart-app",
+          "result": "MUTATION_DETECTED",
+          "live_languages": [
+            "python",
+            "go"
+          ],
+          "go_fork_control": "PASS",
+          "real_controls": 4
+        }
+      ]
+    },
+    {
+      "host": "ubuntu-24.04",
+      "architecture": "x86_64",
+      "python": "3.11.17",
+      "focused_tests_passed": 53,
+      "canonical_check": "1083 passed/45 explicit skips/76 subtest passes",
+      "runtime_integration": "PASS by successful exact-source CI step; raw output retained",
+      "live_core_race": "PASS",
+      "campaigns": [
+        {
+          "scenario": "positive",
+          "result": "PASS_PUBLIC_LIVE",
+          "live_languages": [
+            "python",
+            "go"
+          ],
+          "go_fork_control": "PASS",
+          "real_controls": 4
+        },
+        {
+          "scenario": "skip-reset",
+          "result": "MUTATION_DETECTED",
+          "live_languages": [
+            "python",
+            "go"
+          ],
+          "go_fork_control": "PASS",
+          "real_controls": 4
+        },
+        {
+          "scenario": "restart-app",
+          "result": "MUTATION_DETECTED",
+          "live_languages": [
+            "python",
+            "go"
+          ],
+          "go_fork_control": "PASS",
+          "real_controls": 4
+        }
+      ]
+    },
+    {
+      "host": "ubuntu-24.04",
+      "architecture": "x86_64",
+      "python": "3.14.8",
+      "focused_tests_passed": 53,
+      "canonical_check": "1083 passed/45 explicit skips/76 subtest passes",
+      "runtime_integration": "PASS by successful exact-source CI step; raw output retained",
+      "live_core_race": "PASS",
+      "campaigns": [
+        {
+          "scenario": "positive",
+          "result": "PASS_PUBLIC_LIVE",
+          "live_languages": [
+            "python",
+            "go"
+          ],
+          "go_fork_control": "PASS",
+          "real_controls": 4
+        },
+        {
+          "scenario": "skip-reset",
+          "result": "MUTATION_DETECTED",
+          "live_languages": [
+            "python",
+            "go"
+          ],
+          "go_fork_control": "PASS",
+          "real_controls": 4
+        },
+        {
+          "scenario": "restart-app",
+          "result": "MUTATION_DETECTED",
+          "live_languages": [
+            "python",
+            "go"
+          ],
+          "go_fork_control": "PASS",
+          "real_controls": 4
+        }
+      ]
+    }
+  ],
+  "installed": {
+    "macos-15": {
+      "python": "PASS_INSTALLED_PYTHON_LIVE",
+      "python_version_scope": "default3.14 interpreter only",
+      "go": "PASS_EXTERNAL_GO_LIVE with exact local source replacement",
+      "wheel_sha256": "afa1a64a8e6773731b22cda26786c4e266e6ba68f9c1b755aea3ab0633bffa3f"
+    },
+    "ubuntu-24.04": {
+      "python": "PASS_INSTALLED_PYTHON_LIVE",
+      "python_version_scope": "default3.14 interpreter only",
+      "go": "PASS_EXTERNAL_GO_LIVE with exact local source replacement",
+      "wheel_sha256": "c708a13d2002d6943e26572954972c325507471c08ec06c0fdfa8a013494ffa3"
+    }
+  },
+  "qualification_or_release": false,
+  "counts": {
+    "native_application_controls": 4,
+    "public_live_positive_routes": 8,
+    "actual_lifecycle_defects_detected": 16,
+    "go_fork_control_campaigns": 12,
+    "real_control_tests": 48,
+    "focused_tests_passed": 212
+  },
+  "not_claimed": [
+    "main adoption",
+    "Qualification/release",
+    "physical SQL session continuity",
+    "application job fencing",
+    "automatic pool retirement",
+    "parallel tests sharing one Live",
+    "broad Django adapter compatibility",
+    "cold/setup/performance improvement"
+  ],
+  "gate": {
+    "result": "PASS_SELECTED_FULL_MATRIX",
+    "scope_job_id": 122003934551,
+    "required_job_id": 122014521082,
+    "needs": {
+      "scope": {
+        "result": "success",
+        "outputs": {
+          "run_live": "true"
+        }
+      },
+      "native-reference": {
+        "result": "success",
+        "outputs": {}
+      },
+      "live": {
+        "result": "success",
+        "outputs": {}
+      }
+    },
+    "scope_log_sha256": "1947f917033755cd0af8a41b8dc22e63a178e7ca4f6c26ec251498fcb9865389",
+    "required_log_sha256": "ad60dd4d2c0c7dc110aaa3bf960b7b2f80a3b30e483b29a0594b2e43c9c1e306",
+    "guide_only_github_skip_observed": false
+  },
+  "policy": {
+    "required_now": [
+      "check",
+      "integration",
+      "Live required gate"
+    ],
+    "live_required_activation": "active; verified after protected merge",
+    "external_policy_not_proven_by_ci": true
+  },
+  "interruption_coverage": {
+    "new_cases": 12,
+    "canonical_ci": "default Python3.14 on both hosts",
+    "local": "99 focused PASS on each Python3.11/3.14 with missing-cleanup and duplicate-close mutation rejection; prior correction evidence",
+    "ci_focused_loop": "53 existing cases on each OS/Python cell; not99"
+  },
+  "integration": {
+    "result": "PASS_PROTECTED_PR_ADOPTION",
+    "pr": 1,
+    "pr_head_source_commit": "fcc6bd856867afdf5909c8fec4abd5c586ec434e",
+    "tested_merge_source_commit": "cf3991234efa3897a7a50466b07e29a97af2aa7c",
+    "main_source_commit": "212bb07ffb8e89669c32d6b5a7ba94fc7aa18b2c",
+    "identical_tree_sha": "1fa0450ad351833631df4b1079c013604fa10323",
+    "merged_at": "2026-10-27T05:34:27Z",
+    "pr_checks_from_head_metadata": "all successful; artifact sources separately bound to tested merge commit",
+    "ci_relabelled_as_main": false
+  }
+}

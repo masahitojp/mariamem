@@ -1,7 +1,8 @@
-# Stable endpoints for browser E2E — unreleased candidate
+# Stable endpoints for browser E2E — unreleased main
 
-This guide describes the approved implementation candidate, not the published
-v0.5.3 package. It is verified only as specified in the [candidate record](reviews/v06x-live-main-candidate.md).
+This guide describes Live adopted on unreleased main, not the published v0.5.3
+package. The [main adoption receipt](reviews/v06x-live-main-integration/README.md)
+links exact source identities and bounded CI evidence.
 
 Use Live when an application stays running while sequential tests each need the
 same initial database. Prepare with explicit settings, commit and close the

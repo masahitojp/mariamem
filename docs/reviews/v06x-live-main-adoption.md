@@ -1,7 +1,7 @@
 # Human-approved Live main adoption
 
 The Human approved the previously applied main protection requiring check and
-integration, strict base freshness, GitHub Actions app15368 and administrator
+integration, strict base freshness, GitHub Actions app 15368 and administrator
 enforcement.
 
 The Human authorized adopting reviewed Live candidate
@@ -20,7 +20,7 @@ The prepared protection-with-live.json was reread along with current repository
 settings before application. A PATCH changes only required status checks,
 preserving unrelated settings and any additional contexts. The
 [policy readback](v06x-live-main-adoption/policy-assessment.json) verifies
-check/integration/Live required gate, all bound to app15368, strict=true and
+check/integration/Live required gate, all bound to app 15368, strict=true and
 administrator enforcement. Before/after API responses and the actual patch are
 retained in that directory. This is administrative evidence, separate from CI.
 
@@ -51,3 +51,16 @@ conditions silently added to this adoption:
   claimed by this integration.
 
 Qualification, version selection and publication require separate Human decisions.
+
+## Completion after PR1
+
+PR1 merged on 2026-10-27T05:34:27Z. The actual main squash/source commit is
+`212bb07ffb8e89669c32d6b5a7ba94fc7aa18b2c`; approved head was
+`fcc6bd856867afdf5909c8fec4abd5c586ec434e`. Actual CI source
+`cf3991234efa3897a7a50466b07e29a97af2aa7c` has the identical tree. Protected
+check/integration/Live required gate all passed; post-merge API readback confirms
+all three app-bound contexts, strict and admin enforcement. The
+[completion receipt](v06x-live-main-integration/README.md) preserves these separate
+identities and original artifacts. This closes the submission-stage condition
+above; Qualification, version/publication and the separate follow-up choices
+remain undecided. The completion-record PR only updates docs/evidence.
