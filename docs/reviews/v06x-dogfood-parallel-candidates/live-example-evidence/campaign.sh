@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-TASK_ROOT=/Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check
+TASK_ROOT=<WORKER_ROOT>/build/experiment-work/live-examples-check
 exec > "$TASK_ROOT/evidence/campaign.txt" 2>&1
 export GOTOOLCHAIN=go1.26.10
 export GOCACHE="$TASK_ROOT/temp/gocache"
@@ -11,7 +11,7 @@ export PYTHONDONTWRITEBYTECODE=1
 export PKG_CONFIG_PATH=/opt/homebrew/opt/mariadb-connector-c/lib/pkgconfig
 export MYSQLCLIENT_CFLAGS="$(pkg-config --cflags libmariadb)"
 export MYSQLCLIENT_LDFLAGS="$(pkg-config --libs libmariadb)"
-git clone --no-hardlinks --no-checkout /Users/masahito/orca/workspaces/mariamem/v06-live-usage-main "$TASK_ROOT/temp/source"
+git clone --no-hardlinks --no-checkout <WORKER_ROOT> "$TASK_ROOT/temp/source"
 cd "$TASK_ROOT/temp/source"
 git checkout --detach 342e63ea4233eeea5f03f05292041e2c56df2e38
 python3 scripts/git_identity.py inspect HEAD

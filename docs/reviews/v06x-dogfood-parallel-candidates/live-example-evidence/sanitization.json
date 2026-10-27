@@ -1,0 +1,10 @@
+{
+  "change": "Replace original absolute worker checkout prefix with <WORKER_ROOT>; source identities and results unchanged. Unmodified raw evidence retained under coordinator build/orchestration/run_a8caf5db2ad9/live-example-evidence.",
+  "original_sha256_of_changed_files": {
+    "campaign.sh": "f48ffcd1cec51a0c7f48e1cbf904d6a678ccf76b5207aab053a79844344eaadc",
+    "campaign.txt": "45021c35f03bdd1a2fe3e28be7fc84e3a7b4444739161faeffd148fd331d946e",
+    "experiment.json": "b967ccdb3886a858531dd31d16bf3e6a5e24eec098103f6edb21d545c6cf7884",
+    "functional/result.json": "58fa4c9279702a8550835bff50d66609c3e4355da1c6e16d8ddf0e0c74a69d0c",
+    "functional/python.txt": "cc10bc6aa358a3c04e2d40a968c37e77a2b8f34b57d2fe4a941a294505b1b3b0"
+  }
+}

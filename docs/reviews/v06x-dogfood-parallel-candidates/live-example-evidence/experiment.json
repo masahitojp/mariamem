@@ -1,7 +1,7 @@
 {
   "owner": "mariamem-experiment-v1",
   "name": "live-examples-check",
-  "repo": "/Users/masahito/orca/workspaces/mariamem/v06-live-usage-main",
+  "repo": "<WORKER_ROOT>",
   "state": "completed",
   "base_sha": "250bceb80be4cfc9f7c844d888af864fc1d38d25",
   "created": 1793085131.393402,
@@ -15,7 +15,7 @@
   "branch": "experiment/live-examples-check",
   "command": [
     "bash",
-    "/Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/temp/campaign.sh"
+    "<WORKER_ROOT>/build/experiment-work/live-examples-check/temp/campaign.sh"
   ],
   "returncode": 0,
   "peak_owned_bytes": 3796381696,

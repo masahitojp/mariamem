@@ -37,8 +37,11 @@ Original [Django](django-report.md), [Live](live-report.md) and
 FAIL/SKIP limitations and cleanup results. The compact
 [Live receipt](live-example-evidence/functional/result.json) and its
 [checksums](live-example-evidence/SHA256SUMS.json) still bind the original worker
-source, not the assembled candidate. Absolute paths identify now-removed
-disposable inputs, not reusable binaries. Fresh CI must build its own exact
+source, not the assembled candidate. Publication checks rejected developer paths
+in the raw local receipt; the published copy replaces only that checkout prefix
+with `<WORKER_ROOT>`. [Sanitization metadata](live-example-evidence/sanitization.json)
+retains original hashes, and the checksum manifest hashes the published copy.
+Paths identify now-removed disposable inputs, not reusable binaries. Fresh CI must build its own exact
 source and use new receipts.
 
 No product API, runtime, guest, generated source, package requirements, version

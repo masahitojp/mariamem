@@ -1,4 +1,4 @@
-Cloning into '/Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/temp/source'...
+Cloning into '<WORKER_ROOT>/build/experiment-work/live-examples-check/temp/source'...
 done.
 HEAD is now at 342e63e test: retain manual guide snippets across section reordering
 {
@@ -15,7 +15,7 @@ Collecting Django==5.2.8 (from -r tests/e2e_native_control/requirements.lock.txt
   Downloading django-5.2.8-py3-none-any.whl.metadata (4.1 kB)
 Collecting greenlet==3.5.6 (from -r tests/e2e_native_control/requirements.lock.txt (line 3))
   Downloading greenlet-3.5.6-cp314-cp314-macosx_11_0_universal2.whl.metadata (3.8 kB)
-Requirement already satisfied: iniconfig==2.3.1 in /Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/temp/venv/lib/python3.14/site-packages (from -r tests/e2e_native_control/requirements.lock.txt (line 4)) (2.3.1)
+Requirement already satisfied: iniconfig==2.3.1 in <WORKER_ROOT>/build/experiment-work/live-examples-check/temp/venv/lib/python3.14/site-packages (from -r tests/e2e_native_control/requirements.lock.txt (line 4)) (2.3.1)
 Collecting mysqlclient==2.2.7 (from -r tests/e2e_native_control/requirements.lock.txt (line 5))
   Downloading mysqlclient-2.2.7.tar.gz (91 kB)
   Installing build dependencies: started
@@ -24,13 +24,13 @@ Collecting mysqlclient==2.2.7 (from -r tests/e2e_native_control/requirements.loc
   Getting requirements to build wheel: finished with status 'done'
   Preparing metadata (pyproject.toml): started
   Preparing metadata (pyproject.toml): finished with status 'done'
-Requirement already satisfied: packaging==26.3 in /Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/temp/venv/lib/python3.14/site-packages (from -r tests/e2e_native_control/requirements.lock.txt (line 6)) (26.3)
+Requirement already satisfied: packaging==26.3 in <WORKER_ROOT>/build/experiment-work/live-examples-check/temp/venv/lib/python3.14/site-packages (from -r tests/e2e_native_control/requirements.lock.txt (line 6)) (26.3)
 Collecting playwright==1.56.0 (from -r tests/e2e_native_control/requirements.lock.txt (line 7))
   Downloading playwright-1.56.0-py3-none-macosx_11_0_arm64.whl.metadata (3.5 kB)
-Requirement already satisfied: pluggy==1.7.0 in /Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/temp/venv/lib/python3.14/site-packages (from -r tests/e2e_native_control/requirements.lock.txt (line 8)) (1.7.0)
+Requirement already satisfied: pluggy==1.7.0 in <WORKER_ROOT>/build/experiment-work/live-examples-check/temp/venv/lib/python3.14/site-packages (from -r tests/e2e_native_control/requirements.lock.txt (line 8)) (1.7.0)
 Collecting pyee==13.0.1 (from -r tests/e2e_native_control/requirements.lock.txt (line 9))
   Downloading pyee-13.0.1-py3-none-any.whl.metadata (3.0 kB)
-Requirement already satisfied: Pygments==2.21.0 in /Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/temp/venv/lib/python3.14/site-packages (from -r tests/e2e_native_control/requirements.lock.txt (line 10)) (2.21.0)
+Requirement already satisfied: Pygments==2.21.0 in <WORKER_ROOT>/build/experiment-work/live-examples-check/temp/venv/lib/python3.14/site-packages (from -r tests/e2e_native_control/requirements.lock.txt (line 10)) (2.21.0)
 Collecting pytest==9.0.2 (from -r tests/e2e_native_control/requirements.lock.txt (line 11))
   Downloading pytest-9.0.2-py3-none-any.whl.metadata (7.6 kB)
 Collecting sqlparse==0.6.0 (from -r tests/e2e_native_control/requirements.lock.txt (line 12))
@@ -51,7 +51,7 @@ Building wheels for collected packages: mysqlclient
   Building wheel for mysqlclient (pyproject.toml): started
   Building wheel for mysqlclient (pyproject.toml): finished with status 'done'
   Created wheel for mysqlclient: filename=mysqlclient-2.2.7-cp314-cp314-macosx_27_0_arm64.whl size=76846 sha256=5e811be69baeab1f16857d2b530515812e06ab809c49cfb45bd3d14e00f57301
-  Stored in directory: /Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/temp/tmp/pip-ephem-wheel-cache-v_3bsdsv/wheels/ad/30/4b/d780f7e0cd20d6c91d107eb8fbefa9982f7f4d0533d8c63039
+  Stored in directory: <WORKER_ROOT>/build/experiment-work/live-examples-check/temp/tmp/pip-ephem-wheel-cache-v_3bsdsv/wheels/ad/30/4b/d780f7e0cd20d6c91d107eb8fbefa9982f7f4d0533d8c63039
 Successfully built mysqlclient
 Installing collected packages: typing_extensions, sqlparse, pytest, mysqlclient, greenlet, asgiref, pyee, Django, playwright
   Attempting uninstall: pytest
@@ -72,7 +72,7 @@ Downloading Chromium Headless Shell 141.0.7390.37 (playwright build v1194)[2m f
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 81.7 MiB
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 81.7 MiB
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 81.7 MiB
-Chromium Headless Shell 141.0.7390.37 (playwright build v1194) downloaded to /Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/temp/browsers/chromium_headless_shell-1194
+Chromium Headless Shell 141.0.7390.37 (playwright build v1194) downloaded to <WORKER_ROOT>/build/experiment-work/live-examples-check/temp/browsers/chromium_headless_shell-1194
 Downloading FFMPEG playwright build v1011[2m from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-mac-arm64.zip[22m
 |                                                                                |   1% of 1 MiB
 |■■■■■■■■                                                                        |  10% of 1 MiB
@@ -85,4 +85,4 @@ Downloading FFMPEG playwright build v1011[2m from https://cdn.playwright.dev/db
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 1 MiB
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 1 MiB
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 1 MiB
-FFMPEG playwright build v1011 downloaded to /Users/masahito/orca/workspaces/mariamem/v06-live-usage-main/build/experiment-work/live-examples-check/temp/browsers/ffmpeg-1011
+FFMPEG playwright build v1011 downloaded to <WORKER_ROOT>/build/experiment-work/live-examples-check/temp/browsers/ffmpeg-1011
