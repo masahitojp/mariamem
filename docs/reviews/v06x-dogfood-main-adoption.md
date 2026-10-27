@@ -102,3 +102,21 @@ auto-merge is unavailable, the Human's result report is the continuation point.
 
 At submission adoption remains incomplete. Qualification, release version and
 publication are not authorized by this adoption decision.
+
+## Completion after PR3
+
+The Human reported final CI completion and the already-approved integration
+continued on 2026-10-27. All20 checks succeeded for final head
+`0490b43a21dceeab10b33d94b5b92bf383e4055e` against unchanged base
+`250bceb80be4cfc9f7c844d888af864fc1d38d25`. Required checks, recipe matrix,
+mergeability and current protection were reread before normal squash merge;
+the merge request matched that exact head and used no bypass.
+
+PR3 merged at 2026-10-27T13:36:39Z. Main adoption source_commit is
+`ebb97260788710b2065e81481b2c2f516d6f7e52`. Actual final PR CI source_commit
+`730bd17c935928dd37e2cd7df14aa115c40e89a7`, checked head0490b43 and landed
+squashebb9726 share tree `c98a74c854d59cf19f1584a7cb5fa994e0f6632b`.
+The [completion receipt](v06x-dogfood-main-completion/README.md) records those
+separate identities, successful check contexts and post-merge protection.
+The submission-stage condition above is closed. Qualification, version,
+publication and the separate policy/coverage follow-ups remain undecided.

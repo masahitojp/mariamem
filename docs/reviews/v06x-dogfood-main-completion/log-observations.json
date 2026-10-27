@@ -1,0 +1,13 @@
+{
+  "run_id": 40502166546,
+  "actual_ci_source_commit": "730bd17c935928dd37e2cd7df14aa115c40e89a7",
+  "raw_log_sha256": "0ee69dd56752b66106d9fd7cb9fa872ed67865bfbb01ac1382dfe743a446ca89",
+  "selected_lines": [
+    "scope\tUNKNOWN STEP\t2026-10-27T12:14:27.3068482Z ##[group]Run python scripts/live_ci.py scope --candidate-sha '730bd17c935928dd37e2cd7df14aa115c40e89a7' --github-output",
+    "scope\tUNKNOWN STEP\t2026-10-27T12:14:27.3069425Z ^[[36;1mpython scripts/live_ci.py scope --candidate-sha '730bd17c935928dd37e2cd7df14aa115c40e89a7' --github-output^[[0m",
+    "native-reference (3.11)\tUNKNOWN STEP\t2026-10-27T12:15:08.3360778Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-8efee4dca61ef7dec9a18ce5594fffa80a9fa013636355c8ea7ac35b80a32a05",
+    "native-reference (3.14)\tUNKNOWN STEP\t2026-10-27T12:15:12.6133590Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-8efee4dca61ef7dec9a18ce5594fffa80a9fa013636355c8ea7ac35b80a32a05",
+    "live (ubuntu-24.04)\tUNKNOWN STEP\t2026-10-27T12:16:34.9660853Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-c06b2209b8435fedec5abd6fee9f4b4ca1cf9405580af390b42055198c753242",
+    "live (macos-15)\tUNKNOWN STEP\t2026-10-27T12:20:43.3748090Z Cache restored from key: setup-go-macOS-arm64-go-1.26.10-c06b2209b8435fedec5abd6fee9f4b4ca1cf9405580af390b42055198c753242"
+  ]
+}
