@@ -777,6 +777,27 @@ separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Dogfood and fixture ergonomics
 
+**Scope emphasis agreed with the Human, 2026-10-28:** primarily finish the
+end-to-end user workflow using existing functionality: establish a first test,
+reuse preparation for independent subsequent tests, run the intended test
+lifecycle, understand failures and complete cleanup. Expanding framework support
+is not the primary completion measure; adapters and new APIs remain possible
+responses to demonstrated gaps, not prerequisites chosen in advance.
+
+Wire sufficiency remains an explicit verification obligation. Cross-check the
+current protocol/capability inventory with actual driver/framework behavior,
+including preparation, metadata, prepared/results, pools/reconnect/session
+lifecycle and failure paths. Reuse completed Prepared/routine/multiple-result
+evidence under its recorded scope instead of reopening it wholesale. Selected
+examples prioritize gaps but do not define or silently shrink the capability
+space: classify uncovered paths and record explicit reach/defer decisions.
+Native-success/guest-failure differences must retain original evidence and be
+classified as wire, SQL semantics, configuration or client/environment issues
+before choosing a fix. This direction authorizes investigation and verification
+planning, not blanket protocol implementation, guest changes or wider support
+claims. Exact workload/driver coverage and finite exit criteria still need to
+be fixed before declaring the whole v0.6 dogfood scope complete.
+
 **North-star discussion recorded with the Human, 2026-10-18:** reduce the work
 of establishing and growing database tests in both new applications and existing
 systems without tests, so developers can focus on features and their behavior.
