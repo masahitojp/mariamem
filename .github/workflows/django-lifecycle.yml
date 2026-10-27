@@ -1,0 +1,145 @@
+name: Django standard runner recipe
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tests/django_lifecycle/**'
+      - 'tests/test_django_recipe_*.py'
+      - 'tests/e2e_native_control/pythonapp/**'
+      - 'tests/dump_import_acceptance/linux*'
+      - 'docs/examples/django/**'
+      - 'docs/django-testing.md'
+      - 'python/**'
+      - 'internal/**'
+      - '*.go'
+      - 'guest/**'
+      - 'scripts/experiment_disk.py'
+      - 'cmd/mariamem-host/**'
+      - 'go.mod'
+      - 'go.sum'
+      - 'scripts/git_identity.py'
+      - '.github/workflows/django-lifecycle.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tests/django_lifecycle/**'
+      - 'tests/test_django_recipe_*.py'
+      - 'tests/e2e_native_control/pythonapp/**'
+      - 'tests/dump_import_acceptance/linux*'
+      - 'docs/examples/django/**'
+      - 'docs/django-testing.md'
+      - 'python/**'
+      - 'internal/**'
+      - '*.go'
+      - 'guest/**'
+      - 'scripts/experiment_disk.py'
+      - 'cmd/mariamem-host/**'
+      - 'go.mod'
+      - 'go.sum'
+      - 'scripts/git_identity.py'
+      - '.github/workflows/django-lifecycle.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.14']
+    services:
+      mariadb:
+        image: mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+        ports: ['3307:3306']
+        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Pinned framework and native client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pkg-config default-libmysqlclient-dev build-essential
+          mkdir -p build/django-native
+          python -m pip install --no-cache-dir --report build/django-native/dependencies.json -r tests/django_lifecycle/requirements.txt
+      - name: Existing exact native input guard
+        env:
+          NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
+        run: |
+          python scripts/git_identity.py inspect HEAD
+          python tests/dump_import_acceptance/linux_acquisition.py --container "$NATIVE_CONTAINER" --expected-source-commit "$GITHUB_SHA" --output build/django-native/acquisition
+      - name: Fresh standard lifecycle and failed-migration reference
+        run: python scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 4 --timeout 900 -- python tests/django_lifecycle/ci.py --route native --native-port 3307 --acquisition build/django-native/acquisition --expected-source-commit "$GITHUB_SHA" --output build/django-native/reference
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: django-native-${{ matrix.python }}-${{ github.sha }}
+          path: build/django-native
+          if-no-files-found: error
+  recipe:
+    needs: native
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, ubuntu-24.04]
+        python: ['3.11', '3.14']
+    env:
+      GOCACHE: ${{ runner.temp }}/django-cache/go-build
+      GOPATH: ${{ runner.temp }}/django-cache/gopath
+      GOMODCACHE: ${{ runner.temp }}/django-cache/modcache
+      PYTHONPATH: python
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Native client headers and pinned framework
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == Linux ]]; then
+            sudo apt-get update
+            sudo apt-get install -y pkg-config default-libmysqlclient-dev build-essential
+          else
+            brew install pkgconf mariadb-connector-c
+            export PKG_CONFIG_PATH="$(brew --prefix mariadb-connector-c)/lib/pkgconfig"
+          fi
+          mkdir -p build/django-evidence
+          python -m pip install --no-cache-dir --report build/django-evidence/dependencies.json -r tests/django_lifecycle/requirements.txt
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: django-native-${{ matrix.python }}-${{ github.sha }}
+          path: build/django-reference
+      - name: Pure ownership and receipt mutation checks
+        run: python -m pytest tests/test_django_recipe_unit.py -q -p no:cacheprovider
+      - name: Exact clean source before host build
+        run: |
+          python scripts/git_identity.py inspect HEAD
+          python -c 'import sys; sys.path.insert(0,"tests/dump_import_acceptance"); from linux_acquisition import source_identity; import os; source_identity(os.environ["GITHUB_SHA"])'
+          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-cache" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host
+      - name: Standard runner, mixed orders, original errors and owner disposal
+        run: python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-cache" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- python tests/django_lifecycle/ci.py --route guest --host build/mariamem-host --reference build/django-reference/reference --expected-source-commit "$GITHUB_SHA" --output build/django-evidence/acceptance
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: django-${{ matrix.os }}-${{ matrix.python }}-${{ github.sha }}
+          path: build/django-evidence
+          if-no-files-found: error
+      - name: Remove job-owned cache
+        if: always()
+        shell: bash
+        run: rm -rf "$RUNNER_TEMP/django-cache"

@@ -1,0 +1,126 @@
+{
+  "workload": "W3 authored Django test lifecycle",
+  "stable_runtime_base_commit": "bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4",
+  "application_source_commit": "a759cf8f90b4a75cf3456d221ef811e8bda20b34",
+  "application_sha256": {
+    "tests/e2e_native_control/pythonapp/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/manage.py": "53887b1c1dbae2d76ea18a55bd9cda69bbbf9045dcededfc4bb855c3b27fe407",
+    "tests/e2e_native_control/pythonapp/orders/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/orders/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/orders/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/orders/management/commands/seed_baseline.py": "1eb4c8f96bb7df4daac6a57c7eb5858de134505d6b4f74a5eedeeee67064bb49",
+    "tests/e2e_native_control/pythonapp/orders/migrations/0001_initial.py": "67742c2448bb246afb40093e3867d12d9e713fec683cbc7fda2aee5920c03058",
+    "tests/e2e_native_control/pythonapp/orders/migrations/0002_status.py": "5ee59c165fbb6d2cdda5b29b0ef4ea7ee876157b966353d87d23a0e365f1d466",
+    "tests/e2e_native_control/pythonapp/orders/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/orders/models.py": "e751807321ff8bde129581ec99e0968ca607ecae11761ff24ff98b7162a5f25b",
+    "tests/e2e_native_control/pythonapp/orders/templates/orders/index.html": "a898d04eb87489f20a7d999f190bbe227dd6a5d1dc93450b8a4d31502a9ab986",
+    "tests/e2e_native_control/pythonapp/settings.py": "ef7b84ac2813564a963b4057f34e55f1202306a40dbb47256b957dd9c770917a",
+    "tests/e2e_native_control/pythonapp/urls.py": "d5f2168142a55f4c7dede51ab9af64fdbbdec7514ec1d389c2241edc5325f9d7"
+  },
+  "versions": {
+    "Django": "5.2.8",
+    "mysqlclient": "2.2.7",
+    "pytest": "9.0.2",
+    "pytest-django": "4.12.0"
+  },
+  "native": {
+    "server": "12.3.3-MariaDB",
+    "image": "mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e",
+    "architecture": "linux/amd64",
+    "local_scope": "Docker Desktop emulation on macOS arm64, not native macOS server acquisition"
+  },
+  "execution": {
+    "python": [
+      "3.11",
+      "3.14"
+    ],
+    "mandatory_supported_hosts": [
+      "macOS arm64",
+      "Ubuntu x86_64"
+    ],
+    "local_observation": "macOS arm64 only",
+    "suites_per_interpreter": 40,
+    "tests_per_suite": 2,
+    "resource_budget_gib": 6,
+    "minimum_free_gib": 8,
+    "timeout_seconds": 1200,
+    "single_database_alias": true,
+    "parallel_workers": false
+  },
+  "routes": [
+    "native standard DB lifecycle",
+    "guest standard DB lifecycle",
+    "Fork baseline copy 1 with --keepdb/--reuse-db",
+    "Fork baseline copy 2 with --keepdb/--reuse-db"
+  ],
+  "not_authorized": [
+    "product adapter implementation",
+    "Django backend replacement",
+    "guest/runtime patch",
+    "Live changes",
+    "main adoption",
+    "Qualification/release"
+  ],
+  "primary_sources": [
+    "https://docs.djangoproject.com/en/5.2/topics/testing/overview/",
+    "https://docs.djangoproject.com/en/5.2/topics/testing/tools/",
+    "https://github.com/django/django/blob/5.2.8/django/test/testcases.py",
+    "https://github.com/django/django/blob/5.2.8/django/db/backends/base/creation.py",
+    "https://github.com/pytest-dev/pytest-django/blob/v4.12.0/pytest_django/fixtures.py",
+    "https://pypi.org/project/pytest-django/4.12.0/"
+  ],
+  "mixed_and_failure_extension": {
+    "orders": [
+      "normal",
+      "reverse",
+      "shuffle-137",
+      "shuffle-911-reverse"
+    ],
+    "runner_test_counts": {
+      "manage": 6,
+      "pytest": 12
+    },
+    "routes": [
+      "native",
+      "guest-standard",
+      "fork-1",
+      "fork-2"
+    ],
+    "migration_failure": {
+      "module": "failure_migrations",
+      "file": "0003_partial_failure.py",
+      "sql_operation": 2,
+      "errno": 1146,
+      "missing_table": "w3_missing_migration_table",
+      "partial_table": "w3_partial_ddl",
+      "no_test_body_admission": true,
+      "failed_source_policy": "close/discard whole guest owner; explicitly drop task-owned native test schema after recording partial state"
+    },
+    "seed_policy": "Standard orders_seed.json fixture matches the existing SEED migration row; do not rely on a prior class retaining it",
+    "pytest_order_policy": "Collection-only permutations after standard plugin ordering, preserve contiguous class and function-parameter groups; no DB fixture override",
+    "recipe": "docs/examples/django/run_tests.py",
+    "local_hosts": [
+      "macOS arm64"
+    ],
+    "python": [
+      "3.11",
+      "3.14"
+    ],
+    "ubuntu_status": "not yet observed",
+    "budget_gib": 6,
+    "min_free_gib": 8,
+    "timeout_seconds": 1200
+  },
+  "candidate_selection": {
+    "base_source_commit": "250bceb80be4cfc9f7c844d888af864fc1d38d25",
+    "donor_source_commit": "ac2cf6b5bc6b6e8a8066e5986f6000648523cb50",
+    "routes": [
+      "native standard lifecycle",
+      "guest standard lifecycle",
+      "parent/settings recipe"
+    ],
+    "excluded": "Exploratory Fork campaigns; original fields above describe donor investigation, not candidate acceptance",
+    "ci_owner": ".github/workflows/django-lifecycle.yml",
+    "candidate_status": "fresh exact-source functional matrix not yet run"
+  }
+}
