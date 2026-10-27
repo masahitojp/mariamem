@@ -7,6 +7,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = ROOT / '.github/workflows/live-host.yml'
+DEVELOPMENT = ROOT / '.github/workflows/check.yml'
 sys.path.insert(0, str(ROOT/'scripts'))
 DEPENDENCIES = [
     '.github/workflows/live-host.yml', 'live.go', 'go.mod', 'go.sum',
@@ -42,11 +43,45 @@ def validate(text):
     assert 'python scripts/live_ci.py gate' in text
     assert 'python scripts/live_ci.py scope' in text
     assert 'python scripts/verify.py integration' in text
-    assert 'go test -race ./internal/live ./internal/control .' in text
+    assert 'go test -race -count=1 ./internal/live ./internal/control .' in text
+    validate_canonical_ownership(text, DEVELOPMENT.read_text())
     for owner in ['native.py', 'run.py', 'installed.py']:
         assert 'tests/live_acceptance/'+owner in text
     for scenario in ['positive', 'skip-reset', 'restart-app']:
         assert scenario in text
+
+
+def validate_canonical_ownership(text, development):
+    def job(name):
+        match = re.search(r'^  ' + name + r':\n(.*?)(?=^  \S|\Z)', development, re.M | re.S)
+        assert match, name
+        return match[1]
+    # Delegation is valid only while the other required workflow owns these OSes,
+    # commands and scope predicates. No source override or trigger path filtering.
+    assert 'runs-on: ubuntu-latest' in job('check')
+    assert "python scripts/verify.py check --scope '${{ needs.scope.outputs.check_scope }}'" in job('check')
+    assert 'runs-on: macos-15' in job('integration')
+    assert "if: needs.scope.outputs.integration == 'true'" in job('integration')
+    assert 'python scripts/verify.py integration' in job('integration')
+    triggers = development.split('permissions:')[0]
+    assert 'pull_request:\n    branches: [main]' in triggers
+    assert 'push:\n    branches: [main]' in triggers
+    assert 'paths:' not in triggers and 'paths-ignore:' not in triggers
+    assert 'ref:' not in development and 'pull_request.head.sha' not in development
+    assert 'python scripts/development_scope.py' in job('scope')
+    for name, condition, command in [
+        ('Canonical check', "runner.os != 'Linux' || needs.scope.outputs.ubuntu_check != 'false'", 'check'),
+        ('Canonical integration', "runner.os != 'macOS' || needs.scope.outputs.macos_integration != 'false'", 'integration'),
+    ]:
+        assert (f'- name: {name}\n        if: {condition}\n'
+                f'        run: python scripts/verify.py {command} >') in text
+    for output in ['ubuntu_check', 'macos_integration']:
+        assert output + ': ${{ steps.scope.outputs.' + output + ' }}' in text
+    assert text.count('cache: true') == 2 and 'cache: false' not in text
+    assert text.count('run: go clean -testcache') == 2
+    assert text.count('cache-dependency-path: |\n            go.sum\n            .github/workflows/live-host.yml') == 2
+    # The native build must not seed the host's much larger cache namespace.
+    assert '            tests/live_acceptance/native.py' in text
 
 
 def test_maintained_live_ci_contract():
@@ -62,13 +97,79 @@ def test_maintained_live_ci_contract():
     ('if: always()', "if: success()"),
     ('needs: [scope, native-reference, live]', 'needs: [scope]'),
     ('--expected-source-commit "$GITHUB_SHA"', '--unbound'),
-    ('go test -race ./internal/live ./internal/control .', 'go test ./internal/live'),
+    ('go test -race -count=1 ./internal/live ./internal/control .', 'go test ./internal/live'),
+    ("runner.os != 'Linux' || needs.scope.outputs.ubuntu_check != 'false'", "runner.os == 'macOS'"),
+    ("runner.os != 'macOS' || needs.scope.outputs.macos_integration != 'false'", "runner.os == 'Linux'"),
+    ('cache: true', 'cache: false'),
+    ('go clean -testcache', 'echo reuse-test-results'),
 ])
 def test_live_ci_regressions_are_detected(before, after):
     text = WORKFLOW.read_text()
     assert before in text
     with pytest.raises(AssertionError):
         validate(text.replace(before, after))
+
+
+@pytest.mark.parametrize('before,after', [
+    ('runs-on: ubuntu-latest', 'runs-on: macos-15'),
+    ('runs-on: macos-15', 'runs-on: ubuntu-24.04'),
+    ('python scripts/verify.py integration', 'echo omitted-integration'),
+    ("check --scope '${{ needs.scope.outputs.check_scope }}'", 'check --scope docs'),
+    ('    branches: [main]', '    branches: [main]\n    paths: [docs/**]'),
+])
+def test_delegated_coverage_cannot_silently_move(before, after):
+    text = DEVELOPMENT.read_text()
+    assert before in text
+    with pytest.raises(AssertionError):
+        validate_canonical_ownership(WORKFLOW.read_text(), text.replace(before, after))
+
+
+@pytest.mark.parametrize('event,ref,scope,integration,expected', [
+    ('pull_request', 'refs/pull/3/merge', 'full', True, (False, False)),
+    ('push', 'refs/heads/main', 'full', True, (False, False)),
+    ('pull_request', 'refs/pull/3/merge', 'docs', False, (True, True)),
+    ('pull_request', 'refs/pull/3/merge', 'python', False, (True, True)),
+    ('workflow_dispatch', 'refs/heads/main', 'full', True, (True, True)),
+    ('push', 'refs/heads/experiment/live-main-candidate', 'full', True, (True, True)),
+    ('unknown', None, 'full', True, (True, True)),
+    ('pull_request', 'refs/pull/3/merge', None, None, (True, True)),
+])
+def test_canonical_delegation_preserves_each_host(event, ref, scope, integration, expected):
+    from live_ci import canonical_plan
+    from development_scope import select
+    inputs = {'full': ['live.go'], 'python': ['scripts/check_public.py'], 'docs': ['docs/python.md']}
+    plan = select(inputs[scope]) if scope else {}
+    if scope:
+        assert plan['check_scope'] == scope and plan['integration'] is integration
+    result = canonical_plan(plan, event, ref)
+    assert (result['ubuntu_check'], result['macos_integration']) == expected
+    # macOS check and Ubuntu integration are unconditional in the workflow.
+
+
+def test_uncertain_development_scope_keeps_local_canonical():
+    from live_ci import canonical_plan
+    result = canonical_plan(dict(check_scope='full', integration=True,
+                                 reason='event diff unavailable; full verification'),
+                            'pull_request', 'refs/pull/3/merge')
+    assert result == dict(ubuntu_check=True, macos_integration=True)
+
+
+@pytest.mark.parametrize('event,expected', [('pull_request', 'false'), ('workflow_dispatch', 'true')])
+def test_scope_exports_canonical_decisions(monkeypatch, tmp_path, event, expected):
+    import live_ci
+    from development_scope import select
+    event_path = tmp_path / 'event.json'
+    event_path.write_text('{}')
+    output = tmp_path / 'output'
+    monkeypatch.setenv('GITHUB_EVENT_PATH', str(event_path))
+    monkeypatch.setenv('GITHUB_EVENT_NAME', event)
+    monkeypatch.setenv('GITHUB_REF', 'refs/heads/main')
+    monkeypatch.setenv('GITHUB_OUTPUT', str(output))
+    monkeypatch.setattr(live_ci, 'plan', lambda *args: select(['live.go']))
+    monkeypatch.setattr(sys, 'argv', ['live_ci.py', 'scope', '--candidate-sha', 'a' * 40, '--github-output'])
+    live_ci.main()
+    assert output.read_text().splitlines() == [
+        'run_live=true', 'ubuntu_check=' + expected, 'macos_integration=' + expected]
 
 
 def test_dependency_selector_covers_all_prior_paths():
