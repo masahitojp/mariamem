@@ -8,57 +8,40 @@ Version themes are direction; they are not release approval.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Live main adoption — Human approved; protected PR pending
+## Live endpoints adopted on main — unreleased
 
-The Human authorized preparing a minimal main-oriented Live candidate after the
-conditional adoption review. The stable base remains
-`bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4`; the original CI-tested experiment
-`a1baaad83922d9ac6ff7fe46d64db3fbfcde542f` remains fixed. The new candidate selects
-runtime/SDK, tests, native/browser controls and the Live guide, adds maintained
-main/PR CI and actual-adapter cleanup retry tests, and excludes exploratory
-review history. See the [candidate record](reviews/v06x-live-main-candidate.md).
-Local focused/race and canonical check pass on `df3e683`; full local integration
-retains a Connector/Python import failure on Python3.14.9/OpenSSL4.0.3. This is
-not a full local integration PASS. Fresh [CI40417099015](https://github.com/masahitojp/mariamem/actions/runs/40417099015)
-passes all four jobs on exact candidate `6edcd29e65d3a669d5be6520abf6be2e61fa3445`:
-fresh native references for Python3.11/3.14, macOS arm64 and Ubuntu x86_64
-canonical check/integration, actual-adapter race, public Go/Python Live/browser
-and installed-consumer gates. The [checksum-bearing receipt](reviews/v06x-live-main-evidence/ci-40417099015/assessment.json)
-retains original artifacts and revalidates their raw observations. CI covers
-its recorded Python/OpenSSL profiles; the local OpenSSL4 failure is unchanged.
-The candidate ref remains fixed; that receipt did not itself authorize adoption.
-The subsequent Human integration decision is recorded below; Qualification and
-publication remain separate. Published v0.5.3 does not provide this API.
+The Human approved both the previously applied protection and the selected Live
+candidate. [PR1](https://github.com/masahitojp/mariamem/pull/1) squash-merged on
+2026-10-27 to main source_commit `212bb07ffb8e89669c32d6b5a7ba94fc7aa18b2c`,
+from starting base `bf3a29c292064ddbbd4c7b9a9c6e712504d0f4e4` and approved PR
+head `fcc6bd856867afdf5909c8fec4abd5c586ec434e`. The actual PR CI source was
+`cf3991234efa3897a7a50466b07e29a97af2aa7c`; its tree matches the PR head and
+landed squash commit. CI receipts retain that source, not a relabelled main SHA.
+See the [Human decision](reviews/v06x-live-main-adoption.md),
+[adoption recommendation](reviews/v06x-live-correction-adoption-review.md) and
+[completion receipt](reviews/v06x-live-main-integration/README.md).
 
-The [prior adoption review](reviews/v06x-live-main-adoption-review.md) held
-integration for fresh correction CI and Live required-check activation. The
-[current recommendation](reviews/v06x-live-correction-adoption-review.md) supports
-adoption of exact `c1ee8d32e309dbef514d45db37f12fbb53acb7a9`, with Live required
-activation/readback as an approved-integration step. The Human has now
-authorized this adoption; see the [decision and integration procedure](reviews/v06x-live-main-adoption.md).
-The subsequent review requested user-facing OpenSSL4 documentation, repository
-protection and interrupted ordinary-operation coverage. These corrections are on
-`experiment/live-review-fixes`, with [focused evidence and policy readback](reviews/v06x-live-review-fixes/README.md).
-Both Python versions pass99 focused tests, including12 start/fork/snapshot/status/
-close interruption cases; missing-cleanup and double-close mutations are detected.
-The product runtime is unchanged from6edcd29. Main protection now requires
-`check`, `integration` and `Live required gate` (strict, GitHub Actions app15368,
-administrators included), confirmed by a separate
-[API readback](reviews/v06x-live-main-adoption/policy-assessment.json). The reviewed workflow
-wiring now passes [CI40435625453](https://github.com/masahitojp/mariamem/actions/runs/40435625453)
-on exact c1ee8d3: all six jobs, including scope and Live required gate, succeed.
-The [checksum-bearing receipt](reviews/v06x-live-main-evidence/ci-40435625453/assessment.json)
-revalidates raw full-matrix scope/aggregate logs and all native/browser/installed
-controls. Each host's default-Python3.14 canonical check has1083 PASS/45 SKIP/
-76 subtests; the new12 ordinary-interruption cases run there. The per-minor Live
-focused loop remains53 cases per cell; local99-case results stay separately
-identified. Old CI/local receipts retain their original source identities and
-outcomes. Live required-check activation is complete; protected PR integration
-is pending and will be declared complete only after merge and identity/policy
-verification. The already-applied protection was explicitly approved in the
-linked Human decision. No Qualification, version change or publication occurred.
-Guide-only skip observation/model acceptance, docs/reviews skip policy and wider
-Go/native interruption coverage remain separate, undecided post-adoption work.
+Development CI40448056712 and Live CI40448056639 passed the protected PR's checks.
+The latter includes fresh native MariaDB12.3.3 references, both guest host OSes,
+Python3.11/3.14 public Go/Python browser and failure controls, installed consumers
+and the always-reported aggregate. Both host canonical checks have 1083 PASS/
+45 explicit SKIP/76 subtests. The new 12 ordinary-operation interruption tests
+run on canonical Python3.14; the separate local 99-case runs on both minors remain
+separately identified. The original local Python3.14.9/OpenSSL4.0.3 Connector
+import FAIL is retained and documented; CI OpenSSL3 does not qualify it.
+
+Post-merge API readback confirms `check`, `integration` and `Live required gate`,
+all bound to GitHub Actions app 15368, with strict freshness and administrator
+enforcement. No bypass or exploratory-history merge occurred. The selected
+runtime matches reviewed candidate c1ee8d3; subsequent integration changes are
+documentation/evidence only. Published v0.5.3 does not include Live. Caller work
+quiescence and physical SQL connection retirement remain required before Reset.
+
+Separate post-adoption decisions remain open: observe one actual guide-only skip
+or explicitly accept the unit model; decide whether docs/reviews-only PRs belong
+in the skip allowlist; decide whether to expand Go/native interruption coverage.
+No option has been silently selected. Qualification, version and publication
+remain separate Human decisions and were not started by adoption.
 
 ## Product contract
 
@@ -964,7 +947,7 @@ earlier-same-literal regression. The corrected
 passed those12 mutations and actual P1 comparison on both OSes. Actual P2
 comparison now exposes one TIME column-length difference (16 vs native23), with
 all22 cases' binary rows/terminals matching. The [bounded internal-source proposal](reviews/v06x-prepared-p2-time-metadata.md)
-was approved by the Human on2026-10-21 after the upstream-history investigation.
+was approved by the Human on 2026-10-21 after the upstream-history investigation.
 The2011 change redefined MAX_TIME_WIDTH23→16 while the embedded call retained
 that name; the ordinary call switched to the newly introduced full-width23
 constant. The one-line repair is now staged only in guest/experimental.patch

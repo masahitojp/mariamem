@@ -223,5 +223,5 @@ from [shyim/lite4mariadb](https://github.com/shyim/lite4mariadb) and MariaDB Ser
 The original testing API was informed by [shibukawa/pgmem](https://github.com/shibukawa/pgmem);
 mariamem's product contract is defined independently.
 
-The unreleased Live candidate supports a stable endpoint across sequential browser
-E2E cases. See the [Live guide](docs/live.md) for connection draining and reset ownership.
+Unreleased main supports stable Live endpoints across sequential browser E2E
+cases. See the [Live guide](docs/live.md) for connection draining and reset ownership.
