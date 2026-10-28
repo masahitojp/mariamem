@@ -124,6 +124,11 @@ The memory32 runtime uses a stable 2 GiB anonymous reservation, initially enable
 256 MiB, and grows the logical range without relocating it on the supported
 platforms. Bounds/width/alignment checks produce controlled guest traps. Close
 releases linear memory after cooperative worker join; metadata remains GC-managed.
+A fatal worker trap notifies the linked transport owner before join and marks
+that DB unusable. Its cooperative atomic/futex waits are cancelled, pending calls
+retain the original cause, and later commands are refused. Completion and memory
+release still wait for every worker; non-cooperative execution retains ownership
+until it exits. Independent DBs have separate failure state.
 Physical accounting differs from reachable heap or sampled host RSS.
 
 The page-cleaner startup ordering correction is adopted on main and passed

@@ -95,6 +95,29 @@ def prepared():
         return source.snapshot()
 
 
+def test_duplicate_removal_mapping_snapshot_and_independent_forks():
+    with mariamem.start(host_binary=HOST) as source:
+        sql(source, "CREATE TABLE dedup_source(v TEXT)")
+        sql(source, "INSERT INTO dedup_source VALUES('alice'),('bob'),('alice')")
+        with pymysql.connect(**source.connection_info(), autocommit=True) as connection:
+            with connection.cursor() as cursor:
+                for _ in range(12):
+                    cursor.execute("SELECT DISTINCT v FROM dedup_source")
+                    assert tuple(sorted(cursor.fetchall())) == (("alice",), ("bob",))
+        source.wait_disconnected()
+        saved = source.snapshot()
+    with saved:
+        with saved.fork() as first, saved.fork() as second:
+            sql(first, "INSERT INTO dedup_source VALUES('charlie')")
+            assert tuple(sorted(sql(first, "SELECT DISTINCT v FROM dedup_source"))) == (
+                ("alice",), ("bob",), ("charlie",))
+            assert tuple(sorted(sql(second, "SELECT DISTINCT v FROM dedup_source"))) == (
+                ("alice",), ("bob",))
+        with saved.fork() as later:
+            assert tuple(sorted(sql(later, "SELECT DISTINCT v FROM dedup_source"))) == (
+                ("alice",), ("bob",))
+
+
 def test_many_order_and_parallel_siblings():
     before_fd, before_threads = fd_count(), threading.active_count()
     with prepared() as saved:

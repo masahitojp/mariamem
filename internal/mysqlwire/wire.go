@@ -535,6 +535,9 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		if closing() {
 			return nil
 		}
+		if err := p.Err(); err != nil {
+			return w.commandFailure(request[0], err)
+		}
 		var replies [][]byte
 		switch request[0] {
 		case 22, 23, 24, 25, 26:

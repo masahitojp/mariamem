@@ -1,0 +1,116 @@
+func AtomicWait(m *Module, ea uint64, timeout int64, stillEqual func() bool) int32 {
+	if !m.MemShared {
+
+		return 1
+	}
+	m.Threads.parkMu.Lock()
+	if !stillEqual() {
+		m.Threads.parkMu.Unlock()
+		return 1
+	}
+	ch := make(chan struct{})
+	if m.Threads.parked == nil {
+		m.Threads.parked = make(map[uint64][]chan struct{})
+	}
+	m.Threads.parked[ea] = append(m.Threads.parked[ea], ch)
+	m.Threads.parkMu.Unlock()
+
+	unpark := func() {
+		m.Threads.parkMu.Lock()
+		defer m.Threads.parkMu.Unlock()
+		waiters := m.Threads.parked[ea]
+		for i, c := range waiters {
+			if c == ch {
+				m.Threads.parked[ea] = append(waiters[:i], waiters[i+1:]...)
+				break
+			}
+		}
+		if len(m.Threads.parked[ea]) == 0 {
+			delete(m.Threads.parked, ea)
+		}
+	}
+
+	if timeout < 0 {
+		if m.Threads.nextTID.Load() == 0 {
+
+			unpark()
+			Wasm_trap_atomic_wait_forever()
+		}
+		<-ch
+		return 0
+	}
+	// +1ms: a guest measures its own wait with millisecond-granularity clocks
+	// (test262 asserts lapse >= timeout), so a timer that fires at exactly the
+	// requested nanosecond can look EARLY once both ends truncate. Late by a
+	// millisecond is spec-legal; early is not.
+	// Saturate the clock-granularity allowance at Go's positive duration
+	// limit. A requested positive timeout must never wrap into an expired timer.
+	const maxWait = time.Duration(1<<63 - 1)
+	duration := time.Duration(timeout)
+	if duration > maxWait-time.Millisecond {
+		duration = maxWait
+	} else {
+		duration += time.Millisecond
+	}
+	timer := time.NewTimer(duration)
+	defer timer.Stop()
+	select {
+	case <-ch:
+		return 0
+	case <-timer.C:
+		unpark()
+		return 2
+	}
+}
+
+
+func ThreadLaunch(m *Module, body func(child *Module, tid int32)) int32 {
+	// wasi.thread-spawn reserves zero and the upper three ID bits. Reject
+	// exhaustion before adding a worker or starting it; failed spawn must
+	// not race the guest's allocation cleanup. Never recycle IDs or reset
+	// the contention marker after workers finish.
+	var tid int32
+	for {
+		previous := m.Threads.nextTID.Load()
+		if previous < 0 || previous >= (1<<29)-1 {
+			return -1
+		}
+		tid = previous + 1
+		if m.Threads.nextTID.CompareAndSwap(previous, tid) {
+			break
+		}
+	}
+	m.Threads.wg.Add(1)
+
+	child := new(Module)
+	*child = *m
+	SpinAgentsAdd(1)
+	go func() {
+		defer m.Threads.wg.Done()
+		defer SpinAgentsAdd(-1)
+
+		defer func() {
+			if r := recover(); r != nil {
+				m.Threads.trapMu.Lock()
+				if m.Threads.trap == nil {
+					m.Threads.trap = r
+				}
+				m.Threads.trapMu.Unlock()
+			}
+		}()
+		body(child, tid)
+	}()
+	return tid
+}
+
+
+type ThreadPool struct {
+	nextTID atomic.Int32
+	wg      sync.WaitGroup
+
+	trapMu sync.Mutex
+	trap   any
+
+	parkMu sync.Mutex
+	parked map[uint64][]chan struct{}
+}
