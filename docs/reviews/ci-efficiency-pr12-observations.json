@@ -1,0 +1,1066 @@
+{
+  "schema": "mariamem-ci-efficiency-observations-v1",
+  "dependency_profile": "pr12-four-workflows-5304c1b-5a6bbd1",
+  "limits": [
+    "Observed PR executions, not a controlled cache-only benchmark.",
+    "Head commit is distinct from the checkout source commit in each job log.",
+    "Job wall sums are unweighted occupied-job proxies, not billed minutes.",
+    "Ready-to-start includes scheduler/provisioning delay after dependencies; not a pure queue metric.",
+    "Workflow wall times overlap; never add them as PR elapsed time.",
+    "Timing summaries do not replace source-bound test or qualification receipts."
+  ],
+  "runs": [
+    {
+      "run_id": 40736926602,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/40736926602",
+      "workflow": "Development checks",
+      "event": "pull_request",
+      "head_commit": "5304c1bea2053626e56f3717f27c5cc4dca7b5ed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T17:33:58Z",
+      "completed_at": "2026-10-28T17:49:46Z",
+      "workflow_wall_seconds": 948.0,
+      "summed_job_wall_seconds": 1470.0,
+      "jobs": [
+        {
+          "name": "scope",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:35:09Z",
+          "completed_at": "2026-10-28T17:36:16Z",
+          "dependency_ready_at": "2026-10-28T17:33:58Z",
+          "job_wall_seconds": 67.0,
+          "ready_to_start_seconds": 71.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d"
+          },
+          "steps": []
+        },
+        {
+          "name": "integration",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:36:19Z",
+          "completed_at": "2026-10-28T17:49:46Z",
+          "dependency_ready_at": "2026-10-28T17:36:16Z",
+          "job_wall_seconds": 807.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [
+              "Cache is not found",
+              "Cache saved with the key: setup-go-Linux-x64-ubuntu24-go-1.26.10-84ec4be891464916fa34e21c027e5935682b750c50d56f056792deab7d6d013c"
+            ],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d",
+            "miss": true,
+            "exports_go_cache": true,
+            "clears_test_results": true,
+            "saved_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-84ec4be891464916fa34e21c027e5935682b750c50d56f056792deab7d6d013c"
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Run python scripts/verify.py integration",
+              "conclusion": "success",
+              "seconds": 720.0
+            }
+          ]
+        },
+        {
+          "name": "check",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:36:19Z",
+          "completed_at": "2026-10-28T17:46:15Z",
+          "dependency_ready_at": "2026-10-28T17:36:16Z",
+          "job_wall_seconds": 596.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [
+              "Cache is not found",
+              "Cache saved with the key: setup-go-Linux-x64-ubuntu24-go-1.26.10-7b544b0ecdb6fca11e658a720b905e14e41096a1e9791fb9741f0713854818f0"
+            ],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d",
+            "miss": true,
+            "exports_go_cache": true,
+            "clears_test_results": true,
+            "saved_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-7b544b0ecdb6fca11e658a720b905e14e41096a1e9791fb9741f0713854818f0"
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Run python scripts/verify.py check --scope 'full'",
+              "conclusion": "success",
+              "seconds": 538.0
+            }
+          ]
+        }
+      ],
+      "input_sha256": {
+        "run_json": "d9a0f174d2166738fd214a52ff01651c5c6cc454315354aa960318d7e08d831d",
+        "run_log": "be466a1a517d637654b8f3b30805030562de5192b55ed6030ea7649bc41ea75a"
+      }
+    },
+    {
+      "run_id": 40736926649,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/40736926649",
+      "workflow": "Live E2E",
+      "event": "pull_request",
+      "head_commit": "5304c1bea2053626e56f3717f27c5cc4dca7b5ed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T17:33:59Z",
+      "completed_at": "2026-10-28T18:28:59Z",
+      "workflow_wall_seconds": 3300.0,
+      "summed_job_wall_seconds": 4264.0,
+      "jobs": [
+        {
+          "name": "scope",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:35:14Z",
+          "completed_at": "2026-10-28T17:35:39Z",
+          "dependency_ready_at": "2026-10-28T17:33:59Z",
+          "job_wall_seconds": 25.0,
+          "ready_to_start_seconds": 75.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d"
+          },
+          "steps": []
+        },
+        {
+          "name": "native-reference (3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:35:41Z",
+          "completed_at": "2026-10-28T17:39:10Z",
+          "dependency_ready_at": "2026-10-28T17:35:39Z",
+          "job_wall_seconds": 209.0,
+          "ready_to_start_seconds": 2.0,
+          "cache": {
+            "matches": [
+              "Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8",
+              "Cache restored successfully",
+              "Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8"
+            ],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d",
+            "hit_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8",
+            "restored": true,
+            "restored_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8",
+            "exports_go_cache": true,
+            "clears_test_results": true
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "native-reference (3.14)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:35:41Z",
+          "completed_at": "2026-10-28T17:37:39Z",
+          "dependency_ready_at": "2026-10-28T17:35:39Z",
+          "job_wall_seconds": 118.0,
+          "ready_to_start_seconds": 2.0,
+          "cache": {
+            "matches": [
+              "Cache is not found",
+              "Cache saved with the key: setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8"
+            ],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d",
+            "miss": true,
+            "exports_go_cache": true,
+            "clears_test_results": true,
+            "saved_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8"
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 1.0
+            }
+          ]
+        },
+        {
+          "name": "live (macos-15)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:44:14Z",
+          "completed_at": "2026-10-28T18:28:01Z",
+          "dependency_ready_at": "2026-10-28T17:39:10Z",
+          "job_wall_seconds": 2627.0,
+          "ready_to_start_seconds": 304.0,
+          "cache": {
+            "matches": [
+              "Cache is not found",
+              "Cache saved with the key: setup-go-macOS-arm64-go-1.26.10-5815f148dc8949268a1a8c6d6a780113d7621d9dd8b24cb1e3243bab1831da0c"
+            ],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d",
+            "miss": true,
+            "exports_go_cache": true,
+            "clears_test_results": true,
+            "saved_key": "setup-go-macOS-arm64-go-1.26.10-5815f148dc8949268a1a8c6d6a780113d7621d9dd8b24cb1e3243bab1831da0c"
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Canonical check",
+              "conclusion": "success",
+              "seconds": 689.0
+            },
+            {
+              "name": "Canonical integration",
+              "conclusion": "success",
+              "seconds": 1391.0
+            },
+            {
+              "name": "Installed wheel and external Go module",
+              "conclusion": "success",
+              "seconds": 40.0
+            }
+          ]
+        },
+        {
+          "name": "live (ubuntu-24.04)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:39:13Z",
+          "completed_at": "2026-10-28T17:59:43Z",
+          "dependency_ready_at": "2026-10-28T17:39:10Z",
+          "job_wall_seconds": 1230.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [
+              "Cache is not found",
+              "Cache saved with the key: setup-go-Linux-x64-ubuntu24-go-1.26.10-5815f148dc8949268a1a8c6d6a780113d7621d9dd8b24cb1e3243bab1831da0c"
+            ],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d",
+            "miss": true,
+            "exports_go_cache": true,
+            "clears_test_results": true,
+            "saved_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-5815f148dc8949268a1a8c6d6a780113d7621d9dd8b24cb1e3243bab1831da0c"
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Canonical check",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Canonical integration",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Installed wheel and external Go module",
+              "conclusion": "success",
+              "seconds": 33.0
+            }
+          ]
+        },
+        {
+          "name": "Live required gate",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:28:04Z",
+          "completed_at": "2026-10-28T18:28:59Z",
+          "dependency_ready_at": "2026-10-28T18:28:01Z",
+          "job_wall_seconds": 55.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d"
+          },
+          "steps": []
+        }
+      ],
+      "input_sha256": {
+        "run_json": "ab472174af32ec981bfe8c8f9db9c8466817e9ea1ce83cfe327712fc605a211a",
+        "run_log": "a61a3cdcf750366bbb384d06e9534cf2aadd02b7d69138cf0f101520e27297a2"
+      }
+    },
+    {
+      "run_id": 40736926345,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/40736926345",
+      "workflow": "Dump reader product candidate",
+      "event": "pull_request",
+      "head_commit": "5304c1bea2053626e56f3717f27c5cc4dca7b5ed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T17:33:58Z",
+      "completed_at": "2026-10-28T17:45:18Z",
+      "workflow_wall_seconds": 680.0,
+      "summed_job_wall_seconds": 797.0,
+      "jobs": [
+        {
+          "name": "scope",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:35:14Z",
+          "completed_at": "2026-10-28T17:38:29Z",
+          "dependency_ready_at": "2026-10-28T17:33:58Z",
+          "job_wall_seconds": 195.0,
+          "ready_to_start_seconds": 76.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d"
+          },
+          "steps": []
+        },
+        {
+          "name": "native-reference",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:35:13Z",
+          "completed_at": "2026-10-28T17:36:42Z",
+          "dependency_ready_at": "2026-10-28T17:33:58Z",
+          "job_wall_seconds": 89.0,
+          "ready_to_start_seconds": 75.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d"
+          },
+          "steps": []
+        },
+        {
+          "name": "guest-comparison (ubuntu-24.04)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:36:45Z",
+          "completed_at": "2026-10-28T17:45:18Z",
+          "dependency_ready_at": "2026-10-28T17:36:42Z",
+          "job_wall_seconds": 513.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [
+              "Cache is not found",
+              "Cache saved with the key: setup-go-Linux-x64-ubuntu24-go-1.26.10-a5dbb3e49a4fdd99b0cef284c83466d1b8815cf0850bd9f43659beca82a78600"
+            ],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d",
+            "miss": true,
+            "exports_go_cache": true,
+            "clears_test_results": true,
+            "saved_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-a5dbb3e49a4fdd99b0cef284c83466d1b8815cf0850bd9f43659beca82a78600"
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Pinned interpreter consumers",
+              "conclusion": "success",
+              "seconds": 243.0
+            }
+          ]
+        },
+        {
+          "name": "development-integration",
+          "conclusion": "skipped",
+          "started_at": "2026-10-28T17:38:30Z",
+          "completed_at": "2026-10-28T17:38:30Z",
+          "dependency_ready_at": "2026-10-28T17:38:29Z",
+          "job_wall_seconds": 0,
+          "ready_to_start_seconds": null,
+          "cache": {},
+          "steps": []
+        },
+        {
+          "name": "development-checks",
+          "conclusion": "skipped",
+          "started_at": "2026-10-28T17:38:30Z",
+          "completed_at": "2026-10-28T17:38:30Z",
+          "dependency_ready_at": "2026-10-28T17:38:29Z",
+          "job_wall_seconds": 0,
+          "ready_to_start_seconds": null,
+          "cache": {},
+          "steps": []
+        }
+      ],
+      "input_sha256": {
+        "run_json": "e52f2aeef8ed23dd07387d723127f20b2a9c6ac1136c987ede02af28cfa18aab",
+        "run_log": "07b0901de1af4c572c3e36f195856f782dcf4731473ed1e2d3fa061b67938241"
+      }
+    },
+    {
+      "run_id": 40736926354,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/40736926354",
+      "workflow": "Django standard runner recipe",
+      "event": "pull_request",
+      "head_commit": "5304c1bea2053626e56f3717f27c5cc4dca7b5ed",
+      "conclusion": "success",
+      "created_at": "2026-10-28T17:33:58Z",
+      "completed_at": "2026-10-28T17:41:23Z",
+      "workflow_wall_seconds": 445.0,
+      "summed_job_wall_seconds": 645.0,
+      "jobs": [
+        {
+          "name": "native (3.14)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:34:17Z",
+          "completed_at": "2026-10-28T17:38:01Z",
+          "dependency_ready_at": "2026-10-28T17:33:58Z",
+          "job_wall_seconds": 224.0,
+          "ready_to_start_seconds": 19.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d"
+          },
+          "steps": []
+        },
+        {
+          "name": "native (3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:34:17Z",
+          "completed_at": "2026-10-28T17:36:33Z",
+          "dependency_ready_at": "2026-10-28T17:33:58Z",
+          "job_wall_seconds": 136.0,
+          "ready_to_start_seconds": 19.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d"
+          },
+          "steps": []
+        },
+        {
+          "name": "recipe (ubuntu-24.04, 3.14)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:38:03Z",
+          "completed_at": "2026-10-28T17:39:28Z",
+          "dependency_ready_at": "2026-10-28T17:38:01Z",
+          "job_wall_seconds": 85.0,
+          "ready_to_start_seconds": 2.0,
+          "cache": {
+            "matches": [
+              "Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19",
+              "Cache restored successfully",
+              "Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19"
+            ],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d",
+            "hit_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19",
+            "restored": true,
+            "restored_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19",
+            "exports_go_cache": true,
+            "clears_test_results": true
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Exact clean source before host build",
+              "conclusion": "success",
+              "seconds": 7.0
+            },
+            {
+              "name": "Standard runner, mixed orders, original errors and owner disposal",
+              "conclusion": "success",
+              "seconds": 16.0
+            }
+          ]
+        },
+        {
+          "name": "recipe (ubuntu-24.04, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T17:38:03Z",
+          "completed_at": "2026-10-28T17:41:23Z",
+          "dependency_ready_at": "2026-10-28T17:38:01Z",
+          "job_wall_seconds": 200.0,
+          "ready_to_start_seconds": 2.0,
+          "cache": {
+            "matches": [
+              "Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19",
+              "Cache restored successfully",
+              "Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19"
+            ],
+            "checkout_source_commit": "7f98b741e7da06707eb8fe27b69b265c001b1a8d",
+            "hit_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19",
+            "restored": true,
+            "restored_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19",
+            "exports_go_cache": true,
+            "clears_test_results": true
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Exact clean source before host build",
+              "conclusion": "success",
+              "seconds": 18.0
+            },
+            {
+              "name": "Standard runner, mixed orders, original errors and owner disposal",
+              "conclusion": "success",
+              "seconds": 12.0
+            }
+          ]
+        }
+      ],
+      "input_sha256": {
+        "run_json": "ac1dffb90a394d5cc7f202017ab6f4e728a45ddb3dce9bdbf037cb3eded0f4c0",
+        "run_log": "6882c96572c08e9e45c7f92aabf1356998180acecbdcfa777d69e101ee5372ee"
+      }
+    },
+    {
+      "run_id": 40746281747,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/40746281747",
+      "workflow": "Development checks",
+      "event": "pull_request",
+      "head_commit": "5a6bbd17101c74ec5f0bfed1c9ff914346878bcb",
+      "conclusion": "success",
+      "created_at": "2026-10-28T18:33:48Z",
+      "completed_at": "2026-10-28T18:38:11Z",
+      "workflow_wall_seconds": 263.0,
+      "summed_job_wall_seconds": 436.0,
+      "jobs": [
+        {
+          "name": "scope",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:33:50Z",
+          "completed_at": "2026-10-28T18:34:40Z",
+          "dependency_ready_at": "2026-10-28T18:33:48Z",
+          "job_wall_seconds": 50.0,
+          "ready_to_start_seconds": 2.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2"
+          },
+          "steps": []
+        },
+        {
+          "name": "integration",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:34:42Z",
+          "completed_at": "2026-10-28T18:38:11Z",
+          "dependency_ready_at": "2026-10-28T18:34:40Z",
+          "job_wall_seconds": 209.0,
+          "ready_to_start_seconds": 2.0,
+          "cache": {
+            "matches": [
+              "Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.10-84ec4be891464916fa34e21c027e5935682b750c50d56f056792deab7d6d013c",
+              "Cache restored successfully",
+              "Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-84ec4be891464916fa34e21c027e5935682b750c50d56f056792deab7d6d013c"
+            ],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2",
+            "hit_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-84ec4be891464916fa34e21c027e5935682b750c50d56f056792deab7d6d013c",
+            "restored": true,
+            "restored_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-84ec4be891464916fa34e21c027e5935682b750c50d56f056792deab7d6d013c",
+            "exports_go_cache": true,
+            "clears_test_results": true
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Run python scripts/verify.py integration",
+              "conclusion": "success",
+              "seconds": 151.0
+            }
+          ]
+        },
+        {
+          "name": "check",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:34:42Z",
+          "completed_at": "2026-10-28T18:37:39Z",
+          "dependency_ready_at": "2026-10-28T18:34:40Z",
+          "job_wall_seconds": 177.0,
+          "ready_to_start_seconds": 2.0,
+          "cache": {
+            "matches": [
+              "Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.10-7b544b0ecdb6fca11e658a720b905e14e41096a1e9791fb9741f0713854818f0",
+              "Cache restored successfully",
+              "Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-7b544b0ecdb6fca11e658a720b905e14e41096a1e9791fb9741f0713854818f0"
+            ],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2",
+            "hit_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-7b544b0ecdb6fca11e658a720b905e14e41096a1e9791fb9741f0713854818f0",
+            "restored": true,
+            "restored_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-7b544b0ecdb6fca11e658a720b905e14e41096a1e9791fb9741f0713854818f0",
+            "exports_go_cache": true,
+            "clears_test_results": true
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Run python scripts/verify.py check --scope 'full'",
+              "conclusion": "success",
+              "seconds": 125.0
+            }
+          ]
+        }
+      ],
+      "input_sha256": {
+        "run_json": "2444eba29518e70200c09e3a71494f1f24e704d2a2ba5150537b5d0942a97c07",
+        "run_log": "9bd30a2aaa3e9b38949a888e2bd4c19dc553e2607105eca7defca8449575d551"
+      }
+    },
+    {
+      "run_id": 40746281702,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/40746281702",
+      "workflow": "Live E2E",
+      "event": "pull_request",
+      "head_commit": "5a6bbd17101c74ec5f0bfed1c9ff914346878bcb",
+      "conclusion": "success",
+      "created_at": "2026-10-28T18:33:48Z",
+      "completed_at": "2026-10-28T18:49:36Z",
+      "workflow_wall_seconds": 948.0,
+      "summed_job_wall_seconds": 1650.0,
+      "jobs": [
+        {
+          "name": "scope",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:33:51Z",
+          "completed_at": "2026-10-28T18:35:29Z",
+          "dependency_ready_at": "2026-10-28T18:33:48Z",
+          "job_wall_seconds": 98.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2"
+          },
+          "steps": []
+        },
+        {
+          "name": "native-reference (3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:35:32Z",
+          "completed_at": "2026-10-28T18:38:57Z",
+          "dependency_ready_at": "2026-10-28T18:35:29Z",
+          "job_wall_seconds": 205.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [
+              "Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8",
+              "Cache restored successfully",
+              "Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8"
+            ],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2",
+            "hit_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8",
+            "restored": true,
+            "restored_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8",
+            "exports_go_cache": true,
+            "clears_test_results": true
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "native-reference (3.14)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:35:32Z",
+          "completed_at": "2026-10-28T18:39:59Z",
+          "dependency_ready_at": "2026-10-28T18:35:29Z",
+          "job_wall_seconds": 267.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [
+              "Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8",
+              "Cache restored successfully",
+              "Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8"
+            ],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2",
+            "hit_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8",
+            "restored": true,
+            "restored_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-d4250d78b07248665a9c9fa1a09cab71c75d50c8abcc065cb4b9bd94afb263f8",
+            "exports_go_cache": true,
+            "clears_test_results": true
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "live (macos-15)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:40:04Z",
+          "completed_at": "2026-10-28T18:48:33Z",
+          "dependency_ready_at": "2026-10-28T18:39:59Z",
+          "job_wall_seconds": 509.0,
+          "ready_to_start_seconds": 5.0,
+          "cache": {
+            "matches": [
+              "Cache hit for: setup-go-macOS-arm64-go-1.26.10-5815f148dc8949268a1a8c6d6a780113d7621d9dd8b24cb1e3243bab1831da0c",
+              "Cache restored successfully",
+              "Cache restored from key: setup-go-macOS-arm64-go-1.26.10-5815f148dc8949268a1a8c6d6a780113d7621d9dd8b24cb1e3243bab1831da0c"
+            ],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2",
+            "hit_key": "setup-go-macOS-arm64-go-1.26.10-5815f148dc8949268a1a8c6d6a780113d7621d9dd8b24cb1e3243bab1831da0c",
+            "restored": true,
+            "restored_key": "setup-go-macOS-arm64-go-1.26.10-5815f148dc8949268a1a8c6d6a780113d7621d9dd8b24cb1e3243bab1831da0c",
+            "exports_go_cache": true,
+            "clears_test_results": true
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Canonical check",
+              "conclusion": "success",
+              "seconds": 123.0
+            },
+            {
+              "name": "Canonical integration",
+              "conclusion": "success",
+              "seconds": 116.0
+            },
+            {
+              "name": "Installed wheel and external Go module",
+              "conclusion": "success",
+              "seconds": 29.0
+            }
+          ]
+        },
+        {
+          "name": "live (ubuntu-24.04)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:40:02Z",
+          "completed_at": "2026-10-28T18:48:52Z",
+          "dependency_ready_at": "2026-10-28T18:39:59Z",
+          "job_wall_seconds": 530.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [
+              "Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.10-5815f148dc8949268a1a8c6d6a780113d7621d9dd8b24cb1e3243bab1831da0c",
+              "Cache restored successfully",
+              "Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-5815f148dc8949268a1a8c6d6a780113d7621d9dd8b24cb1e3243bab1831da0c"
+            ],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2",
+            "hit_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-5815f148dc8949268a1a8c6d6a780113d7621d9dd8b24cb1e3243bab1831da0c",
+            "restored": true,
+            "restored_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-5815f148dc8949268a1a8c6d6a780113d7621d9dd8b24cb1e3243bab1831da0c",
+            "exports_go_cache": true,
+            "clears_test_results": true
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Canonical check",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Canonical integration",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Installed wheel and external Go module",
+              "conclusion": "success",
+              "seconds": 56.0
+            }
+          ]
+        },
+        {
+          "name": "Live required gate",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:48:55Z",
+          "completed_at": "2026-10-28T18:49:36Z",
+          "dependency_ready_at": "2026-10-28T18:48:52Z",
+          "job_wall_seconds": 41.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2"
+          },
+          "steps": []
+        }
+      ],
+      "input_sha256": {
+        "run_json": "1f30d77d5a43830e4a2842ebab4864aab6b46bfeeab7c3d93b3256ef42c07cdf",
+        "run_log": "7be2c4452550530dd431b96d7df9a6347777cc1d128ac2cfd55155380b998d77"
+      }
+    },
+    {
+      "run_id": 40746281762,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/40746281762",
+      "workflow": "Dump reader product candidate",
+      "event": "pull_request",
+      "head_commit": "5a6bbd17101c74ec5f0bfed1c9ff914346878bcb",
+      "conclusion": "success",
+      "created_at": "2026-10-28T18:33:48Z",
+      "completed_at": "2026-10-28T18:39:30Z",
+      "workflow_wall_seconds": 342.0,
+      "summed_job_wall_seconds": 368.0,
+      "jobs": [
+        {
+          "name": "native-reference",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:33:51Z",
+          "completed_at": "2026-10-28T18:36:43Z",
+          "dependency_ready_at": "2026-10-28T18:33:48Z",
+          "job_wall_seconds": 172.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2"
+          },
+          "steps": []
+        },
+        {
+          "name": "scope",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:33:51Z",
+          "completed_at": "2026-10-28T18:34:22Z",
+          "dependency_ready_at": "2026-10-28T18:33:48Z",
+          "job_wall_seconds": 31.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2"
+          },
+          "steps": []
+        },
+        {
+          "name": "development-checks",
+          "conclusion": "skipped",
+          "started_at": "2026-10-28T18:34:23Z",
+          "completed_at": "2026-10-28T18:34:22Z",
+          "dependency_ready_at": "2026-10-28T18:34:22Z",
+          "job_wall_seconds": 0,
+          "ready_to_start_seconds": null,
+          "cache": {},
+          "steps": []
+        },
+        {
+          "name": "development-integration",
+          "conclusion": "skipped",
+          "started_at": "2026-10-28T18:34:23Z",
+          "completed_at": "2026-10-28T18:34:22Z",
+          "dependency_ready_at": "2026-10-28T18:34:22Z",
+          "job_wall_seconds": 0,
+          "ready_to_start_seconds": null,
+          "cache": {},
+          "steps": []
+        },
+        {
+          "name": "guest-comparison (ubuntu-24.04)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:36:45Z",
+          "completed_at": "2026-10-28T18:39:30Z",
+          "dependency_ready_at": "2026-10-28T18:36:43Z",
+          "job_wall_seconds": 165.0,
+          "ready_to_start_seconds": 2.0,
+          "cache": {
+            "matches": [
+              "Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.10-a5dbb3e49a4fdd99b0cef284c83466d1b8815cf0850bd9f43659beca82a78600",
+              "Cache restored successfully",
+              "Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-a5dbb3e49a4fdd99b0cef284c83466d1b8815cf0850bd9f43659beca82a78600"
+            ],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2",
+            "hit_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-a5dbb3e49a4fdd99b0cef284c83466d1b8815cf0850bd9f43659beca82a78600",
+            "restored": true,
+            "restored_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-a5dbb3e49a4fdd99b0cef284c83466d1b8815cf0850bd9f43659beca82a78600",
+            "exports_go_cache": true,
+            "clears_test_results": true
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Pinned interpreter consumers",
+              "conclusion": "success",
+              "seconds": 54.0
+            }
+          ]
+        }
+      ],
+      "input_sha256": {
+        "run_json": "266c054cb9de1dab02d0e64b6b0b5e3e101fd9cdc37e5de162217fcb504da9f7",
+        "run_log": "d5da0d06b27fe5f3593244af7c05b413a57ac8282779cc99b592b85fdf8b6adc"
+      }
+    },
+    {
+      "run_id": 40746281729,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/40746281729",
+      "workflow": "Django standard runner recipe",
+      "event": "pull_request",
+      "head_commit": "5a6bbd17101c74ec5f0bfed1c9ff914346878bcb",
+      "conclusion": "success",
+      "created_at": "2026-10-28T18:33:48Z",
+      "completed_at": "2026-10-28T18:40:29Z",
+      "workflow_wall_seconds": 401.0,
+      "summed_job_wall_seconds": 593.0,
+      "jobs": [
+        {
+          "name": "native (3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:33:51Z",
+          "completed_at": "2026-10-28T18:37:37Z",
+          "dependency_ready_at": "2026-10-28T18:33:48Z",
+          "job_wall_seconds": 226.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2"
+          },
+          "steps": []
+        },
+        {
+          "name": "native (3.14)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:33:51Z",
+          "completed_at": "2026-10-28T18:35:10Z",
+          "dependency_ready_at": "2026-10-28T18:33:48Z",
+          "job_wall_seconds": 79.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2"
+          },
+          "steps": []
+        },
+        {
+          "name": "recipe (ubuntu-24.04, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:37:39Z",
+          "completed_at": "2026-10-28T18:40:29Z",
+          "dependency_ready_at": "2026-10-28T18:37:37Z",
+          "job_wall_seconds": 170.0,
+          "ready_to_start_seconds": 2.0,
+          "cache": {
+            "matches": [
+              "Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19",
+              "Cache restored successfully",
+              "Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19"
+            ],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2",
+            "hit_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19",
+            "restored": true,
+            "restored_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19",
+            "exports_go_cache": true,
+            "clears_test_results": true
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Exact clean source before host build",
+              "conclusion": "success",
+              "seconds": 6.0
+            },
+            {
+              "name": "Standard runner, mixed orders, original errors and owner disposal",
+              "conclusion": "success",
+              "seconds": 11.0
+            }
+          ]
+        },
+        {
+          "name": "recipe (ubuntu-24.04, 3.14)",
+          "conclusion": "success",
+          "started_at": "2026-10-28T18:37:40Z",
+          "completed_at": "2026-10-28T18:39:38Z",
+          "dependency_ready_at": "2026-10-28T18:37:37Z",
+          "job_wall_seconds": 118.0,
+          "ready_to_start_seconds": 3.0,
+          "cache": {
+            "matches": [
+              "Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19",
+              "Cache restored successfully",
+              "Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19"
+            ],
+            "checkout_source_commit": "babed7d62274cc1b5054b3fc65bda07aafecf8c2",
+            "hit_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19",
+            "restored": true,
+            "restored_key": "setup-go-Linux-x64-ubuntu24-go-1.26.10-b3adb348406f87974d32f9ad257c265ea05e6ead3626bf491ad69c071b14fd19",
+            "exports_go_cache": true,
+            "clears_test_results": true
+          },
+          "steps": [
+            {
+              "name": "Share Go compiler cache and discard restored test results",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Exact clean source before host build",
+              "conclusion": "success",
+              "seconds": 4.0
+            },
+            {
+              "name": "Standard runner, mixed orders, original errors and owner disposal",
+              "conclusion": "success",
+              "seconds": 18.0
+            }
+          ]
+        }
+      ],
+      "input_sha256": {
+        "run_json": "37b59c7807e3dea625e81af49470b819d0afbe13d7596620f3fadfc90bf06825",
+        "run_log": "e2dba76cffbf17dcd34d0e326dfaa1f8160bb58929041774d2aa12629bb49b3c"
+      }
+    }
+  ],
+  "cohorts": [
+    {
+      "head_commit": "5304c1bea2053626e56f3717f27c5cc4dca7b5ed",
+      "run_ids": [
+        40736926602,
+        40736926649,
+        40736926345,
+        40736926354
+      ],
+      "all_workflows_conclusion_success": true,
+      "pr_wall_seconds": 3301.0,
+      "summed_job_wall_seconds": 7176.0,
+      "max_ready_to_start_seconds": 304.0
+    },
+    {
+      "head_commit": "5a6bbd17101c74ec5f0bfed1c9ff914346878bcb",
+      "run_ids": [
+        40746281747,
+        40746281702,
+        40746281762,
+        40746281729
+      ],
+      "all_workflows_conclusion_success": true,
+      "pr_wall_seconds": 948.0,
+      "summed_job_wall_seconds": 3047.0,
+      "max_ready_to_start_seconds": 5.0
+    }
+  ]
+}

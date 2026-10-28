@@ -133,7 +133,8 @@ def test_candidate_macos_is_post_merge_or_manual_and_pr_is_ubuntu(name):
     text = (ROOT/'.github/workflows'/f'{name}.yml').read_text()
     validate_candidate_platforms(text)
     if name == 'django-lifecycle':
-        assert text.count("python: ['3.11', '3.14']") == 2
+        assert text.count("python: ['3.11', '3.14']") == 1
+        assert "id: py311" in text and "id: py314" in text
         assert 'needs: native' in text
     else:
         assert 'needs: native-reference' in text
