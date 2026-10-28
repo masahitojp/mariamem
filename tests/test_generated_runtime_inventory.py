@@ -179,3 +179,62 @@ def test_template_owned_primitive_rejects_drift(canonical, change, family):
     else: owner.unlink()
     with pytest.raises(ValueError, match='template-owned'):
         verifier.main()
+
+
+def validate_wasix_stub_classification(driver, classification):
+    """Changes to the actual generated panic boundary require a classification diff."""
+    import re
+    assert classification.get('schema') == 1
+    assert isinstance(classification.get('classification'), str) and classification['classification'].strip()
+    declared = classification.get('stubs')
+    assert isinstance(declared, dict) and declared
+    assert all(re.fullmatch(r'[A-Za-z][A-Za-z0-9_]*', name) and disposition == 'fail-closed'
+               for name, disposition in declared.items())
+    marker = 'unimplemented WASIX'
+    direct_panic = re.compile(
+        r'func\s*\(\s*\w+\s+\*host\s*\)\s*([A-Za-z]\w*)\s*\([^{}]*\)\s*[^{}\n]*\{\s*panic\s*\(')
+    pattern = re.compile(
+        r'func\s*\(\s*\w+\s+\*host\s*\)\s*([A-Za-z]\w*)\s*\([^{}]*\)\s*[^{}\n]*\{\s*panic\s*\(\s*(["`])unimplemented WASIX:\s*([A-Za-z][A-Za-z0-9_]*)\2\s*\)\s*\}')
+    matches = list(pattern.finditer(driver))
+    found = [match.group(3) for match in matches]
+    # A new direct panic, an altered marker or a mismatch between the method
+    # and message is rejected until it receives an explicit classification.
+    assert driver.count(marker) == len(found), 'unrecognized WASIX stub expression'
+    assert len(list(direct_panic.finditer(driver))) == len(found), 'unclassified direct host panic'
+    assert all(match.group(1) == match.group(3) for match in matches), 'stub names differ'
+    assert len(found) == len(set(found)), 'duplicate WASIX stub'
+    assert set(found) == set(declared), 'WASIX stub classification differs from driver'
+
+
+def test_generated_driver_wasix_stubs_are_explicitly_classified():
+    # Host methods can be added in any non-test file in the generatedgo package.
+    sources = sorted(path for path in (ROOT/'internal/generatedgo').glob('*.go')
+                     if not path.name.endswith('_test.go'))
+    assert sources
+    validate_wasix_stub_classification(
+        '\n'.join(path.read_text() for path in sources),
+        json.loads((ROOT/'release/wasix-host-stubs.json').read_text()))
+
+
+@pytest.mark.parametrize('mutation', ['addition', 'removed', 'duplicate', 'malformed', 'unclassified', 'other_panic', 'typed_panic', 'wrong_method'])
+def test_wasix_stub_inventory_rejects_unreviewed_changes(mutation):
+    source = 'func (h *host) Fd_dup2() { panic("unimplemented WASIX: Fd_dup2") }\n'
+    contract = {'schema': 1, 'classification': 'fail-closed', 'stubs': {'Fd_dup2': 'fail-closed'}}
+    if mutation == 'addition':
+        source += 'func (h *host) New_import() { panic("unimplemented WASIX: New_import") }\n'
+    elif mutation == 'removed':
+        source = ''
+    elif mutation == 'duplicate':
+        source += source
+    elif mutation == 'malformed':
+        source = source.replace('panic("unimplemented WASIX: Fd_dup2")', 'panic("unimplemented WASIX: "+"Fd_dup2")')
+    elif mutation == 'other_panic':
+        source += 'func (h *host) New_import() { panic("not implemented") }\n'
+    elif mutation == 'typed_panic':
+        source += 'func (h *host) New_import() int64 { panic("not implemented") }\n'
+    elif mutation == 'wrong_method':
+        source = source.replace('host) Fd_dup2(', 'host) Different(')
+    else:
+        contract['stubs']['Fd_dup2'] = ''
+    with pytest.raises(AssertionError):
+        validate_wasix_stub_classification(source, contract)
