@@ -5,7 +5,7 @@ import json
 import os
 from pathlib import Path
 
-from development_scope import boundary, event_base, plan
+from development_scope import boundary, canonical_plan, event_base, plan
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -22,18 +22,6 @@ def required(paths, reason):
         or not paths
         or any(boundary(path) != 'docs' for path in paths)
     )
-
-
-def canonical_plan(plan, event, ref):
-    """Delegate only checks owned by Development for this same event/source."""
-    shared = (event == 'pull_request' or (event == 'push' and ref == 'refs/heads/main'))
-    shared = shared and plan.get('reason') in {
-        'local changed-input classification', 'unknown/runtime input',
-    }
-    return {
-        'ubuntu_check': not (shared and plan.get('check_scope') == 'full'),
-        'macos_integration': not (shared and plan.get('integration') is True),
-    }
 
 
 def verify_gate(needs):
@@ -67,7 +55,7 @@ def main():
     if args.github_output:
         with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
             output.write('run_live=' + str(result['run_live']).lower() + '\n')
-            for key in ['ubuntu_check', 'macos_integration']:
+            for key in ['ubuntu_check', 'ubuntu_integration']:
                 output.write(key + '=' + str(result[key]).lower() + '\n')
 
 
