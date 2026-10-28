@@ -5,6 +5,18 @@ This document owns current state and future direction. The
 owns current HOW, [decisions](decisions/snapshot-product-contract.md) own
 continuing product constraints, and reports preserve historical evidence.
 Version themes are direction; they are not release approval.
+
+## Issue #5 host repair — implementation authorized, not adopted
+
+On2026-10-29 the Human authorized the bounded follow-up to the
+[TEXT/BLOB duplicate-removal investigation](reviews/issue5-text-dedup.md): bind
+the host `Fd_dup` import to the existing descriptor implementation and notify
+fatal worker traps promptly. The affected DB becomes unusable, pending calls
+retain the original cause, and worker joining still precedes resource release.
+Other DB instances have independent failure state. No guest-source change,
+new forced interruption of non-cooperative Go code, broader WASIX implementation,
+main adoption or release is authorized by this step. Both-platform SQL parity,
+descriptor/mapping lifetime and injected-trap regressions remain acceptance work.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 

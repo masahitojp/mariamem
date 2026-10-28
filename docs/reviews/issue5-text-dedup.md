@@ -36,14 +36,14 @@ decision; fixing this import alone cannot prevent timeouts from other traps.
   `Using temporary`; another already-open session returns `SELECT 1` during the
   failure. Default and tiny tmp-table limits both reach the four-second timeout.
   `big_tables` returns1193 (not available in this embedded profile).
-- [SIGQUIT stack](issue5-text-dedup-evidence/stack.log): main guest dispatch waits
+- [SIGQUIT stack](issue5-text-dedup-evidence/stack.txt): main guest dispatch waits
   for another input frame, a surviving session worker waits for work, and the
   failed request waits for a response. The failed worker is absent. SIGQUIT is
   deliberately destructive to this one diagnostic DB, and is distinct from the
   ordinary timeout observations.
 - [Diagnostic-only patch](issue5-text-dedup-evidence/diagnostic.patch) prints the
   panic at `base.ThreadLaunch`'s existing recovery boundary. The
-  [captured trap stack](issue5-text-dedup-evidence/default-diagnostic.log) proves
+  [captured trap stack](issue5-text-dedup-evidence/default-diagnostic.txt) proves
   `unimplemented WASIX: Fd_dup` in `internal/generatedgo/main.go`, through
   generated functions `Fn240 ← Fn5168 ← Fn5201 ← Fn5387 ← Fn13032`.
   The corresponding [diagnostic observation](issue5-text-dedup-evidence/probes-diagnostic.json)

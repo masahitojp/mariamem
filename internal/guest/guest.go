@@ -151,6 +151,7 @@ func (p *Process) fail(err error) {
 	if p.failure == nil {
 		p.failure = err
 	}
+	err = p.failure
 	for id, ch := range p.pending {
 		ch <- response{err: err}
 		delete(p.pending, id)
