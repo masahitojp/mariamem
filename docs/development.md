@@ -248,17 +248,29 @@ See [phase 1 evidence](reviews/v05-fast-feedback-phase1.md) and the
 ### Maintained CI ownership and compiler caches
 
 For full PR and main-push diffs, Development owns the Ubuntu canonical `check`
-and macOS canonical `integration`; Live retains macOS `check`, Ubuntu
-`integration`, both-host Live race tests and the native/browser/installed matrix.
+and `integration`; Live retains macOS `check` and `integration`, both-host Live
+race tests and the native/browser/installed matrix. The required `integration`
+context keeps its name and now runs on Ubuntu24.04. Live skips its duplicate
+Ubuntu integration only when the same event/source has full Development coverage.
 Live derives delegation from the same event diff and selector as Development.
 Reduced Development scopes, unavailable diffs, manual runs and experiment pushes
-keep local canonical invocations. The three protected contexts remain separate:
+keep local canonical invocations.
+
+The original Development integration used a published macOS native bundle
+at commit `0a66842`; that dependency was removed with the legacy Wasmer path at
+`c2ebc0a`. The current `verify.py integration` has no macOS-only requirement and
+is also used on Ubuntu by Live and qualification workflows. To reduce contention
+for macOS runners, its standalone required job moves to Ubuntu and macOS coverage
+is consolidated into the already selected Live host job. The historical
+[Live allocation](reviews/v06x-live-ci-dedup-cache.md) describes the prior owners.
+
+The three protected contexts remain separate:
 `check`, `integration`, and `Live required gate`; the Live gate alone does not
 attest the delegated Development jobs. The paired workflow contract tests detect
 changes to their owners, commands, triggers and conditions.
 
 Dump uses the same canonical delegation selector as Live. Its additional Ubuntu
-`check` and macOS `integration` run only when Development does not own the full
+`check` and Ubuntu `integration` run only when Development does not own the full
 corresponding check for the event. Native reference and dump comparisons remain
 independent of this selector. Missing/empty diffs and standalone events
 retain local canonical runs. Dump success alone does not attest the delegated
@@ -270,7 +282,11 @@ Dump experiment pushes). This removes three candidate macOS matrix jobs per PR
 when both workflows are selected, while both Python versions remain tested.
 Their macOS-specific failures can therefore be detected after merge; main-push
 success is not a pre-merge gate. The Human requested this placement to reduce
-macOS runner contention. Required Development and Live macOS checks are retained.
+macOS runner contention. The Human verifies macOS during local development,
+so platform problems can be found before CI. Required Live macOS checks are
+retained; Development's required integration uses Ubuntu. With both candidate
+workflows selected, PRs now need one macOS job (Live) instead of the previous
+five (Development integration, Live, Dump and two Django cells).
 Release CI does not automatically invoke these two dedicated campaigns; when
 separate pre-release evidence is needed, dispatch these workflows at the exact
 candidate SHA. Their main path filters still determine which pushes run them.

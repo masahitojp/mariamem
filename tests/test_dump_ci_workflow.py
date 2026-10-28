@@ -84,12 +84,13 @@ def validate_canonical_ownership(text, development):
     assert 'fetch-depth: 0' in text
     for job, output, command in [
         ('development-checks', 'ubuntu_check', 'check'),
-        ('development-integration', 'macos_integration', 'integration'),
+        ('development-integration', 'ubuntu_integration', 'integration'),
     ]:
         match = re.search(r'^  '+job+r':\n(.*?)(?=^  \S|\Z)', text, re.M | re.S)
         assert match, job
         block = match[1]
         assert 'needs: scope' in block
+        assert 'runs-on: ubuntu-24.04' in block
         assert "if: needs.scope.outputs."+output+" != 'false'" in block
         assert 'python scripts/verify.py '+command in block
         assert output+': ${{ steps.diff.outputs.'+output+' }}' in text
@@ -107,7 +108,7 @@ def test_dump_delegation_keeps_canonical_and_specific_owners():
 @pytest.mark.parametrize('before,after', [
     ('needs: scope', 'needs: []'),
     ("if: needs.scope.outputs.ubuntu_check != 'false'", "if: false"),
-    ("if: needs.scope.outputs.macos_integration != 'false'", "if: false"),
+    ("if: needs.scope.outputs.ubuntu_integration != 'false'", "if: false"),
     ('steps.diff.outputs.ubuntu_check', 'steps.diff.outputs.missing'),
     ('python scripts/verify.py check', 'echo omitted-check'),
     ('python scripts/verify.py integration', 'echo omitted-integration'),
@@ -123,7 +124,7 @@ def test_dump_delegation_regressions_are_detected(before, after):
 
 @pytest.mark.parametrize('before,after', [
     ('runs-on: ubuntu-latest', 'runs-on: macos-15'),
-    ('runs-on: macos-15', 'runs-on: ubuntu-24.04'),
+    ('runs-on: ubuntu-24.04', 'runs-on: macos-15'),
     ('python scripts/verify.py integration', 'echo omitted-integration'),
     ("check --scope '${{ needs.scope.outputs.check_scope }}'", 'check --scope docs'),
     ('    branches: [main]', '    branches: [main]\n    paths: [docs/**]'),

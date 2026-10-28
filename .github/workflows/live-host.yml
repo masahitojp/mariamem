@@ -16,7 +16,7 @@ jobs:
     outputs:
       run_live: ${{ steps.scope.outputs.run_live }}
       ubuntu_check: ${{ steps.scope.outputs.ubuntu_check }}
-      macos_integration: ${{ steps.scope.outputs.macos_integration }}
+      ubuntu_integration: ${{ steps.scope.outputs.ubuntu_integration }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -155,13 +155,13 @@ jobs:
           path: build/reference/py3.14
       - name: Evidence directory
         run: mkdir -p build/live-evidence
-      # Development owns Ubuntu check and macOS integration on full PR/main diffs.
+      # Development owns Ubuntu check and integration on full PR/main diffs.
       # Other events and reduced Development scopes retain local canonical runs.
       - name: Canonical check
         if: runner.os != 'Linux' || needs.scope.outputs.ubuntu_check != 'false'
         run: python scripts/verify.py check > build/live-evidence/check.txt 2>&1
       - name: Canonical integration
-        if: runner.os != 'macOS' || needs.scope.outputs.macos_integration != 'false'
+        if: runner.os != 'Linux' || needs.scope.outputs.ubuntu_integration != 'false'
         run: python scripts/verify.py integration > build/live-evidence/integration.txt 2>&1
       - name: Live race checks on both hosts
         run: |

@@ -55,7 +55,7 @@ def main():
     if args.github_output:
         with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
             output.write('run_live=' + str(result['run_live']).lower() + '\n')
-            for key in ['ubuntu_check', 'macos_integration']:
+            for key in ['ubuntu_check', 'ubuntu_integration']:
                 output.write(key + '=' + str(result[key]).lower() + '\n')
 
 

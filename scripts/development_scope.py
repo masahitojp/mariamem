@@ -153,7 +153,7 @@ def canonical_plan(plan, event, ref):
     }
     return {
         'ubuntu_check': not (shared and plan.get('check_scope') == 'full'),
-        'macos_integration': not (shared and plan.get('integration') is True),
+        'ubuntu_integration': not (shared and plan.get('integration') is True),
     }
 
 

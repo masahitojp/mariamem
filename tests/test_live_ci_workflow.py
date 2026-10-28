@@ -63,7 +63,7 @@ def validate_development_owners(development):
     assert not re.search(r'^    if:', job('check'), re.M)
     assert 'runs-on: ubuntu-latest' in job('check')
     assert "python scripts/verify.py check --scope '${{ needs.scope.outputs.check_scope }}'" in job('check')
-    assert 'runs-on: macos-15' in job('integration')
+    assert 'runs-on: ubuntu-24.04' in job('integration')
     assert "if: needs.scope.outputs.integration == 'true'" in job('integration')
     assert 'python scripts/verify.py integration' in job('integration')
     triggers = development.split('permissions:')[0]
@@ -78,11 +78,11 @@ def validate_canonical_ownership(text, development):
     validate_development_owners(development)
     for name, condition, command in [
         ('Canonical check', "runner.os != 'Linux' || needs.scope.outputs.ubuntu_check != 'false'", 'check'),
-        ('Canonical integration', "runner.os != 'macOS' || needs.scope.outputs.macos_integration != 'false'", 'integration'),
+        ('Canonical integration', "runner.os != 'Linux' || needs.scope.outputs.ubuntu_integration != 'false'", 'integration'),
     ]:
         assert (f'- name: {name}\n        if: {condition}\n'
                 f'        run: python scripts/verify.py {command} >') in text
-    for output in ['ubuntu_check', 'macos_integration']:
+    for output in ['ubuntu_check', 'ubuntu_integration']:
         assert output + ': ${{ steps.scope.outputs.' + output + ' }}' in text
     assert text.count('cache: true') == 2 and 'cache: false' not in text
     assert text.count('          go clean -testcache') == 2
@@ -106,7 +106,7 @@ def test_maintained_live_ci_contract():
     ('--expected-source-commit "$GITHUB_SHA"', '--unbound'),
     ('go test -race -count=1 ./internal/live ./internal/control .', 'go test ./internal/live'),
     ("runner.os != 'Linux' || needs.scope.outputs.ubuntu_check != 'false'", "runner.os == 'macOS'"),
-    ("runner.os != 'macOS' || needs.scope.outputs.macos_integration != 'false'", "runner.os == 'Linux'"),
+    ("runner.os != 'Linux' || needs.scope.outputs.ubuntu_integration != 'false'", "runner.os == 'Linux'"),
     ('cache: true', 'cache: false'),
     ('go clean -testcache', 'echo reuse-test-results'),
 ])
@@ -119,7 +119,7 @@ def test_live_ci_regressions_are_detected(before, after):
 
 @pytest.mark.parametrize('before,after', [
     ('runs-on: ubuntu-latest', 'runs-on: macos-15'),
-    ('runs-on: macos-15', 'runs-on: ubuntu-24.04'),
+    ('runs-on: ubuntu-24.04', 'runs-on: macos-15'),
     ('python scripts/verify.py integration', 'echo omitted-integration'),
     ("check --scope '${{ needs.scope.outputs.check_scope }}'", 'check --scope docs'),
     ('    branches: [main]', '    branches: [main]\n    paths: [docs/**]'),
@@ -149,8 +149,8 @@ def test_canonical_delegation_preserves_each_host(event, ref, scope, integration
     if scope:
         assert plan['check_scope'] == scope and plan['integration'] is integration
     result = canonical_plan(plan, event, ref)
-    assert (result['ubuntu_check'], result['macos_integration']) == expected
-    # macOS check and Ubuntu integration are unconditional in the workflow.
+    assert (result['ubuntu_check'], result['ubuntu_integration']) == expected
+    # Both macOS canonical invocations remain selected by these workflow conditions.
 
 
 def test_uncertain_development_scope_keeps_local_canonical():
@@ -158,7 +158,7 @@ def test_uncertain_development_scope_keeps_local_canonical():
     result = canonical_plan(dict(check_scope='full', integration=True,
                                  reason='event diff unavailable; full verification'),
                             'pull_request', 'refs/pull/3/merge')
-    assert result == dict(ubuntu_check=True, macos_integration=True)
+    assert result == dict(ubuntu_check=True, ubuntu_integration=True)
 
 
 @pytest.mark.parametrize('event,expected', [('pull_request', 'false'), ('workflow_dispatch', 'true')])
@@ -176,7 +176,7 @@ def test_scope_exports_canonical_decisions(monkeypatch, tmp_path, event, expecte
     monkeypatch.setattr(sys, 'argv', ['live_ci.py', 'scope', '--candidate-sha', 'a' * 40, '--github-output'])
     live_ci.main()
     assert output.read_text().splitlines() == [
-        'run_live=true', 'ubuntu_check=' + expected, 'macos_integration=' + expected]
+        'run_live=true', 'ubuntu_check=' + expected, 'ubuntu_integration=' + expected]
 
 
 def test_dependency_selector_covers_all_prior_paths():

@@ -218,5 +218,5 @@ def test_canonical_outputs_share_the_actual_development_plan(monkeypatch, tmp_pa
                                     '--base-sha', 'b'*40, '--github-output'])
     scope.main()
     actual = dict(line.split('=', 1) for line in output.read_text().splitlines())
-    assert (actual['ubuntu_check'], actual['macos_integration']) == expected
+    assert (actual['ubuntu_check'], actual['ubuntu_integration']) == expected
     assert actual['check_scope'] == scope.select(paths, fallback=fallback)['check_scope']

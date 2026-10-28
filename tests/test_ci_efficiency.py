@@ -152,3 +152,30 @@ def test_candidate_platform_regressions_are_detected(before, after):
     assert before in text
     with pytest.raises(AssertionError):
         validate_candidate_platforms(text.replace(before, after))
+
+
+def test_full_pr_requires_only_one_macos_runner_across_maintained_workflows():
+    # Count expanded PR cells from the actual runner and matrix declarations.
+    # The selectors may skip more work; this is the selected full-diff ceiling.
+    macos = []
+    for name in WORKFLOWS:
+        text = (ROOT/'.github/workflows'/f'{name}.yml').read_text()
+        jobs = re.findall(r'^  ([\w-]+):\n(.*?)(?=^  \S|\Z)', text.split('jobs:\n', 1)[1], re.M | re.S)
+        for job, block in jobs:
+            runner = re.search(r'^    runs-on: (.+)$', block, re.M)
+            assert runner
+            if runner[1] == '${{ matrix.os }}':
+                if name in ('django-lifecycle', 'dump-import-productization'):
+                    platforms = candidate_platforms(text, 'pull_request')
+                else:
+                    values = re.search(r'^        os: \[([^]]+)\]$', block, re.M)
+                    assert values
+                    platforms = [v.strip() for v in values[1].split(',')]
+            else:
+                platforms = [runner[1]]
+            python = re.search(r'^        python: \[([^]]+)\]$', block, re.M)
+            multiplicity = len(python[1].split(',')) if python else 1
+            for platform in platforms:
+                if platform.startswith('macos-'):
+                    macos.extend([(name, job)] * multiplicity)
+    assert macos == [('live-host', 'live')]

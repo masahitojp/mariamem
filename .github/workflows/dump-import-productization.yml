@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       ubuntu_check: ${{ steps.diff.outputs.ubuntu_check }}
-      macos_integration: ${{ steps.diff.outputs.macos_integration }}
+      ubuntu_integration: ${{ steps.diff.outputs.ubuntu_integration }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -219,8 +219,8 @@ jobs:
       - run: python scripts/verify.py check
   development-integration:
     needs: scope
-    if: needs.scope.outputs.macos_integration != 'false'
-    runs-on: macos-15
+    if: needs.scope.outputs.ubuntu_integration != 'false'
+    runs-on: ubuntu-24.04
     # CI40204907935 spent most of its 30m budget compiling cold race/ordinary builds.
     # Keep verify.py and individual test deadlines unchanged; allow the full suite to finish.
     timeout-minutes: 60
