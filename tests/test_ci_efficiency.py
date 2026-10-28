@@ -1,4 +1,5 @@
 """Regression contracts for compiler reuse and superseded-PR cancellation."""
+import json
 import os
 from pathlib import Path
 import re
@@ -104,3 +105,50 @@ def test_cache_export_preserves_paths_with_spaces_and_invalidates_results(tmp_pa
     exec(compile(ast.Module(body=[statement], type_ignores=[]), 'build_alpha cache', 'exec'),
          {'build_env': inherited, 'ROOT': ROOT})
     assert inherited['GOCACHE'] == cache
+
+
+def candidate_platforms(text, event):
+    # Parse the deliberately simple event expression; actionlint validates the
+    # GitHub syntax. Changing the event or either list must fail the contract.
+    match = re.search(
+        r"^        os: \$\{\{ github.event_name == 'pull_request' && fromJSON\('([^']+)'\) \|\| fromJSON\('([^']+)'\) \}\}$",
+        text, re.M)
+    assert match, 'missing PR/non-PR platform selection'
+    return json.loads(match[1 if event == 'pull_request' else 2])
+
+
+def validate_candidate_platforms(text):
+    assert candidate_platforms(text, 'pull_request') == ['ubuntu-24.04']
+    for event in ['push', 'workflow_dispatch']:
+        assert candidate_platforms(text, event) == ['ubuntu-24.04', 'macos-15']
+    assert 'runs-on: ${{ matrix.os }}' in text
+    assert re.search(r'^  (?:native-reference|native):\n    runs-on: ubuntu-24.04', text, re.M)
+    assert '  workflow_dispatch:' in text
+    push = re.search(r'^  push:\n(.*?)(?=^  \S|^\S)', text, re.M | re.S)
+    assert push and re.search(r'^    branches: \[main(?:,|\])', push[1], re.M)
+
+
+@pytest.mark.parametrize('name', ['dump-import-productization', 'django-lifecycle'])
+def test_candidate_macos_is_post_merge_or_manual_and_pr_is_ubuntu(name):
+    text = (ROOT/'.github/workflows'/f'{name}.yml').read_text()
+    validate_candidate_platforms(text)
+    if name == 'django-lifecycle':
+        assert text.count("python: ['3.11', '3.14']") == 2
+        assert 'needs: native' in text
+    else:
+        assert 'needs: native-reference' in text
+        assert "python-version: '3.11'" in text and "python-version: '3.14'" in text
+
+
+@pytest.mark.parametrize('before,after', [
+    ("github.event_name == 'pull_request'", "github.event_name == 'workflow_dispatch'"),
+    ('["ubuntu-24.04"]', '["ubuntu-24.04","macos-15"]'),
+    ('["ubuntu-24.04","macos-15"]', '["ubuntu-24.04"]'),
+    ('    branches: [main, experiment/dump-reader-productization]', '    branches: [unused]'),
+    ('  workflow_dispatch:', '  retired_manual:'),
+])
+def test_candidate_platform_regressions_are_detected(before, after):
+    text = (ROOT/'.github/workflows/dump-import-productization.yml').read_text()
+    assert before in text
+    with pytest.raises(AssertionError):
+        validate_candidate_platforms(text.replace(before, after))

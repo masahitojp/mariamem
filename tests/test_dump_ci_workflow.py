@@ -70,7 +70,7 @@ def test_matrix_uses_tested_checkout_not_pr_head_override():
     text = WORKFLOW.read_text()
     assert 'pull_request.head.sha' not in text and 'ref:' not in text
     assert '--expected-source-commit "$GITHUB_SHA"' in text
-    assert 'os: [ubuntu-24.04, macos-15]' in text
+    assert 'runs-on: ${{ matrix.os }}' in text  # Event-specific OS selection is tested in test_ci_efficiency.
     for script in ['campaign.py', 'run.py']:
         source = (ROOT/'tests/dump_import_acceptance'/script).read_text()
         assert 'verify_go_binary(' in source and 'source_identity(' in source

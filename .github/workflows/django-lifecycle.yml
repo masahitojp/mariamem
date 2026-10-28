@@ -93,7 +93,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-15, ubuntu-24.04]
+        # PRs retain Ubuntu; main pushes and manual evidence runs retain macOS.
+        os: ${{ github.event_name == 'pull_request' && fromJSON('["ubuntu-24.04"]') || fromJSON('["ubuntu-24.04","macos-15"]') }}
         python: ['3.11', '3.14']
     env:
       PYTHONPATH: python

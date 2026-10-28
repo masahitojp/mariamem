@@ -259,19 +259,30 @@ changes to their owners, commands, triggers and conditions.
 
 Dump uses the same canonical delegation selector as Live. Its additional Ubuntu
 `check` and macOS `integration` run only when Development does not own the full
-corresponding check for the event. Native reference and both-host dump comparisons
-remain independent of this selector. Missing/empty diffs and standalone events
+corresponding check for the event. Native reference and dump comparisons remain
+independent of this selector. Missing/empty diffs and standalone events
 retain local canonical runs. Dump success alone does not attest the delegated
 Development checks; the protected Development contexts still decide those checks.
+
+Dump guest-comparison and Django recipe select Ubuntu only for pull requests.
+Main pushes and manual `workflow_dispatch` runs retain Ubuntu and macOS (as do
+Dump experiment pushes). This removes three candidate macOS matrix jobs per PR
+when both workflows are selected, while both Python versions remain tested.
+Their macOS-specific failures can therefore be detected after merge; main-push
+success is not a pre-merge gate. The Human requested this placement to reduce
+macOS runner contention. Required Development and Live macOS checks are retained.
+Release CI does not automatically invoke these two dedicated campaigns; when
+separate pre-release evidence is needed, dispatch these workflows at the exact
+candidate SHA. Their main path filters still determine which pushes run them.
 
 Development, Dump, Django and Live use setup-go's GitHub-managed module/build
 cache. Each Go job exports its actual `go env GOCACHE` through `GITHUB_ENV` so
 later wheel builds inherit that cache instead of selecting `build/gocache`.
 Development check/integration and Dump comparison/check/integration have separate
 cache namespaces to avoid competing to save different compilation workloads.
-Django retains all four OS/Python cells; its scratch cleanup does not remove the
-compiler cache before setup-go saves it. Compiler paths are runner-managed;
-scratch budget guards do not account for these compiler caches.
+Django retains both Python versions on each selected OS; its scratch cleanup
+does not remove the compiler cache before setup-go saves it. Compiler paths are
+runner-managed; scratch budget guards do not account for these compiler caches.
 
 The pinned setup-go action keys entries by platform, architecture, Go version
 and declared dependency hashes; the workflow is included in those hashes, with separate native
