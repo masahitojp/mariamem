@@ -79,3 +79,24 @@ This review inspected the changed failure path, canonical adaptation, ownership
 controls, provenance delta, guide changes, current main delta and exact run
 metadata. It did not rerun unchanged runtime suites locally, repeat release
 qualification or reclassify historical evidence as a new integration-source PASS.
+
+## Integration CI compatibility follow-up
+
+Main advanced to `1e60257ff1eb3a2e8c9d4a8f4d6e8ad07ee0920a` after the PR
+opened. It was merged into the PR at `26b69f9622b94407dca77693130d17a33f6f429e`.
+The first combined check failed two CI-efficiency contracts (job123031770352):
+the added worker job lacked compiler-cache reuse and added a second macOS PR
+runner. This is an integration gap in workflow ownership, not a runtime assertion.
+
+The follow-up uses a distinct compiler-cache namespace, discards restored test
+results before execution, and runs worker acceptance on Ubuntu in PRs and on
+both hosts for main/manual runs, matching main's accepted placement policy.
+The cache/platform detector now inventories this third Go job explicitly and
+retains the one-macOS-PR ceiling and negative controls. Runtime/generator/guest
+bytes remain identical to the approved candidate. Original both-host acceptance
+is retained; the new workflow shape needs new CI and is not relabelled as tested.
+
+Focused integration checks:205 tests PASS across CI-efficiency, platform/scope
+selection, affected workflows, canonical worker adaptation, native comparator
+and generated ownership. Runtime suites are delegated to the new PR checks;
+no runtime file changed in this follow-up.
