@@ -117,3 +117,30 @@ setup-cost/performance superiority. Complete G1 acceptance still needs the new
 both-host CI receipts plus the separately tracked actual cleanup/backing fault
 and installed-consumer controls. Difficult Django-specific work remains
 nonblocking for v0.6.0. No support/defer decision is silently expanded here.
+
+## Ubuntu CI collector exit race — run40724194463
+
+[Job122944776649](https://github.com/masahitojp/mariamem/actions/runs/40724194463/job/122944776649)
+completed canonical integration, then stopped in the G1 validator with RSS absent.
+The original artifact12834155230 is preserved as exact ZIP bytes/base64 with its
+GitHub SHA256 digest and [assessment](v06x-go-fixture-campaign-evidence/ci-40724194463-ubuntu/assessment.json).
+Its source_commit is db86a2c8be656df3022456c2ac0a2a855a42f31b (the executed PR merge),
+while PR head was a9cc82b. Neither is substituted for the fixed candidate.
+
+The first mode's Go result/cleanup were PASS/true and process exit was0. Of46 OS
+samples, the last alone reported RSS0, approximately8ms after the Go final cleanup
+record. The collector checked liveness before calling ps but did not check again
+before admitting that result as a live measurement. This evidence matches an exit
+race; the old receipt did not capture process state, so it does not prove a
+specific kernel zombie state.
+
+The fix polls exit status after counter collection. Only an exit-confirmed
+observation goes to terminal_observations (raw members/RSS and exit code retained).
+A process disappearing during collection also retains the terminal error. Live
+RSS0 still fails closed, runtime nonzero exit still fails, and live-sample count,
+retention alignment, memory/FD budgets and checksum requirements are unchanged.
+Deterministic tests cover zero/positive terminal RSS, a disappearing process,
+nonzero exit and live zero; the failed CI receipt stays FAIL. A fresh source-bound
+both-host run is still required. The separate macOS dump job122944044147 was
+cancelled with no executed steps in the bounded metadata read; no code failure
+could be diagnosed from its unavailable log. It is not treated as a PASS.

@@ -86,29 +86,50 @@ def run_command(command, output, env=None):
     return {'command': command, 'elapsed_seconds': time.monotonic() - started}
 
 
+def collect_sample(proc, started):
+    members = process_rss(proc.pid)
+    available, mechanism = available_memory()
+    sample = {'at_seconds': time.monotonic() - started,
+              'unix_ns': time.time_ns(), 'process_tree_rss_bytes': sum(members.values()),
+              'members': members, 'available_memory_bytes': available,
+              'available_memory_mechanism': mechanism}
+    # ps can see a just-exited Linux child with RSS=0 before the parent reaps it.
+    # Preserve that observation, but do not count it as a live-process sample.
+    code = proc.poll()
+    if code is not None:
+        return None, dict(sample, reason='process exited during collection', returncode=code)
+    need(sample['process_tree_rss_bytes'] > 0, 'live runtime process RSS unavailable/zero')
+    return sample, None
+
+
 def observe(command, directory, env, resources):
     stop = directory / 'STOP.txt'
     env = dict(env, MARIAMEM_G1_STOP=str(stop))
-    samples, errors = [], []
+    samples, errors, terminal = [], [], []
     started = time.monotonic()
     with (directory / 'stdout.txt').open('w') as stream:
         proc = subprocess.Popen(command, cwd=ROOT, env=env, stdout=stream,
                                 stderr=subprocess.STDOUT, start_new_session=True)
         while proc.poll() is None:
             try:
-                members = process_rss(proc.pid)
-                available, mechanism = available_memory()
-                rss = sum(members.values())
-                samples.append({'at_seconds': time.monotonic() - started,
-                                'unix_ns': time.time_ns(), 'process_tree_rss_bytes': rss,
-                                'members': members, 'available_memory_bytes': available,
-                                'available_memory_mechanism': mechanism})
+                sample, ended = collect_sample(proc, started)
+                if ended is not None:
+                    terminal.append(ended)
+                    break
+                samples.append(sample)
+                rss = sample['process_tree_rss_bytes']
                 if rss - samples[0]['process_tree_rss_bytes'] > resources['incremental_rss_ceiling_bytes']:
                     stop.write_text('incremental process-tree RSS guard')
             except Exception as exc:
-                if proc.poll() is None:
+                code = proc.poll()
+                if code is None:
                     errors.append(str(exc))
                     stop.write_text('UNVERIFIED host counter: ' + str(exc))
+                else:
+                    terminal.append({'at_seconds': time.monotonic() - started,
+                                     'reason': 'process exited during failed collection',
+                                     'collection_error': str(exc), 'returncode': code})
+                    break
             if time.monotonic() - started > 330:
                 stop.write_text('campaign process deadline; cleanup unconfirmed')
                 os.killpg(proc.pid, signal.SIGTERM)
@@ -124,6 +145,7 @@ def observe(command, directory, env, resources):
               'returncode': code, 'elapsed_seconds': time.monotonic() - started,
               'requested_interval_seconds': .1, 'rss_mechanism': 'sampled process-tree ps RSS sum',
               'samples': samples, 'counter_errors': errors,
+              'terminal_observations': terminal,
               'stop_reason': stop.read_text() if stop.exists() else None}
     write(directory / 'os.json', report)
     need(report['result'] == 'PASS', 'runtime/guard/counter failure; evidence preserved')

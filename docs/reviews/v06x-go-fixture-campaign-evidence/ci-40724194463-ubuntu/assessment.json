@@ -1,0 +1,18 @@
+{
+  "result": "FAIL_PRESERVED",
+  "run_id": 40724194463,
+  "job_id": 122944776649,
+  "artifact_id": 12834155230,
+  "artifact_zip_sha256": "e5645bacaacd78aead98a0c1f3899c35ac45496a722d8969b268a43ab97f101c",
+  "pr_head_commit": "a9cc82b6ceb96e1c55b5d53dd1f79657009796db",
+  "source_commit": "db86a2c8be656df3022456c2ac0a2a855a42f31b",
+  "failure": "RSS absent in cap1-parallel1 validator",
+  "host_result": "FAIL",
+  "go_result": "PASS",
+  "go_cleanup_complete": true,
+  "process_returncode": 0,
+  "os_sample_count": 46,
+  "terminal_rss_zero_samples": 1,
+  "last_os_sample_after_go_final_ns": 8009860,
+  "claim": "Original failed receipt is not relabelled. Post-exit collection race is diagnosed from source and timing; fix requires exit confirmation before classifying a terminal observation."
+}

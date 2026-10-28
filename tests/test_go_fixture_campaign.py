@@ -3,6 +3,8 @@ import copy
 import json
 from pathlib import Path
 import sys
+import time
+from types import SimpleNamespace
 
 import pytest
 
@@ -11,6 +13,65 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 import go_fixture_campaign as campaign
 
 RESOURCES = json.loads((ROOT / 'docs/reviews/v06x-fixture-acceptance.json').read_text())['resources']
+
+
+@pytest.mark.parametrize('rss', [0, 4096])
+def test_exit_during_collection_is_preserved_but_not_a_live_sample(monkeypatch, rss):
+    monkeypatch.setattr(campaign, 'process_rss', lambda pid: {str(pid): rss})
+    monkeypatch.setattr(campaign, 'available_memory', lambda: (1024, 'test counter'))
+    proc = SimpleNamespace(pid=123, poll=lambda: 0)
+    sample, ended = campaign.collect_sample(proc, time.monotonic())
+    assert sample is None
+    assert ended['members'] == {'123': rss}
+    assert ended['returncode'] == 0
+    assert ended['reason'] == 'process exited during collection'
+
+
+def test_live_zero_rss_still_fails_closed(monkeypatch):
+    monkeypatch.setattr(campaign, 'process_rss', lambda pid: {str(pid): 0})
+    monkeypatch.setattr(campaign, 'available_memory', lambda: (1024, 'test counter'))
+    with pytest.raises(ValueError, match='live runtime process RSS'):
+        campaign.collect_sample(SimpleNamespace(pid=123, poll=lambda: None), time.monotonic())
+
+
+def test_live_rss_is_retained(monkeypatch):
+    monkeypatch.setattr(campaign, 'process_rss', lambda pid: {str(pid): 4096})
+    monkeypatch.setattr(campaign, 'available_memory', lambda: (1024, 'test counter'))
+    sample, ended = campaign.collect_sample(SimpleNamespace(pid=123, poll=lambda: None), time.monotonic())
+    assert ended is None and sample['process_tree_rss_bytes'] == 4096
+
+
+@pytest.mark.parametrize('last', ['zero_after_exit', 'missing_after_exit', 'nonzero_exit', 'live_zero'])
+def test_observer_exit_race_and_counter_failures(tmp_path, monkeypatch, last):
+    polls = iter([None, None] * 3 + [None, None, None, 0] if last == 'live_zero'
+                 else [None, None] * 3 + [None, 2 if last == 'nonzero_exit' else 0])
+    code = 2 if last == 'nonzero_exit' else 0
+    proc = SimpleNamespace(pid=123, poll=lambda: next(polls, code), wait=lambda **kwargs: code)
+    monkeypatch.setattr(campaign.subprocess, 'Popen', lambda *args, **kwargs: proc)
+    monkeypatch.setattr(campaign, 'available_memory', lambda: (1024, 'test counter'))
+    monkeypatch.setattr(campaign.time, 'sleep', lambda seconds: None)
+    calls = 0
+    def read(pid):
+        nonlocal calls
+        calls += 1
+        if calls == 4 and last == 'missing_after_exit':
+            raise ValueError('runtime process RSS unavailable')
+        return {str(pid): 0 if calls == 4 else 4096}
+    monkeypatch.setattr(campaign, 'process_rss', read)
+    if last in ('live_zero', 'nonzero_exit'):
+        with pytest.raises(ValueError, match='runtime/guard/counter failure'):
+            campaign.observe(['test-process'], tmp_path, {}, RESOURCES)
+    else:
+        campaign.observe(['test-process'], tmp_path, {}, RESOURCES)
+    result = json.loads((tmp_path / 'os.json').read_text())
+    assert len(result['samples']) == 3
+    if last == 'live_zero':
+        assert result['counter_errors'] and result['result'] == 'UNVERIFIED'
+    else:
+        assert result['terminal_observations'][0]['returncode'] == code
+        assert not result['counter_errors']
+        if last == 'zero_after_exit':
+            assert result['terminal_observations'][0]['process_tree_rss_bytes'] == 0
 
 
 def observations(cap=2, parallel=4):
