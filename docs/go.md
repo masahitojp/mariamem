@@ -6,6 +6,10 @@ reuse. Public save/load APIs are removed. See
 [installation](../README.md#installation) for supported platforms.
 The public package is `github.com/masahitojp/mariamem`.
 
+For the unreleased Go prepared-test helper candidate, see
+[prepared Go fixtures](go-prepared-fixture.md). The v0.5.3 examples below retain
+explicit lifecycle ownership.
+
 ## Start fresh
 
 Use `Start` to acquire a disposable database and an ordinary MySQL driver to

@@ -860,6 +860,14 @@ The approved first implementation is G1 under the reviewed API, ownership,
 diagnostic profile and resource defaults; no main adoption or release is
 authorized by this decision.
 
+**G1 implementation checkpoint:** the candidate adds the separate Go
+mariamemtest helper under the approved ownership/defaults and readable-owned
+diagnostic profile. See [usage](go-prepared-fixture.md) and
+[remaining acceptance](reviews/v06x-go-fixture-implementation.md). Unit and
+actual-guest oracles are being added; no both-host, resource/time campaign or
+G1 completion is claimed. No root runtime/guest change, main adoption or release
+is included.
+
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,
 including preparation, metadata, prepared/results, pools/reconnect/session
