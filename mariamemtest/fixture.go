@@ -55,13 +55,20 @@ func failure(stage string, cause, cleanup error) error {
 	state := "completed"
 	if cleanup != nil {
 		state = "unconfirmed (see cleanup error)"
+	} else if stage == "capture" && cause != nil {
+		state = "helper owners finalized; capture-internal cleanup unverified"
 	}
 	action := "inspect the original error; the underlying cause may be unknown"
 	switch stage {
 	case "prepare":
 		action = "check the preparation callback or migration command against the supplied target"
-	case "disconnect", "capture":
+	case "disconnect":
 		action = "finish transactions and retire all preparation connections before capture"
+	case "capture":
+		action = "inspect the original capture and cleanup errors; the underlying cause may be unknown"
+		if errors.Is(cause, mariamem.ErrBusy) || errors.Is(cause, mariamem.ErrTransactionActive) {
+			action = "finish transactions and retire all preparation connections before capture"
+		}
 	case "acquire":
 		action = "release test-owned children or increase MaxForks; check cancellation and parent/subtest ownership"
 	}

@@ -85,6 +85,9 @@ Helper setup/acquisition errors explain the stage, preserved original failure,
 cleanup state and a next action (or an unknown underlying cause). `errors.Is` and
 `errors.As` can inspect both original and cleanup errors, including MySQL errno
 and SQLSTATE. Ordinary test assertions and SQL calls keep their normal output.
+After a capture failure, successful helper-owner finalization is reported
+separately from unverified capture-internal cleanup; inspect the original error
+for backing-release details. A generic capture error does not imply a busy DB.
 Cleanup errors are reported even when the test already failed. `Run` skips the
 suite on failed setup, preserves a nonzero suite exit code and changes a zero
 exit to1 when final cleanup fails. It does not retry failed work.

@@ -159,6 +159,8 @@ jobs:
         run: python scripts/verify.py integration > build/live-evidence/integration.txt 2>&1
       - name: Bounded G1 fixture acceptance on both hosts
         run: python scripts/go_fixture_campaign.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/g1
+      - name: G1 physical fault controls and external Go fixture consumer
+        run: python scripts/go_fixture_completion.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/g1/completion
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
@@ -233,4 +235,6 @@ jobs:
           path: build/g1-matrix
       - name: Validate both source-bound G1 host receipts
         if: needs.scope.outputs.run_live == 'true'
-        run: python scripts/go_fixture_campaign.py --expected-source-commit "$GITHUB_SHA" --validate-matrix build/g1-matrix
+        run: |
+          python scripts/go_fixture_campaign.py --expected-source-commit "$GITHUB_SHA" --validate-matrix build/g1-matrix
+          python scripts/go_fixture_completion.py --expected-source-commit "$GITHUB_SHA" --validate-matrix build/g1-matrix
