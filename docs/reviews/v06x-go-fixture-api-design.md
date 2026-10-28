@@ -1,11 +1,12 @@
 # Go prepared fixture — minimal API and ownership proposal
 
 2026-10-28. Design against stable main source_commit
-`cc00ccd98e29a1f5d5088a082be90a3cdaa4f469`; current branch changes are planning
+`cc00ccd98e29a1f5d5088a082be90a3cdaa4f469`; at review time the branch contained planning
 documents/test tooling only. No helper implementation or build is authorized by
 this proposal alone. The Human subsequently approved G1 implementation against
 reviewed design commit39f9757, with D1 nonblocking for v0.6.0 as recorded in the
-[scope](v06x-dogfood-scope-draft.md). No implementation has run yet. [Scope](v06x-dogfood-scope-draft.md),
+[scope](v06x-dogfood-scope-draft.md). Implementation and its current verification are now tracked in the
+[checkpoint record](v06x-go-fixture-implementation.md). [Scope](v06x-dogfood-scope-draft.md),
 [milestone](v06x-go-fixture-first-milestone.md) and
 [acceptance manifest](v06x-fixture-acceptance.json) are cross-checks.
 

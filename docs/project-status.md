@@ -863,9 +863,9 @@ authorized by this decision.
 **G1 implementation checkpoint:** the candidate adds the separate Go
 mariamemtest helper under the approved ownership/defaults and readable-owned
 diagnostic profile. See [usage](go-prepared-fixture.md) and
-[remaining acceptance](reviews/v06x-go-fixture-implementation.md). Unit and
-actual-guest oracles are being added; no both-host, resource/time campaign or
-G1 completion is claimed. No root runtime/guest change, main adoption or release
+[remaining acceptance](reviews/v06x-go-fixture-implementation.md). Local macOS27.2 arm64 canonical check, helper race tests, actual-guest
+oracles and the guide sample passed at code source_commit5c739b7. Both-host CI
+and resource/time campaign evidence remain pending; G1 completion is not claimed. No root runtime/guest change, main adoption or release
 is included.
 
 Wire sufficiency remains an explicit verification obligation. Cross-check the

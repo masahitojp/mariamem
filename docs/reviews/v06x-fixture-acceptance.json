@@ -18,7 +18,7 @@
       "profile": "database/sql/mysql1.9.3",
       "diagnostic_profile": "readable-owned",
       "fallback_allowed": true,
-      "status": "DESIGN_NOT_IMPLEMENTED"
+      "status": "IMPLEMENTED_CHECKPOINT_ACCEPTANCE_PENDING"
     },
     {
       "id": "D1",

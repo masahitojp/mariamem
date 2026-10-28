@@ -48,3 +48,28 @@ with its obstacle and remaining work recorded. Shared defects still need
 assessment against required entry contracts. This PR is an implementation
 checkpoint, not G1-complete, overall v0.6-complete, main adoption, Qualification
 or release approval.
+
+## Local observation — 2026-10-29
+
+Code source_commit `5c739b7d4df84b13a16374ebbce00bec45ee69c4` was inspected
+with scripts/git_identity.py before verification. Observed host: macOS27.2
+arm64, Go1.26.10, Python3.14.9. This is not a macOS15/Ubuntu matrix receipt.
+
+| Check | Observed result |
+| --- | --- |
+| scripts/verify.py check (full) | PASS: generated source/inclusion, 22 source-oracle Python tests, Go unit/vet, then1167 Python PASS /47 explicit SKIP /76 subtests; one existing shadow_maria registration warning; public source check PASS |
+| go test -race ./mariamemtest -count=1 -timeout=60s -cover | PASS; statement coverage81.9%, component mocks rather than raced actual-guest qualification |
+| go test -p 1 -tags=integration ./tests/gointegration -run '^TestFixture' -count=1 -parallel=4 -timeout=3m -v | PASS: normal/reverse and four parallel prepared children, prepared parameters, committed schema/data changes, ordinary-failure subprocess, original1146/42S02 |
+| Exact Go block extracted from docs/go-prepared-fixture.md, go test with -shuffle=on | PASS: TestMain/Run plus both tests, observed Seed-before-Commit order on this source |
+
+The first full-check attempt failed three unchanged Python routing tests because
+SQLAlchemy was absent from the selected local venv. Installing the existing
+fixed tests/routing_acceptance/unit-requirements.txt restored the final full
+PASS above; no test or client was relaxed. The broad Python suite is not the
+separate Connector/Python/OpenSSL runtime integration gate.
+
+Follow-up commits may update status/records without relabelling this observation
+as a different tested source. The contract lint's runtime NOT_RUN refers to the
+lint itself/full future campaign; these specific local correctness results do
+not grant full G1 acceptance. Both-host CI and all remaining resource/disposal/
+installed-consumer work above are still pending.
