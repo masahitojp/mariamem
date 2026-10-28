@@ -7,6 +7,7 @@ import (
 	"database/sql/driver"
 	"errors"
 	"fmt"
+	"runtime"
 	"strings"
 	"sync"
 	"testing"
@@ -360,6 +361,54 @@ func TestPoolCleanupFailureStillClosesChildAndKeepsBothErrors(t *testing.T) {
 	}
 	if !errors.Is(f.Close(), poolErr) || j.count("child.dispose") != 1 {
 		t.Fatal("cleanup error lost on repeated Close")
+	}
+}
+
+func TestCleanupDebtWakesQueuedAcquisition(t *testing.T) {
+	deps, _, b, j := environment()
+	cleanup := errors.New("unconfirmed child disposal")
+	b.forkFn = func(context.Context) (database, error) { return &fakeDB{name: "child", j: j, closeErr: cleanup}, nil }
+	f, err := newFixture(t.Context(), Options{MaxForks: 1}, deps)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var owner *child
+	if _, err = f.get(t.Context(), "owner", func(c *child) { owner = c }); err != nil {
+		t.Fatal(err)
+	}
+	waiting := make(chan error, 1)
+	go func() {
+		_, err := f.get(t.Context(), "waiting", func(*child) { t.Error("admitted after cleanup failure") })
+		waiting <- err
+	}()
+	ctx, cancel := context.WithTimeout(t.Context(), time.Second)
+	defer cancel()
+	for {
+		f.mu.Lock()
+		queued := f.entries["waiting"] != nil
+		f.mu.Unlock()
+		if queued {
+			break
+		}
+		if ctx.Err() != nil {
+			t.Fatal("acquisition did not enter queue")
+		}
+		runtime.Gosched()
+	}
+	if err = f.dispose(owner); !errors.Is(err, cleanup) {
+		t.Fatal(err)
+	}
+	select {
+	case err = <-waiting:
+		var detail *Error
+		if !errors.Is(err, cleanup) || !errors.As(err, &detail) || !strings.Contains(detail.CleanupState, "unconfirmed") {
+			t.Fatal(err)
+		}
+	case <-ctx.Done():
+		t.Fatal("cleanup failure did not wake queued acquisition")
+	}
+	if err = f.Close(); !errors.Is(err, cleanup) || b.n != 1 {
+		t.Fatal(err)
 	}
 }
 

@@ -308,6 +308,11 @@ func (f *Fixture) get(ctx context.Context, key any, register func(*child)) (*sql
 	}
 	if err != nil {
 		cleanup := f.dispose(c)
+		if cleanup == nil {
+			f.mu.Lock()
+			cleanup = f.debt
+			f.mu.Unlock()
+		}
 		c.pool = nil
 		c.err = failure("acquire", err, cleanup)
 		return nil, c.err
@@ -329,6 +334,7 @@ func (f *Fixture) dispose(c *child) error {
 		if c.cleanupErr != nil {
 			f.mu.Lock()
 			f.debt = errors.Join(f.debt, c.cleanupErr)
+			f.stopLocked()
 			f.mu.Unlock()
 		} else if c.permit {
 			<-f.permits
@@ -340,14 +346,21 @@ func (f *Fixture) dispose(c *child) error {
 	return nil
 }
 
+// stopLocked wakes queued acquisitions as well as rejecting new callers.
+func (f *Fixture) stopLocked() {
+	if !f.closed {
+		f.closed = true
+		close(f.stopped)
+	}
+}
+
 // Close stops admission and actively closes pools, children, then the baseline.
 // It is idempotent and returns the stored result. Cleanup does not use a canceled
 // test context. Underlying noncooperative guest operations can outlast deadlines.
 func (f *Fixture) Close() error {
 	f.closeOnce.Do(func() {
 		f.mu.Lock()
-		f.closed = true
-		close(f.stopped)
+		f.stopLocked()
 		f.mu.Unlock()
 		f.starting.Wait()
 		for _, c := range f.entries {
