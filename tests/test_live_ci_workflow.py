@@ -182,7 +182,13 @@ def test_dependency_selector_covers_all_prior_paths():
 
 @pytest.mark.parametrize('paths,reason,expected', [
     (['README.md', 'docs/development.md'], 'local changed-input classification', False),
-    (['docs/decisions/prepared-consumer-exceptions.md'], 'local changed-input classification', True),
+    (['docs/project-status.md'], 'local changed-input classification', False),
+    (['docs/reviews/issue5-text-dedup.md'], 'local changed-input classification', False),
+    (['docs/benchmarks/go126-vs-go127-evidence/statistics.csv'], 'local changed-input classification', False),
+    (['docs/decisions/prepared-consumer-exceptions.md'], 'local changed-input classification', False),
+    (['docs/benchmarks/go126-vs-go127-evidence/runtime.go'], 'local changed-input classification', True),
+    (['docs/new-evidence.json'], 'local changed-input classification', True),
+    (['docs/project-status.md', 'live.go'], 'local changed-input classification', True),
     (['unknown.input'], 'local changed-input classification', True),
     ([], 'local changed-input classification', True),
     (['README.md'], 'event base unavailable; full verification', True),
