@@ -7,6 +7,12 @@ import (
 	"time"
 )
 
+func TestNonSharedWaitNeedsNoThreadPool(t *testing.T) {
+	if rc := AtomicWait(&Module{}, 0, -1, func() bool { t.Fatal("non-shared wait compared memory"); return true }); rc != 1 {
+		t.Fatal(rc)
+	}
+}
+
 func TestWorkerFailureNotifiesBeforeJoinAndCancelsWaits(t *testing.T) {
 	m := allocationModule()
 	m.Threads = &ThreadPool{}

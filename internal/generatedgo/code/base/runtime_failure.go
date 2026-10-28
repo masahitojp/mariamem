@@ -36,7 +36,7 @@ func (p *ThreadPool) recordTrap(cause any) {
 }
 
 func (p *ThreadPool) failureDone() <-chan struct{} {
-	if p.failure == nil {
+	if p == nil || p.failure == nil {
 		return nil
 	}
 	return p.failure.done
