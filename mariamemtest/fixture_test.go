@@ -279,9 +279,9 @@ func TestBoundedAdmissionAndCancellation(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	ctx, cancel := context.WithCancel(t.Context())
-	cancel()
-	if _, err := f.get(ctx, "blocked", register); !errors.Is(err, context.Canceled) {
+	ctx, cancel := context.WithTimeout(t.Context(), 100*time.Millisecond)
+	defer cancel()
+	if _, err := f.get(ctx, "blocked", register); !errors.Is(err, context.DeadlineExceeded) {
 		t.Fatal(err)
 	}
 	if b.n != 2 || len(f.permits) != 2 {
@@ -295,6 +295,71 @@ func TestBoundedAdmissionAndCancellation(t *testing.T) {
 	}
 	if b.n != 3 || len(f.permits) != 2 {
 		t.Fatal("permit not returned after confirmed cleanup")
+	}
+}
+
+func TestChildPoolConstructionFailures(t *testing.T) {
+	for _, stage := range []string{"fork", "open", "ping"} {
+		t.Run(stage, func(t *testing.T) {
+			deps, _, b, j := environment()
+			original := errors.New("child " + stage + " failed")
+			b.forkFn = func(context.Context) (database, error) {
+				if stage == "fork" {
+					return nil, original
+				}
+				return &fakeDB{name: "child", j: j}, nil
+			}
+			open := deps.open
+			deps.open = func(name string, a, z int) (*sql.DB, error) {
+				if name == "source" {
+					return open(name, a, z)
+				}
+				if stage == "open" {
+					return nil, original
+				}
+				return sql.OpenDB(connector{j: j, name: name, pingErr: original}), nil
+			}
+			f := mustFixture(t, deps, Options{MaxForks: 1})
+			if _, err := f.get(t.Context(), "failed", func(*child) { t.Fatal("registered failed child") }); !errors.Is(err, original) {
+				t.Fatal(err)
+			}
+			if len(f.permits) != 0 {
+				t.Fatal("successful disposal lost permit")
+			}
+			if stage != "fork" && j.count("child.dispose") != 1 {
+				t.Fatal(j.text())
+			}
+			if err := f.Close(); err != nil {
+				t.Fatal(err)
+			}
+		})
+	}
+}
+
+func TestPoolCleanupFailureStillClosesChildAndKeepsBothErrors(t *testing.T) {
+	deps, _, b, j := environment()
+	poolErr, childErr := errors.New("pool close failed"), errors.New("child close failed")
+	b.forkFn = func(context.Context) (database, error) { return &fakeDB{name: "child", j: j, closeErr: childErr}, nil }
+	open := deps.open
+	deps.open = func(name string, a, z int) (*sql.DB, error) {
+		if name == "source" {
+			return open(name, a, z)
+		}
+		return sql.OpenDB(connector{j: j, name: name, closeErr: poolErr}), nil
+	}
+	f, err := newFixture(t.Context(), Options{}, deps)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err = f.get(t.Context(), "a", func(*child) {}); err != nil {
+		t.Fatal(err)
+	}
+	err = f.Close()
+	if !errors.Is(err, poolErr) || !errors.Is(err, childErr) || !strings.HasSuffix(j.text(), "child.pool.close,child.dispose,baseline.close") {
+		t.Fatal(err, j.text())
+	}
+	if !errors.Is(f.Close(), poolErr) || j.count("child.dispose") != 1 {
+		t.Fatal("cleanup error lost on repeated Close")
 	}
 }
 
