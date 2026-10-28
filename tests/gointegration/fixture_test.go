@@ -35,6 +35,10 @@ func fixtureSeed(t *testing.T, p *sql.DB) {
 	if err := p.QueryRowContext(t.Context(), "SELECT COUNT(*), MIN(label) FROM fixture_items").Scan(&n, &label); err != nil || n != 1 || label != "seed" {
 		t.Fatalf("starting data %d/%q: %v", n, label, err)
 	}
+	// Parameterized SQL exercises the helper's normal prepared-driver path.
+	if err := p.QueryRowContext(t.Context(), "SELECT label FROM fixture_items WHERE id=?", 1).Scan(&label); err != nil || label != "seed" {
+		t.Fatalf("prepared parameter/result %q: %v", label, err)
+	}
 	if err := p.QueryRowContext(t.Context(), "SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='fixture_items'").Scan(&n); err != nil || n != 2 {
 		t.Fatalf("starting schema %d: %v", n, err)
 	}
