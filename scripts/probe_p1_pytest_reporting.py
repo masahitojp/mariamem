@@ -29,6 +29,7 @@ def pytest_runtest_makereport(item, call):
             return
         seen.add(id(error))
         failures.append({"type": type(error).__name__, "message": str(error),
+            "notes": list(getattr(error, "__notes__", ())),
             "entry_fields": [name for name in ("stage", "admission_state", "cleanup_state")
                              if hasattr(error, name)]})
         walk(error.__cause__)
@@ -54,9 +55,17 @@ def test_second(mariamem_fork):
     record_body('second')
     assert mariamem_fork.data == {'seed': 1}
 '''
-MODES = ('healthy', 'ordinary-failure', 'child-cleanup-debt',
+ANNOTATION_HOOK = """
+@pytest.hookimpl(hookwrapper=True)
+def pytest_fixture_setup(fixturedef, request):
+    outcome = yield
+    if fixturedef.argname == 'mariamem_prepare' and outcome.excinfo is not None:
+        outcome.excinfo[1].add_note(
+            'P1_PROBE_NOTE: stage=prepare; admission=stopped; cleanup=pending')
+"""
+MODES = ('healthy' , 'ordinary-failure', 'child-cleanup-debt',
          'callback-and-source-failure', 'fixture-and-source-failure',
-         'capture-and-source-failure')
+         'capture-and-source-failure', 'annotated-fixture-and-source-failure')
 
 
 def need(value, reason):
@@ -91,7 +100,7 @@ def run_case(python, mode, output, runtime):
         preparation = '''
 @pytest.fixture(scope='session')
 def mariamem_prepare(mariamem_server):
-    if MODE == 'fixture-and-source-failure':
+    if MODE in ('fixture-and-source-failure', 'annotated-fixture-and-source-failure'):
         raise ValueError('PRIMARY_FIXTURE_FAILURE')
     def prepare(db):
         record('prepare')
@@ -103,7 +112,8 @@ def mariamem_prepare(mariamem_server):
         return 'ignored-result'
     return prepare
 '''
-        (directory / 'conftest.py').write_text(preamble + runtime + REPORTER + preparation)
+        (directory / 'conftest.py').write_text(preamble + runtime + REPORTER + preparation
+            + (ANNOTATION_HOOK if mode != 'fixture-and-source-failure' else ''))
         (directory / 'test_case.py').write_text(preamble + '''
 from pathlib import Path
 
@@ -129,6 +139,7 @@ def record_body(name):
         if mode.endswith('and-source-failure'):
             primary = {'callback-and-source-failure': 'PRIMARY_PREPARE_FAILURE',
                        'fixture-and-source-failure': 'PRIMARY_FIXTURE_FAILURE',
+                       'annotated-fixture-and-source-failure': 'PRIMARY_FIXTURE_FAILURE',
                        'capture-and-source-failure': 'PRIMARY_CAPTURE_FAILURE'}[mode]
             need({primary, 'SOURCE_CLEANUP_FAILURE'} <= messages, mode + ': original/cleanup not retained')
             need(not bodies and 'fork' not in events, mode + ': dependent body admitted')
@@ -136,6 +147,12 @@ def record_body(name):
             need(bodies == ['first', 'second'], mode + ': healthy next-child census')
             need(events.count('prepare') == events.count('snapshot') == 1, mode + ': preparation repeated')
             need(events.count('fork') == events.count('child.close') == 2, mode + ': child census')
+        notes = [note for error in errors for note in error['notes']]
+        if mode == 'annotated-fixture-and-source-failure':
+            need(notes and all(note.startswith('P1_PROBE_NOTE:') for note in notes)
+                 and 'P1_PROBE_NOTE:' in result.stdout, 'narrow note not rendered')
+        else:
+            need(not notes, mode + ': unrelated operation was annotated')
         if mode == 'child-cleanup-debt':
             need({'PRIMARY_TEST_FAILURE', 'CHILD_CLEANUP_FAILURE'} <= messages, 'both test/cleanup errors missing')
             need(any(r['node'] == 'test_first' and r['phase'] == 'teardown'
