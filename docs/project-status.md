@@ -768,6 +768,35 @@ separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Dogfood and fixture ergonomics
 
+**Dogfood scope and release sequencing agreed with the Human, 2026-10-29:**
+
+- The five named entries (P1 Python pytest/`shadow_maria`, G1 Go helper,
+  D1 Django, EP1 Python browser E2E, EG1 Go HTTP E2E) are the complete v0.6
+  dogfood obligation. None may be silently dropped from a completion report.
+  The 2026-10-28 Django policy still applies: D1 may be deferred when it proves
+  difficult, but only with its concrete obstacle and remaining work recorded.
+  A deferral is a disposition of the obligation, not a reduction of it.
+- **Complete dogfood is a prerequisite for the v0.6.0 release.** Recipes,
+  component PASS, unit tests or single-platform runs do not satisfy it; the
+  acceptance campaign (declared profiles, both supported hosts, time and resource
+  outcomes) does. The release order is therefore dogfood completion, or a
+  recorded D1 deferral, then version/notes, Qualification and release.
+- **dbt is adopted as an independent CLI preparation workload profile,
+  conditional on issue #5** (`Fd_dup` / TEXT deduplication) being resolved. It is
+  not a sixth named entry and not a workload of P1: dbt is a command-line
+  preparation/run tool with its own client and failure surface, so it is
+  evaluated against its own declared profile (pinned lock, preparation command
+  surface, TEXT-dedup matrix, failure semantics, both supported hosts).
+  `dbt-mysql 1.7.0` pins `dbt-core~=1.7` (an EOL line) and depends on
+  Connector/Python; both are recorded limits of that profile. Promoting dbt to a
+  supported entry with product guarantees would require a separate decision.
+- These entries, their acceptance contract and the diagnostic levels live in the
+  scope proposal carried by PR #6
+  ([scope draft](https://github.com/masahitojp/mariamem/blob/docs/v06-independent-django-input/docs/reviews/v06x-dogfood-scope-draft.md),
+  [acceptance contract](https://github.com/masahitojp/mariamem/blob/docs/v06-independent-django-input/docs/reviews/v06x-fixture-acceptance.json)).
+  This entry records the decision; it does not claim any entry is implemented or
+  accepted.
+
 **North-star discussion recorded with the Human, 2026-10-18:** reduce the work
 of establishing and growing database tests in both new applications and existing
 systems without tests, so developers can focus on features and their behavior.
