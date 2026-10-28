@@ -5,6 +5,7 @@ on:
     paths:
       - 'tests/django_lifecycle/**'
       - 'tests/test_django_recipe_*.py'
+      - 'tests/test_ci_efficiency.py'
       - 'tests/e2e_native_control/pythonapp/**'
       - 'tests/dump_import_acceptance/linux*'
       - 'docs/examples/django/**'
@@ -24,6 +25,7 @@ on:
     paths:
       - 'tests/django_lifecycle/**'
       - 'tests/test_django_recipe_*.py'
+      - 'tests/test_ci_efficiency.py'
       - 'tests/e2e_native_control/pythonapp/**'
       - 'tests/dump_import_acceptance/linux*'
       - 'docs/examples/django/**'
@@ -89,13 +91,13 @@ jobs:
   recipe:
     needs: native
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 45
+    # One host build plus both 20-minute case budgets; individual deadlines stay fixed.
+    timeout-minutes: 65
     strategy:
       fail-fast: false
       matrix:
-        # PRs retain Ubuntu; main pushes and manual evidence runs retain macOS.
+        # Build one host per OS, then exercise both Python versions against it.
         os: ${{ github.event_name == 'pull_request' && fromJSON('["ubuntu-24.04"]') || fromJSON('["ubuntu-24.04","macos-15"]') }}
-        python: ['3.11', '3.14']
     env:
       PYTHONPATH: python
     steps:
@@ -115,10 +117,18 @@ jobs:
           echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
           go clean -testcache
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        id: py311
         with:
-          python-version: ${{ matrix.python }}
-      - name: Native client headers and pinned framework
+          python-version: '3.11'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        id: py314
+        with:
+          python-version: '3.14'
+      - name: Native client headers and pinned frameworks
         shell: bash
+        env:
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
         run: |
           if [[ "$RUNNER_OS" == Linux ]]; then
             sudo apt-get update
@@ -127,25 +137,51 @@ jobs:
             brew install pkgconf mariadb-connector-c
             export PKG_CONFIG_PATH="$(brew --prefix mariadb-connector-c)/lib/pkgconfig"
           fi
-          mkdir -p build/django-evidence
-          python -m pip install --no-cache-dir --report build/django-evidence/dependencies.json -r tests/django_lifecycle/requirements.txt
+          for py in "$PY311" "$PY314"; do
+            version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+            mkdir -p "build/django-evidence/py$version"
+            "$py" -m pip install --no-cache-dir --report "build/django-evidence/py$version/dependencies.json" -r tests/django_lifecycle/requirements.txt
+          done
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          name: django-native-${{ matrix.python }}-${{ github.sha }}
-          path: build/django-reference
-      - name: Pure ownership and receipt mutation checks
-        run: python -m pytest tests/test_django_recipe_unit.py -q -p no:cacheprovider
-      - name: Exact clean source before host build
+          name: django-native-3.11-${{ github.sha }}
+          path: build/django-reference/py3.11
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: django-native-3.14-${{ github.sha }}
+          path: build/django-reference/py3.14
+      - name: Pure ownership and receipt mutation checks on both interpreters
+        shell: bash
+        env:
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
+        run: |
+          django_status=0
+          for py in "$PY311" "$PY314"; do
+            "$py" -m pytest tests/test_django_recipe_unit.py -q -p no:cacheprovider || django_status=1
+          done
+          exit "$django_status"
+      - name: Exact clean source before the single host build
         run: |
           python scripts/git_identity.py inspect HEAD
           python -c 'import sys; sys.path.insert(0,"tests/dump_import_acceptance"); from linux_acquisition import source_identity; import os; source_identity(os.environ["GITHUB_SHA"])'
           python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-work" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host
-      - name: Standard runner, mixed orders, original errors and owner disposal
-        run: python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-work" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- python tests/django_lifecycle/ci.py --route guest --host build/mariamem-host --reference build/django-reference/reference --expected-source-commit "$GITHUB_SHA" --output build/django-evidence/acceptance
+      - name: Standard runner, mixed orders, original errors and owner disposal on both interpreters
+        shell: bash
+        env:
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
+        run: |
+          django_status=0
+          for py in "$PY311" "$PY314"; do
+            version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+            "$py" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-work" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- "$py" tests/django_lifecycle/ci.py --route guest --host build/mariamem-host --reference "build/django-reference/py$version/reference" --expected-source-commit "$GITHUB_SHA" --output "build/django-evidence/py$version/acceptance" || django_status=1
+          done
+          exit "$django_status"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: django-${{ matrix.os }}-${{ matrix.python }}-${{ github.sha }}
+          name: django-${{ matrix.os }}-${{ github.sha }}
           path: build/django-evidence
           if-no-files-found: error
       - name: Remove job-owned scratch

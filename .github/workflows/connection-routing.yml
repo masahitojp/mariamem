@@ -8,11 +8,30 @@ on:
       - 'tests/*routing*.py'
       - 'tests/routing_acceptance/**'
       - '.github/workflows/connection-routing.yml'
+      - 'scripts/development_scope.py'
+      - 'scripts/git_identity.py'
+      - 'tests/test_ci_efficiency.py'
+      - 'tests/test_routing_ci_workflow.py'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
+  scope:
+    runs-on: ubuntu-24.04
+    outputs:
+      ubuntu_check: ${{ steps.diff.outputs.ubuntu_check }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - id: diff
+        run: python scripts/development_scope.py --candidate-sha '${{ github.sha }}' --github-output
   source:
+    needs: scope
+    if: needs.scope.outputs.ubuntu_check != 'false'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
@@ -45,7 +64,13 @@ jobs:
         env:
           PYTHONPATH: python
   native:
-    needs: [compatibility, source]
+    needs: [scope, compatibility, source]
+    # A delegated source check must not skip the dedicated native matrix.
+    if: >-
+      ${{ !cancelled() && needs.scope.result == 'success' &&
+      needs.compatibility.result == 'success' &&
+      (needs.source.result == 'success' ||
+       (needs.source.result == 'skipped' && needs.scope.outputs.ubuntu_check == 'false')) }}
     strategy:
       fail-fast: false
       matrix:
