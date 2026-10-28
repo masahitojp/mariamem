@@ -1,10 +1,10 @@
 # G1 first implementation checkpoint
 
-Latest status: the [both-host time/resource campaign](v06x-go-fixture-campaign.md#both-host-resource-time-receipt-confirmed--run40730646806-attempt2)
-passed at executed source b594527 (PR head e8c0380). This closes the campaign
-receipt gap; actual backing/disposal fault controls and an installed helper
-consumer remain outstanding. The earlier checkpoint descriptions below retain
-their original evidence context. G1 completion/main adoption/release are not declared.
+Latest status: [both-host completion and resource evidence](v06x-go-fixture-completion.md#both-host-ci-confirmed--run-40751031818)
+passed in Live 40751031818 at executed source cccd12c9 (same tree as PR head
+f58eebc). The [acceptance review](v06x-go-fixture-acceptance-review.md) recommends
+accepting bounded G1 evidence. Human acceptance/main adoption/release remain
+separate. Earlier checkpoint descriptions retain their original evidence context.
 
 The Human approved implementation against reviewed design source_commit
 `39f97573fe490ad86f37a4dbb25d762141d9114c`, recorded before code in decision

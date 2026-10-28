@@ -1,9 +1,9 @@
 # G1 remaining acceptance: physical cleanup and external Go consumer
 
 This follows the approved Go entry design and source-bound time/resource receipts.
-It implements the two remaining acceptance mechanisms; new both-host completion
-receipts are still pending. No G1-complete, main-adoption, Qualification or release
-claim is made by a local run.
+It implements the two remaining acceptance mechanisms. Both-host completion
+receipts are now confirmed at executed source cccd12c9; see the follow-up below.
+Human acceptance/main adoption, Qualification and release remain separate.
 
 ## Physical ownership controls and diagnostic correction
 
@@ -83,3 +83,20 @@ The historical successful resource receipt at b594527 and failed attempts stay
 at their original source/attempt IDs. The new candidate must obtain fresh both-
 host receipts before closing G1 acceptance. No P1/EP1/EG1 or optional D1 completion
 is implied. Adoption and release remain Human decisions after the evidence review.
+
+## Both-host CI confirmed — run 40751031818
+
+[Live 40751031818](https://github.com/masahitojp/mariamem/actions/runs/40751031818)
+and required gate 123078686977 passed on attempt 1. Executed merge source
+cccd12c9b586b960cfa4f71d0005316ddc1b2e89 has the same tree as PR head f58eebc.
+Both resource matrices and completion validators passed on macOS 15.7.9 arm64
+and Ubuntu 24.04 x86_64. Each host supplied 14 required baseline oracles, all
+8 semantic defect detections and the normal/shuffled external public helper
+consumer, with matching native/runtime targets and complete temporary cleanup.
+
+The [checksum-bound receipt](v06x-go-fixture-completion-evidence/ci-40751031818/assessment.json)
+includes official ZIP digests, metadata, raw archives and commit/tree identity.
+The [acceptance review](v06x-go-fixture-acceptance-review.md) recommends accepting
+G1 evidence under the stated fault/cold-acquisition limits. This closes the new
+both-host evidence gap; Human acceptance/adoption and other required entries
+remain separate. Earlier local and CI receipts retain their original sources.

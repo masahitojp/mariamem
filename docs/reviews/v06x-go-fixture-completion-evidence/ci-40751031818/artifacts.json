@@ -1,0 +1,125 @@
+{
+  "total_count": 6,
+  "artifacts": [
+    {
+      "id": 12848307861,
+      "node_id": "MDg6QXJ0aWZhY3QxMjg0ODMwNzg2MQ==",
+      "name": "go-fixture-host-macos-15-cccd12c9b586b960cfa4f71d0005316ddc1b2e89",
+      "size_in_bytes": 40612,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12848307861",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12848307861/zip",
+      "expired": false,
+      "digest": "sha256:d234ba6492ad338f6b428302e46798bfdfb1134cad2467b25089ee86f8fd0fae",
+      "created_at": "2026-10-28T20:16:36Z",
+      "updated_at": "2026-10-28T20:16:36Z",
+      "expires_at": "2027-01-26T19:04:52Z",
+      "workflow_run": {
+        "id": 40751031818,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "docs/v06-independent-django-input",
+        "head_sha": "f58eebcdcb9ddb38a08fdbbd4ace8f6717154ab8"
+      }
+    },
+    {
+      "id": 12847689097,
+      "node_id": "MDg6QXJ0aWZhY3QxMjg0NzY4OTA5Nw==",
+      "name": "live-host-macos-15-cccd12c9b586b960cfa4f71d0005316ddc1b2e89",
+      "size_in_bytes": 52163408,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12847689097",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12847689097/zip",
+      "expired": false,
+      "digest": "sha256:e8f3319c8d03a3934f37384b3bf9d3f22c8cd6e1c36e0060fdbb208fede7f0c4",
+      "created_at": "2026-10-28T20:22:22Z",
+      "updated_at": "2026-10-28T20:22:22Z",
+      "expires_at": "2027-01-26T19:04:52Z",
+      "workflow_run": {
+        "id": 40751031818,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "docs/v06-independent-django-input",
+        "head_sha": "f58eebcdcb9ddb38a08fdbbd4ace8f6717154ab8"
+      }
+    },
+    {
+      "id": 12845661003,
+      "node_id": "MDg6QXJ0aWZhY3QxMjg0NTY2MTAwMw==",
+      "name": "live-host-ubuntu-24.04-cccd12c9b586b960cfa4f71d0005316ddc1b2e89",
+      "size_in_bytes": 53285380,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12845661003",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12845661003/zip",
+      "expired": false,
+      "digest": "sha256:e21b6e90e40a43fdbf665d24caadb561559267d8e00d9863c95b3b531046bb60",
+      "created_at": "2026-10-28T19:24:15Z",
+      "updated_at": "2026-10-28T19:24:15Z",
+      "expires_at": "2027-01-26T19:04:52Z",
+      "workflow_run": {
+        "id": 40751031818,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "docs/v06-independent-django-input",
+        "head_sha": "f58eebcdcb9ddb38a08fdbbd4ace8f6717154ab8"
+      }
+    },
+    {
+      "id": 12844925024,
+      "node_id": "MDg6QXJ0aWZhY3QxMjg0NDkyNTAyNA==",
+      "name": "live-native-py3.14-cccd12c9b586b960cfa4f71d0005316ddc1b2e89",
+      "size_in_bytes": 25027,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12844925024",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12844925024/zip",
+      "expired": false,
+      "digest": "sha256:ffe219da7ae733241d4e95d1554669374b1b62457a3f837e82ac131f31e171ca",
+      "created_at": "2026-10-28T19:07:54Z",
+      "updated_at": "2026-10-28T19:07:54Z",
+      "expires_at": "2027-01-26T19:04:52Z",
+      "workflow_run": {
+        "id": 40751031818,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "docs/v06-independent-django-input",
+        "head_sha": "f58eebcdcb9ddb38a08fdbbd4ace8f6717154ab8"
+      }
+    },
+    {
+      "id": 12844765039,
+      "node_id": "MDg6QXJ0aWZhY3QxMjg0NDc2NTAzOQ==",
+      "name": "live-native-py3.11-cccd12c9b586b960cfa4f71d0005316ddc1b2e89",
+      "size_in_bytes": 25023,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12844765039",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12844765039/zip",
+      "expired": false,
+      "digest": "sha256:fd3bfa7e786449fc5a5413879b515a350ebf1685e5fcaca31445aead0fbbd3fe",
+      "created_at": "2026-10-28T19:08:02Z",
+      "updated_at": "2026-10-28T19:08:02Z",
+      "expires_at": "2027-01-26T19:04:52Z",
+      "workflow_run": {
+        "id": 40751031818,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "docs/v06-independent-django-input",
+        "head_sha": "f58eebcdcb9ddb38a08fdbbd4ace8f6717154ab8"
+      }
+    },
+    {
+      "id": 12844242061,
+      "node_id": "MDg6QXJ0aWZhY3QxMjg0NDI0MjA2MQ==",
+      "name": "go-fixture-host-ubuntu-24.04-cccd12c9b586b960cfa4f71d0005316ddc1b2e89",
+      "size_in_bytes": 42664,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12844242061",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/12844242061/zip",
+      "expired": false,
+      "digest": "sha256:8d40ebf47fffbef4c03f33cb82b73958d871874803afab3a675c012716048b99",
+      "created_at": "2026-10-28T19:15:31Z",
+      "updated_at": "2026-10-28T19:15:31Z",
+      "expires_at": "2027-01-26T19:04:52Z",
+      "workflow_run": {
+        "id": 40751031818,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "docs/v06-independent-django-input",
+        "head_sha": "f58eebcdcb9ddb38a08fdbbd4ace8f6717154ab8"
+      }
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "result": "PASS",
+  "run_id": 40751031818,
+  "run_attempt": 1,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/40751031818",
+  "pr_head_source_commit": "f58eebcdcb9ddb38a08fdbbd4ace8f6717154ab8",
+  "executed_source_commit": "cccd12c9b586b960cfa4f71d0005316ddc1b2e89",
+  "jobs": [
+    {
+      "id": 123037437880,
+      "name": "scope",
+      "conclusion": "success",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/40751031818/job/123037437880"
+    },
+    {
+      "id": 123037916444,
+      "name": "native-reference (3.14)",
+      "conclusion": "success",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/40751031818/job/123037916444"
+    },
+    {
+      "id": 123037916452,
+      "name": "native-reference (3.11)",
+      "conclusion": "success",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/40751031818/job/123037916452"
+    },
+    {
+      "id": 123039208836,
+      "name": "live (ubuntu-24.04)",
+      "conclusion": "success",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/40751031818/job/123039208836"
+    },
+    {
+      "id": 123039208971,
+      "name": "live (macos-15)",
+      "conclusion": "success",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/40751031818/job/123039208971"
+    },
+    {
+      "id": 123078686977,
+      "name": "Live required gate",
+      "conclusion": "success",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/40751031818/job/123078686977"
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": 12848307861,
+      "name": "go-fixture-host-macos-15-cccd12c9b586b960cfa4f71d0005316ddc1b2e89",
+      "archive_sha256": "d234ba6492ad338f6b428302e46798bfdfb1134cad2467b25089ee86f8fd0fae",
+      "source_commit": "cccd12c9b586b960cfa4f71d0005316ddc1b2e89",
+      "host": {
+        "system": "Darwin",
+        "architecture": "arm64",
+        "version": "15.7.9"
+      },
+      "fault_target": {
+        "goos": "darwin",
+        "goarch": "arm64"
+      },
+      "result": "PASS",
+      "physical_cases": 14,
+      "mutations": 8,
+      "consumer_result": "PASS",
+      "consumer_runtime_target": {
+        "goos": "darwin",
+        "goarch": "arm64"
+      },
+      "consumer_runs": [
+        {
+          "mode": "normal",
+          "result": "PASS",
+          "elapsed_seconds": 1.495779291999952,
+          "cases": [
+            "TestFirstCommit",
+            "TestSecondSeed",
+            "TestParallel",
+            "TestOrdinaryFailureDoesNotContaminate",
+            "TestMigrationFailure",
+            "TestCancelledPrepare"
+          ]
+        },
+        {
+          "mode": "shuffle",
+          "result": "PASS",
+          "elapsed_seconds": 1.4091470419998586,
+          "cases": [
+            "TestFirstCommit",
+            "TestSecondSeed",
+            "TestParallel",
+            "TestOrdinaryFailureDoesNotContaminate",
+            "TestMigrationFailure",
+            "TestCancelledPrepare"
+          ]
+        }
+      ]
+    },
+    {
+      "artifact_id": 12844242061,
+      "name": "go-fixture-host-ubuntu-24.04-cccd12c9b586b960cfa4f71d0005316ddc1b2e89",
+      "archive_sha256": "8d40ebf47fffbef4c03f33cb82b73958d871874803afab3a675c012716048b99",
+      "source_commit": "cccd12c9b586b960cfa4f71d0005316ddc1b2e89",
+      "host": {
+        "system": "Linux",
+        "architecture": "x86_64",
+        "version": "24.04"
+      },
+      "fault_target": {
+        "goos": "linux",
+        "goarch": "amd64"
+      },
+      "result": "PASS",
+      "physical_cases": 14,
+      "mutations": 8,
+      "consumer_result": "PASS",
+      "consumer_runtime_target": {
+        "goos": "linux",
+        "goarch": "amd64"
+      },
+      "consumer_runs": [
+        {
+          "mode": "normal",
+          "result": "PASS",
+          "elapsed_seconds": 0.766788030999976,
+          "cases": [
+            "TestFirstCommit",
+            "TestSecondSeed",
+            "TestParallel",
+            "TestOrdinaryFailureDoesNotContaminate",
+            "TestMigrationFailure",
+            "TestCancelledPrepare"
+          ]
+        },
+        {
+          "mode": "shuffle",
+          "result": "PASS",
+          "elapsed_seconds": 0.8158378649999918,
+          "cases": [
+            "TestFirstCommit",
+            "TestSecondSeed",
+            "TestParallel",
+            "TestOrdinaryFailureDoesNotContaminate",
+            "TestMigrationFailure",
+            "TestCancelledPrepare"
+          ]
+        }
+      ]
+    }
+  ],
+  "validated": [
+    "both-host time/resource matrix",
+    "both-host physical fault controls",
+    "eight semantic mutants per host",
+    "normal/shuffled external public-helper consumer per host",
+    "source/host/runtime-target binding",
+    "official ZIP digests and internal checksums"
+  ],
+  "limits": [
+    "controlled backend/interface faults with real FD/temp owners, not all generated-engine I/O failures",
+    "warm compiler/module caches; not cold qualification",
+    "G1 only; P1/EP1/EG1 outstanding; D1 may be deferred with recorded reasons",
+    "no main adoption, Qualification or release"
+  ]
+}

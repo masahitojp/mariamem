@@ -938,8 +938,19 @@ Fault injection exposed a diagnostic overclaim; capture-internal cleanup is now
 reported unverified independently of helper-owner finalization. Full canonical
 check passed at 845b8f1; final completion and 185 focused tests passed locally at
 50f9817 (macOS 27.2 arm64). The existing Live required gate now requires both-host
-completion receipts as well as resource receipts. New CI results remain pending;
-G1-complete/main adoption/Qualification/release are not claimed.
+completion receipts as well as resource receipts. Subsequent Live 40751031818
+attempt 1 and required gate 123078686977 passed at executed source cccd12c9
+(same tree as PR head f58eebc). Both saved host campaigns and completion logs
+passed source/host/checksum replay. The [G1 acceptance review](reviews/v06x-go-fixture-acceptance-review.md)
+recommends accepting bounded G1 evidence; Human acceptance/main adoption,
+Qualification and release remain separate. P1/EP1/EG1 are still required.
+
+**Next entry: P1 design proposal.** The [Python prepared-entry proposal](reviews/v06x-python-fixture-entry-design.md)
+retains existing pytest fixtures/routing, proposes a declarative command beside
+the callback, and fixes readable-owned diagnostics, compatibility and physical
+cleanup/resource acceptance. Command API and fixture-resolution error handling
+remain review inputs. No P1 implementation authorization or runtime PASS is
+claimed; the structured contract still authorizes G1 only.
 
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,
