@@ -784,6 +784,15 @@ lifecycle, understand failures and complete cleanup. Expanding framework support
 is not the primary completion measure; adapters and new APIs remain possible
 responses to demonstrated gaps, not prerequisites chosen in advance.
 
+**Preparation responsibility agreed with the Human, 2026-10-28:** the user
+specifies migration/seed commands or callbacks; the supplied entry owns their
+execution, success assessment, reuse of successful preparation and disposal on
+failure. Users should not have to assemble those lifecycle operations themselves.
+This is the intended user-facing scope, not a claim that every existing recipe
+already provides it. Exact entry APIs, success signals, reuse/sharing units and
+failure/cleanup acceptance remain design work. No cross-run persistence or
+automatic retry policy is selected by this agreement.
+
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,
 including preparation, metadata, prepared/results, pools/reconnect/session
