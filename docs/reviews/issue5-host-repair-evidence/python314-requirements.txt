@@ -1,0 +1,11 @@
+execnet==2.1.2
+iniconfig==2.3.1
+mysql-connector-python==26.7.0
+packaging==26.3
+pluggy==1.7.0
+Pygments==2.21.0
+PyMySQL==1.2.3
+pytest==9.2.0
+pytest-xdist==3.8.0
+SQLAlchemy==2.0.54
+typing_extensions==4.16.0

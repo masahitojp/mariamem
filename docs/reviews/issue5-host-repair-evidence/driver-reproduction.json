@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "canonical_driver_preimage_sha256": "9935e86c8a67409426c67e7a68707e76118c4fdd012a83fcfd20eedf71ba2b31",
+  "adapted_main_sha256": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe",
+  "guest_source_changed": false,
+  "converter_inputs_changed": false
+}

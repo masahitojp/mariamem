@@ -15,8 +15,10 @@ fatal worker traps promptly. The affected DB becomes unusable, pending calls
 retain the original cause, and worker joining still precedes resource release.
 Other DB instances have independent failure state. No guest-source change,
 new forced interruption of non-cooperative Go code, broader WASIX implementation,
-main adoption or release is authorized by this step. Both-platform SQL parity,
-descriptor/mapping lifetime and injected-trap regressions remain acceptance work.
+main adoption or release is authorized by this step. The [repair candidate](reviews/issue5-host-repair.md) now passes local macOS
+28-case native equality and full normal integration, including descriptor/mapping
+ownership and injected actual-worker-trap controls. Ubuntu and the exact
+submitted-source both-platform Development CI result remain acceptance work.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 

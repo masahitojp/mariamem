@@ -1,0 +1,432 @@
+{
+  "source_commit": "f3ccbb3b0d14784f562a909941a5ec75676dd198",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "case_spec_sha256": "9c888f54943f3d8bf7da12466597e115366e56b1312b76f634609b339fd84961",
+  "cases": [
+    {
+      "name": "VARCHAR(32)",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "VARCHAR(255)",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "VARBINARY(255)",
+      "observation": {
+        "rows": [
+          [
+            {
+              "hex": "616c696365"
+            }
+          ],
+          [
+            {
+              "hex": "626f62"
+            }
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "VARCHAR(1000)",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "VARCHAR(2000)",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "TINYTEXT",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "TEXT",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "MEDIUMTEXT",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "LONGTEXT",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "BLOB",
+      "observation": {
+        "rows": [
+          [
+            {
+              "hex": "616c696365"
+            }
+          ],
+          [
+            {
+              "hex": "626f62"
+            }
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "empty",
+      "observation": {
+        "rows": [],
+        "affected": 0,
+        "materialized": null
+      }
+    },
+    {
+      "name": "one",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ]
+        ],
+        "affected": 1,
+        "materialized": null
+      }
+    },
+    {
+      "name": "limit",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ]
+        ],
+        "affected": 1,
+        "materialized": null
+      }
+    },
+    {
+      "name": "distinct_order",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "multi_column",
+      "observation": {
+        "rows": [
+          [
+            1,
+            "alice"
+          ],
+          [
+            2,
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "union",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "derived",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "group",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "ctas",
+      "observation": {
+        "rows": [],
+        "affected": 2,
+        "materialized": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "insert",
+      "observation": {
+        "rows": [],
+        "affected": 2,
+        "materialized": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "view",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "index",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "count",
+      "observation": {
+        "rows": [
+          [
+            2
+          ]
+        ],
+        "affected": 1,
+        "materialized": null
+      }
+    },
+    {
+      "name": "union_all",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ],
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 4,
+        "materialized": null
+      }
+    },
+    {
+      "name": "big_result",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "cast",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "aggregate",
+      "observation": {
+        "rows": [
+          [
+            "alice",
+            1
+          ],
+          [
+            "bob",
+            1
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "order",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    }
+  ],
+  "reference_sha256": "f18a5f4fc5898bb8dc7620f8e7a0025f9150ee028f4e92560df1cecb9cf29bca",
+  "host_sha256": "6cc3c14c598d1370656d783362668a223ae1e320a3ab0b0947f1dba93acf0191",
+  "result": "PASS"
+}
