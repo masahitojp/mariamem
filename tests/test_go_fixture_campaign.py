@@ -28,8 +28,9 @@ def observations(cap=2, parallel=4):
                         sample('retained_end_' + str(i), i, i * 1_000_000_000 + 500_000_000))] + [sample('final')],
               batches=[dict(label=name, elapsed_seconds=.1) for name in
                        ('warmup', 'observed_1', 'observed_2', 'observed_3')],
-              cases=[dict(name=str(i), admission_seconds=.1, sql_seconds=.1, cleanup_seconds=.1)
-                     for i in range(16)],
+              cases=[dict(name='TestFixtureCampaign/' + batch + '/' + str(i),
+                          admission_seconds=.1, sql_seconds=.1, cleanup_seconds=.1)
+                     for batch in ('warmup', 'observed_1', 'observed_2', 'observed_3') for i in range(4)],
               phases=[dict(name=name, seconds=.1) for name in ('start', 'prepare', 'disconnect', 'capture')])
     observed = dict(result='PASS', counter_errors=[], stop_reason=None,
                     samples=[dict(unix_ns=i * 1_000_000_000 + 1, process_tree_rss_bytes=1000,
@@ -49,7 +50,7 @@ def test_complete_mode_has_retention_rss_fd_connection_temp_summary():
     'stopped', 'cleanup', 'wrong_cap', 'exceeded_children', 'connections', 'warmup',
     'case', 'phase', 'prepare_time', 'fd_baseline', 'fd_headroom', 'unlinked_disk',
     'free_disk', 'retained', 'leaked_backing', 'final_fd', 'os_missing', 'rss',
-    'available', 'wrong_pid', 'rss_guard', 'alignment', 'guard_values',
+    'available', 'wrong_pid', 'rss_guard', 'alignment', 'guard_values', 'duplicate_case', 'zero_fd',
 ])
 def test_missing_or_bad_observation_is_rejected(mutation):
     go, observed = observations()
@@ -78,6 +79,8 @@ def test_missing_or_bad_observation_is_rejected(mutation):
         observed['samples'][1]['members']['999'] += 3 << 30
     elif mutation == 'alignment': observed['samples'][0]['unix_ns'] = 10_000_000_000
     elif mutation == 'guard_values': go['guards']['min_fd_headroom'] = 1
+    elif mutation == 'duplicate_case': go['cases'][0]['name'] = go['cases'][1]['name']
+    elif mutation == 'zero_fd': go['samples'][0]['fd'] = 0
     with pytest.raises(ValueError):
         campaign.validate_mode(go, observed, 2, 4, RESOURCES)
 
@@ -88,8 +91,10 @@ def receipt(tmp_path, monkeypatch):
                   toolchain='go1.26.10', host=dict(system='Darwin', architecture='arm64', version='15.7'),
                   guard_probe='PRE_ADMISSION_FD_STOP_CONFIRMED',
                   inputs_sha256={p: campaign.digest(ROOT / p) for p in campaign.input_paths(RESOURCES)}, modes=[],
-                  three_time_outcomes=dict(first_test_setup=dict(elapsed_seconds=1),
-                      second_test_edits=dict(added_lines=10, repeated_lifecycle_lines=0),
+                  three_time_outcomes=dict(first_test_setup=dict(elapsed_seconds=1, authored_lines=30,
+                      command=['go', 'test'], steps=['copy', 'test']),
+                      second_test_edits=dict(added_lines=10, repeated_lifecycle_lines=0,
+                      command=['go', 'test'], steps=['add', 'test']),
                       repeat_batch_elapsed='per-mode warmup plus three observed batches',
                       human_authoring_minutes=None, acquisition_state='unmeasured; existing Go toolchain/module cache'))
     for cap in (1, 2):

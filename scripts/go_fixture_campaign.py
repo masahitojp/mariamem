@@ -138,6 +138,9 @@ def validate_mode(go, observed, cap, parallel, resources):
     need([b['label'] for b in go['batches']] == ['warmup', 'observed_1', 'observed_2', 'observed_3'], 'missing warmup/observed batch')
     need(all(numeric(b['elapsed_seconds']) and b['elapsed_seconds'] > 0 for b in go['batches']), 'batch timing missing')
     need(len(go['cases']) == 16, 'incomplete case batch')
+    expected_cases = {'TestFixtureCampaign/' + batch + '/' + str(i) for batch in
+                      ('warmup', 'observed_1', 'observed_2', 'observed_3') for i in range(4)}
+    need({c['name'] for c in go['cases']} == expected_cases, 'duplicate/missing case identity')
     for case in go['cases']:
         need(all(numeric(case[key]) and case[key] > 0 for key in
                  ('admission_seconds', 'sql_seconds', 'cleanup_seconds')), 'case phase timing missing')
@@ -151,6 +154,7 @@ def validate_mode(go, observed, cap, parallel, resources):
                     'children', 'baselines', 'physical_pool_connections'):
             need(numeric(s[key]), 'missing counter ' + key)
         need(s['fd_soft_limit'] - s['fd'] >= resources['min_fd_headroom'], 'FD headroom breach')
+        need(s['fd'] > 0, 'FD counter unavailable/zero')
         need(s['linked_temp_bytes'] + s['unlinked_file_bytes'] <= resources['owned_disk_ceiling_bytes'], 'owned disk breach')
         need(s['disk_free_bytes'] >= resources['min_free_disk_bytes'], 'free disk breach')
         need(s['children'] <= cap and s['physical_pool_connections'] <= cap * 2, 'runtime budget breach')
@@ -205,6 +209,8 @@ def validate_host(directory, expected, expected_host=None):
         need((report['host']['system'], report['host']['architecture']) == HOSTS[expected_host], 'wrong host architecture')
         if expected_host == 'macos-15':
             need(report['host']['version'].split('.')[0] == '15', 'CI Mac receipt must be macOS15')
+        else:
+            need(report['host']['version'] == '24.04', 'CI Ubuntu receipt must be 24.04')
     need(report['result'] == 'PASS', 'host campaign incomplete')
     need(len(report['modes']) == 4, 'missing cap/parallel modes')
     modes = set()
@@ -218,6 +224,10 @@ def validate_host(directory, expected, expected_host=None):
     validate_guard_probe(json.loads((directory / 'guard-probe/go.json').read_text()))
     need(report['guard_probe'] == 'PRE_ADMISSION_FD_STOP_CONFIRMED', 'guard negative control missing')
     timing = report['three_time_outcomes']
+    for key in ('first_test_setup', 'second_test_edits'):
+        need(timing[key]['command'][:2] == ['go', 'test'] and len(timing[key]['steps']) == 2,
+             'first/second-test command/edit steps missing')
+    need(timing['first_test_setup']['authored_lines'] > 0, 'first-test authored input missing')
     need(timing['first_test_setup']['elapsed_seconds'] > 0 and timing['second_test_edits']['added_lines'] > 0,
          'first/second-test observations missing')
     need(timing['second_test_edits']['repeated_lifecycle_lines'] == 0 and timing['repeat_batch_elapsed'] == 'per-mode warmup plus three observed batches', 'repeated lifecycle/timing missing')
