@@ -951,6 +951,13 @@ the callback, and fixes readable-owned diagnostics, compatibility and physical
 cleanup/resource acceptance. Command API and fixture-resolution error handling
 remain review inputs. No P1 implementation authorization or runtime PASS is
 claimed; the structured contract still authorizes G1 only.
+The [local pytest reporting characterization](reviews/v06x-python-fixture-reporting.md)
+now closes the annotation-feasibility question at source 1780db3: seven controls
+on Python 3.11/pytest 7 and Python 3.14/pytest 9 preserve original setup/cleanup
+failures and render a narrowly targeted note. It also observes that current
+child cleanup failure does not stop the next body. P1 therefore needs an owned
+admission-debt guard and honest final summary, not a replacement error-reporting
+framework. This fake-owner probe is not physical cleanup or P1 runtime acceptance.
 
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,

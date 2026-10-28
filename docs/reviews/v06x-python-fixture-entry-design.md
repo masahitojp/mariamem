@@ -1,6 +1,7 @@
 # P1 prepared pytest entry — proposal after G1 evidence
 
-Status: PROPOSED; source inspection, not implementation or runtime acceptance.
+Status: PROPOSED; source inspection plus local pytest characterization, not P1
+implementation or runtime acceptance.
 Inspected candidate: f58eebcdcb9ddb38a08fdbbd4ace8f6717154ab8. The Human
 approved the overall P1/G1/EP1/EG1 direction and G1 first; this proposal does not
 silently extend the structured contract's G1-only implementation authorization.
@@ -13,6 +14,9 @@ test code. The main concern is compatibility: existing preparation fixtures may
 execute side effects before returning None, rather than return a callback.
 Those setups must keep working and preserve their original pytest failures;
 we must not silently call them twice or promise to intercept arbitrary fixtures.
+The [local report probe](v06x-python-fixture-reporting.md) now shows a narrow
+fixture hook can add notes without replacing original failures, on pytest 7/9.
+No P1 implementation approval is inferred from that local result.
 
 ## Existing foundation and gaps
 
@@ -75,6 +79,16 @@ def mariamem_prepare():
     )
 ```
 
+Proposed constructor: `PrepareCommand(argv, *, timeout=120, cwd=None, env=None)`.
+Copy argv into an immutable tuple and copy env at declaration. Reject a string
+in place of argv, an empty executable, non-string/NUL arguments, non-finite or
+non-positive timeout (including bool), malformed env keys/values, and an override
+of the reserved connection variable. `cwd=None` means pytest's rootpath; a
+relative cwd is relative to rootpath. Set the child cwd without changing the
+parent process directory. There is no shell option. This is one command; a user
+script composes migration and seed. Descriptor validation and its original
+exception precede command launch and still require source cleanup if started.
+
 The application script reads JSON connection_info from the reserved environment
 variable MARIAMEM_PREPARE_CONNECTION_INFO (host, port, user, password, database)
 and passes it explicitly to its own migration entry. The runner supplies the
@@ -121,8 +135,10 @@ Diagnostic level: readable-owned (proposed before implementation; no basic-first
 fallback for P1). Preserve exception identity through an original-cause field
 and chaining; command errors retain exit code/stdout/stderr and timeouts retain
 TimeoutExpired. Interrupts remain interrupts. Combined errors retain every
-cleanup cause. A small typed entry error/report can carry stage, known/unknown
-cause, next action, original failure, admission and cleanup states. Do not infer
+cleanup cause. Use a private owner record plus exception notes and a focused final summary
+for stage, known/unknown cause, next action, original failure, admission and
+cleanup states. Reuse pytest's separate setup/call/teardown error reports;
+no new public exception hierarchy is proposed here. Do not infer
 completed capture-internal cleanup from completed helper finalization, as G1's
 regression demonstrated. Direct user SQL/assertions retain ordinary pytest output.
 
@@ -136,14 +152,22 @@ cleanup: command reaped; source closed
 original: CalledProcessError(returncode=23); stdout/stderr retained
 ```
 
-A mariamem_prepare override can fail during pytest fixture resolution, before
-an entry callback runs. Before choosing an implementation, inspect pytest's
-existing setup/teardown reporting for this case and a combined source-close
-failure. Decide whether a narrowly scoped fixture-report hook is necessary or
-native pytest reporting supplies the required fields. This is an unresolved
-implementation check, not a reason to weaken the error contract or intercept
-unrelated application fixtures globally. Overrides and side-effect fixture
-compatibility need explicit tests in either approach.
+A mariamem_prepare override can fail during fixture resolution before a callback
+runs. The [source-bound characterization](v06x-python-fixture-reporting.md)
+confirms that pytest preserves preparation and source-finalizer failures as
+separate reports, but does not supply the entry's admission/cleanup fields.
+Use a hook restricted to the named preparation fixture to observe that original
+failure and attach a stage note, leaving pytest's exception object and result
+unchanged. Annotate operations the entry executes directly at their owned
+boundary. Keep the owner record for actual finalization/admission state and
+render its final summary after cleanup; do not label pending cleanup complete.
+
+The same probe shows the current entry admits the second body after the first
+child cleanup fails. P1 must add a worker-local stop-on-cleanup-debt check before
+child acquisition, preserving the first cleanup cause. Another worker is a
+distinct owner. Notes alone are not that guard. The prototype note deliberately
+says cleanup=pending; it does not implement final summary, actual disposal or
+that admission guard. These remain mandatory P1 implementation oracles.
 
 ## Finite acceptance and resource budget
 
@@ -179,7 +203,7 @@ implementation acceptance; this document is not a measurement.
 
 ## Next bounded work and stopping point
 
-Review the command declaration and callback/fixture error boundary, then commit
+Review the fixed command declaration and narrow annotation/owner-state design, then commit
 its decision before P1 runtime/helper code and update the implementation allowlist
 through the normal contract change. Start with focused subprocess/fake-owner
 oracles, then real guest/schema/seed/routing checks, then the bounded both-host
