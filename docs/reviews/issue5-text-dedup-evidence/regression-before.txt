@@ -1,0 +1,85 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_text_blob_duplicate_removal_returns_and_preserves_sessions[VARCHAR(1000)] _
+tests/test_python_wire.py:48: in test_text_blob_duplicate_removal_returns_and_preserves_sessions
+    assert tuple(sorted(execute(conn, "SELECT DISTINCT value FROM dedup_probe"))) == expected
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_python_wire.py:33: in execute
+    cur.execute(sql)
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/cursors.py:170: in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/cursors.py:335: in _query
+    conn.query(q)
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/connections.py:581: in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/connections.py:857: in _read_query_result
+    result.read()
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/connections.py:1290: in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/connections.py:810: in _read_packet
+    packet.raise_for_error()
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/protocol.py:219: in raise_for_error
+    err.raise_mysql_exception(self._data)
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/err.py:154: in raise_mysql_exception
+    raise errorclass(errno, errval, sqlstate=sqlstate)
+E   pymysql.err.OperationalError: (2013, 'mariamem query timed out; database instance terminated')
+____ test_text_blob_duplicate_removal_returns_and_preserves_sessions[TEXT] _____
+tests/test_python_wire.py:48: in test_text_blob_duplicate_removal_returns_and_preserves_sessions
+    assert tuple(sorted(execute(conn, "SELECT DISTINCT value FROM dedup_probe"))) == expected
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_python_wire.py:33: in execute
+    cur.execute(sql)
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/cursors.py:170: in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/cursors.py:335: in _query
+    conn.query(q)
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/connections.py:581: in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/connections.py:857: in _read_query_result
+    result.read()
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/connections.py:1290: in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/connections.py:810: in _read_packet
+    packet.raise_for_error()
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/protocol.py:219: in raise_for_error
+    err.raise_mysql_exception(self._data)
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/err.py:154: in raise_mysql_exception
+    raise errorclass(errno, errval, sqlstate=sqlstate)
+E   pymysql.err.OperationalError: (2013, 'mariamem query timed out; database instance terminated')
+____ test_text_blob_duplicate_removal_returns_and_preserves_sessions[BLOB] _____
+tests/test_python_wire.py:48: in test_text_blob_duplicate_removal_returns_and_preserves_sessions
+    assert tuple(sorted(execute(conn, "SELECT DISTINCT value FROM dedup_probe"))) == expected
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_python_wire.py:33: in execute
+    cur.execute(sql)
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/cursors.py:170: in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/cursors.py:335: in _query
+    conn.query(q)
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/connections.py:581: in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/connections.py:857: in _read_query_result
+    result.read()
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/connections.py:1290: in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/connections.py:810: in _read_packet
+    packet.raise_for_error()
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/protocol.py:219: in raise_for_error
+    err.raise_mysql_exception(self._data)
+build/release-v051-venv/lib/python3.14/site-packages/pymysql/err.py:154: in raise_mysql_exception
+    raise errorclass(errno, errval, sqlstate=sqlstate)
+E   pymysql.err.OperationalError: (2013, 'mariamem query timed out; database instance terminated')
+=========================== short test summary info ============================
+FAILED tests/test_python_wire.py::test_text_blob_duplicate_removal_returns_and_preserves_sessions[VARCHAR(1000)]
+FAILED tests/test_python_wire.py::test_text_blob_duplicate_removal_returns_and_preserves_sessions[TEXT]
+FAILED tests/test_python_wire.py::test_text_blob_duplicate_removal_returns_and_preserves_sessions[BLOB]
+3 failed, 8 deselected in 123.78s (0:02:03)

@@ -1,0 +1,61 @@
+{
+  "source_commit": "cc00ccd98e29a1f5d5088a082be90a3cdaa4f469",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "binaries": {
+    "mariamem-host-fddup": {
+      "sha256": "50696214c7634c462ce6a01569842ceb0bf54ff3d90718337ef92744497ecb47",
+      "go_build_info": "build/experiment-work/issue5-text-dedup/temp/mariamem-host-fddup: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.4-0.20261027214049-cc00ccd98e29+dirty\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=cc00ccd98e29a1f5d5088a082be90a3cdaa4f469\n\tbuild\tvcs.time=2026-10-27T21:40:49Z\n\tbuild\tvcs.modified=true\n"
+    },
+    "mariamem-host-diagnostic": {
+      "sha256": "426cd7eb9dd8012226022cd02d3dc573fe65f65f0eaac8d7ab1a50021f2fe828",
+      "go_build_info": "build/experiment-work/issue5-text-dedup/temp/mariamem-host-diagnostic: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.4-0.20261027214049-cc00ccd98e29+dirty\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=cc00ccd98e29a1f5d5088a082be90a3cdaa4f469\n\tbuild\tvcs.time=2026-10-27T21:40:49Z\n\tbuild\tvcs.modified=true\n"
+    },
+    "mariamem-host": {
+      "sha256": "099bb5c10ca4c4ef37a40f515607277dc4032f1802a0b57d888164b55ae59b74",
+      "go_build_info": "build/experiment-work/issue5-text-dedup/temp/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.4-0.20261027214049-cc00ccd98e29\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=cc00ccd98e29a1f5d5088a082be90a3cdaa4f469\n\tbuild\tvcs.time=2026-10-27T21:40:49Z\n\tbuild\tvcs.modified=false\n"
+    }
+  },
+  "upstream_files": {
+    "ma_dynrec.c": {
+      "sha256": "4dacc6251ef15330fc961a673280cb18daf6b73aabae05a227b2e7f7ce89c62c",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    },
+    "hp_create.c": {
+      "sha256": "2e389e4947cf87ea2080fe40b067415506fcb6043ed43cb354f0f45a7e7eac25",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    },
+    "my_mmap.c": {
+      "sha256": "3b206d302b90b49be6def6db2c805e5ba4e367dd31ea3ef8fd48023ef1717dc6",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    },
+    "sql_select.cc": {
+      "sha256": "52849066504c2ab58cef5b408e0d5d3fa8b72824e8f02ef583e1e2af2152cea4",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    },
+    "mf_iocache.c": {
+      "sha256": "14c6577ffaa4a88db793e7e636dbad50f6a754216a037d6b2ec69e7fa231e6d4",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    },
+    "records.cc": {
+      "sha256": "f0c9461c2ba60c14ca1da17b52a339936573810b79590ef157519a6eaa1e6acd",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    },
+    "mi_open.c": {
+      "sha256": "6aff134afde7cafceb093d6de15ce07fec48d0da7750ea0687ac2f323be5482d",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    },
+    "ma_extra.c": {
+      "sha256": "6acd72c762b83b05621680c4983b342b20dbeb636fbbd0df7fcb20af78e79af2",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    },
+    "ma_open.c": {
+      "sha256": "9fca0d53012b43a9d7227de2ef5954486e600364e9367c913968e0eabde06e93",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    }
+  },
+  "client": {
+    "python": "3.14.9",
+    "pymysql": "1.2.3"
+  }
+}
