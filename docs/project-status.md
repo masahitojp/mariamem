@@ -875,6 +875,13 @@ checkout on network/DNS errors; filtered full-history retrieval mitigates payloa
 cost without claiming to cure DNS. No root runtime/guest change, main adoption or release
 is included.
 
+Subsequent Ubuntu CI40724194463 completed canonical integration, but G1 validation
+rejected a final RSS0 sample after process exit. The collector now retains
+exit-confirmed terminal observations separately; live RSS0/missing counters still
+fail. See the [source-bound diagnosis and original failed artifact](reviews/v06x-go-fixture-campaign.md#ubuntu-ci-collector-exit-race--run40724194463).
+Tooling tests214 and the full local campaign passed at549be26; new both-host CI
+is pending. Old FAIL/PASS receipts retain their original source identities.
+
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,
 including preparation, metadata, prepared/results, pools/reconnect/session

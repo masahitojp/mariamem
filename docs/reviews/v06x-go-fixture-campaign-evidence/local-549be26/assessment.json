@@ -1,0 +1,166 @@
+{
+  "source_commit": "549be266b4342e1a45a657f48a2d4c3c079c5606",
+  "result": "PASS",
+  "host": {
+    "system": "Darwin",
+    "architecture": "arm64",
+    "version": "27.2"
+  },
+  "toolchain": "go1.26.10",
+  "guard_probe": "PRE_ADMISSION_FD_STOP_CONFIRMED",
+  "modes": [
+    {
+      "cap": 1,
+      "parallel": 1,
+      "result": "PASS",
+      "retention": [
+        {
+          "baselines": 1,
+          "fd": 4,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 85016576,
+          "available_memory_bytes": 4386160640
+        },
+        {
+          "baselines": 2,
+          "fd": 4,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 82870272,
+          "available_memory_bytes": 4373643264
+        },
+        {
+          "baselines": 3,
+          "fd": 4,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 95338496,
+          "available_memory_bytes": 4344381440
+        }
+      ],
+      "fd_baseline_peak_final": [
+        4,
+        13,
+        4
+      ],
+      "sampled_rss_peak_bytes": 174997504,
+      "available_memory_min_bytes": 3920412672
+    },
+    {
+      "cap": 1,
+      "parallel": 4,
+      "result": "PASS",
+      "retention": [
+        {
+          "baselines": 1,
+          "fd": 4,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 87080960,
+          "available_memory_bytes": 4242161664
+        },
+        {
+          "baselines": 2,
+          "fd": 4,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 85852160,
+          "available_memory_bytes": 4212752384
+        },
+        {
+          "baselines": 3,
+          "fd": 4,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 93962240,
+          "available_memory_bytes": 4142825472
+        }
+      ],
+      "fd_baseline_peak_final": [
+        4,
+        13,
+        4
+      ],
+      "sampled_rss_peak_bytes": 170852352,
+      "available_memory_min_bytes": 4001382400
+    },
+    {
+      "cap": 2,
+      "parallel": 1,
+      "result": "PASS",
+      "retention": [
+        {
+          "baselines": 1,
+          "fd": 4,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 85262336,
+          "available_memory_bytes": 4056596480
+        },
+        {
+          "baselines": 2,
+          "fd": 4,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 85934080,
+          "available_memory_bytes": 4133994496
+        },
+        {
+          "baselines": 3,
+          "fd": 4,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 95191040,
+          "available_memory_bytes": 4065099776
+        }
+      ],
+      "fd_baseline_peak_final": [
+        4,
+        13,
+        4
+      ],
+      "sampled_rss_peak_bytes": 174440448,
+      "available_memory_min_bytes": 3932012544
+    },
+    {
+      "cap": 2,
+      "parallel": 4,
+      "result": "PASS",
+      "retention": [
+        {
+          "baselines": 1,
+          "fd": 4,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 100040704,
+          "available_memory_bytes": 4085268480
+        },
+        {
+          "baselines": 2,
+          "fd": 4,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 82214912,
+          "available_memory_bytes": 4072800256
+        },
+        {
+          "baselines": 3,
+          "fd": 4,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 94552064,
+          "available_memory_bytes": 4123164672
+        }
+      ],
+      "fd_baseline_peak_final": [
+        4,
+        22,
+        4
+      ],
+      "sampled_rss_peak_bytes": 262144000,
+      "available_memory_min_bytes": 4005724160
+    }
+  ],
+  "archive_sha256": "8c926517957a6c7dff624f7be6b0f75af43c42b35df453821898a715050c4712"
+}

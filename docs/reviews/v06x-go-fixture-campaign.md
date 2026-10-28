@@ -144,3 +144,13 @@ nonzero exit and live zero; the failed CI receipt stays FAIL. A fresh source-bou
 both-host run is still required. The separate macOS dump job122944044147 was
 cancelled with no executed steps in the bounded metadata read; no code failure
 could be diagnosed from its unavailable log. It is not treated as a PASS.
+
+
+Fix verification: focused tooling/receipt/workflow tests214 PASS. The full local
+four-mode campaign and pre-admission FD STOP passed at source_commit
+549be266b4342e1a45a657f48a2d4c3c079c5606 on macOS27.2 arm64/Go1.26.10.
+[Local assessment/archive checksum](v06x-go-fixture-campaign-evidence/local-549be26/assessment.json)
+binds the raw zipped receipts (including their original SHA256SUMS). This is local
+verification of the corrected collector, not a replacement Ubuntu/macOS15 receipt.
+Fresh both-host CI remains pending. The production helper/guest/generated code
+was unchanged; no broad runtime rebuild was needed for this Python-only fix.
