@@ -99,7 +99,7 @@ def command(argv, cwd, log, env=None, timeout=600, expected=0):
                 except ProcessLookupError: pass
                 try: proc.wait(timeout=10)
                 except subprocess.TimeoutExpired: continue
-            raise ValueError('command timeout; owned process group stopped: ' + Path(log).name)
+            raise ValueError('command timeout; process-group termination attempted, cleanup requires inspection: ' + Path(log).name)
     if expected is not None:
         need(code == expected, 'command failed: ' + Path(log).name)
     return code, time.monotonic() - start
@@ -160,7 +160,8 @@ def external_consumer(output):
         shutil.copyfile(ROOT / 'go.sum', project / 'go.sum')
         sdk = subprocess.check_output(['go', 'env', 'GOROOT'], text=True).strip()
         compiler = str(Path(sdk) / 'bin/go')
-        env = {k: v for k, v in os.environ.items() if not k.startswith(('GO', 'MARIAMEM_', 'MYSQLMEM_', 'PYTHON', 'PYTEST_'))}
+        env = {k: v for k, v in os.environ.items() if k not in ('GH_TOKEN', 'GITHUB_TOKEN')
+               and not k.startswith(('GO', 'MARIAMEM_', 'MYSQLMEM_', 'PYTHON', 'PYTEST_'))}
         env.update(GOWORK='off', GOENV='off', GOTOOLCHAIN='local', GOFLAGS='-p=1 -trimpath', CGO_ENABLED='0',
                    GOPROXY=proxy.as_uri() + ',https://proxy.golang.org', GONOSUMDB=MODULE, GOSUMDB='sum.golang.org')
         version = subprocess.check_output([compiler, 'version'], env=env, text=True).split()[2]

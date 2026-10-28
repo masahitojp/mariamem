@@ -131,7 +131,7 @@ func TestOrdinaryFailureDoesNotContaminate(t *testing.T) {
 	cmd.Env = append(os.Environ(), "MARIAMEM_G1_FAIL_BODY=1")
 	out, err := cmd.CombinedOutput()
 	var exit *exec.ExitError
-	if !errors.As(err, &exit) || exit.ExitCode() != 1 || !strings.Contains(string(out), "CONTROLLED_BODY_FAILURE") || !strings.Contains(string(out), "--- PASS: TestOrdinaryFailureDoesNotContaminate/healthy") || !strings.Contains(string(out), "HEALTHY_SEED_AFTER_FAILURE") {
+	if !errors.As(err, &exit) || exit.ExitCode() != 1 || !strings.Contains(string(out), "CONTROLLED_BODY_FAILURE") || !strings.Contains(string(out), "--- PASS: TestOrdinaryFailureDoesNotContaminate/healthy") || !strings.Contains(string(out), "HEALTHY_SEED_AFTER_FAILURE") || strings.Contains(string(out), "mariamemtest ") {
 		t.Fatalf("failed-body oracle: %v\n%s", err, out)
 	}
 }
