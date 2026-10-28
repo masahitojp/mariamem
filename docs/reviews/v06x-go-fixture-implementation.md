@@ -1,5 +1,11 @@
 # G1 first implementation checkpoint
 
+Latest status: the [both-host time/resource campaign](v06x-go-fixture-campaign.md#both-host-resource-time-receipt-confirmed--run40730646806-attempt2)
+passed at executed source b594527 (PR head e8c0380). This closes the campaign
+receipt gap; actual backing/disposal fault controls and an installed helper
+consumer remain outstanding. The earlier checkpoint descriptions below retain
+their original evidence context. G1 completion/main adoption/release are not declared.
+
 The Human approved implementation against reviewed design source_commit
 `39f97573fe490ad86f37a4dbb25d762141d9114c`, recorded before code in decision
 source_commit `5b0a20ef86ec874dd4d52c4b9291297dde061656`. Diagnostic profile is
@@ -83,8 +89,9 @@ pre-admission guard STOP. Original failed and successful local receipts are
 preserved separately with checksums. The original local code observations above
 remain pinned to5c739b7; they were not relabelled.
 
-The new macOS15/Ubuntu CI receipts remain pending, so the full G1 campaign is
-not yet accepted. Disposal/backing fault controls and installed-helper consumer
+The macOS15/Ubuntu receipts were pending at the first checkpoint; the
+time/resource receipts are now confirmed in the latest status above. Full G1
+acceptance still requires the fault/consumer work below. Disposal/backing fault controls and installed-helper consumer
 acceptance remain separately tracked. The declaration lint is no longer the only
 check: selected Live CI jobs execute the campaign, and the existing required
 aggregate rejects missing/stale/incomplete measurements or either host artifact.

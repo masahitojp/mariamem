@@ -893,12 +893,11 @@ authorized by this decision.
 mariamemtest helper under the approved ownership/defaults and readable-owned
 diagnostic profile. See [usage](go-prepared-fixture.md) and
 [remaining acceptance](reviews/v06x-go-fixture-implementation.md). Local macOS27.2 arm64 canonical check, helper race tests, actual-guest
-oracles and the guide sample passed at code source_commit5c739b7. Both-host CI
-and resource/time campaign evidence remain pending; G1 completion is not claimed. The [G1 campaign follow-up](reviews/v06x-go-fixture-campaign.md)
+oracles and the guide sample passed at code source_commit5c739b7. The subsequent both-host time/resource result is recorded below; G1 completion
+is not claimed. The [G1 campaign follow-up](reviews/v06x-go-fixture-campaign.md)
 adds all four cap/parallel modes, retained1/2/3 counters/guards, three-time outcomes,
 checksum-bound raw receipts and an actual pre-admission guard STOP. Local
-macOS27.2 passed at232fc19; required macOS15/Ubuntu receipts await the new CI
-submission. The Live required gate now checks both actual campaign artifacts,
+macOS27.2 passed at232fc19; required macOS15/Ubuntu receipts are now verified below. The Live required gate now checks both actual campaign artifacts,
 not just the declaration lint. Original CI40715670588's integration failed at
 checkout on network/DNS errors; filtered full-history retrieval mitigates payload
 cost without claiming to cure DNS. No root runtime/guest change, main adoption or release
@@ -908,8 +907,18 @@ Subsequent Ubuntu CI40724194463 completed canonical integration, but G1 validati
 rejected a final RSS0 sample after process exit. The collector now retains
 exit-confirmed terminal observations separately; live RSS0/missing counters still
 fail. See the [source-bound diagnosis and original failed artifact](reviews/v06x-go-fixture-campaign.md#ubuntu-ci-collector-exit-race--run40724194463).
-Tooling tests214 and the full local campaign passed at549be26; new both-host CI
-is pending. Old FAIL/PASS receipts retain their original source identities.
+Tooling tests214 and the full local campaign passed at549be26; the successful
+both-host result follows below. Old FAIL/PASS receipts retain their original source identities.
+
+**Both-host G1 time/resource campaign confirmed:** Live CI40730646806 attempt2
+and required gate123000356113 succeeded. Executed merge source b594527 has the
+same tree as PR head e8c0380. Mac15.7.9 arm64 executed on attempt2; Ubuntu24.04
+x86_64 reused its successful attempt1. The [saved receipts and assessment](reviews/v06x-go-fixture-campaign.md#both-host-resource-time-receipt-confirmed--run40730646806-attempt2)
+verify all four cap/parallel modes, retention1/2/3, three-time outcomes, resource
+guards, expected pre-admission FD STOP and cleanup. This closes that evidence
+gap; G1 still needs actual backing/disposal fault controls and an installed
+consumer that exercises mariamemtest. Existing Live installed-consumer success
+is not proof of that helper route. No main adoption/Qualification/release.
 
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,

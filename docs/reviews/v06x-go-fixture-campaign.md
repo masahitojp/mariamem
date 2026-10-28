@@ -154,3 +154,37 @@ binds the raw zipped receipts (including their original SHA256SUMS). This is loc
 verification of the corrected collector, not a replacement Ubuntu/macOS15 receipt.
 Fresh both-host CI remains pending. The production helper/guest/generated code
 was unchanged; no broad runtime rebuild was needed for this Python-only fix.
+
+## Both-host resource/time receipt confirmed — run40730646806 attempt2
+
+[Live CI40730646806](https://github.com/masahitojp/mariamem/actions/runs/40730646806)
+and required gate123000356113 succeeded. Executed source_commit
+b59452738265b2237875e026d5c6063d01a1c8b8 was verified as a commit object and has
+exactly the same tree a7af7dfec191bec5badbed7abb259c745f9be45e as PR head
+e8c0380852c273af5b4e5e18dde4ef22dd265904. The receipts keep the executed merge
+SHA rather than being relabelled as the PR head or a later documentation commit.
+
+| Host | Actual execution | Artifact | Four cap/parallel modes | Retention1/2/3 and three-time outcomes | FD STOP/cleanup |
+| --- | --- | --- | --- | --- | --- |
+| macOS15.7.9 arm64 | attempt2, job122991219282 |12837603561| PASS | PASS | expected STOP / complete |
+| Ubuntu24.04 x86_64 | attempt1, job122967361491 reused |12836002279| PASS | PASS | expected STOP / complete |
+
+The cancelled Mac attempt1 remains cancelled; Ubuntu's successful attempt1 is
+not renamed attempt2. Latest-attempt API metadata also lists the reused Ubuntu
+job as122991220769; the host receipt's own execution attempt remains1.
+Both official ZIP digests, internal file sums, actual source/input hashes, host
+architecture/version, all mode/case/retention/time counters and guards were
+checked locally with the same matrix validator: G1_BOTH_HOST_CAMPAIGN_PASS.
+Raw ZIP bytes/base64, run/jobs metadata, digests and measurements are saved in the
+[assessment](v06x-go-fixture-campaign-evidence/ci-40730646806/assessment.json).
+
+The accepted static default2/pool budgets stayed within the finite guards for
+this fixed diagnostic on both hosts. Mac FD baseline/peak/final was4/13/4 for
+single-child modes and4/22/4 for cap2/parallel4; Ubuntu was6/15/6 and6/24/6.
+Active child peaks1/2 and physical pool connection peaks2/4 remain separate.
+These observations close the previously missing **time/resource campaign**
+evidence, not arbitrary-app scalability, the16-session-cap question or full G1.
+Actual backing/disposal fault controls and an installed Go consumer using
+mariamemtest remain required. The existing Live installed-consumer step is not
+relabelled as helper-consumer acceptance. Main adoption and release remain
+separate decisions. Earlier pending/failure paragraphs retain historical context.
