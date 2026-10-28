@@ -5,8 +5,33 @@ This document owns current state and future direction. The
 owns current HOW, [decisions](decisions/snapshot-product-contract.md) own
 continuing product constraints, and reports preserve historical evidence.
 Version themes are direction; they are not release approval.
+
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
+
+## Issue #5 host repair — adoption approved, protected integration pending
+
+The Human approved main adoption of candidate source_commit
+`8383f09b4043eafed07fcb048f8edcbde30d0c6a` after Development
+[CI40737308463 attempt2](https://github.com/masahitojp/mariamem/actions/runs/40737308463/attempts/2)
+completed successfully. Both-platform worker-failure/native-equality acceptance,
+normal integration and full check are successful. Attempt1's hosted-runner
+communication failure remains recorded; its cause is not established.
+
+The bounded repair binds `Fd_dup` to the existing descriptor implementation and
+notifies fatal worker traps promptly. The affected DB becomes unusable; pending
+calls retain the original cause; joining still precedes resource release.
+Other DB instances remain independent. Non-cooperative Go workers retain their
+resources until they exit. The other14 panic imports remain fail-closed.
+Guest source, public API and Live/Snapshot product contracts are unchanged.
+
+See the [adoption review and conditions](reviews/issue5-main-adoption.md),
+[repair report](reviews/issue5-host-repair.md) and original
+[investigation](reviews/issue5-text-dedup.md). The integration branch preserves
+current main's documentation and Live CI selection updates. Protected PR checks
+on that combined tree remain required; approval is not a claim that it has
+already landed. No protection bypass, release qualification, version selection
+or publication is authorized by this adoption decision.
 
 ## Dogfood recipes, guides and CI improvement adopted on main — unreleased
 

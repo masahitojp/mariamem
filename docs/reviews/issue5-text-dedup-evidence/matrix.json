@@ -1,0 +1,781 @@
+[
+  {
+    "label": "VARCHAR(32)",
+    "type": "VARCHAR(32)",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0007331660017371178
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0011405000113882124
+    }
+  },
+  {
+    "label": "VARCHAR(255)",
+    "type": "VARCHAR(255)",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005179159925319254
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.00040695900679565966
+    }
+  },
+  {
+    "label": "VARBINARY(255)",
+    "type": "VARBINARY(255)",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          {
+            "hex": "616c696365"
+          }
+        ],
+        [
+          {
+            "hex": "626f62"
+          }
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0003697909996844828
+    },
+    "guest": {
+      "rows": [
+        [
+          {
+            "hex": "616c696365"
+          }
+        ],
+        [
+          {
+            "hex": "626f62"
+          }
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0003993749851360917
+    }
+  },
+  {
+    "label": "VARCHAR(1000)",
+    "type": "VARCHAR(1000)",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0008208750223275274
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.000657416996546
+    }
+  },
+  {
+    "label": "VARCHAR(2000)",
+    "type": "VARCHAR(2000)",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.00240208298782818
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0012777920055669
+    }
+  },
+  {
+    "label": "TINYTEXT",
+    "type": "TINYTEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0014982499997131526
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0009533340053167
+    }
+  },
+  {
+    "label": "TEXT",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0014322920178528875
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0014390410215128
+    }
+  },
+  {
+    "label": "MEDIUMTEXT",
+    "type": "MEDIUMTEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0008659579907543957
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0008907080045901
+    }
+  },
+  {
+    "label": "LONGTEXT",
+    "type": "LONGTEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0007522919913753867
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0011733749997802
+    }
+  },
+  {
+    "label": "BLOB",
+    "type": "BLOB",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          {
+            "hex": "616c696365"
+          }
+        ],
+        [
+          {
+            "hex": "626f62"
+          }
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0008135829993989319
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.000781749986345
+    }
+  },
+  {
+    "label": "empty",
+    "type": "TEXT",
+    "setup": [
+      "DELETE FROM t"
+    ],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [],
+      "affected": 0,
+      "outcome": "OK",
+      "elapsed": 0.0004918749909847975
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0011896659852937
+    }
+  },
+  {
+    "label": "one",
+    "type": "TEXT",
+    "setup": [
+      "DELETE FROM t WHERE id=2"
+    ],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ]
+      ],
+      "affected": 1,
+      "outcome": "OK",
+      "elapsed": 0.0010052910074591637
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0008898329979274
+    }
+  },
+  {
+    "label": "limit",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t LIMIT 1",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ]
+      ],
+      "affected": 1,
+      "outcome": "OK",
+      "elapsed": 0.0010736669937614352
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0005197089922149
+    }
+  },
+  {
+    "label": "distinct_order",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t ORDER BY customer",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0010907499818131328
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0012857079855166
+    }
+  },
+  {
+    "label": "multi_column",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT id, customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          1,
+          "alice"
+        ],
+        [
+          2,
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0009329580061603338
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.001278750016354
+    }
+  },
+  {
+    "label": "union",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT customer FROM t UNION SELECT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0011034999915864319
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0012307500001043
+    }
+  },
+  {
+    "label": "derived",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT * FROM (SELECT DISTINCT customer FROM t) x",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0015175830048974603
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0009292920003645
+    }
+  },
+  {
+    "label": "group",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT customer FROM t GROUP BY customer",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.001123458001529798
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0014706249930896
+    }
+  },
+  {
+    "label": "ctas",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "CREATE TABLE cn AS SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0036097909905947745
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0012307910074014
+    }
+  },
+  {
+    "label": "insert",
+    "type": "TEXT",
+    "setup": [
+      "CREATE TABLE dst LIKE t"
+    ],
+    "sql": "INSERT INTO dst(customer) SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0011787920084316283
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0010540829971433
+    }
+  },
+  {
+    "label": "view",
+    "type": "TEXT",
+    "setup": [
+      "CREATE VIEW v AS SELECT DISTINCT customer FROM t"
+    ],
+    "sql": "SELECT * FROM v",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0015403330035042018
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.001346208009636
+    }
+  },
+  {
+    "label": "index",
+    "type": "TEXT",
+    "setup": [
+      "ALTER TABLE t ADD INDEX (customer(10))"
+    ],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.000899833015864715
+    },
+    "guest": {
+      "outcome": "ERROR",
+      "error": "(2013, 'mariamem query timed out; database instance terminated')",
+      "elapsed": 1.0017969170003198
+    }
+  },
+  {
+    "label": "count",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT COUNT(DISTINCT customer) FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          2
+        ]
+      ],
+      "affected": 1,
+      "outcome": "OK",
+      "elapsed": 0.0009530829847790301
+    },
+    "guest": {
+      "rows": [
+        [
+          2
+        ]
+      ],
+      "affected": 1,
+      "outcome": "OK",
+      "elapsed": 0.0010573749896138906
+    }
+  },
+  {
+    "label": "union_all",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT customer FROM t UNION ALL SELECT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ],
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 4,
+      "outcome": "OK",
+      "elapsed": 0.0004375829885248095
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ],
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 4,
+      "outcome": "OK",
+      "elapsed": 0.0007226660090964288
+    }
+  },
+  {
+    "label": "big_result",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT SQL_BIG_RESULT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0003671249723993242
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0015108329826034606
+    }
+  },
+  {
+    "label": "cast",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT CAST(customer AS CHAR(255)) FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.00045037499512545764
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0015316670178435743
+    }
+  },
+  {
+    "label": "aggregate",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT customer, COUNT(*) FROM t GROUP BY customer",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice",
+          1
+        ],
+        [
+          "bob",
+          1
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0006216669862624258
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice",
+          1
+        ],
+        [
+          "bob",
+          1
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005905409925617278
+    }
+  },
+  {
+    "label": "order",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT customer FROM t ORDER BY customer",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0003485419729258865
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0003876670089084655
+    }
+  }
+]

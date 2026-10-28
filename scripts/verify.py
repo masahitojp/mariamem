@@ -100,6 +100,8 @@ def integration():
     # Guest OOB failures must trap without terminating the host process.
     run(["go", "test", "-p", "1", "-tags=integration", "./tests/generatedmemory",
          "-count=1", "-timeout=3m"], env=env)
+    run(["go", "test", "-p", "1", "-tags=integration", "./internal/generatedgo",
+         "-run=TestWorkerTrapActualGuest", "-count=1", "-timeout=3m"], env=env)
     with tempfile.TemporaryDirectory(prefix="mariamem-integration-") as temporary:
         host = Path(temporary) / "mariamem-host"
         run(["go", "build", "-p", "1", "-o", host, "./cmd/mariamem-host"], env=env)

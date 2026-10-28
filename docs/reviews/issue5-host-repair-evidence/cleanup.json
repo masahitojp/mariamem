@@ -1,0 +1,10 @@
+{
+  "owned_temp_deleted_bytes": 6233452544,
+  "owned_temp_exists": false,
+  "remaining_raw_evidence_bytes": 192512,
+  "native_container": "stopped and removed",
+  "active_owned_host_compiler_or_verification_processes": false,
+  "isolated_clone": "temporary source checkout; retained until the committed result is pushed and fetched back",
+  "scope": "Only this task's caches, binaries, Python archive/frameworks and venvs. Other workspaces, user branch and shared toolchain/module caches were preserved.",
+  "raw_consumer_binaries": "removed; observation hashes and source/reproduction commands preserved"
+}

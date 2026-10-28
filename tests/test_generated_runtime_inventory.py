@@ -99,6 +99,7 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
         + SUBWORD + '\n' + CMP + '\n'
         + 'func (w *WasiStubs) Sched_yield(m *Module) int32 {\n\truntime.Gosched()\n\treturn _wasiESUCCESS\n}\n'
         + 'const _wasiESUCCESS int32 = 0\n'
+        + (ROOT/'tests/fixtures/pinned-worker-failure.go.txt').read_text()
         + (ROOT/'tests/fixtures/pinned-memfs.go.txt').read_text())
     for relative, (fn, _) in FUNCTIONS.items():
         body = function((canonical/relative).read_text(), fn)
@@ -163,6 +164,8 @@ def test_pinned_driver_adapter_contains_snapshot_attribution():
         return text[text.index('func exportTransfer('):text.index('func verifyCompiledGuest(')]
     assert ''.join(export_body(adapted).split()) == ''.join(export_body(canonical).split())
     assert '"context"' in adapted and '"github.com/masahitojp/mariamem/internal/timing"' in adapted
+    assert 'rc := h.WasiStubs.Fd_dup(m, l0, l1)' in adapted
+    assert 'panic("unimplemented WASIX: Fd_dup")' not in adapted
     with pytest.raises(ValueError, match='driver fragment changed'):
         installer.adapt_driver(raw.decode().replace('return os.WriteFile(dst, b, 0600)', 'return nil'))
 

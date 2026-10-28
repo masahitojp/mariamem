@@ -185,7 +185,7 @@ func TestMappedMemoryInitializationFailure(t *testing.T) {
 	}
 	for i := 0; i < 3; i++ {
 		// Restore failure occurs before reserve; missing prepared source must not leak.
-		if err := <-StartInstance(strings.NewReader(""), io.Discard, io.Discard, "", []prepared.Entry{{Name: ".", Directory: true, FD: -1}, {Name: "invalid", FD: -1, Size: 1}}, false); err == nil {
+		if err := <-StartInstance(strings.NewReader(""), io.Discard, io.Discard, "", []prepared.Entry{{Name: ".", Directory: true, FD: -1}, {Name: "invalid", FD: -1, Size: 1}}, false, nil); err == nil {
 			t.Fatal("expected failed restore")
 		}
 	}

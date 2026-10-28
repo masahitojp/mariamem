@@ -1,0 +1,5 @@
+{
+  "url": "https://github.com/actions/python-versions/releases/download/3.14.8-36806082737/python-3.14.8-darwin-arm64.tar.gz",
+  "sha256": "88379ff8be11ec05986bf384205f00092b4b46975f40321d8567a16a7c2e8d5f",
+  "installation": "pkgutil --expand-full into disposable scratch; private Python.framework link and DYLD_FRAMEWORK_PATH/DYLD_LIBRARY_PATH; PYTHONHOME only for initial venv creation. No system installation or connector/ssl patch."
+}

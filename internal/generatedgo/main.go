@@ -365,7 +365,16 @@ func run(args []string) {
 	}
 }
 
-func (h *host) Fd_dup(m *base.Module, l0 int32, l1 int32) int32 { panic("unimplemented WASIX: Fd_dup") }
+func (h *host) Fd_dup(m *base.Module, l0 int32, l1 int32) int32 {
+	h.flagsMu.Lock()
+	defer h.flagsMu.Unlock()
+	rc := h.WasiStubs.Fd_dup(m, l0, l1)
+	if rc == 0 {
+		// dup shares the open file but clears per-descriptor close-on-exec.
+		h.fdFlags[int32(binary.LittleEndian.Uint32(m.Memory[l1:]))] = 0
+	}
+	return rc
+}
 func (h *host) Fd_dup2(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32 {
 	panic("unimplemented WASIX: Fd_dup2")
 }

@@ -28,6 +28,8 @@ HANDWRITTEN_FILES = (
     'code/base/thread_identity_test.go',
     'code/base/thread_lifetime.go',
     'code/base/thread_lifetime_test.go',
+    'code/base/runtime_failure.go',
+    'code/base/runtime_failure_test.go',
     'runtime_thread_lifetime.go',
     'code/base/narrow_load_test.go',
     'code/base/narrow_load_supported.go',
@@ -43,6 +45,9 @@ HANDWRITTEN_FILES = (
     'code/base/owned_prepared_test.go',
     'runtime_instance.go',
     'runtime_instance_test.go',
+    'host_dup_test.go',
+    'worker_trap_integration_test.go',
+    'code/base/fd_dup_test.go',
     'code/base/runtime_cleanup.go',
     'code/base/host_memory_test.go',
     'memory_backing_unix.go',
@@ -77,6 +82,17 @@ def adapt_driver(text):
     # Export attribution belongs to this deterministic adapter, not a manual
     # edit of its generated output. Reject an unexpected pinned driver shape.
     changes = (
+        ('func (h *host) Fd_dup(m *base.Module, l0 int32, l1 int32) int32 { panic("unimplemented WASIX: Fd_dup") }',
+         '''func (h *host) Fd_dup(m *base.Module, l0 int32, l1 int32) int32 {
+ h.flagsMu.Lock()
+ defer h.flagsMu.Unlock()
+ rc := h.WasiStubs.Fd_dup(m, l0, l1)
+ if rc == 0 {
+  // dup shares the open file but clears per-descriptor close-on-exec.
+  h.fdFlags[int32(binary.LittleEndian.Uint32(m.Memory[l1:]))] = 0
+ }
+ return rc
+}'''),
         ('\tw.SetEnv([]string{"MARIAMEM_GUEST_TIMING=1"})\n\tif !diagnostic {\n\t\tw.SetEnv(nil)\n\t}', '\tw.SetEnv(guestEnvironment(restore != "", diagnostic))'),
         ('import (\n', 'import (\n\t"context"\n'),
         ('\t"os"\n', '\t"os"\n\t"github.com/masahitojp/mariamem/internal/timing"\n'),
@@ -144,6 +160,8 @@ def main():
             text = text.replace('package main', 'package generatedgo', 1)
         from runtime_thread_lifetime import apply as thread_lifetime
         text = thread_lifetime(str(target.relative_to(out)), text)
+        from runtime_failure import apply as worker_failure
+        text = worker_failure(str(target.relative_to(out)), text)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text)
     # Only dedicated mariamem commands dispatch this entry; no consumer init hook.
