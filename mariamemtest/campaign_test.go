@@ -381,11 +381,18 @@ func TestFixtureCampaign(t *testing.T) {
 		defer m.phase("prepare", began)
 		prepareCalls++
 		// Fixed repository-authored SQL only. Not a dump reader/parser.
-		for _, q := range strings.Split(string(data), ";") {
-			if strings.TrimSpace(q) != "" {
-				if _, err := p.ExecContext(ctx, q); err != nil {
-					return err
-				}
+		for _, line := range strings.Split(string(data), "\n") {
+			q := strings.TrimSpace(line)
+			if q == "" || strings.HasPrefix(q, "--") {
+				continue
+			}
+			// This pinned input has exactly one complete statement per line.
+			// A semicolon in its human comment is not a SQL delimiter.
+			if !strings.HasSuffix(q, ";") {
+				return errors.New("fixed SQL line lacks its terminator")
+			}
+			if _, err := p.ExecContext(ctx, q); err != nil {
+				return err
 			}
 		}
 		return m.sample("prepared")

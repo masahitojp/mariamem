@@ -81,7 +81,7 @@ def host_profile():
 def run_command(command, output, env=None):
     started = time.monotonic()
     with Path(output).open('w') as stream:
-        result = subprocess.run(command, cwd=ROOT, env=env, stdout=stream, stderr=subprocess.STDOUT)
+        result = subprocess.run(command, cwd=ROOT, env=env, stdout=stream, stderr=subprocess.STDOUT, timeout=600)
     need(result.returncode == 0, 'command failed; see ' + str(Path(output).name))
     return {'command': command, 'elapsed_seconds': time.monotonic() - started}
 
