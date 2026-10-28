@@ -920,6 +920,18 @@ gap; G1 still needs actual backing/disposal fault controls and an installed
 consumer that exercises mariamemtest. Existing Live installed-consumer success
 is not proof of that helper route. No main adoption/Qualification/release.
 
+**G1 remaining acceptance implementation:** [physical ownership and external
+helper consumer controls](reviews/v06x-go-fixture-completion.md) are implemented.
+They observe real FD/temp cleanup with controlled backend/interface faults,
+require 8 semantic mutations to be detected, and resolve the actual candidate
+helper from a private Go module ZIP outside the repository without replace.
+Fault injection exposed a diagnostic overclaim; capture-internal cleanup is now
+reported unverified independently of helper-owner finalization. Full canonical
+check passed at 845b8f1; final completion and 185 focused tests passed locally at
+50f9817 (macOS 27.2 arm64). The existing Live required gate now requires both-host
+completion receipts as well as resource receipts. New CI results remain pending;
+G1-complete/main adoption/Qualification/release are not claimed.
+
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,
 including preparation, metadata, prepared/results, pools/reconnect/session

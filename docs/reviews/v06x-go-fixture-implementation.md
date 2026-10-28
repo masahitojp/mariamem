@@ -95,3 +95,15 @@ acceptance still requires the fault/consumer work below. Disposal/backing fault 
 acceptance remain separately tracked. The declaration lint is no longer the only
 check: selected Live CI jobs execute the campaign, and the existing required
 aggregate rejects missing/stale/incomplete measurements or either host artifact.
+
+## Physical faults and installed-helper follow-up
+
+The [completion implementation and local verification](v06x-go-fixture-completion.md)
+now cover the remaining fault/consumer mechanisms: real FD/temp state at the
+root/fixture interfaces, 8 semantic mutations and a separate private-module
+consumer exercising public Run/DB(t) with command failures and cancellation.
+Fault injection found and fixed capture cleanup overclaiming; the helper now
+separates its own owner finalization from unverified capture-internal cleanup.
+Local final source 50f9817 passed. Fresh both-host source-bound completion receipts
+remain pending, so full G1 acceptance/main adoption/release are not declared.
+The earlier b594527 resource receipts retain their original source and attempts.
