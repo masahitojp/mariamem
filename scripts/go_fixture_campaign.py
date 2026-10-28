@@ -215,13 +215,16 @@ def validate_host(directory, expected, expected_host=None):
         derived = validate_mode(json.loads((mode / 'go.json').read_text()), json.loads((mode / 'os.json').read_text()), cap, parallel, resources)
         need(row == derived, 'host summary differs from raw observations')
     need(modes == {(c, p) for c in (1, 2) for p in (1, 4)}, 'mode census incomplete')
+    validate_guard_probe(json.loads((directory / 'guard-probe/go.json').read_text()))
+    need(report['guard_probe'] == 'PRE_ADMISSION_FD_STOP_CONFIRMED', 'guard negative control missing')
     timing = report['three_time_outcomes']
     need(timing['first_test_setup']['elapsed_seconds'] > 0 and timing['second_test_edits']['added_lines'] > 0,
          'first/second-test observations missing')
     need(timing['second_test_edits']['repeated_lifecycle_lines'] == 0 and timing['repeat_batch_elapsed'] == 'per-mode warmup plus three observed batches', 'repeated lifecycle/timing missing')
     need(timing['human_authoring_minutes'] is None and timing['acquisition_state'] == 'unmeasured; existing Go toolchain/module cache', 'invented cold/human-time claim')
     sums = json.loads((directory / 'SHA256SUMS.json').read_text())
-    required = {'host.json', 'first-test.txt', 'second-test.txt'} | {
+    required = {'host.json', 'first-test.txt', 'second-test.txt', 'guard-probe/go.json',
+                'guard-probe/os.json', 'guard-probe/stdout.txt'} | {
         'cap%d-parallel%d/%s' % (c, p, name) for c in (1, 2) for p in (1, 4)
         for name in ('go.json', 'os.json', 'stdout.txt')}
     need(required <= sums.keys(), 'receipt checksum inventory incomplete')
@@ -229,6 +232,15 @@ def validate_host(directory, expected, expected_host=None):
         path = directory / name
         need(path.is_relative_to(directory) and '..' not in Path(name).parts and digest(path) == sha, 'receipt checksum mismatch')
     return report
+
+
+def validate_guard_probe(go):
+    need(go['result'] == 'STOP' and go['stop_reason'] == 'FD headroom guard', 'guard did not STOP')
+    need(go['cleanup_complete'] is True and go['peak_children'] == 0
+         and go['new_fixture_seconds'] == 0 and not go['phases'], 'guard admitted a source/child')
+    need(go['samples'] and all(s['children'] == 0 and s['baselines'] == 0
+                              and s['physical_pool_connections'] == 0 for s in go['samples']),
+         'guard-probe owner accounting missing')
 
 
 def run(expected, output):
@@ -280,6 +292,21 @@ def run(expected, output):
                 go = json.loads((directory / 'go.json').read_text())
                 observed = json.loads((directory / 'os.json').read_text())
                 report['modes'].append(validate_mode(go, observed, cap, parallel, resources))
+        probe = output / 'guard-probe'
+        (probe / 'runtime-tmp').mkdir(parents=True)
+        probe_limits = probe / 'limits.json'
+        strong_limits = json.loads(limits.read_text())
+        strong_limits['min_fd_headroom'] = 1 << 62  # Intentionally impossible, never a relaxed positive budget.
+        write(probe_limits, strong_limits)
+        env = dict(os.environ, TMPDIR=str(probe / 'runtime-tmp'), MARIAMEM_G1_CAP='1',
+                   MARIAMEM_G1_REPORT=str(probe / 'go.json'), MARIAMEM_G1_LIMITS=str(probe_limits),
+                   MARIAMEM_G1_SQL=str(ROOT / resources['retention_input']['path']))
+        try:
+            observe([str(binary), '-test.run=^TestFixtureCampaign$', '-test.parallel=1', '-test.timeout=5m', '-test.v'], probe, env, resources)
+        except ValueError:
+            pass  # The negative control must fail; inspect the original STOP receipt below.
+        validate_guard_probe(json.loads((probe / 'go.json').read_text()))
+        report['guard_probe'] = 'PRE_ADMISSION_FD_STOP_CONFIRMED'
         need(not subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT), 'source became dirty during campaign')
         report['result'] = 'PASS'
     except Exception as exc:
