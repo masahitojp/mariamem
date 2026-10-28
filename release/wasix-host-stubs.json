@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "classification": "Retained fail-closed; no reachability or general WASIX compatibility claim.",
+  "stubs": {
+    "Fd_dup2": "fail-closed",
+    "Thread_signal": "fail-closed",
+    "Proc_exit2": "fail-closed",
+    "Sock_addr_local": "fail-closed",
+    "Sock_addr_peer": "fail-closed",
+    "Sock_open": "fail-closed",
+    "Sock_set_opt_flag": "fail-closed",
+    "Sock_set_opt_time": "fail-closed",
+    "Sock_set_opt_size": "fail-closed",
+    "Sock_get_opt_size": "fail-closed",
+    "Sock_bind": "fail-closed",
+    "Sock_connect": "fail-closed",
+    "Sock_send_to": "fail-closed",
+    "Resolve": "fail-closed"
+  }
+}
