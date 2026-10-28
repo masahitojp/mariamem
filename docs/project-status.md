@@ -793,6 +793,14 @@ already provides it. Exact entry APIs, success signals, reuse/sharing units and
 failure/cleanup acceptance remain design work. No cross-run persistence or
 automatic retry policy is selected by this agreement.
 
+**Default reuse unit agreed with the Human, 2026-10-28:** reuse successful
+preparation within one test execution; parallel workers each own independent
+preparation/baselines. The supplied entry manages that lifecycle, so users do
+not assemble worker sharing or cleanup themselves. Each test still receives
+independent mutable state. This selects the default user experience, not a
+cross-worker baseline service, cross-run persistence or an implicit retry rule.
+Exact APIs and the implementation/acceptance design remain separate work.
+
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,
 including preparation, metadata, prepared/results, pools/reconnect/session
