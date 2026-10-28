@@ -801,6 +801,22 @@ independent mutable state. This selects the default user experience, not a
 cross-worker baseline service, cross-run persistence or an implicit retry rule.
 Exact APIs and the implementation/acceptance design remain separate work.
 
+**Failure handling and human-readable explanation agreed with the Human,
+2026-10-28:** failed preparation must not admit tests. The entry attempts cleanup
+after test failure, exceptions and normal interruption; if cleanup also fails,
+retain both the original failure and cleanup failure rather than masking either.
+Do not silently retry to hide failure. Hard-kill/machine-stop recovery is a
+separate boundary, not implied by normal interruption handling.
+
+The default explanation must let a person understand the failed operation/stage,
+what happened, the confirmed cause and original error/code where available,
+the next useful action, and whether tests started and cleanup completed.
+Distinguish confirmed facts from hypotheses and explicitly state when the cause
+is unknown. Preserve detailed diagnostic context for inspection without making
+users reconstruct the basic explanation from raw tracebacks. This selects the
+diagnostic outcome, not a formatter API or a promise of automatic root-cause
+identification; current runtime behavior still needs design/acceptance mapping.
+
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,
 including preparation, metadata, prepared/results, pools/reconnect/session
