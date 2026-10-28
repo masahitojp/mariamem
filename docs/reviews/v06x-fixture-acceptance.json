@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "scope_status": "PROPOSED_FOR_HUMAN_REVIEW",
-  "implementation_authorized": false,
+  "scope_status": "APPROVED_WITH_DJANGO_NONBLOCKING",
+  "implementation_authorized": true,
   "source_commit": "cc00ccd98e29a1f5d5088a082be90a3cdaa4f469",
   "entries": [
     {
@@ -48,14 +48,13 @@
   "whole_scope_requires": [
     "P1",
     "G1",
-    "D1",
     "EP1",
     "EG1"
   ],
   "first_delivery": "G1",
   "diagnostics": {
     "selected_profile": "readable-owned",
-    "decision_status": "PROPOSED",
+    "decision_status": "APPROVED",
     "record_timing": "before-first-helper-code",
     "fallback_activation": "NOT_SELECTED",
     "fallback_requires": [
@@ -211,5 +210,15 @@
       "oracle"
     ]
   },
-  "future_runtime_status": "NOT_RUN"
+  "future_runtime_status": "NOT_RUN",
+  "authorized_implementation_entries": [
+    "G1"
+  ],
+  "reviewed_design_commit": "39f97573fe490ad86f37a4dbb25d762141d9114c",
+  "django_policy": {
+    "blocking_for_v060": false,
+    "if_difficult": "DEFER_WITH_OBSTACLE_AND_REMAINING_WORK",
+    "shared_defects": "ASSESS_AGAINST_REQUIRED_ENTRY_CONTRACTS",
+    "python_e2e": "KEEP_BROWSER_E2E_REQUIRED_USE_NON_DJANGO_APP_IF_NEEDED"
+  }
 }

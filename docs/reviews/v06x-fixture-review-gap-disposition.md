@@ -1,5 +1,11 @@
 # Seven fixture-scope review gaps — disposition and next gate
 
+Historical review disposition at39f9757. The subsequent Human decision approved
+G1 first with D1 nonblocking for v0.6.0; see the current
+[scope and exception](v06x-dogfood-scope-draft.md#named-target-entries--approved-with-django-nonblocking).
+The original review below is preserved; its mandatory-D1 concern and pending
+approval statements describe that earlier proposal, not the current gate.
+
 2026-10-28. Review corrections plus next Go API design, not implementation or
 runtime acceptance. Source baseline is adopted main cc00ccd; exact SHA and
 source hashes are in the [structured contract](v06x-fixture-acceptance.json).

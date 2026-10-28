@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Lint the proposed fixture acceptance contract; never grant runtime acceptance."""
+"""Lint the reviewed fixture contract; never grant runtime acceptance."""
 import argparse
 import hashlib
 import json
@@ -14,11 +14,6 @@ CONTRACT = ROOT / 'docs/reviews/v06x-fixture-acceptance.json'
 ENTRIES = {'P1', 'G1', 'D1', 'EP1', 'EG1'}
 
 
-def require_design_only_tree(root):
-    if list((root / 'mariamemtest').rglob('*.go')):
-        raise ValueError('helper implementation exists while the contract is still an unapproved proposal')
-
-
 def validate(plan, root=ROOT):
     def need(condition, reason):
         if not condition:
@@ -26,7 +21,13 @@ def validate(plan, root=ROOT):
     require_commit(root, plan['source_commit'])
     rows = plan['entries']
     need({v['id'] for v in rows} == ENTRIES and len(rows) == len(ENTRIES), 'named entries incomplete/duplicated')
-    need(set(plan['whole_scope_requires']) == ENTRIES, 'whole-scope completion silently reduced')
+    need(set(plan['whole_scope_requires']) == ENTRIES - {'D1'}, 'required completion set changed')
+    need(plan['django_policy'] == {
+        'blocking_for_v060': False,
+        'if_difficult': 'DEFER_WITH_OBSTACLE_AND_REMAINING_WORK',
+        'shared_defects': 'ASSESS_AGAINST_REQUIRED_ENTRY_CONTRACTS',
+        'python_e2e': 'KEEP_BROWSER_E2E_REQUIRED_USE_NON_DJANGO_APP_IF_NEEDED',
+    }, 'Django exception must not waive shared defects or browser E2E')
     need(plan['first_delivery'] == 'G1', 'first-delivery decision changed')
     diag = plan['diagnostics']
     need(diag['record_timing'] == 'before-first-helper-code', 'diagnostic decision must precede implementation')
@@ -78,11 +79,16 @@ def validate(plan, root=ROOT):
     need({int(n.strip()) for n in caps.split('|')} == set(wire['base_capability_bits']), 'wire capability inventory differs')
     need(set(wire['ledger_fields']) == {'operation', 'client_options', 'observed_command_flags', 'native_result', 'guest_result', 'error', 'cleanup', 'source_client_pin', 'oracle'}, 'wire observation ledger incomplete')
     need(plan['future_runtime_status'] == 'NOT_RUN', 'design lint must not grant runtime PASS')
-    # This lint does not prove approval history/ancestry. The implementation task
-    # must bind an approved earlier design commit; a boolean here cannot grant it.
-    need(plan['scope_status'] == 'PROPOSED_FOR_HUMAN_REVIEW' and plan['implementation_authorized'] is False, 'proposal is not implementation approval')
-    require_design_only_tree(root)
-    return {'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'implementation_authorized': False}
+    need(plan['scope_status'] == 'APPROVED_WITH_DJANGO_NONBLOCKING'
+         and plan['implementation_authorized'] is True
+         and plan['authorized_implementation_entries'] == ['G1'], 'implementation exceeds Human decision')
+    need(diag['decision_status'] == 'APPROVED', 'diagnostic profile not approved')
+    reviewed = plan['reviewed_design_commit']
+    require_commit(root, reviewed)
+    need(reviewed == '39f97573fe490ad86f37a4dbb25d762141d9114c', 'reviewed design identity changed')
+    ancestor = subprocess.run(['git', 'merge-base', '--is-ancestor', reviewed, 'HEAD'], cwd=root)
+    need(ancestor.returncode == 0, 'reviewed design must precede implementation')
+    return {'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'authorized_implementation_entries': ['G1']}
 
 
 def main():

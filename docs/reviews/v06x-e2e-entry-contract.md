@@ -1,7 +1,9 @@
 # Prepared E2E entry contract — EP1/EG1 design proposal
 
 2026-10-28. Shared contract for Python browser E2E and Go HTTP E2E, awaiting
-concrete API/scope review. Live is an existing mechanism; no new entry is
+concrete entry API design. The Human approved this scope/contract against39f9757.
+Django-specific implementation is nonblocking for v0.6.0: if necessary, pin a
+non-Django Python application while retaining browser E2E acceptance. Live is an existing mechanism; no new entry is
 implemented by this document. Both entries use the declared diagnostic milestone
 in the [scope draft](v06x-dogfood-scope-draft.md).
 

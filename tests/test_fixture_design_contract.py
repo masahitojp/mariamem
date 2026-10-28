@@ -8,21 +8,12 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from check_fixture_design import CONTRACT, require_design_only_tree, validate
+from check_fixture_design import CONTRACT, validate
 
 
-def test_proposed_contract_is_not_runtime_or_implementation_acceptance():
+def test_reviewed_contract_authorizes_only_g1_without_runtime_acceptance():
     assert validate(json.loads(CONTRACT.read_text())) == {
-        'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'implementation_authorized': False}
-
-
-def test_helper_code_cannot_enter_the_design_only_tree(tmp_path):
-    require_design_only_tree(tmp_path)
-    package = tmp_path / 'mariamemtest'
-    package.mkdir()
-    (package / 'fixture.go').write_text('package mariamemtest\n')
-    with pytest.raises(ValueError, match='unapproved proposal'):
-        require_design_only_tree(tmp_path)
+        'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'authorized_implementation_entries': ['G1']}
 
 
 @pytest.mark.parametrize('mutation', [
@@ -31,11 +22,12 @@ def test_helper_code_cannot_enter_the_design_only_tree(tmp_path):
     'fallback_rationale', 'e2e_stop', 'physical_retirement', 'e2e_parallel',
     'transient_children', 'old_wire', 'wire_commands', 'wire_hash',
     'fixture_hash', 'fake_runtime_pass', 'fake_approval', 'unrecorded_fallback',
+    'django_blocking', 'waive_shared', 'drop_browser', 'review_identity',
 ])
 def test_review_gap_mutations_are_rejected(mutation):
     plan = copy.deepcopy(json.loads(CONTRACT.read_text()))
     if mutation == 'entry': plan['entries'].pop()
-    elif mutation == 'whole_scope': plan['whole_scope_requires'].remove('D1')
+    elif mutation == 'whole_scope': plan['whole_scope_requires'].remove('EP1')
     elif mutation == 'unbounded': plan['resources']['max_forks_default'] = 0
     elif mutation == 'connections': plan['resources']['child_pool_max_open'] = 0
     elif mutation == 'timing': plan['resources']['time_outcomes'].remove('second_test_edits')
@@ -54,7 +46,11 @@ def test_review_gap_mutations_are_rejected(mutation):
     elif mutation == 'wire_hash': plan['wire']['source_sha256']['internal/mysqlwire/wire.go'] = '0' * 64
     elif mutation == 'fixture_hash': plan['resources']['retention_input']['sha256'] = '0' * 64
     elif mutation == 'fake_runtime_pass': plan['future_runtime_status'] = 'PASS'
-    elif mutation == 'fake_approval': plan['implementation_authorized'] = True
+    elif mutation == 'fake_approval': plan['authorized_implementation_entries'].append('D1')
+    elif mutation == 'django_blocking': plan['django_policy']['blocking_for_v060'] = True
+    elif mutation == 'waive_shared': plan['django_policy']['shared_defects'] = 'IGNORE'
+    elif mutation == 'drop_browser': plan['django_policy']['python_e2e'] = 'DEFER'
+    elif mutation == 'review_identity': plan['reviewed_design_commit'] = '0' * 40
     elif mutation == 'unrecorded_fallback':
         plan['diagnostics']['selected_profile'] = 'basic-first'
         for row in plan['entries']: row['diagnostic_profile'] = 'basic-first'

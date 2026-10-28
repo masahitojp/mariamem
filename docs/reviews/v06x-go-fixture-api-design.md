@@ -3,7 +3,9 @@
 2026-10-28. Design against stable main source_commit
 `cc00ccd98e29a1f5d5088a082be90a3cdaa4f469`; current branch changes are planning
 documents/test tooling only. No helper implementation or build is authorized by
-this proposal. [Scope](v06x-dogfood-scope-draft.md),
+this proposal alone. The Human subsequently approved G1 implementation against
+reviewed design commit39f9757, with D1 nonblocking for v0.6.0 as recorded in the
+[scope](v06x-dogfood-scope-draft.md). No implementation has run yet. [Scope](v06x-dogfood-scope-draft.md),
 [milestone](v06x-go-fixture-first-milestone.md) and
 [acceptance manifest](v06x-fixture-acceptance.json) are cross-checks.
 
@@ -133,8 +135,8 @@ an original/cleanup error; each must be detected. A single unit PASS is not an
 actual-guest or memory/FD proof. Apply the separate timing/resource acceptance,
 retained-baseline input and host/source identity matrix before claiming G1 done.
 
-Review needed now: named target scope plus this API/ownership/defaults and the
-E2E hook contract. After approval, implement G1 and its focused oracles first;
-P1/D1/EP1/EG1 remain separately tracked obligations. New runtime/guest work,
-external-project execution, main adoption and release are not authorized by
-this design proposal.
+Human decision: implement G1 and its focused oracles first under this reviewed
+API/ownership/defaults and readable-owned profile. P1/EP1/EG1 remain required;
+D1 is tracked but difficult Django-specific implementation is nonblocking for
+v0.6.0. Shared runtime defects are not waived. Guest changes, external-project
+execution, main adoption and release require their own applicable decision.

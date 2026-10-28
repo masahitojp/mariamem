@@ -832,11 +832,11 @@ isolation, setup-failure admission, original failure preservation or honest
 cleanup reporting. Exact helper APIs and runtime acceptance remain design work;
 no independent-project execution is selected by this agreement.
 
-**Concrete acceptance proposal after the 2026-10-28 review:** name P1 Python
+**Human acceptance after the 2026-10-28 review:** name P1 Python
 prepared/marker, G1 Go helper, D1 Django prepared entry, EP1 Python browser E2E
 and EG1 Go HTTP E2E as the target set, with G1 delivered first. This target/API
-proposal still needs Human scope review; first-milestone success cannot close
-the whole set. The [Go API/ownership proposal](reviews/v06x-go-fixture-api-design.md)
+proposal was approved against design commit39f9757, with the Django exception
+below; first-milestone success cannot close the remaining required set. The [Go API/ownership proposal](reviews/v06x-go-fixture-api-design.md)
 fixes capture consumed/preserved/invalid-but-not-disposed oracles, candidate
 MaxForks2 and pool budgets, and a diagnostic choice committed before code.
 The [E2E hook contract](reviews/v06x-e2e-entry-contract.md) fixes start/readiness,
@@ -845,7 +845,20 @@ The scope draft includes all three time outcomes and memory/FD/connection
 observations, with finite diagnostic limits and no resource-governor claim.
 [Design lint](../scripts/check_fixture_design.py) checks the structured
 [acceptance contract](reviews/v06x-fixture-acceptance.json) and rejects missing
-obligations; it grants neither implementation approval nor runtime acceptance.
+obligations; runtime acceptance still requires actual evidence.
+
+**Django exception agreed with the Human, 2026-10-28:** this is a general fixture
+and E2E product, not a Django-specific product. D1 remains a dogfood target, but
+difficult Django-specific implementation is **not a blocker for v0.6.0**.
+Record the concrete obstacle, user impact and unfinished work when deferring;
+do not label the deferred entry supported or PASS. Shared lifecycle, isolation,
+cleanup or wire defects still require assessment against P1/G1/EP1/EG1 and cannot
+be dismissed merely because Django exposed them. EP1 browser E2E stays required;
+if its Django application is the obstacle, record a fixed non-Django application
+substitution rather than making Django an indirect gate or dropping browser E2E.
+The approved first implementation is G1 under the reviewed API, ownership,
+diagnostic profile and resource defaults; no main adoption or release is
+authorized by this decision.
 
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,

@@ -55,19 +55,22 @@ them to the named target set below and its declared diagnostic milestone; a
 first-milestone PASS does not imply ideal-diagnostic or whole-scope completion.
 Oscar is an investigated candidate input, not the definition of this scope.
 
-## Named target entries — concrete acceptance proposal, awaiting scope review
+## Named target entries — approved with Django nonblocking
 
-The following is the explicit proposed v0.6 target set. None can silently vanish
-from an overall completion report. Implementing G1 first does not complete all
-five rows. This proposal fixes what to review; it does not retroactively approve
-new APIs or claim their acceptance has run.
+The Human approved the proposal reviewed at39f9757, with G1 first and one
+qualification: D1 is a dogfood target but difficult Django-specific implementation
+must not block v0.6.0. P1/G1/EP1/EG1 remain required. D1 cannot silently vanish:
+report the obstacle, user impact and remaining work when deferring it; deferred
+is not PASS or supported. Shared defects are judged against the required entries,
+not waived because Django exposed them. This records implementation direction,
+not runtime acceptance, main adoption or release approval.
 
 | ID | Entry and fixed initial profile | Preparation/isolation and owner | Completion boundary |
 | --- | --- | --- | --- |
 | P1 | Python pytest prepared fixture + shadow_maria; PyMySQL1.2.3, SQLAlchemy2.0.54 integration | Callback/command preparation; one baseline per xdist worker; independent child per test | Actual command/callback success/failure, routing/pool ownership, schema/seed and error/cleanup evidence; existing fixture is the foundation |
 | G1 | Go testing helper; database/sql + go-sql-driver/mysql1.9.3 | One preparation per fixture/test-package process; bounded children and helper-owned SQL pools | Thin prepared helper first milestone plus declared diagnostic profile and timing/resource evidence |
-| D1 | Django5.2.8/mysqlclient2.2.7; manage.py and pytest-django4.12.0 | Explicit preparation and starting-data policy for both ordinary TestCase and transactional tests | Demonstrate the declared schema/seed at each prepared-entry test; the existing standard-runner recipe alone does not close this row; mechanism needs design |
-| EP1 | Python sequential browser E2E; existing Django/Playwright fixed profile | One application/Live per worker; reset before each case; new browser context per case | Supplied entry owns hook/Reset/admission/cleanup sequence in the E2E contract |
+| D1 | Django5.2.8/mysqlclient2.2.7; manage.py and pytest-django4.12.0 | Explicit preparation and starting-data policy for both ordinary TestCase and transactional tests | Demonstrate the declared schema/seed at each prepared-entry test; the existing standard-runner recipe alone does not close this row; mechanism needs design; nonblocking for v0.6.0 if difficult, with an explicit deferred-work record |
+| EP1 | Python sequential browser E2E; existing Django/Playwright fixed profile | One application/Live per worker; reset before each case; new browser context per case | Supplied entry owns hook/Reset/admission/cleanup sequence in the E2E contract; if Django obstructs this, pin a non-Django application instead of dropping browser E2E |
 | EG1 | Go sequential HTTP E2E; existing Go orders application | One application/Live per test-package fixture owner; reset before each case | Same hook/Reset/admission/cleanup contract, explicitly HTTP rather than browser evidence |
 
 Acceptance environments are macOS15 arm64 and Ubuntu24.04 x86_64; Python entries
@@ -210,9 +213,10 @@ complete just because the basic helper milestone passes.
 The named entries, diagnostic levels, budgets and E2E responsibilities above are
 now concrete review inputs. [Go API/ownership proposal](v06x-go-fixture-api-design.md)
 and [current wire inventory](v06x-wire-current-inventory.md) continue the work.
-They are not implementation or runtime acceptance. The next scope decision is
-whether the five named entries are the full v0.6 obligation, with G1 as the first
-delivery. D1's mechanism and wider wire reach/defer remain explicit decisions.
+The Human approved G1 first against design commit39f9757, with readable-owned
+diagnostics and the proposed API/defaults. P1/G1/EP1/EG1 are the required completion
+set; D1 is nonblocking under the exception above. These decisions are not runtime
+acceptance. D1's mechanism and wider wire reach/defer remain explicit work.
 
 Broader frameworks, async, extra wire features, resource caps and persistence
 remain visible capability-map candidates. No deferral or implementation is
