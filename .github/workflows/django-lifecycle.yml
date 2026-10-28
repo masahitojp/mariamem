@@ -39,6 +39,9 @@ on:
       - 'scripts/git_identity.py'
       - '.github/workflows/django-lifecycle.yml'
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 permissions:
   contents: read
 jobs:
@@ -95,19 +98,21 @@ jobs:
     env:
       PYTHONPATH: python
     steps:
-      - name: Job-owned Go cache paths
-        shell: bash
-        run: |
-          echo "GOCACHE=$RUNNER_TEMP/django-cache/go-build" >> "$GITHUB_ENV"
-          echo "GOPATH=$RUNNER_TEMP/django-cache/gopath" >> "$GITHUB_ENV"
-          echo "GOMODCACHE=$RUNNER_TEMP/django-cache/modcache" >> "$GITHUB_ENV"
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.10'
-          cache: false
+          cache: true
+          cache-dependency-path: |
+            go.sum
+            .github/workflows/django-lifecycle.yml
+      - name: Share Go compiler cache and discard restored test results
+        shell: bash
+        run: |
+          echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
+          go clean -testcache
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: ${{ matrix.python }}
@@ -133,16 +138,16 @@ jobs:
         run: |
           python scripts/git_identity.py inspect HEAD
           python -c 'import sys; sys.path.insert(0,"tests/dump_import_acceptance"); from linux_acquisition import source_identity; import os; source_identity(os.environ["GITHUB_SHA"])'
-          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-cache" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host
+          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-work" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host
       - name: Standard runner, mixed orders, original errors and owner disposal
-        run: python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-cache" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- python tests/django_lifecycle/ci.py --route guest --host build/mariamem-host --reference build/django-reference/reference --expected-source-commit "$GITHUB_SHA" --output build/django-evidence/acceptance
+        run: python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-work" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- python tests/django_lifecycle/ci.py --route guest --host build/mariamem-host --reference build/django-reference/reference --expected-source-commit "$GITHUB_SHA" --output build/django-evidence/acceptance
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
           name: django-${{ matrix.os }}-${{ matrix.python }}-${{ github.sha }}
           path: build/django-evidence
           if-no-files-found: error
-      - name: Remove job-owned cache
+      - name: Remove job-owned scratch
         if: always()
         shell: bash
-        run: rm -rf "$RUNNER_TEMP/django-cache"
+        run: rm -rf "$RUNNER_TEMP/django-work"

@@ -51,13 +51,16 @@ def validate(text):
         assert scenario in text
 
 
-def validate_canonical_ownership(text, development):
+def validate_development_owners(development):
     def job(name):
         match = re.search(r'^  ' + name + r':\n(.*?)(?=^  \S|\Z)', development, re.M | re.S)
         assert match, name
         return match[1]
     # Delegation is valid only while the other required workflow owns these OSes,
     # commands and scope predicates. No source override or trigger path filtering.
+    assert 'continue-on-error:' not in development
+    assert 'needs: scope' in job('check') and 'needs: scope' in job('integration')
+    assert not re.search(r'^    if:', job('check'), re.M)
     assert 'runs-on: ubuntu-latest' in job('check')
     assert "python scripts/verify.py check --scope '${{ needs.scope.outputs.check_scope }}'" in job('check')
     assert 'runs-on: macos-15' in job('integration')
@@ -69,6 +72,10 @@ def validate_canonical_ownership(text, development):
     assert 'paths:' not in triggers and 'paths-ignore:' not in triggers
     assert 'ref:' not in development and 'pull_request.head.sha' not in development
     assert 'python scripts/development_scope.py' in job('scope')
+
+
+def validate_canonical_ownership(text, development):
+    validate_development_owners(development)
     for name, condition, command in [
         ('Canonical check', "runner.os != 'Linux' || needs.scope.outputs.ubuntu_check != 'false'", 'check'),
         ('Canonical integration', "runner.os != 'macOS' || needs.scope.outputs.macos_integration != 'false'", 'integration'),
@@ -78,7 +85,7 @@ def validate_canonical_ownership(text, development):
     for output in ['ubuntu_check', 'macos_integration']:
         assert output + ': ${{ steps.scope.outputs.' + output + ' }}' in text
     assert text.count('cache: true') == 2 and 'cache: false' not in text
-    assert text.count('run: go clean -testcache') == 2
+    assert text.count('          go clean -testcache') == 2
     assert text.count('cache-dependency-path: |\n            go.sum\n            .github/workflows/live-host.yml') == 2
     # The native build must not seed the host's much larger cache namespace.
     assert '            tests/live_acceptance/native.py' in text

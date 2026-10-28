@@ -245,7 +245,7 @@ See [phase 1 evidence](reviews/v05-fast-feedback-phase1.md) and the
 [approved dev guest design](reviews/v05-dev-guest-build-design.md) and
 [implementation validation](reviews/v05-dev-guest-build-validation.md).
 
-### Maintained Live CI reuse
+### Maintained CI ownership and compiler caches
 
 For full PR and main-push diffs, Development owns the Ubuntu canonical `check`
 and macOS canonical `integration`; Live retains macOS `check`, Ubuntu
@@ -257,16 +257,39 @@ keep local canonical invocations. The three protected contexts remain separate:
 attest the delegated Development jobs. The paired workflow contract tests detect
 changes to their owners, commands, triggers and conditions.
 
-Live's native and host jobs use setup-go's GitHub-managed module/build cache.
-Its pinned action keys entries by platform, architecture, Go version and declared
-dependency hashes; the workflow is included in those hashes, with separate native
+Dump uses the same canonical delegation selector as Live. Its additional Ubuntu
+`check` and macOS `integration` run only when Development does not own the full
+corresponding check for the event. Native reference and both-host dump comparisons
+remain independent of this selector. Missing/empty diffs and standalone events
+retain local canonical runs. Dump success alone does not attest the delegated
+Development checks; the protected Development contexts still decide those checks.
+
+Development, Dump, Django and Live use setup-go's GitHub-managed module/build
+cache. Each Go job exports its actual `go env GOCACHE` through `GITHUB_ENV` so
+later wheel builds inherit that cache instead of selecting `build/gocache`.
+Development check/integration and Dump comparison/check/integration have separate
+cache namespaces to avoid competing to save different compilation workloads.
+Django retains all four OS/Python cells; its scratch cleanup does not remove the
+compiler cache before setup-go saves it. Compiler paths are runner-managed;
+scratch budget guards do not account for these compiler caches.
+
+The pinned setup-go action keys entries by platform, architecture, Go version
+and declared dependency hashes; the workflow is included in those hashes, with separate native
 and host namespaces. Restored test results are invalidated with `go clean
--testcache`, and Live race checks use `-count=1`. Candidate executables are still
-built through Go and checked against their actual embedded source identity.
+-testcache`, and explicit race/integration invocations retain `-count=1`. Candidate
+executables are still built through Go and checked against their actual embedded source identity.
 This does not reuse an old PASS receipt or a packaged host. Release workflows and
 local task-cache lifecycle are unchanged. Cache misses execute ordinary builds;
 these runs make no cold-setup or measured speedup claim. See the
 [CI change record](reviews/v06x-live-ci-dedup-cache.md).
+
+These four maintained PR workflows group concurrency by workflow, event and PR
+number. A new update cancels only older runs of the same PR in that workflow.
+Main pushes, experiment pushes and manual runs use unique run IDs, so unrelated
+or pending non-PR runs do not replace each other. Release/Qualification concurrency
+and cache policy are unchanged. Issue #11's current changes require actual CI
+confirmation of cold/warm restore/save, source-bound acceptance and timing; local
+workflow tests do not establish a speedup.
 
 ### Single-pass unqualified guest development
 

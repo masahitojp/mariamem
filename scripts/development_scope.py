@@ -145,6 +145,18 @@ def plan(root, candidate, base):
     return {**result, 'source_commit': candidate, 'base_commit': base}
 
 
+def canonical_plan(plan, event, ref):
+    """Delegate only checks owned by Development for this same event/source."""
+    shared = (event == 'pull_request' or (event == 'push' and ref == 'refs/heads/main'))
+    shared = shared and bool(plan.get('changed_paths')) and plan.get('reason') in {
+        'local changed-input classification', 'unknown/runtime input',
+    }
+    return {
+        'ubuntu_check': not (shared and plan.get('check_scope') == 'full'),
+        'macos_integration': not (shared and plan.get('integration') is True),
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=ROOT)
@@ -162,6 +174,9 @@ def main():
         with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
             output.write('check_scope=' + result['check_scope'] + '\n')
             output.write('integration=' + str(result['integration']).lower() + '\n')
+            for key, value in canonical_plan(
+                    result, os.environ.get('GITHUB_EVENT_NAME'), os.environ.get('GITHUB_REF')).items():
+                output.write(key + '=' + str(value).lower() + '\n')
 
 
 if __name__ == '__main__':
