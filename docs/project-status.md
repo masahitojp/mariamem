@@ -9,7 +9,7 @@ Version themes are direction; they are not release approval.
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Issue #5 host repair — adoption approved, protected integration pending
+## Issue #5 host repair — adopted on main, unreleased
 
 The Human approved main adoption of candidate source_commit
 `8383f09b4043eafed07fcb048f8edcbde30d0c6a` after Development
@@ -27,11 +27,21 @@ Guest source, public API and Live/Snapshot product contracts are unchanged.
 
 See the [adoption review and conditions](reviews/issue5-main-adoption.md),
 [repair report](reviews/issue5-host-repair.md) and original
-[investigation](reviews/issue5-text-dedup.md). The integration branch preserves
-current main's documentation and Live CI selection updates. Protected PR checks
-on that combined tree remain required; approval is not a claim that it has
-already landed. No protection bypass, release qualification, version selection
-or publication is authorized by this adoption decision.
+[investigation](reviews/issue5-text-dedup.md). [PR14](https://github.com/masahitojp/mariamem/pull/14) squash-merged to main
+source_commit `ca67dcacaf2d96b040f0e312cdf60aab85abd99d` from checked head
+`e9c77c1b7a2f66a9aef7cb6fbdfde1c4921bcf0f`; their trees are identical.
+The integration retains main's intervening CI changes. Final PR Development
+[40778348981](https://github.com/masahitojp/mariamem/actions/runs/40778348981),
+Live [40778348966](https://github.com/masahitojp/mariamem/actions/runs/40778348966),
+Django [40778348956](https://github.com/masahitojp/mariamem/actions/runs/40778348956)
+and dump [40778348959](https://github.com/masahitojp/mariamem/actions/runs/40778348959)
+checks succeeded; strict app-bound check/integration/Live gates were respected.
+The earlier macOS runner-capacity cancellation and CI-rule integration failure
+remain historical failures, not runtime acceptance. PR worker acceptance runs
+on Ubuntu; main/manual retain both hosts, with original both-host candidate
+acceptance separately identified above. Issue5 is closed by the merge. These
+receipts do not qualify a later release/main build. No protection bypass,
+release qualification, version selection or publication was performed.
 
 ## Dogfood recipes, guides and CI improvement adopted on main — unreleased
 
