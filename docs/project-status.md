@@ -817,6 +817,14 @@ users reconstruct the basic explanation from raw tracebacks. This selects the
 diagnostic outcome, not a formatter API or a promise of automatic root-cause
 identification; current runtime behavior still needs design/acceptance mapping.
 
+The [consolidated scope draft](reviews/v06x-dogfood-scope-draft.md) separates
+these agreed outcomes, existing entry foundations and remaining product choices.
+The next unresolved choice is the per-test initial-state promise: framework-native
+isolation versus always beginning with the declared prepared schema/data. The
+ordinary Django runner's flush semantics must not silently decide that promise.
+No new entry API, adapter or independent-project execution is selected by this
+scope consolidation.
+
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,
 including preparation, metadata, prepared/results, pools/reconnect/session
