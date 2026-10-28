@@ -72,14 +72,16 @@ def populate(root, output):
             overlay_sha256=__import__('hashlib').sha256(variant.encode()).hexdigest()))
         (output / (name + '.jsonl.txt')).write_text(json.dumps({'Action': 'fail', 'Test': target}) + '\n' + marker)
     consumer = dict(result='PASS', replace=False, outside_repository=True, temporary_cleanup='complete',
+                    runtime_target=dict(goos='darwin',goarch='arm64'),
                     toolchain='go1.26.10', GOWORK='off', GOTOOLCHAIN='local', module_path=completion.MODULE,
                     private_module_version='v0.0.0-g1.'+source_identity(root)[:16], module_sum='h1:test',
                     module_files={p.relative_to(root).as_posix(): completion.digest(p) for p in source_files(root)},
                     runs=[dict(mode=mode, result='PASS', cases=list(completion.EXTERNAL_CASES)) for mode in ('normal','shuffle')])
     text = ''.join('--- PASS: ' + name + ' (0.01s)\n' for name in completion.EXTERNAL_CASES)
-    text += json.dumps(dict(result='PASS_EXTERNAL_FIXTURE', prepares=1)) + '\n'
+    text += json.dumps(dict(result='PASS_EXTERNAL_FIXTURE', prepares=1, goos='darwin',goarch='arm64')) + '\n'
     for mode in ('normal','shuffle'): (output / ('consumer-'+mode+'.txt')).write_text(text)
     report = dict(result='PASS', source_commit=expected, toolchain='go1.26.10', source_inventory_sha256=source_identity(root),
+                  host=dict(system='Darwin',architecture='arm64',version='15.7'), fault_target=dict(goos='darwin',goarch='arm64'),
                   inputs_sha256=inputs, faults=faults, consumer=consumer)
     return report
 
@@ -90,7 +92,7 @@ def sums(output):
 
 
 @pytest.mark.parametrize('mutation', ['none', 'source', 'harness', 'census', 'mutation', 'compile_failure',
-                                    'overlay', 'replaced', 'consumer_cases', 'missing_file', 'checksum'])
+                                    'overlay', 'replaced', 'consumer_cases', 'missing_file', 'checksum', 'wrong_host', 'wrong_runtime'])
 def test_completion_receipt_rejects_missing_or_wrong_evidence(root, tmp_path, mutation):
     output = tmp_path / 'evidence'; r = populate(root, output)
     if mutation == 'source': r['source_commit'] = 'b' * 40
@@ -102,12 +104,14 @@ def test_completion_receipt_rejects_missing_or_wrong_evidence(root, tmp_path, mu
     elif mutation == 'overlay': r['faults']['mutations'][0]['overlay_sha256'] = 'wrong'
     elif mutation == 'replaced': r['consumer']['replace'] = True
     elif mutation == 'consumer_cases': r['consumer']['runs'][0]['cases'].pop()
+    elif mutation == 'wrong_host': r['host']['architecture'] = 'x86_64'
+    elif mutation == 'wrong_runtime': r['consumer']['runtime_target']['goarch'] = 'amd64'
     completion.write(output / 'result.json', r); sums(output)
     if mutation == 'missing_file': (output / 'consumer-normal.txt').unlink()
     elif mutation == 'checksum': (output / 'consumer-normal.txt').write_text('changed')
-    if mutation == 'none': assert completion.validate(output, 'a' * 40)['result'] == 'PASS'
+    if mutation == 'none': assert completion.validate(output, 'a' * 40, 'macos-15')['result'] == 'PASS'
     else:
-        with pytest.raises((ValueError, FileNotFoundError)): completion.validate(output, 'a' * 40)
+        with pytest.raises((ValueError, FileNotFoundError)): completion.validate(output, 'a' * 40, 'macos-15')
 
 
 def test_both_host_workflow_executes_and_requires_completion_receipts():
@@ -115,3 +119,16 @@ def test_both_host_workflow_executes_and_requires_completion_receipts():
     assert '--output build/live-evidence/g1/completion' in text
     required = text.split('  required:\n', 1)[1]
     assert 'scripts/go_fixture_completion.py --expected-source-commit "$GITHUB_SHA" --validate-matrix build/g1-matrix' in required
+
+
+def test_valid_linux_completion_cannot_substitute_for_mac(root, tmp_path):
+    output = tmp_path / 'linux'; r = populate(root, output)
+    r['host'] = dict(system='Linux',architecture='x86_64',version='24.04')
+    r['fault_target'] = r['consumer']['runtime_target'] = dict(goos='linux',goarch='amd64')
+    for mode in ('normal','shuffle'):
+        p=output/('consumer-'+mode+'.txt')
+        p.write_text(p.read_text().replace('darwin','linux').replace('arm64','amd64'))
+    completion.write(output/'result.json',r);sums(output)
+    assert completion.validate(output,'a'*40,'ubuntu-24.04')['result']=='PASS'
+    with pytest.raises(ValueError,match='host mismatch'):
+        completion.validate(output,'a'*40,'macos-15')

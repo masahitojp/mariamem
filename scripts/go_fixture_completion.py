@@ -15,11 +15,13 @@ import time
 from consumer_module import MODULE, prepare_proxy, source_identity
 from consumer_acceptance import verify_module_files
 from git_identity import require_commit
+from go_fixture_campaign import HOSTS, host_profile
 
 ROOT = Path(__file__).resolve().parents[1]
 INPUTS = ('mariamem_test.go', 'mariamemtest/physical_test.go', 'mariamemtest/fixture_test.go',
           'scripts/go_fixture_completion.py', 'scripts/consumer_module.py',
-          'scripts/consumer_acceptance.py', 'tests/fixture_entry_acceptance/consumer_test.go.txt')
+          'scripts/consumer_acceptance.py', 'scripts/go_fixture_campaign.py',
+          'tests/fixture_entry_acceptance/consumer_test.go.txt')
 ROOT_CASES = ('preserved', 'consumed', 'success', 'backing-close-error', 'invalid', 'source-close-error')
 HELPER_CASES = ('preserved', 'consumed', 'partial-baseline', 'invalid', 'cleanup-error')
 EXTERNAL_CASES = ('TestFirstCommit', 'TestSecondSeed', 'TestParallel',
@@ -115,9 +117,15 @@ def verify_resolved(record, tag, root=ROOT):
 
 def consumer_result(text):
     summary = json.loads(text.splitlines()[-1])
-    need(summary == {'result': 'PASS_EXTERNAL_FIXTURE', 'prepares': 1}, 'external fixture setup/exit failed')
+    need(summary['result'] == 'PASS_EXTERNAL_FIXTURE' and summary['prepares'] == 1, 'external fixture setup/exit failed')
+    need((summary['goos'], summary['goarch']) in (('darwin','arm64'),('linux','amd64')), 'external binary architecture unsupported')
     need(all('--- PASS: ' + name + ' ' in text for name in EXTERNAL_CASES), 'external case census incomplete')
     return summary
+
+
+def go_target(profile):
+    return {'goos': {'Darwin': 'darwin', 'Linux': 'linux'}[profile['system']],
+            'goarch': {'arm64': 'arm64', 'x86_64': 'amd64'}[profile['architecture']]}
 
 
 def fault_controls(output):
@@ -183,21 +191,30 @@ def external_consumer(output):
             if mode == 'shuffle': argv.append('-test.shuffle=on')
             _, elapsed = command(argv, project, log, {**env, 'GOPROXY': 'off'}, timeout=240)
             text = log.read_text()
-            consumer_result(text)
+            summary = consumer_result(text)
+            target = go_target(host_profile())
+            need({key: summary[key] for key in target} == target, 'external binary ran on wrong architecture')
             runs.append({'mode': mode, 'result': 'PASS', 'elapsed_seconds': elapsed, 'cases': list(EXTERNAL_CASES)})
         need(not list(runtime_tmp.iterdir()), 'external consumer temporary owners remain')
         return {'result': 'PASS', 'module_path': MODULE, 'private_module_version': tag,
                 'module_files': inventory, 'module_sum': resolved['Sum'],
                 'replace': False, 'outside_repository': True, 'GOWORK': 'off', 'GOTOOLCHAIN': 'local',
                 'toolchain': version, 'cache_state': 'existing Go compiler/module caches; not cold qualification',
-                'binary_sha256': digest(binary), 'runs': runs, 'temporary_cleanup': 'complete'}
+                'runtime_target': target, 'binary_sha256': digest(binary), 'runs': runs, 'temporary_cleanup': 'complete'}
 
 
-def validate(directory, expected):
+def validate(directory, expected, expected_host=None):
     directory = Path(directory)
     data = json.loads((directory / 'result.json').read_text())
     need(data['result'] == 'PASS' and data['source_commit'] == expected, 'completion source/result mismatch')
     need(data['toolchain'] == 'go1.26.10', 'fault-control compiler mismatch')
+    profile = data['host']
+    need((profile['system'],profile['architecture']) in HOSTS.values(), 'completion host unsupported')
+    if expected_host:
+        need((profile['system'],profile['architecture']) == HOSTS[expected_host], 'completion host mismatch')
+        need(profile['version'].split('.')[0] == '15' if expected_host == 'macos-15'
+             else profile['version'] == '24.04', 'completion OS version mismatch')
+    need(data['fault_target'] == go_target(profile), 'fault-control target mismatch')
     need(data['source_inventory_sha256'] == source_identity(ROOT), 'completion production bytes differ')
     need(data['inputs_sha256'] == {p: digest(ROOT / p) for p in INPUTS}, 'completion harness bytes differ')
     fault = data['faults']
@@ -225,7 +242,9 @@ def validate(directory, expected):
     need({r['mode'] for r in consumer['runs']} == {'normal', 'shuffle'} and len(consumer['runs']) == 2
          and all(r['result'] == 'PASS' and set(r['cases']) == set(EXTERNAL_CASES) for r in consumer['runs']), 'consumer cases missing')
     for mode in ('normal', 'shuffle'):
-        consumer_result((directory / ('consumer-' + mode + '.txt')).read_text())
+        summary = consumer_result((directory / ('consumer-' + mode + '.txt')).read_text())
+        need(consumer['runtime_target'] == go_target(profile)
+             and {key: summary[key] for key in consumer['runtime_target']} == consumer['runtime_target'], 'external binary/host mismatch')
     sums = json.loads((directory / 'SHA256SUMS.json').read_text())
     required = {'result.json', 'physical.jsonl.txt', 'consumer-normal.txt', 'consumer-shuffle.txt'}
     required |= {name + '.jsonl.txt' for name in MUTATIONS}
@@ -243,8 +262,12 @@ def run(expected, output):
     output = Path(output).resolve(); output.mkdir(parents=True, exist_ok=False)
     toolchain = subprocess.check_output(['go', 'version'], text=True).split()[2]
     need(toolchain == 'go1.26.10', 'requires Go1.26.10 before fault controls')
+    profile = host_profile()
+    target = dict(zip(('goos','goarch'), subprocess.check_output(['go','env','GOOS','GOARCH'], text=True).split()))
+    need(target == go_target(profile), 'fault controls must execute on native target')
     data = {'result': 'RUNNING', 'source_commit': expected, 'source_inventory_sha256': source_identity(ROOT),
             'toolchain': toolchain,
+            'host': profile, 'fault_target': target,
             'inputs_sha256': {p: digest(ROOT / p) for p in INPUTS},
             'ci': {k: os.getenv(k) for k in ('GITHUB_RUN_ID', 'GITHUB_RUN_ATTEMPT', 'GITHUB_JOB')}}
     try:
@@ -269,7 +292,7 @@ def main():
     args = parser.parse_args()
     if args.validate_matrix:
         for host in ('macos-15', 'ubuntu-24.04'):
-            validate(args.validate_matrix / ('go-fixture-host-' + host + '-' + args.expected_source_commit) / 'completion', args.expected_source_commit)
+            validate(args.validate_matrix / ('go-fixture-host-' + host + '-' + args.expected_source_commit) / 'completion', args.expected_source_commit, host)
         print('G1_FAULT_AND_EXTERNAL_CONSUMER_MATRIX_PASS')
     else:
         need(args.output is not None, '--output required')

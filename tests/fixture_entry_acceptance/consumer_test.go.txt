@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -70,7 +71,7 @@ func TestMain(m *testing.M) {
 	if code != 0 {
 		result = "FAIL_EXTERNAL_FIXTURE"
 	}
-	json.NewEncoder(os.Stdout).Encode(map[string]any{"result": result, "prepares": prepares})
+	json.NewEncoder(os.Stdout).Encode(map[string]any{"result": result, "prepares": prepares, "goos": runtime.GOOS, "goarch": runtime.GOARCH})
 	os.Exit(code)
 }
 
