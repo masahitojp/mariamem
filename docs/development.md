@@ -126,6 +126,12 @@ historical release or Product CI artifacts. Unknown inputs and unavailable/empty
 diffs select full check plus integration. This selection is not a reusable runtime
 qualification receipt. Explicit release reuse still requires authenticated proof.
 
+Documentation-only diffs likewise skip the expensive Live matrix: the Live scope and
+required-gate jobs still run and report (they are protected checks), but the native,
+browser, guest and installed-consumer jobs are not started. The skip uses the same
+documentation classification as the development selector, so any runtime or unknown
+path restores the full matrix.
+
 Archived Go-toolchain/memfs measurement data has explicit documentation scope in
 the local selector. Its three saved reproduction recipes have tooling scope;
 they are not runtime qualification commands. Unknown code or other evidence
