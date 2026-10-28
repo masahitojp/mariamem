@@ -5,29 +5,23 @@ import json
 import os
 from pathlib import Path
 
-from development_scope import event_base, plan
+from development_scope import boundary, canonical_plan, event_base, plan
 
 ROOT = Path(__file__).resolve().parents[1]
-GUIDES = frozenset({
-    'README.md', 'CONTRIBUTING.md', 'docs/live.md', 'docs/go.md',
-    'docs/python.md', 'docs/development.md',
-})
 
 
 def required(paths, reason):
-    return reason != 'local changed-input classification' or not paths or any(p not in GUIDES for p in paths)
+    """Skip the expensive matrix only for a diff the selector calls documentation.
 
-
-def canonical_plan(plan, event, ref):
-    """Delegate only checks owned by Development for this same event/source."""
-    shared = (event == 'pull_request' or (event == 'push' and ref == 'refs/heads/main'))
-    shared = shared and plan.get('reason') in {
-        'local changed-input classification', 'unknown/runtime input',
-    }
-    return {
-        'ubuntu_check': not (shared and plan.get('check_scope') == 'full'),
-        'macos_integration': not (shared and plan.get('integration') is True),
-    }
+    The required check must still report, so the scope and gate jobs always run;
+    only the native, Live and installed jobs are skipped. Any non-documentation
+    path (including unknown documentation-directory inputs) keeps the full matrix.
+    """
+    return (
+        reason != 'local changed-input classification'
+        or not paths
+        or any(boundary(path) != 'docs' for path in paths)
+    )
 
 
 def verify_gate(needs):
@@ -61,7 +55,7 @@ def main():
     if args.github_output:
         with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
             output.write('run_live=' + str(result['run_live']).lower() + '\n')
-            for key in ['ubuntu_check', 'macos_integration']:
+            for key in ['ubuntu_check', 'ubuntu_integration']:
                 output.write(key + '=' + str(result[key]).lower() + '\n')
 
 

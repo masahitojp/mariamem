@@ -126,6 +126,12 @@ historical release or Product CI artifacts. Unknown inputs and unavailable/empty
 diffs select full check plus integration. This selection is not a reusable runtime
 qualification receipt. Explicit release reuse still requires authenticated proof.
 
+Documentation-only diffs likewise skip the expensive Live matrix: the Live scope and
+required-gate jobs still run and report (they are protected checks), but the native,
+browser, guest and installed-consumer jobs are not started. The skip uses the same
+documentation classification as the development selector, so any runtime or unknown
+path restores the full matrix.
+
 Archived Go-toolchain/memfs measurement data has explicit documentation scope in
 the local selector. Its three saved reproduction recipes have tooling scope;
 they are not runtime qualification commands. Unknown code or other evidence
@@ -239,28 +245,78 @@ See [phase 1 evidence](reviews/v05-fast-feedback-phase1.md) and the
 [approved dev guest design](reviews/v05-dev-guest-build-design.md) and
 [implementation validation](reviews/v05-dev-guest-build-validation.md).
 
-### Maintained Live CI reuse
+### Maintained CI ownership and compiler caches
 
 For full PR and main-push diffs, Development owns the Ubuntu canonical `check`
-and macOS canonical `integration`; Live retains macOS `check`, Ubuntu
-`integration`, both-host Live race tests and the native/browser/installed matrix.
+and `integration`; Live retains macOS `check` and `integration`, both-host Live
+race tests and the native/browser/installed matrix. The required `integration`
+context keeps its name and now runs on Ubuntu24.04. Live skips its duplicate
+Ubuntu integration only when the same event/source has full Development coverage.
 Live derives delegation from the same event diff and selector as Development.
 Reduced Development scopes, unavailable diffs, manual runs and experiment pushes
-keep local canonical invocations. The three protected contexts remain separate:
+keep local canonical invocations.
+
+The original Development integration used a published macOS native bundle
+at commit `0a66842`; that dependency was removed with the legacy Wasmer path at
+`c2ebc0a`. The current `verify.py integration` has no macOS-only requirement and
+is also used on Ubuntu by Live and qualification workflows. To reduce contention
+for macOS runners, its standalone required job moves to Ubuntu and macOS coverage
+is consolidated into the already selected Live host job. The historical
+[Live allocation](reviews/v06x-live-ci-dedup-cache.md) describes the prior owners.
+
+The three protected contexts remain separate:
 `check`, `integration`, and `Live required gate`; the Live gate alone does not
 attest the delegated Development jobs. The paired workflow contract tests detect
 changes to their owners, commands, triggers and conditions.
 
-Live's native and host jobs use setup-go's GitHub-managed module/build cache.
-Its pinned action keys entries by platform, architecture, Go version and declared
-dependency hashes; the workflow is included in those hashes, with separate native
+Dump uses the same canonical delegation selector as Live. Its additional Ubuntu
+`check` and Ubuntu `integration` run only when Development does not own the full
+corresponding check for the event. Native reference and dump comparisons remain
+independent of this selector. Missing/empty diffs and standalone events
+retain local canonical runs. Dump success alone does not attest the delegated
+Development checks; the protected Development contexts still decide those checks.
+
+Dump guest-comparison and Django recipe select Ubuntu only for pull requests.
+Main pushes and manual `workflow_dispatch` runs retain Ubuntu and macOS (as do
+Dump experiment pushes). This removes three candidate macOS matrix jobs per PR
+when both workflows are selected, while both Python versions remain tested.
+Their macOS-specific failures can therefore be detected after merge; main-push
+success is not a pre-merge gate. The Human requested this placement to reduce
+macOS runner contention. The Human verifies macOS during local development,
+so platform problems can be found before CI. Required Live macOS checks are
+retained; Development's required integration uses Ubuntu. With both candidate
+workflows selected, PRs now need one macOS job (Live) instead of the previous
+five (Development integration, Live, Dump and two Django cells).
+Release CI does not automatically invoke these two dedicated campaigns; when
+separate pre-release evidence is needed, dispatch these workflows at the exact
+candidate SHA. Their main path filters still determine which pushes run them.
+
+Development, Dump, Django and Live use setup-go's GitHub-managed module/build
+cache. Each Go job exports its actual `go env GOCACHE` through `GITHUB_ENV` so
+later wheel builds inherit that cache instead of selecting `build/gocache`.
+Development check/integration and Dump comparison/check/integration have separate
+cache namespaces to avoid competing to save different compilation workloads.
+Django retains both Python versions on each selected OS; its scratch cleanup
+does not remove the compiler cache before setup-go saves it. Compiler paths are
+runner-managed; scratch budget guards do not account for these compiler caches.
+
+The pinned setup-go action keys entries by platform, architecture, Go version
+and declared dependency hashes; the workflow is included in those hashes, with separate native
 and host namespaces. Restored test results are invalidated with `go clean
--testcache`, and Live race checks use `-count=1`. Candidate executables are still
-built through Go and checked against their actual embedded source identity.
+-testcache`, and explicit race/integration invocations retain `-count=1`. Candidate
+executables are still built through Go and checked against their actual embedded source identity.
 This does not reuse an old PASS receipt or a packaged host. Release workflows and
 local task-cache lifecycle are unchanged. Cache misses execute ordinary builds;
 these runs make no cold-setup or measured speedup claim. See the
 [CI change record](reviews/v06x-live-ci-dedup-cache.md).
+
+These four maintained PR workflows group concurrency by workflow, event and PR
+number. A new update cancels only older runs of the same PR in that workflow.
+Main pushes, experiment pushes and manual runs use unique run IDs, so unrelated
+or pending non-PR runs do not replace each other. Release/Qualification concurrency
+and cache policy are unchanged. Issue #11's current changes require actual CI
+confirmation of cold/warm restore/save, source-bound acceptance and timing; local
+workflow tests do not establish a speedup.
 
 ### Single-pass unqualified guest development
 
