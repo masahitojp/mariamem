@@ -17,6 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
+          filter: blob:none
           fetch-depth: 0
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
@@ -44,6 +45,7 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
+          filter: blob:none
           fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
@@ -93,6 +95,7 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
+          filter: blob:none
           fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
@@ -154,6 +157,16 @@ jobs:
       - name: Canonical integration
         if: runner.os != 'macOS' || needs.scope.outputs.macos_integration != 'false'
         run: python scripts/verify.py integration > build/live-evidence/integration.txt 2>&1
+      - name: Bounded G1 fixture acceptance on both hosts
+        run: python scripts/go_fixture_campaign.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/g1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: go-fixture-host-${{ matrix.os }}-${{ github.sha }}
+          path: |
+            build/live-evidence/g1/**/*.json
+            build/live-evidence/g1/**/*.txt
+          if-no-files-found: error
       - name: Live race checks on both hosts
         run: |
           go test -race -count=1 ./internal/live ./internal/control . > build/live-evidence/live-race.txt 2>&1
@@ -213,3 +226,11 @@ jobs:
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: python scripts/live_ci.py gate
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        if: needs.scope.outputs.run_live == 'true'
+        with:
+          pattern: go-fixture-host-*-${{ github.sha }}
+          path: build/g1-matrix
+      - name: Validate both source-bound G1 host receipts
+        if: needs.scope.outputs.run_live == 'true'
+        run: python scripts/go_fixture_campaign.py --expected-source-commit "$GITHUB_SHA" --validate-matrix build/g1-matrix
