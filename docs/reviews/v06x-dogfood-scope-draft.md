@@ -70,7 +70,7 @@ Sources: [pytest fixtures](../../python/mariamem/pytest_plugin.py),
 [preparation recipe](../preparing-test-data.md).
 This was a source/doc inspection, not a new runtime campaign.
 
-## Next product choice: initial state at each test
+## Initial state at each test — decision recorded 2026-10-28
 
 Two different promises must not be conflated:
 
@@ -79,19 +79,31 @@ Two different promises must not be conflated:
 - Every test using the prepared-data entry begins with the declared prepared
   schema/data, regardless of the previous test's writes or failure.
 
-Recommend the second promise for the prepared-data entry. Independence should
+The Human selected the second promise for the prepared-data entry. Independence should
 include the reusable seed users explicitly asked the entry to prepare. How a
 framework achieves that promise is a design choice, not a reason to silently
 weaken it. The existing ordinary Django runner can remain a clearly labelled
 framework-lifecycle route without being advertised as automatic baseline reset.
-Whether such a route satisfies the selected v0.6 entry scope needs a Human
-decision; this recommendation is not an adapter implementation approval.
+That separate existing route must not be labelled as satisfying the new
+prepared-entry guarantee without evidence. The selected promise is not an
+adapter implementation approval.
 
 Concrete reason: Django TransactionTestCase default flush does not replay data
 migrations. This is native framework behavior, already documented/tested, not a
 mariamem wire bug. Fixtures or an explicit restoration mechanism can supply the
 initial-state policy. Do not infer that adopting the existing runner recipe
 already closes this stronger ergonomics requirement.
+
+## Pragmatic first milestone — agreed 2026-10-28
+
+The ideal includes useful human-readable failure explanations. The Human permits
+a pgmem-style helper as the first stopping point if richer diagnostics become
+disproportionately difficult. Keep preparation-once, per-test prepared state,
+owned cleanup and visible failures; report why richer diagnostics are unfinished.
+This fallback does not make pgmem's ignored Close return values our policy:
+simple error wrapping/joining or test cleanup errors can preserve both failures
+without requiring a diagnostic framework. Do not label the ideal experience
+complete just because the basic helper milestone passes.
 
 ## Boundaries to settle in the ensuing design
 

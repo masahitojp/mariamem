@@ -819,11 +819,18 @@ identification; current runtime behavior still needs design/acceptance mapping.
 
 The [consolidated scope draft](reviews/v06x-dogfood-scope-draft.md) separates
 these agreed outcomes, existing entry foundations and remaining product choices.
-The next unresolved choice is the per-test initial-state promise: framework-native
-isolation versus always beginning with the declared prepared schema/data. The
-ordinary Django runner's flush semantics must not silently decide that promise.
-No new entry API, adapter or independent-project execution is selected by this
-scope consolidation.
+**Prepared-entry guarantee and pragmatic exit agreed with the Human,
+2026-10-28:** every admitted test through the prepared-data entry begins with
+the declared prepared schema/seed, including after another test's committed
+writes or ordinary failure. Framework-native isolation alone is not proof of
+this guarantee; the existing Django runner remains a separately documented route.
+Human-readable failure explanations are the ideal. If richer diagnostics prove
+disproportionately difficult, a thin pgmem-style prepare-once/fork-per-test helper
+is an authorized first milestone, with the reason and remaining diagnostic work
+reported explicitly. This fallback changes diagnostic ambition, not initial-state
+isolation, setup-failure admission, original failure preservation or honest
+cleanup reporting. Exact helper APIs and runtime acceptance remain design work;
+no independent-project execution is selected by this agreement.
 
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,
