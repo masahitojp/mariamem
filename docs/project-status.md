@@ -1534,3 +1534,13 @@ large-input performance and cold/setup-cost claims remain outside this adoption.
 Guest/generated code, canonical generation inputs, release ledgers and version
 metadata are unchanged. Target version, Qualification and release remain separate
 Human decisions.
+
+
+**P1 conditional implementation approval:** the Human approved the concrete
+Python entry design at de860c4, with the [pre-code definitions](decisions/p1-prepared-entry-implementation.md)
+for inherited env overlay, bounded/truncated output, rejection of unknown inputs,
+and public API/admission-change notices. PrepareCommand is explicitly a new
+public class; cleanup debt stopping later dependent tests in the same worker is
+explicitly an approved behavior change. None/callable semantics remain intact.
+Required-host/minor runtime/resource acceptance, main adoption and release are
+not granted by this implementation decision.
