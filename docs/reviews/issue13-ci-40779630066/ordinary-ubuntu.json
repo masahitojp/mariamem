@@ -1,0 +1,108 @@
+{
+  "source_commit": "531404bf835d5deefe3cd89517231880d52e173a",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+  "suite": "ordinary",
+  "case_spec_sha256": "fd95129cc0371410cd97ac9de9e88aab5cb106247c38e99d2d75f3d99fc6e97a",
+  "cases": [
+    {
+      "name": "temporary_filesort",
+      "observation": {
+        "rows": [
+          [
+            "bob"
+          ],
+          [
+            "alice"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "alter_rename",
+      "observation": {
+        "rows": [
+          [
+            1,
+            "alice",
+            7
+          ],
+          [
+            2,
+            "bob",
+            7
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "text_view",
+      "observation": {
+        "rows": [
+          [
+            "alice"
+          ],
+          [
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "information_schema",
+      "observation": {
+        "rows": [
+          [
+            "id",
+            "int"
+          ],
+          [
+            "customer",
+            "text"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "transaction_rollback",
+      "observation": {
+        "rows": [
+          [
+            1,
+            "alice"
+          ],
+          [
+            2,
+            "bob"
+          ]
+        ],
+        "affected": 2,
+        "materialized": null
+      }
+    },
+    {
+      "name": "lock_acquisition",
+      "observation": {
+        "rows": [
+          [
+            1,
+            "alice"
+          ]
+        ],
+        "affected": 1,
+        "materialized": null
+      }
+    }
+  ],
+  "reference_sha256": "ba3d23f28be755ae86a195c67168cb4cdaf52bb44a57dcadd5150c86b170c339",
+  "host_sha256": "f55f927b9c682f7c89e3ec3b1b5dd5c2998cc8b04a303aabb6bff51d419088af",
+  "result": "PASS",
+  "elapsed_seconds": 0.981393
+}

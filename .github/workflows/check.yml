@@ -118,7 +118,9 @@ jobs:
         # Keep the PR macOS slot consolidated in Live; main/manual retain both hosts.
         os: ${{ github.event_name == 'pull_request' && fromJSON('["ubuntu-24.04"]') || fromJSON('["ubuntu-24.04","macos-15"]') }}
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 30
+    # Cold macOS race/guest compilation can consume the original 30-minute job budget.
+    # The ordinary SQL steps and combined reference/guest budget remain one minute.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16

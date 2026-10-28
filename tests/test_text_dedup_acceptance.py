@@ -43,6 +43,8 @@ def test_ordinary_ci_preserves_reference_and_enforces_per_host_budget():
         assert 'timeout-minutes: 1' in block
         assert 'tests/text_dedup_acceptance.py '+mode+' --suite ordinary' in block
         assert '--source-commit "$GITHUB_SHA"' in block
+    worker = text.split('  worker-failure:\n', 1)[1]
+    assert '    timeout-minutes: 60' in worker
     assert '--reference build/worker-failure/reference/ordinary-native.json' in text
     assert 'build/worker-failure/ordinary-guest.json' in text
 
