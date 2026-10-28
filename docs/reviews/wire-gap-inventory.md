@@ -1,4 +1,10 @@
-# MySQL wire-protocol practical gap inventory (v0.6.x draft)
+# MySQL wire-protocol practical gap inventory — historical v0.5.3 draft
+
+**Historical source, not the current coverage inventory.** This document keeps
+the dated v0.5.3 investigation and its then-pending statements. For current
+Prepared/multiple-result/SET_OPTION support and remaining probes, use the
+[main-pinned current inventory](v06x-wire-current-inventory.md). Do not use the
+old tables below as today's implementation or acceptance checklist.
 
 2026-10-18. Draft seed for the v0.6.x wire workstream. **No protocol change is
 approved or implemented here.** Base: main `4f7b18b` (v0.5.3 release candidate).
@@ -16,7 +22,7 @@ subsequently approved Python/Go prepared support as mandatory; the
 because host emulation is not established as equivalent. The Human approved the bounded embedded-API spike on 2026-10-19;
 production method adoption remains pending.
 
-## Current state (source-anchored)
+## State at the historical base (source-anchored)
 
 - Command dispatch (`internal/mysqlwire/wire.go`): `COM_QUIT(1)`, `COM_INIT_DB(2)`,
   `COM_QUERY(3)`, `COM_PING(14)`; any other command returns
@@ -77,7 +83,7 @@ Guest patch provenance: `guest/source.patch` patches both the lite4mariadb recip
 `portability_source_base`. The hardcoded argv and `CLIENT_MULTI_STATEMENTS` are
 lite4mariadb context; mariamem's overrides are the added hunks.
 
-## Next steps (v0.6.x)
+## Next steps proposed at that historical stage
 
 1. Dogfood: Django, Alembic/migrations, metadata-heavy and dbt-like workloads,
    retaining the SQLAlchemy/GORM anchors, and record which wire commands/flags

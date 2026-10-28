@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "scope_status": "PROPOSED_FOR_HUMAN_REVIEW",
+  "implementation_authorized": false,
+  "source_commit": "cc00ccd98e29a1f5d5088a082be90a3cdaa4f469",
+  "entries": [
+    {
+      "id": "P1",
+      "family": "python-prepared",
+      "profile": "pytest/shadow_maria; PyMySQL1.2.3/SQLAlchemy2.0.54",
+      "diagnostic_profile": "readable-owned",
+      "fallback_allowed": false,
+      "status": "DESIGN_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "G1",
+      "family": "go-prepared",
+      "profile": "database/sql/mysql1.9.3",
+      "diagnostic_profile": "readable-owned",
+      "fallback_allowed": true,
+      "status": "DESIGN_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "D1",
+      "family": "django-prepared",
+      "profile": "Django5.2.8/mysqlclient2.2.7; manage.py/pytest-django4.12.0",
+      "diagnostic_profile": "readable-owned",
+      "fallback_allowed": false,
+      "status": "DESIGN_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "EP1",
+      "family": "python-e2e",
+      "profile": "Django/Playwright browser; prepared Live",
+      "diagnostic_profile": "readable-owned",
+      "fallback_allowed": true,
+      "status": "DESIGN_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "EG1",
+      "family": "go-e2e",
+      "profile": "Go HTTP; prepared Live",
+      "diagnostic_profile": "readable-owned",
+      "fallback_allowed": true,
+      "status": "DESIGN_NOT_IMPLEMENTED"
+    }
+  ],
+  "whole_scope_requires": [
+    "P1",
+    "G1",
+    "D1",
+    "EP1",
+    "EG1"
+  ],
+  "first_delivery": "G1",
+  "diagnostics": {
+    "selected_profile": "readable-owned",
+    "decision_status": "PROPOSED",
+    "record_timing": "before-first-helper-code",
+    "fallback_activation": "NOT_SELECTED",
+    "fallback_requires": [
+      "concrete_obstacle",
+      "user_effect",
+      "unfinished_fields",
+      "finite_exit"
+    ],
+    "core_failure_guarantees": [
+      "original_error",
+      "cleanup_error",
+      "admission_state",
+      "cleanup_state"
+    ]
+  },
+  "resources": {
+    "max_forks_default": 2,
+    "test_child_limits": [
+      1,
+      2
+    ],
+    "cases_per_batch": 4,
+    "go_parallel": [
+      1,
+      4
+    ],
+    "go_packages": 1,
+    "pytest_workers": [
+      1,
+      2
+    ],
+    "preparation_pool_max_open": 1,
+    "child_pool_max_open": 2,
+    "child_pool_max_idle": 1,
+    "wire_sessions_unchanged": 16,
+    "retained_baselines": [
+      1,
+      2,
+      3
+    ],
+    "incremental_rss_ceiling_bytes": 2147483648,
+    "owned_disk_ceiling_bytes": 8589934592,
+    "min_free_disk_bytes": 17179869184,
+    "min_fd_headroom": 64,
+    "warmup_batches": 1,
+    "observed_batches": 3,
+    "time_outcomes": [
+      "first_test_setup",
+      "second_test_edits",
+      "repeat_batch_elapsed"
+    ],
+    "counter_requirements": [
+      "process_tree_rss",
+      "available_memory",
+      "fd_baseline_peak_final",
+      "active_children",
+      "physical_connections",
+      "owned_temp_bytes",
+      "cleanup_state"
+    ],
+    "retention_input": {
+      "path": "tests/fixture_entry_acceptance/retained_baselines.sql",
+      "sha256": "6ea0c2bdf9ee4393819a7d82ca8c59f016d67cf9d78ac82acfcfc798079e6dbd",
+      "tables": 64,
+      "provenance": "New fixed diagnostic SQL, same table-count shape as historical file-heavy observations; not the same historical bytes"
+    }
+  },
+  "capture_oracles": [
+    "rejected_preserved",
+    "accepted_failure_consumed",
+    "success_consumed",
+    "partial_backing_unwind",
+    "original_plus_cleanup_error",
+    "exactly_once_backend_disposal",
+    "invalid_but_not_disposed"
+  ],
+  "e2e": {
+    "entries": [
+      "EP1",
+      "EG1"
+    ],
+    "required_hooks": [
+      "StartReady",
+      "QuiesceAndRetire",
+      "StopReap"
+    ],
+    "optional_hooks": [
+      "Resume",
+      "ExternalStateReset"
+    ],
+    "quiesce_obligations": [
+      "stop_new_work",
+      "join_inflight",
+      "finish_transactions",
+      "retire_physical_connections",
+      "hold_until_admission"
+    ],
+    "on_setup_failure": "NO_BODY_NO_IMPLICIT_RETRY",
+    "one_case_per_owner": true,
+    "parallel_owners": 2,
+    "transient_children_per_live": 2
+  },
+  "wire": {
+    "current_inventory": "docs/reviews/v06x-wire-current-inventory.md",
+    "historical_inventory": "docs/reviews/wire-gap-inventory.md",
+    "supported_commands": [
+      1,
+      2,
+      3,
+      14,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "base_capability_bits": [
+      1,
+      4,
+      8,
+      512,
+      8192,
+      32768,
+      65536,
+      131072,
+      524288
+    ],
+    "conditional_ps_multi_results": 262144,
+    "source_sha256": {
+      "internal/mysqlwire/wire.go": "2f76d934846ca065c060205f9f043205cb5ebfb581f4ba13bf15b403631f1071",
+      "internal/mysqlwire/prepared_session.go": "3591c671a67b87e1fed52eef27638006626e28c0d99437014b332d01abecd0bf",
+      "guest/wire_core.inc": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a",
+      "guest/resident.inc": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c"
+    },
+    "remaining_paths": [
+      "RESET_CONNECTION",
+      "STMT_FETCH",
+      "TLS_COMPRESSION_EOF_AUTH",
+      "LOCAL_INFILE",
+      "ADMIN_COMMANDS",
+      "BINLOG_REPLICATION"
+    ],
+    "ledger_fields": [
+      "operation",
+      "client_options",
+      "observed_command_flags",
+      "native_result",
+      "guest_result",
+      "error",
+      "cleanup",
+      "source_client_pin",
+      "oracle"
+    ]
+  },
+  "future_runtime_status": "NOT_RUN"
+}

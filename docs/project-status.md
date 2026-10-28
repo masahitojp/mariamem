@@ -832,6 +832,21 @@ isolation, setup-failure admission, original failure preservation or honest
 cleanup reporting. Exact helper APIs and runtime acceptance remain design work;
 no independent-project execution is selected by this agreement.
 
+**Concrete acceptance proposal after the 2026-10-28 review:** name P1 Python
+prepared/marker, G1 Go helper, D1 Django prepared entry, EP1 Python browser E2E
+and EG1 Go HTTP E2E as the target set, with G1 delivered first. This target/API
+proposal still needs Human scope review; first-milestone success cannot close
+the whole set. The [Go API/ownership proposal](reviews/v06x-go-fixture-api-design.md)
+fixes capture consumed/preserved/invalid-but-not-disposed oracles, candidate
+MaxForks2 and pool budgets, and a diagnostic choice committed before code.
+The [E2E hook contract](reviews/v06x-e2e-entry-contract.md) fixes start/readiness,
+quiescence plus physical connection retirement, optional resume and stop/reaping.
+The scope draft includes all three time outcomes and memory/FD/connection
+observations, with finite diagnostic limits and no resource-governor claim.
+[Design lint](../scripts/check_fixture_design.py) checks the structured
+[acceptance contract](reviews/v06x-fixture-acceptance.json) and rejects missing
+obligations; it grants neither implementation approval nor runtime acceptance.
+
 Wire sufficiency remains an explicit verification obligation. Cross-check the
 current protocol/capability inventory with actual driver/framework behavior,
 including preparation, metadata, prepared/results, pools/reconnect/session
@@ -843,7 +858,10 @@ Native-success/guest-failure differences must retain original evidence and be
 classified as wire, SQL semantics, configuration or client/environment issues
 before choosing a fix. This direction authorizes investigation and verification
 planning, not blanket protocol implementation, guest changes or wider support
-claims. Exact workload/driver coverage and finite exit criteria still need to
+claims. The [current wire inventory](reviews/v06x-wire-current-inventory.md) is
+pinned to main cc00ccd and supersedes the historical v0.5.3 inventory for this
+purpose; Prepared, text multiple results and SET_OPTION are already adopted.
+Exact workload/driver coverage and finite exit criteria still need to
 be fixed before declaring the whole v0.6 dogfood scope complete.
 
 **North-star discussion recorded with the Human, 2026-10-18:** reduce the work

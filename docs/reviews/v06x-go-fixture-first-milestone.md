@@ -10,8 +10,9 @@ preparation rather than asking every test to build and clean the lifecycle.
 The ideal is a human-readable failure explanation: operation/stage, confirmed
 cause, useful next step, original error and honest admission/cleanup outcomes.
 If richer diagnostics require disproportionate machinery, the Human permits
-first finishing a thin pgmem-style helper. The implementation must identify the
-concrete difficulty and remaining work when using that stopping point. It must
+first finishing a thin pgmem-style helper. Before the first implementation
+commit, the design decision must fix diagnostic level, concrete feasibility
+rationale and remaining work if choosing basic-first. It must
 not quietly redefine the prepared-state guarantee or claim ideal diagnostics.
 
 ## Minimum first-milestone result
@@ -66,6 +67,18 @@ who use Start/Snapshot/Fork directly keep their current contract.
    schema/seed. A deliberate failing test does not contaminate subsequent tests.
 3. Startup, preparation, disconnect/capture and child acquisition failures stop
    dependent test admission and preserve original error identity.
+   Capture failure has separate consumed=false and consumed=true oracles:
+   for preserved rejection the source must still be alive before helper cleanup;
+   for accepted/consumed failure the helper must not use the source again or
+   repeat destructive backend disposal. Both admit no tests and retain the
+   capture error plus any cleanup error. Count actual backend teardown calls,
+   snapshot backing release, pool close and temporary removal, not just Close
+   invocations. Include the successful-consume branch and partial backing unwind.
+   Include invalid-but-not-disposed source: Closed() alone must not skip public
+   idempotent source.Close, because invalidation also reports Closed. Verify
+   actual backend/temp cleanup rather than treating a state flag as disposal.
+   Root TestSnapshotFailures already covers the API's flag/error propagation;
+   new helper tests must cover its own owner actions under both branches.
 4. Cleanup ordering is observed, including partial construction and combined
    original/cleanup failures. Tests using assertions, Fatal and cooperative
    cancellation get honest failure/cleanup results.
@@ -77,6 +90,14 @@ who use Start/Snapshot/Fork directly keep their current contract.
    test SQL, with no repeated lifecycle assembly. Record both supported host
    results under exact source identities and retain existing wire/regression
    evidence at its actual scope.
+7. Apply the parent draft's three-time/resource obligations. In the first
+   campaign use MaxForks1/2, pool max-open2 (preparation1), four cases and
+   -parallel1/4 with -p1. Observe actual permit, connection, memory and FD
+   peaks/cleanup, including the bounded retained-baseline diagnostic. A third
+   acquisition at limit2 must wait/cancel without starting another guest.
+   Record all fixture/process multiplication; a test-runner parallel limit
+   alone is not a DB or connection budget. Fixed default2 is a proposal pending
+   measured/API review, not an existing adaptive resource governor.
 
 Core fixture correctness and original error preservation are mandatory even at
 the pragmatic stopping point. If readable diagnosis is straightforward with
@@ -84,7 +105,8 @@ ordinary Go errors and testing output, implement it there rather than deferring
 it automatically. Broader explanatory categories and suggested remedies may be
 reported as unfinished when their cost triggers the authorized first milestone.
 
-Next deliverable is the concrete minimal API/ownership/failure-oracle proposal.
+The [concrete API/ownership/failure proposal](v06x-go-fixture-api-design.md)
+and [acceptance contract](v06x-fixture-acceptance.json) are the next review inputs.
 No helper, CLI command runner, new framework adapter, runtime/guest patch,
 resource scheduler or external-project execution was implemented by this design
 direction. The independent Oscar input stays an optional later workload for the
