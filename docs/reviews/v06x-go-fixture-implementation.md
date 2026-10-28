@@ -73,3 +73,18 @@ as a different tested source. The contract lint's runtime NOT_RUN refers to the
 lint itself/full future campaign; these specific local correctness results do
 not grant full G1 acceptance. Both-host CI and all remaining resource/disposal/
 installed-consumer work above are still pending.
+
+## G1 campaign follow-up
+
+The [campaign and checkout correction](v06x-go-fixture-campaign.md) now implement
+actual cap/parallel/time/retention/resource observations and require both CI host
+receipts. Local macOS27.2 arm64 observations passed at232fc19, including an actual
+pre-admission guard STOP. Original failed and successful local receipts are
+preserved separately with checksums. The original local code observations above
+remain pinned to5c739b7; they were not relabelled.
+
+The new macOS15/Ubuntu CI receipts remain pending, so the full G1 campaign is
+not yet accepted. Disposal/backing fault controls and installed-helper consumer
+acceptance remain separately tracked. The declaration lint is no longer the only
+check: selected Live CI jobs execute the campaign, and the existing required
+aggregate rejects missing/stale/incomplete measurements or either host artifact.

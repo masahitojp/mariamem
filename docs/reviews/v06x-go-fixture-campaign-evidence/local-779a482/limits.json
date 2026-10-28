@@ -1,0 +1,5 @@
+{
+  "owned_disk_ceiling_bytes": 8589934592,
+  "min_free_disk_bytes": 17179869184,
+  "min_fd_headroom": 64
+}

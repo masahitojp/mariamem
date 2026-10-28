@@ -1,0 +1,50 @@
+{
+  "cap": 1,
+  "parallel": 1,
+  "pid": 9935,
+  "active_children": 0,
+  "retained_baselines": 0,
+  "peak_children": 0,
+  "peak_physical_pool_connections": 0,
+  "samples": [
+    {
+      "unix_ns": 1793203617593182000,
+      "at_seconds": 0.018536333,
+      "label": "baseline",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537793024,
+      "children": 0,
+      "baselines": 0,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203617614516000,
+      "at_seconds": 0.039865167,
+      "label": "final",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537780736,
+      "children": 0,
+      "baselines": 0,
+      "physical_pool_connections": 0
+    }
+  ],
+  "cases": null,
+  "batches": null,
+  "phases": null,
+  "stop_reason": "FD headroom guard",
+  "result": "STOP",
+  "cleanup_complete": true,
+  "new_fixture_seconds": 0,
+  "fixture_close_seconds": 8.4e-8,
+  "guards": {
+    "owned_disk_ceiling_bytes": 8589934592,
+    "min_free_disk_bytes": 17179869184,
+    "min_fd_headroom": 4611686018427387904
+  }
+}

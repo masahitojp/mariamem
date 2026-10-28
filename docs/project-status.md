@@ -865,7 +865,14 @@ mariamemtest helper under the approved ownership/defaults and readable-owned
 diagnostic profile. See [usage](go-prepared-fixture.md) and
 [remaining acceptance](reviews/v06x-go-fixture-implementation.md). Local macOS27.2 arm64 canonical check, helper race tests, actual-guest
 oracles and the guide sample passed at code source_commit5c739b7. Both-host CI
-and resource/time campaign evidence remain pending; G1 completion is not claimed. No root runtime/guest change, main adoption or release
+and resource/time campaign evidence remain pending; G1 completion is not claimed. The [G1 campaign follow-up](reviews/v06x-go-fixture-campaign.md)
+adds all four cap/parallel modes, retained1/2/3 counters/guards, three-time outcomes,
+checksum-bound raw receipts and an actual pre-admission guard STOP. Local
+macOS27.2 passed at232fc19; required macOS15/Ubuntu receipts await the new CI
+submission. The Live required gate now checks both actual campaign artifacts,
+not just the declaration lint. Original CI40715670588's integration failed at
+checkout on network/DNS errors; filtered full-history retrieval mitigates payload
+cost without claiming to cure DNS. No root runtime/guest change, main adoption or release
 is included.
 
 Wire sufficiency remains an explicit verification obligation. Cross-check the

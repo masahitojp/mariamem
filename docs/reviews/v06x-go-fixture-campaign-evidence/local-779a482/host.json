@@ -1,0 +1,78 @@
+{
+  "result": "FAIL",
+  "source_commit": "779a4827a30a6e95a92eee847f6a2287dc741def",
+  "source_inventory_sha256": "ff5003c91ed4b17be0c3c92f79b2e1a3063c0fdceb2c73b7a17650c7b8624c17",
+  "toolchain": "go1.26.10",
+  "host": {
+    "system": "Darwin",
+    "architecture": "arm64",
+    "version": "27.2"
+  },
+  "inputs_sha256": {
+    "mariamemtest/campaign_test.go": "96e80063f12c4f0a94da37dba6c080bf44a498b94c318c101db773d1a0246770",
+    "mariamemtest/fixture_test.go": "e3c32a812042981920700be48f79b6687f3a51a2f7a70b3e075688c86994d48b",
+    "scripts/go_fixture_campaign.py": "6607f41738b8e53523e9ac54f177c45b374254687be5d5b16802ac4ae2f5a47f",
+    "docs/reviews/v06x-fixture-acceptance.json": "874f29a11aef49a755d394cf3d40e7eca80e5a9e86412fc416ae507f33f8c2ed",
+    "docs/go-prepared-fixture.md": "28a740288f71f479dc854fdad168a60a50e4edabf95e3af4592586763d730513",
+    "tests/fixture_entry_acceptance/retained_baselines.sql": "6ea0c2bdf9ee4393819a7d82ca8c59f016d67cf9d78ac82acfcfc798079e6dbd"
+  },
+  "ci": {
+    "GITHUB_RUN_ID": null,
+    "GITHUB_RUN_ATTEMPT": null,
+    "GITHUB_JOB": null
+  },
+  "modes": [],
+  "three_time_outcomes": {
+    "first_test_setup": {
+      "command": [
+        "go",
+        "test",
+        "/private/tmp/mariamem-g1-campaign/build/g1-local-779a482/first_test.go",
+        "-count=1",
+        "-timeout=3m"
+      ],
+      "elapsed_seconds": 136.9951845839969,
+      "authored_lines": 36,
+      "steps": [
+        "copy first test + TestMain preparation",
+        "go test"
+      ]
+    },
+    "second_test_edits": {
+      "command": [
+        "go",
+        "test",
+        "/private/tmp/mariamem-g1-campaign/build/g1-local-779a482/first_test.go",
+        "/private/tmp/mariamem-g1-campaign/build/g1-local-779a482/second_test.go",
+        "-count=1",
+        "-timeout=3m"
+      ],
+      "elapsed_seconds": 3.1117512919881847,
+      "added_lines": 13,
+      "repeated_lifecycle_lines": 0,
+      "steps": [
+        "add second test using fixture.DB(t)",
+        "go test both tests"
+      ]
+    },
+    "repeat_batch_elapsed": "per-mode warmup plus three observed batches",
+    "human_authoring_minutes": null,
+    "acquisition_state": "unmeasured; existing Go toolchain/module cache"
+  },
+  "build": {
+    "command": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "-c",
+      "-tags=integration",
+      "./mariamemtest",
+      "-o",
+      "/private/tmp/mariamem-g1-campaign/build/g1-local-779a482/fixture.test"
+    ],
+    "elapsed_seconds": 1.8089219170215074
+  },
+  "binary_sha256": "f94f919821b0f62657c3f5b591933a4828446557315513547e5a6e556041caaf",
+  "error": "runtime/guard/counter failure; evidence preserved"
+}

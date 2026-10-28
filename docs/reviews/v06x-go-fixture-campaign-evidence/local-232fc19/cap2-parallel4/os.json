@@ -1,0 +1,431 @@
+{
+  "result": "PASS",
+  "returncode": 0,
+  "elapsed_seconds": 6.526434875006089,
+  "requested_interval_seconds": 0.1,
+  "rss_mechanism": "sampled process-tree ps RSS sum",
+  "samples": [
+    {
+      "at_seconds": 0.088849541003583,
+      "unix_ns": 1793203611114430000,
+      "process_tree_rss_bytes": 15810560,
+      "members": {
+        "9665": 15810560
+      },
+      "available_memory_bytes": 4685856768,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 0.22742687500431202,
+      "unix_ns": 1793203611253011000,
+      "process_tree_rss_bytes": 126631936,
+      "members": {
+        "9665": 126631936
+      },
+      "available_memory_bytes": 4556242944,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 0.36344341601943597,
+      "unix_ns": 1793203611389032000,
+      "process_tree_rss_bytes": 143572992,
+      "members": {
+        "9665": 143572992
+      },
+      "available_memory_bytes": 4582227968,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 0.5165729160071351,
+      "unix_ns": 1793203611542166000,
+      "process_tree_rss_bytes": 230096896,
+      "members": {
+        "9665": 230096896
+      },
+      "available_memory_bytes": 4421255168,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 0.6744351250235923,
+      "unix_ns": 1793203611700033000,
+      "process_tree_rss_bytes": 239632384,
+      "members": {
+        "9665": 239632384
+      },
+      "available_memory_bytes": 4413308928,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 0.8294937080063391,
+      "unix_ns": 1793203611855098000,
+      "process_tree_rss_bytes": 154353664,
+      "members": {
+        "9665": 154353664
+      },
+      "available_memory_bytes": 4396335104,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 0.9670783750189003,
+      "unix_ns": 1793203611992685000,
+      "process_tree_rss_bytes": 257392640,
+      "members": {
+        "9665": 257392640
+      },
+      "available_memory_bytes": 4333977600,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 1.118275500019081,
+      "unix_ns": 1793203612143889000,
+      "process_tree_rss_bytes": 98189312,
+      "members": {
+        "9665": 98189312
+      },
+      "available_memory_bytes": 4443275264,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 1.2637804160185624,
+      "unix_ns": 1793203612289397000,
+      "process_tree_rss_bytes": 260128768,
+      "members": {
+        "9665": 260128768
+      },
+      "available_memory_bytes": 4339089408,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 1.4072774160013068,
+      "unix_ns": 1793203612432899000,
+      "process_tree_rss_bytes": 122011648,
+      "members": {
+        "9665": 122011648
+      },
+      "available_memory_bytes": 4385898496,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 1.6024359580187593,
+      "unix_ns": 1793203612628065000,
+      "process_tree_rss_bytes": 264208384,
+      "members": {
+        "9665": 264208384
+      },
+      "available_memory_bytes": 4140204032,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 1.8246610830246937,
+      "unix_ns": 1793203612850297000,
+      "process_tree_rss_bytes": 141639680,
+      "members": {
+        "9665": 141639680
+      },
+      "available_memory_bytes": 4165976064,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 1.9967242910061032,
+      "unix_ns": 1793203613022364000,
+      "process_tree_rss_bytes": 263847936,
+      "members": {
+        "9665": 263847936
+      },
+      "available_memory_bytes": 4207001600,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 2.1963395830243826,
+      "unix_ns": 1793203613221988000,
+      "process_tree_rss_bytes": 184696832,
+      "members": {
+        "9665": 184696832
+      },
+      "available_memory_bytes": 4115087360,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 2.4480813330155797,
+      "unix_ns": 1793203613473736000,
+      "process_tree_rss_bytes": 185581568,
+      "members": {
+        "9665": 185581568
+      },
+      "available_memory_bytes": 3894673408,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 2.6165083330124617,
+      "unix_ns": 1793203613642168000,
+      "process_tree_rss_bytes": 168919040,
+      "members": {
+        "9665": 168919040
+      },
+      "available_memory_bytes": 3797860352,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 2.8227934160095174,
+      "unix_ns": 1793203613848460000,
+      "process_tree_rss_bytes": 144130048,
+      "members": {
+        "9665": 144130048
+      },
+      "available_memory_bytes": 3754278912,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 2.9647012500208803,
+      "unix_ns": 1793203613990373000,
+      "process_tree_rss_bytes": 249200640,
+      "members": {
+        "9665": 249200640
+      },
+      "available_memory_bytes": 3732520960,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 3.115397125016898,
+      "unix_ns": 1793203614141074000,
+      "process_tree_rss_bytes": 253411328,
+      "members": {
+        "9665": 253411328
+      },
+      "available_memory_bytes": 3795517440,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 3.2913102910097223,
+      "unix_ns": 1793203614316996000,
+      "process_tree_rss_bytes": 187170816,
+      "members": {
+        "9665": 187170816
+      },
+      "available_memory_bytes": 3679191040,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 3.467157916020369,
+      "unix_ns": 1793203614492845000,
+      "process_tree_rss_bytes": 249577472,
+      "members": {
+        "9665": 249577472
+      },
+      "available_memory_bytes": 3629694976,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 3.6226087080140132,
+      "unix_ns": 1793203614648301000,
+      "process_tree_rss_bytes": 89964544,
+      "members": {
+        "9665": 89964544
+      },
+      "available_memory_bytes": 3649060864,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 3.7586206660198513,
+      "unix_ns": 1793203614784318000,
+      "process_tree_rss_bytes": 90013696,
+      "members": {
+        "9665": 90013696
+      },
+      "available_memory_bytes": 3638870016,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 3.889884083007928,
+      "unix_ns": 1793203614915582000,
+      "process_tree_rss_bytes": 89899008,
+      "members": {
+        "9665": 89899008
+      },
+      "available_memory_bytes": 3627843584,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 4.026197416009381,
+      "unix_ns": 1793203615051900000,
+      "process_tree_rss_bytes": 89899008,
+      "members": {
+        "9665": 89899008
+      },
+      "available_memory_bytes": 3635281920,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 4.166409666009713,
+      "unix_ns": 1793203615192118000,
+      "process_tree_rss_bytes": 88653824,
+      "members": {
+        "9665": 88653824
+      },
+      "available_memory_bytes": 3632873472,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 4.303871416021138,
+      "unix_ns": 1793203615329581000,
+      "process_tree_rss_bytes": 88539136,
+      "members": {
+        "9665": 88539136
+      },
+      "available_memory_bytes": 3642032128,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 4.438440583006013,
+      "unix_ns": 1793203615464156000,
+      "process_tree_rss_bytes": 88604672,
+      "members": {
+        "9665": 88604672
+      },
+      "available_memory_bytes": 3640967168,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 4.571237083000597,
+      "unix_ns": 1793203615596955000,
+      "process_tree_rss_bytes": 168132608,
+      "members": {
+        "9665": 168132608
+      },
+      "available_memory_bytes": 3608985600,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 4.703662875021109,
+      "unix_ns": 1793203615729385000,
+      "process_tree_rss_bytes": 88604672,
+      "members": {
+        "9665": 88604672
+      },
+      "available_memory_bytes": 3632480256,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 4.8695019580191,
+      "unix_ns": 1793203615895228000,
+      "process_tree_rss_bytes": 88539136,
+      "members": {
+        "9665": 88539136
+      },
+      "available_memory_bytes": 4511760384,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 5.010850291000679,
+      "unix_ns": 1793203616036581000,
+      "process_tree_rss_bytes": 88522752,
+      "members": {
+        "9665": 88522752
+      },
+      "available_memory_bytes": 6326681600,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 5.157279541017488,
+      "unix_ns": 1793203616183015000,
+      "process_tree_rss_bytes": 88522752,
+      "members": {
+        "9665": 88522752
+      },
+      "available_memory_bytes": 6228721664,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 5.292051416006871,
+      "unix_ns": 1793203616317791000,
+      "process_tree_rss_bytes": 88522752,
+      "members": {
+        "9665": 88522752
+      },
+      "available_memory_bytes": 6095486976,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 5.427547875005985,
+      "unix_ns": 1793203616453292000,
+      "process_tree_rss_bytes": 88621056,
+      "members": {
+        "9665": 88621056
+      },
+      "available_memory_bytes": 5926387712,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 5.563592750026146,
+      "unix_ns": 1793203616589340000,
+      "process_tree_rss_bytes": 172851200,
+      "members": {
+        "9665": 172851200
+      },
+      "available_memory_bytes": 5747081216,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 5.759861958009424,
+      "unix_ns": 1793203616785615000,
+      "process_tree_rss_bytes": 93241344,
+      "members": {
+        "9665": 93241344
+      },
+      "available_memory_bytes": 5689589760,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 5.8936194160196465,
+      "unix_ns": 1793203616919377000,
+      "process_tree_rss_bytes": 93241344,
+      "members": {
+        "9665": 93241344
+      },
+      "available_memory_bytes": 5608751104,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 6.024771833006525,
+      "unix_ns": 1793203617050533000,
+      "process_tree_rss_bytes": 93241344,
+      "members": {
+        "9665": 93241344
+      },
+      "available_memory_bytes": 5507497984,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 6.15734929102473,
+      "unix_ns": 1793203617183115000,
+      "process_tree_rss_bytes": 93241344,
+      "members": {
+        "9665": 93241344
+      },
+      "available_memory_bytes": 5421973504,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 6.288266540999757,
+      "unix_ns": 1793203617314036000,
+      "process_tree_rss_bytes": 93241344,
+      "members": {
+        "9665": 93241344
+      },
+      "available_memory_bytes": 5339250688,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    },
+    {
+      "at_seconds": 6.420968582999194,
+      "unix_ns": 1793203617446742000,
+      "process_tree_rss_bytes": 96043008,
+      "members": {
+        "9665": 96043008
+      },
+      "available_memory_bytes": 5277794304,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    }
+  ],
+  "counter_errors": [],
+  "stop_reason": null
+}
