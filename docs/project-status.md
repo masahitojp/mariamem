@@ -5,8 +5,48 @@ This document owns current state and future direction. The
 owns current HOW, [decisions](decisions/snapshot-product-contract.md) own
 continuing product constraints, and reports preserve historical evidence.
 Version themes are direction; they are not release approval.
+
+This document keeps approved scope, decisions and evidence context. For work
+linked to a GitHub Issue, that Issue owns actionable checklists and completion
+tracking, grouped by release milestone; link it here rather than maintaining a
+second checklist. An accepted-limitation Issue is not automatically release-blocking.
+
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
+
+## Issue #5 host repair — adopted on main, unreleased
+
+The Human approved main adoption of candidate source_commit
+`8383f09b4043eafed07fcb048f8edcbde30d0c6a` after Development
+[CI40737308463 attempt2](https://github.com/masahitojp/mariamem/actions/runs/40737308463/attempts/2)
+completed successfully. Both-platform worker-failure/native-equality acceptance,
+normal integration and full check are successful. Attempt1's hosted-runner
+communication failure remains recorded; its cause is not established.
+
+The bounded repair binds `Fd_dup` to the existing descriptor implementation and
+notifies fatal worker traps promptly. The affected DB becomes unusable; pending
+calls retain the original cause; joining still precedes resource release.
+Other DB instances remain independent. Non-cooperative Go workers retain their
+resources until they exit. The other14 panic imports remain fail-closed.
+Guest source, public API and Live/Snapshot product contracts are unchanged.
+
+See the [adoption review and conditions](reviews/issue5-main-adoption.md),
+[repair report](reviews/issue5-host-repair.md) and original
+[investigation](reviews/issue5-text-dedup.md). [PR14](https://github.com/masahitojp/mariamem/pull/14) squash-merged to main
+source_commit `ca67dcacaf2d96b040f0e312cdf60aab85abd99d` from checked head
+`e9c77c1b7a2f66a9aef7cb6fbdfde1c4921bcf0f`; their trees are identical.
+The integration retains main's intervening CI changes. Final PR Development
+[40778348981](https://github.com/masahitojp/mariamem/actions/runs/40778348981),
+Live [40778348966](https://github.com/masahitojp/mariamem/actions/runs/40778348966),
+Django [40778348956](https://github.com/masahitojp/mariamem/actions/runs/40778348956)
+and dump [40778348959](https://github.com/masahitojp/mariamem/actions/runs/40778348959)
+checks succeeded; strict app-bound check/integration/Live gates were respected.
+The earlier macOS runner-capacity cancellation and CI-rule integration failure
+remain historical failures, not runtime acceptance. PR worker acceptance runs
+on Ubuntu; main/manual retain both hosts, with original both-host candidate
+acceptance separately identified above. Issue5 is closed by the merge. These
+receipts do not qualify a later release/main build. No protection bypass,
+release qualification, version selection or publication was performed.
 
 ## Dogfood recipes, guides and CI improvement adopted on main — unreleased
 
@@ -48,15 +88,6 @@ The existing three required contexts, strict freshness, administrator enforcemen
 and guide-only skip policy are unchanged. No product/runtime/guest/generated or
 release ledger change is included. Qualification, version and publication remain
 separate Human decisions.
-
-**v0.6.0 release scope agreed with the Human, 2026-10-30:** Live is part of the
-0.6.0 scope together with the other adopted-on-main capabilities (routines,
-prepared statements with the accepted consumer exceptions, connection switching,
-`import_dump`, the 16-bit status projection and the Go 1.26.10 toolchain). The
-[scope record](decisions/v060-release-scope.md) owns the inclusion list, the
-release prerequisites (complete dogfood or a recorded D1 deferral, then
-version/notes, Qualification and publication) and the explicit exclusions. This
-is a placement decision; it does not approve publication or bypass any gate.
 
 ## Live endpoints adopted on main — unreleased
 
@@ -777,6 +808,53 @@ separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Dogfood and fixture ergonomics
 
+### Current work tracking
+
+Use the [v0.6.0 milestone](https://github.com/masahitojp/mariamem/milestone/1)
+for current and completed release work. The following Issues own actionable
+checklists and source-bound acceptance evidence; this status document retains
+the approved scope and sequencing below.
+
+| Tracking Issue | Current disposition |
+| --- | --- |
+| [#18 — five-profile dogfood acceptance](https://github.com/masahitojp/mariamem/issues/18) | Active v0.6.0 acceptance tracking for P1, G1, D1, EP1 and EG1; recipes/component PASS do not close the full obligation |
+| [#19 — dbt revalidation](https://github.com/masahitojp/mariamem/issues/19) | Active v0.6.0 independent CLI workload; the original #5 prerequisite is resolved, but repaired SQL alone does not establish dbt acceptance |
+| [#24 — multi-statement host panic guard](https://github.com/masahitojp/mariamem/issues/24) | Active v0.6.0 follow-up to #13; detect unclassified host panics preceded by another statement |
+| [#20 — Oracle prepared CALL result traversal](https://github.com/masahitojp/mariamem/issues/20) | Accepted external-consumer limitation; outside v0.6.0 work, no milestone |
+| [#21 — Oracle macOS C/default NUL projection](https://github.com/masahitojp/mariamem/issues/21) | Accepted external-consumer limitation; outside v0.6.0 work, no milestone |
+
+The Human excluded #20/#21 from v0.6.0 work because those external consumer
+behaviors are outside our control. Their tracking does not promise a repair,
+dependency update or delivery date, and does not add a fix prerequisite or
+release blocker. The existing [accepted consumer exceptions](decisions/prepared-consumer-exceptions.md),
+original functional FAILs, version-specific limits in the [Go](go.md) and
+[Python](python.md) guides, and change-triggered rechecks remain in force.
+Excluding repair work does not remove disclosure of the limitations from the
+released support contract.
+
+Completed work remains visible in the same milestone: [#5](https://github.com/masahitojp/mariamem/issues/5)
+and [#7](https://github.com/masahitojp/mariamem/issues/7) repair the import/failure
+path, [#11](https://github.com/masahitojp/mariamem/issues/11) tracks CI efficiency,
+and [#13](https://github.com/masahitojp/mariamem/issues/13) tracks the adopted
+stub-classification/SQL detection net ([PR16](https://github.com/masahitojp/mariamem/pull/16)).
+These are closed; they are not pending prerequisites for #18/#19. In particular,
+#19 may proceed from the resolved #5/#7 repair while recording its own source.
+The adopted #13 guard still misses an unmarked host panic preceded by another
+statement; [#24](https://github.com/masahitojp/mariamem/issues/24) owns that residual
+gap. See the [WASIX stub maintenance procedure](v04-generated-go-architecture.md#unimplemented-wasix-host-imports)
+for classification updates and the current detection boundary.
+
+### Approved scope and release sequencing
+
+**v0.6.0 release scope agreed with the Human, 2026-10-30:** Live is part of the
+0.6.0 scope together with the other adopted-on-main capabilities (routines,
+prepared statements with the accepted consumer exceptions, connection switching,
+`import_dump`, the 16-bit status projection and the Go 1.26.10 toolchain). The
+[scope record](decisions/v060-release-scope.md) owns the inclusion list, the
+release prerequisites (complete dogfood or a recorded D1 deferral, then
+version/notes, Qualification and publication) and the explicit exclusions. This
+is a placement decision; it does not approve publication or bypass any gate.
+
 **Dogfood scope and release sequencing agreed with the Human, 2026-10-29:**
 
 - The five named entries (P1 Python pytest/`shadow_maria`, G1 Go helper,
@@ -790,9 +868,11 @@ separate work; no general performance improvement is claimed.
   acceptance campaign (declared profiles, both supported hosts, time and resource
   outcomes) does. The release order is therefore dogfood completion, or a
   recorded D1 deferral, then version/notes, Qualification and release.
-- **dbt is adopted as an independent CLI preparation workload profile,
-  conditional on issue #5** (`Fd_dup` / TEXT deduplication) being resolved. It is
-  not a sixth named entry and not a workload of P1: dbt is a command-line
+- **dbt is adopted as an independent CLI preparation workload profile.**
+  Its original issue #5 (`Fd_dup` / TEXT deduplication) prerequisite is now
+  satisfied; [#19](https://github.com/masahitojp/mariamem/issues/19) tracks the
+  remaining workload revalidation. It is not a sixth named entry and not a
+  workload of P1: dbt is a command-line
   preparation/run tool with its own client and failure surface, so it is
   evaluated against its own declared profile (pinned lock, preparation command
   surface, TEXT-dedup matrix, failure semantics, both supported hosts).

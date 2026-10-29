@@ -23,6 +23,11 @@ means they ship together in the first 0.6.0 release.
 
 ## Release prerequisites (2026-10-29 sequencing decision)
 
+Acceptance tracking: [#18](https://github.com/masahitojp/mariamem/issues/18) owns
+the five dogfood entries; [#19](https://github.com/masahitojp/mariamem/issues/19)
+owns the separately declared dbt workload, not a sixth dogfood entry. See
+[current work tracking](../project-status.md#current-work-tracking) for disposition.
+
 1. Complete the five named dogfood entries (P1 Python pytest/`shadow_maria`,
    G1 Go helper, D1 Django, EP1 Python browser E2E, EG1 Go HTTP E2E) with the
    declared-profile acceptance campaign on both supported hosts — or record the

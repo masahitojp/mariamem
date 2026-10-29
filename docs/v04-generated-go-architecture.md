@@ -124,6 +124,11 @@ The memory32 runtime uses a stable 2 GiB anonymous reservation, initially enable
 256 MiB, and grows the logical range without relocating it on the supported
 platforms. Bounds/width/alignment checks produce controlled guest traps. Close
 releases linear memory after cooperative worker join; metadata remains GC-managed.
+A fatal worker trap notifies the linked transport owner before join and marks
+that DB unusable. Its cooperative atomic/futex waits are cancelled, pending calls
+retain the original cause, and later commands are refused. Completion and memory
+release still wait for every worker; non-cooperative execution retains ownership
+until it exits. Independent DBs have separate failure state.
 Physical accounting differs from reachable heap or sampled host RSS.
 
 The page-cleaner startup ordering correction is adopted on main and passed
@@ -155,6 +160,26 @@ acceptance in verify run 38935990860. Broader Product Validation remains pending
 that technical READY result does not authorize publication or qualify later SHAs.
 [Development verification](development.md#local-verification) defines check
 selection; [releasing](releasing.md) defines exact-source publication gates.
+
+### Unimplemented WASIX host imports
+
+[release/wasix-host-stubs.json](../release/wasix-host-stubs.json) classifies the
+unimplemented host imports as `fail-closed`.
+[tests/test_generated_runtime_inventory.py](../tests/test_generated_runtime_inventory.py)
+checks the classification against non-test Go sources in `internal/generatedgo`.
+When adding, removing or implementing a stub, review its disposition and update
+this classification in the same change. Preserve the explicit failure boundary
+for remaining stubs; update canonical source owners and regenerate where needed
+rather than editing generated output alone.
+
+Run `python -m pytest tests/test_generated_runtime_inventory.py -q` for the
+inventory/classification check, then select any additional checks required by
+the changed runtime boundary using [local verification](development.md#local-verification).
+The current guard checks marked stubs and immediate host-method panics; it does
+not establish that every panic is classified. An unmarked panic preceded by
+another statement can escape detection. [#24](https://github.com/masahitojp/mariamem/issues/24)
+tracks that gap and the required negative controls, separately from the adopted
+[#13](https://github.com/masahitojp/mariamem/issues/13) detection net.
 
 ## Historical evidence
 

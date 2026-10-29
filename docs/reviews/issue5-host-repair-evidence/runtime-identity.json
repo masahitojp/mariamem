@@ -1,0 +1,12 @@
+{
+  "source_identity": {
+    "object_sha": "f3ccbb3b0d14784f562a909941a5ec75676dd198",
+    "object_type": "commit",
+    "source_commit": "f3ccbb3b0d14784f562a909941a5ec75676dd198"
+  },
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "binary_sha256": "6cc3c14c598d1370656d783362668a223ae1e320a3ab0b0947f1dba93acf0191",
+  "build_info": "build/experiment-work/issue5-repair/temp/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.4-0.20261028162804-f3ccbb3b0d14\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=f3ccbb3b0d14784f562a909941a5ec75676dd198\n\tbuild\tvcs.time=2026-10-28T16:28:04Z\n\tbuild\tvcs.modified=false\n",
+  "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "generated_provenance_sha256": "a8774b38e2a697aaaedef5715ff4b7cb58144aa6da53a196046cbc02ade51371"
+}
