@@ -52,8 +52,15 @@ def go_cases(text):
 
 
 def clean_env():
-    return {k: v for k, v in os.environ.items() if k not in ('GH_TOKEN', 'GITHUB_TOKEN')
-            and not k.startswith(('MARIAMEM_', 'MYSQLMEM_', 'PYTHON', 'PYTEST_'))}
+    env = {k: v for k, v in os.environ.items() if k not in ('GH_TOKEN', 'GITHUB_TOKEN')
+           and not k.startswith(('MARIAMEM_', 'MYSQLMEM_', 'PYTHON', 'PYTEST_'))}
+    # Playwright resolves relative paths from the consumer cwd. Retain the
+    # original acquisition location when moving outside the checkout. "0" is
+    # its package-local browser mode, not a directory named zero.
+    browsers = env.get('PLAYWRIGHT_BROWSERS_PATH')
+    if browsers and browsers != '0':
+        env['PLAYWRIGHT_BROWSERS_PATH'] = str(Path(browsers).expanduser().resolve())
+    return env
 
 
 def command(argv, cwd, env, log):
@@ -90,20 +97,7 @@ def wheel_source(wheel, expected):
         need(modules == expected, 'wheel SDK bytes differ from candidate')
 
 
-def python_consumer(work, output, wheel, expected):
-    project = work / 'python'; project.mkdir()
-    venv = work / 'venv'
-    # The parent CI installs fixed application/browser dependencies. The SDK
-    # itself must resolve from this venv's wheel, verified before resource creation.
-    subprocess.run([sys.executable, '-m', 'venv', '--system-site-packages', str(venv)], check=True)
-    python = venv / 'bin/python'
-    env = clean_env(); env.update(E2E_OWNED_RUNTIME='1', PYTEST_DISABLE_PLUGIN_AUTOLOAD='1')
-    command([python, '-m', 'pip', 'install', '--no-index', '--no-deps', wheel], work, env, output / 'wheel-install.txt')
-    for directory in ('tests/e2e_native_control/pythonapp', 'tests/live_acceptance/diagnostics'):
-        shutil.copytree(ROOT / directory, project / directory,
-                        ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
-    text = stage_python((ROOT / 'docs/examples/e2e_owned/python/test_orders.py').read_text())
-    (project / 'test_orders.py').write_text(text)
+def python_bootstrap():
     # Reuse the canonical byte/inventory verifier without adding repo scripts to
     # consumer sys.path or allowing their imports to supply an SDK fallback.
     tree = ast.parse((ROOT / 'scripts/consumer_acceptance.py').read_text())
@@ -118,7 +112,7 @@ def require(ok, reason):
 '''
     bootstrap += ast.unparse(verifier) + '\n'
     bootstrap += '''package=Path(mariamem.__file__).resolve().parent
-site=Path(sysconfig.get_paths("purelib")).resolve()
+site=Path(sysconfig.get_path("purelib")).resolve()
 require(package.is_relative_to(site),"SDK imported outside installed venv")
 files=verify_installed_files(Path(sys.argv[1]),package)
 require("e2e.py" in files,"installed wheel lacks owned entry")
@@ -134,7 +128,24 @@ require(sum(int(s.get("tests",0)) for s in suites)==2,"wrong installed Python ca
 require(all(int(s.get(k,0))==0 for s in suites for k in ("failures","errors","skipped")),"hidden installed errors/skips")
 Path("receipt.json").write_text(json.dumps(dict(result="PASS_INSTALLED_OWNED_PYTHON",module=str(package),files=files,host_sha256=hashlib.sha256(host.read_bytes()).hexdigest(),cases=2,python=sys.version),indent=2)+"\\n")
 '''
-    (project / 'bootstrap.py').write_text(bootstrap)
+    return bootstrap
+
+
+def python_consumer(work, output, wheel, expected):
+    project = work / 'python'; project.mkdir()
+    venv = work / 'venv'
+    # The parent CI installs fixed application/browser dependencies. The SDK
+    # itself must resolve from this venv's wheel, verified before resource creation.
+    subprocess.run([sys.executable, '-m', 'venv', '--system-site-packages', str(venv)], check=True)
+    python = venv / 'bin/python'
+    env = clean_env(); env.update(E2E_OWNED_RUNTIME='1', PYTEST_DISABLE_PLUGIN_AUTOLOAD='1')
+    command([python, '-m', 'pip', 'install', '--no-index', '--no-deps', wheel], work, env, output / 'wheel-install.txt')
+    for directory in ('tests/e2e_native_control/pythonapp', 'tests/live_acceptance/diagnostics'):
+        shutil.copytree(ROOT / directory, project / directory,
+                        ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
+    text = stage_python((ROOT / 'docs/examples/e2e_owned/python/test_orders.py').read_text())
+    (project / 'test_orders.py').write_text(text)
+    (project / 'bootstrap.py').write_text(python_bootstrap())
     go = shutil.which('go'); need(go is not None, 'Go binary required for bundled-host identity')
     command([python, '-I', project / 'bootstrap.py', wheel, expected, go], project, env, output / 'python-runtime.txt')
     shutil.copyfile(project / 'result.xml', output / 'python-junit.xml')

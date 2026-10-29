@@ -29,6 +29,23 @@ class TestInstalledController(unittest.TestCase):
         self.assertIn('os.ReadFile("schema.sql")', staged)
         self.assertNotIn('../../../../', staged)
 
+    def test_real_bootstrap_site_preflight(self):
+        import ast, sysconfig
+        tree = ast.parse(consumer.python_bootstrap())
+        assignment = next(n for n in tree.body if isinstance(n, ast.Assign)
+                          and any(isinstance(t, ast.Name) and t.id == 'site' for t in n.targets))
+        namespace = dict(Path=Path, sysconfig=sysconfig)
+        exec(compile(ast.Module(body=[assignment], type_ignores=[]), '<bootstrap-site>', 'exec'), namespace)
+        self.assertEqual(namespace['site'], Path(sysconfig.get_path('purelib')).resolve())
+
+    def test_browser_cache_survives_consumer_cwd_change(self):
+        from unittest.mock import patch
+        with patch.dict('os.environ', {'PLAYWRIGHT_BROWSERS_PATH': 'build/e2e-browsers'}):
+            env = consumer.clean_env()
+        self.assertEqual(env['PLAYWRIGHT_BROWSERS_PATH'], str(Path('build/e2e-browsers').resolve()))
+        with patch.dict('os.environ', {'PLAYWRIGHT_BROWSERS_PATH': '0'}):
+            self.assertEqual(consumer.clean_env()['PLAYWRIGHT_BROWSERS_PATH'], '0')
+
     def test_complete_census(self):
         rows = [dict(Action='pass', Test=n) for n in ('TestOwnedOrders', 'TestOwnedOrders/first', 'TestOwnedOrders/second')]
         text = '\n'.join(json.dumps(row) for row in rows)

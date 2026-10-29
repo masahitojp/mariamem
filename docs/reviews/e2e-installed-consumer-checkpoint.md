@@ -37,3 +37,22 @@ until the new exact-source runtime results exist. Time/resource, full hook-fault
 campaign and main adoption remain tracked by #18. Prior CI receipts are never
 relabeled as the new controller source. Native input/SQL files are unchanged;
 no new native or performance conclusion is inferred.
+
+## CI40845790987 bootstrap failure and repair
+
+Ubuntu reached installed Python bootstrap after the wheel installed successfully,
+then failed before starting any application: `sysconfig.get_paths("purelib")`
+interpreted purelib as a scheme, raising KeyError. Actual execution source is
+`5f67a3d72203ef2381d576e7c957f7bb4a3e3901`, PR head a4e8385d. The
+[digest-verified artifact excerpt](e2e-installed-failure-40845790987/assessment.json)
+retains the original FAIL and inner traceback. This is a consumer-controller
+failure, not a reproduced SDK/SQL failure.
+
+Repair uses get_path("purelib"). A regression executes the exact bootstrap site's
+AST assignment against real sysconfig on Python3.11/3.14; the original expression
+fails that check. Also resolve the configured browser cache before changing cwd,
+while preserving package-local mode0; the previous relative value would refer to
+the consumer's empty build directory. This second gap is a deterministic path
+observation, not the original CI traceback. Both new controls plus prior boundary
+checks pass8 cases on each Python minor. New exact-source CI is required; no
+installed-runtime PASS is claimed from the controller-only checks.
