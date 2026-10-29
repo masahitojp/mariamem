@@ -1,0 +1,1538 @@
+{
+  "result": "PASS_P1_COUNTER_FEASIBILITY_AND_CORRECTNESS",
+  "run_id": 40846147295,
+  "run_attempt": 1,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/40846147295",
+  "pr_head_commit": "e5350bc3ad9573c5b370cbae08bd99cabb36a91e",
+  "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+  "head_and_executed_trees_equal": true,
+  "profiles": [
+    {
+      "host": "macos-15",
+      "python": "3.11",
+      "pytest": "7.0.0",
+      "job_id": 123355927759,
+      "job_url": "https://github.com/masahitojp/mariamem/actions/runs/40846147295/job/123355927759",
+      "artifact_id": 12887611733,
+      "artifact_name": "live-host-macos-15-bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+      "original_zip_digest": "sha256:8c430813dcbeb87af0f789ba264131c829e75c21ee90800405c236b5cdbfe8a4",
+      "unit_passed": 125,
+      "runtime_configurations": [
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "command",
+          "workers": 1,
+          "installed_wheel": true,
+          "host_sha256": "94351944825cd3f31aea80c7d5f1e672e263a38780e161ea66a5092a125cb229",
+          "reverse": false,
+          "ordinary_failure": false,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.11/lib/python3.11/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "7.0.0",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        },
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "callback",
+          "workers": 1,
+          "installed_wheel": true,
+          "host_sha256": "94351944825cd3f31aea80c7d5f1e672e263a38780e161ea66a5092a125cb229",
+          "reverse": true,
+          "ordinary_failure": false,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.11/lib/python3.11/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "7.0.0",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        },
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "command",
+          "workers": 2,
+          "installed_wheel": true,
+          "host_sha256": "94351944825cd3f31aea80c7d5f1e672e263a38780e161ea66a5092a125cb229",
+          "reverse": false,
+          "ordinary_failure": false,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.11/lib/python3.11/site-packages/mariamem/_native/mariamem-host"
+            },
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.11/lib/python3.11/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "7.0.0",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        },
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "command",
+          "workers": 1,
+          "installed_wheel": true,
+          "host_sha256": "94351944825cd3f31aea80c7d5f1e672e263a38780e161ea66a5092a125cb229",
+          "reverse": false,
+          "ordinary_failure": true,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.11/lib/python3.11/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "7.0.0",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        }
+      ]
+    },
+    {
+      "host": "macos-15",
+      "python": "3.14",
+      "pytest": "9.0.2",
+      "job_id": 123355927759,
+      "job_url": "https://github.com/masahitojp/mariamem/actions/runs/40846147295/job/123355927759",
+      "artifact_id": 12887611733,
+      "artifact_name": "live-host-macos-15-bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+      "original_zip_digest": "sha256:8c430813dcbeb87af0f789ba264131c829e75c21ee90800405c236b5cdbfe8a4",
+      "unit_passed": 125,
+      "runtime_configurations": [
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "command",
+          "workers": 1,
+          "installed_wheel": true,
+          "host_sha256": "94351944825cd3f31aea80c7d5f1e672e263a38780e161ea66a5092a125cb229",
+          "reverse": false,
+          "ordinary_failure": false,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.14/lib/python3.14/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "9.0.2",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        },
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "callback",
+          "workers": 1,
+          "installed_wheel": true,
+          "host_sha256": "94351944825cd3f31aea80c7d5f1e672e263a38780e161ea66a5092a125cb229",
+          "reverse": true,
+          "ordinary_failure": false,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.14/lib/python3.14/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "9.0.2",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        },
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "command",
+          "workers": 2,
+          "installed_wheel": true,
+          "host_sha256": "94351944825cd3f31aea80c7d5f1e672e263a38780e161ea66a5092a125cb229",
+          "reverse": false,
+          "ordinary_failure": false,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.14/lib/python3.14/site-packages/mariamem/_native/mariamem-host"
+            },
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.14/lib/python3.14/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "9.0.2",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        },
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "command",
+          "workers": 1,
+          "installed_wheel": true,
+          "host_sha256": "94351944825cd3f31aea80c7d5f1e672e263a38780e161ea66a5092a125cb229",
+          "reverse": false,
+          "ordinary_failure": true,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.14/lib/python3.14/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "9.0.2",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        }
+      ]
+    },
+    {
+      "host": "ubuntu-24.04",
+      "python": "3.11",
+      "pytest": "7.0.0",
+      "job_id": 123355927760,
+      "job_url": "https://github.com/masahitojp/mariamem/actions/runs/40846147295/job/123355927760",
+      "artifact_id": 12885773768,
+      "artifact_name": "live-host-ubuntu-24.04-bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+      "original_zip_digest": "sha256:1cb7fecb7dc9ea79601bbfb1fa2fa3eb3467bbfea3eb2b77392540c8dfb4db93",
+      "unit_passed": 125,
+      "runtime_configurations": [
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "command",
+          "workers": 1,
+          "installed_wheel": true,
+          "host_sha256": "f198ce6d177f01241c6f14e00914546d620d671b1cd52baf1a40b5d5358177b1",
+          "reverse": false,
+          "ordinary_failure": false,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.11/lib/python3.11/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "7.0.0",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        },
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "callback",
+          "workers": 1,
+          "installed_wheel": true,
+          "host_sha256": "f198ce6d177f01241c6f14e00914546d620d671b1cd52baf1a40b5d5358177b1",
+          "reverse": true,
+          "ordinary_failure": false,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.11/lib/python3.11/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "7.0.0",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        },
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "command",
+          "workers": 2,
+          "installed_wheel": true,
+          "host_sha256": "f198ce6d177f01241c6f14e00914546d620d671b1cd52baf1a40b5d5358177b1",
+          "reverse": false,
+          "ordinary_failure": false,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.11/lib/python3.11/site-packages/mariamem/_native/mariamem-host"
+            },
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.11/lib/python3.11/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "7.0.0",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        },
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "command",
+          "workers": 1,
+          "installed_wheel": true,
+          "host_sha256": "f198ce6d177f01241c6f14e00914546d620d671b1cd52baf1a40b5d5358177b1",
+          "reverse": false,
+          "ordinary_failure": true,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.11/lib/python3.11/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "7.0.0",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        }
+      ]
+    },
+    {
+      "host": "ubuntu-24.04",
+      "python": "3.14",
+      "pytest": "9.0.2",
+      "job_id": 123355927760,
+      "job_url": "https://github.com/masahitojp/mariamem/actions/runs/40846147295/job/123355927760",
+      "artifact_id": 12885773768,
+      "artifact_name": "live-host-ubuntu-24.04-bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+      "original_zip_digest": "sha256:1cb7fecb7dc9ea79601bbfb1fa2fa3eb3467bbfea3eb2b77392540c8dfb4db93",
+      "unit_passed": 125,
+      "runtime_configurations": [
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "command",
+          "workers": 1,
+          "installed_wheel": true,
+          "host_sha256": "f198ce6d177f01241c6f14e00914546d620d671b1cd52baf1a40b5d5358177b1",
+          "reverse": false,
+          "ordinary_failure": false,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.14/lib/python3.14/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "9.0.2",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        },
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "callback",
+          "workers": 1,
+          "installed_wheel": true,
+          "host_sha256": "f198ce6d177f01241c6f14e00914546d620d671b1cd52baf1a40b5d5358177b1",
+          "reverse": true,
+          "ordinary_failure": false,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.14/lib/python3.14/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "9.0.2",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        },
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "command",
+          "workers": 2,
+          "installed_wheel": true,
+          "host_sha256": "f198ce6d177f01241c6f14e00914546d620d671b1cd52baf1a40b5d5358177b1",
+          "reverse": false,
+          "ordinary_failure": false,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.14/lib/python3.14/site-packages/mariamem/_native/mariamem-host"
+            },
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.14/lib/python3.14/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "9.0.2",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        },
+        {
+          "result": "P1_REAL_ENTRY_PASS",
+          "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+          "method": "command",
+          "workers": 1,
+          "installed_wheel": true,
+          "host_sha256": "f198ce6d177f01241c6f14e00914546d620d671b1cd52baf1a40b5d5358177b1",
+          "reverse": false,
+          "ordinary_failure": true,
+          "cases": 6,
+          "junit_counts": {
+            "tests": 6,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0
+          },
+          "final_owners": [
+            {
+              "event": "final",
+              "closed": true,
+              "host_reaped": true,
+              "directory_removed": true,
+              "binary": "<CI_WORKSPACE>/build/p1-py3.14/lib/python3.14/site-packages/mariamem/_native/mariamem-host"
+            }
+          ],
+          "inputs_sha256": {
+            "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+            "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+            "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+            "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+          },
+          "packages": {
+            "pytest": "9.0.2",
+            "pytest-xdist": "3.8.0",
+            "SQLAlchemy": "2.0.54",
+            "PyMySQL": "1.2.3",
+            "Alembic": "1.18.4"
+          }
+        }
+      ]
+    }
+  ],
+  "scope": "P1 correctness and FD/logical-byte counter feasibility, plus G1 collector regression; not full P1 resource acceptance",
+  "remaining": [
+    "FD-backed allocated-block counter feasibility on both hosts",
+    "full P1 time/resource/retention/guard campaign",
+    "separate main adoption and release decisions"
+  ],
+  "native_profiles": [
+    {
+      "python": "3.11",
+      "artifact_id": 12885247058,
+      "original_zip_digest": "sha256:ae76683258107b798d7f2084fd1e6f844811b4580403d1f02c288251a078a2ae",
+      "observation": {
+        "result": "PASS_P1_NATIVE_INPUT",
+        "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+        "scope": "P1 native input and command component; no Snapshot/Fork or resource acceptance",
+        "python": "3.11.17 (main, Oct  1 2026, 14:32:31) [GCC 13.3.0]",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+        "acquisition_sha256": "fe0c74ab30fd0fc0b4b07ef1b2f2fed5d08e2b2eeb7de8576c4cbbe5b75b00f5",
+        "inputs_sha256": {
+          "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+          "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+          "tests/preparation_migration_acceptance/migrations/env.py": "c99f06628878c0bed82471a6fd84fed47f7c5e980e98f8ba91fa9048148a5a8a",
+          "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+          "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+        },
+        "packages": {
+          "Alembic": "1.18.4",
+          "SQLAlchemy": "2.0.54",
+          "PyMySQL": "1.2.3"
+        },
+        "runs": {
+          "command": {
+            "version": "12.3.3-MariaDB-ubu2404",
+            "users": [
+              [
+                1,
+                "legacy",
+                0
+              ],
+              [
+                2,
+                "seed",
+                5
+              ]
+            ],
+            "addresses": [
+              [
+                1,
+                2,
+                "seed@example.test"
+              ]
+            ],
+            "revision": [
+              [
+                "m2_addresses"
+              ]
+            ],
+            "columns": [
+              [
+                "addresses",
+                "id",
+                "int",
+                "NO"
+              ],
+              [
+                "addresses",
+                "user_id",
+                "int",
+                "NO"
+              ],
+              [
+                "addresses",
+                "email",
+                "varchar",
+                "NO"
+              ],
+              [
+                "users",
+                "id",
+                "int",
+                "NO"
+              ],
+              [
+                "users",
+                "name",
+                "varchar",
+                "NO"
+              ],
+              [
+                "users",
+                "rating",
+                "int",
+                "NO"
+              ]
+            ],
+            "constraints": [
+              [
+                "addresses",
+                "FOREIGN KEY"
+              ],
+              [
+                "addresses",
+                "PRIMARY KEY"
+              ],
+              [
+                "addresses",
+                "UNIQUE"
+              ],
+              [
+                "users",
+                "PRIMARY KEY"
+              ],
+              [
+                "users",
+                "UNIQUE"
+              ]
+            ],
+            "tables": [
+              [
+                "addresses",
+                "InnoDB",
+                "utf8mb4_uca1400_ai_ci"
+              ],
+              [
+                "alembic_version",
+                "InnoDB",
+                "utf8mb4_uca1400_ai_ci"
+              ],
+              [
+                "users",
+                "InnoDB",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ],
+            "foreign_key_errno": 1452,
+            "distinct_physical_connections": 2,
+            "subsequent_select": 1,
+            "pool_checkedout_after": 0
+          },
+          "callback": {
+            "version": "12.3.3-MariaDB-ubu2404",
+            "users": [
+              [
+                1,
+                "legacy",
+                0
+              ],
+              [
+                2,
+                "seed",
+                5
+              ]
+            ],
+            "addresses": [
+              [
+                1,
+                2,
+                "seed@example.test"
+              ]
+            ],
+            "revision": [
+              [
+                "m2_addresses"
+              ]
+            ],
+            "columns": [
+              [
+                "addresses",
+                "id",
+                "int",
+                "NO"
+              ],
+              [
+                "addresses",
+                "user_id",
+                "int",
+                "NO"
+              ],
+              [
+                "addresses",
+                "email",
+                "varchar",
+                "NO"
+              ],
+              [
+                "users",
+                "id",
+                "int",
+                "NO"
+              ],
+              [
+                "users",
+                "name",
+                "varchar",
+                "NO"
+              ],
+              [
+                "users",
+                "rating",
+                "int",
+                "NO"
+              ]
+            ],
+            "constraints": [
+              [
+                "addresses",
+                "FOREIGN KEY"
+              ],
+              [
+                "addresses",
+                "PRIMARY KEY"
+              ],
+              [
+                "addresses",
+                "UNIQUE"
+              ],
+              [
+                "users",
+                "PRIMARY KEY"
+              ],
+              [
+                "users",
+                "UNIQUE"
+              ]
+            ],
+            "tables": [
+              [
+                "addresses",
+                "InnoDB",
+                "utf8mb4_uca1400_ai_ci"
+              ],
+              [
+                "alembic_version",
+                "InnoDB",
+                "utf8mb4_uca1400_ai_ci"
+              ],
+              [
+                "users",
+                "InnoDB",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ],
+            "foreign_key_errno": 1452,
+            "distinct_physical_connections": 2,
+            "subsequent_select": 1,
+            "pool_checkedout_after": 0
+          }
+        },
+        "schema_count_after": 0
+      }
+    },
+    {
+      "python": "3.14",
+      "artifact_id": 12884214555,
+      "original_zip_digest": "sha256:899e5a1c0bfb7b5270725b3dd82b452d4a83593f3e69bc50429d96c1c3eae0c2",
+      "observation": {
+        "result": "PASS_P1_NATIVE_INPUT",
+        "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+        "scope": "P1 native input and command component; no Snapshot/Fork or resource acceptance",
+        "python": "3.14.9 (main, Oct 21 2026, 14:50:29) [GCC 13.3.0]",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+        "acquisition_sha256": "6aba2e05aecd41d5a897b3c821059a1f084582409b077439b05405ef3ae2f840",
+        "inputs_sha256": {
+          "tests/fixture_entry_acceptance/p1_migrate.py": "cecc3f2291535ecdd5f3b166d3c4333ed56eafec2e42be5b601a04f9525bf0a0",
+          "tests/preparation_migration_acceptance/application.py": "5fa8896bc9a53365def52bca8746695114550340f78158d75d5704851dabb460",
+          "tests/preparation_migration_acceptance/migrations/env.py": "c99f06628878c0bed82471a6fd84fed47f7c5e980e98f8ba91fa9048148a5a8a",
+          "tests/preparation_migration_acceptance/migrations/versions/m1_initial.py": "80076ca9385f8a3962f7375e34bb935ea7fdeec6fd57d1cc474664e3d83494da",
+          "tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py": "6f9d110e3feb68823323c278b3e8228d55d28235c486777dd2aa98185c852006"
+        },
+        "packages": {
+          "Alembic": "1.18.4",
+          "SQLAlchemy": "2.0.54",
+          "PyMySQL": "1.2.3"
+        },
+        "runs": {
+          "command": {
+            "version": "12.3.3-MariaDB-ubu2404",
+            "users": [
+              [
+                1,
+                "legacy",
+                0
+              ],
+              [
+                2,
+                "seed",
+                5
+              ]
+            ],
+            "addresses": [
+              [
+                1,
+                2,
+                "seed@example.test"
+              ]
+            ],
+            "revision": [
+              [
+                "m2_addresses"
+              ]
+            ],
+            "columns": [
+              [
+                "addresses",
+                "id",
+                "int",
+                "NO"
+              ],
+              [
+                "addresses",
+                "user_id",
+                "int",
+                "NO"
+              ],
+              [
+                "addresses",
+                "email",
+                "varchar",
+                "NO"
+              ],
+              [
+                "users",
+                "id",
+                "int",
+                "NO"
+              ],
+              [
+                "users",
+                "name",
+                "varchar",
+                "NO"
+              ],
+              [
+                "users",
+                "rating",
+                "int",
+                "NO"
+              ]
+            ],
+            "constraints": [
+              [
+                "addresses",
+                "FOREIGN KEY"
+              ],
+              [
+                "addresses",
+                "PRIMARY KEY"
+              ],
+              [
+                "addresses",
+                "UNIQUE"
+              ],
+              [
+                "users",
+                "PRIMARY KEY"
+              ],
+              [
+                "users",
+                "UNIQUE"
+              ]
+            ],
+            "tables": [
+              [
+                "addresses",
+                "InnoDB",
+                "utf8mb4_uca1400_ai_ci"
+              ],
+              [
+                "alembic_version",
+                "InnoDB",
+                "utf8mb4_uca1400_ai_ci"
+              ],
+              [
+                "users",
+                "InnoDB",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ],
+            "foreign_key_errno": 1452,
+            "distinct_physical_connections": 2,
+            "subsequent_select": 1,
+            "pool_checkedout_after": 0
+          },
+          "callback": {
+            "version": "12.3.3-MariaDB-ubu2404",
+            "users": [
+              [
+                1,
+                "legacy",
+                0
+              ],
+              [
+                2,
+                "seed",
+                5
+              ]
+            ],
+            "addresses": [
+              [
+                1,
+                2,
+                "seed@example.test"
+              ]
+            ],
+            "revision": [
+              [
+                "m2_addresses"
+              ]
+            ],
+            "columns": [
+              [
+                "addresses",
+                "id",
+                "int",
+                "NO"
+              ],
+              [
+                "addresses",
+                "user_id",
+                "int",
+                "NO"
+              ],
+              [
+                "addresses",
+                "email",
+                "varchar",
+                "NO"
+              ],
+              [
+                "users",
+                "id",
+                "int",
+                "NO"
+              ],
+              [
+                "users",
+                "name",
+                "varchar",
+                "NO"
+              ],
+              [
+                "users",
+                "rating",
+                "int",
+                "NO"
+              ]
+            ],
+            "constraints": [
+              [
+                "addresses",
+                "FOREIGN KEY"
+              ],
+              [
+                "addresses",
+                "PRIMARY KEY"
+              ],
+              [
+                "addresses",
+                "UNIQUE"
+              ],
+              [
+                "users",
+                "PRIMARY KEY"
+              ],
+              [
+                "users",
+                "UNIQUE"
+              ]
+            ],
+            "tables": [
+              [
+                "addresses",
+                "InnoDB",
+                "utf8mb4_uca1400_ai_ci"
+              ],
+              [
+                "alembic_version",
+                "InnoDB",
+                "utf8mb4_uca1400_ai_ci"
+              ],
+              [
+                "users",
+                "InnoDB",
+                "utf8mb4_uca1400_ai_ci"
+              ]
+            ],
+            "foreign_key_errno": 1452,
+            "distinct_physical_connections": 2,
+            "subsequent_select": 1,
+            "pool_checkedout_after": 0
+          }
+        },
+        "schema_count_after": 0
+      }
+    }
+  ],
+  "g1_replay": {
+    "macos-15": {
+      "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+      "result": "PASS",
+      "modes": 4,
+      "delayed_zero_exit_confirmations": []
+    },
+    "ubuntu-24.04": {
+      "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+      "result": "PASS",
+      "modes": 4,
+      "delayed_zero_exit_confirmations": [
+        {
+          "at_seconds": 5.6192560789999675,
+          "unix_ns": 1793264917449483250,
+          "process_tree_rss_bytes": 0,
+          "members": {
+            "6654": 0
+          },
+          "available_memory_bytes": 15401385984,
+          "available_memory_mechanism": "Linux MemAvailable",
+          "exit_confirmation_timeout_seconds": 0.05,
+          "exit_confirmation_elapsed_seconds": 0.001105740000014066,
+          "reason": "process exited within zero-RSS confirmation window",
+          "returncode": 0
+        },
+        {
+          "at_seconds": 5.509405845000003,
+          "unix_ns": 1793264922961187936,
+          "process_tree_rss_bytes": 0,
+          "members": {
+            "6715": 0
+          },
+          "available_memory_bytes": 15238328320,
+          "available_memory_mechanism": "Linux MemAvailable",
+          "exit_confirmation_timeout_seconds": 0.05,
+          "exit_confirmation_elapsed_seconds": 0.007233217999953467,
+          "reason": "process exited within zero-RSS confirmation window",
+          "returncode": 0
+        }
+      ]
+    }
+  },
+  "counter_profiles": [
+    {
+      "host": "macos-15",
+      "python": "3.11",
+      "observation": {
+        "result": "PASS_COUNTER_FEASIBILITY_ONLY",
+        "python": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]",
+        "platform": "macOS-15.7.9-arm64-arm-64bit",
+        "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+        "source_dirty": false,
+        "code_sha256": {
+          "tests/test_p1_resource_probe.py": "3483aff43aa99cd366080dd17102e453e488d3b070020bcf82299dead1fcd2ca",
+          "tests/fixture_entry_acceptance/resource_probe.py": "f6d87b67849ca73d79c13108aaf5e42d946cd95c4db6dcd142e826de00c7e71e"
+        },
+        "baseline": {
+          "fd_by_pid": {
+            "57508": 3
+          },
+          "fd_total": 3,
+          "fd_backed_unlinked_logical_bytes": 0,
+          "unlinked_files": [],
+          "start_unix_ns": 1793267145989245000,
+          "end_unix_ns": 1793267146001682000,
+          "mechanism": "lsof numeric FDs; FD-backed unlinked regular-file logical size",
+          "limitations": "not allocated blocks, mmap-only files, physical memory or an atomic process-tree census",
+          "tool": "/usr/sbin/lsof",
+          "tool_sha256": "ef5e67978fb8f8bcd32927789811462dd1b3773b8ad6322b67a491d2b5733b3a"
+        },
+        "held": {
+          "fd_by_pid": {
+            "57508": 5
+          },
+          "fd_total": 5,
+          "fd_backed_unlinked_logical_bytes": 1048576,
+          "unlinked_files": [
+            {
+              "device": 16777227,
+              "inode": 3709962,
+              "logical_bytes": 1048576
+            }
+          ],
+          "start_unix_ns": 1793267146006264000,
+          "end_unix_ns": 1793267146021315000,
+          "mechanism": "lsof numeric FDs; FD-backed unlinked regular-file logical size",
+          "limitations": "not allocated blocks, mmap-only files, physical memory or an atomic process-tree census",
+          "tool": "/usr/sbin/lsof",
+          "tool_sha256": "ef5e67978fb8f8bcd32927789811462dd1b3773b8ad6322b67a491d2b5733b3a"
+        },
+        "final": {
+          "fd_by_pid": {
+            "57508": 3
+          },
+          "fd_total": 3,
+          "fd_backed_unlinked_logical_bytes": 0,
+          "unlinked_files": [],
+          "start_unix_ns": 1793267146022225000,
+          "end_unix_ns": 1793267146037310000,
+          "mechanism": "lsof numeric FDs; FD-backed unlinked regular-file logical size",
+          "limitations": "not allocated blocks, mmap-only files, physical memory or an atomic process-tree census",
+          "tool": "/usr/sbin/lsof",
+          "tool_sha256": "ef5e67978fb8f8bcd32927789811462dd1b3773b8ad6322b67a491d2b5733b3a"
+        },
+        "owned": {
+          "device": 16777227,
+          "inode": 3709962,
+          "size": 1048576
+        },
+        "child_reaped": true,
+        "excluded": "No P1 workload, RSS/available-memory, retained baselines, physical connections, timing or guard acceptance"
+      }
+    },
+    {
+      "host": "macos-15",
+      "python": "3.14",
+      "observation": {
+        "result": "PASS_COUNTER_FEASIBILITY_ONLY",
+        "python": "3.14.7 (v3.14.7:823f0323ee6, Aug  5 2026, 07:07:01) [Clang 21.0.0 (clang-2100.1.1.101)]",
+        "platform": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+        "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+        "source_dirty": false,
+        "code_sha256": {
+          "tests/test_p1_resource_probe.py": "3483aff43aa99cd366080dd17102e453e488d3b070020bcf82299dead1fcd2ca",
+          "tests/fixture_entry_acceptance/resource_probe.py": "f6d87b67849ca73d79c13108aaf5e42d946cd95c4db6dcd142e826de00c7e71e"
+        },
+        "baseline": {
+          "fd_by_pid": {
+            "58618": 3
+          },
+          "fd_total": 3,
+          "fd_backed_unlinked_logical_bytes": 0,
+          "unlinked_files": [],
+          "start_unix_ns": 1793267177029800000,
+          "end_unix_ns": 1793267177041048000,
+          "mechanism": "lsof numeric FDs; FD-backed unlinked regular-file logical size",
+          "limitations": "not allocated blocks, mmap-only files, physical memory or an atomic process-tree census",
+          "tool": "/usr/sbin/lsof",
+          "tool_sha256": "ef5e67978fb8f8bcd32927789811462dd1b3773b8ad6322b67a491d2b5733b3a"
+        },
+        "held": {
+          "fd_by_pid": {
+            "58618": 5
+          },
+          "fd_total": 5,
+          "fd_backed_unlinked_logical_bytes": 1048576,
+          "unlinked_files": [
+            {
+              "device": 16777227,
+              "inode": 3713905,
+              "logical_bytes": 1048576
+            }
+          ],
+          "start_unix_ns": 1793267177044950000,
+          "end_unix_ns": 1793267177058176000,
+          "mechanism": "lsof numeric FDs; FD-backed unlinked regular-file logical size",
+          "limitations": "not allocated blocks, mmap-only files, physical memory or an atomic process-tree census",
+          "tool": "/usr/sbin/lsof",
+          "tool_sha256": "ef5e67978fb8f8bcd32927789811462dd1b3773b8ad6322b67a491d2b5733b3a"
+        },
+        "final": {
+          "fd_by_pid": {
+            "58618": 3
+          },
+          "fd_total": 3,
+          "fd_backed_unlinked_logical_bytes": 0,
+          "unlinked_files": [],
+          "start_unix_ns": 1793267177059316000,
+          "end_unix_ns": 1793267177071722000,
+          "mechanism": "lsof numeric FDs; FD-backed unlinked regular-file logical size",
+          "limitations": "not allocated blocks, mmap-only files, physical memory or an atomic process-tree census",
+          "tool": "/usr/sbin/lsof",
+          "tool_sha256": "ef5e67978fb8f8bcd32927789811462dd1b3773b8ad6322b67a491d2b5733b3a"
+        },
+        "owned": {
+          "device": 16777227,
+          "inode": 3713905,
+          "size": 1048576
+        },
+        "child_reaped": true,
+        "excluded": "No P1 workload, RSS/available-memory, retained baselines, physical connections, timing or guard acceptance"
+      }
+    },
+    {
+      "host": "ubuntu-24.04",
+      "python": "3.11",
+      "observation": {
+        "result": "PASS_COUNTER_FEASIBILITY_ONLY",
+        "python": "3.11.17 (main, Oct  1 2026, 14:32:31) [GCC 13.3.0]",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+        "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+        "source_dirty": false,
+        "code_sha256": {
+          "tests/test_p1_resource_probe.py": "3483aff43aa99cd366080dd17102e453e488d3b070020bcf82299dead1fcd2ca",
+          "tests/fixture_entry_acceptance/resource_probe.py": "f6d87b67849ca73d79c13108aaf5e42d946cd95c4db6dcd142e826de00c7e71e"
+        },
+        "baseline": {
+          "fd_by_pid": {
+            "13645": 3
+          },
+          "fd_total": 3,
+          "fd_backed_unlinked_logical_bytes": 0,
+          "unlinked_files": [],
+          "start_unix_ns": 1793265764172169146,
+          "end_unix_ns": 1793265764207401430,
+          "mechanism": "lsof numeric FDs; FD-backed unlinked regular-file logical size",
+          "limitations": "not allocated blocks, mmap-only files, physical memory or an atomic process-tree census",
+          "tool": "/usr/bin/lsof",
+          "tool_sha256": "16f8094579681168a91d19bc9057a74a06d7da64619c0e3e189b0c84649779f7"
+        },
+        "held": {
+          "fd_by_pid": {
+            "13645": 5
+          },
+          "fd_total": 5,
+          "fd_backed_unlinked_logical_bytes": 1048576,
+          "unlinked_files": [
+            {
+              "device": 66305,
+              "inode": 2373232,
+              "logical_bytes": 1048576
+            }
+          ],
+          "start_unix_ns": 1793265764215512084,
+          "end_unix_ns": 1793265764244408367,
+          "mechanism": "lsof numeric FDs; FD-backed unlinked regular-file logical size",
+          "limitations": "not allocated blocks, mmap-only files, physical memory or an atomic process-tree census",
+          "tool": "/usr/bin/lsof",
+          "tool_sha256": "16f8094579681168a91d19bc9057a74a06d7da64619c0e3e189b0c84649779f7"
+        },
+        "final": {
+          "fd_by_pid": {
+            "13645": 3
+          },
+          "fd_total": 3,
+          "fd_backed_unlinked_logical_bytes": 0,
+          "unlinked_files": [],
+          "start_unix_ns": 1793265764245026866,
+          "end_unix_ns": 1793265764273366694,
+          "mechanism": "lsof numeric FDs; FD-backed unlinked regular-file logical size",
+          "limitations": "not allocated blocks, mmap-only files, physical memory or an atomic process-tree census",
+          "tool": "/usr/bin/lsof",
+          "tool_sha256": "16f8094579681168a91d19bc9057a74a06d7da64619c0e3e189b0c84649779f7"
+        },
+        "owned": {
+          "device": 66305,
+          "inode": 2373232,
+          "size": 1048576
+        },
+        "child_reaped": true,
+        "excluded": "No P1 workload, RSS/available-memory, retained baselines, physical connections, timing or guard acceptance"
+      }
+    },
+    {
+      "host": "ubuntu-24.04",
+      "python": "3.14",
+      "observation": {
+        "result": "PASS_COUNTER_FEASIBILITY_ONLY",
+        "python": "3.14.9 (main, Oct 21 2026, 14:50:29) [GCC 13.3.0]",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+        "source_commit": "bd3ab3f717ce5831e084dc782e8e7cb770e192ad",
+        "source_dirty": false,
+        "code_sha256": {
+          "tests/test_p1_resource_probe.py": "3483aff43aa99cd366080dd17102e453e488d3b070020bcf82299dead1fcd2ca",
+          "tests/fixture_entry_acceptance/resource_probe.py": "f6d87b67849ca73d79c13108aaf5e42d946cd95c4db6dcd142e826de00c7e71e"
+        },
+        "baseline": {
+          "fd_by_pid": {
+            "14382": 3
+          },
+          "fd_total": 3,
+          "fd_backed_unlinked_logical_bytes": 0,
+          "unlinked_files": [],
+          "start_unix_ns": 1793265793705735180,
+          "end_unix_ns": 1793265793740406507,
+          "mechanism": "lsof numeric FDs; FD-backed unlinked regular-file logical size",
+          "limitations": "not allocated blocks, mmap-only files, physical memory or an atomic process-tree census",
+          "tool": "/usr/bin/lsof",
+          "tool_sha256": "16f8094579681168a91d19bc9057a74a06d7da64619c0e3e189b0c84649779f7"
+        },
+        "held": {
+          "fd_by_pid": {
+            "14382": 5
+          },
+          "fd_total": 5,
+          "fd_backed_unlinked_logical_bytes": 1048576,
+          "unlinked_files": [
+            {
+              "device": 66305,
+              "inode": 2373000,
+              "logical_bytes": 1048576
+            }
+          ],
+          "start_unix_ns": 1793265793751889291,
+          "end_unix_ns": 1793265793786347177,
+          "mechanism": "lsof numeric FDs; FD-backed unlinked regular-file logical size",
+          "limitations": "not allocated blocks, mmap-only files, physical memory or an atomic process-tree census",
+          "tool": "/usr/bin/lsof",
+          "tool_sha256": "16f8094579681168a91d19bc9057a74a06d7da64619c0e3e189b0c84649779f7"
+        },
+        "final": {
+          "fd_by_pid": {
+            "14382": 3
+          },
+          "fd_total": 3,
+          "fd_backed_unlinked_logical_bytes": 0,
+          "unlinked_files": [],
+          "start_unix_ns": 1793265793786940007,
+          "end_unix_ns": 1793265793817316458,
+          "mechanism": "lsof numeric FDs; FD-backed unlinked regular-file logical size",
+          "limitations": "not allocated blocks, mmap-only files, physical memory or an atomic process-tree census",
+          "tool": "/usr/bin/lsof",
+          "tool_sha256": "16f8094579681168a91d19bc9057a74a06d7da64619c0e3e189b0c84649779f7"
+        },
+        "owned": {
+          "device": 66305,
+          "inode": 2373000,
+          "size": 1048576
+        },
+        "child_reaped": true,
+        "excluded": "No P1 workload, RSS/available-memory, retained baselines, physical connections, timing or guard acceptance"
+      }
+    }
+  ],
+  "derived_archive_sha256": "88146dc33f11c7218ba037333752640fcd20c121ac7f4c09a9a4cc4ef7b06804",
+  "derived_archive_note": "P1 host members and complete native references selected verbatim from four digest-verified GitHub ZIPs; full ZIPs retained in ignored build storage, not repository."
+}

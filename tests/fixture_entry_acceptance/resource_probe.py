@@ -97,3 +97,76 @@ def collect(pids):
                     limitations='not allocated blocks, mmap-only files, physical memory or an atomic process-tree census',
                     tool=tool, tool_sha256=hashlib.sha256(Path(tool).read_bytes()).hexdigest())
     return observed, result.stdout
+
+
+def summarize_allocated(data, pid):
+    """Exact fstat/libproc blocks, scoped to regular files still held by FDs."""
+    if (type(data.get('pid')) is not int or data['pid'] != pid or
+            type(data.get('fd_count')) is not int or not 0 < data['fd_count'] <= 4096 or
+            not isinstance(data.get('fds'), list) or len(data['fds']) != data['fd_count']):
+        raise ValueError('UNVERIFIED allocated descriptor census')
+    descriptors, files = set(), {}
+    for row in data['fds']:
+        fd = row.get('fd')
+        if type(fd) is not int or fd < 0 or fd in descriptors or type(row.get('regular')) is not bool:
+            raise ValueError('UNVERIFIED duplicate/invalid descriptor')
+        descriptors.add(fd)
+        if not row['regular']:
+            continue
+        keys = ('device', 'inode', 'links', 'blocks', 'logical_bytes')
+        if any(type(row.get(k)) is not int or row[k] < 0 for k in keys) or row['inode'] == 0:
+            raise ValueError('UNVERIFIED regular-file allocation counters')
+        if row['links'] == 0:
+            identity = (row['device'], row['inode'])
+            value = (row['blocks'] * 512, row['logical_bytes'])
+            if identity in files and files[identity] != value:
+                raise ValueError('UNVERIFIED file changed during allocation census')
+            files[identity] = value
+    return dict(fd_count=len(descriptors), unlinked_allocated_bytes=sum(v[0] for v in files.values()),
+                unlinked_files=[dict(device=d, inode=i, allocated_bytes=v[0], logical_bytes=v[1])
+                                for (d, i), v in sorted(files.items())])
+
+
+def collect_allocated(pid, darwin_helper=None):
+    """Read an explicit owned PID at a quiescent point; partial reads are errors."""
+    import json
+    import os
+    import stat
+    import sys
+    if type(pid) is not int or pid <= 0:
+        raise ValueError('positive explicit owned PID required')
+    started = time.time_ns()
+    if sys.platform == 'linux':
+        directory = Path('/proc') / str(pid) / 'fd'
+        entries = list(directory.iterdir())
+        if not 0 < len(entries) <= 4096 or any(not p.name.isdecimal() for p in entries):
+            raise ValueError('UNVERIFIED descriptor census missing or beyond 4096')
+        rows = []
+        for entry in entries:
+            st = os.stat(entry)
+            row = dict(fd=int(entry.name), regular=stat.S_ISREG(st.st_mode))
+            if row['regular']:
+                row.update(device=st.st_dev, inode=st.st_ino, links=st.st_nlink,
+                           blocks=st.st_blocks, logical_bytes=st.st_size)
+            rows.append(row)
+        data = dict(pid=pid, fd_count=len(rows), fds=rows)
+        raw = json.dumps(data).encode()
+        mechanism = 'Linux /proc/PID/fd stat; st_blocks * 512'
+        tool_sha256 = None
+    elif sys.platform == 'darwin':
+        if darwin_helper is None:
+            raise ValueError('Darwin requires the separately built test-only allocation helper')
+        result = subprocess.run([str(darwin_helper), str(pid)], capture_output=True, check=True, timeout=10)
+        if result.stderr or len(result.stdout) > 1024 * 1024:
+            raise ValueError('UNVERIFIED Darwin allocation output')
+        raw = result.stdout
+        data = json.loads(raw)
+        mechanism = 'Darwin proc_pidfdinfo PROC_PIDFDVNODEINFO; vst_blocks * 512'
+        tool_sha256 = hashlib.sha256(Path(darwin_helper).read_bytes()).hexdigest()
+    else:
+        raise ValueError('unsupported allocation observer platform')
+    observed = summarize_allocated(data, pid)
+    observed.update(start_unix_ns=started, end_unix_ns=time.time_ns(), mechanism=mechanism,
+                    tool_sha256=tool_sha256,
+                    limitations='FD-backed regular files only; not mmap-only storage, RSS, or an atomic process-tree census')
+    return observed, raw
