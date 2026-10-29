@@ -30,6 +30,9 @@ def validate(text):
         branches = re.search(r'^    branches: \[([^]]+)\]$', block, re.M)
         assert branches and 'main' in [v.strip() for v in branches[1].split(',')]
         assert 'paths:' not in block and 'paths-ignore:' not in block
+        if event == 'pull_request':
+            # Marking a draft ready must start the matrix that the draft skipped.
+            assert 'types: [opened, synchronize, reopened, ready_for_review]' in block
     assert 'pull_request_target:' not in text
     assert 'permissions:\n  contents: read' in text
     assert 'pull_request.head.sha' not in text and 'ref:' not in text
@@ -100,6 +103,8 @@ def test_maintained_live_ci_contract():
     ('branches: [main]', 'branches: [unused]'),
     ('needs: [scope, native-reference]', 'needs: []'),
     ('    branches: [main]','    branches: [main]\n    paths: [docs/**]'),
+    ('types: [opened, synchronize, reopened, ready_for_review]',
+     'types: [opened, synchronize, reopened]'),
     ('name: Live required gate','name: optional'),
     ('if: always()', "if: success()"),
     ('needs: [scope, native-reference, live]', 'needs: [scope]'),
@@ -203,6 +208,17 @@ def test_dependency_selector_covers_all_prior_paths():
 def test_selector_fails_closed(paths, reason, expected):
     from live_ci import required
     assert required(paths, reason) is expected
+
+
+@pytest.mark.parametrize('paths,reason', [
+    (['live.go'], 'unknown/runtime input'),
+    (['README.md'], 'local changed-input classification'),
+    ([], 'event base unavailable; full verification'),
+])
+def test_draft_pull_requests_skip_live_matrices(paths, reason):
+    from live_ci import required, selected_live
+    assert selected_live(paths, reason, True) is False
+    assert selected_live(paths, reason, False) is required(paths, reason)
 
 
 @pytest.mark.parametrize('selected', ['true', 'false'])

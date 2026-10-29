@@ -4,6 +4,7 @@ on:
     branches: [main, experiment/live-main-candidate, experiment/live-review-fixes]
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
