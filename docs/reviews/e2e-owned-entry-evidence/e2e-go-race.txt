@@ -1,0 +1,2 @@
+ok  	github.com/masahitojp/mariamem/mariamemtest	1.391s
+ok  	github.com/masahitojp/mariamem/docs/examples/e2e_owned/go	2.467s

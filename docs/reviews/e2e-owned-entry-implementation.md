@@ -46,3 +46,24 @@ Implementation evidence is recorded below after clean-source checks. Original
 probe receipts remain bound to their actual source. Local macOS27.2 is not the
 macOS15/Ubuntu acceptance matrix. The older parent of the design was reconciled
 with main before product code, as recorded in the decision.
+
+## Local verification at 7f3aaffb
+
+Exact source_commit `7f3aaffb449506373a44780c19dd90d249a99290`, observed
+macOS27.2 arm64 / Go1.26.10. Canonical check PASS:31 source checks, full Go
+unit/vet,1251 Python PASS /51 explicit SKIP /82 subtests,5582 public files.
+One existing unregistered shadow_maria marker warning is retained. The task
+venv used Python3.14 / pytest9.2.0 with fixed routing dependencies.
+
+Go helper and example compile/opt-in-skip race checks PASS. Actual owned Go HTTP
+entry executes both orders cases against the real embedded MariaDB, restoring
+seed and reusing UNIQUE input. The application binary's actual clean VCS stamp
+matches this source. Python3.11/3.14 component controls each PASS13 cases;
+pre-code decision checker PASS. The earlier focused Live/routing/workflow cohort
+also passed164 tests and6 subtests during development, before final evidence.
+
+[Assessment and raw logs](e2e-owned-entry-evidence/assessment.json) with
+SHA256SUMS retain this exact source. Final evidence commits add records only.
+Actual Python Django/browser entry is NOT RUN locally: its dependencies/browser
+are selected in Live CI. The hosted matrix and remaining campaign above are
+pending, not replaced by local component or Go results.

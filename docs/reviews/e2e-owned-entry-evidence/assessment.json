@@ -1,0 +1,31 @@
+{
+  "source_commit": "7f3aaffb449506373a44780c19dd90d249a99290",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "go": "go1.26.10",
+  "decision_commit": "3ead1bc8d1ebb984f912cf4062c7a6dd759698c9",
+  "canonical_check": {
+    "result": "PASS",
+    "python_pass": 1251,
+    "skip": 51,
+    "subtests": 82,
+    "warnings": 1,
+    "source_checks": 31,
+    "public_files": 5582
+  },
+  "go_race": "PASS: helper and example compile/opt-in skip",
+  "go_actual_entry": "PASS: two cases; actual guest + unchanged Go orders app; exact clean app binary stamp verified",
+  "python_component": {
+    "3.11": 13,
+    "3.14": 13
+  },
+  "python_actual_browser": "NOT RUN locally; selected in Live CI",
+  "required_host_ci": "NOT SUBMITTED at receipt creation",
+  "remaining": [
+    "installed consumer",
+    "complete hook/native failure controls",
+    "first/second/repeat resource campaign",
+    "both-supported-host receipts",
+    "main adoption",
+    "Qualification/release"
+  ]
+}
