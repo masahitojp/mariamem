@@ -77,9 +77,10 @@ def validate(plan, root=ROOT):
     need(wire['current_inventory'] != wire['historical_inventory'], 'historical wire inventory used as current')
     need((root / wire['current_inventory']).is_file(), 'current wire inventory missing')
     need(set(wire['source_sha256']) == {'internal/mysqlwire/wire.go', 'internal/mysqlwire/prepared_session.go', 'guest/wire_core.inc', 'guest/resident.inc'}, 'wire source boundary missing')
+    require_commit(root, wire['source_commit'])
     for path, digest in wire['source_sha256'].items():
         need(hashlib.sha256((root / path).read_bytes()).hexdigest() == digest, 'wire source drift requires inventory reconciliation: ' + path)
-        pinned = subprocess.check_output(['git', 'show', plan['source_commit'] + ':' + path], cwd=root)
+        pinned = subprocess.check_output(['git', 'show', wire['source_commit'] + ':' + path], cwd=root)
         need(hashlib.sha256(pinned).hexdigest() == digest, 'wire baseline is not the inspected source: ' + path)
     source = (root / 'internal/mysqlwire/wire.go').read_text()
     dispatch = source.split('switch request[0] {', 1)[1].split('\n\t\tif e != nil', 1)[0]

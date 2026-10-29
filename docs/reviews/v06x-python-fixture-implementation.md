@@ -76,3 +76,15 @@ and scope; a changed input/SQL needs its own fresh native control.
 No setup-cost/cold-machine, complete P1/EP1/EG1, difficult-Django completion,
 main adoption, Qualification or release claim is made. CI submission is an
 implementation checkpoint, not a reduction of the agreed acceptance scope.
+
+## Main update before CI submission
+
+Latest main 2ad041c is merged, including its approved TEXT/worker-failure
+repair, detection net and CI improvements. The [wire source reconciliation](v06x-p1-wire-reconciliation.md)
+updates only the active file/source baseline; command/capability scope and
+P1 approval definitions are unchanged. Earlier local receipts stay source-bound.
+The merged candidate needs fresh canonical and installed-consumer verification.
+
+Fresh native control for the command/pool variant remains a P1 full-acceptance
+condition alongside the resource/time campaign. Reusing authored migrations
+is not a claim that the new command path already has a fresh native receipt.

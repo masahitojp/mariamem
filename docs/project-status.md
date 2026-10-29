@@ -1005,9 +1005,10 @@ Native-success/guest-failure differences must retain original evidence and be
 classified as wire, SQL semantics, configuration or client/environment issues
 before choosing a fix. This direction authorizes investigation and verification
 planning, not blanket protocol implementation, guest changes or wider support
-claims. The [current wire inventory](reviews/v06x-wire-current-inventory.md) is
-pinned to main cc00ccd and supersedes the historical v0.5.3 inventory for this
-purpose; Prepared, text multiple results and SET_OPTION are already adopted.
+claims. The [P1 wire reconciliation](reviews/v06x-p1-wire-reconciliation.md) now pins
+main 2ad041c and explicitly records its terminal-worker guard; dispatch and
+capabilities match the earlier cc00ccd inventory. The v0.5.3 inventory remains
+historical; Prepared, text multiple results and SET_OPTION are already adopted.
 Exact workload/driver coverage and finite exit criteria still need to
 be fixed before declaring the whole v0.6 dogfood scope complete.
 

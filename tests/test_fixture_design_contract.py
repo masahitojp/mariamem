@@ -21,7 +21,7 @@ def test_reviewed_contract_authorizes_g1_p1_without_runtime_acceptance():
     'diagnostic_mismatch', 'core_error_loss', 'consume', 'posthoc_decision',
     'fallback_rationale', 'e2e_stop', 'physical_retirement', 'e2e_parallel',
     'transient_children', 'old_wire', 'wire_commands', 'wire_hash',
-    'fixture_hash', 'fake_runtime_pass', 'fake_approval', 'unrecorded_fallback',
+    'fixture_hash', 'wire_source_identity', 'fake_runtime_pass', 'fake_approval', 'unrecorded_fallback',
     'django_blocking', 'waive_shared', 'drop_browser', 'review_identity',
 ])
 def test_review_gap_mutations_are_rejected(mutation):
@@ -44,6 +44,7 @@ def test_review_gap_mutations_are_rejected(mutation):
     elif mutation == 'old_wire': plan['wire']['current_inventory'] = plan['wire']['historical_inventory']
     elif mutation == 'wire_commands': plan['wire']['supported_commands'].remove(22)
     elif mutation == 'wire_hash': plan['wire']['source_sha256']['internal/mysqlwire/wire.go'] = '0' * 64
+    elif mutation == 'wire_source_identity': plan['wire']['source_commit'] = plan['source_commit']
     elif mutation == 'fixture_hash': plan['resources']['retention_input']['sha256'] = '0' * 64
     elif mutation == 'fake_runtime_pass': plan['future_runtime_status'] = 'PASS'
     elif mutation == 'fake_approval': plan['authorized_implementation_entries'].append('D1')
