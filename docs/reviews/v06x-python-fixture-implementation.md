@@ -1,10 +1,11 @@
 # P1 implementation checkpoint
 
-Latest local source: e4b470034d56b50770452ec816e8f88fa837deb5, based on main
+Local SDK/entry checkpoint source: e4b470034d56b50770452ec816e8f88fa837deb5, based on main
 2ad041c. The final local results below supersede earlier candidate observations
 without relabelling them. Required-host implementation and native-control CI are
-confirmed below at executed source5a9f317. The complete P1 time/resource campaign
-remains pending; its next counter-feasibility increment is separate.
+confirmed below, with FD/logical-counter feasibility at executed sourcebd3ab3f.
+The complete P1 time/resource campaign remains pending; the later local allocation
+observer source1fc771e8 is a separate test-only checkpoint.
 
 Implementation follows the conditional Human approval in decision commit
 746ea5fb6306bb122659917681a2554a6a292e77, before any P1 product/helper code.
@@ -269,6 +270,9 @@ succeeded. These are correctness receipts, not the resource/time campaign.
 
 ## Resource-counter feasibility increment — required-host results pending
 
+This section preserves the pre-execution plan. The later sourcebd3ab3f result is
+recorded below; it does not retroactively qualify an earlier candidate.
+
 G1 measures its own Go descriptors via fstat. P1's separate host process requires
 an independently checked observer before the full measurement campaign. The
 test-only resource_probe.py and test_p1_resource_probe.py use lsof's NUL-delimited
@@ -294,3 +298,58 @@ no P1 workload, process-tree FD guarantee, RSS/available-memory sampling, retent
 guard acceptance follows. Those remain required in the full P1 campaign. These
 probe counts must not be substituted for G1's allocated-block disk limit without
 a separately justified accounting rule. No product/guest/API change is made.
+
+## FD/logical counter and G1 correction CI confirmed — run40846147295
+
+[Live40846147295](https://github.com/masahitojp/mariamem/actions/runs/40846147295)
+attempt1 and required gate123375744109 passed. Executed source_commit
+`bd3ab3f717ce5831e084dc782e8e7cb770e192ad` has the same tree as head e5350bc3.
+The [saved assessment, metadata and raw files](v06x-python-fixture-implementation-evidence/ci-40846147295/assessment.json)
+retain four digest-verified original ZIP identities and checksum-bound selected
+P1/G1 and complete native data. G1's full validator was replayed against the clean
+exact source on both hosts: all four modes and the resource/admission guards pass.
+Ubuntu has two terminal zero-RSS observations whose exits were actually confirmed
+by the new bounded wait. They are not included as live RSS measurements. The
+original run40843725436 stays FAIL under its original source.
+
+All four host/minor P1 cells pass125 focused tests, four installed-wheel cases
+and the original FD/logical-size probe. Probe source/dirty/code hashes and raw
+lsof records were checked. Both native command/callback cells also pass with
+schema_count_after0. Development40846147290, Django40846147421 and dump40846147203
+passed. This closes the required-host FD/logical-counter feasibility increment,
+not the allocated-block observer or full P1 measurement campaign.
+
+## Allocation observer increment — required-host execution pending
+
+The test-only resource_probe.py now has an independent allocated-block observer:
+Linux stats /proc/PID/fd; Darwin uses a small SDK-built fd_allocated_darwin.c tool
+with proc_pidinfo/PROC_PIDLISTFDS and proc_pidfdinfo/PROC_PIDFDVNODEINFO. The SDK
+vst_blocks field is compared with the child's independent fstat st_blocks; both
+use512-byte units. This reads the existing process without adding a host command,
+product dependency, SDK API, guest patch or instrumented mariamem binary.
+
+The census is bounded to4096 FDs per explicit owned PID, with missing/partial/
+changing data rejected. Device/inode deduplication prevents two descriptors from
+doubling one file's bytes. Darwin builds require a checked clean commit, fixed
+compiler flags and a30s timeout; observation has a10s timeout. Source/header/tool
+and binary hashes, compiler/SDK versions and raw stat observations are retained.
+The existing P1 probe test owner runs it on both hosts/minors; the workflow and
+Go cache key are unchanged by this increment.
+
+The first4MiB sparse candidate at d52fe0e2 allocated4MiB on the observed filesystem,
+so its distinction oracle correctly failed. A fixed one-byte file instead reports
+4096 allocated bytes locally. The final control requires allocation greater than
+logical size, FD+2, only one allocation contribution despite dup, and restored
+baseline after both descriptors close. No stat result or assertion is normalized
+to make a control pass.
+
+Clean source_commit `1fc771e868f71edb3ad3b38eb5349a77bbfd95e2` passed258 focused
+tests on each Python boundary, including native compilation and the actual child
+comparison on observed macOS27.2 arm64. The [local assessment and raw stat data](v06x-python-fixture-implementation-evidence/local-1fc771e8/assessment.json)
+retain that source and the preliminary failed control separately. Required-host
+execution is pending the next CI; run40846147295 predates this new code.
+
+This remains counter feasibility for FD-backed regular files. It is not mmap-only
+storage, an atomic process-tree census, RSS/available-memory observation, P1
+baseline retention1/2/3, physical SQL connection counts, first/second/repeated
+timing or admission-guard acceptance. The full P1 campaign remains required.

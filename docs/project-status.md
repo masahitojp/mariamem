@@ -1696,3 +1696,21 @@ preserve source5738eae and artifact hashes; no P1 probe PASS follows. A bounded
 50ms exit confirmation now retains terminal and failed zero samples separately;
 live-zero timeout/nonzero exit still fail, and resource limits are unchanged.
 Both focused Python suites pass135 locally; the corrected source needs fresh CI.
+
+**Corrected collector and FD probe CI confirmed:** Live40846147295 attempt1 and
+required gate123375744109 passed at sourcebd3ab3f (tree equal to head e5350bc3).
+The [checksum-bound receipt](reviews/v06x-python-fixture-implementation-evidence/ci-40846147295/assessment.json)
+replays both-host G1 campaign/guards; Ubuntu preserves two actual bounded-wait
+zero-RSS terminal observations. Four P1 host/minor cells each pass125 focused
+tests, four installed-wheel cases and the FD/logical-byte probe. Native controls
+and Development/Django/dump also pass. Original failed receipts keep their source.
+
+**Next allocation-counter increment:** the [test-only allocated-block observer](reviews/v06x-python-fixture-implementation.md#allocation-observer-increment--required-host-execution-pending)
+uses Linux procfs or a Darwin SDK helper; no mariamem host/API/guest change is
+made. Clean local source1fc771e8 passes258 focused tests per Python minor with
+actual child fstat equality, descriptor deduplication and final cleanup. A one-byte
+control separates allocated4096 bytes from logical1 byte on observed macOS27.2;
+the initial nondistinguishing sparse control remains a recorded failed probe.
+Required-host allocation CI and the full P1 time/resource/retention/guard campaign
+are pending. Workflow/Go cache key are unchanged. Main adoption and release remain
+separate decisions.

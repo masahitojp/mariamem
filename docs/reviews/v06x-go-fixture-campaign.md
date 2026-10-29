@@ -220,3 +220,16 @@ controls cover successful and nonzero delayed exit, timeout followed by later
 exit, and the original terminal/missing/live cases. Both Python focused suites
 (campaign/probe/workflow) pass135 locally. New source-bound CI is required; the
 original run remains FAIL and supplies no P1 probe acceptance.
+
+### Correction regression confirmed — run40846147295
+
+[Fresh Live40846147295](https://github.com/masahitojp/mariamem/actions/runs/40846147295)
+and required gate123375744109 pass at executed sourcebd3ab3f, tree equal to head
+e5350bc3. The [source-bound receipt and raw G1/P1 files](v06x-python-fixture-implementation-evidence/ci-40846147295/assessment.json)
+replay both hosts through the full G1 validator, including all modes, aligned
+retention observations and guards. Ubuntu actually records two zero-RSS samples
+followed by confirmed exits within the requested50ms wait; raw counters and
+actual wait elapsed remain terminal observations, not live RSS. Neither host has
+failed observations. The earlier source5738eae failure is retained unchanged;
+its discarded sample's exact ordering remains unknown. This regression result
+does not qualify the newer allocation observer or complete P1 time/resources.

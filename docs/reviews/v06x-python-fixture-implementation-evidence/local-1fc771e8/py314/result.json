@@ -1,0 +1,69 @@
+{
+  "result": "PASS_ALLOCATED_COUNTER_FEASIBILITY_ONLY",
+  "python": "3.14.9 (main, Oct 21 2026, 06:02:15) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "source_commit": "1fc771e868f71edb3ad3b38eb5349a77bbfd95e2",
+  "source_dirty": false,
+  "build": {
+    "method": "Darwin SDK libproc helper",
+    "source_commit": "1fc771e868f71edb3ad3b38eb5349a77bbfd95e2",
+    "source_sha256": "3bf46dcdd785eb0aa4e8be2a98e2467f76ae30c2ae75e90415ae798e1fd364b1",
+    "binary_sha256": "e296be345ae598d071ce0293b19b68867d746356597f90e288f285946b76b546",
+    "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "sdk_version": "27.0",
+    "headers_sha256": {
+      "libproc.h": "246d87709fc6b9157ce5cf3c475656ac48e0e1ae8bbdc46cf45acd34294448cd",
+      "sys/proc_info.h": "e427fa96b348537b21552b9de71e01039410bcad2cedee5584c5e5fddafd70fc"
+    }
+  },
+  "baseline": {
+    "fd_count": 3,
+    "unlinked_allocated_bytes": 0,
+    "unlinked_files": [],
+    "start_unix_ns": 1793268721938689000,
+    "end_unix_ns": 1793268722045374000,
+    "mechanism": "Darwin proc_pidfdinfo PROC_PIDFDVNODEINFO; vst_blocks * 512",
+    "tool_sha256": "e296be345ae598d071ce0293b19b68867d746356597f90e288f285946b76b546",
+    "limitations": "FD-backed regular files only; not mmap-only storage, RSS, or an atomic process-tree census"
+  },
+  "held": {
+    "fd_count": 5,
+    "unlinked_allocated_bytes": 4096,
+    "unlinked_files": [
+      {
+        "device": 16777232,
+        "inode": 93819265,
+        "allocated_bytes": 4096,
+        "logical_bytes": 1
+      }
+    ],
+    "start_unix_ns": 1793268722046445000,
+    "end_unix_ns": 1793268722052027000,
+    "mechanism": "Darwin proc_pidfdinfo PROC_PIDFDVNODEINFO; vst_blocks * 512",
+    "tool_sha256": "e296be345ae598d071ce0293b19b68867d746356597f90e288f285946b76b546",
+    "limitations": "FD-backed regular files only; not mmap-only storage, RSS, or an atomic process-tree census"
+  },
+  "final": {
+    "fd_count": 3,
+    "unlinked_allocated_bytes": 0,
+    "unlinked_files": [],
+    "start_unix_ns": 1793268722052175000,
+    "end_unix_ns": 1793268722056995000,
+    "mechanism": "Darwin proc_pidfdinfo PROC_PIDFDVNODEINFO; vst_blocks * 512",
+    "tool_sha256": "e296be345ae598d071ce0293b19b68867d746356597f90e288f285946b76b546",
+    "limitations": "FD-backed regular files only; not mmap-only storage, RSS, or an atomic process-tree census"
+  },
+  "owned": {
+    "device": 16777232,
+    "inode": 93819265,
+    "size": 1,
+    "blocks": 8
+  },
+  "child_reaped": true,
+  "code_sha256": {
+    "tests/test_p1_resource_probe.py": "b63cc01b8e6047d627b38ad168761f9c314a06f6d9e06d7bdf8f0cfadc867a31",
+    "tests/fixture_entry_acceptance/resource_probe.py": "c0bb28d3bb47195935dd52a20a3689631c3dedb2d6b9b7ea3686df4c3cc38697",
+    "tests/fixture_entry_acceptance/fd_allocated_darwin.c": "3bf46dcdd785eb0aa4e8be2a98e2467f76ae30c2ae75e90415ae798e1fd364b1"
+  },
+  "excluded": "Not a P1 workload, process-tree census, RSS/mmap, retained-baseline, timing or admission-guard acceptance"
+}
