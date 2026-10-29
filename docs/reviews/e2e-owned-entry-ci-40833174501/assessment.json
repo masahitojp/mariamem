@@ -1,0 +1,44 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/40833174501",
+  "pr_head": "9ca37cd28650aad653ed1cad8d0b8ed7f21b8a6b",
+  "actual_ci_source_commit": "bc7fdb49565b9a62b9686c5c31b036e59868b04d",
+  "parents": [
+    "62d54c29fed95c76ba9833c4e6174f9de803a1d6",
+    "9ca37cd28650aad653ed1cad8d0b8ed7f21b8a6b"
+  ],
+  "jobs": [
+    {
+      "host": "macos-15",
+      "owned_step": "success",
+      "python_minors": [
+        "3.11",
+        "3.14"
+      ],
+      "go_cases": 2,
+      "browser_cases_per_minor": 2
+    },
+    {
+      "host": "ubuntu-24.04",
+      "owned_step": "success",
+      "python_minors": [
+        "3.11",
+        "3.14"
+      ],
+      "go_cases": 2,
+      "browser_cases_per_minor": 2
+    }
+  ],
+  "archive_digest_verification": "NOT_PERFORMED; selected downloaded log hashes recorded",
+  "artifacts": [
+    {
+      "id": 12881357613,
+      "host": "macos-15",
+      "github_digest": "sha256:2d4d7781496b18382a637e7d4b3877d318fd65360e59acedd031998d7c62d091"
+    },
+    {
+      "id": 12879678602,
+      "host": "ubuntu-24.04",
+      "github_digest": "sha256:154c7466a796f7f33968c8c4bb530ca2af33ae85c1b6b475d3129be5319d595e"
+    }
+  ]
+}

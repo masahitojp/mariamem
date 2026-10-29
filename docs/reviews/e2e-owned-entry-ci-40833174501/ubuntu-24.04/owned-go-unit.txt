@@ -1,0 +1,1 @@
+ok  	github.com/masahitojp/mariamem/mariamemtest	1.129s

@@ -229,6 +229,16 @@ jobs:
       - name: Installed wheel and external Go module
         shell: bash
         run: python tests/live_acceptance/installed.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/installed
+      - name: Installed owned E2E entry outside the source checkout
+        shell: bash
+        env:
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
+        run: |
+          for py in "$PY311" "$PY314"; do
+            version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+            "$py" scripts/e2e_installed.py --expected-source-commit "$GITHUB_SHA" --wheel build/dist/*.whl --go-app "$PWD/build/go-live-orders" --output "build/live-evidence/owned-installed-py$version"
+          done
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
