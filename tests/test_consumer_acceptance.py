@@ -62,6 +62,31 @@ def test_public_module_origin_alone_cannot_hide_changed_bytes(tmp_path):
     with pytest.raises(ValueError,match='library files differ'): verify_module_files(resolved,root)
 
 
+def test_fixture_helper_is_in_module_proxy_and_identity(tmp_path):
+    from consumer_module import prepare_proxy, source_files
+    from consumer_acceptance import verify_module_files
+    import shutil
+    import zipfile
+    root = tmp_path / 'source'
+    (root / 'mariamemtest').mkdir(parents=True)
+    (root / 'release').mkdir()
+    for name in ('go.mod', 'go.sum', 'LICENSE', 'release/inputs.lock.json',
+                 'mariamem.go', 'mariamemtest/fixture.go', 'mariamemtest/fixture_test.go'):
+        (root / name).write_text('fixture source')
+    assert root / 'mariamemtest/fixture.go' in source_files(root)
+    assert root / 'mariamemtest/fixture_test.go' not in source_files(root)
+    proxy = prepare_proxy(root, tmp_path / 'work', TAG)
+    with zipfile.ZipFile(proxy / MODULE / '@v' / (TAG + '.zip')) as archive:
+        assert MODULE + '@' + TAG + '/mariamemtest/fixture.go' in archive.namelist()
+    installed = tmp_path / 'installed'
+    shutil.copytree(root, installed)
+    resolved = {**record(), 'Dir': str(installed)}
+    assert verify_module_files(resolved, root)
+    (installed / 'mariamemtest/fixture.go').write_text('changed helper')
+    with pytest.raises(ValueError, match='library files differ'):
+        verify_module_files(resolved, root)
+
+
 @pytest.mark.parametrize('prefix', ['mariamem/', 'mariamem.data/purelib/mariamem/'])
 def test_installed_package_is_bound_to_actual_wheel_inventory(tmp_path,prefix):
     from consumer_acceptance import verify_installed_files

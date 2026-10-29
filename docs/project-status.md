@@ -89,6 +89,15 @@ and guide-only skip policy are unchanged. No product/runtime/guest/generated or
 release ledger change is included. Qualification, version and publication remain
 separate Human decisions.
 
+The next independent Django input investigation (2026-10-28) recommends
+Oscar4.2.1's sandbox, source_commit `d0a70850abf8e4229d4971aa7e8f4643326ec9f3`.
+The [source-selection and acceptance proposal](reviews/v06x-independent-django-input.md)
+pins inspected source/fixture/migration inputs and records native-first gates.
+This investigation installed or ran no upstream code: dependency locks,
+native references and all new guest cells remain NOT_RUN. Execution and any
+later adapter/runtime change remain separate decisions; existing Django/Live
+adoption is not reopened.
+
 ## Live endpoints adopted on main — unreleased
 
 The Human approved both the previously applied protection and the selected Live
@@ -890,6 +899,179 @@ is a placement decision; it does not approve publication or bypass any gate.
   [acceptance contract](https://github.com/masahitojp/mariamem/blob/docs/v06-independent-django-input/docs/reviews/v06x-fixture-acceptance.json)).
   This entry records the decision; it does not claim any entry is implemented or
   accepted.
+
+**Scope emphasis agreed with the Human, 2026-10-28:** primarily finish the
+end-to-end user workflow using existing functionality: establish a first test,
+reuse preparation for independent subsequent tests, run the intended test
+lifecycle, understand failures and complete cleanup. Expanding framework support
+is not the primary completion measure; adapters and new APIs remain possible
+responses to demonstrated gaps, not prerequisites chosen in advance.
+
+**Preparation responsibility agreed with the Human, 2026-10-28:** the user
+specifies migration/seed commands or callbacks; the supplied entry owns their
+execution, success assessment, reuse of successful preparation and disposal on
+failure. Users should not have to assemble those lifecycle operations themselves.
+This is the intended user-facing scope, not a claim that every existing recipe
+already provides it. Exact entry APIs, success signals, reuse/sharing units and
+failure/cleanup acceptance remain design work. No cross-run persistence or
+automatic retry policy is selected by this agreement.
+
+**Default reuse unit agreed with the Human, 2026-10-28:** reuse successful
+preparation within one test execution; parallel workers each own independent
+preparation/baselines. The supplied entry manages that lifecycle, so users do
+not assemble worker sharing or cleanup themselves. Each test still receives
+independent mutable state. This selects the default user experience, not a
+cross-worker baseline service, cross-run persistence or an implicit retry rule.
+Exact APIs and the implementation/acceptance design remain separate work.
+
+**Failure handling and human-readable explanation agreed with the Human,
+2026-10-28:** failed preparation must not admit tests. The entry attempts cleanup
+after test failure, exceptions and normal interruption; if cleanup also fails,
+retain both the original failure and cleanup failure rather than masking either.
+Do not silently retry to hide failure. Hard-kill/machine-stop recovery is a
+separate boundary, not implied by normal interruption handling.
+
+The default explanation must let a person understand the failed operation/stage,
+what happened, the confirmed cause and original error/code where available,
+the next useful action, and whether tests started and cleanup completed.
+Distinguish confirmed facts from hypotheses and explicitly state when the cause
+is unknown. Preserve detailed diagnostic context for inspection without making
+users reconstruct the basic explanation from raw tracebacks. This selects the
+diagnostic outcome, not a formatter API or a promise of automatic root-cause
+identification; current runtime behavior still needs design/acceptance mapping.
+
+The [consolidated scope draft](reviews/v06x-dogfood-scope-draft.md) separates
+these agreed outcomes, existing entry foundations and remaining product choices.
+**Prepared-entry guarantee and pragmatic exit agreed with the Human,
+2026-10-28:** every admitted test through the prepared-data entry begins with
+the declared prepared schema/seed, including after another test's committed
+writes or ordinary failure. Framework-native isolation alone is not proof of
+this guarantee; the existing Django runner remains a separately documented route.
+Human-readable failure explanations are the ideal. If richer diagnostics prove
+disproportionately difficult, a thin pgmem-style prepare-once/fork-per-test helper
+is an authorized first milestone, with the reason and remaining diagnostic work
+reported explicitly. This fallback changes diagnostic ambition, not initial-state
+isolation, setup-failure admission, original failure preservation or honest
+cleanup reporting. Exact helper APIs and runtime acceptance remain design work;
+no independent-project execution is selected by this agreement.
+
+**Human acceptance after the 2026-10-28 review:** name P1 Python
+prepared/marker, G1 Go helper, D1 Django prepared entry, EP1 Python browser E2E
+and EG1 Go HTTP E2E as the target set, with G1 delivered first. This target/API
+proposal was approved against design commit39f9757, with the Django exception
+below; first-milestone success cannot close the remaining required set. The [Go API/ownership proposal](reviews/v06x-go-fixture-api-design.md)
+fixes capture consumed/preserved/invalid-but-not-disposed oracles, candidate
+MaxForks2 and pool budgets, and a diagnostic choice committed before code.
+The [E2E hook contract](reviews/v06x-e2e-entry-contract.md) fixes start/readiness,
+quiescence plus physical connection retirement, optional resume and stop/reaping.
+The scope draft includes all three time outcomes and memory/FD/connection
+observations, with finite diagnostic limits and no resource-governor claim.
+[Design lint](../scripts/check_fixture_design.py) checks the structured
+[acceptance contract](reviews/v06x-fixture-acceptance.json) and rejects missing
+obligations; runtime acceptance still requires actual evidence.
+
+**Django exception agreed with the Human, 2026-10-28:** this is a general fixture
+and E2E product, not a Django-specific product. D1 remains a dogfood target, but
+difficult Django-specific implementation is **not a blocker for v0.6.0**.
+Record the concrete obstacle, user impact and unfinished work when deferring;
+do not label the deferred entry supported or PASS. Shared lifecycle, isolation,
+cleanup or wire defects still require assessment against P1/G1/EP1/EG1 and cannot
+be dismissed merely because Django exposed them. EP1 browser E2E stays required;
+if its Django application is the obstacle, record a fixed non-Django application
+substitution rather than making Django an indirect gate or dropping browser E2E.
+The approved first implementation is G1 under the reviewed API, ownership,
+diagnostic profile and resource defaults; no main adoption or release is
+authorized by this decision.
+
+**G1 Human adoption decision:** The Human approved adopting the bounded Go
+prepared-test helper for G1. The reviewed PR head was
+`de860c4fc553907d237ad3a046ca6a6780ce0bb4`; its production helper and G1
+acceptance code match the earlier both-host reviewed candidate `f58eebcdcb9ddb38a08fdbbd4ace8f6717154ab8`.
+The [acceptance review](reviews/v06x-go-fixture-acceptance-review.md) retains
+the controlled-backend and other limits; it does not claim every real engine I/O
+failure. The historical [Live run 40751031818](https://github.com/masahitojp/mariamem/actions/runs/40751031818)
+remains bound to its own executed source, not to this later integration. The
+updated candidate must pass its own protected checks and both-host G1 receipts
+before main integration. This decision does not complete the other dogfood
+entries or approve Qualification or publication.
+
+**G1 implementation checkpoint:** the candidate adds the separate Go
+mariamemtest helper under the approved ownership/defaults and readable-owned
+diagnostic profile. See [usage](go-prepared-fixture.md) and
+[remaining acceptance](reviews/v06x-go-fixture-implementation.md). Local macOS27.2 arm64 canonical check, helper race tests, actual-guest
+oracles and the guide sample passed at code source_commit5c739b7. The subsequent both-host time/resource result is recorded below; G1 completion
+is not claimed. The [G1 campaign follow-up](reviews/v06x-go-fixture-campaign.md)
+adds all four cap/parallel modes, retained1/2/3 counters/guards, three-time outcomes,
+checksum-bound raw receipts and an actual pre-admission guard STOP. Local
+macOS27.2 passed at232fc19; required macOS15/Ubuntu receipts are now verified below. The Live required gate now checks both actual campaign artifacts,
+not just the declaration lint. Original CI40715670588's integration failed at
+checkout on network/DNS errors; filtered full-history retrieval mitigates payload
+cost without claiming to cure DNS. No root runtime/guest change, main adoption or release
+is included.
+
+Subsequent Ubuntu CI40724194463 completed canonical integration, but G1 validation
+rejected a final RSS0 sample after process exit. The collector now retains
+exit-confirmed terminal observations separately; live RSS0/missing counters still
+fail. See the [source-bound diagnosis and original failed artifact](reviews/v06x-go-fixture-campaign.md#ubuntu-ci-collector-exit-race--run40724194463).
+Tooling tests214 and the full local campaign passed at549be26; the successful
+both-host result follows below. Old FAIL/PASS receipts retain their original source identities.
+
+**Both-host G1 time/resource campaign confirmed:** Live CI40730646806 attempt2
+and required gate123000356113 succeeded. Executed merge source b594527 has the
+same tree as PR head e8c0380. Mac15.7.9 arm64 executed on attempt2; Ubuntu24.04
+x86_64 reused its successful attempt1. The [saved receipts and assessment](reviews/v06x-go-fixture-campaign.md#both-host-resource-time-receipt-confirmed--run40730646806-attempt2)
+verify all four cap/parallel modes, retention1/2/3, three-time outcomes, resource
+guards, expected pre-admission FD STOP and cleanup. This closes that evidence
+gap; G1 still needs actual backing/disposal fault controls and an installed
+consumer that exercises mariamemtest. Existing Live installed-consumer success
+is not proof of that helper route. No main adoption/Qualification/release.
+
+**G1 remaining acceptance implementation:** [physical ownership and external
+helper consumer controls](reviews/v06x-go-fixture-completion.md) are implemented.
+They observe real FD/temp cleanup with controlled backend/interface faults,
+require 8 semantic mutations to be detected, and resolve the actual candidate
+helper from a private Go module ZIP outside the repository without replace.
+Fault injection exposed a diagnostic overclaim; capture-internal cleanup is now
+reported unverified independently of helper-owner finalization. Full canonical
+check passed at 845b8f1; final completion and 185 focused tests passed locally at
+50f9817 (macOS 27.2 arm64). The existing Live required gate now requires both-host
+completion receipts as well as resource receipts. Subsequent Live 40751031818
+attempt 1 and required gate 123078686977 passed at executed source cccd12c9
+(same tree as PR head f58eebc). Both saved host campaigns and completion logs
+passed source/host/checksum replay. The [G1 acceptance review](reviews/v06x-go-fixture-acceptance-review.md)
+recommends accepting bounded G1 evidence; Human acceptance/main adoption,
+Qualification and release remain separate. P1/EP1/EG1 are still required.
+
+**Next entry: P1 design proposal.** The [Python prepared-entry proposal](reviews/v06x-python-fixture-entry-design.md)
+retains existing pytest fixtures/routing, proposes a declarative command beside
+the callback, and fixes readable-owned diagnostics, compatibility and physical
+cleanup/resource acceptance. Command API and fixture-resolution error handling
+remain review inputs. No P1 implementation authorization or runtime PASS is
+claimed; the structured contract still authorizes G1 only.
+The [local pytest reporting characterization](reviews/v06x-python-fixture-reporting.md)
+now closes the annotation-feasibility question at source 1780db3: seven controls
+on Python 3.11/pytest 7 and Python 3.14/pytest 9 preserve original setup/cleanup
+failures and render a narrowly targeted note. It also observes that current
+child cleanup failure does not stop the next body. P1 therefore needs an owned
+admission-debt guard and honest final summary, not a replacement error-reporting
+framework. This fake-owner probe is not physical cleanup or P1 runtime acceptance.
+
+Wire sufficiency remains an explicit verification obligation. Cross-check the
+current protocol/capability inventory with actual driver/framework behavior,
+including preparation, metadata, prepared/results, pools/reconnect/session
+lifecycle and failure paths. Reuse completed Prepared/routine/multiple-result
+evidence under its recorded scope instead of reopening it wholesale. Selected
+examples prioritize gaps but do not define or silently shrink the capability
+space: classify uncovered paths and record explicit reach/defer decisions.
+Native-success/guest-failure differences must retain original evidence and be
+classified as wire, SQL semantics, configuration or client/environment issues
+before choosing a fix. This direction authorizes investigation and verification
+planning, not blanket protocol implementation, guest changes or wider support
+claims. The [current wire inventory](reviews/v06x-wire-current-inventory.md) is
+pinned to main cc00ccd and supersedes the historical v0.5.3 inventory for this
+purpose; Prepared, text multiple results and SET_OPTION are already adopted.
+Exact workload/driver coverage and finite exit criteria still need to
+be fixed before declaring the whole v0.6 dogfood scope complete.
 
 **North-star discussion recorded with the Human, 2026-10-18:** reduce the work
 of establishing and growing database tests in both new applications and existing

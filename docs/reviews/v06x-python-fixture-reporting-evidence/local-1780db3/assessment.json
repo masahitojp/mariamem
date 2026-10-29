@@ -1,0 +1,215 @@
+{
+  "result": "CHARACTERIZATION_PASS",
+  "source_commit": "1780db3b7ed7a23b538175183a78e979999d0949",
+  "scope": "real pytest, controlled fake DB owners; no real guest/SQL, command runner or P1 acceptance",
+  "profiles": [
+    {
+      "name": "py311",
+      "profile": {
+        "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+        "pytest": "7.4.4"
+      },
+      "host": {
+        "system": "Darwin",
+        "version": "27.2",
+        "architecture": "arm64"
+      },
+      "archive_sha256": "1d3825fb6e414704cf49c767533688a4ea69dbfc9a91cc2e785f72bd71da635e",
+      "case_count": 7,
+      "cases": [
+        {
+          "mode": "healthy",
+          "exit_code": 0,
+          "bodies": [
+            "first",
+            "second"
+          ],
+          "later_body_after_cleanup_failure": false,
+          "error_types": [],
+          "note_rendered": false
+        },
+        {
+          "mode": "ordinary-failure",
+          "exit_code": 1,
+          "bodies": [
+            "first",
+            "second"
+          ],
+          "later_body_after_cleanup_failure": false,
+          "error_types": [
+            "AssertionError"
+          ],
+          "note_rendered": false
+        },
+        {
+          "mode": "child-cleanup-debt",
+          "exit_code": 1,
+          "bodies": [
+            "first",
+            "second"
+          ],
+          "later_body_after_cleanup_failure": true,
+          "error_types": [
+            "AssertionError",
+            "RuntimeError"
+          ],
+          "note_rendered": false
+        },
+        {
+          "mode": "callback-and-source-failure",
+          "exit_code": 1,
+          "bodies": [],
+          "later_body_after_cleanup_failure": false,
+          "error_types": [
+            "RuntimeError",
+            "ValueError"
+          ],
+          "note_rendered": false
+        },
+        {
+          "mode": "fixture-and-source-failure",
+          "exit_code": 1,
+          "bodies": [],
+          "later_body_after_cleanup_failure": false,
+          "error_types": [
+            "RuntimeError",
+            "ValueError"
+          ],
+          "note_rendered": false
+        },
+        {
+          "mode": "capture-and-source-failure",
+          "exit_code": 1,
+          "bodies": [],
+          "later_body_after_cleanup_failure": false,
+          "error_types": [
+            "LookupError",
+            "RuntimeError"
+          ],
+          "note_rendered": false
+        },
+        {
+          "mode": "annotated-fixture-and-source-failure",
+          "exit_code": 1,
+          "bodies": [],
+          "later_body_after_cleanup_failure": false,
+          "error_types": [
+            "RuntimeError",
+            "ValueError"
+          ],
+          "note_rendered": true
+        }
+      ],
+      "installed_packages": {
+        "pytest": "7.4.4",
+        "pluggy": "1.7.0",
+        "packaging": "26.3",
+        "iniconfig": "2.3.1"
+      }
+    },
+    {
+      "name": "py314",
+      "profile": {
+        "python": "3.14.9 (main, Oct 21 2026, 06:02:15) [Clang 21.0.0 (clang-2100.3.34.2)]",
+        "pytest": "9.1.1"
+      },
+      "host": {
+        "system": "Darwin",
+        "version": "27.2",
+        "architecture": "arm64"
+      },
+      "archive_sha256": "cfd880a21c830e3023e809ca709d6990f459934f760b4a810ca0d1fb4a986130",
+      "case_count": 7,
+      "cases": [
+        {
+          "mode": "healthy",
+          "exit_code": 0,
+          "bodies": [
+            "first",
+            "second"
+          ],
+          "later_body_after_cleanup_failure": false,
+          "error_types": [],
+          "note_rendered": false
+        },
+        {
+          "mode": "ordinary-failure",
+          "exit_code": 1,
+          "bodies": [
+            "first",
+            "second"
+          ],
+          "later_body_after_cleanup_failure": false,
+          "error_types": [
+            "AssertionError"
+          ],
+          "note_rendered": false
+        },
+        {
+          "mode": "child-cleanup-debt",
+          "exit_code": 1,
+          "bodies": [
+            "first",
+            "second"
+          ],
+          "later_body_after_cleanup_failure": true,
+          "error_types": [
+            "AssertionError",
+            "RuntimeError"
+          ],
+          "note_rendered": false
+        },
+        {
+          "mode": "callback-and-source-failure",
+          "exit_code": 1,
+          "bodies": [],
+          "later_body_after_cleanup_failure": false,
+          "error_types": [
+            "RuntimeError",
+            "ValueError"
+          ],
+          "note_rendered": false
+        },
+        {
+          "mode": "fixture-and-source-failure",
+          "exit_code": 1,
+          "bodies": [],
+          "later_body_after_cleanup_failure": false,
+          "error_types": [
+            "RuntimeError",
+            "ValueError"
+          ],
+          "note_rendered": false
+        },
+        {
+          "mode": "capture-and-source-failure",
+          "exit_code": 1,
+          "bodies": [],
+          "later_body_after_cleanup_failure": false,
+          "error_types": [
+            "LookupError",
+            "RuntimeError"
+          ],
+          "note_rendered": false
+        },
+        {
+          "mode": "annotated-fixture-and-source-failure",
+          "exit_code": 1,
+          "bodies": [],
+          "later_body_after_cleanup_failure": false,
+          "error_types": [
+            "RuntimeError",
+            "ValueError"
+          ],
+          "note_rendered": true
+        }
+      ],
+      "installed_packages": {
+        "pytest": "9.1.1",
+        "pluggy": "1.6.0",
+        "packaging": "26.3",
+        "iniconfig": "2.3.1"
+      }
+    }
+  ]
+}

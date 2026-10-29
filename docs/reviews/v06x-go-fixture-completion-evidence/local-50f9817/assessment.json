@@ -1,0 +1,143 @@
+{
+  "source_commit": "50f9817d3b0ba11b43b6b1d48120960b823628be",
+  "result": "PASS",
+  "host": {
+    "system": "Darwin",
+    "architecture": "arm64",
+    "version": "27.2"
+  },
+  "fault_target": {
+    "goos": "darwin",
+    "goarch": "arm64"
+  },
+  "toolchain": "go1.26.10",
+  "archive_sha256": "fe1eb545f2bb85b868a6430ece7cc46d65088c3dff31e64900c3c98e520dbb23",
+  "fault_baseline_cases": [
+    "TestBoundedAdmissionAndCancellation",
+    "TestCaptureFailureDoesNotClaimInternalCleanupKnown",
+    "TestFixturePhysicalCleanup/cleanup-error",
+    "TestFixturePhysicalCleanup/consumed",
+    "TestFixturePhysicalCleanup/invalid",
+    "TestFixturePhysicalCleanup/partial-baseline",
+    "TestFixturePhysicalCleanup/preserved",
+    "TestSetupFailuresKeepCauseAndCleanup/prepare",
+    "TestSnapshotPhysicalOwnership/backing-close-error",
+    "TestSnapshotPhysicalOwnership/consumed",
+    "TestSnapshotPhysicalOwnership/invalid",
+    "TestSnapshotPhysicalOwnership/preserved",
+    "TestSnapshotPhysicalOwnership/source-close-error",
+    "TestSnapshotPhysicalOwnership/success"
+  ],
+  "mutations": [
+    {
+      "mutation": "skip-source-close",
+      "result": "DETECTED",
+      "target": "TestFixturePhysicalCleanup/preserved",
+      "exit_code": 1,
+      "overlay_sha256": "9817981e9d18874be943bb39af0aac78530a9421f9583a2cce18066e9ffb664d",
+      "elapsed_seconds": 0.7766568749793805
+    },
+    {
+      "mutation": "skip-baseline-close",
+      "result": "DETECTED",
+      "target": "TestFixturePhysicalCleanup/partial-baseline",
+      "exit_code": 1,
+      "overlay_sha256": "07863161dd24b01ff604dfd9f6f0453722841bdb742a19eb50c069ed9f93a8cf",
+      "elapsed_seconds": 0.7629839169967454
+    },
+    {
+      "mutation": "double-consumed-teardown",
+      "result": "DETECTED",
+      "target": "TestSnapshotPhysicalOwnership/success",
+      "exit_code": 1,
+      "overlay_sha256": "1ff7fda8b42cb00391e2bc57a09b255f1f145451d360d7127c3424878d0d0cbf",
+      "elapsed_seconds": 1.61170941698947
+    },
+    {
+      "mutation": "skip-backing-release",
+      "result": "DETECTED",
+      "target": "TestSnapshotPhysicalOwnership/consumed",
+      "exit_code": 1,
+      "overlay_sha256": "9c98b9066064616f162c156175e0b0cb361992658434d443f67f14a13c8262b8",
+      "elapsed_seconds": 1.5755554589850362
+    },
+    {
+      "mutation": "leak-permit",
+      "result": "DETECTED",
+      "target": "TestBoundedAdmissionAndCancellation",
+      "exit_code": 1,
+      "overlay_sha256": "b829c98610a0e19b967236cbcf97a070c66cff32e8d2b3baa862ea765d08a674",
+      "elapsed_seconds": 1.853957375016762
+    },
+    {
+      "mutation": "bypass-cap",
+      "result": "DETECTED",
+      "target": "TestBoundedAdmissionAndCancellation",
+      "exit_code": 1,
+      "overlay_sha256": "521508a3681c3033fd68bbb2a5abd7d079774931a8fc968142ba216ca9c96626",
+      "elapsed_seconds": 0.7572939580131788
+    },
+    {
+      "mutation": "drop-original-error",
+      "result": "DETECTED",
+      "target": "TestSetupFailuresKeepCauseAndCleanup/prepare",
+      "exit_code": 1,
+      "overlay_sha256": "72f4b648ead32250b28e649eb03e1223e5a7d6e9344566be6a1f36af4d5c47ac",
+      "elapsed_seconds": 0.7581210829957854
+    },
+    {
+      "mutation": "drop-cleanup-error",
+      "result": "DETECTED",
+      "target": "TestSetupFailuresKeepCauseAndCleanup/prepare",
+      "exit_code": 1,
+      "overlay_sha256": "c10ff8a927307a48b8b3771bbb2020af3b9e7ab4e19d864d304155081fe29dc9",
+      "elapsed_seconds": 0.7864767079881858
+    }
+  ],
+  "consumer": {
+    "result": "PASS",
+    "module_path": "github.com/masahitojp/mariamem",
+    "private_module_version": "v0.0.0-g1.f74f1c546abdf98b",
+    "module_sum": "h1:e9QZQSpodsh5jw/KDbIuCuN2lmcSeMckOL25G7n3k1U=",
+    "replace": false,
+    "outside_repository": true,
+    "GOWORK": "off",
+    "GOTOOLCHAIN": "local",
+    "toolchain": "go1.26.10",
+    "cache_state": "existing Go compiler/module caches; not cold qualification",
+    "runtime_target": {
+      "goos": "darwin",
+      "goarch": "arm64"
+    },
+    "binary_sha256": "7b90bfdff7835a45ef01cd58f5b105222029ae151469dc6da7fd3650b4e0925b",
+    "runs": [
+      {
+        "mode": "normal",
+        "result": "PASS",
+        "elapsed_seconds": 1.6669291660073213,
+        "cases": [
+          "TestFirstCommit",
+          "TestSecondSeed",
+          "TestParallel",
+          "TestOrdinaryFailureDoesNotContaminate",
+          "TestMigrationFailure",
+          "TestCancelledPrepare"
+        ]
+      },
+      {
+        "mode": "shuffle",
+        "result": "PASS",
+        "elapsed_seconds": 0.5562343329947907,
+        "cases": [
+          "TestFirstCommit",
+          "TestSecondSeed",
+          "TestParallel",
+          "TestOrdinaryFailureDoesNotContaminate",
+          "TestMigrationFailure",
+          "TestCancelledPrepare"
+        ]
+      }
+    ],
+    "temporary_cleanup": "complete"
+  }
+}

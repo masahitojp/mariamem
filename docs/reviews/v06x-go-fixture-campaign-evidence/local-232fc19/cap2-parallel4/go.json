@@ -1,0 +1,1045 @@
+{
+  "cap": 2,
+  "parallel": 4,
+  "pid": 9665,
+  "active_children": 0,
+  "retained_baselines": 0,
+  "peak_children": 2,
+  "peak_physical_pool_connections": 4,
+  "samples": [
+    {
+      "unix_ns": 1793203611070506000,
+      "at_seconds": 0.020566625,
+      "label": "baseline",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537633280,
+      "children": 0,
+      "baselines": 0,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203611144415000,
+      "at_seconds": 0.094469375,
+      "label": "before_source",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537629184,
+      "children": 0,
+      "baselines": 0,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203611347972000,
+      "at_seconds": 0.298019542,
+      "label": "prepared",
+      "fd": 11,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537625088,
+      "children": 0,
+      "baselines": 0,
+      "physical_pool_connections": 1
+    },
+    {
+      "unix_ns": 1793203611386571000,
+      "at_seconds": 0.3366185,
+      "label": "before_fork",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537625088,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203611407187000,
+      "at_seconds": 0.357232958,
+      "label": "before_fork",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537625088,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203611509818000,
+      "at_seconds": 0.459860708,
+      "label": "case_two_connections",
+      "fd": 17,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537625088,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 2
+    },
+    {
+      "unix_ns": 1793203611559889000,
+      "at_seconds": 0.509930542,
+      "label": "case_two_connections",
+      "fd": 22,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537625088,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 4
+    },
+    {
+      "unix_ns": 1793203611752738000,
+      "at_seconds": 0.70277375,
+      "label": "case_cleaned",
+      "fd": 13,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537625088,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203611773488000,
+      "at_seconds": 0.723523417,
+      "label": "before_fork",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537625088,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203611797944000,
+      "at_seconds": 0.747977958,
+      "label": "case_cleaned",
+      "fd": 8,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537625088,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203611818351000,
+      "at_seconds": 0.768383792,
+      "label": "before_fork",
+      "fd": 8,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537620992,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203611931589000,
+      "at_seconds": 0.881618583,
+      "label": "case_two_connections",
+      "fd": 22,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537620992,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 4
+    },
+    {
+      "unix_ns": 1793203611954894000,
+      "at_seconds": 0.904922917,
+      "label": "case_two_connections",
+      "fd": 22,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537620992,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 4
+    },
+    {
+      "unix_ns": 1793203612064906000,
+      "at_seconds": 1.014931917,
+      "label": "case_cleaned",
+      "fd": 13,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537620992,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612085444000,
+      "at_seconds": 1.035469708,
+      "label": "case_cleaned",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537620992,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612107127000,
+      "at_seconds": 1.05715125,
+      "label": "batch_done",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537620992,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612128574000,
+      "at_seconds": 1.078597625,
+      "label": "before_fork",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537620992,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612150702000,
+      "at_seconds": 1.100725625,
+      "label": "before_fork",
+      "fd": 8,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537620992,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612229087000,
+      "at_seconds": 1.179107375,
+      "label": "case_two_connections",
+      "fd": 17,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537620992,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 2
+    },
+    {
+      "unix_ns": 1793203612262310000,
+      "at_seconds": 1.212329792,
+      "label": "case_two_connections",
+      "fd": 22,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537620992,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 4
+    },
+    {
+      "unix_ns": 1793203612362798000,
+      "at_seconds": 1.312814333,
+      "label": "case_cleaned",
+      "fd": 13,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537616896,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612382459000,
+      "at_seconds": 1.33247475,
+      "label": "before_fork",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537616896,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612403045000,
+      "at_seconds": 1.353060125,
+      "label": "case_cleaned",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537616896,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612423888000,
+      "at_seconds": 1.3739023750000001,
+      "label": "before_fork",
+      "fd": 8,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537616896,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612489479000,
+      "at_seconds": 1.439491375,
+      "label": "case_two_connections",
+      "fd": 17,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537616896,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 2
+    },
+    {
+      "unix_ns": 1793203612533243000,
+      "at_seconds": 1.483254083,
+      "label": "case_two_connections",
+      "fd": 22,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537616896,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 4
+    },
+    {
+      "unix_ns": 1793203612665026000,
+      "at_seconds": 1.615033833,
+      "label": "case_cleaned",
+      "fd": 13,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537616896,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612688853000,
+      "at_seconds": 1.6388597919999999,
+      "label": "case_cleaned",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537616896,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612713424000,
+      "at_seconds": 1.6634300419999999,
+      "label": "batch_done",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537616896,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612751268000,
+      "at_seconds": 1.7012725419999999,
+      "label": "before_fork",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537616896,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612792547000,
+      "at_seconds": 1.742550083,
+      "label": "before_fork",
+      "fd": 8,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537612800,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203612983850000,
+      "at_seconds": 1.93384725,
+      "label": "case_two_connections",
+      "fd": 22,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537612800,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 4
+    },
+    {
+      "unix_ns": 1793203613108173000,
+      "at_seconds": 2.058166833,
+      "label": "case_two_connections",
+      "fd": 22,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537612800,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 4
+    },
+    {
+      "unix_ns": 1793203613180208000,
+      "at_seconds": 2.130199042,
+      "label": "case_cleaned",
+      "fd": 13,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537596416,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 2
+    },
+    {
+      "unix_ns": 1793203613202840000,
+      "at_seconds": 2.15283125,
+      "label": "before_fork",
+      "fd": 13,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537596416,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 2
+    },
+    {
+      "unix_ns": 1793203613305977000,
+      "at_seconds": 2.255964833,
+      "label": "case_cleaned",
+      "fd": 8,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537596416,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203613336502000,
+      "at_seconds": 2.286488167,
+      "label": "before_fork",
+      "fd": 9,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537596416,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203613378815000,
+      "at_seconds": 2.328800958,
+      "label": "case_two_connections",
+      "fd": 17,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537596416,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 2
+    },
+    {
+      "unix_ns": 1793203613486182000,
+      "at_seconds": 2.436163583,
+      "label": "case_two_connections",
+      "fd": 22,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537596416,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 4
+    },
+    {
+      "unix_ns": 1793203613578153000,
+      "at_seconds": 2.528132583,
+      "label": "case_cleaned",
+      "fd": 13,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537592320,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 2
+    },
+    {
+      "unix_ns": 1793203613648230000,
+      "at_seconds": 2.598207792,
+      "label": "case_cleaned",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537588224,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203613674239000,
+      "at_seconds": 2.6242155,
+      "label": "batch_done",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537588224,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203613709996000,
+      "at_seconds": 2.659971208,
+      "label": "before_fork",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537588224,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203613778998000,
+      "at_seconds": 2.728971375,
+      "label": "before_fork",
+      "fd": 8,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537588224,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203613918610000,
+      "at_seconds": 2.868578792,
+      "label": "case_two_connections",
+      "fd": 17,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537588224,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 2
+    },
+    {
+      "unix_ns": 1793203613959136000,
+      "at_seconds": 2.909103,
+      "label": "case_two_connections",
+      "fd": 22,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537588224,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 4
+    },
+    {
+      "unix_ns": 1793203614147579000,
+      "at_seconds": 3.097540833,
+      "label": "case_cleaned",
+      "fd": 13,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537588224,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203614171986000,
+      "at_seconds": 3.12194675,
+      "label": "before_fork",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537588224,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203614202433000,
+      "at_seconds": 3.152392792,
+      "label": "case_cleaned",
+      "fd": 8,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537588224,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203614235005000,
+      "at_seconds": 3.18496425,
+      "label": "before_fork",
+      "fd": 8,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537588224,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203614290623000,
+      "at_seconds": 3.240580792,
+      "label": "case_two_connections",
+      "fd": 17,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537584128,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 2
+    },
+    {
+      "unix_ns": 1793203614394268000,
+      "at_seconds": 3.344221792,
+      "label": "case_two_connections",
+      "fd": 22,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537584128,
+      "children": 2,
+      "baselines": 1,
+      "physical_pool_connections": 4
+    },
+    {
+      "unix_ns": 1793203614539647000,
+      "at_seconds": 3.48959675,
+      "label": "case_cleaned",
+      "fd": 13,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537584128,
+      "children": 1,
+      "baselines": 1,
+      "physical_pool_connections": 2
+    },
+    {
+      "unix_ns": 1793203614608971000,
+      "at_seconds": 3.5589183330000003,
+      "label": "case_cleaned",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537584128,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203614635115000,
+      "at_seconds": 3.585062375,
+      "label": "batch_done",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537584128,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203614661529000,
+      "at_seconds": 3.611475583,
+      "label": "retained_1",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537584128,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203615428050000,
+      "at_seconds": 4.377972208,
+      "label": "retained_end_1",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537575936,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203615444328000,
+      "at_seconds": 4.394250125,
+      "label": "before_source",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537575936,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203615601804000,
+      "at_seconds": 4.551721833,
+      "label": "prepared",
+      "fd": 11,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537575936,
+      "children": 0,
+      "baselines": 1,
+      "physical_pool_connections": 1
+    },
+    {
+      "unix_ns": 1793203615640027000,
+      "at_seconds": 4.589943083,
+      "label": "retained_2",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537575936,
+      "children": 0,
+      "baselines": 2,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203616411466000,
+      "at_seconds": 5.361358583,
+      "label": "retained_end_2",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537518592,
+      "children": 0,
+      "baselines": 2,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203616431677000,
+      "at_seconds": 5.381568583,
+      "label": "before_source",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537518592,
+      "children": 0,
+      "baselines": 2,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203616597417000,
+      "at_seconds": 5.547303417,
+      "label": "prepared",
+      "fd": 11,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537518592,
+      "children": 0,
+      "baselines": 2,
+      "physical_pool_connections": 1
+    },
+    {
+      "unix_ns": 1793203616637219000,
+      "at_seconds": 5.587104708,
+      "label": "retained_3",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537883136,
+      "children": 0,
+      "baselines": 3,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203617407377000,
+      "at_seconds": 6.357239208,
+      "label": "retained_end_3",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537829888,
+      "children": 0,
+      "baselines": 3,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793203617425189000,
+      "at_seconds": 6.375050042,
+      "label": "final",
+      "fd": 4,
+      "fd_soft_limit": 61440,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 75537825792,
+      "children": 0,
+      "baselines": 0,
+      "physical_pool_connections": 0
+    }
+  ],
+  "cases": [
+    {
+      "name": "TestFixtureCampaign/warmup/0",
+      "admission_seconds": 0.115957,
+      "sql_seconds": 0.228234125,
+      "cleanup_seconds": 0.011184333
+    },
+    {
+      "name": "TestFixtureCampaign/warmup/2",
+      "admission_seconds": 0.158270708,
+      "sql_seconds": 0.20651025,
+      "cleanup_seconds": 0.042248583
+    },
+    {
+      "name": "TestFixtureCampaign/warmup/1",
+      "admission_seconds": 0.537923959,
+      "sql_seconds": 0.132359667,
+      "cleanup_seconds": 0.007161958
+    },
+    {
+      "name": "TestFixtureCampaign/warmup/3",
+      "admission_seconds": 0.537775541,
+      "sql_seconds": 0.141831833,
+      "cleanup_seconds": 0.01891825
+    },
+    {
+      "name": "TestFixtureCampaign/observed_1/0",
+      "admission_seconds": 0.093234333,
+      "sql_seconds": 0.135807625,
+      "cleanup_seconds": 0.004955375
+    },
+    {
+      "name": "TestFixtureCampaign/observed_1/2",
+      "admission_seconds": 0.125315,
+      "sql_seconds": 0.115948208,
+      "cleanup_seconds": 0.03346625
+    },
+    {
+      "name": "TestFixtureCampaign/observed_1/1",
+      "admission_seconds": 0.354062041,
+      "sql_seconds": 0.170904583,
+      "cleanup_seconds": 0.010235709
+    },
+    {
+      "name": "TestFixtureCampaign/observed_1/3",
+      "admission_seconds": 0.395161167,
+      "sql_seconds": 0.156242167,
+      "cleanup_seconds": 0.009035333
+    },
+    {
+      "name": "TestFixtureCampaign/observed_2/2",
+      "admission_seconds": 0.231880208,
+      "sql_seconds": 0.1838625,
+      "cleanup_seconds": 0.012288167
+    },
+    {
+      "name": "TestFixtureCampaign/observed_2/0",
+      "admission_seconds": 0.241853625,
+      "sql_seconds": 0.310405334,
+      "cleanup_seconds": 0.013600416
+    },
+    {
+      "name": "TestFixtureCampaign/observed_2/3",
+      "admission_seconds": 0.629754958,
+      "sql_seconds": 0.195689792,
+      "cleanup_seconds": 0.008149625
+    },
+    {
+      "name": "TestFixtureCampaign/observed_2/1",
+      "admission_seconds": 0.729000417,
+      "sql_seconds": 0.166420584,
+      "cleanup_seconds": 0.008250417
+    },
+    {
+      "name": "TestFixtureCampaign/observed_3/0",
+      "admission_seconds": 0.218403833,
+      "sql_seconds": 0.20953975,
+      "cleanup_seconds": 0.010489375
+    },
+    {
+      "name": "TestFixtureCampaign/observed_3/2",
+      "admission_seconds": 0.251637875,
+      "sql_seconds": 0.201632833,
+      "cleanup_seconds": 0.045126666
+    },
+    {
+      "name": "TestFixtureCampaign/observed_3/3",
+      "admission_seconds": 0.579465167,
+      "sql_seconds": 0.251552542,
+      "cleanup_seconds": 0.014038292
+    },
+    {
+      "name": "TestFixtureCampaign/observed_3/1",
+      "admission_seconds": 0.676835667,
+      "sql_seconds": 0.223344459,
+      "cleanup_seconds": 0.011470458
+    }
+  ],
+  "batches": [
+    {
+      "label": "warmup",
+      "elapsed_seconds": 0.719391916
+    },
+    {
+      "label": "observed_1",
+      "elapsed_seconds": 0.581573166
+    },
+    {
+      "label": "observed_2",
+      "elapsed_seconds": 0.93500325
+    },
+    {
+      "label": "observed_3",
+      "elapsed_seconds": 0.934927292
+    }
+  ],
+  "phases": [
+    {
+      "name": "start",
+      "seconds": 0.082958833
+    },
+    {
+      "name": "prepare",
+      "seconds": 0.117896375
+    },
+    {
+      "name": "disconnect",
+      "seconds": 0.005646709
+    },
+    {
+      "name": "capture",
+      "seconds": 0.012373375
+    },
+    {
+      "name": "start",
+      "seconds": 0.052507208
+    },
+    {
+      "name": "prepare",
+      "seconds": 0.103211666
+    },
+    {
+      "name": "disconnect",
+      "seconds": 0.005635333
+    },
+    {
+      "name": "capture",
+      "seconds": 0.013097292
+    },
+    {
+      "name": "start",
+      "seconds": 0.0529325
+    },
+    {
+      "name": "prepare",
+      "seconds": 0.111446792
+    },
+    {
+      "name": "disconnect",
+      "seconds": 0.005624125
+    },
+    {
+      "name": "capture",
+      "seconds": 0.012340709
+    }
+  ],
+  "stop_reason": "",
+  "result": "PASS",
+  "cleanup_complete": true,
+  "new_fixture_seconds": 0.295530292,
+  "fixture_close_seconds": 0.000005667,
+  "guards": {
+    "owned_disk_ceiling_bytes": 8589934592,
+    "min_free_disk_bytes": 17179869184,
+    "min_fd_headroom": 64
+  }
+}

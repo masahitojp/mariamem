@@ -9,7 +9,7 @@ from common import ROOT, digest
 TOP_FILES = {".gitignore", ".gitattributes", "README.md", "CONTRIBUTING.md", "LICENSE", "NOTICE",
              "THIRD_PARTY_LICENSES", "go.mod", "go.sum", "mariamem.go", "mariamem_test.go",
              "connection.go", "errors.go", "snapshot.go", "live.go", "live_test.go", "native_version.go"}
-TOP_DIRS = {"mariamemtest", "cmd", "internal", "python", "guest", "scripts", "tests", "docs", "licenses", "release", ".github", "benchmarks"}
+TOP_DIRS = {"cmd", "internal", "mariamemtest", "python", "guest", "scripts", "tests", "docs", "licenses", "release", ".github", "benchmarks"}
 EXCLUDED = {"__pycache__", ".pytest_cache", "_native"}
 # Repository guidance is public on GitHub but is not part of corresponding source.
 REPOSITORY_ONLY_FILES = {"AGENTS.md", ".agents/skills/release/SKILL.md",
