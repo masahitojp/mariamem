@@ -21,6 +21,12 @@ analysis and verification; if incomplete, open with what remains, why submit now
 and how it limits the decision. Answer scope questions directly rather than
 replacing them with a demand for universal safety proof.
 
+Track actionable work in GitHub Issues, grouped by the intended release
+milestone (for example, [v0.6.0](https://github.com/masahitojp/mariamem/milestone/1)).
+Issues own checklists and acceptance evidence; [project status](project-status.md#current-work-tracking)
+retains approved scope and decisions. Keep reference-only accepted limitations
+without a release milestone unless work on them is explicitly scheduled.
+
 ## Human Review recommendations
 
 Identify **one decision needed from the Human now** before writing. Open with

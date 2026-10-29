@@ -161,6 +161,26 @@ that technical READY result does not authorize publication or qualify later SHAs
 [Development verification](development.md#local-verification) defines check
 selection; [releasing](releasing.md) defines exact-source publication gates.
 
+### Unimplemented WASIX host imports
+
+[release/wasix-host-stubs.json](../release/wasix-host-stubs.json) classifies the
+unimplemented host imports as `fail-closed`.
+[tests/test_generated_runtime_inventory.py](../tests/test_generated_runtime_inventory.py)
+checks the classification against non-test Go sources in `internal/generatedgo`.
+When adding, removing or implementing a stub, review its disposition and update
+this classification in the same change. Preserve the explicit failure boundary
+for remaining stubs; update canonical source owners and regenerate where needed
+rather than editing generated output alone.
+
+Run `python -m pytest tests/test_generated_runtime_inventory.py -q` for the
+inventory/classification check, then select any additional checks required by
+the changed runtime boundary using [local verification](development.md#local-verification).
+The current guard checks marked stubs and immediate host-method panics; it does
+not establish that every panic is classified. An unmarked panic preceded by
+another statement can escape detection. [#24](https://github.com/masahitojp/mariamem/issues/24)
+tracks that gap and the required negative controls, separately from the adopted
+[#13](https://github.com/masahitojp/mariamem/issues/13) detection net.
+
 ## Historical evidence
 
 Historical file-backed ownership, FD/mapping limits and import behavior are
