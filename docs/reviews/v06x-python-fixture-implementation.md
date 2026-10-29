@@ -144,3 +144,18 @@ is not replaced by an ordinary cleanup error. The same rule applies to owned
 contexts. Dedicated tests cover finalizer-only interrupt and ordinary failure
 plus cleanup interrupt, alongside the existing execution-time interrupt tests.
 These are new candidate changes, not a relabel of the earlier bcc2938 receipt.
+
+## Optional exception annotations cannot replace callback failures
+
+Annotations/cleanup attributes are best-effort. The entry records stop/debt state
+before enrichment and uses a final summary with next action when diagnostic
+attributes are read-only. Cleanup falls back to explicit cause chaining if it
+cannot attach cleanup_errors. Class-based private contexts avoid introducing an
+extra contextlib traceback assignment. Direct read-only exception identity/cause
+and a real-pytest callback restricting diagnostic metadata are regression controls.
+
+A separate historical-fixture diagnostic confirms that fully frozen traceback
+attributes already fail inside pytest's own contextlib capture path at de860c4.
+That framework behavior is not patched or claimed fixed here; it is distinct
+from P1 replacing the original failure while adding optional notes. No failing
+required profile or existing oracle was relaxed to support this distinction.

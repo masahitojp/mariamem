@@ -199,7 +199,8 @@ The entry adds operation/state notes to its own failures and observes the named
 preparation fixture, preserving pytest's original setup/call/teardown reports.
 Its final summary distinguishes entry-owned finalizers completed from
 unconfirmed cleanup. Completed helper finalization does not prove capture's
-internal cleanup. Combined cleanup errors remain attached as `.cleanup_errors`;
+internal cleanup. Combined cleanup errors remain attached as `.cleanup_errors` where the exception
+allows metadata, or retained through the cause chain for read-only exceptions;
 source/baseline/test teardown still attempts remaining finalizers.
 Explicitly overriding a supplied fixture transfers that boundary's ownership to
 your implementation, including admission and cleanup. See the

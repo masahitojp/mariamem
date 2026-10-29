@@ -80,9 +80,26 @@ class _Tail:
         self.data = data[-_OUTPUT_LIMIT:]
 
 
+def _add_note(primary, text):
+    # Diagnostic enrichment must not replace a user's read-only exception.
+    try:
+        BaseException.add_note(primary, text)
+    except Exception:
+        return False
+    return True
+
+
 def _attach_cleanup(primary, error):
-    primary.cleanup_errors = getattr(primary, 'cleanup_errors', ()) + (error,)
-    primary.add_note('mariamem cleanup also failed: ' + type(error).__name__)
+    try:
+        previous = getattr(primary, 'cleanup_errors', ())
+        if not isinstance(previous, tuple):
+            return False
+        if not any(item is error for item in previous):
+            primary.cleanup_errors = previous + (error,)
+    except Exception:
+        return False
+    _add_note(primary, 'mariamem cleanup also failed: ' + type(error).__name__)
+    return True
 
 
 def _group_exists(pid):
@@ -212,7 +229,7 @@ def _run_command(command, database, rootpath):
                 status = f'truncated; {tail.dropped} earlier bytes dropped' if tail.dropped else 'not truncated'
                 # Preview is smaller than the retained tail; original bounded bytes remain inspectable.
                 preview = tail.data[-2048:].decode('utf-8', errors='replace')
-                error.add_note(f'mariamem {name} (application output; {status}; last 2048 bytes shown):\n{preview}')
+                _add_note(error, f'mariamem {name} (application output; {status}; last 2048 bytes shown):\n{preview}')
         raise
     finally:
         close_errors = []

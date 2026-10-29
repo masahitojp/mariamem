@@ -52,7 +52,7 @@ def pytest_terminal_summary(terminalreporter):
         terminalreporter.section('mariamem entry failures')
         for name, value in summaries.items():
             for stage, error_type in value['records']:
-                terminalreporter.write_line(f'{name} {stage}: {error_type}; original error retained in pytest reports')
+                terminalreporter.write_line(f'{name} mariamem {stage}: {error_type}; original error retained in pytest reports; next: inspect original error; application cause may be unknown')
             cleanup = ('unconfirmed; inspect original cleanup/capture errors'
                        if value['uncertain'] or value['active'] else 'entry-owned finalizers completed')
             terminalreporter.write_line(f'{name}: admission=stopped for this worker; cleanup=' + cleanup)

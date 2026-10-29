@@ -271,3 +271,42 @@ def test_owner_cleanup_interrupt_preserves_primary_without_swallowing_interrupt(
             raise primary
     assert caught.value is interrupt and interrupt.__cause__ is primary
     assert owner.debt is interrupt and owner.uncertain
+
+
+def test_readonly_callback_error_keeps_identity_and_cleanup_cause():
+    from dataclasses import dataclass
+    @dataclass(frozen=True)
+    class ReadonlyError(Exception):
+        message: str
+    primary = ReadonlyError('original read-only callback error')
+    owner = _Owner()
+    with pytest.raises(BaseException) as caught:
+        with owner.operation('prepare'):
+            raise primary
+    assert caught.value is primary and owner.stopped is primary
+    cleanup = OSError('original cleanup')
+    class Manager:
+        def __enter__(self): return self
+        def __exit__(self, *args): raise cleanup
+    with pytest.raises(BaseException) as caught:
+        with _Owner().context(Manager, 'capture'):
+            raise primary
+    assert caught.value is primary and primary.__cause__ is cleanup
+
+
+def test_readonly_callback_error_has_pytest_fallback_without_changing_its_type(tmp_path):
+    result,events=helper.fake_suite(tmp_path, '''
+class ReadonlyError(Exception):
+    def __setattr__(self,name,value):
+        if name in ('__notes__','cleanup_errors'):
+            raise AttributeError('diagnostic metadata is read-only')
+        super().__setattr__(name,value)
+@pytest.fixture(scope='session')
+def mariamem_prepare():
+    def prepare(db): raise ReadonlyError('ORIGINAL_READONLY_FAILURE')
+    return prepare
+''', 'def test_body(mariamem_fork): pass', False)
+    assert result.returncode==1 and 'ReadonlyError: ORIGINAL_READONLY_FAILURE' in result.stdout
+    assert 'FrozenInstanceError' not in result.stdout
+    assert 'next: inspect original error' in result.stdout and 'entry-owned finalizers completed' in result.stdout
+    assert events==['start','source.close']
