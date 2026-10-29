@@ -1,0 +1,9 @@
+=== RUN   TestFatalCleanup
+=== RUN   TestFatalCleanup/expected-fatal
+    lease_test.go:70: INTENTIONAL_BODY_FAILURE
+=== RUN   TestFatalCleanup/next
+GOEXIT_CLEANUP_OK
+--- FAIL: TestFatalCleanup (0.00s)
+    --- FAIL: TestFatalCleanup/expected-fatal (0.00s)
+    --- PASS: TestFatalCleanup/next (0.00s)
+FAIL

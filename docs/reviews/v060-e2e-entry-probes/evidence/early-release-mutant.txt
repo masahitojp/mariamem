@@ -1,0 +1,15 @@
+=== RUN   TestParallelLease
+=== RUN   TestParallelLease/group
+=== RUN   TestParallelLease/group/held
+=== PAUSE TestParallelLease/group/held
+=== RUN   TestParallelLease/group/overlap
+    lease_test.go:48: overlap admitted before active case cleanup
+=== CONT  TestParallelLease/group/held
+    lease_test.go:40: active case reset or lease lost
+=== NAME  TestParallelLease
+    lease_test.go:53: cleanup: active=false releases=2
+--- FAIL: TestParallelLease (0.00s)
+    --- FAIL: TestParallelLease/group (0.00s)
+        --- FAIL: TestParallelLease/group/overlap (0.00s)
+        --- FAIL: TestParallelLease/group/held (0.00s)
+FAIL

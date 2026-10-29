@@ -1,0 +1,10 @@
+test_all_partial_handles_attempted (__main__.Probe.test_all_partial_handles_attempted) ... ok
+test_duplicate_does_not_double_stop (__main__.Probe.test_duplicate_does_not_double_stop) ... ok
+test_interrupt_identity (__main__.Probe.test_interrupt_identity) ... ok
+test_late_registration_control (__main__.Probe.test_late_registration_control) ... ok
+test_partial_readiness_and_combined_failure (__main__.Probe.test_partial_readiness_and_combined_failure) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+OK

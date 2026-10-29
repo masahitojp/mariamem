@@ -1,0 +1,4 @@
+=== RUN   TestPartialStart
+    lease_test.go:147: partial handle not stopped
+--- FAIL: TestPartialStart (0.00s)
+FAIL
