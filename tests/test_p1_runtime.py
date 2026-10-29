@@ -208,3 +208,12 @@ def test_three_time_campaign(tmp_path):
     result=campaign.run(ROOT,tmp_path/'time-campaign',HOST,source,installed,CONF,CASES)
     print(json.dumps(dict(result=result['result'],source_commit=source,
                          evidence=str(tmp_path/'time-campaign/result.json'),installed_wheel=installed)))
+
+
+def test_real_fd_admission_stop(tmp_path):
+    source,installed,_=preflight_consumer()
+    spec=importlib.util.spec_from_file_location('p1_fd_stop',ROOT/'tests/fixture_entry_acceptance/fd_stop_control.py')
+    control=importlib.util.module_from_spec(spec);spec.loader.exec_module(control)
+    result=control.run(ROOT,tmp_path/'fd-stop',HOST,source,installed,CONF)
+    print(json.dumps(dict(result=result['result'],source_commit=source,
+                          evidence=str(tmp_path/'fd-stop/result.json'),installed_wheel=installed)))
