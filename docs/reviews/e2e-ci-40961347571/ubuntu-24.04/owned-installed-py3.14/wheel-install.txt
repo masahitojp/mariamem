@@ -1,0 +1,3 @@
+Processing /home/runner/work/mariamem/mariamem/build/dist/mariamem-0.5.3-py3-none-linux_x86_64.whl
+Installing collected packages: mariamem
+Successfully installed mariamem-0.5.3

@@ -23,6 +23,14 @@ the unmerged P1 implementation or change the engine/Live contract.
 
 ## Evidence and remaining work
 
+Update after consolidation: [CI40961347571](e2e-ci-40961347571/assessment.json)
+passed the actual source694e8911 on both hosts, including registered-job controls
+and all four installed host/Python cells; full artifact digests match. The
+[subsequent partial/compound-cleanup controls](e2e-partial-cleanup-controls.md)
+pass locally at code sourceb20decac. Those later tests are not relabelled as part
+of CI40961347571. The table's consolidation rerun requirement is met for694e8911,
+while the failure mapping and resource campaign remain open.
+
 | Approved obligation | Existing evidence and its boundary | Remaining acceptance |
 | --- | --- | --- |
 | Two cases, same app/endpoint, reset seed and reused UNIQUE input | [Owned-entry CI](e2e-owned-entry-ci-40833174501/assessment.json), then [installed consumers](e2e-installed-ci-40854876547/assessment.json), on both hosts and Python minors | Re-execute the consolidated candidate; include order variation in the repeat campaign |
