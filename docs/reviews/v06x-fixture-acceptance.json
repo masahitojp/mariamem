@@ -2,7 +2,7 @@
   "version": 1,
   "scope_status": "APPROVED_WITH_DJANGO_NONBLOCKING",
   "implementation_authorized": true,
-  "source_commit": "cc00ccd98e29a1f5d5088a082be90a3cdaa4f469",
+  "source_commit": "437d74d9d11d8dc2a03dc94bba0d37346131ebff",
   "entries": [
     {
       "id": "P1",
@@ -158,7 +158,7 @@
     "transient_children_per_live": 2
   },
   "wire": {
-    "current_inventory": "docs/reviews/v06x-wire-current-inventory.md",
+    "current_inventory": "docs/reviews/v06x-wire-main-437d74d.md",
     "historical_inventory": "docs/reviews/wire-gap-inventory.md",
     "supported_commands": [
       1,
@@ -185,7 +185,7 @@
     ],
     "conditional_ps_multi_results": 262144,
     "source_sha256": {
-      "internal/mysqlwire/wire.go": "2f76d934846ca065c060205f9f043205cb5ebfb581f4ba13bf15b403631f1071",
+      "internal/mysqlwire/wire.go": "8a2991512654e9efcf4d15af010f013e6caddbe4f1ff078c7bb62a79881daa5f",
       "internal/mysqlwire/prepared_session.go": "3591c671a67b87e1fed52eef27638006626e28c0d99437014b332d01abecd0bf",
       "guest/wire_core.inc": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a",
       "guest/resident.inc": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c"
@@ -208,7 +208,8 @@
       "cleanup",
       "source_client_pin",
       "oracle"
-    ]
+    ],
+    "historical_source_commit": "cc00ccd98e29a1f5d5088a082be90a3cdaa4f469"
   },
   "future_runtime_status": "NOT_RUN",
   "authorized_implementation_entries": [
