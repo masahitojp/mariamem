@@ -2,7 +2,8 @@
 
 Latest local source: e4b470034d56b50770452ec816e8f88fa837deb5, based on main
 2ad041c. The final local results below supersede earlier candidate observations
-without relabelling them. Required-host CI and the full P1 acceptance campaign
+without relabelling them. Required-host implementation CI is confirmed below at
+executed source 3f8395b; the new native control and full P1 acceptance campaign
 remain pending.
 
 Implementation follows the conditional Human approval in decision commit
@@ -70,7 +71,8 @@ This is an implementation checkpoint, not P1-complete or main-adoption evidence.
 
 ## Still required before full P1 acceptance
 
-Retain the exact required-host/minor CI results, then finish the P1-specific
+The exact required-host/minor implementation CI results are retained below.
+Finish the P1-specific
 source-bound first/second-test and repeated-batch measurement campaign, retained
 baselines 1/2/3, aligned RSS/available memory/FD/physical connection/temp counters
 and actual guard/mutation controls. Retain installed-wheel consumer results for
@@ -191,3 +193,45 @@ Go caches were warm and package acquisition was not a clean-machine test.
 macOS15/Ubuntu CI, fresh native command/pool reference and the complete P1
 three-time/retained-baseline/resource/guard/mutation campaign remain required.
 No whole P1/main adoption/Qualification/release claim is made.
+
+## Required-host implementation CI — run 40811260983
+
+[Live run 40811260983](https://github.com/masahitojp/mariamem/actions/runs/40811260983)
+attempt 1 and required gate 123256119608 succeeded. PR head bbfb6346 and executed
+merge source_commit `3f8395b42ffd9fdeea3fc1d1bb30fe19244c8838` have identical trees.
+The [saved assessment, metadata and checksum-bound raw P1 files](v06x-python-fixture-implementation-evidence/ci-40811260983/assessment.json)
+verify both original GitHub ZIP digests before selecting P1 members verbatim.
+macOS15 arm64 and Ubuntu24.04 x86_64 each passed Python3.11/pytest7.0.0 and
+Python3.14/pytest9.0.2: focused95 PASS per cell; four installed-wheel runtime
+configurations per cell. Each configuration has six child tests, zero extra
+setup/cleanup errors or skips, the single intended assertion only where declared,
+exact source/input binding and confirmed final host/directory cleanup.
+
+Development [40811260990](https://github.com/masahitojp/mariamem/actions/runs/40811260990),
+Django [40811260711](https://github.com/masahitojp/mariamem/actions/runs/40811260711)
+and dump [40811260816](https://github.com/masahitojp/mariamem/actions/runs/40811260816)
+also succeeded. Dump's duplicate development jobs were intentionally skipped;
+the required Development check/integration ran successfully. These results do
+not establish the P1-specific native command/pool reference or resource campaign.
+
+## Next acceptance increment — P1 native control, execution pending
+
+`tests/fixture_entry_acceptance/native.py` adds a test-only control on the existing
+disposable, digest-pinned MariaDB12.3.3 service. Both native Python jobs first run
+the existing acquisition guard, then execute the same p1_migrate.py as a
+PrepareCommand and as a callback. It refuses an existing app schema, checks
+schema/seed/revision/constraints, FK1452 and subsequent SELECT, and observes two
+distinct simultaneous physical connections under max-open2/max-idle1. Each owned
+schema is removed; source, inputs, packages, observed table engine/collation and
+final schema count are recorded. Preparation uses the unchanged pool1 input.
+This tests the command component and authored SQL, not native Snapshot/Fork or
+pytest ownership. Private command execution is test-only, not another public API.
+
+Installed-wheel guest acceptance now requires the same-source/same-Python native
+receipt and exact preparation input hashes before starting a source. Missing,
+stale, failed, partial, wrong-data or unclean native references are rejected by
+the gate. The existing Live artifact carries these new receipts; no new job,
+required context, framework dependency or product change is introduced.
+Actual execution is pending the next CI; run40811260983 predates this increment
+and is not relabelled. P1 time/resource/retention/guard acceptance and separate
+main adoption/Qualification/release remain unfinished.

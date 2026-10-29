@@ -1,5 +1,6 @@
 """Real guest/schema/seed/command/routing checks, separate from resource acceptance."""
 import hashlib
+import importlib.util
 import importlib.metadata
 import json
 import os
@@ -108,6 +109,13 @@ def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failur
     host_info=verify_go_binary(ROOT,Path(HOST).absolute(),source)
     installed=os.environ.get('P1_INSTALLED_CONSUMER')=='1'
     if installed:
+        reference_path = os.environ.get('P1_NATIVE_REFERENCE')
+        assert reference_path, 'installed P1 acceptance requires a fresh source-bound native reference'
+        spec = importlib.util.spec_from_file_location('p1_native_reference', ROOT/'tests/fixture_entry_acceptance/native.py')
+        native = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(native)
+        native.validate_reference(json.loads((Path(reference_path)/'result.json').read_text()),
+                                  source, f'{sys.version_info.major}.{sys.version_info.minor}')
         import mariamem
         package=Path(mariamem.__file__).resolve().parent
         assert not package.is_relative_to(ROOT/'python'), 'source-tree fallback used'

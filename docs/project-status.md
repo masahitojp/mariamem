@@ -1653,3 +1653,14 @@ Strict JUnit totals prevent expected failures masking extra cleanup errors;
 read-only diagnostic metadata and finalizer interrupts preserve original errors.
 Newer source does not relabel bcc2938 or earlier receipts. Required-host CI and
 full native/time/resource acceptance remain pending; main/release are separate.
+
+**P1 required-host implementation CI confirmed:** Live40811260983 attempt1 and
+its required gate succeeded at executed source3f8395b (tree equal to PR26 head
+bbfb6346). The [source-bound receipt](reviews/v06x-python-fixture-implementation-evidence/ci-40811260983/assessment.json)
+retains digest-verified artifact provenance and raw P1 results: four host/minor
+cells, focused95 PASS each, four installed-wheel configurations each, strict
+JUnit counts and final physical host/temp cleanup. Development, Django and dump
+also passed. The [next native-control increment](reviews/v06x-python-fixture-implementation.md#next-acceptance-increment--p1-native-control-execution-pending)
+is implemented for the existing disposable MariaDB12.3.3 service but awaits its
+own CI; the previous run does not prove it. P1 time/resource/retention/guard
+campaign, full P1 completion and main/release decisions remain open.
