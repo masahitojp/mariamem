@@ -1676,3 +1676,15 @@ also passed. The [next native-control increment](reviews/v06x-python-fixture-imp
 is implemented for the existing disposable MariaDB12.3.3 service but awaits its
 own CI; the previous run does not prove it. P1 time/resource/retention/guard
 campaign, full P1 completion and main/release decisions remain open.
+
+**P1 native plus required-host correctness confirmed:** Live40829538394 attempt1
+and required gate123316058837 passed at executed source5a9f317 (tree equal to
+PR26 headde28c547). The [checksum-bound receipt](reviews/v06x-python-fixture-implementation-evidence/ci-40829538394/assessment.json)
+preserves native command/callback results on both Python minors with final schema
+count0, and four installed-wheel host/minor cells (focused113 PASS and four
+runtime configurations each). Development/Django/dump also succeeded. Earlier
+receipts retain their sources. The [next counter-feasibility increment](reviews/v06x-python-fixture-implementation.md#resource-counter-feasibility-increment--required-host-results-pending)
+checks child FD/unlinked-file observation before the full time/resource campaign;
+its required-host CI is pending. Counter feasibility is not P1 workload/resource
+acceptance. Full P1 completion, main adoption, Qualification and release remain
+separate unfinished work.

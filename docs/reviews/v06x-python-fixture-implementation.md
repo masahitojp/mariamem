@@ -2,9 +2,9 @@
 
 Latest local source: e4b470034d56b50770452ec816e8f88fa837deb5, based on main
 2ad041c. The final local results below supersede earlier candidate observations
-without relabelling them. Required-host implementation CI is confirmed below at
-executed source 3f8395b; the new native control and full P1 acceptance campaign
-remain pending.
+without relabelling them. Required-host implementation and native-control CI are
+confirmed below at executed source5a9f317. The complete P1 time/resource campaign
+remains pending; its next counter-feasibility increment is separate.
 
 Implementation follows the conditional Human approval in decision commit
 746ea5fb6306bb122659917681a2554a6a292e77, before any P1 product/helper code.
@@ -216,6 +216,9 @@ not establish the P1-specific native command/pool reference or resource campaign
 
 ## Next acceptance increment — P1 native control, execution pending
 
+This section records the pre-execution increment; source5a9f317's later success
+is recorded below without relabelling the earlier receipt.
+
 `tests/fixture_entry_acceptance/native.py` adds a test-only control on the existing
 disposable, digest-pinned MariaDB12.3.3 service. Both native Python jobs first run
 the existing acquisition guard, then execute the same p1_migrate.py as a
@@ -245,3 +248,49 @@ wire boundary files are byte-identical to the prior 2ad041c comparison. P1's
 separate pre-code approval and G1/P1 authorization remain unchanged. The earlier
 3f8395b CI receipt keeps its original source and is not a receipt for this merge
 or the native-control increment. No G1 adoption decision is reopened.
+
+## Native plus required-host correctness confirmed — run40829538394
+
+[Live40829538394](https://github.com/masahitojp/mariamem/actions/runs/40829538394)
+attempt1 and required gate123316058837 succeeded. Executed source_commit
+`5a9f3172639f626b82a6e303a6de4942e0c42ace` and PR headde28c547 have identical
+trees. The [saved receipt and raw archive](v06x-python-fixture-implementation-evidence/ci-40829538394/assessment.json)
+verify all four original GitHub artifact ZIP digests, then retain host P1 members
+and complete native references verbatim with inner/outer checksums.
+
+Both native Python cells report PASS_P1_NATIVE_INPUT for command and callback,
+matching schema/seed/revision/constraints, FK1452/recovery, distinct simultaneous
+pool connections2, and schema_count_after0. Both macOS15 arm64 and Ubuntu24.04
+x86_64 then pass Python3.11/pytest7.0.0 and Python3.14/pytest9.0.2: focused113 PASS
+each; four installed-wheel configurations each; exact six-child JUnit counts and
+confirmed host/temp cleanup. Their native-reference admission checks ran before
+source startup. Development40829538446, Django40829538416 and dump40829538419 also
+succeeded. These are correctness receipts, not the resource/time campaign.
+
+## Resource-counter feasibility increment — required-host results pending
+
+G1 measures its own Go descriptors via fstat. P1's separate host process requires
+an independently checked observer before the full measurement campaign. The
+test-only resource_probe.py and test_p1_resource_probe.py use lsof's NUL-delimited
+fields for explicit owned PIDs. They count numeric descriptors and deduplicate
+FD-backed unlinked regular files by device/inode. Missing process/type/file
+counters, truncated framing, inconsistent sizes and lsof warnings are errors,
+never zero-valued successful observations. The tool hash, observation window,
+source/dirty state, code hashes and raw output are retained.
+
+A real child holds two descriptors to one unlinked1MiB file. The control requires
+FD+2, bytes+1MiB only once, and baseline counters restored after both close; it
+also requires child reaping. The new probe runs in both existing host/minor P1
+unit cells and writes p1-resource-py*/ artifacts. lsof is required, installed on
+Linux if absent; missing tooling does not silently skip the control. Local
+observed macOS27.2 passed the probe on both Python boundaries; the full affected
+unit/design/workflow set passed192 per minor. Required-host probe execution is
+pending the next CI, not proved by run40829538394.
+
+The byte counter is **logical size of FD-backed unlinked files**, not allocated
+blocks, mmap-only storage or physical memory. This is feasibility evidence only:
+no P1 workload, process-tree FD guarantee, RSS/available-memory sampling, retention
+1/2/3, physical SQL-connection counts, first/second/repeated times or admission
+guard acceptance follows. Those remain required in the full P1 campaign. These
+probe counts must not be substituted for G1's allocated-block disk limit without
+a separately justified accounting rule. No product/guest/API change is made.
