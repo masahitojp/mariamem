@@ -197,6 +197,11 @@ def _run_command(command, database, rootpath):
                 _retire(process, selector, tails)
                 cleanup = 'completed'
             except BaseException as close_error:
+                if isinstance(error, Exception) and not isinstance(close_error, Exception):
+                    _outputs(error, tails, 'unconfirmed')
+                    _outputs(close_error, tails, 'unconfirmed')
+                    primary = close_error
+                    raise close_error from error
                 _attach_cleanup(error, close_error)
         else:
             cleanup = 'not started'
@@ -229,10 +234,28 @@ def _run_command(command, database, rootpath):
             close_errors.append(error)
         if close_errors:
             if primary is not None:
+                control = next((e for e in close_errors if not isinstance(e, Exception)), None)
+                if isinstance(primary, Exception) and control is not None:
+                    for error in close_errors:
+                        if error is not control:
+                            _attach_cleanup(control, error)
+                    _outputs(primary, tails, 'unconfirmed')
+                    _outputs(control, tails, 'unconfirmed')
+                    raise control from primary
                 for error in close_errors:
                     _attach_cleanup(primary, error)
                 primary.process_cleanup = 'unconfirmed'
             else:
-                error = BaseExceptionGroup('preparation output cleanup failed', close_errors)
-                error.process_cleanup = 'unconfirmed'
+                # Interrupt/SystemExit must stay that original BaseException,
+                # including when they arrive only in the finalizer.
+                error = next((e for e in close_errors if not isinstance(e, Exception)), None)
+                if error is None and len(close_errors) == 1:
+                    error = close_errors[0]
+                if error is None:
+                    error = ExceptionGroup('preparation output cleanup failed', close_errors)
+                else:
+                    for other in close_errors:
+                        if other is not error:
+                            _attach_cleanup(error, other)
+                _outputs(error, tails, 'unconfirmed')
                 raise error

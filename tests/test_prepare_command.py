@@ -212,3 +212,35 @@ def test_persistent_group_query_denial_stays_unconfirmed_and_keeps_errno(tmp_pat
         execute(tmp_path, 'import time;time.sleep(60)')
     assert caught.value is primary and primary.process_cleanup == 'unconfirmed'
     assert denied in primary.cleanup_errors and denied.errno == 1
+
+
+def test_interrupt_during_output_finalization_keeps_original_identity(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    real = runner.selectors.DefaultSelector
+    interrupt = KeyboardInterrupt()
+    class Selector:
+        def __init__(self): self.value = real()
+        def __getattr__(self, name): return getattr(self.value, name)
+        def close(self):
+            self.value.close()
+            raise interrupt
+    monkeypatch.setattr(runner, 'selectors', SimpleNamespace(DefaultSelector=Selector,
+                       EVENT_READ=runner.selectors.EVENT_READ))
+    with pytest.raises(BaseException) as caught:
+        execute(tmp_path, 'print("completed")')
+    assert caught.value is interrupt
+    assert interrupt.process_cleanup == 'unconfirmed' and interrupt.stdout == b'completed\n'
+
+
+def test_cleanup_interrupt_keeps_failed_command_as_original_cause(tmp_path, monkeypatch):
+    retire = runner._retire
+    interrupt = KeyboardInterrupt()
+    def close(*args):
+        retire(*args)
+        raise interrupt
+    monkeypatch.setattr(runner, '_retire', close)
+    with pytest.raises(KeyboardInterrupt) as caught:
+        execute(tmp_path, 'import sys;print("original-output");sys.exit(23)')
+    assert caught.value is interrupt and isinstance(interrupt.__cause__, subprocess.CalledProcessError)
+    assert interrupt.__cause__.returncode == 23 and interrupt.__cause__.stdout == b'original-output\n'
+    assert interrupt.process_cleanup == 'unconfirmed'

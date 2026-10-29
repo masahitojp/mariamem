@@ -180,7 +180,9 @@ last 16 KiB of stderr. On command exceptions, inspect `.stdout` / `.stderr`
 `.stdout_dropped_bytes` / `.stderr_dropped_bytes`. Exceptions retain their
 CalledProcessError/TimeoutExpired type and original exit/timeout data; diagnostic
 previews explicitly label application output and truncation. A full transcript
-is not retained. Interrupt remains KeyboardInterrupt. Timeout/interrupt attempt
+is not retained. Interrupt remains KeyboardInterrupt, including finalization.
+If cleanup is interrupted after an ordinary operation failure, the interrupt
+is raised with the original operation failure as its cause. Timeout/interrupt attempt
 bounded termination and reaping of the owned process group; cleanup may be
 unconfirmed. Noncooperative Python callbacks, escaped daemon processes, hard
 kill and machine loss have no stronger guarantee.

@@ -257,3 +257,17 @@ plugin.start=replacement
     assert events.count('fork')==events.count('child.close')==6
     with pytest.raises(AssertionError,match='extra cleanup errors'):
         module.validate_case_counts(module.read_case_counts(failed/'report.xml'),True)
+
+
+def test_owner_cleanup_interrupt_preserves_primary_without_swallowing_interrupt(tmp_path):
+    primary = ValueError('original operation')
+    interrupt = KeyboardInterrupt()
+    class Manager:
+        def __enter__(self): return self
+        def __exit__(self, *args): raise interrupt
+    owner = _Owner()
+    with pytest.raises(KeyboardInterrupt) as caught:
+        with owner.context(Manager, 'capture'):
+            raise primary
+    assert caught.value is interrupt and interrupt.__cause__ is primary
+    assert owner.debt is interrupt and owner.uncertain

@@ -132,3 +132,15 @@ from masking an additional final source/baseline teardown error even if its
 physical owners happened to close. A real-pytest six-child control accepts the
 ordinary assertion case and rejects the same case plus final source cleanup
 failure. Its source/logs are kept separate from the earlier bcc2938 observations.
+
+## Interrupt preservation through finalization
+
+A real-process regression exposed automatic grouping of an interrupt arriving
+only in output finalization. The runner now retains the original control
+exception and bounded partial output with unconfirmed cleanup. If interruption
+arrives while handling an ordinary operation failure, it remains the raised
+control exception and retains that operation as its cause; a primary interrupt
+is not replaced by an ordinary cleanup error. The same rule applies to owned
+contexts. Dedicated tests cover finalizer-only interrupt and ordinary failure
+plus cleanup interrupt, alongside the existing execution-time interrupt tests.
+These are new candidate changes, not a relabel of the earlier bcc2938 receipt.

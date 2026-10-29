@@ -74,6 +74,8 @@ class _Owner:
                 self.active -= 1
             except BaseException as cleanup:
                 self.fail(stage + ' cleanup', cleanup, cleanup=True)
+                if isinstance(primary, Exception) and not isinstance(cleanup, Exception):
+                    raise cleanup from primary
                 if cleanup is not primary and cleanup not in getattr(primary, 'cleanup_errors', ()):
                     _attach_cleanup(primary, cleanup)
             raise
