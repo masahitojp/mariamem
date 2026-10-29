@@ -1,5 +1,6 @@
 """P1 three-time checkpoint, separate from the complete resource campaign."""
 import hashlib
+import importlib.metadata
 import json
 import math
 import os
@@ -124,6 +125,13 @@ def test_repeat(batch,case,mariamem_app_db):
 '''
 
 
+def validate_second_edit(before, after):
+    if set(after)-set(before) != {'test_second.py'} or set(before)-set(after):
+        raise ValueError('second-test edit must add exactly test_second.py')
+    if any(after[name] != digest for name,digest in before.items()):
+        raise ValueError('second-test edit rewrote existing lifecycle/application input')
+
+
 def assess(events, owners, counts, code, cases, workers, repeated):
     def need(value, reason):
         if not value:
@@ -199,6 +207,10 @@ def run(root, output, host, source, installed, base_conf, cases_text):
     (project/'pytest.ini').write_text('[pytest]\nmariamem_route_profiles = app=127.0.0.1:'+str(sentinel.getsockname()[1])+'/app\n')
     (project/'test_first.py').write_text(first)
     scaffold=time.monotonic()-before
+    def source_files():
+        return {p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in project.iterdir()
+                if p.is_file() and p.suffix in ('.py','.ini')}
+    first_files=source_files()
     results={}
     def execute(label, filenames, count, workers=1, repeated=False):
         directory=output/label;directory.mkdir();sync=directory/'sync';sync.mkdir()
@@ -237,6 +249,7 @@ def run(root, output, host, source, installed, base_conf, cases_text):
         execute('first',['test_first.py'],1)
         first_total=time.monotonic()-first_started
         second_started=time.monotonic();(project/'test_second.py').write_text(SECOND);edit=time.monotonic()-second_started
+        second_files=source_files();validate_second_edit(first_files,second_files)
         execute('second',['test_first.py','test_second.py'],2)
         second_total=time.monotonic()-second_started
         (project/'test_repeat.py').write_text(REPEAT)
@@ -249,6 +262,10 @@ def run(root, output, host, source, installed, base_conf, cases_text):
                  host_sha256=hashlib.sha256(Path(host).read_bytes()).hexdigest(),python=sys.version,
                  first_test_setup_seconds=first_total,second_test_edits_seconds=second_total,
                  first_scaffold_seconds=scaffold,second_edit_seconds=edit,first_test_lines=len(first.splitlines()),
+                 first_input_sha256=first_files,second_input_sha256=second_files,
+                 packages={name:importlib.metadata.version(name) for name in ('pytest','pytest-xdist','SQLAlchemy','PyMySQL','Alembic')},
+                 code_sha256={name:hashlib.sha256((root/name).read_bytes()).hexdigest() for name in
+                              ('tests/fixture_entry_acceptance/time_campaign.py','tests/test_p1_runtime.py')},
                  added_second_test_lines=len(SECOND.splitlines()),repeated_lifecycle_lines=0,
                  acquisition=plan['acquisition'],human_authoring_minutes=None,phase_times_are_not_summed=True,
                  runs=results,plan_sha256=hashlib.sha256((root/'docs/reviews/v06x-p1-time-campaign-plan.json').read_bytes()).hexdigest(),

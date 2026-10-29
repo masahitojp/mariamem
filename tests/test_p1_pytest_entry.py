@@ -374,3 +374,16 @@ def test_three_time_checkpoint_cannot_hide_missing_or_failed_evidence(mutation):
     elif mutation=='child_overlap':next(e for e in events if e['event']=='child_open' and e['child']==2)['at_ns']=1002
     else:next(e for e in events if e['event']=='case_start')['case']=7
     with pytest.raises(ValueError):campaign.assess(events,owners,counts,code,16,2,True)
+
+
+@pytest.mark.parametrize('mutation',[None,'rewritten_fixture','extra_file','deleted_first'])
+def test_second_test_delta_is_measured_not_declared(mutation):
+    campaign,_,_,_=_time_campaign_observations()
+    before={'application.py':'a','conftest.py':'b','pytest.ini':'c','test_first.py':'d'}
+    after={**before,'test_second.py':'e'}
+    if mutation=='rewritten_fixture':after['conftest.py']='different'
+    elif mutation=='extra_file':after['extra.py']='x'
+    elif mutation=='deleted_first':del after['test_first.py']
+    if mutation:
+        with pytest.raises(ValueError):campaign.validate_second_edit(before,after)
+    else:campaign.validate_second_edit(before,after)
