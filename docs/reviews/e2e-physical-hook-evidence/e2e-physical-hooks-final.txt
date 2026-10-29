@@ -1,0 +1,26 @@
+=== RUN   TestHTTPPhysicalIdlePoolCannotBypassDrain
+--- PASS: TestHTTPPhysicalIdlePoolCannotBypassDrain (0.23s)
+=== RUN   TestHTTPPhysicalRetirementRestoresSeed
+=== RUN   TestHTTPPhysicalRetirementRestoresSeed/first
+=== RUN   TestHTTPPhysicalRetirementRestoresSeed/next
+--- PASS: TestHTTPPhysicalRetirementRestoresSeed (0.18s)
+    --- PASS: TestHTTPPhysicalRetirementRestoresSeed/first (0.05s)
+    --- PASS: TestHTTPPhysicalRetirementRestoresSeed/next (0.04s)
+=== RUN   TestHTTPPhysicalBusyPublicChild
+--- PASS: TestHTTPPhysicalBusyPublicChild (0.00s)
+=== RUN   TestHTTPPhysicalPublicAdmission
+    http_runtime_test.go:219: intentional child failures, original output retained:
+        === RUN   TestHTTPPhysicalBusyPublicChild
+        === RUN   TestHTTPPhysicalBusyPublicChild/blocked
+            http_runtime_test.go:182: E2E reset; admission=stopped; cleanup=not-confirmed: inspect cause and close owner before retrying: mariamem busy: live_drain: close all physical SQL connections before reset
+        === RUN   TestHTTPPhysicalBusyPublicChild/later
+            http_runtime_test.go:182: E2E admission; admission=stopped; cleanup=not-confirmed: inspect cause and close owner before retrying: owner stopped
+        BUSY_PUBLIC_NO_BODY_AND_CLOSE_OK
+        --- FAIL: TestHTTPPhysicalBusyPublicChild (0.20s)
+            --- FAIL: TestHTTPPhysicalBusyPublicChild/blocked (0.10s)
+            --- FAIL: TestHTTPPhysicalBusyPublicChild/later (0.00s)
+        FAIL
+    http_runtime_test.go:220: public Case rejected initial busy setup and later admission; confirmed app close
+--- PASS: TestHTTPPhysicalPublicAdmission (0.21s)
+PASS
+ok  	github.com/masahitojp/mariamem/mariamemtest	1.444s

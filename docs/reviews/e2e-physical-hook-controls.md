@@ -35,3 +35,14 @@ Live/compound cleanup and other full hook failure controls where evidence is not
 yet mapped, plus first/second/repeat time/resource and retained-baseline campaigns.
 Main adoption and release remain separate decisions. The installed success is
 not full EP1/EG1 completion.
+
+## Local execution
+
+At clean source_commit `ba96a799b4e1030c14c59e59289a23b603e55bfb` on observed
+macOS27.2 arm64 / Go1.26.10, all three physical controls PASS and the whole helper
+component package PASS. The public-adapter subprocess retains its two deliberate
+subtest failures and parent failure; the outer oracle confirms body=0, no hook
+retry and owner close. Those expected failures are not silently treated as generic
+nonzero success. [Raw output and assessment](e2e-physical-hook-evidence/assessment.json)
+are checksum-bound. Hosted execution of these new controls remains pending;
+installed CI success belongs to the earlier exact source recorded above.
