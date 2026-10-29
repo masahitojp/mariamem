@@ -53,12 +53,11 @@ from pathlib import Path
 fds=[]
 print(json.dumps({'pid':os.getpid()}),flush=True)
 for line in sys.stdin:
-    if line.strip() in ('open','open_sparse'):
+    if line.strip() in ('open','open_tiny'):
         path=Path(sys.argv[1])/'owned-file'
         fd=os.open(path,os.O_CREAT|os.O_EXCL|os.O_RDWR,0o600)
-        if line.strip()=='open_sparse':
-            os.ftruncate(fd,4*1048576)
-            os.write(fd,b'x'*4096)
+        if line.strip()=='open_tiny':
+            os.write(fd,b'x')
         else:
             os.write(fd,b'x'*1048576)
         os.fsync(fd)
@@ -183,7 +182,7 @@ def allocated_reader(tmp_path_factory):
                         for name in ['libproc.h','sys/proc_info.h']})
 
 
-def test_actual_sparse_child_allocation_matches_its_fstat(tmp_path,allocated_reader):
+def test_actual_tiny_child_allocation_matches_its_fstat(tmp_path,allocated_reader):
     helper,build=allocated_reader
     process=subprocess.Popen([sys.executable,'-c',CHILD,str(tmp_path)],stdin=subprocess.PIPE,
                              stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,start_new_session=True)
@@ -196,9 +195,9 @@ def test_actual_sparse_child_allocation_matches_its_fstat(tmp_path,allocated_rea
     try:
         assert response()['pid']==process.pid
         baseline,raw_before=probe.collect_allocated(process.pid,helper)
-        owned=response('open_sparse')
+        owned=response('open_tiny')
         held,raw_held=probe.collect_allocated(process.pid,helper)
-        assert 0 < owned['blocks']*512 < owned['size'], 'fixed sparse control did not distinguish allocation from logical size'
+        assert owned['size']==1 and owned['blocks']*512 > owned['size'], 'fixed tiny control did not distinguish allocation from logical size'
         assert held['fd_count']==baseline['fd_count']+2
         assert held['unlinked_allocated_bytes']==baseline['unlinked_allocated_bytes']+owned['blocks']*512
         matches=[f for f in held['unlinked_files'] if (f['device'],f['inode'])==(owned['device'],owned['inode'])]
