@@ -2,7 +2,7 @@
   "version": 1,
   "scope_status": "APPROVED_G1_P1_WITH_DJANGO_NONBLOCKING",
   "implementation_authorized": true,
-  "source_commit": "cc00ccd98e29a1f5d5088a082be90a3cdaa4f469",
+  "source_commit": "437d74d9d11d8dc2a03dc94bba0d37346131ebff",
   "entries": [
     {
       "id": "P1",
@@ -158,7 +158,7 @@
     "transient_children_per_live": 2
   },
   "wire": {
-    "current_inventory": "docs/reviews/v06x-p1-wire-reconciliation.md",
+    "current_inventory": "docs/reviews/v06x-wire-main-437d74d.md",
     "historical_inventory": "docs/reviews/wire-gap-inventory.md",
     "supported_commands": [
       1,
@@ -209,7 +209,8 @@
       "source_client_pin",
       "oracle"
     ],
-    "source_commit": "2ad041cd8ec9f8c66d49f34200d36b0a07875099"
+    "source_commit": "437d74d9d11d8dc2a03dc94bba0d37346131ebff",
+    "historical_source_commit": "cc00ccd98e29a1f5d5088a082be90a3cdaa4f469"
   },
   "future_runtime_status": "NOT_RUN",
   "authorized_implementation_entries": [

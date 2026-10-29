@@ -978,6 +978,18 @@ The approved first implementation is G1 under the reviewed API, ownership,
 diagnostic profile and resource defaults; no main adoption or release is
 authorized by this decision.
 
+**G1 Human adoption decision:** The Human approved adopting the bounded Go
+prepared-test helper for G1. The reviewed PR head was
+`de860c4fc553907d237ad3a046ca6a6780ce0bb4`; its production helper and G1
+acceptance code match the earlier both-host reviewed candidate `f58eebcdcb9ddb38a08fdbbd4ace8f6717154ab8`.
+The [acceptance review](reviews/v06x-go-fixture-acceptance-review.md) retains
+the controlled-backend and other limits; it does not claim every real engine I/O
+failure. The historical [Live run 40751031818](https://github.com/masahitojp/mariamem/actions/runs/40751031818)
+remains bound to its own executed source, not to this later integration. The
+updated candidate must pass its own protected checks and both-host G1 receipts
+before main integration. This decision does not complete the other dogfood
+entries or approve Qualification or publication.
+
 **G1 implementation checkpoint:** the candidate adds the separate Go
 mariamemtest helper under the approved ownership/defaults and readable-owned
 diagnostic profile. See [usage](go-prepared-fixture.md) and

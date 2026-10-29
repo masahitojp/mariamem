@@ -44,7 +44,12 @@ def test_review_gap_mutations_are_rejected(mutation):
     elif mutation == 'old_wire': plan['wire']['current_inventory'] = plan['wire']['historical_inventory']
     elif mutation == 'wire_commands': plan['wire']['supported_commands'].remove(22)
     elif mutation == 'wire_hash': plan['wire']['source_sha256']['internal/mysqlwire/wire.go'] = '0' * 64
-    elif mutation == 'wire_source_identity': plan['wire']['source_commit'] = plan['source_commit']
+    elif mutation == 'wire_source_identity':
+        # Main may legitimately pin plan and wire to the same current commit.
+        # Mutate to the historical pre-repair source, whose wire bytes differ.
+        historical = plan['wire']['historical_source_commit']
+        assert historical != plan['wire']['source_commit']
+        plan['wire']['source_commit'] = historical
     elif mutation == 'fixture_hash': plan['resources']['retention_input']['sha256'] = '0' * 64
     elif mutation == 'fake_runtime_pass': plan['future_runtime_status'] = 'PASS'
     elif mutation == 'fake_approval': plan['authorized_implementation_entries'].append('D1')

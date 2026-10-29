@@ -235,3 +235,13 @@ required context, framework dependency or product change is introduced.
 Actual execution is pending the next CI; run40811260983 predates this increment
 and is not relabelled. P1 time/resource/retention/guard acceptance and separate
 main adoption/Qualification/release remain unfinished.
+
+### Main refresh after the native-control increment
+
+While the implementation CI was running, G1 PR6 landed on main62d54c29. The
+candidate incorporates that main update. Its active contract now uses main's
+wire inventory/source437d74d and preserves the historical cc00ccd pin; all four
+wire boundary files are byte-identical to the prior 2ad041c comparison. P1's
+separate pre-code approval and G1/P1 authorization remain unchanged. The earlier
+3f8395b CI receipt keeps its original source and is not a receipt for this merge
+or the native-control increment. No G1 adoption decision is reopened.
