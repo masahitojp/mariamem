@@ -1,5 +1,6 @@
 """Actual pytest setup/teardown and worker-local admission with controlled owners."""
 import importlib.util
+import copy
 import os
 from pathlib import Path
 
@@ -310,3 +311,66 @@ def mariamem_prepare():
     assert 'FrozenInstanceError' not in result.stdout
     assert 'next: inspect original error' in result.stdout and 'entry-owned finalizers completed' in result.stdout
     assert events==['start','source.close']
+
+
+def _time_campaign_observations(workers=2):
+    spec=importlib.util.spec_from_file_location('p1_time_oracles',Path(__file__).parent/'fixture_entry_acceptance/time_campaign.py')
+    campaign=importlib.util.module_from_spec(spec);spec.loader.exec_module(campaign)
+    events=[];owners=[]
+    names=['main'] if workers==1 else ['gw0','gw1']
+    for index,worker in enumerate(names):
+        count=16//workers
+        for phase,total in [('start',1),('prepare',1),('disconnect',1),('capture',1),('admission',count),('case',count),('cleanup',count+2)]:
+            events.extend(dict(event='phase',worker=worker,name=phase,seconds=.001,ok=True) for _ in range(total))
+        owners.extend([dict(event='prepared',worker=worker),dict(event='final',worker=worker,host_pid=100+index,closed=True,host_reaped=True,directory_removed=True)])
+        owners.extend(dict(event='close',worker=worker,kind=kind) for kind,n in [('mariamem_fork',count),('mariamem_snapshot',1),('mariamem_server',1)] for _ in range(n))
+    for batch_index,batch in enumerate(campaign.BATCHES):
+        base=1000*(batch_index+1)
+        for case in range(4):
+            worker=names[case%workers]
+            start=base+(case//workers)*100+case%workers
+            end=start+50
+            identity=batch_index*4+case
+            events.extend([dict(event='case_start',worker=worker,at_ns=start,batch=batch,case=case),
+                           dict(event='child_open',worker=worker,at_ns=start+1,child=identity),
+                           dict(event='child_close',worker=worker,at_ns=end-1,child=identity),
+                           dict(event='case_end',worker=worker,at_ns=end,batch=batch,case=case,ok=True),
+                           dict(event='sql_hold_begin',worker=worker,at_ns=start+10,batch=batch,case=case,connections=2),
+                           dict(event='sql_hold_end',worker=worker,at_ns=end-10,batch=batch,case=case,connections=2)])
+    return campaign,events,owners,dict(tests=16,failures=0,errors=0,skipped=0)
+
+
+@pytest.mark.parametrize('workers',[1,2])
+def test_three_time_oracles_keep_worker_phases_and_disjoint_batches(workers):
+    campaign,events,owners,counts=_time_campaign_observations(workers)
+    result=campaign.assess(events,owners,counts,0,16,workers,True)
+    assert [b['label'] for b in result['batches']]==campaign.BATCHES
+    assert result['peak_held_sql_connections']==2*workers
+    assert len(result['phase_seconds_by_worker'])==workers
+
+
+@pytest.mark.parametrize('mutation',['exit','counts','skip','worker','prepare','zero_time','nan_time',
+                                    'cleanup','host_identity','owner_close','prepared_twice','batch_overlap',
+                                    'connections','missing_hold','child_identity','child_overlap','case_census'])
+def test_three_time_checkpoint_cannot_hide_missing_or_failed_evidence(mutation):
+    campaign,events,owners,counts=_time_campaign_observations()
+    code=0
+    if mutation=='exit':code=1
+    elif mutation=='counts':counts['tests']=17
+    elif mutation=='skip':counts['skipped']=1
+    elif mutation=='worker':events[0]['worker']='gw2'
+    elif mutation=='prepare':events=[e for e in events if not (e['event']=='phase' and e['name']=='prepare')]
+    elif mutation in ('zero_time','nan_time'):events[0]['seconds']=0 if mutation=='zero_time' else float('nan')
+    elif mutation=='cleanup':next(e for e in owners if e['event']=='final')['host_reaped']=False
+    elif mutation=='host_identity':
+        for e in owners:
+            if e['event']=='final':e['host_pid']=100
+    elif mutation=='owner_close':owners.remove(next(e for e in owners if e['event']=='close'))
+    elif mutation=='prepared_twice':owners.append(copy.deepcopy(next(e for e in owners if e['event']=='prepared')))
+    elif mutation=='batch_overlap':next(e for e in events if e['event']=='case_start' and e['batch']=='observed_1')['at_ns']=1
+    elif mutation=='connections':next(e for e in events if e['event']=='sql_hold_begin')['connections']=1
+    elif mutation=='missing_hold':events.remove(next(e for e in events if e['event']=='sql_hold_end'))
+    elif mutation=='child_identity':next(e for e in events if e['event']=='child_open' and e['child']==2)['child']=0
+    elif mutation=='child_overlap':next(e for e in events if e['event']=='child_open' and e['child']==2)['at_ns']=1002
+    else:next(e for e in events if e['event']=='case_start')['case']=7
+    with pytest.raises(ValueError):campaign.assess(events,owners,counts,code,16,2,True)

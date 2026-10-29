@@ -5,19 +5,19 @@
   "outer_command": "P1_INSTALLED_CONSUMER=1 P1_NATIVE_REFERENCE=<same-source-native> MARIAMEM_TEST_HOST=<exact-host> python -m pytest tests/test_p1_runtime.py -k three_time_campaign -q -s",
   "first_test_setup": {
     "files": ["application.py", "conftest.py", "pytest.ini", "test_first.py"],
-    "command": "python -m pytest -p mariamem.pytest_plugin -p xdist.plugin test_first.py -q --junitxml=results.xml",
+    "command": "python -m pytest -p mariamem.pytest_plugin -p xdist.plugin test_first.py -q --tb=short --junitxml=results.xml",
     "cases": 1,
     "workers": 1
   },
   "second_test_edits": {
     "added_files": ["test_second.py"],
-    "command": "python -m pytest -p mariamem.pytest_plugin -p xdist.plugin test_first.py test_second.py -q --junitxml=results.xml",
+    "command": "python -m pytest -p mariamem.pytest_plugin -p xdist.plugin test_first.py test_second.py -q --tb=short --junitxml=results.xml",
     "cases": 2,
     "workers": 1,
     "repeated_lifecycle_lines": 0
   },
   "repeated_batch": {
-    "command": "python -m pytest -p mariamem.pytest_plugin -p xdist.plugin test_repeat.py -q --junitxml=results.xml [ -n 2 --dist=loadgroup ]",
+    "command": "python -m pytest -p mariamem.pytest_plugin -p xdist.plugin test_repeat.py -q --tb=short --junitxml=results.xml [ -n 2 --dist=loadgroup ]",
     "workers": [1, 2],
     "cases_per_batch": 4,
     "labels": ["warmup", "observed_1", "observed_2", "observed_3"],

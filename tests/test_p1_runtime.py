@@ -98,16 +98,13 @@ def test_batch(n,mariamem_app_db):
 '''
 
 
-@pytest.mark.parametrize('method,workers,reverse,ordinary_failure', [
-    ('command',1,False,False), ('callback',1,True,False),
-    ('command',2,False,False), ('command',1,False,True),
-])
-def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failure):
+def preflight_consumer():
     sys.path.insert(0,str(ROOT/'scripts'))
     from git_identity import verify_go_binary
     source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     host_info=verify_go_binary(ROOT,Path(HOST).absolute(),source)
     installed=os.environ.get('P1_INSTALLED_CONSUMER')=='1'
+    bundled_host=None
     if installed:
         reference_path = os.environ.get('P1_NATIVE_REFERENCE')
         assert reference_path, 'installed P1 acceptance requires a fresh source-bound native reference'
@@ -127,6 +124,15 @@ def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failur
         bundled_host=package/'_native/mariamem-host'
         verify_go_binary(ROOT,bundled_host,source)
         assert hashlib.sha256(bundled_host.read_bytes()).digest()==hashlib.sha256(Path(HOST).read_bytes()).digest()
+    return source,installed,bundled_host
+
+
+@pytest.mark.parametrize('method,workers,reverse,ordinary_failure', [
+    ('command',1,False,False), ('callback',1,True,False),
+    ('command',2,False,False), ('command',1,False,True),
+])
+def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failure):
+    source,installed,bundled_host=preflight_consumer()
     project=tmp_path/'consumer';project.mkdir()
     events=project/'events.jsonl'
     # Reuse the authored app and migrations. Only fix its test pool budget.
@@ -193,3 +199,12 @@ def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failur
             'tests/preparation_migration_acceptance/migrations/versions/m1_initial.py',
             'tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py']},
         'packages':{p:importlib.metadata.version(p) for p in ['pytest','pytest-xdist','SQLAlchemy','PyMySQL','Alembic']}}))
+
+
+def test_three_time_campaign(tmp_path):
+    source,installed,_=preflight_consumer()
+    spec=importlib.util.spec_from_file_location('p1_time_campaign',ROOT/'tests/fixture_entry_acceptance/time_campaign.py')
+    campaign=importlib.util.module_from_spec(spec);spec.loader.exec_module(campaign)
+    result=campaign.run(ROOT,tmp_path/'time-campaign',HOST,source,installed,CONF,CASES)
+    print(json.dumps(dict(result=result['result'],source_commit=source,
+                         evidence=str(tmp_path/'time-campaign/result.json'),installed_wheel=installed)))
