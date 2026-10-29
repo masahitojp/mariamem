@@ -3,12 +3,15 @@ package mariamem
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/masahitojp/mariamem/internal/prepared"
 	"os"
+	"path/filepath"
 	"strings"
 	"sync"
+	"syscall"
 	"testing"
 	"time"
 
@@ -17,6 +20,140 @@ import (
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
+
+// The ownership contract is tested with a controlled backend and real unlinked
+// backing, not a claim to reproduce every generated-engine I/O failure.
+func physicalBacking(t *testing.T) (*stored.Owned, int) {
+	t.Helper()
+	root := t.TempDir()
+	if err := os.Mkdir(filepath.Join(root, "data"), 0700); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(root, "data", "seed"), []byte("seed"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	entries, err := stored.Inventory(filepath.Join(root, "data"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	manifest := stored.Manifest{Format: "mariamem-cold-snapshot", Version: 1, WASM: "test-build", Storage: "memory", Entries: entries}
+	data, err := json.Marshal(manifest)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(filepath.Join(root, "manifest.json"), data, 0600); err != nil {
+		t.Fatal(err)
+	}
+	owned, err := stored.AdoptCreated(root, "test-build")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = owned.Close() })
+	views, release, err := owned.Acquire("test-build")
+	if err != nil {
+		t.Fatal(err)
+	}
+	fd := -1
+	for _, v := range views {
+		if !v.Directory {
+			fd = v.FD
+		}
+	}
+	release()
+	if fd < 0 {
+		t.Fatal("missing physical backing descriptor")
+	}
+	return owned, fd
+}
+
+func TestSnapshotPhysicalOwnership(t *testing.T) {
+	for _, kind := range []string{"preserved", "consumed", "success", "backing-close-error", "invalid", "source-close-error"} {
+		t.Run(kind, func(t *testing.T) {
+			f := &fakeBackend{}
+			db := testDB(t, f)
+			temp := db.temporary
+			owned, fd := physicalBacking(t)
+			original := errors.New("injected capture failure")
+			consumed := kind == "consumed" || kind == "success" || kind == "backing-close-error"
+			if kind == "invalid" {
+				f.failure = original
+			}
+			if kind == "source-close-error" {
+				f.closeErr = syscall.EIO
+			}
+			f.snapshot = func(context.Context, bool) (*stored.Owned, bool, error) {
+				if consumed {
+					_ = f.Close(context.Background())
+				}
+				if kind == "backing-close-error" {
+					if err := syscall.Close(fd); err != nil {
+						t.Fatal(err)
+					}
+				}
+				if kind == "success" {
+					return owned, true, nil
+				}
+				return owned, consumed, original
+			}
+			snap, err := db.Snapshot(context.Background(), SnapshotOptions{})
+			if kind == "success" {
+				if err != nil || snap == nil {
+					t.Fatal(err)
+				}
+				var st syscall.Stat_t
+				if err = syscall.Fstat(fd, &st); err != nil {
+					t.Fatal("baseline released before its owner", err)
+				}
+				if err = snap.Close(); err != nil {
+					t.Fatal(err)
+				}
+				if err = snap.Close(); err != nil {
+					t.Fatal(err)
+				}
+			} else {
+				if snap != nil || !errors.Is(err, original) {
+					t.Fatal("capture cause/admission", err)
+				}
+				if kind == "backing-close-error" && !errors.Is(err, syscall.EBADF) {
+					t.Fatal("backing cleanup cause lost", err)
+				}
+				if kind == "invalid" {
+					if !db.Closed() {
+						t.Fatal("invalid source must report unusable")
+					}
+					if _, e := os.Stat(temp); e != nil {
+						t.Fatal("invalid source was already disposed", e)
+					}
+					_ = owned.Close() // Capture was never entered; this is the test's unused backing.
+				} else if db.Closed() != consumed {
+					t.Fatal("wrong consumed state")
+				}
+			}
+			var st syscall.Stat_t
+			if e := syscall.Fstat(fd, &st); e != syscall.EBADF {
+				t.Errorf("partial backing descriptor retained: %v", e)
+			}
+			if !consumed && f.closes != 0 {
+				t.Fatal("preserved source torn down before helper cleanup")
+			}
+			closeErr := db.Close()
+			if kind == "source-close-error" {
+				if !errors.Is(closeErr, syscall.EIO) {
+					t.Fatal("source cleanup cause lost", closeErr)
+				}
+			} else if closeErr != nil {
+				t.Fatal(closeErr)
+			}
+			_ = db.Close()
+			if f.closes != 1 {
+				t.Errorf("backend teardown repeated or missing: %d", f.closes)
+			}
+			if _, e := os.Stat(temp); !os.IsNotExist(e) {
+				t.Errorf("source temporary directory retained: %v", e)
+			}
+		})
+	}
+}
 
 type fakeBackend struct {
 	closes   int

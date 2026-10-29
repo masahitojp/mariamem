@@ -1,0 +1,21 @@
+{
+  "result": "UNVERIFIED",
+  "returncode": 1,
+  "elapsed_seconds": 0.15007537498604506,
+  "requested_interval_seconds": 0.1,
+  "rss_mechanism": "sampled process-tree ps RSS sum",
+  "samples": [
+    {
+      "at_seconds": 0.04835733299842104,
+      "unix_ns": 1793203617603956000,
+      "process_tree_rss_bytes": 6356992,
+      "members": {
+        "9935": 6356992
+      },
+      "available_memory_bytes": 5194203136,
+      "available_memory_mechanism": "macOS estimate: (free+inactive+speculative) pages; not physical footprint"
+    }
+  ],
+  "counter_errors": [],
+  "stop_reason": null
+}

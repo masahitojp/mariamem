@@ -1,0 +1,458 @@
+{
+  "result": "BOTH_HOST_RESOURCE_TIME_CAMPAIGN_PASS",
+  "run_id": 40730646806,
+  "run_attempt": 2,
+  "pr_head_commit": "e8c0380852c273af5b4e5e18dde4ef22dd265904",
+  "source_commit": "b59452738265b2237875e026d5c6063d01a1c8b8",
+  "object_type": "commit",
+  "tree_sha": "a7af7dfec191bec5badbed7abb259c745f9be45e",
+  "required_gate_job_id": 123000356113,
+  "required_gate_result": "success",
+  "host_receipts": [
+    {
+      "host": "macos-15",
+      "profile": {
+        "system": "Darwin",
+        "architecture": "arm64",
+        "version": "15.7.9"
+      },
+      "execution_attempt": 2,
+      "execution_job_id": 122991219282,
+      "artifact_id": 12837603561,
+      "artifact_zip_sha256": "e63f3883f89f51ca765c01acf951df2f98845a631c5875d87b83d09d26647491",
+      "result": "PASS",
+      "guard_probe": "PRE_ADMISSION_FD_STOP_CONFIRMED",
+      "modes": [
+        {
+          "cap": 1,
+          "parallel": 1,
+          "result": "PASS",
+          "retention": [
+            {
+              "baselines": 1,
+              "fd": 4,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 80150528,
+              "available_memory_bytes": 3200303104
+            },
+            {
+              "baselines": 2,
+              "fd": 4,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 80216064,
+              "available_memory_bytes": 3244261376
+            },
+            {
+              "baselines": 3,
+              "fd": 4,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 87588864,
+              "available_memory_bytes": 3236839424
+            }
+          ],
+          "fd_baseline_peak_final": [
+            4,
+            13,
+            4
+          ],
+          "sampled_rss_peak_bytes": 158777344,
+          "available_memory_min_bytes": 3150102528,
+          "peak_child_owners": 1,
+          "peak_physical_pool_connections": 2,
+          "cleanup_complete": true
+        },
+        {
+          "cap": 1,
+          "parallel": 4,
+          "result": "PASS",
+          "retention": [
+            {
+              "baselines": 1,
+              "fd": 4,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 84393984,
+              "available_memory_bytes": 3212623872
+            },
+            {
+              "baselines": 2,
+              "fd": 4,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 84459520,
+              "available_memory_bytes": 3231940608
+            },
+            {
+              "baselines": 3,
+              "fd": 4,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 87556096,
+              "available_memory_bytes": 3201744896
+            }
+          ],
+          "fd_baseline_peak_final": [
+            4,
+            13,
+            4
+          ],
+          "sampled_rss_peak_bytes": 163741696,
+          "available_memory_min_bytes": 3150020608,
+          "peak_child_owners": 1,
+          "peak_physical_pool_connections": 2,
+          "cleanup_complete": true
+        },
+        {
+          "cap": 2,
+          "parallel": 1,
+          "result": "PASS",
+          "retention": [
+            {
+              "baselines": 1,
+              "fd": 4,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 84262912,
+              "available_memory_bytes": 3199778816
+            },
+            {
+              "baselines": 2,
+              "fd": 4,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 84377600,
+              "available_memory_bytes": 3200319488
+            },
+            {
+              "baselines": 3,
+              "fd": 4,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 87212032,
+              "available_memory_bytes": 3214868480
+            }
+          ],
+          "fd_baseline_peak_final": [
+            4,
+            13,
+            4
+          ],
+          "sampled_rss_peak_bytes": 164265984,
+          "available_memory_min_bytes": 3146317824,
+          "peak_child_owners": 1,
+          "peak_physical_pool_connections": 2,
+          "cleanup_complete": true
+        },
+        {
+          "cap": 2,
+          "parallel": 4,
+          "result": "PASS",
+          "retention": [
+            {
+              "baselines": 1,
+              "fd": 4,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 96010240,
+              "available_memory_bytes": 3238526976
+            },
+            {
+              "baselines": 2,
+              "fd": 4,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 96108544,
+              "available_memory_bytes": 3261497344
+            },
+            {
+              "baselines": 3,
+              "fd": 4,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 175538176,
+              "available_memory_bytes": 3233185792
+            }
+          ],
+          "fd_baseline_peak_final": [
+            4,
+            22,
+            4
+          ],
+          "sampled_rss_peak_bytes": 254935040,
+          "available_memory_min_bytes": 3130621952,
+          "peak_child_owners": 2,
+          "peak_physical_pool_connections": 4,
+          "cleanup_complete": true
+        }
+      ],
+      "three_time_outcomes": {
+        "first_test_setup": {
+          "elapsed_seconds": 3.1906017919999954,
+          "authored_lines": 36,
+          "steps": [
+            "copy first test + TestMain preparation",
+            "go test"
+          ],
+          "command_display": [
+            "go",
+            "test",
+            "first_test.go",
+            "-count=1",
+            "-timeout=3m"
+          ]
+        },
+        "second_test_edits": {
+          "elapsed_seconds": 1.6868176659999676,
+          "added_lines": 13,
+          "repeated_lifecycle_lines": 0,
+          "steps": [
+            "add second test using fixture.DB(t)",
+            "go test both tests"
+          ],
+          "command_display": [
+            "go",
+            "test",
+            "first_test.go",
+            "second_test.go",
+            "-count=1",
+            "-timeout=3m"
+          ]
+        },
+        "repeat_batch_elapsed": "per-mode warmup plus three observed batches",
+        "human_authoring_minutes": null,
+        "acquisition_state": "unmeasured; existing Go toolchain/module cache"
+      }
+    },
+    {
+      "host": "ubuntu-24.04",
+      "profile": {
+        "system": "Linux",
+        "architecture": "x86_64",
+        "version": "24.04"
+      },
+      "execution_attempt": 1,
+      "execution_job_id": 122967361491,
+      "artifact_id": 12836002279,
+      "artifact_zip_sha256": "ce7397325a055135b3710df4461a3a5e25f56a2ca1ba86b4a5d3f525ad31bb48",
+      "result": "PASS",
+      "guard_probe": "PRE_ADMISSION_FD_STOP_CONFIRMED",
+      "modes": [
+        {
+          "cap": 1,
+          "parallel": 1,
+          "result": "PASS",
+          "retention": [
+            {
+              "baselines": 1,
+              "fd": 6,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 102952960,
+              "available_memory_bytes": 15202455552
+            },
+            {
+              "baselines": 2,
+              "fd": 6,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 99459072,
+              "available_memory_bytes": 15213068288
+            },
+            {
+              "baselines": 3,
+              "fd": 6,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 110247936,
+              "available_memory_bytes": 15249526784
+            }
+          ],
+          "fd_baseline_peak_final": [
+            6,
+            15,
+            6
+          ],
+          "sampled_rss_peak_bytes": 196050944,
+          "available_memory_min_bytes": 15092604928,
+          "peak_child_owners": 1,
+          "peak_physical_pool_connections": 2,
+          "cleanup_complete": true
+        },
+        {
+          "cap": 1,
+          "parallel": 4,
+          "result": "PASS",
+          "retention": [
+            {
+              "baselines": 1,
+              "fd": 6,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 92393472,
+              "available_memory_bytes": 15293665280
+            },
+            {
+              "baselines": 2,
+              "fd": 6,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 100016128,
+              "available_memory_bytes": 15323299840
+            },
+            {
+              "baselines": 3,
+              "fd": 6,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 109162496,
+              "available_memory_bytes": 15327612928
+            }
+          ],
+          "fd_baseline_peak_final": [
+            6,
+            15,
+            6
+          ],
+          "sampled_rss_peak_bytes": 202838016,
+          "available_memory_min_bytes": 15235911680,
+          "peak_child_owners": 1,
+          "peak_physical_pool_connections": 2,
+          "cleanup_complete": true
+        },
+        {
+          "cap": 2,
+          "parallel": 1,
+          "result": "PASS",
+          "retention": [
+            {
+              "baselines": 1,
+              "fd": 6,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 93736960,
+              "available_memory_bytes": 15327195136
+            },
+            {
+              "baselines": 2,
+              "fd": 6,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 96845824,
+              "available_memory_bytes": 15361683456
+            },
+            {
+              "baselines": 3,
+              "fd": 6,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 109842432,
+              "available_memory_bytes": 15447556096
+            }
+          ],
+          "fd_baseline_peak_final": [
+            6,
+            15,
+            6
+          ],
+          "sampled_rss_peak_bytes": 196943872,
+          "available_memory_min_bytes": 15255994368,
+          "peak_child_owners": 1,
+          "peak_physical_pool_connections": 2,
+          "cleanup_complete": true
+        },
+        {
+          "cap": 2,
+          "parallel": 4,
+          "result": "PASS",
+          "retention": [
+            {
+              "baselines": 1,
+              "fd": 6,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 116277248,
+              "available_memory_bytes": 15204749312
+            },
+            {
+              "baselines": 2,
+              "fd": 6,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 98852864,
+              "available_memory_bytes": 15204753408
+            },
+            {
+              "baselines": 3,
+              "fd": 6,
+              "physical_pool_connections": 0,
+              "temp_bytes": 0,
+              "rss_bytes": 109162496,
+              "available_memory_bytes": 15286546432
+            }
+          ],
+          "fd_baseline_peak_final": [
+            6,
+            24,
+            6
+          ],
+          "sampled_rss_peak_bytes": 306343936,
+          "available_memory_min_bytes": 15090647040,
+          "peak_child_owners": 2,
+          "peak_physical_pool_connections": 4,
+          "cleanup_complete": true
+        }
+      ],
+      "three_time_outcomes": {
+        "first_test_setup": {
+          "elapsed_seconds": 0.8689073680000092,
+          "authored_lines": 36,
+          "steps": [
+            "copy first test + TestMain preparation",
+            "go test"
+          ],
+          "command_display": [
+            "go",
+            "test",
+            "first_test.go",
+            "-count=1",
+            "-timeout=3m"
+          ]
+        },
+        "second_test_edits": {
+          "elapsed_seconds": 0.8664902559999064,
+          "added_lines": 13,
+          "repeated_lifecycle_lines": 0,
+          "steps": [
+            "add second test using fixture.DB(t)",
+            "go test both tests"
+          ],
+          "command_display": [
+            "go",
+            "test",
+            "first_test.go",
+            "second_test.go",
+            "-count=1",
+            "-timeout=3m"
+          ]
+        },
+        "repeat_batch_elapsed": "per-mode warmup plus three observed batches",
+        "human_authoring_minutes": null,
+        "acquisition_state": "unmeasured; existing Go toolchain/module cache"
+      }
+    }
+  ],
+  "remaining_g1": [
+    "actual backing/disposal fault controls",
+    "installed consumer that exercises mariamemtest"
+  ],
+  "excluded": [
+    "G1 complete",
+    "main adoption",
+    "Qualification",
+    "release"
+  ],
+  "summary_note": "Derived summary displays command basenames; original command paths and receipt checksums are preserved unchanged inside the original ZIPs."
+}
