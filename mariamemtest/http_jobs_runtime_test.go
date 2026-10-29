@@ -15,25 +15,22 @@ import (
 // An explicitly registered, cooperative job fixture. The entry cannot discover
 // unregistered future jobs; the fixture hook supplies that application boundary.
 type httpJobApp struct {
-	mu                                  sync.Mutex
-	pool                                *sql.DB
-	work                                context.Context
-	cancel                              context.CancelFunc
-	release, started, done, pausedEvent chan struct{}
-	releaseOnce, pauseOnce              sync.Once
-	paused, active, stopped, skipJoin   bool
-	jobErr                              error
-	events                              []string
+	mu                                      sync.Mutex
+	pool                                    *sql.DB
+	work                                    context.Context
+	cancel                                  context.CancelFunc
+	release, done, pausedEvent, stopRequest chan struct{}
+	started                                 chan error
+	releaseOnce, pauseOnce, stopOnce        sync.Once
+	paused, active, stopped, skipJoin       bool
+	jobErr                                  error
+	events                                  []string
 }
 
 func (a *httpJobApp) BaseURL() string  { return "http://127.0.0.1:1" }
 func (a *httpJobApp) Identity() string { return "registered-job-owner" }
 func (a *httpJobApp) releaseJob()      { a.releaseOnce.Do(func() { close(a.release) }) }
-func (a *httpJobApp) record(event string) {
-	a.mu.Lock()
-	defer a.mu.Unlock()
-	a.events = append(a.events, event)
-}
+
 func (a *httpJobApp) canAdmitWork() bool {
 	a.mu.Lock()
 	defer a.mu.Unlock()
@@ -52,16 +49,21 @@ func (a *httpJobApp) runJob() {
 	tx, e := a.pool.BeginTx(a.work, nil)
 	if e != nil {
 		err = e
-		close(a.started)
+		a.started <- err
 		return
 	}
 	defer tx.Rollback()
 	_, err = tx.ExecContext(a.work, "INSERT INTO e2e_job_guard VALUES(2)")
-	close(a.started)
+	a.started <- err
 	if err != nil {
 		return
 	}
 	select {
+	case <-a.stopRequest:
+		err = tx.Rollback()
+		if errors.Is(err, sql.ErrTxDone) {
+			err = nil
+		}
 	case <-a.release:
 		err = tx.Commit()
 	case <-a.work.Done():
@@ -111,13 +113,14 @@ func (a *httpJobApp) StopReap(ctx context.Context) error {
 	a.stopped = true
 	a.paused = true
 	a.mu.Unlock()
-	a.cancel()
-	a.releaseJob()
+	a.stopOnce.Do(func() { close(a.stopRequest) })
 	select {
 	case <-a.done:
 	case <-ctx.Done():
+		a.cancel()
 		return ctx.Err()
 	}
+	a.cancel()
 	a.mu.Lock()
 	p := a.pool
 	a.pool = nil
@@ -153,7 +156,7 @@ func httpRegisteredFixture(t *testing.T, skip bool) (*HTTPFixture, *httpJobApp, 
 		t.Skip("set E2E_OWNED_RUNTIME=1")
 	}
 	work, cancel := context.WithCancel(context.Background())
-	a := &httpJobApp{work: work, cancel: cancel, release: make(chan struct{}), started: make(chan struct{}), done: make(chan struct{}), pausedEvent: make(chan struct{}), skipJoin: skip}
+	a := &httpJobApp{work: work, cancel: cancel, release: make(chan struct{}), started: make(chan error, 1), done: make(chan struct{}), pausedEvent: make(chan struct{}), stopRequest: make(chan struct{}), skipJoin: skip}
 	// Even construction failure before registration must release this fixture's context.
 	t.Cleanup(cancel)
 	cfg := HTTPConfig{DrainTimeout: 100 * time.Millisecond,
@@ -186,13 +189,10 @@ func httpRegisteredFixture(t *testing.T, skip bool) (*HTTPFixture, *httpJobApp, 
 			a.mu.Unlock()
 			go a.runJob()
 			select {
-			case <-a.started:
+			case err = <-a.started:
 			case <-ctx.Done():
 				return nil, ctx.Err()
 			}
-			a.mu.Lock()
-			err = a.jobErr
-			a.mu.Unlock()
 			return a, err
 		},
 		Resume: func(ctx context.Context, app HTTPApp) error { return app.(*httpJobApp).resume(ctx) },
@@ -328,8 +328,7 @@ func TestHTTPPhysicalUnjoinedJobRejectedByDrain(t *testing.T) {
 		}
 	}
 	a.mu.Unlock()
-	a.releaseJob()
-	// Ownership is still registered; StopReap cancels/joins and then retires pool.
+	// Ownership is still registered; StopReap requests rollback/joins and then retires pool.
 	if err := f.close(); err != nil {
 		t.Fatal(err)
 	}
