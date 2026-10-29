@@ -216,5 +216,6 @@ func TestHTTPPhysicalPublicAdmission(t *testing.T) {
 	if !strings.Contains(text, "E2E reset; admission=stopped") || !strings.Contains(text, "E2E admission; admission=stopped") {
 		t.Fatal("missing setup/latch diagnostic", text)
 	}
+	t.Logf("intentional child failures, original output retained:\n%s", text)
 	t.Log("public Case rejected initial busy setup and later admission; confirmed app close")
 }

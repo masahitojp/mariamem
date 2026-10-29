@@ -1,0 +1,66 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/40854876547/attempts/2",
+  "attempt": 2,
+  "pr_head": "440622865ed7bb4300b891f735a88a3577fc3892",
+  "actual_ci_source_commit": "2d10efffd7b419dd2e42f9e9f1cd588d31e508d0",
+  "attempt1": "cancelled by account operator; no runtime acceptance inferred",
+  "cells": [
+    {
+      "host": "ubuntu-24.04",
+      "python": "3.11",
+      "result": "PASS",
+      "artifact_id": 12892250402,
+      "artifact_sha256": "ac7da0ba3f30af6b2154ea644eb41fcdbf2120c35db6bc7a5963690bd99a8cd1",
+      "browser_cases": 2,
+      "go_cases": [
+        "TestOwnedOrders",
+        "TestOwnedOrders/first",
+        "TestOwnedOrders/second"
+      ],
+      "temporary_cleanup": "complete"
+    },
+    {
+      "host": "ubuntu-24.04",
+      "python": "3.14",
+      "result": "PASS",
+      "artifact_id": 12892250402,
+      "artifact_sha256": "ac7da0ba3f30af6b2154ea644eb41fcdbf2120c35db6bc7a5963690bd99a8cd1",
+      "browser_cases": 2,
+      "go_cases": [
+        "TestOwnedOrders",
+        "TestOwnedOrders/first",
+        "TestOwnedOrders/second"
+      ],
+      "temporary_cleanup": "complete"
+    },
+    {
+      "host": "macos-15",
+      "python": "3.11",
+      "result": "PASS",
+      "artifact_id": 12892817524,
+      "artifact_sha256": "d064d8058776d6863c1e553ec5c003ceb867eb63a70082b63f20752ca2f4d293",
+      "browser_cases": 2,
+      "go_cases": [
+        "TestOwnedOrders",
+        "TestOwnedOrders/first",
+        "TestOwnedOrders/second"
+      ],
+      "temporary_cleanup": "complete"
+    },
+    {
+      "host": "macos-15",
+      "python": "3.14",
+      "result": "PASS",
+      "artifact_id": 12892817524,
+      "artifact_sha256": "d064d8058776d6863c1e553ec5c003ceb867eb63a70082b63f20752ca2f4d293",
+      "browser_cases": 2,
+      "go_cases": [
+        "TestOwnedOrders",
+        "TestOwnedOrders/first",
+        "TestOwnedOrders/second"
+      ],
+      "temporary_cleanup": "complete"
+    }
+  ],
+  "artifact_sha256_verified": true
+}
