@@ -307,3 +307,11 @@ Unreleased main supports stable Live endpoints across sequential browser E2E
 cases. Use independent Forks for concurrent cases; Live does not promise a
 parallel shared mutable endpoint. See the [Live guide](live.md) for connection
 draining and reset ownership.
+
+## Owned E2E entry candidate
+
+The source-build [owned E2E examples](examples/e2e_owned/README.md) demonstrate
+application-specific preparation/start/quiescence/stop hooks over Live. This
+entry is an implementation candidate pending #18 acceptance and main adoption;
+it is not part of a published release. Existing direct Live APIs remain the
+mechanism underneath the entry.

@@ -172,6 +172,19 @@ jobs:
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-orders ./tests/e2e_native_control/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-live-orders ./tests/live_acceptance/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-owner ./tests/live_acceptance/go_owner
+      - name: Owned E2E entry component and actual application checks
+        shell: bash
+        env:
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
+        run: |
+          go test -race -p 1 ./mariamemtest -count=1 > build/live-evidence/owned-go-unit.txt 2>&1
+          E2E_OWNED_RUNTIME=1 E2E_GO_APP="$PWD/build/go-live-orders" go test -p 1 ./docs/examples/e2e_owned/go -count=1 -v > build/live-evidence/owned-go-runtime.txt 2>&1
+          for py in "$PY311" "$PY314"; do
+            version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+            PYTHONPATH="$PWD/python" "$py" -m unittest discover -s tests -p test_e2e_entry.py -v > "build/live-evidence/owned-py$version-unit.txt" 2>&1
+            PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_orders.py -q -s > "build/live-evidence/owned-py$version-runtime.txt" 2>&1
+          done
       - name: Public Go/Python browser Live, Fork control and actual defects
         shell: bash
         env:

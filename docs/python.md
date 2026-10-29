@@ -342,3 +342,11 @@ fixed consumer checks; retain FAIL for the affected local run. Do not add ssl
 aliases, patch the connector or change drivers to label that run PASS. The
 current OpenSSL3 CI environment does not cover this OpenSSL4 combination. See
 [local verification](development.md#local-verification).
+
+## Owned E2E entry candidate
+
+The source-build [owned E2E examples](examples/e2e_owned/README.md) demonstrate
+application-specific preparation/start/quiescence/stop hooks over Live. This
+entry is an implementation candidate pending #18 acceptance and main adoption;
+it is not part of a published release. Existing direct Live APIs remain the
+mechanism underneath the entry.
