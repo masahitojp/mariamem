@@ -1,0 +1,28 @@
+{
+  "baseline_matrix": {
+    "cases": 28,
+    "differences": 19
+  },
+  "diagnostic_matrix": {
+    "cases": 28,
+    "differences": 0
+  },
+  "regression_before": "3 failed, 8 deselected",
+  "regression_spike": "3 passed, 8 deselected",
+  "canonical_full_suite": "NOT_RUN",
+  "ubuntu": "NOT_RUN",
+  "production_fix": "NOT_APPLIED",
+  "github_comment": "NOT_POSTED",
+  "cleanup": {
+    "owned_temp_bytes_removed": 301105152,
+    "go_build_cache": "cleaned after checking no active Go compiler/linker/host",
+    "owned_workspace_cleanup_debt": [],
+    "remaining_over_1gib": [
+      {
+        "path": ".",
+        "size_kib": 1099392,
+        "reason": "Repository aggregate: tracked product/generated source, Git history and pre-existing compact evidence; outside disposable experiment state"
+      }
+    ]
+  }
+}

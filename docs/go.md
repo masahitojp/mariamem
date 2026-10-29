@@ -6,7 +6,7 @@ reuse. Public save/load APIs are removed. See
 [installation](../README.md#installation) for supported platforms.
 The public package is `github.com/masahitojp/mariamem`.
 
-For the unreleased Go prepared-test helper candidate, see
+For the unreleased Go prepared-test helper, see
 [prepared Go fixtures](go-prepared-fixture.md). The v0.5.3 examples below retain
 explicit lifecycle ownership.
 
@@ -277,8 +277,10 @@ The DSN enables driver-side parameter interpolation for ordinary queries.
 Go explicit Prepare uses real prepared execution in current source builds;
 interpolation is not required as a substitute for it.
 
-Ordinary SQL errors leave the DB usable. Host query timeout, client cancellation
-or disconnect during active SQL invalidates the DB. Close it and start/fork
+Ordinary SQL errors leave the DB usable. In current source builds, a fatal guest
+worker trap invalidates the DB promptly and retains its cause, without waiting
+for the query timeout. Host query timeout, client cancellation or disconnect
+during active SQL also invalidates the DB. Close it and start/fork
 another rather than retrying against it. `db.Err()` matches `ErrUnusable` and
 retains the cause; a host deadline also matches `context.DeadlineExceeded`.
 `db.Closed()` becomes true. Forced reclamation of hung execution is not guaranteed.

@@ -1,0 +1,91 @@
+{
+  "runtime_source_commit": "f3ccbb3b0d14784f562a909941a5ec75676dd198",
+  "local_platform": "darwin-arm64",
+  "local_native_matrix": {
+    "cases": 28,
+    "matches": 28,
+    "following_sql": true,
+    "ctas_insert_materialized_results": true
+  },
+  "canonical_development_check": {
+    "result": "PASS",
+    "python_pass": 1150,
+    "python_skip": 51,
+    "subtests": 76,
+    "scope": "Development tree at e76423d, with final nonshared/no-pool guard subsequently verified by focused tests and the full f3ccbb3 integration. Not relabelled as an exact final-tree CI check."
+  },
+  "final_integration": {
+    "source_commit": "f3ccbb3b0d14784f562a909941a5ec75676dd198",
+    "exit_code": 0,
+    "python": "3.14.8",
+    "openssl": "3.5.9",
+    "python_runtime_tests_pass": 36,
+    "snapshot_checks_pass": 33,
+    "prepared_matching": "PASS",
+    "existing_python_functional_exceptions": "FAIL retained / ACCEPTED_BOUNDED_EXCEPTIONS",
+    "routing_controls_and_mutations": "PASS"
+  },
+  "ubuntu": "PENDING Development CI",
+  "ci_result_at_collection": "NOT_RUN",
+  "adoption": "NOT_APPROVED",
+  "release": "NOT_REQUESTED",
+  "scrubbing": "Only authoring checkout/user-home prefixes; SQL, oracle values, versions and client hashes are unchanged.",
+  "files": {
+    "native.json": {
+      "original_sha256": "f18a5f4fc5898bb8dc7620f8e7a0025f9150ee028f4e92560df1cecb9cf29bca",
+      "stored_sha256": "f18a5f4fc5898bb8dc7620f8e7a0025f9150ee028f4e92560df1cecb9cf29bca"
+    },
+    "guest.json": {
+      "original_sha256": "9e6000afb0e3a9b0bafdfa8cd4f943cec334888f4bf8cf9aca2d0b4b2b78a4fc",
+      "stored_sha256": "9e6000afb0e3a9b0bafdfa8cd4f943cec334888f4bf8cf9aca2d0b4b2b78a4fc"
+    },
+    "runtime-identity.json": {
+      "original_sha256": "2c63d6046042577331e21410dc4744c9b0f17609355f5a9b7a222fd2766db797",
+      "stored_sha256": "2c63d6046042577331e21410dc4744c9b0f17609355f5a9b7a222fd2766db797"
+    },
+    "driver-reproduction.json": {
+      "original_sha256": "3b9af689024724390ca3d7c878b1d19f8dcffa05a98d21ab9ea3aa3350ae4572",
+      "stored_sha256": "3b9af689024724390ca3d7c878b1d19f8dcffa05a98d21ab9ea3aa3350ae4572"
+    },
+    "remaining-stubs.json": {
+      "original_sha256": "746a3ada46047fc714c3381930ed6fa5d3332d43ce426905467624202e34b794",
+      "stored_sha256": "746a3ada46047fc714c3381930ed6fa5d3332d43ce426905467624202e34b794"
+    },
+    "environment314.json": {
+      "original_sha256": "8fdb9f476c13ed54bccc87d244b3c921f51241fc6d83683e1f9136f53b0b02fa",
+      "stored_sha256": "8fdb9f476c13ed54bccc87d244b3c921f51241fc6d83683e1f9136f53b0b02fa"
+    },
+    "prepared-matching.json": {
+      "original_sha256": "5bc46b782753679c7542968f4889789e8cfd4dab7dbf0336733135ff73fd3963",
+      "stored_sha256": "5bc46b782753679c7542968f4889789e8cfd4dab7dbf0336733135ff73fd3963"
+    },
+    "prepared-consumers.json": {
+      "original_sha256": "c0bd133168037a14e63d30bbea9c2f7dc4ec7aef15a40608247047794b5e99c4",
+      "stored_sha256": "c0bd133168037a14e63d30bbea9c2f7dc4ec7aef15a40608247047794b5e99c4"
+    },
+    "prepared-edges.json": {
+      "original_sha256": "ef20548479e28fe024c586d0b60c54d0443d91c89feaa91debd1e0ee3ea7017d",
+      "stored_sha256": "ef20548479e28fe024c586d0b60c54d0443d91c89feaa91debd1e0ee3ea7017d"
+    },
+    "prepared311-profile-mismatch.json": {
+      "original_sha256": "aa8b267efc021177b94743de51611d8e39ddee355b855f388461ab428385cd39",
+      "stored_sha256": "aa8b267efc021177b94743de51611d8e39ddee355b855f388461ab428385cd39"
+    },
+    "integration311-profile-failure.txt": {
+      "original_sha256": "9f5f2a8c96d89b2ed65e21b1753bab0f32ae9873d3140243039a365438d03b0c",
+      "stored_sha256": "4682fb031d14797433d269fb80b35af0470ddbfb70d8376353f88a1893fdd6aa"
+    },
+    "integration314.txt": {
+      "original_sha256": "4c3d1ade1fd6d395eb2eeccd200f40125ee006d90178ee2d55b385e9665c58c8",
+      "stored_sha256": "d93d95d592a27c46eeee943244af871865c5ca391ad893a4653330c5ef717532"
+    },
+    "development-check.txt": {
+      "original_sha256": "d6e9b4fb525228c9654d338963c60eee73ac6d48930f51062916cf0cc48a7b95",
+      "stored_sha256": "c76aeedee588744aaaff36463c960f10d959c902f9ea8913f1e9cae426ae97a1"
+    },
+    "snapshots.json": {
+      "original_sha256": "de3ac0d362480a5c44f6064b7cc677c267761818657eab000286a76a7ecec455",
+      "stored_sha256": "c6884eae1bcdf364ec036eabfe7da056169abc9c393c0b6d044222074f34d74b"
+    }
+  }
+}

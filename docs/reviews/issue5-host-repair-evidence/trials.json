@@ -1,0 +1,23 @@
+{
+  "discarded_or_failed_trials": [
+    {
+      "scope": "initial canonical check sandbox",
+      "reason": "localhost bind operation not permitted; same check passed outside sandbox"
+    },
+    {
+      "scope": "first actual-guest injection test harness",
+      "reason": "io.Pipe zero-length write blocked; harness changed to production os.Pipe before candidate commit; actual trap test then passed"
+    },
+    {
+      "scope": "Python3.11 normal integration",
+      "result": "FAIL at fixed macOS Python3.14 C-client profile guard",
+      "detail": "Native C client profile differs: python_minor; original failure retained. Correct stock3.14 profile passed unmodified comparator."
+    },
+    {
+      "scope": "first stock3.14 full integration launch",
+      "result": "ABORTED / EXCLUDED",
+      "actual_head": "2880d4872d96ebfe87962abd212b892dd9944002",
+      "reason": "Shared authoring checkout was switched externally to docs/v060-release-scope. Task-owned verification stopped; exact f3ccbb3 re-run to completion in isolated clone."
+    }
+  ]
+}

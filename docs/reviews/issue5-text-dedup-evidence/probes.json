@@ -1,0 +1,294 @@
+[
+  {
+    "label": "default",
+    "setup": [],
+    "query": "SELECT DISTINCT customer FROM t",
+    "ready": {
+      "capabilities": [
+        "status",
+        "close",
+        "text-query",
+        "reconnect",
+        "snapshot",
+        "fork"
+      ],
+      "database": "test",
+      "event": "ready",
+      "host": "127.0.0.1",
+      "id": "01d9c60d4891468d87f388c11eea2084",
+      "max_connections": 16,
+      "password": "",
+      "pid": 47310,
+      "port": 57663,
+      "protocol": 1,
+      "runtime_pid": 47310,
+      "user": "root"
+    },
+    "explain": [
+      [
+        1,
+        "SIMPLE",
+        "t",
+        "ALL",
+        null,
+        null,
+        null,
+        null,
+        "3",
+        "Using temporary"
+      ]
+    ],
+    "before": [
+      [
+        "Created_tmp_disk_tables",
+        "0"
+      ],
+      [
+        "Created_tmp_files",
+        "4"
+      ],
+      [
+        "Created_tmp_tables",
+        "0"
+      ]
+    ],
+    "other_session": [
+      [
+        1
+      ]
+    ],
+    "error": "(2013, 'mariamem query timed out; database instance terminated')",
+    "elapsed": 4.001228625013027
+  },
+  {
+    "label": "big_tables",
+    "setup": [
+      "SET SESSION big_tables=1"
+    ],
+    "query": "SELECT DISTINCT customer FROM t",
+    "ready": {
+      "capabilities": [
+        "status",
+        "close",
+        "text-query",
+        "reconnect",
+        "snapshot",
+        "fork"
+      ],
+      "database": "test",
+      "event": "ready",
+      "host": "127.0.0.1",
+      "id": "8fb829cb3f6db9d9ca006471d0328d6f",
+      "max_connections": 16,
+      "password": "",
+      "pid": 47541,
+      "port": 57677,
+      "protocol": 1,
+      "runtime_pid": 47541,
+      "user": "root"
+    },
+    "probe_error": "(1193, \"Unknown system variable 'big_tables'\")"
+  },
+  {
+    "label": "tiny_tmp",
+    "setup": [
+      "SET SESSION tmp_table_size=1024",
+      "SET SESSION max_heap_table_size=16384"
+    ],
+    "query": "SELECT DISTINCT customer FROM t",
+    "ready": {
+      "capabilities": [
+        "status",
+        "close",
+        "text-query",
+        "reconnect",
+        "snapshot",
+        "fork"
+      ],
+      "database": "test",
+      "event": "ready",
+      "host": "127.0.0.1",
+      "id": "425bb721c44528d494c61f749356f7c8",
+      "max_connections": 16,
+      "password": "",
+      "pid": 47543,
+      "port": 57680,
+      "protocol": 1,
+      "runtime_pid": 47543,
+      "user": "root"
+    },
+    "explain": [
+      [
+        1,
+        "SIMPLE",
+        "t",
+        "ALL",
+        null,
+        null,
+        null,
+        null,
+        "3",
+        "Using temporary"
+      ]
+    ],
+    "before": [
+      [
+        "Created_tmp_disk_tables",
+        "0"
+      ],
+      [
+        "Created_tmp_files",
+        "4"
+      ],
+      [
+        "Created_tmp_tables",
+        "0"
+      ]
+    ],
+    "other_session": [
+      [
+        1
+      ]
+    ],
+    "error": "(2013, 'mariamem query timed out; database instance terminated')",
+    "elapsed": 4.001025916979415
+  },
+  {
+    "label": "big_result",
+    "setup": [],
+    "query": "SELECT SQL_BIG_RESULT DISTINCT customer FROM t",
+    "ready": {
+      "capabilities": [
+        "status",
+        "close",
+        "text-query",
+        "reconnect",
+        "snapshot",
+        "fork"
+      ],
+      "database": "test",
+      "event": "ready",
+      "host": "127.0.0.1",
+      "id": "fbbc49ca1b353b2b02a0dec841c15dd8",
+      "max_connections": 16,
+      "password": "",
+      "pid": 47826,
+      "port": 57687,
+      "protocol": 1,
+      "runtime_pid": 47826,
+      "user": "root"
+    },
+    "explain": [
+      [
+        1,
+        "SIMPLE",
+        "t",
+        "ALL",
+        null,
+        null,
+        null,
+        null,
+        "3",
+        "Using filesort"
+      ]
+    ],
+    "before": [
+      [
+        "Created_tmp_disk_tables",
+        "0"
+      ],
+      [
+        "Created_tmp_files",
+        "4"
+      ],
+      [
+        "Created_tmp_tables",
+        "0"
+      ]
+    ],
+    "rows": [
+      [
+        "alice"
+      ],
+      [
+        "bob"
+      ]
+    ],
+    "after": [
+      [
+        "Created_tmp_disk_tables",
+        "0"
+      ],
+      [
+        "Created_tmp_files",
+        "4"
+      ],
+      [
+        "Created_tmp_tables",
+        "0"
+      ]
+    ],
+    "elapsed": 0.0011462090187706053
+  },
+  {
+    "label": "stack",
+    "setup": [],
+    "query": "SELECT DISTINCT customer FROM t",
+    "ready": {
+      "capabilities": [
+        "status",
+        "close",
+        "text-query",
+        "reconnect",
+        "snapshot",
+        "fork"
+      ],
+      "database": "test",
+      "event": "ready",
+      "host": "127.0.0.1",
+      "id": "e34ed141a6de0a4377abcc0a67918a0b",
+      "max_connections": 16,
+      "password": "",
+      "pid": 47828,
+      "port": 57690,
+      "protocol": 1,
+      "runtime_pid": 47828,
+      "user": "root"
+    },
+    "explain": [
+      [
+        1,
+        "SIMPLE",
+        "t",
+        "ALL",
+        null,
+        null,
+        null,
+        null,
+        "3",
+        "Using temporary"
+      ]
+    ],
+    "before": [
+      [
+        "Created_tmp_disk_tables",
+        "0"
+      ],
+      [
+        "Created_tmp_files",
+        "4"
+      ],
+      [
+        "Created_tmp_tables",
+        "0"
+      ]
+    ],
+    "other_session": [
+      [
+        1
+      ]
+    ],
+    "error": "(2013, 'Lost connection to MySQL server during query')",
+    "elapsed": 0.4670739169814624
+  }
+]

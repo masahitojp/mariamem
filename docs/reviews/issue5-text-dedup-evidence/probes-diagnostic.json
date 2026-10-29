@@ -1,0 +1,63 @@
+[
+  {
+    "label": "default",
+    "setup": [],
+    "query": "SELECT DISTINCT customer FROM t",
+    "ready": {
+      "capabilities": [
+        "status",
+        "close",
+        "text-query",
+        "reconnect",
+        "snapshot",
+        "fork"
+      ],
+      "database": "test",
+      "event": "ready",
+      "host": "127.0.0.1",
+      "id": "316e14612dabffe3cd9843a9da2025b8",
+      "max_connections": 16,
+      "password": "",
+      "pid": 54202,
+      "port": 57955,
+      "protocol": 1,
+      "runtime_pid": 54202,
+      "user": "root"
+    },
+    "explain": [
+      [
+        1,
+        "SIMPLE",
+        "t",
+        "ALL",
+        null,
+        null,
+        null,
+        null,
+        "3",
+        "Using temporary"
+      ]
+    ],
+    "before": [
+      [
+        "Created_tmp_disk_tables",
+        "0"
+      ],
+      [
+        "Created_tmp_files",
+        "4"
+      ],
+      [
+        "Created_tmp_tables",
+        "0"
+      ]
+    ],
+    "other_session": [
+      [
+        1
+      ]
+    ],
+    "error": "(2013, 'mariamem query timed out; database instance terminated')",
+    "elapsed": 4.0009485830087215
+  }
+]

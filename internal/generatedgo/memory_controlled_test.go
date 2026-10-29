@@ -12,6 +12,37 @@ import (
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/p8"
 )
 
+func TestMappedWorkerFailureNotifiesBeforeRootReturns(t *testing.T) {
+	before := base.MemoryMappingStats()
+	err := func() (err error) {
+		m, release, err := newMemoryModule(mappedTestHost())
+		if err != nil {
+			return err
+		}
+		defer releaseMemoryModule(m, release, &err)
+		failed := make(chan any, 1)
+		m.Threads.NotifyWorkerFailure(func(cause any) { failed <- cause })
+		return executeGuest(m, func(m *base.Module) {
+			base.ThreadLaunch(m, func(child *base.Module, _ int32) {
+				child.G1 = int32(child.MemSize.Load()) - 4
+				p8.Fn68(child)
+			})
+			select {
+			case <-failed:
+			case <-time.After(3 * time.Second):
+				t.Error("generated worker trap waited for root return")
+			}
+		})
+	}()
+	if err == nil || !strings.Contains(err.Error(), "out of bounds") {
+		t.Fatal("lost generated worker trap", err)
+	}
+	after := base.MemoryMappingStats()
+	if after["active_mappings"] != before["active_mappings"] || after["releases"] != before["releases"]+1 {
+		t.Fatal("failed instance mapping was not released", before, after)
+	}
+}
+
 func TestMappedControlledTrapsRelease(t *testing.T) {
 	before := base.MemoryMappingStats()
 	for _, worker := range []bool{false, true} {

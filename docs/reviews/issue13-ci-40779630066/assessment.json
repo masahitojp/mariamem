@@ -1,0 +1,23 @@
+{
+  "schema": "mariamem-issue13-ci-observation-v1",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/40779630066",
+  "source_commit": "531404bf835d5deefe3cd89517231880d52e173a",
+  "workflow_result": "cancelled",
+  "ubuntu": {
+    "result": "PASS",
+    "cases": 6,
+    "native_seconds": 0.241621,
+    "guest_seconds": 0.981393,
+    "combined_seconds": 1.223014
+  },
+  "macos": {
+    "result": "cancelled",
+    "ordinary_comparison": "skipped",
+    "cache": "miss",
+    "reason": "Job cancelled at approximately the 30-minute job limit after cold race/guest builds; the log reports cancellation but does not explicitly identify the actor."
+  },
+  "files_sha256": {
+    "ordinary-native.json": "ba3d23f28be755ae86a195c67168cb4cdaf52bb44a57dcadd5150c86b170c339",
+    "ordinary-ubuntu.json": "f3b2c34627a5b6f9989a5d849bbd93ca89e70dea728eeaf8d9cccc54b3808b1d"
+  }
+}

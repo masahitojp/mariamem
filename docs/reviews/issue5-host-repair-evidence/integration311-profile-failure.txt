@@ -1,0 +1,56 @@
+Disk preflight OK: 68.42 GiB free, 2.23 GiB owned
++ go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/control ./internal/prepared . -count=1
+ok  	github.com/masahitojp/mariamem/internal/artifacts	2.506s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	4.759s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	4.078s
+ok  	github.com/masahitojp/mariamem/internal/guest	2.827s
+ok  	github.com/masahitojp/mariamem/internal/host	1.281s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.373s
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	1.353s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.497s
+ok  	github.com/masahitojp/mariamem/internal/control	2.869s
+ok  	github.com/masahitojp/mariamem/internal/prepared	1.534s
+ok  	github.com/masahitojp/mariamem	2.898s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/gointegration	12.972s
++ go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/godefault	2.398s
++ go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	1.352s
++ go test -p 1 -tags=integration ./internal/generatedgo -run=TestWorkerTrapActualGuest -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	1.011s
++ go build -p 1 -o /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-pzi963ur/mariamem-host ./cmd/mariamem-host
+Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
++ <authoring-repo>/build/experiment-work/issue5-repair/temp/venv/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py tests/test_routine_runtime.py tests/test_text_multi_runtime.py -q
+....................................                                     [100%]
+36 passed in 52.00s
++ <authoring-repo>/build/experiment-work/issue5-repair/temp/venv/bin/python tests/snapshots.py
+{"passed": true, "checks": 33, "error": null, "evidence": "<authoring-repo>/tests/evidence/snapshots.json"}
++ <authoring-repo>/build/experiment-work/issue5-repair/temp/venv/bin/python scripts/check_prepared_consumers.py --host /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-pzi963ur/mariamem-host --output /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-pzi963ur/prepared-consumers
+Traceback (most recent call last):
+  File "<authoring-repo>/scripts/check_prepared_consumers.py", line 31, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "<authoring-repo>/scripts/check_prepared_consumers.py", line 22, in main
+    run([sys.executable,'tests/v06_prepared_p5_compare.py','--actual',actual,
+  File "<authoring-repo>/scripts/check_prepared_consumers.py", line 15, in run
+    return subprocess.run([str(x) for x in args],cwd=ROOT,check=check,timeout=300)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.17_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['<authoring-repo>/build/experiment-work/issue5-repair/temp/venv/bin/python', 'tests/v06_prepared_p5_compare.py', '--actual', '/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-pzi963ur/prepared-consumers/consumers.json', '--native', 'tests/fixtures/prepared-p5-native-macos314.json', '--actual-environment', '/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-pzi963ur/prepared-consumers/environment.json', '--native-cext-environment', 'tests/fixtures/prepared-p5-native-macos314-environment.json', '--actual-edges', '/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-pzi963ur/prepared-consumers/edges.json', '--native-edges', 'tests/fixtures/prepared-p5-native-macos314-edges.json', '--accepted-disposition', 'docs/decisions/prepared-consumer-exceptions.md', '--consumer-exit', '1', '--output', '/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-pzi963ur/prepared-consumers/matching.json']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "<authoring-repo>/scripts/verify.py", line 162, in <module>
+    main()
+  File "<authoring-repo>/scripts/verify.py", line 143, in main
+    integration()
+  File "<authoring-repo>/scripts/verify.py", line 117, in integration
+    run([sys.executable, "scripts/check_prepared_consumers.py", "--host", host,
+  File "<authoring-repo>/scripts/verify.py", line 34, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+  File "<authoring-repo>/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.17_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['<authoring-repo>/build/experiment-work/issue5-repair/temp/venv/bin/python', 'scripts/check_prepared_consumers.py', '--host', '/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-pzi963ur/mariamem-host', '--output', '/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-pzi963ur/prepared-consumers']' returned non-zero exit status 1.

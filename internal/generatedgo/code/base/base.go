@@ -1904,6 +1904,7 @@ func AtomicWait32(m *Module, addr int32, offset int32, expected int32, timeout i
 
 //go:noinline
 func AtomicWait(m *Module, ea uint64, timeout int64, stillEqual func() bool) int32 {
+	m.Threads.trapIfFailed()
 	if !m.MemShared {
 
 		return 1
@@ -1935,13 +1936,18 @@ func AtomicWait(m *Module, ea uint64, timeout int64, stillEqual func() bool) int
 		}
 	}
 
+	defer unpark()
 	if timeout < 0 {
 		if m.Threads.nextTID.Load() == 0 {
 
 			unpark()
 			Wasm_trap_atomic_wait_forever()
 		}
-		<-ch
+		select {
+		case <-ch:
+		case <-m.Threads.failureDone():
+		}
+		m.Threads.trapIfFailed()
 		return 0
 	}
 	// +1ms: a guest measures its own wait with millisecond-granularity clocks
@@ -1960,7 +1966,11 @@ func AtomicWait(m *Module, ea uint64, timeout int64, stillEqual func() bool) int
 	timer := time.NewTimer(duration)
 	defer timer.Stop()
 	select {
+	case <-m.Threads.failureDone():
+		m.Threads.trapIfFailed()
+		panic("unreachable worker failure")
 	case <-ch:
+		m.Threads.trapIfFailed()
 		return 0
 	case <-timer.C:
 		unpark()
@@ -1999,13 +2009,10 @@ func ThreadLaunch(m *Module, body func(child *Module, tid int32)) int32 {
 
 		defer func() {
 			if r := recover(); r != nil {
-				m.Threads.trapMu.Lock()
-				if m.Threads.trap == nil {
-					m.Threads.trap = r
-				}
-				m.Threads.trapMu.Unlock()
+				m.Threads.recordTrap(r)
 			}
 		}()
+		m.Threads.trapIfFailed()
 		body(child, tid)
 	}()
 	return tid
@@ -11623,8 +11630,9 @@ type ThreadPool struct {
 	nextTID atomic.Int32
 	wg      sync.WaitGroup
 
-	trapMu sync.Mutex
-	trap   any
+	trapMu  sync.Mutex
+	trap    any
+	failure *workerFailure
 
 	parkMu sync.Mutex
 	parked map[uint64][]chan struct{}

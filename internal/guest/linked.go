@@ -33,11 +33,12 @@ func startLinked(ctx context.Context, module, transfer string, restore []prepare
 	}
 	timing.Mark(ctx, "linked_execution_begin")
 	capture := &prepared.Capture{}
-	execution := generatedgo.StartInstance(childIn, childOut, logs, transfer, restore, timing.Enabled(ctx), capture)
-	p, e := Connect(ctx, in, out, execution, func() {
+	failed := make(chan error, 1)
+	execution := generatedgo.StartInstance(childIn, childOut, logs, transfer, restore, timing.Enabled(ctx), func(err error) { failed <- err }, capture)
+	p, e := ConnectWithFailure(ctx, in, out, execution, func() {
 		childIn.Close()
 		childOut.Close()
-	}, tail)
+	}, tail, failed)
 	if p != nil {
 		p.capture = capture
 	}
@@ -48,6 +49,12 @@ func startLinked(ctx context.Context, module, transfer string, restore []prepare
 // be followed by closePeer closing the peer endpoints (or already-closed peers). The linked runtime and deterministic
 // transport fixtures use the same response reader and cooperative teardown.
 func Connect(ctx context.Context, in io.WriteCloser, out io.ReadCloser, completed <-chan error, closePeer func(), logs io.Writer) (*Process, error) {
+	return ConnectWithFailure(ctx, in, out, completed, closePeer, logs, nil)
+}
+
+// ConnectWithFailure poisons the instance on an early fatal runtime notification.
+// completed remains a separate joined-cleanup boundary, including after failure.
+func ConnectWithFailure(ctx context.Context, in io.WriteCloser, out io.ReadCloser, completed <-chan error, closePeer func(), logs io.Writer, failed <-chan error) (*Process, error) {
 	tail, ok := logs.(*stderrTail)
 	if !ok {
 		tail = &stderrTail{}
@@ -57,7 +64,16 @@ func Connect(ctx context.Context, in io.WriteCloser, out io.ReadCloser, complete
 	readDone := make(chan struct{})
 	go func() { defer close(readDone); p.read() }()
 	go func() {
-		err := <-completed
+		var err error
+		select {
+		case err = <-completed:
+		case err = <-failed:
+			p.Abort(err)
+			err = <-completed
+		}
+		if err != nil {
+			p.Abort(err)
+		}
 		if closePeer != nil {
 			closePeer()
 		}
