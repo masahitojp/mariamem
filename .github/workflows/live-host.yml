@@ -160,8 +160,10 @@ jobs:
         run: mkdir -p build/live-evidence
       # Development owns Ubuntu check and integration on full PR/main diffs.
       # Other events and reduced Development scopes retain local canonical runs.
+      # PR source/unit/vet checks belong to Development on Ubuntu.
+      # macOS retains full check on main/manual; integration and Live stay on PRs.
       - name: Canonical check
-        if: runner.os != 'Linux' || needs.scope.outputs.ubuntu_check != 'false'
+        if: (runner.os == 'macOS' && github.event_name != 'pull_request') || (runner.os == 'Linux' && needs.scope.outputs.ubuntu_check != 'false')
         run: python scripts/verify.py check > build/live-evidence/check.txt 2>&1
       - name: Canonical integration
         if: runner.os != 'Linux' || needs.scope.outputs.ubuntu_integration != 'false'

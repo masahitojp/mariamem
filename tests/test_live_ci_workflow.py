@@ -77,7 +77,7 @@ def validate_development_owners(development):
 def validate_canonical_ownership(text, development):
     validate_development_owners(development)
     for name, condition, command in [
-        ('Canonical check', "runner.os != 'Linux' || needs.scope.outputs.ubuntu_check != 'false'", 'check'),
+        ('Canonical check', "(runner.os == 'macOS' && github.event_name != 'pull_request') || (runner.os == 'Linux' && needs.scope.outputs.ubuntu_check != 'false')", 'check'),
         ('Canonical integration', "runner.os != 'Linux' || needs.scope.outputs.ubuntu_integration != 'false'", 'integration'),
     ]:
         assert (f'- name: {name}\n        if: {condition}\n'
@@ -105,7 +105,7 @@ def test_maintained_live_ci_contract():
     ('needs: [scope, native-reference, live]', 'needs: [scope]'),
     ('--expected-source-commit "$GITHUB_SHA"', '--unbound'),
     ('go test -race -count=1 ./internal/live ./internal/control .', 'go test ./internal/live'),
-    ("runner.os != 'Linux' || needs.scope.outputs.ubuntu_check != 'false'", "runner.os == 'macOS'"),
+    ("(runner.os == 'macOS' && github.event_name != 'pull_request') || (runner.os == 'Linux' && needs.scope.outputs.ubuntu_check != 'false')", "runner.os == 'macOS'"),
     ("runner.os != 'Linux' || needs.scope.outputs.ubuntu_integration != 'false'", "runner.os == 'Linux'"),
     ('cache: true', 'cache: false'),
     ('go clean -testcache', 'echo reuse-test-results'),
@@ -228,3 +228,17 @@ def test_aggregate_rejects_missing_or_undefined_scope():
                        'native-reference': {'result': 'skipped'}, 'live': {'result': 'skipped'}}]:
         with pytest.raises(AssertionError):
             verify_gate(needs)
+
+@pytest.mark.parametrize('event', ['pull_request', 'push', 'workflow_dispatch'])
+@pytest.mark.parametrize('os_name', ['macOS', 'Linux'])
+@pytest.mark.parametrize('ubuntu_check', ['true', 'false'])
+def test_canonical_check_event_platform_ownership(event, os_name, ubuntu_check):
+    import re
+    expression = re.search(r'- name: Canonical check\n        if: (.*)', WORKFLOW.read_text())[1]
+    expression = (expression.replace('runner.os', repr(os_name))
+                  .replace('github.event_name', repr(event))
+                  .replace('needs.scope.outputs.ubuntu_check', repr(ubuntu_check))
+                  .replace('&&', 'and').replace('||', 'or'))
+    actual = bool(eval(expression, {'__builtins__': {}}, {}))
+    expected = event != 'pull_request' if os_name == 'macOS' else ubuntu_check != 'false'
+    assert actual == expected

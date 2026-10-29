@@ -817,6 +817,24 @@ separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Dogfood and fixture ergonomics
 
+### PR macOS Live check ownership
+
+The Human approved reducing PR macOS waiting after inspecting
+[Live run 40846147295](https://github.com/masahitojp/mariamem/actions/runs/40846147295/job/123355927759).
+PR macOS Live omits the generic canonical check; Development retains Ubuntu
+source/unit/vet checks with its existing scope selection. Selected main/manual
+macOS Live retains the full check. macOS canonical integration, G1 acceptance,
+Live race and installed-consumer gates remain unchanged. This defers macOS-only
+unit/vet findings to main/manual; it does not remove macOS runtime acceptance.
+
+The observed check step took 10m56s and integration 20m24s. Removing the check
+does not promise that elapsed saving: it also warms the compiler cache used by
+later steps. Compare whole-job and downstream durations on the new candidate.
+Integration and the later Live race step overlap on root/control packages, but
+integration sets MARIAMEM_TEST_DEFAULT and has a broader target list; removing
+either invocation needs a separate equivalence check. No extra macOS job or
+timeout increase is introduced.
+
 ### Current work tracking
 
 Use the [v0.6.0 milestone](https://github.com/masahitojp/mariamem/milestone/1)
