@@ -160,16 +160,60 @@ class TestEntry(unittest.TestCase):
             register(app)
             raise original
         o.config = Config(prepare=lambda db: None, start_ready=broken, sole_work_source=True)
-        app.fail_stop = live.fail = True
+        app.fail_stop = live.fail = baseline.fail = source.fail = True
         with patch("mariamem.start", return_value=source):
             with self.assertRaises(BaseExceptionGroup) as caught:
                 with o:
                     self.fail("owner admitted")
         self.assertIs(caught.exception.exceptions[0], original)
+        cleanup = caught.exception.exceptions[1]
+        self.assertEqual([str(e) for e in cleanup.exceptions],
+                         ["stop failed", "live.close", "baseline.close", "source.close"])
         self.assertEqual(events[-4:], ["stop", "live.close", "baseline.close", "source.close"])
         with self.assertRaises(BaseExceptionGroup):
             o.close()
         self.assertEqual(live.count, 1)
+        self.assertEqual((baseline.count, source.count), (1, 1))
+
+    def test_live_creation_error_keeps_baseline_cleanup_failures(self):
+        o, source, baseline, live, _, events = self.harness()
+        original = RuntimeError("Live creation failed after its own cleanup")
+        def failed_live():
+            raise original
+        baseline.live = failed_live
+        baseline.fail = source.fail = True
+        with patch("mariamem.start", return_value=source):
+            with self.assertRaises(BaseExceptionGroup) as caught:
+                with o:
+                    self.fail("owner admitted")
+        self.assertIs(caught.exception.exceptions[0], original)
+        self.assertEqual([str(e) for e in caught.exception.exceptions[1].exceptions],
+                         ["baseline.close", "source.close"])
+        self.assertNotIn("start", events)
+        self.assertEqual(events[-2:], ["baseline.close", "source.close"])
+        self.assertEqual((live.count, baseline.count, source.count), (0, 1, 1))
+
+    def test_quiesce_deadline_stops_reset_and_cleanup_has_fresh_context(self):
+        with self.opened() as (o, _, _, live, app, events):
+            contexts = []
+            def expired(ctx):
+                contexts.append(ctx)
+                ctx.deadline = 0
+            def stop(ctx):
+                ctx.check()
+                self.assertIsNot(ctx, contexts[0])
+                events.append("stop")
+            app.quiesce_and_retire, app.stop_reap = expired, stop
+            browser, _ = self.browser(events)
+            with self.assertRaises(EntryError) as caught:
+                with o.case(browser=browser):
+                    self.fail("expired hook admitted body")
+            self.assertIsInstance(caught.exception.__cause__, TimeoutError)
+            with self.assertRaises(EntryError):
+                with o.case(browser=browser):
+                    self.fail("expired hook admitted later body")
+            self.assertEqual(live.generation, 0)
+        self.assertEqual(events[-4:], ["stop", "live.close", "baseline.close", "source.close"])
 
     def test_partial_source_and_prepare_failure(self):
         o, source, _, _, _, events = self.harness(prepare=lambda db: (_ for _ in ()).throw(ValueError("migration")))

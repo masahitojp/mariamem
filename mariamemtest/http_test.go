@@ -186,6 +186,7 @@ func TestHTTPPartialStart(t *testing.T) {
 	events := []string{}
 	original := errors.New("readiness")
 	stopErr := errors.New("stop")
+	liveErr, baselineErr, sourceErr := errors.New("live close"), errors.New("baseline close"), errors.New("source close")
 	app := &httpFakeApp{events: &events, url: "http://x", failStop: stopErr}
 	cfg := HTTPConfig{Prepare: func(context.Context, *mariamem.Database) error { return nil }, SoleWorkSource: true, StartReady: func(ctx context.Context, target mariamem.ConnectionInfo, register func(HTTPApp) error) (HTTPApp, error) {
 		if err := register(app); err != nil {
@@ -194,19 +195,92 @@ func TestHTTPPartialStart(t *testing.T) {
 		return nil, original
 	}}
 	f, err := newHTTP(cfg, func(ctx context.Context, c HTTPConfig, o *httpOwners) error {
-		o.live = &httpFakeLive{httpFakeResource: httpFakeResource{events: &events, name: "live.close"}}
-		o.baseline = &httpFakeResource{events: &events, name: "baseline.close"}
+		o.live = &httpFakeLive{httpFakeResource: httpFakeResource{events: &events, name: "live.close", fail: liveErr}}
+		o.baseline = &httpFakeResource{events: &events, name: "baseline.close", fail: baselineErr}
+		o.source = &httpFakeResource{events: &events, name: "source.close", fail: sourceErr}
 		return nil
 	})
-	if !errors.Is(err, original) || !errors.Is(err, stopErr) {
-		t.Fatal("lost original/cleanup", err)
+	for _, cause := range []error{original, stopErr, liveErr, baselineErr, sourceErr} {
+		if !errors.Is(err, cause) {
+			t.Fatal("lost original/cleanup", cause, err)
+		}
 	}
-	if fmt.Sprint(events) != "[stop live.close baseline.close]" {
+	if fmt.Sprint(events) != "[stop live.close baseline.close source.close]" {
 		t.Fatal(events)
 	}
 	_ = f.close()
-	if len(events) != 3 {
+	if len(events) != 4 {
 		t.Fatal("double cleanup")
+	}
+}
+
+func TestHTTPPartialLiveCreationRetainsAllOwners(t *testing.T) {
+	events := []string{}
+	original := errors.New("live creation")
+	liveErr, baselineErr, sourceErr := errors.New("live close"), errors.New("baseline close"), errors.New("source close")
+	live := &httpFakeLive{httpFakeResource: httpFakeResource{events: &events, name: "live.close", fail: liveErr}}
+	baseline := &httpFakeResource{events: &events, name: "baseline.close", fail: baselineErr}
+	source := &httpFakeResource{events: &events, name: "source.close", fail: sourceErr}
+	cfg := HTTPConfig{Prepare: func(context.Context, *mariamem.Database) error { return nil }, SoleWorkSource: true,
+		StartReady: func(context.Context, mariamem.ConnectionInfo, func(HTTPApp) error) (HTTPApp, error) {
+			t.Fatal("partial Live admitted application startup")
+			return nil, nil
+		}}
+	f, err := newHTTP(cfg, func(_ context.Context, _ HTTPConfig, o *httpOwners) error {
+		o.source, o.baseline, o.live = source, baseline, live
+		return original
+	})
+	for _, cause := range []error{original, liveErr, baselineErr, sourceErr} {
+		if !errors.Is(err, cause) {
+			t.Fatal("lost cause", cause, err)
+		}
+	}
+	if _, err := f.reserve(); err == nil {
+		t.Fatal("partial Live admitted case")
+	}
+	_ = f.close()
+	if fmt.Sprint(events) != "[live.close baseline.close source.close]" || live.count != 1 || baseline.count != 1 || source.count != 1 {
+		t.Fatal("partial owner missing or cleaned twice", events)
+	}
+}
+
+type httpCleanupContextApp struct {
+	*httpFakeApp
+	stopped bool
+}
+
+func (a *httpCleanupContextApp) StopReap(ctx context.Context) error {
+	if ctx.Err() != nil {
+		return fmt.Errorf("cleanup inherited canceled case: %w", ctx.Err())
+	}
+	if _, ok := ctx.Deadline(); !ok {
+		return errors.New("cleanup has no deadline")
+	}
+	a.stopped = true
+	return a.httpFakeApp.StopReap(ctx)
+}
+
+func TestHTTPCanceledCaseStillStopsApp(t *testing.T) {
+	f, _, app, events := httpHarness(t)
+	observed := &httpCleanupContextApp{httpFakeApp: app}
+	f.app, f.apps = observed, []HTTPApp{observed}
+	c, err := f.reserve()
+	if err != nil {
+		t.Fatal(err)
+	}
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	if err = c.setup(ctx); !errors.Is(err, context.Canceled) {
+		t.Fatal("original cancellation lost", err)
+	}
+	if err = c.finish(); err != nil {
+		t.Fatal(err)
+	}
+	if err = f.close(); err != nil || !observed.stopped {
+		t.Fatal("app cleanup not confirmed", err)
+	}
+	if fmt.Sprint((*events)[len(*events)-4:]) != "[stop live.close baseline.close source.close]" {
+		t.Fatal(*events)
 	}
 }
 func TestHTTPClientOwnedBody(t *testing.T) {
