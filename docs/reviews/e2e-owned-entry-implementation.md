@@ -1,5 +1,9 @@
 # EP1 / EG1 owned entry implementation checkpoint
 
+For the consolidated evidence disposition and finite remaining acceptance, see
+the [2026-10-30 acceptance map](e2e-entry-acceptance-map.md). The results below
+remain historical checkpoints, not acceptance of later candidate SHAs.
+
 The [pre-code decision](../decisions/e2e-entry-implementation.md) records the
 Human's conditional approval and probe result before SDK code. Decision commit
 `3ead1bc8d1ebb984f912cf4062c7a6dd759698c9` contains no product entry files;

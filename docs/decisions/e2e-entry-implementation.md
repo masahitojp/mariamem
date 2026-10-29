@@ -25,6 +25,11 @@ as this decision's source or a future SDK candidate's acceptance.
 
 ## Authorized implementation boundary
 
+Implementation progress and remaining acceptance are mapped in the
+[EP1/EG1 acceptance map](../reviews/e2e-entry-acceptance-map.md);
+[Issue #18](https://github.com/masahitojp/mariamem/issues/18) owns completion
+tracking. This does not replace the pre-code probe evidence or approve adoption.
+
 Implement Python BrowserEntry/case contexts and Go mariamemtest.NewHTTP/Case(t)
 using existing Live, with readable-owned diagnostics, early partial-handle
 registration, exclusive case admission, cleanup-debt latching and app-before-DB
