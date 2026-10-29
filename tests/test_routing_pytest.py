@@ -287,7 +287,7 @@ def test_preparation_failure_prevents_snapshot_and_closes_source(tmp_path, failu
     assert result.returncode == 1, result.stdout + result.stderr
     assert 'snapshot' not in events and 'fork' not in events
     assert events[-1] == 'source.close'
-    expected = {'invalid':'must return None or a callable', 'callback':'ValueError: original preparation failure', 'setup':'LookupError: original fixture failure', 'wait':'preparation still connected'}[failure]
+    expected = {'invalid':'must return None, a callable', 'callback':'ValueError: original preparation failure', 'setup':'LookupError: original fixture failure', 'wait':'preparation still connected'}[failure]
     assert expected in result.stdout + result.stderr
 
 

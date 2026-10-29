@@ -11,9 +11,9 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 from check_fixture_design import CONTRACT, validate
 
 
-def test_reviewed_contract_authorizes_only_g1_without_runtime_acceptance():
+def test_reviewed_contract_authorizes_g1_p1_without_runtime_acceptance():
     assert validate(json.loads(CONTRACT.read_text())) == {
-        'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'authorized_implementation_entries': ['G1']}
+        'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'authorized_implementation_entries': ['G1', 'P1']}
 
 
 @pytest.mark.parametrize('mutation', [
@@ -56,3 +56,41 @@ def test_review_gap_mutations_are_rejected(mutation):
         for row in plan['entries']: row['diagnostic_profile'] = 'basic-first'
     with pytest.raises(ValueError):
         validate(plan)
+
+
+@pytest.mark.parametrize('mutation', ['scope', 'allowlist', 'identity', 'record', 'env', 'bound', 'truncation', 'unknown', 'admission', 'notices'])
+def test_p1_approval_conditions_cannot_be_weakened(mutation):
+    plan = copy.deepcopy(json.loads(CONTRACT.read_text()))
+    p1 = plan['p1_approval']
+    if mutation == 'scope': plan['scope_status'] = 'APPROVED_WITH_DJANGO_NONBLOCKING'
+    elif mutation == 'allowlist': plan['authorized_implementation_entries'] = ['G1']
+    elif mutation == 'identity': p1['decision_commit'] = '0' * 40
+    elif mutation == 'record': p1['decision_record_sha256'] = '0' * 64
+    elif mutation == 'env': p1['env_mode'] = 'REPLACE'
+    elif mutation == 'bound': p1['output_tail_bytes_per_stream'] = 0
+    elif mutation == 'truncation': p1['output_truncation'] = 'SILENT'
+    elif mutation == 'unknown': p1['unknown_prepare'] = 'IGNORE'
+    elif mutation == 'admission': p1['cleanup_debt'] = 'CONTINUE'
+    elif mutation == 'notices': p1['notice_paths'].pop()
+    with pytest.raises(ValueError): validate(plan)
+
+
+@pytest.mark.parametrize('path, removed', [
+    ('docs/python.md', 'PrepareCommand'),
+    ('docs/python.md', 'same worker'),
+    ('docs/python.md', '16 KiB'),
+    ('docs/release-notes/unreleased.md', 'PrepareCommand'),
+    ('docs/release-notes/unreleased.md', 'same worker'),
+    ('docs/release-notes/unreleased.md', '16 KiB'),
+])
+def test_p1_notice_omissions_are_detected(tmp_path, path, removed):
+    from check_fixture_design import validate_p1_notices
+    for name in ['docs/python.md', 'docs/release-notes/unreleased.md']:
+        target = tmp_path / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text((ROOT / name).read_text())
+    validate_p1_notices(tmp_path)
+    target = tmp_path / path
+    target.write_text(target.read_text().replace(removed, 'omitted'))
+    with pytest.raises(ValueError, match='notice missing'):
+        validate_p1_notices(tmp_path)

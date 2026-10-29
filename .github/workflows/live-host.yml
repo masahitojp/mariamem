@@ -187,6 +187,16 @@ jobs:
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-orders ./tests/e2e_native_control/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-live-orders ./tests/live_acceptance/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-owner ./tests/live_acceptance/go_owner
+      - name: P1 real prepared command and callback on both Python minors
+        shell: bash
+        env:
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
+        run: |
+          for py in "$PY311" "$PY314"; do
+            version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+            PYTHONPATH="$PWD/python" MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest tests/test_p1_runtime.py -q -s --basetemp "build/live-evidence/p1-py$version" > "build/live-evidence/py$version-p1-runtime.txt" 2>&1
+          done
       - name: Public Go/Python browser Live, Fork control and actual defects
         shell: bash
         env:
@@ -195,7 +205,7 @@ jobs:
         run: |
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-            PYTHONPATH="$PWD/python" "$py" -m pytest tests/test_live_unit.py tests/test_live_oracles.py tests/test_e2e_numeric_bind.py tests/test_e2e_child_diagnostics.py -q > "build/live-evidence/py$version-unit.txt" 2>&1
+            PYTHONPATH="$PWD/python" "$py" -m pytest tests/test_live_unit.py tests/test_live_oracles.py tests/test_e2e_numeric_bind.py tests/test_e2e_child_diagnostics.py tests/test_prepare_command.py tests/test_p1_pytest_entry.py -q > "build/live-evidence/py$version-unit.txt" 2>&1
             for scenario in positive skip-reset restart-app; do
               run_case() {
                 "$py" scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$py" tests/live_acceptance/run.py --host build/mariamem-host --go-app build/go-orders --go-live-app build/go-live-orders --go-owner build/go-owner --native-reference "build/reference/py$version/reference" --expected-source-commit "$GITHUB_SHA" --output "build/live-evidence/py$version/$scenario" "$@"

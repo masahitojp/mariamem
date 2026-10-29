@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "scope_status": "APPROVED_WITH_DJANGO_NONBLOCKING",
+  "scope_status": "APPROVED_G1_P1_WITH_DJANGO_NONBLOCKING",
   "implementation_authorized": true,
   "source_commit": "cc00ccd98e29a1f5d5088a082be90a3cdaa4f469",
   "entries": [
@@ -10,7 +10,7 @@
       "profile": "pytest/shadow_maria; PyMySQL1.2.3/SQLAlchemy2.0.54",
       "diagnostic_profile": "readable-owned",
       "fallback_allowed": false,
-      "status": "DESIGN_NOT_IMPLEMENTED"
+      "status": "IMPLEMENTED_CHECKPOINT_ACCEPTANCE_PENDING"
     },
     {
       "id": "G1",
@@ -212,7 +212,8 @@
   },
   "future_runtime_status": "NOT_RUN",
   "authorized_implementation_entries": [
-    "G1"
+    "G1",
+    "P1"
   ],
   "reviewed_design_commit": "39f97573fe490ad86f37a4dbb25d762141d9114c",
   "django_policy": {
@@ -220,5 +221,20 @@
     "if_difficult": "DEFER_WITH_OBSTACLE_AND_REMAINING_WORK",
     "shared_defects": "ASSESS_AGAINST_REQUIRED_ENTRY_CONTRACTS",
     "python_e2e": "KEEP_BROWSER_E2E_REQUIRED_USE_NON_DJANGO_APP_IF_NEEDED"
+  },
+  "p1_approval": {
+    "reviewed_design_commit": "de860c4fc553907d237ad3a046ca6a6780ce0bb4",
+    "decision_commit": "746ea5fb6306bb122659917681a2554a6a292e77",
+    "decision_record": "docs/decisions/p1-prepared-entry-implementation.md",
+    "decision_record_sha256": "3a6808b003a638ee620ddd753799ef09a5c0132eb6fc059b4392e6c8dd356302",
+    "env_mode": "PARENT_COPY_WITH_OVERLAY_AND_ACTUAL_RESERVED_TARGET",
+    "output_tail_bytes_per_stream": 16384,
+    "output_truncation": "FLAGS_AND_DROPPED_BYTE_COUNTS",
+    "unknown_prepare": "USAGE_ERROR",
+    "cleanup_debt": "STOP_DEPENDENT_ADMISSION_IN_SAME_WORKER",
+    "notice_paths": [
+      "docs/python.md",
+      "docs/release-notes/unreleased.md"
+    ]
   }
 }

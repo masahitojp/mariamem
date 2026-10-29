@@ -125,6 +125,84 @@ schema using explicit preparation DB settings, and explicitly register quiescent
 examples, ownership, supported entries and actionable failures. These fixtures
 are not included in published v0.5.3; existing fixtures above retain their defaults.
 
+## Prepared command entry
+
+Unreleased source candidates add the public class
+`mariamem.PrepareCommand(argv, *, timeout=120, cwd=None, env=None)` as a third
+`mariamem_prepare` input. None and callback behavior are unchanged, including
+ignored callback return values. Unknown values are rejected with
+`pytest.UsageError`; they are never silently ignored.
+
+```python
+# conftest.py
+import sys
+import pytest
+from mariamem import PrepareCommand
+
+@pytest.fixture(scope="session")
+def mariamem_prepare():
+    return PrepareCommand([sys.executable, "tools/migrate_and_seed.py"], timeout=60)
+```
+
+Your script explicitly supplies these settings to its migration/seed operation:
+
+```python
+# tools/migrate_and_seed.py
+import json
+import os
+
+connection = json.loads(os.environ["MARIAMEM_PREPARE_CONNECTION_INFO"])
+# connection contains host, port, user, password, database.
+# Pass it to your existing migration/seed function, and retire its connections.
+migrate_and_seed(connection)
+```
+
+The entry launches the argv sequence once without a shell. An exit code of zero
+is success; exceptions/nonzero exit, timeout or interrupt admit no dependent
+child. This does not validate application business correctness or automatically
+route a framework's preparation connections. No Django or additional driver
+profile is implied.
+
+The descriptor copies argv/env at declaration. `env` overlays a copy of the
+parent environment at execution; PATH is retained unless explicitly overridden.
+The entry always supplies its actual connection JSON, replacing any inherited
+MARIAMEM_PREPARE_CONNECTION_INFO. Supplying that reserved key in the descriptor
+is rejected. Inherited environment is an explicit input, not hermetic execution:
+record relevant application settings when reproducing a failure. The parent
+environment and working directory are not mutated. `cwd` defaults to pytest's
+rootpath; relative cwd is resolved against it. timeout is positive and finite,
+not bool. Avoid credentials in argv and application output; the entry does not
+print environment values or infer redaction of arbitrary application logs.
+
+Output is drained concurrently but retains only the last 16 KiB of stdout and
+last 16 KiB of stderr. On command exceptions, inspect `.stdout` / `.stderr`
+(bytes), `.stdout_truncated` / `.stderr_truncated`, and
+`.stdout_dropped_bytes` / `.stderr_dropped_bytes`. Exceptions retain their
+CalledProcessError/TimeoutExpired type and original exit/timeout data; diagnostic
+previews explicitly label application output and truncation. A full transcript
+is not retained. Interrupt remains KeyboardInterrupt. Timeout/interrupt attempt
+bounded termination and reaping of the owned process group; cleanup may be
+unconfirmed. Noncooperative Python callbacks, escaped daemon processes, hard
+kill and machine loss have no stronger guarantee.
+
+## Prepared-entry cleanup failures
+
+This candidate intentionally changes admission after cleanup failure. A supplied
+child or routing/pool finalizer failure stops later dependent tests in the
+same worker and retains its original cause. Other workers are independent.
+A normal test assertion failure with successful cleanup does **not** stop the
+next independent child. This is not a global pytest fail-fast option.
+
+The entry adds operation/state notes to its own failures and observes the named
+preparation fixture, preserving pytest's original setup/call/teardown reports.
+Its final summary distinguishes entry-owned finalizers completed from
+unconfirmed cleanup. Completed helper finalization does not prove capture's
+internal cleanup. Combined cleanup errors remain attached as `.cleanup_errors`;
+source/baseline/test teardown still attempts remaining finalizers.
+Explicitly overriding a supplied fixture transfers that boundary's ownership to
+your implementation, including admission and cleanup. See the
+[unreleased change notes](release-notes/unreleased.md).
+
 ## Share preparation, isolate mutations
 
 ### Sequential Forks in one process

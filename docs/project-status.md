@@ -1544,3 +1544,11 @@ public class; cleanup debt stopping later dependent tests in the same worker is
 explicitly an approved behavior change. None/callable semantics remain intact.
 Required-host/minor runtime/resource acceptance, main adoption and release are
 not granted by this implementation decision.
+
+**P1 implementation checkpoint:** [conditional definitions and implementation](reviews/v06x-python-fixture-implementation.md)
+now add the public PrepareCommand third input, bounded command execution and
+worker-local cleanup-debt admission. None/callable meanings remain intact.
+Public API/admission notices are in the Python guide and unreleased notes, and
+the contract/checker explicitly authorizes G1 plus P1 against the pre-code
+decision. Both-host/minor CI, P1 resource/time and installed-wheel evidence remain
+required; no complete P1/main adoption/Qualification/release is claimed.

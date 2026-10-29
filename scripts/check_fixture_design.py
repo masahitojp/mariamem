@@ -14,6 +14,16 @@ CONTRACT = ROOT / 'docs/reviews/v06x-fixture-acceptance.json'
 ENTRIES = {'P1', 'G1', 'D1', 'EP1', 'EG1'}
 
 
+def validate_p1_notices(root):
+    python = (root / 'docs/python.md').read_text()
+    notes = (root / 'docs/release-notes/unreleased.md').read_text()
+    for text in (python, notes):
+        if not all(value in text for value in ('PrepareCommand', 'same worker', '16 KiB')):
+            raise ValueError('P1 public API/admission/output notice missing')
+    if not all(value in python for value in ('## Prepared command entry', '## Prepared-entry cleanup failures')):
+        raise ValueError('P1 public guide sections missing')
+
+
 def validate(plan, root=ROOT):
     def need(condition, reason):
         if not condition:
@@ -79,16 +89,35 @@ def validate(plan, root=ROOT):
     need({int(n.strip()) for n in caps.split('|')} == set(wire['base_capability_bits']), 'wire capability inventory differs')
     need(set(wire['ledger_fields']) == {'operation', 'client_options', 'observed_command_flags', 'native_result', 'guest_result', 'error', 'cleanup', 'source_client_pin', 'oracle'}, 'wire observation ledger incomplete')
     need(plan['future_runtime_status'] == 'NOT_RUN', 'design lint must not grant runtime PASS')
-    need(plan['scope_status'] == 'APPROVED_WITH_DJANGO_NONBLOCKING'
+    need(plan['scope_status'] == 'APPROVED_G1_P1_WITH_DJANGO_NONBLOCKING'
          and plan['implementation_authorized'] is True
-         and plan['authorized_implementation_entries'] == ['G1'], 'implementation exceeds Human decision')
+         and plan['authorized_implementation_entries'] == ['G1', 'P1'], 'implementation exceeds Human decision')
     need(diag['decision_status'] == 'APPROVED', 'diagnostic profile not approved')
     reviewed = plan['reviewed_design_commit']
     require_commit(root, reviewed)
     need(reviewed == '39f97573fe490ad86f37a4dbb25d762141d9114c', 'reviewed design identity changed')
     ancestor = subprocess.run(['git', 'merge-base', '--is-ancestor', reviewed, 'HEAD'], cwd=root)
     need(ancestor.returncode == 0, 'reviewed design must precede implementation')
-    return {'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'authorized_implementation_entries': ['G1']}
+    p1 = plan['p1_approval']
+    need(p1['reviewed_design_commit'] == 'de860c4fc553907d237ad3a046ca6a6780ce0bb4'
+         and p1['decision_commit'] == '746ea5fb6306bb122659917681a2554a6a292e77', 'P1 approval identity changed')
+    for commit in (p1['reviewed_design_commit'], p1['decision_commit']):
+        require_commit(root, commit)
+        need(subprocess.run(['git', 'merge-base', '--is-ancestor', commit, 'HEAD'], cwd=root).returncode == 0,
+             'P1 approval must precede implementation')
+    need(p1['decision_record'] == 'docs/decisions/p1-prepared-entry-implementation.md', 'P1 decision record changed')
+    pinned = subprocess.check_output(['git', 'show', p1['decision_commit'] + ':' + p1['decision_record']], cwd=root)
+    need(hashlib.sha256(pinned).hexdigest() == p1['decision_record_sha256']
+         == hashlib.sha256((root / p1['decision_record']).read_bytes()).hexdigest(), 'P1 decision record drift')
+    need(p1['env_mode'] == 'PARENT_COPY_WITH_OVERLAY_AND_ACTUAL_RESERVED_TARGET'
+         and p1['output_tail_bytes_per_stream'] == 16384
+         and p1['output_truncation'] == 'FLAGS_AND_DROPPED_BYTE_COUNTS'
+         and p1['unknown_prepare'] == 'USAGE_ERROR'
+         and p1['cleanup_debt'] == 'STOP_DEPENDENT_ADMISSION_IN_SAME_WORKER'
+         and p1['notice_paths'] == ['docs/python.md', 'docs/release-notes/unreleased.md'],
+         'P1 conditional approval weakened')
+    validate_p1_notices(root)
+    return {'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'authorized_implementation_entries': ['G1', 'P1']}
 
 
 def main():

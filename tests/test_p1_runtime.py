@@ -1,0 +1,152 @@
+"""Real guest/schema/seed/command/routing checks, separate from resource acceptance."""
+import hashlib
+import importlib.metadata
+import json
+import os
+from pathlib import Path
+import subprocess
+import signal
+import sys
+
+import pytest
+
+ROOT = Path(__file__).resolve().parents[1]
+HOST = os.environ.get('MARIAMEM_TEST_HOST')
+pytestmark = pytest.mark.skipif(not HOST, reason='P1 real guest requires MARIAMEM_TEST_HOST')
+
+CONF = '''
+import os,sys,json,pytest
+from pathlib import Path
+from mariamem import PrepareCommand
+SOURCES=[]
+def record(value):
+    with Path(os.environ['P1_EVENT_FILE']).open('a') as out:
+        out.write(json.dumps(value)+'\\n')
+@pytest.fixture(scope='session')
+def mariamem_options(): return {'host_binary':os.environ['MARIAMEM_TEST_HOST']}
+@pytest.fixture(scope='session')
+def mariamem_sqlalchemy_engines():
+    import application
+    return (application.engine,)
+@pytest.fixture(scope='session')
+def mariamem_prepare():
+    if os.environ['P1_METHOD']=='command':
+        return PrepareCommand([sys.executable,os.environ['P1_COMMAND_SCRIPT']])
+    sys.path.insert(0,str(Path(os.environ['P1_COMMAND_SCRIPT']).parent))
+    from p1_migrate import prepare
+    return lambda db: prepare(db.connection_info(),Path(os.environ['P1_MIGRATION_SOURCE']))
+@pytest.hookimpl(hookwrapper=True)
+def pytest_fixture_setup(fixturedef,request):
+    outcome=yield
+    if outcome.excinfo is not None: return
+    if fixturedef.argname=='mariamem_server':
+        SOURCES.append(outcome.get_result())
+    if fixturedef.argname in ('mariamem_server','mariamem_snapshot','mariamem_fork'):
+        value=outcome.get_result()
+        close=value.close
+        label=fixturedef.argname
+        def observed_close():
+            result=close()
+            record({'event':'close','kind':label})
+            return result
+        value.close=observed_close
+@pytest.hookimpl(trylast=True)
+def pytest_sessionfinish(session):
+    for source in SOURCES:
+        record({'event':'final','closed':source.closed,
+                'host_reaped':source._session._process.poll() is not None,
+                'directory_removed':not source._session.root.exists()})
+'''
+CASES = '''
+import os,pytest
+from sqlalchemy import text
+import application
+pytestmark=pytest.mark.shadow_maria
+SEED=[(1,'legacy',0),(2,'seed',5)]
+def baseline():
+    assert application.users()==SEED
+    with application.engine.connect() as c:
+        assert [tuple(row) for row in c.execute(text('SELECT id,user_id,email FROM addresses'))]==[(1,2,'seed@example.test')]
+        assert [row[0] for row in c.execute(text('SHOW COLUMNS FROM users'))]==['id','name','rating']
+def test_commit(mariamem_app_db):
+    baseline()
+    application.create_user()
+    with application.engine.begin() as c:
+        c.execute(text('ALTER TABLE users ADD COLUMN child_only INT'))
+    if os.environ.get('P1_FAIL_TEST')=='1':
+        raise AssertionError('ORDINARY_TEST_FAILURE')
+def test_seed_again(mariamem_app_db): baseline()
+@pytest.mark.parametrize('n',range(4))
+def test_batch(n,mariamem_app_db):
+    baseline()
+    application.create_user()
+'''
+
+
+@pytest.mark.parametrize('method,workers,reverse,ordinary_failure', [
+    ('command',1,False,False), ('callback',1,True,False),
+    ('command',2,False,False), ('command',1,False,True),
+])
+def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failure):
+    project=tmp_path/'consumer';project.mkdir()
+    events=project/'events.jsonl'
+    # Reuse the authored app and migrations. Only fix its test pool budget.
+    app=(ROOT/'tests/preparation_migration_acceptance/application.py').read_text()
+    app=app.replace("database='app'))", "database='app'),pool_size=1,max_overflow=1)")
+    (project/'application.py').write_text(app)
+    (project/'conftest.py').write_text(CONF)
+    (project/'test_app.py').write_text(CASES)
+    # Use a closed local port; routing must intercept rather than connect there.
+    import socket
+    with socket.socket() as sentinel:
+        sentinel.bind(('127.0.0.1',0));sentinel.listen()
+        port=sentinel.getsockname()[1]
+        (project/'pytest.ini').write_text('[pytest]\nmariamem_route_profiles = app=127.0.0.1:'+str(port)+'/app\n')
+        env={k:v for k,v in os.environ.items() if not k.startswith(('PYTEST_','PYTHON'))}
+        env.update(PYTHONPATH=str(ROOT/'python'),PYTHONDONTWRITEBYTECODE='1',PYTEST_DISABLE_PLUGIN_AUTOLOAD='1',
+                   MARIAMEM_TEST_HOST=str(Path(HOST).absolute()),P1_METHOD=method,
+                   P1_COMMAND_SCRIPT=str(ROOT/'tests/fixture_entry_acceptance/p1_migrate.py'),
+                   P1_MIGRATION_SOURCE=str(ROOT/'tests/preparation_migration_acceptance/migrations'),
+                   P1_EVENT_FILE=str(events),MIGRATION_ORIGINAL_PORT=str(port),P1_FAIL_TEST='1' if ordinary_failure else '0')
+        argv=[sys.executable,'-m','pytest','-p','mariamem.pytest_plugin','-q','--tb=short']
+        if workers==2:argv+=['-p','xdist.plugin','-n','2']
+        if reverse:argv+=['test_app.py::test_seed_again','test_app.py::test_commit','test_app.py::test_batch']
+        process=subprocess.Popen(argv,cwd=project,env=env,text=True,stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE,start_new_session=True)
+        try:
+            stdout,stderr=process.communicate(timeout=180)
+        except BaseException:
+            try:
+                os.killpg(process.pid,signal.SIGTERM)
+            except ProcessLookupError:
+                pass
+            try:
+                process.communicate(timeout=5)
+            except subprocess.TimeoutExpired:
+                os.killpg(process.pid,signal.SIGKILL)
+                process.communicate(timeout=5)
+            raise
+        result=subprocess.CompletedProcess(argv,process.returncode,stdout,stderr)
+        (project/'pytest-output.txt').write_text(result.stdout+result.stderr)
+        sentinel.setblocking(False)
+        with pytest.raises(BlockingIOError):sentinel.accept()
+    assert result.returncode==(1 if ordinary_failure else 0),result.stdout+result.stderr
+    rows=[json.loads(line) for line in events.read_text().splitlines()]
+    prepared=[r for r in rows if r['event']=='prepared']
+    final=[r for r in rows if r['event']=='final']
+    closes=[r for r in rows if r['event']=='close']
+    assert len(prepared)==workers and len({r['worker'] for r in prepared})==workers
+    assert len(final)==workers and all(r['closed'] and r['host_reaped'] and r['directory_removed'] for r in final)
+    assert sum(r['kind']=='mariamem_fork' for r in closes)==6
+    assert sum(r['kind']=='mariamem_snapshot' for r in closes)==workers
+    assert sum(r['kind']=='mariamem_server' for r in closes)==workers
+    if ordinary_failure:
+        assert '1 failed, 5 passed' in result.stdout and 'ORDINARY_TEST_FAILURE' in result.stdout
+    source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    print(json.dumps({'result':'P1_REAL_ENTRY_PASS','source_commit':source,'method':method,'workers':workers,
+        'reverse':reverse,'ordinary_failure':ordinary_failure,'cases':6,'final_owners':final,
+        'inputs_sha256':{p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in [
+            'tests/fixture_entry_acceptance/p1_migrate.py','tests/preparation_migration_acceptance/application.py',
+            'tests/preparation_migration_acceptance/migrations/versions/m1_initial.py',
+            'tests/preparation_migration_acceptance/migrations/versions/m2_addresses.py']},
+        'packages':{p:importlib.metadata.version(p) for p in ['pytest','pytest-xdist','SQLAlchemy','PyMySQL','Alembic']}}))
