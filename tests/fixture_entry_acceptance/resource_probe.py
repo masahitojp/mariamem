@@ -122,7 +122,7 @@ def summarize_allocated(data, pid):
             if identity in files and files[identity] != value:
                 raise ValueError('UNVERIFIED file changed during allocation census')
             files[identity] = value
-    return dict(fd_count=len(descriptors), unlinked_allocated_bytes=sum(v[0] for v in files.values()),
+    return dict(pid=pid, fd_count=len(descriptors), unlinked_allocated_bytes=sum(v[0] for v in files.values()),
                 unlinked_files=[dict(device=d, inode=i, allocated_bytes=v[0], logical_bytes=v[1])
                                 for (d, i), v in sorted(files.items())])
 
@@ -186,6 +186,8 @@ def merge_process_allocations(observations):
     for pid, observation in observations.items():
         if type(pid) is not int or pid <= 0 or not isinstance(observation, dict):
             raise ValueError('UNVERIFIED invalid process allocation owner')
+        if observation.get('pid') != pid or type(observation.get('pid')) is not int:
+            raise ValueError('UNVERIFIED process allocation identity')
         count = observation.get('fd_count')
         claimed = observation.get('unlinked_allocated_bytes')
         entries = observation.get('unlinked_files')
@@ -213,3 +215,29 @@ def merge_process_allocations(observations):
     return dict(fd_total=total_fds, unlinked_allocated_bytes=sum(v[0] for v in files.values()),
                 unlinked_files=[dict(device=d, inode=i, allocated_bytes=v[0], logical_bytes=v[1])
                                 for (d, i), v in sorted(files.items())])
+
+
+def validate_process_window(before, after, observations, *, max_window_ns):
+    """Reject missing owners and non-overlapping or excessively long censuses.
+
+    Stable endpoints do not exclude transient processes between snapshots; the
+    campaign must hold owner transitions behind a barrier while this runs.
+    """
+    if (not isinstance(before, set) or not before or before != after or
+            any(type(p) is not int or p <= 0 for p in before) or
+            not isinstance(observations, dict) or set(observations) != before or
+            type(max_window_ns) is not int or max_window_ns <= 0):
+        raise ValueError('UNVERIFIED process-tree census or budget')
+    starts=[]; ends=[]
+    for pid, row in observations.items():
+        if not isinstance(row, dict) or row.get('pid') != pid:
+            raise ValueError('UNVERIFIED process allocation identity')
+        start=row.get('start_unix_ns');end=row.get('end_unix_ns')
+        if type(start) is not int or type(end) is not int or start <= 0 or end < start:
+            raise ValueError('UNVERIFIED process observation timing')
+        starts.append(start);ends.append(end)
+    if max(ends)-min(starts)>max_window_ns:
+        raise ValueError('UNVERIFIED process observation window exceeded')
+    return dict(processes=sorted(before),start_unix_ns=min(starts),end_unix_ns=max(ends),
+                max_window_ns=max_window_ns,atomic=False,
+                limitation='stable endpoints do not exclude transient processes')

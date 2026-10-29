@@ -233,7 +233,7 @@ def test_process_tree_allocation_deduplicates_shared_files():
     assert len(merged['unlinked_files'])==1
 
 
-@pytest.mark.parametrize('mutation', ['empty','subtotal','missing','conflict','duplicate','pid'])
+@pytest.mark.parametrize('mutation', ['empty','subtotal','missing','conflict','duplicate','pid','wrong_identity'])
 def test_process_tree_allocation_rejects_incomplete_or_inconsistent_census(mutation):
     import copy
     first=probe.summarize_allocated(allocation_data(),123)
@@ -247,7 +247,8 @@ def test_process_tree_allocation_rejects_incomplete_or_inconsistent_census(mutat
         observations[456]['unlinked_allocated_bytes']=8192
     elif mutation=='duplicate':
         observations[123]['unlinked_files'].append(copy.deepcopy(observations[123]['unlinked_files'][0]))
-    else:observations['123']=observations.pop(123)
+    elif mutation=='pid':observations['123']=observations.pop(123)
+    else:observations[123]['pid']=456
     with pytest.raises(ValueError,match='UNVERIFIED'):
         probe.merge_process_allocations(observations)
 
@@ -300,3 +301,31 @@ def test_actual_shared_unlinked_allocation_is_counted_once(tmp_path,allocated_re
             os.killpg(parent.pid,signal.SIGKILL);parent.wait(timeout=5)
         parent.stdout.close();parent.stderr.close()
     assert parent.returncode==0
+
+
+def _window_observations():
+    return {123:dict(pid=123,start_unix_ns=100,end_unix_ns=110),
+            456:dict(pid=456,start_unix_ns=112,end_unix_ns=120)}
+
+
+def test_process_window_requires_both_endpoint_censuses_and_bounded_samples():
+    result=probe.validate_process_window({123,456},{123,456},_window_observations(),max_window_ns=20)
+    assert result['processes']==[123,456] and result['atomic'] is False
+    assert result['start_unix_ns']==100 and result['end_unix_ns']==120
+
+
+@pytest.mark.parametrize('mutation',['missing_process','extra_process','changed_tree','wrong_identity',
+                                     'backward_clock','missing_time','window','invalid_pid','bad_budget'])
+def test_process_window_rejects_incomplete_or_unaligned_observations(mutation):
+    before={123,456};after={123,456};observations=_window_observations();budget=20
+    if mutation=='missing_process':del observations[456]
+    elif mutation=='extra_process':observations[789]=dict(pid=789,start_unix_ns=100,end_unix_ns=110)
+    elif mutation=='changed_tree':after.remove(456)
+    elif mutation=='wrong_identity':observations[456]['pid']=123
+    elif mutation=='backward_clock':observations[456]['end_unix_ns']=111
+    elif mutation=='missing_time':del observations[456]['start_unix_ns']
+    elif mutation=='window':observations[456]['end_unix_ns']=121
+    elif mutation=='invalid_pid':before.add(-1);after.add(-1);observations[-1]={}
+    else:budget=True
+    with pytest.raises(ValueError,match='UNVERIFIED'):
+        probe.validate_process_window(before,after,observations,max_window_ns=budget)
