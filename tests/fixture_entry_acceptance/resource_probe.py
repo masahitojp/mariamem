@@ -170,3 +170,46 @@ def collect_allocated(pid, darwin_helper=None):
                     tool_sha256=tool_sha256,
                     limitations='FD-backed regular files only; not mmap-only storage, RSS, or an atomic process-tree census')
     return observed, raw
+
+
+def merge_process_allocations(observations):
+    """Deduplicate unlinked allocations across explicit, already sampled owners.
+
+    The caller must independently establish process-tree completeness, stable
+    ownership and sample alignment. An empty, partial or conflicting census is
+    unverified, never an empty set or zero-byte observation.
+    """
+    if not isinstance(observations, dict) or not observations:
+        raise ValueError('UNVERIFIED empty process allocation census')
+    files = {}
+    total_fds = 0
+    for pid, observation in observations.items():
+        if type(pid) is not int or pid <= 0 or not isinstance(observation, dict):
+            raise ValueError('UNVERIFIED invalid process allocation owner')
+        count = observation.get('fd_count')
+        claimed = observation.get('unlinked_allocated_bytes')
+        entries = observation.get('unlinked_files')
+        if (type(count) is not int or count <= 0 or type(claimed) is not int or
+                claimed < 0 or not isinstance(entries, list)):
+            raise ValueError('UNVERIFIED incomplete process allocation census')
+        local = {}
+        for entry in entries:
+            if not isinstance(entry, dict):
+                raise ValueError('UNVERIFIED invalid allocated file')
+            keys = ('device', 'inode', 'allocated_bytes', 'logical_bytes')
+            if any(type(entry.get(k)) is not int or entry[k] < 0 for k in keys) or entry['inode'] == 0:
+                raise ValueError('UNVERIFIED invalid allocated file counters')
+            identity = (entry['device'], entry['inode'])
+            value = (entry['allocated_bytes'], entry['logical_bytes'])
+            if identity in local:
+                raise ValueError('UNVERIFIED duplicate allocation in one process')
+            if identity in files and files[identity] != value:
+                raise ValueError('UNVERIFIED shared allocation changed during census')
+            local[identity] = value
+            files[identity] = value
+        if sum(value[0] for value in local.values()) != claimed:
+            raise ValueError('UNVERIFIED allocation subtotal mismatch')
+        total_fds += count
+    return dict(fd_total=total_fds, unlinked_allocated_bytes=sum(v[0] for v in files.values()),
+                unlinked_files=[dict(device=d, inode=i, allocated_bytes=v[0], logical_bytes=v[1])
+                                for (d, i), v in sorted(files.items())])

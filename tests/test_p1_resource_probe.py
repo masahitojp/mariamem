@@ -223,3 +223,80 @@ def test_actual_tiny_child_allocation_matches_its_fstat(tmp_path,allocated_reade
     for name,raw in [('baseline',raw_before),('held',raw_held),('final',raw_final)]:
         (directory/(name+'.json')).write_bytes(raw)
     (directory/'result.json').write_text(json.dumps(receipt,indent=2)+'\n')
+
+
+def test_process_tree_allocation_deduplicates_shared_files():
+    first=probe.summarize_allocated(allocation_data(),123)
+    second=probe.summarize_allocated(dict(allocation_data(),pid=456),456)
+    merged=probe.merge_process_allocations({123:first,456:second})
+    assert merged['fd_total']==4 and merged['unlinked_allocated_bytes']==4096
+    assert len(merged['unlinked_files'])==1
+
+
+@pytest.mark.parametrize('mutation', ['empty','subtotal','missing','conflict','duplicate','pid'])
+def test_process_tree_allocation_rejects_incomplete_or_inconsistent_census(mutation):
+    import copy
+    first=probe.summarize_allocated(allocation_data(),123)
+    second=probe.summarize_allocated(dict(allocation_data(),pid=456),456)
+    observations={123:first,456:second}
+    if mutation=='empty':observations={}
+    elif mutation=='subtotal':observations[123]['unlinked_allocated_bytes']=0
+    elif mutation=='missing':del observations[123]['unlinked_files']
+    elif mutation=='conflict':
+        observations[456]['unlinked_files'][0]['allocated_bytes']=8192
+        observations[456]['unlinked_allocated_bytes']=8192
+    elif mutation=='duplicate':
+        observations[123]['unlinked_files'].append(copy.deepcopy(observations[123]['unlinked_files'][0]))
+    else:observations['123']=observations.pop(123)
+    with pytest.raises(ValueError,match='UNVERIFIED'):
+        probe.merge_process_allocations(observations)
+
+
+SHARED_CHILD = '''
+import json,os,subprocess,sys
+from pathlib import Path
+path=Path(sys.argv[1])/'shared-owned-file'
+fd=os.open(path,os.O_CREAT|os.O_EXCL|os.O_RDWR,0o600)
+os.write(fd,b'x');os.fsync(fd);os.unlink(path)
+st=os.fstat(fd)
+child=subprocess.Popen([sys.executable,'-u','-c',
+    "import os,sys; os.fstat(int(sys.argv[1])); print('ready',flush=True); sys.stdin.readline()",str(fd)],
+    pass_fds=(fd,),stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
+try:
+    assert child.stdout.readline().strip()=='ready'
+    print(json.dumps({'parent':os.getpid(),'child':child.pid,'device':st.st_dev,
+                      'inode':st.st_ino,'blocks':st.st_blocks}),flush=True)
+    sys.stdin.readline()
+finally:
+    child.stdin.write('close\\n');child.stdin.flush();child.stdin.close()
+    child.wait(timeout=5);child.stdout.close();child.stderr.close();os.close(fd)
+'''
+
+
+def test_actual_shared_unlinked_allocation_is_counted_once(tmp_path,allocated_reader):
+    helper,_=allocated_reader
+    parent=subprocess.Popen([sys.executable,'-u','-c',SHARED_CHILD,str(tmp_path)],
+                            stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+                            text=True,start_new_session=True)
+    try:
+        assert select.select([parent.stdout],[],[],10)[0], 'shared allocation readiness timeout'
+        info=json.loads(parent.stdout.readline())
+        assert info['parent']==parent.pid and info['child']>0 and info['blocks']>0
+        observations={pid:probe.collect_allocated(pid,helper)[0] for pid in (parent.pid,info['child'])}
+        combined=probe.merge_process_allocations(observations)
+        for result in observations.values():
+            assert len([f for f in result['unlinked_files'] if (f['device'],f['inode'])==
+                        (info['device'],info['inode'])])==1
+        matches=[f for f in combined['unlinked_files'] if (f['device'],f['inode'])==
+                 (info['device'],info['inode'])]
+        assert len(matches)==1 and matches[0]['allocated_bytes']==info['blocks']*512
+    finally:
+        if parent.poll() is None:
+            parent.stdin.write('close\n');parent.stdin.flush()
+        parent.stdin.close()
+        try:parent.wait(timeout=10)
+        except subprocess.TimeoutExpired:
+            import signal
+            os.killpg(parent.pid,signal.SIGKILL);parent.wait(timeout=5)
+        parent.stdout.close();parent.stderr.close()
+    assert parent.returncode==0
