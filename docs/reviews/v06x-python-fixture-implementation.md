@@ -431,3 +431,22 @@ those identities and does not establish a result for later changes.
 This is the fixed three-time checkpoint, not cold setup cost or full P1
 acceptance. Retained baselines 1/2/3, aligned resource and physical-connection
 observations, finite pre-admission STOP and mutation controls remain required.
+
+## Resource admission component — implementation checkpoint
+
+The test-only `tests/fixture_entry_acceptance/resource_guard.py` separates the
+admission decision from collectors and product code. It checks the declared RSS,
+allocated temporary storage, free disk and per-owner FD limits as well as explicit
+child and physical-connection budgets. Missing, invalid or failed observations
+raise an unverified admission stop; an observed breach stops before invoking the
+child operation. A child error retains its original identity. Focused tests cover
+limit boundaries, missing and malformed counters, a failing collector, and proof
+that a controlled child operation is not invoked on STOP. The required-host workflow is configured to run those tests for both Python
+minors; this change still needs CI execution.
+
+These controlled tests do not prove an OS counter is complete, a sample is
+aligned, or that an actual P1 worker honors STOP. The retained-baseline campaign
+must connect real collectors and this guard to the supplied pytest entry, prove
+actual pre-admission STOP and cleanup with mutation controls, and retain
+source-bound observations on both required hosts. No resource campaign result
+or P1 completion is claimed by this component.
