@@ -242,3 +242,12 @@ def test_real_snapshot_observation_barrier(tmp_path):
     result=control.run(ROOT,tmp_path/'barrier-guest',HOST,source,installed,CONF)
     print(json.dumps(dict(result=result['result'],source_commit=source,
                           evidence=str(tmp_path/'barrier-guest/result.json'),installed_wheel=installed)))
+
+
+def test_real_three_retained_snapshots_feasibility(tmp_path):
+    source,installed,_=preflight_consumer()
+    spec=importlib.util.spec_from_file_location('p1_retention_control',ROOT/'tests/fixture_entry_acceptance/retention_control.py')
+    control=importlib.util.module_from_spec(spec);spec.loader.exec_module(control)
+    result=control.run(ROOT,tmp_path/'retention-control',HOST,source,installed)
+    print(json.dumps(dict(result=result['result'],source_commit=source,
+                          evidence=str(tmp_path/'retention-control/result.json'),installed_wheel=installed)))

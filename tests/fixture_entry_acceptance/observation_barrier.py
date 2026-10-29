@@ -119,3 +119,80 @@ def observe_parked(owners, observe, *, timeout_seconds):
                     _send(channel, {'action': 'abort', 'token': token}, time.monotonic() + .1)
                 except (BarrierError, OSError):
                     pass
+
+
+class RetainedOwners:
+    """Hold an increasing set of cooperative owners across several observations.
+
+    Failure requires the caller to abort and reap every owner; observation and
+    release are not atomic, and each observer must be independently bounded.
+    """
+    def __init__(self, *, timeout_seconds):
+        if (type(timeout_seconds) not in (int, float) or
+                not math.isfinite(timeout_seconds) or timeout_seconds <= 0):
+            raise ValueError('finite positive timeout required')
+        self.timeout_seconds = timeout_seconds
+        self.token = secrets.token_hex(16)
+        self.owners = {}
+        self.failed = False
+        self.released = False
+
+    def _alive(self):
+        if self.failed or self.released:
+            raise BarrierError('retained owner barrier is not active')
+        if any(process.poll() is not None for process in self.owners):
+            self.failed = True
+            raise BarrierError('retained owner exited')
+
+    def add(self, process, channel):
+        self._alive()
+        if (process.pid in [p.pid for p in self.owners] or
+                channel in self.owners.values() or process.poll() is not None):
+            self.failed = True
+            raise BarrierError('invalid or exited retained owner')
+        # Include the new peer in failure cleanup even if acknowledgement fails.
+        self.owners[process] = channel
+        deadline = time.monotonic() + self.timeout_seconds
+        try:
+            _send(channel, {'action': 'park', 'token': self.token}, deadline)
+            if _receive(channel, deadline) != {'action': 'parked', 'token': self.token}:
+                raise BarrierError('unexpected retained owner acknowledgement')
+            self._alive()
+        except BaseException:
+            self.failed = True
+            raise
+
+    def sample(self, observe):
+        self._alive()
+        if not self.owners:
+            raise BarrierError('no retained owners')
+        deadline = time.monotonic() + self.timeout_seconds
+        try:
+            result = observe()
+            _remaining(deadline)
+            self._alive()
+            return result
+        except BaseException:
+            self.failed = True
+            raise
+
+    def release(self):
+        self._alive()
+        if not self.owners:
+            raise BarrierError('no retained owners')
+        deadline = time.monotonic() + self.timeout_seconds
+        try:
+            for channel in self.owners.values():
+                _send(channel, {'action': 'release', 'token': self.token}, deadline)
+        except BaseException:
+            self.failed = True
+            raise
+        self.released = True
+
+    def abort(self):
+        self.failed = True
+        for channel in self.owners.values():
+            try:
+                _send(channel, {'action': 'abort', 'token': self.token}, time.monotonic() + .1)
+            except (BarrierError, OSError):
+                pass

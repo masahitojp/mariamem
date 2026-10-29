@@ -132,3 +132,33 @@ def test_required_hosts_run_cooperative_barrier_controls():
     step=workflow.split('- name: P1 real prepared command and callback on both Python minors',1)[1].split('- name:',1)[0]
     assert 'for py in "$PY311" "$PY314"' in step
     assert 'tests/test_p1_observation_barrier.py' in step
+
+
+def test_retained_owners_stay_parked_across_one_two_three_samples(tmp_path):
+    owners=[];group=barrier.RetainedOwners(timeout_seconds=3)
+    try:
+        for count in (1,2,3):
+            owner=start_owner(tmp_path,'owner'+str(count));owners.append(owner)
+            group.add(owner[0],owner[1])
+            def sample():
+                assert all(path.read_text()=='parked' and p.poll() is None for p,_,path in owners)
+                return len(owners)
+            assert group.sample(sample)==count
+        group.release()
+        for process,_,path in owners:
+            assert process.wait(timeout=3)==0 and path.read_text()=='released'
+    finally:group.abort();cleanup(owners)
+
+
+def test_retained_owner_failure_prevents_later_sample_or_release(tmp_path):
+    owners=[start_owner(tmp_path,'one'),start_owner(tmp_path,'two','wrong')]
+    group=barrier.RetainedOwners(timeout_seconds=2)
+    try:
+        group.add(owners[0][0],owners[0][1])
+        with pytest.raises(barrier.BarrierError):group.add(owners[1][0],owners[1][1])
+        with pytest.raises(barrier.BarrierError):group.sample(lambda:None)
+        with pytest.raises(barrier.BarrierError):group.release()
+        group.abort()
+        assert owners[0][0].wait(timeout=3)==3
+        assert owners[0][2].read_text()=='parked'
+    finally:group.abort();cleanup(owners)
