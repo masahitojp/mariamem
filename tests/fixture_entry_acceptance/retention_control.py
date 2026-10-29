@@ -27,6 +27,9 @@ def mariamem_prepare():
         connection=pymysql.connect(**db.connection_info())
         try:
             sql=Path(os.environ['P1_RETENTION_SQL']).read_text()
+            # The fixed diagnostic input has a comment containing a semicolon.
+            # Remove full-line comments before splitting this known input only.
+            sql='\n'.join(line for line in sql.splitlines() if not line.lstrip().startswith('--'))
             with connection.cursor() as cursor:
                 for statement in sql.split(';'):
                     if statement.strip():cursor.execute(statement)
