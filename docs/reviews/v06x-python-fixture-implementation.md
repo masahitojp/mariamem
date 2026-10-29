@@ -511,3 +511,21 @@ Real subprocess controls exercise all-parked sampling, wrong acknowledgement,
 owner exit, timeout, sampler failure and cleanup. These controls have not yet
 been connected to actual P1 workers or the retained-baseline campaign. No
 resource observation, guard acceptance or P1 completion is claimed here.
+
+## Actual P1 snapshot barrier — local source f75714f7
+
+The [local receipt](v06x-python-fixture-implementation-evidence/local-f75714f7-barrier/assessment.json)
+records a source-stamped Go1.26.10 host and source-SDK pytest entry on the
+observed macOS host with Python3.11 and3.14. One prepared snapshot is held while
+the test-only barrier verifies worker and host liveness; after release a real
+child reads the prepared seed, retires its SQL connection and closes, and the
+snapshot and host are reaped. The first candidate at52d57c41 failed because the
+test left a PyMySQL connection open; the corrected source explicitly closes it
+and waits for disconnection before checking. The failed observation is retained
+in ignored local build output, not relabelled as PASS.
+
+This is one worker and snapshot with liveness only, not a process-tree resource
+census, physical-connection census, 64-table retained-baseline campaign or
+required-host installed-wheel evidence. The required-host workflow is configured
+to run the control but has not yet run this source. Full P1 acceptance remains
+open.
