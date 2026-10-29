@@ -40,3 +40,12 @@ No guest/generated/Live semantics change or mandatory browser dependency is appr
 #18 owns implementation and full acceptance tracking. Main adoption, Qualification,
 Product Validation and publication are later decisions. D1's prepared-state
 mechanism/deferral and independent dbt #19 are outside this implementation task.
+
+## Source reconciliation before product code
+
+The design commit's actual parent is `16a2f78e5e64cb099b2c61c60d53d6375428aa86`,
+although its input section cites intended main `3ced8933`. This was caused by
+cloning a checkout whose local main lagged its remote. Before product code,
+merge actual main `3ced89330997d711675a303df831680b699ebd8c` and preserve this
+distinction. The source-linked Live mechanisms remain unchanged. Probe evidence
+stays bound to its actual source; no missing repair is assumed present there.

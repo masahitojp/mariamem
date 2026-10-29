@@ -844,6 +844,11 @@ statement; [#24](https://github.com/masahitojp/mariamem/issues/24) owns that res
 gap. See the [WASIX stub maintenance procedure](v04-generated-go-architecture.md#unimplemented-wasix-host-imports)
 for classification updates and the current detection boundary.
 
+**EP1/EG1 implementation approved by the Human:** the
+[decision](decisions/e2e-entry-implementation.md) records the required probe
+results before product implementation and authorizes the bounded owned entry
+API. Full acceptance and main adoption remain pending under #18.
+
 ### Approved scope and release sequencing
 
 **v0.6.0 release scope agreed with the Human, 2026-10-30:** Live is part of the
