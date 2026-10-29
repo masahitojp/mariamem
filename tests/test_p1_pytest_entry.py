@@ -220,4 +220,4 @@ def test_required_hosts_run_new_entry_controls_for_both_python_minors():
     assert 'for py in "$PY311" "$PY314"' in runtime
     assert 'MARIAMEM_TEST_HOST="$PWD/build/mariamem-host"' in runtime and 'tests/test_p1_runtime.py' in runtime
     assert 'pytest_version=7.0.0' in runtime and 'pytest_version=9.0.2' in runtime
-    assert 'P1_INSTALLED_CONSUMER=1' in runtime and '--no-deps build/p1-dist/*.whl' in runtime
+    assert 'P1_INSTALLED_CONSUMER=1' in runtime and '--no-deps build/dist/*.whl' in runtime
