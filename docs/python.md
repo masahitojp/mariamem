@@ -378,8 +378,9 @@ Server-side cursors / COM_STMT_FETCH remain unsupported.
 Ordinary SQL errors do not invalidate the DB. Query timeout or disconnect during
 active SQL does: `closed` becomes true and `status()` raises
 `HostError(code="unusable", closed=True)`. Close it and start/fork another.
-Idle disconnect does not invalidate it. Forced cleanup of non-cooperative
-execution is not guaranteed. Prepared boundaries for current source builds are described above.
+Idle disconnect does not invalidate it. In current source builds, a fatal guest
+worker trap also invalidates the DB promptly and reports its cause without waiting
+for the query timeout. Forced cleanup of non-cooperative execution is not guaranteed. Prepared boundaries for current source builds are described above.
 
 `HostError.code` identifies startup/lifecycle categories; `stage` supplies
 diagnostic context and `__cause__` retains a Python cause. Startup failure

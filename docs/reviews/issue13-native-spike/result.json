@@ -1,0 +1,126 @@
+{
+  "schema": "mariamem-issue13-native-spike-v1",
+  "source_commit": "ca457105d469ee703aeefc29626b08f65ccb8e8b",
+  "environment": {
+    "client_platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "server_platform": "linux/amd64",
+    "server_execution": "Docker Desktop on macOS arm64; amd64 emulation",
+    "image_ref": "mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e",
+    "image_id": "sha256:dfff46ef3f9d674ab66853ee68066e495af7942bfa4255dc39ce2ff64ac05cbe",
+    "server_version": "12.3.3-MariaDB-ubu2404"
+  },
+  "native_reference_sha256": "08b586334ad79dfa740fd96105eca9faff7969e2c5db31dd51c56be26f720ff0",
+  "native_reference": {
+    "source_commit": "ca457105d469ee703aeefc29626b08f65ccb8e8b",
+    "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+    "suite": "ordinary",
+    "case_spec_sha256": "fd95129cc0371410cd97ac9de9e88aab5cb106247c38e99d2d75f3d99fc6e97a",
+    "cases": [
+      {
+        "name": "temporary_filesort",
+        "observation": {
+          "rows": [
+            [
+              "bob"
+            ],
+            [
+              "alice"
+            ]
+          ],
+          "affected": 2,
+          "materialized": null
+        }
+      },
+      {
+        "name": "alter_rename",
+        "observation": {
+          "rows": [
+            [
+              1,
+              "alice",
+              7
+            ],
+            [
+              2,
+              "bob",
+              7
+            ]
+          ],
+          "affected": 2,
+          "materialized": null
+        }
+      },
+      {
+        "name": "text_view",
+        "observation": {
+          "rows": [
+            [
+              "alice"
+            ],
+            [
+              "bob"
+            ]
+          ],
+          "affected": 2,
+          "materialized": null
+        }
+      },
+      {
+        "name": "information_schema",
+        "observation": {
+          "rows": [
+            [
+              "id",
+              "int"
+            ],
+            [
+              "customer",
+              "text"
+            ]
+          ],
+          "affected": 2,
+          "materialized": null
+        }
+      },
+      {
+        "name": "transaction_rollback",
+        "observation": {
+          "rows": [
+            [
+              1,
+              "alice"
+            ],
+            [
+              2,
+              "bob"
+            ]
+          ],
+          "affected": 2,
+          "materialized": null
+        }
+      },
+      {
+        "name": "lock_acquisition",
+        "observation": {
+          "rows": [
+            [
+              1,
+              "alice"
+            ]
+          ],
+          "affected": 1,
+          "materialized": null
+        }
+      }
+    ],
+    "native_image": "mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e",
+    "server_version": "12.3.3-MariaDB-ubu2404",
+    "result": "PASS",
+    "elapsed_seconds": 0.891422
+  },
+  "limits": [
+    "Single native-only smoke observation; guest was not executed.",
+    "The server runs under emulation; this is not CI host timing.",
+    "The separate 60-second budget requires native plus guest on each CI host."
+  ]
+}

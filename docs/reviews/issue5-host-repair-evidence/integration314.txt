@@ -1,0 +1,39 @@
+Disk preflight OK: 67.10 GiB free, 4.59 GiB owned
++ go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/control ./internal/prepared . -count=1
+ok  	github.com/masahitojp/mariamem/internal/artifacts	2.348s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	2.969s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	5.214s
+ok  	github.com/masahitojp/mariamem/internal/guest	3.482s
+ok  	github.com/masahitojp/mariamem/internal/host	1.292s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.415s
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	1.337s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.556s
+ok  	github.com/masahitojp/mariamem/internal/control	3.257s
+ok  	github.com/masahitojp/mariamem/internal/prepared	1.509s
+ok  	github.com/masahitojp/mariamem	3.490s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/gointegration	16.294s
++ go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/godefault	3.046s
++ go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	1.436s
++ go test -p 1 -tags=integration ./internal/generatedgo -run=TestWorkerTrapActualGuest -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	1.153s
++ go build -p 1 -o /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-a_1h0jb8/mariamem-host ./cmd/mariamem-host
+Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
++ <authoring-repo>/build/experiment-work/issue5-repair/temp/venv314/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py tests/test_routine_runtime.py tests/test_text_multi_runtime.py -q
+....................................                                     [100%]
+36 passed in 55.18s
++ <authoring-repo>/build/experiment-work/issue5-repair/temp/venv314/bin/python tests/snapshots.py
+{"passed": true, "checks": 33, "error": null, "evidence": "<repo>/tests/evidence/snapshots.json"}
++ <authoring-repo>/build/experiment-work/issue5-repair/temp/venv314/bin/python scripts/check_prepared_consumers.py --host /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-a_1h0jb8/mariamem-host --output /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-a_1h0jb8/prepared-consumers
+PASS: Go prepared / Python normal controls and exact accepted-exception tripwires; Python functional FAIL retained
++ <authoring-repo>/build/experiment-work/issue5-repair/temp/venv314/bin/python tests/routing_acceptance/run.py --runtime-root <repo> --source-commit f3ccbb3b0d14784f562a909941a5ec75676dd198 --host /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-a_1h0jb8/mariamem-host --output /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-a_1h0jb8/routing-consumers
+go: downloading go1.26.10 (darwin/arm64)
+control {'exit': 0, 'accepted_for_local_partial': True, 'complete': True, 'accepted': True}
+no_pool_check {'exit': 1, 'accepted': True, 'detected_expected_defect': True}
+fallback {'exit': 1, 'accepted': True, 'detected_expected_defect': True}
+ignore_retired {'exit': 1, 'accepted': True, 'detected_expected_defect': True}
+global_target {'exit': 1, 'accepted': True, 'detected_expected_defect': True}
+retain_session {'exit': 1, 'accepted': True, 'detected_expected_defect': True}
+adopt_unknown {'exit': 1, 'accepted': True, 'detected_expected_defect': True}

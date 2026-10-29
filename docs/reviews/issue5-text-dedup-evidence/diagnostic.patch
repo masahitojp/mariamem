@@ -1,0 +1,6 @@
+--- a/internal/generatedgo/code/base/base.go
++++ b/internal/generatedgo/code/base/base.go
+@@ -2001,0 +2002,3 @@
++				trace := make([]byte, 65536)
++				n := runtime.Stack(trace, false)
++				fmt.Fprintf(os.Stderr, "ISSUE5 worker tid=%d trap=%v\n%s", tid, r, trace[:n])

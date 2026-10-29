@@ -276,6 +276,15 @@ independent of this selector. Missing/empty diffs and standalone events
 retain local canonical runs. Dump success alone does not attest the delegated
 Development checks; the protected Development contexts still decide those checks.
 
+Connection routing likewise delegates its generic Ubuntu `source` check only to
+full Development coverage on the same main-push event/source. Its scope job uses
+the shared selector; reduced/unavailable diffs, feature pushes and manual runs
+retain the full local check. The dedicated native matrix explicitly accepts
+`source=skipped` only alongside a successful scope selecting delegation and
+successful compatibility cells. Scope/source/compatibility failure or cancellation
+cannot select native acceptance. Both native OSes and compatibility Python versions
+remain unchanged. This workflow still runs on its existing push/manual events.
+
 Dump guest-comparison and Django recipe select Ubuntu only for pull requests.
 Main pushes and manual `workflow_dispatch` runs retain Ubuntu and macOS (as do
 Dump experiment pushes). This removes three candidate macOS matrix jobs per PR
@@ -296,8 +305,13 @@ cache. Each Go job exports its actual `go env GOCACHE` through `GITHUB_ENV` so
 later wheel builds inherit that cache instead of selecting `build/gocache`.
 Development check/integration and Dump comparison/check/integration have separate
 cache namespaces to avoid competing to save different compilation workloads.
-Django retains both Python versions on each selected OS; its scratch cleanup
-does not remove the compiler cache before setup-go saves it. Compiler paths are
+Django builds one source-stamped host per selected OS and sequentially runs both
+Python versions against that binary. Each interpreter retains its own pinned
+native reference, dependency report and acceptance output. Both acceptance calls
+are attempted even if the first fails, and either failure fails the job. The
+shared job budget allows one build and both unchanged per-case deadlines; native
+references remain independent Python matrix jobs. Scratch cleanup does not remove
+the compiler cache before setup-go saves it. Compiler paths are
 runner-managed; scratch budget guards do not account for these compiler caches.
 
 The pinned setup-go action keys entries by platform, architecture, Go version
@@ -314,9 +328,56 @@ These four maintained PR workflows group concurrency by workflow, event and PR
 number. A new update cancels only older runs of the same PR in that workflow.
 Main pushes, experiment pushes and manual runs use unique run IDs, so unrelated
 or pending non-PR runs do not replace each other. Release/Qualification concurrency
-and cache policy are unchanged. Issue #11's current changes require actual CI
-confirmation of cold/warm restore/save, source-bound acceptance and timing; local
-workflow tests do not establish a speedup.
+and cache policy are unchanged.
+
+### Archived CI efficiency observations
+
+[PR12 observations](reviews/ci-efficiency-pr12-observations.json) retain metadata,
+checkout source identities, compact cache log matches and input digests for all
+four workflows in two completed executions. The heads are `5304c1b` and `5a6bbd1`;
+the actual checkout commits were `7f98b74` and `babed7d`. The heads/configuration
+and actual checkout source are deliberately separate. The two sources differ by
+the merged release-scope documentation, with the CI/runtime/test inputs unchanged.
+These are observations of the same PR12 configuration, not before/after proof of
+the follow-up changes described above.
+
+| Observed PR12 cohort | PR wall time across four workflows | Sum of occupied job wall times | Maximum dependency-ready-to-start delay |
+| --- | --- | --- | --- |
+| 5304c1b (several compiler-cache misses) | 55 min 1 s | 119 min 36 s | 5 min 4 s |
+| 5a6bbd1 (all selected Go jobs restored caches) | 15 min 48 s | 50 min 47 s | 5 s |
+
+Development's check/integration first missed and saved their separate keys, then
+restored the same keys on the next execution. Test-result invalidation and the
+actual test steps succeeded on both. Live and Dump likewise supply miss/save and
+later restore observations; Django restored its earlier key in both cohorts.
+Django's cold miss is not established by these two observations. Build and
+source-bound consumer acceptance still succeeded with caches present or absent
+where those states were observed.
+
+The job-wall sum is an unweighted occupied-runner proxy, not billed minutes.
+Ready-to-start begins after all declared dependencies finish and includes
+scheduler/provisioning delay; it is not a pure account-queue measurement. Queue
+conditions, compiler state and runners vary between samples, so the observed
+wall-time difference is not a controlled cache-only speedup or future guarantee.
+The new Django/routing follow-up still needs its own CI confirmation and timing.
+
+Reproduce the offline summary by downloading each recorded run's JSON and log:
+
+```sh
+gh run view RUN_ID --repo masahitojp/mariamem --json databaseId,headSha,workflowName,event,status,conclusion,createdAt,startedAt,updatedAt,url,jobs > run.json
+gh run view RUN_ID --repo masahitojp/mariamem --log > run.log
+# Save each pair separately as development.*, live.*, dump.* and django.*.
+# Supply all four workflows for one head; repeat the four pairs for the second head.
+python3 scripts/summarize_ci_efficiency.py \
+  --run development.json development.log --run live.json live.log \
+  --run dump.json dump.log --run django.json django.log \
+  --output build/ci-observations.json
+```
+
+The summarizer requires a complete four-workflow cohort, rejects unknown DAG
+jobs and preserves skipped jobs without counting them as occupied runners. It
+never fetches, reruns or qualifies CI. Keep each input pair/run separate when
+repeating the download commands; the JSON receipt lists all eight run IDs.
 
 ### Single-pass unqualified guest development
 

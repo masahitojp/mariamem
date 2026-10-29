@@ -1,0 +1,912 @@
+[
+  {
+    "label": "VARCHAR(32)",
+    "type": "VARCHAR(32)",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005315830057952553
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005802080268040299
+    }
+  },
+  {
+    "label": "VARCHAR(255)",
+    "type": "VARCHAR(255)",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.00045270801638253033
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0004001659981440753
+    }
+  },
+  {
+    "label": "VARBINARY(255)",
+    "type": "VARBINARY(255)",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          {
+            "hex": "616c696365"
+          }
+        ],
+        [
+          {
+            "hex": "626f62"
+          }
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0016479170008096844
+    },
+    "guest": {
+      "rows": [
+        [
+          {
+            "hex": "616c696365"
+          }
+        ],
+        [
+          {
+            "hex": "626f62"
+          }
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0004472089931368828
+    }
+  },
+  {
+    "label": "VARCHAR(1000)",
+    "type": "VARCHAR(1000)",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.000710542022716254
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.000646415981464088
+    }
+  },
+  {
+    "label": "VARCHAR(2000)",
+    "type": "VARCHAR(2000)",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0008135829993989319
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005385410040616989
+    }
+  },
+  {
+    "label": "TINYTEXT",
+    "type": "TINYTEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0006144589860923588
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.000599374994635582
+    }
+  },
+  {
+    "label": "TEXT",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0026514999917708337
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005420419911388308
+    }
+  },
+  {
+    "label": "MEDIUMTEXT",
+    "type": "MEDIUMTEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0007243750151246786
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005314580048434436
+    }
+  },
+  {
+    "label": "LONGTEXT",
+    "type": "LONGTEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0006408749904949218
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005697919987142086
+    }
+  },
+  {
+    "label": "BLOB",
+    "type": "BLOB",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          {
+            "hex": "616c696365"
+          }
+        ],
+        [
+          {
+            "hex": "626f62"
+          }
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005462910048663616
+    },
+    "guest": {
+      "rows": [
+        [
+          {
+            "hex": "616c696365"
+          }
+        ],
+        [
+          {
+            "hex": "626f62"
+          }
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005109579942654818
+    }
+  },
+  {
+    "label": "empty",
+    "type": "TEXT",
+    "setup": [
+      "DELETE FROM t"
+    ],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [],
+      "affected": 0,
+      "outcome": "OK",
+      "elapsed": 0.0005320420023053885
+    },
+    "guest": {
+      "rows": [],
+      "affected": 0,
+      "outcome": "OK",
+      "elapsed": 0.000721791002433747
+    }
+  },
+  {
+    "label": "one",
+    "type": "TEXT",
+    "setup": [
+      "DELETE FROM t WHERE id=2"
+    ],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ]
+      ],
+      "affected": 1,
+      "outcome": "OK",
+      "elapsed": 0.0005087500030640513
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ]
+      ],
+      "affected": 1,
+      "outcome": "OK",
+      "elapsed": 0.00047404199722222984
+    }
+  },
+  {
+    "label": "limit",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t LIMIT 1",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ]
+      ],
+      "affected": 1,
+      "outcome": "OK",
+      "elapsed": 0.0010312090162187815
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ]
+      ],
+      "affected": 1,
+      "outcome": "OK",
+      "elapsed": 0.0004945840046275407
+    }
+  },
+  {
+    "label": "distinct_order",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT customer FROM t ORDER BY customer",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.001109042001189664
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.000614624994341284
+    }
+  },
+  {
+    "label": "multi_column",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT id, customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          1,
+          "alice"
+        ],
+        [
+          2,
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005999999993946403
+    },
+    "guest": {
+      "rows": [
+        [
+          1,
+          "alice"
+        ],
+        [
+          2,
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005459170206449926
+    }
+  },
+  {
+    "label": "union",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT customer FROM t UNION SELECT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0011914589849766344
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0009329589956905693
+    }
+  },
+  {
+    "label": "derived",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT * FROM (SELECT DISTINCT customer FROM t) x",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0009152910206466913
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0007550000154878944
+    }
+  },
+  {
+    "label": "group",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT customer FROM t GROUP BY customer",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0006147499952930957
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0009386670135427266
+    }
+  },
+  {
+    "label": "ctas",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "CREATE TABLE cn AS SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.003740374988410622
+    },
+    "guest": {
+      "rows": [],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0014044160197954625
+    }
+  },
+  {
+    "label": "insert",
+    "type": "TEXT",
+    "setup": [
+      "CREATE TABLE dst LIKE t"
+    ],
+    "sql": "INSERT INTO dst(customer) SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0009336670045740902
+    },
+    "guest": {
+      "rows": [],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0006201660144142807
+    }
+  },
+  {
+    "label": "view",
+    "type": "TEXT",
+    "setup": [
+      "CREATE VIEW v AS SELECT DISTINCT customer FROM t"
+    ],
+    "sql": "SELECT * FROM v",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0008547499892301857
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0010988340072799474
+    }
+  },
+  {
+    "label": "index",
+    "type": "TEXT",
+    "setup": [
+      "ALTER TABLE t ADD INDEX (customer(10))"
+    ],
+    "sql": "SELECT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.000705832993844524
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0006381669954862446
+    }
+  },
+  {
+    "label": "count",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT COUNT(DISTINCT customer) FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          2
+        ]
+      ],
+      "affected": 1,
+      "outcome": "OK",
+      "elapsed": 0.000755749992094934
+    },
+    "guest": {
+      "rows": [
+        [
+          2
+        ]
+      ],
+      "affected": 1,
+      "outcome": "OK",
+      "elapsed": 0.0006378749967552722
+    }
+  },
+  {
+    "label": "union_all",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT customer FROM t UNION ALL SELECT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ],
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 4,
+      "outcome": "OK",
+      "elapsed": 0.0004930830036755651
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ],
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 4,
+      "outcome": "OK",
+      "elapsed": 0.0006215419853106141
+    }
+  },
+  {
+    "label": "big_result",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT SQL_BIG_RESULT DISTINCT customer FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005102499853819609
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0006186249956954271
+    }
+  },
+  {
+    "label": "cast",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT DISTINCT CAST(customer AS CHAR(255)) FROM t",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0005262500199023634
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0008118329860735685
+    }
+  },
+  {
+    "label": "aggregate",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT customer, COUNT(*) FROM t GROUP BY customer",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice",
+          1
+        ],
+        [
+          "bob",
+          1
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0006539169989991933
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice",
+          1
+        ],
+        [
+          "bob",
+          1
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0006727089930791408
+    }
+  },
+  {
+    "label": "order",
+    "type": "TEXT",
+    "setup": [],
+    "sql": "SELECT customer FROM t ORDER BY customer",
+    "native_version": "12.3.3-MariaDB-ubu2404",
+    "native": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.0004169169988017529
+    },
+    "guest": {
+      "rows": [
+        [
+          "alice"
+        ],
+        [
+          "bob"
+        ]
+      ],
+      "affected": 2,
+      "outcome": "OK",
+      "elapsed": 0.00035208300687372684
+    }
+  }
+]

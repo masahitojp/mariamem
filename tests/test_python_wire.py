@@ -34,6 +34,26 @@ def execute(conn, sql):
         return cur.fetchall()
 
 
+@pytest.mark.parametrize("kind", ["VARCHAR(1000)", "TEXT", "BLOB"])
+def test_text_blob_duplicate_removal_returns_and_preserves_sessions(kind):
+    host = os.environ.get("MARIAMEM_TEST_HOST")
+    if not host or os.environ.get("MARIAMEM_TEST_DEFAULT") != "1":
+        pytest.skip("requires current generated-Go integration host")
+    # A broken worker must fail this regression quickly, with bounded teardown.
+    with mariamem.start(host_binary=host, query_timeout=1) as db:
+        with connect(db) as conn, connect(db) as sibling:
+            execute(conn, f"CREATE TABLE dedup_probe(value {kind})")
+            execute(conn, "INSERT INTO dedup_probe VALUES('alice'),('bob'),('alice')")
+            expected = ((b"alice",), (b"bob",)) if kind == "BLOB" else (("alice",), ("bob",))
+            assert tuple(sorted(execute(conn, "SELECT DISTINCT value FROM dedup_probe"))) == expected
+            assert tuple(sorted(execute(conn, "SELECT value FROM dedup_probe UNION SELECT value FROM dedup_probe"))) == expected
+            assert tuple(sorted(execute(conn, "SELECT value FROM dedup_probe GROUP BY value"))) == expected
+            execute(conn, "CREATE TABLE dedup_copy AS SELECT DISTINCT value FROM dedup_probe")
+            assert tuple(sorted(execute(conn, "SELECT value FROM dedup_copy"))) == expected
+            assert execute(conn, "SELECT 1") == ((1,),)
+            assert execute(sibling, "SELECT 2") == ((2,),)
+
+
 def test_handshake_identity_matches_guest_across_sessions(wire_db):
     def check(conn):
         ((connection_id, version),) = execute(conn, "SELECT CONNECTION_ID(), VERSION()")

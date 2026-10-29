@@ -5,8 +5,43 @@ This document owns current state and future direction. The
 owns current HOW, [decisions](decisions/snapshot-product-contract.md) own
 continuing product constraints, and reports preserve historical evidence.
 Version themes are direction; they are not release approval.
+
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
+
+## Issue #5 host repair — adopted on main, unreleased
+
+The Human approved main adoption of candidate source_commit
+`8383f09b4043eafed07fcb048f8edcbde30d0c6a` after Development
+[CI40737308463 attempt2](https://github.com/masahitojp/mariamem/actions/runs/40737308463/attempts/2)
+completed successfully. Both-platform worker-failure/native-equality acceptance,
+normal integration and full check are successful. Attempt1's hosted-runner
+communication failure remains recorded; its cause is not established.
+
+The bounded repair binds `Fd_dup` to the existing descriptor implementation and
+notifies fatal worker traps promptly. The affected DB becomes unusable; pending
+calls retain the original cause; joining still precedes resource release.
+Other DB instances remain independent. Non-cooperative Go workers retain their
+resources until they exit. The other14 panic imports remain fail-closed.
+Guest source, public API and Live/Snapshot product contracts are unchanged.
+
+See the [adoption review and conditions](reviews/issue5-main-adoption.md),
+[repair report](reviews/issue5-host-repair.md) and original
+[investigation](reviews/issue5-text-dedup.md). [PR14](https://github.com/masahitojp/mariamem/pull/14) squash-merged to main
+source_commit `ca67dcacaf2d96b040f0e312cdf60aab85abd99d` from checked head
+`e9c77c1b7a2f66a9aef7cb6fbdfde1c4921bcf0f`; their trees are identical.
+The integration retains main's intervening CI changes. Final PR Development
+[40778348981](https://github.com/masahitojp/mariamem/actions/runs/40778348981),
+Live [40778348966](https://github.com/masahitojp/mariamem/actions/runs/40778348966),
+Django [40778348956](https://github.com/masahitojp/mariamem/actions/runs/40778348956)
+and dump [40778348959](https://github.com/masahitojp/mariamem/actions/runs/40778348959)
+checks succeeded; strict app-bound check/integration/Live gates were respected.
+The earlier macOS runner-capacity cancellation and CI-rule integration failure
+remain historical failures, not runtime acceptance. PR worker acceptance runs
+on Ubuntu; main/manual retain both hosts, with original both-host candidate
+acceptance separately identified above. Issue5 is closed by the merge. These
+receipts do not qualify a later release/main build. No protection bypass,
+release qualification, version selection or publication was performed.
 
 ## Dogfood recipes, guides and CI improvement adopted on main — unreleased
 

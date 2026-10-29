@@ -1,0 +1,20 @@
+{
+  "source_commit": "f3ccbb3b0d14784f562a909941a5ec75676dd198",
+  "remaining_stubs": [
+    "Fd_dup2",
+    "Thread_signal",
+    "Proc_exit2",
+    "Sock_addr_local",
+    "Sock_addr_peer",
+    "Sock_open",
+    "Sock_set_opt_flag",
+    "Sock_set_opt_time",
+    "Sock_set_opt_size",
+    "Sock_get_opt_size",
+    "Sock_bind",
+    "Sock_connect",
+    "Sock_send_to",
+    "Resolve"
+  ],
+  "classification": "Retained fail-closed; no additional import was enabled. No reachability claim outside the finite SQL matrix and existing integration coverage."
+}

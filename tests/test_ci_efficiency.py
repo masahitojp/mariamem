@@ -45,7 +45,7 @@ def validate_caches(text, name):
     namespaces = re.findall(r'          cache-dependency-path: \|\n((?:            [^\n]+\n)+)', text)
     if name in ('check', 'dump-import-productization', 'live-host'):
         assert len(namespaces) == len(set(namespaces))
-    assert found == {'check': 2, 'live-host': 2, 'dump-import-productization': 3, 'django-lifecycle': 1}[name]
+    assert found == {'check': 3, 'live-host': 2, 'dump-import-productization': 3, 'django-lifecycle': 1}[name]
 
 
 @pytest.mark.parametrize('name', WORKFLOWS)
@@ -122,19 +122,23 @@ def validate_candidate_platforms(text):
     for event in ['push', 'workflow_dispatch']:
         assert candidate_platforms(text, event) == ['ubuntu-24.04', 'macos-15']
     assert 'runs-on: ${{ matrix.os }}' in text
-    assert re.search(r'^  (?:native-reference|native):\n    runs-on: ubuntu-24.04', text, re.M)
+    reference = re.search(r'^  (?:worker-failure-native|native-reference|native):\n(.*?)(?=^  \S|\Z)', text, re.M | re.S)
+    assert reference and re.search(r'^    runs-on: ubuntu-24.04$', reference[1], re.M)
     assert '  workflow_dispatch:' in text
     push = re.search(r'^  push:\n(.*?)(?=^  \S|^\S)', text, re.M | re.S)
     assert push and re.search(r'^    branches: \[main(?:,|\])', push[1], re.M)
 
 
-@pytest.mark.parametrize('name', ['dump-import-productization', 'django-lifecycle'])
+@pytest.mark.parametrize('name', ['check', 'dump-import-productization', 'django-lifecycle'])
 def test_candidate_macos_is_post_merge_or_manual_and_pr_is_ubuntu(name):
     text = (ROOT/'.github/workflows'/f'{name}.yml').read_text()
     validate_candidate_platforms(text)
     if name == 'django-lifecycle':
-        assert text.count("python: ['3.11', '3.14']") == 2
+        assert text.count("python: ['3.11', '3.14']") == 1
+        assert "id: py311" in text and "id: py314" in text
         assert 'needs: native' in text
+    elif name == 'check':
+        assert 'needs: [scope, worker-failure-native]' in text
     else:
         assert 'needs: native-reference' in text
         assert "python-version: '3.11'" in text and "python-version: '3.14'" in text
@@ -165,7 +169,7 @@ def test_full_pr_requires_only_one_macos_runner_across_maintained_workflows():
             runner = re.search(r'^    runs-on: (.+)$', block, re.M)
             assert runner
             if runner[1] == '${{ matrix.os }}':
-                if name in ('django-lifecycle', 'dump-import-productization'):
+                if name in ('check', 'django-lifecycle', 'dump-import-productization'):
                     platforms = candidate_platforms(text, 'pull_request')
                 else:
                     values = re.search(r'^        os: \[([^]]+)\]$', block, re.M)

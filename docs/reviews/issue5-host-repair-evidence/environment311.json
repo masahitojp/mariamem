@@ -1,0 +1,14 @@
+{
+  "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "os": "Darwin",
+  "architecture": "arm64",
+  "openssl": "OpenSSL 3.6.5 29 Sep 2026",
+  "python_minor": "3.11",
+  "soabi": "cpython-311-darwin",
+  "connector": "26.7.0",
+  "connector_have_cext": true,
+  "connector_sources_sha256": "7945eab736effa50c861b2b7200a1e8bee35cf85af9009105baa0993df6c7c56",
+  "extension_file": "_mysql_connector.cpython-311-darwin.so",
+  "extension_sha256": "f0383ba165ff33be373b0e439e6d626568efeea75903d7fdea87d8db4672199f",
+  "direct_import": "PASS"
+}

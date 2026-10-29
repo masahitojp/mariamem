@@ -1,0 +1,84 @@
+Disk preflight OK: 68.03 GiB free, 2.03 GiB owned
++ <authoring-repo>/build/release-v051-venv/bin/python scripts/check_version.py
+Release version: Python 0.5.3; Git/Go v0.5.3
++ <authoring-repo>/build/release-v051-venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ <authoring-repo>/build/release-v051-venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q
+......................                                                   [100%]
+22 passed in 2.79s
++ go test -p 1 ./...
+ok  	github.com/masahitojp/mariamem	1.555s
+?   	github.com/masahitojp/mariamem/benchmarks/defaultsanity	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/goisolation	(cached)
+?   	github.com/masahitojp/mariamem/benchmarks/memorylifetime	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/ownedprepared	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/platform-cache	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/snapshotallocation	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/ubuntu-startup	(cached)
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/docs/examples/live/go	1.737s
+ok  	github.com/masahitojp/mariamem/internal/artifacts	(cached)
+ok  	github.com/masahitojp/mariamem/internal/control	1.632s
+ok  	github.com/masahitojp/mariamem/internal/diagnostic	(cached)
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	1.752s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	(cached)
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	1.517s
+ok  	github.com/masahitojp/mariamem/internal/host	(cached)
+ok  	github.com/masahitojp/mariamem/internal/live	(cached)
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	0.311s
+ok  	github.com/masahitojp/mariamem/internal/prepared	(cached)
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	(cached)
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	(cached)
+ok  	github.com/masahitojp/mariamem/internal/timing	(cached)
+?   	github.com/masahitojp/mariamem/scripts/guest_smoke	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/platform_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/tests/e2e_native_control/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_owner	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_active	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_lifetime	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routine_probe	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routing_acceptance	[no test files]
++ go vet -p 1 -vettool=<authoring-repo>/scripts/vet_generated.py ./...
++ <authoring-repo>/build/release-v051-venv/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py -q
+.........................ssss.................. [  3%]
+.............................................................s.......... [  9%]
+........................................................................ [ 15%]
+........................................................................ [ 21%]
+........................................................................ [ 27%]
+........................................................................................sss......................................... [ 38%]
+........................................................................ [ 44%]
+.........................................................s [ 49%]
+ssssssss................................................................ [ 55%]
+........................................................................ [ 61%]
+........................................................................ [ 67%]
+........................................ssssssssssssss.................. [ 73%]
+........................................................................ [ 79%]
+...sssssss.............................................................. [ 85%]
+............................................... [ 89%]
+..............................................sssssss................... [ 95%]
+.s.........sss.....................................                      [100%]
+=============================== warnings summary ===============================
+tests/routing_acceptance/test_pytest_native.py:7
+  <authoring-repo>/tests/routing_acceptance/test_pytest_native.py:7: PytestUnknownMarkWarning: Unknown pytest.mark.shadow_maria - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytest.mark.shadow_maria]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1150 passed, 51 skipped, 1 warning, 76 subtests passed in 138.26s (0:02:18)
++ <authoring-repo>/build/release-v051-venv/bin/python scripts/check_public.py
+Public source check passed: 5534 files

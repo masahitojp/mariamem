@@ -1,0 +1,7 @@
+--- a/internal/generatedgo/main.go
++++ b/internal/generatedgo/main.go
+@@ -368 +368,3 @@
+-func (h *host) Fd_dup(m *base.Module, l0 int32, l1 int32) int32 { panic("unimplemented WASIX: Fd_dup") }
++func (h *host) Fd_dup(m *base.Module, l0 int32, l1 int32) int32 {
++	return h.WasiStubs.Fd_dup(m, l0, l1)
++}
