@@ -416,3 +416,18 @@ comparison. Same-source installed-wheel time data on macOS15/Ubuntu remains
 pending the next CI. Full aligned RSS/available-memory/FD/allocated-temp and
 physical-connection observations, retained baselines1/2/3 and actual finite
 pre-admission resource STOP/mutations remain required before P1 acceptance.
+
+## Required-host three-time checkpoint — CI 40876452322
+
+[Live CI 40876452322](https://github.com/masahitojp/mariamem/actions/runs/40876452322)
+passed the P1 installed-wheel time checkpoint on macOS 15 and Ubuntu 24.04,
+with Python 3.11 and 3.14. The [checksum-bound receipt](v06x-python-fixture-implementation-evidence/ci-40876452322/assessment.json)
+records all four profiles, raw P1 observations, native reference artifacts and
+original GitHub ZIP digests. The executed CI merge commit was
+`83e9cf88e2418f05fd624032e4067daab139340b`; its tree equals PR head
+`2c4874fbffe2e4c00aa6c4060fdd2125d35acba0`. This receipt remains bound to
+those identities and does not establish a result for later changes.
+
+This is the fixed three-time checkpoint, not cold setup cost or full P1
+acceptance. Retained baselines 1/2/3, aligned resource and physical-connection
+observations, finite pre-admission STOP and mutation controls remain required.
