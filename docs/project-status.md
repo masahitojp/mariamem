@@ -89,15 +89,6 @@ and guide-only skip policy are unchanged. No product/runtime/guest/generated or
 release ledger change is included. Qualification, version and publication remain
 separate Human decisions.
 
-**v0.6.0 release scope agreed with the Human, 2026-10-30:** Live is part of the
-0.6.0 scope together with the other adopted-on-main capabilities (routines,
-prepared statements with the accepted consumer exceptions, connection switching,
-`import_dump`, the 16-bit status projection and the Go 1.26.10 toolchain). The
-[scope record](decisions/v060-release-scope.md) owns the inclusion list, the
-release prerequisites (complete dogfood or a recorded D1 deferral, then
-version/notes, Qualification and publication) and the explicit exclusions. This
-is a placement decision; it does not approve publication or bypass any gate.
-
 ## Live endpoints adopted on main — unreleased
 
 The Human approved both the previously applied protection and the selected Live
@@ -848,6 +839,15 @@ These are closed; they are not pending prerequisites for #18/#19. In particular,
 #19 may proceed from the resolved #5/#7 repair while recording its own source.
 
 ### Approved scope and release sequencing
+
+**v0.6.0 release scope agreed with the Human, 2026-10-30:** Live is part of the
+0.6.0 scope together with the other adopted-on-main capabilities (routines,
+prepared statements with the accepted consumer exceptions, connection switching,
+`import_dump`, the 16-bit status projection and the Go 1.26.10 toolchain). The
+[scope record](decisions/v060-release-scope.md) owns the inclusion list, the
+release prerequisites (complete dogfood or a recorded D1 deferral, then
+version/notes, Qualification and publication) and the explicit exclusions. This
+is a placement decision; it does not approve publication or bypass any gate.
 
 **Dogfood scope and release sequencing agreed with the Human, 2026-10-29:**
 
