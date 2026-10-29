@@ -88,6 +88,18 @@ def test_batch(n,mariamem_app_db):
     ('command',2,False,False), ('command',1,False,True),
 ])
 def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failure):
+    sys.path.insert(0,str(ROOT/'scripts'))
+    from git_identity import verify_go_binary
+    source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    host_info=verify_go_binary(ROOT,Path(HOST).absolute(),source)
+    installed=os.environ.get('P1_INSTALLED_CONSUMER')=='1'
+    if installed:
+        import mariamem
+        package=Path(mariamem.__file__).resolve().parent
+        assert not package.is_relative_to(ROOT)
+        expected={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'python/mariamem').glob('*.py')}
+        actual={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in package.glob('*.py')}
+        assert actual==expected, 'installed module bytes differ or source fallback used'
     project=tmp_path/'consumer';project.mkdir()
     events=project/'events.jsonl'
     # Reuse the authored app and migrations. Only fix its test pool budget.
@@ -103,7 +115,8 @@ def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failur
         port=sentinel.getsockname()[1]
         (project/'pytest.ini').write_text('[pytest]\nmariamem_route_profiles = app=127.0.0.1:'+str(port)+'/app\n')
         env={k:v for k,v in os.environ.items() if not k.startswith(('PYTEST_','PYTHON'))}
-        env.update(PYTHONPATH=str(ROOT/'python'),PYTHONDONTWRITEBYTECODE='1',PYTEST_DISABLE_PLUGIN_AUTOLOAD='1',
+        if not installed:env['PYTHONPATH']=str(ROOT/'python')
+        env.update(PYTHONDONTWRITEBYTECODE='1',PYTEST_DISABLE_PLUGIN_AUTOLOAD='1',
                    MARIAMEM_TEST_HOST=str(Path(HOST).absolute()),P1_METHOD=method,
                    P1_COMMAND_SCRIPT=str(ROOT/'tests/fixture_entry_acceptance/p1_migrate.py'),
                    P1_MIGRATION_SOURCE=str(ROOT/'tests/preparation_migration_acceptance/migrations'),
@@ -142,8 +155,8 @@ def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failur
     assert sum(r['kind']=='mariamem_server' for r in closes)==workers
     if ordinary_failure:
         assert '1 failed, 5 passed' in result.stdout and 'ORDINARY_TEST_FAILURE' in result.stdout
-    source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
-    print(json.dumps({'result':'P1_REAL_ENTRY_PASS','source_commit':source,'method':method,'workers':workers,
+    print(json.dumps({'result':'P1_REAL_ENTRY_PASS','source_commit':source,'method':method,'workers':workers,'installed_wheel':installed,
+        'host_sha256':hashlib.sha256(Path(HOST).read_bytes()).hexdigest(),
         'reverse':reverse,'ordinary_failure':ordinary_failure,'cases':6,'final_owners':final,
         'inputs_sha256':{p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in [
             'tests/fixture_entry_acceptance/p1_migrate.py','tests/preparation_migration_acceptance/application.py',

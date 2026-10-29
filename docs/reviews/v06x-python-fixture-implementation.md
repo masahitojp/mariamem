@@ -58,15 +58,18 @@ This is an implementation checkpoint, not P1-complete or main-adoption evidence.
   variant fixes its pool budget to max-open 2/max-idle 1. Migration SQL is not
   normalized or rewritten; this is not a new upstream-application claim.
 - Existing Live jobs run new controls on both Python minors and required hosts;
-  runtime checks use the exact-source built host. No new required context is added.
+  runtime checks reject a missing/wrong/dirty source stamp before source startup.
+  Installed-wheel mode checks every Python module byte and rejects source fallback;
+  CI isolates Python3.11/pytest7.0.0 and Python3.14/pytest9.0.2 consumers.
+  No new required context is added.
 
 ## Still required before full P1 acceptance
 
 Retain the exact required-host/minor CI results, then finish the P1-specific
 source-bound first/second-test and repeated-batch measurement campaign, retained
 baselines 1/2/3, aligned RSS/available memory/FD/physical connection/temp counters
-and actual guard/mutation controls. Add installed-wheel consumer validation for
-this new public entry. Existing G1 resources or local fake-owner reports are not
+and actual guard/mutation controls. Retain installed-wheel consumer results for
+this new public entry at their exact source and required hosts. Existing G1 resources or local fake-owner reports are not
 substitutes. Existing native migration references retain their original source
 and scope; a changed input/SQL needs its own fresh native control.
 
