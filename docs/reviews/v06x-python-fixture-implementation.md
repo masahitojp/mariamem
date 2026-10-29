@@ -1,5 +1,10 @@
 # P1 implementation checkpoint
 
+Latest local source: e4b470034d56b50770452ec816e8f88fa837deb5, based on main
+2ad041c. The final local results below supersede earlier candidate observations
+without relabelling them. Required-host CI and the full P1 acceptance campaign
+remain pending.
+
 Implementation follows the conditional Human approval in decision commit
 746ea5fb6306bb122659917681a2554a6a292e77, before any P1 product/helper code.
 Reviewed proposal source: de860c4fc553907d237ad3a046ca6a6780ce0bb4.
@@ -92,13 +97,13 @@ is not a claim that the new command path already has a fresh native receipt.
 ## Local verification at bcc2938
 
 Exact source_commit `bcc29380f8f012404f44d557bea5586de6b3bb92` includes main
-2ad041c. On observed macOS27.2 arm64, canonical full check passed: source checks
+2ad041c. On observed macOS 27.2 arm64, canonical full check passed: source checks
 31, Go unit/vet, Python1407 PASS /55 explicit SKIP /76 subtests, public-source
-check5667 files. Python3.11.17/pytest7.0.0 focused gate passed89 tests.
+check5667 files. Python 3.11.17/pytest 7.0.0 focused gate passed89 tests.
 
 The guarded native wheel builder passed deployment, source stamp, licensing and
 archive checks. Installed-wheel P1 passed four configurations per profile on
-Python3.11.17/pytest7.0.0 and Python3.14.9/pytest9.0.2: command serial, callback
+Python 3.11.17/pytest 7.0.0 and Python 3.14.9/pytest 9.0.2: command serial, callback
 reverse order, command two-worker batch and an ordinary failing test followed
 by independent children. Each configuration ran six child cases. Each loaded
 Python module matches source bytes; native execution uses the wheel's bundled
@@ -159,3 +164,30 @@ attributes already fail inside pytest's own contextlib capture path at de860c4.
 That framework behavior is not patched or claimed fixed here; it is distinct
 from P1 replacing the original failure while adding optional notes. No failing
 required profile or existing oracle was relaxed to support this distinction.
+
+## Final local candidate — e4b4700
+
+- Canonical full check: PASS, source checks 31, Go unit/vet, Python 1413 PASS /55
+  explicit SKIP /76 subtests; public-source check 5670 files.
+- Python 3.11.17/pytest 7.0.0 focused gate: 95 PASS, including interrupt priority,
+  read-only diagnostic metadata, strict expected-failure counts and other-worker
+  independence.
+- Python 3.11.17/pytest 7.0.0 and Python 3.14.9/pytest 9.0.2 installed wheel: four
+  configurations each, six child cases each, JUnit errors/skips 0 and exactly one
+  intended assertion only in the failure variant. Native host is bundled/default,
+  not an external override; its actual VCS stamp/hash and all Python module bytes
+  match this source. Every observed final host/session directory was retired.
+- Unstamped host and source-tree fallback controls are rejected before consumer
+  creation. Separate final-source raw logs preserve both expected negative exits.
+
+The [final checksum-bound assessment and raw archive](v06x-python-fixture-implementation-evidence/local-e4b4700/assessment.json)
+include full canonical output, both runtime/JUnit/event logs, wheel metadata,
+host buildinfo, lower-bound tests and preflight refusals. The fully-frozen
+traceback diagnostic is labeled historical-fixture/fake-owner characterization,
+not old/new SDK acceptance. No initial unverified/failed run is a PASS receipt.
+
+Only observed macOS 27.2 arm64 is locally proven. Both profile runs overlapped,
+Go caches were warm and package acquisition was not a clean-machine test.
+macOS15/Ubuntu CI, fresh native command/pool reference and the complete P1
+three-time/retained-baseline/resource/guard/mutation campaign remain required.
+No whole P1/main adoption/Qualification/release claim is made.

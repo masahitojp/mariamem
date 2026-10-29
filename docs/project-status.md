@@ -980,12 +980,14 @@ passed source/host/checksum replay. The [G1 acceptance review](reviews/v06x-go-f
 recommends accepting bounded G1 evidence; Human acceptance/main adoption,
 Qualification and release remain separate. P1/EP1/EG1 are still required.
 
-**Next entry: P1 design proposal.** The [Python prepared-entry proposal](reviews/v06x-python-fixture-entry-design.md)
-retains existing pytest fixtures/routing, proposes a declarative command beside
-the callback, and fixes readable-owned diagnostics, compatibility and physical
-cleanup/resource acceptance. Command API and fixture-resolution error handling
-remain review inputs. No P1 implementation authorization or runtime PASS is
-claimed; the structured contract still authorizes G1 only.
+**P1 prepared entry — implementation approved, acceptance pending.** The
+[Python entry design](reviews/v06x-python-fixture-entry-design.md) and
+[conditional decision](decisions/p1-prepared-entry-implementation.md) authorize
+PrepareCommand plus readable owned diagnostics and worker-local stop after
+cleanup debt. The contract/checker explicitly authorizes G1 and P1. Existing
+None/callable semantics, including ignored callback returns, stay intact.
+The pre-code characterization below is historical; current implementation and
+source-bound local results are recorded in the later checkpoint.
 The [local pytest reporting characterization](reviews/v06x-python-fixture-reporting.md)
 now closes the annotation-feasibility question at source 1780db3: seven controls
 on Python 3.11/pytest 7 and Python 3.14/pytest 9 preserve original setup/cleanup
@@ -1598,3 +1600,11 @@ The [saved checkpoint](reviews/v06x-python-fixture-implementation.md#local-verif
 keeps raw logs/checksums and two rejected preflight controls. Required macOS15/
 Ubuntu CI, fresh native command/pool control and full P1 time/resource/guard
 campaign remain pending; this does not close P1 or authorize adoption/release.
+
+**Final P1 local candidate e4b4700:** [saved verification and remaining acceptance](reviews/v06x-python-fixture-implementation.md#final-local-candidate--e4b4700)
+record full canonical PASS (Python 1413/source 31, Go unit/vet), pytest 7.0.0
+focused 95 PASS and four installed-wheel configurations per Python minor.
+Strict JUnit totals prevent expected failures masking extra cleanup errors;
+read-only diagnostic metadata and finalizer interrupts preserve original errors.
+Newer source does not relabel bcc2938 or earlier receipts. Required-host CI and
+full native/time/resource acceptance remain pending; main/release are separate.
