@@ -4,6 +4,7 @@ on:
     branches: [main, experiment/live-main-candidate, experiment/live-review-fixes]
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
@@ -19,6 +20,7 @@ jobs:
       live_runtime: ${{ steps.scope.outputs.live_runtime }}
       g1: ${{ steps.scope.outputs.g1 }}
       mac_integration: ${{ steps.scope.outputs.mac_integration }}
+      pull_request_draft: ${{ steps.scope.outputs.pull_request_draft }}
       run_live: ${{ steps.scope.outputs.run_live }}
       ubuntu_check: ${{ steps.scope.outputs.ubuntu_check }}
       ubuntu_integration: ${{ steps.scope.outputs.ubuntu_integration }}
