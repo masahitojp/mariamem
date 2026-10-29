@@ -33,10 +33,13 @@ CASE='''
 import pymysql
 def test_child(mariamem_fork):
     info=mariamem_fork.connection_info()
-    with pymysql.connect(**info) as connection:
+    connection=pymysql.connect(**info)
+    try:
         with connection.cursor() as cursor:
             cursor.execute('SELECT COUNT(*) FROM app.users')
             assert cursor.fetchone()[0]==2
+    finally:connection.close()
+    mariamem_fork.wait_disconnected()
     assert mariamem_fork.status()['active_connections']==0
 '''
 
