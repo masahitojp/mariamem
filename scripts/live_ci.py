@@ -5,6 +5,8 @@ import json
 import os
 from pathlib import Path
 
+from live_selection import FAMILIES, select as select_families
+
 from development_scope import boundary, canonical_plan, event_base, plan
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -30,6 +32,10 @@ def verify_gate(needs):
     assert scope['result'] == 'success', 'scope did not succeed'
     selected = scope['outputs'].get('run_live')
     assert selected in ('true', 'false'), 'invalid scope output'
+    if selected == 'true':
+        flags = [scope['outputs'].get(key) for key in FAMILIES]
+        assert all(flag in ('true', 'false') for flag in flags), 'missing family selection'
+        assert 'true' in flags, 'empty selected acceptance'
     expected = 'success' if selected == 'true' else 'skipped'
     for job in ['native-reference', 'live']:
         assert needs[job]['result'] == expected, job + ' did not finish as required'
@@ -51,11 +57,12 @@ def main():
     result = plan(ROOT, args.candidate_sha, event_base(event, os.environ['GITHUB_EVENT_NAME']))
     result['run_live'] = required(result['changed_paths'], result['reason'])
     result.update(canonical_plan(result, os.environ['GITHUB_EVENT_NAME'], os.environ.get('GITHUB_REF')))
+    result.update(select_families(result["changed_paths"], os.environ["GITHUB_EVENT_NAME"], result["reason"]))
     print(json.dumps(result, indent=2))
     if args.github_output:
         with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
             output.write('run_live=' + str(result['run_live']).lower() + '\n')
-            for key in ['ubuntu_check', 'ubuntu_integration']:
+            for key in ['ubuntu_check', 'ubuntu_integration', *FAMILIES]:
                 output.write(key + '=' + str(result[key]).lower() + '\n')
 
 
