@@ -23,7 +23,8 @@ def record(value):
     with Path(os.environ['P1_EVENT_FILE']).open('a') as out:
         out.write(json.dumps(value)+'\\n')
 @pytest.fixture(scope='session')
-def mariamem_options(): return {'host_binary':os.environ['MARIAMEM_TEST_HOST']}
+def mariamem_options():
+    return {} if os.environ.get('P1_INSTALLED_CONSUMER')=='1' else {'host_binary':os.environ['MARIAMEM_TEST_HOST']}
 @pytest.fixture(scope='session')
 def mariamem_sqlalchemy_engines():
     import application
@@ -55,7 +56,7 @@ def pytest_sessionfinish(session):
     for source in SOURCES:
         record({'event':'final','closed':source.closed,
                 'host_reaped':source._session._process.poll() is not None,
-                'directory_removed':not source._session.root.exists()})
+                'directory_removed':not source._session.root.exists(),'binary':source._session.binary})
 '''
 CASES = '''
 import os,pytest
@@ -102,6 +103,9 @@ def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failur
         expected={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'python/mariamem').glob('*.py')}
         actual={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in package.glob('*.py')}
         assert actual==expected, 'installed module bytes differ or source fallback used'
+        bundled_host=package/'_native/mariamem-host'
+        verify_go_binary(ROOT,bundled_host,source)
+        assert hashlib.sha256(bundled_host.read_bytes()).digest()==hashlib.sha256(Path(HOST).read_bytes()).digest()
     project=tmp_path/'consumer';project.mkdir()
     events=project/'events.jsonl'
     # Reuse the authored app and migrations. Only fix its test pool budget.
@@ -116,7 +120,7 @@ def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failur
         sentinel.bind(('127.0.0.1',0));sentinel.listen()
         port=sentinel.getsockname()[1]
         (project/'pytest.ini').write_text('[pytest]\nmariamem_route_profiles = app=127.0.0.1:'+str(port)+'/app\n')
-        env={k:v for k,v in os.environ.items() if not k.startswith(('PYTEST_','PYTHON'))}
+        env={k:v for k,v in os.environ.items() if not k.startswith(('PYTEST_','PYTHON','MARIAMEM_','MYSQLMEM_'))}
         if not installed:env['PYTHONPATH']=str(ROOT/'python')
         env.update(PYTHONDONTWRITEBYTECODE='1',PYTEST_DISABLE_PLUGIN_AUTOLOAD='1',
                    MARIAMEM_TEST_HOST=str(Path(HOST).absolute()),P1_METHOD=method,
@@ -152,6 +156,7 @@ def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failur
     closes=[r for r in rows if r['event']=='close']
     assert len(prepared)==workers and len({r['worker'] for r in prepared})==workers
     assert len(final)==workers and all(r['closed'] and r['host_reaped'] and r['directory_removed'] for r in final)
+    if installed:assert all(Path(r['binary']).resolve()==bundled_host.resolve() for r in final)
     assert sum(r['kind']=='mariamem_fork' for r in closes)==6
     assert sum(r['kind']=='mariamem_snapshot' for r in closes)==workers
     assert sum(r['kind']=='mariamem_server' for r in closes)==workers
