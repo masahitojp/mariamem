@@ -1,0 +1,900 @@
+{
+  "result": "PASS_LOCAL_TIME_CHECKPOINT",
+  "source_commit": "2fa14975f7f54874f4198faf2066dca268485b8f",
+  "host": "observed macOS27.2 arm64",
+  "native_host_sha256": "34ec71a3efdac0681013c3cba9b0a1baad9acf174fc0d44ba1a89d9c0fd5dab6",
+  "profiles": [
+    {
+      "profile": "py311",
+      "focused_passed": 281,
+      "actual_guest_outer_passed": 5,
+      "scope": "source SDK; four prior functional configurations plus first/second/repeat time checkpoint",
+      "timing": {
+        "result": "PASS_P1_TIME_CHECKPOINT",
+        "source_commit": "2fa14975f7f54874f4198faf2066dca268485b8f",
+        "installed_wheel": false,
+        "host_sha256": "34ec71a3efdac0681013c3cba9b0a1baad9acf174fc0d44ba1a89d9c0fd5dab6",
+        "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+        "first_test_setup_seconds": 0.6430233329883777,
+        "second_test_edits_seconds": 0.699322791013401,
+        "first_scaffold_seconds": 0.0005104170122649521,
+        "second_edit_seconds": 9.416599641554058e-05,
+        "first_test_lines": 18,
+        "first_input_sha256": {
+          "test_first.py": "848a1fcb10f348420dcfac824625680a5f886c3bb57dd0e3aff685a99c5082a4",
+          "conftest.py": "1f8bf49e8b970109066203c7f0e63750c9aa248a1043ad21088f44ce35439aa0",
+          "pytest.ini": "b7b15eebb02c4688a45a91aa9ecf820641ee977781d51eded87f623d42241da1",
+          "application.py": "855d489b7474244998dd239bacea92f71011b3366cecabcee83fe3d5550b5830"
+        },
+        "second_input_sha256": {
+          "test_first.py": "848a1fcb10f348420dcfac824625680a5f886c3bb57dd0e3aff685a99c5082a4",
+          "conftest.py": "1f8bf49e8b970109066203c7f0e63750c9aa248a1043ad21088f44ce35439aa0",
+          "pytest.ini": "b7b15eebb02c4688a45a91aa9ecf820641ee977781d51eded87f623d42241da1",
+          "application.py": "855d489b7474244998dd239bacea92f71011b3366cecabcee83fe3d5550b5830",
+          "test_second.py": "023b06a479844f2ebc7b61bacd5096dfc32520cf87fdd6fe8e1f69db343993f7"
+        },
+        "packages": {
+          "pytest": "7.0.0",
+          "pytest-xdist": "3.8.0",
+          "SQLAlchemy": "2.0.54",
+          "PyMySQL": "1.2.3",
+          "Alembic": "1.18.4"
+        },
+        "code_sha256": {
+          "tests/fixture_entry_acceptance/time_campaign.py": "4cf70ffdb8f79e60c7932b53ded536016dd82fa244639747447ecc983f55fc95",
+          "tests/test_p1_runtime.py": "e4198035cecc406928b86573d28f175cb1820f298ded07b94cf9e65a9d6f45f0"
+        },
+        "added_second_test_lines": 5,
+        "repeated_lifecycle_lines": 0,
+        "acquisition": "preinstalled source-bound CI wheel and fixed dependency environment; acquisition duration and cold-machine cost not measured by this checkpoint",
+        "human_authoring_minutes": null,
+        "phase_times_are_not_summed": true,
+        "runs": {
+          "first": {
+            "command": [
+              "/private/tmp/mariamem-g1-campaign/build/p1-runtime/py311/bin/python",
+              "-m",
+              "pytest",
+              "-p",
+              "mariamem.pytest_plugin",
+              "-p",
+              "xdist.plugin",
+              "test_first.py",
+              "-q",
+              "--tb=short",
+              "--junitxml=/private/tmp/mariamem-g1-campaign/build/p1-time-2fa-py311/test_three_time_campaign0/time-campaign/first/results.xml"
+            ],
+            "wall_seconds": 0.6401735419931356,
+            "counts": {
+              "tests": 1,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "phase_seconds_by_worker": {
+              "main": {
+                "start": [
+                  0.050901125
+                ],
+                "prepare": [
+                  0.2626745
+                ],
+                "disconnect": [
+                  0.000276042
+                ],
+                "capture": [
+                  0.004087333
+                ],
+                "admission": [
+                  0.035318833
+                ],
+                "case": [
+                  0.015666208
+                ],
+                "cleanup": [
+                  0.00306825,
+                  0.002072833,
+                  4.9083e-05
+                ]
+              }
+            },
+            "batches": [],
+            "peak_held_sql_connections": null
+          },
+          "second": {
+            "command": [
+              "/private/tmp/mariamem-g1-campaign/build/p1-runtime/py311/bin/python",
+              "-m",
+              "pytest",
+              "-p",
+              "mariamem.pytest_plugin",
+              "-p",
+              "xdist.plugin",
+              "test_first.py",
+              "test_second.py",
+              "-q",
+              "--tb=short",
+              "--junitxml=/private/tmp/mariamem-g1-campaign/build/p1-time-2fa-py311/test_three_time_campaign0/time-campaign/second/results.xml"
+            ],
+            "wall_seconds": 0.69769729100517,
+            "counts": {
+              "tests": 2,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "phase_seconds_by_worker": {
+              "main": {
+                "start": [
+                  0.05518425
+                ],
+                "prepare": [
+                  0.263770792
+                ],
+                "disconnect": [
+                  0.000290208
+                ],
+                "capture": [
+                  0.003925792
+                ],
+                "admission": [
+                  0.037538333,
+                  0.035043958
+                ],
+                "case": [
+                  0.015720083,
+                  0.009483
+                ],
+                "cleanup": [
+                  0.003112083,
+                  0.002667667,
+                  0.002004458,
+                  5.7959e-05
+                ]
+              }
+            },
+            "batches": [],
+            "peak_held_sql_connections": null
+          },
+          "repeat-workers1": {
+            "command": [
+              "/private/tmp/mariamem-g1-campaign/build/p1-runtime/py311/bin/python",
+              "-m",
+              "pytest",
+              "-p",
+              "mariamem.pytest_plugin",
+              "-p",
+              "xdist.plugin",
+              "test_repeat.py",
+              "-q",
+              "--tb=short",
+              "--junitxml=/private/tmp/mariamem-g1-campaign/build/p1-time-2fa-py311/test_three_time_campaign0/time-campaign/repeat-workers1/results.xml"
+            ],
+            "wall_seconds": 1.64887008300866,
+            "counts": {
+              "tests": 16,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "phase_seconds_by_worker": {
+              "main": {
+                "start": [
+                  0.052058125
+                ],
+                "prepare": [
+                  0.271196041
+                ],
+                "disconnect": [
+                  0.000312
+                ],
+                "capture": [
+                  0.004091625
+                ],
+                "admission": [
+                  0.035247708,
+                  0.0356465,
+                  0.036015667,
+                  0.034614875,
+                  0.036144792,
+                  0.035420417,
+                  0.036781458,
+                  0.035376625,
+                  0.035143166,
+                  0.040686291,
+                  0.03479775,
+                  0.03638875,
+                  0.035176375,
+                  0.036251875,
+                  0.037160792,
+                  0.03694775
+                ],
+                "case": [
+                  0.022736958,
+                  0.018166417,
+                  0.017983333,
+                  0.017327125,
+                  0.017746875,
+                  0.018061167,
+                  0.017692,
+                  0.017520708,
+                  0.019883792,
+                  0.0178175,
+                  0.018512875,
+                  0.017313292,
+                  0.017059417,
+                  0.01731275,
+                  0.017745083,
+                  0.017007625
+                ],
+                "cleanup": [
+                  0.002957,
+                  0.002928333,
+                  0.003094042,
+                  0.002828833,
+                  0.002761541,
+                  0.002887208,
+                  0.00282475,
+                  0.002907292,
+                  0.00293075,
+                  0.002928333,
+                  0.003009708,
+                  0.003242084,
+                  0.002803542,
+                  0.002979458,
+                  0.003028125,
+                  0.002809583,
+                  0.0020475,
+                  5.1917e-05
+                ]
+              }
+            },
+            "batches": [
+              {
+                "label": "warmup",
+                "start_ns": 214355593076500,
+                "end_ns": 214356186288541,
+                "elapsed_seconds": 0.593212041
+              },
+              {
+                "label": "observed_1",
+                "start_ns": 214356186671708,
+                "end_ns": 214356451105958,
+                "elapsed_seconds": 0.26443425
+              },
+              {
+                "label": "observed_2",
+                "start_ns": 214356451486041,
+                "end_ns": 214356719271791,
+                "elapsed_seconds": 0.26778575
+              },
+              {
+                "label": "observed_3",
+                "start_ns": 214356719664375,
+                "end_ns": 214356989245625,
+                "elapsed_seconds": 0.26958125
+              }
+            ],
+            "peak_held_sql_connections": 2
+          },
+          "repeat-workers2": {
+            "command": [
+              "/private/tmp/mariamem-g1-campaign/build/p1-runtime/py311/bin/python",
+              "-m",
+              "pytest",
+              "-p",
+              "mariamem.pytest_plugin",
+              "-p",
+              "xdist.plugin",
+              "test_repeat.py",
+              "-q",
+              "--tb=short",
+              "--junitxml=/private/tmp/mariamem-g1-campaign/build/p1-time-2fa-py311/test_three_time_campaign0/time-campaign/repeat-workers2/results.xml",
+              "-n",
+              "2",
+              "--dist=loadgroup"
+            ],
+            "wall_seconds": 1.505762082990259,
+            "counts": {
+              "tests": 16,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "phase_seconds_by_worker": {
+              "gw1": {
+                "start": [
+                  0.054859916
+                ],
+                "prepare": [
+                  0.303971959
+                ],
+                "disconnect": [
+                  0.000303083
+                ],
+                "capture": [
+                  0.004701584
+                ],
+                "admission": [
+                  0.03735575,
+                  0.037275834,
+                  0.036710709,
+                  0.038280667,
+                  0.03737825,
+                  0.037742209,
+                  0.036094584,
+                  0.036465792
+                ],
+                "case": [
+                  0.024421166,
+                  0.026752417,
+                  0.024851709,
+                  0.018436708,
+                  0.031366666,
+                  0.017281125,
+                  0.018593584,
+                  0.030999167
+                ],
+                "cleanup": [
+                  0.002652958,
+                  0.002506792,
+                  0.003236417,
+                  0.003323125,
+                  0.002992417,
+                  0.003303542,
+                  0.002860375,
+                  0.002952875,
+                  0.002042208,
+                  4.825e-05
+                ]
+              },
+              "gw0": {
+                "start": [
+                  0.055977708
+                ],
+                "prepare": [
+                  0.30280975
+                ],
+                "disconnect": [
+                  0.000307041
+                ],
+                "capture": [
+                  0.004772375
+                ],
+                "admission": [
+                  0.038318917,
+                  0.039471042,
+                  0.0381145,
+                  0.036296292,
+                  0.045232458,
+                  0.036878375,
+                  0.037638083,
+                  0.036619583
+                ],
+                "case": [
+                  0.023661625,
+                  0.017795625,
+                  0.017905584,
+                  0.026286,
+                  0.017147083,
+                  0.025970292,
+                  0.019076542,
+                  0.017351041
+                ],
+                "cleanup": [
+                  0.003394375,
+                  0.003332291,
+                  0.003125917,
+                  0.00253575,
+                  0.003088583,
+                  0.002853417,
+                  0.002966834,
+                  0.003139916,
+                  0.001948584,
+                  4.775e-05
+                ]
+              }
+            },
+            "batches": [
+              {
+                "label": "warmup",
+                "start_ns": 214357485477750,
+                "end_ns": 214358003822041,
+                "elapsed_seconds": 0.518344291
+              },
+              {
+                "label": "observed_1",
+                "start_ns": 214358004289083,
+                "end_ns": 214358154700958,
+                "elapsed_seconds": 0.150411875
+              },
+              {
+                "label": "observed_2",
+                "start_ns": 214358155180375,
+                "end_ns": 214358306381416,
+                "elapsed_seconds": 0.151201041
+              },
+              {
+                "label": "observed_3",
+                "start_ns": 214358306831125,
+                "end_ns": 214358452182916,
+                "elapsed_seconds": 0.145351791
+              }
+            ],
+            "peak_held_sql_connections": 4
+          }
+        },
+        "plan_sha256": "d28acf176592cc2317ca6b433bc231b0a1813329b2861155db5176f9d7ea48a8",
+        "input_sha256": {
+          "application.py": "855d489b7474244998dd239bacea92f71011b3366cecabcee83fe3d5550b5830",
+          "conftest.py": "1f8bf49e8b970109066203c7f0e63750c9aa248a1043ad21088f44ce35439aa0",
+          "pytest.ini": "b7b15eebb02c4688a45a91aa9ecf820641ee977781d51eded87f623d42241da1",
+          "test_first.py": "848a1fcb10f348420dcfac824625680a5f886c3bb57dd0e3aff685a99c5082a4",
+          "test_second.py": "023b06a479844f2ebc7b61bacd5096dfc32520cf87fdd6fe8e1f69db343993f7",
+          "test_repeat.py": "f47e9c7009c7daafc72705f40120247e028db341bda98a53c55e9bbb39143d04"
+        },
+        "original_endpoint_contacts": 0,
+        "remaining": [
+          "retained baselines1/2/3",
+          "aligned RSS/available-memory/FD/allocated-temp/physical-connection observations",
+          "finite pre-admission resource STOP and mutations",
+          "full P1 acceptance and separate adoption"
+        ]
+      }
+    },
+    {
+      "profile": "py314",
+      "focused_passed": 281,
+      "actual_guest_outer_passed": 5,
+      "scope": "source SDK; four prior functional configurations plus first/second/repeat time checkpoint",
+      "timing": {
+        "result": "PASS_P1_TIME_CHECKPOINT",
+        "source_commit": "2fa14975f7f54874f4198faf2066dca268485b8f",
+        "installed_wheel": false,
+        "host_sha256": "34ec71a3efdac0681013c3cba9b0a1baad9acf174fc0d44ba1a89d9c0fd5dab6",
+        "python": "3.14.9 (main, Oct 21 2026, 06:02:15) [Clang 21.0.0 (clang-2100.3.34.2)]",
+        "first_test_setup_seconds": 0.7352995840192307,
+        "second_test_edits_seconds": 0.8082966250076424,
+        "first_scaffold_seconds": 0.0005312499997671694,
+        "second_edit_seconds": 0.00010612499318085611,
+        "first_test_lines": 18,
+        "first_input_sha256": {
+          "test_first.py": "848a1fcb10f348420dcfac824625680a5f886c3bb57dd0e3aff685a99c5082a4",
+          "conftest.py": "1f8bf49e8b970109066203c7f0e63750c9aa248a1043ad21088f44ce35439aa0",
+          "pytest.ini": "2b28d5d323dfdec4a9bef195b018b261a81514d0a8af0d0db440a3ac79e8a0cb",
+          "application.py": "855d489b7474244998dd239bacea92f71011b3366cecabcee83fe3d5550b5830"
+        },
+        "second_input_sha256": {
+          "test_first.py": "848a1fcb10f348420dcfac824625680a5f886c3bb57dd0e3aff685a99c5082a4",
+          "conftest.py": "1f8bf49e8b970109066203c7f0e63750c9aa248a1043ad21088f44ce35439aa0",
+          "pytest.ini": "2b28d5d323dfdec4a9bef195b018b261a81514d0a8af0d0db440a3ac79e8a0cb",
+          "application.py": "855d489b7474244998dd239bacea92f71011b3366cecabcee83fe3d5550b5830",
+          "test_second.py": "023b06a479844f2ebc7b61bacd5096dfc32520cf87fdd6fe8e1f69db343993f7"
+        },
+        "packages": {
+          "pytest": "9.0.2",
+          "pytest-xdist": "3.8.0",
+          "SQLAlchemy": "2.0.54",
+          "PyMySQL": "1.2.3",
+          "Alembic": "1.18.4"
+        },
+        "code_sha256": {
+          "tests/fixture_entry_acceptance/time_campaign.py": "4cf70ffdb8f79e60c7932b53ded536016dd82fa244639747447ecc983f55fc95",
+          "tests/test_p1_runtime.py": "e4198035cecc406928b86573d28f175cb1820f298ded07b94cf9e65a9d6f45f0"
+        },
+        "added_second_test_lines": 5,
+        "repeated_lifecycle_lines": 0,
+        "acquisition": "preinstalled source-bound CI wheel and fixed dependency environment; acquisition duration and cold-machine cost not measured by this checkpoint",
+        "human_authoring_minutes": null,
+        "phase_times_are_not_summed": true,
+        "runs": {
+          "first": {
+            "command": [
+              "/private/tmp/mariamem-g1-campaign/build/p1-runtime/py314/bin/python",
+              "-m",
+              "pytest",
+              "-p",
+              "mariamem.pytest_plugin",
+              "-p",
+              "xdist.plugin",
+              "test_first.py",
+              "-q",
+              "--tb=short",
+              "--junitxml=/private/tmp/mariamem-g1-campaign/build/p1-time-2fa-py314/test_three_time_campaign0/time-campaign/first/results.xml"
+            ],
+            "wall_seconds": 0.7321102499845438,
+            "counts": {
+              "tests": 1,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "phase_seconds_by_worker": {
+              "main": {
+                "start": [
+                  0.049271958
+                ],
+                "prepare": [
+                  0.287905125
+                ],
+                "disconnect": [
+                  0.000280542
+                ],
+                "capture": [
+                  0.004054667
+                ],
+                "admission": [
+                  0.035923292
+                ],
+                "case": [
+                  0.016118958
+                ],
+                "cleanup": [
+                  0.002916458,
+                  0.002064,
+                  4.9917e-05
+                ]
+              }
+            },
+            "batches": [],
+            "peak_held_sql_connections": null
+          },
+          "second": {
+            "command": [
+              "/private/tmp/mariamem-g1-campaign/build/p1-runtime/py314/bin/python",
+              "-m",
+              "pytest",
+              "-p",
+              "mariamem.pytest_plugin",
+              "-p",
+              "xdist.plugin",
+              "test_first.py",
+              "test_second.py",
+              "-q",
+              "--tb=short",
+              "--junitxml=/private/tmp/mariamem-g1-campaign/build/p1-time-2fa-py314/test_three_time_campaign0/time-campaign/second/results.xml"
+            ],
+            "wall_seconds": 0.8065722079772968,
+            "counts": {
+              "tests": 2,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "phase_seconds_by_worker": {
+              "main": {
+                "start": [
+                  0.053841416
+                ],
+                "prepare": [
+                  0.290040416
+                ],
+                "disconnect": [
+                  0.000278875
+                ],
+                "capture": [
+                  0.0040095
+                ],
+                "admission": [
+                  0.036357916,
+                  0.035022667
+                ],
+                "case": [
+                  0.016144125,
+                  0.009147
+                ],
+                "cleanup": [
+                  0.003048,
+                  0.002860792,
+                  0.002004709,
+                  5.1125e-05
+                ]
+              }
+            },
+            "batches": [],
+            "peak_held_sql_connections": null
+          },
+          "repeat-workers1": {
+            "command": [
+              "/private/tmp/mariamem-g1-campaign/build/p1-runtime/py314/bin/python",
+              "-m",
+              "pytest",
+              "-p",
+              "mariamem.pytest_plugin",
+              "-p",
+              "xdist.plugin",
+              "test_repeat.py",
+              "-q",
+              "--tb=short",
+              "--junitxml=/private/tmp/mariamem-g1-campaign/build/p1-time-2fa-py314/test_three_time_campaign0/time-campaign/repeat-workers1/results.xml"
+            ],
+            "wall_seconds": 1.7700350419909228,
+            "counts": {
+              "tests": 16,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "workers": 1,
+            "phase_seconds_by_worker": {
+              "main": {
+                "start": [
+                  0.04927175
+                ],
+                "prepare": [
+                  0.293455708
+                ],
+                "disconnect": [
+                  0.000281667
+                ],
+                "capture": [
+                  0.003978917
+                ],
+                "admission": [
+                  0.035761,
+                  0.034476459,
+                  0.038784875,
+                  0.035364833,
+                  0.038457875,
+                  0.034419167,
+                  0.035105667,
+                  0.037552667,
+                  0.036739708,
+                  0.035479125,
+                  0.03445275,
+                  0.035552875,
+                  0.035220917,
+                  0.039133167,
+                  0.035682959,
+                  0.036487084
+                ],
+                "case": [
+                  0.022125375,
+                  0.018206542,
+                  0.017704,
+                  0.019102166,
+                  0.017958958,
+                  0.017820875,
+                  0.018216791,
+                  0.017715125,
+                  0.017114459,
+                  0.01793175,
+                  0.0177665,
+                  0.018324333,
+                  0.017632666,
+                  0.030074792,
+                  0.017588542,
+                  0.017412709
+                ],
+                "cleanup": [
+                  0.002760958,
+                  0.002806875,
+                  0.002941625,
+                  0.003392542,
+                  0.002802792,
+                  0.00280075,
+                  0.002796208,
+                  0.003015458,
+                  0.002927125,
+                  0.002731334,
+                  0.002872916,
+                  0.003285333,
+                  0.003054917,
+                  0.002880834,
+                  0.002872292,
+                  0.002840667,
+                  0.001951167,
+                  4.5458e-05
+                ]
+              }
+            },
+            "batches": [
+              {
+                "label": "warmup",
+                "start_ns": 214781803060000,
+                "end_ns": 214782428060458,
+                "elapsed_seconds": 0.625000458
+              },
+              {
+                "label": "observed_1",
+                "start_ns": 214782428472833,
+                "end_ns": 214782689888541,
+                "elapsed_seconds": 0.261415708
+              },
+              {
+                "label": "observed_2",
+                "start_ns": 214782690309791,
+                "end_ns": 214782948255875,
+                "elapsed_seconds": 0.257946084
+              },
+              {
+                "label": "observed_3",
+                "start_ns": 214782948675250,
+                "end_ns": 214783232097458,
+                "elapsed_seconds": 0.283422208
+              }
+            ],
+            "peak_held_sql_connections": 2
+          },
+          "repeat-workers2": {
+            "command": [
+              "/private/tmp/mariamem-g1-campaign/build/p1-runtime/py314/bin/python",
+              "-m",
+              "pytest",
+              "-p",
+              "mariamem.pytest_plugin",
+              "-p",
+              "xdist.plugin",
+              "test_repeat.py",
+              "-q",
+              "--tb=short",
+              "--junitxml=/private/tmp/mariamem-g1-campaign/build/p1-time-2fa-py314/test_three_time_campaign0/time-campaign/repeat-workers2/results.xml",
+              "-n",
+              "2",
+              "--dist=loadgroup"
+            ],
+            "wall_seconds": 1.665870625001844,
+            "counts": {
+              "tests": 16,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0
+            },
+            "workers": 2,
+            "phase_seconds_by_worker": {
+              "gw0": {
+                "start": [
+                  0.054024125
+                ],
+                "prepare": [
+                  0.337478542
+                ],
+                "disconnect": [
+                  0.000232291
+                ],
+                "capture": [
+                  0.004801542
+                ],
+                "admission": [
+                  0.038324583,
+                  0.039508416,
+                  0.039890958,
+                  0.038423333,
+                  0.03727925,
+                  0.040129875,
+                  0.037523292,
+                  0.038327833
+                ],
+                "case": [
+                  0.024560458,
+                  0.017825459,
+                  0.017822666,
+                  0.028451458,
+                  0.025875708,
+                  0.0177225,
+                  0.017425583,
+                  0.033538375
+                ],
+                "cleanup": [
+                  0.003248833,
+                  0.003205125,
+                  0.003151167,
+                  0.00299425,
+                  0.003192458,
+                  0.003617,
+                  0.002697375,
+                  0.003468375,
+                  0.002285209,
+                  5.625e-05
+                ]
+              },
+              "gw1": {
+                "start": [
+                  0.054129916
+                ],
+                "prepare": [
+                  0.337102875
+                ],
+                "disconnect": [
+                  0.000317541
+                ],
+                "capture": [
+                  0.004839542
+                ],
+                "admission": [
+                  0.037947125,
+                  0.039750833,
+                  0.037194,
+                  0.0393765,
+                  0.037195167,
+                  0.039931375,
+                  0.037780792,
+                  0.039757542
+                ],
+                "case": [
+                  0.024703167,
+                  0.025418292,
+                  0.033185583,
+                  0.01773575,
+                  0.017228292,
+                  0.031524375,
+                  0.025953084,
+                  0.019229167
+                ],
+                "cleanup": [
+                  0.003438334,
+                  0.002843583,
+                  0.003064375,
+                  0.003193792,
+                  0.003740375,
+                  0.003044958,
+                  0.003135166,
+                  0.00278125,
+                  0.002017625,
+                  5.0875e-05
+                ]
+              }
+            },
+            "batches": [
+              {
+                "label": "warmup",
+                "start_ns": 214783798885083,
+                "end_ns": 214784347032583,
+                "elapsed_seconds": 0.5481475
+              },
+              {
+                "label": "observed_1",
+                "start_ns": 214784347466875,
+                "end_ns": 214784500597666,
+                "elapsed_seconds": 0.153130791
+              },
+              {
+                "label": "observed_2",
+                "start_ns": 214784501086500,
+                "end_ns": 214784650204916,
+                "elapsed_seconds": 0.149118416
+              },
+              {
+                "label": "observed_3",
+                "start_ns": 214784650659375,
+                "end_ns": 214784809741000,
+                "elapsed_seconds": 0.159081625
+              }
+            ],
+            "peak_held_sql_connections": 4
+          }
+        },
+        "plan_sha256": "d28acf176592cc2317ca6b433bc231b0a1813329b2861155db5176f9d7ea48a8",
+        "input_sha256": {
+          "application.py": "855d489b7474244998dd239bacea92f71011b3366cecabcee83fe3d5550b5830",
+          "conftest.py": "1f8bf49e8b970109066203c7f0e63750c9aa248a1043ad21088f44ce35439aa0",
+          "pytest.ini": "2b28d5d323dfdec4a9bef195b018b261a81514d0a8af0d0db440a3ac79e8a0cb",
+          "test_first.py": "848a1fcb10f348420dcfac824625680a5f886c3bb57dd0e3aff685a99c5082a4",
+          "test_second.py": "023b06a479844f2ebc7b61bacd5096dfc32520cf87fdd6fe8e1f69db343993f7",
+          "test_repeat.py": "f47e9c7009c7daafc72705f40120247e028db341bda98a53c55e9bbb39143d04"
+        },
+        "original_endpoint_contacts": 0,
+        "remaining": [
+          "retained baselines1/2/3",
+          "aligned RSS/available-memory/FD/allocated-temp/physical-connection observations",
+          "finite pre-admission resource STOP and mutations",
+          "full P1 acceptance and separate adoption"
+        ]
+      }
+    }
+  ],
+  "archive_sha256": "3941369453a1b5e08fe9a1217906989b236dfb3b9e366aa2a4e59aed6fd1a3c4",
+  "measurement_context": "Profiles executed sequentially; source SDK with exact stamped native host. Existing dependency/toolchain/page caches were not reset. Acquisition and human authoring time unmeasured. Different-source earlier37db data retained, not compared as a speedup.",
+  "remaining": [
+    "same-source installed-wheel time checkpoint on macOS15/Ubuntu",
+    "retained baseline1/2/3 aligned RSS/available-memory/FD/allocated-temp/physical-connection campaign",
+    "finite resource admission STOP and mutations",
+    "separate P1 acceptance/main/release decisions"
+  ]
+}

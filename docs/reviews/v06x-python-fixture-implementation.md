@@ -3,9 +3,9 @@
 Local SDK/entry checkpoint source: e4b470034d56b50770452ec816e8f88fa837deb5, based on main
 2ad041c. The final local results below supersede earlier candidate observations
 without relabelling them. Required-host implementation and native-control CI are
-confirmed below, with FD/logical-counter feasibility at executed sourcebd3ab3f.
-The complete P1 time/resource campaign remains pending; the later local allocation
-observer source1fc771e8 is a separate test-only checkpoint.
+confirmed below, with allocated-counter feasibility at executed source81cf7a4.
+The complete P1 time/resource campaign remains pending; the later local three-time
+source2fa14975 is a separate source-SDK checkpoint.
 
 Implementation follows the conditional Human approval in decision commit
 746ea5fb6306bb122659917681a2554a6a292e77, before any P1 product/helper code.
@@ -321,6 +321,9 @@ not the allocated-block observer or full P1 measurement campaign.
 
 ## Allocation observer increment — required-host execution pending
 
+This section records its pre-execution state; the later source81cf7a4 result is
+retained below without relabelling earlier local/CI receipts.
+
 The test-only resource_probe.py now has an independent allocated-block observer:
 Linux stats /proc/PID/fd; Darwin uses a small SDK-built fd_allocated_darwin.c tool
 with proc_pidinfo/PROC_PIDLISTFDS and proc_pidfdinfo/PROC_PIDFDVNODEINFO. The SDK
@@ -353,3 +356,63 @@ This remains counter feasibility for FD-backed regular files. It is not mmap-onl
 storage, an atomic process-tree census, RSS/available-memory observation, P1
 baseline retention1/2/3, physical SQL connection counts, first/second/repeated
 timing or admission-guard acceptance. The full P1 campaign remains required.
+
+## Required-host allocation counter confirmed — run40856524755
+
+[Live40856524755](https://github.com/masahitojp/mariamem/actions/runs/40856524755)
+attempt1 and required gate123395867624 passed. Executed source_commit
+`81cf7a4cbf35061cd91f6eed68e4491003a9d577` has the same tree as head30c9e2a0.
+The [saved assessment, metadata and raw data](v06x-python-fixture-implementation-evidence/ci-40856524755/assessment.json)
+retain four verified GitHub ZIP digests and inner/outer checksums. Four host/minor
+cells each pass135 focused tests, four installed-wheel configurations and the
+allocated-block control. Each control observes its own child's fstat allocation,
+deduplicates the two FDs and restores baseline after close, with source/code/build
+provenance. Both native references, Development40856524809, Django40856524889 and
+dump40856524965 also passed. These are allocated-counter/correctness receipts,
+not the full P1 time/resource campaign.
+
+## Three-time checkpoint — local source2fa14975, required-host execution pending
+
+The [orchestration plan](v06x-p1-time-campaign-plan.json) was fixed at c49336c7
+before implementation measurements. `tests/fixture_entry_acceptance/time_campaign.py`
+uses the existing authored application and PrepareCommand through the supplied
+pytest fixtures, marker and routing. No migration SQL, native input or product
+code changes. The existing installed-wheel CI owner automatically collects the
+new `test_three_time_campaign` alongside its four prior correctness configurations;
+the workflow and Go cache key remain unchanged.
+
+- First setup writes the provided sample files and executes one committing test.
+- The second edit adds only test_second.py and executes both tests. Before/after
+  hashes reject changes to the existing application, first test, fixture or route
+  configuration. The sample adds five lines and repeats no lifecycle wiring.
+- Repeated execution runs workers1/2, four cases per batch, one warmup and three
+  observed batches. Loadgroup slots and bounded filesystem barriers keep batches
+  separate and prove overlapping SQL holds without sleep-based overlap oracles.
+
+The observer records worker-local start/prepare/disconnect/capture/admission/case/
+cleanup phases. Exact JUnit, per-worker preparation/child/owner census, distinct
+host PIDs, original-endpoint non-contact, host reaping and directory cleanup are
+required. Each worker has at most one child; held SQL connections are observed via
+the actual child's status, reaching2/4 for workers1/2. Held connections are a
+measured subset, not a census of every idle/transient physical connection.
+Process execution is bounded to180s; peer barriers20s. Case phases include SQL,
+assertions and test coordination; the final batch includes pytest scope teardown.
+Nested/concurrent phases are retained separately and never summed as speedups.
+
+Clean source_commit `2fa14975f7f54874f4198faf2066dca268485b8f` passed281 focused
+tests per Python minor. Both actual-guest profiles then pass all five outer tests:
+four existing configurations and the time checkpoint's four invocations
+(1 first +2 second +16 serial repeat +16 parallel repeat child cases).
+The [local assessment and raw evidence](v06x-python-fixture-implementation-evidence/local-2fa14975/assessment.json)
+retain the exact stamped Go1.26.10 host, input/code hashes, raw JUnit, owner/time
+JSONL and stdout/stderr. Earlier37db measurements retain their own source.
+
+This local profile uses the source SDK on observed macOS27.2 arm64. The two Python
+profiles ran sequentially. Existing package/toolchain/page caches were not reset;
+acquisition and human authoring duration are unmeasured. First/second totals
+include the declared file steps and pytest execution, not verification/provisioning
+outside the checkpoint. It is not cold-machine cost or a Python-version speed
+comparison. Same-source installed-wheel time data on macOS15/Ubuntu remains
+pending the next CI. Full aligned RSS/available-memory/FD/allocated-temp and
+physical-connection observations, retained baselines1/2/3 and actual finite
+pre-admission resource STOP/mutations remain required before P1 acceptance.

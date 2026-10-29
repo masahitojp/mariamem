@@ -1714,3 +1714,22 @@ the initial nondistinguishing sparse control remains a recorded failed probe.
 Required-host allocation CI and the full P1 time/resource/retention/guard campaign
 are pending. Workflow/Go cache key are unchanged. Main adoption and release remain
 separate decisions.
+
+**Allocated-counter matrix confirmed:** Live40856524755 attempt1 and required
+gate123395867624 passed at source81cf7a4, tree equal to head30c9e2a0. The
+[checksum-bound receipt](reviews/v06x-python-fixture-implementation-evidence/ci-40856524755/assessment.json)
+confirms allocated-block/fstat equality, FD deduplication and restored baseline
+in all four host/minor cells, plus focused135 and four installed-wheel
+configurations each. Native, Development, Django and dump also passed. This closes
+counter feasibility, not full P1 resource acceptance.
+
+**Three-time campaign checkpoint implemented:** the [fixed orchestration and evidence](reviews/v06x-python-fixture-implementation.md#three-time-checkpoint--local-source2fa14975-required-host-execution-pending)
+measure first setup, adding only the second test, and four-case warmup/three-repeat
+batches through the supplied entry with workers1/2. Shared input hashes enforce
+no repeated lifecycle edits; real status observations prove held SQL peaks2/4.
+Local source2fa14975 passes281 focused tests and all five actual-guest outer tests
+per Python minor, sequentially, using a stamped source-SDK host on macOS27.2.
+Acquisition/cold/human time is unmeasured. Required-host installed-wheel timing,
+retained baselines1/2/3, aligned resource counters and resource STOP/mutations
+remain pending. Workflow/cache key and product/guest/API are unchanged by this
+increment; full P1 acceptance/main/release remain separate.
