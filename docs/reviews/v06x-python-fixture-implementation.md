@@ -494,3 +494,20 @@ invalid timestamps and excessively long observations. These checks do not prove
 an atomic process census: the future campaign must prevent owner transitions
 with a barrier and independently establish the tree before and after sampling.
 They are preparation for measurement, not retained-baseline evidence.
+
+## Cooperative resource-observation barrier — test-only preparation
+
+`tests/fixture_entry_acceptance/observation_barrier.py` coordinates owned test
+processes with a fresh token, bounded framing and a finite acknowledgement
+deadline. It samples only after every process acknowledges quiescence, checks
+that owners remain alive after sampling, and aborts parked owners if observation
+or ownership validation fails. The caller must independently bound its sampler
+and terminate/reap owners on failure; a send failure can leave a partially
+released group, so this is not an atomic release guarantee. The owners themselves
+must join their threads and prevent process/FD/connection/baseline transitions;
+the protocol cannot enforce quiescence in arbitrary descendants.
+
+Real subprocess controls exercise all-parked sampling, wrong acknowledgement,
+owner exit, timeout, sampler failure and cleanup. These controls have not yet
+been connected to actual P1 workers or the retained-baseline campaign. No
+resource observation, guard acceptance or P1 completion is claimed here.

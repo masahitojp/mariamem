@@ -227,7 +227,7 @@ jobs:
             if [[ "$version" == 3.11 ]]; then pytest_version=7.0.0; else pytest_version=9.0.2; fi
             "$py" -m pip install --no-cache-dir -r tests/preparation_migration_acceptance/requirements.txt "pytest==$pytest_version"
             "$py" -m pip install --no-deps build/dist/*.whl
-            PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH="$PWD/python" P1_RESOURCE_EVIDENCE="$PWD/build/live-evidence/p1-resource-py$version" "$py" -m pytest tests/test_prepare_command.py tests/test_p1_pytest_entry.py tests/test_p1_native_control.py tests/test_p1_resource_probe.py tests/test_p1_resource_guard.py tests/test_fixture_design_contract.py -q > "build/live-evidence/py$version-p1-unit.txt" 2>&1
+            PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH="$PWD/python" P1_RESOURCE_EVIDENCE="$PWD/build/live-evidence/p1-resource-py$version" "$py" -m pytest tests/test_prepare_command.py tests/test_p1_pytest_entry.py tests/test_p1_native_control.py tests/test_p1_resource_probe.py tests/test_p1_resource_guard.py tests/test_p1_observation_barrier.py tests/test_fixture_design_contract.py -q > "build/live-evidence/py$version-p1-unit.txt" 2>&1
             PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 P1_INSTALLED_CONSUMER=1 P1_NATIVE_REFERENCE="$PWD/build/reference/py$version/p1" MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest tests/test_p1_runtime.py -q -s --basetemp "build/live-evidence/p1-py$version" > "build/live-evidence/py$version-p1-runtime.txt" 2>&1
           done
       - name: Public Go/Python browser Live, Fork control and actual defects
