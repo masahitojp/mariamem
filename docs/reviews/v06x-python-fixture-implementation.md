@@ -450,3 +450,25 @@ must connect real collectors and this guard to the supplied pytest entry, prove
 actual pre-admission STOP and cleanup with mutation controls, and retain
 source-bound observations on both required hosts. No resource campaign result
 or P1 completion is claimed by this component.
+
+## Real-guest FD admission control — local source 30660009
+
+The [local receipt](v06x-python-fixture-implementation-evidence/local-30660009-fd-stop/assessment.json)
+records actual pytest, source-SDK entry and stamped Go1.26.10 guest host on the
+observed macOS host with Python3.11 and3.14. Each run admits and closes one
+child, then lowers the real pytest worker's RLIMIT_NOFILE so the observed FD
+headroom is below the fixed64 minimum. The test-only guard prevents the next
+Fork, pytest blocks the subsequent case, and the source, baseline and host are
+closed/reaped. A separately executed guard-bypass mutation admits all three
+children and is rejected by the stop oracle; final cleanup still completes.
+The host binary and executed source are bound in the receipt. The sandboxed
+initial run failed before guest startup because loopback bind was prohibited;
+only the subsequent unrestricted local runs are recorded as PASS.
+
+This control observes the worker's FD count and actual soft limit. Other resource
+inputs are synthetic neutral values, so it is not complete process-tree FD
+headroom, other guard acceptance, retained-baseline measurement, a product
+admission guard, or cross-platform/installed-wheel evidence. The existing
+required-host workflow collects this control with the P1 runtime tests, but the
+new source has not yet passed that workflow. Full P1 resource acceptance and
+separate adoption remain open.

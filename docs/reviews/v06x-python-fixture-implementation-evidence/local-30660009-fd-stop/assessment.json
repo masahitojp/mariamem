@@ -1,0 +1,84 @@
+{
+  "result": "PASS_BOUNDED_REAL_GUEST_FD_STOP",
+  "source_commit": "30660009ec513fb009a708e3b7dcb3d4636f064e",
+  "host_sha256": "a663d9a6475658f551a7a91e8b92770f0d2a30a57eb081cc7bc70e9bbd8e1fb6",
+  "toolchain": "go1.26.10",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "profiles": [
+    {
+      "python": "311",
+      "normal": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 2,
+        "skipped": 0
+      },
+      "fd_observations": [
+        {
+          "event": "fd_observation",
+          "call": 1,
+          "count": 16,
+          "soft": 1048575
+        },
+        {
+          "event": "fd_observation",
+          "call": 2,
+          "count": 16,
+          "soft": 79
+        }
+      ],
+      "bypass_fork_calls": [
+        1,
+        2,
+        3
+      ],
+      "final_owner": {
+        "closed": true,
+        "host_reaped": true,
+        "directory_removed": true
+      }
+    },
+    {
+      "python": "314",
+      "normal": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 2,
+        "skipped": 0
+      },
+      "fd_observations": [
+        {
+          "event": "fd_observation",
+          "call": 1,
+          "count": 16,
+          "soft": 1048575
+        },
+        {
+          "event": "fd_observation",
+          "call": 2,
+          "count": 16,
+          "soft": 79
+        }
+      ],
+      "bypass_fork_calls": [
+        1,
+        2,
+        3
+      ],
+      "final_owner": {
+        "closed": true,
+        "host_reaped": true,
+        "directory_removed": true
+      }
+    }
+  ],
+  "installed_wheel": false,
+  "derived_archive_sha256": "9fba956c589e9944020403bc920a36f5b7923d4f72d49f957e66ece75fbc9596",
+  "scope": "Observed local macOS; actual guest and pytest, actual FD soft-limit and lsof count; other resource inputs synthetic; guard bypass detection",
+  "remaining": [
+    "required-host installed-wheel CI",
+    "full P1 resource and retained-baseline campaign",
+    "full physical connection census",
+    "pre-admission controls for other counters"
+  ]
+}
