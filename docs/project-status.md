@@ -1588,3 +1588,13 @@ Public API/admission notices are in the Python guide and unreleased notes, and
 the contract/checker explicitly authorizes G1 plus P1 against the pre-code
 decision. Both-host/minor CI, P1 resource/time and installed-wheel evidence remain
 required; no complete P1/main adoption/Qualification/release is claimed.
+
+**P1 local implementation verification:** source bcc2938 (including main2ad041c)
+passed the full canonical gate and both installed-wheel Python profiles on
+observed macOS27.2 arm64. Each profile passed four real-guest configurations,
+including two workers, committed mutation isolation and ordinary-failure recovery;
+actual bundled-host/source binding and final process/temp cleanup were checked.
+The [saved checkpoint](reviews/v06x-python-fixture-implementation.md#local-verification-at-bcc2938)
+keeps raw logs/checksums and two rejected preflight controls. Required macOS15/
+Ubuntu CI, fresh native command/pool control and full P1 time/resource/guard
+campaign remain pending; this does not close P1 or authorize adoption/release.

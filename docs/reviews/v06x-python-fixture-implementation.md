@@ -88,3 +88,47 @@ The merged candidate needs fresh canonical and installed-consumer verification.
 Fresh native control for the command/pool variant remains a P1 full-acceptance
 condition alongside the resource/time campaign. Reusing authored migrations
 is not a claim that the new command path already has a fresh native receipt.
+
+## Local verification at bcc2938
+
+Exact source_commit `bcc29380f8f012404f44d557bea5586de6b3bb92` includes main
+2ad041c. On observed macOS27.2 arm64, canonical full check passed: source checks
+31, Go unit/vet, Python1407 PASS /55 explicit SKIP /76 subtests, public-source
+check5667 files. Python3.11.17/pytest7.0.0 focused gate passed89 tests.
+
+The guarded native wheel builder passed deployment, source stamp, licensing and
+archive checks. Installed-wheel P1 passed four configurations per profile on
+Python3.11.17/pytest7.0.0 and Python3.14.9/pytest9.0.2: command serial, callback
+reverse order, command two-worker batch and an ordinary failing test followed
+by independent children. Each configuration ran six child cases. Each loaded
+Python module matches source bytes; native execution uses the wheel's bundled
+host by default, with its actual source stamp/hash verified. All observed final
+hosts were reaped and session directories removed.
+
+Negative preflight controls reject an unstamped/wrong-source host and a source-
+tree import under installed mode before creating the consumer/source. The
+[raw logs, wheel metadata and checksum-bound assessment](v06x-python-fixture-implementation-evidence/local-bcc2938/assessment.json)
+retain this exact source. CI preserves the analogous wheel metadata as
+build/live-evidence/p1-wheel.json and emits runtime summaries per minor.
+
+The earlier bdda0cf/a81f91d local outcomes preceded the new main and are not
+relabelled as this source. An initial diagnostic run used an unstamped worktree
+host before admission verification and failed on missing Alembic; it is not
+acceptance evidence. Final runs used a clean ordinary Git checkout, actual VCS
+stamp verification and isolated fixed dependencies. A local sandbox signal
+denial and a distinct dying-group query race were separated; the latter has
+bounded retry plus persistent-denial/no-false-completion regression controls.
+
+These are functional/cleanup observations, not the three-time/resource campaign
+or required-host acceptance. Profiles overlapped, Go caches existed, acquisition
+is not a clean-machine measurement. No P1 complete or main adoption is claimed.
+
+## Expected-failure admission strengthened after the local checkpoint
+
+The runtime controller now requires exact JUnit totals for every configuration:
+six child tests, one assertion failure only in the deliberate-failure variant,
+zero cleanup/setup errors and zero skips. This prevents an expected nonzero exit
+from masking an additional final source/baseline teardown error even if its
+physical owners happened to close. A real-pytest six-child control accepts the
+ordinary assertion case and rejects the same case plus final source cleanup
+failure. Its source/logs are kept separate from the earlier bcc2938 observations.

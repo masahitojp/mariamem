@@ -7,12 +7,25 @@ from pathlib import Path
 import subprocess
 import signal
 import sys
+import xml.etree.ElementTree as ET
 
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 HOST = os.environ.get('MARIAMEM_TEST_HOST')
 pytestmark = pytest.mark.skipif(not HOST, reason='P1 real guest requires MARIAMEM_TEST_HOST')
+
+
+def read_case_counts(path):
+    root=ET.parse(path).getroot()
+    suites=[root] if root.tag=='testsuite' else list(root.iter('testsuite'))
+    return {key:sum(int(s.get(key,0)) for s in suites) for key in ('tests','failures','errors','skipped')}
+
+
+def validate_case_counts(counts,ordinary_failure):
+    expected={'tests':6,'failures':int(ordinary_failure),'errors':0,'skipped':0}
+    assert counts==expected, 'unexpected P1 child results (including extra cleanup errors): '+repr(counts)
+
 
 CONF = '''
 import os,sys,json,pytest
@@ -127,7 +140,7 @@ def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failur
                    P1_COMMAND_SCRIPT=str(ROOT/'tests/fixture_entry_acceptance/p1_migrate.py'),
                    P1_MIGRATION_SOURCE=str(ROOT/'tests/preparation_migration_acceptance/migrations'),
                    P1_EVENT_FILE=str(events),MIGRATION_ORIGINAL_PORT=str(port),P1_FAIL_TEST='1' if ordinary_failure else '0')
-        argv=[sys.executable,'-m','pytest','-p','mariamem.pytest_plugin','-q','--tb=short']
+        argv=[sys.executable,'-m','pytest','-p','mariamem.pytest_plugin','-q','--tb=short','--junitxml=p1-junit.xml']
         if workers==2:argv+=['-p','xdist.plugin','-n','2']
         if reverse:argv+=['test_app.py::test_seed_again','test_app.py::test_commit','test_app.py::test_batch']
         process=subprocess.Popen(argv,cwd=project,env=env,text=True,stdout=subprocess.PIPE,
@@ -150,6 +163,8 @@ def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failur
         sentinel.setblocking(False)
         with pytest.raises(BlockingIOError):sentinel.accept()
     assert result.returncode==(1 if ordinary_failure else 0),result.stdout+result.stderr
+    counts=read_case_counts(project/'p1-junit.xml')
+    validate_case_counts(counts,ordinary_failure)
     rows=[json.loads(line) for line in events.read_text().splitlines()]
     prepared=[r for r in rows if r['event']=='prepared']
     final=[r for r in rows if r['event']=='final']
@@ -164,7 +179,7 @@ def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failur
         assert '1 failed, 5 passed' in result.stdout and 'ORDINARY_TEST_FAILURE' in result.stdout
     print(json.dumps({'result':'P1_REAL_ENTRY_PASS','source_commit':source,'method':method,'workers':workers,'installed_wheel':installed,
         'host_sha256':hashlib.sha256(Path(HOST).read_bytes()).hexdigest(),
-        'reverse':reverse,'ordinary_failure':ordinary_failure,'cases':6,'final_owners':final,
+        'reverse':reverse,'ordinary_failure':ordinary_failure,'cases':6,'junit_counts':counts,'final_owners':final,
         'inputs_sha256':{p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in [
             'tests/fixture_entry_acceptance/p1_migrate.py','tests/preparation_migration_acceptance/application.py',
             'tests/preparation_migration_acceptance/migrations/versions/m1_initial.py',

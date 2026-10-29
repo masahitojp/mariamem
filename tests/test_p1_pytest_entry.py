@@ -221,3 +221,39 @@ def test_required_hosts_run_new_entry_controls_for_both_python_minors():
     assert 'MARIAMEM_TEST_HOST="$PWD/build/mariamem-host"' in runtime and 'tests/test_p1_runtime.py' in runtime
     assert 'pytest_version=7.0.0' in runtime and 'pytest_version=9.0.2' in runtime
     assert 'P1_INSTALLED_CONSUMER=1' in runtime and '--no-deps build/dist/*.whl' in runtime
+    assert 'cp tests/evidence/alpha-wheel.json build/live-evidence/p1-wheel.json' in runtime
+
+
+def test_expected_assertion_cannot_hide_final_source_cleanup_error(tmp_path):
+    spec=importlib.util.spec_from_file_location('p1_runtime_results',Path(__file__).with_name('test_p1_runtime.py'))
+    module=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    tests="""
+import pytest
+def test_first(mariamem_fork): raise AssertionError('EXPECTED_ASSERTION')
+@pytest.mark.parametrize('n',range(5))
+def test_remaining(n,mariamem_fork): assert mariamem_fork.data=={}
+"""
+    conf="""
+from contextlib import contextmanager
+@contextmanager
+def replacement(**options):
+    record('start')
+    source=DB('source')
+    try: yield source
+    finally:
+        source.closed=True
+        record('source.close')
+        raise OSError('EXTRA_SOURCE_CLEANUP_ERROR')
+plugin.start=replacement
+"""
+    clean=tmp_path/'clean';clean.mkdir()
+    failed=tmp_path/'failed';failed.mkdir()
+    positive,_=helper.fake_suite(clean,'',tests,False,'--junitxml=report.xml')
+    assert positive.returncode==1
+    module.validate_case_counts(module.read_case_counts(clean/'report.xml'),True)
+    negative,events=helper.fake_suite(failed,conf,tests,False,'--junitxml=report.xml')
+    assert negative.returncode==1 and 'EXTRA_SOURCE_CLEANUP_ERROR' in negative.stdout
+    assert events.count('fork')==events.count('child.close')==6
+    with pytest.raises(AssertionError,match='extra cleanup errors'):
+        module.validate_case_counts(module.read_case_counts(failed/'report.xml'),True)
