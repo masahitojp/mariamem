@@ -6,6 +6,11 @@ owns current HOW, [decisions](decisions/snapshot-product-contract.md) own
 continuing product constraints, and reports preserve historical evidence.
 Version themes are direction; they are not release approval.
 
+This document keeps approved scope, decisions and evidence context. For work
+linked to a GitHub Issue, that Issue owns actionable checklists and completion
+tracking, grouped by release milestone; link it here rather than maintaining a
+second checklist. An accepted-limitation Issue is not automatically release-blocking.
+
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
@@ -811,6 +816,38 @@ above. Full shared-memory race census and startup-tail improvements remain
 separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Dogfood and fixture ergonomics
+
+### Current work tracking
+
+Use the [v0.6.0 milestone](https://github.com/masahitojp/mariamem/milestone/1)
+for current and completed release work. The following Issues own actionable
+checklists and source-bound acceptance evidence; this status document retains
+the approved scope and sequencing below.
+
+| Tracking Issue | Current disposition |
+| --- | --- |
+| [#18 — five-profile dogfood acceptance](https://github.com/masahitojp/mariamem/issues/18) | Active v0.6.0 acceptance tracking for P1, G1, D1, EP1 and EG1; recipes/component PASS do not close the full obligation |
+| [#19 — dbt revalidation](https://github.com/masahitojp/mariamem/issues/19) | Active v0.6.0 independent CLI workload; the original #5 prerequisite is resolved, but repaired SQL alone does not establish dbt acceptance |
+| [#20 — Oracle prepared CALL result traversal](https://github.com/masahitojp/mariamem/issues/20) | Accepted external-consumer limitation; outside v0.6.0 work, no milestone |
+| [#21 — Oracle macOS C/default NUL projection](https://github.com/masahitojp/mariamem/issues/21) | Accepted external-consumer limitation; outside v0.6.0 work, no milestone |
+
+The Human excluded #20/#21 from v0.6.0 work because those external consumer
+behaviors are outside our control. Their tracking does not promise a repair,
+dependency update or delivery date, and does not add a fix prerequisite or
+release blocker. The existing [accepted consumer exceptions](decisions/prepared-consumer-exceptions.md),
+original functional FAILs, version-specific guide limits and change-triggered
+rechecks remain in force. Excluding repair work does not remove disclosure of
+the limitations from the released support contract.
+
+Completed work remains visible in the same milestone: [#5](https://github.com/masahitojp/mariamem/issues/5)
+and [#7](https://github.com/masahitojp/mariamem/issues/7) repair the import/failure
+path, [#11](https://github.com/masahitojp/mariamem/issues/11) tracks CI efficiency,
+and [#13](https://github.com/masahitojp/mariamem/issues/13) tracks the adopted
+stub-classification/SQL detection net ([PR16](https://github.com/masahitojp/mariamem/pull/16)).
+These are closed; they are not pending prerequisites for #18/#19. In particular,
+#19 may proceed from the resolved #5/#7 repair while recording its own source.
+
+### Approved scope and release sequencing
 
 **Dogfood scope and release sequencing agreed with the Human, 2026-10-29:**
 
