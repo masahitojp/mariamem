@@ -1688,3 +1688,11 @@ checks child FD/unlinked-file observation before the full time/resource campaign
 its required-host CI is pending. Counter feasibility is not P1 workload/resource
 acceptance. Full P1 completion, main adoption, Qualification and release remain
 separate unfinished work.
+
+**Ubuntu Live40843725436 failed in the G1 collector before P1:** the cap1/
+parallel1 Go mode completed with cleanup, but a zero-RSS observation had no exit
+confirmation at poll time. The [source-bound diagnosis and original FAIL](reviews/v06x-go-fixture-campaign.md#ubuntu-zero-rss-before-waitpid-confirmation--run40843725436)
+preserve source5738eae and artifact hashes; no P1 probe PASS follows. A bounded
+50ms exit confirmation now retains terminal and failed zero samples separately;
+live-zero timeout/nonzero exit still fail, and resource limits are unchanged.
+Both focused Python suites pass135 locally; the corrected source needs fresh CI.

@@ -188,3 +188,35 @@ Actual backing/disposal fault controls and an installed Go consumer using
 mariamemtest remain required. The existing Live installed-consumer step is not
 relabelled as helper-consumer acceptance. Main adoption and release remain
 separate decisions. Earlier pending/failure paragraphs retain historical context.
+
+## Ubuntu zero-RSS before waitpid confirmation — run40843725436
+
+[Ubuntu job123347275160](https://github.com/masahitojp/mariamem/actions/runs/40843725436/job/123347275160)
+failed in the G1 campaign before the new P1 probe could run. Executed source
+`5738eae2e4491cf4472e560d61c87800a06e4c7f` has the same tree as PR head4af7a7b7.
+The [original FAIL artifact and assessment](v06x-go-fixture-campaign-evidence/ci-40843725436/assessment.json)
+retain the digest-verified original ZIP and verified internal checksums. Only
+cap1/parallel1 reached execution: its Go tests and final cleanup reported PASS,
+but the OS collector recorded zero RSS while poll still returned no exit code.
+It wrote STOP/UNVERIFIED; the process subsequently returned0. Other G1 modes and
+the Ubuntu P1 observer/consumer stages were not executed, not PASS.
+
+The last positive RSS observation was at5.297s; Go final cleanup at5.397s had
+FD6 (matching baseline), no children/baselines/connections/temp bytes; collector
+completion was at5.506s. This is consistent with Linux releasing RSS before
+waitpid readiness, beyond the earlier poll-after-collection correction. The old
+collector discarded the failing sample, so exact zero/exit ordering is not
+established; neither a product regression nor an unconditional benign exit is
+claimed from that missing observation.
+
+The correction uses wait(timeout=0.05) **only after zero RSS and no exit code**.
+An observed exit becomes a terminal record, preserving raw counters plus requested
+timeout and actual wait elapsed. It is never a live RSS sample. A timeout remains
+UNVERIFIED/STOP even if a later poll sees exit; its failed sample is now retained.
+There is no command retry, skipped measurement or increased memory/resource limit.
+Nonzero process exits, persistent live zero, missing counters, the minimum live
+sample count and retention alignment remain rejecting gates. Deterministic
+controls cover successful and nonzero delayed exit, timeout followed by later
+exit, and the original terminal/missing/live cases. Both Python focused suites
+(campaign/probe/workflow) pass135 locally. New source-bound CI is required; the
+original run remains FAIL and supplies no P1 probe acceptance.
