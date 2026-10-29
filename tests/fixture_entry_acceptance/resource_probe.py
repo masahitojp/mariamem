@@ -218,7 +218,7 @@ def merge_process_allocations(observations):
 
 
 def validate_process_window(before, after, observations, *, max_window_ns):
-    """Reject missing owners and non-overlapping or excessively long censuses.
+    """Reject missing owners and invalid or excessively long censuses.
 
     Stable endpoints do not exclude transient processes between snapshots; the
     campaign must hold owner transitions behind a barrier while this runs.
@@ -230,7 +230,7 @@ def validate_process_window(before, after, observations, *, max_window_ns):
         raise ValueError('UNVERIFIED process-tree census or budget')
     starts=[]; ends=[]
     for pid, row in observations.items():
-        if not isinstance(row, dict) or row.get('pid') != pid:
+        if not isinstance(row, dict) or type(row.get('pid')) is not int or row['pid'] != pid:
             raise ValueError('UNVERIFIED process allocation identity')
         start=row.get('start_unix_ns');end=row.get('end_unix_ns')
         if type(start) is not int or type(end) is not int or start <= 0 or end < start:

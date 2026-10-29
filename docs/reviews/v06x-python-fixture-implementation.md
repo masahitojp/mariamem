@@ -472,3 +472,25 @@ admission guard, or cross-platform/installed-wheel evidence. The existing
 required-host workflow collects this control with the P1 runtime tests, but the
 new source has not yet passed that workflow. Full P1 resource acceptance and
 separate adoption remain open.
+
+## Required-host real-guest FD control — manual CI 40962108392
+
+[Manual Live run 40962108392](https://github.com/masahitojp/mariamem/actions/runs/40962108392)
+passed its native references, both host jobs and aggregate gate on exact source
+`9e52f82e358c640dd18c54ddc209de173caa8144`. The [checksum-bound receipt](v06x-python-fixture-implementation-evidence/ci-40962108392/assessment.json)
+retains four installed-wheel host/minor observations and the original archive
+digests. Each real-guest FD STOP and guard-bypass mutation passed its oracle.
+The run was manually dispatched because the PR was Draft; the PR's own Draft
+required gate remains intentionally failed, not superseded by this manual run.
+Other resource inputs in the FD control are synthetic, and process-tree FD,
+full resource/retention and other guard acceptance remain open.
+
+## Process census preparation
+
+The test-only allocated-file observer now binds each observation to its actual
+PID and rejects inconsistent or incomplete per-process allocation data. A
+bounded-window validator rejects mismatched endpoint PID sets, absent owners,
+invalid timestamps and excessively long observations. These checks do not prove
+an atomic process census: the future campaign must prevent owner transitions
+with a barrier and independently establish the tree before and after sampling.
+They are preparation for measurement, not retained-baseline evidence.
