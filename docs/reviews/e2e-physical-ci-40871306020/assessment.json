@@ -1,0 +1,27 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/40871306020",
+  "pr_head": "b6670a1bf53c94a8a3cf25aaa4fee9de56749103",
+  "actual_ci_source_commit": "5147f8ed5d35c2b62ffed9114e606c0a3146e4b7",
+  "parents": [
+    "b4f318c9f29b72c13bf3a529ea973a4e31b41d0c",
+    "b6670a1bf53c94a8a3cf25aaa4fee9de56749103"
+  ],
+  "main_ci_improvement": "b4f318c9f29b72c13bf3a529ea973a4e31b41d0c (PR29)",
+  "artifact_zip_digests_verified": true,
+  "hosts": [
+    {
+      "host": "macos-15",
+      "artifact_id": 12898961252,
+      "artifact_sha256": "3bcd55e8d05d077c5fed9c6fcee097d9a6053c1a01fb99a76b7ff9a73709106d",
+      "physical_controls": "PASS",
+      "installed_consumers": "PASS in the same successful job"
+    },
+    {
+      "host": "ubuntu-24.04",
+      "artifact_id": 12897397910,
+      "artifact_sha256": "92499c4b35d386c30feb4bcd36a861db878ca56be334156278be7aad36e8ed2c",
+      "physical_controls": "PASS",
+      "installed_consumers": "PASS in the same successful job"
+    }
+  ]
+}
