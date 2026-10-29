@@ -96,7 +96,9 @@ def test_real_prepared_entry(tmp_path, method, workers, reverse, ordinary_failur
     if installed:
         import mariamem
         package=Path(mariamem.__file__).resolve().parent
-        assert not package.is_relative_to(ROOT)
+        assert not package.is_relative_to(ROOT/'python'), 'source-tree fallback used'
+        distribution=importlib.metadata.distribution('mariamem')
+        assert Path(distribution.locate_file('mariamem')).resolve()==package
         expected={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'python/mariamem').glob('*.py')}
         actual={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in package.glob('*.py')}
         assert actual==expected, 'installed module bytes differ or source fallback used'
