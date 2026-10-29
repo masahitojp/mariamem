@@ -194,6 +194,7 @@ jobs:
           PY314: ${{ steps.py314.outputs.python-path }}
         run: |
           go test -race -p 1 ./mariamemtest -count=1 > build/live-evidence/owned-go-unit.txt 2>&1
+          E2E_OWNED_RUNTIME=1 go test -p 1 ./mariamemtest -run '^TestHTTPPhysical' -count=1 -v > build/live-evidence/owned-go-physical.txt 2>&1
           E2E_OWNED_RUNTIME=1 E2E_GO_APP="$PWD/build/go-live-orders" go test -p 1 ./docs/examples/e2e_owned/go -count=1 -v > build/live-evidence/owned-go-runtime.txt 2>&1
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
