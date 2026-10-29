@@ -4,9 +4,12 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"fmt"
 	"net"
 	"os"
+	"os/exec"
 	"strconv"
+	"strings"
 	"testing"
 	"time"
 
@@ -167,4 +170,51 @@ func TestHTTPPhysicalRetirementRestoresSeed(t *testing.T) {
 	if app.quiesces != 2 || f.owners.live.Status().Generation != 2 {
 		t.Fatal("missing per-case quiescence/reset")
 	}
+}
+
+func TestHTTPPhysicalBusyPublicChild(t *testing.T) {
+	if os.Getenv("E2E_BUSY_PUBLIC_CHILD") != "1" {
+		return
+	}
+	f, app := httpPhysicalFixture(t, false)
+	for _, name := range []string{"blocked", "later"} {
+		t.Run(name, func(t *testing.T) {
+			f.Case(t)
+			fmt.Println("BODY_ADMITTED")
+		})
+	}
+	if app.quiesces != 1 {
+		t.Fatal("hook retried")
+	}
+	if err := f.close(); err != nil {
+		t.Fatal(err)
+	}
+	if app.stops != 1 {
+		t.Fatal("app cleanup missing")
+	}
+	fmt.Println("BUSY_PUBLIC_NO_BODY_AND_CLOSE_OK")
+}
+func TestHTTPPhysicalPublicAdmission(t *testing.T) {
+	if os.Getenv("E2E_OWNED_RUNTIME") != "1" {
+		t.Skip("set E2E_OWNED_RUNTIME=1")
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+	defer cancel()
+	cmd := exec.CommandContext(ctx, os.Args[0], "-test.run=^TestHTTPPhysicalBusyPublicChild$", "-test.v")
+	cmd.Env = append(os.Environ(), "E2E_BUSY_PUBLIC_CHILD=1")
+	output, err := cmd.CombinedOutput()
+	text := string(output)
+	if err == nil || ctx.Err() != nil {
+		t.Fatalf("missing deliberate setup failures: %v %s", err, text)
+	}
+	if strings.Contains(text, "BODY_ADMITTED") || strings.Contains(text, "DATA RACE") || !strings.Contains(text, "BUSY_PUBLIC_NO_BODY_AND_CLOSE_OK") {
+		t.Fatal(text)
+	}
+	if strings.Count(text, "--- FAIL: TestHTTPPhysicalBusyPublicChild/") != 2 || strings.Count(text, "--- FAIL: TestHTTPPhysicalBusyPublicChild (") != 1 {
+		t.Fatal("unexpected failure census", text)
+	}
+	if !strings.Contains(text, "E2E reset; admission=stopped") || !strings.Contains(text, "E2E admission; admission=stopped") {
+		t.Fatal("missing setup/latch diagnostic", text)
+	}
+	t.Log("public Case rejected initial busy setup and later admission; confirmed app close")
 }
