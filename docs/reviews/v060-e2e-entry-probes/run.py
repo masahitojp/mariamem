@@ -26,6 +26,11 @@ run("goexit",[binary,"-test.v","-test.run","TestFatalCleanup"],1,"GOEXIT_CLEANUP
 run("early-release-mutant",[binary,"-test.v","-test.run","TestParallelLease"],1,"overlap admitted before active case cleanup",mutation="early-release")
 run("late-register-mutant",[binary,"-test.v","-test.run","TestPartialStart"],1,"partial handle not stopped",mutation="late-register")
 run("python-registration",[sys.executable,str(HERE/"registration.py"),"-v"])
+for minor in ("3.11", "3.14"):
+    import shutil
+    py=shutil.which("python"+minor)
+    if py is None: raise RuntimeError("required probe interpreter missing: "+minor)
+    run("python-registration-"+minor,[py,str(HERE/"registration.py"),"-v"])
 report=dict(source_commit=identity["source_commit"],platform=platform.platform(),python=sys.version,go=subprocess.check_output(["go","version"],env=ENV,text=True).strip(),scope="controlled owners only; no actual guest/native/browser/CI acceptance",results=results,inputs={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in HERE.iterdir() if p.is_file()})
 (OUT/"assessment.json").write_text(json.dumps(report,indent=2)+"\n")
 print(json.dumps(report,indent=2))
