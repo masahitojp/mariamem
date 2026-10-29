@@ -38,7 +38,7 @@ def test_python_retains_integration_until_dedicated_campaign_is_adopted():
 
 def test_gate_rejects_missing_selection():
     from live_ci import verify_gate
-    needs = {'scope': {'result': 'success', 'outputs': {'run_live': 'true'}},
+    needs = {'scope': {'result': 'success', 'outputs': {'run_live': 'true', 'pull_request_draft': 'false'}},
              'native-reference': {'result': 'success'}, 'live': {'result': 'success'}}
     with pytest.raises(AssertionError, match='family'):
         verify_gate(needs)

@@ -30,6 +30,9 @@ def validate(text):
         branches = re.search(r'^    branches: \[([^]]+)\]$', block, re.M)
         assert branches and 'main' in [v.strip() for v in branches[1].split(',')]
         assert 'paths:' not in block and 'paths-ignore:' not in block
+        if event == 'pull_request':
+            # Marking a draft ready must start the matrix that the draft skipped.
+            assert 'types: [opened, synchronize, reopened, ready_for_review]' in block
     assert 'pull_request_target:' not in text
     assert 'permissions:\n  contents: read' in text
     assert 'pull_request.head.sha' not in text and 'ref:' not in text
@@ -100,6 +103,8 @@ def test_maintained_live_ci_contract():
     ('branches: [main]', 'branches: [unused]'),
     ('needs: [scope, native-reference]', 'needs: []'),
     ('    branches: [main]','    branches: [main]\n    paths: [docs/**]'),
+    ('types: [opened, synchronize, reopened, ready_for_review]',
+     'types: [opened, synchronize, reopened]'),
     ('name: Live required gate','name: optional'),
     ('if: always()', "if: success()"),
     ('needs: [scope, native-reference, live]', 'needs: [scope]'),
@@ -175,8 +180,8 @@ def test_scope_exports_canonical_decisions(monkeypatch, tmp_path, event, expecte
     monkeypatch.setattr(live_ci, 'plan', lambda *args: select(['live.go']))
     monkeypatch.setattr(sys, 'argv', ['live_ci.py', 'scope', '--candidate-sha', 'a' * 40, '--github-output'])
     live_ci.main()
-    assert output.read_text().splitlines()[:3] == [
-        'run_live=true', 'ubuntu_check=' + expected, 'ubuntu_integration=' + expected]
+    assert output.read_text().splitlines()[:4] == [
+        'run_live=true', 'pull_request_draft=false', 'ubuntu_check=' + expected, 'ubuntu_integration=' + expected]
 
 
 def test_dependency_selector_covers_all_prior_paths():
@@ -205,12 +210,23 @@ def test_selector_fails_closed(paths, reason, expected):
     assert required(paths, reason) is expected
 
 
+@pytest.mark.parametrize('paths,reason', [
+    (['live.go'], 'unknown/runtime input'),
+    (['README.md'], 'local changed-input classification'),
+    ([], 'event base unavailable; full verification'),
+])
+def test_draft_pull_requests_skip_live_matrices(paths, reason):
+    from live_ci import required, selected_live
+    assert selected_live(paths, reason, True) is False
+    assert selected_live(paths, reason, False) is required(paths, reason)
+
+
 @pytest.mark.parametrize('selected', ['true', 'false'])
 @pytest.mark.parametrize('job', ['scope', 'native-reference', 'live'])
 @pytest.mark.parametrize('result', ['failure', 'cancelled', 'skipped', 'success'])
 def test_aggregate_rejects_incomplete_or_unselected_jobs(selected, job, result):
     from live_ci import verify_gate
-    needs = {'scope': {'result': 'success', 'outputs': {'run_live': selected, **dict.fromkeys(__import__('live_selection').FAMILIES, 'true')}},
+    needs = {'scope': {'result': 'success', 'outputs': {'pull_request_draft': 'false', 'run_live': selected, **dict.fromkeys(__import__('live_selection').FAMILIES, 'true')}},
              'native-reference': {'result': 'success' if selected == 'true' else 'skipped'},
              'live': {'result': 'success' if selected == 'true' else 'skipped'}}
     needs[job]['result'] = result
@@ -242,3 +258,11 @@ def test_canonical_check_event_platform_ownership(event, os_name, ubuntu_check):
     actual = bool(eval(expression, {'__builtins__': {}}, {}))
     expected = event != 'pull_request' if os_name == 'macOS' else ubuntu_check != 'false'
     assert actual == expected
+
+
+def test_draft_gate_is_not_success_before_ready():
+    from live_ci import verify_gate
+    needs = {'scope': {'result': 'success', 'outputs': {'run_live': 'false', 'pull_request_draft': 'true'}},
+             'native-reference': {'result': 'skipped'}, 'live': {'result': 'skipped'}}
+    with pytest.raises(AssertionError, match='Draft: Live deferred'):
+        verify_gate(needs)

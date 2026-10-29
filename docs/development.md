@@ -136,7 +136,13 @@ Documentation-only diffs likewise skip the expensive Live matrix: the Live scope
 required-gate jobs still run and report (they are protected checks), but the native,
 browser, guest and installed-consumer jobs are not started. The skip uses the same
 documentation classification as the development selector, so any runtime or unknown
-path restores the full matrix.
+path restores the full matrix. Draft pull requests also skip those jobs, because a
+draft cannot merge and would otherwise hold shared macOS runners ahead of ready
+pull requests. The required Live gate deliberately fails with a deferred-Draft
+message, preventing its old result from approving the same SHA after conversion to
+Ready. Marking the PR ready starts a fresh run with the selected matrix; the gate
+turns green only when that run succeeds. The red Draft gate is expected, not a test
+failure. The existing changed-boundary selector and both-host receipt rules apply.
 
 Archived Go-toolchain/memfs measurement data has explicit documentation scope in
 the local selector. Its three saved reproduction recipes have tooling scope;
