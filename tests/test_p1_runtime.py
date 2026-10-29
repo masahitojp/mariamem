@@ -233,3 +233,12 @@ def test_real_fd_stop_rejects_guard_bypass(tmp_path):
     assert [r['call'] for r in rows if r.get('event')=='fork_invoked']==[1,2,3]
     finals=[r for r in rows if r.get('event')=='final']
     assert len(finals)==1 and all(finals[0][k] is True for k in ('closed','host_reaped','directory_removed'))
+
+
+def test_real_snapshot_observation_barrier(tmp_path):
+    source,installed,_=preflight_consumer()
+    spec=importlib.util.spec_from_file_location('p1_barrier_guest',ROOT/'tests/fixture_entry_acceptance/barrier_guest_control.py')
+    control=importlib.util.module_from_spec(spec);spec.loader.exec_module(control)
+    result=control.run(ROOT,tmp_path/'barrier-guest',HOST,source,installed,CONF)
+    print(json.dumps(dict(result=result['result'],source_commit=source,
+                          evidence=str(tmp_path/'barrier-guest/result.json'),installed_wheel=installed)))
