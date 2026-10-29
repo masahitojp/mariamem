@@ -49,6 +49,7 @@ def pytest_fd_fixture_setup(fixturedef,request):
         def child():
             record({'event':'fork_invoked','call':calls})
             return original()
+        if os.environ.get('P1_TEST_BYPASS_GUARD')=='1':return child()
         return _fd_guard.admit(lambda:sample,limits,1,child)
     saved.fork=guarded_fork
 @pytest.hookimpl(trylast=True)
@@ -69,7 +70,7 @@ def test_after(mariamem_fork):
 '''
 
 
-def run(root, output, host, source, installed, base_conf):
+def run(root, output, host, source, installed, base_conf, *, bypass_guard=False):
     output.mkdir(); project=output/'consumer';project.mkdir()
     (project/'conftest.py').write_text(base_conf+HOOK)
     (project/'test_fd_stop.py').write_text(CASES)
@@ -82,7 +83,7 @@ def run(root, output, host, source, installed, base_conf):
                P1_MIGRATION_SOURCE=str(root/'tests/preparation_migration_acceptance/migrations'),
                P1_GUARD_PATH=str(root/'tests/fixture_entry_acceptance/resource_guard.py'),
                P1_PROBE_PATH=str(root/'tests/fixture_entry_acceptance/resource_probe.py'),
-               P1_EVENT_FILE=str(events))
+               P1_EVENT_FILE=str(events),P1_TEST_BYPASS_GUARD='1' if bypass_guard else '0')
     argv=[sys.executable,'-m','pytest','-p','mariamem.pytest_plugin','test_fd_stop.py',
           '-q','--tb=short','--junitxml='+str(output/'results.xml')]
     process=subprocess.Popen(argv,cwd=project,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,start_new_session=True)
@@ -98,6 +99,7 @@ def run(root, output, host, source, installed, base_conf):
     output_text=stdout.decode(errors='replace')+'\n'+stderr.decode(errors='replace')
     suites=ET.parse(output/'results.xml').getroot().findall('.//testsuite')
     counts={k:sum(int(s.get(k,0)) for s in suites) for k in ('tests','failures','errors','skipped')}
+    assert events.exists(), 'no owner events; inspect original pytest output:\n'+output_text
     rows=[json.loads(line) for line in events.read_text().splitlines()]
     observations=[r for r in rows if r.get('event')=='fd_observation']
     forks=[r for r in rows if r.get('event')=='fork_invoked']

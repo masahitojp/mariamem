@@ -217,3 +217,19 @@ def test_real_fd_admission_stop(tmp_path):
     result=control.run(ROOT,tmp_path/'fd-stop',HOST,source,installed,CONF)
     print(json.dumps(dict(result=result['result'],source_commit=source,
                           evidence=str(tmp_path/'fd-stop/result.json'),installed_wheel=installed)))
+
+
+def test_real_fd_stop_rejects_guard_bypass(tmp_path):
+    source,installed,_=preflight_consumer()
+    spec=importlib.util.spec_from_file_location('p1_fd_stop',ROOT/'tests/fixture_entry_acceptance/fd_stop_control.py')
+    control=importlib.util.module_from_spec(spec);spec.loader.exec_module(control)
+    output=tmp_path/'fd-stop-bypass'
+    with pytest.raises(AssertionError):
+        control.run(ROOT,output,HOST,source,installed,CONF,bypass_guard=True)
+    counts=read_case_counts(output/'results.xml')
+    assert counts==dict(tests=3,failures=0,errors=0,skipped=0)
+    assert (output/'consumer'/'blocked-body').exists() and (output/'consumer'/'after-body').exists()
+    rows=[json.loads(line) for line in (output/'owners.jsonl').read_text().splitlines()]
+    assert [r['call'] for r in rows if r.get('event')=='fork_invoked']==[1,2,3]
+    finals=[r for r in rows if r.get('event')=='final']
+    assert len(finals)==1 and all(finals[0][k] is True for k in ('closed','host_reaped','directory_removed'))
