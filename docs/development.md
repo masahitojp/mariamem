@@ -570,3 +570,32 @@ review CLIs are retired and fail with guidance to that history. Their source and
 inert fixtures remain reference material, outside current gates. Shared module
 identity, platform metadata and authenticated GitHub artifact transport are
 retained as runtime-independent helpers. See [Track A inventory](../benchmarks/v043-wasmer-retirement.md).
+
+## Live PR acceptance selection
+
+The Human approved selecting macOS PR checks by changed boundary. Unknown files,
+missing diffs and shared runtime/generated/toolchain/dependency/CI changes retain
+all families. main/manual retain all families whenever Live is selected.
+
+| Known PR input | macOS integration | G1 both hosts | Live race/scenarios | Examples | Installed |
+| --- | --- | --- | --- | --- | --- |
+| G1 helper/campaign | No | Yes | No | No | Yes |
+| Live implementation/application | No | No | Yes | Yes | Yes |
+| Python routing/pytest entry | Yes | No | Yes | Yes | Yes |
+| Shared/unclassified | Yes | Yes | Yes | Yes | Yes |
+
+scripts/live_selection.py owns the bounded allowlist. Mixed changes take the
+union; new API files fail closed. G1 selection controls execution, artifacts and
+both-host receipt validation together. Missing family outputs fail the gate.
+Ubuntu Development retains its independent check/integration scope. Native
+references and exact-source executable setup remain in each selected Live matrix.
+
+This can defer macOS cross-family regressions to main. Dedicated P1 and owned
+E2E campaigns are not yet adopted on this baseline: new paths default to full
+validation, and their both-host adoption conditions are not waived. PR #30's
+Draft-event policy is separate.
+
+Run 40855108044 (head 5b27eaf3, executed merge source 538ca001) took 39m40s on
+macOS, including 24m25s generic integration. Omitting that step does not promise
+that saving: compilation can move downstream. Measure whole-job durations on
+changed-input PRs. This policy-change PR intentionally runs all families.
