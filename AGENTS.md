@@ -12,6 +12,16 @@ explicitly requested.
 
 Use small spikes to reduce uncertainty before expensive architectural changes.
 
+Before an investigation, record one decision/question, finite evidence and exit
+conditions, workload/environment, active-work/tooling/heavy-CI budgets and an
+inconclusive exit in its existing Issue or plan. Unless otherwise agreed, an
+initial spike has 2 hours active work, including at most 30 minutes of measurement
+tooling, and at most 2 heavy CI submissions. These are ceilings, not targets.
+Do not turn measurement-tool limitations into new mandatory prerequisites.
+At a budget boundary, report evidence, uncertainty, options and the cost of
+continuing; obtain agreement before expanding scope/budget. Ordinary fixes within
+the agreed bounds remain autonomous. See `docs/development.md#bounded-investigations`.
+
 Mechanical verification belongs in deterministic scripts and CI where possible.
 
 Judge completion against the requested scope. Obtain agreement before reducing
