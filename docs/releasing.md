@@ -1,11 +1,9 @@
 # Releasing mariamem
 
-Current version metadata remains `v0.5.3`; Python spelling is `0.5.3`.
-The [published notes](../release/NOTES-v0.5.3.md) and
-[behavior/API migration](changes-since-v050.md) describe that release, not all
-later adopted main additions. Preparing the next human-selected version must
-update its metadata/usage examples and accept its exact final-version artifacts;
-unchanged old version metadata is not evidence of qualification for a new release.
+This source prepares the human-selected `v0.6.0`; Python spelling is `0.6.0`.
+The [versioned notes](../release/NOTES-v0.6.0.md) describe the adopted release
+scope and named limitations. Exact final-version artifacts still require Release
+CI acceptance; preparation is not qualification or publication evidence.
 A normal release requires one human request authorizing one exact final-version SHA.
 An optional `verify` audit never authorizes publication.
 
@@ -337,8 +335,10 @@ Python/Go/Live/Django/preparation/dump guides against the adopted
 [release scope](decisions/v060-release-scope.md) and
 [wire decision](decisions/v060-wire-contract.md). Supported main additions must
 be described as supported in that release, exact consumer exceptions named, and
-OUT paths not implied. The current main audit is not a completed final-version
-check: version/installation examples still describe the actual published release.
+OUT paths not implied. The final-version preparation transfers the reviewed staging notes to
+`release/NOTES-v0.6.0.md` and updates README/Python/Go install examples to0.6.0.
+This wording reconciliation adds no runtime evidence; exact-candidate acceptance
+remains with Release CI.
 
 Carry P1, Go prepared-helper, owned browser/HTTP E2E, bounded dump, routine and
 prepared/wire limits into the versioned notes as applicable. Include Python3.11
