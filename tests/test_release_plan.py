@@ -71,9 +71,18 @@ def selected(candidate, api, validate=None):
                         validate=validate or (lambda *args: None))
 
 
-def job_condition(job):
+def job_text(job, *, expand_steps=False):
     workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
-    return re.search(rf'^  {job}:\n(?:.*\n)*?    if: (.+)$', workflow, re.M).group(1)
+    section = re.search(r'^  '+job+r':\n(.*?)(?=^  \S|\Z)', workflow, re.M | re.S)[1]
+    alias = re.search(r'^    steps: \*(\w+)\s*$', section, re.M)
+    if expand_steps and alias:
+        steps = re.search(r'^    steps: &'+alias[1]+r'\n(.*?)(?=^  \S|\Z)', workflow, re.M | re.S)[1]
+        section = section[:alias.start()]+'    steps:\n'+steps
+    return section
+
+
+def job_condition(job):
+    return re.search(r'^    if: (.+)$', job_text(job), re.M)[1]
 
 
 def runs_job(job, result, *, aggregate='success', publication='success',
@@ -86,7 +95,9 @@ def runs_job(job, result, *, aggregate='success', publication='success',
     values = {'inputs.operation': result['operation'],
               'needs.resolve.outputs.features_reused': result.get('features_reused', 'false'), 'needs.resolve.outputs.mode': result['mode'],
               'needs.resolve.result': resolve, 'needs.aggregate.result': aggregate,
-              'needs.publication.result': publication, 'needs.candidate.result': candidate_result}
+              'needs.publication.result': publication,
+              'needs.candidate_darwin.result': candidate_result,
+              'needs.candidate_ubuntu.result': candidate_result}
     for key, value in values.items():
         expression = expression.replace(key, repr(value))
     expression = expression.replace('always()', 'True').replace('cancelled()', str(cancelled))
@@ -101,7 +112,10 @@ def runs_job(job, result, *, aggregate='success', publication='success',
 def test_release_without_ready_qualifies_once_then_publishes(candidate):
     result = selected(candidate, FixtureGitHub())
     assert result['mode'] == 'full'
-    assert runs_job('guest', result) and runs_job('candidate', result)
+    assert runs_job('guest', result)
+    for platform in ('darwin', 'ubuntu'):
+        assert runs_job('core_'+platform, result) and runs_job('candidate_'+platform, result)
+        assert runs_job('verification_'+platform, result)
     assert runs_job('verification', result)
     assert runs_job('publication', result) and runs_job('public_smoke', result)
 
@@ -112,7 +126,10 @@ def test_exact_ready_reuses_without_build_or_acceptance_then_publishes(candidate
     assert result['mode'] == 'guard-only'
     assert result['candidate_run'] == result['evidence_run'] == result['reused_ready_run'] == 123
     assert checks == [(candidate, SHA, 123, 123, ready())]
-    assert not runs_job('guest', result) and not runs_job('candidate', result)
+    assert not runs_job('guest', result)
+    for platform in ('darwin', 'ubuntu'):
+        assert not runs_job('core_'+platform, result) and not runs_job('candidate_'+platform, result)
+        assert runs_job('verification_'+platform, result, ancestors_skipped=True, candidate_result='skipped')
     assert runs_job('verification', result, ancestors_skipped=True, candidate_result='skipped')
     workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
     assert "if: needs.resolve.outputs.mode != 'guard-only'" in workflow
