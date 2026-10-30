@@ -95,11 +95,12 @@ def unzip(path,destination,candidate=False):
             with archive.open(member) as src,target.open('wb') as dst: shutil.copyfileobj(src,dst)
 
 
-def restore_platform(root,commit,platform,mode,archive=None,sha=None,candidate_run=None,evidence_run=None):
+def _restore_platform_inputs(root,commit,platform,mode,archive=None,sha=None,candidate_run=None,evidence_run=None,api=None):
+    """Authenticated transport only; caller must validate before accepting inputs."""
     checkout(root,commit)
     with tempfile.TemporaryDirectory(prefix='mariamem-v04-reuse-') as temporary:
         work=Path(temporary).resolve()
-        api=GitHub(os.environ.get('GITHUB_REPOSITORY','masahitojp/mariamem'),os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN'))
+        api=api or GitHub(os.environ.get('GITHUB_REPOSITORY','masahitojp/mariamem'),os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN'))
         if mode!='full':
             require(candidate_run and int(candidate_run)>0,'original candidate run required; no rebuild fallback')
             api.artifact(candidate_run,'release-candidate-'+platform+'-'+commit,commit,work/'candidate.zip')
@@ -107,15 +108,22 @@ def restore_platform(root,commit,platform,mode,archive=None,sha=None,candidate_r
             archive=work/'candidate-handoff.tar'; sha=(work/'candidate-handoff.sha256').read_text().strip()
         require(archive is not None and sha is not None,'missing immutable handoff/hash')
         restore_handoff(archive,sha,root)
-        verify_build(root,commit); verify_source(root,commit); verify_wheel(root,platform,commit)
         if mode=='guard-only':
             require(evidence_run and int(evidence_run)>0,'exact acceptance evidence run required')
             api.artifact(evidence_run,'release-evidence-'+platform+'-'+commit,commit,work/'evidence.zip')
             unzip(work/'evidence.zip',root)
-            guard(root,commit,platform)
 
 
-def restore_all(root,commit,candidate_run,evidence_run):
+def restore_platform(root,commit,platform,mode,archive=None,sha=None,candidate_run=None,evidence_run=None):
+    _restore_platform_inputs(root,commit,platform,mode,archive,sha,candidate_run,evidence_run)
+    if mode=='guard-only':
+        # guard already checks build, corresponding source and wheel identity.
+        guard(root,commit,platform)
+    else:
+        verify_build(root,commit); verify_source(root,commit); verify_wheel(root,platform,commit)
+
+
+def _platform_sources(root,commit):
     checkout(root,commit)
     for platform in PLATFORMS:
         project=root/'build/platforms'/platform
@@ -123,6 +131,19 @@ def restore_all(root,commit,candidate_run,evidence_run):
         for source in public_files(root):
             destination=project/source.relative_to(root); destination.parent.mkdir(parents=True,exist_ok=True)
             shutil.copyfile(source,destination)
+        yield platform, project
+
+
+def _restore_publication_inputs(root,commit,candidate_run,evidence_run,api):
+    # Private publisher path: no unchecked-success CLI or reusable PASS receipt.
+    # The publisher must run check_aggregate once before staging or remote writes.
+    for platform, project in _platform_sources(root,commit):
+        _restore_platform_inputs(project,commit,platform,'guard-only',
+                                 candidate_run=candidate_run,evidence_run=evidence_run,api=api)
+
+
+def restore_all(root,commit,candidate_run,evidence_run):
+    for platform, project in _platform_sources(root,commit):
         restore_platform(project,commit,platform,'guard-only',candidate_run=candidate_run,evidence_run=evidence_run)
 
 

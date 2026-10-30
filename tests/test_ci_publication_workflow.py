@@ -16,9 +16,12 @@ def test_publication_job_gate_and_handoff():
     assert 'contents: write' not in before and 'contents: write' in publication
     assert 'cancel-in-progress: false' in publication
     assert 'environment:' not in publication
-    assert 'release_generated_ci.py restore' in publication
-    assert 'release_generated_ci.py guard' in publication
-    assert '--ready candidate-source/build/release/ci-ready.json' in publication
+    normal = publication.split('  public_smoke_recovery:', 1)[0]
+    assert 'release_generated_ci.py restore' not in normal
+    assert 'release_generated_ci.py guard' not in normal
+    assert '--candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN"' in normal
+    assert 'candidate-source/scripts/ci_release_publish.py' in normal
+    assert 'EVIDENCE_RUN: ${{ github.run_id }}' in normal
     assert 'config user.name' in publication and 'args+=(--dry-run)' not in publication
     assert 'options: [verify, release, public-smoke-recovery]' in before
     assert "if: always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.publication.result == 'success'" in publication

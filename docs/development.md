@@ -175,7 +175,10 @@ changes need wording/reference and diff/status checks, not runtime tests. These
 rules leave runtime-change and explicitly requested release gates intact.
 
 The development workflow runs on PRs and explicit manual dispatch, without a
-main-push repeat. It selects checks from the local event diff; unknown inputs or
+main-push repeat. Maintained workflow definitions have explicit tooling scope:
+CI-only edits run Python/policy checks without compiling unchanged Go. An
+inventory test catches new unclassified workflows; unknown paths and mixed
+runtime changes still select the complete daily profile. It selects checks from the local event diff; unknown inputs or
 unavailable/empty diffs select all daily product checks plus representative smoke.
 This selection produces no reusable runtime-qualification receipt.
 
@@ -362,6 +365,10 @@ GitHub cache scope still applies: unrelated PR caches are not interchangeable,
 and a first run without an accessible base/current-branch cache remains cold.
 No automatic main-push cache-warming build is added.
 
+Local release metadata preparation uses `release_preparation_checks.py` for the
+allowed version/docs diff, with no local Go compilation or runtime campaign.
+Explicit runtime-reuse intent is authenticated separately before submission.
+
 Full integration/race and the six feature campaigns belong to Release CI. One
 shared runtime job per OS builds the wheel while canonical guest reproduction
 runs independently. Candidate qualification and Live/Dump/Django/routing/
@@ -390,6 +397,17 @@ reuse. No copied artifact extends the original 14-day retention. Explicit
 recovery modes keep feature execution; `mode=full` forces complete qualification. The runtime build uses the same dependency-keyed compiler cache as
 Development, allowing future main-based Release builds to populate it without a
 separate cache-warming workflow. Local task-cache ownership remains unchanged.
+
+Publication owns one final semantic guard after authenticated artifact transport.
+It downloads the aggregate READY from the evidence run, checks its original
+candidate/evidence references, and restores both platforms. Internal transport
+helpers validate archive digests and safe paths but do not assert qualification.
+The publisher recomputes the aggregate guard once, requires equality with the
+authenticated READY, stages those exact assets, and verifies their hashes before
+any remote mutation. Existing staging is verified, never silently repaired.
+There is no public option to skip the final guard. Other restore consumers retain
+semantic checks. Remote tag identity, uploaded-asset verification and public smoke
+are unchanged.
 
 Only Development groups automatic PR concurrency by workflow, event and PR number.
 A new update cancels the prior run of the same PR; explicit manual runs use unique

@@ -76,9 +76,9 @@ def submit(root, version, operation='release'):
     require((root / notes).is_file() and re.search(r'^#\s+.*' + re.escape(version) + r'(?:\s|$)',
             (root / notes).read_text(), re.MULTILINE), 'release notes must identify requested tag')
     if paths:
-        checks = ('scripts/release_preparation_checks.py' if
-                  (root / 'release/runtime-validation.json').is_file() else 'scripts/verify.py')
-        run([sys.executable, checks, *([] if checks.endswith('release_preparation_checks.py') else ['check'])], root)
+        # Only the explicitly allowed version/docs changes reach this point.
+        # Runtime qualification belongs to the submitted Release CI transaction.
+        run([sys.executable, 'scripts/release_preparation_checks.py'], root)
         run(['git', 'diff', '--check'], root)
         run(['git', 'diff', '--cached', '--check'], root)
         run(['git', 'add', '--', *sorted(paths)], root)

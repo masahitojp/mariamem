@@ -80,6 +80,42 @@ full/READY-reuse execution and time savings remain unmeasured. See
 [development](development.md#local-verification) and
 [release responsibility](releasing.md#ci-inputs-reuse-and-acceptance).
 
+## CI strategy follow-up — release preparation and final publication ownership
+
+After PR39 merged as source_commit
+`adde9d63ea1dce82246b54e95c5250e23aea57f7`, the Human authorized three further
+changes: focused local release preparation, one final aggregate guard inside
+publication, and explicit classification for all maintained workflows. Exact-READY
+feature reuse remains a retry optimization; a new candidate still needs its own
+qualification. No release version or qualification/publication run is authorized
+by this CI maintenance task.
+
+Release preparation accepts only its existing version/documentation file set and
+runs `release_preparation_checks.py` regardless of runtime-reuse intent. It never
+runs local Go/full runtime checks as a prerequisite to submission. Explicit runtime
+intent is still authenticated before push, and Release CI retains full or
+validated-reuse qualification.
+
+The publisher authenticates the aggregate READY ZIP and exact candidate/evidence
+run references, restores both platform handoffs with the existing digest/path
+checks, then recomputes the complete aggregate guard once before staging or any
+remote mutation. It compares that result to the authenticated READY, verifies
+staged asset hashes, and retains remote identity/upload/public-smoke checks.
+Private transport-only helpers create no PASS/READY receipt and have no bypass
+CLI. Normal restore/guard consumers keep semantic verification; guard-only restore
+no longer repeats build/source/wheel validation already performed by its guard.
+
+The nine current workflows have explicit tooling scope. Mixed runtime changes
+and unreviewed paths still select the daily runtime profile. The inventory test
+requires every added workflow to receive an explicit classification. This closes
+the PR39 classification gap: three feature workflow edits had unnecessarily
+selected Go compilation on a cache miss. Its completed Development run took
+8m11s; this observation is not a prediction of the follow-up's timing.
+
+Validation uses focused release/transport/selector tests and the canonical local
+preparation check. Heavy Release submissions remain zero; both-OS hosted
+publication execution and time savings are still unmeasured.
+
 ## Issue #5 host repair — adopted on main, unreleased
 
 The Human approved main adoption of candidate source_commit
