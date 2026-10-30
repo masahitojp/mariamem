@@ -74,6 +74,15 @@ def test_tooling_remains_checked_without_runtime_qualification(path):
     assert not scope.select([path])['integration']
 
 
+def test_wasix_guard_metadata_selects_source_checks_only():
+    result = scope.select(['release/wasix-host-stubs.json',
+                           'tests/test_generated_runtime_inventory.py'])
+    assert result['check_scope'] == 'python' and not result['integration']
+    for runtime in ['internal/generatedgo/main.go', 'scripts/generate_runtime.py',
+                    'release/generated-go-inputs.json', 'release/new-contract.json']:
+        assert scope.select(['release/wasix-host-stubs.json', runtime])['integration']
+
+
 @pytest.mark.parametrize('path', [
     'internal/generatedgo/code/base/owned_prepared.go', 'snapshot.go',
     'python/mariamem/__init__.py', 'python/mariamem/pytest_plugin.py',

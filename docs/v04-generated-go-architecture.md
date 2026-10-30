@@ -175,11 +175,24 @@ rather than editing generated output alone.
 Run `python -m pytest tests/test_generated_runtime_inventory.py -q` for the
 inventory/classification check, then select any additional checks required by
 the changed runtime boundary using [local verification](development.md#local-verification).
-The current guard checks marked stubs and immediate host-method panics; it does
-not establish that every panic is classified. An unmarked panic preceded by
-another statement can escape detection. [#24](https://github.com/masahitojp/mariamem/issues/24)
-tracks that gap and the required negative controls, separately from the adopted
-[#13](https://github.com/masahitojp/mariamem/issues/13) detection net.
+The source-only guard tokenizes valid Go source, excluding comments and literal
+contents, and balances method bodies rather than requiring `panic` to be the
+first statement. It checks unqualified `panic(...)` calls, including
+parenthesized calls, within concrete `host`/`*host` methods and nested bodies.
+The 14 fail-closed stubs must retain their canonical single marked panic.
+`guard_panics` separately pins the ordered argument expressions of six existing
+input-rejection calls in four implemented methods. Adding, removing or changing
+these calls requires a reviewed inventory change; the exemption does not cover
+another method or an additional call in the same method.
+
+This is a bounded lexical inventory, not Go type checking, reachability or a
+general panic-freedom proof. A shadowed unqualified `panic` call is conservatively
+subject to classification. Selector/helper calls, receiver aliases, other types
+and other packages are outside this direct-call boundary; standard Go checks
+own syntax/type validity. Guard expressions do not prove surrounding control
+flow or runtime correctness. Regression cases for the previous multi-statement
+gap are tracked by [#24](https://github.com/masahitojp/mariamem/issues/24), separately
+from the adopted [#13](https://github.com/masahitojp/mariamem/issues/13) detection net.
 
 ## Historical evidence
 

@@ -1075,7 +1075,7 @@ the approved scope and sequencing below.
 | --- | --- |
 | [#18 — five-profile dogfood acceptance](https://github.com/masahitojp/mariamem/issues/18) | Active v0.6.0 acceptance tracking for P1, G1, D1, EP1 and EG1; recipes/component PASS do not close the full obligation |
 | [#19 — dbt revalidation](https://github.com/masahitojp/mariamem/issues/19) | Complete/closed: fixed dbt1.7 workload replayed on both observed hosts; [source-bound completion and receipts](reviews/dbt-revalidation-completion.md), no broader support claim |
-| [#24 — multi-statement host panic guard](https://github.com/masahitojp/mariamem/issues/24) | Active v0.6.0 follow-up to #13; detect unclassified host panics preceded by another statement |
+| [#24 — multi-statement host panic guard](https://github.com/masahitojp/mariamem/issues/24) | v0.6.0 follow-up to #13: candidate source-only lexical guard detects direct host panics after statements/nested branches; explicit existing input-rejection calls remain classified. Integration tracked in the Issue |
 | [#20 — Oracle prepared CALL result traversal](https://github.com/masahitojp/mariamem/issues/20) | Accepted external-consumer limitation; outside v0.6.0 work, no milestone |
 | [#21 — Oracle macOS C/default NUL projection](https://github.com/masahitojp/mariamem/issues/21) | Accepted external-consumer limitation; outside v0.6.0 work, no milestone |
 
@@ -1095,9 +1095,10 @@ and [#13](https://github.com/masahitojp/mariamem/issues/13) tracks the adopted
 stub-classification/SQL detection net ([PR16](https://github.com/masahitojp/mariamem/pull/16)).
 These are closed; they are not pending prerequisites for #18/#19. In particular,
 #19 may proceed from the resolved #5/#7 repair while recording its own source.
-The adopted #13 guard still misses an unmarked host panic preceded by another
-statement; [#24](https://github.com/masahitojp/mariamem/issues/24) owns that residual
-gap. See the [WASIX stub maintenance procedure](v04-generated-go-architecture.md#unimplemented-wasix-host-imports)
+The original #13 immediate-panic regex missed unmarked host panics preceded by
+another statement. [#24](https://github.com/masahitojp/mariamem/issues/24) owns the
+source-only lexical guard correction and regression controls; it does not change
+runtime/guest behavior or promise indirect-panic discovery. See the [WASIX stub maintenance procedure](v04-generated-go-architecture.md#unimplemented-wasix-host-imports)
 for classification updates and the current detection boundary.
 
 **EP1/EG1 implementation approved by the Human:** the
