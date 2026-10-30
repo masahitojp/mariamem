@@ -1,0 +1,16 @@
+{
+  "PASS_SOURCE_PYTHON_LIVE": {
+    "result": "PASS_SOURCE_PYTHON_LIVE",
+    "module": "/home/runner/work/mariamem/mariamem/python/mariamem/__init__.py",
+    "source_consumed": true,
+    "host_reaped": true,
+    "directory_removed": true
+  },
+  "PASS_SOURCE_GO_LIVE": {
+    "busy_refused": true,
+    "closed_parent_refused": true,
+    "result": "PASS_SOURCE_GO_LIVE",
+    "source_consumed": true,
+    "sum_after_reset": 1
+  }
+}

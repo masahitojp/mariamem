@@ -1,0 +1,82 @@
+{
+  "result": "PASS_DAILY_SOURCE_SMOKE",
+  "run_id": 41076760360,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41076760360",
+  "run_attempt": 1,
+  "head_commit": "850ddcc2c70786dc310308d262b4f33d842fea3e",
+  "source_commit": "0f59d660e5ca58a65818915602787fec5e7e57d3",
+  "integrated_main": "4a8a68350e8c43fc107843a6efe7781cad1a4e2a",
+  "head_tree": "e09c9c8f3300b5ca716e1776da4676ada01f3e94",
+  "executed_tree": "e09c9c8f3300b5ca716e1776da4676ada01f3e94",
+  "integrated_tree": "e09c9c8f3300b5ca716e1776da4676ada01f3e94",
+  "full_tree_identity": true,
+  "required_contexts": {
+    "check": {
+      "result": "success",
+      "job_id": 124135188828,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/41076760360/job/124135188828"
+    },
+    "integration": {
+      "result": "success",
+      "job_id": 124140697152,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/41076760360/job/124140697152"
+    },
+    "Live required gate": {
+      "result": "success",
+      "job_id": 124140738712,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/41076760360/job/124140738712"
+    }
+  },
+  "smoke": {
+    "PASS_SOURCE_PYTHON_LIVE": {
+      "result": "PASS_SOURCE_PYTHON_LIVE",
+      "module": "/home/runner/work/mariamem/mariamem/python/mariamem/__init__.py",
+      "source_consumed": true,
+      "host_reaped": true,
+      "directory_removed": true
+    },
+    "PASS_SOURCE_GO_LIVE": {
+      "busy_refused": true,
+      "closed_parent_refused": true,
+      "result": "PASS_SOURCE_GO_LIVE",
+      "source_consumed": true,
+      "sum_after_reset": 1
+    }
+  },
+  "scope": "Current-head source/unit checks and Ubuntu representative Go/Python DB/Snapshot/Fork/Live smoke only",
+  "full_platform_native_browser_installed": "NOT_RUN_ON_THIS_HEAD_RELEASE_CI_ONLY",
+  "historical_full_receipt": {
+    "evidence_commit": "441032c53dd7ff9ff14642a8363e50ffb9768a9e",
+    "head_commit": "8912224a190c9d74d5059111a96da349b13b8ba1",
+    "source_commit": "6ccec79459665fd467263377217905cc3f01aae5",
+    "tree": "1ebecb6ecc987f60fa093d3025066f0b1e47f909",
+    "run_id": 41063375697
+  },
+  "unchanged_boundary": [
+    "python",
+    "internal",
+    "guest",
+    "generated",
+    "release",
+    "go.mod",
+    "go.sum",
+    "tests/fixture_entry_acceptance",
+    "tests/preparation_migration_acceptance",
+    "connection.go",
+    "errors.go",
+    "live.go",
+    "live_test.go",
+    "mariamem.go",
+    "mariamem_test.go",
+    "snapshot.go"
+  ],
+  "reuse_limit": "Only the listed product/P1 input boundary is unchanged from the old full receipt; whole repository trees differ across CI policy updates",
+  "logs_zip_sha256": "7fa4662b2b5366021d9889edb08fa894ad058479dc9e56031f59f467b6d42d52",
+  "digest_scope": "Own digest of authenticated GitHub logs, not a supplied GitHub artifact digest",
+  "not_claimed": [
+    "new-head full qualification",
+    "cold setup cost",
+    "resource characterization",
+    "publication"
+  ]
+}
