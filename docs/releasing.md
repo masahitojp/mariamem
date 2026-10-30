@@ -319,7 +319,7 @@ its historical metadata. Also describe the new marker/preparation entry and
 that preparation uses explicit DB settings (no preparation-time automatic
 routing). See the [adopted implementation](reviews/v06x-shadow-maria-implementation.md).
 For the first release containing P1/PrepareCommand, manually carry the applicable
-items from [unreleased candidate notes](release-notes/unreleased.md) into that
+items from [the sole 0.6.0 staging content source](release-notes/unreleased.md) into that
 release's tracked `release/NOTES-vX.Y.Z.md` (or prerelease equivalent). Include
 the new public declaration, same-worker admission stop after cleanup failure,
 bounded command output and compatibility/cleanup limitations. Check those items
@@ -342,8 +342,9 @@ check: version/installation examples still describe the actual published release
 
 Carry P1, Go prepared-helper, owned browser/HTTP E2E, bounded dump, routine and
 prepared/wire limits into the versioned notes as applicable. Include Python3.11
-minimum, worker-local cleanup-debt admission, the exact three Prepared consumer
-exceptions and additional-mode/environment SKIPs, and D1's explicit deferral.
+minimum, worker-local cleanup-debt admission, the two accepted Prepared consumer
+exceptions, the separate native-parity syntax-error presentation, and
+additional-mode/environment SKIPs, and D1's explicit deferral.
 Preserve the callback/command and app-hook responsibilities; do not promise
 cross-worker persistence, automatic pool retirement or arbitrary framework support.
 This is the existing documentation boundary, not a new runtime/trace campaign;

@@ -37,7 +37,7 @@ means they ship together in the first 0.6.0 release.
 | Capability | Own decision / receipt | Boundary carried into 0.6.0 |
 | --- | --- | --- |
 | Stored procedures/functions with bounded DEFINER | [routine scope](routine-support-scope.md); mysql.proc structure owned by the product | Packages/package bodies OUT (not tested, no guarantees); scheduled events OUT (embedded restriction 1235) |
-| Server-side prepared statements | [consumer exceptions](prepared-consumer-exceptions.md) | Three named accepted exceptions only; no interpolation or driver forcing; experimental capacity limits not promoted |
+| Server-side prepared statements | [consumer exceptions](prepared-consumer-exceptions.md) | Two named accepted consumer exceptions plus the separate native-parity syntax-error presentation; no interpolation or driver forcing; experimental capacity limits not promoted |
 | Connection switching (`shadow_maria`) | connection-routing contract; CI40061580952 | Explicit allowed Connector C SKIP on Ubuntu; default/pure required |
 | `mariamem.import_dump` (bounded Python dump reader) | [dump reader final review](../reviews/v06x-dump-reader-final-review.md) | Finite MariaDB12.3.3 producer profile; views/triggers and other producers OUT; no Go dump API |
 | Internal MariaDB status projected to 16-bit protocol flags | main commit `02b58b3` | Engine-internal bit 16 never crosses the wire; existing framing bounds unchanged |
