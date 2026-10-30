@@ -1,7 +1,8 @@
-# Prepared Go tests — unreleased candidate
+# Prepared Go tests — unreleased main
 
-This candidate adds `github.com/masahitojp/mariamem/mariamemtest`. It is not part
-of published v0.5.3. The helper owns preparation, capture, child pools and cleanup;
+The adopted `github.com/masahitojp/mariamem/mariamemtest` helper is supported in
+current source builds. It is not part of published v0.5.3. The helper owns
+preparation, capture, child pools and cleanup;
 your callback owns the migration/seed instructions and their success signal.
 
 ```go
@@ -92,7 +93,10 @@ Cleanup errors are reported even when the test already failed. `Run` skips the
 suite on failed setup, preserves a nonzero suite exit code and changes a zero
 exit to1 when final cleanup fails. It does not retry failed work.
 
-This is the first implementation checkpoint. Both-host runtime receipts, bounded
-resource/time observations and the full G1 acceptance remain tracked in the
-[implementation record](reviews/v06x-go-fixture-implementation.md); a PR or a unit
-PASS alone does not complete G1 or the whole dogfood scope.
+The bounded helper is adopted on main. Its [acceptance review](reviews/v06x-go-fixture-acceptance-review.md)
+and [project status](project-status.md) retain both-host runtime/installed-consumer
+proof and original source identities. Controlled backend failures do not prove
+every engine-internal fault, and the documented budgets are not a throughput,
+peak-resource or cold-setup guarantee. The older
+[implementation record](reviews/v06x-go-fixture-implementation.md) preserves the
+checkpoints that preceded adoption; it is not a list of new user prerequisites.

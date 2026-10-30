@@ -1,8 +1,10 @@
 # Run an application once, restore the database for each test
 
 These examples use **unreleased main with Live**, not the published v0.5.3
-package. The selected base source_commit is
-`250bceb80be4cfc9f7c844d888af864fc1d38d25`. Run commands from this repository root with
+package. The examples' original selection base source_commit is
+`250bceb80be4cfc9f7c844d888af864fc1d38d25`; current instructions use adopted main.
+For entry-owned lifecycle sequencing instead of manual composition, use
+[BrowserEntry / NewHTTP](../e2e_owned/README.md). Run commands from this repository root with
 Go 1.26.10 and Python 3.11 or 3.14 on a supported host. They reuse the maintained
 orders applications, Django migrations and seed data from the bounded E2E work.
 The examples use public APIs and do not use the experimental owner/fault probe.

@@ -1,5 +1,6 @@
 # Django standard-runner recipe
 
+The bounded standard-runner recipe is supported on adopted unreleased main.
 Use an explicit parent process and ordinary Django MySQL settings. The parent
 starts one disposable mariamem server, supplies its endpoint before Django loads
 settings, runs `manage.py test` or pytest-django, and closes the server afterward.
@@ -13,6 +14,12 @@ stderr. In particular, failed migration setup can leave partially committed DDL
 before Django reaches normal test teardown. Discard that whole owner; do not
 capture it as a Snapshot or reuse it for another invocation. The recipe's owner
 context also exits if spawning the test process fails or it times out.
+
+The additional D1 prepared entry is deferred from 0.6.0 for consideration in
+0.6.1 ([Issue43](https://github.com/masahitojp/mariamem/issues/43)), not promised for
+that release. This recipe does not automatically restore a prepared Snapshot or
+arbitrary schema/seed for every test. A Django browser example using the owned
+E2E entry is not general Django lifecycle integration.
 
 Django owns per-test isolation inside that invocation:
 
@@ -77,5 +84,5 @@ OpenSSL3 CI would not qualify OpenSSL4.
 Multiple aliases/routers, Django parallel/xdist workers, async, retained external
 connections, independent multi-module applications and arbitrary projects remain
 unverified. No setup-cost, performance, persistence, session continuity or
-automatic routing claim is made. Candidate adoption and release remain separate
-Human decisions.
+automatic routing claim is made. The standard-runner recipe is adopted; versioned release qualification and
+publication remain separate Human decisions.

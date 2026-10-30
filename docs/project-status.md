@@ -1086,9 +1086,19 @@ the approved scope and sequencing below.
 | --- | --- |
 | [#18 — five-profile dogfood acceptance](https://github.com/masahitojp/mariamem/issues/18) | Complete: source/host/dependency/result matrix, missing-condition dispositions and overall completion recorded in the Issue; P1/G1/EP1/EG1 adopted, D1 explicitly deferred to #43 for0.6.1 consideration, not PASS |
 | [#19 — dbt revalidation](https://github.com/masahitojp/mariamem/issues/19) | Complete/closed: fixed dbt1.7 workload replayed on both observed hosts; [source-bound completion and receipts](reviews/dbt-revalidation-completion.md), no broader support claim |
-| [#24 — multi-statement host panic guard](https://github.com/masahitojp/mariamem/issues/24) | v0.6.0 follow-up to #13: candidate source-only lexical guard detects direct host panics after statements/nested branches; explicit existing input-rejection calls remain classified. Integration tracked in the Issue |
+| [#24 — multi-statement host panic guard](https://github.com/masahitojp/mariamem/issues/24) | Complete/closed: PR46 integrated the source-only lexical inventory and regression controls on main; direct host panic calls after statements/nested branches are classified, with explicit existing input-rejection calls retained. No runtime behavior change or indirect-panic guarantee |
 | [#20 — Oracle prepared CALL result traversal](https://github.com/masahitojp/mariamem/issues/20) | Accepted external-consumer limitation; outside v0.6.0 work, no milestone |
 | [#21 — Oracle macOS C/default NUL projection](https://github.com/masahitojp/mariamem/issues/21) | Accepted external-consumer limitation; outside v0.6.0 work, no milestone |
+
+**Issue24 completed,2026-10-31 JST:** [PR46](https://github.com/masahitojp/mariamem/pull/46)
+merged as `9b1bdc84043e67db243f847e46af1385b0055b54`, with a tree identical to
+checked head `df3f4c7e6f426b7a2ae63b663211c19936a6aaaf`.
+[CI41113280316](https://github.com/masahitojp/mariamem/actions/runs/41113280316)
+passed check and Live required gate; runtime integration was correctly SKIP for
+the source-only boundary. The Issue records144 focused checks PASS and the
+direct-call lexical detection limits. This closes the #24 integration work
+mentioned in the earlier completion summaries above; it does not add runtime,
+guest, general WASIX compatibility or release-qualification evidence.
 
 The Human excluded #20/#21 from v0.6.0 work because those external consumer
 behaviors are outside our control. Their tracking does not promise a repair,

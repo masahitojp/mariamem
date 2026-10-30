@@ -1,10 +1,11 @@
 # Releasing mariamem
 
-This source prepares the human-selected `v0.5.3`; Python spelling is `0.5.3`.
-The [tracked notes](../release/NOTES-v0.5.3.md) and
-[behavior/API migration](changes-since-v050.md) describe its changes.
-The maintainer authorized this version after macOS platform-check reuse was integrated;
-the release workflow must still accept the exact final-version source/artifacts.
+Current version metadata remains `v0.5.3`; Python spelling is `0.5.3`.
+The [published notes](../release/NOTES-v0.5.3.md) and
+[behavior/API migration](changes-since-v050.md) describe that release, not all
+later adopted main additions. Preparing the next human-selected version must
+update its metadata/usage examples and accept its exact final-version artifacts;
+unchanged old version metadata is not evidence of qualification for a new release.
 A normal release requires one human request authorizing one exact final-version SHA.
 An optional `verify` audit never authorizes publication.
 
@@ -328,6 +329,25 @@ the explicitly versioned notes path; it does not read or generate notes from
 This is a required notes handoff, not a selected release version, generated notes
 file, release preparation or publication approval. Main adoption alone is not
 Qualification or release evidence.
+
+## Final usage-scope reconciliation for 0.6.0
+
+Before submission of the final versioned candidate, recheck README and the
+Python/Go/Live/Django/preparation/dump guides against the adopted
+[release scope](decisions/v060-release-scope.md) and
+[wire decision](decisions/v060-wire-contract.md). Supported main additions must
+be described as supported in that release, exact consumer exceptions named, and
+OUT paths not implied. The current main audit is not a completed final-version
+check: version/installation examples still describe the actual published release.
+
+Carry P1, Go prepared-helper, owned browser/HTTP E2E, bounded dump, routine and
+prepared/wire limits into the versioned notes as applicable. Include Python3.11
+minimum, worker-local cleanup-debt admission, the exact three Prepared consumer
+exceptions and additional-mode/environment SKIPs, and D1's explicit deferral.
+Preserve the callback/command and app-hook responsibilities; do not promise
+cross-worker persistence, automatic pool retirement or arbitrary framework support.
+This is the existing documentation boundary, not a new runtime/trace campaign;
+Release CI success adds no packet-capture evidence or wider wire coverage.
 
 ## Known limitations and release preparation
 

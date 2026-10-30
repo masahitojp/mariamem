@@ -1,6 +1,7 @@
 # Python usage
 
-This guide describes Python `0.5.3`: in-memory Snapshots and one automatically
+This guide describes Python `0.5.3` baseline APIs and explicitly labelled,
+adopted additions on unreleased main. In-memory Snapshots use one automatically
 managed host per root lineage. Public save/load APIs are removed. See
 [API changes and migration](changes-since-v050.md) and
 [installation](../README.md#installation).
@@ -127,7 +128,7 @@ are not included in published v0.5.3; existing fixtures above retain their defau
 
 ## Prepared command entry
 
-Unreleased source candidates add the public class
+Adopted unreleased main supports the public class
 `mariamem.PrepareCommand(argv, *, timeout=120, cwd=None, env=None)` as a third
 `mariamem_prepare` input. None and callback behavior are unchanged, including
 ignored callback return values. Unknown values are rejected with
@@ -189,7 +190,7 @@ kill and machine loss have no stronger guarantee.
 
 ## Prepared-entry cleanup failures
 
-This candidate intentionally changes admission after cleanup failure. A supplied
+The adopted prepared entry changes admission after cleanup failure. A supplied
 child or routing/pool finalizer failure stops later dependent tests in the
 same worker and retains its original cause. Other workers are independent.
 A normal test assertion failure with successful cleanup does **not** stop the
@@ -367,14 +368,30 @@ accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](decisions/routine-support-scope.md).
 Current source builds add real server-side execution for Go explicit/implicit
 Prepare and Python prepared cursors. This is not in published v0.5.3.
-`DELIMITER` is a client directive; this does not add a general dump importer.
+`DELIMITER` is a client directive, not server SQL. Python source builds provide
+an explicit [bounded dump reader](importing-dump.md); this is not a general
+SQL-script importer or a Go dump API.
 
-Oracle mysql-connector-python26.7.0 has two accepted, native-matched limits:
-prepared CALL result traversal can fail and leave that connection unusable;
-Mac C/default can shorten a NUL-containing untyped character projection.
-Typed binary columns preserve these bytes. The two cases pass with MariaDB
-Connector/Python1.1.14 on both supported guest platforms; this is not blanket
-driver compatibility. See the [exact consumer boundaries](decisions/prepared-consumer-exceptions.md).
+Oracle mysql-connector-python 26.7.0 has three named, accepted exceptions:
+
+- In the native-matched macOS C-extension prepared syntax-error case, the
+  client reports `2006/HY000` although raw wire returns `1064/42000` and subsequent
+  SQL succeeds. This does not make other `2006` errors safe or recoverable.
+- For the tested prepared CALL emitting two result sets via nextset, advancing
+  after the first set can fail and leave that connection unusable. This affects
+  pure mode on both supported guest platforms and macOS C/default in the fixed
+  native-matched observations; it is not a claim about every CALL or driver.
+- macOS C/default can shorten an untyped prepared character projection of
+  A-NUL-B to A without a useful error. Typed binary columns preserve all bytes;
+  pure mode preserves that projection. This is not evidence of file corruption.
+
+See the [CALL/NUL boundaries](decisions/prepared-consumer-exceptions.md)
+and [syntax-error presentation](reviews/v06x-prepared-product-design.md#c-extension-syntax-error).
+MariaDB Connector/Python 1.1.14 passes the two CALL/NUL cases on both supported
+guest platforms; this is not blanket driver compatibility or a repair to Oracle
+Connector/Python. Ubuntu's additional explicit C-extension mode may be unavailable
+and is an allowed SKIP, not C-mode compatibility PASS; required default/pure modes
+have their own executed evidence. No driver mode is silently substituted.
 Server-side cursors / COM_STMT_FETCH remain unsupported.
 
 ### Wire scope for current source builds
@@ -383,8 +400,9 @@ Use the supplied local root/empty-password endpoint profile. TLS/SSL, compressio
 DEPRECATE_EOF and alternate authentication are not advertised/supported in this
 profile. COM_RESET_CONNECTION, server-side cursors/COM_STMT_FETCH, LOCAL INFILE
 transfer, CHANGE_USER, STATISTICS, PROCESS_INFO and binlog/replication streaming
-are outside0.6.0 support. SQL-file import is not LOCAL INFILE; metadata SQL is not
-an administrative wire command. Per-entry uncaptured paths remain unverified;
+are outside0.6.0 support. Multi-packet continuation is also outside this profile.
+SQL-file import is not LOCAL INFILE; metadata SQL is not an administrative wire
+command. Per-entry uncaptured paths remain unverified;
 passing application/Release tests is not evidence of additional protocol coverage.
 See the [bounded wire contract and reopening rule](decisions/v060-wire-contract.md).
 
@@ -423,7 +441,7 @@ draining and reset ownership.
 ## Local OpenSSL4 and Connector/Python
 
 Homebrew Python3.14 with OpenSSL4 can fail to import Oracle
-mysql-connector-python26.7.0 because `ssl.PROTOCOL_TLSv1` is absent. The observed
+mysql-connector-python 26.7.0 because `ssl.PROTOCOL_TLSv1` is absent. The observed
 combination is Python3.14.9/OpenSSL4.0.3. CPython conditionally omits protocol
 constants for methods unavailable in OpenSSL4; this connector accesses those
 constants during import. This happens before connecting to mariamem. It is

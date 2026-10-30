@@ -1,6 +1,6 @@
 # Scoped application connections
 
-This is an unreleased source feature, not part of published v0.5.3. It lets a
+This adopted feature is supported on unreleased main, not part of published v0.5.3. It lets a
 pytest marker supply an independent MariaDB child while the application keeps
 its ordinary driver calls, SQL, commits and rollbacks. Preparation still happens
 once through migrations/seed; each test gets its own mutable child.
@@ -94,8 +94,10 @@ attempt receives `missing_target`; defer application SQL to a marked test or
 its function fixtures. Preparation instead receives explicit DB settings, as
 below. Cold engine construction can remain at import.
 
-Prepare `app` once using `mariamem_prepare`. It is a session fixture returning a
-callback that receives the source DB. Pass its connection settings explicitly
+Prepare `app` once using `mariamem_prepare`. It is a session fixture returning
+None, a callback receiving the source DB, or a declarative
+[PrepareCommand](python.md#prepared-command-entry). The callback example below
+uses the source DB explicitly. Pass its connection settings explicitly
 to migration/seed code; preparation-time automatic connection switching is not
 included in0.6.0. Create the application's schema as part of preparation. For
 SQLAlchemy, also list the application's quiescent engines once:
@@ -146,7 +148,8 @@ the exact same child as the marker and `mariamem_fork`, not another DB. Requesti
 tests not requesting it create no routed DB; configured early guards remain.
 
 `mariamem_prepare` defaults to `None` (no-op). An override can prepare through
-fixture setup and return `None`, or return a callable taking the source DB.
+fixture setup and return `None`, return a callable taking the source DB, or
+return `mariamem.PrepareCommand` with explicit argv and bounded command handling.
 Other values receive a pytest usage error; callback return values are ignored.
 **Returning a cleanup function does not register or execute teardown.** Close
 preparation SQL connections inside the callback using context managers or
@@ -165,8 +168,9 @@ chain. The marker does not run preparation a second time.
 Function-scoped application fixtures run under marker activation. For explicit
 setup/teardown dependency ordering, let them request `mariamem_app_db`. Session-
 scoped applications cannot acquire a per-test target during their setup: stop or
-reconfigure their resources at a suitable boundary. Stable-endpoint/live reset
-is a separate design task, not implied by host reuse or this marker.
+reconfigure their resources at a suitable boundary. Stable endpoints use the separately supported [Live API](live.md) and
+[owned E2E entry](examples/e2e_owned/README.md); host reuse or this marker does
+not automatically provide Live or own a session-scoped application's hooks.
 
 `mariamem_router` exposes the session registry; `mariamem_app_db` yields that
 test's child; `mariamem_sqlalchemy_engines` defaults to no engines. Each xdist worker
