@@ -1,0 +1,46 @@
+{
+  "result": "FAIL_STALE_RESOURCE_WORKFLOW_ASSERTIONS",
+  "source_commit": "4cc74f9a7f541afe96a958360eb60ac2fa77fb93",
+  "run_id": 40979625348,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/40979625348",
+  "run_attempt": 1,
+  "artifact_digests": {
+    "macos-15": {
+      "artifact_id": 12944573468,
+      "digest": "sha256:b256700a362122fad39964ca45ae003ffccd27a2ac76991488309ab19df4b3bd"
+    },
+    "ubuntu-24.04": {
+      "artifact_id": 12944970751,
+      "digest": "sha256:6ec9387757577f6eb12a7a1fedb55eac30e26eb9d3c7583b62c6d99682191d0d"
+    },
+    "native-py3.11": {
+      "artifact_id": 12944133169,
+      "digest": "sha256:02368da9cf6883fd00d8135548a13fdc96080ad89c8a3f1c3f39be555eb3ebc0"
+    },
+    "native-py3.14": {
+      "artifact_id": 12944038565,
+      "digest": "sha256:a244f0fb5273b964393ae8fc9bd9714bf87392f41c0a636ece348e173ede3869"
+    }
+  },
+  "derived_archive_sha256": "c1addd8c5d1f46bc9d1a0d2086a6d0aee0ae72a3b405e463915efc5e2499f026",
+  "native": "PASS_BOTH_MINORS_SCHEMA_COUNT_AFTER_ZERO",
+  "hosts": {
+    "macos-15": {
+      "stage": "Canonical check",
+      "failed": 3,
+      "passed": 1591,
+      "skipped": 60
+    },
+    "ubuntu-24.04": {
+      "stage": "Canonical check",
+      "failed": 3,
+      "passed": 1591,
+      "skipped": 60
+    }
+  },
+  "cause": "Three old tests required resource observer/guard/barrier suites in ordinary P1 CI, contrary to approved v0.7.x deferral",
+  "secondary": "G1 upload and aggregate gate failed because canonical check stopped the jobs before acceptance",
+  "p1_installed_runtime": "NOT_RUN",
+  "fix": "Remove obsolete resource-workflow obligations; keep helper behavior tests and central fixed-exit workflow assertions",
+  "scope": "Original FAIL preserved; not P1 acceptance"
+}

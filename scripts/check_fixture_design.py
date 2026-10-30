@@ -14,6 +14,16 @@ CONTRACT = ROOT / 'docs/reviews/v06x-fixture-acceptance.json'
 ENTRIES = {'P1', 'G1', 'D1', 'EP1', 'EG1'}
 
 
+def validate_p1_notices(root):
+    python = (root / 'docs/python.md').read_text()
+    notes = (root / 'docs/release-notes/unreleased.md').read_text()
+    for text in (python, notes):
+        if not all(value in text for value in ('PrepareCommand', 'same worker', '16 KiB')):
+            raise ValueError('P1 public API/admission/output notice missing')
+    if not all(value in python for value in ('## Prepared command entry', '## Prepared-entry cleanup failures')):
+        raise ValueError('P1 public guide sections missing')
+
+
 def validate(plan, root=ROOT):
     def need(condition, reason):
         if not condition:
@@ -21,6 +31,17 @@ def validate(plan, root=ROOT):
     require_commit(root, plan['source_commit'])
     rows = plan['entries']
     need({v['id'] for v in rows} == ENTRIES and len(rows) == len(ENTRIES), 'named entries incomplete/duplicated')
+    p1_entry = next(row for row in rows if row['id'] == 'P1')
+    need(p1_entry['status'] == 'FIXED_EXIT_ACCEPTED',
+         'P1 status differs from fixed-exit acceptance state')
+    acceptance = plan['p1_fixed_exit_acceptance']
+    require_commit(root, acceptance['source_commit'])
+    receipt_path = root / acceptance['receipt']
+    need(receipt_path.is_file(), 'P1 fixed-exit receipt missing')
+    receipt = json.loads(receipt_path.read_text())
+    need(receipt['result'] == 'PASS_P1_FIXED_EXIT_RUNTIME'
+         and receipt['source_commit'] == acceptance['source_commit'],
+         'P1 fixed-exit status lacks matching acceptance evidence')
     need(set(plan['whole_scope_requires']) == ENTRIES - {'D1'}, 'required completion set changed')
     need(plan['django_policy'] == {
         'blocking_for_v060': False,
@@ -40,6 +61,20 @@ def validate(plan, root=ROOT):
     need(set(diag['fallback_requires']) == {'concrete_obstacle', 'user_effect', 'unfinished_fields', 'finite_exit'}, 'fallback rationale incomplete')
     need(diag['fallback_activation'] == 'NOT_SELECTED', 'fallback activation requires a new reviewed decision/contract')
     need(diag['selected_profile'] == 'readable-owned', 'fallback profile selected without its pre-implementation decision')
+    delivery = plan['delivery_scope']
+    need(delivery == {
+        'decision_record': 'docs/decisions/p1-fixed-exit-v060.md',
+        'v060_primary': 'WIRE_CONTRACT',
+        'detailed_resources_milestone': 'v0.7.x',
+        'detailed_resources_block_v060': False,
+        'p1_exit': ['compatibility', 'preparation_and_isolation',
+                    'failure_diagnostics_and_admission', 'owned_lifecycle_cleanup',
+                    'supported_host_consumer_evidence', 'documentation_and_adoption_review'],
+        'resource_parameters': 'PRESERVED_INPUTS_NOT_V060_ACCEPTANCE_GATES',
+        'lifecycle_and_connection_budgets': 'REQUIRED',
+    }, 'fixed P1 exit/resource placement changed without Human decision')
+    need((root / delivery['decision_record']).is_file(), 'fixed exit decision missing')
+    # Preserve diagnostic inputs, not a requirement to execute the v0.7.x campaign.
     res = plan['resources']
     need(res['max_forks_default'] > 0, 'unbounded child admission')
     need(res['test_child_limits'] == [1, 2] and res['cases_per_batch'] > 2, 'capacity waiting oracle missing')
@@ -67,9 +102,10 @@ def validate(plan, root=ROOT):
     need(wire['current_inventory'] != wire['historical_inventory'], 'historical wire inventory used as current')
     need((root / wire['current_inventory']).is_file(), 'current wire inventory missing')
     need(set(wire['source_sha256']) == {'internal/mysqlwire/wire.go', 'internal/mysqlwire/prepared_session.go', 'guest/wire_core.inc', 'guest/resident.inc'}, 'wire source boundary missing')
+    require_commit(root, wire['source_commit'])
     for path, digest in wire['source_sha256'].items():
         need(hashlib.sha256((root / path).read_bytes()).hexdigest() == digest, 'wire source drift requires inventory reconciliation: ' + path)
-        pinned = subprocess.check_output(['git', 'show', plan['source_commit'] + ':' + path], cwd=root)
+        pinned = subprocess.check_output(['git', 'show', wire['source_commit'] + ':' + path], cwd=root)
         need(hashlib.sha256(pinned).hexdigest() == digest, 'wire baseline is not the inspected source: ' + path)
     source = (root / 'internal/mysqlwire/wire.go').read_text()
     dispatch = source.split('switch request[0] {', 1)[1].split('\n\t\tif e != nil', 1)[0]
@@ -79,16 +115,35 @@ def validate(plan, root=ROOT):
     need({int(n.strip()) for n in caps.split('|')} == set(wire['base_capability_bits']), 'wire capability inventory differs')
     need(set(wire['ledger_fields']) == {'operation', 'client_options', 'observed_command_flags', 'native_result', 'guest_result', 'error', 'cleanup', 'source_client_pin', 'oracle'}, 'wire observation ledger incomplete')
     need(plan['future_runtime_status'] == 'NOT_RUN', 'design lint must not grant runtime PASS')
-    need(plan['scope_status'] == 'APPROVED_WITH_DJANGO_NONBLOCKING'
+    need(plan['scope_status'] == 'APPROVED_G1_P1_WITH_DJANGO_NONBLOCKING'
          and plan['implementation_authorized'] is True
-         and plan['authorized_implementation_entries'] == ['G1'], 'implementation exceeds Human decision')
+         and plan['authorized_implementation_entries'] == ['G1', 'P1'], 'implementation exceeds Human decision')
     need(diag['decision_status'] == 'APPROVED', 'diagnostic profile not approved')
     reviewed = plan['reviewed_design_commit']
     require_commit(root, reviewed)
     need(reviewed == '39f97573fe490ad86f37a4dbb25d762141d9114c', 'reviewed design identity changed')
     ancestor = subprocess.run(['git', 'merge-base', '--is-ancestor', reviewed, 'HEAD'], cwd=root)
     need(ancestor.returncode == 0, 'reviewed design must precede implementation')
-    return {'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'authorized_implementation_entries': ['G1']}
+    p1 = plan['p1_approval']
+    need(p1['reviewed_design_commit'] == 'de860c4fc553907d237ad3a046ca6a6780ce0bb4'
+         and p1['decision_commit'] == '746ea5fb6306bb122659917681a2554a6a292e77', 'P1 approval identity changed')
+    for commit in (p1['reviewed_design_commit'], p1['decision_commit']):
+        require_commit(root, commit)
+        need(subprocess.run(['git', 'merge-base', '--is-ancestor', commit, 'HEAD'], cwd=root).returncode == 0,
+             'P1 approval must precede implementation')
+    need(p1['decision_record'] == 'docs/decisions/p1-prepared-entry-implementation.md', 'P1 decision record changed')
+    pinned = subprocess.check_output(['git', 'show', p1['decision_commit'] + ':' + p1['decision_record']], cwd=root)
+    need(hashlib.sha256(pinned).hexdigest() == p1['decision_record_sha256']
+         == hashlib.sha256((root / p1['decision_record']).read_bytes()).hexdigest(), 'P1 decision record drift')
+    need(p1['env_mode'] == 'PARENT_COPY_WITH_OVERLAY_AND_ACTUAL_RESERVED_TARGET'
+         and p1['output_tail_bytes_per_stream'] == 16384
+         and p1['output_truncation'] == 'FLAGS_AND_DROPPED_BYTE_COUNTS'
+         and p1['unknown_prepare'] == 'USAGE_ERROR'
+         and p1['cleanup_debt'] == 'STOP_DEPENDENT_ADMISSION_IN_SAME_WORKER'
+         and p1['notice_paths'] == ['docs/python.md', 'docs/release-notes/unreleased.md'],
+         'P1 conditional approval weakened')
+    validate_p1_notices(root)
+    return {'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'authorized_implementation_entries': ['G1', 'P1']}
 
 
 def main():

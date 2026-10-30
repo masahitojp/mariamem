@@ -1,0 +1,35 @@
+{
+  "status": "FIXED_ORCHESTRATION_BEFORE_MEASUREMENT",
+  "scope": "P1 time checkpoint; not complete time/resource acceptance",
+  "profile": "existing users/addresses corpus, PrepareCommand, supplied shadow_maria entry, max-open2/max-idle1",
+  "outer_command": "P1_INSTALLED_CONSUMER=1 P1_NATIVE_REFERENCE=<same-source-native> MARIAMEM_TEST_HOST=<exact-host> python -m pytest tests/test_p1_runtime.py -k three_time_campaign -q -s",
+  "first_test_setup": {
+    "files": ["application.py", "conftest.py", "pytest.ini", "test_first.py"],
+    "command": "python -m pytest -p mariamem.pytest_plugin -p xdist.plugin test_first.py -q --tb=short --junitxml=results.xml",
+    "cases": 1,
+    "workers": 1
+  },
+  "second_test_edits": {
+    "added_files": ["test_second.py"],
+    "command": "python -m pytest -p mariamem.pytest_plugin -p xdist.plugin test_first.py test_second.py -q --tb=short --junitxml=results.xml",
+    "cases": 2,
+    "workers": 1,
+    "repeated_lifecycle_lines": 0
+  },
+  "repeated_batch": {
+    "command": "python -m pytest -p mariamem.pytest_plugin -p xdist.plugin test_repeat.py -q --tb=short --junitxml=results.xml [ -n 2 --dist=loadgroup ]",
+    "workers": [1, 2],
+    "cases_per_batch": 4,
+    "labels": ["warmup", "observed_1", "observed_2", "observed_3"],
+    "cases_per_invocation": 16,
+    "barriers": "two loadgroup slots; previous batch completes before next setup; paired SQL holds prove overlap without sleep-based oracles"
+  },
+  "phase_times": ["start", "prepare", "disconnect", "capture", "admission", "case", "cleanup"],
+  "evidence": ["source/input/host/wheel binding", "exact JUnit", "worker-local JSONL", "actual closed source/baseline/child events", "final host reaping and directory removal", "actual held SQL connection observations"],
+  "process_timeout_seconds": 180,
+  "barrier_timeout_seconds": 20,
+  "acquisition": "preinstalled source-bound CI wheel and fixed dependency environment; acquisition duration and cold-machine cost not measured by this checkpoint",
+  "human_authoring_minutes": null,
+  "aggregation": "per-process wall times and per-batch interval; nested/concurrent phases are not summed",
+  "still_required": ["retained baselines1/2/3", "aligned RSS/available-memory/FD/allocated-temp/physical-connection observations", "finite pre-admission resource STOP and mutations", "full P1 acceptance and separate adoption"]
+}

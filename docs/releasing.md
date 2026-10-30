@@ -251,6 +251,14 @@ dropped. Current source `python_requires` is `>=3.11`; published v0.5.3 retains
 its historical metadata. Also describe the new marker/preparation entry and
 that preparation uses explicit DB settings (no preparation-time automatic
 routing). See the [adopted implementation](reviews/v06x-shadow-maria-implementation.md).
+For the first release containing P1/PrepareCommand, manually carry the applicable
+items from [unreleased candidate notes](release-notes/unreleased.md) into that
+release's tracked `release/NOTES-vX.Y.Z.md` (or prerelease equivalent). Include
+the new public declaration, same-worker admission stop after cleanup failure,
+bounded command output and compatibility/cleanup limitations. Check those items
+against the adopted code before submission. `scripts/release_prepare.py` accepts
+the explicitly versioned notes path; it does not read or generate notes from
+`docs/release-notes/unreleased.md` automatically.
 This is a required notes handoff, not a selected release version, generated notes
 file, release preparation or publication approval. Main adoption alone is not
 Qualification or release evidence.
