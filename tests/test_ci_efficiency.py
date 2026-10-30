@@ -51,7 +51,8 @@ def validate_caches(text, name):
 @pytest.mark.parametrize('name', WORKFLOWS)
 def test_normal_ci_keeps_fresh_tests_and_pr_isolation(name):
     text = (ROOT/'.github/workflows'/f'{name}.yml').read_text()
-    validate_cancellation(text)
+    if name != 'live-host':
+        validate_cancellation(text)
     validate_caches(text, name)
 
 
@@ -158,12 +159,14 @@ def test_candidate_platform_regressions_are_detected(before, after):
         validate_candidate_platforms(text.replace(before, after))
 
 
-def test_full_pr_requires_only_one_macos_runner_across_maintained_workflows():
+def test_pr_does_not_start_macos_acceptance_jobs():
     # Count expanded PR cells from the actual runner and matrix declarations.
     # The selectors may skip more work; this is the selected full-diff ceiling.
     macos = []
     for name in WORKFLOWS:
         text = (ROOT/'.github/workflows'/f'{name}.yml').read_text()
+        if '  pull_request:' not in text.split('jobs:')[0]:
+            continue
         jobs = re.findall(r'^  ([\w-]+):\n(.*?)(?=^  \S|\Z)', text.split('jobs:\n', 1)[1], re.M | re.S)
         for job, block in jobs:
             runner = re.search(r'^    runs-on: (.+)$', block, re.M)
@@ -182,4 +185,4 @@ def test_full_pr_requires_only_one_macos_runner_across_maintained_workflows():
             for platform in platforms:
                 if platform.startswith('macos-'):
                     macos.extend([(name, job)] * multiplicity)
-    assert macos == [('live-host', 'live')]
+    assert macos == []

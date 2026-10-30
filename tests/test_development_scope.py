@@ -14,11 +14,23 @@ import verify
 
 
 @pytest.mark.parametrize('path', [
-    'README.md', 'docs/development.md', 'docs/reviews/measurement.md',
+    'README.md', 'AGENTS.md', 'docs/development.md', 'docs/reviews/measurement.md',
 ])
 def test_documentation_needs_no_runtime_receipt(path):
     assert scope.select([path])['check_scope'] == 'docs'
     assert not scope.select([path])['integration']
+
+
+def test_policy_review_pr_skips_runtime_checks():
+    from development_scope import runtime_required as required
+    paths = ['AGENTS.md', 'docs/development.md', 'docs/project-status.md']
+    result = scope.select(paths)
+    assert result['check_scope'] == 'docs'
+    assert not result['integration']
+    assert not required(result['changed_paths'], result['reason'])
+    for dependency in ['live.go', 'scripts/development_scope.py', 'unknown.input']:
+        mixed = scope.select(paths + [dependency])
+        assert required(mixed['changed_paths'], mixed['reason'])
 
 
 @pytest.mark.parametrize('path', [

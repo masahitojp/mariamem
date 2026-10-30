@@ -6,13 +6,17 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
+	"flag"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem"
 	"os"
 	"time"
 )
 
+var sourceSmoke = flag.Bool("source-smoke", false, "run within source checkout instead of installed acceptance")
+
 func main() {
+	flag.Parse()
 	if err := run(); err != nil {
 		panic(err)
 	}
@@ -104,5 +108,9 @@ func run() error {
 	if err = live.Close(); err != nil {
 		return err
 	}
-	return json.NewEncoder(os.Stdout).Encode(map[string]any{"result": "PASS_EXTERNAL_GO_LIVE", "sum_after_reset": sum, "busy_refused": true, "closed_parent_refused": true, "source_consumed": source.Closed()})
+	result := "PASS_EXTERNAL_GO_LIVE"
+	if *sourceSmoke {
+		result = "PASS_SOURCE_GO_LIVE"
+	}
+	return json.NewEncoder(os.Stdout).Encode(map[string]any{"result": result, "sum_after_reset": sum, "busy_refused": true, "closed_parent_refused": true, "source_consumed": source.Closed()})
 }

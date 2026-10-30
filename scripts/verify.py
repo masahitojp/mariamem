@@ -90,7 +90,7 @@ def integration():
     # are a documented shared-memory-model limitation, not a release gate.
     run(["go", "test", "-race", "-p", "1", "./internal/artifacts", "./internal/generatedgo/code/base",
          "./internal/generatedgo", "./internal/guest", "./internal/host",
-         "./internal/mysqlwire", "./internal/preparedproto", "./internal/snapshot", "./internal/control", "./internal/prepared", "./mariamemtest", ".", "-count=1"], env=env)
+         "./internal/mysqlwire", "./internal/preparedproto", "./internal/snapshot", "./internal/live", "./internal/control", "./internal/prepared", "./mariamemtest", ".", "-count=1"], env=env)
     command = ["go", "test"]
     run([*command, "-tags=integration", "./tests/gointegration",
          "-count=1", "-timeout=3m"], env=env)
@@ -106,6 +106,10 @@ def integration():
         host = Path(temporary) / "mariamem-host"
         run(["go", "build", "-p", "1", "-o", host, "./cmd/mariamem-host"], env=env)
         env["MARIAMEM_TEST_HOST"] = str(host)
+        # Reuse the integration host/cache; full browser/native/installed acceptance
+        # is an explicit candidate operation, not a PR-update prerequisite.
+        run([sys.executable, "tests/live_acceptance/smoke.py", "--host", host], env=env)
+        run(["go", "run", "./tests/live_acceptance/go_consumer", "-source-smoke"], env=env)
         timeout_test = "tests/test_python_timeout.py::test_normal_close_is_idempotent"
         print("Forced query-timeout reclamation remains a separate diagnostic; "
               "normal Close remains required.", flush=True)

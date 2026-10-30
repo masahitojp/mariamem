@@ -91,11 +91,12 @@ def validate_canonical_ownership(text, development):
         block = match[1]
         assert 'needs: scope' in block
         assert 'runs-on: ubuntu-24.04' in block
-        assert "if: needs.scope.outputs."+output+" != 'false'" in block
+        assert "if: needs.scope.outputs.run_runtime == 'true' && needs.scope.outputs."+output+" != 'false'" in block
         assert 'python scripts/verify.py '+command in block
         assert output+': ${{ steps.diff.outputs.'+output+' }}' in text
-    # Dump-specific oracles must execute regardless of canonical delegation.
-    assert re.search(r'^  native-reference:\n    runs-on:', text, re.M)
+    # Selected Dump-specific oracles are independent of canonical delegation.
+    assert re.search(r"^  native-reference:\n    needs: scope\n    if: needs.scope.outputs.run_runtime == 'true'\n    runs-on:", text, re.M)
+    assert 'run_runtime: ${{ steps.diff.outputs.run_runtime }}' in text
     assert 'needs: native-reference' in text
     for owner in ['producer.py', 'native_reference.py', 'variant.py', 'campaign.py']:
         assert 'tests/dump_import_acceptance/'+owner in text
@@ -107,8 +108,8 @@ def test_dump_delegation_keeps_canonical_and_specific_owners():
 
 @pytest.mark.parametrize('before,after', [
     ('needs: scope', 'needs: []'),
-    ("if: needs.scope.outputs.ubuntu_check != 'false'", "if: false"),
-    ("if: needs.scope.outputs.ubuntu_integration != 'false'", "if: false"),
+    ("if: needs.scope.outputs.run_runtime == 'true' && needs.scope.outputs.ubuntu_check != 'false'", "if: false"),
+    ("if: needs.scope.outputs.run_runtime == 'true' && needs.scope.outputs.ubuntu_integration != 'false'", "if: false"),
     ('steps.diff.outputs.ubuntu_check', 'steps.diff.outputs.missing'),
     ('python scripts/verify.py check', 'echo omitted-check'),
     ('python scripts/verify.py integration', 'echo omitted-integration'),
