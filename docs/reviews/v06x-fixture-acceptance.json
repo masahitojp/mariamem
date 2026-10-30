@@ -18,7 +18,7 @@
       "profile": "database/sql/mysql1.9.3",
       "diagnostic_profile": "readable-owned",
       "fallback_allowed": true,
-      "status": "IMPLEMENTED_CHECKPOINT_ACCEPTANCE_PENDING"
+      "status": "ADOPTED_ON_MAIN"
     },
     {
       "id": "D1",
@@ -26,7 +26,7 @@
       "profile": "Django5.2.8/mysqlclient2.2.7; manage.py/pytest-django4.12.0",
       "diagnostic_profile": "readable-owned",
       "fallback_allowed": false,
-      "status": "DESIGN_NOT_IMPLEMENTED"
+      "status": "DEFERRED_V060_RECONSIDER_V061"
     },
     {
       "id": "EP1",
@@ -258,5 +258,18 @@
   "p1_fixed_exit_acceptance": {
     "source_commit": "b108abf11a623c18c45adfab2968d357bf40718b",
     "receipt": "docs/reviews/v06x-python-fixture-implementation-evidence/ci-40987752495/assessment.json"
+  },
+  "g1_adoption": {
+    "source_commit": "fbc5037e8d409e22f496ccd25eae9675135884d6",
+    "main_merge_commit": "62d54c29fed95c76ba9833c4e6174f9de803a1d6",
+    "ci_run": 40810248227,
+    "review": "docs/reviews/v06x-go-fixture-acceptance-review.md"
+  },
+  "d1_deferral": {
+    "decision_record": "docs/decisions/d1-v060-deferral.md",
+    "issue": 43,
+    "reconsider_milestone": "v0.6.1",
+    "runtime_result": "NOT_RUN",
+    "is_acceptance_pass": false
   }
 }

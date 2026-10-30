@@ -989,6 +989,29 @@ separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Wire contract and dogfood
 
+**Wire completion basis adopted,2026-10-31:** the Human adopted the exact English
+criterion in [the canonical decision](decisions/v060-wire-contract.md), including
+native/guest and declared-client-path anchors with named exceptions. The accepted
+command/bit set is fixed to the fixture contract; the reconciliation's previously
+proposed LOCAL INFILE, admin-command and binlog/replication rows are OUT for0.6.0.
+Complete per-entry packet capture is not required; uncaptured paths remain
+UNVERIFIED. Concrete required sequences/discrepancies reopen a bounded capture.
+Release CI reaccepts declared profiles and does not add wire-coverage evidence by
+passing. This closes the interpretation, not other entry/#24/release work.
+
+**D1 disposition approved,2026-10-31:** the Human deferred the additional Django
+prepared entry from0.6.0 and selected0.6.1 for consideration. [Decision](decisions/d1-v060-deferral.md)
+and [Issue43](https://github.com/masahitojp/mariamem/issues/43) preserve the concrete
+obstacle, user impact and remaining design/acceptance. The standard Django runner
+remains available; deferred is not PASS or a delivery promise. P1/G1/EP1/EG1 and
+shared lifecycle/wire defects remain in scope.
+
+**Fixed dbt1.7 replay complete:** Issue19 is closed after local macOS arm64 and
+native Ubuntu24.04 x86_64 native/guest × threads1/4 success. The [imported completion
+record and checksummed receipts](reviews/dbt-revalidation-completion.md) retain
+f37b2a7b/7a9a6f72 as the executed sources. No general dbt support promotion or
+dbt1.8 requirement is implied.
+
 **P1 adopted on main, 2026-10-31 JST:** PR26 merged via protected checks to
 `4a8a68350e8c43fc107843a6efe7781cad1a4e2a` from head
 `850ddcc2c70786dc310308d262b4f33d842fea3e`. Daily CI41076760360 executed
@@ -1051,7 +1074,7 @@ the approved scope and sequencing below.
 | Tracking Issue | Current disposition |
 | --- | --- |
 | [#18 — five-profile dogfood acceptance](https://github.com/masahitojp/mariamem/issues/18) | Active v0.6.0 acceptance tracking for P1, G1, D1, EP1 and EG1; recipes/component PASS do not close the full obligation |
-| [#19 — dbt revalidation](https://github.com/masahitojp/mariamem/issues/19) | Active v0.6.0 independent CLI workload; the original #5 prerequisite is resolved, but repaired SQL alone does not establish dbt acceptance |
+| [#19 — dbt revalidation](https://github.com/masahitojp/mariamem/issues/19) | Complete/closed: fixed dbt1.7 workload replayed on both observed hosts; [source-bound completion and receipts](reviews/dbt-revalidation-completion.md), no broader support claim |
 | [#24 — multi-statement host panic guard](https://github.com/masahitojp/mariamem/issues/24) | v0.6.0 follow-up to #13: candidate source-only lexical guard detects direct host panics after statements/nested branches; explicit existing input-rejection calls remain classified. Integration tracked in the Issue |
 | [#20 — Oracle prepared CALL result traversal](https://github.com/masahitojp/mariamem/issues/20) | Accepted external-consumer limitation; outside v0.6.0 work, no milestone |
 | [#21 — Oracle macOS C/default NUL projection](https://github.com/masahitojp/mariamem/issues/21) | Accepted external-consumer limitation; outside v0.6.0 work, no milestone |
@@ -1145,7 +1168,7 @@ is a placement decision; it does not approve publication or bypass any gate.
 - **dbt is adopted as an independent CLI preparation workload profile.**
   Its original issue #5 (`Fd_dup` / TEXT deduplication) prerequisite is now
   satisfied; [#19](https://github.com/masahitojp/mariamem/issues/19) tracks the
-  remaining workload revalidation. It is not a sixth named entry and not a
+  completed workload revalidation (see the source-bound completion above). It is not a sixth named entry and not a
   workload of P1: dbt is a command-line
   preparation/run tool with its own client and failure surface, so it is
   evaluated against its own declared profile (pinned lock, preparation command

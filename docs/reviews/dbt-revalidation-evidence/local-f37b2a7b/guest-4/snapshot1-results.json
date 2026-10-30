@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T15:57:12.038164Z",
+    "invocation_id": "17cdd259-695e-4c91-9d89-e80b90907315",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:57:11.948625Z",
+          "completed_at": "2026-10-30T15:57:11.952484Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:57:11.953037Z",
+          "completed_at": "2026-10-30T15:57:12.031503Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.08419370651245117,
+      "adapter_response": {
+        "_message": "SUCCESS 0",
+        "code": "SUCCESS",
+        "rows_affected": 0
+      },
+      "message": "SUCCESS 0",
+      "failures": null,
+      "unique_id": "snapshot.dbt_feasibility.orders_snapshot",
+      "compiled": true,
+      "compiled_code": "\n\nselect * from `test`.`orders`",
+      "relation_name": "`test`.`orders_snapshot`"
+    }
+  ],
+  "elapsed_time": 0.12165498733520508,
+  "args": {
+    "macro_debugging": false,
+    "populate_cache": true,
+    "quiet": false,
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "vars": {},
+    "log_file_max_bytes": 10485760,
+    "send_anonymous_usage_stats": false,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "indirect_selection": "eager",
+    "strict_mode": false,
+    "favor_state": false,
+    "profiles_dir": "<EVIDENCE>/guest-4",
+    "partial_parse": true,
+    "enable_legacy_logger": false,
+    "use_colors_file": false,
+    "show_resource_report": false,
+    "log_format_file": "debug",
+    "cache_selected_only": false,
+    "log_level_file": "debug",
+    "log_format": "default",
+    "introspect": true,
+    "defer": false,
+    "write_json": true,
+    "print": true,
+    "select": [],
+    "log_level": "info",
+    "version_check": true,
+    "invocation_command": "dbt snapshot --project-dir <EVIDENCE>/guest-4 --profiles-dir <EVIDENCE>/guest-4",
+    "log_path": "<EVIDENCE>/guest-4/logs",
+    "project_dir": "<EVIDENCE>/guest-4",
+    "static_parser": true,
+    "printer_width": 80,
+    "which": "snapshot",
+    "partial_parse_file_diff": true,
+    "exclude": [],
+    "use_colors": false
+  }
+}

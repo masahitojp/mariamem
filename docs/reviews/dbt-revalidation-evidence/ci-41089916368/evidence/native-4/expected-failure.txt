@@ -1,0 +1,24 @@
+16:32:02  Running with dbt=1.7.20
+16:32:02  This version of dbt is deprecated and no longer receives regular patches, including for known bugs. We recommend upgrading to a newer supported version of dbt: https://docs.getdbt.com/docs/dbt-versions
+16:32:02  Registered adapter: mysql=1.7.0
+16:32:02  Found 4 models, 1 snapshot, 1 seed, 4 tests, 0 sources, 0 exposures, 0 metrics, 375 macros, 0 groups, 0 semantic models
+16:32:02  
+16:32:02  Concurrency: 4 threads (target='dev')
+16:32:02  
+16:32:02  1 of 3 START test not_null_orders_customer ..................................... [RUN]
+16:32:02  2 of 3 START test not_null_orders_order_id ..................................... [RUN]
+16:32:02  3 of 3 START test unique_orders_order_id ....................................... [RUN]
+16:32:03  3 of 3 FAIL 1 unique_orders_order_id ........................................... [FAIL 1 in 0.15s]
+16:32:03  1 of 3 PASS not_null_orders_customer ........................................... [PASS in 0.18s]
+16:32:03  2 of 3 PASS not_null_orders_order_id ........................................... [PASS in 0.18s]
+16:32:03  
+16:32:03  Finished running 3 tests in 0 hours 0 minutes and 0.36 seconds (0.36s).
+16:32:03  
+16:32:03  Completed with 1 error and 0 warnings:
+16:32:03  
+16:32:03  Failure in test unique_orders_order_id (models/schema.yml)
+16:32:03    Got 1 result, configured to fail if != 0
+16:32:03  
+16:32:03    compiled Code at target/compiled/dbt_feasibility/models/schema.yml/unique_orders_order_id.sql
+16:32:03  
+16:32:03  Done. PASS=2 WARN=0 ERROR=1 SKIP=0 TOTAL=3

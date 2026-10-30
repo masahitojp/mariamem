@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T16:32:19.822753Z",
+    "invocation_id": "6a3f7e6a-d80d-4b40-bde9-d9a1970465a9",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:32:19.632438Z",
+          "completed_at": "2026-10-30T16:32:19.640002Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:32:19.641246Z",
+          "completed_at": "2026-10-30T16:32:19.806651Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.1771080493927002,
+      "adapter_response": {
+        "_message": "SUCCESS 0",
+        "code": "SUCCESS",
+        "rows_affected": 0
+      },
+      "message": "SUCCESS 0",
+      "failures": null,
+      "unique_id": "snapshot.dbt_feasibility.orders_snapshot",
+      "compiled": true,
+      "compiled_code": "\n\nselect * from `test`.`orders`",
+      "relation_name": "`test`.`orders_snapshot`"
+    }
+  ],
+  "elapsed_time": 0.24385738372802734,
+  "args": {
+    "quiet": false,
+    "strict_mode": false,
+    "invocation_command": "dbt snapshot --project-dir <HOME>/work/_temp/dbt-replay/evidence/guest-4 --profiles-dir <HOME>/work/_temp/dbt-replay/evidence/guest-4",
+    "log_level_file": "debug",
+    "printer_width": 80,
+    "project_dir": "<HOME>/work/_temp/dbt-replay/evidence/guest-4",
+    "defer": false,
+    "populate_cache": true,
+    "send_anonymous_usage_stats": false,
+    "partial_parse": true,
+    "version_check": true,
+    "favor_state": false,
+    "static_parser": true,
+    "partial_parse_file_diff": true,
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "show_resource_report": false,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "log_format": "default",
+    "exclude": [],
+    "use_colors": false,
+    "cache_selected_only": false,
+    "vars": {},
+    "use_colors_file": false,
+    "introspect": true,
+    "which": "snapshot",
+    "indirect_selection": "eager",
+    "log_level": "info",
+    "log_file_max_bytes": 10485760,
+    "print": true,
+    "write_json": true,
+    "macro_debugging": false,
+    "log_format_file": "debug",
+    "profiles_dir": "<HOME>/work/_temp/dbt-replay/evidence/guest-4",
+    "select": [],
+    "enable_legacy_logger": false,
+    "log_path": "<HOME>/work/_temp/dbt-replay/evidence/guest-4/logs"
+  }
+}

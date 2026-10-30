@@ -1,0 +1,86 @@
+[
+    {
+        "Id": "sha256:dfff46ef3f9d674ab66853ee68066e495af7942bfa4255dc39ce2ff64ac05cbe",
+        "RepoTags": [],
+        "RepoDigests": [
+            "mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e"
+        ],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-09-16T03:26:24.453643139Z",
+        "DockerVersion": "",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "3306/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "GOSU_VERSION=1.19",
+                "LANG=C.UTF-8",
+                "MARIADB_VERSION=1:12.3.3+maria~ubu2404"
+            ],
+            "Cmd": [
+                "mariadbd"
+            ],
+            "Image": "",
+            "Volumes": {
+                "/var/lib/mysql": {}
+            },
+            "WorkingDir": "",
+            "Entrypoint": [
+                "docker-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "org.opencontainers.image.authors": "MariaDB Community",
+                "org.opencontainers.image.base.name": "docker.io/library/ubuntu:noble",
+                "org.opencontainers.image.description": "MariaDB Database for relational SQL",
+                "org.opencontainers.image.documentation": "https://hub.docker.com/_/mariadb/",
+                "org.opencontainers.image.licenses": "GPL-2.0",
+                "org.opencontainers.image.source": "https://github.com/MariaDB/mariadb-docker",
+                "org.opencontainers.image.title": "MariaDB Database",
+                "org.opencontainers.image.url": "https://github.com/MariaDB/mariadb-docker",
+                "org.opencontainers.image.vendor": "MariaDB Community",
+                "org.opencontainers.image.version": "12.3.3"
+            }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 333796770,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/3fc4244c7e2db42ff9da5d1b1d42e7ad3edc9792d47ec1ba8c9f3bf50979d9c9/diff:/var/lib/docker/overlay2/88e31b878c2840a608dfdf1d898e821ce65b64f2d047777c7b2f1288131214d0/diff:/var/lib/docker/overlay2/3e4a3171588466f1486047192ab9543daa3b84c571d4cc9315e6cdfcd72e049b/diff:/var/lib/docker/overlay2/3a790e9ba48146fcd0b586e2967af11d69391babc546aa428e554a6907c632e8/diff:/var/lib/docker/overlay2/08273674fa69705fdd87003692c778e7671786231337859e7a85d5f9da9d149e/diff:/var/lib/docker/overlay2/931070131b932c068f9f01ba0b989729d484b2269a2ae76c702ff8e3cc65a976/diff:/var/lib/docker/overlay2/d0030749c7cd735ef15ca0c720966a1edbadb358b8e417fafda0cce0ea2a2aef/diff",
+                "MergedDir": "/var/lib/docker/overlay2/fb2732f70f4a3c7577fb1cef770b44779a465ddaa9c5d4c1efc6519838ffdb9e/merged",
+                "UpperDir": "/var/lib/docker/overlay2/fb2732f70f4a3c7577fb1cef770b44779a465ddaa9c5d4c1efc6519838ffdb9e/diff",
+                "WorkDir": "/var/lib/docker/overlay2/fb2732f70f4a3c7577fb1cef770b44779a465ddaa9c5d4c1efc6519838ffdb9e/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:65e5d715ea720349e6475f91651a0956279fc295a45fd73aa04f1cec046281a1",
+                "sha256:025109812a5d65f8a27ed0f1d4145da5cd19812b928bb026adba754a1b186933",
+                "sha256:371f757b13c4245f2eff3639beaedc06cf0a3f011228db6bec57313008a0ed96",
+                "sha256:d50d904285a7d63b97d9066becb10687922b323b4bb2872ad3d192435498eebe",
+                "sha256:73abebd60c256593d3d3101b3c8f2d1a8f5e61d13c8dfff5414035addcf28fab",
+                "sha256:3efb9a25c956360c9c601dd933148c7aaec9ebef12e38372eb27c9575d9994ff",
+                "sha256:6f1ba8d41f43fcc0292a76da533232957402b113eafb6a3a4a0113d1a775a659",
+                "sha256:3797b5f00995ef0c9a7675ddb9fd2fc5d58d86658ef6df878312259421be9356"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "0001-01-01T00:00:00Z"
+        }
+    }
+]

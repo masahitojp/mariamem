@@ -1,0 +1,336 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T15:56:54.866787Z",
+    "invocation_id": "626e7cdf-a833-4a22-a450-f9a77556f84d",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:54.473920Z",
+          "completed_at": "2026-10-30T15:56:54.473924Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:54.474498Z",
+          "completed_at": "2026-10-30T15:56:54.533237Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.06099891662597656,
+      "adapter_response": {
+        "_message": "INSERT 3",
+        "code": "INSERT",
+        "rows_affected": 3
+      },
+      "message": "INSERT 3",
+      "failures": null,
+      "unique_id": "seed.dbt_feasibility.orders_seed",
+      "compiled": null,
+      "compiled_code": null,
+      "relation_name": null
+    },
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:54.536469Z",
+          "completed_at": "2026-10-30T15:56:54.541433Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:54.541950Z",
+          "completed_at": "2026-10-30T15:56:54.616001Z"
+        }
+      ],
+      "thread_id": "Thread-3 (worker)",
+      "execution_time": 0.08113527297973633,
+      "adapter_response": {
+        "_message": "SUCCESS 3",
+        "code": "SUCCESS",
+        "rows_affected": 3
+      },
+      "message": "SUCCESS 3",
+      "failures": null,
+      "unique_id": "model.dbt_feasibility.orders",
+      "compiled": true,
+      "compiled_code": "select\n  order_id,\n  customer,\n  amount,\n  amount * 2 as doubled\nfrom `test`.`orders_seed`",
+      "relation_name": "`test`.`orders`"
+    },
+    {
+      "status": "pass",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:54.622633Z",
+          "completed_at": "2026-10-30T15:56:54.637524Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:54.648327Z",
+          "completed_at": "2026-10-30T15:56:54.674674Z"
+        }
+      ],
+      "thread_id": "Thread-2 (worker)",
+      "execution_time": 0.05873918533325195,
+      "adapter_response": {
+        "_message": "SUCCESS 1",
+        "code": "SUCCESS",
+        "rows_affected": 1
+      },
+      "message": null,
+      "failures": 0,
+      "unique_id": "test.dbt_feasibility.not_null_orders_customer.f2265fc97b",
+      "compiled": true,
+      "compiled_code": "\n    \n    \n\n\n\nselect customer\nfrom `test`.`orders`\nwhere customer is null\n\n\n",
+      "relation_name": null
+    },
+    {
+      "status": "pass",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:54.629979Z",
+          "completed_at": "2026-10-30T15:56:54.636815Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:54.645982Z",
+          "completed_at": "2026-10-30T15:56:54.675364Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.05891704559326172,
+      "adapter_response": {
+        "_message": "SUCCESS 1",
+        "code": "SUCCESS",
+        "rows_affected": 1
+      },
+      "message": null,
+      "failures": 0,
+      "unique_id": "test.dbt_feasibility.not_null_orders_order_id.cf6c17daed",
+      "compiled": true,
+      "compiled_code": "\n    \n    \n\n\n\nselect order_id\nfrom `test`.`orders`\nwhere order_id is null\n\n\n",
+      "relation_name": null
+    },
+    {
+      "status": "pass",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:54.632353Z",
+          "completed_at": "2026-10-30T15:56:54.636429Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:54.638080Z",
+          "completed_at": "2026-10-30T15:56:54.673784Z"
+        }
+      ],
+      "thread_id": "Thread-4 (worker)",
+      "execution_time": 0.058862924575805664,
+      "adapter_response": {
+        "_message": "SUCCESS 1",
+        "code": "SUCCESS",
+        "rows_affected": 1
+      },
+      "message": null,
+      "failures": 0,
+      "unique_id": "test.dbt_feasibility.unique_orders_order_id.fed79b3a6e",
+      "compiled": true,
+      "compiled_code": "\n    \n    \n\nselect\n    order_id as unique_field,\n    count(*) as n_records\n\nfrom `test`.`orders`\nwhere order_id is not null\ngroup by order_id\nhaving count(*) > 1\n\n\n",
+      "relation_name": null
+    },
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:54.708273Z",
+          "completed_at": "2026-10-30T15:56:54.709768Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:54.711775Z",
+          "completed_at": "2026-10-30T15:56:54.800848Z"
+        }
+      ],
+      "thread_id": "Thread-4 (worker)",
+      "execution_time": 0.11150407791137695,
+      "adapter_response": {
+        "_message": "SUCCESS 3",
+        "code": "SUCCESS",
+        "rows_affected": 3
+      },
+      "message": "SUCCESS 3",
+      "failures": null,
+      "unique_id": "snapshot.dbt_feasibility.orders_snapshot",
+      "compiled": true,
+      "compiled_code": "\n\nselect * from `test`.`orders`",
+      "relation_name": "`test`.`orders_snapshot`"
+    },
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:54.685128Z",
+          "completed_at": "2026-10-30T15:56:54.692166Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:54.697898Z",
+          "completed_at": "2026-10-30T15:56:54.802060Z"
+        }
+      ],
+      "thread_id": "Thread-2 (worker)",
+      "execution_time": 0.12440705299377441,
+      "adapter_response": {
+        "_message": "SUCCESS 0",
+        "code": "SUCCESS",
+        "rows_affected": 0
+      },
+      "message": "SUCCESS 0",
+      "failures": null,
+      "unique_id": "model.dbt_feasibility.order_events",
+      "compiled": true,
+      "compiled_code": "\nselect order_id, customer, amount\nfrom `test`.`orders`\n\nwhere order_id > (select coalesce(max(order_id), 0) from `test`.`order_events`)\n",
+      "relation_name": "`test`.`order_events`"
+    },
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:54.696243Z",
+          "completed_at": "2026-10-30T15:56:54.711247Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:54.724188Z",
+          "completed_at": "2026-10-30T15:56:54.837548Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.1487259864807129,
+      "adapter_response": {
+        "_message": "SUCCESS 0",
+        "code": "SUCCESS",
+        "rows_affected": 0
+      },
+      "message": "SUCCESS 0",
+      "failures": null,
+      "unique_id": "model.dbt_feasibility.order_totals",
+      "compiled": true,
+      "compiled_code": "\nselect customer, sum(amount) as total\nfrom `test`.`orders`\ngroup by customer",
+      "relation_name": "`test`.`order_totals`"
+    },
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:54.682361Z",
+          "completed_at": "2026-10-30T15:56:54.691514Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:54.693655Z",
+          "completed_at": "2026-10-30T15:56:54.839866Z"
+        }
+      ],
+      "thread_id": "Thread-3 (worker)",
+      "execution_time": 0.1601400375366211,
+      "adapter_response": {
+        "_message": "SUCCESS 3",
+        "code": "SUCCESS",
+        "rows_affected": 3
+      },
+      "message": "SUCCESS 3",
+      "failures": null,
+      "unique_id": "model.dbt_feasibility.customer_names",
+      "compiled": true,
+      "compiled_code": "select distinct customer from `test`.`orders`",
+      "relation_name": "`test`.`customer_names`"
+    },
+    {
+      "status": "pass",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:54.813148Z",
+          "completed_at": "2026-10-30T15:56:54.817189Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:54.817828Z",
+          "completed_at": "2026-10-30T15:56:54.845685Z"
+        }
+      ],
+      "thread_id": "Thread-4 (worker)",
+      "execution_time": 0.03575277328491211,
+      "adapter_response": {
+        "_message": "SUCCESS 1",
+        "code": "SUCCESS",
+        "rows_affected": 1
+      },
+      "message": null,
+      "failures": 0,
+      "unique_id": "test.dbt_feasibility.unique_order_events_order_id.50a0953a8c",
+      "compiled": true,
+      "compiled_code": "\n    \n    \n\nselect\n    order_id as unique_field,\n    count(*) as n_records\n\nfrom `test`.`order_events`\nwhere order_id is not null\ngroup by order_id\nhaving count(*) > 1\n\n\n",
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.4780848026275635,
+  "args": {
+    "cache_selected_only": false,
+    "log_path": "<EVIDENCE>/native-4/logs",
+    "defer": false,
+    "log_file_max_bytes": 10485760,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "which": "build",
+    "partial_parse_file_diff": true,
+    "invocation_command": "dbt build --project-dir <EVIDENCE>/native-4 --profiles-dir <EVIDENCE>/native-4",
+    "use_colors_file": false,
+    "select": [],
+    "print": true,
+    "printer_width": 80,
+    "log_format": "default",
+    "log_level": "info",
+    "log_format_file": "debug",
+    "profiles_dir": "<EVIDENCE>/native-4",
+    "include_saved_query": false,
+    "resource_types": [],
+    "version_check": true,
+    "log_level_file": "debug",
+    "partial_parse": true,
+    "indirect_selection": "eager",
+    "enable_legacy_logger": false,
+    "introspect": true,
+    "static_parser": true,
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "exclude": [],
+    "send_anonymous_usage_stats": false,
+    "strict_mode": false,
+    "favor_state": false,
+    "vars": {},
+    "show_resource_report": false,
+    "write_json": true,
+    "macro_debugging": false,
+    "populate_cache": true,
+    "show": false,
+    "project_dir": "<EVIDENCE>/native-4",
+    "quiet": false,
+    "use_colors": false
+  }
+}

@@ -1,0 +1,14 @@
+<HOME>/work/_temp/dbt-replay/mariamem-host: go1.26.10
+	path	github.com/masahitojp/mariamem/cmd/mariamem-host
+	mod	github.com/masahitojp/mariamem	v0.5.4-0.20261030162415-7a9a6f72dc83	
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	-trimpath=true
+	build	CGO_ENABLED=0
+	build	GOARCH=amd64
+	build	GOOS=linux
+	build	GOAMD64=v1
+	build	vcs=git
+	build	vcs.revision=7a9a6f72dc83bc7d9f1526fa9704d32bbcefc126
+	build	vcs.time=2026-10-30T16:24:15Z
+	build	vcs.modified=false

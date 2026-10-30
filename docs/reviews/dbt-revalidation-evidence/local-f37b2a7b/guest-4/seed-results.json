@@ -1,0 +1,80 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T15:57:05.735306Z",
+    "invocation_id": "46c4c382-6e70-4e30-8f6c-bc9bad8f6274",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:57:05.685533Z",
+          "completed_at": "2026-10-30T15:57:05.685534Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:57:05.686026Z",
+          "completed_at": "2026-10-30T15:57:05.728491Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.04429984092712402,
+      "adapter_response": {
+        "_message": "INSERT 3",
+        "code": "INSERT",
+        "rows_affected": 3
+      },
+      "message": "INSERT 3",
+      "failures": null,
+      "unique_id": "seed.dbt_feasibility.orders_seed",
+      "compiled": null,
+      "compiled_code": null,
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.08594012260437012,
+  "args": {
+    "log_level": "info",
+    "log_format_file": "debug",
+    "log_level_file": "debug",
+    "vars": {},
+    "enable_legacy_logger": false,
+    "partial_parse": true,
+    "macro_debugging": false,
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "static_parser": true,
+    "printer_width": 80,
+    "print": true,
+    "log_file_max_bytes": 10485760,
+    "quiet": false,
+    "select": [],
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "profiles_dir": "<EVIDENCE>/guest-4",
+    "exclude": [],
+    "which": "seed",
+    "log_path": "<EVIDENCE>/guest-4/logs",
+    "version_check": true,
+    "populate_cache": true,
+    "use_colors_file": false,
+    "use_colors": false,
+    "introspect": true,
+    "partial_parse_file_diff": true,
+    "send_anonymous_usage_stats": false,
+    "invocation_command": "dbt seed --project-dir <EVIDENCE>/guest-4 --profiles-dir <EVIDENCE>/guest-4",
+    "show_resource_report": false,
+    "cache_selected_only": false,
+    "log_format": "default",
+    "indirect_selection": "eager",
+    "write_json": true,
+    "show": false,
+    "project_dir": "<EVIDENCE>/guest-4",
+    "strict_mode": false
+  }
+}

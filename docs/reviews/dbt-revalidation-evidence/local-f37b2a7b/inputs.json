@@ -1,0 +1,16 @@
+{
+  "original_branch_commit": "ab38beb282f3609a5ddb5849f81085aff34f2133",
+  "original_runtime_source_commit": "cc00ccd98e29a1f5d5088a082be90a3cdaa4f469",
+  "project_files_byte_identical": true,
+  "sha256": {
+    "profiles.yml.example": "e3eb8d767f7296251a0838d09b20ee727feac771d373ae5d3a82162692b012b2",
+    "dbt_project.yml": "4c3b9721e1a23545940d03ca6d6ebff441530f0befd0d69d53bab50d70d419e9",
+    "snapshots/orders_snapshot.sql": "ee3a2499b98cfb3e8e9fd16b4a5b2bf6e7e0e13e6dad9deaac23acc5ecf8f4d4",
+    "models/schema.yml": "083dcc54b439f93778beba15385407bd1157e1a04f238b5aae11e6f0ea37fda9",
+    "models/orders.sql": "6dad9c3a40e5802f30f99b1320722b387fe1fdc1af8613f5f2960b371bbabd13",
+    "models/customer_names.sql": "57a9150e0865750d712d71f7e91a81bc587a469fbe4df3f8cdc6b40112aa1fae",
+    "models/order_events.sql": "b12d43f3b305e6d40e18fd4155fd9ac2e5c1bc57641c8d8e52de21a8f31c5951",
+    "models/order_totals.sql": "9d481a00f914d9e91e5c790b9ddb230e48eee2b57a1f904ca42d09951842ab43",
+    "seeds/orders_seed.csv": "56924347729aea7110c3f544aa5479f259b66629caf3761ba0b8cf90cd99615d"
+  }
+}
