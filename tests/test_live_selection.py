@@ -1,5 +1,6 @@
 """E2E selector/gates must not skip owned entry changes or revive auto-full CI."""
 import os
+import subprocess
 from pathlib import Path
 import sys
 import unittest
@@ -56,3 +57,14 @@ class TestE2ESelection(unittest.TestCase):
         for text_required in ['Python prepared entry (P1)', 'PrepareCommand',
                               'Owned E2E entry candidate', 'BrowserEntry', 'NewHTTP/Case(t)']:
             self.assertIn(text_required, text)
+
+    def test_merged_p1_and_e2e_shell_blocks_remain_complete(self):
+        text = (ROOT/'.github/workflows/live-host.yml').read_text()
+        for name in ['P1 real prepared command and callback on both Python minors',
+                     'Owned E2E entry component and actual application checks']:
+            step = text.split('- name: '+name+'\n', 1)[1].split('      - ', 1)[0]
+            code = step.split('        run: |\n', 1)[1]
+            result = subprocess.run(['bash', '-n'], input=code, text=True, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn('          done', code)
+        self.assertNotRegex(text, r'(?m)^(<<<<<<<|=======|>>>>>>>)')

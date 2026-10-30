@@ -34,8 +34,13 @@ No observation oracle was relaxed or missing counter synthesized.
 The newer source still needs its own acceptance evidence. Since full Live now
 runs only under Release CI, obtaining that evidence before integration entails
 operation=verify and its wider qualification work, with no publication. The Human
-is choosing between that route and explicitly changing the timing of full
-acceptance to release verification. Neither is silently assumed here.
+selected operation=verify before integration, without publication. During its
+final source check, P1 #26 landed on main as merge commit
+`4a8a68350e8c43fc107843a6efe7781cad1a4e2a`. That latest baseline is now merged
+here too; both ancestry lints and both complete feature workflow steps are
+preserved. Verify41080127438 at the previous source was immediately requested
+canceled as superseded, not treated as evidence for the P1/E2E union. The exact
+new source is submitted to the same verify-only route after local checks.
 
 New receipts are required for the integrated workflow/test source. The old
 CI41058866706 remains evidence for edfee478 only; it is not the integrated
@@ -44,10 +49,10 @@ hashes/results and pass all protected contexts before merging. If main moves,
 inspect/reconcile its diff first; do not merge an untested runtime/workflow union.
 
 Unreleased staging notes now retain both P1 and E2E sections. The P1 section
-comes from candidate8912224a and links to that fixed source while P1 is not yet
-present here. The later integration must keep both announcements; a boundary
+comes from candidate8912224a and now links to the adopted local documents. P1
+is present through main merge4a8a6835. This integration keeps both announcements; a boundary
 test detects dropping either. Notes do not independently adopt P1 or publish a
-release. P1 remains separately owned and is not merged by this E2E action.
+release. P1 was adopted by its separate owner; this action only incorporates the resulting main.
 
 Limits remain unchanged: supplied hooks own arbitrary delayed/unregistered work,
 routing and pool retirement; hard-kill/non-cooperative recovery is not promised;
