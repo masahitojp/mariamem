@@ -599,17 +599,27 @@ retained as runtime-independent helpers. See [Track A inventory](../benchmarks/v
 
 ## Live execution frequency
 
-Daily PR/main checks and manual full acceptance are separate. Full Live is not
-selected by path, Draft state, readiness transition, labels or main pushes.
-Unknown inputs still select conservative Development verification, not the full
-browser matrix. The former family selector and Draft-specific full-matrix gate
-have been removed. The three existing required context names remain unchanged;
-`Live required gate` now attests daily checks including selected source Live smoke.
-Full candidate acceptance reports `Live full acceptance gate` and requires both
-host receipts for G1. See the local verification policy above.
+Ordinary PR checks run source/unit verification and selected Ubuntu smoke.
+Full Live is callable only from Release CI, alongside the other feature suites;
+it has no PR/main/standalone-manual trigger. The former family selector and
+Draft-specific full gate remain removed. Required `check`, `integration` (smoke)
+and `Live required gate` (daily aggregate) keep their protected names. Their
+success is not both-platform full qualification.
 
-The former PR-family policy was measured at run 40855108044 (head 5b27eaf3,
-executed merge source 538ca001): macOS took 39m40s, including 24m25s generic
-integration. This is historical evidence, not a measured saving for the current
-manual-only policy. P1 and owned-E2E both-host adoption conditions remain separate
-from ordinary daily checks and are not waived by this execution-frequency change.
+The reusable Live workflow checks out `inputs.source_commit` and binds native,
+G1, P1, browser and installed-consumer receipts to SOURCE_COMMIT. P1's native
+command/callback control and both-host/minor installed-wheel entry acceptance
+are retained there, without running on unrelated daily PRs. Release CI requires
+the full feature result; no independent final-candidate ceremony is introduced.
+
+P1 has historical both-host/minor full evidence at head8912224a (executed6ccec794,
+matching full tree) before PR34/PR35 landed. Those receipts remain at that source.
+After integrating the new CI policy, fresh head source/smoke results and the
+unchanged P1 product/input boundary are recorded separately; do not call the
+updated head's deferred platform/native/browser checks PASS. They belong to a
+later explicitly requested Release transaction. See
+[P1 gap closure](reviews/v06x-p1-adoption-gap-closure.md).
+
+The former PR-family policy was measured at run40855108044 (head5b27eaf3,
+executed538ca001): macOS39m40s including24m25s generic integration. This is
+historical evidence, not a saving estimate for the Release-only policy.

@@ -4,7 +4,7 @@ These notes describe source candidates, not a published version or release appro
 They are staging notes: release preparation manually transfers applicable items
 into the versioned `release/NOTES-*` file and checks them against adopted code.
 The release workflow does not consume this path automatically; see the
-[notes handoff](https://github.com/masahitojp/mariamem/blob/8912224a190c9d74d5059111a96da349b13b8ba1/docs/releasing.md#next-release-notes--python-minimum-and-application-test-entry).
+[notes handoff](../releasing.md#next-release-notes--python-minimum-and-application-test-entry).
 
 ## Python prepared entry (P1)
 
@@ -23,11 +23,11 @@ The release workflow does not consume this path automatically; see the
 - Error notes and a final entry summary supplement ordinary pytest reports.
   Application output is labeled as such; no application root cause is inferred.
 
-See [Python usage and compatibility](https://github.com/masahitojp/mariamem/blob/8912224a190c9d74d5059111a96da349b13b8ba1/docs/python.md#prepared-command-entry).
-P1 follows the [fixed exit](https://github.com/masahitojp/mariamem/blob/8912224a190c9d74d5059111a96da349b13b8ba1/docs/decisions/p1-fixed-exit-v060.md): entry lifecycle
+See [Python usage and compatibility](../python.md#prepared-command-entry).
+P1 follows the [fixed exit](../decisions/p1-fixed-exit-v060.md): entry lifecycle
 correctness remains required; detailed resource characterization is deferred to
 v0.7.x. The fixed-profile candidate has passed both-host/minor acceptance; main
-adoption remains pending. Controlled owners are component evidence. No version, tag, Qualification or publication is implied.
+adoption is recorded by PR #26 merge4a8a6835. Controlled owners are component evidence. No version, tag, Qualification or publication is implied.
 
 ### Owned E2E entry candidate (not adopted)
 

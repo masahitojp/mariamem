@@ -1,0 +1,37 @@
+{
+  "result": "PASS_LOCAL_ALLOCATED_COUNTER_FEASIBILITY_ONLY",
+  "source_commit": "1fc771e868f71edb3ad3b38eb5349a77bbfd95e2",
+  "observed_host": "macOS27.2 arm64",
+  "cases": [
+    {
+      "profile": "py311",
+      "focused_passed": 258,
+      "source_commit": "1fc771e868f71edb3ad3b38eb5349a77bbfd95e2",
+      "owned_logical_bytes": 1,
+      "owned_allocated_bytes": 4096,
+      "fd_delta": 2,
+      "cleanup": "baseline restored and child reaped"
+    },
+    {
+      "profile": "py314",
+      "focused_passed": 258,
+      "source_commit": "1fc771e868f71edb3ad3b38eb5349a77bbfd95e2",
+      "owned_logical_bytes": 1,
+      "owned_allocated_bytes": 4096,
+      "fd_delta": 2,
+      "cleanup": "baseline restored and child reaped"
+    }
+  ],
+  "preliminary_control": {
+    "source_commit": "d52fe0e251190d2bd187ecc5e92a1e449e4934d5",
+    "result": "FAIL_CONTROL_NOT_DISTINGUISHING",
+    "logical_bytes": 4194304,
+    "allocated_bytes": 4194304,
+    "disposition": "Replaced fixed control with a one-byte file; no assertion relaxed or reader result normalized."
+  },
+  "remaining": [
+    "macOS15/Ubuntu allocation-observer CI",
+    "full P1 time/resource/retention/guard campaign",
+    "main adoption and later release decisions"
+  ]
+}
