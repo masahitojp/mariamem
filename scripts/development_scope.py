@@ -28,6 +28,8 @@ WORKFLOW_SCOPES = {
 }
 # Explicit tooling boundaries; do not classify every .py file as runtime-free.
 TOOLING = {
+    # Classification metadata is consumed only by the source inventory test.
+    'release/wasix-host-stubs.json',
     # Archived measurement recipes; reproduction explicitly checks out its
     # pinned source and does not execute these in runtime/release qualification.
     'docs/benchmarks/go126-vs-go127-evidence/build.py',

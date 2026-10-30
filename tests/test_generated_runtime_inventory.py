@@ -181,6 +181,91 @@ def test_template_owned_primitive_rejects_drift(canonical, change, family):
         verifier.main()
 
 
+def go_inventory_tokens(source):
+    """Lexical inventory only: comments/literals cannot manufacture Go calls."""
+    import re
+    token = re.compile(r'\s+|//[^\n]*|/\*[\s\S]*?\*/|"(?:\\.|[^"\\\n])*"|'
+                       r"'(?:\\.|[^'\\\n])*'|`[^`]*`|[^\W\d]\w*|.", re.DOTALL)
+    result = []
+    for match in token.finditer(source):
+        value = match.group()
+        if value.isspace() or value.startswith(('//', '/*')):
+            continue
+        assert value not in ('"', "'", '`'), 'unterminated Go literal in inventory'
+        result.append(value)
+    return result
+
+
+def go_inventory_group(tokens, start):
+    pairs = {'(': ')', '[': ']', '{': '}'}
+    stack = []
+    for index in range(start, len(tokens)):
+        value = tokens[index]
+        if value in pairs:
+            stack.append(pairs[value])
+        elif value in pairs.values():
+            assert stack and value == stack.pop(), 'unbalanced Go inventory group'
+            if not stack:
+                return index
+    raise AssertionError('unterminated Go inventory group')
+
+
+def go_host_method_bodies(tokens):
+    """Find concrete host receiver declarations, without compiling the guest."""
+    import re
+    index = 0
+    while index + 1 < len(tokens):
+        if tokens[index:index + 2] != ['func', '(']:
+            index += 1
+            continue
+        end = go_inventory_group(tokens, index + 1)
+        receiver = tokens[index + 2:end]
+        # A receiver name is optional; parentheses around its type are legal.
+        types = [value for value in receiver if value not in ('(', ')')]
+        if types not in (['host'], ['*', 'host']):
+            types = types[1:]
+        index = end + 1
+        if types not in (['host'], ['*', 'host']):
+            continue
+        if (index + 1 >= len(tokens) or tokens[index] == 'func'
+                or not re.fullmatch(r'[^\W\d]\w*', tokens[index]) or tokens[index + 1] != '('):
+            continue  # A function literal parameter, not a receiver declaration.
+        name = tokens[index]
+        index = go_inventory_group(tokens, index + 1) + 1
+        # Skip result types, including parenthesized results and inline types.
+        while index < len(tokens) and tokens[index] != '{':
+            if tokens[index] in ('(', '['):
+                index = go_inventory_group(tokens, index) + 1
+            elif tokens[index] in ('struct', 'interface') and tokens[index + 1:index + 2] == ['{']:
+                index = go_inventory_group(tokens, index + 1) + 1
+            else:
+                index += 1
+        assert index < len(tokens), 'missing host method body'
+        end = go_inventory_group(tokens, index)
+        yield name, tokens[index + 1:end]
+        index = end + 1
+
+
+def go_direct_panic_arguments(body):
+    """Include nested bodies and parenthesized calls; exclude selectors."""
+    arguments = []
+    type_end = -1
+    for index, value in enumerate(body):
+        if value == 'interface' and body[index + 1:index + 2] == ['{']:
+            type_end = go_inventory_group(body, index + 1)
+        if index <= type_end:
+            continue  # Interface method signatures are not calls.
+        if value != 'panic' or (index and body[index - 1] == '.'):
+            continue
+        left, right = index - 1, index + 1
+        while left >= 0 and right < len(body) and body[left] == '(' and body[right] == ')':
+            left, right = left - 1, right + 1
+        if right < len(body) and body[right] == '(':
+            end = go_inventory_group(body, right)
+            arguments.append(tuple(body[right + 1:end]))
+    return arguments
+
+
 def validate_wasix_stub_classification(driver, classification):
     """Changes to the actual generated panic boundary require a classification diff."""
     import re
@@ -190,20 +275,28 @@ def validate_wasix_stub_classification(driver, classification):
     assert isinstance(declared, dict) and declared
     assert all(re.fullmatch(r'[A-Za-z][A-Za-z0-9_]*', name) and disposition == 'fail-closed'
                for name, disposition in declared.items())
-    marker = 'unimplemented WASIX'
-    direct_panic = re.compile(
-        r'func\s*\(\s*\w+\s+\*host\s*\)\s*([A-Za-z]\w*)\s*\([^{}]*\)\s*[^{}\n]*\{\s*panic\s*\(')
-    pattern = re.compile(
-        r'func\s*\(\s*\w+\s+\*host\s*\)\s*([A-Za-z]\w*)\s*\([^{}]*\)\s*[^{}\n]*\{\s*panic\s*\(\s*(["`])unimplemented WASIX:\s*([A-Za-z][A-Za-z0-9_]*)\2\s*\)\s*\}')
-    matches = list(pattern.finditer(driver))
-    found = [match.group(3) for match in matches]
-    # A new direct panic, an altered marker or a mismatch between the method
-    # and message is rejected until it receives an explicit classification.
-    assert driver.count(marker) == len(found), 'unrecognized WASIX stub expression'
-    assert len(list(direct_panic.finditer(driver))) == len(found), 'unclassified direct host panic'
-    assert all(match.group(1) == match.group(3) for match in matches), 'stub names differ'
-    assert len(found) == len(set(found)), 'duplicate WASIX stub'
-    assert set(found) == set(declared), 'WASIX stub classification differs from driver'
+    guards = classification.get('guard_panics', {})
+    assert isinstance(guards, dict) and not set(guards) & set(declared)
+    assert all(re.fullmatch(r'[A-Za-z][A-Za-z0-9_]*', name) and isinstance(expressions, list)
+               and expressions and all(isinstance(expr, str) and expr.strip() for expr in expressions)
+               for name, expressions in guards.items()), 'invalid host panic guard classification'
+    observed_guards, observed_stubs = {}, []
+    for name, body in go_host_method_bodies(go_inventory_tokens(driver)):
+        calls = go_direct_panic_arguments(body)
+        if name in declared:
+            assert len(calls) == 1, 'unclassified direct host panic: ' + name
+            assert calls[0] in [(f'"unimplemented WASIX: {name}"',),
+                                (f'`unimplemented WASIX: {name}`',)], 'noncanonical WASIX stub: ' + name
+            assert body == ['panic', '(', *calls[0], ')'] or body == ['panic', '(', *calls[0], ')', ';'], 'noncanonical WASIX stub: ' + name
+            observed_stubs.append(name)
+        elif calls:
+            assert name in guards and name not in observed_guards, 'unclassified direct host panic: ' + name
+            observed_guards[name] = calls
+    expected_guards = {name: [tuple(go_inventory_tokens(expr)) for expr in expressions]
+                       for name, expressions in guards.items()}
+    assert observed_guards == expected_guards, 'host panic guard classification differs from driver'
+    assert len(observed_stubs) == len(set(observed_stubs)), 'duplicate WASIX stub'
+    assert set(observed_stubs) == set(declared), 'WASIX stub classification differs from driver'
 
 
 def test_generated_driver_wasix_stubs_are_explicitly_classified():
@@ -237,4 +330,90 @@ def test_wasix_stub_inventory_rejects_unreviewed_changes(mutation):
     else:
         contract['stubs']['Fd_dup2'] = ''
     with pytest.raises(AssertionError):
+        validate_wasix_stub_classification(source, contract)
+
+
+@pytest.mark.parametrize('body', [
+    '_ = h; panic("not implemented")',
+    '_ = h\n panic("not implemented")',
+    'if h != nil { panic("not implemented") }',
+    'switch { default: panic("not implemented") }',
+    'for { panic("not implemented") }',
+    'defer func() { panic("not implemented") }()',
+    'panic /* comment */ ("not implemented")',
+    '(panic)("not implemented")',
+    '((panic))("not implemented")',
+])
+def test_wasix_stub_inventory_rejects_hidden_direct_panic(body):
+    source = ('func (h *host) Fd_dup2() { panic("unimplemented WASIX: Fd_dup2") }\n'
+              'func (h *host) New_import() { ' + body + ' }\n')
+    contract = {'schema': 1, 'classification': 'fail-closed',
+                'stubs': {'Fd_dup2': 'fail-closed'}}
+    with pytest.raises(AssertionError, match='unclassified direct host panic'):
+        validate_wasix_stub_classification(source, contract)
+
+
+@pytest.mark.parametrize('extra', [
+    'func (h *host) Implemented() { _ = h; return }',
+    'func (h *host) Implemented() { /* } panic("fake") { */ _ = h }',
+    'func (h *host) Implemented() { // panic("fake") }\n _ = h }',
+    'func (h *host) Implemented() { _ = "} panic(\\\"fake\\\") {"; _ = \'}\' }',
+    'func (h *host) Implemented() { _ = `func (h *host) Fake() { panic("fake") }` }',
+    'func (h *host) Implemented() { /* panic("unimplemented WASIX: Fake") */ _ = h }',
+    'func (h *host) Implemented() { _ = `func (h *host) Fake() { panic("unimplemented WASIX: Fake") }` }',
+    'func (h *host) Implemented() { h.panic("selector"); (h.panic)("selector") }',
+    'func (h *host) Implemented() { var value struct { panic func() }; _ = value }',
+    'func (h *host) Implemented() { var value interface { panic() }; _ = value }',
+    'func Other() { panic("outside host") }',
+    'func (host *other) Other() { panic("other receiver") }',
+    'var callback = func(h *host) func() { return func() { panic("outside host") } }',
+])
+def test_wasix_stub_inventory_ignores_non_calls_and_non_host_methods(extra):
+    source = 'func (h *host) Fd_dup2() { panic("unimplemented WASIX: Fd_dup2") }\n'
+    contract = {'schema': 1, 'classification': 'fail-closed', 'stubs': {'Fd_dup2': 'fail-closed'}}
+    validate_wasix_stub_classification(source + extra, contract)
+
+
+@pytest.mark.parametrize('signature', [
+    '(h host) New_import()',
+    '(h (*host)) New_import() int64',
+    '(h *host) New_import() (out struct { Field int64 })',
+    '(h *host) New_import() struct { Field int64 }',
+    '(h /* receiver */ *host) New_import() interface { Method() }',
+])
+def test_wasix_stub_inventory_checks_receiver_and_result_variants(signature):
+    source = ('func (h *host) Fd_dup2() { panic("unimplemented WASIX: Fd_dup2") }\n'
+              'func ' + signature + ' { if true { panic("not implemented") } }')
+    contract = {'schema': 1, 'classification': 'fail-closed', 'stubs': {'Fd_dup2': 'fail-closed'}}
+    with pytest.raises(AssertionError, match='unclassified direct host panic'):
+        validate_wasix_stub_classification(source, contract)
+
+
+@pytest.mark.parametrize('mutation', ['none', 'removed', 'changed', 'extra', 'new_method', 'malformed'])
+def test_wasix_stub_inventory_pins_existing_guard_calls(mutation):
+    source = ('func (h *host) Fd_dup2() { panic("unimplemented WASIX: Fd_dup2") }\n'
+              'func (h *host) Checked() { if h == nil { panic("invalid input") }; use(h) }')
+    contract = {'schema': 1, 'classification': 'fail-closed', 'stubs': {'Fd_dup2': 'fail-closed'},
+                'guard_panics': {'Checked': ['"invalid input"']}}
+    if mutation == 'none':
+        validate_wasix_stub_classification(source, contract)
+        return
+    if mutation == 'removed':
+        source = source.replace('panic("invalid input")', 'return')
+    elif mutation == 'changed':
+        source = source.replace('invalid input', 'not implemented')
+    elif mutation == 'extra':
+        source = source.replace('use(h)', 'panic("invalid input")')
+    elif mutation == 'new_method':
+        source += '\nfunc (h *host) Other() { panic("invalid input") }'
+    else:
+        contract['guard_panics']['Checked'] = ['']
+    with pytest.raises(AssertionError):
+        validate_wasix_stub_classification(source, contract)
+
+
+def test_wasix_stub_inventory_cannot_classify_a_commented_declaration():
+    source = '// func (h *host) Fd_dup2() { panic("unimplemented WASIX: Fd_dup2") }\n'
+    contract = {'schema': 1, 'classification': 'fail-closed', 'stubs': {'Fd_dup2': 'fail-closed'}}
+    with pytest.raises(AssertionError, match='classification differs'):
         validate_wasix_stub_classification(source, contract)
