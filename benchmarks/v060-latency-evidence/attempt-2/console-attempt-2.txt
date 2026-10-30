@@ -1,0 +1,15 @@
+Disk preflight OK: 45.00 GiB free, 0.92 GiB owned
+RUN clone-baseline.txt
+RUN checkout-baseline.txt
+RUN clone-candidate.txt
+RUN checkout-candidate.txt
+RUN build-baseline-host.txt
+RUN build-baseline-go.txt
+RUN build-candidate-host.txt
+RUN build-candidate-go.txt
+RUN go/warmup-light-fresh--1-candidate.txt
+Traceback (most recent call last):
+  File "/private/tmp/mariamem-usage-alignment/build/experiment-work/v060-performance/evidence/run.py", line 51, in <module>
+    data=json.loads(out.read_text());assert data['fds_after']==data['fds_before'],name
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: go/warmup-light-fresh--1-candidate

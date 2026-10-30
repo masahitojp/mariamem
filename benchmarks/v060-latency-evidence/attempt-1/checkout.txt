@@ -1,0 +1,3 @@
+Preparing worktree (detached HEAD 4f7b18bf)
+Updating files:  90% (3586/3945)Updating files:  91% (3590/3945)Updating files:  92% (3630/3945)Updating files:  93% (3669/3945)Updating files:  94% (3709/3945)Updating files:  95% (3748/3945)Updating files:  96% (3788/3945)Updating files:  97% (3827/3945)Updating files:  98% (3867/3945)Updating files:  99% (3906/3945)Updating files: 100% (3945/3945)Updating files: 100% (3945/3945), done.
+HEAD is now at 4f7b18bf release: prepare v0.5.3 for CI publication

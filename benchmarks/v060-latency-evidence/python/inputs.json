@@ -1,0 +1,35 @@
+{
+  "sources": {
+    "baseline": {
+      "identity": {
+        "object_sha": "4f7b18bfc00965974fcbb16ac49cbf00d9fb2b0e",
+        "object_type": "commit",
+        "source_commit": "4f7b18bfc00965974fcbb16ac49cbf00d9fb2b0e"
+      },
+      "host_sha256": "477a7bdd606b93db6d3f852809dd76e8c02a303855a4d812a7445d6df2d1dff2",
+      "build_info": "/private/tmp/mariamem-usage-alignment/build/experiment-work/v060-performance/temp/bin/baseline-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=4f7b18bfc00965974fcbb16ac49cbf00d9fb2b0e\n\tbuild\tvcs.time=2026-10-18T09:26:57Z\n\tbuild\tvcs.modified=false\n"
+    },
+    "candidate": {
+      "identity": {
+        "object_sha": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+        "object_type": "commit",
+        "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01"
+      },
+      "host_sha256": "b8348c724e1be03b9de26b1e4db0bf2bf4f069ce9b04b1483fd1dbcee40c1b26",
+      "build_info": "/private/tmp/mariamem-usage-alignment/build/experiment-work/v060-performance/temp/bin/candidate-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.0\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=b3b3b46a8807482ad3f96725af86e031fe369b01\n\tbuild\tvcs.time=2026-10-30T21:16:36Z\n\tbuild\tvcs.modified=false\n"
+    }
+  },
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "scales": [
+    "small",
+    "medium"
+  ],
+  "plain_repeats": 6,
+  "resource_repeats": 1,
+  "harness": {
+    "workflow.py": "e4dd55221d6cfaee7710fa6d83812bb6018d4307e9f2ba3a7b63df843d6cc431",
+    "campaign.py": "de07ac1c57ed8ef7fe426d084b0420bd25a99a3fdbb30caf94c3acd21ed2b161"
+  }
+}

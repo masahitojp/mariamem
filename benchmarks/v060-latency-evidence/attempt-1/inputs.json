@@ -1,0 +1,32 @@
+{
+  "sources": {
+    "baseline": "4f7b18bfc00965974fcbb16ac49cbf00d9fb2b0e",
+    "candidate": "b3b3b46a8807482ad3f96725af86e031fe369b01"
+  },
+  "go": "go version go1.26.10 darwin/arm64",
+  "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "host": {
+    "macos": "27.2",
+    "architecture": "arm64"
+  },
+  "flags": [
+    "-p",
+    "1",
+    "-trimpath",
+    "-buildvcs=true"
+  ],
+  "binaries": {},
+  "harness": {
+    "benchmarks/ownedprepared/main.go": "34e2ec124cff43de7513773d954f5ed5ab79d9cf394e1cb9c38f967922c7be64",
+    "benchmarks/ownedprepared/resources.go": "38130a59ef787516142528d3eef997e648322ab7f3cc45a4f2f4a529f7188f6c",
+    "benchmarks/sharedhost/campaign.py": "de07ac1c57ed8ef7fe426d084b0420bd25a99a3fdbb30caf94c3acd21ed2b161",
+    "benchmarks/sharedhost/workflow.py": "e4dd55221d6cfaee7710fa6d83812bb6018d4307e9f2ba3a7b63df843d6cc431"
+  },
+  "scope": "Local macOS latency; common APIs only; no 100MiB/qualification/CI",
+  "plain_pairs": 6,
+  "python_resource_pairs": 1,
+  "heavy_ci_submissions": 0,
+  "active_work_budget_minutes": 120,
+  "tooling_budget_minutes": 30,
+  "execution_timeout_seconds": 1800
+}

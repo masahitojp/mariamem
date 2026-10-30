@@ -1,0 +1,674 @@
+[
+  {
+    "name": "go/warmup-light-fresh--1-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": -1,
+    "seconds": 0.225871458
+  },
+  {
+    "name": "go/warmup-light-fresh--1-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": -1,
+    "seconds": 0.24139112199999999
+  },
+  {
+    "name": "go/warmup-light-fork--1-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fork",
+    "repetition": -1,
+    "seconds": 0.258600626
+  },
+  {
+    "name": "go/warmup-light-fork--1-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fork",
+    "repetition": -1,
+    "seconds": 0.25387979
+  },
+  {
+    "name": "go/warmup-fixture-fresh--1-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": -1,
+    "seconds": 2.661208414
+  },
+  {
+    "name": "go/warmup-fixture-fresh--1-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": -1,
+    "seconds": 2.6583785410000003
+  },
+  {
+    "name": "go/warmup-fixture-fork--1-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": -1,
+    "seconds": 1.1281121250000001
+  },
+  {
+    "name": "go/warmup-fixture-fork--1-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": -1,
+    "seconds": 1.1347193790000003
+  },
+  {
+    "name": "go/warmup-parallel-fresh--1-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": -1,
+    "seconds": 0.80306575
+  },
+  {
+    "name": "go/warmup-parallel-fresh--1-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": -1,
+    "seconds": 0.824316584
+  },
+  {
+    "name": "go/warmup-parallel-fork--1-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": -1,
+    "seconds": 0.778462792
+  },
+  {
+    "name": "go/warmup-parallel-fork--1-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": -1,
+    "seconds": 0.808032958
+  },
+  {
+    "name": "go/plain-light-fresh-0-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": 0,
+    "seconds": 0.21968037399999998
+  },
+  {
+    "name": "go/plain-light-fresh-0-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": 0,
+    "seconds": 0.22827037299999994
+  },
+  {
+    "name": "go/plain-light-fork-0-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fork",
+    "repetition": 0,
+    "seconds": 0.255023749
+  },
+  {
+    "name": "go/plain-light-fork-0-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fork",
+    "repetition": 0,
+    "seconds": 0.252317709
+  },
+  {
+    "name": "go/plain-fixture-fresh-0-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": 0,
+    "seconds": 2.6647824580000004
+  },
+  {
+    "name": "go/plain-fixture-fresh-0-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": 0,
+    "seconds": 2.6570677050000002
+  },
+  {
+    "name": "go/plain-fixture-fork-0-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": 0,
+    "seconds": 1.1333660399999999
+  },
+  {
+    "name": "go/plain-fixture-fork-0-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": 0,
+    "seconds": 1.1227333759999993
+  },
+  {
+    "name": "go/plain-parallel-fresh-0-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": 0,
+    "seconds": 0.84224925
+  },
+  {
+    "name": "go/plain-parallel-fresh-0-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": 0,
+    "seconds": 0.836688041
+  },
+  {
+    "name": "go/plain-parallel-fork-0-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": 0,
+    "seconds": 0.7733597499999999
+  },
+  {
+    "name": "go/plain-parallel-fork-0-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": 0,
+    "seconds": 0.780500207
+  },
+  {
+    "name": "go/plain-light-fresh-1-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": 1,
+    "seconds": 0.22148087599999997
+  },
+  {
+    "name": "go/plain-light-fresh-1-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": 1,
+    "seconds": 0.20919912400000001
+  },
+  {
+    "name": "go/plain-light-fork-1-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fork",
+    "repetition": 1,
+    "seconds": 0.250354502
+  },
+  {
+    "name": "go/plain-light-fork-1-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fork",
+    "repetition": 1,
+    "seconds": 0.24873316799999998
+  },
+  {
+    "name": "go/plain-fixture-fresh-1-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": 1,
+    "seconds": 2.675947791
+  },
+  {
+    "name": "go/plain-fixture-fresh-1-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": 1,
+    "seconds": 2.666645
+  },
+  {
+    "name": "go/plain-fixture-fork-1-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": 1,
+    "seconds": 1.1331572099999998
+  },
+  {
+    "name": "go/plain-fixture-fork-1-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": 1,
+    "seconds": 1.1376299970000001
+  },
+  {
+    "name": "go/plain-parallel-fresh-1-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": 1,
+    "seconds": 0.858902084
+  },
+  {
+    "name": "go/plain-parallel-fresh-1-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": 1,
+    "seconds": 0.876482125
+  },
+  {
+    "name": "go/plain-parallel-fork-1-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": 1,
+    "seconds": 0.80367375
+  },
+  {
+    "name": "go/plain-parallel-fork-1-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": 1,
+    "seconds": 0.822578501
+  },
+  {
+    "name": "go/plain-light-fresh-2-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": 2,
+    "seconds": 0.21051616999999997
+  },
+  {
+    "name": "go/plain-light-fresh-2-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": 2,
+    "seconds": 0.23251612600000005
+  },
+  {
+    "name": "go/plain-light-fork-2-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fork",
+    "repetition": 2,
+    "seconds": 0.255940543
+  },
+  {
+    "name": "go/plain-light-fork-2-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fork",
+    "repetition": 2,
+    "seconds": 0.249032208
+  },
+  {
+    "name": "go/plain-fixture-fresh-2-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": 2,
+    "seconds": 2.6702168340000005
+  },
+  {
+    "name": "go/plain-fixture-fresh-2-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": 2,
+    "seconds": 2.6921747480000002
+  },
+  {
+    "name": "go/plain-fixture-fork-2-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": 2,
+    "seconds": 1.1401253740000004
+  },
+  {
+    "name": "go/plain-fixture-fork-2-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": 2,
+    "seconds": 1.142385128
+  },
+  {
+    "name": "go/plain-parallel-fresh-2-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": 2,
+    "seconds": 0.893359709
+  },
+  {
+    "name": "go/plain-parallel-fresh-2-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": 2,
+    "seconds": 0.883997833
+  },
+  {
+    "name": "go/plain-parallel-fork-2-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": 2,
+    "seconds": 0.792676081
+  },
+  {
+    "name": "go/plain-parallel-fork-2-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": 2,
+    "seconds": 0.797930542
+  },
+  {
+    "name": "go/plain-light-fresh-3-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": 3,
+    "seconds": 0.22509116899999998
+  },
+  {
+    "name": "go/plain-light-fresh-3-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": 3,
+    "seconds": 0.21336341899999997
+  },
+  {
+    "name": "go/plain-light-fork-3-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fork",
+    "repetition": 3,
+    "seconds": 0.25399608199999996
+  },
+  {
+    "name": "go/plain-light-fork-3-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fork",
+    "repetition": 3,
+    "seconds": 0.252225085
+  },
+  {
+    "name": "go/plain-fixture-fresh-3-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": 3,
+    "seconds": 2.673179335
+  },
+  {
+    "name": "go/plain-fixture-fresh-3-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": 3,
+    "seconds": 2.706632294
+  },
+  {
+    "name": "go/plain-fixture-fork-3-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": 3,
+    "seconds": 1.1625992070000002
+  },
+  {
+    "name": "go/plain-fixture-fork-3-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": 3,
+    "seconds": 1.161746502
+  },
+  {
+    "name": "go/plain-parallel-fresh-3-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": 3,
+    "seconds": 0.905475084
+  },
+  {
+    "name": "go/plain-parallel-fresh-3-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": 3,
+    "seconds": 0.897124375
+  },
+  {
+    "name": "go/plain-parallel-fork-3-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": 3,
+    "seconds": 0.822946876
+  },
+  {
+    "name": "go/plain-parallel-fork-3-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": 3,
+    "seconds": 0.806066583
+  },
+  {
+    "name": "go/plain-light-fresh-4-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": 4,
+    "seconds": 0.21363191900000003
+  },
+  {
+    "name": "go/plain-light-fresh-4-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": 4,
+    "seconds": 0.223590955
+  },
+  {
+    "name": "go/plain-light-fork-4-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fork",
+    "repetition": 4,
+    "seconds": 0.261528003
+  },
+  {
+    "name": "go/plain-light-fork-4-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fork",
+    "repetition": 4,
+    "seconds": 0.2657229179999999
+  },
+  {
+    "name": "go/plain-fixture-fresh-4-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": 4,
+    "seconds": 2.724828584
+  },
+  {
+    "name": "go/plain-fixture-fresh-4-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": 4,
+    "seconds": 2.710655374
+  },
+  {
+    "name": "go/plain-fixture-fork-4-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": 4,
+    "seconds": 1.1578538750000003
+  },
+  {
+    "name": "go/plain-fixture-fork-4-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": 4,
+    "seconds": 1.152526378
+  },
+  {
+    "name": "go/plain-parallel-fresh-4-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": 4,
+    "seconds": 0.918780125
+  },
+  {
+    "name": "go/plain-parallel-fresh-4-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": 4,
+    "seconds": 0.913618792
+  },
+  {
+    "name": "go/plain-parallel-fork-4-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": 4,
+    "seconds": 0.8070408750000001
+  },
+  {
+    "name": "go/plain-parallel-fork-4-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": 4,
+    "seconds": 0.808728167
+  },
+  {
+    "name": "go/plain-light-fresh-5-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": 5,
+    "seconds": 0.22946562899999998
+  },
+  {
+    "name": "go/plain-light-fresh-5-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fresh",
+    "repetition": 5,
+    "seconds": 0.21374187299999997
+  },
+  {
+    "name": "go/plain-light-fork-5-baseline",
+    "label": "baseline",
+    "case": "light",
+    "mode": "fork",
+    "repetition": 5,
+    "seconds": 0.253526166
+  },
+  {
+    "name": "go/plain-light-fork-5-candidate",
+    "label": "candidate",
+    "case": "light",
+    "mode": "fork",
+    "repetition": 5,
+    "seconds": 0.25612133400000003
+  },
+  {
+    "name": "go/plain-fixture-fresh-5-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": 5,
+    "seconds": 2.7294037099999997
+  },
+  {
+    "name": "go/plain-fixture-fresh-5-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fresh",
+    "repetition": 5,
+    "seconds": 2.7366444619999997
+  },
+  {
+    "name": "go/plain-fixture-fork-5-baseline",
+    "label": "baseline",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": 5,
+    "seconds": 1.1690279579999998
+  },
+  {
+    "name": "go/plain-fixture-fork-5-candidate",
+    "label": "candidate",
+    "case": "fixture",
+    "mode": "fork",
+    "repetition": 5,
+    "seconds": 1.1584739170000002
+  },
+  {
+    "name": "go/plain-parallel-fresh-5-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": 5,
+    "seconds": 0.928429417
+  },
+  {
+    "name": "go/plain-parallel-fresh-5-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fresh",
+    "repetition": 5,
+    "seconds": 0.95108375
+  },
+  {
+    "name": "go/plain-parallel-fork-5-baseline",
+    "label": "baseline",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": 5,
+    "seconds": 0.818366043
+  },
+  {
+    "name": "go/plain-parallel-fork-5-candidate",
+    "label": "candidate",
+    "case": "parallel",
+    "mode": "fork",
+    "repetition": 5,
+    "seconds": 0.832893542
+  }
+]

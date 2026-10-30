@@ -1,0 +1,64 @@
+{
+  "sources": {
+    "baseline": "4f7b18bfc00965974fcbb16ac49cbf00d9fb2b0e",
+    "candidate": "b3b3b46a8807482ad3f96725af86e031fe369b01"
+  },
+  "go": "go version go1.26.10 darwin/arm64",
+  "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "host": {
+    "macos": "27.2",
+    "architecture": "arm64",
+    "cpu": "Apple M1",
+    "ram_bytes": 17179869184
+  },
+  "flags": [
+    "-p",
+    "1",
+    "-trimpath",
+    "-buildvcs=true"
+  ],
+  "binaries": {
+    "baseline-host": {
+      "sha256": "477a7bdd606b93db6d3f852809dd76e8c02a303855a4d812a7445d6df2d1dff2",
+      "build_info": "/private/tmp/mariamem-usage-alignment/build/experiment-work/v060-performance/temp/bin/baseline-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=4f7b18bfc00965974fcbb16ac49cbf00d9fb2b0e\n\tbuild\tvcs.time=2026-10-18T09:26:57Z\n\tbuild\tvcs.modified=false\n"
+    },
+    "baseline-go": {
+      "sha256": "50c568a639021caf538a8c039687a24c49c9add7f3c562ac30e91a4f6329313a",
+      "build_info": "/private/tmp/mariamem-usage-alignment/build/experiment-work/v060-performance/temp/bin/baseline-go: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.3\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=4f7b18bfc00965974fcbb16ac49cbf00d9fb2b0e\n\tbuild\tvcs.time=2026-10-18T09:26:57Z\n\tbuild\tvcs.modified=false\n"
+    },
+    "candidate-host": {
+      "sha256": "b8348c724e1be03b9de26b1e4db0bf2bf4f069ce9b04b1483fd1dbcee40c1b26",
+      "build_info": "/private/tmp/mariamem-usage-alignment/build/experiment-work/v060-performance/temp/bin/candidate-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.0\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=b3b3b46a8807482ad3f96725af86e031fe369b01\n\tbuild\tvcs.time=2026-10-30T21:16:36Z\n\tbuild\tvcs.modified=false\n"
+    },
+    "candidate-go": {
+      "sha256": "e0bd66a39e27d373f085b37d5014d8a32765063a557803ab9d3ec0e966379fae",
+      "build_info": "/private/tmp/mariamem-usage-alignment/build/experiment-work/v060-performance/temp/bin/candidate-go: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/ownedprepared\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.0\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=b3b3b46a8807482ad3f96725af86e031fe369b01\n\tbuild\tvcs.time=2026-10-30T21:16:36Z\n\tbuild\tvcs.modified=false\n"
+    }
+  },
+  "harness": {
+    "benchmarks/ownedprepared/main.go": "34e2ec124cff43de7513773d954f5ed5ab79d9cf394e1cb9c38f967922c7be64",
+    "benchmarks/ownedprepared/resources.go": "38130a59ef787516142528d3eef997e648322ab7f3cc45a4f2f4a529f7188f6c",
+    "benchmarks/sharedhost/campaign.py": "de07ac1c57ed8ef7fe426d084b0420bd25a99a3fdbb30caf94c3acd21ed2b161",
+    "benchmarks/sharedhost/workflow.py": "e4dd55221d6cfaee7710fa6d83812bb6018d4307e9f2ba3a7b63df843d6cc431"
+  },
+  "scope": "Local macOS latency; common APIs only; no 100MiB/qualification/CI",
+  "plain_pairs": 6,
+  "python_resource_pairs": 1,
+  "heavy_ci_submissions": 0,
+  "active_work_budget_minutes": 120,
+  "tooling_budget_minutes": 30,
+  "execution_timeout_seconds": 1800,
+  "orchestrator_sha256": "fcf6a464033620e510315d7b3692a1bcfecd52a88b6dca03ebe1c27cb37884b5",
+  "analysis_sha256": "4c6e1e2c2f5fd5c4d83998c40ca23b7abc41b41e3b8d54ddfb52c40469a9fc2b",
+  "cgo_enabled": "0",
+  "guest_sha256": {
+    "baseline": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
+    "candidate": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40"
+  },
+  "binary_bytes": {
+    "baseline-host": 99819698,
+    "baseline-go": 103247490,
+    "candidate-go": 103670882,
+    "candidate-host": 100364674
+  }
+}

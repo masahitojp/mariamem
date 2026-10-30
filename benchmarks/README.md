@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [v0.5.3 → v0.6.0 local latency](v060-latency.md): same-toolchain paired
+  Go/Python comparison; small-case increases and near-flat 10 MiB Go suites,
+  with raw phase timings and explicit single-host limits.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained
