@@ -7,7 +7,7 @@ flush. A failed test process keeps its original exit code. If migration fails
 partway through DDL, leaving the parent owner's context also discards that whole
 server. The example has no Django backend replacement or test lifecycle adapter.
 
-Use the current candidate source, Go1.26.10 and Python3.11 or3.14.
+Use adopted unreleased main, Go1.26.10 and Python3.11 or3.14.
 This is not a published-package Django support claim. The repository example
 uses the same authored orders app/migrations as the earlier browser scenario.
 
@@ -88,4 +88,7 @@ local observations.
 
 The [Django guide](../../django-testing.md) records original receipt identities
 and the successful native and Ubuntu/macOS/Python3.11/3.14 comparison matrix.
-Historical local receipts are not acceptance evidence for this candidate.
+Historical local receipts retain their original sources; the later adopted
+native/guest matrix supports only this bounded recipe. The additional D1 prepared
+entry is deferred to consideration in0.6.1, not a delivery promise; see the
+[D1 decision](../../decisions/d1-v060-deferral.md).

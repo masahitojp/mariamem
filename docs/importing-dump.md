@@ -61,7 +61,7 @@ row values, engine and collation. Schema and quoted object identifiers use bound
 ASCII letters, digits, underscores and dollar signs; the schema begins with a
 letter or underscore. Accepted framing uses `;` and `;;` delimiters and the
 producer's observed executable comments. See the exact
-[candidate format contract](reviews/v06x-dump-reader-product-contract.md).
+[bounded format contract](reviews/v06x-dump-reader-product-contract.md).
 
 Use trusted, repository-authored test inputs. This reader is not a SQL security
 sandbox. MySQL dumps, arbitrary legacy application dumps, Django, multiple schemas,
