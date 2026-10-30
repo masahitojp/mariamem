@@ -1,6 +1,8 @@
 # mariamem 0.6.0 — draft release notes
 
-Review draft based on adopted main `2c859fa6809a82ca4306ebf70745f82b8565f8d0`.
+Reviewed content basis: main `1c3a7945587dd9862d6d222dc9193a069d51f603`
+(including PR50), with this PR's documentation clarifications applied. This is a
+content reference, not an assertion that the draft tree equals that main tree.
 This is not a published release, final-candidate qualification, or publication
 approval. Version metadata and install commands remain at published 0.5.3.
 This file is the sole staging content source for 0.6.0 release notes.
@@ -39,7 +41,8 @@ The release workflow does not consume this draft automatically.
   shutdown are outside this contract.
 
 See [Python](../python.md), [Go fixtures](../go-prepared-fixture.md),
-[routing](../connection-routing.md) and [owned E2E examples](../examples/e2e_owned/README.md).
+[routing](../connection-routing.md), the [complete shadow_maria example](../python.md#existing-application-connections-shadow_maria),
+and [owned E2E examples](../examples/e2e_owned/README.md).
 
 ## SQL and bounded dump input
 
@@ -95,7 +98,8 @@ See [the exact wire contract](../decisions/v060-wire-contract.md).
   26.7.0 import; OpenSSL3 CI does not qualify that local environment. No driver
   mode or SSL constants are silently substituted.
 - The ordinary [Django standard-runner recipe](../django-testing.md) is supported
-  within its fixed profile. Additional D1 prepared-Snapshot restoration is
+  within its fixed Django5.2.8/mysqlclient2.2.7/pytest-django4.12.0 profile
+  (with pytest9.0.2). Additional D1 prepared-Snapshot restoration is
   deferred from 0.6.0 for consideration in 0.6.1, not promised for that version. Fixed dbt workload
   evidence is not general dbt or dbt unit-test support.
 - Detailed resource characterization/tuning belongs to 0.7.x; no throughput,
