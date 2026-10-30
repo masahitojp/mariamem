@@ -102,11 +102,3 @@ def test_original_child_error_is_not_reclassified_as_observer_failure():
     def child():raise original
     with pytest.raises(RuntimeError) as error:guard.admit(lambda:SAMPLE,LIMITS,100,child)
     assert error.value is original
-
-
-def test_required_host_workflow_runs_guard_controls():
-    root=Path(__file__).resolve().parents[1]
-    workflow=(root/'.github/workflows/live-host.yml').read_text()
-    step=workflow.split('- name: P1 real prepared command and callback on both Python minors',1)[1].split('- name:',1)[0]
-    assert 'for py in "$PY311" "$PY314"' in step
-    assert 'tests/test_p1_resource_guard.py' in step

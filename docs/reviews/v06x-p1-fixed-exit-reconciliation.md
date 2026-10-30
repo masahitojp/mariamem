@@ -54,3 +54,19 @@ workflow). Contract lint also passed. An initial run in the smaller probe-only
 environment lacked PyMySQL and failed 28 routing cases; rerunning in the existing
 application environment resolved them. These are local unit/subprocess results,
 not the final installed-wheel supported-host receipt.
+
+## First final-candidate CI failure — 40979625348
+
+Source `4cc74f9a7f541afe96a958360eb60ac2fa77fb93` passed both native input
+cells, but both host canonical checks failed the same three obsolete workflow
+assertions: resource probe, resource guard and observation barrier suites were
+still required by their old tests in the ordinary P1 CI step. Each host reported
+3 failed / 1591 passed / 60 skipped. Installed-wheel P1 acceptance did not run.
+The [checksummed original failure](v06x-python-fixture-implementation-evidence/ci-40979625348/assessment.json)
+retains both check logs, native input files and original artifact digests.
+
+The correction removes those three superseded workflow obligations. The central
+fixed-exit workflow test instead requires resource opt-in zero and excludes all
+three suites from the P1 step. Resource helper behavior/negative controls remain
+intact; no P1 lifecycle or failure oracle is relaxed. Unreleased notes now also
+state the approved resource deferral. A corrected candidate CI is required.

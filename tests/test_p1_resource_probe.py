@@ -120,13 +120,6 @@ def test_actual_child_fd_and_unlinked_file_census(tmp_path):
     (directory/'result.json').write_text(json.dumps(receipt,indent=2)+'\n')
 
 
-def test_workflow_keeps_actual_probe_on_both_host_minor_cells():
-    text=(ROOT/'.github/workflows/live-host.yml').read_text()
-    segment=text.split('- name: P1 real prepared command and callback on both Python minors',1)[1].split('- name:',1)[0]
-    assert 'for py in "$PY311" "$PY314"' in segment
-    assert 'tests/test_p1_resource_probe.py' in segment
-    assert 'P1_RESOURCE_EVIDENCE="$PWD/build/live-evidence/p1-resource-py$version"' in segment
-    assert 'P1 resource observer tool availability' in text
 
 
 def allocation_data():

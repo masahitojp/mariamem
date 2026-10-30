@@ -225,7 +225,8 @@ def test_required_hosts_run_new_entry_controls_for_both_python_minors():
     assert 'cp tests/evidence/alpha-wheel.json build/live-evidence/p1-wheel.json' in runtime
     assert "P1_RESOURCE_EXPERIMENT: '0'" in runtime
     assert 'tests/test_routing_pytest.py tests/test_owned_snapshot_unit.py' in runtime
-    assert 'tests/test_p1_resource_probe.py' not in runtime
+    for deferred in ('test_p1_resource_probe.py', 'test_p1_resource_guard.py', 'test_p1_observation_barrier.py'):
+        assert deferred not in runtime
 
 
 def test_expected_assertion_cannot_hide_final_source_cleanup_error(tmp_path):

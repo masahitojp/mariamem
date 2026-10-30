@@ -20,5 +20,7 @@ These notes describe source candidates, not a published version or release appro
   Application output is labeled as such; no application root cause is inferred.
 
 See [Python usage and compatibility](../python.md#prepared-command-entry).
-Required-host/minor P1 runtime/resource evidence remains pending; local controlled
-owners are not full acceptance. No version, tag, Qualification or publication is implied.
+P1 follows the [fixed exit](../decisions/p1-fixed-exit-v060.md): entry lifecycle
+correctness remains required; detailed resource characterization is deferred to
+v0.7.x. Final candidate acceptance and adoption remain pending; controlled owners
+are component evidence. No version, tag, Qualification or publication is implied.

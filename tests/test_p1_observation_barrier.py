@@ -127,11 +127,6 @@ def test_nonfinite_or_invalid_timeout_is_rejected(tmp_path,timeout):
     finally:cleanup(owners)
 
 
-def test_required_hosts_run_cooperative_barrier_controls():
-    workflow=(ROOT/'.github/workflows/live-host.yml').read_text()
-    step=workflow.split('- name: P1 real prepared command and callback on both Python minors',1)[1].split('- name:',1)[0]
-    assert 'for py in "$PY311" "$PY314"' in step
-    assert 'tests/test_p1_observation_barrier.py' in step
 
 
 def test_retained_owners_stay_parked_across_one_two_three_samples(tmp_path):
