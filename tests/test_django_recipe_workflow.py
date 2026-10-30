@@ -39,14 +39,12 @@ def test_single_host_retains_both_source_bound_python_campaigns():
     assert 'check_reference(reference, args.expected_source_commit, current_inputs, minor)' in ci
 
 
-@pytest.mark.parametrize('step', [
-    'Pure ownership and receipt mutation checks on both interpreters',
-    'Standard runner, mixed orders, original errors and owner disposal on both interpreters',
-])
 @pytest.mark.parametrize('failed_minor', ['', '3.11', '3.14'])
-def test_both_interpreters_execute_and_either_failure_fails_job(tmp_path, step, failed_minor):
+def test_both_interpreters_execute_and_either_failure_fails_job(tmp_path, failed_minor):
     # Execute the actual workflow shell, substituting only Python entrypoints.
-    script = step_script(WORKFLOW.read_text(), step)
+    # Portable units are owned by the shared matrix (test_release_features.py).
+    script = step_script(WORKFLOW.read_text(),
+                         'Standard runner, mixed orders, original errors and owner disposal on both interpreters')
     paths = {}
     for minor in ['3.11', '3.14']:
         executable = tmp_path/('python'+minor)
@@ -64,7 +62,6 @@ def test_both_interpreters_execute_and_either_failure_fails_job(tmp_path, step, 
     observed = calls.read_text().splitlines()
     assert len(observed) == 2
     assert observed[0].startswith('3.11 ') and observed[1].startswith('3.14 ')
-    if step.startswith('Standard'):
-        assert 'py3.11/reference' in observed[0] and 'py3.11/acceptance' in observed[0]
-        assert 'py3.14/reference' in observed[1] and 'py3.14/acceptance' in observed[1]
-        assert all('--host build/mariamem-host' in row for row in observed)
+    assert 'py3.11/reference' in observed[0] and 'py3.11/acceptance' in observed[0]
+    assert 'py3.14/reference' in observed[1] and 'py3.14/acceptance' in observed[1]
+    assert all('--host build/mariamem-host' in row for row in observed)

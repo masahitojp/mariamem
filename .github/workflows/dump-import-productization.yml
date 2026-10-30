@@ -31,10 +31,9 @@ jobs:
           python-version: '3.14'
       - name: Fixed test-only dependencies
         run: python -m pip install --no-cache-dir pytest==9.0.2 setuptools==80.9.0 wheel==0.45.1 -r tests/preparation_migration_acceptance/requirements.txt
-      - name: Input, framing and failure classifier controls
+      - name: Native acquisition failure classifier controls
         run: |
           python -m unittest discover -s tests/dump_import_acceptance -p test_linux_acquisition.py -v
-          PYTHONPATH=python python -m pytest tests/test_dump_import.py -q
       - name: Exact producer preflight and canonical byte binding
         env:
           NATIVE_CONTAINER: ${{ job.services.mariadb.id }}

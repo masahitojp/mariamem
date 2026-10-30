@@ -63,9 +63,15 @@ implementation; unresolved hosted behavior remains explicit rather than adding
 an unrequested release run.
 
 Pure routing compatibility, preparation receipts and dump policy/binding oracles
-have one shared owner at each supported Python/pytest boundary. Installed dump,
-Django/P1/Live and both-OS runtime cases retain their existing owners; core full
-pytest retains its independent baseline. Fresh release qualification still runs
+have one shared owner at each supported Python/pytest boundary. The Human also
+authorized the remaining portable feature-unit consolidation: P1 native/fixture
+design mutations, Live observation oracles and Django owner/receipt mutations
+join that owner; Live drops its repeated routing compatibility invocation. The
+ownership check covers all six callables. Dump drops the native producer's
+source-only repeat while keeping installed-wheel tests on both OS/Python minors.
+Live's real process/pipe/signal/socket controls and all installed/runtime feature
+cases retain their platform/interpreter owners; core full pytest retains its
+independent baseline. Fresh release qualification still runs
 all six feature suites. After both-platform READY and complete feature success,
 CI records the exact source, final asset hashes, original run and all required
 results in an authenticated artifact. Automatic READY reuse skips the shared
