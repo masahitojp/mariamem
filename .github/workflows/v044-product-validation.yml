@@ -1,77 +1,141 @@
-name: Runtime qualification (v1)
+# Experiment-branch-only one-off authorized for Issue19; never merge this override.
+name: dbt fixed replay — Ubuntu experiment
+run-name: dbt1.7 Ubuntu replay at ${{ inputs.candidate_ref }}
 on:
   workflow_dispatch:
     inputs:
       candidate_ref:
-        description: Exact remotely fetchable candidate SHA (no publication)
+        description: Exact experiment commit (dbt replay only; no qualification or publication)
         type: string
         required: true
 permissions:
   contents: read
 jobs:
-  qualify:
-    name: Runtime qualification — ${{ matrix.platform }}
-    runs-on: ${{ matrix.runner }}
-    timeout-minutes: 90
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - runner: macos-15
-            platform: darwin-arm64
-          - runner: ubuntu-24.04
-            platform: ubuntu24.04-x86_64
+  dbt:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      SOURCE_COMMIT: ${{ inputs.candidate_ref }}
+      CGO_ENABLED: '0'
+      GOTOOLCHAIN: go1.26.10
+      DBT_SEND_ANONYMOUS_USAGE_STATS: 'false'
+      DO_NOT_TRACK: '1'
+    services:
+      mariadb:
+        image: mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+        ports:
+          - 33319:3306
+        options: >-
+          --health-cmd "healthcheck.sh --connect --innodb_initialized"
+          --health-interval 5s --health-timeout 5s --health-retries 24
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
-          ref: ${{ inputs.candidate_ref || github.sha }}
+          ref: ${{ inputs.candidate_ref }}
           fetch-depth: 0
-      - name: Freeze candidate identity and native platform
-        env:
-          CANDIDATE: ${{ inputs.candidate_ref || github.sha }}
-          PLATFORM: ${{ matrix.platform }}
-        run: |
-          [[ "$CANDIDATE" =~ ^[0-9a-f]{40}$ ]]
-          test "$(git rev-parse HEAD)" = "$CANDIDATE"
-          test "$(git cat-file -t "$CANDIDATE")" = commit
-          test "$CANDIDATE" = "$GITHUB_SHA"
-          case "$PLATFORM" in
-            darwin-arm64) test "$(uname -m)" = arm64 ;;
-            ubuntu24.04-x86_64) test "$(uname -m)" = x86_64 ;;
-          esac
-          echo "CANDIDATE_SHA=$CANDIDATE" >> "$GITHUB_ENV"
-          echo "VALIDATION=$RUNNER_TEMP/runtime-qualification" >> "$GITHUB_ENV"
-          echo "Candidate commit: $CANDIDATE" >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.10'
-          cache: false
+          cache: true
+          cache-dependency-path: |
+            go.mod
+            go.sum
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
-          python-version: '3.14'
-      - name: Install deterministic validation dependencies
-        run: python -m pip install --no-cache-dir pytest==8.4.2 -r tests/routing_acceptance/unit-requirements.txt
-      - name: Source and runtime correctness (no artifacts or benchmarks)
+          python-version: '3.11'
+      - name: Require exact source and native Ubuntu host
+        env:
+          SERVICE_ID: ${{ job.services.mariadb.id }}
         run: |
-          python scripts/validate_product_candidate.py --candidate-sha "$CANDIDATE_SHA" \
-            --platform '${{ matrix.platform }}' --workspace "$VALIDATION" --disposable-checkout
-      - name: Upload compact decision evidence
-        if: always()
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
-        with:
-          name: runtime-${{ matrix.platform }}-${{ inputs.candidate_ref || github.sha }}
-          path: ${{ runner.temp }}/runtime-qualification/evidence
-          if-no-files-found: error
-          retention-days: 90
-      - name: Remove disposable scratch after interruption
-        if: always()
-        shell: python
-        run: |
-          import os
+          mkdir -p "$RUNNER_TEMP/dbt-replay/meta"
+          python scripts/git_identity.py inspect HEAD > "$RUNNER_TEMP/dbt-replay/meta/source.json"
+          python - <<'PY'
+          import json, os, platform, subprocess
           from pathlib import Path
-          import sys
-          sys.path.insert(0, "scripts")
-          from experiment_workspace import remove_disposable_tree
-          path=Path(os.environ['RUNNER_TEMP'])/'runtime-qualification'/'scratch'
-          if path.exists():
-              remove_disposable_tree(path)
+          source = os.environ['SOURCE_COMMIT']
+          assert len(source) == 40 and all(c in '0123456789abcdef' for c in source)
+          assert source == os.environ['GITHUB_SHA'], 'workflow and candidate differ'
+          assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip() == source
+          assert not subprocess.check_output(['git','status','--porcelain'])
+          assert platform.system() == 'Linux' and platform.machine() == 'x86_64'
+          release = dict(line.split('=',1) for line in Path('/etc/os-release').read_text().splitlines() if '=' in line)
+          assert release['ID'].strip('"') == 'ubuntu' and release['VERSION_ID'].strip('"') == '24.04'
+          metadata = dict(source_commit=source, workflow_sha=os.environ['GITHUB_SHA'],
+                          run_id=os.environ['GITHUB_RUN_ID'], attempt=os.environ['GITHUB_RUN_ATTEMPT'],
+                          platform=platform.platform(), machine=platform.machine(), os_release=release,
+                          scope='fixed dbt1.7 replay only; not Qualification or release')
+          Path(os.environ['RUNNER_TEMP'],'dbt-replay/meta/run.json').write_text(json.dumps(metadata,indent=2)+'\n')
+          PY
+          docker inspect "$SERVICE_ID" > "$RUNNER_TEMP/dbt-replay/meta/container.json"
+          docker image inspect mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e > "$RUNNER_TEMP/dbt-replay/meta/image.json"
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          p=Path(os.environ['RUNNER_TEMP'],'dbt-replay/meta')
+          image=json.loads((p/'image.json').read_text())[0]
+          container=json.loads((p/'container.json').read_text())[0]
+          assert image['Architecture']=='amd64' and image['Os']=='linux'
+          assert container['Image']==image['Id']
+          assert 'mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e' in image['RepoDigests']
+          PY
+      - name: Restore original fixed dbt dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --no-cache-dir --report "$RUNNER_TEMP/dbt-replay/meta/install.json" -r tests/dbt_revalidation/requirements-py311.txt > "$RUNNER_TEMP/dbt-replay/meta/install.txt" 2>&1
+          python -m pip check
+      - name: Build exact source-stamped guest host
+        run: |
+          go build -p 1 -trimpath -o "$RUNNER_TEMP/dbt-replay/mariamem-host" ./cmd/mariamem-host
+          go version -m "$RUNNER_TEMP/dbt-replay/mariamem-host" > "$RUNNER_TEMP/dbt-replay/meta/host-buildinfo.txt"
+      - name: Native and guest replay at threads1 and4
+        run: |
+          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/dbt-replay" --min-free-gib 4 --budget-gib 4 --timeout 1200 -- python tests/dbt_revalidation/run.py --source-commit "$SOURCE_COMMIT" --host-binary "$RUNNER_TEMP/dbt-replay/mariamem-host" --native-port 33319 --output "$RUNNER_TEMP/dbt-replay/evidence"
+      - name: Require complete replay receipt
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          p=Path(os.environ['RUNNER_TEMP'],'dbt-replay/evidence/result.json')
+          r=json.loads(p.read_text())
+          assert r['source_commit']==os.environ['SOURCE_COMMIT']
+          assert r['machine']=='x86_64' and r['result']=='PASS' and not r['errors']
+          assert r['exact_application_row_parity'] is True
+          assert {(x['route'],x['threads']) for x in r['runs']}=={('native',1),('native',4),('guest',1),('guest',4)}
+          assert len(r['runs'])==4
+          for x in r['runs']:
+              assert x['result']=='PASS' and x['schema_count_after']==0 and len(x['steps'])==9
+              assert x['customer_data_type'] in ('text','tinytext','mediumtext','longtext')
+              assert x['failure_oracle']['exit_code']==1
+              assert sorted(x['failure_oracle']['statuses'])==['fail','pass','pass']
+              if x['route']=='guest':
+                  assert x['connections_after']==0 and x['host_reaped'] is True and x['session_directory_removed'] is True
+          PY
+      - name: Retain service diagnostics and clean owned native schema
+        if: always()
+        env:
+          SERVICE_ID: ${{ job.services.mariadb.id }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/dbt-replay/meta"
+          docker logs "$SERVICE_ID" > "$RUNNER_TEMP/dbt-replay/meta/native-startup.txt" 2>&1
+          docker exec "$SERVICE_ID" mariadb -uroot -e 'DROP DATABASE IF EXISTS test; SELECT COUNT(*) AS schema_count_after FROM information_schema.schemata WHERE schema_name="test";' > "$RUNNER_TEMP/dbt-replay/meta/native-cleanup.txt"
+      - name: Hash preserved files
+        if: always()
+        run: |
+          python - <<'PY'
+          import hashlib,json,os
+          from pathlib import Path
+          root=Path(os.environ['RUNNER_TEMP'],'dbt-replay')
+          files={str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest()
+                 for area in ('meta','evidence') for p in (root/area).rglob('*') if p.is_file() and p.name!='SHA256SUMS.json'}
+          (root/'meta/SHA256SUMS.json').write_text(json.dumps(files,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: dbt-ubuntu-${{ inputs.candidate_ref }}
+          path: |
+            ${{ runner.temp }}/dbt-replay/meta
+            ${{ runner.temp }}/dbt-replay/evidence
+          if-no-files-found: error
+          retention-days: 14
