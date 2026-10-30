@@ -1,0 +1,122 @@
+{
+  "source_commit": "d38deb043bc84bda064cee06b8568bc5174b744c",
+  "result": "PASS_BOUNDED_WORKFLOW",
+  "commands": [
+    {
+      "language": "python",
+      "stage": "first",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.11/bin/python",
+        "-m",
+        "pytest",
+        "docs/examples/e2e_owned/python/test_orders.py",
+        "-q",
+        "--junitxml=<CI_RUNNER>/work/mariamem/mariamem/build/live-evidence/owned-workflow-py3.11/first.xml",
+        "-k",
+        "first"
+      ],
+      "elapsed_seconds": 1.6113087090000136,
+      "returncode": 0
+    },
+    {
+      "language": "go",
+      "stage": "first",
+      "command": [
+        "go",
+        "test",
+        "-p",
+        "1",
+        "./docs/examples/e2e_owned/go",
+        "-run",
+        "^TestOwnedOrders$/^first$",
+        "-count=1",
+        "-json"
+      ],
+      "elapsed_seconds": 1.7216476250000028,
+      "returncode": 0
+    },
+    {
+      "language": "python",
+      "stage": "second",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.11/bin/python",
+        "-m",
+        "pytest",
+        "docs/examples/e2e_owned/python/test_orders.py",
+        "-q",
+        "--junitxml=<CI_RUNNER>/work/mariamem/mariamem/build/live-evidence/owned-workflow-py3.11/second.xml"
+      ],
+      "elapsed_seconds": 2.6197568329999967,
+      "returncode": 0
+    },
+    {
+      "language": "go",
+      "stage": "second",
+      "command": [
+        "go",
+        "test",
+        "-p",
+        "1",
+        "./docs/examples/e2e_owned/go",
+        "-run",
+        "^TestOwnedOrders$",
+        "-count=1",
+        "-json"
+      ],
+      "elapsed_seconds": 1.2560884999999757,
+      "returncode": 0
+    },
+    {
+      "language": "python",
+      "stage": "repeat",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.11/bin/python",
+        "-m",
+        "pytest",
+        "docs/examples/e2e_owned/python/test_orders.py",
+        "-q",
+        "--junitxml=<CI_RUNNER>/work/mariamem/mariamem/build/live-evidence/owned-workflow-py3.11/repeat.xml"
+      ],
+      "elapsed_seconds": 1.7885441249999872,
+      "returncode": 0
+    },
+    {
+      "language": "go",
+      "stage": "repeat",
+      "command": [
+        "go",
+        "test",
+        "-p",
+        "1",
+        "./docs/examples/e2e_owned/go",
+        "-run",
+        "^TestOwnedOrders$",
+        "-count=1",
+        "-json"
+      ],
+      "elapsed_seconds": 1.05767554199997,
+      "returncode": 0
+    }
+  ],
+  "acquisition": "existing CI toolchain/dependencies/cache; cold setup unmeasured",
+  "human_edit_seconds": null,
+  "second_test_edit": "add second case name to the existing parametrization; no additional lifecycle block",
+  "phase": "whole test-command wall time, including its setup/cases/cleanup; not an isolated Reset benchmark",
+  "second_test_edits": {
+    "python": {
+      "path": "docs/examples/e2e_owned/python/test_orders.py",
+      "before": "[\"first\"]",
+      "after": "[\"first\", \"second\"]"
+    },
+    "go": {
+      "path": "docs/examples/e2e_owned/go/entry_test.go",
+      "before": "[]string{\"first\"}",
+      "after": "[]string{\"first\", \"second\"}"
+    }
+  },
+  "inputs_sha256": {
+    "docs/examples/e2e_owned/python/test_orders.py": "d23437e03bf5eb897bfe9a84b106df327580eb6124f3873f5afd141f5481728f",
+    "docs/examples/e2e_owned/go/entry_test.go": "f78b997f8759f51a3d90a950c3ba09a6a90b619a0ae6d770e9348ca476b80821",
+    "scripts/e2e_workflow_timing.py": "0f74a3fe23bcb64339a26debc69b3a849a3c06be8420e23ce5874e8761f47d19"
+  }
+}

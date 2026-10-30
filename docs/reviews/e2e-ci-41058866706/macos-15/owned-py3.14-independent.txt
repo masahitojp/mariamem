@@ -1,0 +1,28 @@
+Operations to perform:
+  Apply all migrations: orders
+Running migrations:
+  Applying orders.0001_initial... OK
+  Applying orders.0002_status... OK
+E2E_NUMERIC_HTTP_BIND address=127.0.0.1 port=51486
+[30/Oct/2026 08:37:18] "GET /healthz HTTP/1.1" 200 77
+Operations to perform:
+  Apply all migrations: orders
+Running migrations:
+  Applying orders.0001_initial... OK
+  Applying orders.0002_status... OK
+E2E_NUMERIC_HTTP_BIND address=127.0.0.1 port=51500
+[30/Oct/2026 08:37:19] "GET /healthz HTTP/1.1" 200 77
+[30/Oct/2026 08:37:19] "GET /orders HTTP/1.1" 200 622
+[30/Oct/2026 08:37:19] "POST /orders HTTP/1.1" 302 0
+[30/Oct/2026 08:37:19] "GET /orders?created=1 HTTP/1.1" 200 682
+[30/Oct/2026 08:37:20] "GET /orders HTTP/1.1" 200 622
+[30/Oct/2026 08:37:20] "GET /orders?created=1 HTTP/1.1" 200 682
+[30/Oct/2026 08:37:20] "GET /orders HTTP/1.1" 200 622
+[30/Oct/2026 08:37:20] "GET /orders HTTP/1.1" 200 622
+[30/Oct/2026 08:37:20] "POST /orders HTTP/1.1" 302 0
+[30/Oct/2026 08:37:20] "GET /orders?created=1 HTTP/1.1" 200 682
+[30/Oct/2026 08:37:20] "GET /orders HTTP/1.1" 200 622
+[30/Oct/2026 08:37:20] "GET /orders?created=1 HTTP/1.1" 200 682
+[30/Oct/2026 08:37:21] "GET /orders HTTP/1.1" 200 622
+.
+1 passed in 3.82s

@@ -1,0 +1,18 @@
+=== RUN   TestOwnedOrders
+=== RUN   TestOwnedOrders/first
+=== RUN   TestOwnedOrders/second
+--- PASS: TestOwnedOrders (0.44s)
+    --- PASS: TestOwnedOrders/first (0.11s)
+    --- PASS: TestOwnedOrders/second (0.11s)
+=== RUN   TestOwnedIndependentOwners
+=== RUN   TestOwnedIndependentOwners/forward
+=== RUN   TestOwnedIndependentOwners/forward/independent
+=== RUN   TestOwnedIndependentOwners/reverse
+=== RUN   TestOwnedIndependentOwners/reverse/independent
+--- PASS: TestOwnedIndependentOwners (0.84s)
+    --- PASS: TestOwnedIndependentOwners/forward (0.21s)
+        --- PASS: TestOwnedIndependentOwners/forward/independent (0.10s)
+    --- PASS: TestOwnedIndependentOwners/reverse (0.20s)
+        --- PASS: TestOwnedIndependentOwners/reverse/independent (0.10s)
+PASS
+ok  	github.com/masahitojp/mariamem/docs/examples/e2e_owned/go	1.288s

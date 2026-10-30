@@ -1,0 +1,13 @@
+{
+  "source_commit": "ba96a799b4e1030c14c59e59289a23b603e55bfb",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "go": "go1.26.10",
+  "real_engine_controls": [
+    "idle physical session rejects Reset with ErrBusy and unchanged generation",
+    "retirement allows first/next seed restoration",
+    "public Case body blocked on busy setup and later latched admission; exact expected child failures; app close confirmed"
+  ],
+  "scope": "controlled app hook; actual embedded DB/Live/driver TCP sessions; no HTTP app/browser or general job scheduler claim",
+  "component_package": "PASS",
+  "required_host_ci": "PENDING for these new controls"
+}

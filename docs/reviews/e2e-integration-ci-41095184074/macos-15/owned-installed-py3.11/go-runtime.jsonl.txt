@@ -1,0 +1,16 @@
+{"Time":"2026-10-30T17:15:59.36605Z","Action":"start","Package":"example.com/owned-consumer"}
+{"Time":"2026-10-30T17:15:59.379748Z","Action":"run","Package":"example.com/owned-consumer","Test":"TestOwnedOrders"}
+{"Time":"2026-10-30T17:15:59.379901Z","Action":"output","Package":"example.com/owned-consumer","Test":"TestOwnedOrders","Output":"=== RUN   TestOwnedOrders\n"}
+{"Time":"2026-10-30T17:15:59.600377Z","Action":"run","Package":"example.com/owned-consumer","Test":"TestOwnedOrders/first"}
+{"Time":"2026-10-30T17:15:59.600429Z","Action":"output","Package":"example.com/owned-consumer","Test":"TestOwnedOrders/first","Output":"=== RUN   TestOwnedOrders/first\n"}
+{"Time":"2026-10-30T17:15:59.676434Z","Action":"output","Package":"example.com/owned-consumer","Test":"TestOwnedOrders/first","Output":"--- PASS: TestOwnedOrders/first (0.08s)\n"}
+{"Time":"2026-10-30T17:15:59.676494Z","Action":"pass","Package":"example.com/owned-consumer","Test":"TestOwnedOrders/first","Elapsed":0.08}
+{"Time":"2026-10-30T17:15:59.676514Z","Action":"run","Package":"example.com/owned-consumer","Test":"TestOwnedOrders/second"}
+{"Time":"2026-10-30T17:15:59.676519Z","Action":"output","Package":"example.com/owned-consumer","Test":"TestOwnedOrders/second","Output":"=== RUN   TestOwnedOrders/second\n"}
+{"Time":"2026-10-30T17:15:59.751375Z","Action":"output","Package":"example.com/owned-consumer","Test":"TestOwnedOrders/second","Output":"--- PASS: TestOwnedOrders/second (0.07s)\n"}
+{"Time":"2026-10-30T17:15:59.751468Z","Action":"pass","Package":"example.com/owned-consumer","Test":"TestOwnedOrders/second","Elapsed":0.07}
+{"Time":"2026-10-30T17:15:59.755284Z","Action":"output","Package":"example.com/owned-consumer","Test":"TestOwnedOrders","Output":"--- PASS: TestOwnedOrders (0.38s)\n"}
+{"Time":"2026-10-30T17:15:59.755388Z","Action":"pass","Package":"example.com/owned-consumer","Test":"TestOwnedOrders","Elapsed":0.38}
+{"Time":"2026-10-30T17:15:59.755406Z","Action":"output","Package":"example.com/owned-consumer","Output":"PASS\n"}
+{"Time":"2026-10-30T17:15:59.755875Z","Action":"output","Package":"example.com/owned-consumer","Output":"ok  \texample.com/owned-consumer\t0.389s\n"}
+{"Time":"2026-10-30T17:15:59.755903Z","Action":"pass","Package":"example.com/owned-consumer","Elapsed":0.39}

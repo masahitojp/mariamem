@@ -1,0 +1,81 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41081445103",
+  "operation": "verify",
+  "publication": false,
+  "source_commit": "77db4c2cb5be106488fe819343fe6e67b40910d8",
+  "main_baseline": "4a7966becba65bda45de5a63b8823507bb3ad9e7",
+  "feature_live": "SUCCESS",
+  "feature_live_gate": "SUCCESS",
+  "overall_verify": "SUCCESS",
+  "full_artifact_digests_verified": true,
+  "hosts": [
+    {
+      "host": "macos-15",
+      "artifact_id": 12993515273,
+      "artifact_sha256": "a7c388e2ddae85d0e6d0810b770d5430d03668680b8a25b2d73f24a5c089459e",
+      "go_independent": "PASS",
+      "go_physical": "PASS",
+      "g1": "PASS",
+      "cells": [
+        {
+          "python_minor": "3.11",
+          "component_tests": 17,
+          "independent": "PASS",
+          "retirement": "PASS",
+          "installed": "PASS",
+          "workflow": "PASS",
+          "cleanup": "complete"
+        },
+        {
+          "python_minor": "3.14",
+          "component_tests": 17,
+          "independent": "PASS",
+          "retirement": "PASS",
+          "installed": "PASS",
+          "workflow": "PASS",
+          "cleanup": "complete"
+        }
+      ]
+    },
+    {
+      "host": "ubuntu-24.04",
+      "artifact_id": 12991852621,
+      "artifact_sha256": "ce8ddf69f2042b35456407c7faf5c34c86775f9196ddc695ff0edd66b66aab95",
+      "go_independent": "PASS",
+      "go_physical": "PASS",
+      "g1": "PASS",
+      "cells": [
+        {
+          "python_minor": "3.11",
+          "component_tests": 17,
+          "independent": "PASS",
+          "retirement": "PASS",
+          "installed": "PASS",
+          "workflow": "PASS",
+          "cleanup": "complete"
+        },
+        {
+          "python_minor": "3.14",
+          "component_tests": 17,
+          "independent": "PASS",
+          "retirement": "PASS",
+          "installed": "PASS",
+          "workflow": "PASS",
+          "cleanup": "complete"
+        }
+      ]
+    }
+  ],
+  "aggregate_guard": "READY",
+  "verification_platforms": {
+    "darwin-arm64": "READY",
+    "ubuntu24.04-x86_64": "READY"
+  },
+  "ready_artifact": {
+    "id": 12994349579,
+    "sha256": "e116850d2292e3c284603cdbced845dda32c80cb00a681df25e6f38b3a71fdab",
+    "full_zip_digest_verified": true
+  },
+  "release_metadata": "0.5.3 (unchanged; no versioned release requested)",
+  "annotation": "Aggregate step-summary upload exceeded GitHub 1 MiB limit; guard and workflow succeeded, machine-readable READY artifact saved."
+}

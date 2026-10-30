@@ -1,0 +1,47 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/40961347571",
+  "event": "workflow_dispatch",
+  "actual_ci_source_commit": "694e8911a817309d077bcfc441a5a8ca01dfe81c",
+  "conclusion": "success",
+  "required_gate": "success",
+  "artifact_zip_digests_verified": true,
+  "hosts": [
+    {
+      "host": "macos-15",
+      "artifact_id": 12937533573,
+      "artifact_sha256": "254e338345281d16dc7c3942e49507a81e0a75102e5d4c310b5878dfd91731c0",
+      "physical_controls": "PASS",
+      "installed_cells": [
+        {
+          "python_minor": "3.11",
+          "result": "PASS_INSTALLED_OWNED",
+          "temporary_cleanup": "complete"
+        },
+        {
+          "python_minor": "3.14",
+          "result": "PASS_INSTALLED_OWNED",
+          "temporary_cleanup": "complete"
+        }
+      ]
+    },
+    {
+      "host": "ubuntu-24.04",
+      "artifact_id": 12937253751,
+      "artifact_sha256": "f4b86dd14e215d25f491c3b8a6dc41a59f54b07579ce5749ef60d53178bad81e",
+      "physical_controls": "PASS",
+      "installed_cells": [
+        {
+          "python_minor": "3.11",
+          "result": "PASS_INSTALLED_OWNED",
+          "temporary_cleanup": "complete"
+        },
+        {
+          "python_minor": "3.14",
+          "result": "PASS_INSTALLED_OWNED",
+          "temporary_cleanup": "complete"
+        }
+      ]
+    }
+  ],
+  "scope": "Existing owned examples, installed consumers, Go real physical-session and registered-job controls; not the unfinished EP1/EG1 resource campaign or later test source b20decac."
+}

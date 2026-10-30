@@ -1,0 +1,8 @@
+=== RUN   TestHTTPPhysicalRegisteredJobJoinsBeforeReset
+    http_jobs_runtime_test.go:302: registered job pause -> actual transaction join -> physical retirement -> Reset -> Resume; seed restored [job_start pause job_done join reset resume]
+--- PASS: TestHTTPPhysicalRegisteredJobJoinsBeforeReset (0.18s)
+=== RUN   TestHTTPPhysicalUnjoinedJobRejectedByDrain
+    http_jobs_runtime_test.go:335: lying join hook hit actual physical-session drain; no generation commit, Resume or later admission
+--- PASS: TestHTTPPhysicalUnjoinedJobRejectedByDrain (0.19s)
+PASS
+ok  	github.com/masahitojp/mariamem/mariamemtest	1.229s

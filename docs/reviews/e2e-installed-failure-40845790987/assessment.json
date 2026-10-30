@@ -1,0 +1,12 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/40845790987",
+  "job_id": 123353974310,
+  "artifact_id": 12885763511,
+  "artifact_sha256": "180037def13964d53861f1f3d11556b7310bd00a078da333d120b09d9ee1049b",
+  "github_digest_matched": true,
+  "pr_head": "a4e8385d781a794d2856033d1addcd5474c4bbfb",
+  "actual_ci_source_commit": "5f67a3d72203ef2381d576e7c957f7bb4a3e3901",
+  "failure": "bootstrap passed purelib as get_paths scheme; KeyError before resource creation",
+  "other_found_gap": "relative browser cache changes meaning in external consumer cwd; deterministically guarded, not the observed CI failure",
+  "fix": "get_path(purelib); resolve browser cache at launch; execute actual bootstrap preflight in regression test"
+}

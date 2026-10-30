@@ -1,0 +1,87 @@
++ /private/tmp/mariamem-e2e-implementation/build/e2e-venv/bin/python scripts/check_version.py
+Release version: Python 0.5.3; Git/Go v0.5.3
++ /private/tmp/mariamem-e2e-implementation/build/e2e-venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ /private/tmp/mariamem-e2e-implementation/build/e2e-venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q
+...............................                                          [100%]
+31 passed in 1.11s
++ go test -p 1 ./...
+ok  	github.com/masahitojp/mariamem	1.156s
+?   	github.com/masahitojp/mariamem/benchmarks/defaultsanity	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/goisolation	0.250s
+?   	github.com/masahitojp/mariamem/benchmarks/memorylifetime	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/ownedprepared	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/platform-cache	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/snapshotallocation	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/ubuntu-startup	0.251s
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/docs/examples/e2e_owned/go	0.618s
+ok  	github.com/masahitojp/mariamem/docs/examples/live/go	0.808s
+ok  	github.com/masahitojp/mariamem/internal/artifacts	0.268s
+ok  	github.com/masahitojp/mariamem/internal/control	0.787s
+ok  	github.com/masahitojp/mariamem/internal/diagnostic	0.224s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.861s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.559s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	0.769s
+ok  	github.com/masahitojp/mariamem/internal/host	0.305s
+ok  	github.com/masahitojp/mariamem/internal/live	0.274s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	0.304s
+ok  	github.com/masahitojp/mariamem/internal/prepared	0.302s
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	0.287s
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	0.515s
+ok  	github.com/masahitojp/mariamem/internal/timing	0.282s
+ok  	github.com/masahitojp/mariamem/mariamemtest	0.340s
+?   	github.com/masahitojp/mariamem/scripts/guest_smoke	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/platform_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/tests/e2e_native_control/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_owner	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_active	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_lifetime	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routine_probe	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routing_acceptance	[no test files]
++ go vet -p 1 -vettool=/private/tmp/mariamem-e2e-implementation/scripts/vet_generated.py ./...
++ /private/tmp/mariamem-e2e-implementation/build/e2e-venv/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py -q
+.........................ssss.................. [  3%]
+........................................................................ [  9%]
+................s....................................................... [ 14%]
+........................................................................ [ 20%]
+........................................................................ [ 25%]
+.................................................................. [ 30%]
+........................................................................ [ 36%]
+.....................sss.................................... [ 41%]
+........................................................................ [ 46%]
+....................................................................sssssssss..................................................... [ 56%]
+........................................................................ [ 62%]
+........................................................................ [ 67%]
+...................................................ssssssssssssss....... [ 73%]
+........................................................................ [ 78%]
+..............sssssss................................................... [ 84%]
+............................................... [ 87%]
+........................................................................ [ 93%]
+.........sssssss....................s.........sss....................... [ 98%]
+..............                                                           [100%]
+=============================== warnings summary ===============================
+tests/routing_acceptance/test_pytest_native.py:7
+  /private/tmp/mariamem-e2e-implementation/tests/routing_acceptance/test_pytest_native.py:7: PytestUnknownMarkWarning: Unknown pytest.mark.shadow_maria - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytest.mark.shadow_maria]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1251 passed, 51 skipped, 1 warning, 82 subtests passed in 80.68s (0:01:20)
++ /private/tmp/mariamem-e2e-implementation/build/e2e-venv/bin/python scripts/check_public.py
+Public source check passed: 5582 files

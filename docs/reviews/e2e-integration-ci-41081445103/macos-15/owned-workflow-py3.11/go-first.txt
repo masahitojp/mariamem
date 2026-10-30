@@ -1,0 +1,12 @@
+{"Time":"2026-10-30T16:12:01.25959Z","Action":"start","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go"}
+{"Time":"2026-10-30T16:12:01.278717Z","Action":"run","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders"}
+{"Time":"2026-10-30T16:12:01.278961Z","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders","Output":"=== RUN   TestOwnedOrders\n"}
+{"Time":"2026-10-30T16:12:01.564393Z","Action":"run","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders/first"}
+{"Time":"2026-10-30T16:12:01.564492Z","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders/first","Output":"=== RUN   TestOwnedOrders/first\n"}
+{"Time":"2026-10-30T16:12:01.702327Z","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders/first","Output":"--- PASS: TestOwnedOrders/first (0.14s)\n"}
+{"Time":"2026-10-30T16:12:01.702405Z","Action":"pass","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders/first","Elapsed":0.14}
+{"Time":"2026-10-30T16:12:01.709216Z","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders","Output":"--- PASS: TestOwnedOrders (0.43s)\n"}
+{"Time":"2026-10-30T16:12:01.709314Z","Action":"pass","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders","Elapsed":0.43}
+{"Time":"2026-10-30T16:12:01.709388Z","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Output":"PASS\n"}
+{"Time":"2026-10-30T16:12:01.710637Z","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Output":"ok  \tgithub.com/masahitojp/mariamem/docs/examples/e2e_owned/go\t0.449s\n"}
+{"Time":"2026-10-30T16:12:01.710716Z","Action":"pass","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Elapsed":0.451}

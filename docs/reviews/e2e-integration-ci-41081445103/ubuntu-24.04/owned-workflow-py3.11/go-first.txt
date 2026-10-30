@@ -1,0 +1,12 @@
+{"Time":"2026-10-30T16:04:09.597990866Z","Action":"start","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go"}
+{"Time":"2026-10-30T16:04:09.602575494Z","Action":"run","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders"}
+{"Time":"2026-10-30T16:04:09.602625327Z","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders","Output":"=== RUN   TestOwnedOrders\n"}
+{"Time":"2026-10-30T16:04:09.823553545Z","Action":"run","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders/first"}
+{"Time":"2026-10-30T16:04:09.82361499Z","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders/first","Output":"=== RUN   TestOwnedOrders/first\n"}
+{"Time":"2026-10-30T16:04:09.933508326Z","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders/first","Output":"--- PASS: TestOwnedOrders/first (0.11s)\n"}
+{"Time":"2026-10-30T16:04:09.933573478Z","Action":"pass","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders/first","Elapsed":0.11}
+{"Time":"2026-10-30T16:04:09.943848359Z","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders","Output":"--- PASS: TestOwnedOrders (0.34s)\n"}
+{"Time":"2026-10-30T16:04:09.94387031Z","Action":"pass","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Test":"TestOwnedOrders","Elapsed":0.34}
+{"Time":"2026-10-30T16:04:09.943878816Z","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Output":"PASS\n"}
+{"Time":"2026-10-30T16:04:09.948369487Z","Action":"output","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Output":"ok  \tgithub.com/masahitojp/mariamem/docs/examples/e2e_owned/go\t0.349s\n"}
+{"Time":"2026-10-30T16:04:09.948393632Z","Action":"pass","Package":"github.com/masahitojp/mariamem/docs/examples/e2e_owned/go","Elapsed":0.35}

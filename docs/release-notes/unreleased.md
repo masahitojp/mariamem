@@ -27,4 +27,16 @@ See [Python usage and compatibility](../python.md#prepared-command-entry).
 P1 follows the [fixed exit](../decisions/p1-fixed-exit-v060.md): entry lifecycle
 correctness remains required; detailed resource characterization is deferred to
 v0.7.x. The fixed-profile candidate has passed both-host/minor acceptance; main
-adoption is complete (PR26). Controlled owners are component evidence. No version, tag, Qualification or publication is implied.
+adoption is recorded by PR #26 merge4a8a6835. Controlled owners are component evidence. No version, tag, Qualification or publication is implied.
+
+### Owned E2E entry candidate (approved for main; unreleased)
+
+Adds Python `mariamem.e2e.BrowserEntry` and Go `mariamemtest.NewHTTP/Case(t)`:
+preparation once, exclusive sequential Live reset/admission, fresh browser context
+or owned HTTP client per case, partial-app cleanup registration and stop after
+setup/cleanup debt. The Human approved bounded main adoption after the declared
+functional conditions; integrated-source evidence is retained in the
+[verify-only receipt](../reviews/e2e-integration-ci-41095184074/assessment.json).
+Application hooks own physical retirement and registered work; arbitrary future
+work, hard kill and non-cooperative shutdown remain outside the guarantee.
+No published version, guest or wire contract is changed.

@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/tmp/mariamem-owned-consumer-sg0wtkic/python/bootstrap.py", line 31, in <module>
+    site=Path(sysconfig.get_paths("purelib")).resolve()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/sysconfig.py", line 616, in get_paths
+    return _expand_vars(scheme, vars)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/sysconfig.py", line 272, in _expand_vars
+    for key, value in _INSTALL_SCHEMES[scheme].items():
+                      ~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'purelib'

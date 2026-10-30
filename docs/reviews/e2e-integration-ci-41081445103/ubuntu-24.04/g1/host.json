@@ -1,0 +1,231 @@
+{
+  "result": "PASS",
+  "source_commit": "77db4c2cb5be106488fe819343fe6e67b40910d8",
+  "source_inventory_sha256": "5f05ffaacdc5254ab4411e132bd31806ce9ce3660676f07e1ca5e93413f817b3",
+  "toolchain": "go1.26.10",
+  "host": {
+    "system": "Linux",
+    "architecture": "x86_64",
+    "version": "24.04"
+  },
+  "inputs_sha256": {
+    "mariamemtest/campaign_test.go": "5703eb482aed78f832f757dc263dc7697cb59d61b1ecc0f2ab472953b2847c98",
+    "mariamemtest/fixture_test.go": "e3c32a812042981920700be48f79b6687f3a51a2f7a70b3e075688c86994d48b",
+    "scripts/go_fixture_campaign.py": "b0de6649955b74f2b7f1dc579626075e75d2a8581d98c75d948d06c9f9fc6ee5",
+    "docs/reviews/v06x-fixture-acceptance.json": "bc0a631bb1580d4e3262b7b88887f1d16056bb81d4783b336cacbbdbe0a7635f",
+    "docs/go-prepared-fixture.md": "135fd39a8cb3e23e2028b8d90191199b329eb264c1b89d1e04c8a1e896fba27b",
+    "tests/fixture_entry_acceptance/retained_baselines.sql": "6ea0c2bdf9ee4393819a7d82ca8c59f016d67cf9d78ac82acfcfc798079e6dbd"
+  },
+  "ci": {
+    "GITHUB_RUN_ID": "41081445103",
+    "GITHUB_RUN_ATTEMPT": "1",
+    "GITHUB_JOB": "live"
+  },
+  "modes": [
+    {
+      "cap": 1,
+      "parallel": 1,
+      "result": "PASS",
+      "retention": [
+        {
+          "baselines": 1,
+          "fd": 6,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 92573696,
+          "available_memory_bytes": 14994272256
+        },
+        {
+          "baselines": 2,
+          "fd": 6,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 96559104,
+          "available_memory_bytes": 15046918144
+        },
+        {
+          "baselines": 3,
+          "fd": 6,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 107356160,
+          "available_memory_bytes": 15030411264
+        }
+      ],
+      "fd_baseline_peak_final": [
+        6,
+        15,
+        6
+      ],
+      "sampled_rss_peak_bytes": 185090048,
+      "available_memory_min_bytes": 14977728512
+    },
+    {
+      "cap": 1,
+      "parallel": 4,
+      "result": "PASS",
+      "retention": [
+        {
+          "baselines": 1,
+          "fd": 6,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 99348480,
+          "available_memory_bytes": 15338262528
+        },
+        {
+          "baselines": 2,
+          "fd": 6,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 99323904,
+          "available_memory_bytes": 15291543552
+        },
+        {
+          "baselines": 3,
+          "fd": 6,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 107610112,
+          "available_memory_bytes": 15283187712
+        }
+      ],
+      "fd_baseline_peak_final": [
+        6,
+        15,
+        6
+      ],
+      "sampled_rss_peak_bytes": 184201216,
+      "available_memory_min_bytes": 15076470784
+    },
+    {
+      "cap": 2,
+      "parallel": 1,
+      "result": "PASS",
+      "retention": [
+        {
+          "baselines": 1,
+          "fd": 6,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 95842304,
+          "available_memory_bytes": 15329939456
+        },
+        {
+          "baselines": 2,
+          "fd": 6,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 96829440,
+          "available_memory_bytes": 15317340160
+        },
+        {
+          "baselines": 3,
+          "fd": 6,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 107442176,
+          "available_memory_bytes": 15329992704
+        }
+      ],
+      "fd_baseline_peak_final": [
+        6,
+        15,
+        6
+      ],
+      "sampled_rss_peak_bytes": 183816192,
+      "available_memory_min_bytes": 15226048512
+    },
+    {
+      "cap": 2,
+      "parallel": 4,
+      "result": "PASS",
+      "retention": [
+        {
+          "baselines": 1,
+          "fd": 6,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 115929088,
+          "available_memory_bytes": 15237828608
+        },
+        {
+          "baselines": 2,
+          "fd": 6,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 110628864,
+          "available_memory_bytes": 15234719744
+        },
+        {
+          "baselines": 3,
+          "fd": 6,
+          "physical_pool_connections": 0,
+          "temp_bytes": 0,
+          "rss_bytes": 109047808,
+          "available_memory_bytes": 15183278080
+        }
+      ],
+      "fd_baseline_peak_final": [
+        6,
+        24,
+        6
+      ],
+      "sampled_rss_peak_bytes": 278286336,
+      "available_memory_min_bytes": 15172116480
+    }
+  ],
+  "three_time_outcomes": {
+    "first_test_setup": {
+      "command": [
+        "go",
+        "test",
+        "<CI_RUNNER>/work/mariamem/mariamem/build/live-evidence/g1/first_test.go",
+        "-count=1",
+        "-timeout=3m"
+      ],
+      "elapsed_seconds": 220.964905844,
+      "authored_lines": 36,
+      "steps": [
+        "copy first test + TestMain preparation",
+        "go test"
+      ]
+    },
+    "second_test_edits": {
+      "command": [
+        "go",
+        "test",
+        "<CI_RUNNER>/work/mariamem/mariamem/build/live-evidence/g1/first_test.go",
+        "<CI_RUNNER>/work/mariamem/mariamem/build/live-evidence/g1/second_test.go",
+        "-count=1",
+        "-timeout=3m"
+      ],
+      "elapsed_seconds": 1.3677166310000075,
+      "added_lines": 13,
+      "repeated_lifecycle_lines": 0,
+      "steps": [
+        "add second test using fixture.DB(t)",
+        "go test both tests"
+      ]
+    },
+    "repeat_batch_elapsed": "per-mode warmup plus three observed batches",
+    "human_authoring_minutes": null,
+    "acquisition_state": "unmeasured; existing Go toolchain/module cache"
+  },
+  "build": {
+    "command": [
+      "go",
+      "test",
+      "-p",
+      "1",
+      "-c",
+      "-tags=integration",
+      "./mariamemtest",
+      "-o",
+      "<CI_RUNNER>/work/mariamem/mariamem/build/live-evidence/g1/fixture.test"
+    ],
+    "elapsed_seconds": 2.1746193120000044
+  },
+  "binary_sha256": "a159126a88dfb98c2374569441f10e61879387de3fbea82e4d703db8450c07f3",
+  "guard_probe": "PRE_ADMISSION_FD_STOP_CONFIRMED"
+}
