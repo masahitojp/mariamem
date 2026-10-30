@@ -28,7 +28,7 @@ for scale in ['small','medium']:
   phases['python-small']['excluding_first_pair_sensitivity']=dict(baseline_ms=a,candidate_ms=b,change_percent=(b/a-1)*100)
 (E/'summary.json').write_text(json.dumps(dict(rows=rows,phases=phases),indent=2)+'\n')
 with (E/'summary.csv').open('w') as f:
- w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
+ w=csv.DictWriter(f,fieldnames=list(rows[0]),lineterminator='\n');w.writeheader();w.writerows(rows)
 inputs=json.loads((E/'inputs.json').read_text());inputs['orchestrator_sha256']=hashlib.sha256((E/'run.py').read_bytes()).hexdigest();inputs['analysis_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest();inputs['cgo_enabled']='0'
 inputs['guest_sha256']={label:json.loads((E.parent/'temp'/label/'release/generated-go-inputs.json').read_text())['guest_sha256'] for label in ['baseline','candidate']}
 inputs['binary_bytes']={p.name:p.stat().st_size for p in (E.parent/'temp/bin').iterdir()}

@@ -1,6 +1,6 @@
 /private/tmp/mariamem-usage-alignment/build/experiment-work/v060-performance/temp/bin/baseline-host: go1.26.10
 	path	github.com/masahitojp/mariamem/cmd/mariamem-host
-	mod	github.com/masahitojp/mariamem	(devel)	
+	mod	github.com/masahitojp/mariamem	(devel)
 	build	-buildmode=exe
 	build	-compiler=gc
 	build	-trimpath=true

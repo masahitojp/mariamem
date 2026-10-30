@@ -98,6 +98,7 @@ independent-child and Close oracles passed. Python also checked reaped host PIDs
 and empty owned scratch. This is bounded workload correctness, not release
 qualification or a general leak guarantee.
 
+Selected diagnostic text is whitespace-normalized; measurement JSON is unchanged.
 Two preparation mistakes are preserved separately and excluded from results:
 
 1. The first linked-worktree build lacked an embedded VCS revision and was
