@@ -1,0 +1,20 @@
+[
+  {
+    "link": "https://github.com/masahitojp/mariamem/actions/runs/41063375697/job/124106117792",
+    "name": "Live required gate",
+    "state": "SUCCESS",
+    "workflow": "Live full acceptance"
+  },
+  {
+    "link": "https://github.com/masahitojp/mariamem/actions/runs/41063297858/job/124088586243",
+    "name": "check",
+    "state": "SUCCESS",
+    "workflow": "Development checks"
+  },
+  {
+    "link": "https://github.com/masahitojp/mariamem/actions/runs/41063297858/job/124088586139",
+    "name": "integration",
+    "state": "SUCCESS",
+    "workflow": "Development checks"
+  }
+]

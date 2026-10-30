@@ -1,0 +1,33 @@
+{
+  "enforce_admins": {
+    "enabled": true,
+    "url": "https://api.github.com/repos/masahitojp/mariamem/branches/main/protection/enforce_admins"
+  },
+  "required_linear_history": {
+    "enabled": false
+  },
+  "required_status_checks": {
+    "checks": [
+      {
+        "app_id": 15368,
+        "context": "check"
+      },
+      {
+        "app_id": 15368,
+        "context": "integration"
+      },
+      {
+        "app_id": 15368,
+        "context": "Live required gate"
+      }
+    ],
+    "contexts": [
+      "check",
+      "integration",
+      "Live required gate"
+    ],
+    "contexts_url": "https://api.github.com/repos/masahitojp/mariamem/branches/main/protection/required_status_checks/contexts",
+    "strict": true,
+    "url": "https://api.github.com/repos/masahitojp/mariamem/branches/main/protection/required_status_checks"
+  }
+}
