@@ -67,4 +67,5 @@ class TestE2ESelection(unittest.TestCase):
             result = subprocess.run(['bash', '-n'], input=code, text=True, capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertIn('          done', code)
+            self.assertNotIn('build_alpha.py', code, 'use the shared release-runtime wheel')
         self.assertNotRegex(text, r'(?m)^(<<<<<<<|=======|>>>>>>>)')

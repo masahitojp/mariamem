@@ -41,6 +41,9 @@ here too; both ancestry lints and both complete feature workflow steps are
 preserved. Verify41080127438 at the previous source was immediately requested
 canceled as superseded, not treated as evidence for the P1/E2E union. The exact
 new source is submitted to the same verify-only route after local checks.
+Main then advanced to4a7966be (#37); that CI-only update is incorporated too,
+including shared release-runtime wheel/host consumption. No duplicate P1 wheel
+build or standalone full workflow is reintroduced.
 
 New receipts are required for the integrated workflow/test source. The old
 CI41058866706 remains evidence for edfee478 only; it is not the integrated
