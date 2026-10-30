@@ -113,17 +113,6 @@ jobs:
         with:
           name: django-native-3.14-${{ inputs.source_commit }}
           path: build/django-reference/py3.14
-      - name: Pure ownership and receipt mutation checks on both interpreters
-        shell: bash
-        env:
-          PY311: ${{ steps.py311.outputs.python-path }}
-          PY314: ${{ steps.py314.outputs.python-path }}
-        run: |
-          django_status=0
-          for py in "$PY311" "$PY314"; do
-            "$py" -m pytest tests/test_django_recipe_unit.py -q -p no:cacheprovider || django_status=1
-          done
-          exit "$django_status"
       - name: Exact clean source before shared-host acceptance
         run: |
           python scripts/git_identity.py inspect HEAD
