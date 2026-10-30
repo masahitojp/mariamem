@@ -157,22 +157,25 @@ def test_reused_receipt_follows_immutable_original_inputs(candidate):
     assert checks[0][2:4] == (10, 20)
 
 
-def test_validate_reuse_rechecks_guard_in_disposable_source(candidate, monkeypatch):
+@pytest.mark.parametrize('combined', [True, False])
+def test_validate_reuse_rechecks_guard_in_disposable_source(candidate, monkeypatch, combined):
     (candidate / 'scripts').mkdir()
     (candidate / 'scripts/release_generated_ci.py').write_text('# fixture')
     projects = []
-    def run(args, check):
+    def run(args, check, **kwargs):
         assert check
+        if args[-1] == '--help':
+            return planner.subprocess.CompletedProcess(args, 0, stdout='restore-guard' if combined else 'restore guard')
         project = Path(args[args.index('--root') + 1])
         assert project != candidate and args[1] == str(candidate / 'scripts/release_generated_ci.py')
         projects.append(project)
-        if args[2] == 'guard':
+        if args[2] in ('guard', 'restore-guard'):
             target = project / 'build/release/ci-ready.json'
             target.parent.mkdir(parents=True)
             target.write_text(json.dumps(ready()))
     monkeypatch.setattr(planner.subprocess, 'run', run)
     planner.validate_reuse(candidate, SHA, 10, 20, ready())
-    assert len(projects) == 2 and not projects[0].exists()
+    assert len(projects) == (1 if combined else 2) and not projects[0].exists()
     assert not (candidate / 'build').exists()
     with pytest.raises(ValueError, match='identity differs'):
         planner.validate_reuse(candidate, SHA, 10, 20, {**ready(), 'assets': {'source.tar.gz': 'd' * 64}})
@@ -183,7 +186,9 @@ def test_failed_partial_restore_discards_scratch_before_full_fallback(candidate,
     (candidate / 'scripts').mkdir()
     (candidate / 'scripts/release_generated_ci.py').write_text('# fixture')
     projects = []
-    def fail(args, check):
+    def fail(args, check, **kwargs):
+        if args[-1] == '--help':
+            return planner.subprocess.CompletedProcess(args, 0, stdout='restore-guard')
         project = Path(args[args.index('--root') + 1])
         projects.append(project)
         (project / 'partial').write_text('untrusted partial restore')
@@ -224,7 +229,7 @@ def test_workflow_normal_defaults_names_and_guard_remain():
     assert 'default: verify' in workflow and 'default: auto' in workflow
     assert "run-name: '${{ inputs.operation }} -- ${{ inputs.label || inputs.candidate_ref }}'" in workflow
     assert 'python scripts/release_plan.py' in workflow
-    assert 'candidate-source/scripts/release_generated_ci.py guard' in workflow
+    assert 'python "$script" restore-guard' in workflow
     assert 'candidate-source/scripts/ci_release_publish.py' in workflow
     assert 'release_generated_ci.py public-smoke' in workflow
     assert 'candidate-source/build/release/qualification.json' in workflow

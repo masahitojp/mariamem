@@ -256,6 +256,30 @@ jobs:
         with:
           go-version: 1.26.10
           cache: false
+      - id: compiler-paths
+        if: needs.resolve.outputs.runtime_reused != 'true'
+        name: Locate compiler and module caches
+        run: |
+          echo "build=$(go env GOCACHE)" >> "$GITHUB_OUTPUT"
+          echo "modules=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
+          echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
+      - id: compiler-cache
+        if: needs.resolve.outputs.runtime_reused != 'true'
+        uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25 # v5
+        continue-on-error: true
+        with:
+          path: |
+            ${{ steps.compiler-paths.outputs.build }}
+            ${{ steps.compiler-paths.outputs.modules }}
+          # Separate ownership from the wheel cache: save after race compilation.
+          # Per-source keys let later candidates extend an immutable older cache.
+          key: release-core-race-v1-${{ runner.os }}-${{ runner.arch }}-go1.26.10-${{ hashFiles('go.mod', 'go.sum') }}-${{ needs.resolve.outputs.source_sha }}
+          restore-keys: |
+            release-core-race-v1-${{ runner.os }}-${{ runner.arch }}-go1.26.10-${{ hashFiles('go.mod', 'go.sum') }}-
+            release-core-race-v1-${{ runner.os }}-${{ runner.arch }}-go1.26.10-
+      - name: Discard restored test results; keep compiler outputs
+        if: needs.resolve.outputs.runtime_reused != 'true'
+        run: go clean -testcache
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.14'
@@ -286,6 +310,15 @@ jobs:
             --candidate-sha '${{ needs.resolve.outputs.source_sha }}' --platform '${{ matrix.platform }}' \
             --output "$RUNNER_TEMP/candidate-handoff.tar"
           cat "$RUNNER_TEMP/candidate-handoff.sha256" >> "$GITHUB_STEP_SUMMARY"
+      - name: Save compiler outputs after successful core and race checks
+        if: success() && needs.resolve.outputs.runtime_reused != 'true' && steps.compiler-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5
+        continue-on-error: true
+        with:
+          path: |
+            ${{ steps.compiler-paths.outputs.build }}
+            ${{ steps.compiler-paths.outputs.modules }}
+          key: ${{ steps.compiler-cache.outputs.cache-primary-key }}
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: release-candidate-${{ matrix.platform }}-${{ needs.resolve.outputs.source_sha }}
@@ -341,7 +374,21 @@ jobs:
             args+=(--candidate-run "$CANDIDATE_RUN")
             if [ -n "$EVIDENCE_RUN" ]; then args+=(--evidence-run "$EVIDENCE_RUN"); fi
           fi
-          python candidate-source/scripts/release_generated_ci.py "${args[@]}"
+          script=candidate-source/scripts/release_generated_ci.py
+          # Older candidate helpers retain their checked restore + guard path.
+          help_text="$(python "$script" --help)"
+          if [ "$MODE" = guard-only ] && [[ "$help_text" == *restore-guard* ]]; then
+            mkdir -p candidate-source/build/release
+            set -o pipefail
+            python "$script" restore-guard --root candidate-source --candidate-sha "$SOURCE_SHA" \
+              --platform '${{ matrix.platform }}' --candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN" \
+              2>&1 | tee candidate-source/build/release/ci-guard.log
+            cat candidate-source/build/release/ci-guard.log >> "$GITHUB_STEP_SUMMARY"
+            echo "guarded=true" >> "$GITHUB_OUTPUT"
+          else
+            python "$script" "${args[@]}"
+            echo "guarded=false" >> "$GITHUB_OUTPUT"
+          fi
       - id: consumers
         name: Clean Go default + failure/Snapshot + GORM32; installed wheel + SQLAlchemy44
         if: needs.resolve.outputs.mode != 'guard-only'
@@ -353,7 +400,7 @@ jobs:
             --output candidate-source/build/release/generated-acceptance.json --go-build-jobs 1
       - id: guard
         name: Exact platform guard — READY / NOT READY
-        if: always() && steps.restore.outcome == 'success'
+        if: always() && steps.restore.outcome == 'success' && steps.restore.outputs.guarded != 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -430,24 +477,24 @@ jobs:
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: python candidate-source/scripts/release_features.py gate
-      - id: restore
-        name: Restore both frozen platforms and exact external evidence
-        continue-on-error: true
+      - name: Restore and guard both platforms once — READY / NOT READY
+        if: always() && steps.features.outcome == 'success'
         env:
           SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
           CANDIDATE_RUN: ${{ needs.resolve.outputs.mode == 'full' && github.run_id || needs.resolve.outputs.candidate_run }}
           EVIDENCE_RUN: ${{ github.run_id }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          python candidate-source/scripts/release_generated_ci.py restore --root candidate-source \
-            --candidate-sha "$SOURCE_SHA" --candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN"
-      - name: Aggregate guard — require both platforms even after acceptance failure
-        if: always() && steps.features.outcome == 'success'
-        env:
-          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          python candidate-source/scripts/release_generated_ci.py guard --root candidate-source --candidate-sha "$SOURCE_SHA"
+          script=candidate-source/scripts/release_generated_ci.py
+          help_text="$(python "$script" --help)"
+          if [[ "$help_text" == *restore-guard* ]]; then
+            python "$script" restore-guard --root candidate-source \
+              --candidate-sha "$SOURCE_SHA" --candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN"
+          else
+            python "$script" restore --root candidate-source \
+              --candidate-sha "$SOURCE_SHA" --candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN"
+            python "$script" guard --root candidate-source --candidate-sha "$SOURCE_SHA"
+          fi
           cat candidate-source/build/release/ci-ready.json >> "$GITHUB_STEP_SUMMARY"
       - name: Record original feature success or revalidate its authenticated receipt
         env:

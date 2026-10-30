@@ -134,6 +134,8 @@ def handoff(tmp_path, monkeypatch):
             fetched.append(key)
             return io.BytesIO(payloads[key])
     monkeypatch.setattr(publisher, 'GitHub', FixtureGitHub)
+    monkeypatch.setattr(transport, 'GitHub', FixtureGitHub)
+    monkeypatch.setattr(transport, 'guard', guard)
     def command(args, cwd):
         commands.append(args)
         if args[:2] == ['git', 'rev-parse']: return SHA
@@ -227,3 +229,71 @@ def test_changed_staged_bytes_stop_before_remote_mutations(handoff, monkeypatch)
     with pytest.raises(ValueError, match='artifact hash differs'):
         publisher.publish(root, SHA, REPO, candidate_run=10, evidence_run=20)
     assert not mutations(commands)
+
+
+@pytest.mark.parametrize('platform', [None, *release.PLATFORMS])
+def test_restore_guard_cli_authenticates_and_checks_each_platform_once(handoff, monkeypatch, platform):
+    root, ready, _, guards, commands, fetched, *_ = handoff
+    args = ['release_generated_ci.py', 'restore-guard', '--root', str(root),
+            '--candidate-sha', SHA, '--candidate-run', '10', '--evidence-run', '20']
+    if platform: args += ['--platform', platform]
+    monkeypatch.setattr(sys, 'argv', args)
+    assert transport.main() == 0
+    assert guards == ([platform] if platform else list(release.PLATFORMS))
+    assert release.read(root/'build/release/ci-ready.json') == (ready['platforms'][platform] if platform else ready)
+    assert len(fetched) == (2 if platform else 4) and len(set(fetched)) == len(fetched)
+    assert not mutations(commands)
+    if not platform:
+        for name, sha in ready['assets'].items(): assert digest(root/'build/release/publish'/name) == sha
+
+
+@pytest.mark.parametrize('platform', [None, release.DARWIN])
+@pytest.mark.parametrize('failure', ['digest', 'expired', 'missing', 'acceptance', 'wheel', 'traversal'])
+def test_restore_guard_replaces_stale_ready_on_bad_inputs(handoff, monkeypatch, platform, failure):
+    root, ready, payloads, _, commands, _, corrupt, expired = handoff
+    key = (10, 'release-candidate-'+release.DARWIN+'-'+SHA)
+    if failure == 'digest': corrupt.add(key)
+    elif failure == 'expired': expired.add(key)
+    elif failure == 'missing': del payloads[key]
+    elif failure == 'acceptance':
+        payloads[(20, 'release-evidence-'+release.DARWIN+'-'+SHA)] = archive_zip({
+            'build/release/generated-acceptance.json': b'{"result":"FAIL"}'})
+    else:
+        with zipfile.ZipFile(io.BytesIO(payloads[key])) as zipped:
+            tar = zipped.read('candidate-handoff.tar')
+        with tarfile.open(fileobj=io.BytesIO(tar), mode='r:') as archive:
+            files = {m.name: archive.extractfile(m).read() for m in archive.getmembers()}
+        files['../escape' if failure == 'traversal' else 'build/dist/'+release.wheel_name('0.4.0', release.DARWIN)] = b'bad'
+        tar = archive_tar(files)
+        payloads[key] = archive_zip({'candidate-handoff.tar': tar,
+                                    'candidate-handoff.sha256': hashlib.sha256(tar).hexdigest()})
+    release.write(root/'build/release/ci-ready.json', ready)
+    args = ['release_generated_ci.py', 'restore-guard', '--root', str(root),
+            '--candidate-sha', SHA, '--candidate-run', '10', '--evidence-run', '20']
+    if platform: args += ['--platform', platform]
+    monkeypatch.setattr(sys, 'argv', args)
+    assert transport.main() == 1
+    assert release.read(root/'build/release/ci-ready.json')['result'] == 'NOT READY'
+    assert not (root/'build/release/publish').exists() and not mutations(commands)
+
+
+def test_restore_guard_requires_both_run_ids_before_transport(handoff, monkeypatch):
+    root, _, _, guards, _, fetched, *_ = handoff
+    monkeypatch.setattr(sys, 'argv', ['release_generated_ci.py', 'restore-guard', '--root', str(root),
+                                    '--candidate-sha', SHA, '--candidate-run', '10'])
+    assert transport.main() == 1
+    assert not guards and not fetched
+    assert release.read(root/'build/release/ci-ready.json')['result'] == 'NOT READY'
+
+
+def test_restore_guard_staging_failure_cannot_leave_ready(handoff, monkeypatch):
+    root, _, _, guards, _, *_ = handoff
+    def fail(project, ready):
+        release.stage(project, ready)
+        raise OSError('staging interrupted')
+    monkeypatch.setattr(transport, 'stage', fail)
+    monkeypatch.setattr(sys, 'argv', ['release_generated_ci.py', 'restore-guard', '--root', str(root),
+                                    '--candidate-sha', SHA, '--candidate-run', '10', '--evidence-run', '20'])
+    assert transport.main() == 1
+    assert guards == list(release.PLATFORMS)
+    assert release.read(root/'build/release/ci-ready.json')['result'] == 'NOT READY'
