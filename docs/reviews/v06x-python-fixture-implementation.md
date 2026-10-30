@@ -7,6 +7,8 @@
 > required. Earlier proposal/checkpoint text and source-bound receipts below are
 > historical evidence, not the current list of P1 blockers. P1 is not yet accepted.
 
+Current work: [six-condition evidence reconciliation](v06x-p1-fixed-exit-reconciliation.md).
+
 Local SDK/entry checkpoint source: e4b470034d56b50770452ec816e8f88fa837deb5, based on main
 2ad041c. The final local results below supersede earlier candidate observations
 without relabelling them. Required-host implementation and native-control CI are
