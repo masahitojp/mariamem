@@ -1591,6 +1591,15 @@ Keep **Explore → Challenge → Human decision → Implement → Verify**.
 Verification scope follows the changed boundary; explain a concrete dependency
 before broadening. See [development](development.md#local-verification).
 
+**Bounded investigation policy approved, 2026-10-30:** record one decision,
+finite exit and work/tooling/CI budgets before investigating. Initial defaults
+are 2 hours active work, including 30 minutes measurement tooling, and at most
+2 heavy CI submissions. Measurement-tool limitations do not automatically add
+prerequisites; budget exhaustion produces a conclusion or explicit inconclusive
+report with options/cost. Ordinary in-budget fixes remain autonomous. See
+[the working rule](development.md#bounded-investigations). This authorizes the
+development policy, not a resource campaign, product scope or release.
+
 Experiments are disposable by default. Preserve compact measurements, reports,
 hashes and reproduction inputs rather than recreatable caches, completed
 worktrees/builds or source copies. Completion includes cleanup and a retained-path
