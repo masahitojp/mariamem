@@ -34,7 +34,7 @@
       "profile": "Django/Playwright browser; prepared Live",
       "diagnostic_profile": "readable-owned",
       "fallback_allowed": true,
-      "status": "DESIGN_NOT_IMPLEMENTED"
+      "status": "ADOPTED_ON_MAIN"
     },
     {
       "id": "EG1",
@@ -42,7 +42,7 @@
       "profile": "Go HTTP; prepared Live",
       "diagnostic_profile": "readable-owned",
       "fallback_allowed": true,
-      "status": "DESIGN_NOT_IMPLEMENTED"
+      "status": "ADOPTED_ON_MAIN"
     }
   ],
   "whole_scope_requires": [
@@ -271,5 +271,14 @@
     "reconsider_milestone": "v0.6.1",
     "runtime_result": "NOT_RUN",
     "is_acceptance_pass": false
+  },
+  "e2e_adoption": {
+    "executed_source_commit": "d38deb043bc84bda064cee06b8568bc5174b744c",
+    "final_checked_head": "86820e73d172366676dabe23de10bd929ded967a",
+    "main_merge_commit": "48bdb3e0a679a349c6aba60c31b35f504532dead",
+    "full_ci_run": 41095184074,
+    "final_daily_ci_run": 41108203567,
+    "decision_record": "docs/decisions/e2e-integration-conditions.md",
+    "receipt": "docs/reviews/e2e-integration-ci-41095184074/assessment.json"
   }
 }

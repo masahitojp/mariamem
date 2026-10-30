@@ -989,6 +989,17 @@ separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Wire contract and dogfood
 
+**Five-entry dogfood obligation complete,2026-10-31 JST:** following protected
+P1/G1/EP1/EG1 adoption and the approved D1 deferral, the Human requested filling
+and closing [Issue18](https://github.com/masahitojp/mariamem/issues/18). Its final
+record reconciles exact executed sources versus later main merges, supported
+hosts, dependency pins, execution conditions and PASS/expected-FAIL/SKIP/deferred
+outcomes; records missing conditions/limits and their owners; and fixes all five
+dispositions. D1 remains deferred, not PASS, under [Issue43](https://github.com/masahitojp/mariamem/issues/43).
+Detailed resources remain0.7.x. The parent completion does not close #24, claim
+fresh full acceptance for later CI-policy sources, or approve Qualification or
+publication. Historical checkpoint pending statements below retain their dates.
+
 **Wire completion basis adopted,2026-10-31:** the Human adopted the exact English
 criterion in [the canonical decision](decisions/v060-wire-contract.md), including
 native/guest and declared-client-path anchors with named exceptions. The accepted
@@ -1073,7 +1084,7 @@ the approved scope and sequencing below.
 
 | Tracking Issue | Current disposition |
 | --- | --- |
-| [#18 — five-profile dogfood acceptance](https://github.com/masahitojp/mariamem/issues/18) | Active v0.6.0 acceptance tracking for P1, G1, D1, EP1 and EG1; recipes/component PASS do not close the full obligation |
+| [#18 — five-profile dogfood acceptance](https://github.com/masahitojp/mariamem/issues/18) | Complete: source/host/dependency/result matrix, missing-condition dispositions and overall completion recorded in the Issue; P1/G1/EP1/EG1 adopted, D1 explicitly deferred to #43 for0.6.1 consideration, not PASS |
 | [#19 — dbt revalidation](https://github.com/masahitojp/mariamem/issues/19) | Complete/closed: fixed dbt1.7 workload replayed on both observed hosts; [source-bound completion and receipts](reviews/dbt-revalidation-completion.md), no broader support claim |
 | [#24 — multi-statement host panic guard](https://github.com/masahitojp/mariamem/issues/24) | Active v0.6.0 follow-up to #13; detect unclassified host panics preceded by another statement |
 | [#20 — Oracle prepared CALL result traversal](https://github.com/masahitojp/mariamem/issues/20) | Accepted external-consumer limitation; outside v0.6.0 work, no milestone |
