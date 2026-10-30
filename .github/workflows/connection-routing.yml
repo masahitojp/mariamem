@@ -11,29 +11,7 @@ permissions:
 env:
   SOURCE_COMMIT: ${{ inputs.source_commit }}
 jobs:
-  compatibility:
-    runs-on: ubuntu-24.04
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - python: '3.11'
-            pytest: '7.0.0'
-          - python: '3.14'
-            pytest: '9.0.2'
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-        with:
-          ref: ${{ inputs.source_commit }}
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
-        with:
-          python-version: '${{ matrix.python }}'
-      - run: python -m pip install 'pytest==${{ matrix.pytest }}' -r tests/routing_acceptance/unit-requirements.txt
-      - run: python -m pytest tests/test_routing.py tests/test_routing_pytest.py tests/test_routing_receipts.py -q
-        env:
-          PYTHONPATH: python
   native:
-    needs: compatibility
     strategy:
       fail-fast: false
       matrix:
@@ -62,10 +40,6 @@ jobs:
           mkdir -p "$RUNNER_TEMP/routing/evidence"
           python -m pip install --no-cache-dir --report "$RUNNER_TEMP/routing/evidence/dependencies.json" -r tests/routing_acceptance/requirements.txt -r tests/routing_acceptance/unit-requirements.txt
           python tests/v06_prepared_connector_environment.py --output "$RUNNER_TEMP/routing/evidence/connector-environment.json"
-      - name: Unit and early-plugin boundaries
-        run: python -m pytest tests/test_routing.py tests/test_routing_pytest.py tests/test_routing_receipts.py -q
-        env:
-          PYTHONPATH: python
       - name: Exact-source real guest, R1-R8 and strict defect oracles
         run: |
           python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/routing" --min-free-gib 4 --budget-gib 8 --timeout 2400 -- python tests/routing_acceptance/run.py --runtime-root "$GITHUB_WORKSPACE" --source-commit "$SOURCE_COMMIT" --host "$GITHUB_WORKSPACE/build/mariamem-host" --output "$RUNNER_TEMP/routing"

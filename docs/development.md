@@ -215,7 +215,9 @@ standalone final-candidate acceptance ceremony is required.
 
 Platform/browser/ORM/fault-specific regressions can therefore be detected later,
 at release. This is the Human-approved cost tradeoff. Exact-SHA artifact reuse
-remains supported; moved feature suites currently run in every Release transaction.
+also reuses all-six-feature success when its authenticated original receipt
+matches the guarded asset set. Without that receipt, the six suites run again;
+a valid core READY remains reusable independently.
 Eight retired experiment workflows are removed; their reports and source-pinned
 workflow links remain historical evidence. Runtime qualification is retained as
 a manual-only compatibility path for reviewed runtime reuse.
@@ -369,11 +371,23 @@ hosts also retain the exact clean-source Go stamp. Full integration accepts only
 such a verified host via `--host`. Go example/fixture/consumer programs still build
 their distinct executables; those are not replacements for the packaged host.
 
-Artifact-reuse modes restore the authenticated frozen wheel into the shared job.
+When features need execution, artifact-reuse modes restore the authenticated
+frozen wheel into the shared job.
 The artifact is then distributed identically to fresh mode. The final release
 still requires both-platform qualification, six feature results and canonical
-source/guest reproduction. Feature suites do not themselves become reusable PASS
-receipts. The runtime build uses the same dependency-keyed compiler cache as
+source/guest reproduction. Shared pure unit/receipt tests run once on Ubuntu for
+Python3.11/pytest7 and Python3.14/pytest9. Installed-package and platform runtime
+cases remain with each feature. Core full pytest is retained separately.
+
+A fresh aggregate records `release-features-v1` only after shared units, all six
+features and both-platform artifact verification succeed. `qualification.json`
+version2 points to that original run. Automatic READY reuse authenticates the
+original feature ZIP and matches source, complete results and final asset hashes;
+then runtime preparation, shared units and six campaigns are skipped. The
+aggregate retrieves the original proof again before publication. Version1 READY
+or missing/expired feature proof reruns features without discarding valid core
+reuse. No copied artifact extends the original 14-day retention. Explicit
+recovery modes keep feature execution; `mode=full` forces complete qualification. The runtime build uses the same dependency-keyed compiler cache as
 Development, allowing future main-based Release builds to populate it without a
 separate cache-warming workflow. Local task-cache ownership remains unchanged.
 
