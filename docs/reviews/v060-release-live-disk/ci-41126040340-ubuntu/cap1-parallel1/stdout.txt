@@ -1,0 +1,5 @@
+=== RUN   TestFixtureCampaign
+    campaign_test.go:376: free disk guard
+    campaign_test.go:355: free disk guard
+--- FAIL: TestFixtureCampaign (0.00s)
+FAIL

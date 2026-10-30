@@ -88,6 +88,14 @@ jobs:
           ref: ${{ inputs.source_commit }}
           filter: blob:none
           fetch-depth: 0
+      - name: Reclaim unused Android SDK on disposable Linux runner
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          df -h "$GITHUB_WORKSPACE"
+          # This job uses Go, Python and Chromium; no Android inputs are consumed.
+          sudo rm -rf -- /usr/local/lib/android
+          df -h "$GITHUB_WORKSPACE"
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
           name: release-runtime-${{ matrix.os }}-${{ inputs.source_commit }}
