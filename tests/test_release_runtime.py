@@ -69,3 +69,29 @@ def test_release_builds_one_wheel_and_every_feature_uses_it():
         assert 'go build -p 1 -trimpath -o build/mariamem-host ' not in called
     installed = (ROOT/'tests/live_acceptance/installed.py').read_text()
     assert 'build_alpha.py' not in installed and 'stage(ROOT, args.expected_source_commit)' in installed
+
+
+def test_candidate_cache_retains_race_compilation_but_never_skips_tests():
+    text = (ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
+    candidate = text.split('  candidate:\n', 1)[1].split('  verification:\n', 1)[0]
+    restore = candidate.index('uses: actions/cache/restore@')
+    discard = candidate.index('run: go clean -testcache')
+    checks = candidate.index('python scripts/verify.py check')
+    integration = candidate.index('python scripts/verify.py integration --host')
+    save = candidate.index('uses: actions/cache/save@')
+    assert restore < discard < checks < integration < save
+    key = next(line for line in candidate.splitlines() if 'key: release-core-race-' in line)
+    for boundary in ('runner.os', 'runner.arch', 'go1.26.10', "hashFiles('go.mod', 'go.sum')", 'needs.resolve.outputs.source_sha'):
+        assert boundary in key
+    assert 'restore-keys:' in candidate  # Later source revisions may reuse compilation.
+    assert candidate.count('${{ steps.compiler-paths.outputs.build }}') == 2
+    assert candidate.count('${{ steps.compiler-paths.outputs.modules }}') == 2
+    assert 'key: ${{ steps.compiler-cache.outputs.cache-primary-key }}' in candidate
+    assert "if: success() && needs.resolve.outputs.runtime_reused != 'true' && steps.compiler-cache.outputs.cache-hit != 'true'" in candidate
+    # Cache outages/misses are optimization failures, never qualification bypasses.
+    assert candidate.count('continue-on-error: true') == 2
+    qualify = candidate.split('      - name: Qualify and freeze', 1)[1].split('      - name: Save compiler', 1)[0]
+    assert 'cache-hit' not in qualify and 'continue-on-error' not in qualify
+    assert "if [ '${{ needs.resolve.outputs.runtime_reused }}' = true ]; then" in qualify
+    assert 'go1.26.10 python scripts/verify.py integration' in qualify
+    assert '-count=1' in (ROOT/'scripts/verify.py').read_text().split('def integration(', 1)[1]

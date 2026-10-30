@@ -12,7 +12,7 @@ TESTS = ['tests/test_git_identity.py', 'tests/test_runtime_validation.py',
          'tests/test_release_docs.py', 'tests/test_release_version.py',
          'tests/test_generated_release.py', 'tests/test_ci_publication_workflow.py',
          'tests/test_ci_release_publish.py', 'tests/test_publication_handoff.py',
-         'tests/test_release_features.py']
+         'tests/test_release_features.py', 'tests/test_release_runtime.py']
 
 
 def main():

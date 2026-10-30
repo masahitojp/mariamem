@@ -1,11 +1,68 @@
 """Keep the CI publication boundary fail-closed without executing remote writes."""
 from pathlib import Path
 import json
+import os
+import re
+import subprocess
 import sys
+
+import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from ci_release_summary import publication_rows
+
+
+@pytest.mark.parametrize('job,mode,modern,fail', [
+    ('aggregate', 'guard-only', True, False), ('aggregate', 'full', True, False),
+    ('aggregate', 'full', False, False), ('aggregate', 'full', True, True),
+    ('aggregate', 'full', False, True),
+    ('verification', 'guard-only', True, False), ('verification', 'guard-only', True, True),
+    ('verification', 'guard-only', False, False), ('verification', 'full', True, False),
+    ('verification', 'acceptance-only', True, False),
+])
+def test_actual_restore_shell_keeps_one_guard_and_stops_on_failure(tmp_path, job, mode, modern, fail):
+    workflow = (ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
+    section = re.search(r'^  '+job+r':\n(.*?)(?=^  \S|\Z)', workflow, re.M | re.S)[1]
+    marker = '      - id: restore\n' if job == 'verification' else '      - name: Restore and guard both platforms once'
+    step = section.split(marker, 1)[1].split('\n      - ', 1)[0]
+    shell = '\n'.join(line[10:] for line in step.split('        run: |\n', 1)[1].splitlines())
+    shell = shell.replace('${{ matrix.platform }}', 'darwin-arm64')
+    assert '${{' not in shell
+    binary = tmp_path/'bin'; binary.mkdir()
+    fake = binary/'python'
+    fake.write_text('#!'+sys.executable+'''\nimport json, os, pathlib, sys
+command = sys.argv[2]
+with open('commands.jsonl', 'a') as stream: stream.write(json.dumps(command)+'\\n')
+if command == '--help':
+    print('restore-guard' if os.environ['MODERN'] == '1' else 'restore guard')
+elif os.environ['FAIL'] == '1':
+    raise SystemExit(1)
+elif command in ('restore-guard', 'guard'):
+    target = pathlib.Path('candidate-source/build/release/ci-ready.json')
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text('{"result":"READY"}')
+''')
+    fake.chmod(0o755)
+    (tmp_path/'candidate-input').mkdir()
+    (tmp_path/'candidate-input/candidate-handoff.sha256').write_text('b'*64)
+    output = tmp_path/'outputs'; output.touch()
+    env = dict(os.environ, PATH=str(binary)+os.pathsep+os.environ['PATH'],
+               MODE=mode, SOURCE_SHA='a'*40, CANDIDATE_RUN='10', EVIDENCE_RUN='20',
+               GITHUB_OUTPUT=str(output), GITHUB_STEP_SUMMARY=str(tmp_path/'summary'),
+               RUNNER_TEMP=str(tmp_path), MODERN=str(int(modern)), FAIL=str(int(fail)))
+    result = subprocess.run(['bash', '-e', '-o', 'pipefail', '-c', shell], cwd=tmp_path,
+                            env=env, capture_output=True, text=True)
+    assert (result.returncode != 0) == fail, result.stderr
+    calls = [json.loads(line) for line in (tmp_path/'commands.jsonl').read_text().splitlines()]
+    combined = modern and (job == 'aggregate' or mode == 'guard-only')
+    expected = ['--help', 'restore-guard' if combined else ('restore' if job == 'aggregate' else 'restore-platform')]
+    if job == 'aggregate' and not modern and not fail: expected += ['guard']
+    assert calls == expected
+    if job == 'verification':
+        assert output.read_text() == ('' if fail else 'guarded='+str(combined).lower()+'\n')
+        assert "if: always() && steps.restore.outcome == 'success' && steps.restore.outputs.guarded != 'true'" in section
+    if fail: assert not (tmp_path/'candidate-source/build/release/ci-ready.json').exists()
 
 
 def test_publication_job_gate_and_handoff():
