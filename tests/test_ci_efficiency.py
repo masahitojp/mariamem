@@ -29,7 +29,10 @@ def validate_caches(text, name):
         found += 1
         assert 'cache: true' in block and 'cache: false' not in block
         assert 'cache-hit' not in block  # A hit must never skip builds or tests.
-        assert 'cache-dependency-path: |\n            go.sum\n            .github/workflows/'+name+'.yml' in block
+        if name == 'check':
+            assert 'cache-dependency-path: |\n            go.mod\n            go.sum\n' in block
+        else:
+            assert 'cache-dependency-path: |\n            go.sum\n            .github/workflows/'+name+'.yml' in block
         assert 'echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"' in block
         assert 'go clean -testcache' in block
         assert block.index('actions/setup-go@') < block.index('go clean -testcache')
@@ -41,11 +44,11 @@ def validate_caches(text, name):
         assert 'GOCACHE=$RUNNER_TEMP/' not in block
         if name == 'check' and job == 'check':
             prefix = block.split('shell: bash')[0]
-            assert prefix.count("if: needs.scope.outputs.check_scope == 'full'") == 2
+            assert prefix.count("if: steps.diff.outputs.check_scope == 'full'") == 2
     namespaces = re.findall(r'          cache-dependency-path: \|\n((?:            [^\n]+\n)+)', text)
     if name in ('check', 'dump-import-productization', 'live-host'):
         assert len(namespaces) == len(set(namespaces))
-    assert found == {'check': 2, 'live-host': 2, 'dump-import-productization': 1, 'django-lifecycle': 1}[name]
+    assert found == {'check': 1, 'live-host': 2, 'dump-import-productization': 1, 'django-lifecycle': 1}[name]
 
 
 @pytest.mark.parametrize('name', WORKFLOWS)
@@ -135,3 +138,20 @@ def test_pr_does_not_start_macos_acceptance_jobs():
                 if platform.startswith('macos-'):
                     macos.extend([(name, job)] * multiplicity)
     assert macos == []
+
+
+def test_daily_checks_and_smoke_share_one_checkout_and_compiler_cache():
+    text = (ROOT/'.github/workflows/check.yml').read_text()
+    check = text.split('  check:\n', 1)[1].split('\n  integration:', 1)[0]
+    assert text.count('uses: actions/checkout@') == 1
+    assert text.count('uses: actions/setup-go@') == 1
+    assert text.count('go clean -testcache') == 1
+    order = ['scripts/development_scope.py', 'actions/setup-go@', 'go clean -testcache',
+             'scripts/verify.py check', 'scripts/verify.py smoke']
+    assert [check.index(item) for item in order] == sorted(check.index(item) for item in order)
+    assert "if: steps.diff.outputs.check_scope == 'full'" in check
+    assert "if: steps.diff.outputs.integration == 'true'" in check
+    assert 'cache-hit' not in check and 'continue-on-error:' not in check
+    assert 'actions/upload-artifact@' not in check and 'actions/download-artifact@' not in check
+    assert 'GOCACHE=' in check and 'go clean -cache' not in check
+    validate_caches(text, 'check')

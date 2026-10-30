@@ -14,7 +14,16 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## CI cost reduction — implementation authorized, integration pending
+## CI cost reduction — Release-only heavy acceptance adopted; daily reuse authorized
+
+[PR35](https://github.com/masahitojp/mariamem/pull/35) merged as source_commit
+`22383ecbd600b94ef33b29bf9991578dce8ca472` after all required checks succeeded.
+The next Human-approved cut covers inventory priorities 1 and 2: consolidate
+selection/source/smoke onto one checkout/runner, remove checkout from the result
+gates, and keep one dependency-keyed Go compiler cache across source checks and
+smoke. The protected names and checks are retained. Source checks precede smoke;
+a cache hit never reuses test PASS. This follow-up's hosted timing is not measured
+yet; the old 8m52s PR35 run is a cold-cache baseline, not a promised saving.
 
 On 2026-10-30 the Human approved reducing CI overhead and explicitly placed
 heavy validation in Release CI only. Ordinary PRs retain source/unit checks and
@@ -38,8 +47,8 @@ Generic source/integration checks and routing/race checks have one owner per
 Release path instead of repeated copies in feature workflows. Historical manual
 experiment workflows remain separate from ordinary product CI.
 See [verification responsibilities](development.md#local-verification) and
-[Release CI](releasing.md#ci-inputs-reuse-and-acceptance). Hosted acceptance and
-elapsed-time improvements are not claimed before the submitted checks finish.
+[Release CI](releasing.md#ci-inputs-reuse-and-acceptance). The Release-only placement is adopted; hosted acceptance and elapsed-time
+improvements for the daily reuse follow-up remain to be measured.
 
 ## Issue #5 host repair — adopted on main, unreleased
 
