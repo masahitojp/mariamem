@@ -1,0 +1,9 @@
+{
+  "go-download.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "go-runtime.jsonl.txt": "7e65455dc641d7bbcfb94f779bd2f3e682674b4c45d919f6326de90d528857e9",
+  "result.json": "1d8b64e2d3458996813a79e46c3dfd451d3be79f4aec4e3dfad5b278d177a474",
+  "python-runtime.txt": "479107b7ae26df71168dcc75fdee979a78da682b1e0c56de0a5c830c9272bf9a",
+  "go-tidy.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "python-junit.xml": "86d41f8717e94a28c65e686766f1ffdc5901e40647d31d35e20ddec875030fa5",
+  "wheel-install.txt": "c0fe5bd9efc4888c4d3ed7e84607ad6c20a1c2468ac7eea0df85f0e3b464506f"
+}

@@ -1,0 +1,71 @@
+{
+  "source_commit": "77db4c2cb5be106488fe819343fe6e67b40910d8",
+  "result": "PASS_BOUNDED_WORKFLOW",
+  "commands": [
+    {
+      "language": "python",
+      "stage": "first",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.14.9/x64/bin/python",
+        "-m",
+        "pytest",
+        "docs/examples/e2e_owned/python/test_orders.py",
+        "-q",
+        "--junitxml=<CI_RUNNER>/work/mariamem/mariamem/build/live-evidence/owned-workflow-py3.14/first.xml",
+        "-k",
+        "first"
+      ],
+      "elapsed_seconds": 2.0185897840001417,
+      "returncode": 0
+    },
+    {
+      "language": "python",
+      "stage": "second",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.14.9/x64/bin/python",
+        "-m",
+        "pytest",
+        "docs/examples/e2e_owned/python/test_orders.py",
+        "-q",
+        "--junitxml=<CI_RUNNER>/work/mariamem/mariamem/build/live-evidence/owned-workflow-py3.14/second.xml"
+      ],
+      "elapsed_seconds": 2.2730730000000676,
+      "returncode": 0
+    },
+    {
+      "language": "python",
+      "stage": "repeat",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.14.9/x64/bin/python",
+        "-m",
+        "pytest",
+        "docs/examples/e2e_owned/python/test_orders.py",
+        "-q",
+        "--junitxml=<CI_RUNNER>/work/mariamem/mariamem/build/live-evidence/owned-workflow-py3.14/repeat.xml"
+      ],
+      "elapsed_seconds": 2.2695504240000446,
+      "returncode": 0
+    }
+  ],
+  "acquisition": "existing CI toolchain/dependencies/cache; cold setup unmeasured",
+  "human_edit_seconds": null,
+  "second_test_edit": "add second case name to the existing parametrization; no additional lifecycle block",
+  "phase": "whole test-command wall time, including its setup/cases/cleanup; not an isolated Reset benchmark",
+  "second_test_edits": {
+    "python": {
+      "path": "docs/examples/e2e_owned/python/test_orders.py",
+      "before": "[\"first\"]",
+      "after": "[\"first\", \"second\"]"
+    },
+    "go": {
+      "path": "docs/examples/e2e_owned/go/entry_test.go",
+      "before": "[]string{\"first\"}",
+      "after": "[]string{\"first\", \"second\"}"
+    }
+  },
+  "inputs_sha256": {
+    "docs/examples/e2e_owned/python/test_orders.py": "d23437e03bf5eb897bfe9a84b106df327580eb6124f3873f5afd141f5481728f",
+    "docs/examples/e2e_owned/go/entry_test.go": "f78b997f8759f51a3d90a950c3ba09a6a90b619a0ae6d770e9348ca476b80821",
+    "scripts/e2e_workflow_timing.py": "0f74a3fe23bcb64339a26debc69b3a849a3c06be8420e23ce5874e8761f47d19"
+  }
+}

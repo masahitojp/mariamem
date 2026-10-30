@@ -1,9 +1,11 @@
-# Owned E2E entry candidate
+# Owned E2E entry — unreleased main
 
-These are source-build examples for the proposed EP1/EG1 entry. The implementation
-is a candidate, not an adopted/released support claim. The
+These are source-build examples for the bounded EP1/EG1 entry approved for main.
+They are not part of published v0.5.3. The
 [decision](../../decisions/e2e-entry-implementation.md) records implementation
-approval and its probe condition; #18 owns full acceptance.
+approval and its probe condition; #18 tracks the accepted bounded profiles and
+integration. The [new integrated-source receipt](../../reviews/e2e-integration-ci-41081445103/assessment.json)
+includes P1 and the current release-owned CI workflow.
 
 - [Python Django/browser example](python/test_orders.py): one `BrowserEntry` per
   fixture worker and one fresh browser context per `entry.case(browser=browser)`.

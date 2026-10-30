@@ -62,3 +62,24 @@ routing and pool retirement; hard-kill/non-cooperative recovery is not promised;
 some error paths use controlled owners/backends. Detailed peak-resource work is
 shared v0.7.x work. The [adoption review](../reviews/e2e-v060-adoption-review.md)
 retains its original source/evidence context and bounded recommendation.
+
+## Integrated-source acceptance receipt
+
+[Release CI41081445103](https://github.com/masahitojp/mariamem/actions/runs/41081445103)
+uses operation=verify and exact candidate
+`77db4c2cb5be106488fe819343fe6e67b40910d8`, incorporating main4a7966be and the
+P1 merge. Both Live hosts/native minors and the Live full acceptance gate passed;
+[saved receipts](../reviews/e2e-integration-ci-41081445103/assessment.json) bind
+verified full artifact ZIP digests and four installed E2E cells to that source.
+The new required daily check/integration/Live-required-gate contexts also passed.
+Both platform guards and the aggregate guard returned READY; the overall verify
+workflow succeeded. Its existing version metadata remains0.5.3, so this is not
+qualification of a future versioned0.6.0 release. Publication is not authorized
+by this operation. The screen-summary upload exceeded GitHub’s size limit;
+the machine-readable READY artifact was saved and verified.
+
+The receipt/guide descendant changes documentation only. No product, test,
+workflow or build input is changed after the executed source. Before merge,
+check protected contexts on that descendant and reconcile any further main
+changes. The final GitHub merge result belongs in #18/PR #28, not a fabricated
+new-source CI claim. Preserve merge parents and pre-code ancestry.

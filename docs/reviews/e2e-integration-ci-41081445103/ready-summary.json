@@ -1,0 +1,102 @@
+{
+  "assets": {
+    "mariamem-0.5.3-corresponding-source.tar.gz": "22bf1ecb680200281ca2eb0e09eee34be33ba5547f1e74727eeccbc40ce9b012",
+    "mariamem-0.5.3-provenance.json": "9c58a869d02db7ecd4d1d5aa28b767efb6233cbeeda9b2d437aa273803f6daa1",
+    "mariamem-0.5.3-py3-none-linux_x86_64.whl": "08de2d2528562b1f53ced61afc12b9ac115ca3ca7d19c9b65725990be4293f3d",
+    "mariamem-0.5.3-py3-none-macosx_15_0_arm64.whl": "df7dd753fb711b9ca3296d5b782a058f8f51afa82876bcf9b8a6ce9cfd9d89a6"
+  },
+  "contract": "generated-go-v1",
+  "git_tag": "v0.5.3",
+  "python_version": "0.5.3",
+  "result": "READY",
+  "source_commit": "77db4c2cb5be106488fe819343fe6e67b40910d8",
+  "version": 3,
+  "platforms": {
+    "darwin-arm64": {
+      "acceptance_sha256": "3b146fdf251efb201120628713fc26a2662a02095a9290f15a7d0472223a712b",
+      "assets": {
+        "mariamem-0.5.3-corresponding-source.tar.gz": "22bf1ecb680200281ca2eb0e09eee34be33ba5547f1e74727eeccbc40ce9b012",
+        "mariamem-0.5.3-py3-none-macosx_15_0_arm64.whl": "df7dd753fb711b9ca3296d5b782a058f8f51afa82876bcf9b8a6ce9cfd9d89a6"
+      },
+      "build_evidence_sha256": "f383fb74274d56a6f5b013eca2700ecf0203834576ba65214955cbdc6502dd2a",
+      "contract": "generated-go-v1",
+      "git_tag": "v0.5.3",
+      "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+      "notices": {
+        "LICENSE": "240a15a1d0f34d3abca462cdb7e5fb89470967563f16b0e71169e51c1e74cf2b",
+        "NOTICE": "642b37eb50eba78da4fe617452d59e5b81bf630cfa633d29ef426e3b0f7b1997",
+        "THIRD_PARTY_LICENSES": "d58efcd3549704313b885b2cb31ac153bcf13029be48c219fe77c5ea8f7d5164",
+        "licenses/GPL-2.0-only.txt": "240a15a1d0f34d3abca462cdb7e5fb89470967563f16b0e71169e51c1e74cf2b",
+        "licenses/Go-BSD-3-Clause.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+        "licenses/LLVM-compiler-rt-LICENSE.txt": "1a8f1058753f1ba890de984e48f0242a3a5c29a6a8f2ed9fd813f36985387e8d",
+        "licenses/LLVM-libcxx-LICENSE.txt": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b",
+        "licenses/LLVM-libcxxabi-LICENSE.txt": "e2b35be49f7284a45b7baca8fc7b3ab7440e7902392b2528a457816b5bb2a15c",
+        "licenses/LLVM-libunwind-LICENSE.txt": "b5efebcaca80879234098e52d1725e6d9eb8fb96a19fce625d39184b705f7b6d",
+        "licenses/PCRE2-LICENSE.txt": "197d8a73ffee0d6b09adba2f9c677b5f5aede24edf89258a68e48248d010d811",
+        "licenses/WASIX-LICENSE-APACHE-LLVM.txt": "268872b9816f90fd8e85db5a28d33f8150ebb8dd016653fb39ef1f94f2686bc5",
+        "licenses/WASIX-LICENSE-APACHE.txt": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+        "licenses/WASIX-LICENSE-MIT.txt": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+        "licenses/WASIX-LICENSE.txt": "da1128117561950db9e04201ce9ac3f0bd9e3baf852289211608b73098d51ac0",
+        "licenses/WASIX-dlmalloc-NOTICE.txt": "650081c8be7fe6a6045cfa9b1914e73c50715a2ab7289e5829e9acf9c4507114",
+        "licenses/WASIX-libc-bottom-half-cloudlibc-LICENSE.txt": "c8b789cf5a746611e6300a0cc7750dbf92b61912a709d04e639245f7290656d0",
+        "licenses/WASIX-libc-top-half-musl-COPYRIGHT.txt": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af",
+        "licenses/fmt-LICENSE.txt": "a65fcc5a1095fc33cc37e4fff69366e49d7e92f613558a2b95ed1b70e33758b4",
+        "licenses/pgmem-MIT.txt": "f841b48a04d578790861f0ca1831f8edd2daba4007f9b09da251cfd4478f3438",
+        "licenses/wasm2go-MIT.txt": "7115805b523b3cca337f09fb1d81d398918ee815ba533ac604fce9b68a75d4a8",
+        "licenses/wolfSSL-COPYING.txt": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+        "licenses/wolfSSL-LICENSING.txt": "84f8096dc7f70cdb6075ccf3722a44654361063eaf3e1ce7885c9875b8465a63",
+        "licenses/zlib-LICENSE.txt": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2"
+      },
+      "platform": "darwin-arm64",
+      "python_version": "0.5.3",
+      "regeneration_sha256": "792b00daf6cdb4b6081c4a2c38eb66988e4f7c88ffb80b65443edbf1d262c21d",
+      "result": "READY",
+      "source_commit": "77db4c2cb5be106488fe819343fe6e67b40910d8",
+      "version": 3
+    },
+    "ubuntu24.04-x86_64": {
+      "acceptance_sha256": "f7e08a6308f17d2d65109fd0d1d1b2db12a618b2f9e765142a0fc65cce92e1cb",
+      "assets": {
+        "mariamem-0.5.3-corresponding-source.tar.gz": "22bf1ecb680200281ca2eb0e09eee34be33ba5547f1e74727eeccbc40ce9b012",
+        "mariamem-0.5.3-py3-none-linux_x86_64.whl": "08de2d2528562b1f53ced61afc12b9ac115ca3ca7d19c9b65725990be4293f3d"
+      },
+      "build_evidence_sha256": "f383fb74274d56a6f5b013eca2700ecf0203834576ba65214955cbdc6502dd2a",
+      "contract": "generated-go-v1",
+      "git_tag": "v0.5.3",
+      "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+      "notices": {
+        "LICENSE": "240a15a1d0f34d3abca462cdb7e5fb89470967563f16b0e71169e51c1e74cf2b",
+        "NOTICE": "642b37eb50eba78da4fe617452d59e5b81bf630cfa633d29ef426e3b0f7b1997",
+        "THIRD_PARTY_LICENSES": "d58efcd3549704313b885b2cb31ac153bcf13029be48c219fe77c5ea8f7d5164",
+        "licenses/GPL-2.0-only.txt": "240a15a1d0f34d3abca462cdb7e5fb89470967563f16b0e71169e51c1e74cf2b",
+        "licenses/Go-BSD-3-Clause.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+        "licenses/LLVM-compiler-rt-LICENSE.txt": "1a8f1058753f1ba890de984e48f0242a3a5c29a6a8f2ed9fd813f36985387e8d",
+        "licenses/LLVM-libcxx-LICENSE.txt": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b",
+        "licenses/LLVM-libcxxabi-LICENSE.txt": "e2b35be49f7284a45b7baca8fc7b3ab7440e7902392b2528a457816b5bb2a15c",
+        "licenses/LLVM-libunwind-LICENSE.txt": "b5efebcaca80879234098e52d1725e6d9eb8fb96a19fce625d39184b705f7b6d",
+        "licenses/PCRE2-LICENSE.txt": "197d8a73ffee0d6b09adba2f9c677b5f5aede24edf89258a68e48248d010d811",
+        "licenses/WASIX-LICENSE-APACHE-LLVM.txt": "268872b9816f90fd8e85db5a28d33f8150ebb8dd016653fb39ef1f94f2686bc5",
+        "licenses/WASIX-LICENSE-APACHE.txt": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+        "licenses/WASIX-LICENSE-MIT.txt": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3",
+        "licenses/WASIX-LICENSE.txt": "da1128117561950db9e04201ce9ac3f0bd9e3baf852289211608b73098d51ac0",
+        "licenses/WASIX-dlmalloc-NOTICE.txt": "650081c8be7fe6a6045cfa9b1914e73c50715a2ab7289e5829e9acf9c4507114",
+        "licenses/WASIX-libc-bottom-half-cloudlibc-LICENSE.txt": "c8b789cf5a746611e6300a0cc7750dbf92b61912a709d04e639245f7290656d0",
+        "licenses/WASIX-libc-top-half-musl-COPYRIGHT.txt": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af",
+        "licenses/fmt-LICENSE.txt": "a65fcc5a1095fc33cc37e4fff69366e49d7e92f613558a2b95ed1b70e33758b4",
+        "licenses/pgmem-MIT.txt": "f841b48a04d578790861f0ca1831f8edd2daba4007f9b09da251cfd4478f3438",
+        "licenses/wasm2go-MIT.txt": "7115805b523b3cca337f09fb1d81d398918ee815ba533ac604fce9b68a75d4a8",
+        "licenses/wolfSSL-COPYING.txt": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+        "licenses/wolfSSL-LICENSING.txt": "84f8096dc7f70cdb6075ccf3722a44654361063eaf3e1ce7885c9875b8465a63",
+        "licenses/zlib-LICENSE.txt": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2"
+      },
+      "platform": "ubuntu24.04-x86_64",
+      "python_version": "0.5.3",
+      "regeneration_sha256": "792b00daf6cdb4b6081c4a2c38eb66988e4f7c88ffb80b65443edbf1d262c21d",
+      "result": "READY",
+      "source_commit": "77db4c2cb5be106488fe819343fe6e67b40910d8",
+      "version": 3
+    }
+  },
+  "original_ci_ready_sha256": "786f52db78a39f58ac93c240c8787bba0b4179c2d4a3314cc4216ebb5e13d017",
+  "publication_note": "Compact projection of original ci-ready.json; wheel_record omitted. This is verify-only at existing 0.5.3 metadata, not approval or evidence for a future versioned 0.6.0 release."
+}

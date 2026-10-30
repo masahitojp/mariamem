@@ -1,11 +1,13 @@
-# EP1 / EG1 current acceptance map — technical verification complete
+# EP1 / EG1 current acceptance map — Human-approved bounded adoption
 
 [Issue #18](https://github.com/masahitojp/mariamem/issues/18) owns completion
 tracking. The [bounded adoption review](e2e-v060-adoption-review.md) recommends
-accepting the fixed v0.6.0 profiles. Human adoption/main integration remain open.
+accepting the fixed v0.6.0 profiles. The Human approved adoption subject to the
+[five integration conditions](../decisions/e2e-integration-conditions.md).
+Protected merge-commit integration remains open.
 This is not whole-dogfood, Qualification or release completion.
 
-The reviewed and executed source_commit is
+The original reviewed and executed source_commit is
 `edfee47807cc7ad76aed798947ba70af0a7fb2c9`. Both supported hosts, native minors
 and the required gate passed in
 [CI41058866706](https://github.com/masahitojp/mariamem/actions/runs/41058866706).
@@ -13,6 +15,17 @@ and the required gate passed in
 SHA256 matches and the four installed host/Python cells. Report-only descendants
 are not relabelled as this executed source. Earlier checkpoints retain their
 original scope; their previously pending functional tests now have evidence.
+
+The integrated executable source is
+`77db4c2cb5be106488fe819343fe6e67b40910d8`, including main
+`4a7966becba65bda45de5a63b8823507bb3ad9e7` and P1 #26. Both hosts, native
+references, four installed cells and the full Live gate passed in
+[verify41081445103](https://github.com/masahitojp/mariamem/actions/runs/41081445103);
+[its assessment](e2e-integration-ci-41081445103/assessment.json) records the
+separate overall verify success and both-platform/aggregate READY. Existing
+0.5.3 metadata does not qualify a future versioned0.6.0 release.
+Documentation descendants retain this exact
+executable source identity and still require protected PR checks.
 
 | Retained condition | Evidence and detector | Current disposition |
 | --- | --- | --- |
@@ -24,8 +37,8 @@ original scope; their previously pending functional tests now have evidence.
 | Partial owners, original plus cleanup failures, Reset/Resume/external errors | Both-host Go component/race and Python17-case suites | Satisfied at controlled owner/error boundaries |
 | Close wait, timeout and case resources | Python close-wait/timeout and actual browser context close; Go HTTP body/Fatal/canceled-case controls | Satisfied; cooperative cleanup and honest uncertainty retained |
 | First/second/repeat usability | Workflow records with exact case census and minimal parameter edits | Satisfied for command wall times using existing CI caches; no cold/human-time claim |
-| Candidate checks and installed consumers | Live CI41058866706 native/host/gate success, four installed cells, temporary cleanup complete | Technical evidence saved for edfee478; preserve normal protected PR checks for integration |
-| Documentation/review | Current sequencing, guides and e2e-v060-adoption-review.md | Ready for Human adoption decision |
+| Candidate checks and installed consumers | Integrated Live CI41081445103 native/host/gate success, four installed cells, temporary cleanup complete | Evidence saved for 77db4c2c; preserve normal protected PR checks for integration |
+| Documentation/review | Current sequencing, guides and e2e-v060-adoption-review.md | Human approved bounded main adoption; publication remains separate |
 
 Detailed retained-baseline1/2/3, peak RSS/FD/session/temp census, resource guards
 and tuning remain deferred to shared v0.7.x by the
@@ -38,6 +51,5 @@ must identify a violated retained condition, not require universal proof of
 arbitrary user hooks. The prototype at3e59bce0 remains outside this candidate.
 P1, D1, independent dbt and later release gates keep their separate owners.
 
-Next: Human adoption decision, then integrate in current main context with
-required checks and preserved decision ancestry. No new resource campaign is
-needed to reach that decision.
+Next: complete the approved merge-commit integration with protected checks and
+preserved decision ancestry. No new resource campaign is required.

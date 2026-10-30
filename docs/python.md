@@ -424,10 +424,12 @@ aliases, patch the connector or change drivers to label that run PASS. The
 current OpenSSL3 CI environment does not cover this OpenSSL4 combination. See
 [local verification](development.md#local-verification).
 
-## Owned E2E entry candidate
+## Owned E2E entry — unreleased main
 
 The source-build [owned E2E examples](examples/e2e_owned/README.md) demonstrate
 application-specific preparation/start/quiescence/stop hooks over Live. This
-entry is an implementation candidate pending #18 acceptance and main adoption;
-it is not part of a published release. Existing direct Live APIs remain the
-mechanism underneath the entry.
+entry was approved for bounded main adoption with the supplied hook obligations;
+it is not part of published v0.5.3. Existing direct Live APIs remain the mechanism
+underneath the entry. See the [integration receipt](reviews/e2e-integration-ci-41081445103/assessment.json)
+for exact tested source/profiles. Arbitrary unregistered work and non-cooperative
+shutdown remain outside the guarantee; detailed resource characterization is deferred.
