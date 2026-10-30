@@ -34,7 +34,7 @@ jobs:
       - name: Input, framing and failure classifier controls
         run: |
           python -m unittest discover -s tests/dump_import_acceptance -p test_linux_acquisition.py -v
-          PYTHONPATH=python python -m pytest tests/test_dump_ci_workflow.py tests/test_git_identity.py tests/test_dump_import.py tests/test_dump_product_binding.py tests/test_dump_import_acceptance.py -q
+          PYTHONPATH=python python -m pytest tests/test_dump_import.py -q
       - name: Exact producer preflight and canonical byte binding
         env:
           NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
@@ -103,8 +103,8 @@ jobs:
           python scripts/git_identity.py inspect HEAD
           "$MINIMUM_PYTHON" -m pip install --no-deps build/dist/*.whl
           "$CURRENT_PYTHON" -m pip install --no-deps build/dist/*.whl
-          "$MINIMUM_PYTHON" -m pytest tests/test_dump_ci_workflow.py tests/test_git_identity.py tests/test_dump_import.py tests/test_dump_product_binding.py tests/test_dump_import_acceptance.py -q
-          "$CURRENT_PYTHON" -m pytest tests/test_dump_ci_workflow.py tests/test_git_identity.py tests/test_dump_import.py tests/test_dump_product_binding.py tests/test_dump_import_acceptance.py -q
+          "$MINIMUM_PYTHON" -m pytest tests/test_dump_import.py -q
+          "$CURRENT_PYTHON" -m pytest tests/test_dump_import.py -q
       - name: Native Mac dependency availability (no setup-cost claim)
         if: runner.os == 'macOS'
         run: brew install openssl@4 pcre2 lz4 xz zstd

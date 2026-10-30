@@ -50,10 +50,71 @@ This follow-up retains `check`, `integration`, and `Live required gate`, with no
 protection bypass. Full core/race and both-OS feature acceptance remain required
 at Release; platform/browser/ORM/fault-specific failures may be detected then.
 One release dispatch remains sufficient; no separate candidate acceptance is
-required. The six feature suites still execute in every Release transaction;
-feature-evidence reuse is not added. Hosted timings and full Release execution
-for this follow-up remain unmeasured. See [development](development.md#local-verification)
-and [release responsibility](releasing.md#ci-inputs-reuse-and-acceptance).
+required.
+
+The Human then prioritized Release-side unit deduplication and exact-READY feature
+reuse over further Development trimming. This follow-up uses the existing
+artifact authentication and guard path; it does not start qualification or
+publication. Its question is whether repeated feature execution can be removed
+without accepting incomplete or different-source evidence. Evidence is bounded
+to workflow/helper inspection, deterministic mutation/selection tests and the
+shared unit suite on Python3.11/3.14. No heavy CI submission is needed for this
+implementation; unresolved hosted behavior remains explicit rather than adding
+an unrequested release run.
+
+Pure routing compatibility, preparation receipts and dump policy/binding oracles
+have one shared owner at each supported Python/pytest boundary. Installed dump,
+Django/P1/Live and both-OS runtime cases retain their existing owners; core full
+pytest retains its independent baseline. Fresh release qualification still runs
+all six feature suites. After both-platform READY and complete feature success,
+CI records the exact source, final asset hashes, original run and all required
+results in an authenticated artifact. Automatic READY reuse skips the shared
+runtime/unit jobs and six features only after that original proof validates.
+Absent, old, expired or invalid feature proof reruns features while preserving
+valid core READY reuse. Reuse never renews original evidence expiry; a proof
+lost after selection fails aggregation. Explicit recovery modes continue to
+run features. Publication and public smoke retain their existing guards.
+
+The implementation is locally verifiable without a new product build. Hosted
+full/READY-reuse execution and time savings remain unmeasured. See
+[development](development.md#local-verification) and
+[release responsibility](releasing.md#ci-inputs-reuse-and-acceptance).
+
+## CI strategy follow-up — release preparation and final publication ownership
+
+After PR39 merged as source_commit
+`adde9d63ea1dce82246b54e95c5250e23aea57f7`, the Human authorized three further
+changes: focused local release preparation, one final aggregate guard inside
+publication, and explicit classification for all maintained workflows. Exact-READY
+feature reuse remains a retry optimization; a new candidate still needs its own
+qualification. No release version or qualification/publication run is authorized
+by this CI maintenance task.
+
+Release preparation accepts only its existing version/documentation file set and
+runs `release_preparation_checks.py` regardless of runtime-reuse intent. It never
+runs local Go/full runtime checks as a prerequisite to submission. Explicit runtime
+intent is still authenticated before push, and Release CI retains full or
+validated-reuse qualification.
+
+The publisher authenticates the aggregate READY ZIP and exact candidate/evidence
+run references, restores both platform handoffs with the existing digest/path
+checks, then recomputes the complete aggregate guard once before staging or any
+remote mutation. It compares that result to the authenticated READY, verifies
+staged asset hashes, and retains remote identity/upload/public-smoke checks.
+Private transport-only helpers create no PASS/READY receipt and have no bypass
+CLI. Normal restore/guard consumers keep semantic verification; guard-only restore
+no longer repeats build/source/wheel validation already performed by its guard.
+
+The nine current workflows have explicit tooling scope. Mixed runtime changes
+and unreviewed paths still select the daily runtime profile. The inventory test
+requires every added workflow to receive an explicit classification. This closes
+the PR39 classification gap: three feature workflow edits had unnecessarily
+selected Go compilation on a cache miss. Its completed Development run took
+8m11s; this observation is not a prediction of the follow-up's timing.
+
+Validation uses focused release/transport/selector tests and the canonical local
+preparation check. Heavy Release submissions remain zero; both-OS hosted
+publication execution and time savings are still unmeasured.
 
 ## Issue #5 host repair — adopted on main, unreleased
 
@@ -857,6 +918,19 @@ above. Full shared-memory race census and startup-tail improvements remain
 separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Wire contract and dogfood
+
+**P1 adopted on main, 2026-10-31 JST:** PR26 merged via protected checks to
+`4a8a68350e8c43fc107843a6efe7781cad1a4e2a` from head
+`850ddcc2c70786dc310308d262b4f33d842fea3e`. Daily CI41076760360 executed
+`0f59d660e5ca58a65818915602787fec5e7e57d3`; all three trees equal
+`e09c9c8f3300b5ca716e1776da4676ada01f3e94`. The older Ready full receipt remains
+bound to head8912224a/actual6ccec794, not relabelled onto the final CI-policy tree.
+Main PR34/35/36's approved Release-only heavy validation applies: final head has
+successful source/unit/Ubuntu smoke, with new-head platform/native/browser/installed
+qualification deferred to Release CI. P1 product/input bytes are unchanged from
+the successful full profile. See [integration completion and both evidence scopes](reviews/v06x-p1-head-integration.md).
+This completes P1 adoption, not other dogfood/wire work, Qualification or release.
+Earlier P1 pending/checkpoint entries below retain their historical source context.
 
 **Human scope correction, 2026-10-30:** establishing the wire contract is the
 main v0.6.0 objective. P1 has a [fixed six-condition exit](decisions/p1-fixed-exit-v060.md).

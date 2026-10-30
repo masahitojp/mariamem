@@ -48,13 +48,6 @@ jobs:
           mkdir -p "$RUNNER_TEMP/migration/py311/evidence" "$RUNNER_TEMP/migration/py314/evidence"
           "$MINIMUM_PYTHON" -m pip install --no-cache-dir --report "$RUNNER_TEMP/migration/py311/evidence/dependencies.json" 'pytest==7.0.0' -r tests/preparation_migration_acceptance/requirements.txt
           "$CURRENT_PYTHON" -m pip install --no-cache-dir --report "$RUNNER_TEMP/migration/py314/evidence/dependencies.json" 'pytest==9.0.2' -r tests/preparation_migration_acceptance/requirements.txt
-      - name: Strict receipt mutations on both Python boundaries
-        env:
-          MINIMUM_PYTHON: ${{ steps.minimum.outputs.python-path }}
-          CURRENT_PYTHON: ${{ steps.current.outputs.python-path }}
-        run: |
-          "$MINIMUM_PYTHON" -m pytest tests/test_preparation_migration_acceptance.py -q
-          "$CURRENT_PYTHON" -m pytest tests/test_preparation_migration_acceptance.py -q
       - name: Python3.11 pytest7 serial and xdist native acceptance
         env:
           MINIMUM_PYTHON: ${{ steps.minimum.outputs.python-path }}

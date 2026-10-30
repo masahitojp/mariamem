@@ -95,7 +95,9 @@ def test_unrelated_changes_never_committed(prepared, monkeypatch):
 def test_checks_exact_remote_dispatch_and_no_poll(prepared):
     root, calls, _ = prepared
     result = release.submit(root, TAG)
-    assert [sys.executable, 'scripts/verify.py', 'check'] in calls
+    assert [sys.executable, 'scripts/release_preparation_checks.py'] in calls
+    assert not any(a[:2] in (['go', 'test'], ['go', 'build']) or
+                   'scripts/verify.py' in a for a in calls)
     commit = next(a for a in calls if a[:2] == ['git', 'commit'])
     assert TAG in commit[-1]
     dispatch = next(a for a in calls if a[:3] == ['gh', 'workflow', 'run'])
@@ -120,7 +122,7 @@ def test_remote_mismatch_never_dispatches(prepared, monkeypatch):
 def test_failed_checks_never_commit_or_push(prepared, monkeypatch):
     root, calls, original = prepared
     def run(args, directory):
-        if args == [sys.executable, 'scripts/verify.py', 'check']:
+        if args == [sys.executable, 'scripts/release_preparation_checks.py']:
             raise RuntimeError('checks failed')
         return original(args, directory)
     monkeypatch.setattr(release, 'run', run)
@@ -167,7 +169,7 @@ def test_stable_submit_notes_and_dispatch(prepared, monkeypatch):
     monkeypatch.setattr(release, "run", run)
     result = release.submit(root, "v0.1.0")
     assert result["version"] == "v0.1.0"
-    assert [sys.executable, "scripts/verify.py", "check"] in calls
+    assert [sys.executable, "scripts/release_preparation_checks.py"] in calls
     assert "operation=release" in calls[-1] and "mode=auto" in calls[-1]
 
 

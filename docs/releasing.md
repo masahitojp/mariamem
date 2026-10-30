@@ -22,10 +22,15 @@ There is no second approval or mandatory verify dispatch. Codex returns the run
 URL, exact SHA and operation immediately after submission and stops.
 
 Prepare a human-selected version with the repository release skill. Submit using
-`GOTOOLCHAIN=go1.26.10 <venv>/bin/python scripts/release_prepare.py submit vX.Y.Z`.
+`<venv>/bin/python scripts/release_prepare.py submit vX.Y.Z`.
 Go 1.26.10 is the 0.6.0 build toolchain (GO-2026-6809); the module minimum
 remains Go 1.26.0 and the forward-compat check uses Go 1.27.3.
 Already-prepared clean candidates are accepted without another metadata commit.
+For an allowed version/docs preparation diff, local submission runs the focused
+`release_preparation_checks.py` regardless of runtime-reuse intent. It checks
+metadata, source/license boundaries and release tooling without Go compilation
+or runtime qualification; Release CI owns those checks. An explicit runtime reuse
+intent is still authenticated before push.
 For an optional READY-only audit, add `--operation verify`. Run names include the
 operation, supplied version and short SHA; display labels never establish identity.
 
@@ -151,7 +156,8 @@ Heavy product validation belongs here, not in ordinary PR/main CI or a separate
 candidate-adoption run. Release calls the full Live/browser/installed, Dump,
 Django, routing, preparation/migration and native SQL workflows with the resolved
 `candidate_ref` commit. All six feature jobs must succeed before aggregate READY
-or publication; failed, cancelled, skipped or missing jobs stop the transaction.
+or publication, or have authenticated exact-READY success evidence as described
+below. Failed, cancelled, missing or unexpectedly skipped jobs stop the transaction.
 Full core integration/race remains in candidate qualification, with existing
 explicit authenticated runtime reuse. Daily source smoke cannot substitute for it.
 Release builds one shared wheel/embedded host for each supported OS in parallel
@@ -164,8 +170,21 @@ executables and independent source→WASM reproduction remain separate work.
 Artifact-reuse modes restore the original authenticated wheel; they do not rebuild
 it. Qualification still requires fresh guest/source reproduction in full mode.
 
-The moved feature suites currently rerun in each `verify`/`release` transaction,
-including artifact-reuse modes; their evidence has no new reuse contract.
+Shared pure routing compatibility, dump policy/binding and preparation receipt
+units run once for Python3.11/pytest7 and Python3.14/pytest9 on Ubuntu. Installed
+package and platform-dependent cases stay in their feature jobs. Core full pytest
+retains its independent baseline.
+
+After complete fresh success, the aggregate saves `release-features-v1` with
+source SHA, original run ID, all six feature/shared-unit results and final READY
+asset hashes. `qualification.json` version2 references that original artifact.
+Automatic reuse validates its GitHub artifact digest, canonical workflow origin,
+expiry, source, complete success and exact assets before selecting feature skips.
+The aggregate authenticates it again before publication. Old READY without feature
+proof, or unavailable/expired/invalid feature proof, reruns features while retaining
+valid core reuse. No new copy extends the original 14-day retention. Evidence lost
+after selection fails aggregation. Explicit recovery modes still run features;
+`mode=full` forces fresh qualification.
 
 `mode=auto` is the default. The planner searches completed canonical workflow
 runs in the 14-day retention window (at most 1,000 recent runs), downloads the
@@ -186,8 +205,17 @@ authenticated again at restoration, aggregation and publication; a subsequent
 change/download failure stops without publication rather than trusting the plan.
 
 With valid READY, frozen-artifact builds and their external consumer acceptance
-are reused. The six release feature suites described above still run.
-Hash/source/license/identity checks and the existing guards still rerun; they
+are reused. With valid feature proof, shared runtime preparation, shared units
+and all six feature suites are skipped as well. Without it, those jobs run.
+Publication downloads the authenticated aggregate READY from the selected evidence
+run and requires its candidate/evidence references to match. Both platform
+handoffs retain archive digest and path validation during restoration. The
+publisher then recomputes the aggregate guard once, compares the complete result
+to that READY and stages/checks the exact asset bytes before tagging or uploading.
+Existing staged files are never repaired to hide a mismatch. No public CLI option
+bypasses the final guard; ordinary restore/guard commands remain checked.
+
+Hash/source/license/identity checks and the final guard still run; they
 bind the accepted bytes to the candidate immediately before publication. Public
 smoke always runs after publication on both supported platforms. New aggregate
 receipts retain immutable qualification references so later reuse can follow a

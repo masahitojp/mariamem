@@ -230,3 +230,18 @@ def test_daily_product_checks_and_release_complete_checks_have_separate_owners(m
         else:
             assert tests[-1] == vet[-1] == './...'
         assert any('scripts/verify_generated_runtime.py' in a for a, _ in calls)
+
+
+@pytest.mark.parametrize('path', sorted(scope.WORKFLOW_SCOPES))
+def test_reviewed_workflow_only_changes_do_not_compile_runtime(path):
+    result = scope.select([path])
+    assert result['check_scope'] == 'python' and not result['integration']
+    mixed = scope.select([path, 'mariamem.go'])
+    assert mixed['check_scope'] == 'full' and mixed['integration']
+
+
+def test_every_maintained_workflow_has_an_explicit_reviewed_scope():
+    actual = {p.relative_to(ROOT).as_posix() for p in (ROOT/'.github/workflows').glob('*.yml')}
+    assert actual == set(scope.WORKFLOW_SCOPES)
+    assert set(scope.WORKFLOW_SCOPES.values()) <= {'python', 'runtime'}
+    assert scope.select(['.github/workflows/new-unreviewed.yml'])['integration']
