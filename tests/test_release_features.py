@@ -166,8 +166,8 @@ def test_fresh_receipt_cannot_be_minted_from_partial_success(tmp_path):
 def test_workflow_rechecks_original_proof_after_guard_and_retains_publication_boundary():
     text = (ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
     aggregate = text.split('  aggregate:\n')[1].split('  publication:\n')[0]
-    assert aggregate.index('release_features.py gate') < aggregate.index('release_generated_ci.py guard')
-    assert aggregate.index('release_generated_ci.py guard') < aggregate.index('release_features.py record')
+    assert aggregate.index('release_features.py gate') < aggregate.index('python "$script" restore-guard')
+    assert aggregate.index('python "$script" restore-guard') < aggregate.index('release_features.py record')
     assert "if: needs.resolve.outputs.features_reused != 'true'" in aggregate
     assert 'name: release-features-${{ needs.resolve.outputs.source_sha }}' in aggregate
     assert 'candidate-source/build/release/qualification.json' in aggregate
@@ -181,14 +181,35 @@ def test_common_units_have_one_feature_owner_and_preserve_python_boundaries():
     assert 'runs-on: ubuntu-24.04' in units
     moved = ('test_routing.py', 'test_routing_pytest.py', 'test_routing_receipts.py',
              'test_preparation_migration_acceptance.py', 'test_dump_ci_workflow.py',
-             'test_git_identity.py', 'test_dump_product_binding.py', 'test_dump_import_acceptance.py')
-    called = '\n'.join((ROOT/'.github/workflows'/name).read_text() for name in
-                       ('connection-routing.yml', 'preparation-migration.yml', 'dump-import-productization.yml'))
+             'test_git_identity.py', 'test_dump_product_binding.py', 'test_dump_import_acceptance.py',
+             'test_p1_native_control.py', 'test_fixture_design_contract.py',
+             'test_live_oracles.py', 'test_django_recipe_unit.py')
+    # Discover all six callers from Release so a new owner cannot escape this check.
+    import re
+    paths = re.findall(r'uses: \./(\.github/workflows/[^\s]+)', text)
+    assert len(paths) == 6
+    called = {Path(path).name: (ROOT/path).read_text() for path in paths}
     for name in moved:
-        assert units.count('tests/'+name) == 1 and 'tests/'+name not in called
-    # Actual installed dump behavior and both-platform runtime campaigns stay in place.
-    assert 'tests/test_dump_import.py' in called
-    assert called.count('os: [') == 3
+        assert units.count('tests/'+name) == 1
+        for workflow, body in called.items():
+            assert 'tests/'+name not in body, (name, workflow)
+    # Installed dump tests own this behavior on each OS/minor; the native producer
+    # no longer repeats them against source before running the actual DB controls.
+    dump = called['dump-import-productization.yml']
+    assert 'tests/test_dump_import.py' not in dump.split('  guest-comparison:', 1)[0]
+    assert dump.count('-m pytest tests/test_dump_import.py') == 2
+    for python in ('MINIMUM_PYTHON', 'CURRENT_PYTHON'):
+        install = f'"${python}" -m pip install --no-deps build/dist/*.whl'
+        check = f'"${python}" -m pytest tests/test_dump_import.py'
+        assert dump.index(install) < dump.index(check)
+    # These controls use real child processes, pipes, signals or sockets. They
+    # retain both supported OS/minor cells, independently of portable oracles.
+    live = called['live-host.yml']
+    for name in ('test_prepare_command.py', 'test_p1_pytest_entry.py',
+                 'test_owned_snapshot_unit.py', 'test_live_unit.py',
+                 'test_e2e_numeric_bind.py', 'test_e2e_child_diagnostics.py'):
+        assert live.count('tests/'+name) == 1
+    assert all('os: [' in body for body in called.values())
 
 
 @pytest.mark.parametrize('mutation', ['empty-assets', 'bad-hash', 'source', 'platform', 'not-ready'])

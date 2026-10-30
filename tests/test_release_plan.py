@@ -71,9 +71,18 @@ def selected(candidate, api, validate=None):
                         validate=validate or (lambda *args: None))
 
 
-def job_condition(job):
+def job_text(job, *, expand_steps=False):
     workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
-    return re.search(rf'^  {job}:\n(?:.*\n)*?    if: (.+)$', workflow, re.M).group(1)
+    section = re.search(r'^  '+job+r':\n(.*?)(?=^  \S|\Z)', workflow, re.M | re.S)[1]
+    alias = re.search(r'^    steps: \*(\w+)\s*$', section, re.M)
+    if expand_steps and alias:
+        steps = re.search(r'^    steps: &'+alias[1]+r'\n(.*?)(?=^  \S|\Z)', workflow, re.M | re.S)[1]
+        section = section[:alias.start()]+'    steps:\n'+steps
+    return section
+
+
+def job_condition(job):
+    return re.search(r'^    if: (.+)$', job_text(job), re.M)[1]
 
 
 def runs_job(job, result, *, aggregate='success', publication='success',
@@ -86,7 +95,9 @@ def runs_job(job, result, *, aggregate='success', publication='success',
     values = {'inputs.operation': result['operation'],
               'needs.resolve.outputs.features_reused': result.get('features_reused', 'false'), 'needs.resolve.outputs.mode': result['mode'],
               'needs.resolve.result': resolve, 'needs.aggregate.result': aggregate,
-              'needs.publication.result': publication, 'needs.candidate.result': candidate_result}
+              'needs.publication.result': publication,
+              'needs.candidate_darwin.result': candidate_result,
+              'needs.candidate_ubuntu.result': candidate_result}
     for key, value in values.items():
         expression = expression.replace(key, repr(value))
     expression = expression.replace('always()', 'True').replace('cancelled()', str(cancelled))
@@ -101,7 +112,10 @@ def runs_job(job, result, *, aggregate='success', publication='success',
 def test_release_without_ready_qualifies_once_then_publishes(candidate):
     result = selected(candidate, FixtureGitHub())
     assert result['mode'] == 'full'
-    assert runs_job('guest', result) and runs_job('candidate', result)
+    assert runs_job('guest', result)
+    for platform in ('darwin', 'ubuntu'):
+        assert runs_job('core_'+platform, result) and runs_job('candidate_'+platform, result)
+        assert runs_job('verification_'+platform, result)
     assert runs_job('verification', result)
     assert runs_job('publication', result) and runs_job('public_smoke', result)
 
@@ -112,7 +126,10 @@ def test_exact_ready_reuses_without_build_or_acceptance_then_publishes(candidate
     assert result['mode'] == 'guard-only'
     assert result['candidate_run'] == result['evidence_run'] == result['reused_ready_run'] == 123
     assert checks == [(candidate, SHA, 123, 123, ready())]
-    assert not runs_job('guest', result) and not runs_job('candidate', result)
+    assert not runs_job('guest', result)
+    for platform in ('darwin', 'ubuntu'):
+        assert not runs_job('core_'+platform, result) and not runs_job('candidate_'+platform, result)
+        assert runs_job('verification_'+platform, result, ancestors_skipped=True, candidate_result='skipped')
     assert runs_job('verification', result, ancestors_skipped=True, candidate_result='skipped')
     workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
     assert "if: needs.resolve.outputs.mode != 'guard-only'" in workflow
@@ -157,22 +174,25 @@ def test_reused_receipt_follows_immutable_original_inputs(candidate):
     assert checks[0][2:4] == (10, 20)
 
 
-def test_validate_reuse_rechecks_guard_in_disposable_source(candidate, monkeypatch):
+@pytest.mark.parametrize('combined', [True, False])
+def test_validate_reuse_rechecks_guard_in_disposable_source(candidate, monkeypatch, combined):
     (candidate / 'scripts').mkdir()
     (candidate / 'scripts/release_generated_ci.py').write_text('# fixture')
     projects = []
-    def run(args, check):
+    def run(args, check, **kwargs):
         assert check
+        if args[-1] == '--help':
+            return planner.subprocess.CompletedProcess(args, 0, stdout='restore-guard' if combined else 'restore guard')
         project = Path(args[args.index('--root') + 1])
         assert project != candidate and args[1] == str(candidate / 'scripts/release_generated_ci.py')
         projects.append(project)
-        if args[2] == 'guard':
+        if args[2] in ('guard', 'restore-guard'):
             target = project / 'build/release/ci-ready.json'
             target.parent.mkdir(parents=True)
             target.write_text(json.dumps(ready()))
     monkeypatch.setattr(planner.subprocess, 'run', run)
     planner.validate_reuse(candidate, SHA, 10, 20, ready())
-    assert len(projects) == 2 and not projects[0].exists()
+    assert len(projects) == (1 if combined else 2) and not projects[0].exists()
     assert not (candidate / 'build').exists()
     with pytest.raises(ValueError, match='identity differs'):
         planner.validate_reuse(candidate, SHA, 10, 20, {**ready(), 'assets': {'source.tar.gz': 'd' * 64}})
@@ -183,7 +203,9 @@ def test_failed_partial_restore_discards_scratch_before_full_fallback(candidate,
     (candidate / 'scripts').mkdir()
     (candidate / 'scripts/release_generated_ci.py').write_text('# fixture')
     projects = []
-    def fail(args, check):
+    def fail(args, check, **kwargs):
+        if args[-1] == '--help':
+            return planner.subprocess.CompletedProcess(args, 0, stdout='restore-guard')
         project = Path(args[args.index('--root') + 1])
         projects.append(project)
         (project / 'partial').write_text('untrusted partial restore')
@@ -224,7 +246,7 @@ def test_workflow_normal_defaults_names_and_guard_remain():
     assert 'default: verify' in workflow and 'default: auto' in workflow
     assert "run-name: '${{ inputs.operation }} -- ${{ inputs.label || inputs.candidate_ref }}'" in workflow
     assert 'python scripts/release_plan.py' in workflow
-    assert 'candidate-source/scripts/release_generated_ci.py guard' in workflow
+    assert 'python "$script" restore-guard' in workflow
     assert 'candidate-source/scripts/ci_release_publish.py' in workflow
     assert 'release_generated_ci.py public-smoke' in workflow
     assert 'candidate-source/build/release/qualification.json' in workflow

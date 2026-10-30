@@ -270,12 +270,17 @@ def test_frozen_proof_cannot_be_a_verified_flag(tmp_path, monkeypatch):
 
 
 def test_workflow_requires_proof_before_expensive_work():
+    from test_release_plan import job_text
     workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
     assert workflow.index('scripts/release_plan.py') < workflow.index('scripts/build_alpha.py')
     runtime_job = workflow.split('  runtime:\n', 1)[1].split('  guest:\n', 1)[0]
     assert 'needs: resolve' in runtime_job
-    candidate = workflow.split('  candidate:\n', 1)[1].split('  verification:\n', 1)[0]
-    assert candidate.index('scripts/runtime_validation.py --candidate-sha') < candidate.index('scripts/release_generated_ci.py freeze')
+    for suffix in ('darwin', 'ubuntu'):
+        core = job_text('core_'+suffix, expand_steps=True)
+        candidate = job_text('candidate_'+suffix, expand_steps=True)
+        assert 'needs: [resolve, guest, core_'+suffix+']' in candidate
+        assert core.index('scripts/runtime_validation.py --candidate-sha') < core.index('release-core-runtime-proof-')
+        assert candidate.index('release-core-runtime-proof-') < candidate.index('scripts/release_generated_ci.py freeze')
     assert "needs.resolve.outputs.runtime_reused }}' = true" in workflow
     assert 'scripts/release_preparation_checks.py' in workflow
     assert 'python scripts/verify.py integration' in workflow

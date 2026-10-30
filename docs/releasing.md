@@ -215,6 +215,23 @@ to that READY and stages/checks the exact asset bytes before tagging or uploadin
 Existing staged files are never repaired to hide a mismatch. No public CLI option
 bypasses the final guard; ordinary restore/guard commands remain checked.
 
+Within READY selection, reused-platform verification and aggregation, the combined
+`restore-guard` command performs authenticated restoration followed by one complete
+semantic guard. Failure writes NOT READY, including restoration or staging failure.
+Older candidate scripts keep the legacy checked sequence. This does not remove
+the publisher's final guard or reuse a successful test result from a Go cache.
+Candidate core/race compilation has its own OS/toolchain/source-scoped cache;
+tests still run after clearing restored test results. Guest reproduction and
+clean external-consumer qualification retain their existing isolation.
+
+For full qualification, core checks start after the shared wheel is ready and run
+alongside canonical guest reproduction. Each OS freezes after its own core checks
+and guest reproduction succeed, then independently runs external consumers in a
+fresh verification job. The final join still requires both OSes and every full
+qualification prerequisite. Reuse/recovery skips the full-only core/freeze/guest
+jobs and retains both-platform artifact verification. Existing evidence names,
+run references, feature acceptance and publication conditions are unchanged.
+
 Hash/source/license/identity checks and the final guard still run; they
 bind the accepted bytes to the candidate immediately before publication. Public
 smoke always runs after publication on both supported platforms. New aggregate

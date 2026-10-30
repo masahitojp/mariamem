@@ -384,7 +384,12 @@ The artifact is then distributed identically to fresh mode. The final release
 still requires both-platform qualification, six feature results and canonical
 source/guest reproduction. Shared pure unit/receipt tests run once on Ubuntu for
 Python3.11/pytest7 and Python3.14/pytest9. Installed-package and platform runtime
-cases remain with each feature. Core full pytest is retained separately.
+cases remain with each feature. The shared owner also covers P1 native-reference
+and fixture-design mutations, Live observation oracles and Django owner/receipt
+mutations. Its ownership check scans all six callable workflows. Live retains
+real process, pipe, signal and socket controls on both OS/Python boundaries;
+installed dump tests run once per OS/minor after wheel installation, without a
+source-only repeat in the native producer. Core full pytest is retained separately.
 
 A fresh aggregate records `release-features-v1` only after shared units, all six
 features and both-platform artifact verification succeed. `qualification.json`
@@ -408,6 +413,39 @@ any remote mutation. Existing staging is verified, never silently repaired.
 There is no public option to skip the final guard. Other restore consumers retain
 semantic checks. Remote tag identity, uploaded-asset verification and public smoke
 are unchanged.
+
+READY selection, reused-platform verification and aggregation each combine
+authenticated transport with one complete guard through `restore-guard`.
+Transport, semantic or staging failure writes NOT READY; a successful transport
+alone never creates READY. Older candidate helpers keep their checked legacy
+restore/guard sequence. Publication still owns a separate final aggregate guard.
+
+Release candidate core/race checks use a compiler/module cache separate from the
+shared-wheel cache. Keys include OS, architecture, Go version, module inputs and
+candidate source; prefix restoration lets subsequent candidates extend prior
+compilation. The cache is saved only after successful core checks so it contains
+race outputs too. Restored test results are cleared before the full checks; cache
+hits never skip tests, and misses/outages fall back to ordinary compilation.
+The independent guest reproduction and isolated external-consumer checks keep
+their existing clean environments. Hosted cache savings are not yet measured.
+
+Core qualification starts after shared runtime preparation, alongside canonical
+guest reproduction. It uses the exact shared wheel and tracked generated Go.
+Each OS has its own core → freeze → external-verification path: freezing waits
+for that OS's core result and the guest result, then binds the unchanged wheel
+to reproduced guest/source evidence. It does not rerun core tests. External
+verification still uses a separate runner, restores the immutable handoff and
+runs the isolated consumers. A slower core job on one OS does not delay the other
+OS's freeze or external verification. Shared runtime preparation remains a common
+build dependency; this change removes the later qualification barrier.
+
+The final `verification` job only checks dependency results. It requires both
+platform verifications to succeed; in full mode it also requires guest, core and
+freeze success, while reuse/recovery requires those full-only jobs to be skipped.
+The aggregate feature/READY gate still requires this complete join. YAML step
+anchors keep both OS recipes identical. Runtime-reuse intent retains its existing
+proof: core uploads it, freeze restores it, and the existing freeze verifier
+authenticates it again. No new acceptance receipt or public operation is added.
 
 Only Development groups automatic PR concurrency by workflow, event and PR number.
 A new update cancels the prior run of the same PR; explicit manual runs use unique

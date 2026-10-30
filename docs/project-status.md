@@ -63,9 +63,15 @@ implementation; unresolved hosted behavior remains explicit rather than adding
 an unrequested release run.
 
 Pure routing compatibility, preparation receipts and dump policy/binding oracles
-have one shared owner at each supported Python/pytest boundary. Installed dump,
-Django/P1/Live and both-OS runtime cases retain their existing owners; core full
-pytest retains its independent baseline. Fresh release qualification still runs
+have one shared owner at each supported Python/pytest boundary. The Human also
+authorized the remaining portable feature-unit consolidation: P1 native/fixture
+design mutations, Live observation oracles and Django owner/receipt mutations
+join that owner; Live drops its repeated routing compatibility invocation. The
+ownership check covers all six callables. Dump drops the native producer's
+source-only repeat while keeping installed-wheel tests on both OS/Python minors.
+Live's real process/pipe/signal/socket controls and all installed/runtime feature
+cases retain their platform/interpreter owners; core full pytest retains its
+independent baseline. Fresh release qualification still runs
 all six feature suites. After both-platform READY and complete feature success,
 CI records the exact source, final asset hashes, original run and all required
 results in an authenticated artifact. Automatic READY reuse skips the shared
@@ -115,6 +121,70 @@ selected Go compilation on a cache miss. Its completed Development run took
 Validation uses focused release/transport/selector tests and the canonical local
 preparation check. Heavy Release submissions remain zero; both-OS hosted
 publication execution and time savings are still unmeasured.
+
+## Release guard consolidation and core compiler cache — implementation authorized
+
+After PR40 merged as source_commit
+`ce66b9df2067c546c88f6748fcbce2dc175a619a`, the Human approved proceeding with
+recommendations 1 and 2 of the next CI inventory: consolidate repeated guards
+within Release stages and retain candidate core/race compilation across runs.
+The later proposal to parallelize guest reproduction and core qualification,
+and remove the cross-platform candidate barrier, remains separate work. Remaining
+feature-unit ownership cleanup is also outside this implementation.
+
+READY selection, reused platform verification and aggregation now use a combined
+authenticated restore and complete guard. Each stage runs its semantic guard
+once per platform; publication retains its own final guard. The combined CLI
+writes NOT READY on transport, guard or staging failure, replacing stale READY.
+Candidate helpers predating the combined command retain the checked legacy
+restore/guard sequence. No public unchecked-restore option is added.
+
+Candidate core/race compilation has a separate cache namespace from wheel builds,
+scoped by OS, architecture, Go toolchain, module inputs and candidate source.
+New candidates may restore older compiler outputs, but clear test results before
+qualification. Successful qualification saves the expanded cache, including race
+compilation; cache misses/outages still run the full checks. Exact-source frozen
+assets, clean external consumers, guest reproduction, both-platform acceptance,
+final publication and public smoke keep their existing checks.
+
+Validation is bounded to tooling/transport tests, workflow shell branches,
+workflow lint and source-boundary checks. No heavy Release run or publication is
+part of this work. Hosted cache hits, cold/warm savings and the complete updated
+Release path remain unmeasured; no additional qualification run is a prerequisite
+created by this optimization.
+
+## Release qualification parallelism — implementation authorized
+
+After PR41 merged as source_commit
+`cff1fd779fdf35a1f33775b9866cf78f3c09f74c`, the Human authorized recommendation 3:
+start core qualification alongside guest reproduction and remove the cross-OS
+candidate barrier before external-consumer verification. Remaining feature-unit
+cleanup is separate work. This changes scheduling, not the accepted test coverage,
+candidate identity or publication decision.
+
+The core jobs consume the existing exact-source shared wheel and tracked generated
+Go after shared runtime preparation; they do not wait for canonical guest builds.
+Each OS then freezes only after its own core job and the canonical guest job
+succeed. Freezing rechecks the shared wheel, generated sources and complete
+guest/corresponding-source evidence. External-consumer verification starts after
+that OS's frozen handoff, in its existing separate runner and isolated consumer
+environment. Core cache ownership and fresh test execution remain as in PR41.
+
+The final `verification` join requires both OS paths. Full mode additionally
+requires guest reproduction, both core jobs and both handoff jobs to succeed;
+reuse/recovery modes require those full-only jobs to be skipped. Missing, failed,
+cancelled or unexpectedly skipped work blocks the join and therefore READY.
+The existing feature gate, immutable handoff/evidence names, qualification run
+references, final publication guard and public smoke remain compatible. An
+explicit runtime-reuse proof is transferred from each successful core job and
+authenticated again by the existing frozen-proof verifier before packaging.
+
+Evidence is bounded to existing source/workflow inspection, actual gate/shell
+execution with synthetic results, dependency and shared-step checks, and the
+canonical focused preparation checks. Heavy CI submission budget is zero for
+this maintenance task. Hosted scheduling, cold/warm timings and end-to-end
+Release completion remain unmeasured; no speedup or new release approval is
+implied by local PASS.
 
 ## Issue #5 host repair — adopted on main, unreleased
 

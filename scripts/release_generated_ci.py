@@ -134,9 +134,9 @@ def _platform_sources(root,commit):
         yield platform, project
 
 
-def _restore_publication_inputs(root,commit,candidate_run,evidence_run,api):
-    # Private publisher path: no unchecked-success CLI or reusable PASS receipt.
-    # The publisher must run check_aggregate once before staging or remote writes.
+def _restore_all_inputs(root,commit,candidate_run,evidence_run,api=None):
+    # Private transport: callers must run the complete aggregate guard before
+    # staging or accepting inputs. There is no transport-only public CLI.
     for platform, project in _platform_sources(root,commit):
         _restore_platform_inputs(project,commit,platform,'guard-only',
                                  candidate_run=candidate_run,evidence_run=evidence_run,api=api)
@@ -145,6 +145,18 @@ def _restore_publication_inputs(root,commit,candidate_run,evidence_run,api):
 def restore_all(root,commit,candidate_run,evidence_run):
     for platform, project in _platform_sources(root,commit):
         restore_platform(project,commit,platform,'guard-only',candidate_run=candidate_run,evidence_run=evidence_run)
+
+
+def restore_and_guard(root,commit,candidate_run,evidence_run,platform=None):
+    """Authenticate frozen inputs and run one complete guard at this boundary."""
+    require(all(type(run) is int and run > 0 for run in (candidate_run,evidence_run)),
+            'exact candidate and evidence run IDs required')
+    if platform:
+        _restore_platform_inputs(root,commit,platform,'guard-only',
+                                 candidate_run=candidate_run,evidence_run=evidence_run)
+        return guard(root,commit,platform)
+    _restore_all_inputs(root,commit,candidate_run,evidence_run)
+    return check_aggregate(root,commit)
 
 
 def public_smoke(root,commit,platform,publication,repository,smoke_program=None,recovery=None):
@@ -238,7 +250,7 @@ def recover_public_smoke(root,commit,platform,repository,run,repair):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('command',choices=('source','freeze','restore-platform','restore','guard','public-smoke','recover-public-smoke'))
+    p.add_argument('command',choices=('source','freeze','restore-platform','restore','restore-guard','guard','public-smoke','recover-public-smoke'))
     p.add_argument('--root',type=Path,default=ROOT); p.add_argument('--candidate-sha',required=True)
     p.add_argument('--platform',choices=PLATFORMS); p.add_argument('--output',type=Path)
     p.add_argument('--mode',choices=('full','acceptance-only','guard-only'),default='full')
@@ -258,12 +270,15 @@ def main():
         elif a.command=='recover-public-smoke':
             recover_public_smoke(root,a.candidate_sha,a.platform,a.repository,a.candidate_run,a.smoke_ref)
         else:
-            result=guard(root,a.candidate_sha,a.platform) if a.platform else check_aggregate(root,a.candidate_sha)
+            if a.command=='restore-guard':
+                result=restore_and_guard(root,a.candidate_sha,a.candidate_run,a.evidence_run,a.platform)
+            else:
+                result=guard(root,a.candidate_sha,a.platform) if a.platform else check_aggregate(root,a.candidate_sha)
             if a.platform: write(root/'build/release/ci-ready.json',result)
             else: stage(root,result)
             print(json.dumps(result,indent=2))
     except Exception as error:
-        if a.command=='guard':
+        if a.command in ('guard','restore-guard'):
             write(root/'build/release/ci-ready.json',{'version':3,'contract':CONTRACT,
                   'result':'NOT READY','source_commit':a.candidate_sha,'error':str(error)})
         print('Release candidate: NOT READY\n- '+str(error)); return 1
