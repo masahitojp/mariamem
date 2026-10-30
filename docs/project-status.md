@@ -16,17 +16,25 @@ Changing version metadata does not itself publish a release.
 
 ## CI cost reduction — implementation authorized, integration pending
 
-On 2026-10-30 the Human approved the first two priorities of CI cleanup: suppress
-runtime work for documentation and explicitly known runtime-free tooling; avoid
-README-induced expansion; stop Django prose-only runs; delegate duplicate Ubuntu
-worker tests to required integration; and omit unused native/browser preparation
-for Go-fixture-only PRs. The implementation preserves unique native comparisons,
-selected acceptance failures, both-host G1/installed checks and current protection.
+On 2026-10-30 the Human approved reducing CI overhead, then explicitly requested
+further cuts because repeated full Live runs delay development and releases.
+The implementation moves full Live to manual candidate acceptance and keeps daily
+Development source checks, integration and bounded source Go/Python Live smoke.
+The existing `Live required gate` name now aggregates daily source/integration
+results; `Live full acceptance gate` identifies complete manual acceptance.
+PR updates and main pushes no longer launch full Live. Both-platform browser,
+native, G1 and installed checks remain available in the manual workflow.
+
+The tradeoff is later detection of macOS/browser/installed-specific failures.
+Full acceptance remains a final-candidate adoption condition; it is not implied
+by the daily gate or Release READY. No cross-source acceptance reuse is added.
+Known inert tooling skips Dump runtime work, Django prose-only triggers are
+removed, and duplicate Ubuntu worker checks belong to required integration.
 See [development selection](development.md#local-verification).
 
-Routing campaign consolidation, historical workflow retirement, Draft policy,
-main-run cancellation and release gates are outside this implementation. Approval
-of this cleanup does not claim a measured speedup or completed CI acceptance.
+Routing campaign consolidation, historical workflow retirement and release gates
+remain outside this implementation. No runtime speedup or completed CI acceptance
+is claimed before the candidate's checks finish.
 
 ## Issue #5 host repair — adopted on main, unreleased
 

@@ -185,3 +185,16 @@ jobs:
             build/worker-failure/reference/ordinary-native.json
             build/worker-failure/reference/native.json
           if-no-files-found: warn
+
+  required:
+    name: Live required gate
+    if: always()
+    needs: [scope, check, integration]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Require daily source checks and selected integration including Live smoke
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          PYTHONPATH: scripts
+        run: python3 -c 'import json, os; from development_scope import verify_gate; verify_gate(json.loads(os.environ["NEEDS_JSON"]))'

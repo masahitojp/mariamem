@@ -1,43 +1,13 @@
-name: Live E2E
+name: Live full acceptance
 on:
-  push:
-    branches: [main, experiment/live-main-candidate, experiment/live-review-fixes]
-  pull_request:
-    branches: [main]
-    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 permissions:
   contents: read
 jobs:
-  scope:
-    runs-on: ubuntu-24.04
-    outputs:
-      native_reference: ${{ steps.scope.outputs.native_reference }}
-      installed: ${{ steps.scope.outputs.installed }}
-      examples: ${{ steps.scope.outputs.examples }}
-      live_runtime: ${{ steps.scope.outputs.live_runtime }}
-      g1: ${{ steps.scope.outputs.g1 }}
-      mac_integration: ${{ steps.scope.outputs.mac_integration }}
-      pull_request_draft: ${{ steps.scope.outputs.pull_request_draft }}
-      run_live: ${{ steps.scope.outputs.run_live }}
-      ubuntu_check: ${{ steps.scope.outputs.ubuntu_check }}
-      ubuntu_integration: ${{ steps.scope.outputs.ubuntu_integration }}
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-        with:
-          filter: blob:none
-          fetch-depth: 0
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
-        with:
-          python-version: '3.14'
-      - id: scope
-        run: python scripts/live_ci.py scope --candidate-sha '${{ github.sha }}' --github-output
   native-reference:
-    needs: scope
-    if: needs.scope.outputs.run_live == 'true' && needs.scope.outputs.native_reference == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     strategy:
@@ -96,11 +66,7 @@ jobs:
           path: build/live-native
           if-no-files-found: error
   live:
-    needs: [scope, native-reference]
-    if: >-
-      ${{ !cancelled() && needs.scope.result == 'success' && needs.scope.outputs.run_live == 'true' &&
-          ((needs.scope.outputs.native_reference == 'true' && needs.native-reference.result == 'success') ||
-           (needs.scope.outputs.native_reference == 'false' && needs.native-reference.result == 'skipped')) }}
+    needs: native-reference
     runs-on: ${{ matrix.os }}
     timeout-minutes: 55
     strategy:
@@ -135,7 +101,6 @@ jobs:
         with:
           python-version: '3.14'
       - name: Native client development library
-        if: needs.scope.outputs.native_reference == 'true' || needs.scope.outputs.mac_integration == 'true'
         shell: bash
         run: |
           if [[ "$RUNNER_OS" == Linux ]]; then
@@ -152,50 +117,35 @@ jobs:
           PY314: ${{ steps.py314.outputs.python-path }}
         run: |
           python scripts/git_identity.py inspect HEAD
-          if [[ "${{ needs.scope.outputs.native_reference }}" == true || "${{ needs.scope.outputs.mac_integration }}" == true ]]; then
-            for py in "$PY311" "$PY314"; do
-              "$py" -m pip install --no-cache-dir -r tests/e2e_native_control/requirements.lock.txt -r tests/routing_acceptance/unit-requirements.txt -r tests/preparation_migration_acceptance/requirements.txt mysql-connector-python==26.7.0 build==1.6.1 wheel==0.48.0 setuptools==84.0.0
-            done
+          for py in "$PY311" "$PY314"; do
+            "$py" -m pip install --no-cache-dir -r tests/e2e_native_control/requirements.lock.txt -r tests/routing_acceptance/unit-requirements.txt -r tests/preparation_migration_acceptance/requirements.txt mysql-connector-python==26.7.0 build==1.6.1 wheel==0.48.0 setuptools==84.0.0
+          done
+          if [[ "$RUNNER_OS" == Linux ]]; then
+            python -m playwright install --with-deps chromium --only-shell
           else
-            "$PY314" -m pip install --no-cache-dir PyMySQL==1.2.3 build==1.6.1 wheel==0.48.0 setuptools==84.0.0
-          fi
-          if [[ "${{ needs.scope.outputs.native_reference }}" == true ]]; then
-            if [[ "$RUNNER_OS" == Linux ]]; then
-              python -m playwright install --with-deps chromium --only-shell
-            else
-              python -m playwright install chromium --only-shell
-            fi
+            python -m playwright install chromium --only-shell
           fi
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
-        if: needs.scope.outputs.native_reference == 'true'
         with:
           name: live-native-py3.11-${{ github.sha }}
           path: build/reference/py3.11
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
-        if: needs.scope.outputs.native_reference == 'true'
         with:
           name: live-native-py3.14-${{ github.sha }}
           path: build/reference/py3.14
       - name: Evidence directory
         run: mkdir -p build/live-evidence
-      # Development owns Ubuntu check and integration on full PR/main diffs.
-      # Other events and reduced Development scopes retain local canonical runs.
-      # PR source/unit/vet checks belong to Development on Ubuntu.
-      # macOS retains full check on main/manual; integration and Live stay on PRs.
+      # Standalone candidate acceptance owns both-platform canonical checks.
       - name: Canonical check
-        if: (runner.os == 'macOS' && github.event_name != 'pull_request') || (runner.os == 'Linux' && needs.scope.outputs.ubuntu_check != 'false')
         run: python scripts/verify.py check > build/live-evidence/check.txt 2>&1
       - name: Canonical integration
-        if: (runner.os == 'macOS' && needs.scope.outputs.mac_integration == 'true') || (runner.os == 'Linux' && needs.scope.outputs.ubuntu_integration != 'false')
         run: python scripts/verify.py integration > build/live-evidence/integration.txt 2>&1
       - name: Bounded G1 fixture acceptance on both hosts
-        if: needs.scope.outputs.g1 == 'true'
         run: python scripts/go_fixture_campaign.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/g1
       - name: G1 physical fault controls and external Go fixture consumer
-        if: needs.scope.outputs.g1 == 'true'
         run: python scripts/go_fixture_completion.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/g1/completion
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
-        if: always() && needs.scope.outputs.g1 == 'true'
+        if: always()
         with:
           name: go-fixture-host-${{ matrix.os }}-${{ github.sha }}
           path: |
@@ -203,18 +153,15 @@ jobs:
             build/live-evidence/g1/**/*.txt
           if-no-files-found: error
       - name: Live race checks on both hosts
-        if: needs.scope.outputs.live_runtime == 'true'
         run: |
           go test -race -count=1 ./internal/live ./internal/control . > build/live-evidence/live-race.txt 2>&1
       - name: Exact-source acceptance executables
-        if: needs.scope.outputs.native_reference == 'true'
         run: |
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-orders ./tests/e2e_native_control/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-live-orders ./tests/live_acceptance/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-owner ./tests/live_acceptance/go_owner
       - name: Public Go/Python browser Live, Fork control and actual defects
-        if: needs.scope.outputs.live_runtime == 'true'
         shell: bash
         env:
           PY311: ${{ steps.py311.outputs.python-path }}
@@ -231,7 +178,6 @@ jobs:
             done
           done
       - name: Runnable public documentation examples
-        if: needs.scope.outputs.examples == 'true'
         shell: bash
         env:
           PY311: ${{ steps.py311.outputs.python-path }}
@@ -242,7 +188,6 @@ jobs:
             "$py" scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$py" docs/examples/live/verify.py --host build/mariamem-host --go-app build/go-live-orders --expected-source-commit "$GITHUB_SHA" --output "build/live-evidence/examples-py$version"
           done
       - name: Installed wheel and external Go module
-        if: needs.scope.outputs.installed == 'true'
         shell: bash
         run: python tests/live_acceptance/installed.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/installed
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
@@ -253,9 +198,9 @@ jobs:
           if-no-files-found: error
 
   required:
-    name: Live required gate
+    name: Live full acceptance gate
     if: always()
-    needs: [scope, native-reference, live]
+    needs: [native-reference, live]
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
@@ -267,12 +212,10 @@ jobs:
           NEEDS_JSON: ${{ toJSON(needs) }}
         run: python scripts/live_ci.py gate
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
-        if: needs.scope.outputs.run_live == 'true' && needs.scope.outputs.g1 == 'true'
         with:
           pattern: go-fixture-host-*-${{ github.sha }}
           path: build/g1-matrix
       - name: Validate both source-bound G1 host receipts
-        if: needs.scope.outputs.run_live == 'true' && needs.scope.outputs.g1 == 'true'
         run: |
           python scripts/go_fixture_campaign.py --expected-source-commit "$GITHUB_SHA" --validate-matrix build/g1-matrix
           python scripts/go_fixture_completion.py --expected-source-commit "$GITHUB_SHA" --validate-matrix build/g1-matrix

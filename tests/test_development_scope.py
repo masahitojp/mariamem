@@ -22,7 +22,7 @@ def test_documentation_needs_no_runtime_receipt(path):
 
 
 def test_policy_review_pr_skips_runtime_checks():
-    from live_ci import required
+    from development_scope import runtime_required as required
     paths = ['AGENTS.md', 'docs/development.md', 'docs/project-status.md']
     result = scope.select(paths)
     assert result['check_scope'] == 'docs'
