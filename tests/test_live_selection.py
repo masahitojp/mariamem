@@ -1,5 +1,6 @@
 """E2E selector/gates must not skip owned entry changes or revive auto-full CI."""
 import os
+import runpy
 import subprocess
 from pathlib import Path
 import sys
@@ -52,11 +53,21 @@ class TestE2ESelection(unittest.TestCase):
                 main()
             self.assertEqual(set(output.read_text().splitlines()), {name+'=true' for name in FAMILIES})
 
-    def test_release_notes_keep_both_candidate_announcements(self):
-        text = (ROOT/'docs/release-notes/unreleased.md').read_text()
-        for text_required in ['Python prepared entry (P1)', 'PrepareCommand',
-                              'Owned E2E entry candidate', 'BrowserEntry', 'NewHTTP/Case(t)']:
-            self.assertIn(text_required, text)
+    def test_release_notes_keep_prepared_and_e2e_announcements(self):
+        version = runpy.run_path(str(ROOT/'python/mariamem/_version.py'))
+        suffix = (f"{version['STAGE']}.{version['SERIAL']}" if version['STAGE']
+                  else version['GIT_TAG'])
+        paths = [ROOT/'docs/release-notes/unreleased.md']
+        versioned = ROOT/f'release/NOTES-{suffix}.md'
+        if versioned.exists():
+            paths.append(versioned)
+        for path in paths:
+            with self.subTest(path=path.relative_to(ROOT)):
+                text = path.read_text()
+                for text_required in ['PrepareCommand', 'same worker', '16 KiB',
+                                      'BrowserEntry', 'mariamemtest.NewHTTP',
+                                      'fixture.Case(t)', 'quiescence']:
+                    self.assertIn(text_required, text)
 
     def test_merged_p1_and_e2e_shell_blocks_remain_complete(self):
         text = (ROOT/'.github/workflows/live-host.yml').read_text()
