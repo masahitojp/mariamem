@@ -1,0 +1,55 @@
+{
+  "policy": "Hosted runner home prefixes normalized in published copies; original producer hashes refer to raw archive, top-level hashes to published files.",
+  "files": [
+    {
+      "path": "macos-15/g1/host.json",
+      "raw_sha256": "947b595c2f2f18a4adf9a8daeae72655fa11945b4664cd5ac093429c5464e714",
+      "published_sha256": "67c082109de0d782718107eb74c2921471db6c87b10655cf0ea3819ffc73bbeb"
+    },
+    {
+      "path": "macos-15/owned-installed-py3.11/wheel-install.txt",
+      "raw_sha256": "c0fe5bd9efc4888c4d3ed7e84607ad6c20a1c2468ac7eea0df85f0e3b464506f",
+      "published_sha256": "fe565975e5e0f922c25bc0f97731efad2157dd8c6d96b783e9f40dbeeb4e6d53"
+    },
+    {
+      "path": "macos-15/owned-installed-py3.14/wheel-install.txt",
+      "raw_sha256": "c0fe5bd9efc4888c4d3ed7e84607ad6c20a1c2468ac7eea0df85f0e3b464506f",
+      "published_sha256": "fe565975e5e0f922c25bc0f97731efad2157dd8c6d96b783e9f40dbeeb4e6d53"
+    },
+    {
+      "path": "macos-15/owned-workflow-py3.11/result.json",
+      "raw_sha256": "550d2bc7e9cca06d566d649a561566abbd12df9ba3832a6617276b1630d23df0",
+      "published_sha256": "ca5fc82ac3a857a04ac16f5b5ec431022d262b36f893eee5c048741ce3484f59"
+    },
+    {
+      "path": "macos-15/owned-workflow-py3.14/result.json",
+      "raw_sha256": "1a987a2e72e8d5973bc72682b76743d3466130d0211d1a3e4f77da9a7f682adc",
+      "published_sha256": "848ee1782b03de496330afbe4b78029a00464d70c586e8d4e34103497a2c021b"
+    },
+    {
+      "path": "ubuntu-24.04/g1/host.json",
+      "raw_sha256": "d47239e4d2fe78783d73ba71f065f24e7c76358e3736cfa37257f030497db5a8",
+      "published_sha256": "5050ff2e6947ba7693dca5802f5a5342855f78f7f65b1a8b7bdeb3724a319748"
+    },
+    {
+      "path": "ubuntu-24.04/owned-installed-py3.11/wheel-install.txt",
+      "raw_sha256": "da6f4376fdad1a0975b92a1e1739a0fb9b833e43e2e3988a6f8c636a06e38dfa",
+      "published_sha256": "05985fe2553f7246c588b72bc5d4344868c8a0e1bb05554f2e5a591fed111cc7"
+    },
+    {
+      "path": "ubuntu-24.04/owned-installed-py3.14/wheel-install.txt",
+      "raw_sha256": "da6f4376fdad1a0975b92a1e1739a0fb9b833e43e2e3988a6f8c636a06e38dfa",
+      "published_sha256": "05985fe2553f7246c588b72bc5d4344868c8a0e1bb05554f2e5a591fed111cc7"
+    },
+    {
+      "path": "ubuntu-24.04/owned-workflow-py3.11/result.json",
+      "raw_sha256": "de3a760bced5c650a0051a9b0d5d79f480fb9fe3dc43b8abe942070c074d0360",
+      "published_sha256": "895256527a279cc0725761c24886d9afef8a15a1547c2a7c439956228ac9c007"
+    },
+    {
+      "path": "ubuntu-24.04/owned-workflow-py3.14/result.json",
+      "raw_sha256": "bb5009d9f6c8cd3db9cdb4fa74eebc80828a7c223e5ec92bcfac78a635708ef3",
+      "published_sha256": "a2288014739ee42009f8337136fccb54d1515d15310cab72afb2d54338bd08de"
+    }
+  ]
+}

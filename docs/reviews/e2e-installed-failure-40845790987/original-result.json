@@ -1,0 +1,13 @@
+{
+  "source_commit": "5f67a3d72203ef2381d576e7c957f7bb4a3e3901",
+  "result": "FAIL",
+  "host": {
+    "system": "Linux",
+    "architecture": "x86_64",
+    "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+  },
+  "python_minor": "3.11",
+  "wheel_sha256": "a41a934923225847da23fbacc78e67744d1e580fc77619cea911be95dfca7117",
+  "error": "consumer command failed: python-runtime.txt",
+  "runtime_cleanup": "unconfirmed"
+}

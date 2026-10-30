@@ -1,0 +1,46 @@
+{
+  "policy": "Replace hosted runner home prefix with <CI_RUNNER> in published copies only; nested producer hashes refer to original raw archive members, top-level hashes to published copies.",
+  "raw_source": "Original artifact IDs and verified full ZIP digests in assessment.json",
+  "files": [
+    {
+      "path": "macos-15/owned-installed-py3.11/wheel-install.txt",
+      "raw_sha256": "c0fe5bd9efc4888c4d3ed7e84607ad6c20a1c2468ac7eea0df85f0e3b464506f",
+      "published_sha256": "fe565975e5e0f922c25bc0f97731efad2157dd8c6d96b783e9f40dbeeb4e6d53"
+    },
+    {
+      "path": "macos-15/owned-installed-py3.14/wheel-install.txt",
+      "raw_sha256": "c0fe5bd9efc4888c4d3ed7e84607ad6c20a1c2468ac7eea0df85f0e3b464506f",
+      "published_sha256": "fe565975e5e0f922c25bc0f97731efad2157dd8c6d96b783e9f40dbeeb4e6d53"
+    },
+    {
+      "path": "macos-15/owned-workflow-py3.11/result.json",
+      "raw_sha256": "3b524b10f294c04994c8650c5d572a8784a16b56572334570022fb7ce007fca9",
+      "published_sha256": "e29ee9f3449da8a9eec612b5089eb1f9fefb0c44c6ffca4e75290847f642281c"
+    },
+    {
+      "path": "macos-15/owned-workflow-py3.14/result.json",
+      "raw_sha256": "2b0d9486de5c44448cb8357c699a2983ffcda5650243e7081efdd85135cf30b6",
+      "published_sha256": "0aeaa12b9942866eaab5de3ec9fe9f58ca015c1385eeb70d89a35876ee30fbd2"
+    },
+    {
+      "path": "ubuntu-24.04/owned-installed-py3.11/wheel-install.txt",
+      "raw_sha256": "da6f4376fdad1a0975b92a1e1739a0fb9b833e43e2e3988a6f8c636a06e38dfa",
+      "published_sha256": "05985fe2553f7246c588b72bc5d4344868c8a0e1bb05554f2e5a591fed111cc7"
+    },
+    {
+      "path": "ubuntu-24.04/owned-installed-py3.14/wheel-install.txt",
+      "raw_sha256": "da6f4376fdad1a0975b92a1e1739a0fb9b833e43e2e3988a6f8c636a06e38dfa",
+      "published_sha256": "05985fe2553f7246c588b72bc5d4344868c8a0e1bb05554f2e5a591fed111cc7"
+    },
+    {
+      "path": "ubuntu-24.04/owned-workflow-py3.11/result.json",
+      "raw_sha256": "058795ea35fee55b391518c55eccad4d2269c76253422bdc7c3674781eaf3fec",
+      "published_sha256": "3269b117f58b3b1b03950d55ed7820f98c0283100359199e21b4d46b49bf50c9"
+    },
+    {
+      "path": "ubuntu-24.04/owned-workflow-py3.14/result.json",
+      "raw_sha256": "8d693754b43127ba3d3b52ef418f5f21984e7c96865802b2290d8869edc63fbf",
+      "published_sha256": "0278a75696cd4697612af078f4a80ae6ff798126ff464b82b1bad224cb4e9330"
+    }
+  ]
+}

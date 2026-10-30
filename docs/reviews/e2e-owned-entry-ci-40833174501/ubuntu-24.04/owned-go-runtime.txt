@@ -1,0 +1,8 @@
+=== RUN   TestOwnedOrders
+=== RUN   TestOwnedOrders/first
+=== RUN   TestOwnedOrders/second
+--- PASS: TestOwnedOrders (0.30s)
+    --- PASS: TestOwnedOrders/first (0.07s)
+    --- PASS: TestOwnedOrders/second (0.07s)
+PASS
+ok  	github.com/masahitojp/mariamem/docs/examples/e2e_owned/go	0.302s

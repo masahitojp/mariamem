@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.682" timestamp="2026-10-30T16:04:27.376174+00:00" hostname="runnervm48cm3"><testcase classname="docs.examples.e2e_owned.python.test_orders" name="test_owned_browser_seed[first]" time="1.609" /></testsuite></testsuites>

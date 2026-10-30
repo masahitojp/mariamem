@@ -1077,7 +1077,45 @@ statement; [#24](https://github.com/masahitojp/mariamem/issues/24) owns that res
 gap. See the [WASIX stub maintenance procedure](v04-generated-go-architecture.md#unimplemented-wasix-host-imports)
 for classification updates and the current detection boundary.
 
+**EP1/EG1 implementation approved by the Human:** the
+[decision](decisions/e2e-entry-implementation.md) records the required probe
+results before product implementation and authorizes the bounded owned entry
+API. The [bounded v0.6.0 technical acceptance review](reviews/e2e-v060-adoption-review.md)
+recommends adoption at executed source `edfee47807cc7ad76aed798947ba70af0a7fb2c9`
+after both-host Live CI41058866706 and its required gate passed. Saved receipts
+cover the previously named functional/usability gaps. Human adoption and main
+integration were pending in that review. The Human subsequently approved
+proceeding subject to the [five integration conditions](decisions/e2e-integration-conditions.md):
+merge-commit ancestry, gated E2E CI selection, new integrated-source receipts,
+union of P1/E2E notes and unchanged limits. The integrated executable source
+`d38deb043bc84bda064cee06b8568bc5174b744c` includes main #40 and P1 #26.
+Its [new acceptance receipt](reviews/e2e-integration-ci-41095184074/assessment.json)
+binds both-host Live, native references and four installed cells. Both platform
+guards and the aggregate returned READY; operation=verify completed successfully.
+The unchanged0.5.3 metadata is not future0.6.0 release qualification. Protected
+merge-commit integration is tracked by PR #28 and #18. This approval is not a
+release request. Main then advanced through CI-only #41/#44/#45; the Human
+explicitly declined another full CI run and authorized integration after the
+affected-boundary and protected daily checks. The [sequencing correction](decisions/e2e-integration-conditions.md#human-sequencing-correction--no-further-full-ci-2026-10-31-jst)
+keeps the successful d38deb04 full evidence separate from final-head daily
+checks and does not claim full execution of the new Release orchestration.
+The [E2E work-sequencing decision](decisions/e2e-v060-work-sequencing.md)
+applies the 2026-10-30 Human resource deferral to EP1/EG1: detailed resource
+characterization belongs to shared v0.7.x work, while functional isolation,
+admission, owned cleanup, declared budgets and supported-profile evidence remain
+v0.6.0 conditions. Use the [current evidence map](reviews/e2e-entry-acceptance-map.md)
+and #18 rather than the resource prerequisites in historical scope drafts.
+
 ### Approved scope and release sequencing
+
+**2026-10-30 update — fixed exit and resource deferral:** the
+[Human decision recorded with P1](https://github.com/masahitojp/mariamem/blob/4cc74f9a7f541afe96a958360eb60ac2fa77fb93/docs/decisions/p1-fixed-exit-v060.md)
+explicitly moves detailed resource characterization out of all fixture-entry
+and v0.6.0 prerequisites into shared v0.7.x work. It supersedes the detailed
+resource-campaign requirements in the earlier sequencing below. Functional
+isolation, declared budgets, lifecycle cleanup and usability/timing evidence
+remain required; deferred resources are not PASS. The
+[E2E reconciliation](decisions/e2e-v060-work-sequencing.md) applies this to #28.
 
 **v0.6.0 release scope agreed with the Human, 2026-10-30:** Live is part of the
 0.6.0 scope together with the other adopted-on-main capabilities (routines,

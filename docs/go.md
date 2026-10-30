@@ -311,3 +311,13 @@ Unreleased main supports stable Live endpoints across sequential browser E2E
 cases. Use independent Forks for concurrent cases; Live does not promise a
 parallel shared mutable endpoint. See the [Live guide](live.md) for connection
 draining and reset ownership.
+
+## Owned E2E entry — unreleased main
+
+The source-build [owned E2E examples](examples/e2e_owned/README.md) demonstrate
+application-specific preparation/start/quiescence/stop hooks over Live. This
+entry was approved for bounded main adoption with the supplied hook obligations;
+it is not part of published v0.5.3. Existing direct Live APIs remain the mechanism
+underneath the entry. See the [integration receipt](reviews/e2e-integration-ci-41095184074/assessment.json)
+for exact tested source/profiles. Arbitrary unregistered work and non-cooperative
+shutdown remain outside the guarantee; detailed resource characterization is deferred.

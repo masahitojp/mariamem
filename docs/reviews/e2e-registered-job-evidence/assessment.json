@@ -1,0 +1,14 @@
+{
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "go": "go1.26.10",
+  "normal": "PASS: two actual registered-job controls",
+  "race": "PASS: same controls, no data race",
+  "tracked_diff_from_successful_ci": [
+    "mariamemtest/http_jobs_runtime_test.go"
+  ],
+  "record_files_untracked_during_local_run": true,
+  "scope": "controlled app hook; actual DB transaction/Live/SQL session; no arbitrary future-job detection",
+  "hosted_matrix_for_new_controls": "NOT RUN",
+  "helper_component": "PASS",
+  "source_commit": "0f843cb55f3b150eb33e0f2f9d3077836685e5a1"
+}

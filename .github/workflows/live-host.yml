@@ -166,6 +166,29 @@ jobs:
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-orders ./tests/e2e_native_control/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-live-orders ./tests/live_acceptance/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-owner ./tests/live_acceptance/go_owner
+      - name: Select explicit full-acceptance families
+        id: families
+        run: python scripts/live_selection.py --github-output
+      - name: Owned E2E entry component and actual application checks
+        if: steps.families.outputs.e2e == 'true'
+        shell: bash
+        env:
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
+        run: |
+          go test -race -p 1 ./mariamemtest -count=1 > build/live-evidence/owned-go-unit.txt 2>&1
+          E2E_OWNED_RUNTIME=1 go test -p 1 ./mariamemtest -run '^TestHTTPPhysical' -count=1 -v > build/live-evidence/owned-go-physical.txt 2>&1
+          E2E_OWNED_RUNTIME=1 E2E_GO_APP="$PWD/build/go-live-orders" go test -p 1 ./docs/examples/e2e_owned/go -count=1 -v > build/live-evidence/owned-go-runtime.txt 2>&1
+          for py in "$PY311" "$PY314"; do
+            version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+            PYTHONPATH="$PWD/python" "$py" -m unittest discover -s tests -p test_e2e_entry.py -v > "build/live-evidence/owned-py$version-unit.txt" 2>&1
+            PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_orders.py -q -s > "build/live-evidence/owned-py$version-runtime.txt" 2>&1
+            PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_independent.py -q -s > "build/live-evidence/owned-py$version-independent.txt" 2>&1
+            PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_retirement.py -q -s > "build/live-evidence/owned-py$version-retirement.txt" 2>&1
+            extra=()
+            if [[ "$version" == 3.11 ]]; then extra+=(--include-go); fi
+            PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" E2E_GO_APP="$PWD/build/go-live-orders" "$py" scripts/e2e_workflow_timing.py --expected-source-commit "$SOURCE_COMMIT" --output "build/live-evidence/owned-workflow-py$version" "${extra[@]}"
+          done
       - name: P1 real prepared command and callback on both Python minors
         shell: bash
         env:
@@ -214,6 +237,17 @@ jobs:
       - name: Installed wheel and external Go module
         shell: bash
         run: python tests/live_acceptance/installed.py --expected-source-commit "$SOURCE_COMMIT" --output build/live-evidence/installed
+      - name: Installed owned E2E entry outside the source checkout
+        if: steps.families.outputs.e2e == 'true'
+        shell: bash
+        env:
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
+        run: |
+          for py in "$PY311" "$PY314"; do
+            version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+            "$py" scripts/e2e_installed.py --expected-source-commit "$SOURCE_COMMIT" --wheel build/dist/*.whl --go-app "$PWD/build/go-live-orders" --output "build/live-evidence/owned-installed-py$version"
+          done
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

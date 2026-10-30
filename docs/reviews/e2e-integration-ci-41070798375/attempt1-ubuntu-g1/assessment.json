@@ -1,0 +1,14 @@
+{
+  "source_commit": "67ef37dce3376ece886c83ce0ab4801833c7ab81",
+  "attempt": 1,
+  "artifact_id": 12985852921,
+  "artifact_sha256": "6ded8cbe92011f2e1b97d9fe50d6d673189b3f114ed2f15ad7a5afe6f17fe53c",
+  "zip_digest_verified": true,
+  "original_result": "FAIL/UNVERIFIED",
+  "runtime_returncode": 0,
+  "counter_errors": [
+    "live runtime process RSS unavailable/zero"
+  ],
+  "interpretation": "Runtime controls passed; zero RSS at process exit caused observer UNVERIFIED. Preserve original failure; allow one same-source failed-job retry, not a replacement PASS for attempt1.",
+  "publication": "Runner prefixes normalized; original producer hashes refer to raw artifact, local manifest refers to published copies."
+}

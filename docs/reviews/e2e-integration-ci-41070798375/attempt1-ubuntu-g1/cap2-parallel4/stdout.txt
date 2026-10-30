@@ -1,0 +1,75 @@
+=== RUN   TestFixtureCampaign
+=== RUN   TestFixtureCampaign/warmup
+=== RUN   TestFixtureCampaign/warmup/0
+=== PAUSE TestFixtureCampaign/warmup/0
+=== RUN   TestFixtureCampaign/warmup/1
+=== PAUSE TestFixtureCampaign/warmup/1
+=== RUN   TestFixtureCampaign/warmup/2
+=== PAUSE TestFixtureCampaign/warmup/2
+=== RUN   TestFixtureCampaign/warmup/3
+=== PAUSE TestFixtureCampaign/warmup/3
+=== CONT  TestFixtureCampaign/warmup/0
+=== CONT  TestFixtureCampaign/warmup/2
+=== CONT  TestFixtureCampaign/warmup/1
+=== CONT  TestFixtureCampaign/warmup/3
+=== RUN   TestFixtureCampaign/observed_1
+=== RUN   TestFixtureCampaign/observed_1/0
+=== PAUSE TestFixtureCampaign/observed_1/0
+=== RUN   TestFixtureCampaign/observed_1/1
+=== PAUSE TestFixtureCampaign/observed_1/1
+=== RUN   TestFixtureCampaign/observed_1/2
+=== PAUSE TestFixtureCampaign/observed_1/2
+=== RUN   TestFixtureCampaign/observed_1/3
+=== PAUSE TestFixtureCampaign/observed_1/3
+=== CONT  TestFixtureCampaign/observed_1/0
+=== CONT  TestFixtureCampaign/observed_1/2
+=== CONT  TestFixtureCampaign/observed_1/1
+=== CONT  TestFixtureCampaign/observed_1/3
+=== RUN   TestFixtureCampaign/observed_2
+=== RUN   TestFixtureCampaign/observed_2/0
+=== PAUSE TestFixtureCampaign/observed_2/0
+=== RUN   TestFixtureCampaign/observed_2/1
+=== PAUSE TestFixtureCampaign/observed_2/1
+=== RUN   TestFixtureCampaign/observed_2/2
+=== PAUSE TestFixtureCampaign/observed_2/2
+=== RUN   TestFixtureCampaign/observed_2/3
+=== PAUSE TestFixtureCampaign/observed_2/3
+=== CONT  TestFixtureCampaign/observed_2/0
+=== CONT  TestFixtureCampaign/observed_2/2
+=== CONT  TestFixtureCampaign/observed_2/3
+=== CONT  TestFixtureCampaign/observed_2/1
+=== RUN   TestFixtureCampaign/observed_3
+=== RUN   TestFixtureCampaign/observed_3/0
+=== PAUSE TestFixtureCampaign/observed_3/0
+=== RUN   TestFixtureCampaign/observed_3/1
+=== PAUSE TestFixtureCampaign/observed_3/1
+=== RUN   TestFixtureCampaign/observed_3/2
+=== PAUSE TestFixtureCampaign/observed_3/2
+=== RUN   TestFixtureCampaign/observed_3/3
+=== PAUSE TestFixtureCampaign/observed_3/3
+=== CONT  TestFixtureCampaign/observed_3/0
+=== CONT  TestFixtureCampaign/observed_3/2
+=== CONT  TestFixtureCampaign/observed_3/1
+=== CONT  TestFixtureCampaign/observed_3/3
+--- PASS: TestFixtureCampaign (4.35s)
+    --- PASS: TestFixtureCampaign/warmup (0.00s)
+        --- PASS: TestFixtureCampaign/warmup/1 (0.18s)
+        --- PASS: TestFixtureCampaign/warmup/0 (0.19s)
+        --- PASS: TestFixtureCampaign/warmup/3 (0.36s)
+        --- PASS: TestFixtureCampaign/warmup/2 (0.37s)
+    --- PASS: TestFixtureCampaign/observed_1 (0.00s)
+        --- PASS: TestFixtureCampaign/observed_1/0 (0.18s)
+        --- PASS: TestFixtureCampaign/observed_1/2 (0.19s)
+        --- PASS: TestFixtureCampaign/observed_1/1 (0.36s)
+        --- PASS: TestFixtureCampaign/observed_1/3 (0.38s)
+    --- PASS: TestFixtureCampaign/observed_2 (0.00s)
+        --- PASS: TestFixtureCampaign/observed_2/2 (0.18s)
+        --- PASS: TestFixtureCampaign/observed_2/0 (0.18s)
+        --- PASS: TestFixtureCampaign/observed_2/3 (0.36s)
+        --- PASS: TestFixtureCampaign/observed_2/1 (0.36s)
+    --- PASS: TestFixtureCampaign/observed_3 (0.00s)
+        --- PASS: TestFixtureCampaign/observed_3/3 (0.21s)
+        --- PASS: TestFixtureCampaign/observed_3/2 (0.21s)
+        --- PASS: TestFixtureCampaign/observed_3/1 (0.38s)
+        --- PASS: TestFixtureCampaign/observed_3/0 (0.39s)
+PASS

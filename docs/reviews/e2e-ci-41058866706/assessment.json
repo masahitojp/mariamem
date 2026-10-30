@@ -1,0 +1,65 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41058866706",
+  "actual_ci_source_commit": "edfee47807cc7ad76aed798947ba70af0a7fb2c9",
+  "event": "workflow_dispatch",
+  "conclusion": "success",
+  "required_gate": "success",
+  "artifact_zip_digests_verified": true,
+  "hosts": [
+    {
+      "host": "macos-15",
+      "artifact_id": 12981352849,
+      "artifact_sha256": "0a00d468612108e1ec712fc1e3080bc226720619e987965c46185d89f91b5d07",
+      "go_independent_owners": "PASS",
+      "go_physical_controls": "PASS",
+      "cells": [
+        {
+          "python_minor": "3.11",
+          "component_tests": 17,
+          "actual_independent_owner": "PASS",
+          "actual_retirement": "PASS",
+          "installed": "PASS",
+          "temporary_cleanup": "complete",
+          "workflow": "PASS_BOUNDED_WORKFLOW"
+        },
+        {
+          "python_minor": "3.14",
+          "component_tests": 17,
+          "actual_independent_owner": "PASS",
+          "actual_retirement": "PASS",
+          "installed": "PASS",
+          "temporary_cleanup": "complete",
+          "workflow": "PASS_BOUNDED_WORKFLOW"
+        }
+      ]
+    },
+    {
+      "host": "ubuntu-24.04",
+      "artifact_id": 12982181632,
+      "artifact_sha256": "6f1716cb7a21058d4f153c32f481d95227aabb634bb0201c0e98f982baa9b87f",
+      "go_independent_owners": "PASS",
+      "go_physical_controls": "PASS",
+      "cells": [
+        {
+          "python_minor": "3.11",
+          "component_tests": 17,
+          "actual_independent_owner": "PASS",
+          "actual_retirement": "PASS",
+          "installed": "PASS",
+          "temporary_cleanup": "complete",
+          "workflow": "PASS_BOUNDED_WORKFLOW"
+        },
+        {
+          "python_minor": "3.14",
+          "component_tests": 17,
+          "actual_independent_owner": "PASS",
+          "actual_retirement": "PASS",
+          "installed": "PASS",
+          "temporary_cleanup": "complete",
+          "workflow": "PASS_BOUNDED_WORKFLOW"
+        }
+      ]
+    }
+  ],
+  "scope": "Bounded v0.6.0 functional/usability acceptance; detailed resource characterization remains deferred; main adoption and release not approved."
+}
