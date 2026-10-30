@@ -16,5 +16,21 @@
     "Sock_connect": "fail-closed",
     "Sock_send_to": "fail-closed",
     "Resolve": "fail-closed"
+  },
+  "guard_panics": {
+    "Callback_signal": [
+      "\"signal callback bounds\"",
+      "\"unknown signal callback: \" + h.signalCallback"
+    ],
+    "Thread_exit": [
+      "fmt.Sprintf(\"unsupported worker exit code=%d\", code)"
+    ],
+    "Futex_wait": [
+      "\"futex duration overflows Go time.Duration\"",
+      "\"invalid futex OptionTimestamp tag\""
+    ],
+    "Path_open2": [
+      "fmt.Sprintf(\"unsupported path_open2 extflags=%d\", extflags)"
+    ]
   }
 }
