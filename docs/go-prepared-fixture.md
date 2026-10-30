@@ -22,10 +22,10 @@ var fixture *mariamemtest.Fixture
 func TestMain(m *testing.M) {
 	os.Exit(mariamemtest.Run(m, mariamemtest.Options{
 		Prepare: func(ctx context.Context, db *sql.DB, dsn string) error {
-			// Migration commands can run here with ctx and dsn. Return the
-			// original command error and retain stderr; never log a secret DSN.
+			// Migration commands can use ctx and dsn. Return their original
+			// error, retain stderr and never log a DSN containing credentials.
 			if _, err := db.ExecContext(ctx,
-				"CREATE TABLE items (id INT PRIMARY KEY, label VARCHAR(32))"); err != nil {
+				"CREATE TABLE items (id INT PRIMARY KEY, label VARCHAR(32)) ENGINE=InnoDB"); err != nil {
 				return err
 			}
 			_, err := db.ExecContext(ctx, "INSERT INTO items VALUES (1, 'seed')")
@@ -54,6 +54,11 @@ func TestSeed(t *testing.T) {
 	}
 }
 ```
+
+Save the example as `items_test.go` and run `go test ./...` using current source
+(`go get github.com/masahitojp/mariamem@<version-or-commit>`, replacing the
+placeholder with the main commit you are testing). The helper imports/configures its
+driver; the tests do not need `sql.Open` or a blank driver import.
 
 Both tests start from the declared schema/seed in either order, including after a
 previous test commits or fails. Preparation runs once per fixture in this test

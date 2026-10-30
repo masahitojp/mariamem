@@ -85,10 +85,160 @@ Django prepared entry is deferred from 0.6.0 for consideration in 0.6.1, not a
 delivery promise. Procedures/functions and real server-side prepared execution
 are supported on main within the named exceptions below.
 
+## Prepare once, isolate each test
+
+These fixture/helper examples use **current main**, not the published v0.5.3
+packages installed above. For Go, select current source with
+`go get github.com/masahitojp/mariamem@<version-or-commit>`, replacing the placeholder
+with the main commit you are testing. For Python, build and install the
+matching platform wheel using the [source-build instructions](docs/development.md#packaging--release-dry-runs),
+with pytest and PyMySQL available. Versioned releases will carry these entries
+in their documented release scope; these examples do not change the published version.
+
+## pytest fixtures
+
+Return your migrations and seed callback from `mariamem_prepare`:
+
+```python
+# conftest.py
+import pytest
+import pymysql
+
+
+@pytest.fixture(scope="session")
+def mariamem_prepare():
+    def prepare(db):
+        with pymysql.connect(**db.connection_info()) as conn:
+            with conn.cursor() as cur:
+                cur.execute("CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB")
+                cur.execute("INSERT INTO items VALUES(1)")
+            conn.commit()
+    return prepare
+```
+
+Request the test-owned connection settings in each test:
+
+```python
+# test_items.py
+import pymysql
+
+
+def test_commit(mariamem_connection_info):
+    with pymysql.connect(**mariamem_connection_info) as conn:
+        with conn.cursor() as cur:
+            cur.execute("DELETE FROM items")
+        conn.commit()
+
+
+def test_seed(mariamem_connection_info):
+    with pymysql.connect(**mariamem_connection_info) as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT id FROM items")
+            assert cur.fetchall() == ((1,),)
+```
+
+Run `python -m pytest test_items.py`. Preparation runs once per pytest worker;
+each test receives an independent child. Either test order starts with the seed,
+including after another test commits or fails. Close preparation connections
+before the callback returns; the plugin owns disconnect waiting, Snapshot/Fork
+and teardown. See the [Python guide](docs/python.md#pytest-fixtures) for
+`PrepareCommand` and pytest-xdist. For existing application connections, use the
+opt-in [shadow_maria routing](docs/connection-routing.md) profile.
+
+### Existing Python application connections
+
+`@pytest.mark.shadow_maria` routes the application's ordinary connection calls
+to the current test's child. Use the [complete Python example](docs/python.md#existing-application-connections-shadow_maria)
+for the original-endpoint profile, `app` schema preparation and `app.py`; its
+setup replaces the direct `items` example above. Then the tests are:
+
+```python
+# test_app.py
+import pytest
+import app
+
+
+@pytest.mark.shadow_maria
+def test_create_user():
+    app.create_user(2)  # Ordinary application connection and commit.
+    assert app.user_ids() == [1, 2]
+
+
+@pytest.mark.shadow_maria
+def test_initial_state():
+    assert app.user_ids() == [1]  # A fresh child, even after the other test commits.
+```
+
+Each test gets its own seed even when the other test commits. Profiles must be
+configured before application imports; existing pools need explicit enrollment.
+
+## Go test helper
+
+Save this as `items_test.go` in your Go module:
+
+```go
+package example_test
+
+import (
+	"context"
+	"database/sql"
+	"os"
+	"testing"
+
+	"github.com/masahitojp/mariamem/mariamemtest"
+)
+
+var fixture *mariamemtest.Fixture
+
+func TestMain(m *testing.M) {
+	os.Exit(mariamemtest.Run(m, mariamemtest.Options{
+		Prepare: func(ctx context.Context, db *sql.DB, dsn string) error {
+			// Migration commands can use ctx and dsn. Return their original
+			// error, retain stderr and never log a DSN containing credentials.
+			if _, err := db.ExecContext(ctx,
+				"CREATE TABLE items (id INT PRIMARY KEY, label VARCHAR(32)) ENGINE=InnoDB"); err != nil {
+				return err
+			}
+			_, err := db.ExecContext(ctx, "INSERT INTO items VALUES (1, 'seed')")
+			return err
+		},
+		MaxForks: 2,
+	}, func(f *mariamemtest.Fixture) { fixture = f }))
+}
+
+func TestCommit(t *testing.T) {
+	db := fixture.DB(t)
+	if _, err := db.ExecContext(t.Context(), "DELETE FROM items"); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestSeed(t *testing.T) {
+	db := fixture.DB(t)
+	var label string
+	if err := db.QueryRowContext(t.Context(),
+		"SELECT label FROM items WHERE id=1").Scan(&label); err != nil {
+		t.Fatal(err)
+	}
+	if label != "seed" {
+		t.Fatalf("starting label: %q", label)
+	}
+}
+```
+
+Run `go test ./...`. `Run` prepares once per package test process and closes the
+fixture after the suite; `DB(t)` acquires one independent child/pool per test and
+registers pool-before-child cleanup. Tests use ordinary SQL and commits without
+an automatic rollback wrapper. The helper provides its driver-owned pool; no
+`sql.Open`, blank driver import or manual Snapshot/Fork is needed here.
+See the [Go guide](docs/go.md#prepare-once-fork-independent-databases) for bounded
+parallel subtests and the [helper guide](docs/go-prepared-fixture.md) for lifecycle
+and failure behavior.
+
 ## Start fresh
 
-Fresh means a new database in its initial state. For small fixtures it is
-usually the simplest choice.
+Use `start()` when you want a new database without a prepared baseline, or need
+to own its lifetime outside pytest. This API is also available in published v0.5.3:
 
 ```python
 import mariamem
@@ -105,78 +255,13 @@ with mariamem.start() as db:
             assert cur.fetchone() == (1,)
 ```
 
-The same disposable database in Go:
-
-```go
-package example
-
-import (
-    "context"
-    "database/sql"
-    "testing"
-
-    _ "github.com/go-sql-driver/mysql"
-    "github.com/masahitojp/mariamem"
-)
-
-func TestItems(t *testing.T) {
-    ctx := context.Background()
-    db, err := mariamem.Start(ctx, mariamem.Options{})
-    if err != nil { t.Fatal(err) }
-    defer func() { if err := db.Close(); err != nil { t.Error(err) } }()
-    pool, err := sql.Open("mysql", db.DSN())
-    if err != nil { t.Fatal(err) }
-    defer pool.Close()
-    if _, err = pool.ExecContext(ctx, "CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB"); err != nil { t.Fatal(err) }
-    if _, err = pool.ExecContext(ctx, "INSERT INTO items VALUES(1)"); err != nil { t.Fatal(err) }
-    var id int
-    if err = pool.QueryRowContext(ctx, "SELECT id FROM items").Scan(&id); err != nil { t.Fatal(err) }
-    if id != 1 { t.Fatalf("id = %d", id) }
-}
-```
-
-The application may use its own connections and commit normally. Close those
-connections before disposing of the database.
-
-## Prepare once, isolate each test
-
-Run migrations and SQL fixtures through your normal driver, then create a
-Snapshot. Successful Snapshot creation ends the source database.
-
-```python
-with mariamem.start() as setup_db:
-    with pymysql.connect(**setup_db.connection_info()) as conn:
-        with conn.cursor() as cur:
-            cur.execute("CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB")
-            cur.execute("INSERT INTO items VALUES(1)")
-        conn.commit()
-    setup_db.wait_disconnected()
-
-    with setup_db.snapshot() as baseline:
-        with baseline.fork() as first:
-            # Starts with items(1). This test may insert, delete or change schema.
-            pass
-        with baseline.fork() as second:
-            # Still starts with items(1), regardless of first's changes.
-            pass
-```
-
-A Snapshot is a fixed schema/data baseline, not a running database or SQL dump.
-Each Fork starts a new mutable database. Closing a child leaves the baseline
-available for later children. A modified child can create a new Snapshot; it
-never updates the original baseline.
-
-Both languages provide preparation and independent child acquisition. See the
-[Go guide](docs/go.md#prepare-once-fork-independent-databases) and
-[Python guide](docs/python.md#share-preparation-isolate-mutations). Python pytest
-fixture integration is described in the Python guide.
+Close SQL connections before disposing of the database. The corresponding Go
+low-level API is `mariamem.Start`; ordinary Go tests can use the helper above
+with `Prepare: nil` to share an empty baseline. See the
+[Python](docs/python.md#share-preparation-isolate-mutations) and
+[Go](docs/go.md#low-level-database-lifetimes) guides for custom ownership.
 For ordinary `manage.py test` or pytest-django, see the
 [Django standard-runner recipe](docs/django-testing.md).
-
-Unreleased source builds also offer opt-in [application connection routing](docs/connection-routing.md):
-keep ordinary Python connection calls while `@pytest.mark.shadow_maria` selects an independent
-child. Configure before application imports and explicitly enroll existing pools.
-This feature is not included in published v0.5.3.
 
 ## Reuse expensive preparation within a test session
 
