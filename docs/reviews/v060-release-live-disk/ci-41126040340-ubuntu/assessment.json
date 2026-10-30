@@ -1,0 +1,25 @@
+{
+  "source_commit": "0ec2d3fde83f4fbee53ce7611b3546d027392498",
+  "run_id": 41126040340,
+  "job_id": 124308433546,
+  "artifact_id": 13010404494,
+  "artifact_name": "go-fixture-host-ubuntu-24.04-0ec2d3fde83f4fbee53ce7611b3546d027392498",
+  "artifact_zip_digest_reported_by_upload": "sha256:7d3ed629f27dc6363b1fab410288f00ae1e8dde545475e822d522cc7a4b86db8",
+  "artifact_zip_digest_independently_verified": false,
+  "member_sha256_checks_verified": 8,
+  "result": "STOP",
+  "reason": "free disk guard",
+  "free_disk_bytes_at_baseline": 11256389632,
+  "min_free_disk_bytes": 17179869184,
+  "cleanup_complete": true,
+  "active_children": 0,
+  "retained_baselines": 0,
+  "first_test": "PASS",
+  "second_test": "PASS",
+  "g1_mode": "cap1-parallel1",
+  "g1_cases_executed": 0,
+  "release_ready": false,
+  "saved_receipt_redactions": {
+    "host.sanitized.json": "runner home prefix redacted; original host.json remains in GitHub artifact"
+  }
+}

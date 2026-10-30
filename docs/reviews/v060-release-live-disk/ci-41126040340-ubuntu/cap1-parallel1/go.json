@@ -1,0 +1,50 @@
+{
+  "cap": 1,
+  "parallel": 1,
+  "pid": 6927,
+  "active_children": 0,
+  "retained_baselines": 0,
+  "peak_children": 0,
+  "peak_physical_pool_connections": 0,
+  "samples": [
+    {
+      "unix_ns": 1793394064525670891,
+      "at_seconds": 0.000080952,
+      "label": "baseline",
+      "fd": 6,
+      "fd_soft_limit": 65536,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 11256389632,
+      "children": 0,
+      "baselines": 0,
+      "physical_pool_connections": 0
+    },
+    {
+      "unix_ns": 1793394064525842559,
+      "at_seconds": 0.000252596,
+      "label": "final",
+      "fd": 6,
+      "fd_soft_limit": 65536,
+      "linked_temp_bytes": 0,
+      "unlinked_file_bytes": 0,
+      "disk_free_bytes": 11256385536,
+      "children": 0,
+      "baselines": 0,
+      "physical_pool_connections": 0
+    }
+  ],
+  "cases": null,
+  "batches": null,
+  "phases": null,
+  "stop_reason": "free disk guard",
+  "result": "STOP",
+  "cleanup_complete": true,
+  "new_fixture_seconds": 0,
+  "fixture_close_seconds": 1.63e-7,
+  "guards": {
+    "owned_disk_ceiling_bytes": 8589934592,
+    "min_free_disk_bytes": 17179869184,
+    "min_fd_headroom": 64
+  }
+}

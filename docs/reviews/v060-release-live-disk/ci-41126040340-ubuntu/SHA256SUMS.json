@@ -1,0 +1,12 @@
+{
+  "assessment.json": "52eb47780cc1d68965b6fdf934ef6ea712e9919e76be0f931af67079eb2da8e4",
+  "host.sanitized.json": "3d6cb6b44a3e847f3364e4e42470938377c359e4801c6b0ecb63f34509b2e3a6",
+  "limits.json": "6b3b324b11bc6f2c262866938ba976d43a1595cb5d8f31a9d41413facda0e892",
+  "first-test.txt": "5c887b03bb88a193fcdda7dbbef540b34e45ec699ffba5c98a606b1bdd6c761e",
+  "second-test.txt": "ccab1143ecaad64ee188b0175350f155f89f0b5b2a42b527840f6354b374b8a7",
+  "build.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "original-SHA256SUMS.json": "b9a9e16e9d4d6aec458f339c8bbf403c464e0086ab96abadf6e53bfef8adc999",
+  "cap1-parallel1/stdout.txt": "22dc92be9f865caa53cbc282356f4aa8d8708db9186832a7e4d031213325497b",
+  "cap1-parallel1/os.json": "d5f7606e39d8b2c133e88bc65681f9170db4120f9666f47de9079135173ae6c7",
+  "cap1-parallel1/go.json": "351710ec339ba84a3811432b13c4e14a91bdaaa1e32381c382f6785c9be30bd9"
+}

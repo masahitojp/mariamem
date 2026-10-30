@@ -1,0 +1,25 @@
+{
+  "result": "UNVERIFIED",
+  "returncode": 1,
+  "elapsed_seconds": 0.0080606610000018,
+  "requested_interval_seconds": 0.1,
+  "rss_mechanism": "sampled process-tree ps RSS sum",
+  "samples": [],
+  "counter_errors": [],
+  "terminal_observations": [
+    {
+      "at_seconds": 0.008024599000009403,
+      "unix_ns": 1793394064530885276,
+      "process_tree_rss_bytes": 0,
+      "members": {
+        "6927": 0
+      },
+      "available_memory_bytes": 14852100096,
+      "available_memory_mechanism": "Linux MemAvailable",
+      "reason": "process exited during collection",
+      "returncode": 1
+    }
+  ],
+  "failed_observations": [],
+  "stop_reason": null
+}
