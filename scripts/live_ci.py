@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Always report a Live required check; skip only an explicit documentation diff."""
+"""Always report a Live required check; skip documented runtime-free changes."""
 import argparse
 import json
 import os
@@ -7,27 +7,17 @@ from pathlib import Path
 
 from live_selection import FAMILIES, select as select_families
 
-from development_scope import boundary, canonical_plan, event_base, plan
+from development_scope import canonical_plan, event_base, plan, runtime_required
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def required(paths, reason):
-    """Skip the expensive matrix only for a diff the selector calls documentation.
-
-    The required check must still report, so the scope and gate jobs always run;
-    only the native, Live and installed jobs are skipped. Any non-documentation
-    path (including unknown documentation-directory inputs) keeps the full matrix.
-    """
-    return (
-        reason != 'local changed-input classification'
-        or not paths
-        or any(boundary(path) != 'docs' for path in paths)
-    )
+    return runtime_required(paths, reason)
 
 
 def selected_live(paths, reason, draft):
-    """Draft pull requests and documentation-only diffs skip the expensive matrix.
+    """Draft pull requests and known runtime-free diffs skip the expensive matrix.
 
     A draft cannot be merged, so paying for native, browser and installed jobs
     there only delays ready pull requests on the shared macOS runners. Marking the
@@ -51,8 +41,14 @@ def verify_gate(needs):
         flags = [scope['outputs'].get(key) for key in FAMILIES]
         assert all(flag in ('true', 'false') for flag in flags), 'missing family selection'
         assert 'true' in flags, 'empty selected acceptance'
-    expected = 'success' if selected == 'true' else 'skipped'
-    for job in ['native-reference', 'live']:
+    native = scope['outputs'].get('native_reference')
+    assert native in ('true', 'false'), 'missing native selection'
+    if selected == 'true':
+        assert (native == 'true') == any(scope['outputs'][key] == 'true'
+                                         for key in ('live_runtime', 'examples')), 'inconsistent native selection'
+    for job, enabled in [('native-reference', selected == 'true' and native == 'true'),
+                         ('live', selected == 'true')]:
+        expected = 'success' if enabled else 'skipped'
         assert needs[job]['result'] == expected, job + ' did not finish as required'
 
 
@@ -75,15 +71,16 @@ def main():
     result['pull_request_draft'] = draft
     result['run_live'] = selected_live(result['changed_paths'], result['reason'], draft)
     result['run_live_reason'] = ('draft pull request' if draft else
-                                 'documentation only' if not result['run_live'] else 'selected')
+                                 'documentation or runtime-free tooling' if not result['run_live'] else 'selected')
     result.update(canonical_plan(result, os.environ['GITHUB_EVENT_NAME'], os.environ.get('GITHUB_REF')))
     result.update(select_families(result["changed_paths"], os.environ["GITHUB_EVENT_NAME"], result["reason"]))
+    result['native_reference'] = result['live_runtime'] or result['examples']
     print(json.dumps(result, indent=2))
     if args.github_output:
         with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
             output.write('run_live=' + str(result['run_live']).lower() + '\n')
             output.write('pull_request_draft=' + str(draft).lower() + '\n')
-            for key in ['ubuntu_check', 'ubuntu_integration', *FAMILIES]:
+            for key in ['ubuntu_check', 'ubuntu_integration', *FAMILIES, 'native_reference']:
                 output.write(key + '=' + str(result[key]).lower() + '\n')
 
 

@@ -14,6 +14,20 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## CI cost reduction — implementation authorized, integration pending
+
+On 2026-10-30 the Human approved the first two priorities of CI cleanup: suppress
+runtime work for documentation and explicitly known runtime-free tooling; avoid
+README-induced expansion; stop Django prose-only runs; delegate duplicate Ubuntu
+worker tests to required integration; and omit unused native/browser preparation
+for Go-fixture-only PRs. The implementation preserves unique native comparisons,
+selected acceptance failures, both-host G1/installed checks and current protection.
+See [development selection](development.md#local-verification).
+
+Routing campaign consolidation, historical workflow retirement, Draft policy,
+main-run cancellation and release gates are outside this implementation. Approval
+of this cleanup does not claim a measured speedup or completed CI acceptance.
+
 ## Issue #5 host repair — adopted on main, unreleased
 
 The Human approved main adoption of candidate source_commit

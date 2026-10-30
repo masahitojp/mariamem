@@ -1,4 +1,6 @@
 """Conservative PR-only selection; unknown inputs retain every acceptance family."""
+from development_scope import boundary
+
 FAMILIES = ('mac_integration', 'g1', 'live_runtime', 'examples', 'installed')
 
 def select(paths, event, reason):
@@ -8,7 +10,7 @@ def select(paths, event, reason):
         return full
     selected = set()
     for path in paths:
-        if path.startswith('docs/') and path.endswith('.md') and not path.startswith('docs/examples/'):
+        if boundary(path) == 'docs':
             continue
         if path.startswith('tests/fixture_entry_acceptance/') or path in (
                 'mariamemtest/fixture.go', 'mariamemtest/fixture_test.go',

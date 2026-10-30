@@ -226,7 +226,7 @@ def test_draft_pull_requests_skip_live_matrices(paths, reason):
 @pytest.mark.parametrize('result', ['failure', 'cancelled', 'skipped', 'success'])
 def test_aggregate_rejects_incomplete_or_unselected_jobs(selected, job, result):
     from live_ci import verify_gate
-    needs = {'scope': {'result': 'success', 'outputs': {'pull_request_draft': 'false', 'run_live': selected, **dict.fromkeys(__import__('live_selection').FAMILIES, 'true')}},
+    needs = {'scope': {'result': 'success', 'outputs': {'pull_request_draft': 'false', 'run_live': selected, 'native_reference': 'true', **dict.fromkeys(__import__('live_selection').FAMILIES, 'true')}},
              'native-reference': {'result': 'success' if selected == 'true' else 'skipped'},
              'live': {'result': 'success' if selected == 'true' else 'skipped'}}
     needs[job]['result'] = result

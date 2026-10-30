@@ -15,6 +15,7 @@ jobs:
   scope:
     runs-on: ubuntu-24.04
     outputs:
+      native_reference: ${{ steps.scope.outputs.native_reference }}
       installed: ${{ steps.scope.outputs.installed }}
       examples: ${{ steps.scope.outputs.examples }}
       live_runtime: ${{ steps.scope.outputs.live_runtime }}
@@ -36,7 +37,7 @@ jobs:
         run: python scripts/live_ci.py scope --candidate-sha '${{ github.sha }}' --github-output
   native-reference:
     needs: scope
-    if: needs.scope.outputs.run_live == 'true'
+    if: needs.scope.outputs.run_live == 'true' && needs.scope.outputs.native_reference == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     strategy:
@@ -96,7 +97,10 @@ jobs:
           if-no-files-found: error
   live:
     needs: [scope, native-reference]
-    if: needs.scope.outputs.run_live == 'true'
+    if: >-
+      ${{ !cancelled() && needs.scope.result == 'success' && needs.scope.outputs.run_live == 'true' &&
+          ((needs.scope.outputs.native_reference == 'true' && needs.native-reference.result == 'success') ||
+           (needs.scope.outputs.native_reference == 'false' && needs.native-reference.result == 'skipped')) }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 55
     strategy:
@@ -131,6 +135,7 @@ jobs:
         with:
           python-version: '3.14'
       - name: Native client development library
+        if: needs.scope.outputs.native_reference == 'true' || needs.scope.outputs.mac_integration == 'true'
         shell: bash
         run: |
           if [[ "$RUNNER_OS" == Linux ]]; then
@@ -147,19 +152,27 @@ jobs:
           PY314: ${{ steps.py314.outputs.python-path }}
         run: |
           python scripts/git_identity.py inspect HEAD
-          for py in "$PY311" "$PY314"; do
-            "$py" -m pip install --no-cache-dir -r tests/e2e_native_control/requirements.lock.txt -r tests/routing_acceptance/unit-requirements.txt -r tests/preparation_migration_acceptance/requirements.txt mysql-connector-python==26.7.0 build==1.6.1 wheel==0.48.0 setuptools==84.0.0
-          done
-          if [[ "$RUNNER_OS" == Linux ]]; then
-            python -m playwright install --with-deps chromium --only-shell
+          if [[ "${{ needs.scope.outputs.native_reference }}" == true || "${{ needs.scope.outputs.mac_integration }}" == true ]]; then
+            for py in "$PY311" "$PY314"; do
+              "$py" -m pip install --no-cache-dir -r tests/e2e_native_control/requirements.lock.txt -r tests/routing_acceptance/unit-requirements.txt -r tests/preparation_migration_acceptance/requirements.txt mysql-connector-python==26.7.0 build==1.6.1 wheel==0.48.0 setuptools==84.0.0
+            done
           else
-            python -m playwright install chromium --only-shell
+            "$PY314" -m pip install --no-cache-dir PyMySQL==1.2.3 build==1.6.1 wheel==0.48.0 setuptools==84.0.0
+          fi
+          if [[ "${{ needs.scope.outputs.native_reference }}" == true ]]; then
+            if [[ "$RUNNER_OS" == Linux ]]; then
+              python -m playwright install --with-deps chromium --only-shell
+            else
+              python -m playwright install chromium --only-shell
+            fi
           fi
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        if: needs.scope.outputs.native_reference == 'true'
         with:
           name: live-native-py3.11-${{ github.sha }}
           path: build/reference/py3.11
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        if: needs.scope.outputs.native_reference == 'true'
         with:
           name: live-native-py3.14-${{ github.sha }}
           path: build/reference/py3.14
@@ -194,6 +207,7 @@ jobs:
         run: |
           go test -race -count=1 ./internal/live ./internal/control . > build/live-evidence/live-race.txt 2>&1
       - name: Exact-source acceptance executables
+        if: needs.scope.outputs.native_reference == 'true'
         run: |
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-orders ./tests/e2e_native_control/goapp

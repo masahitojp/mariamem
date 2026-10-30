@@ -179,11 +179,13 @@ historical release or Product CI artifacts. Unknown inputs and unavailable/empty
 diffs select full check plus integration. This selection is not a reusable runtime
 qualification receipt. Explicit release reuse still requires authenticated proof.
 
-Documentation-only diffs likewise skip the expensive Live matrix: the Live scope and
-required-gate jobs still run and report (they are protected checks), but the native,
-browser, guest and installed-consumer jobs are not started. The skip uses the same
-documentation classification as the development selector, so any runtime or unknown
-path restores the full matrix. Draft pull requests also skip those jobs, because a
+Documentation and explicitly listed runtime-free tooling diffs skip the expensive
+Live and Dump matrices. The Live scope and required gate still report; Development
+retains documentation or Python checks. Both workflows use
+`development_scope.runtime_required`. Shared build/identity helpers, selectors,
+workflows, runtime changes, unknown inputs and missing/empty diffs keep runtime
+coverage. `RUNTIME_FREE_TOOLS` is deliberately narrower than the Python-only
+Development classification. Draft pull requests also skip the Live matrix, because a
 draft cannot merge and would otherwise hold shared macOS runners ahead of ready
 pull requests. The required Live gate deliberately fails with a deferred-Draft
 message, preventing its old result from approving the same SHA after conversion to
@@ -194,6 +196,22 @@ failure. The existing changed-boundary selector and both-host receipt rules appl
 The root `AGENTS.md` is documentation too: changes to maintainer instructions
 alongside review or policy documents do not select the Live matrix. Changes to
 executable selectors, workflows or runtime inputs retain their existing checks.
+
+README and other classified documentation do not expand the acceptance families
+selected for a mixed code/documentation PR. Django guide prose alone does not
+trigger its matrix; executable examples and runtime dependencies still do.
+
+Go-fixture-only PRs keep G1 and installed consumers on both hosts, while skipping
+Live native references, browsers, native client headers and browser-app builds.
+The Live job explicitly accepts a skipped native dependency only when native
+references were not selected. The required gate validates that choice against
+the selected families and rejects missing, failed or cancelled dependencies.
+
+Ubuntu worker-failure retains fresh native SQL comparisons, while its duplicate
+race, actual worker trap and wire/Snapshot tests belong to the same-source required
+Development integration. These jobs remain parallel; integration success is
+required for merge. macOS retains those tests in worker-failure. Standalone
+workflow dispatches retain full verification when no event diff is available.
 
 Archived Go-toolchain/memfs measurement data has explicit documentation scope in
 the local selector. Its three saved reproduction recipes have tooling scope;
@@ -334,8 +352,8 @@ changes to their owners, commands, triggers and conditions.
 
 Dump uses the same canonical delegation selector as Live. Its additional Ubuntu
 `check` and Ubuntu `integration` run only when Development does not own the full
-corresponding check for the event. Native reference and dump comparisons remain
-independent of this selector. Missing/empty diffs and standalone events
+corresponding check for the event. Native reference and dump comparisons run only when the shared runtime selector
+requires them; their specific oracles remain independent of canonical delegation. Missing/empty diffs and standalone events
 retain local canonical runs. Dump success alone does not attest the delegated
 Development checks; the protected Development contexts still decide those checks.
 
