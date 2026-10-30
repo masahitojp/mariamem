@@ -2,6 +2,7 @@
 """Publish only the exact READY candidate; never rebuild, overwrite, or roll back."""
 import argparse
 import json
+import os
 from pathlib import Path
 import re
 import runpy
@@ -9,7 +10,10 @@ import shutil
 import subprocess
 import tempfile
 
-from generated_release import require, check_aggregate, expected_names, CONTRACT
+from generated_release import require, check_aggregate, expected_names, CONTRACT, version, write, stage
+from ci_release_reuse import GitHub
+from release_generated_ci import _restore_publication_inputs
+from release_plan import ready_bundle
 from common import ROOT, digest
 
 
@@ -28,6 +32,28 @@ def release_exists(repository, tag, root):
     if "HTTP 404" in result.stderr:
         return False
     raise RuntimeError("cannot check existing release: " + result.stderr.strip())
+
+
+def restore_for_publication(root, commit, repository, candidate_run, evidence_run):
+    """Authenticate aggregate READY and inputs; prepare() owns the one final guard."""
+    require(all(type(run) is int and run > 0 for run in (candidate_run, evidence_run)),
+            'publication requires exact candidate and evidence run IDs')
+    ready_path = root / 'build/release/publication-ready.json'
+    sums = root / 'build/release/SHA256SUMS'
+    require(not ready_path.exists() and not sums.exists(), 'refuse replacing publication READY inputs')
+    require(not any(p.is_symlink() for path in (ready_path, sums) for p in (path, *path.parents)),
+            'symlink publication READY destination')
+    api = GitHub(repository, os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN'))
+    with tempfile.TemporaryDirectory(prefix='mariamem-publication-ready-') as temporary:
+        archive = Path(temporary).resolve() / 'ready.zip'
+        api.artifact(evidence_run, 'release-ready-' + commit, commit, archive)
+        ready, reference = ready_bundle(archive, commit, version(root))
+    require(reference is not None and reference['candidate_run'] == candidate_run
+            and reference['evidence_run'] == evidence_run, 'publication qualification references differ')
+    _restore_publication_inputs(root, commit, candidate_run, evidence_run, api)
+    write(ready_path, ready)
+    sums.write_text(''.join(f'{sha}  {name}\n' for name, sha in sorted(ready['assets'].items())))
+    return ready_path
 
 
 def prepare(root, commit, notes, ready_path=None):
@@ -61,6 +87,10 @@ def prepare(root, commit, notes, ready_path=None):
             "release notes must be tracked")
     require(re.search(r"^#{1,6}\s+.*" + re.escape(version["GIT_TAG"]) + r"(?:\s|$)",
                       notes.read_text(), re.MULTILINE), "release notes heading does not identify canonical tag")
+    # A CI handoff has no staged assets yet. Stage only after the complete guard
+    # equals the authenticated aggregate receipt. Existing staging is never repaired.
+    if not (root / 'build/release/publish').exists():
+        stage(root, checked)
     paths = {name: root / "build/release/publish" / name for name in ready["assets"]}
     for name, path in paths.items():
         require(path.is_file() and digest(path) == ready["assets"][name], "artifact hash differs: " + name)
@@ -79,13 +109,19 @@ def prepare(root, commit, notes, ready_path=None):
             "status": "PREPARED"}, staging, notes
 
 
-def publish(root, commit, repository, notes=None, dry_run=False, ready_path=None):
+def publish(root, commit, repository, notes=None, dry_run=False, ready_path=None, *,
+            candidate_run=None, evidence_run=None):
     root = Path(root).resolve()
     require(re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository) is not None,
             "invalid GitHub repository")
     report_path = root / "build/release/ci-publication.json"
     report = {"source_commit": commit, "repository": repository, "status": "FAILED", "stage": "guard"}
     try:
+        if candidate_run is not None or evidence_run is not None:
+            require(ready_path is None, 'remote publication cannot override authenticated READY')
+            report['stage'] = 'restore'
+            ready_path = restore_for_publication(root, commit, repository, candidate_run, evidence_run)
+            report['stage'] = 'guard'
         report, staging, notes = prepare(root, commit, Path(notes) if notes else None, ready_path)
         report.update(repository=repository, stage="remote-preflight")
         tag = report["git_tag"]
@@ -144,11 +180,14 @@ def main():
     parser.add_argument("--repository", required=True)
     parser.add_argument("--notes", type=Path)
     parser.add_argument("--ready", type=Path)
+    parser.add_argument("--candidate-run", type=int)
+    parser.add_argument("--evidence-run", type=int)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     notes = (args.notes if args.notes.is_absolute() else args.root / args.notes) if args.notes else None
     try:
-        print(json.dumps(publish(args.root, args.candidate_sha, args.repository, notes, args.dry_run, args.ready), indent=2))
+        print(json.dumps(publish(args.root, args.candidate_sha, args.repository, notes, args.dry_run, args.ready,
+                                 candidate_run=args.candidate_run, evidence_run=args.evidence_run), indent=2))
     except (ValueError, RuntimeError, OSError, KeyError) as error:
         print("Publication stopped: " + str(error))
         return 1

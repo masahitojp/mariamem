@@ -20,10 +20,10 @@ means stop and request it; never infer, choose, or recommend a next version.
 The request authorizes preparation, commit, push, and release workflow dispatch
 as one transaction. Do not ask for a second publication approval.
 
-Use the canonical Go toolchain (`GOTOOLCHAIN=go1.26.10`) and a Python environment
-with `pytest` and `PyMySQL` available for every preparation command. Check these
-before submit; create an ignored or temporary venv if needed. Do not modify the
-global Python installation.
+Use a Python environment with `pytest` and `PyMySQL` for preparation commands.
+Check these before submit; create an ignored or temporary venv if needed. Do not
+modify the global Python installation. Release CI owns Go1.26.10 compilation and
+runtime qualification; local preparation does not require a Go build.
 
 1. Before edits, run `python scripts/release_prepare.py preflight <version>`.
    Stop on unmet release-policy prerequisites. This checks project-supported version syntax, clean tree,
@@ -39,9 +39,9 @@ global Python installation.
    `release/NOTES-vX.Y.Z.md` for stable releases, matching the project style
    in `release/NOTES-alpha.4.md`, with a heading containing the exact requested
    tag. Summarize actual changes; do not invent product/performance claims.
-4. Run `GOTOOLCHAIN=go1.26.10 <venv>/bin/python scripts/release_prepare.py submit <version>`. It restricts the
-   diff to preparation files, invokes `scripts/verify.py check` (or the focused
-   `release_preparation_checks.py` for a tracked runtime reuse intent), commits that
+4. Run `<venv>/bin/python scripts/release_prepare.py submit <version>`. It restricts the
+   diff to preparation files, invokes the focused `release_preparation_checks.py`
+   without local Go compilation or runtime qualification, and commits that
    explicit file set when preparation is needed, pushes normally, verifies exact
    remote source SHA, and dispatches existing Release CI once with
    `mode=auto`, `operation=release`. An already-prepared clean candidate is valid;

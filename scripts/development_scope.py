@@ -13,6 +13,19 @@ import subprocess
 from git_identity import require_commit
 
 ROOT = Path(__file__).resolve().parents[1]
+# Every maintained workflow has a reviewed classification. New workflow paths
+# remain conservative until assigned here; the inventory test catches omissions.
+WORKFLOW_SCOPES = {
+    '.github/workflows/check.yml': 'python',
+    '.github/workflows/release-candidate-ready.yml': 'python',
+    '.github/workflows/v044-product-validation.yml': 'python',
+    '.github/workflows/live-host.yml': 'python',
+    '.github/workflows/dump-import-productization.yml': 'python',
+    '.github/workflows/django-lifecycle.yml': 'python',
+    '.github/workflows/connection-routing.yml': 'python',
+    '.github/workflows/preparation-migration.yml': 'python',
+    '.github/workflows/worker-failure.yml': 'python',
+}
 # Explicit tooling boundaries; do not classify every .py file as runtime-free.
 TOOLING = {
     # Archived measurement recipes; reproduction explicitly checks out its
@@ -23,7 +36,6 @@ TOOLING = {
     'tests/verify_alpha.py', 'tests/consumer/run_gorm.py', 'tests/consumer/run_sqlalchemy.py',
     'scripts/generated_release_acceptance.py', 'scripts/release_generated_ci.py', 'scripts/release_runtime.py',
     'scripts/validate_product_candidate.py', 'scripts/guest_smoke/main.go',
-    '.github/workflows/v044-product-validation.yml',
     'benchmarks/ownedprepared/test_tools.py',
     'scripts/published_assets.py', 'benchmarks/measurement_summary.py',
     'benchmarks/v04_candidate.py',
@@ -35,7 +47,6 @@ TOOLING = {
     'scripts/ci_release_summary.py', 'scripts/check_release.py',
     'scripts/distribution_licenses.py', 'scripts/audit_generated_licenses.py',
     'scripts/consumer_module.py', 'scripts/consumer_acceptance.py',
-    '.github/workflows/check.yml', '.github/workflows/release-candidate-ready.yml',
     '.agents/skills/release/SKILL.md',
     '.agents/skills/experiment-workspace/SKILL.md',
     '.agents/skills/review/SKILL.md',
@@ -50,7 +61,7 @@ PURE_TESTS = {
     'tests/test_retired_ci.py',
     'tests/test_measurement_summary.py', 'tests/test_published_assets.py',
     'tests/test_benchmark_inputs.py',
-    'tests/test_ci_publication_workflow.py',
+    'tests/test_ci_publication_workflow.py', 'tests/test_publication_handoff.py', 'tests/test_publication_handoff.py',
     'tests/test_ci_release_publish.py',
     'tests/test_ci_release_reuse.py',
     'tests/test_competitive_benchmark.py',
@@ -110,6 +121,8 @@ def boundary(path):
                 'docs/reviews/v044-runtime-validation-intent.json',
                 'docs/reviews/v045-p1-evidence.json') or (path.startswith('docs/') and p.suffix == '.md'):
         return 'docs'
+    if path in WORKFLOW_SCOPES:
+        return WORKFLOW_SCOPES[path]
     if path in TOOLING:
         return 'python'
     if path in PURE_TESTS:

@@ -22,10 +22,15 @@ There is no second approval or mandatory verify dispatch. Codex returns the run
 URL, exact SHA and operation immediately after submission and stops.
 
 Prepare a human-selected version with the repository release skill. Submit using
-`GOTOOLCHAIN=go1.26.10 <venv>/bin/python scripts/release_prepare.py submit vX.Y.Z`.
+`<venv>/bin/python scripts/release_prepare.py submit vX.Y.Z`.
 Go 1.26.10 is the 0.6.0 build toolchain (GO-2026-6809); the module minimum
 remains Go 1.26.0 and the forward-compat check uses Go 1.27.3.
 Already-prepared clean candidates are accepted without another metadata commit.
+For an allowed version/docs preparation diff, local submission runs the focused
+`release_preparation_checks.py` regardless of runtime-reuse intent. It checks
+metadata, source/license boundaries and release tooling without Go compilation
+or runtime qualification; Release CI owns those checks. An explicit runtime reuse
+intent is still authenticated before push.
 For an optional READY-only audit, add `--operation verify`. Run names include the
 operation, supplied version and short SHA; display labels never establish identity.
 
@@ -202,7 +207,15 @@ change/download failure stops without publication rather than trusting the plan.
 With valid READY, frozen-artifact builds and their external consumer acceptance
 are reused. With valid feature proof, shared runtime preparation, shared units
 and all six feature suites are skipped as well. Without it, those jobs run.
-Hash/source/license/identity checks and the existing guards still rerun; they
+Publication downloads the authenticated aggregate READY from the selected evidence
+run and requires its candidate/evidence references to match. Both platform
+handoffs retain archive digest and path validation during restoration. The
+publisher then recomputes the aggregate guard once, compares the complete result
+to that READY and stages/checks the exact asset bytes before tagging or uploading.
+Existing staged files are never repaired to hide a mismatch. No public CLI option
+bypasses the final guard; ordinary restore/guard commands remain checked.
+
+Hash/source/license/identity checks and the final guard still run; they
 bind the accepted bytes to the candidate immediately before publication. Public
 smoke always runs after publication on both supported platforms. New aggregate
 receipts retain immutable qualification references so later reuse can follow a

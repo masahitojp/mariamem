@@ -494,24 +494,16 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.14'
-      - name: Restore and recheck accepted bytes only
-        env:
-          SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
-          CANDIDATE_RUN: ${{ needs.resolve.outputs.mode == 'full' && github.run_id || needs.resolve.outputs.candidate_run }}
-          EVIDENCE_RUN: ${{ github.run_id }}
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          python candidate-source/scripts/release_generated_ci.py restore --root candidate-source \
-            --candidate-sha "$SOURCE_SHA" --candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN"
-          python candidate-source/scripts/release_generated_ci.py guard --root candidate-source --candidate-sha "$SOURCE_SHA"
       - id: publish
-        name: Existing exact-SHA publisher (verify mode never enters this job)
+        name: Authenticate inputs and publish through one final aggregate guard
         env:
           SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
           RELEASE_NOTES: ${{ inputs.notes }}
+          CANDIDATE_RUN: ${{ needs.resolve.outputs.mode == 'full' && github.run_id || needs.resolve.outputs.candidate_run }}
+          EVIDENCE_RUN: ${{ github.run_id }}
           GH_TOKEN: ${{ github.token }}
         run: |
-          args=(--root candidate-source --candidate-sha "$SOURCE_SHA" --repository "$GITHUB_REPOSITORY" --ready candidate-source/build/release/ci-ready.json)
+          args=(--root candidate-source --candidate-sha "$SOURCE_SHA" --repository "$GITHUB_REPOSITORY" --candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN")
           if [ -n "$RELEASE_NOTES" ]; then args+=(--notes "$RELEASE_NOTES"); fi
           git -C candidate-source config user.name 'github-actions[bot]'
           git -C candidate-source config user.email '41898282+github-actions[bot]@users.noreply.github.com'
