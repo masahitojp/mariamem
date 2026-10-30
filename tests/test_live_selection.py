@@ -35,6 +35,46 @@ def test_combined_changes_union_and_unknown_overrides():
 def test_python_retains_integration_until_dedicated_campaign_is_adopted():
     assert plan(['python/mariamem/pytest_plugin.py'])['mac_integration']
     assert not plan(['python/mariamem/pytest_plugin.py'])['g1']
+    assert plan(['python/mariamem/pytest_plugin.py'])['p1']
+
+
+@pytest.mark.parametrize('path', [
+    'python/mariamem/_prepare.py', 'python/mariamem/_pytest_owner.py',
+    'tests/test_prepare_command.py', 'tests/test_p1_pytest_entry.py',
+    'tests/test_p1_runtime.py', 'tests/test_p1_native_control.py',
+    'tests/fixture_entry_acceptance/native.py',
+    'tests/fixture_entry_acceptance/p1_migrate.py',
+    'tests/fixture_entry_acceptance/time_campaign.py',
+])
+def test_p1_specific_inputs_select_its_consumers(path):
+    assert {k for k, v in plan([path]).items() if v} == {'p1', 'installed'}
+
+
+@pytest.mark.parametrize('path', [
+    'python/mariamem/routing.py', 'python/mariamem/_routing_drivers.py',
+    'python/mariamem/_routing_sqlalchemy.py', 'tests/routing_acceptance/unit-requirements.txt',
+    'tests/fixture_entry_acceptance/retained_baselines.sql',
+])
+def test_p1_shared_dependencies_keep_acceptance(path):
+    assert plan([path])['p1']
+
+
+@pytest.mark.parametrize('path', ['live.go', 'mariamemtest/fixture.go'])
+def test_unrelated_live_or_go_helper_does_not_pay_for_p1_wheel(path):
+    assert not plan([path])['p1']
+
+
+def test_mixed_p1_and_live_diff_unions_both_families():
+    result = plan(['python/mariamem/_prepare.py', 'live.go'])
+    assert result['p1'] and result['live_runtime'] and result['installed']
+
+
+def test_native_and_installed_p1_steps_share_the_selection():
+    text = (Path(__file__).resolve().parents[1]/'.github/workflows/live-host.yml').read_text()
+    for name in ['Fresh P1 authored command and callback native control',
+                 'P1 real prepared command and callback on both Python minors']:
+        step = text.split('- name: ' + name, 1)[1].split('- name:', 1)[0]
+        assert "if: needs.scope.outputs.p1 == 'true'" in step
 
 def test_gate_rejects_missing_selection():
     from live_ci import verify_gate

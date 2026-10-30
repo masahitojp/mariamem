@@ -19,6 +19,7 @@ jobs:
       examples: ${{ steps.scope.outputs.examples }}
       live_runtime: ${{ steps.scope.outputs.live_runtime }}
       g1: ${{ steps.scope.outputs.g1 }}
+      p1: ${{ steps.scope.outputs.p1 }}
       mac_integration: ${{ steps.scope.outputs.mac_integration }}
       pull_request_draft: ${{ steps.scope.outputs.pull_request_draft }}
       run_live: ${{ steps.scope.outputs.run_live }}
@@ -89,6 +90,7 @@ jobs:
       - name: Fresh native control for the reconnecting Go variant
         run: python scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 4 --timeout 600 -- python tests/live_acceptance/native.py --port 3307 --go-app build/go-live-orders --expected-source-commit "$GITHUB_SHA" --output build/live-native/reference
       - name: Fresh P1 authored command and callback native control
+        if: needs.scope.outputs.p1 == 'true'
         run: PYTHONPATH="$PWD/python" python scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 4 --timeout 180 -- python tests/fixture_entry_acceptance/native.py --port 3307 --expected-source-commit "$GITHUB_SHA" --acquisition build/live-native/acquisition --output build/live-native/p1 --disposable-server
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
@@ -202,6 +204,7 @@ jobs:
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-live-orders ./tests/live_acceptance/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-owner ./tests/live_acceptance/go_owner
       - name: P1 real prepared command and callback on both Python minors
+        if: needs.scope.outputs.p1 == 'true'
         shell: bash
         env:
           P1_RESOURCE_EXPERIMENT: '0'

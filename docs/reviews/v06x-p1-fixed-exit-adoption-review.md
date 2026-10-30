@@ -16,6 +16,12 @@ bounded contract, so it does not justify extending P1 into another resource or
 fault-injection research project. Hard kill, escaped daemons and noncooperative
 callbacks retain the documented limitations.
 
+Specifically, the two new preserved/consumed capture cases inject an exception
+at a Python context-manager boundary and control the source's closed flag. They
+verify stage/original-error reporting, admission and public-owner finalization;
+they do not reproduce an internal MariaDB/guest capture failure or prove that
+failure's internal cleanup. The readable-owned claim is limited accordingly.
+
 ## Reviewed object and decision boundary
 
 Reconstructed from the working branch, PR and prior Human decisions:

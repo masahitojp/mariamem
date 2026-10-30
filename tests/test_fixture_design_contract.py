@@ -11,9 +11,25 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 from check_fixture_design import CONTRACT, validate
 
 
-def test_reviewed_contract_authorizes_g1_p1_without_runtime_acceptance():
+def test_reviewed_contract_authorizes_g1_p1_without_granting_fresh_runtime_acceptance():
     assert validate(json.loads(CONTRACT.read_text())) == {
         'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'authorized_implementation_entries': ['G1', 'P1']}
+
+
+@pytest.mark.parametrize('mutation', ['status', 'source', 'missing_receipt', 'failed_receipt'])
+def test_p1_status_requires_its_fixed_exit_receipt(mutation):
+    plan = copy.deepcopy(json.loads(CONTRACT.read_text()))
+    if mutation == 'status':
+        plan['entries'][0]['status'] = 'IMPLEMENTED_CHECKPOINT_ACCEPTANCE_PENDING'
+    elif mutation == 'source':
+        plan['p1_fixed_exit_acceptance']['source_commit'] = plan['source_commit']
+    elif mutation == 'missing_receipt':
+        plan['p1_fixed_exit_acceptance']['receipt'] = 'docs/reviews/missing.json'
+    else:
+        plan['p1_fixed_exit_acceptance']['receipt'] = (
+            'docs/reviews/v06x-python-fixture-implementation-evidence/ci-40979625348/assessment.json')
+    with pytest.raises(ValueError, match='P1'):
+        validate(plan)
 
 
 @pytest.mark.parametrize('mutation', [

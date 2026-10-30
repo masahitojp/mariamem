@@ -10,7 +10,7 @@
       "profile": "pytest/shadow_maria; PyMySQL1.2.3/SQLAlchemy2.0.54",
       "diagnostic_profile": "readable-owned",
       "fallback_allowed": false,
-      "status": "IMPLEMENTED_CHECKPOINT_ACCEPTANCE_PENDING"
+      "status": "FIXED_EXIT_ACCEPTED"
     },
     {
       "id": "G1",
@@ -254,5 +254,9 @@
     ],
     "resource_parameters": "PRESERVED_INPUTS_NOT_V060_ACCEPTANCE_GATES",
     "lifecycle_and_connection_budgets": "REQUIRED"
+  },
+  "p1_fixed_exit_acceptance": {
+    "source_commit": "b108abf11a623c18c45adfab2968d357bf40718b",
+    "receipt": "docs/reviews/v06x-python-fixture-implementation-evidence/ci-40987752495/assessment.json"
   }
 }

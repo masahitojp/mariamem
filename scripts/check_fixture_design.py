@@ -31,6 +31,17 @@ def validate(plan, root=ROOT):
     require_commit(root, plan['source_commit'])
     rows = plan['entries']
     need({v['id'] for v in rows} == ENTRIES and len(rows) == len(ENTRIES), 'named entries incomplete/duplicated')
+    p1_entry = next(row for row in rows if row['id'] == 'P1')
+    need(p1_entry['status'] == 'FIXED_EXIT_ACCEPTED',
+         'P1 status differs from fixed-exit acceptance state')
+    acceptance = plan['p1_fixed_exit_acceptance']
+    require_commit(root, acceptance['source_commit'])
+    receipt_path = root / acceptance['receipt']
+    need(receipt_path.is_file(), 'P1 fixed-exit receipt missing')
+    receipt = json.loads(receipt_path.read_text())
+    need(receipt['result'] == 'PASS_P1_FIXED_EXIT_RUNTIME'
+         and receipt['source_commit'] == acceptance['source_commit'],
+         'P1 fixed-exit status lacks matching acceptance evidence')
     need(set(plan['whole_scope_requires']) == ENTRIES - {'D1'}, 'required completion set changed')
     need(plan['django_policy'] == {
         'blocking_for_v060': False,

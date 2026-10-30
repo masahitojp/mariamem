@@ -1,6 +1,10 @@
 # Unreleased candidate changes
 
 These notes describe source candidates, not a published version or release approval.
+They are staging notes: release preparation manually transfers applicable items
+into the versioned `release/NOTES-*` file and checks them against adopted code.
+The release workflow does not consume this path automatically; see the
+[notes handoff](../releasing.md#next-release-notes--python-minimum-and-application-test-entry).
 
 ## Python prepared entry (P1)
 

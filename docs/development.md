@@ -630,23 +630,30 @@ The Human approved selecting macOS PR checks by changed boundary. Unknown files,
 missing diffs and shared runtime/generated/toolchain/dependency/CI changes retain
 all families. main/manual retain all families whenever Live is selected.
 
-| Known PR input | macOS integration | G1 both hosts | Live race/scenarios | Examples | Installed |
-| --- | --- | --- | --- | --- | --- |
-| G1 helper/campaign | No | Yes | No | No | Yes |
-| Live implementation/application | No | No | Yes | Yes | Yes |
-| Python routing/pytest entry | Yes | No | Yes | Yes | Yes |
-| Shared/unclassified | Yes | Yes | Yes | Yes | Yes |
+| Known PR input | macOS integration | G1 both hosts | Live race/scenarios | Examples | Installed | P1 both hosts/minors |
+| --- | --- | --- | --- | --- | --- | --- |
+| G1-only helper/campaign | No | Yes | No | No | Yes | No |
+| Live implementation/application | No | No | Yes | Yes | Yes | No |
+| P1 command/owner/runtime controls | No | No | No | No | Yes | Yes |
+| Shared fixture inputs | No | Yes | No | No | Yes | Yes |
+| Python routing/pytest entry | Yes | No | Yes | Yes | Yes | Yes |
+| Shared/unclassified | Yes | Yes | Yes | Yes | Yes | Yes |
 
 scripts/live_selection.py owns the bounded allowlist. Mixed changes take the
 union; new API files fail closed. G1 selection controls execution, artifacts and
 both-host receipt validation together. Missing family outputs fail the gate.
+P1 selection gates both its native input control and the installed-wheel
+build/venv/unit/runtime step; unrelated selected PR families omit those steps.
+Main/manual, unknown inputs and unavailable diffs keep P1 selected. Historical
+P1 step durations and the remaining observation scope are recorded in the
+[adoption-gap closure](reviews/v06x-p1-adoption-gap-closure.md).
 Ubuntu Development retains its independent check/integration scope. Native
 references and exact-source executable setup remain in each selected Live matrix.
 
-This can defer macOS cross-family regressions to main. Dedicated P1 and owned
-E2E campaigns are not yet adopted on this baseline: new paths default to full
-validation, and their both-host adoption conditions are not waived. PR #30's
-Draft-event policy is separate.
+This can defer macOS cross-family regressions to main. P1's dedicated campaign
+retains both hosts/minors and head validation before integration. Owned E2E
+entry campaigns remain separately scoped; new API paths default to full
+validation. PR #30's Draft-event policy is separate.
 
 Run 40855108044 (head 5b27eaf3, executed merge source 538ca001) took 39m40s on
 macOS, including 24m25s generic integration. Omitting that step does not promise
