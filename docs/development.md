@@ -384,7 +384,12 @@ The artifact is then distributed identically to fresh mode. The final release
 still requires both-platform qualification, six feature results and canonical
 source/guest reproduction. Shared pure unit/receipt tests run once on Ubuntu for
 Python3.11/pytest7 and Python3.14/pytest9. Installed-package and platform runtime
-cases remain with each feature. Core full pytest is retained separately.
+cases remain with each feature. The shared owner also covers P1 native-reference
+and fixture-design mutations, Live observation oracles and Django owner/receipt
+mutations. Its ownership check scans all six callable workflows. Live retains
+real process, pipe, signal and socket controls on both OS/Python boundaries;
+installed dump tests run once per OS/minor after wheel installation, without a
+source-only repeat in the native producer. Core full pytest is retained separately.
 
 A fresh aggregate records `release-features-v1` only after shared units, all six
 features and both-platform artifact verification succeed. `qualification.json`

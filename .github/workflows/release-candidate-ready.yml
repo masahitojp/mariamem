@@ -131,6 +131,8 @@ jobs:
           tests/test_preparation_migration_acceptance.py
           tests/test_dump_ci_workflow.py tests/test_git_identity.py
           tests/test_dump_product_binding.py tests/test_dump_import_acceptance.py
+          tests/test_p1_native_control.py tests/test_fixture_design_contract.py
+          tests/test_live_oracles.py tests/test_django_recipe_unit.py
   runtime:
     if: needs.resolve.outputs.features_reused != 'true'
     needs: resolve
