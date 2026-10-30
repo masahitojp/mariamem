@@ -161,7 +161,11 @@ jobs:
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-orders ./tests/e2e_native_control/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-live-orders ./tests/live_acceptance/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-owner ./tests/live_acceptance/go_owner
+      - name: Select explicit full-acceptance families
+        id: families
+        run: python scripts/live_selection.py --github-output
       - name: Owned E2E entry component and actual application checks
+        if: steps.families.outputs.e2e == 'true'
         shell: bash
         env:
           PY311: ${{ steps.py311.outputs.python-path }}
@@ -210,6 +214,7 @@ jobs:
         shell: bash
         run: python tests/live_acceptance/installed.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/installed
       - name: Installed owned E2E entry outside the source checkout
+        if: steps.families.outputs.e2e == 'true'
         shell: bash
         env:
           PY311: ${{ steps.py311.outputs.python-path }}
