@@ -83,3 +83,26 @@ workflow or build input is changed after the executed source. Before merge,
 check protected contexts on that descendant and reconcile any further main
 changes. The final GitHub merge result belongs in #18/PR #28, not a fabricated
 new-source CI claim. Preserve merge parents and pre-code ancestry.
+
+## Final main reconciliation and receipt
+
+While the preceding verify completed, main advanced through #38–#40 to
+`ce66b9df2067c546c88f6748fcbce2dc175a619a`. It was merged into source
+`d38deb043bc84bda064cee06b8568bc5174b744c`, preserving P1/E2E release notes
+and pre-code ancestry. E2E product/test/Live-workflow inputs stayed unchanged;
+Release CI orchestration/reuse/publication inputs changed. Related focused
+checks passed408 tests/12 subtests.
+
+[Verify41095184074](https://github.com/masahitojp/mariamem/actions/runs/41095184074)
+completed successfully at that exact source. Both native minors, both Live
+hosts, all four installed E2E cells, the Live gate, both platform guards and
+aggregate READY passed. [Final receipts](../reviews/e2e-integration-ci-41095184074/assessment.json)
+bind three verified complete artifact ZIP hashes and the final job metadata.
+Protected daily CI41095193034 also passed all three contexts. The earlier
+77db4c2c READY remains its own source-bound evidence, not the final source.
+
+The final receipt/guide descendant changes documentation only; its protected
+checks are still required. No runtime, test or workflow input changes after
+d38deb04. Merge commit remains required. Existing0.5.3 metadata, resource
+deferral, hook obligations and all declared limitations remain unchanged.
+This verify authorizes no publication and does not qualify a future version.

@@ -36,7 +36,7 @@ preparation once, exclusive sequential Live reset/admission, fresh browser conte
 or owned HTTP client per case, partial-app cleanup registration and stop after
 setup/cleanup debt. The Human approved bounded main adoption after the declared
 functional conditions; integrated-source evidence is retained in the
-[verify-only receipt](../reviews/e2e-integration-ci-41081445103/assessment.json).
+[verify-only receipt](../reviews/e2e-integration-ci-41095184074/assessment.json).
 Application hooks own physical retirement and registered work; arbitrary future
 work, hard kill and non-cooperative shutdown remain outside the guarantee.
 No published version, guest or wire contract is changed.

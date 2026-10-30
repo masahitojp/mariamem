@@ -1,0 +1,81 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41095184074",
+  "operation": "verify",
+  "publication": false,
+  "source_commit": "d38deb043bc84bda064cee06b8568bc5174b744c",
+  "main_baseline": "ce66b9df2067c546c88f6748fcbce2dc175a619a",
+  "feature_live": "SUCCESS",
+  "feature_live_gate": "SUCCESS",
+  "overall_verify": "SUCCESS",
+  "full_artifact_digests_verified": true,
+  "hosts": [
+    {
+      "host": "macos-15",
+      "artifact_id": 12997251269,
+      "artifact_sha256": "d1b24dac015cf491158770190270ddc8c9eb426f246849947496a5b6b687e75a",
+      "go_independent": "PASS",
+      "go_physical": "PASS",
+      "g1": "PASS",
+      "cells": [
+        {
+          "python_minor": "3.11",
+          "component_tests": 17,
+          "independent": "PASS",
+          "retirement": "PASS",
+          "installed": "PASS",
+          "workflow": "PASS",
+          "cleanup": "complete"
+        },
+        {
+          "python_minor": "3.14",
+          "component_tests": 17,
+          "independent": "PASS",
+          "retirement": "PASS",
+          "installed": "PASS",
+          "workflow": "PASS",
+          "cleanup": "complete"
+        }
+      ]
+    },
+    {
+      "host": "ubuntu-24.04",
+      "artifact_id": 12995649506,
+      "artifact_sha256": "e9487779d770ebc8b97fa33fd76a89a1e27134b643c426b55b42115f3dc35b77",
+      "go_independent": "PASS",
+      "go_physical": "PASS",
+      "g1": "PASS",
+      "cells": [
+        {
+          "python_minor": "3.11",
+          "component_tests": 17,
+          "independent": "PASS",
+          "retirement": "PASS",
+          "installed": "PASS",
+          "workflow": "PASS",
+          "cleanup": "complete"
+        },
+        {
+          "python_minor": "3.14",
+          "component_tests": 17,
+          "independent": "PASS",
+          "retirement": "PASS",
+          "installed": "PASS",
+          "workflow": "PASS",
+          "cleanup": "complete"
+        }
+      ]
+    }
+  ],
+  "aggregate_guard": "READY",
+  "verification_platforms": {
+    "darwin-arm64": "READY",
+    "ubuntu24.04-x86_64": "READY"
+  },
+  "ready_artifact": {
+    "id": 13001138615,
+    "sha256": "b115eb6781d41e8865cdd6e5aa135b707be10a5dde402c31be42b05f747ab865",
+    "full_zip_digest_verified": true
+  },
+  "release_metadata": "0.5.3 (unchanged; no versioned release requested)",
+  "service_incident": "GitHub Actions degradation affected API/status freshness during monitoring; final completed run and READY artifact verified."
+}

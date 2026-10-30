@@ -1018,8 +1018,8 @@ integration were pending in that review. The Human subsequently approved
 proceeding subject to the [five integration conditions](decisions/e2e-integration-conditions.md):
 merge-commit ancestry, gated E2E CI selection, new integrated-source receipts,
 union of P1/E2E notes and unchanged limits. The integrated executable source
-`77db4c2cb5be106488fe819343fe6e67b40910d8` includes main #37 and P1 #26.
-Its [new acceptance receipt](reviews/e2e-integration-ci-41081445103/assessment.json)
+`d38deb043bc84bda064cee06b8568bc5174b744c` includes main #40 and P1 #26.
+Its [new acceptance receipt](reviews/e2e-integration-ci-41095184074/assessment.json)
 binds both-host Live, native references and four installed cells. Both platform
 guards and the aggregate returned READY; operation=verify completed successfully.
 The unchanged0.5.3 metadata is not future0.6.0 release qualification. Protected

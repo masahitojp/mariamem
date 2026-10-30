@@ -17,11 +17,11 @@ are not relabelled as this executed source. Earlier checkpoints retain their
 original scope; their previously pending functional tests now have evidence.
 
 The integrated executable source is
-`77db4c2cb5be106488fe819343fe6e67b40910d8`, including main
-`4a7966becba65bda45de5a63b8823507bb3ad9e7` and P1 #26. Both hosts, native
+`d38deb043bc84bda064cee06b8568bc5174b744c`, including main
+`ce66b9df2067c546c88f6748fcbce2dc175a619a` and P1 #26. Both hosts, native
 references, four installed cells and the full Live gate passed in
-[verify41081445103](https://github.com/masahitojp/mariamem/actions/runs/41081445103);
-[its assessment](e2e-integration-ci-41081445103/assessment.json) records the
+[verify41095184074](https://github.com/masahitojp/mariamem/actions/runs/41095184074);
+[its assessment](e2e-integration-ci-41095184074/assessment.json) records the
 separate overall verify success and both-platform/aggregate READY. Existing
 0.5.3 metadata does not qualify a future versioned0.6.0 release.
 Documentation descendants retain this exact
@@ -37,7 +37,7 @@ executable source identity and still require protected PR checks.
 | Partial owners, original plus cleanup failures, Reset/Resume/external errors | Both-host Go component/race and Python17-case suites | Satisfied at controlled owner/error boundaries |
 | Close wait, timeout and case resources | Python close-wait/timeout and actual browser context close; Go HTTP body/Fatal/canceled-case controls | Satisfied; cooperative cleanup and honest uncertainty retained |
 | First/second/repeat usability | Workflow records with exact case census and minimal parameter edits | Satisfied for command wall times using existing CI caches; no cold/human-time claim |
-| Candidate checks and installed consumers | Integrated Live CI41081445103 native/host/gate success, four installed cells, temporary cleanup complete | Evidence saved for 77db4c2c; preserve normal protected PR checks for integration |
+| Candidate checks and installed consumers | Integrated Live CI41095184074 native/host/gate success, four installed cells, temporary cleanup complete | Evidence saved for d38deb04; preserve normal protected PR checks for integration |
 | Documentation/review | Current sequencing, guides and e2e-v060-adoption-review.md | Human approved bounded main adoption; publication remains separate |
 
 Detailed retained-baseline1/2/3, peak RSS/FD/session/temp census, resource guards

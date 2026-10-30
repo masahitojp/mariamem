@@ -4,7 +4,7 @@ These are source-build examples for the bounded EP1/EG1 entry approved for main.
 They are not part of published v0.5.3. The
 [decision](../../decisions/e2e-entry-implementation.md) records implementation
 approval and its probe condition; #18 tracks the accepted bounded profiles and
-integration. The [new integrated-source receipt](../../reviews/e2e-integration-ci-41081445103/assessment.json)
+integration. The [new integrated-source receipt](../../reviews/e2e-integration-ci-41095184074/assessment.json)
 includes P1 and the current release-owned CI workflow.
 
 - [Python Django/browser example](python/test_orders.py): one `BrowserEntry` per
