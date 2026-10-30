@@ -473,23 +473,23 @@ Product Validation; those changes are not part of v0.4.5.
   both-native verification is recorded above. The historical 64-table fixture
   had 137 files and released its backing FDs after Close on both platforms.
   Many simultaneously retained baselines, especially file-heavy schemas, may
-  approach process FD limits. The Human decision places that observation in the
-  v0.6.0 dogfood scope below: gather real workload evidence there and improve
-  the resource model only if pressure is demonstrated. This item is therefore
-  out of 0.5.x; it is not an approved 0.5.x task and not a reason by itself to
-  create another 0.5.x patch release.
+  approach process FD limits. The 2026-10-30 Human correction assigns detailed
+  retained-baseline/FD-pressure characterization to v0.7.x, superseding its
+  earlier v0.6.0 dogfood placement. Entry-owned cleanup remains required in
+  v0.6.0; resource-model changes are not authorized by this observation.
 - The 0.x API may change. Corresponding guest source, licenses, notices and
   reproducible generation remain required.
 
 ## Performance evidence and pending optimization questions
 
-**Moved to v0.6.x dogfood: per-DB connection-count tuning.** The current contract
+**Moved to v0.7.x resources: per-DB connection-count tuning.** The current contract
 keeps a fixed 16-connection limit per DB. The Human placed connection-count
 optimization in the 0.5.x scope on 2026-10-17; on 2026-10-18 the Human moved it to
 v0.6.x so that actual demand and resource effect are confirmed during dogfood
-before changing the limit. This is distinct from the FD/resource-model pressure
-observation, also assigned to v0.6.0 dogfood above. The current active and closed
-items are listed in the [v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
+before changing the limit. The 2026-10-30 scope correction moves that detailed
+resource/tuning work and FD/resource-model characterization to v0.7.x. The
+16-session wire contract and bounded application connection use remain unchanged.
+The current active and closed items are listed in the [v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
 
 **Evidence reuse scope — assessment accepted, expansion deferred (2026-10-18).**
 The Human approved the [limited dependency/rejection-condition assessment](reviews/runtime-evidence-trust-scope-plan.md),
@@ -815,7 +815,16 @@ correctness work, both-native Qualification and Product Verification are linked
 above. Full shared-memory race census and startup-tail improvements remain
 separate work; no general performance improvement is claimed.
 
-## v0.6.0 — Dogfood and fixture ergonomics
+## v0.6.0 — Wire contract and dogfood
+
+**Human scope correction, 2026-10-30:** establishing the wire contract is the
+main v0.6.0 objective. P1 has a [fixed six-condition exit](decisions/p1-fixed-exit-v060.md).
+Detailed resource characterization, retained-baseline stress and resource-model
+or connection-capacity tuning belong to v0.7.x, not P1 or v0.6.0 completion.
+Entry-owned cleanup, bounded worker/connection behavior and readable failure
+handling remain required. This supersedes the earlier resource placement below;
+existing receipts retain their original source and scope. P1 acceptance and
+main adoption are still pending; this is not a runtime PASS or release approval.
 
 ### PR macOS Live check ownership
 
@@ -892,9 +901,11 @@ is a placement decision; it does not approve publication or bypass any gate.
   A deferral is a disposition of the obligation, not a reduction of it.
 - **Complete dogfood is a prerequisite for the v0.6.0 release.** Recipes,
   component PASS, unit tests or single-platform runs do not satisfy it; the
-  acceptance campaign (declared profiles, both supported hosts, time and resource
-  outcomes) does. The release order is therefore dogfood completion, or a
-  recorded D1 deferral, then version/notes, Qualification and release.
+  acceptance campaign (declared profiles, both supported hosts, lifecycle and
+  usability/time outcomes) does. Detailed resource outcomes moved to v0.7.x by
+  the 2026-10-30 correction; they no longer block this prerequisite. The release
+  order remains dogfood completion, or a recorded D1 deferral, then version/notes,
+  Qualification and release.
 - **dbt is adopted as an independent CLI preparation workload profile.**
   Its original issue #5 (`Fd_dup` / TEXT deduplication) prerequisite is now
   satisfied; [#19](https://github.com/masahitojp/mariamem/issues/19) tracks the

@@ -15,6 +15,10 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 HOST = os.environ.get('MARIAMEM_TEST_HOST')
 pytestmark = pytest.mark.skipif(not HOST, reason='P1 real guest requires MARIAMEM_TEST_HOST')
+resource_experiment = pytest.mark.skipif(
+    os.environ.get('P1_RESOURCE_EXPERIMENT') != '1',
+    reason='Detailed resource experiments deferred to v0.7.x; explicit opt-in required',
+)
 
 
 def read_case_counts(path):
@@ -210,6 +214,7 @@ def test_three_time_campaign(tmp_path):
                          evidence=str(tmp_path/'time-campaign/result.json'),installed_wheel=installed)))
 
 
+@resource_experiment
 def test_real_fd_admission_stop(tmp_path):
     source,installed,_=preflight_consumer()
     spec=importlib.util.spec_from_file_location('p1_fd_stop',ROOT/'tests/fixture_entry_acceptance/fd_stop_control.py')
@@ -219,6 +224,7 @@ def test_real_fd_admission_stop(tmp_path):
                           evidence=str(tmp_path/'fd-stop/result.json'),installed_wheel=installed)))
 
 
+@resource_experiment
 def test_real_fd_stop_rejects_guard_bypass(tmp_path):
     source,installed,_=preflight_consumer()
     spec=importlib.util.spec_from_file_location('p1_fd_stop',ROOT/'tests/fixture_entry_acceptance/fd_stop_control.py')
@@ -235,6 +241,7 @@ def test_real_fd_stop_rejects_guard_bypass(tmp_path):
     assert len(finals)==1 and all(finals[0][k] is True for k in ('closed','host_reaped','directory_removed'))
 
 
+@resource_experiment
 def test_real_snapshot_observation_barrier(tmp_path):
     source,installed,_=preflight_consumer()
     spec=importlib.util.spec_from_file_location('p1_barrier_guest',ROOT/'tests/fixture_entry_acceptance/barrier_guest_control.py')
@@ -244,6 +251,7 @@ def test_real_snapshot_observation_barrier(tmp_path):
                           evidence=str(tmp_path/'barrier-guest/result.json'),installed_wheel=installed)))
 
 
+@resource_experiment
 def test_real_three_retained_snapshots_feasibility(tmp_path):
     source,installed,_=preflight_consumer()
     spec=importlib.util.spec_from_file_location('p1_retention_control',ROOT/'tests/fixture_entry_acceptance/retention_control.py')

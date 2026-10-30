@@ -50,6 +50,20 @@ def validate(plan, root=ROOT):
     need(set(diag['fallback_requires']) == {'concrete_obstacle', 'user_effect', 'unfinished_fields', 'finite_exit'}, 'fallback rationale incomplete')
     need(diag['fallback_activation'] == 'NOT_SELECTED', 'fallback activation requires a new reviewed decision/contract')
     need(diag['selected_profile'] == 'readable-owned', 'fallback profile selected without its pre-implementation decision')
+    delivery = plan['delivery_scope']
+    need(delivery == {
+        'decision_record': 'docs/decisions/p1-fixed-exit-v060.md',
+        'v060_primary': 'WIRE_CONTRACT',
+        'detailed_resources_milestone': 'v0.7.x',
+        'detailed_resources_block_v060': False,
+        'p1_exit': ['compatibility', 'preparation_and_isolation',
+                    'failure_diagnostics_and_admission', 'owned_lifecycle_cleanup',
+                    'supported_host_consumer_evidence', 'documentation_and_adoption_review'],
+        'resource_parameters': 'PRESERVED_INPUTS_NOT_V060_ACCEPTANCE_GATES',
+        'lifecycle_and_connection_budgets': 'REQUIRED',
+    }, 'fixed P1 exit/resource placement changed without Human decision')
+    need((root / delivery['decision_record']).is_file(), 'fixed exit decision missing')
+    # Preserve diagnostic inputs, not a requirement to execute the v0.7.x campaign.
     res = plan['resources']
     need(res['max_forks_default'] > 0, 'unbounded child admission')
     need(res['test_child_limits'] == [1, 2] and res['cases_per_batch'] > 2, 'capacity waiting oracle missing')

@@ -1,5 +1,12 @@
 # P1 implementation checkpoint
 
+> Current scope correction — Human approved 2026-10-30:
+> [P1 fixed exit / v0.7.x resource placement](../decisions/p1-fixed-exit-v060.md)
+> supersedes the resource completion gates below. Detailed retention/resource
+> characterization is deferred to v0.7.x; entry lifecycle correctness remains
+> required. Earlier proposal/checkpoint text and source-bound receipts below are
+> historical evidence, not the current list of P1 blockers. P1 is not yet accepted.
+
 Local SDK/entry checkpoint source: e4b470034d56b50770452ec816e8f88fa837deb5, based on main
 2ad041c. The final local results below supersede earlier candidate observations
 without relabelling them. Required-host implementation and native-control CI are
@@ -70,7 +77,7 @@ This is an implementation checkpoint, not P1-complete or main-adoption evidence.
   CI isolates Python3.11/pytest7.0.0 and Python3.14/pytest9.0.2 consumers.
   No new required context is added.
 
-## Still required before full P1 acceptance
+## Historical remaining work before the 2026-10-30 scope correction
 
 The exact required-host/minor implementation CI results are retained below.
 Finish the P1-specific

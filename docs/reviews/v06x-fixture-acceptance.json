@@ -238,5 +238,21 @@
       "docs/python.md",
       "docs/release-notes/unreleased.md"
     ]
+  },
+  "delivery_scope": {
+    "decision_record": "docs/decisions/p1-fixed-exit-v060.md",
+    "v060_primary": "WIRE_CONTRACT",
+    "detailed_resources_milestone": "v0.7.x",
+    "detailed_resources_block_v060": false,
+    "p1_exit": [
+      "compatibility",
+      "preparation_and_isolation",
+      "failure_diagnostics_and_admission",
+      "owned_lifecycle_cleanup",
+      "supported_host_consumer_evidence",
+      "documentation_and_adoption_review"
+    ],
+    "resource_parameters": "PRESERVED_INPUTS_NOT_V060_ACCEPTANCE_GATES",
+    "lifecycle_and_connection_budgets": "REQUIRED"
   }
 }

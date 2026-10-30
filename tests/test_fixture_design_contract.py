@@ -100,3 +100,19 @@ def test_p1_notice_omissions_are_detected(tmp_path, path, removed):
     target.write_text(target.read_text().replace(removed, 'omitted'))
     with pytest.raises(ValueError, match='notice missing'):
         validate_p1_notices(tmp_path)
+
+
+@pytest.mark.parametrize('mutation', ['resource_gate', 'milestone', 'cleanup', 'exit'])
+def test_fixed_exit_preserves_cleanup_without_v060_resource_gate(mutation):
+    plan = copy.deepcopy(json.loads(CONTRACT.read_text()))
+    delivery = plan['delivery_scope']
+    if mutation == 'resource_gate':
+        delivery['detailed_resources_block_v060'] = True
+    elif mutation == 'milestone':
+        delivery['detailed_resources_milestone'] = 'v0.6.0'
+    elif mutation == 'cleanup':
+        delivery['lifecycle_and_connection_budgets'] = 'DEFERRED'
+    else:
+        delivery['p1_exit'].remove('owned_lifecycle_cleanup')
+    with pytest.raises(ValueError, match='fixed P1 exit/resource placement'):
+        validate(plan)

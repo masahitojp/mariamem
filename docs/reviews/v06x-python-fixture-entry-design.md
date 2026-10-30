@@ -1,5 +1,12 @@
 # P1 prepared pytest entry — proposal after G1 evidence
 
+> Current scope correction — Human approved 2026-10-30:
+> [P1 fixed exit / v0.7.x resource placement](../decisions/p1-fixed-exit-v060.md)
+> supersedes the resource completion gates below. Detailed retention/resource
+> characterization is deferred to v0.7.x; entry lifecycle correctness remains
+> required. Earlier proposal/checkpoint text and source-bound receipts below are
+> historical evidence, not the current list of P1 blockers. P1 is not yet accepted.
+
 Status: IMPLEMENTATION APPROVED WITH CONDITIONS; see the pre-code
 [Human decision](../decisions/p1-prepared-entry-implementation.md). No runtime
 acceptance or main adoption is implied.
