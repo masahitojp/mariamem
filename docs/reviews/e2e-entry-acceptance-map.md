@@ -1,79 +1,51 @@
-# EP1 / EG1 acceptance map — 2026-10-30 checkpoint
+# EP1 / EG1 current acceptance map — 2026-10-30
 
-This maps the approved [E2E contract](v06x-e2e-entry-contract.md) and
-[dogfood scope](v06x-dogfood-scope-draft.md) to evidence. It does not change
-their requirements or approve adoption. [Issue #18](https://github.com/masahitojp/mariamem/issues/18)
-owns the actionable completion checklist. Historical reports keep their original
-candidate identities; a previous PASS is not acceptance of this combined source.
+This is the current evidence map for [Issue #18](https://github.com/masahitojp/mariamem/issues/18),
+which owns the actionable checklist. The [work-sequencing decision](../decisions/e2e-v060-work-sequencing.md)
+applies the Human's v0.7.x resource deferral. Earlier checkpoint reports retain
+their actual sources and original scope; their resource wording is not a current
+v0.6.0 gate. EP1/EG1 remain incomplete until the functional conditions below are
+reconciled, candidate checks pass and the Human approves adoption.
 
-## Finite completion boundary
+## Evidence already available
 
-The EP1/EG1 task ends after the approved fixed profiles have their failure,
-installed-consumer, workflow and resource acceptance assessed on the supported
-hosts, the Human decides on main adoption, and the approved candidate is
-integrated with its required checks. Successful example execution or green CI
-alone does not close it. P1, D1, independent dbt revalidation, version selection,
-Qualification and publication remain separate obligations/decisions.
+Historical hosted execution source_commit
+`694e8911a817309d077bcfc441a5a8ca01dfe81c` passed both hosts and the required gate
+in [CI40961347571](https://github.com/masahitojp/mariamem/actions/runs/40961347571).
+[Saved assessment](e2e-ci-40961347571/assessment.json) binds both ZIP digests and
+all four installed host/Python cells. Later controlled tests at
+`b20decac44225c4b4b2dbed8814f1e7530bd4be1` passed locally as described in
+[the partial-cleanup report](e2e-partial-cleanup-controls.md). The submitted
+checkpoint `ee76ff0490937a6102d0b9b5befc3fdf0ffd869e` includes those tests and
+records; the older hosted PASS does not qualify that later candidate.
 
-The current consolidation includes PR #28, registered-job controls from PR #32
-(`0af24639e27f3a8b96696072377dbd9c2fe6757b`), and adopted main
-`80354f7b9e5c50e576fe9f040d4ee764200f6370`. It preserves the pre-code decision
-ancestor `3ead1bc8d1ebb984f912cf4062c7a6dd759698c9`. It does not incorporate
-the unmerged P1 implementation or change the engine/Live contract.
-
-## Evidence and remaining work
-
-Update after consolidation: [CI40961347571](e2e-ci-40961347571/assessment.json)
-passed the actual source694e8911 on both hosts, including registered-job controls
-and all four installed host/Python cells; full artifact digests match. The
-[subsequent partial/compound-cleanup controls](e2e-partial-cleanup-controls.md)
-pass locally at code sourceb20decac. Those later tests are not relabelled as part
-of CI40961347571. The table's consolidation rerun requirement is met for694e8911,
-while the failure mapping and resource campaign remain open.
-
-| Approved obligation | Existing evidence and its boundary | Remaining acceptance |
+| Condition | Evidence and detection | Current disposition / concrete next step |
 | --- | --- | --- |
-| Two cases, same app/endpoint, reset seed and reused UNIQUE input | [Owned-entry CI](e2e-owned-entry-ci-40833174501/assessment.json), then [installed consumers](e2e-installed-ci-40854876547/assessment.json), on both hosts and Python minors | Re-execute the consolidated candidate; include order variation in the repeat campaign |
-| Installed wheel/default bundled host and external Go module | Exact-byte/package/source receipts in installed CI40854876547 attempt2; earlier bootstrap failure retained separately | Retain exact-source results for consolidated candidate, without substituting source-checkout imports |
-| Physical idle pool cannot bypass drain; no body/later admission on Busy | [Physical controls CI40871306020](e2e-physical-ci-40871306020/assessment.json); actual DB/Live and public Case subprocess, both hosts | Preserve original Busy and generation/no-Resume assertions in consolidated CI |
-| Registered job joins before Reset, or broken hook is rejected | [Registered-job controls](e2e-registered-job-controls.md): real transaction/Live; normal and race local PASS at code source0f843cb5 | Both supported hosts; this proves only the explicitly registered controlled job, not arbitrary future jobs |
-| Partial startup/preparation, cleanup order and original cause | Python `test_partial_start_and_all_cleanup_attempts`, `test_partial_source_and_prepare_failure`; Go `TestHTTPPartialStart` | Component evidence only. Map partial Live ownership and the complete app/Live/baseline compound-failure path, adding missing boundary controls |
-| Reset/Resume/external-state failure stops body and future admission | Python setup/resume/external controls; Go `TestHTTPFailureLatches` | Controlled failures prove entry behavior, not every physical replacement failure. Reconcile with real Live fault evidence and explicitly state uncovered boundary/cost |
-| Assertion/cancel/interrupt and per-case resource disposal | Python assertion/interrupt/browser-close controls; Go Fatal subprocess, context cancellation and owned HTTP body controls | Complete cancellation/cleanup-context and concurrent-close mapping; preserve original plus cleanup failures and attempted versus confirmed shutdown |
-| Reject overlap; independent owners do not leak state | Python overlap and Go lease/parallel-suspension controls; earlier controlled-owner adapter probe | Actual two-owner EP1/EG1 campaign, including independent endpoint, app and DB mutation identities |
-| First test and second test without duplicated lifecycle | Runnable fixed-profile examples and installed consumers exist | Save reproducible commands, authored second-test diff/steps and phase times. Do not invent human editing time or claim a clean machine |
-| Repeat elapsed time and bounded resources | G1 campaign is a tooling/reference input, not EP1/EG1 evidence | EP1/EG1 warmup plus three observed four-case batches, serial and two independent owners; retained baselines1/2/3; required counters and guard STOP control |
+| Required pre-code probe decision | Decision ancestor3ead1bc8 and `tests/test_e2e_decision.py` | Satisfied; preserve ancestry through integration |
+| Fixed app, two cases, seed/UNIQUE reset, installed use | Both-host/minor source and installed examples in CI40961347571; actual app tests and receipt census | Covered at694e8911. Final candidate checks remain; do not open another historical rerun task |
+| Go idle physical pool and registered job | `TestHTTPPhysical*` both-host logs in CI40961347571, including public Case rejection and lying join hook | Covered for the declared Go controlled app. Not direct Python hook-fault evidence |
+| Partial construction, combined original/cleanup errors, canceled setup | `tests/test_e2e_entry.py`, `TestHTTPPartialStart`, `TestHTTPPartialLiveCreationRetainsAllOwners`, `TestHTTPCanceledCaseStillStopsApp`; local b20decac results | Component conditions covered locally; include these tests in final hosted checks |
+| Reset/Resume/external failure, assertion/interrupt, browser/HTTP cleanup, overlap | Existing entry component controls, Go Fatal/parallel subprocess tests and internal/protocol Live controls | Reconcile the layer boundary once. Close wait and Python physical-retirement reach remain unverified at the composed entry boundary; add a bounded control only for the named missing outcome |
+| Two independent actual owners; order/failure isolation | Controlled-owner probe and sequential actual examples exist | Additional functional validation required: distinct app/Live identities and no cross-owner mutation, reverse order and post-assertion fresh state. No resource collector needed |
+| First/second-test and repeat usability/timing | Runnable fixed examples and installed consumers already pass | Preserve the minimal authored second-test edit and bounded command/phase timings. No cold-machine or human-edit-time claim; no retained64-table input required |
+| Declared lifecycle cleanup and budgets | App StopReap, case disposal, Live/baseline/source cleanup; physical Busy and cleanup-debt controls | Keep correctness gates. Check owner/process/session/FD/temp return at lifecycle boundaries where required, without turning this into peak-resource characterization |
+| Final candidate acceptance | Existing Live workflow covers both hosts/minors; current later tests are locally checked | One final source-bound candidate receipt and adoption review remain. Historical PASS is not a substitute |
 
-Component controls above are in `tests/test_e2e_entry.py` and
-`mariamemtest/http_test.go`; their implementation and historical verification
-are described in [the implementation checkpoint](e2e-owned-entry-implementation.md).
-They are not labelled physical-fault or supported-host campaign PASS here.
-Python Live construction cleans its own partial protocol handle in
-`python/mariamem/live.py`; Go construction can return a non-nil cleanup owner
-with an error. Map these different boundaries rather than inventing a common
-return contract or treating an entry mock as actual host cleanup evidence.
+## Deferred work and review decisions
 
-## Next execution sequence
+Detailed retained baselines1/2/3, peak RSS/FD/session/allocated-temp census,
+resource guard campaigns and tuning are **deferred to shared v0.7.x work**.
+They are neither satisfied nor v0.6.0 blockers. The unsubmitted prototype is
+identified in the sequencing decision and is excluded from the E2E candidate.
 
-1. Submit the consolidated source to existing Live CI on macOS15 arm64 and
-   Ubuntu24.04 x86_64, Python3.11/3.14 and Go1.26.10. Manual dispatch can verify
-   a Draft without changing its review/adoption state. Keep required gates and
-   native/regression checks; retain the actual executed SHA and artifact hashes.
-2. Close the finite failure-evidence mapping above. Add controls only for a
-   missing oracle, and distinguish controlled faults from actual engine faults.
-   Any unverified requirement needs its concrete missing evidence and acquisition
-   work before the adoption recommendation; it cannot disappear behind a green job.
-3. Extend the existing campaign machinery for the two E2E entries, preserving
-   phase/batch timing and fixed64-table retention input. Observe process-tree RSS,
-   available memory, FD base/peak/final, physical sessions, transient old/new
-   Reset children, baselines, owned temp and confirmed cleanup. Use the approved
-   incremental2GiB RSS /8GiB owned disk /16GiB free /64 FD-headroom bounds.
-   Missing counters are UNVERIFIED, never zero. One Live may temporarily own two
-   replacement children; two owners must budget/observe that overlap.
-4. Produce one source-bound acceptance review against this full contract and
-   record the Human's adoption decision. Integrate only after approval and
-   required candidate checks; keep release approval separate.
+The adoption review must assess the explicitly bounded controlled-fault evidence
+and disclosed hook obligations; it must not silently demand all physical engine
+failure modes. Any additional blocker must identify a violated retained condition
+above. The Human's candidate adoption/main-integration decision remains open.
+P1, D1, independent dbt, Qualification and release remain separately tracked.
 
-The next hosted run validates the existing examples and physical/job controls;
-it does **not** contain the unfinished resource campaign. CI submission is a
-handoff, not a claim that these later steps have completed.
+## Immediate sequence
+
+Publication/log-reference repair → finite functional/usability gaps above →
+final candidate supported-host checks → one adoption review → Human-approved
+main integration. Do not add new measurement infrastructure to complete EP1/EG1.

@@ -28,6 +28,12 @@ the five dogfood entries; [#19](https://github.com/masahitojp/mariamem/issues/19
 owns the separately declared dbt workload, not a sixth dogfood entry. See
 [current work tracking](../project-status.md#current-work-tracking) for disposition.
 
+The 2026-10-30 [fixed-exit/resource-placement decision](https://github.com/masahitojp/mariamem/blob/4cc74f9a7f541afe96a958360eb60ac2fa77fb93/docs/decisions/p1-fixed-exit-v060.md)
+removes detailed resource characterization from all fixture-entry and v0.6.0
+prerequisites. Functional isolation, owned lifecycle cleanup, declared budgets
+and usability/timing evidence remain required. See the
+[E2E application of this decision](e2e-v060-work-sequencing.md).
+
 1. Complete the five named dogfood entries (P1 Python pytest/`shadow_maria`,
    G1 Go helper, D1 Django, EP1 Python browser E2E, EG1 Go HTTP E2E) with the
    declared-profile acceptance campaign on both supported hosts — or record the
@@ -38,6 +44,10 @@ owns the separately declared dbt workload, not a sixth dogfood entry. See
    component PASS, unit tests or single-platform runs.
 
 ## Explicitly not in 0.6.0
+
+- Detailed retained-baseline/resource census, resource guard campaigns and
+  resource-model tuning: deferred to shared Snapshot/runtime work in v0.7.x;
+  deferred is not PASS and does not excuse observed lifecycle cleanup defects.
 
 - v0.7.x scheduled work: guest-initialization optimization candidate selection,
   large-scale tuning including the preparation-heavy/100 MiB workflows (the

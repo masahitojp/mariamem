@@ -1,5 +1,9 @@
 # Prepared E2E entry contract — EP1/EG1 design proposal
 
+Current completion tracking: the [2026-10-30 sequencing decision](../decisions/e2e-v060-work-sequencing.md)
+supersedes this historical proposal's detailed resource-campaign prerequisite.
+The functional lifecycle/hook obligations below remain in force.
+
 2026-10-28. Shared contract for Python browser E2E and Go HTTP E2E, awaiting
 concrete entry API design. The Human approved this scope/contract against39f9757.
 Django-specific implementation is nonblocking for v0.6.0: if necessary, pin a

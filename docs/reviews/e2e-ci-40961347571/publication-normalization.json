@@ -1,0 +1,26 @@
+{
+  "reason": "Public-source path policy; replace the hosted runner workspace prefix with <CI_WORKSPACE> in wheel installation logs only.",
+  "raw_source": "Original GitHub artifacts identified by ID and complete ZIP digest in assessment.json; those digests are unchanged.",
+  "files": [
+    {
+      "path": "macos-15/owned-installed-py3.11/wheel-install.txt",
+      "raw_sha256": "c0fe5bd9efc4888c4d3ed7e84607ad6c20a1c2468ac7eea0df85f0e3b464506f",
+      "published_sha256": "a17e928c0f4b442907d05158268ef0ce35fab9e3b60bd187637e6061fd5b8292"
+    },
+    {
+      "path": "macos-15/owned-installed-py3.14/wheel-install.txt",
+      "raw_sha256": "c0fe5bd9efc4888c4d3ed7e84607ad6c20a1c2468ac7eea0df85f0e3b464506f",
+      "published_sha256": "a17e928c0f4b442907d05158268ef0ce35fab9e3b60bd187637e6061fd5b8292"
+    },
+    {
+      "path": "ubuntu-24.04/owned-installed-py3.11/wheel-install.txt",
+      "raw_sha256": "da6f4376fdad1a0975b92a1e1739a0fb9b833e43e2e3988a6f8c636a06e38dfa",
+      "published_sha256": "8dab6c26982b67b3df58082b845149bafc2d3b95d1c680eab609a1b6c781b327"
+    },
+    {
+      "path": "ubuntu-24.04/owned-installed-py3.14/wheel-install.txt",
+      "raw_sha256": "da6f4376fdad1a0975b92a1e1739a0fb9b833e43e2e3988a6f8c636a06e38dfa",
+      "published_sha256": "8dab6c26982b67b3df58082b845149bafc2d3b95d1c680eab609a1b6c781b327"
+    }
+  ]
+}
