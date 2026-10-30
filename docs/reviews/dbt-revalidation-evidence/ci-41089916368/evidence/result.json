@@ -1,0 +1,430 @@
+{
+  "result": "PASS",
+  "source_commit": "7a9a6f72dc83bc7d9f1526fa9704d32bbcefc126",
+  "host_buildinfo": "<HOME>/work/_temp/dbt-replay/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.4-0.20261030162415-7a9a6f72dc83\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=7a9a6f72dc83bc7d9f1526fa9704d32bbcefc126\n\tbuild\tvcs.time=2026-10-30T16:24:15Z\n\tbuild\tvcs.modified=false\n",
+  "host_sha256": "0c18ec12e576a826e1487704f04d67ec98e9e14da42dc1de30d5e453e7a3dbc3",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "python": "3.11.17 (main, Oct  1 2026, 14:32:31) [GCC 13.3.0]",
+  "runs": [
+    {
+      "route": "native",
+      "threads": 1,
+      "steps": [
+        {
+          "step": "debug",
+          "exit_code": 0,
+          "seconds": 2.47
+        },
+        {
+          "step": "seed",
+          "exit_code": 0,
+          "seconds": 3.874,
+          "statuses": [
+            "success"
+          ]
+        },
+        {
+          "step": "run",
+          "exit_code": 0,
+          "seconds": 2.921,
+          "statuses": [
+            "success",
+            "success",
+            "success",
+            "success"
+          ]
+        },
+        {
+          "step": "repeat",
+          "exit_code": 0,
+          "seconds": 2.972,
+          "statuses": [
+            "success",
+            "success",
+            "success",
+            "success"
+          ]
+        },
+        {
+          "step": "build",
+          "exit_code": 0,
+          "seconds": 3.572,
+          "statuses": [
+            "success",
+            "success",
+            "pass",
+            "pass",
+            "pass",
+            "success",
+            "success",
+            "success",
+            "success",
+            "pass"
+          ]
+        },
+        {
+          "step": "snapshot1",
+          "exit_code": 0,
+          "seconds": 2.721,
+          "statuses": [
+            "success"
+          ]
+        },
+        {
+          "step": "snapshot2",
+          "exit_code": 0,
+          "seconds": 2.721,
+          "statuses": [
+            "success"
+          ]
+        },
+        {
+          "step": "docs",
+          "exit_code": 0,
+          "seconds": 2.521
+        },
+        {
+          "step": "refresh",
+          "exit_code": 0,
+          "seconds": 3.072,
+          "statuses": [
+            "success",
+            "success",
+            "success",
+            "success"
+          ]
+        }
+      ],
+      "result": "PASS",
+      "server_version": "12.3.3-MariaDB-ubu2404",
+      "customer_data_type": "text",
+      "failure_oracle": {
+        "exit_code": 1,
+        "statuses": [
+          "pass",
+          "pass",
+          "fail"
+        ]
+      },
+      "schema_count_after": 0
+    },
+    {
+      "route": "guest",
+      "threads": 1,
+      "steps": [
+        {
+          "step": "debug",
+          "exit_code": 0,
+          "seconds": 2.17
+        },
+        {
+          "step": "seed",
+          "exit_code": 0,
+          "seconds": 3.674,
+          "statuses": [
+            "success"
+          ]
+        },
+        {
+          "step": "run",
+          "exit_code": 0,
+          "seconds": 2.671,
+          "statuses": [
+            "success",
+            "success",
+            "success",
+            "success"
+          ]
+        },
+        {
+          "step": "repeat",
+          "exit_code": 0,
+          "seconds": 2.771,
+          "statuses": [
+            "success",
+            "success",
+            "success",
+            "success"
+          ]
+        },
+        {
+          "step": "build",
+          "exit_code": 0,
+          "seconds": 3.021,
+          "statuses": [
+            "success",
+            "success",
+            "pass",
+            "pass",
+            "pass",
+            "success",
+            "success",
+            "success",
+            "success",
+            "pass"
+          ]
+        },
+        {
+          "step": "snapshot1",
+          "exit_code": 0,
+          "seconds": 2.571,
+          "statuses": [
+            "success"
+          ]
+        },
+        {
+          "step": "snapshot2",
+          "exit_code": 0,
+          "seconds": 2.57,
+          "statuses": [
+            "success"
+          ]
+        },
+        {
+          "step": "docs",
+          "exit_code": 0,
+          "seconds": 2.57
+        },
+        {
+          "step": "refresh",
+          "exit_code": 0,
+          "seconds": 2.671,
+          "statuses": [
+            "success",
+            "success",
+            "success",
+            "success"
+          ]
+        }
+      ],
+      "result": "PASS",
+      "host_pid": 5542,
+      "server_version": "12.3.3-MariaDB-embedded",
+      "customer_data_type": "text",
+      "failure_oracle": {
+        "exit_code": 1,
+        "statuses": [
+          "pass",
+          "pass",
+          "fail"
+        ]
+      },
+      "schema_count_after": 0,
+      "connections_after": 0,
+      "host_reaped": true,
+      "session_directory_removed": true
+    },
+    {
+      "route": "native",
+      "threads": 4,
+      "steps": [
+        {
+          "step": "debug",
+          "exit_code": 0,
+          "seconds": 2.27
+        },
+        {
+          "step": "seed",
+          "exit_code": 0,
+          "seconds": 3.874,
+          "statuses": [
+            "success"
+          ]
+        },
+        {
+          "step": "run",
+          "exit_code": 0,
+          "seconds": 2.871,
+          "statuses": [
+            "success",
+            "success",
+            "success",
+            "success"
+          ]
+        },
+        {
+          "step": "repeat",
+          "exit_code": 0,
+          "seconds": 2.921,
+          "statuses": [
+            "success",
+            "success",
+            "success",
+            "success"
+          ]
+        },
+        {
+          "step": "build",
+          "exit_code": 0,
+          "seconds": 3.423,
+          "statuses": [
+            "success",
+            "success",
+            "pass",
+            "pass",
+            "pass",
+            "success",
+            "success",
+            "success",
+            "success",
+            "pass"
+          ]
+        },
+        {
+          "step": "snapshot1",
+          "exit_code": 0,
+          "seconds": 2.67,
+          "statuses": [
+            "success"
+          ]
+        },
+        {
+          "step": "snapshot2",
+          "exit_code": 0,
+          "seconds": 2.67,
+          "statuses": [
+            "success"
+          ]
+        },
+        {
+          "step": "docs",
+          "exit_code": 0,
+          "seconds": 2.52
+        },
+        {
+          "step": "refresh",
+          "exit_code": 0,
+          "seconds": 2.921,
+          "statuses": [
+            "success",
+            "success",
+            "success",
+            "success"
+          ]
+        }
+      ],
+      "result": "PASS",
+      "server_version": "12.3.3-MariaDB-ubu2404",
+      "customer_data_type": "text",
+      "failure_oracle": {
+        "exit_code": 1,
+        "statuses": [
+          "fail",
+          "pass",
+          "pass"
+        ]
+      },
+      "schema_count_after": 0
+    },
+    {
+      "route": "guest",
+      "threads": 4,
+      "steps": [
+        {
+          "step": "debug",
+          "exit_code": 0,
+          "seconds": 2.17
+        },
+        {
+          "step": "seed",
+          "exit_code": 0,
+          "seconds": 3.573,
+          "statuses": [
+            "success"
+          ]
+        },
+        {
+          "step": "run",
+          "exit_code": 0,
+          "seconds": 2.57,
+          "statuses": [
+            "success",
+            "success",
+            "success",
+            "success"
+          ]
+        },
+        {
+          "step": "repeat",
+          "exit_code": 0,
+          "seconds": 2.671,
+          "statuses": [
+            "success",
+            "success",
+            "success",
+            "success"
+          ]
+        },
+        {
+          "step": "build",
+          "exit_code": 0,
+          "seconds": 2.971,
+          "statuses": [
+            "success",
+            "success",
+            "pass",
+            "pass",
+            "pass",
+            "success",
+            "success",
+            "success",
+            "success",
+            "pass"
+          ]
+        },
+        {
+          "step": "snapshot1",
+          "exit_code": 0,
+          "seconds": 2.571,
+          "statuses": [
+            "success"
+          ]
+        },
+        {
+          "step": "snapshot2",
+          "exit_code": 0,
+          "seconds": 2.521,
+          "statuses": [
+            "success"
+          ]
+        },
+        {
+          "step": "docs",
+          "exit_code": 0,
+          "seconds": 2.47
+        },
+        {
+          "step": "refresh",
+          "exit_code": 0,
+          "seconds": 2.621,
+          "statuses": [
+            "success",
+            "success",
+            "success",
+            "success"
+          ]
+        }
+      ],
+      "result": "PASS",
+      "host_pid": 6015,
+      "server_version": "12.3.3-MariaDB-embedded",
+      "customer_data_type": "text",
+      "failure_oracle": {
+        "exit_code": 1,
+        "statuses": [
+          "pass",
+          "pass",
+          "fail"
+        ]
+      },
+      "schema_count_after": 0,
+      "connections_after": 0,
+      "host_reaped": true,
+      "session_directory_removed": true
+    }
+  ],
+  "errors": [],
+  "snapshot_comparison": "business columns only; generated validity timestamps/IDs excluded",
+  "exact_application_row_parity": true
+}

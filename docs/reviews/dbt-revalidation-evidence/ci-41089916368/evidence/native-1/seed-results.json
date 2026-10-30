@@ -1,0 +1,80 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T16:30:43.676533Z",
+    "invocation_id": "6a04bf4a-a690-4fe6-a5c4-86471de7bdbd",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:30:43.492446Z",
+          "completed_at": "2026-10-30T16:30:43.492449Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:30:43.493586Z",
+          "completed_at": "2026-10-30T16:30:43.617974Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.1293632984161377,
+      "adapter_response": {
+        "_message": "INSERT 3",
+        "code": "INSERT",
+        "rows_affected": 3
+      },
+      "message": "INSERT 3",
+      "failures": null,
+      "unique_id": "seed.dbt_feasibility.orders_seed",
+      "compiled": null,
+      "compiled_code": null,
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.36655378341674805,
+  "args": {
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "which": "seed",
+    "log_format_file": "debug",
+    "vars": {},
+    "indirect_selection": "eager",
+    "log_format": "default",
+    "static_parser": true,
+    "macro_debugging": false,
+    "log_level_file": "debug",
+    "use_colors": false,
+    "profiles_dir": "<HOME>/work/_temp/dbt-replay/evidence/native-1",
+    "project_dir": "<HOME>/work/_temp/dbt-replay/evidence/native-1",
+    "version_check": true,
+    "exclude": [],
+    "partial_parse": true,
+    "send_anonymous_usage_stats": false,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "invocation_command": "dbt seed --project-dir <HOME>/work/_temp/dbt-replay/evidence/native-1 --profiles-dir <HOME>/work/_temp/dbt-replay/evidence/native-1",
+    "enable_legacy_logger": false,
+    "printer_width": 80,
+    "select": [],
+    "strict_mode": false,
+    "cache_selected_only": false,
+    "write_json": true,
+    "print": true,
+    "use_colors_file": false,
+    "quiet": false,
+    "partial_parse_file_diff": true,
+    "show_resource_report": false,
+    "log_path": "<HOME>/work/_temp/dbt-replay/evidence/native-1/logs",
+    "populate_cache": true,
+    "log_level": "info",
+    "log_file_max_bytes": 10485760,
+    "introspect": true,
+    "show": false
+  }
+}

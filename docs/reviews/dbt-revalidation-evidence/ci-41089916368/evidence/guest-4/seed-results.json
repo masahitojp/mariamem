@@ -1,0 +1,80 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T16:32:09.055494Z",
+    "invocation_id": "c0554416-c023-4633-8121-1b93a161fb98",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:32:08.957252Z",
+          "completed_at": "2026-10-30T16:32:08.957255Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:32:08.958461Z",
+          "completed_at": "2026-10-30T16:32:09.040020Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.08568191528320312,
+      "adapter_response": {
+        "_message": "INSERT 3",
+        "code": "INSERT",
+        "rows_affected": 3
+      },
+      "message": "INSERT 3",
+      "failures": null,
+      "unique_id": "seed.dbt_feasibility.orders_seed",
+      "compiled": null,
+      "compiled_code": null,
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.15038490295410156,
+  "args": {
+    "log_format_file": "debug",
+    "profiles_dir": "<HOME>/work/_temp/dbt-replay/evidence/guest-4",
+    "use_colors_file": false,
+    "which": "seed",
+    "macro_debugging": false,
+    "exclude": [],
+    "log_level_file": "debug",
+    "strict_mode": false,
+    "enable_legacy_logger": false,
+    "use_colors": false,
+    "log_path": "<HOME>/work/_temp/dbt-replay/evidence/guest-4/logs",
+    "introspect": true,
+    "show": false,
+    "static_parser": true,
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "vars": {},
+    "send_anonymous_usage_stats": false,
+    "partial_parse": true,
+    "populate_cache": true,
+    "print": true,
+    "version_check": true,
+    "select": [],
+    "write_json": true,
+    "partial_parse_file_diff": true,
+    "quiet": false,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "show_resource_report": false,
+    "log_format": "default",
+    "printer_width": 80,
+    "project_dir": "<HOME>/work/_temp/dbt-replay/evidence/guest-4",
+    "invocation_command": "dbt seed --project-dir <HOME>/work/_temp/dbt-replay/evidence/guest-4 --profiles-dir <HOME>/work/_temp/dbt-replay/evidence/guest-4",
+    "cache_selected_only": false,
+    "log_file_max_bytes": 10485760,
+    "indirect_selection": "eager",
+    "log_level": "info"
+  }
+}
