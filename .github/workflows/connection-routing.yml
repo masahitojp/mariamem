@@ -1,49 +1,16 @@
 name: Connection routing acceptance
 on:
-  push:
-    branches: [feat/connection-routing, main]
-    paths:
-      - 'python/mariamem/*routing*.py'
-      - 'python/mariamem/pytest_plugin.py'
-      - 'tests/*routing*.py'
-      - 'tests/routing_acceptance/**'
-      - '.github/workflows/connection-routing.yml'
-      - 'scripts/development_scope.py'
-      - 'scripts/git_identity.py'
-      - 'tests/test_ci_efficiency.py'
-      - 'tests/test_routing_ci_workflow.py'
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      source_commit:
+        description: Exact commit resolved by Release CI
+        required: true
+        type: string
 permissions:
   contents: read
+env:
+  SOURCE_COMMIT: ${{ inputs.source_commit }}
 jobs:
-  scope:
-    runs-on: ubuntu-24.04
-    outputs:
-      ubuntu_check: ${{ steps.diff.outputs.ubuntu_check }}
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
-        with:
-          python-version: '3.14'
-      - id: diff
-        run: python scripts/development_scope.py --candidate-sha '${{ github.sha }}' --github-output
-  source:
-    needs: scope
-    if: needs.scope.outputs.ubuntu_check != 'false'
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
-        with:
-          go-version: '1.26.10'
-          cache: false
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
-        with:
-          python-version: '3.14'
-      - run: python -m pip install -r tests/routing_acceptance/unit-requirements.txt
-      - run: python scripts/verify.py check
   compatibility:
     runs-on: ubuntu-24.04
     strategy:
@@ -56,6 +23,8 @@ jobs:
             pytest: '9.0.2'
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ inputs.source_commit }}
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '${{ matrix.python }}'
@@ -64,13 +33,7 @@ jobs:
         env:
           PYTHONPATH: python
   native:
-    needs: [scope, compatibility, source]
-    # A delegated source check must not skip the dedicated native matrix.
-    if: >-
-      ${{ !cancelled() && needs.scope.result == 'success' &&
-      needs.compatibility.result == 'success' &&
-      (needs.source.result == 'success' ||
-       (needs.source.result == 'skipped' && needs.scope.outputs.ubuntu_check == 'false')) }}
+    needs: compatibility
     strategy:
       fail-fast: false
       matrix:
@@ -79,6 +42,8 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ inputs.source_commit }}
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.10'
@@ -97,10 +62,10 @@ jobs:
           PYTHONPATH: python
       - name: Exact-source real guest, R1-R8 and strict defect oracles
         run: |
-          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/routing" --min-free-gib 4 --budget-gib 8 --timeout 2400 -- python tests/routing_acceptance/run.py --runtime-root "$GITHUB_WORKSPACE" --source-commit "$GITHUB_SHA" --output "$RUNNER_TEMP/routing"
+          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/routing" --min-free-gib 4 --budget-gib 8 --timeout 2400 -- python tests/routing_acceptance/run.py --runtime-root "$GITHUB_WORKSPACE" --source-commit "$SOURCE_COMMIT" --output "$RUNNER_TEMP/routing"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: routing-${{ matrix.os }}-${{ github.sha }}
+          name: routing-${{ matrix.os }}-${{ inputs.source_commit }}
           path: ${{ runner.temp }}/routing/evidence
           if-no-files-found: error

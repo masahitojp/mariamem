@@ -22,15 +22,11 @@ def test_documentation_needs_no_runtime_receipt(path):
 
 
 def test_policy_review_pr_skips_runtime_checks():
-    from development_scope import runtime_required as required
     paths = ['AGENTS.md', 'docs/development.md', 'docs/project-status.md']
     result = scope.select(paths)
     assert result['check_scope'] == 'docs'
     assert not result['integration']
-    assert not required(result['changed_paths'], result['reason'])
-    for dependency in ['live.go', 'scripts/development_scope.py', 'unknown.input']:
-        mixed = scope.select(paths + [dependency])
-        assert required(mixed['changed_paths'], mixed['reason'])
+
 
 
 @pytest.mark.parametrize('path', [
@@ -207,28 +203,3 @@ def test_source_failure_stops_before_any_go_execution(monkeypatch, boundary):
     with pytest.raises(RuntimeError, match='source boundary rejected'):
         verify.check()
     assert all(a[0] != 'go' for a in calls)
-
-
-@pytest.mark.parametrize('event,ref,paths,fallback,expected', [
-    ('pull_request', 'refs/pull/11/merge', ['live.go'], None, ('false', 'false')),
-    ('push', 'refs/heads/main', ['live.go'], None, ('false', 'false')),
-    ('pull_request', 'refs/pull/11/merge', ['docs/python.md'], None, ('true', 'true')),
-    ('pull_request', 'refs/pull/11/merge', ['scripts/check_public.py'], None, ('true', 'true')),
-    ('workflow_dispatch', 'refs/heads/main', ['live.go'], None, ('true', 'true')),
-    ('push', 'refs/heads/experiment/dump-reader-productization', ['live.go'], None, ('true', 'true')),
-    ('pull_request', 'refs/pull/11/merge', [], 'event diff unavailable; full verification', ('true', 'true')),
-    ('pull_request', 'refs/pull/11/merge', [], 'event base unavailable; full verification', ('true', 'true')),
-    ('pull_request', 'refs/pull/11/merge', [], None, ('true', 'true')),
-])
-def test_canonical_outputs_share_the_actual_development_plan(monkeypatch, tmp_path, event, ref, paths, fallback, expected):
-    output = tmp_path/'output'
-    monkeypatch.setenv('GITHUB_EVENT_NAME', event)
-    monkeypatch.setenv('GITHUB_REF', ref)
-    monkeypatch.setenv('GITHUB_OUTPUT', str(output))
-    monkeypatch.setattr(scope, 'plan', lambda *args: scope.select(paths, fallback=fallback))
-    monkeypatch.setattr(sys, 'argv', ['development_scope.py', '--candidate-sha', 'a'*40,
-                                    '--base-sha', 'b'*40, '--github-output'])
-    scope.main()
-    actual = dict(line.split('=', 1) for line in output.read_text().splitlines())
-    assert (actual['ubuntu_check'], actual['ubuntu_integration']) == expected
-    assert actual['check_scope'] == scope.select(paths, fallback=fallback)['check_scope']

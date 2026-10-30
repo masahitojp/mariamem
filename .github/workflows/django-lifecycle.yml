@@ -1,49 +1,15 @@
 name: Django standard runner recipe
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'tests/django_lifecycle/**'
-      - 'tests/test_django_recipe_*.py'
-      - 'tests/test_ci_efficiency.py'
-      - 'tests/e2e_native_control/pythonapp/**'
-      - 'tests/dump_import_acceptance/linux*'
-      - 'docs/examples/django/**'
-      - 'python/**'
-      - 'internal/**'
-      - '*.go'
-      - 'guest/**'
-      - 'scripts/experiment_disk.py'
-      - 'cmd/mariamem-host/**'
-      - 'go.mod'
-      - 'go.sum'
-      - 'scripts/git_identity.py'
-      - '.github/workflows/django-lifecycle.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'tests/django_lifecycle/**'
-      - 'tests/test_django_recipe_*.py'
-      - 'tests/test_ci_efficiency.py'
-      - 'tests/e2e_native_control/pythonapp/**'
-      - 'tests/dump_import_acceptance/linux*'
-      - 'docs/examples/django/**'
-      - 'python/**'
-      - 'internal/**'
-      - '*.go'
-      - 'guest/**'
-      - 'scripts/experiment_disk.py'
-      - 'cmd/mariamem-host/**'
-      - 'go.mod'
-      - 'go.sum'
-      - 'scripts/git_identity.py'
-      - '.github/workflows/django-lifecycle.yml'
-  workflow_dispatch:
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  workflow_call:
+    inputs:
+      source_commit:
+        description: Exact commit resolved by Release CI
+        required: true
+        type: string
 permissions:
   contents: read
+env:
+  SOURCE_COMMIT: ${{ inputs.source_commit }}
 jobs:
   native:
     runs-on: ubuntu-24.04
@@ -62,6 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
+          ref: ${{ inputs.source_commit }}
           fetch-depth: 0
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
@@ -77,13 +44,13 @@ jobs:
           NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
         run: |
           python scripts/git_identity.py inspect HEAD
-          python tests/dump_import_acceptance/linux_acquisition.py --container "$NATIVE_CONTAINER" --expected-source-commit "$GITHUB_SHA" --output build/django-native/acquisition
+          python tests/dump_import_acceptance/linux_acquisition.py --container "$NATIVE_CONTAINER" --expected-source-commit "$SOURCE_COMMIT" --output build/django-native/acquisition
       - name: Fresh standard lifecycle and failed-migration reference
-        run: python scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 4 --timeout 900 -- python tests/django_lifecycle/ci.py --route native --native-port 3307 --acquisition build/django-native/acquisition --expected-source-commit "$GITHUB_SHA" --output build/django-native/reference
+        run: python scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 4 --timeout 900 -- python tests/django_lifecycle/ci.py --route native --native-port 3307 --acquisition build/django-native/acquisition --expected-source-commit "$SOURCE_COMMIT" --output build/django-native/reference
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: django-native-${{ matrix.python }}-${{ github.sha }}
+          name: django-native-${{ matrix.python }}-${{ inputs.source_commit }}
           path: build/django-native
           if-no-files-found: error
   recipe:
@@ -94,13 +61,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Build one host per OS, then exercise both Python versions against it.
-        os: ${{ github.event_name == 'pull_request' && fromJSON('["ubuntu-24.04"]') || fromJSON('["ubuntu-24.04","macos-15"]') }}
+        os: [ubuntu-24.04, macos-15]
     env:
       PYTHONPATH: python
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
+          ref: ${{ inputs.source_commit }}
           fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
@@ -142,11 +109,11 @@ jobs:
           done
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          name: django-native-3.11-${{ github.sha }}
+          name: django-native-3.11-${{ inputs.source_commit }}
           path: build/django-reference/py3.11
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          name: django-native-3.14-${{ github.sha }}
+          name: django-native-3.14-${{ inputs.source_commit }}
           path: build/django-reference/py3.14
       - name: Pure ownership and receipt mutation checks on both interpreters
         shell: bash
@@ -162,7 +129,7 @@ jobs:
       - name: Exact clean source before the single host build
         run: |
           python scripts/git_identity.py inspect HEAD
-          python -c 'import sys; sys.path.insert(0,"tests/dump_import_acceptance"); from linux_acquisition import source_identity; import os; source_identity(os.environ["GITHUB_SHA"])'
+          python -c 'import sys; sys.path.insert(0,"tests/dump_import_acceptance"); from linux_acquisition import source_identity; import os; source_identity(os.environ["SOURCE_COMMIT"])'
           python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-work" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host
       - name: Standard runner, mixed orders, original errors and owner disposal on both interpreters
         shell: bash
@@ -173,13 +140,13 @@ jobs:
           django_status=0
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-            "$py" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-work" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- "$py" tests/django_lifecycle/ci.py --route guest --host build/mariamem-host --reference "build/django-reference/py$version/reference" --expected-source-commit "$GITHUB_SHA" --output "build/django-evidence/py$version/acceptance" || django_status=1
+            "$py" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-work" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- "$py" tests/django_lifecycle/ci.py --route guest --host build/mariamem-host --reference "build/django-reference/py$version/reference" --expected-source-commit "$SOURCE_COMMIT" --output "build/django-evidence/py$version/acceptance" || django_status=1
           done
           exit "$django_status"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: django-${{ matrix.os }}-${{ github.sha }}
+          name: django-${{ matrix.os }}-${{ inputs.source_commit }}
           path: build/django-evidence
           if-no-files-found: error
       - name: Remove job-owned scratch

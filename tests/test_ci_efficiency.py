@@ -45,13 +45,13 @@ def validate_caches(text, name):
     namespaces = re.findall(r'          cache-dependency-path: \|\n((?:            [^\n]+\n)+)', text)
     if name in ('check', 'dump-import-productization', 'live-host'):
         assert len(namespaces) == len(set(namespaces))
-    assert found == {'check': 3, 'live-host': 2, 'dump-import-productization': 3, 'django-lifecycle': 1}[name]
+    assert found == {'check': 2, 'live-host': 2, 'dump-import-productization': 1, 'django-lifecycle': 1}[name]
 
 
 @pytest.mark.parametrize('name', WORKFLOWS)
 def test_normal_ci_keeps_fresh_tests_and_pr_isolation(name):
     text = (ROOT/'.github/workflows'/f'{name}.yml').read_text()
-    if name != 'live-host':
+    if name == 'check':
         validate_cancellation(text)
     validate_caches(text, name)
 
@@ -108,57 +108,6 @@ def test_cache_export_preserves_paths_with_spaces_and_invalidates_results(tmp_pa
     assert inherited['GOCACHE'] == cache
 
 
-def candidate_platforms(text, event):
-    # Parse the deliberately simple event expression; actionlint validates the
-    # GitHub syntax. Changing the event or either list must fail the contract.
-    match = re.search(
-        r"^        os: \$\{\{ github.event_name == 'pull_request' && fromJSON\('([^']+)'\) \|\| fromJSON\('([^']+)'\) \}\}$",
-        text, re.M)
-    assert match, 'missing PR/non-PR platform selection'
-    return json.loads(match[1 if event == 'pull_request' else 2])
-
-
-def validate_candidate_platforms(text):
-    assert candidate_platforms(text, 'pull_request') == ['ubuntu-24.04']
-    for event in ['push', 'workflow_dispatch']:
-        assert candidate_platforms(text, event) == ['ubuntu-24.04', 'macos-15']
-    assert 'runs-on: ${{ matrix.os }}' in text
-    reference = re.search(r'^  (?:worker-failure-native|native-reference|native):\n(.*?)(?=^  \S|\Z)', text, re.M | re.S)
-    assert reference and re.search(r'^    runs-on: ubuntu-24.04$', reference[1], re.M)
-    assert '  workflow_dispatch:' in text
-    push = re.search(r'^  push:\n(.*?)(?=^  \S|^\S)', text, re.M | re.S)
-    assert push and re.search(r'^    branches: \[main(?:,|\])', push[1], re.M)
-
-
-@pytest.mark.parametrize('name', ['check', 'dump-import-productization', 'django-lifecycle'])
-def test_candidate_macos_is_post_merge_or_manual_and_pr_is_ubuntu(name):
-    text = (ROOT/'.github/workflows'/f'{name}.yml').read_text()
-    validate_candidate_platforms(text)
-    if name == 'django-lifecycle':
-        assert text.count("python: ['3.11', '3.14']") == 1
-        assert "id: py311" in text and "id: py314" in text
-        assert 'needs: native' in text
-    elif name == 'check':
-        assert 'needs: [scope, worker-failure-native]' in text
-    else:
-        assert 'needs: native-reference' in text
-        assert "python-version: '3.11'" in text and "python-version: '3.14'" in text
-
-
-@pytest.mark.parametrize('before,after', [
-    ("github.event_name == 'pull_request'", "github.event_name == 'workflow_dispatch'"),
-    ('["ubuntu-24.04"]', '["ubuntu-24.04","macos-15"]'),
-    ('["ubuntu-24.04","macos-15"]', '["ubuntu-24.04"]'),
-    ('    branches: [main, experiment/dump-reader-productization]', '    branches: [unused]'),
-    ('  workflow_dispatch:', '  retired_manual:'),
-])
-def test_candidate_platform_regressions_are_detected(before, after):
-    text = (ROOT/'.github/workflows/dump-import-productization.yml').read_text()
-    assert before in text
-    with pytest.raises(AssertionError):
-        validate_candidate_platforms(text.replace(before, after))
-
-
 def test_pr_does_not_start_macos_acceptance_jobs():
     # Count expanded PR cells from the actual runner and matrix declarations.
     # The selectors may skip more work; this is the selected full-diff ceiling.
@@ -173,7 +122,7 @@ def test_pr_does_not_start_macos_acceptance_jobs():
             assert runner
             if runner[1] == '${{ matrix.os }}':
                 if name in ('check', 'django-lifecycle', 'dump-import-productization'):
-                    platforms = candidate_platforms(text, 'pull_request')
+                    raise AssertionError('daily PR must not launch a platform matrix')
                 else:
                     values = re.search(r'^        os: \[([^]]+)\]$', block, re.M)
                     assert values

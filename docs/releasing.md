@@ -147,6 +147,16 @@ runtime inputs. The ordinary no-intent release path is unchanged.
 | `verify` | exact `candidate_ref` | Automatic reuse or full qualification; stop at READY / NOT READY; never publish. |
 | `release` | exact `candidate_ref`, tracked notes | Automatic reuse or full qualification; READY → exact tag/publish → public smoke. This dispatch is the publication approval. |
 
+Heavy product validation belongs here, not in ordinary PR/main CI or a separate
+candidate-adoption run. Release calls the full Live/browser/installed, Dump,
+Django, routing, preparation/migration and native SQL workflows with the resolved
+`candidate_ref` commit. All six feature jobs must succeed before aggregate READY
+or publication; failed, cancelled, skipped or missing jobs stop the transaction.
+Full core integration/race remains in candidate qualification, with existing
+explicit authenticated runtime reuse. Daily source smoke cannot substitute for it.
+The moved feature suites currently rerun in each `verify`/`release` transaction,
+including artifact-reuse modes; their evidence has no new reuse contract.
+
 `mode=auto` is the default. The planner searches completed canonical workflow
 runs in the 14-day retention window (at most 1,000 recent runs), downloads the
 hash-authenticated aggregate READY receipt and resolves its immutable handoff/
@@ -165,7 +175,8 @@ clean external Go/Python/ORM acceptance suites. After selection, inputs are
 authenticated again at restoration, aggregation and publication; a subsequent
 change/download failure stops without publication rather than trusting the plan.
 
-With valid READY, neither builds nor expensive consumer acceptance run again.
+With valid READY, frozen-artifact builds and their external consumer acceptance
+are reused. The six release feature suites described above still run.
 Hash/source/license/identity checks and the existing guards still rerun; they
 bind the accepted bytes to the candidate immediately before publication. Public
 smoke always runs after publication on both supported platforms. New aggregate

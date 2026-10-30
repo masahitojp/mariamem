@@ -107,7 +107,7 @@ def integration():
         run(["go", "build", "-p", "1", "-o", host, "./cmd/mariamem-host"], env=env)
         env["MARIAMEM_TEST_HOST"] = str(host)
         # Reuse the integration host/cache; full browser/native/installed acceptance
-        # is an explicit candidate operation, not a PR-update prerequisite.
+        # belongs to Release CI.
         run([sys.executable, "tests/live_acceptance/smoke.py", "--host", host], env=env)
         run(["go", "run", "./tests/live_acceptance/go_consumer", "-source-smoke"], env=env)
         timeout_test = "tests/test_python_timeout.py::test_normal_close_is_idempotent"
@@ -120,10 +120,19 @@ def integration():
         run([sys.executable, "tests/snapshots.py"], env=env)
         run([sys.executable, "scripts/check_prepared_consumers.py", "--host", host,
              "--output", Path(temporary)/"prepared-consumers"], env=env)
-        candidate = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
-        run([sys.executable, "tests/routing_acceptance/run.py", "--runtime-root", ROOT,
-             "--source-commit", candidate, "--host", host,
-             "--output", Path(temporary)/"routing-consumers"], env=env)
+
+
+def smoke():
+    """Representative source runtime checks without browser/native/ORM campaigns."""
+    env = os.environ.copy()
+    env.pop("MARIAMEM_NATIVE_DIR", None)
+    env.pop("MARIAMEM_RUNTIME", None)
+    env["PYTHONPATH"] = str(ROOT / "python")
+    with tempfile.TemporaryDirectory(prefix="mariamem-smoke-") as temporary:
+        host = Path(temporary) / "mariamem-host"
+        run(["go", "build", "-p", "1", "-o", host, "./cmd/mariamem-host"], env=env)
+        run([sys.executable, "tests/live_acceptance/smoke.py", "--host", host], env=env)
+        run(["go", "run", "./tests/live_acceptance/go_consumer", "-source-smoke"], env=env)
 
 
 def main():
@@ -131,7 +140,8 @@ def main():
     commands = parser.add_subparsers(dest="command", required=True)
     checks = commands.add_parser("check", help="source checks; full includes generated Go compile/vet")
     checks.add_argument("--scope", choices=("full", "python", "docs"), default="full")
-    commands.add_parser("integration", help="normal guest acceptance, focused runtime race and Python lifecycle checks")
+    commands.add_parser("smoke", help="daily source DB/Live representative checks")
+    commands.add_parser("integration", help="release guest acceptance, focused runtime race and Python lifecycle checks")
     release = commands.add_parser("release-check", help="release guard; verify a local or CI candidate")
     release.add_argument("--ci-candidate-sha")
     release.add_argument("--platform", choices=("darwin-arm64", "ubuntu24.04-x86_64"))
@@ -143,6 +153,8 @@ def main():
         parser.error("unexpected arguments: " + " ".join(extra))
     if args.command == "check":
         check(args.scope)
+    elif args.command == "smoke":
+        smoke()
     elif args.command == "integration":
         integration()
     elif args.command == "release-check":

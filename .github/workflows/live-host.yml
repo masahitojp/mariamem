@@ -1,11 +1,15 @@
 name: Live full acceptance
 on:
-  workflow_dispatch:
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  workflow_call:
+    inputs:
+      source_commit:
+        description: Exact commit resolved by Release CI
+        required: true
+        type: string
 permissions:
   contents: read
+env:
+  SOURCE_COMMIT: ${{ inputs.source_commit }}
 jobs:
   native-reference:
     runs-on: ubuntu-24.04
@@ -26,6 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
+          ref: ${{ inputs.source_commit }}
           filter: blob:none
           fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
@@ -55,14 +60,14 @@ jobs:
           NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
         run: |
           python scripts/git_identity.py inspect HEAD
-          python tests/dump_import_acceptance/linux_acquisition.py --container "$NATIVE_CONTAINER" --expected-source-commit "$GITHUB_SHA" --output build/live-native/acquisition
+          python tests/dump_import_acceptance/linux_acquisition.py --container "$NATIVE_CONTAINER" --expected-source-commit "$SOURCE_COMMIT" --output build/live-native/acquisition
           go build -p 1 -trimpath -o build/go-live-orders ./tests/live_acceptance/goapp
       - name: Fresh native control for the reconnecting Go variant
-        run: python scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 4 --timeout 600 -- python tests/live_acceptance/native.py --port 3307 --go-app build/go-live-orders --expected-source-commit "$GITHUB_SHA" --output build/live-native/reference
+        run: python scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 4 --timeout 600 -- python tests/live_acceptance/native.py --port 3307 --go-app build/go-live-orders --expected-source-commit "$SOURCE_COMMIT" --output build/live-native/reference
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: live-native-py${{ matrix.python }}-${{ github.sha }}
+          name: live-native-py${{ matrix.python }}-${{ inputs.source_commit }}
           path: build/live-native
           if-no-files-found: error
   live:
@@ -78,6 +83,7 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
+          ref: ${{ inputs.source_commit }}
           filter: blob:none
           fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
@@ -127,34 +133,26 @@ jobs:
           fi
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          name: live-native-py3.11-${{ github.sha }}
+          name: live-native-py3.11-${{ inputs.source_commit }}
           path: build/reference/py3.11
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          name: live-native-py3.14-${{ github.sha }}
+          name: live-native-py3.14-${{ inputs.source_commit }}
           path: build/reference/py3.14
       - name: Evidence directory
         run: mkdir -p build/live-evidence
-      # Standalone candidate acceptance owns both-platform canonical checks.
-      - name: Canonical check
-        run: python scripts/verify.py check > build/live-evidence/check.txt 2>&1
-      - name: Canonical integration
-        run: python scripts/verify.py integration > build/live-evidence/integration.txt 2>&1
       - name: Bounded G1 fixture acceptance on both hosts
-        run: python scripts/go_fixture_campaign.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/g1
+        run: python scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --output build/live-evidence/g1
       - name: G1 physical fault controls and external Go fixture consumer
-        run: python scripts/go_fixture_completion.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/g1/completion
+        run: python scripts/go_fixture_completion.py --expected-source-commit "$SOURCE_COMMIT" --output build/live-evidence/g1/completion
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: go-fixture-host-${{ matrix.os }}-${{ github.sha }}
+          name: go-fixture-host-${{ matrix.os }}-${{ inputs.source_commit }}
           path: |
             build/live-evidence/g1/**/*.json
             build/live-evidence/g1/**/*.txt
           if-no-files-found: error
-      - name: Live race checks on both hosts
-        run: |
-          go test -race -count=1 ./internal/live ./internal/control . > build/live-evidence/live-race.txt 2>&1
       - name: Exact-source acceptance executables
         run: |
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host
@@ -172,7 +170,7 @@ jobs:
             PYTHONPATH="$PWD/python" "$py" -m pytest tests/test_live_unit.py tests/test_live_oracles.py tests/test_e2e_numeric_bind.py tests/test_e2e_child_diagnostics.py -q > "build/live-evidence/py$version-unit.txt" 2>&1
             for scenario in positive skip-reset restart-app; do
               run_case() {
-                "$py" scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$py" tests/live_acceptance/run.py --host build/mariamem-host --go-app build/go-orders --go-live-app build/go-live-orders --go-owner build/go-owner --native-reference "build/reference/py$version/reference" --expected-source-commit "$GITHUB_SHA" --output "build/live-evidence/py$version/$scenario" "$@"
+                "$py" scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$py" tests/live_acceptance/run.py --host build/mariamem-host --go-app build/go-orders --go-live-app build/go-live-orders --go-owner build/go-owner --native-reference "build/reference/py$version/reference" --expected-source-commit "$SOURCE_COMMIT" --output "build/live-evidence/py$version/$scenario" "$@"
               }
               if [[ "$scenario" == positive ]]; then run_case; else run_case --mutation "$scenario"; fi
             done
@@ -185,15 +183,15 @@ jobs:
         run: |
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-            "$py" scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$py" docs/examples/live/verify.py --host build/mariamem-host --go-app build/go-live-orders --expected-source-commit "$GITHUB_SHA" --output "build/live-evidence/examples-py$version"
+            "$py" scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$py" docs/examples/live/verify.py --host build/mariamem-host --go-app build/go-live-orders --expected-source-commit "$SOURCE_COMMIT" --output "build/live-evidence/examples-py$version"
           done
       - name: Installed wheel and external Go module
         shell: bash
-        run: python tests/live_acceptance/installed.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/installed
+        run: python tests/live_acceptance/installed.py --expected-source-commit "$SOURCE_COMMIT" --output build/live-evidence/installed
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: live-host-${{ matrix.os }}-${{ github.sha }}
+          name: live-host-${{ matrix.os }}-${{ inputs.source_commit }}
           path: build/live-evidence
           if-no-files-found: error
 
@@ -204,6 +202,8 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ inputs.source_commit }}
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.14'
@@ -213,9 +213,9 @@ jobs:
         run: python scripts/live_ci.py gate
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          pattern: go-fixture-host-*-${{ github.sha }}
+          pattern: go-fixture-host-*-${{ inputs.source_commit }}
           path: build/g1-matrix
       - name: Validate both source-bound G1 host receipts
         run: |
-          python scripts/go_fixture_campaign.py --expected-source-commit "$GITHUB_SHA" --validate-matrix build/g1-matrix
-          python scripts/go_fixture_completion.py --expected-source-commit "$GITHUB_SHA" --validate-matrix build/g1-matrix
+          python scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --validate-matrix build/g1-matrix
+          python scripts/go_fixture_completion.py --expected-source-commit "$SOURCE_COMMIT" --validate-matrix build/g1-matrix

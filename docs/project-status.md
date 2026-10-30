@@ -16,25 +16,30 @@ Changing version metadata does not itself publish a release.
 
 ## CI cost reduction — implementation authorized, integration pending
 
-On 2026-10-30 the Human approved reducing CI overhead, then explicitly requested
-further cuts because repeated full Live runs delay development and releases.
-The implementation moves full Live to manual candidate acceptance and keeps daily
-Development source checks, integration and bounded source Go/Python Live smoke.
-The existing `Live required gate` name now aggregates daily source/integration
-results; `Live full acceptance gate` identifies complete manual acceptance.
-PR updates and main pushes no longer launch full Live. Both-platform browser,
-native, G1 and installed checks remain available in the manual workflow.
+On 2026-10-30 the Human approved reducing CI overhead and explicitly placed
+heavy validation in Release CI only. Ordinary PRs retain source/unit checks and
+one Ubuntu source smoke for DB/Snapshot/Fork and Go/Python Live. Documentation
+and explicitly classified tooling skip runtime smoke. Main pushes do not repeat
+these checks. The protected names remain `check`, `integration` (now smoke),
+and `Live required gate` (the daily aggregate), without protection bypass.
 
-The tradeoff is later detection of macOS/browser/installed-specific failures.
-Full acceptance remains a final-candidate adoption condition; it is not implied
-by the daily gate or Release READY. No cross-source acceptance reuse is added.
-Known inert tooling skips Dump runtime work, Django prose-only triggers are
-removed, and duplicate Ubuntu worker checks belong to required integration.
-See [development selection](development.md#local-verification).
+Release CI owns full integration/race, both-platform native SQL regressions,
+Live/browser/installed consumers, Dump, Django, routing and preparation/migration.
+These feature workflows are reusable Release jobs with the exact resolved
+candidate commit; they no longer have PR, main-push or standalone manual triggers.
+Any failed, cancelled, skipped or missing feature result prevents aggregate READY
+and publication. The ordinary release remains one dispatch; a separate candidate
+acceptance run is not required. Existing artifact reuse is retained, but the moved
+feature suites run in each Release transaction and have no new reuse contract.
 
-Routing campaign consolidation, historical workflow retirement and release gates
-remain outside this implementation. No runtime speedup or completed CI acceptance
-is claimed before the candidate's checks finish.
+The accepted tradeoff is detecting platform/browser/ORM/fault-specific failures
+at release rather than on every PR. Daily smoke is not full qualification.
+Generic source/integration checks and routing/race checks have one owner per
+Release path instead of repeated copies in feature workflows. Historical manual
+experiment workflows remain separate from ordinary product CI.
+See [verification responsibilities](development.md#local-verification) and
+[Release CI](releasing.md#ci-inputs-reuse-and-acceptance). Hosted acceptance and
+elapsed-time improvements are not claimed before the submitted checks finish.
 
 ## Issue #5 host repair — adopted on main, unreleased
 
