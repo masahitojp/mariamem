@@ -46,6 +46,20 @@ P1, D1, independent dbt, Qualification and release remain separately tracked.
 
 ## Immediate sequence
 
+Functional increment at code source
+`1355912b575a71999e180b1342e1b0b802eb7a06`: the separate
+`docs/examples/e2e_owned/python/test_independent.py` and
+`docs/examples/e2e_owned/go/independent_test.go` exercise two actual app owners
+in forward/reverse order. A second owner's Reset must preserve the first
+owner's active committed mutation. Python additionally retains an intentional
+assertion failure and verifies fresh seed on the following case. Existing Go
+Fatal/continuation controls retain their separate boundary. The new tests reuse
+the fixed app inputs and do not change the installed-consumer case census.
+The existing Live workflow selects these tests on both hosts/minors. Actual
+supported-host results for this increment remain pending; added tests are not
+a PASS or completion claim. Close-wait/Python physical-retirement reconciliation,
+minimal usability/timing evidence and final adoption review remain open.
+
 Publication/log-reference repair → finite functional/usability gaps above →
 final candidate supported-host checks → one adoption review → Human-approved
 main integration. Do not add new measurement infrastructure to complete EP1/EG1.
