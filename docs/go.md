@@ -7,215 +7,138 @@ baseline reuse. Public save/load APIs are removed. See
 [installation](../README.md#installation) for supported platforms.
 The public package is `github.com/masahitojp/mariamem`.
 
-For the adopted Go prepared-test helper on unreleased main, see
-[prepared Go fixtures](go-prepared-fixture.md). The v0.5.3 examples below retain
-explicit lifecycle ownership.
-
-## Start fresh
-
-Use `Start` to acquire a disposable database and an ordinary MySQL driver to
-connect. Fresh means the new database's initial state; it is usually simplest
-for light fixtures.
-
-```go
-package example
-
-import (
-	"context"
-	"database/sql"
-	"testing"
-
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/masahitojp/mariamem"
-)
-
-func TestItems(t *testing.T) {
-	ctx := context.Background()
-	db, err := mariamem.Start(ctx, mariamem.Options{})
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer func() {
-		if err := db.Close(); err != nil {
-			t.Error(err)
-		}
-	}()
-
-	pool, err := sql.Open("mysql", db.DSN())
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer pool.Close() // Runs before DB Close.
-	if _, err := pool.ExecContext(ctx, "CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB"); err != nil {
-		t.Fatal(err)
-	}
-	if _, err := pool.ExecContext(ctx, "INSERT INTO items VALUES(1)"); err != nil {
-		t.Fatal(err)
-	}
-	var count int
-	if err := pool.QueryRowContext(ctx, "SELECT COUNT(*) FROM items").Scan(&count); err != nil {
-		t.Fatal(err)
-	}
-	if count != 1 {
-		t.Fatalf("count = %d", count)
-	}
-}
-```
-
-The application may use its own connections, commit and roll back normally.
-
-For application tests, pass a new child-owned `*sql.DB` through your normal
-application/GORM construction seam. Keep separate pools for separate children;
-do not switch one existing pool between endpoints. Explicit prepared execution
-can use `mysql.ParseDSN(child.DSN())`, set `InterpolateParams=false`, then
-`mysql.NewConnector` and `sql.OpenDB`. Close statements/pool before the child.
-The [tested consumer](../tests/routing_acceptance/go_consumer.go) exercises this
-pattern. Python's optional [routing helper](connection-routing.md) is a separate
-integration; it does not change the Go API or the current DSN default.
-Per-test isolation comes from disposing of the DB, not from a test transaction
-imposed by mariamem. Close driver connections and pools before the DB.
+Use `github.com/masahitojp/mariamem/mariamemtest` as the test entry on current
+main. It owns preparation, capture, per-test pools/children and cleanup. This
+helper is not in published v0.5.3: use
+`go get github.com/masahitojp/mariamem@<version-or-commit>` for the examples below,
+replacing the placeholder with the main commit you are testing. Published
+installation commands remain in [Development and compatibility](#development-and-compatibility).
 
 ## Prepare once, Fork independent databases
 
-### Sequential and parallel cases
-
-Prepare migrations/seed once, commit and close every preparation connection,
-then wait for disconnect cleanup before capture. Successful Snapshot consumes
-the source DB. Each child owns its own pool, which closes before that child.
-
-The following example first runs cases sequentially, then runs the same cases
-with bounded goroutine concurrency against the same unchanged baseline. Each
-case sees only the seed and its own insert. Return errors to the caller rather
-than failing a test from a background goroutine.
+Put migrations and seed SQL in `Prepare`, then request `fixture.DB(t)` in each
+test. A nil `Prepare` uses an empty baseline. The complete example includes two
+ordinary tests and bounded parallel subtests. Save it as `items_test.go`:
 
 ```go
-package example
+package example_test
 
 import (
 	"context"
 	"database/sql"
-	"errors"
-	"fmt"
-	"sync"
+	"os"
 	"testing"
 
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/masahitojp/mariamem"
+	"github.com/masahitojp/mariamem/mariamemtest"
 )
 
-func TestSnapshotCases(t *testing.T) {
-	if err := snapshotCases(context.Background()); err != nil {
+var fixture *mariamemtest.Fixture
+
+func TestMain(m *testing.M) {
+	os.Exit(mariamemtest.Run(m, mariamemtest.Options{
+		Prepare: func(ctx context.Context, db *sql.DB, dsn string) error {
+			// Migration commands can use ctx and dsn. Return their original
+			// error, retain stderr and never log a DSN containing credentials.
+			if _, err := db.ExecContext(ctx,
+				"CREATE TABLE items (id INT PRIMARY KEY, label VARCHAR(32)) ENGINE=InnoDB"); err != nil {
+				return err
+			}
+			_, err := db.ExecContext(ctx, "INSERT INTO items VALUES (1, 'seed')")
+			return err
+		},
+		MaxForks: 2,
+	}, func(f *mariamemtest.Fixture) { fixture = f }))
+}
+
+func TestCommit(t *testing.T) {
+	db := fixture.DB(t)
+	if _, err := db.ExecContext(t.Context(), "DELETE FROM items"); err != nil {
 		t.Fatal(err)
 	}
 }
 
-func prepareUsers(ctx context.Context, db *mariamem.Database) (err error) {
-	pool, err := sql.Open("mysql", db.DSN())
-	if err != nil {
-		return err
+func TestSeed(t *testing.T) {
+	db := fixture.DB(t)
+	var label string
+	if err := db.QueryRowContext(t.Context(),
+		"SELECT label FROM items WHERE id=1").Scan(&label); err != nil {
+		t.Fatal(err)
 	}
-	defer func() { err = errors.Join(err, pool.Close()) }()
-	// ExecContext uses autocommit; explicit migration transactions must commit too.
-	if _, err := pool.ExecContext(ctx, "CREATE TABLE users(id INT PRIMARY KEY) ENGINE=InnoDB"); err != nil {
-		return err
+	if label != "seed" {
+		t.Fatalf("starting label: %q", label)
 	}
-	_, err = pool.ExecContext(ctx, "INSERT INTO users VALUES(1)")
-	return err
 }
 
-func checkChild(ctx context.Context, baseline *mariamem.Snapshot, id int) (err error) {
-	child, err := baseline.Fork(ctx)
-	if err != nil {
-		return err
+func TestParallelSeeds(t *testing.T) {
+	for _, name := range []string{"first", "second", "third", "fourth"} {
+		t.Run(name, func(t *testing.T) {
+			t.Parallel()
+			db := fixture.DB(t)
+			if _, err := db.ExecContext(t.Context(), "INSERT INTO items VALUES (2, 'own')"); err != nil {
+				t.Fatal(err)
+			}
+			var count int
+			if err := db.QueryRowContext(t.Context(), "SELECT COUNT(*) FROM items").Scan(&count); err != nil {
+				t.Fatal(err)
+			}
+			if count != 2 {
+				t.Fatalf("count = %d, want seed plus this child's insert", count)
+			}
+		})
 	}
-	defer func() { err = errors.Join(err, child.Close()) }()
-	pool, err := sql.Open("mysql", child.DSN())
-	if err != nil {
-		return err
-	}
-	defer func() { err = errors.Join(err, pool.Close()) }() // Before child.Close.
-	if _, err := pool.ExecContext(ctx, "INSERT INTO users VALUES(?)", id); err != nil {
-		return err
-	}
-	var count int
-	if err := pool.QueryRowContext(ctx, "SELECT COUNT(*) FROM users").Scan(&count); err != nil {
-		return err
-	}
-	if count != 2 {
-		return fmt.Errorf("child %d: count = %d, want 2", id, count)
-	}
-	return nil
-}
-
-func snapshotCases(ctx context.Context) (err error) {
-	source, err := mariamem.Start(ctx, mariamem.Options{})
-	if err != nil {
-		return err
-	}
-	defer func() { err = errors.Join(err, source.Close()) }()
-	if err := prepareUsers(ctx, source); err != nil {
-		return err
-	} // The preparation pool has closed; never retain it across capture.
-	if err := source.WaitDisconnected(ctx); err != nil {
-		return err
-	}
-	baseline, err := source.Snapshot(ctx, mariamem.SnapshotOptions{})
-	if err != nil {
-		return err
-	}
-	defer func() { err = errors.Join(err, baseline.Close()) }()
-	// source is now consumed; its deferred Close is safe and idempotent.
-
-	ids := []int{2, 3, 4, 5}
-	// Sequential: one child and its SQL work finish before the next Fork.
-	for _, id := range ids {
-		if err := checkChild(ctx, baseline, id); err != nil {
-			return err
-		}
-	}
-
-	// Parallel: at most two child lifecycles run at once.
-	slots := make(chan struct{}, 2)
-	results := make(chan error, len(ids))
-	var children sync.WaitGroup
-	for _, id := range ids {
-		slots <- struct{}{}
-		children.Add(1)
-		go func(id int) {
-			defer children.Done()
-			defer func() { <-slots }()
-			results <- checkChild(ctx, baseline, id)
-		}(id)
-	}
-	children.Wait() // All pools/children close before baseline.Close can run.
-	close(results)
-	for childErr := range results {
-		err = errors.Join(err, childErr)
-	}
-	return err // Includes startup, SQL, assertion and cleanup errors.
 }
 ```
 
-Save the example in `snapshot_test.go` and run it with `go test` in a module
-with mariamem and the MySQL driver installed. The buffered result channel holds
-one result per case, so errors cannot block the join. All submitted cases finish even if one fails; the example collects their
-errors rather than cancelling siblings. Choose a concurrency bound appropriate
-to your workload and host resources; it is not a throughput promise.
+Run `go test ./...`. `TestCommit` and `TestSeed` see the same seed in either order; committed
+mutations and ordinary assertion failures do not become the next test's data.
+`Run` invokes preparation once in this package process, runs the suite and closes
+the fixture before returning its exit code to `os.Exit`. Preparation failures
+skip the suite; final cleanup failure changes an otherwise successful exit to1.
+Repeated `DB(t)` in one test returns that test's pool. Another test/subtest gets
+another child. Do not close the supplied pool manually; the helper registers
+cleanup in pool-before-child order.
 
-To compare timing, measure wall elapsed time around the sequential loop and
-around the whole parallel batch including `Wait`. Overlapping child operation
-durations cannot be summed to obtain the parallel batch's elapsed time. Report
-preparation/capture separately, or state explicitly when it is included.
+Your callback may use the supplied `db` or pass `dsn` to a migration command.
+Return the original error, finish transactions and retire any additional pools
+or processes before returning. The helper closes its preparation pool and waits
+for physical disconnect before capture. It cannot find unregistered application
+work or force noncooperative callbacks to stop.
 
-Snapshot fixes schema/data, not a running server or SQL file. Fork starts a new
-mutable database; connections and active transactions are not inherited.
-Children cannot update the baseline or siblings. Snapshotting a modified child
-creates a new baseline.
+### Sequential and parallel cases
 
-Fork inherits the preparation DB's options. Startups may run concurrently.
-Snapshot Close prevents future Forks, waits for admitted startups, and releases
-its backing. Successfully started children remain usable and must be closed
-separately. Close is idempotent. Do not copy DB or Snapshot handles.
+Ordinary tests run sequentially. `TestParallelSeeds` in the complete example
+uses testing subtests and calls `t.Parallel()` before `DB(t)`.
+
+`MaxForks: 2` bounds admitted child lifecycles per fixture. Run with
+`go test -parallel 4 ./...` to allow four scheduled parallel tests while that
+fixture still admits at most two children at a time. The parent does not acquire
+a DB while waiting for subtests. Other packages/processes and additional
+fixtures have independent budgets and baselines; this is not a global resource
+cap or a throughput promise. No goroutine join or manual child cleanup is needed
+for these testing subtests.
+
+For helper timeouts, admission failures, cleanup debt and explicit fixture
+ownership with `New`, see [prepared Go fixtures](go-prepared-fixture.md).
+
+## Low-level database lifetimes
+
+### Start fresh
+
+Use `mariamem.Start(ctx, mariamem.Options{})` when you need a Fresh database
+outside the test helper. Open a driver pool using its DSN, then close statements
+and pools before the database. For a manual prepared lifecycle, commit and close
+preparation connections, call `WaitDisconnected`, capture with `Snapshot`, and
+close each Fork before releasing the baseline. Successful capture consumes the
+source. These APIs remain available; ordinary tests above delegate ownership
+to `mariamemtest`.
+
+When application code accepts `*sql.DB`, pass `fixture.DB(t)` through that
+construction seam, including to GORM's MySQL configuration. Keep distinct pools
+for distinct children; never switch an existing pool to another endpoint. An
+application-created pool remains application-owned and must close before its
+child; the helper cannot automatically enroll it. Its supplied pools use real
+prepared execution (`InterpolateParams=false`). Python's opt-in
+[routing](connection-routing.md) is a separate integration.
 
 ## In-memory baseline lifetime
 

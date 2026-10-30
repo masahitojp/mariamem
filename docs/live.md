@@ -15,12 +15,20 @@ physical sessions. TLS/compression, LOCAL INFILE, administrative wire commands
 and binlog/replication streaming are outside the0.6.0 endpoint profile. See the
 [wire limits and bounded reopening rule](decisions/v060-wire-contract.md).
 
+## Choose the owned entry
+
 For a supplied entry that owns setup/Reset/admission/cleanup sequencing, use the
 [Python BrowserEntry / Go NewHTTP examples](examples/e2e_owned/README.md). For
 manual lifecycle composition, see [reuse one application across sequential
 tests](examples/live/README.md). Python uses Django and a real browser with a
 fresh context per case; Go uses HTTP E2E. Both require application quiescence
 and physical SQL connection retirement before Reset.
+
+## Low-level reset ownership
+
+The snippets below are for a custom harness. The application functions are
+harness-specific placeholders, not mariamem APIs. Use the owned entries above
+for the supplied case lifecycle.
 
 ```python
 with source.snapshot() as prepared:

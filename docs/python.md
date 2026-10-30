@@ -47,29 +47,41 @@ the pytest plugin entry point.
 |---|---|---|
 | `mariamem_options` | session | Start options; default `{}` |
 | `mariamem_server` | session | Preparation DB; consumed by successful Snapshot |
-| `mariamem_snapshot` | session | Fixed baseline; initial state by default |
+| `mariamem_prepare` | session | Current main: None, preparation callback or `PrepareCommand` |
+| `mariamem_snapshot` | session | Fixed baseline captured after preparation |
 | `mariamem_fork` | function | Independent mutable DB for one test |
 | `mariamem_connection_info` | function | Driver arguments for that test's DB |
 
-Use these fixtures as the primary test path. Override `mariamem_snapshot` in
-`conftest.py` to run migrations/seed once per session. The preparation connection
-closes before capture; successful capture consumes `mariamem_server`:
+For current-source tests, return your migrations/seed callback from
+`mariamem_prepare` in `conftest.py`. The installed plugin calls it once per
+worker, closes its source after use and owns the disconnect wait, Snapshot and
+per-test Fork teardown. Use a matching current-source platform wheel built via
+[the development guide](development.md#packaging--release-dry-runs); published
+v0.5.3 does not have this preparation hook.
 
 ```python
+# conftest.py
 import pytest
 import pymysql
 
+
 @pytest.fixture(scope="session")
-def mariamem_snapshot(mariamem_server):
-    with pymysql.connect(**mariamem_server.connection_info()) as conn:
-        with conn.cursor() as cur:
-            cur.execute("CREATE TABLE users(id INT PRIMARY KEY) ENGINE=InnoDB")
-            cur.execute("INSERT INTO users VALUES(1)")
-        conn.commit()
-    mariamem_server.wait_disconnected()
-    with mariamem_server.snapshot() as baseline:
-        yield baseline
+def mariamem_prepare():
+    def prepare(db):
+        with pymysql.connect(**db.connection_info()) as conn:
+            with conn.cursor() as cur:
+                cur.execute("CREATE TABLE users(id INT PRIMARY KEY) ENGINE=InnoDB")
+                cur.execute("INSERT INTO users VALUES(1)")
+            conn.commit()
+    return prepare
 ```
+
+Commit your preparation transactions and close all driver connections before
+returning. Do not call `snapshot()` or return a teardown function from this
+callback. `None` selects no preparation; a `PrepareCommand` is the alternative
+[command entry](#prepared-command-entry). Override `mariamem_snapshot` only when
+you deliberately own capture/disconnect and baseline cleanup yourself. For
+published v0.5.3, that explicit override remains the preparation route.
 
 Put the tests in `test_users.py`. Each request for `mariamem_connection_info`
 depends on a function-scoped `mariamem_fork`; its fixture closes the child after
@@ -126,7 +138,107 @@ schema using explicit preparation DB settings, and explicitly register quiescent
 examples, ownership, supported entries and actionable failures. These fixtures
 are not included in published v0.5.3; existing fixtures above retain their defaults.
 
-## Prepared command entry
+### Existing application connections: shadow_maria
+
+Use the marker when application code creates its own driver connections. The
+following is a separate, complete example: put these files in a new directory
+instead of combining its `conftest.py` with the earlier direct-fixture example.
+Install current source with the `pytest` and `routing-pymysql` extras (the latter
+pins the supported PyMySQL1.2.3 entry).
+
+Declare the application's **original** host/port/schema in `pyproject.toml` so
+the plugin installs its guard before application imports. These are matching
+settings, not the temporary database's generated endpoint:
+
+```toml
+[tool.pytest.ini_options]
+mariamem_route_profiles = ["app = 127.0.0.1:3306/app"]
+mariamem_route_drivers = ["pymysql"]
+```
+
+Prepare the declared `app` schema using the explicit source connection. This
+callback does not use application routing:
+
+```python
+# conftest.py
+import pytest
+import pymysql
+
+
+@pytest.fixture(scope="session")
+def mariamem_prepare():
+    def prepare(db):
+        with pymysql.connect(**db.connection_info()) as conn:
+            with conn.cursor() as cur:
+                cur.execute("CREATE DATABASE app")
+                cur.execute("CREATE TABLE app.users(id INT PRIMARY KEY) ENGINE=InnoDB")
+                cur.execute("INSERT INTO app.users VALUES(1)")
+            conn.commit()
+    return prepare
+```
+
+The application keeps ordinary connection calls and commits; it imports no
+mariamem code and opens connections only when its functions are called:
+
+```python
+# app.py
+import pymysql
+
+
+def _connect():
+    return pymysql.connect(
+        host="127.0.0.1", port=3306, user="app", database="app"
+    )
+
+
+def create_user(user_id):
+    with _connect() as conn:
+        with conn.cursor() as cur:
+            cur.execute("INSERT INTO users VALUES(%s)", (user_id,))
+        conn.commit()
+
+
+def user_ids():
+    with _connect() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT id FROM users ORDER BY id")
+            return [row[0] for row in cur.fetchall()]
+```
+
+Apply the same marker to each test:
+
+```python
+# test_app.py
+import pytest
+import app
+
+
+@pytest.mark.shadow_maria
+def test_create_user():
+    app.create_user(2)  # Ordinary application connection and commit.
+    assert app.user_ids() == [1, 2]
+
+
+@pytest.mark.shadow_maria
+def test_initial_state():
+    assert app.user_ids() == [1]  # A fresh child, even after the other test commits.
+```
+
+Run `python -m pytest test_app.py`. Each marked test routes the registered
+profile to its own prepared child; no database server is needed at the original
+address. The first test sees its committed insert and the second starts from
+seed1 in either order. The marker adds no transaction rollback wrapper. A module
+can instead use `pytestmark = pytest.mark.shadow_maria` for all its tests.
+
+Keep SQL out of module import, finish work and close connections before test
+teardown. A connection to the registered profile without an active test binding
+is refused, rather than sent to the original database. Unregistered endpoints
+are outside this guard. Existing pools need explicit enrollment; see the
+[routing guide](connection-routing.md). For direct SQL assertions in a marked
+test, `mariamem_app_db` is the same child as the marker. The marker does not
+provide a stable Live endpoint for a session-scoped application.
+
+### Prepared command entry
 
 Adopted unreleased main supports the public class
 `mariamem.PrepareCommand(argv, *, timeout=120, cwd=None, env=None)` as a third
@@ -152,10 +264,14 @@ Your script explicitly supplies these settings to its migration/seed operation:
 import json
 import os
 
-connection = json.loads(os.environ["MARIAMEM_PREPARE_CONNECTION_INFO"])
-# connection contains host, port, user, password, database.
-# Pass it to your existing migration/seed function, and retire its connections.
-migrate_and_seed(connection)
+import pymysql
+
+info = json.loads(os.environ["MARIAMEM_PREPARE_CONNECTION_INFO"])
+with pymysql.connect(**info) as conn:
+    with conn.cursor() as cur:
+        cur.execute("CREATE TABLE users(id INT PRIMARY KEY) ENGINE=InnoDB")
+        cur.execute("INSERT INTO users VALUES(1)")
+    conn.commit()
 ```
 
 The entry launches the argv sequence once without a shell. An exit code of zero
@@ -188,7 +304,7 @@ bounded termination and reaping of the owned process group; cleanup may be
 unconfirmed. Noncooperative Python callbacks, escaped daemon processes, hard
 kill and machine loss have no stronger guarantee.
 
-## Prepared-entry cleanup failures
+### Prepared-entry cleanup failures
 
 The adopted prepared entry changes admission after cleanup failure. A supplied
 child or routing/pool finalizer failure stops later dependent tests in the
