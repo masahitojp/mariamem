@@ -18,6 +18,7 @@ from check_public import public_files
 from ci_release_reuse import GitHub, WORKFLOW
 from generated_release import CONTRACT, PLATFORMS, checkout, expected_names, read, require, version
 from runtime_validation import read_intent, validate as validate_runtime
+from release_features import restore as restore_features
 
 
 def ready_bundle(archive, commit, canonical):
@@ -51,7 +52,7 @@ def ready_bundle(archive, commit, canonical):
                 {name: sha for sha, name in entries} == ready['assets'], 'READY checksums differ')
         reference = json.loads(zipped.read('qualification.json')) if 'qualification.json' in names else None
         if reference is not None:
-            require(isinstance(reference, dict) and reference.get('version') == 1 and reference.get('source_commit') == commit,
+            require(isinstance(reference, dict) and reference.get('version') in (1, 2) and reference.get('source_commit') == commit,
                     'qualification source differs')
             for key in ('candidate_run', 'evidence_run'):
                 require(type(reference.get(key)) is int and reference[key] > 0,
@@ -103,6 +104,7 @@ def plan(root, commit, operation, mode='auto', candidate_run=None, evidence_run=
     result = {'source_sha': commit, 'version': canonical['GIT_TAG'], 'operation': operation,
               'mode': 'full', 'candidate_run': '', 'evidence_run': '', 'reused_ready_run': '',
               'runtime_reused': str(runtime is not None).lower(),
+              'features_reused': 'false', 'feature_run': '',
               'reason': 'no reusable exact-SHA READY'}
     if mode != 'auto':
         if mode != 'full':
@@ -127,8 +129,19 @@ def plan(root, commit, operation, mode='auto', candidate_run=None, evidence_run=
                 candidate = reference['candidate_run'] if reference else run
                 evidence = reference['evidence_run'] if reference else run
                 validate(root, commit, candidate, evidence, ready)
+                feature_run = ''
+                if reference and reference['version'] == 2:
+                    try:
+                        require(type(reference.get('feature_run')) is int and reference['feature_run'] > 0,
+                                'original feature run missing/invalid')
+                        restore_features(api, commit, reference['feature_run'], ready)
+                        feature_run = reference['feature_run']
+                    except (ValueError, OSError, KeyError, TypeError, zipfile.BadZipFile,
+                            http.client.HTTPException) as error:
+                        print(f'Cannot reuse features: {error}; rerunning features only', file=sys.stderr)
                 return {**result, 'mode': 'guard-only', 'candidate_run': candidate,
                         'evidence_run': evidence, 'reused_ready_run': run,
+                        'features_reused': str(bool(feature_run)).lower(), 'feature_run': feature_run,
                         'reason': 'authenticated READY and immutable inputs revalidated'}
             except (ValueError, OSError, KeyError, TypeError, zipfile.BadZipFile,
                     subprocess.SubprocessError, http.client.HTTPException) as error:
@@ -158,7 +171,8 @@ def main():
     if os.environ.get('GITHUB_STEP_SUMMARY'):
         with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as output:
             output.write(f"{result['operation']} — {result['version']} — {args.candidate_sha}\n\n"
-                         f"Qualification: {result['mode']}; {result['reason']}\n")
+                         f"Qualification: {result['mode']}; {result['reason']}\n"
+                         f"Feature acceptance: {'reused from run ' + str(result['feature_run']) if result['features_reused'] == 'true' else 'execute shared units and all six suites'}\n")
 
 
 if __name__ == '__main__':

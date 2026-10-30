@@ -50,6 +50,8 @@ jobs:
       source_sha: ${{ steps.source.outputs.sha }}
       mode: ${{ steps.plan.outputs.mode }}
       runtime_reused: ${{ steps.plan.outputs.runtime_reused }}
+      features_reused: ${{ steps.plan.outputs.features_reused }}
+      feature_run: ${{ steps.plan.outputs.feature_run }}
       candidate_run: ${{ steps.plan.outputs.candidate_run }}
       evidence_run: ${{ steps.plan.outputs.evidence_run }}
     steps:
@@ -98,7 +100,39 @@ jobs:
           if [ -n "$CANDIDATE_RUN" ]; then args+=(--candidate-run "$CANDIDATE_RUN"); fi
           if [ -n "$EVIDENCE_RUN" ]; then args+=(--evidence-run "$EVIDENCE_RUN"); fi
           python scripts/release_plan.py "${args[@]}"
+  units:
+    if: needs.resolve.outputs.features_reused != 'true'
+    needs: resolve
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python: '3.11'
+            pytest: '7.0.0'
+          - python: '3.14'
+            pytest: '9.0.2'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ needs.resolve.outputs.source_sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '${{ matrix.python }}'
+      - run: python -m pip install 'pytest==${{ matrix.pytest }}' -r tests/routing_acceptance/unit-requirements.txt
+      - name: Shared pure policy, receipt and routing compatibility tests
+        env:
+          PYTHONPATH: python
+        run: >-
+          python -m pytest -q
+          tests/test_routing.py tests/test_routing_pytest.py tests/test_routing_receipts.py
+          tests/test_preparation_migration_acceptance.py
+          tests/test_dump_ci_workflow.py tests/test_git_identity.py
+          tests/test_dump_product_binding.py tests/test_dump_import_acceptance.py
   runtime:
+    if: needs.resolve.outputs.features_reused != 'true'
     needs: resolve
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 30
@@ -342,37 +376,43 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
   feature-live:
-    needs: [resolve, runtime]
+    if: needs.resolve.outputs.features_reused != 'true'
+    needs: [resolve, runtime, units]
     uses: ./.github/workflows/live-host.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   feature-dump:
-    needs: [resolve, runtime]
+    if: needs.resolve.outputs.features_reused != 'true'
+    needs: [resolve, runtime, units]
     uses: ./.github/workflows/dump-import-productization.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   feature-django:
-    needs: [resolve, runtime]
+    if: needs.resolve.outputs.features_reused != 'true'
+    needs: [resolve, runtime, units]
     uses: ./.github/workflows/django-lifecycle.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   feature-routing:
-    needs: [resolve, runtime]
+    if: needs.resolve.outputs.features_reused != 'true'
+    needs: [resolve, runtime, units]
     uses: ./.github/workflows/connection-routing.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   feature-preparation:
-    needs: [resolve, runtime]
+    if: needs.resolve.outputs.features_reused != 'true'
+    needs: [resolve, runtime, units]
     uses: ./.github/workflows/preparation-migration.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   feature-sql:
-    needs: [resolve, runtime]
+    if: needs.resolve.outputs.features_reused != 'true'
+    needs: [resolve, runtime, units]
     uses: ./.github/workflows/worker-failure.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   aggregate:
-    needs: [resolve, runtime, verification, feature-live, feature-dump, feature-django, feature-routing, feature-preparation, feature-sql]
+    needs: [resolve, runtime, units, verification, feature-live, feature-dump, feature-django, feature-routing, feature-preparation, feature-sql]
     if: always() && needs.resolve.result == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
@@ -389,13 +429,7 @@ jobs:
         name: Require complete release feature acceptance
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
-        run: |
-          python - <<'PYGATE'
-          import json, os
-          needs = json.loads(os.environ['NEEDS_JSON'])
-          for job in ['runtime', 'feature-live', 'feature-dump', 'feature-django', 'feature-routing', 'feature-preparation', 'feature-sql']:
-              assert needs.get(job, {}).get('result') == 'success', job + ' did not pass release acceptance'
-          PYGATE
+        run: python candidate-source/scripts/release_features.py gate
       - id: restore
         name: Restore both frozen platforms and exact external evidence
         continue-on-error: true
@@ -415,20 +449,21 @@ jobs:
         run: |
           python candidate-source/scripts/release_generated_ci.py guard --root candidate-source --candidate-sha "$SOURCE_SHA"
           cat candidate-source/build/release/ci-ready.json >> "$GITHUB_STEP_SUMMARY"
-      - name: Record immutable qualification references for later automatic reuse
+      - name: Record original feature success or revalidate its authenticated receipt
         env:
           SOURCE_SHA: ${{ needs.resolve.outputs.source_sha }}
           CANDIDATE_RUN: ${{ needs.resolve.outputs.mode == 'full' && github.run_id || needs.resolve.outputs.candidate_run }}
           EVIDENCE_RUN: ${{ github.run_id }}
-        run: |
-          python - <<'PY'
-          import json, os
-          from pathlib import Path
-          receipt = {'version': 1, 'source_commit': os.environ['SOURCE_SHA'],
-                     'candidate_run': int(os.environ['CANDIDATE_RUN']),
-                     'evidence_run': int(os.environ['EVIDENCE_RUN'])}
-          Path('candidate-source/build/release/qualification.json').write_text(json.dumps(receipt) + '\n')
-          PY
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python candidate-source/scripts/release_features.py record --root candidate-source
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: needs.resolve.outputs.features_reused != 'true'
+        with:
+          name: release-features-${{ needs.resolve.outputs.source_sha }}
+          path: candidate-source/build/release/features.json
+          if-no-files-found: error
+          retention-days: 14
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

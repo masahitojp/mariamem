@@ -83,7 +83,8 @@ def runs_job(job, result, *, aggregate='success', publication='success',
     expression = job_condition(job)
     if ancestors_skipped and not re.search(r'\b(always|cancelled|success|failure)\(', expression):
         return False
-    values = {'inputs.operation': result['operation'], 'needs.resolve.outputs.mode': result['mode'],
+    values = {'inputs.operation': result['operation'],
+              'needs.resolve.outputs.features_reused': result.get('features_reused', 'false'), 'needs.resolve.outputs.mode': result['mode'],
               'needs.resolve.result': resolve, 'needs.aggregate.result': aggregate,
               'needs.publication.result': publication, 'needs.candidate.result': candidate_result}
     for key, value in values.items():

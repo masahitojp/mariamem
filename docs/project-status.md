@@ -50,10 +50,35 @@ This follow-up retains `check`, `integration`, and `Live required gate`, with no
 protection bypass. Full core/race and both-OS feature acceptance remain required
 at Release; platform/browser/ORM/fault-specific failures may be detected then.
 One release dispatch remains sufficient; no separate candidate acceptance is
-required. The six feature suites still execute in every Release transaction;
-feature-evidence reuse is not added. Hosted timings and full Release execution
-for this follow-up remain unmeasured. See [development](development.md#local-verification)
-and [release responsibility](releasing.md#ci-inputs-reuse-and-acceptance).
+required.
+
+The Human then prioritized Release-side unit deduplication and exact-READY feature
+reuse over further Development trimming. This follow-up uses the existing
+artifact authentication and guard path; it does not start qualification or
+publication. Its question is whether repeated feature execution can be removed
+without accepting incomplete or different-source evidence. Evidence is bounded
+to workflow/helper inspection, deterministic mutation/selection tests and the
+shared unit suite on Python3.11/3.14. No heavy CI submission is needed for this
+implementation; unresolved hosted behavior remains explicit rather than adding
+an unrequested release run.
+
+Pure routing compatibility, preparation receipts and dump policy/binding oracles
+have one shared owner at each supported Python/pytest boundary. Installed dump,
+Django/P1/Live and both-OS runtime cases retain their existing owners; core full
+pytest retains its independent baseline. Fresh release qualification still runs
+all six feature suites. After both-platform READY and complete feature success,
+CI records the exact source, final asset hashes, original run and all required
+results in an authenticated artifact. Automatic READY reuse skips the shared
+runtime/unit jobs and six features only after that original proof validates.
+Absent, old, expired or invalid feature proof reruns features while preserving
+valid core READY reuse. Reuse never renews original evidence expiry; a proof
+lost after selection fails aggregation. Explicit recovery modes continue to
+run features. Publication and public smoke retain their existing guards.
+
+The implementation is locally verifiable without a new product build. Hosted
+full/READY-reuse execution and time savings remain unmeasured. See
+[development](development.md#local-verification) and
+[release responsibility](releasing.md#ci-inputs-reuse-and-acceptance).
 
 ## Issue #5 host repair — adopted on main, unreleased
 
