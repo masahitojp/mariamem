@@ -56,7 +56,7 @@ jobs:
   recipe:
     needs: native
     runs-on: ${{ matrix.os }}
-    # One host build plus both 20-minute case budgets; individual deadlines stay fixed.
+    # Shared host plus both 20-minute case budgets; individual deadlines stay fixed.
     timeout-minutes: 65
     strategy:
       fail-fast: false
@@ -69,18 +69,14 @@ jobs:
         with:
           ref: ${{ inputs.source_commit }}
           fetch-depth: 0
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: release-runtime-${{ matrix.os }}-${{ inputs.source_commit }}
+          path: .
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.10'
-          cache: true
-          cache-dependency-path: |
-            go.sum
-            .github/workflows/django-lifecycle.yml
-      - name: Share Go compiler cache and discard restored test results
-        shell: bash
-        run: |
-          echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
-          go clean -testcache
+          cache: false # Only Go build-info inspection; consume the shared host.
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         id: py311
         with:
@@ -89,6 +85,8 @@ jobs:
         id: py314
         with:
           python-version: '3.14'
+      - name: Verify shared release wheel and host
+        run: python scripts/release_runtime.py --source-commit "$SOURCE_COMMIT"
       - name: Native client headers and pinned frameworks
         shell: bash
         env:
@@ -126,11 +124,10 @@ jobs:
             "$py" -m pytest tests/test_django_recipe_unit.py -q -p no:cacheprovider || django_status=1
           done
           exit "$django_status"
-      - name: Exact clean source before the single host build
+      - name: Exact clean source before shared-host acceptance
         run: |
           python scripts/git_identity.py inspect HEAD
           python -c 'import sys; sys.path.insert(0,"tests/dump_import_acceptance"); from linux_acquisition import source_identity; import os; source_identity(os.environ["SOURCE_COMMIT"])'
-          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-work" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host
       - name: Standard runner, mixed orders, original errors and owner disposal on both interpreters
         shell: bash
         env:

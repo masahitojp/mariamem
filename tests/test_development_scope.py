@@ -203,3 +203,30 @@ def test_source_failure_stops_before_any_go_execution(monkeypatch, boundary):
     with pytest.raises(RuntimeError, match='source boundary rejected'):
         verify.check()
     assert all(a[0] != 'go' for a in calls)
+
+
+@pytest.mark.parametrize('path', [
+    'tests/test_ci_efficiency.py', 'tests/test_live_ci_workflow.py',
+    'tests/test_ci_runtime_selection.py', 'tests/test_dump_ci_workflow.py',
+    'tests/test_django_recipe_workflow.py', 'tests/test_routing_ci_workflow.py',
+])
+def test_known_ci_policy_tests_do_not_start_go(path):
+    result = scope.select(['.github/workflows/check.yml', path])
+    assert result['check_scope'] == 'python' and not result['integration']
+
+
+def test_daily_product_checks_and_release_complete_checks_have_separate_owners(monkeypatch):
+    monkeypatch.setattr(verify.subprocess, 'check_output', lambda *a, **kw: '/toolchain\n')
+    for profile in ['daily', 'full']:
+        calls = []
+        monkeypatch.setattr(verify, 'run', lambda a, **kw: calls.append((a, kw)))
+        verify.check(profile=profile)
+        tests = next(a for a, _ in calls if a[:2] == ['go', 'test'])
+        vet, options = next((a, kw) for a, kw in calls if a[:2] == ['go', 'vet'])
+        assert options['env']['MARIAMEM_VET_PROFILE'] == profile
+        if profile == 'daily':
+            assert tests[-4:] == vet[-4:] == verify.DAILY_GO_PACKAGES
+            assert '-vet=off' in tests and './...' not in tests
+        else:
+            assert tests[-1] == vet[-1] == './...'
+        assert any('scripts/verify_generated_runtime.py' in a for a, _ in calls)

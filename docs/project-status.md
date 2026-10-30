@@ -14,41 +14,46 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## CI cost reduction — Release-only heavy acceptance adopted; daily reuse authorized
+## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
-[PR35](https://github.com/masahitojp/mariamem/pull/35) merged as source_commit
-`22383ecbd600b94ef33b29bf9991578dce8ca472` after all required checks succeeded.
-The next Human-approved cut covers inventory priorities 1 and 2: consolidate
-selection/source/smoke onto one checkout/runner, remove checkout from the result
-gates, and keep one dependency-keyed Go compiler cache across source checks and
-smoke. The protected names and checks are retained. Source checks precede smoke;
-a cache hit never reuses test PASS. This follow-up's hosted timing is not measured
-yet; the old 8m52s PR35 run is a cold-cache baseline, not a promised saving.
+[PR35](https://github.com/masahitojp/mariamem/pull/35) moved heavy product acceptance
+to Release CI, and [PR36](https://github.com/masahitojp/mariamem/pull/36) merged as
+source_commit `55b09c3ae78f98d1b989cdc5d82bfa33ba96b72b` after all required checks
+passed. PR36 shares one checkout/Go cache across source checks and smoke. Its
+[run](https://github.com/masahitojp/mariamem/actions/runs/41072335740) took 10m06s
+wall time and 9m58s summed job time; smoke took about 4s. PR35 took 8m52s wall and
+12m56s summed job time. Both missed compiler caches; this is not a controlled
+before/after benchmark or proof of shorter overall waiting.
 
-On 2026-10-30 the Human approved reducing CI overhead and explicitly placed
-heavy validation in Release CI only. Ordinary PRs retain source/unit checks and
-one Ubuntu source smoke for DB/Snapshot/Fork and Go/Python Live. Documentation
-and explicitly classified tooling skip runtime smoke. Main pushes do not repeat
-these checks. The protected names remain `check`, `integration` (now smoke),
-and `Live required gate` (the daily aggregate), without protection bypass.
+The Human subsequently authorized all four inventory recommendations:
 
-Release CI owns full integration/race, both-platform native SQL regressions,
-Live/browser/installed consumers, Dump, Django, routing and preparation/migration.
-These feature workflows are reusable Release jobs with the exact resolved
-candidate commit; they no longer have PR, main-push or standalone manual triggers.
-Any failed, cancelled, skipped or missing feature result prevents aggregate READY
-and publication. The ordinary release remains one dispatch; a separate candidate
-acceptance run is not required. Existing artifact reuse is retained, but the moved
-feature suites run in each Release transaction and have no new reuse contract.
+1. Classify the reviewed pure CI-policy tests as tooling, so editing them does
+   not itself launch Go/runtime work. Unknown inputs remain conservative.
+2. Daily Go checks target product root/cmd/internal/fixture packages; benchmarks,
+   documentation examples and standalone acceptance programs keep their complete
+   package checks in Release. Handwritten vet stays complete; pure generated pN
+   packages retain build-tag checks daily and full applicable analysis at Release.
+   Generated-source/license checks and representative smoke remain daily.
+3. Build one wheel per supported OS in Release and distribute that exact wheel
+   and its embedded host to candidate qualification and all six feature suites.
+   Consumers check source, platform, wheel/host hashes and embedded Go identity;
+   reuse restores authenticated frozen inputs, never rebuilds on a miss. The
+   shared build runs alongside guest reproduction, before feature acceptance;
+   final qualification still requires canonical guest/source reproduction.
+4. Retire eight historical experiment workflows and their automatic triggers.
+   Preserve reports and source-pinned workflow links. Keep runtime qualification
+   as a manual-only compatibility path because runtime reuse still references it;
+   its old experiment-push trigger is removed. Retired GitHub registrations are
+   disabled separately; no existing run or historical evidence is deleted.
 
-The accepted tradeoff is detecting platform/browser/ORM/fault-specific failures
-at release rather than on every PR. Daily smoke is not full qualification.
-Generic source/integration checks and routing/race checks have one owner per
-Release path instead of repeated copies in feature workflows. Historical manual
-experiment workflows remain separate from ordinary product CI.
-See [verification responsibilities](development.md#local-verification) and
-[Release CI](releasing.md#ci-inputs-reuse-and-acceptance). The Release-only placement is adopted; hosted acceptance and elapsed-time
-improvements for the daily reuse follow-up remain to be measured.
+This follow-up retains `check`, `integration`, and `Live required gate`, with no
+protection bypass. Full core/race and both-OS feature acceptance remain required
+at Release; platform/browser/ORM/fault-specific failures may be detected then.
+One release dispatch remains sufficient; no separate candidate acceptance is
+required. The six feature suites still execute in every Release transaction;
+feature-evidence reuse is not added. Hosted timings and full Release execution
+for this follow-up remain unmeasured. See [development](development.md#local-verification)
+and [release responsibility](releasing.md#ci-inputs-reuse-and-acceptance).
 
 ## Issue #5 host repair — adopted on main, unreleased
 

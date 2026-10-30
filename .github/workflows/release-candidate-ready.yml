@@ -98,6 +98,62 @@ jobs:
           if [ -n "$CANDIDATE_RUN" ]; then args+=(--candidate-run "$CANDIDATE_RUN"); fi
           if [ -n "$EVIDENCE_RUN" ]; then args+=(--evidence-run "$EVIDENCE_RUN"); fi
           python scripts/release_plan.py "${args[@]}"
+  runtime:
+    needs: resolve
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: darwin-arm64
+            runner: macos-15
+          - platform: ubuntu24.04-x86_64
+            runner: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ needs.resolve.outputs.source_sha }}
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+          cache-dependency-path: |
+            go.mod
+            go.sum
+      - name: Share compiler cache, never cached test results
+        run: |
+          echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
+          go clean -testcache
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Build the only release wheel for this platform
+        if: needs.resolve.outputs.mode == 'full'
+        run: |
+          python scripts/git_identity.py inspect HEAD
+          python scripts/verify_generated_runtime.py
+          python -m pip install setuptools==80.9.0 wheel==0.45.1
+          python scripts/build_alpha.py --ci-candidate
+      - name: Restore authenticated frozen wheel without rebuild
+        if: needs.resolve.outputs.mode != 'full'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python scripts/release_generated_ci.py restore-platform \
+            --candidate-sha '${{ needs.resolve.outputs.source_sha }}' --platform '${{ matrix.platform }}' \
+            --mode acceptance-only --candidate-run '${{ needs.resolve.outputs.candidate_run }}'
+      - name: Verify the wheel and its embedded host before sharing
+        run: python scripts/release_runtime.py --source-commit '${{ needs.resolve.outputs.source_sha }}'
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: release-runtime-${{ matrix.runner }}-${{ needs.resolve.outputs.source_sha }}
+          path: |
+            build/dist/*.whl
+            tests/evidence/alpha-wheel.json
+          if-no-files-found: error
+          retention-days: 14
   guest:
     if: needs.resolve.outputs.mode == 'full'
     needs: resolve
@@ -146,7 +202,7 @@ jobs:
           retention-days: 14
   candidate:
     if: needs.resolve.outputs.mode == 'full'
-    needs: [resolve, guest]
+    needs: [resolve, guest, runtime]
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 90
     strategy:
@@ -173,22 +229,25 @@ jobs:
         with:
           name: release-generated-inputs-${{ needs.resolve.outputs.source_sha }}
           path: build/
-      - name: Build generated-Go host-only wheel
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: release-runtime-${{ matrix.runner }}-${{ needs.resolve.outputs.source_sha }}
+          path: .
+      - name: Qualify and freeze the shared release wheel
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          python -m pip install setuptools==80.9.0 wheel==0.45.1
-          python -m pip install pytest==8.4.2 -r tests/routing_acceptance/unit-requirements.txt
+          python scripts/release_runtime.py --source-commit '${{ needs.resolve.outputs.source_sha }}'
+          python -m pip install pytest==8.4.2 -r tests/routing_acceptance/unit-requirements.txt mysql-connector-python==26.7.0
           if [ '${{ needs.resolve.outputs.runtime_reused }}' = true ]; then
             python scripts/runtime_validation.py --candidate-sha '${{ needs.resolve.outputs.source_sha }}' \
               --output build/release/runtime-validation.json
             python scripts/release_preparation_checks.py
           else
             GOTOOLCHAIN=go1.26.10 python scripts/verify.py check
-            GOTOOLCHAIN=go1.26.10 python scripts/verify.py integration
+            GOTOOLCHAIN=go1.26.10 python scripts/verify.py integration --host build/mariamem-host
           fi
           python scripts/verify_generated_runtime.py
-          python scripts/build_alpha.py --ci-candidate
           python scripts/release_generated_ci.py freeze \
             --candidate-sha '${{ needs.resolve.outputs.source_sha }}' --platform '${{ matrix.platform }}' \
             --output "$RUNNER_TEMP/candidate-handoff.tar"
@@ -283,37 +342,37 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
   feature-live:
-    needs: resolve
+    needs: [resolve, runtime]
     uses: ./.github/workflows/live-host.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   feature-dump:
-    needs: resolve
+    needs: [resolve, runtime]
     uses: ./.github/workflows/dump-import-productization.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   feature-django:
-    needs: resolve
+    needs: [resolve, runtime]
     uses: ./.github/workflows/django-lifecycle.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   feature-routing:
-    needs: resolve
+    needs: [resolve, runtime]
     uses: ./.github/workflows/connection-routing.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   feature-preparation:
-    needs: resolve
+    needs: [resolve, runtime]
     uses: ./.github/workflows/preparation-migration.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   feature-sql:
-    needs: resolve
+    needs: [resolve, runtime]
     uses: ./.github/workflows/worker-failure.yml
     with:
       source_commit: ${{ needs.resolve.outputs.source_sha }}
   aggregate:
-    needs: [resolve, verification, feature-live, feature-dump, feature-django, feature-routing, feature-preparation, feature-sql]
+    needs: [resolve, runtime, verification, feature-live, feature-dump, feature-django, feature-routing, feature-preparation, feature-sql]
     if: always() && needs.resolve.result == 'success'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
@@ -334,7 +393,7 @@ jobs:
           python - <<'PYGATE'
           import json, os
           needs = json.loads(os.environ['NEEDS_JSON'])
-          for job in ['feature-live', 'feature-dump', 'feature-django', 'feature-routing', 'feature-preparation', 'feature-sql']:
+          for job in ['runtime', 'feature-live', 'feature-dump', 'feature-django', 'feature-routing', 'feature-preparation', 'feature-sql']:
               assert needs.get(job, {}).get('result') == 'success', job + ' did not pass release acceptance'
           PYGATE
       - id: restore

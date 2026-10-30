@@ -176,15 +176,23 @@ rules leave runtime-change and explicitly requested release gates intact.
 
 The development workflow runs on PRs and explicit manual dispatch, without a
 main-push repeat. It selects checks from the local event diff; unknown inputs or
-unavailable/empty diffs select full source checks plus representative smoke.
+unavailable/empty diffs select all daily product checks plus representative smoke.
 This selection produces no reusable runtime-qualification receipt.
 
 | Execution point | Checks | Heavy runtime campaigns |
 | --- | --- | --- |
 | Documentation PR | version/public boundary and diff | none |
 | Classified tooling PR | Python/source policy checks | none |
-| Runtime, build or unknown PR change | source/unit checks and Ubuntu `verify.py smoke` | none |
+| Runtime, build or unknown PR change | `verify.py check --profile daily` and Ubuntu `verify.py smoke` | none |
 | Release CI (`verify` or `release`) | full integration/race, native SQL, Live, Dump, Django, routing, preparation/migration, final artifacts | both supported platforms and required interpreter/browser/ORM cells |
+
+Daily Go checks cover `.`, `./cmd/...`, `./internal/...` and `./mariamemtest/...`.
+`go test` delegates vet to the following explicit vet step. That step retains all
+handwritten analyzers; only pure generated `code/pN` packages select build-tag
+analysis, using the standard vet tool so dependency facts remain well formed.
+`verify.py check` defaults to the full profile for Release/runtime qualification:
+all packages (including benchmarks, examples and acceptance programs) and all
+applicable generated-code analyzers. No cache hit skips test execution.
 
 The `check` job runs source checks followed by `verify.py smoke` when selected,
 using the same checkout and compiler cache. The smoke builds one
@@ -208,7 +216,9 @@ standalone final-candidate acceptance ceremony is required.
 Platform/browser/ORM/fault-specific regressions can therefore be detected later,
 at release. This is the Human-approved cost tradeoff. Exact-SHA artifact reuse
 remains supported; moved feature suites currently run in every Release transaction.
-Historical experiment workflows remain available only as explicit experiments.
+Eight retired experiment workflows are removed; their reports and source-pinned
+workflow links remain historical evidence. Runtime qualification is retained as
+a manual-only compatibility path for reviewed runtime reuse.
 
 Archived Go-toolchain/memfs measurement data has explicit documentation scope in
 the local selector. Its three saved reproduction recipes have tooling scope;
@@ -220,7 +230,7 @@ MariaDB integration merely because their JSON/profile summaries are new files.
 | --- | --- | --- |
 | ordinary documentation | wording/references/diff; `verify.py check --scope docs` for version/public boundary | no guest, seconds |
 | explicitly classified Python tooling/policy and its unit suites | `verify.py check --scope python` or narrower named pytest owners | no real guest; current broad Python subset about 23 s, cold prerequisites vary |
-| SDK, SQL, ownership, VFS, guest/generated code, build inputs, unknown files | full `verify.py check` plus `verify.py smoke`; focused regression when fixing a concrete defect | representative guest; cold compile varies |
+| SDK, SQL, ownership, VFS, guest/generated code, build inputs, unknown files | `verify.py check --profile daily` plus `verify.py smoke`; focused regression when fixing a concrete defect | representative guest; cold compile varies |
 | final module/wheel packaging and version | installed-consumer/release artifact qualification | exact final artifacts, separate from runtime reuse |
 | latency/resource question | one identity-bound manual benchmark after relevant correctness | one campaign at a time; sample dependent |
 
@@ -350,13 +360,22 @@ GitHub cache scope still applies: unrelated PR caches are not interchangeable,
 and a first run without an accessible base/current-branch cache remains cold.
 No automatic main-push cache-warming build is added.
 
-Full integration/race and the six complete feature campaigns belong to Release CI.
-Their platform matrices, artifact qualification and existing cache settings are
-unchanged by this daily-job consolidation. Generic checks are not duplicated in
-Live/Dump/routing. Feature hosts remain separately built for now; sharing those
-release artifacts is a later optimization. Existing Django interpreter reuse
-still runs both Python versions against one exact-source host per OS, with
-separate native references and reports. Local task-cache ownership is unchanged.
+Full integration/race and the six feature campaigns belong to Release CI. One
+shared runtime job per OS builds the wheel while canonical guest reproduction
+runs independently. Candidate qualification and Live/Dump/Django/routing/
+preparation/native-SQL consume that same wheel/host; no consumer rebuild fallback
+exists. Wheel validation binds the source inventory, platform and hashes; extracted
+hosts also retain the exact clean-source Go stamp. Full integration accepts only
+such a verified host via `--host`. Go example/fixture/consumer programs still build
+their distinct executables; those are not replacements for the packaged host.
+
+Artifact-reuse modes restore the authenticated frozen wheel into the shared job.
+The artifact is then distributed identically to fresh mode. The final release
+still requires both-platform qualification, six feature results and canonical
+source/guest reproduction. Feature suites do not themselves become reusable PASS
+receipts. The runtime build uses the same dependency-keyed compiler cache as
+Development, allowing future main-based Release builds to populate it without a
+separate cache-warming workflow. Local task-cache ownership remains unchanged.
 
 Only Development groups automatic PR concurrency by workflow, event and PR number.
 A new update cancels the prior run of the same PR; explicit manual runs use unique

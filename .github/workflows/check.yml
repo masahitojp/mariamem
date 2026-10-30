@@ -44,7 +44,7 @@ jobs:
           go clean -testcache
       - if: steps.diff.outputs.check_scope != 'docs'
         run: python -m pip install -r tests/routing_acceptance/unit-requirements.txt
-      - run: python scripts/verify.py check --scope '${{ steps.diff.outputs.check_scope }}'
+      - run: python scripts/verify.py check --scope '${{ steps.diff.outputs.check_scope }}' --profile daily
       - id: smoke
         name: Representative runtime smoke using the source-check compiler cache
         if: steps.diff.outputs.integration == 'true'
