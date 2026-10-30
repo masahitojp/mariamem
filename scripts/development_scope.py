@@ -36,7 +36,7 @@ TOOLING = {
     'scripts/distribution_licenses.py', 'scripts/audit_generated_licenses.py',
     'scripts/consumer_module.py', 'scripts/consumer_acceptance.py',
     '.github/workflows/check.yml', '.github/workflows/release-candidate-ready.yml',
-    'AGENTS.md', '.agents/skills/release/SKILL.md',
+    '.agents/skills/release/SKILL.md',
     '.agents/skills/experiment-workspace/SKILL.md',
     '.agents/skills/review/SKILL.md',
 }
@@ -100,7 +100,7 @@ def boundary(path):
             'docs/reviews/memfs-discovery-evidence/')) and (
             p.suffix in ('.json', '.csv', '.txt') or p.name == 'SHA256SUMS'):
         return 'docs'
-    if path in ('README.md', 'CONTRIBUTING.md',
+    if path in ('README.md', 'CONTRIBUTING.md', 'AGENTS.md',
                 'benchmarks/README.md',
                 'docs/reviews/v044-runtime-validation-intent.json',
                 'docs/reviews/v045-p1-evidence.json') or (path.startswith('docs/') and p.suffix == '.md'):

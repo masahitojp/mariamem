@@ -191,6 +191,10 @@ Ready. Marking the PR ready starts a fresh run with the selected matrix; the gat
 turns green only when that run succeeds. The red Draft gate is expected, not a test
 failure. The existing changed-boundary selector and both-host receipt rules apply.
 
+The root `AGENTS.md` is documentation too: changes to maintainer instructions
+alongside review or policy documents do not select the Live matrix. Changes to
+executable selectors, workflows or runtime inputs retain their existing checks.
+
 Archived Go-toolchain/memfs measurement data has explicit documentation scope in
 the local selector. Its three saved reproduction recipes have tooling scope;
 they are not runtime qualification commands. Unknown code or other evidence
