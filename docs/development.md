@@ -409,6 +409,21 @@ There is no public option to skip the final guard. Other restore consumers retai
 semantic checks. Remote tag identity, uploaded-asset verification and public smoke
 are unchanged.
 
+READY selection, reused-platform verification and aggregation each combine
+authenticated transport with one complete guard through `restore-guard`.
+Transport, semantic or staging failure writes NOT READY; a successful transport
+alone never creates READY. Older candidate helpers keep their checked legacy
+restore/guard sequence. Publication still owns a separate final aggregate guard.
+
+Release candidate core/race checks use a compiler/module cache separate from the
+shared-wheel cache. Keys include OS, architecture, Go version, module inputs and
+candidate source; prefix restoration lets subsequent candidates extend prior
+compilation. The cache is saved only after successful qualification so it contains
+race outputs too. Restored test results are cleared before the full checks; cache
+hits never skip tests, and misses/outages fall back to ordinary compilation.
+The independent guest reproduction and isolated external-consumer checks keep
+their existing clean environments. Hosted cache savings are not yet measured.
+
 Only Development groups automatic PR concurrency by workflow, event and PR number.
 A new update cancels the prior run of the same PR; explicit manual runs use unique
 run IDs. This does not add main pushes or change Release concurrency.

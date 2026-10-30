@@ -12,7 +12,7 @@ import tempfile
 
 from generated_release import require, check_aggregate, expected_names, CONTRACT, version, write, stage
 from ci_release_reuse import GitHub
-from release_generated_ci import _restore_publication_inputs
+from release_generated_ci import _restore_all_inputs
 from release_plan import ready_bundle
 from common import ROOT, digest
 
@@ -50,7 +50,7 @@ def restore_for_publication(root, commit, repository, candidate_run, evidence_ru
         ready, reference = ready_bundle(archive, commit, version(root))
     require(reference is not None and reference['candidate_run'] == candidate_run
             and reference['evidence_run'] == evidence_run, 'publication qualification references differ')
-    _restore_publication_inputs(root, commit, candidate_run, evidence_run, api)
+    _restore_all_inputs(root, commit, candidate_run, evidence_run, api)
     write(ready_path, ready)
     sums.write_text(''.join(f'{sha}  {name}\n' for name, sha in sorted(ready['assets'].items())))
     return ready_path

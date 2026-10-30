@@ -85,9 +85,15 @@ def validate_reuse(root, commit, candidate_run, evidence_run, expected):
             shutil.copyfile(source, destination)
         script = root / 'scripts/release_generated_ci.py'
         common = ['--root', str(project), '--candidate-sha', commit]
-        subprocess.run([sys.executable, str(script), 'restore', *common,
+        # The candidate owns its guard implementation. Older exact-SHA READY
+        # candidates keep their checked legacy path, never an unchecked fallback.
+        help_text = subprocess.run([sys.executable, str(script), '--help'],
+                                   check=True, capture_output=True, text=True).stdout
+        combined = 'restore-guard' in help_text
+        subprocess.run([sys.executable, str(script), 'restore-guard' if combined else 'restore', *common,
                         '--candidate-run', str(candidate_run), '--evidence-run', str(evidence_run)], check=True)
-        subprocess.run([sys.executable, str(script), 'guard', *common], check=True)
+        if not combined:
+            subprocess.run([sys.executable, str(script), 'guard', *common], check=True)
         require(read(project / 'build/release/ci-ready.json') == expected,
                 'recomputed READY/artifact/evidence identity differs')
 

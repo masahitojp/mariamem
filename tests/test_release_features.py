@@ -166,8 +166,8 @@ def test_fresh_receipt_cannot_be_minted_from_partial_success(tmp_path):
 def test_workflow_rechecks_original_proof_after_guard_and_retains_publication_boundary():
     text = (ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
     aggregate = text.split('  aggregate:\n')[1].split('  publication:\n')[0]
-    assert aggregate.index('release_features.py gate') < aggregate.index('release_generated_ci.py guard')
-    assert aggregate.index('release_generated_ci.py guard') < aggregate.index('release_features.py record')
+    assert aggregate.index('release_features.py gate') < aggregate.index('python "$script" restore-guard')
+    assert aggregate.index('python "$script" restore-guard') < aggregate.index('release_features.py record')
     assert "if: needs.resolve.outputs.features_reused != 'true'" in aggregate
     assert 'name: release-features-${{ needs.resolve.outputs.source_sha }}' in aggregate
     assert 'candidate-source/build/release/qualification.json' in aggregate

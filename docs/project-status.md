@@ -116,6 +116,37 @@ Validation uses focused release/transport/selector tests and the canonical local
 preparation check. Heavy Release submissions remain zero; both-OS hosted
 publication execution and time savings are still unmeasured.
 
+## Release guard consolidation and core compiler cache — implementation authorized
+
+After PR40 merged as source_commit
+`ce66b9df2067c546c88f6748fcbce2dc175a619a`, the Human approved proceeding with
+recommendations 1 and 2 of the next CI inventory: consolidate repeated guards
+within Release stages and retain candidate core/race compilation across runs.
+The later proposal to parallelize guest reproduction and core qualification,
+and remove the cross-platform candidate barrier, remains separate work. Remaining
+feature-unit ownership cleanup is also outside this implementation.
+
+READY selection, reused platform verification and aggregation now use a combined
+authenticated restore and complete guard. Each stage runs its semantic guard
+once per platform; publication retains its own final guard. The combined CLI
+writes NOT READY on transport, guard or staging failure, replacing stale READY.
+Candidate helpers predating the combined command retain the checked legacy
+restore/guard sequence. No public unchecked-restore option is added.
+
+Candidate core/race compilation has a separate cache namespace from wheel builds,
+scoped by OS, architecture, Go toolchain, module inputs and candidate source.
+New candidates may restore older compiler outputs, but clear test results before
+qualification. Successful qualification saves the expanded cache, including race
+compilation; cache misses/outages still run the full checks. Exact-source frozen
+assets, clean external consumers, guest reproduction, both-platform acceptance,
+final publication and public smoke keep their existing checks.
+
+Validation is bounded to tooling/transport tests, workflow shell branches,
+workflow lint and source-boundary checks. No heavy Release run or publication is
+part of this work. Hosted cache hits, cold/warm savings and the complete updated
+Release path remain unmeasured; no additional qualification run is a prerequisite
+created by this optimization.
+
 ## Issue #5 host repair — adopted on main, unreleased
 
 The Human approved main adoption of candidate source_commit
