@@ -1,0 +1,14 @@
+# Copy to profiles.yml (or set DBT_PROFILES_DIR) and fill the mariamem endpoint
+# from db.connection_info(). Do not commit a filled copy.
+dbt_feasibility:
+  target: dev
+  outputs:
+    dev:
+      type: mysql
+      server: 127.0.0.1
+      port: 0
+      username: root
+      password: ""
+      schema: test
+      connect_timeout: 20
+      threads: 2
