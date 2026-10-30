@@ -145,6 +145,33 @@ and teardown. See the [Python guide](docs/python.md#pytest-fixtures) for
 `PrepareCommand` and pytest-xdist. For existing application connections, use the
 opt-in [shadow_maria routing](docs/connection-routing.md) profile.
 
+### Existing Python application connections
+
+`@pytest.mark.shadow_maria` routes the application's ordinary connection calls
+to the current test's child. Use the [complete Python example](docs/python.md#existing-application-connections-shadow_maria)
+for the original-endpoint profile, `app` schema preparation and `app.py`; its
+setup replaces the direct `items` example above. Then the tests are:
+
+```python
+# test_app.py
+import pytest
+import app
+
+
+@pytest.mark.shadow_maria
+def test_create_user():
+    app.create_user(2)  # Ordinary application connection and commit.
+    assert app.user_ids() == [1, 2]
+
+
+@pytest.mark.shadow_maria
+def test_initial_state():
+    assert app.user_ids() == [1]  # A fresh child, even after the other test commits.
+```
+
+Each test gets its own seed even when the other test commits. Profiles must be
+configured before application imports; existing pools need explicit enrollment.
+
 ## Go test helper
 
 Save this as `items_test.go` in your Go module:

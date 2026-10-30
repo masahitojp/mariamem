@@ -138,6 +138,106 @@ schema using explicit preparation DB settings, and explicitly register quiescent
 examples, ownership, supported entries and actionable failures. These fixtures
 are not included in published v0.5.3; existing fixtures above retain their defaults.
 
+### Existing application connections: shadow_maria
+
+Use the marker when application code creates its own driver connections. The
+following is a separate, complete example: put these files in a new directory
+instead of combining its `conftest.py` with the earlier direct-fixture example.
+Install current source with the `pytest` and `routing-pymysql` extras (the latter
+pins the supported PyMySQL1.2.3 entry).
+
+Declare the application's **original** host/port/schema in `pyproject.toml` so
+the plugin installs its guard before application imports. These are matching
+settings, not the temporary database's generated endpoint:
+
+```toml
+[tool.pytest.ini_options]
+mariamem_route_profiles = ["app = 127.0.0.1:3306/app"]
+mariamem_route_drivers = ["pymysql"]
+```
+
+Prepare the declared `app` schema using the explicit source connection. This
+callback does not use application routing:
+
+```python
+# conftest.py
+import pytest
+import pymysql
+
+
+@pytest.fixture(scope="session")
+def mariamem_prepare():
+    def prepare(db):
+        with pymysql.connect(**db.connection_info()) as conn:
+            with conn.cursor() as cur:
+                cur.execute("CREATE DATABASE app")
+                cur.execute("CREATE TABLE app.users(id INT PRIMARY KEY) ENGINE=InnoDB")
+                cur.execute("INSERT INTO app.users VALUES(1)")
+            conn.commit()
+    return prepare
+```
+
+The application keeps ordinary connection calls and commits; it imports no
+mariamem code and opens connections only when its functions are called:
+
+```python
+# app.py
+import pymysql
+
+
+def _connect():
+    return pymysql.connect(
+        host="127.0.0.1", port=3306, user="app", database="app"
+    )
+
+
+def create_user(user_id):
+    with _connect() as conn:
+        with conn.cursor() as cur:
+            cur.execute("INSERT INTO users VALUES(%s)", (user_id,))
+        conn.commit()
+
+
+def user_ids():
+    with _connect() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT id FROM users ORDER BY id")
+            return [row[0] for row in cur.fetchall()]
+```
+
+Apply the same marker to each test:
+
+```python
+# test_app.py
+import pytest
+import app
+
+
+@pytest.mark.shadow_maria
+def test_create_user():
+    app.create_user(2)  # Ordinary application connection and commit.
+    assert app.user_ids() == [1, 2]
+
+
+@pytest.mark.shadow_maria
+def test_initial_state():
+    assert app.user_ids() == [1]  # A fresh child, even after the other test commits.
+```
+
+Run `python -m pytest test_app.py`. Each marked test routes the registered
+profile to its own prepared child; no database server is needed at the original
+address. The first test sees its committed insert and the second starts from
+seed1 in either order. The marker adds no transaction rollback wrapper. A module
+can instead use `pytestmark = pytest.mark.shadow_maria` for all its tests.
+
+Keep SQL out of module import, finish work and close connections before test
+teardown. A connection to the registered profile without an active test binding
+is refused, rather than sent to the original database. Unregistered endpoints
+are outside this guard. Existing pools need explicit enrollment; see the
+[routing guide](connection-routing.md). For direct SQL assertions in a marked
+test, `mariamem_app_db` is the same child as the marker. The marker does not
+provide a stable Live endpoint for a session-scoped application.
+
 ### Prepared command entry
 
 Adopted unreleased main supports the public class
