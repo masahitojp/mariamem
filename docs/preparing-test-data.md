@@ -1,12 +1,14 @@
 # Prepare once, test independently
 
-This recipe targets unreleased source builds, not published v0.5.3. Use an
+This adopted preparation path is supported in unreleased source builds, not published v0.5.3. Use an
 existing migration chain and seed to prepare one baseline per pytest worker;
 each marked test starts an independent child from that baseline. A test's
 committed changes do not become the next test's starting data.
 
 `mariamem_prepare` is not tied to Alembic. It accepts a callback that receives
-the preparation DB; that callback can invoke your own setup code. The concrete
+the preparation DB; that callback can invoke your own setup code. A declarative
+[PrepareCommand](python.md#prepared-command-entry) is also supported; it does not
+discover migration commands or route their connections automatically. The concrete
 recipe below uses synchronous Alembic with SQLAlchemy/PyMySQL. It does not
 rewrite SQL or automatically redirect preparation SQL. The separate
 [dump preparation recipe](importing-dump.md) describes the bounded reader in unreleased source builds.
@@ -140,9 +142,11 @@ back. The source is discarded through fixture cleanup; a new pytest run
 prepares a fresh baseline. Another xdist worker has an independent chain and
 may continue. The recipe adds no automatic retry or database repair policy.
 
-The [candidate acceptance record](reviews/v06x-preparation-migration-productization.md)
+The [source-bound migration acceptance record](reviews/v06x-preparation-migration-productization.md)
 records the completed Python3.11/pytest7, Python3.14/pytest9 and two-worker
-native checks on macOS and Ubuntu. Arbitrary legacy applications,
-and Django/mysqlclient remain separate coverage decisions. The bounded
+native checks on macOS and Ubuntu. Arbitrary legacy applications
+remain outside this fixed migration profile. Django/mysqlclient use the
+separately adopted [standard-runner recipe](django-testing.md), not an automatic
+D1 prepared-Snapshot entry. The bounded
 [dump recipe](importing-dump.md) has its own native comparison and installed-package
 acceptance; it does not extend this migration recipe to arbitrary dump formats.

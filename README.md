@@ -66,6 +66,25 @@ gh release download v0.5.3 --repo masahitojp/mariamem \
   --pattern 'SHA256SUMS' --pattern 'mariamem-0.5.3-corresponding-source.tar.gz'
 ```
 
+## Adopted features in current source builds
+
+The following supported paths are adopted on unreleased main and are intended
+for the 0.6.0 scope; installing published v0.5.3 does not provide these additions.
+
+| Test setup | Supported entry and boundary |
+| --- | --- |
+| Python prepared tests | [pytest preparation and PrepareCommand](docs/python.md#prepared-command-entry); a worker-local baseline and independent child per test |
+| Existing Python application connections | [Opt-in shadow_maria routing](docs/connection-routing.md); pinned drivers, explicit profiles and pool enrollment |
+| Go prepared tests | [mariamemtest](docs/go-prepared-fixture.md); prepare once and use a test-owned bounded child pool |
+| Sequential browser / HTTP E2E | [BrowserEntry and NewHTTP](docs/examples/e2e_owned/README.md); supplied entries own sequencing, application hooks own readiness and physical SQL/job retirement |
+| Python MariaDB dump input | [import_dump with the dump extra](docs/importing-dump.md); only the documented MariaDB12.3.3 producer profile |
+| Ordinary Django tests | [Standard-runner recipe](docs/django-testing.md); Django owns rollback/flush/fixtures, not automatic prepared-Snapshot restoration |
+
+These paths retain the exact driver, wire and lifecycle limits below. The extra
+Django prepared entry is deferred from 0.6.0 for consideration in 0.6.1, not a
+delivery promise. Procedures/functions and real server-side prepared execution
+are supported on main within the named exceptions below.
+
 ## Start fresh
 
 Fresh means a new database in its initial state. For small fixtures it is
@@ -181,14 +200,30 @@ accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](docs/decisions/routine-support-scope.md).
 Current source builds add real server-side execution for Go explicit/implicit
 Prepare and Python prepared cursors. This is not in published v0.5.3.
-`DELIMITER` is a client directive; this does not add a general dump importer.
+`DELIMITER` is a client directive, not server SQL. Python source builds provide
+an explicit [bounded dump reader](docs/importing-dump.md); this is not a general
+SQL-script importer or a Go dump API.
 
-Oracle mysql-connector-python26.7.0 has two accepted, native-matched limits:
-prepared CALL result traversal can fail and leave that connection unusable;
-Mac C/default can shorten a NUL-containing untyped character projection.
-Typed binary columns preserve these bytes. The two cases pass with MariaDB
-Connector/Python1.1.14 on both supported guest platforms; this is not blanket
-driver compatibility. See the [exact consumer boundaries](docs/decisions/prepared-consumer-exceptions.md).
+Oracle mysql-connector-python 26.7.0 has three named, accepted exceptions:
+
+- In the native-matched macOS C-extension prepared syntax-error case, the
+  client reports `2006/HY000` although raw wire returns `1064/42000` and subsequent
+  SQL succeeds. This does not make other `2006` errors safe or recoverable.
+- For the tested prepared CALL emitting two result sets via nextset, advancing
+  after the first set can fail and leave that connection unusable. This affects
+  pure mode on both supported guest platforms and macOS C/default in the fixed
+  native-matched observations; it is not a claim about every CALL or driver.
+- macOS C/default can shorten an untyped prepared character projection of
+  A-NUL-B to A without a useful error. Typed binary columns preserve all bytes;
+  pure mode preserves that projection. This is not evidence of file corruption.
+
+See the [CALL/NUL boundaries](docs/decisions/prepared-consumer-exceptions.md)
+and [syntax-error presentation](docs/reviews/v06x-prepared-product-design.md#c-extension-syntax-error).
+MariaDB Connector/Python 1.1.14 passes the two CALL/NUL cases on both supported
+guest platforms; this is not blanket driver compatibility or a repair to Oracle
+Connector/Python. Ubuntu's additional explicit C-extension mode may be unavailable
+and is an allowed SKIP, not C-mode compatibility PASS; required default/pure modes
+have their own executed evidence. No driver mode is silently substituted.
 Server-side cursors / COM_STMT_FETCH remain unsupported.
 
 Current source builds retain a bounded local endpoint profile: TLS/compression,
