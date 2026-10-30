@@ -1,18 +1,14 @@
 # Go usage
 
-This guide describes `v0.5.3` baseline APIs and explicitly labelled, adopted
-additions on unreleased main, including in-memory Snapshot/Fork and process-local
-baseline reuse. Public save/load APIs are removed. See
+This guide describes `v0.6.0`, including in-memory Snapshot/Fork and process-local
+baseline reuse. Public save/load APIs remain removed. See
 [API changes and migration](changes-since-v050.md) and
 [installation](../README.md#installation) for supported platforms.
 The public package is `github.com/masahitojp/mariamem`.
 
-Use `github.com/masahitojp/mariamem/mariamemtest` as the test entry on current
-main. It owns preparation, capture, per-test pools/children and cleanup. This
-helper is not in published v0.5.3: use
-`go get github.com/masahitojp/mariamem@<version-or-commit>` for the examples below,
-replacing the placeholder with the main commit you are testing. Published
-installation commands remain in [Development and compatibility](#development-and-compatibility).
+Use `github.com/masahitojp/mariamem/mariamemtest` as the test entry. It owns
+preparation, capture, per-test pools/children and cleanup. Installation commands
+are in [Development and compatibility](#development-and-compatibility).
 
 ## Prepare once, Fork independent databases
 
@@ -173,16 +169,16 @@ leaves it running. Failure after acceptance can consume it as well
 (`HostError.Closed`). Use `errors.Is` with `ErrBusy`,
 `ErrTransactionActive`, `ErrClosed`, and `errors.As` with `*HostError`.
 
-Unreleased main (not included in published v0.5.3): stored procedures
+Stored procedures
 and functions are supported through ordinary SQL, including
 CALL result chains and Snapshot/Fork retention. Packages/package bodies are
 outside product support and compatibility testing; events remain unavailable
 in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
 accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](decisions/routine-support-scope.md).
-Current source builds add real server-side execution for Go explicit/implicit
-Prepare and Python prepared cursors. This is not in published v0.5.3.
-`DELIMITER` is a client directive, not server SQL. Python source builds provide
+Version 0.6.0 supports real server-side execution for Go explicit/implicit
+Prepare and Python prepared cursors.
+`DELIMITER` is a client directive, not server SQL. Python provides
 an explicit [bounded dump reader](importing-dump.md); this is not a general
 SQL-script importer or a Go dump API.
 
@@ -251,29 +247,29 @@ internal mechanisms.
 Install the published module and optional release audit files with:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.5.3
-gh release download v0.5.3 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.5.3-corresponding-source.tar.gz'
+go get github.com/masahitojp/mariamem@v0.6.0
+gh release download v0.6.0 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.6.0-corresponding-source.tar.gz'
 ```
 
 Runtime details belong in [architecture](v04-generated-go-architecture.md).
 See [local verification](development.md#local-verification) for scoped
-development checks, [release notes](../release/NOTES-v0.5.3.md)
+development checks, [release notes](../release/NOTES-v0.6.0.md)
 and [API migration](changes-since-v050.md).
 The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.
 
-Unreleased main supports stable Live endpoints across sequential browser E2E
+Version 0.6.0 supports stable Live endpoints across sequential browser E2E
 cases. Use independent Forks for concurrent cases; Live does not promise a
 parallel shared mutable endpoint. See the [Live guide](live.md) for connection
 draining and reset ownership.
 
-## Owned E2E entry — unreleased main
+## Owned E2E entry
 
-The source-build [owned E2E examples](examples/e2e_owned/README.md) demonstrate
+The [owned E2E examples](examples/e2e_owned/README.md) demonstrate
 application-specific preparation/start/quiescence/stop hooks over Live. This
 entry was approved for bounded main adoption with the supplied hook obligations;
-it is not part of published v0.5.3. Existing direct Live APIs remain the mechanism
+it is included in 0.6.0. Existing direct Live APIs remain the mechanism
 underneath the entry. See the [integration receipt](reviews/e2e-integration-ci-41095184074/assessment.json)
 for exact tested source/profiles. Arbitrary unregistered work and non-cooperative
 shutdown remain outside the guarantee; detailed resource characterization is deferred.

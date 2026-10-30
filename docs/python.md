@@ -1,13 +1,11 @@
 # Python usage
 
-This guide describes Python `0.5.3` baseline APIs and explicitly labelled,
-adopted additions on unreleased main. In-memory Snapshots use one automatically
+This guide describes Python `0.6.0`. In-memory Snapshots use one automatically
 managed host per root lineage. Public save/load APIs are removed. See
 [API changes and migration](changes-since-v050.md) and
 [installation](../README.md#installation).
 
-Current unreleased source requires Python3.11 or newer; Python3.9/3.10 are no
-longer supported. Published v0.5.3 retains its original package metadata.
+Python3.11 or newer is required; Python3.9/3.10 are no longer supported.
 
 ## A disposable database
 
@@ -47,17 +45,15 @@ the pytest plugin entry point.
 |---|---|---|
 | `mariamem_options` | session | Start options; default `{}` |
 | `mariamem_server` | session | Preparation DB; consumed by successful Snapshot |
-| `mariamem_prepare` | session | Current main: None, preparation callback or `PrepareCommand` |
+| `mariamem_prepare` | session | None, preparation callback or `PrepareCommand` |
 | `mariamem_snapshot` | session | Fixed baseline captured after preparation |
 | `mariamem_fork` | function | Independent mutable DB for one test |
 | `mariamem_connection_info` | function | Driver arguments for that test's DB |
 
-For current-source tests, return your migrations/seed callback from
+For prepared tests, return your migrations/seed callback from
 `mariamem_prepare` in `conftest.py`. The installed plugin calls it once per
 worker, closes its source after use and owns the disconnect wait, Snapshot and
-per-test Fork teardown. Use a matching current-source platform wheel built via
-[the development guide](development.md#packaging--release-dry-runs); published
-v0.5.3 does not have this preparation hook.
+per-test Fork teardown. Use the platform wheel from [installation](../README.md#installation).
 
 ```python
 # conftest.py
@@ -80,8 +76,7 @@ Commit your preparation transactions and close all driver connections before
 returning. Do not call `snapshot()` or return a teardown function from this
 callback. `None` selects no preparation; a `PrepareCommand` is the alternative
 [command entry](#prepared-command-entry). Override `mariamem_snapshot` only when
-you deliberately own capture/disconnect and baseline cleanup yourself. For
-published v0.5.3, that explicit override remains the preparation route.
+you deliberately own capture/disconnect and baseline cleanup yourself. That explicit override owns the preparation route.
 
 Put the tests in `test_users.py`. Each request for `mariamem_connection_info`
 depends on a function-scoped `mariamem_fork`; its fixture closes the child after
@@ -129,14 +124,13 @@ For a migration/seed callback using explicit Alembic configuration, see
 For ordinary `manage.py test` or pytest-django ownership, see the
 [Django standard-runner recipe](django-testing.md).
 
-Unreleased source builds add `@pytest.mark.shadow_maria` for existing application
+The pytest plugin provides `@pytest.mark.shadow_maria` for existing application
 connections, `mariamem_prepare` for session preparation and optional
 `mariamem_app_db`, `mariamem_router`, `mariamem_sqlalchemy_engines` fixtures.
 Declare the original endpoint/schema before application imports, prepare that
 schema using explicit preparation DB settings, and explicitly register quiescent pools. See the
 [routing guide](connection-routing.md) for configuration, first/second-test
-examples, ownership, supported entries and actionable failures. These fixtures
-are not included in published v0.5.3; existing fixtures above retain their defaults.
+examples, ownership, supported entries and actionable failures. Existing fixtures above retain their defaults.
 
 ### Existing application connections: shadow_maria
 
@@ -240,7 +234,7 @@ provide a stable Live endpoint for a session-scoped application.
 
 ### Prepared command entry
 
-Adopted unreleased main supports the public class
+The package supports the public class
 `mariamem.PrepareCommand(argv, *, timeout=120, cwd=None, env=None)` as a third
 `mariamem_prepare` input. None and callback behavior are unchanged, including
 ignored callback return values. Unknown values are rejected with
@@ -321,7 +315,7 @@ allows metadata, or retained through the cause chain for read-only exceptions;
 source/baseline/test teardown still attempts remaining finalizers.
 Explicitly overriding a supplied fixture transfers that boundary's ownership to
 your implementation, including admission and cleanup. See the
-[unreleased change notes](release-notes/unreleased.md).
+[release notes](../release/NOTES-v0.6.0.md).
 
 ## Share preparation, isolate mutations
 
@@ -475,16 +469,16 @@ seconds and default to 120, 30 and 30. Snapshot `timeout` defaults to 120 second
 shutdown has a deadline, but freeze/content validation has no size-independent
 interruptible deadline. `wait_disconnected(timeout=...)` bounds session waiting.
 
-Unreleased main (not included in published v0.5.3): stored procedures
+Stored procedures
 and functions are supported through ordinary SQL, including
 CALL result chains and Snapshot/Fork retention. Packages/package bodies are
 outside product support and compatibility testing; events remain unavailable
 in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
 accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](decisions/routine-support-scope.md).
-Current source builds add real server-side execution for Go explicit/implicit
-Prepare and Python prepared cursors. This is not in published v0.5.3.
-`DELIMITER` is a client directive, not server SQL. Python source builds provide
+Version 0.6.0 supports real server-side execution for Go explicit/implicit
+Prepare and Python prepared cursors.
+`DELIMITER` is a client directive, not server SQL. Python provides
 an explicit [bounded dump reader](importing-dump.md); this is not a general
 SQL-script importer or a Go dump API.
 
@@ -548,11 +542,11 @@ performance promise.
 
 ## Dump preparation
 
-The unreleased bounded `import_dump(db, path)` helper is described in the
+The bounded `import_dump(db, path)` helper is described in the
 [dump preparation guide](importing-dump.md), including the `dump` extra, supported
 MariaDB producer profile and failure cleanup. It is not a general SQL-file runner.
 
-Unreleased main supports stable Live endpoints across sequential browser E2E
+Version 0.6.0 supports stable Live endpoints across sequential browser E2E
 cases. Use independent Forks for concurrent cases; Live does not promise a
 parallel shared mutable endpoint. See the [Live guide](live.md) for connection
 draining and reset ownership.
@@ -573,12 +567,12 @@ aliases, patch the connector or change drivers to label that run PASS. The
 current OpenSSL3 CI environment does not cover this OpenSSL4 combination. See
 [local verification](development.md#local-verification).
 
-## Owned E2E entry — unreleased main
+## Owned E2E entry
 
-The source-build [owned E2E examples](examples/e2e_owned/README.md) demonstrate
+The [owned E2E examples](examples/e2e_owned/README.md) demonstrate
 application-specific preparation/start/quiescence/stop hooks over Live. This
 entry was approved for bounded main adoption with the supplied hook obligations;
-it is not part of published v0.5.3. Existing direct Live APIs remain the mechanism
+it is included in 0.6.0. Existing direct Live APIs remain the mechanism
 underneath the entry. See the [integration receipt](reviews/e2e-integration-ci-41095184074/assessment.json)
 for exact tested source/profiles. Arbitrary unregistered work and non-cooperative
 shutdown remain outside the guarantee; detailed resource characterization is deferred.
