@@ -204,11 +204,8 @@ Prepare and Python prepared cursors. This is not in published v0.5.3.
 an explicit [bounded dump reader](docs/importing-dump.md); this is not a general
 SQL-script importer or a Go dump API.
 
-Oracle mysql-connector-python 26.7.0 has three named, accepted exceptions:
+Oracle mysql-connector-python 26.7.0 has two named, accepted consumer exceptions:
 
-- In the native-matched macOS C-extension prepared syntax-error case, the
-  client reports `2006/HY000` although raw wire returns `1064/42000` and subsequent
-  SQL succeeds. This does not make other `2006` errors safe or recoverable.
 - For the tested prepared CALL emitting two result sets via nextset, advancing
   after the first set can fail and leave that connection unusable. This affects
   pure mode on both supported guest platforms and macOS C/default in the fixed
@@ -216,6 +213,12 @@ Oracle mysql-connector-python 26.7.0 has three named, accepted exceptions:
 - macOS C/default can shorten an untyped prepared character projection of
   A-NUL-B to A without a useful error. Typed binary columns preserve all bytes;
   pure mode preserves that projection. This is not evidence of file corruption.
+
+Separately, in the native-matched macOS C-extension prepared syntax-error
+case, the client reports `2006/HY000` although raw wire returns `1064/42000`
+and subsequent SQL succeeds. This is the native-parity error-presentation
+disposition, not a third exception under the CALL/NUL decision. It does not
+make other `2006` errors safe or recoverable.
 
 See the [CALL/NUL boundaries](docs/decisions/prepared-consumer-exceptions.md)
 and [syntax-error presentation](docs/reviews/v06x-prepared-product-design.md#c-extension-syntax-error).
