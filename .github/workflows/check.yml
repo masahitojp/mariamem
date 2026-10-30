@@ -151,11 +151,15 @@ jobs:
         with:
           name: worker-failure-native-${{ github.sha }}
           path: build/worker-failure/reference
-      - name: Source identity and host ownership races
+      - name: Source identity
+        run: python scripts/git_identity.py inspect HEAD
+      # Ubuntu integration already owns these exact runtime regressions.
+      - name: Host ownership races
+        if: runner.os != 'Linux'
         run: |
-          python scripts/git_identity.py inspect HEAD
           go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/mysqlwire -count=1
       - name: Actual generated worker trap and independent DB survival
+        if: runner.os != 'Linux'
         run: go test -p 1 -tags=integration ./internal/generatedgo -run TestWorkerTrapActualGuest -count=1 -timeout=3m
       - name: Exact-source host and native equality
         run: |
@@ -165,6 +169,7 @@ jobs:
         timeout-minutes: 1
         run: python tests/text_dedup_acceptance.py guest --suite ordinary --source-commit "$GITHUB_SHA" --host build/worker-failure/mariamem-host --reference build/worker-failure/reference/ordinary-native.json --output build/worker-failure/ordinary-guest.json
       - name: Wire regression and Snapshot/Fork after mapped temporary-table use
+        if: runner.os != 'Linux'
         env:
           MARIAMEM_TEST_DEFAULT: '1'
           MARIAMEM_TEST_HOST: build/worker-failure/mariamem-host
@@ -180,3 +185,16 @@ jobs:
             build/worker-failure/reference/ordinary-native.json
             build/worker-failure/reference/native.json
           if-no-files-found: warn
+
+  required:
+    name: Live required gate
+    if: always()
+    needs: [scope, check, integration]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Require daily source checks and selected integration including Live smoke
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          PYTHONPATH: scripts
+        run: python3 -c 'import json, os; from development_scope import verify_gate; verify_gate(json.loads(os.environ["NEEDS_JSON"]))'

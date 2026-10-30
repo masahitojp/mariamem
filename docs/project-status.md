@@ -14,6 +14,28 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## CI cost reduction — implementation authorized, integration pending
+
+On 2026-10-30 the Human approved reducing CI overhead, then explicitly requested
+further cuts because repeated full Live runs delay development and releases.
+The implementation moves full Live to manual candidate acceptance and keeps daily
+Development source checks, integration and bounded source Go/Python Live smoke.
+The existing `Live required gate` name now aggregates daily source/integration
+results; `Live full acceptance gate` identifies complete manual acceptance.
+PR updates and main pushes no longer launch full Live. Both-platform browser,
+native, G1 and installed checks remain available in the manual workflow.
+
+The tradeoff is later detection of macOS/browser/installed-specific failures.
+Full acceptance remains a final-candidate adoption condition; it is not implied
+by the daily gate or Release READY. No cross-source acceptance reuse is added.
+Known inert tooling skips Dump runtime work, Django prose-only triggers are
+removed, and duplicate Ubuntu worker checks belong to required integration.
+See [development selection](development.md#local-verification).
+
+Routing campaign consolidation, historical workflow retirement and release gates
+remain outside this implementation. No runtime speedup or completed CI acceptance
+is claimed before the candidate's checks finish.
+
 ## Issue #5 host repair — adopted on main, unreleased
 
 The Human approved main adoption of candidate source_commit
@@ -1588,6 +1610,15 @@ the v0.6/v0.7 split.
 Keep **Explore → Challenge → Human decision → Implement → Verify**.
 Verification scope follows the changed boundary; explain a concrete dependency
 before broadening. See [development](development.md#local-verification).
+
+**Bounded investigation policy approved, 2026-10-30:** record one decision,
+finite exit and work/tooling/CI budgets before investigating. Initial defaults
+are 2 hours active work, including 30 minutes measurement tooling, and at most
+2 heavy CI submissions. Measurement-tool limitations do not automatically add
+prerequisites; budget exhaustion produces a conclusion or explicit inconclusive
+report with options/cost. Ordinary in-budget fixes remain autonomous. See
+[the working rule](development.md#bounded-investigations). This authorizes the
+development policy, not a resource campaign, product scope or release.
 
 Experiments are disposable by default. Preserve compact measurements, reports,
 hashes and reproduction inputs rather than recreatable caches, completed
