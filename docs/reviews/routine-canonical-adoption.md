@@ -141,7 +141,7 @@ the full wrappers on its exact SHA.
 
 ## Reproduce and next gate
 
-Use the exact candidate ref with the [candidate workflow](../../.github/workflows/routine-canonical.yml):
+Use the exact candidate ref with the [candidate workflow](https://github.com/masahitojp/mariamem/blob/55b09c3ae78f98d1b989cdc5d82bfa33ba96b72b/.github/workflows/routine-canonical.yml):
 
 1. Fresh Linux arm64 root builder: `python3 scripts/build_generated_guest.py`
    (default two independent builds; rejects changed guest hash/experimental patch).

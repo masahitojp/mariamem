@@ -71,19 +71,14 @@ jobs:
         with:
           ref: ${{ inputs.source_commit }}
           fetch-depth: 0
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: release-runtime-${{ matrix.os }}-${{ inputs.source_commit }}
+          path: .
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.10'
-          cache: true
-          cache-dependency-path: |
-            go.sum
-            .github/workflows/dump-import-productization.yml
-            scripts/build_alpha.py
-      - name: Share Go compiler cache and discard restored test results
-        shell: bash
-        run: |
-          echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
-          go clean -testcache
+          cache: false # Only Go build-info inspection; consume the shared host.
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         id: minimum
         with:
@@ -92,6 +87,8 @@ jobs:
         id: current
         with:
           python-version: '3.14'
+      - name: Verify shared release wheel and host
+        run: python scripts/release_runtime.py --source-commit "$SOURCE_COMMIT"
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
           name: dump-product-native-${{ inputs.source_commit }}
@@ -104,7 +101,6 @@ jobs:
           "$MINIMUM_PYTHON" -m pip install --no-cache-dir pytest==7.0.0 setuptools==80.9.0 wheel==0.45.1 -r tests/preparation_migration_acceptance/requirements.txt
           "$CURRENT_PYTHON" -m pip install --no-cache-dir pytest==9.0.2 setuptools==80.9.0 wheel==0.45.1 -r tests/preparation_migration_acceptance/requirements.txt
           python scripts/git_identity.py inspect HEAD
-          "$CURRENT_PYTHON" scripts/build_alpha.py --ci-candidate
           "$MINIMUM_PYTHON" -m pip install --no-deps build/dist/*.whl
           "$CURRENT_PYTHON" -m pip install --no-deps build/dist/*.whl
           "$MINIMUM_PYTHON" -m pytest tests/test_dump_ci_workflow.py tests/test_git_identity.py tests/test_dump_import.py tests/test_dump_product_binding.py tests/test_dump_import_acceptance.py -q
@@ -112,8 +108,6 @@ jobs:
       - name: Native Mac dependency availability (no setup-cost claim)
         if: runner.os == 'macOS'
         run: brew install openssl@4 pcre2 lz4 xz zstd
-      - name: Host status decoding and wire regression checks
-        run: go test ./internal/guest ./internal/mysqlwire
       - name: Pinned Mac native server/client acquisition
         if: runner.os == 'macOS'
         run: |

@@ -19,8 +19,9 @@ def test_single_host_retains_both_source_bound_python_campaigns():
     text = WORKFLOW.read_text()
     recipe = text.split('  recipe:\n', 1)[1]
     assert '        python:' not in recipe
-    assert recipe.count('go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host') == 1
-    assert recipe.index('source_identity(os.environ["SOURCE_COMMIT"])') < recipe.index('go build ')
+    assert 'go build ' not in recipe
+    assert 'release-runtime-${{ matrix.os }}-${{ inputs.source_commit }}' in recipe
+    assert recipe.index('scripts/release_runtime.py') < recipe.index('tests/django_lifecycle/ci.py')
     assert 'fetch-depth: 0' in recipe
     for minor in ['3.11', '3.14']:
         assert f"python-version: '{minor}'" in recipe

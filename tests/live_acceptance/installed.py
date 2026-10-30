@@ -23,11 +23,11 @@ def main():
     from git_identity import require_commit
     require_commit(ROOT,args.expected_source_commit)
     assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()==args.expected_source_commit
-    run([sys.executable,'scripts/build_alpha.py','--ci-candidate'],cwd=ROOT)
-    wheels=list((ROOT/'build/dist').glob('*.whl'));assert len(wheels)==1
+    from release_runtime import stage
+    wheel, _ = stage(ROOT, args.expected_source_commit)
     venv=out/'venv';run([sys.executable,'-m','venv',venv])
     python=venv/'bin/python'
-    run([python,'-m','pip','install','--no-index','--no-deps',wheels[0]])
+    run([python,'-m','pip','install','--no-index','--no-deps',wheel])
     # Use the already installed, pinned PyMySQL without any network or source SDK.
     import pymysql
     site=Path(subprocess.check_output([python,'-c','import sysconfig; print(sysconfig.get_paths()["purelib"])'],text=True).strip())
@@ -42,7 +42,7 @@ def main():
     py=json.loads((out/'python.txt').read_text().splitlines()[-1]);go=json.loads((out/'go.txt').read_text().splitlines()[-1])
     assert py['result']=='PASS_INSTALLED_PYTHON_LIVE' and str(site) in py['module']
     assert go['result']=='PASS_EXTERNAL_GO_LIVE'
-    (out/'result.json').write_text(json.dumps(dict(result='PASS_INSTALLED_LIVE',source_commit=args.expected_source_commit,wheel_sha256=hashlib.sha256(wheels[0].read_bytes()).hexdigest(),python=py,go=go),indent=2)+'\n')
+    (out/'result.json').write_text(json.dumps(dict(result='PASS_INSTALLED_LIVE',source_commit=args.expected_source_commit,wheel_sha256=hashlib.sha256(wheel.read_bytes()).hexdigest(),python=py,go=go),indent=2)+'\n')
     # These are recreatable consumer environments, not durable evidence.
     shutil.rmtree(venv);shutil.rmtree(consumer)
     return 0

@@ -154,6 +154,16 @@ Django, routing, preparation/migration and native SQL workflows with the resolve
 or publication; failed, cancelled, skipped or missing jobs stop the transaction.
 Full core integration/race remains in candidate qualification, with existing
 explicit authenticated runtime reuse. Daily source smoke cannot substitute for it.
+Release builds one shared wheel/embedded host for each supported OS in parallel
+with canonical guest reproduction. Candidate freezing and all six feature suites
+consume these exact bytes. `release_runtime.py` validates platform, source inventory,
+wheel and host hashes, and the host's embedded clean-source Go identity before use.
+Feature jobs never call the wheel builder or silently rebuild a missing host.
+Core integration likewise uses the verified shared host. Distinct Go test/example
+executables and independent source→WASM reproduction remain separate work.
+Artifact-reuse modes restore the original authenticated wheel; they do not rebuild
+it. Qualification still requires fresh guest/source reproduction in full mode.
+
 The moved feature suites currently rerun in each `verify`/`release` transaction,
 including artifact-reuse modes; their evidence has no new reuse contract.
 

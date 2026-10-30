@@ -44,6 +44,10 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ inputs.source_commit }}
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: release-runtime-${{ matrix.os }}-${{ inputs.source_commit }}
+          path: .
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.10'
@@ -51,6 +55,8 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.14'
+      - name: Verify shared release wheel and host
+        run: python scripts/release_runtime.py --source-commit "$SOURCE_COMMIT"
       - name: Install pinned consumers
         run: |
           mkdir -p "$RUNNER_TEMP/routing/evidence"
@@ -62,7 +68,7 @@ jobs:
           PYTHONPATH: python
       - name: Exact-source real guest, R1-R8 and strict defect oracles
         run: |
-          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/routing" --min-free-gib 4 --budget-gib 8 --timeout 2400 -- python tests/routing_acceptance/run.py --runtime-root "$GITHUB_WORKSPACE" --source-commit "$SOURCE_COMMIT" --output "$RUNNER_TEMP/routing"
+          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/routing" --min-free-gib 4 --budget-gib 8 --timeout 2400 -- python tests/routing_acceptance/run.py --runtime-root "$GITHUB_WORKSPACE" --source-commit "$SOURCE_COMMIT" --host "$GITHUB_WORKSPACE/build/mariamem-host" --output "$RUNNER_TEMP/routing"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

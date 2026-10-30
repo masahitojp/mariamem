@@ -24,7 +24,7 @@ native Ubuntu24.04 x86_64、Go1.26.8／CGO_ENABLED=0、Python3.14.8と既存depe
 ## 有限scopeと終了条件
 
 [計測手順](../../benchmarks/ubuntu-product/README.md)と
-[専用workflow](../../.github/workflows/ubuntu-product-performance.yml)が正本。
+[専用workflow](https://github.com/masahitojp/mariamem/blob/55b09c3ae78f98d1b989cdc5d82bfa33ba96b72b/.github/workflows/ubuntu-product-performance.yml)が正本。
 
 - 既存のGo／Python、Fresh／Fork、Light／10 MiB直列／10 MiB・4並列を各版3試行。
 - 100 MiBはGo／PythonのForkだけ。再発待ちで閉じた100 MiB Go Freshの追加測定やprofilingは開始しない。

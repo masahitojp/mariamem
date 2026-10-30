@@ -18,8 +18,8 @@ def test_canonical_generation_matches_authoritative_go_pin():
         assert actual == {'go' + version}, (name, actual, version)
 
 
-def test_prepared_candidate_ci_uses_authoritative_go_pin():
+def test_release_ci_uses_authoritative_go_pin():
     version = json.loads((ROOT / 'release/generated-go-toolchain.json').read_text())['go']
-    text = (ROOT / '.github/workflows/prepared-canonical.yml').read_text()
+    text = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
     assert set(re.findall(r'go-version:\s*[\'\"]?(\d+\.\d+\.\d+)', text)) == {version}
     assert set(re.findall(r'GOTOOLCHAIN:\s*(go1\.\d+\.\d+)', text)) == {'go' + version}
