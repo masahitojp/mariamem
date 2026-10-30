@@ -1,0 +1,21 @@
+{
+  "result": "FAIL_STALE_NATIVE_SOURCE_ASSERTION",
+  "run_id": 41073464491,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41073464491",
+  "head_commit": "addef8e9de6542c30c06c5d9b05b978ae3c33730",
+  "source_commit": "14fcdad49b918f2a844f975d2ef6822a640b7ca5",
+  "head_tree": "b295d828cc41758a5b1bcdf02bb7c39dd925a8fb",
+  "executed_tree": "b295d828cc41758a5b1bcdf02bb7c39dd925a8fb",
+  "head_and_executed_trees_equal": true,
+  "source_check": {
+    "failed": 1,
+    "passed": 1497,
+    "skipped": 60
+  },
+  "source_smoke": "PASS",
+  "full_qualification": "NOT_RUN_RELEASE_CI_ONLY",
+  "cause": "P1 native workflow test still expected caller GITHUB_SHA after the reusable workflow correctly moved to SOURCE_COMMIT",
+  "fix": "Require SOURCE_COMMIT, forbid caller GITHUB_SHA and require candidate source checkout",
+  "logs_zip_sha256": "314013454d6263d8e4b35884ad93ef294f3f3498867037bd6b2e8a8901e24b0c",
+  "digest_scope": "Locally computed SHA256 of authenticated original GitHub logs ZIP; not a GitHub artifact digest"
+}

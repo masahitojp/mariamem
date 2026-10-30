@@ -1,5 +1,12 @@
 # Dogfood and fixture ergonomics — scope discussion draft
 
+> Current scope correction — Human approved 2026-10-30:
+> [P1 fixed exit / v0.7.x resource placement](../decisions/p1-fixed-exit-v060.md)
+> supersedes the resource completion gates below. Detailed retention/resource
+> characterization is deferred to v0.7.x; entry lifecycle correctness remains
+> required. Earlier proposal/checkpoint text and source-bound receipts below are
+> historical evidence, not the current list of P1 blockers. P1 is not yet accepted.
+
 2026-10-28. This consolidates the Human's scope discussion. Agreed outcomes below
 are product direction, not claims that all existing entries implement them.
 Open choices remain explicit; no runtime or experiment is authorized here.
@@ -106,7 +113,7 @@ A change of level after implementation starts requires stopping for a new
 decision, not an end-of-task justification. Implementation acceptance must pin
 the reviewed design commit as an ancestor and reject missing/stale decisions.
 
-## Time/resource acceptance, not an optional benchmark appendix
+## Original time/resource campaign (resource gates superseded 2026-10-30)
 
 Record three distinct outcomes per entry: first-test setup (commands, edits and
 phase wall times including declared acquisition/preparation); adding the second

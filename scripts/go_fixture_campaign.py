@@ -15,6 +15,13 @@ from git_identity import require_commit
 
 ROOT = Path(__file__).resolve().parents[1]
 HOSTS = {'macos-15': ('Darwin', 'arm64'), 'ubuntu-24.04': ('Linux', 'x86_64')}
+ZERO_RSS_EXIT_GRACE_SECONDS = .05
+
+
+class LiveRSSUnavailable(ValueError):
+    def __init__(self, sample):
+        super().__init__('live runtime process RSS unavailable/zero; exit not confirmed within 50ms')
+        self.sample = sample
 
 
 def digest(path):
@@ -98,14 +105,26 @@ def collect_sample(proc, started):
     code = proc.poll()
     if code is not None:
         return None, dict(sample, reason='process exited during collection', returncode=code)
-    need(sample['process_tree_rss_bytes'] > 0, 'live runtime process RSS unavailable/zero')
+    if sample['process_tree_rss_bytes'] <= 0:
+        # Linux can release RSS before waitpid can reap the exiting process.
+        # Confirm actual exit in a fixed window; never use this zero as live RSS.
+        wait_started = time.monotonic()
+        sample['exit_confirmation_timeout_seconds'] = ZERO_RSS_EXIT_GRACE_SECONDS
+        try:
+            code = proc.wait(timeout=ZERO_RSS_EXIT_GRACE_SECONDS)
+        except subprocess.TimeoutExpired:
+            sample['exit_confirmation_elapsed_seconds'] = time.monotonic() - wait_started
+            raise LiveRSSUnavailable(sample) from None
+        sample['exit_confirmation_elapsed_seconds'] = time.monotonic() - wait_started
+        return None, dict(sample, reason='process exited within zero-RSS confirmation window',
+                          returncode=code)
     return sample, None
 
 
 def observe(command, directory, env, resources):
     stop = directory / 'STOP.txt'
     env = dict(env, MARIAMEM_G1_STOP=str(stop))
-    samples, errors, terminal = [], [], []
+    samples, errors, terminal, failed = [], [], [], []
     started = time.monotonic()
     with (directory / 'stdout.txt').open('w') as stream:
         proc = subprocess.Popen(command, cwd=ROOT, env=env, stdout=stream,
@@ -122,7 +141,11 @@ def observe(command, directory, env, resources):
                     stop.write_text('incremental process-tree RSS guard')
             except Exception as exc:
                 code = proc.poll()
-                if code is None:
+                if isinstance(exc, LiveRSSUnavailable):
+                    failed.append(exc.sample)
+                    errors.append(str(exc))
+                    stop.write_text('UNVERIFIED host counter: ' + str(exc))
+                elif code is None:
                     errors.append(str(exc))
                     stop.write_text('UNVERIFIED host counter: ' + str(exc))
                 else:
@@ -146,6 +169,7 @@ def observe(command, directory, env, resources):
               'requested_interval_seconds': .1, 'rss_mechanism': 'sampled process-tree ps RSS sum',
               'samples': samples, 'counter_errors': errors,
               'terminal_observations': terminal,
+              'failed_observations': failed,
               'stop_reason': stop.read_text() if stop.exists() else None}
     write(directory / 'os.json', report)
     need(report['result'] == 'PASS', 'runtime/guard/counter failure; evidence preserved')

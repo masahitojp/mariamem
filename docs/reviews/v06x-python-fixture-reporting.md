@@ -1,5 +1,9 @@
 # P1 pytest reporting characterization
 
+Historical pre-code investigation at 1780db3. The subsequent conditional Human
+approval is recorded in [the pre-code decision](../decisions/p1-prepared-entry-implementation.md);
+original approval context and probe results below are retained.
+
 Recommendation: implement P1 with the existing pytest reports, narrow preparation
 annotations and a worker-local owned-state record. The command entry should be
 `PrepareCommand(argv, *, timeout=120, cwd=None, env=None)` as fixed in the

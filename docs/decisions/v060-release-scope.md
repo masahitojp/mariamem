@@ -6,6 +6,14 @@ re-adopt them or replace their receipts. **Publication is not approved by this
 record**: the release order below is the 2026-10-29 sequencing decision and
 remains in force.
 
+## Subsequent scope correction, 2026-10-30
+
+The Human confirmed that wire-contract establishment is the main 0.6.0 objective.
+[P1's fixed exit](p1-fixed-exit-v060.md) preserves entry correctness and cleanup;
+detailed resource characterization and tuning move to v0.7.x. Earlier dogfood
+resource requirements no longer block 0.6.0. Other inclusion/exclusion and
+adoption/publication decisions below remain unchanged.
+
 ## Included in 0.6.0
 
 Everything below is already adopted on main and unreleased. Targeting 0.6.0
