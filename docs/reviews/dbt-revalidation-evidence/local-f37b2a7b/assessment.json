@@ -1,0 +1,40 @@
+{
+  "result": "PARTIAL_REQUIRED_HOST_EVIDENCE",
+  "source_commit": "f37b2a7b86b7187613edc99c6aac069eef5071ac",
+  "base_source_commit": "cfc0421dc9b886ea4bf56d5c46083b374c9a2e2d",
+  "local_result": "PASS",
+  "observed_host": "macOS27.2 arm64",
+  "python": "3.11.18",
+  "native_control": "MariaDB12.3.3 amd64 container emulated on arm64",
+  "threads": [
+    1,
+    4
+  ],
+  "plain_text_distinct": "PASS",
+  "exact_application_row_parity": true,
+  "expected_unique_failure_and_subsequent_select": "PASS",
+  "schema_count_after": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "guest_connections_after": [
+    0,
+    0
+  ],
+  "guest_host_reaped": [
+    true,
+    true
+  ],
+  "guest_session_directory_removed": [
+    true,
+    true
+  ],
+  "native_container_removed": true,
+  "native_anonymous_volume_removed": true,
+  "ubuntu_native_host": "NOT_RUN",
+  "whole_issue19": "INCOMPLETE",
+  "heavy_ci_submissions": 0,
+  "product_runtime_changes": false
+}
