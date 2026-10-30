@@ -47,29 +47,41 @@ the pytest plugin entry point.
 |---|---|---|
 | `mariamem_options` | session | Start options; default `{}` |
 | `mariamem_server` | session | Preparation DB; consumed by successful Snapshot |
-| `mariamem_snapshot` | session | Fixed baseline; initial state by default |
+| `mariamem_prepare` | session | Current main: None, preparation callback or `PrepareCommand` |
+| `mariamem_snapshot` | session | Fixed baseline captured after preparation |
 | `mariamem_fork` | function | Independent mutable DB for one test |
 | `mariamem_connection_info` | function | Driver arguments for that test's DB |
 
-Use these fixtures as the primary test path. Override `mariamem_snapshot` in
-`conftest.py` to run migrations/seed once per session. The preparation connection
-closes before capture; successful capture consumes `mariamem_server`:
+For current-source tests, return your migrations/seed callback from
+`mariamem_prepare` in `conftest.py`. The installed plugin calls it once per
+worker, closes its source after use and owns the disconnect wait, Snapshot and
+per-test Fork teardown. Use a matching current-source platform wheel built via
+[the development guide](development.md#packaging--release-dry-runs); published
+v0.5.3 does not have this preparation hook.
 
 ```python
+# conftest.py
 import pytest
 import pymysql
 
+
 @pytest.fixture(scope="session")
-def mariamem_snapshot(mariamem_server):
-    with pymysql.connect(**mariamem_server.connection_info()) as conn:
-        with conn.cursor() as cur:
-            cur.execute("CREATE TABLE users(id INT PRIMARY KEY) ENGINE=InnoDB")
-            cur.execute("INSERT INTO users VALUES(1)")
-        conn.commit()
-    mariamem_server.wait_disconnected()
-    with mariamem_server.snapshot() as baseline:
-        yield baseline
+def mariamem_prepare():
+    def prepare(db):
+        with pymysql.connect(**db.connection_info()) as conn:
+            with conn.cursor() as cur:
+                cur.execute("CREATE TABLE users(id INT PRIMARY KEY) ENGINE=InnoDB")
+                cur.execute("INSERT INTO users VALUES(1)")
+            conn.commit()
+    return prepare
 ```
+
+Commit your preparation transactions and close all driver connections before
+returning. Do not call `snapshot()` or return a teardown function from this
+callback. `None` selects no preparation; a `PrepareCommand` is the alternative
+[command entry](#prepared-command-entry). Override `mariamem_snapshot` only when
+you deliberately own capture/disconnect and baseline cleanup yourself. For
+published v0.5.3, that explicit override remains the preparation route.
 
 Put the tests in `test_users.py`. Each request for `mariamem_connection_info`
 depends on a function-scoped `mariamem_fork`; its fixture closes the child after
@@ -126,7 +138,7 @@ schema using explicit preparation DB settings, and explicitly register quiescent
 examples, ownership, supported entries and actionable failures. These fixtures
 are not included in published v0.5.3; existing fixtures above retain their defaults.
 
-## Prepared command entry
+### Prepared command entry
 
 Adopted unreleased main supports the public class
 `mariamem.PrepareCommand(argv, *, timeout=120, cwd=None, env=None)` as a third
@@ -152,10 +164,14 @@ Your script explicitly supplies these settings to its migration/seed operation:
 import json
 import os
 
-connection = json.loads(os.environ["MARIAMEM_PREPARE_CONNECTION_INFO"])
-# connection contains host, port, user, password, database.
-# Pass it to your existing migration/seed function, and retire its connections.
-migrate_and_seed(connection)
+import pymysql
+
+info = json.loads(os.environ["MARIAMEM_PREPARE_CONNECTION_INFO"])
+with pymysql.connect(**info) as conn:
+    with conn.cursor() as cur:
+        cur.execute("CREATE TABLE users(id INT PRIMARY KEY) ENGINE=InnoDB")
+        cur.execute("INSERT INTO users VALUES(1)")
+    conn.commit()
 ```
 
 The entry launches the argv sequence once without a shell. An exit code of zero
@@ -188,7 +204,7 @@ bounded termination and reaping of the owned process group; cleanup may be
 unconfirmed. Noncooperative Python callbacks, escaped daemon processes, hard
 kill and machine loss have no stronger guarantee.
 
-## Prepared-entry cleanup failures
+### Prepared-entry cleanup failures
 
 The adopted prepared entry changes admission after cleanup failure. A supplied
 child or routing/pool finalizer failure stops later dependent tests in the
