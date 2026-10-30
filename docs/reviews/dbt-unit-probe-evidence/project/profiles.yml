@@ -1,0 +1,11 @@
+unit_probe:
+  target: native
+  outputs:
+    native:
+      type: mariadb
+      server: 127.0.0.1
+      port: 33320
+      username: root
+      password: ''
+      schema: unit_probe
+      threads: 1

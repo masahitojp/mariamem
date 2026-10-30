@@ -1,0 +1,4 @@
+Question: Can unmodified dbt-mysql PR188 run a built-in dbt1.8 model unit test on MariaDB12.3.3?
+Adapter source_commit d4186f78984aa891f73d3f256f5780630878b21f; dbt-core1.8.7; Python3.11; Connector26.10.0; disposable native12.3.3 reference first.
+Exit: one declared small model unit test runs (positive and wrong-expected negative if feasible), or the first dependency/compile/SQL blocker is saved. No local adapter patch. Guest only if native succeeds and time remains. No support promotion, Issue19 closure, runtime changes or CI.
+Budget: <=30 minutes active including <=10 minutes scratch tooling; zero heavy CI. Missing evidence remains NOT_RUN/INCONCLUSIVE.

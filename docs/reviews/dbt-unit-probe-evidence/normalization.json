@@ -1,0 +1,46 @@
+{
+  "policy": "workspace prefix replaced with <WORKSPACE>",
+  "files": {
+    "plan.txt": {
+      "original_sha256": "8408fddac4561d8fe78adcbdf8e8cb3c4a618b188607516ded01492ada4892c5",
+      "published_sha256": "8408fddac4561d8fe78adcbdf8e8cb3c4a618b188607516ded01492ada4892c5"
+    },
+    "result.json": {
+      "original_sha256": "702e6dba518ab940e061ab5c5235eefd8f60e2d4704cce7da59422a0c1602c7e",
+      "published_sha256": "702e6dba518ab940e061ab5c5235eefd8f60e2d4704cce7da59422a0c1602c7e"
+    },
+    "debug.txt": {
+      "original_sha256": "485e8eda9d291f744ac724adc452e9c1c6337d21ff883467e756eee60a060d03",
+      "published_sha256": "b60601685dcbf64012b8bb94aca9782886e4a136f56c40d0fe70505f08c1e5b5"
+    },
+    "upstream.txt": {
+      "original_sha256": "68ad638fbd87697c02d1537c8c4dea1ee5b3a0b4bcbd1898b6d56fc4af7fbe63",
+      "published_sha256": "68ad638fbd87697c02d1537c8c4dea1ee5b3a0b4bcbd1898b6d56fc4af7fbe63"
+    },
+    "upstream-results.json": {
+      "original_sha256": "fba8096e908942e98a9ae7fe3a75b19cb6434dddc5260a8ce8ecb9f0d9b67620",
+      "published_sha256": "a3e02f1355141140d1837917a676b27c138c3d2589438b8e866ff17cbab68d9f"
+    },
+    "unit.txt": {
+      "original_sha256": "54eb8ab8f9a9aedb612a44b13fe22fabccdf352b05df6c6621c5f45fa2523da9",
+      "published_sha256": "54eb8ab8f9a9aedb612a44b13fe22fabccdf352b05df6c6621c5f45fa2523da9"
+    },
+    "unit-results.json": {
+      "original_sha256": "c1884d289ee5ec81f4e501c9447f8ae7cdc1aec1625d81ffc6cc62044d07402c",
+      "published_sha256": "3d58855316ba0bbb6480435329179a1f48d7b77354cedb88ba58f112a4408202"
+    },
+    "unit-mariadb.txt": {
+      "original_sha256": "b75ed460557e2f6bf7eae3fd9fc3410104a213c14eed2ec784b900a069ef87c6",
+      "published_sha256": "b75ed460557e2f6bf7eae3fd9fc3410104a213c14eed2ec784b900a069ef87c6"
+    },
+    "unit-mariadb-results.json": {
+      "original_sha256": "cf1fe3f08a9c34d414601886e9b44f316b4e0933dd30d0062bbe9ce538a66e82",
+      "published_sha256": "6a34bc5bd7fe7ecd7e32d56187880ad0d35f211ccc6d00202ca78aac87c8e674"
+    },
+    "install.json": {
+      "original_sha256": "b803c2fc19439daa2036b104d99b6f29ac39ddf392ded158b74847f77a86a957",
+      "published_sha256": "bb2e680ad60485301d52447fbb4ef9def10100ef11f16407ece0b821f54bd055",
+      "reduction": "Retain environment, names/versions/requires_dist, artifact URLs/hashes and requested flags; omit unrelated package descriptions and auxiliary metadata."
+    }
+  }
+}

@@ -1,0 +1,27 @@
+16:14:13  Running with dbt=1.8.7
+16:14:13  dbt version: 1.8.7
+16:14:13  python version: 3.11.18
+16:14:13  python path: <WORKSPACE>/temp/venv/bin/python
+16:14:13  os info: macOS-27.2-arm64-arm-64bit
+16:14:13  Using profiles dir at <WORKSPACE>/temp/project
+16:14:13  Using profiles.yml file at <WORKSPACE>/temp/project/profiles.yml
+16:14:13  Using dbt_project.yml file at <WORKSPACE>/temp/project/dbt_project.yml
+16:14:13  adapter type: mysql
+16:14:13  adapter version: 1.8.0a1
+16:14:13  Configuration:
+16:14:13    profiles.yml file [OK found and valid]
+16:14:13    dbt_project.yml file [OK found and valid]
+16:14:13  Required dependencies:
+16:14:13   - git [OK found]
+
+16:14:13  Connection:
+16:14:13    server: 127.0.0.1
+16:14:13    unix_socket: None
+16:14:13    port: 33320
+16:14:13    database: None
+16:14:13    schema: unit_probe
+16:14:13    user: root
+16:14:13  Registered adapter: mysql=1.8.0-a1
+16:14:13    Connection test: [OK connection ok]
+
+16:14:13  All checks passed!

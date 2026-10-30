@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v6.json",
+    "dbt_version": "1.8.7",
+    "generated_at": "2026-10-30T16:15:28.312466Z",
+    "invocation_id": "f65459b4-7315-4788-a83c-fcaaf6af6282",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "error",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:15:28.164895Z",
+          "completed_at": "2026-10-30T16:15:28.164899Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:15:28.165165Z",
+          "completed_at": "2026-10-30T16:15:28.284425Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.12834978103637695,
+      "adapter_response": {},
+      "message": "Runtime Error in unit_test doubles_amount (models/unit.yml)\n  An error occurred during execution of unit test 'doubles_amount'. There may be an error in the unit test definition: check the data types.\n   Database Error\n    1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(1))\n     as order_id, \n        \n        cast(10 as int(2))\n     as amount\n    union all\n    select \n    ...' at line 17",
+      "failures": null,
+      "unique_id": "unit_test.unit_probe.doubled.doubles_amount",
+      "compiled": null,
+      "compiled_code": null,
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.24052119255065918,
+  "args": {
+    "partial_parse": true,
+    "select": [
+      "test_type:unit"
+    ],
+    "favor_state": false,
+    "project_dir": "<WORKSPACE>/temp/project",
+    "use_colors": false,
+    "defer": false,
+    "indirect_selection": "eager",
+    "introspect": true,
+    "static_parser": true,
+    "log_format": "default",
+    "write_json": true,
+    "log_path": "<WORKSPACE>/temp/project/logs",
+    "partial_parse_file_diff": true,
+    "cache_selected_only": false,
+    "exclude": [],
+    "log_file_max_bytes": 10485760,
+    "printer_width": 80,
+    "vars": {},
+    "require_resource_names_without_spaces": false,
+    "macro_debugging": false,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "profiles_dir": "<WORKSPACE>/temp/project",
+    "quiet": false,
+    "populate_cache": true,
+    "print": true,
+    "log_level": "info",
+    "use_colors_file": false,
+    "log_format_file": "debug",
+    "log_level_file": "debug",
+    "source_freshness_run_project_hooks": false,
+    "send_anonymous_usage_stats": false,
+    "version_check": true,
+    "require_explicit_package_overrides_for_builtin_materializations": true,
+    "show_resource_report": false,
+    "which": "test",
+    "enable_legacy_logger": false,
+    "strict_mode": false,
+    "invocation_command": "dbt test --select test_type:unit --profiles-dir <WORKSPACE>/temp/project --project-dir <WORKSPACE>/temp/project"
+  }
+}

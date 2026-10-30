@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v6.json",
+    "dbt_version": "1.8.7",
+    "generated_at": "2026-10-30T16:14:16.704792Z",
+    "invocation_id": "69a985db-c01d-424b-964d-97f86d31337f",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "error",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:14:16.608365Z",
+          "completed_at": "2026-10-30T16:14:16.608369Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:14:16.608566Z",
+          "completed_at": "2026-10-30T16:14:16.679808Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.07950901985168457,
+      "adapter_response": {},
+      "message": "Runtime Error in unit_test doubles_amount (models/unit.yml)\n  An error occurred during execution of unit test 'doubles_amount'. There may be an error in the unit test definition: check the data types.\n   Database Error\n    1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(1))\n     as order_id, \n        \n        cast(10 as int(2))\n     as amount\n    union all\n    select \n    ...' at line 20",
+      "failures": null,
+      "unique_id": "unit_test.unit_probe.doubled.doubles_amount",
+      "compiled": null,
+      "compiled_code": null,
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.16408109664916992,
+  "args": {
+    "which": "test",
+    "indirect_selection": "eager",
+    "source_freshness_run_project_hooks": false,
+    "use_colors_file": false,
+    "use_colors": false,
+    "send_anonymous_usage_stats": false,
+    "version_check": true,
+    "defer": false,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "select": [
+      "test_type:unit"
+    ],
+    "profiles_dir": "<WORKSPACE>/temp/project",
+    "invocation_command": "dbt test --select test_type:unit --profiles-dir <WORKSPACE>/temp/project --project-dir <WORKSPACE>/temp/project",
+    "quiet": false,
+    "partial_parse_file_diff": true,
+    "vars": {},
+    "enable_legacy_logger": false,
+    "introspect": true,
+    "log_format_file": "debug",
+    "log_format": "default",
+    "write_json": true,
+    "require_resource_names_without_spaces": false,
+    "log_level_file": "debug",
+    "show_resource_report": false,
+    "print": true,
+    "printer_width": 80,
+    "log_file_max_bytes": 10485760,
+    "require_explicit_package_overrides_for_builtin_materializations": true,
+    "project_dir": "<WORKSPACE>/temp/project",
+    "log_path": "<WORKSPACE>/temp/project/logs",
+    "log_level": "info",
+    "partial_parse": true,
+    "populate_cache": true,
+    "exclude": [],
+    "static_parser": true,
+    "cache_selected_only": false,
+    "macro_debugging": false,
+    "favor_state": false,
+    "strict_mode": false
+  }
+}

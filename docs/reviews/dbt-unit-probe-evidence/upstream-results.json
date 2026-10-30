@@ -1,0 +1,86 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v6.json",
+    "dbt_version": "1.8.7",
+    "generated_at": "2026-10-30T16:14:15.221036Z",
+    "invocation_id": "51591fbb-2e4a-4ce4-8efe-78c490e72f5a",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:14:15.127504Z",
+          "completed_at": "2026-10-30T16:14:15.132323Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:14:15.132595Z",
+          "completed_at": "2026-10-30T16:14:15.200120Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.0736701488494873,
+      "adapter_response": {
+        "_message": "SUCCESS 0",
+        "code": "SUCCESS",
+        "rows_affected": 0
+      },
+      "message": "SUCCESS 0",
+      "failures": null,
+      "unique_id": "model.unit_probe.orders",
+      "compiled": true,
+      "compiled_code": "select 1 as order_id, 10 as amount",
+      "relation_name": "`unit_probe`.`orders`"
+    }
+  ],
+  "elapsed_time": 0.22422409057617188,
+  "args": {
+    "quiet": false,
+    "show_resource_report": false,
+    "vars": {},
+    "cache_selected_only": false,
+    "log_level": "info",
+    "write_json": true,
+    "invocation_command": "dbt run --select orders --profiles-dir <WORKSPACE>/temp/project --project-dir <WORKSPACE>/temp/project",
+    "strict_mode": false,
+    "defer": false,
+    "version_check": true,
+    "project_dir": "<WORKSPACE>/temp/project",
+    "macro_debugging": false,
+    "introspect": true,
+    "log_path": "<WORKSPACE>/temp/project/logs",
+    "select": [
+      "orders"
+    ],
+    "log_level_file": "debug",
+    "indirect_selection": "eager",
+    "exclude": [],
+    "print": true,
+    "require_explicit_package_overrides_for_builtin_materializations": true,
+    "partial_parse": true,
+    "printer_width": 80,
+    "favor_state": false,
+    "enable_legacy_logger": false,
+    "log_format_file": "debug",
+    "profiles_dir": "<WORKSPACE>/temp/project",
+    "which": "run",
+    "require_resource_names_without_spaces": false,
+    "log_file_max_bytes": 10485760,
+    "log_format": "default",
+    "send_anonymous_usage_stats": false,
+    "use_colors": false,
+    "empty": false,
+    "populate_cache": true,
+    "source_freshness_run_project_hooks": false,
+    "partial_parse_file_diff": true,
+    "use_colors_file": false,
+    "static_parser": true,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    }
+  }
+}

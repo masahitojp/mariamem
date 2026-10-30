@@ -1,0 +1,13 @@
+version: 2
+unit_tests:
+  - name: doubles_amount
+    model: doubled
+    given:
+      - input: ref('orders')
+        rows:
+          - {order_id: 1, amount: 10}
+          - {order_id: 2, amount: 7}
+    expect:
+      rows:
+        - {order_id: 1, doubled: 20}
+        - {order_id: 2, doubled: 14}

@@ -1,0 +1,21 @@
+{
+  "assessment.json": "7e219705263599e2648978039acfcd2ab326eff8b292c82a3b4e20d686e3c6d6",
+  "compiled-mariadb.sql": "e4812e7b9762c401cef1241244002218bf39eb6839e9c18b38e85bb64aa637f3",
+  "debug.txt": "b60601685dcbf64012b8bb94aca9782886e4a136f56c40d0fe70505f08c1e5b5",
+  "dependencies.json": "956e638a3a2a1f86b5856ebad8fc29478a6555511406c36f135e42389a8edf25",
+  "install.json": "bb2e680ad60485301d52447fbb4ef9def10100ef11f16407ece0b821f54bd055",
+  "normalization.json": "c11fc85670149afeb0426cf05ecd8b6e99ad788640a131e5d073b3ba1134ac84",
+  "plan.txt": "8408fddac4561d8fe78adcbdf8e8cb3c4a618b188607516ded01492ada4892c5",
+  "project/dbt_project.yml": "b741dea06759304eb210358ac5ebb959ffda0617cd0160dea02a2edb2c09e2d6",
+  "project/models/doubled.sql": "d73dd37a24604aa957f3d096b0cee17a68fe47a23e0585257c5880d118adf306",
+  "project/models/orders.sql": "1314699f497113d9b4844aa357d217cb3bd7d04914705937982047c8fb626e27",
+  "project/models/unit.yml": "566b586bf4336c6da2596c5c3a886cd8028c96e644d95a57b64c47f4d78b6ff4",
+  "project/profiles.yml": "b7d325fe00d392ca9dbca7bec615161bbc4dfe34265a63c66e64d8196cbf62d6",
+  "result.json": "702e6dba518ab940e061ab5c5235eefd8f60e2d4704cce7da59422a0c1602c7e",
+  "unit-mariadb-results.json": "6a34bc5bd7fe7ecd7e32d56187880ad0d35f211ccc6d00202ca78aac87c8e674",
+  "unit-mariadb.txt": "b75ed460557e2f6bf7eae3fd9fc3410104a213c14eed2ec784b900a069ef87c6",
+  "unit-results.json": "3d58855316ba0bbb6480435329179a1f48d7b77354cedb88ba58f112a4408202",
+  "unit.txt": "54eb8ab8f9a9aedb612a44b13fe22fabccdf352b05df6c6621c5f45fa2523da9",
+  "upstream-results.json": "a3e02f1355141140d1837917a676b27c138c3d2589438b8e866ff17cbab68d9f",
+  "upstream.txt": "68ad638fbd87697c02d1537c8c4dea1ee5b3a0b4bcbd1898b6d56fc4af7fbe63"
+}

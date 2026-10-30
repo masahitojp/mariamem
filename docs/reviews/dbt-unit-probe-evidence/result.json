@@ -1,0 +1,29 @@
+{
+  "adapter_source_commit": "d4186f78984aa891f73d3f256f5780630878b21f",
+  "native_version": "12.3.3-MariaDB-ubu2404",
+  "steps": [
+    {
+      "step": "debug",
+      "exit_code": 0,
+      "seconds": 2.638
+    },
+    {
+      "step": "upstream",
+      "exit_code": 0,
+      "seconds": 1.906,
+      "statuses": [
+        "success"
+      ]
+    },
+    {
+      "step": "unit",
+      "exit_code": 1,
+      "seconds": 1.469,
+      "statuses": [
+        "error"
+      ]
+    }
+  ],
+  "result": "BLOCKED_ON_NATIVE",
+  "blocked_step": "unit"
+}
