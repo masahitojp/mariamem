@@ -251,10 +251,11 @@ def go_direct_panic_arguments(body):
     arguments = []
     type_end = -1
     for index, value in enumerate(body):
-        if value == 'interface' and body[index + 1:index + 2] == ['{']:
-            type_end = go_inventory_group(body, index + 1)
         if index <= type_end:
             continue  # Interface method signatures are not calls.
+        if value == 'interface' and body[index + 1:index + 2] == ['{']:
+            type_end = go_inventory_group(body, index + 1)
+            continue
         if value != 'panic' or (index and body[index - 1] == '.'):
             continue
         left, right = index - 1, index + 1
@@ -343,6 +344,7 @@ def test_wasix_stub_inventory_rejects_unreviewed_changes(mutation):
     'panic /* comment */ ("not implemented")',
     '(panic)("not implemented")',
     '((panic))("not implemented")',
+    'var value interface { Nested() interface { OK() }; panic() }; _ = value; panic("not implemented")',
 ])
 def test_wasix_stub_inventory_rejects_hidden_direct_panic(body):
     source = ('func (h *host) Fd_dup2() { panic("unimplemented WASIX: Fd_dup2") }\n'
@@ -364,6 +366,7 @@ def test_wasix_stub_inventory_rejects_hidden_direct_panic(body):
     'func (h *host) Implemented() { h.panic("selector"); (h.panic)("selector") }',
     'func (h *host) Implemented() { var value struct { panic func() }; _ = value }',
     'func (h *host) Implemented() { var value interface { panic() }; _ = value }',
+    'func (h *host) Implemented() { var value interface { Nested() interface { OK() }; panic() }; _ = value }',
     'func Other() { panic("outside host") }',
     'func (host *other) Other() { panic("other receiver") }',
     'var callback = func(h *host) func() { return func() { panic("outside host") } }',
