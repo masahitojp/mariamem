@@ -99,6 +99,58 @@ class TestEntry(unittest.TestCase):
             self.assertEqual(events[:7], ["prepare", "disconnect", "start", "quiesce", "reset", "page", "body"])
         self.assertEqual(events[-4:], ["stop", "live.close", "baseline.close", "source.close"])
 
+    def test_close_waits_for_active_case_before_disposal(self):
+        with self.opened() as (o, source, baseline, live, _, events):
+            waiting = threading.Event()
+            errors = []
+            original_wait = o._condition.wait
+            def observed_wait(timeout=None):
+                waiting.set()
+                return original_wait(timeout)
+            def close():
+                try:
+                    o.close()
+                except BaseException as error:
+                    errors.append(error)
+            browser, _ = self.browser(events)
+            with patch.object(o._condition, "wait", side_effect=observed_wait):
+                worker = threading.Thread(target=close)
+                with o.case(browser=browser):
+                    worker.start()
+                    self.assertTrue(waiting.wait(2), "close never waited for case")
+                    self.assertNotIn("stop", events)
+                    self.assertEqual((source.count, baseline.count, live.count), (0, 0, 0))
+                worker.join(2)
+                self.assertFalse(worker.is_alive(), "close did not join after case exit")
+            self.assertEqual(errors, [])
+            self.assertEqual(events[-4:], ["stop", "live.close", "baseline.close", "source.close"])
+            self.assertEqual((source.count, baseline.count, live.count), (1, 1, 1))
+
+    def test_close_timeout_preserves_active_case_until_explicit_cleanup(self):
+        with self.opened(cleanup_timeout=.01) as (o, source, baseline, live, _, events):
+            errors = []
+            def close():
+                try:
+                    o.close()
+                except BaseException as error:
+                    errors.append(error)
+            browser, _ = self.browser(events)
+            with o.case(browser=browser):
+                worker = threading.Thread(target=close)
+                worker.start()
+                worker.join(2)
+                self.assertFalse(worker.is_alive())
+                self.assertEqual(len(errors), 1)
+                self.assertIsInstance(errors[0], EntryError)
+                self.assertEqual(errors[0].stage, "close_wait")
+                self.assertNotIn("stop", events)
+                self.assertEqual(live.count, 0)
+            with self.assertRaises(EntryError):
+                with o.case(browser=browser):
+                    self.fail("admitted after close timeout")
+            o.close()
+            self.assertEqual((source.count, baseline.count, live.count), (1, 1, 1))
+
     def test_ordinary_assertion_allows_next(self):
         with self.opened() as (o, _, _, live, _, events):
             b, _ = self.browser(events)

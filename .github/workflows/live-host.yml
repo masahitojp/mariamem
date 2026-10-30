@@ -213,6 +213,10 @@ jobs:
             PYTHONPATH="$PWD/python" "$py" -m unittest discover -s tests -p test_e2e_entry.py -v > "build/live-evidence/owned-py$version-unit.txt" 2>&1
             PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_orders.py -q -s > "build/live-evidence/owned-py$version-runtime.txt" 2>&1
             PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_independent.py -q -s > "build/live-evidence/owned-py$version-independent.txt" 2>&1
+            PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_retirement.py -q -s > "build/live-evidence/owned-py$version-retirement.txt" 2>&1
+            extra=()
+            if [[ "$version" == 3.11 ]]; then extra+=(--include-go); fi
+            PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" E2E_GO_APP="$PWD/build/go-live-orders" "$py" scripts/e2e_workflow_timing.py --expected-source-commit "$GITHUB_SHA" --output "build/live-evidence/owned-workflow-py$version" "${extra[@]}"
           done
       - name: Public Go/Python browser Live, Fork control and actual defects
         if: needs.scope.outputs.live_runtime == 'true'

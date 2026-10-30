@@ -46,6 +46,18 @@ P1, D1, independent dbt, Qualification and release remain separately tracked.
 
 ## Immediate sequence
 
+Boundary completion increment: Python component controls now cover waiting for
+an active case before disposal and timeout without premature disposal; both
+Python3.11/3.14 pass17 local cases. `test_retirement.py` adds actual Python
+SQL/Live negative and positive controls: a lying hook retaining its physical
+session must hit Busy, preserve generation0 and stop later admission; real
+retirement permits two seed/UNIQUE resets and disposes each browser context.
+This is a controlled SQL-owning app hook, not an arbitrary Django pool claim.
+The bounded `e2e_workflow_timing.py` selects the first example case, both cases,
+then one repeated run and records command wall time/census and the minimal
+parametrization edit. The supported-host results for these additions are pending.
+These tests implement the previously named gaps without adding resource gates.
+
 Functional increment at code source
 `1355912b575a71999e180b1342e1b0b802eb7a06`: the separate
 `docs/examples/e2e_owned/python/test_independent.py` and
