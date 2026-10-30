@@ -168,8 +168,8 @@ def test_workflow_has_no_external_runtime_receipt_dependency():
     assert 'runtime_validation.py' not in text and 'GITHUB_TOKEN' not in text
     assert 'actions: read' not in text
     assert 'fetch-depth: 0' in text
-    assert "if: needs.scope.outputs.integration == 'true'" in text
-    assert "check --scope '${{ needs.scope.outputs.check_scope }}'" in text
+    assert "if: steps.diff.outputs.integration == 'true'" in text
+    assert "check --scope '${{ steps.diff.outputs.check_scope }}'" in text
 
 
 def test_source_guarantees_run_before_compilation_exactly_once(monkeypatch):

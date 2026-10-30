@@ -186,13 +186,16 @@ This selection produces no reusable runtime-qualification receipt.
 | Runtime, build or unknown PR change | source/unit checks and Ubuntu `verify.py smoke` | none |
 | Release CI (`verify` or `release`) | full integration/race, native SQL, Live, Dump, Django, routing, preparation/migration, final artifacts | both supported platforms and required interpreter/browser/ORM cells |
 
-The protected `integration` job name now runs `verify.py smoke`. It builds one
+The `check` job runs source checks followed by `verify.py smoke` when selected,
+using the same checkout and compiler cache. The smoke builds one
 host for Python DB/Snapshot/Fork independence and Live connect/mutate/Reset,
 stable endpoint and cleanup; Go checks Live reset, busy-session and closed-parent
 refusals. It does not install browsers, run native MariaDB, build a wheel or run
 race/ORM campaigns. The protected `Live required gate` aggregates source checks
 and the selected smoke result; docs/tooling may skip smoke, but failed/cancelled
-checks or unavailable selection fail. Daily PASS is not full qualification.
+checks or unavailable selection fail. The protected `integration` context checks
+the actual smoke step outcome. Both result gates use job metadata without a
+checkout. Daily PASS is not full qualification.
 
 Full Live, Dump, Django, routing, preparation/migration and native SQL workflows
 are callable only from Release CI. Every checkout and source-bound receipt uses
@@ -322,83 +325,42 @@ See [phase 1 evidence](reviews/v05-fast-feedback-phase1.md) and the
 
 ### Maintained CI ownership and compiler caches
 
-Development owns automatic Ubuntu source checks, integration and source Live
-smoke. Full Live owns standalone both-platform acceptance only when manually
-dispatched. Its canonical checks run locally because no concurrent Development
-run is assumed. Compiler caches still reuse compiled work, never prior test PASS.
+Development uses one Ubuntu24.04 runner and one checkout for local diff selection,
+source/unit checks and selected Go/Python smoke. There is no separate scope runner
+or second cold compilation on a smoke runner. Full history remains in that one
+checkout for diff and existing fixture-ancestry tests. Documentation/tooling
+selection still avoids Go setup and smoke. A failed source check stops before smoke.
 
-The original Development integration used a published macOS native bundle
-at commit `0a66842`; that dependency was removed with the legacy Wasmer path at
-`c2ebc0a`. The current `verify.py integration` has no macOS-only requirement and
-is also used on Ubuntu by Live and qualification workflows. To reduce contention
-for macOS runners, its standalone required job runs on Ubuntu; full macOS Live coverage
-is now deferred to explicit candidate acceptance. The historical
-[Live allocation](reviews/v06x-live-ci-dedup-cache.md) describes the prior owners.
+The three protected contexts remain `check`, `integration` and `Live required gate`.
+`check` owns execution and exposes the selection and actual smoke step outcome.
+`integration` checks that the selected execution succeeded; the final gate requires
+successful source checks and the exact expected smoke/context outcomes. For docs
+and tooling both must be skipped; for runtime both must succeed. Missing outputs,
+invalid selection, failure, cancellation and an unexpected skip fail closed.
+The two metadata-only jobs install nothing and check out no repository. Tests
+execute their actual inline scripts against successful and incomplete outcomes.
 
-The three protected contexts remain separate:
-`check`, `integration`, and `Live required gate`; the daily Live gate aggregates the Development source/integration results.
-Full Live acceptance reports a separate, non-automatic context. The paired workflow contract tests detect
-changes to their owners, commands, triggers and conditions.
+The single Development setup-go cache is keyed by runner platform/architecture,
+Go1.26.10 and `go.mod`/`go.sum`. Workflow or test-script edits no longer invalidate
+that namespace. Go's input-based compiler cache still rebuilds changed packages;
+`go clean -testcache` invalidates restored test PASS before any test execution.
+Both source checks and smoke inherit the exported `GOCACHE`; no artifact transfer
+or trusted prebuilt host is introduced. A cache hit never skips either command.
+GitHub cache scope still applies: unrelated PR caches are not interchangeable,
+and a first run without an accessible base/current-branch cache remains cold.
+No automatic main-push cache-warming build is added.
 
-Dump uses the shared Development canonical delegation selector. Its additional Ubuntu
-`check` and Ubuntu `integration` run only when Development does not own the full
-corresponding check for the event. Native reference and dump comparisons run only when the shared runtime selector
-requires them; their specific oracles remain independent of canonical delegation. Missing/empty diffs and standalone events
-retain local canonical runs. Dump success alone does not attest the delegated
-Development checks; the protected Development contexts still decide those checks.
+Full integration/race and the six complete feature campaigns belong to Release CI.
+Their platform matrices, artifact qualification and existing cache settings are
+unchanged by this daily-job consolidation. Generic checks are not duplicated in
+Live/Dump/routing. Feature hosts remain separately built for now; sharing those
+release artifacts is a later optimization. Existing Django interpreter reuse
+still runs both Python versions against one exact-source host per OS, with
+separate native references and reports. Local task-cache ownership is unchanged.
 
-Connection routing likewise delegates its generic Ubuntu `source` check only to
-full Development coverage on the same main-push event/source. Its scope job uses
-the shared selector; reduced/unavailable diffs, feature pushes and manual runs
-retain the full local check. The dedicated native matrix explicitly accepts
-`source=skipped` only alongside a successful scope selecting delegation and
-successful compatibility cells. Scope/source/compatibility failure or cancellation
-cannot select native acceptance. Both native OSes and compatibility Python versions
-remain unchanged. This workflow still runs on its existing push/manual events.
-
-Dump guest-comparison and Django recipe select Ubuntu only for pull requests.
-Main pushes and manual `workflow_dispatch` runs retain Ubuntu and macOS (as do
-Dump experiment pushes). This removes three candidate macOS matrix jobs per PR
-when both workflows are selected, while both Python versions remain tested.
-Their macOS-specific failures can therefore be detected after merge; main-push
-success is not a pre-merge gate. The Human requested this placement to reduce
-macOS runner contention. The Human verifies macOS during local development,
-so platform problems can be found before CI. Full Live macOS checks remain in manual candidate acceptance. Development's
-required integration uses Ubuntu; these four automatic PR workflows now require
-no macOS job.
-Release CI does not automatically invoke these two dedicated campaigns; when
-separate pre-release evidence is needed, dispatch these workflows at the exact
-candidate SHA. Their main path filters still determine which pushes run them.
-
-Development, Dump, Django and Live use setup-go's GitHub-managed module/build
-cache. Each Go job exports its actual `go env GOCACHE` through `GITHUB_ENV` so
-later wheel builds inherit that cache instead of selecting `build/gocache`.
-Development check/integration and Dump comparison/check/integration have separate
-cache namespaces to avoid competing to save different compilation workloads.
-Django builds one source-stamped host per selected OS and sequentially runs both
-Python versions against that binary. Each interpreter retains its own pinned
-native reference, dependency report and acceptance output. Both acceptance calls
-are attempted even if the first fails, and either failure fails the job. The
-shared job budget allows one build and both unchanged per-case deadlines; native
-references remain independent Python matrix jobs. Scratch cleanup does not remove
-the compiler cache before setup-go saves it. Compiler paths are
-runner-managed; scratch budget guards do not account for these compiler caches.
-
-The pinned setup-go action keys entries by platform, architecture, Go version
-and declared dependency hashes; the workflow is included in those hashes, with separate native
-and host namespaces. Restored test results are invalidated with `go clean
--testcache`, and explicit race/integration invocations retain `-count=1`. Candidate
-executables are still built through Go and checked against their actual embedded source identity.
-This does not reuse an old PASS receipt or a packaged host. Release workflows and
-local task-cache lifecycle are unchanged. Cache misses execute ordinary builds;
-these runs make no cold-setup or measured speedup claim. See the
-[CI change record](reviews/v06x-live-ci-dedup-cache.md).
-
-These four maintained PR workflows group concurrency by workflow, event and PR
-number. A new update cancels only older runs of the same PR in that workflow.
-Main pushes, experiment pushes and manual runs use unique run IDs, so unrelated
-or pending non-PR runs do not replace each other. Release/Qualification concurrency
-and cache policy are unchanged.
+Only Development groups automatic PR concurrency by workflow, event and PR number.
+A new update cancels the prior run of the same PR; explicit manual runs use unique
+run IDs. This does not add main pushes or change Release concurrency.
 
 ### Archived CI efficiency observations
 

@@ -145,17 +145,6 @@ def plan(root, candidate, base):
     return {**result, 'source_commit': candidate, 'base_commit': base}
 
 
-def verify_gate(needs):
-    """The existing protected context now attests daily checks, including smoke."""
-    assert set(needs) == {'scope', 'check', 'integration'}, 'missing development dependency'
-    assert needs['scope']['result'] == 'success', 'scope failed'
-    assert needs['check']['result'] == 'success', 'source checks failed'
-    selected = needs['scope']['outputs'].get('integration')
-    assert selected in ('true', 'false'), 'invalid integration selection'
-    expected = 'success' if selected == 'true' else 'skipped'
-    assert needs['integration']['result'] == expected, 'integration/smoke did not finish as selected'
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=ROOT)
