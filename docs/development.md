@@ -418,11 +418,29 @@ restore/guard sequence. Publication still owns a separate final aggregate guard.
 Release candidate core/race checks use a compiler/module cache separate from the
 shared-wheel cache. Keys include OS, architecture, Go version, module inputs and
 candidate source; prefix restoration lets subsequent candidates extend prior
-compilation. The cache is saved only after successful qualification so it contains
+compilation. The cache is saved only after successful core checks so it contains
 race outputs too. Restored test results are cleared before the full checks; cache
 hits never skip tests, and misses/outages fall back to ordinary compilation.
 The independent guest reproduction and isolated external-consumer checks keep
 their existing clean environments. Hosted cache savings are not yet measured.
+
+Core qualification starts after shared runtime preparation, alongside canonical
+guest reproduction. It uses the exact shared wheel and tracked generated Go.
+Each OS has its own core → freeze → external-verification path: freezing waits
+for that OS's core result and the guest result, then binds the unchanged wheel
+to reproduced guest/source evidence. It does not rerun core tests. External
+verification still uses a separate runner, restores the immutable handoff and
+runs the isolated consumers. A slower core job on one OS does not delay the other
+OS's freeze or external verification. Shared runtime preparation remains a common
+build dependency; this change removes the later qualification barrier.
+
+The final `verification` job only checks dependency results. It requires both
+platform verifications to succeed; in full mode it also requires guest, core and
+freeze success, while reuse/recovery requires those full-only jobs to be skipped.
+The aggregate feature/READY gate still requires this complete join. YAML step
+anchors keep both OS recipes identical. Runtime-reuse intent retains its existing
+proof: core uploads it, freeze restores it, and the existing freeze verifier
+authenticates it again. No new acceptance receipt or public operation is added.
 
 Only Development groups automatic PR concurrency by workflow, event and PR number.
 A new update cancels the prior run of the same PR; explicit manual runs use unique

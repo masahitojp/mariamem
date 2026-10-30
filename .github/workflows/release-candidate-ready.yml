@@ -234,20 +234,17 @@ jobs:
             build/release/*-corresponding-source.tar.gz
           if-no-files-found: error
           retention-days: 14
-  candidate:
+  # Core runs alongside canonical guest reproduction. Platform paths meet only
+  # at the final verification gate; YAML aliases keep their checks identical.
+  core_darwin:
     if: needs.resolve.outputs.mode == 'full'
-    needs: [resolve, guest, runtime]
-    runs-on: ${{ matrix.runner }}
+    needs: [resolve, runtime]
+    runs-on: macos-15
     timeout-minutes: 90
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - platform: darwin-arm64
-            runner: macos-15
-          - platform: ubuntu24.04-x86_64
-            runner: ubuntu-24.04
-    steps:
+    env:
+      RELEASE_PLATFORM: darwin-arm64
+      RELEASE_RUNNER: macos-15
+    steps: &core_steps
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ needs.resolve.outputs.source_sha }}
@@ -285,13 +282,9 @@ jobs:
           python-version: '3.14'
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          name: release-generated-inputs-${{ needs.resolve.outputs.source_sha }}
-          path: build/
-      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
-        with:
-          name: release-runtime-${{ matrix.runner }}-${{ needs.resolve.outputs.source_sha }}
+          name: release-runtime-${{ env.RELEASE_RUNNER }}-${{ needs.resolve.outputs.source_sha }}
           path: .
-      - name: Qualify and freeze the shared release wheel
+      - name: Qualify core and race behavior with the shared release wheel
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -305,11 +298,6 @@ jobs:
             GOTOOLCHAIN=go1.26.10 python scripts/verify.py check
             GOTOOLCHAIN=go1.26.10 python scripts/verify.py integration --host build/mariamem-host
           fi
-          python scripts/verify_generated_runtime.py
-          python scripts/release_generated_ci.py freeze \
-            --candidate-sha '${{ needs.resolve.outputs.source_sha }}' --platform '${{ matrix.platform }}' \
-            --output "$RUNNER_TEMP/candidate-handoff.tar"
-          cat "$RUNNER_TEMP/candidate-handoff.sha256" >> "$GITHUB_STEP_SUMMARY"
       - name: Save compiler outputs after successful core and race checks
         if: success() && needs.resolve.outputs.runtime_reused != 'true' && steps.compiler-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25 # v5
@@ -319,28 +307,93 @@ jobs:
             ${{ steps.compiler-paths.outputs.build }}
             ${{ steps.compiler-paths.outputs.modules }}
           key: ${{ steps.compiler-cache.outputs.cache-primary-key }}
+      - name: Preserve authenticated runtime-reuse proof for freezing
+        if: needs.resolve.outputs.runtime_reused == 'true'
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: release-core-runtime-proof-${{ env.RELEASE_PLATFORM }}-${{ needs.resolve.outputs.source_sha }}
+          path: build/release/runtime-validation.json
+          if-no-files-found: error
+          retention-days: 14
+  core_ubuntu:
+    if: needs.resolve.outputs.mode == 'full'
+    needs: [resolve, runtime]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      RELEASE_PLATFORM: ubuntu24.04-x86_64
+      RELEASE_RUNNER: ubuntu-24.04
+    steps: *core_steps
+  candidate_darwin:
+    if: needs.resolve.outputs.mode == 'full'
+    needs: [resolve, guest, core_darwin]
+    runs-on: macos-15
+    timeout-minutes: 30
+    env:
+      RELEASE_PLATFORM: darwin-arm64
+      RELEASE_RUNNER: macos-15
+    steps: &candidate_steps
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ needs.resolve.outputs.source_sha }}
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: 1.26.10
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: release-generated-inputs-${{ needs.resolve.outputs.source_sha }}
+          path: build/
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: release-runtime-${{ env.RELEASE_RUNNER }}-${{ needs.resolve.outputs.source_sha }}
+          path: .
+      - name: Restore the successful core job's runtime-reuse proof
+        if: needs.resolve.outputs.runtime_reused == 'true'
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: release-core-runtime-proof-${{ env.RELEASE_PLATFORM }}-${{ needs.resolve.outputs.source_sha }}
+          path: build/release/
+      - name: Bind successful core qualification to canonical guest and freeze
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python scripts/release_runtime.py --source-commit '${{ needs.resolve.outputs.source_sha }}'
+          python scripts/verify_generated_runtime.py
+          python scripts/release_generated_ci.py freeze \
+            --candidate-sha '${{ needs.resolve.outputs.source_sha }}' --platform "$RELEASE_PLATFORM" \
+            --output "$RUNNER_TEMP/candidate-handoff.tar"
+          cat "$RUNNER_TEMP/candidate-handoff.sha256" >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
-          name: release-candidate-${{ matrix.platform }}-${{ needs.resolve.outputs.source_sha }}
+          name: release-candidate-${{ env.RELEASE_PLATFORM }}-${{ needs.resolve.outputs.source_sha }}
           path: |
             ${{ runner.temp }}/candidate-handoff.tar
             ${{ runner.temp }}/candidate-handoff.sha256
           if-no-files-found: error
           retention-days: 14
-  verification:
-    needs: [resolve, candidate]
-    if: always() && !cancelled() && needs.resolve.result == 'success' && (needs.resolve.outputs.mode != 'full' || needs.candidate.result == 'success')
-    runs-on: ${{ matrix.runner }}
+  candidate_ubuntu:
+    if: needs.resolve.outputs.mode == 'full'
+    needs: [resolve, guest, core_ubuntu]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      RELEASE_PLATFORM: ubuntu24.04-x86_64
+      RELEASE_RUNNER: ubuntu-24.04
+    steps: *candidate_steps
+  verification_darwin:
+    if: always() && !cancelled() && needs.resolve.result == 'success' && (needs.resolve.outputs.mode != 'full' || needs.candidate_darwin.result == 'success')
+    needs: [resolve, candidate_darwin]
+    runs-on: macos-15
     timeout-minutes: 90
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - platform: darwin-arm64
-            runner: macos-15
-          - platform: ubuntu24.04-x86_64
-            runner: ubuntu-24.04
-    steps:
+    env:
+      RELEASE_PLATFORM: darwin-arm64
+      RELEASE_RUNNER: macos-15
+    steps: &verification_steps
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ needs.resolve.outputs.source_sha }}
@@ -356,7 +409,7 @@ jobs:
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         if: needs.resolve.outputs.mode == 'full'
         with:
-          name: release-candidate-${{ matrix.platform }}-${{ needs.resolve.outputs.source_sha }}
+          name: release-candidate-${{ env.RELEASE_PLATFORM }}-${{ needs.resolve.outputs.source_sha }}
           path: ${{ runner.temp }}/candidate-input
       - id: restore
         name: Restore hash-bound immutable inputs (no rebuild fallback)
@@ -367,7 +420,7 @@ jobs:
           EVIDENCE_RUN: ${{ needs.resolve.outputs.evidence_run }}
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          args=(restore-platform --root candidate-source --candidate-sha "$SOURCE_SHA" --platform '${{ matrix.platform }}' --mode "$MODE")
+          args=(restore-platform --root candidate-source --candidate-sha "$SOURCE_SHA" --platform '${{ env.RELEASE_PLATFORM }}' --mode "$MODE")
           if [ "$MODE" = full ]; then
             args+=(--handoff "$RUNNER_TEMP/candidate-input/candidate-handoff.tar" --handoff-sha256 "$(cat "$RUNNER_TEMP/candidate-input/candidate-handoff.sha256")")
           else
@@ -381,7 +434,7 @@ jobs:
             mkdir -p candidate-source/build/release
             set -o pipefail
             python "$script" restore-guard --root candidate-source --candidate-sha "$SOURCE_SHA" \
-              --platform '${{ matrix.platform }}' --candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN" \
+              --platform '${{ env.RELEASE_PLATFORM }}' --candidate-run "$CANDIDATE_RUN" --evidence-run "$EVIDENCE_RUN" \
               2>&1 | tee candidate-source/build/release/ci-guard.log
             cat candidate-source/build/release/ci-guard.log >> "$GITHUB_STEP_SUMMARY"
             echo "guarded=true" >> "$GITHUB_OUTPUT"
@@ -396,7 +449,7 @@ jobs:
           GOTOOLCHAIN: go1.26.10
         run: |
           python candidate-source/scripts/generated_release_acceptance.py --root candidate-source \
-            --candidate-sha '${{ needs.resolve.outputs.source_sha }}' --platform '${{ matrix.platform }}' \
+            --candidate-sha '${{ needs.resolve.outputs.source_sha }}' --platform '${{ env.RELEASE_PLATFORM }}' \
             --output candidate-source/build/release/generated-acceptance.json --go-build-jobs 1
       - id: guard
         name: Exact platform guard — READY / NOT READY
@@ -407,13 +460,13 @@ jobs:
           mkdir -p candidate-source/build/release
           set -o pipefail
           python candidate-source/scripts/release_generated_ci.py guard --root candidate-source \
-            --candidate-sha '${{ needs.resolve.outputs.source_sha }}' --platform '${{ matrix.platform }}' \
+            --candidate-sha '${{ needs.resolve.outputs.source_sha }}' --platform '${{ env.RELEASE_PLATFORM }}' \
             2>&1 | tee candidate-source/build/release/ci-guard.log
           cat candidate-source/build/release/ci-guard.log >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: release-evidence-${{ matrix.platform }}-${{ needs.resolve.outputs.source_sha }}
+          name: release-evidence-${{ env.RELEASE_PLATFORM }}-${{ needs.resolve.outputs.source_sha }}
           path: |
             candidate-source/build/release/generated-acceptance.json
             candidate-source/build/release/generated-acceptance.log
@@ -422,6 +475,40 @@ jobs:
             candidate-source/tests/evidence/alpha.json
           if-no-files-found: warn
           retention-days: 14
+  verification_ubuntu:
+    if: always() && !cancelled() && needs.resolve.result == 'success' && (needs.resolve.outputs.mode != 'full' || needs.candidate_ubuntu.result == 'success')
+    needs: [resolve, candidate_ubuntu]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      RELEASE_PLATFORM: ubuntu24.04-x86_64
+      RELEASE_RUNNER: ubuntu-24.04
+    steps: *verification_steps
+  verification:
+    # Preserve the existing feature/READY gate contract without a platform barrier
+    # before either external-consumer job. This job only inspects results.
+    needs: [resolve, guest, core_darwin, core_ubuntu, candidate_darwin, candidate_ubuntu, verification_darwin, verification_ubuntu]
+    if: always() && needs.resolve.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Require complete qualification on both platforms
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: |
+          python3 - <<'PYGATE'
+          import json, os
+          needs = json.loads(os.environ['NEEDS_JSON'])
+          full_only = {'guest', 'core_darwin', 'core_ubuntu', 'candidate_darwin', 'candidate_ubuntu'}
+          verified = {'verification_darwin', 'verification_ubuntu'}
+          assert set(needs) == {'resolve'} | full_only | verified, 'missing qualification dependency'
+          assert needs['resolve']['result'] == 'success', 'resolution failed'
+          mode = needs['resolve']['outputs']['mode']
+          assert mode in ('full', 'acceptance-only', 'guard-only'), 'invalid qualification mode'
+          expected = 'success' if mode == 'full' else 'skipped'
+          assert all(needs[job]['result'] == expected for job in full_only), 'core or guest qualification incomplete'
+          assert all(needs[job]['result'] == 'success' for job in verified), 'platform verification incomplete'
+          PYGATE
   feature-live:
     if: needs.resolve.outputs.features_reused != 'true'
     needs: [resolve, runtime, units]
