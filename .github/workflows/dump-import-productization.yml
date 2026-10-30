@@ -1,64 +1,17 @@
 name: Dump reader product candidate
 on:
-  push:
-    branches: [main, experiment/dump-reader-productization]
-    paths:
-      - '.github/workflows/dump-import-productization.yml'
-      - 'tests/dump_import_acceptance/**'
-      - 'tests/test_dump*.py'
-      - 'tests/preparation_migration_acceptance/**'
-      - 'tests/test_git_identity.py'
-      - 'scripts/**'
-      - 'python/**'
-      - 'internal/**'
-      - 'cmd/**'
-      - 'guest/**'
-      - 'release/**'
-      - 'go.mod'
-      - 'go.sum'
-      - '*.go'
-  pull_request:
-    branches: [main]
-    paths:
-      - '.github/workflows/dump-import-productization.yml'
-      - 'tests/dump_import_acceptance/**'
-      - 'tests/test_dump*.py'
-      - 'tests/preparation_migration_acceptance/**'
-      - 'tests/test_git_identity.py'
-      - 'scripts/**'
-      - 'python/**'
-      - 'internal/**'
-      - 'cmd/**'
-      - 'guest/**'
-      - 'release/**'
-      - 'go.mod'
-      - 'go.sum'
-      - '*.go'
-  workflow_dispatch:
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  workflow_call:
+    inputs:
+      source_commit:
+        description: Exact commit resolved by Release CI
+        required: true
+        type: string
 permissions:
   contents: read
+env:
+  SOURCE_COMMIT: ${{ inputs.source_commit }}
 jobs:
-  scope:
-    runs-on: ubuntu-24.04
-    outputs:
-      run_runtime: ${{ steps.diff.outputs.run_runtime }}
-      ubuntu_check: ${{ steps.diff.outputs.ubuntu_check }}
-      ubuntu_integration: ${{ steps.diff.outputs.ubuntu_integration }}
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
-        with:
-          python-version: '3.14'
-      - id: diff
-        run: python scripts/development_scope.py --candidate-sha '${{ github.sha }}' --github-output
   native-reference:
-    needs: scope
-    if: needs.scope.outputs.run_runtime == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     services:
@@ -71,6 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
+          ref: ${{ inputs.source_commit }}
           fetch-depth: 0
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
@@ -85,22 +39,22 @@ jobs:
         env:
           NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
         run: |
-          python tests/dump_import_acceptance/linux_acquisition.py --container "$NATIVE_CONTAINER" --expected-source-commit "$GITHUB_SHA" --output build/dump-reference/evidence/acquisition
+          python tests/dump_import_acceptance/linux_acquisition.py --container "$NATIVE_CONTAINER" --expected-source-commit "$SOURCE_COMMIT" --output build/dump-reference/evidence/acquisition
           python scripts/experiment_disk.py --work-dir build/dump-reference --min-free-gib 4 --budget-gib 1 --timeout 180 -- python tests/dump_import_acceptance/producer.py --container "$NATIVE_CONTAINER" --output build/dump-reference/evidence/candidate-producer
-          python tests/dump_import_acceptance/bind_input.py --expected-source-commit "$GITHUB_SHA" --producer-output build/dump-reference/evidence/candidate-producer --output build/dump-reference/evidence/binding.json
+          python tests/dump_import_acceptance/bind_input.py --expected-source-commit "$SOURCE_COMMIT" --producer-output build/dump-reference/evidence/candidate-producer --output build/dump-reference/evidence/binding.json
       - name: Fresh native reference using the exact canonical bytes
         env:
           CLIENT_COMMAND: '["docker","run","--rm","-i","--network=host","--entrypoint=mariadb","mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e"]'
         run: |
-          python scripts/experiment_disk.py --work-dir build/dump-reference --min-free-gib 4 --budget-gib 1 --timeout 300 -- python tests/dump_import_acceptance/native_reference.py --port 3307 --expected-source-commit "$GITHUB_SHA" --binding build/dump-reference/evidence/binding.json --client-command "$CLIENT_COMMAND" --output build/dump-reference/evidence/native
+          python scripts/experiment_disk.py --work-dir build/dump-reference --min-free-gib 4 --budget-gib 1 --timeout 300 -- python tests/dump_import_acceptance/native_reference.py --port 3307 --expected-source-commit "$SOURCE_COMMIT" --binding build/dump-reference/evidence/binding.json --client-command "$CLIENT_COMMAND" --output build/dump-reference/evidence/native
       - name: Fresh same-application variant and native round trip
         env:
           NATIVE_CONTAINER: ${{ job.services.mariadb.id }}
-        run: python tests/dump_import_acceptance/variant.py --container "$NATIVE_CONTAINER" --expected-source-commit "$GITHUB_SHA" --output build/dump-reference/evidence/variant
+        run: python tests/dump_import_acceptance/variant.py --container "$NATIVE_CONTAINER" --expected-source-commit "$SOURCE_COMMIT" --output build/dump-reference/evidence/variant
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: dump-product-native-${{ github.sha }}
+          name: dump-product-native-${{ inputs.source_commit }}
           path: build/dump-reference/evidence
           if-no-files-found: error
   guest-comparison:
@@ -108,13 +62,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # PRs retain Ubuntu; main/experiment pushes and manual evidence runs retain macOS.
-        os: ${{ github.event_name == 'pull_request' && fromJSON('["ubuntu-24.04"]') || fromJSON('["ubuntu-24.04","macos-15"]') }}
+        # Release acceptance retains both supported hosts.
+        os: [ubuntu-24.04, macos-15]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
+          ref: ${{ inputs.source_commit }}
           fetch-depth: 0
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
@@ -139,7 +94,7 @@ jobs:
           python-version: '3.14'
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          name: dump-product-native-${{ github.sha }}
+          name: dump-product-native-${{ inputs.source_commit }}
           path: build/dump-ubuntu-reference
       - name: Pinned interpreter consumers
         env:
@@ -162,7 +117,7 @@ jobs:
       - name: Pinned Mac native server/client acquisition
         if: runner.os == 'macOS'
         run: |
-          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/dump-work" --min-free-gib 4 --budget-gib 8 --timeout 600 -- python tests/dump_import_acceptance/prepare_macos.py --workspace "$RUNNER_TEMP/dump-work/acquisition" --expected-source-commit "$GITHUB_SHA"
+          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/dump-work" --min-free-gib 4 --budget-gib 8 --timeout 600 -- python tests/dump_import_acceptance/prepare_macos.py --workspace "$RUNNER_TEMP/dump-work/acquisition" --expected-source-commit "$SOURCE_COMMIT"
       - name: Native client, reader, independent children, failure/admission oracles
         env:
           MINIMUM_PYTHON: ${{ steps.minimum.outputs.python-path }}
@@ -173,7 +128,7 @@ jobs:
           if [ "$RUNNER_OS" = macOS ]; then
             mac_args=(--macos-acquisition "$RUNNER_TEMP/dump-work/acquisition")
           fi
-          "$CURRENT_PYTHON" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/dump-work" --min-free-gib 4 --budget-gib 8 --timeout 2400 -- "$CURRENT_PYTHON" tests/dump_import_acceptance/campaign.py --workspace "$RUNNER_TEMP/dump-work/comparison" --expected-source-commit "$GITHUB_SHA" --reference build/dump-ubuntu-reference/native/reference.json --minimum-python "$MINIMUM_PYTHON" --current-python "$CURRENT_PYTHON" "${mac_args[@]}"
+          "$CURRENT_PYTHON" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/dump-work" --min-free-gib 4 --budget-gib 8 --timeout 2400 -- "$CURRENT_PYTHON" tests/dump_import_acceptance/campaign.py --workspace "$RUNNER_TEMP/dump-work/comparison" --expected-source-commit "$SOURCE_COMMIT" --reference build/dump-ubuntu-reference/native/reference.json --minimum-python "$MINIMUM_PYTHON" --current-python "$CURRENT_PYTHON" "${mac_args[@]}"
       - name: Remove owned reproducible scratch after process completion
         if: always()
         run: |
@@ -190,60 +145,6 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: dump-product-comparison-${{ matrix.os }}-${{ github.sha }}
+          name: dump-product-comparison-${{ matrix.os }}-${{ inputs.source_commit }}
           path: ${{ runner.temp }}/dump-work/*/evidence
           if-no-files-found: error
-  # Development owns these on full PR/main diffs; standalone/reduced scopes stay local.
-  development-checks:
-    needs: scope
-    if: needs.scope.outputs.run_runtime == 'true' && needs.scope.outputs.ubuntu_check != 'false'
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
-        with:
-          go-version: '1.26.10'
-          cache: true
-          cache-dependency-path: |
-            go.sum
-            .github/workflows/dump-import-productization.yml
-            scripts/vet_generated.py
-      - name: Share Go compiler cache and discard restored test results
-        shell: bash
-        run: |
-          echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
-          go clean -testcache
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
-        with:
-          python-version: '3.14'
-      - run: python -m pip install -r tests/routing_acceptance/unit-requirements.txt -r tests/preparation_migration_acceptance/requirements.txt
-      - run: python scripts/verify.py check
-  development-integration:
-    needs: scope
-    if: needs.scope.outputs.run_runtime == 'true' && needs.scope.outputs.ubuntu_integration != 'false'
-    runs-on: ubuntu-24.04
-    # CI40204907935 spent most of its 30m budget compiling cold race/ordinary builds.
-    # Keep verify.py and individual test deadlines unchanged; allow the full suite to finish.
-    timeout-minutes: 60
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
-        with:
-          go-version: '1.26.10'
-          cache: true
-          cache-dependency-path: |
-            go.sum
-            .github/workflows/dump-import-productization.yml
-            scripts/verify.py
-      - name: Share Go compiler cache and discard restored test results
-        shell: bash
-        run: |
-          echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
-          go clean -testcache
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
-        with:
-          python-version: '3.14'
-      - run: python -m pip install -r tests/routing_acceptance/unit-requirements.txt mysql-connector-python==26.7.0
-      - run: python scripts/verify.py integration

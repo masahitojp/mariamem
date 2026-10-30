@@ -20,19 +20,19 @@ def test_single_host_retains_both_source_bound_python_campaigns():
     recipe = text.split('  recipe:\n', 1)[1]
     assert '        python:' not in recipe
     assert recipe.count('go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host') == 1
-    assert recipe.index('source_identity(os.environ["GITHUB_SHA"])') < recipe.index('go build ')
+    assert recipe.index('source_identity(os.environ["SOURCE_COMMIT"])') < recipe.index('go build ')
     assert 'fetch-depth: 0' in recipe
     for minor in ['3.11', '3.14']:
         assert f"python-version: '{minor}'" in recipe
-        assert 'name: django-native-'+minor+'-${{ github.sha }}' in recipe
+        assert 'name: django-native-'+minor+'-${{ inputs.source_commit }}' in recipe
         assert 'path: build/django-reference/py'+minor in recipe
     acceptance = step_script(text, 'Standard runner, mixed orders, original errors and owner disposal on both interpreters')
     assert 'for py in "$PY311" "$PY314"' in acceptance
     assert '--host build/mariamem-host' in acceptance
     assert '--reference "build/django-reference/py$version/reference"' in acceptance
     assert '--output "build/django-evidence/py$version/acceptance"' in acceptance
-    assert '--expected-source-commit "$GITHUB_SHA"' in acceptance
-    assert 'name: django-${{ matrix.os }}-${{ github.sha }}' in recipe
+    assert '--expected-source-commit "$SOURCE_COMMIT"' in acceptance
+    assert 'name: django-${{ matrix.os }}-${{ inputs.source_commit }}' in recipe
     ci = (ROOT/'tests/django_lifecycle/ci.py').read_text()
     assert 'base.verify_go_binary(ROOT, args.host.resolve(), args.expected_source_commit)' in ci
     assert 'check_reference(reference, args.expected_source_commit, current_inputs, minor)' in ci
@@ -57,7 +57,7 @@ def test_both_interpreters_execute_and_either_failure_fails_job(tmp_path, step, 
         paths[minor] = str(executable)
     calls = tmp_path/'calls'
     env = dict(os.environ, PY311=paths['3.11'], PY314=paths['3.14'], CALLS=str(calls),
-               FAIL_MINOR=failed_minor, RUNNER_TEMP=str(tmp_path), GITHUB_SHA='a'*40)
+               FAIL_MINOR=failed_minor, RUNNER_TEMP=str(tmp_path), SOURCE_COMMIT='a'*40)
     result = subprocess.run(['bash', '-e', '-o', 'pipefail', '-c', script], env=env)
     assert result.returncode == (1 if failed_minor else 0)
     observed = calls.read_text().splitlines()

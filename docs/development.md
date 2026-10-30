@@ -3,7 +3,7 @@
 Generated-Go is the only supported runtime since the published v0.4.3 release.
 Build products and downloaded inputs live under ignored `build/`. Use Go1.26.10
 and Python with pytest/PyMySQL. Prepared runtime integration additionally requires
-mysql-connector-python26.7.0 (the normal-CI selected consumer pin). macOS arm64
+mysql-connector-python26.7.0 (the release integration consumer pin). macOS arm64
 external consumers also passed with Go1.27.0/1.27.1/1.27.2 historically;
 GO-2026-6809 affects Go <1.26.10 and1.27.0–1.27.2, so the current forward-compat
 check uses1.27.3. See [compatibility](go-compatibility.md). Product
@@ -174,41 +174,38 @@ without a concrete dependency found by focused verification. Documentation-only
 changes need wording/reference and diff/status checks, not runtime tests. These
 rules leave runtime-change and explicitly requested release gates intact.
 
-The development workflow chooses from a local event diff, without downloading
-historical release or Product CI artifacts. Unknown inputs and unavailable/empty
-diffs select full check plus integration. This selection is not a reusable runtime
-qualification receipt. Explicit release reuse still requires authenticated proof.
+The development workflow runs on PRs and explicit manual dispatch, without a
+main-push repeat. It selects checks from the local event diff; unknown inputs or
+unavailable/empty diffs select full source checks plus representative smoke.
+This selection produces no reusable runtime-qualification receipt.
 
-Full Live acceptance is manual-only (`live-host.yml`, `workflow_dispatch`). PR
-updates and main pushes do not launch its browser/native/two-platform matrix.
-The existing protected `Live required gate` now belongs to Development and requires
-successful source checks plus the selected integration job; a docs/tooling scope
-may skip integration, but failure/cancellation or an unavailable selection fails.
-Its PASS is daily validation, not a full Live acceptance receipt.
+| Execution point | Checks | Heavy runtime campaigns |
+| --- | --- | --- |
+| Documentation PR | version/public boundary and diff | none |
+| Classified tooling PR | Python/source policy checks | none |
+| Runtime, build or unknown PR change | source/unit checks and Ubuntu `verify.py smoke` | none |
+| Release CI (`verify` or `release`) | full integration/race, native SQL, Live, Dump, Django, routing, preparation/migration, final artifacts | both supported platforms and required interpreter/browser/ORM cells |
 
-Development integration adds source Go/Python Live smoke: connect, mutate, Reset,
-verify restored state and stable endpoint, and Close. The Go smoke also checks
-busy-session refusal and closed-parent refusal; Python checks host/directory
-cleanup. It reuses the integration host/compiler cache, without building a wheel,
-starting a native server or installing browsers. Source checks retain the Live
-units, and integration includes the `internal/live` race suite.
+The protected `integration` job name now runs `verify.py smoke`. It builds one
+host for Python DB/Snapshot/Fork independence and Live connect/mutate/Reset,
+stable endpoint and cleanup; Go checks Live reset, busy-session and closed-parent
+refusals. It does not install browsers, run native MariaDB, build a wheel or run
+race/ORM campaigns. The protected `Live required gate` aggregates source checks
+and the selected smoke result; docs/tooling may skip smoke, but failed/cancelled
+checks or unavailable selection fail. Daily PASS is not full qualification.
 
-The full manual workflow retains both OSes, Python minors, native comparison,
-browser positive/fault scenarios, public examples, G1 resource/fault campaigns
-and installed/external consumers. Run it on the final candidate ref before candidate
-adoption. Every source change after that acceptance needs a newly bound result;
-an earlier result is not relabelled. Manual full acceptance is a candidate decision
-condition, not an automatic per-PR merge context. macOS/browser/installed failures
-may therefore be found later than the daily PR checks. Release CI does not call
-this workflow automatically; its success must not be assumed from Release READY.
+Full Live, Dump, Django, routing, preparation/migration and native SQL workflows
+are callable only from Release CI. Every checkout and source-bound receipt uses
+the resolved release candidate SHA. Release aggregation requires all six feature
+suites, in addition to existing artifact qualification; any failure, cancellation,
+skip or missing result stops publication. Full integration owns core/race/fault
+regressions; the routing campaign has only its dedicated release owner. No
+standalone final-candidate acceptance ceremony is required.
 
-Explicit runtime-free tooling uses the shared `runtime_required` selector to skip
-Dump runtime jobs while Development retains Python checks. Shared build/identity
-helpers, workflows, selectors, unknown inputs and missing diffs remain conservative.
-Django guide prose alone does not trigger its matrix; executable examples still do.
-Ubuntu worker-failure retains native SQL comparisons and delegates duplicate race,
-worker-trap and wire/Snapshot tests to required integration without serializing jobs.
-macOS retains those worker tests on main/manual events.
+Platform/browser/ORM/fault-specific regressions can therefore be detected later,
+at release. This is the Human-approved cost tradeoff. Exact-SHA artifact reuse
+remains supported; moved feature suites currently run in every Release transaction.
+Historical experiment workflows remain available only as explicit experiments.
 
 Archived Go-toolchain/memfs measurement data has explicit documentation scope in
 the local selector. Its three saved reproduction recipes have tooling scope;
@@ -220,7 +217,7 @@ MariaDB integration merely because their JSON/profile summaries are new files.
 | --- | --- | --- |
 | ordinary documentation | wording/references/diff; `verify.py check --scope docs` for version/public boundary | no guest, seconds |
 | explicitly classified Python tooling/policy and its unit suites | `verify.py check --scope python` or narrower named pytest owners | no real guest; current broad Python subset about 23 s, cold prerequisites vary |
-| SDK, SQL, ownership, VFS, guest/generated code, build inputs, unknown files | full `verify.py check` then relevant `integration` | real guest for integration; minutes plus cold compile |
+| SDK, SQL, ownership, VFS, guest/generated code, build inputs, unknown files | full `verify.py check` plus `verify.py smoke`; focused regression when fixing a concrete defect | representative guest; cold compile varies |
 | final module/wheel packaging and version | installed-consumer/release artifact qualification | exact final artifacts, separate from runtime reuse |
 | latency/resource question | one identity-bound manual benchmark after relevant correctness | one campaign at a time; sample dependent |
 

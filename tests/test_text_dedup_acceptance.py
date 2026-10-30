@@ -36,13 +36,13 @@ def test_ordinary_matrix_is_separate_complete_and_unique():
 
 def test_ordinary_ci_preserves_reference_and_enforces_per_host_budget():
     from pathlib import Path
-    text = (Path(__file__).resolve().parents[1]/'.github/workflows/check.yml').read_text()
+    text = (Path(__file__).resolve().parents[1]/'.github/workflows/worker-failure.yml').read_text()
     for name, mode in [('Fresh native ordinary SQL reference', 'native'),
                        ('Ordinary SQL native/guest comparison', 'guest')]:
         block = text.split('- name: '+name, 1)[1].split('      - ', 1)[0]
         assert 'timeout-minutes: 1' in block
         assert 'tests/text_dedup_acceptance.py '+mode+' --suite ordinary' in block
-        assert '--source-commit "$GITHUB_SHA"' in block
+        assert '--source-commit "$SOURCE_COMMIT"' in block
     worker = text.split('  worker-failure:\n', 1)[1]
     assert '    timeout-minutes: 60' in worker
     assert '--reference build/worker-failure/reference/ordinary-native.json' in text

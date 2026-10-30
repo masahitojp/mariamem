@@ -48,3 +48,53 @@ def test_summary_exposes_publication_failure(tmp_path, monkeypatch):
     assert 'Publication: **FAILED**' in summary
     assert 'hash mismatch' in summary and 'uploaded-hashes' in summary
     assert 'never moved, deleted, or replaced' in summary
+
+
+FEATURES = {
+    'feature-live': 'live-host', 'feature-dump': 'dump-import-productization',
+    'feature-django': 'django-lifecycle', 'feature-routing': 'connection-routing',
+    'feature-preparation': 'preparation-migration', 'feature-sql': 'worker-failure',
+}
+
+
+def test_heavy_suites_are_release_only_and_use_resolved_candidate():
+    import re
+    workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
+    aggregate = workflow.split('\n  aggregate:\n', 1)[1].split('\n  publication:', 1)[0]
+    for job, filename in FEATURES.items():
+        # Match the job through its indented fields, up to the next job.
+        caller = re.search(r'^  '+job+r':\n(.*?)(?=^  \S|\Z)', workflow, re.M | re.S)[1]
+        assert 'needs: resolve' in caller
+        assert 'uses: ./.github/workflows/'+filename+'.yml' in caller
+        assert 'source_commit: ${{ needs.resolve.outputs.source_sha }}' in caller
+        assert job in aggregate.split('    steps:', 1)[0]
+        called = (ROOT / '.github/workflows' / (filename+'.yml')).read_text()
+        triggers = called.split('permissions:', 1)[0]
+        assert re.findall(r'^  ([a-z_]+):', triggers, re.M) == ['workflow_call']
+        assert 'SOURCE_COMMIT: ${{ inputs.source_commit }}' in called
+        for checkout in re.findall(r'- uses: actions/checkout@[^\n]+\n(.*?)(?=      - |\Z)', called, re.S):
+            assert 'ref: ${{ inputs.source_commit }}' in checkout
+        assert '$GITHUB_SHA' not in called and 'github.sha' not in called
+    assert "if: always() && steps.features.outcome == 'success'" in aggregate
+
+
+def test_actual_release_feature_gate_rejects_each_incomplete_result():
+    import os
+    import subprocess
+    import textwrap
+    workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
+    script = textwrap.dedent(workflow.split("python - <<'PYGATE'\n", 1)[1].split('          PYGATE', 1)[0])
+    good = {job: {'result': 'success'} for job in FEATURES}
+    def run(needs):
+        return subprocess.run([sys.executable, '-c', script],
+                              env=dict(os.environ, NEEDS_JSON=json.dumps(needs)),
+                              capture_output=True).returncode
+    assert run(good) == 0
+    for job in FEATURES:
+        for result in ['failure', 'cancelled', 'skipped', None]:
+            needs = dict(good)
+            if result is None:
+                del needs[job]
+            else:
+                needs[job] = {'result': result}
+            assert run(needs) != 0, (job, result)

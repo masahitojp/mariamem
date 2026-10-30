@@ -279,7 +279,7 @@ def test_workflow_requires_proof_before_expensive_work():
     assert 'scripts/runtime_validation.py' not in development
     assert 'scripts/development_scope.py' in development
     assert "if: needs.scope.outputs.integration == 'true'" in development
-    assert 'scripts/verify.py integration' in development
+    assert 'scripts/verify.py smoke' in development
 
 
 @pytest.mark.parametrize('kind', ['mode', 'rename', 'dependency', 'version-logic', 'inventory', 'missing-inventory'])
