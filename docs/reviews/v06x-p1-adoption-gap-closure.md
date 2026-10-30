@@ -62,3 +62,11 @@ guest generated release tests/fixture_entry_acceptance
 tests/preparation_migration_acceptance` confirmed the limited product/input
 reuse boundary. The new reusable P1 native command binds SOURCE_COMMIT and both
 candidate checkouts retain inputs.source_commit. No Release CI was dispatched.
+
+Daily CI41073464491 at headaddef8e9 / executed14fcdad4 passed Ubuntu source smoke
+but failed one source test (1497 passed,60 skipped): the P1 native workflow test
+still expected caller GITHUB_SHA. The reusable workflow already correctly used
+SOURCE_COMMIT. The test now requires the resolved SOURCE_COMMIT, forbids the
+caller SHA and checks the input-bound checkout. The original failure/logs are
+retained under ci-41073464491;158 related local checks passed after correction.
+No runtime implementation or acceptance oracle was relaxed.

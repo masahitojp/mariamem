@@ -47,7 +47,9 @@ def test_both_native_python_cells_execute_p1_after_acquisition():
     assert "python: ['3.11', '3.14']" in section
     assert section.index('linux_acquisition.py') < section.index('tests/fixture_entry_acceptance/native.py')
     assert '--acquisition build/live-native/acquisition' in section
-    assert '--expected-source-commit "$GITHUB_SHA"' in section
+    assert '--expected-source-commit "$SOURCE_COMMIT"' in section
+    assert '--expected-source-commit "$GITHUB_SHA"' not in section
+    assert 'ref: ${{ inputs.source_commit }}' in section
     assert '--disposable-server' in section
     assert '-r tests/preparation_migration_acceptance/requirements.txt' in section
     assert 'P1_NATIVE_REFERENCE="$PWD/build/reference/py$version/p1"' in workflow
