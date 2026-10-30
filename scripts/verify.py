@@ -37,7 +37,12 @@ def run(argv, *, env=None):
                          ROOT/'internal/generatedgo/provenance.json'])
 
 
-def check(scope="full"):
+DAILY_GO_PACKAGES = [".", "./cmd/...", "./internal/...", "./mariamemtest/..."]
+
+
+def check(scope="full", *, profile="full"):
+    if profile not in ("daily", "full"):
+        raise ValueError("unknown verification profile")
     if scope not in ("full", "python", "docs"):
         raise ValueError("unknown check scope")
     if scope != "full":
@@ -61,13 +66,15 @@ def check(scope="full"):
     env.pop("MARIAMEM_NATIVE_DIR", None)
     env["PYTHONPATH"] = str(ROOT / "python")
     run([sys.executable, "-m", "pytest", *SOURCE_TESTS, "-q"], env=env)
-    run(["go", "test", "-p", "1", "./..."])
+    packages = DAILY_GO_PACKAGES if profile == "daily" else ["./..."]
+    # Daily vet has its own owner; do not repeat go test's default vet subset.
+    run(["go", "test", "-p", "1", *(["-vet=off"] if profile == "daily" else []), *packages])
     # wasm2go emits dead structured-control fallthrough. Retain every other
     # analyzer there; handwritten runtime/shim/API packages retain full vet.
     tool_dir = subprocess.check_output(["go", "env", "GOTOOLDIR"], cwd=ROOT,
                                       env=go_environment(), text=True).strip()
-    env = dict(os.environ, MARIAMEM_VET_TOOL=str(Path(tool_dir)/"vet"))
-    run(["go", "vet", "-p", "1", "-vettool="+str(ROOT/"scripts/vet_generated.py"), "./..."], env=env)
+    env = dict(os.environ, MARIAMEM_VET_TOOL=str(Path(tool_dir)/"vet"), MARIAMEM_VET_PROFILE=profile)
+    run(["go", "vet", "-p", "1", "-vettool="+str(ROOT/"scripts/vet_generated.py"), *packages], env=env)
     # Opt-in real-host pytest cases must stay skipped in the ordinary check,
     # even if a developer has a native bundle configured in their shell.
     env = os.environ.copy()
@@ -80,7 +87,13 @@ def check(scope="full"):
     run([sys.executable, "scripts/check_public.py"])
 
 
-def integration():
+def integration(host=None):
+    if host is not None:
+        from git_identity import verify_go_binary
+        host = Path(host).resolve()
+        commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+        verify_go_binary(ROOT, host, commit)
+    shared_host = host
     env = os.environ.copy()
     env.pop("MARIAMEM_NATIVE_DIR", None)
     env.pop("MARIAMEM_RUNTIME", None)
@@ -103,8 +116,9 @@ def integration():
     run(["go", "test", "-p", "1", "-tags=integration", "./internal/generatedgo",
          "-run=TestWorkerTrapActualGuest", "-count=1", "-timeout=3m"], env=env)
     with tempfile.TemporaryDirectory(prefix="mariamem-integration-") as temporary:
-        host = Path(temporary) / "mariamem-host"
-        run(["go", "build", "-p", "1", "-o", host, "./cmd/mariamem-host"], env=env)
+        host = shared_host or Path(temporary) / "mariamem-host"
+        if shared_host is None:
+            run(["go", "build", "-p", "1", "-o", host, "./cmd/mariamem-host"], env=env)
         env["MARIAMEM_TEST_HOST"] = str(host)
         # Reuse the integration host/cache; full browser/native/installed acceptance
         # belongs to Release CI.
@@ -139,9 +153,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     checks = commands.add_parser("check", help="source checks; full includes generated Go compile/vet")
+    checks.add_argument("--profile", choices=("full", "daily"), default="full")
     checks.add_argument("--scope", choices=("full", "python", "docs"), default="full")
     commands.add_parser("smoke", help="daily source DB/Live representative checks")
-    commands.add_parser("integration", help="release guest acceptance, focused runtime race and Python lifecycle checks")
+    integrations = commands.add_parser("integration", help="release guest acceptance, focused runtime race and Python lifecycle checks")
+    integrations.add_argument("--host", type=Path, help="use a verified exact-source host instead of rebuilding")
     release = commands.add_parser("release-check", help="release guard; verify a local or CI candidate")
     release.add_argument("--ci-candidate-sha")
     release.add_argument("--platform", choices=("darwin-arm64", "ubuntu24.04-x86_64"))
@@ -152,11 +168,11 @@ def main():
     if args.command != "bench" and extra:
         parser.error("unexpected arguments: " + " ".join(extra))
     if args.command == "check":
-        check(args.scope)
+        check(args.scope, profile=args.profile)
     elif args.command == "smoke":
         smoke()
     elif args.command == "integration":
-        integration()
+        integration(args.host)
     elif args.command == "release-check":
         if args.ci_candidate_sha:
             command = [sys.executable, "scripts/release_generated_ci.py", "guard",

@@ -27,6 +27,10 @@ def validate_caches(text, name):
         if 'uses: actions/setup-go@' not in block:
             continue
         found += 1
+        if name in ('dump-import-productization', 'django-lifecycle'):
+            assert 'cache: false' in block and 'go build ' not in block
+            assert 'scripts/release_runtime.py' in block
+            continue
         assert 'cache: true' in block and 'cache: false' not in block
         assert 'cache-hit' not in block  # A hit must never skip builds or tests.
         if name == 'check':
