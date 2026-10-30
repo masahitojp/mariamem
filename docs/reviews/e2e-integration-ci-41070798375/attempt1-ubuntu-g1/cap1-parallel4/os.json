@@ -1,0 +1,522 @@
+{
+  "result": "PASS",
+  "returncode": 0,
+  "elapsed_seconds": 5.5056520450000335,
+  "requested_interval_seconds": 0.1,
+  "rss_mechanism": "sampled process-tree ps RSS sum",
+  "samples": [
+    {
+      "at_seconds": 0.009056721999968431,
+      "unix_ns": 1793371413553949787,
+      "process_tree_rss_bytes": 30228480,
+      "members": {
+        "19963": 30228480
+      },
+      "available_memory_bytes": 15406510080,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 0.11777019200007999,
+      "unix_ns": 1793371413662663196,
+      "process_tree_rss_bytes": 150122496,
+      "members": {
+        "19963": 150122496
+      },
+      "available_memory_bytes": 15380746240,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 0.22544026600007783,
+      "unix_ns": 1793371413770333010,
+      "process_tree_rss_bytes": 101109760,
+      "members": {
+        "19963": 101109760
+      },
+      "available_memory_bytes": 15359246336,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 0.3353910739999719,
+      "unix_ns": 1793371413880284018,
+      "process_tree_rss_bytes": 167092224,
+      "members": {
+        "19963": 167092224
+      },
+      "available_memory_bytes": 15310254080,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 0.4436091259999557,
+      "unix_ns": 1793371413988501599,
+      "process_tree_rss_bytes": 167133184,
+      "members": {
+        "19963": 167133184
+      },
+      "available_memory_bytes": 15390445568,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 0.5512964360000296,
+      "unix_ns": 1793371414096189240,
+      "process_tree_rss_bytes": 114208768,
+      "members": {
+        "19963": 114208768
+      },
+      "available_memory_bytes": 15389356032,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 0.660254514999906,
+      "unix_ns": 1793371414205147008,
+      "process_tree_rss_bytes": 177369088,
+      "members": {
+        "19963": 177369088
+      },
+      "available_memory_bytes": 15389368320,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 0.7684595169998829,
+      "unix_ns": 1793371414313352081,
+      "process_tree_rss_bytes": 173490176,
+      "members": {
+        "19963": 173490176
+      },
+      "available_memory_bytes": 15373119488,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 0.8760529660000884,
+      "unix_ns": 1793371414420945690,
+      "process_tree_rss_bytes": 121913344,
+      "members": {
+        "19963": 121913344
+      },
+      "available_memory_bytes": 15373119488,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 0.9851731290000316,
+      "unix_ns": 1793371414530065553,
+      "process_tree_rss_bytes": 183791616,
+      "members": {
+        "19963": 183791616
+      },
+      "available_memory_bytes": 15367708672,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 1.092896944999893,
+      "unix_ns": 1793371414637789689,
+      "process_tree_rss_bytes": 103268352,
+      "members": {
+        "19963": 103268352
+      },
+      "available_memory_bytes": 15367462912,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 1.2023797760000434,
+      "unix_ns": 1793371414747272600,
+      "process_tree_rss_bytes": 177905664,
+      "members": {
+        "19963": 177905664
+      },
+      "available_memory_bytes": 15367475200,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 1.3103772350000327,
+      "unix_ns": 1793371414855270660,
+      "process_tree_rss_bytes": 170610688,
+      "members": {
+        "19963": 170610688
+      },
+      "available_memory_bytes": 15367225344,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 1.4179175839999516,
+      "unix_ns": 1793371414962810097,
+      "process_tree_rss_bytes": 110886912,
+      "members": {
+        "19963": 110886912
+      },
+      "available_memory_bytes": 15359225856,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 1.5268139390000215,
+      "unix_ns": 1793371415071707164,
+      "process_tree_rss_bytes": 174133248,
+      "members": {
+        "19963": 174133248
+      },
+      "available_memory_bytes": 15359234048,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 1.6342453729998851,
+      "unix_ns": 1793371415179138167,
+      "process_tree_rss_bytes": 166760448,
+      "members": {
+        "19963": 166760448
+      },
+      "available_memory_bytes": 15364096000,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 1.7416040670000257,
+      "unix_ns": 1793371415286496481,
+      "process_tree_rss_bytes": 114843648,
+      "members": {
+        "19963": 114843648
+      },
+      "available_memory_bytes": 15347847168,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 1.8504047389999414,
+      "unix_ns": 1793371415395297213,
+      "process_tree_rss_bytes": 176947200,
+      "members": {
+        "19963": 176947200
+      },
+      "available_memory_bytes": 15290052608,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 1.9586631619999935,
+      "unix_ns": 1793371415503555936,
+      "process_tree_rss_bytes": 177770496,
+      "members": {
+        "19963": 177770496
+      },
+      "available_memory_bytes": 15296786432,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 2.066175848000057,
+      "unix_ns": 1793371415611068492,
+      "process_tree_rss_bytes": 122118144,
+      "members": {
+        "19963": 122118144
+      },
+      "available_memory_bytes": 15280545792,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 2.1753328180000153,
+      "unix_ns": 1793371415720225572,
+      "process_tree_rss_bytes": 181112832,
+      "members": {
+        "19963": 181112832
+      },
+      "available_memory_bytes": 15280549888,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 2.284785051999961,
+      "unix_ns": 1793371415829677636,
+      "process_tree_rss_bytes": 179585024,
+      "members": {
+        "19963": 179585024
+      },
+      "available_memory_bytes": 15223013376,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 2.3923530320000737,
+      "unix_ns": 1793371415937245276,
+      "process_tree_rss_bytes": 135856128,
+      "members": {
+        "19963": 135856128
+      },
+      "available_memory_bytes": 15234768896,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 2.5009497359999386,
+      "unix_ns": 1793371416045842510,
+      "process_tree_rss_bytes": 182288384,
+      "members": {
+        "19963": 182288384
+      },
+      "available_memory_bytes": 15234519040,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 2.6101388740000857,
+      "unix_ns": 1793371416155031798,
+      "process_tree_rss_bytes": 182284288,
+      "members": {
+        "19963": 182284288
+      },
+      "available_memory_bytes": 15248044032,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 2.717764361000036,
+      "unix_ns": 1793371416262656935,
+      "process_tree_rss_bytes": 158998528,
+      "members": {
+        "19963": 158998528
+      },
+      "available_memory_bytes": 15306104832,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 2.8259343199999876,
+      "unix_ns": 1793371416370826894,
+      "process_tree_rss_bytes": 118837248,
+      "members": {
+        "19963": 118837248
+      },
+      "available_memory_bytes": 15297855488,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 2.9332380010000634,
+      "unix_ns": 1793371416478130605,
+      "process_tree_rss_bytes": 84537344,
+      "members": {
+        "19963": 84537344
+      },
+      "available_memory_bytes": 15307919360,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 3.040493609999885,
+      "unix_ns": 1793371416585386153,
+      "process_tree_rss_bytes": 84537344,
+      "members": {
+        "19963": 84537344
+      },
+      "available_memory_bytes": 15307919360,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 3.1477030080000077,
+      "unix_ns": 1793371416692595342,
+      "process_tree_rss_bytes": 84537344,
+      "members": {
+        "19963": 84537344
+      },
+      "available_memory_bytes": 15307919360,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 3.2550573860000895,
+      "unix_ns": 1793371416799949800,
+      "process_tree_rss_bytes": 84537344,
+      "members": {
+        "19963": 84537344
+      },
+      "available_memory_bytes": 15307919360,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 3.3623757200000455,
+      "unix_ns": 1793371416907268333,
+      "process_tree_rss_bytes": 84537344,
+      "members": {
+        "19963": 84537344
+      },
+      "available_memory_bytes": 15324434432,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 3.46969587600006,
+      "unix_ns": 1793371417014588580,
+      "process_tree_rss_bytes": 84537344,
+      "members": {
+        "19963": 84537344
+      },
+      "available_memory_bytes": 15324188672,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 3.577192549000074,
+      "unix_ns": 1793371417122085042,
+      "process_tree_rss_bytes": 84537344,
+      "members": {
+        "19963": 84537344
+      },
+      "available_memory_bytes": 15324188672,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 3.686648939999941,
+      "unix_ns": 1793371417231541884,
+      "process_tree_rss_bytes": 167038976,
+      "members": {
+        "19963": 167038976
+      },
+      "available_memory_bytes": 15266795520,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 3.793973502999961,
+      "unix_ns": 1793371417338866096,
+      "process_tree_rss_bytes": 96534528,
+      "members": {
+        "19963": 96534528
+      },
+      "available_memory_bytes": 15342866432,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 3.9012970940000287,
+      "unix_ns": 1793371417446189878,
+      "process_tree_rss_bytes": 96534528,
+      "members": {
+        "19963": 96534528
+      },
+      "available_memory_bytes": 15342940160,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 4.008531369999901,
+      "unix_ns": 1793371417553423724,
+      "process_tree_rss_bytes": 96534528,
+      "members": {
+        "19963": 96534528
+      },
+      "available_memory_bytes": 15342739456,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 4.115967731999945,
+      "unix_ns": 1793371417660860496,
+      "process_tree_rss_bytes": 96534528,
+      "members": {
+        "19963": 96534528
+      },
+      "available_memory_bytes": 15342682112,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 4.223292638999965,
+      "unix_ns": 1793371417768185063,
+      "process_tree_rss_bytes": 96534528,
+      "members": {
+        "19963": 96534528
+      },
+      "available_memory_bytes": 15342682112,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 4.330685488999961,
+      "unix_ns": 1793371417875577983,
+      "process_tree_rss_bytes": 96534528,
+      "members": {
+        "19963": 96534528
+      },
+      "available_memory_bytes": 15342682112,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 4.438241925000057,
+      "unix_ns": 1793371417983134619,
+      "process_tree_rss_bytes": 96534528,
+      "members": {
+        "19963": 96534528
+      },
+      "available_memory_bytes": 15366205440,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 4.545764277999979,
+      "unix_ns": 1793371418090656922,
+      "process_tree_rss_bytes": 110743552,
+      "members": {
+        "19963": 110743552
+      },
+      "available_memory_bytes": 15349948416,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 4.6541059399999085,
+      "unix_ns": 1793371418198999025,
+      "process_tree_rss_bytes": 180686848,
+      "members": {
+        "19963": 180686848
+      },
+      "available_memory_bytes": 15291899904,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 4.761388753999881,
+      "unix_ns": 1793371418306281147,
+      "process_tree_rss_bytes": 107143168,
+      "members": {
+        "19963": 107143168
+      },
+      "available_memory_bytes": 15291899904,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 4.868687207999983,
+      "unix_ns": 1793371418413579622,
+      "process_tree_rss_bytes": 107143168,
+      "members": {
+        "19963": 107143168
+      },
+      "available_memory_bytes": 15291899904,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 4.97598895100009,
+      "unix_ns": 1793371418520881515,
+      "process_tree_rss_bytes": 107143168,
+      "members": {
+        "19963": 107143168
+      },
+      "available_memory_bytes": 15291899904,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 5.083279846000096,
+      "unix_ns": 1793371418628172470,
+      "process_tree_rss_bytes": 107143168,
+      "members": {
+        "19963": 107143168
+      },
+      "available_memory_bytes": 15291654144,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 5.190787918000069,
+      "unix_ns": 1793371418735680622,
+      "process_tree_rss_bytes": 107143168,
+      "members": {
+        "19963": 107143168
+      },
+      "available_memory_bytes": 15291654144,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 5.298142980999955,
+      "unix_ns": 1793371418843035464,
+      "process_tree_rss_bytes": 107143168,
+      "members": {
+        "19963": 107143168
+      },
+      "available_memory_bytes": 15291654144,
+      "available_memory_mechanism": "Linux MemAvailable"
+    },
+    {
+      "at_seconds": 5.405393224999898,
+      "unix_ns": 1793371418950285899,
+      "process_tree_rss_bytes": 107143168,
+      "members": {
+        "19963": 107143168
+      },
+      "available_memory_bytes": 15299911680,
+      "available_memory_mechanism": "Linux MemAvailable"
+    }
+  ],
+  "counter_errors": [],
+  "terminal_observations": [],
+  "stop_reason": null
+}

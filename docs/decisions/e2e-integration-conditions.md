@@ -12,15 +12,30 @@ commit referenced by the decision, not an ancestor of this candidate. No
 experimental history is merged just to change that fact. P1 #26's corresponding
 ancestry requirement also requires merge-commit integration.
 
-The actual updated main baseline is
-`a18b247d91ac709cba550c7d0c623236ed541a31` (#34), newer than the initially
-reported38d4476. It has been merged into this candidate. #34 intentionally
-makes full Live acceptance manual and keeps required daily source/integration
-smoke in Development. Preserve that division. The e2e family gates the two owned
-entry steps through a job-local selection output because main no longer has the
-old scope job. Manual full acceptance selects all families; conservative input
-classification and both gate boundaries are tested in test_live_selection.py.
-This does not reintroduce automatic full acceptance on PRs.
+The first updated main baseline was a18b247d (#34). During its full CI,
+main advanced through #35/#36 to
+`55b09c3ae78f98d1b989cdc5d82bfa33ba96b72b`; that baseline is now merged too.
+#35 makes heavy feature acceptance release-owned workflow_call only; #36 shares
+normal daily check/integration compilation. Preserve those policies. E2E uses
+job-local family outputs (main has no old scope job), gates both owned-entry
+steps and uses SOURCE_COMMIT, not the caller's GITHUB_SHA. Full acceptance
+selects all families. The boundary tests protect gating, conservative classification,
+release-only workflow triggers and explicit candidate identity.
+
+The first integrated full run41070798375 at67ef37dc had successful required
+checks/native/macOS, but Ubuntu's G1 cap2/parallel4 observer reported zero RSS
+at process exit and returned UNVERIFIED. The underlying runtime controls PASS,
+returncode0, cleanup_complete true and final children/baselines0 are preserved in
+[the failure receipt](../reviews/e2e-integration-ci-41070798375/attempt1-ubuntu-g1/assessment.json).
+Attempt1 is not PASS. A one-time same-source Ubuntu retry was requested, then
+canceled as superseded when the later main workflow/acceptance inputs were found.
+No observation oracle was relaxed or missing counter synthesized.
+
+The newer source still needs its own acceptance evidence. Since full Live now
+runs only under Release CI, obtaining that evidence before integration entails
+operation=verify and its wider qualification work, with no publication. The Human
+is choosing between that route and explicitly changing the timing of full
+acceptance to release verification. Neither is silently assumed here.
 
 New receipts are required for the integrated workflow/test source. The old
 CI41058866706 remains evidence for edfee478 only; it is not the integrated

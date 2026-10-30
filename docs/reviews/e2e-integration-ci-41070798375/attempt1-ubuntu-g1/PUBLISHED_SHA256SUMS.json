@@ -1,0 +1,22 @@
+{
+  "SHA256SUMS.json": "ce46c9aca25fd881203157eccf7c964f9bc7d4b7cf3c73c7f0319660ea0c23a1",
+  "assessment.json": "eb5411e0cb92620456d7ea3d731bad2c1ab8d18d7c6f315bac21addd7daa09f1",
+  "build.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "cap1-parallel1/go.json": "9eb19befcf27fce51a7f5427ed5576cb716b619b8a0afbc0ff93183d5da16c23",
+  "cap1-parallel1/os.json": "949b8f2ba9b12ee09f3149d8499734d20a6a7300bef9624a5b9479e42a63452f",
+  "cap1-parallel1/stdout.txt": "06b046fb92f707d6551f57dd57efed521ff5ef6ee701e79df91c28b409d86587",
+  "cap1-parallel4/go.json": "a384c08a90d3e4802d9f3396b424139960858957611f0039213099b70e5ab563",
+  "cap1-parallel4/os.json": "80434e4c26971ce09108e48b8e6264be71232af973775f29e4c1d658fb8bff38",
+  "cap1-parallel4/stdout.txt": "bbffda151a3b5361215ec7e8593a7a3ed17efc1b72920963a52f529b10503419",
+  "cap2-parallel1/go.json": "6a4216da78b5f7c930b52731351e543d33e1c231c37178582af75039c79ee453",
+  "cap2-parallel1/os.json": "abacd51e055d7f1b26e15dcd2ec4c85684ef6673daf96eac60dfa34e12f6ffc9",
+  "cap2-parallel1/stdout.txt": "59d28f2cb7dba9e6bdb0483e3c15a2a7c7d0d229261801c627c6478d7b6c563d",
+  "cap2-parallel4/STOP.txt": "2e23ec72c857b54d1e1e166448f2208a2b0203652ad5bc39246989e51a91829b",
+  "cap2-parallel4/go.json": "f812bd5f28b3ec9ffa60926fe7501271cccab8f748cac42209a5a9966b936dd4",
+  "cap2-parallel4/os.json": "8035e3f33d23da5583c9e29503af4eadcb106ea406d9bacf94afbe042d512e89",
+  "cap2-parallel4/stdout.txt": "c63ddac0a59ba886dc33ee21601a39923f50e62b179252c30316c20dd5222120",
+  "first-test.txt": "44352f1ac0608e6b13a7dd32edf2780f6362feaba6c8e9d3c99aff951c9c1e4e",
+  "host.json": "56d67a1ec9a6b69f83d61b6346dc90717df16a7a22b27c0a677338d9bcf25551",
+  "limits.json": "6b3b324b11bc6f2c262866938ba976d43a1595cb5d8f31a9d41413facda0e892",
+  "second-test.txt": "fa03361922ed6e9769459c4040fdf49e02e65e32f95045c5da688c2c5b5d9aa3"
+}
