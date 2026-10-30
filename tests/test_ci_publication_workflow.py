@@ -11,6 +11,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from ci_release_summary import publication_rows
+from test_release_plan import job_text
 
 
 @pytest.mark.parametrize('job,mode,modern,fail', [
@@ -23,11 +24,11 @@ from ci_release_summary import publication_rows
 ])
 def test_actual_restore_shell_keeps_one_guard_and_stops_on_failure(tmp_path, job, mode, modern, fail):
     workflow = (ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
-    section = re.search(r'^  '+job+r':\n(.*?)(?=^  \S|\Z)', workflow, re.M | re.S)[1]
+    section = job_text('verification_darwin' if job == 'verification' else job)
     marker = '      - id: restore\n' if job == 'verification' else '      - name: Restore and guard both platforms once'
     step = section.split(marker, 1)[1].split('\n      - ', 1)[0]
     shell = '\n'.join(line[10:] for line in step.split('        run: |\n', 1)[1].splitlines())
-    shell = shell.replace('${{ matrix.platform }}', 'darwin-arm64')
+    shell = shell.replace('${{ env.RELEASE_PLATFORM }}', 'darwin-arm64')
     assert '${{' not in shell
     binary = tmp_path/'bin'; binary.mkdir()
     fake = binary/'python'
@@ -83,8 +84,8 @@ def test_publication_job_gate_and_handoff():
     assert 'options: [verify, release, public-smoke-recovery]' in before
     assert "if: always() && !cancelled() && inputs.operation == 'release' && needs.resolve.result == 'success' && needs.publication.result == 'success'" in publication
     assert 'build_alpha.py' not in publication and 'build_generated_guest.py' not in publication
-    assert 'release-candidate-${{ matrix.platform }}-' in before
-    assert 'release-evidence-${{ matrix.platform }}-' in before
+    assert 'release-candidate-${{ env.RELEASE_PLATFORM }}-' in before
+    assert 'release-evidence-${{ env.RELEASE_PLATFORM }}-' in before
     assert 'build_generated_guest.py --repetitions 2' in before
     assert 'regenerate_release_guest.py' in before
     assert 'compile_guest_aot.py' not in workflow and 'package_native.py' not in workflow

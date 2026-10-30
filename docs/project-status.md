@@ -147,6 +147,39 @@ part of this work. Hosted cache hits, cold/warm savings and the complete updated
 Release path remain unmeasured; no additional qualification run is a prerequisite
 created by this optimization.
 
+## Release qualification parallelism — implementation authorized
+
+After PR41 merged as source_commit
+`cff1fd779fdf35a1f33775b9866cf78f3c09f74c`, the Human authorized recommendation 3:
+start core qualification alongside guest reproduction and remove the cross-OS
+candidate barrier before external-consumer verification. Remaining feature-unit
+cleanup is separate work. This changes scheduling, not the accepted test coverage,
+candidate identity or publication decision.
+
+The core jobs consume the existing exact-source shared wheel and tracked generated
+Go after shared runtime preparation; they do not wait for canonical guest builds.
+Each OS then freezes only after its own core job and the canonical guest job
+succeed. Freezing rechecks the shared wheel, generated sources and complete
+guest/corresponding-source evidence. External-consumer verification starts after
+that OS's frozen handoff, in its existing separate runner and isolated consumer
+environment. Core cache ownership and fresh test execution remain as in PR41.
+
+The final `verification` join requires both OS paths. Full mode additionally
+requires guest reproduction, both core jobs and both handoff jobs to succeed;
+reuse/recovery modes require those full-only jobs to be skipped. Missing, failed,
+cancelled or unexpectedly skipped work blocks the join and therefore READY.
+The existing feature gate, immutable handoff/evidence names, qualification run
+references, final publication guard and public smoke remain compatible. An
+explicit runtime-reuse proof is transferred from each successful core job and
+authenticated again by the existing frozen-proof verifier before packaging.
+
+Evidence is bounded to existing source/workflow inspection, actual gate/shell
+execution with synthetic results, dependency and shared-step checks, and the
+canonical focused preparation checks. Heavy CI submission budget is zero for
+this maintenance task. Hosted scheduling, cold/warm timings and end-to-end
+Release completion remain unmeasured; no speedup or new release approval is
+implied by local PASS.
+
 ## Issue #5 host repair — adopted on main, unreleased
 
 The Human approved main adoption of candidate source_commit
