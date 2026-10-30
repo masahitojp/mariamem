@@ -22,5 +22,5 @@ These notes describe source candidates, not a published version or release appro
 See [Python usage and compatibility](../python.md#prepared-command-entry).
 P1 follows the [fixed exit](../decisions/p1-fixed-exit-v060.md): entry lifecycle
 correctness remains required; detailed resource characterization is deferred to
-v0.7.x. Final candidate acceptance and adoption remain pending; controlled owners
-are component evidence. No version, tag, Qualification or publication is implied.
+v0.7.x. The fixed-profile candidate has passed both-host/minor acceptance; main
+adoption remains pending. Controlled owners are component evidence. No version, tag, Qualification or publication is implied.

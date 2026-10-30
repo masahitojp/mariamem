@@ -823,8 +823,20 @@ Detailed resource characterization, retained-baseline stress and resource-model
 or connection-capacity tuning belong to v0.7.x, not P1 or v0.6.0 completion.
 Entry-owned cleanup, bounded worker/connection behavior and readable failure
 handling remain required. This supersedes the earlier resource placement below;
-existing receipts retain their original source and scope. P1 acceptance and
-main adoption are still pending; this is not a runtime PASS or release approval.
+existing receipts retain their original source and scope. This scope decision
+alone grants no runtime PASS or release approval; current P1 acceptance follows.
+
+**P1 fixed-exit acceptance verified, adoption review ready:** source_commit
+`b108abf11a623c18c45adfab2968d357bf40718b` passed
+[CI40987752495](https://github.com/masahitojp/mariamem/actions/runs/40987752495):
+macOS15/Ubuntu24.04 × Python3.11/3.14 each220 unit PASS and5 installed-consumer
+runtime PASS, with4 resource experiments explicitly SKIP. Both native input
+profiles pass with schema_count_after=0. The [checksummed receipt](reviews/v06x-python-fixture-implementation-evidence/ci-40987752495/assessment.json)
+and [six-condition adoption review](reviews/v06x-p1-fixed-exit-adoption-review.md)
+recommend main adoption. Human approval and protected PR integration remain;
+P1 feature acceptance no longer waits on detailed resource measurement.
+The first candidate40979625348's stale-resource-workflow FAIL is preserved,
+not relabelled. Other dogfood/wire work and Qualification/release remain separate.
 
 ### PR macOS Live check ownership
 

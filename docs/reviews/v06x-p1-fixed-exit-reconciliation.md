@@ -70,3 +70,16 @@ fixed-exit workflow test instead requires resource opt-in zero and excludes all
 three suites from the P1 step. Resource helper behavior/negative controls remain
 intact; no P1 lifecycle or failure oracle is relaxed. Unreleased notes now also
 state the approved resource deferral. A corrected candidate CI is required.
+
+## Corrected final-candidate result — 40987752495
+
+Source_commit `b108abf11a623c18c45adfab2968d357bf40718b` passed the corrected
+both-host/minor CI. Each installed-consumer cell reports 220 unit PASS and
+5 runtime PASS; the four resource experiments are explicitly SKIP. Both native
+input cells pass with schema_count_after=0. Four original ZIP digests and the
+898-file selected archive are checked and retained in the
+[receipt](v06x-python-fixture-implementation-evidence/ci-40987752495/assessment.json).
+All six fixed conditions now have evidence at their declared boundary. See the
+[adoption review](v06x-p1-fixed-exit-adoption-review.md) for recommendation and
+remaining protected-PR/Human decisions. Historical FAIL and earlier PASS records
+keep their original source/scope; full resource characterization remains deferred.

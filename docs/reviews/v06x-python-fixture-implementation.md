@@ -5,9 +5,12 @@
 > supersedes the resource completion gates below. Detailed retention/resource
 > characterization is deferred to v0.7.x; entry lifecycle correctness remains
 > required. Earlier proposal/checkpoint text and source-bound receipts below are
-> historical evidence, not the current list of P1 blockers. P1 is not yet accepted.
+> historical evidence, not the current list of P1 blockers. Fixed-exit technical
+> acceptance is verified below; Human main adoption remains pending.
 
-Current work: [six-condition evidence reconciliation](v06x-p1-fixed-exit-reconciliation.md).
+Current: [six-condition evidence reconciliation](v06x-p1-fixed-exit-reconciliation.md)
+and [P1 adoption review](v06x-p1-fixed-exit-adoption-review.md); exact source
+`b108abf11a623c18c45adfab2968d357bf40718b` passed CI40987752495.
 
 Local SDK/entry checkpoint source: e4b470034d56b50770452ec816e8f88fa837deb5, based on main
 2ad041c. The final local results below supersede earlier candidate observations
