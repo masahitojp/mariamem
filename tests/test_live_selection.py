@@ -36,7 +36,10 @@ class TestE2ESelection(unittest.TestCase):
             self.assertIn('- name: '+name+"\n        if: steps.families.outputs.e2e == 'true'", text)
         self.assertIn('id: families', text)
         self.assertIn('python scripts/live_selection.py --github-output', text)
-        self.assertIn('  workflow_dispatch:', text)
+        self.assertIn('  workflow_call:', text)
+        self.assertNotIn('  workflow_dispatch:', text)
+        self.assertIn('SOURCE_COMMIT: ${{ inputs.source_commit }}', text)
+        self.assertNotIn('$GITHUB_SHA', text)
         self.assertNotIn('  pull_request:', text)
         self.assertNotIn('  push:', text)
 

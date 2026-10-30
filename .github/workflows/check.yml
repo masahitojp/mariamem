@@ -1,7 +1,5 @@
 name: Development checks
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -11,190 +9,83 @@ concurrency:
 permissions:
   contents: read
 jobs:
-  scope:
+  check:
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
     outputs:
-      check_scope: ${{ steps.diff.outputs.check_scope }}
       integration: ${{ steps.diff.outputs.integration }}
+      smoke_result: ${{ steps.smoke.outcome }}
     steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      # One checkout owns selection, source checks and representative smoke.
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           filter: blob:none
-          fetch-depth: 0
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+          fetch-depth: 0 # Diff and fixture ancestry checks require commit history.
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: '3.14'
       - id: diff
         run: python scripts/development_scope.py --candidate-sha '${{ github.sha }}' --github-output
-  check:
-    needs: scope
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-        with:
-          filter: blob:none
-          fetch-depth: 0 # Fixture acceptance binds the reviewed design ancestor.
-      - if: needs.scope.outputs.check_scope == 'full'
+      - if: steps.diff.outputs.check_scope == 'full'
         uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
         with:
           go-version: '1.26.10'
           cache: true
+          # Go invalidates compiled packages by their inputs. Workflow edits
+          # must not discard the compiler cache; cached test PASS is never reused.
           cache-dependency-path: |
+            go.mod
             go.sum
-            .github/workflows/check.yml
-            scripts/vet_generated.py
       - name: Share Go compiler cache and discard restored test results
-        if: needs.scope.outputs.check_scope == 'full'
+        if: steps.diff.outputs.check_scope == 'full'
         shell: bash
         run: |
           echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
           go clean -testcache
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
-        with:
-          python-version: '3.14'
-      - if: needs.scope.outputs.check_scope != 'docs'
+      - if: steps.diff.outputs.check_scope != 'docs'
         run: python -m pip install -r tests/routing_acceptance/unit-requirements.txt
-      - run: python scripts/verify.py check --scope '${{ needs.scope.outputs.check_scope }}'
+      - run: python scripts/verify.py check --scope '${{ steps.diff.outputs.check_scope }}'
+      - id: smoke
+        name: Representative runtime smoke using the source-check compiler cache
+        if: steps.diff.outputs.integration == 'true'
+        run: python scripts/verify.py smoke
 
   integration:
-    needs: scope
-    if: needs.scope.outputs.integration == 'true'
+    # Keep the protected context; the actual smoke ran on the check runner.
+    needs: check
+    if: always() && needs.check.outputs.integration == 'true'
     runs-on: ubuntu-24.04
-    # Cold race and ordinary builds share this job budget; test deadlines remain in verify.py.
-    timeout-minutes: 30
+    timeout-minutes: 2
     steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-        with:
-          filter: blob:none
-          fetch-depth: 0
-      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
-        with:
-          go-version: '1.26.10'
-          cache: true
-          cache-dependency-path: |
-            go.sum
-            .github/workflows/check.yml
-            scripts/verify.py
-      - name: Share Go compiler cache and discard restored test results
-        shell: bash
-        run: |
-          echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
-          go clean -testcache
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
-        with:
-          python-version: '3.14'
-      - run: python -m pip install -r tests/routing_acceptance/unit-requirements.txt mysql-connector-python==26.7.0
-      - run: python scripts/verify.py integration
-
-  worker-failure-native:
-    needs: scope
-    if: needs.scope.outputs.integration == 'true'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    services:
-      mariadb:
-        image: mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e
+      - name: Require successful source checks and actual smoke
         env:
-          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
-        ports: ['33315:3306']
-        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=20
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
-        with:
-          python-version: '3.14'
-      - run: python -m pip install PyMySQL==1.2.3
-      - name: Fresh native duplicate-removal reference
-        run: python tests/text_dedup_acceptance.py native --source-commit "$GITHUB_SHA" --native-image mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e --output build/worker-failure/native.json
-      - name: Fresh native ordinary SQL reference (one-minute budget)
-        timeout-minutes: 1
-        run: python tests/text_dedup_acceptance.py native --suite ordinary --source-commit "$GITHUB_SHA" --native-image mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e --output build/worker-failure/ordinary-native.json
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
-        if: always()
-        with:
-          name: worker-failure-native-${{ github.sha }}
-          path: build/worker-failure
-          if-no-files-found: error
-
-  worker-failure:
-    needs: [scope, worker-failure-native]
-    if: needs.scope.outputs.integration == 'true'
-    strategy:
-      fail-fast: false
-      matrix:
-        # Keep the PR macOS slot consolidated in Live; main/manual retain both hosts.
-        os: ${{ github.event_name == 'pull_request' && fromJSON('["ubuntu-24.04"]') || fromJSON('["ubuntu-24.04","macos-15"]') }}
-    runs-on: ${{ matrix.os }}
-    # Cold macOS race/guest compilation can consume the original 30-minute job budget.
-    # The ordinary SQL steps and combined reference/guest budget remain one minute.
-    timeout-minutes: 60
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
-        with:
-          go-version: '1.26.10'
-          cache: true
-          cache-dependency-path: |
-            go.sum
-            .github/workflows/check.yml
-            scripts/runtime_failure.py
-      - name: Share Go compiler cache and discard restored test results
-        shell: bash
+          CHECK_RESULT: ${{ needs.check.result }}
+          SMOKE_RESULT: ${{ needs.check.outputs.smoke_result }}
         run: |
-          echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
-          go clean -testcache
-      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
-        with:
-          python-version: '3.14'
-      - run: python -m pip install pytest PyMySQL==1.2.3
-      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
-        with:
-          name: worker-failure-native-${{ github.sha }}
-          path: build/worker-failure/reference
-      - name: Source identity
-        run: python scripts/git_identity.py inspect HEAD
-      # Ubuntu integration already owns these exact runtime regressions.
-      - name: Host ownership races
-        if: runner.os != 'Linux'
-        run: |
-          go test -race -p 1 ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/mysqlwire -count=1
-      - name: Actual generated worker trap and independent DB survival
-        if: runner.os != 'Linux'
-        run: go test -p 1 -tags=integration ./internal/generatedgo -run TestWorkerTrapActualGuest -count=1 -timeout=3m
-      - name: Exact-source host and native equality
-        run: |
-          go build -p 1 -trimpath -o build/worker-failure/mariamem-host ./cmd/mariamem-host
-          python tests/text_dedup_acceptance.py guest --source-commit "$GITHUB_SHA" --host build/worker-failure/mariamem-host --reference build/worker-failure/reference/native.json --output build/worker-failure/guest.json
-      - name: Ordinary SQL native/guest comparison (one-minute budget)
-        timeout-minutes: 1
-        run: python tests/text_dedup_acceptance.py guest --suite ordinary --source-commit "$GITHUB_SHA" --host build/worker-failure/mariamem-host --reference build/worker-failure/reference/ordinary-native.json --output build/worker-failure/ordinary-guest.json
-      - name: Wire regression and Snapshot/Fork after mapped temporary-table use
-        if: runner.os != 'Linux'
-        env:
-          MARIAMEM_TEST_DEFAULT: '1'
-          MARIAMEM_TEST_HOST: build/worker-failure/mariamem-host
-          PYTHONPATH: python
-        run: python -m pytest tests/test_python_wire.py tests/test_owned_snapshot.py -k 'text_blob_duplicate or duplicate_removal_mapping' -q
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
-        if: always()
-        with:
-          name: worker-failure-${{ matrix.os }}-${{ github.sha }}
-          path: |
-            build/worker-failure/guest.json
-            build/worker-failure/ordinary-guest.json
-            build/worker-failure/reference/ordinary-native.json
-            build/worker-failure/reference/native.json
-          if-no-files-found: warn
+          test "$CHECK_RESULT" = success
+          test "$SMOKE_RESULT" = success
 
   required:
     name: Live required gate
     if: always()
-    needs: [scope, check, integration]
+    needs: [check, integration]
     runs-on: ubuntu-24.04
+    timeout-minutes: 2
     steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-      - name: Require daily source checks and selected integration including Live smoke
+      - name: Require daily source checks and selected smoke
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
-          PYTHONPATH: scripts
-        run: python3 -c 'import json, os; from development_scope import verify_gate; verify_gate(json.loads(os.environ["NEEDS_JSON"]))'
+        # Inspect only job metadata: no checkout or toolchain setup for a gate.
+        run: |
+          python3 - <<'PY'
+          import json, os
+          needs = json.loads(os.environ['NEEDS_JSON'])
+          assert set(needs) == {'check', 'integration'}, 'missing development dependency'
+          assert needs['check']['result'] == 'success', 'source checks failed'
+          outputs = needs['check']['outputs']
+          selected = outputs.get('integration')
+          assert selected in ('true', 'false'), 'invalid smoke selection'
+          expected = 'success' if selected == 'true' else 'skipped'
+          assert outputs.get('smoke_result') == expected, 'smoke did not finish as selected'
+          assert needs['integration']['result'] == expected, 'integration context did not finish as selected'
+          PY

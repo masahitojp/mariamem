@@ -118,7 +118,7 @@ def test_both_host_workflow_executes_and_requires_completion_receipts():
     text = (REPO / '.github/workflows/live-host.yml').read_text()
     assert '--output build/live-evidence/g1/completion' in text
     required = text.split('  required:\n', 1)[1]
-    assert 'scripts/go_fixture_completion.py --expected-source-commit "$GITHUB_SHA" --validate-matrix build/g1-matrix' in required
+    assert 'scripts/go_fixture_completion.py --expected-source-commit "$SOURCE_COMMIT" --validate-matrix build/g1-matrix' in required
 
 
 def test_valid_linux_completion_cannot_substitute_for_mac(root, tmp_path):

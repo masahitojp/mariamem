@@ -1,4 +1,4 @@
-"""E2E boundary selection; full manual acceptance always selects every family."""
+"""E2E boundary selection; release-owned full acceptance always selects every family."""
 import argparse
 import json
 import os
@@ -35,8 +35,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--github-output', action='store_true')
     args = parser.parse_args()
-    # #34 deliberately removed automatic full-acceptance diffs. Do not revive
-    # that policy here: the manual event selects all, independently of prose.
+    # #35 makes full acceptance release-owned. Its caller event selects all;
+    # do not revive automatic PR full acceptance or derive source from the event.
     result = select([], os.environ.get('GITHUB_EVENT_NAME', 'unknown'))
     print(json.dumps(result))
     if args.github_output:

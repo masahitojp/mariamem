@@ -13,7 +13,18 @@ def check(source):
         with connect(source) as c:
             with c.cursor() as q:
                 q.execute('CREATE TABLE live_user(n INT)');q.execute('INSERT INTO live_user VALUES(1)')
-        source.wait_disconnected();saved=source.snapshot();live=saved.live();info=live.connection_info()
+        source.wait_disconnected();saved=source.snapshot()
+        first=saved.fork();second=None
+        try:
+            with connect(first) as c:
+                with c.cursor() as q:q.execute('INSERT INTO live_user VALUES(9)')
+            second=saved.fork()
+            with connect(second) as c:
+                with c.cursor() as q:q.execute('SELECT SUM(n) FROM live_user');assert q.fetchone()==(1,)
+        finally:
+            if second is not None:second.close()
+            first.close()
+        live=saved.live();info=live.connection_info()
         with connect(live) as c:
             with c.cursor() as q:q.execute('INSERT INTO live_user VALUES(2)')
         live.reset()
