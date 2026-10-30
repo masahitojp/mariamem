@@ -509,23 +509,23 @@ Product Validation; those changes are not part of v0.4.5.
   both-native verification is recorded above. The historical 64-table fixture
   had 137 files and released its backing FDs after Close on both platforms.
   Many simultaneously retained baselines, especially file-heavy schemas, may
-  approach process FD limits. The Human decision places that observation in the
-  v0.6.0 dogfood scope below: gather real workload evidence there and improve
-  the resource model only if pressure is demonstrated. This item is therefore
-  out of 0.5.x; it is not an approved 0.5.x task and not a reason by itself to
-  create another 0.5.x patch release.
+  approach process FD limits. The 2026-10-30 Human correction assigns detailed
+  retained-baseline/FD-pressure characterization to v0.7.x, superseding its
+  earlier v0.6.0 dogfood placement. Entry-owned cleanup remains required in
+  v0.6.0; resource-model changes are not authorized by this observation.
 - The 0.x API may change. Corresponding guest source, licenses, notices and
   reproducible generation remain required.
 
 ## Performance evidence and pending optimization questions
 
-**Moved to v0.6.x dogfood: per-DB connection-count tuning.** The current contract
+**Moved to v0.7.x resources: per-DB connection-count tuning.** The current contract
 keeps a fixed 16-connection limit per DB. The Human placed connection-count
 optimization in the 0.5.x scope on 2026-10-17; on 2026-10-18 the Human moved it to
 v0.6.x so that actual demand and resource effect are confirmed during dogfood
-before changing the limit. This is distinct from the FD/resource-model pressure
-observation, also assigned to v0.6.0 dogfood above. The current active and closed
-items are listed in the [v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
+before changing the limit. The 2026-10-30 scope correction moves that detailed
+resource/tuning work and FD/resource-model characterization to v0.7.x. The
+16-session wire contract and bounded application connection use remain unchanged.
+The current active and closed items are listed in the [v0.5.x remaining-item snapshot](reviews/v05x-remaining-items.md).
 
 **Evidence reuse scope — assessment accepted, expansion deferred (2026-10-18).**
 The Human approved the [limited dependency/rejection-condition assessment](reviews/runtime-evidence-trust-scope-plan.md),
@@ -851,7 +851,28 @@ correctness work, both-native Qualification and Product Verification are linked
 above. Full shared-memory race census and startup-tail improvements remain
 separate work; no general performance improvement is claimed.
 
-## v0.6.0 — Dogfood and fixture ergonomics
+## v0.6.0 — Wire contract and dogfood
+
+**Human scope correction, 2026-10-30:** establishing the wire contract is the
+main v0.6.0 objective. P1 has a [fixed six-condition exit](decisions/p1-fixed-exit-v060.md).
+Detailed resource characterization, retained-baseline stress and resource-model
+or connection-capacity tuning belong to v0.7.x, not P1 or v0.6.0 completion.
+Entry-owned cleanup, bounded worker/connection behavior and readable failure
+handling remain required. This supersedes the earlier resource placement below;
+existing receipts retain their original source and scope. This scope decision
+alone grants no runtime PASS or release approval; current P1 acceptance follows.
+
+**P1 fixed-exit acceptance verified, adoption review ready:** source_commit
+`b108abf11a623c18c45adfab2968d357bf40718b` passed
+[CI40987752495](https://github.com/masahitojp/mariamem/actions/runs/40987752495):
+macOS15/Ubuntu24.04 × Python3.11/3.14 each220 unit PASS and5 installed-consumer
+runtime PASS, with4 resource experiments explicitly SKIP. Both native input
+profiles pass with schema_count_after=0. The [checksummed receipt](reviews/v06x-python-fixture-implementation-evidence/ci-40987752495/assessment.json)
+and [six-condition adoption review](reviews/v06x-p1-fixed-exit-adoption-review.md)
+recommend main adoption. Human approval and protected PR integration remain;
+P1 feature acceptance no longer waits on detailed resource measurement.
+The first candidate40979625348's stale-resource-workflow FAIL is preserved,
+not relabelled. Other dogfood/wire work and Qualification/release remain separate.
 
 ### PR macOS Live check ownership
 
@@ -928,9 +949,11 @@ is a placement decision; it does not approve publication or bypass any gate.
   A deferral is a disposition of the obligation, not a reduction of it.
 - **Complete dogfood is a prerequisite for the v0.6.0 release.** Recipes,
   component PASS, unit tests or single-platform runs do not satisfy it; the
-  acceptance campaign (declared profiles, both supported hosts, time and resource
-  outcomes) does. The release order is therefore dogfood completion, or a
-  recorded D1 deferral, then version/notes, Qualification and release.
+  acceptance campaign (declared profiles, both supported hosts, lifecycle and
+  usability/time outcomes) does. Detailed resource outcomes moved to v0.7.x by
+  the 2026-10-30 correction; they no longer block this prerequisite. The release
+  order remains dogfood completion, or a recorded D1 deferral, then version/notes,
+  Qualification and release.
 - **dbt is adopted as an independent CLI preparation workload profile.**
   Its original issue #5 (`Fd_dup` / TEXT deduplication) prerequisite is now
   satisfied; [#19](https://github.com/masahitojp/mariamem/issues/19) tracks the
@@ -1091,12 +1114,14 @@ passed source/host/checksum replay. The [G1 acceptance review](reviews/v06x-go-f
 recommends accepting bounded G1 evidence; Human acceptance/main adoption,
 Qualification and release remain separate. P1/EP1/EG1 are still required.
 
-**Next entry: P1 design proposal.** The [Python prepared-entry proposal](reviews/v06x-python-fixture-entry-design.md)
-retains existing pytest fixtures/routing, proposes a declarative command beside
-the callback, and fixes readable-owned diagnostics, compatibility and physical
-cleanup/resource acceptance. Command API and fixture-resolution error handling
-remain review inputs. No P1 implementation authorization or runtime PASS is
-claimed; the structured contract still authorizes G1 only.
+**P1 prepared entry — implementation approved, acceptance pending.** The
+[Python entry design](reviews/v06x-python-fixture-entry-design.md) and
+[conditional decision](decisions/p1-prepared-entry-implementation.md) authorize
+PrepareCommand plus readable owned diagnostics and worker-local stop after
+cleanup debt. The contract/checker explicitly authorizes G1 and P1. Existing
+None/callable semantics, including ignored callback returns, stay intact.
+The pre-code characterization below is historical; current implementation and
+source-bound local results are recorded in the later checkpoint.
 The [local pytest reporting characterization](reviews/v06x-python-fixture-reporting.md)
 now closes the annotation-feasibility question at source 1780db3: seven controls
 on Python 3.11/pytest 7 and Python 3.14/pytest 9 preserve original setup/cleanup
@@ -1116,9 +1141,10 @@ Native-success/guest-failure differences must retain original evidence and be
 classified as wire, SQL semantics, configuration or client/environment issues
 before choosing a fix. This direction authorizes investigation and verification
 planning, not blanket protocol implementation, guest changes or wider support
-claims. The [current wire inventory](reviews/v06x-wire-current-inventory.md) is
-pinned to main cc00ccd and supersedes the historical v0.5.3 inventory for this
-purpose; Prepared, text multiple results and SET_OPTION are already adopted.
+claims. The [P1 wire reconciliation](reviews/v06x-p1-wire-reconciliation.md) now pins
+main 2ad041c and explicitly records its terminal-worker guard; dispatch and
+capabilities match the earlier cc00ccd inventory. The v0.5.3 inventory remains
+historical; Prepared, text multiple results and SET_OPTION are already adopted.
 Exact workload/driver coverage and finite exit criteria still need to
 be fixed before declaring the whole v0.6 dogfood scope complete.
 
@@ -1689,3 +1715,107 @@ large-input performance and cold/setup-cost claims remain outside this adoption.
 Guest/generated code, canonical generation inputs, release ledgers and version
 metadata are unchanged. Target version, Qualification and release remain separate
 Human decisions.
+
+
+**P1 conditional implementation approval:** the Human approved the concrete
+Python entry design at de860c4, with the [pre-code definitions](decisions/p1-prepared-entry-implementation.md)
+for inherited env overlay, bounded/truncated output, rejection of unknown inputs,
+and public API/admission-change notices. PrepareCommand is explicitly a new
+public class; cleanup debt stopping later dependent tests in the same worker is
+explicitly an approved behavior change. None/callable semantics remain intact.
+Required-host/minor runtime/resource acceptance, main adoption and release are
+not granted by this implementation decision.
+
+**P1 implementation checkpoint:** [conditional definitions and implementation](reviews/v06x-python-fixture-implementation.md)
+now add the public PrepareCommand third input, bounded command execution and
+worker-local cleanup-debt admission. None/callable meanings remain intact.
+Public API/admission notices are in the Python guide and unreleased notes, and
+the contract/checker explicitly authorizes G1 plus P1 against the pre-code
+decision. Both-host/minor CI, P1 resource/time and installed-wheel evidence remain
+required; no complete P1/main adoption/Qualification/release is claimed.
+
+**P1 local implementation verification:** source bcc2938 (including main2ad041c)
+passed the full canonical gate and both installed-wheel Python profiles on
+observed macOS27.2 arm64. Each profile passed four real-guest configurations,
+including two workers, committed mutation isolation and ordinary-failure recovery;
+actual bundled-host/source binding and final process/temp cleanup were checked.
+The [saved checkpoint](reviews/v06x-python-fixture-implementation.md#local-verification-at-bcc2938)
+keeps raw logs/checksums and two rejected preflight controls. Required macOS15/
+Ubuntu CI, fresh native command/pool control and full P1 time/resource/guard
+campaign remain pending; this does not close P1 or authorize adoption/release.
+
+**Final P1 local candidate e4b4700:** [saved verification and remaining acceptance](reviews/v06x-python-fixture-implementation.md#final-local-candidate--e4b4700)
+record full canonical PASS (Python 1413/source 31, Go unit/vet), pytest 7.0.0
+focused 95 PASS and four installed-wheel configurations per Python minor.
+Strict JUnit totals prevent expected failures masking extra cleanup errors;
+read-only diagnostic metadata and finalizer interrupts preserve original errors.
+Newer source does not relabel bcc2938 or earlier receipts. Required-host CI and
+full native/time/resource acceptance remain pending; main/release are separate.
+
+**P1 required-host implementation CI confirmed:** Live40811260983 attempt1 and
+its required gate succeeded at executed source3f8395b (tree equal to PR26 head
+bbfb6346). The [source-bound receipt](reviews/v06x-python-fixture-implementation-evidence/ci-40811260983/assessment.json)
+retains digest-verified artifact provenance and raw P1 results: four host/minor
+cells, focused95 PASS each, four installed-wheel configurations each, strict
+JUnit counts and final physical host/temp cleanup. Development, Django and dump
+also passed. The [next native-control increment](reviews/v06x-python-fixture-implementation.md#next-acceptance-increment--p1-native-control-execution-pending)
+is implemented for the existing disposable MariaDB12.3.3 service but awaits its
+own CI; the previous run does not prove it. P1 time/resource/retention/guard
+campaign, full P1 completion and main/release decisions remain open.
+
+**P1 native plus required-host correctness confirmed:** Live40829538394 attempt1
+and required gate123316058837 passed at executed source5a9f317 (tree equal to
+PR26 headde28c547). The [checksum-bound receipt](reviews/v06x-python-fixture-implementation-evidence/ci-40829538394/assessment.json)
+preserves native command/callback results on both Python minors with final schema
+count0, and four installed-wheel host/minor cells (focused113 PASS and four
+runtime configurations each). Development/Django/dump also succeeded. Earlier
+receipts retain their sources. The [next counter-feasibility increment](reviews/v06x-python-fixture-implementation.md#resource-counter-feasibility-increment--required-host-results-pending)
+checks child FD/unlinked-file observation before the full time/resource campaign;
+its required-host CI is pending. Counter feasibility is not P1 workload/resource
+acceptance. Full P1 completion, main adoption, Qualification and release remain
+separate unfinished work.
+
+**Ubuntu Live40843725436 failed in the G1 collector before P1:** the cap1/
+parallel1 Go mode completed with cleanup, but a zero-RSS observation had no exit
+confirmation at poll time. The [source-bound diagnosis and original FAIL](reviews/v06x-go-fixture-campaign.md#ubuntu-zero-rss-before-waitpid-confirmation--run40843725436)
+preserve source5738eae and artifact hashes; no P1 probe PASS follows. A bounded
+50ms exit confirmation now retains terminal and failed zero samples separately;
+live-zero timeout/nonzero exit still fail, and resource limits are unchanged.
+Both focused Python suites pass135 locally; the corrected source needs fresh CI.
+
+**Corrected collector and FD probe CI confirmed:** Live40846147295 attempt1 and
+required gate123375744109 passed at sourcebd3ab3f (tree equal to head e5350bc3).
+The [checksum-bound receipt](reviews/v06x-python-fixture-implementation-evidence/ci-40846147295/assessment.json)
+replays both-host G1 campaign/guards; Ubuntu preserves two actual bounded-wait
+zero-RSS terminal observations. Four P1 host/minor cells each pass125 focused
+tests, four installed-wheel cases and the FD/logical-byte probe. Native controls
+and Development/Django/dump also pass. Original failed receipts keep their source.
+
+**Next allocation-counter increment:** the [test-only allocated-block observer](reviews/v06x-python-fixture-implementation.md#allocation-observer-increment--required-host-execution-pending)
+uses Linux procfs or a Darwin SDK helper; no mariamem host/API/guest change is
+made. Clean local source1fc771e8 passes258 focused tests per Python minor with
+actual child fstat equality, descriptor deduplication and final cleanup. A one-byte
+control separates allocated4096 bytes from logical1 byte on observed macOS27.2;
+the initial nondistinguishing sparse control remains a recorded failed probe.
+Required-host allocation CI and the full P1 time/resource/retention/guard campaign
+are pending. Workflow/Go cache key are unchanged. Main adoption and release remain
+separate decisions.
+
+**Allocated-counter matrix confirmed:** Live40856524755 attempt1 and required
+gate123395867624 passed at source81cf7a4, tree equal to head30c9e2a0. The
+[checksum-bound receipt](reviews/v06x-python-fixture-implementation-evidence/ci-40856524755/assessment.json)
+confirms allocated-block/fstat equality, FD deduplication and restored baseline
+in all four host/minor cells, plus focused135 and four installed-wheel
+configurations each. Native, Development, Django and dump also passed. This closes
+counter feasibility, not full P1 resource acceptance.
+
+**Three-time campaign checkpoint implemented:** the [fixed orchestration and evidence](reviews/v06x-python-fixture-implementation.md#three-time-checkpoint--local-source2fa14975-required-host-execution-pending)
+measure first setup, adding only the second test, and four-case warmup/three-repeat
+batches through the supplied entry with workers1/2. Shared input hashes enforce
+no repeated lifecycle edits; real status observations prove held SQL peaks2/4.
+Local source2fa14975 passes281 focused tests and all five actual-guest outer tests
+per Python minor, sequentially, using a stamped source-SDK host on macOS27.2.
+Acquisition/cold/human time is unmeasured. Required-host installed-wheel timing,
+retained baselines1/2/3, aligned resource counters and resource STOP/mutations
+remain pending. Workflow/cache key and product/guest/API are unchanged by this
+increment; full P1 acceptance/main/release remain separate.

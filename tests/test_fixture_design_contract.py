@@ -11,9 +11,25 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 from check_fixture_design import CONTRACT, validate
 
 
-def test_reviewed_contract_authorizes_only_g1_without_runtime_acceptance():
+def test_reviewed_contract_authorizes_g1_p1_without_granting_fresh_runtime_acceptance():
     assert validate(json.loads(CONTRACT.read_text())) == {
-        'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'authorized_implementation_entries': ['G1']}
+        'result': 'DESIGN_LINT_PASS', 'runtime': 'NOT_RUN', 'authorized_implementation_entries': ['G1', 'P1']}
+
+
+@pytest.mark.parametrize('mutation', ['status', 'source', 'missing_receipt', 'failed_receipt'])
+def test_p1_status_requires_its_fixed_exit_receipt(mutation):
+    plan = copy.deepcopy(json.loads(CONTRACT.read_text()))
+    if mutation == 'status':
+        plan['entries'][0]['status'] = 'IMPLEMENTED_CHECKPOINT_ACCEPTANCE_PENDING'
+    elif mutation == 'source':
+        plan['p1_fixed_exit_acceptance']['source_commit'] = plan['source_commit']
+    elif mutation == 'missing_receipt':
+        plan['p1_fixed_exit_acceptance']['receipt'] = 'docs/reviews/missing.json'
+    else:
+        plan['p1_fixed_exit_acceptance']['receipt'] = (
+            'docs/reviews/v06x-python-fixture-implementation-evidence/ci-40979625348/assessment.json')
+    with pytest.raises(ValueError, match='P1'):
+        validate(plan)
 
 
 @pytest.mark.parametrize('mutation', [
@@ -21,7 +37,7 @@ def test_reviewed_contract_authorizes_only_g1_without_runtime_acceptance():
     'diagnostic_mismatch', 'core_error_loss', 'consume', 'posthoc_decision',
     'fallback_rationale', 'e2e_stop', 'physical_retirement', 'e2e_parallel',
     'transient_children', 'old_wire', 'wire_commands', 'wire_hash',
-    'fixture_hash', 'fake_runtime_pass', 'fake_approval', 'unrecorded_fallback',
+    'fixture_hash', 'wire_source_identity', 'fake_runtime_pass', 'fake_approval', 'unrecorded_fallback',
     'django_blocking', 'waive_shared', 'drop_browser', 'review_identity',
 ])
 def test_review_gap_mutations_are_rejected(mutation):
@@ -44,6 +60,12 @@ def test_review_gap_mutations_are_rejected(mutation):
     elif mutation == 'old_wire': plan['wire']['current_inventory'] = plan['wire']['historical_inventory']
     elif mutation == 'wire_commands': plan['wire']['supported_commands'].remove(22)
     elif mutation == 'wire_hash': plan['wire']['source_sha256']['internal/mysqlwire/wire.go'] = '0' * 64
+    elif mutation == 'wire_source_identity':
+        # Main may legitimately pin plan and wire to the same current commit.
+        # Mutate to the historical pre-repair source, whose wire bytes differ.
+        historical = plan['wire']['historical_source_commit']
+        assert historical != plan['wire']['source_commit']
+        plan['wire']['source_commit'] = historical
     elif mutation == 'fixture_hash': plan['resources']['retention_input']['sha256'] = '0' * 64
     elif mutation == 'fake_runtime_pass': plan['future_runtime_status'] = 'PASS'
     elif mutation == 'fake_approval': plan['authorized_implementation_entries'].append('D1')
@@ -55,4 +77,58 @@ def test_review_gap_mutations_are_rejected(mutation):
         plan['diagnostics']['selected_profile'] = 'basic-first'
         for row in plan['entries']: row['diagnostic_profile'] = 'basic-first'
     with pytest.raises(ValueError):
+        validate(plan)
+
+
+@pytest.mark.parametrize('mutation', ['scope', 'allowlist', 'identity', 'record', 'env', 'bound', 'truncation', 'unknown', 'admission', 'notices'])
+def test_p1_approval_conditions_cannot_be_weakened(mutation):
+    plan = copy.deepcopy(json.loads(CONTRACT.read_text()))
+    p1 = plan['p1_approval']
+    if mutation == 'scope': plan['scope_status'] = 'APPROVED_WITH_DJANGO_NONBLOCKING'
+    elif mutation == 'allowlist': plan['authorized_implementation_entries'] = ['G1']
+    elif mutation == 'identity': p1['decision_commit'] = '0' * 40
+    elif mutation == 'record': p1['decision_record_sha256'] = '0' * 64
+    elif mutation == 'env': p1['env_mode'] = 'REPLACE'
+    elif mutation == 'bound': p1['output_tail_bytes_per_stream'] = 0
+    elif mutation == 'truncation': p1['output_truncation'] = 'SILENT'
+    elif mutation == 'unknown': p1['unknown_prepare'] = 'IGNORE'
+    elif mutation == 'admission': p1['cleanup_debt'] = 'CONTINUE'
+    elif mutation == 'notices': p1['notice_paths'].pop()
+    with pytest.raises(ValueError): validate(plan)
+
+
+@pytest.mark.parametrize('path, removed', [
+    ('docs/python.md', 'PrepareCommand'),
+    ('docs/python.md', 'same worker'),
+    ('docs/python.md', '16 KiB'),
+    ('docs/release-notes/unreleased.md', 'PrepareCommand'),
+    ('docs/release-notes/unreleased.md', 'same worker'),
+    ('docs/release-notes/unreleased.md', '16 KiB'),
+])
+def test_p1_notice_omissions_are_detected(tmp_path, path, removed):
+    from check_fixture_design import validate_p1_notices
+    for name in ['docs/python.md', 'docs/release-notes/unreleased.md']:
+        target = tmp_path / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text((ROOT / name).read_text())
+    validate_p1_notices(tmp_path)
+    target = tmp_path / path
+    target.write_text(target.read_text().replace(removed, 'omitted'))
+    with pytest.raises(ValueError, match='notice missing'):
+        validate_p1_notices(tmp_path)
+
+
+@pytest.mark.parametrize('mutation', ['resource_gate', 'milestone', 'cleanup', 'exit'])
+def test_fixed_exit_preserves_cleanup_without_v060_resource_gate(mutation):
+    plan = copy.deepcopy(json.loads(CONTRACT.read_text()))
+    delivery = plan['delivery_scope']
+    if mutation == 'resource_gate':
+        delivery['detailed_resources_block_v060'] = True
+    elif mutation == 'milestone':
+        delivery['detailed_resources_milestone'] = 'v0.6.0'
+    elif mutation == 'cleanup':
+        delivery['lifecycle_and_connection_budgets'] = 'DEFERRED'
+    else:
+        delivery['p1_exit'].remove('owned_lifecycle_cleanup')
+    with pytest.raises(ValueError, match='fixed P1 exit/resource placement'):
         validate(plan)

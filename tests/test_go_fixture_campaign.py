@@ -1,6 +1,7 @@
 """Missing measurements, stale receipts and guard breaches cannot become G1 PASS."""
 import copy
 import json
+import subprocess
 from pathlib import Path
 import sys
 import time
@@ -30,8 +31,27 @@ def test_exit_during_collection_is_preserved_but_not_a_live_sample(monkeypatch, 
 def test_live_zero_rss_still_fails_closed(monkeypatch):
     monkeypatch.setattr(campaign, 'process_rss', lambda pid: {str(pid): 0})
     monkeypatch.setattr(campaign, 'available_memory', lambda: (1024, 'test counter'))
-    with pytest.raises(ValueError, match='live runtime process RSS'):
-        campaign.collect_sample(SimpleNamespace(pid=123, poll=lambda: None), time.monotonic())
+    def wait(*, timeout):
+        assert timeout == .05
+        raise subprocess.TimeoutExpired('owned-process', timeout)
+    with pytest.raises(campaign.LiveRSSUnavailable, match='live runtime process RSS') as caught:
+        campaign.collect_sample(SimpleNamespace(pid=123, poll=lambda: None, wait=wait), time.monotonic())
+    assert caught.value.sample['members'] == {'123': 0}
+
+
+@pytest.mark.parametrize('code', [0, 2])
+def test_zero_rss_before_waitpid_readiness_requires_bounded_actual_exit(monkeypatch, code):
+    monkeypatch.setattr(campaign, 'process_rss', lambda pid: {str(pid): 0})
+    monkeypatch.setattr(campaign, 'available_memory', lambda: (1024, 'test counter'))
+    def wait(*, timeout):
+        assert timeout == .05
+        return code
+    sample, ended = campaign.collect_sample(SimpleNamespace(pid=123, poll=lambda: None, wait=wait), time.monotonic())
+    assert sample is None and ended['members'] == {'123': 0}
+    assert ended['returncode'] == code
+    assert ended['exit_confirmation_timeout_seconds'] == .05
+    assert ended['exit_confirmation_elapsed_seconds'] >= 0
+    assert ended['reason'] == 'process exited within zero-RSS confirmation window'
 
 
 def test_live_rss_is_retained(monkeypatch):
@@ -41,12 +61,18 @@ def test_live_rss_is_retained(monkeypatch):
     assert ended is None and sample['process_tree_rss_bytes'] == 4096
 
 
-@pytest.mark.parametrize('last', ['zero_after_exit', 'missing_after_exit', 'nonzero_exit', 'live_zero'])
+@pytest.mark.parametrize('last', ['zero_after_exit', 'missing_after_exit', 'nonzero_exit', 'live_zero',
+                                  'zero_before_waitpid', 'nonzero_before_waitpid'])
 def test_observer_exit_race_and_counter_failures(tmp_path, monkeypatch, last):
-    polls = iter([None, None] * 3 + [None, None, None, 0] if last == 'live_zero'
+    delayed = last in ('live_zero', 'zero_before_waitpid', 'nonzero_before_waitpid')
+    polls = iter([None, None] * 3 + [None, None, None, 0] if delayed
                  else [None, None] * 3 + [None, 2 if last == 'nonzero_exit' else 0])
-    code = 2 if last == 'nonzero_exit' else 0
-    proc = SimpleNamespace(pid=123, poll=lambda: next(polls, code), wait=lambda **kwargs: code)
+    code = 2 if last in ('nonzero_exit', 'nonzero_before_waitpid') else 0
+    def wait(timeout=None):
+        if timeout is not None and last == 'live_zero':
+            raise subprocess.TimeoutExpired('test-process', timeout)
+        return code
+    proc = SimpleNamespace(pid=123, poll=lambda: next(polls, code), wait=wait)
     monkeypatch.setattr(campaign.subprocess, 'Popen', lambda *args, **kwargs: proc)
     monkeypatch.setattr(campaign, 'available_memory', lambda: (1024, 'test counter'))
     monkeypatch.setattr(campaign.time, 'sleep', lambda seconds: None)
@@ -58,7 +84,7 @@ def test_observer_exit_race_and_counter_failures(tmp_path, monkeypatch, last):
             raise ValueError('runtime process RSS unavailable')
         return {str(pid): 0 if calls == 4 else 4096}
     monkeypatch.setattr(campaign, 'process_rss', read)
-    if last in ('live_zero', 'nonzero_exit'):
+    if last in ('live_zero', 'nonzero_exit', 'nonzero_before_waitpid'):
         with pytest.raises(ValueError, match='runtime/guard/counter failure'):
             campaign.observe(['test-process'], tmp_path, {}, RESOURCES)
     else:
@@ -67,6 +93,7 @@ def test_observer_exit_race_and_counter_failures(tmp_path, monkeypatch, last):
     assert len(result['samples']) == 3
     if last == 'live_zero':
         assert result['counter_errors'] and result['result'] == 'UNVERIFIED'
+        assert result['failed_observations'][0]['members'] == {'123': 0}
     else:
         assert result['terminal_observations'][0]['returncode'] == code
         assert not result['counter_errors']
