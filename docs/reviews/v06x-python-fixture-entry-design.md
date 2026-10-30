@@ -1,7 +1,15 @@
 # P1 prepared pytest entry — proposal after G1 evidence
 
-Status: PROPOSED; source inspection plus local pytest characterization, not P1
-implementation or runtime acceptance.
+> Current scope correction — Human approved 2026-10-30:
+> [P1 fixed exit / v0.7.x resource placement](../decisions/p1-fixed-exit-v060.md)
+> supersedes the resource completion gates below. Detailed retention/resource
+> characterization is deferred to v0.7.x; entry lifecycle correctness remains
+> required. Earlier proposal/checkpoint text and source-bound receipts below are
+> historical evidence, not the current list of P1 blockers. P1 is not yet accepted.
+
+Status: IMPLEMENTATION APPROVED WITH CONDITIONS; see the pre-code
+[Human decision](../decisions/p1-prepared-entry-implementation.md). No runtime
+acceptance or main adoption is implied.
 Inspected candidate: f58eebcdcb9ddb38a08fdbbd4ace8f6717154ab8. The Human
 approved the overall P1/G1/EP1/EG1 direction and G1 first; this proposal does not
 silently extend the structured contract's G1-only implementation authorization.
@@ -146,7 +154,8 @@ Example diagnostic, with application-owned stderr and no endpoint/environment:
 
 ```text
 mariamem prepare: migration command exited 23
-cause: migration reported "seed table missing"; inspect migration stderr
+cause: command returned exit 23; application cause is not inferred
+stderr (application output): "seed table missing"
 admission: stopped for this worker; capture was not attempted
 cleanup: command reaped; source closed
 original: CalledProcessError(returncode=23); stdout/stderr retained
@@ -210,3 +219,17 @@ oracles, then real guest/schema/seed/routing checks, then the bounded both-host
 campaign and installed-wheel example. Failures must be diagnosed without skipping
 or relaxing their oracle. No independent upstream app, D1 mechanism, EP1/EG1
 implementation, wire extension or release work is implied by P1 completion.
+
+## Conditional approval definitions
+
+The Human explicitly approved the new public PrepareCommand class and worker-local
+stop after cleanup debt. None/callable (including ignored return) are unchanged.
+The [pre-code decision](../decisions/p1-prepared-entry-implementation.md) owns
+these additional conditions: env overlays the parent copy at execution; output
+is continuously drained but retains only a trailing 16 KiB per stream, with
+truncation flags/dropped-byte counts; unknown preparation values raise UsageError.
+The runner replaces an inherited reserved connection variable, never the parent
+environment itself. This is inherited-environment reproducibility, not hermetic
+execution. Public API and admission changes are documented in docs/python.md
+and docs/release-notes/unreleased.md. The exact contract/checker constants are
+named in the decision; required-host evidence remains outstanding.

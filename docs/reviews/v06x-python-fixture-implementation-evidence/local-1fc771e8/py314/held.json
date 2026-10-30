@@ -1,0 +1,1 @@
+{"pid":2159,"fd_count":5,"fds":[{"fd":0,"regular":false},{"fd":1,"regular":false},{"fd":2,"regular":false},{"fd":3,"regular":true,"device":16777232,"inode":93819265,"links":0,"blocks":8,"logical_bytes":1},{"fd":4,"regular":true,"device":16777232,"inode":93819265,"links":0,"blocks":8,"logical_bytes":1}]}

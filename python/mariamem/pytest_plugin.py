@@ -1,7 +1,9 @@
 """Fixture API inspired by shibukawa/pgmem (MIT); see bundled notices."""
 import pytest
 
-from . import start
+from . import start, PrepareCommand
+from ._prepare import _run_command
+from ._pytest_owner import _Owner, _owner
 
 
 def pytest_addoption(parser):
@@ -12,7 +14,48 @@ def pytest_addoption(parser):
 
 
 def pytest_configure(config):
+    config._mariamem_entry_owner = _Owner()
     config.addinivalue_line("markers", "shadow_maria: use an independent DB and redirect registered application connections")
+
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_fixture_setup(fixturedef, request):
+    outcome = yield
+    # Observe only the named preparation boundary; never replace its result/error.
+    if fixturedef.argname == 'mariamem_prepare' and outcome.excinfo is not None:
+        _owner(request.config).fail('prepare', outcome.excinfo[1])
+
+
+def pytest_sessionfinish(session):
+    # xdist workers have no terminal reporter. Send bounded owner state, not
+    # exception objects or command output, for the master's final summary.
+    if hasattr(session.config, 'workeroutput'):
+        session.config.workeroutput['mariamem_entry'] = _owner(session.config).summary()
+
+
+@pytest.hookimpl(optionalhook=True)
+def pytest_testnodedown(node, error):
+    summary = node.workeroutput.get('mariamem_entry')
+    if summary is not None:
+        config = node.config
+        if not hasattr(config, '_mariamem_entry_workers'):
+            config._mariamem_entry_workers = {}
+        config._mariamem_entry_workers[node.gateway.id] = summary
+
+
+def pytest_terminal_summary(terminalreporter):
+    config = terminalreporter.config
+    summaries = {'local': _owner(config).summary(), **getattr(config, '_mariamem_entry_workers', {})}
+    summaries = {name: value for name, value in summaries.items() if value['records']}
+    if summaries:
+        terminalreporter.section('mariamem entry failures')
+        for name, value in summaries.items():
+            for stage, error_type in value['records']:
+                terminalreporter.write_line(f'{name} mariamem {stage}: {error_type}; original error retained in pytest reports; next: inspect original error; application cause may be unknown')
+            cleanup = ('unconfirmed; inspect original cleanup/capture errors'
+                       if value['uncertain'] or value['active'] else 'entry-owned finalizers completed')
+            terminalreporter.write_line(f'{name}: admission=stopped for this worker; cleanup=' + cleanup)
 
 
 def pytest_collection_modifyitems(items):
@@ -87,13 +130,16 @@ def mariamem_sqlalchemy_engines():
 
 
 @pytest.fixture
-def mariamem_app_db(mariamem_router, mariamem_sqlalchemy_engines, mariamem_fork):
+def mariamem_app_db(request, mariamem_router, mariamem_sqlalchemy_engines, mariamem_fork):
+    owner = _owner(request.config)
     profile = next(iter(mariamem_router.profiles))
-    for engine in mariamem_sqlalchemy_engines:
-        mariamem_router.register_engine(engine, profile=profile, ownership="test")
-    with mariamem_router.bind(profile, mariamem_fork):
+    with owner.operation('routing'):
+        for engine in mariamem_sqlalchemy_engines:
+            mariamem_router.register_engine(engine, profile=profile, ownership="test")
+    with owner.context(lambda: mariamem_router.bind(profile, mariamem_fork), 'routing'):
         yield mariamem_fork
-    mariamem_fork.wait_disconnected()
+    with owner.operation('routing disconnect', cleanup=True):
+        mariamem_fork.wait_disconnected()
 
 
 @pytest.fixture(scope="session")
@@ -102,31 +148,41 @@ def mariamem_options():
 
 
 @pytest.fixture(scope="session")
-def mariamem_server(mariamem_options):
-    with start(**mariamem_options) as server:
+def mariamem_server(request, mariamem_options):
+    owner = _owner(request.config)
+    owner.guard()
+    with owner.context(lambda: start(**mariamem_options), 'start') as server:
         yield server
 
 
 @pytest.fixture(scope="session")
 def mariamem_prepare():
-    """Override with preparation side effects or a callback accepting the source DB."""
+    """Return None, a callback accepting the source DB, or PrepareCommand."""
     return None
 
 
 @pytest.fixture(scope="session")
-def mariamem_snapshot(mariamem_server, mariamem_prepare):
-    if mariamem_prepare is not None:
-        if not callable(mariamem_prepare):
-            raise pytest.UsageError("mariamem_prepare must return None or a callable accepting the preparation DB.")
-        mariamem_prepare(mariamem_server)
-    mariamem_server.wait_disconnected()
-    with mariamem_server.snapshot() as saved:
+def mariamem_snapshot(request, mariamem_server, mariamem_prepare):
+    owner = _owner(request.config)
+    owner.guard()
+    with owner.operation('prepare'):
+        if isinstance(mariamem_prepare, PrepareCommand):
+            _run_command(mariamem_prepare, mariamem_server, request.config.rootpath)
+        elif mariamem_prepare is not None:
+            if not callable(mariamem_prepare):
+                raise pytest.UsageError("mariamem_prepare must return None, a callable accepting the preparation DB, or PrepareCommand.")
+            mariamem_prepare(mariamem_server)  # Existing return values remain ignored.
+    with owner.operation('disconnect'):
+        mariamem_server.wait_disconnected()
+    with owner.context(lambda: mariamem_server.snapshot(), 'capture') as saved:
         yield saved
 
 
 @pytest.fixture
-def mariamem_fork(mariamem_snapshot):
-    with mariamem_snapshot.fork() as fork:
+def mariamem_fork(request, mariamem_snapshot):
+    owner = _owner(request.config)
+    owner.guard()
+    with owner.context(mariamem_snapshot.fork, 'acquire') as fork:
         yield fork
 
 

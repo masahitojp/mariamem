@@ -53,7 +53,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y pkg-config default-libmysqlclient-dev build-essential
-          python -m pip install --no-cache-dir -r tests/e2e_native_control/requirements.lock.txt
+          python -m pip install --no-cache-dir -r tests/e2e_native_control/requirements.lock.txt -r tests/preparation_migration_acceptance/requirements.txt
           python -m playwright install --with-deps chromium --only-shell
       - name: Native input guard and exact-source app
         env:
@@ -64,6 +64,8 @@ jobs:
           go build -p 1 -trimpath -o build/go-live-orders ./tests/live_acceptance/goapp
       - name: Fresh native control for the reconnecting Go variant
         run: python scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 4 --timeout 600 -- python tests/live_acceptance/native.py --port 3307 --go-app build/go-live-orders --expected-source-commit "$SOURCE_COMMIT" --output build/live-native/reference
+      - name: Fresh P1 authored command and callback native control
+        run: PYTHONPATH="$PWD/python" python scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 4 --timeout 180 -- python tests/fixture_entry_acceptance/native.py --port 3307 --expected-source-commit "$SOURCE_COMMIT" --acquisition build/live-native/acquisition --output build/live-native/p1 --disposable-server
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
@@ -164,6 +166,24 @@ jobs:
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-orders ./tests/e2e_native_control/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-live-orders ./tests/live_acceptance/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-owner ./tests/live_acceptance/go_owner
+      - name: P1 real prepared command and callback on both Python minors
+        shell: bash
+        env:
+          P1_RESOURCE_EXPERIMENT: '0'
+          PY311: ${{ steps.py311.outputs.python-path }}
+          PY314: ${{ steps.py314.outputs.python-path }}
+        run: |
+          cp tests/evidence/alpha-wheel.json build/live-evidence/p1-wheel.json
+          for py in "$PY311" "$PY314"; do
+            version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+            "$py" -m venv "build/p1-py$version"
+            py="$PWD/build/p1-py$version/bin/python"
+            if [[ "$version" == 3.11 ]]; then pytest_version=7.0.0; else pytest_version=9.0.2; fi
+            "$py" -m pip install --no-cache-dir -r tests/preparation_migration_acceptance/requirements.txt "pytest==$pytest_version"
+            "$py" -m pip install --no-deps build/dist/*.whl
+            PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONPATH="$PWD/python" "$py" -m pytest tests/test_prepare_command.py tests/test_p1_pytest_entry.py tests/test_p1_native_control.py tests/test_routing_pytest.py tests/test_owned_snapshot_unit.py tests/test_fixture_design_contract.py -q > "build/live-evidence/py$version-p1-unit.txt" 2>&1
+            PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 P1_INSTALLED_CONSUMER=1 P1_NATIVE_REFERENCE="$PWD/build/reference/py$version/p1" MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest tests/test_p1_runtime.py -q -s --basetemp "build/live-evidence/p1-py$version" > "build/live-evidence/py$version-p1-runtime.txt" 2>&1
+          done
       - name: Public Go/Python browser Live, Fork control and actual defects
         shell: bash
         env:

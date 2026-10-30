@@ -1,0 +1,53 @@
+{
+  "result": "PASS_BOUNDED_REAL_P1_BARRIER",
+  "source_commit": "f75714f7fd134e4e4055ba25b0138180553277f3",
+  "host_sha256": "2303df33b6879f279105011608912120fa94a1064ab80a069a2718b612d5b347",
+  "toolchain": "go1.26.10",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "profiles": [
+    {
+      "python": "311",
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "observation": {
+        "host_alive": true,
+        "worker_alive": true
+      },
+      "final_owner": {
+        "closed": true,
+        "host_reaped": true,
+        "directory_removed": true
+      }
+    },
+    {
+      "python": "314",
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "observation": {
+        "host_alive": true,
+        "worker_alive": true
+      },
+      "final_owner": {
+        "closed": true,
+        "host_reaped": true,
+        "directory_removed": true
+      }
+    }
+  ],
+  "installed_wheel": false,
+  "derived_archive_sha256": "50ba057783bfdbd2207944da63cbe9f44d0cc558207e8b410b3ba7c8a1e212bf",
+  "scope": "one actual P1 worker/snapshot; cooperative barrier, host/worker liveness, child SQL and cleanup; no resource census",
+  "remaining": [
+    "required-host installed-wheel CI",
+    "full P1 retained baselines 1/2/3",
+    "aligned complete resource and physical-connection census"
+  ]
+}
