@@ -86,6 +86,8 @@ PYTHONPATH=python E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-ho
 
 The Live workflow runs these examples on both hosts, and Python on both minors,
 with the existing native/defect controls preserved. Existing receipt claims remain
-bound to their original sources. Functional example PASS is not the full hook-
-failure, installed-consumer or time/resource campaign required by #18. No release
-or performance result is implied by these commands.
+bound to their original sources. Functional example PASS alone does not complete
+the hook-failure, installed-consumer and bounded usability evidence required by
+#18. The [current sequencing decision](../../decisions/e2e-v060-work-sequencing.md)
+places detailed resource characterization in shared v0.7.x work. No release or
+performance result is implied by these commands.

@@ -874,7 +874,11 @@ for classification updates and the current detection boundary.
 **EP1/EG1 implementation approved by the Human:** the
 [decision](decisions/e2e-entry-implementation.md) records the required probe
 results before product implementation and authorizes the bounded owned entry
-API. Full acceptance and main adoption remain pending under #18.
+API. The [bounded v0.6.0 technical acceptance review](reviews/e2e-v060-adoption-review.md)
+recommends adoption at executed source `edfee47807cc7ad76aed798947ba70af0a7fb2c9`
+after both-host Live CI41058866706 and its required gate passed. Saved receipts
+cover the previously named functional/usability gaps. Human adoption and main
+integration remain pending under #18; this is not release approval.
 The [E2E work-sequencing decision](decisions/e2e-v060-work-sequencing.md)
 applies the 2026-10-30 Human resource deferral to EP1/EG1: detailed resource
 characterization belongs to shared v0.7.x work, while functional isolation,

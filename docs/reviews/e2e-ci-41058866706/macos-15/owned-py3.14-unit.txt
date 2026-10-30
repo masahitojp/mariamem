@@ -1,0 +1,22 @@
+test_cleanup_debt_and_interrupt_identity (test_e2e_entry.TestEntry.test_cleanup_debt_and_interrupt_identity) ... ok
+test_close_timeout_preserves_active_case_until_explicit_cleanup (test_e2e_entry.TestEntry.test_close_timeout_preserves_active_case_until_explicit_cleanup) ... ok
+test_close_waits_for_active_case_before_disposal (test_e2e_entry.TestEntry.test_close_waits_for_active_case_before_disposal) ... ok
+test_config_invalid_before_allocation (test_e2e_entry.TestEntry.test_config_invalid_before_allocation) ... ok
+test_external_resource_on_failure (test_e2e_entry.TestEntry.test_external_resource_on_failure) ... ok
+test_first_and_next_case_order (test_e2e_entry.TestEntry.test_first_and_next_case_order) ... ok
+test_identity_mismatch_latches (test_e2e_entry.TestEntry.test_identity_mismatch_latches) ... ok
+test_late_registration_rejected (test_e2e_entry.TestEntry.test_late_registration_rejected) ... ok
+test_live_creation_error_keeps_baseline_cleanup_failures (test_e2e_entry.TestEntry.test_live_creation_error_keeps_baseline_cleanup_failures) ... ok
+test_ordinary_assertion_allows_next (test_e2e_entry.TestEntry.test_ordinary_assertion_allows_next) ... ok
+test_overlap_no_reset_and_no_close_under_case (test_e2e_entry.TestEntry.test_overlap_no_reset_and_no_close_under_case) ... ok
+test_owner_cleanup_interrupt_preserves_primary (test_e2e_entry.TestEntry.test_owner_cleanup_interrupt_preserves_primary) ... ok
+test_partial_source_and_prepare_failure (test_e2e_entry.TestEntry.test_partial_source_and_prepare_failure) ... ok
+test_partial_start_and_all_cleanup_attempts (test_e2e_entry.TestEntry.test_partial_start_and_all_cleanup_attempts) ... ok
+test_quiesce_deadline_stops_reset_and_cleanup_has_fresh_context (test_e2e_entry.TestEntry.test_quiesce_deadline_stops_reset_and_cleanup_has_fresh_context) ... ok
+test_resume_failure_stops_before_browser (test_e2e_entry.TestEntry.test_resume_failure_stops_before_browser) ... ok
+test_setup_failure_stops_future (test_e2e_entry.TestEntry.test_setup_failure_stops_future) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.074s
+
+OK

@@ -1,0 +1,65 @@
+{
+  "scope": "Observed whole test-command wall time with existing CI caches; no cold/human-authoring/isolated Reset latency claims",
+  "rows": [
+    {
+      "host": "macos-15",
+      "language": "python",
+      "python_minor": "3.11",
+      "seconds": {
+        "first": 1.847269917000176,
+        "second": 2.4263002910001887,
+        "repeat": 2.5752578749998065
+      }
+    },
+    {
+      "host": "macos-15",
+      "language": "go",
+      "python_minor": null,
+      "seconds": {
+        "first": 1.818250999999691,
+        "second": 2.014742500000011,
+        "repeat": 1.9853446669999357
+      }
+    },
+    {
+      "host": "macos-15",
+      "language": "python",
+      "python_minor": "3.14",
+      "seconds": {
+        "first": 2.2124378750004325,
+        "second": 2.995929959000023,
+        "repeat": 2.630086958999982
+      }
+    },
+    {
+      "host": "ubuntu-24.04",
+      "language": "python",
+      "python_minor": "3.11",
+      "seconds": {
+        "first": 1.818791573999988,
+        "second": 2.0690695719999894,
+        "repeat": 2.0184334350001336
+      }
+    },
+    {
+      "host": "ubuntu-24.04",
+      "language": "go",
+      "python_minor": null,
+      "seconds": {
+        "first": 1.3199610000001485,
+        "second": 1.4690767929996582,
+        "repeat": 1.4687078189999738
+      }
+    },
+    {
+      "host": "ubuntu-24.04",
+      "language": "python",
+      "python_minor": "3.14",
+      "seconds": {
+        "first": 1.9691761419999239,
+        "second": 2.271211416999904,
+        "repeat": 2.2702584970002135
+      }
+    }
+  ]
+}
