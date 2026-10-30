@@ -27,6 +27,53 @@ Issues own checklists and acceptance evidence; [project status](project-status.m
 retains approved scope and decisions. Keep reference-only accepted limitations
 without a release milestone unless work on them is explicitly scheduled.
 
+## Bounded investigations
+
+Human-approved working rule, 2026-10-30, following the P1 process review. Apply
+this to resource, performance and architecture investigations. Keep one decision
+per investigation and record the following in its existing Issue or short plan;
+no new tracker, contract lint or CI job is required.
+
+```text
+Decision/question, and the product/documentation action the result will inform:
+Fixed workload/environment and necessary observations (including precision):
+Exit criteria and what an inconclusive result must report:
+Active-work budget / measurement-tooling budget / heavy-CI submission limit:
+```
+
+Unless a task-specific budget is agreed, an initial spike has 2 hours of active
+work, including at most 30 minutes on measurement tooling, and at most 2 heavy
+CI submissions. Tool development, debugging and failure diagnosis count against
+the same budgets, including subtasks; failures do not reset them. Limits are
+ceilings, not instructions to spend the whole allowance. Record elapsed waiting
+separately from active work; label estimates honestly rather than inventing time
+measurements. Record a changed budget before continuing beyond the agreed one.
+
+Check that essential observations are feasible with existing tools on a small
+case before building the full campaign. Choose precision for the decision: keep
+approximate, point-in-time and partial observations labelled; unavailable data
+is unknown, never zero or PASS. A collector needing a custom barrier or native
+helper is a tooling investment to assess, not an automatic addition to the exit
+criteria. Present the limitation, existing alternatives, necessary precision and
+additional cost before building another layer or making it a new prerequisite.
+Obtain agreement if this expands the recorded scope or budget. Routine fixes
+within the agreed bounds remain autonomous.
+
+Progress updates state what became decidable, which exit conditions remain and
+whether the work is within budget. A tool milestone alone is not evidence that
+the original question is closer to resolution. Batch focused checks before a
+stable candidate's heavy CI; use existing verification and evidence-reuse rules.
+
+At a budget boundary, stop adding investigation work, safely stop/reap owned
+processes as needed and preserve compact evidence. Cleanup is necessary even if
+it exceeds the investigation allowance. Report the conclusion or INCONCLUSIVE,
+what is unknown, available decisions, and concrete work/cost to obtain missing
+evidence. Ask for additional investment only when needed. An inconclusive report
+may close the investigation; it does not complete a product acceptance condition.
+Budgets never waive correctness, source identity, required platform coverage or
+existing failure oracles. Product acceptance, adoption and release keep their
+own gates; do not silently broaden them when measurement tooling is difficult.
+
 ## Human Review recommendations
 
 Identify **one decision needed from the Human now** before writing. Open with
