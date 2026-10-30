@@ -1,0 +1,84 @@
+{
+  "small": {
+    "baseline": {
+      "whole_ms": [
+        1240.153958,
+        219.75675,
+        214.986917,
+        220.823916,
+        222.839375,
+        227.069208
+      ],
+      "median_ms": 221.83164549999998,
+      "snapshot_median_ms": 3.45775,
+      "child_start_median_ms": 34.8001455,
+      "resource_whole_ms": [
+        208.677041
+      ],
+      "sampled_peak_rss_mib": [
+        119.953125
+      ]
+    },
+    "candidate": {
+      "whole_ms": [
+        1193.369625,
+        230.53525,
+        237.003667,
+        223.500458,
+        235.489208,
+        215.201041
+      ],
+      "median_ms": 233.012229,
+      "snapshot_median_ms": 3.518,
+      "child_start_median_ms": 36.8665205,
+      "resource_whole_ms": [
+        227.905792
+      ],
+      "sampled_peak_rss_mib": [
+        119.171875
+      ]
+    },
+    "median_reduction_percent": -5.04012106784828
+  },
+  "medium": {
+    "baseline": {
+      "whole_ms": [
+        3085.249,
+        3082.4075,
+        3067.934709,
+        3084.716292,
+        3096.904667,
+        3077.628209
+      ],
+      "median_ms": 3083.561896,
+      "snapshot_median_ms": 2.5271245,
+      "child_start_median_ms": 36.349167,
+      "resource_whole_ms": [
+        3146.171083
+      ],
+      "sampled_peak_rss_mib": [
+        164.765625
+      ]
+    },
+    "candidate": {
+      "whole_ms": [
+        3127.95875,
+        3134.55175,
+        3137.654583,
+        3138.398209,
+        3127.09375,
+        3150.271042
+      ],
+      "median_ms": 3136.1031665,
+      "snapshot_median_ms": 4.655708499999999,
+      "child_start_median_ms": 35.9645625,
+      "resource_whole_ms": [
+        3189.527542
+      ],
+      "sampled_peak_rss_mib": [
+        165.96875
+      ]
+    },
+    "median_reduction_percent": -1.7039148968650997
+  }
+}

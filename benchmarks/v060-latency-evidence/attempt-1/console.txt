@@ -1,0 +1,8 @@
+RUN checkout.txt
+RUN build-baseline-host.txt
+Traceback (most recent call last):
+  File "/private/tmp/mariamem-usage-alignment/build/experiment-work/v060-performance/evidence/run.py", line 36, in <module>
+    info=verify_go_binary(root,binary,refs[label].source_commit,go=go)
+  File "/private/tmp/mariamem-usage-alignment/build/experiment-work/v060-performance/worktree/scripts/git_identity.py", line 113, in verify_go_binary
+    raise ValueError('binary build identity differs from exact clean source')
+ValueError: binary build identity differs from exact clean source
