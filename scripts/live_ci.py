@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Always report a Live required check; skip only an explicit guide-only diff."""
+"""Always report a Live required check; skip only an explicit documentation diff."""
 import argparse
 import json
 import os
