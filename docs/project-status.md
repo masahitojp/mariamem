@@ -853,6 +853,19 @@ separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Wire contract and dogfood
 
+**P1 adopted on main, 2026-10-31 JST:** PR26 merged via protected checks to
+`4a8a68350e8c43fc107843a6efe7781cad1a4e2a` from head
+`850ddcc2c70786dc310308d262b4f33d842fea3e`. Daily CI41076760360 executed
+`0f59d660e5ca58a65818915602787fec5e7e57d3`; all three trees equal
+`e09c9c8f3300b5ca716e1776da4676ada01f3e94`. The older Ready full receipt remains
+bound to head8912224a/actual6ccec794, not relabelled onto the final CI-policy tree.
+Main PR34/35/36's approved Release-only heavy validation applies: final head has
+successful source/unit/Ubuntu smoke, with new-head platform/native/browser/installed
+qualification deferred to Release CI. P1 product/input bytes are unchanged from
+the successful full profile. See [integration completion and both evidence scopes](reviews/v06x-p1-head-integration.md).
+This completes P1 adoption, not other dogfood/wire work, Qualification or release.
+Earlier P1 pending/checkpoint entries below retain their historical source context.
+
 **Human scope correction, 2026-10-30:** establishing the wire contract is the
 main v0.6.0 objective. P1 has a [fixed six-condition exit](decisions/p1-fixed-exit-v060.md).
 Detailed resource characterization, retained-baseline stress and resource-model

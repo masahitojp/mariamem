@@ -1,5 +1,8 @@
 # P1 adoption gaps — closure under the current CI policy
 
+Completed: [protected integration and evidence scopes](v06x-p1-head-integration.md).
+The dated working record below preserves the intervening CI-policy changes.
+
 Human follow-up, 2026-10-30: close the five stated gaps, then proceed through
 PR26 on the strict current main base. Main subsequently adopted PR34 and PR35:
 heavy feature acceptance is now Release CI only. Preserve that approved cost
