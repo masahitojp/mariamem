@@ -23,10 +23,10 @@ def validate_development_owners(development):
     assert "python scripts/verify.py check --scope '${{ needs.scope.outputs.check_scope }}'" in job('check')
     assert 'runs-on: ubuntu-24.04' in job('integration')
     assert "if: needs.scope.outputs.integration == 'true'" in job('integration')
-    assert 'python scripts/verify.py integration' in job('integration')
+    assert 'python scripts/verify.py smoke' in job('integration')
     triggers = development.split('permissions:')[0]
     assert 'pull_request:\n    branches: [main]' in triggers
-    assert 'push:\n    branches: [main]' in triggers
+    assert '  push:' not in triggers
     assert 'paths:' not in triggers and 'paths-ignore:' not in triggers
     assert 'ref:' not in development and 'pull_request.head.sha' not in development
     assert 'python scripts/development_scope.py' in job('scope')
@@ -34,8 +34,8 @@ def validate_development_owners(development):
 
 
 def validate(text):
-    triggers = text.split('concurrency:')[0]
-    assert '  workflow_dispatch:' in triggers
+    triggers = text.split('permissions:')[0]
+    assert '  workflow_call:' in triggers
     assert not re.search(r'^  (push|pull_request|pull_request_target|schedule|workflow_run):', triggers, re.M)
     assert 'needs: native-reference' in text
     assert 'needs: [native-reference, live]' in text
@@ -44,15 +44,14 @@ def validate(text):
     assert 'os: [macos-15, ubuntu-24.04]' in text
     assert "python: ['3.11', '3.14']" in text
     assert 'needs.scope' not in text
-    for command in ['python scripts/verify.py check', 'python scripts/verify.py integration',
-                    'go test -race -count=1 ./internal/live ./internal/control .',
+    for command in [
                     'tests/live_acceptance/native.py', 'tests/live_acceptance/run.py',
                     'tests/live_acceptance/installed.py', 'docs/examples/live/verify.py',
                     'scripts/go_fixture_campaign.py', 'scripts/go_fixture_completion.py']:
         assert command in text
     for scenario in ['positive', 'skip-reset', 'restart-app']:
         assert scenario in text
-    assert '--expected-source-commit "$GITHUB_SHA"' in text
+    assert '--expected-source-commit "$SOURCE_COMMIT"' in text
 
 
 def test_full_acceptance_is_explicit_and_retains_its_oracles():
@@ -61,13 +60,13 @@ def test_full_acceptance_is_explicit_and_retains_its_oracles():
 
 
 @pytest.mark.parametrize('before,after', [
-    ('  workflow_dispatch:', '  pull_request:'),
+    ('  workflow_call:', '  pull_request:'),
     ('needs: native-reference', 'needs: []'),
     ('needs: [native-reference, live]', 'needs: []'),
     ('tests/live_acceptance/run.py', 'echo bypass'),
     ('scripts/go_fixture_campaign.py', 'echo bypass'),
     ('name: Live full acceptance gate', 'name: Live required gate'),
-    ('--expected-source-commit "$GITHUB_SHA"', '--unbound'),
+    ('--expected-source-commit "$SOURCE_COMMIT"', '--unbound'),
 ])
 def test_full_acceptance_regressions_are_detected(before, after):
     with pytest.raises(AssertionError): validate(WORKFLOW.read_text().replace(before, after))

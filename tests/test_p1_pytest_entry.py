@@ -227,12 +227,14 @@ def test_required_hosts_run_new_entry_controls_for_both_python_minors():
     assert 'tests/test_routing_pytest.py tests/test_owned_snapshot_unit.py' in runtime
     for deferred in ('test_p1_resource_probe.py', 'test_p1_resource_guard.py', 'test_p1_observation_barrier.py'):
         assert deferred not in runtime
-    triggers = text.split('concurrency:', 1)[0]
-    assert '  workflow_dispatch:' in triggers
+    triggers = text.split('permissions:', 1)[0]
+    assert '  workflow_call:' in triggers
+    assert '  workflow_dispatch:' not in triggers
     assert '  pull_request:' not in triggers and '  push:' not in triggers
     native = text.split('- name: Fresh P1 authored command and callback native control', 1)[1].split('- uses:', 1)[0]
     assert 'tests/fixture_entry_acceptance/native.py' in native
-    assert '--expected-source-commit "$GITHUB_SHA"' in native
+    assert '--expected-source-commit "$SOURCE_COMMIT"' in native
+    assert 'ref: ${{ inputs.source_commit }}' in text
     assert 'needs.scope' not in text
 
 

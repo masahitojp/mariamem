@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Select local development checks from the event diff, never release receipts.
 
-Unknown inputs conservatively require check + integration. This selector produces
-an execution plan, not reusable runtime or final-artifact qualification evidence.
+Unknown inputs conservatively require source checks + representative smoke.
+This selector produces an execution plan, not reusable runtime or final-artifact qualification evidence.
 """
 import argparse
 import json
@@ -89,27 +89,6 @@ PURE_TESTS = {
 }
 
 
-# These tools cannot change runtime execution or its CI selection. Keep shared
-# build/identity helpers, workflows and selectors outside this exemption.
-RUNTIME_FREE_TOOLS = {
-    'scripts/check_public.py', 'scripts/check_version.py',
-    'scripts/release_prepare.py', 'scripts/release_version.py', 'scripts/release_plan.py',
-    'scripts/published_assets.py', 'benchmarks/measurement_summary.py',
-    'tests/test_release_prepare.py', 'tests/test_release_version.py',
-    'tests/test_release_plan.py', 'tests/test_published_assets.py',
-    'tests/test_measurement_summary.py',
-    '.agents/skills/release/SKILL.md', '.agents/skills/review/SKILL.md',
-    '.agents/skills/experiment-workspace/SKILL.md',
-}
-
-
-def runtime_required(paths, reason):
-    """Skip only a known nonempty diff of documentation or inert tooling."""
-    return (reason != 'local changed-input classification' or not paths
-            or any(boundary(path) != 'docs' and path not in RUNTIME_FREE_TOOLS
-                   for path in paths))
-
-
 def boundary(path):
     p = Path(path)
     if p.is_absolute() or '..' in p.parts:
@@ -166,18 +145,6 @@ def plan(root, candidate, base):
     return {**result, 'source_commit': candidate, 'base_commit': base}
 
 
-def canonical_plan(plan, event, ref):
-    """Delegate only checks owned by Development for this same event/source."""
-    shared = (event == 'pull_request' or (event == 'push' and ref == 'refs/heads/main'))
-    shared = shared and bool(plan.get('changed_paths')) and plan.get('reason') in {
-        'local changed-input classification', 'unknown/runtime input',
-    }
-    return {
-        'ubuntu_check': not (shared and plan.get('check_scope') == 'full'),
-        'ubuntu_integration': not (shared and plan.get('integration') is True),
-    }
-
-
 def verify_gate(needs):
     """The existing protected context now attests daily checks, including smoke."""
     assert set(needs) == {'scope', 'check', 'integration'}, 'missing development dependency'
@@ -206,10 +173,6 @@ def main():
         with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
             output.write('check_scope=' + result['check_scope'] + '\n')
             output.write('integration=' + str(result['integration']).lower() + '\n')
-            output.write('run_runtime=' + str(runtime_required(result['changed_paths'], result['reason'])).lower() + '\n')
-            for key, value in canonical_plan(
-                    result, os.environ.get('GITHUB_EVENT_NAME'), os.environ.get('GITHUB_REF')).items():
-                output.write(key + '=' + str(value).lower() + '\n')
 
 
 if __name__ == '__main__':

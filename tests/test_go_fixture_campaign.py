@@ -244,10 +244,10 @@ def test_guard_probe_rejects_a_source_started_before_stop():
 def test_ci_runs_both_modes_and_requires_both_host_artifacts():
     text = (ROOT / '.github/workflows/live-host.yml').read_text()
     assert 'os: [macos-15, ubuntu-24.04]' in text
-    assert 'scripts/go_fixture_campaign.py --expected-source-commit "$GITHUB_SHA" --output build/live-evidence/g1' in text
-    assert 'name: go-fixture-host-${{ matrix.os }}-${{ github.sha }}' in text
+    assert 'scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --output build/live-evidence/g1' in text
+    assert 'name: go-fixture-host-${{ matrix.os }}-${{ inputs.source_commit }}' in text
     assert '--validate-matrix build/g1-matrix' in text
-    assert 'pattern: go-fixture-host-*-${{ github.sha }}' in text
+    assert 'pattern: go-fixture-host-*-${{ inputs.source_commit }}' in text
     required = text.split('  required:\n', 1)[1]
     assert '--validate-matrix build/g1-matrix' in required
     assert 'needs: [native-reference, live]' in required

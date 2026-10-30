@@ -1,64 +1,64 @@
-# P1 adoption gaps — closure before protected integration
+# P1 adoption gaps — closure under the current CI policy
 
 Human follow-up, 2026-10-30: close the five stated gaps, then proceed through
-PR26 on the strict current main base. This is P1 adoption follow-up, not a
-resource investigation or release. Keep the candidate frozen after marking ready
-so its final receipt refers to the submitted head.
+PR26 on the strict current main base. Main subsequently adopted PR34 and PR35:
+heavy feature acceptance is now Release CI only. Preserve that approved cost
+tradeoff; do not restore automatic or standalone full acceptance to close P1.
+This is integration work, not a resource investigation or a release request.
 
-| Gap | Correction / evidence | Remaining before integration |
+| Gap | Correction / evidence | Boundary still explicit |
 | --- | --- | --- |
-| No head receipt | Incorporate main's approved investigation policy, complete these corrections while Draft, then trigger a full Live matrix through ready_for_review. That run passed at head8912224a; the subsequent main PR34 changed CI policy and conflicted, so a new merged head requires one explicit manual full run. Save run/head/executed source and verify full tree equality if the PR executes a synthetic merge commit. Earlier b108abf1/7dde2266 results keep their original scope. Non-doc equality alone is not asserted to be full-tree equality. | Final head CI and receipt, then required PR contexts. |
-| P1 contract status stale | entries[P1].status is FIXED_EXIT_ACCEPTED, bound to the existing b108abf1 receipt. Contract lint rejects stale status, missing/failed receipt or source mismatch. This records accepted functional evidence, not unmeasured current-head PASS. | No new status gap; final head evidence remains separately required. |
-| Unconditional P1 CI cost | The initial p1 family gate was verified on head8912224a. Subsequent main PR34 removes the family selector and makes full acceptance manual-only. Preserve that newer policy: P1 native/wheel/venv/runtime steps run in explicit full acceptance, never automatically for unrelated PR/main updates. Daily protected source smoke remains separate. Tests require the manual-only trigger and both P1 steps. | Record the new manual head step cost; no measured automatic-PR saving is claimed. Do not launch another heavy campaign merely to demonstrate skipping. |
-| Controlled capture failure evidence | Review explicitly identifies Python context-manager failure injection and controlled source closed state. It proves readable stage/original error, admission and public finalization, not reproduced internal guest capture failure or its cleanup. | Preserve that limit in adoption/usage claims. |
-| Unreleased notes handoff | docs/releasing.md now requires manual transfer and reconciliation of the P1 API/admission/output/limits into versioned release/NOTES-* at the first applicable release. Staging notes state that release_prepare.py does not consume this path automatically. | Perform at an explicitly requested release; no version or release operation selected here. |
+| No head receipt | Ready head8912224a passed CI41063375697, executed6ccec794, full tree1ebecb6e on both. Evidence is committed at441032c5 on evidence/p1-head-41063375697. PR34/PR35 then landed and changed CI/test inputs, so that is not relabelled as full PASS for the new merged head. Obtain fresh daily head checks/smoke; retain historical full evidence only for its actual unchanged P1 boundary. | New-head platform/native/browser full verification is deferred to Release CI by the subsequent Human-approved policy. No full-tree equivalence is claimed across the CI changes. |
+| P1 contract status stale | entries[P1].status is FIXED_EXIT_ACCEPTED, bound to b108abf1's original successful receipt. Lint rejects stale status, missing/failed receipt and source mismatch. | Fixed-exit functional acceptance is distinct from new-head Release qualification. |
+| Unconditional P1 CI cost | The initial p1 family selector was superseded by main's removal of all automatic full campaigns. P1 native/wheel/venv/runtime steps are retained in the reusable Release Live workflow only, using its source_commit checkout/SOURCE_COMMIT identity. They cannot run for ordinary unrelated PR/main events. | Historical observed costs below are not a measured saving. Daily success is source/smoke only; Release still pays for full P1. |
+| Controlled capture evidence | Two capture cases inject Python context-manager errors and control source closed state. They prove stage/original-error reporting, admission and public-owner finalization. | They do not reproduce internal guest capture failures or prove internal cleanup. Readable-owned claims remain bounded accordingly. |
+| Unreleased notes handoff | docs/releasing.md requires manually copying applicable P1 API/admission/output/limits into versioned release/NOTES-* and checking against adopted code; staging notes state their path is not automatically consumed. | Perform on the first explicitly requested applicable release; no version or Release operation is selected here. |
 
-## Observed cost, not a saving estimate
+## Existing full receipt and observed cost
 
-At source `b108abf11a623c18c45adfab2968d357bf40718b`, the saved CI40987752495
-jobs metadata records the P1 installed-consumer step as 127s on macOS15 and 161s
-on Ubuntu24.04, including both Python minors. Whole host-job durations were
-2231s and 2397s respectively. These are historical observed durations, not a
-promise of wall-clock or cache-adjusted savings. PR34 supersedes the family selector: automatic PR/main events no longer launch
-full P1 acceptance; explicit manual full runs still pay for it. Compare the new head's step/job durations from its receipt and
-keep macOS runner pressure tracked with [#11](https://github.com/masahitojp/mariamem/issues/11).
-No new timing threshold or resource-model gate is introduced.
+- CI40987752495 at b108abf1: P1 step127s macOS /161s Ubuntu; whole host jobs2231s
+  /2397s. Each host/minor cell220 unit PASS,5 runtime PASS,4 deferred resource SKIP.
+- Ready CI41063375697 at head `8912224a190c9d74d5059111a96da349b13b8ba1`, executed
+  `6ccec79459665fd467263377217905cc3f01aae5`, full tree
+  `1ebecb6ecc987f60fa093d3025066f0b1e47f909`: each cell224 unit PASS,5 runtime PASS,
+ 4 resource SKIP. Native3.11/3.14 PASS with schema_count_after0. P1 steps142s
+  macOS /157s Ubuntu; whole jobs1879s /1545s. Both P1 steps ran, so these are not
+  savings from skipping P1. Four ZIP digests,898 selected files and checksums are
+  retained in [the evidence commit](https://github.com/masahitojp/mariamem/tree/441032c53dd7ff9ff14642a8363e50ffb9768a9e/docs/reviews/v06x-python-fixture-implementation-evidence/ci-41063375697).
 
-The first Ready head8912224a / executed6ccec794 (full tree1ebecb6e) also passed:
-P1 steps were142s macOS and157s Ubuntu; whole jobs1879s and1545s. Both P1 steps
-were selected, so these are not measured savings from skipping P1. Preserve
-that observation under CI41063375697; the post-PR34 manual head is a new cohort.
+Track macOS runner pressure with [#11](https://github.com/masahitojp/mariamem/issues/11).
+No new performance threshold or resource-model gate is introduced.
 
-## Verification and stopping point
+## Intervening main updates and verification
 
-Use focused workflow/daily-selection/contract and P1 pytest controls for these changes.
-Product runtime modules, guest and generated code are unchanged. The first Ready head passed CI41063375697; preserve its source/tree-bound
-receipt on evidence/p1-head-41063375697 (commit441032c5). Main PR34 landed before
-integration and caused workflow/selector conflicts. Resolve with its manual-only
-full policy, then submit one manual full run for the new merged head. Daily
-check/integration/Live required contexts must pass too; daily smoke does not
-substitute for full installed consumers/native controls. Record the
-actual submitted head and executed source, rather than inventing a future hash
-inside this commit. Do not move head for receipt-only updates while checking it;
-preserve that evidence and perform adoption bookkeeping after the exact-head
-integration. Failures remain FAIL and get a new candidate/receipt when corrected.
-After required checks and these five conditions pass, proceed with the authorized
-protected integration; no admin bypass or release operation.
+PR34 main `a18b247d91ac709cba550c7d0c623236ed541a31` landed after the successful
+Ready matrix and conflicted with the workflow/family selector. P1 incorporated
+its manual-only policy at65d73405, retaining native and installed-consumer steps;
+314 focused checks and version/public-source/diff checks passed. Push initially
+received HTTP500, then succeeded; workflow dispatch attempts received HTTP500 and
+created no new full run. Those attempts are not runtime FAIL or PASS receipts.
 
+PR35 main `22383ecbd600b94ef33b29bf9991578dce8ca472` then reserved heavy acceptance
+for reusable Release workflows. Incorporate it without restoring removed
+triggers. Native P1 commands must use SOURCE_COMMIT, not the calling workflow's
+GITHUB_SHA. Daily protected checks on the merged head are required before
+integration. They do not replace or relabel historical full receipts.
 
-## Intervening main CI policy — PR34
+Verify the P1 product modules, guest/generated/internal runtime and authored
+P1 application/migration inputs remain unchanged from the successful Ready
+head; record that limited reuse boundary explicitly. No full-tree equality
+between the final merged head and the old Ready head is implied. Full validation
+of the updated head is now owned by Release CI under the approved policy, not a
+new adoption-time Release dispatch. Resource work remains v0.7.x.
 
-Main `a18b247d91ac709cba550c7d0c623236ed541a31` landed after the Ready matrix.
-It removes automatic full Live selection and introduces daily source smoke.
-P1 adopts its workflow/gate semantics and removes the obsolete family selector
-rather than restoring the old automatic matrix. P1 product modules are unchanged;
-the manual native and installed-consumer blocks are retained. The first head's
-success is historical evidence, not proof of the new merged CI/test tree. This
-base update is the reason for a second full run, not an expanded P1 exit or a
-new resource campaign. No further head changes are planned after submission.
+Once source/smoke required checks pass and these bounded claims are recorded,
+proceed with the authorized protected integration. Preserve pre-code approval
+ancestry with a merge commit; no admin bypass, version, Qualification or publication.
 
-Focused verification of the PR34 conflict resolution:314 CI workflow/daily
-selection/contract/P1 pytest/G1 collector unit checks passed on local Python3.11;
-version/public-source/diff checks also passed. A stale assertion requiring P1
-unit tests in the unrelated public-Live step was moved to the dedicated P1 step,
-preserving its actual coverage while retaining main's duplicate-work removal.
+The PR35 resolution passed277 focused CI publication/workflow/daily-selection,
+contract/P1 pytest/G1 collector unit checks locally, plus YAML parse and
+version/public-source/diff checks. `git diff --quiet 8912224a -- python internal
+guest generated release tests/fixture_entry_acceptance
+tests/preparation_migration_acceptance` confirmed the limited product/input
+reuse boundary. The new reusable P1 native command binds SOURCE_COMMIT and both
+candidate checkouts retain inputs.source_commit. No Release CI was dispatched.
