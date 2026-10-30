@@ -1094,7 +1094,11 @@ binds both-host Live, native references and four installed cells. Both platform
 guards and the aggregate returned READY; operation=verify completed successfully.
 The unchanged0.5.3 metadata is not future0.6.0 release qualification. Protected
 merge-commit integration is tracked by PR #28 and #18. This approval is not a
-release request.
+release request. Main then advanced through CI-only #41/#44/#45; the Human
+explicitly declined another full CI run and authorized integration after the
+affected-boundary and protected daily checks. The [sequencing correction](decisions/e2e-integration-conditions.md#human-sequencing-correction--no-further-full-ci-2026-10-31-jst)
+keeps the successful d38deb04 full evidence separate from final-head daily
+checks and does not claim full execution of the new Release orchestration.
 The [E2E work-sequencing decision](decisions/e2e-v060-work-sequencing.md)
 applies the 2026-10-30 Human resource deferral to EP1/EG1: detailed resource
 characterization belongs to shared v0.7.x work, while functional isolation,

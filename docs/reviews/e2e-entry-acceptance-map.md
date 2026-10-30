@@ -53,3 +53,9 @@ P1, D1, independent dbt and later release gates keep their separate owners.
 
 Next: complete the approved merge-commit integration with protected checks and
 preserved decision ancestry. No new resource campaign is required.
+
+The [Human sequencing correction](../decisions/e2e-integration-conditions.md#human-sequencing-correction--no-further-full-ci-2026-10-31-jst)
+accepts subsequent CI-only main changes after focused537-test verification and
+final protected daily checks, without another full verify transaction. The
+d38deb04 full READY source is unchanged as an evidence identity; later heads
+are not relabelled as its full-run source.

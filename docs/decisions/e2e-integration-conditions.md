@@ -106,3 +106,27 @@ checks are still required. No runtime, test or workflow input changes after
 d38deb04. Merge commit remains required. Existing0.5.3 metadata, resource
 deferral, hook obligations and all declared limitations remain unchanged.
 This verify authorizes no publication and does not qualify a future version.
+
+## Human sequencing correction — no further full CI, 2026-10-31 JST
+
+After d38deb04 verify succeeded and the receipt-only head5f68a314 passed all
+protected contexts, main advanced through CI improvements #41/#44/#45 to
+`07ce39ea72a24faa932fd6a3566da722084bf2a8`. GitHub strict protection rejected
+the merge until this base was incorporated. Integration908ead82 preserves the
+main changes and merge ancestry. E2E product, example code, entry tests and
+selection inputs have no changes from the successful d38deb04 source. Live
+changes move duplicate portable unit checks to the shared Release unit job;
+Release orchestration/guards are changed and are not represented as full-tested
+at this new head by the old receipt.
+
+The Human explicitly declined another full CI run and requested integration.
+This supersedes the earlier requirement to repeat full verify before integration
+for these CI-only main changes. No further full verify is started, before or
+after this merge. Focused affected-boundary checks passed537 tests/12 subtests;
+the final head must still pass check/integration/Live required gate with strict
+protection unchanged. Merge commit is still mandatory.
+
+Retain d38deb04’s exact-source full verify READY as historical evidence and
+report the final-head daily checks separately. New Release orchestration has
+not been exercised as a full transaction by this task. This accepted limit does
+not authorize publication or claim qualification of any future versioned release.
