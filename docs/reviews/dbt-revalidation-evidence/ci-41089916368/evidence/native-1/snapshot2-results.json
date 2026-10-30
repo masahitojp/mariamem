@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T16:30:58.642903Z",
+    "invocation_id": "63fadc99-5cf4-497e-9b16-2dafc4003b52",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:30:58.372864Z",
+          "completed_at": "2026-10-30T16:30:58.380567Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:30:58.381794Z",
+          "completed_at": "2026-10-30T16:30:58.582129Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.2133331298828125,
+      "adapter_response": {
+        "_message": "SUCCESS 0",
+        "code": "SUCCESS",
+        "rows_affected": 0
+      },
+      "message": "SUCCESS 0",
+      "failures": null,
+      "unique_id": "snapshot.dbt_feasibility.orders_snapshot",
+      "compiled": true,
+      "compiled_code": "\n\nselect * from `test`.`orders`",
+      "relation_name": "`test`.`orders_snapshot`"
+    }
+  ],
+  "elapsed_time": 0.4474208354949951,
+  "args": {
+    "partial_parse": true,
+    "enable_legacy_logger": false,
+    "version_check": true,
+    "write_json": true,
+    "log_format_file": "debug",
+    "log_level": "info",
+    "populate_cache": true,
+    "introspect": true,
+    "show_resource_report": false,
+    "defer": false,
+    "quiet": false,
+    "send_anonymous_usage_stats": false,
+    "cache_selected_only": false,
+    "strict_mode": false,
+    "invocation_command": "dbt snapshot --project-dir <HOME>/work/_temp/dbt-replay/evidence/native-1 --profiles-dir <HOME>/work/_temp/dbt-replay/evidence/native-1",
+    "macro_debugging": false,
+    "which": "snapshot",
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "log_file_max_bytes": 10485760,
+    "log_format": "default",
+    "printer_width": 80,
+    "project_dir": "<HOME>/work/_temp/dbt-replay/evidence/native-1",
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "select": [],
+    "log_level_file": "debug",
+    "favor_state": false,
+    "profiles_dir": "<HOME>/work/_temp/dbt-replay/evidence/native-1",
+    "use_colors": false,
+    "use_colors_file": false,
+    "vars": {},
+    "exclude": [],
+    "log_path": "<HOME>/work/_temp/dbt-replay/evidence/native-1/logs",
+    "print": true,
+    "static_parser": true,
+    "partial_parse_file_diff": true,
+    "indirect_selection": "eager"
+  }
+}

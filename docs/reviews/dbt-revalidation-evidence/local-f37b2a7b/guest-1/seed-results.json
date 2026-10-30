@@ -1,0 +1,80 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T15:56:34.672384Z",
+    "invocation_id": "2e25000f-ec80-48ea-9203-aa96beafcd2c",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:34.626107Z",
+          "completed_at": "2026-10-30T15:56:34.626109Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:34.626591Z",
+          "completed_at": "2026-10-30T15:56:34.665817Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.04097390174865723,
+      "adapter_response": {
+        "_message": "INSERT 3",
+        "code": "INSERT",
+        "rows_affected": 3
+      },
+      "message": "INSERT 3",
+      "failures": null,
+      "unique_id": "seed.dbt_feasibility.orders_seed",
+      "compiled": null,
+      "compiled_code": null,
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.07762598991394043,
+  "args": {
+    "show": false,
+    "write_json": true,
+    "partial_parse_file_diff": true,
+    "log_level_file": "debug",
+    "enable_legacy_logger": false,
+    "send_anonymous_usage_stats": false,
+    "use_colors": false,
+    "select": [],
+    "introspect": true,
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "macro_debugging": false,
+    "indirect_selection": "eager",
+    "cache_selected_only": false,
+    "show_resource_report": false,
+    "vars": {},
+    "log_file_max_bytes": 10485760,
+    "use_colors_file": false,
+    "static_parser": true,
+    "which": "seed",
+    "profiles_dir": "<EVIDENCE>/guest-1",
+    "version_check": true,
+    "exclude": [],
+    "project_dir": "<EVIDENCE>/guest-1",
+    "log_format": "default",
+    "log_format_file": "debug",
+    "log_path": "<EVIDENCE>/guest-1/logs",
+    "print": true,
+    "quiet": false,
+    "strict_mode": false,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "log_level": "info",
+    "printer_width": 80,
+    "populate_cache": true,
+    "invocation_command": "dbt seed --project-dir <EVIDENCE>/guest-1 --profiles-dir <EVIDENCE>/guest-1",
+    "partial_parse": true
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T16:32:22.344546Z",
+    "invocation_id": "d094f330-8279-4114-a13d-e97b5ac37c1e",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:32:22.157843Z",
+          "completed_at": "2026-10-30T16:32:22.165391Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:32:22.166604Z",
+          "completed_at": "2026-10-30T16:32:22.328771Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.1737978458404541,
+      "adapter_response": {
+        "_message": "SUCCESS 0",
+        "code": "SUCCESS",
+        "rows_affected": 0
+      },
+      "message": "SUCCESS 0",
+      "failures": null,
+      "unique_id": "snapshot.dbt_feasibility.orders_snapshot",
+      "compiled": true,
+      "compiled_code": "\n\nselect * from `test`.`orders`",
+      "relation_name": "`test`.`orders_snapshot`"
+    }
+  ],
+  "elapsed_time": 0.23924636840820312,
+  "args": {
+    "send_anonymous_usage_stats": false,
+    "static_parser": true,
+    "introspect": true,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "log_level_file": "debug",
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "version_check": true,
+    "profiles_dir": "<HOME>/work/_temp/dbt-replay/evidence/guest-4",
+    "use_colors_file": false,
+    "invocation_command": "dbt snapshot --project-dir <HOME>/work/_temp/dbt-replay/evidence/guest-4 --profiles-dir <HOME>/work/_temp/dbt-replay/evidence/guest-4",
+    "log_path": "<HOME>/work/_temp/dbt-replay/evidence/guest-4/logs",
+    "use_colors": false,
+    "project_dir": "<HOME>/work/_temp/dbt-replay/evidence/guest-4",
+    "write_json": true,
+    "favor_state": false,
+    "exclude": [],
+    "select": [],
+    "log_format": "default",
+    "log_file_max_bytes": 10485760,
+    "show_resource_report": false,
+    "defer": false,
+    "printer_width": 80,
+    "which": "snapshot",
+    "populate_cache": true,
+    "indirect_selection": "eager",
+    "log_format_file": "debug",
+    "partial_parse": true,
+    "print": true,
+    "cache_selected_only": false,
+    "macro_debugging": false,
+    "strict_mode": false,
+    "log_level": "info",
+    "vars": {},
+    "quiet": false,
+    "partial_parse_file_diff": true,
+    "enable_legacy_logger": false
+  }
+}

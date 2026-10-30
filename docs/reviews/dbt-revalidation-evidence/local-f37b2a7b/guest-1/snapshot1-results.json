@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T15:56:40.633144Z",
+    "invocation_id": "7f248610-847c-4116-8531-77d93e0fb7dc",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:40.519039Z",
+          "completed_at": "2026-10-30T15:56:40.525159Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:40.525879Z",
+          "completed_at": "2026-10-30T15:56:40.626013Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.10858416557312012,
+      "adapter_response": {
+        "_message": "SUCCESS 0",
+        "code": "SUCCESS",
+        "rows_affected": 0
+      },
+      "message": "SUCCESS 0",
+      "failures": null,
+      "unique_id": "snapshot.dbt_feasibility.orders_snapshot",
+      "compiled": true,
+      "compiled_code": "\n\nselect * from `test`.`orders`",
+      "relation_name": "`test`.`orders_snapshot`"
+    }
+  ],
+  "elapsed_time": 0.20415115356445312,
+  "args": {
+    "select": [],
+    "show_resource_report": false,
+    "introspect": true,
+    "use_colors": false,
+    "enable_legacy_logger": false,
+    "cache_selected_only": false,
+    "favor_state": false,
+    "partial_parse": true,
+    "project_dir": "<EVIDENCE>/guest-1",
+    "log_file_max_bytes": 10485760,
+    "which": "snapshot",
+    "static_parser": true,
+    "quiet": false,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "log_path": "<EVIDENCE>/guest-1/logs",
+    "strict_mode": false,
+    "defer": false,
+    "print": true,
+    "printer_width": 80,
+    "vars": {},
+    "profiles_dir": "<EVIDENCE>/guest-1",
+    "send_anonymous_usage_stats": false,
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "exclude": [],
+    "partial_parse_file_diff": true,
+    "write_json": true,
+    "populate_cache": true,
+    "version_check": true,
+    "macro_debugging": false,
+    "invocation_command": "dbt snapshot --project-dir <EVIDENCE>/guest-1 --profiles-dir <EVIDENCE>/guest-1",
+    "use_colors_file": false,
+    "log_format_file": "debug",
+    "log_level_file": "debug",
+    "log_format": "default",
+    "indirect_selection": "eager",
+    "log_level": "info"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T15:56:49.854485Z",
+    "invocation_id": "3d239143-1031-44ba-b188-1b2104418193",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:49.779163Z",
+          "completed_at": "2026-10-30T15:56:49.779165Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:49.779720Z",
+          "completed_at": "2026-10-30T15:56:49.836390Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.05871939659118652,
+      "adapter_response": {
+        "_message": "INSERT 3",
+        "code": "INSERT",
+        "rows_affected": 3
+      },
+      "message": "INSERT 3",
+      "failures": null,
+      "unique_id": "seed.dbt_feasibility.orders_seed",
+      "compiled": null,
+      "compiled_code": null,
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.1495678424835205,
+  "args": {
+    "show_resource_report": false,
+    "partial_parse_file_diff": true,
+    "log_level": "info",
+    "quiet": false,
+    "print": true,
+    "strict_mode": false,
+    "log_format": "default",
+    "partial_parse": true,
+    "static_parser": true,
+    "use_colors": false,
+    "send_anonymous_usage_stats": false,
+    "enable_legacy_logger": false,
+    "log_format_file": "debug",
+    "select": [],
+    "log_file_max_bytes": 10485760,
+    "log_level_file": "debug",
+    "project_dir": "<EVIDENCE>/native-4",
+    "exclude": [],
+    "profiles_dir": "<EVIDENCE>/native-4",
+    "use_colors_file": false,
+    "invocation_command": "dbt seed --project-dir <EVIDENCE>/native-4 --profiles-dir <EVIDENCE>/native-4",
+    "printer_width": 80,
+    "write_json": true,
+    "show": false,
+    "macro_debugging": false,
+    "which": "seed",
+    "introspect": true,
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "version_check": true,
+    "cache_selected_only": false,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "populate_cache": true,
+    "indirect_selection": "eager",
+    "log_path": "<EVIDENCE>/native-4/logs",
+    "vars": {}
+  }
+}

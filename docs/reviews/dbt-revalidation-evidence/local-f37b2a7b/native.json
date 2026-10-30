@@ -1,0 +1,11 @@
+{
+  "image_id": "sha256:dfff46ef3f9d674ab66853ee68066e495af7942bfa4255dc39ce2ff64ac05cbe",
+  "repo_digests": [
+    "mariadb@sha256:2f4f46f80e7251990bfdc601ae3f7f2964ddb4dc1868f7deca699fc1ece8c35e"
+  ],
+  "architecture": "amd64",
+  "os": "linux",
+  "container_id": "7f0502a83e061996ec5b074f53cfd1c8c1a149f2f175f7a7c03de73e10c9bcfa",
+  "container_image": "sha256:dfff46ef3f9d674ab66853ee68066e495af7942bfa4255dc39ce2ff64ac05cbe",
+  "platform_note": "amd64 reference emulated on arm64 Docker host; not native Ubuntu host evidence"
+}

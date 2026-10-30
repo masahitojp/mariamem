@@ -20,5 +20,7 @@
       "byte_identical_to_active_inventory": true
     }
   },
-  "all_host_guest_runtime_source_changed_paths": []
+  "all_host_guest_runtime_source_changed_paths": [],
+  "main_recheck_source_commit": "cff1fd779fdf35a1f33775b9866cf78f3c09f74c",
+  "runtime_changed_paths_since_reviewed_main": []
 }
