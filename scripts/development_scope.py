@@ -21,7 +21,7 @@ TOOLING = {
     'docs/benchmarks/go126-vs-go127-evidence/profile.py',
     'docs/benchmarks/go126-vs-go127-evidence/summarize.py',
     'tests/verify_alpha.py', 'tests/consumer/run_gorm.py', 'tests/consumer/run_sqlalchemy.py',
-    'scripts/generated_release_acceptance.py', 'scripts/release_generated_ci.py',
+    'scripts/generated_release_acceptance.py', 'scripts/release_generated_ci.py', 'scripts/release_runtime.py',
     'scripts/validate_product_candidate.py', 'scripts/guest_smoke/main.go',
     '.github/workflows/v044-product-validation.yml',
     'benchmarks/ownedprepared/test_tools.py',
@@ -43,6 +43,11 @@ TOOLING = {
 # Only already-owned non-real-host suites are runtime-free. New test files are
 # unknown until deliberately assigned a responsibility, even if named .py.
 PURE_TESTS = {
+    'tests/test_ci_efficiency.py', 'tests/test_ci_efficiency_summary.py',
+    'tests/test_ci_runtime_selection.py', 'tests/test_live_ci_workflow.py',
+    'tests/test_dump_ci_workflow.py', 'tests/test_django_recipe_workflow.py',
+    'tests/test_routing_ci_workflow.py', 'tests/test_release_runtime.py',
+    'tests/test_retired_ci.py',
     'tests/test_measurement_summary.py', 'tests/test_published_assets.py',
     'tests/test_benchmark_inputs.py',
     'tests/test_ci_publication_workflow.py',

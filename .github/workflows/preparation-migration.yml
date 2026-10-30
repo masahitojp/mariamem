@@ -22,6 +22,10 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           ref: ${{ inputs.source_commit }}
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: release-runtime-${{ matrix.os }}-${{ inputs.source_commit }}
+          path: .
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.10'
@@ -34,6 +38,8 @@ jobs:
         id: current
         with:
           python-version: '3.14'
+      - name: Verify shared release wheel and host
+        run: python scripts/release_runtime.py --source-commit "$SOURCE_COMMIT"
       - name: Fixed minimum and current consumers
         env:
           MINIMUM_PYTHON: ${{ steps.minimum.outputs.python-path }}
@@ -53,12 +59,12 @@ jobs:
         env:
           MINIMUM_PYTHON: ${{ steps.minimum.outputs.python-path }}
         run: |
-          "$MINIMUM_PYTHON" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/migration" --min-free-gib 4 --budget-gib 8 --timeout 1800 -- "$MINIMUM_PYTHON" tests/preparation_migration_acceptance/run.py --runtime-root "$GITHUB_WORKSPACE" --source-commit "$SOURCE_COMMIT" --output "$RUNNER_TEMP/migration/py311" --pytest-version 7.0.0
+          "$MINIMUM_PYTHON" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/migration" --min-free-gib 4 --budget-gib 8 --timeout 1800 -- "$MINIMUM_PYTHON" tests/preparation_migration_acceptance/run.py --runtime-root "$GITHUB_WORKSPACE" --source-commit "$SOURCE_COMMIT" --output "$RUNNER_TEMP/migration/py311" --pytest-version 7.0.0 --host-binary "$GITHUB_WORKSPACE/build/mariamem-host"
       - name: Python3.14 pytest9 acceptance with the same verified native host
         env:
           CURRENT_PYTHON: ${{ steps.current.outputs.python-path }}
         run: |
-          "$CURRENT_PYTHON" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/migration" --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$CURRENT_PYTHON" tests/preparation_migration_acceptance/run.py --runtime-root "$GITHUB_WORKSPACE" --source-commit "$SOURCE_COMMIT" --output "$RUNNER_TEMP/migration/py314" --pytest-version 9.0.2 --host-binary "$RUNNER_TEMP/migration/py311/temp/mariamem-host"
+          "$CURRENT_PYTHON" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/migration" --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$CURRENT_PYTHON" tests/preparation_migration_acceptance/run.py --runtime-root "$GITHUB_WORKSPACE" --source-commit "$SOURCE_COMMIT" --output "$RUNNER_TEMP/migration/py314" --pytest-version 9.0.2 --host-binary "$GITHUB_WORKSPACE/build/mariamem-host"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:

@@ -88,6 +88,10 @@ jobs:
           ref: ${{ inputs.source_commit }}
           filter: blob:none
           fetch-depth: 0
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: release-runtime-${{ matrix.os }}-${{ inputs.source_commit }}
+          path: .
       - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: '1.26.10'
@@ -108,6 +112,8 @@ jobs:
         id: py314
         with:
           python-version: '3.14'
+      - name: Verify shared release wheel and host
+        run: python scripts/release_runtime.py --source-commit "$SOURCE_COMMIT"
       - name: Native client development library
         shell: bash
         run: |
@@ -157,7 +163,6 @@ jobs:
           if-no-files-found: error
       - name: Exact-source acceptance executables
         run: |
-          CGO_ENABLED=0 go build -p 1 -trimpath -o build/mariamem-host ./cmd/mariamem-host
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-orders ./tests/e2e_native_control/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-live-orders ./tests/live_acceptance/goapp
           CGO_ENABLED=0 go build -p 1 -trimpath -o build/go-owner ./tests/live_acceptance/go_owner
@@ -168,7 +173,6 @@ jobs:
           PY311: ${{ steps.py311.outputs.python-path }}
           PY314: ${{ steps.py314.outputs.python-path }}
         run: |
-          "$PY314" scripts/build_alpha.py --ci-candidate
           cp tests/evidence/alpha-wheel.json build/live-evidence/p1-wheel.json
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')

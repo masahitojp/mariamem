@@ -16,15 +16,20 @@ import sys
 def main():
     tool = os.environ['MARIAMEM_VET_TOOL']
     args = sys.argv[1:]
+    profile = os.environ.get('MARIAMEM_VET_PROFILE', 'full')
+    if profile not in ('full', 'daily'):
+        raise ValueError('unknown vet profile')
     if args == ['-V=full']:
         version = subprocess.check_output([tool,*args],text=True).strip()
         identity = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:16]
-        print(version+'-mariamem-scope-'+identity)
+        print(version+'-mariamem-scope-'+identity+'-'+profile)
         return
     if args and args[-1].endswith('.cfg'):
         config = json.loads(Path(args[-1]).read_text())
         if re.search(r'/internal/generatedgo/code/p[0-9]+$',config.get('ImportPath','')):
-            args = ['-unreachable=false',*args]
+            # Keep the standard vet driver/facts protocol even for generated
+            # dependencies. Full generated-code analysis belongs to Release CI.
+            args = [('-buildtag=true' if profile == 'daily' else '-unreachable=false'), *args]
     result = subprocess.run([tool,*args])
     raise SystemExit(result.returncode)
 

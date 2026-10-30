@@ -64,7 +64,7 @@ def test_heavy_suites_are_release_only_and_use_resolved_candidate():
     for job, filename in FEATURES.items():
         # Match the job through its indented fields, up to the next job.
         caller = re.search(r'^  '+job+r':\n(.*?)(?=^  \S|\Z)', workflow, re.M | re.S)[1]
-        assert 'needs: resolve' in caller
+        assert 'needs: [resolve, runtime]' in caller
         assert 'uses: ./.github/workflows/'+filename+'.yml' in caller
         assert 'source_commit: ${{ needs.resolve.outputs.source_sha }}' in caller
         assert job in aggregate.split('    steps:', 1)[0]
@@ -84,13 +84,13 @@ def test_actual_release_feature_gate_rejects_each_incomplete_result():
     import textwrap
     workflow = (ROOT / '.github/workflows/release-candidate-ready.yml').read_text()
     script = textwrap.dedent(workflow.split("python - <<'PYGATE'\n", 1)[1].split('          PYGATE', 1)[0])
-    good = {job: {'result': 'success'} for job in FEATURES}
+    good = {job: {'result': 'success'} for job in ['runtime', *FEATURES]}
     def run(needs):
         return subprocess.run([sys.executable, '-c', script],
                               env=dict(os.environ, NEEDS_JSON=json.dumps(needs)),
                               capture_output=True).returncode
     assert run(good) == 0
-    for job in FEATURES:
+    for job in ['runtime', *FEATURES]:
         for result in ['failure', 'cancelled', 'skipped', None]:
             needs = dict(good)
             if result is None:

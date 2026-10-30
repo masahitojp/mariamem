@@ -89,7 +89,7 @@ python scripts/verify.py check
 python scripts/verify.py integration
 ```
 
-The [candidate workflow](../../.github/workflows/prepared-canonical.yml) binds all
+The [candidate workflow](https://github.com/masahitojp/mariamem/blob/55b09c3ae78f98d1b989cdc5d82bfa33ba96b72b/.github/workflows/prepared-canonical.yml) binds all
 steps to the pushed commit and includes the full P1–P5 replay, actual native
 control, routines/DEFINER/auth, installed wheel and SQLAlchemy/GORM, J1 controls,
 retained-library audit and17 independently mutated build-evidence rejections.

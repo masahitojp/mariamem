@@ -1,7 +1,5 @@
 name: Runtime qualification (v1)
 on:
-  push:
-    branches: [experiment/v045-infrastructure]
   workflow_dispatch:
     inputs:
       candidate_ref:
