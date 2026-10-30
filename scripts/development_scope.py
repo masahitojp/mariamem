@@ -36,7 +36,7 @@ TOOLING = {
     'scripts/distribution_licenses.py', 'scripts/audit_generated_licenses.py',
     'scripts/consumer_module.py', 'scripts/consumer_acceptance.py',
     '.github/workflows/check.yml', '.github/workflows/release-candidate-ready.yml',
-    'AGENTS.md', '.agents/skills/release/SKILL.md',
+    '.agents/skills/release/SKILL.md',
     '.agents/skills/experiment-workspace/SKILL.md',
     '.agents/skills/review/SKILL.md',
 }
@@ -89,6 +89,27 @@ PURE_TESTS = {
 }
 
 
+# These tools cannot change runtime execution or its CI selection. Keep shared
+# build/identity helpers, workflows and selectors outside this exemption.
+RUNTIME_FREE_TOOLS = {
+    'scripts/check_public.py', 'scripts/check_version.py',
+    'scripts/release_prepare.py', 'scripts/release_version.py', 'scripts/release_plan.py',
+    'scripts/published_assets.py', 'benchmarks/measurement_summary.py',
+    'tests/test_release_prepare.py', 'tests/test_release_version.py',
+    'tests/test_release_plan.py', 'tests/test_published_assets.py',
+    'tests/test_measurement_summary.py',
+    '.agents/skills/release/SKILL.md', '.agents/skills/review/SKILL.md',
+    '.agents/skills/experiment-workspace/SKILL.md',
+}
+
+
+def runtime_required(paths, reason):
+    """Skip only a known nonempty diff of documentation or inert tooling."""
+    return (reason != 'local changed-input classification' or not paths
+            or any(boundary(path) != 'docs' and path not in RUNTIME_FREE_TOOLS
+                   for path in paths))
+
+
 def boundary(path):
     p = Path(path)
     if p.is_absolute() or '..' in p.parts:
@@ -100,7 +121,7 @@ def boundary(path):
             'docs/reviews/memfs-discovery-evidence/')) and (
             p.suffix in ('.json', '.csv', '.txt') or p.name == 'SHA256SUMS'):
         return 'docs'
-    if path in ('README.md', 'CONTRIBUTING.md',
+    if path in ('README.md', 'CONTRIBUTING.md', 'AGENTS.md',
                 'benchmarks/README.md',
                 'docs/reviews/v044-runtime-validation-intent.json',
                 'docs/reviews/v045-p1-evidence.json') or (path.startswith('docs/') and p.suffix == '.md'):
@@ -157,6 +178,17 @@ def canonical_plan(plan, event, ref):
     }
 
 
+def verify_gate(needs):
+    """The existing protected context now attests daily checks, including smoke."""
+    assert set(needs) == {'scope', 'check', 'integration'}, 'missing development dependency'
+    assert needs['scope']['result'] == 'success', 'scope failed'
+    assert needs['check']['result'] == 'success', 'source checks failed'
+    selected = needs['scope']['outputs'].get('integration')
+    assert selected in ('true', 'false'), 'invalid integration selection'
+    expected = 'success' if selected == 'true' else 'skipped'
+    assert needs['integration']['result'] == expected, 'integration/smoke did not finish as selected'
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=ROOT)
@@ -174,6 +206,7 @@ def main():
         with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
             output.write('check_scope=' + result['check_scope'] + '\n')
             output.write('integration=' + str(result['integration']).lower() + '\n')
+            output.write('run_runtime=' + str(runtime_required(result['changed_paths'], result['reason'])).lower() + '\n')
             for key, value in canonical_plan(
                     result, os.environ.get('GITHUB_EVENT_NAME'), os.environ.get('GITHUB_REF')).items():
                 output.write(key + '=' + str(value).lower() + '\n')

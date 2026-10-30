@@ -250,7 +250,8 @@ def test_ci_runs_both_modes_and_requires_both_host_artifacts():
     assert 'pattern: go-fixture-host-*-${{ github.sha }}' in text
     required = text.split('  required:\n', 1)[1]
     assert '--validate-matrix build/g1-matrix' in required
-    assert required.count("if: needs.scope.outputs.run_live == 'true'") == 2
+    assert 'needs: [native-reference, live]' in required
+    assert 'needs.scope' not in required
 
 
 @pytest.mark.parametrize('present', ['macos-15', 'ubuntu-24.04'])

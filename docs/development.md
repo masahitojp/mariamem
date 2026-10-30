@@ -179,17 +179,36 @@ historical release or Product CI artifacts. Unknown inputs and unavailable/empty
 diffs select full check plus integration. This selection is not a reusable runtime
 qualification receipt. Explicit release reuse still requires authenticated proof.
 
-Documentation-only diffs likewise skip the expensive Live matrix: the Live scope and
-required-gate jobs still run and report (they are protected checks), but the native,
-browser, guest and installed-consumer jobs are not started. The skip uses the same
-documentation classification as the development selector, so any runtime or unknown
-path restores the full matrix. Draft pull requests also skip those jobs, because a
-draft cannot merge and would otherwise hold shared macOS runners ahead of ready
-pull requests. The required Live gate deliberately fails with a deferred-Draft
-message, preventing its old result from approving the same SHA after conversion to
-Ready. Marking the PR ready starts a fresh run with the selected matrix; the gate
-turns green only when that run succeeds. The red Draft gate is expected, not a test
-failure. The existing changed-boundary selector and both-host receipt rules apply.
+Full Live acceptance is manual-only (`live-host.yml`, `workflow_dispatch`). PR
+updates and main pushes do not launch its browser/native/two-platform matrix.
+The existing protected `Live required gate` now belongs to Development and requires
+successful source checks plus the selected integration job; a docs/tooling scope
+may skip integration, but failure/cancellation or an unavailable selection fails.
+Its PASS is daily validation, not a full Live acceptance receipt.
+
+Development integration adds source Go/Python Live smoke: connect, mutate, Reset,
+verify restored state and stable endpoint, and Close. The Go smoke also checks
+busy-session refusal and closed-parent refusal; Python checks host/directory
+cleanup. It reuses the integration host/compiler cache, without building a wheel,
+starting a native server or installing browsers. Source checks retain the Live
+units, and integration includes the `internal/live` race suite.
+
+The full manual workflow retains both OSes, Python minors, native comparison,
+browser positive/fault scenarios, public examples, G1 resource/fault campaigns
+and installed/external consumers. Run it on the final candidate ref before candidate
+adoption. Every source change after that acceptance needs a newly bound result;
+an earlier result is not relabelled. Manual full acceptance is a candidate decision
+condition, not an automatic per-PR merge context. macOS/browser/installed failures
+may therefore be found later than the daily PR checks. Release CI does not call
+this workflow automatically; its success must not be assumed from Release READY.
+
+Explicit runtime-free tooling uses the shared `runtime_required` selector to skip
+Dump runtime jobs while Development retains Python checks. Shared build/identity
+helpers, workflows, selectors, unknown inputs and missing diffs remain conservative.
+Django guide prose alone does not trigger its matrix; executable examples still do.
+Ubuntu worker-failure retains native SQL comparisons and delegates duplicate race,
+worker-trap and wire/Snapshot tests to required integration without serializing jobs.
+macOS retains those worker tests on main/manual events.
 
 Archived Go-toolchain/memfs measurement data has explicit documentation scope in
 the local selector. Its three saved reproduction recipes have tooling scope;
@@ -306,32 +325,28 @@ See [phase 1 evidence](reviews/v05-fast-feedback-phase1.md) and the
 
 ### Maintained CI ownership and compiler caches
 
-For full PR and main-push diffs, Development owns the Ubuntu canonical `check`
-and `integration`; Live retains macOS `check` and `integration`, both-host Live
-race tests and the native/browser/installed matrix. The required `integration`
-context keeps its name and now runs on Ubuntu24.04. Live skips its duplicate
-Ubuntu integration only when the same event/source has full Development coverage.
-Live derives delegation from the same event diff and selector as Development.
-Reduced Development scopes, unavailable diffs, manual runs and experiment pushes
-keep local canonical invocations.
+Development owns automatic Ubuntu source checks, integration and source Live
+smoke. Full Live owns standalone both-platform acceptance only when manually
+dispatched. Its canonical checks run locally because no concurrent Development
+run is assumed. Compiler caches still reuse compiled work, never prior test PASS.
 
 The original Development integration used a published macOS native bundle
 at commit `0a66842`; that dependency was removed with the legacy Wasmer path at
 `c2ebc0a`. The current `verify.py integration` has no macOS-only requirement and
 is also used on Ubuntu by Live and qualification workflows. To reduce contention
-for macOS runners, its standalone required job moves to Ubuntu and macOS coverage
-is consolidated into the already selected Live host job. The historical
+for macOS runners, its standalone required job runs on Ubuntu; full macOS Live coverage
+is now deferred to explicit candidate acceptance. The historical
 [Live allocation](reviews/v06x-live-ci-dedup-cache.md) describes the prior owners.
 
 The three protected contexts remain separate:
-`check`, `integration`, and `Live required gate`; the Live gate alone does not
-attest the delegated Development jobs. The paired workflow contract tests detect
+`check`, `integration`, and `Live required gate`; the daily Live gate aggregates the Development source/integration results.
+Full Live acceptance reports a separate, non-automatic context. The paired workflow contract tests detect
 changes to their owners, commands, triggers and conditions.
 
-Dump uses the same canonical delegation selector as Live. Its additional Ubuntu
+Dump uses the shared Development canonical delegation selector. Its additional Ubuntu
 `check` and Ubuntu `integration` run only when Development does not own the full
-corresponding check for the event. Native reference and dump comparisons remain
-independent of this selector. Missing/empty diffs and standalone events
+corresponding check for the event. Native reference and dump comparisons run only when the shared runtime selector
+requires them; their specific oracles remain independent of canonical delegation. Missing/empty diffs and standalone events
 retain local canonical runs. Dump success alone does not attest the delegated
 Development checks; the protected Development contexts still decide those checks.
 
@@ -351,10 +366,9 @@ when both workflows are selected, while both Python versions remain tested.
 Their macOS-specific failures can therefore be detected after merge; main-push
 success is not a pre-merge gate. The Human requested this placement to reduce
 macOS runner contention. The Human verifies macOS during local development,
-so platform problems can be found before CI. Required Live macOS checks are
-retained; Development's required integration uses Ubuntu. With both candidate
-workflows selected, PRs now need one macOS job (Live) instead of the previous
-five (Development integration, Live, Dump and two Django cells).
+so platform problems can be found before CI. Full Live macOS checks remain in manual candidate acceptance. Development's
+required integration uses Ubuntu; these four automatic PR workflows now require
+no macOS job.
 Release CI does not automatically invoke these two dedicated campaigns; when
 separate pre-release evidence is needed, dispatch these workflows at the exact
 candidate SHA. Their main path filters still determine which pushes run them.
@@ -624,38 +638,27 @@ inert fixtures remain reference material, outside current gates. Shared module
 identity, platform metadata and authenticated GitHub artifact transport are
 retained as runtime-independent helpers. See [Track A inventory](../benchmarks/v043-wasmer-retirement.md).
 
-## Live PR acceptance selection
+## Live execution frequency
 
-The Human approved selecting macOS PR checks by changed boundary. Unknown files,
-missing diffs and shared runtime/generated/toolchain/dependency/CI changes retain
-all families. main/manual retain all families whenever Live is selected.
+Daily PR/main checks and manual full acceptance are separate. Full Live is not
+selected by path, Draft state, readiness transition, labels or main pushes.
+Unknown inputs still select conservative Development verification, not the full
+browser matrix. The former family selector and Draft-specific full-matrix gate
+have been removed. The three existing required context names remain unchanged;
+`Live required gate` now attests daily checks including selected source Live smoke.
+Full candidate acceptance reports `Live full acceptance gate` and requires both
+host receipts for G1. See the local verification policy above.
 
-| Known PR input | macOS integration | G1 both hosts | Live race/scenarios | Examples | Installed | P1 both hosts/minors |
-| --- | --- | --- | --- | --- | --- | --- |
-| G1-only helper/campaign | No | Yes | No | No | Yes | No |
-| Live implementation/application | No | No | Yes | Yes | Yes | No |
-| P1 command/owner/runtime controls | No | No | No | No | Yes | Yes |
-| Shared fixture inputs | No | Yes | No | No | Yes | Yes |
-| Python routing/pytest entry | Yes | No | Yes | Yes | Yes | Yes |
-| Shared/unclassified | Yes | Yes | Yes | Yes | Yes | Yes |
+The former PR-family policy was measured at run 40855108044 (head 5b27eaf3,
+executed merge source 538ca001): macOS took 39m40s, including 24m25s generic
+integration. This is historical evidence, not a measured saving for the current
+manual-only policy. P1 and owned-E2E both-host adoption conditions remain separate
+from ordinary daily checks and are not waived by this execution-frequency change.
 
-scripts/live_selection.py owns the bounded allowlist. Mixed changes take the
-union; new API files fail closed. G1 selection controls execution, artifacts and
-both-host receipt validation together. Missing family outputs fail the gate.
-P1 selection gates both its native input control and the installed-wheel
-build/venv/unit/runtime step; unrelated selected PR families omit those steps.
-Main/manual, unknown inputs and unavailable diffs keep P1 selected. Historical
-P1 step durations and the remaining observation scope are recorded in the
-[adoption-gap closure](reviews/v06x-p1-adoption-gap-closure.md).
-Ubuntu Development retains its independent check/integration scope. Native
-references and exact-source executable setup remain in each selected Live matrix.
-
-This can defer macOS cross-family regressions to main. P1's dedicated campaign
-retains both hosts/minors and head validation before integration. Owned E2E
-entry campaigns remain separately scoped; new API paths default to full
-validation. PR #30's Draft-event policy is separate.
-
-Run 40855108044 (head 5b27eaf3, executed merge source 538ca001) took 39m40s on
-macOS, including 24m25s generic integration. Omitting that step does not promise
-that saving: compilation can move downstream. Measure whole-job durations on
-changed-input PRs. This policy-change PR intentionally runs all families.
+P1's native command/callback control and both-host/minor installed-wheel entry
+acceptance belong to the explicit full workflow. Automatic PR/main events do
+not launch that wheel/venv/runtime campaign. The former P1 family selection was
+superseded by PR34's manual-only policy; do not restore automatic full acceptance
+to close P1. Daily protected checks remain necessary but do not replace P1's
+full candidate receipt. See [P1 gap closure](reviews/v06x-p1-adoption-gap-closure.md)
+for measured cost and source-bound acceptance history.

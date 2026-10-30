@@ -44,6 +44,7 @@ jobs:
   scope:
     runs-on: ubuntu-24.04
     outputs:
+      run_runtime: ${{ steps.diff.outputs.run_runtime }}
       ubuntu_check: ${{ steps.diff.outputs.ubuntu_check }}
       ubuntu_integration: ${{ steps.diff.outputs.ubuntu_integration }}
     steps:
@@ -56,6 +57,8 @@ jobs:
       - id: diff
         run: python scripts/development_scope.py --candidate-sha '${{ github.sha }}' --github-output
   native-reference:
+    needs: scope
+    if: needs.scope.outputs.run_runtime == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     services:
@@ -193,7 +196,7 @@ jobs:
   # Development owns these on full PR/main diffs; standalone/reduced scopes stay local.
   development-checks:
     needs: scope
-    if: needs.scope.outputs.ubuntu_check != 'false'
+    if: needs.scope.outputs.run_runtime == 'true' && needs.scope.outputs.ubuntu_check != 'false'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
@@ -219,7 +222,7 @@ jobs:
       - run: python scripts/verify.py check
   development-integration:
     needs: scope
-    if: needs.scope.outputs.ubuntu_integration != 'false'
+    if: needs.scope.outputs.run_runtime == 'true' && needs.scope.outputs.ubuntu_integration != 'false'
     runs-on: ubuntu-24.04
     # CI40204907935 spent most of its 30m budget compiling cold race/ordinary builds.
     # Keep verify.py and individual test deadlines unchanged; allow the full suite to finish.

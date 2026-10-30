@@ -5,8 +5,7 @@ import mariamem
 import pymysql
 
 
-def main():
-    source=mariamem.start()
+def check(source):
     session=source._session
     saved=live=None
     def connect(target):return pymysql.connect(**target.connection_info(),autocommit=True)
@@ -26,7 +25,11 @@ def main():
         if saved is not None:saved.close()
         source.close()
     assert session._process.poll() is not None and not session.root.exists()
-    print(json.dumps(dict(result='PASS_INSTALLED_PYTHON_LIVE',module=str(Path(mariamem.__file__).resolve()),source_consumed=source.closed,host_reaped=True,directory_removed=True)))
+    return dict(module=str(Path(mariamem.__file__).resolve()),source_consumed=source.closed,host_reaped=True,directory_removed=True)
+
+
+def main():
+    print(json.dumps(dict(result='PASS_INSTALLED_PYTHON_LIVE', **check(mariamem.start()))))
 
 
 if __name__=='__main__':main()

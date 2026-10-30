@@ -216,17 +216,24 @@ def test_required_hosts_run_new_entry_controls_for_both_python_minors():
     segment = text.split('- name: Public Go/Python browser Live, Fork control and actual defects', 1)[1]
     segment = segment.split('- name:', 1)[0]
     assert 'for py in "$PY311" "$PY314"' in segment
-    assert 'tests/test_prepare_command.py tests/test_p1_pytest_entry.py' in segment
     runtime = text.split('- name: P1 real prepared command and callback on both Python minors', 1)[1].split('- name:', 1)[0]
     assert 'for py in "$PY311" "$PY314"' in runtime
     assert 'MARIAMEM_TEST_HOST="$PWD/build/mariamem-host"' in runtime and 'tests/test_p1_runtime.py' in runtime
     assert 'pytest_version=7.0.0' in runtime and 'pytest_version=9.0.2' in runtime
     assert 'P1_INSTALLED_CONSUMER=1' in runtime and '--no-deps build/dist/*.whl' in runtime
+    assert 'tests/test_prepare_command.py tests/test_p1_pytest_entry.py' in runtime
     assert 'cp tests/evidence/alpha-wheel.json build/live-evidence/p1-wheel.json' in runtime
     assert "P1_RESOURCE_EXPERIMENT: '0'" in runtime
     assert 'tests/test_routing_pytest.py tests/test_owned_snapshot_unit.py' in runtime
     for deferred in ('test_p1_resource_probe.py', 'test_p1_resource_guard.py', 'test_p1_observation_barrier.py'):
         assert deferred not in runtime
+    triggers = text.split('concurrency:', 1)[0]
+    assert '  workflow_dispatch:' in triggers
+    assert '  pull_request:' not in triggers and '  push:' not in triggers
+    native = text.split('- name: Fresh P1 authored command and callback native control', 1)[1].split('- uses:', 1)[0]
+    assert 'tests/fixture_entry_acceptance/native.py' in native
+    assert '--expected-source-commit "$GITHUB_SHA"' in native
+    assert 'needs.scope' not in text
 
 
 def test_expected_assertion_cannot_hide_final_source_cleanup_error(tmp_path):
