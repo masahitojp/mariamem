@@ -983,6 +983,16 @@ separate work; no general performance improvement is claimed.
 
 ## v0.6.0 — Wire contract and dogfood
 
+**Wire completion basis adopted,2026-10-31:** the Human adopted the exact English
+criterion in [the canonical decision](decisions/v060-wire-contract.md), including
+native/guest and declared-client-path anchors with named exceptions. The accepted
+command/bit set is fixed to the fixture contract; the reconciliation's previously
+proposed LOCAL INFILE, admin-command and binlog/replication rows are OUT for0.6.0.
+Complete per-entry packet capture is not required; uncaptured paths remain
+UNVERIFIED. Concrete required sequences/discrepancies reopen a bounded capture.
+Release CI reaccepts declared profiles and does not add wire-coverage evidence by
+passing. This closes the interpretation, not other entry/#24/release work.
+
 **D1 disposition approved,2026-10-31:** the Human deferred the additional Django
 prepared entry from0.6.0 and selected0.6.1 for consideration. [Decision](decisions/d1-v060-deferral.md)
 and [Issue43](https://github.com/masahitojp/mariamem/issues/43) preserve the concrete

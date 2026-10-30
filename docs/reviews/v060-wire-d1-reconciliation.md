@@ -13,26 +13,21 @@ so its existing PASS cannot close the later declared prepared-schema/seed
 contract. Selected serialized rollback and fixture cases are narrower evidence,
 not proof that D1 is impossible or necessarily expensive.
 
-## Proposed meaning of wire-contract completion — separate decision
+## Wire-contract completion basis — adopted with explicit conditions
 
-Proposed sentence for explicit Human interpretation approval:
+The Human adopted the original English sentence, with the exact accepted set,
+remaining-path OUT dispositions, bounded reopening trigger, canonical location
+and Release-CI evidence limit now fixed in
+[docs/decisions/v060-wire-contract.md](../decisions/v060-wire-contract.md).
+That decision is authoritative; the weaker Japanese conversational summary is
+not the approval text. Native/guest and declared-client-path anchors remain
+distinct and do not assert paired native comparison for G1/EP1/EG1. Uncaptured
+per-entry paths in this ledger remain UNVERIFIED.
 
-> For v0.6.0, wire-contract completion means a source-pinned supported/unsupported
-> inventory plus native/guest and declared-client-path anchors with the named
-> accepted exceptions; complete per-entry packet capture is not required,
-> uncaptured paths remain UNVERIFIED, and the exact release candidate must still
-> pass Release CI.
-
-This defines a proposed acceptance basis, not a claim that all entries or release
-acceptance are complete. The previous D1-only approval does not approve this
-interpretation; no approved wire-scope policy is silently added to project status.
-Recommendation: accept this bounded basis because it preserves actual native
-controls, driver counters, original failures and explicit limits without opening
-a blanket trace campaign. Strongest objection: an uncaptured client command
-sequence can remain invisible even when application scenarios pass. A concrete
-required sequence or discrepancy should trigger a separately bounded probe;
-source inventory alone would not settle that case. This proposed sentence makes
-that residual uncertainty visible instead of upgrading it to observed PASS.
+The original recommendation's residual concern remains: an uncaptured command
+sequence can be invisible despite application success. A concrete required
+sequence/discrepancy now triggers the approved bounded capture/probe; no blanket
+trace campaign is added, and Release CI PASS grants no new coverage claim.
 
 ## Reviewed object and limits
 
@@ -62,6 +57,9 @@ UNVERIFIED rather than introducing another campaign.
 - Main integrated for this revision: `cff1fd779fdf35a1f33775b9866cf78f3c09f74c`.
   It adds CI/release tooling, not a changed wire/runtime surface; the source
   comparison JSON records this recheck separately from the original ce66b9df scan.
+- Subsequent main integration for the adopted-wire record:
+  `07cbdfe7e668551cbb72de6892d3fbf75f443310`; again no host/guest wire/runtime
+  source changed from the original scan. The approved set remains fixed at286976c7.
 
 The [source comparison](v060-wire-d1-source-comparison.json) independently
 compares all four contract hash pins; all are byte-identical. A broader Git diff
@@ -104,9 +102,10 @@ The default assumption must not turn app success into a complete wire trace.
 | Fixed dbt1.7 seed/run/test/snapshot/docs, threads1/4; Connector26.10.0 | Full command/flag trace **UNVERIFIED**; model SQL and original TEXT DISTINCT are observed. No prepared/CALL/reset-family claim | Both observed hosts native/guest PASS; application rows match within declared snapshot normalization | Expected generic uniqueness data-test failure and subsequent SELECT; schema0, guest connections0/reaped/temp removed | f37b2a7b/7a9a6f72; saved source-bound result and CLI/census/row/cleanup oracles at3787e3dc |
 
 This is a populated **partial-observation** ledger. It closes the missing written
-mapping, not all UNVERIFIED captures. The Human may accept these bounded source,
-native and client-path anchors for the declared profiles; if a protocol sequence
-must itself be proven, name that sequence and cost a targeted probe. A blanket
+mapping, not all UNVERIFIED captures. The Human adopted these bounded source,
+native/guest and declared-client-path anchors with named exceptions under the
+canonical decision; a concrete required sequence/discrepancy triggers a separately
+bounded capture/probe. A blanket
 all-command capture campaign is not automatically required by this report.
 
 ## Remaining-path dispositions
@@ -121,14 +120,15 @@ A source branch is not per-command runtime acceptance.
 | COM_RESET_CONNECTION31 | No handler; [approved release scope](../decisions/v060-release-scope.md#explicitly-not-in-060) explicitly excludes it | **Already OUT**. Reconnect, STMT_RESET and Live Reset remain different operations. Per-entry request census is UNVERIFIED | Generic unsupported branch; reconnect-state tests do not prove session-reset semantics |
 | COM_STMT_FETCH28 / server-side cursors | No handler; same approved exclusion | **Already OUT**. Ordinary prepared SELECT is not cursor support | Prepared owner/metadata tests cover adopted family; no positive cursor oracle |
 | TLS/compression/DEPRECATE_EOF/alternate auth | Not advertised; accepted endpoint is local root/empty password. tests/test_python_wire.py::test_unsupported_handshake_flags_are_rejected_without_poisoning_host (CLIENT.SSL/1235 at lines129–130) rejects SSL and then reuses the host | **Keep existing unsupported/local-endpoint boundary**; do not claim transport security or arbitrary authentication. Complete driver negotiation traces are UNVERIFIED | SSL refusal/host recovery oracle exists. It does not prove all unsupported flags or other auth profiles |
-| LOCAL INFILE | LOCAL_FILES not advertised; no file-transfer exchange implementation. SQL-file import is a different path | **Proposed retain outside declared profile**; no selected-profile requirement was found. Loader demand and actual client requests remain UNVERIFIED | Source capability map only; no successful or dedicated refused LOCAL exchange test identified |
-| CHANGE_USER17 / STATISTICS9 / PROCESS_INFO10 | No handlers; app metadata SQL goes through QUERY | **Proposed retain unsupported** for0.6.0; individual demand/request paths remain UNVERIFIED | Generic unsupported branch; metadata-query success does not cover these commands |
-| Binlog/replication18/21/30 | No stream dispatch/adopted feature or selected CDC workload | **Proposed retain unadopted/watch**; no binlog feature added from this scan | Source/config inventory, no CDC campaign; SHOW syntax is insufficient |
+| LOCAL INFILE | LOCAL_FILES not advertised; no file-transfer exchange implementation. SQL-file import is a different path | **Approved OUT for0.6.0**; no selected-profile requirement was found. Loader demand and actual client requests remain UNVERIFIED | Source capability map only; no successful or dedicated refused LOCAL exchange test identified |
+| CHANGE_USER17 / STATISTICS9 / PROCESS_INFO10 | No handlers; app metadata SQL goes through QUERY | **Approved OUT for0.6.0**; individual demand/request paths remain UNVERIFIED | Generic unsupported branch; metadata-query success does not cover these commands |
+| Binlog/replication18/21/30 | No stream dispatch/adopted feature or selected CDC workload | **Approved OUT for0.6.0**; no binlog feature added from this scan | Source/config inventory, no CDC campaign; SHOW syntax is insufficient |
 
-The first two exclusions reuse an existing Human decision. The other rows keep
-current implementation limits visible and make their proposed disposition
-explicit; they are **not** newly Human-approved exclusions or hidden support
-claims. No additional protocol implementation is authorized by listing them.
+The first two exclusions reuse the earlier release-scope decision. The Human
+subsequently approved the formerly proposed LOCAL INFILE, admin-command and
+binlog/replication rows as OUT for0.6.0 in the canonical wire decision. The existing
+local endpoint/unsupported transport boundary is retained. These dispositions
+change no implementation or existing UNVERIFIED observation into runtime PASS.
 Packet continuation/capacity raises remain OUT under the same scope record;
 detailed resource/capacity tuning remains0.7.x.
 
@@ -171,11 +171,11 @@ framework compatibility matrix a new automatic release gate.
 
 1. D1 deferral is now approved and tracked by Issue43 in0.6.1. No design/code/CI
    begins from that scheduling decision. Shared defects remain in scope.
-2. Human wire-scope review: accept the partial ledger and proposed remaining-path
-   treatments, or name a specific required protocol observation. No automatic
-   blanket trace/requalification campaign. Unsupported capability remains visibly
-   unsupported even if no selected app requested it.
-3. Existing work: E2E owner closes PR28 adoption; #24 owns the finite panic guard
+2. The wire interpretation and OUT dispositions are now approved in the canonical
+   decision. A concrete required sequence/discrepancy reopens only its bounded
+   capture/probe. Existing UNVERIFIED cells remain; no blanket trace campaign or
+   additional coverage follows from Release CI success.
+3. Existing work: E2E owner closes PR28 protected integration; #24 owns the finite panic guard
    follow-up. Neither is resolved by this document. G1 metadata and dbt completion/receipts are reconciled in this PR without changing original evidence or claiming broader support.
 
 G1's active JSON pending status is corrected here. Separate historical prose cleanup remains:
@@ -197,4 +197,4 @@ handoff later; that is a release task, not another D1 investigation.
 Verification for this docs change: exact Git/source comparisons; existing design
 lint (DESIGN_LINT_PASS / runtime NOT_RUN); documentation/public-source/version
 and diff checks. No unchanged runtime tests or CI submission required. The report
-is a recommendation and evidence map, not main adoption or release approval.
+records adopted interpretation/D1 decisions and their evidence map, not main integration or release approval.

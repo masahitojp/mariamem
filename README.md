@@ -191,6 +191,12 @@ Connector/Python1.1.14 on both supported guest platforms; this is not blanket
 driver compatibility. See the [exact consumer boundaries](docs/decisions/prepared-consumer-exceptions.md).
 Server-side cursors / COM_STMT_FETCH remain unsupported.
 
+Current source builds retain a bounded local endpoint profile: TLS/compression,
+LOCAL INFILE transfer, administrative wire commands and binlog/replication
+streaming are outside0.6.0 support. See the [exact wire scope, exceptions and
+bounded reopening rule](docs/decisions/v060-wire-contract.md). Application or
+Release CI success does not imply additional protocol coverage.
+
 
 ## Important limits
 

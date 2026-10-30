@@ -22,6 +22,13 @@ record the obstacle, user impact and remaining work. This satisfies the allowed
 D1 disposition branch below, not D1 runtime acceptance. P1/G1/EP1/EG1 and shared
 defects remain required; no0.6.1 implementation or publication promise follows.
 
+## Wire completion interpretation,2026-10-31
+
+[The canonical wire decision](v060-wire-contract.md) fixes the adopted English
+criterion, exact command/bit set and OUT dispositions, named exceptions,
+UNVERIFIED captures and bounded reopening trigger. Release CI remains an
+exact-candidate reacceptance gate; its success is not new wire-coverage evidence.
+
 ## Included in 0.6.0
 
 Everything below is already adopted on main and unreleased. Targeting 0.6.0

@@ -268,6 +268,18 @@ Connector/Python1.1.14 on both supported guest platforms; this is not blanket
 driver compatibility. See the [exact consumer boundaries](decisions/prepared-consumer-exceptions.md).
 Server-side cursors / COM_STMT_FETCH remain unsupported.
 
+### Wire scope for current source builds
+
+Use the supplied local root/empty-password endpoint profile. TLS/SSL, compression,
+DEPRECATE_EOF and alternate authentication are not advertised/supported in this
+profile. COM_RESET_CONNECTION, server-side cursors/COM_STMT_FETCH, LOCAL INFILE
+transfer, CHANGE_USER, STATISTICS, PROCESS_INFO and binlog/replication streaming
+are outside0.6.0 support. SQL-file import is not LOCAL INFILE; metadata SQL is not
+an administrative wire command. Per-entry uncaptured paths remain unverified;
+passing application/Release tests is not evidence of additional protocol coverage.
+See the [bounded wire contract and reopening rule](decisions/v060-wire-contract.md).
+
+
 
 Multiple SQL clients have separate sessions, transactions and temporary tables.
 Current capacity is 16, not a permanent API or throughput guarantee. Additional
