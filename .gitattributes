@@ -12,3 +12,6 @@ docs/reviews/v06x-prepared-*/proposed-source-change.txt -whitespace
 
 # Immutable native-produced dump: preserve original bytes, including its sandbox line.
 tests/dump_import_acceptance/input/application.sql whitespace=-blank-at-eol
+
+# Preserve checksum-bound dbt CLI receipts; timestamp-only lines have trailing spaces.
+docs/reviews/dbt-revalidation-evidence/**/*.txt whitespace=-blank-at-eol

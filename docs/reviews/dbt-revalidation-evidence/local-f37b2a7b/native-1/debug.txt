@@ -1,0 +1,28 @@
+15:56:13  Running with dbt=1.7.20
+15:56:13  This version of dbt is deprecated and no longer receives regular patches, including for known bugs. We recommend upgrading to a newer supported version of dbt: https://docs.getdbt.com/docs/dbt-versions
+15:56:13  dbt version: 1.7.20
+15:56:13  python version: 3.11.18
+15:56:13  python path: <VENV>/bin/python
+15:56:13  os info: macOS-27.2-arm64-arm-64bit
+15:56:13  Using profiles dir at <EVIDENCE>/native-1
+15:56:13  Using profiles.yml file at <EVIDENCE>/native-1/profiles.yml
+15:56:13  Using dbt_project.yml file at <EVIDENCE>/native-1/dbt_project.yml
+15:56:13  adapter type: mysql
+15:56:13  adapter version: 1.7.0
+15:56:13  Configuration:
+15:56:13    profiles.yml file [OK found and valid]
+15:56:13    dbt_project.yml file [OK found and valid]
+15:56:13  Required dependencies:
+15:56:13   - git [OK found]
+
+15:56:13  Connection:
+15:56:13    server: 127.0.0.1
+15:56:13    unix_socket: None
+15:56:13    port: 33319
+15:56:13    database: None
+15:56:13    schema: test
+15:56:13    user: root
+15:56:13  Registered adapter: mysql=1.7.0
+15:56:13    Connection test: [OK connection ok]
+
+15:56:13  All checks passed!

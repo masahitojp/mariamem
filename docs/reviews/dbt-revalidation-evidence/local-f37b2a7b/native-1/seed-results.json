@@ -1,0 +1,80 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T15:56:16.484497Z",
+    "invocation_id": "32fa61e9-c5f5-4396-8ecb-3cacda603045",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:16.377420Z",
+          "completed_at": "2026-10-30T15:56:16.377421Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:16.377985Z",
+          "completed_at": "2026-10-30T15:56:16.464802Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.08891701698303223,
+      "adapter_response": {
+        "_message": "INSERT 3",
+        "code": "INSERT",
+        "rows_affected": 3
+      },
+      "message": "INSERT 3",
+      "failures": null,
+      "unique_id": "seed.dbt_feasibility.orders_seed",
+      "compiled": null,
+      "compiled_code": null,
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.21276378631591797,
+  "args": {
+    "cache_selected_only": false,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "use_colors_file": false,
+    "select": [],
+    "use_colors": false,
+    "strict_mode": false,
+    "log_level": "info",
+    "partial_parse_file_diff": true,
+    "which": "seed",
+    "log_format": "default",
+    "introspect": true,
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "quiet": false,
+    "invocation_command": "dbt seed --project-dir <EVIDENCE>/native-1 --profiles-dir <EVIDENCE>/native-1",
+    "write_json": true,
+    "print": true,
+    "enable_legacy_logger": false,
+    "populate_cache": true,
+    "log_file_max_bytes": 10485760,
+    "profiles_dir": "<EVIDENCE>/native-1",
+    "version_check": true,
+    "printer_width": 80,
+    "static_parser": true,
+    "macro_debugging": false,
+    "show_resource_report": false,
+    "show": false,
+    "partial_parse": true,
+    "project_dir": "<EVIDENCE>/native-1",
+    "indirect_selection": "eager",
+    "log_format_file": "debug",
+    "log_level_file": "debug",
+    "vars": {},
+    "send_anonymous_usage_stats": false,
+    "exclude": [],
+    "log_path": "<EVIDENCE>/native-1/logs"
+  }
+}

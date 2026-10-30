@@ -9,6 +9,12 @@ same initial database. Prepare with explicit settings, commit and close the
 preparation connections, then capture a Snapshot. Keep that Snapshot open until
 all resets finish. A Live owns one stable localhost endpoint over private Forks.
 
+Live Reset changes the backing database after caller work and physical SQL
+connections are retired; it does not implement COM_RESET_CONNECTION or preserve
+physical sessions. TLS/compression, LOCAL INFILE, administrative wire commands
+and binlog/replication streaming are outside the0.6.0 endpoint profile. See the
+[wire limits and bounded reopening rule](decisions/v060-wire-contract.md).
+
 For complete runnable examples, see [reuse one application across sequential
 tests](examples/live/README.md). Python uses Django and a real browser with a
 fresh context per case; Go uses HTTP E2E. Both require application quiescence

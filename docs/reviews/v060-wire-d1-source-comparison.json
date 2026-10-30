@@ -1,0 +1,28 @@
+{
+  "reviewed_main_source_commit": "ce66b9df2067c546c88f6748fcbce2dc175a619a",
+  "comparison_source_commit": "437d74d9d11d8dc2a03dc94bba0d37346131ebff",
+  "new_runtime_execution": "NOT_RUN",
+  "files": {
+    "internal/mysqlwire/wire.go": {
+      "sha256": "8a2991512654e9efcf4d15af010f013e6caddbe4f1ff078c7bb62a79881daa5f",
+      "byte_identical_to_active_inventory": true
+    },
+    "internal/mysqlwire/prepared_session.go": {
+      "sha256": "3591c671a67b87e1fed52eef27638006626e28c0d99437014b332d01abecd0bf",
+      "byte_identical_to_active_inventory": true
+    },
+    "guest/wire_core.inc": {
+      "sha256": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a",
+      "byte_identical_to_active_inventory": true
+    },
+    "guest/resident.inc": {
+      "sha256": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c",
+      "byte_identical_to_active_inventory": true
+    }
+  },
+  "all_host_guest_runtime_source_changed_paths": [],
+  "main_recheck_source_commit": "cff1fd779fdf35a1f33775b9866cf78f3c09f74c",
+  "runtime_changed_paths_since_reviewed_main": [],
+  "adopted_wire_record_main_source_commit": "07cbdfe7e668551cbb72de6892d3fbf75f443310",
+  "adopted_wire_record_runtime_changed_paths": []
+}

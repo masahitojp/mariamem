@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T15:56:56.510575Z",
+    "invocation_id": "628f1bfb-143d-45dc-bf1f-07c72788d8c2",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:56.366476Z",
+          "completed_at": "2026-10-30T15:56:56.370875Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:56.371515Z",
+          "completed_at": "2026-10-30T15:56:56.490136Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.1252458095550537,
+      "adapter_response": {
+        "_message": "SUCCESS 0",
+        "code": "SUCCESS",
+        "rows_affected": 0
+      },
+      "message": "SUCCESS 0",
+      "failures": null,
+      "unique_id": "snapshot.dbt_feasibility.orders_snapshot",
+      "compiled": true,
+      "compiled_code": "\n\nselect * from `test`.`orders`",
+      "relation_name": "`test`.`orders_snapshot`"
+    }
+  ],
+  "elapsed_time": 0.22507095336914062,
+  "args": {
+    "printer_width": 80,
+    "log_level_file": "debug",
+    "cache_selected_only": false,
+    "partial_parse": true,
+    "quiet": false,
+    "partial_parse_file_diff": true,
+    "log_file_max_bytes": 10485760,
+    "use_colors": false,
+    "static_parser": true,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "populate_cache": true,
+    "indirect_selection": "eager",
+    "write_json": true,
+    "vars": {},
+    "favor_state": false,
+    "profiles_dir": "<EVIDENCE>/native-4",
+    "version_check": true,
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "select": [],
+    "invocation_command": "dbt snapshot --project-dir <EVIDENCE>/native-4 --profiles-dir <EVIDENCE>/native-4",
+    "enable_legacy_logger": false,
+    "strict_mode": false,
+    "project_dir": "<EVIDENCE>/native-4",
+    "send_anonymous_usage_stats": false,
+    "macro_debugging": false,
+    "which": "snapshot",
+    "show_resource_report": false,
+    "print": true,
+    "defer": false,
+    "use_colors_file": false,
+    "exclude": [],
+    "log_format_file": "debug",
+    "log_format": "default",
+    "log_level": "info",
+    "log_path": "<EVIDENCE>/native-4/logs",
+    "introspect": true
+  }
+}

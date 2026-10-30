@@ -1,0 +1,21 @@
+16:30:48  Running with dbt=1.7.20
+16:30:48  This version of dbt is deprecated and no longer receives regular patches, including for known bugs. We recommend upgrading to a newer supported version of dbt: https://docs.getdbt.com/docs/dbt-versions
+16:30:48  Registered adapter: mysql=1.7.0
+16:30:48  Found 4 models, 1 snapshot, 1 seed, 4 tests, 0 sources, 0 exposures, 0 metrics, 375 macros, 0 groups, 0 semantic models
+16:30:48  
+16:30:49  Concurrency: 1 threads (target='dev')
+16:30:49  
+16:30:49  1 of 4 START sql table model test.orders ....................................... [RUN]
+16:30:49  1 of 4 OK created sql table model test.orders .................................. [SUCCESS 3 in 0.15s]
+16:30:49  2 of 4 START sql table model test.customer_names ............................... [RUN]
+16:30:49  2 of 4 OK created sql table model test.customer_names .......................... [SUCCESS 3 in 0.09s]
+16:30:49  3 of 4 START sql incremental model test.order_events ........................... [RUN]
+16:30:49  3 of 4 OK created sql incremental model test.order_events ...................... [SUCCESS 0 in 0.12s]
+16:30:49  4 of 4 START sql view model test.order_totals .................................. [RUN]
+16:30:49  4 of 4 OK created sql view model test.order_totals ............................. [SUCCESS 0 in 0.10s]
+16:30:49  
+16:30:49  Finished running 2 table models, 1 incremental model, 1 view model in 0 hours 0 minutes and 0.71 seconds (0.71s).
+16:30:49  
+16:30:49  Completed successfully
+16:30:49  
+16:30:49  Done. PASS=4 WARN=0 ERROR=0 SKIP=0 TOTAL=4

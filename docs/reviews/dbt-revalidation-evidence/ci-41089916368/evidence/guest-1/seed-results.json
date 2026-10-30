@@ -1,0 +1,80 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T16:31:12.896038Z",
+    "invocation_id": "a35e7d2e-8b78-48a2-a36f-07098be281f2",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:31:12.795832Z",
+          "completed_at": "2026-10-30T16:31:12.795835Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:31:12.797001Z",
+          "completed_at": "2026-10-30T16:31:12.880401Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.08751106262207031,
+      "adapter_response": {
+        "_message": "INSERT 3",
+        "code": "INSERT",
+        "rows_affected": 3
+      },
+      "message": "INSERT 3",
+      "failures": null,
+      "unique_id": "seed.dbt_feasibility.orders_seed",
+      "compiled": null,
+      "compiled_code": null,
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.15193486213684082,
+  "args": {
+    "show_resource_report": false,
+    "cache_selected_only": false,
+    "use_colors": false,
+    "populate_cache": true,
+    "quiet": false,
+    "vars": {},
+    "which": "seed",
+    "indirect_selection": "eager",
+    "introspect": true,
+    "enable_legacy_logger": false,
+    "printer_width": 80,
+    "select": [],
+    "strict_mode": false,
+    "send_anonymous_usage_stats": false,
+    "show": false,
+    "use_colors_file": false,
+    "version_check": true,
+    "partial_parse": true,
+    "log_format": "default",
+    "print": true,
+    "log_format_file": "debug",
+    "invocation_command": "dbt seed --project-dir <HOME>/work/_temp/dbt-replay/evidence/guest-1 --profiles-dir <HOME>/work/_temp/dbt-replay/evidence/guest-1",
+    "log_level_file": "debug",
+    "exclude": [],
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "write_json": true,
+    "log_level": "info",
+    "profiles_dir": "<HOME>/work/_temp/dbt-replay/evidence/guest-1",
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "log_file_max_bytes": 10485760,
+    "log_path": "<HOME>/work/_temp/dbt-replay/evidence/guest-1/logs",
+    "static_parser": true,
+    "partial_parse_file_diff": true,
+    "macro_debugging": false,
+    "project_dir": "<HOME>/work/_temp/dbt-replay/evidence/guest-1"
+  }
+}

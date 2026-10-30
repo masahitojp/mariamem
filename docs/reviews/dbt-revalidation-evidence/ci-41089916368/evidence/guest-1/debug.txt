@@ -1,0 +1,28 @@
+16:31:09  Running with dbt=1.7.20
+16:31:09  This version of dbt is deprecated and no longer receives regular patches, including for known bugs. We recommend upgrading to a newer supported version of dbt: https://docs.getdbt.com/docs/dbt-versions
+16:31:09  dbt version: 1.7.20
+16:31:09  python version: 3.11.17
+16:31:09  python path: /opt/hostedtoolcache/Python/3.11.17/x64/bin/python
+16:31:09  os info: Linux-7.0.0-1017-azure-x86_64-with-glibc2.39
+16:31:09  Using profiles dir at <HOME>/work/_temp/dbt-replay/evidence/guest-1
+16:31:09  Using profiles.yml file at <HOME>/work/_temp/dbt-replay/evidence/guest-1/profiles.yml
+16:31:09  Using dbt_project.yml file at <HOME>/work/_temp/dbt-replay/evidence/guest-1/dbt_project.yml
+16:31:09  adapter type: mysql
+16:31:09  adapter version: 1.7.0
+16:31:09  Configuration:
+16:31:09    profiles.yml file [OK found and valid]
+16:31:09    dbt_project.yml file [OK found and valid]
+16:31:09  Required dependencies:
+16:31:09   - git [OK found]
+
+16:31:09  Connection:
+16:31:09    server: 127.0.0.1
+16:31:09    unix_socket: None
+16:31:09    port: 38719
+16:31:09    database: None
+16:31:09    schema: test
+16:31:09    user: root
+16:31:09  Registered adapter: mysql=1.7.0
+16:31:09    Connection test: [OK connection ok]
+
+16:31:09  All checks passed!

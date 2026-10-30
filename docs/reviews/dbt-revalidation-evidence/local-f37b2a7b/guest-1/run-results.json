@@ -1,0 +1,165 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v5.json",
+    "dbt_version": "1.7.20",
+    "generated_at": "2026-10-30T15:56:36.100690Z",
+    "invocation_id": "6118b350-a046-4832-b07d-c7eafd0e1c43",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:35.982205Z",
+          "completed_at": "2026-10-30T15:56:35.986306Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:35.986827Z",
+          "completed_at": "2026-10-30T15:56:36.027596Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.04668998718261719,
+      "adapter_response": {
+        "_message": "SUCCESS 3",
+        "code": "SUCCESS",
+        "rows_affected": 3
+      },
+      "message": "SUCCESS 3",
+      "failures": null,
+      "unique_id": "model.dbt_feasibility.orders",
+      "compiled": true,
+      "compiled_code": "select\n  order_id,\n  customer,\n  amount,\n  amount * 2 as doubled\nfrom `test`.`orders_seed`",
+      "relation_name": "`test`.`orders`"
+    },
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:36.030290Z",
+          "completed_at": "2026-10-30T15:56:36.031947Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:36.032444Z",
+          "completed_at": "2026-10-30T15:56:36.047815Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.018832921981811523,
+      "adapter_response": {
+        "_message": "SUCCESS 3",
+        "code": "SUCCESS",
+        "rows_affected": 3
+      },
+      "message": "SUCCESS 3",
+      "failures": null,
+      "unique_id": "model.dbt_feasibility.customer_names",
+      "compiled": true,
+      "compiled_code": "select distinct customer from `test`.`orders`",
+      "relation_name": "`test`.`customer_names`"
+    },
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:36.050313Z",
+          "completed_at": "2026-10-30T15:56:36.053860Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:36.054371Z",
+          "completed_at": "2026-10-30T15:56:36.068377Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.01929306983947754,
+      "adapter_response": {
+        "_message": "SUCCESS 3",
+        "code": "SUCCESS",
+        "rows_affected": 3
+      },
+      "message": "SUCCESS 3",
+      "failures": null,
+      "unique_id": "model.dbt_feasibility.order_events",
+      "compiled": true,
+      "compiled_code": "\nselect order_id, customer, amount\nfrom `test`.`orders`\n",
+      "relation_name": "`test`.`order_events`"
+    },
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T15:56:36.070826Z",
+          "completed_at": "2026-10-30T15:56:36.072622Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T15:56:36.073101Z",
+          "completed_at": "2026-10-30T15:56:36.094622Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.0250396728515625,
+      "adapter_response": {
+        "_message": "SUCCESS 0",
+        "code": "SUCCESS",
+        "rows_affected": 0
+      },
+      "message": "SUCCESS 0",
+      "failures": null,
+      "unique_id": "model.dbt_feasibility.order_totals",
+      "compiled": true,
+      "compiled_code": "\nselect customer, sum(amount) as total\nfrom `test`.`orders`\ngroup by customer",
+      "relation_name": "`test`.`order_totals`"
+    }
+  ],
+  "elapsed_time": 0.15050864219665527,
+  "args": {
+    "version_check": true,
+    "use_colors_file": false,
+    "log_format": "default",
+    "quiet": false,
+    "log_file_max_bytes": 10485760,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "favor_state": false,
+    "indirect_selection": "eager",
+    "log_path": "<EVIDENCE>/guest-1/logs",
+    "write_json": true,
+    "send_anonymous_usage_stats": false,
+    "which": "run",
+    "populate_cache": true,
+    "invocation_command": "dbt run --project-dir <EVIDENCE>/guest-1 --profiles-dir <EVIDENCE>/guest-1",
+    "use_colors": false,
+    "print": true,
+    "log_format_file": "debug",
+    "show_resource_report": false,
+    "select": [],
+    "require_explicit_package_overrides_for_builtin_materializations": false,
+    "defer": false,
+    "cache_selected_only": false,
+    "static_parser": true,
+    "enable_legacy_logger": false,
+    "profiles_dir": "<EVIDENCE>/guest-1",
+    "vars": {},
+    "project_dir": "<EVIDENCE>/guest-1",
+    "log_level": "info",
+    "macro_debugging": false,
+    "partial_parse": true,
+    "partial_parse_file_diff": true,
+    "exclude": [],
+    "strict_mode": false,
+    "printer_width": 80,
+    "log_level_file": "debug",
+    "introspect": true
+  }
+}

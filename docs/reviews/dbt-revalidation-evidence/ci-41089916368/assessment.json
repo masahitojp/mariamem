@@ -1,0 +1,38 @@
+{
+  "result": "PASS",
+  "source_commit": "7a9a6f72dc83bc7d9f1526fa9704d32bbcefc126",
+  "run_id": 41089916368,
+  "job_id": 124180806793,
+  "artifact_id": 12993587783,
+  "zip_sha256": "131984366c79c95c29bb8225615eec69f579d71d70da8fc158e4297f8be9f66e",
+  "github_digest_match": true,
+  "original_inner_files_verified": 231,
+  "os": "Ubuntu24.04.5 x86_64",
+  "python": "3.11.17",
+  "dbt_core": "1.7.20",
+  "dbt_mysql": "1.7.0",
+  "connector_python": "26.10.0",
+  "native_guest_threads_cells": 4,
+  "schema_count_after": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "guest_connections_after": [
+    0,
+    0
+  ],
+  "guest_host_reaped": [
+    true,
+    true
+  ],
+  "guest_session_directory_removed": [
+    true,
+    true
+  ],
+  "container_stop_job_step": "success",
+  "macos_receipt_source_commit": "f37b2a7b86b7187613edc99c6aac069eef5071ac",
+  "macos_and_ubuntu_product_and_replay_inputs_equal": true,
+  "scope": "fixed dbt1.7 repair revalidation; no broader support, Qualification or release"
+}
