@@ -1,0 +1,14 @@
+16:30:54  Running with dbt=1.8.7
+16:30:54  Registered adapter: mariadb=1.8.0-a1
+16:30:54  Found 2 models, 406 macros, 1 unit test
+16:30:54  
+16:30:54  Concurrency: 1 threads (target='dev')
+16:30:54  
+16:30:54  1 of 1 START unit_test doubled::doubles_amount ................................. [RUN]
+16:30:55  1 of 1 PASS doubled::doubles_amount ............................................ [PASS in 0.09s]
+16:30:55  
+16:30:55  Finished running 1 unit test in 0 hours 0 minutes and 0.17 seconds (0.17s).
+16:30:55  
+16:30:55  Completed successfully
+16:30:55  
+16:30:55  Done. PASS=1 WARN=0 ERROR=0 SKIP=0 TOTAL=1

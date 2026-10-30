@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v6.json",
+    "dbt_version": "1.8.7",
+    "generated_at": "2026-10-30T16:30:53.717817Z",
+    "invocation_id": "f17bb399-7a9e-475c-b4f3-a2bbfeecbb95",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "error",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:30:53.623098Z",
+          "completed_at": "2026-10-30T16:30:53.623100Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:30:53.623283Z",
+          "completed_at": "2026-10-30T16:30:53.689047Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.07445812225341797,
+      "adapter_response": {},
+      "message": "Runtime Error in unit_test doubles_amount (models/unit.yml)\n  An error occurred during execution of unit test 'doubles_amount'. There may be an error in the unit test definition: check the data types.\n   Database Error\n    1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(1))\n     as order_id, \n        \n        cast(10 as int(2))\n     as amount\n    union all\n    select \n    ...' at line 17",
+      "failures": null,
+      "unique_id": "unit_test.unit_probe.doubled.doubles_amount",
+      "compiled": null,
+      "compiled_code": null,
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.1508951187133789,
+  "args": {
+    "partial_parse_file_diff": true,
+    "require_explicit_package_overrides_for_builtin_materializations": true,
+    "send_anonymous_usage_stats": false,
+    "version_check": true,
+    "partial_parse": true,
+    "profiles_dir": "../evidence/native/project",
+    "enable_legacy_logger": false,
+    "show_resource_report": false,
+    "quiet": false,
+    "log_level": "info",
+    "printer_width": 80,
+    "strict_mode": false,
+    "log_format": "default",
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "which": "test",
+    "print": true,
+    "defer": false,
+    "vars": {},
+    "indirect_selection": "eager",
+    "log_level_file": "debug",
+    "log_path": "../evidence/native/project/logs",
+    "exclude": [],
+    "cache_selected_only": false,
+    "introspect": true,
+    "use_colors": false,
+    "favor_state": false,
+    "write_json": true,
+    "source_freshness_run_project_hooks": false,
+    "select": [
+      "test_type:unit"
+    ],
+    "static_parser": true,
+    "require_resource_names_without_spaces": false,
+    "invocation_command": "dbt test --select test_type:unit --project-dir ../evidence/native/project --profiles-dir ../evidence/native/project",
+    "populate_cache": true,
+    "log_file_max_bytes": 10485760,
+    "log_format_file": "debug",
+    "macro_debugging": false,
+    "project_dir": "../evidence/native/project",
+    "use_colors_file": false
+  }
+}

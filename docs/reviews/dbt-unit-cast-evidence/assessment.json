@@ -1,0 +1,28 @@
+{
+  "result": "BOUNDED_INTEGER_CASE_PASS",
+  "source_commit": "16110eb306a371e80b08abb0d92ec5fc10c7cb67",
+  "adapter_source_commit": "d4186f78984aa891f73d3f256f5780630878b21f",
+  "dbt_core": "1.8.7",
+  "profile": "mariadb",
+  "adapter_source_patched": false,
+  "experimental_project_macro": true,
+  "native_and_guest_same_positive_compiled_sql": true,
+  "native": "PASS",
+  "guest": "PASS",
+  "without_override_expected_error": "1064/42000 on both",
+  "with_override": "1 unit test pass on both",
+  "wrong_expectation": "CLI1 / unit status fail on both",
+  "subsequent_select": "PASS on both",
+  "schema_count_after": [
+    0,
+    0
+  ],
+  "guest_connections_after": 0,
+  "guest_host_reaped": true,
+  "guest_session_directory_removed": true,
+  "native_container_removed": true,
+  "native_anonymous_volume_removed": true,
+  "ubuntu": "NOT_RUN",
+  "heavy_ci_submissions": 0,
+  "product_adoption": false
+}

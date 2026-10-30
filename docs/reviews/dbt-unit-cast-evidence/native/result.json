@@ -1,0 +1,38 @@
+{
+  "result": "PASS",
+  "source_commit": "16110eb306a371e80b08abb0d92ec5fc10c7cb67",
+  "route": "native",
+  "steps": [
+    {
+      "label": "upstream",
+      "exit_code": 0,
+      "statuses": [
+        "success"
+      ]
+    },
+    {
+      "label": "without-override",
+      "exit_code": 1,
+      "statuses": [
+        "error"
+      ]
+    },
+    {
+      "label": "with-override",
+      "exit_code": 0,
+      "statuses": [
+        "pass"
+      ]
+    },
+    {
+      "label": "wrong-expectation",
+      "exit_code": 1,
+      "statuses": [
+        "fail"
+      ]
+    }
+  ],
+  "version": "12.3.3-MariaDB-ubu2404",
+  "subsequent_select": "PASS",
+  "schema_count_after": 0
+}

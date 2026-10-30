@@ -1,0 +1,81 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v6.json",
+    "dbt_version": "1.8.7",
+    "generated_at": "2026-10-30T16:34:10.189921Z",
+    "invocation_id": "6ada1d49-87c5-41e0-aba4-fb1618bf75c5",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "error",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:34:10.126746Z",
+          "completed_at": "2026-10-30T16:34:10.126749Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:34:10.126948Z",
+          "completed_at": "2026-10-30T16:34:10.174260Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.05770087242126465,
+      "adapter_response": {},
+      "message": "Runtime Error in unit_test doubles_amount (models/unit.yml)\n  An error occurred during execution of unit test 'doubles_amount'. There may be an error in the unit test definition: check the data types.\n   Database Error\n    1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(1))\n     as order_id, \n        \n        cast(10 as int(2))\n     as amount\n    union all\n    select \n    ...' at line 17",
+      "failures": null,
+      "unique_id": "unit_test.unit_probe.doubled.doubles_amount",
+      "compiled": null,
+      "compiled_code": null,
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.0919342041015625,
+  "args": {
+    "project_dir": "<WORKSPACE>/evidence/guest/project",
+    "log_file_max_bytes": 10485760,
+    "macro_debugging": false,
+    "introspect": true,
+    "profiles_dir": "<WORKSPACE>/evidence/guest/project",
+    "source_freshness_run_project_hooks": false,
+    "show_resource_report": false,
+    "use_colors_file": false,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "printer_width": 80,
+    "log_path": "<WORKSPACE>/evidence/guest/project/logs",
+    "print": true,
+    "version_check": true,
+    "vars": {},
+    "favor_state": false,
+    "populate_cache": true,
+    "use_colors": false,
+    "select": [
+      "test_type:unit"
+    ],
+    "require_resource_names_without_spaces": false,
+    "quiet": false,
+    "invocation_command": "dbt test --select test_type:unit --project-dir <WORKSPACE>/evidence/guest/project --profiles-dir <WORKSPACE>/evidence/guest/project",
+    "partial_parse": true,
+    "indirect_selection": "eager",
+    "exclude": [],
+    "log_level_file": "debug",
+    "log_format_file": "debug",
+    "partial_parse_file_diff": true,
+    "which": "test",
+    "defer": false,
+    "log_format": "default",
+    "static_parser": true,
+    "enable_legacy_logger": false,
+    "strict_mode": false,
+    "write_json": true,
+    "require_explicit_package_overrides_for_builtin_materializations": true,
+    "cache_selected_only": false,
+    "send_anonymous_usage_stats": false,
+    "log_level": "info"
+  }
+}

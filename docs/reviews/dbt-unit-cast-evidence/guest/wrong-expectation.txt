@@ -1,0 +1,27 @@
+16:34:13  Running with dbt=1.8.7
+16:34:13  Registered adapter: mariadb=1.8.0-a1
+16:34:13  Found 2 models, 406 macros, 1 unit test
+16:34:13  
+16:34:13  Concurrency: 1 threads (target='dev')
+16:34:13  
+16:34:13  1 of 1 START unit_test doubled::doubles_amount ................................. [RUN]
+16:34:13  1 of 1 FAIL 1 doubled::doubles_amount .......................................... [FAIL 1 in 0.06s]
+16:34:13  
+16:34:13  Finished running 1 unit test in 0 hours 0 minutes and 0.10 seconds (0.10s).
+16:34:13  
+16:34:13  Completed with 1 error and 0 warnings:
+16:34:13  
+16:34:13  Failure in unit_test doubles_amount (models/unit.yml)
+16:34:13    
+
+actual differs from expected:
+
+@@,order_id,doubled
+  ,1       ,20
+→ ,2       ,15→14
+
+
+16:34:13  
+16:34:13    compiled code at target/compiled/unit_probe/models/unit.yml/models/doubles_amount.sql
+16:34:13  
+16:34:13  Done. PASS=0 WARN=0 ERROR=1 SKIP=0 TOTAL=1

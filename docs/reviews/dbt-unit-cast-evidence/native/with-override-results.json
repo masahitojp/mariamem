@@ -1,0 +1,85 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v6.json",
+    "dbt_version": "1.8.7",
+    "generated_at": "2026-10-30T16:30:55.071756Z",
+    "invocation_id": "3246138e-05a6-4ecd-9767-3d932d8f6efd",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "pass",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:30:54.958972Z",
+          "completed_at": "2026-10-30T16:30:54.958974Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:30:54.959173Z",
+          "completed_at": "2026-10-30T16:30:55.052353Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.09491133689880371,
+      "adapter_response": {
+        "_message": "SUCCESS 4",
+        "code": "SUCCESS",
+        "rows_affected": 4
+      },
+      "message": null,
+      "failures": 0,
+      "unique_id": "unit_test.unit_probe.doubled.doubles_amount",
+      "compiled": true,
+      "compiled_code": "with __dbt__cte__orders as (\n\n-- Fixture for orders\nselect \n  \n  \n    cast(1 as signed)\n  \n as order_id, \n  \n  \n    cast(10 as signed)\n  \n as amount\nunion all\nselect \n  \n  \n    cast(2 as signed)\n  \n as order_id, \n  \n  \n    cast(7 as signed)\n  \n as amount\n) select order_id, amount * 2 as doubled from __dbt__cte__orders",
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.170166015625,
+  "args": {
+    "log_path": "../evidence/native/project/logs",
+    "exclude": [],
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "static_parser": true,
+    "version_check": true,
+    "send_anonymous_usage_stats": false,
+    "require_explicit_package_overrides_for_builtin_materializations": true,
+    "write_json": true,
+    "defer": false,
+    "log_level_file": "debug",
+    "indirect_selection": "eager",
+    "project_dir": "../evidence/native/project",
+    "log_format": "default",
+    "invocation_command": "dbt test --select test_type:unit --project-dir ../evidence/native/project --profiles-dir ../evidence/native/project",
+    "print": true,
+    "quiet": false,
+    "source_freshness_run_project_hooks": false,
+    "macro_debugging": false,
+    "profiles_dir": "../evidence/native/project",
+    "use_colors_file": false,
+    "show_resource_report": false,
+    "partial_parse": true,
+    "log_format_file": "debug",
+    "log_level": "info",
+    "introspect": true,
+    "use_colors": false,
+    "which": "test",
+    "enable_legacy_logger": false,
+    "partial_parse_file_diff": true,
+    "strict_mode": false,
+    "vars": {},
+    "favor_state": false,
+    "cache_selected_only": false,
+    "log_file_max_bytes": 10485760,
+    "require_resource_names_without_spaces": false,
+    "select": [
+      "test_type:unit"
+    ],
+    "printer_width": 80,
+    "populate_cache": true
+  }
+}

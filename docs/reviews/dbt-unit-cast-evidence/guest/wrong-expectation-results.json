@@ -1,0 +1,85 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v6.json",
+    "dbt_version": "1.8.7",
+    "generated_at": "2026-10-30T16:34:13.706824Z",
+    "invocation_id": "11fd6fd4-29b1-4abc-a5e6-11a7dea0179b",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "fail",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:34:13.638999Z",
+          "completed_at": "2026-10-30T16:34:13.639003Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:34:13.639263Z",
+          "completed_at": "2026-10-30T16:34:13.700989Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.06325888633728027,
+      "adapter_response": {
+        "_message": "SUCCESS 4",
+        "code": "SUCCESS",
+        "rows_affected": 4
+      },
+      "message": "\n\nactual differs from expected:\n\n@@,order_id,doubled\r\n  ,1       ,20\r\n\u2192 ,2       ,15\u219214\r\n\n",
+      "failures": 1,
+      "unique_id": "unit_test.unit_probe.doubled.doubles_amount",
+      "compiled": true,
+      "compiled_code": "with __dbt__cte__orders as (\n\n-- Fixture for orders\nselect \n  \n  \n    cast(1 as signed)\n  \n as order_id, \n  \n  \n    cast(10 as signed)\n  \n as amount\nunion all\nselect \n  \n  \n    cast(2 as signed)\n  \n as order_id, \n  \n  \n    cast(7 as signed)\n  \n as amount\n) select order_id, amount * 2 as doubled from __dbt__cte__orders",
+      "relation_name": null
+    }
+  ],
+  "elapsed_time": 0.09591007232666016,
+  "args": {
+    "use_colors": false,
+    "quiet": false,
+    "enable_legacy_logger": false,
+    "log_file_max_bytes": 10485760,
+    "cache_selected_only": false,
+    "which": "test",
+    "require_explicit_package_overrides_for_builtin_materializations": true,
+    "require_resource_names_without_spaces": false,
+    "log_format": "default",
+    "partial_parse_file_diff": true,
+    "vars": {},
+    "indirect_selection": "eager",
+    "source_freshness_run_project_hooks": false,
+    "populate_cache": true,
+    "select": [
+      "test_type:unit"
+    ],
+    "introspect": true,
+    "exclude": [],
+    "send_anonymous_usage_stats": false,
+    "profiles_dir": "<WORKSPACE>/evidence/guest/project",
+    "print": true,
+    "macro_debugging": false,
+    "log_path": "<WORKSPACE>/evidence/guest/project/logs",
+    "write_json": true,
+    "printer_width": 80,
+    "log_level_file": "debug",
+    "log_format_file": "debug",
+    "log_level": "info",
+    "project_dir": "<WORKSPACE>/evidence/guest/project",
+    "use_colors_file": false,
+    "invocation_command": "dbt test --select test_type:unit --project-dir <WORKSPACE>/evidence/guest/project --profiles-dir <WORKSPACE>/evidence/guest/project",
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "static_parser": true,
+    "strict_mode": false,
+    "favor_state": false,
+    "partial_parse": true,
+    "version_check": true,
+    "show_resource_report": false,
+    "defer": false
+  }
+}

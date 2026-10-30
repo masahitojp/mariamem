@@ -1,0 +1,86 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v6.json",
+    "dbt_version": "1.8.7",
+    "generated_at": "2026-10-30T16:30:52.409401Z",
+    "invocation_id": "9b5d0ed0-3f6f-472c-b3bf-fa0fedc21bb8",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:30:52.316362Z",
+          "completed_at": "2026-10-30T16:30:52.321026Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:30:52.321278Z",
+          "completed_at": "2026-10-30T16:30:52.389857Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.07449603080749512,
+      "adapter_response": {
+        "_message": "SUCCESS 0",
+        "code": "SUCCESS",
+        "rows_affected": 0
+      },
+      "message": "SUCCESS 0",
+      "failures": null,
+      "unique_id": "model.unit_probe.orders",
+      "compiled": true,
+      "compiled_code": "select 1 as order_id, 10 as amount",
+      "relation_name": "`unit_probe`.`orders`"
+    }
+  ],
+  "elapsed_time": 0.21648001670837402,
+  "args": {
+    "partial_parse_file_diff": true,
+    "use_colors": false,
+    "empty": false,
+    "log_format": "default",
+    "project_dir": "../evidence/native/project",
+    "vars": {},
+    "which": "run",
+    "show_resource_report": false,
+    "strict_mode": false,
+    "log_path": "../evidence/native/project/logs",
+    "log_level_file": "debug",
+    "print": true,
+    "send_anonymous_usage_stats": false,
+    "use_colors_file": false,
+    "select": [
+      "orders"
+    ],
+    "enable_legacy_logger": false,
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "favor_state": false,
+    "log_format_file": "debug",
+    "exclude": [],
+    "indirect_selection": "eager",
+    "invocation_command": "dbt run --select orders --project-dir ../evidence/native/project --profiles-dir ../evidence/native/project",
+    "introspect": true,
+    "source_freshness_run_project_hooks": false,
+    "profiles_dir": "../evidence/native/project",
+    "require_explicit_package_overrides_for_builtin_materializations": true,
+    "static_parser": true,
+    "cache_selected_only": false,
+    "macro_debugging": false,
+    "write_json": true,
+    "defer": false,
+    "log_level": "info",
+    "partial_parse": true,
+    "version_check": true,
+    "log_file_max_bytes": 10485760,
+    "require_resource_names_without_spaces": false,
+    "quiet": false,
+    "printer_width": 80,
+    "populate_cache": true
+  }
+}

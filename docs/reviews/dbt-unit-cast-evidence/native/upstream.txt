@@ -1,0 +1,15 @@
+16:30:51  Running with dbt=1.8.7
+16:30:51  Registered adapter: mariadb=1.8.0-a1
+16:30:51  Unable to do partial parsing because saved manifest not found. Starting full parse.
+16:30:52  Found 2 models, 405 macros, 1 unit test
+16:30:52  
+16:30:52  Concurrency: 1 threads (target='dev')
+16:30:52  
+16:30:52  1 of 1 START sql view model unit_probe.orders .................................. [RUN]
+16:30:52  1 of 1 OK created sql view model unit_probe.orders ............................. [SUCCESS 0 in 0.07s]
+16:30:52  
+16:30:52  Finished running 1 view model in 0 hours 0 minutes and 0.22 seconds (0.22s).
+16:30:52  
+16:30:52  Completed successfully
+16:30:52  
+16:30:52  Done. PASS=1 WARN=0 ERROR=0 SKIP=0 TOTAL=1

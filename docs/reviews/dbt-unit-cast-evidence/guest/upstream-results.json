@@ -1,0 +1,86 @@
+{
+  "metadata": {
+    "dbt_schema_version": "https://schemas.getdbt.com/dbt/run-results/v6.json",
+    "dbt_version": "1.8.7",
+    "generated_at": "2026-10-30T16:34:08.825204Z",
+    "invocation_id": "0d47fae6-51b3-4931-acd2-a717bcbad50b",
+    "env": {}
+  },
+  "results": [
+    {
+      "status": "success",
+      "timing": [
+        {
+          "name": "compile",
+          "started_at": "2026-10-30T16:34:08.777268Z",
+          "completed_at": "2026-10-30T16:34:08.781549Z"
+        },
+        {
+          "name": "execute",
+          "started_at": "2026-10-30T16:34:08.781779Z",
+          "completed_at": "2026-10-30T16:34:08.819015Z"
+        }
+      ],
+      "thread_id": "Thread-1 (worker)",
+      "execution_time": 0.04261612892150879,
+      "adapter_response": {
+        "_message": "SUCCESS 0",
+        "code": "SUCCESS",
+        "rows_affected": 0
+      },
+      "message": "SUCCESS 0",
+      "failures": null,
+      "unique_id": "model.unit_probe.orders",
+      "compiled": true,
+      "compiled_code": "select 1 as order_id, 10 as amount",
+      "relation_name": "`unit_probe`.`orders`"
+    }
+  ],
+  "elapsed_time": 0.08826112747192383,
+  "args": {
+    "warn_error_options": {
+      "include": [],
+      "exclude": []
+    },
+    "version_check": true,
+    "cache_selected_only": false,
+    "write_json": true,
+    "require_resource_names_without_spaces": false,
+    "enable_legacy_logger": false,
+    "vars": {},
+    "use_colors_file": false,
+    "log_level_file": "debug",
+    "strict_mode": false,
+    "empty": false,
+    "log_format": "default",
+    "send_anonymous_usage_stats": false,
+    "partial_parse": true,
+    "project_dir": "<WORKSPACE>/evidence/guest/project",
+    "log_level": "info",
+    "static_parser": true,
+    "indirect_selection": "eager",
+    "print": true,
+    "partial_parse_file_diff": true,
+    "select": [
+      "orders"
+    ],
+    "defer": false,
+    "log_file_max_bytes": 10485760,
+    "exclude": [],
+    "log_path": "<WORKSPACE>/evidence/guest/project/logs",
+    "favor_state": false,
+    "printer_width": 80,
+    "profiles_dir": "<WORKSPACE>/evidence/guest/project",
+    "invocation_command": "dbt run --select orders --project-dir <WORKSPACE>/evidence/guest/project --profiles-dir <WORKSPACE>/evidence/guest/project",
+    "macro_debugging": false,
+    "require_explicit_package_overrides_for_builtin_materializations": true,
+    "source_freshness_run_project_hooks": false,
+    "populate_cache": true,
+    "show_resource_report": false,
+    "use_colors": false,
+    "log_format_file": "debug",
+    "quiet": false,
+    "which": "run",
+    "introspect": true
+  }
+}

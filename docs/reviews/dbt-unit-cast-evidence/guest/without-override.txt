@@ -1,0 +1,26 @@
+16:34:09  Running with dbt=1.8.7
+16:34:09  Registered adapter: mariadb=1.8.0-a1
+16:34:10  Found 2 models, 405 macros, 1 unit test
+16:34:10  
+16:34:10  Concurrency: 1 threads (target='dev')
+16:34:10  
+16:34:10  1 of 1 START unit_test doubled::doubles_amount ................................. [RUN]
+16:34:10  1 of 1 ERROR doubled::doubles_amount ........................................... [ERROR in 0.06s]
+16:34:10  
+16:34:10  Finished running 1 unit test in 0 hours 0 minutes and 0.09 seconds (0.09s).
+16:34:10  
+16:34:10  Completed with 1 error and 0 warnings:
+16:34:10  
+16:34:10    Runtime Error in unit_test doubles_amount (models/unit.yml)
+  An error occurred during execution of unit test 'doubles_amount'. There may be an error in the unit test definition: check the data types.
+   Database Error
+    1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(1))
+     as order_id, 
+        
+        cast(10 as int(2))
+     as amount
+    union all
+    select 
+    ...' at line 17
+16:34:10  
+16:34:10  Done. PASS=0 WARN=0 ERROR=1 SKIP=0 TOTAL=1
