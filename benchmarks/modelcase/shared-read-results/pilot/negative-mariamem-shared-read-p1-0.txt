@@ -1,0 +1,10 @@
+=== RUN   TestModelcase
+=== RUN   TestModelcase/read-0-01
+=== PAUSE TestModelcase/read-0-01
+=== CONT  TestModelcase/read-0-01
+    suite_test.go:295: pristine input differs: 20/500/1000/40/40 price=185148 stock=499960
+=== NAME  TestModelcase
+    suite_test.go:333: pristine input differs: 20/500/1000/40/40 price=185148 stock=499960
+--- FAIL: TestModelcase (0.04s)
+    --- FAIL: TestModelcase/read-0-01 (0.00s)
+FAIL

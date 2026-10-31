@@ -1,0 +1,119 @@
+{
+  "build_info": {
+    "GoVersion": "go1.26.10",
+    "Path": "github.com/masahitojp/mariamem/benchmarks/modelcase.test",
+    "Main": {
+      "Path": "github.com/masahitojp/mariamem/benchmarks/modelcase",
+      "Version": "(devel)"
+    },
+    "Settings": [
+      {
+        "Key": "-buildmode",
+        "Value": "exe"
+      },
+      {
+        "Key": "-compiler",
+        "Value": "gc"
+      },
+      {
+        "Key": "-trimpath",
+        "Value": "true"
+      },
+      {
+        "Key": "CGO_ENABLED",
+        "Value": "0"
+      },
+      {
+        "Key": "GOARCH",
+        "Value": "arm64"
+      },
+      {
+        "Key": "GOOS",
+        "Value": "darwin"
+      },
+      {
+        "Key": "GOARM64",
+        "Value": "v8.0"
+      }
+    ]
+  },
+  "cases": {},
+  "cleanup_complete": true,
+  "completed": false,
+  "container_ids": [],
+  "exit_code": 1,
+  "go": "go1.26.10",
+  "gomaxprocs": 8,
+  "max_forks": 2,
+  "mode": "mariamem-shared-read",
+  "parallelism": 1,
+  "read_cases": 50,
+  "read_shared_final_pristine": false,
+  "server_settings": {
+    "innodb_buffer_pool_size": "16777216",
+    "innodb_flush_log_at_trx_commit": "1",
+    "max_connections": "10",
+    "sync_binlog": "0"
+  },
+  "server_version": "12.3.3-MariaDB-embedded",
+  "spans": [
+    {
+      "stage": "boot",
+      "case": "",
+      "slot": -1,
+      "start_ms": 0.004666,
+      "duration_ms": 41.864834
+    },
+    {
+      "stage": "schema-master-sample",
+      "case": "",
+      "slot": -1,
+      "start_ms": 41.869791,
+      "duration_ms": 78.632834
+    },
+    {
+      "stage": "capture-disconnect",
+      "case": "",
+      "slot": -1,
+      "start_ms": 121.305791,
+      "duration_ms": 10.188167
+    },
+    {
+      "stage": "read-baseline-fork",
+      "case": "",
+      "slot": -1,
+      "start_ms": 131.581708,
+      "duration_ms": 35.266792
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-0-01",
+      "slot": 0,
+      "start_ms": 167.233,
+      "duration_ms": 4.423458
+    },
+    {
+      "stage": "read-baseline-final-oracle",
+      "case": "",
+      "slot": -1,
+      "start_ms": 171.71975,
+      "duration_ms": 1.898833
+    },
+    {
+      "stage": "read-baseline-cleanup",
+      "case": "",
+      "slot": -1,
+      "start_ms": 173.619125,
+      "duration_ms": 2.660708
+    },
+    {
+      "stage": "owner-cleanup",
+      "case": "",
+      "slot": -1,
+      "start_ms": 176.316333,
+      "duration_ms": 0.000875
+    }
+  ],
+  "suite_ms": 176.318375,
+  "write_cases": 20
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "label": "trial-mariamem-p1-0",
+    "mode": "mariamem",
+    "parallelism": 1,
+    "repetition": 0,
+    "warmup": false,
+    "negative_control": false,
+    "returncode": 0,
+    "wall_ms": 4697.226874995977,
+    "suite_ms": 3387.946333,
+    "cases": 70,
+    "containers_absent": [],
+    "scratch_empty": true,
+    "report": "pilot/trial-mariamem-p1-0.json"
+  },
+  {
+    "label": "trial-mariamem-shared-read-p1-0",
+    "mode": "mariamem-shared-read",
+    "parallelism": 1,
+    "repetition": 0,
+    "warmup": false,
+    "negative_control": false,
+    "returncode": 0,
+    "wall_ms": 1346.059957984835,
+    "suite_ms": 1274.470792,
+    "cases": 70,
+    "containers_absent": [],
+    "scratch_empty": true,
+    "report": "pilot/trial-mariamem-shared-read-p1-0.json"
+  },
+  {
+    "label": "negative-mariamem-shared-read-p1-0",
+    "mode": "mariamem-shared-read",
+    "parallelism": 1,
+    "repetition": 0,
+    "warmup": false,
+    "negative_control": true,
+    "returncode": 1,
+    "wall_ms": 202.93283299542964,
+    "suite_ms": 176.318375,
+    "cases": 0,
+    "containers_absent": [],
+    "scratch_empty": true,
+    "report": "pilot/negative-mariamem-shared-read-p1-0.json"
+  },
+  {
+    "label": "read-mutation-mariamem-shared-read-p1-0",
+    "mode": "mariamem-shared-read",
+    "parallelism": 1,
+    "repetition": 0,
+    "warmup": false,
+    "negative_control": true,
+    "returncode": 1,
+    "wall_ms": 245.32991700107232,
+    "suite_ms": 184.295,
+    "cases": 1,
+    "containers_absent": [],
+    "scratch_empty": true,
+    "report": "pilot/read-mutation-mariamem-shared-read-p1-0.json"
+  }
+]

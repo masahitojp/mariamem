@@ -1,0 +1,33 @@
+{
+  "question": "How much of the local all-Fork suite cost disappears when 50 read cases share one child and only20 writing cases get independent children?",
+  "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "parent_harness": "bd191dca (PR55); app.go/SQL/seed/assertions unchanged",
+  "modes": [
+    "mariamem",
+    "mariamem-shared-read"
+  ],
+  "parallelism": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "max_forks": "P for all-Fork; P+1 for shared-read because parent read child remains held",
+  "expected_forks": {
+    "mariamem": 70,
+    "mariamem-shared-read": 21
+  },
+  "read_pool_connections": "P shared read connections; writing child pool1; no capacity changes to product",
+  "sampling": "one separate warmup per cell, five alternating measured pairs per P; rerun control on the same binary/machine",
+  "oracles": "same70case results, initial pristine oracle percase, final shared-read pristine oracle, corrupt-seed and read-mutation negatives, full owned cleanup, actual fork count and trace concurrency",
+  "boundary": "full seeded Snapshot (including sample orders) retained from PR55; not an exact pgmem SQL/schema/seed-boundary/machine replication",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci_submissions": 0,
+    "workspace_gib": 12,
+    "free_reserve_gib": 16,
+    "execution_timeout_seconds": 1800
+  },
+  "exit": "report observed median/ranges and phase attribution with no runtime/feature changes or universal speed claim"
+}

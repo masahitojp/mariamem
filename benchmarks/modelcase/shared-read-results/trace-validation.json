@@ -1,0 +1,386 @@
+[
+  {
+    "label": "warmup-mariamem-p1--1",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 1,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "warmup-mariamem-shared-read-p1--1",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 1,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p1-0",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 1,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p1-0",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 1,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p1-1",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 1,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p1-1",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 1,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p1-2",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 1,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p1-2",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 1,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p1-3",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 1,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p1-3",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 1,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p1-4",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 1,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p1-4",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 1,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "warmup-mariamem-p2--1",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 2,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "warmup-mariamem-shared-read-p2--1",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 2,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p2-0",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 2,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p2-0",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 2,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p2-1",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 2,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p2-1",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 2,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p2-2",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 2,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p2-2",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 2,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p2-3",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 2,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p2-3",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 2,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p2-4",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 2,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p2-4",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 2,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "warmup-mariamem-p4--1",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 4,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "warmup-mariamem-shared-read-p4--1",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 4,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p4-0",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 4,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p4-0",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 4,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p4-1",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 4,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p4-1",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 4,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p4-2",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 4,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p4-2",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 4,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p4-3",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 4,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p4-3",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 4,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p4-4",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 4,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p4-4",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 4,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "warmup-mariamem-p8--1",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 8,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "warmup-mariamem-shared-read-p8--1",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 8,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p8-0",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 8,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p8-0",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 8,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p8-1",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 8,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p8-1",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 8,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p8-2",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 8,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p8-2",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 8,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p8-3",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 8,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p8-3",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 8,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-p8-4",
+    "cases": 70,
+    "forks": 70,
+    "peak_active_cases": 8,
+    "final_read_pristine": null,
+    "slot_nonoverlap": true
+  },
+  {
+    "label": "trial-mariamem-shared-read-p8-4",
+    "cases": 70,
+    "forks": 21,
+    "peak_active_cases": 8,
+    "final_read_pristine": true,
+    "slot_nonoverlap": true
+  }
+]
