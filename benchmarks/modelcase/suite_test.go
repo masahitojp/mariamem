@@ -85,11 +85,11 @@ func settings(db *sql.DB) error {
 	report["server_version"] = version
 	values := map[string]string{}
 	for _, q := range []string{"innodb_buffer_pool_size", "innodb_flush_log_at_trx_commit", "sync_binlog", "max_connections"} {
-		var name, value string
-		if err := db.QueryRowContext(ctx, "SHOW VARIABLES LIKE ?", q).Scan(&name, &value); err != nil {
+		var value string
+		if err := db.QueryRowContext(ctx, "SELECT @@"+q).Scan(&value); err != nil {
 			return err
 		}
-		values[name] = value
+		values[q] = value
 	}
 	report["server_settings"] = values
 	return nil
