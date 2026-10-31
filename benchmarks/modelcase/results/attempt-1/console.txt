@@ -1,0 +1,13 @@
+RUN clone.txt
+RUN checkout.txt
+RUN replace.txt
+RUN build.txt
+RUN pilot/trial-mariamem-p1-0.txt
+Traceback (most recent call last):
+  File "/private/tmp/mariamem-usage-alignment/build/experiment-work/parallel-modelcase/evidence/run.py", line 69, in <module>
+    for mode in ['mariamem','shared','workers']:one(mode,1,0)
+                                                ~~~^^^^^^^^^^
+  File "/private/tmp/mariamem-usage-alignment/build/experiment-work/parallel-modelcase/evidence/run.py", line 65, in one
+    assert code==0 and data['completed'] and data['cleanup_complete'] and len(data['cases'])==70,label
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: trial-mariamem-p1-0

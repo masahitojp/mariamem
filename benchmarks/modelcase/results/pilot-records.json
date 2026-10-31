@@ -1,0 +1,66 @@
+[
+  {
+    "label": "trial-mariamem-p1-0",
+    "mode": "mariamem",
+    "parallelism": 1,
+    "repetition": 0,
+    "warmup": false,
+    "negative_control": false,
+    "returncode": 0,
+    "wall_ms": 4298.39200002607,
+    "suite_ms": 3466.892584,
+    "cases": 70,
+    "containers_absent": [],
+    "scratch_empty": true,
+    "report": "pilot/trial-mariamem-p1-0.json"
+  },
+  {
+    "label": "trial-shared-p1-0",
+    "mode": "shared",
+    "parallelism": 1,
+    "repetition": 0,
+    "warmup": false,
+    "negative_control": false,
+    "returncode": 0,
+    "wall_ms": 6153.135250031482,
+    "suite_ms": 6083.735833,
+    "cases": 70,
+    "containers_absent": [
+      "70f26794751dc8d660ef215826aef5102ab08ad8ac3b457dc97bdd87ea88c7d8"
+    ],
+    "scratch_empty": true,
+    "report": "pilot/trial-shared-p1-0.json"
+  },
+  {
+    "label": "trial-workers-p1-0",
+    "mode": "workers",
+    "parallelism": 1,
+    "repetition": 0,
+    "warmup": false,
+    "negative_control": false,
+    "returncode": 0,
+    "wall_ms": 4160.389750031754,
+    "suite_ms": 4131.774042,
+    "cases": 70,
+    "containers_absent": [
+      "b1f9a8642aac23e8e376e7e4813ead8451ab3a2adaba4a63808b9dcaf96d71f0"
+    ],
+    "scratch_empty": true,
+    "report": "pilot/trial-workers-p1-0.json"
+  },
+  {
+    "label": "negative-mariamem-p1-0",
+    "mode": "mariamem",
+    "parallelism": 1,
+    "repetition": 0,
+    "warmup": false,
+    "negative_control": true,
+    "returncode": 1,
+    "wall_ms": 248.67333302972838,
+    "suite_ms": 201.240209,
+    "cases": 0,
+    "containers_absent": [],
+    "scratch_empty": true,
+    "report": "pilot/negative-mariamem-p1-0.json"
+  }
+]

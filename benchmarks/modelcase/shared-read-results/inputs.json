@@ -1,0 +1,29 @@
+{
+  "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "tag_object_sha": "b57183b08d48884840111e8b53daa500734337f0",
+  "harness_source_commit": "5f9516b0338c4fc87935eaa2fa612c5ae88ef22e",
+  "binary_sha256": "a49e805fb5c3a5330d4932581139af14bcf566dbdb1c1749aac50c3be4138c34",
+  "go": "go version go1.26.10 darwin/arm64",
+  "build_info": "/private/tmp/mariamem-usage-alignment/build/experiment-work/shared-read-modelcase/temp/modelcase.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/modelcase.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/modelcase\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "harness_sha256": {
+    "go.mod": "2b13cd13d136ab2c17cff12c6ddf747fb74bf94a34c154e86ce0af3b7f1279cf",
+    "plan.json": "dd68e3cd4b7dfdd9ff1930954f4e2106f6ee55bf4e9eeb939c1c46de4020d965",
+    "shared-read-plan.json": "99edf8965614867e4c2b030161f9b5ffed605bcbff1153d0fa3001c9220759bf",
+    "go.sum": "c9a42c9ab81a37a2c0e1c2cf5be3d86a1ca34d749c966c0753cdf8a844b6028d",
+    "README.md": "d2fa53583c1a534d0ddbdfbf881f40ecef4085bae3334b879f0421c19bf03892",
+    "app.go": "97498a3677fd1b0c3e067b9990e107a9f2ebcc12273a0b25d2d924c5b4599c60",
+    "suite_test.go": "f25e51eb4ad592392437e9a9146f4f3b87fc8bcca58d0e3a5dd4f96176d94094"
+  },
+  "host": {
+    "macos": "27.2",
+    "machine": "arm64",
+    "cpu": "Apple M1",
+    "ram_bytes": 17179869184
+  },
+  "go_compile_timed": false,
+  "scope": "Paired all-Fork70 versus shared-read21; no Docker cells",
+  "gomaxprocs": 8,
+  "run_driver_sha256": "2e312b8dcd45dff49b47436611808cd15a313a4c5fd0cd4314306e5aa072773f",
+  "analysis_sha256": "d7ea1f4086021e7d1f3ff8484b560681a8028fd7bcdacbc7aeac5482794ecd82",
+  "app_sql_unchanged_from_parent": true
+}

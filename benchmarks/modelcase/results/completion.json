@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "measured_suites": 60,
+  "warmup_suites": 12,
+  "measured_cases": 4200,
+  "environment": "one local macOS host; native arm64 Linux Docker VM",
+  "scope": "No performance pass threshold"
+}

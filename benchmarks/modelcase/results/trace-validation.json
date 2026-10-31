@@ -1,0 +1,506 @@
+[
+  {
+    "label": "warmup-mariamem-p1--1",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "warmup-shared-p1--1",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "warmup-workers-p1--1",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p1-0",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-workers-p1-0",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p1-0",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-workers-p1-1",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p1-1",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p1-1",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-mariamem-p1-2",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p1-2",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-workers-p1-2",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p1-3",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-workers-p1-3",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p1-3",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-workers-p1-4",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p1-4",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p1-4",
+    "cases": 70,
+    "peak_active_cases": 1,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "warmup-mariamem-p2--1",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "warmup-shared-p2--1",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "warmup-workers-p2--1",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-workers-p2-0",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p2-0",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p2-0",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-mariamem-p2-1",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p2-1",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-workers-p2-1",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p2-2",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-workers-p2-2",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p2-2",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-workers-p2-3",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p2-3",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p2-3",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-mariamem-p2-4",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p2-4",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-workers-p2-4",
+    "cases": 70,
+    "peak_active_cases": 2,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "warmup-mariamem-p4--1",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "warmup-shared-p4--1",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "warmup-workers-p4--1",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p4-0",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-workers-p4-0",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p4-0",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-workers-p4-1",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p4-1",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p4-1",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-mariamem-p4-2",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p4-2",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-workers-p4-2",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p4-3",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-workers-p4-3",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p4-3",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-workers-p4-4",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p4-4",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p4-4",
+    "cases": 70,
+    "peak_active_cases": 4,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "warmup-mariamem-p8--1",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "warmup-shared-p8--1",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "warmup-workers-p8--1",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-workers-p8-0",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p8-0",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p8-0",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-mariamem-p8-1",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p8-1",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-workers-p8-1",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p8-2",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-workers-p8-2",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p8-2",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-workers-p8-3",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-mariamem-p8-3",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p8-3",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-mariamem-p8-4",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  },
+  {
+    "label": "trial-shared-p8-4",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": true
+  },
+  {
+    "label": "trial-workers-p8-4",
+    "cases": 70,
+    "peak_active_cases": 8,
+    "slot_nonoverlap": true,
+    "shared_write_exclusion": null
+  }
+]

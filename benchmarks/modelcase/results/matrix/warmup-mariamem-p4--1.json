@@ -1,0 +1,2610 @@
+{
+  "build_info": {
+    "GoVersion": "go1.26.10",
+    "Path": "github.com/masahitojp/mariamem/benchmarks/modelcase.test",
+    "Main": {
+      "Path": "github.com/masahitojp/mariamem/benchmarks/modelcase",
+      "Version": "(devel)"
+    },
+    "Settings": [
+      {
+        "Key": "-buildmode",
+        "Value": "exe"
+      },
+      {
+        "Key": "-compiler",
+        "Value": "gc"
+      },
+      {
+        "Key": "-trimpath",
+        "Value": "true"
+      },
+      {
+        "Key": "CGO_ENABLED",
+        "Value": "0"
+      },
+      {
+        "Key": "GOARCH",
+        "Value": "arm64"
+      },
+      {
+        "Key": "GOOS",
+        "Value": "darwin"
+      },
+      {
+        "Key": "GOARM64",
+        "Value": "v8.0"
+      }
+    ]
+  },
+  "cases": {
+    "read-0-01": true,
+    "read-0-02": true,
+    "read-0-03": true,
+    "read-0-04": true,
+    "read-0-05": true,
+    "read-0-06": true,
+    "read-0-07": true,
+    "read-0-08": true,
+    "read-0-09": true,
+    "read-0-10": true,
+    "read-1-01": true,
+    "read-1-02": true,
+    "read-1-03": true,
+    "read-1-04": true,
+    "read-1-05": true,
+    "read-1-06": true,
+    "read-1-07": true,
+    "read-1-08": true,
+    "read-1-09": true,
+    "read-1-10": true,
+    "read-2-01": true,
+    "read-2-02": true,
+    "read-2-03": true,
+    "read-2-04": true,
+    "read-2-05": true,
+    "read-2-06": true,
+    "read-2-07": true,
+    "read-2-08": true,
+    "read-2-09": true,
+    "read-2-10": true,
+    "read-3-01": true,
+    "read-3-02": true,
+    "read-3-03": true,
+    "read-3-04": true,
+    "read-3-05": true,
+    "read-3-06": true,
+    "read-3-07": true,
+    "read-3-08": true,
+    "read-3-09": true,
+    "read-3-10": true,
+    "read-4-01": true,
+    "read-4-02": true,
+    "read-4-03": true,
+    "read-4-04": true,
+    "read-4-05": true,
+    "read-4-06": true,
+    "read-4-07": true,
+    "read-4-08": true,
+    "read-4-09": true,
+    "read-4-10": true,
+    "write-0-01": true,
+    "write-0-02": true,
+    "write-0-03": true,
+    "write-0-04": true,
+    "write-1-01": true,
+    "write-1-02": true,
+    "write-1-03": true,
+    "write-1-04": true,
+    "write-2-01": true,
+    "write-2-02": true,
+    "write-2-03": true,
+    "write-2-04": true,
+    "write-3-01": true,
+    "write-3-02": true,
+    "write-3-03": true,
+    "write-3-04": true,
+    "write-4-01": true,
+    "write-4-02": true,
+    "write-4-03": true,
+    "write-4-04": true
+  },
+  "cleanup_complete": true,
+  "completed": true,
+  "container_ids": [],
+  "exit_code": 0,
+  "go": "go1.26.10",
+  "gomaxprocs": 8,
+  "mode": "mariamem",
+  "parallelism": 4,
+  "read_cases": 50,
+  "server_settings": {
+    "innodb_buffer_pool_size": "16777216",
+    "innodb_flush_log_at_trx_commit": "1",
+    "max_connections": "10",
+    "sync_binlog": "0"
+  },
+  "server_version": "12.3.3-MariaDB-embedded",
+  "spans": [
+    {
+      "stage": "boot",
+      "case": "",
+      "slot": -1,
+      "start_ms": 0.0145,
+      "duration_ms": 46.329917
+    },
+    {
+      "stage": "schema-master-sample",
+      "case": "",
+      "slot": -1,
+      "start_ms": 46.347583,
+      "duration_ms": 79.669042
+    },
+    {
+      "stage": "capture-disconnect",
+      "case": "",
+      "slot": -1,
+      "start_ms": 126.912,
+      "duration_ms": 9.998458
+    },
+    {
+      "stage": "fork",
+      "case": "read-3-06",
+      "slot": 1,
+      "start_ms": 137.918708,
+      "duration_ms": 100.159375
+    },
+    {
+      "stage": "fork",
+      "case": "write-0-04",
+      "slot": 2,
+      "start_ms": 137.948958,
+      "duration_ms": 100.227959
+    },
+    {
+      "stage": "fork",
+      "case": "read-0-01",
+      "slot": 0,
+      "start_ms": 137.895958,
+      "duration_ms": 100.387084
+    },
+    {
+      "stage": "fork",
+      "case": "read-4-05",
+      "slot": 3,
+      "start_ms": 137.975083,
+      "duration_ms": 103.039209
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-0-01",
+      "slot": 0,
+      "start_ms": 238.284958,
+      "duration_ms": 3.719709
+    },
+    {
+      "stage": "read",
+      "case": "read-0-01",
+      "slot": 0,
+      "start_ms": 242.004875,
+      "duration_ms": 1.885958
+    },
+    {
+      "stage": "case-body",
+      "case": "read-0-01",
+      "slot": 0,
+      "start_ms": 137.894958,
+      "duration_ms": 105.997167
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-3-06",
+      "slot": 1,
+      "start_ms": 238.079375,
+      "duration_ms": 7.523583
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-0-04",
+      "slot": 2,
+      "start_ms": 238.182708,
+      "duration_ms": 7.583375
+    },
+    {
+      "stage": "read",
+      "case": "read-3-06",
+      "slot": 1,
+      "start_ms": 245.603375,
+      "duration_ms": 1.419125
+    },
+    {
+      "stage": "case-body",
+      "case": "read-3-06",
+      "slot": 1,
+      "start_ms": 137.917542,
+      "duration_ms": 109.105291
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-4-05",
+      "slot": 3,
+      "start_ms": 241.018208,
+      "duration_ms": 6.944667
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-0-01",
+      "slot": 0,
+      "start_ms": 243.895583,
+      "duration_ms": 4.074917
+    },
+    {
+      "stage": "write",
+      "case": "write-0-04",
+      "slot": 2,
+      "start_ms": 245.76625,
+      "duration_ms": 3.091667
+    },
+    {
+      "stage": "case-body",
+      "case": "write-0-04",
+      "slot": 2,
+      "start_ms": 137.948042,
+      "duration_ms": 110.910208
+    },
+    {
+      "stage": "read",
+      "case": "read-4-05",
+      "slot": 3,
+      "start_ms": 247.963167,
+      "duration_ms": 0.939458
+    },
+    {
+      "stage": "case-body",
+      "case": "read-4-05",
+      "slot": 3,
+      "start_ms": 137.973917,
+      "duration_ms": 110.931
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-3-06",
+      "slot": 1,
+      "start_ms": 247.026125,
+      "duration_ms": 4.903708
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-0-04",
+      "slot": 2,
+      "start_ms": 248.861875,
+      "duration_ms": 5.27025
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-4-05",
+      "slot": 3,
+      "start_ms": 248.911458,
+      "duration_ms": 8.788125
+    },
+    {
+      "stage": "fork",
+      "case": "write-0-03",
+      "slot": 0,
+      "start_ms": 248.014417,
+      "duration_ms": 41.005916
+    },
+    {
+      "stage": "fork",
+      "case": "read-4-10",
+      "slot": 3,
+      "start_ms": 257.739875,
+      "duration_ms": 44.460167
+    },
+    {
+      "stage": "fork",
+      "case": "write-0-02",
+      "slot": 1,
+      "start_ms": 251.969875,
+      "duration_ms": 50.892292
+    },
+    {
+      "stage": "fork",
+      "case": "write-0-01",
+      "slot": 2,
+      "start_ms": 254.157792,
+      "duration_ms": 48.734833
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-0-03",
+      "slot": 0,
+      "start_ms": 289.023,
+      "duration_ms": 15.296875
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-0-01",
+      "slot": 2,
+      "start_ms": 302.894167,
+      "duration_ms": 3.328416
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-0-02",
+      "slot": 1,
+      "start_ms": 302.864375,
+      "duration_ms": 4.628042
+    },
+    {
+      "stage": "write",
+      "case": "write-0-03",
+      "slot": 0,
+      "start_ms": 304.32,
+      "duration_ms": 4.742542
+    },
+    {
+      "stage": "case-body",
+      "case": "write-0-03",
+      "slot": 0,
+      "start_ms": 248.013417,
+      "duration_ms": 61.049875
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-4-10",
+      "slot": 3,
+      "start_ms": 302.202417,
+      "duration_ms": 8.800458
+    },
+    {
+      "stage": "write",
+      "case": "write-0-01",
+      "slot": 2,
+      "start_ms": 306.222625,
+      "duration_ms": 4.8235
+    },
+    {
+      "stage": "case-body",
+      "case": "write-0-01",
+      "slot": 2,
+      "start_ms": 254.156792,
+      "duration_ms": 56.890166
+    },
+    {
+      "stage": "read",
+      "case": "read-4-10",
+      "slot": 3,
+      "start_ms": 311.003417,
+      "duration_ms": 1.081708
+    },
+    {
+      "stage": "case-body",
+      "case": "read-4-10",
+      "slot": 3,
+      "start_ms": 257.738875,
+      "duration_ms": 54.347
+    },
+    {
+      "stage": "write",
+      "case": "write-0-02",
+      "slot": 1,
+      "start_ms": 307.49275,
+      "duration_ms": 4.611792
+    },
+    {
+      "stage": "case-body",
+      "case": "write-0-02",
+      "slot": 1,
+      "start_ms": 251.968667,
+      "duration_ms": 60.136416
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-0-03",
+      "slot": 0,
+      "start_ms": 309.066667,
+      "duration_ms": 4.106958
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-0-02",
+      "slot": 1,
+      "start_ms": 312.108042,
+      "duration_ms": 4.188708
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-0-01",
+      "slot": 2,
+      "start_ms": 311.0535,
+      "duration_ms": 7.148625
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-4-10",
+      "slot": 3,
+      "start_ms": 312.093667,
+      "duration_ms": 8.282166
+    },
+    {
+      "stage": "fork",
+      "case": "read-4-09",
+      "slot": 0,
+      "start_ms": 313.208542,
+      "duration_ms": 56.891791
+    },
+    {
+      "stage": "fork",
+      "case": "read-4-07",
+      "slot": 2,
+      "start_ms": 318.2225,
+      "duration_ms": 51.9375
+    },
+    {
+      "stage": "fork",
+      "case": "read-4-08",
+      "slot": 1,
+      "start_ms": 316.33875,
+      "duration_ms": 54.15825
+    },
+    {
+      "stage": "fork",
+      "case": "read-4-06",
+      "slot": 3,
+      "start_ms": 320.398542,
+      "duration_ms": 50.46575
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-4-09",
+      "slot": 0,
+      "start_ms": 370.10175,
+      "duration_ms": 8.114833
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-4-06",
+      "slot": 3,
+      "start_ms": 370.865333,
+      "duration_ms": 7.710209
+    },
+    {
+      "stage": "read",
+      "case": "read-4-09",
+      "slot": 0,
+      "start_ms": 378.217167,
+      "duration_ms": 1.049791
+    },
+    {
+      "stage": "case-body",
+      "case": "read-4-09",
+      "slot": 0,
+      "start_ms": 313.207708,
+      "duration_ms": 66.061209
+    },
+    {
+      "stage": "read",
+      "case": "read-4-06",
+      "slot": 3,
+      "start_ms": 378.575833,
+      "duration_ms": 1.622125
+    },
+    {
+      "stage": "case-body",
+      "case": "read-4-06",
+      "slot": 3,
+      "start_ms": 320.397458,
+      "duration_ms": 59.801209
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-4-07",
+      "slot": 2,
+      "start_ms": 370.16375,
+      "duration_ms": 11.029167
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-4-09",
+      "slot": 0,
+      "start_ms": 379.273667,
+      "duration_ms": 3.324166
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-4-08",
+      "slot": 1,
+      "start_ms": 370.498083,
+      "duration_ms": 12.187209
+    },
+    {
+      "stage": "read",
+      "case": "read-4-07",
+      "slot": 2,
+      "start_ms": 381.193417,
+      "duration_ms": 1.717833
+    },
+    {
+      "stage": "case-body",
+      "case": "read-4-07",
+      "slot": 2,
+      "start_ms": 318.221458,
+      "duration_ms": 64.690334
+    },
+    {
+      "stage": "read",
+      "case": "read-4-08",
+      "slot": 1,
+      "start_ms": 382.685667,
+      "duration_ms": 1.593625
+    },
+    {
+      "stage": "case-body",
+      "case": "read-4-08",
+      "slot": 1,
+      "start_ms": 316.33775,
+      "duration_ms": 67.942375
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-4-06",
+      "slot": 3,
+      "start_ms": 380.204917,
+      "duration_ms": 5.447666
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-4-07",
+      "slot": 2,
+      "start_ms": 382.913875,
+      "duration_ms": 3.960417
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-4-08",
+      "slot": 1,
+      "start_ms": 384.284208,
+      "duration_ms": 3.869167
+    },
+    {
+      "stage": "fork",
+      "case": "write-3-01",
+      "slot": 0,
+      "start_ms": 382.638208,
+      "duration_ms": 41.588459
+    },
+    {
+      "stage": "fork",
+      "case": "write-4-02",
+      "slot": 1,
+      "start_ms": 388.191083,
+      "duration_ms": 41.128917
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-3-01",
+      "slot": 0,
+      "start_ms": 424.229667,
+      "duration_ms": 10.048416
+    },
+    {
+      "stage": "fork",
+      "case": "write-4-04",
+      "slot": 3,
+      "start_ms": 385.698458,
+      "duration_ms": 49.444792
+    },
+    {
+      "stage": "fork",
+      "case": "write-4-03",
+      "slot": 2,
+      "start_ms": 386.898667,
+      "duration_ms": 48.517791
+    },
+    {
+      "stage": "write",
+      "case": "write-3-01",
+      "slot": 0,
+      "start_ms": 434.278625,
+      "duration_ms": 5.102917
+    },
+    {
+      "stage": "case-body",
+      "case": "write-3-01",
+      "slot": 0,
+      "start_ms": 382.637,
+      "duration_ms": 56.745875
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-4-03",
+      "slot": 2,
+      "start_ms": 435.41775,
+      "duration_ms": 4.612292
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-4-02",
+      "slot": 1,
+      "start_ms": 429.3225,
+      "duration_ms": 11.413
+    },
+    {
+      "stage": "write",
+      "case": "write-4-03",
+      "slot": 2,
+      "start_ms": 440.030333,
+      "duration_ms": 2.374834
+    },
+    {
+      "stage": "case-body",
+      "case": "write-4-03",
+      "slot": 2,
+      "start_ms": 386.897708,
+      "duration_ms": 55.508375
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-4-04",
+      "slot": 3,
+      "start_ms": 435.145667,
+      "duration_ms": 7.544291
+    },
+    {
+      "stage": "write",
+      "case": "write-4-02",
+      "slot": 1,
+      "start_ms": 440.735667,
+      "duration_ms": 2.084708
+    },
+    {
+      "stage": "case-body",
+      "case": "write-4-02",
+      "slot": 1,
+      "start_ms": 388.189833,
+      "duration_ms": 54.632167
+    },
+    {
+      "stage": "write",
+      "case": "write-4-04",
+      "slot": 3,
+      "start_ms": 442.690208,
+      "duration_ms": 2.046959
+    },
+    {
+      "stage": "case-body",
+      "case": "write-4-04",
+      "slot": 3,
+      "start_ms": 385.697333,
+      "duration_ms": 59.040209
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-3-01",
+      "slot": 0,
+      "start_ms": 439.389583,
+      "duration_ms": 6.39675
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-4-03",
+      "slot": 2,
+      "start_ms": 442.425375,
+      "duration_ms": 4.249333
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-4-02",
+      "slot": 1,
+      "start_ms": 442.823917,
+      "duration_ms": 4.786958
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-4-04",
+      "slot": 3,
+      "start_ms": 444.73975,
+      "duration_ms": 4.350625
+    },
+    {
+      "stage": "fork",
+      "case": "write-3-04",
+      "slot": 2,
+      "start_ms": 446.692208,
+      "duration_ms": 42.004167
+    },
+    {
+      "stage": "fork",
+      "case": "write-3-02",
+      "slot": 3,
+      "start_ms": 449.131375,
+      "duration_ms": 41.506792
+    },
+    {
+      "stage": "fork",
+      "case": "write-4-01",
+      "slot": 0,
+      "start_ms": 445.827125,
+      "duration_ms": 50.46525
+    },
+    {
+      "stage": "fork",
+      "case": "write-3-03",
+      "slot": 1,
+      "start_ms": 447.63075,
+      "duration_ms": 50.395208
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-4-01",
+      "slot": 0,
+      "start_ms": 496.294958,
+      "duration_ms": 4.519709
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-3-04",
+      "slot": 2,
+      "start_ms": 488.699042,
+      "duration_ms": 12.343041
+    },
+    {
+      "stage": "write",
+      "case": "write-4-01",
+      "slot": 0,
+      "start_ms": 500.814875,
+      "duration_ms": 2.102542
+    },
+    {
+      "stage": "case-body",
+      "case": "write-4-01",
+      "slot": 0,
+      "start_ms": 445.826083,
+      "duration_ms": 57.092125
+    },
+    {
+      "stage": "write",
+      "case": "write-3-04",
+      "slot": 2,
+      "start_ms": 501.042208,
+      "duration_ms": 2.541209
+    },
+    {
+      "stage": "case-body",
+      "case": "write-3-04",
+      "slot": 2,
+      "start_ms": 446.691375,
+      "duration_ms": 56.892375
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-3-03",
+      "slot": 1,
+      "start_ms": 498.028042,
+      "duration_ms": 5.579708
+    },
+    {
+      "stage": "write",
+      "case": "write-3-03",
+      "slot": 1,
+      "start_ms": 503.607917,
+      "duration_ms": 2.143708
+    },
+    {
+      "stage": "case-body",
+      "case": "write-3-03",
+      "slot": 1,
+      "start_ms": 447.629875,
+      "duration_ms": 58.122167
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-3-04",
+      "slot": 2,
+      "start_ms": 503.587042,
+      "duration_ms": 4.601166
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-3-02",
+      "slot": 3,
+      "start_ms": 490.639333,
+      "duration_ms": 18.395334
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-4-01",
+      "slot": 0,
+      "start_ms": 502.9245,
+      "duration_ms": 6.299333
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-3-03",
+      "slot": 1,
+      "start_ms": 505.753792,
+      "duration_ms": 4.523625
+    },
+    {
+      "stage": "write",
+      "case": "write-3-02",
+      "slot": 3,
+      "start_ms": 509.034917,
+      "duration_ms": 3.988375
+    },
+    {
+      "stage": "case-body",
+      "case": "write-3-02",
+      "slot": 3,
+      "start_ms": 449.13,
+      "duration_ms": 63.894333
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-3-02",
+      "slot": 3,
+      "start_ms": 513.027875,
+      "duration_ms": 4.186083
+    },
+    {
+      "stage": "fork",
+      "case": "read-4-01",
+      "slot": 2,
+      "start_ms": 508.229167,
+      "duration_ms": 56.793083
+    },
+    {
+      "stage": "fork",
+      "case": "read-4-04",
+      "slot": 0,
+      "start_ms": 509.24275,
+      "duration_ms": 55.936042
+    },
+    {
+      "stage": "fork",
+      "case": "read-4-03",
+      "slot": 1,
+      "start_ms": 510.302333,
+      "duration_ms": 55.469042
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-4-04",
+      "slot": 0,
+      "start_ms": 565.18175,
+      "duration_ms": 4.124292
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-4-01",
+      "slot": 2,
+      "start_ms": 565.025292,
+      "duration_ms": 5.93525
+    },
+    {
+      "stage": "read",
+      "case": "read-4-04",
+      "slot": 0,
+      "start_ms": 569.306417,
+      "duration_ms": 1.773041
+    },
+    {
+      "stage": "case-body",
+      "case": "read-4-04",
+      "slot": 0,
+      "start_ms": 509.241667,
+      "duration_ms": 61.838791
+    },
+    {
+      "stage": "fork",
+      "case": "read-4-02",
+      "slot": 3,
+      "start_ms": 517.249542,
+      "duration_ms": 54.77075
+    },
+    {
+      "stage": "read",
+      "case": "read-4-01",
+      "slot": 2,
+      "start_ms": 570.960708,
+      "duration_ms": 1.820625
+    },
+    {
+      "stage": "case-body",
+      "case": "read-4-01",
+      "slot": 2,
+      "start_ms": 508.228208,
+      "duration_ms": 64.554084
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-4-03",
+      "slot": 1,
+      "start_ms": 565.774417,
+      "duration_ms": 11.374916
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-4-04",
+      "slot": 0,
+      "start_ms": 571.087917,
+      "duration_ms": 7.453041
+    },
+    {
+      "stage": "read",
+      "case": "read-4-03",
+      "slot": 1,
+      "start_ms": 577.149583,
+      "duration_ms": 1.47325
+    },
+    {
+      "stage": "case-body",
+      "case": "read-4-03",
+      "slot": 1,
+      "start_ms": 510.301333,
+      "duration_ms": 68.322417
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-4-01",
+      "slot": 2,
+      "start_ms": 572.788,
+      "duration_ms": 6.396292
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-4-02",
+      "slot": 3,
+      "start_ms": 572.0215,
+      "duration_ms": 7.202667
+    },
+    {
+      "stage": "read",
+      "case": "read-4-02",
+      "slot": 3,
+      "start_ms": 579.224542,
+      "duration_ms": 1.89325
+    },
+    {
+      "stage": "case-body",
+      "case": "read-4-02",
+      "slot": 3,
+      "start_ms": 517.2485,
+      "duration_ms": 63.870917
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-4-03",
+      "slot": 1,
+      "start_ms": 578.6285,
+      "duration_ms": 3.898583
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-4-02",
+      "slot": 3,
+      "start_ms": 581.130708,
+      "duration_ms": 3.673
+    },
+    {
+      "stage": "fork",
+      "case": "write-2-04",
+      "slot": 2,
+      "start_ms": 579.212458,
+      "duration_ms": 47.68625
+    },
+    {
+      "stage": "fork",
+      "case": "write-2-02",
+      "slot": 3,
+      "start_ms": 584.824625,
+      "duration_ms": 51.66125
+    },
+    {
+      "stage": "fork",
+      "case": "write-2-01",
+      "slot": 0,
+      "start_ms": 578.618625,
+      "duration_ms": 58.515208
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-2-04",
+      "slot": 2,
+      "start_ms": 626.901167,
+      "duration_ms": 13.268916
+    },
+    {
+      "stage": "fork",
+      "case": "write-2-03",
+      "slot": 1,
+      "start_ms": 582.563083,
+      "duration_ms": 57.742209
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-2-01",
+      "slot": 0,
+      "start_ms": 637.135375,
+      "duration_ms": 6.137167
+    },
+    {
+      "stage": "write",
+      "case": "write-2-04",
+      "slot": 2,
+      "start_ms": 640.1705,
+      "duration_ms": 4.750417
+    },
+    {
+      "stage": "case-body",
+      "case": "write-2-04",
+      "slot": 2,
+      "start_ms": 579.210875,
+      "duration_ms": 65.711042
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-2-02",
+      "slot": 3,
+      "start_ms": 636.490208,
+      "duration_ms": 9.285959
+    },
+    {
+      "stage": "write",
+      "case": "write-2-01",
+      "slot": 0,
+      "start_ms": 643.273,
+      "duration_ms": 3.409875
+    },
+    {
+      "stage": "case-body",
+      "case": "write-2-01",
+      "slot": 0,
+      "start_ms": 578.616083,
+      "duration_ms": 68.067709
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-2-03",
+      "slot": 1,
+      "start_ms": 640.307333,
+      "duration_ms": 8.126584
+    },
+    {
+      "stage": "write",
+      "case": "write-2-02",
+      "slot": 3,
+      "start_ms": 645.776417,
+      "duration_ms": 3.418833
+    },
+    {
+      "stage": "case-body",
+      "case": "write-2-02",
+      "slot": 3,
+      "start_ms": 584.823667,
+      "duration_ms": 64.372208
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-2-04",
+      "slot": 2,
+      "start_ms": 644.929708,
+      "duration_ms": 5.45575
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-2-01",
+      "slot": 0,
+      "start_ms": 646.689625,
+      "duration_ms": 4.54275
+    },
+    {
+      "stage": "write",
+      "case": "write-2-03",
+      "slot": 1,
+      "start_ms": 648.434292,
+      "duration_ms": 2.972458
+    },
+    {
+      "stage": "case-body",
+      "case": "write-2-03",
+      "slot": 1,
+      "start_ms": 582.562083,
+      "duration_ms": 68.845375
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-2-02",
+      "slot": 3,
+      "start_ms": 649.2005,
+      "duration_ms": 4.186375
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-2-03",
+      "slot": 1,
+      "start_ms": 651.411583,
+      "duration_ms": 8.73175
+    },
+    {
+      "stage": "fork",
+      "case": "read-3-04",
+      "slot": 3,
+      "start_ms": 653.422625,
+      "duration_ms": 43.762083
+    },
+    {
+      "stage": "fork",
+      "case": "read-3-05",
+      "slot": 0,
+      "start_ms": 651.2595,
+      "duration_ms": 48.569792
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-3-04",
+      "slot": 3,
+      "start_ms": 697.187375,
+      "duration_ms": 9.866917
+    },
+    {
+      "stage": "read",
+      "case": "read-3-04",
+      "slot": 3,
+      "start_ms": 707.054667,
+      "duration_ms": 2.78975
+    },
+    {
+      "stage": "case-body",
+      "case": "read-3-04",
+      "slot": 3,
+      "start_ms": 653.421417,
+      "duration_ms": 56.427458
+    },
+    {
+      "stage": "fork",
+      "case": "read-3-03",
+      "slot": 1,
+      "start_ms": 660.178125,
+      "duration_ms": 51.006208
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-3-05",
+      "slot": 0,
+      "start_ms": 699.83025,
+      "duration_ms": 16.867167
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-3-04",
+      "slot": 3,
+      "start_ms": 709.852917,
+      "duration_ms": 7.665708
+    },
+    {
+      "stage": "fork",
+      "case": "read-1-09",
+      "slot": 2,
+      "start_ms": 650.471208,
+      "duration_ms": 67.131042
+    },
+    {
+      "stage": "read",
+      "case": "read-3-05",
+      "slot": 0,
+      "start_ms": 716.697625,
+      "duration_ms": 0.952083
+    },
+    {
+      "stage": "case-body",
+      "case": "read-3-05",
+      "slot": 0,
+      "start_ms": 651.258458,
+      "duration_ms": 66.39175
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-3-05",
+      "slot": 0,
+      "start_ms": 717.652083,
+      "duration_ms": 3.524584
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-3-03",
+      "slot": 1,
+      "start_ms": 711.18675,
+      "duration_ms": 13.19775
+    },
+    {
+      "stage": "read",
+      "case": "read-3-03",
+      "slot": 1,
+      "start_ms": 724.385167,
+      "duration_ms": 1.33125
+    },
+    {
+      "stage": "case-body",
+      "case": "read-3-03",
+      "slot": 1,
+      "start_ms": 660.176917,
+      "duration_ms": 65.540583
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-1-09",
+      "slot": 2,
+      "start_ms": 717.604875,
+      "duration_ms": 8.963667
+    },
+    {
+      "stage": "read",
+      "case": "read-1-09",
+      "slot": 2,
+      "start_ms": 726.568833,
+      "duration_ms": 1.279334
+    },
+    {
+      "stage": "case-body",
+      "case": "read-1-09",
+      "slot": 2,
+      "start_ms": 650.468792,
+      "duration_ms": 77.380166
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-3-03",
+      "slot": 1,
+      "start_ms": 725.725083,
+      "duration_ms": 5.342792
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-1-09",
+      "slot": 2,
+      "start_ms": 727.855125,
+      "duration_ms": 8.554125
+    },
+    {
+      "stage": "fork",
+      "case": "read-3-02",
+      "slot": 3,
+      "start_ms": 717.553208,
+      "duration_ms": 44.107709
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-3-02",
+      "slot": 3,
+      "start_ms": 761.662458,
+      "duration_ms": 8.93925
+    },
+    {
+      "stage": "read",
+      "case": "read-3-02",
+      "slot": 3,
+      "start_ms": 770.602,
+      "duration_ms": 1.775958
+    },
+    {
+      "stage": "case-body",
+      "case": "read-3-02",
+      "slot": 3,
+      "start_ms": 717.551708,
+      "duration_ms": 54.827209
+    },
+    {
+      "stage": "fork",
+      "case": "read-3-01",
+      "slot": 0,
+      "start_ms": 721.21175,
+      "duration_ms": 51.311125
+    },
+    {
+      "stage": "fork",
+      "case": "read-2-10",
+      "slot": 1,
+      "start_ms": 731.101083,
+      "duration_ms": 43.450542
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-3-02",
+      "slot": 3,
+      "start_ms": 772.386958,
+      "duration_ms": 4.300334
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-3-01",
+      "slot": 0,
+      "start_ms": 772.525208,
+      "duration_ms": 13.189167
+    },
+    {
+      "stage": "read",
+      "case": "read-3-01",
+      "slot": 0,
+      "start_ms": 785.714917,
+      "duration_ms": 1.428291
+    },
+    {
+      "stage": "case-body",
+      "case": "read-3-01",
+      "slot": 0,
+      "start_ms": 721.21075,
+      "duration_ms": 65.933167
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-2-10",
+      "slot": 1,
+      "start_ms": 774.554417,
+      "duration_ms": 13.707208
+    },
+    {
+      "stage": "read",
+      "case": "read-2-10",
+      "slot": 1,
+      "start_ms": 788.262,
+      "duration_ms": 0.767458
+    },
+    {
+      "stage": "case-body",
+      "case": "read-2-10",
+      "slot": 1,
+      "start_ms": 731.100167,
+      "duration_ms": 57.929666
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-3-01",
+      "slot": 0,
+      "start_ms": 787.151875,
+      "duration_ms": 6.887083
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-2-10",
+      "slot": 1,
+      "start_ms": 789.032458,
+      "duration_ms": 6.267875
+    },
+    {
+      "stage": "fork",
+      "case": "read-2-09",
+      "slot": 2,
+      "start_ms": 736.485167,
+      "duration_ms": 59.04475
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-2-09",
+      "slot": 2,
+      "start_ms": 795.532333,
+      "duration_ms": 15.411167
+    },
+    {
+      "stage": "read",
+      "case": "read-2-09",
+      "slot": 2,
+      "start_ms": 810.944083,
+      "duration_ms": 1.422
+    },
+    {
+      "stage": "case-body",
+      "case": "read-2-09",
+      "slot": 2,
+      "start_ms": 736.482958,
+      "duration_ms": 75.8845
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-2-09",
+      "slot": 2,
+      "start_ms": 812.376625,
+      "duration_ms": 13.515375
+    },
+    {
+      "stage": "fork",
+      "case": "read-2-08",
+      "slot": 3,
+      "start_ms": 776.730792,
+      "duration_ms": 52.326833
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-2-08",
+      "slot": 3,
+      "start_ms": 829.060667,
+      "duration_ms": 11.139166
+    },
+    {
+      "stage": "read",
+      "case": "read-2-08",
+      "slot": 3,
+      "start_ms": 840.200042,
+      "duration_ms": 0.792333
+    },
+    {
+      "stage": "case-body",
+      "case": "read-2-08",
+      "slot": 3,
+      "start_ms": 776.729458,
+      "duration_ms": 64.26325
+    },
+    {
+      "stage": "fork",
+      "case": "read-2-06",
+      "slot": 1,
+      "start_ms": 795.33225,
+      "duration_ms": 46.206833
+    },
+    {
+      "stage": "fork",
+      "case": "read-2-07",
+      "slot": 0,
+      "start_ms": 794.116958,
+      "duration_ms": 50.234959
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-2-06",
+      "slot": 1,
+      "start_ms": 841.54175,
+      "duration_ms": 6.154375
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-2-08",
+      "slot": 3,
+      "start_ms": 840.996083,
+      "duration_ms": 6.98725
+    },
+    {
+      "stage": "read",
+      "case": "read-2-06",
+      "slot": 1,
+      "start_ms": 847.696333,
+      "duration_ms": 1.646042
+    },
+    {
+      "stage": "case-body",
+      "case": "read-2-06",
+      "slot": 1,
+      "start_ms": 795.33125,
+      "duration_ms": 54.011958
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-2-07",
+      "slot": 0,
+      "start_ms": 844.3545,
+      "duration_ms": 9.909417
+    },
+    {
+      "stage": "read",
+      "case": "read-2-07",
+      "slot": 0,
+      "start_ms": 854.26425,
+      "duration_ms": 0.77225
+    },
+    {
+      "stage": "case-body",
+      "case": "read-2-07",
+      "slot": 0,
+      "start_ms": 794.114583,
+      "duration_ms": 60.92275
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-2-06",
+      "slot": 1,
+      "start_ms": 849.349708,
+      "duration_ms": 7.273
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-2-07",
+      "slot": 0,
+      "start_ms": 855.06525,
+      "duration_ms": 4.208583
+    },
+    {
+      "stage": "fork",
+      "case": "read-2-05",
+      "slot": 2,
+      "start_ms": 826.129917,
+      "duration_ms": 44.2775
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-2-05",
+      "slot": 2,
+      "start_ms": 870.410167,
+      "duration_ms": 9.279375
+    },
+    {
+      "stage": "read",
+      "case": "read-2-05",
+      "slot": 2,
+      "start_ms": 879.690083,
+      "duration_ms": 0.743167
+    },
+    {
+      "stage": "case-body",
+      "case": "read-2-05",
+      "slot": 2,
+      "start_ms": 826.128792,
+      "duration_ms": 54.305208
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-2-05",
+      "slot": 2,
+      "start_ms": 880.440042,
+      "duration_ms": 4.149125
+    },
+    {
+      "stage": "fork",
+      "case": "read-2-04",
+      "slot": 3,
+      "start_ms": 848.02425,
+      "duration_ms": 42.766792
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-2-04",
+      "slot": 3,
+      "start_ms": 890.792375,
+      "duration_ms": 8.694333
+    },
+    {
+      "stage": "fork",
+      "case": "read-2-03",
+      "slot": 1,
+      "start_ms": 856.656458,
+      "duration_ms": 43.098459
+    },
+    {
+      "stage": "read",
+      "case": "read-2-04",
+      "slot": 3,
+      "start_ms": 899.487083,
+      "duration_ms": 1.17
+    },
+    {
+      "stage": "case-body",
+      "case": "read-2-04",
+      "slot": 3,
+      "start_ms": 848.023,
+      "duration_ms": 52.635042
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-2-04",
+      "slot": 3,
+      "start_ms": 900.664333,
+      "duration_ms": 4.744125
+    },
+    {
+      "stage": "fork",
+      "case": "read-2-02",
+      "slot": 0,
+      "start_ms": 859.31625,
+      "duration_ms": 54.253792
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-2-03",
+      "slot": 1,
+      "start_ms": 899.75725,
+      "duration_ms": 15.6515
+    },
+    {
+      "stage": "read",
+      "case": "read-2-03",
+      "slot": 1,
+      "start_ms": 915.409083,
+      "duration_ms": 0.67875
+    },
+    {
+      "stage": "case-body",
+      "case": "read-2-03",
+      "slot": 1,
+      "start_ms": 856.655458,
+      "duration_ms": 59.433167
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-2-02",
+      "slot": 0,
+      "start_ms": 913.573125,
+      "duration_ms": 3.946042
+    },
+    {
+      "stage": "read",
+      "case": "read-2-02",
+      "slot": 0,
+      "start_ms": 917.519292,
+      "duration_ms": 0.58325
+    },
+    {
+      "stage": "case-body",
+      "case": "read-2-02",
+      "slot": 0,
+      "start_ms": 859.31525,
+      "duration_ms": 58.787458
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-2-03",
+      "slot": 1,
+      "start_ms": 916.092333,
+      "duration_ms": 4.2695
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-2-02",
+      "slot": 0,
+      "start_ms": 918.104583,
+      "duration_ms": 3.727875
+    },
+    {
+      "stage": "fork",
+      "case": "read-2-01",
+      "slot": 2,
+      "start_ms": 884.687125,
+      "duration_ms": 52.755625
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-2-01",
+      "slot": 2,
+      "start_ms": 937.443917,
+      "duration_ms": 4.302
+    },
+    {
+      "stage": "read",
+      "case": "read-2-01",
+      "slot": 2,
+      "start_ms": 941.746125,
+      "duration_ms": 0.608625
+    },
+    {
+      "stage": "case-body",
+      "case": "read-2-01",
+      "slot": 2,
+      "start_ms": 884.684417,
+      "duration_ms": 57.671083
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-2-01",
+      "slot": 2,
+      "start_ms": 942.3595,
+      "duration_ms": 4.414
+    },
+    {
+      "stage": "fork",
+      "case": "read-1-10",
+      "slot": 3,
+      "start_ms": 905.487833,
+      "duration_ms": 44.970584
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-1-10",
+      "slot": 3,
+      "start_ms": 950.462292,
+      "duration_ms": 7.149291
+    },
+    {
+      "stage": "read",
+      "case": "read-1-10",
+      "slot": 3,
+      "start_ms": 957.612,
+      "duration_ms": 1.342208
+    },
+    {
+      "stage": "case-body",
+      "case": "read-1-10",
+      "slot": 3,
+      "start_ms": 905.484417,
+      "duration_ms": 53.470791
+    },
+    {
+      "stage": "fork",
+      "case": "read-0-10",
+      "slot": 1,
+      "start_ms": 920.403417,
+      "duration_ms": 46.944583
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-1-10",
+      "slot": 3,
+      "start_ms": 958.9625,
+      "duration_ms": 8.851333
+    },
+    {
+      "stage": "fork",
+      "case": "read-1-08",
+      "slot": 0,
+      "start_ms": 921.857542,
+      "duration_ms": 50.415666
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-0-10",
+      "slot": 1,
+      "start_ms": 967.351042,
+      "duration_ms": 6.015541
+    },
+    {
+      "stage": "read",
+      "case": "read-0-10",
+      "slot": 1,
+      "start_ms": 973.366958,
+      "duration_ms": 1.306084
+    },
+    {
+      "stage": "case-body",
+      "case": "read-0-10",
+      "slot": 1,
+      "start_ms": 920.4025,
+      "duration_ms": 54.271458
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-0-10",
+      "slot": 1,
+      "start_ms": 974.680625,
+      "duration_ms": 4.543375
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-1-08",
+      "slot": 0,
+      "start_ms": 972.275792,
+      "duration_ms": 8.525
+    },
+    {
+      "stage": "read",
+      "case": "read-1-08",
+      "slot": 0,
+      "start_ms": 980.801375,
+      "duration_ms": 1.475958
+    },
+    {
+      "stage": "case-body",
+      "case": "read-1-08",
+      "slot": 0,
+      "start_ms": 921.856333,
+      "duration_ms": 60.422209
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-1-08",
+      "slot": 0,
+      "start_ms": 982.283917,
+      "duration_ms": 3.662208
+    },
+    {
+      "stage": "fork",
+      "case": "read-1-07",
+      "slot": 2,
+      "start_ms": 946.8655,
+      "duration_ms": 44.800125
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-1-07",
+      "slot": 2,
+      "start_ms": 991.668375,
+      "duration_ms": 6.962208
+    },
+    {
+      "stage": "read",
+      "case": "read-1-07",
+      "slot": 2,
+      "start_ms": 998.631083,
+      "duration_ms": 1.208125
+    },
+    {
+      "stage": "case-body",
+      "case": "read-1-07",
+      "slot": 2,
+      "start_ms": 946.862458,
+      "duration_ms": 52.977667
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-1-07",
+      "slot": 2,
+      "start_ms": 999.8445,
+      "duration_ms": 3.627875
+    },
+    {
+      "stage": "fork",
+      "case": "read-1-06",
+      "slot": 3,
+      "start_ms": 967.850708,
+      "duration_ms": 46.327125
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-1-06",
+      "slot": 3,
+      "start_ms": 1014.181792,
+      "duration_ms": 6.425833
+    },
+    {
+      "stage": "read",
+      "case": "read-1-06",
+      "slot": 3,
+      "start_ms": 1020.60825,
+      "duration_ms": 1.238375
+    },
+    {
+      "stage": "case-body",
+      "case": "read-1-06",
+      "slot": 3,
+      "start_ms": 967.849667,
+      "duration_ms": 53.998083
+    },
+    {
+      "stage": "fork",
+      "case": "read-1-05",
+      "slot": 1,
+      "start_ms": 979.295292,
+      "duration_ms": 48.007333
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-1-06",
+      "slot": 3,
+      "start_ms": 1021.855458,
+      "duration_ms": 6.892375
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-1-05",
+      "slot": 1,
+      "start_ms": 1027.305167,
+      "duration_ms": 7.758333
+    },
+    {
+      "stage": "read",
+      "case": "read-1-05",
+      "slot": 1,
+      "start_ms": 1035.063917,
+      "duration_ms": 2.769375
+    },
+    {
+      "stage": "case-body",
+      "case": "read-1-05",
+      "slot": 1,
+      "start_ms": 979.293,
+      "duration_ms": 58.541542
+    },
+    {
+      "stage": "fork",
+      "case": "read-1-04",
+      "slot": 0,
+      "start_ms": 985.986208,
+      "duration_ms": 53.887042
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-1-05",
+      "slot": 1,
+      "start_ms": 1037.842958,
+      "duration_ms": 3.920917
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-1-04",
+      "slot": 0,
+      "start_ms": 1039.876333,
+      "duration_ms": 4.317292
+    },
+    {
+      "stage": "read",
+      "case": "read-1-04",
+      "slot": 0,
+      "start_ms": 1044.193875,
+      "duration_ms": 1.208417
+    },
+    {
+      "stage": "case-body",
+      "case": "read-1-04",
+      "slot": 0,
+      "start_ms": 985.985167,
+      "duration_ms": 59.417791
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-1-04",
+      "slot": 0,
+      "start_ms": 1045.407375,
+      "duration_ms": 3.07
+    },
+    {
+      "stage": "fork",
+      "case": "read-1-03",
+      "slot": 2,
+      "start_ms": 1003.517917,
+      "duration_ms": 49.054291
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-1-03",
+      "slot": 2,
+      "start_ms": 1052.574417,
+      "duration_ms": 12.325458
+    },
+    {
+      "stage": "read",
+      "case": "read-1-03",
+      "slot": 2,
+      "start_ms": 1064.900417,
+      "duration_ms": 1.608083
+    },
+    {
+      "stage": "case-body",
+      "case": "read-1-03",
+      "slot": 2,
+      "start_ms": 1003.517,
+      "duration_ms": 62.99325
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-1-03",
+      "slot": 2,
+      "start_ms": 1066.517292,
+      "duration_ms": 5.037458
+    },
+    {
+      "stage": "fork",
+      "case": "read-1-02",
+      "slot": 3,
+      "start_ms": 1028.7955,
+      "duration_ms": 51.298167
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-1-02",
+      "slot": 3,
+      "start_ms": 1080.096292,
+      "duration_ms": 5.333625
+    },
+    {
+      "stage": "read",
+      "case": "read-1-02",
+      "slot": 3,
+      "start_ms": 1085.430583,
+      "duration_ms": 2.079709
+    },
+    {
+      "stage": "case-body",
+      "case": "read-1-02",
+      "slot": 3,
+      "start_ms": 1028.794667,
+      "duration_ms": 58.716958
+    },
+    {
+      "stage": "fork",
+      "case": "read-1-01",
+      "slot": 1,
+      "start_ms": 1041.840208,
+      "duration_ms": 47.120959
+    },
+    {
+      "stage": "fork",
+      "case": "read-0-06",
+      "slot": 0,
+      "start_ms": 1048.556583,
+      "duration_ms": 42.001917
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-1-02",
+      "slot": 3,
+      "start_ms": 1087.521667,
+      "duration_ms": 5.534625
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-1-01",
+      "slot": 1,
+      "start_ms": 1088.963958,
+      "duration_ms": 7.415542
+    },
+    {
+      "stage": "read",
+      "case": "read-1-01",
+      "slot": 1,
+      "start_ms": 1096.38,
+      "duration_ms": 1.45875
+    },
+    {
+      "stage": "case-body",
+      "case": "read-1-01",
+      "slot": 1,
+      "start_ms": 1041.837583,
+      "duration_ms": 56.00225
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-0-06",
+      "slot": 0,
+      "start_ms": 1090.56075,
+      "duration_ms": 8.878583
+    },
+    {
+      "stage": "read",
+      "case": "read-0-06",
+      "slot": 0,
+      "start_ms": 1099.439625,
+      "duration_ms": 1.000083
+    },
+    {
+      "stage": "case-body",
+      "case": "read-0-06",
+      "slot": 0,
+      "start_ms": 1048.553375,
+      "duration_ms": 51.886708
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-1-01",
+      "slot": 1,
+      "start_ms": 1097.848458,
+      "duration_ms": 5.19875
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-0-06",
+      "slot": 0,
+      "start_ms": 1100.447958,
+      "duration_ms": 4.030125
+    },
+    {
+      "stage": "fork",
+      "case": "read-0-09",
+      "slot": 2,
+      "start_ms": 1071.633375,
+      "duration_ms": 51.098792
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-0-09",
+      "slot": 2,
+      "start_ms": 1122.734833,
+      "duration_ms": 2.9775
+    },
+    {
+      "stage": "read",
+      "case": "read-0-09",
+      "slot": 2,
+      "start_ms": 1125.712542,
+      "duration_ms": 0.759208
+    },
+    {
+      "stage": "case-body",
+      "case": "read-0-09",
+      "slot": 2,
+      "start_ms": 1071.631,
+      "duration_ms": 54.841583
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-0-09",
+      "slot": 2,
+      "start_ms": 1126.477875,
+      "duration_ms": 4.513583
+    },
+    {
+      "stage": "fork",
+      "case": "read-0-08",
+      "slot": 3,
+      "start_ms": 1093.094208,
+      "duration_ms": 45.244167
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-0-08",
+      "slot": 3,
+      "start_ms": 1138.340833,
+      "duration_ms": 7.607792
+    },
+    {
+      "stage": "fork",
+      "case": "write-1-03",
+      "slot": 0,
+      "start_ms": 1104.554625,
+      "duration_ms": 41.636042
+    },
+    {
+      "stage": "read",
+      "case": "read-0-08",
+      "slot": 3,
+      "start_ms": 1145.949042,
+      "duration_ms": 3.087458
+    },
+    {
+      "stage": "case-body",
+      "case": "read-0-08",
+      "slot": 3,
+      "start_ms": 1093.093208,
+      "duration_ms": 55.949792
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-1-03",
+      "slot": 0,
+      "start_ms": 1146.191792,
+      "duration_ms": 7.077375
+    },
+    {
+      "stage": "fork",
+      "case": "read-0-07",
+      "slot": 1,
+      "start_ms": 1103.089208,
+      "duration_ms": 50.633625
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-0-08",
+      "slot": 3,
+      "start_ms": 1149.049958,
+      "duration_ms": 5.375625
+    },
+    {
+      "stage": "write",
+      "case": "write-1-03",
+      "slot": 0,
+      "start_ms": 1153.269542,
+      "duration_ms": 3.483916
+    },
+    {
+      "stage": "case-body",
+      "case": "write-1-03",
+      "slot": 0,
+      "start_ms": 1104.553542,
+      "duration_ms": 52.201166
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-1-03",
+      "slot": 0,
+      "start_ms": 1156.763,
+      "duration_ms": 4.705917
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-0-07",
+      "slot": 1,
+      "start_ms": 1153.724208,
+      "duration_ms": 9.055834
+    },
+    {
+      "stage": "read",
+      "case": "read-0-07",
+      "slot": 1,
+      "start_ms": 1162.780333,
+      "duration_ms": 1.24025
+    },
+    {
+      "stage": "case-body",
+      "case": "read-0-07",
+      "slot": 1,
+      "start_ms": 1103.088167,
+      "duration_ms": 60.933
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-0-07",
+      "slot": 1,
+      "start_ms": 1164.027042,
+      "duration_ms": 4.038833
+    },
+    {
+      "stage": "fork",
+      "case": "write-1-04",
+      "slot": 2,
+      "start_ms": 1131.059875,
+      "duration_ms": 52.368792
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-1-04",
+      "slot": 2,
+      "start_ms": 1183.432208,
+      "duration_ms": 6.944625
+    },
+    {
+      "stage": "write",
+      "case": "write-1-04",
+      "slot": 2,
+      "start_ms": 1190.377542,
+      "duration_ms": 4.414166
+    },
+    {
+      "stage": "case-body",
+      "case": "write-1-04",
+      "slot": 2,
+      "start_ms": 1131.0585,
+      "duration_ms": 63.734958
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-1-04",
+      "slot": 2,
+      "start_ms": 1194.802292,
+      "duration_ms": 6.655666
+    },
+    {
+      "stage": "fork",
+      "case": "read-0-04",
+      "slot": 3,
+      "start_ms": 1154.492958,
+      "duration_ms": 49.577
+    },
+    {
+      "stage": "fork",
+      "case": "read-0-05",
+      "slot": 0,
+      "start_ms": 1161.567292,
+      "duration_ms": 42.657666
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-0-04",
+      "slot": 3,
+      "start_ms": 1204.071042,
+      "duration_ms": 7.494708
+    },
+    {
+      "stage": "fork",
+      "case": "read-0-03",
+      "slot": 1,
+      "start_ms": 1168.107833,
+      "duration_ms": 44.199792
+    },
+    {
+      "stage": "read",
+      "case": "read-0-04",
+      "slot": 3,
+      "start_ms": 1211.566208,
+      "duration_ms": 1.594334
+    },
+    {
+      "stage": "case-body",
+      "case": "read-0-04",
+      "slot": 3,
+      "start_ms": 1154.490542,
+      "duration_ms": 58.671208
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-0-05",
+      "slot": 0,
+      "start_ms": 1204.227333,
+      "duration_ms": 13.7145
+    },
+    {
+      "stage": "read",
+      "case": "read-0-05",
+      "slot": 0,
+      "start_ms": 1217.942333,
+      "duration_ms": 1.7525
+    },
+    {
+      "stage": "case-body",
+      "case": "read-0-05",
+      "slot": 0,
+      "start_ms": 1161.564792,
+      "duration_ms": 58.130625
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-0-03",
+      "slot": 1,
+      "start_ms": 1212.310167,
+      "duration_ms": 7.530541
+    },
+    {
+      "stage": "read",
+      "case": "read-0-03",
+      "slot": 1,
+      "start_ms": 1219.841167,
+      "duration_ms": 1.261375
+    },
+    {
+      "stage": "case-body",
+      "case": "read-0-03",
+      "slot": 1,
+      "start_ms": 1168.106875,
+      "duration_ms": 52.996
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-0-04",
+      "slot": 3,
+      "start_ms": 1213.168208,
+      "duration_ms": 8.070042
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-0-05",
+      "slot": 0,
+      "start_ms": 1219.700042,
+      "duration_ms": 3.882833
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-0-03",
+      "slot": 1,
+      "start_ms": 1221.105542,
+      "duration_ms": 3.69275
+    },
+    {
+      "stage": "fork",
+      "case": "read-0-02",
+      "slot": 2,
+      "start_ms": 1201.532167,
+      "duration_ms": 48.694333
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-0-02",
+      "slot": 2,
+      "start_ms": 1250.229375,
+      "duration_ms": 10.528333
+    },
+    {
+      "stage": "read",
+      "case": "read-0-02",
+      "slot": 2,
+      "start_ms": 1260.758458,
+      "duration_ms": 1.327792
+    },
+    {
+      "stage": "case-body",
+      "case": "read-0-02",
+      "slot": 2,
+      "start_ms": 1201.529917,
+      "duration_ms": 60.55725
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-0-02",
+      "slot": 2,
+      "start_ms": 1262.09425,
+      "duration_ms": 4.920542
+    },
+    {
+      "stage": "fork",
+      "case": "read-3-09",
+      "slot": 3,
+      "start_ms": 1221.285625,
+      "duration_ms": 46.4135
+    },
+    {
+      "stage": "fork",
+      "case": "read-3-10",
+      "slot": 0,
+      "start_ms": 1223.633542,
+      "duration_ms": 44.12875
+    },
+    {
+      "stage": "fork",
+      "case": "read-3-08",
+      "slot": 1,
+      "start_ms": 1224.813958,
+      "duration_ms": 43.799417
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-3-08",
+      "slot": 1,
+      "start_ms": 1268.616167,
+      "duration_ms": 10.441333
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-3-09",
+      "slot": 3,
+      "start_ms": 1267.702,
+      "duration_ms": 11.806833
+    },
+    {
+      "stage": "read",
+      "case": "read-3-08",
+      "slot": 1,
+      "start_ms": 1279.058,
+      "duration_ms": 1.331167
+    },
+    {
+      "stage": "case-body",
+      "case": "read-3-08",
+      "slot": 1,
+      "start_ms": 1224.813042,
+      "duration_ms": 55.577208
+    },
+    {
+      "stage": "read",
+      "case": "read-3-09",
+      "slot": 3,
+      "start_ms": 1279.509042,
+      "duration_ms": 1.179166
+    },
+    {
+      "stage": "case-body",
+      "case": "read-3-09",
+      "slot": 3,
+      "start_ms": 1221.284417,
+      "duration_ms": 59.404333
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-3-10",
+      "slot": 0,
+      "start_ms": 1267.764333,
+      "duration_ms": 13.646667
+    },
+    {
+      "stage": "read",
+      "case": "read-3-10",
+      "slot": 0,
+      "start_ms": 1281.411292,
+      "duration_ms": 1.298125
+    },
+    {
+      "stage": "case-body",
+      "case": "read-3-10",
+      "slot": 0,
+      "start_ms": 1223.629208,
+      "duration_ms": 59.080875
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-3-09",
+      "slot": 3,
+      "start_ms": 1280.693042,
+      "duration_ms": 3.713875
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-3-08",
+      "slot": 1,
+      "start_ms": 1280.397792,
+      "duration_ms": 4.940916
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-3-10",
+      "slot": 0,
+      "start_ms": 1282.716208,
+      "duration_ms": 6.228542
+    },
+    {
+      "stage": "fork",
+      "case": "write-1-02",
+      "slot": 2,
+      "start_ms": 1267.053458,
+      "duration_ms": 45.044959
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-1-02",
+      "slot": 2,
+      "start_ms": 1312.099458,
+      "duration_ms": 6.367375
+    },
+    {
+      "stage": "write",
+      "case": "write-1-02",
+      "slot": 2,
+      "start_ms": 1318.467083,
+      "duration_ms": 4.130209
+    },
+    {
+      "stage": "case-body",
+      "case": "write-1-02",
+      "slot": 2,
+      "start_ms": 1267.050917,
+      "duration_ms": 55.54775
+    },
+    {
+      "stage": "fork",
+      "case": "write-1-01",
+      "slot": 1,
+      "start_ms": 1285.360167,
+      "duration_ms": 41.875791
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-1-02",
+      "slot": 2,
+      "start_ms": 1322.606042,
+      "duration_ms": 4.825958
+    },
+    {
+      "stage": "fork",
+      "case": "read-3-07",
+      "slot": 3,
+      "start_ms": 1284.448833,
+      "duration_ms": 45.787417
+    },
+    {
+      "stage": "input-oracle",
+      "case": "write-1-01",
+      "slot": 1,
+      "start_ms": 1327.238625,
+      "duration_ms": 6.701125
+    },
+    {
+      "stage": "input-oracle",
+      "case": "read-3-07",
+      "slot": 3,
+      "start_ms": 1330.238917,
+      "duration_ms": 5.422791
+    },
+    {
+      "stage": "read",
+      "case": "read-3-07",
+      "slot": 3,
+      "start_ms": 1335.661917,
+      "duration_ms": 0.585916
+    },
+    {
+      "stage": "case-body",
+      "case": "read-3-07",
+      "slot": 3,
+      "start_ms": 1284.447875,
+      "duration_ms": 51.800375
+    },
+    {
+      "stage": "write",
+      "case": "write-1-01",
+      "slot": 1,
+      "start_ms": 1333.939958,
+      "duration_ms": 2.679167
+    },
+    {
+      "stage": "case-body",
+      "case": "write-1-01",
+      "slot": 1,
+      "start_ms": 1285.359,
+      "duration_ms": 51.2605
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "write-1-01",
+      "slot": 1,
+      "start_ms": 1336.621583,
+      "duration_ms": 3.193042
+    },
+    {
+      "stage": "case-cleanup",
+      "case": "read-3-07",
+      "slot": 3,
+      "start_ms": 1336.251792,
+      "duration_ms": 4.797583
+    },
+    {
+      "stage": "owner-cleanup",
+      "case": "",
+      "slot": -1,
+      "start_ms": 1341.105667,
+      "duration_ms": 0.004375
+    }
+  ],
+  "suite_ms": 1341.110625,
+  "write_cases": 20
+}

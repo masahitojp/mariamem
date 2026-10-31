@@ -449,3 +449,14 @@ Historical Wasmer comparisons require historical tags; current selectors reject
 legacy inputs. `v04_orm.py` is an old v0.3 harness, not a current release gate.
 
 [Final v0.4.3 baseline and compact evidence](v043-release-baseline.md).
+
+## Parallel application suite comparison
+
+[v0.6.0 Go helper versus shared/worker-schema Testcontainers](parallel-modelcase.md)
+runs the same70 application cases at parallelism1/2/4/8. The report includes whole
+suite medians/ranges, real median-run timelines and the shorter native test-only
+window; it is not a general SQL-engine throughput or resource comparison.
+
+[Shared-read follow-up](shared-read-modelcase.md) reruns the all-Fork control
+against one shared read child plus20 independent write children. This isolates
+the sharing policy on the same host; the earlier native cohort stays separate.

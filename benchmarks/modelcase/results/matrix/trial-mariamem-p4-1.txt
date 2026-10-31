@@ -1,0 +1,283 @@
+=== RUN   TestModelcase
+=== RUN   TestModelcase/read-0-01
+=== PAUSE TestModelcase/read-0-01
+=== RUN   TestModelcase/read-0-02
+=== PAUSE TestModelcase/read-0-02
+=== RUN   TestModelcase/read-0-03
+=== PAUSE TestModelcase/read-0-03
+=== RUN   TestModelcase/read-0-04
+=== PAUSE TestModelcase/read-0-04
+=== RUN   TestModelcase/read-0-05
+=== PAUSE TestModelcase/read-0-05
+=== RUN   TestModelcase/read-0-06
+=== PAUSE TestModelcase/read-0-06
+=== RUN   TestModelcase/read-0-07
+=== PAUSE TestModelcase/read-0-07
+=== RUN   TestModelcase/read-0-08
+=== PAUSE TestModelcase/read-0-08
+=== RUN   TestModelcase/read-0-09
+=== PAUSE TestModelcase/read-0-09
+=== RUN   TestModelcase/read-0-10
+=== PAUSE TestModelcase/read-0-10
+=== RUN   TestModelcase/read-1-01
+=== PAUSE TestModelcase/read-1-01
+=== RUN   TestModelcase/read-1-02
+=== PAUSE TestModelcase/read-1-02
+=== RUN   TestModelcase/read-1-03
+=== PAUSE TestModelcase/read-1-03
+=== RUN   TestModelcase/read-1-04
+=== PAUSE TestModelcase/read-1-04
+=== RUN   TestModelcase/read-1-05
+=== PAUSE TestModelcase/read-1-05
+=== RUN   TestModelcase/read-1-06
+=== PAUSE TestModelcase/read-1-06
+=== RUN   TestModelcase/read-1-07
+=== PAUSE TestModelcase/read-1-07
+=== RUN   TestModelcase/read-1-08
+=== PAUSE TestModelcase/read-1-08
+=== RUN   TestModelcase/read-1-09
+=== PAUSE TestModelcase/read-1-09
+=== RUN   TestModelcase/read-1-10
+=== PAUSE TestModelcase/read-1-10
+=== RUN   TestModelcase/read-2-01
+=== PAUSE TestModelcase/read-2-01
+=== RUN   TestModelcase/read-2-02
+=== PAUSE TestModelcase/read-2-02
+=== RUN   TestModelcase/read-2-03
+=== PAUSE TestModelcase/read-2-03
+=== RUN   TestModelcase/read-2-04
+=== PAUSE TestModelcase/read-2-04
+=== RUN   TestModelcase/read-2-05
+=== PAUSE TestModelcase/read-2-05
+=== RUN   TestModelcase/read-2-06
+=== PAUSE TestModelcase/read-2-06
+=== RUN   TestModelcase/read-2-07
+=== PAUSE TestModelcase/read-2-07
+=== RUN   TestModelcase/read-2-08
+=== PAUSE TestModelcase/read-2-08
+=== RUN   TestModelcase/read-2-09
+=== PAUSE TestModelcase/read-2-09
+=== RUN   TestModelcase/read-2-10
+=== PAUSE TestModelcase/read-2-10
+=== RUN   TestModelcase/read-3-01
+=== PAUSE TestModelcase/read-3-01
+=== RUN   TestModelcase/read-3-02
+=== PAUSE TestModelcase/read-3-02
+=== RUN   TestModelcase/read-3-03
+=== PAUSE TestModelcase/read-3-03
+=== RUN   TestModelcase/read-3-04
+=== PAUSE TestModelcase/read-3-04
+=== RUN   TestModelcase/read-3-05
+=== PAUSE TestModelcase/read-3-05
+=== RUN   TestModelcase/read-3-06
+=== PAUSE TestModelcase/read-3-06
+=== RUN   TestModelcase/read-3-07
+=== PAUSE TestModelcase/read-3-07
+=== RUN   TestModelcase/read-3-08
+=== PAUSE TestModelcase/read-3-08
+=== RUN   TestModelcase/read-3-09
+=== PAUSE TestModelcase/read-3-09
+=== RUN   TestModelcase/read-3-10
+=== PAUSE TestModelcase/read-3-10
+=== RUN   TestModelcase/read-4-01
+=== PAUSE TestModelcase/read-4-01
+=== RUN   TestModelcase/read-4-02
+=== PAUSE TestModelcase/read-4-02
+=== RUN   TestModelcase/read-4-03
+=== PAUSE TestModelcase/read-4-03
+=== RUN   TestModelcase/read-4-04
+=== PAUSE TestModelcase/read-4-04
+=== RUN   TestModelcase/read-4-05
+=== PAUSE TestModelcase/read-4-05
+=== RUN   TestModelcase/read-4-06
+=== PAUSE TestModelcase/read-4-06
+=== RUN   TestModelcase/read-4-07
+=== PAUSE TestModelcase/read-4-07
+=== RUN   TestModelcase/read-4-08
+=== PAUSE TestModelcase/read-4-08
+=== RUN   TestModelcase/read-4-09
+=== PAUSE TestModelcase/read-4-09
+=== RUN   TestModelcase/read-4-10
+=== PAUSE TestModelcase/read-4-10
+=== RUN   TestModelcase/write-0-01
+=== PAUSE TestModelcase/write-0-01
+=== RUN   TestModelcase/write-0-02
+=== PAUSE TestModelcase/write-0-02
+=== RUN   TestModelcase/write-0-03
+=== PAUSE TestModelcase/write-0-03
+=== RUN   TestModelcase/write-0-04
+=== PAUSE TestModelcase/write-0-04
+=== RUN   TestModelcase/write-1-01
+=== PAUSE TestModelcase/write-1-01
+=== RUN   TestModelcase/write-1-02
+=== PAUSE TestModelcase/write-1-02
+=== RUN   TestModelcase/write-1-03
+=== PAUSE TestModelcase/write-1-03
+=== RUN   TestModelcase/write-1-04
+=== PAUSE TestModelcase/write-1-04
+=== RUN   TestModelcase/write-2-01
+=== PAUSE TestModelcase/write-2-01
+=== RUN   TestModelcase/write-2-02
+=== PAUSE TestModelcase/write-2-02
+=== RUN   TestModelcase/write-2-03
+=== PAUSE TestModelcase/write-2-03
+=== RUN   TestModelcase/write-2-04
+=== PAUSE TestModelcase/write-2-04
+=== RUN   TestModelcase/write-3-01
+=== PAUSE TestModelcase/write-3-01
+=== RUN   TestModelcase/write-3-02
+=== PAUSE TestModelcase/write-3-02
+=== RUN   TestModelcase/write-3-03
+=== PAUSE TestModelcase/write-3-03
+=== RUN   TestModelcase/write-3-04
+=== PAUSE TestModelcase/write-3-04
+=== RUN   TestModelcase/write-4-01
+=== PAUSE TestModelcase/write-4-01
+=== RUN   TestModelcase/write-4-02
+=== PAUSE TestModelcase/write-4-02
+=== RUN   TestModelcase/write-4-03
+=== PAUSE TestModelcase/write-4-03
+=== RUN   TestModelcase/write-4-04
+=== PAUSE TestModelcase/write-4-04
+=== CONT  TestModelcase/read-0-01
+=== CONT  TestModelcase/read-3-06
+=== CONT  TestModelcase/write-0-04
+=== CONT  TestModelcase/read-1-09
+=== CONT  TestModelcase/read-3-05
+=== CONT  TestModelcase/read-3-04
+=== CONT  TestModelcase/read-3-03
+=== CONT  TestModelcase/read-3-02
+=== CONT  TestModelcase/read-3-01
+=== CONT  TestModelcase/read-2-10
+=== CONT  TestModelcase/read-2-09
+=== CONT  TestModelcase/read-2-08
+=== CONT  TestModelcase/read-2-07
+=== CONT  TestModelcase/read-2-06
+=== CONT  TestModelcase/read-2-05
+=== CONT  TestModelcase/read-2-04
+=== CONT  TestModelcase/read-2-03
+=== CONT  TestModelcase/read-2-02
+=== CONT  TestModelcase/read-2-01
+=== CONT  TestModelcase/read-1-10
+=== CONT  TestModelcase/write-3-01
+=== CONT  TestModelcase/write-4-04
+=== CONT  TestModelcase/write-4-03
+=== CONT  TestModelcase/write-4-02
+=== CONT  TestModelcase/write-4-01
+=== CONT  TestModelcase/write-3-04
+=== CONT  TestModelcase/write-3-03
+=== CONT  TestModelcase/write-3-02
+=== CONT  TestModelcase/write-2-01
+=== CONT  TestModelcase/write-2-04
+=== CONT  TestModelcase/write-2-03
+=== CONT  TestModelcase/write-2-02
+=== CONT  TestModelcase/read-0-10
+=== CONT  TestModelcase/read-1-08
+=== CONT  TestModelcase/read-1-07
+=== CONT  TestModelcase/read-1-06
+=== CONT  TestModelcase/read-1-05
+=== CONT  TestModelcase/read-1-04
+=== CONT  TestModelcase/read-1-03
+=== CONT  TestModelcase/read-1-02
+=== CONT  TestModelcase/read-1-01
+=== CONT  TestModelcase/read-4-05
+=== CONT  TestModelcase/write-0-03
+=== CONT  TestModelcase/write-0-02
+=== CONT  TestModelcase/write-0-01
+=== CONT  TestModelcase/read-4-10
+=== CONT  TestModelcase/read-4-09
+=== CONT  TestModelcase/read-4-08
+=== CONT  TestModelcase/read-4-07
+=== CONT  TestModelcase/read-4-06
+=== CONT  TestModelcase/read-0-06
+=== CONT  TestModelcase/read-0-09
+=== CONT  TestModelcase/read-0-08
+=== CONT  TestModelcase/read-0-07
+=== CONT  TestModelcase/read-0-04
+=== CONT  TestModelcase/read-0-05
+=== CONT  TestModelcase/read-4-01
+=== CONT  TestModelcase/read-4-04
+=== CONT  TestModelcase/read-4-03
+=== CONT  TestModelcase/read-4-02
+=== CONT  TestModelcase/read-0-03
+=== CONT  TestModelcase/write-1-03
+=== CONT  TestModelcase/write-1-04
+=== CONT  TestModelcase/read-0-02
+=== CONT  TestModelcase/write-1-02
+=== CONT  TestModelcase/write-1-01
+=== CONT  TestModelcase/read-3-09
+=== CONT  TestModelcase/read-3-10
+=== CONT  TestModelcase/read-3-08
+=== CONT  TestModelcase/read-3-07
+--- PASS: TestModelcase (0.00s)
+    --- PASS: TestModelcase/read-1-09 (0.11s)
+    --- PASS: TestModelcase/read-3-06 (0.12s)
+    --- PASS: TestModelcase/read-0-01 (0.12s)
+    --- PASS: TestModelcase/write-0-04 (0.12s)
+    --- PASS: TestModelcase/read-3-05 (0.07s)
+    --- PASS: TestModelcase/read-3-03 (0.07s)
+    --- PASS: TestModelcase/read-3-02 (0.07s)
+    --- PASS: TestModelcase/read-3-04 (0.08s)
+    --- PASS: TestModelcase/read-2-09 (0.07s)
+    --- PASS: TestModelcase/read-3-01 (0.07s)
+    --- PASS: TestModelcase/read-2-10 (0.07s)
+    --- PASS: TestModelcase/read-2-08 (0.07s)
+    --- PASS: TestModelcase/read-2-05 (0.06s)
+    --- PASS: TestModelcase/read-2-07 (0.07s)
+    --- PASS: TestModelcase/read-2-06 (0.07s)
+    --- PASS: TestModelcase/read-2-04 (0.08s)
+    --- PASS: TestModelcase/read-2-01 (0.07s)
+    --- PASS: TestModelcase/read-2-03 (0.08s)
+    --- PASS: TestModelcase/read-1-10 (0.06s)
+    --- PASS: TestModelcase/read-2-02 (0.08s)
+    --- PASS: TestModelcase/write-3-01 (0.07s)
+    --- PASS: TestModelcase/write-4-04 (0.07s)
+    --- PASS: TestModelcase/write-4-02 (0.07s)
+    --- PASS: TestModelcase/write-4-03 (0.08s)
+    --- PASS: TestModelcase/write-4-01 (0.07s)
+    --- PASS: TestModelcase/write-3-04 (0.07s)
+    --- PASS: TestModelcase/write-3-03 (0.07s)
+    --- PASS: TestModelcase/write-3-02 (0.06s)
+    --- PASS: TestModelcase/write-2-01 (0.07s)
+    --- PASS: TestModelcase/write-2-03 (0.06s)
+    --- PASS: TestModelcase/write-2-04 (0.06s)
+    --- PASS: TestModelcase/write-2-02 (0.06s)
+    --- PASS: TestModelcase/read-0-10 (0.07s)
+    --- PASS: TestModelcase/read-1-06 (0.06s)
+    --- PASS: TestModelcase/read-1-07 (0.07s)
+    --- PASS: TestModelcase/read-1-08 (0.07s)
+    --- PASS: TestModelcase/read-1-03 (0.06s)
+    --- PASS: TestModelcase/read-1-05 (0.06s)
+    --- PASS: TestModelcase/read-1-04 (0.07s)
+    --- PASS: TestModelcase/read-1-02 (0.06s)
+    --- PASS: TestModelcase/read-1-01 (0.07s)
+    --- PASS: TestModelcase/write-0-02 (0.07s)
+    --- PASS: TestModelcase/read-4-05 (0.07s)
+    --- PASS: TestModelcase/write-0-03 (0.07s)
+    --- PASS: TestModelcase/read-4-09 (0.06s)
+    --- PASS: TestModelcase/write-0-01 (0.07s)
+    --- PASS: TestModelcase/read-4-08 (0.07s)
+    --- PASS: TestModelcase/read-4-10 (0.07s)
+    --- PASS: TestModelcase/read-4-07 (0.07s)
+    --- PASS: TestModelcase/read-4-06 (0.06s)
+    --- PASS: TestModelcase/read-0-06 (0.06s)
+    --- PASS: TestModelcase/read-0-09 (0.06s)
+    --- PASS: TestModelcase/read-0-07 (0.07s)
+    --- PASS: TestModelcase/read-0-08 (0.07s)
+    --- PASS: TestModelcase/read-0-05 (0.07s)
+    --- PASS: TestModelcase/read-0-04 (0.07s)
+    --- PASS: TestModelcase/read-4-02 (0.07s)
+    --- PASS: TestModelcase/read-4-04 (0.08s)
+    --- PASS: TestModelcase/read-4-01 (0.08s)
+    --- PASS: TestModelcase/read-4-03 (0.08s)
+    --- PASS: TestModelcase/read-0-03 (0.07s)
+    --- PASS: TestModelcase/read-0-02 (0.08s)
+    --- PASS: TestModelcase/write-1-03 (0.09s)
+    --- PASS: TestModelcase/write-1-04 (0.09s)
+    --- PASS: TestModelcase/write-1-02 (0.07s)
+    --- PASS: TestModelcase/write-1-01 (0.06s)
+    --- PASS: TestModelcase/read-3-09 (0.07s)
+    --- PASS: TestModelcase/read-3-10 (0.08s)
+    --- PASS: TestModelcase/read-3-08 (0.06s)
+    --- PASS: TestModelcase/read-3-07 (0.06s)
+PASS

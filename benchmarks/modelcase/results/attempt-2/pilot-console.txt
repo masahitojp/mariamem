@@ -1,0 +1,14 @@
+Disk preflight OK: 44.30 GiB free, 1.59 GiB owned
+RUN replace.txt
+RUN build.txt
+RUN pilot/trial-mariamem-p1-0.txt
+PASS trial-mariamem-p1-0 4540.0 ms
+RUN pilot/trial-shared-p1-0.txt
+Traceback (most recent call last):
+  File "/private/tmp/mariamem-usage-alignment/build/experiment-work/parallel-modelcase/evidence/run.py", line 69, in <module>
+    for mode in ['mariamem','shared','workers']:one(mode,1,0)
+                                                ~~~^^^^^^^^^^
+  File "/private/tmp/mariamem-usage-alignment/build/experiment-work/parallel-modelcase/evidence/run.py", line 57, in one
+    check=subprocess.run(['docker','inspect',cid],capture_output=True,text=True);assert check.returncode!=0 and ('No such' in check.stderr or 'not found' in check.stderr),cid;absent.append(cid)
+                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: e089c7aa00e5ddbb6fc3108aaf8be7c6facc58322df55954c6905ac2fccbe67c
