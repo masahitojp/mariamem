@@ -1,0 +1,17 @@
+[
+  {
+    "label": "trial-mariamem-p1-0",
+    "mode": "mariamem",
+    "parallelism": 1,
+    "repetition": 0,
+    "warmup": false,
+    "negative_control": false,
+    "returncode": 0,
+    "wall_ms": 4540.015250036959,
+    "suite_ms": 3423.265542,
+    "cases": 70,
+    "containers_absent": [],
+    "scratch_empty": true,
+    "report": "pilot/trial-mariamem-p1-0.json"
+  }
+]

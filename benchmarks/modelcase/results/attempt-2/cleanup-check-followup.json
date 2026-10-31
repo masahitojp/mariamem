@@ -1,0 +1,5 @@
+{
+  "container_id": "e089c7aa00e5ddbb6fc3108aaf8be7c6facc58322df55954c6905ac2fccbe67c",
+  "independent_inspection": "exit1, error: no such object",
+  "diagnosis": "wrapper matched No such case-sensitively; Docker CLI emitted lower-case no such object. Original testcase report completed=true, cleanup_complete=true,70cases."
+}

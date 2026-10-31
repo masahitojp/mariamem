@@ -1,0 +1,9 @@
+{
+  "docker_ps_visible_before": 0,
+  "docker_ps_visible_after": 0,
+  "docker_info_running_before": 3,
+  "docker_info_running_after": 3,
+  "note": "CLI enumeration and daemon Info count disagree. Cause not investigated; background services are not claimed absent or controlled. No unrelated container was stopped.",
+  "owned_db_containers_absent_checks": "Every completed native suite verified each reported DB ID absent; final docker ps lists no visible DB or Ryuk container.",
+  "native_terminate_volume_policy": "Testcontainers0.40.0 DockerContainer.Terminate uses RemoveVolumes=true."
+}

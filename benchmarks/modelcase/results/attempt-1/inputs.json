@@ -1,0 +1,54 @@
+{
+  "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "tag_object_sha": "b57183b08d48884840111e8b53daa500734337f0",
+  "harness_source_commit": "eb72c237c0bbf8a4584ee32193b268b2b110cfe5",
+  "binary_sha256": "9ddb70f66a23b7e3298c407eff0adf4df05f90b263f3a1ec84b472b6383b39e7",
+  "go": "go version go1.26.10 darwin/arm64",
+  "build_info": "/private/tmp/mariamem-usage-alignment/build/experiment-work/parallel-modelcase/temp/modelcase.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/modelcase.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/modelcase\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "harness_sha256": {
+    "go.mod": "2b13cd13d136ab2c17cff12c6ddf747fb74bf94a34c154e86ce0af3b7f1279cf",
+    "plan.json": "dd68e3cd4b7dfdd9ff1930954f4e2106f6ee55bf4e9eeb939c1c46de4020d965",
+    "go.sum": "c9a42c9ab81a37a2c0e1c2cf5be3d86a1ca34d749c966c0753cdf8a844b6028d",
+    "README.md": "417aae050b40e3919597d519290f230358ad5dd85482f3694cc0a59c1def48c2",
+    "app.go": "97498a3677fd1b0c3e067b9990e107a9f2ebcc12273a0b25d2d924c5b4599c60",
+    "suite_test.go": "e697cc46f796366117e258403d79263e35f27208924ccb1347d6ec5331d08e3d"
+  },
+  "docker": {
+    "ServerVersion": "29.9.2",
+    "OperatingSystem": "Docker Desktop",
+    "OSType": "linux",
+    "Architecture": "aarch64",
+    "NCPU": 8,
+    "MemTotal": 8319770624,
+    "Driver": "overlay2",
+    "ContainersRunning": 3
+  },
+  "image": {
+    "Id": "sha256:23ccfa2f2df26837c8f397a8f9a070ad728768c095d246edd07cd8d24e9ec40c",
+    "RepoTags": [
+      "mariadb:12.3"
+    ],
+    "RepoDigests": [
+      "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1"
+    ],
+    "Architecture": "arm64",
+    "Os": "linux"
+  },
+  "ryuk_image": {
+    "Id": "sha256:f04fd744b5d50f8c88d9d4938c54e05a9adb56d520542f899a7d6873fa7280f2",
+    "RepoTags": [
+      "testcontainers/ryuk:0.13.0"
+    ],
+    "RepoDigests": [
+      "testcontainers/ryuk@sha256:31b31269d06603366cbfd0284708dcd2e281e8a4188e53fce3d3304439d0df3d"
+    ],
+    "Architecture": "arm64",
+    "Os": "linux"
+  },
+  "host": {
+    "macos": "27.2",
+    "machine": "arm64"
+  },
+  "go_compile_timed": false,
+  "image_pull_timed": false
+}

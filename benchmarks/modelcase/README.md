@@ -29,5 +29,6 @@ span sums overlap and are never substituted for wall time.
 First run the three-model parallelism1 pilot and a corrupted-seed negative
 control. Only after they succeed, run parallelism1/2/4/8 with one labelled
 warmup and five measured repetitions per cell, rotating model order.
-The plan records bounds. Execution results are separate; this source checkpoint
-does not claim PASS, a speedup, or a new product/release acceptance gate.
+The plan records bounds. The completed [comparison report](../parallel-modelcase.md)
+contains medians/ranges, actual median-run timelines, raw results and limitations.
+This measurement creates no new product or release acceptance gate.
