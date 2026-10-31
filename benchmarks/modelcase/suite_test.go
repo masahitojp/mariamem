@@ -40,6 +40,7 @@ var spans []span
 var report map[string]any
 var owner *mariamemtest.Fixture
 var shared *sql.DB
+var readShared *sql.DB
 var workers chan *worker
 var lanes chan int
 var mode string
@@ -137,11 +138,16 @@ func TestMain(m *testing.M) {
 		return err
 	}
 	setup := func() error {
-		if mode == "mariamem" {
+		if mode == "mariamem" || mode == "mariamem-shared-read" {
 			begin := time.Now()
 			prepareEnd := begin
 			var err error
-			owner, err = mariamemtest.New(ctx, mariamemtest.Options{MaxForks: parallel, Prepare: func(_ context.Context, db *sql.DB, _ string) error {
+			maxForks := parallel
+			if mode == "mariamem-shared-read" {
+				maxForks++ // A parent-owned read child remains alive during subtests.
+			}
+			report["max_forks"] = maxForks
+			owner, err = mariamemtest.New(ctx, mariamemtest.Options{MaxForks: maxForks, Prepare: func(_ context.Context, db *sql.DB, _ string) error {
 				event("boot", "", -1, begin)
 				e := timed("schema-master-sample", "", -1, func() error { return seed(db) })
 				if e != nil {
@@ -249,7 +255,9 @@ func execute(t *testing.T, c appCase) {
 	started := time.Now()
 	var db *sql.DB
 	var w *worker
-	if mode == "mariamem" {
+	if mode == "mariamem-shared-read" && !c.Write {
+		db = readShared
+	} else if mode == "mariamem" || mode == "mariamem-shared-read" {
 		var cleanupAt time.Time
 		t.Cleanup(func() { event("case-cleanup", c.Name, slot, cleanupAt) })
 		at := time.Now()
@@ -293,6 +301,12 @@ func execute(t *testing.T, c appCase) {
 	if err := timed(stage, c.Name, slot, func() error { return runCase(ctx, db, c) }); err != nil {
 		t.Fatal(err)
 	}
+	if mode == "mariamem-shared-read" && !c.Write && c.Kind == 0 && c.Index == 1 && os.Getenv("MODELCASE_MUTATE_SHARED_READ") == "1" {
+		// Negative control: the final read-baseline oracle must reject this write.
+		if _, err := db.ExecContext(ctx, "UPDATE products SET price=9999 WHERE id=1"); err != nil {
+			t.Fatal(err)
+		}
+	}
 	if mode == "shared" && c.Write {
 		report["shared_dirty"] = true
 	}
@@ -302,6 +316,24 @@ func execute(t *testing.T, c appCase) {
 	event("case-body", c.Name, slot, started)
 }
 func TestModelcase(t *testing.T) {
+	if mode == "mariamem-shared-read" {
+		var cleanupAt time.Time
+		t.Cleanup(func() { event("read-baseline-cleanup", "", -1, cleanupAt) })
+		at := time.Now()
+		readShared = owner.DB(t)
+		readShared.SetMaxOpenConns(parallel)
+		readShared.SetMaxIdleConns(parallel)
+		event("read-baseline-fork", "", -1, at)
+		// Registered after DB(t), so audit precedes the parent's pool/DB cleanup.
+		t.Cleanup(func() {
+			err := timed("read-baseline-final-oracle", "", -1, func() error { return pristine(ctx, readShared) })
+			report["read_shared_final_pristine"] = err == nil
+			cleanupAt = time.Now()
+			if err != nil {
+				t.Error(err)
+			}
+		})
+	}
 	if mode == "shared" {
 		t.Run("reads", func(t *testing.T) {
 			for _, c := range cases() {
