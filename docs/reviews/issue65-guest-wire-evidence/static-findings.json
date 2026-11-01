@@ -1,0 +1,102 @@
+{
+  "result": "SOURCE_INSPECTION_ONLY",
+  "recipe_hashes_match": true,
+  "runtime_handshake": "NOT_RUN",
+  "runtime_select_1": "NOT_RUN",
+  "findings": [
+    {
+      "path": "sql/mysqld.cc",
+      "line": 1677,
+      "anchor": "void handle_connections_sockets();",
+      "conditional_context": [
+        [
+          1676,
+          "#ifndef _WIN32"
+        ]
+      ]
+    },
+    {
+      "path": "sql/mysqld.cc",
+      "line": 2857,
+      "anchor": "static void network_init(void)",
+      "conditional_context": [
+        [
+          2312,
+          "#else"
+        ]
+      ]
+    },
+    {
+      "path": "sql/mysqld.cc",
+      "line": 6367,
+      "anchor": "network_init();",
+      "conditional_context": [
+        [
+          6047,
+          "#ifndef EMBEDDED_LIBRARY"
+        ]
+      ]
+    },
+    {
+      "path": "sql/mysqld.cc",
+      "line": 6783,
+      "anchor": "void handle_connections_sockets()",
+      "conditional_context": [
+        [
+          6703,
+          "#ifndef EMBEDDED_LIBRARY"
+        ],
+        [
+          6766,
+          "#ifndef _WIN32"
+        ]
+      ]
+    },
+    {
+      "path": "sql/protocol.cc",
+      "line": 207,
+      "anchor": "Protocol::net_send_ok(THD *thd,",
+      "conditional_context": [
+        [
+          205,
+          "#ifndef EMBEDDED_LIBRARY"
+        ]
+      ]
+    },
+    {
+      "path": "sql/protocol.cc",
+      "line": 1311,
+      "anchor": "bool Protocol::write()",
+      "conditional_context": [
+        [
+          823,
+          "#ifndef EMBEDDED_LIBRARY"
+        ]
+      ]
+    },
+    {
+      "path": "libmysqld/lib_sql.cc",
+      "line": 173,
+      "anchor": "result= dispatch_command(command, thd, (char *) arg, arg_length);",
+      "conditional_context": []
+    },
+    {
+      "path": "libmysqld/lib_sql.cc",
+      "line": 532,
+      "anchor": "int init_embedded_server(int argc, char **argv, char **groups)",
+      "conditional_context": []
+    },
+    {
+      "path": "libmysqld/lib_sql.cc",
+      "line": 1253,
+      "anchor": "bool Protocol::write()",
+      "conditional_context": []
+    },
+    {
+      "path": "libmysqld/lib_sql.cc",
+      "line": 1305,
+      "anchor": "bool Protocol::net_send_ok(THD *thd,",
+      "conditional_context": []
+    }
+  ]
+}
