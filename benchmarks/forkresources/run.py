@@ -56,7 +56,7 @@ def main():
                       plan=json.loads((source / 'plan.json').read_text()), binaries={},
                       source_hashes={str(p.relative_to(source)): digest(p) for p in source.rglob('*') if p.is_file()},
                       instrumentation='ReadMemStats + process getrusage; external ps RSS KiB at acknowledged checkpoints; ru_maxrss Darwin bytes',
-                      limitations='Sequential growth 0/1/2/4; resource-observed, no latency comparison to uninstrumented runs; no forced GC between forks; baseline GC, post-close GC and FreeOSMemory explicitly labelled')
+                      limitations='Sequential growth 0/1/2/4; resource-observed, no latency comparison to uninstrumented runs; no forced GC between forks; baseline and held-4 GC, post-close GC and FreeOSMemory explicitly labelled')
         for label in ['maria', 'postgres']:
             binary = T / 'bin' / label
             command = [go, 'build', '-mod=readonly', '-p', '1', '-trimpath', '-buildvcs=true', '-o', str(binary), './' + label]
@@ -116,7 +116,7 @@ def main():
         if negative:
             assert code != 0 and not result['success'] and 'pristine oracle' in result['error']
         else:
-            assert code == 0 and result['success'] and len(result['events']) == 16
+            assert code == 0 and result['success'] and len(result['events']) == 17
             assert result['events'][-1]['stage'] == 'closed_all_scavenge'
         record = dict(name=name, warmup=warmup, negative=negative, backend=result['backend'], returncode=code,
                       wall_ms=(time.monotonic() - at) * 1000, scratch_empty=True, report=name + '.json', rss=name + '.rss.json')

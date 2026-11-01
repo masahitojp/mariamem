@@ -273,6 +273,13 @@ func run(r *Result, start func(context.Context) (*Database, error)) (err error) 
 			}
 		}
 	}
+	// Separate live retained memory from garbage; do not include this GC in Fork timing.
+	if e = measure("held_4_gc", 4, func() error { runtime.GC(); return nil }); e != nil {
+		return e
+	}
+	if e = checkpoint(r, "held_4_gc", 4); e != nil {
+		return e
+	}
 	// All children remain independent while retained; query connections are temporary.
 	for i, d := range children {
 		p, e := connect(ctx, d)
