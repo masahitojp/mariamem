@@ -14,6 +14,17 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Issue68 SQL queue/notification diagnosis — experimental, no correction adopted
+
+The bounded [queue/wake diagnosis](../benchmarks/sql-wake.md) observed four long
+SQL page waits: queued MariaDB work resumed after maintenance classified blocked
+tasks as long and created a worker. Their WASIX/Go waits returned0.05–0.10ms after
+the eventual notification. This local instrumented result identifies the immediate
+pool scheduling boundary, not an upstream-wide defect or an accepted fix.
+Effective concurrency1 provenance, native comparison and a minimal correction
+remain open in [Issue68](https://github.com/masahitojp/mariamem/issues/68).
+No timer change, guest rebuild, product adoption, CI or release is included.
+
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
 [PR35](https://github.com/masahitojp/mariamem/pull/35) moved heavy product acceptance

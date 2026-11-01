@@ -1,0 +1,142 @@
+[
+  {
+    "event_count": 334460,
+    "long_read_waits": [],
+    "max_pread_ms": 3.889584,
+    "max_submit_to_start_ms": 11.701334,
+    "run": "measure-v2/0-mariamem-p4.json",
+    "slow_counts": []
+  },
+  {
+    "event_count": 312972,
+    "long_read_waits": [
+      {
+        "instance": 10,
+        "maintenance_ticks": 2,
+        "ms": 772.383333,
+        "query": true
+      },
+      {
+        "instance": 10,
+        "maintenance_ticks": 2,
+        "ms": 763.742291,
+        "query": false
+      },
+      {
+        "instance": 21,
+        "maintenance_ticks": 2,
+        "ms": 783.554625,
+        "query": true
+      }
+    ],
+    "max_pread_ms": 13.439625,
+    "max_submit_to_start_ms": 790.248542,
+    "run": "measure-v2/0-mariamem-p8.json",
+    "slow_counts": [
+      {
+        "begin_ms": 251.292084,
+        "child": 8,
+        "duration_ms": 781.659916,
+        "end_ms": 1032.952
+      },
+      {
+        "begin_ms": 410.567459,
+        "child": 20,
+        "duration_ms": 808.388291,
+        "end_ms": 1218.95575
+      }
+    ]
+  },
+  {
+    "event_count": 303982,
+    "long_read_waits": [
+      {
+        "instance": 11,
+        "maintenance_ticks": 2,
+        "ms": 763.898125,
+        "query": true
+      }
+    ],
+    "max_pread_ms": 11.585834,
+    "max_submit_to_start_ms": 763.05875,
+    "run": "measure-v2/1-mariamem-p8.json",
+    "slow_counts": [
+      {
+        "begin_ms": 296.230875,
+        "child": 9,
+        "duration_ms": 772.026166,
+        "end_ms": 1068.257041
+      }
+    ]
+  },
+  {
+    "event_count": 336573,
+    "long_read_waits": [],
+    "max_pread_ms": 5.413667,
+    "max_submit_to_start_ms": 14.038041,
+    "run": "measure-v2/1-mariamem-p4.json",
+    "slow_counts": []
+  },
+  {
+    "event_count": 333791,
+    "long_read_waits": [
+      {
+        "instance": 35,
+        "maintenance_ticks": 0,
+        "ms": 136.697958,
+        "query": false
+      },
+      {
+        "instance": 36,
+        "maintenance_ticks": 0,
+        "ms": 127.865541,
+        "query": true
+      }
+    ],
+    "max_pread_ms": 75.009625,
+    "max_submit_to_start_ms": 80.756416,
+    "run": "measure-v2/2-mariamem-p4.json",
+    "slow_counts": [
+      {
+        "begin_ms": 785.28325,
+        "child": 33,
+        "duration_ms": 133.408917,
+        "end_ms": 918.692167
+      },
+      {
+        "begin_ms": 786.129959,
+        "child": 34,
+        "duration_ms": 130.791125,
+        "end_ms": 916.921084
+      }
+    ]
+  },
+  {
+    "event_count": 299117,
+    "long_read_waits": [
+      {
+        "instance": 31,
+        "maintenance_ticks": 2,
+        "ms": 791.748167,
+        "query": true
+      }
+    ],
+    "max_pread_ms": 7.768916,
+    "max_submit_to_start_ms": 793.501834,
+    "run": "measure-v2/2-mariamem-p8.json",
+    "slow_counts": [
+      {
+        "begin_ms": 606.865375,
+        "child": 29,
+        "duration_ms": 816.07475,
+        "end_ms": 1422.940125
+      },
+      {
+        "begin_ms": 830.316833,
+        "child": 41,
+        "duration_ms": 111.053834,
+        "end_ms": 941.370667
+      }
+    ]
+  }
+]

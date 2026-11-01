@@ -1,0 +1,66 @@
+{
+  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "mapping_basis": "structural source correspondence (signatures, call order, fields/constants); not original WASM debug symbol map",
+  "files": {
+    "aio_simulated.cc": "05d9a1046ca39bd039876b81d051a03e708e5b5274dad979400920ce4eaf6475",
+    "buf0rea.cc": "44fe14486d5fe9a3eff29e90353beec07da49d42413deac08acdeaa984be62ca",
+    "os0file.cc": "6ad774c7950dfcc5f051abf6901f55f6158c2a0a8fbfb403aa737ad797ebfefd",
+    "srv0srv.cc": "18e1b6b8771f6abc837c14747522371052e08b0c9ed0e13305ca799500b04c04",
+    "srv0start.cc": "92862e29209ac942c1aeb1902c8a99f8b0e6ca0243c2b539cdf0d697c965f8be",
+    "tpool.h": "f987e9a2c9fbbf798f0039385f6adfedad5c477946552e75ad23d23ef71cbb31",
+    "tpool_generic.cc": "5aa908eba25625c652adf3df2d08723116491127bfef1d61148f2e91a8218280"
+  },
+  "functions": {
+    "16596": {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "fragment_sha256": "dfdde95f10b1b8b01975c16a009cecd91752cc58df3546c34be31ca8f43cc369",
+      "basis": "add_thread: creation pending/throttle/std::thread construction"
+    },
+    "16602": {
+      "path": "internal/generatedgo/code/p5/p5_pure.go",
+      "fragment_sha256": "6127e3f05a4f5ba8bc2afc0d8fbe7d1d9b9238946cc677f6e6c54bbc5b61bed4",
+      "basis": "maintenance: MAX_SKIPS=10; queue check; long-task counters; maybe_wake; no-progress add_thread"
+    },
+    "16604": {
+      "path": "internal/generatedgo/code/p7/p7_pure.go",
+      "fragment_sha256": "51ac75119dfaddb2c3e2e381a8951f495374262d493b2058e591d3578985d625",
+      "basis": "submit_task: lock184; enqueued320++; queue136/152/156; maybe_wake"
+    },
+    "16595": {
+      "path": "internal/generatedgo/code/p7/p7_pure.go",
+      "fragment_sha256": "103a9fe067752e504006b6eecff92412f9ec26aaaae357968ef175fe90f43454",
+      "basis": "maybe_wake_or_create_thread: active180 - long368 - waiting372 > concurrency344 returns"
+    },
+    "16605": {
+      "path": "internal/generatedgo/code/p7/p7_pure.go",
+      "fragment_sha256": "34aaced055a27287ecc60a3f99fa20d7e0ffb5c71746ca17f9546fc11e73b7f5",
+      "basis": "wait_begin: TLS396; worker flag4; waiting372++"
+    },
+    "16606": {
+      "path": "internal/generatedgo/code/p8/p8_pure.go",
+      "fragment_sha256": "4cc7e5175292a12fc349326ad0a2a7960b96f2f2242e93506991269525071974",
+      "basis": "wait_end: TLS396; clear flag4; waiting372--"
+    },
+    "16786": {
+      "path": "internal/generatedgo/code/p8/p8_pure.go",
+      "fragment_sha256": "81698a698dd8d681dfce57d1b86bda419530fa8cf681123aa8e72469087cda60",
+      "basis": "read_wait: trx non-null invokes tpool wait begin/end; both branches lock wait16623"
+    },
+    "16594": {
+      "path": "internal/generatedgo/code/p6/p6_pure.go",
+      "fragment_sha256": "e08cb3dc719dd820edbb60ba29a05c142fd6cf4ef4a3af67cbd59c12bdea0c47",
+      "basis": "worker_main: TLS392/396; get_task16593; task vtable slot8 execute"
+    }
+  },
+  "offsets": {
+    "queue_capacity": 136,
+    "queue_tail": 152,
+    "queue_head": 156,
+    "standby": 168,
+    "active": 180,
+    "concurrency": 344,
+    "long_tasks": 368,
+    "accounted_waiting": 372
+  },
+  "source_limit": "tpool and read_wait files unpatched by guest patches; os0file reference is upstream before portability patch; effective before/after record remains guest/input.json"
+}

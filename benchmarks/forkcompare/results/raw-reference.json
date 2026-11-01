@@ -1,0 +1,10 @@
+{
+  "ref": "refs/heads/evidence/sql-wake-20261102",
+  "source_commit": "1d1b347da2a401cc38e2ae7e63e15731902de714",
+  "path": "raw.tar.gz",
+  "bytes": 27706487,
+  "sha256": "efca0c9fcd29f59c6108fe70b8ac687de7bbf6eeb6bb7ffdd35c3c00d4d323cc",
+  "members": 78,
+  "normalization": "workspace prefix only; per-file original/published hashes in archive",
+  "scope": "Issue68 diagnostic Go overlay; not performance evidence or a product correction"
+}
