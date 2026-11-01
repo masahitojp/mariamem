@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "original_source_commit": "ccd4a229e7d55830607ca6868314c0bb822552f4",
+  "normalization": "Replace the owned absolute experiment workspace prefix with <WORKSPACE>; no measurement values or source identities change.",
+  "files": [
+    {
+      "path": "attempt-1/build-info.txt",
+      "original_sha256": "07901126407a8a6a158ea6bb0f49b234ec8a21a9bbd41f4a467a01ae09b80c3c",
+      "published_sha256": "48dc832697a3367f996b84b248346895136e3e05018169ebfca012542635d3ca"
+    },
+    {
+      "path": "attempt-1/console.txt",
+      "original_sha256": "90d872611204a3301a15700a0e4e67dd60587c138c200cfed4c889ff49bd21e0",
+      "published_sha256": "9572dc3d946db942f0444aff7759bf885fa12c94b19d2c96f372ab2f916a5ae4"
+    },
+    {
+      "path": "attempt-2/console-attempt-2.txt",
+      "original_sha256": "aad7422afa94018b91d4a746b7c3ecf63fa4d5b0ba73ba061697c60a1dd02343",
+      "published_sha256": "7e82f879110c1d5dc578067c434453831297ee30f624759ef7f2d617cd0ccd79"
+    },
+    {
+      "path": "attempt-2/inputs.json",
+      "original_sha256": "ee74e7e579e17d0e61ad8583ee667bf43a75fe1498c33011998ae037645118f6",
+      "published_sha256": "34f2f7b53114229455f8e03e3d86342d82bb648d39740ffa8060cae7b51e9dc2"
+    },
+    {
+      "path": "inputs.json",
+      "original_sha256": "a1e84134a8ac14fab0716cca8b33dde5a30df52592bd69186da94952faef08de",
+      "published_sha256": "c4bb8183d3f611cf654783df8444aa214b100ed23c13272b0cb15b787e5f54bc"
+    },
+    {
+      "path": "python/inputs.json",
+      "original_sha256": "ef3697cbc64e0ad36057aa29052d95d892c79df2c44f2b09e21b109397248519",
+      "published_sha256": "c132a027f51234cbabfef298af0f2a49270ec463f05501964c3ae068a1f9a704"
+    }
+  ]
+}
