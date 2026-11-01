@@ -1,0 +1,25 @@
+{
+  "source_commit": "d2f65eff84226006dbd1edb239decdf85e03e837",
+  "baseline_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "tag_object_sha": "b57183b08d48884840111e8b53daa500734337f0",
+  "go": "go version go1.27.3 darwin/arm64",
+  "os": "27.2",
+  "cpu": "Apple M1",
+  "ram_bytes": 17179869184,
+  "gomaxprocs": 8,
+  "binaries": {
+    "baseline": {
+      "sha256": "5236aa5f95fa08090b3af3a2a5dbe5a182c8228e9520783b95e0af0df8e46542",
+      "build_info": "<WORKSPACE>/temp/bin/baseline: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/bufferalignment\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261101114524-d2f65eff8422\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=d2f65eff84226006dbd1edb239decdf85e03e837\n\tbuild\tvcs.time=2026-11-01T11:45:24Z\n\tbuild\tvcs.modified=false\n"
+    },
+    "aligned": {
+      "sha256": "d141262dd65b2076ef47a616a918e4f15cd456096e42e3964abc29efa00b2cd4",
+      "build_info": "<WORKSPACE>/temp/bin/aligned: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/bufferalignment\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261101114524-d2f65eff8422\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=d2f65eff84226006dbd1edb239decdf85e03e837\n\tbuild\tvcs.time=2026-11-01T11:45:24Z\n\tbuild\tvcs.modified=false\n"
+    }
+  },
+  "original_base_sha256": "64f37879f87e422667ab73a2d6a1e7262dba375261186a82906f3207b217accc",
+  "observed_base_sha256": "3896217d446bf09218a5f05747bfbe59163beaaf701c4e7522c387b8ccae2674",
+  "original_p0_sha256": "5f03294783565a59ee31c1012d43547f35b33e9594340f6b84ede7fff5aa83bb",
+  "aligned_p0_sha256": "c4df31f485a7229a5aeedd42c6d3d23762874f275c99f1b731bd61ad06ced15e",
+  "observer_patch_sha256": "fb47110b8299825275d122d0becdd875f3d456f8ddd6b14225234f24ce11b9e2"
+}

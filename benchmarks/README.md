@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [Buffer-pool alignment prototype](buffer-alignment.md): one-call-site 2 MiB
+  alignment removes the observed retry; local Fork CPU/time and retained RSS
+  comparison. Experimental evidence only; canonical guest source is unchanged.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained
