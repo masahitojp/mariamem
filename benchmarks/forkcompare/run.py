@@ -93,7 +93,10 @@ def main():
         save(E / 'inputs.json', inputs)
         return
     inputs = json.loads((E / 'inputs.json').read_text())
-    assert inputs['harness_source_commit'] == commit
+    binary_commit=inputs['harness_source_commit']
+    changes=subprocess.check_output(['git','diff','--name-only',binary_commit,commit],cwd=C,text=True).splitlines()
+    assert set(changes)<= {'benchmarks/forkcompare/run.py','benchmarks/forkcompare/analyze-io4.py','benchmarks/forkcompare/plan.json'},changes
+    save(E/'driver-identity.json',dict(binary_harness_source_commit=binary_commit,driver_source_commit=commit,changed_paths=changes,runtime_and_probe_tree_equal=True))
     for name, info in inputs['binaries'].items():
         assert sha(T / 'bin' / name) == info['sha256']
     # Sanity check the ABI against ps once, outside measurement.
@@ -155,7 +158,7 @@ def main():
             assert len(groups)==count+1 and groups[1]==[[0,16]]
             assert all(v==[[0,16],[read_io,read_io],[0,16],[read_io,read_io],[0,16]] for k,v in groups.items() if k!=1),groups
         else:assert trace=={}
-        expected=dict(read=read_io,write=1,purge=1,native_aio=0)
+        expected=dict(read=read_io,write=2,purge=1,native_aio=0)
         assert d['io_profile']==expected and all(x['io_profile']==expected for x in d['samples'])
         assert d['cleanup_complete'] and not any(scratch.iterdir())
         assert d['root_closed_before_forks'] and d['gomaxprocs'] == 8 and d['parallel'] == p

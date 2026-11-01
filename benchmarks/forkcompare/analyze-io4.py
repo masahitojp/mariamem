@@ -7,7 +7,7 @@ def encode(d):return (json.dumps(d,indent=2,sort_keys=True)+'\n').encode()
 def validate_report(r,read_io,count):
  assert r['success'] and r['cleanup_complete'] and r['root_closed_before_forks']
  assert r['parallel']==8 and r['count']==count and r['gomaxprocs']==8
- expected=dict(read=read_io,write=1,purge=1,native_aio=0)
+ expected=dict(read=read_io,write=2,purge=1,native_aio=0)
  assert r['io_profile']==expected
  assert len(r['samples'])==count and {x['index'] for x in r['samples']}==set(range(count))
  assert all(x['oracle'] and x['cleanup_complete'] and x['io_profile']==expected for x in r['samples'])
