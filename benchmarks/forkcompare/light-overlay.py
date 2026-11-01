@@ -36,14 +36,14 @@ def concurrency(f):
  return f.replace(old,old+'\n base.DiagEvent(m,"concurrency_store",0,int64(l1),int64(v25),int64(l0),true)')
 func_edit(16603,concurrency)
 # Cheap route tags replace stack walking on worker-creation paths.
-def route(num,call,kind):
+def route(num,call,kind,count=1):
  def change(f):
-  assert f.count(call)==1
+  assert f.count(call)==count
   return f.replace(call,'base.DiagEvent(m,"'+kind+'",0,int64(l0),0,0,false)\n '+call)
  func_edit(num,change)
 route(16595,'Fn16596(m, l0)','policy_add_request')
 route(16595,'Fn16553(m, v16)','policy_wake_request')
-route(16602,'Fn16596(m, l0)','maintenance_stall_add_request')
+route(16602,'Fn16596(m, l0)','maintenance_stall_add_request',count=2)
 rel='internal/generatedgo/code/base/diag_sql_wake.go';files[rel]=(B/'trace-light.go.txt').read_text()
 # Same runtime argv selector and existing phase-file bridge as the prior trial.
 files['internal/generatedgo/code/experiment_read_io.go']=(B/'candidate-data.go.txt').read_text()
