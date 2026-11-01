@@ -38,3 +38,7 @@ for ax in axes:
 fig.suptitle('Per-Fork resources | M1 / TCP / 1,000 rows / 5 fresh processes per engine', fontsize=13)
 fig.supxlabel('Medians and min-max ranges. Held RSS observed after 500 ms idle. RSS is not exclusive physical memory.', fontsize=9)
 fig.savefig(a.output, dpi=160, metadata={'Date': None} if a.output.suffix == '.svg' else None)
+
+# SVG path lines emitted by matplotlib contain trailing spaces.
+if a.output.suffix == ".svg":
+    a.output.write_text("\n".join(line.rstrip() for line in a.output.read_text().splitlines()) + "\n")
