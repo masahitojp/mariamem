@@ -1,0 +1,10 @@
+{
+  "issue": 64,
+  "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "scope": "fresh mapping constructor only; generic dirty input still clears; no #63 alignment",
+  "pilot": "selftest and observed positive/corrupt negative per variant",
+  "measure": "5 alternating pairs, four retained children, no diagnostic hook",
+  "stop": "report effect at construct and ready, CPU/RSS; no automatic productization",
+  "min_free_gib": 16,
+  "budget_gib": 8
+}
