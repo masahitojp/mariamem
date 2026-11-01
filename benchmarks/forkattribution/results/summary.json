@@ -1,0 +1,302 @@
+{
+  "stages": {
+    "reserve": {
+      "cpu_ms": {
+        "median": 0.0095,
+        "minimum": 0.007,
+        "maximum": 0.0105,
+        "n": 5
+      },
+      "wall_ms": {
+        "median": 0.009562,
+        "minimum": 0.007959,
+        "maximum": 0.010208,
+        "n": 5
+      },
+      "guest_resident_bytes": {
+        "median": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "n": 5
+      },
+      "guest_observed_bytes": {
+        "median": 268435456.0,
+        "minimum": 268435456.0,
+        "maximum": 268435456.0,
+        "n": 5
+      },
+      "first_child_rss_increment_bytes": {
+        "median": 65536,
+        "minimum": 49152,
+        "maximum": 81920,
+        "n": 5
+      }
+    },
+    "construct": {
+      "cpu_ms": {
+        "median": 1.558,
+        "minimum": 1.5045,
+        "maximum": 1.636,
+        "n": 5
+      },
+      "wall_ms": {
+        "median": 1.527125,
+        "minimum": 1.505021,
+        "maximum": 1.635709,
+        "n": 5
+      },
+      "guest_resident_bytes": {
+        "median": 15843328.0,
+        "minimum": 15843328.0,
+        "maximum": 15843328.0,
+        "n": 5
+      },
+      "guest_observed_bytes": {
+        "median": 268435456.0,
+        "minimum": 268435456.0,
+        "maximum": 268435456.0,
+        "n": 5
+      },
+      "first_child_rss_increment_bytes": {
+        "median": 15908864,
+        "minimum": 15892480,
+        "maximum": 15941632,
+        "n": 5
+      }
+    },
+    "ready": {
+      "guest_resident_bytes": {
+        "median": 79077376.0,
+        "minimum": 79060992.0,
+        "maximum": 79093760.0,
+        "n": 5
+      },
+      "guest_observed_bytes": {
+        "median": 656343040.0,
+        "minimum": 656343040.0,
+        "maximum": 660537344.0,
+        "n": 5
+      },
+      "first_child_rss_increment_bytes": {
+        "median": 80347136,
+        "minimum": 80150528,
+        "maximum": 80936960,
+        "n": 5
+      }
+    },
+    "checked": {
+      "guest_resident_bytes": {
+        "median": 79126528.0,
+        "minimum": 79110144.0,
+        "maximum": 79142912.0,
+        "n": 5
+      },
+      "guest_observed_bytes": {
+        "median": 656343040.0,
+        "minimum": 656343040.0,
+        "maximum": 660537344.0,
+        "n": 5
+      },
+      "first_child_rss_increment_bytes": {
+        "median": 80510976,
+        "minimum": 80314368,
+        "maximum": 81068032,
+        "n": 5
+      }
+    }
+  },
+  "comparison": {
+    "both_resident_bytes": {
+      "median": 76578816,
+      "minimum": 72613888,
+      "maximum": 79134720,
+      "n": 5
+    },
+    "same_zero_bytes": {
+      "median": 44138496,
+      "minimum": 40566784,
+      "maximum": 45858816,
+      "n": 5
+    },
+    "same_nonzero_bytes": {
+      "median": 28278784,
+      "minimum": 27869184,
+      "maximum": 29573120,
+      "n": 5
+    },
+    "different_bytes": {
+      "median": 4538368,
+      "minimum": 3571712,
+      "maximum": 4980736,
+      "n": 5
+    },
+    "only_first_resident_bytes": {
+      "median": 2572288,
+      "minimum": 0,
+      "maximum": 6504448,
+      "n": 5
+    },
+    "only_second_resident_bytes": {
+      "median": 2555904,
+      "minimum": 0,
+      "maximum": 6488064,
+      "n": 5
+    }
+  },
+  "profiles": [
+    {
+      "total_cpu_samples_ms": 5370.0,
+      "functions": {
+        "syscall.rawsyscalln": {
+          "flat_ms": 1610.0,
+          "cum_ms": 1610.0,
+          "flat_percent": 29.981378,
+          "cum_percent": 29.981378
+        },
+        "runtime.pthread_cond_signal": {
+          "flat_ms": 1020.0,
+          "cum_ms": 1020.0,
+          "flat_percent": 18.994413,
+          "cum_percent": 18.994413
+        },
+        "runtime.memclrNoHeapPointers": {
+          "flat_ms": 490.0,
+          "cum_ms": 490.0,
+          "flat_percent": 9.124767,
+          "cum_percent": 9.124767
+        },
+        "runtime.pthread_cond_wait": {
+          "flat_ms": 470.0,
+          "cum_ms": 470.0,
+          "flat_percent": 8.752328,
+          "cum_percent": 8.752328
+        },
+        "runtime.memmove": {
+          "flat_ms": 70.0,
+          "cum_ms": 70.0,
+          "flat_percent": 1.303538,
+          "cum_percent": 1.303538
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule": {
+          "flat_ms": 0.0,
+          "cum_ms": 90.0,
+          "flat_percent": 0.0,
+          "cum_percent": 1.675978
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow": {
+          "flat_ms": 0.0,
+          "cum_ms": 1200.0,
+          "flat_percent": 0.0,
+          "cum_percent": 22.346369
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryFill": {
+          "flat_ms": 0.0,
+          "cum_ms": 430.0,
+          "flat_percent": 0.0,
+          "cum_percent": 8.007449
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInit": {
+          "flat_ms": 0.0,
+          "cum_ms": 40.0,
+          "flat_percent": 0.0,
+          "cum_percent": 0.744879
+        },
+        "syscall.Mmap": {
+          "flat_ms": 0.0,
+          "cum_ms": 10.0,
+          "flat_percent": 0.0,
+          "cum_percent": 0.18622
+        },
+        "syscall.Mprotect": {
+          "flat_ms": 0.0,
+          "cum_ms": 1200.0,
+          "flat_percent": 0.0,
+          "cum_percent": 22.346369
+        },
+        "syscall.Munmap": {
+          "flat_ms": 0.0,
+          "cum_ms": 90.0,
+          "flat_percent": 0.0,
+          "cum_percent": 1.675978
+        }
+      }
+    },
+    {
+      "total_cpu_samples_ms": 5340.0,
+      "functions": {
+        "syscall.rawsyscalln": {
+          "flat_ms": 1750.0,
+          "cum_ms": 1750.0,
+          "flat_percent": 32.771536,
+          "cum_percent": 32.771536
+        },
+        "runtime.pthread_cond_signal": {
+          "flat_ms": 930.0,
+          "cum_ms": 930.0,
+          "flat_percent": 17.41573,
+          "cum_percent": 17.41573
+        },
+        "runtime.pthread_cond_wait": {
+          "flat_ms": 520.0,
+          "cum_ms": 520.0,
+          "flat_percent": 9.737828,
+          "cum_percent": 9.737828
+        },
+        "runtime.memclrNoHeapPointers": {
+          "flat_ms": 420.0,
+          "cum_ms": 420.0,
+          "flat_percent": 7.865169,
+          "cum_percent": 7.865169
+        },
+        "runtime.memmove": {
+          "flat_ms": 120.0,
+          "cum_ms": 120.0,
+          "flat_percent": 2.247191,
+          "cum_percent": 2.247191
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule": {
+          "flat_ms": 0.0,
+          "cum_ms": 100.0,
+          "flat_percent": 0.0,
+          "cum_percent": 1.872659
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow": {
+          "flat_ms": 0.0,
+          "cum_ms": 1320.0,
+          "flat_percent": 0.0,
+          "cum_percent": 24.719101
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryFill": {
+          "flat_ms": 0.0,
+          "cum_ms": 330.0,
+          "flat_percent": 0.0,
+          "cum_percent": 6.179775
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInit": {
+          "flat_ms": 0.0,
+          "cum_ms": 20.0,
+          "flat_percent": 0.0,
+          "cum_percent": 0.374532
+        },
+        "syscall.Mprotect": {
+          "flat_ms": 0.0,
+          "cum_ms": 1320.0,
+          "flat_percent": 0.0,
+          "cum_percent": 24.719101
+        },
+        "syscall.Munmap": {
+          "flat_ms": 0.0,
+          "cum_ms": 80.0,
+          "flat_percent": 0.0,
+          "cum_percent": 1.498127
+        }
+      }
+    }
+  ],
+  "growth_calls_after_reserve": {
+    "median": 101.0,
+    "minimum": 101.0,
+    "maximum": 101.0,
+    "n": 5
+  }
+}

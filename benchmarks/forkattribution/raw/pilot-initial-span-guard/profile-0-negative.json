@@ -1,7 +1,0 @@
-{
-  "success": false,
-  "count": 0,
-  "wall_ms": 0,
-  "cpu_ms": 0,
-  "error": "pristine oracle: count=1000 sum=500498"
-}

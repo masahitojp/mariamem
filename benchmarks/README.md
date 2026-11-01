@@ -1,5 +1,7 @@
 # Optional lifecycle benchmarks
 
+- [Fork initialization attribution](fork-initialization.md): reservation vs construction vs ready memory, unmodified-engine CPU profiles, bounded sharing hypothesis.
+
 - [Per-Fork CPU / allocation / RSS](fork-resources.md): same M1, TCP, 0/1/2/4 retained children; compact evidence, optimization hypotheses only.
 
 ## Recent measurement and discovery reports

@@ -1,1 +1,0 @@
-pristine oracle: count=1000 sum=500498

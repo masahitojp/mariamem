@@ -1,0 +1,10 @@
+{
+  "source_commit": "ce7ed65164602444f27c70f8ec299d010fbea42b",
+  "ref": "evidence/fork-attribution-20261101",
+  "path": "benchmarks/forkattribution/raw",
+  "manifest_sha256": "0dbcc1ebd61d4b80c6b4469b5c3ccf1310c4e682a83f65ffaf89e2407960d915",
+  "files": 60,
+  "bytes": 243725,
+  "analysis_sha256": "311afd630e8b7dc67c041f8d574e201851417db97c473316d9a964b6c25d553e",
+  "retention": "Raw off proposed final tree. Select/squash compact final tree; do not merge exploratory raw history."
+}
