@@ -72,7 +72,7 @@ def main():
   for rec in records:
    f=E/rec['report'];r=json.loads(f.read_text());assert r['success'] and r['cleanup_complete'] and all(x['oracle'] and x['cleanup_complete'] for x in r['samples'])
    assert len(r['samples'])==48
-   trace=reduce_trace(Path(str(f)+'.trace.json'));trace['report_sha256']=sha(f);trace['samples']=r['samples'];trace['warmup']=rec['warmup'];out['runs'][rec['report']]=trace
+   trace=reduce_trace(Path(str(f)+'.trace.json'));trace['report_sha256']=sha(f);trace['sample_count']=len(r['samples']);trace['successful_oracles']=sum(x['oracle'] and x['cleanup_complete'] for x in r['samples']);trace['warmup']=rec['warmup'];out['runs'][rec['report']]=trace
   # Pilot failures retain their failed outcome; validate separately from normal runs.
   for rec in json.loads((E/'pilot-records.json').read_text()):
    r=json.loads((E/rec['report']).read_text());assert r['cleanup_complete']
