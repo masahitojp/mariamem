@@ -2,6 +2,9 @@
 
 ## Recent measurement and discovery reports
 
+- [P4 variability follow-up](pgmem-parallel4.md): ten fresh-process observations
+  per route, all points and CV for pgmem/mariamem; separate from prior P1/P8.
+
 - [Same-M1 pgmem / mariamem Fork readiness](pgmem-same-host.md): TCP and
   in-process routes, original/transport-only70-case reruns, compact observations
   and pinned off-main raw evidence. No performance acceptance or integration.

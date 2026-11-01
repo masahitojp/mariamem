@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "evidence_ref": "refs/heads/evidence/pgmem-parallel4-20261101",
+  "evidence_commit": "0471d48d9dc3f3b810ed2e419a3cd78e75d578e0",
+  "url": "https://github.com/masahitojp/mariamem/tree/0471d48d9dc3f3b810ed2e419a3cd78e75d578e0/benchmarks/forkcompare/p4-raw",
+  "manifest_sha256": "7bcf587894068952c2e2de5b15a901c97642943fe906a68b8df894c99d13d9e7",
+  "analysis_sha256": "0657395ec335b3dfeb15cf6c659d3eaf2e2f997c4793f3ddaef78d9f52bb2365",
+  "base_analysis_sha256": "f10d77f506e6a49392727ac1c825740a6706b2e48ab896bdd55e7e59cc77b28f",
+  "retention": "Keep evidence ref; never merge raw/exploratory history. New P4 x10 cohort; earlier P1/P8 evidence unchanged.",
+  "derived_statistics_precision": "6 decimal places for summary timings(ms)/CV(%), to avoid interpreter-dependent last-bit mean/SD differences. Original per-process values and all raw observations remain unchanged."
+}

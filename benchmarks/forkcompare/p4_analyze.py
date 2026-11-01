@@ -13,7 +13,7 @@ def load_base():
 def stats(vals):
  assert len(vals)==10 and all(math.isfinite(v) and v>0 for v in vals),'expected10 finite positive durations'
  avg=statistics.mean(vals);sd=statistics.stdev(vals)
- return dict(values_ms=vals,median_ms=statistics.median(vals),min_ms=min(vals),max_ms=max(vals),mean_ms=avg,sample_sd_ms=sd,cv_percent=sd/avg*100)
+ return dict(values_ms=vals,median_ms=round(statistics.median(vals),6),min_ms=round(min(vals),6),max_ms=round(max(vals),6),mean_ms=round(avg,6),sample_sd_ms=round(sd,6),cv_percent=round(sd/avg*100,6))
 def summarize(obs):
  assert len(obs)==66,'expected66 P4 observations'
  expected={(kind,b,r) for kind in ['micro','macro'] for b,r in CELLS}
