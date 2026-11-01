@@ -103,6 +103,13 @@ semantic differences, platform limits, upstream patches and the decision
 (reject / continue / integrate). Integrate the smallest production-quality
 change rather than blindly merging exploratory history.
 
+Benchmark completion does not authorize merging measurement output or accepting
+regressions. Main keeps the report, compact verifiable samples/identities,
+checksums and useful tooling; raw output belongs in a pinned external evidence
+ref/asset by default. Analysis must support read-only checking after temp cleanup.
+See `docs/development.md#benchmark-evidence-retained-on-main`. Do not merge raw
+experiment history; integration and regression disposition are Human decisions.
+
 Keep `guest/source.patch` canonical. Temporary guest changes belong in
 `guest/experimental.patch` on the experiment branch; preparation records it
 separately and release provenance rejects it. See `docs/development.md` for

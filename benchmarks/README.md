@@ -2,6 +2,11 @@
 
 ## Recent measurement and discovery reports
 
+- [v0.5.3 → v0.6.0 local latency](v060-latency.md): same-toolchain paired
+  Go/Python comparison; small-case increases and near-flat 10 MiB Go suites,
+  with compact per-run phase samples, an off-main raw archive and explicit
+  single-host limits; regression disposition remains pending.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained
@@ -19,6 +24,27 @@
 These reports retain their original measured/inspected source identities.
 Publishing the reports on main does not qualify main's runtime or approve an
 optimization. Reproduction uses the pinned measurement source, not current HEAD.
+
+## Retention and reanalysis
+
+For new or unadopted campaigns, main contains the decision report and the smallest
+verifiable set: source/environment identities, compact samples and JSON/CSV
+summaries, checksums, and useful analysis/reproduction tools. Keep raw trials,
+logs and bulky graphics in a separate pinned evidence ref/asset, with an exact
+SHA and checksum manifest linked from the report. A rerun is a new cohort, not a
+replacement for original observations. Retaining results does not accept a
+regression or authorize integration. See the
+[retention policy](../docs/development.md#benchmark-evidence-retained-on-main).
+Historical adopted raw evidence remains under its original review context.
+
+Analysis must complete without deleted temp/build trees. Each maintained report
+provides a read-only `--check`; the v0.6.0 latency comparison uses:
+
+```sh
+python3 benchmarks/v060-latency-evidence/analyze.py --check
+```
+
+That check verifies saved statistics and evidence hashes, not new runtime behavior.
 
 ## Benchmark scope
 

@@ -666,6 +666,45 @@ Preserve compact JSON/CSV, final reports and checksums; dispose owned temp/build
 outputs after finalization. Confirm shared-cache inactivity, preserve unique evidence, then delete
 recreatable caches; regeneration cost is not a KEEP reason. See [workspace cleanup](experiment-workspace.md) and [project status](project-status.md).
 
+### Benchmark evidence retained on main
+
+Main retains the smallest verifiable set needed for a decision: a report indexed
+in `benchmarks/README.md`, typed source/tag and environment identities, compact
+summary JSON/CSV, the finite samples needed to recalculate its material claims,
+a checksum manifest, and maintained analysis/reproduction tooling where useful.
+A measurement task does not imply approval to merge its results or accept a
+performance regression. Record the disposition separately; already published
+regressions need a current follow-up decision, not rewritten release history.
+
+Per-run dumps, console/build logs, failed-attempt directories, profiles and
+redundant plots/embedded HTML belong in a separately retained evidence ref or
+asset by default. Pin its full commit or asset ID and SHA-256 manifest/digest in
+the report; a moving branch URL or expiring CI artifact alone is insufficient.
+Verify the export before removing raw files from the proposed main tree. An
+exception retaining raw on main needs a specific decision/review reason. Compress
+external bundles where useful; compression alone is not a reason to commit raw.
+Squash or select the reviewed final tree when integrating: do not merge an
+exploratory/raw-evidence branch history. Adoption remains a separate decision.
+
+Normalize machine-specific workspace prefixes before publishing evidence. Retain
+original/published hashes and the transformation; never change timing values or
+source identities. Rerunning pinned source produces a new measurement cohort,
+not identical original observations. Keep enough original samples externally to
+check the extraction as well as enough compact samples to recalculate summaries.
+
+Analysis must work after owned temp/build cleanup. Provide a read-only `--check`
+that recomputes and compares retained summaries, rejects mismatches and preserves
+all evidence bytes (including `inputs.json`); metadata collection belongs to the
+runner, never a side effect of analysis. Cover cleanup independence, evidence
+immutability and a mismatched result with focused tests. Such tests verify the
+analysis contract; they do not rerun or qualify the database runtime.
+
+This policy applies to new and still-unadopted benchmark reports. Historical
+adopted evidence (including `benchmarks/main-product-evidence`) keeps its original
+context; migrate it only as separately reviewed maintenance with verified
+replacement references. It is not precedent for adding raw to new main changes.
+See the [benchmark index](../benchmarks/README.md#retention-and-reanalysis).
+
 ## Guest patch maintenance
 
 Guest portability maintenance follows the approved
