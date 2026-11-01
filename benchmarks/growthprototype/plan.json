@@ -1,0 +1,10 @@
+{
+  "issue": 56,
+  "scope": "16MiB host-only prototype, same 1000 integer-row fixture, sequential 4 retained children, 5 alternating fresh-process pairs",
+  "stop": "local macOS checks and comparison; no CI/main/release; report failures and Linux/parallel gaps",
+  "budget": {
+    "minutes": 60,
+    "disk_gib": 8,
+    "min_free_gib": 16
+  }
+}

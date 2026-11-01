@@ -13,13 +13,17 @@ import (
 )
 
 type MemoryMapping struct {
-	maximum uint64
-	protect func([]byte, int) error
-	unmap   func([]byte) error
-	mu      sync.Mutex
-	memory  []byte // Exact original mmap slice, required by syscall.Munmap.
-	enabled uint64
+	maximum  uint64
+	protect  func([]byte, int) error
+	unmap    func([]byte) error
+	mu       sync.Mutex
+	memory   []byte // Exact original mmap slice, required by syscall.Munmap.
+	enabled  uint64 // Logical acknowledged extent, separate from OS permissions.
+	rw       uint64 // Known RW extent, or conservative possible extent after rollback failure.
+	poisoned bool
 }
+
+var mappingProtectCalls, mappingFallbacks atomic.Uint64
 
 var mappingActive, mappingReserved, mappingEnabled atomic.Uint64
 var mappingCreates, mappingReleases, mappingReleaseFailures atomic.Uint64
@@ -28,6 +32,7 @@ var mappingGrowCalls, mappingGrowFailures, mappingPeakEnabled atomic.Uint64
 // These are virtual/protection counters, not resident or committed physical RAM.
 func MemoryMappingStats() map[string]uint64 {
 	return map[string]uint64{
+		"protect_calls": mappingProtectCalls.Load(), "protect_fallbacks": mappingFallbacks.Load(),
 		"active_mappings": mappingActive.Load(), "active_reserved_bytes": mappingReserved.Load(),
 		"active_rw_bytes": mappingEnabled.Load(), "creates": mappingCreates.Load(),
 		"releases": mappingReleases.Load(), "release_failures": mappingReleaseFailures.Load(),
@@ -76,20 +81,60 @@ func (b *MemoryMapping) Grow(old, next uint64) error {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 	mappingGrowCalls.Add(1)
-	if b.memory == nil || old != b.enabled || next < old || next > b.maximum || next%65536 != 0 {
+	if b.memory == nil || b.poisoned || old != b.enabled || next < old || next > b.maximum || next%65536 != 0 {
 		mappingGrowFailures.Add(1)
 		return syscall.EINVAL
 	}
 	if next == old {
 		return nil
 	}
-	if err := b.protect(b.memory[old:next], syscall.PROT_READ|syscall.PROT_WRITE); err != nil {
-		mappingGrowFailures.Add(1)
+	if next > b.rw {
+		target := next
+		// Experimental policy: keep initial activation exact; batch later growth.
+		if old != 0 {
+			const chunk = uint64(16 << 20)
+			target = (next + chunk - 1) / chunk * chunk
+			if target > b.maximum {
+				target = b.maximum
+			}
+		}
+		if err := b.extendProtection(target); err != nil {
+			if b.poisoned || target == next {
+				mappingGrowFailures.Add(1)
+				return err
+			}
+			mappingFallbacks.Add(1)
+			if exactErr := b.extendProtection(next); exactErr != nil {
+				mappingGrowFailures.Add(1)
+				return errors.Join(err, exactErr)
+			}
+		}
+	}
+	// Untouched anonymous pages remain OS-zeroed. Publish logical success last.
+	b.enabled = next
+	return nil
+}
+
+// extendProtection runs under mu. A failed mprotect may have changed part of
+// its interval. Restore the whole previously-PROT_NONE interval before retry.
+// If restoration fails, retain ownership and conservatively account all possible
+// RW bytes; reject further grows, leaving the logical extent unpublished.
+func (b *MemoryMapping) extendProtection(target uint64) error {
+	segment := b.memory[b.rw:target]
+	mappingProtectCalls.Add(1)
+	if err := b.protect(segment, syscall.PROT_READ|syscall.PROT_WRITE); err != nil {
+		mappingProtectCalls.Add(1)
+		if rollbackErr := b.protect(segment, syscall.PROT_NONE); rollbackErr != nil {
+			b.poisoned = true
+			mappingEnabled.Add(target - b.rw)
+			b.rw = target
+			mappingRecordPeak()
+			return errors.Join(err, fmt.Errorf("protection rollback failed; growth disabled: %w", rollbackErr))
+		}
 		return err
 	}
-	// Never clear old/new pages in Go. Untouched anonymous pages are OS-zeroed.
-	mappingEnabled.Add(next - old)
-	b.enabled = next
+	mappingEnabled.Add(target - b.rw)
+	b.rw = target
 	mappingRecordPeak()
 	return nil
 }
@@ -106,12 +151,13 @@ func (b *MemoryMapping) Close() error {
 		mappingReleaseFailures.Add(1)
 		return &MemoryReleaseError{owner: b, cause: err}
 	}
-	mappingEnabled.Add(^(b.enabled - 1))
+	mappingEnabled.Add(^(b.rw - 1))
 	mappingReserved.Add(^(b.maximum - 1))
 	mappingActive.Add(^uint64(0))
 	mappingReleases.Add(1)
 	b.memory = nil
 	b.enabled = 0
+	b.rw = 0
 	return nil
 }
 
