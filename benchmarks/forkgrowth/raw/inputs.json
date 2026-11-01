@@ -1,0 +1,51 @@
+{
+  "plan": {
+    "question": "Which growth requests cause 101 protections; what would batching change?",
+    "source": {
+      "release_tag": "v0.6.0",
+      "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+      "tag_object_sha": "b57183b08d48884840111e8b53daa500734337f0"
+    },
+    "go": "go1.27.3",
+    "gomaxprocs": 8,
+    "fixture": "Same 1000 integer rows and TCP route as prior attribution",
+    "measurement": {
+      "processes": 3,
+      "children_per_process": 2,
+      "overlay": "Only append old/next after successful Grow; no algorithm/protection change"
+    },
+    "models": {
+      "exact": "one protection per positive grow",
+      "lookahead_mib": [
+        16,
+        32,
+        64
+      ],
+      "status": "arithmetic only; no optimized runtime execution or speedup claim"
+    },
+    "budget": {
+      "active_minutes": 40,
+      "tooling_minutes": 12,
+      "heavy_ci": 0,
+      "workspace_gib": 8,
+      "min_free_gib": 16
+    },
+    "stop": "capture growth histogram; replay hypothetical batching; document exact protection/failure/zero/thread/cleanup tradeoffs; propose bounded next step, no product implementation"
+  },
+  "harness_source_commit": "f45d5241a75c29201050b357340e2a75ae4fe33b",
+  "go": "go version go1.27.3 darwin/arm64",
+  "host": {
+    "os": "27.2",
+    "arch": "arm64",
+    "cpu": "Apple M1",
+    "ram_bytes": 17179869184
+  },
+  "binary_sha256": "29d2c1b6787a4cd67509402c9647724c8dc94afa27ae7a014d6a9e6eb07099f6",
+  "build_info": "<WORKSPACE>/temp/bin/growth: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkattribution/growth\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/forkattribution\tv0.0.0-20261101091925-f45d5241a75c\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.0\n\t=>\t../../../temp/product\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=f45d5241a75c29201050b357340e2a75ae4fe33b\n\tbuild\tvcs.time=2026-11-01T09:19:25Z\n\tbuild\tvcs.modified=false\n",
+  "overlay": {
+    "target": "internal/generatedgo/code/base/memory_mapping.go",
+    "before_sha256": "388e8cf70e3387db7143f9081b9e62c6ddb3edf52e4adbff223be1f9a8020cc7",
+    "after_sha256": "a657e0df1ac714fa106138392b197a9fd69a2dc8ba44ea38620c54ed7d4aa817"
+  },
+  "harness_sha256": "c69cb2f605fc8301206b4d1803ba005849bf2a52924ac6acd16a80944f5037f8"
+}

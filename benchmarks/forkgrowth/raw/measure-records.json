@@ -1,0 +1,20 @@
+[
+  {
+    "report": "measure/run-0.json",
+    "negative": false,
+    "returncode": 0,
+    "scratch_empty": true
+  },
+  {
+    "report": "measure/run-1.json",
+    "negative": false,
+    "returncode": 0,
+    "scratch_empty": true
+  },
+  {
+    "report": "measure/run-2.json",
+    "negative": false,
+    "returncode": 0,
+    "scratch_empty": true
+  }
+]

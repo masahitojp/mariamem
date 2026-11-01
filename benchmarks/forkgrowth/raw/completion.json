@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "processes": 3,
+  "children": 6,
+  "scope": "Observed growth only; batching models not applied; no performance result"
+}

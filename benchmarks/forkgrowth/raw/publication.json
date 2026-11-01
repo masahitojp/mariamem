@@ -1,0 +1,10 @@
+{
+  "normalization": "Owned workspace prefix only",
+  "files": [
+    {
+      "file": "inputs.json",
+      "original_sha256": "7c98e499f0919fb83ac435bf54d37fdecaaf5392cadef4833795b434024a671b",
+      "published_sha256": "75ccd744f192340008ef12c44c2bbc37fc35cb674f0f5930290d233392abd35a"
+    }
+  ]
+}
