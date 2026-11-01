@@ -2051,3 +2051,21 @@ Acquisition/cold/human time is unmeasured. Required-host installed-wheel timing,
 retained baselines1/2/3, aligned resource counters and resource STOP/mutations
 remain pending. Workflow/cache key and product/guest/API are unchanged by this
 increment; full P1 acceptance/main/release remain separate.
+
+
+## D1 prepared Django entry — implementation authorized, acceptance pending
+
+On 2026-11-01 the Human requested proceeding from the real-SDK prototype to
+product implementation for [Issue #43](https://github.com/masahitojp/mariamem/issues/43).
+The candidate uses explicit `PreparedTestCase` / `PreparedTransactionTestCase`,
+`PreparedDiscoverRunner` and an opt-in pytest-django plugin. Existing ordinary
+Django classes are not implicitly changed. Class preparation is materialized
+without Django's class-wide atomic; per-test TestCase atomics remain.
+See the [candidate guide](django-prepared.md) for the API and initial limits.
+
+The work includes run ownership, partial-setup/error cleanup, admission stop
+after retirement failure and both runners. Deterministic checks belong in daily
+CI; installed-wheel acceptance belongs in the existing Release Django job,
+reusing its built host and authored orders/native controls. Candidate local
+results do not complete the two-OS/interpreter matrix. Main adoption, closing
+#43 and versioned release approval remain pending their own evidence/decisions.
