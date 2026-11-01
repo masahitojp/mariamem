@@ -1,0 +1,16 @@
+{
+  "question": "How much zero fill occurs during Fork and which callers/large overlapping ranges account for it?",
+  "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "tag_object_sha": "b57183b08d48884840111e8b53daa500734337f0",
+  "runs": "3 alternating observation-off/on fresh-process pairs; 2 sequential children each",
+  "detail_threshold_bytes": 65536,
+  "max_large_events": 20000,
+  "scope": "Counts, observed fill duration, call stacks, large range overlap, whole-Fork CPU/wall/fault deltas; no zero-elision or optimization",
+  "limits": "Duration is instrumented elapsed time, not CPU; overlap does not establish redundancy; no guest memory reads by observer; not all guest writes pass MemoryFill",
+  "budget": {
+    "minutes": 45,
+    "disk_gib": 8,
+    "free_gib": 16,
+    "heavy_ci": 0
+  }
+}
