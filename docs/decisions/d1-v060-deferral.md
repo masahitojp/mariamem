@@ -38,3 +38,15 @@ assessed against those required entries; this decision excludes no common defect
 Detailed resource tuning remains0.7.x. No product/API/guest/generated changes
 are made by this decision record. Wire-completion interpretation is a separately
 labelled proposal in the reconciliation, not granted by this D1 approval.
+
+
+## Subsequent disposition — 2026-11-02
+
+The deferral above remains the historical0.6.0 decision. D1 was later adopted
+on main through [PR #67](https://github.com/masahitojp/mariamem/pull/67), main
+source_commit `ccab1f4197febdd4cf0ae54fdfdf63367d6aa0b9`, after the Human's three
+merge conditions and required checks were satisfied. The [entry guide](../django-prepared.md)
+and [installed-wheel receipt](../reviews/d1-release-41320361521/README.md) own the
+bounded behavior and evidence. It remains absent from published0.6.0; target
+release/versioned qualification/publication are separate, and resource tuning
+remains0.7.x. No earlier diagnostic receipt is relabelled as current evidence.

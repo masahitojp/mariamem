@@ -1,12 +1,11 @@
 # Unreleased release notes — staging
 
-This file is the sole staging content source for future release notes. Candidate
-entries below are not adoption, a promised release version, qualification or
-publication approval. Published0.6.0 notes remain authoritative in
+This file is the sole staging content source for future release notes. Adopted entries below are unreleased; this staging file does not select a
+release version or grant qualification/publication approval. Published0.6.0 notes remain authoritative in
 [NOTES-v0.6.0.md](../../release/NOTES-v0.6.0.md); published installation commands
 and version metadata remain unchanged.
 
-## Candidates pending adoption
+## Adopted on main — unreleased
 
 ### Explicit prepared Django entry (#43 / PR #67)
 
@@ -23,10 +22,14 @@ and version metadata remain unchanged.
   default alias and serial execution; unsupported modes are rejected.
 - Routing/`shadow_maria` and prepared Django ownership cannot be combined in
   one test invocation. This exclusion is a documented support boundary, not a
-  universal automatic detector. See the [candidate guide](../django-prepared.md).
+  universal automatic detector. See the [entry guide](../django-prepared.md).
 - Local source-entry results on a reused published host do not qualify the
-  installed wheel on both supported OSes. Adoption is conditional on the existing
-  Release Django job passing macOS15 arm64 / Ubuntu24.04 x86_64 × Python3.11/3.14.
+  installed wheel on both supported OSes. The existing Release Django job
+  subsequently passed macOS15 arm64 / Ubuntu24.04 x86_64 × Python3.11/3.14 on
+  reviewed source `ad9c7e67`; [the receipt](../reviews/d1-release-41320361521/README.md)
+  preserves its identity. PR #67 is adopted on main; the original Release run
+  failed core policy tests and is not Release READY. Their test-only repair
+  passed the required Development checks before merge.
   No guest/generated code, core Go runtime or version change is included; no
   performance or detailed resource claim is added.
 

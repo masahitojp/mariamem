@@ -11,10 +11,11 @@ Python3.11 or newer is required; Python3.9/3.10 are no longer supported.
 
 Published0.6.0 offers [prepared pytest fixtures](#pytest-fixtures),
 [shadow_maria routing](connection-routing.md) and the ordinary
-[Django runner recipe](django-testing.md). The candidate-only
+[Django runner recipe](django-testing.md). The adopted-on-main, unreleased
 [`mariamem.django` prepared entry](django-prepared.md) adds explicit prepared
 classes, a runner and a pytest-django plugin; it is not in the published0.6.0
-wheel. Its acceptance/adoption is pending. Choose either Django prepared
+wheel. Its four installed-wheel OS/Python cells passed before adoption. Choose
+either Django prepared
 ownership or routing/shadow_maria for a run; their combined lifecycle is not
 supported. See [the exclusion policy](django-prepared.md#routing-and-shadow_maria).
 

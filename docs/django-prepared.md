@@ -1,7 +1,10 @@
-# Prepared Django tests (candidate, Issue #43)
+# Prepared Django tests (adopted on main, unreleased)
 
-This entry is under development for consideration in v0.6.1. It is not in the
-published v0.6.0 wheel and is not yet accepted on both supported platforms.
+This entry was adopted on main through [PR #67](https://github.com/masahitojp/mariamem/pull/67).
+It is not in the published v0.6.0 wheel. Both supported OSes with Python3.11/3.14
+passed installed-wheel acceptance on the reviewed candidate; see the
+[receipt and exact source](reviews/d1-release-41320361521/README.md).
+Versioned release qualification and publication remain separate.
 The existing [standard-runner recipe](django-testing.md) remains available.
 
 Use this entry when every test must start from the same migrated schema and
@@ -15,7 +18,7 @@ then closes all remaining owners.
 
 ## Explicit test settings
 
-Install the candidate wheel with the `django` extra, or `django-pytest` for
+Install a wheel built from the adopted main source with the `django` extra, or `django-pytest` for
 pytest-django. These extras do not change ordinary mariamem imports and do not
 register the Django plugin automatically. Use dedicated test settings:
 
@@ -148,7 +151,7 @@ Multiple aliases, test mirrors, disabled migrations, `available_apps`,
 `serialized_rollback`, `reset_sequences`, `--keepdb`, `--reuse-db`, xdist and
 Django parallel execution are rejected. Function-style pytest DB tests, async,
 custom class teardown SQL, arbitrary projects and performance guarantees are
-outside this candidate's acceptance. Custom `tearDownClass()` is rejected;
+outside this entry's accepted scope. Custom `tearDownClass()` is rejected;
 `addClassCleanup()` is for non-database resources. Test hooks must cooperate with
 their superclass. Independent connections must be closed by their owner before
 capture or retirement; retained connections stop admission.
