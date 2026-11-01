@@ -1,0 +1,69 @@
+{
+  "observed": false,
+  "success": true,
+  "cleanup": true,
+  "phases": [
+    {
+      "id": 1,
+      "name": "fork",
+      "wall_ms": 40.064,
+      "cpu_ms": 55.489999999999995,
+      "minor_faults": 5052,
+      "major_faults": 0
+    },
+    {
+      "id": 2,
+      "name": "verify",
+      "wall_ms": 17.7365,
+      "cpu_ms": 11.941999999999979,
+      "minor_faults": 65,
+      "major_faults": 0
+    },
+    {
+      "id": 3,
+      "name": "close",
+      "wall_ms": 2.846625,
+      "cpu_ms": 3.1370000000000005,
+      "minor_faults": 10,
+      "major_faults": 0
+    },
+    {
+      "id": 4,
+      "name": "fork",
+      "wall_ms": 39.629417,
+      "cpu_ms": 50.98999999999998,
+      "minor_faults": 4858,
+      "major_faults": 0
+    },
+    {
+      "id": 5,
+      "name": "verify",
+      "wall_ms": 17.8465,
+      "cpu_ms": 11.847999999999985,
+      "minor_faults": 18,
+      "major_faults": 0
+    },
+    {
+      "id": 6,
+      "name": "close",
+      "wall_ms": 2.445834,
+      "cpu_ms": 2.804000000000002,
+      "minor_faults": 20,
+      "major_faults": 0
+    }
+  ],
+  "totals": {},
+  "large_zero_events": null,
+  "overflow": false,
+  "final": {
+    "active_mappings": 0,
+    "active_reserved_bytes": 0,
+    "active_rw_bytes": 0,
+    "creates": 3,
+    "grow_calls": 312,
+    "grow_failures": 0,
+    "peak_total_rw_bytes": 712441856,
+    "release_failures": 0,
+    "releases": 3
+  }
+}

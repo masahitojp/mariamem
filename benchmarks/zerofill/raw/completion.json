@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "pairs": 3,
+  "children_per_process": 2,
+  "scope": "observation only; no optimization"
+}

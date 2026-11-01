@@ -1,0 +1,12 @@
+{
+  "source_commit": "8bc4e6e86a1c2e54bc8f51405f69da3d3833fce5",
+  "observer_selftest": "PASS: zero/nonzero/no-op/bounds and known byte counts",
+  "positive_pilots": 2,
+  "negative_pilots": 2,
+  "measurement_processes": 6,
+  "children": 12,
+  "mapping_creates_each_process": 3,
+  "event_overflow": false,
+  "SQL_isolation_cleanup": "PASS",
+  "scope": "All guest writes and exact allocator identities not tracked; no optimization or broad acceptance"
+}

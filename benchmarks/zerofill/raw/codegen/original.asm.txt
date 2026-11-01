@@ -1,0 +1,147 @@
+github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryFill STEXT size=368 align=0x0 args=0x18 locals=0x58 funcid=0x0
+	0x0000 00000 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	TEXT	github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryFill(SB), ABIInternal, $96-24
+	0x0000 00000 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	MOVD	16(g), R16
+	0x0004 00004 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	PCDATA	$0, $-2
+	0x0004 00004 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	CMP	R16, RSP
+	0x0008 00008 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	BLS	332
+	0x000c 00012 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	PCDATA	$0, $-1
+	0x000c 00012 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	MOVD.W	R30, -96(RSP)
+	0x0010 00016 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	MOVD	R29, -8(RSP)
+	0x0014 00020 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	SUB	$8, RSP, R29
+	0x0018 00024 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	FUNCDATA	$0, gclocals·Z8zdw/dq+fE82FieA9ctlQ==(SB)
+	0x0018 00024 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	FUNCDATA	$1, gclocals·dJUzpsp3Yf15gqnc4dLliw==(SB)
+	0x0018 00024 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	FUNCDATA	$5, github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryFill.arginfo1(SB)
+	0x0018 00024 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	FUNCDATA	$6, github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryFill.argliveinfo(SB)
+	0x0018 00024 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	PCDATA	$3, $1
+	0x0018 00024 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1416)	MOVWU	R1, R4
+	0x001c 00028 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1416)	MOVWU	R3, R5
+	0x0020 00032 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1416)	ADD	R5, R4, R4
+	0x0024 00036 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1417)	MOVD	2968(R0), R5
+	0x0028 00040 (<unknown line number>)	NOP
+	0x0028 00040 (sync/atomic/type.go:181)	LDAR	(R5), R5
+	0x002c 00044 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1417)	CMP	R4, R5
+	0x0030 00048 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1417)	BHS	96
+	0x0034 00052 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1417)	MOVD	R0, github.com/masahitojp/mariamem/internal/generatedgo/code/base.m(FP)
+	0x0038 00056 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1417)	MOVW	R1, github.com/masahitojp/mariamem/internal/generatedgo/code/base.dst+8(FP)
+	0x003c 00060 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1417)	MOVW	R2, github.com/masahitojp/mariamem/internal/generatedgo/code/base.val+12(FP)
+	0x0040 00064 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1417)	MOVW	R3, github.com/masahitojp/mariamem/internal/generatedgo/code/base.n+16(FP)
+	0x0044 00068 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1417)	PCDATA	$3, $-1
+	0x0044 00068 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1416)	MOVD	R4, github.com/masahitojp/mariamem/internal/generatedgo/code/base.end-40(SP)
+	0x0048 00072 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1418)	PCDATA	$1, $0
+	0x0048 00072 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1418)	CALL	github.com/masahitojp/mariamem/internal/generatedgo/code/base.Wasm_trap_memfill_oob(SB)
+	0x004c 00076 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	MOVD	github.com/masahitojp/mariamem/internal/generatedgo/code/base.m(FP), R0
+	0x0050 00080 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	MOVW	github.com/masahitojp/mariamem/internal/generatedgo/code/base.dst+8(FP), R1
+	0x0054 00084 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1426)	MOVW	github.com/masahitojp/mariamem/internal/generatedgo/code/base.val+12(FP), R2
+	0x0058 00088 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1420)	MOVW	github.com/masahitojp/mariamem/internal/generatedgo/code/base.n+16(FP), R3
+	0x005c 00092 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	MOVD	github.com/masahitojp/mariamem/internal/generatedgo/code/base.end-40(SP), R4
+	0x0060 00096 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1418)	PCDATA	$3, $1
+	0x0060 00096 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1420)	CBZW	R3, 208
+	0x0064 00100 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	MOVD	16(R0), R3
+	0x0068 00104 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	MOVWU	R4, R4
+	0x006c 00108 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	CMP	R3, R4
+	0x0070 00112 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	BHI	324
+	0x0074 00116 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	MOVWU	R1, R5
+	0x0078 00120 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	CMP	R4, R5
+	0x007c 00124 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	BHI	320
+	0x0080 00128 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	MOVD	(R0), R6
+	0x0084 00132 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	SUB	R3, R5, R3
+	0x0088 00136 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	AND	R3->63, R5, R3
+	0x008c 00140 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	SUB	R5, R4, R1
+	0x0090 00144 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	ADD	R3, R6, R0
+	0x0094 00148 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1426)	MOVBU	R2, R7
+	0x0098 00152 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1426)	CBZW	R7, 188
+	0x009c 00156 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1432)	CBZ	R1, 316
+	0x00a0 00160 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	MOVD	R4, github.com/masahitojp/mariamem/internal/generatedgo/code/base..autotmp_28-16(SP)
+	0x00a4 00164 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	MOVD	R5, github.com/masahitojp/mariamem/internal/generatedgo/code/base..autotmp_29-24(SP)
+	0x00a8 00168 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	MOVD	R1, github.com/masahitojp/mariamem/internal/generatedgo/code/base.b.len-32(SP)
+	0x00ac 00172 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	MOVD	R0, github.com/masahitojp/mariamem/internal/generatedgo/code/base.b.ptr-8(SP)
+	0x00b0 00176 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1432)	MOVB	R2, (R6)(R3)
+	0x00b4 00180 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1433)	MOVD	$1, R3
+	0x00b8 00184 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1433)	JMP	224
+	0x00bc 00188 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1427)	CBZ	R1, 196
+	0x00c0 00192 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1427)	PCDATA	$1, $1
+	0x00c0 00192 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1427)	CALL	runtime.memclrNoHeapPointers(SB)
+	0x00c4 00196 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1430)	MOVD	-8(RSP), R29
+	0x00c8 00200 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1430)	MOVD.P	96(RSP), R30
+	0x00cc 00204 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1430)	RET	(R30)
+	0x00d0 00208 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1421)	MOVD	-8(RSP), R29
+	0x00d4 00212 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1421)	MOVD.P	96(RSP), R30
+	0x00d8 00216 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1421)	RET	(R30)
+	0x00dc 00220 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1433)	ADD	R3, R3, R3
+	0x00e0 00224 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1433)	CMP	R1, R3
+	0x00e4 00228 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1433)	BGE	300
+	0x00e8 00232 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	BHI	312
+	0x00ec 00236 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	ADD	R5, R3, R6
+	0x00f0 00240 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	SUB	R6, R4, R6
+	0x00f4 00244 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	ADD	R0, R3, R7
+	0x00f8 00248 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	CMP	R6, R3
+	0x00fc 00252 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	CSEL	LT, R3, R6, R2
+	0x0100 00256 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	CBZ	R3, 220
+	0x0104 00260 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1433)	MOVD	R3, github.com/masahitojp/mariamem/internal/generatedgo/code/base.filled-48(SP)
+	0x0108 00264 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	MOVD	R0, R1
+	0x010c 00268 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	MOVD	R7, R0
+	0x0110 00272 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	PCDATA	$1, $2
+	0x0110 00272 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	CALL	runtime.memmove(SB)
+	0x0114 00276 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	MOVD	github.com/masahitojp/mariamem/internal/generatedgo/code/base.b.ptr-8(SP), R0
+	0x0118 00280 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1433)	MOVD	github.com/masahitojp/mariamem/internal/generatedgo/code/base.b.len-32(SP), R1
+	0x011c 00284 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1433)	MOVD	github.com/masahitojp/mariamem/internal/generatedgo/code/base.filled-48(SP), R3
+	0x0120 00288 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	MOVD	github.com/masahitojp/mariamem/internal/generatedgo/code/base..autotmp_28-16(SP), R4
+	0x0124 00292 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	MOVD	github.com/masahitojp/mariamem/internal/generatedgo/code/base..autotmp_29-24(SP), R5
+	0x0128 00296 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	JMP	220
+	0x012c 00300 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1436)	MOVD	-8(RSP), R29
+	0x0130 00304 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1436)	MOVD.P	96(RSP), R30
+	0x0134 00308 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1436)	RET	(R30)
+	0x0138 00312 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	PCDATA	$1, $1
+	0x0138 00312 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	PCDATA	$4, $1434
+	0x0138 00312 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1434)	CALL	runtime.panicBounds(SB)
+	0x013c 00316 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1432)	PCDATA	$4, $0
+	0x013c 00316 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1432)	CALL	runtime.panicBounds(SB)
+	0x0140 00320 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	PCDATA	$4, $5034
+	0x0140 00320 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	CALL	runtime.panicBounds(SB)
+	0x0144 00324 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	PCDATA	$4, $3809
+	0x0144 00324 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	CALL	runtime.panicBounds(SB)
+	0x0148 00328 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	HINT	$0
+	0x014c 00332 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1423)	NOP
+	0x014c 00332 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	PCDATA	$1, $-1
+	0x014c 00332 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	PCDATA	$0, $-2
+	0x014c 00332 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	MOVD	R0, 8(RSP)
+	0x0150 00336 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	STPW	(R1, R2), 16(RSP)
+	0x0154 00340 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	MOVW	R3, 24(RSP)
+	0x0158 00344 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	MOVD	R30, R3
+	0x015c 00348 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	CALL	runtime.morestack_noctxt(SB)
+	0x0160 00352 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	PCDATA	$0, $-1
+	0x0160 00352 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	MOVD	8(RSP), R0
+	0x0164 00356 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	LDPW	16(RSP), (R1, R2)
+	0x0168 00360 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	MOVW	24(RSP), R3
+	0x016c 00364 (github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:1415)	JMP	0
+	0x0000 90 0b 40 f9 ff 63 30 eb 29 0a 00 54 fe 0f 1a f8  ..@..c0.)..T....
+	0x0010 fd 83 1f f8 fd 23 00 d1 e4 03 01 2a e5 03 03 2a  .....#.....*...*
+	0x0020 84 00 05 8b 05 cc 45 f9 a5 fc df c8 bf 00 04 eb  ......E.........
+	0x0030 82 01 00 54 e0 37 00 f9 e1 73 00 b9 e2 77 00 b9  ...T.7...s...w..
+	0x0040 e3 7b 00 b9 e4 1b 00 f9 00 00 00 94 e0 37 40 f9  .{...........7@.
+	0x0050 e1 73 80 b9 e2 77 80 b9 e3 7b 80 b9 e4 1b 40 f9  .s...w...{....@.
+	0x0060 83 03 00 34 03 08 40 f9 e4 03 04 2a 9f 00 03 eb  ...4..@....*....
+	0x0070 a8 06 00 54 e5 03 01 2a bf 00 04 eb 28 06 00 54  ...T...*....(..T
+	0x0080 06 00 40 f9 a3 00 03 cb a3 fc 83 8a 81 00 05 cb  ..@.............
+	0x0090 c0 00 03 8b 47 1c 40 d3 27 01 00 34 01 05 00 b4  ....G.@.'..4....
+	0x00a0 e4 27 00 f9 e5 23 00 f9 e1 1f 00 f9 e0 2b 00 f9  .'...#.......+..
+	0x00b0 c2 68 23 38 e3 03 40 b2 0a 00 00 14 41 00 00 b4  .h#8..@.....A...
+	0x00c0 00 00 00 94 fd 83 5f f8 fe 07 46 f8 c0 03 5f d6  ......_...F..._.
+	0x00d0 fd 83 5f f8 fe 07 46 f8 c0 03 5f d6 63 00 03 8b  .._...F..._.c...
+	0x00e0 7f 00 01 eb 4a 02 00 54 88 02 00 54 66 00 05 8b  ....J..T...Tf...
+	0x00f0 86 00 06 cb 67 00 00 8b 7f 00 06 eb 62 b0 86 9a  ....g.......b...
+	0x0100 e3 fe ff b4 e3 17 00 f9 e1 03 00 aa e0 03 07 aa  ................
+	0x0110 00 00 00 94 e0 2b 40 f9 e1 1f 40 f9 e3 17 40 f9  .....+@...@...@.
+	0x0120 e4 27 40 f9 e5 23 40 f9 ed ff ff 17 fd 83 5f f8  .'@..#@......._.
+	0x0130 fe 07 46 f8 c0 03 5f d6 00 00 00 94 00 00 00 94  ..F..._.........
+	0x0140 00 00 00 94 00 00 00 94 1f 20 03 d5 e0 07 00 f9  ......... ......
+	0x0150 e1 0b 02 29 e3 1b 00 b9 e3 03 1e aa 00 00 00 94  ...)............
+	0x0160 e0 07 40 f9 e1 0b 42 29 e3 1b 80 b9 a5 ff ff 17  ..@...B)........
+	rel 72+4 t=R_CALLARM64 github.com/masahitojp/mariamem/internal/generatedgo/code/base.Wasm_trap_memfill_oob+0
+	rel 192+4 t=R_CALLARM64 runtime.memclrNoHeapPointers+0
+	rel 272+4 t=R_CALLARM64 runtime.memmove+0
+	rel 312+4 t=R_CALLARM64 runtime.panicBounds+0
+	rel 316+4 t=R_CALLARM64 runtime.panicBounds+0
+	rel 320+4 t=R_CALLARM64 runtime.panicBounds+0
+	rel 324+4 t=R_CALLARM64 runtime.panicBounds+0
+	rel 348+4 t=R_CALLARM64 runtime.morestack_noctxt+0

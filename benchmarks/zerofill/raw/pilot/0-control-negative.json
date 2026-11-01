@@ -1,0 +1,46 @@
+{
+  "observed": false,
+  "success": false,
+  "error": "pristine oracle: count=1000 sum=500498",
+  "cleanup": true,
+  "phases": [
+    {
+      "id": 1,
+      "name": "fork",
+      "wall_ms": 37.849,
+      "cpu_ms": 50.143000000000015,
+      "minor_faults": 5017,
+      "major_faults": 0
+    },
+    {
+      "id": 2,
+      "name": "verify",
+      "wall_ms": 9.7945,
+      "cpu_ms": 11.38900000000001,
+      "minor_faults": 69,
+      "major_faults": 0
+    },
+    {
+      "id": 3,
+      "name": "close",
+      "wall_ms": 2.215708,
+      "cpu_ms": 2.4470000000000027,
+      "minor_faults": 6,
+      "major_faults": 0
+    }
+  ],
+  "totals": {},
+  "large_zero_events": null,
+  "overflow": false,
+  "final": {
+    "active_mappings": 0,
+    "active_reserved_bytes": 0,
+    "active_rw_bytes": 0,
+    "creates": 2,
+    "grow_calls": 207,
+    "grow_failures": 0,
+    "peak_total_rw_bytes": 695664640,
+    "release_failures": 0,
+    "releases": 2
+  }
+}
