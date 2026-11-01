@@ -52,7 +52,7 @@ info=json.loads((E/'inputs.json').read_text())
 for name,b in info['binaries'].items():assert digest(T/'bin'/name)==b['sha256']
 records=[]
 def micro(label,route,parallel,rep,warmup=False,negative=False,count=20):
- name=f'micro/{label}-{route}-p{parallel}-r{rep}'+('-negative' if negative else '')
+ name=f'{a.phase}/micro/{label}-{route}-p{parallel}-r{rep}'+('-negative' if negative else '')
  out=E/(name+'.json');scratch=T/'scratch'/name;scratch.mkdir(parents=True,exist_ok=True)
  ce=dict(env,TMPDIR=str(scratch))
  cmd=[T/'bin'/('probe-maria' if label=='mariamem' else 'probe-postgres'),'-route',route,'-parallel',parallel,'-count',count,'-out',out]
@@ -67,7 +67,7 @@ def micro(label,route,parallel,rep,warmup=False,negative=False,count=20):
  records.append(row);save('pilot-records.json' if a.phase=='pilot' else 'records.json',records)
  print('PASS',name,round(wall,1),'ms',flush=True)
 def macro(label,route,parallel,rep,warmup=False):
- name=f'macro/{label}-{route}-p{parallel}-r{rep}';out=E/(name+'.json');scratch=T/'scratch'/name;scratch.mkdir(parents=True,exist_ok=True)
+ name=f'{a.phase}/macro/{label}-{route}-p{parallel}-r{rep}';out=E/(name+'.json');scratch=T/'scratch'/name;scratch.mkdir(parents=True,exist_ok=True)
  binary='maria-modelcase' if label=='mariamem' else 'pgmem-modelcase'+('-tcp' if route=='tcp' else '')
  ce=dict(env,TMPDIR=str(scratch));cmd=[T/'bin'/binary,'-test.parallel',parallel,'-test.timeout','240s','-test.v']
  if label=='mariamem':ce.update(MODELCASE_MODE='mariamem-shared-read',MODELCASE_OUTPUT=str(out));cmd+=['-test.run','^TestModelcase$']
