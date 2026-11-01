@@ -5,7 +5,7 @@ F.
 FAIL: test_01 (test_cases.TransactionalCases.test_01)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/test_cases.py", line 47, in test_01
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/test_cases.py", line 47, in test_01
     self.fail('D1_EXPECTED_FAILURE_AFTER_COMMIT')
 AssertionError: D1_EXPECTED_FAILURE_AFTER_COMMIT
 

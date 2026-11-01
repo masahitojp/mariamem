@@ -1,24 +1,24 @@
 {"event": "prepare"}
-{"event": "capture", "source": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/source.sqlite", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/baseline-0.sqlite"}
-{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-1.sqlite"}
+{"event": "capture", "source": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/source.sqlite", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/baseline-0.sqlite"}
+{"event": "fork", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-1.sqlite"}
 {"event": "setUpTestData"}
-{"event": "capture", "source": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-1.sqlite", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/baseline-2.sqlite"}
-{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-3.sqlite"}
+{"event": "capture", "source": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-1.sqlite", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/baseline-2.sqlite"}
+{"event": "fork", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-3.sqlite"}
 {"event": "body", "atomic": true}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-3.sqlite"}
-{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-4.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-3.sqlite"}
+{"event": "fork", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-4.sqlite"}
 {"event": "body", "atomic": true}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-4.sqlite"}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/baseline-2.sqlite"}
-{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-5.sqlite"}
-{"event": "capture", "source": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-5.sqlite", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/baseline-6.sqlite"}
-{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-7.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-4.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/baseline-2.sqlite"}
+{"event": "fork", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-5.sqlite"}
+{"event": "capture", "source": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-5.sqlite", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/baseline-6.sqlite"}
+{"event": "fork", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-7.sqlite"}
 {"event": "body", "atomic": false}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-7.sqlite"}
-{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-8.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-7.sqlite"}
+{"event": "fork", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-8.sqlite"}
 {"event": "body", "atomic": false}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-8.sqlite"}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/baseline-6.sqlite"}
-{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-9.sqlite"}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/baseline-0.sqlite"}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-9.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-8.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/baseline-6.sqlite"}
+{"event": "fork", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-9.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/baseline-0.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-healthy/child-9.sqlite"}

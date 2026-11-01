@@ -5,9 +5,9 @@ Destroying old test database for alias 'default'...
 FAIL: test_02 (test_cases.TransactionalCases.test_02)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/test_cases.py", line 49, in test_02
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/test_cases.py", line 49, in test_02
     baseline()
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/test_cases.py", line 11, in baseline
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/test_cases.py", line 11, in baseline
     assert c.fetchall() == [(17,)]
            ^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError

@@ -14,30 +14,30 @@ django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x109d067d0>
         if not django_settings_is_configured() or not is_django_unittest(request):
             yield
             return
-    
+
         # Fix/patch pytest.
         # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
         # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
         from _pytest.unittest import TestCaseFunction
-    
+
         original_runtest = TestCaseFunction.runtest
-    
+
         def non_debugging_runtest(self) -> None:  # noqa: ANN001
             self._testcase(result=self)
-    
+
         from django.test import SimpleTestCase
-    
+
         assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
         try:
             TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
-    
+
             # Don't set up the DB if the unittest does not require DB.
             # The `databases` propery seems like the best indicator for that.
             if request.cls.databases:
 >               request.getfixturevalue("django_db_setup")
 
-../../../temp/venv/lib/python3.11/site-packages/pytest_django/plugin.py:598: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../temp/venv/lib/python3.11/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 conftest.py:6: in django_db_setup
     entry.manager = entry.Manager()
                     ^^^^^^^^^^^^^^^
@@ -50,7 +50,7 @@ entry.py:57: in __init__
 ../../../temp/venv/lib/python3.11/site-packages/django/db/backends/base/base.py:320: in cursor
     return self._cursor()
            ^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <DatabaseWrapper vendor='sqlite' alias='default'>, name = None
 
@@ -74,30 +74,30 @@ django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x109d067d0>
         if not django_settings_is_configured() or not is_django_unittest(request):
             yield
             return
-    
+
         # Fix/patch pytest.
         # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
         # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
         from _pytest.unittest import TestCaseFunction
-    
+
         original_runtest = TestCaseFunction.runtest
-    
+
         def non_debugging_runtest(self) -> None:  # noqa: ANN001
             self._testcase(result=self)
-    
+
         from django.test import SimpleTestCase
-    
+
         assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
         try:
             TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
-    
+
             # Don't set up the DB if the unittest does not require DB.
             # The `databases` propery seems like the best indicator for that.
             if request.cls.databases:
 >               request.getfixturevalue("django_db_setup")
 
-../../../temp/venv/lib/python3.11/site-packages/pytest_django/plugin.py:598: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../temp/venv/lib/python3.11/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 conftest.py:6: in django_db_setup
     entry.manager = entry.Manager()
                     ^^^^^^^^^^^^^^^
@@ -110,7 +110,7 @@ entry.py:57: in __init__
 ../../../temp/venv/lib/python3.11/site-packages/django/db/backends/base/base.py:320: in cursor
     return self._cursor()
            ^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <DatabaseWrapper vendor='sqlite' alias='default'>, name = None
 
@@ -134,30 +134,30 @@ django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x109d067d0>
         if not django_settings_is_configured() or not is_django_unittest(request):
             yield
             return
-    
+
         # Fix/patch pytest.
         # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
         # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
         from _pytest.unittest import TestCaseFunction
-    
+
         original_runtest = TestCaseFunction.runtest
-    
+
         def non_debugging_runtest(self) -> None:  # noqa: ANN001
             self._testcase(result=self)
-    
+
         from django.test import SimpleTestCase
-    
+
         assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
         try:
             TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
-    
+
             # Don't set up the DB if the unittest does not require DB.
             # The `databases` propery seems like the best indicator for that.
             if request.cls.databases:
 >               request.getfixturevalue("django_db_setup")
 
-../../../temp/venv/lib/python3.11/site-packages/pytest_django/plugin.py:598: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../temp/venv/lib/python3.11/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 conftest.py:6: in django_db_setup
     entry.manager = entry.Manager()
                     ^^^^^^^^^^^^^^^
@@ -170,7 +170,7 @@ entry.py:57: in __init__
 ../../../temp/venv/lib/python3.11/site-packages/django/db/backends/base/base.py:320: in cursor
     return self._cursor()
            ^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <DatabaseWrapper vendor='sqlite' alias='default'>, name = None
 
@@ -194,30 +194,30 @@ django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x109d067d0>
         if not django_settings_is_configured() or not is_django_unittest(request):
             yield
             return
-    
+
         # Fix/patch pytest.
         # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
         # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
         from _pytest.unittest import TestCaseFunction
-    
+
         original_runtest = TestCaseFunction.runtest
-    
+
         def non_debugging_runtest(self) -> None:  # noqa: ANN001
             self._testcase(result=self)
-    
+
         from django.test import SimpleTestCase
-    
+
         assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
         try:
             TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
-    
+
             # Don't set up the DB if the unittest does not require DB.
             # The `databases` propery seems like the best indicator for that.
             if request.cls.databases:
 >               request.getfixturevalue("django_db_setup")
 
-../../../temp/venv/lib/python3.11/site-packages/pytest_django/plugin.py:598: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../temp/venv/lib/python3.11/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 conftest.py:6: in django_db_setup
     entry.manager = entry.Manager()
                     ^^^^^^^^^^^^^^^
@@ -230,7 +230,7 @@ entry.py:57: in __init__
 ../../../temp/venv/lib/python3.11/site-packages/django/db/backends/base/base.py:320: in cursor
     return self._cursor()
            ^^^^^^^^^^^^^^
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <DatabaseWrapper vendor='sqlite' alias='default'>, name = None
 
@@ -242,7 +242,7 @@ E       RuntimeError: Database access not allowed, use the "django_db" mark, or 
 ../../../temp/venv/lib/python3.11/site-packages/django/db/backends/base/base.py:296: RuntimeError
 =============================== warnings summary ===============================
 test_cases.py::TransactionalCases::test_02
-  /Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype:0: PytestWarning: Error when trying to teardown test databases: FileNotFoundError(2, 'No such file or directory')
+  __HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype:0: PytestWarning: Error when trying to teardown test databases: FileNotFoundError(2, 'No such file or directory')
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 =========================== short test summary info ============================

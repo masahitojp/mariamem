@@ -22,7 +22,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "django",
         "test",
@@ -44,7 +44,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "django",
         "test",
@@ -67,7 +67,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "django",
         "test",
@@ -88,7 +88,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "django",
         "test",
@@ -110,7 +110,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "django",
         "test",
@@ -132,7 +132,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "django",
         "test",
@@ -154,7 +154,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "django",
         "test",
@@ -176,7 +176,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "django",
         "test",
@@ -198,7 +198,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "django",
         "test",
@@ -219,7 +219,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "pytest",
         "-p",
@@ -244,7 +244,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "pytest",
         "-p",
@@ -271,7 +271,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "pytest",
         "-p",
@@ -295,7 +295,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "pytest",
         "-p",
@@ -320,7 +320,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "pytest",
         "-p",
@@ -345,7 +345,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "pytest",
         "-p",
@@ -370,7 +370,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "pytest",
         "-p",
@@ -395,7 +395,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "pytest",
         "-p",
@@ -420,7 +420,7 @@
       "failures": [],
       "remaining_databases": [],
       "command": [
-        "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/bin/python",
         "-m",
         "pytest",
         "-p",

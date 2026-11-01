@@ -7,15 +7,15 @@ self = <test_cases.TransactionalCases testMethod=test_02>
     def test_02(self):
 >       baseline()
 
-test_cases.py:49: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_cases.py:49:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
     def baseline():
         with connection.cursor() as c:
             c.execute('SELECT n FROM d1_raw_sentinel')
 >           assert c.fetchall() == [(17,)]
 E           assert [(99,)] == [(17,)]
-E             
+E
 E             At index 0 diff: (99,) != (17,)
 E             Use -v to get more diff
 

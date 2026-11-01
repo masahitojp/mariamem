@@ -1,16 +1,16 @@
 {"event": "prepare"}
-{"event": "capture", "source": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/source.sqlite", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/baseline-0.sqlite"}
-{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-1.sqlite"}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-1.sqlite"}
-{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-2.sqlite"}
-{"event": "capture", "source": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-2.sqlite", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/baseline-3.sqlite"}
-{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-4.sqlite"}
+{"event": "capture", "source": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/source.sqlite", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/baseline-0.sqlite"}
+{"event": "fork", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-1.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-1.sqlite"}
+{"event": "fork", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-2.sqlite"}
+{"event": "capture", "source": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-2.sqlite", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/baseline-3.sqlite"}
+{"event": "fork", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-4.sqlite"}
 {"event": "body", "atomic": false}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-4.sqlite"}
-{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-5.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-4.sqlite"}
+{"event": "fork", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-5.sqlite"}
 {"event": "body", "atomic": false}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-5.sqlite"}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/baseline-3.sqlite"}
-{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-6.sqlite"}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/baseline-0.sqlite"}
-{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-6.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-5.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/baseline-3.sqlite"}
+{"event": "fork", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-6.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/baseline-0.sqlite"}
+{"event": "close", "path": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-6.sqlite"}

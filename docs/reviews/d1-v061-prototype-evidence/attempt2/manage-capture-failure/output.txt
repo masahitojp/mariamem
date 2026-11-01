@@ -1,5 +1,5 @@
-Creating test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-capture-failure/source.sqlite')...
-Destroying old test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-capture-failure/source.sqlite')...
+Creating test database for alias 'default' ('__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-capture-failure/source.sqlite')...
+Destroying old test database for alias 'default' ('__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-capture-failure/source.sqlite')...
 Found 4 test(s).
 Operations to perform:
   Apply all migrations: orders
@@ -14,9 +14,9 @@ test_02 (test_cases.TransactionalCases.test_02) ... ERROR
 ERROR: test_01 (test_cases.AtomicCases.test_01)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 167, in _pre_setup
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 167, in _pre_setup
     cls._d1_scope.acquire()
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 117, in acquire
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 117, in acquire
     raise RuntimeError('D1_EXPECTED_CAPTURE_FAILURE')
 RuntimeError: D1_EXPECTED_CAPTURE_FAILURE
 
@@ -24,9 +24,9 @@ RuntimeError: D1_EXPECTED_CAPTURE_FAILURE
 ERROR: test_02 (test_cases.AtomicCases.test_02)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 167, in _pre_setup
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 167, in _pre_setup
     cls._d1_scope.acquire()
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 117, in acquire
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 117, in acquire
     raise RuntimeError('D1_EXPECTED_CAPTURE_FAILURE')
 RuntimeError: D1_EXPECTED_CAPTURE_FAILURE
 
@@ -34,9 +34,9 @@ RuntimeError: D1_EXPECTED_CAPTURE_FAILURE
 ERROR: test_01 (test_cases.TransactionalCases.test_01)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 167, in _pre_setup
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 167, in _pre_setup
     cls._d1_scope.acquire()
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 117, in acquire
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 117, in acquire
     raise RuntimeError('D1_EXPECTED_CAPTURE_FAILURE')
 RuntimeError: D1_EXPECTED_CAPTURE_FAILURE
 
@@ -44,9 +44,9 @@ RuntimeError: D1_EXPECTED_CAPTURE_FAILURE
 ERROR: test_02 (test_cases.TransactionalCases.test_02)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 167, in _pre_setup
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 167, in _pre_setup
     cls._d1_scope.acquire()
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 117, in acquire
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 117, in acquire
     raise RuntimeError('D1_EXPECTED_CAPTURE_FAILURE')
 RuntimeError: D1_EXPECTED_CAPTURE_FAILURE
 
@@ -54,6 +54,6 @@ RuntimeError: D1_EXPECTED_CAPTURE_FAILURE
 Ran 0 tests in 0.003s
 
 FAILED (errors=4)
-Destroying test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-capture-failure/child-3.sqlite')...
+Destroying test database for alias 'default' ('__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-capture-failure/child-3.sqlite')...
  OK
 System check identified no issues (0 silenced).

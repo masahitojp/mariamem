@@ -14,7 +14,7 @@ The material objection is semantic: Django normally wraps TestCase class setup i
 - Executed final prototype source_commit:7379e5aec9977c58d05e2df7ea7526e69f586d59. Git identity was checked before the run. Assessment also binds each Python source hash.
 - Python3.11.18, Django5.2.8, pytest9.0.2, pytest-django4.12.0, local macOS arm64. Full dependency versions are preserved with evidence.
 - Reused authored `orders` models and both migrations from `tests/e2e_native_control/pythonapp`, including migration SEED. Preparation adds a non-model SQL sentinel table. No new framework compatibility matrix or independent external app.
-- [Prototype/reproduction](../../benchmarks/d1-prototype/README.md), [final assessment](d1-v061-prototype-evidence/final/assessment.json), [raw logs/events/checksums](d1-v061-prototype-evidence/).
+- [Prototype/reproduction](../../benchmarks/d1-prototype/README.md), [final assessment](d1-v061-prototype-evidence/final/assessment.json), [logs/events/checksums (local paths normalized)](d1-v061-prototype-evidence/).
 
 ## Ownership and framework seam
 

@@ -3,7 +3,7 @@ FFFF                                                                     [100%]
 _____________________________ AtomicCases.test_01 ______________________________
 entry.py:167: in _pre_setup
     cls._d1_scope.acquire()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <entry.Scope object at 0x109a3c410>
 
@@ -22,7 +22,7 @@ entry.py:117: RuntimeError
 _____________________________ AtomicCases.test_02 ______________________________
 entry.py:167: in _pre_setup
     cls._d1_scope.acquire()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <entry.Scope object at 0x109a3c410>
 
@@ -41,7 +41,7 @@ entry.py:117: RuntimeError
 __________________________ TransactionalCases.test_01 __________________________
 entry.py:167: in _pre_setup
     cls._d1_scope.acquire()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <entry.Scope object at 0x109abd850>
 
@@ -60,7 +60,7 @@ entry.py:117: RuntimeError
 __________________________ TransactionalCases.test_02 __________________________
 entry.py:167: in _pre_setup
     cls._d1_scope.acquire()
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <entry.Scope object at 0x109abd850>
 
