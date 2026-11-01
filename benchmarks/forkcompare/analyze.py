@@ -83,7 +83,7 @@ def main():
  else:
   out=json.loads((R/'compact.json').read_text())
  summary=[]
- for name,r in out['runs'].items():
+ for name,r in sorted(out['runs'].items()):
   if r['warmup']:continue
   assert r['dropped']==0
   summary.append(dict(run=name,slow_counts=[c for c in r['client_counts'] if c['duration_ms']>100],long_read_waits=[dict(instance=c['instance'],ms=c['read_wait_ms'],query=c['query_dispatch_in_stack'],maintenance_ticks=len(c['maintenance'])) for c in r['long_read_waits']],max_pread_ms=r['max_pread_ms'],max_submit_to_start_ms=r['max_submit_to_start_ms'],event_count=r['event_count']))

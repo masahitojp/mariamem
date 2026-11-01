@@ -48,6 +48,14 @@
     ]
   },
   {
+    "event_count": 336573,
+    "long_read_waits": [],
+    "max_pread_ms": 5.413667,
+    "max_submit_to_start_ms": 14.038041,
+    "run": "measure-v2/1-mariamem-p4.json",
+    "slow_counts": []
+  },
+  {
     "event_count": 303982,
     "long_read_waits": [
       {
@@ -68,14 +76,6 @@
         "end_ms": 1068.257041
       }
     ]
-  },
-  {
-    "event_count": 336573,
-    "long_read_waits": [],
-    "max_pread_ms": 5.413667,
-    "max_submit_to_start_ms": 14.038041,
-    "run": "measure-v2/1-mariamem-p4.json",
-    "slow_counts": []
   },
   {
     "event_count": 333791,
