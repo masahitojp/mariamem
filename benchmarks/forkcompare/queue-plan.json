@@ -1,0 +1,16 @@
+{
+  "issue": 68,
+  "question": "Does the residual read4 COUNT wait come from the same pool queue/worker policy?",
+  "scope": "Existing recorder plus explicit child-instance binding; no engine/timer/config correction",
+  "product": "pinned v0.6.0; read IO=4 via same pre-start argv selector; write2,purge1,nativeAIO0",
+  "processes": 3,
+  "parallel": 8,
+  "children_per_process": 48,
+  "event_cap_per_process": 1000000,
+  "active_budget_minutes": 120,
+  "measurement_budget_minutes": 10,
+  "heavy_ci_limit": 0,
+  "stop": "Three fresh processes only; if no slow case, report not reproduced; no extra repetitions",
+  "platform": "macOS27.2 arm64 M1/16GiB Go1.27.3 GOMAXPROCS8 CGO0",
+  "performance_claim": false
+}
