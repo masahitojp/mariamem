@@ -1,0 +1,22 @@
+// Experiment only: one binary, one pre-start argv byte; no concurrent mutation.
+package generated
+import (
+ "bytes"
+ "crypto/sha256"
+ "encoding/hex"
+ "encoding/json"
+ "os"
+)
+func init(){
+ value:=os.Getenv("MARIAMEM_EXPERIMENT_READ_IO")
+ if value!="1" && value!="4"{panic("explicit experiment read IO 1 or 4 required")}
+ original:=[]byte("--loose-innodb-read-io-threads=1\x00")
+ if bytes.Count(wasm2goData_data_bin,original)!=1{panic("startup argument not unique")}
+ offset:=bytes.Index(wasm2goData_data_bin,original)+len(original)-2
+ before:=sha256.Sum256(wasm2goData_data_bin)
+ wasm2goData_data_bin[offset]=value[0]
+ after:=sha256.Sum256(wasm2goData_data_bin)
+ r:=map[string]any{"read_io":value,"data_bytes":len(wasm2goData_data_bin),"argv_byte_offset":offset,"original_byte":49,"effective_byte":int(value[0]),"changed_bytes":map[string]int{"1":0,"4":1}[value],"before_sha256":hex.EncodeToString(before[:]),"effective_sha256":hex.EncodeToString(after[:]),"scope":"generated startup argv data; canonical WASM unchanged; not rebuilt guest identity"}
+ b,e:=json.MarshalIndent(r,"","  ");if e!=nil{panic(e)}
+ if e=os.WriteFile(os.Getenv("MARIAMEM_EXPERIMENT_DATA_IDENTITY"),append(b,'\n'),0600);e!=nil{panic(e)}
+}

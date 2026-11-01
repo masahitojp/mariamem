@@ -1,0 +1,14 @@
+{
+ "issue":68,
+ "scope":"Pre-candidate evidence only: child distributions, guest phases, one-DB RSS, identical binary and macOS replication",
+ "source":"pinned v0.6.0; same host binary selects one pre-start argv byte; guest timing MemFS file bridge is diagnostic overlay",
+ "primary":{"processes":6,"parallel":8,"children":48,"order":[[1,4],[4,1],[1,4]]},
+ "memory":{"processes":40,"parallel":1,"children":1,"pairs":20,"order":"alternate 1/4 and 4/1; fresh processes; G0 snapshot-only vs held one DB after SQL; 3 RSS samples 5ms apart"},
+ "smoke":{"processes":2,"parallel":8,"children":8},
+ "active_budget_minutes":120,
+ "measurement_budget_minutes":10,
+ "heavy_ci_limit":0,
+ "stop":"fixed process counts; preserve failures, no extra repetitions or candidate integration",
+ "platform":"macOS27.2 arm64 Apple M1/16GiB; this does not supply Ubuntu acceptance",
+ "memory_boundary":"RSS process increment with exactly one held DB; not InnoDB allocation ownership, not historical Wasmer Ubuntu PSS equivalence"
+}

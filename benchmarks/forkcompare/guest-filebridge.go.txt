@@ -1,0 +1,13 @@
+// Experiment-only adapter: the existing linked guest writes timing into MemFS;
+// make that already-complete file readable by the existing post-ready recorder.
+package timing
+import "sync"
+var experimentGuestFiles=struct{sync.Mutex;m map[string]func()([]byte,error)}{m:map[string]func()([]byte,error){}}
+func ExperimentGuestSource(key string,read func()([]byte,error))func(){
+ experimentGuestFiles.Lock();experimentGuestFiles.m[key]=read;experimentGuestFiles.Unlock()
+ return func(){experimentGuestFiles.Lock();delete(experimentGuestFiles.m,key);experimentGuestFiles.Unlock()}
+}
+func experimentReadGuest(key string)([]byte,error){
+ experimentGuestFiles.Lock();read:=experimentGuestFiles.m[key];experimentGuestFiles.Unlock()
+ if read==nil{return nil,nil};return read()
+}

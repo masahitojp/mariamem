@@ -9,6 +9,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/timing"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -45,53 +46,55 @@ func ioProfile(ctx context.Context, q interface {
 }
 
 type Sample struct {
-	IO         IOProfile `json:"io_profile"`
-	OffsetMS   float64   `json:"offset_ms"`
-	TotalMS    float64   `json:"total_ms"`
-	QueryMS    float64   `json:"query_ms"`
-	FirstRowMS float64   `json:"first_row_ms"`
-	DrainMS    float64   `json:"drain_ms"`
-	WireResult WireSpan  `json:"wire"`
-	CountMS    float64   `json:"count_ms"`
-	UpdateMS   float64   `json:"update_ms"`
-	VerifyMS   float64   `json:"verify_ms"`
-	SQLMS      float64   `json:"sql_ms"`
-	Cleanup    bool      `json:"cleanup_complete"`
-	Index      int       `json:"index"`
-	ForkMS     float64   `json:"fork_ms"`
-	ConnectMS  float64   `json:"connect_ms"`
-	SelectMS   float64   `json:"select_ms"`
-	ReadyMS    float64   `json:"ready_ms"`
-	CleanupMS  float64   `json:"cleanup_ms"`
-	Oracle     bool      `json:"oracle"`
-	Error      string    `json:"error,omitempty"`
+	Startup    *timing.Trace `json:"startup_trace"`
+	IO         IOProfile     `json:"io_profile"`
+	OffsetMS   float64       `json:"offset_ms"`
+	TotalMS    float64       `json:"total_ms"`
+	QueryMS    float64       `json:"query_ms"`
+	FirstRowMS float64       `json:"first_row_ms"`
+	DrainMS    float64       `json:"drain_ms"`
+	WireResult WireSpan      `json:"wire"`
+	CountMS    float64       `json:"count_ms"`
+	UpdateMS   float64       `json:"update_ms"`
+	VerifyMS   float64       `json:"verify_ms"`
+	SQLMS      float64       `json:"sql_ms"`
+	Cleanup    bool          `json:"cleanup_complete"`
+	Index      int           `json:"index"`
+	ForkMS     float64       `json:"fork_ms"`
+	ConnectMS  float64       `json:"connect_ms"`
+	SelectMS   float64       `json:"select_ms"`
+	ReadyMS    float64       `json:"ready_ms"`
+	CleanupMS  float64       `json:"cleanup_ms"`
+	Oracle     bool          `json:"oracle"`
+	Error      string        `json:"error,omitempty"`
 }
 type Report struct {
-	IO                  IOProfile `json:"io_profile"`
-	CPUUserMS           float64   `json:"cpu_user_ms"`
-	CPUSystemMS         float64   `json:"cpu_system_ms"`
-	MinorFaults         int64     `json:"minor_faults"`
-	MajorFaults         int64     `json:"major_faults"`
-	VoluntarySwitches   int64     `json:"voluntary_switches"`
-	InvoluntarySwitches int64     `json:"involuntary_switches"`
-	LifetimeMaxRSSBytes int64     `json:"lifetime_max_rss_bytes"`
-	SyncDir             string    `json:"-"`
-	Backend             string    `json:"backend"`
-	Route               string    `json:"route"`
-	Parallel            int       `json:"parallel"`
-	Count               int       `json:"count"`
-	Go                  string    `json:"go"`
-	GOMAXPROCS          int       `json:"gomaxprocs"`
-	Version             string    `json:"server_version"`
-	StartMS             float64   `json:"root_start_ms"`
-	SnapshotMS          float64   `json:"snapshot_ms"`
-	BatchMS             float64   `json:"batch_ms"`
-	Samples             []Sample  `json:"samples"`
-	RootClosed          bool      `json:"root_closed_before_forks"`
-	Cleanup             bool      `json:"cleanup_complete"`
-	Corrupt             bool      `json:"corrupt_seed"`
-	Success             bool      `json:"success"`
-	Error               string    `json:"error,omitempty"`
+	Startup             *timing.Trace `json:"startup_trace"`
+	IO                  IOProfile     `json:"io_profile"`
+	CPUUserMS           float64       `json:"cpu_user_ms"`
+	CPUSystemMS         float64       `json:"cpu_system_ms"`
+	MinorFaults         int64         `json:"minor_faults"`
+	MajorFaults         int64         `json:"major_faults"`
+	VoluntarySwitches   int64         `json:"voluntary_switches"`
+	InvoluntarySwitches int64         `json:"involuntary_switches"`
+	LifetimeMaxRSSBytes int64         `json:"lifetime_max_rss_bytes"`
+	SyncDir             string        `json:"-"`
+	Backend             string        `json:"backend"`
+	Route               string        `json:"route"`
+	Parallel            int           `json:"parallel"`
+	Count               int           `json:"count"`
+	Go                  string        `json:"go"`
+	GOMAXPROCS          int           `json:"gomaxprocs"`
+	Version             string        `json:"server_version"`
+	StartMS             float64       `json:"root_start_ms"`
+	SnapshotMS          float64       `json:"snapshot_ms"`
+	BatchMS             float64       `json:"batch_ms"`
+	Samples             []Sample      `json:"samples"`
+	RootClosed          bool          `json:"root_closed_before_forks"`
+	Cleanup             bool          `json:"cleanup_complete"`
+	Corrupt             bool          `json:"corrupt_seed"`
+	Success             bool          `json:"success"`
+	Error               string        `json:"error,omitempty"`
 }
 
 func ms(t time.Duration) float64 { return float64(t) / 1e6 }
@@ -131,6 +134,11 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 	begin := time.Now()
 	s.OffsetMS = ms(begin.Sub(batchStart))
 	defer func() { s.TotalMS = ms(time.Since(begin)) }()
+	ctx = timing.WithRecorder(ctx, func(t timing.Trace) {
+		if t.Operation == "startup" {
+			s.Startup = &t
+		}
+	})
 	d, e := sn.Fork(ctx)
 	s.ForkMS = ms(time.Since(begin))
 	if e != nil {
@@ -199,6 +207,21 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 	if e != nil {
 		return s, e
 	}
+	if os.Getenv("MARIAMEM_EXPERIMENT_HOLD") == "1" {
+		if e = os.WriteFile(filepath.Join(experimentSync, "held"), []byte("held"), 0600); e != nil {
+			return s, e
+		}
+		for {
+			if _, e = os.Stat(filepath.Join(experimentSync, "release")); e == nil {
+				break
+			}
+			select {
+			case <-ctx.Done():
+				return s, ctx.Err()
+			case <-time.After(time.Millisecond):
+			}
+		}
+	}
 	s.Oracle = true
 	return s, nil
 }
@@ -206,6 +229,11 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 	ctx, cancel := context.WithTimeout(context.Background(), 180*time.Second)
 	defer cancel()
 	at := time.Now()
+	ctx = timing.WithRecorder(ctx, func(t timing.Trace) {
+		if t.Operation == "startup" {
+			r.Startup = &t
+		}
+	})
 	root, e := start(ctx)
 	r.StartMS = ms(time.Since(at))
 	if e != nil {
@@ -350,6 +378,9 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 	}
 	return err
 }
+
+var experimentSync string
+
 func Main(backend string, start func(context.Context) (*Database, error)) {
 	r := &Report{Backend: backend, Go: runtime.Version(), GOMAXPROCS: runtime.GOMAXPROCS(0)}
 	flag.StringVar(&r.Route, "route", "tcp", "tcp or pipe (pgmem only)")
@@ -364,6 +395,10 @@ func Main(backend string, start func(context.Context) (*Database, error)) {
 	if *out == "" || r.Parallel < 1 || r.Count < r.Parallel || r.Parallel > 8 {
 		fmt.Fprintln(os.Stderr, "invalid arguments")
 		os.Exit(2)
+	}
+	experimentSync = r.SyncDir
+	if os.Getenv("MARIAMEM_EXPERIMENT_HOLD") == "1" && (r.Parallel != 1 || r.Count != 1 || r.SyncDir == "") {
+		panic("memory observation requires exactly one held child")
 	}
 	e := run(r, start)
 	e = errors.Join(e, base.DiagDump(*out+".trace.json"))
