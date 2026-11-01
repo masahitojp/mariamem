@@ -20,8 +20,10 @@ and in the recursive campaign input hashes.
 | Ubuntu24.04 x86_64 | 3.14.9 | installed,20 PASS |
 
 `receipt.json` binds three downloaded ZIPs to their GitHub artifact digests and
-retains raw/saved file hashes. It preserves the aggregate READY and eight
-input/result JSONs. Home prefixes are normalized. Per-case stdout, component
+retains raw/saved file hashes. It preserves a compact aggregate READY summary and eight
+input/result JSONs. The full wheel/source-file inventories are omitted; guarded
+backend presence is derived from the original wheel records. The original READY
+file hash and artifact digest remain recorded. Home prefixes are normalized. Per-case stdout, component
 logs and the older/native campaign output remain in GitHub artifacts with finite
 retention; this directory does not claim to preserve all of those raw logs.
 

@@ -1,0 +1,43 @@
+{
+  "source_commit": "90e7ed5f631533929000f390b67847b9549c3ab8",
+  "result": "READY",
+  "contract": "generated-go-v1",
+  "git_tag": "v0.6.0",
+  "python_version": "0.6.0",
+  "assets": {
+    "mariamem-0.6.0-corresponding-source.tar.gz": "3b522ecd0aa8f1060f24db797012d6f5e64098068e9fee8e4358422bc4f2ee1b",
+    "mariamem-0.6.0-provenance.json": "bbf5d5276823fcdb4cadf88ed0c656adf443518e602edc69e2680ac7b671770e",
+    "mariamem-0.6.0-py3-none-linux_x86_64.whl": "67abadc6b9e562daf34e3e598ae1c88be069dab670c27266d32caf826797a8da",
+    "mariamem-0.6.0-py3-none-macosx_15_0_arm64.whl": "829228da29150c21e1d7f5234ca4584f20792f8b75bce4015b619dcba804d3d0"
+  },
+  "platforms": {
+    "darwin-arm64": {
+      "source_commit": "90e7ed5f631533929000f390b67847b9549c3ab8",
+      "result": "READY",
+      "platform": "darwin-arm64",
+      "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+      "acceptance_sha256": "2ed37f5b6b63193504d391fbc4b5bc564fbfa0695a5f036952003d6e33b8bbab",
+      "build_evidence_sha256": "91841849ab404d98c945d2f0424fa7a73113785718f3936b7c929a6881c460fe",
+      "regeneration_sha256": "fae5ba35e6ff0f2d8fa7c45d51d8415de0d713e1ba2a1051b8e3a0ff002e432e",
+      "assets": {
+        "mariamem-0.6.0-corresponding-source.tar.gz": "3b522ecd0aa8f1060f24db797012d6f5e64098068e9fee8e4358422bc4f2ee1b",
+        "mariamem-0.6.0-py3-none-macosx_15_0_arm64.whl": "829228da29150c21e1d7f5234ca4584f20792f8b75bce4015b619dcba804d3d0"
+      },
+      "guarded_backend_in_wheel": true
+    },
+    "ubuntu24.04-x86_64": {
+      "source_commit": "90e7ed5f631533929000f390b67847b9549c3ab8",
+      "result": "READY",
+      "platform": "ubuntu24.04-x86_64",
+      "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+      "acceptance_sha256": "d9435604dd4914bd128a008e573c381e8b5e22cee9a7f7ec76f762ec743bc6e5",
+      "build_evidence_sha256": "91841849ab404d98c945d2f0424fa7a73113785718f3936b7c929a6881c460fe",
+      "regeneration_sha256": "fae5ba35e6ff0f2d8fa7c45d51d8415de0d713e1ba2a1051b8e3a0ff002e432e",
+      "assets": {
+        "mariamem-0.6.0-corresponding-source.tar.gz": "3b522ecd0aa8f1060f24db797012d6f5e64098068e9fee8e4358422bc4f2ee1b",
+        "mariamem-0.6.0-py3-none-linux_x86_64.whl": "67abadc6b9e562daf34e3e598ae1c88be069dab670c27266d32caf826797a8da"
+      },
+      "guarded_backend_in_wheel": true
+    }
+  }
+}

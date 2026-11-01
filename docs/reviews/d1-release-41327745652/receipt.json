@@ -20,10 +20,6 @@
     }
   ],
   "files": {
-    "ci-ready.json": {
-      "raw_sha256": "831790acedc35414fae1787d39fe25b9f4f0280c53740146ed7ee1e8b7ab33ce",
-      "sha256": "f0f8d8c7ec0c2d0aaa41d9e356f9a51817751ef630a4a68d627dca737813ba52"
-    },
     "macos/py3.11/inputs.json": {
       "raw_sha256": "39b7c82c230d212275d7826df3f56cb14c6359577386068ca4353439c66e69aa",
       "sha256": "b75c9720a62ae76a3d5f787b4ef67ec348d156235136681353fb6d58fb52c89a"
@@ -55,6 +51,11 @@
     "ubuntu/py3.14/assessment.json": {
       "raw_sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8",
       "sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8"
+    },
+    "ci-ready-summary.json": {
+      "raw_sha256": "831790acedc35414fae1787d39fe25b9f4f0280c53740146ed7ee1e8b7ab33ce",
+      "sha256": "aa5e9e18c939c1ded89f62eb505485aa663e5a654a4a6c1135b3f6404d59311f",
+      "transformation": "Selected decision/source/platform/artifact hashes; guarded_backend_in_wheel derived from wheel file inventory. Full inventory omitted."
     }
   }
 }
