@@ -1,0 +1,46 @@
+[
+  {
+    "stage": "baseline",
+    "rss_bytes": 52346880
+  },
+  {
+    "stage": "child1_reserve",
+    "rss_bytes": 52428800
+  },
+  {
+    "stage": "child1_construct",
+    "rss_bytes": 68288512
+  },
+  {
+    "stage": "child1_ready",
+    "rss_bytes": 133283840
+  },
+  {
+    "stage": "child1_checked",
+    "rss_bytes": 133414912
+  },
+  {
+    "stage": "child2_reserve",
+    "rss_bytes": 133431296
+  },
+  {
+    "stage": "child2_construct",
+    "rss_bytes": 149274624
+  },
+  {
+    "stage": "child2_ready",
+    "rss_bytes": 214827008
+  },
+  {
+    "stage": "child2_checked",
+    "rss_bytes": 214974464
+  },
+  {
+    "stage": "after_content_comparison",
+    "rss_bytes": 215121920
+  },
+  {
+    "stage": "closed_children",
+    "rss_bytes": 58327040
+  }
+]

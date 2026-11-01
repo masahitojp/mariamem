@@ -1,0 +1,74 @@
+{
+  "plan": {
+    "question": "Is repeated initial-memory construction responsible for per-Fork CPU/RSS?",
+    "sources": {
+      "mariamem": {
+        "release_tag": "v0.6.0",
+        "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+        "tag_object_sha": "b57183b08d48884840111e8b53daa500734337f0"
+      }
+    },
+    "go": "go1.27.3",
+    "gomaxprocs": 8,
+    "fixture": "1000 integer rows, same fork_probe COUNT/SUM oracle",
+    "profile": {
+      "repetitions": 2,
+      "children_per_process": 100,
+      "engine": "unmodified exact release; profile includes child creation, oracle, cleanup"
+    },
+    "stages": {
+      "repetitions": 5,
+      "retained_children": 2,
+      "overlay": "observation hooks only at memory reservation and generated-Go construction; no algorithm change",
+      "comparison": "resident guest-memory page contents: identical does not imply safely shareable"
+    },
+    "budget": {
+      "active_minutes": 75,
+      "tooling_minutes": 20,
+      "heavy_ci": 0,
+      "workspace_gib": 8,
+      "min_free_gib": 16
+    },
+    "stop": "identify dominant CPU and where residency appears; assess initial-image hypothesis without implementing sharing or expanding qualification"
+  },
+  "harness_source_commit": "78b7c62400aff02f315386f5acc6509147a97e96",
+  "host": {
+    "os": "27.2",
+    "arch": "arm64",
+    "cpu": "Apple M1",
+    "ram_bytes": 17179869184
+  },
+  "binaries": {
+    "profile": {
+      "sha256": "f9a9abd6a55133f0f46f2d2b42b9e577b916a2ee8caa1935001a946905baa34e",
+      "build_info": "<WORKSPACE>/temp/bin/profile: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkattribution/profile\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/forkattribution\tv0.0.0-20261101085829-78b7c62400af\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.0\n\t=>\t../../../temp/product\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=78b7c62400aff02f315386f5acc6509147a97e96\n\tbuild\tvcs.time=2026-11-01T08:58:29Z\n\tbuild\tvcs.modified=false\n",
+      "overlay_applied": false
+    },
+    "stages": {
+      "sha256": "3c5b243d22c7bb767fa75d88095645465ac887143ada74d0d1e95e0071f93ec3",
+      "build_info": "<WORKSPACE>/temp/bin/stages: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkattribution/stages\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/forkattribution\tv0.0.0-20261101085829-78b7c62400af\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.0\n\t=>\t../../../temp/product\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=78b7c62400aff02f315386f5acc6509147a97e96\n\tbuild\tvcs.time=2026-11-01T08:58:29Z\n\tbuild\tvcs.modified=false\n",
+      "overlay_applied": true
+    }
+  },
+  "source_sha256": {
+    "run.py": "3a0c924742d47edd14cbd66624829ef40607b03e00f5997427da9d9a0dae22d1",
+    "go.mod": "7bf7a5d914858cfb91ced4a66d792ae9b3eb1e7f394a29a05edbeeb49463f434",
+    "plan.json": "5f4b9afc091775b536c8569cbf691eb7993b0e4812ee4a9cb8035a6cfc90da36",
+    "go.sum": "dce32be0d73495b07bb168901b642b3210f42098612f200fb259a11ea78f4926",
+    "stages/main.go": "1788839ab8d87c20a43c669b7432f3f7e860c08acd50ce9cc07224a03452eafd",
+    "common/common.go": "639d830d25e242eb0e1a865da4c99b7d3bfc2051562fb325824ada7b607d7dc3",
+    "profile/main.go": "eb88ad473a344f0ecf3a133aee102df8a315056ae8f79172a2a887893ab1a0ea",
+    "overlay/memory_backing_unix.go.txt": "1ab96f3668be2c93b1be88b1ca6cb29b16b427a2b7b010566ce8c6d321af32d9",
+    "overlay/attribution.go.txt": "2bc20c6872e2505e7201c1a80838224e952f1ec7c88863a5f4927da557939735"
+  },
+  "overlay": {
+    "<WORKSPACE>/temp/product/internal/generatedgo/attribution.go": {
+      "original_sha256": null,
+      "overlay_sha256": "2bc20c6872e2505e7201c1a80838224e952f1ec7c88863a5f4927da557939735"
+    },
+    "<WORKSPACE>/temp/product/internal/generatedgo/memory_backing_unix.go": {
+      "original_sha256": "c0e5b2538e5761e7fdaa4f542eeafd78cfc099949417e50798a9b279e9ba8b54",
+      "overlay_sha256": "1ab96f3668be2c93b1be88b1ca6cb29b16b427a2b7b010566ce8c6d321af32d9"
+    }
+  }
+}

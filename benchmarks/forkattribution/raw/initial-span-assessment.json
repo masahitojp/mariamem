@@ -1,0 +1,7 @@
+{
+  "result": "GUARD_STOP",
+  "reason": "Guest expanded beyond initial 256MiB. No measurement accepted. Initial mincore observed only initial range; correct to dynamic logical memory before comparison.",
+  "source_commit": "f8063b0ca38dd9e327b272e2c2cd4496fac12d1a",
+  "scope": "pilot only; reports preserved unchanged",
+  "storage": "Original pilot/ files moved to pilot-initial-span-guard/; original report contents and record names preserved"
+}

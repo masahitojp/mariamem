@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "profile_processes": 2,
+  "profile_children": 200,
+  "stage_processes": 5,
+  "retained_children": 10,
+  "scope": "Attribution only: no sharing algorithm/product change; staged runs are intrusive and not latency evidence"
+}

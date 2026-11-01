@@ -1,0 +1,370 @@
+File: profile
+Type: cpu
+Time: 2026-11-01 18:00:09 JST
+Duration: 4.85s, Total samples = 5340ms (110.15%)
+Showing nodes accounting for 5340ms, 100% of 5340ms total
+      flat  flat%   sum%        cum   cum%
+    1750ms 32.77% 32.77%     1750ms 32.77%  syscall.rawsyscalln
+     930ms 17.42% 50.19%      930ms 17.42%  runtime.pthread_cond_signal
+     520ms  9.74% 59.93%      520ms  9.74%  runtime.pthread_cond_wait
+     420ms  7.87% 67.79%      420ms  7.87%  runtime.memclrNoHeapPointers
+     270ms  5.06% 72.85%     1590ms 29.78%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152
+     250ms  4.68% 77.53%      250ms  4.68%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)
+     250ms  4.68% 82.21%      250ms  4.68%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn1505
+     200ms  3.75% 85.96%      200ms  3.75%  runtime.usleep
+     150ms  2.81% 88.76%      390ms  7.30%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA
+     120ms  2.25% 91.01%      400ms  7.49%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18144
+     120ms  2.25% 93.26%      120ms  2.25%  runtime.memmove
+      80ms  1.50% 94.76%     1050ms 19.66%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn468
+      50ms  0.94% 95.69%       50ms  0.94%  runtime.kevent
+      30ms  0.56% 96.25%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32At
+      30ms  0.56% 96.82%       30ms  0.56%  runtime.madvise
+      30ms  0.56% 97.38%       30ms  0.56%  runtime.nanotime1
+      20ms  0.37% 97.75%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_v128_store
+      20ms  0.37% 98.13%      280ms  5.24%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn17232
+      10ms  0.19% 98.31%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_prestat_get
+      10ms  0.19% 98.50%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.I32_div_s
+      10ms  0.19% 98.69%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_p_fx39
+      10ms  0.19% 98.88%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.simdFromU32 (inline)
+      10ms  0.19% 99.06%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18058
+      10ms  0.19% 99.25%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16604
+      10ms  0.19% 99.44%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn70
+      10ms  0.19% 99.63%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn654
+      10ms  0.19% 99.81%       10ms  0.19%  runtime.(*unwinder).resolveInternal
+      10ms  0.19%   100%       90ms  1.69%  runtime.lock2
+         0     0%   100%      790ms 14.79%  _.goready.func1
+         0     0%   100%       10ms  0.19%  database/sql.(*DB).QueryContext
+         0     0%   100%       10ms  0.19%  database/sql.(*DB).QueryContext.func1
+         0     0%   100%       10ms  0.19%  database/sql.(*DB).QueryRowContext (inline)
+         0     0%   100%       10ms  0.19%  database/sql.(*DB).conn
+         0     0%   100%       10ms  0.19%  database/sql.(*DB).query
+         0     0%   100%       10ms  0.19%  database/sql.(*DB).retry
+         0     0%   100%       10ms  0.19%  database/sql.(*driverConn).resetSession
+         0     0%   100%       10ms  0.19%  github.com/go-sql-driver/mysql.(*mysqlConn).ResetSession
+         0     0%   100%       10ms  0.19%  github.com/go-sql-driver/mysql.connCheck
+         0     0%   100%       10ms  0.19%  github.com/go-sql-driver/mysql.connCheck.func1
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem.(*Database).Close
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem.(*Database).closeLocked
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem.(*Database).removeTemporary
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem.(*Snapshot).Fork
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem.start
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/benchmarks/forkattribution/common.CheckChild
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/benchmarks/forkattribution/common.Oracle
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wake
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).Path_open2
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo.(*host).futexWake
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo.entropyFS.OpenFile
+         0     0%   100%     2820ms 52.81%  github.com/masahitojp/mariamem/internal/generatedgo.executeGuest
+         0     0%   100%      100ms  1.87%  github.com/masahitojp/mariamem/internal/generatedgo.initializeMemoryModule
+         0     0%   100%      100ms  1.87%  github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule
+         0     0%   100%      100ms  1.87%  github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.func2
+         0     0%   100%       80ms  1.50%  github.com/masahitojp/mariamem/internal/generatedgo.releaseMemoryModule
+         0     0%   100%     3000ms 56.18%  github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2
+         0     0%   100%      100ms  1.87%  github.com/masahitojp/mariamem/internal/generatedgo/code.NewWithMemory
+         0     0%   100%     2820ms 52.81%  github.com/masahitojp/mariamem/internal/generatedgo/code.Start
+         0     0%   100%       80ms  1.50%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Close
+         0     0%   100%     1320ms 24.72%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*ThreadPool).wake
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Clock_time_get
+         0     0%   100%      110ms  2.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_pread
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_pwrite
+         0     0%   100%      200ms  3.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).clockNanos
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).pathOpenOnFS
+         0     0%   100%      110ms  2.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*blockStorage).readAt (inline)
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*blockStorage).writeAt (inline)
+         0     0%   100%      110ms  2.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*memFile).ReadAt
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*memFile).WriteAt
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*memFile).writeAt
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicEA
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicNotify
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwXchg32
+         0     0%   100%      490ms  9.18%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.1
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryCopy
+         0     0%   100%      330ms  6.18%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryFill
+         0     0%   100%     1320ms 24.72%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInit
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.OpenRelative
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_i32x4_replace_lane (inline)
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_i32x4_replace_lane_scalar (inline)
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_p_i32x4_replace_lane
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.Simd_p_v128_store
+         0     0%   100%      490ms  9.18%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1
+         0     0%   100%      490ms  9.18%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1
+         0     0%   100%      200ms  3.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13500
+         0     0%   100%       90ms  1.69%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14580
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15346
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15347
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn17204
+         0     0%   100%      770ms 14.42%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn18568
+         0     0%   100%     2730ms 51.12%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5572
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn65
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14960
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14965
+         0     0%   100%      200ms  3.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn17082
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn17220
+         0     0%   100%     2820ms 52.81%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21751
+         0     0%   100%      210ms  3.93%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5009
+         0     0%   100%       60ms  1.12%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5423
+         0     0%   100%       90ms  1.69%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561
+         0     0%   100%      300ms  5.62%  github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn960
+         0     0%   100%       90ms  1.69%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14591
+         0     0%   100%      880ms 16.48%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14746
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn15267
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn16689
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn17210
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn17246
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18069
+         0     0%   100%      410ms  7.68%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18173
+         0     0%   100%       90ms  1.69%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18262
+         0     0%   100%      290ms  5.43%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18290
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn257
+         0     0%   100%     1050ms 19.66%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn465
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn5352
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn15311
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn16609
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn17242
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn17243
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn17476
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn17499
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn17509
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn17999
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18072
+         0     0%   100%      270ms  5.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18163
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18282
+         0     0%   100%     1350ms 25.28%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn20110
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn4160
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn4799
+         0     0%   100%     2730ms 51.12%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn5738
+         0     0%   100%      830ms 15.54%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn7108
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn7132
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn1172
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn16596
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17216
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17515
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17533
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17703
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18161
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn240
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn242
+         0     0%   100%       50ms  0.94%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243
+         0     0%   100%      130ms  2.43%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn4244
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn4812
+         0     0%   100%       80ms  1.50%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn813
+         0     0%   100%      170ms  3.18%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn954
+         0     0%   100%     1050ms 19.66%  github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn966
+         0     0%   100%       90ms  1.69%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14575
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn15302
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn156
+         0     0%   100%      270ms  5.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn16788
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17228
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17510
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17513
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17563
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn18227
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn18283
+         0     0%   100%      720ms 13.48%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn20095
+         0     0%   100%      490ms  9.18%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn2264
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn229
+         0     0%   100%     2730ms 51.12%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn244
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn3632
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn5006
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn773
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn10085
+         0     0%   100%      190ms  3.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn140
+         0     0%   100%      870ms 16.29%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14747
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14959
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn165
+         0     0%   100%      270ms  5.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16585
+         0     0%   100%      270ms  5.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16594
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn17003
+         0     0%   100%      200ms  3.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn17062
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn17516
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn17529
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn17954
+         0     0%   100%       90ms  1.69%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18263
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18278
+         0     0%   100%      160ms  3.00%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18279
+         0     0%   100%      200ms  3.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn198
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn217
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn2261
+         0     0%   100%      110ms  2.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn232
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn233
+         0     0%   100%      200ms  3.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn265
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn271
+         0     0%   100%     1120ms 20.97%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn765
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn781
+         0     0%   100%      300ms  5.62%  github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn969
+         0     0%   100%       60ms  1.12%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn1022
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn15229
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16595
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16597
+         0     0%   100%      270ms  5.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16598
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16605
+         0     0%   100%      270ms  5.06%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16791
+         0     0%   100%      200ms  3.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn17205
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn17498
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn17530
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn17548
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18074
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18121
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18132
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18201
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18204
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18223
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18241
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn18275
+         0     0%   100%      330ms  6.18%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn20099
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn2260
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn2262
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn2263
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn239
+         0     0%   100%      150ms  2.81%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn4180
+         0     0%   100%      130ms  2.43%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn4235
+         0     0%   100%      530ms  9.93%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn502
+         0     0%   100%      330ms  6.18%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn539
+         0     0%   100%       90ms  1.69%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5852
+         0     0%   100%      100ms  1.87%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn67
+         0     0%   100%       60ms  1.12%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn791
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn793
+         0     0%   100%      300ms  5.62%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn820
+         0     0%   100%     1050ms 19.66%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn967
+         0     0%   100%      250ms  4.68%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn980
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn981
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn10084
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn1079
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn139
+         0     0%   100%      130ms  2.43%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn14518
+         0     0%   100%     1320ms 24.72%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn151
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn154
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16582
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16618
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16786
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn17226
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn18230
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn201
+         0     0%   100%     1490ms 27.90%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn236
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn237
+         0     0%   100%       40ms  0.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn3637
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn5222
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn5746
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn71
+         0     0%   100%      130ms  2.43%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn7210
+         0     0%   100%      200ms  3.75%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn76 (partial-inline)
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn89
+         0     0%   100%      940ms 17.60%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn952
+         0     0%   100%       70ms  1.31%  github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn957
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/host.(*Server).Close
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/host.(*Server).Close.func1
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/host.(*Server).accept.func1
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/host.StartGenerated
+         0     0%   100%       30ms  0.56%  github.com/masahitojp/mariamem/internal/host.start
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/mysqlwire.(*wire).read
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/mysqlwire.(*wire).send
+         0     0%   100%       20ms  0.37%  github.com/masahitojp/mariamem/internal/mysqlwire.Serve
+         0     0%   100%      110ms  2.06%  github.com/masahitojp/mariamem/internal/prepared.(*FileStore).ReadAt
+         0     0%   100%       10ms  0.19%  github.com/masahitojp/mariamem/internal/prepared.(*FileStore).WriteAt
+         0     0%   100%       80ms  1.50%  github.com/masahitojp/mariamem/internal/prepared.Block.ReadAt (inline)
+         0     0%   100%      110ms  2.06%  github.com/masahitojp/mariamem/internal/prepared.rootRead
+         0     0%   100%       10ms  0.19%  internal/poll.(*FD).RawRead
+         0     0%   100%       10ms  0.19%  internal/poll.(*FD).Read
+         0     0%   100%      210ms  3.93%  internal/poll.(*FD).Write
+         0     0%   100%      220ms  4.12%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%       10ms  0.19%  io.ReadAtLeast
+         0     0%   100%       10ms  0.19%  io.ReadFull (inline)
+         0     0%   100%       90ms  1.69%  main.main
+         0     0%   100%       90ms  1.69%  main.run
+         0     0%   100%       20ms  0.37%  net.(*ListenConfig).Listen
+         0     0%   100%       10ms  0.19%  net.(*conn).Read
+         0     0%   100%       10ms  0.19%  net.(*conn).Write
+         0     0%   100%       10ms  0.19%  net.(*netFD).Read
+         0     0%   100%       10ms  0.19%  net.(*netFD).Write
+         0     0%   100%       10ms  0.19%  net.(*netFD).listenStream
+         0     0%   100%       10ms  0.19%  net.(*rawConn).Read
+         0     0%   100%       20ms  0.37%  net.(*sysListener).listenMPTCP
+         0     0%   100%       20ms  0.37%  net.(*sysListener).listenTCP (inline)
+         0     0%   100%       20ms  0.37%  net.(*sysListener).listenTCPProto
+         0     0%   100%       20ms  0.37%  net.Listen
+         0     0%   100%       20ms  0.37%  net.internetSocket
+         0     0%   100%       20ms  0.37%  net.socket
+         0     0%   100%       10ms  0.19%  net.sysSocket
+         0     0%   100%      200ms  3.75%  os.(*File).Write
+         0     0%   100%      200ms  3.75%  os.(*File).write (inline)
+         0     0%   100%       20ms  0.37%  os.Mkdir
+         0     0%   100%       20ms  0.37%  os.Mkdir.func1 (inline)
+         0     0%   100%       20ms  0.37%  os.MkdirTemp
+         0     0%   100%       40ms  0.75%  os.Open (inline)
+         0     0%   100%       40ms  0.75%  os.OpenFile
+         0     0%   100%       40ms  0.75%  os.Remove
+         0     0%   100%       40ms  0.75%  os.Remove.func2 (inline)
+         0     0%   100%       40ms  0.75%  os.RemoveAll (inline)
+         0     0%   100%      100ms  1.87%  os.ignoringEINTR (inline)
+         0     0%   100%       40ms  0.75%  os.open (inline)
+         0     0%   100%       40ms  0.75%  os.openFileNolog
+         0     0%   100%       40ms  0.75%  os.openFileNolog.func1 (inline)
+         0     0%   100%       40ms  0.75%  os.removeAll
+         0     0%   100%       30ms  0.56%  runtime.(*mheap).alloc.func1
+         0     0%   100%       30ms  0.56%  runtime.(*mheap).allocSpan
+         0     0%   100%       10ms  0.19%  runtime.(*mheap).freeSpan (inline)
+         0     0%   100%       10ms  0.19%  runtime.(*mheap).freeSpan.func1
+         0     0%   100%       10ms  0.19%  runtime.(*sweepLocked).sweep
+         0     0%   100%       10ms  0.19%  runtime.(*unwinder).next
+         0     0%   100%       10ms  0.19%  runtime.bgsweep
+         0     0%   100%       10ms  0.19%  runtime.closechan
+         0     0%   100%       10ms  0.19%  runtime.copystack
+         0     0%   100%      750ms 14.04%  runtime.findRunnable
+         0     0%   100%       60ms  1.12%  runtime.gcstopm
+         0     0%   100%       10ms  0.19%  runtime.goexit0
+         0     0%   100%      220ms  4.12%  runtime.gopreempt_m (inline)
+         0     0%   100%      220ms  4.12%  runtime.goschedImpl
+         0     0%   100%       90ms  1.69%  runtime.lock (partial-inline)
+         0     0%   100%       90ms  1.69%  runtime.lockWithRank (inline)
+         0     0%   100%      520ms  9.74%  runtime.mPark (inline)
+         0     0%   100%       90ms  1.69%  runtime.main
+         0     0%   100%      690ms 12.92%  runtime.mcall
+         0     0%   100%      220ms  4.12%  runtime.morestack
+         0     0%   100%       30ms  0.56%  runtime.nanotime (inline)
+         0     0%   100%       50ms  0.94%  runtime.netpoll
+         0     0%   100%      230ms  4.31%  runtime.newstack
+         0     0%   100%      520ms  9.74%  runtime.notesleep
+         0     0%   100%      930ms 17.42%  runtime.notewakeup
+         0     0%   100%       70ms  1.31%  runtime.osyield (inline)
+         0     0%   100%      680ms 12.73%  runtime.park_m
+         0     0%   100%      790ms 14.79%  runtime.ready
+         0     0%   100%      130ms  2.43%  runtime.runqgrab
+         0     0%   100%      130ms  2.43%  runtime.runqsteal
+         0     0%   100%      750ms 14.04%  runtime.schedule
+         0     0%   100%      520ms  9.74%  runtime.semasleep
+         0     0%   100%      930ms 17.42%  runtime.semawakeup
+         0     0%   100%      930ms 17.42%  runtime.startm
+         0     0%   100%      130ms  2.43%  runtime.stealWork
+         0     0%   100%      520ms  9.74%  runtime.stopm
+         0     0%   100%       10ms  0.19%  runtime.sweepone
+         0     0%   100%       30ms  0.56%  runtime.sysUsed (inline)
+         0     0%   100%       30ms  0.56%  runtime.sysUsedOS (inline)
+         0     0%   100%      830ms 15.54%  runtime.systemstack
+         0     0%   100%      940ms 17.60%  runtime.wakep
+         0     0%   100%       80ms  1.50%  syscall.(*mmapper).Munmap
+         0     0%   100%       10ms  0.19%  syscall.Bind
+         0     0%   100%       20ms  0.37%  syscall.Mkdir
+         0     0%   100%     1320ms 24.72%  syscall.Mprotect
+         0     0%   100%       80ms  1.50%  syscall.Munmap
+         0     0%   100%       40ms  0.75%  syscall.Open
+         0     0%   100%       20ms  0.37%  syscall.Read (inline)
+         0     0%   100%       40ms  0.75%  syscall.Rmdir
+         0     0%   100%       10ms  0.19%  syscall.Socket
+         0     0%   100%      210ms  3.93%  syscall.Write (inline)
+         0     0%   100%       10ms  0.19%  syscall.bind
+         0     0%   100%       80ms  1.50%  syscall.munmap
+         0     0%   100%       10ms  0.19%  syscall.rawSyscall
+         0     0%   100%       20ms  0.37%  syscall.read
+         0     0%   100%       10ms  0.19%  syscall.socket
+         0     0%   100%     1740ms 32.58%  syscall.syscall
+         0     0%   100%     1740ms 32.58%  syscall.syscalln
+         0     0%   100%      210ms  3.93%  syscall.write
+         0     0%   100%       30ms  0.56%  time.Since
+         0     0%   100%       30ms  0.56%  time.runtimeNano

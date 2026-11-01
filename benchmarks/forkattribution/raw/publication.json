@@ -1,0 +1,53 @@
+{
+  "normalization": "Owned workspace prefix only; CPU profiles lossless base64, no measurement relabelling",
+  "normalized": [
+    {
+      "file": "inputs.json",
+      "original_sha256": "76ab1b2139d8eaa9f0ca1ee2f7978669f81ebf530b176060dc90c9617d85d610",
+      "published_sha256": "28a9da98449c11eb17f783bf4298dd68f1bf422d9097afedbb8037a4c68d12f0"
+    },
+    {
+      "file": "initial-span-inputs.json",
+      "original_sha256": "bcc5ab8cc65f4470600f4d0c3e95a41b56db2de398c6fd21a60dd7b35fe4cc3c",
+      "published_sha256": "2d5439d1e05331fce77c94c4d425dfda5e19f2f2710e41c39592cf779c5c9d27"
+    }
+  ],
+  "profiles": [
+    {
+      "file": "pilot/profile-0.pprof",
+      "encoded_file": "pilot/profile-0.pprof.b64.txt",
+      "decoded_sha256": "4522c3f8df33c3c64a970e7f3268c93531ea3fa66d37137d7636d90d907c45c4",
+      "bytes": 4178
+    },
+    {
+      "file": "pilot/profile-0-negative.pprof",
+      "encoded_file": "pilot/profile-0-negative.pprof.b64.txt",
+      "decoded_sha256": "8de8ed503a1447c79482ca9c7e5a05d49716118c16c925f28b0e423e23eb6bd6",
+      "bytes": 3275
+    },
+    {
+      "file": "measure/profile-0.pprof",
+      "encoded_file": "measure/profile-0.pprof.b64.txt",
+      "decoded_sha256": "4d2e1568ff3a1a2529d6fdc9c1af0004297d4426509a3700fe50996b7f54794d",
+      "bytes": 20970
+    },
+    {
+      "file": "measure/profile-1.pprof",
+      "encoded_file": "measure/profile-1.pprof.b64.txt",
+      "decoded_sha256": "72fd773e0adbf6b9be4b66df2c7d570f5139cb5827b5c45e7341e7809a0d8c24",
+      "bytes": 18792
+    },
+    {
+      "file": "pilot-initial-span-guard/profile-0.pprof",
+      "encoded_file": "pilot-initial-span-guard/profile-0.pprof.b64.txt",
+      "decoded_sha256": "d071dac11aa396db401125382d68e404f64405c6d5f6dac6257802aaa00d8d9a",
+      "bytes": 3181
+    },
+    {
+      "file": "pilot-initial-span-guard/profile-0-negative.pprof",
+      "encoded_file": "pilot-initial-span-guard/profile-0-negative.pprof.b64.txt",
+      "decoded_sha256": "e3c6b1cad2b154bcf899361b1e8ddc7ea9e9891afe42b315550d764d96acd463",
+      "bytes": 2421
+    }
+  ]
+}

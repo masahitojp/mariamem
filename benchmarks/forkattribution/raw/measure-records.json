@@ -1,0 +1,65 @@
+[
+  {
+    "name": "measure/profile-0",
+    "negative": false,
+    "report": "measure/profile-0.json",
+    "rss": null,
+    "profile": "measure/profile-0.pprof",
+    "returncode": 0,
+    "scratch_empty": true
+  },
+  {
+    "name": "measure/profile-1",
+    "negative": false,
+    "report": "measure/profile-1.json",
+    "rss": null,
+    "profile": "measure/profile-1.pprof",
+    "returncode": 0,
+    "scratch_empty": true
+  },
+  {
+    "name": "measure/stages-0",
+    "negative": false,
+    "report": "measure/stages-0.json",
+    "rss": "measure/stages-0.rss.json",
+    "profile": null,
+    "returncode": 0,
+    "scratch_empty": true
+  },
+  {
+    "name": "measure/stages-1",
+    "negative": false,
+    "report": "measure/stages-1.json",
+    "rss": "measure/stages-1.rss.json",
+    "profile": null,
+    "returncode": 0,
+    "scratch_empty": true
+  },
+  {
+    "name": "measure/stages-2",
+    "negative": false,
+    "report": "measure/stages-2.json",
+    "rss": "measure/stages-2.rss.json",
+    "profile": null,
+    "returncode": 0,
+    "scratch_empty": true
+  },
+  {
+    "name": "measure/stages-3",
+    "negative": false,
+    "report": "measure/stages-3.json",
+    "rss": "measure/stages-3.rss.json",
+    "profile": null,
+    "returncode": 0,
+    "scratch_empty": true
+  },
+  {
+    "name": "measure/stages-4",
+    "negative": false,
+    "report": "measure/stages-4.json",
+    "rss": "measure/stages-4.rss.json",
+    "profile": null,
+    "returncode": 0,
+    "scratch_empty": true
+  }
+]

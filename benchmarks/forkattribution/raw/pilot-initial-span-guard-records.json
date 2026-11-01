@@ -1,0 +1,20 @@
+[
+  {
+    "name": "pilot/profile-0",
+    "negative": false,
+    "report": "pilot/profile-0.json",
+    "rss": null,
+    "profile": "pilot/profile-0.pprof",
+    "returncode": 0,
+    "scratch_empty": true
+  },
+  {
+    "name": "pilot/profile-0-negative",
+    "negative": true,
+    "report": "pilot/profile-0-negative.json",
+    "rss": null,
+    "profile": "pilot/profile-0-negative.pprof",
+    "returncode": 1,
+    "scratch_empty": true
+  }
+]
