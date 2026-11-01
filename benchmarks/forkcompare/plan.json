@@ -1,0 +1,22 @@
+{
+  "issue": 68,
+  "question": "Which SQL in the post-readiness interval exhibits long latency?",
+  "parallel": [
+    4,
+    8
+  ],
+  "count": 48,
+  "rounds": 3,
+  "route": "tcp",
+  "gomaxprocs": 8,
+  "fixture": "same 1000 integer rows and original SELECT1/COUNT SUM/UPDATE/SELECT oracles",
+  "change": "only per-query host wall clocks; previous RSS observer retained",
+  "stop": "one fixed 6-process normal-path matrix; no unbounded retry if tail does not reproduce",
+  "excludes": [
+    "runtime edits",
+    "transport replacement",
+    "parallel-cancellation negative",
+    "main adoption",
+    "release"
+  ]
+}
