@@ -1,0 +1,43 @@
+{
+  "installed": true,
+  "host": {
+    "source_commit": "ad9c7e67884d257a52283ce646aabcbd8af69b8b",
+    "sha256": "dbb61780f0adcea0f7094f6b8bbff4fed1d5542080ac570914c5049210e1ba74",
+    "build_info": "__HOME__/work/mariamem/mariamem/build/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261101151513-ad9c7e67884d\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=ad9c7e67884d257a52283ce646aabcbd8af69b8b\n\tbuild\tvcs.time=2026-11-01T15:15:13Z\n\tbuild\tvcs.modified=false\n"
+  },
+  "system": "Darwin",
+  "machine": "arm64",
+  "python": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "packages": {
+    "Django": "5.2.8",
+    "pytest": "9.0.2",
+    "pytest-django": "4.12.0",
+    "mysqlclient": "2.2.7"
+  },
+  "adapter_source_commit": "ad9c7e67884d257a52283ce646aabcbd8af69b8b",
+  "adapter_dirty": false,
+  "inputs": {
+    "python/mariamem/django/_cases.py": "ec0600a0aa7c3e6115a09dc416308e330d9aab8118efdd67aa69983f55315ed7",
+    "python/mariamem/django/__init__.py": "b99de026542bb189174670eb2ed70aca00e1febdd1ab33793488e4c8ece3355f",
+    "python/mariamem/django/_database.py": "b5f68e352a1a53b67ed50185fe328f85b405093051e72e2602127b9fb119fe24",
+    "python/mariamem/django/_runner.py": "3c8845fba5fc2362683f67d6e1df631fa1df954975ba3a97c6af959c9e431956",
+    "python/mariamem/django/_lifecycle.py": "a7792e087f89d560369d6fb575062496ae385152d97a7ed6fb48fa01b1411f49",
+    "python/mariamem/django/pytest_plugin.py": "47c1e298d8d64d3eecd54e9b15d926bd9058122aa7ba4ad72c4588828edc1283",
+    "tests/django_prepared/run.py": "b1002034bffee3686a98df73dafd9dababdb13b5e653c66c147ae5c8680e408b",
+    "tests/django_prepared/conftest.py": "22cae1a5228ce656c96d8e4e84eed4858409f438e899e5ab634912462ce4872f",
+    "tests/django_prepared/prepared_settings.py": "358cbc0383d36bcba438c5df3e8dd0be63fb08b6ebf922586c140671e9387e3b",
+    "tests/django_prepared/cases.py": "6afc7dd5a0514fda7ab4724e24a79f8aa60ccc4845022fcbb1dd613ba422b09c",
+    "tests/e2e_native_control/pythonapp/orders/models.py": "e751807321ff8bde129581ec99e0968ca607ecae11761ff24ff98b7162a5f25b",
+    "tests/e2e_native_control/pythonapp/orders/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/orders/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/orders/migrations/0002_status.py": "5ee59c165fbb6d2cdda5b29b0ef4ea7ee876157b966353d87d23a0e365f1d466",
+    "tests/e2e_native_control/pythonapp/orders/migrations/0001_initial.py": "67742c2448bb246afb40093e3867d12d9e713fec683cbc7fda2aee5920c03058",
+    "tests/e2e_native_control/pythonapp/orders/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/orders/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/e2e_native_control/pythonapp/orders/management/commands/seed_baseline.py": "1eb4c8f96bb7df4daac6a57c7eb5858de134505d6b4f74a5eedeeee67064bb49",
+    "tests/django_lifecycle/failure_migrations/0003_partial_failure.py": "c90c9de6149b4f48de61c4d73348f9fd89764ca85f7989c29a3cf3b9d27d27b7",
+    "tests/django_lifecycle/failure_migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/django_lifecycle/failure_migrations/0002_status.py": "b71480eb31db237a847b190c80fcbb242a98320cf147fddfb67ddf02200c5c23",
+    "tests/django_lifecycle/failure_migrations/0001_initial.py": "bde9227c4a29d02f7c8a13ee7dd7d7cda15426b20302bf29673c2d84dc667cf9"
+  }
+}

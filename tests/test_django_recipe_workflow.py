@@ -11,7 +11,9 @@ WORKFLOW = ROOT/'.github/workflows/django-lifecycle.yml'
 
 
 def step_script(text, name):
-    block = re.search(r'      - name: '+re.escape(name)+r'\n(.*?)(?=      - |\Z)', text, re.S)[1]
+    match = re.search(r'      - name: '+re.escape(name)+r'\n(.*?)(?=      - |\Z)', text, re.S)
+    assert match is not None, f'Workflow step missing: {name}'
+    block = match[1]
     return '\n'.join(line[10:] for line in block.split('        run: |\n', 1)[1].splitlines())
 
 
@@ -27,7 +29,7 @@ def test_single_host_retains_both_source_bound_python_campaigns():
         assert f"python-version: '{minor}'" in recipe
         assert 'name: django-native-'+minor+'-${{ inputs.source_commit }}' in recipe
         assert 'path: build/django-reference/py'+minor in recipe
-    acceptance = step_script(text, 'Standard runner, mixed orders, original errors and owner disposal on both interpreters')
+    acceptance = step_script(text, 'Standard runner and prepared entry on both interpreters')
     assert 'for py in "$PY311" "$PY314"' in acceptance
     assert '--host build/mariamem-host' in acceptance
     assert '--reference "build/django-reference/py$version/reference"' in acceptance
@@ -39,29 +41,48 @@ def test_single_host_retains_both_source_bound_python_campaigns():
     assert 'check_reference(reference, args.expected_source_commit, current_inputs, minor)' in ci
 
 
-@pytest.mark.parametrize('failed_minor', ['', '3.11', '3.14'])
-def test_both_interpreters_execute_and_either_failure_fails_job(tmp_path, failed_minor):
-    # Execute the actual workflow shell, substituting only Python entrypoints.
-    # Portable units are owned by the shared matrix (test_release_features.py).
+@pytest.mark.parametrize('failed_minor,failed_kind', [('', ''),
+    ('3.11', 'standard'), ('3.14', 'standard'),
+    ('3.11', 'units'), ('3.14', 'units'),
+    ('3.11', 'prepared'), ('3.14', 'prepared')])
+def test_both_interpreters_execute_and_either_failure_fails_job(tmp_path, failed_minor, failed_kind):
+    # Execute the actual workflow shell; mock only Python entrypoints, not the
+    # status aggregation. Failure in any campaign must fail the complete job.
     script = step_script(WORKFLOW.read_text(),
-                         'Standard runner, mixed orders, original errors and owner disposal on both interpreters')
+                         'Standard runner and prepared entry on both interpreters')
     paths = {}
     for minor in ['3.11', '3.14']:
         executable = tmp_path/('python'+minor)
         executable.write_text('#!/bin/sh\n'
                               'if [ "$1" = "-c" ]; then echo '+minor+'; exit 0; fi\n'
-                              'printf "%s\\n" "'+minor+' $*" >> "$CALLS"\n'
-                              '[ "$FAIL_MINOR" != "'+minor+'" ]\n')
+                              'case "$*" in\n'
+                              '  *tests/django_lifecycle/ci.py*) kind=standard ;;\n'
+                              '  *tests/django_prepared/run.py*) kind=prepared ;;\n'
+                              '  "-m pytest "*) kind=units ;;\n'
+                              '  "-m pip install "*) kind=install ;;\n'
+                              '  *) exit 99 ;;\n'
+                              'esac\n'
+                              'printf "%s\\n" "'+minor+' $kind $*" >> "$CALLS"\n'
+                              'if [ "$FAIL_MINOR" = "'+minor+'" ] && [ "$FAIL_KIND" = "$kind" ]; then exit 1; fi\n')
         executable.chmod(0o755)
         paths[minor] = str(executable)
     calls = tmp_path/'calls'
     env = dict(os.environ, PY311=paths['3.11'], PY314=paths['3.14'], CALLS=str(calls),
-               FAIL_MINOR=failed_minor, RUNNER_TEMP=str(tmp_path), SOURCE_COMMIT='a'*40)
+               FAIL_MINOR=failed_minor, FAIL_KIND=failed_kind,
+               RUNNER_TEMP=str(tmp_path), SOURCE_COMMIT='a'*40)
     result = subprocess.run(['bash', '-e', '-o', 'pipefail', '-c', script], env=env)
     assert result.returncode == (1 if failed_minor else 0)
     observed = calls.read_text().splitlines()
-    assert len(observed) == 2
-    assert observed[0].startswith('3.11 ') and observed[1].startswith('3.14 ')
-    assert 'py3.11/reference' in observed[0] and 'py3.11/acceptance' in observed[0]
-    assert 'py3.14/reference' in observed[1] and 'py3.14/acceptance' in observed[1]
-    assert all('--host build/mariamem-host' in row for row in observed)
+    assert len(observed) == 8
+    for index, minor in enumerate(['3.11', '3.14']):
+        standard, units, install, prepared = observed[index*4:index*4+4]
+        assert standard.startswith(minor+' standard ')
+        assert 'py'+minor+'/reference' in standard and 'py'+minor+'/acceptance' in standard
+        assert '--host build/mariamem-host' in standard
+        assert units.startswith(minor+' units ')
+        assert 'tests/test_django_prepared_owners.py tests/test_django_prepared_api.py' in units
+        assert install.startswith(minor+' install -m pip install --no-deps ')
+        assert prepared.startswith(minor+' prepared ')
+        assert '--installed' in prepared and '--host-source-commit '+('a'*40) in prepared
+        assert '--host build/mariamem-host' in prepared
+        assert 'py'+minor+'/prepared' in prepared

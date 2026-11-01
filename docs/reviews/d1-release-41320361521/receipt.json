@@ -1,0 +1,50 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41320361521",
+  "source_commit": "ad9c7e67884d257a52283ce646aabcbd8af69b8b",
+  "artifacts": [
+    {
+      "platform": "ubuntu",
+      "artifact_id": 13089571551,
+      "zip_sha256": "6d785bbac39622ce3e8d85ce03d77dcee9444c668c5c62f237b8bc78724e610d"
+    },
+    {
+      "platform": "macos",
+      "artifact_id": 13089277548,
+      "zip_sha256": "b844794b13fcdbac40eaf287f4191bfc66af8cfac99b9c85021ca82d1500ca49"
+    }
+  ],
+  "files": {
+    "ubuntu/py3.11/inputs.json": {
+      "raw_sha256": "f1abbc8511865c34e554e8e525e42da10cdca627921e38eff6985595327cb915",
+      "sha256": "a5bbad5504246950c6d8fc5a27e9b9f89f1cf5727463a8a5a2a19aa0c4c6a812"
+    },
+    "ubuntu/py3.11/assessment.json": {
+      "raw_sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8",
+      "sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8"
+    },
+    "ubuntu/py3.14/inputs.json": {
+      "raw_sha256": "2eba5a13137456abf52379af4d0f177ffa1cdaaf5f56112d3a3a91fc27c78252",
+      "sha256": "fac5234a61aabf8e3f289a08e2d1023e6930db2dfcab67474b14ce0a53c994f9"
+    },
+    "ubuntu/py3.14/assessment.json": {
+      "raw_sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8",
+      "sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8"
+    },
+    "macos/py3.11/inputs.json": {
+      "raw_sha256": "9a16b6b3e083b1f0231d3bcad39c825dbf79e173db69260573d6fc6aeaf2eb1c",
+      "sha256": "f739c7ba983c0493a862a82e9c4b0a7ef4f6b79bb9b97ff029c4a7d8b231f9fa"
+    },
+    "macos/py3.11/assessment.json": {
+      "raw_sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8",
+      "sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8"
+    },
+    "macos/py3.14/inputs.json": {
+      "raw_sha256": "c0c6e2167e91a286a21a951a1c75de1d57e4bb702f713d6d7b2cb2d1d819087a",
+      "sha256": "de6b99a9b0289b0fd6a58f901d7c8ff272897b8430de8722e324b4fb05cca8bc"
+    },
+    "macos/py3.14/assessment.json": {
+      "raw_sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8",
+      "sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8"
+    }
+  }
+}

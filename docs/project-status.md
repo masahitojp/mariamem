@@ -2080,3 +2080,13 @@ the matrix remains pending. The [checkpoint](reviews/d1-v061-implementation.md#h
 records the decision, strongest objection and actual/component failure map.
 No unconditional integration or publication is authorized. Unified routing and
 prepared ownership would require a new design comparison first.
+
+**D1 installed-wheel checkpoint — Release41320361521:** the four existing
+macOS15/Ubuntu24.04 × Python3.11/3.14 cells PASS at source_commit
+`ad9c7e67884d257a52283ce646aabcbd8af69b8b`, each with `installed=true` and20
+scenario assessments. [The receipt and diagnosis](reviews/d1-release-41320361521/README.md)
+record condition(a)'s executed source. Both core jobs failed four existing
+workflow tests because the new step name was not synchronized; the test-only
+repair now exercises all four commands per interpreter and failure propagation
+for standard, unit and prepared checks. The original run is not READY. No new
+exact-SHA Release result, main merge or publication is claimed.
