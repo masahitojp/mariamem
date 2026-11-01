@@ -37,8 +37,9 @@ def reduce_trace(path,report):
  for a,b,ms in clients:
   if sample[a['a']]['count_ms']<=100:continue
   child=a['a'];ii=bindings[child];ie=inst[ii];start,end=a['ns'],b['ns'];window=[e for e in ie if start<=e['ns']<=end]
-  ps=[v for k,v in policies.items() if any(e['span']==k for e in window)]
-  previous=[v for k,v in policies.items() if v['ns']<start and any(e['span']==k for e in ie)]
+  window_spans={e['span'] for e in window};instance_spans={e['span'] for e in ie}
+  ps=[v for k,v in policies.items() if k in window_spans]
+  previous=[v for k,v in policies.items() if v['ns']<start and k in instance_spans]
   changes=[dict(ns=e['ns'],argument=e['a'],effective=e['b'],stack=stack(e)) for e in ie if e['kind']=='concurrency_store']
   ticks=[]
   for u,v,duration in pairs:
@@ -60,13 +61,22 @@ def reduce_trace(path,report):
    if u['instance']==ii and u['kind']=='add_thread_begin' and start<=u['ns']<=end:
     fs=stack(u);adds.append(dict(begin_ns=u['ns'],end_ns=v['ns'],duration_ms=duration,thread=u['thread'],route='concurrency_policy' if any('Fn16595' in f for f in fs) else 'maintenance_stall_fallback' if any('Fn16602' in f for f in fs) else 'other',stack=fs))
   cases.append(dict(child=child,instance=ii,count_begin_ns=start,count_end_ns=end,count_ms=sample[child]['count_ms'],recorded_client_ms=ms,guest_startup=sample[child]['startup_trace']['guest'],previous_policy=previous[-1] if previous else None,policies_during_count=ps,concurrency_changes=changes,maintenance=ticks,read_waits=reads,atomic_waits=ww,queued_tasks=ts[:8],add_thread_requests=adds,thread_starts=[e for e in window if e['kind']=='thread_start'],max_pread_ms=max((duration for u,v,duration in pairs if u['instance']==ii and u['kind']=='pread_begin' and u['ns']<end and v['ns']>start),default=None)))
- return dict(trace_sha256=sha(path),event_count=len(es),dropped=t['dropped'],bindings={str(k):v for k,v in bindings.items()},clients=[dict(child=a['a'],instance=bindings[a['a']],count_ms=sample[a['a']]['count_ms'],recorded_client_ms=ms,begin_ns=a['ns'],end_ns=b['ns']) for a,b,ms in clients],cases=cases,max_submit_to_start_ms=max(x['queue_ms'] for x in tasks),unexecuted_submits=sum(map(len,queue.values())))
+ client_records=[]
+ for a,b,ms in clients:
+  changes=[e for e in inst[bindings[a['a']]] if e['kind']=='concurrency_store'];assert [[e['a'],e['b']] for e in changes]==[[0,16],[4,4],[0,16],[4,4],[0,16]]
+  assert all(any('Fn18568' in f for f in stack(e)) for e in changes[1:3])
+  assert all(any('Fn17498' in f for f in stack(e)) for e in changes[3:])
+  before=[e for e in changes if e['ns']<=a['ns']];assert before
+  overlap=changes[3]['ns']<b['ns'] and changes[4]['ns']>a['ns']
+  client_records.append(dict(child=a['a'],instance=bindings[a['a']],count_ms=sample[a['a']]['count_ms'],recorded_client_ms=ms,begin_ns=a['ns'],end_ns=b['ns'],concurrency_at_begin=before[-1]['b'],background_load_overlap=overlap,count_begin_minus_background_restore_ms=(a['ns']-changes[4]['ns'])/1e6))
+ reads=[ms for a,b,ms in pairs if a['kind']=='read_wait_begin']
+ return dict(trace_sha256=sha(path),event_count=len(es),dropped=t['dropped'],bindings={str(k):v for k,v in bindings.items()},clients=client_records,cases=cases,max_submit_to_start_ms=max(x['queue_ms'] for x in tasks),max_read_wait_ms=max(reads),long_read_waits_over_100ms=sum(v>100 for v in reads),unexecuted_submits=sum(map(len,queue.values())))
 
 def summarize(d):
  out=[]
  for name,r in sorted(d['runs'].items()):
   assert r['dropped']==0 and len(r['clients'])==48
-  out.append(dict(run=name,event_count=r['event_count'],slow_counts=[dict(child=c['child'],instance=c['instance'],count_ms=c['count_ms'],read_waits=[x['duration_ms'] for x in c['read_waits']],max_queue_ms=max((x['queue_ms'] for x in c['queued_tasks']),default=None),maintenance_ticks=len(c['maintenance']),policies=[dict(concurrency=p['concurrency'],active=p['active'],standby=p['standby'],waiting=p['accounted_waiting'],long_tasks=p['long_tasks'],gate_allows=p['concurrency_gate_allows']) for p in c['policies_during_count']],add_routes=[x['route'] for x in c['add_thread_requests']]) for c in r['cases']],max_submit_to_start_ms=r['max_submit_to_start_ms']))
+  out.append(dict(run=name,event_count=r['event_count'],max_count_ms=max(c['count_ms'] for c in r['clients']),count_begin_concurrency4=sum(c['concurrency_at_begin']==4 for c in r['clients']),background_load_overlap_count=sum(c['background_load_overlap'] for c in r['clients']),max_read_wait_ms=r['max_read_wait_ms'],long_read_waits_over_100ms=r['long_read_waits_over_100ms'],slow_counts=[dict(child=c['child'],instance=c['instance'],count_ms=c['count_ms'],read_waits=[x['duration_ms'] for x in c['read_waits']],max_queue_ms=max((x['queue_ms'] for x in c['queued_tasks']),default=None),maintenance_ticks=len(c['maintenance']),policies=[dict(concurrency=p['concurrency'],active=p['active'],standby=p['standby'],waiting=p['accounted_waiting'],long_tasks=p['long_tasks'],gate_allows=p['concurrency_gate_allows']) for p in c['policies_during_count']],add_routes=[x['route'] for x in c['add_thread_requests']]) for c in r['cases']],max_submit_to_start_ms=r['max_submit_to_start_ms']))
  return out
 
 def main():

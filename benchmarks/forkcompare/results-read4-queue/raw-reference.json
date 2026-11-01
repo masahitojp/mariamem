@@ -1,0 +1,10 @@
+{
+  "ref": "refs/heads/evidence/read4-queue-20261102",
+  "source_commit": "d0ecbb8cc597acd615c6225ed1192c3d2ba51e47",
+  "path": "raw.tar.gz",
+  "bytes": 11022773,
+  "sha256": "4f6dd9ee3489cbb639d1fc80d1dd67c8416ad978cc898023ace0631174c2d4a8",
+  "members": 477,
+  "normalization": "workspace prefix only; per-file original/published hashes in archive",
+  "scope": "Issue68 read4 residual queue attribution; diagnostic instrumentation, no correction or performance claim"
+}

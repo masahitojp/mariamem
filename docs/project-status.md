@@ -14,19 +14,19 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Issue #68 — read4 alone does not establish SQL-wait resolution
+## Issue #68 — residual read4 wait remains unresolved
 
-The [additional pre-candidate evidence](../benchmarks/read-io4-evidence.md)
-retains the earlier plain comparison but narrows its interpretation. Same-binary
-macOS P8 phase runs observe COUNT >100ms in2/144 read1 children and3/144 read4
-children; read4's367–388ms waits persist after ready. Server-init medians are
-about59ms for both. Twenty fresh one-DB pairs give RSS-increment paired delta
-p50+0.383MiB/p95+1.016MiB; this is not equivalent to the historical Wasmer Ubuntu
-PSS envelope or attribution of the earlier parallel process peak. Both earlier
-and current runs are macOS, with alternating execution orders. The current
-recommendation is to hold read4 alone as a latency-resolution candidate;
+The [bounded queue follow-up](../benchmarks/read4-queue.md) records three
+read4 P8/48-child processes with direct child-instance binding. No COUNT exceeds
+100ms (maximum53.874ms), and maximum queue delay is59.722ms. All144 child
+oracles/cleanup and zero-drop checks pass;112/144 COUNT spans still overlap
+background loading. This does not explain or negate the read4's367–388ms waits
+from the [preceding phase evidence](../benchmarks/read-io4-evidence.md).
+The original-question outcome is inconclusive, so no additional setting or
+waiting-accounting correction is adopted. The fixed3-process cap is complete;
+if resumed, reduce observation overhead before another bounded capture.
 [Issue #68](https://github.com/masahitojp/mariamem/issues/68) stays open. No
-canonical guest rebuild, Ubuntu acceptance, adoption/main integration or release.
+canonical guest rebuild, Ubuntu acceptance, main integration or release.
 
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 

@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [Issue #68: residual read4 queue diagnostic](read4-queue.md): fixed3-process
+  trace did not reproduce a slow COUNT; direct child-instance mapping and
+  background overlap are verified, but residual-wait mechanism is unresolved.
+
 - [Issue #68: pre-candidate evidence](read-io4-evidence.md): same-binary macOS
   phase/child distributions find residual read4 waits; one-DB RSS paired
   observations are small. Candidate progression as a resolution is on hold.
