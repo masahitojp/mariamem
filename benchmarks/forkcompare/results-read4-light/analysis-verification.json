@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "duplicate_binding_rejected": true,
+  "dropped_events_rejected": true,
+  "routine_stacks_absent": true,
+  "atomic_pread_events_absent": true,
+  "triggered_stack_case_not_observed": true
+}

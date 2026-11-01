@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "atomic_functions_unchanged": {
+    "AtomicWait": "f7c92b57a378daeb6239b6d78e8bfd170fa1b00695db94bc345fcb3fdb2bdd05",
+    "AtomicNotify": "cfe714a89f88af955e081ce0aafb8293b039623520145636f52c7a5da03fc426"
+  },
+  "routine_runtime_callers": false
+}

@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [Issue #68: light observation](read4-light.md): residual slow COUNT remains
+  uncaptured; ordinary pool read-wait scopes corroborate null-trx accounting
+  omission and rejecting concurrency decisions. Minimal source proposal only.
+
 - [Issue #68: residual read4 queue diagnostic](read4-queue.md): fixed3-process
   trace did not reproduce a slow COUNT; direct child-instance mapping and
   background overlap are verified, but residual-wait mechanism is unresolved.

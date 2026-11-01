@@ -1,0 +1,9 @@
+{
+  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "files": {
+    "buf0rea.cc": "44fe14486d5fe9a3eff29e90353beec07da49d42413deac08acdeaa984be62ca",
+    "srv0start.cc": "92862e29209ac942c1aeb1902c8a99f8b0e6ca0243c2b539cdf0d697c965f8be",
+    "tpool_generic.cc": "5aa908eba25625c652adf3df2d08723116491127bfef1d61148f2e91a8218280"
+  },
+  "prior_archive_sha256": "4b335e1ce5cd2de71792fec78ffae79aa57df85f81005de6b85d73f561aa00d7"
+}

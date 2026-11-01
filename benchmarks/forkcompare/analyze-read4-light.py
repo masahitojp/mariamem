@@ -7,6 +7,7 @@ def enc(d):return (json.dumps(d,indent=2,sort_keys=True)+'\n').encode()
 def reduce_trace(path,report):
  t=json.loads(path.read_text());assert t['dropped']==0 and not t['routine_stack_capture'] and not t['atomic_wait_notify_hooks']
  assert not t['stacks'] and all(e['stack']==0 for e in t['events'])
+ assert not any(e['kind'] in ['wait_enter','wait_return','notify_enter','notify_return','pread_begin','pread_end'] for e in t['events'])
  es=sorted(t['events'],key=lambda e:e['ns']);frames=t['stacks'];spans=collections.defaultdict(list);inst=collections.defaultdict(list)
  for e in es:spans[e['span']].append(e);inst[e['instance']].append(e)
  def stack(e):return frames[e['stack']-1] if e['stack'] else []
@@ -64,6 +65,24 @@ def reduce_trace(path,report):
     marker=markers[-1] if markers else None
     adds.append(dict(begin_ns=u['ns'],end_ns=v['ns'],duration_ms=duration,thread=u['thread'],route=marker['kind'] if marker else 'unclassified',marker_ns=marker['ns'] if marker else None))
   cases.append(dict(child=child,instance=ii,count_begin_ns=start,count_end_ns=end,count_ms=sample[child]['count_ms'],recorded_client_ms=ms,guest_startup=sample[child]['startup_trace']['guest'],previous_policy=previous[-1] if previous else None,policies_during_count=ps,concurrency_changes=changes,maintenance=ticks,read_waits=reads,atomic_waits=ww,queued_tasks=ts[:8],add_thread_requests=adds,thread_starts=[e for e in window if e['kind']=='thread_start'],max_pread_ms=max((duration for u,v,duration in pairs if u['instance']==ii and u['kind']=='pread_begin' and u['ns']<end and v['ns']>start),default=None)))
+ # Source-path evidence in ordinary progress; not a substitute for a slow COUNT.
+ normal_paths=[]
+ for u,v,duration in pairs:
+  if u['kind']!='read_wait_begin' or u['b']!=0 or duration<1:continue
+  ii=u['instance'];thread=u['thread'];ie=inst[ii]
+  task=next((x for x in tasks if x['instance']==ii and x['worker_thread']==thread and x['start_ns']<=u['ns']<=v['ns']<=x['end_ns']),None)
+  if task is None:continue
+  begins=[e for e in ie if e['thread']==thread and e['kind']=='wait_begin_begin' and e['ns']<=u['ns']]
+  ends=[e for e in ie if e['thread']==thread and e['kind']=='wait_end_begin' and e['ns']<=u['ns']]
+  if len(begins)!=len(ends):continue
+  if any(e['thread']==thread and e['kind']=='wait_begin_begin' and u['ns']<e['ns']<=v['ns'] for e in ie):continue
+  spans_here={e['span'] for e in ie}
+  rejected=[value for key,value in policies.items() if key in spans_here and u['ns']<=value['ns']<=v['ns'] and value['queued'] and value['long_tasks']==0 and not value['concurrency_gate_allows']]
+  if not rejected:continue
+  child=next(child for child,instance in bindings.items() if instance==ii)
+  ca,cb,_=next(x for x in clients if x[0]['a']==child)
+  position='before_count' if v['ns']<=ca['ns'] else 'after_count' if u['ns']>=cb['ns'] else 'overlap_count'
+  normal_paths.append(dict(position=position,child=child,instance=ii,thread=thread,begin_ns=u['ns'],end_ns=v['ns'],read_wait_scope_ms=duration,trx_argument=0,pool_task_callback=task['callback'],wait_begin_calls_before=len(begins),wait_end_calls_before=len(ends),wait_begin_during=0,rejected_policy_count=len(rejected),example_policy=rejected[0]))
  client_records=[]
  for a,b,ms in clients:
   changes=[e for e in inst[bindings[a['a']]] if e['kind']=='concurrency_store'];assert [[e['a'],e['b']] for e in changes]==[[0,16],[4,4],[0,16],[4,4],[0,16]]
@@ -72,13 +91,13 @@ def reduce_trace(path,report):
   overlap=changes[3]['ns']<b['ns'] and changes[4]['ns']>a['ns']
   client_records.append(dict(child=a['a'],instance=bindings[a['a']],count_ms=sample[a['a']]['count_ms'],recorded_client_ms=ms,begin_ns=a['ns'],end_ns=b['ns'],concurrency_at_begin=before[-1]['b'],background_load_overlap=overlap,count_begin_minus_background_restore_ms=(a['ns']-changes[4]['ns'])/1e6))
  reads=[ms for a,b,ms in pairs if a['kind']=='read_wait_begin']
- return dict(trace_sha256=sha(path),event_count=len(es),dropped=t['dropped'],bindings={str(k):v for k,v in bindings.items()},clients=client_records,cases=cases,max_submit_to_start_ms=max(x['queue_ms'] for x in tasks),max_read_wait_ms=max(reads),long_read_waits_over_100ms=sum(v>100 for v in reads),unexecuted_submits=sum(map(len,queue.values())))
+ return dict(normal_unaccounted_read_scopes=normal_paths,trace_sha256=sha(path),event_count=len(es),dropped=t['dropped'],bindings={str(k):v for k,v in bindings.items()},clients=client_records,cases=cases,max_submit_to_start_ms=max(x['queue_ms'] for x in tasks),max_read_wait_ms=max(reads),long_read_waits_over_100ms=sum(v>100 for v in reads),unexecuted_submits=sum(map(len,queue.values())))
 
 def summarize(d):
  out=[]
  for name,r in sorted(d['runs'].items()):
   assert r['dropped']==0 and len(r['clients'])==48
-  out.append(dict(run=name,event_count=r['event_count'],triggered_stacks=r['triggered_stacks'],max_count_ms=max(c['count_ms'] for c in r['clients']),count_begin_concurrency4=sum(c['concurrency_at_begin']==4 for c in r['clients']),background_load_overlap_count=sum(c['background_load_overlap'] for c in r['clients']),max_read_wait_ms=r['max_read_wait_ms'],long_read_waits_over_100ms=r['long_read_waits_over_100ms'],slow_counts=[dict(child=c['child'],instance=c['instance'],count_ms=c['count_ms'],read_waits=[x['duration_ms'] for x in c['read_waits']],max_queue_ms=max((x['queue_ms'] for x in c['queued_tasks']),default=None),maintenance_ticks=len(c['maintenance']),policies=[dict(concurrency=p['concurrency'],active=p['active'],standby=p['standby'],waiting=p['accounted_waiting'],long_tasks=p['long_tasks'],gate_allows=p['concurrency_gate_allows']) for p in c['policies_during_count']],add_routes=[x['route'] for x in c['add_thread_requests']]) for c in r['cases']],max_submit_to_start_ms=r['max_submit_to_start_ms']))
+  out.append(dict(run=name,event_count=r['event_count'],normal_unaccounted_read_scopes=len(r['normal_unaccounted_read_scopes']),triggered_stacks=r['triggered_stacks'],max_count_ms=max(c['count_ms'] for c in r['clients']),count_begin_concurrency4=sum(c['concurrency_at_begin']==4 for c in r['clients']),background_load_overlap_count=sum(c['background_load_overlap'] for c in r['clients']),max_read_wait_ms=r['max_read_wait_ms'],long_read_waits_over_100ms=r['long_read_waits_over_100ms'],slow_counts=[dict(child=c['child'],instance=c['instance'],count_ms=c['count_ms'],read_waits=[x['duration_ms'] for x in c['read_waits']],max_queue_ms=max((x['queue_ms'] for x in c['queued_tasks']),default=None),maintenance_ticks=len(c['maintenance']),policies=[dict(concurrency=p['concurrency'],active=p['active'],standby=p['standby'],waiting=p['accounted_waiting'],long_tasks=p['long_tasks'],gate_allows=p['concurrency_gate_allows']) for p in c['policies_during_count']],add_routes=[x['route'] for x in c['add_thread_requests']]) for c in r['cases']],max_submit_to_start_ms=r['max_submit_to_start_ms']))
  return out
 
 def main():

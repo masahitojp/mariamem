@@ -1,0 +1,10 @@
+{
+  "ref": "refs/heads/evidence/read4-light-20261102",
+  "source_commit": "7039f98ece1ed156e86ad1fd4248853c35c1069e",
+  "path": "raw.tar.gz",
+  "bytes": 6121033,
+  "sha256": "54e17fcfd06587d658a332435cfc8a68f51240e258a4e512d681c1e75c5c0acc",
+  "members": 480,
+  "normalization": "workspace prefix only; per-file original/published hashes in archive",
+  "scope": "Issue68 light observation; normal unaccounted read scopes, residual COUNT not reproduced; no correction"
+}

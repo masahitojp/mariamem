@@ -14,19 +14,21 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Issue #68 — residual read4 wait remains unresolved
+## Issue #68 — light observation corroborates a source path, not a complete fix
 
-The [bounded queue follow-up](../benchmarks/read4-queue.md) records three
-read4 P8/48-child processes with direct child-instance binding. No COUNT exceeds
-100ms (maximum53.874ms), and maximum queue delay is59.722ms. All144 child
-oracles/cleanup and zero-drop checks pass;112/144 COUNT spans still overlap
-background loading. This does not explain or negate the read4's367–388ms waits
-from the [preceding phase evidence](../benchmarks/read-io4-evidence.md).
-The original-question outcome is inconclusive, so no additional setting or
-waiting-accounting correction is adopted. The fixed3-process cap is complete;
-if resumed, reduce observation overhead before another bounded capture.
-[Issue #68](https://github.com/masahitojp/mariamem/issues/68) stays open. No
-canonical guest rebuild, Ubuntu acceptance, main integration or release.
+The [light follow-up](../benchmarks/read4-light.md) removes routine stacks and
+AtomicWait/Notify hooks. Three read4 P8/48-child processes again have no COUNT
+>100ms (maximum40.086ms);144 child oracles/cleanup pass and dropped0. During
+ordinary progress,29 selected pool-worker null-trx page-read scopes have no
+waiting-accounting call while the same pool rejects waking/adding workers.
+Twenty-one overlap their own child's COUNT, but none is the sought400ms case.
+The source target is buf_page_t::read_wait's conditional tpool wait accounting;
+a minimal proposal is documented for review, with no correction implemented or
+sufficiency claim. Recommend reviewing that concrete target against the known
+product-default read1 case instead of indefinite read4 capture attempts.
+[Issue #68](https://github.com/masahitojp/mariamem/issues/68) remains open; source
+wrapper/balance checks and candidate validation are still needed. No guest
+rebuild, Ubuntu acceptance, main adoption or release.
 
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
