@@ -2134,3 +2134,11 @@ warn when successful scope exit routed no connections; warning occurs after
 cleanup and does not mask original/cleanup errors. This does not unify the two
 lifecycles or add mysqlclient routing support. Old installed-wheel receipts
 remain bound to their original source and do not qualify this changed boundary.
+
+
+The [follow-up checkpoint](reviews/d1-deferred-start.md) pins local execution to
+`86caccf57bab3bdcfbb85a29c70eaffd79ecf110`:20 real-SDK scenarios and146 focused
+checks per Python minor, plus the dependency-free policy/package check set.
+Actual check/shell and collection-only do not acquire; early SQL and mixed
+shadow_maria collection refuse before dial/acquisition. New both-OS installed
+wheel evidence remains unexecuted. No heavy CI was started for this follow-up.
