@@ -1,0 +1,19 @@
+{"event": "host", "pid": 53496}
+{"event": "prepare"}
+{"event": "host", "pid": 53496}
+{"event": "class-data"}
+{"event": "class-commit"}
+{"event": "body"}
+{"event": "body"}
+{"event": "body"}
+{"event": "commit-observed"}
+{"event": "body"}
+{"event": "prepare"}
+{"event": "host", "pid": 53512}
+{"event": "class-data"}
+{"event": "class-commit"}
+{"event": "body"}
+{"event": "body"}
+{"event": "body"}
+{"event": "commit-observed"}
+{"event": "body"}

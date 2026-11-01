@@ -1,0 +1,9 @@
+test_without_database (cases.NoDatabaseCase.test_without_database) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+Found 1 test(s).
+Skipping setup of unused database(s): default.
+System check identified no issues (0 silenced).

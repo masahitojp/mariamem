@@ -1,0 +1,6 @@
+{"event": "host", "pid": 53260}
+{"event": "prepare"}
+{"event": "host", "pid": 53260}
+{"event": "body"}
+{"event": "commit-observed"}
+{"event": "body"}

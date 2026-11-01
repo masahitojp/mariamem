@@ -1,0 +1,36 @@
+Creating test database for alias 'default' ('test_mariamem')...
+Found 4 test(s).
+Operations to perform:
+  Apply all migrations: orders
+Running migrations:
+  Applying orders.0001_initial... OK
+  Applying orders.0002_status...test_first (cases.AtomicCases.test_first) ... ok
+test_second (cases.AtomicCases.test_second) ... ok
+test_first (cases.TransactionalCases.test_first) ... ok
+test_second (cases.TransactionalCases.test_second) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.364s
+
+OK
+Destroying test database for alias 'default' ('test_mariamem')...
+Creating test database for alias 'default' ('test_mariamem')...
+ OK
+System check identified no issues (0 silenced).
+Found 4 test(s).
+Operations to perform:
+  Apply all migrations: orders
+Running migrations:
+  Applying orders.0001_initial... OK
+  Applying orders.0002_status...test_first (cases.AtomicCases.test_first) ... ok
+test_second (cases.AtomicCases.test_second) ... ok
+test_first (cases.TransactionalCases.test_first) ... ok
+test_second (cases.TransactionalCases.test_second) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.420s
+
+OK
+Destroying test database for alias 'default' ('test_mariamem')...
+ OK
+System check identified no issues (0 silenced).

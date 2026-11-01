@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.10, pytest-9.0.2, pluggy-1.7.0 -- __WORKTREE__/build/venv314/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.8, settings: prepared_settings (from env)
+rootdir: __WORKTREE__
+collecting ... collected 7 items / 3 deselected / 4 selected
+
+tests/django_prepared/cases.py::AtomicCases::test_first PASSED           [ 25%]
+tests/django_prepared/cases.py::AtomicCases::test_second PASSED          [ 50%]
+tests/django_prepared/cases.py::TransactionalCases::test_first PASSED    [ 75%]
+tests/django_prepared/cases.py::TransactionalCases::test_second PASSED   [100%]
+
+======================= 4 passed, 3 deselected in 0.47s ========================
+============================= test session starts ==============================
+platform darwin -- Python 3.14.10, pytest-9.0.2, pluggy-1.7.0 -- __WORKTREE__/build/venv314/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.8, settings: prepared_settings (from env)
+rootdir: __WORKTREE__
+collecting ... collected 7 items / 3 deselected / 4 selected
+
+tests/django_prepared/cases.py::AtomicCases::test_first PASSED           [ 25%]
+tests/django_prepared/cases.py::AtomicCases::test_second PASSED          [ 50%]
+tests/django_prepared/cases.py::TransactionalCases::test_first PASSED    [ 75%]
+tests/django_prepared/cases.py::TransactionalCases::test_second PASSED   [100%]
+
+======================= 4 passed, 3 deselected in 0.53s ========================

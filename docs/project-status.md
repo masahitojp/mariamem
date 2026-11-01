@@ -2066,6 +2066,7 @@ See the [candidate guide](django-prepared.md) for the API and initial limits.
 The work includes run ownership, partial-setup/error cleanup, admission stop
 after retirement failure and both runners. Deterministic checks belong in daily
 CI; installed-wheel acceptance belongs in the existing Release Django job,
-reusing its built host and authored orders/native controls. Candidate local
-results do not complete the two-OS/interpreter matrix. Main adoption, closing
+reusing its built host and authored orders/native controls. The [implementation checkpoint](reviews/d1-v061-implementation.md) records
+20 real-SDK scenarios per local interpreter and84 focused checks on each. Those
+local results do not complete the two-OS/installed-wheel matrix. Main adoption, closing
 #43 and versioned release approval remain pending their own evidence/decisions.
