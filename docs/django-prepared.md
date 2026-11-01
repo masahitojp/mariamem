@@ -4,7 +4,9 @@ This entry was adopted on main through [PR #67](https://github.com/masahitojp/ma
 It is not in the published v0.6.0 wheel. Both supported OSes with Python3.11/3.14
 passed installed-wheel acceptance on the reviewed candidate; see the
 [receipt and exact source](reviews/d1-release-41320361521/README.md).
-Versioned release qualification and publication remain separate.
+The [startup/routing follow-up receipt](reviews/d1-release-41327745652/README.md)
+confirms fresh four-cell installed-wheel acceptance and READY for its own
+reviewed source. Release version and publication remain separate.
 The existing [standard-runner recipe](django-testing.md) remains available.
 
 Use this entry when every test must start from the same migrated schema and
