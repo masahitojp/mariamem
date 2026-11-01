@@ -1,0 +1,44 @@
+[
+  {
+    "report": "0-observed.json",
+    "phase": 1,
+    "dst": 419737600,
+    "first_ns": 1226875,
+    "second_ns": 450292
+  },
+  {
+    "report": "0-observed.json",
+    "phase": 4,
+    "dst": 419737600,
+    "first_ns": 1161708,
+    "second_ns": 422625
+  },
+  {
+    "report": "1-observed.json",
+    "phase": 1,
+    "dst": 419737600,
+    "first_ns": 1242584,
+    "second_ns": 439667
+  },
+  {
+    "report": "1-observed.json",
+    "phase": 4,
+    "dst": 419737600,
+    "first_ns": 1168333,
+    "second_ns": 442500
+  },
+  {
+    "report": "2-observed.json",
+    "phase": 1,
+    "dst": 419737600,
+    "first_ns": 1237500,
+    "second_ns": 441583
+  },
+  {
+    "report": "2-observed.json",
+    "phase": 4,
+    "dst": 419737600,
+    "first_ns": 1162791,
+    "second_ns": 398208
+  }
+]

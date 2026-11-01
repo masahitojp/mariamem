@@ -1,5 +1,7 @@
 # Optional lifecycle benchmarks
 
+- [Fork zero-fill attribution](zero-fill.md): observed bytes, large-range overlap and callers; no zero-elision or optimization acceptance.
+
 ## Recent measurement and discovery reports
 
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)

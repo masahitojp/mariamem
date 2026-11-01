@@ -1,0 +1,8 @@
+{
+  "source_commit": "b4d6e8d290d55b8455b48f9fe86db5a7c514d775",
+  "ref": "evidence/zero-fill-20261101",
+  "path": "benchmarks/zerofill/raw",
+  "manifest_sha256": "7c2d7a391a03c961e7964283cb1d9616ccef3d0c0237c35a360925e354c3e51e",
+  "analysis_sha256": "181398defc64a24304c7075425c7413ceac55dc69ef4aa354221145cb93bb21a",
+  "retention": "Raw on separate evidence ref; select only reviewed compact final tree for any future main proposal"
+}
