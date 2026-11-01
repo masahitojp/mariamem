@@ -55,6 +55,8 @@ def run_case(host, out, runner, mode, *, installed=False):
     classes = ['AtomicCases', 'TransactionalCases']
     if mode in ('body-failure', 'prepare-failure'):
         classes = ['TransactionalCases']
+    elif mode == 'no-database':
+        classes = ['NoDatabaseCase']
     elif mode == 'class-failure':
         classes = ['SetupFailure', 'TransactionalCases']
     elif mode == 'class-skip':
@@ -99,7 +101,7 @@ def run_case(host, out, runner, mode, *, installed=False):
     while any(alive(pid) for pid in pids) and time.monotonic() < deadline:
         time.sleep(.02)
     count = lambda name: sum(r['event'] == name for r in records)
-    expected_bodies = 0 if mode in ('prepare-failure', 'busy-source', 'migration-failure') else 8 if mode == 'repeat' else 4 if mode in ('healthy', 'reverse') else 2
+    expected_bodies = 0 if mode in ('prepare-failure', 'busy-source', 'migration-failure', 'no-database') else 8 if mode == 'repeat' else 4 if mode in ('healthy', 'reverse') else 2
     runs = 2 if mode == 'repeat' else 1
     marker = dict(**{'body-failure': 'PREPARED_BODY_FAILURE',
                      'prepare-failure': 'PREPARED_SEED_FAILURE',
@@ -111,12 +113,13 @@ def run_case(host, out, runner, mode, *, installed=False):
     # Django's CLI reports startup failures as 1; pytest setup errors also use 1.
     checks = dict(within_timeout=not timed_out, exit_code=result.returncode == expected_exit,
                   bodies=count('body') == expected_bodies,
-                  prepare_once=count('prepare') == (0 if mode == 'migration-failure' else runs),
+                  prepare_once=count('prepare') == (0 if mode in ('migration-failure', 'no-database') else runs),
+                  simple_body=count('simple-body') == (1 if mode == 'no-database' else 0),
                   no_bad_body=count('BAD_BODY') == 0,
                   marker=marker is None or marker in result.stdout,
                   class_data=count('class-data') == (runs if mode in ('healthy', 'reverse', 'repeat') else 0),
                   class_commit=count('class-commit') == (runs if mode in ('healthy', 'reverse', 'repeat') else 0),
-                  independent_commit=count('commit-observed') == (0 if mode in ('prepare-failure', 'busy-source', 'migration-failure') else runs),
+                  independent_commit=count('commit-observed') == (0 if mode in ('prepare-failure', 'busy-source', 'migration-failure', 'no-database') else runs),
                   host_reaped=len(pids) == runs and not any(alive(pid) for pid in pids))
     if any(alive(pid) for pid in pids):
         # Preserve the failed cleanup observation, then stop this owned process
@@ -155,7 +158,7 @@ def main():
     (out / 'inputs.json').write_text(json.dumps(report, indent=2) + '\n')
     observations = [run_case(host, out, runner, mode, installed=args.installed) for runner in ('manage', 'pytest')
                     for mode in ('healthy', 'reverse', 'body-failure', 'class-failure',
-                                 'class-skip', 'prepare-failure', 'busy-source', 'migration-failure', 'repeat')]
+                                 'class-skip', 'prepare-failure', 'busy-source', 'migration-failure', 'repeat', 'no-database')]
     result = dict(result='PASS' if all(o['result'] == 'PASS' for o in observations) else 'FAIL',
                   observations=observations)
     (out / 'assessment.json').write_text(json.dumps(result, indent=2) + '\n')

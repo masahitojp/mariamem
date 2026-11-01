@@ -68,7 +68,8 @@ class PreparedDiscoverRunner(DiscoverRunner):
 
     def setup_databases(self, **kwargs):
         old_config = super().setup_databases(**kwargs)
-        self._mariamem_manager.prepare()
+        if old_config:  # Pure SimpleTestCase suites create no database.
+            self._mariamem_manager.prepare()
         return old_config
 
     def teardown_databases(self, old_config, **kwargs):

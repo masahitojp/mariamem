@@ -163,3 +163,20 @@ else:
     raise AssertionError('nested run admitted')
 assert calls == []
 ''')
+
+
+def test_no_database_suite_does_not_capture_uncreated_database():
+    probe('''
+from types import SimpleNamespace
+from django.test.runner import DiscoverRunner
+from mariamem.django import PreparedDiscoverRunner
+prepared = []
+runner = PreparedDiscoverRunner()
+runner._mariamem_manager = SimpleNamespace(prepare=lambda: prepared.append(True))
+DiscoverRunner.setup_databases = lambda *args, **kwargs: []
+assert runner.setup_databases() == []
+assert prepared == []
+DiscoverRunner.setup_databases = lambda *args, **kwargs: [('configured',)]
+assert runner.setup_databases() == [('configured',)]
+assert prepared == [True]
+''')

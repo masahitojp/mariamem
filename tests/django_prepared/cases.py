@@ -1,6 +1,7 @@
 import os
 import unittest
 from django.db import connection, transaction
+from django.test import SimpleTestCase
 from mariamem.django import PreparedTestCase, PreparedTransactionTestCase
 from orders.models import Order
 from prepared_settings import event
@@ -91,3 +92,9 @@ class SetupSkip(PreparedTestCase):
 
     def test_refused(self):
         event('BAD_BODY')
+
+
+class NoDatabaseCase(SimpleTestCase):
+    def test_without_database(self):
+        event('simple-body')
+        self.assertEqual(1 + 1, 2)
