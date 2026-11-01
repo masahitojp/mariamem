@@ -1,5 +1,7 @@
 # Optional lifecycle benchmarks
 
+- [16 MiB growth prototype (Issue 56)](growth-prototype.md): fewer protection calls without demonstrated CPU/latency gain; experimental, not adopted.
+
 ## Recent measurement and discovery reports
 
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)

@@ -1,0 +1,160 @@
+{
+  "scope": "5 alternating process pairs, four sequential retained children; macOS arm64 only",
+  "pairs": [
+    {
+      "pair": 0,
+      "exact": {
+        "wall_ms": 43.5555835,
+        "cpu_ms": 57.1245,
+        "protect_calls": 102.0,
+        "grow_calls": 102.0,
+        "rss_4_delta_mib": 312.359375,
+        "rss_closed_mib": 61.96875
+      },
+      "batch": {
+        "wall_ms": 38.188375,
+        "cpu_ms": 50.273499999999984,
+        "protect_calls": 12.5,
+        "grow_calls": 102.0,
+        "rss_4_delta_mib": 313.1875,
+        "rss_closed_mib": 62.4375
+      },
+      "change_percent": {
+        "wall_ms": -12.32266467053529,
+        "cpu_ms": -11.993102784269471,
+        "rss_4_delta_mib": 0.26511930368666725
+      }
+    },
+    {
+      "pair": 1,
+      "batch": {
+        "wall_ms": 37.6959375,
+        "cpu_ms": 49.43900000000001,
+        "protect_calls": 12.0,
+        "grow_calls": 102.0,
+        "rss_4_delta_mib": 312.515625,
+        "rss_closed_mib": 61.890625
+      },
+      "exact": {
+        "wall_ms": 39.170458499999995,
+        "cpu_ms": 52.18199999999999,
+        "protect_calls": 102.0,
+        "grow_calls": 102.0,
+        "rss_4_delta_mib": 312.046875,
+        "rss_closed_mib": 61.71875
+      },
+      "change_percent": {
+        "wall_ms": -3.7643700290104998,
+        "cpu_ms": -5.256601893373158,
+        "rss_4_delta_mib": 0.15021781583295368
+      }
+    },
+    {
+      "pair": 2,
+      "exact": {
+        "wall_ms": 35.6754375,
+        "cpu_ms": 46.981000000000016,
+        "protect_calls": 102.0,
+        "grow_calls": 102.0,
+        "rss_4_delta_mib": 312.015625,
+        "rss_closed_mib": 61.625
+      },
+      "batch": {
+        "wall_ms": 38.0458125,
+        "cpu_ms": 48.1695,
+        "protect_calls": 12.5,
+        "grow_calls": 102.0,
+        "rss_4_delta_mib": 312.359375,
+        "rss_closed_mib": 61.640625
+      },
+      "change_percent": {
+        "wall_ms": 6.644277312646829,
+        "cpu_ms": 2.52974606755918,
+        "rss_4_delta_mib": 0.11017076468526898
+      }
+    },
+    {
+      "pair": 3,
+      "batch": {
+        "wall_ms": 36.010062500000004,
+        "cpu_ms": 47.10300000000001,
+        "protect_calls": 12.5,
+        "grow_calls": 102.0,
+        "rss_4_delta_mib": 312.046875,
+        "rss_closed_mib": 61.5
+      },
+      "exact": {
+        "wall_ms": 35.1953125,
+        "cpu_ms": 45.897000000000006,
+        "protect_calls": 102.0,
+        "grow_calls": 102.0,
+        "rss_4_delta_mib": 312.203125,
+        "rss_closed_mib": 61.546875
+      },
+      "change_percent": {
+        "wall_ms": 2.314938956714774,
+        "cpu_ms": 2.62762272043926,
+        "rss_4_delta_mib": -0.050047545167908325
+      }
+    },
+    {
+      "pair": 4,
+      "exact": {
+        "wall_ms": 36.258521,
+        "cpu_ms": 48.465,
+        "protect_calls": 102.0,
+        "grow_calls": 102.0,
+        "rss_4_delta_mib": 312.8125,
+        "rss_closed_mib": 62.09375
+      },
+      "batch": {
+        "wall_ms": 37.211312500000005,
+        "cpu_ms": 48.98850000000001,
+        "protect_calls": 12.5,
+        "grow_calls": 102.0,
+        "rss_4_delta_mib": 312.625,
+        "rss_closed_mib": 61.765625
+      },
+      "change_percent": {
+        "wall_ms": 2.6277726551505065,
+        "cpu_ms": 1.0801609408851887,
+        "rss_4_delta_mib": -0.05994005994005569
+      }
+    }
+  ],
+  "medians": {
+    "exact": {
+      "wall_ms": 36.258521,
+      "cpu_ms": 48.465,
+      "protect_calls": 102.0,
+      "grow_calls": 102.0,
+      "rss_4_delta_mib": 312.203125,
+      "rss_closed_mib": 61.71875
+    },
+    "batch": {
+      "wall_ms": 37.6959375,
+      "cpu_ms": 48.98850000000001,
+      "protect_calls": 12.5,
+      "grow_calls": 102.0,
+      "rss_4_delta_mib": 312.515625,
+      "rss_closed_mib": 61.765625
+    }
+  },
+  "paired_change_percent": {
+    "wall_ms": {
+      "median": 2.314938956714774,
+      "min": -12.32266467053529,
+      "max": 6.644277312646829
+    },
+    "cpu_ms": {
+      "median": 1.0801609408851887,
+      "min": -11.993102784269471,
+      "max": 2.62762272043926
+    },
+    "rss_4_delta_mib": {
+      "median": 0.11017076468526898,
+      "min": -0.05994005994005569,
+      "max": 0.26511930368666725
+    }
+  }
+}

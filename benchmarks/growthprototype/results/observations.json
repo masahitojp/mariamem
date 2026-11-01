@@ -1,0 +1,626 @@
+{
+  "records": [
+    {
+      "mode": "exact",
+      "repetition": 0,
+      "negative": false,
+      "report": "measure/0-exact.json",
+      "rss": {
+        "baseline": 52428800,
+        "child-1": 133627904,
+        "child-2": 215711744,
+        "child-3": 297697280,
+        "child-4": 379961344,
+        "closed": 64978944
+      },
+      "returncode": 0
+    },
+    {
+      "mode": "batch",
+      "repetition": 0,
+      "negative": false,
+      "report": "measure/0-batch.json",
+      "rss": {
+        "baseline": 52477952,
+        "child-1": 133824512,
+        "child-2": 215957504,
+        "child-3": 298270720,
+        "child-4": 380878848,
+        "closed": 65470464
+      },
+      "returncode": 0
+    },
+    {
+      "mode": "batch",
+      "repetition": 1,
+      "negative": false,
+      "report": "measure/1-batch.json",
+      "rss": {
+        "baseline": 52396032,
+        "child-1": 133611520,
+        "child-2": 215875584,
+        "child-3": 297795584,
+        "child-4": 380092416,
+        "closed": 64897024
+      },
+      "returncode": 0
+    },
+    {
+      "mode": "exact",
+      "repetition": 1,
+      "negative": false,
+      "report": "measure/1-exact.json",
+      "rss": {
+        "baseline": 52527104,
+        "child-1": 133595136,
+        "child-2": 215678976,
+        "child-3": 297582592,
+        "child-4": 379731968,
+        "closed": 64716800
+      },
+      "returncode": 0
+    },
+    {
+      "mode": "exact",
+      "repetition": 2,
+      "negative": false,
+      "report": "measure/2-exact.json",
+      "rss": {
+        "baseline": 52527104,
+        "child-1": 134086656,
+        "child-2": 215564288,
+        "child-3": 297467904,
+        "child-4": 379699200,
+        "closed": 64618496
+      },
+      "returncode": 0
+    },
+    {
+      "mode": "batch",
+      "repetition": 2,
+      "negative": false,
+      "report": "measure/2-batch.json",
+      "rss": {
+        "baseline": 52248576,
+        "child-1": 133709824,
+        "child-2": 215744512,
+        "child-3": 297746432,
+        "child-4": 379781120,
+        "closed": 64634880
+      },
+      "returncode": 0
+    },
+    {
+      "mode": "batch",
+      "repetition": 3,
+      "negative": false,
+      "report": "measure/3-batch.json",
+      "rss": {
+        "baseline": 52625408,
+        "child-1": 133939200,
+        "child-2": 215695360,
+        "child-3": 297779200,
+        "child-4": 379830272,
+        "closed": 64487424
+      },
+      "returncode": 0
+    },
+    {
+      "mode": "exact",
+      "repetition": 3,
+      "negative": false,
+      "report": "measure/3-exact.json",
+      "rss": {
+        "baseline": 52330496,
+        "child-1": 133562368,
+        "child-2": 215433216,
+        "child-3": 297533440,
+        "child-4": 379699200,
+        "closed": 64536576
+      },
+      "returncode": 0
+    },
+    {
+      "mode": "exact",
+      "repetition": 4,
+      "negative": false,
+      "report": "measure/4-exact.json",
+      "rss": {
+        "baseline": 52477952,
+        "child-1": 134004736,
+        "child-2": 216137728,
+        "child-3": 298418176,
+        "child-4": 380485632,
+        "closed": 65110016
+      },
+      "returncode": 0
+    },
+    {
+      "mode": "batch",
+      "repetition": 4,
+      "negative": false,
+      "report": "measure/4-batch.json",
+      "rss": {
+        "baseline": 52428800,
+        "child-1": 133627904,
+        "child-2": 216236032,
+        "child-3": 298221568,
+        "child-4": 380239872,
+        "closed": 64765952
+      },
+      "returncode": 0
+    }
+  ],
+  "results": {
+    "measure/0-exact.json": {
+      "success": true,
+      "cleanup": true,
+      "children": [
+        {
+          "wall_ms": 40.98825,
+          "cpu_ms": 54.434,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 45.676667,
+          "cpu_ms": 52.33000000000001,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 41.4345,
+          "cpu_ms": 59.815,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 46.635792,
+          "cpu_ms": 64.05700000000002,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        }
+      ],
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 510,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2625372160,
+        "protect_calls": 510,
+        "protect_fallbacks": 0,
+        "release_failures": 0,
+        "releases": 5
+      }
+    },
+    "measure/0-batch.json": {
+      "success": true,
+      "cleanup": true,
+      "children": [
+        {
+          "wall_ms": 34.976584,
+          "cpu_ms": 45.246999999999986,
+          "grow_calls": 102,
+          "protect_calls": 12,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 37.406125,
+          "cpu_ms": 46.05799999999999,
+          "grow_calls": 102,
+          "protect_calls": 12,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 38.970625,
+          "cpu_ms": 56.625,
+          "grow_calls": 102,
+          "protect_calls": 13,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 39.020417,
+          "cpu_ms": 54.488999999999976,
+          "grow_calls": 102,
+          "protect_calls": 13,
+          "fallbacks": 0
+        }
+      ],
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 515,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2717908992,
+        "protect_calls": 65,
+        "protect_fallbacks": 0,
+        "release_failures": 0,
+        "releases": 5
+      }
+    },
+    "measure/1-batch.json": {
+      "success": true,
+      "cleanup": true,
+      "children": [
+        {
+          "wall_ms": 35.204791,
+          "cpu_ms": 46.108999999999995,
+          "grow_calls": 102,
+          "protect_calls": 12,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 36.893667,
+          "cpu_ms": 50.748999999999995,
+          "grow_calls": 102,
+          "protect_calls": 12,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 38.596833,
+          "cpu_ms": 51.14500000000001,
+          "grow_calls": 102,
+          "protect_calls": 12,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 38.498208,
+          "cpu_ms": 48.12900000000002,
+          "grow_calls": 102,
+          "protect_calls": 13,
+          "fallbacks": 0
+        }
+      ],
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 511,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2684354560,
+        "protect_calls": 62,
+        "protect_fallbacks": 0,
+        "release_failures": 0,
+        "releases": 5
+      }
+    },
+    "measure/1-exact.json": {
+      "success": true,
+      "cleanup": true,
+      "children": [
+        {
+          "wall_ms": 37.112292,
+          "cpu_ms": 46.955,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 35.687292,
+          "cpu_ms": 48.93000000000001,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 41.84175,
+          "cpu_ms": 59.97900000000001,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 41.228625,
+          "cpu_ms": 55.43399999999997,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        }
+      ],
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 513,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2633760768,
+        "protect_calls": 513,
+        "protect_fallbacks": 0,
+        "release_failures": 0,
+        "releases": 5
+      }
+    },
+    "measure/2-exact.json": {
+      "success": true,
+      "cleanup": true,
+      "children": [
+        {
+          "wall_ms": 36.080542,
+          "cpu_ms": 47.07600000000001,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 35.270333,
+          "cpu_ms": 46.25,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 38.352,
+          "cpu_ms": 55.12699999999998,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 35.210125,
+          "cpu_ms": 46.886000000000024,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        }
+      ],
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 511,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2633760768,
+        "protect_calls": 511,
+        "protect_fallbacks": 0,
+        "release_failures": 0,
+        "releases": 5
+      }
+    },
+    "measure/2-batch.json": {
+      "success": true,
+      "cleanup": true,
+      "children": [
+        {
+          "wall_ms": 35.616042,
+          "cpu_ms": 46.129999999999995,
+          "grow_calls": 102,
+          "protect_calls": 13,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 34.839875,
+          "cpu_ms": 44.089,
+          "grow_calls": 102,
+          "protect_calls": 12,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 40.475583,
+          "cpu_ms": 52.644000000000005,
+          "grow_calls": 102,
+          "protect_calls": 13,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 44.675,
+          "cpu_ms": 50.209,
+          "grow_calls": 102,
+          "protect_calls": 12,
+          "fallbacks": 0
+        }
+      ],
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 512,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2684354560,
+        "protect_calls": 64,
+        "protect_fallbacks": 0,
+        "release_failures": 0,
+        "releases": 5
+      }
+    },
+    "measure/3-batch.json": {
+      "success": true,
+      "cleanup": true,
+      "children": [
+        {
+          "wall_ms": 36.236917,
+          "cpu_ms": 48.12899999999999,
+          "grow_calls": 102,
+          "protect_calls": 13,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 35.167417,
+          "cpu_ms": 46.474999999999994,
+          "grow_calls": 102,
+          "protect_calls": 12,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 35.783208,
+          "cpu_ms": 47.73100000000002,
+          "grow_calls": 102,
+          "protect_calls": 12,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 36.913041,
+          "cpu_ms": 46.02699999999999,
+          "grow_calls": 102,
+          "protect_calls": 13,
+          "fallbacks": 0
+        }
+      ],
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 514,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2684354560,
+        "protect_calls": 65,
+        "protect_fallbacks": 0,
+        "release_failures": 0,
+        "releases": 5
+      }
+    },
+    "measure/3-exact.json": {
+      "success": true,
+      "cleanup": true,
+      "children": [
+        {
+          "wall_ms": 34.714417,
+          "cpu_ms": 44.42700000000001,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 35.437166,
+          "cpu_ms": 44.873999999999995,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 36.479541,
+          "cpu_ms": 50.45099999999999,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 34.953459,
+          "cpu_ms": 46.920000000000016,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        }
+      ],
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 511,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2625372160,
+        "protect_calls": 511,
+        "protect_fallbacks": 0,
+        "release_failures": 0,
+        "releases": 5
+      }
+    },
+    "measure/4-exact.json": {
+      "success": true,
+      "cleanup": true,
+      "children": [
+        {
+          "wall_ms": 34.817958,
+          "cpu_ms": 45.122,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 40.22275,
+          "cpu_ms": 54.18300000000002,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 35.627,
+          "cpu_ms": 48.658000000000015,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 36.890042,
+          "cpu_ms": 48.27199999999999,
+          "grow_calls": 102,
+          "protect_calls": 102,
+          "fallbacks": 0
+        }
+      ],
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 512,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2640642048,
+        "protect_calls": 512,
+        "protect_fallbacks": 0,
+        "release_failures": 0,
+        "releases": 5
+      }
+    },
+    "measure/4-batch.json": {
+      "success": true,
+      "cleanup": true,
+      "children": [
+        {
+          "wall_ms": 37.117542,
+          "cpu_ms": 49.331,
+          "grow_calls": 102,
+          "protect_calls": 12,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 37.633292,
+          "cpu_ms": 50.08500000000001,
+          "grow_calls": 102,
+          "protect_calls": 13,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 35.295042,
+          "cpu_ms": 46.656000000000006,
+          "grow_calls": 102,
+          "protect_calls": 13,
+          "fallbacks": 0
+        },
+        {
+          "wall_ms": 37.305083,
+          "cpu_ms": 48.646000000000015,
+          "grow_calls": 102,
+          "protect_calls": 12,
+          "fallbacks": 0
+        }
+      ],
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 513,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2701131776,
+        "protect_calls": 64,
+        "protect_fallbacks": 0,
+        "release_failures": 0,
+        "releases": 5
+      }
+    }
+  }
+}

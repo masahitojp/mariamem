@@ -1,0 +1,8 @@
+{
+  "source_commit": "8820c5ccb6d47cbd18ae3597eadb15c2dd53cd05",
+  "ref": "evidence/growth-prototype-20261101",
+  "path": "benchmarks/growthprototype/raw",
+  "manifest_sha256": "a0406e6a003d73c71a24973674ee6486b16168b92ea364509fc7d0b3ecc45349",
+  "analysis_sha256": "99086b81d016b75e83c16b4dd57f3aed392b0f2cd075783f2f98132f135f66b2",
+  "retention": "Raw evidence on pinned ref; compact final tree only. Do not merge exploratory history."
+}
