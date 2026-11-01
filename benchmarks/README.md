@@ -1,5 +1,7 @@
 # Optional lifecycle benchmarks
 
+- [Zero-fill retry cause](zero-fill-cause.md): source-bound InnoDB buffer-pool alignment retry; diagnosis only, no optimization.
+
 ## Recent measurement and discovery reports
 
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)

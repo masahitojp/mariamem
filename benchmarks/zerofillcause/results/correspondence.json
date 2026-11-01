@@ -1,0 +1,110 @@
+{
+  "result": "STATIC_CORRESPONDENCE_CONFIRMED",
+  "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "trace_source_commit": "d6e9249906b38ed1cc842865fda4b18364bd26c8",
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "patch_sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16",
+  "upstream_files": {
+    "storage/innobase/buf/buf0buf.cc": {
+      "sha256": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1",
+      "git_blob_sha1": "45b40a7e68d3a086a359a7b7bf48c9540e7ae32a",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/buf/buf0buf.cc"
+    },
+    "storage/innobase/include/buf0buf.h": {
+      "sha256": "01532d5d3495f1cb73a9c269b61e49e2671c5c43de37b9a10344b71192df8727",
+      "git_blob_sha1": "3328319fd82b4ad0c0ea98eed99f5499c193661e",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/include/buf0buf.h"
+    },
+    "mysys/my_largepage.c": {
+      "sha256": "7375cc5e78ddc18d2aa584b8855e84cff9faf4b0b7f32336257795c2a76f39e6",
+      "git_blob_sha1": "09983a61d7d2fbd74ec110534b43899122ac8784",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/my_largepage.c",
+      "patched_sha256": "a70dfe799d6e7091f4d5c8f8221a658171a309658010ef4c46dbf9ca832bbe4b"
+    },
+    "mysys/my_virtual_mem.c": {
+      "sha256": "88f26c781f18ff863eb3b4dda29d852d6ad2a0bacd726257a2038ffb2441183d",
+      "git_blob_sha1": "acd63a9b0a81c93aebfab40aaaef404bb872cc4b",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/my_virtual_mem.c",
+      "patched_sha256": "ea8d8902f9ac07987defed73e64a3dd974705f94e24bb29728c07797d75855d0"
+    }
+  },
+  "generated_sources_sha256": {
+    "internal/generatedgo/code/generated.go": "9e086c877ea141ec206fb64027f6c1a1d37a9e56a8b0f835b2634b233681ebde",
+    "internal/generatedgo/code/p0/p0_pure.go": "5f03294783565a59ee31c1012d43547f35b33e9594340f6b84ede7fff5aa83bb"
+  },
+  "generated_retry_fragment_sha256": "64ef16498596be0b1e7b43fcea95583273884d28f0e2aa9c5d758d6e7011b93d",
+  "decoded_log_strings": {
+    "8570708": "InnoDB: Cannot map innodb_buffer_pool_size_max=%zum",
+    "8570851": "InnoDB: innodb_buffer_pool_size_max=%zum, innodb_buffer_pool_size=%zum"
+  },
+  "samples": [
+    {
+      "report": "measure/0-observed.json",
+      "phase": 1,
+      "address": 419737600,
+      "first_size": 16777216,
+      "address_mod_extent": 307200,
+      "alignment_waste": 1789952,
+      "retry_size": 18567168,
+      "usable_start": 421527552,
+      "usable_bytes": 16777216
+    },
+    {
+      "report": "measure/0-observed.json",
+      "phase": 4,
+      "address": 419737600,
+      "first_size": 16777216,
+      "address_mod_extent": 307200,
+      "alignment_waste": 1789952,
+      "retry_size": 18567168,
+      "usable_start": 421527552,
+      "usable_bytes": 16777216
+    },
+    {
+      "report": "measure/1-observed.json",
+      "phase": 1,
+      "address": 419737600,
+      "first_size": 16777216,
+      "address_mod_extent": 307200,
+      "alignment_waste": 1789952,
+      "retry_size": 18567168,
+      "usable_start": 421527552,
+      "usable_bytes": 16777216
+    },
+    {
+      "report": "measure/1-observed.json",
+      "phase": 4,
+      "address": 419737600,
+      "first_size": 16777216,
+      "address_mod_extent": 307200,
+      "alignment_waste": 1789952,
+      "retry_size": 18567168,
+      "usable_start": 421527552,
+      "usable_bytes": 16777216
+    },
+    {
+      "report": "measure/2-observed.json",
+      "phase": 1,
+      "address": 419737600,
+      "first_size": 16777216,
+      "address_mod_extent": 307200,
+      "alignment_waste": 1789952,
+      "retry_size": 18567168,
+      "usable_start": 421527552,
+      "usable_bytes": 16777216
+    },
+    {
+      "report": "measure/2-observed.json",
+      "phase": 4,
+      "address": 419737600,
+      "first_size": 16777216,
+      "address_mod_extent": 307200,
+      "alignment_waste": 1789952,
+      "retry_size": 18567168,
+      "usable_start": 421527552,
+      "usable_bytes": 16777216
+    }
+  ],
+  "limits": "No new runtime execution or exact symbolmap; correspondence uses two embedded log strings, matching control flow/constants, patched source hashes and all six prior observed sizes. Performance savings and replacement allocation behavior unmeasured."
+}
