@@ -1,0 +1,56 @@
+Creating test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/source.sqlite')...
+Destroying old test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/source.sqlite')...
+Found 4 test(s).
+Operations to perform:
+  Apply all migrations: orders
+Running migrations:
+  Applying orders.0001_initial... OK
+  Applying orders.0002_status...test_01 (test_cases.AtomicCases.test_01) ... ok
+test_01 (test_cases.AtomicCases.test_01) ... ERROR
+test_02 (test_cases.AtomicCases.test_02) ... ERROR
+setUpClass (test_cases.TransactionalCases) ... ERROR
+
+======================================================================
+ERROR: test_01 (test_cases.AtomicCases.test_01)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 189, in _post_teardown
+    self._d1_scope.release()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 132, in release
+    manager.retire(self.child)
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 86, in retire
+    raise RuntimeError('D1_INJECTED_CLEANUP_FAILURE')
+RuntimeError: D1_INJECTED_CLEANUP_FAILURE
+
+======================================================================
+ERROR: test_02 (test_cases.AtomicCases.test_02)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 170, in _pre_setup
+    cls._d1_scope.acquire()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 115, in acquire
+    manager.guard()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 72, in guard
+    raise RuntimeError('D1_CLEANUP_DEBT: next body refused')
+RuntimeError: D1_CLEANUP_DEBT: next body refused
+
+======================================================================
+ERROR: setUpClass (test_cases.TransactionalCases)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 149, in setUpClass
+    cls._d1_scope = Scope()
+                    ^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 109, in __init__
+    manager.guard()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 72, in guard
+    raise RuntimeError('D1_CLEANUP_DEBT: next body refused')
+RuntimeError: D1_CLEANUP_DEBT: next body refused
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+FAILED (errors=3)
+Destroying test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/child-4.sqlite')...
+ OK
+System check identified no issues (0 silenced).

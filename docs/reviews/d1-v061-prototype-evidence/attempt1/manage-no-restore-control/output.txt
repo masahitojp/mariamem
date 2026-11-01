@@ -1,0 +1,21 @@
+Creating test database for alias 'default'...
+Destroying old test database for alias 'default'...
+.F
+======================================================================
+FAIL: test_02 (test_cases.TransactionalCases.test_02)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/test_cases.py", line 49, in test_02
+    baseline()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/test_cases.py", line 11, in baseline
+    assert c.fetchall() == [(17,)]
+           ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.005s
+
+FAILED (failures=1)
+Destroying test database for alias 'default'...
+Found 2 test(s).
+System check identified no issues (0 silenced).

@@ -1,0 +1,25 @@
+Creating test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-expected-failure/source.sqlite')...
+Destroying old test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-expected-failure/source.sqlite')...
+Found 2 test(s).
+Operations to perform:
+  Apply all migrations: orders
+Running migrations:
+  Applying orders.0001_initial... OK
+  Applying orders.0002_status...test_01 (test_cases.TransactionalCases.test_01) ... FAIL
+test_02 (test_cases.TransactionalCases.test_02) ... ok
+
+======================================================================
+FAIL: test_01 (test_cases.TransactionalCases.test_01)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/test_cases.py", line 47, in test_01
+    self.fail('D1_EXPECTED_FAILURE_AFTER_COMMIT')
+AssertionError: D1_EXPECTED_FAILURE_AFTER_COMMIT
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.006s
+
+FAILED (failures=1)
+Destroying test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-expected-failure/child-5.sqlite')...
+ OK
+System check identified no issues (0 silenced).

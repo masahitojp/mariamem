@@ -1,0 +1,45 @@
+Creating test database for alias 'default'...
+Destroying old test database for alias 'default'...
+.EEE
+======================================================================
+ERROR: test_01 (test_cases.AtomicCases.test_01)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 186, in _post_teardown
+    self._d1_scope.release()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 130, in release
+    raise RuntimeError('D1_INJECTED_CLEANUP_FAILURE')
+RuntimeError: D1_INJECTED_CLEANUP_FAILURE
+
+======================================================================
+ERROR: test_02 (test_cases.AtomicCases.test_02)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 167, in _pre_setup
+    cls._d1_scope.acquire()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 110, in acquire
+    manager.guard()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 71, in guard
+    raise RuntimeError('D1_CLEANUP_DEBT: next body refused')
+RuntimeError: D1_CLEANUP_DEBT: next body refused
+
+======================================================================
+ERROR: setUpClass (test_cases.TransactionalCases)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 146, in setUpClass
+    cls._d1_scope = Scope()
+                    ^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 104, in __init__
+    manager.guard()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 71, in guard
+    raise RuntimeError('D1_CLEANUP_DEBT: next body refused')
+RuntimeError: D1_CLEANUP_DEBT: next body refused
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+FAILED (errors=3)
+Destroying test database for alias 'default'...
+Found 4 test(s).
+System check identified no issues (0 silenced).

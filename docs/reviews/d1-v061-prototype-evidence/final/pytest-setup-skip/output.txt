@@ -1,0 +1,4 @@
+s..                                                                      [100%]
+=========================== short test summary info ============================
+SKIPPED [1] ../../../temp/venv/lib/python3.11/site-packages/_pytest/unittest.py:498: D1_EXPECTED_CLASS_SETUP_SKIP
+2 passed, 1 skipped in 0.03s

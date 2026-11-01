@@ -1,0 +1,26 @@
+Creating test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/source.sqlite')...
+Destroying old test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/source.sqlite')...
+Found 3 test(s).
+Operations to perform:
+  Apply all migrations: orders
+Running migrations:
+  Applying orders.0001_initial... OK
+  Applying orders.0002_status...setUpClass (test_cases.SetupFailure) ... ERROR
+test_01 (test_cases.TransactionalCases.test_01) ... ok
+test_02 (test_cases.TransactionalCases.test_02) ... ok
+
+======================================================================
+ERROR: setUpClass (test_cases.SetupFailure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/test_cases.py", line 57, in setUpClass
+    raise RuntimeError('D1_EXPECTED_CLASS_SETUP_FAILURE')
+RuntimeError: D1_EXPECTED_CLASS_SETUP_FAILURE
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.006s
+
+FAILED (errors=1)
+Destroying test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-setup-failure/child-6.sqlite')...
+ OK
+System check identified no issues (0 silenced).

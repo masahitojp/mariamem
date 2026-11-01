@@ -1,0 +1,10 @@
+{"event": "prepare"}
+{"event": "capture", "source": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/pytest-capture-failure/source.sqlite", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/pytest-capture-failure/baseline-0.sqlite"}
+{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/pytest-capture-failure/child-1.sqlite"}
+{"event": "setUpTestData"}
+{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/pytest-capture-failure/child-1.sqlite"}
+{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/pytest-capture-failure/child-2.sqlite"}
+{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/pytest-capture-failure/child-2.sqlite"}
+{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/pytest-capture-failure/child-3.sqlite"}
+{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/pytest-capture-failure/baseline-0.sqlite"}
+{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/pytest-capture-failure/child-3.sqlite"}

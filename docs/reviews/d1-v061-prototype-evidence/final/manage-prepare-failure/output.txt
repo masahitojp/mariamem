@@ -1,0 +1,36 @@
+Creating test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-prepare-failure/source.sqlite')...
+Destroying old test database for alias 'default' ('/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-prepare-failure/source.sqlite')...
+Found 4 test(s).
+Operations to perform:
+  Apply all migrations: orders
+Running migrations:
+  Applying orders.0001_initial... OK
+  Applying orders.0002_status...Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/lib/python3.11/site-packages/django/__main__.py", line 10, in <module>
+    management.execute_from_command_line()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/lib/python3.11/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+    utility.execute()
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/lib/python3.11/site-packages/django/core/management/__init__.py", line 436, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/lib/python3.11/site-packages/django/core/management/commands/test.py", line 24, in run_from_argv
+    super().run_from_argv(argv)
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/lib/python3.11/site-packages/django/core/management/base.py", line 416, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/lib/python3.11/site-packages/django/core/management/base.py", line 460, in execute
+    output = self.handle(*args, **options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/lib/python3.11/site-packages/django/core/management/commands/test.py", line 63, in handle
+    failures = test_runner.run_tests(test_labels)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/venv/lib/python3.11/site-packages/django/test/runner.py", line 1092, in run_tests
+    old_config = self.setup_databases(
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 201, in setup_databases
+    manager = Manager()
+              ^^^^^^^^^
+  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/worktree/benchmarks/d1-prototype/entry.py", line 63, in __init__
+    raise RuntimeError('D1_PREPARE_FAILURE')
+RuntimeError: D1_PREPARE_FAILURE
+ OK

@@ -1,0 +1,25 @@
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+__________________________ TransactionalCases.test_02 __________________________
+
+self = <test_cases.TransactionalCases testMethod=test_02>
+
+    def test_02(self):
+>       baseline()
+
+test_cases.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def baseline():
+        with connection.cursor() as c:
+            c.execute('SELECT n FROM d1_raw_sentinel')
+>           assert c.fetchall() == [(17,)]
+E           assert [(99,)] == [(17,)]
+E             
+E             At index 0 diff: (99,) != (17,)
+E             Use -v to get more diff
+
+test_cases.py:11: AssertionError
+=========================== short test summary info ============================
+FAILED test_cases.py::TransactionalCases::test_02 - assert [(99,)] == [(17,)]
+1 failed, 1 passed in 0.06s

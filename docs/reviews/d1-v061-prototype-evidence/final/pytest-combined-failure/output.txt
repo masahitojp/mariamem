@@ -1,0 +1,58 @@
+FEF                                                                      [100%]
+==================================== ERRORS ====================================
+_______________ ERROR at teardown of TransactionalCases.test_01 ________________
+entry.py:189: in _post_teardown
+    self._d1_scope.release()
+entry.py:132: in release
+    manager.retire(self.child)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <entry.Manager object at 0x108309790>
+owner = <entry.SQLiteCopy object at 0x108370910>
+
+    def retire(self, owner):
+        self.quiesce()
+        if os.environ.get('D1_FAIL_CLEANUP') == '1' and not self.cleanup_injected:
+            self.cleanup_injected = True
+            log('close_failed', path=str(owner.path), still_exists=owner.path.exists())
+>           raise RuntimeError('D1_INJECTED_CLEANUP_FAILURE')
+E           RuntimeError: D1_INJECTED_CLEANUP_FAILURE
+
+entry.py:86: RuntimeError
+=================================== FAILURES ===================================
+__________________________ TransactionalCases.test_01 __________________________
+
+self = <test_cases.TransactionalCases testMethod=test_01>
+
+    def test_01(self):
+        baseline()
+        with transaction.atomic():
+            Order.objects.create(sku='COMMIT')
+        with connection.cursor() as cur:
+            cur.execute('UPDATE d1_raw_sentinel SET n=99')
+            cur.execute('CREATE TABLE d1_added (n INT)')
+        if os.environ.get('D1_EXPECT_FAILURE') == '1':
+>           self.fail('D1_EXPECTED_FAILURE_AFTER_COMMIT')
+E           AssertionError: D1_EXPECTED_FAILURE_AFTER_COMMIT
+
+test_cases.py:47: AssertionError
+__________________________ TransactionalCases.test_02 __________________________
+entry.py:170: in _pre_setup
+    cls._d1_scope.acquire()
+entry.py:115: in acquire
+    manager.guard()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <entry.Manager object at 0x108309790>
+
+    def guard(self):
+        if self.debt:
+>           raise RuntimeError('D1_CLEANUP_DEBT: next body refused')
+E           RuntimeError: D1_CLEANUP_DEBT: next body refused
+
+entry.py:72: RuntimeError
+=========================== short test summary info ============================
+ERROR test_cases.py::TransactionalCases::test_01 - RuntimeError: D1_INJECTED_...
+FAILED test_cases.py::TransactionalCases::test_01 - AssertionError: D1_EXPECT...
+FAILED test_cases.py::TransactionalCases::test_02 - RuntimeError: D1_CLEANUP_...
+2 failed, 1 error in 0.07s

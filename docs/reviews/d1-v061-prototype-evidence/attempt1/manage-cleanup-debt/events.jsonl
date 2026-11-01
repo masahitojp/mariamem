@@ -1,0 +1,12 @@
+{"event": "prepare"}
+{"event": "capture", "source": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/source.sqlite", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/baseline-0.sqlite"}
+{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/child-1.sqlite"}
+{"event": "setUpTestData"}
+{"event": "capture", "source": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/child-1.sqlite", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/baseline-2.sqlite"}
+{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/child-3.sqlite"}
+{"event": "body", "atomic": true}
+{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/child-3.sqlite"}
+{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/baseline-2.sqlite"}
+{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/child-4.sqlite"}
+{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/baseline-0.sqlite"}
+{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-cleanup-debt/child-4.sqlite"}

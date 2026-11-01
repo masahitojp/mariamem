@@ -1,0 +1,11 @@
+{"event": "prepare"}
+{"event": "capture", "source": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-no-restore-control/source.sqlite", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-no-restore-control/baseline-0.sqlite"}
+{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-no-restore-control/child-1.sqlite"}
+{"event": "capture", "source": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-no-restore-control/child-1.sqlite", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-no-restore-control/baseline-2.sqlite"}
+{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-no-restore-control/child-3.sqlite"}
+{"event": "body", "atomic": false}
+{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-no-restore-control/child-3.sqlite"}
+{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-no-restore-control/baseline-2.sqlite"}
+{"event": "fork", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-no-restore-control/child-4.sqlite"}
+{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-no-restore-control/baseline-0.sqlite"}
+{"event": "close", "path": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/d1-class-fork/temp/campaign/manage-no-restore-control/child-4.sqlite"}
