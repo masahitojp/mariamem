@@ -1,0 +1,149 @@
+{
+  "rows": [
+    {
+      "case_window_ms": 3245.681,
+      "parallelism": 1,
+      "mode": "mariamem",
+      "median_ms": 3477.821916982066,
+      "min_ms": 3432.8328749979846,
+      "max_ms": 3538.593750039581,
+      "median_run": "matrix/trial-mariamem-p1-0.json",
+      "suite_body_ms": 3399.635209,
+      "repetitions": 5,
+      "all_cases_passed": true
+    },
+    {
+      "case_window_ms": 165.50912499999959,
+      "parallelism": 1,
+      "mode": "shared",
+      "median_ms": 4580.048167030327,
+      "min_ms": 3511.7663749842905,
+      "max_ms": 5487.860916007776,
+      "median_run": "matrix/trial-shared-p1-1.json",
+      "suite_body_ms": 4535.575708,
+      "repetitions": 5,
+      "all_cases_passed": true
+    },
+    {
+      "case_window_ms": 174.39970799999992,
+      "parallelism": 1,
+      "mode": "workers",
+      "median_ms": 4900.641416024882,
+      "min_ms": 3921.963582979515,
+      "max_ms": 7406.475999974646,
+      "median_run": "matrix/trial-workers-p1-0.json",
+      "suite_body_ms": 4845.232,
+      "repetitions": 5,
+      "all_cases_passed": true
+    },
+    {
+      "case_window_ms": 1805.0789160000002,
+      "parallelism": 2,
+      "mode": "mariamem",
+      "median_ms": 1996.6067079803906,
+      "min_ms": 1968.5986250406131,
+      "max_ms": 2075.4265839932486,
+      "median_run": "matrix/trial-mariamem-p2-3.json",
+      "suite_body_ms": 1953.580958,
+      "repetitions": 5,
+      "all_cases_passed": true
+    },
+    {
+      "case_window_ms": 141.13891599999988,
+      "parallelism": 2,
+      "mode": "shared",
+      "median_ms": 4973.549957969226,
+      "min_ms": 4349.971124960575,
+      "max_ms": 7098.540582985152,
+      "median_run": "matrix/trial-shared-p2-1.json",
+      "suite_body_ms": 4904.35025,
+      "repetitions": 5,
+      "all_cases_passed": true
+    },
+    {
+      "case_window_ms": 93.35895800000071,
+      "parallelism": 2,
+      "mode": "workers",
+      "median_ms": 4635.266750003211,
+      "min_ms": 3319.0592500031926,
+      "max_ms": 5159.871999989264,
+      "median_run": "matrix/trial-workers-p2-1.json",
+      "suite_body_ms": 4564.336375,
+      "repetitions": 5,
+      "all_cases_passed": true
+    },
+    {
+      "case_window_ms": 1281.467083,
+      "parallelism": 4,
+      "mode": "mariamem",
+      "median_ms": 1488.3965000044554,
+      "min_ms": 1432.5954579981044,
+      "max_ms": 1633.302417001687,
+      "median_run": "matrix/trial-mariamem-p4-1.json",
+      "suite_body_ms": 1430.532417,
+      "repetitions": 5,
+      "all_cases_passed": true
+    },
+    {
+      "case_window_ms": 149.49162499999966,
+      "parallelism": 4,
+      "mode": "shared",
+      "median_ms": 4843.902833003085,
+      "min_ms": 4045.65383301815,
+      "max_ms": 6938.816833018791,
+      "median_run": "matrix/trial-shared-p4-4.json",
+      "suite_body_ms": 4783.2035,
+      "repetitions": 5,
+      "all_cases_passed": true
+    },
+    {
+      "case_window_ms": 77.16450000000077,
+      "parallelism": 4,
+      "mode": "workers",
+      "median_ms": 4521.115499956068,
+      "min_ms": 3561.7085830308497,
+      "max_ms": 5384.3462920049205,
+      "median_run": "matrix/trial-workers-p4-1.json",
+      "suite_body_ms": 4477.466708,
+      "repetitions": 5,
+      "all_cases_passed": true
+    },
+    {
+      "case_window_ms": 1492.300708,
+      "parallelism": 8,
+      "mode": "mariamem",
+      "median_ms": 1696.99920801213,
+      "min_ms": 1325.9191670222208,
+      "max_ms": 2131.6268750233576,
+      "median_run": "matrix/trial-mariamem-p8-4.json",
+      "suite_body_ms": 1639.104125,
+      "repetitions": 5,
+      "all_cases_passed": true
+    },
+    {
+      "case_window_ms": 132.47400000000107,
+      "parallelism": 8,
+      "mode": "shared",
+      "median_ms": 5022.2314579878,
+      "min_ms": 3778.1199580058455,
+      "max_ms": 6299.436917004641,
+      "median_run": "matrix/trial-shared-p8-4.json",
+      "suite_body_ms": 4948.21175,
+      "repetitions": 5,
+      "all_cases_passed": true
+    },
+    {
+      "case_window_ms": 47.86779100000058,
+      "parallelism": 8,
+      "mode": "workers",
+      "median_ms": 4660.87104100734,
+      "min_ms": 4084.93841602467,
+      "max_ms": 5802.177666977514,
+      "median_run": "matrix/trial-workers-p8-1.json",
+      "suite_body_ms": 4604.651125,
+      "repetitions": 5,
+      "all_cases_passed": true
+    }
+  ],
+  "scope": "External process wall; min/max whiskers, not confidence intervals; no performance gate"
+}

@@ -2,6 +2,11 @@
 
 ## Recent measurement and discovery reports
 
+- [Parallel Go helper / Testcontainers application suite](parallel-modelcase.md)
+  and [shared-read follow-up](shared-read-modelcase.md): separate same-host cohorts,
+  compact statistics and pinned off-main traces/HTML. Report adoption is pending.
+
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained
@@ -449,3 +454,14 @@ Historical Wasmer comparisons require historical tags; current selectors reject
 legacy inputs. `v04_orm.py` is an old v0.3 harness, not a current release gate.
 
 [Final v0.4.3 baseline and compact evidence](v043-release-baseline.md).
+
+## Parallel application suite comparison
+
+[v0.6.0 Go helper versus shared/worker-schema Testcontainers](parallel-modelcase.md)
+runs the same70 application cases at parallelism1/2/4/8. The report includes whole
+suite medians/ranges, real median-run timelines and the shorter native test-only
+window; it is not a general SQL-engine throughput or resource comparison.
+
+[Shared-read follow-up](shared-read-modelcase.md) reruns the all-Fork control
+against one shared read child plus20 independent write children. This isolates
+the sharing policy on the same host; the earlier native cohort stays separate.

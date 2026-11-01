@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "original_commit": "7878b43c115d3a72f3712259e3d319d066f63bf0",
+  "normalization": "Owned workspace prefix replaced with <WORKSPACES>/; observations and source identities unchanged.",
+  "files": [
+    {
+      "path": "inputs.json",
+      "original_sha256": "bae2a2a154a95a8a4be908fc6209ef376f455829f41991550f78242dd08114bc",
+      "published_sha256": "dee5bad595c7d303cbd4c1218ad7ed105c4231f8bc69b61314ca9bc043d5692b"
+    }
+  ]
+}
