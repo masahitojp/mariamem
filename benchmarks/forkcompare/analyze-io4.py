@@ -38,11 +38,11 @@ def reduce(E):
     for e in events:groups[e['instance']].append([e['a'],e['b']])
     assert groups[1]==[[0,16]] and len(groups)==9
     assert all(v==[[0,16],[io,io],[0,16],[io,io],[0,16]] for k,v in groups.items() if k!=1)
-    out['pilots'][name]=dict(report_sha256=digest(p),trace_sha256=digest(tp),event_count=len(t['events']),dropped=t['dropped'],configuration_events=events,stacks=t['stacks'],io_profile=r['io_profile'],sequence={str(k):v for k,v in groups.items()})
+    out['pilots'][name]=dict(report_sha256=digest(p),trace_sha256=digest(tp),event_count=len(t['events']),dropped=t['dropped'],configuration_events=events,stacks={str(i):t['stacks'][i-1] for i in sorted({e['stack'] for e in events if e['stack']})},io_profile=r['io_profile'],sequence={str(k):v for k,v in groups.items()})
    else:
     assert json.loads(Path(str(p)+'.trace.json').read_text())=={}
     m=json.loads((E/record['memory']).read_text());assert m['observed_peak_active_children']==8
-    r['samples']=sorted(r['samples'],key=lambda s:s['index'])
+    r['samples']=[{k:s[k] for k in ['index','oracle','cleanup_complete','io_profile','count_ms','fork_ms','total_ms']} for s in sorted(r['samples'],key=lambda s:s['index'])]
     r.update(cpu_ms=r['cpu_user_ms']+r['cpu_system_ms'],sampled_peak_rss_bytes=m['sampled_peak_rss_bytes'],baseline_rss_bytes=m['baseline_rss_bytes'],report_sha256=digest(p),memory_sha256=digest(E/record['memory']))
     out['runs'][name]=r
  return out

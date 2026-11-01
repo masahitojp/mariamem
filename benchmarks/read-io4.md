@@ -125,6 +125,8 @@ effective-value assertion. No receipt source identity is relabeled.
 [analysis controls](forkcompare/results-io4/analysis-verification.json),
 [raw archive identity](forkcompare/results-io4/raw-reference.json),
 [checksums](forkcompare/results-io4/SHA256SUMS.json).
+Compact retains the configuration event stacks and selected per-child fields;
+full wire/operation timings and unrelated diagnostic stacks remain in raw.
 All variant binary hashes and generated-overlay before/after hashes are in
 compact inputs. Plain baseline adds only the compatibility stub; plain candidate
 adds that identical stub plus the single-byte startup string change.
