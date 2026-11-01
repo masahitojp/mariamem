@@ -1,0 +1,32 @@
+{
+  "question": "Is repeated initial-memory construction responsible for per-Fork CPU/RSS?",
+  "sources": {
+    "mariamem": {
+      "release_tag": "v0.6.0",
+      "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+      "tag_object_sha": "b57183b08d48884840111e8b53daa500734337f0"
+    }
+  },
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "fixture": "1000 integer rows, same fork_probe COUNT/SUM oracle",
+  "profile": {
+    "repetitions": 2,
+    "children_per_process": 100,
+    "engine": "unmodified exact release; profile includes child creation, oracle, cleanup"
+  },
+  "stages": {
+    "repetitions": 5,
+    "retained_children": 2,
+    "overlay": "observation hooks only at memory reservation and generated-Go construction; no algorithm change",
+    "comparison": "resident guest-memory page contents: identical does not imply safely shareable"
+  },
+  "budget": {
+    "active_minutes": 75,
+    "tooling_minutes": 20,
+    "heavy_ci": 0,
+    "workspace_gib": 8,
+    "min_free_gib": 16
+  },
+  "stop": "identify dominant CPU and where residency appears; assess initial-image hypothesis without implementing sharing or expanding qualification"
+}
