@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "evidence_ref": "refs/heads/evidence/pgmem-fork-cost-20261101",
+  "evidence_commit": "ccbc62a2bb4ae2aae967de2b182d8a3a4df5935b",
+  "url": "https://github.com/masahitojp/mariamem/tree/ccbc62a2bb4ae2aae967de2b182d8a3a4df5935b/benchmarks/forkcompare/raw",
+  "manifest_sha256": "6aa45ebdaf2881f93221f4cb432861dbd7b81a40100e4c9b06a172dd35e960a1",
+  "analysis_sha256": "f10d77f506e6a49392727ac1c825740a6706b2e48ab896bdd55e7e59cc77b28f",
+  "retention": "Keep the evidence ref, never merge its history. Raw archive contains source-bound binary inputs, all72 matrix records, corrected pilot controls, initial-pilot metadata and explicitly unavailable three initial pilot raw reports. Only select/squash the compact final tree if adopted."
+}

@@ -67,6 +67,8 @@ def main():
  try:
   obs=collect(a.collect) if a.collect else json.loads((root/'observations.json').read_text());result=summarize(obs)
   if a.check:
+   archive=json.loads((root/'archive.json').read_text())
+   if digest(Path(__file__).resolve())!=archive['analysis_sha256']:raise ValueError('analysis identity mismatch')
    hashes(root)
    for n,s in result.items():
     if (root/n).read_bytes()!=s.encode():raise ValueError('recomputed '+n+' differs')
