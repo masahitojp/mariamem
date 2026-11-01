@@ -14,6 +14,16 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Issue #68 — experimental startup pool attribution
+
+The [bounded diagnostic](../benchmarks/sql-concurrency.md) attributes transient
+pool concurrency=1 to upstream InnoDB startup buffer-pool loading combined with
+the pinned WASIX recipe (`innodb-read-io-threads=1`). Host CPU count is correctly
+8 and initial pool concurrency is 16. Nine children passed; this checkpoint did
+not reproduce the earlier ~800 ms wait and makes no fix/performance claim.
+[Issue #68](https://github.com/masahitojp/mariamem/issues/68) remains open; a
+startup-cache-load A/B is recommended, not adopted. No main/runtime change.
+
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
 [PR35](https://github.com/masahitojp/mariamem/pull/35) moved heavy product acceptance

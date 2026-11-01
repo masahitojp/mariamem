@@ -1,0 +1,10 @@
+{
+  "ref": "refs/heads/evidence/sql-concurrency-20261102",
+  "source_commit": "e9a6094e7a7b8f6271d3dc98031c10919976e62b",
+  "path": "raw.tar.gz",
+  "bytes": 1014604,
+  "sha256": "4b335e1ce5cd2de71792fec78ffae79aa57df85f81005de6b85d73f561aa00d7",
+  "members": 26,
+  "normalization": "workspace prefix only; per-file original/published hashes in archive",
+  "scope": "Issue68 diagnostic Go overlay; not performance evidence or a product correction"
+}

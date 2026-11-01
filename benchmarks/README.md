@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [Issue #68: pool concurrency attribution](sql-concurrency.md): host CPU count
+  is correct; upstream startup buffer-pool loading temporarily uses the WASIX
+  recipe's read-I/O thread count of 1. Diagnostic only; no correction adopted.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained
