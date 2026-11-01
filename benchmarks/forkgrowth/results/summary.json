@@ -1,0 +1,332 @@
+{
+  "status": "OBSERVED_BASELINE_AND_ARITHMETIC_MODELS_ONLY",
+  "initial_bytes": 268435456,
+  "maximum_bytes": 2147483648,
+  "model_warning": "Lookahead changes OS protection boundary; no optimized execution, equivalence or speedup accepted",
+  "rows": [
+    {
+      "repetition": 0,
+      "child": 0,
+      "growth_count": 101,
+      "total_growth_bytes": 387907584,
+      "delta_histogram": {
+        "65536": 53,
+        "131072": 1,
+        "196608": 15,
+        "262144": 4,
+        "917504": 6,
+        "1048576": 1,
+        "1114112": 1,
+        "1835008": 1,
+        "2031616": 1,
+        "2097152": 4,
+        "2162688": 1,
+        "3932160": 1,
+        "4194304": 1,
+        "8388608": 5,
+        "8454144": 1,
+        "16711680": 1,
+        "16777216": 1,
+        "18350080": 1,
+        "117571584": 1,
+        "130285568": 1
+      },
+      "models": {
+        "0": {
+          "protection_calls_after_initial": 101,
+          "peak_ahead_rw_bytes": 0,
+          "final_ahead_rw_bytes": 0,
+          "final_logical_bytes": 656343040
+        },
+        "16": {
+          "protection_calls_after_initial": 12,
+          "peak_ahead_rw_bytes": 16711680,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        },
+        "32": {
+          "protection_calls_after_initial": 7,
+          "peak_ahead_rw_bytes": 33488896,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        },
+        "64": {
+          "protection_calls_after_initial": 5,
+          "peak_ahead_rw_bytes": 67043328,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        }
+      }
+    },
+    {
+      "repetition": 0,
+      "child": 1,
+      "growth_count": 101,
+      "total_growth_bytes": 387907584,
+      "delta_histogram": {
+        "65536": 53,
+        "131072": 1,
+        "196608": 15,
+        "262144": 4,
+        "917504": 6,
+        "1048576": 1,
+        "1114112": 1,
+        "1835008": 1,
+        "2031616": 1,
+        "2097152": 4,
+        "2162688": 1,
+        "3932160": 1,
+        "4194304": 1,
+        "8388608": 5,
+        "8454144": 1,
+        "16711680": 1,
+        "16777216": 1,
+        "18350080": 1,
+        "117571584": 1,
+        "130285568": 1
+      },
+      "models": {
+        "0": {
+          "protection_calls_after_initial": 101,
+          "peak_ahead_rw_bytes": 0,
+          "final_ahead_rw_bytes": 0,
+          "final_logical_bytes": 656343040
+        },
+        "16": {
+          "protection_calls_after_initial": 12,
+          "peak_ahead_rw_bytes": 16711680,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        },
+        "32": {
+          "protection_calls_after_initial": 7,
+          "peak_ahead_rw_bytes": 33488896,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        },
+        "64": {
+          "protection_calls_after_initial": 5,
+          "peak_ahead_rw_bytes": 67043328,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        }
+      }
+    },
+    {
+      "repetition": 1,
+      "child": 0,
+      "growth_count": 101,
+      "total_growth_bytes": 387907584,
+      "delta_histogram": {
+        "65536": 53,
+        "131072": 1,
+        "196608": 15,
+        "262144": 4,
+        "917504": 6,
+        "1048576": 1,
+        "1114112": 1,
+        "1835008": 1,
+        "2031616": 1,
+        "2097152": 4,
+        "2162688": 1,
+        "3932160": 1,
+        "4194304": 1,
+        "8388608": 5,
+        "8454144": 1,
+        "16711680": 1,
+        "16777216": 1,
+        "18350080": 1,
+        "117571584": 1,
+        "130285568": 1
+      },
+      "models": {
+        "0": {
+          "protection_calls_after_initial": 101,
+          "peak_ahead_rw_bytes": 0,
+          "final_ahead_rw_bytes": 0,
+          "final_logical_bytes": 656343040
+        },
+        "16": {
+          "protection_calls_after_initial": 12,
+          "peak_ahead_rw_bytes": 16711680,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        },
+        "32": {
+          "protection_calls_after_initial": 7,
+          "peak_ahead_rw_bytes": 33488896,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        },
+        "64": {
+          "protection_calls_after_initial": 5,
+          "peak_ahead_rw_bytes": 67043328,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        }
+      }
+    },
+    {
+      "repetition": 1,
+      "child": 1,
+      "growth_count": 101,
+      "total_growth_bytes": 387907584,
+      "delta_histogram": {
+        "65536": 53,
+        "131072": 1,
+        "196608": 15,
+        "262144": 4,
+        "917504": 6,
+        "1048576": 1,
+        "1114112": 1,
+        "1835008": 1,
+        "2031616": 1,
+        "2097152": 4,
+        "2162688": 1,
+        "3932160": 1,
+        "4194304": 1,
+        "8388608": 5,
+        "8454144": 1,
+        "16711680": 1,
+        "16777216": 1,
+        "18350080": 1,
+        "117571584": 1,
+        "130285568": 1
+      },
+      "models": {
+        "0": {
+          "protection_calls_after_initial": 101,
+          "peak_ahead_rw_bytes": 0,
+          "final_ahead_rw_bytes": 0,
+          "final_logical_bytes": 656343040
+        },
+        "16": {
+          "protection_calls_after_initial": 11,
+          "peak_ahead_rw_bytes": 16711680,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        },
+        "32": {
+          "protection_calls_after_initial": 7,
+          "peak_ahead_rw_bytes": 33488896,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        },
+        "64": {
+          "protection_calls_after_initial": 5,
+          "peak_ahead_rw_bytes": 67043328,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        }
+      }
+    },
+    {
+      "repetition": 2,
+      "child": 0,
+      "growth_count": 101,
+      "total_growth_bytes": 387907584,
+      "delta_histogram": {
+        "65536": 53,
+        "131072": 1,
+        "196608": 15,
+        "262144": 4,
+        "917504": 6,
+        "1048576": 1,
+        "1114112": 1,
+        "1835008": 1,
+        "2031616": 1,
+        "2097152": 4,
+        "2162688": 1,
+        "3932160": 1,
+        "4194304": 1,
+        "8388608": 5,
+        "8454144": 1,
+        "16711680": 1,
+        "16777216": 1,
+        "18350080": 1,
+        "117571584": 1,
+        "130285568": 1
+      },
+      "models": {
+        "0": {
+          "protection_calls_after_initial": 101,
+          "peak_ahead_rw_bytes": 0,
+          "final_ahead_rw_bytes": 0,
+          "final_logical_bytes": 656343040
+        },
+        "16": {
+          "protection_calls_after_initial": 12,
+          "peak_ahead_rw_bytes": 16711680,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        },
+        "32": {
+          "protection_calls_after_initial": 7,
+          "peak_ahead_rw_bytes": 33488896,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        },
+        "64": {
+          "protection_calls_after_initial": 5,
+          "peak_ahead_rw_bytes": 67043328,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        }
+      }
+    },
+    {
+      "repetition": 2,
+      "child": 1,
+      "growth_count": 101,
+      "total_growth_bytes": 387907584,
+      "delta_histogram": {
+        "65536": 53,
+        "131072": 1,
+        "196608": 15,
+        "262144": 4,
+        "917504": 6,
+        "1048576": 1,
+        "1114112": 1,
+        "1835008": 1,
+        "2031616": 1,
+        "2097152": 4,
+        "2162688": 1,
+        "3932160": 1,
+        "4194304": 1,
+        "8388608": 5,
+        "8454144": 1,
+        "16711680": 1,
+        "16777216": 1,
+        "18350080": 1,
+        "117571584": 1,
+        "130285568": 1
+      },
+      "models": {
+        "0": {
+          "protection_calls_after_initial": 101,
+          "peak_ahead_rw_bytes": 0,
+          "final_ahead_rw_bytes": 0,
+          "final_logical_bytes": 656343040
+        },
+        "16": {
+          "protection_calls_after_initial": 12,
+          "peak_ahead_rw_bytes": 16711680,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        },
+        "32": {
+          "protection_calls_after_initial": 7,
+          "peak_ahead_rw_bytes": 33488896,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        },
+        "64": {
+          "protection_calls_after_initial": 5,
+          "peak_ahead_rw_bytes": 67043328,
+          "final_ahead_rw_bytes": 14745600,
+          "final_logical_bytes": 656343040
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "source_commit": "02a67e0c85b77ddc31db2204d459820c99a3efb8",
+  "ref": "evidence/fork-growth-20261101",
+  "path": "benchmarks/forkgrowth/raw",
+  "manifest_sha256": "96c91789749adb411e042cbd93e12bcc50ec9e5291b812247cc010b5e6d8bea9",
+  "files": 18,
+  "bytes": 107559,
+  "analysis_sha256": "d9c68ee103ecfe16c0395fccbecec0a61fd4b531f6eb9591fda0543a408c0997",
+  "retention": "Compact final tree only for proposed main adoption; do not merge raw exploratory history"
+}
