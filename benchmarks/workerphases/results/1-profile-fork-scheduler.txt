@@ -1,0 +1,24 @@
+File: profile
+Type: cpu
+Time: 2026-11-01 22:43:34 JST
+Duration: 8.16s, Total samples = 1610ms (19.74%)
+-----------+-------------------------------------------------------
+     100ms   runtime.pthread_cond_signal
+             runtime.semawakeup
+             runtime.notewakeup
+             runtime.startm
+             runtime.wakep
+             runtime.ready
+             _.goready.func1
+             runtime.systemstack
+-----------+-------------------------------------------------------
+     160ms   runtime.pthread_cond_wait
+             runtime.semasleep
+             runtime.notesleep
+             runtime.mPark (inline)
+             runtime.stopm
+             runtime.findRunnable
+             runtime.schedule
+             runtime.park_m
+             runtime.mcall
+-----------+-------------------------------------------------------

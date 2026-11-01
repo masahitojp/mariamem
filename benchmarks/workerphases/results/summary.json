@@ -1,0 +1,499 @@
+{
+  "controls": [
+    {
+      "phases": {
+        "close": {
+          "cpu_ms": 2.739399999999967,
+          "wall_ms": 2.417488525
+        },
+        "fork": {
+          "cpu_ms": 46.774825000000035,
+          "wall_ms": 35.6722969
+        },
+        "sql": {
+          "cpu_ms": 35.81622499999999,
+          "wall_ms": 36.616654125000004
+        }
+      },
+      "repetition": 0
+    },
+    {
+      "phases": {
+        "close": {
+          "cpu_ms": 2.7129750000000428,
+          "wall_ms": 2.38783435
+        },
+        "fork": {
+          "cpu_ms": 47.81214999999999,
+          "wall_ms": 36.400063475
+        },
+        "sql": {
+          "cpu_ms": 36.37514999999996,
+          "wall_ms": 37.190051125000004
+        }
+      },
+      "repetition": 1
+    }
+  ],
+  "diagnostics": [
+    {
+      "outside": {
+        "exit": 13,
+        "notify": 798,
+        "spawn": 13,
+        "spin": 0,
+        "wait_ns": 629113640,
+        "wait_return_0": 727,
+        "wait_return_1": 19,
+        "wait_return_2": 0,
+        "wait_start": 746,
+        "wait_woken_short": 697,
+        "woken": 727,
+        "yield": 0,
+        "yield_oversubscribed": 0
+      },
+      "peak_live_spawned_agents": 11,
+      "per_child": {
+        "close": {
+          "exit": 10.5,
+          "notify": 57.166666666666664,
+          "spawn": 1.5,
+          "spin": 0.0,
+          "wait_ns": 308779097.5,
+          "wait_return_0": 39.0,
+          "wait_return_1": 1.8333333333333333,
+          "wait_return_2": 0.0,
+          "wait_start": 31.833333333333332,
+          "wait_woken_short": 30.0,
+          "woken": 39.0,
+          "yield": 0.0,
+          "yield_oversubscribed": 0.0
+        },
+        "fork": {
+          "exit": 0.0,
+          "notify": 181.66666666666666,
+          "spawn": 8.0,
+          "spin": 0.0,
+          "wait_ns": 25502530.5,
+          "wait_return_0": 128.5,
+          "wait_return_1": 4.833333333333333,
+          "wait_return_2": 0.0,
+          "wait_start": 138.83333333333334,
+          "wait_woken_short": 124.83333333333333,
+          "woken": 129.0,
+          "yield": 0.0,
+          "yield_oversubscribed": 0.0
+        },
+        "sql": {
+          "exit": 0.0,
+          "notify": 53.333333333333336,
+          "spawn": 1.0,
+          "spin": 0.0,
+          "wait_ns": 16414360.833333334,
+          "wait_return_0": 51.333333333333336,
+          "wait_return_1": 0.16666666666666666,
+          "wait_return_2": 0.0,
+          "wait_start": 55.0,
+          "wait_woken_short": 48.666666666666664,
+          "woken": 50.833333333333336,
+          "yield": 0.0,
+          "yield_oversubscribed": 0.0
+        }
+      },
+      "repetition": 0
+    },
+    {
+      "outside": {
+        "exit": 11,
+        "notify": 730,
+        "spawn": 11,
+        "spin": 0,
+        "wait_ns": 909859991,
+        "wait_return_0": 684,
+        "wait_return_1": 8,
+        "wait_return_2": 0,
+        "wait_start": 692,
+        "wait_woken_short": 656,
+        "woken": 684,
+        "yield": 0,
+        "yield_oversubscribed": 0
+      },
+      "peak_live_spawned_agents": 10,
+      "per_child": {
+        "close": {
+          "exit": 10.166666666666666,
+          "notify": 47.833333333333336,
+          "spawn": 1.1666666666666667,
+          "spin": 0.0,
+          "wait_ns": 329806793.8333333,
+          "wait_return_0": 35.0,
+          "wait_return_1": 1.0,
+          "wait_return_2": 0.0,
+          "wait_start": 27.0,
+          "wait_woken_short": 25.166666666666668,
+          "woken": 35.0,
+          "yield": 0.0,
+          "yield_oversubscribed": 0.0
+        },
+        "fork": {
+          "exit": 0.0,
+          "notify": 181.83333333333334,
+          "spawn": 8.0,
+          "spin": 0.0,
+          "wait_ns": 29584383.333333332,
+          "wait_return_0": 112.16666666666667,
+          "wait_return_1": 2.1666666666666665,
+          "wait_return_2": 0.0,
+          "wait_start": 120.33333333333333,
+          "wait_woken_short": 106.83333333333333,
+          "woken": 112.5,
+          "yield": 0.0,
+          "yield_oversubscribed": 0.0
+        },
+        "sql": {
+          "exit": 0.0,
+          "notify": 46.833333333333336,
+          "spawn": 1.0,
+          "spin": 0.0,
+          "wait_ns": 16189166.666666666,
+          "wait_return_0": 45.833333333333336,
+          "wait_return_1": 0.0,
+          "wait_return_2": 0.0,
+          "wait_start": 48.833333333333336,
+          "wait_woken_short": 43.833333333333336,
+          "woken": 45.5,
+          "yield": 0.0,
+          "yield_oversubscribed": 0.0
+        }
+      },
+      "repetition": 1
+    }
+  ],
+  "profiles": [
+    {
+      "phase": "fork",
+      "repetition": 0,
+      "selected_top50_functions": {
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write": {
+          "cum_ms": 10.0,
+          "flat_ms": 0.0,
+          "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write"
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Sched_yield": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.SpinRelax": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec": {
+          "cum_ms": 10.0,
+          "flat_ms": 0.0,
+          "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec"
+        },
+        "os.(*File).Write": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.goschedImpl": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.newproc": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.pthread_cond_signal": {
+          "cum_ms": 230.0,
+          "flat_ms": 230.0,
+          "function": "runtime.pthread_cond_signal"
+        },
+        "runtime.pthread_cond_wait": {
+          "cum_ms": 100.0,
+          "flat_ms": 100.0,
+          "function": "runtime.pthread_cond_wait"
+        },
+        "runtime.wakep": {
+          "cum_ms": 230.0,
+          "flat_ms": 0.0,
+          "function": "runtime.wakep"
+        }
+      },
+      "total_cpu_sample_ms": 1610.0
+    },
+    {
+      "phase": "sql",
+      "repetition": 0,
+      "selected_top50_functions": {
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write": {
+          "cum_ms": 800.0,
+          "flat_ms": 0.0,
+          "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write"
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Sched_yield": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.SpinRelax": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec": {
+          "cum_ms": 800.0,
+          "flat_ms": 0.0,
+          "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec"
+        },
+        "os.(*File).Write": {
+          "cum_ms": 800.0,
+          "flat_ms": 0.0,
+          "function": "os.(*File).Write"
+        },
+        "runtime.goschedImpl": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.newproc": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.pthread_cond_signal": {
+          "cum_ms": 50.0,
+          "flat_ms": 50.0,
+          "function": "runtime.pthread_cond_signal"
+        },
+        "runtime.pthread_cond_wait": {
+          "cum_ms": 60.0,
+          "flat_ms": 60.0,
+          "function": "runtime.pthread_cond_wait"
+        },
+        "runtime.wakep": {
+          "cum_ms": null,
+          "flat_ms": null
+        }
+      },
+      "total_cpu_sample_ms": 1180.0
+    },
+    {
+      "phase": "close",
+      "repetition": 0,
+      "selected_top50_functions": {
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Sched_yield": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.SpinRelax": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "os.(*File).Write": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.goschedImpl": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.newproc": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.pthread_cond_signal": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.pthread_cond_wait": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.wakep": {
+          "cum_ms": null,
+          "flat_ms": null
+        }
+      },
+      "total_cpu_sample_ms": 0
+    },
+    {
+      "phase": "close",
+      "repetition": 1,
+      "selected_top50_functions": {
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Sched_yield": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.SpinRelax": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "os.(*File).Write": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.goschedImpl": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.newproc": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.pthread_cond_signal": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.pthread_cond_wait": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.wakep": {
+          "cum_ms": null,
+          "flat_ms": null
+        }
+      },
+      "total_cpu_sample_ms": 0
+    },
+    {
+      "phase": "sql",
+      "repetition": 1,
+      "selected_top50_functions": {
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write": {
+          "cum_ms": 840.0,
+          "flat_ms": 0.0,
+          "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write"
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Sched_yield": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.SpinRelax": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec": {
+          "cum_ms": 840.0,
+          "flat_ms": 0.0,
+          "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec"
+        },
+        "os.(*File).Write": {
+          "cum_ms": 840.0,
+          "flat_ms": 0.0,
+          "function": "os.(*File).Write"
+        },
+        "runtime.goschedImpl": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.newproc": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.pthread_cond_signal": {
+          "cum_ms": 20.0,
+          "flat_ms": 20.0,
+          "function": "runtime.pthread_cond_signal"
+        },
+        "runtime.pthread_cond_wait": {
+          "cum_ms": 150.0,
+          "flat_ms": 150.0,
+          "function": "runtime.pthread_cond_wait"
+        },
+        "runtime.wakep": {
+          "cum_ms": null,
+          "flat_ms": null
+        }
+      },
+      "total_cpu_sample_ms": 1180.0
+    },
+    {
+      "phase": "fork",
+      "repetition": 1,
+      "selected_top50_functions": {
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Sched_yield": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait": {
+          "cum_ms": 10.0,
+          "flat_ms": 0.0,
+          "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait"
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.SpinRelax": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "os.(*File).Write": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.goschedImpl": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.newproc": {
+          "cum_ms": null,
+          "flat_ms": null
+        },
+        "runtime.pthread_cond_signal": {
+          "cum_ms": 100.0,
+          "flat_ms": 100.0,
+          "function": "runtime.pthread_cond_signal"
+        },
+        "runtime.pthread_cond_wait": {
+          "cum_ms": 160.0,
+          "flat_ms": 160.0,
+          "function": "runtime.pthread_cond_wait"
+        },
+        "runtime.wakep": {
+          "cum_ms": null,
+          "flat_ms": null
+        }
+      },
+      "total_cpu_sample_ms": 1610.0
+    }
+  ],
+  "warning": "Missing top50 flat/cumulative entry is not proof of zero CPU; wait_ns sums wall waits ending in phase, not CPU. Spin yield counters exclude WASI Sched_yield."
+}

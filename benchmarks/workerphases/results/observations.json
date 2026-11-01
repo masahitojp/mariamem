@@ -1,0 +1,2654 @@
+{
+  "completion": {
+    "control_cycles": 80,
+    "diagnostic_cycles": 12,
+    "profile_windows": 240,
+    "queries_per_child": 32,
+    "result": "PASS",
+    "scope": "phase attribution, one local host; no implementation change"
+  },
+  "inputs": {
+    "binaries": {
+      "diagnostic": {
+        "build_info": "<WORKSPACE>/temp/bin/diagnostic: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/workerphases/diagnostic\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261101132855-c1498beb124f\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=c1498beb124f1d3964313764b5560fc0e57c845c\n\tbuild\tvcs.time=2026-11-01T13:28:55Z\n\tbuild\tvcs.modified=false\n",
+        "sha256": "7bd3d772d1695f5474894473434fa08e22b4174c2d2c120ca2ebabd3a7c729e0"
+      },
+      "pprof": {
+        "build_info": "<WORKSPACE>/temp/bin/pprof: go1.27.3\n\tpath\tcmd/pprof\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+        "sha256": "9a39a1c9dab0b54d94cd5d984a3eaf871d7f0f87a79f220ee07f6c82300545a1"
+      },
+      "profile": {
+        "build_info": "<WORKSPACE>/temp/bin/profile: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/workerphases/profile\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261101132855-c1498beb124f\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=c1498beb124f1d3964313764b5560fc0e57c845c\n\tbuild\tvcs.time=2026-11-01T13:28:55Z\n\tbuild\tvcs.modified=false\n",
+        "sha256": "b129be16b6703cc166f6cc1eb240d6150fecbe8a26b3d5f56ec224c6c3817991"
+      }
+    },
+    "cpu": "Apple M1",
+    "go": "go version go1.27.3 darwin/arm64",
+    "gomaxprocs": 8,
+    "observed_base_sha256": "283a18c5b887ce78c1da9399d0e76a9458bca15ca668c62b8147732d86cf2bc7",
+    "original_base_sha256": "64f37879f87e422667ab73a2d6a1e7262dba375261186a82906f3207b217accc",
+    "os": "27.2",
+    "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+    "source_commit": "c1498beb124f1d3964313764b5560fc0e57c845c",
+    "tag_object_sha": "b57183b08d48884840111e8b53daa500734337f0"
+  },
+  "pilot": {
+    "negative": 2,
+    "positive": 2,
+    "result": "PASS"
+  },
+  "runs": [
+    {
+      "count": 40,
+      "mode": "profile",
+      "negative": false,
+      "repetition": 0,
+      "report": "measure/0-profile-none.json",
+      "result": {
+        "cleanup": true,
+        "count": 40,
+        "final": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 41,
+          "grow_calls": 4192,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 680329216,
+          "release_failures": 0,
+          "releases": 41
+        },
+        "phase_totals": {
+          "close": {
+            "count": 40,
+            "cpu_ms": 109.57599999999869,
+            "wall_ms": 96.699541
+          },
+          "fork": {
+            "count": 40,
+            "cpu_ms": 1870.9930000000013,
+            "wall_ms": 1426.891876
+          },
+          "sql": {
+            "count": 40,
+            "cpu_ms": 1432.6489999999997,
+            "wall_ms": 1464.666165
+          }
+        },
+        "queries_per_child": 32,
+        "success": true
+      },
+      "returncode": 0,
+      "target": "none"
+    },
+    {
+      "count": 40,
+      "mode": "profile",
+      "negative": false,
+      "profile": {
+        "top": [
+          {
+            "cum_ms": 550.0,
+            "flat_ms": 550.0,
+            "function": "syscall.rawsyscalln"
+          },
+          {
+            "cum_ms": 320.0,
+            "flat_ms": 320.0,
+            "function": "runtime.memclrNoHeapPointers"
+          },
+          {
+            "cum_ms": 230.0,
+            "flat_ms": 230.0,
+            "function": "runtime.pthread_cond_signal"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 100.0,
+            "function": "runtime.pthread_cond_wait"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 70.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 60.0,
+            "function": "runtime.usleep"
+          },
+          {
+            "cum_ms": 590.0,
+            "flat_ms": 50.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 30.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 20.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18170"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 20.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn4801"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 20.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn10179"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicsContended (inline)"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13491"
+          },
+          {
+            "cum_ms": 530.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn468"
+          },
+          {
+            "cum_ms": 390.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14746"
+          },
+          {
+            "cum_ms": 80.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn17232"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn16682"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18144"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17563"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn9190"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "runtime.kevent"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "runtime.madvise"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "runtime.memmove"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "runtime.pthread_kill"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 10.0,
+            "function": "runtime.stealWork"
+          },
+          {
+            "cum_ms": 220.0,
+            "flat_ms": 0.0,
+            "function": "_.goready.func1"
+          },
+          {
+            "cum_ms": 1100.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.executeGuest"
+          },
+          {
+            "cum_ms": 1100.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2"
+          },
+          {
+            "cum_ms": 1100.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code.Start"
+          },
+          {
+            "cum_ms": 540.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_pread"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_pwrite"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*blockStorage).readAt (inline)"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*blockStorage).writeAt (inline)"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*memFile).ReadAt"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*memFile).WriteAt"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*memFile).writeAt"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicRmwCmpxchg32At"
+          },
+          {
+            "cum_ms": 80.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.1"
+          },
+          {
+            "cum_ms": 250.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryFill"
+          },
+          {
+            "cum_ms": 540.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow"
+          },
+          {
+            "cum_ms": 80.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          },
+          {
+            "cum_ms": 80.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13500"
+          },
+          {
+            "cum_ms": 30.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14580"
+          },
+          {
+            "cum_ms": 360.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn18568"
+          },
+          {
+            "cum_ms": 1060.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5572"
+          }
+        ],
+        "total_cpu_sample_ms": 1610.0
+      },
+      "profile_cumulative": {
+        "top": [
+          {
+            "cum_ms": 1100.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.executeGuest"
+          },
+          {
+            "cum_ms": 1100.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2"
+          },
+          {
+            "cum_ms": 1100.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code.Start"
+          },
+          {
+            "cum_ms": 1100.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21751"
+          },
+          {
+            "cum_ms": 1060.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5572"
+          },
+          {
+            "cum_ms": 1060.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn5738"
+          },
+          {
+            "cum_ms": 1060.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn244"
+          },
+          {
+            "cum_ms": 590.0,
+            "flat_ms": 50.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152"
+          },
+          {
+            "cum_ms": 570.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn20110"
+          },
+          {
+            "cum_ms": 570.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn236"
+          },
+          {
+            "cum_ms": 550.0,
+            "flat_ms": 550.0,
+            "function": "syscall.rawsyscalln"
+          },
+          {
+            "cum_ms": 550.0,
+            "flat_ms": 0.0,
+            "function": "syscall.syscall"
+          },
+          {
+            "cum_ms": 550.0,
+            "flat_ms": 0.0,
+            "function": "syscall.syscalln"
+          },
+          {
+            "cum_ms": 540.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow"
+          },
+          {
+            "cum_ms": 540.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow"
+          },
+          {
+            "cum_ms": 540.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn151"
+          },
+          {
+            "cum_ms": 540.0,
+            "flat_ms": 0.0,
+            "function": "syscall.Mprotect"
+          },
+          {
+            "cum_ms": 530.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn468"
+          },
+          {
+            "cum_ms": 530.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn465"
+          },
+          {
+            "cum_ms": 530.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn966"
+          },
+          {
+            "cum_ms": 530.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn967"
+          },
+          {
+            "cum_ms": 430.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn765"
+          },
+          {
+            "cum_ms": 390.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14746"
+          },
+          {
+            "cum_ms": 390.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn952"
+          },
+          {
+            "cum_ms": 380.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn7108"
+          },
+          {
+            "cum_ms": 380.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14747"
+          },
+          {
+            "cum_ms": 360.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn18568"
+          },
+          {
+            "cum_ms": 360.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn20099"
+          },
+          {
+            "cum_ms": 360.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn539"
+          },
+          {
+            "cum_ms": 320.0,
+            "flat_ms": 320.0,
+            "function": "runtime.memclrNoHeapPointers"
+          },
+          {
+            "cum_ms": 250.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryFill"
+          },
+          {
+            "cum_ms": 240.0,
+            "flat_ms": 0.0,
+            "function": "runtime.systemstack"
+          },
+          {
+            "cum_ms": 230.0,
+            "flat_ms": 0.0,
+            "function": "runtime.notewakeup"
+          },
+          {
+            "cum_ms": 230.0,
+            "flat_ms": 230.0,
+            "function": "runtime.pthread_cond_signal"
+          },
+          {
+            "cum_ms": 230.0,
+            "flat_ms": 0.0,
+            "function": "runtime.semawakeup"
+          },
+          {
+            "cum_ms": 230.0,
+            "flat_ms": 0.0,
+            "function": "runtime.startm"
+          },
+          {
+            "cum_ms": 230.0,
+            "flat_ms": 0.0,
+            "function": "runtime.wakep"
+          },
+          {
+            "cum_ms": 220.0,
+            "flat_ms": 0.0,
+            "function": "_.goready.func1"
+          },
+          {
+            "cum_ms": 220.0,
+            "flat_ms": 0.0,
+            "function": "runtime.ready"
+          },
+          {
+            "cum_ms": 190.0,
+            "flat_ms": 0.0,
+            "function": "runtime.schedule"
+          },
+          {
+            "cum_ms": 180.0,
+            "flat_ms": 0.0,
+            "function": "runtime.findRunnable"
+          },
+          {
+            "cum_ms": 180.0,
+            "flat_ms": 0.0,
+            "function": "runtime.mcall"
+          },
+          {
+            "cum_ms": 180.0,
+            "flat_ms": 0.0,
+            "function": "runtime.park_m"
+          },
+          {
+            "cum_ms": 170.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn20095"
+          },
+          {
+            "cum_ms": 110.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn980"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 30.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn4180"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 0.0,
+            "function": "runtime.mPark (inline)"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 0.0,
+            "function": "runtime.notesleep"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 100.0,
+            "function": "runtime.pthread_cond_wait"
+          }
+        ],
+        "total_cpu_sample_ms": 1610.0
+      },
+      "repetition": 0,
+      "report": "measure/0-profile-fork.json",
+      "result": {
+        "cleanup": true,
+        "count": 40,
+        "final": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 41,
+          "grow_calls": 4189,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 678821888,
+          "release_failures": 0,
+          "releases": 41
+        },
+        "phase_totals": {
+          "close": {
+            "count": 40,
+            "cpu_ms": 117.47400000000013,
+            "wall_ms": 104.791875
+          },
+          "fork": {
+            "count": 40,
+            "cpu_ms": 1906.7139999999981,
+            "wall_ms": 1473.933583
+          },
+          "sql": {
+            "count": 40,
+            "cpu_ms": 1805.2800000000013,
+            "wall_ms": 2035.150707
+          }
+        },
+        "queries_per_child": 32,
+        "success": true
+      },
+      "returncode": 0,
+      "target": "fork"
+    },
+    {
+      "count": 40,
+      "mode": "profile",
+      "negative": false,
+      "profile": {
+        "top": [
+          {
+            "cum_ms": 880.0,
+            "flat_ms": 880.0,
+            "function": "syscall.rawsyscalln"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 60.0,
+            "function": "runtime.pthread_cond_wait"
+          },
+          {
+            "cum_ms": 50.0,
+            "flat_ms": 50.0,
+            "function": "runtime.pthread_cond_signal"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 40.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18144"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 40.0,
+            "function": "runtime.kevent"
+          },
+          {
+            "cum_ms": 50.0,
+            "flat_ms": 30.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 20.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 20.0,
+            "function": "runtime.usleep"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn17210"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17185"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17792"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn12694"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "_.goready.func1"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).QueryContext"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).QueryContext.func1"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).QueryRowContext (inline)"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).query"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).queryDC"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).queryDC.func1"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).retry"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.ctxDriverQuery"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.withLock"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.(*buffer).fill"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).QueryContext"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).query"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).readNext"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).readPacket"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).readWithTimeout"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).writeCommandPacketStr"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).writePacket"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).writeWithTimeout"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.(*okHandler).readResultSetHeaderPacket"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/benchmarks/workerphases/common.Oracle"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/benchmarks/workerphases/runner.Main"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/benchmarks/workerphases/runner.run"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/benchmarks/workerphases/runner.run.func1"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/benchmarks/workerphases/runner.run.func4"
+          },
+          {
+            "cum_ms": 800.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write"
+          },
+          {
+            "cum_ms": 930.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.1"
+          },
+          {
+            "cum_ms": 930.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          },
+          {
+            "cum_ms": 930.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1"
+          },
+          {
+            "cum_ms": 800.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14580"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14960"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14965"
+          },
+          {
+            "cum_ms": 30.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn17189"
+          },
+          {
+            "cum_ms": 870.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14591"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn17791"
+          }
+        ],
+        "total_cpu_sample_ms": 1180.0
+      },
+      "profile_cumulative": {
+        "top": [
+          {
+            "cum_ms": 930.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.1"
+          },
+          {
+            "cum_ms": 930.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          },
+          {
+            "cum_ms": 930.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1"
+          },
+          {
+            "cum_ms": 930.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214"
+          },
+          {
+            "cum_ms": 880.0,
+            "flat_ms": 0.0,
+            "function": "internal/poll.ignoringEINTRIO (inline)"
+          },
+          {
+            "cum_ms": 880.0,
+            "flat_ms": 880.0,
+            "function": "syscall.rawsyscalln"
+          },
+          {
+            "cum_ms": 880.0,
+            "flat_ms": 0.0,
+            "function": "syscall.syscall"
+          },
+          {
+            "cum_ms": 880.0,
+            "flat_ms": 0.0,
+            "function": "syscall.syscalln"
+          },
+          {
+            "cum_ms": 870.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267"
+          },
+          {
+            "cum_ms": 830.0,
+            "flat_ms": 0.0,
+            "function": "internal/poll.(*FD).Write"
+          },
+          {
+            "cum_ms": 830.0,
+            "flat_ms": 0.0,
+            "function": "syscall.Write (inline)"
+          },
+          {
+            "cum_ms": 830.0,
+            "flat_ms": 0.0,
+            "function": "syscall.write"
+          },
+          {
+            "cum_ms": 800.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write"
+          },
+          {
+            "cum_ms": 800.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec"
+          },
+          {
+            "cum_ms": 800.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn140"
+          },
+          {
+            "cum_ms": 800.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn198"
+          },
+          {
+            "cum_ms": 800.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn265"
+          },
+          {
+            "cum_ms": 800.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn76"
+          },
+          {
+            "cum_ms": 800.0,
+            "flat_ms": 0.0,
+            "function": "os.(*File).Write"
+          },
+          {
+            "cum_ms": 800.0,
+            "flat_ms": 0.0,
+            "function": "os.(*File).write (inline)"
+          },
+          {
+            "cum_ms": 110.0,
+            "flat_ms": 0.0,
+            "function": "runtime.findRunnable"
+          },
+          {
+            "cum_ms": 110.0,
+            "flat_ms": 0.0,
+            "function": "runtime.mcall"
+          },
+          {
+            "cum_ms": 110.0,
+            "flat_ms": 0.0,
+            "function": "runtime.schedule"
+          },
+          {
+            "cum_ms": 90.0,
+            "flat_ms": 0.0,
+            "function": "runtime.park_m"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14580"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14960"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14965"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14591"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn257"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn14955"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14575"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14959"
+          },
+          {
+            "cum_ms": 70.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5852"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn17210"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16585"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16594"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16598"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn18230"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 0.0,
+            "function": "runtime.mPark (inline)"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 0.0,
+            "function": "runtime.notesleep"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 60.0,
+            "function": "runtime.pthread_cond_wait"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 0.0,
+            "function": "runtime.semasleep"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 0.0,
+            "function": "runtime.stopm"
+          },
+          {
+            "cum_ms": 50.0,
+            "flat_ms": 30.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA"
+          },
+          {
+            "cum_ms": 50.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18163"
+          },
+          {
+            "cum_ms": 50.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn16788"
+          },
+          {
+            "cum_ms": 50.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn7153"
+          },
+          {
+            "cum_ms": 50.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16791"
+          },
+          {
+            "cum_ms": 50.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn13043"
+          }
+        ],
+        "total_cpu_sample_ms": 1180.0
+      },
+      "repetition": 0,
+      "report": "measure/0-profile-sql.json",
+      "result": {
+        "cleanup": true,
+        "count": 40,
+        "final": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 41,
+          "grow_calls": 4189,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 688390144,
+          "release_failures": 0,
+          "releases": 41
+        },
+        "phase_totals": {
+          "close": {
+            "count": 40,
+            "cpu_ms": 269.1590000000012,
+            "wall_ms": 228.164289
+          },
+          "fork": {
+            "count": 40,
+            "cpu_ms": 2423.3250000000016,
+            "wall_ms": 1963.87008
+          },
+          "sql": {
+            "count": 40,
+            "cpu_ms": 1491.7240000000015,
+            "wall_ms": 1488.729665
+          }
+        },
+        "queries_per_child": 32,
+        "success": true
+      },
+      "returncode": 0,
+      "target": "sql"
+    },
+    {
+      "count": 40,
+      "mode": "profile",
+      "negative": false,
+      "profile": {
+        "top": [],
+        "total_cpu_sample_ms": 0
+      },
+      "profile_cumulative": {
+        "top": [],
+        "total_cpu_sample_ms": 0
+      },
+      "repetition": 0,
+      "report": "measure/0-profile-close.json",
+      "result": {
+        "cleanup": true,
+        "count": 40,
+        "final": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 41,
+          "grow_calls": 4189,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 680394752,
+          "release_failures": 0,
+          "releases": 41
+        },
+        "phase_totals": {
+          "close": {
+            "count": 40,
+            "cpu_ms": 126.2729999999973,
+            "wall_ms": 95.722083
+          },
+          "fork": {
+            "count": 40,
+            "cpu_ms": 2876.8220000000006,
+            "wall_ms": 2344.448378
+          },
+          "sql": {
+            "count": 40,
+            "cpu_ms": 1539.163000000001,
+            "wall_ms": 1516.058249
+          }
+        },
+        "queries_per_child": 32,
+        "success": true
+      },
+      "returncode": 0,
+      "target": "close"
+    },
+    {
+      "count": 6,
+      "mode": "diagnostic",
+      "negative": false,
+      "repetition": 0,
+      "report": "measure/0-diagnostic-none.json",
+      "result": {
+        "cleanup": true,
+        "count": 6,
+        "diagnostic": {
+          "close": {
+            "exit": 63,
+            "notify": 343,
+            "spawn": 9,
+            "spin": 0,
+            "wait_ns": 1852674585,
+            "wait_return_0": 234,
+            "wait_return_1": 11,
+            "wait_return_2": 0,
+            "wait_start": 191,
+            "wait_woken_short": 180,
+            "woken": 234,
+            "yield": 0,
+            "yield_oversubscribed": 0
+          },
+          "fork": {
+            "exit": 0,
+            "notify": 1090,
+            "spawn": 48,
+            "spin": 0,
+            "wait_ns": 153015183,
+            "wait_return_0": 771,
+            "wait_return_1": 29,
+            "wait_return_2": 0,
+            "wait_start": 833,
+            "wait_woken_short": 749,
+            "woken": 774,
+            "yield": 0,
+            "yield_oversubscribed": 0
+          },
+          "outside": {
+            "exit": 13,
+            "notify": 798,
+            "spawn": 13,
+            "spin": 0,
+            "wait_ns": 629113640,
+            "wait_return_0": 727,
+            "wait_return_1": 19,
+            "wait_return_2": 0,
+            "wait_start": 746,
+            "wait_woken_short": 697,
+            "woken": 727,
+            "yield": 0,
+            "yield_oversubscribed": 0
+          },
+          "peak_live_spawned_agents": 11,
+          "sql": {
+            "exit": 0,
+            "notify": 320,
+            "spawn": 6,
+            "spin": 0,
+            "wait_ns": 98486165,
+            "wait_return_0": 308,
+            "wait_return_1": 1,
+            "wait_return_2": 0,
+            "wait_start": 330,
+            "wait_woken_short": 292,
+            "woken": 305,
+            "yield": 0,
+            "yield_oversubscribed": 0
+          }
+        },
+        "final": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 7,
+          "grow_calls": 713,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 671940608,
+          "release_failures": 0,
+          "releases": 7
+        },
+        "phase_totals": {
+          "close": {
+            "count": 6,
+            "cpu_ms": 16.411,
+            "wall_ms": 13.995585
+          },
+          "fork": {
+            "count": 6,
+            "cpu_ms": 277.33799999999997,
+            "wall_ms": 214.290834
+          },
+          "sql": {
+            "count": 6,
+            "cpu_ms": 216.411,
+            "wall_ms": 220.378584
+          }
+        },
+        "queries_per_child": 32,
+        "success": true
+      },
+      "returncode": 0,
+      "target": "none"
+    },
+    {
+      "count": 40,
+      "mode": "profile",
+      "negative": false,
+      "repetition": 1,
+      "report": "measure/1-profile-none.json",
+      "result": {
+        "cleanup": true,
+        "count": 40,
+        "final": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 41,
+          "grow_calls": 4194,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 688390144,
+          "release_failures": 0,
+          "releases": 41
+        },
+        "phase_totals": {
+          "close": {
+            "count": 40,
+            "cpu_ms": 108.51900000000171,
+            "wall_ms": 95.513374
+          },
+          "fork": {
+            "count": 40,
+            "cpu_ms": 1912.4859999999996,
+            "wall_ms": 1456.002539
+          },
+          "sql": {
+            "count": 40,
+            "cpu_ms": 1455.0059999999985,
+            "wall_ms": 1487.602045
+          }
+        },
+        "queries_per_child": 32,
+        "success": true
+      },
+      "returncode": 0,
+      "target": "none"
+    },
+    {
+      "count": 40,
+      "mode": "profile",
+      "negative": false,
+      "profile": {
+        "top": [],
+        "total_cpu_sample_ms": 0
+      },
+      "profile_cumulative": {
+        "top": [],
+        "total_cpu_sample_ms": 0
+      },
+      "repetition": 1,
+      "report": "measure/1-profile-close.json",
+      "result": {
+        "cleanup": true,
+        "count": 40,
+        "final": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 41,
+          "grow_calls": 4189,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 681508864,
+          "release_failures": 0,
+          "releases": 41
+        },
+        "phase_totals": {
+          "close": {
+            "count": 40,
+            "cpu_ms": 140.4979999999986,
+            "wall_ms": 114.510866
+          },
+          "fork": {
+            "count": 40,
+            "cpu_ms": 2871.339,
+            "wall_ms": 2336.549458
+          },
+          "sql": {
+            "count": 40,
+            "cpu_ms": 1555.2989999999984,
+            "wall_ms": 1521.755668
+          }
+        },
+        "queries_per_child": 32,
+        "success": true
+      },
+      "returncode": 0,
+      "target": "close"
+    },
+    {
+      "count": 40,
+      "mode": "profile",
+      "negative": false,
+      "profile": {
+        "top": [
+          {
+            "cum_ms": 870.0,
+            "flat_ms": 870.0,
+            "function": "syscall.rawsyscalln"
+          },
+          {
+            "cum_ms": 150.0,
+            "flat_ms": 150.0,
+            "function": "runtime.pthread_cond_wait"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 60.0,
+            "function": "runtime.kevent"
+          },
+          {
+            "cum_ms": 50.0,
+            "flat_ms": 50.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)"
+          },
+          {
+            "cum_ms": 80.0,
+            "flat_ms": 30.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 20.0,
+            "function": "runtime.pthread_cond_signal"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "_.goready.func1"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).QueryContext"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).QueryContext.func1"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).QueryRowContext (inline)"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).conn"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).query"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*DB).retry"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "database/sql.(*driverConn).resetSession"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).ResetSession"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.connCheck"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/go-sql-driver/mysql.connCheck.func1"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/benchmarks/workerphases/common.Oracle"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/benchmarks/workerphases/runner.Main"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/benchmarks/workerphases/runner.run"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/benchmarks/workerphases/runner.run.func1"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/benchmarks/workerphases/runner.run.func4"
+          },
+          {
+            "cum_ms": 840.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write"
+          },
+          {
+            "cum_ms": 920.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.1"
+          },
+          {
+            "cum_ms": 920.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          },
+          {
+            "cum_ms": 920.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1"
+          },
+          {
+            "cum_ms": 840.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14580"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14960"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14965"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn17189"
+          },
+          {
+            "cum_ms": 880.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14591"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn17210"
+          },
+          {
+            "cum_ms": 30.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18173"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn257"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn14955"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn15045"
+          },
+          {
+            "cum_ms": 30.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18163"
+          },
+          {
+            "cum_ms": 30.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18144"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn11304"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14575"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14958"
+          },
+          {
+            "cum_ms": 30.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn16788"
+          },
+          {
+            "cum_ms": 920.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214"
+          },
+          {
+            "cum_ms": 840.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn140"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14959"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16585"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16594"
+          }
+        ],
+        "total_cpu_sample_ms": 1180.0
+      },
+      "profile_cumulative": {
+        "top": [
+          {
+            "cum_ms": 920.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.1"
+          },
+          {
+            "cum_ms": 920.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          },
+          {
+            "cum_ms": 920.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1"
+          },
+          {
+            "cum_ms": 920.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214"
+          },
+          {
+            "cum_ms": 880.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267"
+          },
+          {
+            "cum_ms": 870.0,
+            "flat_ms": 870.0,
+            "function": "syscall.rawsyscalln"
+          },
+          {
+            "cum_ms": 870.0,
+            "flat_ms": 0.0,
+            "function": "syscall.syscall"
+          },
+          {
+            "cum_ms": 870.0,
+            "flat_ms": 0.0,
+            "function": "syscall.syscalln"
+          },
+          {
+            "cum_ms": 860.0,
+            "flat_ms": 0.0,
+            "function": "internal/poll.ignoringEINTRIO (inline)"
+          },
+          {
+            "cum_ms": 850.0,
+            "flat_ms": 0.0,
+            "function": "internal/poll.(*FD).Write"
+          },
+          {
+            "cum_ms": 850.0,
+            "flat_ms": 0.0,
+            "function": "syscall.Write (inline)"
+          },
+          {
+            "cum_ms": 850.0,
+            "flat_ms": 0.0,
+            "function": "syscall.write"
+          },
+          {
+            "cum_ms": 840.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_write"
+          },
+          {
+            "cum_ms": 840.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.writeVec"
+          },
+          {
+            "cum_ms": 840.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn140"
+          },
+          {
+            "cum_ms": 840.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn198"
+          },
+          {
+            "cum_ms": 840.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn265"
+          },
+          {
+            "cum_ms": 840.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn76"
+          },
+          {
+            "cum_ms": 840.0,
+            "flat_ms": 0.0,
+            "function": "os.(*File).Write"
+          },
+          {
+            "cum_ms": 840.0,
+            "flat_ms": 0.0,
+            "function": "os.(*File).write (inline)"
+          },
+          {
+            "cum_ms": 210.0,
+            "flat_ms": 0.0,
+            "function": "runtime.findRunnable"
+          },
+          {
+            "cum_ms": 210.0,
+            "flat_ms": 0.0,
+            "function": "runtime.mcall"
+          },
+          {
+            "cum_ms": 210.0,
+            "flat_ms": 0.0,
+            "function": "runtime.schedule"
+          },
+          {
+            "cum_ms": 180.0,
+            "flat_ms": 0.0,
+            "function": "runtime.park_m"
+          },
+          {
+            "cum_ms": 150.0,
+            "flat_ms": 0.0,
+            "function": "runtime.mPark (inline)"
+          },
+          {
+            "cum_ms": 150.0,
+            "flat_ms": 0.0,
+            "function": "runtime.notesleep"
+          },
+          {
+            "cum_ms": 150.0,
+            "flat_ms": 150.0,
+            "function": "runtime.pthread_cond_wait"
+          },
+          {
+            "cum_ms": 150.0,
+            "flat_ms": 0.0,
+            "function": "runtime.semasleep"
+          },
+          {
+            "cum_ms": 150.0,
+            "flat_ms": 0.0,
+            "function": "runtime.stopm"
+          },
+          {
+            "cum_ms": 80.0,
+            "flat_ms": 30.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 60.0,
+            "function": "runtime.kevent"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 0.0,
+            "function": "runtime.netpoll"
+          },
+          {
+            "cum_ms": 50.0,
+            "flat_ms": 50.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14580"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14960"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14965"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14591"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn17210"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn257"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn14955"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14575"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14959"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16585"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16594"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16598"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5852"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn18230"
+          },
+          {
+            "cum_ms": 30.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18173"
+          },
+          {
+            "cum_ms": 30.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18163"
+          }
+        ],
+        "total_cpu_sample_ms": 1180.0
+      },
+      "repetition": 1,
+      "report": "measure/1-profile-sql.json",
+      "result": {
+        "cleanup": true,
+        "count": 40,
+        "final": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 41,
+          "grow_calls": 4197,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 754515968,
+          "release_failures": 0,
+          "releases": 41
+        },
+        "phase_totals": {
+          "close": {
+            "count": 40,
+            "cpu_ms": 268.10099999999875,
+            "wall_ms": 234.16758099999998
+          },
+          "fork": {
+            "count": 40,
+            "cpu_ms": 2403.4430000000016,
+            "wall_ms": 1952.992124
+          },
+          "sql": {
+            "count": 40,
+            "cpu_ms": 1496.566000000003,
+            "wall_ms": 1480.990833
+          }
+        },
+        "queries_per_child": 32,
+        "success": true
+      },
+      "returncode": 0,
+      "target": "sql"
+    },
+    {
+      "count": 40,
+      "mode": "profile",
+      "negative": false,
+      "profile": {
+        "top": [
+          {
+            "cum_ms": 550.0,
+            "flat_ms": 550.0,
+            "function": "syscall.rawsyscalln"
+          },
+          {
+            "cum_ms": 290.0,
+            "flat_ms": 290.0,
+            "function": "runtime.memclrNoHeapPointers"
+          },
+          {
+            "cum_ms": 160.0,
+            "flat_ms": 160.0,
+            "function": "runtime.pthread_cond_wait"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 100.0,
+            "function": "runtime.pthread_cond_signal"
+          },
+          {
+            "cum_ms": 80.0,
+            "flat_ms": 80.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn10179"
+          },
+          {
+            "cum_ms": 570.0,
+            "flat_ms": 60.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152"
+          },
+          {
+            "cum_ms": 60.0,
+            "flat_ms": 40.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryEA"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 40.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn541"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 40.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn811"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 40.0,
+            "function": "runtime.usleep"
+          },
+          {
+            "cum_ms": 30.0,
+            "flat_ms": 30.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13491"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 30.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn21540"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 20.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryInBounds (inline)"
+          },
+          {
+            "cum_ms": 450.0,
+            "flat_ms": 20.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn468"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 20.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18170"
+          },
+          {
+            "cum_ms": 80.0,
+            "flat_ms": 20.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn969"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14229"
+          },
+          {
+            "cum_ms": 440.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14746"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18058"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18144"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn4298"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn1505"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 10.0,
+            "function": "runtime.releasem (inline)"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 0.0,
+            "function": "_.goready.func1"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.(*host).Path_open2"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.entropyFS.OpenFile"
+          },
+          {
+            "cum_ms": 1270.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.executeGuest"
+          },
+          {
+            "cum_ms": 1270.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2"
+          },
+          {
+            "cum_ms": 1270.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code.Start"
+          },
+          {
+            "cum_ms": 530.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).Fd_pread"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*WasiStubs).pathOpenOnFS"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*blockStorage).readAt (inline)"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*memFile).ReadAt"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.1"
+          },
+          {
+            "cum_ms": 250.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryFill"
+          },
+          {
+            "cum_ms": 530.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.OpenRelative"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1"
+          },
+          {
+            "cum_ms": 40.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1"
+          },
+          {
+            "cum_ms": 30.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13500"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14580"
+          },
+          {
+            "cum_ms": 340.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn18568"
+          },
+          {
+            "cum_ms": 1170.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5572"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14960"
+          },
+          {
+            "cum_ms": 10.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14965"
+          },
+          {
+            "cum_ms": 20.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn17082"
+          }
+        ],
+        "total_cpu_sample_ms": 1610.0
+      },
+      "profile_cumulative": {
+        "top": [
+          {
+            "cum_ms": 1270.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.executeGuest"
+          },
+          {
+            "cum_ms": 1270.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.startInstance.func2"
+          },
+          {
+            "cum_ms": 1270.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code.Start"
+          },
+          {
+            "cum_ms": 1270.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn21751"
+          },
+          {
+            "cum_ms": 1230.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn244"
+          },
+          {
+            "cum_ms": 1170.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn5572"
+          },
+          {
+            "cum_ms": 1170.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn5738"
+          },
+          {
+            "cum_ms": 570.0,
+            "flat_ms": 60.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn152"
+          },
+          {
+            "cum_ms": 560.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn236"
+          },
+          {
+            "cum_ms": 550.0,
+            "flat_ms": 550.0,
+            "function": "syscall.rawsyscalln"
+          },
+          {
+            "cum_ms": 550.0,
+            "flat_ms": 0.0,
+            "function": "syscall.syscall"
+          },
+          {
+            "cum_ms": 550.0,
+            "flat_ms": 0.0,
+            "function": "syscall.syscalln"
+          },
+          {
+            "cum_ms": 530.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*MemoryMapping).Grow"
+          },
+          {
+            "cum_ms": 530.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryGrow"
+          },
+          {
+            "cum_ms": 530.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn151"
+          },
+          {
+            "cum_ms": 530.0,
+            "flat_ms": 0.0,
+            "function": "syscall.Mprotect"
+          },
+          {
+            "cum_ms": 520.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn20110"
+          },
+          {
+            "cum_ms": 490.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn967"
+          },
+          {
+            "cum_ms": 450.0,
+            "flat_ms": 20.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn468"
+          },
+          {
+            "cum_ms": 450.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn465"
+          },
+          {
+            "cum_ms": 450.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn966"
+          },
+          {
+            "cum_ms": 450.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn765"
+          },
+          {
+            "cum_ms": 440.0,
+            "flat_ms": 10.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14746"
+          },
+          {
+            "cum_ms": 420.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14747"
+          },
+          {
+            "cum_ms": 400.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn7108"
+          },
+          {
+            "cum_ms": 390.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn952"
+          },
+          {
+            "cum_ms": 340.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn18568"
+          },
+          {
+            "cum_ms": 330.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn20099"
+          },
+          {
+            "cum_ms": 330.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn539"
+          },
+          {
+            "cum_ms": 290.0,
+            "flat_ms": 290.0,
+            "function": "runtime.memclrNoHeapPointers"
+          },
+          {
+            "cum_ms": 250.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.MemoryFill"
+          },
+          {
+            "cum_ms": 200.0,
+            "flat_ms": 0.0,
+            "function": "runtime.findRunnable"
+          },
+          {
+            "cum_ms": 200.0,
+            "flat_ms": 0.0,
+            "function": "runtime.schedule"
+          },
+          {
+            "cum_ms": 190.0,
+            "flat_ms": 0.0,
+            "function": "runtime.mcall"
+          },
+          {
+            "cum_ms": 190.0,
+            "flat_ms": 0.0,
+            "function": "runtime.park_m"
+          },
+          {
+            "cum_ms": 170.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn980"
+          },
+          {
+            "cum_ms": 160.0,
+            "flat_ms": 0.0,
+            "function": "runtime.mPark (inline)"
+          },
+          {
+            "cum_ms": 160.0,
+            "flat_ms": 0.0,
+            "function": "runtime.notesleep"
+          },
+          {
+            "cum_ms": 160.0,
+            "flat_ms": 160.0,
+            "function": "runtime.pthread_cond_wait"
+          },
+          {
+            "cum_ms": 160.0,
+            "flat_ms": 0.0,
+            "function": "runtime.semasleep"
+          },
+          {
+            "cum_ms": 160.0,
+            "flat_ms": 0.0,
+            "function": "runtime.stopm"
+          },
+          {
+            "cum_ms": 140.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn4180"
+          },
+          {
+            "cum_ms": 120.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn20095"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 0.0,
+            "function": "_.goready.func1"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn4244"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn4235"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn14518"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 0.0,
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn7210"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 0.0,
+            "function": "runtime.notewakeup"
+          },
+          {
+            "cum_ms": 100.0,
+            "flat_ms": 100.0,
+            "function": "runtime.pthread_cond_signal"
+          }
+        ],
+        "total_cpu_sample_ms": 1610.0
+      },
+      "repetition": 1,
+      "report": "measure/1-profile-fork.json",
+      "result": {
+        "cleanup": true,
+        "count": 40,
+        "final": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 41,
+          "grow_calls": 4191,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 687210496,
+          "release_failures": 0,
+          "releases": 41
+        },
+        "phase_totals": {
+          "close": {
+            "count": 40,
+            "cpu_ms": 121.36300000000122,
+            "wall_ms": 108.62783400000001
+          },
+          "fork": {
+            "count": 40,
+            "cpu_ms": 1941.4010000000003,
+            "wall_ms": 1490.339622
+          },
+          "sql": {
+            "count": 40,
+            "cpu_ms": 1736.239,
+            "wall_ms": 1973.711419
+          }
+        },
+        "queries_per_child": 32,
+        "success": true
+      },
+      "returncode": 0,
+      "target": "fork"
+    },
+    {
+      "count": 6,
+      "mode": "diagnostic",
+      "negative": false,
+      "repetition": 1,
+      "report": "measure/1-diagnostic-none.json",
+      "result": {
+        "cleanup": true,
+        "count": 6,
+        "diagnostic": {
+          "close": {
+            "exit": 61,
+            "notify": 287,
+            "spawn": 7,
+            "spin": 0,
+            "wait_ns": 1978840763,
+            "wait_return_0": 210,
+            "wait_return_1": 6,
+            "wait_return_2": 0,
+            "wait_start": 162,
+            "wait_woken_short": 151,
+            "woken": 210,
+            "yield": 0,
+            "yield_oversubscribed": 0
+          },
+          "fork": {
+            "exit": 0,
+            "notify": 1091,
+            "spawn": 48,
+            "spin": 0,
+            "wait_ns": 177506300,
+            "wait_return_0": 673,
+            "wait_return_1": 13,
+            "wait_return_2": 0,
+            "wait_start": 722,
+            "wait_woken_short": 641,
+            "woken": 675,
+            "yield": 0,
+            "yield_oversubscribed": 0
+          },
+          "outside": {
+            "exit": 11,
+            "notify": 730,
+            "spawn": 11,
+            "spin": 0,
+            "wait_ns": 909859991,
+            "wait_return_0": 684,
+            "wait_return_1": 8,
+            "wait_return_2": 0,
+            "wait_start": 692,
+            "wait_woken_short": 656,
+            "woken": 684,
+            "yield": 0,
+            "yield_oversubscribed": 0
+          },
+          "peak_live_spawned_agents": 10,
+          "sql": {
+            "exit": 0,
+            "notify": 281,
+            "spawn": 6,
+            "spin": 0,
+            "wait_ns": 97135000,
+            "wait_return_0": 275,
+            "wait_return_1": 0,
+            "wait_return_2": 0,
+            "wait_start": 293,
+            "wait_woken_short": 263,
+            "woken": 273,
+            "yield": 0,
+            "yield_oversubscribed": 0
+          }
+        },
+        "final": {
+          "active_mappings": 0,
+          "active_reserved_bytes": 0,
+          "active_rw_bytes": 0,
+          "creates": 7,
+          "grow_calls": 714,
+          "grow_failures": 0,
+          "peak_total_rw_bytes": 672006144,
+          "release_failures": 0,
+          "releases": 7
+        },
+        "phase_totals": {
+          "close": {
+            "count": 6,
+            "cpu_ms": 20.83400000000003,
+            "wall_ms": 20.168335
+          },
+          "fork": {
+            "count": 6,
+            "cpu_ms": 297.159,
+            "wall_ms": 230.374372
+          },
+          "sql": {
+            "count": 6,
+            "cpu_ms": 215.70399999999998,
+            "wall_ms": 230.099831
+          }
+        },
+        "queries_per_child": 32,
+        "success": true
+      },
+      "returncode": 0,
+      "target": "none"
+    }
+  ]
+}

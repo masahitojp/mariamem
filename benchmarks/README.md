@@ -2,6 +2,9 @@
 
 ## Recent measurement and discovery reports
 
+- [Worker phase attribution](worker-phases.md): startup scheduler/wait observations,
+  SQL write-stack candidate, and explicit missing Close samples. No runtime changes.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained

@@ -1,0 +1,6 @@
+File: profile
+Type: cpu
+Time: 2026-11-01 22:43:02 JST
+Duration: 8.16s, Total samples = 0 
+Showing nodes accounting for 0, 0% of 0 total
+      flat  flat%   sum%        cum   cum%
