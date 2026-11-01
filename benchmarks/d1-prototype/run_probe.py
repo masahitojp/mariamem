@@ -25,7 +25,7 @@ for runner in ['manage','pytest']:
              DJANGO_SETTINGS_MODULE='d1_settings', PYTEST_DISABLE_PLUGIN_AUTOLOAD='1', PYTHONDONTWRITEBYTECODE='1',
              PYTHONPATH=os.pathsep.join([str(HERE),str(ROOT/'tests/e2e_native_control/pythonapp')]))
   if runner == 'manage':
-   command = [sys.executable,'-m','django','test',*['test_cases.'+c for c in classes],'--noinput','-v','1']
+   command = [sys.executable,'-m','django','test',*['test_cases.'+c for c in classes],'--noinput','-v','2']
    if name == 'reverse': command.append('--reverse')
   else:
    nodes = ['test_cases.py::'+c for c in classes]

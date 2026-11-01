@@ -2,12 +2,14 @@ import pytest
 import entry
 
 @pytest.fixture(scope='session')
-def django_db_setup(django_db_setup):
-    entry.manager = entry.Manager()
+def django_db_setup(django_db_setup, django_db_blocker):
+    with django_db_blocker.unblock():
+        entry.manager = entry.Manager()
     try:
         yield
     finally:
-        entry.manager.close()
+        with django_db_blocker.unblock():
+            entry.manager.close()
 
 
 def pytest_sessionfinish(session, exitstatus):
