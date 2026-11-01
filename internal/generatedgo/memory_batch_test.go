@@ -17,10 +17,10 @@ func TestBatchAheadRemainsLogicallyOutOfBounds(t *testing.T) {
 		t.Fatal("logical growth")
 	}
 	addr := uint64(4097 * 65536)
-	if base.MemoryInBounds(m, addr, 1) {
+	if base.MemoryInBounds(m, addr, 0, 1) {
 		t.Fatal("ahead RW considered in bounds")
 	}
-	for name, f := range map[string]func(){"scalar": func() { base.MemoryEA(m, int32(addr), 0, 1) }, "atomic": func() { base.AtomicEA(m, int32(addr), 0, 4) }} {
+	for name, f := range map[string]func(){"scalar": func() { base.MemoryEA(m, addr, 0, 1) }, "atomic": func() { base.AtomicEA(m, int32(addr), 0, 4) }} {
 		t.Run(name, func(t *testing.T) {
 			defer func() {
 				if recover() == nil {
