@@ -78,13 +78,13 @@ The following paths are supported in 0.6.0 within their documented profiles.
 | Python MariaDB dump input | [import_dump with the dump extra](docs/importing-dump.md); only the documented MariaDB12.3.3 producer profile |
 | Ordinary Django tests | [Standard-runner recipe](docs/django-testing.md); Django owns rollback/flush/fixtures, not automatic prepared-Snapshot restoration |
 
-These paths retain the exact driver, wire and lifecycle limits below. The extra
-Django prepared entry is deferred from 0.6.0 for consideration in 0.6.1, not a
-delivery promise. The [explicit prepared Django candidate](docs/django-prepared.md)
-adds `mariamem.django` in the candidate source/wheel only; it is absent from the
-published 0.6.0 packages and awaits installed-wheel acceptance and adoption.
-Procedures/functions and real server-side prepared execution
-are supported on main within the named exceptions below.
+These paths retain the exact driver, wire and lifecycle limits below. The
+[explicit prepared Django entry](docs/django-prepared.md) is also adopted on
+main, **unreleased and absent from the published0.6.0 packages**. It adds
+`mariamem.django` with dedicated classes and full prepared-state restoration;
+it is mutually exclusive with routing/shadow_maria in one run. Its four
+installed-wheel OS/Python cells passed before adoption. Procedures/functions
+and real server-side prepared execution retain the named exceptions below.
 
 ## Prepare once, isolate each test
 

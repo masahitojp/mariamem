@@ -2090,3 +2090,29 @@ workflow tests because the new step name was not synchronized; the test-only
 repair now exercises all four commands per interpreter and failure propagation
 for standard, unit and prepared checks. The original run is not READY. No new
 exact-SHA Release result, main merge or publication is claimed.
+
+
+## D1 prepared Django entry — adopted on main, unreleased
+
+The Human's conditional shape approval is satisfied: the existing Release
+Django job passed macOS15 arm64 / Ubuntu24.04 x86_64 × Python3.11/3.14 installed
+wheel on source_commit `ad9c7e67884d257a52283ce646aabcbd8af69b8b`; release-note
+staging and the routing/shadow_maria exclusion paragraph were present. The
+[receipt](reviews/d1-release-41320361521/README.md) retains that executed identity.
+The subsequent difference to head `7128b42a0706ea99dc723d5d9ae00c03d2b279b0`
+is tests/documentation/evidence only; product and workflow execution are unchanged.
+
+[Development41321527424](https://github.com/masahitojp/mariamem/actions/runs/41321527424)
+passed all three required contexts at that head. On the Human's success report,
+[PR #67](https://github.com/masahitojp/mariamem/pull/67) squash-merged through
+normal protection to main source_commit `ccab1f4197febdd4cf0ae54fdfdf63367d6aa0b9`.
+No protection bypass was used. The original Release41320361521 core FAIL remains;
+no new exact-SHA Release READY, publication or performance claim is made.
+
+This closes #43's additional prepared-entry work, including the historical
+0.6.0 deferral's current disposition. The [guide](django-prepared.md) fixes the
+explicit opt-in and class-wide atomic difference, supported profile and routing
+exclusion. Arbitrary projects, unified routing/prepared ownership and real
+engine I/O fault injection are not newly promised; detailed resources remain
+0.7.x. The published0.6.0 installation commands/version remain unchanged.
+Qualification, release version and publication remain separate decisions.
