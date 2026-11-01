@@ -80,7 +80,10 @@ The following paths are supported in 0.6.0 within their documented profiles.
 
 These paths retain the exact driver, wire and lifecycle limits below. The extra
 Django prepared entry is deferred from 0.6.0 for consideration in 0.6.1, not a
-delivery promise. Procedures/functions and real server-side prepared execution
+delivery promise. The [explicit prepared Django candidate](docs/django-prepared.md)
+adds `mariamem.django` in the candidate source/wheel only; it is absent from the
+published 0.6.0 packages and awaits installed-wheel acceptance and adoption.
+Procedures/functions and real server-side prepared execution
 are supported on main within the named exceptions below.
 
 ## Prepare once, isolate each test

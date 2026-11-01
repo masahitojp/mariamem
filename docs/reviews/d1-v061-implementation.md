@@ -86,3 +86,40 @@ Before closing #43:
 
 No Oscar/arbitrary-project matrix, new engine/wire feature, resource-tuning
 campaign or performance claim was added to this work.
+
+
+## Human conditional shape approval — 2026-11-02
+
+The Human approved this explicit opt-in shape, conditional on three items before
+merge: (a) the existing Release Django installed-wheel job PASS on macOS15 arm64
+and Ubuntu24.04 x86_64 with Python3.11/3.14, (b) release-note staging, and (c) one
+paragraph defining exclusion from routing/shadow_maria. This is not permission
+to merge before those conditions, publish a release or claim completed evidence.
+The strongest objection is the second connection-switching entry plus its
+nonstandard class transaction semantics. Explicit opt-in preserves the ordinary
+entry; combining owners remains unsupported. If unified routing/prepared
+ownership is requested, stop implementation and compare designs first.
+
+The staging notes and exclusion paragraph are now present; the README/Python
+entry lists distinguish the candidate from published0.6.0. Detailed resource
+measurement remains deferred to0.7.x. The installed-wheel matrix remains pending
+until the submitted Release verification actually succeeds.
+
+### Failure evidence map
+
+| Boundary | Actual local evidence | Controlled component evidence / limits |
+| --- | --- | --- |
+| Seed / partial migration failure | Both runners retain the real callback or MySQL error, admit no body and reap the host | Full engine I/O fault injection is not claimed |
+| Disconnect / capture admission | A genuinely retained SQL connection prevents preparation; no body starts and the real host is reaped | This is the SDK wait-disconnected boundary, not a real `snapshot()` rejection after admission |
+| Capture consume / preserve | Healthy real SDK capture consumes the source and independent Forks restore schema/seed | Rejected/failed capture ownership paths use fake handles, including failure after consumption; no real capture-I/O failure injected |
+| Fork | Real baseline Forks cover class/test/teardown ownership and isolation | Fork-operation failure uses a fake handle; real startup/allocation failure was not injected |
+| Close / admission debt | Normal finalization reaps all44 locally observed host PIDs; committed/assertion failures still restore the next test | Close failure, retry, sibling finalization and later-body refusal use fake handles; no genuine engine close-I/O failure injected |
+| Primary plus cleanup error | Raw real test failures stay failures | Component/framework probes retain both exception objects, including teardown Django would suppress |
+| Class setup / skip / repeat | Both real runners cover failure/skip, per-class data and repeated runs in one process | Not arbitrary user hook or project compatibility |
+
+The existing common SDK capture precondition oracles in
+[tests/snapshots.py](../../tests/snapshots.py) separately exercise real Busy and
+transaction rejection with preserved source usability. They are unchanged common
+runtime checks, not new D1 fault-injection evidence. No component oracle silently
+substitutes for an unexecuted real fault. The final review should judge this
+finite map against #43; “every possible engine I/O failure” is not a new gate.

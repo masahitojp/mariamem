@@ -2070,3 +2070,13 @@ reusing its built host and authored orders/native controls. The [implementation 
 20 real-SDK scenarios per local interpreter and84 focused checks on each. Those
 local results do not complete the two-OS/installed-wheel matrix. Main adoption, closing
 #43 and versioned release approval remain pending their own evidence/decisions.
+
+
+**D1 conditional shape approval, 2026-11-02:** the Human approved the explicit
+opt-in entry subject to installed-wheel PASS in the existing Release Django
+matrix (macOS15/Ubuntu24.04 × Python3.11/3.14), release-note staging and a routing /
+shadow_maria exclusion paragraph before merge. The latter two are documented;
+the matrix remains pending. The [checkpoint](reviews/d1-v061-implementation.md#human-conditional-shape-approval--2026-11-02)
+records the decision, strongest objection and actual/component failure map.
+No unconditional integration or publication is authorized. Unified routing and
+prepared ownership would require a new design comparison first.

@@ -113,6 +113,21 @@ Function-style `django_db` tests and ordinary Django database classes cannot be
 mixed into this prepared run. `SimpleTestCase` tests without database access may
 coexist. The ordinary recipe still supports its independently tested policies.
 
+## Routing and shadow_maria
+
+The prepared Django entry and routing/`shadow_maria` are mutually exclusive
+within one test invocation: do not combine this entry with routing profiles,
+`shadow_maria`, a manual routing registry or SQLAlchemy engine enrollment. Choose
+one connection owner for the run. Django prepared classes let the runner/plugin
+switch Django's `default` connection between owned Forks; routing redirects
+explicitly enrolled application connections and pools through its own fixture
+lifecycle. Their combined switching, preparation and cleanup order is undefined
+and unverified; this is a usage restriction, not a claim that every combination
+is automatically detected. The ordinary mariamem pytest plugin may remain
+loaded when its routing features are unused. Run routing tests separately with
+separate settings, and retire their physical connections before starting another
+owner. Combining the two into one entry requires a separate design comparison.
+
 ## Differences and initial limits
 
 `PreparedTestCase` keeps Django's per-test atomic block, but **does not use a
