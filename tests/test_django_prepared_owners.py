@@ -126,7 +126,7 @@ def test_import_and_invalid_settings_do_not_start_host(monkeypatch):
         prepared_database(test_name='application')
 
 
-def test_settings_acquisition_is_owned_until_explicit_close(monkeypatch):
+def test_settings_declaration_is_lazy_and_explicit_start_is_owned(monkeypatch):
     import copy
     import mariamem
     from mariamem.django import prepared_database
@@ -135,8 +135,10 @@ def test_settings_acquisition_is_owned_until_explicit_close(monkeypatch):
     monkeypatch.setattr(mariamem, 'start', lambda **options: source)
     settings = prepared_database()
     config = settings['MARIAMEM_PREPARED']
-    assert not source.closed
+    assert config.source is None
     assert copy.deepcopy(settings)['MARIAMEM_PREPARED'] is config
+    assert config.start() is source
+    assert not source.closed
     config.close()
     config.close()
     assert source.closed
@@ -245,3 +247,19 @@ def test_atomic_switch_refusal_then_final_retirement(manager):
     assert m.source.closed
     connection.in_atomic_block = False
     config.close()
+
+
+@pytest.mark.parametrize('shadow_marker,fixtures', [(True, []), (False, ['mariamem_app_db'])])
+def test_collection_exclusion_without_optional_framework_dependency(monkeypatch, shadow_marker, fixtures):
+    import sys
+    from types import SimpleNamespace
+    from mariamem.django import pytest_plugin
+    # Keep the ordinary daily policy check independent of optional Django/C.
+    base = type('Case', (), {})
+    monkeypatch.setitem(sys.modules, 'django.test', SimpleNamespace(TransactionTestCase=base))
+    monkeypatch.setitem(sys.modules, 'mariamem.django._cases', SimpleNamespace(validate_case=lambda cls: None))
+    monkeypatch.setattr(pytest_plugin, '_entry', lambda config: None)
+    item = SimpleNamespace(cls=base, fixturenames=fixtures,
+        get_closest_marker=lambda name: object() if shadow_marker and name == 'shadow_maria' else None)
+    with pytest.raises(pytest.UsageError, match='cannot share a run'):
+        pytest_plugin.pytest_collection_modifyitems(None, [item])

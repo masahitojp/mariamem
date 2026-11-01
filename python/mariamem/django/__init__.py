@@ -1,4 +1,4 @@
-"""Explicit prepared Django test entry; importing does not start a server."""
+"""Explicit prepared Django test entry; settings declaration does not start a server."""
 from ._database import prepared_database
 
 __all__ = ['prepared_database', 'PreparedTestCase', 'PreparedTransactionTestCase',

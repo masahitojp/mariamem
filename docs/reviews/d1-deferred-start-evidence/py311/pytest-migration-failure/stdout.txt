@@ -1,0 +1,596 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.18, pytest-9.0.2, pluggy-1.7.0 -- __WORKTREE__/build/venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.8, settings: prepared_settings (from env)
+rootdir: __WORKTREE__
+collecting ... collected 7 items / 3 deselected / 4 selected
+
+tests/django_prepared/cases.py::AtomicCases::test_first ERROR            [ 25%]
+tests/django_prepared/cases.py::AtomicCases::test_second ERROR           [ 50%]
+tests/django_prepared/cases.py::TransactionalCases::test_first ERROR     [ 75%]
+tests/django_prepared/cases.py::TransactionalCases::test_second ERROR    [100%]
+
+==================================== ERRORS ====================================
+___________________ ERROR at setup of AtomicCases.test_first ___________________
+
+self = <django.db.backends.utils.CursorWrapper object at 0x109ff9ad0>
+sql = 'INSERT INTO w3_missing_migration_table VALUES (1)', params = None
+ignored_wrapper_args = (False, {'connection': <DatabaseWrapper vendor='mysql' alias='default'>, 'cursor': <django.db.backends.utils.CursorWrapper object at 0x109ff9ad0>})
+
+    def _execute(self, sql, params, *ignored_wrapper_args):
+        # Raise a warning during app initialization (stored_app_configs is only
+        # ever set during testing).
+        if not apps.ready and not apps.stored_app_configs:
+            warnings.warn(self.APPS_NOT_READY_WARNING_MSG, category=RuntimeWarning)
+        self.db.validate_no_broken_transaction()
+        with self.db.wrap_database_errors:
+            if params is None:
+                # params default might be backend specific.
+>               return self.cursor.execute(sql)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:103:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+build/venv/lib/python3.11/site-packages/django/db/backends/mysql/base.py:76: in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:179: in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:330: in _query
+    db.query(q)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_mysql.connection open to '127.0.0.1' at 0x7ccf8c6420>
+query = b'INSERT INTO w3_missing_migration_table VALUES (1)'
+
+    def query(self, query):
+        # Since _mysql releases GIL while querying, we need immutable buffer.
+        if isinstance(query, bytearray):
+            query = bytes(query)
+>       _mysql.connection.query(self, query)
+E       MySQLdb.ProgrammingError: (1146, "Table 'test_mariamem.w3_missing_migration_table' doesn't exist")
+
+build/venv/lib/python3.11/site-packages/MySQLdb/connections.py:280: ProgrammingError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_first>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x102a41610>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv/lib/python3.11/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+build/venv/lib/python3.11/site-packages/pytest_django/fixtures.py:186: in django_db_setup
+    db_cfg = setup_databases(
+build/venv/lib/python3.11/site-packages/django/test/utils.py:204: in setup_databases
+    connection.creation.create_test_db(
+build/venv/lib/python3.11/site-packages/django/db/backends/base/creation.py:78: in create_test_db
+    call_command(
+build/venv/lib/python3.11/site-packages/django/core/management/__init__.py:194: in call_command
+    return command.execute(*args, **defaults)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/core/management/base.py:460: in execute
+    output = self.handle(*args, **options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/core/management/base.py:107: in wrapper
+    res = handle_func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/core/management/commands/migrate.py:353: in handle
+    post_migrate_state = executor.migrate(
+build/venv/lib/python3.11/site-packages/django/db/migrations/executor.py:135: in migrate
+    state = self._migrate_all_forwards(
+build/venv/lib/python3.11/site-packages/django/db/migrations/executor.py:167: in _migrate_all_forwards
+    state = self.apply_migration(
+build/venv/lib/python3.11/site-packages/django/db/migrations/executor.py:255: in apply_migration
+    state = migration.apply(state, schema_editor)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/db/migrations/migration.py:132: in apply
+    operation.database_forwards(
+build/venv/lib/python3.11/site-packages/django/db/migrations/operations/special.py:108: in database_forwards
+    self._run_sql(schema_editor, self.sql)
+build/venv/lib/python3.11/site-packages/django/db/migrations/operations/special.py:135: in _run_sql
+    schema_editor.execute(statement, params=None)
+build/venv/lib/python3.11/site-packages/django/db/backends/base/schema.py:204: in execute
+    cursor.execute(sql, params)
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:79: in execute
+    return self._execute_with_wrappers(
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:92: in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:100: in _execute
+    with self.db.wrap_database_errors:
+build/venv/lib/python3.11/site-packages/django/db/utils.py:91: in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:103: in _execute
+    return self.cursor.execute(sql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/db/backends/mysql/base.py:76: in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:179: in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:330: in _query
+    db.query(q)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_mysql.connection open to '127.0.0.1' at 0x7ccf8c6420>
+query = b'INSERT INTO w3_missing_migration_table VALUES (1)'
+
+    def query(self, query):
+        # Since _mysql releases GIL while querying, we need immutable buffer.
+        if isinstance(query, bytearray):
+            query = bytes(query)
+>       _mysql.connection.query(self, query)
+E       django.db.utils.ProgrammingError: (1146, "Table 'test_mariamem.w3_missing_migration_table' doesn't exist")
+
+build/venv/lib/python3.11/site-packages/MySQLdb/connections.py:280: ProgrammingError
+---------------------------- Captured stderr setup -----------------------------
+Creating test database for alias 'default'...
+__________________ ERROR at setup of AtomicCases.test_second ___________________
+
+self = <django.db.backends.utils.CursorWrapper object at 0x109ff9ad0>
+sql = 'INSERT INTO w3_missing_migration_table VALUES (1)', params = None
+ignored_wrapper_args = (False, {'connection': <DatabaseWrapper vendor='mysql' alias='default'>, 'cursor': <django.db.backends.utils.CursorWrapper object at 0x109ff9ad0>})
+
+    def _execute(self, sql, params, *ignored_wrapper_args):
+        # Raise a warning during app initialization (stored_app_configs is only
+        # ever set during testing).
+        if not apps.ready and not apps.stored_app_configs:
+            warnings.warn(self.APPS_NOT_READY_WARNING_MSG, category=RuntimeWarning)
+        self.db.validate_no_broken_transaction()
+        with self.db.wrap_database_errors:
+            if params is None:
+                # params default might be backend specific.
+>               return self.cursor.execute(sql)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:103:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+build/venv/lib/python3.11/site-packages/django/db/backends/mysql/base.py:76: in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:179: in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:330: in _query
+    db.query(q)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_mysql.connection open to '127.0.0.1' at 0x7ccf8c6420>
+query = b'INSERT INTO w3_missing_migration_table VALUES (1)'
+
+    def query(self, query):
+        # Since _mysql releases GIL while querying, we need immutable buffer.
+        if isinstance(query, bytearray):
+            query = bytes(query)
+>       _mysql.connection.query(self, query)
+E       MySQLdb.ProgrammingError: (1146, "Table 'test_mariamem.w3_missing_migration_table' doesn't exist")
+
+build/venv/lib/python3.11/site-packages/MySQLdb/connections.py:280: ProgrammingError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_first>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x102a41610>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv/lib/python3.11/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+build/venv/lib/python3.11/site-packages/pytest_django/fixtures.py:186: in django_db_setup
+    db_cfg = setup_databases(
+build/venv/lib/python3.11/site-packages/django/test/utils.py:204: in setup_databases
+    connection.creation.create_test_db(
+build/venv/lib/python3.11/site-packages/django/db/backends/base/creation.py:78: in create_test_db
+    call_command(
+build/venv/lib/python3.11/site-packages/django/core/management/__init__.py:194: in call_command
+    return command.execute(*args, **defaults)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/core/management/base.py:460: in execute
+    output = self.handle(*args, **options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/core/management/base.py:107: in wrapper
+    res = handle_func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/core/management/commands/migrate.py:353: in handle
+    post_migrate_state = executor.migrate(
+build/venv/lib/python3.11/site-packages/django/db/migrations/executor.py:135: in migrate
+    state = self._migrate_all_forwards(
+build/venv/lib/python3.11/site-packages/django/db/migrations/executor.py:167: in _migrate_all_forwards
+    state = self.apply_migration(
+build/venv/lib/python3.11/site-packages/django/db/migrations/executor.py:255: in apply_migration
+    state = migration.apply(state, schema_editor)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/db/migrations/migration.py:132: in apply
+    operation.database_forwards(
+build/venv/lib/python3.11/site-packages/django/db/migrations/operations/special.py:108: in database_forwards
+    self._run_sql(schema_editor, self.sql)
+build/venv/lib/python3.11/site-packages/django/db/migrations/operations/special.py:135: in _run_sql
+    schema_editor.execute(statement, params=None)
+build/venv/lib/python3.11/site-packages/django/db/backends/base/schema.py:204: in execute
+    cursor.execute(sql, params)
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:79: in execute
+    return self._execute_with_wrappers(
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:92: in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:100: in _execute
+    with self.db.wrap_database_errors:
+build/venv/lib/python3.11/site-packages/django/db/utils.py:91: in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:103: in _execute
+    return self.cursor.execute(sql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/db/backends/mysql/base.py:76: in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:179: in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:330: in _query
+    db.query(q)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_mysql.connection open to '127.0.0.1' at 0x7ccf8c6420>
+query = b'INSERT INTO w3_missing_migration_table VALUES (1)'
+
+    def query(self, query):
+        # Since _mysql releases GIL while querying, we need immutable buffer.
+        if isinstance(query, bytearray):
+            query = bytes(query)
+>       _mysql.connection.query(self, query)
+E       django.db.utils.ProgrammingError: (1146, "Table 'test_mariamem.w3_missing_migration_table' doesn't exist")
+
+build/venv/lib/python3.11/site-packages/MySQLdb/connections.py:280: ProgrammingError
+_______________ ERROR at setup of TransactionalCases.test_first ________________
+
+self = <django.db.backends.utils.CursorWrapper object at 0x109ff9ad0>
+sql = 'INSERT INTO w3_missing_migration_table VALUES (1)', params = None
+ignored_wrapper_args = (False, {'connection': <DatabaseWrapper vendor='mysql' alias='default'>, 'cursor': <django.db.backends.utils.CursorWrapper object at 0x109ff9ad0>})
+
+    def _execute(self, sql, params, *ignored_wrapper_args):
+        # Raise a warning during app initialization (stored_app_configs is only
+        # ever set during testing).
+        if not apps.ready and not apps.stored_app_configs:
+            warnings.warn(self.APPS_NOT_READY_WARNING_MSG, category=RuntimeWarning)
+        self.db.validate_no_broken_transaction()
+        with self.db.wrap_database_errors:
+            if params is None:
+                # params default might be backend specific.
+>               return self.cursor.execute(sql)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:103:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+build/venv/lib/python3.11/site-packages/django/db/backends/mysql/base.py:76: in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:179: in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:330: in _query
+    db.query(q)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_mysql.connection open to '127.0.0.1' at 0x7ccf8c6420>
+query = b'INSERT INTO w3_missing_migration_table VALUES (1)'
+
+    def query(self, query):
+        # Since _mysql releases GIL while querying, we need immutable buffer.
+        if isinstance(query, bytearray):
+            query = bytes(query)
+>       _mysql.connection.query(self, query)
+E       MySQLdb.ProgrammingError: (1146, "Table 'test_mariamem.w3_missing_migration_table' doesn't exist")
+
+build/venv/lib/python3.11/site-packages/MySQLdb/connections.py:280: ProgrammingError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_first>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x102a41610>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv/lib/python3.11/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+build/venv/lib/python3.11/site-packages/pytest_django/fixtures.py:186: in django_db_setup
+    db_cfg = setup_databases(
+build/venv/lib/python3.11/site-packages/django/test/utils.py:204: in setup_databases
+    connection.creation.create_test_db(
+build/venv/lib/python3.11/site-packages/django/db/backends/base/creation.py:78: in create_test_db
+    call_command(
+build/venv/lib/python3.11/site-packages/django/core/management/__init__.py:194: in call_command
+    return command.execute(*args, **defaults)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/core/management/base.py:460: in execute
+    output = self.handle(*args, **options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/core/management/base.py:107: in wrapper
+    res = handle_func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/core/management/commands/migrate.py:353: in handle
+    post_migrate_state = executor.migrate(
+build/venv/lib/python3.11/site-packages/django/db/migrations/executor.py:135: in migrate
+    state = self._migrate_all_forwards(
+build/venv/lib/python3.11/site-packages/django/db/migrations/executor.py:167: in _migrate_all_forwards
+    state = self.apply_migration(
+build/venv/lib/python3.11/site-packages/django/db/migrations/executor.py:255: in apply_migration
+    state = migration.apply(state, schema_editor)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/db/migrations/migration.py:132: in apply
+    operation.database_forwards(
+build/venv/lib/python3.11/site-packages/django/db/migrations/operations/special.py:108: in database_forwards
+    self._run_sql(schema_editor, self.sql)
+build/venv/lib/python3.11/site-packages/django/db/migrations/operations/special.py:135: in _run_sql
+    schema_editor.execute(statement, params=None)
+build/venv/lib/python3.11/site-packages/django/db/backends/base/schema.py:204: in execute
+    cursor.execute(sql, params)
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:79: in execute
+    return self._execute_with_wrappers(
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:92: in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:100: in _execute
+    with self.db.wrap_database_errors:
+build/venv/lib/python3.11/site-packages/django/db/utils.py:91: in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:103: in _execute
+    return self.cursor.execute(sql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/db/backends/mysql/base.py:76: in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:179: in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:330: in _query
+    db.query(q)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_mysql.connection open to '127.0.0.1' at 0x7ccf8c6420>
+query = b'INSERT INTO w3_missing_migration_table VALUES (1)'
+
+    def query(self, query):
+        # Since _mysql releases GIL while querying, we need immutable buffer.
+        if isinstance(query, bytearray):
+            query = bytes(query)
+>       _mysql.connection.query(self, query)
+E       django.db.utils.ProgrammingError: (1146, "Table 'test_mariamem.w3_missing_migration_table' doesn't exist")
+
+build/venv/lib/python3.11/site-packages/MySQLdb/connections.py:280: ProgrammingError
+_______________ ERROR at setup of TransactionalCases.test_second _______________
+
+self = <django.db.backends.utils.CursorWrapper object at 0x109ff9ad0>
+sql = 'INSERT INTO w3_missing_migration_table VALUES (1)', params = None
+ignored_wrapper_args = (False, {'connection': <DatabaseWrapper vendor='mysql' alias='default'>, 'cursor': <django.db.backends.utils.CursorWrapper object at 0x109ff9ad0>})
+
+    def _execute(self, sql, params, *ignored_wrapper_args):
+        # Raise a warning during app initialization (stored_app_configs is only
+        # ever set during testing).
+        if not apps.ready and not apps.stored_app_configs:
+            warnings.warn(self.APPS_NOT_READY_WARNING_MSG, category=RuntimeWarning)
+        self.db.validate_no_broken_transaction()
+        with self.db.wrap_database_errors:
+            if params is None:
+                # params default might be backend specific.
+>               return self.cursor.execute(sql)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^
+
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:103:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+build/venv/lib/python3.11/site-packages/django/db/backends/mysql/base.py:76: in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:179: in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:330: in _query
+    db.query(q)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_mysql.connection open to '127.0.0.1' at 0x7ccf8c6420>
+query = b'INSERT INTO w3_missing_migration_table VALUES (1)'
+
+    def query(self, query):
+        # Since _mysql releases GIL while querying, we need immutable buffer.
+        if isinstance(query, bytearray):
+            query = bytes(query)
+>       _mysql.connection.query(self, query)
+E       MySQLdb.ProgrammingError: (1146, "Table 'test_mariamem.w3_missing_migration_table' doesn't exist")
+
+build/venv/lib/python3.11/site-packages/MySQLdb/connections.py:280: ProgrammingError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_first>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x102a41610>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv/lib/python3.11/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+build/venv/lib/python3.11/site-packages/pytest_django/fixtures.py:186: in django_db_setup
+    db_cfg = setup_databases(
+build/venv/lib/python3.11/site-packages/django/test/utils.py:204: in setup_databases
+    connection.creation.create_test_db(
+build/venv/lib/python3.11/site-packages/django/db/backends/base/creation.py:78: in create_test_db
+    call_command(
+build/venv/lib/python3.11/site-packages/django/core/management/__init__.py:194: in call_command
+    return command.execute(*args, **defaults)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/core/management/base.py:460: in execute
+    output = self.handle(*args, **options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/core/management/base.py:107: in wrapper
+    res = handle_func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/core/management/commands/migrate.py:353: in handle
+    post_migrate_state = executor.migrate(
+build/venv/lib/python3.11/site-packages/django/db/migrations/executor.py:135: in migrate
+    state = self._migrate_all_forwards(
+build/venv/lib/python3.11/site-packages/django/db/migrations/executor.py:167: in _migrate_all_forwards
+    state = self.apply_migration(
+build/venv/lib/python3.11/site-packages/django/db/migrations/executor.py:255: in apply_migration
+    state = migration.apply(state, schema_editor)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/db/migrations/migration.py:132: in apply
+    operation.database_forwards(
+build/venv/lib/python3.11/site-packages/django/db/migrations/operations/special.py:108: in database_forwards
+    self._run_sql(schema_editor, self.sql)
+build/venv/lib/python3.11/site-packages/django/db/migrations/operations/special.py:135: in _run_sql
+    schema_editor.execute(statement, params=None)
+build/venv/lib/python3.11/site-packages/django/db/backends/base/schema.py:204: in execute
+    cursor.execute(sql, params)
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:79: in execute
+    return self._execute_with_wrappers(
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:92: in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:100: in _execute
+    with self.db.wrap_database_errors:
+build/venv/lib/python3.11/site-packages/django/db/utils.py:91: in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+build/venv/lib/python3.11/site-packages/django/db/backends/utils.py:103: in _execute
+    return self.cursor.execute(sql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/django/db/backends/mysql/base.py:76: in execute
+    return self.cursor.execute(query, args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:179: in execute
+    res = self._query(mogrified_query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+build/venv/lib/python3.11/site-packages/MySQLdb/cursors.py:330: in _query
+    db.query(q)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <_mysql.connection open to '127.0.0.1' at 0x7ccf8c6420>
+query = b'INSERT INTO w3_missing_migration_table VALUES (1)'
+
+    def query(self, query):
+        # Since _mysql releases GIL while querying, we need immutable buffer.
+        if isinstance(query, bytearray):
+            query = bytes(query)
+>       _mysql.connection.query(self, query)
+E       django.db.utils.ProgrammingError: (1146, "Table 'test_mariamem.w3_missing_migration_table' doesn't exist")
+
+build/venv/lib/python3.11/site-packages/MySQLdb/connections.py:280: ProgrammingError
+======================= 3 deselected, 4 errors in 0.75s ========================

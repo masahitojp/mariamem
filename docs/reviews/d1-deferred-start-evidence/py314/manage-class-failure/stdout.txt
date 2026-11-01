@@ -1,0 +1,25 @@
+Creating test database for alias 'default' ('test_mariamem')...
+Found 3 test(s).
+Operations to perform:
+  Apply all migrations: orders
+Running migrations:
+  Applying orders.0001_initial... OK
+  Applying orders.0002_status...setUpClass (cases.SetupFailure) ... ERROR
+test_first (cases.TransactionalCases.test_first) ... ok
+test_second (cases.TransactionalCases.test_second) ... ok
+
+======================================================================
+ERROR: setUpClass (cases.SetupFailure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "__WORKTREE__/tests/django_prepared/cases.py", line 81, in setUpClass
+    raise RuntimeError('PREPARED_CLASS_FAILURE')
+RuntimeError: PREPARED_CLASS_FAILURE
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.829s
+
+FAILED (errors=1)
+Destroying test database for alias 'default' ('test_mariamem')...
+ OK
+System check identified no issues (0 silenced).

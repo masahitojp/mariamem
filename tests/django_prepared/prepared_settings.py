@@ -9,7 +9,6 @@ SECRET_KEY = 'prepared-entry-test-only'
 INSTALLED_APPS = ['orders']
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 USE_TZ = True
-DATABASES = {'default': prepared_database(options={'host_binary': os.environ['MARIAMEM_PREPARED_HOST']})}
 TEST_RUNNER = 'mariamem.django.PreparedDiscoverRunner'
 MARIAMEM_DJANGO_PREPARE = 'prepared_settings.prepare'
 if os.environ.get('MARIAMEM_PREPARED_MODE') == 'migration-failure':
@@ -23,7 +22,6 @@ def event(name, **data):
 
 def prepare(connection):
     event('prepare')
-    event('host', pid=DATABASES['default']['MARIAMEM_PREPARED'].source.diagnostics['host_pid'])
     if os.environ.get('MARIAMEM_PREPARED_MODE') == 'prepare-failure':
         raise RuntimeError('PREPARED_SEED_FAILURE')
     if os.environ.get('MARIAMEM_PREPARED_MODE') == 'busy-source':
@@ -37,5 +35,16 @@ def prepare(connection):
         cursor.execute('INSERT INTO prepared_sentinel VALUES (17)')
 
 
-_source = DATABASES['default']['MARIAMEM_PREPARED'].source
-event('host', pid=_source.diagnostics['host_pid'])
+# Trace acquisition through the public SDK before migrations can fail.
+import mariamem
+_start = mariamem.start
+
+def traced_start(**options):
+    source = _start(**options)
+    event('host', pid=source.diagnostics['host_pid'])
+    return source
+
+mariamem.start = traced_start
+DATABASES = {'default': prepared_database(options={'host_binary': os.environ['MARIAMEM_PREPARED_HOST']})}
+assert DATABASES['default']['MARIAMEM_PREPARED'].source is None
+event('declaration')

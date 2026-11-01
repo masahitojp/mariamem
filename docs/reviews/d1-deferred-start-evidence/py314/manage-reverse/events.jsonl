@@ -1,0 +1,10 @@
+{"event": "declaration"}
+{"event": "host", "pid": 50719}
+{"event": "prepare"}
+{"event": "class-data"}
+{"event": "class-commit"}
+{"event": "body"}
+{"event": "body"}
+{"event": "body"}
+{"event": "body"}
+{"event": "commit-observed"}

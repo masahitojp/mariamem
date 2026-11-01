@@ -12,7 +12,12 @@ import importlib.metadata
 import threading
 import time
 import uuid
+import warnings
 from types import MappingProxyType
+
+
+class UnusedRoutingWarning(UserWarning):
+    """A completed binding did not route any successful connection."""
 
 
 class RoutingError(RuntimeError):
@@ -59,6 +64,7 @@ class _Lease:
         self.generation = uuid.uuid4().hex
         self.live = True
         self.pending = 0
+        self.routed = 0
         self.resources = {}
         self.condition = threading.Condition(threading.RLock())
 
@@ -169,6 +175,7 @@ class Router:
             result = connect(lease.database.connection_info())
             with lease.condition:
                 self._validate(lease, driver)
+                lease.routed += 1
             return result
         except BaseException as primary:
             try:
@@ -222,6 +229,7 @@ class Router:
             self._leases[lease.generation] = lease
         token = self._current.set(lease)
         primary = None
+        drained = False
         try:
             yield lease
         except BaseException as error:
@@ -230,12 +238,18 @@ class Router:
         finally:
             try:
                 self._drain(lease)
+                drained = True
             except BaseException as error:
                 if primary is None:
                     raise
                 _attach_cleanup(primary, error)
             finally:
                 self._current.reset(token)
+            if drained and primary is None and lease.routed == 0:
+                warnings.warn(
+                    'mariamem routed 0 connections in this binding; isolation was not '
+                    'exercised. Check the selected driver/profile or use explicit child settings.',
+                    UnusedRoutingWarning, stacklevel=3)
 
     def register_engine(self, engine, *, profile, ownership):
         """Hand off a quiescent engine. Only ownership='test' is supported."""

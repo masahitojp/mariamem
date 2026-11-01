@@ -2116,3 +2116,29 @@ exclusion. Arbitrary projects, unified routing/prepared ownership and real
 engine I/O fault injection are not newly promised; detailed resources remain
 0.7.x. The published0.6.0 installation commands/version remain unchanged.
 Qualification, release version and publication remain separate decisions.
+
+
+## D1 lifecycle follow-up — deferred acquisition and routing exclusion
+
+On 2026-11-02 the Human requested code-level exclusion from shadow_maria and
+removal of settings-import host acquisition. `prepared_database()` now declares
+settings only; the runner's database setup and pytest's corresponding fixture
+acquire the owner. A thin guarded Django MySQL backend refuses SQL before that
+lifecycle instead of dialing a default/original endpoint. Database-free suites
+and collection-only acquire none. The class/test Snapshot/Fork contract stays
+unchanged. This follow-up is a candidate, not adopted/released by this record.
+
+Prepared collection rejects shadow_maria marks / mariamem_app_db, and active
+routing registries are rejected before acquisition. General routing bindings
+warn when successful scope exit routed no connections; warning occurs after
+cleanup and does not mask original/cleanup errors. This does not unify the two
+lifecycles or add mysqlclient routing support. Old installed-wheel receipts
+remain bound to their original source and do not qualify this changed boundary.
+
+
+The [follow-up checkpoint](reviews/d1-deferred-start.md) pins local execution to
+`86caccf57bab3bdcfbb85a29c70eaffd79ecf110`:20 real-SDK scenarios and146 focused
+checks per Python minor, plus the dependency-free policy/package check set.
+Actual check/shell and collection-only do not acquire; early SQL and mixed
+shadow_maria collection refuse before dial/acquisition. New both-OS installed
+wheel evidence remains unexecuted. No heavy CI was started for this follow-up.

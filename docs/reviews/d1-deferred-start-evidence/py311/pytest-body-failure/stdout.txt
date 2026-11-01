@@ -1,0 +1,44 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.18, pytest-9.0.2, pluggy-1.7.0 -- __WORKTREE__/build/venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.8, settings: prepared_settings (from env)
+rootdir: __WORKTREE__
+collecting ... collected 7 items / 5 deselected / 2 selected
+
+tests/django_prepared/cases.py::TransactionalCases::test_first FAILED    [ 50%]
+tests/django_prepared/cases.py::TransactionalCases::test_second PASSED   [100%]
+
+=================================== FAILURES ===================================
+________________________ TransactionalCases.test_first _________________________
+
+self = <cases.TransactionalCases testMethod=test_first>
+
+    def test_first(self):
+        baseline()
+        callbacks = []
+        with transaction.atomic():
+            Order.objects.create(sku='COMMIT')
+            transaction.on_commit(lambda: callbacks.append(True))
+        assert callbacks == [True]
+        import MySQLdb
+        cfg = connection.settings_dict
+        observer = MySQLdb.connect(host=cfg['HOST'], port=int(cfg['PORT']), user=cfg['USER'],
+                                   passwd=cfg['PASSWORD'], db=cfg['NAME'])
+        try:
+            with observer.cursor() as cursor:
+                cursor.execute("SELECT COUNT(*) FROM orders_order WHERE sku='COMMIT'")
+                assert cursor.fetchone() == (1,)
+            event('commit-observed')
+        finally:
+            observer.close()
+        with connection.cursor() as cursor:
+            cursor.execute('UPDATE prepared_sentinel SET n=99')
+            cursor.execute('CREATE TABLE prepared_added (n INT)')
+        if os.environ.get('MARIAMEM_PREPARED_MODE') == 'body-failure':
+>           self.fail('PREPARED_BODY_FAILURE')
+E           AssertionError: PREPARED_BODY_FAILURE
+
+tests/django_prepared/cases.py:71: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+Creating test database for alias 'default'...
+================== 1 failed, 1 passed, 5 deselected in 0.86s ===================

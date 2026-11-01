@@ -194,3 +194,21 @@ On a failed drain, release checkouts/join work, then retry registry close.
 An incomplete cleanup is reported as such. Nested bindings restore their outer
 selection; copied contexts are revoked when their binding ends. Registry removal
 is explicit and restores only hooks it still owns.
+
+
+## Bindings that route no connections
+
+On successful binding exit, `mariamem.routing.UnusedRoutingWarning` reports
+“routed 0 connections” if that binding opened no successful routed connection.
+An unsupported driver (such as Django's mysqlclient), a mismatched profile or a
+test that never opens a DB connection can produce this warning. It is a signal
+to check driver/profile enrollment, not proof that an original connection was
+used or a connection failure diagnosis. The count belongs to that binding,
+including its participating threads, and is retained after connections close.
+
+The warning occurs after drain and target restoration. Original test errors and
+cleanup errors take precedence; this warning does not replace them. Intentional
+DB-free bindings may filter this specific category through normal Python/pytest
+warning filters. Turning it into an error still leaves the binding retired.
+Prepared Django tests reject `shadow_maria` at collection instead of relying on
+this warning; use [one lifecycle per run](django-prepared.md#routing-and-shadow_maria).
