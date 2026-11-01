@@ -1,0 +1,19 @@
+{
+  "issue": 68,
+  "question": "Separate queued work, file read, notification and resumed SQL; no optimization",
+  "product": "v0.6.0 plus hashed diagnostic Go overlay only",
+  "parallel": [
+    4,
+    8
+  ],
+  "count": 48,
+  "rounds": 3,
+  "warmup_each": 1,
+  "stop": "six measured processes; no reruns for favourable reproduction",
+  "active_budget_minutes": 120,
+  "tooling_budget_minutes": 30,
+  "heavy_ci_limit": 0,
+  "trace_event_limit": 1000000,
+  "scope": "No timer changes, guest rebuild, main integration or release",
+  "diagnostic_not_performance": true
+}
