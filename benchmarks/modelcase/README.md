@@ -32,3 +32,19 @@ warmup and five measured repetitions per cell, rotating model order.
 The plan records bounds. The completed [comparison report](../parallel-modelcase.md)
 contains medians/ranges, actual median-run timelines, raw results and limitations.
 This measurement creates no new product or release acceptance gate.
+
+## Retained results
+
+The main proposal keeps compact sample statistics, summary JSON/CSV, identities,
+checksums and one scaling plot per cohort. HTML, timelines, raw traces/logs and
+original runner/plotter scripts live in the pinned evidence ref linked by each
+report and `archive.json`. Their preservation is not integration approval.
+
+```sh
+python3 benchmarks/modelcase/check_results.py --check --results benchmarks/modelcase/results
+python3 benchmarks/modelcase/check_results.py --check --results benchmarks/modelcase/shared-read-results
+```
+
+These are read-only saved-statistics checks without database/Matplotlib dependencies.
+Full trace validation remains in the archived original analysis scripts. The
+retention policy is proposed in PR54; historical main evidence is left unchanged.

@@ -1,6 +1,0 @@
-{
-  "result": "PASS",
-  "cells": 2,
-  "negative_seed_oracle": "FAIL_EXPECTED_AND_CLEANED",
-  "read_mutation_oracle": "FAIL_EXPECTED_AND_CLEANED"
-}

@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "cohort": "three-way",
+  "evidence_ref": "refs/heads/evidence/parallel-modelcase-20261031",
+  "evidence_commit": "d54588e0d2a62537f8367120f8399f9adbaf0e9d",
+  "url": "https://github.com/masahitojp/mariamem/tree/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results",
+  "manifest_sha256": "ff35744f4c5d0741aafdb17945f1841f00580503be70fd51e64c265f9a155603",
+  "checker_sha256": "81e5114186294bc4aaa3fd1984e5cd998ad9cb045f27c1a85b53ddca0ad9c0a8",
+  "retention": "Keep evidence ref; never merge it into main. Pinned raw includes the original full trace validator, runner, plotting script, HTML, timelines and failed controls."
+}

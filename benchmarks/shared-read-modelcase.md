@@ -36,13 +36,13 @@ Testcontainersも今回は再実行していません。この表は新しい2�
 各セルの全体時間が中央値だった**実際の実行**です。同じ縮尺で、ゼロはTestMain開始。
 プロセス全体の前後の費用は別途whole-process値に含みます。重なるspanの合計はwall timeではありません。
 
-![並列度8：70個の子DBと、共有read1個＋write20個](modelcase/shared-read-results/plots/timeline-p8.svg)
+![並列度8：70個の子DBと、共有read1個＋write20個](https://raw.githubusercontent.com/masahitojp/mariamem/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/shared-read-results/plots/timeline-p8.svg)
 
-[並列度1](modelcase/shared-read-results/plots/timeline-p1.svg) /
-[2](modelcase/shared-read-results/plots/timeline-p2.svg) /
-[4](modelcase/shared-read-results/plots/timeline-p4.svg) /
-[8](modelcase/shared-read-results/plots/timeline-p8.svg) /
-[全図の単独HTML](modelcase/shared-read-results/comparison.html)（ダウンロード後ブラウザで開く）。
+[並列度1](https://raw.githubusercontent.com/masahitojp/mariamem/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/shared-read-results/plots/timeline-p1.svg) /
+[2](https://raw.githubusercontent.com/masahitojp/mariamem/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/shared-read-results/plots/timeline-p2.svg) /
+[4](https://raw.githubusercontent.com/masahitojp/mariamem/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/shared-read-results/plots/timeline-p4.svg) /
+[8](https://raw.githubusercontent.com/masahitojp/mariamem/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/shared-read-results/plots/timeline-p8.svg) /
+[全図の単独HTML](https://github.com/masahitojp/mariamem/blob/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/shared-read-results/comparison.html)（ダウンロード後ブラウザで開く）。
 
 ### 減った費用と残る費用
 
@@ -88,7 +88,7 @@ P+1は親子のpermit枯渇を防ぐためで、両方式の最大保持DB数が
 pilotは両方式70件を完了。corrupt-seed controlは開始前のoracleで失敗、
 read-mutation controlは1件のread直後に意図的にpriceを書き換え、親の最終oracleが検出しました。
 後者ではcase自体が成功してもsuiteは失敗し、どちらもowned cleanupが成功しています。
-期待した失敗は[negative records](modelcase/shared-read-results/pilot/)へそのまま保存。
+期待した失敗は[negative records](https://github.com/masahitojp/mariamem/tree/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/shared-read-results/pilot/)へそのまま保存。
 
 本計測40suite/2800cases、別warmup8suite/560casesが完了しました。
 全case名/結果、取得イベント70対21（共有版のwrite20＋read baseline1）、最終read pristine、
@@ -118,10 +118,37 @@ full seedをSnapshotへ含めた前回の境界を維持しています。SQL/sc
 次の限定タスクとして設計します。今回の結果を合わせるための追加最適化やAPI変更は行っていません。
 
 [全結果CSV](modelcase/shared-read-results/summary.csv) /
-[raw suite](modelcase/shared-read-results/matrix/) /
-[trace検証](modelcase/shared-read-results/trace-validation.json) /
+[raw suite](https://github.com/masahitojp/mariamem/tree/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/shared-read-results/matrix/) /
+[trace検証](https://github.com/masahitojp/mariamem/blob/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/shared-read-results/trace-validation.json) /
 [checksums](modelcase/shared-read-results/SHA256SUMS.json)。
-再現は保存した[driver](modelcase/shared-read-results/run.py)をprepared workspaceの`evidence/`へ置き、
-pilot→matrix、その後[analysis](modelcase/shared-read-results/analyze.py)を実行。
+再現は保存した[driver](https://github.com/masahitojp/mariamem/blob/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/shared-read-results/run.py)をprepared workspaceの`evidence/`へ置き、
+pilot→matrix、その後[analysis](https://github.com/masahitojp/mariamem/blob/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/shared-read-results/analyze.py)を実行。
 active2時間/tooling30分、workspace12GiB/free reserve16GiB、heavy CI0回の境界を使い、
 結果保存後はcompiled/cache/clone/worktreeをcleanupします。
+
+## 保存形式の見直し（2026-11-01、採用は未決定）
+
+main向けはレポート、入力identity、計画/完了記録、小さな実行別の統計、
+要約JSON/CSV、checksumと代表の比較図1枚に限定しました。生のtrace、試行ログ、
+失敗control、HTMLと全timeline、当時のrunner/plotting scriptは、上のリンク先の
+SHA固定evidence refに保存しています。そのrefをmainへマージしません。
+[archive.json](modelcase/shared-read-results/archive.json)が保存先・manifest hashを固定します。
+作業パスの正規化は[publication.json](modelcase/shared-read-results/publication.json)に
+original/published hashを残しています。測定値・source identityは変更していません。
+
+```sh
+python3 benchmarks/modelcase/check_results.py --check --results benchmarks/modelcase/shared-read-results
+```
+
+これはtemp/build/rawなしで、全体時間の中央値・範囲・代表実行の統計とCSV/JSONを
+再計算して比較し、保存ファイルのhashを読み取り専用で検査します。
+traceの全区間検証をもう一度行うチェックではありません。細かい区間・最終状態・
+失敗controlの証拠は、固定rawと当時の完全なvalidatorが正本です。
+`archive.json`のcommitから該当rawディレクトリを別の場所へexportし、
+`--raw-root /path/to/exported/shared-read-results`を追加すると、raw manifestと全hash、
+compact統計の抽出も検証できます。元のPython minorによるfloat加算の丸め差だけを
+抽出照合で許容し、要約の再計算比較はbyte一致です。
+
+再計測には固定refのrunnerと計画を使い、出力は新しいcohortとして別保存します。
+整理済みの現在のmain向けディレクトリへ原データを上書きしないでください。
+レポート採用、性能上の判断、main統合は引き続き別のHuman decisionです。

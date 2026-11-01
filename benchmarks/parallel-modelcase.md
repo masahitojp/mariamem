@@ -34,18 +34,18 @@ helperはworker schema構成の約3.04倍短い所要時間でした。これは
 青系は起動/Fork、橙系はschema/seed/reset、灰色は入力検証とcleanup、緑は読み取り、黄は書き込みです。
 laneはテストのadmission枠であり、固定のschema番号やOS thread番号ではありません。
 
-![並列度8の実行タイムライン](modelcase/results/plots/timeline-p8.svg)
+![並列度8の実行タイムライン](https://raw.githubusercontent.com/masahitojp/mariamem/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results/plots/timeline-p8.svg)
 
 時間軸はTestMain開始をゼロとし、3方式・すべての並列度で同じ縮尺です。
 全体時間にはこの区間の前後のGoプロセス処理も含み、棒の長さの和は並列wall timeではありません。
 空白には非計装のオーケストレーション等も含まれます。
 図の各処理時間を足して、別の全体時間を作っていません。
 
-[並列度1](modelcase/results/plots/timeline-p1.svg) /
-[2](modelcase/results/plots/timeline-p2.svg) /
-[4](modelcase/results/plots/timeline-p4.svg) /
-[8](modelcase/results/plots/timeline-p8.svg)。
-全図をまとめた[単独HTML](modelcase/results/comparison.html)はダウンロードしてブラウザで開けます。
+[並列度1](https://raw.githubusercontent.com/masahitojp/mariamem/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results/plots/timeline-p1.svg) /
+[2](https://raw.githubusercontent.com/masahitojp/mariamem/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results/plots/timeline-p2.svg) /
+[4](https://raw.githubusercontent.com/masahitojp/mariamem/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results/plots/timeline-p4.svg) /
+[8](https://raw.githubusercontent.com/masahitojp/mariamem/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results/plots/timeline-p8.svg)。
+全図をまとめた[単独HTML](https://github.com/masahitojp/mariamem/blob/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results/comparison.html)はダウンロードしてブラウザで開けます。
 
 ### どこで差がついたか
 
@@ -136,15 +136,42 @@ slow sampleを削除したり、元の失敗をPASSへ貼り替えたりして�
 ## Evidenceと再現
 
 [summary.csv](modelcase/results/summary.csv) /
-[全raw suite](modelcase/results/matrix/) /
-[trace検証](modelcase/results/trace-validation.json) /
-[pilot](modelcase/results/pilot-result.json) /
+[全raw suite](https://github.com/masahitojp/mariamem/tree/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results/matrix/) /
+[trace検証](https://github.com/masahitojp/mariamem/blob/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results/trace-validation.json) /
+[pilot](https://github.com/masahitojp/mariamem/blob/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results/pilot-result.json) /
 [checksums](modelcase/results/SHA256SUMS.json)。
-SDKログのhost home prefixのみredactし、[元hash](modelcase/results/redactions.json)と保存後hashを別記。
+SDKログのhost home prefixのみredactし、[元hash](https://github.com/masahitojp/mariamem/blob/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results/redactions.json)と保存後hashを別記。
 
-[run.py](modelcase/results/run.py)をprepared workspaceの`evidence/`に置き、既存disk guardで
-`--phase pilot`、成功後`--phase matrix`を実行。その後[analyze.py](modelcase/results/analyze.py)で
+[run.py](https://github.com/masahitojp/mariamem/blob/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results/run.py)をprepared workspaceの`evidence/`に置き、既存disk guardで
+`--phase pilot`、成功後`--phase matrix`を実行。その後[analyze.py](https://github.com/masahitojp/mariamem/blob/d54588e0d2a62537f8367120f8399f9adbaf0e9d/benchmarks/modelcase/results/analyze.py)で
 trace検証・集計・MatplotlibのSVG/PNGと単独HTMLを再生成します。
 既定の予算はactive2時間/tooling30分、workspace16GiB/free reserve16GiB、heavy CI0回。
 完了後は結果とsource/hashを残し、compile cache・binary・clone・worktreeをcleanupします。
 本レポートは計測の成果物であり、runtime変更や性能修正の採用承認ではありません。
+
+## 保存形式の見直し（2026-11-01、採用は未決定）
+
+main向けはレポート、入力identity、計画/完了記録、小さな実行別の統計、
+要約JSON/CSV、checksumと代表の比較図1枚に限定しました。生のtrace、試行ログ、
+失敗control、HTMLと全timeline、当時のrunner/plotting scriptは、上のリンク先の
+SHA固定evidence refに保存しています。そのrefをmainへマージしません。
+[archive.json](modelcase/results/archive.json)が保存先・manifest hashを固定します。
+作業パスの正規化は[publication.json](modelcase/results/publication.json)に
+original/published hashを残しています。測定値・source identityは変更していません。
+
+```sh
+python3 benchmarks/modelcase/check_results.py --check --results benchmarks/modelcase/results
+```
+
+これはtemp/build/rawなしで、全体時間の中央値・範囲・代表実行の統計とCSV/JSONを
+再計算して比較し、保存ファイルのhashを読み取り専用で検査します。
+traceの全区間検証をもう一度行うチェックではありません。細かい区間・最終状態・
+失敗controlの証拠は、固定rawと当時の完全なvalidatorが正本です。
+`archive.json`のcommitから該当rawディレクトリを別の場所へexportし、
+`--raw-root /path/to/exported/results`を追加すると、raw manifestと全hash、
+compact統計の抽出も検証できます。元のPython minorによるfloat加算の丸め差だけを
+抽出照合で許容し、要約の再計算比較はbyte一致です。
+
+再計測には固定refのrunnerと計画を使い、出力は新しいcohortとして別保存します。
+整理済みの現在のmain向けディレクトリへ原データを上書きしないでください。
+レポート採用、性能上の判断、main統合は引き続き別のHuman decisionです。
