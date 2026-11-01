@@ -73,7 +73,7 @@ func run(corrupt bool) (result Result, err error) {
 		before := base.MemoryMappingStats()
 		c := cpu()
 		w := time.Now()
-		d, e := sn.Fork(ctx, mariamem.Options{})
+		d, e := sn.Fork(ctx)
 		wall := float64(time.Since(w).Nanoseconds()) / 1e6
 		used := cpu() - c
 		if e != nil {

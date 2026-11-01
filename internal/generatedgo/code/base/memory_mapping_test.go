@@ -27,7 +27,12 @@ func TestMappingFailureOwnership(t *testing.T) {
 	b.memory[31] = 77
 	ptr := &b.memory[0]
 	protect := b.protect
-	b.protect = func([]byte, int) error { return syscall.ENOMEM }
+	b.protect = func(p []byte, prot int) error {
+		if prot == syscall.PROT_NONE {
+			return protect(p, prot)
+		}
+		return syscall.ENOMEM
+	}
 	if err = b.Grow(65536, 2*65536); !errors.Is(err, syscall.ENOMEM) || b.enabled != 65536 || b.memory[31] != 77 {
 		t.Fatal("grow failed state", err)
 	}
