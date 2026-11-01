@@ -1,0 +1,16 @@
+E..                                                                      [100%]
+==================================== ERRORS ====================================
+_______________ ERROR at setup of SetupFailure.test_not_admitted _______________
+
+cls = <class 'test_cases.SetupFailure'>
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+>       raise RuntimeError('D1_EXPECTED_CLASS_SETUP_FAILURE')
+E       RuntimeError: D1_EXPECTED_CLASS_SETUP_FAILURE
+
+test_cases.py:72: RuntimeError
+=========================== short test summary info ============================
+ERROR test_cases.py::SetupFailure::test_not_admitted - RuntimeError: D1_EXPEC...
+2 passed, 1 error in 0.31s

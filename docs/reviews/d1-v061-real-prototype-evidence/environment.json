@@ -1,0 +1,17 @@
+{
+  "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "wheel_sha256": "0c49fcd9f571851d8d37c6ec0fd089fad45609b281dc4fb0e8479819752e1519",
+  "host_sha256": "b467baece270d6d3cb0770781695c1960de2c0d9c4bd536d6aac2c14f37c1e2a",
+  "host_build": "__HOST__: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.5.4-0.20261030211636-b3b3b46a8807\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=b3b3b46a8807482ad3f96725af86e031fe369b01\n\tbuild\tvcs.time=2026-10-30T21:16:36Z\n\tbuild\tvcs.modified=false\n",
+  "python": "3.11.18 (main, Oct 25 2026, 19:41:29) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "mysqlclient": [
+    2,
+    2,
+    7,
+    "final",
+    0
+  ],
+  "connector_c": "3.4.11",
+  "mysqlclient_extension_sha256": "3ed0cafee8a9072993fd79ba5afdcf4d12914499498f87d846c120e7a1da97ed"
+}

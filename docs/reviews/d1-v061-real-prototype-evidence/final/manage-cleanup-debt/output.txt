@@ -1,0 +1,55 @@
+Creating test database for alias 'default' ('test_d1')...
+Found 4 test(s).
+Operations to perform:
+  Apply all migrations: orders
+Running migrations:
+  Applying orders.0001_initial... OK
+  Applying orders.0002_status...test_01 (test_cases.AtomicCases.test_01) ... ok
+test_01 (test_cases.AtomicCases.test_01) ... ERROR
+test_02 (test_cases.AtomicCases.test_02) ... ERROR
+setUpClass (test_cases.TransactionalCases) ... ERROR
+
+======================================================================
+ERROR: test_01 (test_cases.AtomicCases.test_01)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/worktree/benchmarks/d1-real-prototype/entry.py", line 201, in _post_teardown
+    self._d1_scope.release()
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/worktree/benchmarks/d1-real-prototype/entry.py", line 144, in release
+    manager.retire(self.child)
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/worktree/benchmarks/d1-real-prototype/entry.py", line 94, in retire
+    raise RuntimeError('D1_INJECTED_CLEANUP_FAILURE')
+RuntimeError: D1_INJECTED_CLEANUP_FAILURE
+
+======================================================================
+ERROR: test_02 (test_cases.AtomicCases.test_02)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/worktree/benchmarks/d1-real-prototype/entry.py", line 182, in _pre_setup
+    cls._d1_scope.acquire()
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/worktree/benchmarks/d1-real-prototype/entry.py", line 127, in acquire
+    manager.guard()
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/worktree/benchmarks/d1-real-prototype/entry.py", line 79, in guard
+    raise RuntimeError('D1_CLEANUP_DEBT: next body refused')
+RuntimeError: D1_CLEANUP_DEBT: next body refused
+
+======================================================================
+ERROR: setUpClass (test_cases.TransactionalCases)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/worktree/benchmarks/d1-real-prototype/entry.py", line 161, in setUpClass
+    cls._d1_scope = Scope()
+                    ^^^^^^^
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/worktree/benchmarks/d1-real-prototype/entry.py", line 121, in __init__
+    manager.guard()
+  File "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/worktree/benchmarks/d1-real-prototype/entry.py", line 79, in guard
+    raise RuntimeError('D1_CLEANUP_DEBT: next body refused')
+RuntimeError: D1_CLEANUP_DEBT: next body refused
+
+----------------------------------------------------------------------
+Ran 1 test in 0.091s
+
+FAILED (errors=3)
+Destroying test database for alias 'default' ('test_d1')...
+ OK
+System check identified no issues (0 silenced).

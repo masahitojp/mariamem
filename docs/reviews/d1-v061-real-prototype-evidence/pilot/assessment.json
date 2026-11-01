@@ -1,0 +1,82 @@
+{
+  "scope": "local macOS arm64 Python3.11 real-mariamem prototype only",
+  "python": "3.11.18 (main, Oct 25 2026, 19:41:29) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "source_commit": "0702772f23c7cff41e048ff6868f6fc43f35ec85",
+  "prototype_sha256": {
+    "conftest.py": "a733f61d26af9cf9bb8944c16ffb4ad02423bac2f9567b213aa46acf02850fcb",
+    "boot.py": "1dda4a922badbedca4ef0045e978f5fe1017804aa9aa5f860e60b54314e49a17",
+    "run_probe.py": "06cef74a339004eecdbb60fbeb8571e21a85b60b2cfee872c5e01b857eda4918",
+    "d1_settings.py": "d05934f755fdc0bc941b9ba02b8a8b5d46f9c0e1007363bdc3c87a372a4a393b",
+    "entry.py": "f76d7e52049841faec9fca67d53655c262d4f1f28f75dd3b81afeffc6172ed4d",
+    "test_cases.py": "b167397003a756da2ce19f1f72c8531fdc51e9ec5eb6ab3cb5c6d66478bc01d7"
+  },
+  "results": [
+    {
+      "runner": "manage",
+      "case": "healthy",
+      "result": "PASS",
+      "raw_exit": 0,
+      "expected_exit": 0,
+      "bodies": 4,
+      "expected_bodies": 4,
+      "failures": [],
+      "remaining_databases": [],
+      "host_cleanup": {
+        "host_pid": 12567,
+        "root": "/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-8r8w6__i",
+        "sdk": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/temp/venv/lib/python3.11/site-packages/mariamem/__init__.py",
+        "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+        "open_owners": [],
+        "host_reaped": true,
+        "root_removed": true
+      },
+      "command": [
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/temp/venv/bin/python",
+        "-m",
+        "django",
+        "test",
+        "test_cases.AtomicCases",
+        "test_cases.TransactionalCases",
+        "--noinput",
+        "-v",
+        "2"
+      ]
+    },
+    {
+      "runner": "pytest",
+      "case": "healthy",
+      "result": "PASS",
+      "raw_exit": 0,
+      "expected_exit": 0,
+      "bodies": 4,
+      "expected_bodies": 4,
+      "failures": [],
+      "remaining_databases": [],
+      "host_cleanup": {
+        "host_pid": 12634,
+        "root": "/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-c_z1e8jl",
+        "sdk": "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/temp/venv/lib/python3.11/site-packages/mariamem/__init__.py",
+        "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+        "open_owners": [],
+        "host_reaped": true,
+        "root_removed": true
+      },
+      "command": [
+        "__HOME__/src/mysqlmem/publish/mariamem/build/experiment-work/d1-real-fork/temp/venv/bin/python",
+        "-m",
+        "pytest",
+        "-p",
+        "pytest_django.plugin",
+        "test_cases.py::AtomicCases",
+        "test_cases.py::TransactionalCases",
+        "-q",
+        "-r",
+        "a",
+        "-p",
+        "no:cacheprovider"
+      ]
+    }
+  ],
+  "result": "PASS"
+}

@@ -1,0 +1,34 @@
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+__________________________ TransactionalCases.test_01 __________________________
+
+self = <test_cases.TransactionalCases testMethod=test_01>
+
+    def test_01(self):
+        baseline()
+        callbacks = []
+        with transaction.atomic():
+            Order.objects.create(sku='COMMIT')
+            transaction.on_commit(lambda: callbacks.append('committed'))
+        assert callbacks == ['committed']
+        import MySQLdb
+        cfg = connection.settings_dict
+        observer = MySQLdb.connect(host=cfg['HOST'], port=int(cfg['PORT']), user=cfg['USER'], passwd=cfg['PASSWORD'], db=cfg['NAME'])
+        try:
+            with observer.cursor() as cur:
+                cur.execute("SELECT COUNT(*) FROM orders_order WHERE sku='COMMIT'")
+                assert cur.fetchone() == (1,)
+            log('independent_commit_observed')
+        finally:
+            observer.close()
+        with connection.cursor() as cur:
+            cur.execute('UPDATE d1_raw_sentinel SET n=99')
+            cur.execute('CREATE TABLE d1_added (n INT)')
+        if os.environ.get('D1_EXPECT_FAILURE') == '1':
+>           self.fail('D1_EXPECTED_FAILURE_AFTER_COMMIT')
+E           AssertionError: D1_EXPECTED_FAILURE_AFTER_COMMIT
+
+test_cases.py:62: AssertionError
+=========================== short test summary info ============================
+FAILED test_cases.py::TransactionalCases::test_01 - AssertionError: D1_EXPECT...
+1 failed, 1 passed in 0.27s

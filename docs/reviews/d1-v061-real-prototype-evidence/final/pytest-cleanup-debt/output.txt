@@ -1,0 +1,89 @@
+FFEE                                                                     [100%]
+==================================== ERRORS ====================================
+_________________ ERROR at setup of TransactionalCases.test_01 _________________
+
+cls = <class 'test_cases.TransactionalCases'>
+
+    @classmethod
+    def setUpClass(cls):
+>       cls._d1_scope = Scope()
+                        ^^^^^^^
+
+entry.py:161:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+entry.py:121: in __init__
+    manager.guard()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <entry.Manager object at 0x10c337c10>
+
+    def guard(self):
+        if self.debt:
+>           raise RuntimeError('D1_CLEANUP_DEBT: next body refused')
+E           RuntimeError: D1_CLEANUP_DEBT: next body refused
+
+entry.py:79: RuntimeError
+_________________ ERROR at setup of TransactionalCases.test_02 _________________
+
+cls = <class 'test_cases.TransactionalCases'>
+
+    @classmethod
+    def setUpClass(cls):
+>       cls._d1_scope = Scope()
+                        ^^^^^^^
+
+entry.py:161:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+entry.py:121: in __init__
+    manager.guard()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <entry.Manager object at 0x10c337c10>
+
+    def guard(self):
+        if self.debt:
+>           raise RuntimeError('D1_CLEANUP_DEBT: next body refused')
+E           RuntimeError: D1_CLEANUP_DEBT: next body refused
+
+entry.py:79: RuntimeError
+=================================== FAILURES ===================================
+_____________________________ AtomicCases.test_01 ______________________________
+entry.py:201: in _post_teardown
+    self._d1_scope.release()
+entry.py:144: in release
+    manager.retire(self.child)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <entry.Manager object at 0x10c337c10>
+owner = <entry.RealOwner object at 0x10c41b7d0>
+
+    def retire(self, owner):
+        self.quiesce()
+        if os.environ.get('D1_FAIL_CLEANUP') == '1' and not self.cleanup_injected:
+            self.cleanup_injected = True
+            log('close_failed', owner=owner.label, still_exists=not owner.closed)
+>           raise RuntimeError('D1_INJECTED_CLEANUP_FAILURE')
+E           RuntimeError: D1_INJECTED_CLEANUP_FAILURE
+
+entry.py:94: RuntimeError
+_____________________________ AtomicCases.test_02 ______________________________
+entry.py:182: in _pre_setup
+    cls._d1_scope.acquire()
+entry.py:127: in acquire
+    manager.guard()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <entry.Manager object at 0x10c337c10>
+
+    def guard(self):
+        if self.debt:
+>           raise RuntimeError('D1_CLEANUP_DEBT: next body refused')
+E           RuntimeError: D1_CLEANUP_DEBT: next body refused
+
+entry.py:79: RuntimeError
+=========================== short test summary info ============================
+ERROR test_cases.py::TransactionalCases::test_01 - RuntimeError: D1_CLEANUP_D...
+ERROR test_cases.py::TransactionalCases::test_02 - RuntimeError: D1_CLEANUP_D...
+FAILED test_cases.py::AtomicCases::test_01 - RuntimeError: D1_INJECTED_CLEANU...
+FAILED test_cases.py::AtomicCases::test_02 - RuntimeError: D1_CLEANUP_DEBT: n...
+2 failed, 2 errors in 0.22s

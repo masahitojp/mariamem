@@ -1,0 +1,17 @@
+{"event": "prepare"}
+{"event": "capture", "source": "owner-0", "owner": "owner-1"}
+{"event": "fork", "owner": "owner-2"}
+{"event": "close", "owner": "owner-2"}
+{"event": "fork", "owner": "owner-3"}
+{"event": "capture", "source": "owner-3", "owner": "owner-4"}
+{"event": "fork", "owner": "owner-5"}
+{"event": "body", "atomic": false}
+{"event": "independent_commit_observed"}
+{"event": "close", "owner": "owner-5"}
+{"event": "fork", "owner": "owner-6"}
+{"event": "body", "atomic": false}
+{"event": "close", "owner": "owner-6"}
+{"event": "close", "owner": "owner-4"}
+{"event": "fork", "owner": "owner-7"}
+{"event": "close", "owner": "owner-1"}
+{"event": "close", "owner": "owner-7"}

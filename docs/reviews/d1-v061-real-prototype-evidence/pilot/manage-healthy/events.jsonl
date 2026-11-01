@@ -1,0 +1,24 @@
+{"event": "prepare"}
+{"event": "capture", "source": "owner-0", "owner": "owner-1"}
+{"event": "fork", "owner": "owner-2"}
+{"event": "setUpTestData"}
+{"event": "capture", "source": "owner-2", "owner": "owner-3"}
+{"event": "fork", "owner": "owner-4"}
+{"event": "body", "atomic": true}
+{"event": "close", "owner": "owner-4"}
+{"event": "fork", "owner": "owner-5"}
+{"event": "body", "atomic": true}
+{"event": "close", "owner": "owner-5"}
+{"event": "close", "owner": "owner-3"}
+{"event": "fork", "owner": "owner-6"}
+{"event": "capture", "source": "owner-6", "owner": "owner-7"}
+{"event": "fork", "owner": "owner-8"}
+{"event": "body", "atomic": false}
+{"event": "close", "owner": "owner-8"}
+{"event": "fork", "owner": "owner-9"}
+{"event": "body", "atomic": false}
+{"event": "close", "owner": "owner-9"}
+{"event": "close", "owner": "owner-7"}
+{"event": "fork", "owner": "owner-10"}
+{"event": "close", "owner": "owner-1"}
+{"event": "close", "owner": "owner-10"}

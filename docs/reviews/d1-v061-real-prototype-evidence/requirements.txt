@@ -1,0 +1,11 @@
+asgiref==3.13.0
+Django==5.2.8
+iniconfig==2.3.1
+mariamem @ file://__WORKSPACE__/temp/mariamem-0.6.0-py3-none-macosx_15_0_arm64.whl#sha256=0c49fcd9f571851d8d37c6ec0fd089fad45609b281dc4fb0e8479819752e1519
+mysqlclient==2.2.7
+packaging==26.3
+pluggy==1.7.0
+Pygments==2.21.0
+pytest==9.0.2
+pytest-django==4.12.0
+sqlparse==0.6.0
