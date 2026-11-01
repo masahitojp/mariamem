@@ -1,0 +1,14 @@
+{
+  "question": "Does P4 to P8 increase total CPU work or reduce parallel efficiency?",
+  "parallel": [
+    4,
+    8
+  ],
+  "count": 48,
+  "rounds": 3,
+  "route": "tcp",
+  "gomaxprocs": 8,
+  "fixture": "1000 integer rows; each child checks sum/count, mutates one row, verifies, closes",
+  "scope": "single local M1 host; no runtime changes; fresh process each cell",
+  "rss_interval_ms": 20
+}
