@@ -22,7 +22,9 @@ and version metadata remain unchanged.
   default alias and serial execution; unsupported modes are rejected.
 - Routing/`shadow_maria` and prepared Django ownership cannot be combined in
   one test invocation. This exclusion is a documented support boundary, not a
-  universal automatic detector. See the [entry guide](../django-prepared.md).
+  universal automatic detector. Unused routing bindings now warn with
+  `UnusedRoutingWarning` after successful cleanup when they routed zero
+  connections. See the [entry guide](../django-prepared.md).
 - Local source-entry results on a reused published host do not qualify the
   installed wheel on both supported OSes. The existing Release Django job
   subsequently passed macOS15 arm64 / Ubuntu24.04 x86_64 × Python3.11/3.14 on
@@ -30,6 +32,10 @@ and version metadata remain unchanged.
   preserves its identity. PR #67 is adopted on main; the original Release run
   failed core policy tests and is not Release READY. Their test-only repair
   passed the required Development checks before merge.
+  `prepared_database()` is now declarative: host acquisition occurs only at
+  database setup, and SQL outside that lifecycle is refused before driver dial.
+  Settings import, check/shell, discovery and collection-only do not start hosts.
+  Collection rejects shadow_maria/mariamem_app_db and setup rejects active routing.
   No guest/generated code, core Go runtime or version change is included; no
   performance or detailed resource claim is added.
 

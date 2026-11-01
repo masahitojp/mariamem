@@ -126,7 +126,7 @@ def test_import_and_invalid_settings_do_not_start_host(monkeypatch):
         prepared_database(test_name='application')
 
 
-def test_settings_acquisition_is_owned_until_explicit_close(monkeypatch):
+def test_settings_declaration_is_lazy_and_explicit_start_is_owned(monkeypatch):
     import copy
     import mariamem
     from mariamem.django import prepared_database
@@ -135,8 +135,10 @@ def test_settings_acquisition_is_owned_until_explicit_close(monkeypatch):
     monkeypatch.setattr(mariamem, 'start', lambda **options: source)
     settings = prepared_database()
     config = settings['MARIAMEM_PREPARED']
-    assert not source.closed
+    assert config.source is None
     assert copy.deepcopy(settings)['MARIAMEM_PREPARED'] is config
+    assert config.start() is source
+    assert not source.closed
     config.close()
     config.close()
     assert source.closed

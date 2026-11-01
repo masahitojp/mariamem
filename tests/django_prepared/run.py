@@ -120,7 +120,7 @@ def run_case(host, out, runner, mode, *, installed=False):
                   class_data=count('class-data') == (runs if mode in ('healthy', 'reverse', 'repeat') else 0),
                   class_commit=count('class-commit') == (runs if mode in ('healthy', 'reverse', 'repeat') else 0),
                   independent_commit=count('commit-observed') == (0 if mode in ('prepare-failure', 'busy-source', 'migration-failure', 'no-database') else runs),
-                  host_reaped=len(pids) == runs and not any(alive(pid) for pid in pids))
+                  host_reaped=len(pids) == (0 if mode == 'no-database' else runs) and not any(alive(pid) for pid in pids))
     if any(alive(pid) for pid in pids):
         # Preserve the failed cleanup observation, then stop this owned process
         # group rather than leaving a failed probe's server running.
@@ -146,7 +146,7 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     host = args.host.resolve()
     identity = check_host(host, args.host_source_commit)
-    inputs = list((ROOT / 'python/mariamem/django').glob('*.py')) + list(HERE.glob('*.py'))
+    inputs = list((ROOT / 'python/mariamem/django').rglob('*.py')) + list(HERE.glob('*.py'))
     inputs += list((ROOT / 'tests/e2e_native_control/pythonapp/orders').rglob('*.py'))
     inputs += list((ROOT / 'tests/django_lifecycle/failure_migrations').glob('*.py'))
     report = dict(installed=args.installed, host=identity, system=platform.system(), machine=platform.machine(),

@@ -32,11 +32,17 @@ TEST_RUNNER = "mariamem.django.PreparedDiscoverRunner"
 MARIAMEM_DJANGO_PREPARE = "myproject.test_seed.prepare"  # optional
 ```
 
-`prepared_database()` explicitly starts an owned server when called, before
-Django can connect. Importing `mariamem.django` alone starts nothing. The runner
-or plugin closes it even after setup failure; process-exit cleanup is a fallback.
-There is no fallback to the original application database. Do not perform SQL in
-settings or `AppConfig.ready()`: test database creation has not happened yet.
+`prepared_database()` only declares test settings. Settings import,
+`manage.py check`, `manage.py shell`, test discovery and `pytest --collect-only`
+do not start a server. The runner acquires one immediately before Django's
+`setup_databases()` creates/migrates the test DB; pytest acquires it at its
+corresponding database-setup fixture. Database-free suites acquire none.
+The runner or plugin closes it even after setup failure; process-exit cleanup is
+a fallback registered only after acquisition. SQL outside this lifecycle is
+rejected with `ImproperlyConfigured` before the driver can connect, including SQL
+from a shell, settings or `AppConfig.ready()`. There is no fallback to the
+original application database. Keep the helper's guarded backend setting; it
+delegates normal SQL to Django's MySQL backend after acquisition.
 
 `test_name` must start with `test_` and contain only letters, digits or underscores.
 The optional `options` mapping passes ordinary `mariamem.start()` options, such as
@@ -119,14 +125,16 @@ coexist. The ordinary recipe still supports its independently tested policies.
 ## Routing and shadow_maria
 
 The prepared Django entry and routing/`shadow_maria` are mutually exclusive
-within one test invocation: do not combine this entry with routing profiles,
+within one test invocation. Collection rejects `shadow_maria` markers (including
+inherited class/module marks) and `mariamem_app_db`, and setup rejects an active
+routing registry before acquiring a host. Do not combine this entry with routing profiles,
 `shadow_maria`, a manual routing registry or SQLAlchemy engine enrollment. Choose
 one connection owner for the run. Django prepared classes let the runner/plugin
 switch Django's `default` connection between owned Forks; routing redirects
 explicitly enrolled application connections and pools through its own fixture
 lifecycle. Their combined switching, preparation and cleanup order is undefined
-and unverified; this is a usage restriction, not a claim that every combination
-is automatically detected. The ordinary mariamem pytest plugin may remain
+and unverified. These guards cover the declared entrypoints; they are not a
+guarantee that every custom hook or later manual combination is detected. The ordinary mariamem pytest plugin may remain
 loaded when its routing features are unused. Run routing tests separately with
 separate settings, and retire their physical connections before starting another
 owner. Combining the two into one entry requires a separate design comparison.

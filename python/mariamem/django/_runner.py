@@ -46,7 +46,7 @@ class PreparedDiscoverRunner(DiscoverRunner):
             configuration()
             if self.parallel not in (0, 1) or self.keepdb:
                 raise ImproperlyConfigured('PreparedDiscoverRunner requires serial execution without --keepdb')
-            self._mariamem_manager = Manager(config)
+            self._mariamem_manager = None
             return super().run_tests(test_labels, **kwargs)
 
     def setup_test_environment(self, **kwargs):
@@ -67,6 +67,9 @@ class PreparedDiscoverRunner(DiscoverRunner):
         return suite
 
     def setup_databases(self, **kwargs):
+        aliases = kwargs.get('aliases')
+        if aliases is None or 'default' in aliases:
+            self._mariamem_manager = Manager(configuration())
         old_config = super().setup_databases(**kwargs)
         if old_config:  # Pure SimpleTestCase suites create no database.
             self._mariamem_manager.prepare()
@@ -74,7 +77,8 @@ class PreparedDiscoverRunner(DiscoverRunner):
 
     def teardown_databases(self, old_config, **kwargs):
         try:
-            self._mariamem_manager.finish_databases()
+            if self._mariamem_manager is not None:
+                self._mariamem_manager.finish_databases()
             super().teardown_databases(old_config, **kwargs)
         except BaseException as error:
             self._mariamem_teardown_error = error

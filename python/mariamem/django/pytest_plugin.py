@@ -11,6 +11,9 @@ def _entry(config):
     if not getattr(config, '_mariamem_prepared_cleanup', False):
         config.add_cleanup(entry.close)
         config._mariamem_prepared_cleanup = True
+    from mariamem import routing
+    if routing._active is not None:
+        raise pytest.UsageError('Prepared Django and routing/shadow_maria cannot share a run')
     configuration()
     if (config.getoption('reuse_db', False) or config.getoption('nomigrations', False)
             or config.getoption('numprocesses', 0) or hasattr(config, 'workerinput')):
@@ -30,6 +33,9 @@ def pytest_collection_modifyitems(config, items):
     from ._cases import validate_case
     _entry(config)
     for item in items:
+        if (item.get_closest_marker('shadow_maria') is not None
+                or 'mariamem_app_db' in item.fixturenames):
+            raise pytest.UsageError('Prepared Django and shadow_maria/mariamem_app_db cannot share a run; choose one lifecycle')
         cls = getattr(item, 'cls', None)
         if cls is not None and issubclass(cls, TransactionTestCase):
             validate_case(cls)
@@ -48,7 +54,7 @@ def django_db_modify_db_settings(django_db_modify_db_settings, django_db_blocker
 @pytest.fixture(scope='session')
 def django_db_setup(django_db_setup, django_db_blocker):
     entry = configuration()
-    # pytest-django already created/migrated the owned settings-time source.
+    # pytest-django already created/migrated the source acquired at database setup.
     with django_db_blocker.unblock():
         manager = entry.manager
         manager.prepare()

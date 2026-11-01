@@ -252,3 +252,55 @@ def test_unrequested_framework_is_not_imported_by_driver_install():
     code = "from mariamem import routing; import sys; r=routing.install(profiles={'app':routing.Profile('127.0.0.1',3307,'app')}); assert 'sqlalchemy' not in sys.modules; r.close()"
     result = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
+
+
+def test_unused_binding_warns_after_draining_and_resets_target(routes):
+    with pytest.warns(routing.UnusedRoutingWarning, match='routed 0 connections'):
+        with routes.bind('app', DB()) as lease:
+            assert lease.routed == 0
+    assert not lease.live and not routes._leases
+    with pytest.raises(routing.RoutingError, match='missing_target'):
+        connect(routes)
+
+
+def test_used_binding_does_not_warn(routes):
+    import warnings
+    with warnings.catch_warnings(record=True) as seen:
+        warnings.simplefilter('always', routing.UnusedRoutingWarning)
+        with routes.bind('app', DB()) as lease:
+            connection = connect(routes)
+            assert lease.routed == 1
+    assert connection.closed
+    assert not any(isinstance(w.message, routing.UnusedRoutingWarning) for w in seen)
+
+
+def test_unused_warning_as_error_still_retires_binding(routes):
+    import warnings
+    with warnings.catch_warnings():
+        warnings.simplefilter('error', routing.UnusedRoutingWarning)
+        with pytest.raises(routing.UnusedRoutingWarning):
+            with routes.bind('app', DB()) as lease:
+                pass
+    assert not lease.live and not routes._leases
+    with pytest.raises(routing.RoutingError, match='missing_target'):
+        connect(routes)
+
+
+def test_unused_warning_never_masks_primary_or_cleanup_failure(routes, monkeypatch):
+    import warnings
+    with warnings.catch_warnings():
+        warnings.simplefilter('error', routing.UnusedRoutingWarning)
+        original = ValueError('original body failure')
+        with pytest.raises(ValueError) as caught:
+            with routes.bind('app', DB()):
+                raise original
+        assert caught.value is original
+        drain = routes._drain
+        def fail(lease):
+            raise OSError('original drain failure')
+        monkeypatch.setattr(routes, '_drain', fail)
+        with pytest.raises(OSError, match='original drain failure'):
+            with routes.bind('app', DB()) as failed_lease:
+                pass
+        monkeypatch.setattr(routes, '_drain', drain)
+        drain(failed_lease)

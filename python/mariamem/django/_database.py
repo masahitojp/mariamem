@@ -1,4 +1,4 @@
-"""Explicit settings-time acquisition and per-run ownership."""
+"""Declarative test settings and database-setup-time ownership."""
 import atexit
 import re
 from copy import deepcopy
@@ -23,6 +23,7 @@ class Configuration:
         if self.source is None:
             from mariamem import start
             self.source = start(**self.options)
+            atexit.register(self.close)
         return self.source
 
     def close(self):
@@ -33,32 +34,21 @@ class Configuration:
             if self.manager is not None:
                 self.manager.close()
         self.source = self.manager = None
+        atexit.unregister(self.close)
 
 
 def prepared_database(*, test_name='test_mariamem', options=None):
-    """Acquire a test-owned server and return Django's default DATABASES entry.
+    """Declare a prepared default database; do not acquire a host.
 
-    Call only from dedicated test settings. Acquisition is explicit, before
-    Django can open a connection; importing this module never starts a host.
-    The runner/plugin owns finalization. atexit is a startup-failure fallback.
+    The runner/plugin starts it immediately before Django database setup.
+    SQL outside that lifecycle is rejected by the guarded MySQL backend.
     """
     if not isinstance(test_name, str) or not re.fullmatch(r'test_[A-Za-z0-9_]+', test_name):
         raise ValueError('test_name must start with test_ and contain only letters, digits or underscores')
     config = Configuration(options or {})
-    try:
-        info = config.start().connection_info()
-        return _settings(config, info, test_name)
-    except BaseException:
-        with preserving_cleanup(config.close):
-            raise
-
-
-def _settings(config, info, test_name):
-    atexit.register(config.close)
-    return dict(ENGINE='django.db.backends.mysql', NAME='mariamem_prepare',
-                HOST=info['host'], PORT=info['port'], USER=info['user'],
-                PASSWORD=info['password'], TEST={'NAME': test_name},
-                CONN_MAX_AGE=0, **{KEY: config})
+    return dict(ENGINE='mariamem.django.backend', NAME='mariamem_prepare',
+                HOST='', PORT='', USER='', PASSWORD='',
+                TEST={'NAME': test_name}, CONN_MAX_AGE=0, **{KEY: config})
 
 
 def configuration(*, validate=True):
@@ -71,10 +61,13 @@ def configuration(*, validate=True):
     if validate:
         if set(settings.DATABASES) != {'default'}:
             raise ImproperlyConfigured('mariamem prepared tests require only the default database alias')
-        if (database.get('ENGINE') != 'django.db.backends.mysql'
+        if (database.get('ENGINE') != 'mariamem.django.backend'
                 or database.get('TEST', {}).get('MIRROR')
                 or not database.get('TEST', {}).get('MIGRATE', True)):
-            raise ImproperlyConfigured('Prepared entry requires the MySQL backend, migrations and no test mirror')
+            raise ImproperlyConfigured('Prepared entry requires its guarded MySQL backend, migrations and no test mirror')
+        from mariamem import routing
+        if routing._active is not None:
+            raise ImproperlyConfigured('Prepared Django and routing/shadow_maria cannot share a run')
     return config
 
 
