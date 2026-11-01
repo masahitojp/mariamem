@@ -2142,3 +2142,25 @@ checks per Python minor, plus the dependency-free policy/package check set.
 Actual check/shell and collection-only do not acquire; early SQL and mixed
 shadow_maria collection refuse before dial/acquisition. New both-OS installed
 wheel evidence remains unexecuted. No heavy CI was started for this follow-up.
+
+
+## D1 deferred startup / routing exclusion — adopted on main, unreleased
+
+[Release41327745652](https://github.com/masahitojp/mariamem/actions/runs/41327745652)
+returned READY for exact source_commit `90e7ed5f631533929000f390b67847b9549c3ab8`:
+both-platform core/qualification and all features passed, including all four
+macOS15/Ubuntu24.04 × Python3.11/3.14 installed-wheel Django cells (20 scenarios
+each). [The receipt](reviews/d1-release-41327745652/README.md) retains source and
+artifact identity. This supersedes the follow-up's local-only pending status.
+
+After the Human's status request, [PR #70](https://github.com/masahitojp/mariamem/pull/70)
+squash-merged through normal protection to main source_commit
+`c4742390cf4553636ceaa23c6732d48f76a37c9c`. Development41325683292 passed all three
+required contexts on the reviewed head; the squash has the same tree. No bypass
+was used. Declaration-only settings, DB-setup-time acquisition, early-SQL refusal,
+shadow_maria exclusion and zero-routed warning are adopted within the guide's
+scope. They do not unify lifecycles or add mysqlclient routing.
+
+Operation was verify: publication/public smoke were skipped. READY remains bound
+to90e7ed5f, not to the squash or this documentation. Published0.6.0 and version
+metadata remain unchanged; release version and publication remain separate.

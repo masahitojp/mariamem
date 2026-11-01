@@ -35,6 +35,9 @@ and version metadata remain unchanged.
   `prepared_database()` is now declarative: host acquisition occurs only at
   database setup, and SQL outside that lifecycle is refused before driver dial.
   Settings import, check/shell, discovery and collection-only do not start hosts.
+  The follow-up passed fresh four-cell installed-wheel acceptance and READY at
+  `90e7ed5f` in [verify41327745652](../reviews/d1-release-41327745652/README.md)
+  and was adopted through PR #70. No candidate assets were published.
   Collection rejects shadow_maria/mariamem_app_db and setup rejects active routing.
   No guest/generated code, core Go runtime or version change is included; no
   performance or detailed resource claim is added.

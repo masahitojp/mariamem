@@ -1,0 +1,60 @@
+{
+  "source_commit": "90e7ed5f631533929000f390b67847b9549c3ab8",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41327745652",
+  "operation": "verify",
+  "artifacts": [
+    {
+      "kind": "ready",
+      "id": 13093326742,
+      "zip_sha256": "fe77214a2aa90a1a2655de05fae1e8ff8bc4e7bbd5e6cf8586faad6659a04a74"
+    },
+    {
+      "kind": "macos",
+      "id": 13092700413,
+      "zip_sha256": "87f331d1dfbd56a1d4f6da9723bcd74f95fa2862118bdfa7e6d909faa7ca24e3"
+    },
+    {
+      "kind": "ubuntu",
+      "id": 13092321481,
+      "zip_sha256": "de31406d6d2c16ce450b9e55f43cd6b3128d9b424af897a9f09cc84fcc0d3178"
+    }
+  ],
+  "files": {
+    "ci-ready.json": {
+      "raw_sha256": "831790acedc35414fae1787d39fe25b9f4f0280c53740146ed7ee1e8b7ab33ce",
+      "sha256": "f0f8d8c7ec0c2d0aaa41d9e356f9a51817751ef630a4a68d627dca737813ba52"
+    },
+    "macos/py3.11/inputs.json": {
+      "raw_sha256": "39b7c82c230d212275d7826df3f56cb14c6359577386068ca4353439c66e69aa",
+      "sha256": "b75c9720a62ae76a3d5f787b4ef67ec348d156235136681353fb6d58fb52c89a"
+    },
+    "macos/py3.11/assessment.json": {
+      "raw_sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8",
+      "sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8"
+    },
+    "macos/py3.14/inputs.json": {
+      "raw_sha256": "70afa36b43e82eda852b70d2a80a6e83f140c37a36359f9dca30718c9cddf2db",
+      "sha256": "64298d585bc174d189184eccacaaae2d1c12bbdda2e2bddce8b905e98bbaff77"
+    },
+    "macos/py3.14/assessment.json": {
+      "raw_sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8",
+      "sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8"
+    },
+    "ubuntu/py3.11/inputs.json": {
+      "raw_sha256": "8c53b1d6f294b4af67776b766d10ef9e273f3cc616c497fb96ff74817145c99c",
+      "sha256": "5da4d9676bb8ffb65d1c0f0e1d61f43eadf5e593317964e45543877a8892a8d5"
+    },
+    "ubuntu/py3.11/assessment.json": {
+      "raw_sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8",
+      "sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8"
+    },
+    "ubuntu/py3.14/inputs.json": {
+      "raw_sha256": "0d3ddcc11ce2efa83091c6eb1a072eb055292033f85d1dcfb00b0b3951e796b7",
+      "sha256": "fb4acd2b6b2bc754435fb9af55b3abe6046b1c29e7aa342563da1cd62c8772cb"
+    },
+    "ubuntu/py3.14/assessment.json": {
+      "raw_sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8",
+      "sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8"
+    }
+  }
+}
