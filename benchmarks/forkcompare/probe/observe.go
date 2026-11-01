@@ -121,7 +121,7 @@ func watchCount(index int) func() error {
 			return
 		case <-timer.C:
 		}
-		if stackDir == "" || captures.Add(1) > 2 {
+		if stackDir == "" || captures.Add(1) > 1 {
 			joined <- nil
 			return
 		}

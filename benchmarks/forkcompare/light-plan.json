@@ -1,0 +1,18 @@
+{
+  "issue": 68,
+  "question": "Capture one residual read4 slow COUNT with less observation overhead and identify its wait",
+  "processes": 3,
+  "parallel": 8,
+  "children_per_process": 48,
+  "read_io": 4,
+  "setting_changes": false,
+  "routine_stacks": false,
+  "atomic_wait_notify_hooks": false,
+  "triggered_stack": "COUNT >100ms, at most1/process, at most1MiB",
+  "retained": "child binding; submit/start/end; pool state; maintenance; route tags; read wait; query/background scopes; concurrency",
+  "active_budget_minutes": 120,
+  "measurement_budget_minutes": 10,
+  "heavy_ci_limit": 0,
+  "stop": "Three fresh processes maximum; no setting/policy correction; record inconclusive if not captured",
+  "platform": "macOS27.2 arm64 M1/16GiB Go1.27.3 GOMAXPROCS8 CGO0"
+}
