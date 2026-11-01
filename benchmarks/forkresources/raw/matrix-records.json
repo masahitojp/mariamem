@@ -1,0 +1,134 @@
+[
+  {
+    "name": "matrix/maria--1",
+    "warmup": true,
+    "negative": false,
+    "backend": "mariamem",
+    "returncode": 0,
+    "wall_ms": 2065.174625,
+    "scratch_empty": true,
+    "report": "matrix/maria--1.json",
+    "rss": "matrix/maria--1.rss.json"
+  },
+  {
+    "name": "matrix/postgres--1",
+    "warmup": true,
+    "negative": false,
+    "backend": "pgmem",
+    "returncode": 0,
+    "wall_ms": 1797.7319579999998,
+    "scratch_empty": true,
+    "report": "matrix/postgres--1.json",
+    "rss": "matrix/postgres--1.rss.json"
+  },
+  {
+    "name": "matrix/maria-0",
+    "warmup": false,
+    "negative": false,
+    "backend": "mariamem",
+    "returncode": 0,
+    "wall_ms": 1954.1157909999995,
+    "scratch_empty": true,
+    "report": "matrix/maria-0.json",
+    "rss": "matrix/maria-0.rss.json"
+  },
+  {
+    "name": "matrix/postgres-0",
+    "warmup": false,
+    "negative": false,
+    "backend": "pgmem",
+    "returncode": 0,
+    "wall_ms": 1799.5166659999998,
+    "scratch_empty": true,
+    "report": "matrix/postgres-0.json",
+    "rss": "matrix/postgres-0.rss.json"
+  },
+  {
+    "name": "matrix/postgres-1",
+    "warmup": false,
+    "negative": false,
+    "backend": "pgmem",
+    "returncode": 0,
+    "wall_ms": 1791.7658749999994,
+    "scratch_empty": true,
+    "report": "matrix/postgres-1.json",
+    "rss": "matrix/postgres-1.rss.json"
+  },
+  {
+    "name": "matrix/maria-1",
+    "warmup": false,
+    "negative": false,
+    "backend": "mariamem",
+    "returncode": 0,
+    "wall_ms": 1966.2218750000004,
+    "scratch_empty": true,
+    "report": "matrix/maria-1.json",
+    "rss": "matrix/maria-1.rss.json"
+  },
+  {
+    "name": "matrix/maria-2",
+    "warmup": false,
+    "negative": false,
+    "backend": "mariamem",
+    "returncode": 0,
+    "wall_ms": 2000.3793749999995,
+    "scratch_empty": true,
+    "report": "matrix/maria-2.json",
+    "rss": "matrix/maria-2.rss.json"
+  },
+  {
+    "name": "matrix/postgres-2",
+    "warmup": false,
+    "negative": false,
+    "backend": "pgmem",
+    "returncode": 0,
+    "wall_ms": 1791.9829160000002,
+    "scratch_empty": true,
+    "report": "matrix/postgres-2.json",
+    "rss": "matrix/postgres-2.rss.json"
+  },
+  {
+    "name": "matrix/postgres-3",
+    "warmup": false,
+    "negative": false,
+    "backend": "pgmem",
+    "returncode": 0,
+    "wall_ms": 1820.677667,
+    "scratch_empty": true,
+    "report": "matrix/postgres-3.json",
+    "rss": "matrix/postgres-3.rss.json"
+  },
+  {
+    "name": "matrix/maria-3",
+    "warmup": false,
+    "negative": false,
+    "backend": "mariamem",
+    "returncode": 0,
+    "wall_ms": 2025.6100410000001,
+    "scratch_empty": true,
+    "report": "matrix/maria-3.json",
+    "rss": "matrix/maria-3.rss.json"
+  },
+  {
+    "name": "matrix/maria-4",
+    "warmup": false,
+    "negative": false,
+    "backend": "mariamem",
+    "returncode": 0,
+    "wall_ms": 2049.751582999999,
+    "scratch_empty": true,
+    "report": "matrix/maria-4.json",
+    "rss": "matrix/maria-4.rss.json"
+  },
+  {
+    "name": "matrix/postgres-4",
+    "warmup": false,
+    "negative": false,
+    "backend": "pgmem",
+    "returncode": 0,
+    "wall_ms": 1779.555042000002,
+    "scratch_empty": true,
+    "report": "matrix/postgres-4.json",
+    "rss": "matrix/postgres-4.rss.json"
+  }
+]

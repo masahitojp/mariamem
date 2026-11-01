@@ -1,0 +1,22 @@
+[
+  {
+    "stage": "process",
+    "children": 0,
+    "rss_bytes": 26853376
+  },
+  {
+    "stage": "root_seeded",
+    "children": 0,
+    "rss_bytes": 158859264
+  },
+  {
+    "stage": "baseline_natural",
+    "children": 0,
+    "rss_bytes": 143065088
+  },
+  {
+    "stage": "baseline_gc",
+    "children": 0,
+    "rss_bytes": 143130624
+  }
+]

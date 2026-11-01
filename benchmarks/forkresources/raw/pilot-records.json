@@ -1,0 +1,46 @@
+[
+  {
+    "name": "pilot/maria-0",
+    "warmup": false,
+    "negative": false,
+    "backend": "mariamem",
+    "returncode": 0,
+    "wall_ms": 3328.6415420000003,
+    "scratch_empty": true,
+    "report": "pilot/maria-0.json",
+    "rss": "pilot/maria-0.rss.json"
+  },
+  {
+    "name": "pilot/maria-0-negative",
+    "warmup": false,
+    "negative": true,
+    "backend": "mariamem",
+    "returncode": 1,
+    "wall_ms": 131.89341600000003,
+    "scratch_empty": true,
+    "report": "pilot/maria-0-negative.json",
+    "rss": "pilot/maria-0-negative.rss.json"
+  },
+  {
+    "name": "pilot/postgres-0",
+    "warmup": false,
+    "negative": false,
+    "backend": "pgmem",
+    "returncode": 0,
+    "wall_ms": 2582.1906660000004,
+    "scratch_empty": true,
+    "report": "pilot/postgres-0.json",
+    "rss": "pilot/postgres-0.rss.json"
+  },
+  {
+    "name": "pilot/postgres-0-negative",
+    "warmup": false,
+    "negative": true,
+    "backend": "pgmem",
+    "returncode": 1,
+    "wall_ms": 127.50166700000065,
+    "scratch_empty": true,
+    "report": "pilot/postgres-0-negative.json",
+    "rss": "pilot/postgres-0-negative.rss.json"
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "stage": "process",
+    "children": 0,
+    "rss_bytes": 11599872
+  },
+  {
+    "stage": "root_seeded",
+    "children": 0,
+    "rss_bytes": 130859008
+  },
+  {
+    "stage": "baseline_natural",
+    "children": 0,
+    "rss_bytes": 52445184
+  },
+  {
+    "stage": "baseline_gc",
+    "children": 0,
+    "rss_bytes": 52494336
+  },
+  {
+    "stage": "held_1",
+    "children": 1,
+    "rss_bytes": 133005312
+  },
+  {
+    "stage": "held_1_idle",
+    "children": 1,
+    "rss_bytes": 133005312
+  },
+  {
+    "stage": "held_2",
+    "children": 2,
+    "rss_bytes": 214630400
+  },
+  {
+    "stage": "held_2_idle",
+    "children": 2,
+    "rss_bytes": 214679552
+  },
+  {
+    "stage": "held_4",
+    "children": 4,
+    "rss_bytes": 378880000
+  },
+  {
+    "stage": "held_4_idle",
+    "children": 4,
+    "rss_bytes": 378945536
+  },
+  {
+    "stage": "held_4_gc",
+    "children": 4,
+    "rss_bytes": 379092992
+  },
+  {
+    "stage": "held_4_mutated",
+    "children": 4,
+    "rss_bytes": 379994112
+  },
+  {
+    "stage": "closed_children_natural",
+    "children": 0,
+    "rss_bytes": 64389120
+  },
+  {
+    "stage": "closed_children_gc",
+    "children": 0,
+    "rss_bytes": 64421888
+  },
+  {
+    "stage": "closed_children_scavenge",
+    "children": 0,
+    "rss_bytes": 64421888
+  },
+  {
+    "stage": "closed_all_natural",
+    "children": 0,
+    "rss_bytes": 64421888
+  },
+  {
+    "stage": "closed_all_scavenge",
+    "children": 0,
+    "rss_bytes": 64421888
+  }
+]

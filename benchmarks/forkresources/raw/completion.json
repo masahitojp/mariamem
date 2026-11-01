@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "measured_processes": 10,
+  "warmup_processes": 2,
+  "measured_retained_children": 40,
+  "scope": "Sequential retained children 0/1/2/4, both TCP, one local M1; no performance acceptance"
+}
