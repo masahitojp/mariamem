@@ -1,0 +1,10 @@
+{
+  "scope": "Single buffer-pool allocation call-site alignment overlay: 4096 to 2097152. No canonical guest change or integration.",
+  "baseline_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "pilot": "one observed positive and negative per variant",
+  "measurement": "5 alternating fresh-process pairs, four retained children; observer disabled in both binaries",
+  "exit": "report retry/zero count, Fork wall/CPU, retained RSS; stop irrespective of improvement",
+  "limits": "macOS arm64 local Go1.27.3 only; no OOM/platform/general allocation proof",
+  "min_free_gib": 16,
+  "budget_gib": 8
+}
