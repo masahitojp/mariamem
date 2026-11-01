@@ -2,6 +2,9 @@
 
 ## Recent measurement and discovery reports
 
+- [Fresh-zero initialization prototype](fresh-zero.md): initial resident saving
+  mostly disappears by ready; bounded latency/CPU/RSS comparison, Issue #64.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained

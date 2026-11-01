@@ -1,0 +1,148 @@
+{
+  "median_paired_cpu_percent": 0.10550332361451975,
+  "median_paired_wall_percent": -3.1018446815229916,
+  "modes": {
+    "baseline": {
+      "cpu_ms": {
+        "child_median": 47.532000000000004,
+        "median_process_mean": 48.10275000000001,
+        "process_means": [
+          52.15674999999999,
+          48.10275000000001,
+          47.01325,
+          48.69149999999999,
+          47.74950000000002
+        ]
+      },
+      "diagnostic": {
+        "construct": {
+          "cpu_ms": 1.9025000000000176,
+          "resident_mib": 15.109375,
+          "wall_ms": 1.775063
+        },
+        "ready": {
+          "cpu_ms": null,
+          "resident_mib": 75.390625,
+          "wall_ms": null
+        },
+        "reserve": {
+          "cpu_ms": 0.008500000000012164,
+          "resident_mib": 0.0,
+          "wall_ms": 0.008646000000000001
+        }
+      },
+      "rss_four_child_delta_mib": 312.421875,
+      "rss_mib": {
+        "baseline": 49.75,
+        "child-1": 127.265625,
+        "child-2": 205.53125,
+        "child-3": 283.875,
+        "child-4": 362.21875,
+        "closed": 61.734375
+      },
+      "wall_ms": {
+        "child_median": 36.011458000000005,
+        "median_process_mean": 36.6792915,
+        "process_means": [
+          38.238948,
+          36.4155,
+          35.406228999999996,
+          36.6792915,
+          37.336073
+        ]
+      }
+    },
+    "fresh": {
+      "cpu_ms": {
+        "child_median": 48.1635,
+        "median_process_mean": 49.206500000000005,
+        "process_means": [
+          49.224500000000006,
+          48.153499999999994,
+          46.513749999999995,
+          49.206500000000005,
+          50.19749999999999
+        ]
+      },
+      "diagnostic": {
+        "construct": {
+          "cpu_ms": 1.191500000000019,
+          "resident_mib": 6.5625,
+          "wall_ms": 1.0638125
+        },
+        "ready": {
+          "cpu_ms": null,
+          "resident_mib": 75.203125,
+          "wall_ms": null
+        },
+        "reserve": {
+          "cpu_ms": 0.010499999999979082,
+          "resident_mib": 0.0,
+          "wall_ms": 0.0098125
+        }
+      },
+      "rss_four_child_delta_mib": 311.640625,
+      "rss_mib": {
+        "baseline": 49.90625,
+        "child-1": 127.125,
+        "child-2": 205.3125,
+        "child-3": 283.609375,
+        "child-4": 361.671875,
+        "closed": 61.859375
+      },
+      "wall_ms": {
+        "child_median": 35.38752100000001,
+        "median_process_mean": 35.28594775,
+        "process_means": [
+          36.275604,
+          35.28594775,
+          34.95087525,
+          35.1577915,
+          37.104177
+        ]
+      }
+    }
+  },
+  "pairs": [
+    {
+      "cpu_ms_delta": -2.932249999999982,
+      "cpu_ms_percent": -5.621995235515986,
+      "repetition": 0,
+      "rss_delta_mib": -0.65625,
+      "wall_ms_delta": -1.9633439999999993,
+      "wall_ms_percent": -5.13440903238237
+    },
+    {
+      "cpu_ms_delta": 0.05074999999998653,
+      "cpu_ms_percent": 0.10550332361451975,
+      "repetition": 1,
+      "rss_delta_mib": -1.03125,
+      "wall_ms_delta": -1.1295522500000033,
+      "wall_ms_percent": -3.1018446815229916
+    },
+    {
+      "cpu_ms_delta": -0.4995000000000047,
+      "cpu_ms_percent": -1.0624664323355737,
+      "repetition": 2,
+      "rss_delta_mib": -0.71875,
+      "wall_ms_delta": -0.45535374999999334,
+      "wall_ms_percent": -1.286083728374443
+    },
+    {
+      "cpu_ms_delta": 0.5150000000000148,
+      "cpu_ms_percent": 1.0576794717764182,
+      "repetition": 3,
+      "rss_delta_mib": -0.5625,
+      "wall_ms_delta": -1.521499999999996,
+      "wall_ms_percent": -4.14811720122783
+    },
+    {
+      "cpu_ms_delta": 2.447999999999972,
+      "cpu_ms_percent": 5.126755253981652,
+      "repetition": 4,
+      "rss_delta_mib": -0.953125,
+      "wall_ms_delta": -0.231895999999999,
+      "wall_ms_percent": -0.6211044209175398
+    }
+  ]
+}

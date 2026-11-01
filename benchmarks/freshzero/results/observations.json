@@ -1,0 +1,674 @@
+{
+  "completion": {
+    "children_per_process": 4,
+    "pairs": 5,
+    "result": "PASS",
+    "scope": "macOS arm64 bounded experimental comparison"
+  },
+  "pilot": {
+    "constructor_selftests": 2,
+    "negative": 2,
+    "positive": 2,
+    "result": "PASS"
+  },
+  "traces": {
+    "baseline": {
+      "cleanup": true,
+      "rss": {
+        "baseline": 52609024,
+        "child-1": 133775360,
+        "child-2": 216301568,
+        "child-3": 298237952,
+        "child-4": 380436480,
+        "child1_construct": 68599808,
+        "child1_ready": 132956160,
+        "child1_reserve": 52756480,
+        "child2_construct": 149913600,
+        "child2_ready": 215957504,
+        "child2_reserve": 133791744,
+        "child3_construct": 232554496,
+        "child3_ready": 297975808,
+        "child3_reserve": 216383488,
+        "child4_construct": 314458112,
+        "child4_ready": 380125184,
+        "child4_reserve": 298319872,
+        "closed": 64880640
+      },
+      "stages": [
+        {
+          "cpu_ms": 0.008000000000009777,
+          "name": "child1_reserve",
+          "resident_bytes": 0,
+          "wall_ms": 0.007667
+        },
+        {
+          "cpu_ms": 1.7190000000000083,
+          "name": "child1_construct",
+          "resident_bytes": 15843328,
+          "wall_ms": 1.645
+        },
+        {
+          "cpu_ms": 0,
+          "name": "child1_ready",
+          "resident_bytes": 79069184,
+          "wall_ms": 0
+        },
+        {
+          "cpu_ms": 0.008000000000009777,
+          "name": "child2_reserve",
+          "resident_bytes": 0,
+          "wall_ms": 0.008667
+        },
+        {
+          "cpu_ms": 2.0320000000000107,
+          "name": "child2_construct",
+          "resident_bytes": 15843328,
+          "wall_ms": 1.849334
+        },
+        {
+          "cpu_ms": 0,
+          "name": "child2_ready",
+          "resident_bytes": 79151104,
+          "wall_ms": 0
+        },
+        {
+          "cpu_ms": 0.009000000000014552,
+          "name": "child3_reserve",
+          "resident_bytes": 0,
+          "wall_ms": 0.008625
+        },
+        {
+          "cpu_ms": 2.048000000000002,
+          "name": "child3_construct",
+          "resident_bytes": 15843328,
+          "wall_ms": 1.9005
+        },
+        {
+          "cpu_ms": 0,
+          "name": "child3_ready",
+          "resident_bytes": 79036416,
+          "wall_ms": 0
+        },
+        {
+          "cpu_ms": 0.012000000000000455,
+          "name": "child4_reserve",
+          "resident_bytes": 0,
+          "wall_ms": 0.008791
+        },
+        {
+          "cpu_ms": 1.7730000000000246,
+          "name": "child4_construct",
+          "resident_bytes": 15843328,
+          "wall_ms": 1.700792
+        },
+        {
+          "cpu_ms": 0,
+          "name": "child4_ready",
+          "resident_bytes": 79036416,
+          "wall_ms": 0
+        }
+      ],
+      "success": true
+    },
+    "fresh": {
+      "cleanup": true,
+      "rss": {
+        "baseline": 52068352,
+        "child-1": 133316608,
+        "child-2": 215564288,
+        "child-3": 297484288,
+        "child-4": 379502592,
+        "child1_construct": 58998784,
+        "child1_ready": 132300800,
+        "child1_reserve": 52117504,
+        "child2_construct": 140476416,
+        "child2_ready": 215220224,
+        "child2_reserve": 133316608,
+        "child3_construct": 222904320,
+        "child3_ready": 297238528,
+        "child3_reserve": 215728128,
+        "child4_construct": 304676864,
+        "child4_ready": 379174912,
+        "child4_reserve": 297500672,
+        "closed": 65028096
+      },
+      "stages": [
+        {
+          "cpu_ms": 0.009999999999990905,
+          "name": "child1_reserve",
+          "resident_bytes": 0,
+          "wall_ms": 0.010125
+        },
+        {
+          "cpu_ms": 1.0870000000000033,
+          "name": "child1_construct",
+          "resident_bytes": 6881280,
+          "wall_ms": 1.014083
+        },
+        {
+          "cpu_ms": 0,
+          "name": "child1_ready",
+          "resident_bytes": 78839808,
+          "wall_ms": 0
+        },
+        {
+          "cpu_ms": 0.009000000000014552,
+          "name": "child2_reserve",
+          "resident_bytes": 0,
+          "wall_ms": 0.008667
+        },
+        {
+          "cpu_ms": 1.1850000000000023,
+          "name": "child2_construct",
+          "resident_bytes": 6881280,
+          "wall_ms": 1.056709
+        },
+        {
+          "cpu_ms": 0,
+          "name": "child2_ready",
+          "resident_bytes": 78921728,
+          "wall_ms": 0
+        },
+        {
+          "cpu_ms": 0.010999999999967258,
+          "name": "child3_reserve",
+          "resident_bytes": 0,
+          "wall_ms": 0.012167
+        },
+        {
+          "cpu_ms": 1.198000000000036,
+          "name": "child3_construct",
+          "resident_bytes": 6881280,
+          "wall_ms": 1.070916
+        },
+        {
+          "cpu_ms": 0,
+          "name": "child3_ready",
+          "resident_bytes": 78872576,
+          "wall_ms": 0
+        },
+        {
+          "cpu_ms": 0.012999999999976808,
+          "name": "child4_reserve",
+          "resident_bytes": 0,
+          "wall_ms": 0.0095
+        },
+        {
+          "cpu_ms": 1.358000000000004,
+          "name": "child4_construct",
+          "resident_bytes": 6881280,
+          "wall_ms": 1.153125
+        },
+        {
+          "cpu_ms": 0,
+          "name": "child4_ready",
+          "resident_bytes": 78823424,
+          "wall_ms": 0
+        }
+      ],
+      "success": true
+    }
+  },
+  "trials": [
+    {
+      "children": [
+        {
+          "cpu_ms": 46.815,
+          "wall_ms": 35.814625
+        },
+        {
+          "cpu_ms": 57.595,
+          "wall_ms": 40.4755
+        },
+        {
+          "cpu_ms": 53.980999999999966,
+          "wall_ms": 38.391709
+        },
+        {
+          "cpu_ms": 50.23599999999999,
+          "wall_ms": 38.273958
+        }
+      ],
+      "cleanup": true,
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 518,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2625372160,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "baseline",
+      "negative": false,
+      "repetition": 0,
+      "report": "measure/0-baseline.json",
+      "returncode": 0,
+      "rss": {
+        "baseline": 52166656,
+        "child-1": 133447680,
+        "child-2": 215515136,
+        "child-3": 297664512,
+        "child-4": 379863040,
+        "closed": 64700416
+      },
+      "success": true
+    },
+    {
+      "children": [
+        {
+          "cpu_ms": 49.201999999999984,
+          "wall_ms": 35.955416
+        },
+        {
+          "cpu_ms": 50.513000000000005,
+          "wall_ms": 37.506916
+        },
+        {
+          "cpu_ms": 49.11100000000002,
+          "wall_ms": 35.142334
+        },
+        {
+          "cpu_ms": 48.072,
+          "wall_ms": 36.49775
+        }
+      ],
+      "cleanup": true,
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 512,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2625372160,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "fresh",
+      "negative": false,
+      "repetition": 0,
+      "report": "measure/0-fresh.json",
+      "returncode": 0,
+      "rss": {
+        "baseline": 52232192,
+        "child-1": 133300224,
+        "child-2": 215465984,
+        "child-3": 297549824,
+        "child-4": 379240448,
+        "closed": 64864256
+      },
+      "success": true
+    },
+    {
+      "children": [
+        {
+          "cpu_ms": 49.14399999999999,
+          "wall_ms": 36.293333
+        },
+        {
+          "cpu_ms": 45.56399999999999,
+          "wall_ms": 34.555458
+        },
+        {
+          "cpu_ms": 50.893,
+          "wall_ms": 35.351125
+        },
+        {
+          "cpu_ms": 47.01299999999998,
+          "wall_ms": 34.943875
+        }
+      ],
+      "cleanup": true,
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 510,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2625372160,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "fresh",
+      "negative": false,
+      "repetition": 1,
+      "report": "measure/1-fresh.json",
+      "returncode": 0,
+      "rss": {
+        "baseline": 52723712,
+        "child-1": 133677056,
+        "child-2": 215646208,
+        "child-3": 297435136,
+        "child-4": 379240448,
+        "closed": 65126400
+      },
+      "success": true
+    },
+    {
+      "children": [
+        {
+          "cpu_ms": 44.510999999999996,
+          "wall_ms": 35.016333
+        },
+        {
+          "cpu_ms": 46.287000000000006,
+          "wall_ms": 35.023667
+        },
+        {
+          "cpu_ms": 53.816,
+          "wall_ms": 39.5725
+        },
+        {
+          "cpu_ms": 47.797000000000025,
+          "wall_ms": 36.0495
+        }
+      ],
+      "cleanup": true,
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 508,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2625372160,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "baseline",
+      "negative": false,
+      "repetition": 1,
+      "report": "measure/1-baseline.json",
+      "returncode": 0,
+      "rss": {
+        "baseline": 52101120,
+        "child-1": 133087232,
+        "child-2": 215400448,
+        "child-3": 297500672,
+        "child-4": 379699200,
+        "closed": 64585728
+      },
+      "success": true
+    },
+    {
+      "children": [
+        {
+          "cpu_ms": 48.236000000000004,
+          "wall_ms": 36.053416
+        },
+        {
+          "cpu_ms": 45.78800000000001,
+          "wall_ms": 35.126917
+        },
+        {
+          "cpu_ms": 47.245000000000005,
+          "wall_ms": 35.488666
+        },
+        {
+          "cpu_ms": 46.78399999999999,
+          "wall_ms": 34.955917
+        }
+      ],
+      "cleanup": true,
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 511,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2642149376,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "baseline",
+      "negative": false,
+      "repetition": 2,
+      "report": "measure/2-baseline.json",
+      "returncode": 0,
+      "rss": {
+        "baseline": 52379648,
+        "child-1": 133578752,
+        "child-2": 215678976,
+        "child-3": 297697280,
+        "child-4": 379813888,
+        "closed": 64733184
+      },
+      "success": true
+    },
+    {
+      "children": [
+        {
+          "cpu_ms": 41.476,
+          "wall_ms": 34.223208
+        },
+        {
+          "cpu_ms": 47.12700000000001,
+          "wall_ms": 34.329292
+        },
+        {
+          "cpu_ms": 49.82899999999998,
+          "wall_ms": 34.964959
+        },
+        {
+          "cpu_ms": 47.62299999999999,
+          "wall_ms": 36.286042
+        }
+      ],
+      "cleanup": true,
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 511,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2633760768,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "fresh",
+      "negative": false,
+      "repetition": 2,
+      "report": "measure/2-fresh.json",
+      "returncode": 0,
+      "rss": {
+        "baseline": 52117504,
+        "child-1": 133169152,
+        "child-2": 215007232,
+        "child-3": 296927232,
+        "child-4": 378798080,
+        "closed": 64536576
+      },
+      "success": true
+    },
+    {
+      "children": [
+        {
+          "cpu_ms": 47.762000000000015,
+          "wall_ms": 34.745416
+        },
+        {
+          "cpu_ms": 47.68799999999999,
+          "wall_ms": 35.423917
+        },
+        {
+          "cpu_ms": 53.12100000000001,
+          "wall_ms": 35.739875
+        },
+        {
+          "cpu_ms": 48.254999999999995,
+          "wall_ms": 34.721958
+        }
+      ],
+      "cleanup": true,
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 519,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2649030656,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "fresh",
+      "negative": false,
+      "repetition": 3,
+      "report": "measure/3-fresh.json",
+      "returncode": 0,
+      "rss": {
+        "baseline": 52363264,
+        "child-1": 133316608,
+        "child-2": 215285760,
+        "child-3": 297385984,
+        "child-4": 379240448,
+        "closed": 64831488
+      },
+      "success": true
+    },
+    {
+      "children": [
+        {
+          "cpu_ms": 47.26699999999998,
+          "wall_ms": 36.896792
+        },
+        {
+          "cpu_ms": 50.43799999999999,
+          "wall_ms": 38.150667
+        },
+        {
+          "cpu_ms": 50.798,
+          "wall_ms": 35.696291
+        },
+        {
+          "cpu_ms": 46.26299999999998,
+          "wall_ms": 35.973416
+        }
+      ],
+      "cleanup": true,
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 514,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2625372160,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "baseline",
+      "negative": false,
+      "repetition": 3,
+      "report": "measure/3-baseline.json",
+      "returncode": 0,
+      "rss": {
+        "baseline": 52543488,
+        "child-1": 134004736,
+        "child-2": 215826432,
+        "child-3": 298090496,
+        "child-4": 380010496,
+        "closed": 64765952
+      },
+      "success": true
+    },
+    {
+      "children": [
+        {
+          "cpu_ms": 53.31,
+          "wall_ms": 41.537
+        },
+        {
+          "cpu_ms": 45.374000000000024,
+          "wall_ms": 37.222333
+        },
+        {
+          "cpu_ms": 48.37300000000002,
+          "wall_ms": 35.565209
+        },
+        {
+          "cpu_ms": 43.94100000000003,
+          "wall_ms": 35.01975
+        }
+      ],
+      "cleanup": true,
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 509,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2625372160,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "baseline",
+      "negative": false,
+      "repetition": 4,
+      "report": "measure/4-baseline.json",
+      "returncode": 0,
+      "rss": {
+        "baseline": 51953664,
+        "child-1": 133267456,
+        "child-2": 215351296,
+        "child-3": 297484288,
+        "child-4": 379731968,
+        "closed": 64733184
+      },
+      "success": true
+    },
+    {
+      "children": [
+        {
+          "cpu_ms": 45.788,
+          "wall_ms": 34.293625
+        },
+        {
+          "cpu_ms": 47.99000000000001,
+          "wall_ms": 37.823333
+        },
+        {
+          "cpu_ms": 57.64099999999999,
+          "wall_ms": 39.805458
+        },
+        {
+          "cpu_ms": 49.37099999999998,
+          "wall_ms": 36.494292
+        }
+      ],
+      "cleanup": true,
+      "final": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 511,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2632253440,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "fresh",
+      "negative": false,
+      "repetition": 4,
+      "report": "measure/4-fresh.json",
+      "returncode": 0,
+      "rss": {
+        "baseline": 52330496,
+        "child-1": 133070848,
+        "child-2": 215040000,
+        "child-3": 297254912,
+        "child-4": 379109376,
+        "closed": 64995328
+      },
+      "success": true
+    }
+  ]
+}
