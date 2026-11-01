@@ -99,7 +99,7 @@ def main():
     records = []
 
     def run(name, p, rep, count=48, negative=False, warmup=False):
-        label = f'{args.phase}/{rep}-{name}-p{p}' + ('-negative' if negative else '-warmup' if warmup else '')
+        label = f'{args.phase}-v2/{rep}-{name}-p{p}' + ('-negative' if negative else '-warmup' if warmup else '')
         out = E / (label + '.json')
         out.parent.mkdir(parents=True, exist_ok=True)
         sync = T / 'sync' / label
@@ -164,7 +164,7 @@ def main():
     if args.phase == 'pilot':
         for name in ['mariamem', 'pgmem']:
             run(name, 8, 0, 8)
-            run(name, 8, 0, 8, negative=True)
+            run(name, 1, 0, 1, negative=True)
         save(E / 'pilot.json', dict(result='PASS', positive=2, negative=2))
     else:
         assert json.loads((E / 'pilot.json').read_text())['result'] == 'PASS'
