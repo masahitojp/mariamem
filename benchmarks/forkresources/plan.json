@@ -1,0 +1,29 @@
+{
+  "question": "Per-child CPU/allocation/resident memory and post-close reclamation; no optimization",
+  "routes": [
+    "mariamem/tcp",
+    "pgmem/tcp"
+  ],
+  "repetitions": 5,
+  "warmups_per_route": 1,
+  "retained_children": [
+    0,
+    1,
+    2,
+    4
+  ],
+  "creation": "sequential, same snapshot; not P4 throughput",
+  "fixture": "1000 integer rows: count=1000 sum=500500",
+  "gomaxprocs": 8,
+  "go": "go1.27.3",
+  "idle_ms": 500,
+  "budget": {
+    "active_minutes": 75,
+    "tooling_minutes": 20,
+    "heavy_ci": 0,
+    "workspace_gib": 12,
+    "min_free_gib": 16
+  },
+  "scope": "one local M1; no guest/product/public API changes; no v0.7 resource acceptance",
+  "stop": "report CPU vs wall, allocation vs live/RSS, retained-child slope, post-close natural/GC/scavenge; do not optimize or expand matrix"
+}
