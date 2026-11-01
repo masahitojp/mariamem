@@ -14,6 +14,7 @@ cases = [
  ('setup-failure', ['SetupFailure','TransactionalCases'], {}, 1, 2, 'D1_EXPECTED_CLASS_SETUP_FAILURE'),
  ('setup-skip', ['SetupSkip','TransactionalCases'], {}, 0, 2, 'D1_EXPECTED_CLASS_SETUP_SKIP'),
  ('cleanup-debt', healthy, {'D1_FAIL_CLEANUP':'1'}, 1, 1, 'D1_CLEANUP_DEBT'),
+ ('combined-failure', ['TransactionalCases'], {'D1_EXPECT_FAILURE':'1','D1_FAIL_CLEANUP':'1'}, 1, 1, 'D1_EXPECTED_FAILURE_AFTER_COMMIT'),
  ('prepare-failure', healthy, {'D1_FAIL_PREPARE':'1'}, 1, 0, 'D1_PREPARE_FAILURE'),
  ('capture-failure', healthy, {'D1_FAIL_CAPTURE':'1'}, 1, 0, 'D1_EXPECTED_CAPTURE_FAILURE'),
  ('no-restore-control', ['TransactionalCases'], {'D1_NO_RESTORE':'1'}, 1, 1, 'AssertionError'),
@@ -41,6 +42,9 @@ for runner in ['manage','pytest']:
   if marker and marker not in result.stdout: failures.append('original-error/skip-marker')
   if any(e['event']=='BAD_BODY' for e in events): failures.append('class-failure-admission')
   if remaining: failures.append('remaining-DB')
+  if name in ['cleanup-debt','combined-failure']:
+   if 'D1_INJECTED_CLEANUP_FAILURE' not in result.stdout or 'D1_CLEANUP_DEBT' not in result.stdout: failures.append('combined-cleanup-error')
+   if not any(e['event']=='close_failed' and e['still_exists'] for e in events): failures.append('unreleased-owner-control')
   if sum(e['event']=='prepare' for e in events)!=1: failures.append('preparation-count')
   if name in ['healthy','reverse'] and sum(e['event']=='setUpTestData' for e in events)!=1: failures.append('class-data-count')
   row=dict(runner=runner,case=name,result='FAIL' if failures else 'PASS',raw_exit=result.returncode,

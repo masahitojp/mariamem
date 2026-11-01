@@ -48,6 +48,7 @@ class Manager:
         self.connection = connections['default']
         self.original = self.connection.settings_dict['NAME']
         self.debt = False
+        self.cleanup_injected = False
         self.scopes = []
         self.teardown = None
         # Source is a real migrated Django test database, no user production DB.
@@ -79,6 +80,10 @@ class Manager:
         self.connection.settings_dict['NAME'] = str(owner.path)
     def retire(self, owner):
         self.quiesce()
+        if os.environ.get('D1_FAIL_CLEANUP') == '1' and not self.cleanup_injected:
+            self.cleanup_injected = True
+            log('close_failed', path=str(owner.path), still_exists=owner.path.exists())
+            raise RuntimeError('D1_INJECTED_CLEANUP_FAILURE')
         owner.close()
     def close(self):
         errors = []
@@ -126,8 +131,6 @@ class Scope:
             try:
                 manager.retire(self.child)
                 self.child = None
-                if os.environ.get('D1_FAIL_CLEANUP') == '1':
-                    raise RuntimeError('D1_INJECTED_CLEANUP_FAILURE')
             except BaseException:
                 manager.debt = True
                 raise
