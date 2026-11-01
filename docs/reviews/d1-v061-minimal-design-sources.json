@@ -1,0 +1,58 @@
+[
+  {
+    "repo": "django/django",
+    "ref": "5.2.8",
+    "path": "django/test/testcases.py",
+    "url": "https://raw.githubusercontent.com/django/django/5.2.8/django/test/testcases.py",
+    "sha256": "e59aa3d56b2b39a38e7c4ac9e8ce01ae535ab18ce375a216fedcb3ea2d4e37e0",
+    "source_commit": "47fe39af56ecd0ad73b9c7562511015e96b91b80"
+  },
+  {
+    "repo": "django/django",
+    "ref": "5.2.8",
+    "path": "django/test/runner.py",
+    "url": "https://raw.githubusercontent.com/django/django/5.2.8/django/test/runner.py",
+    "sha256": "7d0bd77667d112c713852e3fc4648196bff22dddcf51f03948661562f8e08f62",
+    "source_commit": "47fe39af56ecd0ad73b9c7562511015e96b91b80"
+  },
+  {
+    "repo": "django/django",
+    "ref": "5.2.8",
+    "path": "django/test/utils.py",
+    "url": "https://raw.githubusercontent.com/django/django/5.2.8/django/test/utils.py",
+    "sha256": "7d09ab12e232166f3b5aeb4981e1115e88d9b53c9235550b82d44a0404560981",
+    "source_commit": "47fe39af56ecd0ad73b9c7562511015e96b91b80"
+  },
+  {
+    "repo": "django/django",
+    "ref": "5.2.8",
+    "path": "django/db/backends/mysql/creation.py",
+    "url": "https://raw.githubusercontent.com/django/django/5.2.8/django/db/backends/mysql/creation.py",
+    "sha256": "f0157c607937a84ab9e799c7dcd1ee931a59660c6dbd716f92fed7be446584a0",
+    "source_commit": "47fe39af56ecd0ad73b9c7562511015e96b91b80"
+  },
+  {
+    "repo": "django/django",
+    "ref": "5.2.8",
+    "path": "django/db/backends/base/creation.py",
+    "url": "https://raw.githubusercontent.com/django/django/5.2.8/django/db/backends/base/creation.py",
+    "sha256": "00540bff1cf8f23633653747977af777fdafff11b224c30435798451c6d1bf8f",
+    "source_commit": "47fe39af56ecd0ad73b9c7562511015e96b91b80"
+  },
+  {
+    "repo": "pytest-dev/pytest-django",
+    "ref": "v4.12.0",
+    "path": "pytest_django/fixtures.py",
+    "url": "https://raw.githubusercontent.com/pytest-dev/pytest-django/v4.12.0/pytest_django/fixtures.py",
+    "sha256": "b9e0572cd61400a25e8bbb21f2e4c7633bceeae4ee75a117be2c7e4f127c88ac",
+    "source_commit": "a2a94956cc24bb30030510710f0f27e61efb0cf0"
+  },
+  {
+    "repo": "pytest-dev/pytest-django",
+    "ref": "v4.12.0",
+    "path": "pytest_django/plugin.py",
+    "url": "https://raw.githubusercontent.com/pytest-dev/pytest-django/v4.12.0/pytest_django/plugin.py",
+    "sha256": "5c129167e465fabeb2bead63b41c128088cac784c5f0f25fb2575bacc839baa9",
+    "source_commit": "a2a94956cc24bb30030510710f0f27e61efb0cf0"
+  }
+]
