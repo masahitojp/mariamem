@@ -1,0 +1,77 @@
+package base
+
+import (
+ "encoding/binary"
+ "encoding/json"
+ "os"
+ "runtime"
+ "sync"
+ "time"
+)
+
+// Diagnostic-only overlay. Fixed cap, no I/O until harness cleanup completes.
+var diag = struct {
+ sync.Mutex
+ start time.Time
+ events []diagEvent
+ modules map[*Module]int
+ pools map[*ThreadPool]int
+ stacks map[[24]uintptr]int
+ frames [][]string
+ next uint64
+ dropped uint64
+}{start:time.Now(), modules:map[*Module]int{}, pools:map[*ThreadPool]int{}, stacks:map[[24]uintptr]int{}}
+type diagEvent struct {
+ NS int64 `json:"ns"`
+ Kind string `json:"kind"`
+ Instance int `json:"instance"`
+ Thread int `json:"thread"`
+ Span uint64 `json:"span"`
+ A int64 `json:"a"`
+ B int64 `json:"b"`
+ C int64 `json:"c"`
+ Stack int `json:"stack"`
+}
+func DiagEvent(m *Module, kind string, span uint64, a,b,c int64, stack bool) uint64 {
+ ns:=time.Since(diag.start).Nanoseconds()
+ var pcs [24]uintptr
+ if stack {runtime.Callers(2,pcs[:])}
+ diag.Lock(); defer diag.Unlock()
+ if len(diag.events)>=1000000 {diag.dropped++;return 0}
+ if span==0 {diag.next++;span=diag.next}
+ instance,thread:=0,0
+ if m!=nil {
+  var ok bool
+  if instance,ok=diag.pools[m.Threads];!ok {instance=len(diag.pools)+1;diag.pools[m.Threads]=instance}
+  if thread,ok=diag.modules[m];!ok {thread=len(diag.modules)+1;diag.modules[m]=thread}
+ }
+ sid:=0
+ if stack {
+  var ok bool
+  if sid,ok=diag.stacks[pcs];!ok {
+   sid=len(diag.frames)+1;diag.stacks[pcs]=sid
+   var frames []string
+   it:=runtime.CallersFrames(pcs[:]);for {f,more:=it.Next();frames=append(frames,f.Function);if !more {break}}
+   diag.frames=append(diag.frames,frames)
+  }
+ }
+ diag.events=append(diag.events,diagEvent{ns,kind,instance,thread,span,a,b,c,sid})
+ return span
+}
+func DiagBegin(m *Module,kind string,a,b,c int64) func() {
+ id:=DiagEvent(m,kind+"_begin",0,a,b,c,true)
+ return func(){DiagEvent(m,kind+"_end",id,a,b,c,false)}
+}
+// Called only within generated maybe_wake_or_create_thread, holding its mutex.
+func DiagPool(m *Module,p int32) {
+ read:=func(o int32)int64{return int64(binary.LittleEndian.Uint32(m.Memory[p+o:p+o+4]))}
+ id:=DiagEvent(m,"pool_policy",0,int64(p),read(152),read(156),true)
+ DiagEvent(m,"pool_counts",id,read(180),read(168),read(344),false)
+ DiagEvent(m,"pool_waiting",id,read(368),read(372),0,false)
+}
+func DiagDump(path string) error {
+ diag.Lock();defer diag.Unlock()
+ f,e:=os.Create(path);if e!=nil{return e}
+ e=json.NewEncoder(f).Encode(map[string]any{"events":diag.events,"stacks":diag.frames,"dropped":diag.dropped,"cap":1000000})
+ c:=f.Close();if e!=nil{return e};return c
+}

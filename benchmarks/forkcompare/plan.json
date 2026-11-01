@@ -1,0 +1,21 @@
+{
+  "issue": 68,
+  "question": "Why is effective MariaDB pool concurrency 1; upstream policy, WASIX config or Go host?",
+  "processes": [
+    {
+      "parallel": 1,
+      "children": 1
+    },
+    {
+      "parallel": 8,
+      "children": 8
+    }
+  ],
+  "product": "pinned v0.6.0 plus diagnostic overlay",
+  "stop": "identify caller and source; if native comparison requires large build, state missing evidence/cost; no broad campaign",
+  "active_budget_minutes": 120,
+  "tooling_budget_minutes": 30,
+  "heavy_ci_limit": 0,
+  "scope": "Source attribution and bounded diagnosis; no scheduling correction/main/release",
+  "diagnostic_not_performance": true
+}
