@@ -186,6 +186,24 @@ this maintenance task. Hosted scheduling, cold/warm timings and end-to-end
 Release completion remain unmeasured; no speedup or new release approval is
 implied by local PASS.
 
+## v0.6.1 consideration: measured small-workload latency — disposition pending
+
+A post-release M1/macOS comparison of published v0.5.3/v0.6.0 sources using the
+same Go1.26.10 observes Go Light Fresh213.5→226.7ms (+6.2%,6/6 slower pairs),
+about2ms more per Start; Python small+5.0% (4/6), medium+1.7% (6/6). The measured
+10MiB Go suite medians remain within about0.2%; this does not establish flat
+individual operations or general performance parity. See the
+[report](../benchmarks/v060-latency.md) and
+[0.6.1 disposition proposal](reviews/v061-latency-disposition.md).
+
+These are observed regressions in bounded workloads, **not Human-accepted
+tradeoffs**. Proposed next decision for0.6.1: a bounded attribution of the roughly
+2ms/DB Go startup increase before choosing repair or explicit acceptance. No
+investigation or optimization is started by recording this candidate, no0.6.1 fix is
+promised, and already published0.6.0 notes are unchanged. Resource-model work stays
+separate. Report adoption/merge also remains pending; evidence is preserved on a
+pinned off-main ref under the updated benchmark retention policy.
+
 ## Issue #5 host repair — adopted on main, unreleased
 
 The Human approved main adoption of candidate source_commit

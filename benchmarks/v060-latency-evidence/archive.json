@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "evidence_ref": "refs/heads/evidence/v060-latency-20261031",
+  "evidence_commit": "07c29c6db1f64e7ddb28780c1c96ce2ed06f3fe0",
+  "url": "https://github.com/masahitojp/mariamem/tree/07c29c6db1f64e7ddb28780c1c96ce2ed06f3fe0/benchmarks/v060-latency-evidence",
+  "manifest_sha256": "fb55cf58c801016808b297dec0fea1c36764b12f8dc59c90c3a027974f99286d",
+  "original_commit": "ccd4a229e7d55830607ca6868314c0bb822552f4",
+  "normalization_manifest": "publication.json",
+  "retention": "Keep evidence ref; never merge it into main. URLs and verification use the full commit, not the moving ref. New benchmark runs are new observations, not reproduction of identical timings."
+}

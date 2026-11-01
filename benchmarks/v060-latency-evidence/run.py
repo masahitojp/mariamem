@@ -40,6 +40,9 @@ for label,root in roots.items():
   info=verify_go_binary(root,binary,refs[label].source_commit,go=go)
   identity['binaries'][label+'-'+kind]=dict(sha256=digest(binary),build_info=info)
   save('inputs.json',identity)
+identity['guest_sha256']={label:json.loads((root/'release/generated-go-inputs.json').read_text())['guest_sha256'] for label,root in roots.items()}
+identity['binary_bytes']={p.name:p.stat().st_size for p in (T/'bin').iterdir()}
+save('inputs.json',identity)
 cases=[('light',0,1,1),('fixture',10,8,1),('parallel',10,8,4)]
 records=[]
 for rep in range(-1,6):
