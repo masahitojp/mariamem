@@ -1,0 +1,1 @@
+{"cpu":"Apple M1","physical_memory_bytes":17179869184,"perflevel0_physicalcpu":4,"perflevel1_physicalcpu":4,"isolation":"normal desktop with background applications and VM; no processes stopped","source":"sysctl hw.perflevel0.physicalcpu hw.perflevel1.physicalcpu hw.memsize"}

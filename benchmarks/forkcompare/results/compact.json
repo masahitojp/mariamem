@@ -1,0 +1,1162 @@
+{
+  "completion": {
+    "children_per_process": 48,
+    "measured_processes": 12,
+    "result": "PASS",
+    "scope": "P4/P8 same-host TCP; no optimization or product changes"
+  },
+  "inputs": {
+    "binaries": {
+      "mariamem": {
+        "build_info": "<WORKSPACE>/temp/bin/mariamem: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare\tv0.0.0-20261101144011-d10cfa8fb810\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.0\n\t=>\t../../../temp/product\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=d10cfa8fb810b512333bcfa8b9d661493325478e\n\tbuild\tvcs.time=2026-11-01T14:40:11Z\n\tbuild\tvcs.modified=false\n",
+        "sha256": "1d1a1ff727f66ec456b261dd6a4271c8db8c3ed6fae78ceadd3caaf26cb24161"
+      },
+      "pgmem": {
+        "build_info": "<WORKSPACE>/temp/bin/pgmem: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare/postgres\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare\tv0.0.0-20261101144011-d10cfa8fb810\t\n\tdep\tgithub.com/jackc/pgpassfile\tv1.0.0\th1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=\n\tdep\tgithub.com/jackc/pgservicefile\tv0.0.0-20240606120523-5a60cdf6a761\th1:iCEnooe7UlwOQYpKFhBabPMi4aNAfoODPEFNiAnClxo=\n\tdep\tgithub.com/jackc/pgx/v5\tv5.11.0\th1:IzBBtyK9AHqf98cctWFifYSci2hgQR/cd56wB4p+ogg=\n\tdep\tgithub.com/jackc/puddle/v2\tv2.2.2\th1:PR8nw+E/1w0GLuRFSmiioY6UooMp6KJv0/61nB7icHo=\n\tdep\tgithub.com/klauspost/compress\tv1.20.0\th1:a3C1ke2ohxFymNlb2HWAHjDeKCI90scRskErZkR0ezA=\n\tdep\tgithub.com/shibukawa/pgmem\tv1.18.2\n\t=>\t../../../temp/pgmem\t(devel)\t\n\t\n\tdep\tgolang.org/x/crypto\tv0.42.0\th1:chiH31gIWm57EkTXpwnqf8qeuMUi0yekh6mT2AvFlqI=\n\tdep\tgolang.org/x/sync\tv0.17.0\th1:l60nONMj9l5drqw6jlhIELNv9I0A4OFgRsG9k2oT9Ug=\n\tdep\tgolang.org/x/sys\tv0.44.0\th1:ildZl3J4uzeKP07r2F++Op7E9B29JRUy+a27EibtBTQ=\n\tdep\tgolang.org/x/text\tv0.29.0\th1:1neNs90w9YzJ9BocxfsQNHKuAT4pkghyXc4nhZ6sJvk=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=d10cfa8fb810b512333bcfa8b9d661493325478e\n\tbuild\tvcs.time=2026-11-01T14:40:11Z\n\tbuild\tvcs.modified=false\n",
+        "sha256": "d41a97bff22a8fc0a07bf1152625d79e8fd6eb77e92d70ce0f51b263c1b24210"
+      }
+    },
+    "cpu": "Apple M1",
+    "go": "go version go1.27.3 darwin/arm64",
+    "harness_source_commit": "d10cfa8fb810b512333bcfa8b9d661493325478e",
+    "memory_bytes": 17179869184,
+    "os": "27.2",
+    "plan": {
+      "count": 48,
+      "fixture": "1000 integer rows; each child checks sum/count, mutates one row, verifies, closes",
+      "gomaxprocs": 8,
+      "parallel": [
+        4,
+        8
+      ],
+      "question": "Does P4 to P8 increase total CPU work or reduce parallel efficiency?",
+      "rounds": 3,
+      "route": "tcp",
+      "rss_interval_ms": 20,
+      "scope": "single local M1 host; no runtime changes; fresh process each cell"
+    },
+    "products": {
+      "mariamem": {
+        "release_tag": "v0.6.0",
+        "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+        "tag_object_sha": "b57183b08d48884840111e8b53daa500734337f0"
+      },
+      "pgmem": {
+        "release_tag": "v1.18.2",
+        "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+        "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed"
+      }
+    }
+  },
+  "pilot": {
+    "negative": 2,
+    "positive": 2,
+    "result": "PASS"
+  },
+  "runs": [
+    {
+      "memory": {
+        "baseline_rss_bytes": 51871744,
+        "interval_ms": 20,
+        "observed_peak_active_children": 4,
+        "sample_count": 44,
+        "sample_max_gap_ms": 30.24362500000069,
+        "sampled_peak_rss_bytes": 397836288
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 11.866708,
+          "median": 8.476021,
+          "over_100ms": 0,
+          "sum": 416.558081
+        },
+        "connect_ms": {
+          "maximum": 4.217709,
+          "median": 1.165104,
+          "over_100ms": 0,
+          "sum": 66.436502
+        },
+        "fork_ms": {
+          "maximum": 49.150167,
+          "median": 40.226811999999995,
+          "over_100ms": 0,
+          "sum": 1942.671087
+        },
+        "ready_ms": {
+          "maximum": 50.050792,
+          "median": 42.081708,
+          "over_100ms": 0,
+          "sum": 2029.217881
+        },
+        "select_ms": {
+          "maximum": 2.670542,
+          "median": 0.31877049999999996,
+          "over_100ms": 0,
+          "sum": 20.095332
+        },
+        "sql_ms": {
+          "maximum": 820.342958,
+          "median": 3.734146,
+          "over_100ms": 1,
+          "sum": 1014.517125
+        },
+        "total_ms": {
+          "maximum": 875.886084,
+          "median": 54.911979,
+          "over_100ms": 1,
+          "sum": 3460.316251
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/0-mariamem-p4-memory.json": "71429ee49be64f3969ec20eb585d55280b6152cf2f0952e9f3928d74b979fb96",
+        "measure-v2/0-mariamem-p4.json": "7a432b20ebfcc8049db63532626896e352d9a31682f280996236d7e6db43045c"
+      },
+      "record": {
+        "backend": "mariamem",
+        "count": 48,
+        "memory": "measure-v2/0-mariamem-p4-memory.json",
+        "negative": false,
+        "parallel": 4,
+        "repetition": 0,
+        "report": "measure-v2/0-mariamem-p4.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "mariamem",
+        "batch_ms": 1114.827959,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 517.781,
+        "cpu_user_ms": 2709.675,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 16888,
+        "lifetime_max_rss_bytes": 453689344,
+        "major_faults": 0,
+        "minor_faults": 234147,
+        "parallel": 4,
+        "root_closed_before_forks": true,
+        "root_start_ms": 43.105875,
+        "route": "tcp",
+        "server_version": "12.3.3-MariaDB-embedded",
+        "snapshot_ms": 3.185459,
+        "success": true,
+        "voluntary_switches": 558
+      }
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 142508032,
+        "interval_ms": 20,
+        "observed_peak_active_children": 4,
+        "sample_count": 13,
+        "sample_max_gap_ms": 28.308208000000334,
+        "sampled_peak_rss_bytes": 959086592
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 0.673875,
+          "median": 0.17314600000000002,
+          "over_100ms": 0,
+          "sum": 9.460377
+        },
+        "connect_ms": {
+          "maximum": 9.71025,
+          "median": 5.018146,
+          "over_100ms": 0,
+          "sum": 252.130043
+        },
+        "fork_ms": {
+          "maximum": 24.292125,
+          "median": 10.4623335,
+          "over_100ms": 0,
+          "sum": 580.289541
+        },
+        "ready_ms": {
+          "maximum": 31.634791,
+          "median": 16.185271,
+          "over_100ms": 0,
+          "sum": 858.054918
+        },
+        "select_ms": {
+          "maximum": 2.212209,
+          "median": 0.4669165,
+          "over_100ms": 0,
+          "sum": 25.621252
+        },
+        "sql_ms": {
+          "maximum": 15.900458,
+          "median": 5.532854,
+          "over_100ms": 0,
+          "sum": 302.675792
+        },
+        "total_ms": {
+          "maximum": 40.024083,
+          "median": 21.6934165,
+          "over_100ms": 0,
+          "sum": 1170.215622
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/0-pgmem-p4-memory.json": "45260527b4ba8e42deaf5447df2b9ebabe6ea3c525a8351ba89526fd57f087e4",
+        "measure-v2/0-pgmem-p4.json": "3733c3390e1e9096e2adc4d0a15e22dad2168999823a650b8f537a4ce938dcca"
+      },
+      "record": {
+        "backend": "pgmem",
+        "count": 48,
+        "memory": "measure-v2/0-pgmem-p4-memory.json",
+        "negative": false,
+        "parallel": 4,
+        "repetition": 0,
+        "report": "measure-v2/0-pgmem-p4.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "pgmem",
+        "batch_ms": 294.62575,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 583.929,
+        "cpu_user_ms": 541.715,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 15047,
+        "lifetime_max_rss_bytes": 1080164352,
+        "major_faults": 21832,
+        "minor_faults": 103781,
+        "parallel": 4,
+        "root_closed_before_forks": true,
+        "root_start_ms": 51.222542,
+        "route": "tcp",
+        "server_version": "PostgreSQL 18.3 (PGlite ) on wasm32-unknown-linux-gnu, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.8-git, 32-bit",
+        "snapshot_ms": 9.560375,
+        "success": true,
+        "voluntary_switches": 477
+      }
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 52428800,
+        "interval_ms": 20,
+        "observed_peak_active_children": 8,
+        "sample_count": 24,
+        "sample_max_gap_ms": 37.87137499999993,
+        "sampled_peak_rss_bytes": 728006656
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 14.096375,
+          "median": 9.616979,
+          "over_100ms": 0,
+          "sum": 478.790998
+        },
+        "connect_ms": {
+          "maximum": 12.1435,
+          "median": 2.928167,
+          "over_100ms": 0,
+          "sum": 177.36733
+        },
+        "fork_ms": {
+          "maximum": 81.246375,
+          "median": 54.2450205,
+          "over_100ms": 0,
+          "sum": 2667.874914
+        },
+        "ready_ms": {
+          "maximum": 84.762541,
+          "median": 58.029937000000004,
+          "over_100ms": 0,
+          "sum": 2902.220954
+        },
+        "select_ms": {
+          "maximum": 5.732833,
+          "median": 0.5869375,
+          "over_100ms": 0,
+          "sum": 56.964998
+        },
+        "sql_ms": {
+          "maximum": 403.616875,
+          "median": 6.7350625,
+          "over_100ms": 2,
+          "sum": 1168.735247
+        },
+        "total_ms": {
+          "maximum": 477.723208,
+          "median": 75.104,
+          "over_100ms": 4,
+          "sum": 4549.773165
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/0-mariamem-p8-memory.json": "a22e71f31d10ead5116afd325e9dd45e30ac36ff044dac236a214234310ca67b",
+        "measure-v2/0-mariamem-p8.json": "53dc54ae764c6890fdc60d3dea40c7726bd0b18a38e249022e2acdb7c6065ae8"
+      },
+      "record": {
+        "backend": "mariamem",
+        "count": 48,
+        "memory": "measure-v2/0-mariamem-p8-memory.json",
+        "negative": false,
+        "parallel": 8,
+        "repetition": 0,
+        "report": "measure-v2/0-mariamem-p8.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "mariamem",
+        "batch_ms": 599.564375,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 579.032,
+        "cpu_user_ms": 3117.686,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 8152,
+        "lifetime_max_rss_bytes": 757940224,
+        "major_faults": 0,
+        "minor_faults": 234829,
+        "parallel": 8,
+        "root_closed_before_forks": true,
+        "root_start_ms": 44.100583,
+        "route": "tcp",
+        "server_version": "12.3.3-MariaDB-embedded",
+        "snapshot_ms": 2.764959,
+        "success": true,
+        "voluntary_switches": 514
+      }
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 142606336,
+        "interval_ms": 20,
+        "observed_peak_active_children": 8,
+        "sample_count": 15,
+        "sample_max_gap_ms": 28.800624999998803,
+        "sampled_peak_rss_bytes": 1010860032
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 7.495375,
+          "median": 0.217042,
+          "over_100ms": 0,
+          "sum": 44.277038
+        },
+        "connect_ms": {
+          "maximum": 24.992,
+          "median": 7.6877295,
+          "over_100ms": 0,
+          "sum": 430.94321
+        },
+        "fork_ms": {
+          "maximum": 130.052042,
+          "median": 16.042,
+          "over_100ms": 8,
+          "sum": 1644.04146
+        },
+        "ready_ms": {
+          "maximum": 137.937125,
+          "median": 26.968854,
+          "over_100ms": 8,
+          "sum": 2144.514872
+        },
+        "select_ms": {
+          "maximum": 7.427208,
+          "median": 0.792146,
+          "over_100ms": 0,
+          "sum": 69.514204
+        },
+        "sql_ms": {
+          "maximum": 16.151084,
+          "median": 8.602104,
+          "over_100ms": 0,
+          "sum": 409.004211
+        },
+        "total_ms": {
+          "maximum": 149.884167,
+          "median": 36.5850415,
+          "over_100ms": 8,
+          "sum": 2597.82179
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/0-pgmem-p8-memory.json": "43b86d49a0d8ff798af767bc717fa5e0ad44d2a02581d6158d73e14d82c67290",
+        "measure-v2/0-pgmem-p8.json": "08ffae9e1b1ab68f2b3d3b6b6fe1fd0fd1594a88a7e62615960cd3dfb9e71d03"
+      },
+      "record": {
+        "backend": "pgmem",
+        "count": 48,
+        "memory": "measure-v2/0-pgmem-p8-memory.json",
+        "negative": false,
+        "parallel": 8,
+        "repetition": 0,
+        "report": "measure-v2/0-pgmem-p8.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "pgmem",
+        "batch_ms": 333.344292,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 606.614,
+        "cpu_user_ms": 623.493,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 12622,
+        "lifetime_max_rss_bytes": 1075429376,
+        "major_faults": 21814,
+        "minor_faults": 103745,
+        "parallel": 8,
+        "root_closed_before_forks": true,
+        "root_start_ms": 53.16575,
+        "route": "tcp",
+        "server_version": "PostgreSQL 18.3 (PGlite ) on wasm32-unknown-linux-gnu, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.8-git, 32-bit",
+        "snapshot_ms": 10.657542,
+        "success": true,
+        "voluntary_switches": 625
+      }
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 142999552,
+        "interval_ms": 20,
+        "observed_peak_active_children": 8,
+        "sample_count": 11,
+        "sample_max_gap_ms": 25.416665999999935,
+        "sampled_peak_rss_bytes": 1042792448
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 1.932,
+          "median": 0.2362915,
+          "over_100ms": 0,
+          "sum": 25.889204
+        },
+        "connect_ms": {
+          "maximum": 21.112167,
+          "median": 8.161771,
+          "over_100ms": 0,
+          "sum": 436.662756
+        },
+        "fork_ms": {
+          "maximum": 30.111833,
+          "median": 15.7130835,
+          "over_100ms": 0,
+          "sum": 764.44929
+        },
+        "ready_ms": {
+          "maximum": 40.320208,
+          "median": 25.368417,
+          "over_100ms": 0,
+          "sum": 1277.983873
+        },
+        "select_ms": {
+          "maximum": 11.794458,
+          "median": 1.1837495,
+          "over_100ms": 0,
+          "sum": 76.85775
+        },
+        "sql_ms": {
+          "maximum": 15.745209,
+          "median": 8.8781045,
+          "over_100ms": 0,
+          "sum": 441.712922
+        },
+        "total_ms": {
+          "maximum": 49.589125,
+          "median": 36.4925,
+          "over_100ms": 0,
+          "sum": 1745.613872
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/1-pgmem-p8-memory.json": "03b1f0a0b07a0d7a7053f6f814731a61281236f55f09f3e90baec019b02ae0db",
+        "measure-v2/1-pgmem-p8.json": "05abb91e6ff8b3a7ec6e98eece9d11b19610090f2f3caec2e79f193763dde0da"
+      },
+      "record": {
+        "backend": "pgmem",
+        "count": 48,
+        "memory": "measure-v2/1-pgmem-p8-memory.json",
+        "negative": false,
+        "parallel": 8,
+        "repetition": 1,
+        "report": "measure-v2/1-pgmem-p8.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "pgmem",
+        "batch_ms": 223.674833,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 600.17,
+        "cpu_user_ms": 630.005,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 12764,
+        "lifetime_max_rss_bytes": 1090502656,
+        "major_faults": 21828,
+        "minor_faults": 103335,
+        "parallel": 8,
+        "root_closed_before_forks": true,
+        "root_start_ms": 53.007625,
+        "route": "tcp",
+        "server_version": "PostgreSQL 18.3 (PGlite ) on wasm32-unknown-linux-gnu, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.8-git, 32-bit",
+        "snapshot_ms": 10.238292,
+        "success": true,
+        "voluntary_switches": 286
+      }
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 52183040,
+        "interval_ms": 20,
+        "observed_peak_active_children": 8,
+        "sample_count": 36,
+        "sample_max_gap_ms": 35.68866699999873,
+        "sampled_peak_rss_bytes": 733904896
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 19.469667,
+          "median": 10.2990835,
+          "over_100ms": 0,
+          "sum": 506.296041
+        },
+        "connect_ms": {
+          "maximum": 16.845583,
+          "median": 4.542270500000001,
+          "over_100ms": 0,
+          "sum": 277.312663
+        },
+        "fork_ms": {
+          "maximum": 73.569916,
+          "median": 61.18325,
+          "over_100ms": 0,
+          "sum": 2910.423835
+        },
+        "ready_ms": {
+          "maximum": 79.483333,
+          "median": 68.13983350000001,
+          "over_100ms": 0,
+          "sum": 3236.0585810000002
+        },
+        "select_ms": {
+          "maximum": 4.124459,
+          "median": 0.6203745,
+          "over_100ms": 0,
+          "sum": 48.308
+        },
+        "sql_ms": {
+          "maximum": 813.500875,
+          "median": 4.7925835,
+          "over_100ms": 2,
+          "sum": 1484.991877
+        },
+        "total_ms": {
+          "maximum": 903.026083,
+          "median": 84.0478545,
+          "over_100ms": 2,
+          "sum": 5227.3714549999995
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/1-mariamem-p8-memory.json": "5349455f1ad643f49bae42a074dbbc382d3cf33a324daba0d53bd9193ca3a30c",
+        "measure-v2/1-mariamem-p8.json": "5aaaf0752747e347dec74691db727672ac4fc427712742442bdea75fcd7c9e43"
+      },
+      "record": {
+        "backend": "mariamem",
+        "count": 48,
+        "memory": "measure-v2/1-mariamem-p8-memory.json",
+        "negative": false,
+        "parallel": 8,
+        "repetition": 1,
+        "report": "measure-v2/1-mariamem-p8.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "mariamem",
+        "batch_ms": 917.42975,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 578.727,
+        "cpu_user_ms": 3197.747,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 8210,
+        "lifetime_max_rss_bytes": 734773248,
+        "major_faults": 0,
+        "minor_faults": 235324,
+        "parallel": 8,
+        "root_closed_before_forks": true,
+        "root_start_ms": 41.580042,
+        "route": "tcp",
+        "server_version": "12.3.3-MariaDB-embedded",
+        "snapshot_ms": 2.812958,
+        "success": true,
+        "voluntary_switches": 525
+      }
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 143015936,
+        "interval_ms": 20,
+        "observed_peak_active_children": 4,
+        "sample_count": 12,
+        "sample_max_gap_ms": 28.25975000000014,
+        "sampled_peak_rss_bytes": 981975040
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 1.515625,
+          "median": 0.17049999999999998,
+          "over_100ms": 0,
+          "sum": 13.603878
+        },
+        "connect_ms": {
+          "maximum": 8.389042,
+          "median": 4.40075,
+          "over_100ms": 0,
+          "sum": 230.332042
+        },
+        "fork_ms": {
+          "maximum": 34.537625,
+          "median": 10.1951665,
+          "over_100ms": 0,
+          "sum": 559.602417
+        },
+        "ready_ms": {
+          "maximum": 38.558334,
+          "median": 15.3910415,
+          "over_100ms": 0,
+          "sum": 818.764872
+        },
+        "select_ms": {
+          "maximum": 2.107584,
+          "median": 0.484958,
+          "over_100ms": 0,
+          "sum": 28.815456
+        },
+        "sql_ms": {
+          "maximum": 9.933125,
+          "median": 4.668958,
+          "over_100ms": 0,
+          "sum": 239.959955
+        },
+        "total_ms": {
+          "maximum": 42.544,
+          "median": 21.4185835,
+          "over_100ms": 0,
+          "sum": 1072.354086
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/1-pgmem-p4-memory.json": "c50e549faa489cde044f34853727ce889bb8797d688b0744f1af2245b363109b",
+        "measure-v2/1-pgmem-p4.json": "dd23274f4797e683ca51b7a303b9d6e71fb801c71d1564bcd47078fe9cf841b2"
+      },
+      "record": {
+        "backend": "pgmem",
+        "count": 48,
+        "memory": "measure-v2/1-pgmem-p4-memory.json",
+        "negative": false,
+        "parallel": 4,
+        "repetition": 1,
+        "report": "measure-v2/1-pgmem-p4.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "pgmem",
+        "batch_ms": 269.377709,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 512.995,
+        "cpu_user_ms": 553.358,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 11149,
+        "lifetime_max_rss_bytes": 1082015744,
+        "major_faults": 21832,
+        "minor_faults": 103507,
+        "parallel": 4,
+        "root_closed_before_forks": true,
+        "root_start_ms": 51.336209,
+        "route": "tcp",
+        "server_version": "PostgreSQL 18.3 (PGlite ) on wasm32-unknown-linux-gnu, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.8-git, 32-bit",
+        "snapshot_ms": 10.684417,
+        "success": true,
+        "voluntary_switches": 569
+      }
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 51838976,
+        "interval_ms": 20,
+        "observed_peak_active_children": 4,
+        "sample_count": 62,
+        "sample_max_gap_ms": 30.441707999999693,
+        "sampled_peak_rss_bytes": 397705216
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 16.17375,
+          "median": 8.526188000000001,
+          "over_100ms": 0,
+          "sum": 442.07721
+        },
+        "connect_ms": {
+          "maximum": 5.989708,
+          "median": 1.414187,
+          "over_100ms": 0,
+          "sum": 89.47841700000001
+        },
+        "fork_ms": {
+          "maximum": 52.325834,
+          "median": 44.063708,
+          "over_100ms": 0,
+          "sum": 2094.859461
+        },
+        "ready_ms": {
+          "maximum": 53.658167,
+          "median": 46.1935835,
+          "over_100ms": 0,
+          "sum": 2209.607712
+        },
+        "select_ms": {
+          "maximum": 1.041375,
+          "median": 0.47281249999999997,
+          "over_100ms": 0,
+          "sum": 25.254208
+        },
+        "sql_ms": {
+          "maximum": 814.764625,
+          "median": 4.5090835,
+          "over_100ms": 1,
+          "sum": 1035.150415
+        },
+        "total_ms": {
+          "maximum": 867.002875,
+          "median": 59.928917,
+          "over_100ms": 1,
+          "sum": 3686.858504
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/1-mariamem-p4-memory.json": "3d0a4311948b497ae213bd4e7b3e9f3a9bd3be5733ef871fc514b1e5da196696",
+        "measure-v2/1-mariamem-p4.json": "9b51aac956bfb58bdf6af34e0873d700f89a9d81431badca64eaec2f7b5ea2da"
+      },
+      "record": {
+        "backend": "mariamem",
+        "count": 48,
+        "memory": "measure-v2/1-mariamem-p4-memory.json",
+        "negative": false,
+        "parallel": 4,
+        "repetition": 1,
+        "report": "measure-v2/1-mariamem-p4.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "mariamem",
+        "batch_ms": 1531.245375,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 509.62,
+        "cpu_user_ms": 2716.958,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 11068,
+        "lifetime_max_rss_bytes": 473219072,
+        "major_faults": 0,
+        "minor_faults": 234066,
+        "parallel": 4,
+        "root_closed_before_forks": true,
+        "root_start_ms": 45.136792,
+        "route": "tcp",
+        "server_version": "12.3.3-MariaDB-embedded",
+        "snapshot_ms": 2.7365,
+        "success": true,
+        "voluntary_switches": 740
+      }
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 51953664,
+        "interval_ms": 20,
+        "observed_peak_active_children": 4,
+        "sample_count": 28,
+        "sample_max_gap_ms": 30.305165999998053,
+        "sampled_peak_rss_bytes": 398082048
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 11.323708,
+          "median": 8.703125,
+          "over_100ms": 0,
+          "sum": 426.169584
+        },
+        "connect_ms": {
+          "maximum": 5.848083,
+          "median": 1.37475,
+          "over_100ms": 0,
+          "sum": 91.5883
+        },
+        "fork_ms": {
+          "maximum": 49.552292,
+          "median": 42.2599375,
+          "over_100ms": 0,
+          "sum": 2032.38779
+        },
+        "ready_ms": {
+          "maximum": 50.600917,
+          "median": 44.6634375,
+          "over_100ms": 0,
+          "sum": 2149.399668
+        },
+        "select_ms": {
+          "maximum": 3.440959,
+          "median": 0.3970625,
+          "over_100ms": 0,
+          "sum": 25.408708
+        },
+        "sql_ms": {
+          "maximum": 11.576167,
+          "median": 4.5972085,
+          "over_100ms": 0,
+          "sum": 233.488166
+        },
+        "total_ms": {
+          "maximum": 63.195291,
+          "median": 58.868229,
+          "over_100ms": 0,
+          "sum": 2809.080205
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/2-mariamem-p4-memory.json": "11e9e44d7480834c7c9576ef358c48411f05e88f804764916aaf91eec7ed59c1",
+        "measure-v2/2-mariamem-p4.json": "9e54fe5f87817fa214a58a6f85a510b48fc93cbc207c41be090b844658330ed5"
+      },
+      "record": {
+        "backend": "mariamem",
+        "count": 48,
+        "memory": "measure-v2/2-mariamem-p4-memory.json",
+        "negative": false,
+        "parallel": 4,
+        "repetition": 2,
+        "report": "measure-v2/2-mariamem-p4.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "mariamem",
+        "batch_ms": 703.614459,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 495.135,
+        "cpu_user_ms": 2678.646,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 10361,
+        "lifetime_max_rss_bytes": 479592448,
+        "major_faults": 0,
+        "minor_faults": 234089,
+        "parallel": 4,
+        "root_closed_before_forks": true,
+        "root_start_ms": 41.388875,
+        "route": "tcp",
+        "server_version": "12.3.3-MariaDB-embedded",
+        "snapshot_ms": 2.889,
+        "success": true,
+        "voluntary_switches": 490
+      }
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 142622720,
+        "interval_ms": 20,
+        "observed_peak_active_children": 4,
+        "sample_count": 10,
+        "sample_max_gap_ms": 28.673166999997335,
+        "sampled_peak_rss_bytes": 996687872
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 0.916666,
+          "median": 0.1612085,
+          "over_100ms": 0,
+          "sum": 8.853166
+        },
+        "connect_ms": {
+          "maximum": 8.20625,
+          "median": 4.6845005,
+          "over_100ms": 0,
+          "sum": 235.207001
+        },
+        "fork_ms": {
+          "maximum": 11.81025,
+          "median": 8.258625,
+          "over_100ms": 0,
+          "sum": 408.18975
+        },
+        "ready_ms": {
+          "maximum": 19.675542,
+          "median": 14.101813,
+          "over_100ms": 0,
+          "sum": 674.389166
+        },
+        "select_ms": {
+          "maximum": 4.029875,
+          "median": 0.533854,
+          "over_100ms": 0,
+          "sum": 30.97908
+        },
+        "sql_ms": {
+          "maximum": 9.180416,
+          "median": 4.666916499999999,
+          "over_100ms": 0,
+          "sum": 229.976454
+        },
+        "total_ms": {
+          "maximum": 25.159916,
+          "median": 18.451979,
+          "over_100ms": 0,
+          "sum": 913.245041
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/2-pgmem-p4-memory.json": "8630fe07537681caf38df1cc0debdc218300ccd0467ab7150319c6651f08b26a",
+        "measure-v2/2-pgmem-p4.json": "0b50c8595591683e6243310293a786300d23645ce01ae7337724cb4962760fd5"
+      },
+      "record": {
+        "backend": "pgmem",
+        "count": 48,
+        "memory": "measure-v2/2-pgmem-p4-memory.json",
+        "negative": false,
+        "parallel": 4,
+        "repetition": 2,
+        "report": "measure-v2/2-pgmem-p4.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "pgmem",
+        "batch_ms": 230.057958,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 494.841,
+        "cpu_user_ms": 520.594,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 12523,
+        "lifetime_max_rss_bytes": 1066106880,
+        "major_faults": 21820,
+        "minor_faults": 103793,
+        "parallel": 4,
+        "root_closed_before_forks": true,
+        "root_start_ms": 50.076666,
+        "route": "tcp",
+        "server_version": "PostgreSQL 18.3 (PGlite ) on wasm32-unknown-linux-gnu, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.8-git, 32-bit",
+        "snapshot_ms": 11.063709,
+        "success": true,
+        "voluntary_switches": 545
+      }
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 52035584,
+        "interval_ms": 20,
+        "observed_peak_active_children": 8,
+        "sample_count": 23,
+        "sample_max_gap_ms": 35.59120899999965,
+        "sampled_peak_rss_bytes": 735313920
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 16.099208,
+          "median": 10.965250000000001,
+          "over_100ms": 0,
+          "sum": 535.769748
+        },
+        "connect_ms": {
+          "maximum": 20.994542,
+          "median": 5.5437294999999995,
+          "over_100ms": 0,
+          "sum": 307.66775
+        },
+        "fork_ms": {
+          "maximum": 85.749417,
+          "median": 67.378146,
+          "over_100ms": 0,
+          "sum": 3218.495838
+        },
+        "ready_ms": {
+          "maximum": 88.636583,
+          "median": 77.48252049999999,
+          "over_100ms": 0,
+          "sum": 3613.621252
+        },
+        "select_ms": {
+          "maximum": 8.285875,
+          "median": 0.7542915,
+          "over_100ms": 0,
+          "sum": 87.443043
+        },
+        "sql_ms": {
+          "maximum": 30.960167,
+          "median": 7.2763955,
+          "over_100ms": 0,
+          "sum": 425.283208
+        },
+        "total_ms": {
+          "maximum": 105.63425,
+          "median": 94.948542,
+          "over_100ms": 11,
+          "sum": 4574.698754
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/2-mariamem-p8-memory.json": "e869a97bd4a603260ab05f6d00e1456b302dca3d6b219ecb23d835a4e7aa987b",
+        "measure-v2/2-mariamem-p8.json": "1ad4cb973179f1e4e1ad84e4258689bc4f2b6af4af3f6a6b78667f8a02395bdb"
+      },
+      "record": {
+        "backend": "mariamem",
+        "count": 48,
+        "memory": "measure-v2/2-mariamem-p8-memory.json",
+        "negative": false,
+        "parallel": 8,
+        "repetition": 2,
+        "report": "measure-v2/2-mariamem-p8.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "mariamem",
+        "batch_ms": 577.537916,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 574.904,
+        "cpu_user_ms": 3295.194,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 8173,
+        "lifetime_max_rss_bytes": 738770944,
+        "major_faults": 0,
+        "minor_faults": 235456,
+        "parallel": 8,
+        "root_closed_before_forks": true,
+        "root_start_ms": 43.951292,
+        "route": "tcp",
+        "server_version": "12.3.3-MariaDB-embedded",
+        "snapshot_ms": 2.756583,
+        "success": true,
+        "voluntary_switches": 694
+      }
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 142917632,
+        "interval_ms": 20,
+        "observed_peak_active_children": 8,
+        "sample_count": 12,
+        "sample_max_gap_ms": 26.36183299999928,
+        "sampled_peak_rss_bytes": 1091223552
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 5.639,
+          "median": 0.6079165,
+          "over_100ms": 0,
+          "sum": 46.078001
+        },
+        "connect_ms": {
+          "maximum": 18.833416,
+          "median": 8.997750499999999,
+          "over_100ms": 0,
+          "sum": 466.656631
+        },
+        "fork_ms": {
+          "maximum": 50.485917,
+          "median": 15.5569375,
+          "over_100ms": 0,
+          "sum": 945.189378
+        },
+        "ready_ms": {
+          "maximum": 66.936375,
+          "median": 28.899250000000002,
+          "over_100ms": 0,
+          "sum": 1503.434792
+        },
+        "select_ms": {
+          "maximum": 11.077541,
+          "median": 1.431708,
+          "over_100ms": 0,
+          "sum": 91.529208
+        },
+        "sql_ms": {
+          "maximum": 22.889625,
+          "median": 9.555166499999999,
+          "over_100ms": 0,
+          "sum": 513.38158
+        },
+        "total_ms": {
+          "maximum": 77.229083,
+          "median": 41.29941650000001,
+          "over_100ms": 0,
+          "sum": 2062.945792
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/2-pgmem-p8-memory.json": "00fb07e6eaa006bb36221a4bb27a9d7fb06bbaf3c541c375d60f3c844d160e06",
+        "measure-v2/2-pgmem-p8.json": "7680be3205e85c45ad06b801925c762cb95f4f5fee38cbf73a9f2a8fd64c34fb"
+      },
+      "record": {
+        "backend": "pgmem",
+        "count": 48,
+        "memory": "measure-v2/2-pgmem-p8-memory.json",
+        "negative": false,
+        "parallel": 8,
+        "repetition": 2,
+        "report": "measure-v2/2-pgmem-p8.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "pgmem",
+        "batch_ms": 265.958417,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 578,
+        "cpu_user_ms": 653.599,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 9752,
+        "lifetime_max_rss_bytes": 1112211456,
+        "major_faults": 21812,
+        "minor_faults": 104252,
+        "parallel": 8,
+        "root_closed_before_forks": true,
+        "root_start_ms": 51.264875,
+        "route": "tcp",
+        "server_version": "PostgreSQL 18.3 (PGlite ) on wasm32-unknown-linux-gnu, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.8-git, 32-bit",
+        "snapshot_ms": 10.598167,
+        "success": true,
+        "voluntary_switches": 654
+      }
+    }
+  ]
+}

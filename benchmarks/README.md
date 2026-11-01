@@ -2,6 +2,9 @@
 
 ## Recent measurement and discovery reports
 
+- [P4/P8 CPU, memory and SQL waits](parallel-pressure.md): same-host TCP comparison,
+  normal-path scaling and a separately retained concurrent-cancellation pilot failure.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained

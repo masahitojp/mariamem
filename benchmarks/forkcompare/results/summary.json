@@ -1,0 +1,703 @@
+{
+  "cells": [
+    {
+      "backend": "mariamem",
+      "baseline_rss_mib": {
+        "max": 49.546875,
+        "median": 49.46875,
+        "min": 49.4375
+      },
+      "cleanup_ms": {
+        "max": 8.703125,
+        "median": 8.526188000000001,
+        "min": 8.476021
+      },
+      "connect_ms": {
+        "max": 1.414187,
+        "median": 1.37475,
+        "min": 1.165104
+      },
+      "cpu_ms": {
+        "max": 3227.456,
+        "median": 3226.578,
+        "min": 3173.781
+      },
+      "cpu_per_child_ms": {
+        "max": 67.23866666666667,
+        "median": 67.220375,
+        "min": 66.1204375
+      },
+      "effective_cores": {
+        "max": 4.510681893192874,
+        "median": 2.895026065631711,
+        "min": 2.107159344073121
+      },
+      "fork_ms": {
+        "max": 44.063708,
+        "median": 42.2599375,
+        "min": 40.226811999999995
+      },
+      "involuntary_switches": {
+        "max": 16888,
+        "median": 11068,
+        "min": 10361
+      },
+      "major_faults": {
+        "max": 0,
+        "median": 0,
+        "min": 0
+      },
+      "minor_faults": {
+        "max": 234147,
+        "median": 234089,
+        "min": 234066
+      },
+      "parallel": 4,
+      "peak_rss_mib": {
+        "max": 379.640625,
+        "median": 379.40625,
+        "min": 379.28125
+      },
+      "ready_ms": {
+        "max": 46.1935835,
+        "median": 44.6634375,
+        "min": 42.081708
+      },
+      "rss_growth_mib": {
+        "max": 330.09375,
+        "median": 329.9375,
+        "min": 329.84375
+      },
+      "select_ms": {
+        "max": 0.47281249999999997,
+        "median": 0.3970625,
+        "min": 0.31877049999999996
+      },
+      "sql_ms": {
+        "max": 4.5972085,
+        "median": 4.5090835,
+        "min": 3.734146
+      },
+      "system_cpu_ms": {
+        "max": 517.781,
+        "median": 509.62,
+        "min": 495.135
+      },
+      "total_ms": {
+        "max": 59.928917,
+        "median": 58.868229,
+        "min": 54.911979
+      },
+      "wall_ms": {
+        "max": 1531.245375,
+        "median": 1114.827959,
+        "min": 703.614459
+      }
+    },
+    {
+      "backend": "mariamem",
+      "baseline_rss_mib": {
+        "max": 50.0,
+        "median": 49.765625,
+        "min": 49.625
+      },
+      "cleanup_ms": {
+        "max": 10.965250000000001,
+        "median": 10.2990835,
+        "min": 9.616979
+      },
+      "connect_ms": {
+        "max": 5.5437294999999995,
+        "median": 4.542270500000001,
+        "min": 2.928167
+      },
+      "cpu_ms": {
+        "max": 3870.098,
+        "median": 3776.4739999999997,
+        "min": 3696.7180000000003
+      },
+      "cpu_per_child_ms": {
+        "max": 80.62704166666667,
+        "median": 78.67654166666667,
+        "min": 77.01495833333334
+      },
+      "effective_cores": {
+        "max": 6.701028439490369,
+        "median": 6.165673202314597,
+        "min": 4.116363132981026
+      },
+      "fork_ms": {
+        "max": 67.378146,
+        "median": 61.18325,
+        "min": 54.2450205
+      },
+      "involuntary_switches": {
+        "max": 8210,
+        "median": 8173,
+        "min": 8152
+      },
+      "major_faults": {
+        "max": 0,
+        "median": 0,
+        "min": 0
+      },
+      "minor_faults": {
+        "max": 235456,
+        "median": 235324,
+        "min": 234829
+      },
+      "parallel": 8,
+      "peak_rss_mib": {
+        "max": 701.25,
+        "median": 699.90625,
+        "min": 694.28125
+      },
+      "ready_ms": {
+        "max": 77.48252049999999,
+        "median": 68.13983350000001,
+        "min": 58.029937000000004
+      },
+      "rss_growth_mib": {
+        "max": 651.625,
+        "median": 650.140625,
+        "min": 644.28125
+      },
+      "select_ms": {
+        "max": 0.7542915,
+        "median": 0.6203745,
+        "min": 0.5869375
+      },
+      "sql_ms": {
+        "max": 7.2763955,
+        "median": 6.7350625,
+        "min": 4.7925835
+      },
+      "system_cpu_ms": {
+        "max": 579.032,
+        "median": 578.727,
+        "min": 574.904
+      },
+      "total_ms": {
+        "max": 94.948542,
+        "median": 84.0478545,
+        "min": 75.104
+      },
+      "wall_ms": {
+        "max": 917.42975,
+        "median": 599.564375,
+        "min": 577.537916
+      }
+    },
+    {
+      "backend": "pgmem",
+      "baseline_rss_mib": {
+        "max": 136.390625,
+        "median": 136.015625,
+        "min": 135.90625
+      },
+      "cleanup_ms": {
+        "max": 0.17314600000000002,
+        "median": 0.17049999999999998,
+        "min": 0.1612085
+      },
+      "connect_ms": {
+        "max": 5.018146,
+        "median": 4.6845005,
+        "min": 4.40075
+      },
+      "cpu_ms": {
+        "max": 1125.644,
+        "median": 1066.353,
+        "min": 1015.4350000000001
+      },
+      "cpu_per_child_ms": {
+        "max": 23.450916666666668,
+        "median": 22.2156875,
+        "min": 21.154895833333335
+      },
+      "effective_cores": {
+        "max": 4.413822537710258,
+        "median": 3.9585792156247055,
+        "min": 3.820589340884156
+      },
+      "fork_ms": {
+        "max": 10.4623335,
+        "median": 10.1951665,
+        "min": 8.258625
+      },
+      "involuntary_switches": {
+        "max": 15047,
+        "median": 12523,
+        "min": 11149
+      },
+      "major_faults": {
+        "max": 21832,
+        "median": 21832,
+        "min": 21820
+      },
+      "minor_faults": {
+        "max": 103793,
+        "median": 103781,
+        "min": 103507
+      },
+      "parallel": 4,
+      "peak_rss_mib": {
+        "max": 950.515625,
+        "median": 936.484375,
+        "min": 914.65625
+      },
+      "ready_ms": {
+        "max": 16.185271,
+        "median": 15.3910415,
+        "min": 14.101813
+      },
+      "rss_growth_mib": {
+        "max": 814.5,
+        "median": 800.09375,
+        "min": 778.75
+      },
+      "select_ms": {
+        "max": 0.533854,
+        "median": 0.484958,
+        "min": 0.4669165
+      },
+      "sql_ms": {
+        "max": 5.532854,
+        "median": 4.668958,
+        "min": 4.666916499999999
+      },
+      "system_cpu_ms": {
+        "max": 583.929,
+        "median": 512.995,
+        "min": 494.841
+      },
+      "total_ms": {
+        "max": 21.6934165,
+        "median": 21.4185835,
+        "min": 18.451979
+      },
+      "wall_ms": {
+        "max": 294.62575,
+        "median": 269.377709,
+        "min": 230.057958
+      }
+    },
+    {
+      "backend": "pgmem",
+      "baseline_rss_mib": {
+        "max": 136.375,
+        "median": 136.296875,
+        "min": 136.0
+      },
+      "cleanup_ms": {
+        "max": 0.6079165,
+        "median": 0.2362915,
+        "min": 0.217042
+      },
+      "connect_ms": {
+        "max": 8.997750499999999,
+        "median": 8.161771,
+        "min": 7.6877295
+      },
+      "cpu_ms": {
+        "max": 1231.5990000000002,
+        "median": 1230.175,
+        "min": 1230.107
+      },
+      "cpu_per_child_ms": {
+        "max": 25.658312500000005,
+        "median": 25.628645833333334,
+        "min": 25.627229166666666
+      },
+      "effective_cores": {
+        "max": 5.499836452320051,
+        "median": 4.6307953472290375,
+        "min": 3.6901996809952875
+      },
+      "fork_ms": {
+        "max": 16.042,
+        "median": 15.7130835,
+        "min": 15.5569375
+      },
+      "involuntary_switches": {
+        "max": 12764,
+        "median": 12622,
+        "min": 9752
+      },
+      "major_faults": {
+        "max": 21828,
+        "median": 21814,
+        "min": 21812
+      },
+      "minor_faults": {
+        "max": 104252,
+        "median": 103745,
+        "min": 103335
+      },
+      "parallel": 8,
+      "peak_rss_mib": {
+        "max": 1040.671875,
+        "median": 994.484375,
+        "min": 964.03125
+      },
+      "ready_ms": {
+        "max": 28.899250000000002,
+        "median": 26.968854,
+        "min": 25.368417
+      },
+      "rss_growth_mib": {
+        "max": 904.375,
+        "median": 858.109375,
+        "min": 828.03125
+      },
+      "select_ms": {
+        "max": 1.431708,
+        "median": 1.1837495,
+        "min": 0.792146
+      },
+      "sql_ms": {
+        "max": 9.555166499999999,
+        "median": 8.8781045,
+        "min": 8.602104
+      },
+      "system_cpu_ms": {
+        "max": 606.614,
+        "median": 600.17,
+        "min": 578
+      },
+      "total_ms": {
+        "max": 41.29941650000001,
+        "median": 36.5850415,
+        "min": 36.4925
+      },
+      "wall_ms": {
+        "max": 333.344292,
+        "median": 265.958417,
+        "min": 223.674833
+      }
+    }
+  ],
+  "limits": "Three fresh processes per cell on one M1; RSS sampled at 20 ms, not allocations or exact peak; CPU is process-wide batch CPU, not per-phase CPU.",
+  "pairs": [
+    {
+      "backend": "mariamem",
+      "cpu_ratio": 1.1453968698566301,
+      "peak_rss_ratio": 1.8299151634955935,
+      "repetition": 0,
+      "wall_ratio": 0.5378088790828398
+    },
+    {
+      "backend": "mariamem",
+      "cpu_ratio": 1.1704269972707926,
+      "peak_rss_ratio": 1.8453489330147483,
+      "repetition": 1,
+      "wall_ratio": 0.599139605564523
+    },
+    {
+      "backend": "mariamem",
+      "cpu_ratio": 1.2193966754479908,
+      "peak_rss_ratio": 1.8471416224225212,
+      "repetition": 2,
+      "wall_ratio": 0.8208158724037818
+    },
+    {
+      "backend": "pgmem",
+      "cpu_ratio": 1.092802875509486,
+      "peak_rss_ratio": 1.053982028767638,
+      "repetition": 0,
+      "wall_ratio": 1.1314160150631776
+    },
+    {
+      "backend": "pgmem",
+      "cpu_ratio": 1.1536283013223574,
+      "peak_rss_ratio": 1.0619337615750397,
+      "repetition": 1,
+      "wall_ratio": 0.8303390574904623
+    },
+    {
+      "backend": "pgmem",
+      "cpu_ratio": 1.212878224603249,
+      "peak_rss_ratio": 1.0948498347936153,
+      "repetition": 2,
+      "wall_ratio": 1.156049629024352
+    }
+  ],
+  "runs": [
+    {
+      "backend": "mariamem",
+      "baseline_rss_mib": 49.46875,
+      "cleanup_ms": 8.476021,
+      "connect_ms": 1.165104,
+      "cpu_ms": 3227.456,
+      "cpu_per_child_ms": 67.23866666666667,
+      "effective_cores": 2.895026065631711,
+      "fork_ms": 40.226811999999995,
+      "involuntary_switches": 16888,
+      "major_faults": 0,
+      "minor_faults": 234147,
+      "parallel": 4,
+      "peak_rss_mib": 379.40625,
+      "ready_ms": 42.081708,
+      "repetition": 0,
+      "rss_growth_mib": 329.9375,
+      "select_ms": 0.31877049999999996,
+      "sql_ms": 3.734146,
+      "system_cpu_ms": 517.781,
+      "total_ms": 54.911979,
+      "wall_ms": 1114.827959
+    },
+    {
+      "backend": "pgmem",
+      "baseline_rss_mib": 135.90625,
+      "cleanup_ms": 0.17314600000000002,
+      "connect_ms": 5.018146,
+      "cpu_ms": 1125.644,
+      "cpu_per_child_ms": 23.450916666666668,
+      "effective_cores": 3.820589340884156,
+      "fork_ms": 10.4623335,
+      "involuntary_switches": 15047,
+      "major_faults": 21832,
+      "minor_faults": 103781,
+      "parallel": 4,
+      "peak_rss_mib": 914.65625,
+      "ready_ms": 16.185271,
+      "repetition": 0,
+      "rss_growth_mib": 778.75,
+      "select_ms": 0.4669165,
+      "sql_ms": 5.532854,
+      "system_cpu_ms": 583.929,
+      "total_ms": 21.6934165,
+      "wall_ms": 294.62575
+    },
+    {
+      "backend": "mariamem",
+      "baseline_rss_mib": 50.0,
+      "cleanup_ms": 9.616979,
+      "connect_ms": 2.928167,
+      "cpu_ms": 3696.7180000000003,
+      "cpu_per_child_ms": 77.01495833333334,
+      "effective_cores": 6.165673202314597,
+      "fork_ms": 54.2450205,
+      "involuntary_switches": 8152,
+      "major_faults": 0,
+      "minor_faults": 234829,
+      "parallel": 8,
+      "peak_rss_mib": 694.28125,
+      "ready_ms": 58.029937000000004,
+      "repetition": 0,
+      "rss_growth_mib": 644.28125,
+      "select_ms": 0.5869375,
+      "sql_ms": 6.7350625,
+      "system_cpu_ms": 579.032,
+      "total_ms": 75.104,
+      "wall_ms": 599.564375
+    },
+    {
+      "backend": "pgmem",
+      "baseline_rss_mib": 136.0,
+      "cleanup_ms": 0.217042,
+      "connect_ms": 7.6877295,
+      "cpu_ms": 1230.107,
+      "cpu_per_child_ms": 25.627229166666666,
+      "effective_cores": 3.6901996809952875,
+      "fork_ms": 16.042,
+      "involuntary_switches": 12622,
+      "major_faults": 21814,
+      "minor_faults": 103745,
+      "parallel": 8,
+      "peak_rss_mib": 964.03125,
+      "ready_ms": 26.968854,
+      "repetition": 0,
+      "rss_growth_mib": 828.03125,
+      "select_ms": 0.792146,
+      "sql_ms": 8.602104,
+      "system_cpu_ms": 606.614,
+      "total_ms": 36.5850415,
+      "wall_ms": 333.344292
+    },
+    {
+      "backend": "pgmem",
+      "baseline_rss_mib": 136.375,
+      "cleanup_ms": 0.2362915,
+      "connect_ms": 8.161771,
+      "cpu_ms": 1230.175,
+      "cpu_per_child_ms": 25.628645833333334,
+      "effective_cores": 5.499836452320051,
+      "fork_ms": 15.7130835,
+      "involuntary_switches": 12764,
+      "major_faults": 21828,
+      "minor_faults": 103335,
+      "parallel": 8,
+      "peak_rss_mib": 994.484375,
+      "ready_ms": 25.368417,
+      "repetition": 1,
+      "rss_growth_mib": 858.109375,
+      "select_ms": 1.1837495,
+      "sql_ms": 8.8781045,
+      "system_cpu_ms": 600.17,
+      "total_ms": 36.4925,
+      "wall_ms": 223.674833
+    },
+    {
+      "backend": "mariamem",
+      "baseline_rss_mib": 49.765625,
+      "cleanup_ms": 10.2990835,
+      "connect_ms": 4.542270500000001,
+      "cpu_ms": 3776.4739999999997,
+      "cpu_per_child_ms": 78.67654166666667,
+      "effective_cores": 4.116363132981026,
+      "fork_ms": 61.18325,
+      "involuntary_switches": 8210,
+      "major_faults": 0,
+      "minor_faults": 235324,
+      "parallel": 8,
+      "peak_rss_mib": 699.90625,
+      "ready_ms": 68.13983350000001,
+      "repetition": 1,
+      "rss_growth_mib": 650.140625,
+      "select_ms": 0.6203745,
+      "sql_ms": 4.7925835,
+      "system_cpu_ms": 578.727,
+      "total_ms": 84.0478545,
+      "wall_ms": 917.42975
+    },
+    {
+      "backend": "pgmem",
+      "baseline_rss_mib": 136.390625,
+      "cleanup_ms": 0.17049999999999998,
+      "connect_ms": 4.40075,
+      "cpu_ms": 1066.353,
+      "cpu_per_child_ms": 22.2156875,
+      "effective_cores": 3.9585792156247055,
+      "fork_ms": 10.1951665,
+      "involuntary_switches": 11149,
+      "major_faults": 21832,
+      "minor_faults": 103507,
+      "parallel": 4,
+      "peak_rss_mib": 936.484375,
+      "ready_ms": 15.3910415,
+      "repetition": 1,
+      "rss_growth_mib": 800.09375,
+      "select_ms": 0.484958,
+      "sql_ms": 4.668958,
+      "system_cpu_ms": 512.995,
+      "total_ms": 21.4185835,
+      "wall_ms": 269.377709
+    },
+    {
+      "backend": "mariamem",
+      "baseline_rss_mib": 49.4375,
+      "cleanup_ms": 8.526188000000001,
+      "connect_ms": 1.414187,
+      "cpu_ms": 3226.578,
+      "cpu_per_child_ms": 67.220375,
+      "effective_cores": 2.107159344073121,
+      "fork_ms": 44.063708,
+      "involuntary_switches": 11068,
+      "major_faults": 0,
+      "minor_faults": 234066,
+      "parallel": 4,
+      "peak_rss_mib": 379.28125,
+      "ready_ms": 46.1935835,
+      "repetition": 1,
+      "rss_growth_mib": 329.84375,
+      "select_ms": 0.47281249999999997,
+      "sql_ms": 4.5090835,
+      "system_cpu_ms": 509.62,
+      "total_ms": 59.928917,
+      "wall_ms": 1531.245375
+    },
+    {
+      "backend": "mariamem",
+      "baseline_rss_mib": 49.546875,
+      "cleanup_ms": 8.703125,
+      "connect_ms": 1.37475,
+      "cpu_ms": 3173.781,
+      "cpu_per_child_ms": 66.1204375,
+      "effective_cores": 4.510681893192874,
+      "fork_ms": 42.2599375,
+      "involuntary_switches": 10361,
+      "major_faults": 0,
+      "minor_faults": 234089,
+      "parallel": 4,
+      "peak_rss_mib": 379.640625,
+      "ready_ms": 44.6634375,
+      "repetition": 2,
+      "rss_growth_mib": 330.09375,
+      "select_ms": 0.3970625,
+      "sql_ms": 4.5972085,
+      "system_cpu_ms": 495.135,
+      "total_ms": 58.868229,
+      "wall_ms": 703.614459
+    },
+    {
+      "backend": "pgmem",
+      "baseline_rss_mib": 136.015625,
+      "cleanup_ms": 0.1612085,
+      "connect_ms": 4.6845005,
+      "cpu_ms": 1015.4350000000001,
+      "cpu_per_child_ms": 21.154895833333335,
+      "effective_cores": 4.413822537710258,
+      "fork_ms": 8.258625,
+      "involuntary_switches": 12523,
+      "major_faults": 21820,
+      "minor_faults": 103793,
+      "parallel": 4,
+      "peak_rss_mib": 950.515625,
+      "ready_ms": 14.101813,
+      "repetition": 2,
+      "rss_growth_mib": 814.5,
+      "select_ms": 0.533854,
+      "sql_ms": 4.666916499999999,
+      "system_cpu_ms": 494.841,
+      "total_ms": 18.451979,
+      "wall_ms": 230.057958
+    },
+    {
+      "backend": "mariamem",
+      "baseline_rss_mib": 49.625,
+      "cleanup_ms": 10.965250000000001,
+      "connect_ms": 5.5437294999999995,
+      "cpu_ms": 3870.098,
+      "cpu_per_child_ms": 80.62704166666667,
+      "effective_cores": 6.701028439490369,
+      "fork_ms": 67.378146,
+      "involuntary_switches": 8173,
+      "major_faults": 0,
+      "minor_faults": 235456,
+      "parallel": 8,
+      "peak_rss_mib": 701.25,
+      "ready_ms": 77.48252049999999,
+      "repetition": 2,
+      "rss_growth_mib": 651.625,
+      "select_ms": 0.7542915,
+      "sql_ms": 7.2763955,
+      "system_cpu_ms": 574.904,
+      "total_ms": 94.948542,
+      "wall_ms": 577.537916
+    },
+    {
+      "backend": "pgmem",
+      "baseline_rss_mib": 136.296875,
+      "cleanup_ms": 0.6079165,
+      "connect_ms": 8.997750499999999,
+      "cpu_ms": 1231.5990000000002,
+      "cpu_per_child_ms": 25.658312500000005,
+      "effective_cores": 4.6307953472290375,
+      "fork_ms": 15.5569375,
+      "involuntary_switches": 9752,
+      "major_faults": 21812,
+      "minor_faults": 104252,
+      "parallel": 8,
+      "peak_rss_mib": 1040.671875,
+      "ready_ms": 28.899250000000002,
+      "repetition": 2,
+      "rss_growth_mib": 904.375,
+      "select_ms": 1.431708,
+      "sql_ms": 9.555166499999999,
+      "system_cpu_ms": 578,
+      "total_ms": 41.29941650000001,
+      "wall_ms": 265.958417
+    }
+  ]
+}

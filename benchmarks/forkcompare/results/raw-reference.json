@@ -1,0 +1,10 @@
+{
+  "ref": "refs/heads/evidence/parallel-pressure-20261101",
+  "source_commit": "aefe4ec17021c27811a301aa19f7c6b210a12f9b",
+  "path": "raw.tar.gz",
+  "bytes": 57320,
+  "sha256": "2118f3a0d9f224aff94b910312546f3760bfb713185d9a043e9499e432e21849",
+  "members": 76,
+  "normalization": "workspace prefix only; per-file original/published hashes in archive",
+  "failed_pilot": "pilot/0-mariamem-p8-negative.json: concurrent cancellation cleanup timeout; retained separately from normal-path measurements"
+}
