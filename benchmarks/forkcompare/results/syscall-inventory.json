@@ -1,0 +1,30 @@
+{
+  "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "files": {
+    "internal/generatedgo/main.go": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe",
+    "internal/generatedgo/runtime_instance.go": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+    "internal/guest/linked.go": "4f1540fc174a4c555b3883c34084339e69bcc85f76040020779898a07a24a2da",
+    "internal/generatedgo/code/base/base.go": "64f37879f87e422667ab73a2d6a1e7262dba375261186a82906f3207b217accc",
+    "docs/reviews/issue5-text-dedup.md": "e2ce785321ed25679a61a23f0feba13a24af0df51cc7d93ebaf639634ceaabb8",
+    "docs/reviews/issue5-host-repair.md": "0ede7dee559cc56397a9f0df07c7d865bcae037bd02b1dae0420626391b68aba"
+  },
+  "fd_dup_delegated": true,
+  "remaining_panic_imports": [
+    "Fd_dup2",
+    "Thread_signal",
+    "Proc_exit2",
+    "Sock_addr_local",
+    "Sock_addr_peer",
+    "Sock_open",
+    "Sock_set_opt_flag",
+    "Sock_set_opt_time",
+    "Sock_set_opt_size",
+    "Sock_get_opt_size",
+    "Sock_bind",
+    "Sock_connect",
+    "Sock_send_to",
+    "Resolve"
+  ],
+  "worker_failure_callback": true,
+  "guest_abort_on_failure": true
+}

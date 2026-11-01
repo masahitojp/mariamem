@@ -1,0 +1,849 @@
+[
+  {
+    "report": "measure-v2/0-mariamem-p8.json",
+    "child": 21,
+    "timing": {
+      "offset_ms": 241.474209,
+      "total_ms": 887.042166,
+      "query_ms": 800.059917,
+      "first_row_ms": 0.011292,
+      "drain_ms": 0.010333,
+      "wire": {
+        "write_start_ms": 0.005917,
+        "write_end_ms": 0.044917,
+        "first_read_start_ms": 0.045834,
+        "first_read_end_ms": 800.041292,
+        "read_bytes": 105,
+        "write_bytes": 43,
+        "reads": 2,
+        "writes": 1
+      },
+      "count_ms": 800.094083,
+      "update_ms": 1.112125,
+      "verify_ms": 0.715208,
+      "sql_ms": 801.922667,
+      "cleanup_complete": true,
+      "index": 21,
+      "fork_ms": 70.041208,
+      "connect_ms": 1.369792,
+      "select_ms": 1.368875,
+      "ready_ms": 72.780208,
+      "cleanup_ms": 12.338417,
+      "oracle": true
+    },
+    "capture": {
+      "bytes": 178740,
+      "capture_ms": 3.6075,
+      "child": 21,
+      "delayed_pilot": false,
+      "observed_after_ms": 112.068292,
+      "trigger_ms": 100,
+      "truncated": false
+    },
+    "stack_path": "measure-v2/0-mariamem-p8-stacks/child-021.txt",
+    "stack_sha256": "78027aac8882d7914e1c8d722fe91636962b6cee5374c433e44ca7b22df59b80",
+    "selected_stacks": [
+      {
+        "labels": "# labels: {\"child\":\"21\", \"operation\":\"count_sum\"}",
+        "frames": [
+          {
+            "function": "internal/poll.runtime_pollWait+0x9f",
+            "location": "runtime/netpoll.go:351"
+          },
+          {
+            "function": "internal/poll.(*pollDesc).wait+0x27",
+            "location": "internal/poll/fd_poll_runtime.go:84"
+          },
+          {
+            "function": "internal/poll.(*pollDesc).waitRead+0x22b",
+            "location": "internal/poll/fd_poll_runtime.go:89"
+          },
+          {
+            "function": "internal/poll.(*FD).Read+0x21c",
+            "location": "internal/poll/fd_unix.go:170"
+          },
+          {
+            "function": "net.(*netFD).Read+0x27",
+            "location": "net/fd_posix.go:68"
+          },
+          {
+            "function": "net.(*conn).Read+0x33",
+            "location": "net/net.go:196"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.(*observedConn).Read+0x6f",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/observe.go:74"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).readWithTimeout+0x9b",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/connection.go:74"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*buffer).fill+0x143",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/buffer.go:72"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).readNext+0x3f",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/packets.go:32"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).readPacket+0xc3",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/packets.go:52"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*okHandler).readResultSetHeaderPacket+0xdf",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/packets.go:553"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).query+0x163",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/connection.go:422"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).QueryContext+0x163",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/connection.go:549"
+          },
+          {
+            "function": "database/sql.ctxDriverQuery+0xa7",
+            "location": "database/sql/ctxutil.go:48"
+          },
+          {
+            "function": "database/sql.(*DB).queryDC.func1+0xdf",
+            "location": "database/sql/sql.go:1791"
+          },
+          {
+            "function": "database/sql.withLock+0x73",
+            "location": "database/sql/sql.go:3621"
+          },
+          {
+            "function": "database/sql.(*DB).queryDC+0x103",
+            "location": "database/sql/sql.go:1786"
+          },
+          {
+            "function": "database/sql.(*Conn).QueryContext+0x93",
+            "location": "database/sql/sql.go:2042"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.countObserved.func3+0x93",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/observe.go:154"
+          },
+          {
+            "function": "runtime/pprof.Do+0x77",
+            "location": "runtime/pprof/runtime.go:57"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.countObserved+0xfb",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/observe.go:149"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.one+0x3cb",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/probe.go:157"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.run.func2.1+0x77",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/probe.go:290"
+          },
+          {
+            "function": "runtime/pprof.Do+0x77",
+            "location": "runtime/pprof/runtime.go:57"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.run.func2+0x17b",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/probe.go:290"
+          }
+        ]
+      },
+      {
+        "labels": "# labels: {\"child\":\"21\"}",
+        "frames": [
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait+0x2f7",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/base.go:1946"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At+0x53",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/base.go:1895"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait+0x12b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/main.go:157"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88+0x12b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p7/p7_pure.go:362"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216+0x7df",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p4/p4_pure.go:5508"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16623+0x3ab",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p6/p6_pure.go:893825"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16786+0x15f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p8/p8_pure.go:356041"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18163+0x1773",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p3/p3_pure.go:962629"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn18009+0x2b13",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p1/p1_pure.go:918127"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn17692+0xa0f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p3/p3_pure.go:907835"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17193+0x43",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p5/p5_pure.go:945185"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn17189+0x1d8b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p1/p1_pure.go:776000"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn18491+0xa83",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p6/p6_pure.go:1018457"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn18499+0xe3",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p8/p8_pure.go:378637"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn7153+0xcb",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p6/p6_pure.go:403658"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn13043+0x8b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p8/p8_pure.go:290062"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn14955+0x983",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p3/p3_pure.go:672880"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14965+0x2db3",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p1/p1_pure.go:523720"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn14960+0xd57",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p1/p1_pure.go:502115"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn14959+0x5ab",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p6/p6_pure.go:792081"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14591+0x1677",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p2/p2_pure.go:618797"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14580+0x1f87b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p0/p0_pure.go:339764"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14575+0xd2f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p5/p5_pure.go:777840"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561+0x1bc3",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p1/p1_pure.go:245290"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5852+0x217",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p7/p7_pure.go:346469"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn257+0x11f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p2/p2_pure.go:880"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267+0xc27",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p1/p1_pure.go:17561"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214+0x163",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p5/p5_pure.go:3711"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.1+0x93",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/thread_lifetime.go:58"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1+0x27",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/base.go:2030"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1+0xb3",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/base.go:2016"
+          }
+        ]
+      },
+      {
+        "labels": "# labels: {\"child\":\"21\"}",
+        "frames": [
+          {
+            "function": "github.com/masahitojp/mariamem/internal/guest.(*Process).Call+0x377",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/guest/guest.go:299"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/mysqlwire.(*wire).callGuest.func1+0x5f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/mysqlwire/wire.go:99"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "report": "measure-v2/1-mariamem-p4.json",
+    "child": 26,
+    "timing": {
+      "offset_ms": 418.596792,
+      "total_ms": 446.099042,
+      "query_ms": 385.458209,
+      "first_row_ms": 0.003625,
+      "drain_ms": 0.023125,
+      "wire": {
+        "write_start_ms": 0.002,
+        "write_end_ms": 0.007875,
+        "first_read_start_ms": 0.008167,
+        "first_read_end_ms": 385.45475,
+        "read_bytes": 105,
+        "write_bytes": 43,
+        "reads": 3,
+        "writes": 1
+      },
+      "count_ms": 385.488792,
+      "update_ms": 0.280834,
+      "verify_ms": 0.261792,
+      "sql_ms": 386.03175,
+      "cleanup_complete": true,
+      "index": 26,
+      "fork_ms": 47.733667,
+      "connect_ms": 3.122292,
+      "select_ms": 0.378,
+      "ready_ms": 51.234333,
+      "cleanup_ms": 8.832625,
+      "oracle": true
+    },
+    "capture": {
+      "bytes": 52936,
+      "capture_ms": 2.803458,
+      "child": 26,
+      "delayed_pilot": false,
+      "observed_after_ms": 100.568583,
+      "trigger_ms": 100,
+      "truncated": false
+    },
+    "stack_path": "measure-v2/1-mariamem-p4-stacks/child-026.txt",
+    "stack_sha256": "5c5442e28dbde0cbc95e686074643fb8bbe9534ecc15a51815c1c3674f97a07a",
+    "selected_stacks": [
+      {
+        "labels": "# labels: {\"child\":\"26\", \"operation\":\"count_sum\"}",
+        "frames": [
+          {
+            "function": "internal/poll.runtime_pollWait+0x9f",
+            "location": "runtime/netpoll.go:351"
+          },
+          {
+            "function": "internal/poll.(*pollDesc).wait+0x27",
+            "location": "internal/poll/fd_poll_runtime.go:84"
+          },
+          {
+            "function": "internal/poll.(*pollDesc).waitRead+0x22b",
+            "location": "internal/poll/fd_poll_runtime.go:89"
+          },
+          {
+            "function": "internal/poll.(*FD).Read+0x21c",
+            "location": "internal/poll/fd_unix.go:170"
+          },
+          {
+            "function": "net.(*netFD).Read+0x27",
+            "location": "net/fd_posix.go:68"
+          },
+          {
+            "function": "net.(*conn).Read+0x33",
+            "location": "net/net.go:196"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.(*observedConn).Read+0x6f",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/observe.go:74"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).readWithTimeout+0x9b",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/connection.go:74"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*buffer).fill+0x143",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/buffer.go:72"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).readNext+0x3f",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/packets.go:32"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).readPacket+0xc3",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/packets.go:52"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*okHandler).readResultSetHeaderPacket+0xdf",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/packets.go:553"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).query+0x163",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/connection.go:422"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).QueryContext+0x163",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/connection.go:549"
+          },
+          {
+            "function": "database/sql.ctxDriverQuery+0xa7",
+            "location": "database/sql/ctxutil.go:48"
+          },
+          {
+            "function": "database/sql.(*DB).queryDC.func1+0xdf",
+            "location": "database/sql/sql.go:1791"
+          },
+          {
+            "function": "database/sql.withLock+0x73",
+            "location": "database/sql/sql.go:3621"
+          },
+          {
+            "function": "database/sql.(*DB).queryDC+0x103",
+            "location": "database/sql/sql.go:1786"
+          },
+          {
+            "function": "database/sql.(*Conn).QueryContext+0x93",
+            "location": "database/sql/sql.go:2042"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.countObserved.func3+0x93",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/observe.go:154"
+          },
+          {
+            "function": "runtime/pprof.Do+0x77",
+            "location": "runtime/pprof/runtime.go:57"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.countObserved+0xfb",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/observe.go:149"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.one+0x3cb",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/probe.go:157"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.run.func2.1+0x77",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/probe.go:290"
+          },
+          {
+            "function": "runtime/pprof.Do+0x77",
+            "location": "runtime/pprof/runtime.go:57"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.run.func2+0x17b",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/probe.go:290"
+          }
+        ]
+      },
+      {
+        "labels": "# labels: {\"child\":\"26\"}",
+        "frames": [
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait+0x2f7",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/base.go:1946"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At+0x53",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/base.go:1895"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait+0x12b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/main.go:157"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88+0x12b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p7/p7_pure.go:362"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn216+0x7df",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p4/p4_pure.go:5508"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16623+0x3ab",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p6/p6_pure.go:893825"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16786+0x253",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p8/p8_pure.go:356100"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn18163+0x1773",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p3/p3_pure.go:962629"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn17710+0x2c3b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p1/p1_pure.go:882137"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn17709+0x25f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p5/p5_pure.go:987524"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17738+0xe3",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p4/p4_pure.go:965329"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18457+0x15f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p2/p2_pure.go:994221"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn7141+0x22b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p5/p5_pure.go:480151"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15720+0x649b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p0/p0_pure.go:529700"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13463+0x2f03",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p0/p0_pure.go:297133"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13491+0x4187",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p0/p0_pure.go:307174"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13500+0xdb",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p0/p0_pure.go:308374"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14591+0x333",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p2/p2_pure.go:618437"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14580+0x1f87b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p0/p0_pure.go:339764"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14575+0xd2f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p5/p5_pure.go:777840"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561+0x1bc3",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p1/p1_pure.go:245290"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5852+0x217",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p7/p7_pure.go:346469"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn257+0x11f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p2/p2_pure.go:880"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267+0xc27",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p1/p1_pure.go:17561"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214+0x163",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p5/p5_pure.go:3711"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.1+0x93",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/thread_lifetime.go:58"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1+0x27",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/base.go:2030"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1+0xb3",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/base.go:2016"
+          }
+        ]
+      },
+      {
+        "labels": "# labels: {\"child\":\"26\"}",
+        "frames": [
+          {
+            "function": "github.com/masahitojp/mariamem/internal/guest.(*Process).Call+0x377",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/guest/guest.go:299"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/mysqlwire.(*wire).callGuest.func1+0x5f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/mysqlwire/wire.go:99"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "report": "measure-v2/2-mariamem-p8.json",
+    "child": 16,
+    "timing": {
+      "offset_ms": 229.730875,
+      "total_ms": 496.54025,
+      "query_ms": 387.076916,
+      "first_row_ms": 0.006333,
+      "drain_ms": 0.00325,
+      "wire": {
+        "write_start_ms": 0.003292,
+        "write_end_ms": 0.040417,
+        "first_read_start_ms": 0.041167,
+        "first_read_end_ms": 387.074792,
+        "read_bytes": 105,
+        "write_bytes": 43,
+        "reads": 1,
+        "writes": 1
+      },
+      "count_ms": 387.092375,
+      "update_ms": 1.698917,
+      "verify_ms": 0.880625,
+      "sql_ms": 389.673042,
+      "cleanup_complete": true,
+      "index": 16,
+      "fork_ms": 75.337666,
+      "connect_ms": 19.210375,
+      "select_ms": 4.066583,
+      "ready_ms": 98.615166,
+      "cleanup_ms": 8.251708,
+      "oracle": true
+    },
+    "capture": {
+      "bytes": 205113,
+      "capture_ms": 9.12225,
+      "child": 16,
+      "delayed_pilot": false,
+      "observed_after_ms": 111.624333,
+      "trigger_ms": 100,
+      "truncated": false
+    },
+    "stack_path": "measure-v2/2-mariamem-p8-stacks/child-016.txt",
+    "stack_sha256": "8cd8f34a97f6f065e69ac33deaeded3e93ff31436ab590fb5acf2ddef13f7eec",
+    "selected_stacks": [
+      {
+        "labels": "# labels: {\"child\":\"16\", \"operation\":\"count_sum\"}",
+        "frames": [
+          {
+            "function": "internal/poll.runtime_pollWait+0x9f",
+            "location": "runtime/netpoll.go:351"
+          },
+          {
+            "function": "internal/poll.(*pollDesc).wait+0x27",
+            "location": "internal/poll/fd_poll_runtime.go:84"
+          },
+          {
+            "function": "internal/poll.(*pollDesc).waitRead+0x22b",
+            "location": "internal/poll/fd_poll_runtime.go:89"
+          },
+          {
+            "function": "internal/poll.(*FD).Read+0x21c",
+            "location": "internal/poll/fd_unix.go:170"
+          },
+          {
+            "function": "net.(*netFD).Read+0x27",
+            "location": "net/fd_posix.go:68"
+          },
+          {
+            "function": "net.(*conn).Read+0x33",
+            "location": "net/net.go:196"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.(*observedConn).Read+0x6f",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/observe.go:74"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).readWithTimeout+0x9b",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/connection.go:74"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*buffer).fill+0x143",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/buffer.go:72"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).readNext+0x3f",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/packets.go:32"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).readPacket+0xc3",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/packets.go:52"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*okHandler).readResultSetHeaderPacket+0xdf",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/packets.go:553"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).query+0x163",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/connection.go:422"
+          },
+          {
+            "function": "github.com/go-sql-driver/mysql.(*mysqlConn).QueryContext+0x163",
+            "location": "github.com/go-sql-driver/mysql@v1.9.3/connection.go:549"
+          },
+          {
+            "function": "database/sql.ctxDriverQuery+0xa7",
+            "location": "database/sql/ctxutil.go:48"
+          },
+          {
+            "function": "database/sql.(*DB).queryDC.func1+0xdf",
+            "location": "database/sql/sql.go:1791"
+          },
+          {
+            "function": "database/sql.withLock+0x73",
+            "location": "database/sql/sql.go:3621"
+          },
+          {
+            "function": "database/sql.(*DB).queryDC+0x103",
+            "location": "database/sql/sql.go:1786"
+          },
+          {
+            "function": "database/sql.(*Conn).QueryContext+0x93",
+            "location": "database/sql/sql.go:2042"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.countObserved.func3+0x93",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/observe.go:154"
+          },
+          {
+            "function": "runtime/pprof.Do+0x77",
+            "location": "runtime/pprof/runtime.go:57"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.countObserved+0xfb",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/observe.go:149"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.one+0x3cb",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/probe.go:157"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.run.func2.1+0x77",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/probe.go:290"
+          },
+          {
+            "function": "runtime/pprof.Do+0x77",
+            "location": "runtime/pprof/runtime.go:57"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe.run.func2+0x17b",
+            "location": "github.com/masahitojp/mariamem/benchmarks/forkcompare/probe/probe.go:290"
+          }
+        ]
+      },
+      {
+        "labels": "# labels: {\"child\":\"16\"}",
+        "frames": [
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait+0x2f7",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/base.go:1946"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicWait32At+0x53",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/base.go:1895"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wait+0x12b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/main.go:157"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88+0x12b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p7/p7_pure.go:362"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn92+0xef",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p8/p8_pure.go:328"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn17738+0x62b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p4/p4_pure.go:965460"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn18457+0x15f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p2/p2_pure.go:994221"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn7141+0x22b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p5/p5_pure.go:480151"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15720+0x649b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p0/p0_pure.go:529700"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13463+0x2f03",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p0/p0_pure.go:297133"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13491+0x4187",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p0/p0_pure.go:307174"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13500+0xdb",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p0/p0_pure.go:308374"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14591+0x333",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p2/p2_pure.go:618437"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14580+0x1f87b",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p0/p0_pure.go:339764"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn14575+0xd2f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p5/p5_pure.go:777840"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn5561+0x1bc3",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p1/p1_pure.go:245290"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn5852+0x217",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p7/p7_pure.go:346469"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn257+0x11f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p2/p2_pure.go:880"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn267+0xc27",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p1/p1_pure.go:17561"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214+0x163",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/p5/p5_pure.go:3711"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.1+0x93",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/thread_lifetime.go:58"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1+0x27",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/base.go:2030"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1+0xb3",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/generatedgo/code/base/base.go:2016"
+          }
+        ]
+      },
+      {
+        "labels": "# labels: {\"child\":\"16\"}",
+        "frames": [
+          {
+            "function": "github.com/masahitojp/mariamem/internal/guest.(*Process).Call+0x377",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/guest/guest.go:299"
+          },
+          {
+            "function": "github.com/masahitojp/mariamem/internal/mysqlwire.(*wire).callGuest.func1+0x5f",
+            "location": "github.com/masahitojp/mariamem@v0.6.0/internal/mysqlwire/wire.go:99"
+          }
+        ]
+      }
+    ]
+  }
+]

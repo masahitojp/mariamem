@@ -1,0 +1,9 @@
+{
+  "compact.json": "5abfc8d03126d5c5eb852563da98c35a346a54fedd676b689e021ba18eca0cd5",
+  "raw-reference.json": "d7c9bf6b107cf8c5563b8a7fc3f23e14ecf6ff536da61f9e4c2338481d44fa32",
+  "selected-stacks.json": "b085ae63cc31321f31bca9a43d7426d43a754fcdf88abd60e34c3fa90cf6efb2",
+  "source-correspondence.json": "cf8bacdd6bcda0dd9e1e1e80e87b46e47773709d4e1cffb8b42071dd11912b42",
+  "summary.csv": "fa0bde523d02ad99ba544b38188b3cdcacf7e08cf031b323c483e4ace1f319f2",
+  "summary.json": "af2b2ef18d31b686d6123a5f16520ff70572de001eb415c1318ac50f835d5554",
+  "syscall-inventory.json": "2ac7a632353a37f2f154adcabe1572037ada1748fe5cb7b3fdc5d825611bbdd5"
+}

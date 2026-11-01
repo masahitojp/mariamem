@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [Issue68 wait-stack diagnosis](sql-wait.md): live guest futex waits before the
+  first COUNT/SUM reply; source suggests read-completion/dictionary waits, with
+  a 400ms maintenance hypothesis still unproved.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained

@@ -14,6 +14,16 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Issue68 SQL latency — diagnostic checkpoint, no fix yet
+
+[Issue68](https://github.com/masahitojp/mariamem/issues/68) owns the approved SQL
+latency follow-up. Its [wait-stack diagnosis](../benchmarks/sql-wait.md) captured
+live guest query workers in implemented futex waits before the first reply,
+rather than the historical Fd_dup panic/worker-loss shape. Read-completion and
+dictionary waits are the source-correspondence candidates; the 400ms thread-pool
+maintenance hypothesis still needs event evidence. No product fix, new support
+claim, main adoption or release is included. Existing Issue63 remains separate.
+
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
 [PR35](https://github.com/masahitojp/mariamem/pull/35) moved heavy product acceptance

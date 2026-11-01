@@ -1,0 +1,54 @@
+{
+  "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "source_files": {
+    "storage/innobase/buf/buf0buf.cc": {
+      "sha256": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/buf/buf0buf.cc"
+    },
+    "storage/innobase/include/buf0buf.h": {
+      "sha256": "01532d5d3495f1cb73a9c269b61e49e2671c5c43de37b9a10344b71192df8727",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/include/buf0buf.h"
+    },
+    "storage/innobase/dict/dict0dict.cc": {
+      "sha256": "96123218a2b946fda9c8dadb3c3bc1d592900c0955afaf3d7ee7f4f2c4844085",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/dict/dict0dict.cc"
+    },
+    "storage/innobase/buf/buf0rea.cc": {
+      "sha256": "44fe14486d5fe9a3eff29e90353beec07da49d42413deac08acdeaa984be62ca",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/buf/buf0rea.cc"
+    },
+    "tpool/tpool_generic.cc": {
+      "sha256": "5aa908eba25625c652adf3df2d08723116491127bfef1d61148f2e91a8218280",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/tpool/tpool_generic.cc"
+    }
+  },
+  "generated_functions": {
+    "p6.Fn16623": {
+      "path": "internal/generatedgo/code/p6/p6_pure.go",
+      "file_sha256": "d40dcad735c63e85c5d5b05e370a928a9e3f7ef5461df022c7c28c1830746fe8",
+      "fragment_sha256": "7a19b1d4040409e1a15619b87c8467f14c401151ec856bd9b8216ff2b83e27f4"
+    },
+    "p8.Fn16786": {
+      "path": "internal/generatedgo/code/p8/p8_pure.go",
+      "file_sha256": "c0febb5f2ff5f85c01ed7464411b6eb04c7bed83c354a8c7d6c6c2a93566ab29",
+      "fragment_sha256": "81698a698dd8d681dfce57d1b86bda419530fa8cf681123aa8e72469087cda60"
+    },
+    "p3.Fn18163": {
+      "path": "internal/generatedgo/code/p3/p3_pure.go",
+      "file_sha256": "7a93f53ab585c311b13d802307d1ca3950ad059b558ece335998fdabe31fb8d3",
+      "fragment_sha256": "804c15946710ea74c9fc93b52d2f0fe9c58188b7c1927fc0758d8b9452b2d9a0"
+    },
+    "p4.Fn17738": {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "file_sha256": "4747306bdcb0aa4e2a72248065e7bcd2dc3bfeeac0bedd6f38294766e0c09f8d",
+      "fragment_sha256": "3e59321c4431e92e19f3fe66531e87a5e3d228f30486a9a09310de9e18288d61"
+    },
+    "p6.Fn17732": {
+      "path": "internal/generatedgo/code/p6/p6_pure.go",
+      "file_sha256": "d40dcad735c63e85c5d5b05e370a928a9e3f7ef5461df022c7c28c1830746fe8",
+      "fragment_sha256": "8aef68ce898765730be1b37953ffe02a591f137594e4cdad2d9b93cffc4883b5"
+    }
+  },
+  "conclusion": "Captured live query worker in implemented futex indefinite wait. Source correspondence suggests page read completion and dictionary latch; no exact original symbol map. 400ms maintenance period is a hypothesis, not measured causality."
+}

@@ -1,0 +1,10 @@
+{
+  "ref": "refs/heads/evidence/sql-wait-20261102",
+  "source_commit": "b5da85e6749d0fd1314933b693e89c99ead7eb6e",
+  "path": "raw.tar.gz",
+  "bytes": 196877,
+  "sha256": "a89ac8f3b8cb1641a56cd8ec51206d1247e9fc2ad857c3794b74cafdedfc7311",
+  "members": 64,
+  "normalization": "workspace prefix only; per-file original/published hashes in archive",
+  "scope": "Issue68 wait-stack diagnosis, not performance evidence; no product changes"
+}
