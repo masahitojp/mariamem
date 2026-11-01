@@ -1,4 +1,42 @@
-# mariamem 0.6.0 — draft release notes
+# Unreleased release notes — staging
+
+This file is the sole staging content source for future release notes. Candidate
+entries below are not adoption, a promised release version, qualification or
+publication approval. Published0.6.0 notes remain authoritative in
+[NOTES-v0.6.0.md](../../release/NOTES-v0.6.0.md); published installation commands
+and version metadata remain unchanged.
+
+## Candidates pending adoption
+
+### Explicit prepared Django entry (#43 / PR #67)
+
+- Add `mariamem.django.prepared_database`, `PreparedDiscoverRunner`,
+  `PreparedTestCase` / `PreparedTransactionTestCase` and the explicit
+  `mariamem.django.pytest_plugin`, with optional `django` / `django-pytest` extras.
+  Django creates/migrates the test DB, a callback prepares seed once, and each
+  test starts from an independent Fork of prepared class state, including after
+  committed writes or ordinary failure. Original and cleanup errors remain
+  visible; retirement failure stops subsequent admission in that run.
+- This is explicit opt-in, not transparent TestCase compatibility. There is no
+  class-wide atomic; class preparation is committed and `on_commit()` may run
+  immediately there. Per-test TestCase atomics remain. Initial scope is one
+  default alias and serial execution; unsupported modes are rejected.
+- Routing/`shadow_maria` and prepared Django ownership cannot be combined in
+  one test invocation. This exclusion is a documented support boundary, not a
+  universal automatic detector. See the [candidate guide](../django-prepared.md).
+- Local source-entry results on a reused published host do not qualify the
+  installed wheel on both supported OSes. Adoption is conditional on the existing
+  Release Django job passing macOS15 arm64 / Ubuntu24.04 x86_64 × Python3.11/3.14.
+  No guest/generated code, core Go runtime or version change is included; no
+  performance or detailed resource claim is added.
+
+## Historical 0.6.0 drafting reference
+
+The text below preserves the pre-publication drafting context. Its pending
+statements describe that historical checkpoint, not today's published release
+or the new Django candidate above. Do not carry it forward as new release scope.
+
+### mariamem 0.6.0 — original draft
 
 Reviewed content basis: main `1c3a7945587dd9862d6d222dc9193a069d51f603`
 (including PR50), with this PR's documentation clarifications applied. This is a

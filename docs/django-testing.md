@@ -17,7 +17,8 @@ context also exits if spawning the test process fails or it times out.
 
 The additional D1 prepared entry is deferred from 0.6.0 for consideration in
 0.6.1 ([Issue43](https://github.com/masahitojp/mariamem/issues/43)), not promised for
-that release. This recipe does not automatically restore a prepared Snapshot or
+that release. Its [explicit prepared-class candidate](django-prepared.md) is now
+being implemented and verified separately; it is not yet adopted. This recipe does not automatically restore a prepared Snapshot or
 arbitrary schema/seed for every test. A Django browser example using the owned
 E2E entry is not general Django lifecycle integration.
 

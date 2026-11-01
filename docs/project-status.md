@@ -2051,3 +2051,42 @@ Acquisition/cold/human time is unmeasured. Required-host installed-wheel timing,
 retained baselines1/2/3, aligned resource counters and resource STOP/mutations
 remain pending. Workflow/cache key and product/guest/API are unchanged by this
 increment; full P1 acceptance/main/release remain separate.
+
+
+## D1 prepared Django entry — implementation authorized, acceptance pending
+
+On 2026-11-01 the Human requested proceeding from the real-SDK prototype to
+product implementation for [Issue #43](https://github.com/masahitojp/mariamem/issues/43).
+The candidate uses explicit `PreparedTestCase` / `PreparedTransactionTestCase`,
+`PreparedDiscoverRunner` and an opt-in pytest-django plugin. Existing ordinary
+Django classes are not implicitly changed. Class preparation is materialized
+without Django's class-wide atomic; per-test TestCase atomics remain.
+See the [candidate guide](django-prepared.md) for the API and initial limits.
+
+The work includes run ownership, partial-setup/error cleanup, admission stop
+after retirement failure and both runners. Deterministic checks belong in daily
+CI; installed-wheel acceptance belongs in the existing Release Django job,
+reusing its built host and authored orders/native controls. The [implementation checkpoint](reviews/d1-v061-implementation.md) records
+20 real-SDK scenarios per local interpreter and84 focused checks on each. Those
+local results do not complete the two-OS/installed-wheel matrix. Main adoption, closing
+#43 and versioned release approval remain pending their own evidence/decisions.
+
+
+**D1 conditional shape approval, 2026-11-02:** the Human approved the explicit
+opt-in entry subject to installed-wheel PASS in the existing Release Django
+matrix (macOS15/Ubuntu24.04 × Python3.11/3.14), release-note staging and a routing /
+shadow_maria exclusion paragraph before merge. The latter two are documented;
+the matrix remains pending. The [checkpoint](reviews/d1-v061-implementation.md#human-conditional-shape-approval--2026-11-02)
+records the decision, strongest objection and actual/component failure map.
+No unconditional integration or publication is authorized. Unified routing and
+prepared ownership would require a new design comparison first.
+
+**D1 installed-wheel checkpoint — Release41320361521:** the four existing
+macOS15/Ubuntu24.04 × Python3.11/3.14 cells PASS at source_commit
+`ad9c7e67884d257a52283ce646aabcbd8af69b8b`, each with `installed=true` and20
+scenario assessments. [The receipt and diagnosis](reviews/d1-release-41320361521/README.md)
+record condition(a)'s executed source. Both core jobs failed four existing
+workflow tests because the new step name was not synchronized; the test-only
+repair now exercises all four commands per interpreter and failure propagation
+for standard, unit and prepared checks. The original run is not READY. No new
+exact-SHA Release result, main merge or publication is claimed.

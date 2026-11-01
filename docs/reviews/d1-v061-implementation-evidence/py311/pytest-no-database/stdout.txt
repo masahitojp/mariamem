@@ -1,0 +1,10 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.18, pytest-9.0.2, pluggy-1.7.0 -- __WORKTREE__/build/venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.8, settings: prepared_settings (from env)
+rootdir: __WORKTREE__
+collecting ... collected 7 items / 6 deselected / 1 selected
+
+tests/django_prepared/cases.py::NoDatabaseCase::test_without_database PASSED [100%]
+
+======================= 1 passed, 6 deselected in 0.03s ========================
