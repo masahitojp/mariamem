@@ -1,0 +1,18 @@
+{
+  "issue": 68,
+  "question": "Is COUNT SUM delayed before TCP response, during row read, or by missing imports/worker loss?",
+  "product": "unchanged v0.6.0",
+  "parallel": [
+    4,
+    8
+  ],
+  "count": 48,
+  "rounds": 3,
+  "warmup_each": 1,
+  "stack_trigger_ms": 100,
+  "max_captures_per_process": 2,
+  "max_stack_bytes": 1048576,
+  "scope": "client observer only; no optimization or product edits",
+  "stop": "six processes; if no slow query, record nonreproduction and stop; no CI or large matrix",
+  "diagnostic_not_performance": true
+}
