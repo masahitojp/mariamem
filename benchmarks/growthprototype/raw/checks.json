@@ -1,0 +1,15 @@
+{
+  "source_commit": "24e484accdadc2f9faedec294079ec272b40d272",
+  "mapping_tests": 4,
+  "runtime_tests": 5,
+  "subtests": 5,
+  "result": "PASS",
+  "pilot_positive": 2,
+  "pilot_negative": 2,
+  "measurement_pairs": 5,
+  "measurement_children": 40,
+  "Linux": "NOT_RUN",
+  "parallel_fork": "NOT_RUN",
+  "race": "NOT_RUN",
+  "scope": "Local bounded prototype only"
+}

@@ -1,0 +1,47 @@
+{
+  "success": true,
+  "cleanup": true,
+  "children": [
+    {
+      "wall_ms": 35.616042,
+      "cpu_ms": 46.129999999999995,
+      "grow_calls": 102,
+      "protect_calls": 13,
+      "fallbacks": 0
+    },
+    {
+      "wall_ms": 34.839875,
+      "cpu_ms": 44.089,
+      "grow_calls": 102,
+      "protect_calls": 12,
+      "fallbacks": 0
+    },
+    {
+      "wall_ms": 40.475583,
+      "cpu_ms": 52.644000000000005,
+      "grow_calls": 102,
+      "protect_calls": 13,
+      "fallbacks": 0
+    },
+    {
+      "wall_ms": 44.675,
+      "cpu_ms": 50.209,
+      "grow_calls": 102,
+      "protect_calls": 12,
+      "fallbacks": 0
+    }
+  ],
+  "final": {
+    "active_mappings": 0,
+    "active_reserved_bytes": 0,
+    "active_rw_bytes": 0,
+    "creates": 5,
+    "grow_calls": 512,
+    "grow_failures": 0,
+    "peak_total_rw_bytes": 2684354560,
+    "protect_calls": 64,
+    "protect_fallbacks": 0,
+    "release_failures": 0,
+    "releases": 5
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "pairs": 5,
+  "children_per_process": 4,
+  "scope": "macOS arm64 bounded experimental comparison"
+}

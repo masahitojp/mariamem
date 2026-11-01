@@ -1,0 +1,15 @@
+{
+  "measurement_source_commit": "24e484accdadc2f9faedec294079ec272b40d272",
+  "setup_failures": [
+    {
+      "source_commit": "c4a01ed3",
+      "phase": "build",
+      "reason": "dependency download blocked in sandbox; retried with approved network"
+    },
+    {
+      "source_commit": "c4a01ed3",
+      "phase": "build",
+      "reason": "wrong Fork signature in new benchmark harness; corrected before all successful builds/tests/measurements"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+[
+  {
+    "mode": "exact",
+    "repetition": 0,
+    "negative": false,
+    "report": "measure/0-exact.json",
+    "rss": {
+      "baseline": 52428800,
+      "child-1": 133627904,
+      "child-2": 215711744,
+      "child-3": 297697280,
+      "child-4": 379961344,
+      "closed": 64978944
+    },
+    "returncode": 0
+  },
+  {
+    "mode": "batch",
+    "repetition": 0,
+    "negative": false,
+    "report": "measure/0-batch.json",
+    "rss": {
+      "baseline": 52477952,
+      "child-1": 133824512,
+      "child-2": 215957504,
+      "child-3": 298270720,
+      "child-4": 380878848,
+      "closed": 65470464
+    },
+    "returncode": 0
+  },
+  {
+    "mode": "batch",
+    "repetition": 1,
+    "negative": false,
+    "report": "measure/1-batch.json",
+    "rss": {
+      "baseline": 52396032,
+      "child-1": 133611520,
+      "child-2": 215875584,
+      "child-3": 297795584,
+      "child-4": 380092416,
+      "closed": 64897024
+    },
+    "returncode": 0
+  },
+  {
+    "mode": "exact",
+    "repetition": 1,
+    "negative": false,
+    "report": "measure/1-exact.json",
+    "rss": {
+      "baseline": 52527104,
+      "child-1": 133595136,
+      "child-2": 215678976,
+      "child-3": 297582592,
+      "child-4": 379731968,
+      "closed": 64716800
+    },
+    "returncode": 0
+  },
+  {
+    "mode": "exact",
+    "repetition": 2,
+    "negative": false,
+    "report": "measure/2-exact.json",
+    "rss": {
+      "baseline": 52527104,
+      "child-1": 134086656,
+      "child-2": 215564288,
+      "child-3": 297467904,
+      "child-4": 379699200,
+      "closed": 64618496
+    },
+    "returncode": 0
+  },
+  {
+    "mode": "batch",
+    "repetition": 2,
+    "negative": false,
+    "report": "measure/2-batch.json",
+    "rss": {
+      "baseline": 52248576,
+      "child-1": 133709824,
+      "child-2": 215744512,
+      "child-3": 297746432,
+      "child-4": 379781120,
+      "closed": 64634880
+    },
+    "returncode": 0
+  },
+  {
+    "mode": "batch",
+    "repetition": 3,
+    "negative": false,
+    "report": "measure/3-batch.json",
+    "rss": {
+      "baseline": 52625408,
+      "child-1": 133939200,
+      "child-2": 215695360,
+      "child-3": 297779200,
+      "child-4": 379830272,
+      "closed": 64487424
+    },
+    "returncode": 0
+  },
+  {
+    "mode": "exact",
+    "repetition": 3,
+    "negative": false,
+    "report": "measure/3-exact.json",
+    "rss": {
+      "baseline": 52330496,
+      "child-1": 133562368,
+      "child-2": 215433216,
+      "child-3": 297533440,
+      "child-4": 379699200,
+      "closed": 64536576
+    },
+    "returncode": 0
+  },
+  {
+    "mode": "exact",
+    "repetition": 4,
+    "negative": false,
+    "report": "measure/4-exact.json",
+    "rss": {
+      "baseline": 52477952,
+      "child-1": 134004736,
+      "child-2": 216137728,
+      "child-3": 298418176,
+      "child-4": 380485632,
+      "closed": 65110016
+    },
+    "returncode": 0
+  },
+  {
+    "mode": "batch",
+    "repetition": 4,
+    "negative": false,
+    "report": "measure/4-batch.json",
+    "rss": {
+      "baseline": 52428800,
+      "child-1": 133627904,
+      "child-2": 216236032,
+      "child-3": 298221568,
+      "child-4": 380239872,
+      "closed": 64765952
+    },
+    "returncode": 0
+  }
+]

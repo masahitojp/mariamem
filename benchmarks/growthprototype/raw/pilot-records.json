@@ -1,0 +1,54 @@
+[
+  {
+    "mode": "exact",
+    "repetition": 0,
+    "negative": false,
+    "report": "pilot/0-exact.json",
+    "rss": {
+      "baseline": 52133888,
+      "child-1": 133726208,
+      "child-2": 215777280,
+      "child-3": 298205184,
+      "child-4": 380059648,
+      "closed": 64700416
+    },
+    "returncode": 0
+  },
+  {
+    "mode": "exact",
+    "repetition": 0,
+    "negative": true,
+    "report": "pilot/0-exact-negative.json",
+    "rss": {
+      "baseline": 52346880,
+      "closed": 54575104
+    },
+    "returncode": 1
+  },
+  {
+    "mode": "batch",
+    "repetition": 0,
+    "negative": false,
+    "report": "pilot/0-batch.json",
+    "rss": {
+      "baseline": 52264960,
+      "child-1": 133595136,
+      "child-2": 215711744,
+      "child-3": 297877504,
+      "child-4": 379912192,
+      "closed": 64765952
+    },
+    "returncode": 0
+  },
+  {
+    "mode": "batch",
+    "repetition": 0,
+    "negative": true,
+    "report": "pilot/0-batch-negative.json",
+    "rss": {
+      "baseline": 52494336,
+      "closed": 54362112
+    },
+    "returncode": 1
+  }
+]

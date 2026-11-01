@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "claim": "Removing only added protect/fallback counters from exact overlay is byte-identical to v0.6.0 mapping source",
+  "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "original_sha256": "388e8cf70e3387db7143f9081b9e62c6ddb3edf52e4adbff223be1f9a8020cc7"
+}
