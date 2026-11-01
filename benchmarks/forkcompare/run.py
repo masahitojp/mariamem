@@ -71,15 +71,18 @@ def main():
     assert version == 'go version go1.27.3 darwin/arm64'
     guard = DiskGuard(W, min_free_gib=16, budget_gib=8)
     if args.phase == 'build':
-        subprocess.run([sys.executable,str(B/'overlay.py')],check=True)
-        overlay_hashes=json.loads((E/'overlay-hashes.json').read_text())
+        overlay_hashes={}
         inputs = dict(harness_source_commit=commit, products=pins, go=version,
                       os=platform.mac_ver()[0], cpu='Apple M1', memory_bytes=17179869184,
                       plan=json.loads((B / 'plan.json').read_text()), overlay_hashes=overlay_hashes, binaries={})
-        for name, package in [('mariamem', 'maria')]:
+        for read_io,mode in [(1,'diag'),(4,'diag'),(1,'plain'),(4,'plain')]:
+            name=f'io{read_io}-{mode}';package='maria'
+            subprocess.run([sys.executable,str(B/'overlay.py'),'--read-io',str(read_io),'--mode',mode],check=True)
+            overlay_hashes=json.loads((E/f'overlay-hashes-{read_io}-{mode}.json').read_text())
+            inputs['overlay_hashes'][name]=overlay_hashes
             binary = T / 'bin' / name
             with (E / ('build-' + name + '.txt')).open('w') as log:
-                code = run_guarded(['go', 'build', '-overlay', str(T/'overlay.json'), '-p', '1', '-mod=readonly', '-trimpath',
+                code = run_guarded(['go', 'build', '-overlay', str(T/f'overlay-{read_io}-{mode}.json'), '-p', '1', '-mod=readonly', '-trimpath',
                                     '-buildvcs=true', '-o', str(binary), './' + package],
                                    guard, cwd=B, env=env, output=log, timeout=1200)
             assert code == 0, name
@@ -101,15 +104,17 @@ def main():
     records = []
 
     def run(name, p, rep, count=48, negative=False, warmup=False, delayed=False):
+        read_io=int(name[2]);mode=name.split('-')[1]
         label = f'{args.phase}-v2/{rep}-{name}-p{p}' + ('-negative' if negative else '-delayed' if delayed else '-warmup' if warmup else '')
         out = E / (label + '.json')
+        assert not out.exists(), 'do not overwrite existing measurement'
         out.parent.mkdir(parents=True, exist_ok=True)
         sync = T / 'sync' / label
         scratch = T / 'scratch' / label
         sync.mkdir(parents=True)
         scratch.mkdir(parents=True)
         stacks=E/(label+'-stacks');stacks.mkdir(parents=True)
-        cmd = [str(T / 'bin' / name), '-out', str(out), '-stacks',str(stacks), '-route', 'tcp', '-parallel', str(p),
+        cmd = [str(T / 'bin' / name), '-out', str(out), '-stacks',str(stacks) if mode=='diag' else '', '-route', 'tcp', '-parallel', str(p),
                '-count', str(count), '-sync-dir', str(sync)] + (['-corrupt-seed'] if negative else []) + (['-delay-probe'] if delayed else [])
         guard.check()
         process = None
@@ -140,9 +145,18 @@ def main():
         guard.check()
         d = json.loads(out.read_text())
         trace=json.loads(Path(str(out)+'.trace.json').read_text())
-        assert trace['dropped']==0 and trace['events']
-        assert any(x['kind']=='pread_begin' for x in trace['events'])
-        assert any(x['kind']=='task_start' for x in trace['events'])
+        if mode=='diag':
+            assert trace['dropped']==0 and trace['events']
+            assert any(x['kind']=='pread_begin' for x in trace['events'])
+            assert any(x['kind']=='task_start' for x in trace['events'])
+            groups={}
+            for x in trace['events']:
+                if x['kind']=='concurrency_store':groups.setdefault(x['instance'],[]).append([x['a'],x['b']])
+            assert len(groups)==count+1 and groups[1]==[[0,16]]
+            assert all(v==[[0,16],[read_io,read_io],[0,16],[read_io,read_io],[0,16]] for k,v in groups.items() if k!=1),groups
+        else:assert trace=={}
+        expected=dict(read=read_io,write=1,purge=1,native_aio=0)
+        assert d['io_profile']==expected and all(x['io_profile']==expected for x in d['samples'])
         assert d['cleanup_complete'] and not any(scratch.iterdir())
         assert d['root_closed_before_forks'] and d['gomaxprocs'] == 8 and d['parallel'] == p
         if negative:
@@ -171,11 +185,16 @@ def main():
         print('PASS', label, round(d['batch_ms'], 2), 'ms', flush=True)
 
     if args.phase == 'pilot':
-        run('mariamem',1,0,1)
-        run('mariamem',8,0,8)
-        save(E/'completion.json',dict(result='PASS',processes=2,normal_children=9,scope='Trace concurrency source, no policy changes'))
+        run('io1-diag',8,0,8)
+        run('io4-diag',8,0,8)
+        save(E/'pilot-completion.json',dict(result='PASS',processes=2,normal_children=16))
     else:
-        raise RuntimeError('No expanded campaign authorized by this plan')
+        deadline=time.monotonic()+600
+        for rep,order in enumerate([[1,4],[4,1],[1,4]]):
+            for read_io in order:
+                assert time.monotonic()<deadline,'measurement budget exhausted'
+                run(f'io{read_io}-plain',8,rep,48)
+        save(E/'completion.json',dict(result='PASS',processes=6,normal_children=288,scope='Read IO 1 vs 4; fixed campaign complete'))
 
 if __name__ == '__main__':
     main()

@@ -1,8 +1,9 @@
 """Diagnostic only; reconstruct from clean pinned product, assert exact edit anchors."""
-import hashlib,json,re,sys
+import argparse,hashlib,json,re,sys
+a=argparse.ArgumentParser();a.add_argument("--read-io",type=int,choices=[1,4],required=True);a.add_argument("--mode",choices=["diag","plain"],required=True);config=a.parse_args()
 from pathlib import Path
 B=Path(__file__).resolve().parent
-W=B.parents[2];P=W/'temp/product';O=W/'temp/overlay';O.mkdir(parents=True,exist_ok=True)
+W=B.parents[2];P=W/'temp/product';O=W/('temp/overlay-'+str(config.read_io)+'-'+config.mode);O.mkdir(parents=True,exist_ok=True)
 files={};checks={}
 def get(rel):
  if rel not in files:files[rel]=(P/rel).read_text()
@@ -48,7 +49,22 @@ return_observe(16544,'hardware_concurrency','0')
 return_observe(279,'sysconf','int64(l0)')
 edit('internal/generatedgo/main.go','binary.LittleEndian.PutUint32(m.Memory[out:], uint32(runtime.NumCPU()))','base.DiagEvent(m,"host_cpu_count",0,int64(runtime.NumCPU()),0,0,true)\n binary.LittleEndian.PutUint32(m.Memory[out:], uint32(runtime.NumCPU()))')
 
-rel='internal/generatedgo/code/base/diag_sql_wake.go';files[rel]=(B/'trace.go.txt').read_text()
+if config.mode=='plain':
+ files={}
+ files['internal/generatedgo/code/base/diag_sql_wake.go']='package base\nimport "os"\nfunc DiagBegin(m *Module,kind string,a,b,c int64)func(){return func(){}}\nfunc DiagDump(path string)error{return os.WriteFile(path,[]byte("{}\\n"),0600)}\n'
+else:
+ files['internal/generatedgo/code/base/diag_sql_wake.go']=(B/'trace.go.txt').read_text()
+# Change exactly one startup-argument byte; no code, pointer or segment-size change.
+rel='internal/generatedgo/code/generated.go'
+old=''.join('\\x%02x'%v for v in b'--loose-innodb-read-io-threads=1\0')
+new=''.join('\\x%02x'%v for v in b'--loose-innodb-read-io-threads=4\0')
+original=(P/rel).read_text();assert original.count(old)==1
+if config.read_io==4:
+ files[rel]=original.replace(old,new)
+ changed=files[rel]
+ assert len(changed)==len(original)
+ assert sum(x!=y for x,y in zip(original,changed))==1
+(W/'evidence'/('config-byte-'+str(config.read_io)+'-'+config.mode+'.json')).write_text(json.dumps(dict(argument_before='--loose-innodb-read-io-threads=1',argument_after='--loose-innodb-read-io-threads='+str(config.read_io),source_character_changes=int(config.read_io==4),guest_byte_changes=int(config.read_io==4),length_preserved=True),indent=2)+'\n')
 overlay={}
 for rel,content in files.items():
  original=(P/rel).read_text() if (P/rel).exists() else ''
@@ -56,6 +72,6 @@ for rel,content in files.items():
  out=O/rel;out.parent.mkdir(parents=True,exist_ok=True);out.write_text(content)
  overlay[str(P/rel)]=str(out)
  checks[rel]={'before_sha256':hashlib.sha256(original.encode()).hexdigest() if original else None,'after_sha256':hashlib.sha256(content.encode()).hexdigest()}
-(W/'temp/overlay.json').write_text(json.dumps({'Replace':overlay},indent=2)+'\n')
-(W/'evidence/overlay-hashes.json').write_text(json.dumps(checks,indent=2)+'\n')
+(W/('temp/overlay-'+str(config.read_io)+'-'+config.mode+'.json')).write_text(json.dumps({'Replace':overlay},indent=2)+'\n')
+(W/('evidence/overlay-hashes-'+str(config.read_io)+'-'+config.mode+'.json')).write_text(json.dumps(checks,indent=2)+'\n')
 print('overlay',len(overlay),'files')

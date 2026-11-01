@@ -30,52 +30,68 @@ type Snapshot struct {
 	Fork  func(context.Context) (*Database, error)
 	Close func() error
 }
+type IOProfile struct {
+	Read      int `json:"read"`
+	Write     int `json:"write"`
+	Purge     int `json:"purge"`
+	NativeAIO int `json:"native_aio"`
+}
+
+func ioProfile(ctx context.Context, q interface {
+	QueryRowContext(context.Context, string, ...any) *sql.Row
+}) (v IOProfile, e error) {
+	e = q.QueryRowContext(ctx, "SELECT @@innodb_read_io_threads,@@innodb_write_io_threads,@@innodb_purge_threads,@@innodb_use_native_aio").Scan(&v.Read, &v.Write, &v.Purge, &v.NativeAIO)
+	return
+}
+
 type Sample struct {
-	OffsetMS   float64  `json:"offset_ms"`
-	TotalMS    float64  `json:"total_ms"`
-	QueryMS    float64  `json:"query_ms"`
-	FirstRowMS float64  `json:"first_row_ms"`
-	DrainMS    float64  `json:"drain_ms"`
-	WireResult WireSpan `json:"wire"`
-	CountMS    float64  `json:"count_ms"`
-	UpdateMS   float64  `json:"update_ms"`
-	VerifyMS   float64  `json:"verify_ms"`
-	SQLMS      float64  `json:"sql_ms"`
-	Cleanup    bool     `json:"cleanup_complete"`
-	Index      int      `json:"index"`
-	ForkMS     float64  `json:"fork_ms"`
-	ConnectMS  float64  `json:"connect_ms"`
-	SelectMS   float64  `json:"select_ms"`
-	ReadyMS    float64  `json:"ready_ms"`
-	CleanupMS  float64  `json:"cleanup_ms"`
-	Oracle     bool     `json:"oracle"`
-	Error      string   `json:"error,omitempty"`
+	IO         IOProfile `json:"io_profile"`
+	OffsetMS   float64   `json:"offset_ms"`
+	TotalMS    float64   `json:"total_ms"`
+	QueryMS    float64   `json:"query_ms"`
+	FirstRowMS float64   `json:"first_row_ms"`
+	DrainMS    float64   `json:"drain_ms"`
+	WireResult WireSpan  `json:"wire"`
+	CountMS    float64   `json:"count_ms"`
+	UpdateMS   float64   `json:"update_ms"`
+	VerifyMS   float64   `json:"verify_ms"`
+	SQLMS      float64   `json:"sql_ms"`
+	Cleanup    bool      `json:"cleanup_complete"`
+	Index      int       `json:"index"`
+	ForkMS     float64   `json:"fork_ms"`
+	ConnectMS  float64   `json:"connect_ms"`
+	SelectMS   float64   `json:"select_ms"`
+	ReadyMS    float64   `json:"ready_ms"`
+	CleanupMS  float64   `json:"cleanup_ms"`
+	Oracle     bool      `json:"oracle"`
+	Error      string    `json:"error,omitempty"`
 }
 type Report struct {
-	CPUUserMS           float64  `json:"cpu_user_ms"`
-	CPUSystemMS         float64  `json:"cpu_system_ms"`
-	MinorFaults         int64    `json:"minor_faults"`
-	MajorFaults         int64    `json:"major_faults"`
-	VoluntarySwitches   int64    `json:"voluntary_switches"`
-	InvoluntarySwitches int64    `json:"involuntary_switches"`
-	LifetimeMaxRSSBytes int64    `json:"lifetime_max_rss_bytes"`
-	SyncDir             string   `json:"-"`
-	Backend             string   `json:"backend"`
-	Route               string   `json:"route"`
-	Parallel            int      `json:"parallel"`
-	Count               int      `json:"count"`
-	Go                  string   `json:"go"`
-	GOMAXPROCS          int      `json:"gomaxprocs"`
-	Version             string   `json:"server_version"`
-	StartMS             float64  `json:"root_start_ms"`
-	SnapshotMS          float64  `json:"snapshot_ms"`
-	BatchMS             float64  `json:"batch_ms"`
-	Samples             []Sample `json:"samples"`
-	RootClosed          bool     `json:"root_closed_before_forks"`
-	Cleanup             bool     `json:"cleanup_complete"`
-	Corrupt             bool     `json:"corrupt_seed"`
-	Success             bool     `json:"success"`
-	Error               string   `json:"error,omitempty"`
+	IO                  IOProfile `json:"io_profile"`
+	CPUUserMS           float64   `json:"cpu_user_ms"`
+	CPUSystemMS         float64   `json:"cpu_system_ms"`
+	MinorFaults         int64     `json:"minor_faults"`
+	MajorFaults         int64     `json:"major_faults"`
+	VoluntarySwitches   int64     `json:"voluntary_switches"`
+	InvoluntarySwitches int64     `json:"involuntary_switches"`
+	LifetimeMaxRSSBytes int64     `json:"lifetime_max_rss_bytes"`
+	SyncDir             string    `json:"-"`
+	Backend             string    `json:"backend"`
+	Route               string    `json:"route"`
+	Parallel            int       `json:"parallel"`
+	Count               int       `json:"count"`
+	Go                  string    `json:"go"`
+	GOMAXPROCS          int       `json:"gomaxprocs"`
+	Version             string    `json:"server_version"`
+	StartMS             float64   `json:"root_start_ms"`
+	SnapshotMS          float64   `json:"snapshot_ms"`
+	BatchMS             float64   `json:"batch_ms"`
+	Samples             []Sample  `json:"samples"`
+	RootClosed          bool      `json:"root_closed_before_forks"`
+	Cleanup             bool      `json:"cleanup_complete"`
+	Corrupt             bool      `json:"corrupt_seed"`
+	Success             bool      `json:"success"`
+	Error               string    `json:"error,omitempty"`
 }
 
 func ms(t time.Duration) float64 { return float64(t) / 1e6 }
@@ -179,6 +195,10 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 	if value != -1 {
 		return s, fmt.Errorf("mutation value=%d", value)
 	}
+	s.IO, e = ioProfile(ctx, c)
+	if e != nil {
+		return s, e
+	}
 	s.Oracle = true
 	return s, nil
 }
@@ -211,6 +231,10 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 	pool.SetMaxOpenConns(1)
 	pool.SetMaxIdleConns(1)
 	if e = pool.QueryRowContext(ctx, "SELECT VERSION()").Scan(&r.Version); e != nil {
+		return e
+	}
+	r.IO, e = ioProfile(ctx, pool)
+	if e != nil {
 		return e
 	}
 	if _, e = pool.ExecContext(ctx, "CREATE TABLE fork_probe (id INTEGER PRIMARY KEY,v INTEGER NOT NULL)"); e != nil {

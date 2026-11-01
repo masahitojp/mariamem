@@ -1,21 +1,40 @@
 {
   "issue": 68,
-  "question": "Why is effective MariaDB pool concurrency 1; upstream policy, WASIX config or Go host?",
-  "processes": [
-    {
-      "parallel": 1,
-      "children": 1
-    },
-    {
-      "parallel": 8,
-      "children": 8
-    }
+  "question": "Does read IO threads 1 to 4 reduce slow first table reads?",
+  "primary": {
+    "parallel": 8,
+    "children": 48,
+    "repetitions_per_variant": 3,
+    "processes": 6
+  },
+  "diagnostic_pilot": {
+    "processes": 2,
+    "children_per_process": 8
+  },
+  "read_io": [
+    1,
+    4
   ],
-  "product": "pinned v0.6.0 plus diagnostic overlay",
-  "stop": "identify caller and source; if native comparison requires large build, state missing evidence/cost; no broad campaign",
+  "other_policy": "write=1,purge=1,native_aio=0; cache load and 400/500ms timers unchanged",
+  "product": "pinned v0.6.0; generated startup string single-byte overlay, not a rebuilt WASM",
+  "order": [
+    [
+      1,
+      4
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      1,
+      4
+    ]
+  ],
   "active_budget_minutes": 120,
   "tooling_budget_minutes": 30,
+  "measurement_budget_minutes": 10,
   "heavy_ci_limit": 0,
-  "scope": "Source attribution and bounded diagnosis; no scheduling correction/main/release",
-  "diagnostic_not_performance": true
+  "stop": "fixed six primary processes; if baseline tail absent, effect is inconclusive; no extra repeats",
+  "scope": "experiment only; no adoption/main/release"
 }
