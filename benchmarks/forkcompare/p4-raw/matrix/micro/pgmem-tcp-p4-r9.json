@@ -1,0 +1,218 @@
+{
+  "backend": "pgmem",
+  "route": "tcp",
+  "parallel": 4,
+  "count": 20,
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "server_version": "PostgreSQL 18.3 (PGlite ) on wasm32-unknown-linux-gnu, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.8-git, 32-bit",
+  "root_start_ms": 50.814375,
+  "snapshot_ms": 9.915792,
+  "batch_ms": 121.993916,
+  "samples": [
+    {
+      "cleanup_complete": true,
+      "index": 1,
+      "fork_ms": 8.411833,
+      "connect_ms": 4.241458,
+      "select_ms": 0.412125,
+      "ready_ms": 13.065625,
+      "cleanup_ms": 0.341417,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 2,
+      "fork_ms": 7.136083,
+      "connect_ms": 5.071291,
+      "select_ms": 0.709167,
+      "ready_ms": 12.916958,
+      "cleanup_ms": 0.123583,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 3,
+      "fork_ms": 8.162458,
+      "connect_ms": 4.846875,
+      "select_ms": 0.47375,
+      "ready_ms": 13.483292,
+      "cleanup_ms": 0.165834,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 0,
+      "fork_ms": 8.342041,
+      "connect_ms": 9.683792,
+      "select_ms": 0.773541,
+      "ready_ms": 18.79975,
+      "cleanup_ms": 0.187333,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 5,
+      "fork_ms": 12.07875,
+      "connect_ms": 4.383875,
+      "select_ms": 1.624917,
+      "ready_ms": 18.088042,
+      "cleanup_ms": 0.232209,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 4,
+      "fork_ms": 8.793208,
+      "connect_ms": 9.767125,
+      "select_ms": 1.5225,
+      "ready_ms": 20.083042,
+      "cleanup_ms": 0.182583,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 7,
+      "fork_ms": 10.148583,
+      "connect_ms": 4.6625,
+      "select_ms": 2.277208,
+      "ready_ms": 17.088791,
+      "cleanup_ms": 0.243708,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 6,
+      "fork_ms": 10.140375,
+      "connect_ms": 11.287917,
+      "select_ms": 0.734333,
+      "ready_ms": 22.163125,
+      "cleanup_ms": 0.145375,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 9,
+      "fork_ms": 8.686083,
+      "connect_ms": 4.59625,
+      "select_ms": 0.406542,
+      "ready_ms": 13.689083,
+      "cleanup_ms": 0.256417,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 8,
+      "fork_ms": 12.983625,
+      "connect_ms": 4.836084,
+      "select_ms": 0.327792,
+      "ready_ms": 18.14825,
+      "cleanup_ms": 0.821459,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 10,
+      "fork_ms": 16.663583,
+      "connect_ms": 6.718916,
+      "select_ms": 2.16975,
+      "ready_ms": 25.552416,
+      "cleanup_ms": 0.123375,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 11,
+      "fork_ms": 19.571959,
+      "connect_ms": 5.274792,
+      "select_ms": 0.676292,
+      "ready_ms": 25.523334,
+      "cleanup_ms": 0.2695,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 12,
+      "fork_ms": 10.067833,
+      "connect_ms": 4.238917,
+      "select_ms": 0.54975,
+      "ready_ms": 14.856917,
+      "cleanup_ms": 0.240209,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 13,
+      "fork_ms": 8.747042,
+      "connect_ms": 4.139584,
+      "select_ms": 0.568709,
+      "ready_ms": 13.455625,
+      "cleanup_ms": 0.340917,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 14,
+      "fork_ms": 7.578,
+      "connect_ms": 4.445125,
+      "select_ms": 0.68675,
+      "ready_ms": 12.710042,
+      "cleanup_ms": 0.753583,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 15,
+      "fork_ms": 9.575125,
+      "connect_ms": 6.816833,
+      "select_ms": 1.110125,
+      "ready_ms": 17.502375,
+      "cleanup_ms": 0.202958,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 17,
+      "fork_ms": 9.942375,
+      "connect_ms": 8.600875,
+      "select_ms": 0.378417,
+      "ready_ms": 18.922083,
+      "cleanup_ms": 0.166666,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 16,
+      "fork_ms": 10.890583,
+      "connect_ms": 8.429083,
+      "select_ms": 0.53525,
+      "ready_ms": 19.855625,
+      "cleanup_ms": 0.302459,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 18,
+      "fork_ms": 8.394833,
+      "connect_ms": 4.064583,
+      "select_ms": 0.584875,
+      "ready_ms": 13.044708,
+      "cleanup_ms": 0.1575,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 19,
+      "fork_ms": 7.573666,
+      "connect_ms": 3.659083,
+      "select_ms": 0.463833,
+      "ready_ms": 11.696833,
+      "cleanup_ms": 0.0905,
+      "oracle": true
+    }
+  ],
+  "root_closed_before_forks": true,
+  "cleanup_complete": true,
+  "corrupt_seed": false,
+  "success": true
+}

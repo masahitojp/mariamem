@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "measured_processes": 60,
+  "warmup_processes": 6,
+  "micro_measured_children": 600,
+  "macro_measured_cases": 2100,
+  "scope": "One local M1, three routes, parallel4 x10; no performance gate, no heavy CI"
+}
