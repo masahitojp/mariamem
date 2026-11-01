@@ -4,7 +4,7 @@
   "harness_source_commit": "eb72c237c0bbf8a4584ee32193b268b2b110cfe5",
   "binary_sha256": "9ddb70f66a23b7e3298c407eff0adf4df05f90b263f3a1ec84b472b6383b39e7",
   "go": "go version go1.26.10 darwin/arm64",
-  "build_info": "/private/tmp/mariamem-usage-alignment/build/experiment-work/parallel-modelcase/temp/modelcase.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/modelcase.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/modelcase\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "build_info": "<WORKSPACES>/parallel-modelcase/temp/modelcase.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/modelcase.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/modelcase\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
   "harness_sha256": {
     "go.mod": "2b13cd13d136ab2c17cff12c6ddf747fb74bf94a34c154e86ce0af3b7f1279cf",
     "plan.json": "dd68e3cd4b7dfdd9ff1930954f4e2106f6ee55bf4e9eeb939c1c46de4020d965",
