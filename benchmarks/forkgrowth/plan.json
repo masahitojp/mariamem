@@ -1,0 +1,33 @@
+{
+  "question": "Which growth requests cause 101 protections; what would batching change?",
+  "source": {
+    "release_tag": "v0.6.0",
+    "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+    "tag_object_sha": "b57183b08d48884840111e8b53daa500734337f0"
+  },
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "fixture": "Same 1000 integer rows and TCP route as prior attribution",
+  "measurement": {
+    "processes": 3,
+    "children_per_process": 2,
+    "overlay": "Only append old/next after successful Grow; no algorithm/protection change"
+  },
+  "models": {
+    "exact": "one protection per positive grow",
+    "lookahead_mib": [
+      16,
+      32,
+      64
+    ],
+    "status": "arithmetic only; no optimized runtime execution or speedup claim"
+  },
+  "budget": {
+    "active_minutes": 40,
+    "tooling_minutes": 12,
+    "heavy_ci": 0,
+    "workspace_gib": 8,
+    "min_free_gib": 16
+  },
+  "stop": "capture growth histogram; replay hypothetical batching; document exact protection/failure/zero/thread/cleanup tradeoffs; propose bounded next step, no product implementation"
+}
