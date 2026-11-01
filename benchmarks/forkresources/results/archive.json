@@ -1,0 +1,11 @@
+{
+  "source_commit": "633a299da044e21cdb25aaf76249466a2e03e0a6",
+  "ref": "evidence/fork-resources-20261101",
+  "path": "benchmarks/forkresources/raw",
+  "manifest_sha256": "197c0a9f7ead92d83d931d422c430c0fede15645ad7ce97b407aad78c5dd9a2c",
+  "files": 57,
+  "bytes": 514614,
+  "retention": "Raw observations off the proposed final tree; select/squash compact final tree only, never merge raw history",
+  "analysis_sha256": "df5a555651a6e8ed9d1e10fb252d5011d2ab6551234d71f8fe4264d83e25646e",
+  "analysis_note": "Collector accepts null phase lists at observation-only checkpoints; no measurement/harness/binary change"
+}

@@ -1,0 +1,3377 @@
+{
+  "units": "ms or bytes as named; process CPU can exceed wall; RSS at checkpoints not exclusive memory",
+  "backends": {
+    "mariamem": {
+      "phases": {
+        "noop": {
+          "wall_ms": {
+            "median": 0.000208,
+            "minimum": 0.000166,
+            "maximum": 0.0005,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 0.016,
+            "minimum": 0.013,
+            "maximum": 0.023,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          }
+        },
+        "root_start": {
+          "wall_ms": {
+            "median": 41.412208,
+            "minimum": 41.126333,
+            "maximum": 42.736166,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 46.684,
+            "minimum": 45.542,
+            "maximum": 46.878,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 3570432,
+            "minimum": 3508288,
+            "maximum": 3678816,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 4507,
+            "minimum": 4500,
+            "maximum": 4595,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          }
+        },
+        "snapshot_and_source_close": {
+          "wall_ms": {
+            "median": 2.77775,
+            "minimum": 2.615417,
+            "maximum": 2.814041,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 3.338,
+            "minimum": 3.008,
+            "maximum": 3.432,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 320824,
+            "minimum": 309376,
+            "maximum": 324040,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 496,
+            "minimum": 464,
+            "maximum": 546,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          }
+        },
+        "fork": {
+          "wall_ms": {
+            "median": 36.409458,
+            "minimum": 35.004001,
+            "maximum": 50.199479,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 49.2265,
+            "minimum": 46.8675,
+            "maximum": 64.578,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 2550020.0,
+            "minimum": 2481712.0,
+            "maximum": 2576488.0,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 3575.0,
+            "minimum": 3324.0,
+            "maximum": 3589.5,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.5,
+            "n": 5
+          }
+        },
+        "connect_select_oracle_retire_connection": {
+          "wall_ms": {
+            "median": 9.177021,
+            "minimum": 8.769333,
+            "maximum": 9.520917,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 9.133,
+            "minimum": 8.442,
+            "maximum": 10.1365,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 250020.0,
+            "minimum": 228340.0,
+            "maximum": 311208.0,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 668.0,
+            "minimum": 664.5,
+            "maximum": 675.5,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.5,
+            "n": 5
+          }
+        },
+        "idle_500ms": {
+          "wall_ms": {
+            "median": 502.030958,
+            "minimum": 501.77275,
+            "maximum": 502.075041,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 0.414,
+            "minimum": 0.351,
+            "maximum": 0.785,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 18016,
+            "minimum": 18016,
+            "maximum": 18144,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 23,
+            "minimum": 23,
+            "maximum": 24,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          }
+        },
+        "close_children": {
+          "wall_ms": {
+            "median": 9.648041,
+            "minimum": 8.620958,
+            "maximum": 19.180625,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 10.873,
+            "minimum": 9.728,
+            "maximum": 22.287,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 1451128,
+            "minimum": 1440704,
+            "maximum": 1454064,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 1138,
+            "minimum": 1105,
+            "maximum": 1156,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          }
+        },
+        "post_close_gc": {
+          "wall_ms": {
+            "median": 0.509708,
+            "minimum": 0.4025,
+            "maximum": 0.732125,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 1.087,
+            "minimum": 0.875,
+            "maximum": 1.676,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          }
+        },
+        "post_close_scavenge": {
+          "wall_ms": {
+            "median": 0.372958,
+            "minimum": 0.31075,
+            "maximum": 0.540584,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 0.87,
+            "minimum": 0.657,
+            "maximum": 1.102,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          }
+        },
+        "held_4_gc": {
+          "wall_ms": {
+            "median": 0.655542,
+            "minimum": 0.594792,
+            "maximum": 1.354167,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 2.377,
+            "minimum": 1.935,
+            "maximum": 4.107,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          }
+        }
+      },
+      "stages": {
+        "process": {
+          "rss_bytes": {
+            "median": 11649024,
+            "minimum": 11599872,
+            "maximum": 11681792,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": -40960000,
+            "minimum": -41074688,
+            "maximum": -40894464,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 190680,
+            "minimum": 190680,
+            "maximum": 190680,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": -3241304,
+            "minimum": -3257160,
+            "maximum": -3237360,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 712704,
+            "minimum": 565248,
+            "maximum": 712704,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": -3710976,
+            "minimum": -3801088,
+            "maximum": -3670016,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 8407304,
+            "minimum": 8407304,
+            "maximum": 12339464,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": -10141696,
+            "minimum": -10682368,
+            "maximum": -6455296,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 3186688,
+            "minimum": 3186688,
+            "maximum": 7528448,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -851968,
+            "minimum": -1105920,
+            "maximum": 3325952,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 11223040,
+            "minimum": 11157504,
+            "maximum": 11255808,
+            "n": 5
+          }
+        },
+        "root_seeded": {
+          "rss_bytes": {
+            "median": 130973696,
+            "minimum": 130859008,
+            "maximum": 131039232,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 78364672,
+            "minimum": 78233600,
+            "maximum": 78397440,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 5892112,
+            "minimum": 5869264,
+            "maximum": 5904208,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 2453432,
+            "minimum": 2441224,
+            "maximum": 2460128,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 7200768,
+            "minimum": 7143424,
+            "maximum": 7258112,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 2826240,
+            "minimum": 2793472,
+            "maximum": 2867200,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 18794760,
+            "minimum": 18286856,
+            "maximum": 23021832,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": -16384,
+            "maximum": 0,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 4341760,
+            "minimum": 4292608,
+            "maximum": 8486912,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 139264,
+            "minimum": 122880,
+            "maximum": 253952,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 17,
+            "minimum": 16,
+            "maximum": 17,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 16,
+            "minimum": 15,
+            "maximum": 16,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 130957312,
+            "minimum": 130842624,
+            "maximum": 131039232,
+            "n": 5
+          }
+        },
+        "baseline_natural": {
+          "rss_bytes": {
+            "median": 52559872,
+            "minimum": 52445184,
+            "maximum": 52609024,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": -81920,
+            "minimum": -131072,
+            "maximum": -49152,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 6228400,
+            "minimum": 6207376,
+            "maximum": 6236800,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 2782912,
+            "minimum": 2779336,
+            "maximum": 2798984,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 7454720,
+            "minimum": 7389184,
+            "maximum": 7512064,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 3080192,
+            "minimum": 3039232,
+            "maximum": 3137536,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 18794760,
+            "minimum": 18286856,
+            "maximum": 23021832,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": -16384,
+            "maximum": 0,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 4210688,
+            "minimum": 4079616,
+            "maximum": 8388608,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 8192,
+            "minimum": 0,
+            "maximum": 40960,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 2,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 1,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 131825664,
+            "minimum": 131710976,
+            "maximum": 131907584,
+            "n": 5
+          }
+        },
+        "baseline_gc": {
+          "rss_bytes": {
+            "median": 52641792,
+            "minimum": 52494336,
+            "maximum": 52740096,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 3431984,
+            "minimum": 3428040,
+            "maximum": 3447840,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 4382720,
+            "minimum": 4276224,
+            "maximum": 4431872,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 18794760,
+            "minimum": 18286856,
+            "maximum": 23021832,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 4202496,
+            "minimum": 4038656,
+            "maximum": 8355840,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 131825664,
+            "minimum": 131710976,
+            "maximum": 131907584,
+            "n": 5
+          }
+        },
+        "held_1": {
+          "rss_bytes": {
+            "median": 133218304,
+            "minimum": 132743168,
+            "maximum": 133644288,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 80510976,
+            "minimum": 80068608,
+            "maximum": 81002496,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 6028936,
+            "minimum": 5999008,
+            "maximum": 6259168,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 2592344,
+            "minimum": 2567024,
+            "maximum": 2811328,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 7282688,
+            "minimum": 7094272,
+            "maximum": 7405568,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 2916352,
+            "minimum": 2727936,
+            "maximum": 3006464,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 18827528,
+            "minimum": 18319624,
+            "maximum": 23038216,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 16384,
+            "minimum": 0,
+            "maximum": 4243456,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 4071424,
+            "minimum": 3817472,
+            "maximum": 8372224,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 16384,
+            "minimum": -360448,
+            "maximum": 4063232,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 15,
+            "minimum": 15,
+            "maximum": 15,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 14,
+            "minimum": 14,
+            "maximum": 14,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 133218304,
+            "minimum": 132743168,
+            "maximum": 133644288,
+            "n": 5
+          }
+        },
+        "held_1_idle": {
+          "rss_bytes": {
+            "median": 133234688,
+            "minimum": 132743168,
+            "maximum": 133644288,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 80510976,
+            "minimum": 80068608,
+            "maximum": 81002496,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 6038440,
+            "minimum": 6004592,
+            "maximum": 6267488,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 2600344,
+            "minimum": 2572608,
+            "maximum": 2819648,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 7307264,
+            "minimum": 7102464,
+            "maximum": 7413760,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 2924544,
+            "minimum": 2736128,
+            "maximum": 3031040,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 18827528,
+            "minimum": 18319624,
+            "maximum": 23038216,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 16384,
+            "minimum": 0,
+            "maximum": 4243456,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 4055040,
+            "minimum": 3809280,
+            "maximum": 8364032,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 8192,
+            "minimum": -368640,
+            "maximum": 4063232,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 15,
+            "minimum": 15,
+            "maximum": 15,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 14,
+            "minimum": 14,
+            "maximum": 14,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 133234688,
+            "minimum": 132743168,
+            "maximum": 133644288,
+            "n": 5
+          }
+        },
+        "held_2": {
+          "rss_bytes": {
+            "median": 214679552,
+            "minimum": 214515712,
+            "maximum": 214958080,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 162119680,
+            "minimum": 161841152,
+            "maximum": 162316288,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 8838080,
+            "minimum": 8771280,
+            "maximum": 8848584,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 5391680,
+            "minimum": 5323440,
+            "maximum": 5420544,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 10027008,
+            "minimum": 9920512,
+            "maximum": 10166272,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 5693440,
+            "minimum": 5513216,
+            "maximum": 5750784,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 22759688,
+            "minimum": 18319624,
+            "maximum": 23038216,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 32768,
+            "minimum": 0,
+            "maximum": 4243456,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 5603328,
+            "minimum": 1359872,
+            "maximum": 5668864,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -2572288,
+            "minimum": -2818048,
+            "maximum": 1417216,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 29,
+            "minimum": 29,
+            "maximum": 29,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 28,
+            "minimum": 28,
+            "maximum": 28,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 214679552,
+            "minimum": 214515712,
+            "maximum": 214958080,
+            "n": 5
+          }
+        },
+        "held_2_idle": {
+          "rss_bytes": {
+            "median": 214712320,
+            "minimum": 214564864,
+            "maximum": 214974464,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 162152448,
+            "minimum": 161890304,
+            "maximum": 162332672,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 8862592,
+            "minimum": 8796864,
+            "maximum": 8872984,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 5416192,
+            "minimum": 5349024,
+            "maximum": 5444944,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 10043392,
+            "minimum": 9953280,
+            "maximum": 10182656,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 5726208,
+            "minimum": 5545984,
+            "maximum": 5767168,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 22759688,
+            "minimum": 18860296,
+            "maximum": 23038216,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 4210688,
+            "minimum": 0,
+            "maximum": 4243456,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 5603328,
+            "minimum": 1466368,
+            "maximum": 5652480,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 1310720,
+            "minimum": -2703360,
+            "maximum": 1400832,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 29,
+            "minimum": 29,
+            "maximum": 29,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 28,
+            "minimum": 28,
+            "maximum": 28,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 214712320,
+            "minimum": 214564864,
+            "maximum": 214974464,
+            "n": 5
+          }
+        },
+        "held_4": {
+          "rss_bytes": {
+            "median": 378683392,
+            "minimum": 378634240,
+            "maximum": 378880000,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 326123520,
+            "minimum": 325894144,
+            "maximum": 326385664,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 14007688,
+            "minimum": 13892792,
+            "maximum": 14058112,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 10575704,
+            "minimum": 10444952,
+            "maximum": 10630072,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 15196160,
+            "minimum": 15097856,
+            "maximum": 15245312,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 10764288,
+            "minimum": 10715136,
+            "maximum": 10969088,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 27248904,
+            "minimum": 26986760,
+            "maximum": 31426824,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 8437760,
+            "minimum": 8404992,
+            "maximum": 8716288,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 4390912,
+            "minimum": 4169728,
+            "maximum": 8495104,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 139264,
+            "minimum": -32768,
+            "maximum": 352256,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 57,
+            "minimum": 57,
+            "maximum": 57,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 56,
+            "minimum": 56,
+            "maximum": 56,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 378667008,
+            "minimum": 378634240,
+            "maximum": 378880000,
+            "n": 5
+          }
+        },
+        "held_4_idle": {
+          "rss_bytes": {
+            "median": 378765312,
+            "minimum": 378667008,
+            "maximum": 378945536,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 326205440,
+            "minimum": 325926912,
+            "maximum": 326451200,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 14038312,
+            "minimum": 13928952,
+            "maximum": 14094848,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 10606328,
+            "minimum": 10481112,
+            "maximum": 10666808,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 15261696,
+            "minimum": 15147008,
+            "maximum": 15310848,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 10829824,
+            "minimum": 10764288,
+            "maximum": 11034624,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 27248904,
+            "minimum": 26986760,
+            "maximum": 31426824,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 8437760,
+            "minimum": 8404992,
+            "maximum": 8716288,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 4374528,
+            "minimum": 4153344,
+            "maximum": 8478720,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 90112,
+            "minimum": -49152,
+            "maximum": 335872,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 57,
+            "minimum": 57,
+            "maximum": 57,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 56,
+            "minimum": 56,
+            "maximum": 56,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 378765312,
+            "minimum": 378667008,
+            "maximum": 378945536,
+            "n": 5
+          }
+        },
+        "held_4_gc": {
+          "rss_bytes": {
+            "median": 378945536,
+            "minimum": 378847232,
+            "maximum": 379092992,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 326385664,
+            "minimum": 326172672,
+            "maximum": 326598656,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 13750336,
+            "minimum": 13741736,
+            "maximum": 13757192,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 10311160,
+            "minimum": 10301736,
+            "maximum": 10322296,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 15007744,
+            "minimum": 14925824,
+            "maximum": 15032320,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 10600448,
+            "minimum": 10543104,
+            "maximum": 10731520,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 27248904,
+            "minimum": 26986760,
+            "maximum": 31443208,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 8437760,
+            "minimum": 8421376,
+            "maximum": 8732672,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 4145152,
+            "minimum": 3997696,
+            "maximum": 8314880,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -40960,
+            "minimum": -180224,
+            "maximum": 106496,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 57,
+            "minimum": 57,
+            "maximum": 57,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 56,
+            "minimum": 56,
+            "maximum": 56,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 378945536,
+            "minimum": 378847232,
+            "maximum": 379092992,
+            "n": 5
+          }
+        },
+        "held_4_mutated": {
+          "rss_bytes": {
+            "median": 379830272,
+            "minimum": 379764736,
+            "maximum": 380174336,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 327204864,
+            "minimum": 327024640,
+            "maximum": 327532544,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 14043056,
+            "minimum": 14036208,
+            "maximum": 14061896,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 10610992,
+            "minimum": 10595216,
+            "maximum": 10625264,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 15441920,
+            "minimum": 15409152,
+            "maximum": 15523840,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 11075584,
+            "minimum": 11026432,
+            "maximum": 11141120,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 27248904,
+            "minimum": 26986760,
+            "maximum": 31443208,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 8437760,
+            "minimum": 8421376,
+            "maximum": 8732672,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 3973120,
+            "minimum": 3891200,
+            "maximum": 8151040,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -204800,
+            "minimum": -401408,
+            "maximum": 57344,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 57,
+            "minimum": 57,
+            "maximum": 57,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 56,
+            "minimum": 56,
+            "maximum": 56,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 379830272,
+            "minimum": 379764736,
+            "maximum": 380174336,
+            "n": 5
+          }
+        },
+        "closed_children_natural": {
+          "rss_bytes": {
+            "median": 64389120,
+            "minimum": 64274432,
+            "maximum": 64634880,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 11714560,
+            "minimum": 11649024,
+            "maximum": 11993088,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 15498616,
+            "minimum": 15487944,
+            "maximum": 15512768,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 12066368,
+            "minimum": 12051216,
+            "maximum": 12067904,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 16875520,
+            "minimum": 16850944,
+            "maximum": 16916480,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 12484608,
+            "minimum": 12468224,
+            "maximum": 12574720,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 27248904,
+            "minimum": 26986760,
+            "maximum": 31791384,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 8437760,
+            "minimum": 8421376,
+            "maximum": 12996624,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 3014656,
+            "minimum": 2932736,
+            "maximum": 7233536,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -1196032,
+            "minimum": -1277952,
+            "maximum": 3031040,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 2,
+            "minimum": 1,
+            "maximum": 2,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 1,
+            "minimum": 0,
+            "maximum": 1,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 380043264,
+            "minimum": 380010496,
+            "maximum": 380403712,
+            "n": 5
+          }
+        },
+        "closed_children_gc": {
+          "rss_bytes": {
+            "median": 64389120,
+            "minimum": 64274432,
+            "maximum": 64651264,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 11714560,
+            "minimum": 11649024,
+            "maximum": 12009472,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 3503392,
+            "minimum": 3496848,
+            "maximum": 3516008,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 68168,
+            "minimum": 66504,
+            "maximum": 72816,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 4612096,
+            "minimum": 4554752,
+            "maximum": 4661248,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 229376,
+            "minimum": 204800,
+            "maximum": 278528,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 27248904,
+            "minimum": 26986760,
+            "maximum": 31791384,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 8454144,
+            "minimum": 8421376,
+            "maximum": 12996624,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 3014656,
+            "minimum": 2932736,
+            "maximum": 7200768,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -1196032,
+            "minimum": -1277952,
+            "maximum": 2998272,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 380043264,
+            "minimum": 380010496,
+            "maximum": 380403712,
+            "n": 5
+          }
+        },
+        "closed_children_scavenge": {
+          "rss_bytes": {
+            "median": 64389120,
+            "minimum": 64274432,
+            "maximum": 64651264,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 11714560,
+            "minimum": 11649024,
+            "maximum": 12009472,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 3469312,
+            "minimum": 3465192,
+            "maximum": 3481256,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 34096,
+            "minimum": 33416,
+            "maximum": 38736,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 4423680,
+            "minimum": 4358144,
+            "maximum": 4481024,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 49152,
+            "minimum": 16384,
+            "maximum": 81920,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 27248904,
+            "minimum": 26986760,
+            "maximum": 31791384,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 8454144,
+            "minimum": 8421376,
+            "maximum": 12996624,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 15138816,
+            "minimum": 14106624,
+            "maximum": 19488768,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 10838016,
+            "minimum": 10067968,
+            "maximum": 15286272,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 380043264,
+            "minimum": 380010496,
+            "maximum": 380403712,
+            "n": 5
+          }
+        },
+        "closed_all_natural": {
+          "rss_bytes": {
+            "median": 64389120,
+            "minimum": 64274432,
+            "maximum": 64651264,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 11714560,
+            "minimum": 11649024,
+            "maximum": 12009472,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 6412624,
+            "minimum": 6405640,
+            "maximum": 6418400,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 2974696,
+            "minimum": 2969744,
+            "maximum": 2982048,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 7618560,
+            "minimum": 7593984,
+            "maximum": 7749632,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 3317760,
+            "minimum": 3162112,
+            "maximum": 3342336,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 27248904,
+            "minimum": 26986760,
+            "maximum": 31791384,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 8454144,
+            "minimum": 8421376,
+            "maximum": 12996624,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 12132352,
+            "minimum": 10805248,
+            "maximum": 16310272,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 7839744,
+            "minimum": 6766592,
+            "maximum": 12107776,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 2,
+            "minimum": 2,
+            "maximum": 2,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 380043264,
+            "minimum": 380010496,
+            "maximum": 380403712,
+            "n": 5
+          }
+        },
+        "closed_all_scavenge": {
+          "rss_bytes": {
+            "median": 64389120,
+            "minimum": 64274432,
+            "maximum": 64651264,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 11714560,
+            "minimum": 11649024,
+            "maximum": 12009472,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 373952,
+            "minimum": 368272,
+            "maximum": 380944,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": -3056416,
+            "minimum": -3078128,
+            "maximum": -3051040,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 1343488,
+            "minimum": 1253376,
+            "maximum": 1400832,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": -3022848,
+            "minimum": -3112960,
+            "maximum": -3006464,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 27248904,
+            "minimum": 26986760,
+            "maximum": 31791384,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 8454144,
+            "minimum": 8421376,
+            "maximum": 12996624,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 18300928,
+            "minimum": 18006016,
+            "maximum": 22544384,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 14008320,
+            "minimum": 13418496,
+            "maximum": 18341888,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 380043264,
+            "minimum": 380010496,
+            "maximum": 380403712,
+            "n": 5
+          }
+        }
+      }
+    },
+    "pgmem": {
+      "phases": {
+        "noop": {
+          "wall_ms": {
+            "median": 0.000209,
+            "minimum": 0.000167,
+            "maximum": 0.000333,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 0.01,
+            "minimum": 0.009,
+            "maximum": 0.012,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          }
+        },
+        "root_start": {
+          "wall_ms": {
+            "median": 50.329208,
+            "minimum": 49.419834,
+            "maximum": 52.675959,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 67.861,
+            "minimum": 67.566,
+            "maximum": 72.167,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 127367656,
+            "minimum": 127288208,
+            "maximum": 127386720,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 70007,
+            "minimum": 69385,
+            "maximum": 70166,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 4,
+            "minimum": 4,
+            "maximum": 4,
+            "n": 5
+          }
+        },
+        "snapshot_and_source_close": {
+          "wall_ms": {
+            "median": 9.749333,
+            "minimum": 9.11675,
+            "maximum": 10.568833,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 9.651,
+            "minimum": 8.37,
+            "maximum": 10.564,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 2808704,
+            "minimum": 2744752,
+            "maximum": 2820168,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 11798,
+            "minimum": 11175,
+            "maximum": 12070,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          }
+        },
+        "fork": {
+          "wall_ms": {
+            "median": 5.296417,
+            "minimum": 5.113771,
+            "maximum": 7.381062,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 7.274,
+            "minimum": 7.092,
+            "maximum": 10.858,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 2391244.0,
+            "minimum": 2355372.0,
+            "maximum": 2402616.0,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 10839.0,
+            "minimum": 10371.0,
+            "maximum": 10843.5,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "n": 5
+          }
+        },
+        "connect_select_oracle_retire_connection": {
+          "wall_ms": {
+            "median": 4.664563,
+            "minimum": 4.411563,
+            "maximum": 6.227688,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 4.878,
+            "minimum": 3.8965,
+            "maximum": 6.9475,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 677044.0,
+            "minimum": 668780.0,
+            "maximum": 702456.0,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 1784.0,
+            "minimum": 1673.0,
+            "maximum": 2130.5,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 0.0,
+            "minimum": 0.0,
+            "maximum": 0.0,
+            "n": 5
+          }
+        },
+        "idle_500ms": {
+          "wall_ms": {
+            "median": 502.024084,
+            "minimum": 502.017,
+            "maximum": 502.089542,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 4.319,
+            "minimum": 2.297,
+            "maximum": 4.968,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 16780672,
+            "minimum": 16780640,
+            "maximum": 16780672,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 111,
+            "minimum": 111,
+            "maximum": 111,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          }
+        },
+        "close_children": {
+          "wall_ms": {
+            "median": 0.246208,
+            "minimum": 0.173,
+            "maximum": 0.431208,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 0.83,
+            "minimum": 0.585,
+            "maximum": 1.452,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 3224,
+            "minimum": 2736,
+            "maximum": 8608,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 92,
+            "minimum": 92,
+            "maximum": 99,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          }
+        },
+        "post_close_gc": {
+          "wall_ms": {
+            "median": 1.338125,
+            "minimum": 1.063791,
+            "maximum": 1.901417,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 6.79,
+            "minimum": 4.154,
+            "maximum": 7.132,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 21280,
+            "minimum": 10640,
+            "maximum": 21280,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 24,
+            "minimum": 12,
+            "maximum": 24,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          }
+        },
+        "post_close_scavenge": {
+          "wall_ms": {
+            "median": 1.08725,
+            "minimum": 1.03,
+            "maximum": 1.461417,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 4.285,
+            "minimum": 3.657,
+            "maximum": 5.356,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 5320,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 6,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          }
+        },
+        "held_4_gc": {
+          "wall_ms": {
+            "median": 3.133042,
+            "minimum": 1.58875,
+            "maximum": 4.057,
+            "n": 5
+          },
+          "cpu_ms": {
+            "median": 10.799,
+            "minimum": 7.127,
+            "maximum": 13.317,
+            "n": 5
+          },
+          "alloc_bytes": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "mallocs": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "gc_count": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          }
+        }
+      },
+      "stages": {
+        "process": {
+          "rss_bytes": {
+            "median": 26935296,
+            "minimum": 26558464,
+            "maximum": 26984448,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": -116391936,
+            "minimum": -117178368,
+            "maximum": -115916800,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 8089072,
+            "minimum": 8083640,
+            "maximum": 8094296,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": -48391600,
+            "minimum": -48820632,
+            "maximum": -48387584,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 8929280,
+            "minimum": 8814592,
+            "maximum": 8929280,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": -49438720,
+            "minimum": -49979392,
+            "maximum": -49332224,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 25856264,
+            "minimum": 25577736,
+            "maximum": 26364168,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": -115810336,
+            "minimum": -119988256,
+            "maximum": -114991136,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 8790016,
+            "minimum": 8683520,
+            "maximum": 9003008,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -60604416,
+            "minimum": -64749568,
+            "maximum": -60424192,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 26361856,
+            "minimum": 26066944,
+            "maximum": 26492928,
+            "n": 5
+          }
+        },
+        "root_seeded": {
+          "rss_bytes": {
+            "median": 158990336,
+            "minimum": 158744576,
+            "maximum": 160415744,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 15646720,
+            "minimum": 15417344,
+            "maximum": 16678912,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 58995640,
+            "minimum": 58975928,
+            "maximum": 59020632,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 2495256,
+            "minimum": 2099696,
+            "maximum": 2515568,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 60628992,
+            "minimum": 60440576,
+            "maximum": 60686336,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 2179072,
+            "minimum": 1744896,
+            "maximum": 2318336,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 141388072,
+            "minimum": 141093160,
+            "maximum": 145565992,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": -49152,
+            "minimum": -262144,
+            "maximum": 0,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 72179712,
+            "minimum": 71991296,
+            "maximum": 76455936,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 2842624,
+            "minimum": 2744320,
+            "maximum": 3022848,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 12,
+            "minimum": 11,
+            "maximum": 12,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 11,
+            "minimum": 10,
+            "maximum": 11,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 166576128,
+            "minimum": 166330368,
+            "maximum": 167985152,
+            "n": 5
+          }
+        },
+        "baseline_natural": {
+          "rss_bytes": {
+            "median": 143228928,
+            "minimum": 142786560,
+            "maximum": 143671296,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": -81920,
+            "minimum": -98304,
+            "maximum": -49152,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 61813592,
+            "minimum": 61763168,
+            "maximum": 61820448,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 5329864,
+            "minimum": 4860280,
+            "maximum": 5340376,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 63422464,
+            "minimum": 63324160,
+            "maximum": 63520768,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 5062656,
+            "minimum": 4530176,
+            "maximum": 5160960,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 141388072,
+            "minimum": 141093160,
+            "maximum": 145582376,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": -49152,
+            "maximum": 0,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 69435392,
+            "minimum": 69156864,
+            "maximum": 73474048,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 40960,
+            "minimum": 40960,
+            "maximum": 73728,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 8,
+            "minimum": 4,
+            "maximum": 8,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 7,
+            "minimum": 3,
+            "maximum": 7,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 166625280,
+            "minimum": 166379520,
+            "maximum": 168034304,
+            "n": 5
+          }
+        },
+        "baseline_gc": {
+          "rss_bytes": {
+            "median": 143327232,
+            "minimum": 142884864,
+            "maximum": 143736832,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 56481880,
+            "minimum": 56480072,
+            "maximum": 56904272,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 58368000,
+            "minimum": 58261504,
+            "maximum": 58793984,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 141437224,
+            "minimum": 141093160,
+            "maximum": 145582376,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 69394432,
+            "minimum": 69115904,
+            "maximum": 73433088,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 1,
+            "minimum": 1,
+            "maximum": 1,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 166625280,
+            "minimum": 166379520,
+            "maximum": 168034304,
+            "n": 5
+          }
+        },
+        "held_1": {
+          "rss_bytes": {
+            "median": 159612928,
+            "minimum": 159121408,
+            "maximum": 160055296,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 16285696,
+            "minimum": 16236544,
+            "maximum": 16351232,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 59563304,
+            "minimum": 59544480,
+            "maximum": 59981616,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 3077344,
+            "minimum": 3062600,
+            "maximum": 3083232,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 61292544,
+            "minimum": 61145088,
+            "maximum": 61759488,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 2883584,
+            "minimum": 2801664,
+            "maximum": 2965504,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 141912360,
+            "minimum": 141355304,
+            "maximum": 145844520,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 262144,
+            "minimum": 0,
+            "maximum": 524288,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 69042176,
+            "minimum": 68296704,
+            "maximum": 73048064,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -352256,
+            "minimum": -991232,
+            "maximum": -245760,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 11,
+            "minimum": 11,
+            "maximum": 12,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 10,
+            "minimum": 10,
+            "maximum": 11,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 166625280,
+            "minimum": 166379520,
+            "maximum": 168034304,
+            "n": 5
+          }
+        },
+        "held_1_idle": {
+          "rss_bytes": {
+            "median": 160759808,
+            "minimum": 160268288,
+            "maximum": 161202176,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 17432576,
+            "minimum": 17383424,
+            "maximum": 17481728,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 76345120,
+            "minimum": 76331784,
+            "maximum": 76768968,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 19864696,
+            "minimum": 19849904,
+            "maximum": 19865744,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 78077952,
+            "minimum": 77930496,
+            "maximum": 78544896,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 19668992,
+            "minimum": 19587072,
+            "maximum": 19750912,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 141912360,
+            "minimum": 141355304,
+            "maximum": 145844520,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 262144,
+            "minimum": 0,
+            "maximum": 524288,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 52281344,
+            "minimum": 51544064,
+            "maximum": 56303616,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -17113088,
+            "minimum": -17743872,
+            "maximum": -17022976,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 8,
+            "minimum": 8,
+            "maximum": 8,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 7,
+            "minimum": 7,
+            "maximum": 7,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 166625280,
+            "minimum": 166379520,
+            "maximum": 168034304,
+            "n": 5
+          }
+        },
+        "held_2": {
+          "rss_bytes": {
+            "median": 176914432,
+            "minimum": 176422912,
+            "maximum": 177291264,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 33554432,
+            "minimum": 33538048,
+            "maximum": 33603584,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 79421744,
+            "minimum": 79376200,
+            "maximum": 79854296,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 22929336,
+            "minimum": 22896128,
+            "maximum": 22951408,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 81174528,
+            "minimum": 80928768,
+            "maximum": 81461248,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 22667264,
+            "minimum": 22667264,
+            "maximum": 22814720,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 141912360,
+            "minimum": 141355304,
+            "maximum": 145844520,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 262144,
+            "minimum": 0,
+            "maximum": 524288,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 50954240,
+            "minimum": 50692096,
+            "maximum": 55345152,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -18464768,
+            "minimum": -18817024,
+            "maximum": -18087936,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 18,
+            "minimum": 18,
+            "maximum": 19,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 17,
+            "minimum": 17,
+            "maximum": 18,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 182386688,
+            "minimum": 181895168,
+            "maximum": 182763520,
+            "n": 5
+          }
+        },
+        "held_2_idle": {
+          "rss_bytes": {
+            "median": 178126848,
+            "minimum": 177586176,
+            "maximum": 178634752,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 34750464,
+            "minimum": 34701312,
+            "maximum": 34930688,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 96206056,
+            "minimum": 96164304,
+            "maximum": 96636576,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 39717232,
+            "minimum": 39684232,
+            "maximum": 39733688,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 97951744,
+            "minimum": 97705984,
+            "maximum": 98238464,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 39444480,
+            "minimum": 39444480,
+            "maximum": 39591936,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 141912360,
+            "minimum": 141355304,
+            "maximum": 145844520,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 262144,
+            "minimum": 0,
+            "maximum": 524288,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 34209792,
+            "minimum": 33914880,
+            "maximum": 38567936,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -35209216,
+            "minimum": -35594240,
+            "maximum": -34865152,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 15,
+            "minimum": 15,
+            "maximum": 15,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 14,
+            "minimum": 14,
+            "maximum": 14,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 182419456,
+            "minimum": 181927936,
+            "maximum": 182796288,
+            "n": 5
+          }
+        },
+        "held_4": {
+          "rss_bytes": {
+            "median": 215580672,
+            "minimum": 215334912,
+            "maximum": 216645632,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 72450048,
+            "minimum": 72073216,
+            "maximum": 73089024,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 102368816,
+            "minimum": 102279608,
+            "maximum": 102794552,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 45857328,
+            "minimum": 45799536,
+            "maximum": 45891664,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 103923712,
+            "minimum": 103751680,
+            "maximum": 104407040,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 45555712,
+            "minimum": 45490176,
+            "maximum": 45613056,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 141912360,
+            "minimum": 141617448,
+            "maximum": 145844520,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 262144,
+            "minimum": 262144,
+            "maximum": 524288,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 28196864,
+            "minimum": 27615232,
+            "maximum": 32563200,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -41181184,
+            "minimum": -41795584,
+            "maximum": -40869888,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 33,
+            "minimum": 32,
+            "maximum": 33,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 32,
+            "minimum": 31,
+            "maximum": 32,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 221036544,
+            "minimum": 220790784,
+            "maximum": 222101504,
+            "n": 5
+          }
+        },
+        "held_4_idle": {
+          "rss_bytes": {
+            "median": 251412480,
+            "minimum": 251035648,
+            "maximum": 252329984,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 108150784,
+            "minimum": 107872256,
+            "maximum": 109035520,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 130129056,
+            "minimum": 130127744,
+            "maximum": 130546768,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 73646032,
+            "minimum": 73642496,
+            "maximum": 73648384,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 132423680,
+            "minimum": 132284416,
+            "maximum": 132857856,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 74055680,
+            "minimum": 74022912,
+            "maximum": 74063872,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 158722344,
+            "minimum": 158460200,
+            "maximum": 162654504,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 17072128,
+            "minimum": 17055744,
+            "maximum": 17367040,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 11567104,
+            "minimum": 11042816,
+            "maximum": 15941632,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -57819136,
+            "minimum": -58466304,
+            "maximum": -57491456,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 29,
+            "minimum": 29,
+            "maximum": 29,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 28,
+            "minimum": 28,
+            "maximum": 28,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 251412480,
+            "minimum": 251035648,
+            "maximum": 252329984,
+            "n": 5
+          }
+        },
+        "held_4_gc": {
+          "rss_bytes": {
+            "median": 251478016,
+            "minimum": 251035648,
+            "maximum": 252362752,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 108150784,
+            "minimum": 107905024,
+            "maximum": 109068288,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 130114240,
+            "minimum": 130112224,
+            "maximum": 130532528,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 73631552,
+            "minimum": 73625752,
+            "maximum": 73632728,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 132399104,
+            "minimum": 132251648,
+            "maximum": 132833280,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 74022912,
+            "minimum": 73990144,
+            "maximum": 74039296,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 158722344,
+            "minimum": 158476584,
+            "maximum": 162687272,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 17104896,
+            "minimum": 17055744,
+            "maximum": 17383424,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 11567104,
+            "minimum": 11010048,
+            "maximum": 15941632,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -57884672,
+            "minimum": -58466304,
+            "maximum": -57491456,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 29,
+            "minimum": 29,
+            "maximum": 29,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 28,
+            "minimum": 28,
+            "maximum": 28,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 251478016,
+            "minimum": 251035648,
+            "maximum": 252362752,
+            "n": 5
+          }
+        },
+        "held_4_mutated": {
+          "rss_bytes": {
+            "median": 252100608,
+            "minimum": 251772928,
+            "maximum": 253083648,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 108888064,
+            "minimum": 108462080,
+            "maximum": 109625344,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 132914408,
+            "minimum": 132906928,
+            "maximum": 133328408,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 76425520,
+            "minimum": 76410920,
+            "maximum": 76434336,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 135577600,
+            "minimum": 135372800,
+            "maximum": 135864320,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 77070336,
+            "minimum": 76857344,
+            "maximum": 77266944,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 158722344,
+            "minimum": 158476584,
+            "maximum": 162687272,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 17104896,
+            "minimum": 17055744,
+            "maximum": 17383424,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 11321344,
+            "minimum": 10797056,
+            "maximum": 15548416,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -58212352,
+            "minimum": -58957824,
+            "maximum": -57794560,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 33,
+            "minimum": 32,
+            "maximum": 33,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 32,
+            "minimum": 31,
+            "maximum": 32,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 257015808,
+            "minimum": 256770048,
+            "maximum": 258064384,
+            "n": 5
+          }
+        },
+        "closed_children_natural": {
+          "rss_bytes": {
+            "median": 197836800,
+            "minimum": 183205888,
+            "maximum": 205045760,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 54640640,
+            "minimum": 39878656,
+            "maximum": 61603840,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 132920576,
+            "minimum": 132912472,
+            "maximum": 133340064,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 76432368,
+            "minimum": 76417048,
+            "maximum": 76440504,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 135577600,
+            "minimum": 135380992,
+            "maximum": 135872512,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 77078528,
+            "minimum": 76865536,
+            "maximum": 77275136,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 158722344,
+            "minimum": 158476584,
+            "maximum": 162687272,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 17104896,
+            "minimum": 17055744,
+            "maximum": 17383424,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 11321344,
+            "minimum": 10797056,
+            "maximum": 15548416,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -58212352,
+            "minimum": -58957824,
+            "maximum": -57794560,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 28,
+            "minimum": 28,
+            "maximum": 29,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 27,
+            "minimum": 27,
+            "maximum": 28,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 257015808,
+            "minimum": 256770048,
+            "maximum": 258064384,
+            "n": 5
+          }
+        },
+        "closed_children_gc": {
+          "rss_bytes": {
+            "median": 183271424,
+            "minimum": 183058432,
+            "maximum": 184320000,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 40173568,
+            "minimum": 39698432,
+            "maximum": 40796160,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 127044512,
+            "minimum": 127033664,
+            "maximum": 127467600,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 70561272,
+            "minimum": 70551784,
+            "maximum": 70564712,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 129318912,
+            "minimum": 129228800,
+            "maximum": 129818624,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 70959104,
+            "minimum": 70926336,
+            "maximum": 71024640,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 158722344,
+            "minimum": 158492968,
+            "maximum": 162687272,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 17104896,
+            "minimum": 17055744,
+            "maximum": 17399808,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 11321344,
+            "minimum": 10797056,
+            "maximum": 15548416,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -58245120,
+            "minimum": -58957824,
+            "maximum": -57794560,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 5,
+            "minimum": 5,
+            "maximum": 5,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 4,
+            "minimum": 4,
+            "maximum": 4,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 257015808,
+            "minimum": 256770048,
+            "maximum": 258064384,
+            "n": 5
+          }
+        },
+        "closed_children_scavenge": {
+          "rss_bytes": {
+            "median": 183287808,
+            "minimum": 183074816,
+            "maximum": 184320000,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 40189952,
+            "minimum": 39714816,
+            "maximum": 40812544,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 127037560,
+            "minimum": 127033800,
+            "maximum": 127461712,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 70555280,
+            "minimum": 70552688,
+            "maximum": 70558824,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 129286144,
+            "minimum": 129171456,
+            "maximum": 129769472,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 70918144,
+            "minimum": 70893568,
+            "maximum": 70975488,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 158738728,
+            "minimum": 158492968,
+            "maximum": 162687272,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 17104896,
+            "minimum": 17055744,
+            "maximum": 17399808,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 19185664,
+            "minimum": 18825216,
+            "maximum": 23363584,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -50102272,
+            "minimum": -50634752,
+            "maximum": -50012160,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 5,
+            "minimum": 5,
+            "maximum": 5,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 4,
+            "minimum": 4,
+            "maximum": 4,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 257015808,
+            "minimum": 256770048,
+            "maximum": 258064384,
+            "n": 5
+          }
+        },
+        "closed_all_natural": {
+          "rss_bytes": {
+            "median": 183336960,
+            "minimum": 183123968,
+            "maximum": 184401920,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 40239104,
+            "minimum": 39780352,
+            "maximum": 40861696,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 130118872,
+            "minimum": 130091448,
+            "maximum": 130562224,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 73634304,
+            "minimum": 73609568,
+            "maximum": 73659336,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 132177920,
+            "minimum": 132120576,
+            "maximum": 132628480,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 73818112,
+            "minimum": 73752576,
+            "maximum": 73867264,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 158738728,
+            "minimum": 158492968,
+            "maximum": 162687272,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 17104896,
+            "minimum": 17055744,
+            "maximum": 17399808,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 16605184,
+            "minimum": 16195584,
+            "maximum": 20856832,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -52682752,
+            "minimum": -53198848,
+            "maximum": -52576256,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 9,
+            "minimum": 8,
+            "maximum": 9,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 8,
+            "minimum": 7,
+            "maximum": 8,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 257015808,
+            "minimum": 256770048,
+            "maximum": 258064384,
+            "n": 5
+          }
+        },
+        "closed_all_scavenge": {
+          "rss_bytes": {
+            "median": 183336960,
+            "minimum": 183123968,
+            "maximum": 184401920,
+            "n": 5
+          },
+          "rss_bytes_delta_from_baseline_gc": {
+            "median": 40239104,
+            "minimum": 39780352,
+            "maximum": 40861696,
+            "n": 5
+          },
+          "heap_alloc_bytes": {
+            "median": 127937752,
+            "minimum": 127868424,
+            "maximum": 128296096,
+            "n": 5
+          },
+          "heap_alloc_bytes_delta_from_baseline_gc": {
+            "median": 71390408,
+            "minimum": 71386544,
+            "maximum": 71457080,
+            "n": 5
+          },
+          "heap_inuse_bytes": {
+            "median": 130129920,
+            "minimum": 129966080,
+            "maximum": 130596864,
+            "n": 5
+          },
+          "heap_inuse_bytes_delta_from_baseline_gc": {
+            "median": 71704576,
+            "minimum": 71696384,
+            "maximum": 71802880,
+            "n": 5
+          },
+          "go_sys_bytes": {
+            "median": 158738728,
+            "minimum": 158492968,
+            "maximum": 162687272,
+            "n": 5
+          },
+          "go_sys_bytes_delta_from_baseline_gc": {
+            "median": 17104896,
+            "minimum": 17055744,
+            "maximum": 17399808,
+            "n": 5
+          },
+          "heap_released_bytes": {
+            "median": 18391040,
+            "minimum": 18046976,
+            "maximum": 22757376,
+            "n": 5
+          },
+          "heap_released_bytes_delta_from_baseline_gc": {
+            "median": -50896896,
+            "minimum": -51453952,
+            "maximum": -50675712,
+            "n": 5
+          },
+          "goroutines": {
+            "median": 2,
+            "minimum": 1,
+            "maximum": 2,
+            "n": 5
+          },
+          "goroutines_delta_from_baseline_gc": {
+            "median": 1,
+            "minimum": 0,
+            "maximum": 1,
+            "n": 5
+          },
+          "max_rss_bytes": {
+            "median": 257015808,
+            "minimum": 256770048,
+            "maximum": 258064384,
+            "n": 5
+          }
+        }
+      }
+    }
+  }
+}

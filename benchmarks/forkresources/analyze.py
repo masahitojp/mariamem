@@ -37,7 +37,7 @@ def summarize(observations):
             assert [e['stage'] for e in o['rss']] == STAGES
             for s in o['rss']:
                 assert s['rss_bytes'] > 0
-            pp = [p for e in r['events'] for p in e['phases']]
+            pp = [p for e in r['events'] for p in (e['phases'] or [])]
             assert [p['child'] for p in pp if p['name'] == 'fork'] == [1, 2, 3, 4]
             for p in pp:
                 assert p['wall_ms'] >= 0 and p['cpu_ms'] >= 0

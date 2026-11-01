@@ -1,5 +1,7 @@
 # Optional lifecycle benchmarks
 
+- [Per-Fork CPU / allocation / RSS](fork-resources.md): same M1, TCP, 0/1/2/4 retained children; compact evidence, optimization hypotheses only.
+
 ## Recent measurement and discovery reports
 
 - [P4 variability follow-up](pgmem-parallel4.md): ten fresh-process observations

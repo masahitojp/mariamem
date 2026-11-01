@@ -45,7 +45,7 @@ class AnalysisTests(unittest.TestCase):
     def test_resealed_inconsistent_cpu_rejected(self):
         p = self.root / 'observations.json'; d = json.loads(p.read_text())
         item = next(o for o in d if not o['record']['warmup'])
-        phase = next(p for e in item['result']['events'] for p in e['phases'] if p['name'] == 'fork')
+        phase = next(p for e in item['result']['events'] for p in (e['phases'] or []) if p['name'] == 'fork')
         phase['cpu_ms'] += 1
         p.write_text(json.dumps(d)); self.reseal()
         with self.assertRaises(AssertionError): a.check(self.root)
