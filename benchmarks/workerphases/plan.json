@@ -1,0 +1,12 @@
+{
+  "question": "Which phase owns scheduler/wait CPU, and is it repeated guest synchronization or worker startup?",
+  "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "go": "go1.27.3 darwin/arm64",
+  "gomaxprocs": 8,
+  "profile": "2 rounds x fork/sql/close windows, 40 cycles each; profile off outside selected phase; SQL=32 pristine queries on one connection per child",
+  "controls": "2 unprofiled 40-cycle processes; 2 observation-only 6-cycle processes",
+  "pilot": "positive/negative per binary; profiles retained without claiming fine SQL attribution if samples sparse",
+  "limits": "macOS only; one fixture; no scheduler changes, worker reuse, pooling, main adoption or CI",
+  "min_free_gib": 16,
+  "budget_gib": 8
+}
