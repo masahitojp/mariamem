@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [Issue #68: pre-candidate evidence](read-io4-evidence.md): same-binary macOS
+  phase/child distributions find residual read4 waits; one-DB RSS paired
+  observations are small. Candidate progression as a resolution is on hold.
+
 - [Issue #68: read I/O 1→4 trial](read-io4.md): fixed P8 comparison observes
   fewer long COUNT waits and shorter batches; generated-byte configuration
   prototype only, before a reproducibly rebuilt guest candidate.

@@ -1,0 +1,12 @@
+{
+  "after_sha256": "05a18a05924f85ff628aa8955472da3856e3298c53cd3bb3b3632812b48fc698",
+  "argv_byte_offset": 428683,
+  "before_sha256": "6111bfe83de71695517e3d9f25fed842d4a43bfc6ae774815abafd81af9064dd",
+  "changed_bytes": 1,
+  "common_binary_sha256": "b7297f2b12d5de360d2b67b1f29fd091c8afe289083ed10a390ad5b7e1ba5e1d",
+  "data_bytes": 6856219,
+  "generated_go_sha256": "9e086c877ea141ec206fb64027f6c1a1d37a9e56a8b0f835b2634b233681ebde",
+  "observations": 48,
+  "result": "PASS",
+  "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01"
+}

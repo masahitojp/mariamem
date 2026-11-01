@@ -2,6 +2,10 @@
 
 2026-11-02 bounded configuration experiment; product adoption remains separate.
 
+Subsequent [same-binary/phase/RSS evidence](read-io4-evidence.md) observes residual
+read4 COUNT waits and holds progression as a latency-resolution candidate. The
+numbers and recommendation below retain this earlier sample's context.
+
 **The read-I/O setting of 4 is a promising minimal guest configuration candidate.**
 In the fixed six-process plain trial, read=1 had three COUNT delays of
 375.960 / 401.760 / 784.487 ms; read=4 had none above 100 ms (maximum 51.928 ms).

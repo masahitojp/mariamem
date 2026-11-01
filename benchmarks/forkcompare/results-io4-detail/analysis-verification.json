@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "missing_guest_mark_rejected": true,
+  "two_byte_mutation_rejected": true,
+  "invalid_selector_rejected": true,
+  "invalid_selector_exit": 2
+}

@@ -1,0 +1,10 @@
+{
+  "ref": "refs/heads/evidence/read-io4-detail-20261102",
+  "source_commit": "c9786725bb12e29204497d7254168e5415c07105",
+  "path": "raw.tar.gz",
+  "bytes": 294576,
+  "sha256": "ce491040fb07724d27f03b07ddf11ba1d24359632ab4e6995d19f0cc29658013",
+  "members": 1571,
+  "normalization": "workspace prefix only; per-file original/published hashes in archive",
+  "scope": "Issue68 candidate evidence: macOS same-binary phase and one-DB RSS; no adoption"
+}

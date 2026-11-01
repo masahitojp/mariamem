@@ -14,19 +14,19 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Issue #68 — read I/O configuration prototype measured
+## Issue #68 — read4 alone does not establish SQL-wait resolution
 
-The [bounded read1/read4 comparison](../benchmarks/read-io4.md) follows the
-[source attribution](../benchmarks/sql-concurrency.md). Six plain P8 processes,
-48 children each, observe three long COUNT waits with read1 and zero >100ms
-with read4 (144 children per variant); all three paired batches are shorter.
-All SQL/isolation/cleanup oracles pass. SQL confirms effective write2/purge1/
-nativeAIO0 remain fixed; the recipe's write1 argument is below upstream minimum2.
-CPU/RSS observations do not establish resource equivalence. This is a one-byte
-startup-argument prototype in generated data, not a rebuilt canonical guest.
-[Issue #68](https://github.com/masahitojp/mariamem/issues/68) remains open; the
-recommendation is a minimal reproducibly rebuilt read4 guest candidate for
-adoption review. No correction adopted/main integration/qualification/release.
+The [additional pre-candidate evidence](../benchmarks/read-io4-evidence.md)
+retains the earlier plain comparison but narrows its interpretation. Same-binary
+macOS P8 phase runs observe COUNT >100ms in2/144 read1 children and3/144 read4
+children; read4's367–388ms waits persist after ready. Server-init medians are
+about59ms for both. Twenty fresh one-DB pairs give RSS-increment paired delta
+p50+0.383MiB/p95+1.016MiB; this is not equivalent to the historical Wasmer Ubuntu
+PSS envelope or attribution of the earlier parallel process peak. Both earlier
+and current runs are macOS, with alternating execution orders. The current
+recommendation is to hold read4 alone as a latency-resolution candidate;
+[Issue #68](https://github.com/masahitojp/mariamem/issues/68) stays open. No
+canonical guest rebuild, Ubuntu acceptance, adoption/main integration or release.
 
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
