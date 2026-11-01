@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "normalization": "Replace only the owned absolute workspace prefix with <WORKSPACE>; timing values and typed source identities unchanged.",
+  "files": [
+    {
+      "path": "initial-pilot/macro/mariamem-tcp-p8-r0.json",
+      "original_sha256": "0d1b7a40ea29549296c38d57a08125e40b21dcec97037b3eea4613d78abe33de",
+      "published_sha256": "388e13587e14d48d4f263b3a5522585cee099ace09e2987f7ba95e929ab9b7da"
+    },
+    {
+      "path": "inputs.json",
+      "original_sha256": "ba163a173bbe85fddf19521db9a1447bbec048d5c3aa2f8201600ae70f6989c0",
+      "published_sha256": "7aa533e12e451f4ab2fb061000e4a3c85f17efd167ea54dc58c3bb01f6280874"
+    },
+    {
+      "path": "macro/mariamem-tcp-p1-r-1.json",
+      "original_sha256": "526f89e690d99acf8b6a6ed8e3b8264ca66d7f6f168650a596684d6ff8b859f2",
+      "published_sha256": "7368a3355256df362f471f4cea0a4800df9d17fe684a785eba4941dae3ec9508"
+    },
+    {
+      "path": "macro/mariamem-tcp-p1-r0.json",
+      "original_sha256": "3e20dc42968e640525350ede5564b53bcddc93713596c91956decb67154fd5b4",
+      "published_sha256": "b4b353f8282fef72c387fecd24dbdf41f62d2750cb1a014861c853739d363717"
+    },
+    {
+      "path": "macro/mariamem-tcp-p1-r1.json",
+      "original_sha256": "26398a2cfd072c9672bd3a6da463486f09450d8b0253fe64069579caa80e36d3",
+      "published_sha256": "444a9b3276a020eeacf20226dc36c6efb17002da4a0dc0743a18cceb597081d6"
+    },
+    {
+      "path": "macro/mariamem-tcp-p1-r2.json",
+      "original_sha256": "9edd80d0336a4ad3bffe15dbf2b069d668024f0c8c4c3038bc9ab69a2994f923",
+      "published_sha256": "0af0b4e72bd3dff316e416576ca860ba8280a87339ed43b672a1dc70a2614b4c"
+    },
+    {
+      "path": "macro/mariamem-tcp-p1-r3.json",
+      "original_sha256": "69d300f6f19edb18951feab3cd3bfd43edb53bccdd569d652dd9806b5503021d",
+      "published_sha256": "5c564f3f6ccbbf58b8e2f8621581a6811e5c5b9dc02e7636e5b2ffacc36f41c6"
+    },
+    {
+      "path": "macro/mariamem-tcp-p1-r4.json",
+      "original_sha256": "74a3986d227c3903c846f662783f48998a4c0ceccac381186e5d73454e19e825",
+      "published_sha256": "8822083b840525b56e922126b71f20ace6d9b4247ff8badeee34120df92be916"
+    },
+    {
+      "path": "macro/mariamem-tcp-p8-r-1.json",
+      "original_sha256": "c9edfc46ceb4b95184a7acee354050604383f56ab57e4ff073e8f539703b07ae",
+      "published_sha256": "55d1c40934f3263eb982b83cf7ec74ed6a9702f5ed8985282083e46d9fa17de6"
+    },
+    {
+      "path": "macro/mariamem-tcp-p8-r0.json",
+      "original_sha256": "c715d7b76abd68caf101e7a03d6275623d7977c3e49d01f75728dc46ba30c833",
+      "published_sha256": "368649db8b700992f5abfae1b15ad1b9c798e706b9d92e6b3b6a904714efde90"
+    },
+    {
+      "path": "macro/mariamem-tcp-p8-r1.json",
+      "original_sha256": "8290546c150536d1847faa03d774d6746305d346f24f51f50af4052ea099b790",
+      "published_sha256": "f2cbdcdf4b89307cf4a55586ef3cd461986a3b3e0823aa4499ae11efe410e281"
+    },
+    {
+      "path": "macro/mariamem-tcp-p8-r2.json",
+      "original_sha256": "113c83503f0baff00716693dbd66df9536fea32277dbff3fe4e7c61758c2bdaf",
+      "published_sha256": "1ecb81eefbef2c6d723ab34898d2205b993463036140391c5796697648bf7e58"
+    },
+    {
+      "path": "macro/mariamem-tcp-p8-r3.json",
+      "original_sha256": "6643c5db224b5c33b162ffa045b942d75f9bad393b78734366716b338d1cd04d",
+      "published_sha256": "0c991d0036d2e62afeea7f5e80a9d06cb8759ef7754e15d6a11271dd2ac1c544"
+    },
+    {
+      "path": "macro/mariamem-tcp-p8-r4.json",
+      "original_sha256": "949a3c63ec99672d66ce560652c51c6404476396beefcc7fa2130ed686720682",
+      "published_sha256": "275393d67109e85ec5ded260369b1d63bc52998f089d3aefe115e1f32931da58"
+    },
+    {
+      "path": "pilot/macro/mariamem-tcp-p8-r0.json",
+      "original_sha256": "d90543f09c170244f6f5d94a90ae49513392a92469bf4ab857a52c16c404698f",
+      "published_sha256": "668e46f9f762c42c78b3a96ff4ad6827a94c9f4570a84742914685037b389ed8"
+    }
+  ]
+}

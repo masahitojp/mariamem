@@ -36,6 +36,9 @@ def summarize(obs):
     for r in cell:
      assert r['returncode']==0 and r['scratch_empty'] and r['count']==(20 if kind=='micro' else 70)
      assert math.isfinite(r['wall_ms']) and r['wall_ms']>0
+     if kind=='micro':
+      assert len(r['samples'])==20 and {x['index'] for x in r['samples']}==set(range(20))
+      assert all(x['oracle'] and x['cleanup_complete'] and not x.get('error') and all(math.isfinite(x[k]) and x[k]>=0 for k in STAGES) for x in r['samples'])
     vals=[r['wall_ms'] for r in runs]
     row=dict(kind=kind,parallelism=p,backend=backend,route=route,processes=5,median_wall_ms=statistics.median(vals),min_wall_ms=min(vals),max_wall_ms=max(vals))
     if kind=='micro':

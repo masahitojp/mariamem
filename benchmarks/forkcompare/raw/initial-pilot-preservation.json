@@ -1,0 +1,16 @@
+{
+  "saved": [
+    "micro/mariamem-tcp-p1-r0-negative.json",
+    "macro/mariamem-tcp-p8-r0.json",
+    "micro/pgmem-pipe-p1-r0-negative.json",
+    "macro/pgmem-pipe-p8-r0.json",
+    "micro/pgmem-tcp-p1-r0-negative.json",
+    "macro/pgmem-tcp-p8-r0.json"
+  ],
+  "overwritten": [
+    "micro/mariamem-tcp-p1-r0.json",
+    "micro/pgmem-pipe-p1-r0.json",
+    "micro/pgmem-tcp-p1-r0.json"
+  ],
+  "reason": "Pilot and initial matrix shared filenames in driver checkpoint; detect count mismatch, do not relabel overwritten pilot reports. Diagnostic pilot metadata remains in pilot-records.json."
+}

@@ -1,0 +1,38 @@
+{
+  "backend": "pgmem",
+  "route": "tcp",
+  "parallel": 1,
+  "count": 2,
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "server_version": "PostgreSQL 18.3 (PGlite ) on wasm32-unknown-linux-gnu, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.8-git, 32-bit",
+  "root_start_ms": 53.260792,
+  "snapshot_ms": 11.131708,
+  "batch_ms": 24.230125,
+  "samples": [
+    {
+      "cleanup_complete": true,
+      "index": 0,
+      "fork_ms": 6.29825,
+      "connect_ms": 2.980083,
+      "select_ms": 0.322583,
+      "ready_ms": 9.601083,
+      "cleanup_ms": 0.110459,
+      "oracle": true
+    },
+    {
+      "cleanup_complete": true,
+      "index": 1,
+      "fork_ms": 4.946125,
+      "connect_ms": 3.08175,
+      "select_ms": 0.331458,
+      "ready_ms": 8.359583,
+      "cleanup_ms": 0.083625,
+      "oracle": true
+    }
+  ],
+  "root_closed_before_forks": true,
+  "cleanup_complete": true,
+  "corrupt_seed": false,
+  "success": true
+}

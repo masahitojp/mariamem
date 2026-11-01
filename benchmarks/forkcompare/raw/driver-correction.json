@@ -1,0 +1,16 @@
+{
+  "before_sha256": "9ebac6c437a6a9a5c2fa64d7b46ae804d7820b83500e4dde9c9feeb26a9e1771",
+  "after_sha256": "7932727a148eecdaa352357ea4b046ceef1ae9a2cd1be4dc65e8ecc620bb7518",
+  "original_harness_source_commit": "4ae7a7abf20d55463cc75ca3e7725c446180beb4",
+  "change": "Namespace every pilot/matrix report and console path by phase. No Go binary, measured observation or timing code changes.",
+  "matrix_records_verified": 72,
+  "initial_pilot_raw_unavailable": [
+    "micro/mariamem-tcp-p1-r0.json",
+    "micro/pgmem-pipe-p1-r0.json",
+    "micro/pgmem-tcp-p1-r0.json"
+  ],
+  "initial_pilot_metadata_preserved": "initial-pilot/pilot-records.json",
+  "status": "RECHECK_PASS",
+  "recheck_receipt": "pilot-result.json",
+  "matrix_hashes_preserved_after_recheck": 72
+}
