@@ -1,0 +1,34 @@
+{
+  "question": "On this M1, is the remaining pgmem/mariamem latency difference visible in Fork, connection, or first SELECT readiness?",
+  "scope": [
+    "same-host upstream pgmem70-case rerun if its pinned dependencies are available",
+    "same Go1.27.3 (upstream modelcase requires Go>=1.27), GOMAXPROCS8; build/acquisition excluded",
+    "public-API Fork-return, driver-connect and first SELECT1 spans at concurrency1 and8",
+    "one simple equivalent seed table and exact child isolation/cleanup oracles",
+    "five alternating paired fresh-process repeats plus one warmup per cell",
+    "micro pgmem TCP and in-process routes separately; original upstream70-case uses in-process Dial",
+    "macro pgmem TCP variant changes only fixture DialFunc in a disposable copy; original profile retained; rerun mariamem shared-read suite with same Go1.27.3"
+  ],
+  "exit": [
+    "supported attribution to measured boundary differences, with limitations",
+    "or explicit missing-input/inconclusive result and bounded next cost"
+  ],
+  "limits": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci_submissions": 0,
+    "workspace_gib": 12,
+    "min_free_gib": 16,
+    "execution_timeout_seconds": 1800
+  },
+  "excluded": [
+    "product/runtime/API/guest changes",
+    "optimization",
+    "resource campaign",
+    "release/main integration",
+    "forcing different engine internals into identical semantics"
+  ],
+  "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "created_utc": "2026-11-01T04:00:44.279869+00:00",
+  "adjustment_before_measurement": "Upstream nested benchmark go.mod requires Go1.27 and uses Server.Dial; do not downgrade dependencies or silently compare different transport."
+}
