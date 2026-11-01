@@ -1,0 +1,756 @@
+{
+  "completion": {
+    "children_per_process": 48,
+    "measured_processes": 6,
+    "result": "PASS",
+    "scope": "Issue68 P4/P8 per-query wall; no optimization or product changes"
+  },
+  "inputs": {
+    "binaries": {
+      "mariamem": {
+        "build_info": "<WORKSPACE>/temp/bin/mariamem: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare\tv0.0.0-20261101150641-646a8f352777\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.0\n\t=>\t../../../temp/product\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=646a8f352777a65b1e0ae04bd172935f6a7fc204\n\tbuild\tvcs.time=2026-11-01T15:06:41Z\n\tbuild\tvcs.modified=false\n",
+        "sha256": "a060397b9bd8b92b16495d79de0a3923047313ef77ee49ab483c44ac989fcc63"
+      }
+    },
+    "cpu": "Apple M1",
+    "go": "go version go1.27.3 darwin/arm64",
+    "harness_source_commit": "646a8f352777a65b1e0ae04bd172935f6a7fc204",
+    "memory_bytes": 17179869184,
+    "os": "27.2",
+    "plan": {
+      "change": "only per-query host wall clocks; previous RSS observer retained",
+      "count": 48,
+      "excludes": [
+        "runtime edits",
+        "transport replacement",
+        "parallel-cancellation negative",
+        "main adoption",
+        "release"
+      ],
+      "fixture": "same 1000 integer rows and original SELECT1/COUNT SUM/UPDATE/SELECT oracles",
+      "gomaxprocs": 8,
+      "issue": 68,
+      "parallel": [
+        4,
+        8
+      ],
+      "question": "Which SQL in the post-readiness interval exhibits long latency?",
+      "rounds": 3,
+      "route": "tcp",
+      "stop": "one fixed 6-process normal-path matrix; no unbounded retry if tail does not reproduce"
+    },
+    "products": {
+      "mariamem": {
+        "release_tag": "v0.6.0",
+        "source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+        "tag_object_sha": "b57183b08d48884840111e8b53daa500734337f0"
+      }
+    }
+  },
+  "pilot": {
+    "negative": 1,
+    "positive": 1,
+    "result": "PASS"
+  },
+  "runs": [
+    {
+      "memory": {
+        "baseline_rss_bytes": 52199424,
+        "interval_ms": 20,
+        "observed_peak_active_children": 4,
+        "sample_count": 33,
+        "sample_max_gap_ms": 26.124999999999943,
+        "sampled_peak_rss_bytes": 398491648
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 11.309584,
+          "median": 8.771708499999999,
+          "over_100ms": 0,
+          "sum": 419.401583
+        },
+        "connect_ms": {
+          "maximum": 16.568625,
+          "median": 1.793917,
+          "over_100ms": 0,
+          "sum": 122.20604300000001
+        },
+        "count_ms": {
+          "maximum": 15.400083,
+          "median": 3.402125,
+          "over_100ms": 0,
+          "sum": 198.222416
+        },
+        "fork_ms": {
+          "maximum": 60.835333,
+          "median": 45.3540215,
+          "over_100ms": 0,
+          "sum": 2195.612046
+        },
+        "ready_ms": {
+          "maximum": 62.421542,
+          "median": 48.954624499999994,
+          "over_100ms": 0,
+          "sum": 2352.944917
+        },
+        "select_ms": {
+          "maximum": 6.391667,
+          "median": 0.4105625,
+          "over_100ms": 0,
+          "sum": 35.113496
+        },
+        "sql_ms": {
+          "maximum": 16.403,
+          "median": 4.389625,
+          "over_100ms": 0,
+          "sum": 259.699084
+        },
+        "total_ms": {
+          "maximum": 74.855958,
+          "median": 62.0314165,
+          "over_100ms": 0,
+          "sum": 3032.069286
+        },
+        "update_ms": {
+          "maximum": 3.778416,
+          "median": 0.51025,
+          "over_100ms": 0,
+          "sum": 34.710794
+        },
+        "verify_ms": {
+          "maximum": 2.013417,
+          "median": 0.46358350000000004,
+          "over_100ms": 0,
+          "sum": 26.722456
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/0-mariamem-p4-memory.json": "b74043d802669a7d0078c9a5909573abe9a890132ff11cfeff900a76f0434802",
+        "measure-v2/0-mariamem-p4.json": "b91de337fb73c632994eb44aa997bddc92da3a0ff01bd95b6e52c18664f426f6"
+      },
+      "record": {
+        "backend": "mariamem",
+        "count": 48,
+        "memory": "measure-v2/0-mariamem-p4-memory.json",
+        "negative": false,
+        "parallel": 4,
+        "repetition": 0,
+        "report": "measure-v2/0-mariamem-p4.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "mariamem",
+        "batch_ms": 759.317417,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 547.055,
+        "cpu_user_ms": 2671.219,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 13814,
+        "lifetime_max_rss_bytes": 450035712,
+        "major_faults": 0,
+        "minor_faults": 234111,
+        "parallel": 4,
+        "root_closed_before_forks": true,
+        "root_start_ms": 44.999833,
+        "route": "tcp",
+        "server_version": "12.3.3-MariaDB-embedded",
+        "snapshot_ms": 3.095916,
+        "success": true,
+        "voluntary_switches": 473
+      },
+      "slow_queries": []
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 52232192,
+        "interval_ms": 20,
+        "observed_peak_active_children": 8,
+        "sample_count": 27,
+        "sample_max_gap_ms": 30.070584000000622,
+        "sampled_peak_rss_bytes": 729169920
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 21.050792,
+          "median": 11.2182295,
+          "over_100ms": 0,
+          "sum": 572.660413
+        },
+        "connect_ms": {
+          "maximum": 19.073583,
+          "median": 6.866270500000001,
+          "over_100ms": 0,
+          "sum": 370.823374
+        },
+        "count_ms": {
+          "maximum": 29.164791,
+          "median": 4.4334585,
+          "over_100ms": 0,
+          "sum": 369.050294
+        },
+        "fork_ms": {
+          "maximum": 96.455583,
+          "median": 71.163229,
+          "over_100ms": 0,
+          "sum": 3456.324125
+        },
+        "ready_ms": {
+          "maximum": 105.47625,
+          "median": 82.603604,
+          "over_100ms": 2,
+          "sum": 3917.825833
+        },
+        "select_ms": {
+          "maximum": 11.42925,
+          "median": 1.402583,
+          "over_100ms": 0,
+          "sum": 90.662624
+        },
+        "sql_ms": {
+          "maximum": 37.625375,
+          "median": 6.6079165,
+          "over_100ms": 0,
+          "sum": 525.64933
+        },
+        "total_ms": {
+          "maximum": 120.987458,
+          "median": 106.0343125,
+          "over_100ms": 35,
+          "sum": 5016.162747
+        },
+        "update_ms": {
+          "maximum": 14.96575,
+          "median": 1.0888955,
+          "over_100ms": 0,
+          "sum": 102.871874
+        },
+        "verify_ms": {
+          "maximum": 4.208375,
+          "median": 0.7395835,
+          "over_100ms": 0,
+          "sum": 53.671835
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/0-mariamem-p8-memory.json": "413ed182b3cbe66736029cfb362000c2bea4af16bbdfd59fd5085d6e4622b851",
+        "measure-v2/0-mariamem-p8.json": "fa0886bd16f3380366769fe34e2b584fdc282d62de00d82c4038f63d0aa8c677"
+      },
+      "record": {
+        "backend": "mariamem",
+        "count": 48,
+        "memory": "measure-v2/0-mariamem-p8-memory.json",
+        "negative": false,
+        "parallel": 8,
+        "repetition": 0,
+        "report": "measure-v2/0-mariamem-p8.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "mariamem",
+        "batch_ms": 636.880542,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 585.214,
+        "cpu_user_ms": 2958.278,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 8904,
+        "lifetime_max_rss_bytes": 733577216,
+        "major_faults": 0,
+        "minor_faults": 235101,
+        "parallel": 8,
+        "root_closed_before_forks": true,
+        "root_start_ms": 41.880292,
+        "route": "tcp",
+        "server_version": "12.3.3-MariaDB-embedded",
+        "snapshot_ms": 2.805792,
+        "success": true,
+        "voluntary_switches": 390
+      },
+      "slow_queries": []
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 52543488,
+        "interval_ms": 20,
+        "observed_peak_active_children": 8,
+        "sample_count": 26,
+        "sample_max_gap_ms": 39.79991699999988,
+        "sampled_peak_rss_bytes": 733315072
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 23.653791,
+          "median": 11.7028955,
+          "over_100ms": 0,
+          "sum": 598.902415
+        },
+        "connect_ms": {
+          "maximum": 42.259,
+          "median": 8.052958499999999,
+          "over_100ms": 0,
+          "sum": 479.359168
+        },
+        "count_ms": {
+          "maximum": 23.39525,
+          "median": 5.031479,
+          "over_100ms": 0,
+          "sum": 345.642001
+        },
+        "fork_ms": {
+          "maximum": 102.892041,
+          "median": 81.93837500000001,
+          "over_100ms": 4,
+          "sum": 3861.378501
+        },
+        "ready_ms": {
+          "maximum": 128.417,
+          "median": 91.402021,
+          "over_100ms": 14,
+          "sum": 4399.376793
+        },
+        "select_ms": {
+          "maximum": 5.646792,
+          "median": 0.7800834999999999,
+          "over_100ms": 0,
+          "sum": 58.625081
+        },
+        "sql_ms": {
+          "maximum": 24.229541,
+          "median": 9.605583500000002,
+          "over_100ms": 0,
+          "sum": 473.901622
+        },
+        "total_ms": {
+          "maximum": 139.780542,
+          "median": 114.20931300000001,
+          "over_100ms": 41,
+          "sum": 5472.20246
+        },
+        "update_ms": {
+          "maximum": 9.123459,
+          "median": 0.785021,
+          "over_100ms": 0,
+          "sum": 70.296502
+        },
+        "verify_ms": {
+          "maximum": 9.2995,
+          "median": 0.6438955,
+          "over_100ms": 0,
+          "sum": 57.922628
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/1-mariamem-p8-memory.json": "d8277861457cda5b99ffa957203e7210c4961e3c4436715450ce5abc7a0351e5",
+        "measure-v2/1-mariamem-p8.json": "4307149601f601841f61e1832104bd6e58d96d7bfde43a07074041cb27f8409c"
+      },
+      "record": {
+        "backend": "mariamem",
+        "count": 48,
+        "memory": "measure-v2/1-mariamem-p8-memory.json",
+        "negative": false,
+        "parallel": 8,
+        "repetition": 1,
+        "report": "measure-v2/1-mariamem-p8.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "mariamem",
+        "batch_ms": 688.524125,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 595.934,
+        "cpu_user_ms": 3085.455,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 9709,
+        "lifetime_max_rss_bytes": 733429760,
+        "major_faults": 0,
+        "minor_faults": 235064,
+        "parallel": 8,
+        "root_closed_before_forks": true,
+        "root_start_ms": 48.705167,
+        "route": "tcp",
+        "server_version": "12.3.3-MariaDB-embedded",
+        "snapshot_ms": 3.4825,
+        "success": true,
+        "voluntary_switches": 556
+      },
+      "slow_queries": []
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 52199424,
+        "interval_ms": 20,
+        "observed_peak_active_children": 4,
+        "sample_count": 34,
+        "sample_max_gap_ms": 26.120792000000392,
+        "sampled_peak_rss_bytes": 395788288
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 11.901917,
+          "median": 8.7017705,
+          "over_100ms": 0,
+          "sum": 431.458624
+        },
+        "connect_ms": {
+          "maximum": 15.354333,
+          "median": 2.2288544999999997,
+          "over_100ms": 0,
+          "sum": 149.538713
+        },
+        "count_ms": {
+          "maximum": 10.256959,
+          "median": 3.3112085,
+          "over_100ms": 0,
+          "sum": 196.579332
+        },
+        "fork_ms": {
+          "maximum": 69.527459,
+          "median": 45.879833500000004,
+          "over_100ms": 0,
+          "sum": 2241.154872
+        },
+        "ready_ms": {
+          "maximum": 72.002541,
+          "median": 49.0886245,
+          "over_100ms": 0,
+          "sum": 2449.049668
+        },
+        "select_ms": {
+          "maximum": 4.541375,
+          "median": 0.840167,
+          "over_100ms": 0,
+          "sum": 58.341169
+        },
+        "sql_ms": {
+          "maximum": 10.781083,
+          "median": 4.3969585,
+          "over_100ms": 0,
+          "sum": 247.812292
+        },
+        "total_ms": {
+          "maximum": 85.371875,
+          "median": 63.642479,
+          "over_100ms": 0,
+          "sum": 3128.342622
+        },
+        "update_ms": {
+          "maximum": 2.465959,
+          "median": 0.39408350000000003,
+          "over_100ms": 0,
+          "sum": 30.477838
+        },
+        "verify_ms": {
+          "maximum": 1.231083,
+          "median": 0.31508349999999996,
+          "over_100ms": 0,
+          "sum": 20.716375
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/1-mariamem-p4-memory.json": "f33dbae6bfd577a968076e7ef081ff931b0a2c713f2e18a4e5d872f8e35f604e",
+        "measure-v2/1-mariamem-p4.json": "a90af866725c2fa810812139d03b8a364ff362f38dbc906fa6e6137767e693c4"
+      },
+      "record": {
+        "backend": "mariamem",
+        "count": 48,
+        "memory": "measure-v2/1-mariamem-p4-memory.json",
+        "negative": false,
+        "parallel": 4,
+        "repetition": 1,
+        "report": "measure-v2/1-mariamem-p4.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "mariamem",
+        "batch_ms": 783.79525,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 529.371,
+        "cpu_user_ms": 2672.144,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 11711,
+        "lifetime_max_rss_bytes": 459210752,
+        "major_faults": 0,
+        "minor_faults": 233917,
+        "parallel": 4,
+        "root_closed_before_forks": true,
+        "root_start_ms": 44.882084,
+        "route": "tcp",
+        "server_version": "12.3.3-MariaDB-embedded",
+        "snapshot_ms": 2.754375,
+        "success": true,
+        "voluntary_switches": 399
+      },
+      "slow_queries": []
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 52068352,
+        "interval_ms": 20,
+        "observed_peak_active_children": 4,
+        "sample_count": 32,
+        "sample_max_gap_ms": 30.74641600000126,
+        "sampled_peak_rss_bytes": 395837440
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 11.034625,
+          "median": 8.9684375,
+          "over_100ms": 0,
+          "sum": 433.536414
+        },
+        "connect_ms": {
+          "maximum": 8.713625,
+          "median": 2.0606045,
+          "over_100ms": 0,
+          "sum": 126.887965
+        },
+        "count_ms": {
+          "maximum": 7.726875,
+          "median": 2.8270415,
+          "over_100ms": 0,
+          "sum": 155.428624
+        },
+        "fork_ms": {
+          "maximum": 52.582458,
+          "median": 46.2143125,
+          "over_100ms": 0,
+          "sum": 2190.379373
+        },
+        "ready_ms": {
+          "maximum": 54.686666,
+          "median": 49.3904795,
+          "over_100ms": 0,
+          "sum": 2370.220083
+        },
+        "select_ms": {
+          "maximum": 5.714709,
+          "median": 0.6715835,
+          "over_100ms": 0,
+          "sum": 52.938168
+        },
+        "sql_ms": {
+          "maximum": 8.252959,
+          "median": 3.8180625,
+          "over_100ms": 0,
+          "sum": 202.263831
+        },
+        "total_ms": {
+          "maximum": 69.538334,
+          "median": 62.3709165,
+          "over_100ms": 0,
+          "sum": 3006.044081
+        },
+        "update_ms": {
+          "maximum": 2.7655,
+          "median": 0.418604,
+          "over_100ms": 0,
+          "sum": 26.473334
+        },
+        "verify_ms": {
+          "maximum": 1.0645,
+          "median": 0.31120800000000004,
+          "over_100ms": 0,
+          "sum": 20.322874
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/2-mariamem-p4-memory.json": "c596d6f70ea49dc2088558e4b3e28e1dcb7cd56f72121af784894e34a4e3e5eb",
+        "measure-v2/2-mariamem-p4.json": "a90c5498c12b953a25dfd780f96a9fabdb83a502cee60dc88ad6fd27422d7ad2"
+      },
+      "record": {
+        "backend": "mariamem",
+        "count": 48,
+        "memory": "measure-v2/2-mariamem-p4-memory.json",
+        "negative": false,
+        "parallel": 4,
+        "repetition": 2,
+        "report": "measure-v2/2-mariamem-p4.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "mariamem",
+        "batch_ms": 754.164375,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 531.298,
+        "cpu_user_ms": 2669.815,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 11167,
+        "lifetime_max_rss_bytes": 515883008,
+        "major_faults": 0,
+        "minor_faults": 233987,
+        "parallel": 4,
+        "root_closed_before_forks": true,
+        "root_start_ms": 41.997625,
+        "route": "tcp",
+        "server_version": "12.3.3-MariaDB-embedded",
+        "snapshot_ms": 2.811542,
+        "success": true,
+        "voluntary_switches": 611
+      },
+      "slow_queries": []
+    },
+    {
+      "memory": {
+        "baseline_rss_bytes": 52281344,
+        "interval_ms": 20,
+        "observed_peak_active_children": 8,
+        "sample_count": 36,
+        "sample_max_gap_ms": 31.658042000000123,
+        "sampled_peak_rss_bytes": 725319680
+      },
+      "phases": {
+        "cleanup_ms": {
+          "maximum": 23.438417,
+          "median": 10.983541500000001,
+          "over_100ms": 0,
+          "sum": 549.063416
+        },
+        "connect_ms": {
+          "maximum": 33.642834,
+          "median": 4.812271,
+          "over_100ms": 0,
+          "sum": 411.181212
+        },
+        "count_ms": {
+          "maximum": 408.099792,
+          "median": 4.224188,
+          "over_100ms": 2,
+          "sum": 1044.312085
+        },
+        "fork_ms": {
+          "maximum": 97.508292,
+          "median": 70.566667,
+          "over_100ms": 0,
+          "sum": 3293.386918
+        },
+        "ready_ms": {
+          "maximum": 101.654625,
+          "median": 83.559021,
+          "over_100ms": 1,
+          "sum": 3771.805464
+        },
+        "select_ms": {
+          "maximum": 5.703959,
+          "median": 0.8951875,
+          "over_100ms": 0,
+          "sum": 67.221916
+        },
+        "sql_ms": {
+          "maximum": 409.015209,
+          "median": 5.8516045,
+          "over_100ms": 2,
+          "sum": 1157.018916
+        },
+        "total_ms": {
+          "maximum": 490.59975,
+          "median": 103.6610205,
+          "over_100ms": 29,
+          "sum": 5477.95175
+        },
+        "update_ms": {
+          "maximum": 11.952458,
+          "median": 0.7142710000000001,
+          "over_100ms": 0,
+          "sum": 62.77925
+        },
+        "verify_ms": {
+          "maximum": 6.866084,
+          "median": 0.4832915,
+          "over_100ms": 0,
+          "sum": 49.892249
+        }
+      },
+      "raw_sha256": {
+        "measure-v2/2-mariamem-p8-memory.json": "717641ba29b531ab424cc72dada9675c2db2fa07dbbffdade1e7cc578ce88d6b",
+        "measure-v2/2-mariamem-p8.json": "41a660eb3c436e8b0178e334217b2e7335175373accb0686cd0d72700b2941e6"
+      },
+      "record": {
+        "backend": "mariamem",
+        "count": 48,
+        "memory": "measure-v2/2-mariamem-p8-memory.json",
+        "negative": false,
+        "parallel": 8,
+        "repetition": 2,
+        "report": "measure-v2/2-mariamem-p8.json",
+        "returncode": 0,
+        "warmup": false
+      },
+      "result": {
+        "backend": "mariamem",
+        "batch_ms": 871.387875,
+        "cleanup_complete": true,
+        "corrupt_seed": false,
+        "count": 48,
+        "cpu_system_ms": 564.781,
+        "cpu_user_ms": 3061.52,
+        "go": "go1.27.3",
+        "gomaxprocs": 8,
+        "involuntary_switches": 9017,
+        "lifetime_max_rss_bytes": 725843968,
+        "major_faults": 0,
+        "minor_faults": 234737,
+        "parallel": 8,
+        "root_closed_before_forks": true,
+        "root_start_ms": 43.935458,
+        "route": "tcp",
+        "server_version": "12.3.3-MariaDB-embedded",
+        "snapshot_ms": 2.755459,
+        "success": true,
+        "voluntary_switches": 419
+      },
+      "slow_queries": [
+        {
+          "cleanup_complete": true,
+          "cleanup_ms": 8.634375,
+          "connect_ms": 1.068125,
+          "count_ms": 408.099792,
+          "fork_ms": 71.463167,
+          "index": 28,
+          "offset_ms": 324.574667,
+          "oracle": true,
+          "ready_ms": 72.949542,
+          "select_ms": 0.417791,
+          "sql_ms": 409.015209,
+          "total_ms": 490.59975,
+          "update_ms": 0.52975,
+          "verify_ms": 0.384542
+        },
+        {
+          "cleanup_complete": true,
+          "cleanup_ms": 9.070458,
+          "connect_ms": 2.02525,
+          "count_ms": 382.37025,
+          "fork_ms": 62.905917,
+          "index": 33,
+          "offset_ms": 413.5315,
+          "oracle": true,
+          "ready_ms": 65.544834,
+          "select_ms": 0.61325,
+          "sql_ms": 383.238292,
+          "total_ms": 457.854125,
+          "update_ms": 0.500166,
+          "verify_ms": 0.366791
+        }
+      ]
+    }
+  ]
+}

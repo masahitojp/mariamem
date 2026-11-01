@@ -1,0 +1,54 @@
+{
+  "result": "SOURCE_CORRESPONDENCE_PASS_NOT_BUILT",
+  "issue": 63,
+  "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "patch_sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16",
+  "files": {
+    "mysys/my_largepage.c": {
+      "sha256": "7375cc5e78ddc18d2aa584b8855e84cff9faf4b0b7f32336257795c2a76f39e6",
+      "bytes": 15576,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/my_largepage.c",
+      "adopted_patched_sha256": "a70dfe799d6e7091f4d5c8f8221a658171a309658010ef4c46dbf9ca832bbe4b"
+    },
+    "mysys/my_virtual_mem.c": {
+      "sha256": "88f26c781f18ff863eb3b4dda29d852d6ad2a0bacd726257a2038ffb2441183d",
+      "bytes": 6583,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/my_virtual_mem.c",
+      "adopted_patched_sha256": "ea8d8902f9ac07987defed73e64a3dd974705f94e24bb29728c07797d75855d0"
+    },
+    "include/my_sys.h": {
+      "sha256": "6bb33d3a73da64c1061541697bf6d546cc480b3dbcc0c640bc885fc0860b906f",
+      "bytes": 53921,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/include/my_sys.h"
+    },
+    "include/my_virtual_mem.h": {
+      "sha256": "dc82c01cdc35851091d63f5c99f1bd544e832aec10c76ab3b84d07896ddccc18",
+      "bytes": 1255,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/include/my_virtual_mem.h"
+    },
+    "storage/innobase/buf/buf0buf.cc": {
+      "sha256": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1",
+      "bytes": 127038,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/buf/buf0buf.cc"
+    },
+    "storage/innobase/include/buf0buf.h": {
+      "sha256": "01532d5d3495f1cb73a9c269b61e49e2671c5c43de37b9a10344b71192df8727",
+      "bytes": 69385,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/include/buf0buf.h"
+    }
+  },
+  "proposed_modified_files": [
+    "mysys/my_largepage.c",
+    "include/my_sys.h",
+    "storage/innobase/buf/buf0buf.cc"
+  ],
+  "proof_scope": "inspected allocation/reserve/release path and stable existing entry; no claim of whole-repository caller census",
+  "not_done": [
+    "guest source candidate",
+    "guest build",
+    "Go regeneration",
+    "allocation failure runtime verification",
+    "platform acceptance"
+  ]
+}

@@ -2,6 +2,9 @@
 
 ## Recent measurement and discovery reports
 
+- [Issue68 per-query latency](sql-tail.md): the long wait reproduced in the first
+  COUNT/SUM; includes an independent [Issue63 source plan](../docs/reviews/issue63-buffer-alignment-source-plan.md).
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained

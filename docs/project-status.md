@@ -14,6 +14,20 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Post-release performance follow-ups — Issue68 and Issue63
+
+The Human authorized work on intermittent SQL latency and avoidable Fork
+initialization on 2026-11-02. [Issue68](https://github.com/masahitojp/mariamem/issues/68)
+owns the SQL investigation; the first bounded query-level observation reproduced
+the long wait in COUNT/SUM ([report](../benchmarks/sql-tail.md)), without establishing
+its root cause or applying a fix. Existing
+[Issue63](https://github.com/masahitojp/mariamem/issues/63) owns buffer-pool alignment;
+its [scoped guest source plan](reviews/issue63-buffer-alignment-source-plan.md)
+preserves the old allocator entry and zero-filled contract. Canonical guest
+implementation/regeneration and candidate adoption remain unfinished. These
+follow-ups do not change the published release or add a release gate. The Issues
+own actionable checklists; historical benchmark receipts retain their own source.
+
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
 [PR35](https://github.com/masahitojp/mariamem/pull/35) moved heavy product acceptance

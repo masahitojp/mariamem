@@ -1,0 +1,10 @@
+{
+  "ref": "refs/heads/evidence/sql-tail-20261102",
+  "source_commit": "67326e124005a8f3b759f459568f3010306c98c5",
+  "path": "raw.tar.gz",
+  "bytes": 109832,
+  "sha256": "40971e8a1850de76d349e4e67980629d6a08f0385e39bc65e8a7c4d4e2573dc5",
+  "members": 45,
+  "normalization": "workspace prefix only; per-file original/published hashes in archive",
+  "scope": "Issue68 normal SQL path and issue63 read-only source design; no product changes"
+}
