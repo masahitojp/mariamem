@@ -1,0 +1,124 @@
+{
+  "1": {
+    "children": 144,
+    "count_ms": {
+      "max": 784.487333,
+      "median": 4.3934999999999995,
+      "p95": 18.010958
+    },
+    "metrics": {
+      "baseline_rss_bytes": {
+        "median": 52920320,
+        "values": [
+          52510720,
+          52920320,
+          53035008
+        ]
+      },
+      "batch_ms": {
+        "median": 922.24125,
+        "values": [
+          734.459541,
+          1442.090833,
+          922.24125
+        ]
+      },
+      "cpu_ms": {
+        "median": 3840.46,
+        "values": [
+          3728.983,
+          3840.46,
+          3844.304
+        ]
+      },
+      "lifetime_max_rss_bytes": {
+        "median": 732626944,
+        "values": [
+          732626944,
+          733249536,
+          715472896
+        ]
+      },
+      "sampled_peak_rss_bytes": {
+        "median": 732545024,
+        "values": [
+          732545024,
+          732889088,
+          706166784
+        ]
+      }
+    },
+    "processes": 3,
+    "slow_count_over_100ms": 3,
+    "slow_samples": [
+      {
+        "count_ms": 784.487333,
+        "index": 42,
+        "run": "measure-v2/1-io1-plain-p8.json"
+      },
+      {
+        "count_ms": 401.759583,
+        "index": 29,
+        "run": "measure-v2/2-io1-plain-p8.json"
+      },
+      {
+        "count_ms": 375.959916,
+        "index": 34,
+        "run": "measure-v2/2-io1-plain-p8.json"
+      }
+    ]
+  },
+  "4": {
+    "children": 144,
+    "count_ms": {
+      "max": 51.928083,
+      "median": 4.460042,
+      "p95": 13.011458
+    },
+    "metrics": {
+      "baseline_rss_bytes": {
+        "median": 52854784,
+        "values": [
+          52854784,
+          52576256,
+          52871168
+        ]
+      },
+      "batch_ms": {
+        "median": 672.742292,
+        "values": [
+          644.649542,
+          672.742292,
+          761.978916
+        ]
+      },
+      "cpu_ms": {
+        "median": 3776.8799999999997,
+        "values": [
+          3741.147,
+          3776.8799999999997,
+          3943.775
+        ]
+      },
+      "lifetime_max_rss_bytes": {
+        "median": 735920128,
+        "values": [
+          735920128,
+          727351296,
+          768557056
+        ]
+      },
+      "sampled_peak_rss_bytes": {
+        "median": 731496448,
+        "values": [
+          734937088,
+          720814080,
+          731496448
+        ]
+      }
+    },
+    "processes": 3,
+    "slow_count_over_100ms": 0,
+    "slow_samples": []
+  }
+}

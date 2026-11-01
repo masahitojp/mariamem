@@ -1,0 +1,10 @@
+{
+  "ref": "refs/heads/evidence/read-io4-20261102",
+  "source_commit": "e400bb9bb433be3530ca01e347de3a02f816de08",
+  "path": "raw.tar.gz",
+  "bytes": 1972167,
+  "sha256": "08220e5d7942b5daa7054027ac4f22801efa8929158bf84064dc7a0fc907de11",
+  "members": 60,
+  "normalization": "workspace prefix only; per-file original/published hashes in archive",
+  "scope": "Issue68 fixed read IO 1/4 local trial; diagnostic pilots separate from plain observations; no product adoption"
+}

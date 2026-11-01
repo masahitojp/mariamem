@@ -14,15 +14,19 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Issue #68 — experimental startup pool attribution
+## Issue #68 — read I/O configuration prototype measured
 
-The [bounded diagnostic](../benchmarks/sql-concurrency.md) attributes transient
-pool concurrency=1 to upstream InnoDB startup buffer-pool loading combined with
-the pinned WASIX recipe (`innodb-read-io-threads=1`). Host CPU count is correctly
-8 and initial pool concurrency is 16. Nine children passed; this checkpoint did
-not reproduce the earlier ~800 ms wait and makes no fix/performance claim.
-[Issue #68](https://github.com/masahitojp/mariamem/issues/68) remains open; a
-startup-cache-load A/B is recommended, not adopted. No main/runtime change.
+The [bounded read1/read4 comparison](../benchmarks/read-io4.md) follows the
+[source attribution](../benchmarks/sql-concurrency.md). Six plain P8 processes,
+48 children each, observe three long COUNT waits with read1 and zero >100ms
+with read4 (144 children per variant); all three paired batches are shorter.
+All SQL/isolation/cleanup oracles pass. SQL confirms effective write2/purge1/
+nativeAIO0 remain fixed; the recipe's write1 argument is below upstream minimum2.
+CPU/RSS observations do not establish resource equivalence. This is a one-byte
+startup-argument prototype in generated data, not a rebuilt canonical guest.
+[Issue #68](https://github.com/masahitojp/mariamem/issues/68) remains open; the
+recommendation is a minimal reproducibly rebuilt read4 guest candidate for
+adoption review. No correction adopted/main integration/qualification/release.
 
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 

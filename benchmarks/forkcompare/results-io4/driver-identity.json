@@ -1,0 +1,10 @@
+{
+  "binary_harness_source_commit": "cba5bff82ca4f3c7bd833ad49749ca2ee062686f",
+  "driver_source_commit": "01d3c7d273c4427dabf88f897227bed279e28fa4",
+  "changed_paths": [
+    "benchmarks/forkcompare/analyze-io4.py",
+    "benchmarks/forkcompare/plan.json",
+    "benchmarks/forkcompare/run.py"
+  ],
+  "runtime_and_probe_tree_equal": true
+}

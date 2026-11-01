@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [Issue #68: read I/O 1→4 trial](read-io4.md): fixed P8 comparison observes
+  fewer long COUNT waits and shorter batches; generated-byte configuration
+  prototype only, before a reproducibly rebuilt guest candidate.
+
 - [Issue #68: pool concurrency attribution](sql-concurrency.md): host CPU count
   is correct; upstream startup buffer-pool loading temporarily uses the WASIX
   recipe's read-I/O thread count of 1. Diagnostic only; no correction adopted.
