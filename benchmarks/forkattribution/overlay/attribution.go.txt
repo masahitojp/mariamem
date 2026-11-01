@@ -1,8 +1,8 @@
 package generatedgo
-import("syscall";"time")
+import("syscall";"time";"sync/atomic")
 // Experiment-only hook. It blocks only in the separately instrumented stage binary.
-var AttributionHook func(string,[]byte,float64,float64)
+var AttributionHook func(string,[]byte,*atomic.Uint64,float64,float64)
 type attributionStart struct{at time.Time; cpu float64}
 func attributionCPU()float64{var r syscall.Rusage;if e:=syscall.Getrusage(syscall.RUSAGE_SELF,&r);e!=nil{panic(e)};return float64(r.Utime.Sec+r.Stime.Sec)*1000+float64(r.Utime.Usec+r.Stime.Usec)/1000}
 func attributionBegin()attributionStart{return attributionStart{time.Now(),attributionCPU()}}
-func attributionEnd(stage string,s attributionStart,memory []byte){wall:=float64(time.Since(s.at))/1e6;cpu:=attributionCPU()-s.cpu;if AttributionHook!=nil{AttributionHook(stage,memory,wall,cpu)}}
+func attributionEnd(stage string,s attributionStart,memory []byte,size *atomic.Uint64){wall:=float64(time.Since(s.at))/1e6;cpu:=attributionCPU()-s.cpu;if AttributionHook!=nil{AttributionHook(stage,memory,size,wall,cpu)}}

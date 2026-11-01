@@ -14,13 +14,13 @@ func newMemoryModule(h *host) (m *base.Module, release func() error, err error) 
 	return initializeMemoryModule(func() (*base.MemoryMapping, error) {
         at := attributionBegin()
         b, e := base.NewMemoryMapping(generated.InitialMemoryBytes, 2<<30)
-        if e == nil { attributionEnd("reserve", at, b.Bytes()[:generated.InitialMemoryBytes]) }
+        if e == nil { attributionEnd("reserve", at, b.Bytes()[:generated.InitialMemoryBytes], nil) }
         return b, e
     }, func(b *base.MemoryMapping) *base.Module {
 		at := attributionBegin()
 		m := generated.NewWithMemory(h, nil, h, b.Bytes(), generated.InitialMemoryBytes)
 		installGuestThreadLifetime(m)
-		attributionEnd("construct", at, m.Memory[:generated.InitialMemoryBytes])
+		attributionEnd("construct", at, m.Memory, m.MemSize)
 		return m
 	})
 }

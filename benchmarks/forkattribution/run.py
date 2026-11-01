@@ -90,7 +90,9 @@ def main():
             else:
                 assert d['cleanup_complete'] and len(d['events'])==11
                 assert d['events'][-1]['mapping']['active_mappings']==0
-                assert all(x['mapping']['grow_calls']==x['mapping']['creates'] for x in d['events']), 'guest grew beyond observed span'
+                assert all(x['guest_observed_bytes'] >= 268435456 for x in d['events'] if x['stage'].endswith(('_ready','_checked'))), 'incomplete guest span'
+                checked=[x for x in d['events'] if x['stage'].endswith('_checked')]
+                assert checked[-1]['mapping']['active_rw_bytes']==sum(x['guest_observed_bytes'] for x in checked), 'unobserved grown memory'
                 assert [x['stage'] for x in rss]==[x['stage'] for x in d['events']]
         row=dict(name=name,negative=negative,report=name+'.json',rss=name+'.rss.json' if label=='stages' else None,profile=name+'.pprof' if label=='profile' else None,returncode=code,scratch_empty=True)
         records.append(row);save(E/(phase+'-records.json'),records);print('PASS',name,flush=True)

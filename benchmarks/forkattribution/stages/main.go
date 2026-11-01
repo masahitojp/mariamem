@@ -66,9 +66,7 @@ func resident(b []byte) ([]byte, error) {
 }
 func compare(a, b []byte) (Comparison, error) {
 	c := Comparison{PageBytes: os.Getpagesize()}
-	if len(a) != len(b) {
-		return c, errors.New("different guest spans")
-	}
+
 	av, e := resident(a)
 	if e != nil {
 		return c, e
@@ -78,8 +76,8 @@ func compare(a, b []byte) (Comparison, error) {
 		return c, e
 	}
 	zero := make([]byte, c.PageBytes)
-	for i := range av {
-		ar, br := av[i]&1 != 0, bv[i]&1 != 0
+	for i := 0; i < max(len(av), len(bv)); i++ {
+		ar, br := i < len(av) && av[i]&1 != 0, i < len(bv) && bv[i]&1 != 0
 		switch {
 		case ar && br:
 			c.BothResident++
@@ -171,12 +169,17 @@ func run(corrupt bool) (err error) {
 	defer cancel()
 	var mu sync.Mutex
 	var current []byte
+	var currentSize *atomic.Uint64
 	var enabled atomic.Bool
 	var child atomic.Int32
-	generatedgo.AttributionHook = func(stage string, b []byte, wall, cpu float64) {
+	generatedgo.AttributionHook = func(stage string, b []byte, size *atomic.Uint64, wall, cpu float64) {
 		mu.Lock()
 		current = b
+		currentSize = size
 		mu.Unlock()
+		if size != nil {
+			b = b[:int(size.Load())]
+		}
 		if enabled.Load() {
 			if e := checkpoint(fmt.Sprintf("child%d_%s", child.Load(), stage), b, wall, cpu); e != nil {
 				panic(e)
@@ -211,15 +214,19 @@ func run(corrupt bool) (err error) {
 		}
 		children = append(children, d)
 		mu.Lock()
-		memory := current
+		memory := current[:int(currentSize.Load())]
 		mu.Unlock()
-		memories = append(memories, memory)
+
 		if e = checkpoint(fmt.Sprintf("child%d_ready", i), memory, 0, 0); e != nil {
 			return e
 		}
 		if e = common.CheckChild(ctx, d, corrupt); e != nil {
 			return e
 		}
+		mu.Lock()
+		memory = current[:int(currentSize.Load())]
+		mu.Unlock()
+		memories = append(memories, memory)
 		if e = checkpoint(fmt.Sprintf("child%d_checked", i), memory, 0, 0); e != nil {
 			return e
 		}
