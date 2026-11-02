@@ -14,6 +14,33 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## v0.7.0 performance/resource scope — selected, Issue63 implementation authorized
+
+On 2026-11-02 the Human requested updating the
+[v0.7.0 milestone](https://github.com/masahitojp/mariamem/milestone/4) from the
+[comparison proposal](https://github.com/masahitojp/mariamem/blob/2add44846382f42b118de786c11a4a87bfac8574/benchmarks/v070-performance-resource-proposal.md),
+then starting [Issue63](https://github.com/masahitojp/mariamem/issues/63).
+The common report includes 48-child batch wall, serial Fork CPU/wall, held-child
+RSS and child-maximum queue-delay distribution. Source, fixture, host/toolchain
+and observation mode must remain identifiable; historical cohorts are reference
+values, not one matched baseline. Findings and costs support a recommendation;
+missing evidence or conflicting effects can end in an inconclusive decision.
+
+The first implementation candidate removes the buffer-pool allocation/alignment
+retry with a scoped WASM-only internal helper. Existing zero-fill, NULL-on-failure,
+legacy 4KiB alignment and original-pointer release remain required. This authorizes
+an experimental source patch, single guest build/regeneration and bounded focused
+verification, not main adoption or release. The Issue owns execution tracking;
+the [candidate checkpoint](reviews/issue63-buffer-alignment-candidate.md) fixes the
+initial source/budget and what has actually been checked.
+
+Resource guidance reuses existing small-fixture evidence and the separate #53
+Fork-limit work. Large fixtures, FD/connection tuning, sharing/COW and automatic
+resource control remain later candidates. #68 stays stopped; the read-thread
+default is unchanged. No universal improvement percentage or product adoption
+of #56/#64 is implied. The older v0.7.x direction below is historical context;
+the milestone owns the selected scope and later candidate decisions.
+
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
 [PR35](https://github.com/masahitojp/mariamem/pull/35) moved heavy product acceptance

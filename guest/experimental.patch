@@ -1,0 +1,74 @@
+--- a/mysys/my_largepage.c
++++ b/mysys/my_largepage.c
+@@ -430,20 +430,26 @@
+   more memory later.
+   Every implementation returns a zero filled buffer here.
+ */
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++/* WASM reservations are committed and zero-filled; preserve free(ptr). */
++char *my_large_virtual_alloc_aligned(size_t *size, size_t alignment)
++{
++  void *p= NULL;
++  DBUG_ENTER("my_large_virtual_alloc_aligned");
++  if (posix_memalign(&p, alignment, *size))
++    DBUG_RETURN(NULL);
++  memset(p, 0, *size);
++  DBUG_RETURN((char *) p);
++}
++#endif
++
+ char *my_large_virtual_alloc(size_t *size)
+ {
+   char *ptr;
+   DBUG_ENTER("my_large_virtual_alloc");
+ 
+ #if defined(__EMSCRIPTEN__) || defined(__wasi__)
+-  /* WASM has no useful PROT_NONE reservation; allocate committed pages. */
+-  {
+-    void *p= NULL;
+-    if (posix_memalign(&p, 4096, *size))
+-      DBUG_RETURN(NULL);
+-    memset(p, 0, *size);
+-    DBUG_RETURN(p);
+-  }
++  DBUG_RETURN(my_large_virtual_alloc_aligned(size, 4096));
+ #endif
+ 
+   if (my_use_large_pages)
+--- a/include/my_sys.h
++++ b/include/my_sys.h
+@@ -188,6 +188,9 @@
+ /* On Windows, use my_virtual_mem_reserve() and my_virtual_mem_commit(). */
+ #else
+ char *my_large_virtual_alloc(size_t *size);
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++char *my_large_virtual_alloc_aligned(size_t *size, size_t alignment);
++#endif
+ #endif
+ void my_large_free(void *ptr, size_t size);
+ void my_large_page_truncate(size_t *size);
+--- a/storage/innobase/buf/buf0buf.cc
++++ b/storage/innobase/buf/buf0buf.cc
+@@ -61,6 +61,9 @@
+ #include <sstream>
+ #include "log.h"
+ #include "my_virtual_mem.h"
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++#include <my_sys.h>
++#endif
+ 
+ using st_::span;
+ 
+@@ -1371,7 +1374,12 @@
+  retry:
+   {
+     NUMA_MEMPOLICY_INTERLEAVE_IN_SCOPE;
++#if defined(__EMSCRIPTEN__) || defined(__wasi__)
++    memory_unaligned= my_large_virtual_alloc_aligned(
++        &size, innodb_buffer_pool_extent_size);
++#else
+     memory_unaligned= my_virtual_mem_reserve(&size);
++#endif
+     if (memory_unaligned);
+ #if defined __aarch64__ || defined __riscv || defined __mips__ || defined __loongarch64
+     else if (size_in_bytes_max_default != 0 &&
