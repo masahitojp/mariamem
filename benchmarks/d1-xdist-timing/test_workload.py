@@ -25,3 +25,6 @@ for number in range(8):
     methods = {'test_%03d' % i: base.test_first if i % 2 else base.test_second
                for i in range(size - 2)}
     globals()['TestWorkload%02d' % number] = type('TestWorkload%02d' % number, (base,), methods)
+
+# Do not expose the loop alias as an extra unittest class to pytest.
+del base, methods, number, size
