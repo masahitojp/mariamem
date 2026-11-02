@@ -1,0 +1,17 @@
+{
+  "source_commit": "eecd8f7c5fd9df30a3d65c29398e416138fa94b4",
+  "candidate_source_commit": "d99f07cd16a8a11c1644225206a3d1fcc0a39edd",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "python": "3.11.18 (main, Oct 25 2026, 19:41:29) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "cpu_count": 8,
+  "host_sha256": "81876462fd73cdd288e91b8fd6eec1a704b0bd36d5e932bf416d76d47fa07c9d",
+  "versions": {
+    "mariamem": "0.6.0",
+    "Django": "5.2.8",
+    "pytest": "9.0.2",
+    "pytest-django": "4.12.0",
+    "pytest-xdist": "3.8.0",
+    "execnet": "2.1.2",
+    "mysqlclient": "2.2.7"
+  }
+}

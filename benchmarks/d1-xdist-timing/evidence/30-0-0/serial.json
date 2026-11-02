@@ -1,0 +1,17 @@
+{
+  "worker": "serial",
+  "pid": 69324,
+  "counts": {
+    "start": 1,
+    "snapshot": 9,
+    "fork": 249
+  },
+  "seconds": {
+    "start": 0.050992999924346805,
+    "snapshot": 0.04034333396703005,
+    "fork": 9.040911054122262
+  },
+  "host_pids": [
+    69332
+  ]
+}
