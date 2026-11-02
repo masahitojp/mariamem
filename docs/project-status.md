@@ -2221,3 +2221,10 @@ explicitly requested minimal new verification: retain the prior6.1 evidence,
 check6.0 healthy lifecycle and changed packaging/profile guards; do not start
 a full Release campaign. Opposite-platform6.x acceptance will run in the existing
 Release job when next invoked. No adapter/runtime, version or publication change.
+
+The [minimal verification record](reviews/django6-support.md) pins the change to
+`98f063887fdb3f46597eaf422d29814de0493feb`:36 focused recipe/profile tests,
+generated-extra metadata and3 healthy Django6.0.9 source-entry assessments PASS.
+The prior6.1.2 probe is retained without rerun. Implementation is ready for
+normal protected integration; fresh opposite-platform6.x evidence is deferred
+to the next existing Release invocation under the Human's minimal-check request.
