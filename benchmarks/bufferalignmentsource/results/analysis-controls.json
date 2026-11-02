@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "controls": {
+    "missing-pair": "REJECTED",
+    "duplicate-trial": "REJECTED",
+    "silent-oracle-failure": "REJECTED",
+    "cleanup-leak": "REJECTED"
+  }
+}

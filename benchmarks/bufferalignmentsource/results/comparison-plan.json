@@ -1,0 +1,31 @@
+{
+  "result": "PLAN_BEFORE_MEASUREMENT",
+  "baseline_source_commit": "c4742390cf4553636ceaa23c6732d48f76a37c9c",
+  "candidate_source_commit": "d86153409067e6ad868b566872a3c4a9495ef5f7",
+  "host": {
+    "os": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "go": "go1.26.10",
+    "gomaxprocs": 8,
+    "cgo": 0
+  },
+  "fixture": "1000 rows (id,v)=(1,1)..(1000,1000), fork_probe InnoDB; TCP go-sql-driver/mysql1.9.3; read/write/purge=1/2/1 native_aio=0",
+  "runs": {
+    "warmup": "one baseline/candidate fresh process per mode, excluded",
+    "serial": "five alternating paired fresh processes, four sequentially held children; median within process then median across five",
+    "batch": "five alternating pairs at P8 and separate five pairs at P4;48 independent children per process; root/Snapshot excluded; all child closes included"
+  },
+  "rss": "same process baseline to held1/2/4 deltas; GC then500ms idle at every checkpoint; ps current RSS in KiB; closed checkpoint also measured",
+  "queue": "N/A at this checkpoint: old numeric Fn anchors have not been bound to regenerated candidate; do not reuse blindly",
+  "mechanism": "separate observer pilot only; count large zero fills by child, not timings in main comparison",
+  "correctness": "pristine count1000/sum500500, independent update id1 to2, held children each sum500501, final active mappings/RW/reservation zero, empty owned scratch; controlled negative must fail and clean",
+  "stop": "no retry until performance passes; five pairs fixed; any oracle/cleanup failure stops performance assessment; missing queue means overall four-field adoption verdict INCONCLUSIVE",
+  "adoption": "no automatic adoption threshold; report paired effects, opposing cases and costs; no claim of statistical significance from five pairs",
+  "sources_sha256": {
+    "measure/main.go": "c1a40c0a7981285de5e02a09376f6e179a839bc1d72e0ee284d8cd4a98d52ddf",
+    "common/common.go": "5adea162ccfd318558303c3916b71290eb6cd16dbe9aa2da2a590210eb5b8ed9"
+  },
+  "host_source_commit": "6460e64561be5779c837657bcc56993fb1f99f75",
+  "candidate_source_commit_is_guest_origin": true,
+  "preflight_correction": "No measured pair executed: initial expectation write_io_threads=1 was wrong; actual unchanged product default is2. Preserve failure, fix expectation for both variants before measurement."
+}

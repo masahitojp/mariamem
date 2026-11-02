@@ -41,6 +41,12 @@ default is unchanged. No universal improvement percentage or product adoption
 of #56/#64 is implied. The older v0.7.x direction below is historical context;
 the milestone owns the selected scope and later candidate decisions.
 
+**Issue63 experimental checkpoint completed:** the source-built guest and rebound
+native smoke PASS; the [five-pair comparison](../benchmarks/buffer-alignment-source.md)
+confirms duplicate zeroing removal and lower held RSS. CPU/batch effects conflict;
+queue is missing, so product adoption is INCONCLUSIVE. The finite comparison stops
+here. No main integration, default-setting change or release follows.
+
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
 [PR35](https://github.com/masahitojp/mariamem/pull/35) moved heavy product acceptance

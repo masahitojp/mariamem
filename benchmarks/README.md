@@ -1,5 +1,7 @@
 # Optional lifecycle benchmarks
 
+
+- [Issue63 source-candidate alignment comparison](buffer-alignment-source.md): duplicate zeroing removed; held RSS lower, speed/CPU inconclusive (macOS, Go1.26.10).
 ## Recent measurement and discovery reports
 
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)

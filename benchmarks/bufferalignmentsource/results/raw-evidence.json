@@ -1,0 +1,7 @@
+{
+  "sha256": "07d5e1e9be211e50ba19b0557bc32257be09affd02d1b0590703678fe7f949df",
+  "bytes": 2253489,
+  "members": 152,
+  "ref": "evidence/buffer-alignment-source-20261102",
+  "commit": "cc04b6925bc9df7b42826b86ca4c0de08aaf903f"
+}

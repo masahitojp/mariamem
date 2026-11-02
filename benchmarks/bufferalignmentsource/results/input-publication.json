@@ -1,0 +1,5 @@
+{
+  "normalization": "replace owned workspace absolute prefix with <WORKSPACE> in build-info paths only",
+  "original_sha256": "e6777d05c68a204eeecf78e814d19b1f7a73d1949b586bd6ed351715460ee729",
+  "published_sha256": "87e319ced5acc53426d990b1dfc43b5e38397984c73f592d103970a1942533b8"
+}

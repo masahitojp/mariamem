@@ -1,0 +1,1790 @@
+[
+  {
+    "exit_code": 1,
+    "key": "serial-p8-pilot-negative-baseline-negative",
+    "mode": "serial",
+    "negative": true,
+    "parallel": 8,
+    "rep": "pilot-negative",
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 0,
+      "error": "pristine oracle: count=1000 sum=500498",
+      "forks": [
+        {
+          "cpu_ms": 49.79900000000001,
+          "wall_ms": 38.301125
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 2,
+        "grow_calls": 206,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 687276032,
+        "release_failures": 0,
+        "releases": 2
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": false
+    },
+    "rss_bytes": {
+      "baseline": 51642368,
+      "closed": 54034432
+    },
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 1,
+    "key": "serial-p8-pilot-negative-candidate-negative",
+    "mode": "serial",
+    "negative": true,
+    "parallel": 8,
+    "rep": "pilot-negative",
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 0,
+      "error": "pristine oracle: count=1000 sum=500498",
+      "forks": [
+        {
+          "cpu_ms": 50.839,
+          "wall_ms": 38.543792
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 2,
+        "grow_calls": 194,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 693960704,
+        "release_failures": 0,
+        "releases": 2
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": false
+    },
+    "rss_bytes": {
+      "baseline": 51822592,
+      "closed": 55263232
+    },
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "serial-p8-warmup-baseline",
+    "mode": "serial",
+    "negative": false,
+    "parallel": 8,
+    "rep": "warmup",
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 4,
+      "forks": [
+        {
+          "cpu_ms": 56.69799999999999,
+          "wall_ms": 40.246417
+        },
+        {
+          "cpu_ms": 43.972999999999985,
+          "wall_ms": 37.520667
+        },
+        {
+          "cpu_ms": 49.11899999999997,
+          "wall_ms": 36.853042
+        },
+        {
+          "cpu_ms": 50.478999999999985,
+          "wall_ms": 41.913833
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 513,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2633760768,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {
+      "baseline": 51511296,
+      "child-1": 132759552,
+      "child-2": 214892544,
+      "child-3": 296632320,
+      "child-4": 378339328,
+      "closed": 63045632
+    },
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "serial-p8-warmup-candidate",
+    "mode": "serial",
+    "negative": false,
+    "parallel": 8,
+    "rep": "warmup",
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 4,
+      "forks": [
+        {
+          "cpu_ms": 46.04399999999998,
+          "wall_ms": 34.714792
+        },
+        {
+          "cpu_ms": 46.55000000000001,
+          "wall_ms": 35.960833
+        },
+        {
+          "cpu_ms": 57.89299999999997,
+          "wall_ms": 45.183792
+        },
+        {
+          "cpu_ms": 50.668000000000006,
+          "wall_ms": 39.771708
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 478,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2668101632,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {
+      "baseline": 51789824,
+      "child-1": 132300800,
+      "child-2": 213762048,
+      "child-3": 294354944,
+      "child-4": 375980032,
+      "closed": 64012288
+    },
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "serial-p8-0-baseline",
+    "mode": "serial",
+    "negative": false,
+    "parallel": 8,
+    "rep": 0,
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 4,
+      "forks": [
+        {
+          "cpu_ms": 47.141999999999996,
+          "wall_ms": 38.037458
+        },
+        {
+          "cpu_ms": 50.798,
+          "wall_ms": 38.305583
+        },
+        {
+          "cpu_ms": 52.19200000000001,
+          "wall_ms": 37.872625
+        },
+        {
+          "cpu_ms": 48.61900000000003,
+          "wall_ms": 38.469583
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 516,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2672689152,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {
+      "baseline": 51200000,
+      "child-1": 133873664,
+      "child-2": 215400448,
+      "child-3": 297795584,
+      "child-4": 379551744,
+      "closed": 63438848
+    },
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "serial-p8-0-candidate",
+    "mode": "serial",
+    "negative": false,
+    "parallel": 8,
+    "rep": 0,
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 4,
+      "forks": [
+        {
+          "cpu_ms": 49.04299999999999,
+          "wall_ms": 37.610792
+        },
+        {
+          "cpu_ms": 46.297,
+          "wall_ms": 36.420208
+        },
+        {
+          "cpu_ms": 49.86400000000003,
+          "wall_ms": 38.758875
+        },
+        {
+          "cpu_ms": 47.76399999999995,
+          "wall_ms": 36.810292
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 481,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2627534848,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {
+      "baseline": 52264960,
+      "child-1": 132726784,
+      "child-2": 213303296,
+      "child-3": 294387712,
+      "child-4": 375324672,
+      "closed": 63832064
+    },
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "serial-p8-1-candidate",
+    "mode": "serial",
+    "negative": false,
+    "parallel": 8,
+    "rep": 1,
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 4,
+      "forks": [
+        {
+          "cpu_ms": 55.352000000000004,
+          "wall_ms": 39.315291
+        },
+        {
+          "cpu_ms": 50.34100000000001,
+          "wall_ms": 38.4725
+        },
+        {
+          "cpu_ms": 48.001000000000005,
+          "wall_ms": 37.282166
+        },
+        {
+          "cpu_ms": 51.05600000000004,
+          "wall_ms": 38.361
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 484,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2659713024,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {
+      "baseline": 52314112,
+      "child-1": 132857856,
+      "child-2": 213467136,
+      "child-3": 294912000,
+      "child-4": 375980032,
+      "closed": 63815680
+    },
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "serial-p8-1-baseline",
+    "mode": "serial",
+    "negative": false,
+    "parallel": 8,
+    "rep": 1,
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 4,
+      "forks": [
+        {
+          "cpu_ms": 47.903999999999996,
+          "wall_ms": 36.823958
+        },
+        {
+          "cpu_ms": 49.67100000000002,
+          "wall_ms": 37.648334
+        },
+        {
+          "cpu_ms": 46.64700000000002,
+          "wall_ms": 35.86725
+        },
+        {
+          "cpu_ms": 55.10999999999996,
+          "wall_ms": 40.090875
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 516,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2649030656,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {
+      "baseline": 51970048,
+      "child-1": 133595136,
+      "child-2": 215547904,
+      "child-3": 297385984,
+      "child-4": 379109376,
+      "closed": 63389696
+    },
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "serial-p8-2-baseline",
+    "mode": "serial",
+    "negative": false,
+    "parallel": 8,
+    "rep": 2,
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 4,
+      "forks": [
+        {
+          "cpu_ms": 46.519000000000005,
+          "wall_ms": 36.714667
+        },
+        {
+          "cpu_ms": 44.82400000000001,
+          "wall_ms": 35.431791
+        },
+        {
+          "cpu_ms": 48.77600000000001,
+          "wall_ms": 37.954084
+        },
+        {
+          "cpu_ms": 48.065999999999974,
+          "wall_ms": 38.07275
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 519,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2689466368,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {
+      "baseline": 51871744,
+      "child-1": 133414912,
+      "child-2": 215711744,
+      "child-3": 297795584,
+      "child-4": 379600896,
+      "closed": 63553536
+    },
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "serial-p8-2-candidate",
+    "mode": "serial",
+    "negative": false,
+    "parallel": 8,
+    "rep": 2,
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 4,
+      "forks": [
+        {
+          "cpu_ms": 46.938,
+          "wall_ms": 36.23875
+        },
+        {
+          "cpu_ms": 48.733000000000004,
+          "wall_ms": 36.248917
+        },
+        {
+          "cpu_ms": 43.62700000000001,
+          "wall_ms": 36.198333
+        },
+        {
+          "cpu_ms": 47.09400000000005,
+          "wall_ms": 37.170417
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 474,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2659713024,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {
+      "baseline": 51970048,
+      "child-1": 132874240,
+      "child-2": 214466560,
+      "child-3": 295485440,
+      "child-4": 376029184,
+      "closed": 63750144
+    },
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "serial-p8-3-candidate",
+    "mode": "serial",
+    "negative": false,
+    "parallel": 8,
+    "rep": 3,
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 4,
+      "forks": [
+        {
+          "cpu_ms": 45.925,
+          "wall_ms": 35.1475
+        },
+        {
+          "cpu_ms": 49.672,
+          "wall_ms": 39.015042
+        },
+        {
+          "cpu_ms": 49.72800000000001,
+          "wall_ms": 37.240917
+        },
+        {
+          "cpu_ms": 52.82299999999998,
+          "wall_ms": 38.692
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 481,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2701721600,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {
+      "baseline": 52183040,
+      "child-1": 133300224,
+      "child-2": 213794816,
+      "child-3": 294797312,
+      "child-4": 376160256,
+      "closed": 63930368
+    },
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "serial-p8-3-baseline",
+    "mode": "serial",
+    "negative": false,
+    "parallel": 8,
+    "rep": 3,
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 4,
+      "forks": [
+        {
+          "cpu_ms": 59.446,
+          "wall_ms": 43.202667
+        },
+        {
+          "cpu_ms": 47.111999999999995,
+          "wall_ms": 38.154375
+        },
+        {
+          "cpu_ms": 47.10400000000001,
+          "wall_ms": 39.291583
+        },
+        {
+          "cpu_ms": 47.584,
+          "wall_ms": 36.61425
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 515,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2665807872,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {
+      "baseline": 51560448,
+      "child-1": 133054464,
+      "child-2": 214876160,
+      "child-3": 297287680,
+      "child-4": 379109376,
+      "closed": 63438848
+    },
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "serial-p8-4-baseline",
+    "mode": "serial",
+    "negative": false,
+    "parallel": 8,
+    "rep": 4,
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 4,
+      "forks": [
+        {
+          "cpu_ms": 47.716999999999985,
+          "wall_ms": 35.212875
+        },
+        {
+          "cpu_ms": 58.639999999999986,
+          "wall_ms": 40.117042
+        },
+        {
+          "cpu_ms": 46.71000000000001,
+          "wall_ms": 36.522416
+        },
+        {
+          "cpu_ms": 47.01000000000005,
+          "wall_ms": 36.985333
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 517,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2650537984,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {
+      "baseline": 52117504,
+      "child-1": 133627904,
+      "child-2": 215498752,
+      "child-3": 297156608,
+      "child-4": 379109376,
+      "closed": 63700992
+    },
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "serial-p8-4-candidate",
+    "mode": "serial",
+    "negative": false,
+    "parallel": 8,
+    "rep": 4,
+    "result": {
+      "batch_ms": 0,
+      "cleanup": true,
+      "count": 4,
+      "forks": [
+        {
+          "cpu_ms": 45.301,
+          "wall_ms": 35.877625
+        },
+        {
+          "cpu_ms": 48.51599999999999,
+          "wall_ms": 35.836292
+        },
+        {
+          "cpu_ms": 48.78200000000004,
+          "wall_ms": 35.97825
+        },
+        {
+          "cpu_ms": 47.21100000000001,
+          "wall_ms": 38.370333
+        }
+      ],
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 5,
+        "grow_calls": 482,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2670133248,
+        "release_failures": 0,
+        "releases": 5
+      },
+      "mode": "serial",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {
+      "baseline": 52117504,
+      "child-1": 132857856,
+      "child-2": 213729280,
+      "child-3": 294748160,
+      "child-4": 375259136,
+      "closed": 63537152
+    },
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p8-warmup-baseline",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 8,
+    "rep": "warmup",
+    "result": {
+      "batch_ms": 1421.512791,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 5012,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 5389418496,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p8-warmup-candidate",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 8,
+    "rep": "warmup",
+    "result": {
+      "batch_ms": 1089.078292,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 4647,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 5321719808,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p8-0-baseline",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 8,
+    "rep": 0,
+    "result": {
+      "batch_ms": 999.79375,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 5046,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 5375655936,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p8-0-candidate",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 8,
+    "rep": 0,
+    "result": {
+      "batch_ms": 752.775791,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 4650,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 5223874560,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p8-1-candidate",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 8,
+    "rep": 1,
+    "result": {
+      "batch_ms": 776.539583,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 4648,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 5395644416,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p8-1-baseline",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 8,
+    "rep": 1,
+    "result": {
+      "batch_ms": 783.827584,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 5024,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 5372641280,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p8-2-baseline",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 8,
+    "rep": 2,
+    "result": {
+      "batch_ms": 894.067667,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 5068,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 5355864064,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p8-2-candidate",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 8,
+    "rep": 2,
+    "result": {
+      "batch_ms": 1248.095167,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 4638,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 5284823040,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p8-3-candidate",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 8,
+    "rep": 3,
+    "result": {
+      "batch_ms": 808.129292,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 4630,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 5400952832,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p8-3-baseline",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 8,
+    "rep": 3,
+    "result": {
+      "batch_ms": 962.189,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 5027,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 5340594176,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p8-4-baseline",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 8,
+    "rep": 4,
+    "result": {
+      "batch_ms": 1005.593958,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 5052,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 5382602752,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p8-4-candidate",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 8,
+    "rep": 4,
+    "result": {
+      "batch_ms": 1389.942541,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 4669,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 5298061312,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 8,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p4-warmup-baseline",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 4,
+    "rep": "warmup",
+    "result": {
+      "batch_ms": 1015.491792,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 5099,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2762014720,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 4,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p4-warmup-candidate",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 4,
+    "rep": "warmup",
+    "result": {
+      "batch_ms": 992.583667,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 4701,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2767650816,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 4,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p4-0-baseline",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 4,
+    "rep": 0,
+    "result": {
+      "batch_ms": 1008.851584,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 5111,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2778726400,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 4,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p4-0-candidate",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 4,
+    "rep": 0,
+    "result": {
+      "batch_ms": 917.962625,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 4688,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2737307648,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 4,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p4-1-candidate",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 4,
+    "rep": 1,
+    "result": {
+      "batch_ms": 1095.145958,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 4733,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2796814336,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 4,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p4-1-baseline",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 4,
+    "rep": 1,
+    "result": {
+      "batch_ms": 945.152,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 5098,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2780299264,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 4,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p4-2-baseline",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 4,
+    "rep": 2,
+    "result": {
+      "batch_ms": 1042.604834,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 5086,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2719940608,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 4,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p4-2-candidate",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 4,
+    "rep": 2,
+    "result": {
+      "batch_ms": 1627.868583,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 4732,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2828337152,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 4,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p4-3-candidate",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 4,
+    "rep": 3,
+    "result": {
+      "batch_ms": 1249.41725,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 4691,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2764767232,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 4,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "candidate"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p4-3-baseline",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 4,
+    "rep": 3,
+    "result": {
+      "batch_ms": 1119.973417,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 5083,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2756575232,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 4,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p4-4-baseline",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 4,
+    "rep": 4,
+    "result": {
+      "batch_ms": 1055.586459,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 5066,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2778791936,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 4,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "baseline"
+  },
+  {
+    "exit_code": 0,
+    "key": "batch-p4-4-candidate",
+    "mode": "batch",
+    "negative": false,
+    "parallel": 4,
+    "rep": 4,
+    "result": {
+      "batch_ms": 973.37425,
+      "cleanup": true,
+      "count": 48,
+      "forks": null,
+      "go": "go1.26.10",
+      "gomaxprocs": 8,
+      "mapping_after_close": {
+        "active_mappings": 0,
+        "active_reserved_bytes": 0,
+        "active_rw_bytes": 0,
+        "creates": 49,
+        "grow_calls": 4679,
+        "grow_failures": 0,
+        "peak_total_rw_bytes": 2782724096,
+        "release_failures": 0,
+        "releases": 49
+      },
+      "mode": "batch",
+      "parallel": 4,
+      "profile": {
+        "native_aio": 0,
+        "purge": 1,
+        "read": 1,
+        "version": "12.3.3-MariaDB-embedded",
+        "write": 2
+      },
+      "success": true
+    },
+    "rss_bytes": {},
+    "variant": "candidate"
+  }
+]

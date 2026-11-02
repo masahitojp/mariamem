@@ -1,0 +1,15 @@
+{
+  "allocator-contract.json": "a8b91c2d114673ff18dcf8ccbde0f40a6ffdd59ba936c8deee6e9640ac7a3741",
+  "analysis-controls.json": "0f851e8227824e7281553374b09cbf74f2132f793a2038503a3dba0fb7793ec9",
+  "cleanup-audit.json": "1ed2340f40990a552db5141580586bed364781db9fe5566bc1d3a744d1419b2d",
+  "comparison-plan.json": "c0bc1b1d46aab09b8d2a650fb4dab7c317763eb96dadcdb54800de26ee15988c",
+  "guest-compact.json": "447ea6a9baea73cb471940eac9913d9b2ba251c51bb1f324281a7bc6a3688e5b",
+  "input-publication.json": "f0f0b3ff39e8cd720595767514ac5796a46bfdb3b33055d2a7a039b94e49c588",
+  "inputs.json": "87e319ced5acc53426d990b1dfc43b5e38397984c73f592d103970a1942533b8",
+  "observations.json": "cdf8531c0503e1c13892c6536aa6009e36a5a93e77e46453cb28ee0f0c90255b",
+  "raw-evidence.json": "e04e7b7495b7c26cf69211c0598d8236df72a4276e0fc939635e87e85fa476ae",
+  "summary.csv": "6583b57fd40df23e918546ce459a5da154f044023c13698bd248d43a28840955",
+  "summary.json": "522b0e0c7a0eabfe22dd6e6b591eceb3249e3392c34bff0b395dfc0bf0ea345e",
+  "verification.json": "97c6947b93bdeb5491177c07633ac92557840371bd457d548ff8c2bb4ac27fea",
+  "zero-mechanism.json": "e8b84b469cdaa1b982e4f7ff1ec27697070263088e51a79791475455bc413344"
+}

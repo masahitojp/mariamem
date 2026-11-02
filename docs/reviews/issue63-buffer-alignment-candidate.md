@@ -75,3 +75,14 @@ which the existing origin-reuse policy verifies against the immutable old commit
 This is an experimental binding, not approval of a new canonical guest ABI.
 Five adapter controls plus the existing binding/dev-tool tests pass46 total.
 Native smoke and performance have not passed at this checkpoint.
+
+## Finite comparison completed — experimental, adoption inconclusive
+
+The rebound native pipeline and real SQL/Snapshot/Fork/Close smoke PASS.
+[Matched results and exact source identities](../../benchmarks/buffer-alignment-source.md)
+retain five alternating pairs for serial Fork/held RSS and separate P8/P4 batches.
+RSS decreases in all pairs; wall/CPU/batch effects conflict. The zero-fill pilot
+confirms the duplicate large clear is removed in every observed child.
+The missing queue field means overall four-field adoption remains INCONCLUSIVE.
+No extra repetitions or new optimization candidates were added to force a PASS.
+Ubuntu/real-WASIX-OOM/canonical adoption remain outside this completed checkpoint.

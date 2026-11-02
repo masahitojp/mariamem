@@ -1,0 +1,18 @@
+{
+  "focused_tests": {
+    "result": "PASS",
+    "count": 46,
+    "source_commit": "6460e64561be5779c837657bcc56993fb1f99f75"
+  },
+  "native_development_smoke": "PASS; explicitly UNQUALIFIED",
+  "canonical_guest_binding": "UNCHANGED; rejects new guest",
+  "analysis_controls": "PASS four semantic mutations",
+  "plain_comparison": "PASS measured fields only; queue N/A",
+  "zero_mechanism": "PASS four children per variant; separate observed pilots",
+  "public_source_check": {
+    "result": "PASS",
+    "files": 6643
+  },
+  "owned_temp_removed": true,
+  "cleanup_recomputation": "PASS after owned SDK/source/generated/binary/cache removal"
+}

@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "reason": "unborn nested Git initializations contain only reproducible archive+patch bytes, no commits/refs/user changes",
+  "converter_archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+  "copies": {
+    "dev-native": {
+      "files": 420,
+      "inventory_sha256": "a80d7f19a59cda9a2d971a5acc75e085975097fdaad8200331457eb36234bcaf",
+      "matches_exact_archive_plus_13_patches": true,
+      "git_refs": []
+    },
+    "dev-native-rebound": {
+      "files": 420,
+      "inventory_sha256": "a80d7f19a59cda9a2d971a5acc75e085975097fdaad8200331457eb36234bcaf",
+      "matches_exact_archive_plus_13_patches": true,
+      "git_refs": []
+    }
+  }
+}
