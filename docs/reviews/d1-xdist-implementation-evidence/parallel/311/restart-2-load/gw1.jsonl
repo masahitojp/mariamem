@@ -1,0 +1,29 @@
+{"event": "declaration"}
+{"event": "declaration_checked", "worker": "gw1", "process": 6262, "source_absent": true}
+{"event": "host", "worker": "gw1", "process": 6262, "pid": 6282}
+{"event": "prepare", "worker": "gw1", "process": 6262}
+{"event": "prepared", "worker": "gw1", "process": 6262, "database": "test_mariamem_gw1", "host_pid": 6282, "source_id": "6060b442476d5e712e3bc4c65188bc23", "port": 55132}
+{"event": "overlap", "worker": "gw1", "process": 6262, "boundary": "prepare", "hosts": [6282, 6283]}
+{"event": "capture", "worker": "gw1", "process": 6262, "source_id": "6060b442476d5e712e3bc4c65188bc23", "consumed": true}
+{"event": "fork", "worker": "gw1", "process": 6262, "child_id": "f76e9d13d5ebc4ba29b65a5bcd256795", "host_pid": 6282}
+{"event": "class-data", "worker": "gw1", "process": 6262}
+{"event": "class-commit", "worker": "gw1", "process": 6262}
+{"event": "capture", "worker": "gw1", "process": 6262, "source_id": "f76e9d13d5ebc4ba29b65a5bcd256795", "consumed": true}
+{"event": "fork", "worker": "gw1", "process": 6262, "child_id": "e5ba9c4153c890225b14b0a02b8f9294", "host_pid": 6282}
+{"event": "overlap", "worker": "gw1", "process": 6262, "boundary": "body", "hosts": [6282, 6283]}
+{"event": "body", "worker": "gw1", "process": 6262, "database": "test_mariamem_gw1", "kind": "atomic"}
+{"event": "fork", "worker": "gw1", "process": 6262, "child_id": "1eb92c0cc8d304aad44f99d1516cf28c", "host_pid": 6282}
+{"event": "body", "worker": "gw1", "process": 6262, "database": "test_mariamem_gw1", "kind": "atomic"}
+{"event": "fork", "worker": "gw1", "process": 6262, "child_id": "552a2b6f664e0f41fff109ca1045bb21", "host_pid": 6282}
+{"event": "capture", "worker": "gw1", "process": 6262, "source_id": "552a2b6f664e0f41fff109ca1045bb21", "consumed": true}
+{"event": "fork", "worker": "gw1", "process": 6262, "child_id": "a238a566c5905ef39e4ee351c458ae2d", "host_pid": 6282}
+{"event": "body", "worker": "gw1", "process": 6262, "database": "test_mariamem_gw1", "kind": "transactional"}
+{"event": "commit-observed", "worker": "gw1", "process": 6262}
+{"event": "fork", "worker": "gw1", "process": 6262, "child_id": "92e57483b3baa12494f70ff60aa0568c", "host_pid": 6282}
+{"event": "body", "worker": "gw1", "process": 6262, "database": "test_mariamem_gw1", "kind": "transactional"}
+{"event": "fork", "worker": "gw1", "process": 6262, "child_id": "e156f30b2c2f4afc427e5a5a243ce15f", "host_pid": 6282}
+{"event": "body", "worker": "gw1", "process": 6262, "database": "test_mariamem_gw1", "kind": "transactional"}
+{"event": "commit-observed", "worker": "gw1", "process": 6262}
+{"event": "fork", "worker": "gw1", "process": 6262, "child_id": "0de51397b7ae1f9efbe32f90dca74129", "host_pid": 6282}
+{"event": "body", "worker": "gw1", "process": 6262, "database": "test_mariamem_gw1", "kind": "transactional"}
+{"event": "fork", "worker": "gw1", "process": 6262, "child_id": "21b2bc39d8296c90873e94a93227bb5c", "host_pid": 6282}

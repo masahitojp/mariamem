@@ -1,0 +1,137 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.18, pytest-9.0.2, pluggy-1.7.0 -- __WORKTREE__/build/venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.8, settings: worker_settings (from env)
+rootdir: __WORKTREE__
+created: 2/2 workers
+2 workers [12 items]
+
+scheduling tests via LoadScheduling
+
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_03
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_05
+[gw0] [  8%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_03
+[gw1] [ 16%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_05
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_04
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_06
+[gw0] [ 25%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_04
+[gw1] [ 33%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_06
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_second
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_first
+[gw1] [ 41%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_second
+[gw0] [ 50%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_first
+tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_03
+tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_04
+[gw0] [ 58%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_04
+tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_06
+[gw1] [ 66%] FAILED tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_03
+tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_05
+[gw0] [ 75%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_06
+tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_first
+[gw1] [ 83%] FAILED tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_05
+tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_second
+[gw1] [ 91%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_second
+[gw0] [100%] FAILED tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_first
+
+=================================== FAILURES ===================================
+__________________________ TestTransactional.test_03 ___________________________
+[gw1] darwin -- Python 3.11.18 __WORKTREE__/build/venv/bin/python
+
+self = <parallel_cases.TestTransactional testMethod=test_03>
+
+    def test_first(self):
+        baseline()
+        callbacks = []
+        with transaction.atomic():
+            Order.objects.create(sku='COMMIT')
+            transaction.on_commit(lambda: callbacks.append(True))
+        assert callbacks == [True]
+        import MySQLdb
+        cfg = connection.settings_dict
+        observer = MySQLdb.connect(host=cfg['HOST'], port=int(cfg['PORT']), user=cfg['USER'],
+                                   passwd=cfg['PASSWORD'], db=cfg['NAME'])
+        try:
+            with observer.cursor() as cursor:
+                cursor.execute("SELECT COUNT(*) FROM orders_order WHERE sku='COMMIT'")
+                assert cursor.fetchone() == (1,)
+            event('commit-observed')
+        finally:
+            observer.close()
+        with connection.cursor() as cursor:
+            cursor.execute('UPDATE prepared_sentinel SET n=99')
+            cursor.execute('CREATE TABLE prepared_added (n INT)')
+        if os.environ.get('MARIAMEM_PREPARED_MODE') == 'body-failure':
+>           self.fail('PREPARED_BODY_FAILURE')
+E           AssertionError: PREPARED_BODY_FAILURE
+
+tests/django_prepared/cases.py:71: AssertionError
+__________________________ TestTransactional.test_05 ___________________________
+[gw1] darwin -- Python 3.11.18 __WORKTREE__/build/venv/bin/python
+
+self = <parallel_cases.TestTransactional testMethod=test_05>
+
+    def test_first(self):
+        baseline()
+        callbacks = []
+        with transaction.atomic():
+            Order.objects.create(sku='COMMIT')
+            transaction.on_commit(lambda: callbacks.append(True))
+        assert callbacks == [True]
+        import MySQLdb
+        cfg = connection.settings_dict
+        observer = MySQLdb.connect(host=cfg['HOST'], port=int(cfg['PORT']), user=cfg['USER'],
+                                   passwd=cfg['PASSWORD'], db=cfg['NAME'])
+        try:
+            with observer.cursor() as cursor:
+                cursor.execute("SELECT COUNT(*) FROM orders_order WHERE sku='COMMIT'")
+                assert cursor.fetchone() == (1,)
+            event('commit-observed')
+        finally:
+            observer.close()
+        with connection.cursor() as cursor:
+            cursor.execute('UPDATE prepared_sentinel SET n=99')
+            cursor.execute('CREATE TABLE prepared_added (n INT)')
+        if os.environ.get('MARIAMEM_PREPARED_MODE') == 'body-failure':
+>           self.fail('PREPARED_BODY_FAILURE')
+E           AssertionError: PREPARED_BODY_FAILURE
+
+tests/django_prepared/cases.py:71: AssertionError
+_________________________ TestTransactional.test_first _________________________
+[gw0] darwin -- Python 3.11.18 __WORKTREE__/build/venv/bin/python
+
+self = <parallel_cases.TestTransactional testMethod=test_first>
+
+    def test_first(self):
+        baseline()
+        callbacks = []
+        with transaction.atomic():
+            Order.objects.create(sku='COMMIT')
+            transaction.on_commit(lambda: callbacks.append(True))
+        assert callbacks == [True]
+        import MySQLdb
+        cfg = connection.settings_dict
+        observer = MySQLdb.connect(host=cfg['HOST'], port=int(cfg['PORT']), user=cfg['USER'],
+                                   passwd=cfg['PASSWORD'], db=cfg['NAME'])
+        try:
+            with observer.cursor() as cursor:
+                cursor.execute("SELECT COUNT(*) FROM orders_order WHERE sku='COMMIT'")
+                assert cursor.fetchone() == (1,)
+            event('commit-observed')
+        finally:
+            observer.close()
+        with connection.cursor() as cursor:
+            cursor.execute('UPDATE prepared_sentinel SET n=99')
+            cursor.execute('CREATE TABLE prepared_added (n INT)')
+        if os.environ.get('MARIAMEM_PREPARED_MODE') == 'body-failure':
+>           self.fail('PREPARED_BODY_FAILURE')
+E           AssertionError: PREPARED_BODY_FAILURE
+
+tests/django_prepared/cases.py:71: AssertionError
+--------------------------- Captured stderr teardown ---------------------------
+Destroying test database for alias 'default'...
+- generated xml file: __WORKTREE__/build/acceptance-parallel-311/body-failure-2-load/junit.xml -
+=========================== short test summary info ============================
+FAILED tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_03
+FAILED tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_05
+FAILED tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_first
+========================= 3 failed, 9 passed in 1.24s ==========================

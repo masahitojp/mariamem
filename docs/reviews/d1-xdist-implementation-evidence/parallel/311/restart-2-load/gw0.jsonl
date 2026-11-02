@@ -1,0 +1,15 @@
+{"event": "declaration"}
+{"event": "declaration_checked", "worker": "gw0", "process": 6261, "source_absent": true}
+{"event": "host", "worker": "gw0", "process": 6261, "pid": 6283}
+{"event": "prepare", "worker": "gw0", "process": 6261}
+{"event": "prepared", "worker": "gw0", "process": 6261, "database": "test_mariamem_gw0", "host_pid": 6283, "source_id": "b58ac90655b05840438b298b30da0789", "port": 55133}
+{"event": "overlap", "worker": "gw0", "process": 6261, "boundary": "prepare", "hosts": [6282, 6283]}
+{"event": "capture", "worker": "gw0", "process": 6261, "source_id": "b58ac90655b05840438b298b30da0789", "consumed": true}
+{"event": "fork", "worker": "gw0", "process": 6261, "child_id": "f17498c62de1c137ebbd336bb5641ea3", "host_pid": 6283}
+{"event": "class-data", "worker": "gw0", "process": 6261}
+{"event": "class-commit", "worker": "gw0", "process": 6261}
+{"event": "capture", "worker": "gw0", "process": 6261, "source_id": "f17498c62de1c137ebbd336bb5641ea3", "consumed": true}
+{"event": "fork", "worker": "gw0", "process": 6261, "child_id": "280c1b5decd285ea1323ec72639f3d84", "host_pid": 6283}
+{"event": "overlap", "worker": "gw0", "process": 6261, "boundary": "body", "hosts": [6282, 6283]}
+{"event": "body", "worker": "gw0", "process": 6261, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "worker_kill", "worker": "gw0", "process": 6261, "signal": "SIGKILL"}

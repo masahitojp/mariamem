@@ -2184,3 +2184,12 @@ The existing Release Django job runs the added installed-entry matrix using its
 shared artifacts; no extra job/build is added. Main adoption and new both-OS /
 minor installed-wheel acceptance remain pending; prior serial receipts are not
 parallel qualification or release approval.
+
+The [implementation checkpoint](reviews/d1-xdist-implementation.md) records clean
+executable source_commit `cc38d14cb16abf47983c7c0979edd6cf2f9a2814`: both Python
+minors passed15 parallel and20 serial expected scenario assessments locally;
+all90 observed hosts exited. The canonical Python check passed1832 tests.
+This is source-entry evidence using the published host, not fresh installed
+candidate acceptance. The remaining gate is the existing Release four-cell
+installed-wheel campaign, followed by protected integration; no publication
+approval or performance claim is implied.

@@ -1,0 +1,14 @@
+{"event": "declaration"}
+{"event": "declaration_checked", "worker": "gw0", "process": 6367, "source_absent": true}
+{"event": "host", "worker": "gw0", "process": 6367, "pid": 6414}
+{"event": "prepare", "worker": "gw0", "process": 6367}
+{"event": "prepared", "worker": "gw0", "process": 6367, "database": "test_mariamem_gw0", "host_pid": 6414, "source_id": "bd0eb30baebde0fca08b1e1c9dc58bfc", "port": 55200}
+{"event": "capture", "worker": "gw0", "process": 6367, "source_id": "bd0eb30baebde0fca08b1e1c9dc58bfc", "consumed": true}
+{"event": "fork", "worker": "gw0", "process": 6367, "child_id": "5160a50863ab088bcc77c695075351e1", "host_pid": 6414}
+{"event": "class-data", "worker": "gw0", "process": 6367}
+{"event": "class-commit", "worker": "gw0", "process": 6367}
+{"event": "capture", "worker": "gw0", "process": 6367, "source_id": "5160a50863ab088bcc77c695075351e1", "consumed": true}
+{"event": "fork", "worker": "gw0", "process": 6367, "child_id": "e0593f8dd20a4ed09da2c6fd98b5b421", "host_pid": 6414}
+{"event": "body", "worker": "gw0", "process": 6367, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "cleanup_failure", "worker": "gw0", "process": 6367, "retained_child": true}
+{"event": "fork", "worker": "gw0", "process": 6367, "child_id": "56c19234f9da00e60aa0fe4a9d553ed4", "host_pid": 6414}

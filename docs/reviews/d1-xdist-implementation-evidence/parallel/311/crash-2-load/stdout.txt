@@ -1,0 +1,29 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.18, pytest-9.0.2, pluggy-1.7.0 -- __WORKTREE__/build/venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.8, settings: worker_settings (from env)
+rootdir: __WORKTREE__
+created: 2/2 workers
+2 workers [12 items]
+
+scheduling tests via LoadScheduling
+
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_05
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_03
+[gw0] node down: Not properly terminated
+[gw0] [  8%] FAILED tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_03
+
+worker gw0 crashed and worker restarting disabled
+[gw1] [ 16%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_05
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_06
+[gw1] [ 25%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_06
+
+=================================== FAILURES ===================================
+________________ tests/django_prepared/xdist/parallel_cases.py _________________
+[gw0] darwin -- Python 3.11.18 __WORKTREE__/build/venv/bin/python
+worker 'gw0' crashed while running 'tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_03'
+=========== xdist: worker gw0 crashed and worker restarting disabled ===========
+- generated xml file: __WORKTREE__/build/acceptance-parallel-311/crash-2-load/junit.xml -
+=========================== short test summary info ============================
+FAILED tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_03 - w...
+========================= 1 failed, 2 passed in 0.86s ==========================

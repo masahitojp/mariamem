@@ -1,0 +1,23 @@
+{"event": "declaration"}
+{"event": "declaration_checked", "worker": "gw0", "process": 6040, "source_absent": true}
+{"event": "host", "worker": "gw0", "process": 6040, "pid": 6063}
+{"event": "prepare", "worker": "gw0", "process": 6040}
+{"event": "prepared", "worker": "gw0", "process": 6040, "database": "test_mariamem_gw0", "host_pid": 6063, "source_id": "bdc262865584e3dddc68a0e89301ff5f", "port": 55069}
+{"event": "capture", "worker": "gw0", "process": 6040, "source_id": "bdc262865584e3dddc68a0e89301ff5f", "consumed": true}
+{"event": "fork", "worker": "gw0", "process": 6040, "child_id": "de5c5e15a7921a18e775e8b03917612b", "host_pid": 6063}
+{"event": "class-data", "worker": "gw0", "process": 6040}
+{"event": "class-commit", "worker": "gw0", "process": 6040}
+{"event": "capture", "worker": "gw0", "process": 6040, "source_id": "de5c5e15a7921a18e775e8b03917612b", "consumed": true}
+{"event": "fork", "worker": "gw0", "process": 6040, "child_id": "d305d47812f4330a9c64fef7511bd3af", "host_pid": 6063}
+{"event": "body", "worker": "gw0", "process": 6040, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "fork", "worker": "gw0", "process": 6040, "child_id": "979dd4a93ef033cc45dc1afb42fa4bf7", "host_pid": 6063}
+{"event": "body", "worker": "gw0", "process": 6040, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "fork", "worker": "gw0", "process": 6040, "child_id": "dd519ad3df3b346c3825022d79e4405e", "host_pid": 6063}
+{"event": "body", "worker": "gw0", "process": 6040, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "fork", "worker": "gw0", "process": 6040, "child_id": "9966d1acc3ce769eb570f8ee0515f982", "host_pid": 6063}
+{"event": "body", "worker": "gw0", "process": 6040, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "fork", "worker": "gw0", "process": 6040, "child_id": "550692240af00cb6c47b4ec7e23c0f0b", "host_pid": 6063}
+{"event": "body", "worker": "gw0", "process": 6040, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "fork", "worker": "gw0", "process": 6040, "child_id": "eda357abb988d509db33ce7716ec17ff", "host_pid": 6063}
+{"event": "body", "worker": "gw0", "process": 6040, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "fork", "worker": "gw0", "process": 6040, "child_id": "86dff526a589b44265bea001506644bc", "host_pid": 6063}

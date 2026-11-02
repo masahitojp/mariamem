@@ -1,0 +1,1 @@
+ERROR: Prepared Django workers require explicit -n N; auto/logical are unsupported

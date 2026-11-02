@@ -1,0 +1,25 @@
+Creating test database for alias 'default' ('test_mariamem')...
+Found 2 test(s).
+Operations to perform:
+  Apply all migrations: orders
+Running migrations:
+  Applying orders.0001_initial... OK
+  Applying orders.0002_status...test_first (cases.TransactionalCases.test_first) ... FAIL
+test_second (cases.TransactionalCases.test_second) ... ok
+
+======================================================================
+FAIL: test_first (cases.TransactionalCases.test_first)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "__WORKTREE__/tests/django_prepared/cases.py", line 71, in test_first
+    self.fail('PREPARED_BODY_FAILURE')
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: PREPARED_BODY_FAILURE
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.153s
+
+FAILED (failures=1)
+Destroying test database for alias 'default' ('test_mariamem')...
+ OK
+System check identified no issues (0 silenced).

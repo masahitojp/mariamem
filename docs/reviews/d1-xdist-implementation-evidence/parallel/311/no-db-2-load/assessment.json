@@ -1,0 +1,20 @@
+{
+  "result": "PASS",
+  "mode": "no-db",
+  "workers": 2,
+  "dist": "load",
+  "exit_code": 0,
+  "checks": {
+    "host_reaped": true,
+    "controller_idle": true,
+    "declarations_idle": true,
+    "success": true,
+    "no_host": true,
+    "simple_body": true
+  },
+  "counts": {
+    "tests": 1,
+    "failures": 0,
+    "errors": 0
+  }
+}

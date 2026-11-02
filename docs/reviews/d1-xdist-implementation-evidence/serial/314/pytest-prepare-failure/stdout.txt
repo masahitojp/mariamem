@@ -1,0 +1,120 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.10, pytest-9.0.2, pluggy-1.7.0 -- __WORKTREE__/build/venv314/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.8, settings: prepared_settings (from env)
+rootdir: __WORKTREE__
+collecting ... collected 7 items / 5 deselected / 2 selected
+
+tests/django_prepared/cases.py::TransactionalCases::test_first ERROR     [ 50%]
+tests/django_prepared/cases.py::TransactionalCases::test_second ERROR    [100%]
+
+==================================== ERRORS ====================================
+_______________ ERROR at setup of TransactionalCases.test_first ________________
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_first>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x10a7052b0>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv314/lib/python3.14/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/django/pytest_plugin.py:87: in django_db_setup
+    manager.prepare()
+python/mariamem/django/_database.py:113: in prepare
+    callback(self.connection)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+connection = <DatabaseWrapper vendor='mysql' alias='default'>
+
+    def prepare(connection):
+        event('prepare')
+        if os.environ.get('MARIAMEM_PREPARED_MODE') == 'prepare-failure':
+>           raise RuntimeError('PREPARED_SEED_FAILURE')
+E           RuntimeError: PREPARED_SEED_FAILURE
+
+tests/django_prepared/prepared_settings.py:26: RuntimeError
+---------------------------- Captured stderr setup -----------------------------
+Creating test database for alias 'default'...
+_______________ ERROR at setup of TransactionalCases.test_second _______________
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_first>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x10a7052b0>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv314/lib/python3.14/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/django/pytest_plugin.py:87: in django_db_setup
+    manager.prepare()
+python/mariamem/django/_database.py:113: in prepare
+    callback(self.connection)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+connection = <DatabaseWrapper vendor='mysql' alias='default'>
+
+    def prepare(connection):
+        event('prepare')
+        if os.environ.get('MARIAMEM_PREPARED_MODE') == 'prepare-failure':
+>           raise RuntimeError('PREPARED_SEED_FAILURE')
+E           RuntimeError: PREPARED_SEED_FAILURE
+
+tests/django_prepared/prepared_settings.py:26: RuntimeError
+======================= 5 deselected, 2 errors in 0.16s ========================

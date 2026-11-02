@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.18, pytest-9.0.2, pluggy-1.7.0 -- __WORKTREE__/build/venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.8, settings: prepared_settings (from env)
+rootdir: __WORKTREE__
+collecting ... collected 7 items / 4 deselected / 3 selected
+
+tests/django_prepared/cases.py::SetupFailure::test_refused ERROR         [ 33%]
+tests/django_prepared/cases.py::TransactionalCases::test_first PASSED    [ 66%]
+tests/django_prepared/cases.py::TransactionalCases::test_second PASSED   [100%]
+
+==================================== ERRORS ====================================
+_________________ ERROR at setup of SetupFailure.test_refused __________________
+
+cls = <class 'cases.SetupFailure'>
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+>       raise RuntimeError('PREPARED_CLASS_FAILURE')
+E       RuntimeError: PREPARED_CLASS_FAILURE
+
+tests/django_prepared/cases.py:81: RuntimeError
+---------------------------- Captured stderr setup -----------------------------
+Creating test database for alias 'default'...
+=================== 2 passed, 4 deselected, 1 error in 0.41s ===================

@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.614" timestamp="2026-11-02T07:36:44.626601-06:00" hostname="MacBookAir"><testcase classname="tests.django_prepared.xdist.parallel_cases.TestWithoutDatabase" name="test_without_database" time="0.002" /></testsuite></testsuites>

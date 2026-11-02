@@ -1,0 +1,1 @@
+ERROR: Prepared Django supports explicit -n N, not manual --tx or loop-on-fail

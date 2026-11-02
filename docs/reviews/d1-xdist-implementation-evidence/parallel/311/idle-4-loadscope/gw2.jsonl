@@ -1,0 +1,3 @@
+{"event": "declaration"}
+{"event": "declaration_checked", "worker": "gw2", "process": 5984, "source_absent": true}
+{"event": "simple-body", "worker": "gw2", "process": 5984}

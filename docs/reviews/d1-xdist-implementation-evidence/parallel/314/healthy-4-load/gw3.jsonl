@@ -1,0 +1,18 @@
+{"event": "declaration"}
+{"event": "declaration_checked", "worker": "gw3", "process": 5731, "source_absent": true}
+{"event": "host", "worker": "gw3", "process": 5731, "pid": 5741}
+{"event": "prepare", "worker": "gw3", "process": 5731}
+{"event": "prepared", "worker": "gw3", "process": 5731, "database": "test_mariamem_gw3", "host_pid": 5741, "source_id": "10c30b5ece2f47d06e1ce45c2909e3e4", "port": 54619}
+{"event": "overlap", "worker": "gw3", "process": 5731, "boundary": "prepare", "hosts": [5741, 5742, 5743, 5744]}
+{"event": "capture", "worker": "gw3", "process": 5731, "source_id": "10c30b5ece2f47d06e1ce45c2909e3e4", "consumed": true}
+{"event": "fork", "worker": "gw3", "process": 5731, "child_id": "3c044c9dbe2a23422f030bf466c7a3a1", "host_pid": 5741}
+{"event": "capture", "worker": "gw3", "process": 5731, "source_id": "3c044c9dbe2a23422f030bf466c7a3a1", "consumed": true}
+{"event": "fork", "worker": "gw3", "process": 5731, "child_id": "d58f8f00f386ef0d437cb6e44d4717fd", "host_pid": 5741}
+{"event": "overlap", "worker": "gw3", "process": 5731, "boundary": "body", "hosts": [5741, 5742, 5743, 5744]}
+{"event": "body", "worker": "gw3", "process": 5731, "database": "test_mariamem_gw3", "kind": "transactional"}
+{"event": "commit-observed", "worker": "gw3", "process": 5731}
+{"event": "fork", "worker": "gw3", "process": 5731, "child_id": "3238f378ed3fdf9efda538e5c7397caf", "host_pid": 5741}
+{"event": "body", "worker": "gw3", "process": 5731, "database": "test_mariamem_gw3", "kind": "transactional"}
+{"event": "fork", "worker": "gw3", "process": 5731, "child_id": "ca97d17e1e902b631dba3a09e868cd3b", "host_pid": 5741}
+{"event": "body", "worker": "gw3", "process": 5731, "database": "test_mariamem_gw3", "kind": "transactional"}
+{"event": "fork", "worker": "gw3", "process": 5731, "child_id": "31a82bda9d5d79ffcc3ed7e8841dd237", "host_pid": 5741}

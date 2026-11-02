@@ -1,0 +1,680 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.10, pytest-9.0.2, pluggy-1.7.0 -- __WORKTREE__/build/venv314/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.8, settings: worker_settings (from env)
+rootdir: __WORKTREE__
+created: 2/2 workers
+2 workers [12 items]
+
+scheduling tests via LoadScheduling
+
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_05
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_03
+[gw0] [  8%] ERROR tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_03
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_04
+[gw0] [ 16%] ERROR tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_04
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_first
+[gw0] [ 25%] ERROR tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_first
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_second
+[gw0] [ 33%] ERROR tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_second
+tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_03
+[gw0] [ 41%] ERROR tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_03
+tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_04
+[gw0] [ 50%] ERROR tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_04
+tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_05
+[gw0] [ 58%] ERROR tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_05
+tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_06
+[gw1] [ 66%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_05
+tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_06
+[gw0] [ 75%] ERROR tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_06
+tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_first
+[gw0] [ 83%] ERROR tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_first
+[gw1] [ 91%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_06
+tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_second
+[gw1] [100%] PASSED tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_second
+
+==================================== ERRORS ====================================
+_____________________ ERROR at setup of TestAtomic.test_03 _____________________
+[gw0] darwin -- Python 3.14.10 __WORKTREE__/build/venv314/bin/python
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_03>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x10b806e40>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv314/lib/python3.14/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/django/pytest_plugin.py:87: in django_db_setup
+    manager.prepare()
+python/mariamem/django/_database.py:113: in prepare
+    callback(self.connection)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+connection = <DatabaseWrapper vendor='mysql' alias='default'>
+
+    def prepare(connection):
+        original.prepare(connection)
+        with connection.cursor() as cursor:
+            cursor.execute('CREATE TABLE worker_seed (worker VARCHAR(16) PRIMARY KEY)')
+            cursor.execute('INSERT INTO worker_seed VALUES (%s)', (WORKER,))
+            cursor.execute("SELECT name FROM django_migrations WHERE app='orders' ORDER BY name")
+            assert list(cursor.fetchall()) == [('0001_initial',), ('0002_status',)]
+        source = DATABASES['default']['MARIAMEM_PREPARED'].source
+        info = source.connection_info()
+        event('prepared', database=connection.settings_dict['NAME'], host_pid=source.diagnostics['host_pid'],
+              source_id=source.id, port=info['port'])
+        if MODE in ('crash','restart'):
+            if WORKER in ('gw0','gw1'):
+                barrier('prepare')
+            elif MODE == 'restart':
+                (OUT/'replacement-ready').touch()
+        elif MODE not in ('idle','cleanup-failure'):
+            barrier('prepare')
+        if MODE == 'prepare-failure' and WORKER == 'gw0':
+>           raise RuntimeError('XDIST_GW0_PREPARE_FAILURE')
+E           RuntimeError: XDIST_GW0_PREPARE_FAILURE
+
+tests/django_prepared/xdist/worker_settings.py:69: RuntimeError
+---------------------------- Captured stderr setup -----------------------------
+Creating test database for alias 'default'...
+_____________________ ERROR at setup of TestAtomic.test_04 _____________________
+[gw0] darwin -- Python 3.14.10 __WORKTREE__/build/venv314/bin/python
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_03>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x10b806e40>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv314/lib/python3.14/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/django/pytest_plugin.py:87: in django_db_setup
+    manager.prepare()
+python/mariamem/django/_database.py:113: in prepare
+    callback(self.connection)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+connection = <DatabaseWrapper vendor='mysql' alias='default'>
+
+    def prepare(connection):
+        original.prepare(connection)
+        with connection.cursor() as cursor:
+            cursor.execute('CREATE TABLE worker_seed (worker VARCHAR(16) PRIMARY KEY)')
+            cursor.execute('INSERT INTO worker_seed VALUES (%s)', (WORKER,))
+            cursor.execute("SELECT name FROM django_migrations WHERE app='orders' ORDER BY name")
+            assert list(cursor.fetchall()) == [('0001_initial',), ('0002_status',)]
+        source = DATABASES['default']['MARIAMEM_PREPARED'].source
+        info = source.connection_info()
+        event('prepared', database=connection.settings_dict['NAME'], host_pid=source.diagnostics['host_pid'],
+              source_id=source.id, port=info['port'])
+        if MODE in ('crash','restart'):
+            if WORKER in ('gw0','gw1'):
+                barrier('prepare')
+            elif MODE == 'restart':
+                (OUT/'replacement-ready').touch()
+        elif MODE not in ('idle','cleanup-failure'):
+            barrier('prepare')
+        if MODE == 'prepare-failure' and WORKER == 'gw0':
+>           raise RuntimeError('XDIST_GW0_PREPARE_FAILURE')
+E           RuntimeError: XDIST_GW0_PREPARE_FAILURE
+
+tests/django_prepared/xdist/worker_settings.py:69: RuntimeError
+___________________ ERROR at setup of TestAtomic.test_first ____________________
+[gw0] darwin -- Python 3.14.10 __WORKTREE__/build/venv314/bin/python
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_03>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x10b806e40>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv314/lib/python3.14/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/django/pytest_plugin.py:87: in django_db_setup
+    manager.prepare()
+python/mariamem/django/_database.py:113: in prepare
+    callback(self.connection)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+connection = <DatabaseWrapper vendor='mysql' alias='default'>
+
+    def prepare(connection):
+        original.prepare(connection)
+        with connection.cursor() as cursor:
+            cursor.execute('CREATE TABLE worker_seed (worker VARCHAR(16) PRIMARY KEY)')
+            cursor.execute('INSERT INTO worker_seed VALUES (%s)', (WORKER,))
+            cursor.execute("SELECT name FROM django_migrations WHERE app='orders' ORDER BY name")
+            assert list(cursor.fetchall()) == [('0001_initial',), ('0002_status',)]
+        source = DATABASES['default']['MARIAMEM_PREPARED'].source
+        info = source.connection_info()
+        event('prepared', database=connection.settings_dict['NAME'], host_pid=source.diagnostics['host_pid'],
+              source_id=source.id, port=info['port'])
+        if MODE in ('crash','restart'):
+            if WORKER in ('gw0','gw1'):
+                barrier('prepare')
+            elif MODE == 'restart':
+                (OUT/'replacement-ready').touch()
+        elif MODE not in ('idle','cleanup-failure'):
+            barrier('prepare')
+        if MODE == 'prepare-failure' and WORKER == 'gw0':
+>           raise RuntimeError('XDIST_GW0_PREPARE_FAILURE')
+E           RuntimeError: XDIST_GW0_PREPARE_FAILURE
+
+tests/django_prepared/xdist/worker_settings.py:69: RuntimeError
+___________________ ERROR at setup of TestAtomic.test_second ___________________
+[gw0] darwin -- Python 3.14.10 __WORKTREE__/build/venv314/bin/python
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_03>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x10b806e40>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv314/lib/python3.14/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/django/pytest_plugin.py:87: in django_db_setup
+    manager.prepare()
+python/mariamem/django/_database.py:113: in prepare
+    callback(self.connection)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+connection = <DatabaseWrapper vendor='mysql' alias='default'>
+
+    def prepare(connection):
+        original.prepare(connection)
+        with connection.cursor() as cursor:
+            cursor.execute('CREATE TABLE worker_seed (worker VARCHAR(16) PRIMARY KEY)')
+            cursor.execute('INSERT INTO worker_seed VALUES (%s)', (WORKER,))
+            cursor.execute("SELECT name FROM django_migrations WHERE app='orders' ORDER BY name")
+            assert list(cursor.fetchall()) == [('0001_initial',), ('0002_status',)]
+        source = DATABASES['default']['MARIAMEM_PREPARED'].source
+        info = source.connection_info()
+        event('prepared', database=connection.settings_dict['NAME'], host_pid=source.diagnostics['host_pid'],
+              source_id=source.id, port=info['port'])
+        if MODE in ('crash','restart'):
+            if WORKER in ('gw0','gw1'):
+                barrier('prepare')
+            elif MODE == 'restart':
+                (OUT/'replacement-ready').touch()
+        elif MODE not in ('idle','cleanup-failure'):
+            barrier('prepare')
+        if MODE == 'prepare-failure' and WORKER == 'gw0':
+>           raise RuntimeError('XDIST_GW0_PREPARE_FAILURE')
+E           RuntimeError: XDIST_GW0_PREPARE_FAILURE
+
+tests/django_prepared/xdist/worker_settings.py:69: RuntimeError
+_________________ ERROR at setup of TestTransactional.test_03 __________________
+[gw0] darwin -- Python 3.14.10 __WORKTREE__/build/venv314/bin/python
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_03>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x10b806e40>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv314/lib/python3.14/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/django/pytest_plugin.py:87: in django_db_setup
+    manager.prepare()
+python/mariamem/django/_database.py:113: in prepare
+    callback(self.connection)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+connection = <DatabaseWrapper vendor='mysql' alias='default'>
+
+    def prepare(connection):
+        original.prepare(connection)
+        with connection.cursor() as cursor:
+            cursor.execute('CREATE TABLE worker_seed (worker VARCHAR(16) PRIMARY KEY)')
+            cursor.execute('INSERT INTO worker_seed VALUES (%s)', (WORKER,))
+            cursor.execute("SELECT name FROM django_migrations WHERE app='orders' ORDER BY name")
+            assert list(cursor.fetchall()) == [('0001_initial',), ('0002_status',)]
+        source = DATABASES['default']['MARIAMEM_PREPARED'].source
+        info = source.connection_info()
+        event('prepared', database=connection.settings_dict['NAME'], host_pid=source.diagnostics['host_pid'],
+              source_id=source.id, port=info['port'])
+        if MODE in ('crash','restart'):
+            if WORKER in ('gw0','gw1'):
+                barrier('prepare')
+            elif MODE == 'restart':
+                (OUT/'replacement-ready').touch()
+        elif MODE not in ('idle','cleanup-failure'):
+            barrier('prepare')
+        if MODE == 'prepare-failure' and WORKER == 'gw0':
+>           raise RuntimeError('XDIST_GW0_PREPARE_FAILURE')
+E           RuntimeError: XDIST_GW0_PREPARE_FAILURE
+
+tests/django_prepared/xdist/worker_settings.py:69: RuntimeError
+_________________ ERROR at setup of TestTransactional.test_04 __________________
+[gw0] darwin -- Python 3.14.10 __WORKTREE__/build/venv314/bin/python
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_03>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x10b806e40>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv314/lib/python3.14/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/django/pytest_plugin.py:87: in django_db_setup
+    manager.prepare()
+python/mariamem/django/_database.py:113: in prepare
+    callback(self.connection)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+connection = <DatabaseWrapper vendor='mysql' alias='default'>
+
+    def prepare(connection):
+        original.prepare(connection)
+        with connection.cursor() as cursor:
+            cursor.execute('CREATE TABLE worker_seed (worker VARCHAR(16) PRIMARY KEY)')
+            cursor.execute('INSERT INTO worker_seed VALUES (%s)', (WORKER,))
+            cursor.execute("SELECT name FROM django_migrations WHERE app='orders' ORDER BY name")
+            assert list(cursor.fetchall()) == [('0001_initial',), ('0002_status',)]
+        source = DATABASES['default']['MARIAMEM_PREPARED'].source
+        info = source.connection_info()
+        event('prepared', database=connection.settings_dict['NAME'], host_pid=source.diagnostics['host_pid'],
+              source_id=source.id, port=info['port'])
+        if MODE in ('crash','restart'):
+            if WORKER in ('gw0','gw1'):
+                barrier('prepare')
+            elif MODE == 'restart':
+                (OUT/'replacement-ready').touch()
+        elif MODE not in ('idle','cleanup-failure'):
+            barrier('prepare')
+        if MODE == 'prepare-failure' and WORKER == 'gw0':
+>           raise RuntimeError('XDIST_GW0_PREPARE_FAILURE')
+E           RuntimeError: XDIST_GW0_PREPARE_FAILURE
+
+tests/django_prepared/xdist/worker_settings.py:69: RuntimeError
+_________________ ERROR at setup of TestTransactional.test_05 __________________
+[gw0] darwin -- Python 3.14.10 __WORKTREE__/build/venv314/bin/python
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_03>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x10b806e40>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv314/lib/python3.14/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/django/pytest_plugin.py:87: in django_db_setup
+    manager.prepare()
+python/mariamem/django/_database.py:113: in prepare
+    callback(self.connection)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+connection = <DatabaseWrapper vendor='mysql' alias='default'>
+
+    def prepare(connection):
+        original.prepare(connection)
+        with connection.cursor() as cursor:
+            cursor.execute('CREATE TABLE worker_seed (worker VARCHAR(16) PRIMARY KEY)')
+            cursor.execute('INSERT INTO worker_seed VALUES (%s)', (WORKER,))
+            cursor.execute("SELECT name FROM django_migrations WHERE app='orders' ORDER BY name")
+            assert list(cursor.fetchall()) == [('0001_initial',), ('0002_status',)]
+        source = DATABASES['default']['MARIAMEM_PREPARED'].source
+        info = source.connection_info()
+        event('prepared', database=connection.settings_dict['NAME'], host_pid=source.diagnostics['host_pid'],
+              source_id=source.id, port=info['port'])
+        if MODE in ('crash','restart'):
+            if WORKER in ('gw0','gw1'):
+                barrier('prepare')
+            elif MODE == 'restart':
+                (OUT/'replacement-ready').touch()
+        elif MODE not in ('idle','cleanup-failure'):
+            barrier('prepare')
+        if MODE == 'prepare-failure' and WORKER == 'gw0':
+>           raise RuntimeError('XDIST_GW0_PREPARE_FAILURE')
+E           RuntimeError: XDIST_GW0_PREPARE_FAILURE
+
+tests/django_prepared/xdist/worker_settings.py:69: RuntimeError
+_________________ ERROR at setup of TestTransactional.test_06 __________________
+[gw0] darwin -- Python 3.14.10 __WORKTREE__/build/venv314/bin/python
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_03>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x10b806e40>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv314/lib/python3.14/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/django/pytest_plugin.py:87: in django_db_setup
+    manager.prepare()
+python/mariamem/django/_database.py:113: in prepare
+    callback(self.connection)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+connection = <DatabaseWrapper vendor='mysql' alias='default'>
+
+    def prepare(connection):
+        original.prepare(connection)
+        with connection.cursor() as cursor:
+            cursor.execute('CREATE TABLE worker_seed (worker VARCHAR(16) PRIMARY KEY)')
+            cursor.execute('INSERT INTO worker_seed VALUES (%s)', (WORKER,))
+            cursor.execute("SELECT name FROM django_migrations WHERE app='orders' ORDER BY name")
+            assert list(cursor.fetchall()) == [('0001_initial',), ('0002_status',)]
+        source = DATABASES['default']['MARIAMEM_PREPARED'].source
+        info = source.connection_info()
+        event('prepared', database=connection.settings_dict['NAME'], host_pid=source.diagnostics['host_pid'],
+              source_id=source.id, port=info['port'])
+        if MODE in ('crash','restart'):
+            if WORKER in ('gw0','gw1'):
+                barrier('prepare')
+            elif MODE == 'restart':
+                (OUT/'replacement-ready').touch()
+        elif MODE not in ('idle','cleanup-failure'):
+            barrier('prepare')
+        if MODE == 'prepare-failure' and WORKER == 'gw0':
+>           raise RuntimeError('XDIST_GW0_PREPARE_FAILURE')
+E           RuntimeError: XDIST_GW0_PREPARE_FAILURE
+
+tests/django_prepared/xdist/worker_settings.py:69: RuntimeError
+________________ ERROR at setup of TestTransactional.test_first ________________
+[gw0] darwin -- Python 3.14.10 __WORKTREE__/build/venv314/bin/python
+
+request = <SubRequest '_django_setup_unittest' for <TestCaseFunction test_03>>
+django_db_blocker = <pytest_django.plugin.DjangoDbBlocker object at 0x10b806e40>
+
+    @pytest.fixture(autouse=True, scope="class")
+    def _django_setup_unittest(
+        request: pytest.FixtureRequest,
+        django_db_blocker: DjangoDbBlocker,
+    ) -> Generator[None, None, None]:
+        """Setup a django unittest, internal to pytest-django."""
+        if not django_settings_is_configured() or not is_django_unittest(request):
+            yield
+            return
+
+        # Fix/patch pytest.
+        # Before pytest 5.4: https://github.com/pytest-dev/pytest/issues/5991
+        # After pytest 5.4: https://github.com/pytest-dev/pytest-django/issues/824
+        from _pytest.unittest import TestCaseFunction
+
+        original_runtest = TestCaseFunction.runtest
+
+        def non_debugging_runtest(self) -> None:  # noqa: ANN001
+            self._testcase(result=self)
+
+        from django.test import SimpleTestCase
+
+        assert issubclass(request.cls, SimpleTestCase)  # Guarded by 'is_django_unittest'
+        try:
+            TestCaseFunction.runtest = non_debugging_runtest  # type: ignore[method-assign]
+
+            # Don't set up the DB if the unittest does not require DB.
+            # The `databases` propery seems like the best indicator for that.
+            if request.cls.databases:
+>               request.getfixturevalue("django_db_setup")
+
+build/venv314/lib/python3.14/site-packages/pytest_django/plugin.py:598:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python/mariamem/django/pytest_plugin.py:87: in django_db_setup
+    manager.prepare()
+python/mariamem/django/_database.py:113: in prepare
+    callback(self.connection)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+connection = <DatabaseWrapper vendor='mysql' alias='default'>
+
+    def prepare(connection):
+        original.prepare(connection)
+        with connection.cursor() as cursor:
+            cursor.execute('CREATE TABLE worker_seed (worker VARCHAR(16) PRIMARY KEY)')
+            cursor.execute('INSERT INTO worker_seed VALUES (%s)', (WORKER,))
+            cursor.execute("SELECT name FROM django_migrations WHERE app='orders' ORDER BY name")
+            assert list(cursor.fetchall()) == [('0001_initial',), ('0002_status',)]
+        source = DATABASES['default']['MARIAMEM_PREPARED'].source
+        info = source.connection_info()
+        event('prepared', database=connection.settings_dict['NAME'], host_pid=source.diagnostics['host_pid'],
+              source_id=source.id, port=info['port'])
+        if MODE in ('crash','restart'):
+            if WORKER in ('gw0','gw1'):
+                barrier('prepare')
+            elif MODE == 'restart':
+                (OUT/'replacement-ready').touch()
+        elif MODE not in ('idle','cleanup-failure'):
+            barrier('prepare')
+        if MODE == 'prepare-failure' and WORKER == 'gw0':
+>           raise RuntimeError('XDIST_GW0_PREPARE_FAILURE')
+E           RuntimeError: XDIST_GW0_PREPARE_FAILURE
+
+tests/django_prepared/xdist/worker_settings.py:69: RuntimeError
+- generated xml file: __WORKTREE__/build/acceptance-parallel-314/prepare-failure-2-load/junit.xml -
+=========================== short test summary info ============================
+ERROR tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_03 - Ru...
+ERROR tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_04 - Ru...
+ERROR tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_first
+ERROR tests/django_prepared/xdist/parallel_cases.py::TestAtomic::test_second
+ERROR tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_03
+ERROR tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_04
+ERROR tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_05
+ERROR tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_06
+ERROR tests/django_prepared/xdist/parallel_cases.py::TestTransactional::test_first
+========================= 3 passed, 9 errors in 1.11s ==========================
