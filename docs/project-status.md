@@ -14,6 +14,23 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Issue63 buffer-pool alignment — adoption direction approved, canonical candidate pending
+
+On2026-11-03 the Human approved incorporating the local allocation correction
+because it removes known unnecessary work. The [decision](decisions/buffer-pool-alignment.md)
+accepts that narrow rationale and the small observed retained-RSS saving;
+CPU/batch improvement is not established and queue latency remains unmeasured.
+The [original experiment](https://github.com/masahitojp/mariamem/blob/964a4cabcb6f2b2b0fa6828319ae3c362dfc8908/benchmarks/buffer-alignment-source.md)
+retains its INCONCLUSIVE performance conclusion and source identities.
+
+[Issue63](https://github.com/masahitojp/mariamem/issues/63) belongs to
+[v0.7.0](https://github.com/masahitojp/mariamem/milestone/4). Prepare the smallest
+canonical candidate from main, retaining zero-fill/failure/release contracts and
+normal guest/binding/generated-source guards. No experiment-only installer or
+observer is adopted. Canonical preparation/generation and supported-host
+correctness remain to be verified before integration. This approval does not
+publish a version or start release Qualification.
+
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
 [PR35](https://github.com/masahitojp/mariamem/pull/35) moved heavy product acceptance
