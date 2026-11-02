@@ -2,6 +2,9 @@
 
 ## Recent measurement and discovery reports
 
+- [次の作業とv0.7.0の範囲案](v070-performance-resource-proposal.md):
+  性能調査に基づく優先候補・利用者向け成果・有限の終了条件。相談用の提案。
+
 - [mariamem / pgmem 性能調査の見取り図](performance-investigation-map.md):
   確認した事実・分かったこと・未解明点を測定条件と固定sourceの根拠に対応付けた全体索引。
 
