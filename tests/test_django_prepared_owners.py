@@ -256,7 +256,8 @@ def test_collection_exclusion_without_optional_framework_dependency(monkeypatch,
     from mariamem.django import pytest_plugin
     # Keep the ordinary daily policy check independent of optional Django/C.
     base = type('Case', (), {})
-    monkeypatch.setitem(sys.modules, 'django.test', SimpleNamespace(TransactionTestCase=base))
+    monkeypatch.setitem(sys.modules, 'django.test', SimpleNamespace(SimpleTestCase=base))
+    monkeypatch.setitem(sys.modules, 'django.core.exceptions', SimpleNamespace(ImproperlyConfigured=ValueError))
     monkeypatch.setitem(sys.modules, 'mariamem.django._cases', SimpleNamespace(validate_case=lambda cls: None))
     monkeypatch.setattr(pytest_plugin, '_entry', lambda config: None)
     item = SimpleNamespace(cls=base, fixturenames=fixtures,

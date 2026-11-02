@@ -123,7 +123,7 @@ def test_authored_inputs_and_pins_preserved():
     assert len(manifest['application_sha256']) == 13
     for name, expected in manifest['application_sha256'].items():
         assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == expected, name
-    assert manifest['versions'] == {'Django': '5.2.8', 'mysqlclient': '2.2.7', 'pytest': '9.0.2', 'pytest-django': '4.12.0'}
+    assert manifest['versions'] == {'Django': '5.2.8', 'mysqlclient': '2.2.7', 'pytest': '9.0.2', 'pytest-django': '4.12.0', 'pytest-xdist': '3.8.0', 'execnet': '2.1.2'}
 
 
 def test_comparison_keeps_error_semantics_but_excludes_unique_paths(ci):
