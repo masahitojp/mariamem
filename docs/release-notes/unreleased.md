@@ -42,23 +42,25 @@ and version metadata remain unchanged.
   No guest/generated code, core Go runtime or version change is included; no
   performance or detailed resource claim is added.
 
-## Candidate follow-up — local D1 xdist
+## Adopted local D1 xdist — unreleased
 
-The candidate adds explicit `-n N` local workers for `load` / `loadscope`, using
+The local extension adds explicit `-n N` local workers for `load` / `loadscope`, using
 pytest-xdist3.8.0 / execnet2.1.2 in the `django-pytest` extra. Serial stays the
 default. Each DB-using worker owns a separate host and migration/seed baseline;
 class preparation can repeat per worker or when rescheduling re-enters a class. Controller/idle/DB-free workers acquire
 none. No cross-process SDK handles or shared global Snapshot are introduced.
 
-The candidate retains failed tests on worker crash; a replacement prepares a
+The extension retains failed tests on worker crash; a replacement prepares a
 fresh lineage under normal xdist restart policy. Cleanup debt remains local to
 the failed worker. Hard death closes the host by control EOF but cannot run
 Python temporary-directory finalizers; runner/job scratch cleanup remains
 necessary. Automatic counts, remote/manual gateways, loop-on-fail, other
-schedulers and Django --parallel are outside the accepted candidate scope.
+schedulers and Django --parallel are outside the accepted scope.
 The existing Release Django job adds installed-entry cases with its existing
 shared wheel/host. No new workflow/build/version or performance claim is added.
-Fresh both-OS/minor acceptance and adoption remain pending.
+Both OSes × Python3.11/3.14 passed installed-wheel serial/parallel acceptance
+and Release READY in operation=verify; the Human approved adoption. See the
+[adoption receipt](../reviews/d1-xdist-adoption.md). Publication remains separate.
 
 ## Historical 0.6.0 drafting reference
 

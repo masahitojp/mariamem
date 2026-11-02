@@ -74,7 +74,7 @@ The source wheel SHA256 is
 `0c49fcd9f571851d8d37c6ec0fd089fad45609b281dc4fb0e8479819752e1519`.
 No Go/guest source change or rebuild was needed for these local checks.
 
-[Saved evidence](d1-xdist-implementation-evidence/) retains inputs, assessments,
+[Saved evidence](https://github.com/masahitojp/mariamem/tree/85f2857df5f47586a10ac85a6daf46d3927ca438/docs/reviews/d1-xdist-implementation-evidence) retains inputs, assessments,
 worker events, JUnit and selected failure output for both campaigns/minors,
 and canonical output. `checksums.json` records original raw bytes and saved
 normalized-byte hashes. Worktree/home prefixes and trailing whitespace are

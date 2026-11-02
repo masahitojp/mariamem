@@ -1,6 +1,0 @@
-{"event": "declaration"}
-{"event": "declaration_checked", "worker": "gw0", "process": 5926, "source_absent": true}
-{"event": "host", "worker": "gw0", "process": 5926, "pid": 5957}
-{"event": "prepare", "worker": "gw0", "process": 5926}
-{"event": "prepared", "worker": "gw0", "process": 5926, "database": "test_mariamem_gw0", "host_pid": 5957, "source_id": "6f22f7ba00efb05d849055a9c62f9470", "port": 54952}
-{"event": "overlap", "worker": "gw0", "process": 5926, "boundary": "prepare", "hosts": [5956, 5957]}

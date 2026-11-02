@@ -2193,3 +2193,18 @@ This is source-entry evidence using the published host, not fresh installed
 candidate acceptance. The remaining gate is the existing Release four-cell
 installed-wheel campaign, followed by protected integration; no publication
 approval or performance claim is implied.
+
+
+## D1 local xdist — Human adoption approved, protected integration pending
+
+On2026-11-03 the Human approved adoption following successful
+[verify41457221670](https://github.com/masahitojp/mariamem/actions/runs/41457221670)
+and local timing. The [adoption receipt](reviews/d1-xdist-adoption.md) records
+all four installed-wheel OS/Python cells:15 parallel and20 serial expected
+assessments each, exact source_commit `d99f07cd16a8a11c1644225206a3d1fcc0a39edd`,
+READY, operation=verify. This supersedes earlier pending qualification status.
+Normal protected integration remains; publication/version selection is separate.
+Detailed logs and timing data remain on the pinned archive linked from that
+receipt; the product PR keeps concise evidence and reproducible harnesses.
+Serial stays default, with explicit positive local worker counts and load/loadscope.
+No universal performance or resource guarantee is added.

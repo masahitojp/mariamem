@@ -124,11 +124,11 @@ Function-style `django_db` tests and ordinary Django database classes cannot be
 mixed into this prepared run. `SimpleTestCase` tests without database access may
 coexist. The ordinary recipe still supports its independently tested policies.
 
-## Local pytest-xdist workers (candidate follow-up)
+## Local pytest-xdist workers
 
-The local-worker extension is a candidate change, pending its own installed-wheel
-acceptance and adoption. The serial entry above remains the adopted baseline.
-The candidate `django-pytest` extra supplies pytest-xdist3.8.0 / execnet2.1.2.
+The local-worker extension is approved for adoption and remains unreleased.
+Its four installed-wheel cells passed; see the [adoption receipt](reviews/d1-xdist-adoption.md).
+Serial remains default. The `django-pytest` extra supplies pytest-xdist3.8.0 / execnet2.1.2.
 Keep the ordinary serial invocation, or opt in with an explicit worker count:
 
 ```sh
@@ -137,7 +137,7 @@ DJANGO_SETTINGS_MODULE=myproject.test_settings \
 ```
 
 pytest-django and xdist normally auto-load from the installed extras. The
-supported candidate schedulers are `load` and `loadscope`;2 and4 local workers
+supported schedulers are `load` and `loadscope`;2 and4 local workers
 are the verification cells, not a capacity guarantee. `loadscope` keeps a class
 on one worker. With `load`, class setup and `setUpTestData()` execute per worker/class
 activation. Restart/rescheduling may revisit a class and execute setup again
@@ -201,10 +201,10 @@ seed independently of flush. It has no `setUpTestData()` hook.
 
 Initial scope is Django5.2 (locally checked with5.2.8), mysqlclient2.2.7,
 pytest9.0.2/pytest-django4.12.0, one `default` MySQL alias. Serial remains the
-adopted baseline; the candidate local-worker mode is described above.
+default; the local-worker mode is described above.
 Multiple aliases, test mirrors, disabled migrations, `available_apps`,
 `serialized_rollback`, `reset_sequences`, `--keepdb`, `--reuse-db` and
-Django parallel execution are rejected. Candidate xdist permits only the local
+Django parallel execution are rejected. Local xdist permits only the local
 mode above. Function-style pytest DB tests, async,
 custom class teardown SQL, arbitrary projects and performance guarantees are
 outside this entry's accepted scope. Custom `tearDownClass()` is rejected;
@@ -222,7 +222,7 @@ to recover a host crash or make an interrupted test pass.
 
 Daily checks use deterministic ownership/policy tests without starting hosts.
 The existing Release Django job reuses its shared wheel/host and pinned native
-orders controls, then runs the serial and candidate local-worker entries from the installed wheel on both
+orders controls, then runs the serial and local-worker entries from the installed wheel on both
 supported OSes and Python3.11/3.14. No new workflow, guest build or daily Live
 campaign is added. Local source-entry checks with a reused published host are
 recorded separately; they do not substitute for those installed-wheel cells.
