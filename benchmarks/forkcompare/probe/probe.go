@@ -69,6 +69,7 @@ type Sample struct {
 	Error      string        `json:"error,omitempty"`
 }
 type Report struct {
+	WaitAccounting      bool          `json:"wait_accounting_enabled"`
 	Startup             *timing.Trace `json:"startup_trace"`
 	IO                  IOProfile     `json:"io_profile"`
 	CPUUserMS           float64       `json:"cpu_user_ms"`
@@ -382,7 +383,7 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 var experimentSync string
 
 func Main(backend string, start func(context.Context) (*Database, error)) {
-	r := &Report{Backend: backend, Go: runtime.Version(), GOMAXPROCS: runtime.GOMAXPROCS(0)}
+	r := &Report{WaitAccounting: base.ExperimentWaitAccounting, Backend: backend, Go: runtime.Version(), GOMAXPROCS: runtime.GOMAXPROCS(0)}
 	flag.StringVar(&r.Route, "route", "tcp", "tcp or pipe (pgmem only)")
 	flag.IntVar(&r.Parallel, "parallel", 1, "maximum live child workers")
 	flag.IntVar(&r.Count, "count", 20, "child count")

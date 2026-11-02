@@ -1,0 +1,45 @@
+{
+  "issue": 68,
+  "question": "Does null-trx pool wait accounting improve queue-delay distributions at product-default read1?",
+  "product": "v0.6.0 pinned; read1/write2/purge1/nativeAIO0",
+  "prototype": "guest/experimental.patch plus generated Fn16786 normal-path equivalent; no WASM rebuild",
+  "primary": "per-child maximum task submit-to-start queue time distribution; per-task distribution also retained",
+  "quantiles": [
+    "p50",
+    "p95",
+    "p99",
+    "max"
+  ],
+  "thresholds_ms": [
+    1,
+    10,
+    50,
+    100,
+    250,
+    500
+  ],
+  "paired_order": [
+    [
+      "baseline",
+      "fixed"
+    ],
+    [
+      "fixed",
+      "baseline"
+    ],
+    [
+      "baseline",
+      "fixed"
+    ]
+  ],
+  "processes": 6,
+  "parallel": 8,
+  "children_per_process": 48,
+  "gate": "Functional/balance/mechanism pass, no censored child tasks, pooled child-max p50/p95/p99 non-worse with strict p95 or p99 improvement; at least2/3 pairs non-worse p95/p99 and one strict. Otherwise inconclusive/regression; 400ms disappearance is not a gate.",
+  "controls": "actual generated null/non-null/no-pool/long-task guard fixtures in two non-DB processes",
+  "active_budget_minutes": 120,
+  "measurement_budget_minutes": 10,
+  "heavy_ci_limit": 0,
+  "stop": "Fixed six DB processes; no repeats to force a result; no main/adoption/release",
+  "platform": "macOS27.2 arm64 M1 Go1.27.3 CGO0 GOMAXPROCS8"
+}

@@ -1,0 +1,24 @@
+--- a/storage/innobase/buf/buf0rea.cc
++++ b/storage/innobase/buf/buf0rea.cc
+@@ -206,9 +206,9 @@
+ void buf_page_t::read_wait(trx_t *trx) noexcept
+ {
+   ulonglong start= 0, *stats= nullptr;
++  tpool::tpool_wait_begin();
+   if (trx)
+   {
+-    tpool::tpool_wait_begin();
+     thd_wait_begin(trx->mysql_thd, THD_WAIT_DISKIO);
+     if (ha_handler_stats *active= trx->active_handler_stats)
+     {
+@@ -221,9 +221,9 @@
+   ut_d(const uint32_t latched_state{state()});
+   ut_ad(latched_state > FREED);
+   ut_ad(latched_state < READ_FIX || latched_state > WRITE_FIX);
++  tpool::tpool_wait_end();
+   if (trx)
+   {
+-    tpool::tpool_wait_end();
+     thd_wait_end(trx->mysql_thd);
+     if (stats)
+       *stats+= mariadb_measure() - start;
