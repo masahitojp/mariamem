@@ -1,0 +1,539 @@
+{
+  "measure/00-baseline.json": {
+    "cases": [],
+    "variant": "baseline"
+  },
+  "measure/00-fixed.json": {
+    "cases": [
+      {
+        "account_markers": [
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 0.40875,
+            "worker_pointer": 0,
+            "worker_state": 0
+          }
+        ],
+        "add_route_counts": {
+          "maintenance_stall_add_request": 1,
+          "policy_add_request": 98
+        },
+        "child": 20,
+        "count_ms": 796.334625,
+        "instance": 22,
+        "maintenance": [
+          {
+            "offset_from_count_ms": 381.384875,
+            "policies": [
+              {
+                "accounted_waiting": 1,
+                "active": 3,
+                "concurrency": 1,
+                "concurrency_gate_allows": false,
+                "long_tasks": 0,
+                "standby": 0
+              }
+            ]
+          },
+          {
+            "offset_from_count_ms": 784.55875,
+            "policies": [
+              {
+                "accounted_waiting": 1,
+                "active": 3,
+                "concurrency": 1,
+                "concurrency_gate_allows": true,
+                "long_tasks": 2,
+                "standby": 0
+              }
+            ]
+          }
+        ],
+        "max_queue_ms": 793.862,
+        "read_waits": [
+          {
+            "background_scope": false,
+            "ms": 788.382167,
+            "null_trx": true,
+            "query_scope": true,
+            "thread": 310
+          }
+        ]
+      }
+    ],
+    "variant": "fixed"
+  },
+  "measure/01-baseline.json": {
+    "cases": [
+      {
+        "account_markers": [],
+        "add_route_counts": {
+          "policy_add_request": 3
+        },
+        "child": 8,
+        "count_ms": 403.443917,
+        "instance": 10,
+        "maintenance": [
+          {
+            "offset_from_count_ms": 390.3375,
+            "policies": [
+              {
+                "accounted_waiting": 2,
+                "active": 3,
+                "concurrency": 1,
+                "concurrency_gate_allows": true,
+                "long_tasks": 0,
+                "standby": 0
+              }
+            ]
+          }
+        ],
+        "max_queue_ms": 403.398625,
+        "read_waits": [
+          {
+            "background_scope": false,
+            "ms": 397.370916,
+            "null_trx": true,
+            "query_scope": true,
+            "thread": 147
+          },
+          {
+            "background_scope": false,
+            "ms": 399.143959,
+            "null_trx": false,
+            "query_scope": false,
+            "thread": 156
+          }
+        ]
+      },
+      {
+        "account_markers": [],
+        "add_route_counts": {
+          "maintenance_stall_add_request": 1,
+          "policy_add_request": 146
+        },
+        "child": 13,
+        "count_ms": 787.944125,
+        "instance": 14,
+        "maintenance": [
+          {
+            "offset_from_count_ms": 376.263333,
+            "policies": [
+              {
+                "accounted_waiting": 1,
+                "active": 3,
+                "concurrency": 1,
+                "concurrency_gate_allows": false,
+                "long_tasks": 0,
+                "standby": 0
+              }
+            ]
+          },
+          {
+            "offset_from_count_ms": 779.398208,
+            "policies": [
+              {
+                "accounted_waiting": 1,
+                "active": 3,
+                "concurrency": 1,
+                "concurrency_gate_allows": true,
+                "long_tasks": 2,
+                "standby": 0
+              }
+            ]
+          }
+        ],
+        "max_queue_ms": 785.919375,
+        "read_waits": [
+          {
+            "background_scope": false,
+            "ms": 786.217125,
+            "null_trx": false,
+            "query_scope": true,
+            "thread": 188
+          },
+          {
+            "background_scope": false,
+            "ms": 779.73075,
+            "null_trx": true,
+            "query_scope": false,
+            "thread": 190
+          }
+        ]
+      }
+    ],
+    "variant": "baseline"
+  },
+  "measure/01-fixed.json": {
+    "cases": [
+      {
+        "account_markers": [
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 0.475041,
+            "worker_pointer": 0,
+            "worker_state": 0
+          }
+        ],
+        "add_route_counts": {
+          "maintenance_stall_add_request": 1,
+          "policy_add_request": 121
+        },
+        "child": 5,
+        "count_ms": 795.950166,
+        "instance": 9,
+        "maintenance": [
+          {
+            "offset_from_count_ms": 379.833416,
+            "policies": [
+              {
+                "accounted_waiting": 1,
+                "active": 3,
+                "concurrency": 1,
+                "concurrency_gate_allows": false,
+                "long_tasks": 0,
+                "standby": 0
+              }
+            ]
+          },
+          {
+            "offset_from_count_ms": 784.346583,
+            "policies": [
+              {
+                "accounted_waiting": 1,
+                "active": 3,
+                "concurrency": 1,
+                "concurrency_gate_allows": true,
+                "long_tasks": 2,
+                "standby": 0
+              }
+            ]
+          }
+        ],
+        "max_queue_ms": 785.565541,
+        "read_waits": [
+          {
+            "background_scope": false,
+            "ms": 787.400541,
+            "null_trx": true,
+            "query_scope": true,
+            "thread": 55
+          }
+        ]
+      }
+    ],
+    "variant": "fixed"
+  },
+  "measure/02-baseline.json": {
+    "cases": [
+      {
+        "account_markers": [],
+        "add_route_counts": {
+          "maintenance_stall_add_request": 1,
+          "policy_add_request": 158
+        },
+        "child": 31,
+        "count_ms": 802.86475,
+        "instance": 33,
+        "maintenance": [
+          {
+            "offset_from_count_ms": 367.790708,
+            "policies": [
+              {
+                "accounted_waiting": 1,
+                "active": 3,
+                "concurrency": 1,
+                "concurrency_gate_allows": false,
+                "long_tasks": 0,
+                "standby": 0
+              }
+            ]
+          },
+          {
+            "offset_from_count_ms": 770.939166,
+            "policies": [
+              {
+                "accounted_waiting": 1,
+                "active": 3,
+                "concurrency": 1,
+                "concurrency_gate_allows": true,
+                "long_tasks": 2,
+                "standby": 0
+              }
+            ]
+          }
+        ],
+        "max_queue_ms": 775.637542,
+        "read_waits": [
+          {
+            "background_scope": false,
+            "ms": 798.069833,
+            "null_trx": false,
+            "query_scope": true,
+            "thread": 476
+          },
+          {
+            "background_scope": false,
+            "ms": 775.725709,
+            "null_trx": true,
+            "query_scope": false,
+            "thread": 471
+          }
+        ]
+      }
+    ],
+    "variant": "baseline"
+  },
+  "measure/02-fixed.json": {
+    "cases": [
+      {
+        "account_markers": [
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 1.9745,
+            "worker_pointer": 0,
+            "worker_state": 0
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 806.328333,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 806.378166,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 806.466625,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 806.537083,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 806.605208,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 806.67425,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 806.742541,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 806.812041,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 806.884625,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 806.953083,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.022,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.091416,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.159125,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.2285,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.297791,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.366333,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.435208,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.5035,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.572583,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.641916,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.711125,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.781583,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.849791,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.917958,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 807.987291,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 808.056458,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 808.125791,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 808.193791,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 808.264791,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 808.332833,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 808.404291,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          },
+          {
+            "kind": "account_null_begin",
+            "offset_from_count_ms": 808.468833,
+            "worker_pointer": 415037344,
+            "worker_state": 1
+          }
+        ],
+        "add_route_counts": {
+          "maintenance_stall_add_request": 1,
+          "policy_add_request": 289
+        },
+        "child": 7,
+        "count_ms": 810.725667,
+        "instance": 8,
+        "maintenance": [
+          {
+            "offset_from_count_ms": 392.95975,
+            "policies": [
+              {
+                "accounted_waiting": 1,
+                "active": 3,
+                "concurrency": 1,
+                "concurrency_gate_allows": false,
+                "long_tasks": 0,
+                "standby": 0
+              }
+            ]
+          },
+          {
+            "offset_from_count_ms": 796.065208,
+            "policies": [
+              {
+                "accounted_waiting": 1,
+                "active": 3,
+                "concurrency": 1,
+                "concurrency_gate_allows": true,
+                "long_tasks": 2,
+                "standby": 0
+              }
+            ]
+          }
+        ],
+        "max_queue_ms": 804.4015,
+        "read_waits": [
+          {
+            "background_scope": false,
+            "ms": 796.4675,
+            "null_trx": true,
+            "query_scope": true,
+            "thread": 41
+          }
+        ]
+      }
+    ],
+    "variant": "fixed"
+  }
+}

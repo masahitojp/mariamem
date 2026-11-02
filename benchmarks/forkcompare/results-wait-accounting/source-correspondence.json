@@ -1,0 +1,11 @@
+{
+  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "buf0rea_before_sha256": "44fe14486d5fe9a3eff29e90353beec07da49d42413deac08acdeaa984be62ca",
+  "buf0rea_after_sha256": "7373389b630c95f46718d9e762bcbf146fe6076acb2e45ddcac3efa857f8cb75",
+  "generated_function": 16786,
+  "begin_wrapper": 16582,
+  "end_wrapper": 16583,
+  "lock_function": 16623,
+  "mode": "Source patch plus equivalent normal-path generated-code prototype; not regenerated WASM",
+  "wrapper_source_sha256": "94e4d1d51371db78fe424a78d593489b3270cf883f196ec427be207adb6273a4"
+}

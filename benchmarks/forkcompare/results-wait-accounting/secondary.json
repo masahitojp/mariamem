@@ -1,0 +1,36 @@
+{
+  "baseline": {
+    "cpu_ms": [
+      4130.908,
+      3868.548,
+      4013.2709999999997
+    ],
+    "cpu_median_ms": 4013.2709999999997,
+    "lifetime_peak_rss_mib": [
+      744.546875,
+      766.296875,
+      809.296875
+    ],
+    "lifetime_peak_rss_median_mib": 766.296875,
+    "null_read_scopes": 255,
+    "nonnull_read_scopes": 177,
+    "events": 638534
+  },
+  "fixed": {
+    "cpu_ms": [
+      3958.492,
+      4041.55,
+      3987.331
+    ],
+    "cpu_median_ms": 3987.331,
+    "lifetime_peak_rss_mib": [
+      784.0625,
+      739.75,
+      731.765625
+    ],
+    "lifetime_peak_rss_median_mib": 739.75,
+    "null_read_scopes": 123,
+    "nonnull_read_scopes": 145,
+    "events": 572680
+  }
+}

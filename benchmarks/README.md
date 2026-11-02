@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [Issue #68: read1 wait-accounting prototype](wait-accounting.md): source patch
+  and normal-path prototype pass controls; queue p50/p95 improve, DB-max p99
+  does not. Conservative distribution acceptance remains inconclusive.
+
 - [Issue #68: light observation](read4-light.md): residual slow COUNT remains
   uncaptured; ordinary pool read-wait scopes corroborate null-trx accounting
   omission and rejecting concurrency decisions. Minimal source proposal only.

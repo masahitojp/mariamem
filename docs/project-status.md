@@ -14,21 +14,23 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Issue #68 — light observation corroborates a source path, not a complete fix
+## Issue #68 — read1 accounting prototype measured; distribution gate inconclusive
 
-The [light follow-up](../benchmarks/read4-light.md) removes routine stacks and
-AtomicWait/Notify hooks. Three read4 P8/48-child processes again have no COUNT
->100ms (maximum40.086ms);144 child oracles/cleanup pass and dropped0. During
-ordinary progress,29 selected pool-worker null-trx page-read scopes have no
-waiting-accounting call while the same pool rejects waking/adding workers.
-Twenty-one overlap their own child's COUNT, but none is the sought400ms case.
-The source target is buf_page_t::read_wait's conditional tpool wait accounting;
-a minimal proposal is documented for review, with no correction implemented or
-sufficiency claim. Recommend reviewing that concrete target against the known
-product-default read1 case instead of indefinite read4 capture attempts.
-[Issue #68](https://github.com/masahitojp/mariamem/issues/68) remains open; source
-wrapper/balance checks and candidate validation are still needed. No guest
-rebuild, Ubuntu acceptance, main adoption or release.
+The Human authorized the minimal null-trx waiting-accounting experiment and
+replaced400ms-disappearance acceptance with queue-delay distributions. The
+[source patch/prototype comparison](../benchmarks/wait-accounting.md) keeps
+product-default read1, with three alternating baseline/fixed process pairs.
+All288 child oracles/cleanup and controlled NULL/non-NULL/no-pool/long-task cases
+pass;123 added accounting pairs balance and47 show real pool waiting state.
+Per-child maximum queue p50/p95 improve9.501→8.123ms and21.909→20.129ms, while
+p99 is776.228→785.566ms. Per-task p99 improves769.374→390.065ms, but task mix
+changes. Two pairs support tail improvement; the conservative pooled DB-max
+non-worse gate remains inconclusive. This is not rejection for retaining400ms
+cases. Captured fixed long cases show the query's added API call is on a
+non-pool-worker thread, while other pool work still stalls; the single patch
+is not established as sufficient. guest/experimental.patch and a normal-path
+generated prototype are retained for review, not main adoption. No canonical
+WASM rebuild, Ubuntu acceptance, qualification or release. [Issue #68](https://github.com/masahitojp/mariamem/issues/68) stays open.
 
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 

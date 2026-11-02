@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "run": "measure/00-fixed.json",
+  "child": 20,
+  "submit_method_ms": 10.9795,
+  "delay_after_submit_return_ms": 782.8825,
+  "read_thread": 310,
+  "pool_task_starts_on_read_thread": 0
+}

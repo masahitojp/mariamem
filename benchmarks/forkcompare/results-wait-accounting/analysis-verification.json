@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "unbalanced_control_rejected": true,
+  "synthetic_distribution_improvement_accepted_despite_400ms_count": true,
+  "scope": "Gate controls only; synthetic data is not runtime performance evidence"
+}

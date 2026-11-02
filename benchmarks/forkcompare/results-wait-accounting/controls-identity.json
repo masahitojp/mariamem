@@ -1,0 +1,5 @@
+{
+  "source_commit": "bbd60290f1511f2cb54f90599678cb76af9877bd",
+  "sha256": "d0bf140302c18bc0563b0b60913b92fb30608b64fdc734c7f849f6cce16c7898",
+  "build_info": "temp/bin/account-controls: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare/accountcontrols\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare\tv0.0.0-20261102001915-bbd60290f151\t\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.0\n\t=>\t../../../temp/product\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=bbd60290f1511f2cb54f90599678cb76af9877bd\n\tbuild\tvcs.time=2026-11-02T00:19:15Z\n\tbuild\tvcs.modified=false\n"
+}

@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "original_generated_body_sha256": "a69472ea6d27843dea4c435bff23fa11c9fbaaaee2aec3196544807d07b99434",
+  "original_body_unchanged": true,
+  "new_path_guard": "ExperimentWaitAccounting && trx==NULL",
+  "source_patch_sha256": "9c183b85128832ff48aa688c13c8b7af151a580e459b6bfcb064a0e8603f2775",
+  "scope": "Normal-path equivalent prototype; not a rebuilt WASM or general exception proof"
+}

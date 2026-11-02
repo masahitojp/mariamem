@@ -1,0 +1,10 @@
+{
+  "ref": "refs/heads/evidence/wait-accounting-20261102",
+  "source_commit": "68e000f870b1e5651a6ae9bd9778bd3255a96a48",
+  "path": "raw.tar.gz",
+  "bytes": 11337472,
+  "sha256": "6630ee6c62bd074f67bfd42e73ba79b90817d36c5441d20ec36213124c68ed81",
+  "members": 953,
+  "normalization": "workspace prefix only; per-file original/published hashes in archive",
+  "scope": "Issue68 read1 accounting prototype; fixed queue-distribution A/B, no canonical guest rebuild or adoption"
+}
