@@ -2,6 +2,9 @@
 
 ## Recent measurement and discovery reports
 
+- [mariamem / pgmem 性能調査の見取り図](performance-investigation-map.md):
+  確認した事実・分かったこと・未解明点を測定条件と固定sourceの根拠に対応付けた全体索引。
+
 - [Issue #68: read1 wait-accounting prototype](wait-accounting.md): source patch
   and normal-path prototype pass controls; queue p50/p95 improve, DB-max p99
   does not. Conservative distribution acceptance remains inconclusive.
