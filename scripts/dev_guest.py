@@ -184,7 +184,11 @@ def regenerate_development(root, guest, output):
             shutil.copy2(root/name, target)
         staged_runtime = out/'generatedgo'
         runtime = product/'internal/generatedgo'
-        run([sys.executable, str(root/'scripts/generate_runtime.py'), '--source-module', str(module),
+        installer = root/'scripts/generate_runtime.py'
+        # Scoped experiment only; the canonical installer/binding remain pinned.
+        if record['guest_sha256'] == '96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f':
+            installer = root/'tests/issue63_install_dev.py'
+        run([sys.executable, str(installer), '--source-module', str(module),
              '--development-input', str(out/'installation-inputs.json'), '--output', str(staged_runtime)],
             env=env, check=True, phase='dev:installation', outputs=[staged_runtime/'provenance.json'])
         shutil.move(str(staged_runtime), runtime)

@@ -55,3 +55,23 @@ Actual WASIX allocation failure, allocator padding/resource effects, normal gues
 build/regeneration, single pool zero-fill, SQL/Fork isolation, cleanup and common
 performance metrics are not yet verified. Numerical improvement/regression
 margins remain undecided; this checkpoint does not claim an adoption gate PASS.
+
+## Source guest built; development binding checkpoint
+
+The single source build completed in989.55s (including acquisition/preparation),
+producing UNQUALIFIED guest `96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f`
+from source_commit `d86153409067e6ad868b566872a3c4a9495ef5f7`.
+All four relevant prepared C/C++ source hashes match the host contract receipt.
+Initial native translation succeeded but installation correctly refused the new
+guest at the canonical worker-allocation identity guard. This FAIL is retained.
+
+The experimental development route now selects `tests/issue63_install_dev.py`
+only for that exact guest. It first verifies Fn153/Fn131/Fn214 against all three
+existing whole-function hashes, then binds that exact guest within the installer
+process. Existing inventory, body, Module/yield and runtime-adapter checks run
+unchanged; canonical `runtime_thread_lifetime.py` and release inputs are untouched.
+The host-stage difference is only `scripts/dev_guest.py`, tests and this document,
+which the existing origin-reuse policy verifies against the immutable old commit.
+This is an experimental binding, not approval of a new canonical guest ABI.
+Five adapter controls plus the existing binding/dev-tool tests pass46 total.
+Native smoke and performance have not passed at this checkpoint.
