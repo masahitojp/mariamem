@@ -116,6 +116,13 @@ def main():
         prepared = json.loads((ROOT/'build/prepared-source.json').read_text())
         if not development and prepared.get('experimental_patch'):
             raise ValueError('experimental source patches are forbidden')
+        # Exercise the actual prepared C allocator contract before compilation.
+        allocator_check = ROOT/'build'/f'buffer-pool-contract-{trial}.json'
+        observed_run([sys.executable, ROOT/'tests/buffer_pool_alignment_check.py',
+                      '--source', ROOT/'build/source', '--output', allocator_check],
+                     env=env, check=True, phase=f'guest:allocator-contract:{trial}',
+                     inputs=[ROOT/'guest/input.json', ROOT/'tests/buffer_pool_alignment_check.py'],
+                     outputs=[allocator_check])
         shutil.move(str(ROOT/'build/source'), work/'source')
         linked = work/'artifact/mariamem-legacy-eh.wasm'
         guest = work/'artifact/mariamem-legacy-eh-O2-compatible.wasm'

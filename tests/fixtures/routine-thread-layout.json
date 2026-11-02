@@ -1,8 +1,8 @@
 {
-  "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
   "baseline_source_commit": "de0e08a9c4248969a7522abebfdee8aea6ef9657",
   "baseline_guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
-  "result": "PASS: exact19-body mapping and enumerated literal/data review; heap/mmap unprotected failure and protected/race controls retain original J1 assertions",
+  "result": "PENDING: exact canonical binding and original J1 controls",
   "global_address_delta": 5760,
   "data_segments": [
     {
@@ -560,5 +560,9 @@
   "third_tls_bytes": 505,
   "second_segment_byte_equal": false,
   "second_segment_note": "Not claimed byte-identical; current whole data and per-segment hashes bound by reviewed prepared identity.",
-  "tls_layout_note": "Initialized TLS grows from497 to505; complete candidate TLS hash matches prepared-p2 identity. Actual J1 constructors copy the current505-byte segment."
+  "tls_layout_note": "Initialized TLS grows from497 to505; complete candidate TLS hash matches prepared-p2 identity. Actual J1 constructors copy the current505-byte segment.",
+  "prior_alignment_guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "alignment_binding_source_commit": "1b0a0c5c569c49f3643550911d62d85d351f15fb",
+  "alignment_binding_note": "Canonical revalidation required; expected whole function, memory initialization and TLS/data identities are unchanged.",
+  "prior_result": "PASS: exact19-body mapping and enumerated literal/data review; heap/mmap unprotected failure and protected/race controls retain original J1 assertions"
 }

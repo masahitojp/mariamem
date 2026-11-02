@@ -9,6 +9,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import resource
 import subprocess
 import tempfile
 
@@ -83,6 +84,7 @@ def main():
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
+    resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
     names = ['mysys/my_largepage.c', 'include/my_sys.h',
              'storage/innobase/buf/buf0buf.cc', 'mysys/my_virtual_mem.c']
     sources = {name: (args.source / name).read_text() for name in names}
@@ -110,7 +112,7 @@ def main():
         source.write_text(PRELUDE + helper + '\n' + legacy + ORACLES)
         binary = temp / 'contract'
         subprocess.run(cc + [str(source), '-o', str(binary)], check=True)
-        subprocess.run([str(binary)], check=True)
+        subprocess.run([str(binary)], cwd=temp, check=True)
         results.append('dirty-buffer zero-fill, exact alignment/size, legacy 4KiB, controlled ENOMEM, original-pointer free')
         # A C++ caller must bind the same symbol as the C implementation.
         implementation = temp / 'allocator.c'
@@ -124,7 +126,7 @@ def main():
                           'if (!p) return 1; free(p); return 0; }\n')
         linked = temp / 'caller'
         subprocess.run(['c++', '-Wall', '-Wextra', '-Werror', str(caller), str(obj), '-o', str(linked)], check=True)
-        subprocess.run([str(linked)], check=True)
+        subprocess.run([str(linked)], cwd=temp, check=True)
         results.append('C implementation / C++ caller linkage')
         # Prove the contract checks catch meaningful regressions.
         mutations = {
@@ -137,7 +139,7 @@ def main():
         for name, (changed, wrapper) in mutations.items():
             source.write_text(PRELUDE + changed + '\n' + wrapper + ORACLES)
             subprocess.run(cc + [str(source), '-o', str(binary)], check=True)
-            run = subprocess.run([str(binary)], capture_output=True)
+            run = subprocess.run([str(binary)], cwd=temp, capture_output=True)
             assert run.returncode != 0, 'oracle missed ' + name
         results.append('four semantic mutations rejected')
     record = {'result': 'PASS', 'scope': 'host C contract; not real WASIX OOM or guest execution',
