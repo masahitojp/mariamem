@@ -204,3 +204,75 @@ The fixed six-process comparison is complete; no extra repetitions to obtain a
 pass. Source and generated normal-path prototype are implemented on the
 experiment branch only. No canonical guest regeneration, Ubuntu/native run,
 main adoption, qualification, version change or release is performed.
+
+
+## Final bounded worker attribution — investigation segment stopped
+
+The Human limited the last follow-up to at most one hour, existing traces first,
+at most one additional runtime observation if needed; no repeated capture,
+new parameter search, guest build or both-host acceptance. Existing traces were
+sufficient to identify the remaining observation boundary, so **no additional
+DB process or build was used**. This closes this investigation segment, not
+Issue68 as resolved and not acceptance of the experimental patch.
+
+The [read-only decoder](forkcompare/attribute-workers.py) matches task start/end
+by instance and worker, then inspects the first rejecting maintenance policy
+within each slow COUNT. It retains original trace hashes, open observed scopes,
+generic wait-method call balance and the surrounding scalar-event gap. A wait
+call balance is not direct worker-flag proof: these methods have guarded no-op
+paths. No scalar events cannot distinguish CPU execution from a blocked wait.
+
+| Fixed case | COUNT ms | Running task intervals ms | Observed state at rejecting maintenance |
+| --- | ---: | --- | --- |
+|rep0 child20 |796.334 |801.505 /789.434 /783.531 |one background-load scope with open wait call; two unclassified |
+|rep1 child5 |795.949 |795.810 /793.253 /784.792 |same shape |
+|rep2 child7 |810.725 |807.089 /804.184 /795.730 |same shape |
+
+All three policies show active3, waiting1, long0, concurrency1. The two
+unclassified task intervals contain scalar-event gaps around783–797ms and no
+open recorded read_wait scope at that maintenance point. This means the existing
+read_wait patch is not sufficient to explain these intervals; it does **not**
+prove another missing notification, a syscall bug, or CPU saturation.
+
+The two approximately800ms baseline cases each have a pool-worker read_wait
+scope without a matching open generic wait call, alongside another unclassified
+task and the background-load waiter. This is consistent with the concrete
+omission motivating the patch. The approximately403ms baseline case has no
+rejecting maintenance policy during COUNT; its decoder row explicitly falls
+back to the first rejecting policy, before wait accounting settles. Its snapshot
+has fewer executing callbacks than the active count, so it is not pooled with
+the five maintenance snapshots or treated as identical worker attribution.
+
+Every observed pool dispatch slot is12303, which the pinned generated table maps
+to Fn16585, the generic task execute dispatcher. It dispatches again through task
+memory. The recorder does not retain that inner callback identity or worker
+CPU/block state. Thus structural source inspection cannot recover those details
+from these receipts, and a broader function search would not prove what these
+particular workers did.
+
+**Conclusion to the original question:** read1 pool admission contributes real
+queue stalls in this workload. The null-trx omission has a concrete experimental
+correction and partial distribution benefit. The remaining long tail is not yet
+localized to an actionable second site; the complete explanation of the earlier
+parallel4 plateau remains unproven. Keep Issue68 open with this bounded segment
+stopped. Do not extend the current run until a partial patch passes its gate.
+
+A future, separately selected task should capture **the inner callback plus a
+bounded stack for the same instance/worker during a rejected queue window**,
+with explicit worker binding. That would distinguish the observed code path from
+CPU versus lock/event waits. It requires a new diagnostic overlay and host build,
+not another repetition of this recorder. Scope it as one instrumented process
+with a no-reproduction exit; engineering effort is estimated at1–2 hours plus
+build time (not measured), with no guest/WASM regeneration. There is no current
+commitment to run it or to adopt a correction.
+
+[Worker attribution](forkcompare/results-wait-accounting/worker-attribution.json)
+and [source correspondence](forkcompare/results-wait-accounting/worker-attribution-provenance.json)
+retain all six slow cases. Reproduce without executing a DB:
+
+```sh
+python3 benchmarks/forkcompare/attribute-workers.py --raw <extracted-raw> --output benchmarks/forkcompare/results-wait-accounting/worker-attribution.json --check
+```
+
+This follow-up changes no prior queue-distribution gate, performance result,
+source-bound receipt, product setting or acceptance scope.

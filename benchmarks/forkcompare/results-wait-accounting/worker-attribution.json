@@ -1,0 +1,395 @@
+{
+  "runs": {
+    "measure/00-baseline.json": {
+      "cases": [],
+      "trace_sha256": "ea2488dbd8b868993b2fa85e46202a0667c3e0368b730516a783ad7c4703e510",
+      "variant": "baseline"
+    },
+    "measure/00-fixed.json": {
+      "cases": [
+        {
+          "child": 20,
+          "count_ms": 796.333625,
+          "instance": 22,
+          "policy": {
+            "active": 3,
+            "concurrency": 1,
+            "long_tasks": 0,
+            "queued": true,
+            "rejects": true,
+            "standby": 0,
+            "waiting": 1
+          },
+          "policy_from_count_ms": 381.387541,
+          "running_tasks_at_policy": 3,
+          "selection": "first_rejecting_maintenance",
+          "workers": [
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 0,
+              "next_event": "task_end",
+              "open_observed_scopes": [],
+              "previous_event": "task_start",
+              "scalar_event_gap_ms": 783.531208,
+              "state": "unclassified_cpu_or_wait",
+              "task": 456577484,
+              "task_end_from_count_ms": 789.338083,
+              "task_ms": 783.531208,
+              "task_start_from_count_ms": 5.806875,
+              "thread": 314
+            },
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 1,
+              "next_event": "wait_end_begin",
+              "open_observed_scopes": [
+                "background_load_scope_begin"
+              ],
+              "previous_event": "wait_begin_end",
+              "scalar_event_gap_ms": 798.933042,
+              "state": "wait_call_open_not_flag_proof",
+              "task": 24057032,
+              "task_end_from_count_ms": 789.445083,
+              "task_ms": 801.504542,
+              "task_start_from_count_ms": -12.059459,
+              "thread": 298
+            },
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 0,
+              "next_event": "submit_begin",
+              "open_observed_scopes": [],
+              "previous_event": "task_start",
+              "scalar_event_gap_ms": 789.326417,
+              "state": "unclassified_cpu_or_wait",
+              "task": 24220792,
+              "task_end_from_count_ms": 792.064541,
+              "task_ms": 789.433625,
+              "task_start_from_count_ms": 2.630916,
+              "thread": 299
+            }
+          ]
+        }
+      ],
+      "trace_sha256": "197680709e01ee236678606aff01c96ab89ea81b2148550742e65fe42706d413",
+      "variant": "fixed"
+    },
+    "measure/01-baseline.json": {
+      "cases": [
+        {
+          "child": 8,
+          "count_ms": 403.443458,
+          "instance": 10,
+          "policy": {
+            "active": 2,
+            "concurrency": 1,
+            "long_tasks": 0,
+            "queued": true,
+            "rejects": true,
+            "standby": 0,
+            "waiting": 0
+          },
+          "policy_from_count_ms": 4.1e-05,
+          "running_tasks_at_policy": 1,
+          "selection": "first_rejection_no_rejecting_maintenance",
+          "workers": [
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 0,
+              "next_event": "pool_counts",
+              "open_observed_scopes": [
+                "background_load_scope_begin",
+                "submit_begin"
+              ],
+              "previous_event": "pool_policy",
+              "scalar_event_gap_ms": 0.000667,
+              "state": "unclassified_cpu_or_wait",
+              "task": 24057032,
+              "task_end_from_count_ms": 400.92925,
+              "task_ms": 404.797875,
+              "task_start_from_count_ms": -3.868625,
+              "thread": 140
+            }
+          ]
+        },
+        {
+          "child": 13,
+          "count_ms": 787.943291,
+          "instance": 14,
+          "policy": {
+            "active": 3,
+            "concurrency": 1,
+            "long_tasks": 0,
+            "queued": true,
+            "rejects": true,
+            "standby": 0,
+            "waiting": 1
+          },
+          "policy_from_count_ms": 376.264333,
+          "running_tasks_at_policy": 3,
+          "selection": "first_rejecting_maintenance",
+          "workers": [
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 0,
+              "next_event": "read_wait_end",
+              "open_observed_scopes": [
+                "read_wait_begin"
+              ],
+              "previous_event": "read_wait_begin",
+              "scalar_event_gap_ms": 779.73075,
+              "state": "unclassified_cpu_or_wait",
+              "task": 24221024,
+              "task_end_from_count_ms": 786.448708,
+              "task_ms": 785.957417,
+              "task_start_from_count_ms": 0.491291,
+              "thread": 190
+            },
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 0,
+              "next_event": "task_end",
+              "open_observed_scopes": [],
+              "previous_event": "task_start",
+              "scalar_event_gap_ms": 782.023875,
+              "state": "unclassified_cpu_or_wait",
+              "task": 24220792,
+              "task_end_from_count_ms": 786.50725,
+              "task_ms": 782.023875,
+              "task_start_from_count_ms": 4.483375,
+              "thread": 183
+            },
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 1,
+              "next_event": "wait_end_begin",
+              "open_observed_scopes": [
+                "background_load_scope_begin"
+              ],
+              "previous_event": "wait_begin_end",
+              "scalar_event_gap_ms": 788.997667,
+              "state": "wait_call_open_not_flag_proof",
+              "task": 24057032,
+              "task_end_from_count_ms": 786.627125,
+              "task_ms": 791.722167,
+              "task_start_from_count_ms": -5.095042,
+              "thread": 169
+            }
+          ]
+        }
+      ],
+      "trace_sha256": "77d46f45565625de1256d374bca97eed038902997075d800de6fa837fc3bd7f0",
+      "variant": "baseline"
+    },
+    "measure/01-fixed.json": {
+      "cases": [
+        {
+          "child": 5,
+          "count_ms": 795.949416,
+          "instance": 9,
+          "policy": {
+            "active": 3,
+            "concurrency": 1,
+            "long_tasks": 0,
+            "queued": true,
+            "rejects": true,
+            "standby": 0,
+            "waiting": 1
+          },
+          "policy_from_count_ms": 381.201458,
+          "running_tasks_at_policy": 3,
+          "selection": "first_rejecting_maintenance",
+          "workers": [
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 1,
+              "next_event": "wait_end_begin",
+              "open_observed_scopes": [
+                "background_load_scope_begin"
+              ],
+              "previous_event": "wait_begin_end",
+              "scalar_event_gap_ms": 790.415042,
+              "state": "wait_call_open_not_flag_proof",
+              "task": 24057032,
+              "task_end_from_count_ms": 789.492125,
+              "task_ms": 795.809542,
+              "task_start_from_count_ms": -6.317417,
+              "thread": 47
+            },
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 0,
+              "next_event": "task_end",
+              "open_observed_scopes": [],
+              "previous_event": "task_start",
+              "scalar_event_gap_ms": 784.792083,
+              "state": "unclassified_cpu_or_wait",
+              "task": 456577452,
+              "task_end_from_count_ms": 790.082333,
+              "task_ms": 784.792083,
+              "task_start_from_count_ms": 5.29025,
+              "thread": 70
+            },
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 0,
+              "next_event": "submit_begin",
+              "open_observed_scopes": [],
+              "previous_event": "task_start",
+              "scalar_event_gap_ms": 793.15575,
+              "state": "unclassified_cpu_or_wait",
+              "task": 24220792,
+              "task_end_from_count_ms": 792.394416,
+              "task_ms": 793.25325,
+              "task_start_from_count_ms": -0.858834,
+              "thread": 48
+            }
+          ]
+        }
+      ],
+      "trace_sha256": "b66c0b79bd28a12017dc7465cdd28882e7eff74fdf0a9d2c475c85ee17ae919c",
+      "variant": "fixed"
+    },
+    "measure/02-baseline.json": {
+      "cases": [
+        {
+          "child": 31,
+          "count_ms": 802.863916,
+          "instance": 33,
+          "policy": {
+            "active": 3,
+            "concurrency": 1,
+            "long_tasks": 0,
+            "queued": true,
+            "rejects": true,
+            "standby": 0,
+            "waiting": 1
+          },
+          "policy_from_count_ms": 367.799791,
+          "running_tasks_at_policy": 3,
+          "selection": "first_rejecting_maintenance",
+          "workers": [
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 0,
+              "next_event": "read_wait_end",
+              "open_observed_scopes": [
+                "read_wait_begin"
+              ],
+              "previous_event": "read_wait_begin",
+              "scalar_event_gap_ms": 775.725709,
+              "state": "unclassified_cpu_or_wait",
+              "task": 24221024,
+              "task_end_from_count_ms": 798.872625,
+              "task_ms": 797.817417,
+              "task_start_from_count_ms": 1.055208,
+              "thread": 471
+            },
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 0,
+              "next_event": "task_end",
+              "open_observed_scopes": [],
+              "previous_event": "task_start",
+              "scalar_event_gap_ms": 796.831834,
+              "state": "unclassified_cpu_or_wait",
+              "task": 24220792,
+              "task_end_from_count_ms": 799.020375,
+              "task_ms": 796.831834,
+              "task_start_from_count_ms": 2.188541,
+              "thread": 479
+            },
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 1,
+              "next_event": "wait_end_begin",
+              "open_observed_scopes": [
+                "background_load_scope_begin"
+              ],
+              "previous_event": "wait_begin_end",
+              "scalar_event_gap_ms": 798.661583,
+              "state": "wait_call_open_not_flag_proof",
+              "task": 24057032,
+              "task_end_from_count_ms": 799.395083,
+              "task_ms": 803.679833,
+              "task_start_from_count_ms": -4.28475,
+              "thread": 452
+            }
+          ]
+        }
+      ],
+      "trace_sha256": "5d9177c9b49be415f49b159976f239aab58d2c808a9cf422cd315d0337967dd5",
+      "variant": "baseline"
+    },
+    "measure/02-fixed.json": {
+      "cases": [
+        {
+          "child": 7,
+          "count_ms": 810.725,
+          "instance": 8,
+          "policy": {
+            "active": 3,
+            "concurrency": 1,
+            "long_tasks": 0,
+            "queued": true,
+            "rejects": true,
+            "standby": 0,
+            "waiting": 1
+          },
+          "policy_from_count_ms": 392.960958,
+          "running_tasks_at_policy": 3,
+          "selection": "first_rejecting_maintenance",
+          "workers": [
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 0,
+              "next_event": "task_end",
+              "open_observed_scopes": [],
+              "previous_event": "task_start",
+              "scalar_event_gap_ms": 795.729709,
+              "state": "unclassified_cpu_or_wait",
+              "task": 456577612,
+              "task_end_from_count_ms": 798.626125,
+              "task_ms": 795.729709,
+              "task_start_from_count_ms": 2.896416,
+              "thread": 55
+            },
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 0,
+              "next_event": "read_wait_begin",
+              "open_observed_scopes": [],
+              "previous_event": "task_start",
+              "scalar_event_gap_ms": 796.604292,
+              "state": "unclassified_cpu_or_wait",
+              "task": 24220792,
+              "task_end_from_count_ms": 806.192791,
+              "task_ms": 804.18425,
+              "task_start_from_count_ms": 2.008541,
+              "thread": 53
+            },
+            {
+              "dispatch_slot": 12303,
+              "generic_wait_call_balance": 1,
+              "next_event": "wait_end_begin",
+              "open_observed_scopes": [
+                "background_load_scope_begin"
+              ],
+              "previous_event": "wait_begin_end",
+              "scalar_event_gap_ms": 805.976334,
+              "state": "wait_call_open_not_flag_proof",
+              "task": 24057032,
+              "task_end_from_count_ms": 808.890083,
+              "task_ms": 807.088875,
+              "task_start_from_count_ms": 1.801208,
+              "thread": 50
+            }
+          ]
+        }
+      ],
+      "trace_sha256": "cb1d09a997d7c6adfee3c2b3a3110e957b91ae09dc9eb57b2419ae1b08e1e9a2",
+      "variant": "fixed"
+    }
+  },
+  "scope": "Existing source-bound traces only; no new DB runs or acceptance change"
+}

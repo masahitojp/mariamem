@@ -8,5 +8,7 @@
   "selected-long-case-check.json": "c1de05172e948028da160d47c661b60811e06570462159e9c3d857621a3feb92",
   "source-correspondence.json": "29c9230af8c8ea31070d2f5935576567be47f549429cd752531a9f62a8a99b84",
   "summary.json": "a75464642d60ae2124143fe5b29510d12f55c7d2e1d22e303033e0f0f765efa9",
-  "supplemental-waits.json": "9968bd9bfd1958ad88f650ba80d5b89a5ae0deeb186a51a294ccf1497bf621ab"
+  "supplemental-waits.json": "9968bd9bfd1958ad88f650ba80d5b89a5ae0deeb186a51a294ccf1497bf621ab",
+  "worker-attribution-provenance.json": "3c7b60e2736a8c742eaf0c187407c565b5baa6fe71b2dfc89f3c257c4b5627db",
+  "worker-attribution.json": "0e7f555e2a9094bc243198ccda522c623d5e448d922101cc5cdc49b650e1a923"
 }

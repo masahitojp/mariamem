@@ -1,0 +1,17 @@
+{
+  "analysis_parent_source_commit": "74532c9075f7de3a46adfd7b3d1bb59a7ed68a87",
+  "dispatch_table": {
+    "function": "Fn16585",
+    "meaning": "generic task execute dispatcher, not underlying application callback",
+    "slot": 12303
+  },
+  "guest_rebuilds": 0,
+  "internal/generatedgo/code/p6/p6.go": "af5c41dd205f14c1508e171bcd651abfec319209a93ec76519b53e02b16af0df",
+  "internal/generatedgo/code/p6/p6_pure.go": "d40dcad735c63e85c5d5b05e370a928a9e3f7ef5461df022c7c28c1830746fe8",
+  "new_runtime_processes": 0,
+  "pool_source_sha256": "5aa908eba25625c652adf3df2d08723116491127bfef1d61148f2e91a8218280",
+  "product_source_commit": "b3b3b46a8807482ad3f96725af86e031fe369b01",
+  "raw_archive_sha256": "6630ee6c62bd074f67bfd42e73ba79b90817d36c5441d20ec36213124c68ed81",
+  "termination": "Existing scalar traces identify worker task intervals, but cannot classify CPU versus blocked state. Stop this bounded investigation segment.",
+  "trace_harness_source_commit": "bbd60290f1511f2cb54f90599678cb76af9877bd"
+}

@@ -32,6 +32,15 @@ is not established as sufficient. guest/experimental.patch and a normal-path
 generated prototype are retained for review, not main adoption. No canonical
 WASM rebuild, Ubuntu acceptance, qualification or release. [Issue #68](https://github.com/masahitojp/mariamem/issues/68) stays open.
 
+The final bounded existing-trace attribution closes this investigation segment:
+all three fixed slow cases have one background-load waiter and two long-running
+callback intervals whose CPU/block state is unobserved. Generic dispatch slot12303
+is not the inner callback identity. No new DB runs/builds were needed. Issue68
+remains open, but no further capture or correction is underway. Reopen as a
+separately bounded worker-bound callback/stack observation only if selected;
+see the report's final attribution section. The prior distribution gate and
+experimental-only patch disposition are unchanged.
+
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
 [PR35](https://github.com/masahitojp/mariamem/pull/35) moved heavy product acceptance
