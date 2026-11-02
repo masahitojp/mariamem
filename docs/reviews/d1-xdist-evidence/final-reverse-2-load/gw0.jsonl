@@ -1,0 +1,29 @@
+{"event": "declaration"}
+{"event": "declaration_checked", "worker": "gw0", "process": 1673, "source_absent": true}
+{"event": "host", "worker": "gw0", "process": 1673, "pid": 1681}
+{"event": "prepare", "worker": "gw0", "process": 1673}
+{"event": "prepared", "worker": "gw0", "process": 1673, "database": "test_mariamem_gw0", "host_pid": 1681, "source_id": "13a513a7c320cfb2fafb40de390a34c2", "port": 62811}
+{"event": "overlap", "worker": "gw0", "process": 1673, "boundary": "prepare", "hosts": [1680, 1681]}
+{"event": "capture", "worker": "gw0", "process": 1673, "source_id": "13a513a7c320cfb2fafb40de390a34c2", "consumed": true}
+{"event": "fork", "worker": "gw0", "process": 1673, "child_id": "1b1792b539c376f1c4827e80c0074a56", "host_pid": 1681}
+{"event": "capture", "worker": "gw0", "process": 1673, "source_id": "1b1792b539c376f1c4827e80c0074a56", "consumed": true}
+{"event": "fork", "worker": "gw0", "process": 1673, "child_id": "4710e4fe596bc5c5fee7b01207f16c25", "host_pid": 1681}
+{"event": "overlap", "worker": "gw0", "process": 1673, "boundary": "body", "hosts": [1680, 1681]}
+{"event": "body", "worker": "gw0", "process": 1673, "database": "test_mariamem_gw0", "kind": "transactional"}
+{"event": "fork", "worker": "gw0", "process": 1673, "child_id": "707d0d88cc7cd038e52e76ed1369697e", "host_pid": 1681}
+{"event": "body", "worker": "gw0", "process": 1673, "database": "test_mariamem_gw0", "kind": "transactional"}
+{"event": "commit-observed", "worker": "gw0", "process": 1673}
+{"event": "fork", "worker": "gw0", "process": 1673, "child_id": "84fd50902b5292195e82313ccbed299c", "host_pid": 1681}
+{"event": "body", "worker": "gw0", "process": 1673, "database": "test_mariamem_gw0", "kind": "transactional"}
+{"event": "commit-observed", "worker": "gw0", "process": 1673}
+{"event": "fork", "worker": "gw0", "process": 1673, "child_id": "e60e071c8c35efabfb54906beaf4f8cc", "host_pid": 1681}
+{"event": "class-data", "worker": "gw0", "process": 1673}
+{"event": "class-commit", "worker": "gw0", "process": 1673}
+{"event": "capture", "worker": "gw0", "process": 1673, "source_id": "e60e071c8c35efabfb54906beaf4f8cc", "consumed": true}
+{"event": "fork", "worker": "gw0", "process": 1673, "child_id": "dc58334b51fbf4aedd93fd549dde4551", "host_pid": 1681}
+{"event": "body", "worker": "gw0", "process": 1673, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "fork", "worker": "gw0", "process": 1673, "child_id": "5e27c8ea5056e4bb0c672abaabe549e3", "host_pid": 1681}
+{"event": "body", "worker": "gw0", "process": 1673, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "fork", "worker": "gw0", "process": 1673, "child_id": "997dfada6d2b991cc961c3e2cce14229", "host_pid": 1681}
+{"event": "body", "worker": "gw0", "process": 1673, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "fork", "worker": "gw0", "process": 1673, "child_id": "5fd8e72072d15e28b8573e50c0734dfb", "host_pid": 1681}

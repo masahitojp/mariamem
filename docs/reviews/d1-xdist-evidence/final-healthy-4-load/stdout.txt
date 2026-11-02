@@ -1,0 +1,37 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.18, pytest-9.0.2, pluggy-1.7.0 -- __WORKSPACE__/temp/venv/bin/python
+cachedir: .pytest_cache
+django: version: 5.2.8, settings: spike_settings (from env)
+rootdir: __WORKTREE__
+created: 4/4 workers
+4 workers [12 items]
+
+scheduling tests via LoadScheduling
+
+benchmarks/d1-xdist/test_probe.py::TestTransactional::test_03
+benchmarks/d1-xdist/test_probe.py::TestAtomic::test_03
+benchmarks/d1-xdist/test_probe.py::TestAtomic::test_05
+benchmarks/d1-xdist/test_probe.py::TestAtomic::test_first
+[gw2] [  8%] PASSED benchmarks/d1-xdist/test_probe.py::TestAtomic::test_first
+[gw3] [ 16%] PASSED benchmarks/d1-xdist/test_probe.py::TestTransactional::test_03
+benchmarks/d1-xdist/test_probe.py::TestAtomic::test_second
+benchmarks/d1-xdist/test_probe.py::TestTransactional::test_04
+[gw0] [ 25%] PASSED benchmarks/d1-xdist/test_probe.py::TestAtomic::test_03
+benchmarks/d1-xdist/test_probe.py::TestAtomic::test_04
+[gw1] [ 33%] PASSED benchmarks/d1-xdist/test_probe.py::TestAtomic::test_05
+benchmarks/d1-xdist/test_probe.py::TestAtomic::test_06
+[gw0] [ 41%] PASSED benchmarks/d1-xdist/test_probe.py::TestAtomic::test_04
+benchmarks/d1-xdist/test_probe.py::TestTransactional::test_first
+[gw1] [ 50%] PASSED benchmarks/d1-xdist/test_probe.py::TestAtomic::test_06
+[gw2] [ 58%] PASSED benchmarks/d1-xdist/test_probe.py::TestAtomic::test_second
+benchmarks/d1-xdist/test_probe.py::TestTransactional::test_second
+benchmarks/d1-xdist/test_probe.py::TestTransactional::test_05
+[gw3] [ 66%] PASSED benchmarks/d1-xdist/test_probe.py::TestTransactional::test_04
+benchmarks/d1-xdist/test_probe.py::TestTransactional::test_06
+[gw3] [ 75%] PASSED benchmarks/d1-xdist/test_probe.py::TestTransactional::test_06
+[gw1] [ 83%] PASSED benchmarks/d1-xdist/test_probe.py::TestTransactional::test_second
+[gw0] [ 91%] PASSED benchmarks/d1-xdist/test_probe.py::TestTransactional::test_first
+[gw2] [100%] PASSED benchmarks/d1-xdist/test_probe.py::TestTransactional::test_05
+
+- generated xml file: __WORKSPACE__/evidence/final-healthy-4-load/junit.xml -
+============================== 12 passed in 1.21s ==============================

@@ -17,3 +17,24 @@ No timing speedup, resource census, worker-kill recovery, remote workers, Django
 Budget: initial2h active, at most30min tooling, no heavy CI. An inconclusive
 result must name the concrete obstacle and cost; do not expand the framework.
 Only experiment/d1-xdist changes the xdist refusal; main stays unchanged.
+
+## Reproduce
+
+Use the pinned published0.6.0 host, not a freshly stamped unrelated binary.
+The collector checks its source revision. After checking out the executed spike:
+
+```sh
+python3 scripts/git_identity.py inspect HEAD
+python3 -m venv .venv
+.venv/bin/python -m pip install -r tests/django_lifecycle/requirements.txt pytest-xdist==3.8.0 execnet==2.1.2
+.venv/bin/python benchmarks/d1-xdist/run.py --host /path/to/v060/mariamem-host --output /tmp/d1-xdist-case --workers 2 --mode healthy --dist load
+```
+
+Repeat with (mode, workers, scheduler): healthy/2/load, healthy/4/load,
+reverse/2/load, body-failure/2/load, prepare-failure/2/load,
+no-restore/2/load, healthy/2/loadscope. Each output path must be new.
+`no-restore` deliberately breaks test-child restoration and must detect failures;
+the parent assessment recognizes that negative control, while stdout/JUnit keep
+original failures. The fixture barriers require every requested worker to
+receive DB tests; these fixed cases do so. They are not a generic idle-worker
+scheduler test. There is no production promise of arbitrary worker counts.

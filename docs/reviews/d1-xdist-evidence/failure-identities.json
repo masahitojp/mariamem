@@ -1,0 +1,20 @@
+{
+  "body-failure": {
+    "result": "PASS",
+    "failure_count": 3,
+    "error_count": 0,
+    "junit_sha256": "b65671e3fcbcdd01af1d42ed97b913708d418e7a81bc3a091eb5541a0b4f7667"
+  },
+  "prepare-failure": {
+    "result": "PASS",
+    "failure_count": 0,
+    "error_count": 9,
+    "junit_sha256": "806682fb540dc5e9459b7cd86039cbc3db8bd81bca77c8e0ada0ad0d7527a183"
+  },
+  "no-restore": {
+    "result": "PASS",
+    "failure_count": 4,
+    "error_count": 0,
+    "junit_sha256": "3e42c65fcb62566396fc8e25c00e8ecdec631867bc7ccf698bcd85eded7e9bf9"
+  }
+}

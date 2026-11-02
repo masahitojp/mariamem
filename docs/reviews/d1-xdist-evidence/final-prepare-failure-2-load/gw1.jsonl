@@ -1,0 +1,20 @@
+{"event": "declaration"}
+{"event": "declaration_checked", "worker": "gw1", "process": 1762, "source_absent": true}
+{"event": "host", "worker": "gw1", "process": 1762, "pid": 1781}
+{"event": "prepare", "worker": "gw1", "process": 1762}
+{"event": "prepared", "worker": "gw1", "process": 1762, "database": "test_mariamem_gw1", "host_pid": 1781, "source_id": "beb62703c1445c43b88e9b518a26be63", "port": 62897}
+{"event": "overlap", "worker": "gw1", "process": 1762, "boundary": "prepare", "hosts": [1781, 1782]}
+{"event": "capture", "worker": "gw1", "process": 1762, "source_id": "beb62703c1445c43b88e9b518a26be63", "consumed": true}
+{"event": "fork", "worker": "gw1", "process": 1762, "child_id": "bcd4807428c000b9eb2ca186844cdf68", "host_pid": 1781}
+{"event": "class-data", "worker": "gw1", "process": 1762}
+{"event": "class-commit", "worker": "gw1", "process": 1762}
+{"event": "capture", "worker": "gw1", "process": 1762, "source_id": "bcd4807428c000b9eb2ca186844cdf68", "consumed": true}
+{"event": "fork", "worker": "gw1", "process": 1762, "child_id": "f4904489061b5f8c39744beca70fa52c", "host_pid": 1781}
+{"event": "body", "worker": "gw1", "process": 1762, "database": "test_mariamem_gw1", "kind": "atomic"}
+{"event": "fork", "worker": "gw1", "process": 1762, "child_id": "399c2580a2c746fef828059a1a970750", "host_pid": 1781}
+{"event": "body", "worker": "gw1", "process": 1762, "database": "test_mariamem_gw1", "kind": "atomic"}
+{"event": "fork", "worker": "gw1", "process": 1762, "child_id": "79619bcb2541c6a0e4d51019fe16f7ba", "host_pid": 1781}
+{"event": "capture", "worker": "gw1", "process": 1762, "source_id": "79619bcb2541c6a0e4d51019fe16f7ba", "consumed": true}
+{"event": "fork", "worker": "gw1", "process": 1762, "child_id": "2eeddc9a34f8fe2b09721b6b1cda3dc8", "host_pid": 1781}
+{"event": "body", "worker": "gw1", "process": 1762, "database": "test_mariamem_gw1", "kind": "transactional"}
+{"event": "fork", "worker": "gw1", "process": 1762, "child_id": "417f782f0983b9e9371e909b7752ad67", "host_pid": 1781}

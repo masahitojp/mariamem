@@ -1,0 +1,21 @@
+{"event": "declaration"}
+{"event": "declaration_checked", "worker": "gw1", "process": 1808, "source_absent": true}
+{"event": "host", "worker": "gw1", "process": 1808, "pid": 1813}
+{"event": "prepare", "worker": "gw1", "process": 1808}
+{"event": "prepared", "worker": "gw1", "process": 1808, "database": "test_mariamem_gw1", "host_pid": 1813, "source_id": "ad0221a44c01837ddbbdbb55d387411f", "port": 62916}
+{"event": "overlap", "worker": "gw1", "process": 1808, "boundary": "prepare", "hosts": [1813, 1814]}
+{"event": "capture", "worker": "gw1", "process": 1808, "source_id": "ad0221a44c01837ddbbdbb55d387411f", "consumed": true}
+{"event": "fork", "worker": "gw1", "process": 1808, "child_id": "56ca4641c6b174bb2afe5f72a40749e0", "host_pid": 1813}
+{"event": "class-data", "worker": "gw1", "process": 1808}
+{"event": "class-commit", "worker": "gw1", "process": 1808}
+{"event": "capture", "worker": "gw1", "process": 1808, "source_id": "56ca4641c6b174bb2afe5f72a40749e0", "consumed": true}
+{"event": "fork", "worker": "gw1", "process": 1808, "child_id": "27c78698edb52dbc3ceb1930336061ae", "host_pid": 1813}
+{"event": "overlap", "worker": "gw1", "process": 1808, "boundary": "body", "hosts": [1813, 1814]}
+{"event": "body", "worker": "gw1", "process": 1808, "database": "test_mariamem_gw1", "kind": "atomic"}
+{"event": "body", "worker": "gw1", "process": 1808, "database": "test_mariamem_gw1", "kind": "atomic"}
+{"event": "body", "worker": "gw1", "process": 1808, "database": "test_mariamem_gw1", "kind": "atomic"}
+{"event": "fork", "worker": "gw1", "process": 1808, "child_id": "8747fa9604790a3e90baace32ea2baae", "host_pid": 1813}
+{"event": "capture", "worker": "gw1", "process": 1808, "source_id": "8747fa9604790a3e90baace32ea2baae", "consumed": true}
+{"event": "fork", "worker": "gw1", "process": 1808, "child_id": "31818286bba21eedf76550e906537251", "host_pid": 1813}
+{"event": "body", "worker": "gw1", "process": 1808, "database": "test_mariamem_gw1", "kind": "transactional"}
+{"event": "fork", "worker": "gw1", "process": 1808, "child_id": "82f0d977c7c7cb580c20883619fdf629", "host_pid": 1813}

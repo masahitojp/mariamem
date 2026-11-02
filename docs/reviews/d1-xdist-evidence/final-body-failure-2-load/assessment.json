@@ -1,0 +1,49 @@
+{
+  "result": "PASS",
+  "mode": "body-failure",
+  "workers": 2,
+  "dist": "load",
+  "exit_code": 1,
+  "checks": {
+    "host_reaped": true,
+    "host_per_worker": true,
+    "controller_idle": true,
+    "all_workers_seen": true,
+    "prepared_once": true,
+    "independent_sources": true,
+    "worker_names": true,
+    "capture_consumes": true,
+    "own_lineage": true,
+    "prepare_overlap": true,
+    "twelve_tests": true,
+    "bodies_restored": true,
+    "body_overlap": true,
+    "exit": true,
+    "failure_count": true,
+    "class_data_once_per_worker": true,
+    "class_capture_count": true
+  },
+  "counts": {
+    "testcase": 12,
+    "failure": 3,
+    "error": 0
+  },
+  "command": [
+    "__WORKSPACE__/temp/venv/bin/python",
+    "-m",
+    "pytest",
+    "-p",
+    "xdist.plugin",
+    "-p",
+    "pytest_django.plugin",
+    "-p",
+    "mariamem.django.pytest_plugin",
+    "__WORKTREE__/benchmarks/d1-xdist/test_probe.py",
+    "-n",
+    "2",
+    "--max-worker-restart=0",
+    "--dist=load",
+    "-v",
+    "--junitxml=__WORKSPACE__/evidence/final-body-failure-2-load/junit.xml"
+  ]
+}

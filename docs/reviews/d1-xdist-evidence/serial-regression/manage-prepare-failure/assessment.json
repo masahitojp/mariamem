@@ -1,0 +1,19 @@
+{
+  "runner": "manage",
+  "mode": "prepare-failure",
+  "exit_code": 1,
+  "checks": {
+    "within_timeout": true,
+    "exit_code": true,
+    "bodies": true,
+    "prepare_once": true,
+    "simple_body": true,
+    "no_bad_body": true,
+    "marker": true,
+    "class_data": true,
+    "class_commit": true,
+    "independent_commit": true,
+    "host_reaped": true
+  },
+  "result": "PASS"
+}

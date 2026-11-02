@@ -1,0 +1,22 @@
+{"event": "declaration"}
+{"event": "declaration_checked", "worker": "gw0", "process": 1598, "source_absent": true}
+{"event": "host", "worker": "gw0", "process": 1598, "pid": 1630}
+{"event": "prepare", "worker": "gw0", "process": 1598}
+{"event": "prepared", "worker": "gw0", "process": 1598, "database": "test_mariamem_gw0", "host_pid": 1630, "source_id": "9a0975e99d295c167a02931eaab5c912", "port": 62752}
+{"event": "overlap", "worker": "gw0", "process": 1598, "boundary": "prepare", "hosts": [1629, 1630, 1631, 1632]}
+{"event": "capture", "worker": "gw0", "process": 1598, "source_id": "9a0975e99d295c167a02931eaab5c912", "consumed": true}
+{"event": "fork", "worker": "gw0", "process": 1598, "child_id": "970897189baa694b701e802e729c4834", "host_pid": 1630}
+{"event": "class-data", "worker": "gw0", "process": 1598}
+{"event": "class-commit", "worker": "gw0", "process": 1598}
+{"event": "capture", "worker": "gw0", "process": 1598, "source_id": "970897189baa694b701e802e729c4834", "consumed": true}
+{"event": "fork", "worker": "gw0", "process": 1598, "child_id": "3553681161b35251653b10f30c635148", "host_pid": 1630}
+{"event": "overlap", "worker": "gw0", "process": 1598, "boundary": "body", "hosts": [1629, 1630, 1631, 1632]}
+{"event": "body", "worker": "gw0", "process": 1598, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "fork", "worker": "gw0", "process": 1598, "child_id": "20762b6e860b212212140cb56d43837a", "host_pid": 1630}
+{"event": "body", "worker": "gw0", "process": 1598, "database": "test_mariamem_gw0", "kind": "atomic"}
+{"event": "fork", "worker": "gw0", "process": 1598, "child_id": "c6927f75253863323b5efc04bc0c25f2", "host_pid": 1630}
+{"event": "capture", "worker": "gw0", "process": 1598, "source_id": "c6927f75253863323b5efc04bc0c25f2", "consumed": true}
+{"event": "fork", "worker": "gw0", "process": 1598, "child_id": "defa6a98f0381b6d7ce6bf06761809fb", "host_pid": 1630}
+{"event": "body", "worker": "gw0", "process": 1598, "database": "test_mariamem_gw0", "kind": "transactional"}
+{"event": "commit-observed", "worker": "gw0", "process": 1598}
+{"event": "fork", "worker": "gw0", "process": 1598, "child_id": "d746edae2e9706e3f592de050a1ff198", "host_pid": 1630}
