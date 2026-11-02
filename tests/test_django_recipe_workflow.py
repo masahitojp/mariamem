@@ -44,7 +44,8 @@ def test_single_host_retains_both_source_bound_python_campaigns():
 @pytest.mark.parametrize('failed_minor,failed_kind', [('', ''),
     ('3.11', 'standard'), ('3.14', 'standard'),
     ('3.11', 'units'), ('3.14', 'units'),
-    ('3.11', 'prepared'), ('3.14', 'prepared')])
+    ('3.11', 'prepared'), ('3.14', 'prepared'),
+    ('3.11', 'parallel'), ('3.14', 'parallel')])
 def test_both_interpreters_execute_and_either_failure_fails_job(tmp_path, failed_minor, failed_kind):
     # Execute the actual workflow shell; mock only Python entrypoints, not the
     # status aggregation. Failure in any campaign must fail the complete job.
@@ -58,6 +59,7 @@ def test_both_interpreters_execute_and_either_failure_fails_job(tmp_path, failed
                               'case "$*" in\n'
                               '  *tests/django_lifecycle/ci.py*) kind=standard ;;\n'
                               '  *tests/django_prepared/run.py*) kind=prepared ;;\n'
+                              '  *tests/django_prepared/xdist/run.py*) kind=parallel ;;\n'
                               '  "-m pytest "*) kind=units ;;\n'
                               '  "-m pip install "*) kind=install ;;\n'
                               '  *) exit 99 ;;\n'
@@ -73,9 +75,9 @@ def test_both_interpreters_execute_and_either_failure_fails_job(tmp_path, failed
     result = subprocess.run(['bash', '-e', '-o', 'pipefail', '-c', script], env=env)
     assert result.returncode == (1 if failed_minor else 0)
     observed = calls.read_text().splitlines()
-    assert len(observed) == 8
+    assert len(observed) == 10
     for index, minor in enumerate(['3.11', '3.14']):
-        standard, units, install, prepared = observed[index*4:index*4+4]
+        standard, units, install, prepared, parallel = observed[index*5:index*5+5]
         assert standard.startswith(minor+' standard ')
         assert 'py'+minor+'/reference' in standard and 'py'+minor+'/acceptance' in standard
         assert '--host build/mariamem-host' in standard
@@ -86,3 +88,7 @@ def test_both_interpreters_execute_and_either_failure_fails_job(tmp_path, failed
         assert '--installed' in prepared and '--host-source-commit '+('a'*40) in prepared
         assert '--host build/mariamem-host' in prepared
         assert 'py'+minor+'/prepared' in prepared
+
+        assert parallel.startswith(minor+' parallel ')
+        assert '--installed' in parallel and '--host-source-commit '+('a'*40) in parallel
+        assert 'py'+minor+'/parallel' in parallel

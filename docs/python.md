@@ -17,7 +17,9 @@ classes, a runner and a pytest-django plugin; it is not in the published0.6.0
 wheel. Its four installed-wheel OS/Python cells passed before adoption. Choose
 either Django prepared
 ownership or routing/shadow_maria for a run; their combined lifecycle is not
-supported. See [the exclusion policy](django-prepared.md#routing-and-shadow_maria).
+supported. A [local pytest-xdist extension](django-prepared.md#local-pytest-xdist-workers-candidate-follow-up)
+is being qualified separately; worker-owned hosts/baselines do not share SDK
+handles, and serial remains the default. See [the exclusion policy](django-prepared.md#routing-and-shadow_maria).
 
 ## A disposable database
 

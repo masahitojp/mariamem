@@ -2164,3 +2164,23 @@ scope. They do not unify lifecycles or add mysqlclient routing.
 Operation was verify: publication/public smoke were skipped. READY remains bound
 to90e7ed5f, not to the squash or this documentation. Published0.6.0 and version
 metadata remain unchanged; release version and publication remain separate.
+
+
+## D1 local xdist workers — implementation approved, acceptance pending
+
+On 2026-11-02 the Human requested continuing from the worker-local feasibility
+spike to productization. The selected scope is explicit local `-n N`, `load` /
+`loadscope`, with a separate host and migration/seed baseline per DB-using
+worker; serial stays default. The controller/idle/DB-free workers acquire none.
+Django --parallel, automatic/logical counts, remote/manual gateways and
+loop-on-fail remain rejected; no global SDK handle sharing is introduced.
+
+The candidate validates the local controller/worker handoff and fixed xdist /
+execnet profile, retains all prior lifecycle/routing guards, and adds real
+worker death/restart and worker-local cleanup-debt controls. A crash stays a
+failed test; a replacement starts fresh. SIGKILL cannot run Python temp-directory
+finalizers, so host exit and enclosing job scratch cleanup are distinct claims.
+The existing Release Django job runs the added installed-entry matrix using its
+shared artifacts; no extra job/build is added. Main adoption and new both-OS /
+minor installed-wheel acceptance remain pending; prior serial receipts are not
+parallel qualification or release approval.

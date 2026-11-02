@@ -2,6 +2,7 @@
 import pytest
 
 from ._database import Manager, configuration
+from . import _xdist
 
 
 def _entry(config):
@@ -15,10 +16,32 @@ def _entry(config):
     if routing._active is not None:
         raise pytest.UsageError('Prepared Django and routing/shadow_maria cannot share a run')
     configuration()
-    if (config.getoption('reuse_db', False) or config.getoption('nomigrations', False)
-            or config.getoption('numprocesses', 0) or hasattr(config, 'workerinput')):
-        raise pytest.UsageError('mariamem prepared tests require migrations and serial execution without --reuse-db')
+    if config.getoption('reuse_db', False) or config.getoption('nomigrations', False):
+        raise pytest.UsageError('mariamem prepared tests require migrations without --reuse-db')
+    _xdist.validate(config)
     return entry
+
+
+@pytest.hookimpl(hookwrapper=True, tryfirst=True)
+def pytest_cmdline_main(config):
+    # Observe the symbolic request before xdist resolves it to a CPU count.
+    if config.getoption('tx', []) or config.getoption('looponfail', False):
+        raise pytest.UsageError('Prepared Django supports explicit -n N, not manual --tx or loop-on-fail')
+    if config.getoption('numprocesses', None) in ('auto', 'logical'):
+        raise pytest.UsageError('Prepared Django workers require explicit -n N; auto/logical are unsupported')
+    yield
+
+
+@pytest.hookimpl(optionalhook=True)
+def pytest_xdist_setupnodes(config, specs):
+    _xdist.validate(config)
+    _xdist.local_specs(specs)
+
+
+@pytest.hookimpl(optionalhook=True)
+def pytest_configure_node(node):
+    _xdist.local_specs([node.gateway.spec])
+    node.workerinput[_xdist.KEY] = 1
 
 
 @pytest.hookimpl(trylast=True)

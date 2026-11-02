@@ -69,7 +69,7 @@ else:
 '''.replace('OPTIONS', repr(options)))
 
 
-@pytest.mark.parametrize('option', ['reuse_db', 'nomigrations', 'numprocesses'])
+@pytest.mark.parametrize('option', ['reuse_db', 'nomigrations'])
 def test_pytest_rejects_unsupported_mode_before_database_setup(option):
     probe('''
 from types import SimpleNamespace
@@ -145,6 +145,7 @@ def test_release_uses_existing_django_job_and_installed_shared_wheel():
     workflow = (ROOT / '.github/workflows/django-lifecycle.yml').read_text()
     assert 'pip install --no-deps build/dist/*.whl' in workflow
     assert 'tests/django_prepared/run.py --installed' in workflow
+    assert 'tests/django_prepared/xdist/run.py --installed' in workflow
     assert '--host-source-commit "$SOURCE_COMMIT"' in workflow
     assert 'tests/test_django_prepared_owners.py' in workflow
 
