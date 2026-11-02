@@ -15,8 +15,8 @@ def _entry(config):
     if routing._active is not None:
         raise pytest.UsageError('Prepared Django and routing/shadow_maria cannot share a run')
     configuration()
-    if (config.getoption('reuse_db', False) or config.getoption('nomigrations', False)
-            or config.getoption('numprocesses', 0) or hasattr(config, 'workerinput')):
+    # Experimental local-worker spike: do not copy SDK handles across processes.
+    if config.getoption('reuse_db', False) or config.getoption('nomigrations', False):
         raise pytest.UsageError('mariamem prepared tests require migrations and serial execution without --reuse-db')
     return entry
 
