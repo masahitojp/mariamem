@@ -52,7 +52,8 @@ def pytest_configure(config):
 
 
 def pytest_collection_modifyitems(config, items):
-    from django.test import TransactionTestCase
+    from django.test import SimpleTestCase
+    from django.core.exceptions import ImproperlyConfigured
     from ._cases import validate_case
     _entry(config)
     for item in items:
@@ -60,8 +61,11 @@ def pytest_collection_modifyitems(config, items):
                 or 'mariamem_app_db' in item.fixturenames):
             raise pytest.UsageError('Prepared Django and shadow_maria/mariamem_app_db cannot share a run; choose one lifecycle')
         cls = getattr(item, 'cls', None)
-        if cls is not None and issubclass(cls, TransactionTestCase):
-            validate_case(cls)
+        if cls is not None and issubclass(cls, SimpleTestCase) and cls.databases:
+            try:
+                validate_case(cls)
+            except ImproperlyConfigured as error:
+                raise pytest.UsageError(str(error)) from error
         elif item.get_closest_marker('django_db') is not None or any(
                 name in item.fixturenames for name in ('db', 'transactional_db', 'live_server')):
             raise pytest.UsageError('mariamem prepared entry currently supports only prepared Django classes')

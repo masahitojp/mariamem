@@ -320,3 +320,20 @@ result = pytest.main(['-p','pytest_django.plugin','-p','mariamem.django.pytest_p
 assert result == 0
 assert config.source is None and config.manager is None
 '''.replace('TEST_FILE', repr(str(test_file))))
+
+
+def test_database_enabled_simple_case_is_rejected_at_collection(tmp_path):
+    test_file = tmp_path / 'test_simple_database.py'
+    test_file.write_text("from django.test import SimpleTestCase\n"
+                         "class TestDatabase(SimpleTestCase):\n"
+                         "    databases = {'default'}\n"
+                         "    def test_never(self): pass\n")
+    probe('''
+import mariamem, os, pytest
+os.environ['PYTEST_DISABLE_PLUGIN_AUTOLOAD'] = '1'
+mariamem.start = lambda **kw: (_ for _ in ()).throw(AssertionError('unexpected start'))
+result = pytest.main(['-p','pytest_django.plugin','-p','mariamem.django.pytest_plugin',
+                      TEST_FILE,'--collect-only','-q'])
+assert result == pytest.ExitCode.USAGE_ERROR
+assert config.source is None and config.manager is None
+'''.replace('TEST_FILE', repr(str(test_file))))

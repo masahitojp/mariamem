@@ -1,7 +1,7 @@
 import sys
 
 from django.core.exceptions import ImproperlyConfigured
-from django.test import TransactionTestCase
+from django.test import SimpleTestCase
 from django.test.runner import DiscoverRunner
 
 from ._cases import validate_case
@@ -62,7 +62,7 @@ class PreparedDiscoverRunner(DiscoverRunner):
     def build_suite(self, *args, **kwargs):
         suite = super().build_suite(*args, **kwargs)
         for test in _cases(suite):
-            if isinstance(test, TransactionTestCase):
+            if isinstance(test, SimpleTestCase) and test.databases:
                 validate_case(type(test))
         return suite
 
