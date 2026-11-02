@@ -47,7 +47,7 @@ and version metadata remain unchanged.
 The candidate adds explicit `-n N` local workers for `load` / `loadscope`, using
 pytest-xdist3.8.0 / execnet2.1.2 in the `django-pytest` extra. Serial stays the
 default. Each DB-using worker owns a separate host and migration/seed baseline;
-class preparation can repeat per worker. Controller/idle/DB-free workers acquire
+class preparation can repeat per worker or when rescheduling re-enters a class. Controller/idle/DB-free workers acquire
 none. No cross-process SDK handles or shared global Snapshot are introduced.
 
 The candidate retains failed tests on worker crash; a replacement prepares a

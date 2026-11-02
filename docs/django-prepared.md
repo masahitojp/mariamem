@@ -139,8 +139,9 @@ DJANGO_SETTINGS_MODULE=myproject.test_settings \
 pytest-django and xdist normally auto-load from the installed extras. The
 supported candidate schedulers are `load` and `loadscope`;2 and4 local workers
 are the verification cells, not a capacity guarantee. `loadscope` keeps a class
-on one worker. With `load`, class setup and `setUpTestData()` may run once in
-each worker that receives methods of that class.
+on one worker. With `load`, class setup and `setUpTestData()` execute per worker/class
+activation. Restart/rescheduling may revisit a class and execute setup again
+even in the same worker. Do not use class setup as a globally-once hook.
 
 Each DB-using worker acquires its own host, migrates/seeds once, and owns its own
 run/class Snapshots. No SDK handles are passed between processes. Preparation is
