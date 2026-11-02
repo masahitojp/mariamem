@@ -199,7 +199,8 @@ opt-in behavior, not transparent replacement of existing `TestCase` classes.
 fixtures/flush hooks; the next test's Fork restores the declared full schema and
 seed independently of flush. It has no `setUpTestData()` hook.
 
-Initial scope is Django5.2 (locally checked with5.2.8), mysqlclient2.2.7,
+Supported Django series are5.2 LTS,6.0 and6.1; Django6 requires Python3.12+.
+See the [version policy](django-testing.md#supported-django-versions). The fixed client profile is mysqlclient2.2.7,
 pytest9.0.2/pytest-django4.12.0, one `default` MySQL alias. Serial remains the
 default; the local-worker mode is described above.
 Multiple aliases, test mirrors, disabled migrations, `available_apps`,

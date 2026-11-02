@@ -76,7 +76,7 @@ The following paths are supported in 0.6.0 within their documented profiles.
 | Go prepared tests | [mariamemtest](docs/go-prepared-fixture.md); prepare once and use a test-owned bounded child pool |
 | Sequential browser / HTTP E2E | [BrowserEntry and NewHTTP](docs/examples/e2e_owned/README.md); supplied entries own sequencing, application hooks own readiness and physical SQL/job retirement |
 | Python MariaDB dump input | [import_dump with the dump extra](docs/importing-dump.md); only the documented MariaDB12.3.3 producer profile |
-| Ordinary Django tests | [Standard-runner recipe](docs/django-testing.md); Django owns rollback/flush/fixtures, not automatic prepared-Snapshot restoration |
+| Ordinary Django tests (5.2 LTS / 6.0 / 6.1) | [Standard-runner recipe](docs/django-testing.md); Django owns rollback/flush/fixtures, not automatic prepared-Snapshot restoration |
 
 These paths retain the exact driver, wire and lifecycle limits below. The
 [explicit prepared Django entry](docs/django-prepared.md) is also adopted on
