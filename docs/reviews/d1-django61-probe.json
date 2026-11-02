@@ -1,0 +1,37 @@
+{
+  "recipe_source_commit": "aa6b1b4cc74455d4ea7d512772bde414fb7565e9",
+  "installed_candidate_source_commit": "d99f07cd16a8a11c1644225206a3d1fcc0a39edd",
+  "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "django": "6.1.2",
+  "wheel_sha256": "9c26c0b95b3e80766c259bb5ae87adb692418184a48a9775a72dbd23c02d1cd2",
+  "host_sha256": "81876462fd73cdd288e91b8fd6eec1a704b0bd36d5e932bf416d76d47fa07c9d",
+  "installed": true,
+  "metadata_upper_bound_bypassed_for_probe": true,
+  "campaigns": {
+    "serial": {
+      "expected_assessments_passed": 20,
+      "assessment_sha256": "c58fe66075c3fbdd10bbf2ea39c01240d6f26d1b4032e3bff5b6464a7ee499d8",
+      "inputs_sha256": "6ac3f2577662f6e458940746a445c3cabe8e4db1aada94b16e4ea2ade4f2efa0",
+      "packages": {
+        "Django": "6.1.2",
+        "pytest": "9.0.2",
+        "pytest-django": "4.12.0",
+        "mysqlclient": "2.2.7"
+      }
+    },
+    "parallel": {
+      "expected_assessments_passed": 15,
+      "assessment_sha256": "e61a9607b301d1b8a6f9870237744c8b382977dc61fbb75c3ad42abfb3854edb",
+      "inputs_sha256": "9430e4907db0546eac2391cf202da020cf15db91989c8d2d49235d1ff4234992",
+      "packages": {
+        "Django": "6.1.2",
+        "pytest": "9.0.2",
+        "pytest-django": "4.12.0",
+        "pytest-xdist": "3.8.0",
+        "execnet": "2.1.2",
+        "mysqlclient": "2.2.7"
+      }
+    }
+  },
+  "observed_hosts_confirmed_exited": 45
+}
