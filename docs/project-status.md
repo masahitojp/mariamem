@@ -42,13 +42,20 @@ On 2026-11-03 the Human authorized implementation after the lock, recovery and
 numeric-range additions at `a4929d12`. The first
 [implementation checkpoint](reviews/issue53-fork-limit-implementation.md) adds the
 internal admission/lease primitive, default sizing and Go/Python range validators.
-These are not yet wired into public entry points. The full acceptance table and
-handoff remain in scope; no public Fork-limit support is claimed at this checkpoint.
+The next checkpoint connects the public Go Snapshot/Live APIs and Go helpers:
+`SnapshotOptions.MaxForks`, immutable `Snapshot.MaxForks()`, cancellable capacity
+waits, Close wakeup and cleanup-owned child leases. Live reserves a spare slot
+before draining and supports explicit checked recovery. The Go fixture passes
+its existing default2/configured cap to its Snapshot; HTTPConfig exposes a cap.
+Shared-control/Python and the full acceptance table, including handoff, remain
+unfinished; this is a draft candidate rather than adopted support on main.
 The next checkpoint addresses the startup/cleanup ownership gap: internal typed
 owners retain late execution/session joins, borrowed backing and dependent file
 cleanup. Original operation failures and stored Close results remain failures.
 The lease primitive can observe confirmed cleanup without automatically reopening
-admission. Public limits/reservation protocol and entry wiring remain unfinished.
+admission. The shared-control reservation protocol and Python entry wiring remain
+unfinished. They are connected together with handoff acknowledgements and bounded
+send/reply ownership so the old client cannot strand a newly enforced remote lease.
 There is no new performance campaign. The milestone and publication decisions are
 unchanged. Prewarming remains
 separate in [#84](https://github.com/masahitojp/mariamem/issues/84).

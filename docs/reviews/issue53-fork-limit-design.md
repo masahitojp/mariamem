@@ -4,7 +4,8 @@ Status: implementation authorized, 2026-11-03. After the lock, Live recovery and
 numeric-range additions at `a4929d12`, the Human requested proceeding with this
 design. The first implementation checkpoint is recorded in
 [the implementation record](issue53-fork-limit-implementation.md). Public entry
-points are not connected yet; the acceptance table below remains unfinished.
+Go Snapshot/Live and the Go helpers now use the limiter. Shared-control/Python
+entry wiring and the full acceptance table below remain unfinished.
 The design selects a 256 MiB budget per child and preserves development-host
 handoff using leases. Authorization is not a claim of measured new behavior.
 [Issue #53](https://github.com/masahitojp/mariamem/issues/53)

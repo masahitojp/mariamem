@@ -22,7 +22,7 @@ func (s *Server) joinWorkers() <-chan struct{} {
 func (s *Server) disposeAfter(cause error) error {
 	s.disposeOnce.Do(func() {
 		done := s.joinWorkers()
-		s.disposer = disposal.New(func(ctx context.Context) error {
+		owner := disposal.New(func(ctx context.Context) error {
 			if err := disposal.Wait(ctx, s.Guest.Done()); err != nil {
 				return err
 			}
@@ -31,9 +31,20 @@ func (s *Server) disposeAfter(cause error) error {
 			}
 			return os.RemoveAll(s.transfer)
 		})
+		s.mu.Lock()
+		s.disposer = owner
+		s.mu.Unlock()
 	})
 	if err := s.disposer.Probe(); err != nil {
 		return disposal.Retain(cause, err, s.disposer)
 	}
 	return cause
+}
+
+// DisposalComplete is independent of whether the operation itself succeeded.
+func (s *Server) DisposalComplete() bool {
+	s.mu.Lock()
+	owner := s.disposer
+	s.mu.Unlock()
+	return owner != nil && owner.Complete()
 }

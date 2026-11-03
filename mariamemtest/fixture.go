@@ -16,6 +16,7 @@ import (
 
 	"github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem"
+	"github.com/masahitojp/mariamem/internal/forklimit"
 )
 
 // Options configures a fixture. Prepare may run migration commands using the
@@ -24,7 +25,7 @@ import (
 type Options struct {
 	DatabaseOptions  mariamem.Options
 	Prepare          func(context.Context, *sql.DB, string) error
-	MaxForks         int           // Zero means 2; negative values are rejected.
+	MaxForks         int           // Zero means 2; explicit values are 1..2147483647.
 	OperationTimeout time.Duration // Zero means 120s; cancellation is cooperative.
 }
 
@@ -78,7 +79,7 @@ func failure(stage string, cause, cleanup error) error {
 type database interface {
 	DSN() string
 	WaitDisconnected(context.Context) error
-	capture(context.Context) (baseline, error)
+	capture(context.Context, int) (baseline, error)
 	Close() error
 }
 type baseline interface {
@@ -87,8 +88,8 @@ type baseline interface {
 }
 type realDatabase struct{ *mariamem.Database }
 
-func (d realDatabase) capture(ctx context.Context) (baseline, error) {
-	s, err := d.Snapshot(ctx, mariamem.SnapshotOptions{Rollback: false})
+func (d realDatabase) capture(ctx context.Context, maxForks int) (baseline, error) {
+	s, err := d.Snapshot(ctx, mariamem.SnapshotOptions{Rollback: false, MaxForks: maxForks})
 	if s == nil {
 		return nil, err
 	}
@@ -170,8 +171,8 @@ func New(ctx context.Context, opts Options) (*Fixture, error) {
 	return newFixture(ctx, opts, production())
 }
 func newFixture(ctx context.Context, opts Options, deps dependencies) (_ *Fixture, err error) {
-	if opts.MaxForks < 0 || opts.OperationTimeout < 0 {
-		return nil, failure("options", errors.New("MaxForks and OperationTimeout must not be negative"), nil)
+	if opts.MaxForks < 0 || int64(opts.MaxForks) > forklimit.MaxForks || opts.OperationTimeout < 0 {
+		return nil, failure("options", errors.New("MaxForks must be between 0 and 2147483647; OperationTimeout must not be negative"), nil)
 	}
 	if opts.MaxForks == 0 {
 		opts.MaxForks = 2
@@ -220,7 +221,7 @@ func newFixture(ctx context.Context, opts Options, deps dependencies) (_ *Fixtur
 	}
 	if operationErr == nil {
 		stage = "capture"
-		base, operationErr = source.capture(ctx)
+		base, operationErr = source.capture(ctx, opts.MaxForks)
 	}
 	sourceErr := source.Close()
 	source = nil

@@ -87,6 +87,12 @@ TestMain use `New(ctx, options)` and check `Close()` yourself. Underlying shutdo
 uses its own lifetime; canceled test contexts do not skip cleanup. Hard kills,
 noncooperative work and unregistered external pools are not automatically reaped.
 
+In the unreleased #53 candidate, the helper also passes its resolved `MaxForks`
+(default2) to its private Snapshot. The outer lifecycle budget still owns SQL
+pool cleanup; the Snapshot owns DB startup/disposal. Acquire outer before inner
+and dispose the DB before releasing outer, so the inner limit does not add a
+second healthy capacity wait. Explicit values must fit1..2,147,483,647.
+
 Helper setup/acquisition errors explain the stage, preserved original failure,
 cleanup state and a next action (or an unknown underlying cause). `errors.Is` and
 `errors.As` can inspect both original and cleanup errors, including MySQL errno

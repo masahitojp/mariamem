@@ -5,6 +5,20 @@ release version or grant qualification/publication approval. Published0.6.0 note
 [NOTES-v0.6.0.md](../../release/NOTES-v0.6.0.md); published installation commands
 and version metadata remain unchanged.
 
+## Candidate under review — #53 / Draft PR #85
+
+- Go Snapshot adds `SnapshotOptions.MaxForks` and `Snapshot.MaxForks()`. Omission
+  now resolves a finite memory-based limit; full capacity waits under the Go
+  context before starting a child. Child cleanup retains its slot, and parent
+  Close wakes waiting Forks without closing successful children.
+- Go Live needs at least2 slots and reserves replacement capacity before draining;
+  a full parent returns busy while preserving the current generation. Explicit
+  Reset can recover only after all cleanup debt is confirmed. The Go test helper
+  retains default2 and passes the same cap to its Snapshot; HTTPConfig exposes
+  a cap override. Auto sizing is not CPU-optimal or a process-wide memory guarantee.
+- This draft is not adopted on main. Shared-control/Python and supplied Python
+  entries, the full fixed acceptance table and both-host acceptance remain pending.
+
 ## Adopted on main — unreleased
 
 ### Explicit prepared Django entry (#43 / PR #67)

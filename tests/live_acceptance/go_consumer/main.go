@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"flag"
+	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem"
 	"os"
@@ -45,7 +46,7 @@ func run() error {
 	if err = source.WaitDisconnected(ctx); err != nil {
 		return err
 	}
-	saved, err := source.Snapshot(ctx, mariamem.SnapshotOptions{})
+	saved, err := source.Snapshot(ctx, mariamem.SnapshotOptions{MaxForks: 2})
 	if err != nil {
 		return err
 	}
@@ -67,6 +68,18 @@ func run() error {
 		return err
 	}
 	db.Close()
+	spare, err := saved.Fork(ctx)
+	if err != nil {
+		return err
+	}
+	busy := live.Reset(ctx, mariamem.ResetOptions{})
+	if !errors.Is(busy, mariamem.ErrBusy) || live.Status().State != "ready" || live.Status().Generation != 0 {
+		spare.Close()
+		return fmt.Errorf("capacity busy changed current Live: %w", busy)
+	}
+	if err = spare.Close(); err != nil {
+		return err
+	}
 	if err = live.Reset(ctx, mariamem.ResetOptions{}); err != nil {
 		return err
 	}
@@ -108,9 +121,147 @@ func run() error {
 	if err = live.Close(); err != nil {
 		return err
 	}
+	if err = checkForkLimit(ctx); err != nil {
+		return err
+	}
 	result := "PASS_EXTERNAL_GO_LIVE"
 	if *sourceSmoke {
 		result = "PASS_SOURCE_GO_LIVE"
 	}
 	return json.NewEncoder(os.Stdout).Encode(map[string]any{"result": result, "sum_after_reset": sum, "busy_refused": true, "closed_parent_refused": true, "source_consumed": source.Closed()})
+}
+
+func checkForkLimit(ctx context.Context) error {
+	source, err := mariamem.Start(ctx, mariamem.Options{})
+	if err != nil {
+		return err
+	}
+	defer source.Close()
+	p, err := sql.Open("mysql", source.DSN())
+	if err != nil {
+		return err
+	}
+	_, err = p.ExecContext(ctx, "CREATE TABLE fork_limit_seed(n INT)")
+	if err == nil {
+		_, err = p.ExecContext(ctx, "INSERT INTO fork_limit_seed VALUES(1)")
+	}
+	p.Close()
+	if err != nil {
+		return err
+	}
+	if err = source.WaitDisconnected(ctx); err != nil {
+		return err
+	}
+	if _, err = source.Snapshot(ctx, mariamem.SnapshotOptions{MaxForks: -1}); err == nil || source.Closed() {
+		return errors.New("invalid cap consumed source")
+	}
+	s, err := source.Snapshot(ctx, mariamem.SnapshotOptions{MaxForks: 1})
+	if err != nil {
+		return err
+	}
+	defer s.Close()
+	if s.MaxForks() != 1 {
+		return errors.New("resolved limit changed")
+	}
+	if l, e := s.Live(ctx); e == nil || l != nil {
+		return errors.New("Live accepted cap one")
+	}
+	first, err := s.Fork(ctx)
+	if err != nil {
+		return err
+	}
+	defer first.Close()
+	p, err = sql.Open("mysql", first.DSN())
+	if err != nil {
+		return err
+	}
+	_, err = p.ExecContext(ctx, "INSERT INTO fork_limit_seed VALUES(2)")
+	p.Close()
+	if err != nil {
+		return err
+	}
+	if err = first.WaitDisconnected(ctx); err != nil {
+		return err
+	}
+	short, cancel := context.WithTimeout(ctx, 10*time.Millisecond)
+	_, err = s.Fork(short)
+	cancel()
+	var detail *mariamem.HostError
+	if !errors.Is(err, context.DeadlineExceeded) || !errors.As(err, &detail) || detail.Code != "pool_timeout" {
+		return fmt.Errorf("full capacity did not time out: %w", err)
+	}
+	p, err = sql.Open("mysql", first.DSN())
+	if err != nil {
+		return err
+	}
+	var retained int
+	err = p.QueryRowContext(ctx, "SELECT SUM(n) FROM fork_limit_seed").Scan(&retained)
+	p.Close()
+	if err != nil {
+		return err
+	}
+	if retained != 3 {
+		return errors.New("capacity timeout changed existing child")
+	}
+	if err = first.WaitDisconnected(ctx); err != nil {
+		return err
+	}
+	type result struct {
+		db  *mariamem.Database
+		err error
+	}
+	ready := make(chan result, 1)
+	go func() { db, e := s.Fork(ctx); ready <- result{db, e} }()
+	if err = first.Close(); err != nil {
+		return err
+	}
+	r := <-ready
+	if r.err != nil {
+		return r.err
+	}
+	second := r.db
+	defer second.Close()
+	closed := make(chan result, 1)
+	go func() { db, e := s.Fork(ctx); closed <- result{db, e} }()
+	if err = s.Close(); err != nil {
+		return err
+	}
+	r = <-closed
+	if r.db != nil {
+		r.db.Close()
+	}
+	if !errors.Is(r.err, mariamem.ErrClosed) {
+		return fmt.Errorf("parent Close failed to reject wait: %w", r.err)
+	}
+	// Existing child stays usable after parent Close and starts from seed alone.
+	p, err = sql.Open("mysql", second.DSN())
+	if err != nil {
+		return err
+	}
+	var sum int
+	err = p.QueryRowContext(ctx, "SELECT SUM(n) FROM fork_limit_seed").Scan(&sum)
+	p.Close()
+	if err != nil {
+		return err
+	}
+	if sum != 1 {
+		return errors.New("independent child lost baseline")
+	}
+	if err = second.WaitDisconnected(ctx); err != nil {
+		return err
+	}
+	nested, err := second.Snapshot(ctx, mariamem.SnapshotOptions{MaxForks: 1})
+	if err != nil {
+		return err
+	}
+	defer nested.Close()
+	child, err := nested.Fork(ctx)
+	if err != nil {
+		return err
+	}
+	defer child.Close()
+	if nested.MaxForks() != 1 {
+		return errors.New("captured child did not get its own cap")
+	}
+	return nil
 }

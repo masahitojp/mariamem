@@ -3,12 +3,53 @@
 The Human authorized implementing the reviewed design on 2026-11-03 after
 `a4929d1234068eead0faf6034b5d2e4b27e58b31`. The first checkpoint implements shared
 primitives; the next adds reachable cleanup ownership through the existing host
-lifecycle. **Neither yet enforces a public Snapshot Fork limit.**
+lifecycle. The current checkpoint connects public Go entries. **Shared-control
+and Python limit enforcement remain unfinished.**
 [Issue #53](https://github.com/masahitojp/mariamem/issues/53) owns completion;
 [the fixed acceptance table](issue53-fork-limit-design.md#fixed-acceptance-and-stopping-point)
 is unchanged. No acceptance row covering a real entry is marked complete here.
 
-## Current checkpoint — late cleanup ownership
+## Current checkpoint — public Go limits
+
+The Human requested continuing with a user-visible cap1 Fork wait/release path.
+Implementation starts from inspected commit
+`68d768550e7c8fb743e8eb3790082c4a23efc3d1`.
+
+- Go exposes `SnapshotOptions.MaxForks` and immutable `Snapshot.MaxForks()`.
+  Zero resolves auto at capture; explicit1..MaxInt32 overrides it. Invalid values
+  reject before consuming the source. Capacity waiting precedes the backing lock,
+  and parent Close revokes unused reservations and wakes waiters before joining
+  admitted startup. Successful child lifetime stays independent of parent Close.
+- A child owns its lease before the runtime watcher starts. Close, unexpected
+  exit and consumed capture settle only after disposal. Preserved capture retains
+  occupancy. Unknown or partial cleanup stops parent admission; no `consumed`
+  flag or error string serves as a disposal proof.
+- Live requires cap>=2, reserves nonblockingly before healthy drain, and preserves
+  data/generation on capacity busy. Explicit Reset retries pending/current-child
+  cleanup before recovery when failed, then atomically checks all debt and takes
+  a slot. Another owner's unresolved cleanup and parent Close prevent recovery.
+  A failed startup with delayed disposal supplies a retained cleanup-only child.
+- Go fixture default2 stays intact; its configured cap now reaches the private
+  Snapshot, maintaining the outer SQL-owner/inner DB lease relationship. Go HTTP
+  config adds a cap override and rejects explicit1 before preparation.
+
+Focused Go race tests passed for public Go, `internal/live`, `internal/forklimit`
+and `mariamemtest`. Added tests cover public wait cancellation, parent Close,
+consumed/preserved behavior, outer/inner cap propagation, cap2 Live busy/drain
+reservation return, two failed disposals followed by retry, and another owner's
+debt. Controlled cleanup failure evidence is distinguished from actual guest faults.
+The existing Go source/installed consumer now includes actual cap1 wait/release,
+timeout survival, parent Close with a live child and recapture, plus Live's spare
+slot busy path. Its runtime result is recorded after the code commit.
+
+Remaining work is the shared-control protocol and Python together, then supplied
+Python fixtures/E2E/D1 and both-host fixed acceptance. The old Python handoff has
+no source-lease acknowledgement; enabling that host-side limit alone would strand
+capacity when a remote child closes. Keep these changes in the same subsequent
+integration slice instead of adding an unlimited bypass or shipping a half-bound
+handoff. No entry/acceptance case is removed and no new approval gate is added.
+
+## Previous checkpoint — late cleanup ownership
 
 After the first checkpoint, the Human requested continuing with the identified
 startup/consumed-capture cleanup boundary. Implementation starts from inspected

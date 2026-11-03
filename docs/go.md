@@ -159,6 +159,40 @@ state in each test process. No user-managed file or daemon is required.
 Closing a handle releases its ownership; other children may still own blocks.
 Go memory reclamation and OS RSS reduction have different timing.
 
+### Unreleased candidate: per-Snapshot Fork limits (#53)
+
+The candidate Go API adds `SnapshotOptions.MaxForks` and `Snapshot.MaxForks()`:
+
+```go
+prepared, err := source.Snapshot(ctx, mariamem.SnapshotOptions{MaxForks: 2})
+if err != nil { return err }
+defer prepared.Close()
+child, err := prepared.Fork(ctx)
+if err != nil { return err }
+defer child.Close()
+```
+
+Zero selects a finite automatic limit once at capture; explicit values1 through
+2,147,483,647 override it. Invalid values reject before consuming the source.
+The automatic budget is one quarter of the minimum observed physical RAM,
+Linux cgroup limit and Go runtime memory limit, divided by256 MiB per child;
+it falls back to a finite CPU count if memory information is unavailable.
+`MaxForks()` returns the resolved number. This is a memory heuristic, not a
+CPU/latency optimum or OOM guarantee. Use an explicit limit for a latency-sensitive
+suite, and budget multiple baselines/processes separately.
+
+A slot counts reservation/startup, a live child and unconfirmed cleanup. Full
+capacity waits before starting another MariaDB. Go's context covers waiting and
+startup; an expired capacity wait returns `HostError` with code `pool_timeout`,
+stage `fork_wait` and an underlying context error. Closing a child permits a
+later Fork. Closing the baseline wakes capacity waiters while existing children
+remain usable. Cleanup uncertainty stops admission; later disposal alone does
+not automatically resume it. Prepare a new baseline or use an explicit Live
+Reset that confirms all cleanup debt. There is no unlimited setting.
+
+This candidate's shared-host/Python entry wiring is still pending. See
+[the implementation status](reviews/issue53-fork-limit-implementation.md).
+
 
 ## Lifecycle, cancellation and errors
 

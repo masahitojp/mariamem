@@ -146,6 +146,18 @@ func (l *Lease) Activate() error {
 	return nil
 }
 
+// Cancel returns an unused reservation. It cannot release an activated child,
+// even when called from a deferred reservation cleanup after Start returned.
+func (l *Lease) Cancel() {
+	p := l.pool
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if _, ok := p.leases[l]; ok && !l.active {
+		delete(p.leases, l)
+		p.signal()
+	}
+}
+
 // Settle(nil) confirms disposal (or cancels an unused reservation). A cleanup
 // error retains the slot and stops admission. Later successful settlement clears
 // this lease's debt, but only explicit TryAcquire(true) can reopen the pool.

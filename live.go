@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/disposal"
 	endpoint "github.com/masahitojp/mariamem/internal/live"
 )
 
@@ -42,12 +43,20 @@ func (c liveChild) Close() error {
 		return c.closeLocked()
 	}
 	var err error
+	ctx, retryCancel := context.WithTimeout(context.Background(), c.opts.ShutdownTimeout)
+	err = disposal.Retry(ctx, c.closeErr)
+	retryCancel()
+	if err != nil {
+		return hostError(err, "close", true)
+	}
 	if c.server != nil {
 		ctx, cancel := context.WithTimeout(context.Background(), c.opts.ShutdownTimeout)
 		err = c.server.Close(ctx)
 		cancel()
 	}
-	return hostError(errors.Join(err, c.removeTemporaryAfter(err)), "close", true)
+	err = hostError(errors.Join(err, c.removeTemporaryAfter(err), c.captureDebt), "close", true)
+	c.settleFork(err, c.disposalComplete())
+	return err
 }
 func (c liveChild) WaitDisconnected(ctx context.Context) error {
 	c.mu.Lock()
@@ -64,6 +73,15 @@ func (c liveChild) WaitDisconnected(ctx context.Context) error {
 // If creation cleanup fails, the non-nil returned Live is a closed cleanup-only
 // owner; retain it and report its Close error. Its ctx governs creation only; use Close to end the endpoint lifetime.
 func (s *Snapshot) Live(ctx context.Context) (*Live, error) {
+	s.mu.RLock()
+	closed := s.closed || s.backing == nil
+	s.mu.RUnlock()
+	if closed {
+		return nil, liveError(diagnostic.Wrap("closed", "live_precondition", ErrClosed), false)
+	}
+	if s.MaxForks() < 2 {
+		return nil, liveError(diagnostic.Wrap("invalid_options", "live_precondition", errors.New("Live requires MaxForks >= 2; capture with an explicit limit of at least 2")), false)
+	}
 	factory := endpoint.Factory{
 		Check: func() error {
 			s.mu.RLock()
@@ -73,12 +91,21 @@ func (s *Snapshot) Live(ctx context.Context) (*Live, error) {
 			}
 			return nil
 		},
-		Start: func(ctx context.Context) (endpoint.Child, error) {
-			db, err := s.Fork(ctx)
-			if err != nil {
+		Reserve: func(ctx context.Context, recover bool) (*endpoint.Reservation, error) {
+			if err := ctx.Err(); err != nil {
 				return nil, err
 			}
-			return liveChild{db}, nil
+			lease, err := s.forkLimit().TryAcquire(recover)
+			if err != nil {
+				return nil, liveError(diagnostic.Wrap(forkAdmissionError(err).(*HostError).Code, "live_capacity", err), false)
+			}
+			return &endpoint.Reservation{Cancel: lease.Cancel, Start: func(ctx context.Context) (endpoint.Child, error) {
+				db, err := s.forkReserved(ctx, lease)
+				if err != nil {
+					return endpoint.RetainStartup(err, lease, s.opts.ShutdownTimeout), err
+				}
+				return liveChild{db}, nil
+			}}, nil
 		},
 	}
 	e, err := endpoint.New(ctx, factory, s.opts.ShutdownTimeout)
