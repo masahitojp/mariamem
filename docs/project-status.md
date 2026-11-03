@@ -14,6 +14,22 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Issue #53 — finite Fork admission by default, design in progress
+
+On2026-11-03 the Human selected pgmem-style default limiting: an omitted Fork
+limit must resolve to a finite value, and full capacity waits before starting
+another MariaDB instance. The initial unlimited-default compatibility proposal
+is superseded. [Issue #53](https://github.com/masahitojp/mariamem/issues/53)
+owns tracking under its existing v0.6.1 milestone; the
+[revised design](reviews/issue53-fork-limit-design.md) proposes one-time
+memory-based sizing, explicit positive overrides and a finite fallback.
+
+The MariaDB per-Fork budget estimate, Live boundary and existing development-host
+handoff compatibility remain design work. The direction does not approve removing
+handoff, implementing the entire candidate, moving its milestone or publishing.
+No resource measurement or CI has been run for this design. Prewarming remains
+separate in [#84](https://github.com/masahitojp/mariamem/issues/84).
+
 ## Test credentials accepted — protected main integration authorized, unreleased
 
 On 2026-11-03 the Human approved removing the local wire endpoint's root/empty
