@@ -73,6 +73,22 @@ def test_text_blob_duplicate_removal_returns_and_preserves_sessions(kind):
             assert execute(sibling, "SELECT 2") == ((2,),)
 
 
+@pytest.mark.parametrize("user,password", [
+    ("root", ""), ("test", "test"), ("root", "root"), ("test", ""),
+    ("application", "synthetic-test-secret"),
+])
+def test_placeholder_credentials_accept_normal_queries(wire_db, user, password):
+    info = wire_db.connection_info()
+    assert info["user"] == "root" and info["password"] == ""
+    info.update(user=user, password=password)
+    with pymysql.connect(**info, autocommit=True, read_timeout=5, write_timeout=5) as conn:
+        assert execute(conn, "SELECT 1") == ((1,),)
+        execute(conn, "CREATE TABLE credential_probe(id INT PRIMARY KEY)")
+        execute(conn, "INSERT INTO credential_probe VALUES(42)")
+        assert execute(conn, "SELECT id FROM credential_probe") == ((42,),)
+    wire_db.wait_disconnected()
+
+
 def test_handshake_identity_matches_guest_across_sessions(wire_db):
     def check(conn):
         ((connection_id, version),) = execute(conn, "SELECT CONNECTION_ID(), VERSION()")

@@ -51,6 +51,12 @@ Application connections may commit and roll back normally; isolation comes from
 discarding the entire database, not from a test transaction imposed by mariamem.
 Close your driver connections before database cleanup.
 
+**Unreleased:** the local endpoint accepts any username and password, including
+test credentials such as `test/test` or `root/root`. Credentials are not
+validated and do not select a guest account or change SQL privileges. The
+returned connection information still defaults to `root` with an empty
+password. Use a real server for authentication and per-user privilege tests.
+
 `close()` is idempotent. `closed` reports disposal or host termination; call
 `close()` to release wrapper resources after termination as well.
 

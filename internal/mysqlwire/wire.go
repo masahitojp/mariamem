@@ -428,27 +428,23 @@ func Serve(conn net.Conn, p *guest.Process, slot uint32, timeout time.Duration, 
 		_ = w.send(ErrorPacket(1235, "42000", "unsupported connection capabilities"))
 		return nil
 	}
-	user, rest, e := takeString(auth[32:])
+	_, rest, e := takeString(auth[32:])
 	if e != nil {
 		return nil
 	}
-	var password []byte
+	// Test credentials do not select a guest account. Still parse the response
+	// so malformed handshakes cannot bypass protocol validation.
 	if flags&32768 != 0 {
 		if len(rest) < 1 || int(rest[0]) > len(rest)-1 {
 			return nil
 		}
 		n := int(rest[0])
-		password = rest[1 : 1+n]
 		rest = rest[1+n:]
 	} else {
-		password, rest, e = takeString(rest)
+		_, rest, e = takeString(rest)
 		if e != nil {
 			return nil
 		}
-	}
-	if string(user) != "root" || len(password) != 0 {
-		_ = w.send(ErrorPacket(1045, "28000", "only local root with empty password is supported"))
-		return nil
 	}
 	if flags&clientFoundRows != 0 {
 		// MariaDB's client capability is fixed at connect time. Reopen only this

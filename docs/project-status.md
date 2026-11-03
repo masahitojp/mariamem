@@ -14,15 +14,32 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Dump statement limit correction — 0.6.1
+## Test credentials accepted — protected main integration authorized, unreleased
 
-On 2026-11-03 the Human approved reducing `import_dump`'s documented/preflight
-statement limit from 4 MiB to the existing 1 MiB text SQL execution limit.
-The helper shipped in v0.6.0. Oversized statements fail before connecting, with
-source location and the existing failed-DB discard contract; file/count limits
-remain 16 MiB and 10,000 statements. This corrects the reader's limit without
-increasing guest capacity. [Issue #81](https://github.com/masahitojp/mariamem/issues/81)
-owns implementation and verification tracking for 0.6.1.
+On 2026-11-03 the Human approved removing the local wire endpoint's root/empty
+credential restriction after `test/test` and `root/root` reproduced MySQL1045
+while migrating Testcontainers tests. [Issue #78](https://github.com/masahitojp/mariamem/issues/78)
+records the bounded implementation and acceptance criteria.
+
+The candidate endpoint accepts usernames and password responses without validating
+credentials. They do not select a guest account or change the existing SQL
+privilege context. Default returned connection information stays root/empty;
+handshake structure/capability validation stays in place. Authentication,
+per-user privileges and credential-dependent CURRENT_USER() behavior remain
+outside this change.
+
+Implementation is on `fix/issue78-test-credentials`. Original candidate
+`941cc49ae339868a42ef5e9e24727b3c66eba320` passed local macOS arm64 checks
+with Go 1.26.10: the canonical full check, both Go default/integration
+packages, and all 17 Python wire/multiclient tests including the new credential
+cases. The new credential test first reproduced 1045 on the unchanged wire
+implementation; the candidate also preserves malformed-handshake rejection.
+[Development CI41601747549](https://github.com/masahitojp/mariamem/actions/runs/41601747549)
+passed check, integration and Live required gate on candidate source_commit
+`9806566d53ceaaa47118ed3da8db1a452cbefd87`. The Human then authorized protected
+main integration on 2026-11-03. [PR #79](https://github.com/masahitojp/mariamem/pull/79)
+owns integration completion; the later main update requires fresh protected
+checks. These daily results are not both-platform qualification or release approval.
 
 ## Issue #63 buffer-pool alignment — bounded acceptance PASS, protected integration pending
 
@@ -1951,6 +1968,16 @@ Main adoption is complete. Target version, final Qualification, Product Validati
 and publication remain separate decisions and have not been initiated here.
 No broader shared-memory proof or new
 performance improvement is claimed. Guides use current-source-build wording and retain publishedv0.5.3 history.
+
+## Dump statement limit correction — 0.6.1
+
+On 2026-11-03 the Human approved reducing `import_dump`'s documented/preflight
+statement limit from 4 MiB to the existing 1 MiB text SQL execution limit.
+The helper shipped in v0.6.0. Oversized statements fail before connecting, with
+source location and the existing failed-DB discard contract; file/count limits
+remain 16 MiB and 10,000 statements. This corrects the reader's limit without
+increasing guest capacity. [Issue #81](https://github.com/masahitojp/mariamem/issues/81)
+owns implementation and verification tracking for 0.6.1.
 
 ## Bounded dump reader and host status prerequisite — adopted on main, unreleased
 

@@ -79,19 +79,6 @@ func TestDefaultReleaseFailurePaths(t *testing.T) {
 	for round := 0; round < 2; round++ {
 		db := start()
 		retained = append(retained, db)
-		config, err := mysql.ParseDSN(db.DSN())
-		if err != nil {
-			t.Fatal(err)
-		}
-		config.Passwd = "deliberately-invalid-password"
-		bad := open(config.FormatDSN())
-		var auth *mysql.MySQLError
-		if err := bad.PingContext(ctx); !errors.As(err, &auth) || auth.Number != 1045 {
-			t.Fatalf("credential rejection: %v", err)
-		}
-		if err := bad.Close(); err != nil {
-			t.Fatal(err)
-		}
 		good := open(db.DSN())
 		for _, failure := range []struct {
 			query  string
@@ -110,7 +97,7 @@ func TestDefaultReleaseFailurePaths(t *testing.T) {
 				t.Fatal(err)
 			}
 		}
-		_, err = good.ExecContext(ctx, "INSERT INTO failure_check VALUES(1)")
+		_, err := good.ExecContext(ctx, "INSERT INTO failure_check VALUES(1)")
 		var constraint *mysql.MySQLError
 		if !errors.As(err, &constraint) || constraint.Number != 1062 {
 			t.Fatalf("constraint rejection: %v", err)
