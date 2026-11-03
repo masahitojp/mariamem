@@ -12,6 +12,7 @@ class RemoteLease:
         self.scratch, self.target = scratch, target
         self.exported = False
         self.target_handle = self.cleanup_token = None
+        self.export_cleanup = self.pending_snapshot = None
         self.target_done = self.done = False
         self.error = None
         self.log_path, self.owned_log = None, False
@@ -83,6 +84,7 @@ class RemoteLease:
         if self.owned_log and self.log_path is not None:
             self.log_path.unlink(missing_ok=True)
         self.target_done = True
+        self.pending_snapshot = None
 
     def _settle(self):
         if not self.target_done:
@@ -90,6 +92,12 @@ class RemoteLease:
         if self.source.failed and not self.source._exited.is_set():
             self._after_exit(self.source)
             raise RuntimeError("source process exit is not confirmed")
+        if self.export_cleanup is not None and not self.source.failed:
+            state = self.source.request("cleanup_status", cleanup=self.export_cleanup,
+                                        response_timeout=5, _cleanup=False)
+            if state.get("disposed") is not True:
+                raise RuntimeError("source export cleanup remains incomplete")
+            self.export_cleanup = None
         self.remove_scratch()
         if self.owned_log and self.log_path is not None:
             self.log_path.unlink(missing_ok=True)
@@ -125,6 +133,10 @@ class RemoteLease:
         if self.target._exited.is_set():
             self._clean_exited_target()
             return
+        if self.pending_snapshot is not None:
+            self.target.request("snapshot_close", handle=self.pending_snapshot,
+                                response_timeout=5, _cleanup=False)
+            self.pending_snapshot = None
         if self.cleanup_token is not None:
             state = self.target.request("cleanup_status", cleanup=self.cleanup_token,
                                         response_timeout=5, _cleanup=False)
@@ -188,11 +200,7 @@ class RemoteLease:
                         raise reply
                 else:
                     self.exported = "lease" in reply
-                    if "cleanup" in reply:
-                        state = self.source.request("cleanup_status", cleanup=reply["cleanup"],
-                                                    response_timeout=5, _cleanup=False)
-                        if state.get("disposed") is not True:
-                            raise RuntimeError("source export cleanup remains incomplete")
+                    self.export_cleanup = reply.get("cleanup", self.export_cleanup)
                     self.target_done = True  # A late export never starts a target.
                 self._settle()
             except BaseException as exc:
@@ -233,12 +241,17 @@ class RemoteLease:
         # A precondition rejection preserves the target and its source lease.
         if isinstance(reply, dict) and not reply.get("closed"):
             return
-        if isinstance(reply, dict) and "snapshot" in reply:
-            try:
-                self.target.request("snapshot_close", handle=reply["snapshot"],
-                                    response_timeout=5, _cleanup=False)
-            except Exception as exc:
-                with self._lock:
-                    self._block(exc)
+        with self._lock:
+            if self.done:
                 return
-        self.late_close(reply)
+            if isinstance(reply, dict) and "snapshot" in reply:
+                self.pending_snapshot = reply["snapshot"]
+                try:
+                    self.target.request("snapshot_close", handle=self.pending_snapshot,
+                                        response_timeout=5, _cleanup=False)
+                    self.pending_snapshot = None
+                except Exception as exc:
+                    self._block(exc)
+                    self._after_exit(self.target)
+                    return
+            self.late_close(reply)

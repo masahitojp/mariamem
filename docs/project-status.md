@@ -74,6 +74,13 @@ together with handoff acknowledgements and bounded send/reply ownership so an
 old client cannot strand a newly enforced remote lease; older capabilities
 reject before capture. Remaining work is the fixed failure/host matrix and
 source-bound acceptance of the connected entries.
+The failure-verification checkpoint found and corrects two remote cleanup retry
+gaps: source export cleanup tokens and unreturned target Snapshots now remain
+owned through confirmed retry. Bounded subprocess barriers cover timeout and
+interrupt after reservation/export/start without killing independent owners.
+Shared-host Live's cap2 controlled cleanup/recovery and real-host whole-lineage
+loss/range-rejection cases are added; the full installed/platform matrix is still
+pending, and none of these checks adds a new performance requirement.
 There is no new performance campaign. The milestone and publication decisions are
 unchanged. Prewarming remains
 separate in [#84](https://github.com/masahitojp/mariamem/issues/84).

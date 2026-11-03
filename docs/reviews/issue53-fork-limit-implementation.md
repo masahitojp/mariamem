@@ -10,7 +10,51 @@ unfinished.**
 [the fixed acceptance table](issue53-fork-limit-design.md#fixed-acceptance-and-stopping-point)
 is unchanged. No acceptance row covering a real entry is marked complete here.
 
-## Current checkpoint — supplied Python entries
+## Current checkpoint — bounded failure verification
+
+Verification continues from candidate source_commit
+`03d06c0a696731c2e50bfcefed2095e4589c291c` under the existing fixed acceptance.
+No new resource/performance campaign or product direction is introduced.
+
+Controlled remote-owner tests first failed on two retry defects: a failed source
+export's cleanup token was not retained for retry on the source (retry instead
+waited for a nonexistent target startup), and a late unreturned Snapshot was
+forgotten after its Close failed. The owner now retains the export cleanup token
+separately and holds the pending target Snapshot through its successful cleanup.
+Neither error nor elapsed watchdog serves as disposal proof. These same tests
+pass after the local corrections; a successful retry does not clear the parent's
+admission latch or rewrite the original operation failure.
+
+Real framed-control subprocess tests stop replies after reservation, export or
+target startup, then exercise timeout and KeyboardInterrupt at each boundary.
+The source slot remains occupied until the delayed result is disposed; target
+startup is not attempted after a late reservation/export. Late startup closes
+its unpublished child exactly once while an independent target owner remains
+usable. Submission/pipe-stall coverage from the previous checkpoint is retained.
+Controlled owner tests also cover failed source acknowledgement, unknown target
+cleanup, unsent-versus-ambiguous startup and actual-exit-before-settlement order.
+
+Control Go tests use actual prepared backing and the common limiter for export
+failure, preexisting destination preservation, wrong-parent acknowledgement,
+parent Close and duplicate settlement without freeing another lease. Shared-host
+Live adapter tests combine the real limiter and control/reset/cleanup paths with
+controlled already-disposed execution owners and real file-removal failures:
+cap2 retains old/candidate debt, failed retry starts no new child, confirmed
+explicit Reset commits one generation, and unrelated debt/parent closure prevent
+reopening. Retried adapter cleanup now also runs for an already-disposed owner
+without a server pointer. This is not a real-engine cleanup-fault reproduction.
+
+Focused local working-tree tests passed on macOS arm64 / Go1.26.10 / Python3.14:
+control/live/forklimit race suites;87 Python ownership/transport tests; four
+real-host handoff/parent/recapture cases including injected whole-source or
+whole-target process loss; and a real-host raw-control range test retaining
+source and sibling SQL. The latter real-host runs reused the previous clean
+`6df2f5c6` host while exercising current Python source, so they are not presented
+as an exact-candidate host receipt. Source-bound daily/smoke and focused actual
+guest cases follow the code commit. Both-platform/Python-version installed-entry
+acceptance and the final fixed-row reconciliation still determine completion.
+
+## Previous checkpoint — supplied Python entries
 
 Implementation continues from inspected source_commit
 `e401c2af3e3aa6fa8f5c7485228c0a5a7a98bd85`.

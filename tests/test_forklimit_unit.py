@@ -87,6 +87,26 @@ def test_missing_capability_rejected_before_consumption(fake_host):
         assert root.status()["state"] == "ready"
 
 
+@pytest.mark.parametrize('mismatch', ['capability', 'guest'])
+def test_unsupported_target_releases_only_unused_source_reservation(fake_host, tmp_path, mismatch):
+    old = tmp_path/'unsupported-host'
+    script = fake_host.read_text()
+    if mismatch == 'capability':
+        script = script.replace("['fork-limit-v1']", '[]')
+    else:
+        script = script.replace("'guest_sha256':'guest'", "'guest_sha256':'wrong'")
+    old.write_text(script)
+    old.chmod(0o755)
+    with mariamem.start(host_binary=fake_host) as root:
+        with root.snapshot(max_forks=1) as baseline:
+            with pytest.raises(mariamem.HostError, match='fork-limit-v1|guest identity mismatch'):
+                baseline.fork(host_binary=old, timeout=1)
+            assert baseline._session.request('stats')['reservations'] == 0
+            assert baseline._session._refs == 1 and not baseline._session._handoffs
+            with baseline.fork(timeout=1) as child:
+                assert child.status()['state'] == 'ready'
+
+
 def test_parent_releases_session_when_remote_notification_fails(fake_host):
     root = mariamem.start(host_binary=fake_host)
     baseline = root.snapshot(max_forks=1)

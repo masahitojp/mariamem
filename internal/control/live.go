@@ -51,7 +51,7 @@ func (c *liveChild) Close() error {
 	if !c.attempted {
 		c.attempted = true
 		err = c.db.close()
-	} else if c.db.server != nil {
+	} else {
 		ctx, cancel := context.WithTimeout(context.Background(), c.db.shutdown)
 		err = c.db.retryCleanup(ctx)
 		cancel()

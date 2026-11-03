@@ -60,6 +60,46 @@ def test_bounded_parent_close_preserves_remote_child(tmp_path):
         assert not child._remote.source.root.exists()
 
 
+@pytest.mark.parametrize('lost', ['source', 'target'])
+def test_bounded_handoff_host_loss_preserves_independent_lineage(tmp_path, lost):
+    alternate = tmp_path/'other-host'
+    shutil.copy2(HOST, alternate)
+    with mariamem.start(host_binary=HOST) as root:
+        with root.snapshot(max_forks=1) as baseline:
+            child = baseline.fork(host_binary=alternate, timeout=5)
+            session = baseline._session if lost == 'source' else child._session
+            session._process.kill()  # Fault injection of this entire owned host.
+            assert session._exited.wait(3)
+            try:
+                if lost == 'source':
+                    assert sql(child, 'SELECT 42') == ((42,),)
+                    baseline.close()
+                child.close()
+                assert child._remote.done
+                if lost == 'target':
+                    with baseline.fork(timeout=5) as replacement:
+                        assert sql(replacement, 'SELECT 42') == ((42,),)
+            finally:
+                child.close()
+
+
+def test_bounded_invalid_control_values_preserve_source_and_sibling_sql():
+    with mariamem.start(host_binary=HOST) as root:
+        with root.snapshot(max_forks=2) as baseline:
+            with baseline.fork(timeout=5) as source, baseline.fork(timeout=5) as sibling:
+                for op, handle, fields in (
+                    ('snapshot', source._handle, {'max_forks': 2**100}),
+                    ('snapshot', source._handle, {'max_forks': True}),
+                    ('fork', baseline._handle, {'fork_timeout': '2147483648s'}),
+                    ('fork', baseline._handle, {'fork_timeout': 2**100}),
+                ):
+                    with pytest.raises(mariamem.HostError) as error:
+                        baseline._session.request(op, handle=handle, response_timeout=2, **fields)
+                    assert error.value.code == 'invalid_options' and not error.value.closed
+                    assert sql(source, 'SELECT 17') == ((17,),)
+                    assert sql(sibling, 'SELECT 19') == ((19,),)
+
+
 def test_bounded_e2e_entry_resets_real_live_between_controlled_browser_cases():
     from types import SimpleNamespace
     from mariamem.e2e import BrowserEntry, Config
