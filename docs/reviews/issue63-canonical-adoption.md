@@ -8,9 +8,12 @@ queue gap and adverse CPU/batch pairs are not relabelled.
 
 ## Selected source and actual results
 
-Base main: `f09d5167172f091ccc0b20f78b817fe870d3cadf`.
+Original base main: `f09d5167172f091ccc0b20f78b817fe870d3cadf`.
+Integration base updated to `954231bf7451f7b45bdbeb453a144204286eea18`
+(Django-only adoption; guest and Go runtime inputs unchanged). Earlier receipts
+retain their original source identities; candidate CI checks the final head.
 Canonical C input source_commit: `1b0a0c5c569c49f3643550911d62d85d351f15fb`.
-Expected-inventory authoring: `5f8a6682` (full identity in Git history).
+Expected-inventory authoring: `5f8a6682ea2f96611bde135eb285aca90e62f913`.
 Normally generated runtime / clean native build:
 `8b641cfba060f2bede1cda9c45d09ca5764df32d`.
 
@@ -43,6 +46,10 @@ symbol audit then passed. The clean-host SQL smoke was repeated successfully.
 No identity/body guard was disabled. A temporary pip pin conflict was corrected
 by using the repository's requirements unchanged. These preflight failures do
 not become successful source receipts.
+
+The first daily source check detected a stale Python package license-inventory
+mirror (1 failed, 66 passed before stopping). The mirror was synchronized with
+the newly audited release inventory; the check is rerun on the updated source.
 
 ## Remaining acceptance and detection
 
