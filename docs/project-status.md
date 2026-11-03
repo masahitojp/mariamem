@@ -24,10 +24,13 @@ owns tracking under its existing v0.6.1 milestone; the
 [revised design](reviews/issue53-fork-limit-design.md) proposes one-time
 memory-based sizing, explicit positive overrides and a finite fallback.
 
-The MariaDB per-Fork budget estimate, Live boundary and existing development-host
-handoff compatibility remain design work. The direction does not approve removing
-handoff, implementing the entire candidate, moving its milestone or publishing.
-No resource measurement or CI has been run for this design. Prewarming remains
+The concrete follow-up proposes256 MiB per Fork against one quarter of the
+selected memory limit, with finite CPU fallback, as a sizing heuristic rather
+than an OOM guarantee. It preserves development-host handoff with source-owned
+leases, and gives Live-based E2E entries an explicit cap override. Lifecycle/API
+choices remain a proposal for review; no existing handoff behavior is removed.
+No new resource measurement, product implementation or CI has been run for this
+design. The milestone and publication decisions are unchanged. Prewarming remains
 separate in [#84](https://github.com/masahitojp/mariamem/issues/84).
 
 ## Test credentials accepted — protected main integration authorized, unreleased
