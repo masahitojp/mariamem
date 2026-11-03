@@ -17,6 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # Representative profiles: 3.11 + Django5.2 LTS; 3.14 + latest Django6.1.
         python: ['3.11', '3.14']
     services:
       mariadb:
@@ -127,9 +128,10 @@ jobs:
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
             "$py" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-work" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- "$py" tests/django_lifecycle/ci.py --route guest --host build/mariamem-host --reference "build/django-reference/py$version/reference" --expected-source-commit "$SOURCE_COMMIT" --output "build/django-evidence/py$version/acceptance" || django_status=1
-            "$py" -m pytest -q tests/test_django_prepared_owners.py tests/test_django_prepared_api.py || django_status=1
+            "$py" -m pytest -q tests/test_django_prepared_owners.py tests/test_django_prepared_api.py tests/test_django_xdist_policy.py || django_status=1
             "$py" -m pip install --no-deps build/dist/*.whl
             "$py" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-work" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- "$py" tests/django_prepared/run.py --installed --host build/mariamem-host --host-source-commit "$SOURCE_COMMIT" --output "build/django-evidence/py$version/prepared" || django_status=1
+            "$py" scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/django-work" --min-free-gib 4 --budget-gib 8 --timeout 1200 -- "$py" tests/django_prepared/xdist/run.py --installed --host build/mariamem-host --host-source-commit "$SOURCE_COMMIT" --output "build/django-evidence/py$version/parallel" || django_status=1
           done
           exit "$django_status"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f

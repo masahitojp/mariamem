@@ -124,6 +124,50 @@ Function-style `django_db` tests and ordinary Django database classes cannot be
 mixed into this prepared run. `SimpleTestCase` tests without database access may
 coexist. The ordinary recipe still supports its independently tested policies.
 
+## Local pytest-xdist workers
+
+The local-worker extension is approved for adoption and remains unreleased.
+Its four installed-wheel cells passed; see the [adoption receipt](reviews/d1-xdist-adoption.md).
+Serial remains default. The `django-pytest` extra supplies pytest-xdist3.8.0 / execnet2.1.2.
+Keep the ordinary serial invocation, or opt in with an explicit worker count:
+
+```sh
+DJANGO_SETTINGS_MODULE=myproject.test_settings \
+  python -m pytest -p mariamem.django.pytest_plugin -n 2 --dist=loadscope
+```
+
+pytest-django and xdist normally auto-load from the installed extras. The
+supported schedulers are `load` and `loadscope`;2 and4 local workers
+are the verification cells, not a capacity guarantee. `loadscope` keeps a class
+on one worker. With `load`, class setup and `setUpTestData()` execute per worker/class
+activation. Restart/rescheduling may revisit a class and execute setup again
+even in the same worker. Do not use class setup as a globally-once hook.
+
+Each DB-using worker acquires its own host, migrates/seeds once, and owns its own
+run/class Snapshots. No SDK handles are passed between processes. Preparation is
+per worker, not once globally: four DB-using workers mean four preparations and
+four hosts. The controller, idle workers and database-free workers acquire none.
+pytest-django's worker DB-name suffix remains in effect. Parallel speedup and
+resource savings have not been established; choose a worker count for the job.
+
+An ordinary assertion failure still allows the next independent Fork. Prepare
+failure or cleanup debt blocks later dependent bodies in that worker and leaves
+the overall test run failed; another worker has its own owners. A crashed test
+remains failed. If xdist restarts its worker, the replacement creates a fresh
+host and baseline rather than inheriting the crashed test's handles. With
+`--max-worker-restart=0`, xdist stops distribution according to its normal policy.
+
+On hard worker death, the existing host control-pipe EOF path closes the host.
+Python finalizers cannot run after SIGKILL: SDK temporary logs/directories may
+remain for the enclosing runner/job to clean. This is not a new arbitrary
+process-tree kill or scratch-recovery guarantee. Normal worker shutdown closes
+its owners and scratch through the SDK as before.
+
+Use explicit `-n N`; automatic/logical CPU counts, manual `--tx`, remote/socket
+workers and loop-on-fail are rejected before acquisition. Other schedulers and
+Django `manage.py test --parallel` remain unsupported. Multi-alias, reuse-db,
+no-migrations and routing/shadow_maria exclusions remain unchanged.
+
 ## Routing and shadow_maria
 
 The prepared Django entry and routing/`shadow_maria` are mutually exclusive
@@ -155,11 +199,14 @@ opt-in behavior, not transparent replacement of existing `TestCase` classes.
 fixtures/flush hooks; the next test's Fork restores the declared full schema and
 seed independently of flush. It has no `setUpTestData()` hook.
 
-Initial scope is Django5.2 (locally checked with5.2.8), mysqlclient2.2.7,
-pytest9.0.2/pytest-django4.12.0, one `default` MySQL alias and serial execution.
+Supported Django series are5.2 LTS,6.0 and6.1; Django6 requires Python3.12+.
+See the [version policy](django-testing.md#supported-django-versions). The fixed client profile is mysqlclient2.2.7,
+pytest9.0.2/pytest-django4.12.0, one `default` MySQL alias. Serial remains the
+default; the local-worker mode is described above.
 Multiple aliases, test mirrors, disabled migrations, `available_apps`,
-`serialized_rollback`, `reset_sequences`, `--keepdb`, `--reuse-db`, xdist and
-Django parallel execution are rejected. Function-style pytest DB tests, async,
+`serialized_rollback`, `reset_sequences`, `--keepdb`, `--reuse-db` and
+Django parallel execution are rejected. Local xdist permits only the local
+mode above. Function-style pytest DB tests, async,
 custom class teardown SQL, arbitrary projects and performance guarantees are
 outside this entry's accepted scope. Custom `tearDownClass()` is rejected;
 `addClassCleanup()` is for non-database resources. Test hooks must cooperate with
@@ -176,7 +223,7 @@ to recover a host crash or make an interrupted test pass.
 
 Daily checks use deterministic ownership/policy tests without starting hosts.
 The existing Release Django job reuses its shared wheel/host and pinned native
-orders controls, then runs this public entry from the installed wheel on both
+orders controls, then runs the serial and local-worker entries from the installed wheel on both
 supported OSes and Python3.11/3.14. No new workflow, guest build or daily Live
 campaign is added. Local source-entry checks with a reused published host are
 recorded separately; they do not substitute for those installed-wheel cells.

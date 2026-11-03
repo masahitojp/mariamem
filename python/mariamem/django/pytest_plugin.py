@@ -2,6 +2,7 @@
 import pytest
 
 from ._database import Manager, configuration
+from . import _xdist
 
 
 def _entry(config):
@@ -15,10 +16,32 @@ def _entry(config):
     if routing._active is not None:
         raise pytest.UsageError('Prepared Django and routing/shadow_maria cannot share a run')
     configuration()
-    if (config.getoption('reuse_db', False) or config.getoption('nomigrations', False)
-            or config.getoption('numprocesses', 0) or hasattr(config, 'workerinput')):
-        raise pytest.UsageError('mariamem prepared tests require migrations and serial execution without --reuse-db')
+    if config.getoption('reuse_db', False) or config.getoption('nomigrations', False):
+        raise pytest.UsageError('mariamem prepared tests require migrations without --reuse-db')
+    _xdist.validate(config)
     return entry
+
+
+@pytest.hookimpl(hookwrapper=True, tryfirst=True)
+def pytest_cmdline_main(config):
+    # Observe the symbolic request before xdist resolves it to a CPU count.
+    if config.getoption('tx', []) or config.getoption('looponfail', False):
+        raise pytest.UsageError('Prepared Django supports explicit -n N, not manual --tx or loop-on-fail')
+    if config.getoption('numprocesses', None) in ('auto', 'logical'):
+        raise pytest.UsageError('Prepared Django workers require explicit -n N; auto/logical are unsupported')
+    yield
+
+
+@pytest.hookimpl(optionalhook=True)
+def pytest_xdist_setupnodes(config, specs):
+    _xdist.validate(config)
+    _xdist.local_specs(specs)
+
+
+@pytest.hookimpl(optionalhook=True)
+def pytest_configure_node(node):
+    _xdist.local_specs([node.gateway.spec])
+    node.workerinput[_xdist.KEY] = 1
 
 
 @pytest.hookimpl(trylast=True)
@@ -29,7 +52,8 @@ def pytest_configure(config):
 
 
 def pytest_collection_modifyitems(config, items):
-    from django.test import TransactionTestCase
+    from django.test import SimpleTestCase
+    from django.core.exceptions import ImproperlyConfigured
     from ._cases import validate_case
     _entry(config)
     for item in items:
@@ -37,8 +61,11 @@ def pytest_collection_modifyitems(config, items):
                 or 'mariamem_app_db' in item.fixturenames):
             raise pytest.UsageError('Prepared Django and shadow_maria/mariamem_app_db cannot share a run; choose one lifecycle')
         cls = getattr(item, 'cls', None)
-        if cls is not None and issubclass(cls, TransactionTestCase):
-            validate_case(cls)
+        if cls is not None and issubclass(cls, SimpleTestCase) and cls.databases:
+            try:
+                validate_case(cls)
+            except ImproperlyConfigured as error:
+                raise pytest.UsageError(str(error)) from error
         elif item.get_closest_marker('django_db') is not None or any(
                 name in item.fixturenames for name in ('db', 'transactional_db', 'live_server')):
             raise pytest.UsageError('mariamem prepared entry currently supports only prepared Django classes')

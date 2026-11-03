@@ -2182,3 +2182,67 @@ scope. They do not unify lifecycles or add mysqlclient routing.
 Operation was verify: publication/public smoke were skipped. READY remains bound
 to90e7ed5f, not to the squash or this documentation. Published0.6.0 and version
 metadata remain unchanged; release version and publication remain separate.
+
+
+## D1 local xdist workers — implementation approved, acceptance pending
+
+On 2026-11-02 the Human requested continuing from the worker-local feasibility
+spike to productization. The selected scope is explicit local `-n N`, `load` /
+`loadscope`, with a separate host and migration/seed baseline per DB-using
+worker; serial stays default. The controller/idle/DB-free workers acquire none.
+Django --parallel, automatic/logical counts, remote/manual gateways and
+loop-on-fail remain rejected; no global SDK handle sharing is introduced.
+
+The candidate validates the local controller/worker handoff and fixed xdist /
+execnet profile, retains all prior lifecycle/routing guards, and adds real
+worker death/restart and worker-local cleanup-debt controls. A crash stays a
+failed test; a replacement starts fresh. SIGKILL cannot run Python temp-directory
+finalizers, so host exit and enclosing job scratch cleanup are distinct claims.
+The existing Release Django job runs the added installed-entry matrix using its
+shared artifacts; no extra job/build is added. Main adoption and new both-OS /
+minor installed-wheel acceptance remain pending; prior serial receipts are not
+parallel qualification or release approval.
+
+The [implementation checkpoint](reviews/d1-xdist-implementation.md) records clean
+executable source_commit `cc38d14cb16abf47983c7c0979edd6cf2f9a2814`: both Python
+minors passed15 parallel and20 serial expected scenario assessments locally;
+all90 observed hosts exited. The canonical Python check passed1832 tests.
+This is source-entry evidence using the published host, not fresh installed
+candidate acceptance. The remaining gate is the existing Release four-cell
+installed-wheel campaign, followed by protected integration; no publication
+approval or performance claim is implied.
+
+
+## D1 local xdist — Human adoption approved, protected integration pending
+
+On2026-11-03 the Human approved adoption following successful
+[verify41457221670](https://github.com/masahitojp/mariamem/actions/runs/41457221670)
+and local timing. The [adoption receipt](reviews/d1-xdist-adoption.md) records
+all four installed-wheel OS/Python cells:15 parallel and20 serial expected
+assessments each, exact source_commit `d99f07cd16a8a11c1644225206a3d1fcc0a39edd`,
+READY, operation=verify. This supersedes earlier pending qualification status.
+Normal protected integration remains; publication/version selection is separate.
+Detailed logs and timing data remain on the pinned archive linked from that
+receipt; the product PR keeps concise evidence and reproducible harnesses.
+Serial stays default, with explicit positive local worker counts and load/loadscope.
+No universal performance or resource guarantee is added.
+
+
+## Django6 support — Human approved, implementation in progress
+
+On2026-11-03 the Human requested formal Django6 support after the bounded
+[Python3.14/Django6.1.2 probe](https://github.com/masahitojp/mariamem/blob/38c9775435718a3d7b353acf88e2939e818cc324/docs/reviews/d1-django61-probe.md)
+passed20 serial and15 parallel expected assessments without adapter changes.
+The scope is5.2 LTS/6.0/6.1 extras and usage docs, with representative existing
+Release profiles3.11/5.2 LTS and3.14/latest6.1, no extra jobs/builds. The Human
+explicitly requested minimal new verification: retain the prior6.1 evidence,
+check6.0 healthy lifecycle and changed packaging/profile guards; do not start
+a full Release campaign. Opposite-platform6.x acceptance will run in the existing
+Release job when next invoked. No adapter/runtime, version or publication change.
+
+The [minimal verification record](reviews/django6-support.md) pins the change to
+`98f063887fdb3f46597eaf422d29814de0493feb`:36 focused recipe/profile tests,
+generated-extra metadata and3 healthy Django6.0.9 source-entry assessments PASS.
+The prior6.1.2 probe is retained without rerun. Implementation is ready for
+normal protected integration; fresh opposite-platform6.x evidence is deferred
+to the next existing Release invocation under the Human's minimal-check request.

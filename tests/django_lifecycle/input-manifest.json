@@ -18,10 +18,11 @@
     "tests/e2e_native_control/pythonapp/urls.py": "d5f2168142a55f4c7dede51ab9af64fdbbdec7514ec1d389c2241edc5325f9d7"
   },
   "versions": {
-    "Django": "5.2.8",
     "mysqlclient": "2.2.7",
     "pytest": "9.0.2",
-    "pytest-django": "4.12.0"
+    "pytest-django": "4.12.0",
+    "pytest-xdist": "3.8.0",
+    "execnet": "2.1.2"
   },
   "native": {
     "server": "12.3.3-MariaDB",
@@ -122,5 +123,9 @@
     "excluded": "Exploratory Fork campaigns; original fields above describe donor investigation, not candidate acceptance",
     "ci_owner": ".github/workflows/django-lifecycle.yml",
     "candidate_status": "fresh exact-source functional matrix not yet run"
+  },
+  "django_versions": {
+    "3.11": "5.2.18",
+    "3.14": "6.1.2"
   }
 }

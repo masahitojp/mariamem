@@ -123,7 +123,8 @@ def test_authored_inputs_and_pins_preserved():
     assert len(manifest['application_sha256']) == 13
     for name, expected in manifest['application_sha256'].items():
         assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == expected, name
-    assert manifest['versions'] == {'Django': '5.2.8', 'mysqlclient': '2.2.7', 'pytest': '9.0.2', 'pytest-django': '4.12.0'}
+    assert manifest['django_versions'] == {'3.11': '5.2.18', '3.14': '6.1.2'}
+    assert manifest['versions'] == {'mysqlclient': '2.2.7', 'pytest': '9.0.2', 'pytest-django': '4.12.0', 'pytest-xdist': '3.8.0', 'execnet': '2.1.2'}
 
 
 def test_comparison_keeps_error_semantics_but_excludes_unique_paths(ci):
@@ -135,3 +136,27 @@ def test_comparison_keeps_error_semantics_but_excludes_unique_paths(ci):
     assert ci.comparable(first) == ci.comparable(second)
     second['setup_failures'][0]['errors'][0]['args'][0] = 1064
     assert ci.comparable(first) != ci.comparable(second)
+
+
+@pytest.mark.parametrize('minor,django', [('3.11', '5.2.18'), ('3.14', '6.1.2')])
+def test_framework_profile_rejects_wrong_django(ci, monkeypatch, minor, django):
+    from packaging.requirements import Requirement
+    import configparser
+    monkeypatch.setattr(ci, 'sys', SimpleNamespace(version_info=SimpleNamespace(major=3, minor=int(minor.split('.')[1]))))
+    manifest = json.loads((HERE / 'input-manifest.json').read_text())
+    packages = dict(manifest['versions'], Django=django)
+    monkeypatch.setattr(ci.importlib.metadata, 'version', packages.__getitem__)
+    assert ci.inputs()['packages'] == packages
+    # Exercise actual requirement markers and published extras for each profile.
+    requirements = [Requirement(line) for line in (HERE / 'requirements.txt').read_text().splitlines()]
+    selected = [r for r in requirements if r.name == 'Django' and r.marker.evaluate({'python_version': minor})]
+    assert len(selected) == 1 and django in selected[0].specifier
+    config = configparser.ConfigParser()
+    config.read(ROOT / 'python/setup.cfg')
+    for extra in ('django', 'django-pytest'):
+        requirement = next(Requirement(line) for line in config['options.extras_require'][extra].splitlines() if line.startswith('Django'))
+        assert django in requirement.specifier
+        assert '6.0.9' in requirement.specifier and '6.2' not in requirement.specifier
+    packages['Django'] = '5.2.8' if minor == '3.14' else '6.1.2'
+    with pytest.raises(ValueError, match='package pins differ'):
+        ci.inputs()
