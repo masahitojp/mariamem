@@ -30,6 +30,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/artifacts"
+	"github.com/masahitojp/mariamem/internal/disposal"
 	"github.com/masahitojp/mariamem/internal/host"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
@@ -111,7 +112,7 @@ func start(ctx context.Context, opts Options, restore *stored.Owned) (*Database,
 	defer cancel()
 	s, err := host.StartGenerated(startup, restore, opts.QueryTimeout, &db.logs)
 	if err != nil {
-		return nil, hostError(errors.Join(err, os.RemoveAll(temp)), "start", true)
+		return nil, hostError(disposal.RemoveAfter(err, temp), "start", true)
 	}
 	timing.Mark(ctx, "host_returned")
 	db.server = s
@@ -188,14 +189,19 @@ func (db *Database) closeLocked() error {
 		err = db.server.Close(ctx)
 		cancel()
 	}
-	db.closeErr = hostError(errors.Join(err, db.removeTemporary()), "close", true)
+	db.closeErr = hostError(errors.Join(err, db.removeTemporaryAfter(err)), "close", true)
 	return db.closeErr
 }
-func (db *Database) removeTemporary() error {
-	if db.temporary == "" {
+
+// Capture the immutable path, not mutable DB fields, in a late cleanup owner.
+// The caller holds db.mu; the continuation never takes it or changes Close's
+// stored result. A later Live retry can harmlessly remove an already absent path.
+func (db *Database) removeTemporaryAfter(dependency error) error {
+	path := db.temporary
+	if path == "" {
 		return nil
 	}
-	err := os.RemoveAll(db.temporary)
+	err := disposal.CleanupAfter(dependency, func() error { return os.RemoveAll(path) })
 	if err == nil {
 		db.temporary = ""
 	}

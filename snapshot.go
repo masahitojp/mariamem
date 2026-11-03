@@ -45,7 +45,7 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 	backing, consumed, e := db.server.SnapshotHeap(ctx, opts.Rollback)
 	if consumed {
 		db.closed = true
-		db.closeErr = hostError(db.removeTemporary(), "close", true)
+		db.closeErr = hostError(db.removeTemporaryAfter(e), "close", true)
 		e = errors.Join(e, db.closeErr)
 	}
 	if e == nil && backing == nil {

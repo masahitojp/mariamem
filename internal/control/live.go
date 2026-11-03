@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/disposal"
 	endpoint "github.com/masahitojp/mariamem/internal/live"
 )
 
@@ -55,21 +56,11 @@ func (c *liveChild) Close() error {
 		err = c.db.server.Close(ctx)
 		cancel()
 	}
-	// A failed removal must remain retryable after the log descriptor is closed.
-	var logErr, removeErr error
-	if c.db.log != nil {
-		logErr = c.db.log.Close()
-		if errors.Is(logErr, os.ErrClosed) {
-			logErr = nil
-		}
-	}
-	if c.db.logPath != "" {
-		removeErr = os.Remove(c.db.logPath)
-		if errors.Is(removeErr, os.ErrNotExist) {
-			removeErr = nil
-		}
-	}
-	return errors.Join(err, logErr, removeErr)
+	// Keep the log open while an unjoined guest can still write to it.
+	cleanup := disposal.CleanupAfter(err, func() error {
+		return errors.Join(closeLog(c.db.log), removeLog(c.db.logPath))
+	})
+	return errors.Join(err, cleanup)
 }
 func (m *manager) createLive(ctx context.Context, r Request) (map[string]any, error) {
 	m.mu.Lock()
@@ -98,9 +89,8 @@ func (m *manager) createLive(ctx context.Context, r Request) (map[string]any, er
 				return nil, err
 			}
 			childRequest := Request{LogPath: filepath.Join(filepath.Dir(r.LogPath), "live-"+hex.EncodeToString(token)+".log")}
-			child, err := makeDB(ctx, childRequest, base)
+			child, err := makeDB(ctx, childRequest, base, true)
 			if err != nil {
-				_ = os.Remove(childRequest.LogPath)
 				return nil, err
 			}
 			return &liveChild{db: child}, nil
@@ -121,6 +111,17 @@ func (m *manager) createLive(ctx context.Context, r Request) (map[string]any, er
 	m.lives[id] = live
 	m.mu.Unlock()
 	return map[string]any{"live": map[string]any{"handle": id, "host": "127.0.0.1", "port": live.Port(), "user": "root", "password": "", "database": "test"}, "status": live.Status(), "closed": false}, nil
+}
+
+func removeLog(path string) error {
+	if path == "" {
+		return nil
+	}
+	err := os.Remove(path)
+	if errors.Is(err, os.ErrNotExist) {
+		return nil
+	}
+	return err
 }
 func (m *manager) callLive(ctx context.Context, r Request) (map[string]any, error) {
 	m.mu.Lock()

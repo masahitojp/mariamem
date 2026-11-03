@@ -47,7 +47,7 @@ func (c liveChild) Close() error {
 		err = c.server.Close(ctx)
 		cancel()
 	}
-	return hostError(errors.Join(err, c.removeTemporary()), "close", true)
+	return hostError(errors.Join(err, c.removeTemporaryAfter(err)), "close", true)
 }
 func (c liveChild) WaitDisconnected(ctx context.Context) error {
 	c.mu.Lock()

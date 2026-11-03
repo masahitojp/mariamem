@@ -16,6 +16,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/disposal"
 	"github.com/masahitojp/mariamem/internal/host"
 	endpoint "github.com/masahitojp/mariamem/internal/live"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
@@ -44,6 +45,7 @@ type db struct {
 	log                      *os.File
 	logPath                  string
 	closed                   bool
+	closeErr                 error
 }
 type baseline struct {
 	mu                       sync.RWMutex
@@ -84,12 +86,25 @@ func lockDB(ctx context.Context, d *db) error {
 }
 func (d *db) close() error {
 	if d.closed {
-		return nil
+		return d.closeErr
 	}
 	d.closed = true
 	ctx, cancel := context.WithTimeout(context.Background(), d.shutdown)
 	defer cancel()
-	return errors.Join(d.server.Close(ctx), d.log.Close())
+	err := d.server.Close(ctx)
+	d.closeErr = errors.Join(err, disposal.CleanupAfter(err, func() error { return closeLog(d.log) }))
+	return d.closeErr
+}
+
+func closeLog(f *os.File) error {
+	if f == nil {
+		return nil
+	}
+	err := f.Close()
+	if errors.Is(err, os.ErrClosed) {
+		return nil
+	}
+	return err
 }
 func (d *db) logs() string {
 	f, e := os.Open(d.logPath)
@@ -108,7 +123,7 @@ func (d *db) logs() string {
 	return string(b)
 }
 func (m *manager) next() uint64 { m.seq++; return m.seq }
-func makeDB(ctx context.Context, r Request, base *baseline) (*db, error) {
+func makeDB(ctx context.Context, r Request, base *baseline, ownedLog bool) (*db, error) {
 	q, st, sh := 30*time.Second, 120*time.Second, 30*time.Second
 	if base != nil {
 		q, st, sh = base.query, base.startup, base.shutdown
@@ -127,6 +142,15 @@ func makeDB(ctx context.Context, r Request, base *baseline) (*db, error) {
 	if e != nil {
 		return nil, e
 	}
+	// Only remove a private Live log after this call successfully created it.
+	// Public/requested logs remain with their caller for diagnostics.
+	cleanupLog := func() error {
+		var removal error
+		if ownedLog {
+			removal = removeLog(r.LogPath)
+		}
+		return errors.Join(closeLog(f), removal)
+	}
 	startup, cancel := context.WithTimeout(ctx, st)
 	defer cancel()
 	var backing *snapshot.Owned
@@ -135,24 +159,21 @@ func makeDB(ctx context.Context, r Request, base *baseline) (*db, error) {
 	}
 	s, e := host.StartGenerated(startup, backing, q, f)
 	if e != nil {
-		f.Close()
-		return nil, e
+		return nil, disposal.After(e, cleanupLog)
 	}
 	d := &db{gate: make(chan struct{}, 1), server: s, query: q, startup: st, shutdown: sh, log: f, logPath: r.LogPath}
 	token := make([]byte, 16)
 	if _, e = rand.Read(token); e != nil {
-		d.close()
-		return nil, e
+		return nil, disposal.After(errors.Join(e, d.close()), cleanupLog)
 	}
 	d.id = hex.EncodeToString(token)
 	if e = ctx.Err(); e != nil {
-		d.close()
-		return nil, e
+		return nil, disposal.After(errors.Join(e, d.close()), cleanupLog)
 	}
 	return d, nil
 }
 func (m *manager) create(ctx context.Context, r Request, base *baseline) (map[string]any, error) {
-	d, err := makeDB(ctx, r, base)
+	d, err := makeDB(ctx, r, base, false)
 	if err != nil {
 		return nil, err
 	}
@@ -176,7 +197,7 @@ func (m *manager) call(ctx context.Context, r Request) (result map[string]any, e
 			if e != nil {
 				return nil, e
 			}
-			defer b.Close()
+			defer func() { err = disposal.After(err, b.Close) }()
 			return m.create(ctx, r, &baseline{owned: b, query: 30 * time.Second, startup: 120 * time.Second, shutdown: 30 * time.Second})
 		}
 		return m.create(ctx, r, nil)
@@ -257,7 +278,8 @@ func (m *manager) call(ctx context.Context, r Request) (result map[string]any, e
 			m.mu.Lock()
 			delete(m.dbs, r.Handle)
 			m.mu.Unlock()
-			e = errors.Join(e, d.log.Close())
+			d.closeErr = disposal.CleanupAfter(e, func() error { return closeLog(d.log) })
+			e = errors.Join(e, d.closeErr)
 		}
 		if e == nil {
 			e = ctx.Err()
@@ -424,7 +446,7 @@ loop:
 				defer stop()
 				result, e := operation(ctx, r)
 				committed := r.Op == "live_reset" && e == nil && result != nil && result["live_committed"] == true
-				if ctx.Err() != nil && result != nil && !committed {
+				if (ctx.Err() != nil || e != nil) && result != nil && !committed {
 					if value, ok := result["database"].(map[string]any); ok {
 						if handle, ok := value["handle"].(uint64); ok {
 							_, cleanup := m.call(context.Background(), Request{Op: "db_close", Handle: handle})

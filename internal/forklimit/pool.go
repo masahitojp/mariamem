@@ -7,6 +7,8 @@ import (
 	"context"
 	"errors"
 	"sync"
+
+	"github.com/masahitojp/mariamem/internal/disposal"
 )
 
 var (
@@ -29,9 +31,10 @@ type Pool struct {
 // Lease has a single lifecycle owner. Its methods are safe against Pool.Close
 // and duplicate settlement. After Activate, only confirmed cleanup releases it.
 type Lease struct {
-	pool   *Pool
-	active bool
-	debt   error
+	pool     *Pool
+	active   bool
+	debt     error
+	tracking bool
 }
 
 func New(limit int) (*Pool, error) {
@@ -157,7 +160,7 @@ func (l *Lease) Settle(cleanup error) {
 	if cleanup == nil {
 		delete(p.leases, l)
 	} else {
-		// Retain even if failure happened before Activate, e.g. transfer scratch.
+		// Callers activate before allocating resources, including transfer scratch.
 		l.active = true
 		if l.debt == nil {
 			l.debt = cleanup
@@ -168,4 +171,42 @@ func (l *Lease) Settle(cleanup error) {
 		p.blocked = true
 	}
 	p.signal()
+}
+
+// TrackCleanup retains an uncertain child's slot through the actual disposal
+// owners' completion. Only one watcher belongs to a lease, not one per retry.
+// An untyped cleanup error remains blocked: never infer disposal from its text.
+// Confirmation clears this debt but does not reopen admission automatically.
+func (l *Lease) TrackCleanup(cause error) {
+	if cause == nil {
+		l.Settle(nil)
+		return
+	}
+	p := l.pool
+	p.mu.Lock()
+	if _, ok := p.leases[l]; !ok || l.tracking {
+		p.mu.Unlock()
+		return
+	}
+	l.tracking = true
+	l.active = true
+	if l.debt == nil {
+		l.debt = cause
+	}
+	if !p.blocked {
+		p.cause = cause
+	}
+	p.blocked = true
+	p.signal()
+	p.mu.Unlock()
+	owners := disposal.Owners(cause)
+	if len(owners) == 0 {
+		return
+	}
+	go func() {
+		for _, owner := range owners {
+			<-owner.Done()
+		}
+		l.Settle(nil)
+	}()
 }

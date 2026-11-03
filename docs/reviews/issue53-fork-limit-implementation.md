@@ -1,13 +1,63 @@
-# Issue #53 — implementation checkpoint
+# Issue #53 — implementation checkpoints
 
 The Human authorized implementing the reviewed design on 2026-11-03 after
-`a4929d1234068eead0faf6034b5d2e4b27e58b31`. This checkpoint implements the shared
-primitives. **It does not yet enforce a public Snapshot Fork limit.**
+`a4929d1234068eead0faf6034b5d2e4b27e58b31`. The first checkpoint implements shared
+primitives; the next adds reachable cleanup ownership through the existing host
+lifecycle. **Neither yet enforces a public Snapshot Fork limit.**
 [Issue #53](https://github.com/masahitojp/mariamem/issues/53) owns completion;
 [the fixed acceptance table](issue53-fork-limit-design.md#fixed-acceptance-and-stopping-point)
 is unchanged. No acceptance row covering a real entry is marked complete here.
 
-## Implemented boundary
+## Current checkpoint — late cleanup ownership
+
+After the first checkpoint, the Human requested continuing with the identified
+startup/consumed-capture cleanup boundary. Implementation starts from inspected
+commit `c810e194aa855a7e521a73a163e10d83e8bda945`. That earlier checkpoint passed
+[Development CI41648322854](https://github.com/masahitojp/mariamem/actions/runs/41648322854)
+(`check`, `integration`, `Live required gate`); this run is not evidence for the
+new lifecycle changes below.
+
+- `internal/disposal` separates an operation's error from its cleanup owner.
+  Wrappers/joins preserve the owner and original cause. Successful cleanup does
+  not rewrite the failed operation or an already stored public Close result.
+- A failed framed greeting can still return nil Process, but its error now owns
+  the unresolved join. One continuation per cleanup owner follows late completion;
+  it does not poll, repeatedly retry filesystem failures or kill a shared host.
+  Failed removal retains an owner for explicit retry.
+- Host startup holds borrowed restore backing until cleanup completes. Transfer
+  removal waits for execution/session completion, and Close/consumed capture use
+  the same retry owner. Worker join has one waiter per Server rather than one
+  per disposal retry. Imported temporary backing closes after pending startup
+  cleanup, avoiding a blocking deferred Close while the borrow is still held.
+- Public Go and shared-host lifecycle wrappers retain temporary/log cleanup in
+  the correct order. A private Live log is removed on startup failure only after
+  that call successfully created it. Post-start failure no longer discards the
+  child's cleanup error. A failed control operation with an unpublished created
+  handle disposes that handle before returning its error reply.
+- `Lease.TrackCleanup` holds capacity until all typed owners confirm completion.
+  One watcher belongs to a lease, even across duplicate reports. Unknown untyped
+  cleanup remains blocked; strings never prove disposal. Confirmed late cleanup
+  settles the lease but still requires explicit admission recovery.
+- Internal nonblocking cleanup probes use a distinct pending condition so they
+  do not add a spurious caller cancellation/timeout to the original diagnostic.
+
+Focused Go1.26.10 macOS arm64 race tests passed for `internal/disposal`,
+`internal/forklimit`, `internal/guest`, `internal/host`, `internal/control` and
+the public Go package. New controlled cases cover a real framed greeting with
+late completion, guest/session joins held separately, failed/retried removal,
+parallel retry serialization, retained cap1 capacity, unchanged capture/Close
+failure results and unpublished-handle cleanup. These are controlled lifecycle
+faults, **not reproduction of an actual-engine hang or filesystem fault**.
+Canonical daily check and real DB/Live smoke are recorded after the code commit.
+
+The previous inaccessible-cleanup-owner boundary is addressed. The next work is
+to wire public Go Snapshot/Live and the shared-control reservation protocol,
+then Python's finite send/reply watchdog, handoff and supplied entries. No
+`fork-limit-v1` capability or public `max_forks` entry is advertised yet. The
+full fixed acceptance table, including both hosts, is still required; no new
+performance requirement or Human approval gate is added here.
+
+## First checkpoint — implemented boundary
 
 - `internal/forklimit`: finite immutable capacity, cancellable acquisition,
   nonblocking reservation, activation before allocation/export, Close wakeup
@@ -31,7 +81,7 @@ methods, Live, fixtures or D1 yet. In particular, the control host does not yet
 advertise `fork-limit-v1`. Validator tests are not proof that bad new fields
 preserve sibling SQL in a real host. Those integration cases remain required.
 
-## Ownership audit: exact next boundary
+## First checkpoint ownership audit (historical; addressed above)
 
 The design requires reporting an unowned late outcome before wiring the limiter.
 Source inspection at the design base found this concrete path:
@@ -63,7 +113,7 @@ This is already within the approved ownership work, not a new performance study
 or permission to change the guest/WASM engine. No handoff removal, speculative
 release, host kill or acceptance reduction is proposed.
 
-## Verification
+## First checkpoint verification (historical)
 
 Source starting point was inspected with `scripts/git_identity.py inspect HEAD`:
 object_type=commit, source_commit=`a4929d1234068eead0faf6034b5d2e4b27e58b31`.

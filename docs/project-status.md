@@ -44,9 +44,13 @@ numeric-range additions at `a4929d12`. The first
 internal admission/lease primitive, default sizing and Go/Python range validators.
 These are not yet wired into public entry points. The full acceptance table and
 handoff remain in scope; no public Fork-limit support is claimed at this checkpoint.
-The startup/cleanup ownership audit identified a missing typed completion outcome
-that must be resolved before connecting the limiter. There is no new performance
-campaign. The milestone and publication decisions are unchanged. Prewarming remains
+The next checkpoint addresses the startup/cleanup ownership gap: internal typed
+owners retain late execution/session joins, borrowed backing and dependent file
+cleanup. Original operation failures and stored Close results remain failures.
+The lease primitive can observe confirmed cleanup without automatically reopening
+admission. Public limits/reservation protocol and entry wiring remain unfinished.
+There is no new performance campaign. The milestone and publication decisions are
+unchanged. Prewarming remains
 separate in [#84](https://github.com/masahitojp/mariamem/issues/84).
 
 ## Test credentials accepted — protected main integration authorized, unreleased

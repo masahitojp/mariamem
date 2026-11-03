@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"time"
 
 	"github.com/masahitojp/mariamem/internal/generatedgo"
 	"github.com/masahitojp/mariamem/internal/prepared"
@@ -55,6 +56,10 @@ func Connect(ctx context.Context, in io.WriteCloser, out io.ReadCloser, complete
 // ConnectWithFailure poisons the instance on an early fatal runtime notification.
 // completed remains a separate joined-cleanup boundary, including after failure.
 func ConnectWithFailure(ctx context.Context, in io.WriteCloser, out io.ReadCloser, completed <-chan error, closePeer func(), logs io.Writer, failed <-chan error) (*Process, error) {
+	return connectWithFailure(ctx, in, out, completed, closePeer, logs, failed, 10*time.Second)
+}
+
+func connectWithFailure(ctx context.Context, in io.WriteCloser, out io.ReadCloser, completed <-chan error, closePeer func(), logs io.Writer, failed <-chan error, grace time.Duration) (*Process, error) {
 	tail, ok := logs.(*stderrTail)
 	if !ok {
 		tail = &stderrTail{}
@@ -98,8 +103,8 @@ func ConnectWithFailure(ctx context.Context, in io.WriteCloser, out io.ReadClose
 		if r.err == nil {
 			r.err = errors.New("unsupported guest: requires multi-session API v2 with valid capacity")
 		}
-		return nil, startupError(p.AbortAndWait(r.err), tail)
+		return nil, startupError(p.abortAndWait(r.err, grace), tail)
 	case <-ctx.Done():
-		return nil, startupError(p.AbortAndWait(ctx.Err()), tail)
+		return nil, startupError(p.abortAndWait(ctx.Err(), grace), tail)
 	}
 }

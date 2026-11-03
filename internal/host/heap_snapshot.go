@@ -3,13 +3,12 @@ package host
 import (
 	"context"
 	"errors"
-	"os"
 
 	"github.com/masahitojp/mariamem/internal/snapshot"
 	"github.com/masahitojp/mariamem/internal/timing"
 )
 
-func (s *Server) SnapshotHeap(ctx context.Context, rollback bool) (*snapshot.Owned, bool, error) {
+func (s *Server) SnapshotHeap(ctx context.Context, rollback bool) (owned *snapshot.Owned, consumed bool, err error) {
 	ctx, finish := timing.Begin(ctx, "snapshot_capture")
 	defer finish()
 	s.mu.Lock()
@@ -32,7 +31,7 @@ func (s *Server) SnapshotHeap(ctx context.Context, rollback bool) (*snapshot.Own
 	s.Guest.RequestCapture()
 	s.stopAccepting()
 	s.mu.Unlock()
-	defer os.RemoveAll(s.transfer)
+	defer func() { err = s.disposeAfter(err) }()
 	if e := s.finish(ctx, false); e != nil {
 		s.Guest.DiscardCapture()
 		return nil, true, e

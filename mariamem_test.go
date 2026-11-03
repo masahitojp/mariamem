@@ -16,6 +16,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/disposal"
 	"github.com/masahitojp/mariamem/internal/host"
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
 	"github.com/masahitojp/mariamem/internal/timing"
@@ -152,6 +153,48 @@ func TestSnapshotPhysicalOwnership(t *testing.T) {
 				t.Errorf("source temporary directory retained: %v", e)
 			}
 		})
+	}
+}
+
+func TestConsumedCaptureRetainsCleanupAndStableCloseResult(t *testing.T) {
+	joined := make(chan struct{})
+	var once sync.Once
+	t.Cleanup(func() { once.Do(func() { close(joined) }) })
+	cause := errors.New("capture consumed before failed join")
+	owner := disposal.New(func(ctx context.Context) error { return disposal.Wait(ctx, joined) })
+	pending := disposal.Retain(cause, context.DeadlineExceeded, owner)
+	f := &fakeBackend{}
+	f.snapshot = func(context.Context, bool) (*stored.Owned, bool, error) {
+		f.closes++ // Host accepted capture and stopped admission; not yet disposed.
+		return nil, true, pending
+	}
+	db := testDB(t, f)
+	path := db.temporary
+	baseline, err := db.Snapshot(context.Background(), SnapshotOptions{})
+	if baseline != nil || !errors.Is(err, cause) || !db.Closed() {
+		t.Fatal(baseline, err)
+	}
+	if _, e := os.Stat(path); e != nil {
+		t.Fatal("removed before actual disposal", e)
+	}
+	firstClose := db.Close()
+	if firstClose == nil || f.closes != 1 {
+		t.Fatal("lost consumed cleanup or closed twice", firstClose, f.closes)
+	}
+	once.Do(func() { close(joined) })
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	if e := disposal.Retry(ctx, err); e != nil {
+		t.Fatal(e)
+	}
+	if _, e := os.Stat(path); !os.IsNotExist(e) {
+		t.Fatal("late source cleanup retained", e)
+	}
+	if db.Close() != firstClose || f.closes != 1 {
+		t.Fatal("Close result changed after disposal")
+	}
+	if !errors.Is(err, cause) {
+		t.Fatal("capture failure was rewritten")
 	}
 }
 
