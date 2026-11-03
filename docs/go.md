@@ -10,6 +10,12 @@ Use `github.com/masahitojp/mariamem/mariamemtest` as the test entry. It owns
 preparation, capture, per-test pools/children and cleanup. Installation commands
 are in [Development and compatibility](#development-and-compatibility).
 
+**Unreleased:** the local endpoint accepts any username and password, including
+test credentials such as `test/test` or `root/root`. Credentials are not
+validated and do not select a guest account or change SQL privileges. The
+returned connection information still defaults to `root` with an empty
+password. Use a real server for authentication and per-user privilege tests.
+
 ## Prepare once, Fork independent databases
 
 Put migrations and seed SQL in `Prepare`, then request `fixture.DB(t)` in each

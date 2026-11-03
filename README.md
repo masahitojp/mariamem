@@ -255,6 +255,12 @@ low-level API is `mariamem.Start`; ordinary Go tests can use the helper above
 with `Prepare: nil` to share an empty baseline. See the
 [Python](docs/python.md#share-preparation-isolate-mutations) and
 [Go](docs/go.md#low-level-database-lifetimes) guides for custom ownership.
+
+**Unreleased:** the local endpoint accepts any username and password, including
+test credentials such as `test/test` or `root/root`. Credentials are not
+validated and do not select a guest account or change SQL privileges. The
+returned connection information still defaults to `root` with an empty
+password. Use a real server for authentication and per-user privilege tests.
 For ordinary `manage.py test` or pytest-django, see the
 [Django standard-runner recipe](docs/django-testing.md).
 

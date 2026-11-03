@@ -14,6 +14,28 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Test credentials accepted — implemented on candidate branch, unreleased
+
+On 2026-11-03 the Human approved removing the local wire endpoint's root/empty
+credential restriction after `test/test` and `root/root` reproduced MySQL1045
+while migrating Testcontainers tests. [Issue #78](https://github.com/masahitojp/mariamem/issues/78)
+records the bounded implementation and acceptance criteria.
+
+The candidate endpoint accepts usernames and password responses without validating
+credentials. They do not select a guest account or change the existing SQL
+privilege context. Default returned connection information stays root/empty;
+handshake structure/capability validation stays in place. Authentication,
+per-user privileges and credential-dependent CURRENT_USER() behavior remain
+outside this change.
+
+Implementation is on `fix/issue78-test-credentials`. Original candidate
+`941cc49ae339868a42ef5e9e24727b3c66eba320` passed local macOS arm64 checks
+with Go 1.26.10: the canonical full check, both Go default/integration
+packages, and all 17 Python wire/multiclient tests including the new credential
+cases. The new credential test first reproduced 1045 on the unchanged wire
+implementation; the candidate also preserves malformed-handshake rejection.
+Main integration, both-platform CI and release remain pending.
+
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
 [PR35](https://github.com/masahitojp/mariamem/pull/35) moved heavy product acceptance
