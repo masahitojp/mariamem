@@ -64,5 +64,30 @@
   "independent_source_reproduction": "PENDING_CI",
   "supported_hosts": "PENDING_CI",
   "performance": "prior INCONCLUSIVE result retained; no new performance campaign",
-  "release": "NOT_REQUESTED"
+  "release": "NOT_REQUESTED",
+  "daily_check": {
+    "source_commit": "4868f731726782fb7b76d10adb5a5702b1a67649",
+    "go_tests": "PASS",
+    "go_vet": "PASS",
+    "source_inventory_license_tests": 67,
+    "python_passed": 1775,
+    "python_skipped": 80,
+    "python_failures_before_correction": [
+      "unregistered workflow scope",
+      "automatic experimental workflow trigger"
+    ],
+    "corrected_boundary_tests": 87,
+    "final_exact_head": "PENDING_PR_CI"
+  },
+  "public_source": {
+    "result": "PASS",
+    "files": 6649
+  },
+  "evidence_sha256": {
+    "canonical-allocator-contract.json": "a8b91c2d114673ff18dcf8ccbde0f40a6ffdd59ba936c8deee6e9640ac7a3741",
+    "runtime-equivalence.json": "316a5c8dc7aa0f77a894a784805e71e81d20b3eefa76b3ee575cb663160b1f25",
+    "license-audit-clean.json": "a778fae9ab5d3a2c246fc19eeeb70531fdef19e84b3faf9a00b9a61ffe648a1c",
+    "native-smoke-clean.log": "e14a6292fe4346dd292bd6fdc0609de743f05184b6b9322a46f58b2459874476",
+    "daily-check-network-enabled.log": "bad2cfe22165c90fe4a06c2ef7eb91a7593687d3a33d2e828749b73b5ae77193"
+  }
 }

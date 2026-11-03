@@ -1,12 +1,12 @@
 # WASM buffer-pool allocation alignment
 
-On 2026-11-03 the Human approved incorporating Issue63 because its cause is
+On 2026-11-03 the Human approved incorporating Issue #63 because its cause is
 clear and a local change removes known unnecessary work. Adopt it as a scoped
 allocation correction with a small observed retained-RSS saving. Do not promise
 a speedup or reinterpret the earlier four-field performance verdict as PASS.
 
 The reviewed experimental result is
-[source964a4cab](https://github.com/masahitojp/mariamem/blob/964a4cabcb6f2b2b0fa6828319ae3c362dfc8908/benchmarks/buffer-alignment-source.md).
+[source 964a4cab](https://github.com/masahitojp/mariamem/blob/964a4cabcb6f2b2b0fa6828319ae3c362dfc8908/benchmarks/buffer-alignment-source.md).
 The observed duplicate large zero-fill disappears and held RSS decreases in
 all five pairs. CPU/batch effects conflict; queue latency is unmeasured. The
 strongest objection is the small saving and inconclusive performance. The Human
@@ -14,7 +14,7 @@ accepts the narrow waste-removal rationale despite that limitation; this does
 not establish that the observed adverse batches are harmless or caused by noise.
 
 Only the WASM buffer-pool reserve passes its existing extent alignment to an
-internal allocator helper. The existing entry stays4KiB aligned. Zero-filled
+internal allocator helper. The existing entry stays 4KiB aligned. Zero-filled
 memory, NULL on allocation failure, unchanged requested size, original-pointer
 free and the existing pool retry/commit/release paths remain required. Other
 callers and non-WASM behavior remain unchanged. No public API is added.

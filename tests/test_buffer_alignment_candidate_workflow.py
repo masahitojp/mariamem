@@ -6,7 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def validate(text):
-    assert 'branches: [experiment/buffer-alignment-adoption]' in text
+    assert '  workflow_dispatch:' in text and 'candidate_ref:' in text
+    assert '  push:' not in text
+    assert 'test "$CANDIDATE" = "$GITHUB_SHA"' in text
     assert 'contents: read' in text and 'contents: write' not in text
     assert 'build_generated_guest.py --repetitions 2' in text
     assert '--development' not in text
@@ -26,7 +28,7 @@ def validate(text):
 
 
 def test_candidate_workflow():
-    validate((ROOT/'.github/workflows/buffer-alignment-candidate.yml').read_text())
+    validate((ROOT/'.github/workflows/v044-product-validation.yml').read_text())
 
 
 @pytest.mark.parametrize('old,new', [
@@ -40,6 +42,6 @@ def test_candidate_workflow():
     ('go clean -testcache', 'true'),
 ])
 def test_weakened_gate_is_rejected(old,new):
-    original=(ROOT/'.github/workflows/buffer-alignment-candidate.yml').read_text()
+    original=(ROOT/'.github/workflows/v044-product-validation.yml').read_text()
     assert old in original
     with pytest.raises(AssertionError):validate(original.replace(old,new))

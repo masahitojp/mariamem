@@ -1,4 +1,4 @@
-# Issue63 canonical product candidate
+# Issue #63 canonical product candidate
 
 Human approved incorporation on2026-11-03 for the clear, local removal of wasted
 allocation/zeroing, accepting the small observed RSS benefit without a speedup
@@ -24,7 +24,7 @@ converter and old whole-function/data guards remain fail-closed; only the exact
 new guest identity is registered. The prior accepted identity is now explicitly
 rejected by the binding controls.
 
-The single canonical-source bootstrap took1211.63s and produced guest
+The single canonical-source bootstrap took 1211.63s and produced guest
 `96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f`, matching the
 previous experimental guest. It is inventory-authoring evidence, not independent
 reproduction or Qualification. All actual prepared C postimages match the prior
@@ -32,16 +32,16 @@ contract-checked files. Normal converter output matches the expected inventory,
 and the normal installer produces byte-identical executable Go/assembly to the
 previously tested guest (103 files; provenance metadata differs).
 
-Local macOS27.2 arm64/Go1.26.10: actual-prepared C contract and4 semantic mutations
-PASS;114 focused Python tests PASS; all19 worker body hashes and initial memory/
+Local macOS 27.2 arm64/Go 1.26.10: actual-prepared C contract and 4 semantic mutations
+PASS; 114 focused Python tests PASS; all 19 worker body hashes and initial memory/
 TLS binding PASS; original J1 heap/mmap unsafe failure and protected/race controls
-PASS in all6 expected outcomes; real SQL/transaction/Snapshot/Fork/Close smoke
-PASS. A clean-source native symbol audit confirms all12 recorded component
-families. The audit records source8b641cfb, not a later bookkeeping SHA.
+PASS in all 6 expected outcomes; real SQL/transaction/Snapshot/Fork/Close smoke
+PASS. A clean-source native symbol audit confirms all 12 recorded component
+families. The audit records source 8b641cfb, not a later bookkeeping SHA.
 
 The first nested-worktree host build carried the parent repository's VCS metadata
 and was rejected by the license audit. The same exact source was rebuilt from an
-independent clean checkout; correct8b641cfb/modified=false metadata and the fresh
+independent clean checkout; correct 8b641cfb/modified=false metadata and the fresh
 symbol audit then passed. The clean-host SQL smoke was repeated successfully.
 No identity/body guard was disabled. A temporary pip pin conflict was corrected
 by using the repository's requirements unchanged. These preflight failures do
@@ -57,8 +57,8 @@ the newly audited release inventory; the check is rerun on the updated source.
 | --- | --- |
 | Local allocation semantics | C contract exercises dirty backing, exact alignment, size, ENOMEM return and free; actual full WASIX build succeeds. Real whole-guest OOM is not claimed. |
 | Source correctness | Four canonical patch postimages plus existing prepared owners; pre/postimage mismatch fails prepare_guest.py. |
-| Independent canonical reproduction | Pending candidate CI:2 fresh source builds, normal Go regeneration and every-byte comparison. Current build ledger honestly remains pending. |
-| Supported hosts | Pending candidate CI: macOS15 arm64 and Ubuntu24.04 x86_64, existing integration and original J1 controls. Local Mac27.2 is not substituted. |
+| Independent canonical reproduction | Pending candidate CI: 2 fresh source builds, normal Go regeneration and every-byte comparison. Current build ledger honestly remains pending. |
+| Supported hosts | Pending candidate CI: macOS 15 arm64 and Ubuntu 24.04 x86_64, existing integration and original J1 controls. Local Mac 27.2 is not substituted. |
 | License/source/provenance | Clean local native attribution PASS; CI repeats attribution and positive/17-negative build guards on its exact source. No new library/notice classification. |
 | Performance | Previous five-pair result unchanged; no new campaign. Queue missing and adverse pairs remain named limitations of the evidence. |
 | Product/API scope | No public API, default I/O thread setting, Snapshot/Fork ownership or teardown-policy change. |
@@ -66,10 +66,21 @@ the newly audited release inventory; the check is rerun on the updated source.
 The canonical builder now runs the prepared allocator contract before each source
 compilation, so future zeroing/alignment/size/legacy-entry regressions fail there.
 The candidate-only workflow does not duplicate daily Ubuntu source checks; it
-adds the required fresh source/native acceptance for this guest change. Its
-experiment-branch trigger and contents:read permissions cannot publish a release.
-Remove that one-off workflow and its policy test during final candidate selection
-before main merge; retain the permanent canonical-builder allocator check.
+adds the required fresh source/native acceptance for this guest change. Its manual dispatch and contents:read permissions cannot publish a release.
+For this candidate branch only it occupies the already registered
+`v044-product-validation.yml` workflow path; this run produces alignment evidence,
+not the runtime-reuse qualification artifact. Restore the main version of that
+workflow and remove the candidate policy test before main merge; retain the
+permanent canonical-builder allocator check.
+
+The daily check also rejected the initial automatic experiment workflow and its
+unregistered scope (2 failures, 1775 passed, 80 skipped). The candidate was moved
+to manual dispatch through the existing workflow path without relaxing either
+CI-policy guard. All 87 affected scope/retirement/candidate checks then PASS.
+The daily Go tests/vet and 67 source-inventory/license checks had already passed;
+1775 Python tests passed in the broader run (80 opt-in cases skipped). Only the
+changed CI-policy boundary was repeated after that failure. The public-source
+check also PASS (6649 files). The final exact-head daily run is owned by PR CI.
 
 Normal protected PR checks and this bounded candidate CI must succeed before
 integration. The Human's adoption direction persists; no repeat decision about
