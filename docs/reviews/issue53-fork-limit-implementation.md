@@ -70,20 +70,31 @@ object_type=commit, source_commit=`a4929d1234068eead0faf6034b5d2e4b27e58b31`.
 Tests below apply to the subsequent implementation diff, not to that unchanged
 source commit. No benchmark or release receipt is issued.
 
-- macOS arm64, Go1.26.10: `go test -race ./internal/forklimit` passed. Tests cover
+- macOS arm64, Go1.26.10: `go test -race ./internal/forklimit` passed, including
+  the final correction at `3c1dee3e232dbd986eac04ed9cde7999d46d9c87`. Tests cover
   cap1/2 contention, actual blocked-wait wakeup, cancel, Close/recovery races,
   retained cleanup debt, duplicate settlement, input bounds and sizing fixtures.
-- Linux amd64 test binary cross-compiles with Go1.26.10. This is **not** Ubuntu
+- The initial foundation's Linux amd64 test binary cross-compiled with Go1.26.10,
+  before the final cleanup-cause discrimination correction. This is **not** Ubuntu
   runtime acceptance; Linux cgroup fixtures also run on the macOS test host.
 - Python3.14: the 40 focused validator cases passed. No public API, host-control
   survival, stuck-pipe or installed-entry claim follows from these pure tests.
 - Publication allowlist check passed. Existing Go/Python DB/Live source smoke
   passed; since the new primitives are unconnected, this is regression smoke,
   not #53 runtime acceptance.
-- Daily Go tests and vet passed. The first Python-wide invocation used an
-  incomplete task venv and a dirty checkout; dependency/clean-source prerequisites
-  must be satisfied before rerunning the canonical check. No broad PASS claim
-  is made from that attempt. Both-platform #53 acceptance remains outstanding.
+- Daily check completed after installing the repository's unit requirements:
+  67 source checks, Go daily package tests/vet, 1808 Python tests plus 100 subtests
+  passed; 85 opt-in/optional tests skipped. Python3.14 / pytest9.2.0,
+  xdist3.8.0 / PyMySQL1.2.3 / SQLAlchemy2.0.54. The earlier incomplete-venv/dirty-tree
+  attempts failed and are not acceptance evidence.
+- That daily invocation started at `5330cf4c4fb14334e51ec544b408788034357f5d`.
+  During its Python phase, `3c1dee3e` changed only the new Go pool and its tests;
+  the final pool race test was rerun separately. This is layered local checking,
+  **not an exact-head CI receipt**. Both-platform #53 acceptance is outstanding.
+
+The final correction uses the pool's direct full sentinel to decide whether to
+wait. A cleanup cause that wraps the same sentinel must still return cleanup
+failure immediately. A regression test checks that it does not wait to deadline.
 
 No guest/WASM patch, generated source, version or release ledger changed. The
 original checkout's unrelated user modifications are preserved in place.
