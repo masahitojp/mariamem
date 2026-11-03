@@ -3,13 +3,55 @@
 The Human authorized implementing the reviewed design on 2026-11-03 after
 `a4929d1234068eead0faf6034b5d2e4b27e58b31`. The first checkpoint implements shared
 primitives; the next adds reachable cleanup ownership through the existing host
-lifecycle. The current checkpoint connects public Go entries. **Shared-control
-and Python limit enforcement remain unfinished.**
+lifecycle. Subsequent checkpoints connect public Go entries and the control/core
+Python SDK. **Supplied Python entries and full both-host acceptance remain
+unfinished.**
 [Issue #53](https://github.com/masahitojp/mariamem/issues/53) owns completion;
 [the fixed acceptance table](issue53-fork-limit-design.md#fixed-acceptance-and-stopping-point)
 is unchanged. No acceptance row covering a real entry is marked complete here.
 
-## Current checkpoint — public Go limits
+## Current checkpoint — control and core Python SDK
+
+Implementation continues from inspected source_commit
+`24c6128b468bab7b651762b2538fe8a50d17d1da`. Shared control advertises
+`fork-limit-v1`, validates legal JSON capacity/wait fields inside the request
+handler and uses issued reservation tokens. An out-of-range value does not
+terminate the shared host. Active leases cannot be canceled as unused tokens;
+parent Close revokes unused reservations and preserves active children.
+
+Python exposes `snapshot(max_forks=...)`, read-only `max_forks`,
+`fork(timeout=...)` and the equivalent constructor's `fork_timeout`. It retains
+the source Session under the parent lock, then waits/exports outside that lock.
+A single nonblocking transport writer has one active and at most one queued
+frame. Submission and reservation/startup replies have finite watchdogs;
+responsive full-capacity polling can wait until caller timeout or parent Close.
+Partially written frames retain their owner and are not interleaved or silently
+dropped. Individual timeouts never kill a host with other owners.
+
+Different-host handoff owns its source lease until actual target disposal,
+dependent scratch/log cleanup and source acknowledgement. Late results retain
+their cleanup owner. Consumed recapture settles the origin only after disposal;
+preserved capture does not. Unknown cleanup latches admission; explicit Live
+Reset retries remote debt and clears the local latch only if no new debt arrived.
+Export followed by local setup failure reclaims the export without target startup.
+
+Focused local tests pass for control (race), the core Python SDK (112 cases) and
+five selected real-host ownership paths on macOS arm64 / Go1.26.10 / Python3.14.
+The real-host cases include cap1 source-slot retention by a remote child,
+timeout/SQL survival, recapture, parent Close with a live remote child and existing
+handoff/mapped/racing-Close regressions. Controlled-host tests cover parent Close
+during a full-capacity transfer wait, invalid values preserving siblings,
+capability rejection and a host that stops reading its control pipe.
+These are focused working-tree results, not a source-bound CI receipt or full
+fixed acceptance. Canonical daily check and source smoke follow the code commit.
+An initial broad sandboxed run hit socket permission restrictions and the macOS
+clean-source allocation-probe guard; those are not reported as successful checks.
+
+Next: supplied pytest, E2E and D1 settings/lifecycles, the remaining controlled
+handoff/cleanup failure acceptance, then the fixed both-host matrix. No new
+resource/performance campaign, adoption, merge or release is included.
+
+## Previous checkpoint — public Go limits
 
 The Human requested continuing with a user-visible cap1 Fork wait/release path.
 Implementation starts from inspected commit

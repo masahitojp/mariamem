@@ -47,15 +47,23 @@ The next checkpoint connects the public Go Snapshot/Live APIs and Go helpers:
 waits, Close wakeup and cleanup-owned child leases. Live reserves a spare slot
 before draining and supports explicit checked recovery. The Go fixture passes
 its existing default2/configured cap to its Snapshot; HTTPConfig exposes a cap.
-Shared-control/Python and the full acceptance table, including handoff, remain
-unfinished; this is a draft candidate rather than adopted support on main.
+The next SDK checkpoint connects shared-control reservations and Python
+`snapshot(max_forks=...)`, read-only resolved capacity and finite `fork(timeout=...)`
+waiting. Capacity/transfer waits release the Python parent lock, and a single
+bounded transport writer keeps caller deadlines independent of a stalled pipe.
+Different-host handoff retains an origin lease until target disposal and source
+acknowledgement. Core control/SDK regressions and selected real-host handoff paths
+are locally verified; supplied Python pytest/E2E/D1 settings and the full
+both-host acceptance table remain unfinished. This is a draft candidate rather
+than adopted support on main.
 The next checkpoint addresses the startup/cleanup ownership gap: internal typed
 owners retain late execution/session joins, borrowed backing and dependent file
 cleanup. Original operation failures and stored Close results remain failures.
 The lease primitive can observe confirmed cleanup without automatically reopening
-admission. The shared-control reservation protocol and Python entry wiring remain
-unfinished. They are connected together with handoff acknowledgements and bounded
-send/reply ownership so the old client cannot strand a newly enforced remote lease.
+admission. The shared-control reservation protocol and Python SDK are connected
+together with handoff acknowledgements and bounded send/reply ownership so an
+old client cannot strand a newly enforced remote lease; older capabilities
+reject before capture. Supplied Python entry wiring is the next slice.
 There is no new performance campaign. The milestone and publication decisions are
 unchanged. Prewarming remains
 separate in [#84](https://github.com/masahitojp/mariamem/issues/84).

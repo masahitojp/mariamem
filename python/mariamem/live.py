@@ -22,6 +22,11 @@ class Live:
         with snapshot._lock:
             if snapshot._closed:
                 raise HostError("Snapshot is closed", code="closed", stage="live_precondition", closed=False)
+            if snapshot.max_forks < 2:
+                raise HostError("Live requires max_forks >= 2; capture with an explicit limit of at least 2",
+                                code="invalid_options", stage="live_precondition", closed=False)
+            if snapshot._admission_error is not None:
+                raise snapshot._admission_error
             session = snapshot._session
             if "live-v1" not in session.capabilities:
                 raise HostError("Host lacks live-v1; use the matching new host binary/wheel",
@@ -89,7 +94,16 @@ class Live:
             if isinstance(value, bool):
                 raise ValueError("timeouts must be positive finite numbers")
             _positive(value)
+        with self._session._lock:
+            owners = [o for o in self._session._handoffs if o.parent() is self._snapshot and o.error is not None]
+        for owner in owners:
+            owner.retry()
+        with self._snapshot._lock:
+            debt_version = self._snapshot._debt_version
         reply = self._request("live_reset", timeout=f"{timeout}s", drain_timeout=f"{drain_timeout}s")
+        with self._snapshot._lock:
+            if self._snapshot._debt_version == debt_version:
+                self._snapshot._admission_error = None
         with self._lock:
             if not self._closed:
                 self._status = reply["status"]

@@ -136,7 +136,7 @@ func TestLiveOnlyShutdownIsBusyAndEOFDisposesIt(t *testing.T) {
 	var reply map[string]any
 	dec.Decode(&reply)
 	caps := reply["capabilities"].([]any)
-	if len(caps) != 1 || caps[0] != "live-v1" {
+	if len(caps) != 2 || caps[0] != "live-v1" || caps[1] != "fork-limit-v1" {
 		t.Fatal(reply)
 	}
 	json.NewEncoder(writer).Encode(Request{ID: 1, Op: "shutdown"})

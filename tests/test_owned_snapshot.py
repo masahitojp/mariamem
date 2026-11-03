@@ -19,6 +19,47 @@ HOST = os.environ.get("MARIAMEM_TEST_HOST")
 pytestmark = pytest.mark.skipif(not HOST, reason="requires explicit real host")
 
 
+def test_bounded_remote_fork_and_recapture_release_source_slot(tmp_path):
+    alternate = tmp_path / "other-host"
+    shutil.copy2(HOST, alternate)
+    with mariamem.start(host_binary=HOST) as root:
+        sql(root, "CREATE TABLE cap_seed(id INT PRIMARY KEY)")
+        sql(root, "INSERT INTO cap_seed VALUES(7)")
+        with root.snapshot(max_forks=1) as baseline:
+            remote = baseline.fork(host_binary=alternate, timeout=5)
+            try:
+                assert sql(remote, "SELECT * FROM cap_seed") == ((7,),)
+                with pytest.raises(mariamem.HostError) as error:
+                    baseline.fork(timeout=.04)
+                assert error.value.code == "pool_timeout"
+                assert sql(remote, "SELECT * FROM cap_seed") == ((7,),)
+                with remote.snapshot(max_forks=1) as next_baseline:
+                    assert remote._remote.done
+                    with baseline.fork(timeout=5) as sibling:
+                        assert sql(sibling, "SELECT * FROM cap_seed") == ((7,),)
+                    baseline.close()
+                    with next_baseline.fork(timeout=5) as grandchild:
+                        assert sql(grandchild, "SELECT * FROM cap_seed") == ((7,),)
+            finally:
+                remote.close()
+
+
+def test_bounded_parent_close_preserves_remote_child(tmp_path):
+    alternate = tmp_path / "other-host"
+    shutil.copy2(HOST, alternate)
+    with mariamem.start(host_binary=HOST) as root:
+        baseline = root.snapshot(max_forks=1)
+        child = baseline.fork(host_binary=alternate, timeout=5)
+        try:
+            baseline.close()
+            assert sql(child, "SELECT 42") == ((42,),)
+        finally:
+            baseline.close()
+            child.close()
+        assert child._remote.done
+        assert not child._remote.source.root.exists()
+
+
 def fd_count():
     if Path("/proc/self/fd").is_dir():
         return len(os.listdir("/proc/self/fd"))

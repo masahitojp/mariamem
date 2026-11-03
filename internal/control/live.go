@@ -53,14 +53,16 @@ func (c *liveChild) Close() error {
 		err = c.db.close()
 	} else if c.db.server != nil {
 		ctx, cancel := context.WithTimeout(context.Background(), c.db.shutdown)
-		err = c.db.server.Close(ctx)
+		err = c.db.retryCleanup(ctx)
 		cancel()
 	}
 	// Keep the log open while an unjoined guest can still write to it.
 	cleanup := disposal.CleanupAfter(err, func() error {
 		return errors.Join(closeLog(c.db.log), removeLog(c.db.logPath))
 	})
-	return errors.Join(err, cleanup)
+	err = errors.Join(err, cleanup)
+	c.db.settle(err)
+	return err
 }
 func (m *manager) createLive(ctx context.Context, r Request) (map[string]any, error) {
 	m.mu.Lock()
@@ -68,6 +70,9 @@ func (m *manager) createLive(ctx context.Context, r Request) (map[string]any, er
 	m.mu.Unlock()
 	if base == nil {
 		return map[string]any{"closed": false}, diagnostic.Wrap("closed", "live_precondition", errors.New("snapshot is closed"))
+	}
+	if base.forkLimit().MaxForks() < 2 {
+		return invalid("live_precondition", errors.New("Live requires max_forks >= 2"))
 	}
 	factory := endpoint.Factory{
 		Check: func() error {
@@ -78,22 +83,39 @@ func (m *manager) createLive(ctx context.Context, r Request) (map[string]any, er
 			}
 			return nil
 		},
-		Start: func(ctx context.Context) (endpoint.Child, error) {
-			base.mu.RLock()
-			defer base.mu.RUnlock()
-			if base.closed {
-				return nil, errors.New("snapshot is closed")
-			}
-			token := make([]byte, 16)
-			if _, err := rand.Read(token); err != nil {
+		Reserve: func(ctx context.Context, recover bool) (*endpoint.Reservation, error) {
+			if err := ctx.Err(); err != nil {
 				return nil, err
 			}
-			childRequest := Request{LogPath: filepath.Join(filepath.Dir(r.LogPath), "live-"+hex.EncodeToString(token)+".log")}
-			child, err := makeDB(ctx, childRequest, base, true)
+			lease, err := base.forkLimit().TryAcquire(recover)
 			if err != nil {
-				return nil, err
+				return nil, diagnostic.Wrap(capacityCode(err), "live_capacity", err)
 			}
-			return &liveChild{db: child}, nil
+			return &endpoint.Reservation{Cancel: lease.Cancel, Start: func(ctx context.Context) (endpoint.Child, error) {
+				base.mu.RLock()
+				defer base.mu.RUnlock()
+				if base.closed {
+					lease.Cancel()
+					return nil, errors.New("snapshot is closed")
+				}
+				if err := lease.Activate(); err != nil {
+					lease.Cancel()
+					return nil, admission(err)
+				}
+				token := make([]byte, 16)
+				if _, err := rand.Read(token); err != nil {
+					lease.Settle(nil)
+					return nil, err
+				}
+				childRequest := Request{LogPath: filepath.Join(filepath.Dir(r.LogPath), "live-"+hex.EncodeToString(token)+".log")}
+				child, err := makeDB(ctx, childRequest, base, true)
+				if err != nil {
+					settleStartup(lease, err)
+					return endpoint.RetainStartup(err, lease, base.shutdown), err
+				}
+				child.lease = lease
+				return &liveChild{db: child}, nil
+			}}, nil
 		},
 	}
 	live, err := endpoint.New(ctx, factory, base.shutdown)

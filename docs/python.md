@@ -462,6 +462,35 @@ derived baselines share that host. Each DB has its own SQL endpoint and a limit
 of 16 simultaneous connections. The Snapshot itself uses no SQL connection.
 The host exits when the last owned handle and admitted operation finish.
 
+The unreleased #53 candidate adds a finite per-Snapshot Fork budget:
+
+```python
+with setup_db.snapshot(max_forks=2) as baseline:
+    assert baseline.max_forks == 2  # Read-only, resolved at capture.
+    with baseline.fork(timeout=30) as child:
+        run_test(child.connection_info())
+```
+
+Omitted `max_forks` resolves once using one quarter of detected memory at
+256 MiB per slot, with a finite CPU fallback. This is a sizing heuristic, not
+an OOM guarantee or a CPU/latency optimum; use an explicit positive integer
+when tuning concurrency. Values must be built-in integers in 1..2147483647;
+zero, bools and larger values reject before capture. Each worker and each
+Snapshot owns a separate budget; their totals are not a machine-wide limit.
+Close each child before synchronously requesting another when capacity is full.
+
+`baseline.fork(timeout=30)` bounds capacity waiting in positive finite seconds
+(at most 2147483647). The equivalent constructor is
+`Database(snapshot=baseline, fork_timeout=30)`. Omission waits while a responsive
+host reports full capacity; submission, reservation responses and startup still
+have finite watchdogs. A capacity timeout reports `pool_timeout` / `fork_wait`
+without closing existing children. Parent Close wakes capacity waiters and
+preserves admitted children. Separate development-host handoff holds the origin
+slot until actual target disposal. Unconfirmed cleanup stops new admission;
+retry the responsible owner's cleanup. Normal late disposal alone does not
+automatically reopen admission. Supplied pytest/E2E/Django entry settings and
+their full acceptance remain unfinished in this candidate.
+
 SQL errors and an individual DB's normal Close do not close siblings. A host
 process crash invalidates that lineage's DBs and baselines; prepare again.
 Independent `start()` calls use independent hosts. Non-cooperative guest cleanup

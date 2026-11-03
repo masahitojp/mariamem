@@ -10,7 +10,7 @@ from test_owned_snapshot_unit import fake_host
 
 @pytest.fixture
 def live_host(fake_host):
-    source=fake_host.read_text().replace("'protocol':2,", "'protocol':2,'capabilities':['live-v1'],")
+    source=fake_host.read_text().replace("'capabilities':['fork-limit-v1']", "'capabilities':['fork-limit-v1','live-v1']")
     source=source.replace('release_slow=threading.Event()', 'release_slow=threading.Event();generations={};parents={};fail_close=False')
     source=source.replace(' global seq\n', ' global seq,fail_close\n')
     source=source.replace("'late_snapshot'):release_slow", "'late_snapshot','late_live'):release_slow")

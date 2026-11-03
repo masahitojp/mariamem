@@ -20,7 +20,7 @@ def fake_host(tmp_path):
     path = tmp_path / "host"
     path.write_text("#!" + sys.executable + "\n" + r'''
 import json,os,sys,threading,time
-lock=threading.Lock();handles={};seq=0;release_slow=threading.Event();close_calls=[]
+lock=threading.Lock();handles={};seq=0;release_slow=threading.Event();close_calls=[];reservations={};parents={};caps={};counts={'reserve':0}
 
 def send(v):
  with lock:
@@ -30,6 +30,23 @@ def call(r):
  global seq
  op=r['op'];out={'id':r.get('id'),'ok':True}
  if op=='cancel':return
+ if op=='fork_reserve':
+  with lock:
+   counts['reserve']+=1
+   parent=r['handle']
+   if handles.get(parent)!='snapshot':out.update(ok=False,error={'code':'closed','stage':'fork_wait','message':'Snapshot is closed'},closed=False)
+   elif sum(v==parent for v in parents.values())+sum(v==parent for v in reservations.values())>=caps[parent]:out.update(full=True)
+   else:seq+=1;token=f'{seq:032x}';reservations[token]=parent;out.update(full=False,reservation=token)
+  send(out);return
+ if op=='fork_cancel':
+  with lock:reservations.pop(r.get('reservation'),None)
+  send(out);return
+ if op=='handoff':
+  os.mkdir(r['transfer_path']);payload=os.path.join(r['transfer_path'],'payload');os.mkdir(payload)
+  out.update(lease=r['reservation'],transfer_path=payload,closed=False);send(out);return
+ if op=='handoff_release':
+  with lock:reservations.pop(r['reservation'],None)
+  out.update(disposed=True);send(out);return
  if op=='invalid':send({'id':999999,'ok':True});return
  if op=='malformed':send([]);return
  if op=='bad_error':send({'id':r['id'],'ok':False,'error':'broken'});return
@@ -41,21 +58,25 @@ def call(r):
  if op=='release_slow':release_slow.set()
  if op in ('start','fork','late_database'):
   with lock:seq+=1;h=seq;handles[h]='db'
+  if op=='fork':
+   with lock:parents[h]=r['handle'];reservations.pop(r.get('reservation'),None)
   if r.get('log_path'):open(r['log_path'],'x').write('db log\n')
   out['database']={'handle':h,'id':str(h).zfill(32),'host':'127.0.0.1','port':3000+h,'user':'root','password':'','database':'test','pid':os.getpid(),'runtime_pid':os.getpid(),'capabilities':['snapshot','fork'],'max_connections':16}
  elif op in ('snapshot','late_snapshot'):
-  with lock:seq+=1;h=seq;handles[h]='snapshot';handles.pop(r.get('handle'),None)
-  out.update(snapshot=h,closed=True)
+  with lock:seq+=1;h=seq;handles[h]='snapshot';handles.pop(r.get('handle'),None);parents.pop(r.get('handle'),None);caps[h]=r.get('max_forks') or 2
+  out.update(snapshot=h,closed=True,disposed=True,max_forks=caps[h])
  elif op in ('db_close','snapshot_close'):
-  with lock:close_calls.append({'op':op,'handle':r['handle']});handles.pop(r['handle'],None)
-  out['closed']=True
+  with lock:
+   close_calls.append({'op':op,'handle':r['handle']});handles.pop(r['handle'],None);parents.pop(r['handle'],None)
+   for token in [k for k,v in reservations.items() if v==r['handle']]:reservations.pop(token,None)
+  out.update(closed=True,disposed=True)
  elif op=='status':out.update(state='ready',active_connections=0,busy=False)
  elif op=='logs':out['logs']='log tail'
  elif op=='stats':
-  with lock:out.update(handles=len(handles),handle_types=dict(handles),close_calls=list(close_calls))
+  with lock:out.update(handles=len(handles),handle_types=dict(handles),close_calls=list(close_calls),reserve_calls=counts['reserve'],reservations=len(reservations))
  elif op=='shutdown':send(out);os._exit(0)
  send(out)
-print(json.dumps({'event':'ready','protocol':2,'guest_sha256':'guest','pid':os.getpid()}),flush=True)
+print(json.dumps({'event':'ready','protocol':2,'capabilities':['fork-limit-v1'],'guest_sha256':'guest','pid':os.getpid()}),flush=True)
 threads=[]
 for line in sys.stdin:
  r=json.loads(line);t=threading.Thread(target=call,args=(r,));threads.append(t);t.start()
