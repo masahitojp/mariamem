@@ -10,7 +10,7 @@ import re
 # Reviewed prepared guest binding promoted by P6. See the whole-body/data
 # fixture and P6 closure review; canonical rebuilds must match this single
 # identity. No fuzzy allocation/reclaimer matching is permitted.
-GUEST_SHA256 = "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40"
+GUEST_SHA256 = "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f"
 FUNCTIONS = {
     "code/p3/p3_pure.go": ("Fn153", "4aa80a3d7f3cc57a06cf3939fdba594c874365e69f428ebdf587bd337f5a587a"),
     "code/p8/p8_pure.go": ("Fn131", "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"),

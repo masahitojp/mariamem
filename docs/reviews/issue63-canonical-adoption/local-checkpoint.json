@@ -1,0 +1,93 @@
+{
+  "canonical_guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
+  "guest_source_commit": "1b0a0c5c569c49f3643550911d62d85d351f15fb",
+  "native_source_commit": "8b641cfba060f2bede1cda9c45d09ca5764df32d",
+  "allocator_contract": {
+    "result": "PASS",
+    "scope": "host C contract; not real WASIX OOM or guest execution",
+    "checks": [
+      "dirty-buffer zero-fill, exact alignment/size, legacy 4KiB, controlled ENOMEM, original-pointer free",
+      "C implementation / C++ caller linkage",
+      "four semantic mutations rejected"
+    ],
+    "sources_sha256": {
+      "mysys/my_largepage.c": "c1107852a72152a8a481c86d77f80f360dadaddd7cea73e492d45bacef6706ae",
+      "include/my_sys.h": "ca63169323dcca605124befff5f40a56b78d3385e10f7d901a66ae7238634db5",
+      "storage/innobase/buf/buf0buf.cc": "319dc4ff0763fcf33d71c741047b7629330bb9785733feaaaf992ee1deefe8c8",
+      "mysys/my_virtual_mem.c": "ea8d8902f9ac07987defed73e64a3dd974705f94e24bb29728c07797d75855d0"
+    },
+    "compiler": "Apple clang version 21.0.0 (clang-2100.4.1.1)"
+  },
+  "unit_tests": 114,
+  "j1": [
+    {
+      "name": "heap-0",
+      "exit_code": 1,
+      "expected_failure": true,
+      "passed": true
+    },
+    {
+      "name": "heap-1",
+      "exit_code": 0,
+      "expected_failure": false,
+      "passed": true
+    },
+    {
+      "name": "heap-1-race",
+      "exit_code": 0,
+      "expected_failure": false,
+      "passed": true
+    },
+    {
+      "name": "mmap-0",
+      "exit_code": 1,
+      "expected_failure": true,
+      "passed": true
+    },
+    {
+      "name": "mmap-1",
+      "exit_code": 0,
+      "expected_failure": false,
+      "passed": true
+    },
+    {
+      "name": "mmap-1-race",
+      "exit_code": 0,
+      "expected_failure": false,
+      "passed": true
+    }
+  ],
+  "worker_body_count": 19,
+  "runtime_source_equivalence_files": 103,
+  "license_component_families": 12,
+  "clean_native_smoke": "PASS",
+  "independent_source_reproduction": "PENDING_CI",
+  "supported_hosts": "PENDING_CI",
+  "performance": "prior INCONCLUSIVE result retained; no new performance campaign",
+  "release": "NOT_REQUESTED",
+  "daily_check": {
+    "source_commit": "4868f731726782fb7b76d10adb5a5702b1a67649",
+    "go_tests": "PASS",
+    "go_vet": "PASS",
+    "source_inventory_license_tests": 67,
+    "python_passed": 1775,
+    "python_skipped": 80,
+    "python_failures_before_correction": [
+      "unregistered workflow scope",
+      "automatic experimental workflow trigger"
+    ],
+    "corrected_boundary_tests": 87,
+    "final_exact_head": "PENDING_PR_CI"
+  },
+  "public_source": {
+    "result": "PASS",
+    "files": 6649
+  },
+  "evidence_sha256": {
+    "canonical-allocator-contract.json": "a8b91c2d114673ff18dcf8ccbde0f40a6ffdd59ba936c8deee6e9640ac7a3741",
+    "runtime-equivalence.json": "316a5c8dc7aa0f77a894a784805e71e81d20b3eefa76b3ee575cb663160b1f25",
+    "license-audit-clean.json": "a778fae9ab5d3a2c246fc19eeeb70531fdef19e84b3faf9a00b9a61ffe648a1c",
+    "native-smoke-clean.log": "e14a6292fe4346dd292bd6fdc0609de743f05184b6b9322a46f58b2459874476",
+    "daily-check-network-enabled.log": "bad2cfe22165c90fe4a06c2ef7eb91a7593687d3a33d2e828749b73b5ae77193"
+  }
+}

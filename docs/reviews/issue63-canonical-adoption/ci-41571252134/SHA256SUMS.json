@@ -1,0 +1,7 @@
+{
+  "darwin-arm64.json": "86c54c7e3b36a184f673e813033a46c326de6557773f62401f616c2ff76e35f2",
+  "guest.json": "a0ebb73f27bb3cfe32d969dbff37ce530b4511e189389f3c4cc5112c88141199",
+  "receipt.json": "99768e04402b4fddde7f305fb786625171694d721dd70426ff9e7ff8aa54f8be",
+  "source-contracts.json": "4758e7eecc86efb0db73fe42dd51e742a56de51346d0fffecdc0a6cbdcc6dcf0",
+  "ubuntu24.04-x86_64.json": "0778748db898160cc6c5eea75952c530337b07f879695746b598f149abf4a3cb"
+}

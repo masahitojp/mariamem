@@ -1,0 +1,111 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41561895681",
+  "source_commit": "4911ffaf28131f9a7750dba02a8e195d12efb21b",
+  "result": "FAIL",
+  "guest_two_source_builds": "PASS",
+  "cause": "Candidate workflow omitted mysql-connector-python; both native jobs failed with ModuleNotFoundError: No module named 'mysql' before prepared consumer execution",
+  "fix": "Install existing accepted mysql-connector-python==26.7.0 and run the existing connector environment/import probe before regeneration",
+  "runtime_product_changes": false,
+  "platforms": {
+    "native (macos-15)": {
+      "job_url": "https://github.com/masahitojp/mariamem/actions/runs/41561895681/job/125678594948",
+      "generated_source_reproduction": "PASS",
+      "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
+      "j1_expected_outcomes": [
+        {
+          "name": "heap-0",
+          "exit_code": 1,
+          "expected_failure": true,
+          "passed": true
+        },
+        {
+          "name": "heap-1",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "heap-1-race",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "mmap-0",
+          "exit_code": 1,
+          "expected_failure": true,
+          "passed": true
+        },
+        {
+          "name": "mmap-1",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "mmap-1-race",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        }
+      ],
+      "integration": "FAIL at missing connector; preceding Go race/integration, Live, 35 Python cases and 33 Snapshot checks passed",
+      "license_and_provenance": "SKIPPED after failure",
+      "evidence_sha256": {
+        "generated-release/regeneration.json": "f91b9cc66719814e373e0a1e6b63ab400b579890362e76821c8ad558f6da293d",
+        "alignment-ci/integration.log": "12e274d8618a4be5eb4033e8e07a5ca43ffc3b8c5bda74d0926325752082102d",
+        "alignment-ci/j1/results.json": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a"
+      }
+    },
+    "native (ubuntu-24.04)": {
+      "job_url": "https://github.com/masahitojp/mariamem/actions/runs/41561895681/job/125678594981",
+      "generated_source_reproduction": "PASS",
+      "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
+      "j1_expected_outcomes": [
+        {
+          "name": "heap-0",
+          "exit_code": 1,
+          "expected_failure": true,
+          "passed": true
+        },
+        {
+          "name": "heap-1",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "heap-1-race",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "mmap-0",
+          "exit_code": 1,
+          "expected_failure": true,
+          "passed": true
+        },
+        {
+          "name": "mmap-1",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        },
+        {
+          "name": "mmap-1-race",
+          "exit_code": 0,
+          "expected_failure": false,
+          "passed": true
+        }
+      ],
+      "integration": "FAIL at missing connector; preceding Go race/integration, Live, 35 Python cases and 33 Snapshot checks passed",
+      "license_and_provenance": "SKIPPED after failure",
+      "evidence_sha256": {
+        "generated-release/regeneration.json": "57e189deca1f137c541e78353b9e37dae49ab81c49b85da003a5c241e70e2f74",
+        "alignment-ci/integration.log": "7e4c6cc12eb58b4aba9f34e3d2f0761619796fe0a396b548b1961d80feb394de",
+        "alignment-ci/j1/results.json": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a"
+      }
+    }
+  }
+}
