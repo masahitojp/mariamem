@@ -16,8 +16,21 @@ and version metadata remain unchanged.
   Reset can recover only after all cleanup debt is confirmed. The Go test helper
   retains default2 and passes the same cap to its Snapshot; HTTPConfig exposes
   a cap override. Auto sizing is not CPU-optimal or a process-wide memory guarantee.
-- This draft is not adopted on main. Shared-control/Python and supplied Python
-  entries, the full fixed acceptance table and both-host acceptance remain pending.
+- Python adds `snapshot(max_forks=...)`, read-only `max_forks`,
+  `fork(timeout=...)` and `Database(snapshot=..., fork_timeout=...)`.
+  Different-host children retain their origin slot through actual disposal;
+  capacity waits release the parent lock and retain finite control watchdogs.
+  Pytest adds `mariamem_max_forks` (None/auto) and finite
+  `mariamem_fork_timeout` (default30 seconds). Acquisition failure stops dependent
+  admission in that worker and preserves the original error; normal assertions
+  keep their existing behavior. None/callable/PrepareCommand preparation is unchanged.
+- Python E2E `Config.max_forks` reaches its Live baseline and explicit1 rejects
+  before preparation. Prepared Django adds `max_forks` / `fork_timeout`, forwards
+  them to each capture/acquisition and retires class/test owners before requesting
+  its final DROP child. These per-Snapshot/worker caps are not a global resource
+  limit or CPU/latency optimum; choose explicit caps and worker totals as needed.
+- This draft is not adopted on main. The remaining fixed acceptance and
+  both-host/Python-version matrix, including installed D1 execution, remain pending.
 
 ## Adopted on main — unreleased
 

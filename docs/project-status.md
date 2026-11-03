@@ -53,8 +53,14 @@ waiting. Capacity/transfer waits release the Python parent lock, and a single
 bounded transport writer keeps caller deadlines independent of a stalled pipe.
 Different-host handoff retains an origin lease until target disposal and source
 acknowledgement. Core control/SDK regressions and selected real-host handoff paths
-are locally verified; supplied Python pytest/E2E/D1 settings and the full
-both-host acceptance table remain unfinished. This is a draft candidate rather
+are locally verified. Supplied pytest now forwards `mariamem_max_forks` and a
+finite `mariamem_fork_timeout` (default30 seconds); E2E forwards `Config.max_forks`
+and rejects explicit1 before preparation. D1 declares `max_forks` / `fork_timeout`,
+passes them to each run/class capture and child, and retires remaining owners
+before acquiring its final DROP child. Controlled serial/failure tests cover
+cap1, independent auto resolution and cleanup refusal. Existing installed D1
+serial/xdist owners now assert cap1 and finite waits. The full both-host
+acceptance table remains unfinished. This is a draft candidate rather
 than adopted support on main.
 The next checkpoint addresses the startup/cleanup ownership gap: internal typed
 owners retain late execution/session joins, borrowed backing and dependent file
@@ -63,7 +69,8 @@ The lease primitive can observe confirmed cleanup without automatically reopenin
 admission. The shared-control reservation protocol and Python SDK are connected
 together with handoff acknowledgements and bounded send/reply ownership so an
 old client cannot strand a newly enforced remote lease; older capabilities
-reject before capture. Supplied Python entry wiring is the next slice.
+reject before capture. Remaining work is the fixed failure/host matrix and
+source-bound acceptance of the connected entries.
 There is no new performance campaign. The milestone and publication decisions are
 unchanged. Prewarming remains
 separate in [#84](https://github.com/masahitojp/mariamem/issues/84).

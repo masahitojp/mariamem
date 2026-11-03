@@ -4,13 +4,50 @@ The Human authorized implementing the reviewed design on 2026-11-03 after
 `a4929d1234068eead0faf6034b5d2e4b27e58b31`. The first checkpoint implements shared
 primitives; the next adds reachable cleanup ownership through the existing host
 lifecycle. Subsequent checkpoints connect public Go entries and the control/core
-Python SDK. **Supplied Python entries and full both-host acceptance remain
+Python SDK and supplied Python entries. **Full fixed/both-host acceptance remains
 unfinished.**
 [Issue #53](https://github.com/masahitojp/mariamem/issues/53) owns completion;
 [the fixed acceptance table](issue53-fork-limit-design.md#fixed-acceptance-and-stopping-point)
 is unchanged. No acceptance row covering a real entry is marked complete here.
 
-## Current checkpoint — control and core Python SDK
+## Current checkpoint — supplied Python entries
+
+Implementation continues from inspected source_commit
+`e401c2af3e3aa6fa8f5c7485228c0a5a7a98bd85`.
+
+- Pytest adds session settings `mariamem_max_forks=None` and
+  `mariamem_fork_timeout=30`, validates before preparation callback/command and
+  forwards them to capture/every child acquisition. None/callable/PrepareCommand
+  behavior stays unchanged. Invalid settings and failed acquisition retain the
+  original cause and use the existing worker admission latch.
+- Python E2E Config adds `max_forks`, validates before starting/preparing and
+  forwards to capture. Explicit1 rejects; auto1 is left to Live's actionable
+  error, with no expansion. The owned example explicitly requests2. Its hooks,
+  case ordering and cleanup contracts stay unchanged.
+- D1 `prepared_database(max_forks=None, fork_timeout=30)` validates at declaration
+  without acquiring. These settings remain separate from root start options.
+  Every run/class capture passes the declaration (auto resolves independently),
+  and ordinary/finalization children use the finite timeout. Finalization closes
+  remaining mutable/class owners while retaining R, then acquires the DROP child
+  under the same SDK cap. Failed cleanup aborts DROP, preserves errors and still
+  attempts remaining cleanup; there is no emergency slot or test-latch reset.
+- Existing installed D1 serial/xdist campaigns now use explicit cap1 and observe
+  every capture's requested/resolved cap and every Fork's finite timeout,
+  including teardown/replacement-worker paths. Source changes add assertions;
+  they are not a new receipt or a claim that the full matrix has passed.
+
+Focused controlled tests pass on macOS arm64 / Python3.14: supplied pytest
+actually runs with a held cap1 child and reports finite acquisition failure;
+the next body is refused while the held child remains usable. Additional tests
+cover independent D1 auto resolution, explicit propagation, retained class
+sources after setup/preserved/consumed capture failure, cap1 finalization ordering
+and cleanup-failed DROP refusal. The BrowserEntry cap2 first/second case test
+uses real MariaDB/Live with controlled app/browser hooks; it is not browser or
+framework end-to-end acceptance. Source-bound daily/smoke and the existing D1
+campaign follow the code commit. Both-platform/Python-version and remaining
+handoff fault acceptance still determine #53 completion.
+
+## Previous checkpoint — control and core Python SDK
 
 Implementation continues from inspected source_commit
 `24c6128b468bab7b651762b2538fe8a50d17d1da`. Shared control advertises

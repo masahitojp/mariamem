@@ -80,7 +80,7 @@ before atomically recovering parent admission and reserving a replacement.
 Unresolved debt from any other owner or a closed parent prevents recovery.
 The supplied Go HTTP entry accepts `HTTPConfig.MaxForks`; explicit1 rejects
 before preparation, while automatic1 reports the same actionable Live requirement.
-Python E2E entry configuration is still pending in this candidate.
+The Python E2E entry accepts `Config(max_forks=2)` with the same validation.
 
 Busy (Python Busy / Go ErrBusy) preserves the original data and generation. A
 replacement error enters failed and refuses new SQL until explicit successful

@@ -51,6 +51,33 @@ The optional `options` mapping passes ordinary `mariamem.start()` options, such 
 `host_binary`, to the SDK. Do not share this configuration with another active
 runner. A completed run can acquire a fresh lineage on a subsequent invocation.
 
+The unreleased #53 candidate adds separate declaration settings:
+
+```python
+DATABASES = {"default": prepared_database(
+    test_name="test_mariamem", max_forks=1, fork_timeout=30,
+)}
+```
+
+`max_forks` is `None` (automatic) or a built-in integer in1..2147483647.
+`fork_timeout` is positive finite seconds, at most2147483647; `None` rejects.
+Validation happens at declaration without starting a host. These settings are
+not root `start()` options. Each run/class capture resolves its own immutable
+automatic limit, while an explicit cap reaches every capture. Every ordinary
+and final DROP child uses the finite wait. A cap1 run consumes its class-setup
+child into a class baseline before acquiring per-test children.
+
+Finalization first retires remaining mutable/class owners while retaining the
+run baseline, then acquires the final DROP child. Unconfirmed cleanup aborts
+DROP, retains the original/cleanup errors and still attempts other cleanup;
+it does not grant an emergency slot. The test-admission failure latch stays set.
+Each local xdist worker owns separate run/class budgets, including replacement
+workers; controller and DB-free workers acquire none. Auto is a memory sizing
+heuristic, not a CPU/latency optimum or a total worker/OOM guarantee. Set an
+explicit cap and choose `-n` independently for resource-sensitive suites.
+This candidate's updated installed-entry cap1 campaign remains to be accepted
+on both supported OSes and Python versions.
+
 The seed callback receives the migrated Django `default` connection, executes
 once per run, and must finish its transactions and close any separate physical
 connections it opens. A callable may also be supplied directly. Its return value

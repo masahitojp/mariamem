@@ -71,6 +71,8 @@ the pytest plugin entry point.
 | `mariamem_options` | session | Start options; default `{}` |
 | `mariamem_server` | session | Preparation DB; consumed by successful Snapshot |
 | `mariamem_prepare` | session | None, preparation callback or `PrepareCommand` |
+| `mariamem_max_forks` | session | Candidate #53: finite Snapshot cap; default `None` selects auto |
+| `mariamem_fork_timeout` | session | Candidate #53: per-child capacity wait; default30 seconds, positive finite only |
 | `mariamem_snapshot` | session | Fixed baseline captured after preparation |
 | `mariamem_fork` | function | Independent mutable DB for one test |
 | `mariamem_connection_info` | function | Driver arguments for that test's DB |
@@ -79,6 +81,26 @@ For prepared tests, return your migrations/seed callback from
 `mariamem_prepare` in `conftest.py`. The installed plugin calls it once per
 worker, closes its source after use and owns the disconnect wait, Snapshot and
 per-test Fork teardown. Use the platform wheel from [installation](../README.md#installation).
+
+In the unreleased #53 candidate, override `mariamem_max_forks` with a positive
+integer and `mariamem_fork_timeout` with positive finite seconds when needed:
+
+```python
+@pytest.fixture(scope="session")
+def mariamem_max_forks():
+    return 2
+
+@pytest.fixture(scope="session")
+def mariamem_fork_timeout():
+    return 30
+```
+
+These settings validate before the preparation callback/command. The supplied
+child fixture always uses a finite wait; `None` is rejected. A held child can
+exhaust the cap: acquisition then fails at its deadline, preserves the original
+diagnostic and stops dependent test admission in that worker. Close the held
+child; increasing the wait does not fix a child that never closes. Each xdist
+worker owns a separate Snapshot budget; tune worker count and cap independently.
 
 ```python
 # conftest.py
@@ -488,8 +510,8 @@ without closing existing children. Parent Close wakes capacity waiters and
 preserves admitted children. Separate development-host handoff holds the origin
 slot until actual target disposal. Unconfirmed cleanup stops new admission;
 retry the responsible owner's cleanup. Normal late disposal alone does not
-automatically reopen admission. Supplied pytest/E2E/Django entry settings and
-their full acceptance remain unfinished in this candidate.
+automatically reopen admission. Supplied pytest/E2E/Django entries now forward
+their settings; full both-host acceptance remains unfinished in this candidate.
 
 SQL errors and an individual DB's normal Close do not close siblings. A host
 process crash invalidates that lineage's DBs and baselines; prepare again.

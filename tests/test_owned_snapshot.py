@@ -60,6 +60,37 @@ def test_bounded_parent_close_preserves_remote_child(tmp_path):
         assert not child._remote.source.root.exists()
 
 
+def test_bounded_e2e_entry_resets_real_live_between_controlled_browser_cases():
+    from types import SimpleNamespace
+    from mariamem.e2e import BrowserEntry, Config
+    events = []
+
+    def prepare(source):
+        sql(source, "CREATE TABLE entry_seed(id INT PRIMARY KEY)")
+        sql(source, "INSERT INTO entry_seed VALUES(7)")
+
+    def start(ctx, target, register):
+        app = SimpleNamespace(identity='controlled-app', base_url='http://controlled.invalid',
+                              connection_info=lambda: target,
+                              quiesce_and_retire=lambda ctx: events.append('quiesce'),
+                              stop_reap=lambda ctx: events.append('stop'))
+        register(app)
+        return app
+
+    browser = SimpleNamespace(new_context=lambda: SimpleNamespace(
+        new_page=lambda: object(), close=lambda: events.append('context.close')))
+    with BrowserEntry(Config(prepare=prepare, start_ready=start, sole_work_source=True,
+                            max_forks=2, options={'host_binary': HOST})) as entry:
+        assert entry._baseline.max_forks == 2
+        with entry.case(browser=browser) as first:
+            assert sql(first.app, "SELECT * FROM entry_seed") == ((7,),)
+            sql(first.app, "INSERT INTO entry_seed VALUES(8)")
+        with entry.case(browser=browser) as second:
+            assert sql(second.app, "SELECT * FROM entry_seed") == ((7,),)
+        assert entry._live.status()['generation'] == 2
+    assert events == ['quiesce', 'context.close', 'quiesce', 'context.close', 'stop']
+
+
 def fd_count():
     if Path("/proc/self/fd").is_dir():
         return len(os.listdir("/proc/self/fd"))
