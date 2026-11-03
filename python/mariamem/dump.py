@@ -6,7 +6,8 @@ from pathlib import Path
 import re
 
 MAX_FILE_BYTES = 16 * 1024 * 1024
-MAX_STATEMENT_BYTES = 4 * 1024 * 1024
+# Match the text SQL budget in mysqlwire and host-to-guest requests.
+MAX_STATEMENT_BYTES = 1024 * 1024
 MAX_STATEMENTS = 10000
 _MODE = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
 _INIT = ("SET time_zone='+00:00', sql_mode='"+_MODE+"', "
@@ -82,7 +83,7 @@ def _frame(data):
         raise DumpImportError(reason, stage='preflight', location=location(begin, end))
 
     while position < len(data):
-        if position-start > MAX_STATEMENT_BYTES:
+        if len(buffer) > MAX_STATEMENT_BYTES:
             fail('statement_too_large', start, position)
         char = data[position]
         if state == 'line_comment':
@@ -166,6 +167,8 @@ def _frame(data):
             meaningful |= char > 32
             buffer.append(char)
             position += 1
+    if len(buffer) > MAX_STATEMENT_BYTES:
+        fail('statement_too_large', start, position)
     if state in ['quote', 'block_comment']:
         fail('unterminated_'+state, state_start, len(data))
     if meaningful:
@@ -318,7 +321,8 @@ def import_dump(db, path, *, database=None):
 
     Requires the ``dump`` extra. Returns the number of SQL statements executed.
     The default schema is the dump header's Database. ``database`` asserts it;
-    this function never remaps SQL. Limits:16MiB/file,4MiB/statement,10000 statements.
+    this function never remaps SQL. Limits:16MiB/file,1MiB/statement,10000 statements.
+    Statement bytes include comments/whitespace sent to the server, not delimiters.
     """
     from . import Database
     if not isinstance(db, Database):

@@ -14,6 +14,16 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Dump statement limit correction — 0.6.1
+
+On 2026-11-03 the Human approved reducing `import_dump`'s documented/preflight
+statement limit from 4 MiB to the existing 1 MiB text SQL execution limit.
+The helper shipped in v0.6.0. Oversized statements fail before connecting, with
+source location and the existing failed-DB discard contract; file/count limits
+remain 16 MiB and 10,000 statements. This corrects the reader's limit without
+increasing guest capacity. [Issue #81](https://github.com/masahitojp/mariamem/issues/81)
+owns implementation and verification tracking for 0.6.1.
+
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
 [PR35](https://github.com/masahitojp/mariamem/pull/35) moved heavy product acceptance

@@ -79,6 +79,56 @@ def test_product_resource_limits(monkeypatch, key, limit, reason):
     assert e.value.reason == reason and e.value.stage == 'preflight'
 
 
+@pytest.mark.parametrize('delta', [-1, 0, 1])
+@pytest.mark.parametrize('delimiter', [b';', b';;'])
+@pytest.mark.parametrize('prefix,suffix,unit', [
+    (b"\n/* leading */ INSERT INTO `users` VALUES ('", b"')", b'x'),
+    (b"INSERT INTO `users` VALUES ('", b"')", '界'.encode()),
+    (b'COMMIT /*', b'*/', b'x'),
+])
+def test_actual_statement_byte_boundary(delta, delimiter, prefix, suffix, unit):
+    # Use the real host budget; exercise multibyte values and two-byte scanner steps.
+    size = 1024 * 1024 + delta
+    count = size - len(prefix) - len(suffix)
+    sql = prefix + unit * (count // len(unit)) + b'x' * (count % len(unit)) + suffix
+    directive = b'DELIMITER ;;\n' if delimiter == b';;' else b''
+    data = directive + sql + delimiter
+    if delta > 0:
+        with pytest.raises(DumpImportError) as e:
+            dump._frame(data)
+        assert (e.value.stage, e.value.reason) == ('preflight', 'statement_too_large')
+        assert e.value.location['ordinal'] == 1
+    else:
+        statements, _ = dump._frame(data)
+        assert [s.sql for s in statements] == [sql]
+
+
+def test_oversized_dump_rejected_before_connection_and_discards(monkeypatch, tmp_path):
+    import pymysql
+    def unexpected_connection(**kwargs):
+        pytest.fail('oversized dump must fail before connecting')
+    monkeypatch.setattr(pymysql, 'connect', unexpected_connection)
+    path = tmp_path/'oversized.sql'
+    path.write_bytes(CORPUS.read_bytes() + b"\nINSERT INTO `users` VALUES ('" +
+                     b'x' * (1024 * 1024) + b"');\n")
+    target = Target()
+    with pytest.raises(DumpImportError) as e:
+        import_dump(target, path)
+    assert (e.value.stage, e.value.reason) == ('preflight', 'statement_too_large')
+    assert e.value.location['ordinal'] == 91
+    assert e.value.closed and target.closed
+    assert e.value.path == str(path)
+
+
+def test_statement_limit_checked_after_final_two_byte_scanner_step():
+    # Closing a block comment can consume the final two bytes in one iteration.
+    # EOF must not bypass the budget check at the start of the next iteration.
+    sql = b'COMMIT /*' + b'x' * (1024 * 1024 - len(b'COMMIT /*') - 1) + b'*/'
+    with pytest.raises(DumpImportError) as e:
+        dump._frame(sql)
+    assert e.value.reason == 'statement_too_large'
+
+
 class Target(mariamem.Database):
     def __init__(self):
         self._is_closed = False
