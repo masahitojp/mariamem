@@ -14,7 +14,7 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Issue #53 — finite Fork admission by default, design in progress
+## Issue #53 — finite Fork admission by default, implementation authorized
 
 On2026-11-03 the Human selected pgmem-style default limiting: an omitted Fork
 limit must resolve to a finite value, and full capacity waits before starting
@@ -38,10 +38,15 @@ parent cleanup debt; Close remains final and fixture failure latches stay set.
 Capacity/wait range checks are request-local and must preserve source/sibling DBs.
 Auto remains a memory heuristic,
 not a CPU/latency optimum; explicit tuning and worker totals must be documented.
-Lifecycle/API
-choices remain a proposal for review; no existing handoff behavior is removed.
-No new resource measurement, product implementation or CI has been run for this
-design. The milestone and publication decisions are unchanged. Prewarming remains
+On 2026-11-03 the Human authorized implementation after the lock, recovery and
+numeric-range additions at `a4929d12`. The first
+[implementation checkpoint](reviews/issue53-fork-limit-implementation.md) adds the
+internal admission/lease primitive, default sizing and Go/Python range validators.
+These are not yet wired into public entry points. The full acceptance table and
+handoff remain in scope; no public Fork-limit support is claimed at this checkpoint.
+The startup/cleanup ownership audit identified a missing typed completion outcome
+that must be resolved before connecting the limiter. There is no new performance
+campaign. The milestone and publication decisions are unchanged. Prewarming remains
 separate in [#84](https://github.com/masahitojp/mariamem/issues/84).
 
 ## Test credentials accepted — protected main integration authorized, unreleased

@@ -1,15 +1,18 @@
 # Issue #53 — bounded Snapshot Fork capacity
 
-Status: concrete design proposal, 2026-11-03. The Human selected an automatic,
-finite default and requested continuing the design. This revision proposes a
-256 MiB budget per child and preserves development-host handoff using leases.
-These are design choices for review, not implemented or measured new behavior.
+Status: implementation authorized, 2026-11-03. After the lock, Live recovery and
+numeric-range additions at `a4929d12`, the Human requested proceeding with this
+design. The first implementation checkpoint is recorded in
+[the implementation record](issue53-fork-limit-implementation.md). Public entry
+points are not connected yet; the acceptance table below remains unfinished.
+The design selects a 256 MiB budget per child and preserves development-host
+handoff using leases. Authorization is not a claim of measured new behavior.
 [Issue #53](https://github.com/masahitojp/mariamem/issues/53)
 owns the checklist and currently belongs to v0.6.1; this proposal does not move
 the milestone or approve a release. Pre-starting unused children is
 [Issue #84](https://github.com/masahitojp/mariamem/issues/84), not this work.
 
-## Decision proposed
+## Approved implementation direction
 
 Add an immutable per-Snapshot child limit to Go and Python. Acquire a
 slot before starting a DB, retain it through disposal, and wait cancellably
@@ -642,11 +645,11 @@ and user-visible behavior/limitations are in unreleased notes. Report unresolved
 cases as unfinished; do not add performance requirements or #84 to this exit.
 Integration and release follow their own decisions.
 
-This design task stops at source inspection and this proposal, with zero builds,
-runtime executions and CI submissions. The concrete recommendation is the
+The original design-only task stopped at source inspection and this proposal,
+with zero builds, runtime executions and CI submissions. The recommendation was the
 256 MiB/quarter-memory default, unchanged proposed Live reservation behavior and
 preserved cross-host handoff with leases. The finite automatic-default direction
-is already decided. Review the concrete lifecycle/API choices before product
+is already decided. The Human subsequently authorized the concrete lifecycle/API
 implementation; no further measurement is made a prerequisite by this proposal.
 If lease implementation reveals an unowned late-outcome path, stop and report
 that exact boundary instead of removing handoff or adding another campaign.
