@@ -81,6 +81,10 @@ interrupt after reservation/export/start without killing independent owners.
 Shared-host Live's cap2 controlled cleanup/recovery and real-host whole-lineage
 loss/range-rejection cases are added; the full installed/platform matrix is still
 pending, and none of these checks adds a new performance requirement.
+Clean `737f4414` passed local daily/source smoke and nine selected real-host
+ownership/range cases with the matching clean host, including whole-source/
+whole-target loss. These results close the locally reproduced retry defects;
+they do not close the remaining fixed-row/installed-platform acceptance.
 There is no new performance campaign. The milestone and publication decisions are
 unchanged. Prewarming remains
 separate in [#84](https://github.com/masahitojp/mariamem/issues/84).

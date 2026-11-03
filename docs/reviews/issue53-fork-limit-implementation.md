@@ -21,6 +21,9 @@ export's cleanup token was not retained for retry on the source (retry instead
 waited for a nonexistent target startup), and a late unreturned Snapshot was
 forgotten after its Close failed. The owner now retains the export cleanup token
 separately and holds the pending target Snapshot through its successful cleanup.
+That cleanup also remains necessary when the old DB's source slot was already
+settled before the late capture reply arrived; the extra baseline is closed
+without acknowledging the original slot a second time.
 Neither error nor elapsed watchdog serves as disposal proof. These same tests
 pass after the local corrections; a successful retry does not clear the parent's
 admission latch or rewrite the original operation failure.
@@ -53,6 +56,18 @@ source and sibling SQL. The latter real-host runs reused the previous clean
 as an exact-candidate host receipt. Source-bound daily/smoke and focused actual
 guest cases follow the code commit. Both-platform/Python-version installed-entry
 acceptance and the final fixed-row reconciliation still determine completion.
+
+Clean inspected code source_commit
+`737f4414f6b8ac24abc53a2e90ed1d11bf90d328` then passed canonical daily check
+(67 source tests, Go tests/vet,1863 Python tests plus106 subtests,91 skips) and
+Go/Python real DB/Live source smoke. An independent regular checkout produced a
+same-commit host with exact `vcs.revision` and `vcs.modified=false`; that host
+passed all nine selected bounded handoff/range/E2E, different-binary,
+mapped-resnapshot and racing-Close actual-guest cases. Whole-host loss is an
+explicit process-kill injection, not a claim to reproduce a guest failure or
+to kill shared hosts as a recovery policy. The prior source's receipts remain
+unchanged. The next commit records these results only; head CI, installed-entry
+matrix and final reconciliation are separate remaining work.
 
 ## Previous checkpoint — supplied Python entries
 
