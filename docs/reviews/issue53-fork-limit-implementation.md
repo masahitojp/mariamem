@@ -48,7 +48,15 @@ late completion, guest/session joins held separately, failed/retried removal,
 parallel retry serialization, retained cap1 capacity, unchanged capture/Close
 failure results and unpublished-handle cleanup. These are controlled lifecycle
 faults, **not reproduction of an actual-engine hang or filesystem fault**.
-Canonical daily check and real DB/Live smoke are recorded after the code commit.
+On 2026-11-04, clean inspected commit
+`c62fc38f2e8b784e104172d59d42aab2013004db` passed the canonical daily check:
+67 source tests, Go daily tests/vet, 1808 Python tests plus 100 subtests; 85
+opt-in/optional tests skipped. The same commit passed Go/Python real DB/Live
+source smoke (capture, reset, busy/closed-parent rejection, host reap and
+directory removal). Go1.26.10, macOS arm64 and Python3.14 with the repository's
+unit requirements were used. These are local source checks, not Ubuntu/macOS15
+qualification or full #53 acceptance. The subsequent commit only records these
+results; it does not relabel the earlier `c810e194` CI receipt.
 
 The previous inaccessible-cleanup-owner boundary is addressed. The next work is
 to wire public Go Snapshot/Live and the shared-control reservation protocol,
