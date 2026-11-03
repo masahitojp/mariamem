@@ -47,6 +47,34 @@ framework end-to-end acceptance. Source-bound daily/smoke and the existing D1
 campaign follow the code commit. Both-platform/Python-version and remaining
 handoff fault acceptance still determine #53 completion.
 
+Clean inspected code source_commit
+`6df2f5c6ec07d27965266acb57c9678a04dd8cca` passed canonical daily check
+(67 source tests, Go tests/vet,1846 Python tests plus106 subtests,88 skips)
+and Go/Python real DB/Live source smoke on macOS arm64 / Go1.26.10 / Python3.14.
+The focused entry/ownership suites passed156 tests plus12 subtests, and a
+separate pinned Django6.1.2/mysqlclient2.2.7/pytest9.0.2/pytest-django4.12.0
+environment passed all72 framework/ownership/policy tests without optional
+Django skips.
+
+The same clean code and host passed the existing D1 source-entry serial
+campaign's20 cases and xdist campaign's15 cases, now with cap1 and finite-wait
+assertions, using Python3.14 and the repository's fixed framework requirements.
+This includes standard runner and pytest, class failure/skip, preparation/busy
+source/migration failure, repeated runs, load/loadscope, idle/controller checks,
+crash/replacement workers and controlled cleanup failure. The existing no-restore
+mutation is still detected as an expected negative control. A same-source
+BrowserEntry cap2 test passed with real MariaDB/Live and controlled app/browser
+hooks. These are local source-entry checks, not installed-wheel, macOS15,
+Ubuntu or Python3.11 acceptance.
+
+The D1 runner's host identity guard initially refused the linked-worktree build
+because pinned Go1.26.10 detects only a directory `.git` and omitted VCS metadata.
+An independent regular checkout of the exact commit produced the accepted host;
+build-info confirms `vcs.revision=6df2f5c6ec07d27965266acb57c9678a04dd8cca`
+and `vcs.modified=false`. The runner's guard was not weakened, and refused
+preflights did not execute the application campaign. The next commit only
+records these verification results; head CI remains separate.
+
 ## Previous checkpoint — control and core Python SDK
 
 Implementation continues from inspected source_commit

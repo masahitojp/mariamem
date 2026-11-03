@@ -62,6 +62,9 @@ cap1, independent auto resolution and cleanup refusal. Existing installed D1
 serial/xdist owners now assert cap1 and finite waits. The full both-host
 acceptance table remains unfinished. This is a draft candidate rather
 than adopted support on main.
+Clean `6df2f5c6` passed local daily/source smoke and D1's20 serial/15 xdist
+source-entry cases on macOS arm64 / Python3.14, plus the real Live cap2 entry
+sequence. Installed-wheel and other platform/interpreter cells are not implied.
 The next checkpoint addresses the startup/cleanup ownership gap: internal typed
 owners retain late execution/session joins, borrowed backing and dependent file
 cleanup. Original operation failures and stored Close results remain failures.
