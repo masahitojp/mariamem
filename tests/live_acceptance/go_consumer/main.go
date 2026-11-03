@@ -72,10 +72,24 @@ func run() error {
 	if err != nil {
 		return err
 	}
+	defer spare.Close()
 	busy := live.Reset(ctx, mariamem.ResetOptions{})
 	if !errors.Is(busy, mariamem.ErrBusy) || live.Status().State != "ready" || live.Status().Generation != 0 {
 		spare.Close()
 		return fmt.Errorf("capacity busy changed current Live: %w", busy)
+	}
+	check, err := sql.Open("mysql", live.DSN())
+	if err != nil {
+		return err
+	}
+	var kept int
+	err = check.QueryRowContext(ctx, "SELECT SUM(n) FROM live_user").Scan(&kept)
+	check.Close()
+	if err != nil {
+		return err
+	}
+	if kept != 3 {
+		return errors.New("capacity busy changed Live data")
 	}
 	if err = spare.Close(); err != nil {
 		return err

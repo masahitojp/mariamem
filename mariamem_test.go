@@ -519,7 +519,8 @@ func (c heldStartupContext) Err() error {
 }
 
 func TestConcurrentForkCloseOwnership(t *testing.T) {
-	s := &Snapshot{backing: goodBacking(t), opts: Options{NativeDir: "unused"}}
+	limit, _ := forklimit.New(2)
+	s := &Snapshot{backing: goodBacking(t), opts: Options{NativeDir: "unused"}, limit: limit}
 	entered := make(chan struct{}, 2)
 	release := make(chan struct{})
 	var once sync.Once
@@ -782,6 +783,19 @@ func TestAlreadyCompletedStartupCleanupDoesNotPoisonAdmission(t *testing.T) {
 	if !errors.Is(err, cause) {
 		t.Fatal("failure was rewritten")
 	}
+}
+
+func TestCleanupCauseCannotMasqueradeAsClosedParent(t *testing.T) {
+	s := controlledSnapshot(t, 1)
+	lease, _ := s.forkLimit().TryAcquire(false)
+	_ = lease.Activate()
+	lease.Settle(forklimit.ErrClosed)
+	_, err := s.Fork(context.Background())
+	var detail *HostError
+	if !errors.As(err, &detail) || detail.Code != "unusable" || detail.Stage != "fork_admission" || detail.Closed || s.closed {
+		t.Fatal(err)
+	}
+	lease.Settle(nil)
 }
 
 func TestConsumedChildCaptureSettlesOnlyItsParentLease(t *testing.T) {

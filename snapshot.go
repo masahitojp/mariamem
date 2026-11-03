@@ -146,10 +146,10 @@ func (s *Snapshot) Close() error {
 func forkAdmissionError(err error) error {
 	code, stage, closed := "pool_timeout", "fork_wait", false
 	switch {
-	case errors.Is(err, forklimit.ErrClosed):
-		code, closed = "closed", true
 	case errors.Is(err, forklimit.ErrCleanup):
 		code, stage = "unusable", "fork_admission"
+	case errors.Is(err, forklimit.ErrClosed):
+		code, closed = "closed", true
 	case errors.Is(err, forklimit.ErrFull):
 		code = "busy"
 	case errors.Is(err, forklimit.ErrLease):
