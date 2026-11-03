@@ -9,7 +9,13 @@ performance. The Human explicitly accepted known waste removal as the rationale;
 this selection adds no speedup claim or performance campaign.
 
 Reviewed runtime source_commit: `365a082bada9b5d3740d467739718d10cd155ca4`.
-Integration base: `954231bf7451f7b45bdbeb453a144204286eea18`.
+Original selection base: `954231bf7451f7b45bdbeb453a144204286eea18`.
+Before integration, main advanced to
+`b7d4f90ece837a422d2ea8217dfd09a61ee7feaa` (PR #80, D1 usage documents only).
+That base is merged into the final candidate; runtime/generator objects remain
+identical to the accepted source. The earlier daily PR run 41598512834 passed
+all three required checks; strict freshness requires a new PR run after this
+base update. No heavy guest acceptance is repeated for documentation alone.
 [Run 41571252134](https://github.com/masahitojp/mariamem/actions/runs/41571252134)
 succeeded in all three jobs. The [checksummed receipt](issue63-canonical-adoption/ci-41571252134/receipt.json)
 contains exact source, job URLs, four verified ZIP digests and unchanged runtime
