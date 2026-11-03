@@ -116,11 +116,11 @@ func (s *Snapshot) forkReserved(ctx context.Context, lease *forklimit.Lease) (*D
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	if s.closed || s.backing == nil {
-		lease.Settle(nil)
+		lease.Cancel()
 		return nil, hostError(ErrClosed, "closed", true)
 	}
 	if err := lease.Activate(); err != nil {
-		lease.Settle(nil)
+		lease.Cancel()
 		return nil, forkAdmissionError(err)
 	}
 	timing.Mark(ctx, "snapshot_handle_ready")

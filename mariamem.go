@@ -96,11 +96,7 @@ func startLeased(ctx context.Context, opts Options, restore *stored.Owned, lease
 	defer func() {
 		if lease != nil && err != nil {
 			// All allocating startup failures carry typed cleanup ownership.
-			if len(disposal.Owners(err)) != 0 {
-				lease.TrackCleanup(err)
-			} else {
-				lease.Settle(nil)
-			}
+			settleStartupLease(lease, err)
 		}
 	}()
 	ctx, finishTiming := timing.Begin(ctx, "api_startup")
@@ -225,12 +221,33 @@ func (db *Database) settleFork(err error, confirmed bool) {
 	if db.lease == nil {
 		return
 	}
-	if len(disposal.Owners(err)) != 0 {
+	if db.captureDebt != nil {
+		db.lease.Settle(err)
+		return
+	}
+	if cleanupPending(err) {
 		db.lease.TrackCleanup(err)
 	} else if err == nil || confirmed {
 		db.lease.Settle(nil)
 	} else {
 		db.lease.Settle(err)
+	}
+}
+
+func cleanupPending(err error) bool {
+	for _, owner := range disposal.Owners(err) {
+		if !owner.Complete() {
+			return true
+		}
+	}
+	return false
+}
+
+func settleStartupLease(lease *forklimit.Lease, err error) {
+	if cleanupPending(err) {
+		lease.TrackCleanup(err)
+	} else {
+		lease.Settle(nil)
 	}
 }
 

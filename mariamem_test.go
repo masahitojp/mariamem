@@ -748,6 +748,42 @@ func TestSnapshotLimitValidationPreservesSource(t *testing.T) {
 	}
 }
 
+func TestDuplicateReservationCannotReleaseAnotherChild(t *testing.T) {
+	s := controlledSnapshot(t, 1)
+	lease, _ := s.forkLimit().TryAcquire(false)
+	if err := lease.Activate(); err != nil {
+		t.Fatal(err)
+	}
+	defer lease.Settle(nil)
+	if db, err := s.forkReserved(context.Background(), lease); db != nil || !errors.Is(err, forklimit.ErrLease) {
+		t.Fatal(db, err)
+	}
+	if _, err := s.forkLimit().TryAcquire(false); !errors.Is(err, forklimit.ErrFull) {
+		t.Fatal("duplicate start released existing child", err)
+	}
+}
+
+func TestAlreadyCompletedStartupCleanupDoesNotPoisonAdmission(t *testing.T) {
+	s := controlledSnapshot(t, 1)
+	lease, _ := s.forkLimit().TryAcquire(false)
+	_ = lease.Activate()
+	owner := disposal.New(func(context.Context) error { return nil })
+	if err := owner.Retry(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	cause := errors.New("startup failed before cleanup was observed")
+	err := disposal.Retain(cause, disposal.ErrPending, owner)
+	settleStartupLease(lease, err)
+	next, e := s.forkLimit().TryAcquire(false)
+	if e != nil {
+		t.Fatal("already confirmed disposal blocked admission", e)
+	}
+	next.Cancel()
+	if !errors.Is(err, cause) {
+		t.Fatal("failure was rewritten")
+	}
+}
+
 func TestConsumedChildCaptureSettlesOnlyItsParentLease(t *testing.T) {
 	for _, consumed := range []bool{false, true} {
 		t.Run(map[bool]string{false: "preserved", true: "consumed"}[consumed], func(t *testing.T) {
