@@ -40,7 +40,29 @@ reservation return, two failed disposals followed by retry, and another owner's
 debt. Controlled cleanup failure evidence is distinguished from actual guest faults.
 The existing Go source/installed consumer now includes actual cap1 wait/release,
 timeout survival, parent Close with a live child and recapture, plus Live's spare
-slot busy path. Its runtime result is recorded after the code commit.
+slot busy path, including SQL row survival after busy refusal and wait timeout.
+
+On 2026-11-04, clean inspected source_commit
+`8c4a65a34133fb6d12417119c5d61aee272c9928` passed canonical daily check
+(67 source tests, Go daily tests/vet, 1808 Python tests plus100 subtests,85 skips)
+and Go/Python real DB/Live source smoke on macOS arm64 / Go1.26.10 / Python3.14.
+The Go consumer's assertions cover the new cap1/2 behavior; unchanged Python
+smoke remains a lifecycle regression check, not Python capacity acceptance.
+Focused race tests passed on the modified Go boundaries before the code commit.
+
+The first daily attempt detected the moved G1 skip-backing-release mutation
+anchor. The control now skips the extracted `backing.Close()` assignment, keeps
+its same physical descriptor-retention oracle, and was actually executed with a
+Go overlay: the named consumed-capture test failed semantically as required.
+Its28 source/receipt validation tests also passed. This updates the detector
+without weakening it or relabeling an older receipt. Extra regressions reject
+duplicate reservation activation without releasing an existing child, preserve
+cleanup-vs-parent-closed error priority, and return a startup slot when cleanup
+was already confirmed before the failure was observed.
+
+The following commit adds only this record to the tested source. New head CI is
+separate; earlier checkpoint results remain pinned to their original sources.
+Ubuntu execution and full #53 both-host/cross-language acceptance are pending.
 
 Remaining work is the shared-control protocol and Python together, then supplied
 Python fixtures/E2E/D1 and both-host fixed acceptance. The old Python handoff has
