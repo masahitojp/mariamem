@@ -1218,11 +1218,6 @@ func Fn132(m *base.Module) {
 func Fn133(m *base.Module, l0 int32) {
 	return
 }
-func Fn134(m *base.Module, l0 int32) {
-	base.Wasm_trap_unreachable()
-	for {
-	}
-}
 func Fn135(m *base.Module, l0 int32) {
 	mBase := m.M
 	_ = mBase
@@ -18182,6 +18177,9 @@ func Fn1160(m *base.Module, l0 int32, l1 int32) int32 {
 		v9 = l1&int32(-16) + int32(16)
 	}
 	return v9
+}
+func Fn1161(m *base.Module, l0 int32) int32 {
+	return int32(1040)
 }
 func Fn1164(m *base.Module, l0 int32) {
 	mBase := m.M
