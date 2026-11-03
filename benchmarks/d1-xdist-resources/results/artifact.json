@@ -1,0 +1,12 @@
+{
+  "wheel_sha256": "9c26c0b95b3e80766c259bb5ae87adb692418184a48a9775a72dbd23c02d1cd2",
+  "host_sha256": "81876462fd73cdd288e91b8fd6eec1a704b0bd36d5e932bf416d76d47fa07c9d",
+  "host_source_commit": "d99f07cd16a8a11c1644225206a3d1fcc0a39edd",
+  "ci_run": 41457221670,
+  "go_build_info": "build/experiment-work/d1-xdist-resources/temp/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261102135432-d99f07cd16a8\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=d99f07cd16a8a11c1644225206a3d1fcc0a39edd\n\tbuild\tvcs.time=2026-11-02T13:54:32Z\n\tbuild\tvcs.modified=false\n",
+  "machine": {
+    "cpu": "Apple M1",
+    "logical_cpus": 8,
+    "memory_gib": 16
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "source_commit": "39998ac0fd90c1aea2bff055bb635fdfb685adf5",
+  "host_source_commit": "d99f07cd16a8a11c1644225206a3d1fcc0a39edd",
+  "host_sha256": "81876462fd73cdd288e91b8fd6eec1a704b0bd36d5e932bf416d76d47fa07c9d",
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "sampling": "ps RSS KiB, 100ms wait plus ps execution; sum may double-count shared pages",
+  "versions": {
+    "Django": "6.1.2",
+    "pytest": "9.0.2",
+    "pytest-django": "4.12.0",
+    "pytest-xdist": "3.8.0",
+    "execnet": "2.1.2",
+    "mysqlclient": "2.2.7"
+  }
+}
