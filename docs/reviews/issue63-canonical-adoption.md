@@ -1,5 +1,9 @@
 # Issue #63 canonical product candidate
 
+This is the authoring/first-CI checkpoint. The later successful acceptance and
+final selection are recorded in [the final selection](issue63-final-selection.md);
+the pending/failure statements below describe their original checkpoint.
+
 Human approved incorporation on 2026-11-03 for the clear, local removal of wasted
 allocation/zeroing, accepting the small observed RSS benefit without a speedup
 claim. [The decision](../decisions/buffer-pool-alignment.md) records that scope.

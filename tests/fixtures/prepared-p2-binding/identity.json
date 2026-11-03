@@ -56,5 +56,13 @@
   "long_data_guest_sha256": "f5ce001d5bad34e766c3f92b6d83f429ad6767153971fc219b52d37563fb496a",
   "prior_alignment_guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
   "alignment_binding_source_commit": "1b0a0c5c569c49f3643550911d62d85d351f15fb",
-  "alignment_binding_note": "Canonical revalidation required; expected whole function, memory initialization and TLS/data identities are unchanged."
+  "alignment_binding_note": "Canonical exact-body/data binding and both-host runtime controls accepted on source 365a082bada9b5d3740d467739718d10cd155ca4; authoring identity retained separately.",
+  "alignment_acceptance": {
+    "source_commit": "365a082bada9b5d3740d467739718d10cd155ca4",
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41571252134",
+    "platforms": [
+      "darwin-arm64",
+      "ubuntu24.04-x86_64"
+    ]
+  }
 }

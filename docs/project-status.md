@@ -14,25 +14,30 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Issue #63 buffer-pool alignment — adoption direction approved, canonical candidate pending
+## Issue #63 buffer-pool alignment — bounded acceptance PASS, protected integration pending
 
 On 2026-11-03 the Human approved incorporating the local allocation correction
 because it removes known unnecessary work. The [decision](decisions/buffer-pool-alignment.md)
 accepts that narrow rationale and the small observed retained-RSS saving;
 CPU/batch improvement is not established and queue latency remains unmeasured.
 The [original experiment](https://github.com/masahitojp/mariamem/blob/964a4cabcb6f2b2b0fa6828319ae3c362dfc8908/benchmarks/buffer-alignment-source.md)
-retains its INCONCLUSIVE performance conclusion and source identities.
+retains its INCONCLUSIVE performance conclusion and original source identities.
 
 [Issue #63](https://github.com/masahitojp/mariamem/issues/63) belongs to
-[v0.7.0](https://github.com/masahitojp/mariamem/milestone/4). Prepare the smallest
-canonical candidate from main, retaining zero-fill/failure/release contracts and
-normal guest/binding/generated-source guards. No experiment-only installer or
-observer is adopted. Canonical source/Go authoring and local correctness checks pass as recorded in
-[the checkpoint](reviews/issue63-canonical-adoption.md); the first candidate CI passed independent guest reproduction and both-host Go
-regeneration/J1 controls but failed at an omitted Connector/Python dependency.
-The workflow dependency is corrected; complete supported-host candidate CI
-remains pending before integration. This approval does not
-publish a version or start release Qualification.
+[v0.7.0](https://github.com/masahitojp/mariamem/milestone/4).
+[CI41571252134](https://github.com/masahitojp/mariamem/actions/runs/41571252134)
+on source_commit `365a082bada9b5d3740d467739718d10cd155ca4` passed two independent
+canonical guest builds and both supported hosts' Go regeneration, J1, runtime,
+license and build-provenance controls. The first failed dependency receipt stays
+bound to its original source. See the [verified receipt](reviews/issue63-canonical-adoption/ci-41571252134/receipt.json)
+and [final selection](reviews/issue63-final-selection.md).
+
+PR #76 restores temporary CI and retains only the minimal canonical source,
+generated/binding/provenance updates and permanent allocator regression check.
+Runtime-tree identity permits reuse of the successful bounded acceptance;
+normal strict-base protected PR checks remain required before main integration.
+No public API or I/O default changes, speedup claim, new performance campaign,
+Qualification, version selection or publication are included.
 
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 

@@ -1,7 +1,7 @@
 {
   "compiled_guest_source_scope": "MariaDB12.3.3 canonical prepared/routine/text owners plus scoped buffer-pool alignment; no experimental.patch",
-  "completed": false,
-  "full_guest_regeneration": false,
+  "completed": true,
+  "full_guest_regeneration": true,
   "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
   "guest_size": 18405462,
   "linked_guest_sha256": "f501e8bab180cc82965e3024b84a10c73e5892426bdd1a5750ed212639193fb9",
@@ -294,9 +294,13 @@
     {
       "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
       "linked_sha256": "f501e8bab180cc82965e3024b84a10c73e5892426bdd1a5750ed212639193fb9"
+    },
+    {
+      "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
+      "linked_sha256": "f501e8bab180cc82965e3024b84a10c73e5892426bdd1a5750ed212639193fb9"
     }
   ],
-  "source_commit": "1b0a0c5c569c49f3643550911d62d85d351f15fb",
+  "source_commit": "365a082bada9b5d3740d467739718d10cd155ca4",
   "toolchain": {
     "archives_sha256": {
       "binaryen": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",
@@ -328,12 +332,21 @@
       "lld": "LLD 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)",
       "llvm": "clang version 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /root/.wasixcc/llvm/bin",
       "make": "GNU Make 4.3\nBuilt for aarch64-unknown-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
-      "python": "Python 3.12.3",
+      "python": "Python 3.14.9",
       "wasixcc": "wasixcc 0.4.7"
     }
   },
   "ci_evidence": {
-    "status": "PENDING canonical two-source-build and both-host candidate acceptance; no earlier receipt relabelled"
+    "status": "PASS: bounded canonical candidate; not Qualification or release approval",
+    "source_commit": "365a082bada9b5d3740d467739718d10cd155ca4",
+    "run_id": 41571252134,
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41571252134",
+    "receipt": "docs/reviews/issue63-canonical-adoption/ci-41571252134/receipt.json",
+    "independent_generation_files": 104,
+    "platforms": [
+      "darwin-arm64",
+      "ubuntu24.04-x86_64"
+    ]
   },
   "incoming_guest_origin": {
     "source_commit": "1b0a0c5c569c49f3643550911d62d85d351f15fb",
@@ -355,5 +368,6 @@
       ]
     },
     "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40"
-  }
+  },
+  "canonical_build_sha256": "c095a06a6d9c532ab11b8abe26ffc698a1bf81d3c1ed98ea2c3637260c7bcccd"
 }
