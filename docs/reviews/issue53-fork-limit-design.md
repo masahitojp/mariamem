@@ -53,6 +53,10 @@ Local product source_commit: `8f42948340265ce38fde2d1fa6b2f82bf14ae9d2`
   ownership have existing regression tests. `mariamemtest/http.go` and
   `python/mariamem/e2e.py` hide their baseline creation, so their configuration
   needs an explicit cap override when an automatic result of one prevents Live.
+- D1 `python/mariamem/django/{_database,_lifecycle,_cases,_runner,pytest_plugin,_xdist}.py`:
+  run baseline, consumed class-setup source, class baseline, per-test children
+  and final Django DROP child all use the same Snapshot/Fork product surface.
+  D1 is an explicit target, not covered implicitly by generic Python fixtures.
 
 pgmem reference source_commit:
 `a61005d37d01e6671f814fe8ca828222e8147df4`, GitHub commit API tree
@@ -191,6 +195,30 @@ do not fill a large automatic cap merely to demonstrate that it exists. Change
 the budget if a concrete ordinary workload shows the default over-admits or
 unnecessarily restricts it; record a new decision instead of silently tuning.
 
+**CPU / latency limitation (G2):** auto is a memory-budget heuristic, not a
+CPU-optimal or latency-optimal concurrency setting. A16 GiB memory limit may
+select16 even on a much smaller CPU allocation. For latency-sensitive suites,
+set an explicit positive MaxForks and compare whole-suite and tail behavior
+under the intended workload. Usage docs and unreleased notes must say this next
+to the automatic-default example, not only in this design. Neither this formula
+nor passing CI proves a performance improvement.
+
+The observed eight guest worker starts per DB are not eight continuously running
+CPU cores or dedicated OS threads: `code/base/base.go:ThreadLaunch/ThreadSpawn`
+runs guest workers as goroutines. [Go's scheduler](https://go.dev/blog/container-aware-gomaxprocs)
+multiplexes those goroutines; GOMAXPROCS limits simultaneous Go execution in one
+process, not the total number of guest workers. More children can still add
+queueing, synchronization and CPU costs. The cited P4/P8 report observed lower
+wall but higher CPU at P8 in all three paired rounds; it does not establish a
+universal P4 plateau or extrapolate P16. Thread-count multiplication alone is
+not a sizing oracle.
+
+An alternative `min(memory_cap, CPU_budget)` remains a possible policy change,
+not selected by this revision. It would need explicit treatment of affinity,
+container quotas, user GOMAXPROCS overrides and multiple hosts/workers, and can
+unnecessarily limit I/O-heavy workloads. No new CPU campaign or implicit change
+to the agreed automatic formula is introduced to close the documentation gap.
+
 For direct `Database(snapshot=saved)` / `start(snapshot=saved)`, enforce the
 same host-owned limit. Add `fork_timeout=None` to that constructor as the
 equivalent slot timeout; a non-None value without a Snapshot is invalid.
@@ -212,14 +240,55 @@ its options rather than accepting two conflicting deadlines.
   or increase max_forks". Distinguish capacity waiting from startup failure.
   Do not diagnose OOM or a leaked child without evidence; no periodic log service.
 
-Python must not keep the current `startup_timeout + 15` response deadline while
-waiting for a slot: that would terminate a valid long queue wait. For
-same-host Fork, let the host own wait/start deadlines and await the terminal
-reply (`response_timeout=None`); EOF/fatal-host failure and KeyboardInterrupt
-still use existing cancellation/late-owner paths. This does not promise a hard
-wall deadline for uncooperative cleanup. Root Start keeps its existing response
-watchdog. A finite user wait timeout does not justify
-releasing a slot before a late-started child has actually been disposed.
+**Python response watchdog (G3):** retract the earlier `response_timeout=None`
+proposal for Fork. A live but nonresponding host must cause a finite control
+error even when the user permits indefinite capacity waiting. Separate capacity
+acquisition from runtime startup; an unlimited slot wait never means an unlimited
+wait for one host reply.
+
+1. A private nonblocking `fork_reserve` request returns full, closed/debt, or a
+   unique reserved lease. Each request has a5-second send/reply watchdog,
+   shortened by the remaining finite slot-wait budget. While responsive replies
+   say full, retry at250ms intervals (sleep no longer than remaining budget).
+   Check local Snapshot closure and interruption between attempts. There is only
+   one outstanding reservation attempt per caller, not an accumulating poll queue.
+2. `fork(timeout=None)` may repeat responsive full replies indefinitely. A
+   finite timeout uses a monotonic deadline over all attempts/sleeps. Ordinary
+   full-pool expiry is `pool_timeout/fork_wait`; an unresponsive control exchange
+   reports a control TimeoutError with `fork_reserve` context, not a false
+   diagnosis that the user merely forgot to close a child.
+3. Once reserved, send startup with that lease and retain the existing
+   `startup_timeout + 15` response watchdog. The host applies startup_timeout
+   after admission. A changed capacity cannot cause startup to wait again.
+   Preserve the current bounded db_close/Session-reap handling. Cleanup may
+   outlast the caller's deadline; report that debt rather than claim disposal.
+4. The host holds no backing RLock across RPCs. Parent Close invalidates unused
+   reservations and wakes/fails their owners; start atomically consumes a live
+   reservation and pins backing. Already-started children retain their lifetime.
+   Reservation tokens cannot be replayed, double-consumed or settle a different
+   child's lease. Close does not wait for an abandoned pre-start reservation.
+5. Timeout/cancel transfers ownership to the pending/late-reply owner. A late
+   unused reservation must be cancelled; a late-created DB must be closed before
+   its lease is released. Neither an elapsed watchdog nor `closed=True` proves
+   resource disposal. Do not retry an ambiguous reservation automatically.
+
+Apply bounded control exchanges to handoff reservation/export/start/settlement
+as well: reserve5s; export uses startup_timeout+15; target startup uses its
+startup_timeout+15; settlement uses5s. They are separate bounds, not a claimed
+single end-to-end timeout. A caller cannot block forever while writing a control
+request or sending cancellation: the watchdog must cover submission/write as
+well as reply. Use a Session-owned bounded writer/submission mechanism and
+best-effort nonblocking cancel scheduling, not one leaking thread per timeout.
+Keep a blocked writer owned until transport closure/reap; do not close the
+shared host merely to satisfy one request's deadline. This affected transport
+boundary needs the stuck-reader test below, not just a fake delayed reply.
+
+The supplied pytest fixture gets a session-scoped `mariamem_fork_timeout`, default
+30 seconds, requiring a positive finite value, and passes it to every fork.
+It cannot select an infinite wait. A closed-over child exhausting cap1 produces
+a readable fixture acquisition failure and stops admission according to P1.
+Custom direct API code can deliberately choose None, with explicit ownership
+responsibility. Root Start's current watchdog is retained.
 
 ## Accounting and ownership
 
@@ -234,6 +303,7 @@ and xdist workers do not share a global budget.
 | --- | --- |
 | Request while full | Wait without allocating a runtime or holding the backing/manager lock. |
 | Admit | Atomically check open, healthy and available; take one lease and pin backing for startup. |
+| Python reserved, not started | Count the slot, but do not hold a backing lock across requests; parent Close revokes the reservation. Startup atomically rechecks and consumes it. |
 | Successful startup | Transfer the lease to the child before publishing it. |
 | Startup failure/cancel before publication | Dispose partial ownership, then return the lease once; retain original and cleanup errors. |
 | Successful DB Close | Return once after runtime workers and owned resources finish cleanup. |
@@ -287,10 +357,10 @@ earlier rejection proposal. The existing explicit Python host_binary override
 continues to work with matching guest identity and the new control capability.
 It consumes a slot on its original Snapshot, not an unrelated target-host cap.
 
-1. Before creating a target Session or exporting files, ask the source host to
-   acquire one slot with the same fork wait timeout. Atomically admit and export
-   under the existing backing protection; return the private transfer and a
-   unique lease handle. Failed export returns the slot only after cleanup.
+1. Before creating a target Session or exporting files, acquire one source-host
+   reservation with the bounded protocol above. Export atomically consumes that
+   reservation under existing backing protection; return the private transfer
+   and its unique lease handle. Failed export returns the slot only after cleanup.
 2. The lease owns admission state independently of the Snapshot registry entry.
    Closing the parent after export must not erase the lease or invalidate a
    successful child's lifetime. The Python pending-transfer owner retains both
@@ -324,6 +394,52 @@ saved Snapshot, remote service, lease expiry or crash-recovery promise is added.
 This is a design, not an implemented proof that these races are handled. The
 fixed handoff cases below must pass before claiming #53 complete.
 
+### D1 prepared Django lifecycle (G1)
+
+Add `max_forks=None` and `fork_timeout=30` to the declaration-only
+`prepared_database(...)` entry. Validate at declaration without starting a host;
+max_forks follows the SDK rules and fork_timeout must be positive and finite.
+Keep these settings separate from `options` forwarded to root start. Thread them
+through Configuration/Owners: every run or class capture passes max_forks, and
+every ordinary or teardown Fork passes fork_timeout. D1 uses the same SDK limit
+and watchdog; it has no independent semaphore or bypass. Publish these settings
+in docs/django-prepared.md with a cap1 example.
+
+Auto is resolved by the owning Go host at each successful capture: the run
+baseline and each class baseline have distinct immutable budgets. It is not
+inherited from the original resolved number or shared across all classes. An
+explicit max_forks=1 is applied to every capture in that configuration.
+
+The normal cap1 sequence must be executable:
+
+```text
+run baseline R -> class-setup DB C     R occupied: 1
+capture C -> class baseline S         R occupied: 0 (C consumed/disposed)
+S -> test child T -> close T          S occupied: 1 -> 0, repeated per test
+class cleanup closes S               R remains available
+R -> final DROP child -> close        R occupied: 1 -> 0
+```
+
+Do not assume that healthy ordering proves failure cleanup. Current
+`Manager.finish_databases()` requests its fresh teardown child BEFORE closing
+other owners; a preserved class source may still occupy R's only slot. Reorder
+finalization to quiesce and retire remaining mutable children/class baselines
+while retaining R, then request the teardown child. A class-setup failure before
+capture, preserved capture rejection and a consumed capture error need distinct
+tests. If R is poisoned or disposal cannot be confirmed, do not wait indefinitely
+or grant an emergency slot: retain the original/cleanup causes, fail teardown,
+and execute the remaining owner cleanup. Do not let Django DROP run on a closed
+or wrong DB. Finalization may bypass the test-admission latch only when actual
+disposal is confirmed and R itself is healthy; it never bypasses the SDK cap.
+
+For pytest-xdist retain the supported explicit local -n N / load / loadscope
+profile. Each DB-using worker owns its own root/class baselines and resolves auto
+in its own host. No controller or DB-free worker acquires; a replacement worker
+starts fresh. Caps do not divide memory/CPU budgets by worker count, and are not
+a run-wide maximum. Recommend explicit per-Snapshot max_forks and independently
+chosen -n for resource-sensitive suites. Existing serial-in-worker execution is
+unchanged; no new parallel classes, Django --parallel or shared worker baseline.
+
 ## Implementation boundaries proposed
 
 1. One internal admission/lease primitive shared by public Go Snapshot and
@@ -332,7 +448,7 @@ fixed handoff cases below must pass before claiming #53 complete.
    startup-failure and Close paths. Where existing cleanup returns only an
    undifferentiated error, add a private disposal outcome; do not infer success
    from an error code. Audit ignored startup cleanup errors before reuse.
-3. Shared control adds max_forks and fork-wait timeout fields and a capability
+3. Shared control adds max_forks, bounded reservation/start operations and a capability
    `fork-limit-v1`. Python checks it before every capture, rejecting an old host
    without consuming the DB; never let an old host silently ignore the limit.
    Preserve cancel/EOF/late-response handling and session retain/release counts.
@@ -353,7 +469,7 @@ fixed handoff cases below must pass before claiming #53 complete.
    by the supplied `mariamem_snapshot` to capture. Validate before its preparation
    callback/command. Custom snapshot fixtures can pass max_forks directly.
    None selects the host's automatic default. xdist limits apply independently
-   per worker; no extra CLI setting or D1 redesign.
+   per worker; add finite mariamem_fork_timeout as above. No extra CLI setting.
 7. The owned E2E entries need a usable override: add `MaxForks` to Go HTTPConfig
    and `max_forks` to Python e2e.Config, with zero/None selecting the shared
    automatic policy. Validate explicit values before preparation and pass them
@@ -361,6 +477,11 @@ fixed handoff cases below must pass before claiming #53 complete.
    the source; an auto result1 reports the Live requirement without silently
    expanding its budget. Include an explicit2 guide example. Existing app hooks,
    stable-endpoint semantics and failure admission remain unchanged.
+8. D1 is explicitly in scope: declaration settings, run/class capture propagation,
+   finite ordinary/finalization waits and teardown ordering above. Keep its
+   deferred startup, native Django preparation, class/test isolation, failure
+   latch and local xdist contract. This is a compatibility extension, not a new
+   framework lifecycle or expansion of supported Django modes.
 
 Guest/WASM/generated source, wire connection count, runtime SQL behavior,
 prewarming/pooling and performance tuning are outside this change. One-time
@@ -382,15 +503,26 @@ No RSS campaign, queue performance campaign or new qualification pipeline.
 | Disposal | Startup failure before/after allocation; cleanup failure poisons admission; original cause retained; double Close cannot release twice; consumed/preserved capture success/failure and late successful replies each have exactly one owner. |
 | Live | Cap one rejects; cap two create/reset passes; ordinary Fork can exhaust spare slot; reset busy preserves generation/data and becomes possible after release; drain failure returns reservation; replacement/cleanup failure does not over-admit. |
 | Python entry | Both fork spellings enforce cap; Session refs/cancel/late cleanup balanced; pytest option passes through without changing None/callable/PrepareCommand behavior; worker-local default remains. |
+| Python watchdog | Real control subprocess stays alive but never replies to reserve or startup, then independently stops reading stdin while its pipe fills. Finite caller failure covers send/reply/cancel; responsive-full polling honors finite and explicitly indefinite waits. Late reserve/start success has exactly one cleanup owner; repeat timeout cannot accumulate writer threads or release a running child. |
+| Supplied pytest wait | cap1 and an intentionally held child cause fixture failure at its finite default/configured deadline; no next-test admission, original diagnostic retained. Invalid/None fixture timeout rejects. Do not simulate success by killing the entire lineage. |
 | Handoff | Under cap1 a remote child blocks a same-host sibling until actual cleanup; parent Close preserves target SQL; resnapshot releases original slot only after consumed disposal; export failure, unsupported target, cancel before export response and after target creation, late success, unknown cleanup, target death and source death retain one owner; duplicate settlement cannot underflow. Retain existing different-binary/resnapshot real-host tests. |
 | Existing Go fixture | Default two, configured cap, pool-before-DB cleanup, debt stops admission and Close wakes waiters remain; prove matching finite caps and inner/outer occupancy invariant without an extra healthy capacity wait. |
 | Owned E2E entry | Explicit2 reaches the baseline, invalid1 rejects before preparation, automatic1 produces actionable Live failure, default/override still preserve first/second case reset and hook cleanup. |
+| D1 serial | cap1 through run capture, class setup/capture, two isolated per-test children, class cleanup and final DROP child; both PreparedTestCase and PreparedTransactionTestCase, standard runner and pytest. Each capture resolves auto independently in a controlled policy test; explicit cap propagates without acquisition at declaration. |
+| D1 failure/xdist | Class setup before capture fails; capture preserves/consumes on failure; child cleanup failure never hangs final DROP or reuses an uncertain slot. Existing local2-worker load/loadscope cases with cap1 per Snapshot preserve isolation and final cleanup; controller/idle workers acquire none, replacement workers receive the same settings. |
+| CPU documentation | Usage guides/release notes distinguish memory budget from CPU/latency optimality, explicit tuning and worker totals. Mechanical policy tests cannot prove a performance benefit; P16 and CPU-optimal settings remain unmeasured. |
 
 Use existing Go unit/race and Python unit owners, then a small public-API actual
 guest sequence (cap1/cap2, SQL isolation, timeout, child capture, parent Close,
 Live reset and existing cross-host roundtrip/resnapshot) on macOS arm64 and
 Ubuntu x86_64; Python3.11/3.14 wrappers. Existing
 platform CI/release owners should carry these cases; no new full resource matrix.
+Add the D1 cap cases to its existing installed-entry runner/profile owners and
+the existing tests/test_django_prepared_api.py, test_django_prepared_owners.py and
+test_django_xdist_policy.py as appropriate. Use tests/test_owned_snapshot_unit.py's
+real framed-control subprocess pattern for stuck-host controls, with an outer
+test timeout so a missing watchdog fails CI instead of hanging its job. These
+are future detector placements, not current coverage or a new framework matrix.
 Bind receipts to the tested candidate. Runtime cleanup failure injection remains
 controlled-owner evidence; do not claim to reproduce real-engine OOM.
 

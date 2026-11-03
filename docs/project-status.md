@@ -27,7 +27,13 @@ memory-based sizing, explicit positive overrides and a finite fallback.
 The concrete follow-up proposes256 MiB per Fork against one quarter of the
 selected memory limit, with finite CPU fallback, as a sizing heuristic rather
 than an OOM guarantee. It preserves development-host handoff with source-owned
-leases, and gives Live-based E2E entries an explicit cap override. Lifecycle/API
+leases, and gives Live-based E2E entries an explicit cap override. D1 prepared
+Django is explicitly included: per-run/class budgets, cap1 lifecycle, finite
+fork waits, teardown ordering and worker-local xdist acceptance. Python Fork
+keeps a response watchdog by separating bounded reservation from startup;
+supplied pytest waits default to30 seconds. Auto remains a memory heuristic,
+not a CPU/latency optimum; explicit tuning and worker totals must be documented.
+Lifecycle/API
 choices remain a proposal for review; no existing handoff behavior is removed.
 No new resource measurement, product implementation or CI has been run for this
 design. The milestone and publication decisions are unchanged. Prewarming remains
