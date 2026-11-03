@@ -2228,3 +2228,25 @@ generated-extra metadata and3 healthy Django6.0.9 source-entry assessments PASS.
 The prior6.1.2 probe is retained without rerun. Implementation is ready for
 normal protected integration; fresh opposite-platform6.x evidence is deferred
 to the next existing Release invocation under the Human's minimal-check request.
+
+
+## D1 current state — implemented on main, unreleased (2026-11-03)
+
+This current-state summary supersedes the earlier integration-pending headings.
+The agreed D1 scope is implemented: explicit prepared classes, deferred startup,
+routing exclusion, local xdist and Django5.2 LTS/6.0/6.1 support. Issues43,72
+and74 are closed. Local xdist merged through
+[PR73](https://github.com/masahitojp/mariamem/pull/73) at
+`ce423ff517cb1b97eae3d9b9a38e1c332a62447b`; Django6 support merged through
+[PR75](https://github.com/masahitojp/mariamem/pull/75) at
+`954231bf7451f7b45bdbeb453a144204286eea18`. Publication remains separate;
+latest published0.6.0 has no D1 prepared entry. The next Release invocation
+provides the fresh opposite-platform6.x acceptance described in its support receipt.
+
+[Worker configuration and sizing](django-prepared.md#configure-worker-count)
+now covers CLI/pytest.ini, explicit2/4 workers, serial override and measured
+RSS/preparation tradeoffs. [Issue77](https://github.com/masahitojp/mariamem/issues/77)
+is complete; its pinned experiment retains compact measurements, not a new
+product default or resource guarantee. Django manage.py --parallel, remote/auto
+workers, multiple aliases and routing integration remain outside the agreed
+scope rather than unfinished parts of this D1 implementation.
