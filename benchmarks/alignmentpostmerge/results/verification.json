@@ -1,0 +1,20 @@
+{
+  "result": "PASS_MEASURED_FIELDS_ONLY",
+  "observations": 38,
+  "serial_measured_children": 40,
+  "batch_measured_children": 960,
+  "negative_oracles": 2,
+  "aggregation_mutations_rejected": 4,
+  "sources_verified_before_and_after": true,
+  "harness_reused_unchanged": true,
+  "no_heavy_ci": true,
+  "adoption": "already integrated before measurement; not re-decided",
+  "queue": "out of scope",
+  "analyzer_sha256": "495cecafd138babd38f3bfc7ffac38867df13aab3f7dddcb8cdcadc84ac498a4",
+  "cleanup": {
+    "temp_removed": true,
+    "bytes_before_removal": 2096990101,
+    "clones_clean_before_removal": true,
+    "source_and_raw_preserved_in_git": true
+  }
+}

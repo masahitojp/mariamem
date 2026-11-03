@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [Post-merge buffer-pool alignment](alignment-postmerge.md): five paired local
+  comparisons of canonical pre/post-merge sources. Small held-RSS savings recur;
+  CPU increases in 4/5 pairs and batch timings vary. No speedup claim.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained

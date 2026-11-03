@@ -14,7 +14,7 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Issue #63 buffer-pool alignment — bounded acceptance PASS, protected integration pending
+## Issue #63 buffer-pool alignment — adopted on main; post-merge measurement recorded
 
 On 2026-11-03 the Human approved incorporating the local allocation correction
 because it removes known unnecessary work. The [decision](decisions/buffer-pool-alignment.md)
@@ -32,10 +32,17 @@ license and build-provenance controls. The first failed dependency receipt stays
 bound to its original source. See the [verified receipt](reviews/issue63-canonical-adoption/ci-41571252134/receipt.json)
 and [final selection](reviews/issue63-final-selection.md).
 
-PR #76 restores temporary CI and retains only the minimal canonical source,
+[PR #76](https://github.com/masahitojp/mariamem/pull/76) squash-merged on 2026-11-03
+to source_commit `ca7d6216bf662288ac326b693e9f272127657553` after
+[CI41601480777](https://github.com/masahitojp/mariamem/actions/runs/41601480777)
+passed all three protected checks on head
+`47ec4be422dab266c80597430cd0b84524c0e843`. It restores temporary CI and retains only the minimal canonical source,
 generated/binding/provenance updates and permanent allocator regression check.
 Runtime-tree identity permits reuse of the successful bounded acceptance;
-normal strict-base protected PR checks remain required before main integration.
+the strict-base protected integration is complete. A separately requested
+[post-merge five-pair measurement](../benchmarks/alignment-postmerge.md) reproduces
+small RSS savings, with Fork CPU increasing in 4/5 pairs; speedup remains unproven.
+The new observation does not relabel earlier evidence or start another investigation.
 No public API or I/O default changes, speedup claim, new performance campaign,
 Qualification, version selection or publication are included.
 

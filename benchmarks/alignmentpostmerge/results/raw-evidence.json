@@ -1,0 +1,8 @@
+{
+  "ref": "evidence/alignment-postmerge-20261103",
+  "sha256": "8c3c5c2b59e2865b0a11bb5f30624ebc485ae0d595491df4fef4faf8031a9a44",
+  "bytes": 569619,
+  "members": 91,
+  "normalization": "owned workspace prefix to <WORKSPACE>; each original and published hash in publication.json",
+  "commit": "2a8f01625a105713778f4a4bc4318b9e989380db"
+}

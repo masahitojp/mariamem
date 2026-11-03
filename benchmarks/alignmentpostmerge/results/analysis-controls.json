@@ -1,0 +1,21 @@
+{
+  "result": "PASS",
+  "controls": [
+    {
+      "mutation": "missing-run",
+      "rejected": true
+    },
+    {
+      "mutation": "duplicate-run",
+      "rejected": true
+    },
+    {
+      "mutation": "hidden-failure",
+      "rejected": true
+    },
+    {
+      "mutation": "leak",
+      "rejected": true
+    }
+  ]
+}

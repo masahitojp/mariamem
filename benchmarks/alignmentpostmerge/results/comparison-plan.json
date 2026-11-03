@@ -1,0 +1,39 @@
+{
+  "adoption": "Already approved/integrated scoped correction; this campaign measures rather than reopens adoption. Report opposing pairs; no significance claim.",
+  "baseline_source_commit": "b7d4f90ece837a422d2ea8217dfd09a61ee7feaa",
+  "budget": {
+    "active_minutes": 60,
+    "child_seconds": 120,
+    "disk_gib": 6,
+    "heavy_ci_runs": 0,
+    "min_free_gib": 12,
+    "per_build_seconds": 1200
+  },
+  "candidate_source_commit": "ca7d6216bf662288ac326b693e9f272127657553",
+  "candidate_source_commit_is_guest_origin": false,
+  "correctness": "pristine count1000/sum500500, independent update id1 to2, held children each sum500501, final active mappings/RW/reservation zero, empty owned scratch; controlled negative must fail and clean",
+  "fixture": "1000 rows (id,v)=(1,1)..(1000,1000), fork_probe InnoDB; TCP go-sql-driver/mysql1.9.3; read/write/purge=1/2/1 native_aio=0",
+  "host": {
+    "cgo": 0,
+    "go": "go1.26.10",
+    "gomaxprocs": 8,
+    "machine": "arm64",
+    "os": "macOS-27.2-arm64-arm-64bit"
+  },
+  "host_source_commit": "each pinned canonical production source; shared unchanged measurement harness",
+  "mechanism": "No observer or guest instrumentation; previously established mechanism is not re-measured.",
+  "preflight_correction": "No previous run receipts reused; canonical pre-merge and merge source identities are independently checked.",
+  "queue": "N/A, deliberately outside this remeasurement; no new probes or old Fn-anchor reuse.",
+  "result": "PLAN_BEFORE_POSTMERGE_MEASUREMENT",
+  "rss": "same process baseline to held1/2/4 deltas; GC then500ms idle at every checkpoint; ps current RSS in KiB; closed checkpoint also measured",
+  "runs": {
+    "batch": "five alternating pairs at P8 and separate five pairs at P4;48 independent children per process; root/Snapshot excluded; all child closes included",
+    "serial": "five alternating paired fresh processes, four sequentially held children; median within process then median across five",
+    "warmup": "one baseline/candidate fresh process per mode, excluded"
+  },
+  "sources_sha256": {
+    "common/common.go": "5adea162ccfd318558303c3916b71290eb6cd16dbe9aa2da2a590210eb5b8ed9",
+    "measure/main.go": "c1a40c0a7981285de5e02a09376f6e179a839bc1d72e0ee284d8cd4a98d52ddf"
+  },
+  "stop": "no retry until performance passes; five pairs fixed; any oracle/cleanup failure stops performance assessment; missing queue means overall four-field adoption verdict INCONCLUSIVE"
+}
