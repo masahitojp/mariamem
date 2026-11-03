@@ -115,6 +115,24 @@ def test_failed_unreturned_snapshot_close_is_retained_for_retry(remote):
     assert r.owner.done and r.source.releases == 1
 
 
+@pytest.mark.parametrize('cleanup_fails', [False, True])
+def test_late_capture_baseline_is_closed_even_after_original_slot_was_settled(remote, cleanup_fails):
+    r = remote
+    r.owner.finish({'disposed': True})
+    assert r.owner.done and r.source.releases == 1
+    if cleanup_fails:
+        def fail(**fields): raise OSError('late baseline cleanup failure')
+        r.target.handlers['snapshot_close'] = fail
+    r.owner.late_capture({'closed': True, 'disposed': True, 'snapshot': 22})
+    if cleanup_fails:
+        assert r.owner in r.source._handoffs
+        del r.target.handlers['snapshot_close']
+        r.owner.retry()
+    assert r.owner.pending_snapshot is None
+    assert r.source.releases == 1 and not r.source._handoffs
+    assert len([op for op, _ in r.target.calls if op == 'snapshot_close']) == (2 if cleanup_fails else 1)
+
+
 @pytest.mark.parametrize('submitted', [False, True])
 def test_unsent_start_and_unknown_start_have_different_disposal_requirements(remote, submitted):
     r = remote

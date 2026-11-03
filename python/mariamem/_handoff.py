@@ -133,10 +133,7 @@ class RemoteLease:
         if self.target._exited.is_set():
             self._clean_exited_target()
             return
-        if self.pending_snapshot is not None:
-            self.target.request("snapshot_close", handle=self.pending_snapshot,
-                                response_timeout=5, _cleanup=False)
-            self.pending_snapshot = None
+        self._close_pending_snapshot()
         if self.cleanup_token is not None:
             state = self.target.request("cleanup_status", cleanup=self.cleanup_token,
                                         response_timeout=5, _cleanup=False)
@@ -149,9 +146,24 @@ class RemoteLease:
             raise RuntimeError("target cleanup remains incomplete")
         self.target_done = True
 
+    def _close_pending_snapshot(self):
+        if self.pending_snapshot is None:
+            return
+        if self.target._exited.is_set():
+            self._clean_exited_target()
+        else:
+            self.target.request("snapshot_close", handle=self.pending_snapshot,
+                                response_timeout=5, _cleanup=False)
+            self.pending_snapshot = None
+
     def retry(self):
         with self._lock:
             if self.done:
+                # A consuming capture can reply after an independent Close
+                # already settled the original DB. Its unreturned baseline
+                # still needs disposal even though the source slot is done.
+                self._close_pending_snapshot()
+                self._drop_source()
                 return
             if not self.target_done:
                 self._retry_target()
@@ -242,15 +254,13 @@ class RemoteLease:
         if isinstance(reply, dict) and not reply.get("closed"):
             return
         with self._lock:
-            if self.done:
-                return
             if isinstance(reply, dict) and "snapshot" in reply:
                 self.pending_snapshot = reply["snapshot"]
                 try:
-                    self.target.request("snapshot_close", handle=self.pending_snapshot,
-                                        response_timeout=5, _cleanup=False)
-                    self.pending_snapshot = None
+                    self._close_pending_snapshot()
                 except Exception as exc:
+                    with self.source._lock:
+                        self.source._handoffs.add(self)
                     self._block(exc)
                     self._after_exit(self.target)
                     return
