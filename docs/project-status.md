@@ -27,8 +27,9 @@ retains its INCONCLUSIVE performance conclusion and source identities.
 [v0.7.0](https://github.com/masahitojp/mariamem/milestone/4). Prepare the smallest
 canonical candidate from main, retaining zero-fill/failure/release contracts and
 normal guest/binding/generated-source guards. No experiment-only installer or
-observer is adopted. Canonical preparation/generation and supported-host
-correctness remain to be verified before integration. This approval does not
+observer is adopted. Canonical source/Go authoring and local correctness checks pass as recorded in
+[the checkpoint](reviews/issue63-canonical-adoption.md); independent reproduction
+and supported-host candidate CI remain pending before integration. This approval does not
 publish a version or start release Qualification.
 
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
