@@ -1,6 +1,6 @@
 {
   "source_commit": "ab8c3503f35e6ded515e2e0c58efc508099f6baf",
-  "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
   "baseline_guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
   "previous_guest_sha256": "3bfb1030a0588aa0d8f64b7bcd0a220d0eae8f95a181b8e1ff5f99eaffa320a8",
   "functions": {
@@ -53,5 +53,16 @@
   "type_repair_guest_sha256": "41ab407681f537daed9b8f2d9c0ef5edc584f7d598399dd8d42ed8e1b13a0be0",
   "p2_guest_sha256": "4dad84d0b7eba16aa457d23e76fe82d8ae6836dc910545f2203fb5ad8030ba76",
   "p3_guest_sha256": "e6d6021a5753492169aeacbbc787e693e1730026b6da9960ef8c6ace296ac37a",
-  "long_data_guest_sha256": "f5ce001d5bad34e766c3f92b6d83f429ad6767153971fc219b52d37563fb496a"
+  "long_data_guest_sha256": "f5ce001d5bad34e766c3f92b6d83f429ad6767153971fc219b52d37563fb496a",
+  "prior_alignment_guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40",
+  "alignment_binding_source_commit": "1b0a0c5c569c49f3643550911d62d85d351f15fb",
+  "alignment_binding_note": "Canonical exact-body/data binding and both-host runtime controls accepted on source 365a082bada9b5d3740d467739718d10cd155ca4; authoring identity retained separately.",
+  "alignment_acceptance": {
+    "source_commit": "365a082bada9b5d3740d467739718d10cd155ca4",
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41571252134",
+    "platforms": [
+      "darwin-arm64",
+      "ubuntu24.04-x86_64"
+    ]
+  }
 }

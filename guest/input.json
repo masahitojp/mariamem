@@ -82,6 +82,20 @@
         "libmysqld/libmysql.c": "bb852ad028162f95bc43e6e7cb38d30b197398585f6deb07e94c08c9db2dff67",
         "libmysqld/lib_sql.cc": "9f1d1f9152032ec14a619cd48ebcb9ec62a057298c19d871876d5285cca02ec9"
       }
+    },
+    {
+      "file": "guest/patches/12.3.3-buffer-alignment.patch",
+      "sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622",
+      "before_sha256": {
+        "mysys/my_largepage.c": "a70dfe799d6e7091f4d5c8f8221a658171a309658010ef4c46dbf9ca832bbe4b",
+        "include/my_sys.h": "6bb33d3a73da64c1061541697bf6d546cc480b3dbcc0c640bc885fc0860b906f",
+        "storage/innobase/buf/buf0buf.cc": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1"
+      },
+      "after_sha256": {
+        "mysys/my_largepage.c": "c1107852a72152a8a481c86d77f80f360dadaddd7cea73e492d45bacef6706ae",
+        "include/my_sys.h": "ca63169323dcca605124befff5f40a56b78d3385e10f7d901a66ae7238634db5",
+        "storage/innobase/buf/buf0buf.cc": "319dc4ff0763fcf33d71c741047b7629330bb9785733feaaaf992ee1deefe8c8"
+      }
     }
   ],
   "source_archive_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",

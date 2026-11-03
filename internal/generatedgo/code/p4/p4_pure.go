@@ -1030903,7 +1030903,7 @@ func Fn18156(m *base.Module, l0 int32, l1 int32) int32 {
 		}
 		v53 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 0, 8)))
 		if base.Ui64(v53) <= base.Ui64(int64(4294967295)) {
-			Fn16495(m, int32(8824053), int32(8704818), int32(2410))
+			Fn16495(m, int32(8824053), int32(8704818), int32(2418))
 			mBase = m.M
 			v60 = m.ExcPending
 			if v60 != 0 {

@@ -15,9 +15,10 @@ def test_registered_input_and_order():
     assert value['version'] == '12.3.3'
     assert [p['file'] for p in value['patches']] == [
         'guest/patches/common-portability.patch', 'guest/patches/12.3.3-redo.patch',
-        'guest/patches/12.3.3-prepared.patch']
+        'guest/patches/12.3.3-prepared.patch', 'guest/patches/12.3.3-buffer-alignment.patch']
     assert sum(len(p['after_sha256']) for p in value['patches'][:2]) == 18
     assert set(value['patches'][2]['after_sha256']) == {'sql/sql_prepare.cc','libmysqld/libmysql.c','libmysqld/lib_sql.cc'}
+    assert set(value['patches'][3]['after_sha256']) == {'mysys/my_largepage.c','include/my_sys.h','storage/innobase/buf/buf0buf.cc'}
 
 
 @pytest.mark.parametrize('field', ['revision', 'sha256'])
