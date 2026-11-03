@@ -1,6 +1,6 @@
 # Issue #63 canonical product candidate
 
-Human approved incorporation on2026-11-03 for the clear, local removal of wasted
+Human approved incorporation on 2026-11-03 for the clear, local removal of wasted
 allocation/zeroing, accepting the small observed RSS benefit without a speedup
 claim. [The decision](../decisions/buffer-pool-alignment.md) records that scope.
 The original experiment remains INCONCLUSIVE for overall performance; its
@@ -51,13 +51,32 @@ The first daily source check detected a stale Python package license-inventory
 mirror (1 failed, 66 passed before stopping). The mirror was synchronized with
 the newly audited release inventory; the check is rerun on the updated source.
 
+## First candidate CI and dependency correction
+
+[Run 41561895681](https://github.com/masahitojp/mariamem/actions/runs/41561895681)
+on source `4911ffaf28131f9a7750dba02a8e195d12efb21b` failed overall. The two
+canonical guest builds, every-byte Go regeneration and all six J1 controls passed
+on both native hosts. Go race/integration, Live, 35 Python runtime cases and
+33 Snapshot checks passed before the prepared-consumer step stopped with
+`ModuleNotFoundError: No module named 'mysql'` on both hosts. License/build
+provenance steps were consequently skipped. See the [partial receipt](issue63-canonical-adoption/ci-41561895681.json); none of these partial results constitutes overall acceptance.
+
+The candidate workflow omitted an existing integration dependency. It now
+installs the same `mysql-connector-python==26.7.0` pin as Release CI and runs
+the existing connector environment/import probe before expensive regeneration.
+Three new negative mutations reject missing dependency, missing probe or an incorrect
+Connector version. All 90 focused workflow/scope/retirement tests PASS.
+Guest, generated Go and runtime product behavior are unchanged by this fix.
+A fresh exact-head candidate CI remains required; this failed receipt keeps its
+original identity.
+
 ## Remaining acceptance and detection
 
 | Boundary | Current evidence / required check |
 | --- | --- |
 | Local allocation semantics | C contract exercises dirty backing, exact alignment, size, ENOMEM return and free; actual full WASIX build succeeds. Real whole-guest OOM is not claimed. |
 | Source correctness | Four canonical patch postimages plus existing prepared owners; pre/postimage mismatch fails prepare_guest.py. |
-| Independent canonical reproduction | Pending candidate CI: 2 fresh source builds, normal Go regeneration and every-byte comparison. Current build ledger honestly remains pending. |
+| Independent canonical reproduction | PASS for source 4911ffaf in the first CI; fresh exact-head candidate CI remains pending. The overall build ledger stays pending until complete acceptance. |
 | Supported hosts | Pending candidate CI: macOS 15 arm64 and Ubuntu 24.04 x86_64, existing integration and original J1 controls. Local Mac 27.2 is not substituted. |
 | License/source/provenance | Clean local native attribution PASS; CI repeats attribution and positive/17-negative build guards on its exact source. No new library/notice classification. |
 | Performance | Previous five-pair result unchanged; no new campaign. Queue missing and adverse pairs remain named limitations of the evidence. |

@@ -28,8 +28,10 @@ retains its INCONCLUSIVE performance conclusion and source identities.
 canonical candidate from main, retaining zero-fill/failure/release contracts and
 normal guest/binding/generated-source guards. No experiment-only installer or
 observer is adopted. Canonical source/Go authoring and local correctness checks pass as recorded in
-[the checkpoint](reviews/issue63-canonical-adoption.md); independent reproduction
-and supported-host candidate CI remain pending before integration. This approval does not
+[the checkpoint](reviews/issue63-canonical-adoption.md); the first candidate CI passed independent guest reproduction and both-host Go
+regeneration/J1 controls but failed at an omitted Connector/Python dependency.
+The workflow dependency is corrected; complete supported-host candidate CI
+remains pending before integration. This approval does not
 publish a version or start release Qualification.
 
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
