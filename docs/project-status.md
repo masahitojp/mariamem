@@ -31,7 +31,12 @@ leases, and gives Live-based E2E entries an explicit cap override. D1 prepared
 Django is explicitly included: per-run/class budgets, cap1 lifecycle, finite
 fork waits, teardown ordering and worker-local xdist acceptance. Python Fork
 keeps a response watchdog by separating bounded reservation from startup;
-supplied pytest waits default to30 seconds. Auto remains a memory heuristic,
+supplied pytest waits default to30 seconds. Python retains its source Session
+under the parent lock but releases the lock before capacity/transfer waits.
+Explicit Live Reset may recover only after confirmed disposal of all outstanding
+parent cleanup debt; Close remains final and fixture failure latches stay set.
+Capacity/wait range checks are request-local and must preserve source/sibling DBs.
+Auto remains a memory heuristic,
 not a CPU/latency optimum; explicit tuning and worker totals must be documented.
 Lifecycle/API
 choices remain a proposal for review; no existing handoff behavior is removed.

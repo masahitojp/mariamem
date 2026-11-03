@@ -93,7 +93,8 @@ if err != nil { return err }
 defer child.Close()                 // SQL pools/connections close first
 ```
 
-Go `0` means automatic, positive values are explicit caps, negatives are invalid.
+Go `0` means automatic; explicit caps are integers1 through2,147,483,647
+(`MaxInt32`) inclusive. Negative and larger values are invalid, even on64-bit Go.
 Python adds `Database.snapshot(*, max_forks=None, rollback=False, timeout=120)`
 and `Snapshot.fork(*, timeout=None, **options)`:
 
@@ -103,12 +104,51 @@ with source.snapshot(max_forks=4) as saved:
         use_database(child)  # close SQL connections before leaving this block
 ```
 
-Python `None` means automatic; a positive built-in integer sets a cap.
-Reject zero, negatives, bool, float and string with ValueError before consuming
+Python `None` means automatic; a built-in integer in1..2,147,483,647 sets a cap.
+Reject zero, negatives, larger integers, bool, float and string with ValueError before consuming
 the source. Go validation also precedes host capture. Do not silently coerce.
-Validate Python fork timeouts as positive finite numbers, excluding bool;
+Validate Python fork wait timeouts as positive finite numbers no greater than
+2,147,483,647 seconds, excluding bool;
 `None` waits indefinitely for capacity. No mutable setter or public Wait API.
 An unlimited wait duration is distinct from an unlimited number of DBs.
+
+### Numeric boundaries and request-local rejection
+
+Use the same MaxInt32 capacity ceiling in Go, Python, fixtures, D1/E2E settings
+and the control owner. Clamp automatically calculated capacities to that ceiling;
+reject explicit overflow rather than clamp it. This ceiling is representational,
+not a recommendation to allocate that many DBs. A large accepted cap must not
+preallocate a cap-sized buffer or channel.
+
+For the new Python fork-wait settings, accept only built-in int/float in
+`0 < seconds <= 2,147,483,647`; optional None is allowed only on the direct API.
+Check the magnitude of arbitrary-precision integers BEFORE converting to float
+or duration. Reject NaN/infinity, bool, underflow-to-zero and out-of-range values
+before any reservation, host launch or capture. Serialize an accepted duration
+as integer nanoseconds plus `ns`, rounding positive subnanosecond values up to1ns
+without intermediate floating-point overflow. This bound and the existing
+15/25-second watchdog margins fit signed64-bit duration arithmetic. Do not emit
+float exponent text such as `1e-09s` for Go duration parsing.
+
+This defines the new capacity/wait settings, not a new restriction on arbitrary
+Go context deadlines or all existing SDK timeout options. Existing duration
+fields retain their validation; do checked arithmetic wherever new code adds a
+watchdog margin. A timed-out wait must not wrap into a negative/infinite timeout.
+
+The host must also reject a well-framed request with a valid request ID and an
+out-of-range capacity/duration WITHOUT ending the shared Session. Decode the new
+fields into raw JSON / json.Number or an equivalent checked representation,
+then validate within the request handler before narrowing to Go int/duration.
+Do not put the new capacity directly into an int field in the outer fatal JSON
+decoder. Return `invalid_options`, `snapshot_options` or `fork_options` as
+appropriate, `closed=false`, with no admission or source consumption. For capture,
+internal omitted/zero capacity selects auto; other wrong types/ranges fail.
+
+Invalid JSON framing, an unusable request ID and other existing fatal transport
+violations retain their protocol treatment. This proposal distinguishes field
+validation from malformed transport; it does not promise recovery from every
+invalid frame. The overflow tests below are future coverage, not a claim that
+the not-yet-added field currently reproduces a product bug.
 
 ### Automatic default: concrete sizing proposal
 
@@ -310,12 +350,14 @@ and xdist workers do not share a global budget.
 | Child Snapshot succeeds | Source runtime is disposed; return its original-parent lease. The new immutable baseline resolves its own explicit or automatic limit. |
 | Capture rejects busy/transaction/invalid options | Source stays alive and retains its lease. |
 | Capture consumes source but fails | Return only on confirmed disposal; consumed is not itself proof of cleanup. |
-| Cleanup incomplete/uncertain | Retain the lease, poison that capped parent's admission and wake waiters with the cause. Never turn `closed=True` into proof of disposal. |
+| Cleanup incomplete/uncertain | Retain the lease, block that parent's admission and wake waiters with the cause. Never turn `closed=True` into proof of disposal; only the explicit checked Live recovery below can reopen it. |
 | Parent Close | Stop new admission and wake queued calls immediately; wait only for admitted startups' backing use, then close backing. Do not close/wait for successful children. |
 
 Repeated/concurrent child Close, capture and fatal-worker cleanup share one
-lease completion path. A later Live disposal retry can discharge its lease,
-but a poisoned parent does not automatically resume admission in this version.
+lease completion path. A later Live disposal retry can discharge its lease.
+No background completion automatically resumes blocked admission. Explicit Live
+Reset can reopen it only by the recovery checks below; this supersedes any
+reading of the initial proposal as irreversible poisoning for recoverable Live.
 Healthy siblings keep their existing lifetime. Parent Close reports retained
 debt already known when it completes; a later child error remains that child's
 error and does not retroactively change an earlier Close result.
@@ -333,6 +375,40 @@ release safely after parent Close. No waiting on child-owned locks under the
 limiter/manager lock. No cap-sized channel allocation for an arbitrarily large
 user number; keep count plus change notification instead.
 
+**Python parent lock (P1):** the current different-host branch in
+`python/mariamem/__init__.py` launches the target and requests handoff inside
+`with snapshot._lock`. That lock scope must not survive the new capacity wait.
+Apply this ordering to both ordinary and different-host Fork:
+
+1. Under snapshot._lock, reject closed, copy the source Session, immutable handle
+   and needed options, and retain the Session. Establish one pending-operation
+   owner that owes that reference. Do not send an RPC or start a target here.
+2. Release snapshot._lock before capacity polling, waiting on a reply, sleeping,
+   target Session construction, export, startup or cleanup/release. A local
+   closed-state recheck may briefly take the lock, but performs no blocking work.
+3. Snapshot.close marks closed and signals a dedicated admission-close event
+   under that same lock, then performs its host RPC outside it. The capacity
+   retry interval waits on this event, not an uninterruptible sleep and not the
+   existing _close_done event (which only signals completed remote cleanup).
+4. Observe closure before issuing the next request; the host's atomic
+   close/reserve/export boundary resolves in-flight races. A late unused lease
+   is cancelled. An export/start already admitted under the host contract keeps
+   its existing independent child lifetime. A new Python recheck alone does not
+   substitute for the host-side admission check.
+5. Release the retained Session exactly once outside snapshot._lock on failure,
+   or transfer it to the remote-child/late-response cleanup owner on success or
+   interruption. Parent Close cannot reap the source Session out from under the
+   pending request, and waiting cannot prevent parent Close from taking the lock.
+
+The required race test observes a full response at cap1 while the original child
+stays alive, calls parent Close on another thread, and joins both Close and the
+waiting different-host Fork BEFORE closing that child. The waiter must fail
+closed, not succeed or time out waiting for child release; no target host/export
+may have started. The original child still executes SQL after parent Close.
+Use explicit barriers and an outer test deadline; the old non-capacity handoff
+tests do not detect this combination. Stuck-host response timing remains covered
+separately by G3 rather than being called an immediate Close wakeup guarantee.
+
 ### Live and development-host handoff
 
 **Live is accounted for, not an unmetered bypass.** The resolved cap must be at least
@@ -342,7 +418,7 @@ return busy without creating an endpoint. An automatic result of one does not
 silently grow to two for Live; report the requirement to the caller. This Live
 policy remains proposed, including its effect on previously optionless callers.
 
-Reset needs one extra slot because old and replacement coexist. Reserve it
+For a healthy endpoint, Reset needs one extra slot because old and replacement coexist. Reserve it
 nonblockingly under the Live operation gate, before draining/changing state.
 If unavailable, return busy at `live_capacity`, preserving current generation,
 SQL availability and old child. If available, retain the reservation through
@@ -351,6 +427,33 @@ Transfer it to the replacement once started. Retire the old lease only after
 successful old-child cleanup. A failed reset after replacement begins retains
 the existing failed-endpoint contract. Cap two is sufficient for one Live alone,
 but is not a reservation guaranteeing resets alongside other children.
+
+**Explicit recovery after cleanup failure (P2):** preserve the existing explicit
+Reset recovery intent. A failed endpoint permits Reset and Close; it is not
+permanently Close-only. Under its operation gate, first reject a closed parent,
+then retry the disposal of its retained pending children AND any current/old
+child whose disposal failed. Keep owners/leases until completion is confirmed.
+Do this BEFORE reserving replacement capacity, since unresolved cleanup may be
+occupying both slots at cap2. A closed-parent check may not reject solely for
+recoverable cleanup debt before these retries can run.
+
+After successful retries, request an atomic recovery/reservation from the parent
+limiter. It may resume only if the parent is still open, ALL its recorded cleanup
+debt is resolved and a slot is available; closure or a concurrently added debt
+must win over stale success. Debt from another child/Live/remote transfer cannot
+be forgiven by this endpoint. Ordinary live children are still counted but need
+not be closed. If any debt remains, return the retained cause and keep admission
+blocked; if just capacity is full, return busy and keep this endpoint failed.
+Reserve the new child's slot in the same successful recovery transition to
+avoid another waiter taking it between reopening and acquisition.
+
+Only a committed replacement makes Live ready and advances its generation;
+the failed Reset's original error remains a failure. Retry failure retains
+ownership and blocks admission; there is no slot borrowing or discarded error.
+Normal healthy Reset's capacity-busy path still preserves the usable old child.
+Parent/Live Close is irreversible. This private recovery path does not add a
+public Snapshot.resume API, rewrite Database.Close's stored-result contract, or
+clear P1/D1/Go fixture test-admission latches after a failed test cleanup.
 
 **Different-host handoff: preserve, with an origin-owned lease.** Supersedes the
 earlier rejection proposal. The existing explicit Python host_binary override
@@ -376,7 +479,7 @@ It consumes a slot on its original Snapshot, not an unrelated target-host cap.
    export reply abandoned before target creation is safe to settle after local
    scratch cleanup; a target reply abandoned after creation must close its DB
    before settlement. Error replies can also carry disposal ownership/outcome.
-5. Unknown target cleanup poisons source admission and retains its lease. A
+5. Unknown target cleanup blocks source admission and retains its lease. A
    protocol failure alone is not target process exit. Confirmed target process
    exit/reap can settle its runtime ownership; directory cleanup is separately
    required. Source-host death prevents further source admission but does not
@@ -426,7 +529,7 @@ other owners; a preserved class source may still occupy R's only slot. Reorder
 finalization to quiesce and retire remaining mutable children/class baselines
 while retaining R, then request the teardown child. A class-setup failure before
 capture, preserved capture rejection and a consumed capture error need distinct
-tests. If R is poisoned or disposal cannot be confirmed, do not wait indefinitely
+tests. If R is blocked by cleanup debt or disposal cannot be confirmed, do not wait indefinitely
 or grant an emergency slot: retain the original/cleanup causes, fail teardown,
 and execute the remaining owner cleanup. Do not let Django DROP run on a closed
 or wrong DB. Finalization may bypass the test-admission latch only when actual
@@ -497,11 +600,14 @@ No RSS campaign, queue performance campaign or new qualification pipeline.
 | Boundary | Finite acceptance |
 | --- | --- |
 | Inputs/compatibility | Omitted/zero Go and None Python select a positive automatic cap; explicit caps override it; no unlimited sentinel; invalid values preserve source; old-host capability rejects before capture. |
+| Numeric limits | Capacity1/MaxInt32 accepted without cap-sized allocation; zero/negative/MaxInt32+1/2**100 and wrong types handled per API. Wait positive subnanosecond/max seconds accepted by validation; zero/negative/next float above max/2**100/NaN/infinity/bool rejected before sending. Well-framed raw control overflow returns invalid_options without host exit. Original source and healthy sibling SQL still work after each rejection. Accepted huge durations are validation tests, not real waits. |
 | Default resolution | Inject finite/missing/unlimited/malformed memory sources, tighter cgroup ancestors, tiny and huge limits; test minimum/fallback/overflow and one-time resolution; expose exact resolved cap; Go and Python use the same policy. No current-free-memory or OOM guarantee inferred. |
 | Admission | Caps 1 and 2 with four requesters; prove starting+live+cleaning never exceeds cap; release permits later progress; separate snapshots do not share the counter. |
 | Wait/Close races | Go deadline/cancel and Python wait expiry/interrupt; Close wakes blocked requests despite live children; no RLock deadlock; admitted startup/backing race and repeated Close; SQL works on child after parent Close. |
-| Disposal | Startup failure before/after allocation; cleanup failure poisons admission; original cause retained; double Close cannot release twice; consumed/preserved capture success/failure and late successful replies each have exactly one owner. |
+| Python transfer/parent lock | cap1 held child, different-host Fork observes full, concurrent parent Close and waiter both finish before child Close; waiter fails closed, original child SQL works, no target/export starts, source Session references balanced. Cover close after Session retain/before reserve and late reservation races with barriers. |
+| Disposal | Startup failure before/after allocation; cleanup failure blocks admission; original cause retained; double Close cannot release twice; consumed/preserved capture success/failure and late successful replies each have exactly one owner. |
 | Live | Cap one rejects; cap two create/reset passes; ordinary Fork can exhaust spare slot; reset busy preserves generation/data and becomes possible after release; drain failure returns reservation; replacement/cleanup failure does not over-admit. |
+| Live cleanup recovery | Real limiter cap2 with controlled child disposal: old-child failure, failed candidate disposal occupying both slots, failed retry, then confirmed retry plus explicit Reset recovers without exceeding2. No automatic restart, no double release, generation advances only on commit. Unrelated unresolved lease debt and concurrent parent Close prevent reopening. Exercise both Go and shared-host adapters; prior limiter-free tests alone do not satisfy this row. |
 | Python entry | Both fork spellings enforce cap; Session refs/cancel/late cleanup balanced; pytest option passes through without changing None/callable/PrepareCommand behavior; worker-local default remains. |
 | Python watchdog | Real control subprocess stays alive but never replies to reserve or startup, then independently stops reading stdin while its pipe fills. Finite caller failure covers send/reply/cancel; responsive-full polling honors finite and explicitly indefinite waits. Late reserve/start success has exactly one cleanup owner; repeat timeout cannot accumulate writer threads or release a running child. |
 | Supplied pytest wait | cap1 and an intentionally held child cause fixture failure at its finite default/configured deadline; no next-test admission, original diagnostic retained. Invalid/None fixture timeout rejects. Do not simulate success by killing the entire lineage. |
@@ -523,6 +629,11 @@ test_django_xdist_policy.py as appropriate. Use tests/test_owned_snapshot_unit.p
 real framed-control subprocess pattern for stuck-host controls, with an outer
 test timeout so a missing watchdog fails CI instead of hanging its job. These
 are future detector placements, not current coverage or a new framework matrix.
+Extend the existing Python other-host tests with the parent-lock race, and
+internal/live plus public-Go/internal/control adapter tests with a real limiter
+for recovery. Range tests belong at both Python/API validation and control
+field-decoding boundaries; retain one real-host SQL survival check for rejection.
+Do not equate a controlled child cleanup failure with actual-engine fault injection.
 Bind receipts to the tested candidate. Runtime cleanup failure injection remains
 controlled-owner evidence; do not claim to reproduce real-engine OOM.
 
