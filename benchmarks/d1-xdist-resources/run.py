@@ -106,7 +106,7 @@ def main():
         versions={name:importlib.metadata.version(name) for name in ['Django','pytest','pytest-django','pytest-xdist','execnet','mysqlclient']})
     (out/'inputs.json').write_text(json.dumps(inputs,indent=2)+'\n')
     rows=[]
-    for size in ([2] if a.pilot else [2,15,30]):
+    for size in ([2] if a.pilot else [2,6,15,30]):
         for rep in range(1 if a.pilot else 3):
             modes=[0,2,4];modes=modes[rep:]+modes[:rep]
             for profile in (['light','heavy'] if rep%2==0 else ['heavy','light']):
