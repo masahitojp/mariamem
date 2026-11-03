@@ -177,6 +177,18 @@ func TestFailedRetryRetainsCapacity(t *testing.T) {
 	b.Settle(nil)
 }
 
+func TestCleanupCauseIsNotMistakenForCapacityWait(t *testing.T) {
+	p := pool(t, 1)
+	l := active(t, p)
+	l.Settle(ErrFull)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	if _, err := p.Acquire(ctx); !errors.Is(err, ErrCleanup) || !errors.Is(err, ErrFull) {
+		t.Fatalf("cleanup must fail admission, not enter capacity wait: %v", err)
+	}
+	l.Settle(nil)
+}
+
 func TestUnusedReservationRevokedAndDuplicateActivationRejected(t *testing.T) {
 	p := pool(t, 2)
 	child := active(t, p)

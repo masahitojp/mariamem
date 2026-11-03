@@ -93,7 +93,9 @@ func (p *Pool) Acquire(ctx context.Context) (*Lease, error) {
 			l.Settle(nil)
 			return nil, ctx.Err()
 		}
-		if !errors.Is(err, ErrFull) {
+		// Only the pool's own full result waits. A retained cleanup cause may
+		// itself wrap ErrFull; it must still fail admission immediately.
+		if err != ErrFull {
 			return l, err
 		}
 		select {
