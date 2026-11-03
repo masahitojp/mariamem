@@ -94,12 +94,14 @@ class Live:
             if isinstance(value, bool):
                 raise ValueError("timeouts must be positive finite numbers")
             _positive(value)
+        # Include cleanup retries in this recovery attempt's boundary: debt
+        # arriving during a retry must survive this Reset's successful reply.
+        with self._snapshot._lock:
+            debt_version = self._snapshot._debt_version
         with self._session._lock:
             owners = [o for o in self._session._handoffs if o.parent() is self._snapshot and o.error is not None]
         for owner in owners:
             owner.retry()
-        with self._snapshot._lock:
-            debt_version = self._snapshot._debt_version
         reply = self._request("live_reset", timeout=f"{timeout}s", drain_timeout=f"{drain_timeout}s")
         with self._snapshot._lock:
             if self._snapshot._debt_version == debt_version:

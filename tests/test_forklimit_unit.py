@@ -4,6 +4,7 @@ import shutil
 import time
 from pathlib import Path
 import sys
+import threading
 
 import pytest
 import mariamem
@@ -60,6 +61,57 @@ def test_parent_close_wakes_capacity_wait_without_closing_child(fake_host, tmp_p
         child.close()
         root.close()
     assert session._process.poll() == 0
+
+
+@pytest.mark.parametrize('constructor', [False, True])
+def test_parent_close_after_retain_before_reserve_preserves_child_and_balances_refs(
+        fake_host, tmp_path, monkeypatch, constructor):
+    other = tmp_path/'other-host'
+    shutil.copy2(fake_host, other)
+    with mariamem.start(host_binary=fake_host) as root:
+        baseline = root.snapshot(max_forks=1)
+        child = baseline.fork(timeout=1)
+        session = baseline._session
+        before = session.request('stats')['reserve_calls']
+        entered, proceed = threading.Event(), threading.Event()
+        reserve = baseline._reserve
+
+        def gated_reserve(*args):
+            entered.set()
+            assert proceed.wait(5), 'test did not release pre-reservation barrier'
+            return reserve(*args)
+
+        def forbidden_target(*args, **kwargs):
+            pytest.fail('closed parent attempted target startup before admission')
+
+        import mariamem._session as module
+        monkeypatch.setattr(baseline, '_reserve', gated_reserve)
+        monkeypatch.setattr(module, 'Session', forbidden_target)
+        try:
+            with ThreadPoolExecutor(2) as workers:
+                try:
+                    if constructor:
+                        waiting = workers.submit(mariamem.Database, snapshot=baseline,
+                                                 host_binary=other, fork_timeout=1)
+                    else:
+                        waiting = workers.submit(baseline.fork, host_binary=other, timeout=1)
+                    assert entered.wait(2)
+                    with session._lock:
+                        assert session._refs == 3  # Parent, live child, pending Fork.
+                    closing = workers.submit(baseline.close)
+                    closing.result(2)  # Must not need the reservation barrier released.
+                    assert child.status()['state'] == 'ready'
+                    proceed.set()
+                    with pytest.raises(mariamem.HostError) as error:
+                        waiting.result(2)
+                    assert error.value.code == 'closed'
+                    assert session.request('stats')['reserve_calls'] == before
+                    assert session._refs == 1 and not session._handoffs
+                finally:
+                    proceed.set()
+        finally:
+            baseline.close()
+            child.close()
 
 
 @pytest.mark.parametrize("value", [True, 0, -1, 2**100, float("nan")])

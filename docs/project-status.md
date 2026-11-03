@@ -85,6 +85,13 @@ Clean `737f4414` passed local daily/source smoke and nine selected real-host
 ownership/range cases with the matching clean host, including whole-source/
 whole-target loss. These results close the locally reproduced retry defects;
 they do not close the remaining fixed-row/installed-platform acceptance.
+The next checkpoint adds the planned pre-reservation Close and concurrent-new-
+cleanup-debt barriers. It corrects Live's recovery version sample to precede
+cleanup retry, retaining failures that arrive during that retry. The existing
+Live matrix owner now includes bounded Fork-limit detectors and per-minor
+installed cap2/timeout/busy oracles. Remaining planned work is the fixed-row
+evidence reconciliation and execution of the source-bound installed matrix;
+potential failures discovered there are distinct from undecided design scope.
 There is no new performance campaign. The milestone and publication decisions are
 unchanged. Prewarming remains
 separate in [#84](https://github.com/masahitojp/mariamem/issues/84).

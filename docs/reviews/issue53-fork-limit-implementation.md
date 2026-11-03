@@ -10,7 +10,40 @@ unfinished.**
 [the fixed acceptance table](issue53-fork-limit-design.md#fixed-acceptance-and-stopping-point)
 is unchanged. No acceptance row covering a real entry is marked complete here.
 
-## Current checkpoint — bounded failure verification
+## Current checkpoint — final race cases and matrix detector wiring
+
+Continues from source_commit `aac7bc6fcd9e2c26983ca35dd6df6798bad9114b`.
+The remaining planned Python barriers now cover both Fork spellings after the
+source Session retain but before reservation. Parent Close completes without
+releasing that barrier or closing the existing child; no target/export starts,
+and the pending retain is returned exactly once.
+
+The Live recovery race test passes when new debt arrives during its Reset reply,
+but first reproduced a failure during an earlier owner's cleanup retry: the
+old code sampled the debt version after retry and could clear the newer local
+admission failure. Live now samples before the owner census/retries. The same
+test preserves new debt through the first successful Reset and allows a later
+explicit Reset after confirmed cleanup to clear it. This is controlled failure
+timing over a framed host, not a guest-fault reproduction or changed policy.
+
+The existing Live full-acceptance owner now includes Fork-limit option/entry/
+transport/handoff tests and bounded actual-guest ownership cases for both
+Python3.11/3.14 on both OSes. The installed consumer captures cap2 and confirms
+third-child timeout plus capacity-busy Live Reset preserve existing SQL/data;
+the workflow runs that consumer separately under both interpreters. No new job,
+trigger, performance campaign or source/publication policy is added. Existing
+workflow contract tests reject removal of those detector paths or per-minor
+installed output binding.
+
+Focused working-tree verification passed50 Python ownership/transport cases,
+then185 workflow/selection/runtime-reuse/Live/Fork tests plus14 subtests on
+macOS arm64 / Python3.14. The updated source/installed consumer's source smoke
+passed using the previous clean `737f4414` host. Source-bound daily/smoke and
+the fixed-row evidence map follow the code commit. Hosted installed matrix
+execution remains a planned acceptance task, not an unknown design decision;
+unforeseen failures during that execution are a separate category.
+
+## Previous checkpoint — bounded failure verification
 
 Verification continues from candidate source_commit
 `03d06c0a696731c2e50bfcefed2095e4589c291c` under the existing fixed acceptance.
