@@ -42,8 +42,13 @@ timeout/SQL survival, recapture, parent Close with a live remote child and exist
 handoff/mapped/racing-Close regressions. Controlled-host tests cover parent Close
 during a full-capacity transfer wait, invalid values preserving siblings,
 capability rejection and a host that stops reading its control pipe.
-These are focused working-tree results, not a source-bound CI receipt or full
-fixed acceptance. Canonical daily check and source smoke follow the code commit.
+The focused results preceded the code commit and are not a CI receipt or full
+fixed acceptance. Clean inspected code source_commit
+`f6f07f8ffafc58f0da57bf3ab0dfa3c4cf8bac16` then passed canonical daily check:
+67 source tests, Go daily tests/vet,1822 Python tests plus100 subtests and87 skips.
+The same source passed Go/Python real DB/Live source smoke. Its rebuilt host
+also passed all five selected real-host ownership tests above. The following
+commit only records these results; head CI and both-host acceptance are separate.
 An initial broad sandboxed run hit socket permission restrictions and the macOS
 clean-source allocation-probe guard; those are not reported as successful checks.
 
