@@ -82,7 +82,9 @@ These paths retain the exact driver, wire and lifecycle limits below. The
 [explicit prepared Django entry](docs/django-prepared.md) is also adopted on
 main, **unreleased and absent from the published0.6.0 packages**. It adds
 `mariamem.django` with dedicated classes and full prepared-state restoration;
-it is mutually exclusive with routing/shadow_maria in one run. Its four
+it is mutually exclusive with routing/shadow_maria in one run. See
+[local worker configuration](docs/django-prepared.md#configure-worker-count)
+for serial/xdist commands and worker sizing. Its four
 installed-wheel OS/Python cells passed before adoption. Procedures/functions
 and real server-side prepared execution retain the named exceptions below.
 

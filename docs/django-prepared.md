@@ -126,7 +126,7 @@ coexist. The ordinary recipe still supports its independently tested policies.
 
 ## Local pytest-xdist workers
 
-The local-worker extension is approved for adoption and remains unreleased.
+The local-worker extension is adopted on main and remains unreleased.
 Its four installed-wheel cells passed; see the [adoption receipt](reviews/d1-xdist-adoption.md).
 Serial remains default. The `django-pytest` extra supplies pytest-xdist3.8.0 / execnet2.1.2.
 Keep the ordinary serial invocation, or opt in with an explicit worker count:
@@ -136,8 +136,40 @@ DJANGO_SETTINGS_MODULE=myproject.test_settings \
   python -m pytest -p mariamem.django.pytest_plugin -n 2 --dist=loadscope
 ```
 
-pytest-django and xdist normally auto-load from the installed extras. The
-supported schedulers are `load` and `loadscope`;2 and4 local workers
+### Configure worker count
+
+Use a current-source wheel with the `django-pytest` extra; published 0.6.0 does
+not include this prepared entry. First configure the dedicated settings and
+plugin, for example in your project's `pytest.ini`:
+
+```ini
+[pytest]
+DJANGO_SETTINGS_MODULE = myproject.test_settings
+addopts = -p mariamem.django.pytest_plugin
+```
+
+Then choose an explicit count for each invocation:
+
+```sh
+python -m pytest                         # serial: default
+python -m pytest -n 2 --dist=loadscope    # start with two local workers
+python -m pytest -n 4 --dist=loadscope    # four workers when useful and affordable
+```
+
+For a project that deliberately chooses parallel as its own default, change
+`addopts` to `-p mariamem.django.pytest_plugin -n 2 --dist=loadscope`.
+Override that setting with `python -m pytest -n 0` for a serial diagnostic run.
+This project setting does not change mariamem's serial default.
+
+In CI, use the same fixed command rather than detecting all CPUs. Add
+`--max-worker-restart=0` if you want to disable replacement of crashed workers;
+the crashed test remains failed with or without replacement. The runner/job
+owns scratch cleanup after forced termination. `manage.py test` remains a
+serial alternative; its `--parallel` mode is not connected to this lifecycle.
+
+pytest-django and xdist normally auto-load from the installed extras. With
+`PYTEST_DISABLE_PLUGIN_AUTOLOAD=1`, explicitly load `-p pytest_django.plugin`
+and `-p xdist.plugin` as well as the mariamem plugin. The supported schedulers are `load` and `loadscope`;2 and4 local workers
 are the verification cells, not a capacity guarantee. `loadscope` keeps a class
 on one worker. With `load`, class setup and `setUpTestData()` execute per worker/class
 activation. Restart/rescheduling may revisit a class and execute setup again
@@ -147,8 +179,9 @@ Each DB-using worker acquires its own host, migrates/seeds once, and owns its ow
 run/class Snapshots. No SDK handles are passed between processes. Preparation is
 per worker, not once globally: four DB-using workers mean four preparations and
 four hosts. The controller, idle workers and database-free workers acquire none.
-pytest-django's worker DB-name suffix remains in effect. Parallel speedup and
-resource savings have not been established; choose a worker count for the job.
+pytest-django's worker DB-name suffix remains in effect. Choose a worker count
+for the suite and its memory budget; local observations below are not a general
+performance or resource guarantee.
 
 An ordinary assertion failure still allows the next independent Fork. Prepare
 failure or cleanup debt blocks later dependent bodies in that worker and leaves
@@ -167,6 +200,37 @@ Use explicit `-n N`; automatic/logical CPU counts, manual `--tx`, remote/socket
 workers and loop-on-fail are rejected before acquisition. Other schedulers and
 Django `manage.py test --parallel` remain unsupported. Multi-alias, reuse-db,
 no-migrations and routing/shadow_maria exclusions remain unchanged.
+
+### Choose a worker count
+
+- Keep serial for short suites, constrained memory or lifecycle diagnosis.
+- Try 2 workers first when parallelizing. Compare complete test-run time,
+  including migration/seed and cleanup, against serial.
+- Try 4 only when enough independent classes/tests and memory headroom justify
+  it. Four DB-using workers each prepare their own baseline; startup/seed work
+  and memory consumption increase. `-n auto` / `-n logical` are unsupported.
+
+A bounded M1/Python3.14/Django 6.1.2 measurement illustrates the tradeoff. Heavy
+preparation added 20 indexed tables and 20,000 rows (~9.77MiB seed payload).
+For 48 tests, 2 workers took 3.74s and 4 took 3.86s; at 120 tests, 4 workers took 5.64s
+versus 6.39s for 2 workers (medians of 3 runs). There is no universal 120-test
+threshold; the number and distribution of classes, preparation cost and data
+footprint matter.
+
+Observed maximum summed RSS over pytest/controller, Python workers and hosts:
+
+| Preparation in that workload | Serial | 2 workers | 4 workers |
+| --- | --- | --- | --- |
+| Light | 203MiB | 468MiB | 868MiB |
+| Heavy | 258MiB | 574MiB | 1080MiB |
+
+These sampled RSS sums can double-count shared pages and miss brief peaks;
+they are not unique physical memory or portable CI memory limits. The preparation
+also enlarged the captured baseline, so this does not isolate only fixed startup
+cost. Measure your own suite before increasing workers. See the
+[pinned measurement and reproduction recipe](https://github.com/masahitojp/mariamem/blob/d779657732e6f773f568f0bcbce72644f130d567/benchmarks/d1-xdist-resources/README.md)
+for the complete conditions, sampling overhead, timings and limits. Serial
+remains the product default; this guidance introduces no auto-tuning.
 
 ## Routing and shadow_maria
 

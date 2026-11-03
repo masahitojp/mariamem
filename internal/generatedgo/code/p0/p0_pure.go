@@ -46730,8 +46730,10 @@ L3386:
 	;
 	goto L3382
 }
-func Fn1161(m *base.Module, l0 int32) int32 {
-	return int32(1040)
+func Fn134(m *base.Module, l0 int32) {
+	base.Wasm_trap_unreachable()
+	for {
+	}
 }
 func Fn4368(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int64, l4 int32, l5 int32) int32 {
 	mBase := m.M
@@ -676467,7 +676469,7 @@ L522:
 	*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v2919)), 12, 4))) = v2916
 	v2927 = v2825 + int32(24)
 	v2928 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v2927)), 0, 4)))
-	v2929 = Fn239(m, v2919+int32(12), int32(4096), v2928)
+	v2929 = Fn239(m, v2919+int32(12), int32(2097152), v2928)
 	mBase = m.M
 	v2930 = m.ExcPending
 	if v2930 != 0 {

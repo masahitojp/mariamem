@@ -23,7 +23,7 @@ func Fn132(m *base.Module)
 //go:linkname Fn133 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn133
 func Fn133(m *base.Module, l0 int32)
 
-//go:linkname Fn134 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn134
+//go:linkname Fn134 github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn134
 func Fn134(m *base.Module, l0 int32)
 
 //go:linkname Fn137 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn137

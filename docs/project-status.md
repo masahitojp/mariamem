@@ -14,7 +14,7 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Test credentials accepted — implemented on candidate branch, unreleased
+## Test credentials accepted — protected main integration authorized, unreleased
 
 On 2026-11-03 the Human approved removing the local wire endpoint's root/empty
 credential restriction after `test/test` and `root/root` reproduced MySQL1045
@@ -34,7 +34,37 @@ with Go 1.26.10: the canonical full check, both Go default/integration
 packages, and all 17 Python wire/multiclient tests including the new credential
 cases. The new credential test first reproduced 1045 on the unchanged wire
 implementation; the candidate also preserves malformed-handshake rejection.
-Main integration, both-platform CI and release remain pending.
+[Development CI41601747549](https://github.com/masahitojp/mariamem/actions/runs/41601747549)
+passed check, integration and Live required gate on candidate source_commit
+`9806566d53ceaaa47118ed3da8db1a452cbefd87`. The Human then authorized protected
+main integration on 2026-11-03. [PR #79](https://github.com/masahitojp/mariamem/pull/79)
+owns integration completion; the later main update requires fresh protected
+checks. These daily results are not both-platform qualification or release approval.
+
+## Issue #63 buffer-pool alignment — bounded acceptance PASS, protected integration pending
+
+On 2026-11-03 the Human approved incorporating the local allocation correction
+because it removes known unnecessary work. The [decision](decisions/buffer-pool-alignment.md)
+accepts that narrow rationale and the small observed retained-RSS saving;
+CPU/batch improvement is not established and queue latency remains unmeasured.
+The [original experiment](https://github.com/masahitojp/mariamem/blob/964a4cabcb6f2b2b0fa6828319ae3c362dfc8908/benchmarks/buffer-alignment-source.md)
+retains its INCONCLUSIVE performance conclusion and original source identities.
+
+[Issue #63](https://github.com/masahitojp/mariamem/issues/63) belongs to
+[v0.7.0](https://github.com/masahitojp/mariamem/milestone/4).
+[CI41571252134](https://github.com/masahitojp/mariamem/actions/runs/41571252134)
+on source_commit `365a082bada9b5d3740d467739718d10cd155ca4` passed two independent
+canonical guest builds and both supported hosts' Go regeneration, J1, runtime,
+license and build-provenance controls. The first failed dependency receipt stays
+bound to its original source. See the [verified receipt](reviews/issue63-canonical-adoption/ci-41571252134/receipt.json)
+and [final selection](reviews/issue63-final-selection.md).
+
+PR #76 restores temporary CI and retains only the minimal canonical source,
+generated/binding/provenance updates and permanent allocator regression check.
+Runtime-tree identity permits reuse of the successful bounded acceptance;
+normal strict-base protected PR checks remain required before main integration.
+No public API or I/O default changes, speedup claim, new performance campaign,
+Qualification, version selection or publication are included.
 
 ## CI cost reduction — daily reuse adopted; consolidation 1–4 authorized
 
@@ -2250,3 +2280,25 @@ generated-extra metadata and3 healthy Django6.0.9 source-entry assessments PASS.
 The prior6.1.2 probe is retained without rerun. Implementation is ready for
 normal protected integration; fresh opposite-platform6.x evidence is deferred
 to the next existing Release invocation under the Human's minimal-check request.
+
+
+## D1 current state — implemented on main, unreleased (2026-11-03)
+
+This current-state summary supersedes the earlier integration-pending headings.
+The agreed D1 scope is implemented: explicit prepared classes, deferred startup,
+routing exclusion, local xdist and Django5.2 LTS/6.0/6.1 support. Issues43,72
+and74 are closed. Local xdist merged through
+[PR73](https://github.com/masahitojp/mariamem/pull/73) at
+`ce423ff517cb1b97eae3d9b9a38e1c332a62447b`; Django6 support merged through
+[PR75](https://github.com/masahitojp/mariamem/pull/75) at
+`954231bf7451f7b45bdbeb453a144204286eea18`. Publication remains separate;
+latest published0.6.0 has no D1 prepared entry. The next Release invocation
+provides the fresh opposite-platform6.x acceptance described in its support receipt.
+
+[Worker configuration and sizing](django-prepared.md#configure-worker-count)
+now covers CLI/pytest.ini, explicit2/4 workers, serial override and measured
+RSS/preparation tradeoffs. [Issue77](https://github.com/masahitojp/mariamem/issues/77)
+is complete; its pinned experiment retains compact measurements, not a new
+product default or resource guarantee. Django manage.py --parallel, remote/auto
+workers, multiple aliases and routing integration remain outside the agreed
+scope rather than unfinished parts of this D1 implementation.
