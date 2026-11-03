@@ -31,8 +31,10 @@ def inputs():
     manifest = json.loads((HERE / 'input-manifest.json').read_text())
     for name, expected in manifest['application_sha256'].items():
         require(digest(ROOT / name) == expected, 'application input differs: ' + name)
-    packages = {name: importlib.metadata.version(name) for name in manifest['versions']}
-    require(packages == manifest['versions'], 'package pins differ')
+    minor = f'{sys.version_info.major}.{sys.version_info.minor}'
+    expected = dict(manifest['versions'], Django=manifest['django_versions'][minor])
+    packages = {name: importlib.metadata.version(name) for name in expected}
+    require(packages == expected, 'package pins differ')
     paths = list(manifest['application_sha256'])
     for directory in [HERE, ROOT / 'docs/examples/django']:
         paths += subprocess.check_output(['git', 'ls-files', str(directory)], cwd=ROOT, text=True).splitlines()

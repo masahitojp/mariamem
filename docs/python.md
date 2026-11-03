@@ -21,6 +21,10 @@ supported. A [local pytest-xdist extension](django-prepared.md#local-pytest-xdis
 is also approved for adoption and unreleased; worker-owned hosts/baselines do not share SDK
 handles, and serial remains the default. See [the exclusion policy](django-prepared.md#routing-and-shadow_maria).
 
+Django integration supports 5.2 LTS, 6.0 and 6.1 (`Django>=5.2.8,<6.2`).
+Django6 requires Python3.12 or newer; Python3.11 users remain on Django5.2.
+This broadened range is unreleased. See the [support policy](django-testing.md#supported-django-versions).
+
 ## A disposable database
 
 Use `mariamem.start()` to acquire a database and `connection_info()` to connect

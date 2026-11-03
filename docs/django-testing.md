@@ -32,7 +32,8 @@ Django owns per-test isolation inside that invocation:
   pytest-django marker) is a separate framework policy and is tested separately.
 
 The selected tests retain the existing 13 authored orders app/migration files,
-Django5.2.8, mysqlclient2.2.7, pytest9.0.2 and pytest-django4.12.0.
+mysqlclient2.2.7, pytest9.0.2 and pytest-django4.12.0. Maintained Django pins are
+listed in the support policy below; historical receipts retain their original versions.
 They check SQL database identity, migration records, an untouched original-schema
 sentinel, HTTP operations, duplicate errno1062 recovery, real commits visible
 through an independent connection, default flush, serialized seed restoration,
@@ -42,6 +43,22 @@ runners must retain the Django/MySQLdb ProgrammingError chain, admit no test
 bodies, and discard the failed guest owner. These expected failures are kept as
 raw failures; a parent assessment can PASS only when the specified failure and
 cleanup are observed.
+
+## Supported Django versions
+
+Current source supports Django5.2 LTS,6.0 and6.1. The optional `django` and
+`django-pytest` extras accept `Django>=5.2.8,<6.2`; install the latest patch of
+your chosen supported series. Django6 requires Python3.12+, while Python3.11
+uses Django5.2. Published0.6.0 installation metadata is unchanged; the broadened
+extras and the prepared-class entry require a wheel built from current source.
+
+The existing Release Django job uses representative profiles: Python3.11 +
+Django5.2.18 and Python3.14 + Django6.1.2, on each supported OS. It retains its
+job count and shared host/wheel; versions are pinned in requirements and the
+input manifest. This replaces both interpreters using5.2.8 rather than adding a
+full version cross-product. Django6.0 is covered by a focused local compatibility
+check; this is not every supported version on every Python/OS combination.
+No new support is implied for multiple aliases, async or unsupported lifecycle modes.
 
 ## Evidence and maintained CI
 

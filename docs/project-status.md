@@ -2208,3 +2208,23 @@ Detailed logs and timing data remain on the pinned archive linked from that
 receipt; the product PR keeps concise evidence and reproducible harnesses.
 Serial stays default, with explicit positive local worker counts and load/loadscope.
 No universal performance or resource guarantee is added.
+
+
+## Django6 support — Human approved, implementation in progress
+
+On2026-11-03 the Human requested formal Django6 support after the bounded
+[Python3.14/Django6.1.2 probe](https://github.com/masahitojp/mariamem/blob/38c9775435718a3d7b353acf88e2939e818cc324/docs/reviews/d1-django61-probe.md)
+passed20 serial and15 parallel expected assessments without adapter changes.
+The scope is5.2 LTS/6.0/6.1 extras and usage docs, with representative existing
+Release profiles3.11/5.2 LTS and3.14/latest6.1, no extra jobs/builds. The Human
+explicitly requested minimal new verification: retain the prior6.1 evidence,
+check6.0 healthy lifecycle and changed packaging/profile guards; do not start
+a full Release campaign. Opposite-platform6.x acceptance will run in the existing
+Release job when next invoked. No adapter/runtime, version or publication change.
+
+The [minimal verification record](reviews/django6-support.md) pins the change to
+`98f063887fdb3f46597eaf422d29814de0493feb`:36 focused recipe/profile tests,
+generated-extra metadata and3 healthy Django6.0.9 source-entry assessments PASS.
+The prior6.1.2 probe is retained without rerun. Implementation is ready for
+normal protected integration; fresh opposite-platform6.x evidence is deferred
+to the next existing Release invocation under the Human's minimal-check request.
