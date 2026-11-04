@@ -1,0 +1,18 @@
+{
+  "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "question": "Issue100 exit: attribute the dominant remaining tail to charset lookup, SQL path parse, db-options cache, filesystem case probe or other setup and select an improvement candidate",
+  "fixture": "1000 integer rows; serial cap1; root closed before four child Forks; existing SQL/independent update/cleanup oracles",
+  "matrix": "one host; three alternating fresh-process pairs x4 serial children; all existing guest initialization diagnostics on, new boundary callbacks off/on; warmup separate",
+  "controls": "one positive init pilot and one wrong-seed negative; no extra primary repeats",
+  "scope": "same fixed source/guest; generated Go observation only; no guest rebuild/configuration/semantic change",
+  "exit": "Three alternating pairs; identify dominant bounded call and source-supported improvement/design recommendation, no optimization implementation",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci_runs": 0,
+    "disk_gib": 7,
+    "minimum_free_gib": 16
+  }
+}
