@@ -35,6 +35,7 @@ def main():
     parser.add_argument('--go-app', type=Path, required=True)
     parser.add_argument('--expected-source-commit', required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--skip-go', action='store_true', help='Python-only; Go is owned by the first interpreter')
     args = parser.parse_args()
     source = require_commit(ROOT, args.expected_source_commit).source_commit
     assert inspect_ref(ROOT, 'HEAD').source_commit == source, 'checkout differs from candidate'
@@ -61,6 +62,10 @@ def main():
                    '-v', '--basetemp', str(output / 'pytest-temp'),
                    '--junitxml', str(output / 'pytest.xml')],
     }
+    if args.skip_go:
+        del commands['go']
+    report['selected_languages'] = list(commands)
+    success = 'PASS_PUBLIC_PYTHON_EXAMPLES' if args.skip_go else 'PASS_PUBLIC_EXAMPLES'
     try:
         for name, command in commands.items():
             log = output / (name + '.txt')
@@ -72,10 +77,10 @@ def main():
             report['runs'][name] = dict(result='PASS' if passed else 'FAIL',
                                         command=command, exit_code=result.returncode)
         if all(r['result'] == 'PASS' for r in report['runs'].values()):
-            report['result'] = 'PASS_PUBLIC_EXAMPLES'
+            report['result'] = success
     finally:
         (output / 'result.json').write_text(json.dumps(report, indent=2) + '\n')
-    return 0 if report['result'] == 'PASS_PUBLIC_EXAMPLES' else 1
+    return 0 if report['result'] == success else 1
 
 
 if __name__ == '__main__':

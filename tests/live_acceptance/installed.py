@@ -1,4 +1,4 @@
-"""Build candidate wheel and run installed Python / external-module Go acceptance."""
+"""Consume the shared wheel and run installed Python / external-module Go acceptance."""
 import argparse
 import hashlib
 import json
@@ -18,6 +18,7 @@ def run(argv,**kwargs):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--expected-source-commit',required=True)
+    parser.add_argument("--skip-go", action="store_true", help="Python-only run; another interpreter owns Go acceptance")
     args=parser.parse_args();out=args.output.resolve();out.mkdir(parents=True)
     sys.path.insert(0,str(ROOT/'scripts'))
     from git_identity import require_commit
@@ -35,16 +36,22 @@ def main():
     shutil.copy2(Path(__file__).with_name('installed_python.py'),out/'installed_python.py')
     env=os.environ.copy();env.pop('PYTHONPATH',None)
     with (out/'python.txt').open('w') as log:run([python,out/'installed_python.py'],cwd=out,env=env,stdout=log,stderr=subprocess.STDOUT)
-    consumer=out/'go-consumer';consumer.mkdir();shutil.copy2(Path(__file__).with_name('go_consumer')/'main.go',consumer/'main.go')
-    (consumer/'go.mod').write_text('module example.com/live-consumer\n\ngo 1.26.0\n\nrequire github.com/masahitojp/mariamem v0.0.0\nreplace github.com/masahitojp/mariamem => '+ROOT.as_posix()+'\n')
-    run(['go','mod','tidy'],cwd=consumer)
-    with (out/'go.txt').open('w') as log:run(['go','run','.'],cwd=consumer,stdout=log,stderr=subprocess.STDOUT)
-    py=json.loads((out/'python.txt').read_text().splitlines()[-1]);go=json.loads((out/'go.txt').read_text().splitlines()[-1])
+    py=json.loads((out/'python.txt').read_text().splitlines()[-1])
     assert py['result']=='PASS_INSTALLED_PYTHON_LIVE' and str(site) in py['module']
-    assert go['result']=='PASS_EXTERNAL_GO_LIVE'
-    (out/'result.json').write_text(json.dumps(dict(result='PASS_INSTALLED_LIVE',source_commit=args.expected_source_commit,wheel_sha256=hashlib.sha256(wheel.read_bytes()).hexdigest(),python=py,go=go),indent=2)+'\n')
+    go=dict(result='NOT_RUN', reason='Go acceptance belongs to the first interpreter')
+    if not args.skip_go:
+        consumer=out/'go-consumer';consumer.mkdir();shutil.copy2(Path(__file__).with_name('go_consumer')/'main.go',consumer/'main.go')
+        (consumer/'go.mod').write_text('module example.com/live-consumer\n\ngo 1.26.0\n\nrequire github.com/masahitojp/mariamem v0.0.0\nreplace github.com/masahitojp/mariamem => '+ROOT.as_posix()+'\n')
+        run(['go','mod','tidy'],cwd=consumer)
+        with (out/'go.txt').open('w') as log:run(['go','run','.'],cwd=consumer,stdout=log,stderr=subprocess.STDOUT)
+        go=json.loads((out/'go.txt').read_text().splitlines()[-1])
+        assert go['result']=='PASS_EXTERNAL_GO_LIVE'
+    result='PASS_INSTALLED_PYTHON_LIVE' if args.skip_go else 'PASS_INSTALLED_LIVE'
+    (out/'result.json').write_text(json.dumps(dict(result=result,source_commit=args.expected_source_commit,wheel_sha256=hashlib.sha256(wheel.read_bytes()).hexdigest(),python=py,go=go),indent=2)+'\n')
     # These are recreatable consumer environments, not durable evidence.
-    shutil.rmtree(venv);shutil.rmtree(consumer)
+    shutil.rmtree(venv)
+    if not args.skip_go:
+        shutil.rmtree(consumer)
     return 0
 
 

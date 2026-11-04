@@ -54,6 +54,9 @@ def validate(text):
                     'tests/test_handoff_failures.py', 'tests/test_owned_snapshot.py',
                     'scripts/go_fixture_campaign.py', 'scripts/go_fixture_completion.py']:
         assert command in text
+    assert 'scripts/e2e_workflow_timing.py' not in text
+    assert '--output build/live-evidence/g1 --profile release' in text
+    assert '--validate-matrix build/g1-matrix --profile release' in text
     for scenario in ['positive', 'skip-reset', 'restart-app']:
         assert scenario in text
     assert '--expected-source-commit "$SOURCE_COMMIT"' in text
@@ -73,6 +76,7 @@ def test_full_acceptance_is_explicit_and_retains_its_oracles():
     ('needs: [native-reference, live]', 'needs: []'),
     ('tests/live_acceptance/run.py', 'echo bypass'),
     ('scripts/go_fixture_campaign.py', 'echo bypass'),
+    ('--profile release', '--profile measurement'),
     ('tests/test_forklimit_transport.py', 'echo omitted-transport'),
     ('tests/test_owned_snapshot.py', 'echo omitted-runtime'),
     ('build/live-evidence/installed-py$version', 'build/live-evidence/unbound'),
@@ -154,3 +158,34 @@ def test_daily_gate_owns_the_existing_protected_context():
     assert 'needs: [check, integration]' in text
     assert 'smoke_result: ${{ steps.smoke.outcome }}' in text
     assert 'if: always()' in text.split('  required:')[1]
+
+
+@pytest.mark.parametrize('name', ['Runnable public documentation examples',
+    'Installed wheel and external Go module', 'Installed owned E2E entry outside the source checkout'])
+@pytest.mark.parametrize('failed_language', ['', 'python', 'go'])
+def test_actual_language_loop_runs_go_once_and_preserves_failures(tmp_path, name, failed_language):
+    import os
+    import subprocess
+    import textwrap
+    text = WORKFLOW.read_text()
+    step = text.split('      - name: '+name+'\n', 1)[1].split('      - ', 1)[0]
+    script = textwrap.dedent(step.split('        run: |\n', 1)[1])
+    interpreters = {}
+    for minor in ('3.11', '3.14'):
+        executable = tmp_path/('py'+minor)
+        executable.write_text('#!/bin/sh\n'
+            'if [ "$1" = "-c" ]; then echo '+minor+'; exit 0; fi\n'
+            'case "$*" in *--skip-go*) go=no ;; *) go=yes ;; esac\n'
+            'echo "'+minor+' $go" >> "$CALLS"\n'
+            'if [ "$FAIL" = python ]; then exit 1; fi\n'
+            'if [ "$FAIL" = go ] && [ "$go" = yes ]; then exit 1; fi\n')
+        executable.chmod(0o755);interpreters[minor]=str(executable)
+    calls = tmp_path/'calls'
+    result = subprocess.run(['bash', '-e', '-o', 'pipefail', '-c', script],
+        env=dict(os.environ, PY311=interpreters['3.11'], PY314=interpreters['3.14'],
+                 SOURCE_COMMIT='a'*40, CALLS=str(calls), FAIL=failed_language))
+    if not failed_language:
+        assert result.returncode == 0
+        assert calls.read_text().splitlines() == ['3.11 yes', '3.14 no']
+    else:
+        assert result.returncode != 0

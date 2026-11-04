@@ -3,6 +3,7 @@ import importlib.util
 import json
 from pathlib import Path
 import unittest
+import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 import sys
@@ -83,3 +84,34 @@ class TestInstalledController(unittest.TestCase):
 
 
 if __name__ == '__main__': unittest.main()
+
+
+@pytest.mark.parametrize('skip_go,fail_go', [(False, False), (True, False), (False, True)])
+def test_cli_language_owner_receipt_and_go_failure(tmp_path, monkeypatch, skip_go, fail_go):
+    import sys
+    from types import SimpleNamespace
+    calls = []
+    wheel=tmp_path/'wheel.whl';wheel.write_bytes(b'wheel')
+    monkeypatch.setattr(consumer, 'require_commit', lambda *args: None)
+    monkeypatch.setattr(consumer, 'verify_go_binary', lambda *args: None)
+    monkeypatch.setattr(consumer, 'wheel_source', lambda *args: None)
+    monkeypatch.setattr(consumer.subprocess, 'check_output', lambda argv, **kw: 'a'*40 if argv[1]=='rev-parse' else '')
+    def python(*args):
+        calls.append('python');return dict(result='PASS')
+    def go(*args):
+        calls.append('go')
+        if fail_go:raise ValueError('Go acceptance failed')
+        return dict(result='PASS')
+    monkeypatch.setattr(consumer, 'python_consumer', python)
+    monkeypatch.setattr(consumer, 'go_consumer', go)
+    output=tmp_path/'evidence'
+    monkeypatch.setattr(sys, 'argv', ['e2e_installed.py','--expected-source-commit','a'*40,
+        '--wheel',str(wheel),'--go-app',str(wheel),'--output',str(output)]+(['--skip-go'] if skip_go else []))
+    if fail_go:
+        with pytest.raises(ValueError, match='Go acceptance failed'):consumer.main()
+        assert json.loads((output/'result.json').read_text())['result']=='FAIL'
+    else:
+        consumer.main();receipt=json.loads((output/'result.json').read_text())
+        assert calls==(['python'] if skip_go else ['python','go'])
+        assert receipt['result']==('PASS_INSTALLED_OWNED_PYTHON' if skip_go else 'PASS_INSTALLED_OWNED')
+        assert receipt['go']['result']==('NOT_RUN' if skip_go else 'PASS')

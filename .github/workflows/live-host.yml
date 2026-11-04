@@ -157,8 +157,8 @@ jobs:
           path: build/reference/py3.14
       - name: Evidence directory
         run: mkdir -p build/live-evidence
-      - name: Bounded G1 fixture acceptance on both hosts
-        run: python scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --output build/live-evidence/g1
+      - name: Bounded G1 fixture regression on both hosts
+        run: python scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --output build/live-evidence/g1 --profile release
       - name: G1 physical fault controls and external Go fixture consumer
         run: python scripts/go_fixture_completion.py --expected-source-commit "$SOURCE_COMMIT" --output build/live-evidence/g1/completion
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
@@ -193,9 +193,6 @@ jobs:
             PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_orders.py -q -s > "build/live-evidence/owned-py$version-runtime.txt" 2>&1
             PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_independent.py -q -s > "build/live-evidence/owned-py$version-independent.txt" 2>&1
             PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_retirement.py -q -s > "build/live-evidence/owned-py$version-retirement.txt" 2>&1
-            extra=()
-            if [[ "$version" == 3.11 ]]; then extra+=(--include-go); fi
-            PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" E2E_GO_APP="$PWD/build/go-live-orders" "$py" scripts/e2e_workflow_timing.py --expected-source-commit "$SOURCE_COMMIT" --output "build/live-evidence/owned-workflow-py$version" "${extra[@]}"
           done
       - name: P1 real prepared command and callback on both Python minors
         shell: bash
@@ -241,7 +238,9 @@ jobs:
         run: |
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-            "$py" scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$py" docs/examples/live/verify.py --host build/mariamem-host --go-app build/go-live-orders --expected-source-commit "$SOURCE_COMMIT" --output "build/live-evidence/examples-py$version"
+            go_args=()
+            if [[ "$version" == 3.14 ]]; then go_args+=(--skip-go); fi
+            "$py" scripts/experiment_disk.py --work-dir build --min-free-gib 4 --budget-gib 8 --timeout 900 -- "$py" docs/examples/live/verify.py --host build/mariamem-host --go-app build/go-live-orders --expected-source-commit "$SOURCE_COMMIT" --output "build/live-evidence/examples-py$version" "${go_args[@]}"
           done
       - name: Installed wheel and external Go module
         shell: bash
@@ -251,7 +250,9 @@ jobs:
         run: |
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-            "$py" tests/live_acceptance/installed.py --expected-source-commit "$SOURCE_COMMIT" --output "build/live-evidence/installed-py$version"
+            go_args=()
+            if [[ "$version" == 3.14 ]]; then go_args+=(--skip-go); fi
+            "$py" tests/live_acceptance/installed.py --expected-source-commit "$SOURCE_COMMIT" --output "build/live-evidence/installed-py$version" "${go_args[@]}"
           done
       - name: Installed owned E2E entry outside the source checkout
         if: steps.families.outputs.e2e == 'true'
@@ -262,7 +263,9 @@ jobs:
         run: |
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-            "$py" scripts/e2e_installed.py --expected-source-commit "$SOURCE_COMMIT" --wheel build/dist/*.whl --go-app "$PWD/build/go-live-orders" --output "build/live-evidence/owned-installed-py$version"
+            go_args=()
+            if [[ "$version" == 3.14 ]]; then go_args+=(--skip-go); fi
+            "$py" scripts/e2e_installed.py --expected-source-commit "$SOURCE_COMMIT" --wheel build/dist/*.whl --go-app "$PWD/build/go-live-orders" --output "build/live-evidence/owned-installed-py$version" "${go_args[@]}"
           done
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
@@ -293,5 +296,5 @@ jobs:
           path: build/g1-matrix
       - name: Validate both source-bound G1 host receipts
         run: |
-          python scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --validate-matrix build/g1-matrix
+          python scripts/go_fixture_campaign.py --expected-source-commit "$SOURCE_COMMIT" --validate-matrix build/g1-matrix --profile release
           python scripts/go_fixture_completion.py --expected-source-commit "$SOURCE_COMMIT" --validate-matrix build/g1-matrix

@@ -189,6 +189,7 @@ def main():
     parser.add_argument('--wheel', type=Path, required=True)
     parser.add_argument('--go-app', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--skip-go', action='store_true', help='Python-only; Go is owned by the first interpreter')
     args = parser.parse_args()
     require_commit(ROOT, args.expected_source_commit)
     need(subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip() == args.expected_source_commit
@@ -206,8 +207,10 @@ def main():
             work = Path(temporary).resolve()
             need(not work.is_relative_to(ROOT), 'consumer must be outside checkout')
             data['python'] = python_consumer(work, output, wheel, args.expected_source_commit)
-            data['go'] = go_consumer(work, output, app)
-        data.update(result='PASS_INSTALLED_OWNED', temporary_cleanup='complete')
+            data['go'] = (dict(result='NOT_RUN', reason='Go acceptance belongs to the first interpreter')
+                          if args.skip_go else go_consumer(work, output, app))
+        data.update(result='PASS_INSTALLED_OWNED_PYTHON' if args.skip_go else 'PASS_INSTALLED_OWNED',
+                    temporary_cleanup='complete')
     except BaseException as error:
         data.update(result='FAIL', error=str(error), runtime_cleanup='unconfirmed')
         raise

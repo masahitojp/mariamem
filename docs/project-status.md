@@ -2463,3 +2463,17 @@ is complete; its pinned experiment retains compact measurements, not a new
 product default or resource guarantee. Django manage.py --parallel, remote/auto
 workers, multiple aliases and routing integration remain outside the agreed
 scope rather than unfinished parts of this D1 implementation.
+
+
+## 0.6.1 CI: high-priority repetition reductions approved (2026-11-04)
+
+After PR83 integrated, the Human approved the high-priority CI audit items.
+The [execution policy](decisions/release-regression-vs-measurement.md) keeps all
+functional/fault and final-artifact boundaries, but executes language-independent
+Go consumers/examples once per OS, removes E2E onboarding-time repetition from
+normal Release, and separates G1 one-batch regression from manual timing/RSS/
+retention measurement. Python3.11/3.14 and both OS boundaries stay selected.
+No product default/API, publication approval, new job or trigger is introduced.
+Historical resource receipts retain their original scope; shorter Release receipts
+explicitly do not claim fresh resource measurement. Other audit items remain
+outside this implementation.
