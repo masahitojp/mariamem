@@ -6,6 +6,7 @@ from pathlib import Path
 def planet_proxy(info,e):
     name='mariamem-dub-dogfood-ps'
     args=['docker','run','-d','--rm','--name',name,'--label','mariamem.task=dub-dogfood','-p','127.0.0.1:13900:3900','ghcr.io/mattrobenolt/ps-http-sim@sha256:fb624c2f615cd53910be07a5c6a62ddf54936a2e1c7322c8398fa2b5dd601c41','-listen-port=3900','-mysql-addr=host.docker.internal','-mysql-port='+str(info['port']),'-mysql-dbname=planetscale']
+    if not info['password']:args.append('-mysql-no-pass')
     identifier=subprocess.check_output(args,text=True).strip()
     try:
         deadline=time.monotonic()+15
@@ -15,12 +16,20 @@ def planet_proxy(info,e):
             except OSError:
                 if time.monotonic()>deadline:raise
                 time.sleep(.25)
-        yield f"http://{info['user']}:{info['password']}@127.0.0.1:13900/planetscale"
+        yield f"http://{info['user']}:{info['password'] or 'unused'}@127.0.0.1:13900/planetscale"
     finally:
         with (e/'ps-http.txt').open('w') as log:subprocess.run(['docker','logs',name],stdout=log,stderr=subprocess.STDOUT)
         subprocess.run(['docker','rm','-f',name],check=True,stdout=subprocess.DEVNULL)
 
-def main(w,e,redis_url,with_proxy):
+@contextlib.contextmanager
+def qstash_local(path,e):
+    config=json.loads(path.read_text())
+    try:yield config
+    finally:
+        with (e/'qstash.txt').open('w') as log:subprocess.run(['docker','logs','mariamem-dub-dogfood-qstash'],stdout=log,stderr=subprocess.STDOUT)
+        subprocess.run(['docker','rm','-f','mariamem-dub-dogfood-qstash'],check=True,stdout=subprocess.DEVNULL)
+
+def main(w,e,redis_url,with_proxy,qstash_env):
     product=w/'temp/host-source';app=w/'temp/dub/apps/web';host=w/'temp/mariamem-host'
     e.mkdir(parents=True,exist_ok=True)
     sys.path[:0]=[str(product/'python'),str(product/'scripts')]
@@ -43,6 +52,7 @@ def main(w,e,redis_url,with_proxy):
         with contextlib.closing(pymysql.connect(**info,autocommit=True)) as c:
             with c.cursor() as cur:cur.execute('CREATE DATABASE planetscale CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci')
         psurl=stack.enter_context(planet_proxy(info,e)) if with_proxy else None
+        qscfg=stack.enter_context(qstash_local(qstash_env,e)) if qstash_env else None
         url=f"mysql://{info['user']}:{info['password']}@{info['host']}:{info['port']}/planetscale"
         import re
         clean_env=dict(os.environ)
@@ -50,6 +60,7 @@ def main(w,e,redis_url,with_proxy):
         env=dict(clean_env,DATABASE_URL=url,COREPACK_HOME=str(w/'temp/corepack'),NEXT_TELEMETRY_DISABLED='1',NODE_ENV='development',NEXTAUTH_URL='http://localhost:8888',NEXTAUTH_SECRET='local-dogfood-only-secret-not-for-production',ENCRYPTION_KEY='0123456789abcdef0123456789abcdef',UPSTASH_REDIS_REST_URL=redis_url,UPSTASH_REDIS_REST_TOKEN='local-dogfood-only',QSTASH_URL='http://127.0.0.1:9',QSTASH_TOKEN='local-unconfigured',TINYBIRD_API_URL='http://127.0.0.1:9',TINYBIRD_API_KEY='local-unconfigured')
         for name in ('CI','VERCEL','VERCEL_ENV','PLANETSCALE_DATABASE_URL','PRISMA_PIPELINING'):env.pop(name,None)
         if psurl:env['PLANETSCALE_DATABASE_URL']=psurl
+        if qscfg:env.update(qscfg,QSTASH_URL='http://127.0.0.1:18080',NEXT_PUBLIC_NGROK_URL='http://host.docker.internal:8888')
         env['PLAYWRIGHT_JSON_OUTPUT_FILE']=str(e/'upstream-api.json')
         cli=['corepack','pnpm','exec']
         run('schema-push',cli+['prisma','db','push','--schema=./prisma/schema','--skip-generate'],env)
@@ -100,4 +111,4 @@ def main(w,e,redis_url,with_proxy):
     print(json.dumps({'stages':report['stages'],'db_cases':report.get('db_cases',{}).get('summary')}),flush=True)
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--redis-url',default='http://127.0.0.1:9');p.add_argument('--with-proxy',action='store_true');a=p.parse_args();main(a.workspace.resolve(),a.output.resolve(),a.redis_url,a.with_proxy)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--redis-url',default='http://127.0.0.1:9');p.add_argument('--with-proxy',action='store_true');p.add_argument('--qstash-env',type=Path);a=p.parse_args();main(a.workspace.resolve(),a.output.resolve(),a.redis_url,a.with_proxy,a.qstash_env)
