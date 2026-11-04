@@ -164,4 +164,13 @@ P6 rejects the raw private-control token -0 (including whitespace), with token
 and shared-host survival tests. Public Go integer zero still selects auto;
 Python explicit zero still rejects. No existing client needs a negative token.
 
-Validation for these corrections is pending below; no new matrix PASS is claimed.
+Local validation on clean source_commit
+`b5601ab58496006783c0cd9b54f11b0e39e1a8a5`, macOS arm64 / Go1.26.10 /
+Python3.14: focused capacity-token/shared-host survival tests PASS; canonical
+daily PASS (67 early source tests, Go tests/vet,1883 Python tests,106 subtests,
+91 skips; public source6705 files). Go/Python source smoke PASS. The changed
+actual mapped-child resnapshot case PASS with the same-source host reporting
+vcs.revision=b5601ab58496006783c0cd9b54f11b0e39e1a8a5 and vcs.modified=false.
+The subsequent documentation-only result commit reuses those local results
+because its non-doc tree is unchanged. A fresh exact-head verify/auto matrix is
+the remaining P1 gate; no new installed/platform matrix PASS is claimed.

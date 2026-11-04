@@ -32,6 +32,14 @@ Linux/amd64 test compilation passes, while native Linux and new installed matrix
 execution remain pending. The existing successful matrix below
 remains on its original source and is not relabelled to this runtime delta.
 
+Final review P2–P6 adds real automatic-capture value assertions, hidden-cgroup
+and root-Start scope warnings, README default-wait guidance and request-local
+negative-zero rejection. Clean runtime source `b5601ab58496006783c0cd9b54f11b0e39e1a8a5`
+passes local daily/source smoke and its changed actual-host capture case. The
+following documentation-only record preserves that non-doc tree. P1 still
+requires a fresh exact candidate verify/auto matrix before recording acceptance;
+ordinary PR checks and old c53771cd READY do not satisfy it.
+
 The prior fixed eighteen-row exit was reconciled against exact source_commit
 `c53771cd9f653f971fdfa677105d46f6787298f9` and successful verify
 [41761661883](https://github.com/masahitojp/mariamem/actions/runs/41761661883).
