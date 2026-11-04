@@ -2575,6 +2575,10 @@ required checks in [CI 41866270670](https://github.com/masahitojp/mariamem/actio
 and merged normally to main source_commit
 `69186d7d4b01fdb1d5ec9318b37bbc3681bb2c22`. Issue #94's production candidate
 is based on that main, without an experimental overlay or diagnostic trace.
-Permanent regressions, usage/inventory updates and final candidate acceptance
-remain in progress; no new Node CI job is added. Issue #94 owns the actionable
-checklist; the old spike keeps its original context.
+The [production acceptance](reviews/issue94-production/README.md) records 28/28
+Prisma passes without trace code, 25 real wire/close/multiclient passes, focused
+race, daily and source smoke success on Darwin arm64. Permanent regressions,
+usage limits and the active fixture inventory are updated. Protected PR CI and
+integration remain pending; Ubuntu/installed/Release qualification are not claimed.
+No new Node CI job is added. Issue #94 owns the actionable checklist; the old
+spike keeps its original context.

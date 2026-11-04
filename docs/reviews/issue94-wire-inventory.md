@@ -27,7 +27,7 @@ resource/capture contracts are unchanged.
 `internal/mysqlwire/pipeline_test.go` covers buffer bounds, ordered framing,
 partial frames, EOF, overflow, sequence validation, admission and reader joining.
 `tests/test_python_wire.py` adds real TCP ordering, malformed-sequence and
-EOF/overflow/owner-close controls with independent roots. Real-host cases keep
+EOF/overflow/query-deadline/owner-close controls with independent roots. Real-host cases keep
 the existing runtime opt-in gate; daily source checks do not establish that
 acceptance. The fixture lint continues checking actual bytes against this commit,
 command/capability sets and negative mutations. No oracle is relaxed.

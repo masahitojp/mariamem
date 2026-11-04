@@ -28,9 +28,9 @@ including commands already buffered in memory.
 
 These are endpoint semantics, not a declaration of support for every driver,
 ORM, version or arbitrary pipeline depth. The bounded Prisma comparison uses
-Node24.22.1, Prisma/client/official MariaDB adapter7.10.1 and mariadb3.5.4.
-Its zero-parameter prepared path additionally needs the separate Issue93 fix;
-the last-statement alias is tracked in Issue95. There is no Node SDK addition.
+Node 24.22.1, Prisma/client/official MariaDB adapter 7.10.1 and mariadb 3.5.4.
+Its zero-parameter prepared path additionally needs the separate Issue #93 fix;
+the last-statement alias is tracked in Issue #95. There is no Node SDK addition.
 
 The [policy decision](decisions/issue94-bounded-pipeline.md) records authorization.
 Historical protocol scope and remaining command/capability gaps remain in the
