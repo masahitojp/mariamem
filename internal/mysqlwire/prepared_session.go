@@ -21,6 +21,8 @@ type preparedSession struct {
 	longErrors map[uint32]guest.Result
 	psMulti    bool
 	types      map[uint32][]preparedproto.ParameterType
+
+	lastStatement uint32
 }
 
 func newPreparedSession(open guest.Result, readyVersion int, readyOperations []uint8) (*preparedSession, error) {
@@ -89,6 +91,8 @@ func (s *preparedSession) handle(op byte, payload []byte, call preparedCall) ([]
 		return s.executeStatement(payload, call)
 	}
 	if op == preparedproto.Prepare {
+		// Every new attempt invalidates the alias until metadata is installed.
+		s.lastStatement = 0
 		if len(payload) == 0 || len(payload) > preparedproto.MaxSQL {
 			return [][]byte{ErrorPacket(1153, "08S01", "prepared SQL length must be 1..1048576 bytes")}, nil
 		}
@@ -105,6 +109,7 @@ func (s *preparedSession) handle(op byte, payload []byte, call preparedCall) ([]
 			var id uint32
 			id, err = s.registry.Add(r.SessionGeneration, r.StatementID, r.ParamCount)
 			if err == nil {
+				s.lastStatement = id
 				binary.LittleEndian.PutUint32(replies[0][1:], id)
 				return replies, nil
 			}
@@ -130,13 +135,14 @@ func (s *preparedSession) handle(op byte, payload []byte, call preparedCall) ([]
 	// than borrowing bytes beyond this request's actual payload.
 	var header [4]byte
 	copy(header[:], payload)
-	id := binary.LittleEndian.Uint32(header[:])
+	wireID := binary.LittleEndian.Uint32(header[:])
+	id := s.resolveStatementID(wireID)
 	e, ok := s.registry.Lookup(id)
 	if !ok {
 		if op == preparedproto.Close {
 			return [][]byte{}, nil
 		}
-		return [][]byte{ErrorPacket(1243, "HY000", fmt.Sprintf("Unknown prepared statement handler (%d) given to mysqld_stmt_reset", id))}, nil
+		return [][]byte{ErrorPacket(1243, "HY000", fmt.Sprintf("Unknown prepared statement handler (%d) given to mysqld_stmt_reset", wireID))}, nil
 	}
 	r, err := s.call(op, e.Handle, nil, op != preparedproto.Close, call)
 	if err != nil {
@@ -147,6 +153,9 @@ func (s *preparedSession) handle(op byte, payload []byte, call preparedCall) ([]
 			return nil, errors.New("native prepared close failed")
 		}
 		s.registry.Remove(id)
+		if s.lastStatement == id {
+			s.lastStatement = 0
+		}
 		delete(s.types, id)
 		delete(s.long, id)
 		delete(s.longErrors, id)
@@ -158,4 +167,13 @@ func (s *preparedSession) handle(op byte, payload []byte, call preparedCall) ([]
 	delete(s.long, id)
 	delete(s.longErrors, id)
 	return [][]byte{okPacket(r.Status, 0, 0, r.Warnings)}, nil
+}
+
+// resolveStatementID keeps alias-based commands on the same owned mapping and
+// caches as explicit-ID commands. Zero never identifies an allocated statement.
+func (s *preparedSession) resolveStatementID(id uint32) uint32 {
+	if id == preparedproto.LastStatementID {
+		return s.lastStatement
+	}
+	return id
 }

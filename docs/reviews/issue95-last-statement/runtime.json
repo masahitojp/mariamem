@@ -1,0 +1,5 @@
+{
+  "source_commit": "04245cc5851e8236b118c840a6679f3c038480a0",
+  "binary_build_info": "${TEMP}/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261104144949-04245cc5851e\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=04245cc5851e8236b118c840a6679f3c038480a0\n\tbuild\tvcs.time=2026-11-04T14:49:49Z\n\tbuild\tvcs.modified=false\n",
+  "binary_sha256": "7b0fe5d0fe7868e901f2771fbf5038135c558a51ad06f147c233b37cd07c3977"
+}

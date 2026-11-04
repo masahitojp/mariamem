@@ -14,7 +14,7 @@ func (s *preparedSession) sendLongData(payload []byte, call preparedCall) ([][]b
 	if s == nil || len(payload) < 6 {
 		return [][]byte{}, nil
 	}
-	id := binary.LittleEndian.Uint32(payload)
+	id := s.resolveStatementID(binary.LittleEndian.Uint32(payload))
 	e, ok := s.registry.Lookup(id)
 	if !ok {
 		return [][]byte{}, nil

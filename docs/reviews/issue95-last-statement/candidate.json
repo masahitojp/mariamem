@@ -1,0 +1,161 @@
+{
+  "scope": "SEQUENTIAL_ALIAS_LIFECYCLE_NOT_PIPELINE_SUPPORT",
+  "checks": [
+    {
+      "name": "before-prepare",
+      "result": "PASS",
+      "errno": 1243,
+      "value": null
+    },
+    {
+      "name": "actual-id",
+      "result": "PASS",
+      "errno": null,
+      "value": 7
+    },
+    {
+      "name": "alias",
+      "result": "PASS",
+      "errno": null,
+      "value": 8
+    },
+    {
+      "name": "alias-requires-fresh-types",
+      "result": "PASS",
+      "errno": 1835,
+      "value": null
+    },
+    {
+      "name": "actual-id-reuses-alias-types",
+      "result": "PASS",
+      "errno": null,
+      "value": 9
+    },
+    {
+      "name": "latest-prepare",
+      "result": "PASS",
+      "errno": null,
+      "value": 11
+    },
+    {
+      "name": "older-explicit-id",
+      "result": "PASS",
+      "errno": null,
+      "value": 12
+    },
+    {
+      "name": "explicit-does-not-retarget",
+      "result": "PASS",
+      "errno": null,
+      "value": 13
+    },
+    {
+      "name": "close-older-keeps-latest",
+      "result": "PASS",
+      "errno": null,
+      "value": 14
+    },
+    {
+      "name": "failed-prepare-invalidates",
+      "result": "PASS",
+      "errno": 1243,
+      "value": null
+    },
+    {
+      "name": "old-actual-id-survives",
+      "result": "PASS",
+      "errno": null,
+      "value": 15
+    },
+    {
+      "name": "actual-id-does-not-revive",
+      "result": "PASS",
+      "errno": 1243,
+      "value": null
+    },
+    {
+      "name": "reprepare-restores",
+      "result": "PASS",
+      "errno": null,
+      "value": 16
+    },
+    {
+      "name": "reset-alias-keeps-latest",
+      "result": "PASS",
+      "errno": null,
+      "value": 17
+    },
+    {
+      "name": "close-alias-retires-actual",
+      "result": "PASS",
+      "errno": 1243,
+      "value": null
+    },
+    {
+      "name": "close-no-fallback",
+      "result": "PASS",
+      "errno": 1243,
+      "value": null
+    },
+    {
+      "name": "older-actual-still-owned",
+      "result": "PASS",
+      "errno": null,
+      "value": 18
+    },
+    {
+      "name": "other-connection-no-alias",
+      "result": "PASS",
+      "errno": 1243,
+      "value": null
+    },
+    {
+      "name": "other-connection-own-alias",
+      "result": "PASS",
+      "errno": null,
+      "value": 19
+    },
+    {
+      "name": "other-prepare-does-not-revive-first",
+      "result": "PASS",
+      "errno": 1243,
+      "value": null
+    },
+    {
+      "name": "long-data-alias-execute",
+      "result": "PASS",
+      "row_hex": "000003616263"
+    },
+    {
+      "name": "long-data-deferred-error-alias",
+      "result": "PASS",
+      "errno": 1210,
+      "value": null
+    },
+    {
+      "name": "reset-alias-clears-long-data-error",
+      "result": "PASS"
+    },
+    {
+      "name": "zero-parameter-alias",
+      "result": "PASS",
+      "errno": null,
+      "value": 7
+    },
+    {
+      "name": "sql-error-does-not-retire-alias",
+      "result": "PASS",
+      "errno": 1062,
+      "value": null
+    },
+    {
+      "name": "alias-works-after-sql-error",
+      "result": "PASS"
+    }
+  ],
+  "server_capabilities": 1024525,
+  "client_capabilities": 3842565,
+  "version": "12.3.3-MariaDB-embedded",
+  "following_query": "PASS",
+  "result": "PASS"
+}
