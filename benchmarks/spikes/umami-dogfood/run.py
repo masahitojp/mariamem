@@ -2,13 +2,13 @@
 import argparse,contextlib,hashlib,json,os,re,signal,socket,subprocess,sys,time,urllib.request,urllib.error
 from pathlib import Path
 
-def main(w,e,compat,cohorts):
+def main(w,e,compat,cohorts,native_port):
     product=w/'temp/host-source';app=w/'temp/umami';host=w/'temp/mariamem-host';e.mkdir(parents=True,exist_ok=True)
     sys.path[:0]=[str(product/'python'),str(product/'scripts')]
     import mariamem,pymysql
     from git_identity import verify_go_binary
     source='c27061f1a33eed2908fd90b0e2d816692e001339';stamp=verify_go_binary(product,host,source)
-    report={'mariamem_source_commit':source,'umami_source_commit':'3eb2e890efb5b18bdfbeab46b9946f48e38da424','binary_sha256':hashlib.sha256(host.read_bytes()).hexdigest(),'binary_build_info':stamp,'stages':[],'cohorts':{}}
+    report={'backend':'native-mariadb' if native_port else 'mariamem','binary_consumed':not bool(native_port),'snapshot_fork_used':not bool(native_port),'mariamem_source_commit':source,'umami_source_commit':'3eb2e890efb5b18bdfbeab46b9946f48e38da424','binary_sha256':hashlib.sha256(host.read_bytes()).hexdigest(),'binary_build_info':stamp,'stages':[],'cohorts':{}}
     def save():(e/'result.json').write_text(json.dumps(report,indent=2)+'\n')
     env=dict(os.environ,COREPACK_HOME=str(w/'temp/corepack'),CYPRESS_CACHE_FOLDER=str(w/'temp/cypress-cache'),XDG_CACHE_HOME=str(w/'temp/xdg-cache'),NEXT_TELEMETRY_DISABLED='1',TZ='UTC',APP_SECRET='local-umami-dogfood-only-not-for-production',DATABASE_TYPE='mysql',NODE_ENV='development')
     for key in list(env):
@@ -21,7 +21,10 @@ def main(w,e,compat,cohorts):
             try:p=subprocess.run(args,cwd=app,env=localenv,stdout=log,stderr=subprocess.STDOUT,timeout=timeout);row={'name':name,'result':'PASS' if p.returncode==0 else 'FAIL','exit_code':p.returncode}
             except subprocess.TimeoutExpired:row={'name':name,'result':'TIMEOUT'}
         report['stages'].append(row);save();print(name,row,flush=True);return row
-    with mariamem.start(host_binary=host,log_path=e/'host.log',query_timeout=30) as root:
+    class NativeHandle:
+        def connection_info(self):return {'host':'127.0.0.1','port':native_port,'user':'root','password':'','database':'mysql'}
+    with contextlib.ExitStack() as outer:
+        root=NativeHandle() if native_port else outer.enter_context(mariamem.start(host_binary=host,log_path=e/'host.log',query_timeout=30))
         info=root.connection_info()
         with contextlib.closing(pymysql.connect(**info,autocommit=True)) as c:
             with c.cursor() as cur:cur.execute('CREATE DATABASE umami CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci')
@@ -37,10 +40,11 @@ def main(w,e,compat,cohorts):
             with c.cursor() as cur:
                 cur.execute('SELECT migration_name,finished_at IS NOT NULL FROM _prisma_migrations ORDER BY migration_name');report['migrations']=[list(x) for x in cur.fetchall()]
                 cur.execute('SHOW TABLES');report['tables']=[x[0] for x in cur.fetchall()]
-        save();root.wait_disconnected(timeout=10)
-        with root.snapshot(max_forks=3) as baseline:
+        save()
+        if not native_port:root.wait_disconnected(timeout=10)
+        with (contextlib.nullcontext(None) if native_port else root.snapshot(max_forks=3)) as baseline:
             if "queries" in cohorts:
-                with baseline.fork() as db:
+                with (contextlib.nullcontext(root) if native_port else baseline.fork()) as db:
                     run('application-query-cases',['node','.mariamem-db.cjs'],connection(db))
                     for line in reversed((e/'application-query-cases.txt').read_text().splitlines()):
                         try:
@@ -50,7 +54,7 @@ def main(w,e,compat,cohorts):
                     save()
             for mode,spec in [('api','cypress/e2e/api-*.cy.ts'),('ui','cypress/e2e/login.cy.ts,cypress/e2e/user.cy.ts,cypress/e2e/website.cy.ts')]:
                 if mode not in cohorts:continue
-                with baseline.fork() as db:
+                with (contextlib.nullcontext(root) if native_port else baseline.fork()) as db:
                     localenv=connection(db)
                     probe=socket.socket()
                     try:probe.bind(('127.0.0.1',0));port=probe.getsockname()[1]
@@ -88,4 +92,4 @@ def main(w,e,compat,cohorts):
     save();return int(any(s['result']!='PASS' for s in report['stages']))
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--diagnostic-compat',action='store_true');p.add_argument('--cohorts',default='queries,api,ui');a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve(),a.diagnostic_compat,set(a.cohorts.split(','))))
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--diagnostic-compat',action='store_true');p.add_argument('--cohorts',default='queries,api,ui');p.add_argument('--native-port',type=int);a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve(),a.diagnostic_compat,set(a.cohorts.split(',')),a.native_port))
