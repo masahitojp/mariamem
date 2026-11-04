@@ -12966,16 +12966,19 @@ func readVec(src io.Reader, bufs [][]byte) uint64 {
 
 // writeVec drains bufs into dst in order, stopping at the first failed
 // write; returns the bytes written. Shared like readVec.
-func writeVec(dst io.Writer, bufs [][]byte) uint64 {
+func writeVec(dst io.Writer, bufs [][]byte) (uint64, error) {
 	var total uint64
 	for _, buf := range bufs {
 		n, err := dst.Write(buf)
 		total += uint64(n)
 		if err != nil {
-			break
+			return total, err
+		}
+		if n < len(buf) {
+			return total, io.ErrShortWrite
 		}
 	}
-	return total
+	return total, nil
 }
 
 // fdSrcLocked returns the io.Reader for fd and (when applicable) the
@@ -13174,7 +13177,11 @@ func (w *WasiStubs) Fd_write(m *Module, fd, iovs, iovsLen, nwrittenPtr int32) in
 		binary.LittleEndian.PutUint32(nwrittenSlice, 0)
 		return _wasiEBADF
 	}
-	binary.LittleEndian.PutUint32(nwrittenSlice, uint32(writeVec(dst, bufs)))
+	n, err := writeVec(dst, bufs)
+	binary.LittleEndian.PutUint32(nwrittenSlice, uint32(n))
+	if err != nil && n == 0 {
+		return mapOSError(err)
+	}
 	return _wasiESUCCESS
 }
 func (w *WasiStubs) Fd_sync(m *Module, fd int32) int32 {
@@ -14381,7 +14388,11 @@ func (w *WasiStubs) Fd_write64(m *Module, fd int64, iovs int64, iovsLen int64, n
 		binary.LittleEndian.PutUint64(nwrittenSlice, 0)
 		return _wasiEBADF
 	}
-	binary.LittleEndian.PutUint64(nwrittenSlice, writeVec(dst, bufs))
+	n, err := writeVec(dst, bufs)
+	binary.LittleEndian.PutUint64(nwrittenSlice, n)
+	if err != nil && n == 0 {
+		return mapOSError(err)
+	}
 	return _wasiESUCCESS
 }
 

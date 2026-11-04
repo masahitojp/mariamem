@@ -12,6 +12,7 @@ import (
 
 	"github.com/masahitojp/mariamem/internal/artifacts"
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/disposal"
 	"github.com/masahitojp/mariamem/internal/guest"
 	"github.com/masahitojp/mariamem/internal/mysqlwire"
 	"github.com/masahitojp/mariamem/internal/prepared"
@@ -28,6 +29,10 @@ type Server struct {
 	slots        []bool
 	closing      bool
 	workers      sync.WaitGroup
+	workersOnce  sync.Once
+	workersDone  chan struct{}
+	disposeOnce  sync.Once
+	disposer     *disposal.Owner
 	queryTimeout time.Duration
 	transfer     string
 	build        string
@@ -73,7 +78,15 @@ func start(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, 
 		if err != nil {
 			return nil, err
 		}
-		defer release()
+		defer func() {
+			if err == nil {
+				release()
+				return
+			}
+			// A failed startup may still be reading borrowed restore entries.
+			// Keep backing protection until the retained cleanup has joined.
+			err = disposal.After(err, func() error { release(); return nil })
+		}()
 	}
 	timing.Mark(ctx, "metadata_snapshot_validated")
 	transfer, err := os.MkdirTemp("", "mariamem-transfer-")
@@ -83,18 +96,15 @@ func start(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, 
 	timing.Mark(ctx, "transfer_prepared")
 	p, err := guest.StartGenerated(ctx, transfer, entries, stderr)
 	if err != nil {
-		os.RemoveAll(transfer)
-		return nil, err
+		return nil, disposal.RemoveAfter(err, transfer)
 	}
 	if restore != nil && p.SnapshotVersion != 1 {
-		os.RemoveAll(transfer)
-		return nil, p.AbortAndWait(fmt.Errorf("guest does not support snapshot restore"))
+		return nil, disposal.RemoveAfter(p.AbortAndWait(fmt.Errorf("guest does not support snapshot restore")), transfer)
 	}
 	timing.Mark(ctx, "guest_ready")
 	ln, err := net.Listen("tcp4", "127.0.0.1:0")
 	if err != nil {
-		os.RemoveAll(transfer)
-		return nil, diagnostic.Wrap("host_start", "host_listen", p.AbortAndWait(err))
+		return nil, diagnostic.Wrap("host_start", "host_listen", disposal.RemoveAfter(p.AbortAndWait(err), transfer))
 	}
 	s := &Server{Guest: p, listener: ln, clients: make(map[net.Conn]*session), slots: make([]bool, p.MaxSessions), queryTimeout: timeout, transfer: transfer, build: build}
 	timing.Mark(ctx, "wire_listener_ready")
@@ -187,7 +197,7 @@ func (s *Server) allocateSlotLocked() (uint32, bool) {
 	return 0, false
 }
 func (s *Server) Close(ctx context.Context) (err error) {
-	defer func() { err = errors.Join(err, os.RemoveAll(s.transfer)) }()
+	defer func() { err = s.disposeAfter(err) }()
 	s.mu.Lock()
 	s.stopAccepting()
 	s.mu.Unlock()
@@ -234,15 +244,13 @@ func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool
 	// return above, before this cleanup is registered.
 	defer func() {
 		if err != nil {
-			if cleanupErr := os.RemoveAll(path); cleanupErr != nil {
-				err = errors.Join(err, fmt.Errorf("remove partial snapshot: %w", cleanupErr))
-			}
+			err = disposal.RemoveAfter(err, path)
 		}
 	}()
 	timing.Mark(ctx, "preconditions_destination_ready")
 	s.stopAccepting()
 	s.mu.Unlock()
-	defer os.RemoveAll(s.transfer)
+	defer func() { err = s.disposeAfter(err) }()
 	if err = s.finish(ctx, true); err != nil {
 		return true, err
 	}
@@ -252,8 +260,7 @@ func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool
 	return true, err
 }
 func (s *Server) finish(ctx context.Context, export bool) error {
-	done := make(chan struct{})
-	go func() { s.workers.Wait(); close(done) }()
+	done := s.joinWorkers()
 	var err error
 	select {
 	case <-done:

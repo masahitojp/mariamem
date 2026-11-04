@@ -14,6 +14,157 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Issue #53 — finite Fork candidate adopted, main integration pending
+
+### Current candidate — adopted after fixed-exit technical acceptance
+
+Exact source_commit `cddd8dcbd6d664171907ffc1769b83e472640875` passes
+[verify41778273108](https://github.com/masahitojp/mariamem/actions/runs/41778273108),
+operation=verify/mode=auto. Both supported OSes and Python3.11/3.14 pass the
+source-bound installed Fork/Live/E2E/D1 matrix; core, feature gates, verification
+and aggregate succeed. Publication/public smoke are skipped. This closes the
+new-head matrix condition P1 after the G1–G3/P2–P6 corrections.
+
+[Saved evidence](reviews/issue53-fork-limit-evidence/ci-41778273108/README.md)
+retains the checked artifact/member hashes, four-cell matrix and fixed eighteen-row
+dispositions. The [updated adoption review](reviews/issue53-fork-limit-final-adoption-review.md)
+recommends adopting the finite-Fork candidate, including the host WASI write-error
+cleanup prerequisite. The Human adopted it on2026-11-04 with E1/E2 documentation
+corrections; the [decision](decisions/issue53-fork-limit-adoption.md) owns approval.
+Main integration remains pending.
+No version/publication approval, machine-wide/OOM/CPU-optimal guarantee,
+resource campaign or prewarming scope is added.
+
+Capacity diagnostics report resolved cap and observed occupancy; real automatic
+captures assert finite positive resolved values. Linux memory policy has injected
+sysinfo/proc/failure tests and native Linux package execution; the nonverbose log
+does not prove the syscall adapter subtest avoided its explicit unavailable-syscall
+skip. Hidden cgroup limits can still cause over-admission; use explicit caps.
+Independent root Start calls are outside per-Snapshot limits. Failed capture
+cleanup has a permanent latch: shared-host `captureDebt` cannot be cleared, so
+the originating slot remains occupied and parent admission stays stopped even
+after runtime disposal. Cleanup retry/Live Reset cannot recover that pool; safely
+close remaining owners and prepare a fresh independent lineage. This is distinct
+from retryable child-runtime cleanup debt. The
+[follow-up](reviews/issue53-review-followup.md) preserves correction details.
+
+Old receipts remain pinned: c53771cd/41761661883 predates G1–G3, and the
+7c0f6c32 docs-tree reuse applies only to that historical checkpoint. Neither is
+relabelled as current runtime acceptance. The9e788a25 receipt/wording commit
+preserves the tested candidate's non-doc tree, as recorded in assessment.json.
+The later E1/E2 correction changes only docs and README wording: runtime is
+unchanged, but README is outside docs/ so the old non-doc fingerprint is not
+claimed to match this later documentation head.
+
+### Historical implementation checkpoints
+
+The paragraphs below preserve the source/result context of each checkpoint;
+execution described as pending there is superseded by the current acceptance above.
+
+On2026-11-03 the Human selected pgmem-style default limiting: an omitted Fork
+limit must resolve to a finite value, and full capacity waits before starting
+another MariaDB instance. The initial unlimited-default compatibility proposal
+is superseded. [Issue #53](https://github.com/masahitojp/mariamem/issues/53)
+owns tracking under its existing v0.6.1 milestone; the
+[revised design](reviews/issue53-fork-limit-design.md) proposes one-time
+memory-based sizing, explicit positive overrides and a finite fallback.
+
+The concrete follow-up proposes256 MiB per Fork against one quarter of the
+selected memory limit, with finite CPU fallback, as a sizing heuristic rather
+than an OOM guarantee. It preserves development-host handoff with source-owned
+leases, and gives Live-based E2E entries an explicit cap override. D1 prepared
+Django is explicitly included: per-run/class budgets, cap1 lifecycle, finite
+fork waits, teardown ordering and worker-local xdist acceptance. Python Fork
+keeps a response watchdog by separating bounded reservation from startup;
+supplied pytest waits default to30 seconds. Python retains its source Session
+under the parent lock but releases the lock before capacity/transfer waits.
+Explicit Live Reset may recover only after confirmed disposal of all outstanding
+parent cleanup debt; Close remains final and fixture failure latches stay set.
+Capacity/wait range checks are request-local and must preserve source/sibling DBs.
+Auto remains a memory heuristic,
+not a CPU/latency optimum; explicit tuning and worker totals must be documented.
+On 2026-11-03 the Human authorized implementation after the lock, recovery and
+numeric-range additions at `a4929d12`. The first
+[implementation checkpoint](reviews/issue53-fork-limit-implementation.md) adds the
+internal admission/lease primitive, default sizing and Go/Python range validators.
+The next checkpoint connects the public Go Snapshot/Live APIs and Go helpers:
+`SnapshotOptions.MaxForks`, immutable `Snapshot.MaxForks()`, cancellable capacity
+waits, Close wakeup and cleanup-owned child leases. Live reserves a spare slot
+before draining and supports explicit checked recovery. The Go fixture passes
+its existing default2/configured cap to its Snapshot; HTTPConfig exposes a cap.
+The next SDK checkpoint connects shared-control reservations and Python
+`snapshot(max_forks=...)`, read-only resolved capacity and finite `fork(timeout=...)`
+waiting. Capacity/transfer waits release the Python parent lock, and a single
+bounded transport writer keeps caller deadlines independent of a stalled pipe.
+Different-host handoff retains an origin lease until target disposal and source
+acknowledgement. Core control/SDK regressions and selected real-host handoff paths
+are locally verified. Supplied pytest now forwards `mariamem_max_forks` and a
+finite `mariamem_fork_timeout` (default30 seconds); E2E forwards `Config.max_forks`
+and rejects explicit1 before preparation. D1 declares `max_forks` / `fork_timeout`,
+passes them to each run/class capture and child, and retires remaining owners
+before acquiring its final DROP child. Controlled serial/failure tests cover
+cap1, independent auto resolution and cleanup refusal. Existing installed D1
+serial/xdist owners now assert cap1 and finite waits. The full both-host
+acceptance table remains unfinished. This is a draft candidate rather
+than adopted support on main.
+Clean `6df2f5c6` passed local daily/source smoke and D1's20 serial/15 xdist
+source-entry cases on macOS arm64 / Python3.14, plus the real Live cap2 entry
+sequence. Installed-wheel and other platform/interpreter cells are not implied.
+The next checkpoint addresses the startup/cleanup ownership gap: internal typed
+owners retain late execution/session joins, borrowed backing and dependent file
+cleanup. Original operation failures and stored Close results remain failures.
+The lease primitive can observe confirmed cleanup without automatically reopening
+admission. The shared-control reservation protocol and Python SDK are connected
+together with handoff acknowledgements and bounded send/reply ownership so an
+old client cannot strand a newly enforced remote lease; older capabilities
+reject before capture. Remaining work is the fixed failure/host matrix and
+source-bound acceptance of the connected entries.
+The failure-verification checkpoint found and corrects two remote cleanup retry
+gaps: source export cleanup tokens and unreturned target Snapshots now remain
+owned through confirmed retry. Bounded subprocess barriers cover timeout and
+interrupt after reservation/export/start without killing independent owners.
+Shared-host Live's cap2 controlled cleanup/recovery and real-host whole-lineage
+loss/range-rejection cases are added; the full installed/platform matrix is still
+pending, and none of these checks adds a new performance requirement.
+Clean `737f4414` passed local daily/source smoke and nine selected real-host
+ownership/range cases with the matching clean host, including whole-source/
+whole-target loss. These results close the locally reproduced retry defects;
+they do not close the remaining fixed-row/installed-platform acceptance.
+The next checkpoint adds the planned pre-reservation Close and concurrent-new-
+cleanup-debt barriers. It corrects Live's recovery version sample to precede
+cleanup retry, retaining failures that arrive during that retry. The existing
+Live matrix owner now includes bounded Fork-limit detectors and per-minor
+installed cap2/timeout/busy oracles. Remaining planned work is the fixed-row
+evidence reconciliation and execution of the source-bound installed matrix;
+potential failures discovered there are distinct from undecided design scope.
+Clean `8566c8ad` passed local daily/source smoke and9 same-source real-host cases;
+the [18-row detector/evidence map](reviews/issue53-fork-limit-acceptance-map.md)
+records the fixed conditions and current evidence limits. The known planned
+remaining work is hosted installed/platform execution and source-bound receipt
+assessment. New defects found by those runs are a distinct uncertainty; no new
+design decision or performance exit is currently proposed.
+Hosted verify41746730774 on `b75af56f` produced installed D1 cap1 PASS on both
+OSes/Python3.11/3.14. Its core jobs both failed an outdated memory32 test expecting
+1045 after #78's approved placeholder-credential change. The test-only correction
+checks accepted credentials plus SQL and preserves malformed-handshake rejection;
+local complete generatedmemory/godefault integration packages pass. The old run's
+results remain attached to `b75af56f`, and the corrected source requires a new
+verify submission rather than being called READY from partial family results.
+Retry41752306473 on `33925b14` failed Mac Live's recapture detector and Ubuntu
+core's prepared CALL diagnostic DB disposal. The recapture test now waits for
+client retirement; the diagnostic preserves its original observation and strict
+cleanup error instead of losing the receipt. The interrupted-guest cleanup was
+then reproduced and isolated to WASI writes reporting success/zero after a broken
+pipe. A bounded overlay probe changes only error propagation: baseline Close
+fails on case5; corrected Close completes all90 cases and the native edge
+comparison remains unchanged. The candidate carries this host-runtime repair
+through a checked generator adapter and32/64-bit regressions; full hosted
+acceptance of the new source is still pending. See the
+[checkpoint and probe limits](reviews/issue53-fork-limit-implementation.md).
+There is no new performance campaign. The milestone and publication decisions are
+unchanged. Prewarming remains
+separate in [#84](https://github.com/masahitojp/mariamem/issues/84).
+
 ## Test credentials accepted — protected main integration authorized, unreleased
 
 On 2026-11-03 the Human approved removing the local wire endpoint's root/empty

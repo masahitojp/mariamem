@@ -139,7 +139,7 @@ class DB:
         if self.data.get('fail_wait'):
             raise RuntimeError('preparation still connected')
     @contextmanager
-    def snapshot(self):
+    def snapshot(self, *, max_forks=None):
         record('snapshot')
         self.closed = True
         try:
@@ -150,7 +150,7 @@ class DB:
 class Baseline:
     def __init__(self, data): self.data = dict(data)
     @contextmanager
-    def fork(self):
+    def fork(self, *, timeout=None):
         record('fork')
         child = DB('child', self.data)
         try: yield child

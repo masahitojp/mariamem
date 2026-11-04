@@ -45,6 +45,20 @@ def traced_start(**options):
     return source
 
 mariamem.start = traced_start
-DATABASES = {'default': prepared_database(options={'host_binary': os.environ['MARIAMEM_PREPARED_HOST']})}
+_capture, _fork = mariamem.Database.snapshot, mariamem.Snapshot.fork
+
+def traced_capture(self, **options):
+    saved = _capture(self, **options)
+    event('capacity-capture', requested=options.get('max_forks'), resolved=saved.max_forks)
+    return saved
+
+def traced_fork(self, **options):
+    child = _fork(self, **options)
+    event('capacity-fork', resolved=self.max_forks, timeout=options.get('timeout'))
+    return child
+
+mariamem.Database.snapshot, mariamem.Snapshot.fork = traced_capture, traced_fork
+DATABASES = {'default': prepared_database(options={'host_binary': os.environ['MARIAMEM_PREPARED_HOST']},
+                                         max_forks=1, fork_timeout=30)}
 assert DATABASES['default']['MARIAMEM_PREPARED'].source is None
-event('declaration')
+event('declaration', max_forks=1, fork_timeout=30)

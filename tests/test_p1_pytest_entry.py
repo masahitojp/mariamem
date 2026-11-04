@@ -19,8 +19,8 @@ def test_cleanup_debt_blocks_next_body_but_ordinary_assertion_does_not(tmp_path,
 from contextlib import contextmanager
 original = Baseline.fork
 @contextmanager
-def replacement(self):
-    with original(self) as child:
+def replacement(self, **options):
+    with original(self, **options) as child:
         yield child
         if child.data.get('fail_cleanup'):
             raise OSError('CONTROLLED_CHILD_CLEANUP')
@@ -188,8 +188,8 @@ def test_other_two(mariamem_fork):
 from contextlib import contextmanager
 original = Baseline.fork
 @contextmanager
-def replacement(self):
-    with original(self) as child:
+def replacement(self, **options):
+    with original(self, **options) as child:
         yield child
         if child.data.get('fail_cleanup'):
             raise OSError('WORKER_CLEANUP_DEBT')
@@ -407,7 +407,7 @@ def test_capture_failure_keeps_original_and_finalizes_preserved_or_consumed_sour
     result, events = helper.fake_suite(tmp_path, '''
 from contextlib import contextmanager
 @contextmanager
-def failed_snapshot(self):
+def failed_snapshot(self, **options):
     record('capture.attempt')
     self.closed = CONSUMED
     raise ValueError('ORIGINAL_CAPTURE_FAILURE')

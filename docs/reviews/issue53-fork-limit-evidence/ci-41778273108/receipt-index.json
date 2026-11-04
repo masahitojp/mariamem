@@ -1,0 +1,458 @@
+{
+  "run": 41778273108,
+  "source_commit": "cddd8dcbd6d664171907ffc1769b83e472640875",
+  "record_format": "JSON mapping artifact_id/member to published UTF-8 receipt text; only CI checkout/home prefixes normalized; original and published hashes recorded",
+  "artifacts": [
+    {
+      "id": 13299578413,
+      "name": "release-ready-cddd8dcbd6d664171907ffc1769b83e472640875",
+      "digest": "sha256:3c52b7a4df77fa67d79085e84d0af2b3a483a43ff3dea72eb8787428822b3fb0",
+      "size_in_bytes": 537941,
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13299578413/zip"
+    },
+    {
+      "id": 13299608272,
+      "name": "release-features-cddd8dcbd6d664171907ffc1769b83e472640875",
+      "digest": "sha256:ba919a4acdb8f33597397f41a1f1ca18b5a052ce12f796ac483c4bab56bc6ed7",
+      "size_in_bytes": 580,
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13299608272/zip"
+    },
+    {
+      "id": 13299602586,
+      "name": "release-evidence-darwin-arm64-cddd8dcbd6d664171907ffc1769b83e472640875",
+      "digest": "sha256:bc229ee46c0e87bbbdd916c3f0fd8bbb48610b9583a627d9b1e93035d0b59a46",
+      "size_in_bytes": 807832,
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13299602586/zip"
+    },
+    {
+      "id": 13299233018,
+      "name": "release-evidence-ubuntu24.04-x86_64-cddd8dcbd6d664171907ffc1769b83e472640875",
+      "digest": "sha256:390dc93c33faa29ce950e16860ed1d0da797559ddc22974e8c7b4c030d3e0d60",
+      "size_in_bytes": 807945,
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13299233018/zip"
+    },
+    {
+      "id": 13298889641,
+      "name": "live-host-macos-15-cddd8dcbd6d664171907ffc1769b83e472640875",
+      "digest": "sha256:6407fe6cb2b7614da806b0351e836960268da283de584c20d0836e5f46255ed7",
+      "size_in_bytes": 53931592,
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13298889641/zip"
+    },
+    {
+      "id": 13298823862,
+      "name": "live-host-ubuntu-24.04-cddd8dcbd6d664171907ffc1769b83e472640875",
+      "digest": "sha256:4ebc5bd3bc3fe5c4810ef43ec216fb3476f09443dbdbfd6ade15e6dc30bbbec6",
+      "size_in_bytes": 55136560,
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13298823862/zip"
+    },
+    {
+      "id": 13298981220,
+      "name": "go-fixture-host-macos-15-cddd8dcbd6d664171907ffc1769b83e472640875",
+      "digest": "sha256:abf66844e86161f322fc81229818ab9827dc35ad98401f7f7a8e8c84e4895114",
+      "size_in_bytes": 41077,
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13298981220/zip"
+    },
+    {
+      "id": 13298483346,
+      "name": "go-fixture-host-ubuntu-24.04-cddd8dcbd6d664171907ffc1769b83e472640875",
+      "digest": "sha256:6c0ce082c02772ddfa473caaa618ec01d29240ed0d94bda34b0e908279352b72",
+      "size_in_bytes": 45077,
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13298483346/zip"
+    },
+    {
+      "id": 13297803471,
+      "name": "django-macos-15-cddd8dcbd6d664171907ffc1769b83e472640875",
+      "digest": "sha256:96b5b365bb6abd36bbad8d98825cc3bf326f974b37ee8e55c81078e0abf934db",
+      "size_in_bytes": 395129,
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13297803471/zip"
+    },
+    {
+      "id": 13298581834,
+      "name": "django-ubuntu-24.04-cddd8dcbd6d664171907ffc1769b83e472640875",
+      "digest": "sha256:7d2e1b269ca34f100f752b7137b16475cf7cb5ce7622b82fa63c1f3da1c7486f",
+      "size_in_bytes": 392109,
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13298581834/zip"
+    }
+  ],
+  "members": [
+    {
+      "artifact_id": 13299578413,
+      "member": "ci-ready.json",
+      "bytes": 2008279,
+      "original_sha256": "642ffa6c90a288720348c5db78996fa9fbb7fce5c79df7428dd184298c3cbe05",
+      "retained_published": false
+    },
+    {
+      "artifact_id": 13299608272,
+      "member": "features.json",
+      "bytes": 852,
+      "original_sha256": "5aaac0e846ba0f18620f9a5903617235daff3dff79ebf9ea691458368d1ef4cb",
+      "published_sha256": "5aaac0e846ba0f18620f9a5903617235daff3dff79ebf9ea691458368d1ef4cb",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13299602586,
+      "member": "build/release/ci-ready.json",
+      "bytes": 976326,
+      "original_sha256": "af2d767de1e16ebdd4c0b745b8038e2c2680ef7c7c67a24fa7eaaf318bdf23cf",
+      "retained_published": false
+    },
+    {
+      "artifact_id": 13299602586,
+      "member": "build/release/generated-acceptance.json",
+      "bytes": 957646,
+      "original_sha256": "3c6c4869b17eb4d4a876625ed82e48ad0cb457caa17a6707fcd8d288e0feac01",
+      "retained_published": false
+    },
+    {
+      "artifact_id": 13298981220,
+      "member": "completion/result.json",
+      "bytes": 20886,
+      "original_sha256": "5987e7f88ec98de1f2764ba8c3059ddeaa68d267e100ff6c6814d7f6b0e27b06",
+      "published_sha256": "5987e7f88ec98de1f2764ba8c3059ddeaa68d267e100ff6c6814d7f6b0e27b06",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298889641,
+      "member": "installed-py3.11/result.json",
+      "bytes": 751,
+      "original_sha256": "5bd1356952e962716f7c669738d96d410da777a035decc68993853b07d0e53bd",
+      "published_sha256": "8845f0a037da67c426d95a3f9eee10cc2feba66f4d1251c79ebdd83ebcd5c1e7",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298889641,
+      "member": "py3.11-unit.txt",
+      "bytes": 181,
+      "original_sha256": "f2b8cd6ddf5c4a94668c2ded72ea6c2ad8c097347a96321950281dac74ecda85",
+      "published_sha256": "f2b8cd6ddf5c4a94668c2ded72ea6c2ad8c097347a96321950281dac74ecda85",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298889641,
+      "member": "py3.11-fork-limit-runtime.txt",
+      "bytes": 112,
+      "original_sha256": "b6aaafab79644a4b1217735a49a9658521fe018eaca1dcefb431b55bfa4d8508",
+      "published_sha256": "b6aaafab79644a4b1217735a49a9658521fe018eaca1dcefb431b55bfa4d8508",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298889641,
+      "member": "owned-installed-py3.11/result.json",
+      "bytes": 16667,
+      "original_sha256": "a22ca01356aedeb67edb41ec4af17c67398fbdfee5ea39aa2b2b205ec579b3e5",
+      "published_sha256": "a22ca01356aedeb67edb41ec4af17c67398fbdfee5ea39aa2b2b205ec579b3e5",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298889641,
+      "member": "owned-workflow-py3.11/result.json",
+      "bytes": 3559,
+      "original_sha256": "0fc088e5aa7ab57075cf685e52281bf9a7bcf933b722a0f3ec8aa9baae0a374f",
+      "published_sha256": "373034d4d9616a43e70747c2830d318afd507e9b159f3065cb4cf8250e47bce9",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298889641,
+      "member": "py3.11/positive/result.json",
+      "bytes": 12927,
+      "original_sha256": "b6538ec61026964f92cdc3c6c6add1984d658521f78e20a2a719b02366aeaf42",
+      "published_sha256": "e3fbb1cc94d7b9a145738b89bf7d5c55c474f409591bcc525a6ca202411634df",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13297803471,
+      "member": "py3.11/prepared/inputs.json",
+      "bytes": 4221,
+      "original_sha256": "3678b7f59d118d844f298da8a38e5419cc03d1fc1ad01fb96c0a8ee1e2b19727",
+      "published_sha256": "920955f3cc735804f457515ea212e0b048f5e80dce187a5d04a3c79ddae61c53",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13297803471,
+      "member": "py3.11/prepared/assessment.json",
+      "bytes": 10605,
+      "original_sha256": "2cc2c2fb193f084557db2c4780a6db7bdb8393095b4835196ecf7b585c211ffe",
+      "published_sha256": "2cc2c2fb193f084557db2c4780a6db7bdb8393095b4835196ecf7b585c211ffe",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13297803471,
+      "member": "py3.11/parallel/inputs.json",
+      "bytes": 4154,
+      "original_sha256": "a6adbb723f61bb278ab0bfdc3dd9b2cc6c87a0584981f882fbfe925c91d8fc2f",
+      "published_sha256": "2d14dfe48c88e0569503c837970fdb192242a1719e265f1befdad8bc6de5df65",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13297803471,
+      "member": "py3.11/parallel/assessment.json",
+      "bytes": 11633,
+      "original_sha256": "b0af60b2d6aa801e32282844f098ab2864944d8d416254164c9ba8814cc21ba5",
+      "published_sha256": "b0af60b2d6aa801e32282844f098ab2864944d8d416254164c9ba8814cc21ba5",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298889641,
+      "member": "installed-py3.14/result.json",
+      "bytes": 751,
+      "original_sha256": "3bf0565653deb390abfb8351b36b38633d6fd05e9746391d7ff33f5162399538",
+      "published_sha256": "2d6e4077e50e755fedcd4882e0fcd81dae6175fc951d3baf20b9b6bf53fac416",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298889641,
+      "member": "py3.14-unit.txt",
+      "bytes": 181,
+      "original_sha256": "9d6bb1cc0033d0db6e4812b188a003d475e05b313678f410f9f767b56c6623bd",
+      "published_sha256": "9d6bb1cc0033d0db6e4812b188a003d475e05b313678f410f9f767b56c6623bd",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298889641,
+      "member": "py3.14-fork-limit-runtime.txt",
+      "bytes": 112,
+      "original_sha256": "37cb35280e59efd0b61b336e1f04df5d80c7ed304a1bb01ed2a975f06a097324",
+      "published_sha256": "37cb35280e59efd0b61b336e1f04df5d80c7ed304a1bb01ed2a975f06a097324",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298889641,
+      "member": "owned-installed-py3.14/result.json",
+      "bytes": 16677,
+      "original_sha256": "eec73c48e9ce2290347f5220174d3836c612695bbe121a5c92fe281400c478e2",
+      "published_sha256": "eec73c48e9ce2290347f5220174d3836c612695bbe121a5c92fe281400c478e2",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298889641,
+      "member": "owned-workflow-py3.14/result.json",
+      "bytes": 2549,
+      "original_sha256": "d1bc368eae4a964e3ef673c3c7c460620b81fe55caea5710765bb881744e7cd6",
+      "published_sha256": "28a75a3161d71bb818b3caf5f1024a94f4c73ea2de4cfa21593b8d1028be4e32",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298889641,
+      "member": "py3.14/positive/result.json",
+      "bytes": 12929,
+      "original_sha256": "c707c3a3ba072a91735802a80ca87f640a4a2138d8dc02169b85e8794293cfae",
+      "published_sha256": "d490a8b6f8d9b5ef5d8850ad19d007b32002242010075d0071beb48a61aaa07b",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13297803471,
+      "member": "py3.14/prepared/inputs.json",
+      "bytes": 4223,
+      "original_sha256": "e10a229562e7be2108f7e35093846bedfc917ea01fe57e9bea50162c93718f72",
+      "published_sha256": "7ee39ddd3cf98acea12d4c3cbe761d85d49f9c1df74c1e976d2b81f8a62dcea5",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13297803471,
+      "member": "py3.14/prepared/assessment.json",
+      "bytes": 10605,
+      "original_sha256": "2cc2c2fb193f084557db2c4780a6db7bdb8393095b4835196ecf7b585c211ffe",
+      "published_sha256": "2cc2c2fb193f084557db2c4780a6db7bdb8393095b4835196ecf7b585c211ffe",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13297803471,
+      "member": "py3.14/parallel/inputs.json",
+      "bytes": 4156,
+      "original_sha256": "5d35fee9a0bd91e802c4269d7d1eae7ad8cba8f7db0552b60caa8451f3abb53d",
+      "published_sha256": "1ae25cd1fc029733d549efa9bedd33f899e1d46ee6627e519ee70f6ce8b92011",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13297803471,
+      "member": "py3.14/parallel/assessment.json",
+      "bytes": 11634,
+      "original_sha256": "fee68898bf1a5c7014ce4b8d5f2e02f00e009b2354c5bde12a71beff9e5a8cb5",
+      "published_sha256": "fee68898bf1a5c7014ce4b8d5f2e02f00e009b2354c5bde12a71beff9e5a8cb5",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13299233018,
+      "member": "build/release/ci-ready.json",
+      "bytes": 976553,
+      "original_sha256": "a5fa7789ce60e1bfb3249944fb8dbcece96add2917ec8f492f5b347a9255ef1d",
+      "retained_published": false
+    },
+    {
+      "artifact_id": 13299233018,
+      "member": "build/release/generated-acceptance.json",
+      "bytes": 957674,
+      "original_sha256": "31133c0b228635d031fe86861b7cd624f76d7574472ef148d89fd1bc71196189",
+      "retained_published": false
+    },
+    {
+      "artifact_id": 13298483346,
+      "member": "completion/result.json",
+      "bytes": 20881,
+      "original_sha256": "5a7c403d2f74ebc919d623ea4821629af49f76cfbbde8c126fd3f158899c2da6",
+      "published_sha256": "5a7c403d2f74ebc919d623ea4821629af49f76cfbbde8c126fd3f158899c2da6",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298823862,
+      "member": "installed-py3.11/result.json",
+      "bytes": 750,
+      "original_sha256": "e4422c0bd8a0658a571c323f06ddcf8f461849ff8f3a3d050b057b56b954e9a4",
+      "published_sha256": "fdd7edc24bf6bd4480ea55af939125b8147b8e970c3ef8a5e2791cc4f875ea4e",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298823862,
+      "member": "py3.11-unit.txt",
+      "bytes": 181,
+      "original_sha256": "10a16a1608942bb877ca89a568537d86861a6c641eee8111f129692c64f5546b",
+      "published_sha256": "10a16a1608942bb877ca89a568537d86861a6c641eee8111f129692c64f5546b",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298823862,
+      "member": "py3.11-fork-limit-runtime.txt",
+      "bytes": 112,
+      "original_sha256": "0f5c00842b41a30ab731e889fed26bd59e1b846a60b264086286c08dbcced299",
+      "published_sha256": "0f5c00842b41a30ab731e889fed26bd59e1b846a60b264086286c08dbcced299",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298823862,
+      "member": "owned-installed-py3.11/result.json",
+      "bytes": 16595,
+      "original_sha256": "7493084e08f639b26db92b41091c7678ec24c9e8279c217e8d74fd7bd83623ff",
+      "published_sha256": "7493084e08f639b26db92b41091c7678ec24c9e8279c217e8d74fd7bd83623ff",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298823862,
+      "member": "owned-workflow-py3.11/result.json",
+      "bytes": 3524,
+      "original_sha256": "f2bc975054d82d9847b0aae4eb829fa4def039be6dff9f898cd35bfe89f892c2",
+      "published_sha256": "58d17b2d5847461c95f971d14ad3c7a2665683956a43b1e8d3edc2d5c2267389",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298823862,
+      "member": "py3.11/positive/result.json",
+      "bytes": 12875,
+      "original_sha256": "f03135c294c40adf84f34825d37ed07357abfcafbdaa73c3ca3de6dc37583298",
+      "published_sha256": "64c7274b7ba01469e0f3d23d993fcfafc4eeaec43bab9bf6745c6c86440c52e4",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298581834,
+      "member": "py3.11/prepared/inputs.json",
+      "bytes": 4181,
+      "original_sha256": "ca88c730b00fe9ceca40ad34b125cfd07bb2b259ef66ce1b61816c173fb6c689",
+      "published_sha256": "09398c66dded6669c52d2bd1fff1ce88617fd9f4dfec51433969255924c5d9c5",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298581834,
+      "member": "py3.11/prepared/assessment.json",
+      "bytes": 10605,
+      "original_sha256": "2cc2c2fb193f084557db2c4780a6db7bdb8393095b4835196ecf7b585c211ffe",
+      "published_sha256": "2cc2c2fb193f084557db2c4780a6db7bdb8393095b4835196ecf7b585c211ffe",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298581834,
+      "member": "py3.11/parallel/inputs.json",
+      "bytes": 4114,
+      "original_sha256": "e144119a3ce17eb2fc83d6ebc7c78c79ec5072c3219decd317633d750b3d628a",
+      "published_sha256": "4909ee26da1ccf61a49ae231a2fa430e0f7fd9435b5e401a760c0011a494b73e",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298581834,
+      "member": "py3.11/parallel/assessment.json",
+      "bytes": 11633,
+      "original_sha256": "20d90b6cf332793e50ed8ab92ceb6f3dbd356582b5fa61ee7ec255f5f9cc088f",
+      "published_sha256": "20d90b6cf332793e50ed8ab92ceb6f3dbd356582b5fa61ee7ec255f5f9cc088f",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298823862,
+      "member": "installed-py3.14/result.json",
+      "bytes": 750,
+      "original_sha256": "159a4965b977cc661819d23ab17484a4f858415d9afe662316032e338fdb6405",
+      "published_sha256": "8cd9f99ca260bfecf0e20d9f17bdde20613851f98ef667ee1b697ea7657d8de8",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298823862,
+      "member": "py3.14-unit.txt",
+      "bytes": 181,
+      "original_sha256": "9871466bff4a889a56e100e806de056b744f18b56f819f573ae52d4b0649d035",
+      "published_sha256": "9871466bff4a889a56e100e806de056b744f18b56f819f573ae52d4b0649d035",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298823862,
+      "member": "py3.14-fork-limit-runtime.txt",
+      "bytes": 112,
+      "original_sha256": "2f3fe547150cb42fdd679c813ed5cb4768945583f57af761a73a373b06fda325",
+      "published_sha256": "2f3fe547150cb42fdd679c813ed5cb4768945583f57af761a73a373b06fda325",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298823862,
+      "member": "owned-installed-py3.14/result.json",
+      "bytes": 16594,
+      "original_sha256": "f237182ab92316841c0efc4db393a96cbeeedeb30cf07d71d2caf3b82aeef862",
+      "published_sha256": "f237182ab92316841c0efc4db393a96cbeeedeb30cf07d71d2caf3b82aeef862",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298823862,
+      "member": "owned-workflow-py3.14/result.json",
+      "bytes": 2510,
+      "original_sha256": "81089abf41a98e0010285a289bd417fd6503fef078e7eb86a04c330e5a45caf8",
+      "published_sha256": "3e837229272b53486447bdc8d79fad3fd163ffd5a195a1c6dea2b2ef6e5a623c",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298823862,
+      "member": "py3.14/positive/result.json",
+      "bytes": 12873,
+      "original_sha256": "2b9bcd30ca46826e713c54a15123696cb826461fbc7aa383cab2149510142caa",
+      "published_sha256": "a9b8d15f12e1f88ac6eb9f66cd28acf7d08beee67695275701e00f93e49f8c1e",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298581834,
+      "member": "py3.14/prepared/inputs.json",
+      "bytes": 4179,
+      "original_sha256": "dac1f468e57771c23a1172ab3472a11935928158098e00ea4bb8355b3f4e805f",
+      "published_sha256": "261d3bf91326d851d34782f5e08e820b7e5d3d0fce5ee1dc5678c9ebb632a3bc",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298581834,
+      "member": "py3.14/prepared/assessment.json",
+      "bytes": 10605,
+      "original_sha256": "2cc2c2fb193f084557db2c4780a6db7bdb8393095b4835196ecf7b585c211ffe",
+      "published_sha256": "2cc2c2fb193f084557db2c4780a6db7bdb8393095b4835196ecf7b585c211ffe",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298581834,
+      "member": "py3.14/parallel/inputs.json",
+      "bytes": 4112,
+      "original_sha256": "90ad112c03d13fcf8c23d0169216794f052fd709e04843cceb448bcf36e37325",
+      "published_sha256": "e01b4ba611e911341122b207de905dd62ef52b3e95ccb3a30afc06d39987fc42",
+      "retained_published": true
+    },
+    {
+      "artifact_id": 13298581834,
+      "member": "py3.14/parallel/assessment.json",
+      "bytes": 11633,
+      "original_sha256": "85c7e5affd20a423d410d4af92dfe2c653b07894d86b38bc34034f8c49f278cb",
+      "published_sha256": "85c7e5affd20a423d410d4af92dfe2c653b07894d86b38bc34034f8c49f278cb",
+      "retained_published": true
+    }
+  ]
+}

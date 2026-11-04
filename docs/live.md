@@ -70,6 +70,18 @@ host-side timeout defaults to120 seconds. Compensation/Close has its own shutdow
 bound and can outlast the operation deadline. Cancellation after the atomic reset
 commit is success; cancellation before commit does not publish a ready generation.
 
+The unreleased #53 candidate requires a Snapshot limit of at least2 for Live:
+capture with `SnapshotOptions{MaxForks: 2}` in Go or
+`db.snapshot(max_forks=2)` in Python. One slot owns the current child and
+one is needed for replacement. An ordinary Fork can occupy that spare slot;
+Reset then returns `ErrBusy` at `live_capacity` before draining, preserving data
+and generation. After cleanup failure, explicit Reset retries retained cleanup
+before atomically recovering parent admission and reserving a replacement.
+Unresolved debt from any other owner or a closed parent prevents recovery.
+The supplied Go HTTP entry accepts `HTTPConfig.MaxForks`; explicit1 rejects
+before preparation, while automatic1 reports the same actionable Live requirement.
+The Python E2E entry accepts `Config(max_forks=2)` with the same validation.
+
 Busy (Python Busy / Go ErrBusy) preserves the original data and generation. A
 replacement error enters failed and refuses new SQL until explicit successful
 reset or close. A precondition error from a closed parent preserves the current

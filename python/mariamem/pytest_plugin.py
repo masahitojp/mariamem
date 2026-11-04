@@ -162,9 +162,26 @@ def mariamem_prepare():
 
 
 @pytest.fixture(scope="session")
-def mariamem_snapshot(request, mariamem_server, mariamem_prepare):
+def mariamem_max_forks():
+    """Override with a positive per-worker Snapshot cap; None selects auto."""
+    return None
+
+
+@pytest.fixture(scope="session")
+def mariamem_fork_timeout():
+    """Finite capacity-wait deadline for each supplied test child, in seconds."""
+    return 30
+
+
+@pytest.fixture(scope="session")
+def mariamem_snapshot(request, mariamem_server, mariamem_prepare,
+                      mariamem_max_forks, mariamem_fork_timeout):
     owner = _owner(request.config)
     owner.guard()
+    from ._forklimit import capacity, wait_nanoseconds
+    with owner.operation('options'):
+        capacity(mariamem_max_forks)
+        wait_nanoseconds(mariamem_fork_timeout, allow_none=False)
     with owner.operation('prepare'):
         if isinstance(mariamem_prepare, PrepareCommand):
             _run_command(mariamem_prepare, mariamem_server, request.config.rootpath)
@@ -174,15 +191,19 @@ def mariamem_snapshot(request, mariamem_server, mariamem_prepare):
             mariamem_prepare(mariamem_server)  # Existing return values remain ignored.
     with owner.operation('disconnect'):
         mariamem_server.wait_disconnected()
-    with owner.context(lambda: mariamem_server.snapshot(), 'capture') as saved:
+    with owner.context(lambda: mariamem_server.snapshot(max_forks=mariamem_max_forks), 'capture') as saved:
         yield saved
 
 
 @pytest.fixture
-def mariamem_fork(request, mariamem_snapshot):
+def mariamem_fork(request, mariamem_snapshot, mariamem_fork_timeout):
     owner = _owner(request.config)
     owner.guard()
-    with owner.context(mariamem_snapshot.fork, 'acquire') as fork:
+    def acquire():
+        from ._forklimit import wait_nanoseconds
+        wait_nanoseconds(mariamem_fork_timeout, allow_none=False)
+        return mariamem_snapshot.fork(timeout=mariamem_fork_timeout)
+    with owner.context(acquire, 'acquire') as fork:
         yield fork
 
 

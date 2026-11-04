@@ -1,0 +1,149 @@
+{
+  "reviewed_source_commit": "cddd8dcbd6d664171907ffc1769b83e472640875",
+  "base_source_commit": "8f42948340265ce38fde2d1fa6b2f82bf14ae9d2",
+  "run": 41778273108,
+  "result": "FIXED_EXIT_TECHNICALLY_COMPLETE_ADOPTION_PENDING",
+  "human_adoption": "PENDING",
+  "product_tree_fingerprint": {
+    "algorithm": "sha256 of git ls-tree -rz entries excluding docs/; NUL-delimited including final NUL",
+    "value": "e1fd22444690c457708cd1452d8187a63ea0cf71e9aba8bf5e2e0fbaf29fbf81",
+    "purpose": "Accompanying docs-only evidence commits must preserve this non-doc tree; receipts remain bound to cddd8dcb."
+  },
+  "fixed_rows": [
+    {
+      "boundary": "Inputs/compatibility",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`internal/forklimit/options_test.go`, public `TestSnapshotLimitValidationPreservesSource`, `tests/test_forklimit_unit.py`: immutable limit, invalid values, old/mismatched target rejection before capture/export.",
+      "scope": "controlled detectors plus actual/public/installed entry evidence as indexed"
+    },
+    {
+      "boundary": "Numeric limits",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`tests/test_forklimit_options.py`, `internal/forklimit/options_test.go`: full validator boundaries, subnanosecond/max waits without real long waits. `internal/control/fork_test.go::TestOutOfRangeControlFieldsDoNotKillSharedHost` covers framed raw fields; `test_bounded_invalid_control_values_preserve_source_and_sibling_sql` supplies representative actual SQL survival. Raw -0 is rejected in token and shared-host survival tests; public Go zero remains auto.",
+      "scope": "controlled detectors plus actual/public/installed entry evidence as indexed"
+    },
+    {
+      "boundary": "Default resolution",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`internal/forklimit/options_test.go::TestResolution` and `TestCgroupMountRootsAncestorsAndUnavailableLimits`; each capture owns one pool. D1 controlled capture tests independently resolve auto instead of inheriting a prior result. No OOM or CPU optimum is inferred. Current memory_sources_test.go adds sysinfo units, proc exact parsing, independent read failures and minimum/fallback cases. Actual mapped-child resnapshot asserts both auto capture values are positive and finite. Linux native package PASS is logged; individual syscall-test skip is not observable in its nonverbose output.",
+      "scope": "controlled/policy/documentation evidence; actual entry paths are separate"
+    },
+    {
+      "boundary": "Admission",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`internal/forklimit/pool_test.go::TestConcurrentBoundAndProgress` uses caps1/2 with4 requesters; disposal tests retain cleanup occupancy. Public wait/progress tests and actual cap1/2 consumers exercise the attached owners; independent-pool and consumed-child capture tests prevent shared counters. Current pool/public/control/Python and installed consumer assertions require cap/occupied-slot diagnostics and actionable remedy; identity/classification remains checked.",
+      "scope": "controlled detectors plus actual/public/installed entry evidence as indexed"
+    },
+    {
+      "boundary": "Wait/Close races",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "Public Go `TestConcurrentForkCloseOwnership`, `TestSnapshotCapacityWaitWakesOnCloseWithActiveChild`; `tests/test_forklimit_unit.py` full-wait and pre-reservation barriers; real racing-Close/child SQL cases in `tests/test_owned_snapshot.py`.",
+      "scope": "controlled detectors plus actual/public/installed entry evidence as indexed"
+    },
+    {
+      "boundary": "Python transfer/parent lock",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`test_parent_close_after_retain_before_reserve_preserves_child_and_balances_refs` covers both public spellings; the existing full-capacity transfer barrier holds the child until parent Close and waiter completion. `tests/test_forklimit_transport.py` covers late reservation cleanup without target creation.",
+      "scope": "controlled/policy/documentation evidence; actual entry paths are separate"
+    },
+    {
+      "boundary": "Disposal",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "Public `TestConsumedCaptureRetainsCleanupAndStableCloseResult`, `internal/forklimit/disposal_test.go`, existing owned-Snapshot interrupt tests, and `tests/test_handoff_failures.py`: consumed/preserved state, original errors, retained cleanup, duplicate Close and unreturned late baseline ownership. Controlled faults are not guest OOM reproductions.",
+      "scope": "controlled/policy/documentation evidence; actual entry paths are separate"
+    },
+    {
+      "boundary": "Live",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "Go actual consumer and Python source/installed consumer capture cap2, hold its spare slot, require busy to preserve data/generation and reset after release. Cap1 rejection and drain-reservation return have unit/control detectors.",
+      "scope": "controlled detectors plus actual/public/installed entry evidence as indexed"
+    },
+    {
+      "boundary": "Live cleanup recovery",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`internal/live/capacity_test.go`, public Go adapter retirement tests and control `TestControlAdapterCapTwoRecoveryJoinsBothCleanupOwners` / `TestControlAdapterRecoveryCannotForgiveUnrelatedDebtOrParentClose`; Python `test_new_remote_debt_during_reset_is_not_forgiven` covers debt during retry and reply. Pool recovery/Close barriers own the atomic race.",
+      "scope": "controlled/policy/documentation evidence; actual entry paths are separate"
+    },
+    {
+      "boundary": "Python entry",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`tests/test_forklimit_entries.py`, `tests/test_forklimit_unit.py`, `tests/test_p1_pytest_entry.py`: settings propagation, both Fork spellings, None/callable/PrepareCommand semantics, ownership and worker admission.",
+      "scope": "controlled/policy/documentation evidence; actual entry paths are separate"
+    },
+    {
+      "boundary": "Python watchdog",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`tests/test_forklimit_transport.py` holds replies after reserve/export/start across timeout/KeyboardInterrupt and late success; `test_stuck_control_writer_has_bounded_callers_and_one_writer` fills the non-reading host pipe; responsive-full finite/indefinite waits have separate timeout/Close tests.",
+      "scope": "controlled/policy/documentation evidence; actual entry paths are separate"
+    },
+    {
+      "boundary": "Supplied pytest wait",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`test_held_child_fails_with_finite_deadline_and_stops_next_admission` observes actual pytest reports and keeps the held child usable. Setting/default30 and None/range validation are separate declaration/propagation tests; the held-child deadline uses a short explicit override.",
+      "scope": "controlled/policy/documentation evidence; actual entry paths are separate"
+    },
+    {
+      "boundary": "Handoff",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`tests/test_handoff_failures.py`, `tests/test_forklimit_transport.py`, control actual-backing ACK/export tests and actual different-binary/resnapshot/whole-host-loss cases. A source acknowledgement is not inferred from dropping Python refs.",
+      "scope": "controlled detectors plus actual/public/installed entry evidence as indexed"
+    },
+    {
+      "boundary": "Existing Go fixture",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`mariamemtest/fixture_test.go` cap propagation, admission, cleanup ordering/debt and Close; existing G1 physical fault/campaign owners remain. Default2 and outer/inner occupancy remain explicit; the prior backing-close mutation detector was preserved.",
+      "scope": "controlled detectors plus actual/public/installed entry evidence as indexed"
+    },
+    {
+      "boundary": "Owned E2E entry",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`tests/test_e2e_entry.py` validates before allocation and forwards explicit2; the real Live/controlled browser two-case oracle is in `tests/test_owned_snapshot.py`. Existing owned E2E examples/installed owner carry the browser/framework profile separately.",
+      "scope": "controlled detectors plus actual/public/installed entry evidence as indexed"
+    },
+    {
+      "boundary": "D1 serial",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "`tests/test_django_prepared_owners.py` declaration, independent auto and cap1 ordering; existing `tests/django_prepared/run.py` runs both prepared case classes under standard runner/pytest, now asserting cap1/finite waits at capture/Fork.",
+      "scope": "controlled detectors plus actual/public/installed entry evidence as indexed"
+    },
+    {
+      "boundary": "D1 failure/xdist",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "Controlled preserved/consumed/setup/cleanup failure cases plus existing `tests/django_prepared/xdist/run.py` load/loadscope, idle/controller, crash/replacement and cleanup-failure cases. Every capture/Fork is traced for declared cap1/finite wait; the prior source run is not final-candidate evidence.",
+      "scope": "controlled detectors plus actual/public/installed entry evidence as indexed"
+    },
+    {
+      "boundary": "CPU documentation",
+      "result": "TECHNICAL_PASS",
+      "detector_index": "Go/Python/Live/D1/E2E guides and unreleased notes call auto a memory heuristic, recommend explicit tuning and distinguish per-worker totals. CPU-optimal settings, P16, new RSS/queue campaigns and prewarming #84 remain outside this exit.",
+      "scope": "controlled/policy/documentation evidence; actual entry paths are separate"
+    }
+  ],
+  "prior_assessment": "ci-41761661883/assessment.json retains the earlier fixed-row detector index; each current matrix row is independently checked from new artifacts, not relabelled.",
+  "review_followup": {
+    "G1": "SATISFIED_WITH_STATED_EVIDENCE_SCOPE",
+    "G2": "SATISFIED_WITH_STATED_EVIDENCE_SCOPE",
+    "G3": "SATISFIED_WITH_STATED_EVIDENCE_SCOPE",
+    "P1": "SATISFIED_WITH_STATED_EVIDENCE_SCOPE",
+    "P2": "SATISFIED_WITH_STATED_EVIDENCE_SCOPE",
+    "P3": "SATISFIED_WITH_STATED_EVIDENCE_SCOPE",
+    "P4": "SATISFIED_WITH_STATED_EVIDENCE_SCOPE",
+    "P5": "SATISFIED_WITH_STATED_EVIDENCE_SCOPE",
+    "P6": "SATISFIED_WITH_STATED_EVIDENCE_SCOPE",
+    "G3_limits": "Injected policy/parser failure cases and native Linux package PASS; individual syscall-test skip is not observable from nonverbose logs. Not a claim of observed host-RAM bytes."
+  },
+  "evidence": [
+    "matrix.json",
+    "guard-summary.json",
+    "receipt-index.json",
+    "receipts.json",
+    "core-summary.json",
+    "ci-status.json"
+  ],
+  "limitations": [
+    "controlled cleanup faults are not actual-engine OOM evidence",
+    "per-Snapshot heuristic, not machine-wide/OOM/CPU optimum guarantee",
+    "root Start excluded; hidden cgroups require explicit cap",
+    "adoption, integration and release remain Human decisions"
+  ]
+}

@@ -4,6 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/masahitojp/mariamem/internal/disposal"
+	"github.com/masahitojp/mariamem/internal/forklimit"
 	endpoint "github.com/masahitojp/mariamem/internal/live"
 	"io"
 	"net"
@@ -136,7 +138,7 @@ func TestLiveOnlyShutdownIsBusyAndEOFDisposesIt(t *testing.T) {
 	var reply map[string]any
 	dec.Decode(&reply)
 	caps := reply["capabilities"].([]any)
-	if len(caps) != 1 || caps[0] != "live-v1" {
+	if len(caps) != 2 || caps[0] != "live-v1" || caps[1] != "fork-limit-v1" {
 		t.Fatal(reply)
 	}
 	json.NewEncoder(writer).Encode(Request{ID: 1, Op: "shutdown"})
@@ -203,5 +205,156 @@ func TestManagerRetriesLiveLogRemovalAfterCloseFailure(t *testing.T) {
 	}
 	if again := e.Close(); again == nil {
 		t.Fatal("lost stored Close result")
+	}
+}
+
+func adapterCapacityEndpoint(t *testing.T, b *baseline, children ...disposedLogChild) (*manager, *int) {
+	t.Helper()
+	index := 0
+	factory := endpoint.Factory{Check: func() error {
+		b.mu.RLock()
+		defer b.mu.RUnlock()
+		if b.closed {
+			return forklimit.ErrClosed
+		}
+		return nil
+	}, Reserve: func(ctx context.Context, recover bool) (*endpoint.Reservation, error) {
+		l, err := b.forkLimit().TryAcquire(recover)
+		if err != nil {
+			return nil, err
+		}
+		return &endpoint.Reservation{Cancel: l.Cancel, Start: func(context.Context) (endpoint.Child, error) {
+			if err := l.Activate(); err != nil {
+				return nil, err
+			}
+			if index == len(children) {
+				l.Settle(nil)
+				return nil, errors.New("unexpected extra child")
+			}
+			child := children[index]
+			index++
+			child.db.lease = l
+			return child, nil
+		}}, nil
+	}}
+	e, err := endpoint.New(context.Background(), factory, time.Second)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { e.FinalCleanup() })
+	m := newManager()
+	m.lives[1] = e
+	return m, &index
+}
+
+func adapterCleanupChild(t *testing.T, blocked bool) (disposedLogChild, string) {
+	t.Helper()
+	d := &db{closed: true, shutdown: time.Second}
+	marker := ""
+	if blocked {
+		d.logPath = filepath.Join(t.TempDir(), "retained.log")
+		if err := os.Mkdir(d.logPath, 0700); err != nil {
+			t.Fatal(err)
+		}
+		marker = filepath.Join(d.logPath, "blocker")
+		if err := os.WriteFile(marker, []byte("incomplete cleanup"), 0600); err != nil {
+			t.Fatal(err)
+		}
+		// Execution is already disposed; this real filesystem cleanup is not.
+		d.closeErr = disposal.CleanupAfter(nil, func() error { return removeLog(d.logPath) })
+	}
+	return disposedLogChild{&liveChild{db: d}}, marker
+}
+
+func TestControlAdapterCapTwoRecoveryJoinsBothCleanupOwners(t *testing.T) {
+	p, _ := forklimit.New(2)
+	a, oldMarker := adapterCleanupChild(t, true)
+	b, newMarker := adapterCleanupChild(t, true)
+	c, _ := adapterCleanupChild(t, false)
+	m, starts := adapterCapacityEndpoint(t, &baseline{limit: p}, a, b, c)
+	r := Request{Op: "live_reset", Handle: 1, Timeout: "1s", DrainTimeout: "1s"}
+	_, firstErr := m.callLive(context.Background(), r)
+	if firstErr == nil {
+		t.Fatal("two cleanup failures lost")
+	}
+	// Retain and retry the full original controlled error as well as the DB's
+	// owner, so the test does not strand dependency-wrapper continuations.
+	t.Cleanup(func() {
+		if err := disposal.Retry(context.Background(), firstErr); err != nil {
+			t.Error(err)
+		}
+	})
+	if *starts != 2 || m.lives[1].Status().Generation != 0 || m.lives[1].Status().State != "failed" {
+		t.Fatal(*starts, m.lives[1].Status())
+	}
+	if _, err := p.TryAcquire(true); !errors.Is(err, forklimit.ErrCleanup) {
+		t.Fatal("unresolved debt forgiven", err)
+	}
+	if err := os.Remove(oldMarker); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := m.callLive(context.Background(), r); err == nil {
+		t.Fatal("candidate cleanup retry failure lost")
+	}
+	if *starts != 2 {
+		t.Fatal("started while debt remained", *starts)
+	}
+	if err := os.Remove(newMarker); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := m.callLive(context.Background(), r); err != nil {
+		t.Fatal(err)
+	}
+	if *starts != 3 || m.lives[1].Status().Generation != 1 || m.lives[1].Status().State != "ready" {
+		t.Fatal(*starts, m.lives[1].Status())
+	}
+	extra, err := p.TryAcquire(false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer extra.Cancel()
+	if _, err := p.TryAcquire(false); !errors.Is(err, forklimit.ErrFull) {
+		t.Fatal("cap2 exceeded", err)
+	}
+}
+
+func TestControlAdapterRecoveryCannotForgiveUnrelatedDebtOrParentClose(t *testing.T) {
+	p, _ := forklimit.New(2)
+	base := &baseline{limit: p}
+	a, _ := adapterCleanupChild(t, false)
+	b, _ := adapterCleanupChild(t, false)
+	m, starts := adapterCapacityEndpoint(t, base, a, b)
+	other, err := p.TryAcquire(false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := other.Activate(); err != nil {
+		t.Fatal(err)
+	}
+	cause := errors.New("unrelated unresolved cleanup")
+	other.Settle(cause)
+	r := Request{Op: "live_reset", Handle: 1, Timeout: "1s", DrainTimeout: "1s"}
+	if _, err := m.callLive(context.Background(), r); !errors.Is(err, cause) {
+		t.Fatal(err)
+	}
+	if *starts != 1 || m.lives[1].Status().State != "ready" {
+		t.Fatal("healthy child changed")
+	}
+	other.Settle(nil)
+	if _, err := p.TryAcquire(false); !errors.Is(err, forklimit.ErrCleanup) {
+		t.Fatal("automatically reopened", err)
+	}
+	if _, err := m.callLive(context.Background(), r); err != nil {
+		t.Fatal(err)
+	}
+	base.mu.Lock()
+	base.closed = true
+	p.Close()
+	base.mu.Unlock()
+	if _, err := m.callLive(context.Background(), r); !errors.Is(err, forklimit.ErrClosed) {
+		t.Fatal(err)
+	}
+	if *starts != 2 || m.lives[1].Status().Generation != 1 {
+		t.Fatal(*starts, m.lives[1].Status())
 	}
 }

@@ -325,9 +325,38 @@ class TestEntry(unittest.TestCase):
             self.assertNotIn("page", events)
 
     def test_config_invalid_before_allocation(self):
-        for override in ({"prepare": None}, {"setup_timeout": float("nan")}, {"resume": None, "sole_work_source": False}):
+        for override in ({"prepare": None}, {"setup_timeout": float("nan")}, {"resume": None, "sole_work_source": False},
+                         *({"max_forks": n} for n in (1, 0, -1, True, 2**100, "2"))):
             with self.subTest(override=override), self.assertRaises(ValueError):
                 Config(**dict(dict(prepare=lambda db: None, start_ready=lambda *a: None, sole_work_source=True), **override))
+
+    def test_explicit_capacity_reaches_capture_before_live(self):
+        values = self.harness(max_forks=2)
+        owner, source, baseline, live, _, events = values
+        seen = []
+        def capture(**options):
+            seen.append(options)
+            return baseline
+        source.snapshot = capture
+        with patch("mariamem.start", return_value=source):
+            with owner:
+                browser, _ = self.browser(events)
+                with owner.case(browser=browser): pass
+                with owner.case(browser=browser): pass
+        self.assertEqual(seen[0]["max_forks"], 2)
+        self.assertEqual(live.generation, 2)
+
+    def test_auto_one_reports_live_requirement_and_closes_source(self):
+        owner, source, baseline, _, _, events = self.harness()
+        def too_small():
+            from mariamem import HostError
+            raise HostError("Live requires max_forks >= 2", code="invalid_options", stage="live_precondition")
+        baseline.live = too_small
+        with patch("mariamem.start", return_value=source):
+            with self.assertRaisesRegex(Exception, "max_forks >= 2"):
+                owner.__enter__()
+        self.assertEqual(events[-2:], ["baseline.close", "source.close"])
+        self.assertNotIn("start", events)
 
 
 if __name__ == "__main__":

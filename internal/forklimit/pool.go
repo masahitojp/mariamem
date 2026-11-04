@@ -1,0 +1,246 @@
+// Package forklimit owns per-Snapshot admission, independently of its backing.
+// A lease counts from reservation until confirmed child disposal. Callers must
+// keep the lease when cleanup is uncertain; an error is not proof of disposal.
+package forklimit
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"sync"
+
+	"github.com/masahitojp/mariamem/internal/disposal"
+)
+
+var (
+	ErrClosed  = errors.New("snapshot is closed")
+	ErrFull    = errors.New("snapshot Fork capacity is full")
+	ErrCleanup = errors.New("snapshot admission stopped after uncertain cleanup")
+	ErrLease   = errors.New("Fork reservation is no longer available")
+)
+
+// Pool has immutable capacity and no capacity-sized allocation. Do not copy.
+type Pool struct {
+	mu              sync.Mutex
+	limit           int
+	closed, blocked bool
+	cause           error
+	changed         chan struct{}
+	leases          map[*Lease]struct{}
+}
+
+// Lease has a single lifecycle owner. Its methods are safe against Pool.Close
+// and duplicate settlement. After Activate, only confirmed cleanup releases it.
+type Lease struct {
+	pool     *Pool
+	active   bool
+	debt     error
+	tracking bool
+}
+
+func New(limit int) (*Pool, error) {
+	if limit < 1 || int64(limit) > MaxForks {
+		return nil, errors.New("max_forks must be between 1 and 2147483647")
+	}
+	return &Pool{limit: limit, changed: make(chan struct{}), leases: make(map[*Lease]struct{})}, nil
+}
+
+func (p *Pool) MaxForks() int { return p.limit }
+
+// Usage samples reserved, starting, live and unconfirmed-cleanup leases together.
+// It is diagnostic state at observation time, not an admission reservation.
+func (p *Pool) Usage() (maxForks, occupiedSlots int) {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	return p.limit, len(p.leases)
+}
+
+// Describe preserves error identity and adds bounded, point-in-time diagnostics.
+func (p *Pool) Describe(err error) error {
+	if err == nil {
+		return nil
+	}
+	maxForks, occupied := p.Usage()
+	action := ""
+	if !errors.Is(err, ErrCleanup) && (errors.Is(err, ErrFull) || errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded)) {
+		action = "; close owned children or increase max_forks"
+	}
+	return fmt.Errorf("%w (max_forks=%d, occupied_slots=%d%s)", err, maxForks, occupied, action)
+}
+
+func (p *Pool) signal() { close(p.changed); p.changed = make(chan struct{}) }
+
+func (p *Pool) acquireLocked(recover bool) (*Lease, error) {
+	if p.closed {
+		return nil, ErrClosed
+	}
+	if p.blocked {
+		var debt error
+		for l := range p.leases {
+			debt = errors.Join(debt, l.debt)
+		}
+		if !recover || debt != nil {
+			return nil, errors.Join(ErrCleanup, p.cause, debt)
+		}
+	}
+	if len(p.leases) >= p.limit {
+		return nil, ErrFull
+	}
+	// Explicit recovery and reservation are a single transition. Full capacity
+	// or unresolved debt cannot reopen admission as a side effect.
+	p.blocked = false
+	p.cause = nil
+	l := &Lease{pool: p}
+	p.leases[l] = struct{}{}
+	return l, nil
+}
+
+// TryAcquire never waits. recover is only for an explicit Live Reset after
+// retrying its owned cleanup, never ordinary Fork or background disposal.
+func (p *Pool) TryAcquire(recover bool) (*Lease, error) {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	return p.acquireLocked(recover)
+}
+
+// Acquire waits without holding the Snapshot's backing lock. Close wakes all
+// waiters even while successful children remain alive. Fairness is not promised.
+func (p *Pool) Acquire(ctx context.Context) (*Lease, error) {
+	for {
+		if err := ctx.Err(); err != nil {
+			return nil, err
+		}
+		p.mu.Lock()
+		l, err := p.acquireLocked(false)
+		changed := p.changed
+		p.mu.Unlock()
+		if l != nil && ctx.Err() != nil {
+			l.Settle(nil)
+			return nil, ctx.Err()
+		}
+		// Only the pool's own full result waits. A retained cleanup cause may
+		// itself wrap ErrFull; it must still fail admission immediately.
+		if err != ErrFull {
+			return l, err
+		}
+		select {
+		case <-changed:
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		}
+	}
+}
+
+// Close revokes unused reservations, but active child leases remain owned.
+// Backing disposal and already admitted startups are joined by the caller.
+func (p *Pool) Close() {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.closed {
+		return
+	}
+	p.closed = true
+	for l := range p.leases {
+		if !l.active {
+			delete(p.leases, l)
+		}
+	}
+	p.signal()
+}
+
+// Activate is called while holding backing protection, before any startup or
+// export allocation. It consumes the reservation exactly once. On rejection,
+// the caller still settles its unused lease (Close may already have revoked it).
+func (l *Lease) Activate() error {
+	p := l.pool
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.closed {
+		return ErrClosed
+	}
+	if _, ok := p.leases[l]; !ok || l.active {
+		return ErrLease
+	}
+	if p.blocked {
+		return errors.Join(ErrCleanup, p.cause)
+	}
+	l.active = true
+	return nil
+}
+
+// Cancel returns an unused reservation. It cannot release an activated child,
+// even when called from a deferred reservation cleanup after Start returned.
+func (l *Lease) Cancel() {
+	p := l.pool
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if _, ok := p.leases[l]; ok && !l.active {
+		delete(p.leases, l)
+		p.signal()
+	}
+}
+
+// Settle(nil) confirms disposal (or cancels an unused reservation). A cleanup
+// error retains the slot and stops admission. Later successful settlement clears
+// this lease's debt, but only explicit TryAcquire(true) can reopen the pool.
+// No settlement can revive a closed pool or decrement a different lease.
+func (l *Lease) Settle(cleanup error) {
+	p := l.pool
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if _, ok := p.leases[l]; !ok {
+		return
+	}
+	if cleanup == nil {
+		delete(p.leases, l)
+	} else {
+		// Callers activate before allocating resources, including transfer scratch.
+		l.active = true
+		if l.debt == nil {
+			l.debt = cleanup
+		}
+		if !p.blocked {
+			p.cause = cleanup
+		}
+		p.blocked = true
+	}
+	p.signal()
+}
+
+// TrackCleanup retains an uncertain child's slot through the actual disposal
+// owners' completion. Only one watcher belongs to a lease, not one per retry.
+// An untyped cleanup error remains blocked: never infer disposal from its text.
+// Confirmation clears this debt but does not reopen admission automatically.
+func (l *Lease) TrackCleanup(cause error) {
+	if cause == nil {
+		l.Settle(nil)
+		return
+	}
+	p := l.pool
+	p.mu.Lock()
+	if _, ok := p.leases[l]; !ok || l.tracking {
+		p.mu.Unlock()
+		return
+	}
+	l.tracking = true
+	l.active = true
+	if l.debt == nil {
+		l.debt = cause
+	}
+	if !p.blocked {
+		p.cause = cause
+	}
+	p.blocked = true
+	p.signal()
+	p.mu.Unlock()
+	owners := disposal.Owners(cause)
+	if len(owners) == 0 {
+		return
+	}
+	go func() {
+		for _, owner := range owners {
+			<-owner.Done()
+		}
+		l.Settle(nil)
+	}()
+}

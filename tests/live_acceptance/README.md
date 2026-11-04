@@ -53,9 +53,15 @@ from outside the checkout, and runs an external Go module with an exact local
 candidate replacement. It is not publication or a downloaded released-module
 smoke. The wheel uses current source version metadata; no version/release action
 is implied. Its consumer venv and module are removed after preserving results.
+The Live workflow runs this consumer with both Python3.11 and3.14 and stores
+separate `installed-py<minor>` results. The Python consumer explicitly captures
+cap2, refuses a third child at a finite wait deadline, and verifies that a
+capacity-busy Live Reset preserves generation/data before later successful reset.
 
 The candidate workflow first obtains source-bound native reference receipts,
-then both supported host OSes run canonical check/integration, new relay race
-checks, both Python versions' public browser/real-defect controls, installed
-wheel and external Go consumer. Receipt preservation and local workspace cleanup
+then both supported host OSes consume the exact-source shared host/wheel and run
+relay/fixture checks, both Python versions' public browser/real-defect controls,
+Fork-limit ownership/transport units and bounded actual-guest cases, installed
+wheel and external Go consumer. Canonical daily source checks and smoke have
+their separate Development owner. Receipt preservation and local workspace cleanup
 complete the experiment lifecycle separately from hosted-CI execution.

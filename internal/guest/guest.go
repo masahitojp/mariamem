@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/disposal"
 	"github.com/masahitojp/mariamem/internal/prepared"
 	"github.com/masahitojp/mariamem/internal/preparedproto"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
@@ -166,12 +167,19 @@ func (p *Process) Abort(err error) {
 }
 
 func (p *Process) AbortAndWait(err error) error {
+	return p.abortAndWait(err, 10*time.Second)
+}
+
+func (p *Process) abortAndWait(err error, grace time.Duration) error {
 	p.Abort(err)
+	timer := time.NewTimer(grace)
+	defer timer.Stop()
 	select {
 	case <-p.done:
 		return errors.Join(err, p.Err())
-	case <-time.After(10 * time.Second):
-		return fmt.Errorf("%w; guest cleanup timed out", err)
+	case <-timer.C:
+		owner := disposal.New(func(ctx context.Context) error { return disposal.Wait(ctx, p.done) })
+		return disposal.Retain(err, errors.New("guest cleanup timed out"), owner)
 	}
 }
 

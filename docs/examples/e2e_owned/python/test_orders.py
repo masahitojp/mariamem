@@ -84,7 +84,8 @@ def start_ready(ctx, info, register):
 @pytest.fixture(scope="module")
 def entry():
     with BrowserEntry(Config(prepare=prepare, start_ready=start_ready,
-            sole_work_source=True, options={"host_binary": os.environ["MARIAMEM_TEST_HOST"]})) as owner:
+            sole_work_source=True, max_forks=2,
+            options={"host_binary": os.environ["MARIAMEM_TEST_HOST"]})) as owner:
         app = owner.app
         yield owner
     assert app.process.poll() is not None

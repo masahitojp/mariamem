@@ -1,10 +1,13 @@
 """Internal owner of one automatically managed host and its request routing."""
 import json
 import os
+from collections import deque
 from pathlib import Path
+import select
 import subprocess
 import tempfile
 import threading
+import time
 
 
 class _Reply:
@@ -12,6 +15,21 @@ class _Reply:
         self.ready = threading.Event()
         self.value = None
         self.abandoned = False
+        self.cleanup = None
+        self.fields = {}
+        self.op = None
+
+
+class _Write:
+    def __init__(self, message, deadline):
+        self.data = (json.dumps(message, allow_nan=False) + "\n").encode("utf-8")
+        if len(self.data) > 1 << 20:
+            raise ValueError("control request exceeds 1 MiB")
+        self.identifier = message.get("id")
+        self.deadline = deadline
+        self.started = False
+        self.cancelled = threading.Event()
+        self.written = threading.Event()
 
 
 class Session:
@@ -19,7 +37,10 @@ class Session:
         from . import HostError
         self.binary = str(Path(binary).absolute())
         self._lock = threading.RLock()
-        self._write_lock = threading.Lock()
+        self._write_condition = threading.Condition(self._lock)
+        self._writes = deque()
+        self._transport_stop = threading.Event()
+        self._exited = threading.Event()
         self._pending = {}
         self._sequence = 0
         self._refs = 0
@@ -27,6 +48,7 @@ class Session:
         self._closing = False
         self._reaped = threading.Event()
         self._logs = ""
+        self._handoffs = set()
         self._temp = tempfile.TemporaryDirectory(prefix="mariamem-")
         self.root = Path(self._temp.name)
         self._stderr = None
@@ -35,12 +57,17 @@ class Session:
             self._stderr = (self.root / "host.log").open("xb")
             self._process = subprocess.Popen(
                 [self.binary, "--shared"], stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE, stderr=self._stderr, text=True,
-                encoding="utf-8", bufsize=1,
+                stdout=subprocess.PIPE, stderr=self._stderr, bufsize=0,
                 env={**os.environ, "TMPDIR": str(self.root)})
             self._hello = _Reply()
+            os.set_blocking(self._process.stdin.fileno(), False)
+            os.set_blocking(self._process.stdout.fileno(), False)
             self._reader = threading.Thread(target=self._read, daemon=True)
             self._reader.start()
+            self._writer = threading.Thread(target=self._write, daemon=True)
+            self._writer.start()
+            self._waiter = threading.Thread(target=self._wait_exit, daemon=True)
+            self._waiter.start()
             if not self._hello.ready.wait(15):
                 raise HostError("Shared host greeting timed out", code="host_start",
                                 stage="host_ready", closed=True)
@@ -87,67 +114,168 @@ class Session:
         if final:
             self._finish()
 
-    def _send(self, message):
-        with self._write_lock:
-            self._process.stdin.write(json.dumps(message) + "\n")
-            self._process.stdin.flush()
+    def _wait_exit(self):
+        self._process.wait()
+        self._exited.set()
 
-    def request(self, op, response_timeout=None, **fields):
+    def _enqueue(self, task):
+        with self._write_condition:
+            while self._writes:
+                left = task.deadline - time.monotonic()
+                if left <= 0:
+                    raise TimeoutError("Host control submission timed out")
+                self._write_condition.wait(left)
+            if self._transport_stop.is_set():
+                raise OSError("control transport closed")
+            self._writes.append(task)
+            self._write_condition.notify_all()
+
+    def _cancel(self, identifier):
+        # Best effort and nonblocking. A late response still has a cleanup owner
+        # if a full writer queue prevents cancellation from being sent.
+        task = _Write(dict(op="cancel", target=identifier), time.monotonic()+5)
+        with self._write_condition:
+            if not self._writes and not self._transport_stop.is_set():
+                self._writes.append(task)
+                self._write_condition.notify_all()
+
+    def _unsent(self, task):
+        error = TimeoutError("Host control message was not sent")
+        error.submitted = False
+        with self._lock:
+            pending = self._pending.pop(task.identifier, None)
+            if pending is not None:
+                if pending.abandoned:
+                    self._refs += 1
+                else:
+                    pending.value = error
+                    pending.ready.set()
+        if pending is not None and pending.abandoned:
+            threading.Thread(target=self._late, args=(error, pending), daemon=True).start()
+        task.written.set()
+
+    def _write(self):
+        from . import HostError
+        try:
+            while not self._transport_stop.is_set():
+                with self._write_condition:
+                    while not self._writes and not self._transport_stop.is_set():
+                        self._write_condition.wait(.1)
+                    if self._transport_stop.is_set():
+                        return
+                    task = self._writes.popleft()
+                    task.started = True
+                    self._write_condition.notify_all()
+                offset = 0
+                while offset < len(task.data) and not self._transport_stop.is_set():
+                    if offset == 0 and (task.cancelled.is_set() or time.monotonic() >= task.deadline):
+                        self._unsent(task)
+                        break
+                    try:
+                        count = os.write(self._process.stdin.fileno(), task.data[offset:])
+                        if count == 0:
+                            raise BrokenPipeError("zero-byte control write")
+                        offset += count
+                    except BlockingIOError:
+                        select.select([], [self._process.stdin.fileno()], [], .1)
+                else:
+                    task.written.set()
+                # A partially written JSON frame must finish before another
+                # frame. Only this one writer remains parked on a full pipe;
+                # the caller's deadline still expires independently.
+        except (OSError, ValueError) as exc:
+            if not self._closing:
+                self._fail(HostError("Shared host control pipe closed: " + str(exc),
+                                     code="unusable", stage="host_control", closed=True))
+
+    def _abandon(self, identifier, pending, task, error):
+        with self._write_condition:
+            unsent = task is None or (not task.started and task not in self._writes)
+            if pending.ready.is_set() or unsent:
+                self._pending.pop(identifier, None)
+                value = pending.value if pending.ready.is_set() else error
+                if unsent:
+                    not_sent = TimeoutError("Control message was not submitted: " + str(error))
+                    not_sent.submitted = False
+                    value = not_sent
+                self._refs += 1
+                threading.Thread(target=self._late, args=(value, pending), daemon=True).start()
+            else:
+                pending.abandoned = True
+                task.cancelled.set()
+                self._write_condition.notify_all()
+                self._cancel(identifier)
+
+    def request(self, op, response_timeout=None, _cleanup=None, _cleanup_errors=True, **fields):
         from . import HostError, Busy, TransactionActive
         pending = _Reply()
+        pending.cleanup, pending.op, pending.fields = _cleanup, op, fields
         with self._lock:
             if self._failure is not None:
                 raise self._failure
             self._sequence += 1
             identifier = self._sequence
             self._pending[identifier] = pending
+        started = time.monotonic()
+        deadline = None if response_timeout is None else started+response_timeout
+        send_deadline = min(started+5, deadline) if deadline is not None else started+5
+        task = None
         try:
-            self._send(dict(id=identifier, op=op, **fields))
-        except (OSError, ValueError) as exc:
-            self._fail(HostError("Shared host control pipe closed: " + str(exc),
-                                 code="unusable", stage="host_control", closed=True))
-        try:
-            ready = pending.ready.wait(response_timeout)
-        except BaseException:
-            # An interrupted caller no longer owns a late-created resource.
-            with self._lock:
-                if pending.ready.is_set():
-                    value = pending.value
-                    if not isinstance(value, BaseException):
-                        self._refs += 1
-                        threading.Thread(target=self._late, args=(value,), daemon=True).start()
-                else:
-                    pending.abandoned = True
-                    try:
-                        self._send(dict(op="cancel", target=identifier))
-                    except (OSError, ValueError):
-                        pass
+            task = _Write(dict(id=identifier, op=op, **fields), send_deadline)
+            self._enqueue(task)
+            if not task.written.wait(max(0, send_deadline-time.monotonic())) and not pending.ready.is_set():
+                raise TimeoutError("Host control submission timed out; cleanup owns any late response")
+            left = None if deadline is None else max(0, deadline-time.monotonic())
+            ready = pending.ready.wait(left)
+        except BaseException as exc:
+            self._abandon(identifier, pending, task, exc)
             raise
         if not ready:
             with self._lock:
                 if not pending.ready.is_set():
                     pending.abandoned = True
-                    try:
-                        self._send(dict(op="cancel", target=identifier))
-                    except (OSError, ValueError):
-                        pass
+                    task.cancelled.set()
+                    self._cancel(identifier)
                     # Keep the pending owner until the late reply is collected.
                     # A late created handle is closed by _read, not leaked.
                     raise TimeoutError("Host control response timed out; the request was cancelled")
         reply = pending.value
         if isinstance(reply, BaseException):
+            if _cleanup is not None and _cleanup is not False:
+                self._abandon(identifier, pending, task, reply)
             raise reply
         if not reply.get("ok"):
             error = reply.get("error", {})
             cls = {"busy": Busy, "transaction_active": TransactionActive}.get(error.get("code"), HostError)
-            raise cls(error.get("message", "Host request failed"), code=error.get("code"),
+            exc = cls(error.get("message", "Host request failed"), code=error.get("code"),
                       stage=error.get("stage"), closed=reply.get("closed", op in ("start", "fork")))
+            exc.response = reply
+            if _cleanup_errors and _cleanup is not False and (_cleanup is not None or any(k in reply for k in ("cleanup", "cleanup_handle", "database", "snapshot", "lease"))):
+                self._abandon(identifier, pending, task, exc)
+            raise exc
         return reply
+
+    def _lines(self):
+        data = b""
+        while not self._transport_stop.is_set():
+            if not select.select([self._process.stdout.fileno()], [], [], .1)[0]:
+                continue
+            chunk = os.read(self._process.stdout.fileno(), 65536)
+            if not chunk:
+                return
+            data += chunk
+            while b"\n" in data:
+                line, data = data.split(b"\n", 1)
+                if len(line) > 1 << 20:
+                    raise ValueError("oversized host response")
+                yield line
+            if len(data) > 1 << 20:
+                raise ValueError("oversized host response")
 
     def _read(self):
         from . import HostError
         try:
-            for line in self._process.stdout:
+            for line in self._lines():
                 value = json.loads(line)
                 if not isinstance(value, dict):
                     raise ValueError("invalid host response object")
@@ -178,7 +306,7 @@ class Session:
                         pending.value = value
                         pending.ready.set()
                 if abandoned:
-                    threading.Thread(target=self._late, args=(value,), daemon=True).start()
+                    threading.Thread(target=self._late, args=(value, pending), daemon=True).start()
             with self._lock:
                 expected = self._closing and not self._pending
             if not expected:
@@ -188,14 +316,26 @@ class Session:
                        HostError("Shared host terminated or sent invalid control data: " + str(exc),
                                  code="unusable", stage="host_control", closed=True))
 
-    def _late(self, reply):
+    def _late(self, reply, pending=None):
         try:
+            if pending is not None and pending.cleanup is not None:
+                if pending.cleanup is not False:
+                    pending.cleanup(reply)
+                return
+            if isinstance(reply, BaseException):
+                return
             if "database" in reply:
-                self.request("db_close", handle=reply["database"]["handle"], response_timeout=60)
+                self.request("db_close", handle=reply["database"]["handle"], response_timeout=60, _cleanup=False)
             if "live" in reply:
-                self.request("live_close", handle=reply["live"]["handle"], response_timeout=None)
+                self.request("live_close", handle=reply["live"]["handle"], response_timeout=None, _cleanup=False)
             if "snapshot" in reply:
-                self.request("snapshot_close", handle=reply["snapshot"], response_timeout=60)
+                self.request("snapshot_close", handle=reply["snapshot"], response_timeout=60, _cleanup=False)
+            if "cleanup" in reply:
+                self.request("cleanup_status", cleanup=reply["cleanup"], response_timeout=5, _cleanup=False)
+            if "cleanup_handle" in reply:
+                self.request("db_cleanup", handle=reply["cleanup_handle"], response_timeout=5, _cleanup=False)
+            if pending is not None and "reservation" in reply:
+                self.request("fork_cancel", handle=pending.fields["handle"], reservation=reply["reservation"], response_timeout=5, _cleanup=False)
         except Exception:
             # Host failure invalidates all its handles; final owner reaps it.
             pass
@@ -210,20 +350,30 @@ class Session:
             if not self._hello.ready.is_set():
                 self._hello.value = error
                 self._hello.ready.set()
+            abandoned = []
             for pending in self._pending.values():
                 pending.value = error
                 pending.ready.set()
+                if pending.abandoned:
+                    self._refs += 1
+                    abandoned.append(pending)
             self._pending.clear()
+            self._transport_stop.set()
+            self._write_condition.notify_all()
+        for pending in abandoned:
+            threading.Thread(target=self._late, args=(error, pending), daemon=True).start()
         if first_failure:
-            threading.Thread(target=self._owner_eof, daemon=True).start()
+            try:
+                threading.Thread(target=self._owner_eof, daemon=True).start()
+            except RuntimeError:
+                self._owner_eof()
 
     def _owner_eof(self):
         # Irrecoverable control failure invalidates the lineage. Stop admitting
         # work and ask its host to close all DBs, preserving logs until release.
         try:
-            with self._write_lock:
-                if not self._process.stdin.closed:
-                    self._process.stdin.close()
+            if not self._process.stdin.closed:
+                self._process.stdin.close()
         except (OSError, ValueError):
             pass
 
@@ -246,6 +396,9 @@ class Session:
                         pass
                 if not self._process.stdin.closed:
                     self._process.stdin.close()
+                self._transport_stop.set()
+                with self._write_condition:
+                    self._write_condition.notify_all()
                 try:
                     self._process.wait(timeout=45 if not force else 1)
                 except subprocess.TimeoutExpired:
@@ -255,9 +408,14 @@ class Session:
                     except subprocess.TimeoutExpired:
                         self._process.kill()
                         self._process.wait(timeout=5)
+                self._exited.set()
+                from . import HostError
+                self._fail(HostError("Host is closed", code="closed", stage="host_control", closed=True))
                 if hasattr(self, "_reader") and self._reader.ident is not None and threading.current_thread() is not self._reader:
                     self._reader.join(timeout=5)
                 self._process.stdout.close()
+                if hasattr(self, "_writer") and self._writer.ident is not None and threading.current_thread() is not self._writer:
+                    self._writer.join(timeout=5)
         finally:
             if self._stderr is not None:
                 self._stderr.close()

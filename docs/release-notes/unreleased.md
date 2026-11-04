@@ -5,6 +5,63 @@ release version or grant qualification/publication approval. Published0.6.0 note
 [NOTES-v0.6.0.md](../../release/NOTES-v0.6.0.md); published installation commands
 and version metadata remain unchanged.
 
+## Human-adopted candidate — #53 / PR #85 (main integration pending)
+
+- Go Snapshot adds `SnapshotOptions.MaxForks` and `Snapshot.MaxForks()`. Omission
+  now resolves a finite memory-based limit; full capacity waits under the Go
+  context before starting a child. Child cleanup retains its slot, and parent
+  Close wakes waiting Forks without closing successful children.
+- Go Live needs at least2 slots and reserves replacement capacity before draining;
+  a full parent returns busy while preserving the current generation. Explicit
+  Reset can recover only after all cleanup debt is confirmed. The Go test helper
+  retains default2 and passes the same cap to its Snapshot; HTTPConfig exposes
+  a cap override. Auto sizing is not CPU-optimal or a process-wide memory guarantee.
+- Python adds `snapshot(max_forks=...)`, read-only `max_forks`,
+  `fork(timeout=...)` and `Database(snapshot=..., fork_timeout=...)`.
+  Different-host children retain their origin slot through actual disposal;
+  capacity waits release the parent lock and retain finite control watchdogs.
+  Pytest adds `mariamem_max_forks` (None/auto) and finite
+  `mariamem_fork_timeout` (default30 seconds). Acquisition failure stops dependent
+  admission in that worker and preserves the original error; normal assertions
+  keep their existing behavior. None/callable/PrepareCommand preparation is unchanged.
+- Python E2E `Config.max_forks` reaches its Live baseline and explicit1 rejects
+  before preparation. Prepared Django adds `max_forks` / `fork_timeout`, forwards
+  them to each capture/acquisition and retires class/test owners before requesting
+  its final DROP child. These per-Snapshot/worker caps are not a global resource
+  limit or CPU/latency optimum; choose explicit caps and worker totals as needed.
+- Nested acquisition while holding every slot can wait indefinitely. Release a
+  child before the next synchronous Fork, or bound the wait with a Go context /
+  Python timeout. Expanded Go `SnapshotOptions` and `HTTPConfig` require keyed
+  literals instead of old positional literals.
+- Capacity wait/busy diagnostics report `max_forks` and observed `occupied_slots`
+  with a close-children/increase-limit remedy. Python uses the last responsive
+  capacity reply, or explicit `unknown` if none arrived. Existing error identity,
+  code/stage and closed semantics are preserved.
+- Linux auto-sizing validates kernel sysinfo units and proc MemTotal separately;
+  either physical source can fail while the other/cgroup/Go limit still applies.
+  Only absence of all valid memory observations uses the existing finite CPU
+  fallback. This remains a sizing heuristic, not an OOM guarantee.
+- If cgroup limits are unreadable or invisible, auto sizing may use host RAM
+  and over-admit relative to the container budget; configure an explicit cap.
+  Independent root `Start` / `start()` calls are outside per-Snapshot caps.
+  Private control rejects negative capacity tokens, including `-0`, request-locally.
+- Capture cleanup has an unretryable failure path: if a failed capture's newly
+  owned Snapshot also fails Close, the shared host permanently latches
+  `captureDebt`. Its originating slot remains occupied and parent admission
+  stays stopped even after runtime disposal. Cleanup retry/Live Reset cannot
+  clear this debt; close remaining owners safely and prepare a fresh lineage.
+- Host WASI writes now propagate zero-byte write errors, including broken pipes,
+  and preserve actual short-write progress. This fixes the tested interrupted-
+  guest cleanup stall without changing the accepted prepared CALL observations.
+- The Human adopted this candidate on2026-11-04, including the WASI cleanup
+  prerequisite and the capture-cleanup limit above. Main integration is pending. The fixed both-host/Python-version matrix,
+  including installed D1 cap1 execution and G1–G3/P2–P6 corrections, passed on
+  exact candidate `cddd8dcb`; see the
+  [review follow-up](../reviews/issue53-review-followup.md). The updated
+  [adoption review](../reviews/issue53-fork-limit-final-adoption-review.md) records evidence
+  and limits. The [adoption decision](../decisions/issue53-fork-limit-adoption.md)
+  records approval; main integration and a future release remain separate.
+
 ## Adopted on main — unreleased
 
 ### Explicit prepared Django entry (#43 / PR #67)

@@ -10,7 +10,7 @@ from test_owned_snapshot_unit import fake_host
 
 @pytest.fixture
 def live_host(fake_host):
-    source=fake_host.read_text().replace("'protocol':2,", "'protocol':2,'capabilities':['live-v1'],")
+    source=fake_host.read_text().replace("'capabilities':['fork-limit-v1']", "'capabilities':['fork-limit-v1','live-v1']")
     source=source.replace('release_slow=threading.Event()', 'release_slow=threading.Event();generations={};parents={};fail_close=False')
     source=source.replace(' global seq\n', ' global seq,fail_close\n')
     source=source.replace("'late_snapshot'):release_slow", "'late_snapshot','late_live'):release_slow")
@@ -97,6 +97,75 @@ def test_closed_baseline_does_not_close_live_or_deadlock(live_host):
         assert live.status()['generation']==0
     finally:live.close()
     assert session._process.poll() is not None
+
+
+@pytest.mark.parametrize('phase', ['cleanup_retry', 'reset_reply'])
+def test_new_remote_debt_during_reset_is_not_forgiven(live_host, monkeypatch, phase):
+    from concurrent.futures import ThreadPoolExecutor
+    from mariamem._handoff import RemoteLease
+    with prepared(live_host) as saved, saved.live() as live:
+        session = saved._session
+        entered, proceed = threading.Event(), threading.Event()
+        original_request = session.request
+        old_error = mariamem.HostError('old cleanup debt', stage='fork_admission')
+        saved._admission_error, saved._debt_version = old_error, 1
+
+        class RetryingOwner:
+            error = old_error
+            def parent(self): return saved
+            def parent_closed(self): pass
+            def retry(self):
+                entered.set()
+                assert proceed.wait(5), 'cleanup barrier not released'
+                with session._lock:
+                    session._handoffs.discard(self)
+
+        old_owner = RetryingOwner()
+        if phase == 'cleanup_retry':
+            session._handoffs.add(old_owner)
+        else:
+            def gated_request(op, **fields):
+                reply = original_request(op, **fields)
+                if op == 'live_reset':
+                    entered.set()
+                    assert proceed.wait(5), 'reset reply barrier not released'
+                return reply
+            monkeypatch.setattr(session, 'request', gated_request)
+
+        owner = None
+        try:
+            with ThreadPoolExecutor(1) as workers:
+                future = workers.submit(live.reset)
+                try:
+                    assert entered.wait(2)
+                    # Local cleanup can fail after its source slot was settled;
+                    # this models that ownership boundary, not a real guest fault.
+                    session.retain()
+                    scratch = session.root/'controlled-new-debt'
+                    scratch.mkdir()
+                    owner = RemoteLease(saved, session, saved._handle, 'a'*32, scratch, session)
+                    owner._block(OSError('new cleanup failure during Reset'))
+                    new_error = saved._admission_error
+                    proceed.set()
+                    future.result(2)
+                    assert saved._admission_error is new_error
+                    with pytest.raises(mariamem.HostError) as error:
+                        saved.fork(timeout=.01)
+                    assert error.value is new_error
+                finally:
+                    proceed.set()
+            # Only a later explicit Reset after confirmed cleanup may clear it.
+            owner.target_done = True
+            live.reset()
+            assert owner.done and saved._admission_error is None
+            with saved.fork(timeout=1) as child:
+                assert child.status()['state'] == 'ready'
+        finally:
+            proceed.set()
+            session._handoffs.discard(old_owner)
+            if owner is not None and not owner.done:
+                owner.target_done = True
+                owner.retry()
 
 
 def test_late_live_creation_is_closed_without_terminating_baseline(live_host):

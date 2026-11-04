@@ -36,13 +36,14 @@ func (j *journal) count(s string) int {
 func (j *journal) text() string { j.Lock(); defer j.Unlock(); return strings.Join(j.events, ",") }
 
 type fakeDB struct {
-	name      string
-	j         *journal
-	closed    bool
-	invalid   bool
-	closeErr  error
-	waitErr   error
-	captureFn func(context.Context) (baseline, error)
+	name       string
+	j          *journal
+	closed     bool
+	invalid    bool
+	closeErr   error
+	waitErr    error
+	captureFn  func(context.Context) (baseline, error)
+	captureMax int
 }
 
 func (d *fakeDB) DSN() string { return d.name }
@@ -57,7 +58,8 @@ func (d *fakeDB) WaitDisconnected(context.Context) error {
 	d.j.add(d.name + ".drain")
 	return d.waitErr
 }
-func (d *fakeDB) capture(ctx context.Context) (baseline, error) {
+func (d *fakeDB) capture(ctx context.Context, maxForks int) (baseline, error) {
+	d.captureMax = maxForks
 	d.j.add(d.name + ".capture")
 	return d.captureFn(ctx)
 }
@@ -136,6 +138,29 @@ func mustFixture(t *testing.T, deps dependencies, opts Options) *Fixture {
 	return f
 }
 
+func TestFixturePassesResolvedCapacityToSnapshot(t *testing.T) {
+	for _, cap := range []int{0, 1, 2, 5} {
+		deps, source, _, _ := environment()
+		f := mustFixture(t, deps, Options{MaxForks: cap})
+		want := cap
+		if want == 0 {
+			want = 2
+		}
+		if source.captureMax != want || f.opts.MaxForks != want {
+			t.Fatal("outer/inner limit mismatch", source.captureMax, f.opts.MaxForks, want)
+		}
+	}
+}
+
+func TestHTTPRejectsCapacityBeforePreparation(t *testing.T) {
+	for _, cap := range []int{-1, 1, 2147483648} {
+		c := HTTPConfig{MaxForks: cap}
+		if _, err := c.defaults(); err == nil {
+			t.Fatal("accepted HTTP cap", cap)
+		}
+	}
+}
+
 func TestPrepareCaptureAndTestOwnership(t *testing.T) {
 	deps, source, base, j := environment()
 	prepared := 0
@@ -147,7 +172,7 @@ func TestPrepareCaptureAndTestOwnership(t *testing.T) {
 		j.add("prepare")
 		return nil
 	}})
-	if prepared != 1 || !source.closed {
+	if prepared != 1 || !source.closed || source.captureMax != 2 {
 		t.Fatal("preparation/capture lifecycle")
 	}
 	if got := j.text(); got != "start,source.pool.1.1,prepare,source.pool.close,source.drain,source.capture,source.dispose" {

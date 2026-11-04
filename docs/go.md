@@ -159,6 +159,72 @@ state in each test process. No user-managed file or daemon is required.
 Closing a handle releases its ownership; other children may still own blocks.
 Go memory reclamation and OS RSS reduction have different timing.
 
+### Unreleased candidate: per-Snapshot Fork limits (#53)
+
+The candidate Go API adds `SnapshotOptions.MaxForks` and `Snapshot.MaxForks()`:
+
+```go
+prepared, err := source.Snapshot(ctx, mariamem.SnapshotOptions{MaxForks: 2})
+if err != nil { return err }
+defer prepared.Close()
+child, err := prepared.Fork(ctx)
+if err != nil { return err }
+defer child.Close()
+```
+
+Zero selects a finite automatic limit once at capture; explicit values1 through
+2,147,483,647 override it. Invalid values reject before consuming the source.
+The automatic budget is one quarter of the minimum observed physical RAM,
+Linux cgroup limit and Go runtime memory limit, divided by256 MiB per child;
+it falls back to a finite CPU count if memory information is unavailable.
+On Linux, validated `sysinfo(2)` totalram/mem_unit and `/proc/meminfo` MemTotal
+observations both participate in the minimum; either source may fail without
+discarding the other. Cgroup/Go memory limits still apply when physical readings
+fail. CPU fallback is used only when all memory observations are unavailable.
+`MaxForks()` returns the resolved number. This is a memory heuristic, not a
+CPU/latency optimum or OOM guarantee. Use an explicit limit for a latency-sensitive
+suite, and budget multiple baselines/processes separately.
+
+If the container memory limit is unreadable or invisible, auto sizing can use
+host RAM and admit more children than the container can afford (for example,
+64 GiB host RAM can resolve to64 despite a hidden512 MiB container limit).
+Set an explicit cap in that environment. Independent root `Start` / `start()`
+calls are outside Snapshot caps; finite Fork defaults are not a global DB limit.
+
+A slot counts reservation/startup, a live child and unconfirmed cleanup. Full
+capacity waits before starting another MariaDB. Go's context covers waiting and
+startup; an expired capacity wait returns `HostError` with code `pool_timeout`,
+stage `fork_wait` and an underlying context error. Closing a child permits a
+later Fork. Capacity errors include `max_forks`, observed `occupied_slots` and
+"close owned children or increase max_forks". Counts include reserved/startup,
+live and unconfirmed-cleanup owners; they can change after sampling. Go's
+underlying context error remains available through `errors.Is`.
+Closing the baseline wakes capacity waiters while existing children
+remain usable. Cleanup uncertainty stops admission; later disposal alone does
+not automatically resume it. Prepare a new baseline or use an explicit Live
+Reset that confirms all cleanup debt. There is no unlimited Snapshot/Fork setting.
+
+A capture failure has a stricter limit: if cleanup of its newly owned Snapshot
+also fails, the shared host records permanent `captureDebt`. `Owned.Close` caches
+that error and cannot retry the descriptors; the affected parent slot remains
+occupied and admission stays stopped, even after runtime disposal is confirmed.
+Cleanup retry and Live Reset cannot clear this capture debt. Do not reuse that
+pool; safely close its remaining owners and prepare a fresh independent lineage.
+This is distinct from retryable child-runtime cleanup debt described above.
+
+Do not synchronously request another child while the same goroutine holds every
+slot. Release one first, or use a context deadline/cancellation; a deferred Close
+runs only after the waiting Fork returns. Use keyed option literals when upgrading:
+the expanded `SnapshotOptions` / `HTTPConfig` structs require updates to positional
+literals.
+
+The current exact candidate cddd8dcb passes the fixed hosted matrix, including
+these diagnostics and memory-source corrections. See the
+[updated adoption review](reviews/issue53-fork-limit-final-adoption-review.md);
+the [Human adoption decision](decisions/issue53-fork-limit-adoption.md) is recorded,
+and main integration remains pending. [Older receipts](reviews/issue53-fork-limit-adoption-review.md)
+retain their original source boundary.
+
 
 ## Lifecycle, cancellation and errors
 

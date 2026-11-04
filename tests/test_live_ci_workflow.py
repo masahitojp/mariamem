@@ -49,11 +49,17 @@ def validate(text):
     for command in [
                     'tests/live_acceptance/native.py', 'tests/live_acceptance/run.py',
                     'tests/live_acceptance/installed.py', 'docs/examples/live/verify.py',
+                    'tests/test_forklimit_options.py', 'tests/test_forklimit_unit.py',
+                    'tests/test_forklimit_entries.py', 'tests/test_forklimit_transport.py',
+                    'tests/test_handoff_failures.py', 'tests/test_owned_snapshot.py',
                     'scripts/go_fixture_campaign.py', 'scripts/go_fixture_completion.py']:
         assert command in text
     for scenario in ['positive', 'skip-reset', 'restart-app']:
         assert scenario in text
     assert '--expected-source-commit "$SOURCE_COMMIT"' in text
+    installed = text.split('      - name: Installed wheel and external Go module\n', 1)[1].split('      - name:', 1)[0]
+    assert 'for py in "$PY311" "$PY314"' in installed
+    assert 'build/live-evidence/installed-py$version' in installed
 
 
 def test_full_acceptance_is_explicit_and_retains_its_oracles():
@@ -67,6 +73,9 @@ def test_full_acceptance_is_explicit_and_retains_its_oracles():
     ('needs: [native-reference, live]', 'needs: []'),
     ('tests/live_acceptance/run.py', 'echo bypass'),
     ('scripts/go_fixture_campaign.py', 'echo bypass'),
+    ('tests/test_forklimit_transport.py', 'echo omitted-transport'),
+    ('tests/test_owned_snapshot.py', 'echo omitted-runtime'),
+    ('build/live-evidence/installed-py$version', 'build/live-evidence/unbound'),
     ('name: Live full acceptance gate', 'name: Live required gate'),
     ('--expected-source-commit "$SOURCE_COMMIT"', '--unbound'),
 ])

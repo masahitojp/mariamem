@@ -194,3 +194,51 @@ def test_explicit_accepted_disposition_still_requires_complete_tripwires(tmp_pat
     assert r['matching']==('PASS' if mutation=='none' else 'FAIL')
     assert r['functional_acceptance']=='FAIL'
     if mutation=='none':assert r['human_disposition']=='ACCEPTED_BOUNDED_EXCEPTIONS'
+
+
+@pytest.mark.parametrize('capture_fails',[False,True])
+def test_edge_capture_retains_database_cleanup_failure(monkeypatch,capture_fails):
+    import mariamem
+    import v06_prepared_consumer_edges as edges
+    class DB:
+        def connection_info(self):return {'port':1}
+        def close(self):raise RuntimeError('disposal incomplete')
+    monkeypatch.setattr(mariamem,'start',lambda **kw:DB())
+    observation={'capture':'COMPLETE','cases':{'prepared_call':{'functional_result':'FAIL'}}}
+    def observe(info,mode):
+        if capture_fails:raise ValueError('capture failed')
+        return copy.deepcopy(observation)
+    monkeypatch.setattr(edges,'capture',observe)
+    result=edges.capture_mode('pure',Path('host'),None)
+    assert result['capture']=='FAIL'
+    assert result['database_cleanup_error']['message']=='disposal incomplete'
+    if capture_fails:
+        assert result['observation_capture']=='FAIL'
+        assert result['error']['message']=='capture failed'
+    else:
+        assert result['observation_capture']=='COMPLETE'
+        assert result['cases']==observation['cases']
+
+
+def test_edge_main_writes_cleanup_failure_and_stops(monkeypatch,tmp_path,capsys):
+    import sys
+    from types import ModuleType
+    import v06_prepared_consumer_edges as edges
+    mysql=ModuleType('mysql');connector=ModuleType('mysql.connector')
+    connector.__version__='26.7.0';mysql.connector=connector
+    monkeypatch.setitem(sys.modules,'mysql',mysql)
+    monkeypatch.setitem(sys.modules,'mysql.connector',connector)
+    output=tmp_path/'edges.json';modes=[]
+    def collect(mode,host,port):
+        modes.append(mode)
+        return {'capture':'FAIL','observation_capture':'COMPLETE',
+                'database_cleanup_error':{'message':'disposal incomplete'},
+                'cases':{'prepared_call':{'functional_result':'FAIL'}}}
+    monkeypatch.setattr(edges,'capture_mode',collect)
+    monkeypatch.setattr(sys,'argv',['edges','--host','host','--output',str(output)])
+    with pytest.raises(SystemExit) as exc:edges.main()
+    assert exc.value.code==1 and modes==['pure']
+    result=json.loads(output.read_text())['modes']['pure']
+    assert result['capture']=='FAIL' and result['observation_capture']=='COMPLETE'
+    assert result['cases']['prepared_call']['functional_result']=='FAIL'
+    assert 'disposal incomplete' in capsys.readouterr().out

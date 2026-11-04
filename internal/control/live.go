@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/disposal"
 	endpoint "github.com/masahitojp/mariamem/internal/live"
 )
 
@@ -50,26 +51,18 @@ func (c *liveChild) Close() error {
 	if !c.attempted {
 		c.attempted = true
 		err = c.db.close()
-	} else if c.db.server != nil {
+	} else {
 		ctx, cancel := context.WithTimeout(context.Background(), c.db.shutdown)
-		err = c.db.server.Close(ctx)
+		err = c.db.retryCleanup(ctx)
 		cancel()
 	}
-	// A failed removal must remain retryable after the log descriptor is closed.
-	var logErr, removeErr error
-	if c.db.log != nil {
-		logErr = c.db.log.Close()
-		if errors.Is(logErr, os.ErrClosed) {
-			logErr = nil
-		}
-	}
-	if c.db.logPath != "" {
-		removeErr = os.Remove(c.db.logPath)
-		if errors.Is(removeErr, os.ErrNotExist) {
-			removeErr = nil
-		}
-	}
-	return errors.Join(err, logErr, removeErr)
+	// Keep the log open while an unjoined guest can still write to it.
+	cleanup := disposal.CleanupAfter(err, func() error {
+		return errors.Join(closeLog(c.db.log), removeLog(c.db.logPath))
+	})
+	err = errors.Join(err, cleanup)
+	c.db.settle(err)
+	return err
 }
 func (m *manager) createLive(ctx context.Context, r Request) (map[string]any, error) {
 	m.mu.Lock()
@@ -77,6 +70,9 @@ func (m *manager) createLive(ctx context.Context, r Request) (map[string]any, er
 	m.mu.Unlock()
 	if base == nil {
 		return map[string]any{"closed": false}, diagnostic.Wrap("closed", "live_precondition", errors.New("snapshot is closed"))
+	}
+	if base.forkLimit().MaxForks() < 2 {
+		return invalid("live_precondition", errors.New("Live requires max_forks >= 2"))
 	}
 	factory := endpoint.Factory{
 		Check: func() error {
@@ -87,23 +83,39 @@ func (m *manager) createLive(ctx context.Context, r Request) (map[string]any, er
 			}
 			return nil
 		},
-		Start: func(ctx context.Context) (endpoint.Child, error) {
-			base.mu.RLock()
-			defer base.mu.RUnlock()
-			if base.closed {
-				return nil, errors.New("snapshot is closed")
-			}
-			token := make([]byte, 16)
-			if _, err := rand.Read(token); err != nil {
+		Reserve: func(ctx context.Context, recover bool) (*endpoint.Reservation, error) {
+			if err := ctx.Err(); err != nil {
 				return nil, err
 			}
-			childRequest := Request{LogPath: filepath.Join(filepath.Dir(r.LogPath), "live-"+hex.EncodeToString(token)+".log")}
-			child, err := makeDB(ctx, childRequest, base)
+			lease, err := base.forkLimit().TryAcquire(recover)
 			if err != nil {
-				_ = os.Remove(childRequest.LogPath)
-				return nil, err
+				return nil, diagnostic.Wrap(capacityCode(err), "live_capacity", base.forkLimit().Describe(err))
 			}
-			return &liveChild{db: child}, nil
+			return &endpoint.Reservation{Cancel: lease.Cancel, Start: func(ctx context.Context) (endpoint.Child, error) {
+				base.mu.RLock()
+				defer base.mu.RUnlock()
+				if base.closed {
+					lease.Cancel()
+					return nil, errors.New("snapshot is closed")
+				}
+				if err := lease.Activate(); err != nil {
+					lease.Cancel()
+					return nil, admission(err)
+				}
+				token := make([]byte, 16)
+				if _, err := rand.Read(token); err != nil {
+					lease.Settle(nil)
+					return nil, err
+				}
+				childRequest := Request{LogPath: filepath.Join(filepath.Dir(r.LogPath), "live-"+hex.EncodeToString(token)+".log")}
+				child, err := makeDB(ctx, childRequest, base, true)
+				if err != nil {
+					settleStartup(lease, err)
+					return endpoint.RetainStartup(err, lease, base.shutdown), err
+				}
+				child.lease = lease
+				return &liveChild{db: child}, nil
+			}}, nil
 		},
 	}
 	live, err := endpoint.New(ctx, factory, base.shutdown)
@@ -121,6 +133,17 @@ func (m *manager) createLive(ctx context.Context, r Request) (map[string]any, er
 	m.lives[id] = live
 	m.mu.Unlock()
 	return map[string]any{"live": map[string]any{"handle": id, "host": "127.0.0.1", "port": live.Port(), "user": "root", "password": "", "database": "test"}, "status": live.Status(), "closed": false}, nil
+}
+
+func removeLog(path string) error {
+	if path == "" {
+		return nil
+	}
+	err := os.Remove(path)
+	if errors.Is(err, os.ErrNotExist) {
+		return nil
+	}
+	return err
 }
 func (m *manager) callLive(ctx context.Context, r Request) (map[string]any, error) {
 	m.mu.Lock()

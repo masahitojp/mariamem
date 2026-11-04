@@ -1,0 +1,187 @@
+{
+  "question": "Does fd_write error propagation remove interrupted-guest cleanup stalls?",
+  "result": "LOCAL_PROBE_PASS_NOT_HOSTED_ACCEPTANCE",
+  "source_commit": "af99a44a59306d95cf7e68ba6cd6852ebd81b71a",
+  "runtime_source_clean": true,
+  "baseline_runtime_source_commit": "8566c8ad6b5dbb62d5540120bec0e9abe3d97519",
+  "baseline_runtime_matches_source": "only docs/tests changed between baseline runtime and probe source",
+  "original_base_sha256": "64f37879f87e422667ab73a2d6a1e7262dba375261186a82906f3207b217accc",
+  "overlay_base_sha256": "03556fa493672447e5698b7e5b0edb10f23232e53da313b7229f20157331dd10",
+  "candidate_host_sha256": "32649464a54c8cb450224f6fc76240e7f17c94d57df8554e23d37faf9174f4cc",
+  "baseline_host_sha256": "d965f1c0bd73d872ea17727b08cd71c65d76a2038822014a11c32acff141dfa9",
+  "environment": {
+    "system": "macOS arm64",
+    "python": "3.11.18",
+    "openssl": "3.5.9",
+    "connector": "26.7.0"
+  },
+  "limits": "one build, baseline <=30 pure cases until first failure; candidate <=30 three-mode rounds; shutdown_timeout=1; outer timeout600s",
+  "baseline": {
+    "cases": 5,
+    "close_failures": 1,
+    "first_failure_iteration": 4,
+    "error": "guest cleanup timed out: context deadline exceeded; cleanup incomplete: disposal is not yet complete\ncleanup incomplete: disposal is not yet complete",
+    "all_failed_guest_status": true
+  },
+  "candidate": {
+    "cases": 90,
+    "close_failures": 0,
+    "interrupted_guest_status_cases": 28,
+    "cases_per_mode": {
+      "pure": 30,
+      "default": 30,
+      "cext": 30
+    },
+    "pure_observation_unchanged": true,
+    "native_edge_differences": []
+  },
+  "observations": {
+    "modes": {
+      "pure": {
+        "mode": "pure",
+        "cases": {
+          "nul_projection": {
+            "row": [
+              "A\u0000B",
+              "410042",
+              3,
+              {
+                "bytes_hex": "410042"
+              }
+            ],
+            "functional_result": "PASS"
+          },
+          "prepared_call": {
+            "stage": "nextset",
+            "resultsets": [
+              [
+                [
+                  7
+                ]
+              ]
+            ],
+            "cleanup_errors": [],
+            "nextset_owner": "MySQLCursor.nextset",
+            "nextset_source_sha256": "0805a9cf7a1286926f5e1b65ce0a09a67f84effc6b3d089319351cd12aea81d4",
+            "functional_result": "FAIL",
+            "error": {
+              "type": "ProgrammingError",
+              "errno": -1,
+              "sqlstate": null,
+              "message": "Failed handling non-resultset; 'affected_rows'"
+            },
+            "following_query_error": {
+              "type": "InterfaceError",
+              "errno": -1,
+              "sqlstate": null,
+              "message": "Invalid result"
+            }
+          }
+        },
+        "implementation": "MySQLConnection",
+        "capture": "COMPLETE"
+      },
+      "default": {
+        "mode": "default",
+        "cases": {
+          "nul_projection": {
+            "row": [
+              "A",
+              "410042",
+              3,
+              {
+                "bytes_hex": "410042"
+              }
+            ],
+            "functional_result": "FAIL"
+          },
+          "prepared_call": {
+            "stage": "nextset",
+            "resultsets": [
+              [
+                [
+                  7
+                ]
+              ]
+            ],
+            "cleanup_errors": [],
+            "nextset_owner": "CMySQLCursor.nextset",
+            "nextset_source_sha256": "f7a3e32c76fd3ab0250e69272a6b46cf6ff466afdce83de5d489684cacfda8c1",
+            "functional_result": "FAIL",
+            "error": {
+              "type": "DatabaseError",
+              "errno": 2014,
+              "sqlstate": "HY000",
+              "message": "2014 (HY000): Commands out of sync; you can't run this command now"
+            },
+            "following_query_error": {
+              "type": "InternalError",
+              "errno": -1,
+              "sqlstate": null,
+              "message": "Unread result found"
+            }
+          }
+        },
+        "implementation": "CMySQLConnection",
+        "capture": "COMPLETE"
+      },
+      "cext": {
+        "mode": "cext",
+        "cases": {
+          "nul_projection": {
+            "row": [
+              "A",
+              "410042",
+              3,
+              {
+                "bytes_hex": "410042"
+              }
+            ],
+            "functional_result": "FAIL"
+          },
+          "prepared_call": {
+            "stage": "nextset",
+            "resultsets": [
+              [
+                [
+                  7
+                ]
+              ]
+            ],
+            "cleanup_errors": [],
+            "nextset_owner": "CMySQLCursor.nextset",
+            "nextset_source_sha256": "f7a3e32c76fd3ab0250e69272a6b46cf6ff466afdce83de5d489684cacfda8c1",
+            "functional_result": "FAIL",
+            "error": {
+              "type": "DatabaseError",
+              "errno": 2014,
+              "sqlstate": "HY000",
+              "message": "2014 (HY000): Commands out of sync; you can't run this command now"
+            },
+            "following_query_error": {
+              "type": "InternalError",
+              "errno": -1,
+              "sqlstate": null,
+              "message": "Unread result found"
+            }
+          }
+        },
+        "implementation": "CMySQLConnection",
+        "capture": "COMPLETE"
+      }
+    }
+  },
+  "raw_sha256": {
+    "baseline.json": "4766e3008c189e2862dfc6f39d6bed5578bbe52da2dc06702d3b4a0b969eaad3",
+    "candidate.json": "d08869b1843aa0782dd4a0b6c9d3b442b9b5e79a18592dc640569526dba5beb8",
+    "plan.json": "ae8249133d3be6ac18b7d344e8b2c5802993b37e31132cccc28bfb3c1e3f0f3d",
+    "probe.py": "df7808ce4078babd8806068b2936715e3d4bcd6d48b89e16be2e2a4df094e64d",
+    "run.py": "858b9889ec30805ef76c46277be390245c6d596f868d258e7b386cf5cc6b0483"
+  },
+  "limits_of_claim": [
+    "temporary overlay; no final-candidate identity claim",
+    "shutdown timeout reduced to 1s for bounded correctness diagnosis",
+    "not a latency or resource benchmark",
+    "Ubuntu and normal CI profile still required"
+  ]
+}

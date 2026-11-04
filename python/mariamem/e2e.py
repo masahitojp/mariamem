@@ -43,8 +43,13 @@ class Config:
     reset_timeout: float = 120
     drain_timeout: float = 5
     cleanup_timeout: float = 30
+    max_forks: object = None
 
     def __post_init__(self):
+        from ._forklimit import capacity
+        limit = capacity(self.max_forks)
+        if limit == 1:
+            raise ValueError("Live E2E requires max_forks >= 2")
         for name in ("prepare", "start_ready"):
             if not callable(getattr(self, name)):
                 raise ValueError(f"{name} must be callable")
@@ -116,7 +121,7 @@ class BrowserEntry:
             ctx.check()
             self._source.wait_disconnected(timeout=min(self.config.drain_timeout, ctx.remaining()))
             ctx.check()
-            self._baseline = self._source.snapshot(timeout=ctx.remaining())
+            self._baseline = self._source.snapshot(timeout=ctx.remaining(), max_forks=self.config.max_forks)
             self._live = self._baseline.live()
             ctx.check()
             self._target = self._live.connection_info()

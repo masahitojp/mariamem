@@ -3,6 +3,7 @@ package control
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"io"
 	"sync"
 	"testing"
@@ -64,6 +65,58 @@ func TestRequestCancellationDoesNotSerializeOtherOperations(t *testing.T) {
 	writer.Close()
 	reader.Close()
 }
+func TestErrorWithCreatedHandleCleansBeforePublishingReply(t *testing.T) {
+	in, writer := io.Pipe()
+	reader, out := io.Pipe()
+	defer writer.Close()
+	defer reader.Close()
+	m := newManager()
+	// A disposed controlled owner lets this framing test observe registry
+	// reclamation without claiming an actual-engine cleanup fault.
+	m.dbs[7] = &db{gate: make(chan struct{}, 1), closed: true}
+	want := errors.New("failure after handle registration")
+	operation := func(context.Context, Request) (map[string]any, error) {
+		return map[string]any{"database": map[string]any{"handle": uint64(7)}}, want
+	}
+	done := make(chan error, 1)
+	go func() { done <- runWith(context.Background(), in, out, m, operation); out.Close() }()
+	enc, dec := json.NewEncoder(writer), json.NewDecoder(reader)
+	var reply map[string]any
+	if err := dec.Decode(&reply); err != nil {
+		t.Fatal(err)
+	}
+	if err := enc.Encode(Request{ID: 1, Op: "start"}); err != nil {
+		t.Fatal(err)
+	}
+	reply = nil
+	if err := dec.Decode(&reply); err != nil {
+		t.Fatal(err)
+	}
+	if reply["ok"] != false || reply["database"] != nil || reply["error"].(map[string]any)["message"] != want.Error() {
+		t.Fatal(reply)
+	}
+	m.mu.Lock()
+	remaining := len(m.dbs)
+	m.mu.Unlock()
+	if remaining != 0 {
+		t.Fatal("failed unpublished handle retained")
+	}
+	if err := enc.Encode(Request{ID: 2, Op: "shutdown"}); err != nil {
+		t.Fatal(err)
+	}
+	if err := dec.Decode(&reply); err != nil {
+		t.Fatal(err)
+	}
+	select {
+	case err := <-done:
+		if err != nil {
+			t.Fatal(err)
+		}
+	case <-time.After(3 * time.Second):
+		t.Fatal("host did not finish")
+	}
+}
+
 func TestOwnerEOFCancelsPendingAndCleansUp(t *testing.T) {
 	in, writer := io.Pipe()
 	reader, out := io.Pipe()

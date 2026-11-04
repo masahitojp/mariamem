@@ -19,6 +19,121 @@ HOST = os.environ.get("MARIAMEM_TEST_HOST")
 pytestmark = pytest.mark.skipif(not HOST, reason="requires explicit real host")
 
 
+def test_bounded_remote_fork_and_recapture_release_source_slot(tmp_path):
+    alternate = tmp_path / "other-host"
+    shutil.copy2(HOST, alternate)
+    with mariamem.start(host_binary=HOST) as root:
+        sql(root, "CREATE TABLE cap_seed(id INT PRIMARY KEY)")
+        sql(root, "INSERT INTO cap_seed VALUES(7)")
+        root.wait_disconnected()
+        with root.snapshot(max_forks=1) as baseline:
+            remote = baseline.fork(host_binary=alternate, timeout=5)
+            try:
+                assert sql(remote, "SELECT * FROM cap_seed") == ((7,),)
+                with pytest.raises(mariamem.HostError) as error:
+                    baseline.fork(timeout=.04)
+                assert error.value.code == "pool_timeout"
+                assert "max_forks=1, occupied_slots=1" in str(error.value)
+                assert sql(remote, "SELECT * FROM cap_seed") == ((7,),)
+                remote.wait_disconnected()
+                with remote.snapshot(max_forks=1) as next_baseline:
+                    assert remote._remote.done
+                    with baseline.fork(timeout=5) as sibling:
+                        assert sql(sibling, "SELECT * FROM cap_seed") == ((7,),)
+                    baseline.close()
+                    with next_baseline.fork(timeout=5) as grandchild:
+                        assert sql(grandchild, "SELECT * FROM cap_seed") == ((7,),)
+            finally:
+                remote.close()
+
+
+def test_bounded_parent_close_preserves_remote_child(tmp_path):
+    alternate = tmp_path / "other-host"
+    shutil.copy2(HOST, alternate)
+    with mariamem.start(host_binary=HOST) as root:
+        baseline = root.snapshot(max_forks=1)
+        child = baseline.fork(host_binary=alternate, timeout=5)
+        try:
+            baseline.close()
+            assert sql(child, "SELECT 42") == ((42,),)
+        finally:
+            baseline.close()
+            child.close()
+        assert child._remote.done
+        assert not child._remote.source.root.exists()
+
+
+@pytest.mark.parametrize('lost', ['source', 'target'])
+def test_bounded_handoff_host_loss_preserves_independent_lineage(tmp_path, lost):
+    alternate = tmp_path/'other-host'
+    shutil.copy2(HOST, alternate)
+    with mariamem.start(host_binary=HOST) as root:
+        with root.snapshot(max_forks=1) as baseline:
+            child = baseline.fork(host_binary=alternate, timeout=5)
+            session = baseline._session if lost == 'source' else child._session
+            session._process.kill()  # Fault injection of this entire owned host.
+            assert session._exited.wait(3)
+            try:
+                if lost == 'source':
+                    assert sql(child, 'SELECT 42') == ((42,),)
+                    baseline.close()
+                child.close()
+                assert child._remote.done
+                if lost == 'target':
+                    with baseline.fork(timeout=5) as replacement:
+                        assert sql(replacement, 'SELECT 42') == ((42,),)
+            finally:
+                child.close()
+
+
+def test_bounded_invalid_control_values_preserve_source_and_sibling_sql():
+    with mariamem.start(host_binary=HOST) as root:
+        with root.snapshot(max_forks=2) as baseline:
+            with baseline.fork(timeout=5) as source, baseline.fork(timeout=5) as sibling:
+                for op, handle, fields in (
+                    ('snapshot', source._handle, {'max_forks': 2**100}),
+                    ('snapshot', source._handle, {'max_forks': True}),
+                    ('fork', baseline._handle, {'fork_timeout': '2147483648s'}),
+                    ('fork', baseline._handle, {'fork_timeout': 2**100}),
+                ):
+                    with pytest.raises(mariamem.HostError) as error:
+                        baseline._session.request(op, handle=handle, response_timeout=2, **fields)
+                    assert error.value.code == 'invalid_options' and not error.value.closed
+                    assert sql(source, 'SELECT 17') == ((17,),)
+                    assert sql(sibling, 'SELECT 19') == ((19,),)
+
+
+def test_bounded_e2e_entry_resets_real_live_between_controlled_browser_cases():
+    from types import SimpleNamespace
+    from mariamem.e2e import BrowserEntry, Config
+    events = []
+
+    def prepare(source):
+        sql(source, "CREATE TABLE entry_seed(id INT PRIMARY KEY)")
+        sql(source, "INSERT INTO entry_seed VALUES(7)")
+
+    def start(ctx, target, register):
+        app = SimpleNamespace(identity='controlled-app', base_url='http://controlled.invalid',
+                              connection_info=lambda: target,
+                              quiesce_and_retire=lambda ctx: events.append('quiesce'),
+                              stop_reap=lambda ctx: events.append('stop'))
+        register(app)
+        return app
+
+    browser = SimpleNamespace(new_context=lambda: SimpleNamespace(
+        new_page=lambda: object(), close=lambda: events.append('context.close')))
+    with BrowserEntry(Config(prepare=prepare, start_ready=start, sole_work_source=True,
+                            max_forks=2, options={'host_binary': HOST})) as entry:
+        assert entry._baseline.max_forks == 2
+        with entry.case(browser=browser) as first:
+            assert sql(first.app, "SELECT * FROM entry_seed") == ((7,),)
+            sql(first.app, "INSERT INTO entry_seed VALUES(8)")
+        with entry.case(browser=browser) as second:
+            assert sql(second.app, "SELECT * FROM entry_seed") == ((7,),)
+        assert entry._live.status()['generation'] == 2
+    assert events == ['quiesce', 'context.close', 'quiesce', 'context.close', 'stop']
+
+
 def fd_count():
     if Path("/proc/self/fd").is_dir():
         return len(os.listdir("/proc/self/fd"))
@@ -300,10 +415,12 @@ def test_mapped_child_resnapshot_preserves_independent_lineage(tmp_path):
         sql(source, "INSERT INTO mapped_lineage VALUES(1,10)")
         source.wait_disconnected()
         with source.snapshot() as baseline:
+            assert 1 <= baseline.max_forks <= 2147483647
             with baseline.fork(host_binary=alternate) as mapped:
                 sql(mapped, "UPDATE mapped_lineage SET value=20 WHERE id=1")
                 mapped.wait_disconnected()
                 with mapped.snapshot() as derived:
+                    assert 1 <= derived.max_forks <= 2147483647
                     with derived.fork() as child:
                         assert sql(child, "SELECT value FROM mapped_lineage WHERE id=1") == ((20,),)
                         sql(child, "UPDATE mapped_lineage SET value=30 WHERE id=1")

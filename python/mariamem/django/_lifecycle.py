@@ -20,9 +20,10 @@ def preserving_cleanup(cleanup):
 
 class Owners:
     """Retain live handles and failed closes; forget successfully retired owners."""
-    def __init__(self):
+    def __init__(self, *, max_forks=None, fork_timeout=30):
         self.handles = []
         self.debt = False
+        self.max_forks, self.fork_timeout = max_forks, fork_timeout
 
     def own(self, handle):
         self.handles.append(handle)
@@ -34,13 +35,13 @@ class Owners:
 
     def capture(self, database):
         database.wait_disconnected(timeout=5)
-        baseline = self.own(database.snapshot(timeout=30))
+        baseline = self.own(database.snapshot(timeout=30, max_forks=self.max_forks))
         self._forget(database)  # A successful capture consumes its source.
         return baseline
 
     def fork(self, baseline):
         self.guard()
-        return self.own(baseline.fork())
+        return self.own(baseline.fork(timeout=self.fork_timeout))
 
     def _forget(self, handle):
         self.handles[:] = [owned for owned in self.handles if owned is not handle]
