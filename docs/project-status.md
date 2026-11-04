@@ -2527,3 +2527,35 @@ fixture-contract, P1-entry, receipt/reuse and example checks: 489 passed,
 3 existing host-dependent example skips. The historical fixture audit still
 returns DESIGN_LINT_PASS / runtime NOT_RUN. Public-source and diff checks pass.
 No runtime build, full Release run or measured CI speedup is claimed.
+
+
+## Python harness medium/lower-priority separation approved (2026-11-04)
+
+The Human approved continuing the harness cleanup after PR90. Seventeen real
+resource-meter/barrier tests move to explicit manual `tests/measurement`; 75
+portable parsing/accounting/guard cases remain in normal checks. Eight native C
+controls move to `tests/native`, explicitly required by the existing full Release
+check on both hosts, with compiler absence an error. They no longer run on daily
+or Python-only checks. Nine fixed v0.4/v0.5 campaign/report tests move to historical
+storage; current shared benchmark/accounting tests remain. These moves preserve
+the original assertions and explicit manual execution paths.
+
+Prepared CALL reader checks now share one owner for allowed/raised terminal
+errors and both prefix states; distinct P2/P3/LONG_DATA inventories/request vectors
+remain independent. Two Live example source-structure tests are removed in favor
+of existing real Release execution/result oracles. Duplicate Django workflow
+wiring assertions are removed from the API suite, retaining their workflow-shell
+owner and API behavior tests. Version-aware usage-doc checks remain active.
+Default traversal and explicit optional-path behavior are covered by an actual
+pytest collection test. Product/runtime/defaults, Release artifact authentication,
+physical failure controls and publication rules remain unchanged.
+
+Verification: default collection is 118 files / 2,004 cases, versus 122 / 2,039
+before this change. Focused normal-policy/probe/oracle tests: 395 passed with
+3 existing real-host example skips. At executable source_commit
+`ed93286bd58c287f94ded7898dfa75769398f93a`, explicit Darwin execution of the
+8 native, 17 measurement-instrument and 9 historical report tests all passed
+(34 total). Native C checks used the required-compiler mode. No DB acceptance,
+full resource campaign or Release qualification was run. Public-source/diff checks
+pass; CI elapsed-time savings are not measured. Django API behavior is unchanged;
+its framework-dependent checks remain with the existing Release Django owner.

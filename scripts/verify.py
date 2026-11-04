@@ -84,6 +84,11 @@ def check(scope="full", *, profile="full"):
     env["PYTHONPATH"] = str(ROOT / "python")
     run([sys.executable, "-m", "pytest", "tests", "--ignore=tests/consumer", "--ignore=tests/historical",
          *("--ignore=" + path for path in SOURCE_TESTS), "-q"], env=env)
+    if profile == "full":
+        # Native component controls belong to Release, not Python/tooling PRs.
+        # Missing compilers must fail that owner rather than silently skip.
+        run([sys.executable, "-m", "pytest", "tests/native", "-q"],
+            env=dict(env, MARIAMEM_REQUIRE_PREPARED_C="1"))
     run([sys.executable, "scripts/check_public.py"])
 
 

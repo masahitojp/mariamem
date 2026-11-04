@@ -3,7 +3,7 @@ import importlib.util
 from pathlib import Path
 import sys
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT/'benchmarks'))
 spec = importlib.util.spec_from_file_location('direct_link_report', ROOT/'benchmarks/v04_direct_link_report.py')
 report = importlib.util.module_from_spec(spec)

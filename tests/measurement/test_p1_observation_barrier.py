@@ -9,7 +9,7 @@ import time
 
 import pytest
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 MODULE=ROOT/'tests/fixture_entry_acceptance/observation_barrier.py'
 spec=importlib.util.spec_from_file_location('p1_observation_barrier',MODULE)
 barrier=importlib.util.module_from_spec(spec);spec.loader.exec_module(barrier)

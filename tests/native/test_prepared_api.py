@@ -6,7 +6,7 @@ import shutil
 import subprocess
 import pytest
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 
 @pytest.mark.parametrize("sanitize", [False, True], ids=["normal", "address-undefined-sanitizers"])
 def test_dynamic_prepared_owner_and_failure_cleanup(tmp_path, sanitize):

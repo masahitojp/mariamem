@@ -21,7 +21,8 @@ def test_minimal_reference_has_two_results_out_and_terminal():
 
 
 @pytest.mark.parametrize('after_result',[False,True])
-def test_raw_reader_preserves_error_and_does_not_read_past_it(after_result):
+@pytest.mark.parametrize('allow_error',[False,True])
+def test_raw_reader_preserves_error_and_does_not_read_past_it(after_result,allow_error):
     error=b'\xff'+struct.pack('<H',1644)+b'#45000later failure'
     packets=([b'\x00\x00\x00\x0a\x00\x00\x00'] if after_result else [])+[error]
     class Connection:
@@ -29,6 +30,11 @@ def test_raw_reader_preserves_error_and_does_not_read_past_it(after_result):
         def _read_packet(self,cls=pymysql.protocol.MysqlPacket):
             assert packets,'read past terminal error'
             return cls(packets.pop(0),'utf8')
-    with pytest.raises(CallWireError) as caught:result_chain(Connection(),b'payload')
-    assert caught.value.errno==1644 and caught.value.sqlstate=='45000'
+    if allow_error:
+        result=result_chain(Connection(),b'payload',allow_error=True)
+        assert len(result)==(2 if after_result else 1)
+        assert result[-1]=={'error_packet':error.hex(),'errno':1644,'sqlstate':'45000'}
+    else:
+        with pytest.raises(CallWireError) as caught:result_chain(Connection(),b'payload')
+        assert caught.value.errno==1644 and caught.value.sqlstate=='45000'
     assert not packets
