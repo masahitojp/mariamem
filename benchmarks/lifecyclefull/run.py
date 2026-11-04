@@ -36,7 +36,8 @@ def build():
  'go':'go1.27.3','gomaxprocs':8,'guest_binding_sha256':sha(S/'internal/generatedgo/entry.go'),'plan':plan,'binaries':{}}
  write('preflight.json',inputs)
  for backend,target in [('mariamem','maria'),('pgmem','postgres')]:
-  command=[GO,'build','-trimpath','-buildvcs=true','-o',str(T/backend),'./'+target]
+  assert not (T/('bin-'+backend)).is_dir()
+  command=[GO,'build','-trimpath','-buildvcs=true','-o',str(T/('bin-'+backend)),'./'+target]
   with (E/(backend+'-build.txt')).open('w') as f:subprocess.run(command,cwd=B,env=ENV,check=True,stdout=f,stderr=subprocess.STDOUT,timeout=900)
   stamp=m.verify_go_binary(S,T/backend,h,go=GO,toolchain='go1.27.3')
   inputs['binaries'][backend]={'sha256':sha(T/backend),'build_info':stamp}
@@ -66,7 +67,7 @@ def validate(r,negative=False):
 def run(name,backend,mode,p,count=48,negative=False):
  assert not (E/(name+'.json')).exists(),name
  d=T/name;d.mkdir();scratch=d/'scratch';scratch.mkdir()
- cmd=[str(T/backend),'--mode',mode,'--parallel',str(p),'--count',str(count),'--out',str(E/(name+'.json'))]
+ cmd=[str(T/('bin-'+backend)),'--mode',mode,'--parallel',str(p),'--count',str(count),'--out',str(E/(name+'.json'))]
  if negative:cmd+=['--corrupt-seed']
  at=time.monotonic();proc=subprocess.run(cmd,cwd=B,env=dict(ENV,TMPDIR=str(scratch)),capture_output=True,text=True,timeout=190)
  external=(time.monotonic()-at)*1000
