@@ -2,7 +2,7 @@
 import argparse,contextlib,hashlib,json,os,re,signal,socket,subprocess,sys,time,urllib.request,urllib.error
 from pathlib import Path
 
-def main(w,e,compat):
+def main(w,e,compat,cohorts):
     product=w/'temp/host-source';app=w/'temp/umami';host=w/'temp/mariamem-host';e.mkdir(parents=True,exist_ok=True)
     sys.path[:0]=[str(product/'python'),str(product/'scripts')]
     import mariamem,pymysql
@@ -39,28 +39,31 @@ def main(w,e,compat):
                 cur.execute('SHOW TABLES');report['tables']=[x[0] for x in cur.fetchall()]
         save();root.wait_disconnected(timeout=10)
         with root.snapshot(max_forks=3) as baseline:
-            with baseline.fork() as db:
-                run('application-query-cases',['node','.mariamem-db.cjs'],connection(db))
-                for line in reversed((e/'application-query-cases.txt').read_text().splitlines()):
-                    try:
-                        value=json.loads(line)
-                        if 'cells' in value:report['query_cases']=value;break
-                    except ValueError:pass
-                save()
+            if "queries" in cohorts:
+                with baseline.fork() as db:
+                    run('application-query-cases',['node','.mariamem-db.cjs'],connection(db))
+                    for line in reversed((e/'application-query-cases.txt').read_text().splitlines()):
+                        try:
+                            value=json.loads(line)
+                            if 'cells' in value:report['query_cases']=value;break
+                        except ValueError:pass
+                    save()
             for mode,spec in [('api','cypress/e2e/api-*.cy.ts'),('ui','cypress/e2e/login.cy.ts,cypress/e2e/user.cy.ts,cypress/e2e/website.cy.ts')]:
+                if mode not in cohorts:continue
                 with baseline.fork() as db:
                     localenv=connection(db)
                     probe=socket.socket()
-                    try:probe.bind(('127.0.0.1',3000))
+                    try:probe.bind(('127.0.0.1',0));port=probe.getsockname()[1]
                     finally:probe.close()
+                    base_url='http://localhost:'+str(port);localenv['UMAMI_DOGFOOD_BASE_URL']=base_url
                     with (e/(mode+'-next.txt')).open('w') as log:
-                        server=subprocess.Popen(cli+['run','dev-turbo','--hostname','127.0.0.1'],cwd=app,env=localenv,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+                        server=subprocess.Popen(cli+['exec','next','dev','--turbopack','--hostname','127.0.0.1','--port',str(port)],cwd=app,env=localenv,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
                         try:
                             deadline=time.monotonic()+90
                             while True:
                                 if server.poll() is not None:raise RuntimeError('Next dev-turbo failed; inspect '+mode+'-next.txt')
                                 try:
-                                    with socket.create_connection(('127.0.0.1',3000),timeout=.5):break
+                                    with socket.create_connection(('127.0.0.1',port),timeout=.5):break
                                 except OSError:
                                     if time.monotonic()>deadline:raise TimeoutError('Next startup')
                                     time.sleep(.25)
@@ -71,7 +74,7 @@ def main(w,e,compat):
                             prep=[]
                             for path in paths:
                                 try:
-                                    with urllib.request.urlopen('http://localhost:3000'+path,timeout=120) as r:r.read();status=r.status
+                                    with urllib.request.urlopen(base_url+path,timeout=120) as r:r.read();status=r.status
                                 except urllib.error.HTTPError as error:error.read();status=error.code
                                 prep.append({'path':path,'status':status})
                             report['cohorts'][mode]={'prepared_routes':prep};save()
@@ -85,4 +88,4 @@ def main(w,e,compat):
     save();return int(any(s['result']!='PASS' for s in report['stages']))
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--diagnostic-compat',action='store_true');a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve(),a.diagnostic_compat))
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--diagnostic-compat',action='store_true');p.add_argument('--cohorts',default='queries,api,ui');a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve(),a.diagnostic_compat,set(a.cohorts.split(','))))
