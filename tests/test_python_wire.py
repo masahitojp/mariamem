@@ -264,7 +264,8 @@ def test_pipelined_fatal_paths_preserve_independent_root(wire_host, failure):
         with mariamem.start(host_binary=wire_host, query_timeout=10, shutdown_timeout=1) as db:
             conn = connect(db)
             try:
-                conn._execute_command(3, b"SELECT SLEEP(20)")
+                # Keep this a cooperative close control, not a forced-reclamation test.
+                conn._execute_command(3, b"SELECT SLEEP(0.5)")
                 _wait_for_active_query(db)
                 if failure == "overflow":
                     conn._write_bytes(b"x" * 1048582)  # Accepted queue limit +1.
