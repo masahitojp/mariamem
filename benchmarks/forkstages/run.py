@@ -42,7 +42,7 @@ def build():
         if old is None:os.environ.pop('GOTOOLCHAIN',None)
         else:os.environ['GOTOOLCHAIN']=old
     write('inputs.json',{'source_commit':product,'harness_source_commit':head,'source_identity':'commit object, clean checkout, benchmark-only diff',
-          'guest_sha256':__import__('re').search(r'GuestSHA256\s*=\s*"([a-f0-9]{64})"',(S/'internal/generatedgo/main.go').read_text()).group(1),
+          'guest_sha256':__import__('re').search(r'GuestSHA256\s*=\s*"([a-f0-9]{64})"',(S/'internal/generatedgo/entry.go').read_text()).group(1),
           'native_version_source_sha256':digest(S/'native_version.go'),
           'binary_sha256':digest(T/'probe'),'binary_build_info':stamp,
           'overlay':json.loads((T/'overlay/hashes.json').read_text()),'platform':platform.platform(),
