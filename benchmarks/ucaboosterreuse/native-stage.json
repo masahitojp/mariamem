@@ -1,0 +1,112 @@
+{
+  "upstream-input.json": {
+    "name": "mariadb",
+    "file": "mariadb-12.3.3-source.tar.gz",
+    "url": "https://codeload.github.com/MariaDB/server/tar.gz/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "revision": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+    "version": "12.3.3"
+  },
+  "extraction.json": {
+    "source_sha256": "c4f34ead2f9c1e7b2a88175a25550a4efffc35f0f13be8c6584afcc9ff074a2f",
+    "producer_block_sha256": "8e258a21b4645ce78ccda3f8beee8931928e4ac337f4f31c770304c350d47964",
+    "initial_uca_info_sha256": "57bd088da77d5687429e287cbb7391c9d200a7d8c90ca99053a8bc1251e9a890",
+    "utf8_encoders_sha256": {
+      "my_uni_utf8mb3": "b32d5096d3836c0222a7d985a839a70246185ddfa8fb869155fdb584e2d741a5",
+      "my_wc_mb_utf8mb4": "25bc36951057618d7092b402de7196916a6bf7632262360a797f583d5e3adbd3"
+    },
+    "scope": "verbatim producer/initializer/encoders; original full headers; only main and decoder signature adapters are glue"
+  },
+  "uca-data.json": {
+    "generator": "unmodified pinned strings/uca-dump.c",
+    "input_sha256": "c38aa26b5afe8564caf683120db2d165f8f67fec231614f3517b02996aa94804",
+    "generated_sha256": "ca64dd084c90065d20fd9a81eb22ad52e38c6854887e1a4830b4334e7b92e448",
+    "wall_seconds": 0.447432916960679
+  },
+  "tables.json": {
+    "result": "NATIVE_PRODUCER_PASS_WASM_RESOLVED_TABLE_PARITY_UNVERIFIED",
+    "tables": {
+      "utf8mb3-level0.bin": {
+        "bytes": 918016,
+        "sha256": "d967b6249d27ed1e2940c555cb6991366bac042c58e49629aea3b66432b270bb",
+        "gzip_bytes": 47500
+      },
+      "utf8mb3-level1.bin": {
+        "bytes": 918016,
+        "sha256": "ff3014b4a179c7123698bcb0d7fa514a82acd0d9518b9adee6bb9f4402ecf2f4",
+        "gzip_bytes": 5281
+      },
+      "utf8mb3-level2.bin": {
+        "bytes": 918016,
+        "sha256": "038e5eba5d1b03f078d4702f348e0e2d353b374577a3baf869e13f78664e1e1b",
+        "gzip_bytes": 4880
+      },
+      "utf8mb4-level0.bin": {
+        "bytes": 918016,
+        "sha256": "d967b6249d27ed1e2940c555cb6991366bac042c58e49629aea3b66432b270bb",
+        "gzip_bytes": 47500
+      },
+      "utf8mb4-level1.bin": {
+        "bytes": 918016,
+        "sha256": "ff3014b4a179c7123698bcb0d7fa514a82acd0d9518b9adee6bb9f4402ecf2f4",
+        "gzip_bytes": 5281
+      },
+      "utf8mb4-level2.bin": {
+        "bytes": 918016,
+        "sha256": "038e5eba5d1b03f078d4702f348e0e2d353b374577a3baf869e13f78664e1e1b",
+        "gzip_bytes": 4880
+      }
+    },
+    "repeat_byte_identical": true,
+    "encoding_byte_identical": true,
+    "sanitizers": "AddressSanitizer+UBSan clean",
+    "total_raw_bytes": 5508096,
+    "distinct_raw_bytes": 2754048,
+    "limitations": "original populate functions with original untailored UCA1400 data; exact post-tailoring guest equality remains a mandatory runtime gate"
+  },
+  "prepared-check.json": {
+    "result": "NATIVE_FIXED_INPUT_PRECOMPUTED_ROUNDTRIP_PASS",
+    "full_table_comparisons": 6,
+    "unmatched_selector_cases": 15,
+    "one_cell_corruption_rejected": true,
+    "sanitizers": "ASan+UBSan clean",
+    "typed_const_header_sha256": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
+    "typed_const_header_bytes": 5494313,
+    "distinct_static_table_bytes": 2754048,
+    "elapsed_build_and_checks_seconds": 4.718833958,
+    "limitations": [
+      "not yet guest build or runtime post-tailoring byte parity",
+      "selector model matches only exact two IDs; no general collation support claim",
+      "native tool timing not a Fork benchmark"
+    ]
+  },
+  "constructor-check.json": {
+    "result": "PASS_NATIVE_ONLY",
+    "actual_candidate_constructor_compiled": true,
+    "exact_table_hits": 6,
+    "detached_level_fallbacks": 6,
+    "different_tailoring_fallbacks": 6,
+    "verification_full_memcmp_matches": 6,
+    "fastpath_dynamic_allocation_calls": 0,
+    "sanitizers": "ASan+UBSan; native standalone once_alloc leak detection disabled because storage intentionally lasts process lifetime",
+    "guest_runtime": "UNVERIFIED"
+  },
+  "patch.json": {
+    "sha256": "9ca2518ca256f72ea0090c9e113b292b871764e4758b39e4a58464a3777776bf",
+    "selected_ids": [
+      2048,
+      2304
+    ],
+    "levels": [
+      0,
+      1,
+      2
+    ],
+    "unmatched": "original allocation/populate function",
+    "verify_env": "MARIAMEM_UCA_PREPARED_VERIFY; mandatory untimed guest run requires all six matches",
+    "header_sha256": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
+    "static_data_bytes": 2754048,
+    "readonly_pointer_field": true,
+    "canonical_source_patch_modified": false
+  }
+}

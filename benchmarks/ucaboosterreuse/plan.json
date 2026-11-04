@@ -1,0 +1,13 @@
+{
+  "scope": "exact default UCA1400 table reuse prototype, no adoption/main/release",
+  "product_base_source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "native_stage": "PASS original producer, fixed-input typed embedding, exact constructor hits/fallbacks, ASan+UBSan",
+  "guest_runtime_stage": "PENDING one UNQUALIFIED candidate; mandatory full original-vs-prepared runtime table memcmp before correctness/timing",
+  "matrix": "Issue106 native corpus then five alternating fresh-process pairs, explicit cap4, 4 sequential retained children, fixed ASCII/mixed SQL; all primary trials retained",
+  "representation": "raw typed const arrays (3x918016 bytes), no new codec or dependency",
+  "limits": "if worker ABI requires semantic changes or relocation cannot be proven with existing closure/source fixtures, stop rather than weakening guard",
+  "one_time_previous_extension_applies": false,
+  "disk_budget_gib": 18,
+  "minimum_free_gib": 16,
+  "guest_build_timeout_seconds": 2400
+}
