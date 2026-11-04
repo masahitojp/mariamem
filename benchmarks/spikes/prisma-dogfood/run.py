@@ -22,7 +22,7 @@ from git_identity import verify_go_binary
 
 def run(host, output):
     output.mkdir(parents=True,exist_ok=True)
-    report={'result':'FAIL','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'host':{'system':platform.system(),'machine':platform.machine()},'node':subprocess.check_output(['node','--version'],text=True).strip(),'prisma':'7.10.1','adapter':'7.10.1','driver':'mariadb 3.5.4','stages':[]}
+    report={'result':'FAIL','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'host':{'system':platform.system(),'machine':platform.machine()},'node':subprocess.check_output(['node','--version'],text=True).strip(),'prisma':'7.10.1','adapter':'7.10.1','driver':'mariadb 3.5.4','client_configuration':{'pipelining':os.environ.get('PRISMA_PIPELINING','driver-default')},'stages':[]}
     def command(args, env, name):
         result=subprocess.run(args,cwd=PROJECT,env=env,text=True,capture_output=True,timeout=120)
         (output/(name+'.txt')).write_text(result.stdout+result.stderr)

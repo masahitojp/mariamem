@@ -3,7 +3,8 @@ import { createInterface } from 'node:readline';
 import { PrismaClient } from './generated/client.ts';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 
-const adapter = new PrismaMariaDb({host:process.env.DB_HOST!,port:Number(process.env.DB_PORT),user:process.env.DB_USER!,password:process.env.DB_PASSWORD!,database:process.env.DB_NAME!,connectionLimit:2,connectTimeout:5000,acquireTimeout:10000});
+const compatibility = process.env.PRISMA_PIPELINING==='off' ? {pipelining:false} : {};
+const adapter = new PrismaMariaDb({...compatibility,host:process.env.DB_HOST!,port:Number(process.env.DB_PORT),user:process.env.DB_USER!,password:process.env.DB_PASSWORD!,database:process.env.DB_NAME!,connectionLimit:2,connectTimeout:5000,acquireTimeout:10000});
 const prisma = new PrismaClient({adapter});
 const types = {amount:'12345678901234.123456',big:9007199254740993n,at:new Date('2026-03-04T05:06:07.123Z'),meta:{text:'日本語\u0000value',nested:[1,true,null]},blob:Buffer.from([0,1,0,127,128,255])};
 const emit = (value: unknown) => console.log(JSON.stringify(value));
