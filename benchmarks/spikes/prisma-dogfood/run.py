@@ -40,6 +40,7 @@ def run(host, output):
             with contextlib.closing(pymysql.connect(host=info['host'],port=info['port'],user=info['user'],password=info['password'],autocommit=True)) as connection:
                 with connection.cursor() as cursor:cursor.execute('CREATE DATABASE prisma_dogfood CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci')
             env=environment(info)
+            report['stages'].append(json.loads(command(['node','--import','tsx','app.ts','driver'],env,'driver').strip().splitlines()[-1]))
             command(['node_modules/.bin/prisma','migrate','deploy'],env,'migrate')
             report['stages'].append({'migration':'PASS'})
             seed=json.loads(command(['node','--import','tsx','app.ts','seed'],env,'seed').strip().splitlines()[-1])

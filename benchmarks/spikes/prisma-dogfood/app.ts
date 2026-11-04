@@ -8,6 +8,19 @@ const adapter = new PrismaMariaDb({...compatibility,host:process.env.DB_HOST!,po
 const prisma = new PrismaClient({adapter});
 const types = {amount:'12345678901234.123456',big:9007199254740993n,at:new Date('2026-03-04T05:06:07.123Z'),meta:{text:'日本語\u0000value',nested:[1,true,null]},blob:Buffer.from([0,1,0,127,128,255])};
 const emit = (value: unknown) => console.log(JSON.stringify(value));
+async function driverProbe() {
+  const mariadb=await import('mariadb');
+  const connection=await mariadb.createConnection({host:process.env.DB_HOST!,port:Number(process.env.DB_PORT),user:process.env.DB_USER!,password:process.env.DB_PASSWORD!,database:process.env.DB_NAME!,pipelining:false,prepareCacheLength:0});
+  try {
+    assert.equal((await connection.query('SELECT 1 AS n'))[0].n,1);
+    assert.equal((await connection.execute('SELECT ? AS n',[1]))[0].n,1);
+    let zeroError:any;
+    try {await connection.execute('SELECT 1 AS n');} catch(error) {zeroError=error;}
+    assert.equal(zeroError?.errno,1835,'current zero-parameter prepared failure must reproduce');
+    assert.equal((await connection.query('SELECT 1 AS n'))[0].n,1);
+    return {result:'REPRODUCED_ZERO_PARAMETER_EXECUTE_FAILURE',text_query:true,parameterized_execute:true,zero_parameter_errno:zeroError.errno,healthy_after_error:true};
+  } finally {await connection.end();}
+}
 async function seed() {
   const user=await prisma.user.create({data:{email:'baseline@example.test',name:'baseline',posts:{create:{title:'baseline',...types}}},include:{posts:true}});
   assert.equal(user.posts.length,1);
@@ -42,7 +55,8 @@ async function exercise() {
   return {result:'PASS',stage:'case',pid:process.pid,crud:true,relations:true,cascade:true,rollback:true,commit:true,types:{decimal:post.amount.toFixed(6),bigint:post.big.toString(),datetime:post.at.toISOString(),json:post.meta,blobHex:Buffer.from(post.blob).toString('hex')}};
 }
 try {
-  if (process.argv[2]==='seed') emit(await seed());
+  if (process.argv[2]==='driver') emit(await driverProbe());
+  else if (process.argv[2]==='seed') emit(await seed());
   else {
     emit({event:'ready',pid:process.pid});
     const lines=createInterface({input:process.stdin});
