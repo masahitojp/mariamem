@@ -105,6 +105,17 @@ checks accepted credentials plus SQL and preserves malformed-handshake rejection
 local complete generatedmemory/godefault integration packages pass. The old run's
 results remain attached to `b75af56f`, and the corrected source requires a new
 verify submission rather than being called READY from partial family results.
+Retry41752306473 on `33925b14` failed Mac Live's recapture detector and Ubuntu
+core's prepared CALL diagnostic DB disposal. The recapture test now waits for
+client retirement; the diagnostic preserves its original observation and strict
+cleanup error instead of losing the receipt. The interrupted-guest cleanup was
+then reproduced and isolated to WASI writes reporting success/zero after a broken
+pipe. A bounded overlay probe changes only error propagation: baseline Close
+fails on case5; corrected Close completes all90 cases and the native edge
+comparison remains unchanged. The candidate carries this host-runtime repair
+through a checked generator adapter and32/64-bit regressions; full hosted
+acceptance of the new source is still pending. See the
+[checkpoint and probe limits](reviews/issue53-fork-limit-implementation.md).
 There is no new performance campaign. The milestone and publication decisions are
 unchanged. Prewarming remains
 separate in [#84](https://github.com/masahitojp/mariamem/issues/84).

@@ -10,7 +10,41 @@ unfinished.**
 [the fixed acceptance table](issue53-fork-limit-design.md#fixed-acceptance-and-stopping-point)
 is unchanged. No acceptance row covering a real entry is marked complete here.
 
-## Current checkpoint — hosted matrix failures and bounded cleanup diagnosis
+## Current checkpoint — WASI write errors unblock interrupted-guest cleanup
+
+The Human authorized continuing the outstanding cleanup correction. A bounded
+one-build overlay probe isolates the error-discarding `writeVec` / `Fd_write`
+helper: writing to a broken pipe returned WASI success with zero bytes. The
+original helper can leave libc retrying output after the SQL disconnect has
+already aborted the instance, preventing joined disposal. The regression test
+observes success/zero on a real closed pipe before this correction.
+
+The [compact probe receipt](issue53-write-cleanup-probe.json) binds the clean
+source, original/overlay helper and both host hashes. On macOS arm64 / Python3.11
+/ OpenSSL3 / Connector26.7.0, the baseline failed Close at case5. With only write
+error propagation changed, all90 cases (30 per pure/default/C mode) close;
+28 still observe the deliberate disconnect/pipelining guest failure. Pure CALL
+observations are unchanged and the existing native edge comparator reports no
+differences for any mode. This is a bounded correctness probe with a1-second
+shutdown budget, not a resource/latency benchmark or hosted acceptance.
+
+The candidate now preserves write errors, maps zero-byte failure to WASI errno,
+and returns actual partial progress without advancing to a later iovec after a
+short write. Both wasm32 and wasm64 imports share the same helper. No MariaDB
+function, guest patch, Wasm input, public API or accepted consumer disposition
+changes. `scripts/runtime_write.py` applies exact checked preimages during clean
+installation, and generated provenance tracks the deterministic helper change.
+
+Regression tests first fail on the old helper (EPIPE, generic/zero-progress and
+short-write cases), then pass after the fix.32/64-bit coverage also retains
+partial progress with a later failure and ordinary full writes.75 focused Python
+adapter/inventory/failure tests pass, including clean installation and changed/
+duplicate preimage rejection. The generated runtime inventory check passes.
+Canonical daily/source smoke, default-timeout prepared diagnostics and the new
+exact-source hosted matrix remain required before declaring this correction
+accepted. The fixed eighteen-row exit is unchanged.
+
+## Previous checkpoint — hosted matrix failures and bounded cleanup diagnosis
 
 Active diagnosis after retry41752306473: the Mac bounded recapture test omitted
 the documented wait_disconnected boundary; its test-only correction now passes

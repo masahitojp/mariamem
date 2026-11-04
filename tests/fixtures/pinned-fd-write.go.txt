@@ -1,0 +1,54 @@
+func writeVec(dst io.Writer, bufs [][]byte) uint64 {
+	var total uint64
+	for _, buf := range bufs {
+		n, err := dst.Write(buf)
+		total += uint64(n)
+		if err != nil {
+			break
+		}
+	}
+	return total
+}
+
+func (w *WasiStubs) Fd_write(m *Module, fd, iovs, iovsLen, nwrittenPtr int32) int32 {
+	w.mu.Lock()
+	dst, op := w.fdDstLocked(fd)
+	w.mu.Unlock()
+	if op != nil && op.f != nil {
+		unlock := lockNativeFileResize(op.f)
+		defer unlock()
+	}
+	bufs, ok := w.iovecSlices(m, iovs, iovsLen)
+	nwrittenSlice := w.memSlice(m, nwrittenPtr, 4)
+	if !ok || nwrittenSlice == nil {
+		return _wasiEFAULT
+	}
+	if dst == nil {
+		binary.LittleEndian.PutUint32(nwrittenSlice, 0)
+		return _wasiEBADF
+	}
+	binary.LittleEndian.PutUint32(nwrittenSlice, uint32(writeVec(dst, bufs)))
+	return _wasiESUCCESS
+}
+func (w *WasiStubs) Fd_write64(m *Module, fd int64, iovs int64, iovsLen int64, nwrittenPtr int64) int32 {
+	w.mu.Lock()
+	dst, op := w.fdDstLocked(int32(fd))
+	w.mu.Unlock()
+	if op != nil && op.f != nil {
+		unlock := lockNativeFileResize(op.f)
+		defer unlock()
+	}
+	bufs, ok := w.iovecSlices64(m, iovs, iovsLen)
+
+	nwrittenSlice := w.memSlice64(m, nwrittenPtr, 8)
+	if !ok || nwrittenSlice == nil {
+		return _wasiEFAULT
+	}
+	if dst == nil {
+		binary.LittleEndian.PutUint64(nwrittenSlice, 0)
+		return _wasiEBADF
+	}
+	binary.LittleEndian.PutUint64(nwrittenSlice, writeVec(dst, bufs))
+	return _wasiESUCCESS
+}
+

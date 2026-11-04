@@ -50,6 +50,7 @@ HANDWRITTEN_FILES = (
     'code/base/fd_dup_test.go',
     'code/base/runtime_cleanup.go',
     'code/base/host_memory_test.go',
+    'code/base/fd_write_test.go',
     'memory_backing_unix.go',
     'memory_backing_other.go',
     'memory_lifetime.go',
@@ -162,6 +163,8 @@ def main():
         text = thread_lifetime(str(target.relative_to(out)), text)
         from runtime_failure import apply as worker_failure
         text = worker_failure(str(target.relative_to(out)), text)
+        from runtime_write import apply as write_errors
+        text = write_errors(str(target.relative_to(out)), text)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text)
     # Only dedicated mariamem commands dispatch this entry; no consumer init hook.
