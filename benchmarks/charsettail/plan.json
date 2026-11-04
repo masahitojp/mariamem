@@ -15,5 +15,5 @@
     "disk_gib": 7,
     "minimum_free_gib": 16
   },
-  "adaptive_pilot": "Before any primary process, coarse pilot found14.6ms before default charset lookup. Preserve coarse binary identity/pilot separately; add collation-parse and actual once-initializer callbacks, rebuild once, then execute the same fixed primary three pairs. No primary discard/repeat."
+  "adaptive_pilot": "Before any primary process, coarse pilot found14.6ms before default charset lookup. Preserve coarse binary identity/pilot separately; add collation-parse and actual once-initializer callbacks, rebuild once, then execute the same fixed primary three pairs. No primary discard/repeat. Second pre-primary pilot directly found registry~3.5ms and remaining collation parse~11ms. Preserve that pilot/binary identity too; final observation adds actual charset/collation-handler init spans with numeric identity. No optimization, no primary exclusion/repeat."
 }

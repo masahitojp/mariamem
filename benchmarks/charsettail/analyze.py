@@ -19,13 +19,30 @@ def validate(j,marked,negative=False):
   obs=[e for e in c['events'] if e['name'].startswith(PREFIX)]
   assert [e['name'][len(PREFIX):] for e in obs]==(MARKS if marked else [])
   assert all(b['offset_ns']>=a['offset_ns'] for a,b in zip(obs,obs[1:]))
+  details(c,marked)
+def details(c,marked):
+ events=[e for e in c['events'] if e['name'].startswith('runtime/charsetdetail/')]
+ if not marked:assert not events
+ stacks={};durations={}
+ for e in events:
+  kind,id,slot,bound=e['name'].split('/')[2:];key=kind+'/'+id+'/'+slot
+  if bound=='begin':stacks.setdefault(key,[]).append(e['offset_ns'])
+  else:
+   assert bound=='end' and stacks.get(key),key
+   begin=stacks[key].pop();assert e['offset_ns']>=begin
+   durations[key]=durations.get(key,0)+e['offset_ns']-begin
+ assert not any(stacks.values())
+ return durations
 def summarize(records):
  out={}
  for mode in ['control','init']:
   rows=[]
   for r in range(3):
    j=records[f'round{r}-{mode}'];validate(j,mode=='init');cols={'fork_wall':[],'fork_cpu':[],'guest_common':[],'guest_server_init':[]}
-   if mode=='init':cols.update({k:[] for k in INTERVALS})
+   if mode=='init':
+    cols.update({k:[] for k in INTERVALS})
+    ids=set().union(*(details(c,True) for c in j['children']))
+    cols.update({'handler/'+k:[] for k in sorted(ids)})
    for c in j['children']:
     cols['fork_wall'].append(c['fork_wall_ns']);cols['fork_cpu'].append(c['fork_cpu_ns'])
     g={e['name']:e['offset_ns'] for e in c['guest']['initialization']['events']}
@@ -35,6 +52,8 @@ def summarize(records):
     if mode=='init':
      e={e['name'][len(PREFIX):]:e['offset_ns'] for e in c['events'] if e['name'].startswith(PREFIX)}
      for k,(a,b) in INTERVALS.items():cols[k].append(e[b]-e[a])
+     ds=details(c,True)
+     for k in ids:cols['handler/'+k].append(ds.get(k,0))
    rows.append({'name':f'round{r}-{mode}','child_ns':cols,'process_median_ms':{k:med(v)/1e6 for k,v in cols.items()}})
   out[mode]={'processes':rows,'median_of_process_medians_ms':{k:med([row['process_median_ms'][k] for row in rows]) for k in rows[0]['process_median_ms']}}
  return out

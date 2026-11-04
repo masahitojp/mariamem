@@ -97,5 +97,24 @@ changed += '\nvar charsetInitEnabled = os.Getenv("MARIAMEM_PROBE_COMMON") == "1"
 target=out/'charset-p1.go';target.write_text(changed)
 replacements[str(root/relative)]=str(target)
 records.append({'path':relative,'function':'Fn960','before_sha256':hashlib.sha256(original.encode()).hexdigest(),'after_sha256':hashlib.sha256(changed.encode()).hexdigest(),'entry_and_defer':'registry begin/end; selected by table slot542 in charsets once gate Fn820'})
+# Observe actual charset/collation handler init calls; ids are charset number
+# and indirect handler slot, not guesses based on symbol/function names.
+relative='internal/generatedgo/code/p4/p4_pure.go'
+original=(root/relative).read_text()
+start=original.index('func Fn966(');end=original.index('\nfunc ',start+1)
+body=original[start:end]
+for kind,needle,slot in [
+ ('charset','\tv380 = m.T0[v377].(func(*base.Module, int32, int32) int32)(m, v16, l0)','v377'),
+ ('collation','\tv389 = m.T0[v386].(func(*base.Module, int32, int32) int32)(m, v16, l0)','v386')]:
+ assert body.count(needle)==1
+ before='\tcharsetDetailMark("'+kind+'",l1,'+slot+',"begin")'
+ after='\tcharsetDetailMark("'+kind+'",l1,'+slot+',"end")'
+ body=body.replace(needle,before+'\n'+needle+'\n'+after)
+changed=original[:start]+body+original[end:]
+changed=changed.replace('"sync/atomic"','"sync/atomic"\n"os"\n"strconv"\n"github.com/masahitojp/mariamem/internal/timing"',1)
+changed += '\nvar charsetDetailEnabled = os.Getenv("MARIAMEM_PROBE_COMMON") == "1"\nfunc charsetDetailMark(kind string, id, slot int32, bound string) { if charsetDetailEnabled { timing.ForkStageMark("charsetdetail/"+kind+"/"+strconv.Itoa(int(id))+"/"+strconv.Itoa(int(slot))+"/"+bound) } }\n'
+target=out/'charset-p4.go';target.write_text(changed)
+replacements[str(root/relative)]=str(target)
+records.append({'path':relative,'function':'Fn966','before_sha256':hashlib.sha256(original.encode()).hexdigest(),'after_sha256':hashlib.sha256(changed.encode()).hexdigest(),'scope':'around actual charset and collation vtable init calls; include charset number and handler table slot'})
 (out / 'overlay.json').write_text(json.dumps({'Replace': replacements}, indent=2)+'\n')
 (out / 'hashes.json').write_text(json.dumps(records, indent=2)+'\n')
