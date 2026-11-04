@@ -1,0 +1,372 @@
+{
+  "mariamem_source_commit": "c27061f1a33eed2908fd90b0e2d816692e001339",
+  "dub_source_commit": "6b463b4bdd9ed2fd9aa416f67b5b77d317b1471e",
+  "harness_source_commit": "bebec39753bf3c673a6c9fc0e72a3cf5db318d25",
+  "platform": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "macos": "27.2"
+  },
+  "versions": {
+    "node": "v24.22.1",
+    "prisma": "6.19.1",
+    "next": "15.5.8",
+    "pnpm": "9.15.9"
+  },
+  "cold_api": {
+    "startTime": "2026-11-04T17:38:06.050Z",
+    "duration": 334245.581,
+    "expected": 81,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  },
+  "initial_infrastructure_attempts": [
+    {
+      "configuration": "No Redis REST",
+      "passed": 0,
+      "failed": 1,
+      "not_run": 83
+    },
+    {
+      "configuration": "Redis REST; no PlanetScale proxy; UI not built",
+      "passed": 22,
+      "failed": 25,
+      "not_run": 37
+    },
+    {
+      "configuration": "UI built; HTTP proxy incorrectly configured for empty password; QStash unavailable",
+      "passed": 43,
+      "failed": 4,
+      "not_run": 37
+    }
+  ],
+  "input_sha256": {
+    "pnpm-lock.yaml": "8a8cf79b9ae3f16a1ded0f46361c6f01e6b15522077146f4f0fb053d2f859fac",
+    "apps/web/package.json": "7ef955198baa87145ced2b6d4bb054f18a0c4fe236f119d7b18a95c6c73ae955",
+    "apps/web/lib/prisma/index.ts": "5d12e9f56e455c3502d81fef5800a4169af6124dcb7f45f98b06fe0ad7626775",
+    "apps/web/lib/api/links/get-links-count.ts": "600a9234295643b40d177fe4b2caf79046a0ed803ab94d3b0e73896412d124c1",
+    "apps/web/lib/api/links/get-links-for-workspace.ts": "b42b6d76d4a423acb094c266f1f80a86986c9fcd11fb9856bbaca3af735ef9fc",
+    "apps/web/scripts/dev/seed.ts": "b3693564347af42aab5a44a084e3667ec055f86bfc9a52f7a07ec4be209216db",
+    "apps/web/playwright/api/setup-test-workspace.ts": "2aec207f3edbe783f2e576f2390f5b2b82ec31e9752a4245ee5e6a7170a37a1e",
+    "apps/web/prisma/schema/customer.prisma": "53c32d7c40635056522b0969f0851c2136b322514fecf449256197074437de98",
+    "apps/web/prisma/schema/dashboard.prisma": "06e5f7fff5f82881de1d0c7d29a5056fa632f19fa1950955756410fa333ac508",
+    "apps/web/prisma/schema/domain.prisma": "c827b8303823105458cf68b82e7dca9b47aa99404c45dbb5c0d69cb7238922d5",
+    "apps/web/prisma/schema/folder.prisma": "291b2ed9d669759ff67c29edefc9eabc0ef2a706ce8f1775f8c0651435fbb0d6",
+    "apps/web/prisma/schema/integration.prisma": "43bd6dd9fbe7fe688fddd5347c3ea4e85a250996de268d4b164a74d04c5233c7",
+    "apps/web/prisma/schema/invoice.prisma": "db8d024175fd752cda3000a72c424215ae53f21bd530aadd0ab6ca4f9da989a8",
+    "apps/web/prisma/schema/jackson.prisma": "797b24d31f173f2f011650c3aa30edc4dbd7f4537549431975fb4c7e76574228",
+    "apps/web/prisma/schema/job.prisma": "fc1357b7fa2a7484ed0d5334b763963d95fc8869b702cfe50e89c91a52c53653",
+    "apps/web/prisma/schema/link.prisma": "97d5727357b614bdea262c64b94e4b212a02d82874ae946f4562854a00b8c870",
+    "apps/web/prisma/schema/misc.prisma": "33a6a7414c7b75d264267e98aa365b92957e25f6aec69719ca90ee12dadf00eb",
+    "apps/web/prisma/schema/notification.prisma": "17b35502b132561fb48c370f9baaaa91e1fb6dc006bea9f03c6c9693fd681507",
+    "apps/web/prisma/schema/oauth.prisma": "dab4985519c5c9b9e7078c46c13d4b3f61a6a0e9f1180f43f7d1f51e21ea03ec",
+    "apps/web/prisma/schema/schema.prisma": "ab22f6e3e9d5f318f1fde30181db3eae2ea36bcf1cdc896a3ccbd5c4649ab90d",
+    "apps/web/prisma/schema/tag.prisma": "49e506898647788f96aef1c74d873159c9b73d31ede26307a12204e1eefe887d",
+    "apps/web/prisma/schema/token.prisma": "8e69de4e2884682666615033ce100a4df58619033208e3c6aa853bebfaec248c",
+    "apps/web/prisma/schema/utm.prisma": "d9541a4f56f146c5e3e4f6425f925c3cff2a34ffefdc4c560b263ac59661b1e7",
+    "apps/web/prisma/schema/webhook.prisma": "a3fb3943d34bec0628fde45be72b42178a79d43c4f15e78125ee09f36a90498a",
+    "apps/web/prisma/schema/workspace.prisma": "b9a7fd0417602c081e2064978fa64c724bf4c13d0dc2d2a460669825008d4730"
+  },
+  "docker_image_digests": [
+    "redis@sha256:8da19c7399dca900c6822a1cf30f9d2285585e2c4b457ff4095b0f4500054d3f",
+    "hiett/serverless-redis-http@sha256:5b0bb9239fce53abf87b2018a7a0deb9ec7bd900c5360738fe5fbeeb426f9150",
+    "ghcr.io/mattrobenolt/ps-http-sim@sha256:fb624c2f615cd53910be07a5c6a62ddf54936a2e1c7322c8398fa2b5dd601c41",
+    "public.ecr.aws/upstash/qstash@sha256:a49ffd1cb967800e2b5e2bfab7375282c6c269ef5bf8d9f0f8e115560b1b5597"
+  ],
+  "cohort_log_sha256": {
+    "build.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "console-final.txt": "49cacf5f3988db98830e529c2735b8f8b23663ac333eb8be28cea904f22de199",
+    "console-local-stack.txt": "f9a018af2f6758d94f802c5c3a97a88a49cfdf0487921560e2013ed9ca14f867",
+    "console-proxy.txt": "3fe4e793ee8eb6f727461d59a8f1953ac17611f2388f361448dfdcdfe9a3f2f1",
+    "console-redis.txt": "49cacf5f3988db98830e529c2735b8f8b23663ac333eb8be28cea904f22de199",
+    "console-warm-stack.txt": "489f68663a8822162ecfaec1363c5fab9e4bf0e8fb9acd613b99e6e30ac8bcf5",
+    "console.txt": "92a5917ff2282cb9b0a5a41f60e8ba0ff03429491bcfe4609db5f7739ede60d9",
+    "docker-images-before.txt": "33f090e30c9a5b264cbf5c68b3474806fc732efb0653b1b021fe8e0683cd99e3",
+    "final/db-cases.txt": "d3102985941590d5d6daee3db6146b6ad3a24671b635aeb89a7f1486fd760453",
+    "final/next-dev.txt": "e991ed0de6e06de61b881575d9f11f7296d3efa5571dbe85cdb922c4c9402f89",
+    "final/schema-push-idempotent.txt": "541b3ca07e5712db45a18a9a71d144859ca3582bf513fa0f4f9972c7f4bbfbd0",
+    "final/schema-push.txt": "545a0495629aa59eb5fe3d39780db745fc00964c79a1262a314eff8f8bd09637",
+    "final/upstream-api-tests.txt": "f7f5beb2ae694b6ba49e3f278079a8b287346d491216e927532237f3d93cd87b",
+    "final/upstream-seed.txt": "9725327842aa08a8b59b0abfd07f27a0dbb1bd5ebccd14f9c7ffeef9b179e5eb",
+    "local-stack/db-cases.txt": "d3102985941590d5d6daee3db6146b6ad3a24671b635aeb89a7f1486fd760453",
+    "local-stack/next-dev.txt": "ebf213a66ca1d91d5eee479c2ab2170aeb56aa095303d429f1756085cc014a76",
+    "local-stack/ps-http.txt": "c0c61f8647533829dda99599da970893c1ab908e71150103b84b647362320903",
+    "local-stack/qstash.txt": "6306efcfa23b27e258326de6ae43c390961f6a8687754a70c9d46bdfd3fe992f",
+    "local-stack/schema-push-idempotent.txt": "5627c250dd3701d02cb464e8453421fdba4cd2ecc23a3e2f3bfe84bdaa37079e",
+    "local-stack/schema-push.txt": "99e26fa7de6196a15cc51358205d28c9975e7a4485bf80304c93e7221eed3a9f",
+    "local-stack/upstream-api-tests.txt": "d331be7ec4f1a1fc03c706325e9590894ac5246007378fa2fab47011581e1cd5",
+    "local-stack/upstream-prisma-edge.txt": "e8e5bf854cf3494825da5cfa5c142a25d2d73b60ab4d6080678c236fe7adc62c",
+    "local-stack/upstream-seed.txt": "9725327842aa08a8b59b0abfd07f27a0dbb1bd5ebccd14f9c7ffeef9b179e5eb",
+    "pip-install.txt": "5d95e702a79da10e075eecebb8d9843e5ff5541dff42a9b8ecc8c74c89f85fd1",
+    "pnpm-install.txt": "78af96d6fdfbc7c021aa981e727335f05ca066204e50959c954d9b1c50b7c314",
+    "prisma-generate.txt": "cc9e8b0f08fb50efbb8c05dbbd199b3c200509e09c0e64a30aa3e776c5945aa9",
+    "proxy-auth-fixed-probe.txt": "e8e5bf854cf3494825da5cfa5c142a25d2d73b60ab4d6080678c236fe7adc62c",
+    "ps-http-pull.txt": "92675370175a7c7df956114eca8a1e2aa6fb07b9832d144e81e1186fa8078390",
+    "python-requirements.txt": "717df355044876c89125a135b47595ca5732eeaa670a13fb2e0b9feb6b4badd8",
+    "qstash-pull.txt": "0d1f73d46b45d1a12e59803bd6526d53d605ff7d68c5634c0a4b1bafd5a7367d",
+    "qstash-start.txt": "6306efcfa23b27e258326de6ae43c390961f6a8687754a70c9d46bdfd3fe992f",
+    "qstash-warm-start.txt": "6306efcfa23b27e258326de6ae43c390961f6a8687754a70c9d46bdfd3fe992f",
+    "redis-pull.txt": "16928a8c0081b62e0a15b2ac98f4d61d21c27f2e5eaeecafdedd452d606870b9",
+    "schema-push.txt": "4c222a4b4464010efa5892dc49725c4807e59332a757bc796d02189043234b9c",
+    "srh-pull.txt": "f46f4440dc97d7ff587c15192e7c0ae8cfee468c2670ec1107be62af6a58013b",
+    "ui-build.txt": "3e1fc7347a1922ad3b106d6a174ecb697bcc44184e3767ce4301811634585e5b",
+    "utils-build.txt": "9c9cb2abe63a595381d1b6e35a54b55eea849bb493f7e8cf1e36f789a12552be",
+    "warm-stack/db-cases.txt": "d3102985941590d5d6daee3db6146b6ad3a24671b635aeb89a7f1486fd760453",
+    "warm-stack/next-dev.txt": "857b310bc0c6dd32026ec8258ec42bf9a91c81357ebaf08cf199b95f54692ea8",
+    "warm-stack/schema-push-idempotent.txt": "93587c6fe0f5645e50f199b9428dcc6f202d3c2a16c380353be142632cb6e184",
+    "warm-stack/schema-push.txt": "c2aa54cc60a3c74e07b6628a289971b3cf9e171944d2779f3c56be703733711b",
+    "warm-stack/upstream-api-tests.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "warm-stack/upstream-prisma-edge.txt": "e8e5bf854cf3494825da5cfa5c142a25d2d73b60ab4d6080678c236fe7adc62c",
+    "warm-stack/upstream-seed.txt": "9725327842aa08a8b59b0abfd07f27a0dbb1bd5ebccd14f9c7ffeef9b179e5eb",
+    "with-proxy/db-cases.txt": "d3102985941590d5d6daee3db6146b6ad3a24671b635aeb89a7f1486fd760453",
+    "with-proxy/next-dev.txt": "1f8d2b727d89857e092434b47d163b63fa6d44a82abd102c96434250b9655a35",
+    "with-proxy/ps-http.txt": "06aa31e72240ce13e32fc7816f3d830dda671ba54302996acd81b5a1965f0fd1",
+    "with-proxy/schema-push-idempotent.txt": "0b06201d99db5631d0bfaa293a8f7a3941cd7adbe6aea199416910236dda4dd3",
+    "with-proxy/schema-push.txt": "8c13dcb91988f32694a5b81121efa2b622275179cba026d2f48616083c2924a8",
+    "with-proxy/upstream-api-tests.txt": "9b0d69c58945b46e292c36c4c4466d3f37f112399e61b02c4b5169c71e92490b",
+    "with-proxy/upstream-prisma-edge.txt": "955237847080a26a94b2c150322a8279e8011782b572f8137803e8754fd81f29",
+    "with-proxy/upstream-seed.txt": "9725327842aa08a8b59b0abfd07f27a0dbb1bd5ebccd14f9c7ffeef9b179e5eb",
+    "with-redis/db-cases.txt": "d3102985941590d5d6daee3db6146b6ad3a24671b635aeb89a7f1486fd760453",
+    "with-redis/next-dev.txt": "14e2f3170bdf9e1c2ad2688bdf419de838a969c7f5a8cb4fddf0fd57d4295ef4",
+    "with-redis/schema-push-idempotent.txt": "75b34e7b0a1e59f847315d5b5ff4b9aeb6c4c2b995facef5cfb09be72145ecbd",
+    "with-redis/schema-push.txt": "d8eafdf3fa6a2916880324ecb855299d8db92549a0dfdafbb602d3d019d4e852",
+    "with-redis/upstream-api-tests.txt": "c5657c44b967a2bb990e9443cd06b1843f435986892d96e0cd25590a5d0e0d05",
+    "with-redis/upstream-seed.txt": "9725327842aa08a8b59b0abfd07f27a0dbb1bd5ebccd14f9c7ffeef9b179e5eb",
+    "turbopack/db-cases.txt": "d3102985941590d5d6daee3db6146b6ad3a24671b635aeb89a7f1486fd760453",
+    "turbopack/schema-push-idempotent.txt": "4bced8c56f2402e84599580f9e415c95655d0ae2708f6180dbf54a04a2423e09",
+    "turbopack/upstream-api-tests.txt": "42e22dff84531ac87bb69db353788704ef72c83618c49d3726c17e044d79a9c4",
+    "turbopack/qstash.txt": "6306efcfa23b27e258326de6ae43c390961f6a8687754a70c9d46bdfd3fe992f",
+    "turbopack/ps-http.txt": "a8eb465e5565612a5b3f36a1af28f7625a78a2abe9a4ebcf525bfe26699c0d93",
+    "turbopack/upstream-prisma-edge.txt": "e8e5bf854cf3494825da5cfa5c142a25d2d73b60ab4d6080678c236fe7adc62c",
+    "turbopack/schema-push.txt": "e5913f7c59b52bbb397ed07f6f552ec6b0baee65bfff5e3a8c70d356f410a8a6",
+    "turbopack/next-dev.txt": "67fdb104d453f67373759adb923324080f6139c8473923cd80a7e041383b1fee",
+    "turbopack/upstream-seed.txt": "9725327842aa08a8b59b0abfd07f27a0dbb1bd5ebccd14f9c7ffeef9b179e5eb"
+  },
+  "schema_table_count": 40,
+  "db_cases": {
+    "summary": {
+      "PASS": 19,
+      "FAIL": 0
+    },
+    "cells": [
+      {
+        "name": "upstream-seed-readback",
+        "result": "PASS"
+      },
+      {
+        "name": "fixture-create-with-upstream-client",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-count-default",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-count-archived",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-count-workspace-isolation",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-count-tenant",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-count-search",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-count-domain",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-count-with-tags",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-count-tag-id",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-count-tag-names",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-count-group-domain",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-count-group-tags",
+        "result": "PASS"
+      },
+      {
+        "name": "compound-id-and-relation-read",
+        "result": "PASS"
+      },
+      {
+        "name": "transaction-rollback",
+        "result": "PASS"
+      },
+      {
+        "name": "unique-error-and-continuation",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-playwright-setup-idempotent",
+        "result": "PASS"
+      },
+      {
+        "name": "upstream-list-offset-and-cursor",
+        "result": "PASS"
+      },
+      {
+        "name": "relation-mode-prisma-cascade",
+        "result": "PASS"
+      }
+    ]
+  },
+  "binary_sha256": "072d2726bc90d2f2d37628494d6417d2078294e44bee25cf4046fa269908dabb",
+  "binary_build_info": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.2-0.20261104165555-c27061f1a33e\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=c27061f1a33eed2908fd90b0e2d816692e001339\n\tbuild\tvcs.time=2026-11-04T16:55:55Z\n\tbuild\tvcs.modified=false\n",
+  "api_final": {
+    "startTime": "2026-11-04T18:01:58.539Z",
+    "duration": 75774.652,
+    "expected": 84,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "final_server_mode": "turbopack",
+  "prepared_routes": [
+    {
+      "path": "/customers",
+      "unauthenticated_get_status": 401
+    },
+    {
+      "path": "/customers/_dogfood_",
+      "unauthenticated_get_status": 401
+    },
+    {
+      "path": "/domains",
+      "unauthenticated_get_status": 401
+    },
+    {
+      "path": "/domains/_dogfood_.test",
+      "unauthenticated_get_status": 401
+    },
+    {
+      "path": "/domains/_dogfood_.test/primary",
+      "unauthenticated_get_status": 405
+    },
+    {
+      "path": "/domains/status",
+      "unauthenticated_get_status": 401
+    },
+    {
+      "path": "/folders",
+      "unauthenticated_get_status": 401
+    },
+    {
+      "path": "/folders/_dogfood_",
+      "unauthenticated_get_status": 401
+    },
+    {
+      "path": "/links",
+      "unauthenticated_get_status": 401
+    },
+    {
+      "path": "/links/bulk",
+      "unauthenticated_get_status": 405
+    },
+    {
+      "path": "/shopify/pixel",
+      "unauthenticated_get_status": 405
+    },
+    {
+      "path": "/shopify/integration/webhook",
+      "unauthenticated_get_status": 405
+    },
+    {
+      "path": "/tags",
+      "unauthenticated_get_status": 401
+    },
+    {
+      "path": "/tags/_dogfood_",
+      "unauthenticated_get_status": 405
+    },
+    {
+      "path": "/utm",
+      "unauthenticated_get_status": 401
+    },
+    {
+      "path": "/utm/_dogfood_",
+      "unauthenticated_get_status": 405
+    },
+    {
+      "path": "/workspaces/_dogfood_",
+      "unauthenticated_get_status": 401
+    },
+    {
+      "path": "/workspaces/_dogfood_/users",
+      "unauthenticated_get_status": 401
+    }
+  ],
+  "stages": [
+    {
+      "name": "schema-push",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "name": "schema-push-idempotent",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-seed",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "name": "db-cases",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-prisma-edge",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-api-tests",
+      "exit_code": 0,
+      "result": "PASS"
+    }
+  ],
+  "final_harness_source_commit": "563ce194d91b7584b6b5182e87bf0e760a0f4280",
+  "cold_api_server_mode": "webpack (nondefault; diagnostic only)",
+  "interrupted_diagnostics": [
+    {
+      "reason": "Cache reuse alone still produced route compilation timeouts; stop intermediate diagnosis and run explicit precompilation without changing test assertions/timeouts",
+      "run": "warm-stack",
+      "last_observed_case": 64,
+      "complete_acceptance_claimed": false
+    },
+    {
+      "reason": "Webpack diagnostic still timed out; align with upstream default Turbopack for final replay",
+      "last_observed_case": 63,
+      "complete_acceptance_claimed": false
+    }
+  ],
+  "limits": [
+    "macOS arm64 only; not installed artifacts/Ubuntu/Release qualification",
+    "Only upstream Playwright api project (84 cases); Vitest, browser/billing and full production build not run",
+    "Local Redis REST, PlanetScale HTTP proxy and official QStash dev; not hosted cloud service acceptance",
+    "Tinybird analytics/log delivery remains unavailable and emits nonblocking warnings; downstream background-job completion not accepted",
+    "Final API run uses 18 unauthenticated GET preparation requests; no test assertion/timeout/retry changes",
+    "No runtime/guest/SDK/version/CI changes, no benchmark or RSS campaign"
+  ],
+  "upstream_api_report_sha256": "d22979311d219f167c9438b308826298cae2c6c7b9ccbfdfcf933437fdf52e1c"
+}
