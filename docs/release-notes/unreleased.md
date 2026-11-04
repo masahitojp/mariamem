@@ -258,3 +258,16 @@ No historical receipt is relabelled onto this draft or a future release SHA.
 Release CI owns both-platform build/qualification, declared feature acceptance,
 guard evaluation and, only when authorized with operation=release, publication
 and public smoke. Existing component or daily CI success is not release READY.
+
+
+## Post-v0.6.1 staging — unreleased
+
+The original0.6.1 draft above retains its source/evidence context. This section
+is later staging content and is not part of release/NOTES-v0.6.1.md.
+
+- The local MySQL endpoint accepts bounded input pipelining while keeping SQL
+  execution and responses serial. At most1,048,581 pending bytes are retained per
+  physical connection; overflow terminates that database instance. Disconnect,
+  deadline and owner-stop behavior remain in place. See the
+  [protocol limits](../mysql-protocol.md). No Node SDK or general ORM support
+  declaration is added.

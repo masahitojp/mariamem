@@ -7,6 +7,11 @@ managed host per root lineage. Public save/load APIs are removed. See
 
 Python3.11 or newer is required; Python3.9/3.10 are no longer supported.
 
+**Unreleased:** the endpoint accepts [bounded input pipelining](mysql-protocol.md)
+with serial execution/responses and at most1,048,581 pending bytes per physical
+connection. Exceeding the bound terminates that database instance. This does not
+declare general Node/ORM support or add a driver-specific SDK entry.
+
 ## Entry selection
 
 Version 0.6.1 offers [prepared pytest fixtures](#pytest-fixtures),

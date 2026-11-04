@@ -18,6 +18,10 @@ managed Python host per root lineage. Public save/load APIs remain removed.
 See the [release notes](release/NOTES-v0.6.1.md) and
 [API migration guide](docs/changes-since-v050.md).
 
+Unreleased connection behavior: [bounded input pipelining](docs/mysql-protocol.md)
+keeps execution serial and terminates the instance if pending input exceeds
+1,048,581 bytes per physical connection.
+
 ## Installation
 
 Supported platforms are **macOS 15+ / Apple Silicon (arm64)** and
