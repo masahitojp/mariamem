@@ -1,0 +1,13 @@
+{
+ "source_commit": "5c5b4d3ffbc1d9cdcad420d5def523bafb1c874d",
+ "question": "Current serial Fork: prepared filesystem, guest startup, readiness and return attribution",
+ "host": "local macOS arm64",
+ "go": "go1.26.10", "gomaxprocs": 8,
+ "fixture": "1000 integer rows; COUNT1000 SUM500500; independent UPDATE and next-child baseline",
+ "capacity": 1, "children_per_process": 4,
+ "warmup": "one fresh process per mode",
+ "primary": "5 alternating plain/traced fresh-process pairs; no extra repeats or exclusions",
+ "controls": "one normal traced pilot, one wrong-seed negative; failed pilot is retained",
+ "scope": "observation only; existing marks plus 3-file Go overlay; no guest rebuild or policy changes",
+ "budget": {"active_minutes": 60, "tooling_minutes": 25, "heavy_ci_runs": 0, "disk_gib": 7, "free_reserve_gib": 16}
+}
