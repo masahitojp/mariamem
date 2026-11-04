@@ -425,6 +425,29 @@ ancestry test is retired; this supersedes its recurring-test requirement in
 `docs/decisions/e2e-integration-conditions.md`, preserving that decision's original
 historical context. Release proof authentication/publication checks remain active.
 
+The default pytest traversal excludes `tests/native` and `tests/measurement` in
+addition to historical tests. Portable resource parsing/accounting and guards
+remain in ordinary tests. `verify.py check --profile full` explicitly runs the
+eight native C controls on both Release hosts with a required compiler; daily
+and Python-only checks do not compile them. This does not remove native proof
+from Release acceptance. The 17 real resource-meter/barrier controls are manual
+and own the measuring instruments, not product isolation or cleanup. In a clean,
+identity-checked checkout, run the focused owners when changing those tools:
+
+```sh
+PYTHONPATH=python python -m pytest tests/measurement -q
+PYTHONPATH=python MARIAMEM_REQUIRE_PREPARED_C=1 python -m pytest tests/native -q
+```
+
+The v0.4 direct-link report and fixed v0.5 Ubuntu campaign tests live under
+`tests/historical`; explicit paths still run them. Current shared distribution,
+accounting and benchmark-tool tests stay active. Prepared CALL error-reader
+coverage has one test owner for both error policies and both prefix cases;
+P2/P3/LONG_DATA scenario inventories and independent request vectors remain.
+Live examples are executed by Release with existing result/failure oracles;
+source-spelling/order assertions are removed. Django workflow wiring has its
+workflow owner; API behavior tests and version-aware release-doc checks remain.
+
 A fresh aggregate records `release-features-v1` only after shared units, all six
 features and both-platform artifact verification succeed. `qualification.json`
 version2 points to that original run. Automatic READY reuse authenticates the

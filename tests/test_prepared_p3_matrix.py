@@ -2,9 +2,6 @@
 import json
 from pathlib import Path
 import struct
-import pytest
-import pymysql
-from v06_prepared_call_probe import result_chain
 from v06_prepared_p3_matrix import specifications, request, comparable
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -25,21 +22,6 @@ def test_full_matrix_has_complete_pinned_native_controls():
     assert 'error_packet' in r['cases']['later-error']['trace'][0][-1]
     before,after=r['cases']['metadata-change']['trace']
     assert len(before[0]['columns'])==2 and len(after[0]['columns'])==3
-
-
-@pytest.mark.parametrize('prefix',[False,True])
-def test_expected_terminal_sql_error_preserves_complete_prefix(prefix):
-    packet=b'\xff'+struct.pack('<H',1644)+b'#45000P3 later error'
-    pending=([b'\x00\x00\x00\x0a\x00\x00\x00'] if prefix else [])+[packet]
-    class Connection:
-        def _execute_command(self,op,payload):assert op==23
-        def _read_packet(self,cls=pymysql.protocol.MysqlPacket):
-            assert pending,'read past terminal SQL error'
-            return cls(pending.pop(0),'utf8')
-    result=result_chain(Connection(),b'request',allow_error=True)
-    assert len(result)==(2 if prefix else 1)
-    assert result[-1]=={'error_packet':packet.hex(),'errno':1644,'sqlstate':'45000'}
-    assert not pending
 
 
 def test_reuse_preserves_bitmap_and_values_without_repeating_descriptors():

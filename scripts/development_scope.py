@@ -28,6 +28,9 @@ WORKFLOW_SCOPES = {
 }
 # Explicit tooling boundaries; do not classify every .py file as runtime-free.
 TOOLING = {
+    # Historical test relocation does not change current runtime behavior.
+    'tests/historical/test_v04_direct_link_report.py',
+    'tests/historical/test_ubuntu_product_performance.py',
     # Classification metadata is consumed only by the source inventory test.
     'release/wasix-host-stubs.json',
     # Archived measurement recipes; reproduction explicitly checks out its
@@ -99,7 +102,6 @@ PURE_TESTS = {
     'tests/test_runtime_sources.py',
     'tests/test_runtime_validation.py',
     'tests/test_snapshot_copy.py',
-    'tests/test_v04_direct_link_report.py',
     'tests/test_verification_report.py',
     'tests/test_vet_generated.py',
 }

@@ -189,7 +189,7 @@ def test_source_guarantees_run_before_compilation_exactly_once(monkeypatch):
     early = next(a for a in calls if 'pytest' in a)
     assert set(verify.SOURCE_TESTS) <= set(early)
     assert calls.index(early) < next(i for i,a in enumerate(calls) if a[0] == 'go')
-    broad = [a for a in calls if 'pytest' in a][-1]
+    broad = next(a for a in calls if 'pytest' in a and 'tests' in a)
     assert 'tests' in broad
     assert {'--ignore='+p for p in verify.SOURCE_TESTS} <= set(broad)
     assert len(verify.SOURCE_TESTS) == len(set(verify.SOURCE_TESTS))
@@ -272,3 +272,44 @@ def test_explicit_go_owner_failure_still_stops_source_checks(monkeypatch, profil
         verify.check(profile=profile)
     assert calls[-1][:2] == ['go', boundary]
     assert not any('scripts/check_public.py' in argv for argv in calls)
+
+
+def test_native_harness_has_only_full_release_check_owner(monkeypatch):
+    monkeypatch.setattr(verify.subprocess, 'check_output', lambda *a, **kw: '/toolchain\n')
+    for scope_kind, profile, expected in [('full', 'full', True),
+                                        ('full', 'daily', False),
+                                        ('python', 'daily', False),
+                                        ('python', 'full', False)]:
+        calls = []
+        monkeypatch.setattr(verify, 'run', lambda argv, **kw: calls.append((argv, kw)))
+        verify.check(scope_kind, profile=profile)
+        native = [(a, kw) for a, kw in calls if 'tests/native' in a]
+        assert bool(native) == expected
+        if native:
+            assert native[0][1]['env']['MARIAMEM_REQUIRE_PREPARED_C'] == '1'
+
+
+def test_actual_pytest_collection_excludes_optional_directories_but_allows_explicit_paths(tmp_path):
+    import os
+    import shutil
+    import subprocess
+    import sys
+    suite = tmp_path/'tests'
+    suite.mkdir()
+    shutil.copyfile(ROOT/'tests/conftest.py', suite/'conftest.py')
+    (suite/'test_daily.py').write_text('def test_daily(): pass\n')
+    for name in ('native', 'measurement', 'historical'):
+        directory = suite/name
+        directory.mkdir()
+        (directory/('test_'+name+'.py')).write_text('def test_'+name+'(): pass\n')
+    env = dict(os.environ, PYTEST_DISABLE_PLUGIN_AUTOLOAD='1')
+    def collect(*paths):
+        result = subprocess.run([sys.executable, '-m', 'pytest', '--collect-only', '-q', *paths],
+                                cwd=tmp_path, env=env, text=True, capture_output=True, check=True)
+        return [line for line in result.stdout.splitlines() if '::test_' in line]
+    daily = collect('tests')
+    assert len(daily) == 1 and 'test_daily' in daily[0]
+    optional = collect('tests/native', 'tests/measurement')
+    assert len(optional) == 2
+    assert any('test_native' in line for line in optional)
+    assert any('test_measurement' in line for line in optional)
