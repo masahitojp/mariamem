@@ -109,6 +109,37 @@ def adapt_driver(text):
     return text
 
 
+
+def experimental_thread_binding(src, pins, files, development):
+    """Issue106 only: exact development input; canonical/release stays fail-closed."""
+    from runtime_thread_lifetime import GUEST_SHA256, FUNCTIONS, function
+    import re
+    path = os.environ.get('MARIAMEM_EXPERIMENT_THREAD_BINDING')
+    if not path:
+        return pins['guest_sha256']
+    if not development:
+        raise ValueError('experimental binding requires development input')
+    raw = Path(path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != '6b7e5413e5feb9a76ffa09be320deb9e8c371097fccaf3aa40c41a6167398dc6':
+        raise ValueError('experimental binding manifest identity mismatch')
+    m = json.loads(raw)
+    if (m['guest_sha256'] != pins['guest_sha256'] or
+        m['canonical_guest_sha256'] != GUEST_SHA256 or
+        m['candidate_files_sha256'] != files or
+        m['functions'] != {k:list(v) for k,v in FUNCTIONS.items()} or
+        hashlib.sha256((src/'generated/data.bin').read_bytes()).hexdigest() != m['data_sha256']):
+        raise ValueError('experimental binding inputs changed')
+    checks = [('generated/'+name.removeprefix('code/'), *value)
+              for name,value in FUNCTIONS.items()] + [m['initializer']]
+    for name, fn, expected in checks:
+        body = function((src/name).read_text(), fn)
+        if hashlib.sha256(re.sub(r'\s+', '', body).encode()).hexdigest() != expected:
+            raise ValueError('experimental binding function changed: '+fn)
+    # Only this exact guest has proven identical ABI bodies and initial data.
+    # The original adapter still verifies every body and Module/yield shape.
+    return GUEST_SHA256
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-module', type=Path, required=True)
@@ -127,7 +158,7 @@ def main():
     if files != pins['candidate_files_sha256']:
         parser.error('candidate source inventory differs from the pinned input')
     from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs
-    thread_lifetime_inputs(pins['guest_sha256'], files)
+    thread_lifetime_inputs(experimental_thread_binding(src, pins, files, bool(args.development_input)), files)
     data = (src/'generated/data.bin').read_bytes()
     if hashlib.sha256(data).hexdigest() != pins['data_sha256']:
         parser.error('initial guest data identity mismatch')
@@ -178,7 +209,7 @@ def main():
         'input_manifest_sha256':hashlib.sha256((ROOT/'release/generated-go-inputs.json').read_bytes()).hexdigest(),
         'files_sha256':inventory}
     if args.development_input:
-        provenance.update(contract=pins['contract'], result='UNQUALIFIED',
+        provenance.update(experimental_thread_binding_sha256=(hashlib.sha256(Path(os.environ['MARIAMEM_EXPERIMENT_THREAD_BINDING']).read_bytes()).hexdigest() if os.environ.get('MARIAMEM_EXPERIMENT_THREAD_BINDING') else None), contract=pins['contract'], result='UNQUALIFIED',
                           dev_inputs_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest(),
                           input_manifest_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest())
     (out/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
