@@ -43,7 +43,7 @@ def build():
         else:os.environ['GOTOOLCHAIN']=old
     write('inputs.json',{'source_commit':product,'harness_source_commit':head,'source_identity':'commit object, clean checkout, benchmark-only diff',
           'guest_sha256':__import__('re').search(r'GuestSHA256\s*=\s*"([a-f0-9]{64})"',(S/'internal/generatedgo/entry.go').read_text()).group(1),
-          'native_version_source_sha256':digest(S/'native_version.go'),
+          'guest_binding_source_sha256':digest(S/'internal/generatedgo/entry.go'),
           'binary_sha256':digest(T/'probe'),'binary_build_info':stamp,
           'overlay':json.loads((T/'overlay/hashes.json').read_text()),'platform':platform.platform(),
           'machine':subprocess.check_output(['sysctl','-n','machdep.cpu.brand_string'],text=True).strip(),
