@@ -87,7 +87,8 @@ automatic and explicit-shadow `migrate dev`, create-only migrations, schema diff
 shadow-based migration diff, and resolve applied/rolled-back all passed. The reset
 was initially blocked by Prisma's AI guard; after the Human explicitly consented,
 it was rerun against a newly created throwaway DB and passed. Data disappearance
-and migration reapplication were checked. Development commands used an actual
+and migration reapplication were checked. The schema-diff cell deliberately adds
+a column and expects the documented exit code2 for a nonempty diff. Development commands used an actual
 PTY, not a non-interactive invocation that would produce a misleading failure.
 No production database or preexisting user database is a target.
 

@@ -261,7 +261,7 @@
           "diff",
           "--from-config-datasource",
           "--to-schema",
-          "/private/tmp/mariamem-harness-medium/build/experiment-work/prisma-rerun/worktree/benchmarks/spikes/prisma-dogfood/.matrix/diff_schema/prisma/schema.prisma",
+          "${PROJECT}/.matrix/diff_schema/prisma/schema.prisma",
           "--script",
           "--exit-code"
         ],
@@ -289,7 +289,7 @@
           "migrate",
           "diff",
           "--from-migrations",
-          "/private/tmp/mariamem-harness-medium/build/experiment-work/prisma-rerun/worktree/benchmarks/spikes/prisma-dogfood/.matrix/diff_migrations_shadow/prisma/migrations",
+          "${PROJECT}/.matrix/diff_migrations_shadow/prisma/migrations",
           "--to-config-datasource",
           "--exit-code"
         ],
@@ -389,5 +389,6 @@
     "No full upstream Prisma suite/performance claim",
     "EPIPE relationship to pipelining is inferred from condition contrast",
     "No product/runtime/guest/version/CI changes"
-  ]
+  ],
+  "project_paths_normalized": true
 }
