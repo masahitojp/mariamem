@@ -1,0 +1,39 @@
+{
+  "source_commit": "607f925c2e95aeea5a9d61ba1ecd793bfe02fd8c",
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64"
+  },
+  "node": "v24.22.1",
+  "prisma": "7.10.1",
+  "adapter": "7.10.1",
+  "driver": "mariadb 3.5.4",
+  "client_configuration": {
+    "pipelining": "driver-default",
+    "parameterized_counts": false
+  },
+  "binary_sha256": "098f05be76756b41ef4ad5488cc504466f1bb7706b1b8443aec2751972c276c6",
+  "application_exit_code": 1,
+  "rerun_utc": "2026-11-04T11:34:18.564593+00:00",
+  "stages": [
+    {
+      "result": "REPRODUCED_ZERO_PARAMETER_EXECUTE_FAILURE",
+      "text_query": true,
+      "parameterized_execute": true,
+      "zero_parameter_errno": 1835,
+      "healthy_after_error": true
+    },
+    {
+      "migration": "PASS"
+    }
+  ],
+  "result": "FAIL",
+  "product_baseline_source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "failure": {
+    "stage": "Prisma nested create/seed",
+    "errno": 2013,
+    "message": "mariamem database instance terminated: unexpected client input during running query"
+  },
+  "binary_build_info": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261104111813-607f925c2e95\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=607f925c2e95aeea5a9d61ba1ecd793bfe02fd8c\n\tbuild\tvcs.time=2026-11-04T11:18:13Z\n\tbuild\tvcs.modified=false\n",
+  "scope": "ONE_ORDINARY_CONFIGURATION_RERUN_NO_PRODUCT_CHANGES"
+}
