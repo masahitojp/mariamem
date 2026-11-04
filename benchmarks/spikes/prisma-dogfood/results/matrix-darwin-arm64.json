@@ -1,0 +1,393 @@
+{
+  "source_commit": "e7e575b6528d2e608da2fc9b3f700e53da5101a9",
+  "product_baseline_source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "scope": "ONE_MACOS_PRISMA_7_10_1_LISTED_71_CELLS_NOT_EXHAUSTIVE_UPSTREAM_API_SUPPORT",
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64"
+  },
+  "node": "v24.22.1",
+  "versions": {
+    "prisma": "7.10.1",
+    "adapter": "7.10.1",
+    "mariadb": "3.5.4"
+  },
+  "binary_sha256": "db43e41efffd195172de343ad08d00a6f9fdef3cda1ae312ed432022bb334301",
+  "summary": {
+    "PASS": 39,
+    "FAIL": 32
+  },
+  "by_group": {
+    "CLI": {
+      "PASS": 15
+    },
+    "default": {
+      "PASS": 1,
+      "FAIL": 27
+    },
+    "off": {
+      "PASS": 23,
+      "FAIL": 5
+    }
+  },
+  "failure_counts": {
+    "pipelining_abort": 24,
+    "last_statement_alias": 2,
+    "pipelining_associated_epipe_inferred": 1,
+    "zero_parameter_execute": 5
+  },
+  "csv_sha256": "46be45b817056ea21540a2006c0eabbfc4c9b71a5f3ecdc2ef47388b1c6ff185",
+  "reset": {
+    "first_attempt": "BLOCKED_BY_PRISMA_AI_GUARD_BEFORE_DATABASE_ACTION",
+    "explicit_user_consent": true,
+    "consented_rerun": "PASS",
+    "observed": {
+      "steps": [
+        {
+          "command": [
+            "migrate",
+            "deploy"
+          ],
+          "exit_code": 0,
+          "expected": [
+            0
+          ],
+          "pty": false
+        },
+        {
+          "command": [
+            "migrate",
+            "reset",
+            "--force"
+          ],
+          "exit_code": 0,
+          "expected": [
+            0
+          ],
+          "pty": false
+        }
+      ]
+    }
+  },
+  "cli_steps": {
+    "cli-validate": [
+      {
+        "command": [
+          "validate"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      }
+    ],
+    "cli-generate": [
+      {
+        "command": [
+          "generate"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      }
+    ],
+    "cli-db_execute": [
+      {
+        "command": [
+          "db",
+          "execute",
+          "--stdin"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      }
+    ],
+    "cli-db_push": [
+      {
+        "command": [
+          "db",
+          "push"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      }
+    ],
+    "cli-db_pull": [
+      {
+        "command": [
+          "db",
+          "pull",
+          "--print"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      }
+    ],
+    "cli-migrate_deploy": [
+      {
+        "command": [
+          "migrate",
+          "deploy"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      }
+    ],
+    "cli-migrate_status": [
+      {
+        "command": [
+          "migrate",
+          "deploy"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      },
+      {
+        "command": [
+          "migrate",
+          "status"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      }
+    ],
+    "cli-migrate_reset": [
+      {
+        "command": [
+          "migrate",
+          "deploy"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      },
+      {
+        "command": [
+          "migrate",
+          "reset",
+          "--force"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      }
+    ],
+    "cli-migrate_dev_auto_shadow": [
+      {
+        "command": [
+          "migrate",
+          "dev",
+          "--name",
+          "dogfood"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": true
+      }
+    ],
+    "cli-migrate_dev_explicit_shadow": [
+      {
+        "command": [
+          "migrate",
+          "dev",
+          "--name",
+          "dogfood"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": true
+      }
+    ],
+    "cli-migrate_dev_create_only": [
+      {
+        "command": [
+          "migrate",
+          "dev",
+          "--create-only",
+          "--name",
+          "add_note"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": true
+      }
+    ],
+    "cli-diff_schema": [
+      {
+        "command": [
+          "migrate",
+          "deploy"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      },
+      {
+        "command": [
+          "migrate",
+          "diff",
+          "--from-config-datasource",
+          "--to-schema",
+          "/private/tmp/mariamem-harness-medium/build/experiment-work/prisma-rerun/worktree/benchmarks/spikes/prisma-dogfood/.matrix/diff_schema/prisma/schema.prisma",
+          "--script",
+          "--exit-code"
+        ],
+        "exit_code": 2,
+        "expected": [
+          2
+        ],
+        "pty": false
+      }
+    ],
+    "cli-diff_migrations_shadow": [
+      {
+        "command": [
+          "migrate",
+          "deploy"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      },
+      {
+        "command": [
+          "migrate",
+          "diff",
+          "--from-migrations",
+          "/private/tmp/mariamem-harness-medium/build/experiment-work/prisma-rerun/worktree/benchmarks/spikes/prisma-dogfood/.matrix/diff_migrations_shadow/prisma/migrations",
+          "--to-config-datasource",
+          "--exit-code"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      }
+    ],
+    "cli-resolve_applied": [
+      {
+        "command": [
+          "migrate",
+          "resolve",
+          "--applied",
+          "20261104000000_init"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      }
+    ],
+    "cli-resolve_rolled_back": [
+      {
+        "command": [
+          "migrate",
+          "deploy"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      },
+      {
+        "command": [
+          "migrate",
+          "deploy"
+        ],
+        "exit_code": 1,
+        "expected": [
+          1
+        ],
+        "pty": false
+      },
+      {
+        "command": [
+          "migrate",
+          "resolve",
+          "--rolled-back",
+          "20261104000001_bad"
+        ],
+        "exit_code": 0,
+        "expected": [
+          0
+        ],
+        "pty": false
+      }
+    ]
+  },
+  "live_off": {
+    "same_node_pid": 17976,
+    "stable_endpoint": true,
+    "restored_baseline": true
+  },
+  "alias_sequential_control": {
+    "host_source_commit": "e7e575b6528d2e608da2fc9b3f700e53da5101a9",
+    "control_sha256": "ab90f5e574c06b29aef44bb8fa72017dd61530fe500e52328a8e0c541910b719",
+    "scope": "sequential prepare/execute without pipelining",
+    "result": "REPRODUCED_UNSUPPORTED_LAST_STATEMENT_ALIAS",
+    "actual_statement_id": 1,
+    "actual_id_execute": {
+      "kind": "rows",
+      "columns": [
+        "03646566000000016e000c3f000b000000038100000000"
+      ],
+      "rows": [
+        "000007000000"
+      ],
+      "terminal": "fe00000200"
+    },
+    "last_statement_alias_execute": {
+      "kind": "error",
+      "errno": 1243,
+      "sqlstate": "HY000",
+      "message_hex": "556e6b6e6f776e2070726570617265642073746174656d656e742068616e646c65722028343239343936373239352920676976656e20746f206d7973716c645f73746d745f65786563757465"
+    },
+    "healthy_after_error": true
+  },
+  "binary_build_info": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261104114314-e7e575b6528d\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=e7e575b6528d2e608da2fc9b3f700e53da5101a9\n\tbuild\tvcs.time=2026-11-04T11:43:14Z\n\tbuild\tvcs.modified=false\n",
+  "limits": [
+    "Native MariaDB counterpart not run",
+    "Only macOS arm64 and locked Prisma7.10.1",
+    "No full upstream Prisma suite/performance claim",
+    "EPIPE relationship to pipelining is inferred from condition contrast",
+    "No product/runtime/guest/version/CI changes"
+  ]
+}

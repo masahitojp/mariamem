@@ -67,3 +67,57 @@ Initial setup attempts exposed tsx's long Unix-socket path limit and missing Go
 VCS stamps. They are harness/environment failures, not Prisma SQL failures. The
 three retained conditions above were rerun with one correctly stamped binary.
 No product changes, Release CI invocation or automated acceptance job was added.
+
+
+## Expanded matrix, including shadow databases
+
+Executed source_commit: `e7e575b6528d2e608da2fc9b3f700e53da5101a9`.
+[All71 cells](results/matrix-darwin-arm64.csv) and [metadata/oracles](results/matrix-darwin-arm64.json)
+record **39 PASS /32 FAIL**, using one separately initialized mariamem instance
+per cell so a fatal query cannot hide later failures.
+
+| Group | PASS | FAIL |
+| --- | ---: | ---: |
+| Prisma CLI |15|0|
+| Default-pipelining Client + Live |1|27|
+| Pipelining-disabled Client + Live |23|5|
+
+CLI validation/generation, db execute/push/pull, migrate deploy/status/reset,
+automatic and explicit-shadow `migrate dev`, create-only migrations, schema diff,
+shadow-based migration diff, and resolve applied/rolled-back all passed. The reset
+was initially blocked by Prisma's AI guard; after the Human explicitly consented,
+it was rerun against a newly created throwaway DB and passed. Data disappearance
+and migration reapplication were checked. Development commands used an actual
+PTY, not a non-interactive invocation that would produce a misleading failure.
+No production database or preexisting user database is a target.
+
+Failures are tracked for v0.6.2:
+
+- #93: five pipelining-disabled cells fail1835 on zero-parameter execution:
+  unfiltered findMany/count, aggregate/groupBy and zero-parameter raw query.
+- #94:24 default cells hit the query-in-progress input abort; one transaction-array
+  cell reports EPIPE. That EPIPE's relationship to pipelining is inferred from
+  the contrast (the identical operation passes with pipelining disabled).
+- #95: two default cells hit1243 for statement ID0xFFFFFFFF. A separate sequential
+  prepare/execute control (no pipelining) succeeds with the real ID and fails
+  with the alias, leaving the connection healthy. The exact control source is
+  [retained](alias_control.py), with its hash in the metadata.
+
+Prisma Client connect alone passes in default mode. With pipelining disabled,
+filtered reads/counts, writes, nested writes, createMany, upsert, relations,
+nullable values, interactive/array transactions, expected unique errors,
+parameterized raw SQL, all five type projections and same-process Live Reset
+pass. This is the explicitly listed matrix, not every API/version/platform in
+the upstream Prisma test suite. Native MariaDB comparison is still unexecuted.
+
+To reproduce the matrix in the same clean experimental workspace layout:
+
+```sh
+python benchmarks/spikes/prisma-dogfood/matrix.py --host HOST --output OUTPUT
+```
+
+Provide explicit user consent to Prisma's dangerous-AI-action guard for the reset
+cell. That consent is passed through `PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION`;
+the earlier messages are not silently reused as consent. All CLI case files and
+generated outputs live in ignored `.matrix/` scratch. Only compact rows and
+selected assertions are retained; no raw full-stack logs enter Git.
