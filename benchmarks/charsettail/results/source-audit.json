@@ -1,0 +1,38 @@
+[
+  {
+    "path": "sql/mysqld.cc",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "sha256": "b69ed88ee907f86e83f0f4d729b26cd84837f1b94b828d51683b61f81a670bb8",
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/mysqld.cc"
+  },
+  {
+    "path": "mysys/charset.c",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "sha256": "d120e40dea53badcb20c28a70189c88b483df02dd7ce7979fb6a7c234cb506f3",
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/charset.c"
+  },
+  {
+    "path": "sql/charset_collations.cc",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "sha256": "a3a87dffbe1db49d0e8ec797ddf14fad0f6d25de978baa6c99ed1dba5615de33",
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/charset_collations.cc"
+  },
+  {
+    "path": "strings/ctype-uca.c",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "sha256": "7d0b3bed351f3023c880e8643d5abdfd4ba641b99892b59cfbaffeea546652fd",
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/strings/ctype-uca.c"
+  },
+  {
+    "path": "strings/ctype-uca1400.h",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "sha256": "6fcb2aee6637f59fc7143a822c4b1e68fceec6b9f8b1d083a08abb72aba49eb9",
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/strings/ctype-uca1400.h"
+  },
+  {
+    "path": "strings/ctype-uca.inl",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "sha256": "df2299fe06b0e4c50b0576690154263fd7d7addd56d44cd4115bf3fc565b9545",
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/strings/ctype-uca.inl"
+  }
+]

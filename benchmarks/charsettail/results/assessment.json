@@ -1,0 +1,46 @@
+{
+  "result": "INVESTIGATION_EXIT_REACHED",
+  "original_question": "Which early common initialization call dominates and what bounded improvement candidate should be considered?",
+  "conclusion": "Default character_set_collations parsing triggers charset registry initialization and five actual UCA1400 collation-handler initializers; the UTF8mb3/mb4 handler calls dominate the latter. Filesystem probe and ordinary default charset lookup are small.",
+  "recommendation": "Design a bounded WASM experiment that removes/defer/precomputes optional UCA UTF8 booster construction while preserving collation semantics and coherent reader paths; first choose paired construction/consumer-off diagnostic to test mechanism. Not product adoption.",
+  "strongest_objection": "Booster-exclusive time is not measured; full collation-handler time includes tailoring/weights. Disabling comparison acceleration may slow SQL or expose different edge-case behavior.",
+  "unsafe_shortcut": "Do not simply set booster=NULL: existing optimized comparison readers dereference it without a NULL fallback. Pair producer and consumer changes. Do not change character_set_collations defaults or remove charset support.",
+  "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "harness_source_commit": "668e8e92d80a5789d168af82bd54f595a6a9fcd8",
+  "primary_processes": 6,
+  "primary_children": 24,
+  "final_warmup_children": 8,
+  "final_positive_pilot_children": 4,
+  "final_negative_children": 1,
+  "earlier_pilot_children": 10,
+  "all_processes": 14,
+  "all_children": 47,
+  "all_positive_sql_isolation_cleanup": "PASS",
+  "negative_wrong_seed_detection": "PASS (three separate pilots)",
+  "all_drop_and_active_mapping_rw_reserve_release_failures_zero": true,
+  "reducer_mutations": [
+    "missing common marker",
+    "dropped event",
+    "hidden cleanup leak",
+    "missing collation handler end"
+  ],
+  "paired_fork_wall_percent": [
+    -3.7288426491639104,
+    -2.7999072118125024,
+    14.475016111679274
+  ],
+  "limits": [
+    "one M1/macOS host; serial cap1; 1000 integer rows",
+    "stage CPU unavailable; wall not purely CPU",
+    "no RSS/P4/full-suite improvement or booster-exclusive removable-time claim",
+    "current observation changes no product logic; it does not validate a hypothetical booster-off implementation"
+  ],
+  "adaptive_setup": "Two coarse pre-primary positive/negative pilots preserved with their own binary/source identities; final primary three pairs executed once, no exclusions. Extra handler markers identify dominant call instead of stopping at another broad interval.",
+  "budget": "active120min including tooling30min, heavyCI0; no guest rebuild/CI, mapping established before primary; permission and compilation waits outside benchmark intervals",
+  "setup_failures": [
+    "sandbox dependency download blocked before first build",
+    "second build compiled successfully but sandbox sysctl host-info capture denied; reran with permission, no primary trial lost"
+  ],
+  "cleanup": "Owned scratch disposed after preservation; final cleanup/check receipt recorded in Issue100.",
+  "adoption_integration_release": false
+}

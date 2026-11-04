@@ -1,0 +1,18 @@
+{
+  "normalization": "only workspace prefix in input build-info; preserve original hashes and all actual source identities",
+  "lossless_decode_equal_original": true,
+  "files": {
+    "inputs.json": {
+      "original_sha256": "e9c382193699313f0b75939b4c175ecc72b36fbf8e88c501dc83370517d18a15",
+      "published_sha256": "61bb7895c8368c66893b7d4787a25a7d539f6bdd1d9034f196294d44f298402f"
+    },
+    "coarse-inputs.json": {
+      "original_sha256": "fb8c6153ee400aaae591ab02f77f9f432f81270f43ad9b4348e0669f940e5390",
+      "published_sha256": "e81ddbb5fabcfe743b52cb913930b0b15c34383ce4336ef26906d9cbcd265989"
+    },
+    "registry-inputs.json": {
+      "original_sha256": "896272223b4503f3f6050ccfafa0415ff63253b821f320daac1aa9943f449c6a",
+      "published_sha256": "9ac450342d71a1d5eacf625df1f2e1d1b968a7d1035ca1f19d4566441d56b34a"
+    }
+  }
+}

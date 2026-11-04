@@ -1,0 +1,15 @@
+{
+  "assessment.json": "a5b76a17d59790a2ffd8adc2ebdb97fc33087cf0dac9be3cf169607aa2da049c",
+  "build-network-failure.txt": "9595d584b426ecd259f75a8828696bd577c8916c33ad89ac28f8081619c5cb1b",
+  "coarse-inputs.json": "e81ddbb5fabcfe743b52cb913930b0b15c34383ce4336ef26906d9cbcd265989",
+  "compact.json": "2292dc6946128c00b98dc640a30f9fee3fa5bd252c66a457b7401cc5aec50a42",
+  "handler-mapping.json": "eeda62a9988e0ffc9827a4e6139c8e763d3e54430c85ea039276604dcd8ffb6c",
+  "inputs.json": "61bb7895c8368c66893b7d4787a25a7d539f6bdd1d9034f196294d44f298402f",
+  "mapping.json": "ca057ac3d966cc3cc4f2f7d6d9a5f3fc26cda898df89ea020d48e195a8e2d813",
+  "preliminary.json": "4f9e688faed89a9289d46fab4a25fd6f33dccfb27b74b9e767367657ac1aedbd",
+  "publication.json": "8159cbdb78dc6b625d15f27c462414ff745a3c6493b9b33a2a053f8e05539d15",
+  "registry-inputs.json": "9ac450342d71a1d5eacf625df1f2e1d1b968a7d1035ca1f19d4566441d56b34a",
+  "registry-mapping.json": "f68be8921e7d9ebd30c27a64b97b9b09901a65192b27bc63593e5a6fc829f6d1",
+  "source-audit.json": "f693a49c31fad5c3831d99e8d94f7015e8c1732b2f43d38ddacb06236683555f",
+  "summary.json": "0c72ff21d0c33942412ac1bfbdad0f7e6e6d601527cbbb6a1c619ce75f2bcbfe"
+}

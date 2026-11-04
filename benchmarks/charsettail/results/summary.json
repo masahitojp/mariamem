@@ -1,0 +1,848 @@
+{
+  "control": {
+    "processes": [
+      {
+        "name": "round0-control",
+        "child_ns": {
+          "fork_wall": [
+            40826208,
+            38160500,
+            37630416,
+            35654292
+          ],
+          "fork_cpu": [
+            53799000,
+            51827000,
+            51564000,
+            46340000
+          ],
+          "guest_common": [
+            19575209,
+            17659500,
+            16233083,
+            16069584
+          ],
+          "guest_server_init": [
+            35779459,
+            32834792,
+            31076083,
+            31265875
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 37.895458,
+          "fork_cpu": 51.6955,
+          "guest_common": 16.9462915,
+          "guest_server_init": 32.0503335
+        }
+      },
+      {
+        "name": "round1-control",
+        "child_ns": {
+          "fork_wall": [
+            37972750,
+            36881959,
+            37278208,
+            44216750
+          ],
+          "fork_cpu": [
+            50174000,
+            51307000,
+            52310000,
+            59590000
+          ],
+          "guest_common": [
+            18165250,
+            17269167,
+            17393292,
+            22407500
+          ],
+          "guest_server_init": [
+            33221333,
+            32588750,
+            32755458,
+            39027458
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 37.625479,
+          "fork_cpu": 51.8085,
+          "guest_common": 17.779271,
+          "guest_server_init": 32.9883955
+        }
+      },
+      {
+        "name": "round2-control",
+        "child_ns": {
+          "fork_wall": [
+            38611375,
+            39108417,
+            39145375,
+            39249459
+          ],
+          "fork_cpu": [
+            52545000,
+            55569000,
+            54231000,
+            53190000
+          ],
+          "guest_common": [
+            16571250,
+            16881000,
+            18422875,
+            17678459
+          ],
+          "guest_server_init": [
+            33690709,
+            34482458,
+            33801917,
+            34600375
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 39.126896,
+          "fork_cpu": 53.7105,
+          "guest_common": 17.2797295,
+          "guest_server_init": 34.1421875
+        }
+      }
+    ],
+    "median_of_process_medians_ms": {
+      "fork_wall": 37.895458,
+      "fork_cpu": 51.8085,
+      "guest_common": 17.2797295,
+      "guest_server_init": 32.9883955
+    }
+  },
+  "init": {
+    "processes": [
+      {
+        "name": "round0-init",
+        "child_ns": {
+          "fork_wall": [
+            35901417,
+            36191042,
+            36773750,
+            37397250
+          ],
+          "fork_cpu": [
+            48755000,
+            50853000,
+            50903000,
+            49826000
+          ],
+          "guest_common": [
+            16150291,
+            16228875,
+            16667000,
+            17433625
+          ],
+          "guest_server_init": [
+            31471958,
+            31615958,
+            31997625,
+            33100708
+          ],
+          "pre_timer": [
+            216083,
+            220083,
+            231625,
+            217583
+          ],
+          "timer": [
+            615417,
+            373792,
+            625542,
+            1593750
+          ],
+          "common_variables": [
+            15316458,
+            15632292,
+            15807167,
+            15620167
+          ],
+          "charset_tail": [
+            14665375,
+            14975042,
+            15137834,
+            14939042
+          ],
+          "pre_lookup": [
+            14624750,
+            14923875,
+            15083417,
+            14894583
+          ],
+          "default_lookup": [
+            1042,
+            1042,
+            1042,
+            959
+          ],
+          "remaining_charset_log_defaults": [
+            7583,
+            9291,
+            11791,
+            8250
+          ],
+          "path_prepare": [
+            417,
+            417,
+            417,
+            333
+          ],
+          "path_parse": [
+            3917,
+            4292,
+            4125,
+            3875
+          ],
+          "path_checks": [
+            208,
+            83,
+            83,
+            83
+          ],
+          "db_cache": [
+            1333,
+            1625,
+            3042,
+            1334
+          ],
+          "case_probe": [
+            16875,
+            23375,
+            20375,
+            19416
+          ],
+          "remaining_tail": [
+            9250,
+            11042,
+            13542,
+            10209
+          ],
+          "common_total": [
+            16148833,
+            16226917,
+            16665167,
+            17432000
+          ],
+          "before_collation_parse": [
+            500,
+            875,
+            667,
+            667
+          ],
+          "collation_parse": [
+            14623500,
+            14922375,
+            15082292,
+            14893541
+          ],
+          "registry_init": [
+            3481125,
+            3531042,
+            3562334,
+            3582625
+          ],
+          "parse_before_registry": [
+            1584,
+            1583,
+            1333,
+            2000
+          ],
+          "parse_after_registry": [
+            11140791,
+            11389750,
+            11518625,
+            11308916
+          ],
+          "parse_to_default": [
+            750,
+            625,
+            458,
+            375
+          ],
+          "parse_handler_total": [
+            11107251,
+            11354210,
+            11478459,
+            11272751
+          ],
+          "parse_remainder": [
+            35124,
+            37123,
+            41499,
+            38165
+          ],
+          "handler/collation/2048/216": [
+            4905292,
+            5026084,
+            5081334,
+            4987917
+          ],
+          "handler/collation/2304/244": [
+            4965208,
+            5083750,
+            5154167,
+            5032125
+          ],
+          "handler/collation/2560/190": [
+            403750,
+            413542,
+            414125,
+            428500
+          ],
+          "handler/collation/2816/190": [
+            424834,
+            412625,
+            417208,
+            409875
+          ],
+          "handler/collation/3072/190": [
+            408167,
+            418209,
+            411625,
+            414334
+          ],
+          "handler/collation/8/45": [
+            1250,
+            1250,
+            1500,
+            1333
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 36.482396,
+          "fork_cpu": 50.3395,
+          "guest_common": 16.4479375,
+          "guest_server_init": 31.8067915,
+          "pre_timer": 0.218833,
+          "timer": 0.6204795,
+          "common_variables": 15.6262295,
+          "charset_tail": 14.957042,
+          "pre_lookup": 14.909229,
+          "default_lookup": 0.001042,
+          "remaining_charset_log_defaults": 0.0087705,
+          "path_prepare": 0.000417,
+          "path_parse": 0.004021,
+          "path_checks": 8.3e-05,
+          "db_cache": 0.0014795,
+          "case_probe": 0.0198955,
+          "remaining_tail": 0.0106255,
+          "common_total": 16.446042,
+          "before_collation_parse": 0.000667,
+          "collation_parse": 14.907958,
+          "registry_init": 3.546688,
+          "parse_before_registry": 0.0015835,
+          "parse_after_registry": 11.349333,
+          "parse_to_default": 0.0005415,
+          "parse_handler_total": 11.3134805,
+          "parse_remainder": 0.037644,
+          "handler/collation/2048/216": 5.0070005,
+          "handler/collation/2304/244": 5.0579375,
+          "handler/collation/2560/190": 0.4138335,
+          "handler/collation/2816/190": 0.4149165,
+          "handler/collation/3072/190": 0.4129795,
+          "handler/collation/8/45": 0.0012915
+        }
+      },
+      {
+        "name": "round1-init",
+        "child_ns": {
+          "fork_wall": [
+            36043667,
+            36385959,
+            36758042,
+            40936042
+          ],
+          "fork_cpu": [
+            49491000,
+            51476000,
+            51685000,
+            54577000
+          ],
+          "guest_common": [
+            15980958,
+            16148667,
+            16657250,
+            20822500
+          ],
+          "guest_server_init": [
+            31537917,
+            31963791,
+            31962625,
+            36355583
+          ],
+          "pre_timer": [
+            217625,
+            215375,
+            230208,
+            217583
+          ],
+          "timer": [
+            474208,
+            523500,
+            627167,
+            4644792
+          ],
+          "common_variables": [
+            15287375,
+            15407875,
+            15797125,
+            15957125
+          ],
+          "charset_tail": [
+            14634291,
+            14748709,
+            15140917,
+            15235500
+          ],
+          "pre_lookup": [
+            14594750,
+            14704000,
+            15089875,
+            15186541
+          ],
+          "default_lookup": [
+            958,
+            959,
+            1125,
+            1250
+          ],
+          "remaining_charset_log_defaults": [
+            9208,
+            11000,
+            8834,
+            8834
+          ],
+          "path_prepare": [
+            250,
+            500,
+            458,
+            458
+          ],
+          "path_parse": [
+            3209,
+            4833,
+            4125,
+            3500
+          ],
+          "path_checks": [
+            83,
+            125,
+            83,
+            125
+          ],
+          "db_cache": [
+            1250,
+            1292,
+            1542,
+            1458
+          ],
+          "case_probe": [
+            15875,
+            16833,
+            24208,
+            23542
+          ],
+          "remaining_tail": [
+            8708,
+            9167,
+            10667,
+            9792
+          ],
+          "common_total": [
+            15979667,
+            16147208,
+            16655125,
+            20820208
+          ],
+          "before_collation_parse": [
+            500,
+            459,
+            500,
+            666
+          ],
+          "collation_parse": [
+            14593875,
+            14702916,
+            15088834,
+            15185209
+          ],
+          "registry_init": [
+            3455292,
+            3507042,
+            3577375,
+            3623458
+          ],
+          "parse_before_registry": [
+            1458,
+            1541,
+            1542,
+            1959
+          ],
+          "parse_after_registry": [
+            11137125,
+            11194333,
+            11509917,
+            11559792
+          ],
+          "parse_to_default": [
+            375,
+            625,
+            541,
+            666
+          ],
+          "parse_handler_total": [
+            11105208,
+            11155667,
+            11454832,
+            11504124
+          ],
+          "parse_remainder": [
+            33375,
+            40207,
+            56627,
+            57627
+          ],
+          "handler/collation/2048/216": [
+            4918750,
+            4943917,
+            5105708,
+            5046458
+          ],
+          "handler/collation/2304/244": [
+            4932709,
+            4964834,
+            5081417,
+            5149250
+          ],
+          "handler/collation/2560/190": [
+            408458,
+            431166,
+            424708,
+            423666
+          ],
+          "handler/collation/2816/190": [
+            415166,
+            407792,
+            415708,
+            414208
+          ],
+          "handler/collation/3072/190": [
+            430125,
+            407958,
+            427291,
+            470542
+          ],
+          "handler/collation/8/45": [
+            1333,
+            1250,
+            1375,
+            1166
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 36.5720005,
+          "fork_cpu": 51.5805,
+          "guest_common": 16.4029585,
+          "guest_server_init": 31.963208,
+          "pre_timer": 0.217604,
+          "timer": 0.5753335,
+          "common_variables": 15.6025,
+          "charset_tail": 14.944813,
+          "pre_lookup": 14.8969375,
+          "default_lookup": 0.001042,
+          "remaining_charset_log_defaults": 0.009021,
+          "path_prepare": 0.000458,
+          "path_parse": 0.0038125,
+          "path_checks": 0.000104,
+          "db_cache": 0.001375,
+          "case_probe": 0.0201875,
+          "remaining_tail": 0.0094795,
+          "common_total": 16.4011665,
+          "before_collation_parse": 0.0005,
+          "collation_parse": 14.895875,
+          "registry_init": 3.5422085,
+          "parse_before_registry": 0.0015415,
+          "parse_after_registry": 11.352125,
+          "parse_to_default": 0.000583,
+          "parse_handler_total": 11.3052495,
+          "parse_remainder": 0.048417,
+          "handler/collation/2048/216": 4.9951875,
+          "handler/collation/2304/244": 5.0231255,
+          "handler/collation/2560/190": 0.424187,
+          "handler/collation/2816/190": 0.414687,
+          "handler/collation/3072/190": 0.428708,
+          "handler/collation/8/45": 0.0012915
+        }
+      },
+      {
+        "name": "round2-init",
+        "child_ns": {
+          "fork_wall": [
+            38905708,
+            41478958,
+            78401083,
+            48102083
+          ],
+          "fork_cpu": [
+            50345000,
+            58624000,
+            53359000,
+            68383000
+          ],
+          "guest_common": [
+            19146750,
+            16627875,
+            57065708,
+            24161750
+          ],
+          "guest_server_init": [
+            34627833,
+            36835833,
+            73523834,
+            41040208
+          ],
+          "pre_timer": [
+            214583,
+            215125,
+            249583,
+            228708
+          ],
+          "timer": [
+            3675083,
+            841583,
+            2577542,
+            7378209
+          ],
+          "common_variables": [
+            15255167,
+            15568417,
+            54233958,
+            16551208
+          ],
+          "charset_tail": [
+            14590542,
+            14923375,
+            35981292,
+            15816333
+          ],
+          "pre_lookup": [
+            14546917,
+            14876375,
+            35920250,
+            15759083
+          ],
+          "default_lookup": [
+            1083,
+            1042,
+            1042,
+            1125
+          ],
+          "remaining_charset_log_defaults": [
+            7584,
+            8208,
+            14625,
+            12292
+          ],
+          "path_prepare": [
+            291,
+            458,
+            458,
+            458
+          ],
+          "path_parse": [
+            3792,
+            4500,
+            6250,
+            5917
+          ],
+          "path_checks": [
+            83,
+            84,
+            84,
+            125
+          ],
+          "db_cache": [
+            2834,
+            1333,
+            2208,
+            1458
+          ],
+          "case_probe": [
+            16875,
+            21000,
+            26000,
+            25375
+          ],
+          "remaining_tail": [
+            11083,
+            10375,
+            10375,
+            10500
+          ],
+          "common_total": [
+            19145541,
+            16625833,
+            57062541,
+            24158750
+          ],
+          "before_collation_parse": [
+            500,
+            625,
+            3959,
+            1000
+          ],
+          "collation_parse": [
+            14545834,
+            14875000,
+            35915583,
+            15757500
+          ],
+          "registry_init": [
+            3463584,
+            3470500,
+            24218666,
+            3755375
+          ],
+          "parse_before_registry": [
+            1750,
+            1625,
+            4500,
+            1750
+          ],
+          "parse_after_registry": [
+            11080500,
+            11402875,
+            11692417,
+            12000375
+          ],
+          "parse_to_default": [
+            583,
+            750,
+            708,
+            583
+          ],
+          "parse_handler_total": [
+            11049584,
+            11357334,
+            11627916,
+            11935959
+          ],
+          "parse_remainder": [
+            32666,
+            47166,
+            69001,
+            66166
+          ],
+          "handler/collation/2048/216": [
+            4903250,
+            5086500,
+            5103792,
+            5305584
+          ],
+          "handler/collation/2304/244": [
+            4942417,
+            4984834,
+            5263875,
+            5291584
+          ],
+          "handler/collation/2560/190": [
+            400625,
+            461625,
+            419458,
+            477041
+          ],
+          "handler/collation/2816/190": [
+            400500,
+            414333,
+            412833,
+            428125
+          ],
+          "handler/collation/3072/190": [
+            402792,
+            410042,
+            427958,
+            433625
+          ],
+          "handler/collation/8/45": [
+            1166,
+            1084,
+            1291,
+            3125
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 44.7905205,
+          "fork_cpu": 55.9915,
+          "guest_common": 21.65425,
+          "guest_server_init": 38.9380205,
+          "pre_timer": 0.2219165,
+          "timer": 3.1263125,
+          "common_variables": 16.0598125,
+          "charset_tail": 15.369854,
+          "pre_lookup": 15.317729,
+          "default_lookup": 0.0010625,
+          "remaining_charset_log_defaults": 0.01025,
+          "path_prepare": 0.000458,
+          "path_parse": 0.0052085,
+          "path_checks": 8.4e-05,
+          "db_cache": 0.001833,
+          "case_probe": 0.0231875,
+          "remaining_tail": 0.0104375,
+          "common_total": 21.6521455,
+          "before_collation_parse": 0.0008125,
+          "collation_parse": 15.31625,
+          "registry_init": 3.6129375,
+          "parse_before_registry": 0.00175,
+          "parse_after_registry": 11.547646,
+          "parse_to_default": 0.0006455,
+          "parse_handler_total": 11.492625,
+          "parse_remainder": 0.056666,
+          "handler/collation/2048/216": 5.095146,
+          "handler/collation/2304/244": 5.1243545,
+          "handler/collation/2560/190": 0.4405415,
+          "handler/collation/2816/190": 0.413583,
+          "handler/collation/3072/190": 0.419,
+          "handler/collation/8/45": 0.0012285
+        }
+      }
+    ],
+    "median_of_process_medians_ms": {
+      "fork_wall": 36.5720005,
+      "fork_cpu": 51.5805,
+      "guest_common": 16.4479375,
+      "guest_server_init": 31.963208,
+      "pre_timer": 0.218833,
+      "timer": 0.6204795,
+      "common_variables": 15.6262295,
+      "charset_tail": 14.957042,
+      "pre_lookup": 14.909229,
+      "default_lookup": 0.001042,
+      "remaining_charset_log_defaults": 0.009021,
+      "path_prepare": 0.000458,
+      "path_parse": 0.004021,
+      "path_checks": 8.4e-05,
+      "db_cache": 0.0014795,
+      "case_probe": 0.0201875,
+      "remaining_tail": 0.0104375,
+      "common_total": 16.446042,
+      "before_collation_parse": 0.000667,
+      "collation_parse": 14.907958,
+      "registry_init": 3.546688,
+      "parse_before_registry": 0.0015835,
+      "parse_after_registry": 11.352125,
+      "parse_to_default": 0.000583,
+      "parse_handler_total": 11.3134805,
+      "parse_remainder": 0.048417,
+      "handler/collation/2048/216": 5.0070005,
+      "handler/collation/2304/244": 5.0579375,
+      "handler/collation/2560/190": 0.424187,
+      "handler/collation/2816/190": 0.414687,
+      "handler/collation/3072/190": 0.419,
+      "handler/collation/8/45": 0.0012915
+    }
+  }
+}

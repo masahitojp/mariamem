@@ -1,0 +1,36 @@
+{
+  "slot_bindings": {
+    "216": 502,
+    "244": 539,
+    "190": 465,
+    "45": 345
+  },
+  "source_names": {
+    "2048": "utf8mb3 UCA1400 ai_ci",
+    "2304": "utf8mb4 UCA1400 ai_ci",
+    "2560": "ucs2 UCA1400 ai_ci",
+    "2816": "utf16 UCA1400 ai_ci",
+    "3072": "utf32 UCA1400 ai_ci",
+    "8": "id8 (non-UCA collation; not target)"
+  },
+  "id_formula": "ctype-uca1400.h: charset encoding=(id>>8)&7; 0=mb3,1=mb4,2=ucs2,3=utf16,4=utf32; tailoring and PAD/strength bits zero for these ids",
+  "wrappers": [
+    {
+      "function": 502,
+      "path": "p7/p7_pure.go",
+      "body": "func Fn502(m *base.Module, l0 int32, l1 int32) int32 {\n\tmBase := m.M\n\t_ = mBase\n\tvar v4 int32\n\t_ = v4\n\tvar v7 int32\n\t_ = v7\n\tvar v10 int32\n\t_ = v10\n\tvar v13 int32\n\t_ = v13\n\tvar v14 int32\n\t_ = v14\n\tvar v17 int32\n\t_ = v17\n\tvar v19 int32\n\t_ = v19\n\tvar v23 int32\n\t_ = v23\n\tvar v28 int32\n\t_ = v28\n\tvar v30 int32\n\t_ = v30\n\tvar v34 int32\n\t_ = v34\n\tvar v39 int32\n\t_ = v39\n\tvar v42 int32\n\t_ = v42\n\tvar v46 int32\n\t_ = v46\n\tvar v47 int32\n\t_ = v47\n\tvar v54 int32\n\t_ = v54\n\tv4 = Fn465(m, l0, l1)\n\tmBase = m.M\n\tv7 = m.ExcPending\n\tif v7 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L2\n\t}\nL1:\n\t;\n\treturn int32(0)\nL2:\n\t;\n\tif v4 != 0 {\n\t\tgoto L3\n\t} else {\n\t\tgoto L4\n\t}\nL3:\n\t;\n\treturn int32(1)\nL4:\n\t;\n\tgoto L5\nL5:\n\t;\n\tv10 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 102, 1))))\n\tif v10 != 0 {\n\t\tgoto L8\n\t} else {\n\t\tgoto L9\n\t}\nL6:\n\t;\n\treturn v54\nL7:\n\t;\n\tv54 = int32(0)\n\tgoto L6\nL8:\n\t;\n\tv13 = v10\n\tv14 = int32(12)\n\tgoto L11\nL9:\n\t;\n\tgoto L10\nL10:\n\t;\n\tv28 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 108, 4)))\n\tv30 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 14901384, 0, 4)))\n\tif v28 == v30 {\n\t\tv46 = int32(14901400)\n\t\tgoto L18\n\t} else {\n\t\tgoto L19\n\t}\nL11:\n\t;\n\tif v13&int32(1) != 0 {\n\t\tgoto L13\n\t} else {\n\t\tgoto L14\n\t}\nL12:\n\t;\n\tgoto L10\nL13:\n\t;\n\tv17 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 56, 4)))\n\tv19 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v17+v14)), 0, 4)))\n\tif v19 != 0 {\n\t\tgoto L7\n\t} else {\n\t\tgoto L16\n\t}\nL14:\n\t;\n\tgoto L15\nL15:\n\t;\n\tv23 = int32(base.Ui32(v13) >> (uint(int32(1)) % 32))\n\tif v23 != 0 {\n\t\tv13 = v23\n\t\tv14 = v14 + int32(40)\n\t\tgoto L11\n\t} else {\n\t\tgoto L17\n\t}\nL16:\n\t;\n\tgoto L15\nL17:\n\t;\n\tgoto L12\nL18:\n\t;\n\tv47 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v46)), 0, 4)))\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 108, 4))) = v47\n\tgoto L7\nL19:\n\t;\n\tv34 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 14901388, 0, 4)))\n\tif v34 == v28 {\n\t\tv46 = int32(14901404)\n\t\tgoto L18\n\t} else {\n\t\tgoto L20\n\t}\nL20:\n\t;\n\tv39 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 14901392, 0, 4)))\n\tif v39 == v28 {\n\t\tv46 = int32(14901408)\n\t\tgoto L18\n\t} else {\n\t\tgoto L21\n\t}\nL21:\n\t;\n\tv42 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 14901396, 0, 4)))\n\tif v28 != v42 {\n\t\tv54 = int32(0)\n\t\tgoto L6\n\t} else {\n\t\tgoto L22\n\t}\nL22:\n\t;\n\tv46 = int32(14901412)\n\tgoto L18\n}"
+    },
+    {
+      "function": 539,
+      "path": "p7/p7_pure.go",
+      "body": "func Fn539(m *base.Module, l0 int32, l1 int32) int32 {\n\tmBase := m.M\n\t_ = mBase\n\tvar v4 int32\n\t_ = v4\n\tvar v7 int32\n\t_ = v7\n\tvar v10 int32\n\t_ = v10\n\tvar v13 int32\n\t_ = v13\n\tvar v14 int32\n\t_ = v14\n\tvar v17 int32\n\t_ = v17\n\tvar v19 int32\n\t_ = v19\n\tvar v23 int32\n\t_ = v23\n\tvar v28 int32\n\t_ = v28\n\tvar v30 int32\n\t_ = v30\n\tvar v34 int32\n\t_ = v34\n\tvar v39 int32\n\t_ = v39\n\tvar v42 int32\n\t_ = v42\n\tvar v46 int32\n\t_ = v46\n\tvar v47 int32\n\t_ = v47\n\tvar v54 int32\n\t_ = v54\n\tv4 = Fn465(m, l0, l1)\n\tmBase = m.M\n\tv7 = m.ExcPending\n\tif v7 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L2\n\t}\nL1:\n\t;\n\treturn int32(0)\nL2:\n\t;\n\tif v4 != 0 {\n\t\tgoto L3\n\t} else {\n\t\tgoto L4\n\t}\nL3:\n\t;\n\treturn int32(1)\nL4:\n\t;\n\tgoto L5\nL5:\n\t;\n\tv10 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 102, 1))))\n\tif v10 != 0 {\n\t\tgoto L8\n\t} else {\n\t\tgoto L9\n\t}\nL6:\n\t;\n\treturn v54\nL7:\n\t;\n\tv54 = int32(0)\n\tgoto L6\nL8:\n\t;\n\tv13 = v10\n\tv14 = int32(12)\n\tgoto L11\nL9:\n\t;\n\tgoto L10\nL10:\n\t;\n\tv28 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 108, 4)))\n\tv30 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 14904932, 0, 4)))\n\tif v28 == v30 {\n\t\tv46 = int32(14904948)\n\t\tgoto L18\n\t} else {\n\t\tgoto L19\n\t}\nL11:\n\t;\n\tif v13&int32(1) != 0 {\n\t\tgoto L13\n\t} else {\n\t\tgoto L14\n\t}\nL12:\n\t;\n\tgoto L10\nL13:\n\t;\n\tv17 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 56, 4)))\n\tv19 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v17+v14)), 0, 4)))\n\tif v19 != 0 {\n\t\tgoto L7\n\t} else {\n\t\tgoto L16\n\t}\nL14:\n\t;\n\tgoto L15\nL15:\n\t;\n\tv23 = int32(base.Ui32(v13) >> (uint(int32(1)) % 32))\n\tif v23 != 0 {\n\t\tv13 = v23\n\t\tv14 = v14 + int32(40)\n\t\tgoto L11\n\t} else {\n\t\tgoto L17\n\t}\nL16:\n\t;\n\tgoto L15\nL17:\n\t;\n\tgoto L12\nL18:\n\t;\n\tv47 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v46)), 0, 4)))\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(l0)), 108, 4))) = v47\n\tgoto L7\nL19:\n\t;\n\tv34 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 14904936, 0, 4)))\n\tif v34 == v28 {\n\t\tv46 = int32(14904952)\n\t\tgoto L18\n\t} else {\n\t\tgoto L20\n\t}\nL20:\n\t;\n\tv39 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 14904940, 0, 4)))\n\tif v39 == v28 {\n\t\tv46 = int32(14904956)\n\t\tgoto L18\n\t} else {\n\t\tgoto L21\n\t}\nL21:\n\t;\n\tv42 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 14904944, 0, 4)))\n\tif v28 != v42 {\n\t\tv54 = int32(0)\n\t\tgoto L6\n\t} else {\n\t\tgoto L22\n\t}\nL22:\n\t;\n\tv46 = int32(14904960)\n\tgoto L18\n}"
+    }
+  ],
+  "important": "measured handler spans enclose full my_uca_coll_init_utf8mb3/4 wrappers; do not attribute whole span to booster allocation without separate evidence",
+  "candidate": {
+    "hypothesis": "Repeated construction of optional UCA UTF8 comparison booster tables is a useful bounded candidate; full handler spans are measured, booster-exclusive time is not",
+    "safe_trial_boundary": "Do not set booster=NULL while keeping readers unchanged. ctype-uca.inl has compile-time MY_UCA_ASCII_OPTIMIZE paths that dereference it unconditionally. A prototype must disable construction and every corresponding comparison/hash fast path together, or preserve valid tables.",
+    "semantic_risk": "Keep UCA1400 collation selection/weights/support; test ordering, equality, UNIQUE, ORDER BY, mixed ASCII/non-ASCII/contractions/PAD and hashing against native; slower SQL is a tradeoff to measure",
+    "alternatives": "Precompute reusable deterministic booster data after identity/pointer/ownership analysis; larger scope than first disabled-fastpath diagnostic"
+  }
+}
