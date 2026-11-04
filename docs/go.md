@@ -185,6 +185,12 @@ fail. CPU fallback is used only when all memory observations are unavailable.
 CPU/latency optimum or OOM guarantee. Use an explicit limit for a latency-sensitive
 suite, and budget multiple baselines/processes separately.
 
+If the container memory limit is unreadable or invisible, auto sizing can use
+host RAM and admit more children than the container can afford (for example,
+64 GiB host RAM can resolve to64 despite a hidden512 MiB container limit).
+Set an explicit cap in that environment. Independent root `Start` / `start()`
+calls are outside Snapshot caps; finite Fork defaults are not a global DB limit.
+
 A slot counts reservation/startup, a live child and unconfirmed cleanup. Full
 capacity waits before starting another MariaDB. Go's context covers waiting and
 startup; an expired capacity wait returns `HostError` with code `pool_timeout`,
@@ -196,7 +202,7 @@ underlying context error remains available through `errors.Is`.
 Closing the baseline wakes capacity waiters while existing children
 remain usable. Cleanup uncertainty stops admission; later disposal alone does
 not automatically resume it. Prepare a new baseline or use an explicit Live
-Reset that confirms all cleanup debt. There is no unlimited setting.
+Reset that confirms all cleanup debt. There is no unlimited Snapshot/Fork setting.
 
 Do not synchronously request another child while the same goroutine holds every
 slot. Release one first, or use a context deadline/cancellation; a deferred Close

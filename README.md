@@ -88,6 +88,11 @@ for serial/xdist commands and worker sizing. Its four
 installed-wheel OS/Python cells passed before adoption. Procedures/functions
 and real server-side prepared execution retain the named exceptions below.
 
+Candidate #53 ([under review](docs/reviews/issue53-review-followup.md), absent
+from published0.6.0) adds finite per-Snapshot Fork admission by default. Full
+capacity waits before starting another child; see the candidate contracts for
+[Go](docs/go.md#unreleased-candidate-per-snapshot-fork-limits-53) and [Python](docs/python.md).
+
 ## Prepare once, isolate each test
 
 These examples use the 0.6.0 packages installed above.
@@ -325,6 +330,12 @@ Release CI success does not imply additional protocol coverage.
 
 
 ## Important limits
+
+- **Candidate #53, unreleased:** Fork waits when its Snapshot cap is full. Close
+  an owned child before requesting another, or bound the wait with a Go context /
+  Python timeout. Independent root Start calls remain outside Snapshot caps.
+  Auto sizing is a memory heuristic; hidden container limits require an explicit
+  cap, and multiple baselines/workers need separate budgets.
 
 - Close driver connections and DB/baseline handles normally. Context managers
   and Go cleanup functions make those boundaries explicit.

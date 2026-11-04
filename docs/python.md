@@ -504,6 +504,12 @@ zero, bools and larger values reject before capture. Each worker and each
 Snapshot owns a separate budget; their totals are not a machine-wide limit.
 Close each child before synchronously requesting another when capacity is full.
 
+If the container memory limit is unreadable or invisible, auto sizing can use
+host RAM and admit more children than the container can afford (for example,
+64 GiB host RAM can resolve to64 despite a hidden512 MiB container limit).
+Set an explicit cap in that environment. Independent root `Start` / `start()`
+calls are outside Snapshot caps; finite Fork defaults are not a global DB limit.
+
 `baseline.fork(timeout=30)` bounds capacity waiting in positive finite seconds
 (at most 2147483647). The equivalent constructor is
 `Database(snapshot=baseline, fork_timeout=30)`. Omission waits while a responsive

@@ -143,3 +143,25 @@ Human adoption, main integration, a new version or publication. Collect further
 findings, then run the stable candidate's exact matrix once. The local results
 above cover the committed runtime source; an accompanying docs-only result record
 must preserve that non-doc tree, and is not a new installed/platform receipt. Any failure remains an unfinished condition, not an accepted exception.
+
+## P1–P6 — final review corrections
+
+The ordinary PR checks on9b27c503 pass (Development run41775576621); this is
+not the new exact installed/platform matrix. P1 remains open until a fresh
+verify/auto run succeeds on the correction candidate. The c53771cd READY and
+all original receipts remain bound to their original code.
+
+P2 adds positive, bounded public max_forks assertions to both actual automatic
+captures in the mapped-child resnapshot case. This proves the real capture
+returns a resolved finite value, not that its value is CPU-optimal or equals a
+host-specific resource forecast. Exact sizing arithmetic remains covered by
+injected policy tests; a value of1 can be legitimate.
+
+P3/P4/P5 add the hidden-cgroup over-admission warning, default capacity waiting
+and root-Start exclusion to the README, Go/Python guides and unreleased notes.
+“No unlimited setting” refers to Snapshot/Fork options, not all root DB creation.
+P6 rejects the raw private-control token -0 (including whitespace), with token
+and shared-host survival tests. Public Go integer zero still selects auto;
+Python explicit zero still rejects. No existing client needs a negative token.
+
+Validation for these corrections is pending below; no new matrix PASS is claimed.

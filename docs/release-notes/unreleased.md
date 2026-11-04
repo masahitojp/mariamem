@@ -5,7 +5,7 @@ release version or grant qualification/publication approval. Published0.6.0 note
 [NOTES-v0.6.0.md](../../release/NOTES-v0.6.0.md); published installation commands
 and version metadata remain unchanged.
 
-## Candidate under review — #53 / Draft PR #85
+## Candidate under review — #53 / PR #85
 
 - Go Snapshot adds `SnapshotOptions.MaxForks` and `Snapshot.MaxForks()`. Omission
   now resolves a finite memory-based limit; full capacity waits under the Go
@@ -41,6 +41,10 @@ and version metadata remain unchanged.
   either physical source can fail while the other/cgroup/Go limit still applies.
   Only absence of all valid memory observations uses the existing finite CPU
   fallback. This remains a sizing heuristic, not an OOM guarantee.
+- If cgroup limits are unreadable or invisible, auto sizing may use host RAM
+  and over-admit relative to the container budget; configure an explicit cap.
+  Independent root `Start` / `start()` calls are outside per-Snapshot caps.
+  Private control rejects negative capacity tokens, including `-0`, request-locally.
 - Host WASI writes now propagate zero-byte write errors, including broken pipes,
   and preserve actual short-write progress. This fixes the tested interrupted-
   guest cleanup stall without changing the accepted prepared CALL observations.

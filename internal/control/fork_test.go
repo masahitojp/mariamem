@@ -202,6 +202,7 @@ func TestOutOfRangeControlFieldsDoNotKillSharedHost(t *testing.T) {
 	for i, fields := range []map[string]any{
 		{"op": "snapshot", "max_forks": json.Number("1267650600228229401496703205376")},
 		{"op": "snapshot", "max_forks": true},
+		{"op": "snapshot", "max_forks": json.Number("-0")},
 		{"op": "fork", "fork_timeout": "2147483648s"},
 		{"op": "fork", "fork_timeout": json.Number("1267650600228229401496703205376")},
 	} {

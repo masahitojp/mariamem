@@ -19,14 +19,14 @@ const childBudget uint64 = 256 << 20
 // DecodeCapacity must run inside a request handler, after framing/ID decoding.
 // RawMessage prevents JSON integer overflow from terminating a shared host.
 // Missing or zero is automatic on the private Go control boundary; Python
-// rejects explicit zero before sending. null and non-integer tokens are invalid.
+// rejects explicit zero before sending. negative tokens (including -0), null and non-integer tokens are invalid.
 func DecodeCapacity(raw json.RawMessage) (int, error) {
 	if len(raw) == 0 {
 		return 0, nil
 	}
 	raw = bytes.TrimSpace(raw)
 	var n json.Number
-	if len(raw) == 0 || raw[0] == '"' || json.Unmarshal(raw, &n) != nil || n == "" {
+	if len(raw) == 0 || raw[0] == '"' || raw[0] == '-' || json.Unmarshal(raw, &n) != nil || n == "" {
 		return 0, errors.New("max_forks must be an integer between 0 and 2147483647")
 	}
 	v, err := strconv.ParseInt(string(n), 10, 64)

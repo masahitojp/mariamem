@@ -415,10 +415,12 @@ def test_mapped_child_resnapshot_preserves_independent_lineage(tmp_path):
         sql(source, "INSERT INTO mapped_lineage VALUES(1,10)")
         source.wait_disconnected()
         with source.snapshot() as baseline:
+            assert 1 <= baseline.max_forks <= 2147483647
             with baseline.fork(host_binary=alternate) as mapped:
                 sql(mapped, "UPDATE mapped_lineage SET value=20 WHERE id=1")
                 mapped.wait_disconnected()
                 with mapped.snapshot() as derived:
+                    assert 1 <= derived.max_forks <= 2147483647
                     with derived.fork() as child:
                         assert sql(child, "SELECT value FROM mapped_lineage WHERE id=1") == ((20,),)
                         sql(child, "UPDATE mapped_lineage SET value=30 WHERE id=1")

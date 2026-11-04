@@ -15,7 +15,7 @@ func TestCapacityTokens(t *testing.T) {
 			t.Errorf("%q: %v", raw, err)
 		}
 	}
-	for _, raw := range []string{"-1", "2147483648", "1267650600228229401496703205376", "1.0", "1e0", `"1"`, "true", "null", "[]", "{}"} {
+	for _, raw := range []string{"-0", " -0 ", "-1", "2147483648", "1267650600228229401496703205376", "1.0", "1e0", `"1"`, "true", "null", "[]", "{}"} {
 		if _, err := DecodeCapacity(json.RawMessage(raw)); err == nil {
 			t.Errorf("accepted %q", raw)
 		}
