@@ -1,0 +1,10 @@
+{
+  "decision": "Whether bounded raw read-ahead can replace abort-on-any-input while preserving disconnect/timeout abort and serial response order; candidate adoption is a later Human decision.",
+  "fixed_workload": "Darwin arm64; Go1.26.10; Node24.22.1; Prisma/client/official MariaDB adapter7.10.1 and mariadb3.5.4 locked at prior source604a0c588f0a602bf6ea67d811b97bae2748c3ea. Main82f96435 includes Issue95; Issue93 commits are overlaid only on this experiment branch.",
+  "candidate_bound": "Queue at most1048581 raw bytes per physical connection (one maximum accepted command frame); overflow/disconnect abort the instance. Never execute commands concurrently.",
+  "exit": "Focused barriers cover buffering/order, partial frames, disconnect with pending data, overflow, timeout; actual normal28 Prisma Client+Live cases with pipelining=true and existing real wire failure tests. Report unexecuted platforms and later production gaps.",
+  "active_work_budget_hours": 2,
+  "measurement_tooling_budget_minutes": 30,
+  "heavy_ci_submission_limit": 0,
+  "scope": "Small feasibility spike; no main mutation, permanent CI, full release or performance campaign."
+}

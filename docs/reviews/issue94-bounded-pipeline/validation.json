@@ -1,0 +1,53 @@
+{
+  "runtime_source_commit": "31daa96905730e63242f01fca75f7bb36bb14c88",
+  "main_base_source_commit": "82f96435777079f38d01f5f2012eda3cb2329cda",
+  "issue93_original_source_commits": [
+    "d861c91584e2029dfb3953478647f6d8da45e7f6",
+    "c7a0e97feb942763b4920a10f29060918ab9bcaf"
+  ],
+  "issue93_replayed_commits": [
+    "f18d49fa",
+    "913adcea"
+  ],
+  "main_unchanged": true,
+  "system": "Darwin",
+  "machine": "arm64",
+  "python": "3.11.18",
+  "node": "24.22.1",
+  "go": "1.26.10",
+  "packages": {
+    "@prisma/client": "7.10.1",
+    "@prisma/adapter-mariadb": "7.10.1",
+    "mariadb": "3.5.4",
+    "prisma": "7.10.1"
+  },
+  "read_ahead_limit_bytes": 1048581,
+  "checks": {
+    "preparedproto_and_mysqlwire_packages": "PASS",
+    "prisma_default_pipeline": {
+      "PASS": 28,
+      "FAIL": 0
+    },
+    "real_tcp": {
+      "PASS": 5,
+      "FAIL": 0
+    },
+    "existing_selected_wire_timeout_multiclient": {
+      "passed": 20
+    },
+    "fixture_inventory_detector": "EXPECTED_FAIL_wire_source_drift"
+  },
+  "not_executed": [
+    "Ubuntu",
+    "race",
+    "full daily check/smoke",
+    "Release CI",
+    "installed wheel",
+    "performance/RSS campaign",
+    "CLI/shadow matrix"
+  ],
+  "observations": {
+    "query_timeout_disposal": "cooperative SLEEP diagnostic only; does not expand forced reclamation guarantees",
+    "trace": "experiment-only header observation to be removed before production candidate"
+  }
+}

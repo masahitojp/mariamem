@@ -1,0 +1,294 @@
+{
+  "scope": "EXPERIMENT_PIPELINING_TRUE_CLIENT27_AND_LIVE1",
+  "source_commit": "31daa96905730e63242f01fca75f7bb36bb14c88",
+  "base_source_commit": "82f96435777079f38d01f5f2012eda3cb2329cda",
+  "issue93_overlay_only": true,
+  "prisma_source_commit": "604a0c588f0a602bf6ea67d811b97bae2748c3ea",
+  "binary_build_info": "${TEMP}/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261104153537-31daa9690573\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=31daa96905730e63242f01fca75f7bb36bb14c88\n\tbuild\tvcs.time=2026-11-04T15:35:37Z\n\tbuild\tvcs.modified=false\n",
+  "cells": [
+    {
+      "name": "connect",
+      "observed": {
+        "result": "PASS",
+        "case": "connect"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "find_unique",
+      "observed": {
+        "result": "PASS",
+        "case": "find_unique"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "find_many_unfiltered",
+      "observed": {
+        "result": "PASS",
+        "case": "find_many_unfiltered"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "count_unfiltered",
+      "observed": {
+        "result": "PASS",
+        "case": "count_unfiltered"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "count_filtered",
+      "observed": {
+        "result": "PASS",
+        "case": "count_filtered"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "create",
+      "observed": {
+        "result": "PASS",
+        "case": "create"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "nested_create",
+      "observed": {
+        "result": "PASS",
+        "case": "nested_create"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "create_many",
+      "observed": {
+        "result": "PASS",
+        "case": "create_many"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "update",
+      "observed": {
+        "result": "PASS",
+        "case": "update"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "delete_cascade",
+      "observed": {
+        "result": "PASS",
+        "case": "delete_cascade"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "upsert",
+      "observed": {
+        "result": "PASS",
+        "case": "upsert"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "relation",
+      "observed": {
+        "result": "PASS",
+        "case": "relation"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "nullable",
+      "observed": {
+        "result": "PASS",
+        "case": "nullable"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "transaction_commit",
+      "observed": {
+        "result": "PASS",
+        "case": "transaction_commit"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "transaction_rollback",
+      "observed": {
+        "result": "PASS",
+        "case": "transaction_rollback"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "transaction_array",
+      "observed": {
+        "result": "PASS",
+        "case": "transaction_array"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "aggregate",
+      "observed": {
+        "result": "PASS",
+        "case": "aggregate"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "group_by",
+      "observed": {
+        "result": "PASS",
+        "case": "group_by"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "raw_parameter",
+      "observed": {
+        "result": "PASS",
+        "case": "raw_parameter"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "raw_zero_parameter",
+      "observed": {
+        "result": "PASS",
+        "case": "raw_zero_parameter"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "execute_raw",
+      "observed": {
+        "result": "PASS",
+        "case": "execute_raw"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "unique_error",
+      "observed": {
+        "result": "PASS",
+        "case": "unique_error"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "decimal",
+      "observed": {
+        "result": "PASS",
+        "case": "decimal"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "bigint",
+      "observed": {
+        "result": "PASS",
+        "case": "bigint"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "datetime",
+      "observed": {
+        "result": "PASS",
+        "case": "datetime"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "json",
+      "observed": {
+        "result": "PASS",
+        "case": "json"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "binary",
+      "observed": {
+        "result": "PASS",
+        "case": "binary"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "live-reset",
+      "result": "PASS",
+      "observed": {
+        "same_node_pid": 8286,
+        "stable_endpoint": true,
+        "restored_baseline": true
+      }
+    }
+  ],
+  "summary": {
+    "PASS": 28,
+    "FAIL": 0
+  },
+  "header_observations": {
+    "total": 47,
+    "prepare_before_execute_response_pairs": 47,
+    "selected_headers": [
+      {
+        "case": "find_unique",
+        "current": 22,
+        "next": 23,
+        "queued": 42,
+        "frame_bytes": 42,
+        "sequence": 0
+      },
+      {
+        "case": "find_many_unfiltered",
+        "current": 22,
+        "next": 23,
+        "queued": 15,
+        "frame_bytes": 15,
+        "sequence": 0
+      },
+      {
+        "case": "count_unfiltered",
+        "current": 22,
+        "next": 23,
+        "queued": 15,
+        "frame_bytes": 15,
+        "sequence": 0
+      },
+      {
+        "case": "count_filtered",
+        "current": 22,
+        "next": 23,
+        "queued": 22,
+        "frame_bytes": 22,
+        "sequence": 0
+      },
+      {
+        "case": "create",
+        "current": 22,
+        "next": 23,
+        "queued": 37,
+        "frame_bytes": 37,
+        "sequence": 0
+      },
+      {
+        "case": "create",
+        "current": 22,
+        "next": 23,
+        "queued": 40,
+        "frame_bytes": 40,
+        "sequence": 0
+      }
+    ],
+    "sampling": "First queued frame at native-call completion, before current response serialization; not a full packet capture or global queue peak."
+  }
+}

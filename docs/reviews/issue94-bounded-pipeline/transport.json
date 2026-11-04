@@ -1,0 +1,58 @@
+{
+  "scope": "REAL_TCP_COOPERATIVE_ORDERING_AND_FAILURES",
+  "source_commit": "31daa96905730e63242f01fca75f7bb36bb14c88",
+  "read_ahead_limit": 1048581,
+  "cases": [
+    {
+      "name": "serial-side-effects-and-response-order",
+      "result": "PASS"
+    },
+    {
+      "name": "disconnect-after-queued-input",
+      "result": "PASS",
+      "observation": {
+        "code": "unusable",
+        "closed": true
+      },
+      "independent_root": "PASS"
+    },
+    {
+      "name": "overflow",
+      "result": "PASS",
+      "observation": {
+        "driver_error": 2013,
+        "message": "(2013, 'mariamem database instance terminated: pipelined input exceeds bounded receive buffer')",
+        "state": {
+          "code": "unusable",
+          "closed": true
+        }
+      },
+      "independent_root": "PASS"
+    },
+    {
+      "name": "timeout-with-queued-input",
+      "result": "PASS",
+      "observation": {
+        "driver_error": 2013,
+        "message": "(2013, 'mariamem query timed out; database instance terminated')",
+        "state": {
+          "code": "unusable",
+          "closed": true
+        }
+      },
+      "independent_root": "PASS"
+    },
+    {
+      "name": "close-with-queued-input",
+      "result": "PASS",
+      "observation": {
+        "closed": true
+      },
+      "independent_root": "PASS"
+    }
+  ],
+  "summary": {
+    "PASS": 5,
+    "FAIL": 0
+  }
+}
