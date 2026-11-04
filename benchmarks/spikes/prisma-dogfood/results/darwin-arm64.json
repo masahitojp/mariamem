@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "issue": 92,
+  "source_commit": "9648e8b3820b89632e11ec4521ef6c9d033520d9",
+  "product_baseline_source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "scope": "ONE_HOST_EXPLORATORY_DOGFOOD_NOT_NODE_SUPPORT",
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64"
+  },
+  "node": "v24.22.1",
+  "prisma": "7.10.1",
+  "adapter": "7.10.1",
+  "driver": "mariadb 3.5.4",
+  "pool": {
+    "connectionLimit": 2,
+    "connectTimeout": 5000,
+    "acquireTimeout": 10000
+  },
+  "binary_sha256": "d26b9211655c5828c93343383e5e7445f07710fca765dcfa648c6c8e0ab3b558",
+  "binary_build_info": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261104111359-9648e8b3820b\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=9648e8b3820b89632e11ec4521ef6c9d033520d9\n\tbuild\tvcs.time=2026-11-04T11:13:59Z\n\tbuild\tvcs.modified=false\n",
+  "conditions": [
+    {
+      "name": "adapter-default-pipelining",
+      "result": "FAIL",
+      "passed": [
+        "direct driver text SELECT",
+        "direct driver parameterized SELECT",
+        "migrate deploy"
+      ],
+      "failure": {
+        "stage": "Prisma nested create",
+        "errno": 2013,
+        "message": "mariamem database instance terminated: unexpected client input during running query"
+      }
+    },
+    {
+      "name": "pipelining-false",
+      "result": "FAIL",
+      "passed": [
+        "migrate deploy",
+        "Prisma nested create/seed"
+      ],
+      "failure": {
+        "stage": "Prisma user.count() without arguments",
+        "errno": 1835,
+        "message": "Malformed communication packet"
+      }
+    },
+    {
+      "name": "pipelining-false-and-parameterized-counts",
+      "result": "PASS_DIAGNOSTIC_PARAMETERIZED_COUNTS",
+      "configuration": {
+        "pipelining": "off",
+        "parameterized_counts": true
+      },
+      "stages": [
+        {
+          "result": "REPRODUCED_ZERO_PARAMETER_EXECUTE_FAILURE",
+          "text_query": true,
+          "parameterized_execute": true,
+          "zero_parameter_errno": 1835,
+          "healthy_after_error": true
+        },
+        {
+          "migration": "PASS"
+        },
+        {
+          "result": "PASS",
+          "stage": "seed",
+          "userId": 1
+        },
+        {
+          "result": "PASS",
+          "stage": "case",
+          "pid": 98216,
+          "crud": true,
+          "relations": true,
+          "cascade": true,
+          "rollback": true,
+          "commit": true,
+          "types": {
+            "decimal": "12345678901234.123456",
+            "bigint": "9007199254740993",
+            "datetime": "2026-03-04T05:06:07.123Z",
+            "json": {
+              "text": "日本語\u0000value",
+              "nested": [
+                1,
+                true,
+                null
+              ]
+            },
+            "blobHex": "0001007f80ff"
+          }
+        },
+        {
+          "result": "PASS",
+          "stage": "disconnect",
+          "pid": 98216
+        },
+        {
+          "reset": "PASS",
+          "stable_endpoint": true,
+          "same_node_pid": 98216
+        },
+        {
+          "result": "PASS",
+          "stage": "case",
+          "pid": 98216,
+          "crud": true,
+          "relations": true,
+          "cascade": true,
+          "rollback": true,
+          "commit": true,
+          "types": {
+            "decimal": "12345678901234.123456",
+            "bigint": "9007199254740993",
+            "datetime": "2026-03-04T05:06:07.123Z",
+            "json": {
+              "text": "日本語\u0000value",
+              "nested": [
+                1,
+                true,
+                null
+              ]
+            },
+            "blobHex": "0001007f80ff"
+          }
+        },
+        {
+          "result": "PASS",
+          "stage": "disconnect",
+          "pid": 98216
+        }
+      ]
+    }
+  ],
+  "raw_receipts_sha256": {
+    "final-default": "d3f2c98e055c8eaf164101dc01e97272376ee1bbe4dc1f84ee48e8c6a31f95f7",
+    "final-off": "2ad1f17474761d68caca98d2346a6ce5139c68d914cea7e4792e4e5bde601eb8",
+    "diagnostic": "85126850a9029efdc922c33aed9d12128888f803ffbd4fcb5cd7ae287567055e"
+  },
+  "not_verified": [
+    "native MariaDB comparison",
+    "Ubuntu",
+    "migrate dev/shadow database",
+    "Prisma 8 RC or legacy engines",
+    "performance",
+    "Node SDK/official compatibility"
+  ]
+}
