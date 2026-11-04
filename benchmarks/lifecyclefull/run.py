@@ -39,8 +39,8 @@ def build():
   assert not (T/('bin-'+backend)).is_dir()
   command=[GO,'build','-trimpath','-buildvcs=true','-o',str(T/('bin-'+backend)),'./'+target]
   with (E/(backend+'-build.txt')).open('w') as f:subprocess.run(command,cwd=B,env=ENV,check=True,stdout=f,stderr=subprocess.STDOUT,timeout=900)
-  stamp=m.verify_go_binary(S,T/backend,h,go=GO,toolchain='go1.27.3')
-  inputs['binaries'][backend]={'sha256':sha(T/backend),'build_info':stamp}
+  stamp=m.verify_go_binary(S,T/('bin-'+backend),h,go=GO,toolchain='go1.27.3')
+  inputs['binaries'][backend]={'sha256':sha(T/('bin-'+backend)),'build_info':stamp}
   print('built',backend,flush=True)
  graph=subprocess.check_output([GO,'list','-m','-json','all'],cwd=B,env=ENV,text=True);(E/'module-graph.txt').write_text(graph)
  assert not git(S,'status','--porcelain') and not git(P,'status','--porcelain')
