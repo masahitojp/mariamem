@@ -2500,3 +2500,30 @@ on Python3.11; the two moved suites also passed on Python3.14 (59 tests and
 stop both profiles. Public-source and diff checks passed. No runtime code changed,
 so no new integration build or full Release campaign was run; actual CI savings
 remain unmeasured.
+
+
+## Python harness high-priority consolidation approved (2026-11-04)
+
+The Human approved the first three Python-harness audit items after PR89 merged.
+Common workflow trigger, candidate binding and cache policy checks now have one
+owner (`test_ci_efficiency.py`); feature suites retain functional/physical controls.
+Integration-plan checks are consolidated, and independent gate-failure cases
+replace redundant Cartesian rejection combinations. Release E2E steps always
+execute; the unused PR-diff Live selector and its tests are removed.
+
+Fixture CI now checks current budgets, capture/E2E/wire and preparation/output/
+admission contracts without rechecking past adoption authorization, ancestry,
+v0.6.0 placement or staging-note words. The original decisions and receipts are
+preserved; `scripts/check_fixture_design.py` still offers the manual historical
+audit. This supersedes the recurring pre-code E2E ancestry test requirement in
+the original E2E integration conditions, without changing the adopted product
+contract. Current lint grants neither runtime acceptance nor implementation
+approval. Release authentication, reuse, publication and physical fault tests
+remain unchanged; medium-priority measurement/compiler/probe work is deferred.
+
+Verification: normal Python collection decreases from 126 files / 2,098 cases
+to 122 files / 2,039 cases (59 fewer expanded cases). Focused policy, gate-shell,
+fixture-contract, P1-entry, receipt/reuse and example checks: 489 passed,
+3 existing host-dependent example skips. The historical fixture audit still
+returns DESIGN_LINT_PASS / runtime NOT_RUN. Public-source and diff checks pass.
+No runtime build, full Release run or measured CI speedup is claimed.

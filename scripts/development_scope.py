@@ -60,7 +60,6 @@ PURE_TESTS = {
     'tests/test_ci_runtime_selection.py', 'tests/test_live_ci_workflow.py',
     'tests/test_dump_ci_workflow.py', 'tests/test_django_recipe_workflow.py',
     'tests/test_routing_ci_workflow.py', 'tests/test_release_runtime.py',
-    'tests/test_retired_ci.py',
     'tests/test_measurement_summary.py', 'tests/test_published_assets.py',
     'tests/test_benchmark_inputs.py',
     'tests/test_ci_publication_workflow.py', 'tests/test_publication_handoff.py', 'tests/test_publication_handoff.py',
@@ -101,7 +100,6 @@ PURE_TESTS = {
     'tests/test_runtime_validation.py',
     'tests/test_snapshot_copy.py',
     'tests/test_v04_direct_link_report.py',
-    'tests/test_v04_verification_scope.py',
     'tests/test_verification_report.py',
     'tests/test_vet_generated.py',
 }
