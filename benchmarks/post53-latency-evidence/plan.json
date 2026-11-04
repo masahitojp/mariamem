@@ -1,0 +1,27 @@
+{
+  "question": "Is current adopted main substantially different from the post-v0.6.0 local Go latency baseline?",
+  "method": "Repeat same byte-identical Go OwnedPrepared harness on exact v0.6.0 and main, alternating3 ordinary pairs per cell after1 warmup pair.",
+  "cases": [
+    "light Fresh/Fork",
+    "10MiB serial Fresh/Fork",
+    "10MiB parallel4 Fresh/Fork"
+  ],
+  "instances": 4,
+  "toolchain": "go1.26.10 CGO_ENABLED=0",
+  "max_guarded_seconds": 1200,
+  "workspace_budget_gib": 4,
+  "minimum_free_gib": 8,
+  "excluded": [
+    "Python",
+    "RSS campaign",
+    "guest or host changes",
+    "cold installs",
+    "Ubuntu",
+    "qualification/CI",
+    "main report integration"
+  ],
+  "process_check": "Only this task build/compiler matched build/benchmark patterns at one pre-measurement snapshot; normal OS/app activity remains.",
+  "initial_orchestration_error": "First runner used relative interpreter path and failed before any build/measurement; retained separately, retried fresh with absolute paths.",
+  "pre_measurement_cleanup": "Failed-attempt temp cleanup finished while final execution was still in separate warmup (11/12 warmup records); ordinary pairs began afterward.",
+  "excluded_fd_assertion": "A wrapper-only FD delta assertion stopped the first candidate warmup (5->6). Removed as outside the latency scope; existing SQL/Close must() assertions unchanged. Failed warmup is not an ordinary latency sample."
+}
