@@ -1,0 +1,51 @@
+{
+  "source_commit": "c7a0e97feb942763b4920a10f29060918ab9bcaf",
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64"
+  },
+  "python": "3.11.18",
+  "go": "go1.26.10",
+  "node": "24.22.1",
+  "commands": [
+    {
+      "command": "go test ./internal/preparedproto ./internal/mysqlwire -count=1",
+      "result": "PASS"
+    },
+    {
+      "command": "python scripts/verify.py check --profile daily",
+      "exit_code": 0,
+      "result": "PASS",
+      "main_python_suite": {
+        "passed": 1847,
+        "skipped": 92
+      }
+    },
+    {
+      "command": "python scripts/verify.py smoke",
+      "exit_code": 0,
+      "result": "PASS",
+      "observations": [
+        {
+          "result": "PASS_SOURCE_PYTHON_LIVE",
+          "module": "${SOURCE}/python/mariamem/__init__.py",
+          "source_consumed": true,
+          "host_reaped": true,
+          "directory_removed": true,
+          "max_forks": 2,
+          "capacity_timeout_preserved": true,
+          "live_capacity_busy_preserved": true
+        },
+        {
+          "busy_refused": true,
+          "closed_parent_refused": true,
+          "result": "PASS_SOURCE_GO_LIVE",
+          "source_consumed": true,
+          "sum_after_reset": 1
+        }
+      ]
+    }
+  ],
+  "scope": "Local source acceptance only; hosted PR and full Release evidence are separate",
+  "initial_failure": "First wire regression fake omitted Affected/InsertID strings; corrected at this source. Initial failure is not a product failure or PASS."
+}

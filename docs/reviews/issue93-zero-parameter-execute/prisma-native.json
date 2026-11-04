@@ -1,0 +1,58 @@
+{
+  "scope": "ISSUE93_ZERO_PARAMETER_EXECUTE_ONLY",
+  "prisma_probe_source_commit": "604a0c588f0a602bf6ea67d811b97bae2748c3ea",
+  "source_commit": "d861c91584e2029dfb3953478647f6d8da45e7f6",
+  "cases": [
+    {
+      "name": "find_many_unfiltered",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "find_many_unfiltered"
+    },
+    {
+      "name": "count_unfiltered",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "count_unfiltered"
+    },
+    {
+      "name": "aggregate",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "aggregate"
+    },
+    {
+      "name": "group_by",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "group_by"
+    },
+    {
+      "name": "raw_zero_parameter",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "raw_zero_parameter"
+    },
+    {
+      "name": "count_filtered",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "count_filtered"
+    },
+    {
+      "name": "raw_parameter",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "raw_parameter"
+    }
+  ],
+  "driver_control": {
+    "exit_code": 0,
+    "result": "PASS",
+    "repeated_zero_execute": 2,
+    "parameterized": 7,
+    "following_text": 11
+  },
+  "driver_control_sha256": "75b555560e9f541a79cf1ffcc2c583d5ebcd4fd1be072b370f24beaddab7a3a7",
+  "result": "PASS"
+}

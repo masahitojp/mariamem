@@ -1,0 +1,97 @@
+{
+  "scope": "ISSUE93_ZERO_PARAMETER_EXECUTE_ONLY",
+  "prisma_probe_source_commit": "604a0c588f0a602bf6ea67d811b97bae2748c3ea",
+  "source_commit": "c7a0e97feb942763b4920a10f29060918ab9bcaf",
+  "cases": [
+    {
+      "name": "find_many_unfiltered",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "find_many_unfiltered"
+    },
+    {
+      "name": "count_unfiltered",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "count_unfiltered"
+    },
+    {
+      "name": "aggregate",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "aggregate"
+    },
+    {
+      "name": "group_by",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "group_by"
+    },
+    {
+      "name": "raw_zero_parameter",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "raw_zero_parameter"
+    },
+    {
+      "name": "count_filtered",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "count_filtered"
+    },
+    {
+      "name": "raw_parameter",
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "raw_parameter"
+    }
+  ],
+  "binary_build_info": "${TEMP}/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261104141224-c7a0e97feb94\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=c7a0e97feb942763b4920a10f29060918ab9bcaf\n\tbuild\tvcs.time=2026-11-04T14:12:24Z\n\tbuild\tvcs.modified=false\n",
+  "binary_sha256": "ce5441d8e09cacea1da6dd8f408519f5358f1b1f835a73c7ec46ab2b969eccc6",
+  "driver_control": {
+    "exit_code": 0,
+    "result": "PASS",
+    "repeated_zero_execute": 2,
+    "parameterized": 7,
+    "following_text": 11
+  },
+  "driver_control_sha256": "75b555560e9f541a79cf1ffcc2c583d5ebcd4fd1be072b370f24beaddab7a3a7",
+  "raw_controls": [
+    {
+      "suffix_hex": "",
+      "expected_errno": null,
+      "result": "PASS"
+    },
+    {
+      "suffix_hex": "00",
+      "expected_errno": null,
+      "result": "PASS"
+    },
+    {
+      "suffix_hex": "01",
+      "expected_errno": null,
+      "result": "PASS"
+    },
+    {
+      "suffix_hex": "02",
+      "expected_errno": 1835,
+      "result": "PASS"
+    },
+    {
+      "suffix_hex": "ff",
+      "expected_errno": 1835,
+      "result": "PASS"
+    },
+    {
+      "suffix_hex": "0000",
+      "expected_errno": 1835,
+      "result": "PASS"
+    },
+    {
+      "suffix_hex": "0100",
+      "expected_errno": 1835,
+      "result": "PASS"
+    }
+  ],
+  "result": "PASS"
+}
