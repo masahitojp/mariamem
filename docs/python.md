@@ -496,7 +496,10 @@ with setup_db.snapshot(max_forks=2) as baseline:
 Omitted `max_forks` resolves once using one quarter of detected memory at
 256 MiB per slot, with a finite CPU fallback. This is a sizing heuristic, not
 an OOM guarantee or a CPU/latency optimum; use an explicit positive integer
-when tuning concurrency. Values must be built-in integers in 1..2147483647;
+when tuning concurrency. The Go host validates Linux sysinfo units and proc
+MemTotal independently, retaining the smaller valid observation; readable
+cgroup/Go limits still apply when physical readings fail. CPU fallback is only
+for no valid memory observations. Values must be built-in integers in 1..2147483647;
 zero, bools and larger values reject before capture. Each worker and each
 Snapshot owns a separate budget; their totals are not a machine-wide limit.
 Close each child before synchronously requesting another when capacity is full.

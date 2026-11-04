@@ -177,6 +177,10 @@ Zero selects a finite automatic limit once at capture; explicit values1 through
 The automatic budget is one quarter of the minimum observed physical RAM,
 Linux cgroup limit and Go runtime memory limit, divided by256 MiB per child;
 it falls back to a finite CPU count if memory information is unavailable.
+On Linux, validated `sysinfo(2)` totalram/mem_unit and `/proc/meminfo` MemTotal
+observations both participate in the minimum; either source may fail without
+discarding the other. Cgroup/Go memory limits still apply when physical readings
+fail. CPU fallback is used only when all memory observations are unavailable.
 `MaxForks()` returns the resolved number. This is a memory heuristic, not a
 CPU/latency optimum or OOM guarantee. Use an explicit limit for a latency-sensitive
 suite, and budget multiple baselines/processes separately.

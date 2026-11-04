@@ -272,6 +272,13 @@ equivalent slot timeout; a non-None value without a Snapshot is invalid.
 `Snapshot.fork(timeout=...)` maps to it; reject a duplicate `fork_timeout` in
 its options rather than accepting two conflicting deadlines.
 
+Linux physical-memory discovery validates sysinfo totalram/mem_unit and the exact
+proc MemTotal/kB field independently, using all valid observations in the same
+minimum policy. If both physical sources fail, readable cgroup and Go limits
+still apply. Only no finite memory observations activates the existing finite
+CPU fallback; it is not an OOM guarantee. Portable injected parsing/source tests
+and a Linux-native adapter observation test detect incorrect values/fallbacks.
+
 ### Timeouts and diagnostics
 
 - Go's existing context covers capacity waiting and startup, not child lifetime;

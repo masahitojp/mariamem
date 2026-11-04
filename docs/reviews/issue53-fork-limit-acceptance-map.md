@@ -9,9 +9,11 @@ its eighteen fixed rows passed within their controlled/actual evidence scopes.
 That result supersedes this index's earlier execution-pending state.
 
 Human review subsequently identified the missing cap/occupied-slot diagnostics
-(G1). The [G1/G2 follow-up](issue53-review-followup.md) owns that correction and
+(G1). The [G1/G2/G3 follow-up](issue53-review-followup.md) owns that correction and
 its new-source verification. The c53771cd receipts are not evidence that a later
-runtime change ran the full matrix; adoption remains pending.
+runtime change ran the full matrix; adoption remains pending. Review G3
+also adds injected sysinfo/proc parsing and fallback checks, absent from the old
+index. Their current execution limits are recorded in the follow-up.
 
 ## Historical detector index — 8566c8ad
 

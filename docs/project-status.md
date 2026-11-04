@@ -16,13 +16,15 @@ Changing version metadata does not itself publish a release.
 
 ## Issue #53 — finite Fork admission by default, implementation authorized
 
-### Current review follow-up — capacity diagnostics correction
+### Current review follow-up — capacity diagnostics and memory-source checks
 
 Human review identified G1: the design required cap/occupied-slot diagnostics,
 but the fixed-row detectors checked only error code/stage. The current correction
 adds observed counts/remedy without changing admission/error classification and
 adds pool, public/control, Python and actual/installed consumer assertions. G2
-makes the old detector map explicitly historical and links the later result.
+makes the old detector map explicitly historical and links the later result. Review G3
+adds sysinfo/proc unit/parse/failure injection and a Linux-native adapter check;
+all valid memory observations still feed the existing minimum/fallback policy.
 [The follow-up](reviews/issue53-review-followup.md) owns verification; current
 adoption is pending a new-source matrix. The existing successful matrix below
 remains on its original source and is not relabelled to this runtime delta.

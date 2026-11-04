@@ -3,7 +3,7 @@
 **Review follow-up:** the body below is the c53771cd review, preserved at its
 original source/evidence boundary. Human review found missing capacity diagnostics
 G1 despite the eighteen-row matrix passing. The current candidate correction and
-verification status are in [the G1/G2 follow-up](issue53-review-followup.md).
+verification status are in [the G1/G2/G3 follow-up](issue53-review-followup.md).
 The previous docs-only tree-equality reuse applies to7c0f6c32, not to the later
 runtime correction; a new-source matrix remains required before current adoption.
 

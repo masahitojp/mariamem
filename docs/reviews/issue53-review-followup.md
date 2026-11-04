@@ -1,10 +1,17 @@
-# Issue53 — Human review G1/G2 follow-up
+# Issue53 — Human review G1/G2/G3 follow-up
 
-Current status: G1 implemented with focused regressions passing; canonical
-clean-source daily/smoke and actual-host checks are next. A fresh exact-source
-full matrix is still required before adoption of this runtime delta. Batch that
-submission after the Human's remaining review findings; no new heavy run is
-submitted for this checkpoint. Existing c53771cd receipts remain unchanged.
+Current status: G1 implemented and locally verified on clean source_commit
+`6d40d0d420bd06cc68e313348a6246787ab51539`; G2 wording is corrected. Canonical
+daily (Go tests/vet,67 early source tests,1883 Python tests plus106 subtests and
+91 skips), Go/Python source smoke and nine same-source actual-host cases PASS
+on macOS arm64 / Go1.26.10 / Python3.14. The host's VCS revision matches and
+vcs.modified=false. The subsequent review G3 adds a portable, injected Linux
+memory-source boundary and a stdlib sysinfo adapter; its package race tests pass
+locally and its Linux/amd64 test binary cross-compiles. Linux-native syscall
+execution and the new full platform matrix remain pending. Commit/current local
+results below retain their own source scope. Batch full CI after the Human's
+remaining review findings; no new heavy run is submitted for this checkpoint.
+Existing c53771cd receipts remain unchanged.
 
 ## G1 — cap and occupied-slot diagnostics
 
@@ -53,8 +60,9 @@ Detection now includes:
   last-observed counts or explicit unknown before any reply.
 - Existing actual remote-cap and Go consumer / installed Python consumer owners
   now assert the capacity diagnostics as well as their previous behavior. These
-  new actual/installed assertions still need execution on the new source; old
-  successful artifacts are not relabelled to include them.
+  new actual/public source assertions pass locally, including the changed Go and
+  source Python consumer. Installed/both-host assertions still need the new
+  matrix; old successful artifacts are not relabelled to include them.
 
 Focused local results on macOS arm64 / Go1.26.10 / Python3.14:
 Go -race pool/control/public Snapshot targeted owners PASS;61 Python unit,
@@ -77,10 +85,53 @@ it cannot cover this later code change. Prose freshness required review; ordinar
 CI did not detect the contradictory tense. Documentation/public-boundary and
 reference checks apply to this correction.
 
+## Review G3 — Linux physical-memory observation and fallbacks
+
+This G3 is the Human review finding about Linux memory parsing, distinct from
+the original design's G3 Python watchdog label.
+
+`memory_linux.go` now calls the Go standard library's `syscall.Sysinfo` adapter,
+returning totalram and mem_unit. The conversion must multiply those units, not
+assume bytes: [sysinfo(2)](https://man7.org/linux/man-pages/man2/sysinfo.2.html).
+The exact MemTotal/kB field is independently parsed from proc; it is total usable
+RAM, not free memory ([kernel proc documentation](https://docs.kernel.org/filesystems/proc.html)).
+Both reads and cgroup discovery are behind the portable `linuxMemoryLimits`
+function with injected syscall/readFile providers. There is no new dependency.
+
+Selection and failure policy:
+
+1. Retain valid finite sysinfo totalram*mem_unit and valid MemTotal*1024
+   observations. The existing minimum-selection rule uses the smaller value
+   when both work; adding sysinfo cannot override a tighter readable proc view.
+2. Either failure is independent: unreadable/invalid proc does not discard valid
+   syscall data, and denied/failed/invalid syscall data does not discard proc.
+   Zero units/total, parse failure, duplicate MemTotal and multiplication overflow
+   mean unavailable, never zero memory, unlimited capacity or wrapped bytes.
+3. Cgroup ancestor limits are still read even if both physical sources fail.
+   GOMEMLIMIT is still added by Resolve; the minimum valid memory budget wins.
+4. Only when every memory observation is unavailable does the pre-approved
+   finite GOMAXPROCS fallback apply, with minimum1 and the existing MaxInt32 clamp.
+   Keeping that policy avoids an unreviewed sizing-policy change. A fixed fallback
+   of1 would be more conservative but is not adopted implicitly here; callers can
+   already select an explicit cap. CPU fallback does not establish a memory/OOM
+   guarantee and no current-free-memory sizing is introduced.
+
+`memory_sources_test.go` runs on both supported hosts and checks actual expected
+byte values/caps: non-byte units, overflow and zero, valid/malformed/missing/
+duplicate MemTotal, each single-source failure, differing totals, tighter cgroup/
+Go limits, all-sources-unavailable CPU fallback and its minimum. The production
+Linux adapter uses that tested boundary, not a second untested parser.
+`TestLinuxKernelTotalRAMIsAnObservedLimit` also checks the real Linux adapter's
+fields against syscall totalram/mem_unit and inclusion in observed limits. If the
+syscall is blocked on a host, that native observation is explicitly skipped;
+injected failure-path tests still run. Local macOS package race tests PASS and
+Linux/amd64 compilation PASS; native Linux execution is not claimed yet.
+
 ## Completion boundary
 
-The Human is still reviewing. This follow-up closes G1 implementation/detector
-work and G2 wording; it does not claim the new full installed/platform matrix,
+The Human is still reviewing. This follow-up addresses G1 diagnostics, G2 wording
+and G3 memory-source testability; it does not claim the new full installed/platform matrix,
 Human adoption, main integration, a new version or publication. Collect further
-findings, finish the stable candidate's local checks, then run its exact matrix
-once. Any failure remains an unfinished condition, not an accepted exception.
+findings, then run the stable candidate's exact matrix once. The local results
+above cover the committed runtime source; an accompanying docs-only result record
+must preserve that non-doc tree, and is not a new installed/platform receipt. Any failure remains an unfinished condition, not an accepted exception.

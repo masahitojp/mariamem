@@ -37,6 +37,10 @@ and version metadata remain unchanged.
   with a close-children/increase-limit remedy. Python uses the last responsive
   capacity reply, or explicit `unknown` if none arrived. Existing error identity,
   code/stage and closed semantics are preserved.
+- Linux auto-sizing validates kernel sysinfo units and proc MemTotal separately;
+  either physical source can fail while the other/cgroup/Go limit still applies.
+  Only absence of all valid memory observations uses the existing finite CPU
+  fallback. This remains a sizing heuristic, not an OOM guarantee.
 - Host WASI writes now propagate zero-byte write errors, including broken pipes,
   and preserve actual short-write progress. This fixes the tested interrupted-
   guest cleanup stall without changing the accepted prepared CALL observations.
