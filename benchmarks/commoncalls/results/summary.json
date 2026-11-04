@@ -1,0 +1,496 @@
+{
+  "control": {
+    "processes": [
+      {
+        "name": "round0-control",
+        "child_ns": {
+          "fork_wall": [
+            36364875,
+            35828666,
+            36621125,
+            36885167
+          ],
+          "fork_cpu": [
+            49176000,
+            44257000,
+            49444000,
+            51499000
+          ],
+          "guest_common": [
+            16438000,
+            16519416,
+            16394416,
+            16671750
+          ],
+          "guest_server_init": [
+            31901917,
+            31618500,
+            32103833,
+            32584542
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 36.493,
+          "fork_cpu": 49.31,
+          "guest_common": 16.478708,
+          "guest_server_init": 32.002875
+        }
+      },
+      {
+        "name": "round1-control",
+        "child_ns": {
+          "fork_wall": [
+            35903167,
+            35851416,
+            36149625,
+            35449542
+          ],
+          "fork_cpu": [
+            49392000,
+            46907000,
+            48529000,
+            47790000
+          ],
+          "guest_common": [
+            16180708,
+            16507625,
+            17281958,
+            16289375
+          ],
+          "guest_server_init": [
+            31098458,
+            31658959,
+            32202500,
+            31388334
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 35.8772915,
+          "fork_cpu": 48.1595,
+          "guest_common": 16.3985,
+          "guest_server_init": 31.5236465
+        }
+      },
+      {
+        "name": "round2-control",
+        "child_ns": {
+          "fork_wall": [
+            36767166,
+            40132625,
+            34874792,
+            35716417
+          ],
+          "fork_cpu": [
+            49665000,
+            53387000,
+            46734000,
+            50271000
+          ],
+          "guest_common": [
+            17284209,
+            21340834,
+            16233375,
+            16253750
+          ],
+          "guest_server_init": [
+            32301417,
+            35808625,
+            30801292,
+            31361625
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 36.2417915,
+          "fork_cpu": 49.968,
+          "guest_common": 16.7689795,
+          "guest_server_init": 31.831521
+        }
+      }
+    ],
+    "median_of_process_medians_ms": {
+      "fork_wall": 36.2417915,
+      "fork_cpu": 49.31,
+      "guest_common": 16.478708,
+      "guest_server_init": 31.831521
+    }
+  },
+  "init": {
+    "processes": [
+      {
+        "name": "round0-init",
+        "child_ns": {
+          "fork_wall": [
+            39271208,
+            35476041,
+            35425292,
+            35821666
+          ],
+          "fork_cpu": [
+            54923000,
+            46332000,
+            45417000,
+            47612000
+          ],
+          "guest_common": [
+            17948541,
+            16266541,
+            16155708,
+            16273000
+          ],
+          "guest_server_init": [
+            34437708,
+            31049042,
+            30871292,
+            31566708
+          ],
+          "pre_timer": [
+            226459,
+            219542,
+            215750,
+            216500
+          ],
+          "timer": [
+            1596916,
+            717208,
+            687209,
+            824750
+          ],
+          "early_globals_thread_locale": [
+            257250,
+            250875,
+            247625,
+            250041
+          ],
+          "status_registration": [
+            2834,
+            2583,
+            2666,
+            2667
+          ],
+          "options_version_uid": [
+            96791,
+            94000,
+            93084,
+            92958
+          ],
+          "limits_locale": [
+            14250,
+            14000,
+            14041,
+            14292
+          ],
+          "error_messages": [
+            18459,
+            18084,
+            18042,
+            18083
+          ],
+          "sql_json_registration": [
+            274458,
+            271541,
+            269500,
+            270167
+          ],
+          "charset_tail": [
+            15455500,
+            14675042,
+            14605667,
+            14581667
+          ],
+          "common_variables": [
+            16119542,
+            15326125,
+            15250625,
+            15229875
+          ],
+          "trailing_setup": [
+            2250,
+            1417,
+            1083,
+            750
+          ],
+          "common_total": [
+            17945167,
+            16264292,
+            16154667,
+            16271875
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 35.6488535,
+          "fork_cpu": 46.972,
+          "guest_common": 16.2697705,
+          "guest_server_init": 31.307875,
+          "pre_timer": 0.218021,
+          "timer": 0.770979,
+          "early_globals_thread_locale": 0.250458,
+          "status_registration": 0.0026665,
+          "options_version_uid": 0.093542,
+          "limits_locale": 0.0141455,
+          "error_messages": 0.0180835,
+          "sql_json_registration": 0.270854,
+          "charset_tail": 14.6403545,
+          "common_variables": 15.288375,
+          "trailing_setup": 0.00125,
+          "common_total": 16.2680835
+        }
+      },
+      {
+        "name": "round1-init",
+        "child_ns": {
+          "fork_wall": [
+            35979750,
+            38583666,
+            36975125,
+            40117125
+          ],
+          "fork_cpu": [
+            48173000,
+            49587000,
+            52701000,
+            57206000
+          ],
+          "guest_common": [
+            16222209,
+            18939500,
+            16558542,
+            18989167
+          ],
+          "guest_server_init": [
+            31857792,
+            34213167,
+            32836833,
+            35627750
+          ],
+          "pre_timer": [
+            214917,
+            222125,
+            218709,
+            227916
+          ],
+          "timer": [
+            781958,
+            2747167,
+            792375,
+            2649917
+          ],
+          "early_globals_thread_locale": [
+            245875,
+            262916,
+            253541,
+            270917
+          ],
+          "status_registration": [
+            2667,
+            2792,
+            2709,
+            3125
+          ],
+          "options_version_uid": [
+            93125,
+            99875,
+            94375,
+            105000
+          ],
+          "limits_locale": [
+            13917,
+            15083,
+            14375,
+            15166
+          ],
+          "error_messages": [
+            18333,
+            18834,
+            18375,
+            19209
+          ],
+          "sql_json_registration": [
+            270625,
+            288125,
+            275000,
+            288125
+          ],
+          "charset_tail": [
+            14578875,
+            15279125,
+            14886583,
+            15406166
+          ],
+          "common_variables": [
+            15223417,
+            15966750,
+            15544958,
+            16107708
+          ],
+          "trailing_setup": [
+            750,
+            916,
+            1125,
+            1500
+          ],
+          "common_total": [
+            16221042,
+            18936958,
+            16557167,
+            18987041
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 37.7793955,
+          "fork_cpu": 51.144,
+          "guest_common": 17.749021,
+          "guest_server_init": 33.525,
+          "pre_timer": 0.220417,
+          "timer": 1.721146,
+          "early_globals_thread_locale": 0.2582285,
+          "status_registration": 0.0027505,
+          "options_version_uid": 0.097125,
+          "limits_locale": 0.014729,
+          "error_messages": 0.0186045,
+          "sql_json_registration": 0.2815625,
+          "charset_tail": 15.082854,
+          "common_variables": 15.755854,
+          "trailing_setup": 0.0010205,
+          "common_total": 17.7470625
+        }
+      },
+      {
+        "name": "round2-init",
+        "child_ns": {
+          "fork_wall": [
+            35824667,
+            37832458,
+            37914708,
+            38225292
+          ],
+          "fork_cpu": [
+            49575000,
+            50649000,
+            51971000,
+            54527000
+          ],
+          "guest_common": [
+            16399916,
+            18356541,
+            16491250,
+            16831417
+          ],
+          "guest_server_init": [
+            31685583,
+            33584000,
+            32540000,
+            33084125
+          ],
+          "pre_timer": [
+            219917,
+            215459,
+            233792,
+            230750
+          ],
+          "timer": [
+            764208,
+            2783541,
+            493167,
+            428000
+          ],
+          "early_globals_thread_locale": [
+            253000,
+            254750,
+            262083,
+            267125
+          ],
+          "status_registration": [
+            2583,
+            2667,
+            2833,
+            2875
+          ],
+          "options_version_uid": [
+            95584,
+            97000,
+            95959,
+            102167
+          ],
+          "limits_locale": [
+            14500,
+            14083,
+            14458,
+            15500
+          ],
+          "error_messages": [
+            18416,
+            17959,
+            18500,
+            19583
+          ],
+          "sql_json_registration": [
+            273250,
+            271041,
+            277583,
+            286875
+          ],
+          "charset_tail": [
+            14755000,
+            14696917,
+            15090292,
+            15476000
+          ],
+          "common_variables": [
+            15412333,
+            15354417,
+            15761708,
+            16170125
+          ],
+          "trailing_setup": [
+            1000,
+            1000,
+            1167,
+            1167
+          ],
+          "common_total": [
+            16397458,
+            18354417,
+            16489834,
+            16830042
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 37.873583,
+          "fork_cpu": 51.31,
+          "guest_common": 16.6613335,
+          "guest_server_init": 32.8120625,
+          "pre_timer": 0.2253335,
+          "timer": 0.6286875,
+          "early_globals_thread_locale": 0.2584165,
+          "status_registration": 0.00275,
+          "options_version_uid": 0.0964795,
+          "limits_locale": 0.014479,
+          "error_messages": 0.018458,
+          "sql_json_registration": 0.2754165,
+          "charset_tail": 14.922646,
+          "common_variables": 15.5870205,
+          "trailing_setup": 0.0010835,
+          "common_total": 16.659938
+        }
+      }
+    ],
+    "median_of_process_medians_ms": {
+      "fork_wall": 37.7793955,
+      "fork_cpu": 51.144,
+      "guest_common": 16.6613335,
+      "guest_server_init": 32.8120625,
+      "pre_timer": 0.220417,
+      "timer": 0.770979,
+      "early_globals_thread_locale": 0.2582285,
+      "status_registration": 0.00275,
+      "options_version_uid": 0.0964795,
+      "limits_locale": 0.014479,
+      "error_messages": 0.018458,
+      "sql_json_registration": 0.2754165,
+      "charset_tail": 14.922646,
+      "common_variables": 15.5870205,
+      "trailing_setup": 0.0010835,
+      "common_total": 16.659938
+    }
+  }
+}

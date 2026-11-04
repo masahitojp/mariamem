@@ -1,0 +1,36 @@
+{
+  "result": "OBSERVATION_COMPLETE",
+  "recommendation": "Next bounded observation: separately time charset lookup/one-time registry initialization versus remaining common-variable tail. Do not implement caching, cloning or remove charsets yet.",
+  "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "harness_source_commit": "91009bc6e4572993eeded2672dc1b2ae5312da49",
+  "primary_processes": 6,
+  "primary_children": 24,
+  "warmup_children": 8,
+  "positive_pilot_children": 4,
+  "negative_children": 1,
+  "all_positive_sql_independence_cleanup": "PASS",
+  "wrong_seed_negative": "PASS",
+  "all_dropped_records_zero": true,
+  "all_active_mappings_rw_reserved_and_release_failures_zero": true,
+  "reducer_mutations": [
+    "missing boundary",
+    "dropped record",
+    "hidden cleanup leak"
+  ],
+  "paired_fork_wall_percent": [
+    -2.313173759351106,
+    5.301693412391506,
+    4.502513348436454
+  ],
+  "coverage": "one M1/macOS host, serial cap1, 1000 integer rows, full guest initialization diagnostics in both modes",
+  "unresolved": [
+    "tail14.9ms includes charset/collation, locale, log/path settings, db-options cache and filesystem case-sensitivity probe",
+    "individual charset loader time and its removable/reusable portion not measured",
+    "per-stage guest CPU unavailable, wall not pure CPU",
+    "P4 attribution/RSS/resource envelope not measured"
+  ],
+  "setup_failure": "sandbox Go dependency network rejection before build; preserved and retried with permission, no primary discard",
+  "budget": "initial active120min incl tooling30min/heavyCI0; mapping established without guest rebuild, three fixed pairs only; permission/build waits excluded from benchmark intervals",
+  "cleanup": "build/cache/source scheduled for owned disposal after result/history preservation; completion recorded in Issue100",
+  "product_change_adoption_release": false
+}

@@ -1,0 +1,53 @@
+{
+  "previous_observation": "dfc84f98c31e7584d2c43bcd923af691f993d60c",
+  "function": "p0.Fn5572",
+  "new_boundaries": [
+    {
+      "mark": "status_begin",
+      "needle": "\tv11639 = Fn15260(m, int32(23886496))",
+      "function_line": 26970,
+      "context": "0, 4))) = int32(8951978)\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23871288, 0, 4))) = int32(0)\n\tv11639 = Fn15260(m, int32(23886496))\n\tmBase = m.M\n\tv11640 = m.ExcPending\n\tif v11640 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L2003\n\t}\nL1994:\n\t;\n\tv11611 = v11603\n\tgoto L1997\nL1995:\n\t;\n\tgoto L1996\nL1996:\n\t;\n\tgoto L1993\nL1997:\n\t;\n\tv11614 = Fn815(m, int32(23947740), v11611)\n\tmBase = m.M\n\tv11615 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v11614)), 36, 4)))\n\tif int32(23945720) == v11615 {\n\t\tgoto L1999\n\t} else {\n\t\tgoto L2000\n\t}\nL1998:\n\t;\n\tgoto L1996\nL1999:\n\t;\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v11614)), 96, 4))) = int32(2)\n\t*(*int32)(unsafe.Add(mBase, base.MemoryE"
+    },
+    {
+      "mark": "options_begin",
+      "needle": "L2004:\n\t;",
+      "function_line": 27029,
+      "context": "\n\t}\nL2002:\n\t;\n\tgoto L1998\nL2003:\n\t;\n\tif v11639 == int32(0) {\n\t\tgoto L2004\n\t} else {\n\t\tgoto L2005\n\t}\nL2004:\n\t;\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15014996, 0, 4))) = int32(1521)\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15473260, 0, 4))) = int32(1522)\n\tv11649 = int32(0)\n\tv11654 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23947752, 0, 4)))\n\tv11659 = Fn791(m, v11649, int32(23888728), int32(72), v11649, v11654+int32(66), int32(16), v11649)\n\tmBase = m.M\n\tv11660 = m.ExcPending\n\tif v11660 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L2007\n\t}\nL2005:\n\t;\n\tgoto L2006\nL2006:\n\t;\n\tFn213(m, int32(1))\n\tmBase = m.M\n\tv17606 = m.ExcPending\n\tif v17606 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L3107\n\t}\nL2007:\n\t;\n"
+    },
+    {
+      "mark": "options_version_uid_end",
+      "needle": "L2487:\n\t;",
+      "function_line": 30025,
+      "context": " v13341 + v13348\n\t\tgoto L2482\n\t} else {\n\t\tgoto L2485\n\t}\nL2485:\n\t;\n\tgoto L2483\nL2486:\n\t;\n\tgoto L2477\nL2487:\n\t;\n\t*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 23871552, 0, 8))) = int64(31093567915781749)\n\tv13377 = Fn70(m, int32(23874336))\n\tmBase = m.M\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23876436, 0, 4))) = v13377\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23870656, 0, 4))) = int32(0)\n\tv13383 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 23871721, 0, 1))))\n\tif v13383 != 0 {\n\t\tgoto L2488\n\t} else {\n\t\tgoto L2489\n\t}\nL2488:\n\t;\n\tv13385 = int32(1)\n\t*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 15392284, 0, 1))) = uint8(v13385)\n\tv13389 = Fn279(m, int32(30))\n\tmBase = m.M\n\t*(*int32)(uns"
+    },
+    {
+      "mark": "error_messages_begin",
+      "needle": "L2675:\n\t;",
+      "function_line": 31178,
+      "context": "\n\tv14012 = m.ExcPending\n\tif v14012 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L2676\n\t}\nL2674:\n\t;\n\tgoto L2675\nL2675:\n\t;\n\tv14015 = m.G0\n\tv14017 = v14015 - int32(16)\n\tm.G0 = v14017\n\tv14020 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23879924, 0, 4)))\n\tv14021 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v14020)), 60, 4)))\n\tv14022 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v14021)), 0, 4)))\n\tv14024 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23933552, 0, 4)))\n\tif v14024 != 0 {\n\t\tgoto L2678\n\t} else {\n\t\tgoto L2679\n\t}\nL2676:\n\t;\n\tFn5880(m)\n\tmBase = m.M\n\tv14014 = m.ExcPending\n\tif v14014 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L2677\n\t}\nL2677:\n\t;\n\tv29992 = v80\n\tv30000 = v62\n\tgot"
+    },
+    {
+      "mark": "sql_registration_begin",
+      "needle": "\tFn5810(m)",
+      "function_line": 31743,
+      "context": "4(uint32(v14591)), 4, 4)))\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23877364, 0, 4))) = v14592\n\tFn5810(m)\n\tmBase = m.M\n\tv14595 = m.ExcPending\n\tif v14595 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L2745\n\t}\nL2745:\n\t;\n\tv14597 = m.G0\n\tv14599 = v14597 - int32(176)\n\tm.G0 = v14599\n\tv14602 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15106600, 0, 4)))\n\tv14603 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v14602)), 0, 4)))\n\tif v14603 != 0 {\n\t\tgoto L2746\n\t} else {\n\t\tgoto L2747\n\t}\nL2746:\n\t;\n\tv14605 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 23876744, 0, 8)))\n\tv14610 = int32(4)\n\tv14611 = v14603\n\tv14612 = int32(0)\n\tv14613 = v14602\n\tgoto L2749\nL2747:\n\t;\n\tgoto L2748\nL2748:\n\t;\n\tm.G0 = v1459"
+    },
+    {
+      "mark": "charset_begin",
+      "needle": "L2833:\n\t;",
+      "function_line": 32349,
+      "context": "g\n\tif v15828 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L2834\n\t}\nL2831:\n\t;\n\tgoto L2832\nL2832:\n\t;\n\tgoto L2829\nL2833:\n\t;\n\tv15957 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 23876736, 0, 8)))\n\tv15959 = m.G0\n\tv15961 = v15959 - int32(16)\n\tm.G0 = v15961\n\tv15964 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15106528, 0, 4)))\n\tif v15964 != 0 {\n\t\tgoto L2841\n\t} else {\n\t\tgoto L2842\n\t}\nL2834:\n\t;\n\tif v15827 != 0 {\n\t\tgoto L2833\n\t} else {\n\t\tgoto L2835\n\t}\nL2835:\n\t;\n\tv15829 = v15815\n\tgoto L2836\nL2836:\n\t;\n\tv15891 = Fn813(m, int32(23941040), v15829+int32(15032416))\n\tmBase = m.M\n\tv15892 = m.ExcPending\n\tif v15892 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L2838\n\t}\nL2837:\n\t;\n\tgoto L2833\nL2838:\n\t;\n\tif v15891 != 0 {\n\t\tgoto L2833"
+    }
+  ],
+  "important_scope": "options_version_uid includes get_options, set_server_version and calculate_server_uid; limits_locale includes file budgets/autosize/unireg/locale lookup; exact named callees not all individually timed",
+  "begun_utc": "2026-11-04T15:26:50Z",
+  "correspondence": {
+    "early_globals_thread_locale": "init_common_variables start through variable/thread/locale/hostname defaults before add_status_vars(status_vars)",
+    "status_registration": "Fn15260(status_vars) through success branch before get_options all_options initialization",
+    "options_version_uid": "get_options preparation/parse/postprocessing plus set_server_version/calculate_server_uid through unknown fallback store; not get_options alone",
+    "limits_locale": "post-options file limits/autosize/unireg and locale lookup before init_errmessage",
+    "error_messages": "init_errmessage through assigning global locale/error pointers, before init_client_errs",
+    "sql_json_registration": "init_client_errs/new-mode/client-library/lex/item/JSON keyword registration, before old-mode warnings",
+    "charset_tail": "remaining charset/collation/locale/log validation through function success"
+  }
+}

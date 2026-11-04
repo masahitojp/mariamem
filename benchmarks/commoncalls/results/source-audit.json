@@ -1,0 +1,13 @@
+{
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "path": "sql/mysqld.cc",
+  "sha256": "b69ed88ee907f86e83f0f4d729b26cd84837f1b94b828d51683b61f81a670bb8",
+  "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/mysqld.cc#L4097",
+  "charset_lookup": {
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "mysys/charset.c",
+    "sha256": "d120e40dea53badcb20c28a70189c88b483df02dd7ce7979fb6a7c234cb506f3",
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/charset.c#L1004",
+    "finding": "get_charset_by_csname -> my_charset_get_by_name -> once(init_available_charsets); initializer registers compiled charsets, initializes maps and reads charset index. Source path only: this cohort does not individually time it or exclude other tail operations."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "inputs_original_sha256": "ca2fb59c6b6220fbf777d2213af55a05559904c8785e790d4f8a492482235f7d",
+  "inputs_published_sha256": "8f34aa91c9da5a0fde201061f423e027bfbe3f715a5804cf4de233cb187e5260",
+  "normalization": "only local workspace prefix in inputs build-info",
+  "lossless_compact_projection_verified": true,
+  "processes": 10,
+  "children": 37,
+  "init_event_count": 6216,
+  "mode_fields": "init_diagnostics=true in both modes; common_init_marks explicitly denotes added callbacks"
+}
