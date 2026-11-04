@@ -33,10 +33,7 @@ def validate_caches(text, name):
             continue
         assert 'cache: true' in block and 'cache: false' not in block
         assert 'cache-hit' not in block  # A hit must never skip builds or tests.
-        if name == 'check':
-            assert 'cache-dependency-path: |\n            go.mod\n            go.sum\n' in block
-        else:
-            assert 'cache-dependency-path: |\n            go.sum\n            .github/workflows/'+name+'.yml' in block
+        assert 'cache-dependency-path: |\n            go.mod\n            go.sum\n' in block
         assert 'echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"' in block
         assert 'go clean -testcache' in block
         assert block.index('actions/setup-go@') < block.index('go clean -testcache')
@@ -50,7 +47,7 @@ def validate_caches(text, name):
             prefix = block.split('shell: bash')[0]
             assert prefix.count("if: steps.diff.outputs.check_scope == 'full'") == 2
     namespaces = re.findall(r'          cache-dependency-path: \|\n((?:            [^\n]+\n)+)', text)
-    if name in ('check', 'dump-import-productization', 'live-host'):
+    if name in ('check', 'dump-import-productization'):
         assert len(namespaces) == len(set(namespaces))
     assert found == {'check': 1, 'live-host': 2, 'dump-import-productization': 1, 'django-lifecycle': 1}[name]
 
@@ -78,7 +75,7 @@ def test_cancellation_cannot_include_other_workflows_or_non_pr_runs(before, afte
     ('cache: true', 'cache: false'),
     ('go clean -testcache', 'echo reused-results'),
     ('GOCACHE=$(go env GOCACHE)', 'IGNORED=$(go env GOCACHE)'),
-    ('.github/workflows/live-host.yml', 'go.mod'),
+    ('            go.mod\n', '            .github/workflows/live-host.yml\n'),
 ])
 def test_cache_regressions_are_detected(before, after):
     text = (ROOT/'.github/workflows/live-host.yml').read_text()

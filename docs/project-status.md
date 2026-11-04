@@ -2477,3 +2477,26 @@ No product default/API, publication approval, new job or trigger is introduced.
 Historical resource receipts retain their original scope; shorter Release receipts
 explicitly do not claim fresh resource measurement. Other audit items remain
 outside this implementation.
+
+
+## 0.6.1 CI: medium-priority overhead reductions approved (2026-11-04)
+
+Following the high-priority cleanup in PR87, the Human approved the medium items.
+Both verification profiles now delegate Go vet to the existing explicit adapter
+instead of also running `go test`'s default subset. Package scope and analyzer
+policy remain unchanged. Live compiler-cache keys use module inputs; workflow
+and Python edits no longer force a new compiler cache. Test results are cleared.
+Portable E2E entry and Fork-limit option tests move from both Live OS jobs to
+shared units on both Python minors. Core integration already owns ordinary
+`mariamemtest` race tests on both OSes, so Live removes that repeated invocation.
+Real process/pipe/socket/transport, physical E2E, installed wheel, and other
+platform-specific controls remain. Full local/core source checks retain their
+broad Python suite; this change does not claim to remove every shared/core overlap.
+No required context, Release reuse contract, product API or default changes.
+
+Focused verification: 393 policy/runner/receipt/ownership/portable tests passed
+on Python3.11; the two moved suites also passed on Python3.14 (59 tests and
+12 subtests). Failure injection confirms both Go test and explicit vet failures
+stop both profiles. Public-source and diff checks passed. No runtime code changed,
+so no new integration build or full Release campaign was run; actual CI savings
+remain unmeasured.

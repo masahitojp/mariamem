@@ -190,12 +190,19 @@ This selection produces no reusable runtime-qualification receipt.
 | Release CI (`verify` or `release`) | full integration/race, native SQL, Live, Dump, Django, routing, preparation/migration, final artifacts | both supported platforms and required interpreter/browser/ORM cells |
 
 Daily Go checks cover `.`, `./cmd/...`, `./internal/...` and `./mariamemtest/...`.
-`go test` delegates vet to the following explicit vet step. That step retains all
+`go test` delegates vet to the following explicit vet step in both profiles. That step retains all
 handwritten analyzers; only pure generated `code/pN` packages select build-tag
 analysis, using the standard vet tool so dependency facts remain well formed.
 `verify.py check` defaults to the full profile for Release/runtime qualification:
 all packages (including benchmarks, examples and acceptance programs) and all
 applicable generated-code analyzers. No cache hit skips test execution.
+Live's Go compiler cache uses `go.mod`/`go.sum`, as daily checks do; source changes
+invalidate compiled packages through Go itself. Workflow/Python-only edits no
+longer invalidate the entire compiler cache, and restored test results are cleared.
+The shared Release units job owns portable E2E entry and Fork-limit option tests
+on both Python minors. Live retains real subprocess/socket/transport controls on
+both OSes; core integration owns ordinary `mariamemtest` race tests on both OSes.
+Live separately retains its opt-in physical E2E controls.
 
 The `check` job runs source checks followed by `verify.py smoke` when selected,
 using the same checkout and compiler cache. The smoke builds one
