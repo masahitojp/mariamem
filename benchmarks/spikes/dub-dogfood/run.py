@@ -29,7 +29,7 @@ def qstash_local(path,e):
         with (e/'qstash.txt').open('w') as log:subprocess.run(['docker','logs','mariamem-dub-dogfood-qstash'],stdout=log,stderr=subprocess.STDOUT)
         subprocess.run(['docker','rm','-f','mariamem-dub-dogfood-qstash'],check=True,stdout=subprocess.DEVNULL)
 
-def main(w,e,redis_url,with_proxy,qstash_env):
+def main(w,e,redis_url,with_proxy,qstash_env,prewarm):
     product=w/'temp/host-source';app=w/'temp/dub/apps/web';host=w/'temp/mariamem-host'
     e.mkdir(parents=True,exist_ok=True)
     sys.path[:0]=[str(product/'python'),str(product/'scripts')]
@@ -77,7 +77,7 @@ def main(w,e,redis_url,with_proxy,qstash_env):
                 if 'cells' in value:report['db_cases']=value;break
             except ValueError:pass
         save()
-        if not report.get('db_cases'):return
+        if not report.get('db_cases'):return 1
         if psurl:
             (app/'.mariamem-edge-probe.ts').write_text("import assert from 'node:assert/strict'; import {prismaEdge} from './lib/prisma/edge'; async function main(){try{const r:any=await prismaEdge.$queryRawUnsafe('SELECT 1 AS n');assert.equal(Number(r[0].n),1);console.log('PASS_HTTP_PRISMA_EDGE');}finally{await prismaEdge.$disconnect();}} main().catch(e=>{console.error(e);process.exitCode=1;});\n")
             run('upstream-prisma-edge',cli+['tsx','.mariamem-edge-probe.ts'],nodeenv)
@@ -86,7 +86,7 @@ def main(w,e,redis_url,with_proxy,qstash_env):
         s=socket.socket()
         try:s.bind(('127.0.0.1',8888))
         except OSError:
-            report['upstream_http']={'result':'BLOCKED','reason':'port8888 already occupied; user process preserved'};save();return
+            report['upstream_http']={'result':'BLOCKED','reason':'port8888 already occupied; user process preserved'};save();return 1
         finally:s.close()
         with (e/'next-dev.txt').open('w') as log:
             serverenv=dict(env,NODE_OPTIONS='--require='+str(w/'worktree/benchmarks/spikes/dub-dogfood/local-fetch-only.cjs'))
@@ -99,6 +99,16 @@ def main(w,e,redis_url,with_proxy,qstash_env):
                     except OSError:time.sleep(.25)
                 report['upstream_http']={'listening':ready,'server_exit_code':server.poll()};save()
                 if ready:
+                    if prewarm:
+                        import urllib.request,urllib.error
+                        paths=['/customers','/customers/_dogfood_','/domains','/domains/_dogfood_.test','/domains/_dogfood_.test/primary','/domains/status','/folders','/folders/_dogfood_','/links','/links/bulk','/shopify/pixel','/shopify/integration/webhook','/tags','/tags/_dogfood_','/utm','/utm/_dogfood_','/workspaces/_dogfood_','/workspaces/_dogfood_/users']
+                        warmed=[]
+                        for path in paths:
+                            try:
+                                with urllib.request.urlopen('http://localhost:8888/api'+path,timeout=120) as response:response.read();status=response.status
+                            except urllib.error.HTTPError as error:error.read();status=error.code
+                            warmed.append({'path':path,'unauthenticated_get_status':status})
+                        report['prewarm']=warmed;save()
                     run('upstream-api-tests',cli+['playwright','test','--project=api','--workers=1','--retries=0','--max-failures=0','--reporter=line,json'],env,timeout=600)
                 else:report['upstream_http']['result']='BLOCKED_SERVER_START';save()
             finally:
@@ -112,4 +122,4 @@ def main(w,e,redis_url,with_proxy,qstash_env):
     return int(any(row['result']!='PASS' for row in report['stages']))
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--redis-url',default='http://127.0.0.1:9');p.add_argument('--with-proxy',action='store_true');p.add_argument('--qstash-env',type=Path);a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve(),a.redis_url,a.with_proxy,a.qstash_env))
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--redis-url',default='http://127.0.0.1:9');p.add_argument('--with-proxy',action='store_true');p.add_argument('--qstash-env',type=Path);p.add_argument('--prewarm',action='store_true');a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve(),a.redis_url,a.with_proxy,a.qstash_env,a.prewarm))
