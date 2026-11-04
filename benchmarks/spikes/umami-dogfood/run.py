@@ -2,7 +2,7 @@
 import argparse,contextlib,hashlib,json,os,re,signal,socket,subprocess,sys,time,urllib.request,urllib.error
 from pathlib import Path
 
-def main(w,e):
+def main(w,e,compat):
     product=w/'temp/host-source';app=w/'temp/umami';host=w/'temp/mariamem-host';e.mkdir(parents=True,exist_ok=True)
     sys.path[:0]=[str(product/'python'),str(product/'scripts')]
     import mariamem,pymysql
@@ -25,6 +25,11 @@ def main(w,e):
         info=root.connection_info()
         with contextlib.closing(pymysql.connect(**info,autocommit=True)) as c:
             with c.cursor() as cur:cur.execute('CREATE DATABASE umami CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci')
+            if compat:
+                with c.cursor() as cur:
+                    cur.execute('USE umami');cur.execute((w/'worktree/benchmarks/spikes/umami-dogfood/diagnostic-bin-to-uuid.sql').read_text())
+                    cur.execute("SELECT BIN_TO_UUID(UNHEX('6ccd780cbaba102695645b8c656024db'))");assert cur.fetchone()[0]=='6ccd780c-baba-1026-9564-5b8c656024db'
+                report['diagnostic_compatibility_function']=True;save()
         localenv=connection(root)
         if run('migration-deploy',cli+['exec','prisma','migrate','deploy'],localenv)['result']!='PASS':return 1
         run('upstream-check-db-repeat',cli+['run','check-db'],localenv)
@@ -80,4 +85,4 @@ def main(w,e):
     save();return int(any(s['result']!='PASS' for s in report['stages']))
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve()))
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--diagnostic-compat',action='store_true');a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve(),a.diagnostic_compat))
