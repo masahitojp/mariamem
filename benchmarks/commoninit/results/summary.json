@@ -1,0 +1,342 @@
+{
+  "control": {
+    "processes": [
+      {
+        "name": "round0-control",
+        "child_ns": {
+          "fork_wall": [
+            36938000,
+            36785334,
+            37324666,
+            35657666
+          ],
+          "fork_cpu": [
+            51577000,
+            50291000,
+            48354000,
+            46537000
+          ],
+          "guest_common": [
+            16396334,
+            16094333,
+            16987458,
+            16530208
+          ],
+          "guest_server_init": [
+            31633375,
+            32394542,
+            32380833,
+            31639917
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 36.861667,
+          "fork_cpu": 49.3225,
+          "guest_common": 16.463271,
+          "guest_server_init": 32.010375
+        }
+      },
+      {
+        "name": "round1-control",
+        "child_ns": {
+          "fork_wall": [
+            41302083,
+            43033584,
+            37619292,
+            36143625
+          ],
+          "fork_cpu": [
+            57491000,
+            55393000,
+            51659000,
+            49936000
+          ],
+          "guest_common": [
+            19582958,
+            24117167,
+            17217375,
+            16364500
+          ],
+          "guest_server_init": [
+            35857084,
+            38699333,
+            33237416,
+            32086375
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 39.4606875,
+          "fork_cpu": 53.526,
+          "guest_common": 18.4001665,
+          "guest_server_init": 34.54725
+        }
+      },
+      {
+        "name": "round2-control",
+        "child_ns": {
+          "fork_wall": [
+            39031875,
+            39313334,
+            36986958,
+            36475083
+          ],
+          "fork_cpu": [
+            56903000,
+            52900000,
+            50645000,
+            51073000
+          ],
+          "guest_common": [
+            17291584,
+            19525500,
+            17405750,
+            16244000
+          ],
+          "guest_server_init": [
+            33544416,
+            34901875,
+            32748750,
+            31543209
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 38.0094165,
+          "fork_cpu": 51.9865,
+          "guest_common": 17.348667,
+          "guest_server_init": 33.146583
+        }
+      }
+    ],
+    "median_of_process_medians_ms": {
+      "fork_wall": 38.0094165,
+      "fork_cpu": 51.9865,
+      "guest_common": 17.348667,
+      "guest_server_init": 33.146583
+    }
+  },
+  "init": {
+    "processes": [
+      {
+        "name": "round0-init",
+        "child_ns": {
+          "fork_wall": [
+            38381334,
+            43037250,
+            40293084,
+            35018292
+          ],
+          "fork_cpu": [
+            52074000,
+            57294000,
+            52416000,
+            47449000
+          ],
+          "guest_common": [
+            18126459,
+            22265834,
+            21135208,
+            15601958
+          ],
+          "guest_server_init": [
+            34186708,
+            38760834,
+            35987834,
+            30366208
+          ],
+          "pre_timer": [
+            213792,
+            215125,
+            219375,
+            215459
+          ],
+          "timer": [
+            2770708,
+            6802750,
+            5701833,
+            144958
+          ],
+          "common_variables": [
+            15140250,
+            15245667,
+            15210750,
+            15239333
+          ],
+          "trailing_setup": [
+            917,
+            1041,
+            1000,
+            1000
+          ],
+          "common_total": [
+            18125667,
+            22264583,
+            21132958,
+            15600750
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 39.337209,
+          "fork_cpu": 52.245,
+          "guest_common": 19.6308335,
+          "guest_server_init": 35.087271,
+          "pre_timer": 0.215292,
+          "timer": 4.2362705,
+          "common_variables": 15.2250415,
+          "trailing_setup": 0.001,
+          "common_total": 19.6293125
+        }
+      },
+      {
+        "name": "round1-init",
+        "child_ns": {
+          "fork_wall": [
+            36701917,
+            37571875,
+            35842917,
+            35884500
+          ],
+          "fork_cpu": [
+            50942000,
+            51826000,
+            48791000,
+            51897000
+          ],
+          "guest_common": [
+            16188541,
+            18274375,
+            17139875,
+            16161417
+          ],
+          "guest_server_init": [
+            31804875,
+            33152750,
+            31747709,
+            31587708
+          ],
+          "pre_timer": [
+            222333,
+            223250,
+            216500,
+            212500
+          ],
+          "timer": [
+            534625,
+            2812833,
+            1694416,
+            794958
+          ],
+          "common_variables": [
+            15429250,
+            15236292,
+            15227084,
+            15152208
+          ],
+          "trailing_setup": [
+            1167,
+            875,
+            833,
+            750
+          ],
+          "common_total": [
+            16187375,
+            18273250,
+            17138833,
+            16160416
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 36.2932085,
+          "fork_cpu": 51.384,
+          "guest_common": 16.664208,
+          "guest_server_init": 31.776292,
+          "pre_timer": 0.2194165,
+          "timer": 1.244687,
+          "common_variables": 15.231688,
+          "trailing_setup": 0.000854,
+          "common_total": 16.663104
+        }
+      },
+      {
+        "name": "round2-init",
+        "child_ns": {
+          "fork_wall": [
+            40022208,
+            36053916,
+            36505000,
+            37325709
+          ],
+          "fork_cpu": [
+            53329000,
+            49572000,
+            48188000,
+            48868000
+          ],
+          "guest_common": [
+            17144583,
+            16438208,
+            17226584,
+            17864875
+          ],
+          "guest_server_init": [
+            32719166,
+            31360833,
+            32252292,
+            32898834
+          ],
+          "pre_timer": [
+            215750,
+            215875,
+            219542,
+            214875
+          ],
+          "timer": [
+            1679250,
+            690750,
+            1762958,
+            2481375
+          ],
+          "common_variables": [
+            15247083,
+            15528500,
+            15241792,
+            15167292
+          ],
+          "trailing_setup": [
+            1125,
+            1083,
+            1166,
+            1041
+          ],
+          "common_total": [
+            17143208,
+            16436208,
+            17225458,
+            17864583
+          ]
+        },
+        "process_median_ms": {
+          "fork_wall": 36.9153545,
+          "fork_cpu": 49.22,
+          "guest_common": 17.1855835,
+          "guest_server_init": 32.485729,
+          "pre_timer": 0.2158125,
+          "timer": 1.721104,
+          "common_variables": 15.2444375,
+          "trailing_setup": 0.001104,
+          "common_total": 17.184333
+        }
+      }
+    ],
+    "median_of_process_medians_ms": {
+      "fork_wall": 36.9153545,
+      "fork_cpu": 51.384,
+      "guest_common": 17.1855835,
+      "guest_server_init": 32.485729,
+      "pre_timer": 0.2158125,
+      "timer": 1.721104,
+      "common_variables": 15.231688,
+      "trailing_setup": 0.001,
+      "common_total": 17.184333
+    }
+  }
+}

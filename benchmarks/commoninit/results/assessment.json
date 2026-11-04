@@ -1,0 +1,43 @@
+{
+  "result": "OBSERVATION_COMPLETE",
+  "recommendation": "Separately split init_common_variables before considering cached or cloned initialization",
+  "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "harness_source_commit": "9c601ab7e15920048ac3db5ce4ab9840397c001b",
+  "primary_processes": 6,
+  "primary_children": 24,
+  "warmup_children": 8,
+  "positive_pilot_children": 4,
+  "negative_children": 1,
+  "sql_independence_cleanup": "PASS",
+  "wrong_seed_negative": "PASS",
+  "all_zero_drops": true,
+  "all_mapping_rw_reserve_release_failures_zero": true,
+  "mutations": [
+    "missing marker rejected",
+    "dropped observation rejected",
+    "hidden mapping cleanup failure rejected"
+  ],
+  "paired_fork_wall_change_percent": [
+    6.715762474876685,
+    -8.026922997730335,
+    -2.878397251902043
+  ],
+  "limits": [
+    "one host, serial cap1, not P4 attribution",
+    "wall subintervals, no per-stage guest CPU",
+    "generated basic blocks matched against source, not DWARF",
+    "full guest init diagnostics enabled in both modes",
+    "15ms common-variable setup not proven removable/reusable",
+    "legacy init_diagnostics flag describes new mark mode; see publication.json"
+  ],
+  "setup_corrections": [
+    "worktree prepare rejected read-only metadata; used standalone clone",
+    "unquoted upstream query rejected by shell glob; corrected",
+    "unsupported identity --ref argument corrected; build also requires commit identity",
+    "sandbox dependency download failed; rerun with permission",
+    "sandbox TCP bind failed before any child; failed receipt preserved"
+  ],
+  "budget": "planned active120min/tooling30min/heavyCI0; mapping/overlay established without guest rebuild; approval waits and build are not benchmark time; no extra primary repeats",
+  "cleanup": "PENDING owned temp disposal after history and results preservation",
+  "product_adoption_integration_release": false
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "needle": "Fn227(m, int32(8563877))",
+    "function_line": 13136,
+    "context": "\tv73 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 12489040, 0, 8)))\n\t*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v62)), 288, 8))) = v73\n\tFn227(m, int32(8563877))\n\tmBase = m.M\n\tv79 = m.ExcPending\n\tif v79 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L2\n\t}\nL1:\n\t;\n\treturn int32(0)\nL2:\n\t;\n\tv80 = int32(1)\n\t*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 23888704, 0, 1))) = uint8(v80)\n\tv84 = Fn975(m)\n\tmBase = m.M\n\tv85 = m.ExcPending\n\tif v85 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L7\n\t}\nL3:\n\t;\n\tFn12435(m, v30179, int32(0))\n\tmBase = m.M\n\tv30182 = m.ExcPending\n\tif v30182 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L4641\n\t}\nL4:\n\t;\n\tFn213(m, v30114)\n\tmBase = m.M\n\tv30174 = m.ExcPending\n\tif v30174 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L4640\n\t}\nL5:\n\t;\n\tv30114 = int32(1)\n\tgoto L4\nL6:\n\t;\n\tm.G0 = v30000 + int32(896)\n\treturn v29992"
+  },
+  {
+    "needle": "L64:\n",
+    "function_line": 13657,
+    "context": "\tm.G0 = v671 + int32(112)\n\tif v712 != 0 {\n\t\tv29992 = v80\n\t\tv30000 = v62\n\t\tgoto L6\n\t} else {\n\t\tgoto L64\n\t}\nL64:\n\t;\n\tv735 = int32(0)\n\tv737 = m.G0\n\tv739 = v737 - int32(32)\n\tm.G0 = v739\n\tv741 = int32(23871104)\n\t*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 23871104, 0, 8))) = int64(29)\n\tv744 = int32(23871120)\n\tv745 = int64(1000000000)\n\t*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 23871120, 0, 8))) = v745\n\tv748, v748__h = 0x0, 0x0\n\tbase.Simd_p_v128_store(m, v744, v735, v748, v748__h)\n\tbase.Simd_p_v128_store(m, v741, v735, v748, v748__h)\n\t*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 23871136, 0, 8))) = int64(11)\n\t*(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 23871152, 0, 8))) = v745\n\tv765 = m.G0\n\tv767 = v765 - int32(16)\n\tm.G0 = v767\n\tv772 = Fn71(m, v735, int64(1), v767+int32(8))"
+  },
+  {
+    "needle": "L1466:\n",
+    "function_line": 22941,
+    "context": "\t\tv6525 = v6624\n\t\tgoto L1456\n\t} else {\n\t\tgoto L1465\n\t}\nL1465:\n\t;\n\tv6625 = v6624\n\tgoto L1458\nL1466:\n\t;\n\tm.G0 = v739 + int32(32)\n\tv6950 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 14602180, 0, 4)))\n\tv6952 = int32(0)\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23876564, 0, 4))) = v6952\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23876560, 0, 4))) = v6952\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23876568, 0, 4))) = v6952\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23876572, 0, 4))) = v6952\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23876576, 0, 4))) = v6952\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23876580, 0, 4))) = v6952\n\tv6970 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23872088, 0, 4)))\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v6970)), 0, 4))) = v6952"
+  },
+  {
+    "needle": "L1826:\n",
+    "function_line": 25709,
+    "context": "\tif base.Ui32(v9666) < base.Ui32(v9668) {\n\t\tv9657 = v9666\n\t\tgoto L1820\n\t} else {\n\t\tgoto L1825\n\t}\nL1825:\n\t;\n\tgoto L1821\nL1826:\n\t;\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 14602176, 0, 4))) = int32(23874336)\n\tv17756 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23876436, 0, 4)))\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 15020164, 0, 4))) = v17756\n\tv17760 = Fn190(m, int32(8742617))\n\tmBase = m.M\n\tv17761 = m.ExcPending\n\tif v17761 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L3119\n\t}\nL1827:\n\t;\n\tFn5880(m)\n\tmBase = m.M\n\tv17750 = m.ExcPending\n\tif v17750 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L3118\n\t}\nL1828:\n\t;\n\tv17676 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v62)), 388, 1))))\n\tif v17676 == int32(1) {\n\t\tgoto L3109\n\t} else {\n\t\tgoto L3110\n\t}\nL1829:\n\t;"
+  },
+  {
+    "needle": "Fn227(m, int32(8620041))",
+    "function_line": 34367,
+    "context": "\t\tgoto L3122\n\t}\nL3120:\n\t;\n\tv17768 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 14602180, 0, 4)))\n\tFn227(m, int32(8620041))\n\tmBase = m.M\n\tv17771 = m.ExcPending\n\tif v17771 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L3125\n\t}\nL3121:\n\t;\n\tv17763 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, uint64(uint32(v17760)), 0, 1))))\n\tif v17763 != 0 {\n\t\tgoto L3120\n\t} else {\n\t\tgoto L3124\n\t}\nL3122:\n\t;\n\tgoto L3123\nL3123:\n\t;\n\t*(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 23876548, 0, 4))) = int32(8539437)\n\tgoto L3120\nL3124:\n\t;\n\tgoto L3123\nL3125:\n\t;\n\tv17772 = m.G0\n\tv17774 = v17772 - int32(6496)\n\tm.G0 = v17774\n\tFn227(m, int32(8563722))\n\tmBase = m.M\n\tv17778 = m.ExcPending\n\tif v17778 != 0 {\n\t\tgoto L1\n\t} else {\n\t\tgoto L3126\n\t}\nL3126:\n\t;\n\tv17780 = int32(1)\n\t*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 24225912, 0, 1))) = uint8(v17780)"
+  }
+]

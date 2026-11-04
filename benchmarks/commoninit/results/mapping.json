@@ -1,0 +1,13 @@
+{
+  "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "issue": 100,
+  "begun_utc": "2026-11-04T14:41:09Z",
+  "method": "static marker string offsets plus 8MiB data base identify Fn5572; match inlined timer setup and common-variable error counters/type initialization; generated calls are inlined, not separately named symbols",
+  "boundaries": {
+    "common_begin": "Fn227 embedded_begin at data 175269 +8388608",
+    "timer_begin": "L64 before timer info initialization at23871104",
+    "timer_end": "L1466 restores timer stack then zeroes connection-error counters",
+    "common_variables_end": "L1826 success before mysql_data_home and TMPDIR",
+    "common_end": "Fn227 embedded_options_complete at231433+8388608"
+  }
+}

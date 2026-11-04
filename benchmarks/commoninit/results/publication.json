@@ -1,0 +1,7 @@
+{
+  "inputs_original_sha256": "e5b1ebbb9d20b0d0b0389aed2ad97c46c0c3dcb891483f10f30736fb2e3f5183",
+  "inputs_published_sha256": "7dbb5e081e132656af7a5cb5f109970edccf3b9c555235148b75accbfddf3569",
+  "normalization": "only workspace prefix in build-info; timings/hashes unchanged",
+  "compact_encoding": "initialization-event object keys stored once; exact decoded equality to all 10 original records verified",
+  "record_flag_correction": "legacy init_diagnostics field denotes common-init marks off/on in this run.py; guest initialization diagnostics were enabled in BOTH modes via MARIAMEM_PROBE_INIT=1; analyzer validates actual events, not that field"
+}

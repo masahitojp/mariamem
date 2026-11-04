@@ -1,0 +1,2 @@
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+benchmarks/commoninit/main.go:19:2: github.com/go-sql-driver/mysql@v1.9.3: Get "https://proxy.golang.org/github.com/go-sql-driver/mysql/@v/v1.9.3.zip": dial tcp: lookup proxy.golang.org: no such host

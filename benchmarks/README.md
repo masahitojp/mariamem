@@ -449,3 +449,5 @@ Historical Wasmer comparisons require historical tags; current selectors reject
 legacy inputs. `v04_orm.py` is an old v0.3 harness, not a current release gate.
 
 [Final v0.4.3 baseline and compact evidence](v043-release-baseline.md).
+
+- [Issue100 common initialization split](common-init.md): common-variable setup15.2ms; timer calibration1.7ms; serial diagnostic observation on one host.

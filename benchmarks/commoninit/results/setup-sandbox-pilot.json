@@ -1,0 +1,96 @@
+{
+  "result": "FAIL",
+  "error": "mariamem host_start: host_listen: listen tcp4 127.0.0.1:0: bind: operation not permitted\nlisten tcp4 127.0.0.1:0: bind: operation not permitted",
+  "traced": true,
+  "negative": false,
+  "go": "go1.27.3",
+  "goos": "darwin",
+  "goarch": "arm64",
+  "build": {
+    "GoVersion": "go1.27.3",
+    "Path": "github.com/masahitojp/mariamem/benchmarks/commoninit",
+    "Main": {
+      "Path": "github.com/masahitojp/mariamem",
+      "Version": "v0.6.1-0.20261104144110-9c601ab7e159"
+    },
+    "Deps": [
+      {
+        "Path": "filippo.io/edwards25519",
+        "Version": "v1.1.0",
+        "Sum": "h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA="
+      },
+      {
+        "Path": "github.com/go-sql-driver/mysql",
+        "Version": "v1.9.3",
+        "Sum": "h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo="
+      }
+    ],
+    "Settings": [
+      {
+        "Key": "-buildmode",
+        "Value": "exe"
+      },
+      {
+        "Key": "-compiler",
+        "Value": "gc"
+      },
+      {
+        "Key": "-trimpath",
+        "Value": "true"
+      },
+      {
+        "Key": "DefaultGODEBUG",
+        "Value": "tracebacklabels=0,x509sslcertoverrideplatform=0"
+      },
+      {
+        "Key": "CGO_ENABLED",
+        "Value": "0"
+      },
+      {
+        "Key": "GOARCH",
+        "Value": "arm64"
+      },
+      {
+        "Key": "GOOS",
+        "Value": "darwin"
+      },
+      {
+        "Key": "GOARM64",
+        "Value": "v8.0"
+      },
+      {
+        "Key": "vcs",
+        "Value": "git"
+      },
+      {
+        "Key": "vcs.revision",
+        "Value": "9c601ab7e15920048ac3db5ce4ab9840397c001b"
+      },
+      {
+        "Key": "vcs.time",
+        "Value": "2026-11-04T14:41:10Z"
+      },
+      {
+        "Key": "vcs.modified",
+        "Value": "false"
+      }
+    ]
+  },
+  "cap": 0,
+  "children": null,
+  "cleanup": {
+    "active_mappings": 0,
+    "active_reserved_bytes": 0,
+    "active_rw_bytes": 0,
+    "creates": 1,
+    "grow_calls": 98,
+    "grow_failures": 0,
+    "peak_total_rw_bytes": 676003840,
+    "release_failures": 0,
+    "releases": 1
+  },
+  "init_diagnostics": true,
+  "exit_code": 1,
+  "process_seconds": 1.2437958717346191,
+  "scratch_remaining": []
+}
