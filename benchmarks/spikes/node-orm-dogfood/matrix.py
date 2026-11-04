@@ -123,7 +123,7 @@ def main(host,output):
     source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     info=verify_go_binary(ROOT,host,source)
     report={'scope':'ONE_OS_OFFICIAL_ORM_MYSQL_DOGFOOD','source_commit':source,'product_baseline_source_commit':subprocess.check_output(['git','rev-parse','origin/main'],cwd=ROOT,text=True).strip(),'host':{'system':platform.system(),'machine':platform.machine()},'node':subprocess.check_output(['node','--version'],text=True).strip(),'versions':{'typeorm':'1.1.2','mikro-orm':'7.2.7','mysql2':'3.24.6'},'binary_sha256':hashlib.sha256(host.read_bytes()).hexdigest(),'binary_build_info':info,'cells':[]}
-    def cell(orm,name,operation):
+    def cell(profile,name,operation):
         directory=output/(orm+'-'+name);directory.mkdir(exist_ok=True)
         row={'orm':orm,'name':name}
         try:row.update(result='PASS',observed=operation(directory))
@@ -132,14 +132,17 @@ def main(host,output):
         (output/'matrix.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
         print(orm,name,row['result'],str(row.get('error',''))[:160],flush=True)
     for orm in ('typeorm','mikro'):
+      for dialect in ('mysql','mariadb'):
+        os.environ['DIALECT']=dialect
+        profile=orm+'-'+dialect
         for name in RUNTIME:
             def operation(directory,n=name,o=orm):
                 with mariamem.start(host_binary=host) as owner:
                     endpoint=owner.connection_info();initialize(endpoint,not n.startswith('schema_'))
                     return run_node(o,n,env_for(endpoint),directory)
-            cell(orm,name,operation)
-        cell(orm,'live-reset',lambda d,o=orm:live_case(host,o,d))
-    report['summary']={o:{key:sum(r['orm']==o and r['result']==key for r in report['cells']) for key in ('PASS','FAIL')} for o in ('typeorm','mikro')}
+            cell(profile,name,operation)
+        cell(profile,'live-reset',lambda d,o=orm:live_case(host,o,d))
+    report['summary']={o:{key:sum(r['orm']==o and r['result']==key for r in report['cells']) for key in ('PASS','FAIL')} for o in ('typeorm-mysql','typeorm-mariadb','mikro-mysql','mikro-mariadb')}
     (output/'matrix.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(report['summary']),flush=True)
 
