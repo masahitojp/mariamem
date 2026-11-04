@@ -135,55 +135,82 @@ func (s *Server) accept() {
 		if err != nil {
 			return
 		}
-		s.mu.Lock()
-		if s.closing {
-			s.mu.Unlock()
-			conn.Close()
+		if !s.attach(conn) {
 			return
 		}
-		if s.Guest.Err() != nil {
-			s.mu.Unlock()
-			mysqlwire.RejectUnavailable(conn)
-			continue
-		}
-		slot, ok := s.allocateSlotLocked()
-		if !ok {
-			s.mu.Unlock()
-			mysqlwire.RejectCapacity(conn)
-			continue
-		}
-		state := &session{busy: true, slot: slot}
-		s.clients[conn] = state
-		s.workers.Add(1)
+	}
+}
+
+// DialPipe is an experiment-only transport seam; it is not a public SDK API.
+func (s *Server) DialPipe(ctx context.Context) (net.Conn, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+	client, server := net.Pipe()
+	if !s.attach(server) {
+		client.Close()
+		return nil, net.ErrClosed
+	}
+	return client, nil
+}
+
+// attach admits both transports under the same shutdown/session lock. Even
+// rejected handshakes are tracked so Close joins their writers on an unbuffered pipe.
+func (s *Server) attach(conn net.Conn) bool {
+	s.mu.Lock()
+	if s.closing {
 		s.mu.Unlock()
-		go func() {
-			defer s.workers.Done()
-			defer conn.Close()
-			activity := mysqlwire.Activity{
-				Begin: func() bool {
-					s.mu.Lock()
-					defer s.mu.Unlock()
-					if s.closing {
-						return false
-					}
-					state.busy = true
-					return true
-				},
-				Idle:    func(status uint16) { s.mu.Lock(); defer s.mu.Unlock(); state.status = status; state.busy = false },
-				Cleanup: func() { s.mu.Lock(); defer s.mu.Unlock(); state.busy = true },
-			}
-			err := mysqlwire.Serve(conn, s.Guest, state.slot, s.queryTimeout, s.Closing, activity)
-			if err != nil {
-				s.Guest.Abort(fmt.Errorf("SQL session: %w", err))
-			}
+		conn.Close()
+		return false
+	}
+	unavailable := s.Guest.Err() != nil
+	var slot uint32
+	var allocated bool
+	if !unavailable {
+		slot, allocated = s.allocateSlotLocked()
+	}
+	state := &session{busy: true, slot: slot}
+	s.clients[conn] = state
+	s.workers.Add(1)
+	s.mu.Unlock()
+	go func() {
+		defer s.workers.Done()
+		defer conn.Close()
+		defer func() {
 			s.mu.Lock()
 			delete(s.clients, conn)
-			// Serve waits for the guest's close acknowledgement. On failure the
-			// guest is aborted before a slot can be offered to another client.
-			s.slots[state.slot] = false
+			if allocated {
+				s.slots[state.slot] = false
+			}
 			s.mu.Unlock()
 		}()
-	}
+		if unavailable {
+			mysqlwire.RejectUnavailable(conn)
+			return
+		}
+		if !allocated {
+			mysqlwire.RejectCapacity(conn)
+			return
+		}
+		activity := mysqlwire.Activity{
+			Begin: func() bool {
+				s.mu.Lock()
+				defer s.mu.Unlock()
+				if s.closing {
+					return false
+				}
+				state.busy = true
+				return true
+			},
+			Idle:    func(status uint16) { s.mu.Lock(); defer s.mu.Unlock(); state.status = status; state.busy = false },
+			Cleanup: func() { s.mu.Lock(); defer s.mu.Unlock(); state.busy = true },
+		}
+		if err := mysqlwire.Serve(conn, s.Guest, state.slot, s.queryTimeout, s.Closing, activity); err != nil {
+			s.Guest.Abort(fmt.Errorf("SQL session: %w", err))
+		}
+		// Serve acknowledges guest close; abort precedes releasing a failed slot.
+	}()
+	return true
 }
 
 // allocateSlotLocked reserves the lowest free guest slot before session open.
