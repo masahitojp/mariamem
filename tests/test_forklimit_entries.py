@@ -26,21 +26,26 @@ def mariamem_prepare():
     assert 'snapshot' not in events and 'fork' not in events
 
 
-def test_fixture_settings_reach_snapshot_and_every_fork(tmp_path):
-    result, events = fake_suite(tmp_path, '''
+@pytest.mark.parametrize('defaults', [False, True])
+def test_fixture_settings_reach_snapshot_and_every_fork(tmp_path, defaults):
+    conf = '''
 _capture, _fork = DB.snapshot, Baseline.fork
 def capture(self, **options):
-    assert options == {'max_forks': 1}
+    assert options == {'max_forks': CAP}
     return _capture(self, **options)
 def fork(self, **options):
-    assert options == {'timeout': .5}
+    assert options == {'timeout': WAIT}
     return _fork(self, **options)
 DB.snapshot, Baseline.fork = capture, fork
+'''.replace('CAP', 'None' if defaults else '1').replace('WAIT', '30' if defaults else '.5')
+    if not defaults:
+        conf += '''
 @pytest.fixture(scope='session')
 def mariamem_max_forks(): return 1
 @pytest.fixture(scope='session')
 def mariamem_fork_timeout(): return .5
-''', 'def test_first(mariamem_fork): pass\ndef test_second(mariamem_fork): pass', False)
+'''
+    result, events = fake_suite(tmp_path, conf, 'def test_first(mariamem_fork): pass\ndef test_second(mariamem_fork): pass', False)
     assert result.returncode == 0, result.stdout + result.stderr
     assert events.count('snapshot') == 1 and events.count('fork') == 2
 

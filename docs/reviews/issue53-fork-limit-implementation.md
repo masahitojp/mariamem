@@ -52,6 +52,13 @@ The [fixed-row evidence map](issue53-fork-limit-acceptance-map.md) now names all
 rows' detectors, their source/controlled/actual-guest limits and existing matrix
 owners. This closes the planned local detector reconciliation; it does not mark
 the hosted installed matrix PASS. The following commit adds evidence/docs only.
+After that record, a detector-only follow-up adds an independent outer bound to
+the pipe-stall caller and verifies default30 fixture propagation alongside the
+explicit override. Its27 focused tests pass; an actual temporary-plugin negative
+control that removes the SDK request deadline fails the named outer-deadline
+oracle and completes cleanup. Product runtime code is unchanged from `8566c8ad`;
+the earlier daily receipt does not include this follow-up test delta. Head CI
+will check that delta under its own source rather than relabelling the old run.
 
 ## Previous checkpoint — bounded failure verification
 

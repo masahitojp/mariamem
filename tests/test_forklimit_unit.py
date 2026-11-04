@@ -254,13 +254,16 @@ while not Path({str(stop)!r}).exists(): time.sleep(.01)
     host.chmod(0o755)
     session = Session(host)
     session.retain()
+    callers = ThreadPoolExecutor(1)
     try:
         session.request("park", response_timeout=1)
         writer = session._writer
         started = time.monotonic()
         for _ in range(4):
+            call = callers.submit(session.request, "blocked", response_timeout=.04, data="x"*(256*1024))
             with pytest.raises(TimeoutError):
-                session.request("blocked", response_timeout=.04, data="x"*(256*1024))
+                call.result(1)
+            assert call.done(), 'SDK watchdog did not finish before outer deadline'
             assert session._writer is writer and writer.is_alive()
             with session._lock:
                 assert len(session._writes) <= 1
@@ -269,5 +272,6 @@ while not Path({str(stop)!r}).exists(): time.sleep(.01)
     finally:
         stop.touch()
         assert session._exited.wait(3)
+        callers.shutdown(wait=True)
         session.release()
         assert session._reaped.wait(3)

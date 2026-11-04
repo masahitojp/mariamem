@@ -25,6 +25,12 @@ Earlier D1 source-entry20 serial/15 xdist cases passed on `6df2f5c6`; earlier
 control/live/forklimit race cases passed for the `737f4414` change. Those remain
 historical evidence at their own sources, not receipts for this candidate.
 [Implementation records](issue53-fork-limit-implementation.md) retain the context.
+The subsequent detector-only follow-up adds an outer caller deadline to the
+non-reading-pipe test and checks default30 as well as an explicit fixture wait.
+Its27 focused tests pass. A temporary test plugin deliberately removed the
+blocked request's SDK deadline: the test failed with the expected outer-deadline
+oracle and reaped its owned host. No product file was mutated. These follow-up
+tests are not silently included in the earlier1870-test daily receipt.
 
 | Fixed row | Named detectors and evidence scope |
 | --- | --- |
