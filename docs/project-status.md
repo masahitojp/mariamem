@@ -92,6 +92,12 @@ Live matrix owner now includes bounded Fork-limit detectors and per-minor
 installed cap2/timeout/busy oracles. Remaining planned work is the fixed-row
 evidence reconciliation and execution of the source-bound installed matrix;
 potential failures discovered there are distinct from undecided design scope.
+Clean `8566c8ad` passed local daily/source smoke and9 same-source real-host cases;
+the [18-row detector/evidence map](reviews/issue53-fork-limit-acceptance-map.md)
+records the fixed conditions and current evidence limits. The known planned
+remaining work is hosted installed/platform execution and source-bound receipt
+assessment. New defects found by those runs are a distinct uncertainty; no new
+design decision or performance exit is currently proposed.
 There is no new performance campaign. The milestone and publication decisions are
 unchanged. Prewarming remains
 separate in [#84](https://github.com/masahitojp/mariamem/issues/84).

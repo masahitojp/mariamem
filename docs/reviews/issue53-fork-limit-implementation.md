@@ -43,6 +43,16 @@ the fixed-row evidence map follow the code commit. Hosted installed matrix
 execution remains a planned acceptance task, not an unknown design decision;
 unforeseen failures during that execution are a separate category.
 
+Clean inspected code source_commit
+`8566c8ad6b5dbb62d5540120bec0e9abe3d97519` passed canonical daily check
+(67 source tests, Go tests/vet,1870 Python tests plus106 subtests,91 skips),
+Go/Python source DB/Live smoke and all9 selected actual-guest ownership cases
+with a matching clean-source host on macOS arm64 / Go1.26.10 / Python3.14.
+The [fixed-row evidence map](issue53-fork-limit-acceptance-map.md) now names all18
+rows' detectors, their source/controlled/actual-guest limits and existing matrix
+owners. This closes the planned local detector reconciliation; it does not mark
+the hosted installed matrix PASS. The following commit adds evidence/docs only.
+
 ## Previous checkpoint — bounded failure verification
 
 Verification continues from candidate source_commit
