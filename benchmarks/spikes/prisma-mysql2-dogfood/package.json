@@ -1,0 +1,12 @@
+{
+  "name": "mariamem-prisma-mysql2-dogfood",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "7.10.1",
+    "prisma": "7.10.1",
+    "tsx": "4.23.15",
+    "mysql2": "3.24.6",
+    "@jsr/netscript__prisma-adapter-mysql": "0.0.8"
+  }
+}

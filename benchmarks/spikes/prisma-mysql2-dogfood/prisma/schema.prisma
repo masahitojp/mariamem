@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client"
+  output = "../generated"
+}
+datasource db {
+  provider = "mysql"
+}
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique @db.VarChar(191)
+  name String? @db.VarChar(120)
+  posts Post[]
+}
+model Post {
+  id Int @id @default(autoincrement())
+  title String @db.VarChar(191)
+  authorId Int
+  author User @relation(fields:[authorId],references:[id],onDelete:Cascade)
+  amount Decimal @db.Decimal(20,6)
+  big BigInt @db.BigInt
+  at DateTime @db.DateTime(3)
+  meta Json
+  blob Bytes @db.LongBlob
+}
