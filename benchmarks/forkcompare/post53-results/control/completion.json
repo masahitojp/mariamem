@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "ordinary": 12,
+  "warmup": 4,
+  "children_per_process": 48
+}

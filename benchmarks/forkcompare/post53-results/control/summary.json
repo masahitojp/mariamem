@@ -1,0 +1,30 @@
+[
+  {
+    "backend": "baseline",
+    "parallel": 4,
+    "wall_ms": 814.44375,
+    "cpu_ms": 3794.333,
+    "peak_rss_bytes": 391790592
+  },
+  {
+    "backend": "baseline",
+    "parallel": 8,
+    "wall_ms": 670.873667,
+    "cpu_ms": 4235.531,
+    "peak_rss_bytes": 704643072
+  },
+  {
+    "backend": "main",
+    "parallel": 4,
+    "wall_ms": 808.708167,
+    "cpu_ms": 3807.51,
+    "peak_rss_bytes": 390938624
+  },
+  {
+    "backend": "main",
+    "parallel": 8,
+    "wall_ms": 728.96,
+    "cpu_ms": 4215.77,
+    "peak_rss_bytes": 718061568
+  }
+]

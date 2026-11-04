@@ -1,0 +1,13 @@
+{
+  "executed_campaign_sha256": "349fedf34201148350eb9dee9d533f0c935f28577beeb19515d5fbff7c4b4bb3",
+  "published_campaign_sha256": "ed56981a93b1358033d30e220b528d9d0615b8c0b5a0df41e9ecd186738c7aa5",
+  "change": "Only source checkout becomes argv[1] for reproduction in a fresh workspace. Numeric results/source IDs unchanged.",
+  "archive_policy": "Compact checked phase/CPU/RSS summaries and hashes retained on experiment branch. No binaries, clones, full build trees or main adoption.",
+  "compact_metadata_normalization": {
+    "prefix": "Go module-cache directory",
+    "replacement": "<go-module-cache>",
+    "original_sha256": "b5f31d272c9eeba444bd9c8fb3ac59354f298d1e71271044e9ceb9edc282f7af",
+    "published_sha256": "0ab2fe158059a0387e54af3b328ac1ed3a7aba03e8d0a5abe7b23f34f5f1907f",
+    "scope": "Only module graph metadata paths; no source ID/result/SQL/statistic changed."
+  }
+}

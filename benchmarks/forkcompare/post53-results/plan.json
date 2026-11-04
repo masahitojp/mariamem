@@ -1,0 +1,27 @@
+{
+  "question": "Repeat the last pgmem comparison with adopted mariamem main, holding pgmem/toolchain/harness/workload constant.",
+  "harness_source_commit": "d10cfa8fb810b512333bcfa8b9d661493325478e",
+  "mariamem_source_commit": "6e29c1cd125aa95f564969b905cbff462d4f0e74",
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "count": 48,
+  "parallel": [
+    4,
+    8
+  ],
+  "repeats": 3,
+  "warmup": 1,
+  "route": "tcp",
+  "resource_interval_ms": 20,
+  "toolchain": "go1.27.3",
+  "gomaxprocs": 8,
+  "max_seconds": 1800,
+  "workspace_budget_gib": 8,
+  "minimum_free_gib": 12,
+  "exclude": [
+    "product changes",
+    "macro70 suite",
+    "in-process pgmem transport",
+    "qualification or release",
+    "automatic main merge"
+  ]
+}
