@@ -38,7 +38,7 @@ patch('internal/generatedgo/runtime_instance.go', [
     ('\t\tvar maps *base.PreparedFiles', '''        timing.ForkStageMark("filesystem_environment_ready")
         if ForkGuestTimingReader != nil && guestTiming {
             ForkGuestTimingReader(func() ([]byte, error) {
-                f, e := fs.Open("snapshot-out/startup-timing.json")
+                f, e := fs.OpenFile("snapshot-out/startup-timing.json", 0, 0)
                 if e != nil { return nil, e }; defer f.Close()
                 return io.ReadAll(io.LimitReader(f, 128*1024+1))
             })
