@@ -1,11 +1,16 @@
 import { EntitySchema, raw } from '@mikro-orm/core';
 import { MikroORM as MySqlORM } from '@mikro-orm/mysql';
 import { MikroORM as MariaDbORM } from '@mikro-orm/mariadb';
-const User=new EntitySchema({name:'User',tableName:'User',properties:{id:{type:'number',primary:true,autoincrement:true},email:{type:'string',length:191,unique:true},name:{type:'string',length:120,nullable:true},posts:{kind:'1:m',entity:()=>Post,mappedBy:'author',orphanRemoval:true}}});
+function models(length=120) {
+const User=new EntitySchema({name:'User',tableName:'User',properties:{id:{type:'number',primary:true,autoincrement:true},email:{type:'string',length:191,unique:true},name:{type:'string',length,nullable:true},posts:{kind:'1:m',entity:()=>Post,mappedBy:'author',orphanRemoval:true}}});
 const Post=new EntitySchema({name:'Post',tableName:'Post',properties:{id:{type:'number',primary:true,autoincrement:true},title:{type:'string',length:191},author:{kind:'m:1',entity:()=>User,fieldName:'authorId',deleteRule:'cascade',updateRule:'cascade'},amount:{type:'decimal',precision:20,scale:6},big:{type:'bigint'},at:{type:'Date',columnType:'datetime(3)'},meta:{type:'json'},blob:{type:'Buffer',columnType:'longblob'}}});
+return [User,Post];
+}
 export async function open() {
+ const [User,Post]=models();
  const ORM=process.env.DIALECT==='mariadb'?MariaDbORM:MySqlORM;
- const orm=await ORM.init({entities:[User,Post],host:process.env.DB_HOST,port:Number(process.env.DB_PORT),user:process.env.DB_USER,password:process.env.DB_PASSWORD,dbName:process.env.DB_NAME,pool:{min:0,max:2},debug:true,colors:false});
+ const config={entities:[User,Post],host:process.env.DB_HOST,port:Number(process.env.DB_PORT),user:process.env.DB_USER,password:process.env.DB_PASSWORD,dbName:process.env.DB_NAME,pool:{min:0,max:2},debug:!process.env.DOGFOOD_LIVE,colors:false};
+ const orm=await ORM.init(config);
  const api=em=>({
  count:()=>em.count(User,{}),
  user:(id=1,relations=false)=>em.findOneOrFail(User,{id},relations?{populate:['posts']}:{}),
@@ -21,5 +26,5 @@ export async function open() {
  aggregate:()=>em.createQueryBuilder(Post,'p').select([raw('count(*) as n'),raw('sum(p.amount) as total')]).execute('get'),
  group:()=>em.createQueryBuilder(Post,'p').select([raw('p.authorId as author'),raw('count(*) as n')]).groupBy('p.author').execute(),
  });
- return {...api(orm.em.fork()),close:()=>orm.close(true),transaction:fn=>orm.em.fork().transactional(em=>fn(api(em))),schemaCreate:()=>orm.schema.create(),schemaDiff:()=>orm.schema.getUpdateSchemaSQL({wrap:false}),schemaUpdate:async()=>{orm.getMetadata().get('User').properties.name.length=140;await orm.schema.update();}};
+ return {...api(orm.em.fork()),close:()=>orm.close(true),transaction:fn=>orm.em.fork().transactional(em=>fn(api(em))),schemaCreate:()=>orm.schema.create(),schemaDiff:()=>orm.schema.getUpdateSchemaSQL({wrap:false}),schemaUpdate:async()=>{const changed=await ORM.init({...config,entities:models(140)});try{await changed.schema.update();}finally{await changed.close(true);}}};
 }

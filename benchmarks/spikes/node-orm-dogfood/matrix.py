@@ -83,7 +83,7 @@ def live_case(host,orm,directory):
         initialize(source.connection_info(),True)
         source.wait_disconnected(timeout=10)
         with source.snapshot() as baseline,baseline.live() as live:
-            endpoint=live.connection_info();env=env_for(endpoint)
+            endpoint=live.connection_info();env=env_for(endpoint);env['DOGFOOD_LIVE']='1'
             with (directory/'node.txt').open('w') as log:
                 app=subprocess.Popen(['node','cases.mjs',orm,'live'],cwd=PROJECT,env=env,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=log,text=True)
                 def reply(command=None):
@@ -124,13 +124,13 @@ def main(host,output):
     info=verify_go_binary(ROOT,host,source)
     report={'scope':'ONE_OS_OFFICIAL_ORM_MYSQL_DOGFOOD','source_commit':source,'product_baseline_source_commit':subprocess.check_output(['git','rev-parse','origin/main'],cwd=ROOT,text=True).strip(),'host':{'system':platform.system(),'machine':platform.machine()},'node':subprocess.check_output(['node','--version'],text=True).strip(),'versions':{'typeorm':'1.1.2','mikro-orm':'7.2.7','mysql2':'3.24.6'},'binary_sha256':hashlib.sha256(host.read_bytes()).hexdigest(),'binary_build_info':info,'cells':[]}
     def cell(profile,name,operation):
-        directory=output/(orm+'-'+name);directory.mkdir(exist_ok=True)
-        row={'orm':orm,'name':name}
+        directory=output/(profile+'-'+name);directory.mkdir(exist_ok=True)
+        row={'orm':profile,'name':name}
         try:row.update(result='PASS',observed=operation(directory))
         except Exception as error:row.update(result='FAIL',error=str(error))
         report['cells'].append(row)
         (output/'matrix.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-        print(orm,name,row['result'],str(row.get('error',''))[:160],flush=True)
+        print(profile,name,row['result'],str(row.get('error',''))[:160],flush=True)
     for orm in ('typeorm','mikro'):
       for dialect in ('mysql','mariadb'):
         os.environ['DIALECT']=dialect
@@ -142,7 +142,16 @@ def main(host,output):
                     return run_node(o,n,env_for(endpoint),directory)
             cell(profile,name,operation)
         cell(profile,'live-reset',lambda d,o=orm:live_case(host,o,d))
-    report['summary']={o:{key:sum(r['orm']==o and r['result']==key for r in report['cells']) for key in ('PASS','FAIL')} for o in ('typeorm-mysql','typeorm-mariadb','mikro-mysql','mikro-mariadb')}
+    for dialect in ('mysql','mariadb'):
+        os.environ['DIALECT']=dialect
+        os.environ['DB_TIMEZONE']='Z'
+        def operation(directory):
+            with mariamem.start(host_binary=host) as owner:
+                endpoint=owner.connection_info();initialize(endpoint,True)
+                return run_node('typeorm','datetime',env_for(endpoint),directory)
+        cell('typeorm-'+dialect+'-utc','datetime',operation)
+    os.environ.pop('DB_TIMEZONE',None)
+    report['summary']={o:{key:sum(r['orm']==o and r['result']==key for r in report['cells']) for key in ('PASS','FAIL')} for o in ('typeorm-mysql','typeorm-mariadb','mikro-mysql','mikro-mariadb','typeorm-mysql-utc','typeorm-mariadb-utc')}
     (output/'matrix.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(report['summary']),flush=True)
 
