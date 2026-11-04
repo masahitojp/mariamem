@@ -109,6 +109,47 @@ def adapt_driver(text):
     return text
 
 
+
+def experimental_thread_binding(src, pins, files, development):
+    """Fixed prepared-UCA experiment only; no generic new-guest ABI matching."""
+    import re
+    import runtime_thread_lifetime as binding
+    path = os.environ.get('MARIAMEM_EXPERIMENT_THREAD_BINDING')
+    if not path:
+        return None
+    if not development:
+        raise ValueError('experimental binding requires development input')
+    raw = Path(path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != 'b82e9465c17933a2cdd783d4e146889c4f5d4816de713f18bea8ece9de1cfd23':
+        raise ValueError('experimental binding manifest identity mismatch')
+    m = json.loads(raw)
+    data = (src/'generated/data.bin').read_bytes()
+    if (m['guest_sha256'] != pins['guest_sha256'] or
+        m['canonical_guest_sha256'] != binding.GUEST_SHA256 or
+        m['candidate_files_sha256'] != files or
+        m['canonical_functions'] != {k:list(v) for k,v in binding.FUNCTIONS.items()} or
+        hashlib.sha256(data).hexdigest() != m['data_sha256'] or
+        hashlib.sha256(data[-m['tls_bytes']:]).hexdigest() != m['tls_sha256']):
+        raise ValueError('experimental binding inputs changed')
+    for row in m['closure_functions']:
+        body = binding.function((src/'generated'/row['file']).read_text(),row['function'])
+        if hashlib.sha256(re.sub(r'\s+', '', body).encode()).hexdigest() != row['normalized_sha256']:
+            raise ValueError('experimental closure body changed: '+row['function'])
+    return {k:tuple(v) for k,v in m['adapted_functions'].items()}
+
+
+def apply_thread_binding(name, text, approved):
+    import runtime_thread_lifetime as binding
+    if approved is None:
+        return binding.apply(name, text)
+    original = binding.FUNCTIONS
+    try:
+        binding.FUNCTIONS = approved
+        return binding.apply(name, text)
+    finally:
+        binding.FUNCTIONS = original
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-module', type=Path, required=True)
@@ -127,7 +168,9 @@ def main():
     if files != pins['candidate_files_sha256']:
         parser.error('candidate source inventory differs from the pinned input')
     from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs
-    thread_lifetime_inputs(pins['guest_sha256'], files)
+    approved_thread_binding = experimental_thread_binding(src, pins, files, bool(args.development_input))
+    from runtime_thread_lifetime import GUEST_SHA256 as canonical_thread_guest
+    thread_lifetime_inputs(canonical_thread_guest if approved_thread_binding else pins['guest_sha256'], files)
     data = (src/'generated/data.bin').read_bytes()
     if hashlib.sha256(data).hexdigest() != pins['data_sha256']:
         parser.error('initial guest data identity mismatch')
@@ -160,7 +203,7 @@ def main():
         elif name in ('fs_contract_test.go', 'guest_identity.go'):
             text = text.replace('package main', 'package generatedgo', 1)
         from runtime_thread_lifetime import apply as thread_lifetime
-        text = thread_lifetime(str(target.relative_to(out)), text)
+        text = apply_thread_binding(str(target.relative_to(out)), text, approved_thread_binding)
         from runtime_failure import apply as worker_failure
         text = worker_failure(str(target.relative_to(out)), text)
         from runtime_write import apply as write_errors
@@ -178,7 +221,7 @@ def main():
         'input_manifest_sha256':hashlib.sha256((ROOT/'release/generated-go-inputs.json').read_bytes()).hexdigest(),
         'files_sha256':inventory}
     if args.development_input:
-        provenance.update(contract=pins['contract'], result='UNQUALIFIED',
+        provenance.update(experimental_thread_binding_sha256=(hashlib.sha256(Path(os.environ['MARIAMEM_EXPERIMENT_THREAD_BINDING']).read_bytes()).hexdigest() if os.environ.get('MARIAMEM_EXPERIMENT_THREAD_BINDING') else None), contract=pins['contract'], result='UNQUALIFIED',
                           dev_inputs_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest(),
                           input_manifest_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest())
     (out/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
