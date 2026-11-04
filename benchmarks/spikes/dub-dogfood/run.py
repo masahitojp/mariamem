@@ -29,7 +29,7 @@ def qstash_local(path,e):
         with (e/'qstash.txt').open('w') as log:subprocess.run(['docker','logs','mariamem-dub-dogfood-qstash'],stdout=log,stderr=subprocess.STDOUT)
         subprocess.run(['docker','rm','-f','mariamem-dub-dogfood-qstash'],check=True,stdout=subprocess.DEVNULL)
 
-def main(w,e,redis_url,with_proxy,qstash_env,prewarm):
+def main(w,e,redis_url,with_proxy,qstash_env,prewarm,server_mode):
     product=w/'temp/host-source';app=w/'temp/dub/apps/web';host=w/'temp/mariamem-host'
     e.mkdir(parents=True,exist_ok=True)
     sys.path[:0]=[str(product/'python'),str(product/'scripts')]
@@ -37,7 +37,7 @@ def main(w,e,redis_url,with_proxy,qstash_env,prewarm):
     from git_identity import verify_go_binary
     source='c27061f1a33eed2908fd90b0e2d816692e001339'
     stamp=verify_go_binary(product,host,source)
-    report={'mariamem_source_commit':source,'dub_source_commit':'6b463b4bdd9ed2fd9aa416f67b5b77d317b1471e','binary_sha256':hashlib.sha256(host.read_bytes()).hexdigest(),'binary_build_info':stamp,'stages':[]}
+    report={'mariamem_source_commit':source,'dub_source_commit':'6b463b4bdd9ed2fd9aa416f67b5b77d317b1471e','binary_sha256':hashlib.sha256(host.read_bytes()).hexdigest(),'binary_build_info':stamp,'stages':[],'server_mode':server_mode}
     def save(): (e/'result.json').write_text(json.dumps(report,indent=2)+'\n')
     def run(name,args,env,timeout=120,cwd=app):
         with (e/(name+'.txt')).open('w') as log:
@@ -90,7 +90,7 @@ def main(w,e,redis_url,with_proxy,qstash_env,prewarm):
         finally:s.close()
         with (e/'next-dev.txt').open('w') as log:
             serverenv=dict(env,NODE_OPTIONS='--require='+str(w/'worktree/benchmarks/spikes/dub-dogfood/local-fetch-only.cjs'))
-            server=subprocess.Popen(cli+['next','dev','--hostname','127.0.0.1','--port','8888'],cwd=app,env=serverenv,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+            server=subprocess.Popen(cli+['next','dev',*(['--turbopack'] if server_mode=='turbopack' else []),'--hostname','127.0.0.1','--port','8888'],cwd=app,env=serverenv,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
             try:
                 until=time.monotonic()+90;ready=False
                 while time.monotonic()<until and server.poll() is None:
@@ -122,4 +122,4 @@ def main(w,e,redis_url,with_proxy,qstash_env,prewarm):
     return int(any(row['result']!='PASS' for row in report['stages']))
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--redis-url',default='http://127.0.0.1:9');p.add_argument('--with-proxy',action='store_true');p.add_argument('--qstash-env',type=Path);p.add_argument('--prewarm',action='store_true');a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve(),a.redis_url,a.with_proxy,a.qstash_env,a.prewarm))
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--redis-url',default='http://127.0.0.1:9');p.add_argument('--with-proxy',action='store_true');p.add_argument('--qstash-env',type=Path);p.add_argument('--prewarm',action='store_true');p.add_argument('--server-mode',choices=['turbopack','webpack'],default='turbopack');a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve(),a.redis_url,a.with_proxy,a.qstash_env,a.prewarm,a.server_mode))
