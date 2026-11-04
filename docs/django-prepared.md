@@ -76,9 +76,10 @@ workers; controller and DB-free workers acquire none. Auto is a memory sizing
 heuristic, not a CPU/latency optimum or a total worker/OOM guarantee. Set an
 explicit cap and choose `-n` independently for resource-sensitive suites.
 The updated installed-entry cap1 campaign passed on both supported OSes and
-Python versions for the reviewed candidate. See the
-[adoption review and bound receipts](reviews/issue53-fork-limit-adoption-review.md);
-adoption remains a separate decision.
+Python versions on c53771cd. The later runtime follow-up still needs its new-source
+matrix; see the [current follow-up](reviews/issue53-review-followup.md) and
+[original bound receipts](reviews/issue53-fork-limit-adoption-review.md).
+Adoption remains a separate decision.
 
 The seed callback receives the migrated Django `default` connection, executes
 once per run, and must finish its transactions and close any separate physical

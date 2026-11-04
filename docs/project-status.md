@@ -26,7 +26,10 @@ makes the old detector map explicitly historical and links the later result. Rev
 adds sysinfo/proc unit/parse/failure injection and a Linux-native adapter check;
 all valid memory observations still feed the existing minimum/fallback policy.
 [The follow-up](reviews/issue53-review-followup.md) owns verification; current
-adoption is pending a new-source matrix. The existing successful matrix below
+adoption is pending a new-source matrix. Combined runtime source `e8472b76`
+passes local canonical daily/source smoke and portable package race tests;
+Linux/amd64 test compilation passes, while native Linux and new installed matrix
+execution remain pending. The existing successful matrix below
 remains on its original source and is not relabelled to this runtime delta.
 
 The prior fixed eighteen-row exit was reconciled against exact source_commit

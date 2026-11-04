@@ -13,6 +13,14 @@ results below retain their own source scope. Batch full CI after the Human's
 remaining review findings; no new heavy run is submitted for this checkpoint.
 Existing c53771cd receipts remain unchanged.
 
+Combined G1/G2/G3 runtime source_commit
+`e8472b76c90582cef60b5b402faf0cd6ff31905b` subsequently passes the same canonical
+daily check (Go tests/vet,67 early source tests,1883 Python tests plus106 subtests,
+91 skips) and Go/Python source smoke on macOS arm64/Python3.14. The portable
+forklimit package race suite and clean-source Linux/amd64 test compilation PASS.
+The nine-case exact-host result above remains explicitly on6d40d0d4; the later
+Linux-native assertion and installed/both-host matrix still await CI.
+
 ## G1 — cap and occupied-slot diagnostics
 
 The design's diagnostics paragraph required this even though the old eighteen-row

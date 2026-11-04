@@ -204,9 +204,11 @@ runs only after the waiting Fork returns. Use keyed option literals when upgradi
 the expanded `SnapshotOptions` / `HTTPConfig` structs require updates to positional
 literals.
 
-Shared-host/Python entry wiring and the fixed hosted matrix passed on the reviewed
-candidate. Adoption remains pending; see
-[the adoption review](reviews/issue53-fork-limit-adoption-review.md).
+Shared-host/Python entry wiring and the fixed hosted matrix passed on c53771cd.
+The later diagnostics/memory-source correction still needs its new-source matrix;
+see the [review follow-up](reviews/issue53-review-followup.md). Adoption remains
+pending; the [original review](reviews/issue53-fork-limit-adoption-review.md)
+retains its own source boundary.
 
 
 ## Lifecycle, cancellation and errors
