@@ -1,0 +1,28 @@
+{
+  "result": "OBSERVATION_COMPLETE",
+  "source_commit": "5c5b4d3ffbc1d9cdcad420d5def523bafb1c874d",
+  "harness_source_commit": "42e883285197928d2060829e56a7963827e30e20",
+  "scope": "one local macOS arm64 host, serial Fork, explicit cap1; existing guest phase marks plus Go observation overlay",
+  "primary_processes": 10,
+  "primary_children": 40,
+  "warmup_processes": 2,
+  "warmup_children": 8,
+  "positive_pilot_processes": 1,
+  "positive_pilot_children": 4,
+  "negative_pilot_processes": 1,
+  "negative_pilot_children": 1,
+  "positive_sql_isolation_cleanup": "PASS",
+  "wrong_seed_detection": "PASS",
+  "application_connections": "one per child, retired before Close",
+  "product_changes": false,
+  "rss_measured": false,
+  "hosted_ci_runs": 0,
+  "recommendation": "Prepared filesystem and ready-to-return are small; prioritize server initialization. Continue the separate #88 16/8MiB hypothesis without attributing all initialization to the buffer pool.",
+  "limits": [
+    "Timing callbacks/file publication may alter scheduling; calibration is descriptive, not proof of zero overhead.",
+    "Guest clock origins are independent. Only guest duration differences are compared with the containing host interval.",
+    "Detailed server-init CPU/wait/buffer attribution and Linux replication are not measured.",
+    "Guest FS reader closures are retained in traced result objects until process exit; no RSS conclusion follows.",
+    "Tooling/setup exceeded the initial 25-minute estimate; four setup attempts failed before any measurement. No extra primary trials."
+  ]
+}

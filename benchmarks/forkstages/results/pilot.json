@@ -1,0 +1,827 @@
+{
+  "result": "PASS",
+  "traced": true,
+  "negative": false,
+  "go": "go1.26.10",
+  "goos": "darwin",
+  "goarch": "arm64",
+  "build": {
+    "GoVersion": "go1.26.10",
+    "Path": "github.com/masahitojp/mariamem/benchmarks/forkstages",
+    "Main": {
+      "Path": "github.com/masahitojp/mariamem",
+      "Version": "v0.6.1-0.20261104103252-42e883285197"
+    },
+    "Deps": [
+      {
+        "Path": "filippo.io/edwards25519",
+        "Version": "v1.1.0",
+        "Sum": "h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA="
+      },
+      {
+        "Path": "github.com/go-sql-driver/mysql",
+        "Version": "v1.9.3",
+        "Sum": "h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo="
+      }
+    ],
+    "Settings": [
+      {
+        "Key": "-buildmode",
+        "Value": "exe"
+      },
+      {
+        "Key": "-compiler",
+        "Value": "gc"
+      },
+      {
+        "Key": "-trimpath",
+        "Value": "true"
+      },
+      {
+        "Key": "CGO_ENABLED",
+        "Value": "0"
+      },
+      {
+        "Key": "GOARCH",
+        "Value": "arm64"
+      },
+      {
+        "Key": "GOOS",
+        "Value": "darwin"
+      },
+      {
+        "Key": "GOARM64",
+        "Value": "v8.0"
+      },
+      {
+        "Key": "vcs",
+        "Value": "git"
+      },
+      {
+        "Key": "vcs.revision",
+        "Value": "42e883285197928d2060829e56a7963827e30e20"
+      },
+      {
+        "Key": "vcs.time",
+        "Value": "2026-11-04T10:32:52Z"
+      },
+      {
+        "Key": "vcs.modified",
+        "Value": "false"
+      }
+    ]
+  },
+  "cap": 1,
+  "children": [
+    {
+      "ordinal": 0,
+      "fork_wall_ns": 38490250,
+      "fork_cpu_ns": 50015000,
+      "events": [
+        {
+          "name": "fork/begin",
+          "offset_ns": 3959
+        },
+        {
+          "name": "fork/snapshot_handle_ready",
+          "offset_ns": 6042
+        },
+        {
+          "name": "api_startup/begin",
+          "offset_ns": 6542
+        },
+        {
+          "name": "api_startup/options_ready",
+          "offset_ns": 6917
+        },
+        {
+          "name": "api_startup/runtime_directory_ready",
+          "offset_ns": 76834
+        },
+        {
+          "name": "startup/begin",
+          "offset_ns": 78709
+        },
+        {
+          "name": "startup/native_identity_checked",
+          "offset_ns": 78917
+        },
+        {
+          "name": "startup/metadata_snapshot_validated",
+          "offset_ns": 87875
+        },
+        {
+          "name": "startup/transfer_prepared",
+          "offset_ns": 134875
+        },
+        {
+          "name": "startup/linked_execution_begin",
+          "offset_ns": 151125
+        },
+        {
+          "name": "runtime/instance_begin",
+          "offset_ns": 155584
+        },
+        {
+          "name": "runtime/filesystem_begin",
+          "offset_ns": 157209
+        },
+        {
+          "name": "runtime/filesystem_environment_ready",
+          "offset_ns": 159667
+        },
+        {
+          "name": "runtime/prepared_handles_begin",
+          "offset_ns": 160000
+        },
+        {
+          "name": "runtime/prepared_handles_ready",
+          "offset_ns": 202500
+        },
+        {
+          "name": "runtime/reserve_begin",
+          "offset_ns": 203084
+        },
+        {
+          "name": "runtime/reserve_end",
+          "offset_ns": 209417
+        },
+        {
+          "name": "runtime/construct_begin",
+          "offset_ns": 209667
+        },
+        {
+          "name": "runtime/construct_end",
+          "offset_ns": 1695709
+        },
+        {
+          "name": "runtime/guest_execute_begin",
+          "offset_ns": 1697625
+        },
+        {
+          "name": "startup/ready_header_received",
+          "offset_ns": 37908792
+        },
+        {
+          "name": "startup/ready_frame_decoded",
+          "offset_ns": 37961334
+        },
+        {
+          "name": "startup/ready_response_observed",
+          "offset_ns": 37966834
+        },
+        {
+          "name": "startup/guest_ready",
+          "offset_ns": 37967334
+        },
+        {
+          "name": "startup/wire_listener_ready",
+          "offset_ns": 38018084
+        },
+        {
+          "name": "startup/guest_timing_read",
+          "offset_ns": 38041334
+        },
+        {
+          "name": "startup/end",
+          "offset_ns": 38044250
+        },
+        {
+          "name": "api_startup/host_returned",
+          "offset_ns": 38288750
+        },
+        {
+          "name": "api_startup/database_ready",
+          "offset_ns": 38290250
+        },
+        {
+          "name": "api_startup/end",
+          "offset_ns": 38291792
+        },
+        {
+          "name": "fork/startup_returned",
+          "offset_ns": 38405042
+        },
+        {
+          "name": "fork/end",
+          "offset_ns": 38405667
+        }
+      ],
+      "guest": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 27167
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 27375
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 27667
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 31125
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 34848500
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 34955709
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 34956417
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 35915125
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 35928875
+          }
+        ]
+      },
+      "sql_wall_ns": 4221625,
+      "close_wall_ns": 2117042,
+      "oracle": true
+    },
+    {
+      "ordinal": 1,
+      "fork_wall_ns": 36503500,
+      "fork_cpu_ns": 47495000,
+      "events": [
+        {
+          "name": "fork/begin",
+          "offset_ns": 5667
+        },
+        {
+          "name": "fork/snapshot_handle_ready",
+          "offset_ns": 7125
+        },
+        {
+          "name": "api_startup/begin",
+          "offset_ns": 7709
+        },
+        {
+          "name": "api_startup/options_ready",
+          "offset_ns": 8209
+        },
+        {
+          "name": "api_startup/runtime_directory_ready",
+          "offset_ns": 77459
+        },
+        {
+          "name": "startup/begin",
+          "offset_ns": 79250
+        },
+        {
+          "name": "startup/native_identity_checked",
+          "offset_ns": 79375
+        },
+        {
+          "name": "startup/metadata_snapshot_validated",
+          "offset_ns": 95375
+        },
+        {
+          "name": "startup/transfer_prepared",
+          "offset_ns": 147250
+        },
+        {
+          "name": "startup/linked_execution_begin",
+          "offset_ns": 162292
+        },
+        {
+          "name": "runtime/instance_begin",
+          "offset_ns": 166459
+        },
+        {
+          "name": "runtime/filesystem_begin",
+          "offset_ns": 168250
+        },
+        {
+          "name": "runtime/filesystem_environment_ready",
+          "offset_ns": 170542
+        },
+        {
+          "name": "runtime/prepared_handles_begin",
+          "offset_ns": 170917
+        },
+        {
+          "name": "runtime/prepared_handles_ready",
+          "offset_ns": 214417
+        },
+        {
+          "name": "runtime/reserve_begin",
+          "offset_ns": 217334
+        },
+        {
+          "name": "runtime/reserve_end",
+          "offset_ns": 224875
+        },
+        {
+          "name": "runtime/construct_begin",
+          "offset_ns": 225250
+        },
+        {
+          "name": "runtime/construct_end",
+          "offset_ns": 2049542
+        },
+        {
+          "name": "runtime/guest_execute_begin",
+          "offset_ns": 2052584
+        },
+        {
+          "name": "startup/ready_header_received",
+          "offset_ns": 36017625
+        },
+        {
+          "name": "startup/ready_frame_decoded",
+          "offset_ns": 36043292
+        },
+        {
+          "name": "startup/ready_response_observed",
+          "offset_ns": 36047625
+        },
+        {
+          "name": "startup/guest_ready",
+          "offset_ns": 36048125
+        },
+        {
+          "name": "startup/wire_listener_ready",
+          "offset_ns": 36097792
+        },
+        {
+          "name": "startup/guest_timing_read",
+          "offset_ns": 36126542
+        },
+        {
+          "name": "startup/end",
+          "offset_ns": 36130042
+        },
+        {
+          "name": "api_startup/host_returned",
+          "offset_ns": 36312834
+        },
+        {
+          "name": "api_startup/database_ready",
+          "offset_ns": 36314292
+        },
+        {
+          "name": "api_startup/end",
+          "offset_ns": 36316542
+        },
+        {
+          "name": "fork/startup_returned",
+          "offset_ns": 36417584
+        },
+        {
+          "name": "fork/end",
+          "offset_ns": 36418709
+        }
+      ],
+      "guest": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 19958
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 20167
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 20292
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 23417
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 32635750
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 32740583
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 32741125
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 33655667
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 33669125
+          }
+        ]
+      },
+      "sql_wall_ns": 3572792,
+      "close_wall_ns": 2141792,
+      "oracle": true
+    },
+    {
+      "ordinal": 2,
+      "fork_wall_ns": 37482500,
+      "fork_cpu_ns": 48292000,
+      "events": [
+        {
+          "name": "fork/begin",
+          "offset_ns": 4750
+        },
+        {
+          "name": "fork/snapshot_handle_ready",
+          "offset_ns": 6083
+        },
+        {
+          "name": "api_startup/begin",
+          "offset_ns": 6500
+        },
+        {
+          "name": "api_startup/options_ready",
+          "offset_ns": 7083
+        },
+        {
+          "name": "api_startup/runtime_directory_ready",
+          "offset_ns": 80250
+        },
+        {
+          "name": "startup/begin",
+          "offset_ns": 82083
+        },
+        {
+          "name": "startup/native_identity_checked",
+          "offset_ns": 82291
+        },
+        {
+          "name": "startup/metadata_snapshot_validated",
+          "offset_ns": 97250
+        },
+        {
+          "name": "startup/transfer_prepared",
+          "offset_ns": 153750
+        },
+        {
+          "name": "startup/linked_execution_begin",
+          "offset_ns": 171083
+        },
+        {
+          "name": "runtime/instance_begin",
+          "offset_ns": 176833
+        },
+        {
+          "name": "runtime/filesystem_begin",
+          "offset_ns": 180708
+        },
+        {
+          "name": "runtime/filesystem_environment_ready",
+          "offset_ns": 184666
+        },
+        {
+          "name": "runtime/prepared_handles_begin",
+          "offset_ns": 185083
+        },
+        {
+          "name": "runtime/prepared_handles_ready",
+          "offset_ns": 240083
+        },
+        {
+          "name": "runtime/reserve_begin",
+          "offset_ns": 241375
+        },
+        {
+          "name": "runtime/reserve_end",
+          "offset_ns": 250458
+        },
+        {
+          "name": "runtime/construct_begin",
+          "offset_ns": 251333
+        },
+        {
+          "name": "runtime/construct_end",
+          "offset_ns": 1981500
+        },
+        {
+          "name": "runtime/guest_execute_begin",
+          "offset_ns": 1984291
+        },
+        {
+          "name": "startup/ready_header_received",
+          "offset_ns": 36817791
+        },
+        {
+          "name": "startup/ready_frame_decoded",
+          "offset_ns": 36845583
+        },
+        {
+          "name": "startup/ready_response_observed",
+          "offset_ns": 36851458
+        },
+        {
+          "name": "startup/guest_ready",
+          "offset_ns": 36852000
+        },
+        {
+          "name": "startup/wire_listener_ready",
+          "offset_ns": 36901083
+        },
+        {
+          "name": "startup/guest_timing_read",
+          "offset_ns": 36924958
+        },
+        {
+          "name": "startup/end",
+          "offset_ns": 36926583
+        },
+        {
+          "name": "api_startup/host_returned",
+          "offset_ns": 37291875
+        },
+        {
+          "name": "api_startup/database_ready",
+          "offset_ns": 37293083
+        },
+        {
+          "name": "api_startup/end",
+          "offset_ns": 37295708
+        },
+        {
+          "name": "fork/startup_returned",
+          "offset_ns": 37398583
+        },
+        {
+          "name": "fork/end",
+          "offset_ns": 37399500
+        }
+      ],
+      "guest": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 24708
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 24916
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 25041
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 28166
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 33504000
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 33602750
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 33603166
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 34532291
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 34547000
+          }
+        ]
+      },
+      "sql_wall_ns": 3554584,
+      "close_wall_ns": 2073125,
+      "oracle": true
+    },
+    {
+      "ordinal": 3,
+      "fork_wall_ns": 36681708,
+      "fork_cpu_ns": 50668000,
+      "events": [
+        {
+          "name": "fork/begin",
+          "offset_ns": 5250
+        },
+        {
+          "name": "fork/snapshot_handle_ready",
+          "offset_ns": 6625
+        },
+        {
+          "name": "api_startup/begin",
+          "offset_ns": 7125
+        },
+        {
+          "name": "api_startup/options_ready",
+          "offset_ns": 7542
+        },
+        {
+          "name": "api_startup/runtime_directory_ready",
+          "offset_ns": 75875
+        },
+        {
+          "name": "startup/begin",
+          "offset_ns": 77792
+        },
+        {
+          "name": "startup/native_identity_checked",
+          "offset_ns": 78000
+        },
+        {
+          "name": "startup/metadata_snapshot_validated",
+          "offset_ns": 93958
+        },
+        {
+          "name": "startup/transfer_prepared",
+          "offset_ns": 144458
+        },
+        {
+          "name": "startup/linked_execution_begin",
+          "offset_ns": 159042
+        },
+        {
+          "name": "runtime/instance_begin",
+          "offset_ns": 163792
+        },
+        {
+          "name": "runtime/filesystem_begin",
+          "offset_ns": 165625
+        },
+        {
+          "name": "runtime/filesystem_environment_ready",
+          "offset_ns": 168667
+        },
+        {
+          "name": "runtime/prepared_handles_begin",
+          "offset_ns": 168917
+        },
+        {
+          "name": "runtime/prepared_handles_ready",
+          "offset_ns": 217542
+        },
+        {
+          "name": "runtime/reserve_begin",
+          "offset_ns": 218750
+        },
+        {
+          "name": "runtime/reserve_end",
+          "offset_ns": 227417
+        },
+        {
+          "name": "runtime/construct_begin",
+          "offset_ns": 228208
+        },
+        {
+          "name": "runtime/construct_end",
+          "offset_ns": 1667375
+        },
+        {
+          "name": "runtime/guest_execute_begin",
+          "offset_ns": 1669042
+        },
+        {
+          "name": "startup/ready_header_received",
+          "offset_ns": 36195542
+        },
+        {
+          "name": "startup/ready_frame_decoded",
+          "offset_ns": 36220208
+        },
+        {
+          "name": "startup/ready_response_observed",
+          "offset_ns": 36224167
+        },
+        {
+          "name": "startup/guest_ready",
+          "offset_ns": 36224708
+        },
+        {
+          "name": "startup/wire_listener_ready",
+          "offset_ns": 36276708
+        },
+        {
+          "name": "startup/guest_timing_read",
+          "offset_ns": 36299458
+        },
+        {
+          "name": "startup/end",
+          "offset_ns": 36301167
+        },
+        {
+          "name": "api_startup/host_returned",
+          "offset_ns": 36475417
+        },
+        {
+          "name": "api_startup/database_ready",
+          "offset_ns": 36476875
+        },
+        {
+          "name": "api_startup/end",
+          "offset_ns": 36478750
+        },
+        {
+          "name": "fork/startup_returned",
+          "offset_ns": 36575667
+        },
+        {
+          "name": "fork/end",
+          "offset_ns": 36576500
+        }
+      ],
+      "guest": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 19500
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 19667
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 19875
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 22917
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 33175584
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 33280750
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 33281209
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 34230709
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 34244334
+          }
+        ]
+      },
+      "sql_wall_ns": 3634500,
+      "close_wall_ns": 2072042,
+      "oracle": true
+    }
+  ],
+  "cleanup": {
+    "active_mappings": 0,
+    "active_reserved_bytes": 0,
+    "active_rw_bytes": 0,
+    "creates": 5,
+    "grow_calls": 474,
+    "grow_failures": 0,
+    "peak_total_rw_bytes": 675938304,
+    "release_failures": 0,
+    "releases": 5
+  },
+  "exit_code": 0,
+  "process_seconds": 1.572416067123413,
+  "scratch_remaining": []
+}

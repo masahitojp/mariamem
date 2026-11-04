@@ -1,0 +1,276 @@
+{
+  "result": "FAIL",
+  "error": "seed oracle: count=1000 sum=500500 expected=500501",
+  "traced": true,
+  "negative": true,
+  "go": "go1.26.10",
+  "goos": "darwin",
+  "goarch": "arm64",
+  "build": {
+    "GoVersion": "go1.26.10",
+    "Path": "github.com/masahitojp/mariamem/benchmarks/forkstages",
+    "Main": {
+      "Path": "github.com/masahitojp/mariamem",
+      "Version": "v0.6.1-0.20261104103252-42e883285197"
+    },
+    "Deps": [
+      {
+        "Path": "filippo.io/edwards25519",
+        "Version": "v1.1.0",
+        "Sum": "h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA="
+      },
+      {
+        "Path": "github.com/go-sql-driver/mysql",
+        "Version": "v1.9.3",
+        "Sum": "h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo="
+      }
+    ],
+    "Settings": [
+      {
+        "Key": "-buildmode",
+        "Value": "exe"
+      },
+      {
+        "Key": "-compiler",
+        "Value": "gc"
+      },
+      {
+        "Key": "-trimpath",
+        "Value": "true"
+      },
+      {
+        "Key": "CGO_ENABLED",
+        "Value": "0"
+      },
+      {
+        "Key": "GOARCH",
+        "Value": "arm64"
+      },
+      {
+        "Key": "GOOS",
+        "Value": "darwin"
+      },
+      {
+        "Key": "GOARM64",
+        "Value": "v8.0"
+      },
+      {
+        "Key": "vcs",
+        "Value": "git"
+      },
+      {
+        "Key": "vcs.revision",
+        "Value": "42e883285197928d2060829e56a7963827e30e20"
+      },
+      {
+        "Key": "vcs.time",
+        "Value": "2026-11-04T10:32:52Z"
+      },
+      {
+        "Key": "vcs.modified",
+        "Value": "false"
+      }
+    ]
+  },
+  "cap": 1,
+  "children": [
+    {
+      "ordinal": 0,
+      "fork_wall_ns": 34755834,
+      "fork_cpu_ns": 48720000,
+      "events": [
+        {
+          "name": "fork/begin",
+          "offset_ns": 3834
+        },
+        {
+          "name": "fork/snapshot_handle_ready",
+          "offset_ns": 6000
+        },
+        {
+          "name": "api_startup/begin",
+          "offset_ns": 6542
+        },
+        {
+          "name": "api_startup/options_ready",
+          "offset_ns": 6917
+        },
+        {
+          "name": "api_startup/runtime_directory_ready",
+          "offset_ns": 115292
+        },
+        {
+          "name": "startup/begin",
+          "offset_ns": 117709
+        },
+        {
+          "name": "startup/native_identity_checked",
+          "offset_ns": 118042
+        },
+        {
+          "name": "startup/metadata_snapshot_validated",
+          "offset_ns": 130000
+        },
+        {
+          "name": "startup/transfer_prepared",
+          "offset_ns": 189709
+        },
+        {
+          "name": "startup/linked_execution_begin",
+          "offset_ns": 205125
+        },
+        {
+          "name": "runtime/instance_begin",
+          "offset_ns": 210000
+        },
+        {
+          "name": "runtime/filesystem_begin",
+          "offset_ns": 211750
+        },
+        {
+          "name": "runtime/filesystem_environment_ready",
+          "offset_ns": 214542
+        },
+        {
+          "name": "runtime/prepared_handles_begin",
+          "offset_ns": 214917
+        },
+        {
+          "name": "runtime/prepared_handles_ready",
+          "offset_ns": 259542
+        },
+        {
+          "name": "runtime/reserve_begin",
+          "offset_ns": 260542
+        },
+        {
+          "name": "runtime/reserve_end",
+          "offset_ns": 268584
+        },
+        {
+          "name": "runtime/construct_begin",
+          "offset_ns": 269125
+        },
+        {
+          "name": "runtime/construct_end",
+          "offset_ns": 1872584
+        },
+        {
+          "name": "runtime/guest_execute_begin",
+          "offset_ns": 1874625
+        },
+        {
+          "name": "startup/ready_header_received",
+          "offset_ns": 33855917
+        },
+        {
+          "name": "startup/ready_frame_decoded",
+          "offset_ns": 33880709
+        },
+        {
+          "name": "startup/ready_response_observed",
+          "offset_ns": 33891209
+        },
+        {
+          "name": "startup/guest_ready",
+          "offset_ns": 33891709
+        },
+        {
+          "name": "startup/wire_listener_ready",
+          "offset_ns": 33945167
+        },
+        {
+          "name": "startup/guest_timing_read",
+          "offset_ns": 33971834
+        },
+        {
+          "name": "startup/end",
+          "offset_ns": 33973584
+        },
+        {
+          "name": "api_startup/host_returned",
+          "offset_ns": 34514375
+        },
+        {
+          "name": "api_startup/database_ready",
+          "offset_ns": 34516209
+        },
+        {
+          "name": "api_startup/end",
+          "offset_ns": 34517959
+        },
+        {
+          "name": "fork/startup_returned",
+          "offset_ns": 34664542
+        },
+        {
+          "name": "fork/end",
+          "offset_ns": 34665334
+        }
+      ],
+      "guest": {
+        "version": 1,
+        "clock": "guest_monotonic",
+        "events": [
+          {
+            "name": "guest_main",
+            "offset_ns": 0
+          },
+          {
+            "name": "restore_begin",
+            "offset_ns": 21792
+          },
+          {
+            "name": "restore_complete",
+            "offset_ns": 22000
+          },
+          {
+            "name": "open_begin",
+            "offset_ns": 22333
+          },
+          {
+            "name": "server_init_begin",
+            "offset_ns": 25833
+          },
+          {
+            "name": "server_init_complete",
+            "offset_ns": 30617333
+          },
+          {
+            "name": "bootstrap_complete",
+            "offset_ns": 30726375
+          },
+          {
+            "name": "routine_schema_begin",
+            "offset_ns": 30726833
+          },
+          {
+            "name": "routine_schema_complete",
+            "offset_ns": 31675583
+          },
+          {
+            "name": "ready_prepared",
+            "offset_ns": 31689458
+          }
+        ]
+      },
+      "sql_wall_ns": 0,
+      "close_wall_ns": 2022292,
+      "oracle": false
+    }
+  ],
+  "cleanup": {
+    "active_mappings": 0,
+    "active_reserved_bytes": 0,
+    "active_rw_bytes": 0,
+    "creates": 2,
+    "grow_calls": 185,
+    "grow_failures": 0,
+    "peak_total_rw_bytes": 660340736,
+    "release_failures": 0,
+    "releases": 2
+  },
+  "exit_code": 1,
+  "process_seconds": 0.1157979965209961,
+  "scratch_remaining": []
+}

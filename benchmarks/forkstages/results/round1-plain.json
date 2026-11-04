@@ -1,0 +1,127 @@
+{
+  "result": "PASS",
+  "traced": false,
+  "negative": false,
+  "go": "go1.26.10",
+  "goos": "darwin",
+  "goarch": "arm64",
+  "build": {
+    "GoVersion": "go1.26.10",
+    "Path": "github.com/masahitojp/mariamem/benchmarks/forkstages",
+    "Main": {
+      "Path": "github.com/masahitojp/mariamem",
+      "Version": "v0.6.1-0.20261104103252-42e883285197"
+    },
+    "Deps": [
+      {
+        "Path": "filippo.io/edwards25519",
+        "Version": "v1.1.0",
+        "Sum": "h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA="
+      },
+      {
+        "Path": "github.com/go-sql-driver/mysql",
+        "Version": "v1.9.3",
+        "Sum": "h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo="
+      }
+    ],
+    "Settings": [
+      {
+        "Key": "-buildmode",
+        "Value": "exe"
+      },
+      {
+        "Key": "-compiler",
+        "Value": "gc"
+      },
+      {
+        "Key": "-trimpath",
+        "Value": "true"
+      },
+      {
+        "Key": "CGO_ENABLED",
+        "Value": "0"
+      },
+      {
+        "Key": "GOARCH",
+        "Value": "arm64"
+      },
+      {
+        "Key": "GOOS",
+        "Value": "darwin"
+      },
+      {
+        "Key": "GOARM64",
+        "Value": "v8.0"
+      },
+      {
+        "Key": "vcs",
+        "Value": "git"
+      },
+      {
+        "Key": "vcs.revision",
+        "Value": "42e883285197928d2060829e56a7963827e30e20"
+      },
+      {
+        "Key": "vcs.time",
+        "Value": "2026-11-04T10:32:52Z"
+      },
+      {
+        "Key": "vcs.modified",
+        "Value": "false"
+      }
+    ]
+  },
+  "cap": 1,
+  "children": [
+    {
+      "ordinal": 0,
+      "fork_wall_ns": 42697125,
+      "fork_cpu_ns": 57658000,
+      "events": [],
+      "sql_wall_ns": 5050375,
+      "close_wall_ns": 2072125,
+      "oracle": true
+    },
+    {
+      "ordinal": 1,
+      "fork_wall_ns": 37076166,
+      "fork_cpu_ns": 47219000,
+      "events": [],
+      "sql_wall_ns": 4299041,
+      "close_wall_ns": 2058500,
+      "oracle": true
+    },
+    {
+      "ordinal": 2,
+      "fork_wall_ns": 34945458,
+      "fork_cpu_ns": 46053000,
+      "events": [],
+      "sql_wall_ns": 4191083,
+      "close_wall_ns": 2129042,
+      "oracle": true
+    },
+    {
+      "ordinal": 3,
+      "fork_wall_ns": 39647750,
+      "fork_cpu_ns": 48825000,
+      "events": [],
+      "sql_wall_ns": 4594125,
+      "close_wall_ns": 2063042,
+      "oracle": true
+    }
+  ],
+  "cleanup": {
+    "active_mappings": 0,
+    "active_reserved_bytes": 0,
+    "active_rw_bytes": 0,
+    "creates": 5,
+    "grow_calls": 470,
+    "grow_failures": 0,
+    "peak_total_rw_bytes": 684326912,
+    "release_failures": 0,
+    "releases": 5
+  },
+  "exit_code": 0,
+  "process_seconds": 0.27620983123779297,
+  "scratch_remaining": []
+}

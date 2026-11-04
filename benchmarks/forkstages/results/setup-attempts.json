@@ -1,0 +1,65 @@
+[
+  {
+    "workspace": "fork-current-stages",
+    "harness_source_abbreviation": "3a466d64",
+    "measurement_started": false,
+    "logs": {
+      "console.log": {
+        "original_sha256": "0521117a0de7acfec11bfc1a8a84dee0dfb1944ab66271c074321ab60215e0dd",
+        "published_sha256": "be6b4988733e4192f017db169f1b1165546151b8eb4a483dcde4bb6cdf95e0eb",
+        "text": "/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '<WORKSPACE>/worktree/build/experiment-work/fork-current-stages/temp/source/benchmarks/forkstages/run.py': [Errno 2] No such file or directory\n"
+      }
+    }
+  },
+  {
+    "workspace": "fork-current-stages-run",
+    "harness_source_abbreviation": "15b7059f",
+    "measurement_started": false,
+    "logs": {
+      "console.log": {
+        "original_sha256": "ee865dcaeb5df8cb8970f1bc5d1b4f1b351c22cf81f832ee6a2e4a5c199d2025",
+        "published_sha256": "be0ff43385254b9389a1876e635e3b2c2234142e5d7e45243cf2130db9266824",
+        "text": "Traceback (most recent call last):\n  File \"<WORKSPACE>/temp/../evidence/run.py\", line 79, in <module>\n    if args.phase in ('build','all'):build()\n  File \"<WORKSPACE>/temp/../evidence/run.py\", line 38, in build\n    with (E/'build.txt').open('w') as log: subprocess.run(command,cwd=S,env=ENV,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=900)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py\", line 528, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/opt/homebrew/bin/go', 'build', '-trimpath', '-buildvcs=true', '-overlay', '<WORKSPACE>/temp/overlay/overlay.json', '-o', '<WORKSPACE>/temp/probe', './benchmarks/forkstages']' returned non-zero exit status 1.\n"
+      },
+      "build.txt": {
+        "original_sha256": "46e11f031ab79a7a6fa9b29a494147b8169561d05d8b1418d8a3e3358ab55e2b",
+        "published_sha256": "46e11f031ab79a7a6fa9b29a494147b8169561d05d8b1418d8a3e3358ab55e2b",
+        "text": "# github.com/masahitojp/mariamem/internal/generatedgo\n../overlay/runtime_instance.go:66:28: fs.Open undefined (type *base.MemFS has no field or method Open)\n"
+      }
+    }
+  },
+  {
+    "workspace": "fork-current-stages-final",
+    "harness_source_abbreviation": "af987433",
+    "measurement_started": false,
+    "logs": {
+      "console.log": {
+        "original_sha256": "bb6e335a7a5ba0d392bfe6d4c8fe03115816181f21beb482b528171d07bc95e9",
+        "published_sha256": "be0ff43385254b9389a1876e635e3b2c2234142e5d7e45243cf2130db9266824",
+        "text": "Traceback (most recent call last):\n  File \"<WORKSPACE>/temp/../evidence/run.py\", line 79, in <module>\n    if args.phase in ('build','all'):build()\n  File \"<WORKSPACE>/temp/../evidence/run.py\", line 38, in build\n    with (E/'build.txt').open('w') as log: subprocess.run(command,cwd=S,env=ENV,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=900)\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py\", line 528, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/opt/homebrew/bin/go', 'build', '-trimpath', '-buildvcs=true', '-overlay', '<WORKSPACE>/temp/overlay/overlay.json', '-o', '<WORKSPACE>/temp/probe', './benchmarks/forkstages']' returned non-zero exit status 1.\n"
+      },
+      "build.txt": {
+        "original_sha256": "b330fff3087d0180189acc34e059c66f39b5c3fa61f5811a4dee5cb046b6d003",
+        "published_sha256": "b330fff3087d0180189acc34e059c66f39b5c3fa61f5811a4dee5cb046b6d003",
+        "text": "# github.com/masahitojp/mariamem/benchmarks/forkstages\nbenchmarks/forkstages/main.go:65:9: invalid operation: (r.Utime.Sec + r.Stime.Sec) * 1e9 + (r.Utime.Usec + r.Stime.Usec) * 1000 (mismatched types int64 and int32)\n"
+      }
+    }
+  },
+  {
+    "workspace": "fork-current-stages-measure",
+    "harness_source_abbreviation": "369a27c9",
+    "measurement_started": false,
+    "logs": {
+      "console.log": {
+        "original_sha256": "c150c1f9980393d23715f5e01232e502654432c556e5b91f86004e1d7120df70",
+        "published_sha256": "518543fa10f71dbbd9769ed01efceef5606dc9fc80ea24ee5157ad2b689c4e0b",
+        "text": "Traceback (most recent call last):\n  File \"<WORKSPACE>/temp/../evidence/run.py\", line 79, in <module>\n    if args.phase in ('build','all'):build()\n  File \"<WORKSPACE>/temp/../evidence/run.py\", line 46, in build\n    'native_version_source_sha256':digest(S/'native_version.go'),\n  File \"<WORKSPACE>/temp/../evidence/run.py\", line 23, in digest\n    def digest(p): return hashlib.sha256(p.read_bytes()).hexdigest()\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py\", line 1249, in read_bytes\n    with self.open(mode='rb') as f:\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py\", line 1242, in open\n    return io.open(self, mode, buffering, encoding, errors, newline,\n  File \"/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py\", line 1110, in _opener\n    return self._accessor.open(self, flags, mode)\nFileNotFoundError: [Errno 2] No such file or directory: '<WORKSPACE>/temp/source/native_version.go'\n"
+      },
+      "build.txt": {
+        "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "text": ""
+      }
+    }
+  }
+]

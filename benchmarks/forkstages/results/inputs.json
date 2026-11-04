@@ -1,0 +1,61 @@
+{
+  "source_commit": "5c5b4d3ffbc1d9cdcad420d5def523bafb1c874d",
+  "harness_source_commit": "42e883285197928d2060829e56a7963827e30e20",
+  "source_identity": "commit object, clean checkout, benchmark-only diff",
+  "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
+  "guest_binding_source_sha256": "c6d1cedee216f67aca512fa5c12050ee8d9c051f9ce2b6131dcde7105de8f61b",
+  "binary_sha256": "c58e5404c6d893e4c2d0f4628988b9eda085fc5732a4429af5e8dcfd26bb244d",
+  "binary_build_info": "<WORKSPACE>/temp/probe: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkstages\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261104103252-42e883285197\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=42e883285197928d2060829e56a7963827e30e20\n\tbuild\tvcs.time=2026-11-04T10:32:52Z\n\tbuild\tvcs.modified=false\n",
+  "overlay": [
+    {
+      "path": "internal/timing/timing.go",
+      "before_sha256": "9eef3299e19ff03f66c12ac1ad4de392bef005fd51c4ce98829910b3333852e2",
+      "after_sha256": "1cecba5ead7c98b9f589f5b853377f4c8373024e072a3150e79fcbe3104c3233"
+    },
+    {
+      "path": "internal/generatedgo/runtime_instance.go",
+      "before_sha256": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+      "after_sha256": "4a827c5f28934eab1e86a88aea3eba9850b97d4742dcf6b26baa9e3b0ee9b6da"
+    },
+    {
+      "path": "internal/generatedgo/memory_backing_unix.go",
+      "before_sha256": "c0e5b2538e5761e7fdaa4f542eeafd78cfc099949417e50798a9b279e9ba8b54",
+      "after_sha256": "2436688ff74cf0a97c75f0e82b62a31a607d1be31a2c3b85ac7eabae3e0ec886"
+    }
+  ],
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "Apple M1",
+  "memory_bytes": 17179869184,
+  "plan": {
+    "source_commit": "5c5b4d3ffbc1d9cdcad420d5def523bafb1c874d",
+    "question": "Current serial Fork: prepared filesystem, guest startup, readiness and return attribution",
+    "host": "local macOS arm64",
+    "go": "go1.26.10",
+    "gomaxprocs": 8,
+    "fixture": "1000 integer rows; COUNT1000 SUM500500; independent UPDATE and next-child baseline",
+    "capacity": 1,
+    "children_per_process": 4,
+    "warmup": "one fresh process per mode",
+    "primary": "5 alternating plain/traced fresh-process pairs; no extra repeats or exclusions",
+    "controls": "one normal traced pilot, one wrong-seed negative; failed pilot is retained",
+    "scope": "observation only; existing marks plus 3-file Go overlay; no guest rebuild or policy changes",
+    "budget": {
+      "active_minutes": 60,
+      "tooling_minutes": 25,
+      "heavy_ci_runs": 0,
+      "disk_gib": 7,
+      "free_reserve_gib": 16
+    }
+  },
+  "build_command": [
+    "go",
+    "build",
+    "-trimpath",
+    "-buildvcs=true",
+    "-overlay",
+    "<TEMP>/overlay/overlay.json",
+    "-o",
+    "<TEMP>/probe",
+    "./benchmarks/forkstages"
+  ]
+}
