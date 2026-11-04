@@ -2549,3 +2549,13 @@ owner and API behavior tests. Version-aware usage-doc checks remain active.
 Default traversal and explicit optional-path behavior are covered by an actual
 pytest collection test. Product/runtime/defaults, Release artifact authentication,
 physical failure controls and publication rules remain unchanged.
+
+Verification: default collection is 118 files / 2,004 cases, versus 122 / 2,039
+before this change. Focused normal-policy/probe/oracle tests: 395 passed with
+3 existing real-host example skips. At executable source_commit
+`ed93286bd58c287f94ded7898dfa75769398f93a`, explicit Darwin execution of the
+8 native, 17 measurement-instrument and 9 historical report tests all passed
+(34 total). Native C checks used the required-compiler mode. No DB acceptance,
+full resource campaign or Release qualification was run. Public-source/diff checks
+pass; CI elapsed-time savings are not measured. Django API behavior is unchanged;
+its framework-dependent checks remain with the existing Release Django owner.
