@@ -358,7 +358,7 @@ See [phase 1 evidence](reviews/v05-fast-feedback-phase1.md) and the
 Development uses one Ubuntu24.04 runner and one checkout for local diff selection,
 source/unit checks and selected Go/Python smoke. There is no separate scope runner
 or second cold compilation on a smoke runner. Full history remains in that one
-checkout for diff and existing fixture-ancestry tests. Documentation/tooling
+checkout for diff and source-identity checks. Documentation/tooling
 selection still avoids Go setup and smoke. A failed source check stops before smoke.
 
 The three protected contexts remain `check`, `integration` and `Live required gate`.
@@ -400,11 +400,30 @@ still requires both-platform qualification, six feature results and canonical
 source/guest reproduction. Shared pure unit/receipt tests run once on Ubuntu for
 Python3.11/pytest7 and Python3.14/pytest9. Installed-package and platform runtime
 cases remain with each feature. The shared owner also covers P1 native-reference
-and fixture-design mutations, Live observation oracles and Django owner/receipt
+and current fixture-contract mutations, Live observation oracles and Django owner/receipt
 mutations. Its ownership check scans all six callable workflows. Live retains
 real process, pipe, signal and socket controls on both OS/Python boundaries;
 installed dump tests run once per OS/minor after wheel installation, without a
 source-only repeat in the native producer. Core full pytest is retained separately.
+
+Python harness ownership is intentionally narrow: `test_ci_efficiency.py` owns
+common workflow triggers, candidate checkout/argument binding, compiler caches
+and PR isolation; individual workflow suites own their functional controls and
+actual shell failure propagation. `test_ci_runtime_selection.py` owns the
+integration command plan. Release E2E steps are unconditional; the former
+PR-diff Live selector is removed. Gate tests vary each independent failure input
+instead of repeating equivalent rejection paths across their Cartesian product.
+
+`test_fixture_design_contract.py` calls `validate_current_contract`: it checks
+active resource/connection budgets, capture/E2E/wire boundaries and preparation/
+output/admission rules, and reports only lint success with runtime NOT_RUN.
+It does not replay past implementation authorization, adoption SHA ancestry,
+v0.6.0 deferral placement or staging-note wording. Original decisions/receipts
+remain in Git and docs; the historical fixture audit is still available manually
+through `python scripts/check_fixture_design.py`. The completed E2E pre-code
+ancestry test is retired; this supersedes its recurring-test requirement in
+`docs/decisions/e2e-integration-conditions.md`, preserving that decision's original
+historical context. Release proof authentication/publication checks remain active.
 
 A fresh aggregate records `release-features-v1` only after shared units, all six
 features and both-platform artifact verification succeed. `qualification.json`

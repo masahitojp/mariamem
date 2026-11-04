@@ -25,7 +25,10 @@ def test_full_integration_retains_regressions_without_duplicate_routing(monkeypa
     verify.integration()
     assert any('-run=TestWorkerTrapActualGuest' in a for a in calls)
     assert any('scripts/check_prepared_consumers.py' in a for a in calls)
-    assert any('./internal/live' in a and '-race' in a for a in calls)
+    race = next(a for a in calls if a[:3] == ['go', 'test', '-race'])
+    assert {'./internal/live', './internal/generatedgo', './internal/generatedgo/code/base'} <= set(race)
+    for package in ('./tests/gointegration', './tests/godefault', './tests/generatedmemory'):
+        assert '-race' not in next(a for a in calls if package in a)
     assert any('tests/test_python_wire.py' in a and 'tests/test_owned_snapshot.py' in a for a in calls)
     assert not any('tests/routing_acceptance/run.py' in a for a in calls)
 
@@ -55,3 +58,13 @@ def test_unverified_shared_host_stops_before_any_integration(monkeypatch, tmp_pa
     monkeypatch.setattr(git_identity, 'verify_go_binary', reject)
     monkeypatch.setattr(verify, 'run', lambda *a, **kw: pytest.fail('must reject before executing'))
     with pytest.raises(ValueError, match='wrong source'): verify.integration(tmp_path/'host')
+
+
+def test_retired_native_override_cannot_change_integration(monkeypatch, tmp_path):
+    import verify
+    calls = []
+    monkeypatch.setenv('MARIAMEM_NATIVE_DIR', str(tmp_path))
+    monkeypatch.setattr(verify, 'run', lambda argv, **kw: calls.append((argv, kw['env'])))
+    verify.integration()
+    assert all('MARIAMEM_NATIVE_DIR' not in env for _, env in calls)
+    assert all(env['MARIAMEM_TEST_DEFAULT'] == '1' for _, env in calls)

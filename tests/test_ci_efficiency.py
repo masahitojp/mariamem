@@ -155,4 +155,55 @@ def test_daily_checks_and_smoke_share_one_checkout_and_compiler_cache():
     assert 'cache-hit' not in check and 'continue-on-error:' not in check
     assert 'actions/upload-artifact@' not in check and 'actions/download-artifact@' not in check
     assert 'GOCACHE=' in check and 'go clean -cache' not in check
-    validate_caches(text, 'check')
+
+
+def validate_release_workflow(text, source_argument):
+    triggers = text.split('permissions:', 1)[0]
+    assert '  workflow_call:' in triggers
+    assert not re.search(r'^  (push|pull_request|pull_request_target|workflow_dispatch|schedule|workflow_run):', triggers, re.M)
+    assert 'ref: ${{ inputs.source_commit }}' in text
+    assert source_argument+' "$SOURCE_COMMIT"' in text
+
+
+RELEASE_WORKFLOWS = {
+    'live-host': '--expected-source-commit',
+    'dump-import-productization': '--expected-source-commit',
+    'django-lifecycle': '--expected-source-commit',
+    'connection-routing': '--source-commit',
+    'preparation-migration': '--source-commit',
+    'worker-failure': '--source-commit',
+}
+
+
+@pytest.mark.parametrize('workflow,source_argument', RELEASE_WORKFLOWS.items())
+def test_release_workflows_are_callable_only_and_candidate_bound(workflow, source_argument):
+    validate_release_workflow((ROOT/'.github/workflows'/f'{workflow}.yml').read_text(), source_argument)
+
+
+@pytest.mark.parametrize('before,after', [
+    ('  workflow_call:', '  pull_request:'),
+    ('ref: ${{ inputs.source_commit }}', 'ref: main'),
+    ('--expected-source-commit', '--unbound')])
+def test_shared_release_policy_rejects_trigger_and_identity_regressions(before, after):
+    text = (ROOT/'.github/workflows/live-host.yml').read_text()
+    with pytest.raises(AssertionError):
+        validate_release_workflow(text.replace(before, after), '--expected-source-commit')
+
+
+def test_only_development_is_automatic_and_release_runtime_owner_is_manual():
+    release = (ROOT/'.github/workflows/release-candidate-ready.yml').read_text()
+    called = re.findall(r'uses: \./\.github/workflows/([^\s]+)\.yml', release)
+    assert set(called) == set(RELEASE_WORKFLOWS) and len(called) == len(RELEASE_WORKFLOWS)
+    for path in (ROOT/'.github/workflows').glob('*.yml'):
+        triggers = path.read_text().split('permissions:', 1)[0]
+        assert not re.search(r'^  (push|schedule|workflow_run|pull_request_target):', triggers, re.M), path
+        if '  pull_request:' in triggers:
+            assert path.name == 'check.yml'
+    daily = (ROOT/'.github/workflows/check.yml').read_text()
+    assert 'pull_request:\n    branches: [main]' in daily
+    triggers = daily.split('permissions:', 1)[0]
+    assert 'paths:' not in triggers and 'paths-ignore:' not in triggers
+    assert 'ref:' not in daily and 'pull_request.head.sha' not in daily
+    from runtime_validation import WORKFLOW
+    assert WORKFLOW == '.github/workflows/v044-product-validation.yml'
+    assert '  workflow_dispatch:' in (ROOT/WORKFLOW).read_text()

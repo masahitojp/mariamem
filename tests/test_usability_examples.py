@@ -149,13 +149,6 @@ def test_python_result_requires_two_executed_cases(tmp_path, tests, skips, failu
     assert owner.python_passed(result) == accepted
 
 
-def test_workflow_executes_exact_examples_and_keeps_existing_owners():
-    workflow = (ROOT / '.github/workflows/live-host.yml').read_text()
-    assert 'docs/examples/live/verify.py --host build/mariamem-host --go-app build/go-live-orders' in workflow
-    for existing in ['tests/live_acceptance/native.py', 'tests/live_acceptance/run.py',
-                     'tests/live_acceptance/installed.py', 'positive skip-reset restart-app']:
-        assert existing in workflow
-
 
 @pytest.mark.parametrize('skip_go,fail_go', [(False,False),(True,False),(False,True)])
 def test_examples_cli_preserves_language_census_and_failures(tmp_path, monkeypatch, skip_go, fail_go):
