@@ -53,8 +53,8 @@ def initialize(info,seed=False):
         script=(PROJECT/'prisma/migrations/20261104000000_init/migration.sql').read_text()
         for statement in script.split(';'):
             if statement.strip():sql_in_db(info,statement)
-        sql_in_db(info,"INSERT INTO User(id,email,name) VALUES (1,'baseline@test','baseline')")
-        sql_in_db(info,'INSERT INTO Post(id,title,authorId,amount,big,at,meta,blob) VALUES(1,%s,1,%s,%s,%s,%s,%s)',('baseline','12345678901234.123456',9007199254740993,datetime.datetime(2026,3,4,5,6,7,123000),json.dumps({'text':'日本語\u0000value','nested':[1,True,None]},ensure_ascii=False),bytes([0,1,0,127,128,255])))
+        sql_in_db(info,"INSERT INTO `User`(`id`,`email`,`name`) VALUES (1,'baseline@test','baseline')")
+        sql_in_db(info,'INSERT INTO `Post`(`id`,`title`,`authorId`,`amount`,`big`,`at`,`meta`,`blob`) VALUES(1,%s,1,%s,%s,%s,%s,%s)',('baseline','12345678901234.123456',9007199254740993,datetime.datetime(2026,3,4,5,6,7,123000),json.dumps({'text':'日本語\u0000value','nested':[1,True,None]},ensure_ascii=False),bytes([0,1,0,127,128,255])))
 
 
 def sql_in_db(info,text,params=None):
