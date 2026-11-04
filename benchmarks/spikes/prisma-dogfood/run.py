@@ -1,6 +1,7 @@
 """One-host Prisma consumer spike. No Node SDK, automatic CI or performance claim."""
 import argparse
 import contextlib
+import hashlib
 import json
 import os
 import platform
@@ -15,6 +16,8 @@ PROJECT=Path(__file__).resolve().parent
 sys.path.insert(0,str(ROOT/'python'))
 import mariamem
 import pymysql
+sys.path.insert(0,str(ROOT/'scripts'))
+from git_identity import verify_go_binary
 
 
 def run(host, output):
@@ -30,6 +33,8 @@ def run(host, output):
         env['DATABASE_URL']='mysql://'+urllib.parse.quote(info['user'],safe='')+':'+urllib.parse.quote(info['password'],safe='')+'@'+info['host']+':'+str(info['port'])+'/prisma_dogfood'
         return env
     try:
+        report['binary_build_info']=verify_go_binary(ROOT,host,report['source_commit'])
+        report['binary_sha256']=hashlib.sha256(host.read_bytes()).hexdigest()
         with mariamem.start(host_binary=host) as source:
             info=source.connection_info()
             with contextlib.closing(pymysql.connect(host=info['host'],port=info['port'],user=info['user'],password=info['password'],autocommit=True)) as connection:
@@ -37,14 +42,14 @@ def run(host, output):
             env=environment(info)
             command(['node_modules/.bin/prisma','migrate','deploy'],env,'migrate')
             report['stages'].append({'migration':'PASS'})
-            seed=json.loads(command(['node_modules/.bin/tsx','app.ts','seed'],env,'seed').strip().splitlines()[-1])
+            seed=json.loads(command(['node','--import','tsx','app.ts','seed'],env,'seed').strip().splitlines()[-1])
             assert seed['result']=='PASS',seed
             report['stages'].append(seed)
             source.wait_disconnected(timeout=15)
             with source.snapshot() as baseline, baseline.live() as live:
                 endpoint=live.connection_info()
                 with (output/'node-stderr.txt').open('w') as errorlog:
-                    app=subprocess.Popen(['node_modules/.bin/tsx','app.ts','serve'],cwd=PROJECT,env=environment(endpoint),stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=errorlog,text=True)
+                    app=subprocess.Popen(['node','--import','tsx','app.ts','serve'],cwd=PROJECT,env=environment(endpoint),stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=errorlog,text=True)
                     def reply(request=None):
                         if request:
                             app.stdin.write(json.dumps({'command':request})+'\n');app.stdin.flush()
