@@ -291,7 +291,7 @@ func (b *observedBaseline) Close() error {
 	return b.err
 }
 func (m *campaign) dependencies() dependencies {
-	d := production()
+	d := production(false)
 	start, open := d.start, d.open
 	d.start = func(ctx context.Context, opts mariamem.Options) (database, error) {
 		if err := m.sample("before_source"); err != nil {
@@ -305,8 +305,8 @@ func (m *campaign) dependencies() dependencies {
 		}
 		return &observedDB{database: db, m: m, source: true}, err
 	}
-	d.open = func(dsn string, a, z int) (*sql.DB, error) {
-		p, err := open(dsn, a, z)
+	d.open = func(target database, a, z int) (*sql.DB, error) {
+		p, err := open(target, a, z)
 		if p != nil {
 			m.mu.Lock()
 			m.Pools = append(m.Pools, p)

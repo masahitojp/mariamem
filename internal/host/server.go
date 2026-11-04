@@ -135,55 +135,81 @@ func (s *Server) accept() {
 		if err != nil {
 			return
 		}
-		s.mu.Lock()
-		if s.closing {
-			s.mu.Unlock()
-			conn.Close()
-			return
-		}
-		if s.Guest.Err() != nil {
-			s.mu.Unlock()
-			mysqlwire.RejectUnavailable(conn)
-			continue
-		}
-		slot, ok := s.allocateSlotLocked()
-		if !ok {
-			s.mu.Unlock()
-			mysqlwire.RejectCapacity(conn)
-			continue
-		}
-		state := &session{busy: true, slot: slot}
-		s.clients[conn] = state
-		s.workers.Add(1)
-		s.mu.Unlock()
-		go func() {
-			defer s.workers.Done()
-			defer conn.Close()
-			activity := mysqlwire.Activity{
-				Begin: func() bool {
-					s.mu.Lock()
-					defer s.mu.Unlock()
-					if s.closing {
-						return false
-					}
-					state.busy = true
-					return true
-				},
-				Idle:    func(status uint16) { s.mu.Lock(); defer s.mu.Unlock(); state.status = status; state.busy = false },
-				Cleanup: func() { s.mu.Lock(); defer s.mu.Unlock(); state.busy = true },
+		if err := s.attach(conn); err != nil {
+			var rejected *Rejected
+			if errors.As(err, &rejected) && rejected.Code == "capacity" {
+				mysqlwire.RejectCapacity(conn)
+			} else if errors.As(err, &rejected) && rejected.Code == "unusable" {
+				mysqlwire.RejectUnavailable(conn)
+			} else {
+				conn.Close()
+				return
 			}
-			err := mysqlwire.Serve(conn, s.Guest, state.slot, s.queryTimeout, s.Closing, activity)
-			if err != nil {
-				s.Guest.Abort(fmt.Errorf("SQL session: %w", err))
-			}
-			s.mu.Lock()
-			delete(s.clients, conn)
-			// Serve waits for the guest's close acknowledgement. On failure the
-			// guest is aborted before a slot can be offered to another client.
-			s.slots[state.slot] = false
-			s.mu.Unlock()
-		}()
+		}
 	}
+}
+
+// DialContext connects to this server without a TCP socket. Rejected dials
+// return before starting any worker; successful dials share TCP admission.
+func (s *Server) DialContext(ctx context.Context) (net.Conn, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+	client, server := net.Pipe()
+	if err := s.attach(server); err != nil {
+		client.Close()
+		server.Close()
+		return nil, err
+	}
+	return client, nil
+}
+
+// attach reserves a guest slot and joins shutdown under the same lock.
+// The caller owns rejected connections and must close them or send a wire error.
+func (s *Server) attach(conn net.Conn) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.closing {
+		return &Rejected{"closed", "database is closing"}
+	}
+	if cause := s.Guest.Err(); cause != nil {
+		return &Rejected{"unusable", cause.Error()}
+	}
+	slot, ok := s.allocateSlotLocked()
+	if !ok {
+		return &Rejected{"capacity", "mariamem session capacity exhausted"}
+	}
+	state := &session{busy: true, slot: slot}
+	s.clients[conn] = state
+	s.workers.Add(1)
+	go func() {
+		defer s.workers.Done()
+		defer conn.Close()
+		defer func() {
+			s.mu.Lock()
+			defer s.mu.Unlock()
+			delete(s.clients, conn)
+			s.slots[state.slot] = false
+		}()
+		activity := mysqlwire.Activity{
+			Begin: func() bool {
+				s.mu.Lock()
+				defer s.mu.Unlock()
+				if s.closing {
+					return false
+				}
+				state.busy = true
+				return true
+			},
+			Idle:    func(status uint16) { s.mu.Lock(); defer s.mu.Unlock(); state.status = status; state.busy = false },
+			Cleanup: func() { s.mu.Lock(); defer s.mu.Unlock(); state.busy = true },
+		}
+		if err := mysqlwire.Serve(conn, s.Guest, state.slot, s.queryTimeout, s.Closing, activity); err != nil {
+			s.Guest.Abort(fmt.Errorf("SQL session: %w", err))
+		}
+		// Serve acknowledges guest close; abort precedes releasing a failed slot.
+	}()
+	return nil
 }
 
 // allocateSlotLocked reserves the lowest free guest slot before session open.

@@ -114,7 +114,8 @@ func environment() (dependencies, *fakeDB, *fakeBase, *journal) {
 	d.captureFn = func(context.Context) (baseline, error) { _ = d.Close(); return b, nil }
 	deps := dependencies{
 		start: func(context.Context, mariamem.Options) (database, error) { j.add("start"); return d, nil },
-		open: func(name string, maxOpen, maxIdle int) (*sql.DB, error) {
+		open: func(target database, maxOpen, maxIdle int) (*sql.DB, error) {
+			name := target.DSN()
 			j.add(fmt.Sprintf("%s.pool.%d.%d", name, maxOpen, maxIdle))
 			p := sql.OpenDB(connector{j: j, name: name})
 			p.SetMaxOpenConns(maxOpen)
@@ -247,9 +248,10 @@ func TestSetupFailuresKeepCauseAndCleanup(t *testing.T) {
 			case "start":
 				deps.start = func(context.Context, mariamem.Options) (database, error) { return d, original }
 			case "open":
-				deps.open = func(string, int, int) (*sql.DB, error) { return nil, original }
+				deps.open = func(database, int, int) (*sql.DB, error) { return nil, original }
 			case "ping":
-				deps.open = func(name string, a, z int) (*sql.DB, error) {
+				deps.open = func(target database, a, z int) (*sql.DB, error) {
+					name := target.DSN()
 					return sql.OpenDB(connector{j: j, name: name, pingErr: original}), nil
 				}
 			case "prepare":
@@ -336,9 +338,10 @@ func TestChildPoolConstructionFailures(t *testing.T) {
 				return &fakeDB{name: "child", j: j}, nil
 			}
 			open := deps.open
-			deps.open = func(name string, a, z int) (*sql.DB, error) {
+			deps.open = func(target database, a, z int) (*sql.DB, error) {
+				name := target.DSN()
 				if name == "source" {
-					return open(name, a, z)
+					return open(target, a, z)
 				}
 				if stage == "open" {
 					return nil, original
@@ -367,9 +370,10 @@ func TestPoolCleanupFailureStillClosesChildAndKeepsBothErrors(t *testing.T) {
 	poolErr, childErr := errors.New("pool close failed"), errors.New("child close failed")
 	b.forkFn = func(context.Context) (database, error) { return &fakeDB{name: "child", j: j, closeErr: childErr}, nil }
 	open := deps.open
-	deps.open = func(name string, a, z int) (*sql.DB, error) {
+	deps.open = func(target database, a, z int) (*sql.DB, error) {
+		name := target.DSN()
 		if name == "source" {
-			return open(name, a, z)
+			return open(target, a, z)
 		}
 		return sql.OpenDB(connector{j: j, name: name, closeErr: poolErr}), nil
 	}

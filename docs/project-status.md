@@ -2582,3 +2582,16 @@ usage limits and the active fixture inventory are updated. Protected PR CI and
 integration remain pending; Ubuntu/installed/Release qualification are not claimed.
 No new Node CI job is added. Issue #94 owns the actionable checklist; the old
 spike keeps its original context.
+
+
+## Issue #66 opt-in Go Pipe candidate — implementation in progress
+
+After the finite [TCP/Pipe spike](https://github.com/masahitojp/mariamem/tree/8f5ef18a1adf7219866ceaf03a1011e430bd6bba/benchmarks/spikes/net-pipe),
+the Human requested continuing to a small opt-in Go API candidate. The candidate
+keeps default/external TCP, existing wire/guest and listener startup. It adds
+Database.DialContext for per-connector selection and a fixture InProcess option.
+Rejected Pipe dials return an admission error before starting a worker, resolving
+the spike's unbounded rejection-worker concern. The allocation tradeoff and
+single-host microbenchmark limits remain; no general suite speedup is claimed.
+This authorizes candidate work, not main integration or release. Current issue
+#66 owns correctness/CI evidence and remaining adoption conditions.

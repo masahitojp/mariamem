@@ -25,6 +25,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net"
 	"os"
 	"sync"
 	"time"
@@ -62,6 +63,7 @@ func (o Options) defaults() (Options, error) {
 }
 
 type backend interface {
+	DialContext(context.Context) (net.Conn, error)
 	Close(context.Context) error
 	SnapshotHeap(context.Context, bool) (*stored.Owned, bool, error)
 	Active() int

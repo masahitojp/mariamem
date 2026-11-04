@@ -21,6 +21,52 @@ with serial execution/responses and at most1,048,581 pending bytes per physical
 connection. Exceeding the bound terminates that database instance. This does not
 declare general Node/ORM support or add a driver-specific SDK entry.
 
+## Same-process connections (unreleased)
+
+TCP remains the default. For Go-owned pools, opt in to `net.Pipe` with
+`mariamemtest.Options{InProcess: true}`. This selects Pipe for the helper's
+preparation and per-test pools. The `Prepare` callback's DSN still targets TCP,
+so an external migration command can use it normally. No Node/Python connection
+routing, global driver registration or listener-free startup is implied.
+
+For a low-level `Database` returned by Start or Fork, assign its method to the
+normal MySQL connector (add `database/sql` and the mysql import to your program):
+
+```go
+config, err := mysql.ParseDSN(db.DSN())
+if err != nil {
+    return err
+}
+config.DialFunc = db.DialContext
+connector, err := mysql.NewConnector(config)
+if err != nil {
+    return err
+}
+pool := sql.OpenDB(connector)
+defer pool.Close() // Before closing/capturing the owning database.
+```
+
+The connector stays bound to that specific Database. It accepts only `tcp` or
+`tcp4` and the exact endpoint from that Database's DSN; it never redirects an
+unrelated endpoint. Database name and normal driver settings still apply.
+`DSN()` keeps its existing interpolation setting; select
+`config.InterpolateParams = false` for real prepared parameter execution.
+
+The same handshake, wire handlers, session slots and guest serve both transports.
+A full local Pipe admission returns a `HostError` matching `ErrCapacity` before
+starting a worker; TCP keeps its existing MySQL1040 response. Closed/consumed
+owners match `ErrClosed`, and failed instances match `ErrUnusable`. A cancelled
+Dial context is rejected; after Dial returns, the driver controls handshake/query
+cancellation and I/O deadlines. Query interruption retains instance invalidation
+and cooperative cleanup semantics.
+
+Close every connection/pool and call `WaitDisconnected` before Snapshot capture.
+A raw pipe awaiting handshake is busy and prevents capture. Forked databases
+require their own connector/DialContext. Closing one child does not close its
+siblings. Live's stable public endpoint continues to use TCP; do not reuse a
+consumed Database's dialer for another owner. This opt-in reduces TCP overhead,
+not SQL/wire work, and adds no compatibility or performance guarantee.
+
 ## Prepare once, Fork independent databases
 
 Put migrations and seed SQL in `Prepare`, then request `fixture.DB(t)` in each

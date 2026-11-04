@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/masahitojp/mariamem/internal/prepared"
+	"net"
 	"os"
 	"path/filepath"
 	"strings"
@@ -830,4 +831,8 @@ func TestConsumedChildCaptureSettlesOnlyItsParentLease(t *testing.T) {
 			lease.Settle(nil) // Controlled owner confirms final disposal.
 		})
 	}
+}
+
+func (f *fakeBackend) DialContext(context.Context) (net.Conn, error) {
+	return nil, errors.New("fake dial")
 }
