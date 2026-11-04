@@ -1,5 +1,14 @@
 # Issue53 — Human review G1/G2/G3 follow-up
 
+Current result: exact candidate `cddd8dcbd6d664171907ffc1769b83e472640875`
+passes [verify41778273108](https://github.com/masahitojp/mariamem/actions/runs/41778273108).
+[Current receipt assessment](issue53-fork-limit-evidence/ci-41778273108/README.md)
+and [updated adoption review](issue53-fork-limit-final-adoption-review.md)
+supersede the execution-pending checkpoints below. Those paragraphs retain their
+original local-only scope. Human adoption and integration remain pending.
+
+## Historical local checkpoints
+
 Current status: G1 implemented and locally verified on clean source_commit
 `6d40d0d420bd06cc68e313348a6246787ab51539`; G2 wording is corrected. Canonical
 daily (Go tests/vet,67 early source tests,1883 Python tests plus106 subtests and

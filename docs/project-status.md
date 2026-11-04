@@ -16,43 +16,35 @@ Changing version metadata does not itself publish a release.
 
 ## Issue #53 — finite Fork admission by default, implementation authorized
 
-### Current review follow-up — capacity diagnostics and memory-source checks
+### Current candidate — fixed-exit technical acceptance complete
 
-Human review identified G1: the design required cap/occupied-slot diagnostics,
-but the fixed-row detectors checked only error code/stage. The current correction
-adds observed counts/remedy without changing admission/error classification and
-adds pool, public/control, Python and actual/installed consumer assertions. G2
-makes the old detector map explicitly historical and links the later result. Review G3
-adds sysinfo/proc unit/parse/failure injection and a Linux-native adapter check;
-all valid memory observations still feed the existing minimum/fallback policy.
-[The follow-up](reviews/issue53-review-followup.md) owns verification; current
-adoption is pending a new-source matrix. Combined runtime source `e8472b76`
-passes local canonical daily/source smoke and portable package race tests;
-Linux/amd64 test compilation passes, while native Linux and new installed matrix
-execution remain pending. The existing successful matrix below
-remains on its original source and is not relabelled to this runtime delta.
+Exact source_commit `cddd8dcbd6d664171907ffc1769b83e472640875` passes
+[verify41778273108](https://github.com/masahitojp/mariamem/actions/runs/41778273108),
+operation=verify/mode=auto. Both supported OSes and Python3.11/3.14 pass the
+source-bound installed Fork/Live/E2E/D1 matrix; core, feature gates, verification
+and aggregate succeed. Publication/public smoke are skipped. This closes the
+new-head matrix condition P1 after the G1–G3/P2–P6 corrections.
 
-Final review P2–P6 adds real automatic-capture value assertions, hidden-cgroup
-and root-Start scope warnings, README default-wait guidance and request-local
-negative-zero rejection. Clean runtime source `b5601ab58496006783c0cd9b54f11b0e39e1a8a5`
-passes local daily/source smoke and its changed actual-host capture case. The
-following documentation-only record preserves that non-doc tree. P1 still
-requires a fresh exact candidate verify/auto matrix before recording acceptance;
-ordinary PR checks and old c53771cd READY do not satisfy it.
+[Saved evidence](reviews/issue53-fork-limit-evidence/ci-41778273108/README.md)
+retains the checked artifact/member hashes, four-cell matrix and fixed eighteen-row
+dispositions. The [updated adoption review](reviews/issue53-fork-limit-final-adoption-review.md)
+recommends adopting the finite-Fork candidate, including the host WASI write-error
+cleanup prerequisite. Human adoption and main integration remain pending.
+No version/publication approval, machine-wide/OOM/CPU-optimal guarantee,
+resource campaign or prewarming scope is added.
 
-The prior fixed eighteen-row exit was reconciled against exact source_commit
-`c53771cd9f653f971fdfa677105d46f6787298f9` and successful verify
-[41761661883](https://github.com/masahitojp/mariamem/actions/runs/41761661883).
-Both supported OSes and Python3.11/3.14 pass actual/installed Fork, Live/E2E and
-D1 cap1 serial/xdist acceptance. Artifact digests, source/host/clean bindings and
-named failure controls are checked; the
-[adoption review](reviews/issue53-fork-limit-adoption-review.md) recommends the
-candidate, including the host WASI write-error cleanup prerequisite. Human
-adoption and main integration remain pending. There is no new version or release
-approval, global/OOM/CPU-optimal guarantee, resource campaign or prewarming scope.
-The7c0f6c32 evidence/wording commit preserves that tested non-doc tree;
-its receipts remain pinned to c53771cd. That reuse does not extend to the later
-G1 runtime correction.
+Capacity diagnostics report resolved cap and observed occupancy; real automatic
+captures assert finite positive resolved values. Linux memory policy has injected
+sysinfo/proc/failure tests and native Linux package execution; the nonverbose log
+does not prove the syscall adapter subtest avoided its explicit unavailable-syscall
+skip. Hidden cgroup limits can still cause over-admission; use explicit caps.
+Independent root Start calls are outside per-Snapshot limits. The
+[follow-up](reviews/issue53-review-followup.md) preserves correction details.
+
+Old receipts remain pinned: c53771cd/41761661883 predates G1–G3, and the
+7c0f6c32 docs-tree reuse applies only to that historical checkpoint. Neither is
+relabelled as current runtime acceptance. The current receipt/wording commit
+must preserve the tested candidate's non-doc tree, as recorded in assessment.json.
 
 ### Historical implementation checkpoints
 

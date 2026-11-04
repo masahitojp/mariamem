@@ -1,0 +1,34 @@
+{
+  "source_commit": "cddd8dcbd6d664171907ffc1769b83e472640875",
+  "run": 41778273108,
+  "core": [
+    {
+      "host": "darwin",
+      "job_id": 126405359378,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/41778273108/job/126405359378",
+      "original_log_sha256": "d48743543260525c762bfa6c6e2a182cd5555365d7aeaedfd0e77f03fd02fd1f",
+      "selected_published_lines": [
+        "core_darwin\tQualify core and race behavior with the shared release wheel\t2026-11-04T05:24:14.8774320Z ok  \tgithub.com/masahitojp/mariamem/internal/forklimit\t0.009s",
+        "core_darwin\tQualify core and race behavior with the shared release wheel\t2026-11-04T05:27:13.2433080Z + go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/live ./internal/control ./internal/prepared ./mariamemtest . -count=1",
+        "core_darwin\tQualify core and race behavior with the shared release wheel\t2026-11-04T05:29:07.5638840Z 47 passed in 44.20s",
+        "core_darwin\tQualify core and race behavior with the shared release wheel\t2026-11-04T05:29:10.0294380Z {\"passed\": true, \"checks\": 33, \"error\": null, \"evidence\": \"<checkout>/tests/evidence/snapshots.json\"}",
+        "core_darwin\tQualify core and race behavior with the shared release wheel\t2026-11-04T05:29:13.9967200Z PASS: Go prepared / Python normal controls and exact accepted-exception tripwires; Python functional FAIL retained"
+      ],
+      "limits": "Nonverbose native forklimit package PASS does not identify individual syscall-test skip decisions. Selected excerpts only; original full-log hash retained."
+    },
+    {
+      "host": "ubuntu",
+      "job_id": 126405359333,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/41778273108/job/126405359333",
+      "original_log_sha256": "d1cc43b48eea57e909230ae2e46ca1db3b78c11581c6a800a372991a966a7488",
+      "selected_published_lines": [
+        "core_ubuntu\tQualify core and race behavior with the shared release wheel\t2026-11-04T05:23:19.6953362Z ok  \tgithub.com/masahitojp/mariamem/internal/forklimit\t0.004s",
+        "core_ubuntu\tQualify core and race behavior with the shared release wheel\t2026-11-04T05:25:29.0515215Z + go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/live ./internal/control ./internal/prepared ./mariamemtest . -count=1",
+        "core_ubuntu\tQualify core and race behavior with the shared release wheel\t2026-11-04T05:27:13.1727294Z 47 passed in 55.51s",
+        "core_ubuntu\tQualify core and race behavior with the shared release wheel\t2026-11-04T05:27:15.3531879Z {\"passed\": true, \"checks\": 33, \"error\": null, \"evidence\": \"<checkout>/tests/evidence/snapshots.json\"}",
+        "core_ubuntu\tQualify core and race behavior with the shared release wheel\t2026-11-04T05:27:18.5906343Z PASS: Go prepared / Python normal controls and exact accepted-exception tripwires; Python functional FAIL retained"
+      ],
+      "limits": "Nonverbose native forklimit package PASS does not identify individual syscall-test skip decisions. Selected excerpts only; original full-log hash retained."
+    }
+  ]
+}

@@ -210,11 +210,11 @@ runs only after the waiting Fork returns. Use keyed option literals when upgradi
 the expanded `SnapshotOptions` / `HTTPConfig` structs require updates to positional
 literals.
 
-Shared-host/Python entry wiring and the fixed hosted matrix passed on c53771cd.
-The later diagnostics/memory-source correction still needs its new-source matrix;
-see the [review follow-up](reviews/issue53-review-followup.md). Adoption remains
-pending; the [original review](reviews/issue53-fork-limit-adoption-review.md)
-retains its own source boundary.
+The current exact candidate cddd8dcb passes the fixed hosted matrix, including
+these diagnostics and memory-source corrections. See the
+[updated adoption review](reviews/issue53-fork-limit-final-adoption-review.md);
+adoption remains pending. [Older receipts](reviews/issue53-fork-limit-adoption-review.md)
+retain their original source boundary.
 
 
 ## Lifecycle, cancellation and errors

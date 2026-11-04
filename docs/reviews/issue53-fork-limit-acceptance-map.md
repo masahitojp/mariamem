@@ -2,6 +2,12 @@
 
 ## Current status and source boundaries
 
+Current exact-candidate execution is cddd8dcbd6d664171907ffc1769b83e472640875 /
+[verify41778273108](https://github.com/masahitojp/mariamem/actions/runs/41778273108):
+the [new assessment](issue53-fork-limit-evidence/ci-41778273108/assessment.json)
+records all eighteen rows technically satisfied after G1–G3/P2–P6 corrections.
+Adoption is pending. The c53771cd checkpoint below remains historical.
+
 The later [adoption review](issue53-fork-limit-adoption-review.md) and
 [bound matrix assessment](issue53-fork-limit-evidence/ci-41761661883/assessment.json)
 record execution on `c53771cd9f653f971fdfa677105d46f6787298f9`: the matrix ran and

@@ -524,10 +524,10 @@ preserves admitted children. Separate development-host handoff holds the origin
 slot until actual target disposal. Unconfirmed cleanup stops new admission;
 retry the responsible owner's cleanup. Normal late disposal alone does not
 automatically reopen admission. Supplied pytest/E2E/Django entries now forward
-their settings. The fixed both-host/interpreter acceptance passed on c53771cd;
-the later diagnostics/memory-source correction needs a new-source matrix.
+their settings. The fixed both-host/interpreter acceptance, including the diagnostics/
+memory-source correction, passed on exact candidate cddd8dcb.
 See the [review follow-up](reviews/issue53-review-followup.md);
-[adoption remains separate](reviews/issue53-fork-limit-adoption-review.md).
+[adoption remains separate](reviews/issue53-fork-limit-final-adoption-review.md).
 
 SQL errors and an individual DB's normal Close do not close siblings. A host
 process crash invalidates that lineage's DBs and baselines; prepare again.

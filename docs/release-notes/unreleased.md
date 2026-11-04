@@ -49,10 +49,10 @@ and version metadata remain unchanged.
   and preserve actual short-write progress. This fixes the tested interrupted-
   guest cleanup stall without changing the accepted prepared CALL observations.
 - This draft is not adopted on main. The fixed both-host/Python-version matrix,
-  including installed D1 cap1 execution, passed on `c53771cd`. The later G1
-  diagnostics correction requires its own verification; see the
-  [review follow-up](../reviews/issue53-review-followup.md). The original
-  [adoption review](../reviews/issue53-fork-limit-adoption-review.md) records evidence
+  including installed D1 cap1 execution and G1–G3/P2–P6 corrections, passed on
+  exact candidate `cddd8dcb`; see the
+  [review follow-up](../reviews/issue53-review-followup.md). The updated
+  [adoption review](../reviews/issue53-fork-limit-final-adoption-review.md) records evidence
   and limits. Adoption and a future release remain separate Human decisions.
 
 ## Adopted on main — unreleased
