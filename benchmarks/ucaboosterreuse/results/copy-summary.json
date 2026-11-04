@@ -1,0 +1,30 @@
+{
+  "fresh": {
+    "baseline": {
+      "wall_ns": 729375,
+      "cpu_ns": 731000,
+      "minor_fault_delta": 419,
+      "copied_bytes": 6856219
+    },
+    "candidate": {
+      "wall_ns": 989542,
+      "cpu_ns": 996000,
+      "minor_fault_delta": 587,
+      "copied_bytes": 9610331
+    }
+  },
+  "pretouched": {
+    "baseline": {
+      "wall_ns": 345458,
+      "cpu_ns": 349000,
+      "minor_fault_delta": 0,
+      "copied_bytes": 6856219
+    },
+    "candidate": {
+      "wall_ns": 497916,
+      "cpu_ns": 502000,
+      "minor_fault_delta": 0,
+      "copied_bytes": 9610331
+    }
+  }
+}

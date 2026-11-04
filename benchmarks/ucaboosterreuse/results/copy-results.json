@@ -1,0 +1,247 @@
+{
+  "go": "go1.26.10",
+  "result": "PASS",
+  "rows": [
+    {
+      "copied_bytes": 6856219,
+      "cpu_ns": 1418000,
+      "label": "baseline",
+      "minor_fault_delta": 420,
+      "mode": "fresh",
+      "oracle": true,
+      "wall_ns": 1410291,
+      "warmup": true
+    },
+    {
+      "copied_bytes": 9610331,
+      "cpu_ns": 2012000,
+      "label": "candidate",
+      "minor_fault_delta": 587,
+      "mode": "fresh",
+      "oracle": true,
+      "wall_ns": 2006625,
+      "warmup": true
+    },
+    {
+      "copied_bytes": 6856219,
+      "cpu_ns": 1331000,
+      "label": "baseline",
+      "minor_fault_delta": 419,
+      "mode": "fresh",
+      "oracle": true,
+      "wall_ns": 1325958,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 9610331,
+      "cpu_ns": 996000,
+      "label": "candidate",
+      "minor_fault_delta": 587,
+      "mode": "fresh",
+      "oracle": true,
+      "wall_ns": 989542,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 9610331,
+      "cpu_ns": 1062000,
+      "label": "candidate",
+      "minor_fault_delta": 587,
+      "mode": "fresh",
+      "oracle": true,
+      "wall_ns": 1015500,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 6856219,
+      "cpu_ns": 731000,
+      "label": "baseline",
+      "minor_fault_delta": 419,
+      "mode": "fresh",
+      "oracle": true,
+      "wall_ns": 729375,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 6856219,
+      "cpu_ns": 691000,
+      "label": "baseline",
+      "minor_fault_delta": 419,
+      "mode": "fresh",
+      "oracle": true,
+      "wall_ns": 690083,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 9610331,
+      "cpu_ns": 977000,
+      "label": "candidate",
+      "minor_fault_delta": 587,
+      "mode": "fresh",
+      "oracle": true,
+      "wall_ns": 974125,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 9610331,
+      "cpu_ns": 911000,
+      "label": "candidate",
+      "minor_fault_delta": 587,
+      "mode": "fresh",
+      "oracle": true,
+      "wall_ns": 908042,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 6856219,
+      "cpu_ns": 701000,
+      "label": "baseline",
+      "minor_fault_delta": 419,
+      "mode": "fresh",
+      "oracle": true,
+      "wall_ns": 699500,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 6856219,
+      "cpu_ns": 738000,
+      "label": "baseline",
+      "minor_fault_delta": 419,
+      "mode": "fresh",
+      "oracle": true,
+      "wall_ns": 735833,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 9610331,
+      "cpu_ns": 1040000,
+      "label": "candidate",
+      "minor_fault_delta": 587,
+      "mode": "fresh",
+      "oracle": true,
+      "wall_ns": 1038041,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 6856219,
+      "cpu_ns": 327000,
+      "label": "baseline",
+      "minor_fault_delta": 0,
+      "mode": "pretouched",
+      "oracle": true,
+      "wall_ns": 323041,
+      "warmup": true
+    },
+    {
+      "copied_bytes": 9610331,
+      "cpu_ns": 476000,
+      "label": "candidate",
+      "minor_fault_delta": 0,
+      "mode": "pretouched",
+      "oracle": true,
+      "wall_ns": 472958,
+      "warmup": true
+    },
+    {
+      "copied_bytes": 6856219,
+      "cpu_ns": 346000,
+      "label": "baseline",
+      "minor_fault_delta": 0,
+      "mode": "pretouched",
+      "oracle": true,
+      "wall_ns": 341584,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 9610331,
+      "cpu_ns": 522000,
+      "label": "candidate",
+      "minor_fault_delta": 0,
+      "mode": "pretouched",
+      "oracle": true,
+      "wall_ns": 518500,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 9610331,
+      "cpu_ns": 429000,
+      "label": "candidate",
+      "minor_fault_delta": 0,
+      "mode": "pretouched",
+      "oracle": true,
+      "wall_ns": 425042,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 6856219,
+      "cpu_ns": 327000,
+      "label": "baseline",
+      "minor_fault_delta": 0,
+      "mode": "pretouched",
+      "oracle": true,
+      "wall_ns": 322875,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 6856219,
+      "cpu_ns": 351000,
+      "label": "baseline",
+      "minor_fault_delta": 0,
+      "mode": "pretouched",
+      "oracle": true,
+      "wall_ns": 348166,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 9610331,
+      "cpu_ns": 467000,
+      "label": "candidate",
+      "minor_fault_delta": 0,
+      "mode": "pretouched",
+      "oracle": true,
+      "wall_ns": 464833,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 9610331,
+      "cpu_ns": 515000,
+      "label": "candidate",
+      "minor_fault_delta": 0,
+      "mode": "pretouched",
+      "oracle": true,
+      "wall_ns": 511250,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 6856219,
+      "cpu_ns": 351000,
+      "label": "baseline",
+      "minor_fault_delta": 0,
+      "mode": "pretouched",
+      "oracle": true,
+      "wall_ns": 348167,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 6856219,
+      "cpu_ns": 349000,
+      "label": "baseline",
+      "minor_fault_delta": 0,
+      "mode": "pretouched",
+      "oracle": true,
+      "wall_ns": 345458,
+      "warmup": false
+    },
+    {
+      "copied_bytes": 9610331,
+      "cpu_ns": 502000,
+      "label": "candidate",
+      "minor_fault_delta": 0,
+      "mode": "pretouched",
+      "oracle": true,
+      "wall_ns": 497916,
+      "warmup": false
+    }
+  ],
+  "scope": "standalone actual base.MemoryInit component on 32MiB anonymous mmap; excludes guest execution/BSS fill/Fork and mmap/prefault/verification/unmap time"
+}

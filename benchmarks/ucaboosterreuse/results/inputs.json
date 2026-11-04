@@ -1,0 +1,30 @@
+{
+  "source_commit": "f24c308bb6758e97722f4cb26bcb1de7c2df16b9",
+  "host_stage_source_commit": "d6c7e8b677ce3e5c390a2717d1dde076b3c3a2c5",
+  "product_behavior_base": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "measurement_tools": {
+    "probe.py": "0e51322d0b6102933642b960725c146d4784db81cda38e2e4bab70534e5ac0be",
+    "run_compare.py": "9d96b28808c58c4bdfc71968068af6bddaa3af002692e40ee79ae924019ad75b",
+    "analyze.py": "16105c8593c4a375931d0caca87dd2166cdd4d4deb02a0f62900c97d4223e84b"
+  },
+  "binaries": {
+    "baseline": {
+      "sha256": "63b20e02985e898ec0c93b79bb4124c3861979a35b2fbd52ddc676ed31f54a46",
+      "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f"
+    },
+    "candidate": {
+      "sha256": "8b33dd84de295692b7cb485522d007653df9677ed4541f558a0d6d25a6fa8a0d",
+      "guest_sha256": "c71cb10c1a042c3014f748981545685a840f92ff7d9f6bf4b7053bb0472992fb"
+    }
+  },
+  "candidate_identity": "UNQUALIFIED dev pipeline; source/patch/tool identities plus staged generated/host inventories and binary hash, buildvcs=false as the documented route",
+  "observer": {
+    "result": "PASS",
+    "self_cpu_delta_ns": 100012708,
+    "process_time_delta_ns": 100001000,
+    "mach_timebase_numer": 125,
+    "mach_timebase_denom": 3,
+    "rss_bytes": 27115520,
+    "sizeof_rusage_info_v0": 96
+  }
+}

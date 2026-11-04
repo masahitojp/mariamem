@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [Prepared UCA booster reuse spike](ucaboosterreuse/README.md): exact native/guest
+  table equality; one-host Fork CPU/wall and full-fixture improvements with measured
+  ASCII SQL speed retained. Experimental candidate, no adoption or qualification.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained

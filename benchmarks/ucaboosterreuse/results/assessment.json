@@ -1,0 +1,17 @@
+{
+  "result": "BOUNDED_COMPARISON_COMPLETE",
+  "recommendation": "continue prepared-table reuse as candidate for adoption review; do not merge exploratory history",
+  "guest_source_commit": "f24c308bb6758e97722f4cb26bcb1de7c2df16b9",
+  "host_stage_source_commit": "d6c7e8b677ce3e5c390a2717d1dde076b3c3a2c5",
+  "guest_sha256": "c71cb10c1a042c3014f748981545685a840f92ff7d9f6bf4b7053bb0472992fb",
+  "native_semantics": "PASS bounded original corpus",
+  "root_fork_table_bytes": "PASS all six tables each",
+  "worker_binding": "PASS exact nineteen-body relocation/TLS proof and fixed-manifest rejection tests",
+  "primary_matrix": "PASS ten processes, no exclusions",
+  "platform": "macOS27.2 arm64 only",
+  "Ubuntu": "SKIP",
+  "qualification": "UNQUALIFIED",
+  "product_adoption": false,
+  "main_integration": false,
+  "release": false
+}
