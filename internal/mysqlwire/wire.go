@@ -11,11 +11,13 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"os"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/guest"
+	"github.com/masahitojp/mariamem/internal/preparedproto"
 )
 
 const capabilities uint32 = 1 | 4 | 8 | 512 | 8192 | 32768 | 65536 | 131072 | 524288
@@ -149,9 +151,21 @@ func (w *wire) receiveAhead() error {
 // callGuest keeps disconnect/timeout monitoring while preserving bounded future
 // input. Calls and response serialization remain strictly sequential.
 func (w *wire) callGuest(p *guest.Process, op byte, slot uint32, sql []byte) (guest.Result, error) {
-	return w.monitoredCall(func(ctx context.Context) (guest.Result, error) {
+	r, err := w.monitoredCall(func(ctx context.Context) (guest.Result, error) {
 		return p.Call(ctx, op, slot, sql)
 	}, p.Abort)
+	// Experiment-only header observation; never log query or parameter contents.
+	if err == nil && os.Getenv("MARIAMEM_PIPELINE_SPIKE_TRACE") == "1" && len(w.readAhead) >= 5 {
+		current := op
+		if op == preparedproto.GuestOpcode {
+			if request, e := preparedproto.Decode(sql); e == nil {
+				current = request.Operation
+			}
+		}
+		n := int(w.readAhead[0]) | int(w.readAhead[1])<<8 | int(w.readAhead[2])<<16
+		fmt.Fprintf(os.Stderr, "PIPELINE_SPIKE current=%d next=%d queued=%d frame_bytes=%d sequence=%d\n", current, w.readAhead[4], len(w.readAhead), n+4, w.readAhead[3])
+	}
+	return r, err
 }
 
 func (w *wire) monitoredCall(call func(context.Context) (guest.Result, error), abort func(error)) (guest.Result, error) {
