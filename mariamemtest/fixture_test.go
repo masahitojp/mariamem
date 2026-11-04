@@ -7,6 +7,7 @@ import (
 	"database/sql/driver"
 	"errors"
 	"fmt"
+	"net"
 	"runtime"
 	"strings"
 	"sync"
@@ -560,5 +561,36 @@ func TestNegativeOptionsAndDefaults(t *testing.T) {
 	f := mustFixture(t, deps, Options{})
 	if cap(f.permits) != 2 || f.opts.OperationTimeout != 120*time.Second {
 		t.Fatal("defaults changed")
+	}
+}
+
+type observingDialDatabase struct {
+	database
+	calls int
+	err   error
+}
+
+func (d *observingDialDatabase) DialContext(context.Context, string, string) (net.Conn, error) {
+	d.calls++
+	return nil, d.err
+}
+func TestInProcessPoolUsesOwnedDatabaseDialer(t *testing.T) {
+	original := errors.New("owned dial error")
+	db := &observingDialDatabase{database: &fakeDB{name: "root@tcp(127.0.0.1:1)/mysql"}, err: original}
+	p, e := production(true).open(db, 1, 1)
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer p.Close()
+	if e = p.PingContext(t.Context()); !errors.Is(e, original) || db.calls != 1 {
+		t.Fatal(db.calls, e)
+	}
+	p2, e := production(false).open(db, 1, 1)
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer p2.Close()
+	if e = p2.PingContext(t.Context()); e == nil || errors.Is(e, original) || db.calls != 1 {
+		t.Fatal(db.calls, e)
 	}
 }
