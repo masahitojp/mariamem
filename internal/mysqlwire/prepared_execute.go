@@ -17,15 +17,21 @@ func (s *preparedSession) executeStatement(payload []byte, call preparedCall) ([
 	if len(payload) < 4 {
 		return [][]byte{ErrorPacket(1835, "HY000", "Malformed communication packet")}, nil
 	}
-	id := binary.LittleEndian.Uint32(payload)
+	wireID := binary.LittleEndian.Uint32(payload)
+	id := s.resolveStatementID(wireID)
 	e, ok := s.registry.Lookup(id)
 	if !ok {
-		return [][]byte{ErrorPacket(1243, "HY000", fmt.Sprintf("Unknown prepared statement handler (%d) given to mysqld_stmt_execute", id))}, nil
+		return [][]byte{ErrorPacket(1243, "HY000", fmt.Sprintf("Unknown prepared statement handler (%d) given to mysqld_stmt_execute", wireID))}, nil
 	}
 	if deferred, exists := s.longErrors[id]; exists && len(payload) >= 9 {
 		return packets(deferred)
 	}
-	values, types, err := preparedproto.DecodeExecuteLongData(payload, e.Parameters, s.types[id], s.long[id])
+	previous := s.types[id]
+	if wireID == preparedproto.LastStatementID {
+		// Native direct execution requires fresh descriptors when parameters exist.
+		previous = nil
+	}
+	values, types, err := preparedproto.DecodeExecuteLongData(payload, e.Parameters, previous, s.long[id])
 	if err != nil {
 		if errors.Is(err, preparedproto.ErrCursor) {
 			return [][]byte{ErrorPacket(1235, "42000", err.Error())}, nil
