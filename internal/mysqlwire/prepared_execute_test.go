@@ -193,7 +193,7 @@ func TestZeroParameterExecuteOptionalTypeFlag(t *testing.T) {
 		if err != nil || len(values) != 0 {
 			t.Fatalf("zero-parameter engine payload %x: %v", r.Payload, err)
 		}
-		return guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, StatementID: 91, BinaryRows: true, Status: 2}, nil
+		return guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, StatementID: 91, BinaryRows: true, Status: 2, Affected: "0", InsertID: "0"}, nil
 	}
 	for _, suffix := range [][]byte{nil, {0}, {1}} {
 		reply, err := s.handle(23, append(bytes.Clone(header), suffix...), call)
