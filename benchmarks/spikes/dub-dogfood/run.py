@@ -109,6 +109,7 @@ def main(w,e,redis_url,with_proxy,qstash_env):
                     except subprocess.TimeoutExpired:os.killpg(server.pid,signal.SIGKILL);server.wait(timeout=5)
     save()
     print(json.dumps({'stages':report['stages'],'db_cases':report.get('db_cases',{}).get('summary')}),flush=True)
+    return int(any(row['result']!='PASS' for row in report['stages']))
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--redis-url',default='http://127.0.0.1:9');p.add_argument('--with-proxy',action='store_true');p.add_argument('--qstash-env',type=Path);a=p.parse_args();main(a.workspace.resolve(),a.output.resolve(),a.redis_url,a.with_proxy,a.qstash_env)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--redis-url',default='http://127.0.0.1:9');p.add_argument('--with-proxy',action='store_true');p.add_argument('--qstash-env',type=Path);a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve(),a.redis_url,a.with_proxy,a.qstash_env))
