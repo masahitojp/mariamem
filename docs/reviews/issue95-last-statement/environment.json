@@ -1,0 +1,23 @@
+{
+  "runtime_source_commit": "04245cc5851e8236b118c840a6679f3c038480a0",
+  "product_base_source_commit": "df75666e3e46f6ebd4e2541c89586ad7b43275f9",
+  "native": {
+    "image_id": "sha256:23ccfa2f2df26837c8f397a8f9a070ad728768c095d246edd07cd8d24e9ec40c",
+    "registry_digest": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+    "version": "12.3.3-MariaDB-ubu2404",
+    "system": "Linux",
+    "machine": "arm64"
+  },
+  "candidate": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "version": "12.3.3-MariaDB-embedded"
+  },
+  "node": "24.22.1",
+  "prisma": "7.10.1",
+  "official_prisma_adapter_mariadb": "7.10.1",
+  "mariadb_node": "3.5.4",
+  "matching_sequential_controls": 26,
+  "alias_probe_sha256": "a8d44d25183f6b9ad054e634dbf7182b288e5b4b08a6396b0acd6660dd45c783",
+  "remaining_acceptance": "Normal pipelining=true Prisma still fails due to Issue94; Issue95 full Prisma condition remains open."
+}

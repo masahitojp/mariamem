@@ -1,0 +1,25 @@
+{
+  "scope": "ISSUE95_TWO_PRISMA_CASES_NOT_FULL_PIPELINE_ACCEPTANCE",
+  "source_commit": "df75666e3e46f6ebd4e2541c89586ad7b43275f9",
+  "prisma_source_commit": "604a0c588f0a602bf6ea67d811b97bae2748c3ea",
+  "cells": [
+    {
+      "name": "nested_create",
+      "pipelining": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "nested_create"
+    },
+    {
+      "name": "unique_error",
+      "pipelining": true,
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "unique_error"
+    }
+  ],
+  "summary": {
+    "PASS": 2,
+    "FAIL": 0
+  }
+}

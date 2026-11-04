@@ -51,3 +51,22 @@ func TestRegistrySessionsCapacityAndLifetime(t *testing.T) {
 		t.Fatal("ID wrap accepted")
 	}
 }
+
+func TestRegistryReservesLastStatementAlias(t *testing.T) {
+	r, _ := NewRegistry(1)
+	r.next = ^uint32(0) - 2
+	id, err := r.Add(1, 99, 0)
+	if err != nil || id != ^uint32(0)-1 {
+		t.Fatal("last ordinary ID", id, err)
+	}
+	if _, err = r.Add(1, 100, 0); err == nil {
+		t.Fatal("reserved alias allocated as an ordinary ID")
+	}
+	if _, ok := r.Lookup(^uint32(0)); ok {
+		t.Fatal("reserved alias has a registry entry")
+	}
+	r.Clear()
+	if _, err = r.Add(1, 101, 0); err == nil {
+		t.Fatal("clear reset exhausted ID space")
+	}
+}

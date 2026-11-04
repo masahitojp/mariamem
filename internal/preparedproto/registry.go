@@ -2,6 +2,9 @@ package preparedproto
 
 import "errors"
 
+// LastStatementID is MariaDB's connection-local alias, never an allocated wire ID.
+const LastStatementID uint32 = ^uint32(0)
+
 var ErrStatement = errors.New("invalid prepared statement ownership or metadata")
 
 // Entry belongs to one physical session, not a logical pooled database handle.
@@ -28,7 +31,7 @@ func (r *Registry) Generation() uint32 { return r.generation }
 
 // Add is transactional: rejected metadata never leaves a partially owned entry.
 func (r *Registry) Add(generation, handle, parameters uint32) (uint32, error) {
-	if generation != r.generation || handle == 0 || parameters > 65535 || r.next == ^uint32(0) {
+	if generation != r.generation || handle == 0 || parameters > 65535 || r.next >= LastStatementID-1 {
 		return 0, ErrStatement
 	}
 	if _, exists := r.handles[handle]; exists {
