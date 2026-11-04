@@ -1,0 +1,13 @@
+{
+ "question":"Do Fresh complete suites match, and which public phases account for the mariamem/pgmem Fork suite difference?",
+ "source_commit":"bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+ "pgmem":{"release_tag":"v1.18.2","source_commit":"a61005d37d01e6671f814fe8ca828222e8147df4","tag_object_sha":"145e5d2fc70983b89a4bdd8438e547fcd60244ed"},
+ "host":"Apple M1/16GiB/macOS27.2", "go":"go1.27.3", "gomaxprocs":8,"route":"TCP",
+ "cases":48,"parallel":[1,4,8],"repeats":3,"order":"rotate four product/mode cells each round; reverse parallel order on odd rounds",
+ "warmup":"one separate fresh process per cell (12)","pilots":"one 2-case positive and one wrong-seed negative per product/mode, P1",
+ "workload":"1000 integer rows, SELECT1, COUNT/SUM, UPDATE id1, verify row; Fresh seeds per case; Fork seeds and captures once",
+ "timed":"internal suite from preparation start through final cleanup; external process wall measured separately; excludes build/download",
+ "observations":"per-case startup, connect, seed, SQL, retirement, Close; critical worker lane, CPU and lifetime max RSS; no runtime overlay",
+ "exit":"Complete finite matrix, state when costs appear and whether Fresh is close; causal internals may remain unknown. No optimization or prewarming implementation.",
+ "budget":{"active_minutes":120,"tooling_minutes":30,"heavy_ci_runs":0,"disk_gib":10,"minimum_free_gib":16}
+}
