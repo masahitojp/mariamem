@@ -1,0 +1,33 @@
+{
+  "host_source_commit": "623804d0693153fd03a0a46b19bad98db8b534bd",
+  "control_sha256": "e6112b511e43a6ab8901d74d9bc8eacfa3580c17df1250dfc78d92034fdfc3e2",
+  "python_text_sql": [
+    [
+      "9007199254740993",
+      "2026-03-04 05:06:07.123000",
+      "0001007F80FF"
+    ]
+  ],
+  "node": {
+    "default_options": {
+      "bigint": "9007199254740992",
+      "bigint_js_type": "number",
+      "datetime": "2026-03-03T20:06:07.123Z",
+      "blob_hex": "0001007f80ff",
+      "blob_is_buffer": true
+    },
+    "safe_options": {
+      "bigint": "9007199254740993",
+      "bigint_js_type": "string",
+      "datetime": "2026-03-04T05:06:07.123Z",
+      "blob_hex": "0001007f80ff",
+      "blob_is_buffer": true
+    },
+    "adapter_conversion": {
+      "input": "Buffer/Uint8Array",
+      "output_type": "string",
+      "output": "AAEAf4D/"
+    }
+  },
+  "result": "TYPE_CONVERSION_CAUSES_ISOLATED"
+}

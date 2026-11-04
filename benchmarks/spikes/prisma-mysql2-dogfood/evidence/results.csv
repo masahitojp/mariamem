@@ -1,0 +1,36 @@
+name,kind,result
+direct-query_zero,Direct driver,PASS
+direct-query_parameter,Direct driver,PASS
+direct-execute_zero,Direct driver,PASS
+direct-execute_parameter,Direct driver,PASS
+direct-bigint_default,Direct driver,FAIL
+direct-bigint_safe,Direct driver,PASS
+direct-binary,Direct driver,PASS
+mysql2-connect,Client,PASS
+mysql2-find_unique,Client,PASS
+mysql2-find_many_unfiltered,Client,PASS
+mysql2-count_unfiltered,Client,PASS
+mysql2-count_filtered,Client,PASS
+mysql2-create,Client,PASS
+mysql2-nested_create,Client,FAIL
+mysql2-create_many,Client,PASS
+mysql2-update,Client,PASS
+mysql2-delete_cascade,Client,PASS
+mysql2-upsert,Client,PASS
+mysql2-relation,Client,FAIL
+mysql2-nullable,Client,PASS
+mysql2-transaction_commit,Client,PASS
+mysql2-transaction_rollback,Client,PASS
+mysql2-transaction_array,Client,PASS
+mysql2-aggregate,Client,PASS
+mysql2-group_by,Client,PASS
+mysql2-raw_parameter,Client,PASS
+mysql2-raw_zero_parameter,Client,PASS
+mysql2-execute_raw,Client,PASS
+mysql2-unique_error,Client,PASS
+mysql2-decimal,Client,PASS
+mysql2-bigint,Client,FAIL
+mysql2-datetime,Client,FAIL
+mysql2-json,Client,PASS
+mysql2-binary,Client,FAIL
+mysql2-live-reset,Live,PASS

@@ -1,0 +1,319 @@
+{
+  "scope": "ONE_OS_PRISMA_7_10_1_COMMUNITY_MYSQL2_CLIENT_ONLY_COMPARISON",
+  "source_commit": "623804d0693153fd03a0a46b19bad98db8b534bd",
+  "product_baseline_source_commit": "5ed63f12561ca8644815fac54653a8e618900f3f",
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64"
+  },
+  "node": "v24.22.1",
+  "versions": {
+    "prisma": "7.10.1",
+    "community_adapter": "@jsr/netscript__prisma-adapter-mysql 0.0.8",
+    "mysql2": "3.24.6"
+  },
+  "binary_sha256": "c535ba8ec61f2067d82d52f450c20ad5a506e551e7a80cfc9d38eb57d514e517",
+  "binary_build_info": "${TEMP}/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261104131849-623804d06931\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=623804d0693153fd03a0a46b19bad98db8b534bd\n\tbuild\tvcs.time=2026-11-04T13:18:49Z\n\tbuild\tvcs.modified=false\n",
+  "cells": [
+    {
+      "name": "direct-query_zero",
+      "kind": "Direct driver",
+      "observed": 1,
+      "js_type": "number",
+      "result": "PASS"
+    },
+    {
+      "name": "direct-query_parameter",
+      "kind": "Direct driver",
+      "observed": 1,
+      "js_type": "number",
+      "result": "PASS"
+    },
+    {
+      "name": "direct-execute_zero",
+      "kind": "Direct driver",
+      "observed": 1,
+      "js_type": "number",
+      "result": "PASS"
+    },
+    {
+      "name": "direct-execute_parameter",
+      "kind": "Direct driver",
+      "observed": 1,
+      "js_type": "number",
+      "result": "PASS"
+    },
+    {
+      "name": "direct-bigint_default",
+      "kind": "Direct driver",
+      "observed": 9007199254740992,
+      "js_type": "number",
+      "result": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '9007199254740992'\n- '9007199254740993'\n                  ^\n",
+      "code": "ERR_ASSERTION"
+    },
+    {
+      "name": "direct-bigint_safe",
+      "kind": "Direct driver",
+      "observed": "9007199254740993",
+      "js_type": "string",
+      "result": "PASS"
+    },
+    {
+      "name": "direct-binary",
+      "kind": "Direct driver",
+      "observed": {
+        "type": "Buffer",
+        "data": [
+          0,
+          0,
+          255
+        ]
+      },
+      "js_type": "object",
+      "result": "PASS"
+    },
+    {
+      "name": "mysql2-connect",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "connect"
+      }
+    },
+    {
+      "name": "mysql2-find_unique",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "find_unique"
+      }
+    },
+    {
+      "name": "mysql2-find_many_unfiltered",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "find_many_unfiltered"
+      }
+    },
+    {
+      "name": "mysql2-count_unfiltered",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "count_unfiltered"
+      }
+    },
+    {
+      "name": "mysql2-count_filtered",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "count_filtered"
+      }
+    },
+    {
+      "name": "mysql2-create",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "create"
+      }
+    },
+    {
+      "name": "mysql2-nested_create",
+      "kind": "Client",
+      "result": "FAIL",
+      "error": "{\"result\": \"FAIL\", \"case\": \"nested_create\", \"error\": \"PrismaClientKnownRequestError: \\nInvalid `prisma.user.create()` invocation in\\n${SOURCE}/benchmarks/spikes/prisma-mysql2-dogfood/matrix.ts:20:59\\n\\n  17 case 'count_unfiltered': assert.equal(await prisma.user.count(),1);break;\\n  18 case 'count_filtered': assert.equal(await prisma.user.count(countArgs),1);break;\\n  19 case 'create': assert.equal((await prisma.user.create({data:{email:'created@test',name:'new'}})).name,'new');break;\\n→ 20 case 'nested_create': assert.equal((await prisma.user.create(\\nExpected a byte array in column 'blob', got string: AAEAf4D/\", \"code\": \"P2023\", \"meta\": {\"modelName\": \"User\"}}"
+    },
+    {
+      "name": "mysql2-create_many",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "create_many"
+      }
+    },
+    {
+      "name": "mysql2-update",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "update"
+      }
+    },
+    {
+      "name": "mysql2-delete_cascade",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "delete_cascade"
+      }
+    },
+    {
+      "name": "mysql2-upsert",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "upsert"
+      }
+    },
+    {
+      "name": "mysql2-relation",
+      "kind": "Client",
+      "result": "FAIL",
+      "error": "{\"result\": \"FAIL\", \"case\": \"relation\", \"error\": \"PrismaClientKnownRequestError: \\nInvalid `prisma.user.findUniqueOrThrow()` invocation in\\n${SOURCE}/benchmarks/spikes/prisma-mysql2-dogfood/matrix.ts:25:54\\n\\n  22 case 'update': assert.equal((await prisma.user.update({where:{id:1},data:{name:'updated'}})).name,'updated');break;\\n  23 case 'delete_cascade': await prisma.user.delete({where:{id:1}});assert.equal(await prisma.post.count(countArgs),0);break;\\n  24 case 'upsert': assert.equal((await prisma.user.upsert({where:{email:'baseline@test'},update:{name:'upserted'},create:{email:'baseline@test'}})).name,'upserted');break;\\n→ 25 case 'relation': assert.equal((await prisma.user.findUniqueOrThrow(\\nExpected a byte array in column 'blob', got string: AAEAf4D/\", \"code\": \"P2023\", \"meta\": {\"modelName\": \"User\"}}"
+    },
+    {
+      "name": "mysql2-nullable",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "nullable"
+      }
+    },
+    {
+      "name": "mysql2-transaction_commit",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "transaction_commit"
+      }
+    },
+    {
+      "name": "mysql2-transaction_rollback",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "transaction_rollback"
+      }
+    },
+    {
+      "name": "mysql2-transaction_array",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "transaction_array"
+      }
+    },
+    {
+      "name": "mysql2-aggregate",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "aggregate"
+      }
+    },
+    {
+      "name": "mysql2-group_by",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "group_by"
+      }
+    },
+    {
+      "name": "mysql2-raw_parameter",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "raw_parameter"
+      }
+    },
+    {
+      "name": "mysql2-raw_zero_parameter",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "raw_zero_parameter"
+      }
+    },
+    {
+      "name": "mysql2-execute_raw",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "execute_raw"
+      }
+    },
+    {
+      "name": "mysql2-unique_error",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "unique_error"
+      }
+    },
+    {
+      "name": "mysql2-decimal",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "decimal"
+      }
+    },
+    {
+      "name": "mysql2-bigint",
+      "kind": "Client",
+      "result": "FAIL",
+      "error": "{\"result\": \"FAIL\", \"case\": \"bigint\", \"error\": \"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ 9007199254740992n\\n- 9007199254740993n\\n                 ^\\n\", \"code\": \"ERR_ASSERTION\"}"
+    },
+    {
+      "name": "mysql2-datetime",
+      "kind": "Client",
+      "result": "FAIL",
+      "error": "{\"result\": \"FAIL\", \"case\": \"datetime\", \"error\": \"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ '2026-03-03T20:06:07.123Z'\\n- '2026-03-04T05:06:07.123Z'\\n            ^\\n\", \"code\": \"ERR_ASSERTION\"}"
+    },
+    {
+      "name": "mysql2-json",
+      "kind": "Client",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "case": "json"
+      }
+    },
+    {
+      "name": "mysql2-binary",
+      "kind": "Client",
+      "result": "FAIL",
+      "error": "{\"result\": \"FAIL\", \"case\": \"binary\", \"error\": \"PrismaClientKnownRequestError: \\nInvalid `prisma.post.findUniqueOrThrow()` invocation in\\n${SOURCE}/benchmarks/spikes/prisma-mysql2-dogfood/matrix.ts:40:68\\n\\n  37 case 'bigint': assert.equal((await prisma.post.findUniqueOrThrow({where:{id:1},select:{big:true}})).big,types.big);break;\\n  38 case 'datetime': assert.equal((await prisma.post.findUniqueOrThrow({where:{id:1},select:{at:true}})).at.toISOString(),types.at.toISOString());break;\\n  39 case 'json': assert.deepEqual((await prisma.post.findUniqueOrThrow({where:{id:1},select:{meta:true}})).meta,types.meta);break;\\n→ 40 case 'binary': assert.deepEqual(Buffer.from((await prisma.post.findUniqueOrThrow(\\nExpected a byte array in column 'blob', got string: AAEAf4D/\", \"code\": \"P2023\", \"meta\": {\"modelName\": \"Post\"}}"
+    },
+    {
+      "name": "mysql2-live-reset",
+      "kind": "Live",
+      "result": "PASS",
+      "observed": {
+        "same_node_pid": 2803,
+        "stable_endpoint": true,
+        "restored_baseline": true
+      }
+    }
+  ],
+  "summary": {
+    "PASS": 29,
+    "FAIL": 6
+  }
+}
