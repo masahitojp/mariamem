@@ -204,6 +204,14 @@ remain usable. Cleanup uncertainty stops admission; later disposal alone does
 not automatically resume it. Prepare a new baseline or use an explicit Live
 Reset that confirms all cleanup debt. There is no unlimited Snapshot/Fork setting.
 
+A capture failure has a stricter limit: if cleanup of its newly owned Snapshot
+also fails, the shared host records permanent `captureDebt`. `Owned.Close` caches
+that error and cannot retry the descriptors; the affected parent slot remains
+occupied and admission stays stopped, even after runtime disposal is confirmed.
+Cleanup retry and Live Reset cannot clear this capture debt. Do not reuse that
+pool; safely close its remaining owners and prepare a fresh independent lineage.
+This is distinct from retryable child-runtime cleanup debt described above.
+
 Do not synchronously request another child while the same goroutine holds every
 slot. Release one first, or use a context deadline/cancellation; a deferred Close
 runs only after the waiting Fork returns. Use keyed option literals when upgrading:
@@ -213,7 +221,8 @@ literals.
 The current exact candidate cddd8dcb passes the fixed hosted matrix, including
 these diagnostics and memory-source corrections. See the
 [updated adoption review](reviews/issue53-fork-limit-final-adoption-review.md);
-adoption remains pending. [Older receipts](reviews/issue53-fork-limit-adoption-review.md)
+the [Human adoption decision](decisions/issue53-fork-limit-adoption.md) is recorded,
+and main integration remains pending. [Older receipts](reviews/issue53-fork-limit-adoption-review.md)
 retain their original source boundary.
 
 

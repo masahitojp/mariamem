@@ -527,7 +527,16 @@ automatically reopen admission. Supplied pytest/E2E/Django entries now forward
 their settings. The fixed both-host/interpreter acceptance, including the diagnostics/
 memory-source correction, passed on exact candidate cddd8dcb.
 See the [review follow-up](reviews/issue53-review-followup.md);
-[adoption remains separate](reviews/issue53-fork-limit-final-adoption-review.md).
+[Human adoption is recorded](decisions/issue53-fork-limit-adoption.md); main
+integration remains pending.
+
+If capture fails and closing the newly owned Snapshot also fails, the shared
+host permanently retains `captureDebt`. That owned-Snapshot Close error is
+cached and cannot be retried; the originating slot stays occupied and its
+parent's admission stays stopped even if runtime disposal later completes.
+Cleanup retry or Live Reset cannot recover this pool. Safely close remaining
+owners and prepare a fresh independent lineage. This is a stricter limitation
+than retryable child-runtime cleanup debt, not a claim of eventual slot release.
 
 SQL errors and an individual DB's normal Close do not close siblings. A host
 process crash invalidates that lineage's DBs and baselines; prepare again.

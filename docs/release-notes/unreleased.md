@@ -5,7 +5,7 @@ release version or grant qualification/publication approval. Published0.6.0 note
 [NOTES-v0.6.0.md](../../release/NOTES-v0.6.0.md); published installation commands
 and version metadata remain unchanged.
 
-## Candidate under review — #53 / PR #85
+## Human-adopted candidate — #53 / PR #85 (main integration pending)
 
 - Go Snapshot adds `SnapshotOptions.MaxForks` and `Snapshot.MaxForks()`. Omission
   now resolves a finite memory-based limit; full capacity waits under the Go
@@ -45,15 +45,22 @@ and version metadata remain unchanged.
   and over-admit relative to the container budget; configure an explicit cap.
   Independent root `Start` / `start()` calls are outside per-Snapshot caps.
   Private control rejects negative capacity tokens, including `-0`, request-locally.
+- Capture cleanup has an unretryable failure path: if a failed capture's newly
+  owned Snapshot also fails Close, the shared host permanently latches
+  `captureDebt`. Its originating slot remains occupied and parent admission
+  stays stopped even after runtime disposal. Cleanup retry/Live Reset cannot
+  clear this debt; close remaining owners safely and prepare a fresh lineage.
 - Host WASI writes now propagate zero-byte write errors, including broken pipes,
   and preserve actual short-write progress. This fixes the tested interrupted-
   guest cleanup stall without changing the accepted prepared CALL observations.
-- This draft is not adopted on main. The fixed both-host/Python-version matrix,
+- The Human adopted this candidate on2026-11-04, including the WASI cleanup
+  prerequisite and the capture-cleanup limit above. Main integration is pending. The fixed both-host/Python-version matrix,
   including installed D1 cap1 execution and G1–G3/P2–P6 corrections, passed on
   exact candidate `cddd8dcb`; see the
   [review follow-up](../reviews/issue53-review-followup.md). The updated
   [adoption review](../reviews/issue53-fork-limit-final-adoption-review.md) records evidence
-  and limits. Adoption and a future release remain separate Human decisions.
+  and limits. The [adoption decision](../decisions/issue53-fork-limit-adoption.md)
+  records approval; main integration and a future release remain separate.
 
 ## Adopted on main — unreleased
 

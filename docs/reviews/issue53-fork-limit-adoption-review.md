@@ -1,11 +1,13 @@
 # Issue #53 — candidate adoption review
 
-**Review follow-up:** the body below is the c53771cd review, preserved at its
-original source/evidence boundary. Human review found missing capacity diagnostics
-G1 despite the eighteen-row matrix passing. The current candidate correction and
-verification status are in [the G1/G2/G3 follow-up](issue53-review-followup.md).
-The previous docs-only tree-equality reuse applies to7c0f6c32, not to the later
-runtime correction; a new-source matrix remains required before current adoption.
+**Historical review — c53771cd only.** All recommendations, next actions and
+pending conditions in the body below describe that original checkpoint, not
+current adoption status. This review was superseded by the
+[final cddd8dcb review](issue53-fork-limit-final-adoption-review.md) and successful
+[exact matrix41778273108](issue53-fork-limit-evidence/ci-41778273108/README.md).
+The Human subsequently adopted the candidate with E1/E2 documentation corrections;
+see the [decision](../decisions/issue53-fork-limit-adoption.md).
+The old c53771cd receipts remain unchanged and cannot cover later runtime changes.
 
 Decision needed now: adopt the finite-Fork candidate in Draft PR85, including its
 WASI write cleanup prerequisite. **Recommendation: adopt.** The fixed eighteen-row
@@ -153,15 +155,17 @@ Other missing-things scan conclusions:
 - No new wire support or new driver-exception disposition found. The selected
   consumer comparator still preserves both named exceptions and original FAILs.
 
-## Next action and review limits
+## Historical next action and review limits — c53771cd checkpoint
 
-The next action is the Human's candidate-adoption decision for PR85, including
-the WASI prerequisite. The candidate product tree is c53771cd. The accompanying
+At this checkpoint, the next action was the Human's candidate-adoption decision for PR85, including
+the WASI prerequisite. The candidate product tree then was c53771cd. The accompanying
 receipt/wording commit is docs-only: its non-doc tree must equal the fingerprint
 in assessment.json. Check that equality before pushing; the old full-matrix
 receipt remains c53771cd and is not called an independently tested docs head.
 Ordinary protected PR checks still apply. This is existing tree-equality evidence
-reuse, not a reason to rerun a full runtime matrix for prose.
+reuse, not a reason at that checkpoint to rerun a full runtime matrix for prose.
+This did not waive the new-source matrix for G1–G3: that later requirement was
+satisfied independently by cddd8dcb/41778273108.
 
 This is a contract/evidence and critical ownership-path review, not an independent
 line-by-line audit of every changed file. No new benchmark or CI execution was

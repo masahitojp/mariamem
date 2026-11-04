@@ -6,7 +6,10 @@ Current exact-candidate execution is cddd8dcbd6d664171907ffc1769b83e472640875 /
 [verify41778273108](https://github.com/masahitojp/mariamem/actions/runs/41778273108):
 the [new assessment](issue53-fork-limit-evidence/ci-41778273108/assessment.json)
 records all eighteen rows technically satisfied after G1–G3/P2–P6 corrections.
-Adoption is pending. The c53771cd checkpoint below remains historical.
+The [Human adoption decision](../decisions/issue53-fork-limit-adoption.md) is
+recorded; main integration remains pending. The c53771cd checkpoint below is historical.
+
+### Historical c53771cd result and subsequent review findings
 
 The later [adoption review](issue53-fork-limit-adoption-review.md) and
 [bound matrix assessment](issue53-fork-limit-evidence/ci-41761661883/assessment.json)

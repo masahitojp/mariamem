@@ -1,10 +1,17 @@
 # Issue53 — final correction candidate adoption review
 
+Subsequent Human decision,2026-11-04: adopt, including the WASI cleanup
+prerequisite, with E1/E2 documentation corrections. The
+[decision record](../decisions/issue53-fork-limit-adoption.md) owns that approval.
+The recommendation below preserves its review context; integration/release were
+not authorized by this decision.
+
 Decision needed now: adopt PR85's finite per-Snapshot Fork limits, including its
 host WASI write-error cleanup prerequisite. **Recommendation: adopt.** The final
 corrections now have an exact-source both-host/interpreter matrix; capacity is
-reserved before startup and retained until confirmed disposal, with readable
-capacity diagnostics.
+reserved before startup, with readable capacity diagnostics. Normal disposal
+confirmation releases its slot; failed owned-Snapshot capture cleanup can instead
+permanently latch the slot and parent admission as described below.
 
 The strongest objection remains the ownership complexity across consuming
 capture, Live recovery and different-host transfer. The fixed race/failure
@@ -32,9 +39,12 @@ The inputs were reconstructed from the request to continue after successful CI:
   recovery/publication/smoke jobs skip. No failed job. Both core/installed
   verification jobs, all feature owners and final aggregate succeed.
 
-The accompanying evidence/wording commit is docs-only and reuses this tested
+The9e788a25 evidence/wording commit is docs-only and reuses this tested
 non-doc tree. Its fingerprint is in [assessment.json](issue53-fork-limit-evidence/ci-41778273108/assessment.json).
-No receipt is relabelled to the later docs commit.
+No receipt is relabelled to the later docs commit. The subsequent E1/E2
+correction changes only docs and README wording. It preserves runtime code but
+not the docs-excluding fingerprint, which includes README; that later equality
+is not claimed. The original candidate CI receipt remains unchanged.
 
 ## Checked acceptance and corrections
 
@@ -73,8 +83,22 @@ cleanup faults are not described as real-engine OOM reproductions.
 
 ## Missing-things scan and limits
 
-No unresolved technical blocker was found in this fixed exit. Human adoption
-and integration are still unsatisfied decisions; CI cannot grant either.
+No unresolved technical blocker was found in the fixed exit. E1 identifies a
+named recovery limitation: when failed-capture cleanup calls `Owned.Close` and
+that Close fails, `captureDebt` is never cleared. `db.disposed` remains false and
+`retryCleanup` cannot settle the lease; `Owned.Close` discards its file list and
+returns the cached error on later calls. The slot and parent admission remain
+latched even after runtime disposal. Live Reset cannot recover this debt.
+See `internal/control/shared.go` snapshot error handling,
+`internal/control/fork.go` disposed/settle/retryCleanup and
+`internal/snapshot/owned.go` Owned.Close. This is code-inspected behavior, not a
+new actual-fault reproduction; the permanent-capture path has no dedicated
+end-to-end detector. It is now explicit in README, Go/Python limits and notes;
+prose completeness remains invisible to CI. Safely close remaining owners and
+prepare a fresh independent lineage. Do not claim eventual release for this path.
+
+Human adoption is subsequently recorded in the linked decision; integration
+remains pending, and CI cannot grant either decision.
 
 - Entry scan: direct Go/Python, pytest, fixture, Live, owned E2E, handoff and D1
   remain covered. No unlisted required entry omission found.
@@ -95,6 +119,7 @@ and integration are still unsatisfied decisions; CI cannot grant either.
 
 This is a targeted contract/evidence and correction review, not an independent
 line-by-line audit of the entire implementation. No new runtime campaign was
-launched. The next action is the Human's adoption decision for the named
-candidate and prerequisite; protected PR checks still apply to its docs record.
+launched. At review time, the next action was the Human's adoption decision for the named
+candidate and prerequisite; that decision is now recorded above. Main integration
+remains separate; protected PR checks still apply to this docs record.
 Release qualification/publication requires its separate decision.

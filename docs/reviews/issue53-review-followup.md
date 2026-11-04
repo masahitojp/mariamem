@@ -5,11 +5,13 @@ passes [verify41778273108](https://github.com/masahitojp/mariamem/actions/runs/4
 [Current receipt assessment](issue53-fork-limit-evidence/ci-41778273108/README.md)
 and [updated adoption review](issue53-fork-limit-final-adoption-review.md)
 supersede the execution-pending checkpoints below. Those paragraphs retain their
-original local-only scope. Human adoption and integration remain pending.
+original local-only scope. P1 is satisfied at cddd8dcb/41778273108; the Human
+adopted the candidate on2026-11-04 with E1/E2 documentation corrections.
+See the [decision](../decisions/issue53-fork-limit-adoption.md). Integration remains pending.
 
 ## Historical local checkpoints
 
-Current status: G1 implemented and locally verified on clean source_commit
+Status at6d40d0d4: G1 implemented and locally verified on clean source_commit
 `6d40d0d420bd06cc68e313348a6246787ab51539`; G2 wording is corrected. Canonical
 daily (Go tests/vet,67 early source tests,1883 Python tests plus106 subtests and
 91 skips), Go/Python source smoke and nine same-source actual-host cases PASS
@@ -144,20 +146,22 @@ syscall is blocked on a host, that native observation is explicitly skipped;
 injected failure-path tests still run. Local macOS package race tests PASS and
 Linux/amd64 compilation PASS; native Linux execution is not claimed yet.
 
-## Completion boundary
+## Historical completion boundary — before cddd8dcb matrix
 
-The Human is still reviewing. This follow-up addresses G1 diagnostics, G2 wording
-and G3 memory-source testability; it does not claim the new full installed/platform matrix,
-Human adoption, main integration, a new version or publication. Collect further
-findings, then run the stable candidate's exact matrix once. The local results
+At this checkpoint the Human was still reviewing. This follow-up addressed G1 diagnostics, G2 wording
+and G3 memory-source testability; it did not claim the then-unrun full installed/platform matrix,
+Human adoption, main integration, a new version or publication. The next action
+then was to collect findings and run the stable candidate's exact matrix once.
+That execution is now complete at cddd8dcb/41778273108. The local results
 above cover the committed runtime source; an accompanying docs-only result record
 must preserve that non-doc tree, and is not a new installed/platform receipt. Any failure remains an unfinished condition, not an accepted exception.
 
 ## P1–P6 — final review corrections
 
 The ordinary PR checks on9b27c503 pass (Development run41775576621); this is
-not the new exact installed/platform matrix. P1 remains open until a fresh
-verify/auto run succeeds on the correction candidate. The c53771cd READY and
+not the new exact installed/platform matrix. P1 was open at that checkpoint until a fresh
+verify/auto run succeeded on the correction candidate; it is now satisfied by
+cddd8dcb/41778273108. The c53771cd READY and
 all original receipts remain bound to their original code.
 
 P2 adds positive, bounded public max_forks assertions to both actual automatic
@@ -181,5 +185,7 @@ daily PASS (67 early source tests, Go tests/vet,1883 Python tests,106 subtests,
 actual mapped-child resnapshot case PASS with the same-source host reporting
 vcs.revision=b5601ab58496006783c0cd9b54f11b0e39e1a8a5 and vcs.modified=false.
 The subsequent documentation-only result commit reuses those local results
-because its non-doc tree is unchanged. A fresh exact-head verify/auto matrix is
-the remaining P1 gate; no new installed/platform matrix PASS is claimed.
+because its non-doc tree is unchanged. At that local-only checkpoint, a fresh exact-head verify/auto matrix was
+the remaining P1 gate and no new installed/platform PASS was claimed.
+That gate is now satisfied by the exact cddd8dcb matrix41778273108; the saved
+receipt is not rebound to a later documentation head.

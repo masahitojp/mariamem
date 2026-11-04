@@ -8,7 +8,9 @@ and the c53771cd fixed matrix passed; see the
 Human review then found missing diagnostics G1. The
 [G1/G2 follow-up](issue53-review-followup.md) tracks that later runtime correction
 and new-source verification. The finite acceptance below is normative, not a
-claim that every later candidate has passed it. Adoption remains pending.
+claim that every later candidate has passed it. The final cddd8dcb matrix
+subsequently passed and the [Human adopted the candidate](../decisions/issue53-fork-limit-adoption.md)
+with E1/E2 documentation corrections; main integration remains pending.
 The design selects a 256 MiB budget per child and preserves development-host
 handoff using leases. Authorization is not a claim of measured new behavior.
 [Issue #53](https://github.com/masahitojp/mariamem/issues/53)

@@ -88,7 +88,7 @@ for serial/xdist commands and worker sizing. Its four
 installed-wheel OS/Python cells passed before adoption. Procedures/functions
 and real server-side prepared execution retain the named exceptions below.
 
-Candidate #53 ([under review](docs/reviews/issue53-review-followup.md), absent
+Candidate #53 ([Human-adopted; main integration pending](docs/decisions/issue53-fork-limit-adoption.md), absent
 from published0.6.0) adds finite per-Snapshot Fork admission by default. Full
 capacity waits before starting another child; see the candidate contracts for
 [Go](docs/go.md#unreleased-candidate-per-snapshot-fork-limits-53) and [Python](docs/python.md).
@@ -337,6 +337,11 @@ Release CI success does not imply additional protocol coverage.
   Auto sizing is a memory heuristic; hidden container limits require an explicit
   cap, and multiple baselines/workers need separate budgets.
 
+- **#53 capture cleanup limit:** if capture fails and closing its newly owned
+  Snapshot also fails, that failure is permanently latched: its originating
+  slot remains occupied and parent admission stays stopped. Cleanup retry and
+  Live Reset cannot clear it; close remaining owners safely and prepare a fresh
+  independent lineage. See the [Python limits](docs/python.md).
 - Close driver connections and DB/baseline handles normally. Context managers
   and Go cleanup functions make those boundaries explicit.
 - Close clients before Snapshot creation; active operations and unresolved

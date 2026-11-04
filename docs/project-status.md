@@ -14,9 +14,9 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Issue #53 — finite Fork admission by default, implementation authorized
+## Issue #53 — finite Fork candidate adopted, main integration pending
 
-### Current candidate — fixed-exit technical acceptance complete
+### Current candidate — adopted after fixed-exit technical acceptance
 
 Exact source_commit `cddd8dcbd6d664171907ffc1769b83e472640875` passes
 [verify41778273108](https://github.com/masahitojp/mariamem/actions/runs/41778273108),
@@ -29,7 +29,9 @@ new-head matrix condition P1 after the G1–G3/P2–P6 corrections.
 retains the checked artifact/member hashes, four-cell matrix and fixed eighteen-row
 dispositions. The [updated adoption review](reviews/issue53-fork-limit-final-adoption-review.md)
 recommends adopting the finite-Fork candidate, including the host WASI write-error
-cleanup prerequisite. Human adoption and main integration remain pending.
+cleanup prerequisite. The Human adopted it on2026-11-04 with E1/E2 documentation
+corrections; the [decision](decisions/issue53-fork-limit-adoption.md) owns approval.
+Main integration remains pending.
 No version/publication approval, machine-wide/OOM/CPU-optimal guarantee,
 resource campaign or prewarming scope is added.
 
@@ -38,13 +40,21 @@ captures assert finite positive resolved values. Linux memory policy has injecte
 sysinfo/proc/failure tests and native Linux package execution; the nonverbose log
 does not prove the syscall adapter subtest avoided its explicit unavailable-syscall
 skip. Hidden cgroup limits can still cause over-admission; use explicit caps.
-Independent root Start calls are outside per-Snapshot limits. The
+Independent root Start calls are outside per-Snapshot limits. Failed capture
+cleanup has a permanent latch: shared-host `captureDebt` cannot be cleared, so
+the originating slot remains occupied and parent admission stays stopped even
+after runtime disposal. Cleanup retry/Live Reset cannot recover that pool; safely
+close remaining owners and prepare a fresh independent lineage. This is distinct
+from retryable child-runtime cleanup debt. The
 [follow-up](reviews/issue53-review-followup.md) preserves correction details.
 
 Old receipts remain pinned: c53771cd/41761661883 predates G1–G3, and the
 7c0f6c32 docs-tree reuse applies only to that historical checkpoint. Neither is
-relabelled as current runtime acceptance. The current receipt/wording commit
-must preserve the tested candidate's non-doc tree, as recorded in assessment.json.
+relabelled as current runtime acceptance. The9e788a25 receipt/wording commit
+preserves the tested candidate's non-doc tree, as recorded in assessment.json.
+The later E1/E2 correction changes only docs and README wording: runtime is
+unchanged, but README is outside docs/ so the old non-doc fingerprint is not
+claimed to match this later documentation head.
 
 ### Historical implementation checkpoints
 
