@@ -14,8 +14,9 @@ async function seed() {
   return {result:'PASS',stage:'seed',userId:user.id};
 }
 async function exercise() {
-  assert.equal(await prisma.user.count(),1,'baseline must be restored');
-  assert.equal(await prisma.post.count(),1);
+  const countArgs=process.env.PRISMA_PARAMETERIZED_COUNTS==='1' ? {where:{id:{gt:0}}} : undefined;
+  assert.equal(await prisma.user.count(countArgs),1,'baseline must be restored');
+  assert.equal(await prisma.post.count(countArgs),1);
   const baseline=await prisma.user.findUniqueOrThrow({where:{email:'baseline@example.test'},include:{posts:true}});
   const post=baseline.posts[0];
   assert.equal(post.amount.toFixed(6),types.amount);
@@ -28,7 +29,7 @@ async function exercise() {
   const updated=await prisma.user.update({where:{id:created.id},data:{name:'updated'}});
   assert.equal(updated.name,'updated');
   await prisma.user.delete({where:{id:created.id}});
-  assert.equal(await prisma.post.count(),1,'cascade must remove related row');
+  assert.equal(await prisma.post.count(countArgs),1,'cascade must remove related row');
   await assert.rejects(prisma.$transaction(async tx=>{
     await tx.user.create({data:{email:'rollback@example.test'}});
     throw new Error('DOGFOOD_ROLLBACK');
@@ -37,7 +38,7 @@ async function exercise() {
   await prisma.$transaction(async tx=>{
     await tx.user.create({data:{email:'committed@example.test'}});
   });
-  assert.equal(await prisma.user.count(),2);
+  assert.equal(await prisma.user.count(countArgs),2);
   return {result:'PASS',stage:'case',pid:process.pid,crud:true,relations:true,cascade:true,rollback:true,commit:true,types:{decimal:post.amount.toFixed(6),bigint:post.big.toString(),datetime:post.at.toISOString(),json:post.meta,blobHex:Buffer.from(post.blob).toString('hex')}};
 }
 try {

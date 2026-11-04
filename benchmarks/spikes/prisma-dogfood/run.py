@@ -22,7 +22,7 @@ from git_identity import verify_go_binary
 
 def run(host, output):
     output.mkdir(parents=True,exist_ok=True)
-    report={'result':'FAIL','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'host':{'system':platform.system(),'machine':platform.machine()},'node':subprocess.check_output(['node','--version'],text=True).strip(),'prisma':'7.10.1','adapter':'7.10.1','driver':'mariadb 3.5.4','client_configuration':{'pipelining':os.environ.get('PRISMA_PIPELINING','driver-default')},'stages':[]}
+    report={'result':'FAIL','source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'host':{'system':platform.system(),'machine':platform.machine()},'node':subprocess.check_output(['node','--version'],text=True).strip(),'prisma':'7.10.1','adapter':'7.10.1','driver':'mariadb 3.5.4','client_configuration':{'pipelining':os.environ.get('PRISMA_PIPELINING','driver-default'),'parameterized_counts':os.environ.get('PRISMA_PARAMETERIZED_COUNTS')=='1'},'stages':[]}
     def command(args, env, name):
         result=subprocess.run(args,cwd=PROJECT,env=env,text=True,capture_output=True,timeout=120)
         (output/(name+'.txt')).write_text(result.stdout+result.stderr)
@@ -78,7 +78,7 @@ def run(host, output):
                             except subprocess.TimeoutExpired:app.kill();app.wait(timeout=5)
                         app.stdout.close()
                         if not app.stdin.closed:app.stdin.close()
-        report['result']='PASS'
+        report['result']='PASS_DIAGNOSTIC_PARAMETERIZED_COUNTS' if os.environ.get('PRISMA_PARAMETERIZED_COUNTS')=='1' else 'PASS'
     except Exception as error:
         report['error']=str(error)
         raise
