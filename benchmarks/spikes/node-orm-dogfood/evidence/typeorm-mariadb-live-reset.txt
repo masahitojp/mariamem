@@ -1,0 +1,5 @@
+{"event":"ready","pid":47441}
+{"event":"mutated","pid":47441}
+{"event":"disconnected"}
+{"event":"mutated","pid":47441}
+{"event":"disconnected"}

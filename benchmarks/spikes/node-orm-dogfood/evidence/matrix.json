@@ -1,0 +1,1121 @@
+{
+  "scope": "ONE_OS_OFFICIAL_ORM_MYSQL_DOGFOOD",
+  "source_commit": "ba34bb25225a664d315d2605f899727b8d30a511",
+  "product_baseline_source_commit": "df75666e3e46f6ebd4e2541c89586ad7b43275f9",
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64"
+  },
+  "node": "v24.22.1",
+  "versions": {
+    "typeorm": "1.1.2",
+    "mikro-orm": "7.2.7",
+    "mysql2": "3.24.6"
+  },
+  "binary_sha256": "3831fa0bc54713292af815ee3e143a33a22df2f22bc126c69fb53ff06dedcc16",
+  "binary_build_info": "${TEMP}/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261104135533-ba34bb25225a\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=ba34bb25225a664d315d2605f899727b8d30a511\n\tbuild\tvcs.time=2026-11-04T13:55:33Z\n\tbuild\tvcs.modified=false\n",
+  "cells": [
+    {
+      "orm": "typeorm-mysql",
+      "name": "connect",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "connect"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "count",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "count"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "find",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "find"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "create",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "create"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "bulk",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "bulk"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "nested",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "nested"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "relation",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "relation"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "update",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "update"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "upsert",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "upsert"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "delete_cascade",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "delete_cascade"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "nullable",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "nullable"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "transaction_commit",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "transaction_commit"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "transaction_rollback",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "transaction_rollback"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "unique_error",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "unique_error"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "bigint",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "bigint"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "decimal",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "decimal"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "datetime",
+      "result": "FAIL",
+      "error": "{\"result\": \"FAIL\", \"orm\": \"typeorm\", \"case\": \"datetime\", \"error\": \"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ '2026-03-03T20:06:07.123Z'\\n- '2026-03-04T05:06:07.123Z'\\n            ^\\n\", \"stack\": \"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ '2026-03-03T20:06:07.123Z'\\n- '2026-03-04T05:06:07.123Z'\\n            ^\\n\\n    at file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/cases.mjs:36:27\\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\", \"code\": \"ERR_ASSERTION\"}"
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "json",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "json"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "binary",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "binary"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "raw_parameter",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "raw_parameter"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "raw_zero_parameter",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "raw_zero_parameter"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "aggregate",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "aggregate"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "group_by",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "group_by"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "schema_create",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "schema_create"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "schema_noop",
+      "result": "FAIL",
+      "error": "{\"result\": \"FAIL\", \"orm\": \"typeorm\", \"case\": \"schema_noop\", \"error\": \"AssertionError [ERR_ASSERTION]: unexpected schema drift: ALTER TABLE `User` CHANGE `name` `name` varchar(120) NULL\\n+ actual - expected\\n\\n+ 'ALTER TABLE `User` CHANGE `name` `name` varchar(120) NULL'\\n- ''\\n\", \"stack\": \"AssertionError [ERR_ASSERTION]: unexpected schema drift: ALTER TABLE `User` CHANGE `name` `name` varchar(120) NULL\\n+ actual - expected\\n\\n+ 'ALTER TABLE `User` CHANGE `name` `name` varchar(120) NULL'\\n- ''\\n\\n    at file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/cases.mjs:44:87\\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\", \"code\": \"ERR_ASSERTION\"}"
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "schema_update",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "schema_update"
+      }
+    },
+    {
+      "orm": "typeorm-mysql",
+      "name": "live-reset",
+      "result": "PASS",
+      "observed": {
+        "same_node_pid": 46156,
+        "stable_endpoint": true,
+        "restored_baseline": true
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "connect",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "connect"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "count",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "count"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "find",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "find"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "create",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "create"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "bulk",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "bulk"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "nested",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "nested"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "relation",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "relation"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "update",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "update"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "upsert",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "upsert"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "delete_cascade",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "delete_cascade"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "nullable",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "nullable"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "transaction_commit",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "transaction_commit"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "transaction_rollback",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "transaction_rollback"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "unique_error",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "unique_error"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "bigint",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "bigint"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "decimal",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "decimal"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "datetime",
+      "result": "FAIL",
+      "error": "{\"result\": \"FAIL\", \"orm\": \"typeorm\", \"case\": \"datetime\", \"error\": \"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ '2026-03-03T20:06:07.123Z'\\n- '2026-03-04T05:06:07.123Z'\\n            ^\\n\", \"stack\": \"AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\\n+ actual - expected\\n\\n+ '2026-03-03T20:06:07.123Z'\\n- '2026-03-04T05:06:07.123Z'\\n            ^\\n\\n    at file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/cases.mjs:36:27\\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\", \"code\": \"ERR_ASSERTION\"}"
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "json",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "json"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "binary",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "binary"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "raw_parameter",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "raw_parameter"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "raw_zero_parameter",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "raw_zero_parameter"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "aggregate",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "aggregate"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "group_by",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "group_by"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "schema_create",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "schema_create"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "schema_noop",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "schema_noop"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "schema_update",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "schema_update"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb",
+      "name": "live-reset",
+      "result": "PASS",
+      "observed": {
+        "same_node_pid": 47441,
+        "stable_endpoint": true,
+        "restored_baseline": true
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "connect",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "connect"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "count",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "count"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "find",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "find"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "create",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "create"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "bulk",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "bulk"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "nested",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "nested"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "relation",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "relation"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "update",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "update"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "upsert",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "upsert"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "delete_cascade",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "delete_cascade"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "nullable",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "nullable"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "transaction_commit",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "transaction_commit"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "transaction_rollback",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "transaction_rollback"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "unique_error",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "unique_error"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "bigint",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "bigint"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "decimal",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "decimal"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "datetime",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "datetime"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "json",
+      "result": "FAIL",
+      "error": "{\"result\": \"FAIL\", \"orm\": \"mikro\", \"case\": \"json\", \"error\": \"AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\\n+ actual - expected\\n\\n+ '{\\\"text\\\": \\\"日本語\\\\\\\\u0000value\\\", \\\"nested\\\": [1, true, null]}'\\n- {\\n-   nested: [\\n-     1,\\n-     true,\\n-     null\\n-   ],\\n-   text: '日本語\\\\x00value'\\n- }\\n\", \"stack\": \"AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\\n+ actual - expected\\n\\n+ '{\\\"text\\\": \\\"日本語\\\\\\\\u0000value\\\", \\\"nested\\\": [1, true, null]}'\\n- {\\n-   nested: [\\n-     1,\\n-     true,\\n-     null\\n-   ],\\n-   text: '日本語\\\\x00value'\\n- }\\n\\n    at file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/cases.mjs:37:23\\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\", \"code\": \"ERR_ASSERTION\"}"
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "binary",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "binary"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "raw_parameter",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "raw_parameter"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "raw_zero_parameter",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "raw_zero_parameter"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "aggregate",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "aggregate"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "group_by",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "group_by"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "schema_create",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "schema_create"
+      }
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "schema_noop",
+      "result": "FAIL",
+      "error": "{\"result\": \"FAIL\", \"orm\": \"mikro\", \"case\": \"schema_noop\", \"error\": \"AssertionError [ERR_ASSERTION]: unexpected schema drift: alter table `User` modify `name` varchar(120) null;\\n\\nalter table `Post` drop constraint `meta`;\\nalter table `Post` modify `meta` json not null;\\n\\n+ actual - expected\\n\\n+ 'alter table `User` modify `name` varchar(120) null;\\\\n' +\\n+   '\\\\n' +\\n+   'alter table `Post` drop constraint `meta`;\\\\n' +\\n+   'alter table `Post` modify `meta` json not null;'\\n- ''\\n\", \"stack\": \"AssertionError [ERR_ASSERTION]: unexpected schema drift: alter table `User` modify `name` varchar(120) null;\\n\\nalter table `Post` drop constraint `meta`;\\nalter table `Post` modify `meta` json not null;\\n\\n+ actual - expected\\n\\n+ 'alter table `User` modify `name` varchar(120) null;\\\\n' +\\n+   '\\\\n' +\\n+   'alter table `Post` drop constraint `meta`;\\\\n' +\\n+   'alter table `Post` modify `meta` json not null;'\\n- ''\\n\\n    at file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/cases.mjs:44:87\\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\", \"code\": \"ERR_ASSERTION\"}"
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "schema_update",
+      "result": "FAIL",
+      "error": "{\"result\": \"FAIL\", \"orm\": \"mikro\", \"case\": \"schema_update\", \"error\": \"DriverException: Can't DROP CONSTRAINT `meta`; check that it exists\", \"stack\": \"DriverException: Can't DROP CONSTRAINT `meta`; check that it exists\\n    at MySqlExceptionConverter.convertException (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/@mikro-orm/core/platforms/ExceptionConverter.js:6:16)\\n    at MySqlExceptionConverter.convertException (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/@mikro-orm/sql/dialects/mysql/MySqlExceptionConverter.js:78:22)\\n    at MySqlDriver.convertException (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/@mikro-orm/core/drivers/DatabaseDriver.js:628:54)\\n    at file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/@mikro-orm/core/drivers/DatabaseDriver.js:632:24\\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\\n    at async Utils.runSerial (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/@mikro-orm/core/utils/Utils.js:653:22)\\n    at async SqlSchemaGenerator.execute (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/@mikro-orm/sql/schema/SqlSchemaGenerator.js:495:9)\\n    at async SqlSchemaGenerator.update (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/@mikro-orm/sql/schema/SqlSchemaGenerator.js:220:9)\\n    at async Object.schemaUpdate (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/mikro.mjs:29:305)\\n    at async file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/cases.mjs:45:49\\n\\n    at Packet.asError (${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/mysql2/lib/packets/packet.js:930:17)\\n    at Query.execute (${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/mysql2/lib/commands/command.js:29:26)\\n    at PoolConnection.handlePacket (${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/mysql2/lib/base/connection.js:616:34)\\n    at PacketParser.onPacket (${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/mysql2/lib/base/connection.js:148:12)\\n    at PacketParser.executeStart (${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/mysql2/lib/packet_parser.js:86:16)\\n    at Socket.<anonymous> (${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/mysql2/lib/base/connection.js:156:25)\\n    at Socket.emit (node:events:514:28)\\n    at addChunk (node:internal/streams/readable:569:12)\\n    at readableAddChunkPushByteMode (node:internal/streams/readable:520:3)\\n    at Readable.push (node:internal/streams/readable:400:5)\\n    at MysqlConnection.executeQuery (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/kysely/dist/dialect/mysql/mysql-driver.js:145:41)\\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\\n    at async file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/kysely/dist/query-executor/query-executor-base.js:39:24\\n    at async DefaultConnectionProvider.provideConnection (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/kysely/dist/driver/default-connection-provider.js:10:20)\\n    at async DefaultQueryExecutor.executeQuery (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/kysely/dist/query-executor/query-executor-base.js:38:28)\\n    at async Kysely.executeQuery (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/kysely/dist/kysely.js:546:16)\\n    at async executeQuery (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/@mikro-orm/sql/AbstractSqlConnection.js:277:25)\\n    at async MySqlConnection.executeQuery (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/@mikro-orm/core/connections/Connection.js:210:25)\\n    at async Utils.runSerial (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/@mikro-orm/core/utils/Utils.js:653:22)\\n    at async SqlSchemaGenerator.execute (file://${SOURCE}/benchmarks/spikes/node-orm-dogfood/node_modules/@mikro-orm/sql/schema/SqlSchemaGenerator.js:495:9)\", \"code\": \"ER_CANT_DROP_FIELD_OR_KEY\", \"errno\": 1091, \"sql\": \"alter table `Post` drop constraint `meta`\"}"
+    },
+    {
+      "orm": "mikro-mysql",
+      "name": "live-reset",
+      "result": "PASS",
+      "observed": {
+        "same_node_pid": 48207,
+        "stable_endpoint": true,
+        "restored_baseline": true
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "connect",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "connect"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "count",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "count"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "find",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "find"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "create",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "create"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "bulk",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "bulk"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "nested",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "nested"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "relation",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "relation"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "update",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "update"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "upsert",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "upsert"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "delete_cascade",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "delete_cascade"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "nullable",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "nullable"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "transaction_commit",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "transaction_commit"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "transaction_rollback",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "transaction_rollback"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "unique_error",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "unique_error"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "bigint",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "bigint"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "decimal",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "decimal"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "datetime",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "datetime"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "json",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "json"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "binary",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "binary"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "raw_parameter",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "raw_parameter"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "raw_zero_parameter",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "raw_zero_parameter"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "aggregate",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "aggregate"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "group_by",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "group_by"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "schema_create",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "schema_create"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "schema_noop",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "schema_noop"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "schema_update",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "mikro",
+        "case": "schema_update"
+      }
+    },
+    {
+      "orm": "mikro-mariadb",
+      "name": "live-reset",
+      "result": "PASS",
+      "observed": {
+        "same_node_pid": 48791,
+        "stable_endpoint": true,
+        "restored_baseline": true
+      }
+    },
+    {
+      "orm": "typeorm-mysql-utc",
+      "name": "datetime",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "datetime"
+      }
+    },
+    {
+      "orm": "typeorm-mariadb-utc",
+      "name": "datetime",
+      "result": "PASS",
+      "observed": {
+        "result": "PASS",
+        "orm": "typeorm",
+        "case": "datetime"
+      }
+    }
+  ],
+  "summary": {
+    "typeorm-mysql": {
+      "PASS": 25,
+      "FAIL": 2
+    },
+    "typeorm-mariadb": {
+      "PASS": 26,
+      "FAIL": 1
+    },
+    "mikro-mysql": {
+      "PASS": 24,
+      "FAIL": 3
+    },
+    "mikro-mariadb": {
+      "PASS": 27,
+      "FAIL": 0
+    },
+    "typeorm-mysql-utc": {
+      "PASS": 1,
+      "FAIL": 0
+    },
+    "typeorm-mariadb-utc": {
+      "PASS": 1,
+      "FAIL": 0
+    }
+  }
+}
