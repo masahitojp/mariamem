@@ -258,10 +258,11 @@ def test_pipelined_malformed_frame_is_rejected_after_current_response(wire_db):
         assert execute(fresh, "SELECT 2") == ((2,),)
 
 
-@pytest.mark.parametrize("failure", ["disconnect", "overflow", "close"])
+@pytest.mark.parametrize("failure", ["disconnect", "overflow", "close", "timeout"])
 def test_pipelined_fatal_paths_preserve_independent_root(wire_host, failure):
     with mariamem.start(host_binary=wire_host) as independent:
-        with mariamem.start(host_binary=wire_host, query_timeout=10, shutdown_timeout=1) as db:
+        query_timeout = 0.1 if failure == "timeout" else 10
+        with mariamem.start(host_binary=wire_host, query_timeout=query_timeout, shutdown_timeout=1) as db:
             conn = connect(db)
             try:
                 # Keep this a cooperative close control, not a forced-reclamation test.
@@ -277,6 +278,10 @@ def test_pipelined_fatal_paths_preserve_independent_root(wire_host, failure):
                     if failure == "disconnect":
                         conn._force_close()
                         _wait_for_unusable(db)  # Before the10s query deadline.
+                    elif failure == "timeout":
+                        with pytest.raises(pymysql.Error, match="query timed out"):
+                            conn._read_query_result()
+                        _wait_for_unusable(db)
                     else:
                         db.close()
                         assert db.closed
