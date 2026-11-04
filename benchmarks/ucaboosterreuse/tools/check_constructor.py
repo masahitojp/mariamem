@@ -28,7 +28,7 @@ int main(void) {
    MY_UCA_WEIGHT_LEVEL *l=&my_uca1400_info_tailored[enc][0].level[level];
    int before=calls;
    const MY_UCA_LEVEL_BOOSTER *b=my_uca_level_booster_new(&loader,&cs,l);
-   if(b!=&prepared[level] || (!getenv("MARIAMEM_UCA_PREPARED_VERIFY") && calls!=before))return 80;
+   if(b!=&prepared[level] || (!getenv("MARIAMEM_GUEST_TIMING") && calls!=before))return 80;
    MY_UCA_WEIGHT_LEVEL detached=*l;
    b=my_uca_level_booster_new(&loader,&cs,&detached);if(b==&prepared[level])return 81;free((void*)b);
    cs.number=enc?2312:2056;
@@ -44,8 +44,8 @@ base=['cc','-O2','-g','-fsanitize=address,undefined','-D__wasi__','-DHAVE_CHARSE
 p=subprocess.run(base+[str(t/'check-constructor.c'),'-o',str(t/'check-constructor')],capture_output=True,text=True);(e/'constructor-build.log').write_text(p.stdout+p.stderr);assert p.returncode==0,p.stderr[-4000:]
 env=dict(os.environ,ASAN_OPTIONS='detect_leaks=0') # once_alloc has process lifetime; no live DB owner in this stand-alone tool.
 for mode in ['timing-path','verify-path']:
- env.pop('MARIAMEM_UCA_PREPARED_VERIFY',None)
- if mode=='verify-path':env['MARIAMEM_UCA_PREPARED_VERIFY']='1'
+ env.pop('MARIAMEM_GUEST_TIMING',None)
+ if mode=='verify-path':env['MARIAMEM_GUEST_TIMING']='1'
  p=subprocess.run([str(t/'check-constructor')],env=env,capture_output=True,text=True);(e/(mode+'.log')).write_text(p.stdout+p.stderr);assert p.returncode==0,(mode,p.stderr)
  if mode=='verify-path':assert p.stderr.count('match=1')==6,p.stderr
 (e/'constructor-check.json').write_text(json.dumps({'result':'PASS_NATIVE_ONLY','actual_candidate_constructor_compiled':True,'exact_table_hits':6,'detached_level_fallbacks':6,'different_tailoring_fallbacks':6,'verification_full_memcmp_matches':6,'fastpath_dynamic_allocation_calls':0,'sanitizers':'ASan+UBSan; native standalone once_alloc leak detection disabled because storage intentionally lasts process lifetime','guest_runtime':'UNVERIFIED'},indent=2)+'\n');print('actual constructor native fast/verify/fallback paths PASS')

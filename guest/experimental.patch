@@ -41,7 +41,7 @@
 +  {
 +    const MY_UCA_LEVEL_BOOSTER *cached= &prepared[level->levelno];
 +    /* Mandatory separate verification run, disabled in timing runs. */
-+    if (getenv("MARIAMEM_UCA_PREPARED_VERIFY"))
++    if (getenv("MARIAMEM_GUEST_TIMING"))
 +    {
 +      int match;
 +      if (!(res= my_uca_level_booster_alloc(loader)))

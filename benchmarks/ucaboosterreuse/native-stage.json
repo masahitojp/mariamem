@@ -92,7 +92,7 @@
     "guest_runtime": "UNVERIFIED"
   },
   "patch.json": {
-    "sha256": "9ca2518ca256f72ea0090c9e113b292b871764e4758b39e4a58464a3777776bf",
+    "sha256": "36fb2ee2852ab55f04d6c8b9f616941adb06e246e34a7f7279201be37da79fe0",
     "selected_ids": [
       2048,
       2304
@@ -103,7 +103,7 @@
       2
     ],
     "unmatched": "original allocation/populate function",
-    "verify_env": "MARIAMEM_UCA_PREPARED_VERIFY; mandatory untimed guest run requires all six matches",
+    "verify_env": "host MARIAMEM_TIMING_DIR enables existing guest MARIAMEM_GUEST_TIMING; mandatory untimed guest run requires all six matches",
     "header_sha256": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
     "static_data_bytes": 2754048,
     "readonly_pointer_field": true,

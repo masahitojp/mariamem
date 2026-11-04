@@ -25,7 +25,7 @@ my_uca_level_booster_new(MY_CHARSET_LOADER *loader,
   {
     const MY_UCA_LEVEL_BOOSTER *cached= &prepared[level->levelno];
     /* Mandatory separate verification run, disabled in timing runs. */
-    if (getenv("MARIAMEM_UCA_PREPARED_VERIFY"))
+    if (getenv("MARIAMEM_GUEST_TIMING"))
     {
       int match;
       if (!(res= my_uca_level_booster_alloc(loader)))
@@ -47,5 +47,5 @@ header=(t/'prepared.h').read_text();out=''
 for name,before,after in [('include/m_ctype.h',h,h2),('strings/ctype-uca.c',c,c2),('strings/mariamem_uca_prepared.h','',header)]:out+=''.join(difflib.unified_diff(before.splitlines(True),after.splitlines(True),fromfile='a/'+name if before else '/dev/null',tofile='b/'+name))
 (s/'guest/experimental.patch').write_text(out)
 (t/'candidate-ctype-uca.c').write_text(c2);(t/'candidate-m_ctype.h').write_text(h2)
-(e/'patch.json').write_text(json.dumps({'sha256':hashlib.sha256(out.encode()).hexdigest(),'selected_ids':[2048,2304],'levels':[0,1,2],'unmatched':'original allocation/populate function','verify_env':'MARIAMEM_UCA_PREPARED_VERIFY; mandatory untimed guest run requires all six matches','header_sha256':hashlib.sha256(header.encode()).hexdigest(),'static_data_bytes':2754048,'readonly_pointer_field':True,'canonical_source_patch_modified':False},indent=2)+'\n')
+(e/'patch.json').write_text(json.dumps({'sha256':hashlib.sha256(out.encode()).hexdigest(),'selected_ids':[2048,2304],'levels':[0,1,2],'unmatched':'original allocation/populate function','verify_env':'host MARIAMEM_TIMING_DIR enables existing guest MARIAMEM_GUEST_TIMING; mandatory untimed guest run requires all six matches','header_sha256':hashlib.sha256(header.encode()).hexdigest(),'static_data_bytes':2754048,'readonly_pointer_field':True,'canonical_source_patch_modified':False},indent=2)+'\n')
 print('candidate experimental patch written',len(out),'bytes')
