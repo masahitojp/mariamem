@@ -42,7 +42,7 @@ def build():
         if old is None:os.environ.pop('GOTOOLCHAIN',None)
         else:os.environ['GOTOOLCHAIN']=old
     write('inputs.json',{'source_commit':product,'harness_source_commit':head,'source_identity':'commit object, clean checkout, benchmark-only diff',
-          'guest_sha256':json.loads((S/'guest/input.json').read_text()).get('guest_sha256'),
+          'guest_sha256':__import__('re').search(r'GuestSHA256\s*=\s*"([a-f0-9]{64})"',(S/'internal/generatedgo/main.go').read_text()).group(1),
           'native_version_source_sha256':digest(S/'native_version.go'),
           'binary_sha256':digest(T/'probe'),'binary_build_info':stamp,
           'overlay':json.loads((T/'overlay/hashes.json').read_text()),'platform':platform.platform(),
@@ -75,12 +75,12 @@ def run(name,traced,negative=False):
     assert all(data['cleanup'][n]==0 for n in ('active_mappings','active_rw_bytes','active_reserved_bytes','release_failures'))
     print(name, data['result'],flush=True)
 
-p=argparse.ArgumentParser();p.add_argument('--phase',choices=['build','pilot','measure'],required=True);args=p.parse_args()
-if args.phase=='build':build()
-elif args.phase=='pilot':
+p=argparse.ArgumentParser();p.add_argument('--phase',choices=['build','pilot','measure','all'],required=True);args=p.parse_args()
+if args.phase in ('build','all'):build()
+if args.phase in ('pilot','all'):
     run('pilot',True);run('negative',True,True)
     write('pilot-assessment.json',{'positive':'PASS','wrong_seed_detected':'PASS','cleanup':'PASS'})
-else:
+if args.phase in ('measure','all'):
     assert json.loads((E/'pilot-assessment.json').read_text())['positive']=='PASS'
     run('warmup-plain',False);run('warmup-traced',True)
     for i in range(5):
