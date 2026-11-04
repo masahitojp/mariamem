@@ -1,0 +1,18 @@
+{
+  "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "question": "Which existing embedded-server/engine/plugin stage dominates MariaDB Fork initialization, and what does pinned pgmem skip or defer?",
+  "fixture": "1000 integer rows; serial cap1; root closed before four child Forks; existing SQL/independent update/cleanup oracles",
+  "matrix": "one host; 3 alternating fresh-process pairs,4 children/process; control existing startup timing vs same binary with existing init diagnostics enabled; warmup one/process mode",
+  "controls": "one positive init pilot and one wrong-seed negative; no extra primary repeats",
+  "scope": "source audit of exact pgmem1.18.2 plus existing MariaDB init hooks; Go diagnostic overlay only, no guest rebuild or behavioral/configuration change",
+  "exit": "Identify dominant measured init stage and supported source-level contrasts; mark overhead and unresolved attribution. No optimization adoption or resource campaign.",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci_runs": 0,
+    "disk_gib": 7,
+    "minimum_free_gib": 16
+  }
+}
