@@ -1,0 +1,58 @@
+{
+  "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "harness_source_commit": "ce921fb40ad301eec0bb43a2ff8779bdd4717d30",
+  "source_identity": "commit object, clean checkout, benchmark-only diff",
+  "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
+  "guest_binding_source_sha256": "c6d1cedee216f67aca512fa5c12050ee8d9c051f9ce2b6131dcde7105de8f61b",
+  "binary_sha256": "653b56850391f3a4ea8fb246767423ab34efd3b1bd34f993a1f6ca01deedfe6b",
+  "binary_build_info": "<WORKSPACE>/temp/probe: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkinitdeep\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261104133156-ce921fb40ad3\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=ce921fb40ad301eec0bb43a2ff8779bdd4717d30\n\tbuild\tvcs.time=2026-11-04T13:31:56Z\n\tbuild\tvcs.modified=false\n",
+  "overlay": [
+    {
+      "path": "internal/timing/timing.go",
+      "before_sha256": "9eef3299e19ff03f66c12ac1ad4de392bef005fd51c4ce98829910b3333852e2",
+      "after_sha256": "1cecba5ead7c98b9f589f5b853377f4c8373024e072a3150e79fcbe3104c3233"
+    },
+    {
+      "path": "internal/generatedgo/runtime_instance.go",
+      "before_sha256": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+      "after_sha256": "affd8c390542e3468095f55cc8a2c308270f318958adb94cb8698514503cb9d1"
+    },
+    {
+      "path": "internal/generatedgo/memory_backing_unix.go",
+      "before_sha256": "c0e5b2538e5761e7fdaa4f542eeafd78cfc099949417e50798a9b279e9ba8b54",
+      "after_sha256": "2436688ff74cf0a97c75f0e82b62a31a607d1be31a2c3b85ac7eabae3e0ec886"
+    }
+  ],
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "Apple M1",
+  "memory_bytes": 17179869184,
+  "plan": {
+    "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+    "go": "go1.27.3",
+    "gomaxprocs": 8,
+    "question": "Which existing embedded-server/engine/plugin stage dominates MariaDB Fork initialization, and what does pinned pgmem skip or defer?",
+    "fixture": "1000 integer rows; serial cap1; root closed before four child Forks; existing SQL/independent update/cleanup oracles",
+    "matrix": "one host; 3 alternating fresh-process pairs,4 children/process; control existing startup timing vs same binary with existing init diagnostics enabled; warmup one/process mode",
+    "controls": "one positive init pilot and one wrong-seed negative; no extra primary repeats",
+    "scope": "source audit of exact pgmem1.18.2 plus existing MariaDB init hooks; Go diagnostic overlay only, no guest rebuild or behavioral/configuration change",
+    "exit": "Identify dominant measured init stage and supported source-level contrasts; mark overhead and unresolved attribution. No optimization adoption or resource campaign.",
+    "budget": {
+      "active_minutes": 120,
+      "tooling_minutes": 30,
+      "heavy_ci_runs": 0,
+      "disk_gib": 7,
+      "minimum_free_gib": 16
+    }
+  },
+  "build_command": [
+    "go",
+    "build",
+    "-trimpath",
+    "-buildvcs=true",
+    "-overlay",
+    "<TEMP>/overlay/overlay.json",
+    "-o",
+    "<TEMP>/probe",
+    "./benchmarks/forkinitdeep"
+  ]
+}

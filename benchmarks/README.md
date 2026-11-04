@@ -2,6 +2,9 @@
 
 ## Recent measurement and discovery reports
 
+- [Fork initialization deep dive](fork-init-deep.md): existing engine/plugin
+  hooks locate the largest interval before InnoDB; pinned pgmem source contrasts
+  distinguish Fresh setup, readiness and cleanup. No optimization adoption.
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained

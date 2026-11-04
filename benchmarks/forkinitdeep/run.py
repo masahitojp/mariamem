@@ -73,7 +73,7 @@ def run(name,traced,negative=False):
                 assert {'runtime/prepared_handles_begin','runtime/prepared_handles_ready','runtime/reserve_begin','runtime/reserve_end','runtime/construct_begin','runtime/construct_end','startup/ready_response_observed','startup/wire_listener_ready','fork/end'}<=names,names
                 assert len(c['guest']['events'])>=8,c['guest']
                 if name.endswith('-init'):
-                    diag=c['guest']['initialization']; assert diag['events'] and diag.get('dropped',0)==0,diag
+                    diag=c['guest']['initialization']; assert diag['events'] and diag['dropped_records']==0,diag
     assert not data['scratch_remaining']
     assert all(data['cleanup'][n]==0 for n in ('active_mappings','active_rw_bytes','active_reserved_bytes','release_failures'))
     print(name, data['result'],flush=True)

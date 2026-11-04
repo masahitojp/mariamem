@@ -1,0 +1,111 @@
+{
+  "sources": [
+    {
+      "repository": "shibukawa/pgmem",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "path": "cluster.go",
+      "sha256": "8f6c38e341e687c8124bfbb8e37639a9998201e2513e0e08c10b3c876b96079b",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/cluster.go"
+    },
+    {
+      "repository": "shibukawa/pgmem",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "path": "internal/aot/aot.go",
+      "sha256": "2552134b61268bc432922a148f3d744dabeb4d308c4f8c2d9ebac758ab7e7bad",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/internal/aot/aot.go"
+    },
+    {
+      "repository": "shibukawa/pgmem",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "path": "internal/engine/cluster.go",
+      "sha256": "830237e8238a8b637b078833e6d23bdf6121eab331982767ab0f7e6d844faf11",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/internal/engine/cluster.go"
+    },
+    {
+      "repository": "shibukawa/pgmem",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "path": "internal/engine/engine.go",
+      "sha256": "013565b556db0d3847ce45aaab026c26639b1aff562e132fa6ddb96ae456bdc4",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/internal/engine/engine.go"
+    },
+    {
+      "repository": "shibukawa/pgmem",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "path": "internal/host/cluster.go",
+      "sha256": "44bbe4677668cc2106085d8a79b012f4ed548383987584146077af5ba293f0a9",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/internal/host/cluster.go"
+    },
+    {
+      "repository": "shibukawa/pgmem",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "path": "internal/host/segfile_unix.go",
+      "sha256": "c4a6e1621c54983062cf281c228848d8c5f52f1e895b9ca657e9acded7a1f547",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/internal/host/segfile_unix.go"
+    },
+    {
+      "repository": "shibukawa/pgmem",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "path": "internal/vfs/vfs.go",
+      "sha256": "7fae6a4878db5aece65b39905fa287bfa1de56a2f626775bdfe6f8b95e824ecb",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/internal/vfs/vfs.go"
+    },
+    {
+      "repository": "MariaDB/server",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "path": "include/my_rdtsc.h",
+      "sha256": "07715a3b32c3e59a1ac22ba7a35a2bd3609ba25166d0da9cff776124b24bc111",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/include/my_rdtsc.h"
+    },
+    {
+      "repository": "MariaDB/server",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "path": "libmysqld/lib_sql.cc",
+      "sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/libmysqld/lib_sql.cc"
+    },
+    {
+      "repository": "MariaDB/server",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "path": "mysys/my_rdtsc.c",
+      "sha256": "442aef4799c12fa99dba80659c2af49fe1dcf8ae0949ccf32a55087af8a0cf32",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/my_rdtsc.c"
+    },
+    {
+      "repository": "MariaDB/server",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "path": "sql/mysqld.cc",
+      "sha256": "b69ed88ee907f86e83f0f4d729b26cd84837f1b94b828d51683b61f81a670bb8",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/mysqld.cc"
+    },
+    {
+      "repository": "shibukawa/pgmem",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "path": "pgmem.go",
+      "sha256": "a2be5638a810a4cec3f785219b5369c3859a06f81350b666c41adfffa077fce7",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/pgmem.go"
+    },
+    {
+      "repository": "shibukawa/pgmem",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "path": "snapshot.go",
+      "sha256": "01b060fb6acb1eb6f5673e85c2ee2b607fb7259d8460a4d3585de3481814d855",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/snapshot.go"
+    },
+    {
+      "repository": "shibukawa/pgmem",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "path": "wasm/patches.py",
+      "sha256": "93b7843ea77c36344f9cce281bc3d15475cb2affc8681946e0638f1622d71f2d",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/wasm/patches.py"
+    },
+    {
+      "repository": "shibukawa/pgmem",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "path": "wasm/pgmem_shim.c",
+      "sha256": "9b5f73a6b886d0f562ecd2aac360f2bbd86a5d0f3f3a369da615245b503c7de9",
+      "url": "https://github.com/shibukawa/pgmem/blob/a61005d37d01e6671f814fe8ca828222e8147df4/wasm/pgmem_shim.c"
+    }
+  ],
+  "mariamem_init_hooks_sha256": "34a863ee6c9be5899b38b4133ef037de58ca245a2e6d6cc0657a3bb2b809882a",
+  "guest_identity_sha256": "c6d1cedee216f67aca512fa5c12050ee8d9c051f9ce2b6131dcde7105de8f61b"
+}

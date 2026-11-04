@@ -1,0 +1,708 @@
+{
+  "control": {
+    "fork_wall_ms": {
+      "median": 34.9690205,
+      "process_medians": [
+        34.588396,
+        35.6404165,
+        34.9690205
+      ]
+    },
+    "fork_cpu_ms": {
+      "median": 47.6005,
+      "process_medians": [
+        47.108000000000004,
+        49.2055,
+        47.6005
+      ]
+    },
+    "server_init_ms": {
+      "median": 31.1519375,
+      "process_medians": [
+        30.89625,
+        32.0266255,
+        31.1519375
+      ]
+    }
+  },
+  "init": {
+    "fork_wall_ms": {
+      "median": 36.1692915,
+      "process_medians": [
+        36.1692915,
+        35.604645500000004,
+        37.359875
+      ]
+    },
+    "fork_cpu_ms": {
+      "median": 49.447,
+      "process_medians": [
+        49.447,
+        49.310500000000005,
+        51.635
+      ]
+    },
+    "server_init_ms": {
+      "median": 31.654979,
+      "process_medians": [
+        31.654979,
+        31.452104499999997,
+        32.773583
+      ]
+    },
+    "common_before_components_ms": {
+      "median": 16.961125000000003,
+      "process_medians": [
+        16.475749999999998,
+        16.961125000000003,
+        18.027
+      ]
+    },
+    "before_plugins_ms": {
+      "median": 1.222958,
+      "process_medians": [
+        1.222958,
+        1.1845210000000002,
+        1.2618125
+      ]
+    },
+    "plugins_total_ms": {
+      "median": 12.28925,
+      "process_medians": [
+        12.1555005,
+        12.28925,
+        12.423292
+      ]
+    },
+    "after_plugins_ms": {
+      "median": 0.919896,
+      "process_medians": [
+        0.919896,
+        0.8843545,
+        0.922354
+      ]
+    },
+    "embedded_total_ms": {
+      "median": 31.4643545,
+      "process_medians": [
+        31.4643545,
+        31.274708,
+        32.588667
+      ]
+    },
+    "myisam_cache_ms": {
+      "median": 1.162854,
+      "process_medians": [
+        1.162854,
+        1.1310419999999999,
+        1.206104
+      ]
+    },
+    "innodb_runtime_ms": {
+      "median": 9.229271,
+      "process_medians": [
+        9.195854,
+        9.229271,
+        9.303229
+      ]
+    },
+    "buffer_pool_create_ms": {
+      "median": 1.1984375,
+      "process_medians": [
+        1.1984375,
+        1.2559580000000001,
+        1.188625
+      ]
+    },
+    "innodb_open_recovery_ms": {
+      "median": 6.4638955,
+      "process_medians": [
+        6.4638955,
+        6.43275,
+        6.5444585
+      ]
+    },
+    "plugin_MyISAM_ms": {
+      "median": 0.004562500000000001,
+      "process_medians": [
+        0.0047085,
+        0.004521,
+        0.004562500000000001
+      ]
+    },
+    "plugin_mhnsw_ms": {
+      "median": 0.003042,
+      "process_medians": [
+        0.003042,
+        0.003,
+        0.003104
+      ]
+    },
+    "plugin_binlog_ms": {
+      "median": 0.0012915000000000001,
+      "process_medians": [
+        0.0013124999999999999,
+        0.0011665,
+        0.0012915000000000001
+      ]
+    },
+    "plugin_xmltype_ms": {
+      "median": 0.001208,
+      "process_medians": [
+        0.0012085,
+        0.001104,
+        0.001208
+      ]
+    },
+    "plugin_inet6_ms": {
+      "median": 0.0008545,
+      "process_medians": [
+        0.0008545,
+        0.000792,
+        0.000896
+      ]
+    },
+    "plugin_sys_refcursor_ms": {
+      "median": 0.000875,
+      "process_medians": [
+        0.000875,
+        0.0008125000000000001,
+        0.000875
+      ]
+    },
+    "plugin_inet4_ms": {
+      "median": 0.0008335,
+      "process_medians": [
+        0.0008335,
+        0.000771,
+        0.0008539999999999999
+      ]
+    },
+    "plugin_associative_array_ms": {
+      "median": 0.0009375,
+      "process_medians": [
+        0.000875,
+        0.000958,
+        0.0009375
+      ]
+    },
+    "plugin_uuid_ms": {
+      "median": 0.0028755,
+      "process_medians": [
+        0.0031245,
+        0.002875,
+        0.0028755
+      ]
+    },
+    "plugin_uuid_v4_ms": {
+      "median": 0.000792,
+      "process_medians": [
+        0.0008125,
+        0.0007915,
+        0.000792
+      ]
+    },
+    "plugin_inet6_ntoa_ms": {
+      "median": 0.0008125000000000001,
+      "process_medians": [
+        0.000833,
+        0.0008125,
+        0.0008125000000000001
+      ]
+    },
+    "plugin_sys_guid_ms": {
+      "median": 0.000792,
+      "process_medians": [
+        0.000792,
+        0.0007915,
+        0.000792
+      ]
+    },
+    "plugin_inet_aton_ms": {
+      "median": 0.0007705,
+      "process_medians": [
+        0.0007705,
+        0.00075,
+        0.000792
+      ]
+    },
+    "plugin_is_ipv4_mapped_ms": {
+      "median": 0.0008125,
+      "process_medians": [
+        0.0008125,
+        0.0008125,
+        0.000833
+      ]
+    },
+    "plugin_inet_ntoa_ms": {
+      "median": 0.0007915,
+      "process_medians": [
+        0.000791,
+        0.0007915,
+        0.000792
+      ]
+    },
+    "plugin_is_ipv4_ms": {
+      "median": 0.000791,
+      "process_medians": [
+        0.0007915,
+        0.00075,
+        0.000791
+      ]
+    },
+    "plugin_is_ipv4_compat_ms": {
+      "median": 0.0008125,
+      "process_medians": [
+        0.0008125,
+        0.000792,
+        0.0008125
+      ]
+    },
+    "plugin_uuid_v7_ms": {
+      "median": 0.001104,
+      "process_medians": [
+        0.0011454999999999998,
+        0.001104,
+        0.0010414999999999999
+      ]
+    },
+    "plugin_inet6_aton_ms": {
+      "median": 0.000791,
+      "process_medians": [
+        0.0007915,
+        0.000771,
+        0.000791
+      ]
+    },
+    "plugin_is_ipv6_ms": {
+      "median": 0.00075,
+      "process_medians": [
+        0.0007915,
+        0.00075,
+        0.00075
+      ]
+    },
+    "plugin_MEMORY_ms": {
+      "median": 0.0022915,
+      "process_medians": [
+        0.0022915,
+        0.0022085,
+        0.002333
+      ]
+    },
+    "plugin_CSV_ms": {
+      "median": 0.002125,
+      "process_medians": [
+        0.002125,
+        0.0022705,
+        0.0021045
+      ]
+    },
+    "plugin_InnoDB_ms": {
+      "median": 9.280354500000001,
+      "process_medians": [
+        9.248604499999999,
+        9.280354500000001,
+        9.356208500000001
+      ]
+    },
+    "plugin_Aria_ms": {
+      "median": 1.38125,
+      "process_medians": [
+        1.353833,
+        1.38125,
+        1.3894585
+      ]
+    },
+    "plugin_MRG_MyISAM_ms": {
+      "median": 0.0029375,
+      "process_medians": [
+        0.003208,
+        0.002771,
+        0.0029375
+      ]
+    },
+    "plugin_partition_ms": {
+      "median": 0.0017915000000000001,
+      "process_medians": [
+        0.0017705,
+        0.0017915000000000001,
+        0.0018124999999999999
+      ]
+    },
+    "plugin_SQL_SEQUENCE_ms": {
+      "median": 0.0015,
+      "process_medians": [
+        0.0015,
+        0.0014375,
+        0.001521
+      ]
+    },
+    "plugin_SEQUENCE_ms": {
+      "median": 0.003375,
+      "process_medians": [
+        0.003312,
+        0.003375,
+        0.0034795
+      ]
+    },
+    "plugin_CLIENT_STATISTICS_ms": {
+      "median": 0.0020835000000000003,
+      "process_medians": [
+        0.0020835000000000003,
+        0.0020625,
+        0.0021455
+      ]
+    },
+    "plugin_INDEX_STATISTICS_ms": {
+      "median": 0.0013124999999999999,
+      "process_medians": [
+        0.0013124999999999999,
+        0.0013124999999999999,
+        0.001229
+      ]
+    },
+    "plugin_INNODB_FT_CONFIG_ms": {
+      "median": 0.001541,
+      "process_medians": [
+        0.001479,
+        0.001541,
+        0.0016455
+      ]
+    },
+    "plugin_GEOMETRY_COLUMNS_ms": {
+      "median": 0.001709,
+      "process_medians": [
+        0.001604,
+        0.001709,
+        0.0017295
+      ]
+    },
+    "plugin_INNODB_SYS_TABLESTATS_ms": {
+      "median": 0.0014375,
+      "process_medians": [
+        0.0014375,
+        0.001438,
+        0.0013955
+      ]
+    },
+    "plugin_SPATIAL_REF_SYS_ms": {
+      "median": 0.0013124999999999999,
+      "process_medians": [
+        0.001271,
+        0.0013124999999999999,
+        0.001354
+      ]
+    },
+    "plugin_USER_STATISTICS_ms": {
+      "median": 0.001354,
+      "process_medians": [
+        0.001271,
+        0.0013755,
+        0.001354
+      ]
+    },
+    "plugin_INNODB_TRX_ms": {
+      "median": 0.0015,
+      "process_medians": [
+        0.001541,
+        0.0015,
+        0.0014165
+      ]
+    },
+    "plugin_INNODB_CMP_PER_INDEX_ms": {
+      "median": 0.001229,
+      "process_medians": [
+        0.001229,
+        0.001229,
+        0.00125
+      ]
+    },
+    "plugin_INNODB_METRICS_ms": {
+      "median": 0.0012295000000000001,
+      "process_medians": [
+        0.0012295000000000001,
+        0.001229,
+        0.00125
+      ]
+    },
+    "plugin_INNODB_FT_DELETED_ms": {
+      "median": 0.0010625,
+      "process_medians": [
+        0.001042,
+        0.001083,
+        0.0010625
+      ]
+    },
+    "plugin_INNODB_CMP_ms": {
+      "median": 0.0011875,
+      "process_medians": [
+        0.0011875,
+        0.0011665,
+        0.0012085
+      ]
+    },
+    "plugin_INNODB_LOCK_WAITS_ms": {
+      "median": 0.001042,
+      "process_medians": [
+        0.0010414999999999999,
+        0.001042,
+        0.0010834999999999998
+      ]
+    },
+    "plugin_INNODB_CMP_RESET_ms": {
+      "median": 0.0010625,
+      "process_medians": [
+        0.001167,
+        0.0010625,
+        0.0010625
+      ]
+    },
+    "plugin_INNODB_TABLESPACES_ENCRYPTION_ms": {
+      "median": 0.001292,
+      "process_medians": [
+        0.001292,
+        0.001292,
+        0.0013124999999999999
+      ]
+    },
+    "plugin_TABLE_STATISTICS_ms": {
+      "median": 0.0011459999999999999,
+      "process_medians": [
+        0.0011250000000000001,
+        0.0011459999999999999,
+        0.0012495000000000002
+      ]
+    },
+    "plugin_INNODB_SYS_FIELDS_ms": {
+      "median": 0.001083,
+      "process_medians": [
+        0.001083,
+        0.0010625,
+        0.0010834999999999998
+      ]
+    },
+    "plugin_INNODB_BUFFER_PAGE_LRU_ms": {
+      "median": 0.001334,
+      "process_medians": [
+        0.001333,
+        0.001334,
+        0.001479
+      ]
+    },
+    "plugin_INNODB_LOCKS_ms": {
+      "median": 0.001104,
+      "process_medians": [
+        0.001167,
+        0.001104,
+        0.0010834999999999998
+      ]
+    },
+    "plugin_INNODB_FT_INDEX_TABLE_ms": {
+      "median": 0.0010834999999999998,
+      "process_medians": [
+        0.0011255,
+        0.001083,
+        0.0010834999999999998
+      ]
+    },
+    "plugin_INNODB_CMPMEM_ms": {
+      "median": 0.0011045,
+      "process_medians": [
+        0.001125,
+        0.001083,
+        0.0011045
+      ]
+    },
+    "plugin_user_variables_ms": {
+      "median": 0.0013545,
+      "process_medians": [
+        0.0013545,
+        0.0013544999999999998,
+        0.0013955
+      ]
+    },
+    "plugin_INNODB_CMP_PER_INDEX_RESET_ms": {
+      "median": 0.0011459999999999999,
+      "process_medians": [
+        0.0011459999999999999,
+        0.001125,
+        0.001167
+      ]
+    },
+    "plugin_INNODB_SYS_FOREIGN_COLS_ms": {
+      "median": 0.001125,
+      "process_medians": [
+        0.001125,
+        0.0010834999999999998,
+        0.001125
+      ]
+    },
+    "plugin_INNODB_FT_INDEX_CACHE_ms": {
+      "median": 0.001083,
+      "process_medians": [
+        0.001083,
+        0.001062,
+        0.0011875000000000002
+      ]
+    },
+    "plugin_INNODB_BUFFER_POOL_STATS_ms": {
+      "median": 0.0012085,
+      "process_medians": [
+        0.0011454999999999998,
+        0.0012085,
+        0.001209
+      ]
+    },
+    "plugin_INNODB_FT_BEING_DELETED_ms": {
+      "median": 0.001104,
+      "process_medians": [
+        0.0010625,
+        0.001104,
+        0.001104
+      ]
+    },
+    "plugin_INNODB_SYS_FOREIGN_ms": {
+      "median": 0.001104,
+      "process_medians": [
+        0.001104,
+        0.001042,
+        0.0011045
+      ]
+    },
+    "plugin_INNODB_CMPMEM_RESET_ms": {
+      "median": 0.0010625,
+      "process_medians": [
+        0.0010625,
+        0.0010205000000000001,
+        0.0010834999999999998
+      ]
+    },
+    "plugin_INNODB_FT_DEFAULT_STOPWORD_ms": {
+      "median": 0.001083,
+      "process_medians": [
+        0.001125,
+        0.001083,
+        0.0010625
+      ]
+    },
+    "plugin_INNODB_SYS_TABLES_ms": {
+      "median": 0.001104,
+      "process_medians": [
+        0.0011045,
+        0.0010834999999999998,
+        0.001104
+      ]
+    },
+    "plugin_INNODB_SYS_COLUMNS_ms": {
+      "median": 0.001063,
+      "process_medians": [
+        0.001063,
+        0.001042,
+        0.001083
+      ]
+    },
+    "plugin_INNODB_SYS_TABLESPACES_ms": {
+      "median": 0.0011250000000000001,
+      "process_medians": [
+        0.001083,
+        0.001167,
+        0.0011250000000000001
+      ]
+    },
+    "plugin_INNODB_SYS_INDEXES_ms": {
+      "median": 0.0010414999999999999,
+      "process_medians": [
+        0.0011665,
+        0.0010414999999999999,
+        0.0010414999999999999
+      ]
+    },
+    "plugin_INNODB_BUFFER_PAGE_ms": {
+      "median": 0.0011045,
+      "process_medians": [
+        0.001125,
+        0.0011045,
+        0.001104
+      ]
+    },
+    "plugin_INNODB_SYS_VIRTUAL_ms": {
+      "median": 0.0010414999999999999,
+      "process_medians": [
+        0.001104,
+        0.001021,
+        0.0010414999999999999
+      ]
+    },
+    "plugin_caching_sha2_password_ms": {
+      "median": 0.5868329999999999,
+      "process_medians": [
+        0.5868329999999999,
+        0.5962084999999999,
+        0.586625
+      ]
+    },
+    "plugin_mysql_native_password_ms": {
+      "median": 0.0009375,
+      "process_medians": [
+        0.001,
+        0.0009375,
+        0.000917
+      ]
+    },
+    "plugin_parsec_ms": {
+      "median": 0.000938,
+      "process_medians": [
+        0.000938,
+        0.0009170000000000001,
+        0.0009795
+      ]
+    },
+    "plugin_mysql_old_password_ms": {
+      "median": 0.000938,
+      "process_medians": [
+        0.000938,
+        0.0009795,
+        0.0009375
+      ]
+    },
+    "early_wrapped_read_bytes": {
+      "median": 0.0,
+      "process_medians": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "early_wrapped_write_bytes": {
+      "median": 0.0,
+      "process_medians": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "early_pthread_creates": {
+      "median": 0.0,
+      "process_medians": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "early_requested_allocation_bytes": {
+      "median": 11697901.0,
+      "process_medians": [
+        11697901.0,
+        11697901.0,
+        11697901.0
+      ]
+    }
+  },
+  "paired_fork_wall_percent": [
+    4.57059500533068,
+    -0.10036639162170902,
+    6.837064538310433
+  ],
+  "method": "4 child medians per fresh process;3 process medians per mode. Nested intervals are not additive across medians. Guest CPU counters unavailable, not zero."
+}

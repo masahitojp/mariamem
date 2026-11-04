@@ -1,0 +1,32 @@
+{
+  "result": "OBSERVATION_COMPLETE",
+  "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "harness_source_commit": "ce921fb40ad301eec0bb43a2ff8779bdd4717d30",
+  "scope": "one local host, existing-init-hook Go overlay, serial cap1,4 child Forks per process;3 alternating control/init pairs; separate warmups; no guest rebuild",
+  "primary_processes": 6,
+  "primary_children": 24,
+  "warmup_processes": 2,
+  "warmup_children": 8,
+  "positive_pilot_children": 4,
+  "negative_pilot_children": 1,
+  "all_sql_isolation_cleanup": "PASS",
+  "wrong_seed_detection": "PASS",
+  "dropped_records": 0,
+  "guest_process_thread_cpu_counters": "UNAVAILABLE (null), not zero",
+  "conclusion": "About17ms lies before server components/plugins; InnoDB plugin about9.3ms, direct buffer-pool-create about1.2ms. The early common path is the next timing target; do not equate all startup time with buffer pool or InnoDB.",
+  "recommendation": "Continue a bounded split of the early embedded initialization path before claiming a large speed target for #88. Keep #88 as a separate small buffer/RSS hypothesis.",
+  "source_findings": [
+    "pgmem Fresh unpacks base/data directories, optionally creates named DB in standalone PostgreSQL, and forces Go memory return; Fork skips these.",
+    "pgmem initial-image COW applies to both paths; it does not alone explain Fresh/Fork difference.",
+    "pgmem Fork returns at postmaster readiness before per-client backend startup; prior same-cohort Fork-through-SELECT1 is still9.39ms versus40.03ms for mariamem.",
+    "pgmem Close uses discard/kill and deferred memory/segment cleanup; mariamem completes joined runtime/mapping cleanup before lease release. API Close times have different completion boundaries."
+  ],
+  "limitations": [
+    "3 process pairs on one non-isolated host, elapsed substage times with diagnostic overhead; no proven speedup or resource equivalence.",
+    "No new pgmem phase timing or default-DB/GC A/B; source differences do not assign exact milliseconds.",
+    "The17ms interval contains multiple calls; timer calibration versus common variables/SQL setup remains unseparated.",
+    "Runner drop-key guard corrected in report checkpoint; strict reduction checks dropped_records=0 for every accepted original record. No receipt is relabelled."
+  ],
+  "product_changes": false,
+  "hosted_ci_runs": 0
+}
