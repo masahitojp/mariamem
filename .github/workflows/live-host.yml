@@ -38,9 +38,8 @@ jobs:
           go-version: '1.26.10'
           cache: true
           cache-dependency-path: |
+            go.mod
             go.sum
-            .github/workflows/live-host.yml
-            tests/live_acceptance/native.py
       - name: Share Go compiler cache and discard restored test results
         shell: bash
         run: |
@@ -105,8 +104,8 @@ jobs:
           go-version: '1.26.10'
           cache: true
           cache-dependency-path: |
+            go.mod
             go.sum
-            .github/workflows/live-host.yml
       - name: Share Go compiler cache and discard restored test results
         shell: bash
         run: |
@@ -184,12 +183,11 @@ jobs:
           PY311: ${{ steps.py311.outputs.python-path }}
           PY314: ${{ steps.py314.outputs.python-path }}
         run: |
-          go test -race -p 1 ./mariamemtest -count=1 > build/live-evidence/owned-go-unit.txt 2>&1
+          # Core integration owns mariamemtest's ordinary race tests on both OSes.
           E2E_OWNED_RUNTIME=1 go test -p 1 ./mariamemtest -run '^TestHTTPPhysical' -count=1 -v > build/live-evidence/owned-go-physical.txt 2>&1
           E2E_OWNED_RUNTIME=1 E2E_GO_APP="$PWD/build/go-live-orders" go test -p 1 ./docs/examples/e2e_owned/go -count=1 -v > build/live-evidence/owned-go-runtime.txt 2>&1
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-            PYTHONPATH="$PWD/python" "$py" -m unittest discover -s tests -p test_e2e_entry.py -v > "build/live-evidence/owned-py$version-unit.txt" 2>&1
             PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_orders.py -q -s > "build/live-evidence/owned-py$version-runtime.txt" 2>&1
             PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_independent.py -q -s > "build/live-evidence/owned-py$version-independent.txt" 2>&1
             PYTHONPATH="$PWD/python" E2E_OWNED_RUNTIME=1 MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest docs/examples/e2e_owned/python/test_retirement.py -q -s > "build/live-evidence/owned-py$version-retirement.txt" 2>&1
@@ -221,7 +219,7 @@ jobs:
         run: |
           for py in "$PY311" "$PY314"; do
             version=$("$py" -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
-            PYTHONPATH="$PWD/python" "$py" -m pytest tests/test_live_unit.py tests/test_e2e_numeric_bind.py tests/test_e2e_child_diagnostics.py tests/test_forklimit_options.py tests/test_forklimit_unit.py tests/test_forklimit_entries.py tests/test_forklimit_transport.py tests/test_handoff_failures.py -q > "build/live-evidence/py$version-unit.txt" 2>&1
+            PYTHONPATH="$PWD/python" "$py" -m pytest tests/test_live_unit.py tests/test_e2e_numeric_bind.py tests/test_e2e_child_diagnostics.py tests/test_forklimit_unit.py tests/test_forklimit_entries.py tests/test_forklimit_transport.py tests/test_handoff_failures.py -q > "build/live-evidence/py$version-unit.txt" 2>&1
             PYTHONPATH="$PWD/python" MARIAMEM_TEST_HOST="$PWD/build/mariamem-host" "$py" -m pytest tests/test_owned_snapshot.py -k 'bounded_ or explicit_other_binary or mapped_child_resnapshot or real_fork_racing' -q > "build/live-evidence/py$version-fork-limit-runtime.txt" 2>&1
             for scenario in positive skip-reset restart-app; do
               run_case() {

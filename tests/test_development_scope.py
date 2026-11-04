@@ -233,6 +233,7 @@ def test_daily_product_checks_and_release_complete_checks_have_separate_owners(m
         tests = next(a for a, _ in calls if a[:2] == ['go', 'test'])
         vet, options = next((a, kw) for a, kw in calls if a[:2] == ['go', 'vet'])
         assert options['env']['MARIAMEM_VET_PROFILE'] == profile
+        assert '-vet=off' in tests
         if profile == 'daily':
             assert tests[-4:] == vet[-4:] == verify.DAILY_GO_PACKAGES
             assert '-vet=off' in tests and './...' not in tests
@@ -254,3 +255,20 @@ def test_every_maintained_workflow_has_an_explicit_reviewed_scope():
     assert actual == set(scope.WORKFLOW_SCOPES)
     assert set(scope.WORKFLOW_SCOPES.values()) <= {'python', 'runtime'}
     assert scope.select(['.github/workflows/new-unreviewed.yml'])['integration']
+
+
+@pytest.mark.parametrize('profile', ['daily', 'full'])
+@pytest.mark.parametrize('boundary', ['test', 'vet'])
+def test_explicit_go_owner_failure_still_stops_source_checks(monkeypatch, profile, boundary):
+    import subprocess
+    calls = []
+    def run(argv, **kwargs):
+        calls.append(argv)
+        if argv[:2] == ['go', boundary]:
+            raise subprocess.CalledProcessError(1, argv)
+    monkeypatch.setattr(verify, 'run', run)
+    monkeypatch.setattr(verify.subprocess, 'check_output', lambda *a, **kw: '/toolchain\n')
+    with pytest.raises(subprocess.CalledProcessError):
+        verify.check(profile=profile)
+    assert calls[-1][:2] == ['go', boundary]
+    assert not any('scripts/check_public.py' in argv for argv in calls)

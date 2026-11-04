@@ -67,8 +67,8 @@ def check(scope="full", *, profile="full"):
     env["PYTHONPATH"] = str(ROOT / "python")
     run([sys.executable, "-m", "pytest", *SOURCE_TESTS, "-q"], env=env)
     packages = DAILY_GO_PACKAGES if profile == "daily" else ["./..."]
-    # Daily vet has its own owner; do not repeat go test's default vet subset.
-    run(["go", "test", "-p", "1", *(["-vet=off"] if profile == "daily" else []), *packages])
+    # Both profiles have an explicit vet owner below; avoid the default subset.
+    run(["go", "test", "-p", "1", "-vet=off", *packages])
     # wasm2go emits dead structured-control fallthrough. Retain every other
     # analyzer there; handwritten runtime/shim/API packages retain full vet.
     tool_dir = subprocess.check_output(["go", "env", "GOTOOLDIR"], cwd=ROOT,

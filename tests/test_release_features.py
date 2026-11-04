@@ -183,7 +183,8 @@ def test_common_units_have_one_feature_owner_and_preserve_python_boundaries():
              'test_preparation_migration_acceptance.py', 'test_dump_ci_workflow.py',
              'test_git_identity.py', 'test_dump_product_binding.py', 'test_dump_import_acceptance.py',
              'test_p1_native_control.py', 'test_fixture_design_contract.py',
-             'test_live_oracles.py', 'test_django_recipe_unit.py')
+             'test_live_oracles.py', 'test_django_recipe_unit.py',
+             'test_e2e_entry.py', 'test_forklimit_options.py')
     # Discover all six callers from Release so a new owner cannot escape this check.
     import re
     paths = re.findall(r'uses: \./(\.github/workflows/[^\s]+)', text)
@@ -209,6 +210,18 @@ def test_common_units_have_one_feature_owner_and_preserve_python_boundaries():
                  'test_owned_snapshot_unit.py', 'test_live_unit.py',
                  'test_e2e_numeric_bind.py', 'test_e2e_child_diagnostics.py'):
         assert live.count('tests/'+name) == 1
+    # Ordinary Go fixture race cases already run in both core integration jobs.
+    assert 'go test -race -p 1 ./mariamemtest' not in live
+    assert 'E2E_OWNED_RUNTIME=1 go test -p 1 ./mariamemtest' in live
+    import verify
+    calls = []
+    from unittest.mock import patch
+    with patch.object(verify, 'run', lambda argv, **kwargs: calls.append(argv)):
+        verify.integration()
+    race = next(argv for argv in calls if argv[:3] == ['go', 'test', '-race'])
+    assert './mariamemtest' in race and '-count=1' in race
+    assert 'runs-on: macos-15' in text and 'runs-on: ubuntu-24.04' in text
+    assert 'steps: *core_steps' in text
     assert all('os: [' in body for body in called.values())
 
 

@@ -49,7 +49,7 @@ def validate(text):
     for command in [
                     'tests/live_acceptance/native.py', 'tests/live_acceptance/run.py',
                     'tests/live_acceptance/installed.py', 'docs/examples/live/verify.py',
-                    'tests/test_forklimit_options.py', 'tests/test_forklimit_unit.py',
+                    'tests/test_forklimit_unit.py',
                     'tests/test_forklimit_entries.py', 'tests/test_forklimit_transport.py',
                     'tests/test_handoff_failures.py', 'tests/test_owned_snapshot.py',
                     'scripts/go_fixture_campaign.py', 'scripts/go_fixture_completion.py']:
@@ -189,3 +189,14 @@ def test_actual_language_loop_runs_go_once_and_preserves_failures(tmp_path, name
         assert calls.read_text().splitlines() == ['3.11 yes', '3.14 no']
     else:
         assert result.returncode != 0
+
+
+def test_live_compiler_cache_uses_module_identity_and_never_cached_test_results():
+    # Compiler input hashing handles source changes; workflow/Python edits must
+    # not create fresh immutable compiler caches. Both jobs discard test PASSes.
+    text = WORKFLOW.read_text()
+    for block in text.split('          cache-dependency-path: |\n')[1:]:
+        paths = block.split('      - ', 1)[0].splitlines()
+        assert [path.strip() for path in paths] == ['go.mod', 'go.sum']
+    assert text.count('          cache-dependency-path: |') == 2
+    assert text.count('go clean -testcache') == 2
