@@ -175,7 +175,9 @@ func DecodeExecuteLongData(packet []byte, count uint16, previous []ParameterType
 	}
 	p := packet[9:]
 	if count == 0 {
-		if len(p) != 0 {
+		// MariaDB Node clients include the new-parameter-types flag even with
+		// no parameters. Accept that single boolean byte, but no value data.
+		if len(p) > 1 || (len(p) == 1 && p[0] > 1) {
 			return nil, nil, ErrExecute
 		}
 		return []Value{}, []ParameterType{}, nil

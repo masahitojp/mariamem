@@ -168,3 +168,50 @@ func TestPreparedBinaryResultRejectsInvalidEnvelopes(t *testing.T) {
 		}
 	}
 }
+
+func TestZeroParameterExecuteOptionalTypeFlag(t *testing.T) {
+	open := preparedOpen(7)
+	open.PreparedOperations = []byte{22, 23, 25, 26}
+	s, err := newPreparedSession(open, 1, open.PreparedOperations)
+	if err != nil {
+		t.Fatal(err)
+	}
+	id, err := s.registry.Add(7, 91, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	header := binary.LittleEndian.AppendUint32(nil, id)
+	header = append(header, 0, 1, 0, 0, 0)
+	calls := 0
+	call := func(b []byte, monitor bool) (guest.Result, error) {
+		calls++
+		r, err := preparedproto.Decode(b)
+		if err != nil || r.Generation != 7 || r.Handle != 91 || r.Operation != 23 || !monitor {
+			t.Fatalf("request %+v, %v", r, err)
+		}
+		values, err := preparedproto.DecodeValues(r.Payload, 0)
+		if err != nil || len(values) != 0 {
+			t.Fatalf("zero-parameter engine payload %x: %v", r.Payload, err)
+		}
+		return guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, StatementID: 91, BinaryRows: true, Status: 2, Affected: "0", InsertID: "0"}, nil
+	}
+	for _, suffix := range [][]byte{nil, {0}, {1}} {
+		reply, err := s.handle(23, append(bytes.Clone(header), suffix...), call)
+		if err != nil || len(reply) != 1 || reply[0][0] != 0 {
+			t.Fatalf("valid suffix %x: %x, %v", suffix, reply, err)
+		}
+	}
+	for _, suffix := range [][]byte{{2}, {255}, {0, 0}, {1, 0}} {
+		reply, err := s.handle(23, append(bytes.Clone(header), suffix...), call)
+		if err != nil || len(reply) != 1 || reply[0][0] != 255 || binary.LittleEndian.Uint16(reply[0][1:]) != 1835 {
+			t.Fatalf("invalid suffix %x: %x, %v", suffix, reply, err)
+		}
+	}
+	if calls != 3 {
+		t.Fatalf("malformed input reached engine: %d calls", calls)
+	}
+	// A rejected suffix must not retire the statement or poison following input.
+	if _, err := s.handle(23, append(bytes.Clone(header), 1), call); err != nil || calls != 4 {
+		t.Fatalf("valid execute after malformed input: %v, %d calls", err, calls)
+	}
+}

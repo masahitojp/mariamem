@@ -1,0 +1,148 @@
+{
+  "scope": "Native zero-parameter COM_STMT_EXECUTE suffix acceptance",
+  "image_id": "sha256:23ccfa2f2df26837c8f397a8f9a070ad728768c095d246edd07cd8d24e9ec40c",
+  "image_digest": "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1",
+  "cells": [
+    {
+      "name": "canonical",
+      "payload_hex": "010000000001000000",
+      "trace": [
+        {
+          "columns": [
+            "03646566000000016e000c3f0001000000038100000000"
+          ],
+          "metadata_end": "fe00000200",
+          "rows": [
+            "000007000000"
+          ],
+          "terminal": "fe00000200",
+          "status": 2
+        }
+      ],
+      "following_query": [
+        11
+      ]
+    },
+    {
+      "name": "flag0",
+      "payload_hex": "02000000000100000000",
+      "trace": [
+        {
+          "columns": [
+            "03646566000000016e000c3f0001000000038100000000"
+          ],
+          "metadata_end": "fe00000200",
+          "rows": [
+            "000007000000"
+          ],
+          "terminal": "fe00000200",
+          "status": 2
+        }
+      ],
+      "following_query": [
+        11
+      ]
+    },
+    {
+      "name": "flag1",
+      "payload_hex": "03000000000100000001",
+      "trace": [
+        {
+          "columns": [
+            "03646566000000016e000c3f0001000000038100000000"
+          ],
+          "metadata_end": "fe00000200",
+          "rows": [
+            "000007000000"
+          ],
+          "terminal": "fe00000200",
+          "status": 2
+        }
+      ],
+      "following_query": [
+        11
+      ]
+    },
+    {
+      "name": "flag2",
+      "payload_hex": "04000000000100000002",
+      "trace": [
+        {
+          "columns": [
+            "03646566000000016e000c3f0001000000038100000000"
+          ],
+          "metadata_end": "fe00000200",
+          "rows": [
+            "000007000000"
+          ],
+          "terminal": "fe00000200",
+          "status": 2
+        }
+      ],
+      "following_query": [
+        11
+      ]
+    },
+    {
+      "name": "flag255",
+      "payload_hex": "050000000001000000ff",
+      "trace": [
+        {
+          "columns": [
+            "03646566000000016e000c3f0001000000038100000000"
+          ],
+          "metadata_end": "fe00000200",
+          "rows": [
+            "000007000000"
+          ],
+          "terminal": "fe00000200",
+          "status": 2
+        }
+      ],
+      "following_query": [
+        11
+      ]
+    },
+    {
+      "name": "two-bytes",
+      "payload_hex": "0600000000010000000100",
+      "trace": [
+        {
+          "columns": [
+            "03646566000000016e000c3f0001000000038100000000"
+          ],
+          "metadata_end": "fe00000200",
+          "rows": [
+            "000007000000"
+          ],
+          "terminal": "fe00000200",
+          "status": 2
+        }
+      ],
+      "following_query": [
+        11
+      ]
+    },
+    {
+      "name": "junk",
+      "payload_hex": "0700000000010000006e6f742d612d666c6167",
+      "trace": [
+        {
+          "columns": [
+            "03646566000000016e000c3f0001000000038100000000"
+          ],
+          "metadata_end": "fe00000200",
+          "rows": [
+            "000007000000"
+          ],
+          "terminal": "fe00000200",
+          "status": 2
+        }
+      ],
+      "following_query": [
+        11
+      ]
+    }
+  ],
+  "native_version": "12.3.3-MariaDB-ubu2404"
+}
