@@ -231,10 +231,10 @@ func (d *observedDB) WaitDisconnected(ctx context.Context) error {
 	defer d.m.phase("disconnect", start)
 	return d.database.WaitDisconnected(ctx)
 }
-func (d *observedDB) capture(ctx context.Context) (baseline, error) {
+func (d *observedDB) capture(ctx context.Context, maxForks int) (baseline, error) {
 	start := time.Now()
 	defer d.m.phase("capture", start)
-	b, err := d.database.capture(ctx)
+	b, err := d.database.capture(ctx, maxForks)
 	if b == nil {
 		return nil, err
 	}

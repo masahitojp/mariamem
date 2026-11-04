@@ -59,6 +59,10 @@ def run_case(host, out, mode, workers, dist, installed):
     checks=dict(host_reaped=not any(serial.alive(pid) for pid in pids),
                 controller_idle=not any(e['event']=='host' for e in records.get('controller',[])),
                 declarations_idle=all(e['source_absent'] for e in all_events if e['event']=='declaration_checked'))
+    captures=[e for e in all_events if e['event']=='capacity-capture']
+    forks=[e for e in all_events if e['event']=='capacity-fork']
+    checks['cap1_every_capture']=all(e['requested']==e['resolved']==1 for e in captures)
+    checks['finite_fork_waits']=all(e['resolved']==1 and e['timeout']==30 for e in forks)
     active={w:events for w,events in records.items() if any(e['event']=='host' for e in events)}
     bodies=[e for e in all_events if e['event']=='body']
     failures=[];errors=[];tests=[]
@@ -79,6 +83,8 @@ def run_case(host, out, mode, workers, dist, installed):
         checks['independent_sources']=len({e['port'] for e in all_events if e['event']=='prepared'})==expected_hosts
         checks['worker_names']=all(e['database']=='test_mariamem_'+w for w,events in active.items() for e in events if e['event']=='prepared')
         checks['capture_consumes']=all(e['consumed'] for e in all_events if e['event']=='capture')
+        checks['capacity_capture_observed']=len(captures)==sum(e['event']=='capture' for e in all_events)
+        checks['capacity_fork_observed']=len(forks)==sum(e['event']=='fork' for e in all_events)
         checks['own_lineage']=all(e['host_pid']==next(x['pid'] for x in events if x['event']=='host') for events in active.values() for e in events if e['event']=='fork')
         if mode=='prepare-failure':
             checks['original_failure']=process.returncode==1 and errors and all('XDIST_GW0_PREPARE_FAILURE' in e.get('message','') for e in errors) and not failures

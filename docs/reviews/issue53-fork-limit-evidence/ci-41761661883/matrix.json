@@ -1,0 +1,109 @@
+{
+  "run": 41761661883,
+  "source_commit": "c53771cd9f653f971fdfa677105d46f6787298f9",
+  "result": "PASS_FIXED_HOST_MATRIX",
+  "rows": [
+    {
+      "host": "macos-15",
+      "platform": "darwin-arm64",
+      "python_minor": "3.11",
+      "source_commit": "c53771cd9f653f971fdfa677105d46f6787298f9",
+      "result": "PASS",
+      "wheel_sha256": "2327aab881d0938b3bd7fe8d8bf3a5cb3e35ad14881635fabbd387f48dc27af6",
+      "fork_limit_unit": 103,
+      "actual_guest": 9,
+      "installed_live_cap": 2,
+      "owned_e2e_python_cases": 2,
+      "owned_e2e_go_files": 129,
+      "d1_serial": 20,
+      "d1_xdist": 15,
+      "d1_packages": {
+        "Django": "5.2.18",
+        "pytest": "9.0.2",
+        "pytest-django": "4.12.0",
+        "pytest-xdist": "3.8.0",
+        "execnet": "2.1.2",
+        "mysqlclient": "2.2.7"
+      },
+      "g1_mutations_detected": 8
+    },
+    {
+      "host": "macos-15",
+      "platform": "darwin-arm64",
+      "python_minor": "3.14",
+      "source_commit": "c53771cd9f653f971fdfa677105d46f6787298f9",
+      "result": "PASS",
+      "wheel_sha256": "2327aab881d0938b3bd7fe8d8bf3a5cb3e35ad14881635fabbd387f48dc27af6",
+      "fork_limit_unit": 103,
+      "actual_guest": 9,
+      "installed_live_cap": 2,
+      "owned_e2e_python_cases": 2,
+      "owned_e2e_go_files": 129,
+      "d1_serial": 20,
+      "d1_xdist": 15,
+      "d1_packages": {
+        "Django": "6.1.2",
+        "pytest": "9.0.2",
+        "pytest-django": "4.12.0",
+        "pytest-xdist": "3.8.0",
+        "execnet": "2.1.2",
+        "mysqlclient": "2.2.7"
+      },
+      "g1_mutations_detected": 8
+    },
+    {
+      "host": "ubuntu-24.04",
+      "platform": "ubuntu24.04-x86_64",
+      "python_minor": "3.11",
+      "source_commit": "c53771cd9f653f971fdfa677105d46f6787298f9",
+      "result": "PASS",
+      "wheel_sha256": "ef618cc831258040176869198b9d378e6807f33bf74f5ce4b5faedda67b26216",
+      "fork_limit_unit": 103,
+      "actual_guest": 9,
+      "installed_live_cap": 2,
+      "owned_e2e_python_cases": 2,
+      "owned_e2e_go_files": 129,
+      "d1_serial": 20,
+      "d1_xdist": 15,
+      "d1_packages": {
+        "Django": "5.2.18",
+        "pytest": "9.0.2",
+        "pytest-django": "4.12.0",
+        "pytest-xdist": "3.8.0",
+        "execnet": "2.1.2",
+        "mysqlclient": "2.2.7"
+      },
+      "g1_mutations_detected": 8
+    },
+    {
+      "host": "ubuntu-24.04",
+      "platform": "ubuntu24.04-x86_64",
+      "python_minor": "3.14",
+      "source_commit": "c53771cd9f653f971fdfa677105d46f6787298f9",
+      "result": "PASS",
+      "wheel_sha256": "ef618cc831258040176869198b9d378e6807f33bf74f5ce4b5faedda67b26216",
+      "fork_limit_unit": 103,
+      "actual_guest": 9,
+      "installed_live_cap": 2,
+      "owned_e2e_python_cases": 2,
+      "owned_e2e_go_files": 129,
+      "d1_serial": 20,
+      "d1_xdist": 15,
+      "d1_packages": {
+        "Django": "6.1.2",
+        "pytest": "9.0.2",
+        "pytest-django": "4.12.0",
+        "pytest-xdist": "3.8.0",
+        "execnet": "2.1.2",
+        "mysqlclient": "2.2.7"
+      },
+      "g1_mutations_detected": 8
+    }
+  ],
+  "limits": [
+    "controlled cleanup faults are not actual guest OOM",
+    "not CPU-optimality, RSS, speed or machine-global admission evidence",
+    "wasm64 write helper has unit coverage only; no wasm64 guest support claim",
+    "adoption, main integration and release remain Human decisions"
+  ]
+}

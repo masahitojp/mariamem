@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem"
+	"github.com/masahitojp/mariamem/internal/forklimit"
 )
 
 // HTTPApp owns application work and physical SQL sessions. Hooks cooperate with
@@ -30,6 +31,9 @@ type HTTPApp interface {
 // its SQL sessions before returning. Register partial apps before readiness can
 // fail; return the same registered ready handle. No output/log capture is added.
 type HTTPConfig struct {
+	// MaxForks is passed to the Snapshot. Zero selects its automatic memory
+	// budget. Live needs at least two; an explicit one rejects before preparation.
+	MaxForks                                                 int
 	Options                                                  mariamem.Options
 	Prepare                                                  func(context.Context, *mariamem.Database) error
 	StartReady                                               func(context.Context, mariamem.ConnectionInfo, func(HTTPApp) error) (HTTPApp, error)
@@ -71,6 +75,9 @@ func httpFailure(stage string, cause error) error {
 	return &HTTPEntryError{stage, "stopped", "not-confirmed", cause}
 }
 func (c HTTPConfig) defaults() (HTTPConfig, error) {
+	if c.MaxForks < 0 || c.MaxForks == 1 || int64(c.MaxForks) > forklimit.MaxForks {
+		return c, errors.New("HTTP fixture MaxForks must be 0 (automatic) or between 2 and 2147483647")
+	}
 	if c.Prepare == nil || c.StartReady == nil {
 		return c, errors.New("Prepare and StartReady required")
 	}
@@ -122,7 +129,7 @@ func startHTTP(ctx context.Context, c HTTPConfig, o *httpOwners) error {
 	if err = db.WaitDisconnected(ctx); err != nil {
 		return err
 	}
-	saved, err := db.Snapshot(ctx, mariamem.SnapshotOptions{})
+	saved, err := db.Snapshot(ctx, mariamem.SnapshotOptions{MaxForks: c.MaxForks})
 	if saved != nil {
 		o.baseline = saved
 	}

@@ -25,7 +25,23 @@ type Factory struct {
 	dial  func(context.Context, string) (net.Conn, error)
 	Check func() error
 	Start func(context.Context) (Child, error)
+	// Reserve is nonblocking. Healthy Reset reserves before draining; failed
+	// Reset retries owned cleanup before requesting explicit parent recovery.
+	Reserve func(context.Context, bool) (*Reservation, error)
 }
+
+type Reservation struct {
+	Start  func(context.Context) (Child, error)
+	Cancel func()
+}
+
+func (f Factory) reserve(ctx context.Context, recover bool) (*Reservation, error) {
+	if f.Reserve != nil {
+		return f.Reserve(ctx, recover)
+	}
+	return &Reservation{Start: f.Start, Cancel: func() {}}, nil
+}
+
 type Status struct {
 	State             string `json:"state"`
 	Generation        uint64 `json:"generation"`
@@ -66,8 +82,16 @@ func New(ctx context.Context, factory Factory, shutdown time.Duration) (*Endpoin
 	if err := factory.Check(); err != nil {
 		return nil, failure("closed", "live_precondition", err)
 	}
-	child, err := factory.Start(ctx)
+	reservation, err := factory.reserve(ctx, false)
 	if err != nil {
+		return nil, err
+	}
+	defer reservation.Cancel()
+	child, err := reservation.Start(ctx)
+	if err != nil {
+		if child != nil {
+			return aborted(child, err)
+		}
 		return nil, err
 	}
 	if child.Capacity() <= 0 {
@@ -230,6 +254,23 @@ func (e *Endpoint) Reset(ctx context.Context, drain time.Duration) error {
 	if err := e.factory.Check(); err != nil {
 		return failure("closed", "live_precondition", err)
 	}
+	if previous == "failed" {
+		pending := e.pending
+		e.pending = nil
+		if err := e.cleanup(pending); err != nil {
+			return e.failed(err, nil)
+		}
+		if err := e.retire(); err != nil {
+			return e.failed(err, nil)
+		}
+	}
+	// Reset is an explicit recovery request, including when another owner has
+	// since confirmed its cleanup. The parent still rejects all unresolved debt.
+	reservation, err := e.factory.reserve(ctx, true)
+	if err != nil {
+		return err
+	}
+	defer reservation.Cancel()
 	e.mu.Lock()
 	e.status.State = "draining"
 	e.signal()
@@ -266,26 +307,16 @@ func (e *Endpoint) Reset(ctx context.Context, drain time.Duration) error {
 	if err := e.cleanup(pending); err != nil {
 		return e.failed(err, nil)
 	}
-	candidate, err := e.factory.Start(ctx)
+	candidate, err := reservation.Start(ctx)
 	if err != nil {
-		return e.failed(err, nil)
+		return e.failed(err, candidate)
 	}
 	if candidate.Capacity() <= 0 {
 		return e.failed(errors.New("invalid child capacity"), candidate)
 	}
 	// Drivers may have closed the relay while the backend still acknowledges
 	// session cleanup. This wait is bounded even without a caller deadline.
-	cleanupCtx, cancel := context.WithTimeout(context.Background(), e.shutdown)
-	if !e.retired {
-		err = e.child.WaitDisconnected(cleanupCtx)
-		if err == nil {
-			err = e.child.Close()
-			if err == nil {
-				e.retired = true
-			}
-		}
-	}
-	cancel()
+	err = e.retire()
 	if err != nil {
 		return e.failed(err, candidate)
 	}
@@ -309,6 +340,22 @@ func (e *Endpoint) Reset(ctx context.Context, drain time.Duration) error {
 	if e.afterCommit != nil {
 		e.afterCommit()
 	}
+	return nil
+}
+
+func (e *Endpoint) retire() error {
+	if e.retired {
+		return nil
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), e.shutdown)
+	defer cancel()
+	if err := e.child.WaitDisconnected(ctx); err != nil {
+		return err
+	}
+	if err := e.child.Close(); err != nil {
+		return err
+	}
+	e.retired = true
 	return nil
 }
 func (e *Endpoint) failed(err error, candidate Child) error {

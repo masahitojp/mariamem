@@ -10,8 +10,9 @@ KEY = 'MARIAMEM_PREPARED'
 
 
 class Configuration:
-    def __init__(self, options):
+    def __init__(self, options, *, max_forks=None, fork_timeout=30):
         self.options = deepcopy(options)
+        self.max_forks, self.fork_timeout = max_forks, fork_timeout
         self.source = None
         self.manager = None
 
@@ -37,7 +38,8 @@ class Configuration:
         atexit.unregister(self.close)
 
 
-def prepared_database(*, test_name='test_mariamem', options=None):
+def prepared_database(*, test_name='test_mariamem', options=None,
+                      max_forks=None, fork_timeout=30):
     """Declare a prepared default database; do not acquire a host.
 
     The runner/plugin starts it immediately before Django database setup.
@@ -45,7 +47,10 @@ def prepared_database(*, test_name='test_mariamem', options=None):
     """
     if not isinstance(test_name, str) or not re.fullmatch(r'test_[A-Za-z0-9_]+', test_name):
         raise ValueError('test_name must start with test_ and contain only letters, digits or underscores')
-    config = Configuration(options or {})
+    from mariamem._forklimit import capacity, wait_nanoseconds
+    capacity(max_forks)
+    wait_nanoseconds(fork_timeout, allow_none=False)
+    config = Configuration(options or {}, max_forks=max_forks, fork_timeout=fork_timeout)
     return dict(ENGINE='mariamem.django.backend', NAME='mariamem_prepare',
                 HOST='', PORT='', USER='', PASSWORD='',
                 TEST={'NAME': test_name}, CONN_MAX_AGE=0, **{KEY: config})
@@ -80,7 +85,7 @@ class Manager:
         self.config = config
         self.connection = connections['default']
         self.original = self.connection.settings_dict.copy()
-        self.owners = Owners()
+        self.owners = Owners(max_forks=config.max_forks, fork_timeout=config.fork_timeout)
         self.source = self.owners.own(config.start())
         self.base = self.teardown = None
         self.finished = False
@@ -119,12 +124,15 @@ class Manager:
         if self.finished:
             return
         self.finished = True
-        self.quiesce()
-        if self.base is not None:
-            # Finalization remains possible after admission stopped.
-            self.teardown = self.owners.own(self.base.fork())
-            self.activate(self.teardown)
-        self.owners.close(keep=self.teardown)
+        with preserving_cleanup(lambda: self.owners.close(keep=self.teardown)):
+            self.quiesce()
+            if self.base is not None:
+                # Retire remaining class/test owners before taking R's last
+                # slot. A failed retirement aborts DROP and still runs cleanup.
+                self.owners.close(keep=self.base)
+                # Finalization may bypass the test latch, never the SDK cap.
+                self.teardown = self.owners.own(self.base.fork(timeout=self.config.fork_timeout))
+                self.activate(self.teardown)
 
     def close(self):
         def close_owners():

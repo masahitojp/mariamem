@@ -165,7 +165,7 @@ func TestPureMemory32CRUDSessionsAndFork(t *testing.T) {
 	}
 }
 
-func TestPureMemory32Auth(t *testing.T) {
+func TestPureMemory32PlaceholderCredentials(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	db, err := mariamem.Start(ctx, mariamem.Options{})
@@ -173,6 +173,10 @@ func TestPureMemory32Auth(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer db.Close()
+	info := db.ConnectionInfo()
+	if info.User != "root" || info.Password != "" {
+		t.Fatal("default test credentials changed")
+	}
 	good, err := sql.Open("mysql", db.DSN())
 	if err != nil {
 		t.Fatal(err)
@@ -185,18 +189,21 @@ func TestPureMemory32Auth(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, credentials := range [][2]string{{"root", "wrong-pass"}, {"unknown-user", ""}} {
-		cfg.User = credentials[0]
-		cfg.Passwd = credentials[1]
-		bad, err := sql.Open("mysql", cfg.FormatDSN())
+	// #78 accepts placeholder credentials without selecting a guest account.
+	// Malformed/capability handshakes remain covered by TestDefaultTestCredentials.
+	for _, credentials := range [][2]string{{"root", "wrong-pass"}, {"unknown-user", ""}, {"test", "test"}, {"root", "root"}} {
+		candidate := *cfg
+		candidate.User = credentials[0]
+		candidate.Passwd = credentials[1]
+		client, err := sql.Open("mysql", candidate.FormatDSN())
 		if err != nil {
 			t.Fatal(err)
 		}
-		err = bad.PingContext(ctx)
-		bad.Close()
-		mysqlError, ok := err.(*mysql.MySQLError)
-		if !ok || mysqlError.Number != 1045 {
-			t.Fatalf("expected 1045 for %q, got %v", credentials[0], err)
+		var one int
+		err = client.QueryRowContext(ctx, "SELECT 1").Scan(&one)
+		client.Close()
+		if err != nil || one != 1 {
+			t.Fatalf("placeholder credentials for %q did not run SQL: %d %v", credentials[0], one, err)
 		}
 	}
 	var one int

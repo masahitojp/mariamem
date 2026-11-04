@@ -8,6 +8,8 @@ class Handle:
         self.fail = fail
         self.closed = False
         self.calls = []
+        self.capture_options = []
+        self.fork_timeouts = []
 
     def close(self):
         self.calls.append('close')
@@ -20,8 +22,9 @@ class Handle:
         if self.fail == 'disconnect':
             raise TimeoutError('active connection')
 
-    def snapshot(self, *, timeout):
+    def snapshot(self, *, timeout, max_forks=None):
         self.calls.append('snapshot')
+        self.capture_options.append(max_forks)
         if self.fail == 'capture-preserve':
             raise RuntimeError('busy source preserved')
         self.closed = True
@@ -29,7 +32,8 @@ class Handle:
             raise RuntimeError('source consumed before error')
         return Handle()
 
-    def fork(self):
+    def fork(self, *, timeout=None):
+        self.fork_timeouts.append(timeout)
         if self.fail == 'fork':
             raise OSError('fork failed')
         return Handle()
@@ -144,6 +148,31 @@ def test_settings_declaration_is_lazy_and_explicit_start_is_owned(monkeypatch):
     assert source.closed
 
 
+@pytest.mark.parametrize('options', [dict(max_forks=0), dict(max_forks=True),
+    dict(max_forks=2**100), dict(fork_timeout=None), dict(fork_timeout=0),
+    dict(fork_timeout=float('inf')), dict(fork_timeout=2**100)])
+def test_capacity_declaration_rejects_invalid_values_without_acquisition(monkeypatch, options):
+    import mariamem
+    from mariamem.django import prepared_database
+    monkeypatch.setattr(mariamem, 'start', lambda **kw: pytest.fail('unexpected host'))
+    with pytest.raises(ValueError):
+        prepared_database(**options)
+
+
+def test_declaration_settings_are_not_forwarded_to_root_start(monkeypatch):
+    import mariamem
+    from mariamem.django import prepared_database
+    seen = []
+    monkeypatch.setattr(mariamem, 'start', lambda **kw: seen.append(kw) or Handle())
+    config = prepared_database(options={'startup_timeout': 7}, max_forks=1,
+                               fork_timeout=.5)['MARIAMEM_PREPARED']
+    assert config.source is None
+    assert (config.max_forks, config.fork_timeout) == (1, .5)
+    config.start()
+    assert seen == [{'startup_timeout': 7}]
+    config.close()
+
+
 def test_successfully_retired_handles_are_not_retained_for_entire_run():
     owners = Owners()
     source = owners.own(Handle())
@@ -247,6 +276,108 @@ def test_atomic_switch_refusal_then_final_retirement(manager):
     assert m.source.closed
     connection.in_atomic_block = False
     config.close()
+
+
+def bounded_run(manager, max_forks):
+    """Controlled SDK model: a retained source really occupies its parent slot."""
+    m, _, config = manager
+    captures, forks = [], []
+    auto = iter((2, 3, 4))
+
+    class Bounded(Handle):
+        def __init__(self, parent=None, limit=None):
+            super().__init__()
+            self.parent, self.limit, self.occupied = parent, limit, 0
+
+        def close(self):
+            was_closed = self.closed
+            super().close()
+            if not was_closed and self.parent is not None:
+                self.parent.occupied -= 1
+
+        def snapshot(self, *, timeout, max_forks):
+            if self.fail == 'capture-preserve':
+                raise RuntimeError('preserved class source')
+            self.close()
+            if self.fail == 'capture-consume':
+                raise RuntimeError('consumed class source')
+            limit = next(auto) if max_forks is None else max_forks
+            base = Bounded(limit=limit)
+            captures.append((max_forks, limit))
+            return base
+
+        def fork(self, *, timeout):
+            forks.append((self, timeout))
+            assert not self.closed
+            assert self.occupied < self.limit, 'teardown requested before child retirement'
+            self.occupied += 1
+            return Bounded(parent=self)
+
+    m.owners.handles.clear()
+    m.source = config.source = m.owners.own(Bounded())
+    config.max_forks = m.owners.max_forks = max_forks
+    config.fork_timeout = m.owners.fork_timeout = .5
+    return m, config, captures, forks
+
+
+@pytest.mark.parametrize('max_forks', [None, 1])
+def test_bounded_class_children_and_final_drop_with_independent_capture_policy(manager, max_forks):
+    from mariamem.django._database import Scope
+    m, config, captures, forks = bounded_run(manager, max_forks)
+    try:
+        m.prepare()
+        run_base = m.base
+        scope = Scope(m)
+        for _ in range(2):
+            scope.acquire()
+            assert scope.child.parent is scope.base
+            scope.release()
+        scope.close()
+        m.finish_databases()
+        assert captures == ([(None, 2), (None, 3)] if max_forks is None else [(1, 1), (1, 1)])
+        assert all(timeout == .5 for _, timeout in forks)
+        assert m.teardown.parent is run_base and run_base.occupied == 1
+        assert run_base.closed and not m.teardown.closed
+    finally:
+        config.close()
+    assert run_base.occupied == 0
+
+
+@pytest.mark.parametrize('failure', [None, 'capture-preserve', 'capture-consume'])
+def test_final_drop_retires_retained_class_source_before_reacquiring_cap1(manager, failure):
+    from mariamem.django._database import Scope
+    m, config, _, _ = bounded_run(manager, 1)
+    try:
+        m.prepare()
+        scope = Scope(m)
+        scope.source.fail = failure
+        if failure is not None:
+            with pytest.raises(RuntimeError, match='class source'):
+                scope.acquire()
+        # Simulate class setup/capture abort before its ordinary close hook.
+        m.finish_databases()
+        assert scope.source.closed
+        assert m.teardown is not None and not m.teardown.closed
+    finally:
+        config.close()
+
+
+def test_unconfirmed_child_cleanup_aborts_drop_and_still_retires_other_owners(manager):
+    from mariamem.django._database import Scope
+    m, config, _, forks = bounded_run(manager, 1)
+    m.prepare()
+    scope = Scope(m)
+    scope.source.fail = 'close'
+    try:
+        with pytest.raises(BaseExceptionGroup, match='operation and cleanup'):
+            m.finish_databases()
+        assert len(forks) == 1  # Only class preparation, no emergency DROP child.
+        assert m.teardown is None and m.base.closed
+        assert scope.source in m.owners.handles
+        assert m.owners.debt
+    finally:
+        scope.source.fail = None
+        config.close()
 
 
 @pytest.mark.parametrize('shadow_marker,fixtures', [(True, []), (False, ['mariamem_app_db'])])

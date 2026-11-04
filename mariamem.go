@@ -30,6 +30,8 @@ import (
 	"time"
 
 	"github.com/masahitojp/mariamem/internal/artifacts"
+	"github.com/masahitojp/mariamem/internal/disposal"
+	"github.com/masahitojp/mariamem/internal/forklimit"
 	"github.com/masahitojp/mariamem/internal/host"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
 	stored "github.com/masahitojp/mariamem/internal/snapshot"
@@ -79,15 +81,27 @@ type Database struct {
 	closeErr         error
 	failure          error
 	logs             logTail
+	lease            *forklimit.Lease
+	captureDebt      error
 }
 
 // Start creates one database. Its context governs startup, not the lifetime of a
 // successfully started database; call Close to dispose of it.
 func Start(ctx context.Context, opts Options) (*Database, error) { return start(ctx, opts, nil) }
 func start(ctx context.Context, opts Options, restore *stored.Owned) (*Database, error) {
+	return startLeased(ctx, opts, restore, nil)
+}
+
+func startLeased(ctx context.Context, opts Options, restore *stored.Owned, lease *forklimit.Lease) (_ *Database, err error) {
+	defer func() {
+		if lease != nil && err != nil {
+			// All allocating startup failures carry typed cleanup ownership.
+			settleStartupLease(lease, err)
+		}
+	}()
 	ctx, finishTiming := timing.Begin(ctx, "api_startup")
 	defer finishTiming()
-	opts, err := opts.defaults()
+	opts, err = opts.defaults()
 	if err != nil {
 		return nil, err
 	}
@@ -105,13 +119,13 @@ func start(ctx context.Context, opts Options, restore *stored.Owned) (*Database,
 	if err != nil {
 		return nil, err
 	}
-	db := &Database{opts: opts, build: runtimekind.GuestSHA256, temporary: temp}
+	db := &Database{opts: opts, build: runtimekind.GuestSHA256, temporary: temp, lease: lease}
 	timing.Mark(ctx, "runtime_directory_ready")
 	startup, cancel := context.WithTimeout(ctx, opts.StartupTimeout)
 	defer cancel()
 	s, err := host.StartGenerated(startup, restore, opts.QueryTimeout, &db.logs)
 	if err != nil {
-		return nil, hostError(errors.Join(err, os.RemoveAll(temp)), "start", true)
+		return nil, hostError(disposal.RemoveAfter(err, temp), "start", true)
 	}
 	timing.Mark(ctx, "host_returned")
 	db.server = s
@@ -188,14 +202,64 @@ func (db *Database) closeLocked() error {
 		err = db.server.Close(ctx)
 		cancel()
 	}
-	db.closeErr = hostError(errors.Join(err, db.removeTemporary()), "close", true)
+	db.closeErr = hostError(errors.Join(err, db.removeTemporaryAfter(err), db.captureDebt), "close", true)
+	db.settleFork(db.closeErr, db.disposalComplete())
 	return db.closeErr
 }
-func (db *Database) removeTemporary() error {
-	if db.temporary == "" {
+
+func (db *Database) disposalComplete() bool {
+	if db.captureDebt != nil {
+		return false
+	}
+	if d, ok := db.server.(interface{ DisposalComplete() bool }); ok {
+		return d.DisposalComplete()
+	}
+	return false
+}
+
+func (db *Database) settleFork(err error, confirmed bool) {
+	if db.lease == nil {
+		return
+	}
+	if db.captureDebt != nil {
+		db.lease.Settle(err)
+		return
+	}
+	if cleanupPending(err) {
+		db.lease.TrackCleanup(err)
+	} else if err == nil || confirmed {
+		db.lease.Settle(nil)
+	} else {
+		db.lease.Settle(err)
+	}
+}
+
+func cleanupPending(err error) bool {
+	for _, owner := range disposal.Owners(err) {
+		if !owner.Complete() {
+			return true
+		}
+	}
+	return false
+}
+
+func settleStartupLease(lease *forklimit.Lease, err error) {
+	if cleanupPending(err) {
+		lease.TrackCleanup(err)
+	} else {
+		lease.Settle(nil)
+	}
+}
+
+// Capture the immutable path, not mutable DB fields, in a late cleanup owner.
+// The caller holds db.mu; the continuation never takes it or changes Close's
+// stored result. A later Live retry can harmlessly remove an already absent path.
+func (db *Database) removeTemporaryAfter(dependency error) error {
+	path := db.temporary
+	if path == "" {
 		return nil
 	}
-	err := os.RemoveAll(db.temporary)
+	err := disposal.CleanupAfter(dependency, func() error { return os.RemoveAll(path) })
 	if err == nil {
 		db.temporary = ""
 	}

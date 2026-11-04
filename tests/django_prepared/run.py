@@ -121,6 +121,13 @@ def run_case(host, out, runner, mode, *, installed=False):
                   class_commit=count('class-commit') == (runs if mode in ('healthy', 'reverse', 'repeat') else 0),
                   independent_commit=count('commit-observed') == (0 if mode in ('prepare-failure', 'busy-source', 'migration-failure', 'no-database') else runs),
                   host_reaped=len(pids) == (0 if mode == 'no-database' else runs) and not any(alive(pid) for pid in pids))
+    captures = [r for r in records if r['event'] == 'capacity-capture']
+    forks = [r for r in records if r['event'] == 'capacity-fork']
+    captured = mode not in ('migration-failure', 'no-database', 'prepare-failure', 'busy-source')
+    checks['cap1_every_capture'] = (all(r['requested'] == r['resolved'] == 1 for r in captures)
+                                   and (len(captures) >= runs if captured else not captures))
+    checks['finite_fork_waits'] = (all(r['resolved'] == 1 and r['timeout'] == 30 for r in forks)
+                                  and (bool(forks) if captured else not forks))
     if any(alive(pid) for pid in pids):
         # Preserve the failed cleanup observation, then stop this owned process
         # group rather than leaving a failed probe's server running.

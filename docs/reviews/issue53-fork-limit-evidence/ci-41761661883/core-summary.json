@@ -1,0 +1,32 @@
+{
+  "source_commit": "c53771cd9f653f971fdfa677105d46f6787298f9",
+  "run": 41761661883,
+  "core": [
+    {
+      "host": "macos",
+      "job_id": 126352260246,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/41761661883/job/126352260246",
+      "original_log_sha256": "50f037bca8d53e20a0dfbf3a00f73bb08e548a991786352d39c881f8d7e7379c",
+      "selected_published_lines": [
+        "core_darwin\tQualify core and race behavior with the shared release wheel\t2026-11-04T02:47:25.3496020Z + go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/live ./internal/control ./internal/prepared ./mariamemtest . -count=1",
+        "core_darwin\tQualify core and race behavior with the shared release wheel\t2026-11-04T02:57:32.2089140Z 47 passed in 29.27s",
+        "core_darwin\tQualify core and race behavior with the shared release wheel\t2026-11-04T02:57:33.9257300Z {\"passed\": true, \"checks\": 33, \"error\": null, \"evidence\": \"<checkout>/tests/evidence/snapshots.json\"}",
+        "core_darwin\tQualify core and race behavior with the shared release wheel\t2026-11-04T02:57:37.0067290Z PASS: Go prepared / Python normal controls and exact accepted-exception tripwires; Python functional FAIL retained"
+      ],
+      "note": "Full log is not retained; selected original lines establish actual invocation and outcomes. CI checkout prefixes are normalized; original full-log hash is retained."
+    },
+    {
+      "host": "ubuntu",
+      "job_id": 126352260262,
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/41761661883/job/126352260262",
+      "original_log_sha256": "babfa764ce22cc4bf4a4d0cb27c69e9f6bfbfb1876ff7536427b1db44f60de5a",
+      "selected_published_lines": [
+        "core_ubuntu\tQualify core and race behavior with the shared release wheel\t2026-11-04T02:49:14.9539228Z + go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/live ./internal/control ./internal/prepared ./mariamemtest . -count=1",
+        "core_ubuntu\tQualify core and race behavior with the shared release wheel\t2026-11-04T03:00:16.7764294Z 47 passed in 56.78s",
+        "core_ubuntu\tQualify core and race behavior with the shared release wheel\t2026-11-04T03:00:19.0537444Z {\"passed\": true, \"checks\": 33, \"error\": null, \"evidence\": \"<checkout>/tests/evidence/snapshots.json\"}",
+        "core_ubuntu\tQualify core and race behavior with the shared release wheel\t2026-11-04T03:00:22.2891149Z PASS: Go prepared / Python normal controls and exact accepted-exception tripwires; Python functional FAIL retained"
+      ],
+      "note": "Full log is not retained; selected original lines establish actual invocation and outcomes. CI checkout prefixes are normalized; original full-log hash is retained."
+    }
+  ]
+}

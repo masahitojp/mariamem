@@ -11,7 +11,7 @@
   "linked_sha256": "f501e8bab180cc82965e3024b84a10c73e5892426bdd1a5750ed212639193fb9",
   "symbol_map_sha256": "6bb7742ee2ad35efb5dc602cbbbe6e732a08aaf3c9376b0f905881a5b456e7aa",
   "symbol_map_entries": 21752,
-  "generated_provenance_sha256": "288d79fd4e82e1478e77317ffaead0c23e23ae02e12f1a93c35f0fc0feb4c573",
+  "generated_provenance_sha256": "504afe7cf0de2e07e72b9dea34396ebece507b9112936ff74ce7fc40b86bf0a7",
   "method": "Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.",
   "retained_symbols": {
     "MariaDB": {
@@ -490,5 +490,19 @@
       "note": "Diagnostic attribution, not new release approval."
     },
     "result": "PASS: positive retained-function evidence for every recorded component family"
+  },
+  "issue53_write_source_continuity": {
+    "basis_source_commit": "af99a44a59306d95cf7e68ba6cd6852ebd81b71a",
+    "correction_source_commit": "bc0229c63347e11741904749a03fcaa30a57116a",
+    "previous_evidence_sha256": "7727e17f9083b7c8f8bfddea2181a0afbbff34d57712e2605b0e939b3c4dafc8",
+    "previous_generated_provenance_sha256": "288d79fd4e82e1478e77317ffaead0c23e23ae02e12f1a93c35f0fc0feb4c573",
+    "current_generated_provenance_sha256": "504afe7cf0de2e07e72b9dea34396ebece507b9112936ff74ce7fc40b86bf0a7",
+    "changed_generated_files": {
+      "code/base/base.go": {
+        "before": "64f37879f87e422667ab73a2d6a1e7262dba375261186a82906f3207b217accc",
+        "after": "03556fa493672447e5698b7e5b0edb10f23232e53da313b7229f20157331dd10"
+      }
+    },
+    "reason": "Checked installer changes only Go WASI write helper error/short-progress handling. Wasm guest, translated MariaDB functions/data, linked artifact, converter, dependencies and distributed notice bytes are unchanged. All audit source/host/symbol-map identities remain historical and unchanged; this is source continuity, not a new host-symbol attribution or release audit."
   }
 }

@@ -20,6 +20,15 @@ preparation sessions, captures a baseline and creates Live. Preparation must
 finish migrations/seed and close its application connections/processes before
 returning. No automatic app-framework routing or command discovery is performed.
 
+The unreleased #53 candidate lets Python `Config(max_forks=2)` and Go
+`HTTPConfig{MaxForks: 2}` explicitly budget the baseline used by Live. One slot
+owns the current child and a second is needed for replacement. Explicit1
+rejects before preparation; omitted/automatic limits resolving to1 report the
+Live requirement without silently expanding the budget. Auto is a memory
+heuristic, not a CPU/latency optimum. Each independent owner/worker has its own
+budget; choose total parallel owners separately. The Python example now shows
+the candidate's explicit2 setting and requires a matching candidate SDK/host.
+
 `start_ready(ctx, target, register)` / Go `StartReady` receives the actual Live
 connection target. Start only against that target. Immediately register a partial
 app handle after allocation, then check readiness and return that registered
