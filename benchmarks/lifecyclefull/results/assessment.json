@@ -1,0 +1,20 @@
+{
+  "result": "OBSERVATION_COMPLETE",
+  "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "harness_source_commit": "f6eeb7aeb6ed14759b2929c31e7956ee5f7d0524",
+  "pgmem_source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+  "primary_metric": "external process wall including suite preparation, tests, final cleanup, process startup/exit and result output",
+  "scope": "one host, TCP, 48 isolated cases, Fresh/Fork, parallel1/4/8, 3 fresh processes per cell, no tail removal",
+  "correctness": "36 primary +12 warmup +4 positive pilot processes PASS; 4 wrong-seed negative processes fail and clean up as expected",
+  "conclusion": "Fresh is shorter for mariamem in this workload. Fork acceleration is much larger for pgmem. Parallel startup and cleanup costs account for much of the P4 difference; long SQL spans affect P8 completion.",
+  "recommendation": "Keep #88 as startup-cost probe. Record retirement/WaitDisconnected as an additional host-side candidate. #84 prewarming still requires a separate bounded overlap comparison.",
+  "limitations": [
+    "No guest-internal cause attribution, Linux replication, general engine speed or semantic-parity claim.",
+    "Critical worker lanes reconstruct observed elapsed time; they are not CPU attribution or a causal speedup prediction.",
+    "pgmem r1 fork/P4 has586.7ms outside the internal suite timer; retained in external totals, cause unmeasured.",
+    "RSS is process lifetime high-water mark, not sampled batch peak or retained-child increment.",
+    "Two setup preflight failures occurred before any pilot, caused by directory/binary path collision and identity-reader path mismatch. No measured trial was discarded."
+  ],
+  "hosted_ci_runs": 0,
+  "product_changes": false
+}

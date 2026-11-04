@@ -2,6 +2,9 @@
 
 ## Recent measurement and discovery reports
 
+- [Fresh/Fork complete-suite comparison](lifecycle-full.md): matched48-case
+  TCP suites, parallel1/4/8, full process wall and per-worker phase attribution.
+  Fresh and prepared Fork have different cross-product results in this workload.
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained

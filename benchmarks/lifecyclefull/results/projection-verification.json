@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "process_records": 56,
+  "preserved_phase_spans": 19986,
+  "method": "All case fields and every original phase name/start/end checked against compact nanosecond projection, exact numeric equality. Raw byte identities retained; JSON layout not retained."
+}

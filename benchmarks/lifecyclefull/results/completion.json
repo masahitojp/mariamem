@@ -1,0 +1,11 @@
+{
+  "primary_processes": 36,
+  "primary_cases": 1728,
+  "warmup_processes": 12,
+  "warmup_cases": 576,
+  "positive_pilot_processes": 4,
+  "positive_pilot_cases": 8,
+  "negative_processes": 4,
+  "negative_admitted_cases": 4,
+  "status": "OBSERVATION_COMPLETE"
+}

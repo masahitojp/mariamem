@@ -1,0 +1,13 @@
+{
+  "harness_source_commit": "3bc828dbe15c634d580192ff8a88333be5151b98",
+  "result": "SETUP_FAIL",
+  "measurement_started": false,
+  "reason": "binary output path collided with source directory; clean-source guard rejected before pilot",
+  "resolution": "dedicated bin-mariamem/bin-pgmem filenames and output assertion",
+  "second_attempt": {
+    "harness_source_commit": "9751f98bb019f1157af7bb1474762b8f5e33fbaf",
+    "measurement_started": false,
+    "reason": "output renamed but provenance reader still referenced directory; binary identity gate rejected",
+    "resolution": "all build/hash/identity paths use bin-mariamem/bin-pgmem"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "inputs.json": {
+    "original_sha256": "5c3ba3aa73e80521318d2b929e43e4e1c52a37af1f4194e8d53bf67bb7aa5b7d",
+    "published_sha256": "96388392984e029e060e285314f1c8ad48a23a39c5acbf46b08a3c936de3e6ea"
+  },
+  "completion.json": {
+    "original_sha256": "4a765fa85e2742982d189dc9f0b0f43a9d8a8fec60629b5703771077b5fc3039",
+    "published_sha256": "4a765fa85e2742982d189dc9f0b0f43a9d8a8fec60629b5703771077b5fc3039"
+  },
+  "pilot-assessment.json": {
+    "original_sha256": "4de21fea0b9f511054b6b2a407670dc2bc22508052b8b5f2fefa11ee596ba547",
+    "published_sha256": "4de21fea0b9f511054b6b2a407670dc2bc22508052b8b5f2fefa11ee596ba547"
+  },
+  "setup-attempt.json": {
+    "original_sha256": "48c4805a6bf8966348d02238178ca324c3f89d9c9c61275ede33a707ce2f82a0",
+    "published_sha256": "48c4805a6bf8966348d02238178ca324c3f89d9c9c61275ede33a707ce2f82a0"
+  },
+  "module-graph.txt": {
+    "original_sha256": "147c7307ec5efb02d17f953ebf86d5176957ec3aa47ff2e7501464b70d48b2c3",
+    "published_sha256": "c8341e9c431fbbd1d639d78f375da8feb5b6eaee2813cba49bc7bdc09d573714"
+  }
+}

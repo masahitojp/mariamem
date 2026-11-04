@@ -1,0 +1,59 @@
+{
+  "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "harness_source_commit": "f6eeb7aeb6ed14759b2929c31e7956ee5f7d0524",
+  "pgmem": {
+    "release_tag": "v1.18.2",
+    "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+    "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed"
+  },
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "Apple M1",
+  "memory_bytes": 17179869184,
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "guest_binding_sha256": "c6d1cedee216f67aca512fa5c12050ee8d9c051f9ce2b6131dcde7105de8f61b",
+  "plan": {
+    "question": "Do Fresh complete suites match, and which public phases account for the mariamem/pgmem Fork suite difference?",
+    "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+    "pgmem": {
+      "release_tag": "v1.18.2",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+      "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed"
+    },
+    "host": "Apple M1/16GiB/macOS27.2",
+    "go": "go1.27.3",
+    "gomaxprocs": 8,
+    "route": "TCP",
+    "cases": 48,
+    "parallel": [
+      1,
+      4,
+      8
+    ],
+    "repeats": 3,
+    "order": "rotate four product/mode cells each round; reverse parallel order on odd rounds",
+    "warmup": "one separate fresh process per cell (12)",
+    "pilots": "one 2-case positive and one wrong-seed negative per product/mode, P1",
+    "workload": "1000 integer rows, SELECT1, COUNT/SUM, UPDATE id1, verify row; Fresh seeds per case; Fork seeds and captures once",
+    "timed": "internal suite from preparation start through final cleanup; external process wall measured separately; excludes build/download",
+    "observations": "per-case startup, connect, seed, SQL, retirement, Close; critical worker lane, CPU and lifetime max RSS; no runtime overlay",
+    "exit": "Complete finite matrix, state when costs appear and whether Fresh is close; causal internals may remain unknown. No optimization or prewarming implementation.",
+    "budget": {
+      "active_minutes": 120,
+      "tooling_minutes": 30,
+      "heavy_ci_runs": 0,
+      "disk_gib": 10,
+      "minimum_free_gib": 16
+    }
+  },
+  "binaries": {
+    "mariamem": {
+      "sha256": "6ed0e1794ab4659964d961cf5742bc549e34032e29d8d8f2a2014d238a1676fd",
+      "build_info": "<WORKSPACE>/temp/bin-mariamem: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/lifecyclefull/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/lifecyclefull\tv0.0.0-20261104124036-f6eeb7aeb6ed\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.0\n\t=>\t../..\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=f6eeb7aeb6ed14759b2929c31e7956ee5f7d0524\n\tbuild\tvcs.time=2026-11-04T12:40:36Z\n\tbuild\tvcs.modified=false\n"
+    },
+    "pgmem": {
+      "sha256": "1ab9bd424eb6c4981c2c4f5971eb310a953eb407b4c38ed81928ac1bd02b899b",
+      "build_info": "<WORKSPACE>/temp/bin-pgmem: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/lifecyclefull/postgres\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/lifecyclefull\tv0.0.0-20261104124036-f6eeb7aeb6ed\t\n\tdep\tgithub.com/jackc/pgpassfile\tv1.0.0\th1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=\n\tdep\tgithub.com/jackc/pgservicefile\tv0.0.0-20240606120523-5a60cdf6a761\th1:iCEnooe7UlwOQYpKFhBabPMi4aNAfoODPEFNiAnClxo=\n\tdep\tgithub.com/jackc/pgx/v5\tv5.11.0\th1:IzBBtyK9AHqf98cctWFifYSci2hgQR/cd56wB4p+ogg=\n\tdep\tgithub.com/jackc/puddle/v2\tv2.2.2\th1:PR8nw+E/1w0GLuRFSmiioY6UooMp6KJv0/61nB7icHo=\n\tdep\tgithub.com/klauspost/compress\tv1.20.0\th1:a3C1ke2ohxFymNlb2HWAHjDeKCI90scRskErZkR0ezA=\n\tdep\tgithub.com/shibukawa/pgmem\tv1.18.2\n\t=>\t../../../pgmem\t(devel)\t\n\t\n\tdep\tgolang.org/x/crypto\tv0.42.0\th1:chiH31gIWm57EkTXpwnqf8qeuMUi0yekh6mT2AvFlqI=\n\tdep\tgolang.org/x/sync\tv0.17.0\th1:l60nONMj9l5drqw6jlhIELNv9I0A4OFgRsG9k2oT9Ug=\n\tdep\tgolang.org/x/sys\tv0.44.0\th1:ildZl3J4uzeKP07r2F++Op7E9B29JRUy+a27EibtBTQ=\n\tdep\tgolang.org/x/text\tv0.29.0\th1:1neNs90w9YzJ9BocxfsQNHKuAT4pkghyXc4nhZ6sJvk=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=f6eeb7aeb6ed14759b2929c31e7956ee5f7d0524\n\tbuild\tvcs.time=2026-11-04T12:40:36Z\n\tbuild\tvcs.modified=false\n"
+    }
+  }
+}
