@@ -1,11 +1,14 @@
 # Issue #53 — bounded Snapshot Fork capacity
 
-Status: implementation authorized, 2026-11-03. After the lock, Live recovery and
-numeric-range additions at `a4929d12`, the Human requested proceeding with this
-design. The first implementation checkpoint is recorded in
-[the implementation record](issue53-fork-limit-implementation.md). Public entry
-Go Snapshot/Live and the Go helpers now use the limiter. Shared-control/Python
-entry wiring and the full acceptance table below remain unfinished.
+Status: implementation was authorized on2026-11-03 after the lock, Live recovery
+and numeric-range additions at `a4929d12`. Public Go/Python entries were implemented
+and the c53771cd fixed matrix passed; see the
+[implementation record](issue53-fork-limit-implementation.md) and
+[source-bound assessment](issue53-fork-limit-evidence/ci-41761661883/assessment.json).
+Human review then found missing diagnostics G1. The
+[G1/G2 follow-up](issue53-review-followup.md) tracks that later runtime correction
+and new-source verification. The finite acceptance below is normative, not a
+claim that every later candidate has passed it. Adoption remains pending.
 The design selects a 256 MiB budget per child and preserves development-host
 handoff using leases. Authorization is not a claim of measured new behavior.
 [Issue #53](https://github.com/masahitojp/mariamem/issues/53)
@@ -282,6 +285,11 @@ its options rather than accepting two conflicting deadlines.
   context.Canceled. Parent Close returns closed; cleanup debt returns unusable.
 - Report configured cap and occupied slots, and the action "close owned children
   or increase max_forks". Distinguish capacity waiting from startup failure.
+  Counts include reserved, starting, live and unconfirmed-cleanup leases and are
+  a synchronized point-in-time observation, not another admission reservation.
+  Python reports its last responsive full reply; expiry before any such reply
+  reports occupied_slots=unknown rather than inventing zero. Preserve Go
+  errors.Is and the existing code/stage/closed classification.
   Do not diagnose OOM or a leaked child without evidence; no periodic log service.
 
 **Python response watchdog (G3):** retract the earlier `response_timeout=None`
@@ -606,7 +614,7 @@ No RSS campaign, queue performance campaign or new qualification pipeline.
 | Inputs/compatibility | Omitted/zero Go and None Python select a positive automatic cap; explicit caps override it; no unlimited sentinel; invalid values preserve source; old-host capability rejects before capture. |
 | Numeric limits | Capacity1/MaxInt32 accepted without cap-sized allocation; zero/negative/MaxInt32+1/2**100 and wrong types handled per API. Wait positive subnanosecond/max seconds accepted by validation; zero/negative/next float above max/2**100/NaN/infinity/bool rejected before sending. Well-framed raw control overflow returns invalid_options without host exit. Original source and healthy sibling SQL still work after each rejection. Accepted huge durations are validation tests, not real waits. |
 | Default resolution | Inject finite/missing/unlimited/malformed memory sources, tighter cgroup ancestors, tiny and huge limits; test minimum/fallback/overflow and one-time resolution; expose exact resolved cap; Go and Python use the same policy. No current-free-memory or OOM guarantee inferred. |
-| Admission | Caps 1 and 2 with four requesters; prove starting+live+cleaning never exceeds cap; release permits later progress; separate snapshots do not share the counter. |
+| Admission | Caps 1 and 2 with four requesters; prove starting+live+cleaning never exceeds cap; release permits later progress; separate snapshots do not share the counter. Capacity diagnostics assert resolved cap, observed occupied slots and an actionable remedy without losing error identity. |
 | Wait/Close races | Go deadline/cancel and Python wait expiry/interrupt; Close wakes blocked requests despite live children; no RLock deadlock; admitted startup/backing race and repeated Close; SQL works on child after parent Close. |
 | Python transfer/parent lock | cap1 held child, different-host Fork observes full, concurrent parent Close and waiter both finish before child Close; waiter fails closed, original child SQL works, no target/export starts, source Session references balanced. Cover close after Session retain/before reserve and late reservation races with barriers. |
 | Disposal | Startup failure before/after allocation; cleanup failure blocks admission; original cause retained; double Close cannot release twice; consumed/preserved capture success/failure and late successful replies each have exactly one owner. |

@@ -33,11 +33,17 @@ and version metadata remain unchanged.
   child before the next synchronous Fork, or bound the wait with a Go context /
   Python timeout. Expanded Go `SnapshotOptions` and `HTTPConfig` require keyed
   literals instead of old positional literals.
+- Capacity wait/busy diagnostics report `max_forks` and observed `occupied_slots`
+  with a close-children/increase-limit remedy. Python uses the last responsive
+  capacity reply, or explicit `unknown` if none arrived. Existing error identity,
+  code/stage and closed semantics are preserved.
 - Host WASI writes now propagate zero-byte write errors, including broken pipes,
   and preserve actual short-write progress. This fixes the tested interrupted-
   guest cleanup stall without changing the accepted prepared CALL observations.
 - This draft is not adopted on main. The fixed both-host/Python-version matrix,
-  including installed D1 cap1 execution, passed on `c53771cd`; the
+  including installed D1 cap1 execution, passed on `c53771cd`. The later G1
+  diagnostics correction requires its own verification; see the
+  [review follow-up](../reviews/issue53-review-followup.md). The original
   [adoption review](../reviews/issue53-fork-limit-adoption-review.md) records evidence
   and limits. Adoption and a future release remain separate Human decisions.
 

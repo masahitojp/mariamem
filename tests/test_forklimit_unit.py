@@ -23,6 +23,8 @@ def test_cap_timeout_retains_child_and_next_close_releases_slot(fake_host):
                 with pytest.raises(mariamem.HostError) as error:
                     baseline.fork(timeout=.04)
                 assert (error.value.code, error.value.stage) == ("pool_timeout", "fork_wait")
+                assert "max_forks=1, occupied_slots=1" in str(error.value)
+                assert "close owned children or increase max_forks" in str(error.value)
                 assert child.status()["state"] == "ready"
                 assert baseline._session.request("stats")["reservations"] == 0
             finally:
@@ -275,3 +277,26 @@ while not Path({str(stop)!r}).exists(): time.sleep(.01)
         callers.shutdown(wait=True)
         session.release()
         assert session._reaped.wait(3)
+
+
+@pytest.mark.parametrize('observed',[False,True])
+def test_wait_diagnostic_uses_last_observation_or_explicit_unknown(monkeypatch,observed):
+    import importlib
+    from types import SimpleNamespace
+    module=importlib.import_module('mariamem.snapshot')
+    ticks=iter([0,0,.1,2] if observed else [0,2])
+    monkeypatch.setattr(module,'time',SimpleNamespace(monotonic=lambda:next(ticks)))
+    baseline=mariamem.Snapshot.__new__(mariamem.Snapshot)
+    baseline._max_forks=2
+    baseline._admission_closed=SimpleNamespace(is_set=lambda:False,wait=lambda _:None)
+    baseline._admission_error=None
+    calls=[]
+    def request(op,**fields):
+        calls.append(op)
+        return dict(full=True,max_forks=2,occupied_slots=2)
+    with pytest.raises(mariamem.HostError) as error:
+        baseline._reserve(SimpleNamespace(request=request),7,1)
+    assert error.value.code=='pool_timeout' and error.value.stage=='fork_wait' and not error.value.closed
+    occupied='2' if observed else 'unknown'
+    assert f'max_forks=2, occupied_slots={occupied}' in str(error.value)
+    assert len(calls)==int(observed)

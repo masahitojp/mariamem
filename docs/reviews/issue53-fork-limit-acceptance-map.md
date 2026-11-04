@@ -1,16 +1,32 @@
 # Issue #53 — fixed acceptance evidence map
 
-Code source_commit: `8566c8ad6b5dbb62d5540120bec0e9abe3d97519`.
+## Current status and source boundaries
+
+The later [adoption review](issue53-fork-limit-adoption-review.md) and
+[bound matrix assessment](issue53-fork-limit-evidence/ci-41761661883/assessment.json)
+record execution on `c53771cd9f653f971fdfa677105d46f6787298f9`: the matrix ran and
+its eighteen fixed rows passed within their controlled/actual evidence scopes.
+That result supersedes this index's earlier execution-pending state.
+
+Human review subsequently identified the missing cap/occupied-slot diagnostics
+(G1). The [G1/G2 follow-up](issue53-review-followup.md) owns that correction and
+its new-source verification. The c53771cd receipts are not evidence that a later
+runtime change ran the full matrix; adoption remains pending.
+
+## Historical detector index — 8566c8ad
+
+Historical code source_commit: `8566c8ad6b5dbb62d5540120bec0e9abe3d97519`.
 Scope: the18 rows of the approved
 [fixed acceptance table](issue53-fork-limit-design.md#fixed-acceptance-and-stopping-point).
 This is a detector/evidence index, not another completion checklist; [Issue #53](https://github.com/masahitojp/mariamem/issues/53)
-owns execution tracking. No row below is an installed/platform matrix PASS.
+owns execution tracking. At this checkpoint, no row below represented an
+installed/platform matrix PASS; the table describes detectors, not current results.
 
-The design/API decisions are fixed. Major entry implementations and named local
-detectors exist. Known planned work is to execute the exact-candidate matrix,
-retain and bind its receipts, then judge these rows against those results.
-Whether execution finds another defect, and its repair cost, remain unknown.
-That uncertainty is distinct from an undecided design or a missing matrix run.
+At this checkpoint, the design/API decisions were fixed and major entry
+implementations and named local detectors existed. The remaining work was to
+execute the exact-candidate matrix, retain/bind its receipts and assess the rows.
+This historical index did not predict whether that execution would find defects;
+it does not assert that execution is still pending today.
 
 ## Local evidence and its limits
 
@@ -68,7 +84,7 @@ tests are not silently included in the earlier1870-test daily receipt.
   installed result binding. They cannot prove runtime results: matrix receipts
   still have to be produced, checked and source-bound.
 
-No new trigger/job or qualification pipeline is introduced. Integration and
-release remain their separate decisions. Known pending execution is not labelled
-"inconclusive research"; an unexpected test failure is reported and repaired under
-the same fixed contract rather than adding another acceptance theme.
+No new trigger/job or qualification pipeline was introduced by this checkpoint.
+Integration and release remain their separate decisions. Later execution and
+repairs are recorded in the source-bound assessment and follow-up linked above;
+this detector index does not override their results.

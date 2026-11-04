@@ -9,8 +9,11 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
+	"time"
 
+	"github.com/masahitojp/mariamem/internal/diagnostic"
 	"github.com/masahitojp/mariamem/internal/forklimit"
 	"github.com/masahitojp/mariamem/internal/prepared"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
@@ -238,5 +241,30 @@ func TestOutOfRangeControlFieldsDoNotKillSharedHost(t *testing.T) {
 	}
 	if err := <-done; err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestCapacityReplyAndWaitErrorReportCapAndOccupiedSlots(t *testing.T) {
+	m := newManager()
+	b := handoffBaseline(t)
+	m.snaps[1] = b
+	defer b.forkLimit().Close()
+	defer m.cancelReservations(b)
+	if _, err := m.call(context.Background(), Request{Op: "fork_reserve", Handle: 1}); err != nil {
+		t.Fatal(err)
+	}
+	reply, err := m.call(context.Background(), Request{Op: "fork_reserve", Handle: 1})
+	if err != nil || reply["full"] != true || reply["max_forks"] != 1 || reply["occupied_slots"] != 1 {
+		t.Fatal(reply, err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond)
+	defer cancel()
+	_, err = m.call(ctx, Request{Op: "fork", Handle: 1})
+	var detail *diagnostic.Error
+	if !errors.Is(err, context.DeadlineExceeded) || !errors.As(err, &detail) || detail.Code != "pool_timeout" || detail.Stage != "fork_wait" {
+		t.Fatal(err)
+	}
+	if !strings.Contains(err.Error(), "max_forks=1, occupied_slots=1") || !strings.Contains(err.Error(), "close owned children or increase max_forks") {
+		t.Fatal("control error lost capacity diagnostic", err)
 	}
 }

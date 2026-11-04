@@ -172,10 +172,11 @@ func (m *manager) reservationCall(ctx context.Context, r Request) (map[string]an
 		}
 		l, err := b.forkLimit().TryAcquire(false)
 		if err == forklimit.ErrFull {
-			return map[string]any{"full": true, "closed": false}, nil
+			maxForks, occupied := b.forkLimit().Usage()
+			return map[string]any{"full": true, "closed": false, "max_forks": maxForks, "occupied_slots": occupied}, nil
 		}
 		if err != nil {
-			return map[string]any{"closed": false}, admission(err)
+			return map[string]any{"closed": false}, admission(b.forkLimit().Describe(err))
 		}
 		id, err := token()
 		if err != nil {
@@ -289,6 +290,9 @@ func (m *manager) fork(ctx context.Context, r Request) (map[string]any, error) {
 		a = &reservation{base: b, handle: r.Handle, lease: l}
 	}
 	if err != nil {
+		if a != nil {
+			err = a.base.forkLimit().Describe(err)
+		}
 		return map[string]any{"closed": false}, admission(err)
 	}
 	b := a.base

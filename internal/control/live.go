@@ -89,7 +89,7 @@ func (m *manager) createLive(ctx context.Context, r Request) (map[string]any, er
 			}
 			lease, err := base.forkLimit().TryAcquire(recover)
 			if err != nil {
-				return nil, diagnostic.Wrap(capacityCode(err), "live_capacity", err)
+				return nil, diagnostic.Wrap(capacityCode(err), "live_capacity", base.forkLimit().Describe(err))
 			}
 			return &endpoint.Reservation{Cancel: lease.Cancel, Start: func(ctx context.Context) (endpoint.Child, error) {
 				base.mu.RLock()

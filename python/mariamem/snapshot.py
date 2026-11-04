@@ -41,6 +41,7 @@ class Snapshot:
         from ._forklimit import wait_nanoseconds
         wait_nanoseconds(timeout)
         deadline = None if timeout is None else time.monotonic()+timeout
+        occupied = 'unknown'  # No responsive capacity observation yet.
         while True:
             if self._admission_closed.is_set():
                 raise HostError("Snapshot is closed", code="closed", stage="fork_wait", closed=False)
@@ -48,10 +49,13 @@ class Snapshot:
                 raise self._admission_error
             left = None if deadline is None else deadline-time.monotonic()
             if left is not None and left <= 0:
-                raise HostError("Fork capacity wait timed out; close existing children or raise max_forks",
+                raise HostError(f"Fork capacity wait timed out (max_forks={self._max_forks}, "
+                                f"occupied_slots={occupied}; close owned children or increase max_forks)",
                                 code="pool_timeout", stage="fork_wait", closed=False)
             reply = session.request("fork_reserve", handle=handle,
                                     response_timeout=5 if left is None else min(5,left))
+            if reply["full"]:
+                occupied = reply.get("occupied_slots", "unknown")
             if not reply["full"]:
                 reservation = reply["reservation"]
                 if self._admission_closed.is_set() or self._admission_error is not None:

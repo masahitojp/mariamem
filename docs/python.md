@@ -506,7 +506,11 @@ Close each child before synchronously requesting another when capacity is full.
 `Database(snapshot=baseline, fork_timeout=30)`. Omission waits while a responsive
 host reports full capacity; submission, reservation responses and startup still
 have finite watchdogs. A capacity timeout reports `pool_timeout` / `fork_wait`
-without closing existing children. Parent Close wakes capacity waiters and
+without closing existing children. Its message reports the resolved `max_forks`,
+`occupied_slots` from the last responsive full reply and the action "close owned
+children or increase max_forks". If expiry precedes any capacity reply, occupancy
+is explicitly `unknown`. These are observations, not a new reservation or a claim
+that the count is unchanged when the error is read. Parent Close wakes capacity waiters and
 preserves admitted children. Separate development-host handoff holds the origin
 slot until actual target disposal. Unconfirmed cleanup stops new admission;
 retry the responsible owner's cleanup. Normal late disposal alone does not

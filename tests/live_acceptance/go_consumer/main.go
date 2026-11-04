@@ -11,6 +11,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -77,6 +78,9 @@ func run() error {
 	if !errors.Is(busy, mariamem.ErrBusy) || live.Status().State != "ready" || live.Status().Generation != 0 {
 		spare.Close()
 		return fmt.Errorf("capacity busy changed current Live: %w", busy)
+	}
+	if !strings.Contains(busy.Error(), "max_forks=2, occupied_slots=2") {
+		return fmt.Errorf("capacity busy diagnostic missing: %w", busy)
 	}
 	check, err := sql.Open("mysql", live.DSN())
 	if err != nil {
@@ -203,6 +207,9 @@ func checkForkLimit(ctx context.Context) error {
 	var detail *mariamem.HostError
 	if !errors.Is(err, context.DeadlineExceeded) || !errors.As(err, &detail) || detail.Code != "pool_timeout" {
 		return fmt.Errorf("full capacity did not time out: %w", err)
+	}
+	if !strings.Contains(err.Error(), "max_forks=1, occupied_slots=1") {
+		return fmt.Errorf("capacity wait diagnostic missing: %w", err)
 	}
 	p, err = sql.Open("mysql", first.DSN())
 	if err != nil {

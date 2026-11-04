@@ -26,6 +26,7 @@ def check(source):
                 saved.fork(timeout=.03)
             except mariamem.HostError as error:
                 assert error.code=='pool_timeout' and error.stage=='fork_wait'
+                assert 'max_forks=2, occupied_slots=2' in str(error)
             else:
                 raise AssertionError('cap2 admitted a third child')
             with connect(first) as c:
@@ -42,6 +43,7 @@ def check(source):
                 live.reset()
             except mariamem.Busy as error:
                 assert error.stage=='live_capacity'
+                assert 'max_forks=2, occupied_slots=2' in str(error)
             else:
                 raise AssertionError('Live Reset did not reserve its spare slot')
             assert live.status()['generation']==0 and live.connection_info()==info

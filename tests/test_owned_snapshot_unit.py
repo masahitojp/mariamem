@@ -35,7 +35,7 @@ def call(r):
    counts['reserve']+=1
    parent=r['handle']
    if handles.get(parent)!='snapshot':out.update(ok=False,error={'code':'closed','stage':'fork_wait','message':'Snapshot is closed'},closed=False)
-   elif sum(v==parent for v in parents.values())+sum(v==parent for v in reservations.values())>=caps[parent]:out.update(full=True)
+   elif sum(v==parent for v in parents.values())+sum(v==parent for v in reservations.values())>=caps[parent]:out.update(full=True,max_forks=caps[parent],occupied_slots=sum(v==parent for v in parents.values())+sum(v==parent for v in reservations.values()))
    else:seq+=1;token=f'{seq:032x}';reservations[token]=parent;out.update(full=False,reservation=token)
   send(out);return
  if op=='fork_cancel':

@@ -185,7 +185,11 @@ A slot counts reservation/startup, a live child and unconfirmed cleanup. Full
 capacity waits before starting another MariaDB. Go's context covers waiting and
 startup; an expired capacity wait returns `HostError` with code `pool_timeout`,
 stage `fork_wait` and an underlying context error. Closing a child permits a
-later Fork. Closing the baseline wakes capacity waiters while existing children
+later Fork. Capacity errors include `max_forks`, observed `occupied_slots` and
+"close owned children or increase max_forks". Counts include reserved/startup,
+live and unconfirmed-cleanup owners; they can change after sampling. Go's
+underlying context error remains available through `errors.Is`.
+Closing the baseline wakes capacity waiters while existing children
 remain usable. Cleanup uncertainty stops admission; later disposal alone does
 not automatically resume it. Prepare a new baseline or use an explicit Live
 Reset that confirms all cleanup debt. There is no unlimited setting.

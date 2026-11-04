@@ -3,6 +3,7 @@ package forklimit
 import (
 	"context"
 	"errors"
+	"strings"
 	"sync"
 	"testing"
 	"time"
@@ -330,5 +331,45 @@ func TestMaximumDoesNotAllocateCapacitySizedStorage(t *testing.T) {
 		if _, err := New(n); err == nil {
 			t.Fatal("accepted", n)
 		}
+	}
+}
+
+func TestUsageIncludesReservationsAndUnconfirmedCleanupWithoutReopening(t *testing.T) {
+	p := pool(t, 2)
+	first, _ := p.TryAcquire(false)
+	second, _ := p.TryAcquire(false)
+	if cap, occupied := p.Usage(); cap != 2 || occupied != 2 {
+		t.Fatal(cap, occupied)
+	}
+	_ = first.Activate()
+	cause := errors.New("cleanup not confirmed")
+	first.Settle(cause)
+	second.Cancel()
+	if cap, occupied := p.Usage(); cap != 2 || occupied != 1 {
+		t.Fatal(cap, occupied)
+	}
+	_, debt := p.TryAcquire(false)
+	err := p.Describe(debt)
+	if !errors.Is(err, cause) || !errors.Is(err, ErrCleanup) || !strings.Contains(err.Error(), "max_forks=2, occupied_slots=1") {
+		t.Fatal(err)
+	}
+	if strings.Contains(err.Error(), "increase max_forks") {
+		t.Fatal("capacity tuning cannot resolve cleanup debt", err)
+	}
+	first.Settle(nil)
+	if _, occupied := p.Usage(); occupied != 0 {
+		t.Fatal(occupied)
+	}
+	if _, err := p.TryAcquire(false); !errors.Is(err, ErrCleanup) {
+		t.Fatal("diagnostic observation reopened admission", err)
+	}
+	for _, cause := range []error{ErrFull, context.DeadlineExceeded, context.Canceled} {
+		err := p.Describe(cause)
+		if !errors.Is(err, cause) || !strings.Contains(err.Error(), "max_forks=2, occupied_slots=0") || !strings.Contains(err.Error(), "close owned children or increase max_forks") {
+			t.Fatal(err)
+		}
+	}
+	if p.Describe(nil) != nil {
+		t.Fatal("nil became a diagnostic error")
 	}
 }

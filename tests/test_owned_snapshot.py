@@ -33,6 +33,7 @@ def test_bounded_remote_fork_and_recapture_release_source_slot(tmp_path):
                 with pytest.raises(mariamem.HostError) as error:
                     baseline.fork(timeout=.04)
                 assert error.value.code == "pool_timeout"
+                assert "max_forks=1, occupied_slots=1" in str(error.value)
                 assert sql(remote, "SELECT * FROM cap_seed") == ((7,),)
                 remote.wait_disconnected()
                 with remote.snapshot(max_forks=1) as next_baseline:

@@ -97,6 +97,7 @@ func (s *Snapshot) Live(ctx context.Context) (*Live, error) {
 			}
 			lease, err := s.forkLimit().TryAcquire(recover)
 			if err != nil {
+				err = s.forkLimit().Describe(err)
 				return nil, liveError(diagnostic.Wrap(forkAdmissionError(err).(*HostError).Code, "live_capacity", err), false)
 			}
 			return &endpoint.Reservation{Cancel: lease.Cancel, Start: func(ctx context.Context) (endpoint.Child, error) {

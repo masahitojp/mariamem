@@ -16,9 +16,18 @@ Changing version metadata does not itself publish a release.
 
 ## Issue #53 — finite Fork admission by default, implementation authorized
 
-### Current acceptance — technically complete, adoption pending
+### Current review follow-up — capacity diagnostics correction
 
-The fixed eighteen-row exit has been reconciled against exact source_commit
+Human review identified G1: the design required cap/occupied-slot diagnostics,
+but the fixed-row detectors checked only error code/stage. The current correction
+adds observed counts/remedy without changing admission/error classification and
+adds pool, public/control, Python and actual/installed consumer assertions. G2
+makes the old detector map explicitly historical and links the later result.
+[The follow-up](reviews/issue53-review-followup.md) owns verification; current
+adoption is pending a new-source matrix. The existing successful matrix below
+remains on its original source and is not relabelled to this runtime delta.
+
+The prior fixed eighteen-row exit was reconciled against exact source_commit
 `c53771cd9f653f971fdfa677105d46f6787298f9` and successful verify
 [41761661883](https://github.com/masahitojp/mariamem/actions/runs/41761661883).
 Both supported OSes and Python3.11/3.14 pass actual/installed Fork, Live/E2E and
@@ -28,8 +37,9 @@ named failure controls are checked; the
 candidate, including the host WASI write-error cleanup prerequisite. Human
 adoption and main integration remain pending. There is no new version or release
 approval, global/OOM/CPU-optimal guarantee, resource campaign or prewarming scope.
-The accompanying evidence/wording commit preserves the tested non-doc tree;
-receipts remain pinned to c53771cd.
+The7c0f6c32 evidence/wording commit preserves that tested non-doc tree;
+its receipts remain pinned to c53771cd. That reuse does not extend to the later
+G1 runtime correction.
 
 ### Historical implementation checkpoints
 

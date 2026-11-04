@@ -107,7 +107,7 @@ func (s *Snapshot) Fork(ctx context.Context) (*Database, error) {
 	defer finishTiming()
 	lease, err := s.forkLimit().Acquire(ctx)
 	if err != nil {
-		return nil, forkAdmissionError(err)
+		return nil, forkAdmissionError(s.forkLimit().Describe(err))
 	}
 	return s.forkReserved(ctx, lease)
 }
@@ -121,7 +121,7 @@ func (s *Snapshot) forkReserved(ctx context.Context, lease *forklimit.Lease) (*D
 	}
 	if err := lease.Activate(); err != nil {
 		lease.Cancel()
-		return nil, forkAdmissionError(err)
+		return nil, forkAdmissionError(s.forkLimit().Describe(err))
 	}
 	timing.Mark(ctx, "snapshot_handle_ready")
 	db, err := startLeased(ctx, s.opts, s.backing, lease)

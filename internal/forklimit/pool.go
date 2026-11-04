@@ -6,6 +6,7 @@ package forklimit
 import (
 	"context"
 	"errors"
+	"fmt"
 	"sync"
 
 	"github.com/masahitojp/mariamem/internal/disposal"
@@ -45,6 +46,27 @@ func New(limit int) (*Pool, error) {
 }
 
 func (p *Pool) MaxForks() int { return p.limit }
+
+// Usage samples reserved, starting, live and unconfirmed-cleanup leases together.
+// It is diagnostic state at observation time, not an admission reservation.
+func (p *Pool) Usage() (maxForks, occupiedSlots int) {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	return p.limit, len(p.leases)
+}
+
+// Describe preserves error identity and adds bounded, point-in-time diagnostics.
+func (p *Pool) Describe(err error) error {
+	if err == nil {
+		return nil
+	}
+	maxForks, occupied := p.Usage()
+	action := ""
+	if !errors.Is(err, ErrCleanup) && (errors.Is(err, ErrFull) || errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded)) {
+		action = "; close owned children or increase max_forks"
+	}
+	return fmt.Errorf("%w (max_forks=%d, occupied_slots=%d%s)", err, maxForks, occupied, action)
+}
 
 func (p *Pool) signal() { close(p.changed); p.changed = make(chan struct{}) }
 

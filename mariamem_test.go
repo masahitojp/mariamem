@@ -718,6 +718,9 @@ func TestSnapshotCapacityProgressAndWaitDeadline(t *testing.T) {
 	if !errors.Is(err, context.DeadlineExceeded) || !errors.As(err, &detail) || detail.Code != "pool_timeout" || detail.Stage != "fork_wait" || detail.Closed {
 		t.Fatal(err)
 	}
+	if !strings.Contains(err.Error(), "max_forks=1, occupied_slots=1") || !strings.Contains(err.Error(), "close owned children or increase max_forks") {
+		t.Fatal("capacity diagnostic missing", err)
+	}
 	lease.Settle(nil)
 	_, err = s.Fork(context.Background())
 	if err == nil || !strings.Contains(err.Error(), "legacy NativeDir") {
