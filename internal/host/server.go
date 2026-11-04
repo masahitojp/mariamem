@@ -173,7 +173,7 @@ func (s *Server) attach(conn net.Conn) error {
 		return &Rejected{"closed", "database is closing"}
 	}
 	if cause := s.Guest.Err(); cause != nil {
-		return &Rejected{"unusable", cause.Error()}
+		return errors.Join(&Rejected{"unusable", "database instance terminated"}, cause)
 	}
 	slot, ok := s.allocateSlotLocked()
 	if !ok {

@@ -576,7 +576,7 @@ func (d *observingDialDatabase) DialContext(context.Context, string, string) (ne
 }
 func TestInProcessPoolUsesOwnedDatabaseDialer(t *testing.T) {
 	original := errors.New("owned dial error")
-	db := &observingDialDatabase{database: &fakeDB{name: "root@tcp(127.0.0.1:1)/mysql"}, err: original}
+	db := &observingDialDatabase{database: &fakeDB{name: "root@tcp(127.0.0.1:1)/mysql?timeout=10ms&readTimeout=10ms"}, err: original}
 	p, e := production(true).open(db, 1, 1)
 	if e != nil {
 		t.Fatal(e)
