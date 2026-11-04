@@ -1,132 +1,136 @@
-# Unreleased release notes — staging
+# mariamem v0.6.1 — release-notes draft
 
-This file is the sole staging content source for future release notes. Adopted entries below are unreleased; this staging file does not select a
-release version or grant qualification/publication approval. Published0.6.0 notes remain authoritative in
-[NOTES-v0.6.0.md](../../release/NOTES-v0.6.0.md); published installation commands
-and version metadata remain unchanged.
+This file is the sole staging content source for future release notes.
+The Human requested a 0.6.1 draft; the text below summarizes changes already
+merged after v0.6.0. It does not approve publication. Version metadata and
+published installation commands remain unchanged.
 
-## Human-adopted candidate — #53 / PR #85 (main integration pending)
+Content basis (2026-11-04): main source_commit
+`bc00b8e66e5fd57bc9b2127001faf8e05952b417`, compared with v0.6.0
+source_commit `b3b3b46a8807482ad3f96725af86e031fe369b01`
+(tag_object_sha `b57183b08d48884840111e8b53daa500734337f0`).
+This is a content reference, not final-version artifact qualification.
 
-- Go Snapshot adds `SnapshotOptions.MaxForks` and `Snapshot.MaxForks()`. Omission
-  now resolves a finite memory-based limit; full capacity waits under the Go
-  context before starting a child. Child cleanup retains its slot, and parent
-  Close wakes waiting Forks without closing successful children.
-- Go Live needs at least2 slots and reserves replacement capacity before draining;
-  a full parent returns busy while preserving the current generation. Explicit
-  Reset can recover only after all cleanup debt is confirmed. The Go test helper
-  retains default2 and passes the same cap to its Snapshot; HTTPConfig exposes
-  a cap override. Auto sizing is not CPU-optimal or a process-wide memory guarantee.
+## Prepared Django tests
+
+- New opt-in `mariamem.django.prepared_database`, `PreparedDiscoverRunner`,
+  `PreparedTestCase` / `PreparedTransactionTestCase` and
+  `mariamem.django.pytest_plugin` prepare migrated/seeded state and give each
+  test an independent Fork of its prepared class state. Committed writes, DDL
+  and ordinary assertion failures do not become the next test's initial state.
+  Install the optional `django` or `django-pytest` extra and explicitly select
+  this entry. The ordinary standard-runner recipe remains available.
+- `prepared_database()` is declarative. Settings import, check/shell, discovery,
+  collection-only and database-free suites do not acquire a host. SQL outside
+  the owned test lifecycle is refused before connecting. Preparation/retirement
+  failures retain their errors; unconfirmed cleanup stops dependent admission.
+- Local pytest-xdist workers are supported with explicit `-n N` and `load` or
+  `loadscope`. Each DB-using worker owns its own host and migration/seed baseline;
+  controller, idle and DB-free workers acquire none. A replacement worker
+  prepares a fresh lineage. Hard worker death cannot run Python temporary-file
+  finalizers, so job scratch cleanup remains necessary.
+- The extras accept Django 5.2 LTS, 6.0 and 6.1 (`Django>=5.2.8,<6.2`).
+  Django 6 requires Python 3.12+; Python 3.11 continues with Django 5.2.
+  Maintained Release profiles are Python 3.11 / Django 5.2 and
+  Python 3.14 / latest Django 6.1.
+
+This entry supports one default database alias and explicit prepared classes.
+There is no class-wide atomic: class preparation is committed and `on_commit()`
+may run immediately there; per-test TestCase atomics remain. Do not combine
+prepared Django with routing/`shadow_maria` ownership in one invocation, or mix
+ordinary database test classes/function-style `django_db` tests into the prepared
+run. Unused routing bindings now report `UnusedRoutingWarning` after successful
+cleanup. Remote workers, automatic worker counts, other xdist schedulers and
+Django `--parallel` remain outside the accepted scope.
+See the [prepared Django guide](../django-prepared.md) for setup and worker sizing.
+
+## Finite Snapshot/Fork capacity
+
+**Behavior change:** omitted Snapshot Fork limits now resolve to a finite,
+memory-based capacity. Full capacity waits before another child starts;
+reserved, starting and cleanup-pending children retain their slots until actual
+retirement. Capacity is per Snapshot, not a process-wide or machine-wide limit.
+
+- Go adds `SnapshotOptions.MaxForks` and read-only `Snapshot.MaxForks()`.
+  Fork waits honor the caller's context. Closing the parent wakes waiters
+  without closing successful children. Use keyed `SnapshotOptions` and
+  `HTTPConfig` literals: adding fields breaks old positional literals.
 - Python adds `snapshot(max_forks=...)`, read-only `max_forks`,
   `fork(timeout=...)` and `Database(snapshot=..., fork_timeout=...)`.
-  Different-host children retain their origin slot through actual disposal;
-  capacity waits release the parent lock and retain finite control watchdogs.
-  Pytest adds `mariamem_max_forks` (None/auto) and finite
-  `mariamem_fork_timeout` (default30 seconds). Acquisition failure stops dependent
-  admission in that worker and preserves the original error; normal assertions
-  keep their existing behavior. None/callable/PrepareCommand preparation is unchanged.
-- Python E2E `Config.max_forks` reaches its Live baseline and explicit1 rejects
-  before preparation. Prepared Django adds `max_forks` / `fork_timeout`, forwards
-  them to each capture/acquisition and retires class/test owners before requesting
-  its final DROP child. These per-Snapshot/worker caps are not a global resource
-  limit or CPU/latency optimum; choose explicit caps and worker totals as needed.
-- Nested acquisition while holding every slot can wait indefinitely. Release a
-  child before the next synchronous Fork, or bound the wait with a Go context /
-  Python timeout. Expanded Go `SnapshotOptions` and `HTTPConfig` require keyed
-  literals instead of old positional literals.
-- Capacity wait/busy diagnostics report `max_forks` and observed `occupied_slots`
-  with a close-children/increase-limit remedy. Python uses the last responsive
-  capacity reply, or explicit `unknown` if none arrived. Existing error identity,
-  code/stage and closed semantics are preserved.
-- Linux auto-sizing validates kernel sysinfo units and proc MemTotal separately;
-  either physical source can fail while the other/cgroup/Go limit still applies.
-  Only absence of all valid memory observations uses the existing finite CPU
-  fallback. This remains a sizing heuristic, not an OOM guarantee.
-- If cgroup limits are unreadable or invisible, auto sizing may use host RAM
-  and over-admit relative to the container budget; configure an explicit cap.
-  Independent root `Start` / `start()` calls are outside per-Snapshot caps.
-  Private control rejects negative capacity tokens, including `-0`, request-locally.
-- Capture cleanup has an unretryable failure path: if a failed capture's newly
-  owned Snapshot also fails Close, the shared host permanently latches
-  `captureDebt`. Its originating slot remains occupied and parent admission
-  stays stopped even after runtime disposal. Cleanup retry/Live Reset cannot
-  clear this debt; close remaining owners safely and prepare a fresh lineage.
-- Host WASI writes now propagate zero-byte write errors, including broken pipes,
-  and preserve actual short-write progress. This fixes the tested interrupted-
-  guest cleanup stall without changing the accepted prepared CALL observations.
-- The Human adopted this candidate on2026-11-04, including the WASI cleanup
-  prerequisite and the capture-cleanup limit above. Main integration is pending. The fixed both-host/Python-version matrix,
-  including installed D1 cap1 execution and G1–G3/P2–P6 corrections, passed on
-  exact candidate `cddd8dcb`; see the
-  [review follow-up](../reviews/issue53-review-followup.md). The updated
-  [adoption review](../reviews/issue53-fork-limit-final-adoption-review.md) records evidence
-  and limits. The [adoption decision](../decisions/issue53-fork-limit-adoption.md)
-  records approval; main integration and a future release remain separate.
+  Cross-host children keep their origin slot through disposal. Supplied pytest
+  fixtures add `mariamem_max_forks` (default `None`, automatic) and
+  `mariamem_fork_timeout` (default 30 seconds). Acquisition failure stops
+  dependent admission in that worker; ordinary assertions retain their behavior.
+- Go Live requires at least two slots and reserves replacement capacity before
+  draining. A full parent returns busy while preserving the current generation.
+  Go test helpers retain their default of two; `HTTPConfig` exposes an override.
+  Python E2E `Config.max_forks` reaches its Live baseline and rejects one before
+  preparation. Prepared Django forwards `max_forks` / `fork_timeout` to its
+  run/class baselines and child acquisitions, including final DROP cleanup.
+- Capacity diagnostics include the resolved limit and observed occupancy
+  (or explicitly unknown), with guidance to close children or increase the cap.
 
-## Adopted on main — unreleased
+Nested acquisition while holding every slot can wait indefinitely. Release a
+child first or bound the wait with a Go context / Python timeout. Automatic
+sizing is a memory heuristic, not an OOM guarantee or a CPU/latency optimum.
+Hidden/unreadable cgroup limits can cause host-RAM sizing to over-admit; configure
+explicit caps and choose the total worker count separately. Independent root
+`Start` / `start()` calls are outside these caps.
 
-### Explicit prepared Django entry (#43 / PR #67)
+Failed capture cleanup has an accepted permanent failure path: if a newly owned
+Snapshot also fails Close, the shared host latches `captureDebt`, retains its
+origin slot and stops parent admission even after runtime disposal. Cleanup
+retry or Live Reset cannot clear it; safely close remaining owners and prepare
+a fresh lineage. This differs from retryable child cleanup debt.
+See [Go](../go.md), [Python](../python.md) and the
+[adoption decision](../decisions/issue53-fork-limit-adoption.md).
+PR #85 is merged; older candidate records describing integration as pending
+retain their historical context.
 
-- Add `mariamem.django.prepared_database`, `PreparedDiscoverRunner`,
-  `PreparedTestCase` / `PreparedTransactionTestCase` and the explicit
-  `mariamem.django.pytest_plugin`, with optional `django` / `django-pytest` extras.
-  Django creates/migrates the test DB, a callback prepares seed once, and each
-  test starts from an independent Fork of prepared class state, including after
-  committed writes or ordinary failure. Original and cleanup errors remain
-  visible; retirement failure stops subsequent admission in that run.
-- This is explicit opt-in, not transparent TestCase compatibility. There is no
-  class-wide atomic; class preparation is committed and `on_commit()` may run
-  immediately there. Per-test TestCase atomics remain. Initial scope is one
-  default alias and serial execution; unsupported modes are rejected.
-- Routing/`shadow_maria` and prepared Django ownership cannot be combined in
-  one test invocation. This exclusion is a documented support boundary, not a
-  universal automatic detector. Unused routing bindings now warn with
-  `UnusedRoutingWarning` after successful cleanup when they routed zero
-  connections. See the [entry guide](../django-prepared.md).
-- Local source-entry results on a reused published host do not qualify the
-  installed wheel on both supported OSes. The existing Release Django job
-  subsequently passed macOS15 arm64 / Ubuntu24.04 x86_64 × Python3.11/3.14 on
-  reviewed source `ad9c7e67`; [the receipt](../reviews/d1-release-41320361521/README.md)
-  preserves its identity. PR #67 is adopted on main; the original Release run
-  failed core policy tests and is not Release READY. Their test-only repair
-  passed the required Development checks before merge.
-  `prepared_database()` is now declarative: host acquisition occurs only at
-  database setup, and SQL outside that lifecycle is refused before driver dial.
-  Settings import, check/shell, discovery and collection-only do not start hosts.
-  The follow-up passed fresh four-cell installed-wheel acceptance and READY at
-  `90e7ed5f` in [verify41327745652](../reviews/d1-release-41327745652/README.md)
-  and was adopted through PR #70. No candidate assets were published.
-  Collection rejects shadow_maria/mariamem_app_db and setup rejects active routing.
-  No guest/generated code, core Go runtime or version change is included; no
-  performance or detailed resource claim is added.
+## Fixes
 
-## Adopted local D1 xdist — unreleased
+- Local test endpoints accept arbitrary handshake usernames and password
+  responses, allowing applications to retain placeholder test credentials.
+  Protocol validation remains; all sessions use the existing embedded guest
+  privilege context. This adds no authentication, account management or
+  credential isolation. See [connection behavior](../python.md).
+- `import_dump` now rejects statements above the existing 1 MiB text SQL budget
+  during preflight, before connecting, instead of advertising a 4 MiB reader
+  limit that execution could not accept. The limit counts transmitted UTF-8
+  bytes, including leading whitespace/comments. Source-location diagnostics
+  and failed-source discard remain; file/count limits stay 16 MiB / 10,000.
+  See the [dump format contract](../importing-dump.md).
+- The WASM buffer-pool allocator avoids redundant allocation/zeroing work by
+  passing its existing extent alignment to the internal allocator. Zero-filled
+  memory and allocation/free semantics remain. A small retained-RSS saving was
+  observed; CPU/batch speedup is inconclusive and queue latency is unmeasured.
+  See the [bounded allocation decision](../decisions/buffer-pool-alignment.md).
+- Host WASI writes propagate zero-byte write errors, including broken pipes,
+  and preserve actual short-write progress. This fixes the tested interrupted
+  guest cleanup stall; the accepted prepared CALL observations remain unchanged.
 
-The local extension adds explicit `-n N` local workers for `load` / `loadscope`, using
-pytest-xdist3.8.0 / execnet2.1.2 in the `django-pytest` extra. Serial stays the
-default. Each DB-using worker owns a separate host and migration/seed baseline;
-class preparation can repeat per worker or when rescheduling re-enters a class. Controller/idle/DB-free workers acquire
-none. No cross-process SDK handles or shared global Snapshot are introduced.
+## Compatibility and validation
 
-The extension retains failed tests on worker crash; a replacement prepares a
-fresh lineage under normal xdist restart policy. Cleanup debt remains local to
-the failed worker. Hard death closes the host by control EOF but cannot run
-Python temporary-directory finalizers; runner/job scratch cleanup remains
-necessary. Automatic counts, remote/manual gateways, loop-on-fail, other
-schedulers and Django --parallel are outside the accepted scope.
-The existing Release Django job adds installed-entry cases with its existing
-shared wheel/host. No new workflow/build/version or performance claim is added.
-Both OSes × Python3.11/3.14 passed installed-wheel serial/parallel acceptance
-and Release READY in operation=verify; the Human approved adoption. See the
-[adoption receipt](../reviews/d1-xdist-adoption.md). Publication remains separate.
+MariaDB remains 12.3.3. Python minimum remains 3.11 and Go minimum remains 1.26.0.
+Supported hosts remain macOS 15+ arm64 and Ubuntu 24.04 x86_64. Distribution
+continues through GitHub Release assets; no PyPI publication is added.
+The [v0.6.0 wire/connector limitations](../../release/NOTES-v0.6.0.md)
+continue to apply. No general SQL compatibility or throughput/peak-memory
+improvement is claimed.
 
-## Django6 support — unreleased
+Installed prepared-Django and local-xdist acceptance passed on both supported
+OSes with Python 3.11/3.14 under their
+[Django](../reviews/d1-release-41327745652/README.md) and
+[xdist](../reviews/d1-xdist-adoption.md) receipts. The finite-Fork matrix passed
+on exact candidate `cddd8dcbd6d664171907ffc1769b83e472640875`; see the
+[source-bound receipt](../reviews/issue53-fork-limit-evidence/ci-41778273108/README.md).
+These results are not relabelled as acceptance of this draft or the final 0.6.1
+source. CI ownership/cache consolidation after 0.6.0 is maintenance, not added
+product compatibility evidence.
 
-The `django` / `django-pytest` extras accept Django5.2 LTS,6.0 and6.1
-(`Django>=5.2.8,<6.2`). Django6 requires Python3.12+; Python3.11 continues with5.2.
-The existing Release Django profiles become3.11/5.2 LTS and3.14/latest6.1,
-without additional jobs or builds. Prepared ownership, routing exclusions and
-serial/local-xdist lifecycle semantics are unchanged. Published0.6.0 metadata
-is unchanged; use a current-source wheel for the expanded extras.
+Before publication, finalize the selected 0.6.1 source and notes, then submit
+that exact candidate to Release CI for qualification and the authorized
+operation. No release workflow has been submitted by this drafting task.
 
 ## Historical 0.6.0 drafting reference
 
