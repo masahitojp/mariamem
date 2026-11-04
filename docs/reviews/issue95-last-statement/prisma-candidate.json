@@ -1,0 +1,58 @@
+{
+  "scope": "ISSUE95_TWO_PRISMA_CASES_NOT_FULL_PIPELINE_ACCEPTANCE",
+  "source_commit": "04245cc5851e8236b118c840a6679f3c038480a0",
+  "prisma_source_commit": "604a0c588f0a602bf6ea67d811b97bae2748c3ea",
+  "cells": [
+    {
+      "name": "nested_create",
+      "pipelining": true,
+      "exit_code": 1,
+      "result": "FAIL",
+      "case": "nested_create",
+      "error": "PrismaClientKnownRequestError: \nInvalid `prisma.user.create()` invocation in\n${TEMP}/prisma/matrix.ts:20:59\n\n  17 case 'count_unfiltered': assert.equal(await prisma.user.count(),1);break;\n  18 case 'count_filtered': assert.equal(await prisma.user.count(countArgs),1);break;\n  19 case 'create': assert.equal((await prisma.user.create({data:{email:'created@test',name:'new'}})).name,'new');break;\n\u2192 20 case 'nested_create': assert.equal((await prisma.user.create(\nDatabase error. Code: `2013`. Message: `mariamem database instance terminated: unexpected client input during running query`",
+      "code": "P2039",
+      "meta": {
+        "modelName": "User",
+        "driverAdapterError": {
+          "name": "DriverAdapterError",
+          "cause": {
+            "originalCode": "2013",
+            "originalMessage": "mariamem database instance terminated: unexpected client input during running query",
+            "kind": "mysql",
+            "code": 2013,
+            "message": "mariamem database instance terminated: unexpected client input during running query",
+            "state": "HY000"
+          }
+        }
+      }
+    },
+    {
+      "name": "unique_error",
+      "pipelining": true,
+      "exit_code": 1,
+      "result": "FAIL",
+      "case": "unique_error",
+      "error": "AssertionError [ERR_ASSERTION]: The validation function is expected to return \"true\". Received false\n\nCaught error:\n\nPrismaClientKnownRequestError: \nInvalid `assert.rejects(prisma.user.create()` invocation in\n${TEMP}/prisma/matrix.ts:35:59\n\n  32 case 'raw_parameter': assert.equal(String((await prisma.$queryRaw<any[]>`SELECT ${1} AS n`)[0].n),'1');break;\n  33 case 'raw_zero_parameter': assert.equal(String((await prisma.$queryRawUnsafe<any[]>('SELECT 1 AS n'))[0].n),'1');break;\n  34 case 'execute_raw': assert.equal(await prisma.$executeRaw`UPDATE User SET name=${'raw'} WHERE id=${1}`,1);break;\n\u2192 35 case 'unique_error': await assert.rejects(prisma.user.create(\nDatabase error. Code: `2013`. Message: `mariamem database instance terminated: unexpected client input during running query`",
+      "code": "ERR_ASSERTION"
+    },
+    {
+      "name": "nested_create",
+      "pipelining": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "nested_create"
+    },
+    {
+      "name": "unique_error",
+      "pipelining": false,
+      "exit_code": 0,
+      "result": "PASS",
+      "case": "unique_error"
+    }
+  ],
+  "binary_build_info": "${TEMP}/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261104144949-04245cc5851e\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=04245cc5851e8236b118c840a6679f3c038480a0\n\tbuild\tvcs.time=2026-11-04T14:49:49Z\n\tbuild\tvcs.modified=false\n",
+  "summary": {
+    "PASS": 2,
+    "FAIL": 2
+  }
+}
