@@ -29,8 +29,17 @@ and version metadata remain unchanged.
   them to each capture/acquisition and retires class/test owners before requesting
   its final DROP child. These per-Snapshot/worker caps are not a global resource
   limit or CPU/latency optimum; choose explicit caps and worker totals as needed.
-- This draft is not adopted on main. The remaining fixed acceptance and
-  both-host/Python-version matrix, including installed D1 execution, remain pending.
+- Nested acquisition while holding every slot can wait indefinitely. Release a
+  child before the next synchronous Fork, or bound the wait with a Go context /
+  Python timeout. Expanded Go `SnapshotOptions` and `HTTPConfig` require keyed
+  literals instead of old positional literals.
+- Host WASI writes now propagate zero-byte write errors, including broken pipes,
+  and preserve actual short-write progress. This fixes the tested interrupted-
+  guest cleanup stall without changing the accepted prepared CALL observations.
+- This draft is not adopted on main. The fixed both-host/Python-version matrix,
+  including installed D1 cap1 execution, passed on `c53771cd`; the
+  [adoption review](../reviews/issue53-fork-limit-adoption-review.md) records evidence
+  and limits. Adoption and a future release remain separate Human decisions.
 
 ## Adopted on main — unreleased
 

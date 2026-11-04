@@ -75,8 +75,10 @@ Each local xdist worker owns separate run/class budgets, including replacement
 workers; controller and DB-free workers acquire none. Auto is a memory sizing
 heuristic, not a CPU/latency optimum or a total worker/OOM guarantee. Set an
 explicit cap and choose `-n` independently for resource-sensitive suites.
-This candidate's updated installed-entry cap1 campaign remains to be accepted
-on both supported OSes and Python versions.
+The updated installed-entry cap1 campaign passed on both supported OSes and
+Python versions for the reviewed candidate. See the
+[adoption review and bound receipts](reviews/issue53-fork-limit-adoption-review.md);
+adoption remains a separate decision.
 
 The seed callback receives the migrated Django `default` connection, executes
 once per run, and must finish its transactions and close any separate physical

@@ -190,8 +190,15 @@ remain usable. Cleanup uncertainty stops admission; later disposal alone does
 not automatically resume it. Prepare a new baseline or use an explicit Live
 Reset that confirms all cleanup debt. There is no unlimited setting.
 
-This candidate's shared-host/Python entry wiring is still pending. See
-[the implementation status](reviews/issue53-fork-limit-implementation.md).
+Do not synchronously request another child while the same goroutine holds every
+slot. Release one first, or use a context deadline/cancellation; a deferred Close
+runs only after the waiting Fork returns. Use keyed option literals when upgrading:
+the expanded `SnapshotOptions` / `HTTPConfig` structs require updates to positional
+literals.
+
+Shared-host/Python entry wiring and the fixed hosted matrix passed on the reviewed
+candidate. Adoption remains pending; see
+[the adoption review](reviews/issue53-fork-limit-adoption-review.md).
 
 
 ## Lifecycle, cancellation and errors

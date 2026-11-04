@@ -16,6 +16,26 @@ Changing version metadata does not itself publish a release.
 
 ## Issue #53 — finite Fork admission by default, implementation authorized
 
+### Current acceptance — technically complete, adoption pending
+
+The fixed eighteen-row exit has been reconciled against exact source_commit
+`c53771cd9f653f971fdfa677105d46f6787298f9` and successful verify
+[41761661883](https://github.com/masahitojp/mariamem/actions/runs/41761661883).
+Both supported OSes and Python3.11/3.14 pass actual/installed Fork, Live/E2E and
+D1 cap1 serial/xdist acceptance. Artifact digests, source/host/clean bindings and
+named failure controls are checked; the
+[adoption review](reviews/issue53-fork-limit-adoption-review.md) recommends the
+candidate, including the host WASI write-error cleanup prerequisite. Human
+adoption and main integration remain pending. There is no new version or release
+approval, global/OOM/CPU-optimal guarantee, resource campaign or prewarming scope.
+The accompanying evidence/wording commit preserves the tested non-doc tree;
+receipts remain pinned to c53771cd.
+
+### Historical implementation checkpoints
+
+The paragraphs below preserve the source/result context of each checkpoint;
+execution described as pending there is superseded by the current acceptance above.
+
 On2026-11-03 the Human selected pgmem-style default limiting: an omitted Fork
 limit must resolve to a finite value, and full capacity waits before starting
 another MariaDB instance. The initial unlimited-default compatibility proposal
