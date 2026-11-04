@@ -1,0 +1,28 @@
+{
+  "baseline_source_commit": "c27061f1a33eed2908fd90b0e2d816692e001339",
+  "initial_spike_source_commit": "5e2ce8f5f637afb4a3a30fd7d32d1561657eb6f4",
+  "scope": "internal host DialPipe; no public API, guest or default change; listener retained",
+  "budget_gib": 3,
+  "min_free_gib": 6,
+  "active_work_budget_minutes": 45,
+  "hosts": 1,
+  "benchmark_plan": {
+    "fresh_processes": 5,
+    "mode_order": "alternating TCP/Pipe first",
+    "iterations_per_cell": 1000,
+    "gomaxprocs": 8,
+    "workloads": [
+      "connect_ping",
+      "select1",
+      "prepared1",
+      "result64x128"
+    ],
+    "timed": "only connection+ping or warm SQL iteration; excludes guest startup, build, Fork and teardown",
+    "pool": "steady maxOpen1/maxIdle1; connect_ping idle0; no concurrency"
+  },
+  "stop_conditions": [
+    "correctness blocker stops performance campaign",
+    "finite5 paired process campaign; no automatic matrix expansion",
+    "adoption decision separate"
+  ]
+}

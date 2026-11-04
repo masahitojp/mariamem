@@ -1,0 +1,6 @@
+{
+  "go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+  "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4",
+  "guest/source.patch": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16",
+  "internal/runtimekind/kind.go": "f3058ed2acb1623afac0cf7bf76d3de56472b91e3df1b692d7d97062486952f8"
+}

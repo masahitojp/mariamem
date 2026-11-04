@@ -1,0 +1,11 @@
+{
+  "source_commit": "4d0b3efac0d59341099c1ef6b4f6bfc863172b75",
+  "binary_sha256": "f780607a90302233da68f3c800108af534c14cb84a05be305008e95f08323696",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "gomaxprocs": 8,
+  "driver": "github.com/go-sql-driver/mysql v1.9.3",
+  "go": "go1.26.10",
+  "vcs_stamp": "Go test binary does not contain VCS fields; clean source identities checked before compilation, binary SHA256 recorded",
+  "build_worktree_clean": true
+}

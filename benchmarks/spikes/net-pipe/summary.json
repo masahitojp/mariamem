@@ -1,0 +1,54 @@
+[
+  {
+    "workload": "connect_ping",
+    "tcp_median_ns": 507425.0,
+    "pipe_median_ns": 224706.0,
+    "reduction_percent": 55.72,
+    "per_process_speedup": [
+      3.146866217542727,
+      2.2960049554063784,
+      1.8807532443038801,
+      1.3006405959850125,
+      2.2581729014801564
+    ]
+  },
+  {
+    "workload": "select1",
+    "tcp_median_ns": 127955.0,
+    "pipe_median_ns": 83657.0,
+    "reduction_percent": 34.62,
+    "per_process_speedup": [
+      1.3788206605544067,
+      1.677108591650829,
+      2.42772799156563,
+      1.0759701810436635,
+      1.848908471360635
+    ]
+  },
+  {
+    "workload": "prepared1",
+    "tcp_median_ns": 175474.0,
+    "pipe_median_ns": 88233.0,
+    "reduction_percent": 49.72,
+    "per_process_speedup": [
+      1.27236528938671,
+      2.971465060178795,
+      1.9365840310841131,
+      1.9477746421406956,
+      2.0970398078324988
+    ]
+  },
+  {
+    "workload": "result64x128",
+    "tcp_median_ns": 1513796.0,
+    "pipe_median_ns": 1031257.0,
+    "reduction_percent": 31.88,
+    "per_process_speedup": [
+      1.4969029474374842,
+      1.5085231931635552,
+      1.3222058129059973,
+      1.4429321587515525,
+      1.3943843680963743
+    ]
+  }
+]

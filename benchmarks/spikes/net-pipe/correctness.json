@@ -1,0 +1,32 @@
+{
+  "result": "PASS",
+  "spike_leaf_cases": 17,
+  "existing_host_leaf_cases": 6,
+  "cases": [
+    "TestConsumedFailureKeepsTransferUntilGuestAndWorkersJoin",
+    "TestIssue66/tcp/handshake_select",
+    "TestIssue66/tcp/prepared_parameter",
+    "TestIssue66/tcp/transaction_commit_rollback",
+    "TestIssue66/tcp/capacity_and_reuse",
+    "TestIssue66/tcp/close_with_idle_and_unread_handshake",
+    "TestIssue66/pipe/handshake_select",
+    "TestIssue66/pipe/prepared_parameter",
+    "TestIssue66/pipe/transaction_commit_rollback",
+    "TestIssue66/pipe/capacity_and_reuse",
+    "TestIssue66/pipe/close_with_idle_and_unread_handshake",
+    "TestIssue66/pipe_cancelled_dial",
+    "TestIssue66/tcp_query_cancel",
+    "TestIssue66/pipe_query_cancel",
+    "TestIssue66/pipe_capacity_rejection_close",
+    "TestIssue66/pipe_guest_failure_new_dial",
+    "TestIssue66/pipe_read_deadline",
+    "TestIssue66/pipe_close_race",
+    "TestSlotReservationAndReuse",
+    "TestSnapshotDestination/success",
+    "TestSnapshotDestination/publish-failure",
+    "TestSnapshotDestination/export-failure",
+    "TestSnapshotDestination/existing"
+  ],
+  "initial_source_commit": "5e2ce8f5f637afb4a3a30fd7d32d1561657eb6f4",
+  "initial_run": "PASS; before two additional termination cases and commit coverage"
+}
