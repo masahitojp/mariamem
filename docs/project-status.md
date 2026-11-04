@@ -98,6 +98,13 @@ records the fixed conditions and current evidence limits. The known planned
 remaining work is hosted installed/platform execution and source-bound receipt
 assessment. New defects found by those runs are a distinct uncertainty; no new
 design decision or performance exit is currently proposed.
+Hosted verify41746730774 on `b75af56f` produced installed D1 cap1 PASS on both
+OSes/Python3.11/3.14. Its core jobs both failed an outdated memory32 test expecting
+1045 after #78's approved placeholder-credential change. The test-only correction
+checks accepted credentials plus SQL and preserves malformed-handshake rejection;
+local complete generatedmemory/godefault integration packages pass. The old run's
+results remain attached to `b75af56f`, and the corrected source requires a new
+verify submission rather than being called READY from partial family results.
 There is no new performance campaign. The milestone and publication decisions are
 unchanged. Prewarming remains
 separate in [#84](https://github.com/masahitojp/mariamem/issues/84).

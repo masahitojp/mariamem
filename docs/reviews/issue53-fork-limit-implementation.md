@@ -10,7 +10,34 @@ unfinished.**
 [the fixed acceptance table](issue53-fork-limit-design.md#fixed-acceptance-and-stopping-point)
 is unchanged. No acceptance row covering a real entry is marked complete here.
 
-## Current checkpoint — final race cases and matrix detector wiring
+## Current checkpoint — hosted matrix and stale credential oracle repair
+
+Verify run [41746730774](https://github.com/masahitojp/mariamem/actions/runs/41746730774)
+uses source_commit `b75af56f6960316a2d47e7865a21808a20105330`. During the Human's
+explicit five-minute monitoring request, both core jobs failed the old
+`TestPureMemory32Auth`: they expected1045 for placeholder credentials even though
+the approved #78 endpoint accepts them. Both jobs had already passed the existing
+`tests/godefault` suite, which checks accepted credentials and malformed-handshake
+rejection. This is an outdated integration oracle, not evidence of a Fork-limit
+runtime regression.
+
+The test is corrected to `TestPureMemory32PlaceholderCredentials`: default
+root/empty metadata stays checked; root/wrong-pass, unknown-user/empty, test/test
+and root/root must execute SQL, and the original root connection remains usable.
+Product/API/guest/generated behavior is unchanged. No error is ignored and the
+malformed/capability handshake rejection oracle remains in
+`tests/godefault/credentials_test.go`. Local macOS arm64 / Go1.26.10 checks of
+both complete integration packages (`tests/generatedmemory`, `tests/godefault`)
+pass. New verification uses a new SHA, not a rerun of the old source with a
+substituted test or a relabelled receipt.
+
+The completed D1 artifacts from the original run were downloaded and checked:
+both OSes × Python3.11/3.14 have installed=true, exact source/host commit above,
+dirty=false,20 serial and15 xdist PASS with cap1/finite-wait checks. This bounded
+success is retained under the original SHA; the entire verify run is not READY
+because its core jobs failed. Other families and final aggregate remain separate.
+
+## Previous checkpoint — final race cases and matrix detector wiring
 
 Continues from source_commit `aac7bc6fcd9e2c26983ca35dd6df6798bad9114b`.
 The remaining planned Python barriers now cover both Fork spellings after the
