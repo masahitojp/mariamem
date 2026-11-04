@@ -1,0 +1,14 @@
+{
+  "issue": 106,
+  "result": "BOUNDED_COMPARISON_COMPLETE",
+  "recommendation": "do not adopt booster-off as default; startup improves but tested ASCII SQL and whole fixture regress",
+  "native_semantics": "PASS bounded corpus",
+  "snapshot_cleanup_controls": "PASS",
+  "measurement": "PASS five alternating pairs, no exclusion",
+  "platform": "macOS arm64 only",
+  "qualification": "UNQUALIFIED",
+  "product_adoption": false,
+  "main_integration": false,
+  "release": false,
+  "issue103": "separate initialized-state reuse proposal; unchanged"
+}

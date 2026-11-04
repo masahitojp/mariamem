@@ -1,0 +1,92 @@
+{
+  "temp/dev-guest/guest.json": {
+    "original_sha256": "97d258f15154dcaaad55f4721a0c7cc7f7cff1b6659f8d320aff0776141a34e1",
+    "published_sha256": "97d258f15154dcaaad55f4721a0c7cc7f7cff1b6659f8d320aff0776141a34e1",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "temp/dev-native/development.json": {
+    "original_sha256": "47a38dfb666b7e9a768a8593b052a50052f84205937cb6c2af61ad9d54cb978d",
+    "published_sha256": "b0412c9dfe8d0ea2922ac6ec212e1cd2fa6ae831b89ce779dad1b15716c0a21a",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "temp/dev-native/installation-inputs.json": {
+    "original_sha256": "2c503900538214a45204836c9ecaa9b09db38e5d293d974a59596129e535a6d3",
+    "published_sha256": "e458f2535c45744b3a8cc8f475d1442df833e4ea8708de229e3c36163c674d15",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "temp/dev-native/product/internal/generatedgo/provenance.json": {
+    "original_sha256": "cca471a96009c4b3c9061337f5ae53863b6214e67b34722949718008f6a3815f",
+    "published_sha256": "cca471a96009c4b3c9061337f5ae53863b6214e67b34722949718008f6a3815f",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "temp/dev-native-first/failure.json": {
+    "original_sha256": "65790969b17d4881b1a50607a2b1ceef02b2411240223f9ccf8b4e738cfbe772",
+    "published_sha256": "303c950d7e7494c4aa1c4bf12252e0123e305d65c13db7b1041a6feadd57cf2c",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "evidence/builder-image.json": {
+    "original_sha256": "655972ff8dfb13b3a88d23bfcc7b2af84c5b620e170daf092e77586a3aa1e555",
+    "published_sha256": "655972ff8dfb13b3a88d23bfcc7b2af84c5b620e170daf092e77586a3aa1e555",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "evidence/build-command.json": {
+    "original_sha256": "e14bdc71fd420b5b7a323458b47f4a3c06ee8c186cb00300ff195eff2fd55ffe",
+    "published_sha256": "98a71177863151e406cf0cdad1546596510d8fb9653255a3e1609c27673f6989",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "evidence/native-image.json": {
+    "original_sha256": "24363daae688efa953b365fabefe341a6d03817cbd3d14ea11b74be75973f477",
+    "published_sha256": "24363daae688efa953b365fabefe341a6d03817cbd3d14ea11b74be75973f477",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "evidence/native-command.json": {
+    "original_sha256": "4cc9315b6ce8a13d1179498ff2338852d8dee6d507bd3893314f483c305558cd",
+    "published_sha256": "293a6317f491192a11e7f4e53f33b4834160fdb8bb6fdeb5575a38f44b6a9ff4",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "evidence/native-container.json": {
+    "original_sha256": "1f89f16c001c6d0634675ac3061111301db059fd76fb05aadcfc3020c424fa2a",
+    "published_sha256": "1f89f16c001c6d0634675ac3061111301db059fd76fb05aadcfc3020c424fa2a",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "evidence/native-container-expanded.json": {
+    "original_sha256": "cf61d70ee90f26fab9d5d9f3b2190ab52b32fade4ff1fedac5d1267dc03933ec",
+    "published_sha256": "cf61d70ee90f26fab9d5d9f3b2190ab52b32fade4ff1fedac5d1267dc03933ec",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "evidence/sandbox-native-exit.json": {
+    "original_sha256": "090c7443a14710a2921cc137344820c85d3a059843a6a9705f3e232ca9e6fc56",
+    "published_sha256": "090c7443a14710a2921cc137344820c85d3a059843a6a9705f3e232ca9e6fc56",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "guest-build.log": {
+    "original_sha256": "cdd026d382db7d8904aa7bd2e403e15ceb6b03e009973dc5e4137729c83310a8",
+    "published_sha256": "cdd026d382db7d8904aa7bd2e403e15ceb6b03e009973dc5e4137729c83310a8",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "acquisition-guest-build.log": {
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "native-generation.log": {
+    "original_sha256": "552f7e43eae0942ec5ef40df2da490445f9e62c890316e79bfc213b4eaf6650a",
+    "published_sha256": "f85acd397b493038117c48a9e19f3fd5ad4200f1ee450be24d9954fec2ad35f1",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "sandbox-native-generation.log": {
+    "original_sha256": "fb3df85c105669623c5433db634cad24e6e9d0dea7e5dca1ca5cc57ba0900e99",
+    "published_sha256": "d892375219f7ae83ac5bab12d921f64fd2da585e6aa4f43d2b5e67773a0d96fe",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "guest-phases.jsonl": {
+    "original_sha256": "4cac0488d297284bc06fe5e72edad8d2e40d2f96e93a237460d036a8aa48e355",
+    "published_sha256": "6de597afc7428b72af6d1612a87ee68876374acd6158fe3b51f7124aadf7bb79",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  },
+  "native-phases.jsonl": {
+    "original_sha256": "ed616c231314fa18afdfe42261e034727558fbdc10f5aa004ada3fa173dffb64",
+    "published_sha256": "de774befa615163312397f896bcbe0285fc9f286d0aaaa2b3e3678b959f405ca",
+    "normalization": "workspace/repository/GOPATH prefixes only"
+  }
+}

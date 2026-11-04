@@ -2,6 +2,10 @@
 
 ## Recent measurement and discovery reports
 
+- [Issue106 UTF8 UCA booster-off spike](ucaboosteroff/README.md): one-host
+  experimental A/B. Fork improved, tested ASCII SQL and whole-fixture time
+  regressed; recommendation is to keep the switch out of the default. No adoption.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained

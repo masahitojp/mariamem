@@ -1,0 +1,6 @@
+{
+  "discarded": "guest WASM, generated Go, source extracts, LLVM/SDK, host binaries, Go caches and venv are reproducible temp",
+  "retained": "primary records, exact native vectors, controls, full source/input inventories and build event/log records (gzip), probe/reducer, experimental patch in parent",
+  "source_comment_check": "raw API vs archive differed only in NUL/SOH comment spelling; actual compiled source was verified byte-for-byte against patched pinned tar member (actual-patched-source.json)",
+  "reproduction": "See ../README.md; use guest origin 2b4a209f then host-stage 839516fb. Published path-normalized provenance is a copy; original hashes retained separately."
+}

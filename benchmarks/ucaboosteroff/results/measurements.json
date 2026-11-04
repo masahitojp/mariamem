@@ -1,0 +1,1382 @@
+{
+  "round0-baseline": {
+    "result": "PASS",
+    "mode": "measure",
+    "children": [
+      {
+        "ordinal": 0,
+        "fork_wall_ns": 36497250,
+        "fork_cpu_ns": 48482833,
+        "rss_after_fork_bytes": 128663552,
+        "first_read_wall_ns": 1444250,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 31678750,
+            "host_cpu_ns": 31277208
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20948791,
+            "host_cpu_ns": 19836291
+          }
+        },
+        "sql_total_wall_ns": 64862750,
+        "oracle": true
+      },
+      {
+        "ordinal": 1,
+        "fork_wall_ns": 39278417,
+        "fork_cpu_ns": 52961458,
+        "rss_after_fork_bytes": 208486400,
+        "first_read_wall_ns": 1088541,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 32447958,
+            "host_cpu_ns": 33259917
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 21563000,
+            "host_cpu_ns": 19828708
+          }
+        },
+        "sql_total_wall_ns": 61452167,
+        "oracle": true
+      },
+      {
+        "ordinal": 2,
+        "fork_wall_ns": 41242250,
+        "fork_cpu_ns": 54786666,
+        "rss_after_fork_bytes": 288980992,
+        "first_read_wall_ns": 1399083,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 34244292,
+            "host_cpu_ns": 35951584
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 21711459,
+            "host_cpu_ns": 19757000
+          }
+        },
+        "sql_total_wall_ns": 70290667,
+        "oracle": true
+      },
+      {
+        "ordinal": 3,
+        "fork_wall_ns": 53573833,
+        "fork_cpu_ns": 55577750,
+        "rss_after_fork_bytes": 370475008,
+        "first_read_wall_ns": 1227167,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 67308250,
+            "host_cpu_ns": 63123917
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 21486917,
+            "host_cpu_ns": 22318833
+          }
+        },
+        "sql_total_wall_ns": 108549000,
+        "oracle": true
+      }
+    ],
+    "held": [
+      {
+        "children": 0,
+        "cpu_ns": 83354583,
+        "rss_bytes": 47398912,
+        "footprint_bytes": 13124184,
+        "pageins": 0
+      },
+      {
+        "children": 1,
+        "cpu_ns": 197229458,
+        "rss_bytes": 129581056,
+        "footprint_bytes": 94061336,
+        "pageins": 0
+      },
+      {
+        "children": 2,
+        "cpu_ns": 315295750,
+        "rss_bytes": 208830464,
+        "footprint_bytes": 173409240,
+        "pageins": 0
+      },
+      {
+        "children": 4,
+        "cpu_ns": 604387916,
+        "rss_bytes": 372097024,
+        "footprint_bytes": 336954736,
+        "pageins": 0
+      }
+    ],
+    "cleanup": {
+      "refs": 0,
+      "process_exit": 0,
+      "reaped": true,
+      "root_exists": false
+    },
+    "query_repetitions": 20,
+    "version": "12.3.3-MariaDB-embedded",
+    "prepare_wall_ns": 86123417,
+    "host_pid": 7550,
+    "cleanup_errors": [],
+    "probe_sha256": "0e51322d0b6102933642b960725c146d4784db81cda38e2e4bab70534e5ac0be",
+    "runner_sha256": "368b3440a625eede2383bad9944fa991b56a67a34823a7412a58b1a0687f4993",
+    "label": "baseline",
+    "exit_code": 0,
+    "controller_process_wall_ns": 652595750,
+    "binary_sha256": "ba370b540352e7fb45f5239b3e8cce370d532a65612d342dc85cc9d1c4bf53eb",
+    "scratch_remaining": []
+  },
+  "round0-candidate": {
+    "result": "PASS",
+    "mode": "measure",
+    "children": [
+      {
+        "ordinal": 0,
+        "fork_wall_ns": 26493875,
+        "fork_cpu_ns": 39329458,
+        "rss_after_fork_bytes": 121847808,
+        "first_read_wall_ns": 1078542,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 67610375,
+            "host_cpu_ns": 65206583
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20898291,
+            "host_cpu_ns": 19103125
+          }
+        },
+        "sql_total_wall_ns": 96959709,
+        "oracle": true
+      },
+      {
+        "ordinal": 1,
+        "fork_wall_ns": 26753792,
+        "fork_cpu_ns": 40351625,
+        "rss_after_fork_bytes": 195837952,
+        "first_read_wall_ns": 991250,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 67131791,
+            "host_cpu_ns": 64772667
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 21045917,
+            "host_cpu_ns": 19010041
+          }
+        },
+        "sql_total_wall_ns": 96307375,
+        "oracle": true
+      },
+      {
+        "ordinal": 2,
+        "fork_wall_ns": 27320125,
+        "fork_cpu_ns": 39069292,
+        "rss_after_fork_bytes": 270876672,
+        "first_read_wall_ns": 822208,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 72359250,
+            "host_cpu_ns": 70048042
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 22913083,
+            "host_cpu_ns": 21981250
+          }
+        },
+        "sql_total_wall_ns": 110114250,
+        "oracle": true
+      },
+      {
+        "ordinal": 3,
+        "fork_wall_ns": 28165500,
+        "fork_cpu_ns": 43748125,
+        "rss_after_fork_bytes": 346243072,
+        "first_read_wall_ns": 1211791,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 80950000,
+            "host_cpu_ns": 77978125
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 22288083,
+            "host_cpu_ns": 21492000
+          }
+        },
+        "sql_total_wall_ns": 118901167,
+        "oracle": true
+      }
+    ],
+    "held": [
+      {
+        "children": 0,
+        "cpu_ns": 76933875,
+        "rss_bytes": 47267840,
+        "footprint_bytes": 13140592,
+        "pageins": 0
+      },
+      {
+        "children": 1,
+        "cpu_ns": 216522291,
+        "rss_bytes": 122355712,
+        "footprint_bytes": 87098160,
+        "pageins": 0
+      },
+      {
+        "children": 2,
+        "cpu_ns": 355516166,
+        "rss_bytes": 196067328,
+        "footprint_bytes": 160777200,
+        "pageins": 0
+      },
+      {
+        "children": 4,
+        "cpu_ns": 668703708,
+        "rss_bytes": 347291648,
+        "footprint_bytes": 312264048,
+        "pageins": 0
+      }
+    ],
+    "cleanup": {
+      "refs": 0,
+      "process_exit": 0,
+      "reaped": true,
+      "root_exists": false
+    },
+    "query_repetitions": 20,
+    "version": "12.3.3-MariaDB-embedded",
+    "prepare_wall_ns": 80250166,
+    "host_pid": 7598,
+    "cleanup_errors": [],
+    "probe_sha256": "0e51322d0b6102933642b960725c146d4784db81cda38e2e4bab70534e5ac0be",
+    "runner_sha256": "368b3440a625eede2383bad9944fa991b56a67a34823a7412a58b1a0687f4993",
+    "label": "candidate",
+    "exit_code": 0,
+    "controller_process_wall_ns": 706465750,
+    "binary_sha256": "6e209bab33763d1257871fcf5c1bfe2ad7c55ecfe2184bb2eec0eaf22cf52a06",
+    "scratch_remaining": []
+  },
+  "round1-baseline": {
+    "result": "PASS",
+    "mode": "measure",
+    "children": [
+      {
+        "ordinal": 0,
+        "fork_wall_ns": 34673291,
+        "fork_cpu_ns": 48135834,
+        "rss_after_fork_bytes": 128860160,
+        "first_read_wall_ns": 1453584,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 31122250,
+            "host_cpu_ns": 31852834
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20012375,
+            "host_cpu_ns": 19483750
+          }
+        },
+        "sql_total_wall_ns": 58015250,
+        "oracle": true
+      },
+      {
+        "ordinal": 1,
+        "fork_wall_ns": 34416084,
+        "fork_cpu_ns": 46331041,
+        "rss_after_fork_bytes": 208240640,
+        "first_read_wall_ns": 1258708,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 30981583,
+            "host_cpu_ns": 31539375
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20570583,
+            "host_cpu_ns": 18852041
+          }
+        },
+        "sql_total_wall_ns": 58016291,
+        "oracle": true
+      },
+      {
+        "ordinal": 2,
+        "fork_wall_ns": 36064875,
+        "fork_cpu_ns": 50083541,
+        "rss_after_fork_bytes": 289095680,
+        "first_read_wall_ns": 1243417,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 34255208,
+            "host_cpu_ns": 34910709
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20923958,
+            "host_cpu_ns": 19636708
+          }
+        },
+        "sql_total_wall_ns": 67444667,
+        "oracle": true
+      },
+      {
+        "ordinal": 3,
+        "fork_wall_ns": 36662916,
+        "fork_cpu_ns": 48391084,
+        "rss_after_fork_bytes": 370393088,
+        "first_read_wall_ns": 1219167,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 31921333,
+            "host_cpu_ns": 33437125
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20940250,
+            "host_cpu_ns": 21028334
+          }
+        },
+        "sql_total_wall_ns": 59698416,
+        "oracle": true
+      }
+    ],
+    "held": [
+      {
+        "children": 0,
+        "cpu_ns": 79035416,
+        "rss_bytes": 47087616,
+        "footprint_bytes": 12911192,
+        "pageins": 0
+      },
+      {
+        "children": 1,
+        "cpu_ns": 188614750,
+        "rss_bytes": 129564672,
+        "footprint_bytes": 94241584,
+        "pageins": 0
+      },
+      {
+        "children": 2,
+        "cpu_ns": 296049000,
+        "rss_bytes": 209043456,
+        "footprint_bytes": 173818864,
+        "pageins": 0
+      },
+      {
+        "children": 4,
+        "cpu_ns": 530173333,
+        "rss_bytes": 371458048,
+        "footprint_bytes": 336495984,
+        "pageins": 0
+      }
+    ],
+    "cleanup": {
+      "refs": 0,
+      "process_exit": 0,
+      "reaped": true,
+      "root_exists": false
+    },
+    "query_repetitions": 20,
+    "version": "12.3.3-MariaDB-embedded",
+    "prepare_wall_ns": 84526916,
+    "host_pid": 7669,
+    "cleanup_errors": [],
+    "probe_sha256": "0e51322d0b6102933642b960725c146d4784db81cda38e2e4bab70534e5ac0be",
+    "runner_sha256": "368b3440a625eede2383bad9944fa991b56a67a34823a7412a58b1a0687f4993",
+    "label": "baseline",
+    "exit_code": 0,
+    "controller_process_wall_ns": 561089041,
+    "binary_sha256": "ba370b540352e7fb45f5239b3e8cce370d532a65612d342dc85cc9d1c4bf53eb",
+    "scratch_remaining": []
+  },
+  "round1-candidate": {
+    "result": "PASS",
+    "mode": "measure",
+    "children": [
+      {
+        "ordinal": 0,
+        "fork_wall_ns": 26755583,
+        "fork_cpu_ns": 40640209,
+        "rss_after_fork_bytes": 122699776,
+        "first_read_wall_ns": 937500,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 76649750,
+            "host_cpu_ns": 74649792
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 21920958,
+            "host_cpu_ns": 20334250
+          }
+        },
+        "sql_total_wall_ns": 113199250,
+        "oracle": true
+      },
+      {
+        "ordinal": 1,
+        "fork_wall_ns": 30045750,
+        "fork_cpu_ns": 47138250,
+        "rss_after_fork_bytes": 196673536,
+        "first_read_wall_ns": 1120958,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 69213250,
+            "host_cpu_ns": 67206291
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 21888917,
+            "host_cpu_ns": 21034250
+          }
+        },
+        "sql_total_wall_ns": 105930792,
+        "oracle": true
+      },
+      {
+        "ordinal": 2,
+        "fork_wall_ns": 27884875,
+        "fork_cpu_ns": 37992375,
+        "rss_after_fork_bytes": 271106048,
+        "first_read_wall_ns": 1225083,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 80692958,
+            "host_cpu_ns": 78858458
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 23710541,
+            "host_cpu_ns": 23222250
+          }
+        },
+        "sql_total_wall_ns": 113654459,
+        "oracle": true
+      },
+      {
+        "ordinal": 3,
+        "fork_wall_ns": 30231500,
+        "fork_cpu_ns": 40023583,
+        "rss_after_fork_bytes": 346554368,
+        "first_read_wall_ns": 382583,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 66770000,
+            "host_cpu_ns": 64872625
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20394625,
+            "host_cpu_ns": 18823500
+          }
+        },
+        "sql_total_wall_ns": 94788666,
+        "oracle": true
+      }
+    ],
+    "held": [
+      {
+        "children": 0,
+        "cpu_ns": 76112416,
+        "rss_bytes": 47333376,
+        "footprint_bytes": 13009496,
+        "pageins": 0
+      },
+      {
+        "children": 1,
+        "cpu_ns": 226533000,
+        "rss_bytes": 123453440,
+        "footprint_bytes": 87900952,
+        "pageins": 0
+      },
+      {
+        "children": 2,
+        "cpu_ns": 377473958,
+        "rss_bytes": 196739072,
+        "footprint_bytes": 161235928,
+        "pageins": 0
+      },
+      {
+        "children": 4,
+        "cpu_ns": 676879958,
+        "rss_bytes": 347095040,
+        "footprint_bytes": 311838064,
+        "pageins": 0
+      }
+    ],
+    "cleanup": {
+      "refs": 0,
+      "process_exit": 0,
+      "reaped": true,
+      "root_exists": false
+    },
+    "query_repetitions": 20,
+    "version": "12.3.3-MariaDB-embedded",
+    "prepare_wall_ns": 78940083,
+    "host_pid": 7636,
+    "cleanup_errors": [],
+    "probe_sha256": "0e51322d0b6102933642b960725c146d4784db81cda38e2e4bab70534e5ac0be",
+    "runner_sha256": "368b3440a625eede2383bad9944fa991b56a67a34823a7412a58b1a0687f4993",
+    "label": "candidate",
+    "exit_code": 0,
+    "controller_process_wall_ns": 714727958,
+    "binary_sha256": "6e209bab33763d1257871fcf5c1bfe2ad7c55ecfe2184bb2eec0eaf22cf52a06",
+    "scratch_remaining": []
+  },
+  "round2-baseline": {
+    "result": "PASS",
+    "mode": "measure",
+    "children": [
+      {
+        "ordinal": 0,
+        "fork_wall_ns": 35758042,
+        "fork_cpu_ns": 45425458,
+        "rss_after_fork_bytes": 128040960,
+        "first_read_wall_ns": 1239167,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 32134416,
+            "host_cpu_ns": 33365459
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 19930458,
+            "host_cpu_ns": 18285917
+          }
+        },
+        "sql_total_wall_ns": 59011917,
+        "oracle": true
+      },
+      {
+        "ordinal": 1,
+        "fork_wall_ns": 35798000,
+        "fork_cpu_ns": 47408083,
+        "rss_after_fork_bytes": 208322560,
+        "first_read_wall_ns": 1349834,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 31767083,
+            "host_cpu_ns": 33542417
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20368500,
+            "host_cpu_ns": 19478083
+          }
+        },
+        "sql_total_wall_ns": 64976333,
+        "oracle": true
+      },
+      {
+        "ordinal": 2,
+        "fork_wall_ns": 36192834,
+        "fork_cpu_ns": 48886084,
+        "rss_after_fork_bytes": 289259520,
+        "first_read_wall_ns": 1762375,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 30815916,
+            "host_cpu_ns": 31547333
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 19788791,
+            "host_cpu_ns": 19199709
+          }
+        },
+        "sql_total_wall_ns": 64057750,
+        "oracle": true
+      },
+      {
+        "ordinal": 3,
+        "fork_wall_ns": 34669250,
+        "fork_cpu_ns": 47259333,
+        "rss_after_fork_bytes": 371589120,
+        "first_read_wall_ns": 1342000,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 30311209,
+            "host_cpu_ns": 30765709
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 19446125,
+            "host_cpu_ns": 18774709
+          }
+        },
+        "sql_total_wall_ns": 56251750,
+        "oracle": true
+      }
+    ],
+    "held": [
+      {
+        "children": 0,
+        "cpu_ns": 87145208,
+        "rss_bytes": 46825472,
+        "footprint_bytes": 12878400,
+        "pageins": 0
+      },
+      {
+        "children": 1,
+        "cpu_ns": 199315500,
+        "rss_bytes": 128843776,
+        "footprint_bytes": 93356800,
+        "pageins": 0
+      },
+      {
+        "children": 2,
+        "cpu_ns": 315762041,
+        "rss_bytes": 208994304,
+        "footprint_bytes": 173638592,
+        "pageins": 0
+      },
+      {
+        "children": 4,
+        "cpu_ns": 535303666,
+        "rss_bytes": 372178944,
+        "footprint_bytes": 337085784,
+        "pageins": 0
+      }
+    ],
+    "cleanup": {
+      "refs": 0,
+      "process_exit": 0,
+      "reaped": true,
+      "root_exists": false
+    },
+    "query_repetitions": 20,
+    "version": "12.3.3-MariaDB-embedded",
+    "prepare_wall_ns": 89661208,
+    "host_pid": 7701,
+    "cleanup_errors": [],
+    "probe_sha256": "0e51322d0b6102933642b960725c146d4784db81cda38e2e4bab70534e5ac0be",
+    "runner_sha256": "368b3440a625eede2383bad9944fa991b56a67a34823a7412a58b1a0687f4993",
+    "label": "baseline",
+    "exit_code": 0,
+    "controller_process_wall_ns": 571746708,
+    "binary_sha256": "ba370b540352e7fb45f5239b3e8cce370d532a65612d342dc85cc9d1c4bf53eb",
+    "scratch_remaining": []
+  },
+  "round2-candidate": {
+    "result": "PASS",
+    "mode": "measure",
+    "children": [
+      {
+        "ordinal": 0,
+        "fork_wall_ns": 27185167,
+        "fork_cpu_ns": 39543750,
+        "rss_after_fork_bytes": 122798080,
+        "first_read_wall_ns": 952375,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 65485084,
+            "host_cpu_ns": 63715959
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20369958,
+            "host_cpu_ns": 19039167
+          }
+        },
+        "sql_total_wall_ns": 93777084,
+        "oracle": true
+      },
+      {
+        "ordinal": 1,
+        "fork_wall_ns": 27752333,
+        "fork_cpu_ns": 41790042,
+        "rss_after_fork_bytes": 196067328,
+        "first_read_wall_ns": 968000,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 71980209,
+            "host_cpu_ns": 70513583
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 22088583,
+            "host_cpu_ns": 20960292
+          }
+        },
+        "sql_total_wall_ns": 102553792,
+        "oracle": true
+      },
+      {
+        "ordinal": 2,
+        "fork_wall_ns": 26346500,
+        "fork_cpu_ns": 41843000,
+        "rss_after_fork_bytes": 270663680,
+        "first_read_wall_ns": 1383375,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 71236667,
+            "host_cpu_ns": 69559167
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 21394791,
+            "host_cpu_ns": 20141000
+          }
+        },
+        "sql_total_wall_ns": 108030833,
+        "oracle": true
+      },
+      {
+        "ordinal": 3,
+        "fork_wall_ns": 27796500,
+        "fork_cpu_ns": 41245083,
+        "rss_after_fork_bytes": 345718784,
+        "first_read_wall_ns": 888250,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 77860583,
+            "host_cpu_ns": 75063208
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 24439250,
+            "host_cpu_ns": 23597041
+          }
+        },
+        "sql_total_wall_ns": 117377834,
+        "oracle": true
+      }
+    ],
+    "held": [
+      {
+        "children": 0,
+        "cpu_ns": 73199916,
+        "rss_bytes": 47087616,
+        "footprint_bytes": 12780120,
+        "pageins": 0
+      },
+      {
+        "children": 1,
+        "cpu_ns": 210701833,
+        "rss_bytes": 123502592,
+        "footprint_bytes": 87933720,
+        "pageins": 0
+      },
+      {
+        "children": 2,
+        "cpu_ns": 360396416,
+        "rss_bytes": 196689920,
+        "footprint_bytes": 161235928,
+        "pageins": 0
+      },
+      {
+        "children": 4,
+        "cpu_ns": 665364541,
+        "rss_bytes": 346505216,
+        "footprint_bytes": 311280984,
+        "pageins": 0
+      }
+    ],
+    "cleanup": {
+      "refs": 0,
+      "process_exit": 0,
+      "reaped": true,
+      "root_exists": false
+    },
+    "query_repetitions": 20,
+    "version": "12.3.3-MariaDB-embedded",
+    "prepare_wall_ns": 80070375,
+    "host_pid": 7732,
+    "cleanup_errors": [],
+    "probe_sha256": "0e51322d0b6102933642b960725c146d4784db81cda38e2e4bab70534e5ac0be",
+    "runner_sha256": "368b3440a625eede2383bad9944fa991b56a67a34823a7412a58b1a0687f4993",
+    "label": "candidate",
+    "exit_code": 0,
+    "controller_process_wall_ns": 708765500,
+    "binary_sha256": "6e209bab33763d1257871fcf5c1bfe2ad7c55ecfe2184bb2eec0eaf22cf52a06",
+    "scratch_remaining": []
+  },
+  "round3-baseline": {
+    "result": "PASS",
+    "mode": "measure",
+    "children": [
+      {
+        "ordinal": 0,
+        "fork_wall_ns": 38532417,
+        "fork_cpu_ns": 51267167,
+        "rss_after_fork_bytes": 128745472,
+        "first_read_wall_ns": 1868583,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 34304791,
+            "host_cpu_ns": 35053041
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20861958,
+            "host_cpu_ns": 19965959
+          }
+        },
+        "sql_total_wall_ns": 69328875,
+        "oracle": true
+      },
+      {
+        "ordinal": 1,
+        "fork_wall_ns": 37267709,
+        "fork_cpu_ns": 51362750,
+        "rss_after_fork_bytes": 209240064,
+        "first_read_wall_ns": 1090042,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 31424708,
+            "host_cpu_ns": 33626000
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20544084,
+            "host_cpu_ns": 19173459
+          }
+        },
+        "sql_total_wall_ns": 64714583,
+        "oracle": true
+      },
+      {
+        "ordinal": 2,
+        "fork_wall_ns": 38665208,
+        "fork_cpu_ns": 51581083,
+        "rss_after_fork_bytes": 289521664,
+        "first_read_wall_ns": 1685625,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 35134375,
+            "host_cpu_ns": 36456958
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 23231000,
+            "host_cpu_ns": 21439291
+          }
+        },
+        "sql_total_wall_ns": 72411417,
+        "oracle": true
+      },
+      {
+        "ordinal": 3,
+        "fork_wall_ns": 40320792,
+        "fork_cpu_ns": 52431083,
+        "rss_after_fork_bytes": 370999296,
+        "first_read_wall_ns": 1336042,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 34784750,
+            "host_cpu_ns": 36082125
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 22484792,
+            "host_cpu_ns": 20993917
+          }
+        },
+        "sql_total_wall_ns": 64880459,
+        "oracle": true
+      }
+    ],
+    "held": [
+      {
+        "children": 0,
+        "cpu_ns": 91405958,
+        "rss_bytes": 47546368,
+        "footprint_bytes": 13238920,
+        "pageins": 0
+      },
+      {
+        "children": 1,
+        "cpu_ns": 212348375,
+        "rss_bytes": 129810432,
+        "footprint_bytes": 94372680,
+        "pageins": 0
+      },
+      {
+        "children": 2,
+        "cpu_ns": 324699375,
+        "rss_bytes": 209436672,
+        "footprint_bytes": 173917192,
+        "pageins": 0
+      },
+      {
+        "children": 4,
+        "cpu_ns": 575442791,
+        "rss_bytes": 372277248,
+        "footprint_bytes": 337020296,
+        "pageins": 0
+      }
+    ],
+    "cleanup": {
+      "refs": 0,
+      "process_exit": 0,
+      "reaped": true,
+      "root_exists": false
+    },
+    "query_repetitions": 20,
+    "version": "12.3.3-MariaDB-embedded",
+    "prepare_wall_ns": 84142959,
+    "host_pid": 7777,
+    "cleanup_errors": [],
+    "probe_sha256": "0e51322d0b6102933642b960725c146d4784db81cda38e2e4bab70534e5ac0be",
+    "runner_sha256": "368b3440a625eede2383bad9944fa991b56a67a34823a7412a58b1a0687f4993",
+    "label": "baseline",
+    "exit_code": 0,
+    "controller_process_wall_ns": 607779417,
+    "binary_sha256": "ba370b540352e7fb45f5239b3e8cce370d532a65612d342dc85cc9d1c4bf53eb",
+    "scratch_remaining": []
+  },
+  "round3-candidate": {
+    "result": "PASS",
+    "mode": "measure",
+    "children": [
+      {
+        "ordinal": 0,
+        "fork_wall_ns": 27784000,
+        "fork_cpu_ns": 41942833,
+        "rss_after_fork_bytes": 122093568,
+        "first_read_wall_ns": 843500,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 73372834,
+            "host_cpu_ns": 71162000
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 21392625,
+            "host_cpu_ns": 20708750
+          }
+        },
+        "sql_total_wall_ns": 102972375,
+        "oracle": true
+      },
+      {
+        "ordinal": 1,
+        "fork_wall_ns": 26812708,
+        "fork_cpu_ns": 40257917,
+        "rss_after_fork_bytes": 196001792,
+        "first_read_wall_ns": 630166,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 66546000,
+            "host_cpu_ns": 64629166
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20416167,
+            "host_cpu_ns": 19259334
+          }
+        },
+        "sql_total_wall_ns": 94766208,
+        "oracle": true
+      },
+      {
+        "ordinal": 2,
+        "fork_wall_ns": 27760500,
+        "fork_cpu_ns": 41158750,
+        "rss_after_fork_bytes": 270909440,
+        "first_read_wall_ns": 704792,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 66145875,
+            "host_cpu_ns": 64178208
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20157333,
+            "host_cpu_ns": 18804375
+          }
+        },
+        "sql_total_wall_ns": 94055042,
+        "oracle": true
+      },
+      {
+        "ordinal": 3,
+        "fork_wall_ns": 33688208,
+        "fork_cpu_ns": 48479833,
+        "rss_after_fork_bytes": 346619904,
+        "first_read_wall_ns": 597083,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 66529125,
+            "host_cpu_ns": 64624958
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20270458,
+            "host_cpu_ns": 18729583
+          }
+        },
+        "sql_total_wall_ns": 94506125,
+        "oracle": true
+      }
+    ],
+    "held": [
+      {
+        "children": 0,
+        "cpu_ns": 76751833,
+        "rss_bytes": 47251456,
+        "footprint_bytes": 13140568,
+        "pageins": 0
+      },
+      {
+        "children": 1,
+        "cpu_ns": 226198708,
+        "rss_bytes": 122650624,
+        "footprint_bytes": 87327512,
+        "pageins": 0
+      },
+      {
+        "children": 2,
+        "cpu_ns": 364584375,
+        "rss_bytes": 196116480,
+        "footprint_bytes": 160777176,
+        "pageins": 0
+      },
+      {
+        "children": 4,
+        "cpu_ns": 647692583,
+        "rss_bytes": 346882048,
+        "footprint_bytes": 311756120,
+        "pageins": 0
+      }
+    ],
+    "cleanup": {
+      "refs": 0,
+      "process_exit": 0,
+      "reaped": true,
+      "root_exists": false
+    },
+    "query_repetitions": 20,
+    "version": "12.3.3-MariaDB-embedded",
+    "prepare_wall_ns": 73338666,
+    "host_pid": 7774,
+    "cleanup_errors": [],
+    "probe_sha256": "0e51322d0b6102933642b960725c146d4784db81cda38e2e4bab70534e5ac0be",
+    "runner_sha256": "368b3440a625eede2383bad9944fa991b56a67a34823a7412a58b1a0687f4993",
+    "label": "candidate",
+    "exit_code": 0,
+    "controller_process_wall_ns": 673942958,
+    "binary_sha256": "6e209bab33763d1257871fcf5c1bfe2ad7c55ecfe2184bb2eec0eaf22cf52a06",
+    "scratch_remaining": []
+  },
+  "round4-baseline": {
+    "result": "PASS",
+    "mode": "measure",
+    "children": [
+      {
+        "ordinal": 0,
+        "fork_wall_ns": 35872625,
+        "fork_cpu_ns": 48513834,
+        "rss_after_fork_bytes": 128679936,
+        "first_read_wall_ns": 1201542,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 30827792,
+            "host_cpu_ns": 31543875
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 19407083,
+            "host_cpu_ns": 18551750
+          }
+        },
+        "sql_total_wall_ns": 56721000,
+        "oracle": true
+      },
+      {
+        "ordinal": 1,
+        "fork_wall_ns": 35375083,
+        "fork_cpu_ns": 47333208,
+        "rss_after_fork_bytes": 209141760,
+        "first_read_wall_ns": 629917,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 32834792,
+            "host_cpu_ns": 33466416
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20433541,
+            "host_cpu_ns": 19670375
+          }
+        },
+        "sql_total_wall_ns": 59164750,
+        "oracle": true
+      },
+      {
+        "ordinal": 2,
+        "fork_wall_ns": 37062875,
+        "fork_cpu_ns": 50355542,
+        "rss_after_fork_bytes": 289472512,
+        "first_read_wall_ns": 1405208,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 30784500,
+            "host_cpu_ns": 31640625
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 19632833,
+            "host_cpu_ns": 18972792
+          }
+        },
+        "sql_total_wall_ns": 63365542,
+        "oracle": true
+      },
+      {
+        "ordinal": 3,
+        "fork_wall_ns": 38941084,
+        "fork_cpu_ns": 51718667,
+        "rss_after_fork_bytes": 370835456,
+        "first_read_wall_ns": 1255375,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 33171708,
+            "host_cpu_ns": 33392625
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 22162500,
+            "host_cpu_ns": 21396042
+          }
+        },
+        "sql_total_wall_ns": 68249417,
+        "oracle": true
+      }
+    ],
+    "held": [
+      {
+        "children": 0,
+        "cpu_ns": 80168791,
+        "rss_bytes": 46825472,
+        "footprint_bytes": 12845704,
+        "pageins": 0
+      },
+      {
+        "children": 1,
+        "cpu_ns": 189495833,
+        "rss_bytes": 129581056,
+        "footprint_bytes": 94274376,
+        "pageins": 0
+      },
+      {
+        "children": 2,
+        "cpu_ns": 301130958,
+        "rss_bytes": 209551360,
+        "footprint_bytes": 174375968,
+        "pageins": 0
+      },
+      {
+        "children": 4,
+        "cpu_ns": 528412791,
+        "rss_bytes": 371326976,
+        "footprint_bytes": 336217504,
+        "pageins": 0
+      }
+    ],
+    "cleanup": {
+      "refs": 0,
+      "process_exit": 0,
+      "reaped": true,
+      "root_exists": false
+    },
+    "query_repetitions": 20,
+    "version": "12.3.3-MariaDB-embedded",
+    "prepare_wall_ns": 78648583,
+    "host_pid": 7808,
+    "cleanup_errors": [],
+    "probe_sha256": "0e51322d0b6102933642b960725c146d4784db81cda38e2e4bab70534e5ac0be",
+    "runner_sha256": "368b3440a625eede2383bad9944fa991b56a67a34823a7412a58b1a0687f4993",
+    "label": "baseline",
+    "exit_code": 0,
+    "controller_process_wall_ns": 567175125,
+    "binary_sha256": "ba370b540352e7fb45f5239b3e8cce370d532a65612d342dc85cc9d1c4bf53eb",
+    "scratch_remaining": []
+  },
+  "round4-candidate": {
+    "result": "PASS",
+    "mode": "measure",
+    "children": [
+      {
+        "ordinal": 0,
+        "fork_wall_ns": 28023375,
+        "fork_cpu_ns": 42196041,
+        "rss_after_fork_bytes": 122437632,
+        "first_read_wall_ns": 927375,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 76660666,
+            "host_cpu_ns": 74743041
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 25179166,
+            "host_cpu_ns": 23488959
+          }
+        },
+        "sql_total_wall_ns": 116950000,
+        "oracle": true
+      },
+      {
+        "ordinal": 1,
+        "fork_wall_ns": 26921458,
+        "fork_cpu_ns": 42264416,
+        "rss_after_fork_bytes": 196788224,
+        "first_read_wall_ns": 425000,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 72551167,
+            "host_cpu_ns": 70862833
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 22800417,
+            "host_cpu_ns": 21358500
+          }
+        },
+        "sql_total_wall_ns": 109598333,
+        "oracle": true
+      },
+      {
+        "ordinal": 2,
+        "fork_wall_ns": 28274667,
+        "fork_cpu_ns": 41477000,
+        "rss_after_fork_bytes": 271319040,
+        "first_read_wall_ns": 518541,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 74032125,
+            "host_cpu_ns": 72116542
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 22608166,
+            "host_cpu_ns": 21896125
+          }
+        },
+        "sql_total_wall_ns": 105573917,
+        "oracle": true
+      },
+      {
+        "ordinal": 3,
+        "fork_wall_ns": 30121375,
+        "fork_cpu_ns": 44735291,
+        "rss_after_fork_bytes": 346898432,
+        "first_read_wall_ns": 929334,
+        "sql": {
+          "ascii": {
+            "result": "-1",
+            "wall_ns": 71981625,
+            "host_cpu_ns": 70506709
+          },
+          "mixed": {
+            "result": "0",
+            "wall_ns": 20849750,
+            "host_cpu_ns": 19691625
+          }
+        },
+        "sql_total_wall_ns": 101374458,
+        "oracle": true
+      }
+    ],
+    "held": [
+      {
+        "children": 0,
+        "cpu_ns": 76383750,
+        "rss_bytes": 47136768,
+        "footprint_bytes": 12894832,
+        "pageins": 0
+      },
+      {
+        "children": 1,
+        "cpu_ns": 233396250,
+        "rss_bytes": 123043840,
+        "footprint_bytes": 87655240,
+        "pageins": 0
+      },
+      {
+        "children": 2,
+        "cpu_ns": 383140791,
+        "rss_bytes": 196870144,
+        "footprint_bytes": 161399816,
+        "pageins": 0
+      },
+      {
+        "children": 4,
+        "cpu_ns": 685646041,
+        "rss_bytes": 347537408,
+        "footprint_bytes": 312329608,
+        "pageins": 0
+      }
+    ],
+    "cleanup": {
+      "refs": 0,
+      "process_exit": 0,
+      "reaped": true,
+      "root_exists": false
+    },
+    "query_repetitions": 20,
+    "version": "12.3.3-MariaDB-embedded",
+    "prepare_wall_ns": 73334291,
+    "host_pid": 7839,
+    "cleanup_errors": [],
+    "probe_sha256": "0e51322d0b6102933642b960725c146d4784db81cda38e2e4bab70534e5ac0be",
+    "runner_sha256": "368b3440a625eede2383bad9944fa991b56a67a34823a7412a58b1a0687f4993",
+    "label": "candidate",
+    "exit_code": 0,
+    "controller_process_wall_ns": 712947000,
+    "binary_sha256": "6e209bab33763d1257871fcf5c1bfe2ad7c55ecfe2184bb2eec0eaf22cf52a06",
+    "scratch_remaining": []
+  }
+}
