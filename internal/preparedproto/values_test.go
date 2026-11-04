@@ -159,7 +159,7 @@ func TestExecuteMalformedAndUnsupported(t *testing.T) {
 	if v, _, err := DecodeExecute(zero, 0, nil); err != nil || len(v) != 0 {
 		t.Fatal("zero parameters", err)
 	}
-	if _, _, err := DecodeExecute(append(zero, 0), 0, nil); err == nil {
+	if _, _, err := DecodeExecute(append(zero, 2), 0, nil); err == nil {
 		t.Fatal("zero parameters suffix")
 	}
 }
@@ -386,6 +386,50 @@ func TestBinaryRowBitmapAndBudget(t *testing.T) {
 		length, data, ok := readLength(b[2:])
 		if !ok || length != uint64(size) || !bytes.Equal(data, value.Bytes) {
 			t.Fatal("row length prefix", size)
+		}
+	}
+}
+
+func TestExecuteZeroParameterOptionalTypeFlag(t *testing.T) {
+	header := unhex(t, "010000000001000000")
+	previous := []ParameterType{{Type: 8, Unsigned: true}}
+	for _, suffix := range [][]byte{nil, {0}, {1}} {
+		packet := append(bytes.Clone(header), suffix...)
+		values, types, err := DecodeExecuteLongData(packet, 0, previous, nil)
+		if err != nil || len(values) != 0 || len(types) != 0 {
+			t.Fatalf("zero-parameter suffix %x: values=%v types=%v err=%v", suffix, values, types, err)
+		}
+		if previous[0] != (ParameterType{Type: 8, Unsigned: true}) {
+			t.Fatal("zero-parameter execute changed previous descriptors")
+		}
+		for _, flag := range []byte{1, 2, 4, 128} {
+			bad := bytes.Clone(packet)
+			bad[4] = flag
+			if _, _, err := DecodeExecute(bad, 0, nil); !errors.Is(err, ErrCursor) {
+				t.Fatalf("cursor %d with suffix %x: %v", flag, suffix, err)
+			}
+		}
+		for _, iteration := range []uint32{0, 2, ^uint32(0)} {
+			bad := bytes.Clone(packet)
+			binary.LittleEndian.PutUint32(bad[5:], iteration)
+			if _, _, err := DecodeExecute(bad, 0, nil); !errors.Is(err, ErrExecute) {
+				t.Fatalf("iteration %d with suffix %x: %v", iteration, suffix, err)
+			}
+		}
+	}
+	for flag := 2; flag <= 255; flag++ {
+		if _, _, err := DecodeExecute(append(bytes.Clone(header), byte(flag)), 0, nil); !errors.Is(err, ErrExecute) {
+			t.Fatalf("accepted invalid zero-parameter flag %d: %v", flag, err)
+		}
+	}
+	for _, suffix := range [][]byte{{0, 0}, {0, 1}, {1, 0}, {1, 1}, {1, 254, 0}} {
+		if _, _, err := DecodeExecute(append(bytes.Clone(header), suffix...), 0, nil); !errors.Is(err, ErrExecute) {
+			t.Fatalf("accepted zero-parameter suffix %x: %v", suffix, err)
+		}
+	}
+	for n := 0; n < len(header); n++ {
+		if _, _, err := DecodeExecute(header[:n], 0, nil); !errors.Is(err, ErrExecute) {
+			t.Fatalf("accepted short zero-parameter header %d: %v", n, err)
 		}
 	}
 }
