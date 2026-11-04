@@ -1,0 +1,42 @@
+{
+  "scope": "DARWIN_ARM64_LOCAL_PRODUCTION_ACCEPTANCE_NOT_RELEASE",
+  "runtime_source_commit": "999ff7fd244aa0c924c063cffbda02ae73ba9a05",
+  "final_wire_test_source_commit": "dd77b17461575bf10da48994006d002fc0ca4286",
+  "race_source_commit": "5d21efb9b3783198785d90d80442d4b73938197b",
+  "daily_started_source_commit": "999ff7fd244aa0c924c063cffbda02ae73ba9a05",
+  "results": {
+    "prisma_default_pipeline": {
+      "passed": 28,
+      "failed": 0
+    },
+    "wire_timeout_multiclient": {
+      "passed": 25,
+      "failed": 0
+    },
+    "focused_race": [
+      "internal/mysqlwire",
+      "internal/preparedproto"
+    ],
+    "daily": {
+      "passed": 1847,
+      "skipped": 97,
+      "subtests_passed": 92,
+      "go_test_and_vet": "PASS",
+      "source_policy": "PASS"
+    },
+    "source_smoke": "PASS_PYTHON_DB_SNAPSHOT_FORK_LIVE_AND_GO_LIVE"
+  },
+  "limits": [
+    "Ubuntu, installed consumers, native comparison and Release qualification not run",
+    "No performance or whole-process RSS measurement",
+    "Initial SLEEP20/shutdown1 controls failed disposal; final SLEEP0.5 controls preserve EOF/overflow cause assertions and use cooperative cleanup",
+    "Daily and race precede final test/docs-only commits; runtime bytes remain identical"
+  ],
+  "log_sha256": {
+    "production-wire-final.txt": "ba7bfdb7c9951e853f7393fde7a8db49ebbcdc697a5e65a2ed8adac62777ce14",
+    "production-race-final.txt": "65b32bccd09c26229059422baa5684d7f363191583813d4cfa10f627042ee1ba",
+    "production-daily.txt": "638f71d9a83c648535fa99de9668e6ca47200fb4968bd014cbafe0ee6382a543",
+    "production-smoke.txt": "defc3e55e4c558895495d7169a8edc53d38c2281aba315e6ed4ddecf95bb3640",
+    "production-wire.txt": "dd759378829ffc376485780db87a54d89b61a8a1e77f861a4e2a0dfa11a982f6"
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "scope": "PRODUCTION_PIPELINING_TRUE_CLIENT27_AND_LIVE1",
+  "source_commit": "999ff7fd244aa0c924c063cffbda02ae73ba9a05",
+  "base_source_commit": "69186d7d4b01fdb1d5ec9318b37bbc3681bb2c22",
+  "issue93_overlay_only": false,
+  "prisma_source_commit": "604a0c588f0a602bf6ea67d811b97bae2748c3ea",
+  "binary_build_info": "mariamem-host-production: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.1-0.20261104163240-999ff7fd244a\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=999ff7fd244aa0c924c063cffbda02ae73ba9a05\n\tbuild\tvcs.time=2026-11-04T16:32:40Z\n\tbuild\tvcs.modified=false\n",
+  "cells": [
+    {
+      "name": "connect",
+      "observed": {
+        "result": "PASS",
+        "case": "connect"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "find_unique",
+      "observed": {
+        "result": "PASS",
+        "case": "find_unique"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "find_many_unfiltered",
+      "observed": {
+        "result": "PASS",
+        "case": "find_many_unfiltered"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "count_unfiltered",
+      "observed": {
+        "result": "PASS",
+        "case": "count_unfiltered"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "count_filtered",
+      "observed": {
+        "result": "PASS",
+        "case": "count_filtered"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "create",
+      "observed": {
+        "result": "PASS",
+        "case": "create"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "nested_create",
+      "observed": {
+        "result": "PASS",
+        "case": "nested_create"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "create_many",
+      "observed": {
+        "result": "PASS",
+        "case": "create_many"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "update",
+      "observed": {
+        "result": "PASS",
+        "case": "update"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "delete_cascade",
+      "observed": {
+        "result": "PASS",
+        "case": "delete_cascade"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "upsert",
+      "observed": {
+        "result": "PASS",
+        "case": "upsert"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "relation",
+      "observed": {
+        "result": "PASS",
+        "case": "relation"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "nullable",
+      "observed": {
+        "result": "PASS",
+        "case": "nullable"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "transaction_commit",
+      "observed": {
+        "result": "PASS",
+        "case": "transaction_commit"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "transaction_rollback",
+      "observed": {
+        "result": "PASS",
+        "case": "transaction_rollback"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "transaction_array",
+      "observed": {
+        "result": "PASS",
+        "case": "transaction_array"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "aggregate",
+      "observed": {
+        "result": "PASS",
+        "case": "aggregate"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "group_by",
+      "observed": {
+        "result": "PASS",
+        "case": "group_by"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "raw_parameter",
+      "observed": {
+        "result": "PASS",
+        "case": "raw_parameter"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "raw_zero_parameter",
+      "observed": {
+        "result": "PASS",
+        "case": "raw_zero_parameter"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "execute_raw",
+      "observed": {
+        "result": "PASS",
+        "case": "execute_raw"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "unique_error",
+      "observed": {
+        "result": "PASS",
+        "case": "unique_error"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "decimal",
+      "observed": {
+        "result": "PASS",
+        "case": "decimal"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "bigint",
+      "observed": {
+        "result": "PASS",
+        "case": "bigint"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "datetime",
+      "observed": {
+        "result": "PASS",
+        "case": "datetime"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "json",
+      "observed": {
+        "result": "PASS",
+        "case": "json"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "binary",
+      "observed": {
+        "result": "PASS",
+        "case": "binary"
+      },
+      "result": "PASS"
+    },
+    {
+      "name": "live-reset",
+      "result": "PASS",
+      "observed": {
+        "same_node_pid": 58143,
+        "stable_endpoint": true,
+        "restored_baseline": true
+      }
+    }
+  ],
+  "summary": {
+    "PASS": 28,
+    "FAIL": 0
+  },
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64"
+  },
+  "versions": {
+    "node": "24.22.1",
+    "prisma": "7.10.1",
+    "adapter": "7.10.1",
+    "mariadb": "3.5.4"
+  },
+  "binary_sha256": "11344aaf55d164604adb62c60ada075926440f9f2772a1aa6f3708e419c041e4"
+}

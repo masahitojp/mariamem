@@ -2559,3 +2559,26 @@ before this change. Focused normal-policy/probe/oracle tests: 395 passed with
 full resource campaign or Release qualification was run. Public-source/diff checks
 pass; CI elapsed-time savings are not measured. Django API behavior is unchanged;
 its framework-dependent checks remain with the existing Release Django owner.
+
+
+## Issue #94 bounded pipelining — implementation approved, in progress
+
+On 2026-11-05 the Human approved production implementation with a pending-input
+limit of 1,048,581 bytes per physical connection, serial execution/responses and
+instance abort on overflow. The [spike](https://github.com/masahitojp/mariamem/blob/253b03d269859cfb2d713f2cae18ea5b22f499c2/docs/reviews/issue94-bounded-pipeline/README.md)
+records 28 default-pipelining Prisma Client/Live passes and retained failure
+observations on runtime 31daa969, including an experiment-only Issue #93 overlay.
+This is implementation authorization, not integration, qualification or release.
+
+The Human explicitly requested merging Issue #93 first. PR #102 passed all three
+required checks in [CI 41866270670](https://github.com/masahitojp/mariamem/actions/runs/41866270670)
+and merged normally to main source_commit
+`69186d7d4b01fdb1d5ec9318b37bbc3681bb2c22`. Issue #94's production candidate
+is based on that main, without an experimental overlay or diagnostic trace.
+The [production acceptance](reviews/issue94-production/README.md) records 28/28
+Prisma passes without trace code, 25 real wire/close/multiclient passes, focused
+race, daily and source smoke success on Darwin arm64. Permanent regressions,
+usage limits and the active fixture inventory are updated. Protected PR CI and
+integration remain pending; Ubuntu/installed/Release qualification are not claimed.
+No new Node CI job is added. Issue #94 owns the actionable checklist; the old
+spike keeps its original context.

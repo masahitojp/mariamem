@@ -16,6 +16,11 @@ validated and do not select a guest account or change SQL privileges. The
 returned connection information still defaults to `root` with an empty
 password. Use a real server for authentication and per-user privilege tests.
 
+**Unreleased:** the endpoint accepts [bounded input pipelining](mysql-protocol.md)
+with serial execution/responses and at most1,048,581 pending bytes per physical
+connection. Exceeding the bound terminates that database instance. This does not
+declare general Node/ORM support or add a driver-specific SDK entry.
+
 ## Prepare once, Fork independent databases
 
 Put migrations and seed SQL in `Prepare`, then request `fixture.DB(t)` in each

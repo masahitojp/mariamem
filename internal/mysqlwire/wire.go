@@ -20,6 +20,10 @@ import (
 
 const capabilities uint32 = 1 | 4 | 8 | 512 | 8192 | 32768 | 65536 | 131072 | 524288
 const maxPacket = 0xffffff - 1
+const maxCommandPayload = (1 << 20) + 1
+
+// Bound pending input per physical connection to one maximum command frame.
+const maxReadAhead = maxCommandPayload + 4
 const clientFoundRows uint32 = 2
 const clientPSMultiResults uint32 = 1 << 18
 
@@ -35,6 +39,8 @@ type wire struct {
 	sequence byte
 	timeout  time.Duration
 	begin    func() bool
+
+	readAhead []byte
 }
 
 func (w *wire) read(idle bool) ([]byte, error) {
@@ -44,23 +50,23 @@ func (w *wire) read(idle bool) ([]byte, error) {
 	} else {
 		w.conn.SetReadDeadline(time.Now().Add(w.timeout))
 	}
-	if _, err := io.ReadFull(w.conn, h[:1]); err != nil {
+	if err := w.readFull(h[:1]); err != nil {
 		return nil, err
 	}
 	if idle && w.begin != nil && !w.begin() {
 		return nil, errors.New("database is stopping")
 	}
 	w.conn.SetReadDeadline(time.Now().Add(w.timeout))
-	if _, err := io.ReadFull(w.conn, h[1:]); err != nil {
+	if err := w.readFull(h[1:]); err != nil {
 		return nil, err
 	}
 	n := int(h[0]) | int(h[1])<<8 | int(h[2])<<16
-	if h[3] != w.sequence || n == 0 || n > 1048577 {
+	if h[3] != w.sequence || n == 0 || n > maxCommandPayload {
 		return nil, errors.New("invalid MySQL frame")
 	}
 	w.sequence++
 	b := make([]byte, n)
-	_, err := io.ReadFull(w.conn, b)
+	err := w.readFull(b)
 	return b, err
 }
 func (w *wire) send(b []byte) error {
@@ -84,10 +90,71 @@ func (w *wire) send(b []byte) error {
 	return nil
 }
 
-// callGuest observes a driver disconnect while the guest is executing SQL.
-// MySQL clients issue one command at a time; unexpected pipelined input also
-// invalidates the instance rather than leaving a query running unsupervised.
+// readFull consumes only bytes previously received by this connection's monitor.
+// The serial dispatcher and monitor never read concurrently: monitoredCall joins
+// its receiver before returning control to the dispatcher.
+func (w *wire) readFull(b []byte) error {
+	n := copy(b, w.readAhead)
+	w.readAhead = w.readAhead[n:]
+	if len(w.readAhead) == 0 {
+		w.readAhead = nil
+	}
+	if n == len(b) {
+		return nil
+	}
+	_, err := io.ReadFull(w.conn, b[n:])
+	return err
+}
+
+var errReadAheadLimit = errors.New("pipelined input exceeds bounded receive buffer")
+
+// receiveAhead keeps observing EOF even after a future command has arrived.
+// A full queue is not a reason to stop monitoring: one additional byte aborts
+// the instance rather than permitting unbounded input or hiding a disconnect.
+func (w *wire) receiveAhead() error {
+	var chunk [4096]byte
+	for {
+		remaining := maxReadAhead - len(w.readAhead)
+		if remaining < 0 {
+			return errReadAheadLimit
+		}
+		size := len(chunk)
+		if size > remaining+1 {
+			size = remaining + 1
+		}
+		n, err := w.conn.Read(chunk[:size])
+		if n > remaining {
+			return errReadAheadLimit
+		}
+		if n > 0 {
+			needed := len(w.readAhead) + n
+			if needed > cap(w.readAhead) {
+				capacity := max(4096, 2*cap(w.readAhead), needed)
+				capacity = min(capacity, maxReadAhead)
+				grown := make([]byte, len(w.readAhead), capacity)
+				copy(grown, w.readAhead)
+				w.readAhead = grown
+			}
+			w.readAhead = append(w.readAhead, chunk[:n]...)
+		}
+		if err != nil {
+			return err
+		}
+		if n == 0 {
+			return io.ErrNoProgress
+		}
+	}
+}
+
+// callGuest keeps disconnect/timeout monitoring while preserving bounded future
+// input. Calls and response serialization remain strictly sequential.
 func (w *wire) callGuest(p *guest.Process, op byte, slot uint32, sql []byte) (guest.Result, error) {
+	return w.monitoredCall(func(ctx context.Context) (guest.Result, error) {
+		return p.Call(ctx, op, slot, sql)
+	}, p.Abort)
+}
+
+func (w *wire) monitoredCall(call func(context.Context) (guest.Result, error), abort func(error)) (guest.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), w.timeout)
 	defer cancel()
 	type outcome struct {
@@ -95,48 +162,31 @@ func (w *wire) callGuest(p *guest.Process, op byte, slot uint32, sql []byte) (gu
 		err    error
 	}
 	completed := make(chan outcome, 1)
-	go func() {
-		r, err := p.Call(ctx, op, slot, sql)
-		completed <- outcome{r, err}
-	}()
-	type observed struct {
-		n   int
-		err error
-	}
-	reading := make(chan observed, 1)
+	go func() { r, err := call(ctx); completed <- outcome{r, err} }()
+	reading := make(chan error, 1)
 	_ = w.conn.SetReadDeadline(time.Time{})
-	go func() {
-		var b [1]byte
-		n, err := w.conn.Read(b[:])
-		reading <- observed{n, err}
-	}()
+	go func() { reading <- w.receiveAhead() }()
+	failure := func(err error) error {
+		if errors.Is(err, errReadAheadLimit) {
+			return err
+		}
+		return fmt.Errorf("SQL client disconnected during query: %w", err)
+	}
 	var result outcome
 	select {
-	case seen := <-reading:
-		var cause error = errors.New("SQL client disconnected during query")
-		if seen.err != nil {
-			cause = fmt.Errorf("SQL client disconnected during query: %w", seen.err)
-		}
-		if seen.n != 0 {
-			cause = errors.New("unexpected client input during running query")
-		}
-		p.Abort(cause)
+	case err := <-reading:
+		cause := failure(err)
+		abort(cause)
 		<-completed
 		return guest.Result{}, cause
 	case result = <-completed:
 		_ = w.conn.SetReadDeadline(time.Now())
-		seen := <-reading
-		if seen.n != 0 {
-			cause := errors.New("unexpected client input during running query")
-			p.Abort(cause)
+		err := <-reading
+		var timeout net.Error
+		if !errors.As(err, &timeout) || !timeout.Timeout() {
+			cause := failure(err)
+			abort(cause)
 			return guest.Result{}, cause
-		} else if seen.err != nil {
-			var timeout net.Error
-			if !errors.As(seen.err, &timeout) || !timeout.Timeout() {
-				cause := fmt.Errorf("SQL client disconnected during query: %w", seen.err)
-				p.Abort(cause)
-				return guest.Result{}, cause
-			}
 		}
 	}
 	_ = w.conn.SetReadDeadline(time.Time{})
