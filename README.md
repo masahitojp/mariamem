@@ -96,6 +96,9 @@ Version 0.6.1 adds finite per-Snapshot Fork admission by default. Full capacity
 waits before starting another child; see the contracts for
 [Go](docs/go.md#per-snapshot-fork-limits) and [Python](docs/python.md).
 
+For Node applications, see the [TypeORM / MikroORM connection guide](docs/node-orm.md)
+for MariaDB dialect settings and the limits of the recorded dogfood evidence.
+
 ## Prepare once, isolate each test
 
 These examples use the 0.6.1 packages installed above.
