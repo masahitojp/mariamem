@@ -1,0 +1,16 @@
+{
+  "issue": 106,
+  "base_source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "change": "WASM-only paired construction+all four UTF8 consumer macro gates off; weights/selection unchanged",
+  "question": "Fork wall/CPU/RSS improvement versus string SQL slowdown and native correctness",
+  "matrix": "one macOS arm64 host, native12.3.3 reference, baseline/candidate five alternating fresh-process pairs; separate warmup; explicit cap4, retain0/1/2/4 children",
+  "correctness": "ASCII/Unicode/case/accent/PAD/contraction equality/order/UNIQUE/GROUP BY versus native; snapshot isolation and cleanup",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci": 0,
+    "minimum_free_gib": 16,
+    "owned_budget_gib": 18
+  },
+  "exit": "fail or missing input/budget stops; otherwise candidate recommendation, not adoption/main/qualification/release"
+}

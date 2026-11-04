@@ -1,0 +1,64 @@
+--- a/strings/ctype-uca.c
++++ b/strings/ctype-uca.c
+@@ -47,6 +47,13 @@
+ } weight_and_nchars_t;
+ 
+ #define  MY_CS_COMMON_UCA_FLAGS (MY_CS_COMPILED|MY_CS_STRNXFRM|MY_CS_UNICODE|MY_CS_NON1TO1)
++
++/* Experiment #106: paired producer/consumer gate; not an adopted change. */
++#if defined(__wasi__)
++#define MARIAMEM_UCA_BOOSTER 0
++#else
++#define MARIAMEM_UCA_BOOSTER 1
++#endif
+ 
+ #define MY_UCA_CNT_FLAG_SIZE 4096
+ #define MY_UCA_CNT_FLAG_MASK 4095
+@@ -34565,8 +34572,10 @@
+     }
+   }
+ 
+-  if (cs->mbminlen == 1)
++  if (MARIAMEM_UCA_BOOSTER && cs->mbminlen == 1)
+     dst->booster= my_uca_level_booster_new(loader, cs, dst);
++  else
++    dst->booster= NULL;
+ 
+   return FALSE;
+ }
+@@ -35733,7 +35742,7 @@
+ #define MY_FUNCTION_NAME(x)   my_uca_ ## x ## _utf8mb3
+ #define MY_MB_WC(scanner, param, wc, beg, end) (my_mb_wc_utf8mb3_quick(wc, beg, end))
+ #define MY_LIKE_RANGE my_like_range_mb
+-#define MY_UCA_ASCII_OPTIMIZE 1
++#define MY_UCA_ASCII_OPTIMIZE MARIAMEM_UCA_BOOSTER
+ #define MY_UCA_COMPILE_CONTRACTIONS 1
+ #define MY_UCA_COLL_INIT my_uca_coll_init_utf8mb3
+ #include "ctype-uca.inl"
+@@ -35741,7 +35750,7 @@
+ #define MY_FUNCTION_NAME(x)   my_uca_ ## x ## _no_contractions_utf8mb3
+ #define MY_MB_WC(scanner, param, wc, beg, end) (my_mb_wc_utf8mb3_quick(wc, beg, end))
+ #define MY_LIKE_RANGE my_like_range_mb
+-#define MY_UCA_ASCII_OPTIMIZE 1
++#define MY_UCA_ASCII_OPTIMIZE MARIAMEM_UCA_BOOSTER
+ #define MY_UCA_COMPILE_CONTRACTIONS 0
+ #define MY_UCA_COLL_INIT my_uca_coll_init_utf8mb3
+ #include "ctype-uca.inl"
+@@ -36680,7 +36689,7 @@
+ #define MY_FUNCTION_NAME(x)   my_uca_ ## x ## _utf8mb4
+ #define MY_MB_WC(scanner, param, wc, beg, end) (my_mb_wc_utf8mb4_quick(wc, beg, end))
+ #define MY_LIKE_RANGE my_like_range_mb
+-#define MY_UCA_ASCII_OPTIMIZE 1
++#define MY_UCA_ASCII_OPTIMIZE MARIAMEM_UCA_BOOSTER
+ #define MY_UCA_COMPILE_CONTRACTIONS 1
+ #define MY_UCA_COLL_INIT my_uca_coll_init_utf8mb4
+ #include "ctype-uca.inl"
+@@ -36688,7 +36697,7 @@
+ #define MY_FUNCTION_NAME(x)   my_uca_ ## x ## _no_contractions_utf8mb4
+ #define MY_MB_WC(scanner, param, wc, beg, end) (my_mb_wc_utf8mb4_quick(wc, beg, end))
+ #define MY_LIKE_RANGE my_like_range_mb
+-#define MY_UCA_ASCII_OPTIMIZE 1
++#define MY_UCA_ASCII_OPTIMIZE MARIAMEM_UCA_BOOSTER
+ #define MY_UCA_COMPILE_CONTRACTIONS 0
+ #define MY_UCA_COLL_INIT my_uca_coll_init_utf8mb4
+ #include "ctype-uca.inl"
