@@ -2561,17 +2561,20 @@ pass; CI elapsed-time savings are not measured. Django API behavior is unchanged
 its framework-dependent checks remain with the existing Release Django owner.
 
 
-## Issue94 bounded pipelining — implementation approved, in progress
+## Issue #94 bounded pipelining — implementation approved, in progress
 
-On2026-11-05 the Human approved production implementation with a pending-input
-limit of1,048,581 bytes per physical connection, serial execution/responses and
+On 2026-11-05 the Human approved production implementation with a pending-input
+limit of 1,048,581 bytes per physical connection, serial execution/responses and
 instance abort on overflow. The [spike](https://github.com/masahitojp/mariamem/blob/253b03d269859cfb2d713f2cae18ea5b22f499c2/docs/reviews/issue94-bounded-pipeline/README.md)
-records28 default-pipelining Prisma Client/Live passes and retained failure
-observations on runtime31daa969, including an experiment-only Issue93 overlay.
+records 28 default-pipelining Prisma Client/Live passes and retained failure
+observations on runtime 31daa969, including an experiment-only Issue #93 overlay.
 This is implementation authorization, not integration, qualification or release.
 
-The Human then explicitly requested merging Issue93 first. PR102 is updated
-against main and set to auto-merge through normal protection after fresh checks.
-Issue94 production extraction, permanent regressions, usage/inventory updates
-and final candidate acceptance remain in progress; no new Node CI job is added.
-Issue94 owns the actionable checklist; the old spike keeps its original context.
+The Human explicitly requested merging Issue #93 first. PR #102 passed all three
+required checks in [CI 41866270670](https://github.com/masahitojp/mariamem/actions/runs/41866270670)
+and merged normally to main source_commit
+`69186d7d4b01fdb1d5ec9318b37bbc3681bb2c22`. Issue #94's production candidate
+is based on that main, without an experimental overlay or diagnostic trace.
+Permanent regressions, usage/inventory updates and final candidate acceptance
+remain in progress; no new Node CI job is added. Issue #94 owns the actionable
+checklist; the old spike keeps its original context.
