@@ -1,6 +1,6 @@
 # Go usage
 
-This guide describes `v0.6.0`, including in-memory Snapshot/Fork and process-local
+This guide describes `v0.6.1`, including in-memory Snapshot/Fork and process-local
 baseline reuse. Public save/load APIs remain removed. See
 [API changes and migration](changes-since-v050.md) and
 [installation](../README.md#installation) for supported platforms.
@@ -159,9 +159,9 @@ state in each test process. No user-managed file or daemon is required.
 Closing a handle releases its ownership; other children may still own blocks.
 Go memory reclamation and OS RSS reduction have different timing.
 
-### Unreleased candidate: per-Snapshot Fork limits (#53)
+### Per-Snapshot Fork limits
 
-The candidate Go API adds `SnapshotOptions.MaxForks` and `Snapshot.MaxForks()`:
+The Go API adds `SnapshotOptions.MaxForks` and `Snapshot.MaxForks()`:
 
 ```go
 prepared, err := source.Snapshot(ctx, mariamem.SnapshotOptions{MaxForks: 2})
@@ -248,7 +248,7 @@ outside product support and compatibility testing; events remain unavailable
 in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
 accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](decisions/routine-support-scope.md).
-Version 0.6.0 supports real server-side execution for Go explicit/implicit
+Version 0.6.1 supports real server-side execution for Go explicit/implicit
 Prepare and Python prepared cursors.
 `DELIMITER` is a client directive, not server SQL. Python provides
 an explicit [bounded dump reader](importing-dump.md); this is not a general
@@ -285,7 +285,7 @@ Use the supplied local root/empty-password endpoint profile. TLS/SSL, compressio
 DEPRECATE_EOF and alternate authentication are not advertised/supported in this
 profile. COM_RESET_CONNECTION, server-side cursors/COM_STMT_FETCH, LOCAL INFILE
 transfer, CHANGE_USER, STATISTICS, PROCESS_INFO and binlog/replication streaming
-are outside0.6.0 support. Multi-packet continuation is also outside this profile.
+are outside0.6.1 support. Multi-packet continuation is also outside this profile.
 SQL-file import is not LOCAL INFILE; metadata SQL is not an administrative wire
 command. Per-entry uncaptured paths remain unverified;
 passing application/Release tests is not evidence of additional protocol coverage.
@@ -319,19 +319,19 @@ internal mechanisms.
 Install the published module and optional release audit files with:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.6.0
-gh release download v0.6.0 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.6.0-corresponding-source.tar.gz'
+go get github.com/masahitojp/mariamem@v0.6.1
+gh release download v0.6.1 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.6.1-corresponding-source.tar.gz'
 ```
 
 Runtime details belong in [architecture](v04-generated-go-architecture.md).
 See [local verification](development.md#local-verification) for scoped
-development checks, [release notes](../release/NOTES-v0.6.0.md)
+development checks, [release notes](../release/NOTES-v0.6.1.md)
 and [API migration](changes-since-v050.md).
 The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.
 
-Version 0.6.0 supports stable Live endpoints across sequential browser E2E
+Version 0.6.1 supports stable Live endpoints across sequential browser E2E
 cases. Use independent Forks for concurrent cases; Live does not promise a
 parallel shared mutable endpoint. See the [Live guide](live.md) for connection
 draining and reset ownership.
@@ -341,7 +341,7 @@ draining and reset ownership.
 The [owned E2E examples](examples/e2e_owned/README.md) demonstrate
 application-specific preparation/start/quiescence/stop hooks over Live. This
 entry was approved for bounded main adoption with the supplied hook obligations;
-it is included in 0.6.0. Existing direct Live APIs remain the mechanism
+it is included in 0.6.1. Existing direct Live APIs remain the mechanism
 underneath the entry. See the [integration receipt](reviews/e2e-integration-ci-41095184074/assessment.json)
 for exact tested source/profiles. Arbitrary unregistered work and non-cooperative
 shutdown remain outside the guarantee; detailed resource characterization is deferred.
