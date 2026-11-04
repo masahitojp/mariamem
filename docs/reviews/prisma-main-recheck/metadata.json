@@ -1,0 +1,95 @@
+{
+  "scope": "ONE_OS_PRISMA_7_10_1_REPRESENTATIVE_CLIENT_AND_COMPLETE_LISTED_CLI_MATRIX",
+  "source_commit": "c27061f1a33eed2908fd90b0e2d816692e001339",
+  "product_baseline_source_commit": "c27061f1a33eed2908fd90b0e2d816692e001339",
+  "previous_product_baseline_source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "prisma_input_source_commit": "604a0c588f0a602bf6ea67d811b97bae2748c3ea",
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64"
+  },
+  "node": "v24.22.1",
+  "versions": {
+    "prisma": "7.10.1",
+    "adapter": "7.10.1",
+    "mariadb": "3.5.4"
+  },
+  "binary_sha256": "072d2726bc90d2f2d37628494d6417d2078294e44bee25cf4046fa269908dabb",
+  "runtime_overlay": false,
+  "summary": {
+    "PASS": 71,
+    "FAIL": 0
+  },
+  "groups": {
+    "CLI": {
+      "PASS": 15,
+      "FAIL": 0
+    },
+    "default_client_live": {
+      "PASS": 28,
+      "FAIL": 0
+    },
+    "pipelining_off_client_live": {
+      "PASS": 28,
+      "FAIL": 0
+    }
+  },
+  "binary_build_info": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.2-0.20261104165555-c27061f1a33e\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=c27061f1a33eed2908fd90b0e2d816692e001339\n\tbuild\tvcs.time=2026-11-04T16:55:55Z\n\tbuild\tvcs.modified=false\n",
+  "input_sha256": {
+    "package-lock.json": "342e36906ea1ff076c9ce4b407aaf727c52d30ec9235f73669e27a6f72424973",
+    "matrix.py": "ef91fead86460a4c878f96ef0e7db9c186265ca5b56b2d46c8334ac5e1859bb0",
+    "matrix.ts": "198f97e536148a33559c83158e8b911d2c94dd08a721c06844fca1a99aba8929",
+    "prisma/schema.prisma": "644f7c619cb8c9e8a0fbf9a640fe30e775836334c309a214959594c4c5aee170",
+    "prisma/migrations/20261104000000_init/migration.sql": "6aa840312f12ff4c67216978702fa0b19ea42fc665d918680a92e8bbf1101f55"
+  },
+  "full_matrix_sha256": "e93af6183c6fe5d63cbd6e6298cc849d7079e968818035cef0265ee6d5ac3ef0",
+  "same_process_live": {
+    "default-live-reset": {
+      "same_node_pid": 25027,
+      "stable_endpoint": true,
+      "restored_baseline": true
+    },
+    "off-live-reset": {
+      "same_node_pid": 25878,
+      "stable_endpoint": true,
+      "restored_baseline": true
+    }
+  },
+  "cli_expected_nonzero": [
+    {
+      "case": "cli-diff_schema",
+      "command": [
+        "migrate",
+        "diff",
+        "--from-config-datasource",
+        "--to-schema",
+        "/private/tmp/mariamem-prisma-recheck/main-recheck/temp/inputs/benchmarks/spikes/prisma-dogfood/.matrix/diff_schema/prisma/schema.prisma",
+        "--script",
+        "--exit-code"
+      ],
+      "exit_code": 2,
+      "expected": [
+        2
+      ],
+      "pty": false
+    },
+    {
+      "case": "cli-resolve_rolled_back",
+      "command": [
+        "migrate",
+        "deploy"
+      ],
+      "exit_code": 1,
+      "expected": [
+        1
+      ],
+      "pty": false
+    }
+  ],
+  "limits": [
+    "Darwin arm64 only; not Ubuntu/installed or Release qualification",
+    "Official MariaDB adapter only; no rerun of community mysql2 adapter, TypeORM or MikroORM",
+    "Pinned finite matrix; not complete Prisma upstream API/version coverage",
+    "No new CI job or product changes"
+  ]
+}
