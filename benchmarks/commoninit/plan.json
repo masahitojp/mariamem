@@ -1,0 +1,18 @@
+{
+  "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "question": "Issue100: split early common startup into preparation, timer calibration, common variables and trailing setup",
+  "fixture": "1000 integer rows; serial cap1; root closed before four child Forks; existing SQL/independent update/cleanup oracles",
+  "matrix": "one host; 3 alternating fresh-process pairs x4 sequential children; same binary common-init marks off/on; guest init diagnostics enabled in both; separate warmup",
+  "controls": "one positive init pilot and one wrong-seed negative; no extra primary repeats",
+  "scope": "five conditional Go observer calls at exact generated basic-block boundaries, no guest rebuild or semantic changes",
+  "exit": "Identify dominant measured interval or stop at missing mapping; no optimization or initialized-state reuse implementation",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci_runs": 0,
+    "disk_gib": 7,
+    "minimum_free_gib": 16
+  }
+}
