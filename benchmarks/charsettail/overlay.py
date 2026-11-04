@@ -74,6 +74,7 @@ edits += [
  ('L2833:\n\t;','L2833:\n\t;\n\tcommonInitMark("charset_begin")'),
 ]
 edits += [('\tv16221 = Fn969(m, v16218, int32(32), v16140)', '\tcommonInitMark("default_lookup_begin")\n\tv16221 = Fn969(m, v16218, int32(32), v16140)\n\tcommonInitMark("default_lookup_end")'), ('L2933:\n\t;', 'L2933:\n\t;\n\tcommonInitMark("charset_log_defaults_end")'), ('\tv16584 = Fn21527(m, int32(23877496), int32(23876648), v62+int32(368))', '\tcommonInitMark("path_parse_begin")\n\tv16584 = Fn21527(m, int32(23877496), int32(23876648), v62+int32(368))\n\tcommonInitMark("path_parse_end")'), ('L2943:\n\t;', 'L2943:\n\t;\n\tcommonInitMark("db_cache_begin")'), ('L2956:\n\t;', 'L2956:\n\t;\n\tcommonInitMark("case_probe_begin")'), ('L2964:\n\t;\n\tm.G0 = v16765 + int32(1184)', 'L2964:\n\t;\n\tm.G0 = v16765 + int32(1184)\n\tcommonInitMark("case_probe_end")')]
+edits += [('\tv16119 = Fn20110(m, int32(23877424), v62+int32(368), v16107)','\tcommonInitMark("collation_parse_begin")\n\tv16119 = Fn20110(m, int32(23877424), v62+int32(368), v16107)\n\tcommonInitMark("collation_parse_end")')]
 for before,after in edits:
  assert body.count(before)==1,(relative,before)
  body=body.replace(before,after)
@@ -83,5 +84,18 @@ changed += '\nvar commonInitEnabled = os.Getenv("MARIAMEM_PROBE_COMMON") == "1"\
 target=out/'common-p0.go';target.write_text(changed)
 replacements[str(root/relative)]=str(target)
 records.append({'path':relative,'function':'Fn5572','before_sha256':hashlib.sha256(original.encode()).hexdigest(),'after_sha256':hashlib.sha256(changed.encode()).hexdigest(),'edits':edits})
+# Once-initializer selected by Fn820's table slot542 -> Fn960.
+# The entry/defer callback observes every actual initializer invocation; root
+# setup is outside the active child collector, never relabelled as child work.
+relative='internal/generatedgo/code/p1/p1_pure.go'
+original=(root/relative).read_text()
+needle='func Fn960(m *base.Module) {'
+assert original.count(needle)==1
+changed=original.replace(needle,needle+'\n charsetInitMark("registry_begin")\n defer charsetInitMark("registry_end")',1)
+changed=changed.replace('"sync/atomic"','"sync/atomic"\n"os"\n"github.com/masahitojp/mariamem/internal/timing"',1)
+changed += '\nvar charsetInitEnabled = os.Getenv("MARIAMEM_PROBE_COMMON") == "1"\nfunc charsetInitMark(name string) { if charsetInitEnabled { timing.ForkStageMark("commoninit/"+name) } }\n'
+target=out/'charset-p1.go';target.write_text(changed)
+replacements[str(root/relative)]=str(target)
+records.append({'path':relative,'function':'Fn960','before_sha256':hashlib.sha256(original.encode()).hexdigest(),'after_sha256':hashlib.sha256(changed.encode()).hexdigest(),'entry_and_defer':'registry begin/end; selected by table slot542 in charsets once gate Fn820'})
 (out / 'overlay.json').write_text(json.dumps({'Replace': replacements}, indent=2)+'\n')
 (out / 'hashes.json').write_text(json.dumps(records, indent=2)+'\n')
