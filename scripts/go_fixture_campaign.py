@@ -175,17 +175,19 @@ def observe(command, directory, env, resources):
     need(report['result'] == 'PASS', 'runtime/guard/counter failure; evidence preserved')
 
 
-def validate_mode(go, observed, cap, parallel, resources):
+def validate_mode(go, observed, cap, parallel, resources, profile="measurement"):
+    need(profile in ('measurement', 'release'), 'unknown campaign profile')
+    need(go.get('profile', 'measurement') == profile, 'campaign profile differs')
     need(go['result'] == 'PASS' and go['cleanup_complete'] is True and not go['stop_reason'], 'runtime did not finish cleanly')
     need(go['cap'] == cap and go['parallel'] == parallel, 'wrong cap/parallel mode')
     need(go['guards'] == {k: resources[k] for k in ('owned_disk_ceiling_bytes', 'min_free_disk_bytes', 'min_fd_headroom')}, 'runtime guard values differ')
     need(min(cap, parallel) <= go['peak_children'] <= cap, 'unobserved/exceeded child budget')
     need(2 <= go['peak_physical_pool_connections'] <= 2 * cap, 'physical pool connection budget')
-    need([b['label'] for b in go['batches']] == ['warmup', 'observed_1', 'observed_2', 'observed_3'], 'missing warmup/observed batch')
+    batches = ['regression'] if profile == 'release' else ['warmup', 'observed_1', 'observed_2', 'observed_3']
+    need([b['label'] for b in go['batches']] == batches, 'missing profile batch')
     need(all(numeric(b['elapsed_seconds']) and b['elapsed_seconds'] > 0 for b in go['batches']), 'batch timing missing')
-    need(len(go['cases']) == 16, 'incomplete case batch')
-    expected_cases = {'TestFixtureCampaign/' + batch + '/' + str(i) for batch in
-                      ('warmup', 'observed_1', 'observed_2', 'observed_3') for i in range(4)}
+    need(len(go['cases']) == 4 * len(batches), 'incomplete case batch')
+    expected_cases = {'TestFixtureCampaign/' + batch + '/' + str(i) for batch in batches for i in range(4)}
     need({c['name'] for c in go['cases']} == expected_cases, 'duplicate/missing case identity')
     for case in go['cases']:
         need(all(numeric(case[key]) and case[key] > 0 for key in
@@ -204,6 +206,16 @@ def validate_mode(go, observed, cap, parallel, resources):
         need(s['linked_temp_bytes'] + s['unlinked_file_bytes'] <= resources['owned_disk_ceiling_bytes'], 'owned disk breach')
         need(s['disk_free_bytes'] >= resources['min_free_disk_bytes'], 'free disk breach')
         need(s['children'] <= cap and s['physical_pool_connections'] <= cap * 2, 'runtime budget breach')
+    final = samples[-1]
+    need(all(final[key] == 0 for key in ('children', 'baselines', 'physical_pool_connections',
+                                      'linked_temp_bytes', 'unlinked_file_bytes')), 'cleanup debt remains')
+    # Go's lazy netpoll initialization may retain a few process-global FDs.
+    need(final['fd'] <= samples[0]['fd'] + 8, 'unexpected final FD growth')
+    if profile == 'release':
+        need(not any(s['label'].startswith('retained_') for s in samples), 'release regression contains retention campaign')
+        return dict(cap=cap, parallel=parallel, result='PASS', profile=profile,
+                    fd_baseline_peak_final=[samples[0]['fd'], max(s['fd'] for s in samples), final['fd']],
+                    resource_measurements='NOT_RUN_RELEASE_REGRESSION')
     retained_samples = []
     for count in (1, 2, 3):
         retained = [s for s in samples if s['label'] == 'retained_' + str(count)]
@@ -212,11 +224,6 @@ def validate_mode(go, observed, cap, parallel, resources):
         end = [s for s in samples if s['label'] == 'retained_end_' + str(count)]
         need(len(end) == 1 and end[0]['baselines'] == count, 'retention observation window missing')
         retained_samples.append((retained[0], end[0]))
-    final = samples[-1]
-    need(all(final[key] == 0 for key in ('children', 'baselines', 'physical_pool_connections',
-                                      'linked_temp_bytes', 'unlinked_file_bytes')), 'cleanup debt remains')
-    # Go's lazy netpoll initialization may retain a few process-global FDs.
-    need(final['fd'] <= samples[0]['fd'] + 8, 'unexpected final FD growth')
     need(observed['result'] == 'PASS' and not observed['counter_errors'] and not observed['stop_reason'], 'OS counters unverified/stopped')
     os_samples = observed['samples']
     need(len(os_samples) >= 3, 'missing RSS/available-memory observation')
@@ -241,9 +248,10 @@ def validate_mode(go, observed, cap, parallel, resources):
             'available_memory_min_bytes': min(s['available_memory_bytes'] for s in os_samples)}
 
 
-def validate_host(directory, expected, expected_host=None):
+def validate_host(directory, expected, expected_host=None, profile="measurement"):
     directory = Path(directory)
     report = json.loads((directory / 'host.json').read_text())
+    need(report.get('profile', 'measurement') == profile, 'host campaign profile differs')
     need(report['source_commit'] == expected, 'source SHA mismatch')
     need(report['source_inventory_sha256'] == source_identity(ROOT), 'source bytes mismatch')
     need(report['toolchain'] == 'go1.26.10', 'wrong Go toolchain')
@@ -264,25 +272,33 @@ def validate_host(directory, expected, expected_host=None):
         cap, parallel = row['cap'], row['parallel']
         modes.add((cap, parallel))
         mode = directory / ('cap%d-parallel%d' % (cap, parallel))
-        derived = validate_mode(json.loads((mode / 'go.json').read_text()), json.loads((mode / 'os.json').read_text()), cap, parallel, resources)
+        derived = validate_mode(json.loads((mode / 'go.json').read_text()),
+                                json.loads((mode / 'os.json').read_text()) if profile == 'measurement' else None,
+                                cap, parallel, resources, profile)
         need(row == derived, 'host summary differs from raw observations')
     need(modes == {(c, p) for c in (1, 2) for p in (1, 4)}, 'mode census incomplete')
     validate_guard_probe(json.loads((directory / 'guard-probe/go.json').read_text()))
     need(report['guard_probe'] == 'PRE_ADMISSION_FD_STOP_CONFIRMED', 'guard negative control missing')
-    timing = report['three_time_outcomes']
-    for key in ('first_test_setup', 'second_test_edits'):
-        need(timing[key]['command'][:2] == ['go', 'test'] and len(timing[key]['steps']) == 2,
-             'first/second-test command/edit steps missing')
-    need(timing['first_test_setup']['authored_lines'] > 0, 'first-test authored input missing')
-    need(timing['first_test_setup']['elapsed_seconds'] > 0 and timing['second_test_edits']['added_lines'] > 0,
-         'first/second-test observations missing')
-    need(timing['second_test_edits']['repeated_lifecycle_lines'] == 0 and timing['repeat_batch_elapsed'] == 'per-mode warmup plus three observed batches', 'repeated lifecycle/timing missing')
-    need(timing['human_authoring_minutes'] is None and timing['acquisition_state'] == 'unmeasured; existing Go toolchain/module cache', 'invented cold/human-time claim')
+    if profile == 'measurement':
+        timing = report['three_time_outcomes']
+        for key in ('first_test_setup', 'second_test_edits'):
+            need(timing[key]['command'][:2] == ['go', 'test'] and len(timing[key]['steps']) == 2,
+                 'first/second-test command/edit steps missing')
+        need(timing['first_test_setup']['authored_lines'] > 0, 'first-test authored input missing')
+        need(timing['first_test_setup']['elapsed_seconds'] > 0 and timing['second_test_edits']['added_lines'] > 0,
+             'first/second-test observations missing')
+        need(timing['second_test_edits']['repeated_lifecycle_lines'] == 0 and timing['repeat_batch_elapsed'] == 'per-mode warmup plus three observed batches', 'repeated lifecycle/timing missing')
+        need(timing['human_authoring_minutes'] is None and timing['acquisition_state'] == 'unmeasured; existing Go toolchain/module cache', 'invented cold/human-time claim')
+    else:
+        need(report.get('resource_measurements') == 'NOT_RUN_RELEASE_REGRESSION'
+             and 'three_time_outcomes' not in report, 'release receipt claims unexecuted measurements')
     sums = json.loads((directory / 'SHA256SUMS.json').read_text())
-    required = {'host.json', 'first-test.txt', 'second-test.txt', 'guard-probe/go.json',
-                'guard-probe/os.json', 'guard-probe/stdout.txt'} | {
+    required = {'host.json', 'guard-probe/go.json', 'guard-probe/stdout.txt'} | {
         'cap%d-parallel%d/%s' % (c, p, name) for c in (1, 2) for p in (1, 4)
-        for name in ('go.json', 'os.json', 'stdout.txt')}
+        for name in ('go.json', 'stdout.txt')}
+    if profile == 'measurement':
+        required |= {'first-test.txt', 'second-test.txt', 'guard-probe/os.json'} | {
+            'cap%d-parallel%d/os.json' % (c, p) for c in (1, 2) for p in (1, 4)}
     need(required <= sums.keys(), 'receipt checksum inventory incomplete')
     for name, sha in sums.items():
         path = directory / name
@@ -299,7 +315,7 @@ def validate_guard_probe(go):
          'guard-probe owner accounting missing')
 
 
-def run(expected, output):
+def run(expected, output, profile="measurement"):
     require_commit(ROOT, expected)
     need(subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip() == expected, 'checkout SHA mismatch')
     need(not subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT), 'campaign requires clean candidate')
@@ -307,30 +323,33 @@ def run(expected, output):
     output.mkdir(parents=True, exist_ok=False)
     plan = json.loads((ROOT / 'docs/reviews/v06x-fixture-acceptance.json').read_text())
     resources = plan['resources']
-    profile = host_profile()
+    host = host_profile()
     version = subprocess.check_output(['go', 'version'], text=True).split()[2]
     need(version == 'go1.26.10', 'requires Go1.26.10')
     inputs = input_paths(resources)
     need(digest(ROOT / resources['retention_input']['path']) == resources['retention_input']['sha256'], 'SQL fixture changed')
-    report = {'result': 'RUNNING', 'source_commit': expected, 'source_inventory_sha256': source_identity(ROOT),
-              'toolchain': version, 'host': profile, 'inputs_sha256': {p: digest(ROOT / p) for p in inputs},
+    report = {'profile': profile, 'result': 'RUNNING', 'source_commit': expected, 'source_inventory_sha256': source_identity(ROOT),
+              'toolchain': version, 'host': host, 'inputs_sha256': {p: digest(ROOT / p) for p in inputs},
               'ci': {k: os.getenv(k) for k in ('GITHUB_RUN_ID', 'GITHUB_RUN_ATTEMPT', 'GITHUB_JOB')}, 'modes': []}
     write(output / 'host.json', report)
     try:
-        # Observe an actual first test and the additive second test from the guide.
-        code = (ROOT / 'docs/go-prepared-fixture.md').read_text().split('```go\n', 1)[1].split('```', 1)[0]
-        first, second = code.split('func TestSeed', 1)
-        first_path, second_path = output / 'first_test.go', output / 'second_test.go'
-        first_path.write_text(first)
-        second_code = 'package app_test\nimport "testing"\nfunc TestSeed' + second
-        second_path.write_text(second_code)
-        first_result = run_command(['go', 'test', str(first_path), '-count=1', '-timeout=3m'], output / 'first-test.txt')
-        second_result = run_command(['go', 'test', str(first_path), str(second_path), '-count=1', '-timeout=3m'], output / 'second-test.txt')
-        report['three_time_outcomes'] = {
-            'first_test_setup': {**first_result, 'authored_lines': len(first.splitlines()), 'steps': ['copy first test + TestMain preparation', 'go test']},
-            'second_test_edits': {**second_result, 'added_lines': len(second_code.splitlines()), 'repeated_lifecycle_lines': 0, 'steps': ['add second test using fixture.DB(t)', 'go test both tests']},
-            'repeat_batch_elapsed': 'per-mode warmup plus three observed batches',
-            'human_authoring_minutes': None, 'acquisition_state': 'unmeasured; existing Go toolchain/module cache'}
+        if profile == 'measurement':
+            # Observe an actual first test and the additive second test from the guide.
+            code = (ROOT / 'docs/go-prepared-fixture.md').read_text().split('```go\n', 1)[1].split('```', 1)[0]
+            first, second = code.split('func TestSeed', 1)
+            first_path, second_path = output / 'first_test.go', output / 'second_test.go'
+            first_path.write_text(first)
+            second_code = 'package app_test\nimport "testing"\nfunc TestSeed' + second
+            second_path.write_text(second_code)
+            first_result = run_command(['go', 'test', str(first_path), '-count=1', '-timeout=3m'], output / 'first-test.txt')
+            second_result = run_command(['go', 'test', str(first_path), str(second_path), '-count=1', '-timeout=3m'], output / 'second-test.txt')
+            report['three_time_outcomes'] = {
+                'first_test_setup': {**first_result, 'authored_lines': len(first.splitlines()), 'steps': ['copy first test + TestMain preparation', 'go test']},
+                'second_test_edits': {**second_result, 'added_lines': len(second_code.splitlines()), 'repeated_lifecycle_lines': 0, 'steps': ['add second test using fixture.DB(t)', 'go test both tests']},
+                'repeat_batch_elapsed': 'per-mode warmup plus three observed batches',
+                'human_authoring_minutes': None, 'acquisition_state': 'unmeasured; existing Go toolchain/module cache'}
+        else:
+            report['resource_measurements'] = 'NOT_RUN_RELEASE_REGRESSION'
         binary = output / 'fixture.test'
         report['build'] = run_command(['go', 'test', '-p', '1', '-c', '-tags=integration', './mariamemtest', '-o', str(binary)], output / 'build.txt')
         report['binary_sha256'] = digest(binary)
@@ -342,12 +361,16 @@ def run(expected, output):
                 (directory / 'runtime-tmp').mkdir(parents=True)
                 env = dict(os.environ, TMPDIR=str(directory / 'runtime-tmp'), MARIAMEM_G1_CAP=str(cap),
                            MARIAMEM_G1_REPORT=str(directory / 'go.json'), MARIAMEM_G1_LIMITS=str(limits),
+                           MARIAMEM_G1_PROFILE=profile,
                            MARIAMEM_G1_SQL=str(ROOT / resources['retention_input']['path']))
                 command = [str(binary), '-test.run=^TestFixtureCampaign$', '-test.parallel='+str(parallel), '-test.timeout=5m', '-test.v']
-                observe(command, directory, env, resources)
+                if profile == 'measurement':
+                    observe(command, directory, env, resources)
+                else:
+                    run_command(command, directory / 'stdout.txt', env)
                 go = json.loads((directory / 'go.json').read_text())
-                observed = json.loads((directory / 'os.json').read_text())
-                report['modes'].append(validate_mode(go, observed, cap, parallel, resources))
+                observed = json.loads((directory / 'os.json').read_text()) if profile == 'measurement' else None
+                report['modes'].append(validate_mode(go, observed, cap, parallel, resources, profile))
         probe = output / 'guard-probe'
         (probe / 'runtime-tmp').mkdir(parents=True)
         probe_limits = probe / 'limits.json'
@@ -356,10 +379,15 @@ def run(expected, output):
         write(probe_limits, strong_limits)
         env = dict(os.environ, TMPDIR=str(probe / 'runtime-tmp'), MARIAMEM_G1_CAP='1',
                    MARIAMEM_G1_REPORT=str(probe / 'go.json'), MARIAMEM_G1_LIMITS=str(probe_limits),
+                   MARIAMEM_G1_PROFILE=profile,
                    MARIAMEM_G1_SQL=str(ROOT / resources['retention_input']['path']))
         try:
-            observe([str(binary), '-test.run=^TestFixtureCampaign$', '-test.parallel=1', '-test.timeout=5m', '-test.v'], probe, env, resources)
-        except ValueError:
+            command = [str(binary), '-test.run=^TestFixtureCampaign$', '-test.parallel=1', '-test.timeout=5m', '-test.v']
+            if profile == 'measurement':
+                observe(command, probe, env, resources)
+            else:
+                run_command(command, probe / 'stdout.txt', env)
+        except (ValueError, subprocess.CalledProcessError):
             pass  # The negative control must fail; inspect the original STOP receipt below.
         validate_guard_probe(json.loads((probe / 'go.json').read_text()))
         report['guard_probe'] = 'PRE_ADMISSION_FD_STOP_CONFIRMED'
@@ -373,7 +401,7 @@ def run(expected, output):
         sums = {p.relative_to(output).as_posix(): digest(p) for p in sorted(output.rglob('*'))
                 if p.is_file() and p.suffix in ('.json', '.txt') and p.name != 'SHA256SUMS.json'}
         write(output / 'SHA256SUMS.json', sums)
-    validate_host(output, expected)
+    validate_host(output, expected, profile=profile)
     return report
 
 
@@ -382,15 +410,16 @@ def main():
     parser.add_argument('--expected-source-commit', required=True)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--validate-matrix', type=Path)
+    parser.add_argument('--profile', choices=('measurement', 'release'), default='measurement')
     args = parser.parse_args()
     if args.validate_matrix:
         for host in HOSTS:
             path = args.validate_matrix / ('go-fixture-host-' + host + '-' + args.expected_source_commit)
-            validate_host(path, args.expected_source_commit, host)
+            validate_host(path, args.expected_source_commit, host, args.profile)
         print('G1_BOTH_HOST_CAMPAIGN_PASS')
     else:
         need(args.output is not None, '--output required')
-        run(args.expected_source_commit, args.output)
+        run(args.expected_source_commit, args.output, args.profile)
         print('G1_HOST_CAMPAIGN_PASS')
 
 

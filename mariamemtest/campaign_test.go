@@ -25,6 +25,7 @@ import (
 // Campaign instrumentation is test-only. It wraps the actual production
 // dependencies and DB(t), without adding product API or replacing the driver.
 type campaign struct {
+	Profile         string `json:"profile"`
 	mu              sync.Mutex
 	Start           time.Time        `json:"-"`
 	Cap             int              `json:"cap"`
@@ -336,7 +337,14 @@ func TestFixtureCampaign(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	m := &campaign{Start: time.Now(), PID: os.Getpid(), Cap: cap, Parallel: parallel, Result: "RUNNING"}
+	profile := os.Getenv("MARIAMEM_G1_PROFILE")
+	if profile == "" {
+		profile = "measurement"
+	}
+	if profile != "measurement" && profile != "release" {
+		t.Fatal("unknown campaign profile")
+	}
+	m := &campaign{Profile: profile, Start: time.Now(), PID: os.Getpid(), Cap: cap, Parallel: parallel, Result: "RUNNING"}
 	if err = json.Unmarshal(limits, &m.Limits); err != nil {
 		t.Fatal(err)
 	}
@@ -410,9 +418,15 @@ func TestFixtureCampaign(t *testing.T) {
 	started := time.Now()
 	f := newOne()
 	m.NewSeconds = time.Since(started).Seconds()
-	for batch := 0; batch < 4; batch++ {
+	batches := 4
+	if profile == "release" {
+		batches = 1
+	}
+	for batch := 0; batch < batches; batch++ {
 		label := fmt.Sprintf("observed_%d", batch)
-		if batch == 0 {
+		if profile == "release" {
+			label = "regression"
+		} else if batch == 0 {
 			label = "warmup"
 		}
 		began := time.Now()
@@ -479,6 +493,9 @@ func TestFixtureCampaign(t *testing.T) {
 	}
 	if prepareCalls != 1 {
 		t.Fatal("preparation repeated for test cases")
+	}
+	if profile == "release" {
+		return // Deferred cleanup/counters remain required; no retention timing claim.
 	}
 	for retained := 1; retained <= 3; retained++ {
 		if retained > 1 {

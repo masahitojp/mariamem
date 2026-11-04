@@ -65,3 +65,12 @@ Fork-limit ownership/transport units and bounded actual-guest cases, installed
 wheel and external Go consumer. Canonical daily source checks and smoke have
 their separate Development owner. Receipt preservation and local workspace cleanup
 complete the experiment lifecycle separately from hosted-CI execution.
+
+## Release execution and manual timings
+
+The [current CI policy](../../docs/decisions/release-regression-vs-measurement.md)
+runs each installed Go consumer and Go documentation example once per OS, while
+Python still runs on3.11 and3.14. The latter uses `--skip-go` and reports only
+Python success. E2E timing repetitions and G1 resource measurement are manual;
+G1 Release uses its explicitly bound regression profile, retaining capacity,
+isolation, guards and cleanup. Full resource/timing receipts remain separate.

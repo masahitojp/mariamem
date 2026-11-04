@@ -266,3 +266,96 @@ def test_missing_matrix_host_is_not_accepted(tmp_path, monkeypatch, present):
                                     '--validate-matrix', str(tmp_path)])
     with pytest.raises(FileNotFoundError):
         campaign.main()
+
+
+def release_observations(cap=2, parallel=4):
+    go, _ = observations(cap, parallel)
+    go['profile'] = 'release'
+    go['batches'] = [dict(label='regression', elapsed_seconds=.1)]
+    go['cases'] = [dict(case, name='TestFixtureCampaign/regression/'+str(i))
+                   for i, case in enumerate(go['cases'][:4])]
+    go['samples'] = [go['samples'][0], go['samples'][-1]]
+    return go
+
+
+@pytest.mark.parametrize('mutation', ['none', 'cleanup', 'capacity', 'connections', 'fd',
+                                     'temp', 'case', 'batch', 'profile', 'retention'])
+def test_release_keeps_correctness_but_requires_no_os_measurement(mutation):
+    go = release_observations()
+    if mutation == 'cleanup': go['samples'][-1]['children'] = 1
+    elif mutation == 'capacity': go['peak_children'] = 3
+    elif mutation == 'connections': go['peak_physical_pool_connections'] = 5
+    elif mutation == 'fd': go['samples'][-1]['fd'] = go['samples'][0]['fd']+9
+    elif mutation == 'temp': go['samples'][-1]['unlinked_file_bytes'] = 1
+    elif mutation == 'case': go['cases'][0]['name'] = go['cases'][1]['name']
+    elif mutation == 'batch': go['batches'][0]['label'] = 'warmup'
+    elif mutation == 'profile': go['profile'] = 'measurement'
+    elif mutation == 'retention': go['samples'].insert(1, dict(go['samples'][0], label='retained_1'))
+    if mutation == 'none':
+        result = campaign.validate_mode(go, None, 2, 4, RESOURCES, 'release')
+        assert result['resource_measurements'] == 'NOT_RUN_RELEASE_REGRESSION'
+        assert 'sampled_rss_peak_bytes' not in result
+    else:
+        with pytest.raises(ValueError):
+            campaign.validate_mode(go, None, 2, 4, RESOURCES, 'release')
+
+
+@pytest.mark.parametrize('mutation', ['none', 'profile', 'summary', 'claim', 'missing', 'checksum'])
+def test_release_receipt_is_bound_and_not_a_measurement_receipt(tmp_path, monkeypatch, mutation):
+    report = receipt(tmp_path, monkeypatch)
+    report.update(profile='release', resource_measurements='NOT_RUN_RELEASE_REGRESSION', modes=[])
+    del report['three_time_outcomes']
+    for cap in (1, 2):
+        for parallel in (1, 4):
+            path = tmp_path/('cap%d-parallel%d' % (cap, parallel))
+            go = release_observations(cap, parallel)
+            campaign.write(path/'go.json', go)
+            (path/'os.json').unlink()
+            report['modes'].append(campaign.validate_mode(go, None, cap, parallel, RESOURCES, 'release'))
+    for name in ('first-test.txt', 'second-test.txt', 'guard-probe/os.json'):
+        (tmp_path/name).unlink()
+    if mutation == 'profile': report['profile'] = 'measurement'
+    elif mutation == 'summary': report['modes'][0]['cap'] = 99
+    elif mutation == 'claim': report['three_time_outcomes'] = {}
+    campaign.write(tmp_path/'host.json', report); refresh_sums(tmp_path)
+    if mutation == 'missing': (tmp_path/'cap1-parallel1/go.json').unlink()
+    elif mutation == 'checksum': (tmp_path/'cap1-parallel1/stdout.txt').write_text('changed')
+    if mutation == 'none':
+        assert campaign.validate_host(tmp_path, 'a'*40, 'macos-15', 'release')['result'] == 'PASS'
+        with pytest.raises(ValueError, match='profile'):
+            campaign.validate_host(tmp_path, 'a'*40, 'macos-15')
+    else:
+        with pytest.raises((ValueError, FileNotFoundError)):
+            campaign.validate_host(tmp_path, 'a'*40, 'macos-15', 'release')
+
+
+def test_release_run_executes_four_modes_and_negative_guard_without_sampler(tmp_path, monkeypatch):
+    monkeypatch.setattr(campaign, 'require_commit', lambda *args: None)
+    monkeypatch.setattr(campaign, 'source_identity', lambda *args: 'source-inventory')
+    monkeypatch.setattr(campaign, 'host_profile', lambda: dict(system='Darwin', architecture='arm64', version='15.7'))
+    def output(command, **kwargs):
+        return 'go version go1.26.10 darwin/arm64' if command == ['go', 'version'] else ('a'*40 if command[1:3] == ['rev-parse', 'HEAD'] else '')
+    monkeypatch.setattr(campaign.subprocess, 'check_output', output)
+    monkeypatch.setattr(campaign, 'observe', lambda *args: pytest.fail('Release must not run resource sampler'))
+    modes = []
+    def run(command, log, env=None):
+        log.write_text('test output')
+        if command[:2] == ['go', 'test']:
+            assert '-c' in command  # No first-test/second-test timing rebuilds.
+            Path(command[-1]).write_bytes(b'fixture executable')
+            return {'elapsed_seconds': .1}
+        assert env['MARIAMEM_G1_PROFILE'] == 'release'
+        path = Path(env['MARIAMEM_G1_REPORT'])
+        if 'guard-probe' in str(path):
+            campaign.write(path, dict(result='STOP', stop_reason='FD headroom guard',
+                cleanup_complete=True, peak_children=0, new_fixture_seconds=0, phases=[],
+                samples=[dict(children=0, baselines=0, physical_pool_connections=0)]))
+            raise subprocess.CalledProcessError(1, command)
+        cap = int(env['MARIAMEM_G1_CAP']);parallel=int(command[2].split('=')[1])
+        modes.append((cap, parallel));campaign.write(path, release_observations(cap, parallel))
+        return {'elapsed_seconds': .1}
+    monkeypatch.setattr(campaign, 'run_command', run)
+    result = campaign.run('a'*40, tmp_path/'release', 'release')
+    assert result['profile'] == 'release' and result['result'] == 'PASS'
+    assert set(modes) == {(1,1),(1,4),(2,1),(2,4)}
+    assert not list((tmp_path/'release').rglob('os.json'))

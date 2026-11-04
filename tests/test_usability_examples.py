@@ -155,3 +155,29 @@ def test_workflow_executes_exact_examples_and_keeps_existing_owners():
     for existing in ['tests/live_acceptance/native.py', 'tests/live_acceptance/run.py',
                      'tests/live_acceptance/installed.py', 'positive skip-reset restart-app']:
         assert existing in workflow
+
+
+@pytest.mark.parametrize('skip_go,fail_go', [(False,False),(True,False),(False,True)])
+def test_examples_cli_preserves_language_census_and_failures(tmp_path, monkeypatch, skip_go, fail_go):
+    from types import SimpleNamespace
+    calls=[]
+    monkeypatch.setattr(owner,'require_commit',lambda *args:SimpleNamespace(source_commit='a'*40))
+    monkeypatch.setattr(owner,'inspect_ref',lambda *args:SimpleNamespace(source_commit='a'*40))
+    monkeypatch.setattr(owner,'verify_go_binary',lambda *args:{'source_commit':'a'*40})
+    output=tmp_path/'examples'
+    def run(command, **kwargs):
+        kind='go' if command[0]=='go' else 'python';calls.append(kind)
+        if kind=='go':
+            kwargs['stdout'].write('\n'.join(json.dumps(dict(Action='pass',Test=n)) for n in
+                ('TestOrders','TestOrders/first','TestOrders/second')))
+        else:
+            (output/'pytest.xml').write_text('<testsuites><testsuite tests="2" skipped="0" failures="0" errors="0"/></testsuites>')
+        return SimpleNamespace(returncode=int(kind=='go' and fail_go))
+    monkeypatch.setattr(owner.subprocess,'run',run)
+    monkeypatch.setattr(sys,'argv',['verify.py','--host',str(tmp_path/'host'),'--go-app',str(tmp_path/'app'),
+        '--expected-source-commit','a'*40,'--output',str(output)]+(['--skip-go'] if skip_go else []))
+    assert owner.main()==int(fail_go)
+    receipt=json.loads((output/'result.json').read_text())
+    assert calls==(['python'] if skip_go else ['go','python'])
+    assert receipt['selected_languages']==calls
+    assert (receipt['result']=='FAIL')==fail_go

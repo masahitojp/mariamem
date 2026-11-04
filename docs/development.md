@@ -221,6 +221,14 @@ at release. This is the Human-approved cost tradeoff. Exact-SHA artifact reuse
 also reuses all-six-feature success when its authenticated original receipt
 matches the guarded asset set. Without that receipt, the six suites run again;
 a valid core READY remains reusable independently.
+Release regression and manual measurement have separate owners. Go installed
+consumers/documentation examples run once per OS; Python retains both minors.
+E2E first/second/repeat timing is manual-only. G1 Release uses the explicit
+`--profile release` (one four-case batch in each cap/parallel mode, all cleanup
+and guard oracles); its original timing/RSS/retention campaign remains available
+with `--profile measurement`. Regression receipts make no unexecuted resource
+claim. See the [approved separation](decisions/release-regression-vs-measurement.md).
+
 Eight retired experiment workflows are removed; their reports and source-pinned
 workflow links remain historical evidence. Runtime qualification is retained as
 a manual-only compatibility path for reviewed runtime reuse.
