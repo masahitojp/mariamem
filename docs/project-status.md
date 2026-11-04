@@ -2584,7 +2584,7 @@ No new Node CI job is added. Issue #94 owns the actionable checklist; the old
 spike keeps its original context.
 
 
-## Issue #66 opt-in Go Pipe candidate — implementation in progress
+## Issue #66 opt-in Go Pipe candidate — local checks complete, integration pending
 
 After the finite [TCP/Pipe spike](https://github.com/masahitojp/mariamem/tree/8f5ef18a1adf7219866ceaf03a1011e430bd6bba/benchmarks/spikes/net-pipe),
 the Human requested continuing to a small opt-in Go API candidate. The candidate
@@ -2595,3 +2595,11 @@ the spike's unbounded rejection-worker concern. The allocation tradeoff and
 single-host microbenchmark limits remain; no general suite speedup is claimed.
 This authorizes candidate work, not main integration or release. Current issue
 #66 owns correctness/CI evidence and remaining adoption conditions.
+
+The [implementation evidence](reviews/issue66-pipe-implementation/README.md)
+records daily/source smoke and changed-boundary race PASS on Darwin at source
+`3d5a5ce8cc3a91e8233181b4476031f7180e2b6d`. Generated pN engine internals
+were excluded from focused race instrumentation; the initial broader compile was
+interrupted, not accepted. Existing Ubuntu PR smoke now includes four bounded
+public Pipe cases, without a new job/matrix. Protected CI, Human adoption/main
+integration and release qualification remain separate and pending.
