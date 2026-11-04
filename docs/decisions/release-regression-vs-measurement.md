@@ -1,6 +1,6 @@
 # Release regression and manual measurement — 2026-11-04
 
-The Human approved the three high-priority CI reductions after the0.6.1 review:
+The Human approved the three high-priority CI reductions after the 0.6.1 review:
 run language-independent Go consumers once per OS, move E2E first/second/repeat
 timing out of normal Release, and separate G1 regression from repeated resource
 measurement. This changes CI responsibility, not runtime behavior or release
@@ -9,8 +9,8 @@ publication approval. Historical receipts and their original criteria stay intac
 ## Retained Release coverage
 
 - Live installed consumer, owned E2E installed consumer and Live documentation
-  examples execute Go on Python3.11's invocation only. Python executes on both
-  3.11 and3.14 on both OSes. The second invocation uses `--skip-go` and its receipt
+  examples execute Go on Python 3.11's invocation only. Python executes on both
+  3.11 and 3.14 on both OSes. The second invocation uses `--skip-go` and its receipt
   claims Python-only success; it never invents a second Go PASS. The same job
   still fails if the first Go invocation or either Python invocation fails.
 - Ordinary E2E orders/independence/retirement and physical controls remain.
@@ -54,3 +54,19 @@ READY reuse, native/guest comparisons, D1/Fork/Live faults and final wheel/modul
 acceptance retain their existing owners. Other audit candidates are not selected
 by this decision. A future resource claim requires a new identity-bound manual
 measurement, not inference from the shorter Release regression.
+
+## Focused verification
+
+Executable candidate: `3fe51edabd901212aa3ea9ceacf5d9b51facf740`.
+The focused workflow, runner, result-validation and contract suites passed:
+390 passed, 3 skipped (the existing host-dependent documentation examples).
+Actual workflow-shell checks cover first-interpreter Go ownership and failure
+propagation from Go and either Python interpreter.
+
+On Darwin arm64 with Go 1.26.10, the real release-profile G1 run passed all four
+cap/parallel modes (16 cases total), plus the pre-admission FD-stop negative
+control. Each final receipt reports zero children, baselines, connections and
+owned temporary bytes; final FD counts return to the baseline of 4. Resource
+measurements are explicitly NOT_RUN. Raw outputs remain local build artifacts.
+This is focused local verification; both-host Release acceptance and actual CI
+time savings have not been measured by this change.
