@@ -1,0 +1,18 @@
+{
+  "source_commit": "bc00b8e66e5fd57bc9b2127001faf8e05952b417",
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "question": "Issue100 follow-up: split init_common_variables into early globals/thread/locale, status, options+version+uid, limits, errors, SQL/JSON registration and charset tail",
+  "fixture": "1000 integer rows; serial cap1; root closed before four child Forks; existing SQL/independent update/cleanup oracles",
+  "matrix": "one host; three alternating fresh-process pairs x4 serial children; all existing guest initialization diagnostics on, new boundary callbacks off/on; warmup separate",
+  "controls": "one positive init pilot and one wrong-seed negative; no extra primary repeats",
+  "scope": "read-only Go generated-code observation overlay; no guest rebuild, no behavior/config/API changes",
+  "exit": "Identify dominant mapped interval; stop after three pairs, no optimization trial",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci_runs": 0,
+    "disk_gib": 7,
+    "minimum_free_gib": 16
+  }
+}
