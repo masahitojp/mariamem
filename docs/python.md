@@ -1,6 +1,6 @@
 # Python usage
 
-This guide describes Python `0.6.0`. In-memory Snapshots use one automatically
+This guide describes Python `0.6.1`. In-memory Snapshots use one automatically
 managed host per root lineage. Public save/load APIs are removed. See
 [API changes and migration](changes-since-v050.md) and
 [installation](../README.md#installation).
@@ -9,22 +9,20 @@ Python3.11 or newer is required; Python3.9/3.10 are no longer supported.
 
 ## Entry selection
 
-Published0.6.0 offers [prepared pytest fixtures](#pytest-fixtures),
-[shadow_maria routing](connection-routing.md) and the ordinary
-[Django runner recipe](django-testing.md). The adopted-on-main, unreleased
-[`mariamem.django` prepared entry](django-prepared.md) adds explicit prepared
-classes, a runner and a pytest-django plugin; it is not in the published0.6.0
-wheel. Its four installed-wheel OS/Python cells passed before adoption. Choose
-either Django prepared
-ownership or routing/shadow_maria for a run; their combined lifecycle is not
-supported. A [local pytest-xdist extension](django-prepared.md#local-pytest-xdist-workers)
-is also adopted on main and unreleased; worker-owned hosts/baselines do not share SDK
-handles, and serial remains the default. See [worker configuration and sizing](django-prepared.md#configure-worker-count)
-for CLI/pytest.ini examples and the 2/4-worker tradeoff. See [the exclusion policy](django-prepared.md#routing-and-shadow_maria).
+Version 0.6.1 offers [prepared pytest fixtures](#pytest-fixtures),
+[shadow_maria routing](connection-routing.md), the ordinary
+[Django runner recipe](django-testing.md) and the opt-in
+[`mariamem.django` prepared entry](django-prepared.md). The prepared entry adds
+explicit classes, a runner and a pytest-django plugin. Choose either Django
+prepared ownership or routing/shadow_maria for a run; their combined lifecycle
+is not supported. The [local pytest-xdist entry](django-prepared.md#local-pytest-xdist-workers)
+uses worker-owned hosts/baselines without sharing SDK handles; serial remains
+the default. See [worker configuration and sizing](django-prepared.md#configure-worker-count)
+and the [exclusion policy](django-prepared.md#routing-and-shadow_maria).
 
 Django integration supports 5.2 LTS, 6.0 and 6.1 (`Django>=5.2.8,<6.2`).
-Django6 requires Python3.12 or newer; Python3.11 users remain on Django5.2.
-This broadened range is unreleased. See the [support policy](django-testing.md#supported-django-versions).
+Django 6 requires Python 3.12 or newer; Python 3.11 users remain on Django 5.2.
+See the [support policy](django-testing.md#supported-django-versions).
 
 ## A disposable database
 
@@ -71,8 +69,8 @@ the pytest plugin entry point.
 | `mariamem_options` | session | Start options; default `{}` |
 | `mariamem_server` | session | Preparation DB; consumed by successful Snapshot |
 | `mariamem_prepare` | session | None, preparation callback or `PrepareCommand` |
-| `mariamem_max_forks` | session | Candidate #53: finite Snapshot cap; default `None` selects auto |
-| `mariamem_fork_timeout` | session | Candidate #53: per-child capacity wait; default30 seconds, positive finite only |
+| `mariamem_max_forks` | session | Since 0.6.1: finite Snapshot cap; default `None` selects auto |
+| `mariamem_fork_timeout` | session | Since 0.6.1: per-child capacity wait; default30 seconds, positive finite only |
 | `mariamem_snapshot` | session | Fixed baseline captured after preparation |
 | `mariamem_fork` | function | Independent mutable DB for one test |
 | `mariamem_connection_info` | function | Driver arguments for that test's DB |
@@ -82,7 +80,7 @@ For prepared tests, return your migrations/seed callback from
 worker, closes its source after use and owns the disconnect wait, Snapshot and
 per-test Fork teardown. Use the platform wheel from [installation](../README.md#installation).
 
-In the unreleased #53 candidate, override `mariamem_max_forks` with a positive
+In 0.6.1, override `mariamem_max_forks` with a positive
 integer and `mariamem_fork_timeout` with positive finite seconds when needed:
 
 ```python
@@ -362,7 +360,7 @@ allows metadata, or retained through the cause chain for read-only exceptions;
 source/baseline/test teardown still attempts remaining finalizers.
 Explicitly overriding a supplied fixture transfers that boundary's ownership to
 your implementation, including admission and cleanup. See the
-[release notes](../release/NOTES-v0.6.0.md).
+[release notes](../release/NOTES-v0.6.1.md).
 
 ## Share preparation, isolate mutations
 
@@ -484,7 +482,7 @@ derived baselines share that host. Each DB has its own SQL endpoint and a limit
 of 16 simultaneous connections. The Snapshot itself uses no SQL connection.
 The host exits when the last owned handle and admitted operation finish.
 
-The unreleased #53 candidate adds a finite per-Snapshot Fork budget:
+Version 0.6.1 adds a finite per-Snapshot Fork budget:
 
 ```python
 with setup_db.snapshot(max_forks=2) as baseline:
@@ -577,7 +575,7 @@ outside product support and compatibility testing; events remain unavailable
 in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
 accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](decisions/routine-support-scope.md).
-Version 0.6.0 supports real server-side execution for Go explicit/implicit
+Version 0.6.1 supports real server-side execution for Go explicit/implicit
 Prepare and Python prepared cursors.
 `DELIMITER` is a client directive, not server SQL. Python provides
 an explicit [bounded dump reader](importing-dump.md); this is not a general
@@ -614,7 +612,7 @@ Use the supplied local root/empty-password endpoint profile. TLS/SSL, compressio
 DEPRECATE_EOF and alternate authentication are not advertised/supported in this
 profile. COM_RESET_CONNECTION, server-side cursors/COM_STMT_FETCH, LOCAL INFILE
 transfer, CHANGE_USER, STATISTICS, PROCESS_INFO and binlog/replication streaming
-are outside0.6.0 support. Multi-packet continuation is also outside this profile.
+are outside0.6.1 support. Multi-packet continuation is also outside this profile.
 SQL-file import is not LOCAL INFILE; metadata SQL is not an administrative wire
 command. Per-entry uncaptured paths remain unverified;
 passing application/Release tests is not evidence of additional protocol coverage.
@@ -647,7 +645,7 @@ The bounded `import_dump(db, path)` helper is described in the
 [dump preparation guide](importing-dump.md), including the `dump` extra, supported
 MariaDB producer profile and failure cleanup. It is not a general SQL-file runner.
 
-Version 0.6.0 supports stable Live endpoints across sequential browser E2E
+Version 0.6.1 supports stable Live endpoints across sequential browser E2E
 cases. Use independent Forks for concurrent cases; Live does not promise a
 parallel shared mutable endpoint. See the [Live guide](live.md) for connection
 draining and reset ownership.
@@ -673,7 +671,7 @@ current OpenSSL3 CI environment does not cover this OpenSSL4 combination. See
 The [owned E2E examples](examples/e2e_owned/README.md) demonstrate
 application-specific preparation/start/quiescence/stop hooks over Live. This
 entry was approved for bounded main adoption with the supplied hook obligations;
-it is included in 0.6.0. Existing direct Live APIs remain the mechanism
+it is included in 0.6.1. Existing direct Live APIs remain the mechanism
 underneath the entry. See the [integration receipt](reviews/e2e-integration-ci-41095184074/assessment.json)
 for exact tested source/profiles. Arbitrary unregistered work and non-cooperative
 shutdown remain outside the guarantee; detailed resource characterization is deferred.

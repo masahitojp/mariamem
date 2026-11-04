@@ -11,11 +11,11 @@ Start fresh for light setup. When migrations or fixtures are expensive, prepare
 them once, fix that state as a Snapshot, and Fork independent databases for
 individual tests. Share the baseline, not previous tests' mutations.
 
-Python `0.6.0` / Go `v0.6.0` adds prepared test entries, owned sequential E2E,
-bounded Python dump input, routines and server-side prepared execution within
-the declared wire/client profile. In-memory Snapshots retain an automatically
+Python `0.6.1` / Go `v0.6.1` adds opt-in prepared Django tests, local
+pytest-xdist workers and finite per-Snapshot Fork admission. Django extras
+support 5.2 LTS, 6.0 and 6.1. In-memory Snapshots retain an automatically
 managed Python host per root lineage. Public save/load APIs remain removed.
-See the [release notes](release/NOTES-v0.6.0.md) and
+See the [release notes](release/NOTES-v0.6.1.md) and
 [API migration guide](docs/changes-since-v050.md).
 
 ## Installation
@@ -40,10 +40,10 @@ python3 -m venv .venv
 source .venv/bin/activate
 
 # macOS arm64
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.6.0/mariamem-0.6.0-py3-none-macosx_15_0_arm64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.6.1/mariamem-0.6.1-py3-none-macosx_15_0_arm64.whl'
 
 # Ubuntu x86_64: use this instead
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.6.0/mariamem-0.6.0-py3-none-linux_x86_64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.6.1/mariamem-0.6.1-py3-none-linux_x86_64.whl'
 ```
 
 The `test` extra supplies PyMySQL and pytest tools. Use the wheel rather than a
@@ -53,7 +53,7 @@ For the published Go module:
 
 ```sh
 go mod init example.com/mariamem-test
-go get github.com/masahitojp/mariamem@v0.6.0
+go get github.com/masahitojp/mariamem@v0.6.1
 go get github.com/go-sql-driver/mysql
 ```
 
@@ -61,13 +61,13 @@ Optional release audit assets can be downloaded separately; they are not needed
 for ordinary startup:
 
 ```sh
-gh release download v0.6.0 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.6.0-corresponding-source.tar.gz'
+gh release download v0.6.1 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.6.1-corresponding-source.tar.gz'
 ```
 
 ## Supported application-test entries
 
-The following paths are supported in 0.6.0 within their documented profiles.
+The following paths are supported in 0.6.1 within their documented profiles.
 
 | Test setup | Supported entry and boundary |
 | --- | --- |
@@ -79,8 +79,8 @@ The following paths are supported in 0.6.0 within their documented profiles.
 | Ordinary Django tests (5.2 LTS / 6.0 / 6.1) | [Standard-runner recipe](docs/django-testing.md); Django owns rollback/flush/fixtures, not automatic prepared-Snapshot restoration |
 
 These paths retain the exact driver, wire and lifecycle limits below. The
-[explicit prepared Django entry](docs/django-prepared.md) is also adopted on
-main, **unreleased and absent from the published0.6.0 packages**. It adds
+[explicit prepared Django entry](docs/django-prepared.md) is included in
+0.6.1. It adds
 `mariamem.django` with dedicated classes and full prepared-state restoration;
 it is mutually exclusive with routing/shadow_maria in one run. See
 [local worker configuration](docs/django-prepared.md#configure-worker-count)
@@ -88,14 +88,13 @@ for serial/xdist commands and worker sizing. Its four
 installed-wheel OS/Python cells passed before adoption. Procedures/functions
 and real server-side prepared execution retain the named exceptions below.
 
-Candidate #53 ([Human-adopted; main integration pending](docs/decisions/issue53-fork-limit-adoption.md), absent
-from published0.6.0) adds finite per-Snapshot Fork admission by default. Full
-capacity waits before starting another child; see the candidate contracts for
-[Go](docs/go.md#unreleased-candidate-per-snapshot-fork-limits-53) and [Python](docs/python.md).
+Version 0.6.1 adds finite per-Snapshot Fork admission by default. Full capacity
+waits before starting another child; see the contracts for
+[Go](docs/go.md#per-snapshot-fork-limits) and [Python](docs/python.md).
 
 ## Prepare once, isolate each test
 
-These examples use the 0.6.0 packages installed above.
+These examples use the 0.6.1 packages installed above.
 
 ## pytest fixtures
 
@@ -291,7 +290,7 @@ outside product support and compatibility testing; events remain unavailable
 in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
 accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](docs/decisions/routine-support-scope.md).
-Version 0.6.0 supports real server-side execution for Go explicit/implicit
+Version 0.6.1 supports real server-side execution for Go explicit/implicit
 Prepare and Python prepared cursors.
 `DELIMITER` is a client directive, not server SQL. Python provides
 an explicit [bounded dump reader](docs/importing-dump.md); this is not a general
@@ -324,14 +323,14 @@ Server-side cursors / COM_STMT_FETCH remain unsupported.
 
 Current source builds retain a bounded local endpoint profile: TLS/compression,
 LOCAL INFILE transfer, administrative wire commands and binlog/replication
-streaming are outside0.6.0 support. See the [exact wire scope, exceptions and
+streaming are outside0.6.1 support. See the [exact wire scope, exceptions and
 bounded reopening rule](docs/decisions/v060-wire-contract.md). Application or
 Release CI success does not imply additional protocol coverage.
 
 
 ## Important limits
 
-- **Candidate #53, unreleased:** Fork waits when its Snapshot cap is full. Close
+- **Finite Fork capacity:** Fork waits when its Snapshot cap is full. Close
   an owned child before requesting another, or bound the wait with a Go context /
   Python timeout. Independent root Start calls remain outside Snapshot caps.
   Auto sizing is a memory heuristic; hidden container limits require an explicit
@@ -358,7 +357,7 @@ Release CI success does not imply additional protocol coverage.
   DBs and baselines contain your test data; treat sensitive data accordingly.
 - Resource use and the Fresh/prepared crossover depend on the workload.
   Large scans remain query work even when preparation is reused.
-- The 0.x API may change. See [release changes](release/NOTES-v0.6.0.md)
+- The 0.x API may change. See [release changes](release/NOTES-v0.6.1.md)
   and [API migration](docs/changes-since-v050.md).
 
 You do not need runtime implementation knowledge to use these APIs.
@@ -373,5 +372,5 @@ from [shyim/lite4mariadb](https://github.com/shyim/lite4mariadb) and MariaDB Ser
 The original testing API was informed by [shibukawa/pgmem](https://github.com/shibukawa/pgmem);
 mariamem's product contract is defined independently.
 
-Version 0.6.0 supports stable Live endpoints across sequential browser E2E
+Version 0.6.1 supports stable Live endpoints across sequential browser E2E
 cases. See the [Live guide](docs/live.md) for connection draining and reset ownership.

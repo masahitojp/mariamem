@@ -1,7 +1,7 @@
 # Releasing mariamem
 
-This source prepares the human-selected `v0.6.0`; Python spelling is `0.6.0`.
-The [versioned notes](../release/NOTES-v0.6.0.md) describe the adopted release
+This source prepares the human-selected `v0.6.1`; Python spelling is `0.6.1`.
+The [versioned notes](../release/NOTES-v0.6.1.md) describe the adopted release
 scope and named limitations. Exact final-version artifacts still require Release
 CI acceptance; preparation is not qualification or publication evidence.
 A normal release requires one human request authorizing one exact final-version SHA.
@@ -22,7 +22,7 @@ URL, exact SHA and operation immediately after submission and stops.
 
 Prepare a human-selected version with the repository release skill. Submit using
 `<venv>/bin/python scripts/release_prepare.py submit vX.Y.Z`.
-Go 1.26.10 is the 0.6.0 build toolchain (GO-2026-6809); the module minimum
+Go 1.26.10 is the 0.6.1 build toolchain (GO-2026-6809); the module minimum
 remains Go 1.26.0 and the forward-compat check uses Go 1.27.3.
 Already-prepared clean candidates are accepted without another metadata commit.
 For an allowed version/docs preparation diff, local submission runs the focused
@@ -317,7 +317,7 @@ its historical metadata. Also describe the new marker/preparation entry and
 that preparation uses explicit DB settings (no preparation-time automatic
 routing). See the [adopted implementation](reviews/v06x-shadow-maria-implementation.md).
 For the first release containing P1/PrepareCommand, manually carry the applicable
-items from [the sole 0.6.0 staging content source](release-notes/unreleased.md) into that
+items from [the sole 0.6.1 staging content source](release-notes/unreleased.md) into that
 release's tracked `release/NOTES-vX.Y.Z.md` (or prerelease equivalent). Include
 the new public declaration, same-worker admission stop after cleanup failure,
 bounded command output and compatibility/cleanup limitations. Check those items
@@ -328,7 +328,7 @@ This is a required notes handoff, not a selected release version, generated note
 file, release preparation or publication approval. Main adoption alone is not
 Qualification or release evidence.
 
-## Final usage-scope reconciliation for 0.6.0
+## Final usage-scope reconciliation for 0.6.1
 
 Before submission of the final versioned candidate, recheck README and the
 Python/Go/Live/Django/preparation/dump guides against the adopted
@@ -336,7 +336,7 @@ Python/Go/Live/Django/preparation/dump guides against the adopted
 [wire decision](decisions/v060-wire-contract.md). Supported main additions must
 be described as supported in that release, exact consumer exceptions named, and
 OUT paths not implied. The final-version preparation transfers the reviewed staging notes to
-`release/NOTES-v0.6.0.md` and updates README/Python/Go install examples to0.6.0.
+`release/NOTES-v0.6.1.md` and updates README/Python/Go install examples to0.6.1.
 This wording reconciliation adds no runtime evidence; exact-candidate acceptance
 remains with Release CI.
 
