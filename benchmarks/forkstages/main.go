@@ -62,7 +62,7 @@ func cpu() int64 {
 	if e := syscall.Getrusage(syscall.RUSAGE_SELF, &r); e != nil {
 		panic(e)
 	}
-	return (r.Utime.Sec+r.Stime.Sec)*1e9 + (r.Utime.Usec+r.Stime.Usec)*1000
+	return (r.Utime.Sec+r.Stime.Sec)*1e9 + int64(r.Utime.Usec+r.Stime.Usec)*1000
 }
 func pool(db *mariamem.Database) (*sql.DB, error) {
 	p, e := sql.Open("mysql", db.DSN())
