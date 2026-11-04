@@ -15,11 +15,16 @@ from support import wire_acceptance
 
 
 @pytest.fixture
-def wire_db():
+def wire_host():
     host = os.environ.get("MARIAMEM_TEST_HOST")
     if not host or os.environ.get("MARIAMEM_TEST_DEFAULT") != "1":
         pytest.skip("requires current generated-Go integration host")
-    with mariamem.start(host_binary=host) as db:
+    return host
+
+
+@pytest.fixture
+def wire_db(wire_host):
+    with mariamem.start(host_binary=wire_host) as db:
         yield db
 
 
@@ -192,3 +197,89 @@ def test_owner_eof_reaps_host_and_closes_wrapper(wire_db):
         wire_db._dispose()
     assert wire_db._session._process.stdout.closed and wire_db._session._stderr.closed
     assert not wire_db._session._reader.is_alive()
+
+
+def _pipeline_frame(statement):
+    body = b"\x03" + statement.encode()
+    size = len(body)
+    return bytes((size & 255, size >> 8 & 255, size >> 16 & 255, 0)) + body
+
+
+def _wait_for_active_query(db):
+    deadline = time.monotonic() + 5
+    while time.monotonic() < deadline:
+        if db.status()["busy"]:
+            return
+        time.sleep(0.005)
+    raise AssertionError("query never became active")
+
+
+def _wait_for_unusable(db):
+    deadline = time.monotonic() + 5
+    while time.monotonic() < deadline:
+        try:
+            db.status()
+        except mariamem.HostError as error:
+            assert error.code == "unusable" and error.closed
+            return
+        time.sleep(0.01)
+    raise AssertionError("failed instance remained usable")
+
+
+def test_pipelined_commands_preserve_response_and_effect_order(wire_db):
+    with connect(wire_db) as conn:
+        execute(conn, "CREATE TABLE pipeline_order(value INT)")
+        execute(conn, "INSERT INTO pipeline_order VALUES(0)")
+        conn._write_bytes(
+            _pipeline_frame("UPDATE pipeline_order SET value=value+1+SLEEP(0.1)") +
+            _pipeline_frame("SELECT value FROM pipeline_order"))
+        conn._next_seq_id = 1
+        conn._read_query_result()
+        assert conn._result.affected_rows == 1
+        conn._next_seq_id = 1
+        conn._read_query_result()
+        assert conn._result.rows == ((1,),)
+        assert execute(conn, "SELECT 11") == ((11,),)
+
+
+def test_pipelined_malformed_frame_is_rejected_after_current_response(wire_db):
+    with connect(wire_db) as conn:
+        bad = bytearray(_pipeline_frame("SELECT 999"))
+        bad[3] = 9  # Each command must start at sequence0.
+        conn._write_bytes(_pipeline_frame("SELECT SLEEP(0.1)") + bad)
+        conn._next_seq_id = 1
+        conn._read_query_result()
+        assert conn._result.rows == ((0,),)
+        conn._next_seq_id = 1
+        with pytest.raises(pymysql.Error):
+            conn._read_query_result()
+        conn._force_close()
+    with connect(wire_db) as fresh:
+        assert execute(fresh, "SELECT 2") == ((2,),)
+
+
+@pytest.mark.parametrize("failure", ["disconnect", "overflow", "close"])
+def test_pipelined_fatal_paths_preserve_independent_root(wire_host, failure):
+    with mariamem.start(host_binary=wire_host) as independent:
+        with mariamem.start(host_binary=wire_host, query_timeout=10, shutdown_timeout=1) as db:
+            conn = connect(db)
+            try:
+                conn._execute_command(3, b"SELECT SLEEP(20)")
+                _wait_for_active_query(db)
+                if failure == "overflow":
+                    conn._write_bytes(b"x" * 1048582)  # Accepted queue limit +1.
+                    with pytest.raises(pymysql.Error, match="bounded receive buffer"):
+                        conn._read_query_result()
+                    _wait_for_unusable(db)
+                else:
+                    conn._write_bytes(_pipeline_frame("SELECT 999"))
+                    if failure == "disconnect":
+                        conn._force_close()
+                        _wait_for_unusable(db)  # Before the10s query deadline.
+                    else:
+                        db.close()
+                        assert db.closed
+                with connect(independent) as good:
+                    assert execute(good, "SELECT 2") == ((2,),)
+            finally:
+                conn._force_close()
