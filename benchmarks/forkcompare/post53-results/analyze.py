@@ -51,7 +51,7 @@ def main():
  p=argparse.ArgumentParser();p.add_argument('--evidence',type=Path);p.add_argument('--results',type=Path,required=True);p.add_argument('--check',action='store_true');a=p.parse_args()
  if a.check:d=json.loads((a.results/'compact.json').read_text())
  else:d=collect(a.evidence);a.results.mkdir(parents=True,exist_ok=True);(a.results/'compact.json').write_text(dump(d))
- s=summarize(d);buf=io.StringIO();writer=csv.DictWriter(buf,fieldnames=list(s['runs'][0]));writer.writeheader();writer.writerows(s['runs'])
+ s=summarize(d);buf=io.StringIO();writer=csv.DictWriter(buf,fieldnames=list(s['runs'][0]),lineterminator="\n");writer.writeheader();writer.writerows(s['runs'])
  outputs={'summary.json':dump(s),'summary.csv':buf.getvalue()}
  if a.check:
   for n,v in outputs.items():assert (a.results/n).read_bytes()==v.encode(),n

@@ -9,5 +9,10 @@
     "original_sha256": "b5f31d272c9eeba444bd9c8fb3ac59354f298d1e71271044e9ceb9edc282f7af",
     "published_sha256": "0ab2fe158059a0387e54af3b328ac1ed3a7aba03e8d0a5abe7b23f34f5f1907f",
     "scope": "Only module graph metadata paths; no source ID/result/SQL/statistic changed."
+  },
+  "csv_line_endings": {
+    "change": "Use LF in CSV output and read-only regeneration; numeric fields unchanged.",
+    "original_analyzer_sha256": "d0ea41dbdb699e0125e2defd6656a2f4013bb95e306ba1c4beaf0f83395a4c24",
+    "published_analyzer_sha256": "2513004c30a567b6f4ea8c55ae153b2e7eb036a9a3591acd896cad1478a749ff"
   }
 }
