@@ -10,7 +10,67 @@ unfinished.**
 [the fixed acceptance table](issue53-fork-limit-design.md#fixed-acceptance-and-stopping-point)
 is unchanged. No acceptance row covering a real entry is marked complete here.
 
-## Current checkpoint — hosted matrix and stale credential oracle repair
+## Current checkpoint — hosted matrix failures and bounded cleanup diagnosis
+
+Active diagnosis after retry41752306473: the Mac bounded recapture test omitted
+the documented wait_disconnected boundary; its test-only correction now passes
+all9 selected actual-guest cases locally. Ubuntu core then reached the prepared
+consumer diagnostic and surfaced an unconfirmed guest cleanup on DB Close.
+Question: is this a lifecycle regression or a previously suppressed cleanup
+outcome of the accepted Connector CALL diagnostic? Evidence is limited to exact
+failed-job logs, one pinned Connector26.7.0 per-mode diagnostic and focused
+cleanup regressions. Budget:30 minutes active diagnosis, no new measurement
+collector and no further heavy CI until the cause is classified. Preserve the
+original CALL outcomes and strict cleanup failure; do not expand accepted
+exceptions or suppress Close errors to pass. If unresolved or architectural,
+report the evidence and required decision instead of extending the fixed exit.
+
+Retry source_commit `33925b14c8ae2b774a2d4d0aa2b3b5b5d6b310cb`, verify
+[41752306473](https://github.com/masahitojp/mariamem/actions/runs/41752306473):
+
+| Boundary | Ubuntu | macOS | Evidence limit |
+| --- | --- | --- | --- |
+| Core | FAIL: prepared edge DB cleanup | PASS | Job results, not aggregate READY |
+| Live installed Python3.11/3.14 | Job PASS | FAIL in Python3.11 bounded recapture | macOS failed before completing both minors |
+| D1 installed Python3.11/3.14 | Job PASS | Job PASS | New receipts still require exact-source assessment |
+
+The Mac recapture detector now explicitly waits for client retirement before both
+captures, as the public guide requires. Its nine selected real-guest ownership
+cases pass locally; this does not relabel the failed hosted cell.
+
+Ubuntu's independent failure is reproduced locally with clean runtime source
+`8566c8ad6b5dbb62d5540120bec0e9abe3d97519` (runtime code identical to33925b14),
+macOS arm64, Python3.11.18/OpenSSL3.5.9 and Connector/Python26.7.0. A finite
+three-mode loop first failed on iteration7, pure mode, at strict DB Close with
+`guest cleanup timed out` / `disposal is not yet complete`. The original CALL
+nextset/next-query functional failures remained unchanged. A separate bounded
+probe observed `unexpected client input during running query` and connection
+reset during query through DB status after client close. At a five-second
+Close intervention, SIGQUIT stacks show `guest.Process.stop` waiting on its
+already-failed guest, guest futex waits and a worker in guest stdout `Fd_write`.
+That stack probe intentionally kills its diagnostic host: it is not a disposal
+PASS or evidence of the normal cleanup duration.
+
+The disconnect/pipelining abort paths and cooperative guest stop logic predate
+this candidate. The old Python Close ignored HostError with closed=true; this
+candidate also requires confirmed disposal. These facts are consistent with an
+older unconfirmed cleanup being surfaced, but do not prove the complete causal
+mechanism or exclude a lifecycle regression. No native comparison accepts this
+DB-disposal failure. It is outside the two named consumer exceptions.
+
+The diagnostic now preserves the original edge observation alongside a distinct
+`database_cleanup_error`, writes its failure receipt and prints it into CI logs,
+stops admitting further modes after unknown disposal, and exits nonzero. It
+does not retry, swallow Close errors, or alter native matching.53 focused oracle
+unit tests pass, including successful-capture/failed-cleanup, two simultaneous
+failures and main's persisted nonzero/stop behavior. Product/API/guest/generated
+code is unchanged in this checkpoint.
+
+**Still unfinished:** resolve the interrupted-guest disposal failure before
+another full matrix submission. That needs a focused transport/guest-stop
+investigation, preserving the strict ownership rule; neither a retry PASS nor
+the accepted CALL behavior is sufficient to waive it. This checkpoint does not
+claim all eighteen fixed acceptance rows complete or authorize integration.
 
 Verify run [41746730774](https://github.com/masahitojp/mariamem/actions/runs/41746730774)
 uses source_commit `b75af56f6960316a2d47e7865a21808a20105330`. During the Human's

@@ -25,6 +25,7 @@ def test_bounded_remote_fork_and_recapture_release_source_slot(tmp_path):
     with mariamem.start(host_binary=HOST) as root:
         sql(root, "CREATE TABLE cap_seed(id INT PRIMARY KEY)")
         sql(root, "INSERT INTO cap_seed VALUES(7)")
+        root.wait_disconnected()
         with root.snapshot(max_forks=1) as baseline:
             remote = baseline.fork(host_binary=alternate, timeout=5)
             try:
@@ -33,6 +34,7 @@ def test_bounded_remote_fork_and_recapture_release_source_slot(tmp_path):
                     baseline.fork(timeout=.04)
                 assert error.value.code == "pool_timeout"
                 assert sql(remote, "SELECT * FROM cap_seed") == ((7,),)
+                remote.wait_disconnected()
                 with remote.snapshot(max_forks=1) as next_baseline:
                     assert remote._remote.done
                     with baseline.fork(timeout=5) as sibling:

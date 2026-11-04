@@ -63,22 +63,38 @@ def capture(info,mode):
     return result
 
 
+def capture_mode(mode,host,native_port):
+    db=None
+    result={'capture':'FAIL'}
+    try:
+        if host:
+            import mariamem
+            db=mariamem.start(host_binary=str(host));info=db.connection_info()
+        else:info=dict(host='127.0.0.1',port=native_port,user='root',database='test')
+        result=capture(info,mode)
+    except Exception as e:result={'capture':'FAIL','error':error(e)}
+    finally:
+        if db:
+            try:db.close()
+            except Exception as e:
+                result['observation_capture']=result['capture']
+                result['capture']='FAIL'
+                result['database_cleanup_error']=error(e)
+    return result
+
+
 def main():
     p=argparse.ArgumentParser();g=p.add_mutually_exclusive_group(required=True);g.add_argument('--native-port',type=int);g.add_argument('--host',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     import mysql.connector as connector
     assert connector.__version__=='26.7.0'
     r={'scope':'consumer edge characterization, never adoption acceptance','environment':{'connector':connector.__version__,'python':sys.version,'openssl':ssl.OPENSSL_VERSION,'system':platform.system(),'architecture':platform.machine()},'modes':{}}
     for mode in ('pure','default','cext'):
-        db=None
-        try:
-            if a.host:
-                import mariamem
-                db=mariamem.start(host_binary=str(a.host));info=db.connection_info()
-            else:info=dict(host='127.0.0.1',port=a.native_port,user='root',database='test')
-            r['modes'][mode]=capture(info,mode)
-        except Exception as e:r['modes'][mode]={'capture':'FAIL','error':error(e)}
-        finally:
-            if db:db.close()
+        r['modes'][mode]=capture_mode(mode,a.host,a.native_port)
+        if 'database_cleanup_error' in r['modes'][mode]:
+            # Keep the original consumer observation and the independent owner
+            # failure. A diagnostic exception never authorizes unknown disposal.
+            print(json.dumps({'mode':mode,**r['modes'][mode]}),flush=True)
+            break
     a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(r,indent=2)+'\n')
     if any(v['capture']=='FAIL' for v in r['modes'].values()):raise SystemExit(1)
 
