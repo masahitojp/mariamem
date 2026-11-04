@@ -1,0 +1,1 @@
+{"name":"mariamem-prisma-dogfood","private":true,"type":"module","dependencies":{"@prisma/client":"7.10.1","@prisma/adapter-mariadb":"7.10.1","prisma":"7.10.1","tsx":"4.23.15"}}
