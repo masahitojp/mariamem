@@ -91,7 +91,7 @@ func TestIssue66(t *testing.T) {
 					t.Fatal(n, err)
 				}
 			})
-			t.Run("transaction_rollback", func(t *testing.T) {
+			t.Run("transaction_commit_rollback", func(t *testing.T) {
 				if _, err := db.Exec("CREATE TABLE issue66_t (id INT PRIMARY KEY)"); err != nil {
 					t.Fatal(err)
 				}
@@ -111,6 +111,21 @@ func TestIssue66(t *testing.T) {
 				if err = db.QueryRow("SELECT COUNT(*) FROM issue66_t").Scan(&n); err != nil || n != 0 {
 					t.Fatal(n, err)
 				}
+				tx2, err := db.Begin()
+				if err != nil {
+					t.Fatal(err)
+				}
+				defer tx2.Rollback()
+				if _, err = tx2.Exec("INSERT INTO issue66_t VALUES (?)", 2); err != nil {
+					t.Fatal(err)
+				}
+				if err = tx2.Commit(); err != nil {
+					t.Fatal(err)
+				}
+				if err = db.QueryRow("SELECT COUNT(*) FROM issue66_t").Scan(&n); err != nil || n != 1 {
+					t.Fatal(n, err)
+				}
+
 			})
 			t.Run("capacity_and_reuse", func(t *testing.T) {
 				conns := []*sql.Conn{}
@@ -221,6 +236,50 @@ func TestIssue66(t *testing.T) {
 			}
 		})
 	}
+	t.Run("pipe_capacity_rejection_close", func(t *testing.T) {
+		s := spikeServer(t)
+		db := spikeDB(t, s, "pipe")
+		conns := []*sql.Conn{}
+		defer func() {
+			for _, c := range conns {
+				c.Close()
+			}
+		}()
+		for i := 0; i < s.Capacity(); i++ {
+			c, err := db.Conn(context.Background())
+			if err != nil {
+				t.Fatal(err)
+			}
+			conns = append(conns, c)
+		}
+		raw, err := s.DialPipe(context.Background())
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer raw.Close()
+		if s.Active() != s.Capacity()+1 {
+			t.Fatal("unread rejection not tracked")
+		}
+		if err = s.Close(context.Background()); err != nil {
+			t.Fatal(err)
+		}
+		if s.Active() != 0 {
+			t.Fatal("unread rejection retained after Close")
+		}
+	})
+	t.Run("pipe_guest_failure_new_dial", func(t *testing.T) {
+		s := spikeServer(t)
+		s.Guest.Abort(errors.New("issue66 injected guest failure"))
+		db := spikeDB(t, s, "pipe")
+		err := db.Ping()
+		var me *mysql.MySQLError
+		if !errors.As(err, &me) || me.Number != 2013 {
+			t.Fatalf("want unavailable2013, got %v", err)
+		}
+		db.Close()
+		spikeIdle(t, s)
+	})
+
 	t.Run("pipe_read_deadline", func(t *testing.T) {
 		s := spikeServer(t)
 		c, err := s.DialPipe(context.Background())
