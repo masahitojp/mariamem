@@ -1,0 +1,167 @@
+{
+  "totalTests": 8,
+  "totalPassed": 6,
+  "totalFailed": 2,
+  "totalPending": 0,
+  "totalSkipped": 0,
+  "browserName": "electron",
+  "browserVersion": "118.0.5993.159",
+  "cypressVersion": "13.17.0",
+  "runs": [
+    {
+      "spec": "cypress/e2e/login.cy.ts",
+      "stats": {
+        "duration": 8325,
+        "endedAt": "2026-11-04T18:27:13.812Z",
+        "failures": 1,
+        "passes": 1,
+        "pending": 0,
+        "skipped": 0,
+        "startedAt": "2026-11-04T18:27:05.487Z",
+        "suites": 1,
+        "tests": 2
+      },
+      "error": null,
+      "tests": [
+        {
+          "title": [
+            "Login tests",
+            "logs user in with correct credentials and logs user out"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Login tests",
+            "login with blank inputs or incorrect credentials"
+          ],
+          "state": "failed",
+          "displayError": "AssertionError: Timed out retrying after 4000ms: Expected to find content: '/Required/i' but never did.\n    at Context.eval (webpack://umami/./cypress/e2e/login.cy.ts:20:0)",
+          "attempts": [
+            {
+              "state": "failed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/user.cy.ts",
+      "stats": {
+        "duration": 13068,
+        "endedAt": "2026-11-04T18:27:28.149Z",
+        "failures": 1,
+        "passes": 2,
+        "pending": 0,
+        "skipped": 0,
+        "startedAt": "2026-11-04T18:27:15.081Z",
+        "suites": 1,
+        "tests": 3
+      },
+      "error": null,
+      "tests": [
+        {
+          "title": [
+            "User tests",
+            "Add a User"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "User tests",
+            "Edit a User role and password"
+          ],
+          "state": "failed",
+          "displayError": "AssertionError: Timed out retrying after 4000ms: expected '<tr.GridTable-row--MWI1M>' to contain text 'View only', but the text was 'Test-userUserless than a minute agoDeleteEdit'\n    at Context.eval (webpack://umami/./cypress/e2e/user.cy.ts:38:0)",
+          "attempts": [
+            {
+              "state": "failed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "User tests",
+            "Delete a user"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/website.cy.ts",
+      "stats": {
+        "duration": 11824,
+        "endedAt": "2026-11-04T18:27:41.378Z",
+        "failures": 0,
+        "passes": 3,
+        "pending": 0,
+        "skipped": 0,
+        "startedAt": "2026-11-04T18:27:29.554Z",
+        "suites": 1,
+        "tests": 3
+      },
+      "error": null,
+      "tests": [
+        {
+          "title": [
+            "Website tests",
+            "Add a website"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Website tests",
+            "Edit a website"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Website tests",
+            "Delete a website"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

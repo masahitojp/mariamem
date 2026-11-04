@@ -1,0 +1,56 @@
+{
+  "summary": {
+    "PASS": 12,
+    "FAIL": 0
+  },
+  "cells": [
+    {
+      "name": "migration-admin-seed",
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-create-and-read-website",
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-save-session-and-events",
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-visitor-bounce-duration-stats",
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-country-filter-join",
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-daily-UTC",
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-daily-Tokyo",
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-custom-event-and-properties",
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-user-website-relation",
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-update-website",
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-reset-transaction",
+      "result": "PASS"
+    },
+    {
+      "name": "upstream-delete-website",
+      "result": "PASS"
+    }
+  ]
+}

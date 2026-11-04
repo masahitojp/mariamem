@@ -1,0 +1,18 @@
+{
+  "version": "12.3.3-MariaDB-ubu2404",
+  "function_error": {
+    "code": 1305,
+    "message": "FUNCTION umami.BIN_TO_UUID does not exist"
+  },
+  "migration_exit": 1,
+  "same_migration05_missing_function": true,
+  "native_mariadb_bitmask_hex": "8000000000000000",
+  "native_bitmask_warnings": [
+    [
+      "Warning",
+      1292,
+      "Truncated incorrect DECIMAL value: '\\x124Vx\\x90\\xAB\\xCD\\xEF\\x00\\x11\"3DUfw'"
+    ]
+  ],
+  "expected_128bit_byte_math_hex": "1234567890AB4DEF8011223344556677"
+}

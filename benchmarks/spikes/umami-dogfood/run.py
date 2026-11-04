@@ -2,7 +2,7 @@
 import argparse,contextlib,hashlib,json,os,re,signal,socket,subprocess,sys,time,urllib.request,urllib.error
 from pathlib import Path
 
-def main(w,e,compat,cohorts,native_port):
+def main(w,e,compat,cohorts,native_port,ui_spec):
     product=w/'temp/host-source';app=w/'temp/umami';host=w/'temp/mariamem-host';e.mkdir(parents=True,exist_ok=True)
     sys.path[:0]=[str(product/'python'),str(product/'scripts')]
     import mariamem,pymysql
@@ -54,6 +54,7 @@ def main(w,e,compat,cohorts,native_port):
                     save()
             for mode,spec in [('api','cypress/e2e/api-*.cy.ts'),('ui','cypress/e2e/login.cy.ts,cypress/e2e/user.cy.ts,cypress/e2e/website.cy.ts')]:
                 if mode not in cohorts:continue
+                if mode=='ui' and ui_spec:spec=ui_spec
                 with (contextlib.nullcontext(root) if native_port else baseline.fork()) as db:
                     localenv=connection(db)
                     probe=socket.socket()
@@ -92,4 +93,4 @@ def main(w,e,compat,cohorts,native_port):
     save();return int(any(s['result']!='PASS' for s in report['stages']))
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--diagnostic-compat',action='store_true');p.add_argument('--cohorts',default='queries,api,ui');p.add_argument('--native-port',type=int);a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve(),a.diagnostic_compat,set(a.cohorts.split(',')),a.native_port))
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--workspace',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--diagnostic-compat',action='store_true');p.add_argument('--cohorts',default='queries,api,ui');p.add_argument('--native-port',type=int);p.add_argument('--ui-spec');a=p.parse_args();sys.exit(main(a.workspace.resolve(),a.output.resolve(),a.diagnostic_compat,set(a.cohorts.split(',')),a.native_port,a.ui_spec))

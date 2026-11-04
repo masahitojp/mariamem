@@ -1,0 +1,81 @@
+{
+  "suites": 3,
+  "tests": 18,
+  "passed": 18,
+  "failed": 0,
+  "pending": 0,
+  "assertions": [
+    {
+      "name": "renderNumberLabels formats numbers \u2265 1 million as 'Xm' (1000000 \u2192 1.0m)",
+      "status": "passed"
+    },
+    {
+      "name": "renderNumberLabels formats numbers \u2265 1 million as 'Xm' (2500000 \u2192 2.5m)",
+      "status": "passed"
+    },
+    {
+      "name": "renderNumberLabels formats numbers \u2265 100K as 'Xk' (150000 \u2192 150k)",
+      "status": "passed"
+    },
+    {
+      "name": "renderNumberLabels formats numbers \u2265 10K as 'X.Xk' (12500 \u2192 12.5k)",
+      "status": "passed"
+    },
+    {
+      "name": "renderNumberLabels formats numbers \u2265 1K as 'X.XXk' (1500 \u2192 1.50k)",
+      "status": "passed"
+    },
+    {
+      "name": "renderNumberLabels calls formatNumber for values < 1000 (999 \u2192 999)",
+      "status": "passed"
+    },
+    {
+      "name": "renderNumberLabels handles edge cases correctly (0 \u2192 0)",
+      "status": "passed"
+    },
+    {
+      "name": "renderNumberLabels handles edge cases correctly (-5000 \u2192 -5000)",
+      "status": "passed"
+    },
+    {
+      "name": "parseTime",
+      "status": "passed"
+    },
+    {
+      "name": "formatTime",
+      "status": "passed"
+    },
+    {
+      "name": "formatShortTime",
+      "status": "passed"
+    },
+    {
+      "name": "formatNumber",
+      "status": "passed"
+    },
+    {
+      "name": "formatLongNumber",
+      "status": "passed"
+    },
+    {
+      "name": "stringToColor",
+      "status": "passed"
+    },
+    {
+      "name": "getIpAddress: Custom header",
+      "status": "passed"
+    },
+    {
+      "name": "getIpAddress: CloudFlare header",
+      "status": "passed"
+    },
+    {
+      "name": "getIpAddress: Standard header",
+      "status": "passed"
+    },
+    {
+      "name": "getIpAddress: No header",
+      "status": "passed"
+    }
+  ]
+}

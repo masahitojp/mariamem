@@ -1,0 +1,55 @@
+{
+  "totalTests": 2,
+  "totalPassed": 2,
+  "totalFailed": 0,
+  "totalPending": 0,
+  "totalSkipped": 0,
+  "browserName": "electron",
+  "browserVersion": "118.0.5993.159",
+  "cypressVersion": "13.17.0",
+  "runs": [
+    {
+      "spec": "cypress/e2e/login.cy.ts",
+      "stats": {
+        "duration": 4570,
+        "endedAt": "2026-11-04T18:35:18.741Z",
+        "failures": 0,
+        "passes": 2,
+        "pending": 0,
+        "skipped": 0,
+        "startedAt": "2026-11-04T18:35:14.171Z",
+        "suites": 1,
+        "tests": 2
+      },
+      "error": null,
+      "tests": [
+        {
+          "title": [
+            "Login tests",
+            "logs user in with correct credentials and logs user out"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Login tests",
+            "login with blank inputs or incorrect credentials"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "totalTests": 8,
+  "totalPassed": 7,
+  "totalFailed": 1,
+  "totalPending": 0,
+  "totalSkipped": 0,
+  "browserName": "electron",
+  "browserVersion": "118.0.5993.159",
+  "cypressVersion": "13.17.0",
+  "runs": [
+    {
+      "spec": "cypress/e2e/login.cy.ts",
+      "stats": {
+        "duration": 4329,
+        "endedAt": "2026-11-04T18:30:58.383Z",
+        "failures": 0,
+        "passes": 2,
+        "pending": 0,
+        "skipped": 0,
+        "startedAt": "2026-11-04T18:30:54.054Z",
+        "suites": 1,
+        "tests": 2
+      },
+      "error": null,
+      "tests": [
+        {
+          "title": [
+            "Login tests",
+            "logs user in with correct credentials and logs user out"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Login tests",
+            "login with blank inputs or incorrect credentials"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/user.cy.ts",
+      "stats": {
+        "duration": 12366,
+        "endedAt": "2026-11-04T18:31:11.963Z",
+        "failures": 1,
+        "passes": 2,
+        "pending": 0,
+        "skipped": 0,
+        "startedAt": "2026-11-04T18:30:59.597Z",
+        "suites": 1,
+        "tests": 3
+      },
+      "error": null,
+      "tests": [
+        {
+          "title": [
+            "User tests",
+            "Add a User"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "User tests",
+            "Edit a User role and password"
+          ],
+          "state": "failed",
+          "displayError": "AssertionError: Timed out retrying after 4000ms: expected '<tr.GridTable-row--MWI1M>' to contain text 'View only', but the text was 'Test-userUserless than a minute agoDeleteEdit'\n    at Context.eval (webpack://umami/./cypress/e2e/user.cy.ts:38:0)",
+          "attempts": [
+            {
+              "state": "failed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "User tests",
+            "Delete a user"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/website.cy.ts",
+      "stats": {
+        "duration": 11772,
+        "endedAt": "2026-11-04T18:31:25.175Z",
+        "failures": 0,
+        "passes": 3,
+        "pending": 0,
+        "skipped": 0,
+        "startedAt": "2026-11-04T18:31:13.403Z",
+        "suites": 1,
+        "tests": 3
+      },
+      "error": null,
+      "tests": [
+        {
+          "title": [
+            "Website tests",
+            "Add a website"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Website tests",
+            "Edit a website"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Website tests",
+            "Delete a website"
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

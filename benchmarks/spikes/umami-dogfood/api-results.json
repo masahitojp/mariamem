@@ -1,0 +1,388 @@
+{
+  "totalTests": 25,
+  "totalPassed": 25,
+  "totalFailed": 0,
+  "totalPending": 0,
+  "totalSkipped": 0,
+  "browserName": "electron",
+  "browserVersion": "118.0.5993.159",
+  "cypressVersion": "13.17.0",
+  "runs": [
+    {
+      "spec": "cypress/e2e/api-team.cy.ts",
+      "stats": {
+        "duration": 5259,
+        "endedAt": "2026-11-04T18:24:36.732Z",
+        "failures": 0,
+        "passes": 10,
+        "pending": 0,
+        "skipped": 0,
+        "startedAt": "2026-11-04T18:24:31.473Z",
+        "suites": 1,
+        "tests": 10
+      },
+      "error": null,
+      "tests": [
+        {
+          "title": [
+            "Team API tests",
+            "Creates a team."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Team API tests",
+            "Gets a teams by ID."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Team API tests",
+            "Updates a team."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Team API tests",
+            "Get all users that belong to a team."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Team API tests",
+            "Get a user belonging to a team."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Team API tests",
+            "Get all websites belonging to a team."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Team API tests",
+            "Add a user to a team."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Team API tests",
+            "Update a user's role on a team."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Team API tests",
+            "Remove a user from a team."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Team API tests",
+            "Deletes a team."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/api-user.cy.ts",
+      "stats": {
+        "duration": 2567,
+        "endedAt": "2026-11-04T18:24:40.639Z",
+        "failures": 0,
+        "passes": 7,
+        "pending": 0,
+        "skipped": 0,
+        "startedAt": "2026-11-04T18:24:38.072Z",
+        "suites": 1,
+        "tests": 7
+      },
+      "error": null,
+      "tests": [
+        {
+          "title": [
+            "User API tests",
+            "Creates a user."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "User API tests",
+            "Returns all users. Admin access is required."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "User API tests",
+            "Updates a user."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "User API tests",
+            "Gets a user by ID."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "User API tests",
+            "Deletes a user."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "User API tests",
+            "Gets all websites that belong to a user."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "User API tests",
+            "Gets all teams that belong to a user."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "spec": "cypress/e2e/api-website.cy.ts",
+      "stats": {
+        "duration": 3940,
+        "endedAt": "2026-11-04T18:24:46.694Z",
+        "failures": 0,
+        "passes": 8,
+        "pending": 0,
+        "skipped": 0,
+        "startedAt": "2026-11-04T18:24:42.754Z",
+        "suites": 1,
+        "tests": 8
+      },
+      "error": null,
+      "tests": [
+        {
+          "title": [
+            "Website API tests",
+            "Creates a website for user."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Website API tests",
+            "Creates a website for team."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Website API tests",
+            "Creates a website with a fixed ID."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Website API tests",
+            "Returns all tracked websites."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Website API tests",
+            "Gets a website by ID."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Website API tests",
+            "Updates a website."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Website API tests",
+            "Resets a website by removing all data related to the website."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        },
+        {
+          "title": [
+            "Website API tests",
+            "Deletes a website."
+          ],
+          "state": "passed",
+          "displayError": null,
+          "attempts": [
+            {
+              "state": "passed"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

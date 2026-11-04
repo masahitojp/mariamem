@@ -1,0 +1,11 @@
+{
+  "mariamem_source_commit": "c27061f1a33eed2908fd90b0e2d816692e001339",
+  "umami_tag": "v2.20.2",
+  "umami_source_commit": "3eb2e890efb5b18bdfbeab46b9946f48e38da424",
+  "umami_tag_object_sha": null,
+  "tag_ref_object_type": "commit",
+  "archive_sha256": "eba6f3cfdef9b959c4ad3a29ae0b09a276150cb8d0a63840a5ab697492ac42fc",
+  "scope": "13 MySQL migrations, real app query/analytics, existing Jest and Cypress API/UI tests; no product/CI changes",
+  "budget_gib": 8,
+  "min_free_gib": 6
+}
