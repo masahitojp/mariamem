@@ -4,6 +4,7 @@ Opt in through verify.py integration; forced process-containment experiments
 remain diagnostics, not promises of the normal test database contract.
 """
 import os
+from pathlib import Path
 import time
 
 import mariamem
@@ -32,6 +33,24 @@ def execute(conn, sql):
     with conn.cursor() as cur:
         cur.execute(sql)
         return cur.fetchall()
+
+
+def test_dump_statement_at_text_wire_limit(wire_db, tmp_path):
+    # Exercise the real 1 MiB budget through import_dump, wire and guest, rather
+    # than only a parser constant or a mocked connection.
+    corpus = Path(__file__).parent/'dump_import_acceptance/input/application.sql'
+    prefix = b"INSERT INTO `dump_boundary` VALUES ('"
+    suffix = b"')"
+    value_size = 1024 * 1024 - len(prefix) - len(suffix)
+    statement = prefix + b'x' * value_size + suffix
+    path = tmp_path/'boundary.sql'
+    path.write_bytes(corpus.read_bytes() +
+        b'\nCREATE TABLE `dump_boundary` (`value` MEDIUMTEXT) ENGINE=InnoDB;' +
+        statement + b';')
+    assert mariamem.import_dump(wire_db, path) == 92
+    with connect(wire_db) as connection:
+        assert execute(connection, 'SELECT OCTET_LENGTH(value) FROM app.dump_boundary') == ((value_size,),)
+    wire_db.wait_disconnected()
 
 
 @pytest.mark.parametrize("kind", ["VARCHAR(1000)", "TEXT", "BLOB"])

@@ -66,8 +66,12 @@ producer's observed executable comments. See the exact
 Use trusted, repository-authored test inputs. This reader is not a SQL security
 sandbox. MySQL dumps, arbitrary legacy application dumps, Django, multiple schemas,
 `CREATE DATABASE`/`USE`, external `SOURCE` commands and arbitrary SQL scripts are
-outside this profile. Limits are 16 MiB per file, 4 MiB per statement and 10,000
-statements; these are bounds, not performance guarantees.
+outside this profile. Limits are 16 MiB per file, 1 MiB per statement and 10,000
+statements; these are bounds, not performance guarantees. The statement limit
+counts UTF-8 bytes sent to the server, including preceding whitespace and comments,
+but excluding the delimiter and client `DELIMITER` directives. Oversized statements
+are rejected during preflight, before connecting. This corrects v0.6.0's documented
+4 MiB limit, which exceeded the host's existing 1 MiB execution limit.
 
 ## Return value and failures
 
