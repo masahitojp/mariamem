@@ -148,8 +148,9 @@ func TestPreparedUCATablesActualGuest(t *testing.T) {
 						release()
 						return nil, nil, fmt.Errorf("invalid test table: %v", e)
 					}
-					index := bytes.Index(m.Memory, table)
-					if index < 0 || bytes.Index(m.Memory[index+1:], table) >= 0 {
+					memory := m.Memory[:m.MemSize.Load()]
+					index := bytes.Index(memory, table)
+					if index < 0 || bytes.Index(memory[index+1:], table) >= 0 {
 						release()
 						return nil, nil, fmt.Errorf("prepared table missing/ambiguous")
 					}
