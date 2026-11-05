@@ -115,7 +115,7 @@ jobs:
           cp build/generated-release/regeneration.json build/uca-ci/regeneration.json
           python -c 'import os,sys;sys.path.insert(0,"scripts");from common import ROOT;from generated_release import verify_build;verify_build(ROOT,os.environ["GITHUB_SHA"])' > build/uca-ci/build-guard.txt 2>&1
       - name: Actual table parity, corrupt input, profiling separation and worker survival
-        run: go test -p 1 -tags integration -count=1 ./internal/generatedgo -run 'TestPreparedUCATablesActualGuest|TestWorkerTrapActualGuestNotifiesAndIsolatesPeer' -v > build/uca-ci/actual-tables.txt 2>&1
+        run: go test -trimpath -p 1 -tags integration -count=1 ./internal/generatedgo -run 'TestPreparedUCATablesActualGuest|TestWorkerTrapActualGuestNotifiesAndIsolatesPeer' -v > build/uca-ci/actual-tables.txt 2>&1
       - name: Worker ownership negative and protected controls
         run: |
           python tests/routine_thread_fixture.py --output "$RUNNER_TEMP/uca-worker" --run > build/uca-ci/worker.txt 2>&1
