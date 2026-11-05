@@ -22,9 +22,13 @@ That run checks the package/tools and the existing guest, not the new guest on
 Ubuntu. The Human authorized proceeding with formal guest implementation.
 The candidate adds the canonical constructor patch, pristine-source-bound table
 expansion/provenance and private verification separated from ordinary profiling.
-Fresh guest generation, exact worker bindings, actual both-host runtime tests
-and the finite paired performance check remain required; no candidate runtime
-PASS, adoption, main integration, Qualification or release is claimed yet.
+The [canonical candidate checkpoint](reviews/uca-prepared-canonical-candidate.md)
+records one source-bound UNQUALIFIED guest build, exact nineteen-body binding,
+Mac actual table/SQL/two-child/cleanup/worker controls and five paired small-fixture
+measurements. The candidate guest is `6d744220…`; current main remains unchanged.
+Exact-source two independent C builds, both-host Go regeneration and runtime
+acceptance are PENDING CI. Earlier PR112 source-only success is not that proof.
+Product adoption, main integration, Qualification and release remain open.
 
 ### Historical preparation checkpoint — accepted input, runtime not yet adopted
 

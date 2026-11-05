@@ -44,3 +44,7 @@ See the [candidate review](../../docs/reviews/uca-prepared-candidate-review.md)
 for verification separation and native-platform conditions. The private `MARIAMEM_UCA_VERIFY_INTERNAL` trigger is supplied only by package-local tests; normal timing never enables it.
 The values derive from the existing MariaDB12.3.3 UCA14 input already used by the
 guest; upstream input provenance is retained in input.json and the experiment.
+
+`validation.json` preserves the input-only preparation result from d7fa5537;
+its old scope text is historical and is not a current guest/platform PASS.
+Current implementation evidence is in the canonical candidate checkpoint.

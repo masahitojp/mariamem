@@ -1,0 +1,34 @@
+{
+  "source_commits": {
+    "baseline": "676515eb9244fc501b5a600791b0cf0a6174fecd",
+    "candidate": "40dd1e2ae57f85a137a8cf66d29f8cc6231899c4"
+  },
+  "binaries": {
+    "baseline": {
+      "sha256": "9af8b0adbf675b7d9c324b12dc519d4252cda83063df53aff9292b7ea5361356",
+      "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f"
+    },
+    "candidate": {
+      "sha256": "7171b6fccc8843647c9a1ed5650e79c92e12078c2a8708caa5750ca9e46a185c",
+      "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe"
+    }
+  },
+  "tool_source_commit": "e33fc6ce3bae390c6dda0fd92d024d8094df8731",
+  "probe_sha256": "0e51322d0b6102933642b960725c146d4784db81cda38e2e4bab70534e5ac0be",
+  "runner_sha256": "b5e9c527c9326f8360a8d3847dc47bf20d2d08a4ca0dcb775e62537dedc58da5",
+  "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "GOMAXPROCS": 8,
+  "CGO_ENABLED": 1,
+  "process_pairs": 5,
+  "children_per_process": 4,
+  "query_repetitions": 20,
+  "warmups_per_label": 1,
+  "interpretation": "one-host bounded comparison, not parallel-scaling or Qualification",
+  "prior_native_reference_sha256": "a993ff98b879458b273a6843be5a772a8f4d2aa191dcb12ee44425053c7e27aa",
+  "prior_native_perf_expected": {
+    "ascii": "-1",
+    "mixed": "0"
+  }
+}

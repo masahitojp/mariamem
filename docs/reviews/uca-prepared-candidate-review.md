@@ -1,5 +1,9 @@
 # Prepared UCA tables — candidate preparation review
 
+This is the historical preparation review at `d7fa5537`. The subsequently
+authorized implementation and its separate pending platform gate are recorded in
+[the canonical candidate checkpoint](uca-prepared-canonical-candidate.md).
+
 The next adoption decision is whether to accept a **production candidate** for
 prepared UCA tables. **Recommendation: prepare that candidate, rather than adopt
 the experimental branch as-is.** The Human has already authorized this next
