@@ -2,7 +2,7 @@
 #include <cstddef>
 #include <cstdint>
 enum SpikeEvent { REGISTER_THD=1, AUTH_COMPLETE=2, ARM_COMMAND=3,
-  EXECUTE_START=4, COMMAND_COMPLETE=5, CONNECTION_COMPLETE=6, UNREGISTER_THD=7 };
+  EXECUTE_START=4, COMMAND_COMPLETE=5, CONNECTION_COMPLETE=6, UNREGISTER_THD=7, CLEANUP_RESULT=8 };
 struct SpikeIO {
  void *ctx;
  size_t (*read)(void*,unsigned char*,size_t);

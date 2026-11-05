@@ -175,7 +175,7 @@
 +#include <cstddef>
 +#include <cstdint>
 +enum SpikeEvent { REGISTER_THD=1, AUTH_COMPLETE=2, ARM_COMMAND=3,
-+  EXECUTE_START=4, COMMAND_COMPLETE=5, CONNECTION_COMPLETE=6, UNREGISTER_THD=7 };
++  EXECUTE_START=4, COMMAND_COMPLETE=5, CONNECTION_COMPLETE=6, UNREGISTER_THD=7, CLEANUP_RESULT=8 };
 +struct SpikeIO {
 + void *ctx;
 + size_t (*read)(void*,unsigned char*,size_t);
@@ -190,10 +190,11 @@
 +extern "C" unsigned long mariamem_spike_decode_count();
 --- /dev/null
 +++ b/libmysqld/mariamem_wire_probe.inc
-@@ -0,0 +1,108 @@
+@@ -0,0 +1,112 @@
 +/* Experiment-only native entry. All normal protocol bytes come from upstream. */
 +#include "sql_acl.h"
 +#include "sql_parse.h"
++#include "transaction.h"
 +#include <cerrno>
 +#include "mariamem_control_abi.h"
 +
@@ -290,6 +291,9 @@
 +    if(net_flush(&thd->net)){result=15;break;}
 +    if(io->event(io->ctx,COMMAND_COMPLETE,thd,thd->server_status)){result=17;break;}
 +  }
++  int rollback_error=trans_rollback(thd);
++  if(rollback_error)result=19;
++  io->event(io->ctx,CLEANUP_RESULT,thd,unsigned(rollback_error!=0));
 +  io->event(io->ctx,UNREGISTER_THD,thd,thd->net.last_errno ? thd->net.last_errno : thd->get_stmt_da()->sql_errno());
 +  thd->cleanup();
 +  server_threads.erase(thd);
@@ -1148,22 +1152,23 @@
 +ADD_COMPILE_DEFINITIONS(MARIAMEM_NATIVE_WIRE)
 --- a/wasm/lite4mariadb.c
 +++ b/wasm/lite4mariadb.c
-@@ -552,3 +552,22 @@
+@@ -552,3 +552,23 @@
  }
  
  #include "wire_api.inc"
 +
-+/* Fresh-only native-wire experiment. Keep the real product bootstrap first. */
++/* Experimental fresh/restore native-wire entry; no fixture SQL on shutdown. */
 +int issue65_bootstrap(void)
 +{
 +  startup_timing.enabled= getenv("MARIAMEM_GUEST_TIMING") != NULL;
 +  init_enable();
 +  mariamem_init_mark("guest_main");
-+  if (routine_boot_mode(getenv("MARIAMEM_BOOT_MODE"), 0) != 0) return 11;
++  int restore=routine_boot_mode(getenv("MARIAMEM_BOOT_MODE"), 0);
++  if (restore < 0) return 11;
 +  if (prepare_auth_keys()) return 18;
 +  if (l4m_open()) return 11;
 +  if (!mariamem_auth_keys_ready()) { l4m_close(); return 18; }
-+  if (routine_bootstrap(g_mysql, 0)) { l4m_close(); return 11; }
++  if (routine_bootstrap(g_mysql, restore)) { l4m_close(); return 11; }
 +  mysql_close(g_mysql);
 +  g_mysql= NULL;
 +  mariamem_init_mark("ready_prepared");
@@ -1173,7 +1178,7 @@
 +void issue65_shutdown(void) { l4m_close(); }
 --- /dev/null
 +++ b/wasm/issue65_control.cc
-@@ -0,0 +1,174 @@
+@@ -0,0 +1,196 @@
 +// Native experiment transport/control owner. DATA never interprets MySQL bytes.
 +#include <mysql.h>
 +#include <algorithm>
@@ -1198,8 +1203,8 @@
 +using Clock=std::chrono::steady_clock;
 +using Bytes=std::vector<unsigned char>;
 +constexpr size_t INPUT_LIMIT=1048581, OUTPUT_LIMIT=65536, CHUNK=4096;
-+enum Kind { OPEN=1,DATA=2,ACK=3,PEER_EOF=4,QUIESCE=5,STOP=6,STATS=7,HOLD=8,INSPECT=9,EXPIRE=10,
-+ READY=100,OPENED=101,REPLY=102,OUTPUT=103,RETIRED=104,POISON=105,CREDIT=106,STATE=107,STATS_REPLY=108,QUIESCED=109,REJECTED=110,DONE=111 };
++enum Kind { OPEN=1,DATA=2,ACK=3,PEER_EOF=4,QUIESCE=5,STOP=6,STATS=7,HOLD=8,INSPECT=9,EXPIRE=10,TRY_CAPTURE=11,CAPTURE_STOP=12,INJECT=13,
++ READY=100,OPENED=101,REPLY=102,OUTPUT=103,RETIRED=104,POISON=105,CREDIT=106,STATE=107,STATS_REPLY=108,QUIESCED=109,REJECTED=110,DONE=111,CAPTURE_FENCED=112,CAPTURE_STOP_ACCEPTED=113,CAPTURE_STOPPED=114 };
 +enum Phase { HANDSHAKE,IDLE,RECEIVING,EXECUTING,FLUSHING,RETIRING,DEAD };
 +static const char *phase_name(Phase p){static const char *names[]={"handshake","idle","receiving","executing","flushing","retiring","dead"};return names[p];}
 +static void need(bool b,const char *what){if(!b){fprintf(stderr,"FAIL:%s\n",what);std::exit(2);}}
@@ -1231,7 +1236,7 @@
 + std::deque<Frame> controls;size_t controlBytes=0;std::unique_ptr<Frame> urgent;
 + std::deque<std::shared_ptr<Session>> killQueue;
 + std::atomic<bool> controlOverflow{false};bool fenced=false,closing=false,poisoned=false,timerStop=false,reaperStop=false,killerStop=false,writerStop=false;
-+ std::string cause;uint64_t epoch=0;
++ std::string cause;uint64_t epoch=0,captureID=0;bool cleanupFailed=false;unsigned injectFailure=0;
 + uint64_t started=0,joined=0,stale=0,denied=0,controlPeak=0;size_t retiredInputPeak=0,retiredOutputPeak=0;
 + std::thread writer,timer,reaper,killer;
 + Manager(){
@@ -1252,7 +1257,7 @@
 +  killer=std::thread([this]{need(!mysql_thread_init(),"killer thread init");for(;;){std::shared_ptr<Session>s;{std::unique_lock<std::mutex> l(killMu);killReady.wait(l,[&]{return killerStop||!killQueue.empty();});if(killQueue.empty()&&killerStop)break;s=killQueue.front();killQueue.pop_front();}std::lock_guard<std::mutex> pin(s->handle);if(s->thd)mariamem_spike_kill(s->thd);}mysql_thread_end();});
 +  timer=std::thread([this]{std::unique_lock<std::mutex> l(gate);while(!timerStop){progress.wait_for(l,std::chrono::milliseconds(5));if(controlOverflow.exchange(false))poisonLocked("control_queue_overflow");if(poisoned||closing)continue;auto now=Clock::now();for(auto &s:slots)if(s&&s->deadline<=now){if(s->command==0){s->phase=RETIRING;s->deadline=Clock::time_point::max();s->closeIO(ETIMEDOUT);scheduleKill(s);state(s);}else{poisonLocked("deadline");break;}}}});
 +  reaper=std::thread([this]{reapLoop();});
-+  emit(frame(READY,0,{},OUTPUT_LIMIT,"{\"max_sessions\":16,\"pending_input_limit\":1048581,\"output_limit\":65536}"));
++  emit(frame(READY,0,{},OUTPUT_LIMIT,"{\"lifecycle_profile\":1,\"max_sessions\":16,\"pending_input_limit\":1048581,\"output_limit\":65536}"));
 + }
 + bool admit(Session *raw){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(!s||s.get()!=raw||fenced||poisoned||closing){++denied;raw->closeIO(ECANCELED);return false;}need(s->phase==IDLE,"admit only idle");s->phase=RECEIVING;s->nativeCommand=0;++s->command;s->deadline=Clock::now()+std::chrono::milliseconds(s->limitMs);state(s);return true;}
 + int finish(Session *raw,unsigned status,bool retire){
@@ -1265,12 +1270,13 @@
 +  {std::lock_guard<std::mutex> l(gate);if(poisoned||closing)return 1;s->status=status;s->phase=retire?RETIRING:IDLE;s->deadline=Clock::time_point::max();state(s);}return 0;
 + }
 + int event(Session *raw,int kind,void *thd,unsigned status){
++  if(kind==CLEANUP_RESULT){std::lock_guard<std::mutex> l(gate);if(status||injectFailure==1)cleanupFailed=true;return 0;}
 +  if(kind==REGISTER_THD){{std::lock_guard<std::mutex> pin(raw->handle);raw->thd=thd;}std::lock_guard<std::mutex> l(gate);return poisoned||closing;}
 +  if(kind==UNREGISTER_THD){{std::lock_guard<std::mutex> pin(raw->handle);raw->thd=nullptr;}std::lock_guard<std::mutex> l(gate);raw->netError=status;raw->phase=RETIRING;raw->deadline=Clock::time_point::max();state(slots[raw->slot]);return 0;}
 +  if(kind==AUTH_COMPLETE)return finish(raw,status,false);
 +  if(kind==COMMAND_COMPLETE||kind==CONNECTION_COMPLETE)return finish(raw,status,kind==CONNECTION_COMPLETE);
 +  if(kind==ARM_COMMAND){{std::lock_guard<std::mutex> l(gate);if(fenced||poisoned||closing)return 1;}{std::lock_guard<std::mutex> l(raw->io);raw->armed=true;}return 0;}
-+  if(kind==EXECUTE_START){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];bool inputEOF;{std::lock_guard<std::mutex> q(raw->io);inputEOF=raw->inputEOF;}raw->nativeCommand=status;if(inputEOF&&status!=COM_QUIT){poisonLocked("unexpected_peer_eof");return 1;}raw->phase=EXECUTING;++raw->executions;state(s);return poisoned||closing;}
++  if(kind==EXECUTE_START){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(fenced||poisoned||closing)return 1;bool inputEOF;{std::lock_guard<std::mutex> q(raw->io);inputEOF=raw->inputEOF;}raw->nativeCommand=status;if(inputEOF&&status!=COM_QUIT){poisonLocked("unexpected_peer_eof");return 1;}raw->phase=EXECUTING;++raw->executions;state(s);return poisoned||closing;}
 +  return 0;
 + }
 + static int eventCb(void *p,int e,void *thd,unsigned st){auto *s=(Session*)p;return s->owner->event(s,e,thd,st);}
@@ -1284,7 +1290,7 @@
 + static void closeCb(void *p){((Session*)p)->closeIO(ECANCELED);}
 + static int waitCb(void *p,int kind,int ms){auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);auto ready=[&]{return s->closed||(kind==0?(s->inputEOF||!s->input.empty()):s->produced-s->acked<OUTPUT_LIMIT);};if(ms<0)s->changed.wait(l,ready);else if(!s->changed.wait_for(l,std::chrono::milliseconds(ms),ready)){s->error=ETIMEDOUT;return 0;}return s->closed?-1:1;}
 + void open(const Frame &f){std::lock_guard<std::mutex> l(gate);if(f.epoch!=epoch){++stale;emit(frame(REJECTED,f.request,{},5,"stale"));return;}if(fenced||poisoned||closing){emit(frame(REJECTED,f.request,{},4,"closing"));return;}unsigned slot=16;for(unsigned i=0;i<16;++i)if(!slots[i]){slot=i;break;}if(slot==16){emit(frame(REJECTED,f.request,{},3,"capacity"));return;}need(generations[slot]!=UINT64_MAX,"generation exhaustion");int ms=int(f.value);need(ms>=100&&ms<=10000,"deadline configuration");auto s=std::make_shared<Session>(this,slot,++generations[slot],ms);slots[slot]=s;++started;emit(frame(OPENED,f.request,s));s->worker=std::thread([this,s]{need(!mysql_thread_init(),"session thread init");SpikeIO io{s.get(),readCb,writeCb,errorCb,waitCb,closeCb,eventCb};int result=mariamem_spike_control_session(&io);mysql_thread_end();{std::lock_guard<std::mutex> l(gate);s->result=result;s->workerDone=true;progress.notify_all();}});}
-+ void input(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s)return;if(poisoned||closing)return;std::lock_guard<std::mutex> q(s->io);if(s->closed)return;if(f.value!=s->received){poisonLockedAfterIO(s,q);return;}if(f.data.size()>INPUT_LIMIT-s->input.size()){controlOverflow=false; /* no payload appended */
++ void input(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s)return;if(fenced||poisoned||closing)return;std::lock_guard<std::mutex> q(s->io);if(s->closed)return;if(f.value!=s->received){poisonLockedAfterIO(s,q);return;}if(f.data.size()>INPUT_LIMIT-s->input.size()){controlOverflow=false; /* no payload appended */
 +    // Release the queue lock before cancelling all sessions.
 +    pendingPoison="pending_input_overflow";return;
 +   }s->input.insert(s->input.end(),f.data.begin(),f.data.end());s->received+=f.data.size();s->inputPeak=std::max(s->inputPeak,s->input.size());s->changed.notify_all();}
@@ -1292,14 +1298,33 @@
 + std::string pendingPoison;
 + void poisonLockedAfterIO(const std::shared_ptr<Session>&,const std::lock_guard<std::mutex>&){pendingPoison="input_offset";}
 + void acknowledge(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s)return;{std::lock_guard<std::mutex> q(s->io);if(f.value<s->acked||f.value>s->sent){pendingPoison="output_offset";return;}s->acked=f.value;s->changed.notify_all();}outReady.notify_all();}
-+ void peerEOF(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s||s->phase==RETIRING)return;
++ void peerEOF(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s||s->phase==RETIRING||(fenced&&captureID))return;
 +  {std::lock_guard<std::mutex> q(s->io);s->inputEOF=true;s->changed.notify_all();}
 +  if(f.value){if(s->command&&s->phase!=IDLE){poisonLocked("peer_output_error");return;}s->phase=RETIRING;s->deadline=Clock::time_point::max();s->closeIO(ECANCELED);scheduleKill(s);state(s);return;}
 +  if(!fenced&&!closing&&!poisoned&&s->phase==EXECUTING&&s->nativeCommand!=COM_QUIT)poisonLocked("unexpected_peer_eof");
 + }
++ void tryCapture(const Frame &f){std::lock_guard<std::mutex> l(gate);
++  if(f.epoch!=epoch||!f.value||f.generation>1){emit(frame(REJECTED,f.request,{},5,"capture_identity"));return;}
++  if(captureID==f.value&&fenced&&!poisoned&&!closing){emit(frame(CAPTURE_FENCED,f.request,{},captureID,"fenced"));return;}
++  if(fenced||closing||poisoned){emit(frame(REJECTED,f.request,{},4,"closing"));return;}
++  for(auto &s:slots)if(s&&s->phase!=IDLE){emit(frame(REJECTED,f.request,{},1,"busy"));return;}
++  if(!f.generation)for(auto &s:slots)if(s&&(s->status&1)){emit(frame(REJECTED,f.request,{},2,"transaction_active"));return;}
++  captureID=f.value;fenced=true;emit(frame(CAPTURE_FENCED,f.request,{},captureID,"fenced"));
++ }
++ bool captureStop(const Frame &f){std::lock_guard<std::mutex> l(gate);
++  if(f.epoch!=epoch||!captureID||captureID!=f.value||!fenced||poisoned||closing){emit(frame(REJECTED,f.request,{},5,"capture_stop_identity"));return false;}
++  closing=true;emit(frame(CAPTURE_STOP_ACCEPTED,f.request,{},captureID,"expected_owner_stop"));return true;
++ }
++ bool captureComplete(const Frame &f){std::lock_guard<std::mutex> l(gate);
++  if(poisoned||cleanupFailed||injectFailure==2){emit(frame(POISON,0,{},0,poisoned?cause:(cleanupFailed?"cleanup_failed":"engine_shutdown_injected")));return false;}
++  need(started==joined,"capture native join");emit(frame(CAPTURE_STOPPED,f.request,{},captureID,statsUnlocked()));return true;
++ }
 + void quiesce(const Frame &f){std::lock_guard<std::mutex> l(gate);if(f.epoch!=epoch){++stale;emit(frame(REJECTED,f.request,{},5,"stale"));return;}if(fenced||poisoned||closing){emit(frame(REJECTED,f.request,{},4,"closing"));return;}for(auto &s:slots)if(s&&s->phase!=IDLE){emit(frame(REJECTED,f.request,{},1,"busy"));return;}if(!f.value)for(auto &s:slots)if(s&&(s->status&1)){emit(frame(REJECTED,f.request,{},2,"transaction_active"));return;}fenced=true;emit(frame(QUIESCED,f.request,{},1,"fenced"));}
-+ std::string stats(){std::lock_guard<std::mutex> l(gate);std::string s="{\"fenced\":"+std::string(fenced?"true":"false")+",\"poisoned\":"+(poisoned?"true":"false")+",\"cause\":\""+cause+"\",\"started\":"+std::to_string(started)+",\"joined\":"+std::to_string(joined)+",\"stale\":"+std::to_string(stale)+",\"denied\":"+std::to_string(denied)+",\"retired_input_peak\":"+std::to_string(retiredInputPeak)+",\"retired_output_peak\":"+std::to_string(retiredOutputPeak)+",\"sessions\":[";bool comma=false;for(auto &p:slots)if(p){std::lock_guard<std::mutex> q(p->io);if(comma)s+=",";comma=true;s+="{\"slot\":"+std::to_string(p->slot)+",\"generation\":"+std::to_string(p->generation)+",\"phase\":\""+phase_name(p->phase)+"\",\"command\":"+std::to_string(p->command)+",\"status\":"+std::to_string(p->status)+",\"input\":"+std::to_string(p->input.size())+",\"outstanding\":"+std::to_string(p->produced-p->acked)+",\"input_peak\":"+std::to_string(p->inputPeak)+",\"output_peak\":"+std::to_string(p->outputPeak)+"}";}return s+"]}";}
++ std::string stats(){std::lock_guard<std::mutex> l(gate);return statsUnlocked();}
++ std::string statsUnlocked(){std::string s="{\"fenced\":"+std::string(fenced?"true":"false")+",\"poisoned\":"+(poisoned?"true":"false")+",\"cause\":\""+cause+"\",\"started\":"+std::to_string(started)+",\"joined\":"+std::to_string(joined)+",\"stale\":"+std::to_string(stale)+",\"denied\":"+std::to_string(denied)+",\"retired_input_peak\":"+std::to_string(retiredInputPeak)+",\"retired_output_peak\":"+std::to_string(retiredOutputPeak)+",\"sessions\":[";bool comma=false;for(auto &p:slots)if(p){std::lock_guard<std::mutex> q(p->io);if(comma)s+=",";comma=true;s+="{\"slot\":"+std::to_string(p->slot)+",\"generation\":"+std::to_string(p->generation)+",\"phase\":\""+phase_name(p->phase)+"\",\"command\":"+std::to_string(p->command)+",\"status\":"+std::to_string(p->status)+",\"input\":"+std::to_string(p->input.size())+",\"outstanding\":"+std::to_string(p->produced-p->acked)+",\"input_peak\":"+std::to_string(p->inputPeak)+",\"output_peak\":"+std::to_string(p->outputPeak)+"}";}return s+"]}";}
 + void dispatch(const Frame &f){
++  if(f.kind==TRY_CAPTURE){tryCapture(f);return;}
++  if(f.kind==INJECT){std::lock_guard<std::mutex> l(gate);injectFailure=unsigned(f.value);emit(frame(REPLY,f.request,{},f.value,"failure_injection"));return;}
 +  if(f.kind==OPEN){open(f);return;}if(f.kind==DATA){input(f);}
 +  else if(f.kind==ACK){acknowledge(f);}
 +  else if(f.kind==PEER_EOF){peerEOF(f);}
@@ -1336,15 +1361,17 @@
 +extern "C" int issue65_bootstrap(void);
 +extern "C" void issue65_shutdown(void);
 +int main(){
-+ need(!issue65_bootstrap(),"product fresh bootstrap");
-+ MYSQL *m=connect();query(m,"CREATE TABLE test.effects(n INT) ENGINE=MEMORY");embedded_prepared(m);mysql_close(m);
-+ Manager manager;manager.start();Frame f;
++ need(!issue65_bootstrap(),"product fresh/restore bootstrap");
++ Manager manager;manager.start();Frame f,stopRequest;bool gotStop=false,capture=false;
 + while(receive(f)){
-+  if(f.kind==STOP)break;
-+  if(f.kind==INSPECT){m=connect();query(m,"SELECT COUNT(*) FROM test.effects");MYSQL_RES *r=mysql_store_result(m);need(r!=nullptr,"oracle result");MYSQL_ROW row=mysql_fetch_row(r);std::string count=row[0];mysql_free_result(r);mysql_close(m);manager.emit(manager.frame(REPLY,f.request,{},std::stoull(count),"effects_count"));}
-+  else manager.dispatch(f);
++  if(f.kind==STOP){gotStop=true;break;}
++  if(f.kind==CAPTURE_STOP){if(manager.captureStop(f)){gotStop=true;capture=true;stopRequest=f;break;}continue;}
++  manager.dispatch(f);
 + }
-+ manager.shutdown();m=connect();need(!mysql_select_db(m,"test"),"reopen test");need(!routine_bootstrap(m,1),"routine remains valid");embedded_prepared(m);mysql_close(m);issue65_shutdown();
++ manager.shutdown();issue65_shutdown();
++ bool ok=gotStop;
++ if(capture)ok=manager.captureComplete(stopRequest);
 + manager.emit(manager.frame(DONE,0,{},0,manager.stats()));manager.stopWriter();
-+ fprintf(stderr,"PASS:engine_shutdown_joined started=%llu joined=%llu\n",(unsigned long long)manager.started,(unsigned long long)manager.joined);
++ fprintf(stderr,"NATIVE_STOP mode=%s started=%llu joined=%llu cleanup_failed=%u\n",capture?"capture":"ordinary",(unsigned long long)manager.started,(unsigned long long)manager.joined,unsigned(manager.cleanupFailed));
++ return ok?0:21;
 +}

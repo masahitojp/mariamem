@@ -1,6 +1,7 @@
 /* Experiment-only native entry. All normal protocol bytes come from upstream. */
 #include "sql_acl.h"
 #include "sql_parse.h"
+#include "transaction.h"
 #include <cerrno>
 #include "mariamem_control_abi.h"
 
@@ -97,6 +98,9 @@ extern "C" int mariamem_spike_control_session(SpikeIO *io)
     if(net_flush(&thd->net)){result=15;break;}
     if(io->event(io->ctx,COMMAND_COMPLETE,thd,thd->server_status)){result=17;break;}
   }
+  int rollback_error=trans_rollback(thd);
+  if(rollback_error)result=19;
+  io->event(io->ctx,CLEANUP_RESULT,thd,unsigned(rollback_error!=0));
   io->event(io->ctx,UNREGISTER_THD,thd,thd->net.last_errno ? thd->net.last_errno : thd->get_stmt_da()->sql_errno());
   thd->cleanup();
   server_threads.erase(thd);
