@@ -1169,7 +1169,7 @@
 +void issue65_shutdown(void) { l4m_close(); }
 --- /dev/null
 +++ b/wasm/issue65_control.cc
-@@ -0,0 +1,162 @@
+@@ -0,0 +1,167 @@
 +// Native experiment transport/control owner. DATA never interprets MySQL bytes.
 +#include <mysql.h>
 +#include <algorithm>
@@ -1227,9 +1227,14 @@
 + std::deque<Frame> controls;size_t controlBytes=0;std::unique_ptr<Frame> urgent;
 + std::deque<std::shared_ptr<Session>> killQueue;
 + std::atomic<bool> controlOverflow{false};bool fenced=false,closing=false,poisoned=false,timerStop=false,reaperStop=false,killerStop=false,writerStop=false;
-+ std::string cause;uint64_t epoch=(uint64_t(getpid())<<32)|0x3b;
++ std::string cause;uint64_t epoch=0;
 + uint64_t started=0,joined=0,stale=0,denied=0,controlPeak=0;size_t retiredInputPeak=0,retiredOutputPeak=0;
 + std::thread writer,timer,reaper,killer;
++ Manager(){
++  const char *text=std::getenv("MARIAMEM_CONTROL_EPOCH");need(text&&*text,"host instance epoch required");
++  for(const unsigned char *p=(const unsigned char*)text;*p;++p){need(*p>='0'&&*p<='9',"instance epoch decimal");unsigned digit=*p-'0';need(epoch<=(UINT64_MAX-digit)/10,"instance epoch overflow");epoch=epoch*10+digit;}
++  need(epoch!=0,"nonzero instance epoch");
++ }
 + Frame frame(int kind,uint32_t request=0,const std::shared_ptr<Session>& s={},uint64_t value=0,std::string text=""){Frame f;f.kind=kind;f.request=request;f.epoch=epoch;f.value=value;f.data=bytes(text);if(s){f.slot=s->slot;f.generation=s->generation;}return f;}
 + void emit(Frame f){std::lock_guard<std::mutex> l(outMu);size_t n=33+f.data.size();if(f.kind==POISON){urgent=std::make_unique<Frame>(std::move(f));}else if(controlBytes+n>65536){controlOverflow=true;}else{controlBytes+=n;controlPeak=std::max<uint64_t>(controlPeak,controlBytes);controls.push_back(std::move(f));}outReady.notify_all();}
 + void state(const std::shared_ptr<Session>& s){s->statePending=true;outReady.notify_all();progress.notify_all();}
