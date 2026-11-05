@@ -6,7 +6,7 @@ These three explicitly formatted JSON text inputs re-express the exact numeric t
 SHA `ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274`.
 `scripts/prepare_guest.py` validates the pristine source and expands this input before applying the canonical guest patch. The runtime reads typed immutable C data; it does not decode JSON or gzip.
 
-The updated guest still requires fresh generation, worker binding and both-host acceptance. The old committed guest does not use these inputs.
+The committed candidate guest uses these tables. Independent source/Go regeneration and both-host acceptance are pending; this input check alone does not prove them.
 
 ```sh
 python3 benchmarks/ucapreparedinput/check.py
