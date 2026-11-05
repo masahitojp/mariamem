@@ -1,0 +1,14 @@
+{
+  "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb",
+  "compared_to_starting_source_commit": "4c642b3206af309f928a1ce51871ba1f4ba83001",
+  "paths": [
+    "guest/input.json",
+    "guest/source.patch",
+    "guest/patches",
+    "scripts/build_generated_guest.py",
+    "scripts/prepare_guest.py",
+    "release/generated-go-toolchain.json",
+    "internal/generatedgo/main.go"
+  ],
+  "git_diff_exit_code": 0
+}

@@ -1,0 +1,13 @@
+wasixcc 0.4.7
+----------------------------------
+WASIX clang version 21.1.2
+Target: unknown
+Thread model: posix
+InstalledDir: /root/.wasixcc/llvm/bin
+WASIX clang version 21.1.2
+Target: unknown
+Thread model: posix
+InstalledDir: /root/.wasixcc/llvm/bin
+wasm-opt version 133 (version_133)
+/root/.wasixcc/sysroot/sysroot-eh
+warning: no passes specified, not doing any work

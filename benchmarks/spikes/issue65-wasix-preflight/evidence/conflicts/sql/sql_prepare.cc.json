@@ -1,0 +1,4 @@
+{
+  "file": "sql/sql_prepare.cc",
+  "original_conflict_excerpt": "<<<<<<< PRODUCT\n#if defined(EMBEDDED_LIBRARY) && defined(__wasi__)\n/* Public C API adapter obtains parser-owned items, never parses client SQL.\n   The borrowed list is used synchronously before the statement can close. */\nextern \"C\" void *mariamem_stmt_parameter_items(MYSQL_STMT *api_stmt)\n{\n  THD *thd= static_cast<THD *>(api_stmt->mysql->thd);\n  Prepared_statement *stmt= find_prepared_statement(thd, api_stmt->stmt_id);\n  if (!stmt || stmt->param_count != api_stmt->param_count)\n    return NULL;\n  return static_cast<void *>(&stmt->lex->param_list);\n}\n#endif\n=======\nunsigned long mariamem_spike_decodes= 0;\n>>>>>>> NATIVE3B\n"
+}

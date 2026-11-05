@@ -1,0 +1,22 @@
+{
+  "native-overlay.txt": "8a2e91ff8e5ceb9191bdf40398cebedd191255ff1092ca31c0dd651cfaf2316e",
+  "composed-dry-run.txt": "8a2e91ff8e5ceb9191bdf40398cebedd191255ff1092ca31c0dd651cfaf2316e",
+  "primitives.json": "fc8483a681c1e5c4df131aab02402e5fb6b29e9f5b85341932f94589ecd26b9d",
+  "source-identity.json": "c067c711f433012e919632651e63cac42c8ad409e37752cd16b3daee17be9cc4",
+  "callback.wat": "8127f5a300be71ceb1b1f2f44b976cabcf119be21ac423f66700001fec3823f4",
+  "overlay.json": "5b22059f374f30fcdec9601a2f5e5bb2f6d8214475a535bd13a5bf4b273b43d2",
+  "primitives-build-final.txt": "677606273cfea9c11d62aff80837415eca6987ebe27b216e264ad06879a1e445",
+  "product-overlays.txt": "8a32bfe258e569dfd6c5ec3e3e0463d478d2335beeeaf42ec665afb7fb0778b5",
+  "diagnostics-final.txt": "2278a641c533e351f4deb99fb0447269b57d4e8027b50fb91ee0f9929c3ecc34",
+  "baseline-equivalence.json": "33be4e871725a2137dc7d5063b0e9a336aa5235dcbe63b6b6ab8ab763adc6e21",
+  "composition-verification.json": "bb8356c084bfa40fd0b5b9b83d828879b83c9ef94dfae4d9bebd0fdb0e78df58",
+  "composed-draft.patch": "b586cab441d98e37b2c1bfd77b2c9b60b81ce288448e4c1fa1dee92bc1fa9d42",
+  "stack-dry-run.txt": "c3f3c0874c96f77d70910677e066dd52c3e0f929037420cb26234d00bc8859f1",
+  "primitives-build.txt": "677606273cfea9c11d62aff80837415eca6987ebe27b216e264ad06879a1e445",
+  "composed-apply.txt": "8a2e91ff8e5ceb9191bdf40398cebedd191255ff1092ca31c0dd651cfaf2316e",
+  "overlay-run.txt": "ea2e517dc4b77ab0cb98ac0d0193b3ed86d1e0470c6502de7b41425f677d197f",
+  "inventory-run.txt": "1f326333eec56999d485fb51769d91c96fd5fb442b4f9d637a7a6be9210c7df4",
+  "diagnostics.txt": "a560a3c23043722528951c209c3247bb3e120df67de376145f1bd3cd01278900",
+  "conflicts/libmysqld/lib_sql.cc.json": "49eb17ef711f164691a921235913bfc372837e6fb552d5e055f8ff9b304fa051",
+  "conflicts/sql/sql_prepare.cc.json": "56fa4d62706e7b1dbbaf3f15ccee1af67240dae3fba30fd5744611ec4ff45923"
+}

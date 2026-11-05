@@ -1,0 +1,11 @@
+clang++: warning: argument unused during compilation: '-c' [-Wunused-command-line-argument]
+worktree/benchmarks/spikes/issue65-wasix-preflight/linux_diagnostics.cc:1:10: fatal error: 'execinfo.h' file not found
+    1 | #include <execinfo.h>
+      |          ^~~~~~~~~~~~
+1 error generated.
+Error: Command failed with status: exit status: 1; the command was: "/root/.wasixcc/llvm/bin/clang++" "--sysroot" "/root/.wasixcc/sysroot/sysroot-eh" "--target=wasm32-wasi" "-c" "-matomics" "-mbulk-memory" "-mmutable-globals" "-pthread" "-mthread-model" "posix" "-fno-trapping-math" "-D_WASI_EMULATED_MMAN" "-D_WASI_EMULATED_SIGNAL" "-D_WASI_EMULATED_PROCESS_CLOCKS" "-fwasm-exceptions" "-mllvm" "--wasm-enable-eh" "-mllvm" "--wasm-enable-sjlj" "-mllvm" "--wasm-use-legacy-eh=true" "-ftls-model=local-exec" "-msimd128" "-mrelaxed-simd" "-mextended-const" "-pthread" "-fsyntax-only" "worktree/benchmarks/spikes/issue65-wasix-preflight/linux_diagnostics.cc" "-o" "/tmp/.tmp1dl9d7/linux_diagnostics.cc.0.o"
+diagnostics_compile_exit_code=1
+3f6ee055c18389b715ad7448521e25e5a94c6cdd585e709a3710930ee2111697  /root/.wasixcc/bin/wasixccenv
+9bd7a601dd0c3c0bb794ae9c753d8f47a177c5f986ad091527e6669443e85e9a  /root/.wasixcc/llvm/bin/clang
+e0837c66fecab3cef5d8d202939c6125986685e9d8e589f90a253f5f18a17af9  /root/.wasixcc/sysroot/sysroot-eh/lib/wasm32-wasi/libc.a
+d221d99b1d85807d9a5f5899b4f3aef93c7417ebb6b29bdf1f998cfa61ef8a78  /root/.wasixcc/sysroot/sysroot-eh/lib/wasm32-wasi/libc++.a

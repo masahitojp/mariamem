@@ -1,0 +1,9 @@
+{
+  "imports": 21,
+  "unknown_import_names": [],
+  "fail_closed_imports": [
+    "thread_signal",
+    "proc_exit2"
+  ],
+  "callback_indirect_preserved": true
+}

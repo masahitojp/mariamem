@@ -1,0 +1,126 @@
+{
+  "scope": "selected-source overlay assessment; no full source preparation or engine build",
+  "archives": {
+    "mariadb": {
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845"
+    },
+    "lite4mariadb": {
+      "source_commit": "24be9371a2f6c71250a2356631ad6feab2280b02",
+      "sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd"
+    }
+  },
+  "patches": {
+    "guest/patches/common-portability.patch": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16",
+    "guest/patches/12.3.3-redo.patch": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22",
+    "guest/patches/12.3.3-prepared.patch": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4",
+    "guest/patches/12.3.3-buffer-alignment.patch": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622",
+    "guest/source.patch": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16",
+    "guest/experimental.patch": "81956fc2961143914965c5202c50695d1532c264745940fbf05d5a9537d3385a"
+  },
+  "direct_stack_exit_code": 1,
+  "files": {
+    "include/violite.h": {
+      "product_changed": false,
+      "three_way_conflicts": 0,
+      "product_sha256": "0be1b5c9a8fb6bed71d9a504c7eef69746fa2b388adcd8b68a3642608757f1d4",
+      "spike_sha256": "e9325ba0c03ee52d6852921cd8fb636d25df49ea1dfaaff00c2d70006a128c0b",
+      "composed_sha256": "e9325ba0c03ee52d6852921cd8fb636d25df49ea1dfaaff00c2d70006a128c0b"
+    },
+    "libmysqld/lib_sql.cc": {
+      "product_changed": true,
+      "three_way_conflicts": 1,
+      "product_sha256": "9f1d1f9152032ec14a619cd48ebcb9ec62a057298c19d871876d5285cca02ec9",
+      "spike_sha256": "55d931cf2a125157d650daefa8cc792aa586d2aec45cc9cead2ae427dc9e0931",
+      "draft_resolution": "retain product metadata helper and append exact independent3B declaration/include",
+      "composed_sha256": "6ec2686da0a6c19ab53528582724bf70fba6b9f95a5b904a2236e4987786fb60"
+    },
+    "libmysqld/mariamem_control_abi.h": {
+      "product_changed": false,
+      "three_way_conflicts": 0,
+      "product_sha256": null,
+      "spike_sha256": "c5c7970f623e6b5dce79b6cd1901c73f8ab4c541d1e77b46a164a67742cb5f92",
+      "composed_sha256": "c5c7970f623e6b5dce79b6cd1901c73f8ab4c541d1e77b46a164a67742cb5f92"
+    },
+    "libmysqld/mariamem_wire_probe.inc": {
+      "product_changed": false,
+      "three_way_conflicts": 0,
+      "product_sha256": null,
+      "spike_sha256": "1cf475870b208795098940cee11975031f9331f6cb3a1a8f640759ee262698fb",
+      "composed_sha256": "1cf475870b208795098940cee11975031f9331f6cb3a1a8f640759ee262698fb"
+    },
+    "sql-common/client.c": {
+      "product_changed": false,
+      "three_way_conflicts": 0,
+      "product_sha256": "40d26fe8713eaa276c8b095ec055034eea4f31162c49e2feb9b7254ec0bdf3a6",
+      "spike_sha256": "92c3aae9f9cdf0abcf51715b0ecaaa7933145b6b2e81204eccc2c476b8ba8db0",
+      "composed_sha256": "92c3aae9f9cdf0abcf51715b0ecaaa7933145b6b2e81204eccc2c476b8ba8db0"
+    },
+    "sql/item.h": {
+      "product_changed": false,
+      "three_way_conflicts": 0,
+      "product_sha256": "158e3e6dc8d91a3ee96a49018e64823ee55fc33a0c0b9dc0d2e36d99efdaf951",
+      "spike_sha256": "a5a9ce7c440b3a2991c7699b8a43bc7a68b6bc986d90d5f5938bb8df74c6b10f",
+      "composed_sha256": "a5a9ce7c440b3a2991c7699b8a43bc7a68b6bc986d90d5f5938bb8df74c6b10f"
+    },
+    "sql/net_serv.cc": {
+      "product_changed": false,
+      "three_way_conflicts": 0,
+      "product_sha256": "7d7b8b8a8de1834099f350912ed9255a1f376565da407e8dc461f97c72f12c93",
+      "spike_sha256": "3366bcfbf34bafaa7e338e4a13408eea9fa2b3a8cf3328ca7a576039f1d86aea",
+      "composed_sha256": "3366bcfbf34bafaa7e338e4a13408eea9fa2b3a8cf3328ca7a576039f1d86aea"
+    },
+    "sql/protocol.cc": {
+      "product_changed": false,
+      "three_way_conflicts": 0,
+      "product_sha256": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242",
+      "spike_sha256": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703",
+      "composed_sha256": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703"
+    },
+    "sql/protocol.h": {
+      "product_changed": false,
+      "three_way_conflicts": 0,
+      "product_sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+      "spike_sha256": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7",
+      "composed_sha256": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7"
+    },
+    "sql/sql_acl.cc": {
+      "product_changed": false,
+      "three_way_conflicts": 0,
+      "product_sha256": "04e3ed5d52bf7d90b154920cabc33f9c2b8eeea75264f72d0d610906289849d5",
+      "spike_sha256": "b4b101de3298877f770a40f056bada4de2abd987e11da8e7699c21f0c51fb5e7",
+      "composed_sha256": "b4b101de3298877f770a40f056bada4de2abd987e11da8e7699c21f0c51fb5e7"
+    },
+    "sql/sql_class.cc": {
+      "product_changed": false,
+      "three_way_conflicts": 0,
+      "product_sha256": "5f9127318c77887731f265d58d1c8531422cfb68b6fbf637300543d53cfd26c6",
+      "spike_sha256": "c21fbcfa8b38b4a4ca11075435a856046b07804a76382d578835d85819d7167e",
+      "composed_sha256": "c21fbcfa8b38b4a4ca11075435a856046b07804a76382d578835d85819d7167e"
+    },
+    "sql/sql_class.h": {
+      "product_changed": false,
+      "three_way_conflicts": 0,
+      "product_sha256": "0f0872cf1ba053709938849fe13ef18e61ef12f1fec288d6f2b08df23f6bcc28",
+      "spike_sha256": "f346f98960cb626755adb07256345ca3b70bdebaa8e493d049fcb3831c036276",
+      "composed_sha256": "f346f98960cb626755adb07256345ca3b70bdebaa8e493d049fcb3831c036276"
+    },
+    "sql/sql_parse.cc": {
+      "product_changed": false,
+      "three_way_conflicts": 0,
+      "product_sha256": "d4fcbe0d53e2474ec9730294101549ca84c1b619fcdf6c1c37de9d70cf88fa85",
+      "spike_sha256": "8ad987743653b458316b5e0190d03c256b2f873bd027900ba1b31b77dd668af7",
+      "composed_sha256": "8ad987743653b458316b5e0190d03c256b2f873bd027900ba1b31b77dd668af7"
+    },
+    "sql/sql_prepare.cc": {
+      "product_changed": true,
+      "three_way_conflicts": 1,
+      "product_sha256": "48f08ae4fda7990d376fe2e8c809c0a2a0d364979c3e83bb9f1a65b380819fa5",
+      "spike_sha256": "e2a2ce35a93b8ca8c8169035d1ee0d672874a0a56ed7a9d464179c022af35ab0",
+      "draft_resolution": "retain product metadata helper and append exact independent3B declaration/include",
+      "composed_sha256": "47c1a5550a76a9b088e7115eac4e5044eb71be109f19238f58100161f18593a4"
+    }
+  },
+  "all_three_way_clean": false,
+  "draft_resolved_all": true
+}
