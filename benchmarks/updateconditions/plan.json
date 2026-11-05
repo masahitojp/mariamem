@@ -1,0 +1,79 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness_source_commit": "549fd3ba4fdc92b407534bd2b4ce844951fbd4df",
+  "origin_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "objective": "Compare immediate vs COUNT-then-500ms delay and first vs second genuine UPDATE on the same child, without internal wait/notify/stack/RSS profiling. Condition intervention, not natural-tail capture or product performance acceptance.",
+  "authorization": "Human approved P8/48children, alternating three pairs, two writes per child, stop after six measured processes.",
+  "profile": {
+    "load_at_startup": "OFF",
+    "dump_at_shutdown": "OFF",
+    "commit": 1,
+    "flush_method": "inherited O_DIRECT",
+    "other_original_args": 25,
+    "fixture_rows": 1000,
+    "route": "pipe",
+    "parallel": 8,
+    "cap": 8,
+    "gomaxprocs": 8,
+    "gogc": 100
+  },
+  "protocol": {
+    "pairs": 3,
+    "primary_order": [
+      [
+        0,
+        500
+      ],
+      [
+        500,
+        0
+      ],
+      [
+        0,
+        500
+      ]
+    ],
+    "children_per_primary": 48,
+    "primary_processes": 6,
+    "preflight": {
+      "delay_ms": 500,
+      "parallel": 8,
+      "count": 8
+    },
+    "wrong_seed": {
+      "delay_ms": 500,
+      "parallel": 1,
+      "count": 1
+    },
+    "total_protocol_processes": 8,
+    "warmups": 0,
+    "extra_repetitions": 0,
+    "update1": "UPDATE fork_probe SET v=-1 WHERE id=1",
+    "update2": "UPDATE fork_probe SET v=-2 WHERE id=1",
+    "verification": "COUNT=1000/SUM=500500 before delay; each UPDATE affects1 and SELECT matches -1 then -2; cleanup; independent prepared children."
+  },
+  "measurement": "External query timers only; actual idle duration and exact query-call start age since Fork return recorded. No stack capture, timer observer goroutine, internal stage/notify hooks or parent RSS sampler. Explicit 500ms idle uses a cancelable host timer. Same binary and SQL/verification sequence across arms.",
+  "decision": {
+    "neither_first_nor_second_tail": "STOP_NOT_REPRODUCED; no rare-tail explanation",
+    "tails_only_immediate": "Observed timing-condition association; not a proven fix or population probability",
+    "tails_in_second": "First-write-only explanation insufficient for those observed cases",
+    "tails_only_first": "Consistent with first-write/elapsed-time differences, not proof of one-time undo initialization",
+    "all_outcomes": "Report each pair, per-query p50/p95/max and >100/>500 counts, within-child second-minus-first distributions. No extra runs, no product/default change. Owner/queue attribution remains separate."
+  },
+  "limitations": [
+    "The500ms pause changes both DB age and overlap with other starts/cleanup; cannot isolate age from contention.",
+    "Second UPDATE follows first UPDATE and verification; data/undo/cache state and elapsed time change together.",
+    "No-wait arm now has a second UPDATE: not an exact replay of previous single-write suite.",
+    "No internal tracing does not mean zero measurement overhead. No polling/stack observer is introduced.",
+    "Single Mac; no native, Ubuntu, adoption or release gate."
+  ],
+  "budget": {
+    "active_minutes": 40,
+    "tooling_minutes": 15,
+    "process_timeout_seconds": 120,
+    "build_timeout_seconds": 1200,
+    "disk_gib": 6,
+    "min_free_gib": 12,
+    "heavy_ci": 0
+  }
+}

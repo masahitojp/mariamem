@@ -29,27 +29,37 @@ type Snapshot struct {
 	Close func() error
 }
 type Sample struct {
-	RetireMS  float64           `json:"retire_ms"`
-	WaitMS    float64           `json:"wait_ms"`
-	CloseMS   float64           `json:"close_ms"`
-	CountMS   float64           `json:"count_ms"`
-	UpdateMS  float64           `json:"update_ms"`
-	CheckMS   float64           `json:"check_ms"`
-	Config    map[string]string `json:"config,omitempty"`
-	OffsetMS  float64           `json:"offset_ms"`
-	TotalMS   float64           `json:"total_ms"`
-	SQLMS     float64           `json:"sql_ms"`
-	Cleanup   bool              `json:"cleanup_complete"`
-	Index     int               `json:"index"`
-	ForkMS    float64           `json:"fork_ms"`
-	ConnectMS float64           `json:"connect_ms"`
-	SelectMS  float64           `json:"select_ms"`
-	ReadyMS   float64           `json:"ready_ms"`
-	CleanupMS float64           `json:"cleanup_ms"`
-	Oracle    bool              `json:"oracle"`
-	Error     string            `json:"error,omitempty"`
+	DelayActualMS   float64           `json:"delay_actual_ms"`
+	Update2MS       float64           `json:"update2_ms"`
+	Check2MS        float64           `json:"check2_ms"`
+	FirstForkAgeMS  float64           `json:"first_fork_age_ms"`
+	SecondForkAgeMS float64           `json:"second_fork_age_ms"`
+	Update1StartMS  float64           `json:"update1_start_offset_ms"`
+	Update2StartMS  float64           `json:"update2_start_offset_ms"`
+	Oracle1         bool              `json:"oracle1"`
+	Oracle2         bool              `json:"oracle2"`
+	RetireMS        float64           `json:"retire_ms"`
+	WaitMS          float64           `json:"wait_ms"`
+	CloseMS         float64           `json:"close_ms"`
+	CountMS         float64           `json:"count_ms"`
+	UpdateMS        float64           `json:"update_ms"`
+	CheckMS         float64           `json:"check_ms"`
+	Config          map[string]string `json:"config,omitempty"`
+	OffsetMS        float64           `json:"offset_ms"`
+	TotalMS         float64           `json:"total_ms"`
+	SQLMS           float64           `json:"sql_ms"`
+	Cleanup         bool              `json:"cleanup_complete"`
+	Index           int               `json:"index"`
+	ForkMS          float64           `json:"fork_ms"`
+	ConnectMS       float64           `json:"connect_ms"`
+	SelectMS        float64           `json:"select_ms"`
+	ReadyMS         float64           `json:"ready_ms"`
+	CleanupMS       float64           `json:"cleanup_ms"`
+	Oracle          bool              `json:"oracle"`
+	Error           string            `json:"error,omitempty"`
 }
 type Report struct {
+	UpdateDelayMS       int               `json:"update_delay_ms"`
 	Config              map[string]string `json:"config,omitempty"`
 	CPUUserMS           float64           `json:"cpu_user_ms"`
 	CPUSystemMS         float64           `json:"cpu_system_ms"`
@@ -121,7 +131,7 @@ func oracle(ctx context.Context, q interface {
 	}
 	return nil
 }
-func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart time.Time) (s Sample, err error) {
+func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart time.Time, updateDelay time.Duration) (s Sample, err error) {
 	ctx = context.WithValue(ctx, "forkstages_child", index)
 	s.Index = index
 	s.Cleanup = true
@@ -129,7 +139,8 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 	s.OffsetMS = ms(begin.Sub(batchStart))
 	defer func() { s.TotalMS = ms(time.Since(begin)) }()
 	d, e := sn.Fork(ctx)
-	s.ForkMS = ms(time.Since(begin))
+	forkReturned := time.Now()
+	s.ForkMS = ms(forkReturned.Sub(begin))
 	if e != nil {
 		return s, e
 	}
@@ -177,7 +188,20 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 	if e != nil {
 		return s, e
 	}
+	pauseAt := time.Now()
+	if updateDelay > 0 {
+		timer := time.NewTimer(updateDelay)
+		select {
+		case <-ctx.Done():
+			timer.Stop()
+			return s, ctx.Err()
+		case <-timer.C:
+		}
+	}
+	s.DelayActualMS = ms(time.Since(pauseAt))
 	queryAt = time.Now()
+	s.FirstForkAgeMS = ms(queryAt.Sub(forkReturned))
+	s.Update1StartMS = ms(queryAt.Sub(batchStart))
 	result, e := c.ExecContext(ctx, "UPDATE fork_probe SET v=-1 WHERE id=1")
 	if e != nil {
 		return s, e
@@ -196,7 +220,30 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 	if value != -1 {
 		return s, fmt.Errorf("mutation value=%d", value)
 	}
-	s.Oracle = true
+	s.Oracle1 = true
+	queryAt = time.Now()
+	s.SecondForkAgeMS = ms(queryAt.Sub(forkReturned))
+	s.Update2StartMS = ms(queryAt.Sub(batchStart))
+	result, e = c.ExecContext(ctx, "UPDATE fork_probe SET v=-2 WHERE id=1")
+	s.Update2MS = ms(time.Since(queryAt))
+	if e != nil {
+		return s, e
+	}
+	n, e = result.RowsAffected()
+	if e != nil || n != 1 {
+		return s, fmt.Errorf("second mutation affected=%d: %v", n, e)
+	}
+	queryAt = time.Now()
+	e = c.QueryRowContext(ctx, "SELECT v FROM fork_probe WHERE id=1").Scan(&value)
+	s.Check2MS = ms(time.Since(queryAt))
+	if e != nil {
+		return s, e
+	}
+	if value != -2 {
+		return s, fmt.Errorf("second mutation value=%d", value)
+	}
+	s.Oracle2 = true
+	s.Oracle = s.Oracle1 && s.Oracle2
 	return s, nil
 }
 func run(r *Report, start func(context.Context) (*Database, error)) (err error) {
@@ -320,7 +367,7 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 				if ctx.Err() != nil {
 					return
 				}
-				s, e := one(ctx, sn, r.Route, index, at)
+				s, e := one(ctx, sn, r.Route, index, at, time.Duration(r.UpdateDelayMS)*time.Millisecond)
 				if e != nil {
 					s.Error = e.Error()
 					cancel()
@@ -366,8 +413,9 @@ func Main(backend string, start func(context.Context) (*Database, error)) {
 	flag.BoolVar(&r.Corrupt, "corrupt-seed", false, "negative control: child oracle must fail")
 	out := flag.String("out", "", "required report path")
 	flag.StringVar(&r.SyncDir, "sync-dir", "", "parent RSS observer handshake directory")
+	flag.IntVar(&r.UpdateDelayMS, "update-delay-ms", 0, "experiment:0 or500 ms after pristine COUNT")
 	flag.Parse()
-	if *out == "" || r.Parallel < 1 || r.Count < r.Parallel || r.Parallel > 8 {
+	if (r.UpdateDelayMS != 0 && r.UpdateDelayMS != 500) || *out == "" || r.Parallel < 1 || r.Count < r.Parallel || r.Parallel > 8 {
 		fmt.Fprintln(os.Stderr, "invalid arguments")
 		os.Exit(2)
 	}
