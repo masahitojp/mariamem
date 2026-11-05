@@ -102,6 +102,7 @@ jobs:
       - name: Exact clean source and source input controls
         run: |
           go clean -testcache
+          python -c 'import platform,os;expected=("Darwin","arm64") if os.environ["RUNNER_OS"]=="macOS" else ("Linux","x86_64");assert (platform.system(),platform.machine())==expected,(platform.system(),platform.machine())'
           python -m pip install PyMySQL==1.2.3 pytest==9.1.1
           mkdir -p build/uca-ci
           python scripts/git_identity.py inspect HEAD > build/uca-ci/source.json
