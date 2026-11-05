@@ -1,0 +1,11 @@
+{
+  "run": 41961766293,
+  "artifact_id": 13386565859,
+  "artifact_name": "uca-canonical-guest-cbd25f027e804bbd529a85208589ba2dd2899b86",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "bytes": 21159842,
+  "name_section": false,
+  "debug_sections_present": true,
+  "complete_symbol_map_retained_here": false,
+  "limit": "Do not assign C names to current generated Fn numbers from an older guest. Source correspondence must be independently verified if a natural case is captured."
+}

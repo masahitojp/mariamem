@@ -1,0 +1,61 @@
+{
+  "result": "NOT_REPRODUCED",
+  "original366ms_phase": "UNDETERMINED",
+  "natural_processes": 3,
+  "natural_children": 144,
+  "natural_update_over100ms": 0,
+  "natural_snapshots": 0,
+  "rows": [
+    {
+      "name": "natural-0",
+      "children": 48,
+      "captures": 0,
+      "count_ms_p50": 2.7868965,
+      "count_ms_max": 16.739917,
+      "count_ms_over100": 0,
+      "update_ms_p50": 0.5382914999999999,
+      "update_ms_max": 20.4865,
+      "update_ms_over100": 0,
+      "check_ms_p50": 0.2664165,
+      "check_ms_max": 4.509709,
+      "check_ms_over100": 0
+    },
+    {
+      "name": "natural-1",
+      "children": 48,
+      "captures": 0,
+      "count_ms_p50": 2.8068755,
+      "count_ms_max": 25.085833,
+      "count_ms_over100": 0,
+      "update_ms_p50": 0.5331459999999999,
+      "update_ms_max": 21.247917,
+      "update_ms_over100": 0,
+      "check_ms_p50": 0.2946875,
+      "check_ms_max": 10.95875,
+      "check_ms_over100": 0
+    },
+    {
+      "name": "natural-2",
+      "children": 48,
+      "captures": 0,
+      "count_ms_p50": 2.9560835,
+      "count_ms_max": 25.021875,
+      "count_ms_over100": 0,
+      "update_ms_p50": 0.3716875,
+      "update_ms_max": 8.970459,
+      "update_ms_over100": 0,
+      "check_ms_p50": 0.1657705,
+      "check_ms_max": 2.831,
+      "check_ms_over100": 0
+    }
+  ],
+  "artificial_control": {
+    "timer_and_correct_child_guest_labels": "PASS",
+    "snapshot_begin_ms": 101.114667,
+    "snapshot_end_ms": 101.907417,
+    "wrapper_return_ms": 201.936708,
+    "scope": "Artificial200ms client delay before Exec; confirms observer/labels, not an engine wait or actual SQL in progress."
+  },
+  "metadata_limit": "Original metadata field whole_profile_inside_exec refers to wrapper observation window including the artificial hold. No SQL-call entry timestamp is recorded. No natural capture was used for a phase claim. Future reuse for engine phase classification must distinguish Exec entry from wrapper entry.",
+  "conclusion": "Bounded observation completed without reproducing the slow UPDATE. Original cause, commit/flush attribution and relationship to old COUNT queue stalls remain unknown. Zero cases does not establish resolution or a frequency."
+}

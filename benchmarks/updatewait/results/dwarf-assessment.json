@@ -1,0 +1,14 @@
+{
+  "result": "UNUSABLE_FOR_CURRENT_SQL_NAMES",
+  "dwarf_rows": 1706,
+  "function_ranges_mapped": 0,
+  "sql_anchor_strings_in_debug_str": {
+    "mysql_server_init": false,
+    "mysql_real_query": false,
+    "l4m_open": false,
+    "ha_commit_trans": false,
+    "trans_commit_stmt": false
+  },
+  "raw_derived_sha256": "d0986f6be099f2d7eb07013dcdd60e2a431f44c133ab99640901406a77c47035",
+  "reason": "No known SQL anchors in parsed low-PC DIEs; no supported mapping to canonical generated indices. Do not use old-guest indices."
+}

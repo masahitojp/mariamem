@@ -1,0 +1,26 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness": "5472e3df7fbee38973f030e61c0e9dd293b735bd",
+  "origin_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "question": "Classify a newly observed natural slow UPDATE under load-off, if reproducible; historical366ms has no stack and cannot be reconstructed.",
+  "configuration": "load-off only, current25other argv, Pipe, same1000-row SQL/oracles; no explicit transaction or extra primary SQL",
+  "natural_processes_max": 3,
+  "parallel": 8,
+  "children_per_process": 48,
+  "stop": "first natural capture with snapshot wholly inside Exec and matching child labels; otherwise stop after3 processes as NOT_REPRODUCED",
+  "observer": "100ms UPDATE-only timer, maxone2MiB labelled goroutine profile perprocess; capture latency not performance evidence",
+  "controls": [
+    "200ms artificial client delay before UPDATE; never an engine-wait case",
+    "wrong-seed failure before UPDATE",
+    "8-child effective-setting preflight"
+  ],
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci": 0,
+    "disk_gib": 6,
+    "min_free_gib": 12,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 120
+  }
+}
