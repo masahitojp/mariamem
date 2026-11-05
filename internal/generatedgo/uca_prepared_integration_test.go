@@ -33,22 +33,83 @@ func TestPreparedUCATablesActualGuest(t *testing.T) {
 		{"corrupt_table_rejected", true, false, true},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			var input, output, diagnostic bytes.Buffer
-			sequence := uint32(0)
-			frame := func(op byte, sql string) {
-				sequence++
-				packet := make([]byte, 13+len(sql))
-				binary.LittleEndian.PutUint32(packet, uint32(9+len(sql)))
-				packet[4] = op
-				binary.LittleEndian.PutUint32(packet[5:], sequence)
-				copy(packet[13:], sql)
-				input.Write(packet)
+			var diagnostic bytes.Buffer
+			childIn, input, err := os.Pipe()
+			if err != nil {
+				t.Fatal(err)
 			}
-			frame(1, "")
-			for _, encoding := range []string{"utf8mb3", "utf8mb4"} {
-				frame(2, fmt.Sprintf("SELECT STRCMP(_%s'a' COLLATE %s_uca1400_ai_ci,_%s'A' COLLATE %s_uca1400_ai_ci)", encoding, encoding, encoding, encoding))
+			output, childOut, err := os.Pipe()
+			if err != nil {
+				childIn.Close()
+				input.Close()
+				t.Fatal(err)
 			}
-			input.Write([]byte{0, 0, 0, 0})
+			defer childIn.Close()
+			defer input.Close()
+			defer output.Close()
+			defer childOut.Close()
+			replies := make(chan error, 1)
+			go func() {
+				fail := func(err error) { input.Close(); replies <- err }
+				read := func(ready bool) error {
+					var n uint32
+					if err := binary.Read(output, binary.LittleEndian, &n); err != nil {
+						return err
+					}
+					if n > 1<<20 {
+						return fmt.Errorf("invalid frame length %d", n)
+					}
+					raw := make([]byte, int(n))
+					if _, err := io.ReadFull(output, raw); err != nil {
+						return err
+					}
+					var reply struct {
+						Result map[string]any `json:"result"`
+					}
+					if err := json.Unmarshal(raw, &reply); err != nil {
+						return err
+					}
+					key := "ok"
+					if ready {
+						key = "ready"
+					}
+					if reply.Result[key] != true {
+						return fmt.Errorf("failed guest reply: %+v", reply)
+					}
+					return nil
+				}
+				if err := read(true); err != nil {
+					fail(err)
+					return
+				}
+				sequence := uint32(0)
+				call := func(op byte, sql string) error {
+					sequence++
+					packet := make([]byte, 13+len(sql))
+					binary.LittleEndian.PutUint32(packet, uint32(9+len(sql)))
+					packet[4] = op
+					binary.LittleEndian.PutUint32(packet[5:], sequence)
+					copy(packet[13:], sql)
+					if _, err := input.Write(packet); err != nil {
+						return err
+					}
+					return read(false)
+				}
+				if err := call(1, ""); err != nil {
+					fail(err)
+					return
+				}
+				for _, encoding := range []string{"utf8mb3", "utf8mb4"} {
+					sql := fmt.Sprintf("SELECT STRCMP(_%s'a' COLLATE %s_uca1400_ai_ci,_%s'A' COLLATE %s_uca1400_ai_ci)", encoding, encoding, encoding, encoding)
+					if err := call(2, sql); err != nil {
+						fail(err)
+						return
+					}
+				}
+				_, err := input.Write([]byte{0, 0, 0, 0})
+				replies <- err
+			}()
+
 			before := base.MemoryMappingStats()
 			construct := func(h *host) (*base.Module, func() error, error) {
 				if tc.verify {
@@ -96,8 +157,7 @@ func TestPreparedUCATablesActualGuest(t *testing.T) {
 				}
 				return m, release, err
 			}
-			done := startInstance(&input, &output, &diagnostic, "", nil, tc.timing, nil, construct)
-			var err error
+			done := startInstance(childIn, childOut, &diagnostic, "", nil, tc.timing, nil, construct)
 			select {
 			case err = <-done:
 			case <-time.After(30 * time.Second):
@@ -111,33 +171,19 @@ func TestPreparedUCATablesActualGuest(t *testing.T) {
 				if err != nil {
 					t.Fatalf("guest: %v %s", err, diagnostic.String())
 				}
-				// Ready, one session and two successful SQL replies; no silent SQL failure.
-				for i := 0; i < 4; i++ {
-					var n uint32
-					if err := binary.Read(&output, binary.LittleEndian, &n); err != nil {
-						t.Fatal(err)
+				select {
+				case replyErr := <-replies:
+					if replyErr != nil {
+						t.Fatal(replyErr)
 					}
-					if n > 1<<20 || int(n) > output.Len() {
-						t.Fatal("invalid frame length", n)
-					}
-					var reply struct {
-						Result map[string]any `json:"result"`
-					}
-					if err := json.Unmarshal(output.Next(int(n)), &reply); err != nil {
-						t.Fatal(err)
-					}
-					key := "ok"
-					if i == 0 {
-						key = "ready"
-					}
-					if reply.Result[key] != true {
-						t.Fatalf("failed guest reply: %+v", reply)
-					}
+				case <-time.After(time.Second):
+					t.Fatal("missing successful replies")
 				}
-				if output.Len() != 0 {
-					t.Fatal("unexpected trailing reply")
-				}
+
 				logs := diagnostic.String()
+				if tc.timing {
+					t.Logf("ordinary profiling diagnostics: %s", logs)
+				}
 				if tc.verify {
 					for _, id := range []int{2048, 2304} {
 						for level := 0; level < 3; level++ {
@@ -149,6 +195,17 @@ func TestPreparedUCATablesActualGuest(t *testing.T) {
 					}
 				} else if strings.Contains(logs, "UCA_PREPARED_VERIFY") {
 					t.Fatal("ordinary execution performed verification", logs)
+				}
+			}
+			input.Close()
+			output.Close()
+			childIn.Close()
+			childOut.Close()
+			if tc.corrupt {
+				select {
+				case <-replies:
+				case <-time.After(time.Second):
+					t.Fatal("transport goroutine retained")
 				}
 			}
 			after := base.MemoryMappingStats()

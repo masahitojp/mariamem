@@ -131,6 +131,12 @@ class PreparedInputTests(unittest.TestCase):
         self.assertEqual(proof['source_check'], 'PRISTINE_SOURCE_HASHES_PASS')
         self.assertEqual(proof['header_sha256'], EXPECTED)
         self.assertEqual(len(proof['input_files_sha256']), 5)
+        uca_prepared.verify_record(root, proof)
+        for field in ('input_files_sha256', 'header_sha256', 'source_check', 'verification_env'):
+            changed = copy.deepcopy(proof)
+            changed[field] = {} if field == 'input_files_sha256' else 'wrong'
+            with self.assertRaisesRegex(ValueError, 'source-input provenance differs'):
+                uca_prepared.verify_record(root, changed)
         header = source/uca_prepared.HEADER
         self.assertEqual(uca.digest(header.read_bytes()), EXPECTED)
         with self.assertRaises(FileExistsError):
