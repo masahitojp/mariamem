@@ -1,0 +1,133 @@
+package base
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"sync/atomic"
+	"testing"
+	"time"
+	"unsafe"
+)
+
+func TestUWNotifyPairing(t *testing.T) {
+	oldLong := uwLong
+	uwLong = 1
+	defer func() { uwLong = oldLong }()
+	old := uwDir
+	uwDir = t.TempDir()
+	defer func() { uwDir = old }()
+	makeM := func(child int) *Module {
+		b := make([]byte, 65536)
+		copy(b[1024:], []byte("UPDATE fork_probe SET v=-1 WHERE id=1"))
+		size := new(atomic.Uint64)
+		size.Store(uint64(len(b)))
+		p := &ThreadPool{}
+		p.nextTID.Store(1)
+		m := &Module{Memory: b, M: unsafe.Pointer(&b[0]), MemSize: size, MemShared: true, Threads: p, G1: 1}
+		UWBind(m, child, true)
+		return m
+	}
+	a, b := makeM(7), makeM(8)
+	defer UWFlush(b)
+	end := UWSqlBegin(a, 1024, int32(len("UPDATE fork_probe SET v=-1 WHERE id=1")))
+	done := make(chan int32, 1)
+	go func() { done <- AtomicWait32At(a, 256, 0, -1) }()
+	deadline := time.Now().Add(time.Second)
+	for {
+		uwMu.Lock()
+		n := len(uwStates[a.Threads].waits)
+		uwMu.Unlock()
+		if n == 1 {
+			break
+		}
+		if time.Now().After(deadline) {
+			t.Fatal("not registered")
+		}
+		time.Sleep(time.Millisecond)
+	}
+	if n := AtomicNotify(b, 256, 0, 1); n != 0 {
+		t.Fatal("wrong instance woke waiter")
+	}
+	if n := AtomicNotify(a, 256, 0, 0); n != 0 {
+		t.Fatal("count zero woke waiter")
+	}
+	select {
+	case <-done:
+		t.Fatal("wrong notify resumed waiter")
+	default:
+	}
+	notifier := *a
+	notifier.G1 = 2
+	if n := AtomicNotify(&notifier, 256, 0, 1); n != 1 {
+		t.Fatal("wake count", n)
+	}
+	select {
+	case rc := <-done:
+		if rc != 0 {
+			t.Fatal("result", rc)
+		}
+	case <-time.After(time.Second):
+		t.Fatal("waiter stuck")
+	}
+	end()
+	UWFlush(a)
+	raw, err := os.ReadFile(filepath.Join(uwDir, "child-007.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var s uwState
+	if json.Unmarshal(raw, &s) != nil || s.Truncated {
+		t.Fatal("trace")
+	}
+	var id uint64
+	var reg, before, after, resume, ret int64
+	var signalNotify uint64
+	validNotify := false
+	for _, e := range s.Events {
+		switch e.Kind {
+		case "wait_registered":
+			id = e.Wait
+			reg = e.NS
+		case "signal_before":
+			if e.Wait != id {
+				t.Fatal("wrong wait")
+			}
+			before = e.NS
+			signalNotify = e.Notify
+		case "signal_after":
+			after = e.NS
+		case "wait_resume":
+			resume = e.NS
+		case "wait_return":
+			ret = e.NS
+		case "notify_return":
+			if e.Notify == signalNotify && e.RC == 1 && e.Thread == 2 {
+				validNotify = len(e.Callers) > 0
+			}
+		}
+	}
+	if id == 0 || !(reg <= before && before <= after && before <= resume && resume <= ret) || !validNotify {
+		t.Fatal("broken pairing", id, reg, before, after, resume, ret, validNotify)
+	}
+}
+func TestUWBoundAndBinding(t *testing.T) {
+	old := uwDir
+	uwDir = t.TempDir()
+	defer func() { uwDir = old }()
+	p := &ThreadPool{}
+	m := &Module{Threads: p}
+	UWBind(m, 3, false)
+	if uwStates[p] != nil {
+		t.Fatal("missing child accepted")
+	}
+	UWBind(m, 3, true)
+	s := uwStates[p]
+	for i := 0; i < uwMaxEvents+2; i++ {
+		uwAdd(s, uwEvent{Kind: "test"})
+	}
+	if len(s.Events) != uwMaxEvents || !s.Truncated {
+		t.Fatal("bound")
+	}
+	UWFlush(m)
+}
