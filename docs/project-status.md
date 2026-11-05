@@ -14,6 +14,22 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Prepared UCA tables — candidate preparation authorized, adoption open
+
+After reviewing experimental report source_commit
+`e33fc6ce3bae390c6dda0fd92d024d8094df8731`, the Human authorized proceeding
+with adoption-candidate preparation. The one-host result supports the mechanism:
+Fork elapsed/CPU and whole-fixture wall improved with the measured ASCII SQL
+speed retained. It does not qualify current main or a future canonical guest.
+
+The [preparation review](reviews/uca-prepared-candidate-review.md) fixes the
+production boundary: maintained numeric inputs, separate verification/profiling,
+canonical regeneration/worker bindings, and bounded both-host acceptance.
+The small [input package](../benchmarks/ucapreparedinput/README.md) is tested but
+not consumed by guest preparation or runtime yet. Existing host/wire fixes are
+retained. Product adoption, main runtime integration, Qualification and release
+remain open; exploratory history is not proposed for blind integration.
+
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 
 ### Current candidate — adopted after fixed-exit technical acceptance
