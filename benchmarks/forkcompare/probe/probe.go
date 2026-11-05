@@ -29,6 +29,9 @@ type Snapshot struct {
 	Close func() error
 }
 type Sample struct {
+	CountMS   float64           `json:"count_ms"`
+	UpdateMS  float64           `json:"update_ms"`
+	CheckMS   float64           `json:"check_ms"`
 	Config    map[string]string `json:"config,omitempty"`
 	OffsetMS  float64           `json:"offset_ms"`
 	TotalMS   float64           `json:"total_ms"`
@@ -152,18 +155,26 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 	}
 	sqlAt := time.Now()
 	defer func() { s.SQLMS = ms(time.Since(sqlAt)) }()
-	if e = oracle(ctx, c); e != nil {
+	queryAt := time.Now()
+	e = oracle(ctx, c)
+	s.CountMS = ms(time.Since(queryAt))
+	if e != nil {
 		return s, e
 	}
+	queryAt = time.Now()
 	result, e := c.ExecContext(ctx, "UPDATE fork_probe SET v=-1 WHERE id=1")
 	if e != nil {
 		return s, e
 	}
+	s.UpdateMS = ms(time.Since(queryAt))
 	n, e := result.RowsAffected()
 	if e != nil || n != 1 {
 		return s, fmt.Errorf("mutation affected=%d: %v", n, e)
 	}
-	if e = c.QueryRowContext(ctx, "SELECT v FROM fork_probe WHERE id=1").Scan(&value); e != nil {
+	queryAt = time.Now()
+	e = c.QueryRowContext(ctx, "SELECT v FROM fork_probe WHERE id=1").Scan(&value)
+	s.CheckMS = ms(time.Since(queryAt))
+	if e != nil {
 		return s, e
 	}
 	if value != -1 {

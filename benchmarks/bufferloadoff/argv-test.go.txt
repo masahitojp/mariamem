@@ -1,0 +1,80 @@
+package base
+
+import (
+	"bytes"
+	"encoding/binary"
+	"sync/atomic"
+	"testing"
+)
+
+func TestBufferLoadSelector(t *testing.T) {
+	old := loadVariant
+	defer func() { loadVariant = old }()
+	fixture := func() *Module {
+		b := bytes.Repeat([]byte{0xa5}, 16384)
+		for i, arg := range expectedLoadArgs {
+			ptr := 4096 + i*256
+			copy(b[ptr:], append([]byte(arg), 0))
+			binary.LittleEndian.PutUint32(b[512+i*4:], uint32(ptr))
+		}
+		binary.LittleEndian.PutUint32(b[512+100:], 0)
+		m := &Module{Memory: b, G0: 512, MemSize: new(atomic.Uint64)}
+		m.MemSize.Store(uint64(len(b)))
+		return m
+	}
+	for _, mode := range []string{"current", "load-off"} {
+		loadVariant = mode
+		m := fixture()
+		before := bytes.Clone(m.Memory)
+		n, release := BufLoadArg(m, 512)
+		if n != 26 || m.G0 != 448 {
+			t.Fatal("argc/stack")
+		}
+		if !bytes.Equal(before[512:612], m.Memory[512:612]) || !bytes.Equal(before[620:], m.Memory[620:]) || !bytes.Equal(before[:448], m.Memory[:448]) {
+			t.Fatal("unrelated bytes changed")
+		}
+		ptr := binary.LittleEndian.Uint32(m.Memory[612:616])
+		expected := "--innodb-buffer-pool-load-at-startup=1\x00"
+		if mode == "load-off" {
+			expected = "--innodb-buffer-pool-load-at-startup=0\x00"
+		}
+		if string(m.Memory[ptr:ptr+uint32(len(expected))]) != expected || binary.LittleEndian.Uint32(m.Memory[616:620]) != 0 {
+			t.Fatal("bad option/termination")
+		}
+		if ptr < 448 || ptr+uint32(len(expected)) > 512 {
+			t.Fatal("scratch overlap")
+		}
+		release()
+		if m.G0 != 512 || !bytes.Equal(before[512:], m.Memory[512:]) {
+			t.Fatal("stack/argv not restored")
+		}
+	}
+	for _, kind := range []string{"mode", "stack", "preimage", "terminator"} {
+		m := fixture()
+		loadVariant = "current"
+		if kind == "mode" {
+			loadVariant = "invalid"
+		}
+		if kind == "stack" {
+			m.G0 = 100
+		}
+		if kind == "preimage" {
+			m.Memory[4096] = 'X'
+		}
+		if kind == "terminator" {
+			m.Memory[612] = 1
+		}
+		before := bytes.Clone(m.Memory)
+		func() {
+			defer func() {
+				if recover() == nil {
+					t.Fatal("invalid input accepted", kind)
+				}
+			}()
+			BufLoadArg(m, 512)
+		}()
+		if !bytes.Equal(before, m.Memory) {
+			t.Fatal("invalid input changed memory")
+		}
+	}
+}

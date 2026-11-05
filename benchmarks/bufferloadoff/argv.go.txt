@@ -1,0 +1,57 @@
+package base
+
+import (
+	"encoding/binary"
+	"fmt"
+	"os"
+)
+
+var loadVariant = os.Getenv("DEFAULT_SETTINGS_VARIANT")
+var expectedLoadArgs = []string{"lite4mariadb", "--basedir=/mariadb", "--datadir=/mariadb/data", "--plugin-dir=/mariadb/plugin", "--lc-messages-dir=/mariadb/share", "--character-sets-dir=/mariadb/share/charsets", "--tmpdir=/tmp", "--skip-grant-tables", "--skip-networking", "--skip-log-bin", "--innodb-use-native-aio=0", "--innodb-buffer-pool-size=16M", "--loose-innodb-buffer-pool-size-max=16M", "--innodb-log-buffer-size=2M", "--max-connections=10", "--default-storage-engine=InnoDB", "--loose-innodb-read-io-threads=1", "--loose-innodb-write-io-threads=1", "--loose-innodb-purge-threads=1", "--table-open-cache=32", "--thread-cache-size=0", "--socket=/tmp/mysql.sock", "--caching-sha2-password-private-key-path=/mariamem-auth/private.pem", "--caching-sha2-password-public-key-path=/mariamem-auth/public.pem", "--caching-sha2-password-auto-generate-rsa-keys=OFF"}
+
+// Reserve a private64-byte guest-stack area below the existing frame until the
+// server-init call returns. argv[25]/[26] fit before existing timing locals112+.
+func BufLoadArg(m *Module, argv int32) (int32, func()) {
+	if loadVariant != "current" && loadVariant != "load-off" {
+		panic("invalid load variant")
+	}
+	if m.G0 != argv {
+		panic("unexpected argv/stack relation")
+	}
+	for i, arg := range expectedLoadArgs {
+		ea := MemoryEA(m, uint64(uint32(argv)), uint64(i*4), 4)
+		p := binary.LittleEndian.Uint32(m.Memory[ea : ea+4])
+		var b []byte
+		for j := uint64(0); j < 512; j++ {
+			v := m.Memory[MemoryEA(m, uint64(p), j, 1)]
+			if v == 0 {
+				break
+			}
+			b = append(b, v)
+		}
+		if string(b) != arg {
+			panic(fmt.Sprintf("argv[%d] preimage mismatch", i))
+		}
+	}
+	ea := MemoryEA(m, uint64(uint32(argv)), 100, 8)
+	if binary.LittleEndian.Uint32(m.Memory[ea:ea+4]) != 0 {
+		panic("missing argv terminator")
+	}
+	var saved [8]byte
+	copy(saved[:], m.Memory[ea:ea+8])
+	prior := m.G0
+	addr := prior - 64
+	at := MemoryEA(m, uint64(uint32(addr)), 0, 64)
+	opt := []byte("--innodb-buffer-pool-load-at-startup=1\x00")
+	if loadVariant == "load-off" {
+		opt[len(opt)-2] = '0'
+	}
+	if len(opt) > 64 {
+		panic("option overflow")
+	}
+	copy(m.Memory[at:at+uint64(len(opt))], opt)
+	binary.LittleEndian.PutUint32(m.Memory[ea:ea+4], uint32(addr))
+	binary.LittleEndian.PutUint32(m.Memory[ea+4:ea+8], 0)
+	m.G0 = addr
+	return 26, func() { m.G0 = prior; copy(m.Memory[ea:ea+8], saved[:]) }
+}

@@ -1,0 +1,7 @@
+from pathlib import Path
+import sys,runpy,json,hashlib
+s,o=map(lambda p:Path(p).resolve(),sys.argv[1:]);runpy.run_path(str(s/'benchmarks/forkstages/overlay.py'),run_name='__main__');maps=json.loads((o/'overlay.json').read_text());hashes=json.loads((o/'hashes.json').read_text())
+p=s/'internal/generatedgo/code/p5/p5_pure.go';old=p.read_text();needle='v107 = Fn5739(m, int32(25), v8)';assert old.count(needle)==1;v=old.replace(needle,'loadArgc, restoreLoadStack := base.BufLoadArg(m,v8)\n v107 = Fn5739(m, loadArgc, v8)\n restoreLoadStack()');target=o/'p5_pure.go';target.write_text(v);maps['Replace'][str(p)]=str(target);hashes.append({'path':str(p.relative_to(s)),'before_sha256':hashlib.sha256(old.encode()).hexdigest(),'after_sha256':hashlib.sha256(v.encode()).hexdigest()})
+for name,relative in [('argv.go.txt','buffer_load.go'),('argv-test.go.txt','buffer_load_test.go')]:
+ source=s/'benchmarks/bufferloadoff'/name;maps['Replace'][str(s/'internal/generatedgo/code/base'/relative)]=str(source);hashes.append({'path':'internal/generatedgo/code/base/'+relative,'before_sha256':None,'after_sha256':hashlib.sha256(source.read_bytes()).hexdigest()})
+(o/'overlay.json').write_text(json.dumps(maps,indent=2)+'\n');(o/'hashes.json').write_text(json.dumps(hashes,indent=2)+'\n')
