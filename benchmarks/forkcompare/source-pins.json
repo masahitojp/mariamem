@@ -1,0 +1,17 @@
+{
+  "candidate": {
+    "source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+    "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe"
+  },
+  "release": {
+    "release_tag": "v0.6.2",
+    "tag_object_sha": "cebdb4114187171bd418b0a1b419e1c27368808d",
+    "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb",
+    "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f"
+  },
+  "pgmem": {
+    "release_tag": "v1.18.2",
+    "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+    "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4"
+  }
+}
