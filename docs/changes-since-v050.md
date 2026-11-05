@@ -4,10 +4,10 @@ Updated 2026-10-17. [v0.5.0](https://github.com/masahitojp/mariamem/releases/tag
 was published on 2026-10-13 from source
 `44100ec676c8c9064f32f3a01bd9a990d487bb61`; annotated tag object
 `bfd854da1cecbe71ad761d1578b3f2c710a1c07f`.
-The changes below are adopted on main for the authorized v0.5.1 release and are
-not in v0.5.0's Go module or Python wheels. Final-version publication is owned
-by Release CI; the earlier qualified/measured source and final release source
-remain separate identities.
+The changes below shipped in [v0.5.1](../release/NOTES-v0.5.1.md) and remain
+relevant when migrating from v0.5.0. This is a versioned migration guide, not
+an inventory of all changes through the [current release](project-status.md#current-published-release).
+The earlier qualified/measured source and final release source remain separate identities.
 
 ## Behavior and API differences
 

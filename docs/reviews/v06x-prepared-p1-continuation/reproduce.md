@@ -3,7 +3,7 @@
 Use the exact source_commit in the CI run, confirmed with
 `python3 scripts/git_identity.py inspect HEAD`. Keep the checkout committed and
 clean. The source compilation, unit and development-runtime steps are defined in
-[prepared-product.yml](../../../.github/workflows/prepared-product.yml).
+[prepared-product.yml](https://github.com/masahitojp/mariamem/blob/349609523b4d0a2640a0da28b7c30295ee486433/.github/workflows/prepared-product.yml).
 
 ## Native reference
 

@@ -1,5 +1,10 @@
 # v0.2 release-readiness audit
 
+> Historical versioned record. Pending work and current-version statements below
+> describe the recorded source, not today’s release requirements. Use
+> [project status](project-status.md), [current architecture](v04-generated-go-architecture.md)
+> and [release instructions](releasing.md) for present behavior.
+
 Audited on 2026-09-29 at clean main
 `9dc577d6bf544bd55503a599621a915c56dc839b`, also available on remote main.
 This is a source/evidence audit, not a READY result for a newly built stable

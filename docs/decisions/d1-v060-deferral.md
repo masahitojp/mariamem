@@ -1,5 +1,9 @@
 # D1 prepared entry — defer from0.6.0, consider in0.6.1
 
+**Subsequent disposition (2026-11-05):** D1, deferred startup/routing exclusion, local xdist and Django 6 support shipped
+in [0.6.1](../../release/NOTES-v0.6.1.md). The deferral and adoption entries below
+preserve their dated context; use the [current guide](../django-prepared.md).
+
 Human decision,2026-10-31: after the wire/D1 reconciliation, the Human approved
 D1 deferral and said to consider it in0.6.1. [Issue43](https://github.com/masahitojp/mariamem/issues/43)
 tracks it in the [v0.6.1 milestone](https://github.com/masahitojp/mariamem/milestone/2).

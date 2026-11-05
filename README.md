@@ -243,7 +243,7 @@ and failure behavior.
 ## Start fresh
 
 Use `start()` when you want a new database without a prepared baseline, or need
-to own its lifetime outside pytest. Use the explicit Snapshot API:
+to own its lifetime outside pytest:
 
 ```python
 import mariamem
@@ -294,7 +294,7 @@ outside product support and compatibility testing; events remain unavailable
 in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
 accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](docs/decisions/routine-support-scope.md).
-Version 0.6.1 supports real server-side execution for Go explicit/implicit
+Since 0.6.0, the endpoint supports real server-side execution for Go explicit/implicit
 Prepare and Python prepared cursors.
 `DELIMITER` is a client directive, not server SQL. Python provides
 an explicit [bounded dump reader](docs/importing-dump.md); this is not a general
@@ -325,7 +325,7 @@ and is an allowed SKIP, not C-mode compatibility PASS; required default/pure mod
 have their own executed evidence. No driver mode is silently substituted.
 Server-side cursors / COM_STMT_FETCH remain unsupported.
 
-Current source builds retain a bounded local endpoint profile: TLS/compression,
+The published package retains a bounded local endpoint profile: TLS/compression,
 LOCAL INFILE transfer, administrative wire commands and binlog/replication
 streaming are outside0.6.2 support. See the [exact wire scope, exceptions and
 bounded reopening rule](docs/decisions/v060-wire-contract.md). Application or
@@ -352,7 +352,8 @@ Release CI success does not imply additional protocol coverage.
   Busy/transaction precondition rejection leaves the source available;
   successful capture ends it.
 - Multiple connections and normal commit/rollback are supported. Current
-  session capacity is 16; excess connections get recoverable MySQL error 1040.
+  session capacity is 16; excess TCP connections get recoverable MySQL error 1040,
+  while opt-in Go Pipe admission returns `ErrCapacity`.
   This is not a permanent capacity or parallel-throughput guarantee.
 - Prepared support follows the exact client/wire boundaries above.
 - Interrupted active SQL invalidates that database. Close it and start or fork
@@ -367,7 +368,8 @@ Release CI success does not imply additional protocol coverage.
 You do not need runtime implementation knowledge to use these APIs.
 [Architecture](docs/v04-generated-go-architecture.md) explains the current
 implementation and technical limitations;
-[project status](docs/project-status.md) records current state and roadmap;
+[documentation index](docs/README.md) separates current guides from historical
+records. [Project status](docs/project-status.md) records current state and roadmap;
 [historical measurements](benchmarks/v043-characterization.md) preserve evidence.
 
 Project code is [GPL-2.0-only](LICENSE); components retain their own licenses in
@@ -376,5 +378,5 @@ from [shyim/lite4mariadb](https://github.com/shyim/lite4mariadb) and MariaDB Ser
 The original testing API was informed by [shibukawa/pgmem](https://github.com/shibukawa/pgmem);
 mariamem's product contract is defined independently.
 
-Version 0.6.1 supports stable Live endpoints across sequential browser E2E
+Since 0.6.0, the package supports stable Live endpoints across sequential browser E2E
 cases. See the [Live guide](docs/live.md) for connection draining and reset ownership.

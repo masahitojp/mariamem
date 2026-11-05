@@ -1,5 +1,9 @@
 # Issue53 — finite Fork candidate adoption
 
+**Subsequent disposition (2026-11-05):** PR #85 merged; finite Fork limits and the WASI write-error prerequisite shipped
+in [0.6.1](../../release/NOTES-v0.6.1.md). The adoption decision below retains its
+original source/approval boundary. Integration is no longer pending.
+
 Human decision,2026-11-04: adopt the finite per-Snapshot Fork candidate in PR85,
 including the Go-host WASI write-error cleanup prerequisite, with the E1/E2
 documentation corrections below. This decision does not authorize a version,

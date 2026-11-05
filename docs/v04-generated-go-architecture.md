@@ -1,10 +1,9 @@
 # Current mariamem architecture
 
-This document explains current main after D/shared-host adoption on 2026-10-17.
-These adopted changes are not in published v0.5.0. For the released file-backed
-architecture, use the [v0.5.0 document](https://github.com/masahitojp/mariamem/blob/v0.5.0/docs/v04-generated-go-architecture.md).
+This document describes the architecture shipped in 0.6.2. For the historical
+file-backed architecture, use the [v0.5.0 document](https://github.com/masahitojp/mariamem/blob/v0.5.0/docs/v04-generated-go-architecture.md).
 The [product contract](decisions/snapshot-product-contract.md) records WHY;
-[changes since the release](changes-since-v050.md) records API migration.
+[migration from 0.5.0](changes-since-v050.md) records API migration.
 
 ## Execution and distribution
 
@@ -32,6 +31,12 @@ managed; users do not run a daemon. Independent root starts and xdist workers
 use separate hosts. Each DB has its own MariaDB runtime, SQL endpoint, MemFS,
 thread/session state and 16-connection capacity. The Snapshot uses no SQL
 connection. Sharing a host does not share mutable DB contents.
+
+SQL clients normally connect over TCP. Since 0.6.2, Go callers may explicitly
+select `Database.DialContext` / helper `InProcess` to use `net.Pipe` through the
+same host wire/guest path. The TCP listener still exists; this does not expose
+MariaDB guest-native sockets. Input pipelining is bounded and execution/responses
+remain serial; see [wire limits](mysql-protocol.md).
 
 Provenance binds guest/source patches, toolchains, Wasm identity, converter
 patches, translated inventory, handwritten runtime owners and final artifacts.
@@ -69,6 +74,13 @@ the backing while the independent child starts. Baseline Close prevents new
 Forks and waits for already admitted launches; started children retain their
 own references and remain usable.
 
+Since 0.6.1, each Snapshot has a finite Fork budget. Admission reserves a slot
+before startup; cancellation, cross-host transfer and uncertain cleanup retain
+ownership until disposal is confirmed. The automatic memory-based cap is not
+machine-wide accounting or an OOM guarantee. Live reserves a second slot before
+draining. See [Fork limits](go.md#per-snapshot-fork-limits) and the
+[permanent capture-cleanup limit](decisions/issue53-fork-limit-adoption.md).
+
 `base/block_storage.go` and `base/memfs.go` create independent child metadata,
 locks and dirty-block maps over immutable inherited blocks. A first write
 privatizes the affected block. Sparse regions read as zero; shrink/regrow must
@@ -89,7 +101,7 @@ arbitrary changes to private memory bytes. Strict Heap imports and private
 transfer receivers still copy/verify content; borrowed mappings detach and compare
 source/target before leaving their instance. See the approved
 [ownership contract](decisions/snapshot-product-contract.md). Human Review
-approved main adoption of candidate `52c078b`; release remains a separate decision.
+approved main adoption of candidate `52c078b`; the optimization shipped in 0.5.2.
 
 An explicit different development host binary is an exception to the shared
 host route. `internal/snapshot/handoff.go` materializes a private temporary
@@ -152,12 +164,14 @@ source identities, oracles, SKIPs, platform scope and the accepted failure domai
 Its [approved design](reviews/d-heap-productization-design.md) preserves the
 scope change removing public persistence.
 
-The limited benefit comparison is macOS-only. The unexplained slow
-resource-observed trial remains for final release validation.
-[Final Qualification](reviews/main-storage-qualification.md) passed for combined
-source `c97e55fc065f6ee7b560325077726da53e5d95d7` with fresh builds and both-native
-acceptance in verify run 38935990860. Broader Product Validation remains pending;
-that technical READY result does not authorize publication or qualify later SHAs.
+The original limited benefit comparison was macOS-only. The subsequent
+[product verification](reviews/main-product-verification.md) completed; the
+unexplained slow small trial did not recur in bounded repeats, and the Human
+accepted the adverse 100MiB Go Fresh tradeoff for 0.5.1. Its cause was not
+classified as harmless noise. Historical [qualification](reviews/main-storage-qualification.md)
+remains pinned to its source. The [current release record](project-status.md#current-published-release)
+identifies exact-version 0.6.2 acceptance; neither is a universal performance
+guarantee or acceptance of later SHAs.
 [Development verification](development.md#local-verification) defines check
 selection; [releasing](releasing.md) defines exact-source publication gates.
 

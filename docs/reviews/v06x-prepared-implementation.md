@@ -304,7 +304,7 @@ new exact-source CI. No exception or incomplete unit is accepted by this repair.
 | P5 | Real Go/Python prepared consumers, native controls and both-OS regression pending |
 | P6 | Canonical new source builds, independent generation, strict J1 rebind, licenses/provenance/inventories and guards pending |
 
-The [P1 workflow](../../.github/workflows/prepared-product.yml) runs source/units
+The [P1 workflow](https://github.com/masahitojp/mariamem/blob/349609523b4d0a2640a0da28b7c30295ee486433/.github/workflows/prepared-product.yml) runs source/units
 and the new development runtime gate described above. It intentionally does not
 run Qualification or relabel the old canonical runtime as this new guest.
 Continue the authorized units after this gate; do not ask for a new implementation

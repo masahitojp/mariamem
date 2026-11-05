@@ -1,20 +1,22 @@
 # Go toolchain compatibility
 
-For 0.6.0, build and release validation uses **Go 1.26.10**. This picks up the
+For 0.6.2, build and release validation uses **Go 1.26.10**. This picks up the
 [GO-2026-6809](https://pkg.go.dev/vuln/GO-2026-6809) (`crypto/x509.Certificate.Verify`) fix, which affects Go <1.26.10
 and 1.27.0–1.27.2. The current forward-compat check uses **Go 1.27.3**. The
 module minimum remains **Go 1.26.0**. The results below are historical records
 at their stated toolchains and are not relabelled.
 
 The recorded consumer results below belong to their stated historical sources.
-Main's adopted API removes `LoadSnapshot`; see
-[changes since the published release](changes-since-v050.md). Earlier compiler
+Since 0.5.1, the public API no longer includes `LoadSnapshot`; see
+[migration from 0.5.0](changes-since-v050.md). Earlier compiler
 checks do not qualify changed runtime/artifact bytes on main.
 
 The module minimum remains **Go 1.26.0**. `go-sql-driver/mysql v1.9.3`
 is a development/test client dependency; the production library does not import
 it or require it to serve the MySQL wire protocol. Applications choose their
 own compatible client driver. v0.4.6 made no dependency upgrade.
+
+## Historical 0.4.6 consumer evidence
 
 External-module consumers passed on **macOS arm64** using Go **1.26.8,
 1.27.0, 1.27.1 and 1.27.2**, with `GOTOOLCHAIN=local` and actual compiler versions
@@ -52,4 +54,4 @@ Go1.27.2 (`GOTOOLCHAIN=local` for the latter). Both native release runners use
 that same check. Earlier v0.4.6 compatibility evidence is historical, not proof
 for a new generated artifact. See the [candidate review](reviews/v047-upstream-migration.md)
 for its preparation results. The subsequent release is recorded in
-[project status](project-status.md#previous-release-v047--upstream-converter-migration).
+[v0.4.7 release notes](../release/NOTES-v0.4.7.md).

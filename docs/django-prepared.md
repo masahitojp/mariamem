@@ -1,13 +1,12 @@
-# Prepared Django tests (adopted on main, unreleased)
+# Prepared Django tests
 
-This entry was adopted on main through [PR #67](https://github.com/masahitojp/mariamem/pull/67).
-It is not in the published v0.6.0 wheel. Both supported OSes with Python3.11/3.14
-passed installed-wheel acceptance on the reviewed candidate; see the
-[receipt and exact source](reviews/d1-release-41320361521/README.md).
-The [startup/routing follow-up receipt](reviews/d1-release-41327745652/README.md)
-confirms fresh four-cell installed-wheel acceptance and READY for its own
-reviewed source. Release version and publication remain separate.
-The existing [standard-runner recipe](django-testing.md) remains available.
+This opt-in entry, deferred startup, routing exclusion, local pytest-xdist
+workers and Django 5.2/6.0/6.1 support shipped in 0.6.1 and remain available in
+0.6.2. Use the [published platform wheel](../README.md#installation).
+Release CI checks installed-wheel serial/xdist profiles on both supported OSes
+with Python 3.11/3.14; see [current release evidence](project-status.md#current-published-release).
+The [standard-runner recipe](django-testing.md) remains available when Django
+should own ordinary rollback/flush isolation.
 
 Use this entry when every test must start from the same migrated schema and
 seed, including after committed writes, DDL or an ordinary test failure. A run
@@ -20,7 +19,7 @@ then closes all remaining owners.
 
 ## Explicit test settings
 
-Install a wheel built from the adopted main source with the `django` extra, or `django-pytest` for
+Install the published platform wheel with the `django` extra, or `django-pytest` for
 pytest-django. These extras do not change ordinary mariamem imports and do not
 register the Django plugin automatically. Use dedicated test settings:
 
@@ -51,7 +50,7 @@ The optional `options` mapping passes ordinary `mariamem.start()` options, such 
 `host_binary`, to the SDK. Do not share this configuration with another active
 runner. A completed run can acquire a fresh lineage on a subsequent invocation.
 
-The unreleased #53 candidate adds separate declaration settings:
+Since 0.6.1, separate declaration settings control Fork capacity and waiting:
 
 ```python
 DATABASES = {"default": prepared_database(
@@ -75,11 +74,9 @@ Each local xdist worker owns separate run/class budgets, including replacement
 workers; controller and DB-free workers acquire none. Auto is a memory sizing
 heuristic, not a CPU/latency optimum or a total worker/OOM guarantee. Set an
 explicit cap and choose `-n` independently for resource-sensitive suites.
-The updated installed-entry cap1 campaign passed on both supported OSes and
-Python versions on c53771cd. The later runtime follow-up still needs its new-source
-matrix; see the [current follow-up](reviews/issue53-review-followup.md) and
-[original bound receipts](reviews/issue53-fork-limit-adoption-review.md).
-Adoption remains a separate decision.
+The installed-entry cap1 matrix passed before adoption and is maintained in
+Release CI. The [adoption decision](decisions/issue53-fork-limit-adoption.md)
+records the accepted cleanup and automatic-sizing limitations.
 
 The seed callback receives the migrated Django `default` connection, executes
 once per run, and must finish its transactions and close any separate physical
@@ -156,7 +153,7 @@ coexist. The ordinary recipe still supports its independently tested policies.
 
 ## Local pytest-xdist workers
 
-The local-worker extension is adopted on main and remains unreleased.
+Local workers are supported since 0.6.1.
 Its four installed-wheel cells passed; see the [adoption receipt](reviews/d1-xdist-adoption.md).
 Serial remains default. The `django-pytest` extra supplies pytest-xdist3.8.0 / execnet2.1.2.
 Keep the ordinary serial invocation, or opt in with an explicit worker count:
@@ -168,8 +165,8 @@ DJANGO_SETTINGS_MODULE=myproject.test_settings \
 
 ### Configure worker count
 
-Use a current-source wheel with the `django-pytest` extra; published 0.6.0 does
-not include this prepared entry. First configure the dedicated settings and
+Use the published platform wheel with the `django-pytest` extra.
+First configure the dedicated settings and
 plugin, for example in your project's `pytest.ini`:
 
 ```ini

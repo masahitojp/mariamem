@@ -118,8 +118,11 @@ def boundary(path):
             'docs/reviews/memfs-discovery-evidence/')) and (
             p.suffix in ('.json', '.csv', '.txt') or p.name == 'SHA256SUMS'):
         return 'docs'
+    # Explicit inert historical documents; do not exempt active release inputs
+    # or benchmark programs by directory or suffix.
     if path in ('README.md', 'CONTRIBUTING.md', 'AGENTS.md',
-                'benchmarks/README.md',
+                'benchmarks/README.md', 'benchmarks/fast-tranche-baseline.md',
+                'release/NOTES-v0.4.6-draft.md',
                 'docs/reviews/v044-runtime-validation-intent.json',
                 'docs/reviews/v045-p1-evidence.json') or (path.startswith('docs/') and p.suffix == '.md'):
         return 'docs'

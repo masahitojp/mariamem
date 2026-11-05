@@ -47,7 +47,7 @@ Use an exact clean candidate checkout; Go1.26.10; build host and tests/live_acce
 
 Examples migrate/schema-seed once; retain one application PID and DB endpoint; reset before sequential tests; check SEED and absence of prior committed NEW mutation; close browser context per test; stop application before Live before Snapshot. Reset/setup failures stop test admission. Go is HTTP E2E, explicitly not claimed as browser coverage. Quiescence, physical-session retirement, delayed-job limitations and parent lifetime are documented.
 
-Proposed navigation wording for the coordinator (not edited in other owners' guides): “For complete runnable examples, see [reuse one application across sequential tests](examples/live/README.md): Python uses Django and a real browser with a fresh context per case; Go uses HTTP E2E. Both restore the prepared seed through public Live and require quiescence and physical SQL session retirement before Reset.”
+Proposed navigation wording for the coordinator (not edited in other owners' guides): “For complete runnable examples, see [reuse one application across sequential tests](../../examples/live/README.md): Python uses Django and a real browser with a fresh context per case; Go uses HTTP E2E. Both restore the prepared seed through public Live and require quiescence and physical SQL session retirement before Reset.”
 
 ## Resource and retention
 

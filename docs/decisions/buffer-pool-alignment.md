@@ -1,5 +1,9 @@
 # WASM buffer-pool allocation alignment
 
+**Subsequent disposition (2026-11-05):** The bounded correction merged through PR #76 and shipped in
+[0.6.1](../../release/NOTES-v0.6.1.md). The original performance limitations and
+adoption rationale below remain unchanged.
+
 On 2026-11-03 the Human approved incorporating Issue #63 because its cause is
 clear and a local change removes known unnecessary work. Adopt it as a scoped
 allocation correction with a small observed retained-RSS saving. Do not promise

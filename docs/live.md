@@ -1,8 +1,8 @@
-# Stable endpoints for browser E2E — unreleased main
+# Stable endpoints for browser E2E
 
-This guide describes Live adopted on unreleased main, not the published v0.5.3
-package. The [main adoption receipt](reviews/v06x-live-main-integration/README.md)
-links exact source identities and bounded CI evidence.
+Live is available since 0.6.0. Use the [published packages](../README.md#installation).
+The [main adoption receipt](reviews/v06x-live-main-integration/README.md) preserves
+the original source identities and bounded CI evidence.
 
 Use Live when an application stays running while sequential tests each need the
 same initial database. Prepare with explicit settings, commit and close the
@@ -12,7 +12,7 @@ all resets finish. A Live owns one stable localhost endpoint over private Forks.
 Live Reset changes the backing database after caller work and physical SQL
 connections are retired; it does not implement COM_RESET_CONNECTION or preserve
 physical sessions. TLS/compression, LOCAL INFILE, administrative wire commands
-and binlog/replication streaming are outside the0.6.0 endpoint profile. See the
+and binlog/replication streaming are outside the supported endpoint profile. See the
 [wire limits and bounded reopening rule](decisions/v060-wire-contract.md).
 
 ## Choose the owned entry
@@ -70,7 +70,7 @@ host-side timeout defaults to120 seconds. Compensation/Close has its own shutdow
 bound and can outlast the operation deadline. Cancellation after the atomic reset
 commit is success; cancellation before commit does not publish a ready generation.
 
-The unreleased #53 candidate requires a Snapshot limit of at least2 for Live:
+Since 0.6.1, Live requires a Snapshot limit of at least2:
 capture with `SnapshotOptions{MaxForks: 2}` in Go or
 `db.snapshot(max_forks=2)` in Python. One slot owns the current child and
 one is needed for replacement. An ordinary Fork can occupy that spare slot;

@@ -273,12 +273,10 @@ runs only after the waiting Fork returns. Use keyed option literals when upgradi
 the expanded `SnapshotOptions` / `HTTPConfig` structs require updates to positional
 literals.
 
-The current exact candidate cddd8dcb passes the fixed hosted matrix, including
-these diagnostics and memory-source corrections. See the
-[updated adoption review](reviews/issue53-fork-limit-final-adoption-review.md);
-the [Human adoption decision](decisions/issue53-fork-limit-adoption.md) is recorded,
-and main integration remains pending. [Older receipts](reviews/issue53-fork-limit-adoption-review.md)
-retain their original source boundary.
+Finite admission shipped in 0.6.1. See the
+[adoption decision](decisions/issue53-fork-limit-adoption.md) for its accepted
+limits and [current release evidence](project-status.md#current-published-release)
+for exact-version qualification. Historical candidate receipts retain their own SHAs.
 
 
 ## Lifecycle, cancellation and errors
@@ -303,7 +301,7 @@ outside product support and compatibility testing; events remain unavailable
 in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
 accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](decisions/routine-support-scope.md).
-Version 0.6.1 supports real server-side execution for Go explicit/implicit
+Since 0.6.0, the endpoint supports real server-side execution for Go explicit/implicit
 Prepare and Python prepared cursors.
 `DELIMITER` is a client directive, not server SQL. Python provides
 an explicit [bounded dump reader](importing-dump.md); this is not a general
@@ -334,9 +332,12 @@ and is an allowed SKIP, not C-mode compatibility PASS; required default/pure mod
 have their own executed evidence. No driver mode is silently substituted.
 Server-side cursors / COM_STMT_FETCH remain unsupported.
 
-### Wire scope for current source builds
+<a id="wire-scope-for-current-source-builds"></a>
 
-Use the supplied local root/empty-password endpoint profile. TLS/SSL, compression,
+### Wire scope
+
+Connection information defaults to root/empty password; placeholder credentials
+are also accepted without authentication. TLS/SSL, compression,
 DEPRECATE_EOF and alternate authentication are not advertised/supported in this
 profile. COM_RESET_CONNECTION, server-side cursors/COM_STMT_FETCH, LOCAL INFILE
 transfer, CHANGE_USER, STATISTICS, PROCESS_INFO and binlog/replication streaming
@@ -349,14 +350,14 @@ See the [bounded wire contract and reopening rule](decisions/v060-wire-contract.
 
 
 Multiple SQL clients have separate sessions, transactions and temporary tables.
-Current capacity is 16, not a permanent API or throughput guarantee. Additional
-connections receive recoverable MySQL error 1040; slots are reused after
-disconnect cleanup. Close the pool before `WaitDisconnected`.
+Current capacity is 16, not a permanent API or throughput guarantee. Excess TCP
+connections receive recoverable MySQL error 1040; Go Pipe admission returns
+`ErrCapacity`. Slots are reused after disconnect cleanup. Close the pool before `WaitDisconnected`.
 The DSN enables driver-side parameter interpolation for ordinary queries.
-Go explicit Prepare uses real prepared execution in current source builds;
+Go explicit Prepare uses real prepared execution since 0.6.0;
 interpolation is not required as a substitute for it.
 
-Ordinary SQL errors leave the DB usable. In current source builds, a fatal guest
+Ordinary SQL errors leave the DB usable. A fatal guest
 worker trap invalidates the DB promptly and retains its cause, without waiting
 for the query timeout. Host query timeout, client cancellation or disconnect
 during active SQL also invalidates the DB. Close it and start/fork
@@ -386,7 +387,7 @@ and [API migration](changes-since-v050.md).
 The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.
 
-Version 0.6.1 supports stable Live endpoints across sequential browser E2E
+Since 0.6.0, the package supports stable Live endpoints across sequential browser E2E
 cases. Use independent Forks for concurrent cases; Live does not promise a
 parallel shared mutable endpoint. See the [Live guide](live.md) for connection
 draining and reset ownership.
@@ -396,7 +397,7 @@ draining and reset ownership.
 The [owned E2E examples](examples/e2e_owned/README.md) demonstrate
 application-specific preparation/start/quiescence/stop hooks over Live. This
 entry was approved for bounded main adoption with the supplied hook obligations;
-it is included in 0.6.1. Existing direct Live APIs remain the mechanism
+it is available since 0.6.0. Existing direct Live APIs remain the mechanism
 underneath the entry. See the [integration receipt](reviews/e2e-integration-ci-41095184074/assessment.json)
 for exact tested source/profiles. Arbitrary unregistered work and non-cooperative
 shutdown remain outside the guarantee; detailed resource characterization is deferred.
