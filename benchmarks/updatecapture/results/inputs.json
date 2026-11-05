@@ -1,0 +1,46 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "harness_source_commit": "94ab0a54e00ad09935c0506b1f2df4625830ec3b",
+  "origin_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "binary_sha256": "d05b7e01308ba016a1d723ff4e379f5240113c0b15de0bdf71c41308b6f5fce6",
+  "toolchain": "go version go1.27.3 darwin/arm64",
+  "buildinfo": "<WORKSPACE>/temp/probe: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare\tv0.0.0-20261105150245-94ab0a54e00a\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t../..\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=94ab0a54e00ad09935c0506b1f2df4625830ec3b\n\tbuild\tvcs.time=2026-11-05T15:02:45Z\n\tbuild\tvcs.modified=false\n",
+  "overlay": [
+    {
+      "path": "internal/timing/timing.go",
+      "before_sha256": "9eef3299e19ff03f66c12ac1ad4de392bef005fd51c4ce98829910b3333852e2",
+      "after_sha256": "59f7c80c651b9369d48c5dee1228c43cb464664969e0d5ea9ff8e862ca38147d"
+    },
+    {
+      "path": "internal/guest/linked.go",
+      "before_sha256": "dcbde6db301a183cfa6c495323aed4c6c1319066aea0876a38a7596f2af228cd",
+      "after_sha256": "dd67786f27b1c0c2b588fc755a6d0689c61842a834bcda216cd0f2e5c41f2bef"
+    },
+    {
+      "path": "internal/generatedgo/runtime_instance.go",
+      "before_sha256": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+      "after_sha256": "b834f832e00febb6fa80ec79ec64751af049b70006e3461165ee973e1706c5fd"
+    },
+    {
+      "path": "internal/generatedgo/memory_backing_unix.go",
+      "before_sha256": "c0e5b2538e5761e7fdaa4f542eeafd78cfc099949417e50798a9b279e9ba8b54",
+      "after_sha256": "311f820813a7de664aa3f24b37f0d5ce912b892cbebaec4df61ccd9e9bd259fa"
+    },
+    {
+      "path": "internal/generatedgo/code/p5/p5_pure.go",
+      "before_sha256": "8ddc2f0ab2f67d840a9a545a32410efe3a39cd5fb4d230f3cd0ca6c40ec1fa6e",
+      "after_sha256": "ffdd426337cd881ac374ee16ca327c5ea55b96e5fba7ba6caf16a0746206fdee"
+    },
+    {
+      "path": "internal/generatedgo/code/base/buffer_load.go",
+      "before_sha256": null,
+      "after_sha256": "372b14d0e1882a3c38bd77e458f667421a9f6fba317c32963da756744bc47ab6"
+    },
+    {
+      "path": "internal/generatedgo/code/base/buffer_load_test.go",
+      "before_sha256": null,
+      "after_sha256": "175f51fd7dbc850c77b855fee06941d02701236e40f1926eedebfaea70818a95"
+    }
+  ],
+  "build_seconds": 121.19073262500001
+}

@@ -1,0 +1,79 @@
+# Natural UPDATE stall captured: undo-page exclusive-latch path
+
+**Conclusion to the original wait question:** a natural UPDATE355.369ms was captured strictly inside actual SQL execution. The same child query stack runs from current mysql_real_query into WASIX Futex_wait/Go AtomicWait, parked in the **untimed notification branch**. Current generated-code/C-source correspondence places the path in undo-log creation, rollback-segment header page acquisition and an exclusive page-latch slow path, before transaction commit. This narrows what the query is waiting for; it does **not** identify the holder, why its unlock/notification is late, or the root cause of all355ms.
+
+Recommend preserving this successful capture and, if continuing cause attribution, tracing the exact page-lock/owner/completion/notify boundary rather than adding more tuning settings. A full current C symbol map is unavailable; structural source correspondence is explicitly separated from current map-backed exported names. No fix or adoption is proposed here.
+
+[Capture timeline](report.html) · [Selected current query stack](natural-selected-query.txt) · [Per-process table](processes.csv) · [All capture metadata](summary.json) · [Source correspondence](source-correspondence.json) · [Fixed plan](plan.json)
+
+## What was observed
+
+P8 natural-0/child6: COUNT5.483ms, UPDATE355.369ms, verification SELECT19.832ms, cleanup16.336ms. SQL/pristine seed/independent update/cleanup oracles all PASS. Fork for this child is255.752ms; diagnostic process timing is not an ordinary performance comparison. Host scheduling,load and observer overhead are not isolated.
+
+| Time relative to observer UPDATE wrapper entry | Event |
+|---|---|
+| 0.008ms | Actual ExecContext entered |
+| 104.699ms | Goroutine snapshot began |
+| 113.713ms | Snapshot finished |
+| 354.750ms | Actual ExecContext returned |
+
+Both snapshot boundaries are inside actual Exec, with no truncation and runtime label child6 bound on a generated guest execution stack. The distinct outer update timer includes observer setup/join and reads355.369ms, so do not confuse it with the inner354.742ms Exec duration. The captured profile is171,136bytes and contains115 goroutines process-wide; the selected query group belongs to child6 and contains current Fn5853, verified as mysql_real_query by the guest-bound retained-license evidence. It is not just a client/observer stack or another child startup.
+
+Selected path, outer to inner:
+
+```text
+mysql_real_query (current map-backed Fn5853)
+  ... UPDATE / undo preparation ...
+  Fn16806 -> Fn17227 -> Fn18164 -> Fn16621
+  Fn216 -> Fn88 -> host.Futex_wait
+  AtomicWait32At -> AtomicWait (base.go:1946)
+```
+
+The middle C names are current source correspondences, not full-symbol-map assertions. The final Go line is the timeout<0 branch selecting between notification and worker failure; it does not start the timed-wait timer. A355ms UPDATE is therefore not itself proof that AtomicWait has a400ms timeout. Only the point-in-time parked state is observed; do not label the entire UPDATE duration as one measured mutex wait or claim prompt notification-to-resume latency without a notify trace.
+
+## Current-source correspondence and its limits
+
+All correspondence uses this guest/source; no old-guest Fn numbers are assigned to the new snapshot. source-correspondence.json records immutable upstream URLs/checksums, exact current generated-body hashes/snippets, and confidence level for each link.
+
+- Current retained-license evidence binds guest6d744220 to mysql_real_query=Fn5853. Other intermediate names are not covered by that abbreviated map.
+- Current Fn16806 references trx0undo.cc and undo-create-specific strings in its compiled body. Its first call is Fn17227(m,rseg,mtr,err), followed later by the undo-object/header creation sequence. This matches pinned trx_undo_create, whose first operation is rseg->get(mtr,err). Static warning text in that body is **not** evidence that an error/warning branch executed; the SQL succeeds.
+- Fn17227 has the null-space check, packed page-id construction and page-get call with exclusive latch/null guess/BUF_GET/mtr/err, then page-young helper, corresponding to trx_rseg_t::get. The pinned function explicitly retrieves the rollback-segment header page exclusively latched.
+- Fn18164 corresponds structurally to buf_page_get_gen. At the captured call site it has a failed page-lock CAS0→3 followed by Fn16621 on the page lock. Holder/waiter constants and the condition-variable slow-path operations agree with the pinned srw mutex implementation. Exact template instantiation is not claimed as map-proven.
+
+Pinned MariaDB source_commit83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e: [undo create](https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/trx/trx0undo.cc#L1225), [rollback header get](https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/trx/trx0rseg.cc#L298), [page get](https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/buf/buf0buf.cc#L2708), [mutex wait](https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/sync/srw_lock.cc#L273). This is source-based phase attribution, not a substitute for observed owner/page-id/queue telemetry.
+
+This explains why an UPDATE can enter a different first-touch path after a quick application-table COUNT: preparing undo can acquire a separate system/rollback page. It does not prove an I/O read is currently pending, identify the exact page number or holder, or establish that the old COUNT tpool-concurrency mechanism is the same cause. The latter remains a testable hypothesis. No fsync call is at the captured query stack; whole-transaction I/O behavior is not inferred from one snapshot.
+
+## Fixed finite collection and controls
+
+One M1/16GiB/macOS27.2, Go1.27.3 arm64,CGO0,GOMAXPROCS8,GOGC100,Pipe,1,000 rows,48 children/process,cap=P. **Exactly three natural processes**, P8/P4/P8, plus one8-child effective-setting preflight,one SQL-sleep control,and one wrong-seed rejection. No extra natural repetitions, exclusions or performance A/B.
+
+Natural statement remains UPDATE fork_probe SET v=-1 WHERE id=1. Both buffer-pool load/dump OFF,commit1,inherited O_DIRECT,read1/write2/purge1,pool/max16MiB and all25 original options retained. The bufferflush selector explicitly sets load0/dump0/commit1. Separate root+8-child SQL preflight verifies effective settings; no config queries are added to natural timing.
+
+| Natural process | P | UPDATE max ms | UPDATE >100ms | Usable natural captures |
+|---|---:|---:|---:|---:|
+| natural-0 | 8 | 355.369 | 1 | 1 |
+| natural-1 | 4 | 9.796 | 0 | 0 |
+| natural-2 | 8 | 11.102 | 0 | 0 |
+
+The one captured natural case among144 children is not a population frequency. No COUNT/check SELECT>100ms in this cohort. Source-bound earlier ordinary/commit0 residuals and non-reproducing observer rounds remain separate; this new case is not assigned retrospectively to all of them.
+
+The observer has one capture slot/process,100ms trigger,2MiB cap/profile. Snapshot begin/end,actual Exec-entry/return,child binding and truncation determine usability. A query returning before or during capture is rejected as phase evidence. It adds a timer goroutine and stack-walk overhead; captured timing is diagnostic.
+
+The artificial control is **SQL-side** UPDATE v=-1+0*SLEEP(0.2) WHERE id=1, not an outer client hold. Its UPDATE205.058ms has snapshot101.149..104.943ms inside actual Exec0.002..204.747ms,matching child0 and current mysql_real_query/Futex_wait stack. It proves this collector can capture a known guest SQL wait; SLEEP is not evidence of the natural undo-path cause. Wrong-seed control fails before UPDATE with no captures and cleanup PASS. Selector units and label/window negatives reject wrong child,client-only/malformed label,pre-Exec capture,missing entry and capture ending after return.
+
+## Known, unknown, and concrete next evidence
+
+**Known:** this natural query reaches a live guest notification wait; current-source correspondence locates it in undo-create/header-page exclusive-latch acquisition, before commit. It is not merely waiting for the Python/Go client to send the query. The current host Futex_wait is implemented and parks the worker; no missing-syscall panic appears in this case. Earlier commit0 still produced365ms UPDATE, so commit1-specific synchronization alone is an inadequate explanation.
+
+**Unknown:** the exact page/lock address in this case,which thread/task held it,when notify occurred,whether completion was queued or an owner was descheduled,and the share of355ms attributable to each. One stack does not prove host futex correctness in all races or quick wake latency. No automatic guest fix/read-thread increase is justified.
+
+**Next bounded step if approved:** use the current captured call sites and exact-file guards to trace page/lock identity and the matching owner/completion/notify interval, with pool queue state only when the same case stalls. Reuse the retained snapshot first; at most one diagnostic build and three natural processes, not a new parameter sweep. Budget approximately30–60minutes including source guards/collection/reduction; stop NOT_REPRODUCED if the event does not recur. Producing a full canonical function map would be a separate, potentially more expensive prerequisite if selected hooks cannot be independently verified. No such extra telemetry or runs were started here.
+
+## Provenance and compact retention
+
+Product source_commit `1862f4a89397bddfa1820d835106d3437a438cf7`; measured harness source_commit `94ab0a54e00ad09935c0506b1f2df4625830ec3b`; parent549fd3ba. Clean identity checked with scripts/git_identity.py before build; only benchmark tooling differs from product. Binary SHA256 `d05b7e01308ba016a1d723ff4e379f5240113c0b15de0bdf71c41308b6f5fce6`. Origin guest SHA256 `6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe` identifies the unchanged generated input; this argv overlay is UNQUALIFIED, not a new canonical WASM with the old hash. Current-name-anchors.json and symbol-map-limits.json preserve the positive name bindings and unavailable full-map limitation. No old Fn map is reused.
+
+All positive SQL/isolation/cleanup and negative admission checks PASS. The result is NATURAL_UPDATE_CAPTURED, not ROOT_CAUSE_PROVEN or a product-performance gate. Single Mac/small fixture only; native parity,Ubuntu,canonical guest qualification and release NOT RUN. Product/guest/generated code,API,defaults,main and release ledgers are unchanged. No CI dispatch,adoption or release.
+
+receipts.zip contains all six reports/capture metadata/full profiles,selected query,logs,units,input/plan hashes,current source correspondences and scripts. Extract to an empty directory and run python3 analyze.py --check for readonly exact6-process/window/label/JSON/CSV reduction and missing-process rejection. Rebuild new diagnostics from clean measured source with archived build.py/run.py in evidence/temp/source layout. Source-correspondence upstream files are reproducible by pinned URLs/checksums; full copied sources are disposable. SHA256SUMS.json covers published files. Temporary clone,probe,private caches and copied upstream files are removed after preserving source/compact knowledge.

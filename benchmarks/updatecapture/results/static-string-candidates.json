@@ -1,0 +1,185 @@
+{
+  "scope": "Static address/string references derived from pinned current generated source; candidates for source correspondence, not proven function names.",
+  "data_sha256": "11724ad9c5d0163498f4c0b1c9a575c2eb4445424917e7d050190887ca6b126e",
+  "data0_start": 8388608,
+  "functions": [
+    {
+      "fn": 16806,
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "body_sha256": "05d30d8edb5d5da63cb423c06290dda65bb449f8366111a3d6751884d7bc2870",
+      "string_candidates": [
+        {
+          "address": 8595089,
+          "text": "/work/source/storage/innobase/include/fil0fil.h"
+        },
+        {
+          "address": 8669042,
+          "text": "n_reserved_extents >= n_reserved"
+        },
+        {
+          "address": 8703671,
+          "text": "/work/source/storage/innobase/trx/trx0undo.cc"
+        },
+        {
+          "address": 8732358,
+          "text": "id < TRX_RSEG_N_SLOTS"
+        },
+        {
+          "address": 8799998,
+          "text": "Cannot find a free slot for an undo log. Do you have too many active transactions running concurrently?"
+        }
+      ]
+    },
+    {
+      "fn": 17169,
+      "file": "internal/generatedgo/code/p4/p4_pure.go",
+      "body_sha256": "0bcaa9f2af657dd574b438e06e65caa88174f98eec5979240b5e53bb1f1cb9f3",
+      "string_candidates": [
+        {
+          "address": 8601822,
+          "text": "updating or deleting"
+        },
+        {
+          "address": 8704060,
+          "text": "/work/source/storage/innobase/row/row0mysql.cc"
+        },
+        {
+          "address": 8721715,
+          "text": "prebuilt->template_type == ROW_MYSQL_WHOLE_ROW"
+        },
+        {
+          "address": 8749875,
+          "text": "node->pcur->rel_pos == BTR_PCUR_ON"
+        },
+        {
+          "address": 8790259,
+          "text": "prebuilt->magic_n == ROW_PREBUILT_ALLOCATED"
+        },
+        {
+          "address": 8790303,
+          "text": "prebuilt->magic_n2 == ROW_PREBUILT_ALLOCATED"
+        },
+        {
+          "address": 8822083,
+          "text": "InnoDB FTS: Doc ID cannot be 0"
+        },
+        {
+          "address": 8877725,
+          "text": "dict_table_has_fts_index(prebuilt->table)"
+        }
+      ]
+    },
+    {
+      "fn": 18029,
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "body_sha256": "75f950de01f80ed85234dfcfd8fd67a88732c65d6d7abb768986e2707eed8de9",
+      "string_candidates": [
+        {
+          "address": 8574710,
+          "text": "/work/source/storage/innobase/include/data0type.inl"
+        }
+      ]
+    },
+    {
+      "fn": 18164,
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "body_sha256": "12968dba4a55a206bfba1edcabe889d039e2887fdc23c03f26c071349a0828ce",
+      "string_candidates": []
+    },
+    {
+      "fn": 17047,
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "body_sha256": "578b55796b5acdcdb43f62c8ff220941b13aaaa61e33863a6da4617ceef6df67",
+      "string_candidates": [
+        {
+          "address": 8705632,
+          "text": "/work/source/storage/innobase/row/row0upd.cc"
+        },
+        {
+          "address": 8733134,
+          "text": "err == DB_SUCCESS"
+        },
+        {
+          "address": 8761711,
+          "text": "pcur->restore_position(BTR_MODIFY_TREE, mtr) == btr_pcur_t::SAME_ALL"
+        }
+      ]
+    },
+    {
+      "fn": 18025,
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "body_sha256": "ecaeb6a36ace9c4f6cb6d37f41b353a55c2efc4278db82210ee4f8d97ffd76ad",
+      "string_candidates": []
+    },
+    {
+      "fn": 17044,
+      "file": "internal/generatedgo/code/p0/p0_pure.go",
+      "body_sha256": "a9185a2de1f3b75ce049989598f93de6f42f22976d65d9b4c9ad71e478685be9",
+      "string_candidates": [
+        {
+          "address": 8705632,
+          "text": "/work/source/storage/innobase/row/row0upd.cc"
+        },
+        {
+          "address": 8749919,
+          "text": "pcur->rel_pos == BTR_PCUR_ON"
+        },
+        {
+          "address": 8916043,
+          "text": "Record in index "
+        },
+        {
+          "address": 8923439,
+          "text": " of table "
+        },
+        {
+          "address": 8927888,
+          "text": " was not found on update: "
+        }
+      ]
+    },
+    {
+      "fn": 17227,
+      "file": "internal/generatedgo/code/p8/p8_pure.go",
+      "body_sha256": "9e0331dcbb05028d9495f2bf5c232b276e3760b3f74aeb568fd3d22199f44edd",
+      "string_candidates": []
+    },
+    {
+      "fn": 16621,
+      "file": "internal/generatedgo/code/p6/p6_pure.go",
+      "body_sha256": "baceac4636251d99bd96a1cf18216567e213fc1e50f7f98f34726c7db4645c8f",
+      "string_candidates": []
+    },
+    {
+      "fn": 17010,
+      "file": "internal/generatedgo/code/p1/p1_pure.go",
+      "body_sha256": "d9faf5a5e82c605e34ea2ecd68ebe698376fef43c18b78f4513de7b36a118643",
+      "string_candidates": [
+        {
+          "address": 8412518,
+          "text": "temporary"
+        },
+        {
+          "address": 8572285,
+          "text": "system"
+        },
+        {
+          "address": 8608895,
+          "text": "prefix_len < sizeof ext_buf"
+        },
+        {
+          "address": 8659521,
+          "text": "No more space left over in %s tablespace for allocating UNDO log pages. Please add new data file to the tablespace or check if filesystem is full or enable auto-extension for the tablespace"
+        },
+        {
+          "address": 8706053,
+          "text": "/work/source/storage/innobase/trx/trx0rec.cc"
+        },
+        {
+          "address": 8864907,
+          "text": "dict_index_is_clust(index)"
+        }
+      ]
+    }
+  ]
+}

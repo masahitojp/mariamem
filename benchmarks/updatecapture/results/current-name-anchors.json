@@ -1,0 +1,270 @@
+{
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "license_evidence_sha256": "9646cbb3ddd42aaee7e6a1b02ec44a164d88a9f300c090a6dda5ccf9a629287a",
+  "full_symbol_map_sha256": "60e7f420c9140414f5d6879b8004bcc517a06f9dec69d9184cff3c0bfcc57e30",
+  "full_map_available": false,
+  "known_examples": {
+    "MariaDB": [
+      {
+        "index": 5739,
+        "symbol": "mysql_server_init",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn5739",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 5853,
+        "symbol": "mysql_real_query",
+        "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
+        "generated_function": "Fn5853",
+        "host_symbol_retained": true
+      }
+    ],
+    "lite4mariadb": [
+      {
+        "index": 244,
+        "symbol": "l4m_open",
+        "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
+        "generated_function": "Fn244",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 246,
+        "symbol": "l4m_close",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn246",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 247,
+        "symbol": "l4m_free",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn247",
+        "host_symbol_retained": true
+      }
+    ],
+    "WASIX libc": [
+      {
+        "index": 69,
+        "symbol": "__pthread_mutex_trylock",
+        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+        "generated_function": "Fn69",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 71,
+        "symbol": "__wasi_clock_time_get",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn71",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 72,
+        "symbol": "__wasi_fd_fdstat_get",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn72",
+        "host_symbol_retained": true
+      }
+    ],
+    "wolfSSL": [
+      {
+        "index": 1266,
+        "symbol": "wolfSSL_ResourceFree",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn1266",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 1344,
+        "symbol": "wolfSSL_ERR_func_error_string",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn1344",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 1398,
+        "symbol": "wolfSSL_CTX_set_groups",
+        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+        "generated_function": "Fn1398",
+        "host_symbol_retained": true
+      }
+    ],
+    "zlib": [
+      {
+        "index": 4491,
+        "symbol": "crc32_z",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn4491",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 6779,
+        "symbol": "adler32",
+        "generated_file": "internal/generatedgo/code/p4/p4_pure.go",
+        "generated_function": "Fn6779",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 6787,
+        "symbol": "deflateInit_",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn6787",
+        "host_symbol_retained": true
+      }
+    ],
+    "PCRE2": [
+      {
+        "index": 7275,
+        "symbol": "pcre2_match_data_free_8",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn7275",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 7278,
+        "symbol": "_pcre2_strncmp_8",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn7278",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 7283,
+        "symbol": "_pcre2_compile_process_capture_list",
+        "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
+        "generated_function": "Fn7283",
+        "host_symbol_retained": true
+      }
+    ],
+    "fmt": [
+      {
+        "index": 10819,
+        "symbol": "_ZN3fmt3v1219basic_memory_bufferIcLm500E12my_allocatorIcEE4growERNS0_6detail6bufferIcEEm",
+        "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
+        "generated_function": "Fn10819",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 11190,
+        "symbol": "_ZN3fmt3v126detail5valueINS0_7contextEE13format_customI6StringEEvPvRNS0_13parse_contextIcEERS3_",
+        "generated_file": "internal/generatedgo/code/p6/p6_pure.go",
+        "generated_function": "Fn11190",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 11191,
+        "symbol": "_ZN3fmt3v126detail18parse_format_specsIcEEPKT_S5_S5_RNS1_20dynamic_format_specsIS3_EERNS0_13parse_contextIS3_EENS1_4typeE",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn11191",
+        "host_symbol_retained": true
+      }
+    ],
+    "libc++": [
+      {
+        "index": 4597,
+        "symbol": "_ZNSt3__221__throw_runtime_errorEPKc",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn4597",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 4598,
+        "symbol": "_ZNSt3__212__next_primeEm",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn4598",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 4599,
+        "symbol": "_ZNSt3__222__throw_overflow_errorB8ne200100EPKc",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn4599",
+        "host_symbol_retained": true
+      }
+    ],
+    "libc++abi": [
+      {
+        "index": 1091,
+        "symbol": "__cxa_pure_virtual",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn1091",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 1127,
+        "symbol": "__cxa_allocate_exception",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn1127",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 1128,
+        "symbol": "__cxa_free_exception",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn1128",
+        "host_symbol_retained": true
+      }
+    ],
+    "libunwind": [
+      {
+        "index": 1118,
+        "symbol": "_Unwind_CallPersonality",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn1118",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 1119,
+        "symbol": "_Unwind_RaiseException",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn1119",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 1120,
+        "symbol": "_Unwind_DeleteException",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn1120",
+        "host_symbol_retained": true
+      }
+    ],
+    "compiler-rt": [
+      {
+        "index": 113,
+        "symbol": "__ashlti3",
+        "generated_file": "internal/generatedgo/code/p8/p8_pure.go",
+        "generated_function": "Fn113",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 170,
+        "symbol": "__udivti3",
+        "generated_file": "internal/generatedgo/code/p5/p5_pure.go",
+        "generated_function": "Fn170",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 171,
+        "symbol": "__multi3",
+        "generated_file": "internal/generatedgo/code/p7/p7_pure.go",
+        "generated_function": "Fn171",
+        "host_symbol_retained": true
+      }
+    ],
+    "dlmalloc": [
+      {
+        "index": 152,
+        "symbol": "dlmalloc",
+        "generated_file": "internal/generatedgo/code/p1/p1_pure.go",
+        "generated_function": "Fn152",
+        "host_symbol_retained": true
+      },
+      {
+        "index": 153,
+        "symbol": "dlfree",
+        "generated_file": "internal/generatedgo/code/p3/p3_pure.go",
+        "generated_function": "Fn153",
+        "host_symbol_retained": true
+      }
+    ]
+  }
+}

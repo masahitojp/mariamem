@@ -1,0 +1,34 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness_source_commit": "549fd3ba4fdc92b407534bd2b4ce844951fbd4df",
+  "origin_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "objective": "Capture a natural >100ms UPDATE inside actual Exec and distinguish host waits/current generated query path; no tuning/adoption target.",
+  "profile": "both buffer-pool flags OFF,commit1,inherited O_DIRECT,other original25 argv retained",
+  "protocol": {
+    "natural_parallel": [
+      8,
+      4,
+      8
+    ],
+    "children_per_natural": 48,
+    "effective_preflight_children": 8,
+    "sql_sleep_control_children": 1,
+    "wrong_seed_control_children": 1,
+    "max_captures_per_process": 1,
+    "threshold_ms": 100,
+    "snapshot_bytes_cap": 2097152,
+    "process_timeout_seconds": 120
+  },
+  "control": "Artificial flag uses UPDATE v=-1+0*SLEEP(0.2) WHERE id=1, actual SQL wait. Natural statement unchanged. No pre-Exec client hold.",
+  "identity_limits": "Current guest license evidence names mysql_real_query=Fn5853,l4m_open=Fn244,mysql_server_init=Fn5739. Full current C function map unavailable; do not reuse old-guest IDs or infer names for unmapped Fn.",
+  "exit": "Exactly three natural processes, no extra repeats even if NOT_REPRODUCED. SQL/isolation/cleanup and Exec-window/label/truncation gates required. Captured stack is not automatically a cause; report known/unknown and missing mapping. No product/CI/main/release work.",
+  "budget": {
+    "active_minutes": 45,
+    "tooling_minutes": 15,
+    "heavy_ci": 0,
+    "disk_gib": 6,
+    "min_free_gib": 12,
+    "build_timeout_seconds": 1200,
+    "snapshot_total_bytes_cap": 8388608
+  }
+}
