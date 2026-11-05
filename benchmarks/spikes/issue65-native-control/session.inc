@@ -43,10 +43,10 @@ extern unsigned long mariamem_spike_decodes;
 extern "C" unsigned long mariamem_spike_decode_count(){return __atomic_load_n(&mariamem_spike_decodes,__ATOMIC_RELAXED);}
 // The caller pins the THD under its admission lock until UNREGISTER_THD.
 extern "C" void mariamem_spike_kill(void *p) { static_cast<THD*>(p)->awake(KILL_CONNECTION); }
-void mariamem_spike_dispatch_start(THD *thd) {
- if(!thd->mariamem_native_wire)return;
+bool mariamem_spike_dispatch_start(THD *thd, enum enum_server_command command) {
+ if(!thd->mariamem_native_wire)return false;
  auto *s=spike_v(thd->net.vio);
- s->io->event(s->ctx,EXECUTE_START,thd,thd->server_status);
+ return s->io->event(s->ctx,EXECUTE_START,thd,unsigned(command)) != 0;
 }
 extern "C" int mariamem_spike_control_session(SpikeIO *io)
 {
