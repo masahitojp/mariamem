@@ -1,0 +1,12 @@
+{
+  "current_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "full_map_sha256": "60e7f420c9140414f5d6879b8004bcc517a06f9dec69d9184cff3c0bfcc57e30",
+  "available": false,
+  "checked_sources": [
+    "canonical retained-license examples (current-name-anchors.json)",
+    "local uca-canonical evidence retains map checksum/recipe but not map",
+    "CI41961766293 artifact inventory: guest/build/native artifacts, no standalone linked/map artifact",
+    "prior exact-guest DWARF inspection (update-wait report839b525e): no supported mapping to SQL anchors"
+  ],
+  "allowed": "Name current exported SQL/entry anchors only; Go host waits can be read by their compiled names. Retain unknown generated Fn IDs with source/hash, no old-guest ID reuse or inferred engine names."
+}

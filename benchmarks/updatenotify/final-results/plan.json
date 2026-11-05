@@ -1,0 +1,51 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness_source_commit": "cbf0022c69d2f9ff95d2199b159823d85ebc7019",
+  "origin_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "objective": "Final finite distinction of before-notification versus after-close delay for a natural long UPDATE. No automatic follow-up.",
+  "profile": "both-off,commit1,inherited O_DIRECT,other25args unchanged",
+  "hooks": [
+    "child binding from existing Fork context at instance creation",
+    "current Fn5853 exact UPDATE marker",
+    "current Fn17227 rollback page fields +scope",
+    "current Fn16621 mutex slow-path begin/end",
+    "AtomicWait actual parked-channel registration/resume/return",
+    "AtomicNotify attempt/return and exact channel close before/after in ThreadPool.wake",
+    "notifier callstack captured after close only when same registered wait exceeds100ms"
+  ],
+  "semantic_limits": "Not all earlier lock acquisitions/owners are instrumented. A matching notifier thread/call path is not necessarily the original owner. Query wait durations/notify bounds are measured; queue cause only if independently observed. Event hooks add scheduling overhead. No old-guest Fn name reuse.",
+  "protocol": {
+    "natural_parallel": [
+      8,
+      4,
+      8
+    ],
+    "children_per_natural": 48,
+    "effective_preflight_children": 8,
+    "sql_sleep_control_children": 1,
+    "wrong_seed_children": 1,
+    "extra_natural_repeats": 0,
+    "max_events_per_child": 8192,
+    "max_profile_bytes": 2097152,
+    "process_timeout_seconds": 120
+  },
+  "gate": "Correct SQL/isolation/cleanup, exact child/instance+wait-ID+channel/EA+notify binding and untruncated trace. Signal-before/after bounds bracket actual close; quantify resume relative to both, not a single ambiguous timestamp. Artificial tests/control never natural-cause proof. If no event, stop NOT_REPRODUCED. Root cause not inferred just from late notification.",
+  "budget": {
+    "active_minutes": 60,
+    "tooling_minutes": 25,
+    "heavy_ci": 0,
+    "disk_gib": 6,
+    "min_free_gib": 12,
+    "build_timeout_seconds": 1200
+  },
+  "collector_corrections": [
+    "Fix notify-start before query-start activation crossing; preserve exact channel association.",
+    "Use per-instance trace mutexes; global registry lookup uses sync.Map. Instrumentation still perturbs scheduling."
+  ],
+  "decisions": {
+    "no_natural_slow_query": "STOP_UNRESOLVED; no extra repeat or new collector this task",
+    "slow_query_without_matched_long_wait": "STOP_UNRESOLVED_ATTRIBUTION; report uncovered interval without assuming one long wait",
+    "matched_long_wait": "Report before-close and after-close bounds separately; original lock owner and late-notifier cause remain separate work.",
+    "dominance_rule": "For waits >100ms: BEFORE_NOTIFY if pre-close lower bound >=80% of register-to-resume; AFTER_NOTIFY if post-close lower bound >=80%; otherwise MIXED_OR_UNRESOLVED. Report raw bounds; this is classification, not performance or root-cause acceptance."
+  }
+}

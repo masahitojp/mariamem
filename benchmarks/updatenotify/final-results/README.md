@@ -1,0 +1,58 @@
+# Final finite UPDATE notification diagnostic
+
+**Result: NOT_REPRODUCED.** The natural >100ms UPDATE did not recur. Before-notification versus after-close attribution of the prior355ms case remains unresolved. Stop this investigation round without additional repetitions or a new collector.
+
+[Timeline and report](report.html) · [Summary](summary.json) · [Process CSV](processes.csv) · [Fixed plan](plan.json)
+
+## What changed before collection
+
+The prior review identified an activation-crossing bug in the diagnostic overlay. A deterministic test starts notification before SQL activation, registers the SQL waiter before notification reaches its channel, and checks the exact signal/resume association. The old collector panicked with `signal namespace/address mismatch` at source91eba5b76d92c8ff3ab018c5714008725987dfdd; the corrected collector passes the same test. This is an observer defect, not a product futex defect, and it was not observed in the old runtime cohort. The original receipts are unchanged.
+
+Notification tokens now survive the no-query to active-query transition. Dormant unmatched notifications produce no events; matched ones retain their original attempt time. Per-instance event mutexes replace the former all-DB mutex; an independent-instance test verifies that holding one trace mutex does not block another instance. Registry lookup uses sync.Map. This removes explicit cross-instance event serialization, not all observer overhead: trace locks, clock reads, allocation, profiles and notifier stack capture still alter scheduling. No performance equivalence or uninstrumented tail-frequency claim is made.
+
+Focused tests cover the activation crossing, independent instance lock, dormant notification, actual AtomicWait/AtomicNotify pairing, wrong instance/same EA, zero wake count, child binding, event cap and prior SQL Exec-window/label controls. SQL-side200ms SLEEP validates actual in-Exec collection; it is not natural-cause evidence.
+
+## Fixed result
+
+| Process | P | Children | UPDATE p50 ms | UPDATE max ms | UPDATE >100ms |
+|---|---:|---:|---:|---:|---:|
+| natural-0 | 8 | 48 | 0.742 | 6.503 | 0 |
+| natural-1 | 4 | 48 | 0.330 | 5.285 | 0 |
+| natural-2 | 8 | 48 | 0.537 | 4.682 | 0 |
+
+Exactly3 natural processes,P8/P4/P8,48 children each. Controls: one8-child effective-setting preflight,one1-child SQL-side SLEEP,one1-child wrong-seed rejection. Six completed protocol processes plus one sandbox-blocked preflight startup (zero child samples): seven runtime attempts total. The blocked attempt is separately retained; no natural repeat or exclusion. Unit-test processes/build are separate. All positive SQL/pristine seed/independent update/cleanup checks pass; the negative fails before UPDATE and leaves no capture. All retained child traces are untruncated.
+
+## Wait attribution
+
+Long means registered-to-return >100ms. For a signaled wait, before/after channel-close timestamps give bounds; classification uses >=80% of registered-to-resume duration in the corresponding lower bound. Otherwise MIXED_OR_UNRESOLVED. This fixed label is only a diagnostic split; raw intervals remain authoritative. A query >100ms need not contain a single wait >100ms. Timeout/unsignaled waits remain separate.
+
+| Process/child | Page scope | Wait ms | Before close bounds ms | After close bounds ms | Classification |
+|---|---|---:|---:|---:|---|
+| No natural long wait observed | — | — | — | — | UNRESOLVED |
+
+Natural signaled waits: 17; rollback-page-scoped: 6.
+
+| Observed signaled waits | Median ms | Maximum ms |
+|---|---:|---:|
+| registered_to_return_ms | 0.758833 | 5.389584 |
+| pre_signal_upper_ms | 0.735500 | 5.377084 |
+| signal_to_resume_upper_ms | 0.010625 | 0.405875 |
+| notify_attempt_to_signal_upper_ms | 0.000625 | 0.204208 |
+
+Statistics refer only to this instrumented cohort. Short waits do not explain the prior355ms case. The actual registered channel and child/instance + wait/notify ID bind events; raw EA equality across instances does not. A notifier thread/caller is not necessarily the original lock owner. Current function/page mappings use the retained current-source correspondence, not old-guest Fn numbers.
+
+## Decision and limits
+
+The natural >100ms UPDATE did not recur. Before-notification versus after-close attribution of the prior355ms case remains unresolved. Stop this investigation round without additional repetitions or a new collector.
+
+Do not change product defaults,adopt a shim fix,or claim resolution from non-reproduction. Late notification would narrow the next question to owner/completion/queue delay; late post-close resumption would narrow it to host scheduling/observer/shim behavior. Neither is automatically a defect in that layer. This task ends after this fixed collection and preservation; no automatic fourth process,parameter sweep,or full-owner instrumentation.
+
+## Identity and reproduction
+
+Product source_commit `1862f4a89397bddfa1820d835106d3437a438cf7`; measured source_commit `8f02687a12b0fac8ab0c027e04b21114b57cf22d`; parent `cbf0022c69d2f9ff95d2199b159823d85ebc7019`. Origin guest SHA256 `6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe`; diagnostic binary SHA256 `4435ea9ec67e6e6da9f196a33b3fcb0ea59f13b4c3c9fc1af680bd66dc1c1d08`. Clean commit identity checked before build and run. This is an UNQUALIFIED benchmark-only overlay of generated Go; original guest hash is input identity, not a claim of new canonical guest identity.
+
+Single Mac arm64,Go1.27.3,CGO0,GOMAXPROCS8,GOGC100,Pipe,1,000 rows,cap=P. Both startup-load/shutdown-dump OFF,commit1,inherited O_DIRECT; all25 original args retained. Root+8-child preflight checks actual settings. Disk6GiB/free12GiB,120s/process,8192events/child,one2MiB profile/process. Initial build dependency download was blocked by sandbox DNS; rerun with network permission, before any runtime collection. A separate first preflight attempt was blocked at loopback bind by the sandbox; it admitted no DB/child samples. Its raw cleanup_complete=false is retained, not relabelled as a positive cleanup PASS. The permitted preflight and all fixed natural processes then ran once.
+
+Ubuntu/native parity/canonical build/qualification/release NOT RUN. No product/API/default/main/version/release-ledger changes. Original experiment records are not relabelled. No CI submission.
+
+receipts.zip contains the six reports,all child traces/available profiles,controls,tests,plan/input/source hashes and build/run/reducer recipes. Extract into an empty directory; `python3 analyze.py --check` verifies JSON/CSV and rejects missing process/wrong EA/missing notify-return. `publication-normalization.json` records original/published hashes for path-prefix normalization; no numeric observations change. SHA256SUMS.json covers the compact published set. Source clone,binary and private caches are disposable after source refs/results are preserved.

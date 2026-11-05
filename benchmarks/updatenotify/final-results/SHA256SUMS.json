@@ -1,0 +1,14 @@
+{
+  "README.md": "e48cbb29ec9aed9a9d48efbf71a198a8a40feb1507f68fc249bc7b79c234ae55",
+  "analyze.py": "ee15735a07202f898117618cca2e334936c9f513421c96e9adc3a6cddbcc8ca0",
+  "inputs.json": "2de3670d234322d5a3a2d3ebd94d2c5e5a273f6986d0a4c41e89d2ff91e05083",
+  "plan.json": "9cab2d1538746d6c1782e7b433f0d7ac90b194c33302d7dd8e535d425baeeeb7",
+  "prior-current-name-anchors.json": "f23224cb5d6d3c69eb6f3666304391c9a09fe2a5563155606d37762af73212ec",
+  "prior-source-correspondence.json": "557bc2e7c1247d4851f3188369699152d914c8325fb08a2a7ef9c6a7046d1610",
+  "prior-symbol-map-limits.json": "a5e0f5271c7813609c2155d79f338bfb04d3bcd8cf2ed58dfe9e4e22ee16e981",
+  "processes.csv": "18213035532ffc1a0b6645e4746e1dafd96396654d3f33555f6b7bad0a63060e",
+  "publication-normalization.json": "8740a62253c1ab71607af30d7d970f74f0a5bc7c55c68f8ddd96e020b4830739",
+  "receipts.zip": "2fab0592deb9cd1fe37f8f110f54664467ce06004fbacaaea6f13739d44d6165",
+  "report.html": "f9fb84ae47e52483f5ef3fd2b5850e5a3acbfe89af4e8335f85a98edd7394004",
+  "summary.json": "a8df111ee596a888444e0396238f9aa0bb78aff98c34319f4f0fb1cef6b8458f"
+}
