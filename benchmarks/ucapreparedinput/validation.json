@@ -1,15 +1,17 @@
 {
   "scope": "preparation working tree only; no guest/runtime changes",
-  "main_base_source_commit": "c27061f1a33eed2908fd90b0e2d816692e001339",
+  "main_base_source_commit": "676515eb9244fc501b5a600791b0cf0a6174fecd",
   "reviewed_artifact_source_commit": "e33fc6ce3bae390c6dda0fd92d024d8094df8731",
   "unit_tests": 7,
   "unit_result": "PASS",
   "prototype_header_correspondence": "PASS exact5494313 bytes / ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
-  "public_source_check_files": 6750,
+  "public_source_check_files": 6755,
   "public_source_check": "PASS",
   "review_evidence_replay": "three read-only reducers PASS; committed result hashes checked",
   "new_guest_build": false,
   "new_guest_runtime": false,
   "new_both_platform_acceptance": false,
-  "new_hosted_CI_receipt": false
+  "new_hosted_CI_receipt": false,
+  "initial_review_base_source_commit": "c27061f1a33eed2908fd90b0e2d816692e001339",
+  "verification_context": "focused tests/origin and public-source check rerun after merging Go Pipe main update"
 }

@@ -25,8 +25,9 @@ Inputs were reconstructed from the preceding Human-approved report/request:
   [host-stage identity](https://github.com/masahitojp/mariamem/blob/e33fc6ce3bae390c6dda0fd92d024d8094df8731/benchmarks/ucaboosterreuse/results/inputs.json)
   is recorded separately. The report commit is not a newly executed runtime head.
 - Candidate-preparation base: current main
-  `c27061f1a33eed2908fd90b0e2d816692e001339`. Preserve its prepared-execute,
-  last-statement-alias and bounded-pipeline fixes. Do not merge exploratory history.
+  `676515eb9244fc501b5a600791b0cf0a6174fecd`. Preserve its prepared-execute,
+  last-statement-alias, bounded-pipeline and newly adopted opt-in Go Pipe changes.
+  Preparation initially used c27061f1; current main was merged before submission. Do not merge exploratory history.
 
 All result files were checked against the artifact's committed SHA256SUMS.json.
 The saved read-only reducers independently rederived the ten-process summary,
@@ -128,7 +129,7 @@ runtime SHA, new both-platform PASS or merge readiness is claimed here.
 
 - Input table re-expression preserves all original numeric bytes and exact typed
   header identity; no evidence files are rewritten by the check command.
-- Main's host/wire changes are retained by the preparation base.
+- Main's host/wire/Go Pipe changes are retained by the preparation base.
 - No Go/Python public API, guest/source.patch, generated runtime, release ledger,
   version or existing historical receipt changes in this PR.
 - Historical measurements remain at their original source/cohort identities.
