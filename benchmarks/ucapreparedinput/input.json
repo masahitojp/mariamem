@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "scope": "PREPARATION_ONLY_NOT_USED_BY_GUEST",
+  "scope": "PREPARED_UCA1400_SOURCE_INPUT_V1",
   "prototype_source_commit": "e33fc6ce3bae390c6dda0fd92d024d8094df8731",
   "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
   "source_archive_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",

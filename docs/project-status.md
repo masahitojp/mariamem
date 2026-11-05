@@ -14,7 +14,19 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Prepared UCA tables — candidate preparation authorized, adoption open
+## Prepared UCA tables — canonical candidate implementation in progress
+
+The preparation input at `d7fa55376b2e362588fc1debd4d2823536268cfe` passes
+[CI41943084029](https://github.com/masahitojp/mariamem/actions/runs/41943084029).
+That run checks the package/tools and the existing guest, not the new guest on
+Ubuntu. The Human authorized proceeding with formal guest implementation.
+The candidate adds the canonical constructor patch, pristine-source-bound table
+expansion/provenance and private verification separated from ordinary profiling.
+Fresh guest generation, exact worker bindings, actual both-host runtime tests
+and the finite paired performance check remain required; no candidate runtime
+PASS, adoption, main integration, Qualification or release is claimed yet.
+
+### Historical preparation checkpoint — accepted input, runtime not yet adopted
 
 After reviewing experimental report source_commit
 `e33fc6ce3bae390c6dda0fd92d024d8094df8731`, the Human authorized proceeding

@@ -103,4 +103,42 @@ class PreparedInputTests(unittest.TestCase):
         self.assertNotEqual(subprocess.run(cmd+['--check-header',str(output)],capture_output=True).returncode,0)
         self.assertEqual(output.read_bytes(),b'user-owned output')
 
+
+    def test_source_preparation_provenance_and_no_overwrite(self):
+        sys.path.insert(0, str(ROOT/'scripts'))
+        import uca_prepared
+        source = self.path/'source'
+        for name in self.manifest['pristine_files_sha256']:
+            path = source/name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(name.encode())
+            self.manifest['pristine_files_sha256'][name] = uca.digest(path.read_bytes())
+        unicode = source/'mysql-test/std_data/unicode/allkeys1400.txt'
+        unicode.parent.mkdir(parents=True)
+        unicode.write_bytes(b'unit fixture, not MariaDB semantics')
+        self.manifest['unicode_input_sha256'] = uca.digest(unicode.read_bytes())
+        self.save()
+        # Keep product identity pins, substitute only the owned input directory.
+        root = self.path/'root'
+        (root/'guest').mkdir(parents=True)
+        (root/'release').mkdir()
+        shutil.copy2(ROOT/'guest/input.json', root/'guest/input.json')
+        shutil.copy2(ROOT/'release/inputs.lock.json', root/'release/inputs.lock.json')
+        target = root/uca_prepared.BUNDLE
+        target.parent.mkdir(parents=True)
+        shutil.copytree(self.bundle, target)
+        proof = uca_prepared.prepare(root, source)
+        self.assertEqual(proof['source_check'], 'PRISTINE_SOURCE_HASHES_PASS')
+        self.assertEqual(proof['header_sha256'], EXPECTED)
+        self.assertEqual(len(proof['input_files_sha256']), 5)
+        header = source/uca_prepared.HEADER
+        self.assertEqual(uca.digest(header.read_bytes()), EXPECTED)
+        with self.assertRaises(FileExistsError):
+            uca_prepared.prepare(root, source)
+        header.unlink()
+        (source/'strings/ctype-uca.c').write_bytes(b'changed source')
+        with self.assertRaisesRegex(ValueError, 'pristine source mismatch'):
+            uca_prepared.prepare(root, source)
+        self.assertFalse(header.exists())
+
 if __name__ == '__main__': unittest.main()

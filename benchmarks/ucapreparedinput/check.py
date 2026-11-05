@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate/re-express prototype numeric inputs; never install a guest or qualify it."""
+"""Validate/re-express pinned UCA numeric source input; never qualify a guest."""
 import argparse
 import base64
 import gzip
@@ -58,7 +58,7 @@ def validate(bundle, root=ROOT, source=None):
             'raw_bytes_per_level', 'header_sha256', 'tables'}
     need(set(manifest) == keys, 'unknown/missing manifest fields')
     need(type(manifest['schema']) is int and manifest['schema'] == 1, 'unsupported schema')
-    need(manifest['scope'] == 'PREPARATION_ONLY_NOT_USED_BY_GUEST', 'unsupported scope')
+    need(manifest['scope'] == 'PREPARED_UCA1400_SOURCE_INPUT_V1', 'unsupported scope')
     need(type(manifest['raw_bytes_per_level']) is int and
          manifest['raw_bytes_per_level'] == RAW_BYTES, 'unsupported table layout')
     guest = read_json(root/'guest/input.json')
@@ -111,7 +111,7 @@ def validate(bundle, root=ROOT, source=None):
     return header, {'result': 'INPUT_PACKAGE_PASS', 'scope': manifest['scope'],
                     'source_check': source_check, 'header_sha256': digest(header),
                     'header_bytes': len(header), 'numeric_bytes': 3*RAW_BYTES,
-                    'guest_build': 'NOT_RUN', 'guest_integration': 'NOT_IMPLEMENTED'}
+                    'guest_build': 'NOT_RUN', 'guest_integration': 'NOT_EXECUTED_BY_INPUT_CHECK'}
 
 
 def main(argv=None):
