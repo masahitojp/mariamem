@@ -1,0 +1,7 @@
+{
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "cpu": "Apple M1",
+  "memory_bytes": 17179869184,
+  "logical_cpus": 8,
+  "observer_variables_present": []
+}

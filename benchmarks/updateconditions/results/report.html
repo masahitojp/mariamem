@@ -1,0 +1,77 @@
+<!doctype html><meta charset="utf-8"><title>UPDATE condition comparison</title><style>body{font:16px system-ui;max-width:1100px;margin:40px auto;padding:16px;line-height:1.6;color:#172635}table{border-collapse:collapse;width:100%}td,th{padding:10px;border-bottom:1px solid #cbd5df;text-align:left}pre{white-space:pre-wrap;background:#f3f6f8;padding:20px;font:14px/1.6 system-ui}</style><h1>NOT_REPRODUCED</h1><p>Neither immediate nor500ms-delayed condition reproduced an UPDATE&gt;100ms. The experiment cannot explain the earlier rare tail. Ordinary first/second-write timings remain descriptive; no cure, tail-frequency or root-cause claim follows. Stop after the fixed six measured processes.</p><table><tr><th>Idle ms</th><th>UPDATE</th><th>p50 ms</th><th>p95 ms</th><th>max ms</th><th>&gt;100ms</th></tr><tr><td>0</td><td>first</td><td>0.405</td><td>9.044</td><td>31.231</td><td>0</td></tr><tr><td>0</td><td>second</td><td>0.148</td><td>1.498</td><td>8.845</td><td>0</td></tr><tr><td>500</td><td>first</td><td>1.252</td><td>2.893</td><td>5.098</td><td>0</td></tr><tr><td>500</td><td>second</td><td>0.682</td><td>1.209</td><td>2.067</td><td>0</td></tr></table><pre># UPDATE condition intervention: immediate versus500ms idle
+
+**Result: NOT_REPRODUCED.** Neither immediate nor500ms-delayed condition reproduced an UPDATE&gt;100ms. The experiment cannot explain the earlier rare tail. Ordinary first/second-write timings remain descriptive; no cure, tail-frequency or root-cause claim follows. Stop after the fixed six measured processes.
+
+[HTML report](report.html) · [Summary and all samples](summary.json) · [Process CSV](processes.csv) · [Fixed plan](plan.json)
+
+## Fixed question and changes
+
+Instead of trying to capture a rare wait inside the shim, change the conditions preceding UPDATE. Same P8/cap8,Pipe,1,000-row prepared seed; one fixed binary. Each child checks pristine COUNT/SUM, waits0 or500ms on the host, executes UPDATE to-1 and verifies it, then executes UPDATE to-2 and verifies it. Both statements must affect exactlyone row. There is no second pause. Each child must start from the independent pristine baseline.
+
+The second UPDATE is a real value change, not a no-op. Its cache/undo/data state and elapsed time differ from the first; a faster second query is not by itself proof of undo initialization cost. The no-pause arm also has this second write, so it is not an exact replay of the earlier single-write suite.
+
+No query watchdog,stack capture,wait/notify trace,internal stage overlay or parent RSS sampler is active. The generated-code overlay contains only the fixed argument selector and its tests. Fork recorder attachment is removed from the benchmark adapter. External monotonic timings and the ordinary runtime remain; this is not an overhead-free observer or a comparison of old/new observer performance.
+
+## All measured cells
+
+Three fresh-process pairs in order:0/500,500/0,0/500ms.48children/process,6processes,288children,576UPDATEs. No warmup or extra measured repeat. Two separate controls: root+8-child setting/idle/two-write preflight,one corrupt-seed rejection.8runtime processes total.
+
+| Pair | Idle ms | First p50/p95/max ms | First &gt;100ms | Second p50/p95/max ms | Second &gt;100ms |
+|---|---:|---|---:|---|---:|
+| 0 | 0 | 0.653/20.008/31.231 | 0 | 0.223/1.101/4.922 | 0 |
+| 0 | 500 | 1.266/2.459/2.911 | 0 | 0.698/1.173/2.067 | 0 |
+| 1 | 500 | 1.177/3.198/5.059 | 0 | 0.575/1.014/1.269 | 0 |
+| 1 | 0 | 0.302/3.762/6.147 | 0 | 0.182/4.142/8.845 | 0 |
+| 2 | 0 | 0.351/2.413/19.246 | 0 | 0.143/0.730/5.449 | 0 |
+| 2 | 500 | 1.288/2.903/5.098 | 0 | 0.730/1.413/1.707 | 0 |
+
+## Descriptive cohort totals
+
+Each arm contains144children; each query position has144observations. Do not treat children within a process as independent experimental replicates. Three process pairs are the only repetitions. Percentiles use linear interpolation over sorted values.
+
+| Idle ms | Query | p50 ms | p95 ms | max ms | &gt;100ms | &gt;500ms |
+|---:|---|---:|---:|---:|---:|---:|
+| 0 | first | 0.405 | 9.044 | 31.231 | 0 | 0 |
+| 0 | second | 0.148 | 1.498 | 8.845 | 0 | 0 |
+| 500 | first | 1.252 | 2.893 | 5.098 | 0 | 0 |
+| 500 | second | 0.682 | 1.209 | 2.067 | 0 | 0 |
+
+Within-child second-minus-first differences and pair-specific delayed-minus-immediate p50 differences are retained in summary.json; they are not pooled across prior binaries/cohorts. The report keeps all samples, including tails. Batch time includes the deliberate500ms/child idle and both writes and must not be presented as a product speed comparison.
+
+## Actual conditions and interpretation
+
+| Requested idle ms | Actual idle p50/max ms | Fork-return → first UPDATE p50/max ms |
+|---:|---|---|
+| 0 | 0.000/0.000 | 7.868/30.140 |
+| 500 | 500.355/509.918 | 510.813/545.185 |
+
+Query starts are recorded directly relative to batch start and Fork return, not inferred from sums of earlier stage durations. Other-Fork overlap counts in summary.json are derived from public Fork API intervals; they do not identify guest background threads or lock owners. The pause changes both DB age and other-child startup/cleanup overlap; those effects are not isolated.
+
+The setting profile remains startup-load OFF,shutdown-dump OFF,commit1,inherited O_DIRECT,buffer16MiB,log2MiB,read1/write2/purge1,nativeAIO OFF; all25 original args retained. Effective values are checked on root+8children before the timed cells. Natural cells do not run SHOW queries. This is the previous experimental both-OFF profile,not changed product defaults.
+
+## Oracles and disposition
+
+All six measured cells and the positive control pass pristine count/sum,both affected-row and value checks,and cleanup. The corrupt seed is rejected before idle/UPDATE1/UPDATE2,with cleanup verified. Selector tests pass. Readonly reduction rejects a missing cell,missing second-write oracle,short500ms idle,and inconsistent Fork-to-query age. No silent skip or discarded observation.
+
+Neither immediate nor500ms-delayed condition reproduced an UPDATE&gt;100ms. The experiment cannot explain the earlier rare tail. Ordinary first/second-write timings remain descriptive; no cure, tail-frequency or root-cause claim follows. Stop after the fixed six measured processes.
+
+The remaining missing evidence is a long case with a distinguishing condition or direct causal evidence. This task does not reopen a trace campaign or authorize another batch by default. No product/guest/API/default/main/qualification/release change.
+
+## What this run can say
+
+Internal wait/notify tracing and the query watchdog are absent, yet the long tail did not recur. This does not establish that tracing had no effect; it does not support attributing non-reproduction solely to the former collector either. The new two-write workload also differs from the old single-write suite.
+
+The second UPDATE was faster within 124/144 immediate children and 131/144 delayed children. All six process medians also have second&lt;first. A first-versus-second difference survives a500ms pause before the first write; elapsed time alone did not remove that ordinary difference. Cache/undo/data state and query order remain confounded.
+
+All three paired process comparisons have a higher first-UPDATE median in the delayed condition; the second-UPDATE median is also higher in all three. These query timings exclude the deliberate pause. Waiting500ms is therefore not supported as a simple way to make ordinary UPDATE faster. The smaller observed maxima in the delayed arm are retained, but zero&gt;100ms in both arms cannot establish rare-tail suppression.
+
+These ordinary sub-ms/few-ms effects do not explain the prior355ms wait. Stop without additional sampling.
+
+## Identity and retained evidence
+
+Product source_commit `1862f4a89397bddfa1820d835106d3437a438cf7`. Measured harness source_commit `5b7afc96b22be5362985d56bbafe0177b7f3b1a5` (parent549fd3ba4fdc92b407534bd2b4ce844951fbd4df). Original guest SHA256 `6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe`. Diagnostic binary SHA256 `f68895044919848dcfe3fa206faf15553545f944b27d97bc57b0932d37a7b7c6`. Clean exact commit identity checked before build and run; same binary across both arms. The original guest hash identifies the generated input; the argv overlay is UNQUALIFIED,not a newly qualified WASM with that hash.
+
+Single Apple M1/16GiB/macOS27.2,Go1.27.3,CGO0,GOMAXPROCS8,GOGC100. Exact host facts are in host.json. Runtime bound120s/process,build1200s,workspace6GiB/free12GiB. No expensive CI,Ubuntu,native comparison,durability or release acceptance.
+
+receipts.zip retains all eight process reports,logs,controls,build/run/reducer/publisher recipes,source/overlay/plan hashes. Extract into an empty directory and run `python3 analyze.py --check` to reproduce summary.json/processes.csv without a build tree. Rebuild from the measured commit with archived build.py in an evidence/temp/source layout; new runtime collection requires its own authorized scope. Publication path normalization preserves original/published hashes in publication-normalization.json; no numeric observations change. SHA256SUMS.json covers the compact published set. Disposable source clone,executable and caches are removed after source refs and results are preserved.
+</pre>
