@@ -1,0 +1,58 @@
+[
+  {
+    "workload": "connect_ping",
+    "tcp": {
+      "ns_per_op": 338600.0,
+      "bytes_per_op": 18722,
+      "allocs_per_op": 217
+    },
+    "pipe": {
+      "ns_per_op": 150368.0,
+      "bytes_per_op": 20032,
+      "allocs_per_op": 223
+    },
+    "elapsed_reduction_percent": 55.59
+  },
+  {
+    "workload": "select1",
+    "tcp": {
+      "ns_per_op": 97988.0,
+      "bytes_per_op": 9107,
+      "allocs_per_op": 98
+    },
+    "pipe": {
+      "ns_per_op": 57278.0,
+      "bytes_per_op": 9949,
+      "allocs_per_op": 109
+    },
+    "elapsed_reduction_percent": 41.55
+  },
+  {
+    "workload": "prepared1",
+    "tcp": {
+      "ns_per_op": 101910.0,
+      "bytes_per_op": 9508,
+      "allocs_per_op": 107
+    },
+    "pipe": {
+      "ns_per_op": 59397.0,
+      "bytes_per_op": 10371,
+      "allocs_per_op": 118
+    },
+    "elapsed_reduction_percent": 41.72
+  },
+  {
+    "workload": "result64x128",
+    "tcp": {
+      "ns_per_op": 878864.0,
+      "bytes_per_op": 98981,
+      "allocs_per_op": 814
+    },
+    "pipe": {
+      "ns_per_op": 685935.0,
+      "bytes_per_op": 107966,
+      "allocs_per_op": 951
+    },
+    "elapsed_reduction_percent": 21.95
+  }
+]

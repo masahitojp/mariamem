@@ -1,0 +1,242 @@
+[
+  {
+    "process": 1,
+    "order": "tcp-first",
+    "transport": "tcp",
+    "workload": "connect_ping",
+    "iterations": 500,
+    "ns_per_op": 347381.0,
+    "bytes_per_op": 18722,
+    "allocs_per_op": 217
+  },
+  {
+    "process": 1,
+    "order": "tcp-first",
+    "transport": "tcp",
+    "workload": "select1",
+    "iterations": 500,
+    "ns_per_op": 98551.0,
+    "bytes_per_op": 9122,
+    "allocs_per_op": 98
+  },
+  {
+    "process": 1,
+    "order": "tcp-first",
+    "transport": "tcp",
+    "workload": "prepared1",
+    "iterations": 500,
+    "ns_per_op": 101242.0,
+    "bytes_per_op": 9525,
+    "allocs_per_op": 107
+  },
+  {
+    "process": 1,
+    "order": "tcp-first",
+    "transport": "tcp",
+    "workload": "result64x128",
+    "iterations": 500,
+    "ns_per_op": 879954.0,
+    "bytes_per_op": 98970,
+    "allocs_per_op": 814
+  },
+  {
+    "process": 1,
+    "order": "tcp-first",
+    "transport": "pipe",
+    "workload": "connect_ping",
+    "iterations": 500,
+    "ns_per_op": 150368.0,
+    "bytes_per_op": 20025,
+    "allocs_per_op": 223
+  },
+  {
+    "process": 1,
+    "order": "tcp-first",
+    "transport": "pipe",
+    "workload": "select1",
+    "iterations": 500,
+    "ns_per_op": 57278.0,
+    "bytes_per_op": 9949,
+    "allocs_per_op": 109
+  },
+  {
+    "process": 1,
+    "order": "tcp-first",
+    "transport": "pipe",
+    "workload": "prepared1",
+    "iterations": 500,
+    "ns_per_op": 61282.0,
+    "bytes_per_op": 10381,
+    "allocs_per_op": 118
+  },
+  {
+    "process": 1,
+    "order": "tcp-first",
+    "transport": "pipe",
+    "workload": "result64x128",
+    "iterations": 500,
+    "ns_per_op": 685935.0,
+    "bytes_per_op": 107966,
+    "allocs_per_op": 951
+  },
+  {
+    "process": 2,
+    "order": "pipe-first",
+    "transport": "pipe",
+    "workload": "connect_ping",
+    "iterations": 500,
+    "ns_per_op": 151011.0,
+    "bytes_per_op": 20090,
+    "allocs_per_op": 223
+  },
+  {
+    "process": 2,
+    "order": "pipe-first",
+    "transport": "pipe",
+    "workload": "select1",
+    "iterations": 500,
+    "ns_per_op": 56342.0,
+    "bytes_per_op": 9967,
+    "allocs_per_op": 109
+  },
+  {
+    "process": 2,
+    "order": "pipe-first",
+    "transport": "pipe",
+    "workload": "prepared1",
+    "iterations": 500,
+    "ns_per_op": 59026.0,
+    "bytes_per_op": 10371,
+    "allocs_per_op": 118
+  },
+  {
+    "process": 2,
+    "order": "pipe-first",
+    "transport": "pipe",
+    "workload": "result64x128",
+    "iterations": 500,
+    "ns_per_op": 694024.0,
+    "bytes_per_op": 108012,
+    "allocs_per_op": 951
+  },
+  {
+    "process": 2,
+    "order": "pipe-first",
+    "transport": "tcp",
+    "workload": "connect_ping",
+    "iterations": 500,
+    "ns_per_op": 338600.0,
+    "bytes_per_op": 18631,
+    "allocs_per_op": 217
+  },
+  {
+    "process": 2,
+    "order": "pipe-first",
+    "transport": "tcp",
+    "workload": "select1",
+    "iterations": 500,
+    "ns_per_op": 97988.0,
+    "bytes_per_op": 9080,
+    "allocs_per_op": 98
+  },
+  {
+    "process": 2,
+    "order": "pipe-first",
+    "transport": "tcp",
+    "workload": "prepared1",
+    "iterations": 500,
+    "ns_per_op": 101910.0,
+    "bytes_per_op": 9507,
+    "allocs_per_op": 107
+  },
+  {
+    "process": 2,
+    "order": "pipe-first",
+    "transport": "tcp",
+    "workload": "result64x128",
+    "iterations": 500,
+    "ns_per_op": 870034.0,
+    "bytes_per_op": 98984,
+    "allocs_per_op": 814
+  },
+  {
+    "process": 3,
+    "order": "tcp-first",
+    "transport": "tcp",
+    "workload": "connect_ping",
+    "iterations": 500,
+    "ns_per_op": 338592.0,
+    "bytes_per_op": 18742,
+    "allocs_per_op": 217
+  },
+  {
+    "process": 3,
+    "order": "tcp-first",
+    "transport": "tcp",
+    "workload": "select1",
+    "iterations": 500,
+    "ns_per_op": 97333.0,
+    "bytes_per_op": 9107,
+    "allocs_per_op": 98
+  },
+  {
+    "process": 3,
+    "order": "tcp-first",
+    "transport": "tcp",
+    "workload": "prepared1",
+    "iterations": 500,
+    "ns_per_op": 102876.0,
+    "bytes_per_op": 9508,
+    "allocs_per_op": 107
+  },
+  {
+    "process": 3,
+    "order": "tcp-first",
+    "transport": "tcp",
+    "workload": "result64x128",
+    "iterations": 500,
+    "ns_per_op": 878864.0,
+    "bytes_per_op": 98981,
+    "allocs_per_op": 814
+  },
+  {
+    "process": 3,
+    "order": "tcp-first",
+    "transport": "pipe",
+    "workload": "connect_ping",
+    "iterations": 500,
+    "ns_per_op": 148457.0,
+    "bytes_per_op": 20032,
+    "allocs_per_op": 223
+  },
+  {
+    "process": 3,
+    "order": "tcp-first",
+    "transport": "pipe",
+    "workload": "select1",
+    "iterations": 500,
+    "ns_per_op": 61086.0,
+    "bytes_per_op": 9943,
+    "allocs_per_op": 109
+  },
+  {
+    "process": 3,
+    "order": "tcp-first",
+    "transport": "pipe",
+    "workload": "prepared1",
+    "iterations": 500,
+    "ns_per_op": 59397.0,
+    "bytes_per_op": 10368,
+    "allocs_per_op": 118
+  },
+  {
+    "process": 3,
+    "order": "tcp-first",
+    "transport": "pipe",
+    "workload": "result64x128",
+    "iterations": 500,
+    "ns_per_op": 671800.0,
+    "bytes_per_op": 107950,
+    "allocs_per_op": 951
+  }
+]

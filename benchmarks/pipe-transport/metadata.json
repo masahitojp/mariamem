@@ -1,0 +1,15 @@
+{
+  "baseline_source_commit": "676515eb9244fc501b5a600791b0cf0a6174fecd",
+  "measured_source_commit": "e3f8f955dc1a4a8f0422cb5ed078bcee167772ef",
+  "binary_sha256": "d153843ed58e50e2cc63c55d0f80893b4aea7fcb1449e661ad763439ed66298a",
+  "go": "1.26.10",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "driver": "mysql1.9.3",
+  "fresh_processes": 3,
+  "iterations_per_cell": 500,
+  "result": "24 cells PASS",
+  "test_binary_vcs_stamp": "not present; clean source identity checked before build, binary hash retained"
+}
