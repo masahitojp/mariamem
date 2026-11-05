@@ -1,0 +1,52 @@
+<!doctype html><meta charset="utf-8"><title>Buffer load OFF repeat</title><style>body{font:16px system-ui;max-width:1100px;margin:40px auto;padding:16px;line-height:1.6;color:#172635}h1,h2{line-height:1.2}.row{display:flex;gap:12px;align-items:center;margin:10px 0}.row span{width:125px}.bar{height:24px;background:#7298af}.bar.load-off{background:#23a085}pre{white-space:pre-wrap;background:#f3f6f8;padding:20px;font:14px/1.6 system-ui}</style><h1>Buffer-pool startup load OFF — repeat</h1><p>Same exact binary; 5 alternating pairs/P, 48 children/process. OFF improves median batch wall and COUNT tails; P8 Fork regression repeats. Unchanged fixed gate: STOP_INCONCLUSIVE_OR_TRADEOFF.</p><h2>Whole batch (ms)</h2><div class="row"><span>P4 current</span><div class="bar current" style="width:400.0px"></div><b>871.46</b></div><div class="row"><span>P4 load-off</span><div class="bar load-off" style="width:361.4px"></div><b>787.47</b></div><div class="row"><span>P8 current</span><div class="bar current" style="width:368.2px"></div><b>802.13</b></div><div class="row"><span>P8 load-off</span><div class="bar load-off" style="width:337.7px"></div><b>735.74</b></div><h2>Fork p50, process median (ms)</h2><div class="row"><span>P4 current</span><div class="bar current" style="width:225.1px"></div><b>42.65</b></div><div class="row"><span>P4 load-off</span><div class="bar load-off" style="width:235.5px"></div><b>44.62</b></div><div class="row"><span>P8 current</span><div class="bar current" style="width:358.2px"></div><b>67.88</b></div><div class="row"><span>P8 load-off</span><div class="bar load-off" style="width:400.0px"></div><b>75.79</b></div><h2>Report and full comparison</h2><pre># Buffer-pool startup load OFF: ordinary measurement repeat
+
+**Conclusion:** The same binary again shows fewer long COUNTs with OFF and lower median paired whole-batch time, while P8 Fork latency again exceeds the unchanged 5% regression guard. The fixed experiment ends as a throughput/latency tradeoff, not automatic adoption or permanent Issue68 resolution.
+
+[Graph and comparison](report.html) · [Process CSV](processes.csv) · [Distributions and gates](summary.json) · [Plan](plan.json) · [Exact repeat identity](repeat-identity.json)
+
+## Fixed method and identity
+
+New cohort on the same Apple M1 / 16GiB / macOS27.2. Product source_commit `1862f4a89397bddfa1820d835106d3437a438cf7`; clean measured harness source_commit `5472e3df7fbee38973f030e61c0e9dd293b735bd`. `git_identity.require_commit` checked commits before building. Go1.27.3 darwin/arm64, CGO0, GOMAXPROCS8, GOGC100. Same source, overlay bytes, build settings and **exact binary SHA256** as the original contrast: `9961996f2d0be424bba73b4f8cc43b943349529b58ed8b40377d19e2b31ffa5c`. The rebuilt binary is not merely assumed equivalent; repeat-identity.json checks every identity field.
+
+Same 1,000-row fixture, Pipe, cap=P, 48 independent children/process, five fresh-process pairs at P4/P8, alternating arm and rotated P order. Four separate warmups, two positive root+8-child SQL preflights and two wrong-seed negative controls: 28 total processes, 20 primary processes, no retries or excluded samples. No UPDATE slow-stack observer, trace, detailed timing or CPU profiler in primary runs. Per-query host timers and 20ms RSS sampler are unchanged from the original ordinary contrast.
+
+The only arm difference is appended `--innodb-buffer-pool-load-at-startup=1` versus `=0` on child startup; all25 original argv entries are retained. Root preflights both report load OFF; all eight children/arm report expected ON/OFF, and the other observed variables match. Read1/write2/purge1, 16MiB pool/max, 2MiB log buffer, native AIO OFF and dump-at-shutdown ON remain unchanged. SQL oracles, independent UPDATE verification, cleanup, cap census and both rejection controls PASS. Selector unit PASS.
+
+The origin guest SHA256 `6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe` identifies the unmodified generated input. This translated-Go argv overlay remains **UNQUALIFIED**; no new canonical WASM has that hash, and no canonical guest/default/product/API change is made.
+
+## New cohort results
+
+Independent cell medians below are descriptive; paired effects are reported separately.
+
+| P | Arm | Batch ms | Fork p50 ms | CPU ms | Sampled peak RSS MiB | COUNT &gt;100 / &gt;500 ms | COUNT p50 / p95 / max ms |
+|---|---|---:|---:|---:|---:|---|---|
+| 4 | current | 871.5 | 42.65 | 3767.6 | 364.9 | 2 / 1 | 5.76 / 14.88 / 798.22 |
+| 4 | load-off | 787.5 | 44.62 | 3653.2 | 362.0 | 0 / 0 | 2.89 / 8.03 / 15.73 |
+| 8 | current | 802.1 | 67.88 | 3778.8 | 663.5 | 4 / 1 | 5.11 / 26.50 / 775.10 |
+| 8 | load-off | 735.7 | 75.79 | 3571.6 | 662.8 | 0 / 0 | 3.77 / 15.76 / 28.61 |
+
+Each tail denominator is240 children/arm/P. Client query spans are not internal queue-delay measurements. CPU is whole batch/process, not exclusive Fork CPU. RSS is sampled batch process peak, not retained-child RSS. Batch includes SQL, connection retirement/WaitDisconnected and Close, excluding root preparation/capture and final Snapshot close.
+
+## Original vs repeat: keep cohorts separate
+
+Original report source_commit `11cdb5df4f199af177348b7015b68296e94a4f31`, branch `experiment/buffer-load-off`, keeps its original receipts. This is a new observation set with the same measured binary. No pooled incidence or source relabelling. Positive savings means OFF lower/faster.
+
+| Cohort | P | Median paired batch saved | CPU saved | Fork saved | Batch wins /5 | COUNT &gt;100 ON → OFF | OFF UPDATE max ms |
+|---|---:|---:|---:|---:|---:|---|---:|
+| original | 4 | 9.07% | 3.92% | -0.02% | 5/5 | 2 → 0 | 4.17 |
+| original | 8 | 33.26% | 5.27% | -18.33% | 5/5 | 6 → 0 | 366.44 |
+| repeat | 4 | 9.64% | 5.26% | -0.61% | 5/5 | 2 → 0 | 10.98 |
+| repeat | 8 | 16.11% | 5.16% | -12.92% | 4/5 | 4 → 0 | 22.62 |
+
+The direction of COUNT-tail reduction, whole-batch savings and the P8 Fork tradeoff repeats. P8 is no longer faster in every pair: round0 OFF batch864.3ms versus ON690.7ms. Median paired savings are16.11%, rather than the original33.26%; the size of the benefit is variable. Absolute timings in both arms are higher than the original cohort despite identical binary and hardware. Host load, thermal/scheduling and other environmental contributions were not isolated, so no causal claim or direct cross-cohort speed regression is made. Pairing controls time-local conditions without proving they are identical.
+
+OFF has no &gt;100ms COUNT, UPDATE, check SELECT or combined SQL in this cohort; its P4/P8 UPDATE maxima are10.98/22.62ms. The previous366ms UPDATE and six diagnostic processes without reproduction remain valid separate observations. Absence here does not resolve that residual or prove a population rate.
+
+P4 passes the original gates; P8 again fails the &gt;5% Fork guard (median paired Fork+12.92%, +9.10ms). Thus reducer disposition remains `STOP_INCONCLUSIVE_OR_TRADEOFF`. Do not change thresholds after observing results. An explicit Human throughput-versus-Fork-latency decision and later canonical/platform work would be required before adopting OFF. No extra repetitions are authorized by this report.
+
+## Reproduction and retention
+
+receipts.zip retains every process/memory observation, preflight and negative evidence, selector/build logs, original input/summary references, build/run scripts, readonly reducers and identity checks. Extract into an empty directory and run `python3 analyze.py --check`, `python3 overlap.py --check`, and `python3 identity.py --check`; all are readonly and validate exact summary/CSV/interval reductions, missing-cell rejection and repeated source/overlay/binary identity. No disposable build tree is required for reduction. To generate new observations, checkout clean measured5472e3df and follow archived build.py/run.py in the recorded workspace layout; report commits are not measurement source commits.
+
+SHA256SUMS.json covers published files. Reproducible source clone, binary and private build caches are deleted after retention. Original receipts are not modified. No Ubuntu result, large working-set result, native parity, canonical adoption, CI dispatch, main integration, Qualification or release is claimed.
+</pre>

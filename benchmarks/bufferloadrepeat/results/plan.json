@@ -1,0 +1,40 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness": "b399bf6d99bda0dc9bf6c20a783b076a8f1e9cde",
+  "origin_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "method": "UNQUALIFIED translated-Go argv append; all25 original arguments retained plus explicit load=1/0; private64-byte stack scratch restored after init; same binary, no WASM rebuild",
+  "variants": [
+    "current",
+    "load-off"
+  ],
+  "parallel": [
+    4,
+    8
+  ],
+  "count": 48,
+  "primary_pairs": 5,
+  "warmup_per_cell": 1,
+  "preflight": "one8-child P8 process per variant, root+children SQL values; separate wrong-seed negative each",
+  "metrics": [
+    "COUNT p50/p95/max and >100/>500ms children",
+    "UPDATE/check SELECT times",
+    "batch wall and CPU",
+    "Fork p50/p95",
+    "20ms sampled process peak RSS"
+  ],
+  "prediction": "If background buffer-pool load materially creates the captured admission stalls, disabling it should reduce COUNT tail counts/severity; normal Fork/CPU may change little. OFF does not imply no I/O or no other queue stalls.",
+  "decision": "Finite profile test, not automatic adoption. If baseline has no >100ms COUNT, tail effect is unproven. If OFF has >100ms COUNT, reject complete-resolution claim. A follow-up candidate review needs fewer >100ms children at both P, no increase >500ms, and no paired-median >5% regression in Fork/CPU/batch; mixed results mean stop/inconclusive. No added repetitions.",
+  "budget": {
+    "active_minutes": 45,
+    "tooling_minutes": 10,
+    "heavy_ci": 0,
+    "disk_gib": 6,
+    "min_free_gib": 12,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 120,
+    "sampled_rss_stop_bytes": 3221225472
+  },
+  "repeat_of": "experiment/buffer-load-off",
+  "authorization": "Human requested another ordinary OFF measurement with current unchanged product; paired ON control retained.",
+  "measurement_harness_source_commit": "5472e3df7fbee38973f030e61c0e9dd293b735bd"
+}

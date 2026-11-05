@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "previous_report_source_commit": "11cdb5df4f199af177348b7015b68296e94a4f31",
+  "identical_fields": {
+    "product_source_commit": true,
+    "harness_source_commit": true,
+    "origin_guest_sha256": true,
+    "binary_sha256": true,
+    "toolchain": true,
+    "buildinfo": true,
+    "overlay": true
+  },
+  "binary_sha256": "9961996f2d0be424bba73b4f8cc43b943349529b58ed8b40377d19e2b31ffa5c",
+  "separate_cohort": true,
+  "old_receipts_relabelled": false
+}
