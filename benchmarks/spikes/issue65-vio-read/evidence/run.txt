@@ -1,0 +1,15 @@
+PASS:fragmented_header_and_payload_chunks_1_2_5
+PASS:two_frames_keep_sequence
+PASS:wrong_sequence_rejected
+PASS:sequence_wrap_255_to_0
+PASS:previous_sequence_non_error_rejected
+PASS:embedded_client_previous_sequence_ERR_exception_observed
+PASS:empty_packet
+PASS:EOF_mid_header
+PASS:EOF_mid_payload
+PASS:upstream_buffer_reallocation
+PASS:configured_limit_after_prior_growth
+PASS:over_limit_rejected_after_header
+PASS:ffffff_plus_tail_reassembled
+PASS:exact_ffffff_requires_empty_terminator
+PASS:missing_continuation_terminator_EOF

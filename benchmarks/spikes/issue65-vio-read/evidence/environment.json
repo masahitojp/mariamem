@@ -1,0 +1,11 @@
+{
+  "docker_image_id": "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+  "platform": "Linux/arm64",
+  "ASAN_OPTIONS": "quarantine_size_mb=16:detect_leaks=1",
+  "UBSAN_OPTIONS": "halt_on_error=1",
+  "network": "none",
+  "cpus": 1,
+  "memory_mib": 512,
+  "native_runs": 1,
+  "heavy_ci_submissions": 0
+}

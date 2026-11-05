@@ -1,0 +1,59 @@
+{
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "inputs_sha256": {
+    "sql/net_serv.cc": "7d7b8b8a8de1834099f350912ed9255a1f376565da407e8dc461f97c72f12c93",
+    "include/violite.h": "0be1b5c9a8fb6bed71d9a504c7eef69746fa2b388adcd8b68a3642608757f1d4",
+    "include/mysql_com.h": "75f5644c62eb9f20882b1730dc6525e45c4b1e58f3c4f97ff229e1aa7cbc986d"
+  },
+  "functions_sha256": {
+    "my_bool net_realloc(NET *net,": "f5692d1e9570ca0394c0b1766f7d2e7a0553991523fe1373be2809756e5c30b2",
+    "static handle_proxy_header_result handle_proxy_header(NET *net)": "e50e69ddc354d54342f0bfb561b1f54d0263d2d74bb347b04624a9c37688e701",
+    "static ulong my_real_read(NET *net,": "714a345c20e0af21487d11942ffe14d1ca0e84e36cbf9750ec2b6a33335943d9",
+    "ulong\nmy_net_read_packet_reallen(NET *net,": "bccc2be5bb9c8ed444e896c99913629c6ef5a710c2905043ba3c1fe5d950bc92",
+    "ulong\nmy_net_read_packet(NET *net,": "680a3d7cba0c7fd9d01985bf0dd60b88a6bd81fd31d773ffc6365b1dc756d6db",
+    "ulong my_net_read(NET *net)": "281e988f4c02f239668c19f23aa5fd072dd189192c88fecf194530ce6a2dd710"
+  },
+  "generated_source_sha256": "d8cfb38a2010d6aaf5eb31143e1a0660b16301b2cd06c57f697e0e796bb31a97",
+  "harness_sha256": "99d52d51de9612d4d0b9cc9e121f7a028e98172e5027a1b2032f6da7a6c45592",
+  "support_harness_sha256": "224ff8bc1da1e346e777a2df54b3833940f8c44ff7dab925c37908e5c3c123f1",
+  "profile": {
+    "EMBEDDED_LIBRARY": true,
+    "MYSQL_SERVER": false,
+    "HAVE_COMPRESS": false,
+    "pkt_nr_can_be_reset": false,
+    "retry_count": 0,
+    "extension": null
+  },
+  "compile_returncode": 0,
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": [
+    "-std=c++17",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer"
+  ],
+  "scope": "isolated native NET read/framing, not complete headers/ABI, THD, SQL or prepared integration",
+  "run_returncode": 0,
+  "cases": [
+    "fragmented_header_and_payload_chunks_1_2_5",
+    "two_frames_keep_sequence",
+    "wrong_sequence_rejected",
+    "sequence_wrap_255_to_0",
+    "previous_sequence_non_error_rejected",
+    "embedded_client_previous_sequence_ERR_exception_observed",
+    "empty_packet",
+    "EOF_mid_header",
+    "EOF_mid_payload",
+    "upstream_buffer_reallocation",
+    "configured_limit_after_prior_growth",
+    "over_limit_rejected_after_header",
+    "ffffff_plus_tail_reassembled",
+    "exact_ffffff_requires_empty_terminator",
+    "missing_continuation_terminator_EOF"
+  ],
+  "binary_sha256": "7559264098b3d0c755aedfe70329202d01de594b3e9199353bacd10b09c99bf9"
+}
