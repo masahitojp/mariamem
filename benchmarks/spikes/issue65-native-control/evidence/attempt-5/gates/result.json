@@ -1,0 +1,15 @@
+{
+  "name": "gates",
+  "passed": true,
+  "details": {
+    "checks": [
+      "busy_rejection_preserves_DB",
+      "transaction_rejection_preserves_DB",
+      "partial_header_busy",
+      "queued_insert_cannot_cross_fence",
+      "no_new_commands_after_fence"
+    ],
+    "effects_count": 0
+  },
+  "elapsed_seconds": 0.468868
+}

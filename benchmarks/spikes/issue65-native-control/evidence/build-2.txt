@@ -1,0 +1,9 @@
+Disk preflight OK: 31.00 GiB free, 1.60 GiB owned
+[1/8] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/net_serv.cc.o
+[2/8] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/lib_sql.cc.o
+[3/8] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_parse.cc.o
+[4/8] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_prepare.cc.o
+[5/8] Linking CXX static library libmysqld/libsql_embedded.a
+[6/8] Generating mysqlserver_depends.c
+[7/8] Building C object libmysqld/CMakeFiles/mysqlserver.dir/mysqlserver_depends.c.o
+[8/8] Linking CXX static library libmysqld/libmariadbd.a

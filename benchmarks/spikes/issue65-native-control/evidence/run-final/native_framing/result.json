@@ -1,0 +1,35 @@
+{
+  "name": "native_framing",
+  "passed": true,
+  "details": {
+    "checks": [
+      "maximum_SQL_frame_accepted",
+      "warm_buffer_over_limit_header_rejected_before_payload",
+      "wrong_sequence_not_dispatched",
+      "previous_sequence_ERR_rejected_by_server_NET"
+    ],
+    "warm": {
+      "result": 16,
+      "net_error": 1153,
+      "executions": 1,
+      "input_peak": 126976,
+      "output_peak": 95
+    },
+    "wrong": {
+      "result": 0,
+      "net_error": 1156,
+      "executions": 0,
+      "input_peak": 89,
+      "output_peak": 95
+    },
+    "previous_ERR": {
+      "result": 12,
+      "net_error": 1156,
+      "executions": 0,
+      "input_peak": 7,
+      "output_peak": 95
+    }
+  },
+  "elapsed_seconds": 0.176775,
+  "process_exit_code": 0
+}

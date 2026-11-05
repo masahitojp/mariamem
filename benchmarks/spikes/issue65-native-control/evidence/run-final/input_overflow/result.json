@@ -1,0 +1,60 @@
+{
+  "name": "input_overflow",
+  "passed": true,
+  "details": {
+    "checks": [
+      "one_byte_overflow_aborts_instance",
+      "input_payload_budget_exact",
+      "both_native_workers_joined"
+    ],
+    "full_input": {
+      "fenced": false,
+      "poisoned": false,
+      "cause": "",
+      "started": 2,
+      "joined": 0,
+      "stale": 0,
+      "denied": 0,
+      "retired_input_peak": 0,
+      "retired_output_peak": 0,
+      "sessions": [
+        {
+          "slot": 0,
+          "generation": 1,
+          "phase": "executing",
+          "command": 1,
+          "status": 2,
+          "input": 1048581,
+          "outstanding": 0,
+          "input_peak": 1048581,
+          "output_peak": 95
+        },
+        {
+          "slot": 1,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        }
+      ]
+    },
+    "final": {
+      "fenced": true,
+      "poisoned": true,
+      "cause": "pending_input_overflow",
+      "started": 2,
+      "joined": 2,
+      "stale": 0,
+      "denied": 0,
+      "retired_input_peak": 1048581,
+      "retired_output_peak": 95,
+      "sessions": []
+    }
+  },
+  "elapsed_seconds": 0.158162,
+  "process_exit_code": 0
+}

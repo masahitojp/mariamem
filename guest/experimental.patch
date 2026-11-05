@@ -1,37 +1,352 @@
---- a/sql/sql_class.h
-+++ b/sql/sql_class.h
-@@ -3393,6 +3393,7 @@
-   struct st_mysql_stmt *current_stmt;
- #endif
-   Query_cache_tls query_cache_tls;
-+  const bool mariamem_native_wire;
-   NET	  net;				// client connection descriptor
-   /** Additional network instrumentation for the server only. */
-   NET_SERVER m_net_server_extension;
-@@ -4611,7 +4612,7 @@
-     @param id                thread identifier
-     @param is_wsrep_applier  thread type
-   */
--  THD(my_thread_id id, bool is_wsrep_applier= false);
-+  THD(my_thread_id id, bool is_wsrep_applier= false, bool native_wire= false);
+--- a/include/violite.h
++++ b/include/violite.h
+@@ -38,7 +38,7 @@
+ enum enum_vio_type
+ {
+   VIO_CLOSED, VIO_TYPE_TCPIP, VIO_TYPE_SOCKET, VIO_TYPE_NAMEDPIPE,
+-  VIO_TYPE_SSL
++  VIO_TYPE_SSL, VIO_TYPE_MEMORY
+   /* see also vio_type_names[] */
+ };
  
-   ~THD();
+@@ -49,7 +49,7 @@
+ };
  
---- a/sql/sql_class.cc
-+++ b/sql/sql_class.cc
-@@ -710,10 +710,11 @@
-     return "UNKNOWN";
+ #define FIRST_VIO_TYPE VIO_CLOSED
+-#define LAST_VIO_TYPE VIO_TYPE_SSL
++#define LAST_VIO_TYPE VIO_TYPE_MEMORY
+ 
+ /**
+   VIO I/O events.
+--- a/libmysqld/lib_sql.cc
++++ b/libmysqld/lib_sql.cc
+@@ -702,9 +702,9 @@
+   create_new_thread(), and prepare_new_connection_state().  This should
+   be refactored to avoid code duplication.
+ */
+-void *create_embedded_thd(ulong client_flag)
+-{
+-  THD * thd= new THD(next_thread_id());
++static THD *create_spike_thd(ulong client_flag, bool wire)
++{
++  THD * thd= new THD(next_thread_id(), false, wire);
+ 
+   thd->thread_stack= (char*) &thd;
+   thd->store_globals();
+@@ -734,6 +734,9 @@
+   thd->reset_globals();
+   return thd;
  }
++
++
++extern "C" void *create_embedded_thd(ulong flags) { return create_spike_thd(flags,false); }
  
--THD::THD(my_thread_id id, bool is_wsrep_applier)
-+THD::THD(my_thread_id id, bool is_wsrep_applier, bool native_wire)
-   :Statement(&main_lex, &main_mem_root, STMT_CONVENTIONAL_EXECUTION,
-              /* statement id */ 0),
-    rli_fake(0), rgi_fake(0), rgi_slave(NULL),
-+   mariamem_native_wire(native_wire),
-    protocol_text(this), protocol_binary(this), initial_status_var(0),
-    m_current_stage_key(0), m_psi(0), start_time(0), start_time_sec_part(0),
-    in_sub_stmt(0), log_all_errors(0),
+ 
+ THD *embedded_get_current_thd()
+@@ -1054,6 +1057,7 @@
+ 
+ void Protocol_text::remove_last_row()
+ {
++  if (thd->mariamem_native_wire) return Protocol::remove_last_row();
+   MYSQL_DATA *data= thd->cur_data;
+   MYSQL_ROWS **last_row_hook= &data->data;
+   my_ulonglong count= data->rows;
+@@ -1107,6 +1111,8 @@
+                                          CHARSET_INFO *charset_for_protocol,
+                                          uint pos)
+ {
++  if (this->thd->mariamem_native_wire) return wire_store_field_metadata(thd, server_field, charset_for_protocol, pos);
++
+   CHARSET_INFO *cs= system_charset_info;
+   CHARSET_INFO *thd_cs= thd->variables.character_set_results;
+   MYSQL_DATA *data= thd->cur_data;
+@@ -1174,6 +1180,8 @@
+ 
+ bool Protocol::send_result_set_metadata(List<Item> *list, uint flags)
+ {
++  if (this->thd->mariamem_native_wire) return wire_send_result_set_metadata(list, flags);
++
+   List_iterator_fast<Item> it(*list);
+   Item                     *item;
+   Protocol_text prot(thd);
+@@ -1225,6 +1233,8 @@
+ 
+ bool Protocol::send_list_fields(List<Field> *list, const TABLE_LIST *table_list)
+ {
++  if (this->thd->mariamem_native_wire) return wire_send_list_fields(list, table_list);
++
+   DBUG_ENTER("send_result_set_metadata");
+   Protocol_text prot(thd);
+   List_iterator_fast<Field> it(*list);
+@@ -1252,6 +1262,8 @@
+ 
+ bool Protocol::write()
+ {
++  if (this->thd->mariamem_native_wire) return wire_write();
++
+   if (!thd->mysql)            // bootstrap file handling
+     return false;
+ 
+@@ -1261,6 +1273,8 @@
+ 
+ bool Protocol_binary::write()
+ {
++  if (thd->mariamem_native_wire) return wire_write();
++
+   MYSQL_ROWS *cur;
+   MYSQL_DATA *data= thd->cur_data;
+ 
+@@ -1305,8 +1319,10 @@
+ bool Protocol::net_send_ok(THD *thd,
+             uint server_status, uint statement_warn_count,
+             ulonglong affected_rows, ulonglong id, const char *message,
+-            bool)
+-{
++            bool is_eof)
++{
++  if (this->thd->mariamem_native_wire) return wire_net_send_ok(thd, server_status, statement_warn_count, affected_rows, id, message, is_eof);
++
+   DBUG_ENTER("emb_net_send_ok");
+   MYSQL_DATA *data;
+   MYSQL *mysql= thd->mysql;
+@@ -1339,6 +1355,8 @@
+ bool
+ Protocol::net_send_eof(THD *thd, uint server_status, uint statement_warn_count)
+ {
++  if (this->thd->mariamem_native_wire) return wire_net_send_eof(thd, server_status, statement_warn_count);
++
+   bool error= write_eof_packet(thd, server_status, statement_warn_count);
+   thd->cur_data= 0;
+   return error;
+@@ -1348,6 +1366,8 @@
+ bool Protocol::net_send_error_packet(THD *thd, uint sql_errno, const char *err,
+                                      const char *sqlstate)
+ {
++  if (this->thd->mariamem_native_wire) return wire_net_send_error_packet(thd, sql_errno, err, sqlstate);
++
+   uint error;
+   char converted_err[MYSQL_ERRMSG_SIZE];
+   MYSQL_DATA *data= thd->cur_data;
+@@ -1379,6 +1399,8 @@
+ 
+ void Protocol_text::prepare_for_resend()
+ {
++  if (this->thd->mariamem_native_wire) return wire_prepare_for_resend();
++
+   MYSQL_ROWS *cur;
+   MYSQL_DATA *data= thd->cur_data;
+   DBUG_ENTER("send_data");
+@@ -1407,6 +1429,8 @@
+ 
+ bool Protocol_text::store_null()
+ {
++  if (this->thd->mariamem_native_wire) return wire_store_null();
++
+   *(next_field++)= NULL;
+   ++next_mysql_field;
+   return false;
+@@ -1415,6 +1439,8 @@
+ 
+ bool Protocol::net_store_data(const uchar *from, size_t length)
+ {
++  if (this->thd->mariamem_native_wire) return wire_net_store_data(from, length);
++
+   char *field_buf;
+   if (!thd->mysql)            // bootstrap file handling
+     return FALSE;
+@@ -1436,6 +1462,8 @@
+ bool Protocol::net_store_data_cs(const uchar *from, size_t length,
+                               CHARSET_INFO *from_cs, CHARSET_INFO *to_cs)
+ {
++  if (this->thd->mariamem_native_wire) return wire_net_store_data_cs(from, length, from_cs, to_cs);
++
+   size_t conv_length= length * to_cs->mbmaxlen / from_cs->mbminlen;
+   uint dummy_error;
+   char *field_buf;
+@@ -1477,3 +1505,5 @@
+   }
+   return 0;
+ }
++
++#include "mariamem_wire_probe.inc"
+--- /dev/null
++++ b/libmysqld/mariamem_control_abi.h
+@@ -0,0 +1,17 @@
++#pragma once
++#include <cstddef>
++#include <cstdint>
++enum SpikeEvent { REGISTER_THD=1, AUTH_COMPLETE=2, ARM_COMMAND=3,
++  EXECUTE_START=4, COMMAND_COMPLETE=5, CONNECTION_COMPLETE=6, UNREGISTER_THD=7 };
++struct SpikeIO {
++ void *ctx;
++ size_t (*read)(void*,unsigned char*,size_t);
++ size_t (*write)(void*,const unsigned char*,size_t);
++ int (*error)(void*);
++ int (*wait)(void*,int,int);
++ void (*close)(void*);
++ int (*event)(void*,int,void*,unsigned);
++};
++extern "C" int mariamem_spike_control_session(SpikeIO*);
++extern "C" void mariamem_spike_kill(void*);
++extern "C" unsigned long mariamem_spike_decode_count();
+--- /dev/null
++++ b/libmysqld/mariamem_wire_probe.inc
+@@ -0,0 +1,104 @@
++/* Experiment-only native entry. All normal protocol bytes come from upstream. */
++#include "sql_acl.h"
++#include "sql_parse.h"
++#include <cerrno>
++#include "mariamem_control_abi.h"
++
++typedef size_t (*spike_read_cb)(void *, unsigned char *, size_t);
++typedef size_t (*spike_write_cb)(void *, const unsigned char *, size_t);
++struct SpikeVio {
++  Vio vio;
++  void *ctx;
++  spike_read_cb read_cb;
++  spike_write_cb write_cb;
++  SpikeIO *io;
++  int error;
++  bool blocking, timedout;
++};
++static SpikeVio *spike_v(Vio *v) { return reinterpret_cast<SpikeVio *>(v); }
++static size_t spike_read(Vio *v, uchar *p, size_t n) {
++  auto *s=spike_v(v);size_t r=s->read_cb(s->ctx,p,n);
++  s->error=(r==size_t(-1))?s->io->error(s->ctx):0;return r;
++}
++static size_t spike_write(Vio *v,const uchar *p,size_t n) {
++  auto *s=spike_v(v);size_t r=s->write_cb(s->ctx,p,n);
++  s->error=(r==size_t(-1))?s->io->error(s->ctx):0;return r;
++}
++static int spike_errno(Vio *v){return spike_v(v)->error;}
++static my_bool spike_false(Vio *){return false;}
++static my_bool spike_timeout(Vio *v){return spike_v(v)->error==ETIMEDOUT;}
++static int spike_set_timeout(Vio *,uint,my_bool){return 0;}
++static int spike_blocking(Vio *v,my_bool b,my_bool *old){*old=spike_v(v)->blocking;spike_v(v)->blocking=b;return 0;}
++static my_bool spike_is_blocking(Vio *v){return spike_v(v)->blocking;}
++static int spike_nop(Vio *){return 0;}
++static int spike_keepalive(Vio *,my_bool){return 0;}
++static my_bool spike_peer(Vio *,char *p,uint16 *port,size_t n){snprintf(p,n,"127.0.0.1");*port=0;return false;}
++static void spike_addr(Vio *,struct sockaddr_storage *a){memset(a,0,sizeof(*a));auto *s=(struct sockaddr_in*)a;s->sin_family=AF_INET;s->sin_addr.s_addr=htonl(INADDR_LOOPBACK);}
++static int spike_close(Vio *v){v->state=VIO_STATE_CLOSED;spike_v(v)->io->close(spike_v(v)->ctx);return 0;}
++static int spike_shutdown(Vio *v,int){v->state=VIO_STATE_SHUTDOWN;spike_v(v)->io->close(spike_v(v)->ctx);return 0;}
++static my_bool spike_connected(Vio *v){return v->state==VIO_STATE_ACTIVE;}
++static int spike_wait(Vio *v,enum enum_vio_io_event e,int ms){auto *s=spike_v(v);return s->io->wait(s->ctx,int(e),ms);}
++static void spike_delete(Vio *v){spike_close(v);}
++extern unsigned long mariamem_spike_decodes;
++extern "C" unsigned long mariamem_spike_decode_count(){return __atomic_load_n(&mariamem_spike_decodes,__ATOMIC_RELAXED);}
++// The caller pins the THD under its admission lock until UNREGISTER_THD.
++extern "C" void mariamem_spike_kill(void *p) { static_cast<THD*>(p)->awake(KILL_CONNECTION); }
++void mariamem_spike_dispatch_start(THD *thd) {
++ if(!thd->mariamem_native_wire)return;
++ auto *s=spike_v(thd->net.vio);
++ s->io->event(s->ctx,EXECUTE_START,thd,thd->server_status);
++}
++extern "C" int mariamem_spike_control_session(SpikeIO *io)
++{
++  SpikeVio transport{};Vio *vio=&transport.vio;
++  transport.ctx=io->ctx;transport.read_cb=io->read;transport.write_cb=io->write;transport.io=io;transport.blocking=true;
++  vio->mysql_socket.fd=INVALID_SOCKET;vio->type=VIO_TYPE_MEMORY;
++  vio->state=VIO_STATE_ACTIVE;vio->desc="spike memory queue";vio->localhost=true;
++  vio->read=spike_read;vio->write=spike_write;vio->vioerrno=spike_errno;
++  vio->should_retry=spike_false;vio->was_timeout=spike_timeout;vio->timeout=spike_set_timeout;
++  vio->vioblocking=spike_blocking;vio->is_blocking=spike_is_blocking;
++  vio->fastsend=spike_nop;vio->viokeepalive=spike_keepalive;
++  vio->peer_addr=spike_peer;vio->in_addr=spike_addr;vio->vioclose=spike_close;
++  vio->shutdown=spike_shutdown;vio->is_connected=spike_connected;vio->has_data=spike_false;
++  vio->io_wait=spike_wait;vio->viodelete=spike_delete;
++  THD *old=current_thd;THD *thd=create_spike_thd(0,true);
++  thd->thread_stack=(char*)&thd;thd->store_globals();
++  auto *s=thd->security_ctx;s->host_or_ip=s->host=(char*)my_localhost;
++  int result=0;
++  if(my_net_init(&thd->net,vio,thd,MYF(MY_THREAD_SPECIFIC)))result=11;
++  if(io->event(io->ctx,REGISTER_THD,thd,0))result=17;
++  if(!result && acl_authenticate(thd,0))result=12;
++  else if(!result) {
++    // The product ignores placeholder credentials and executes as its fixed root.
++    my_free(const_cast<char *>(s->user));s->user=my_strdup(PSI_NOT_INSTRUMENTED,"root",MYF(0));
++    s->host_or_ip=s->host=(char*)my_localhost;
++    strmake_buf(s->priv_user,"root");strmake_buf(s->priv_host,"localhost");
++  }
++  if(!result) {
++    thd->protocol->end_statement();
++    if(net_flush(&thd->net))result=13;
++    else if(io->event(io->ctx,AUTH_COMPLETE,thd,thd->server_status))result=17;
++  }
++  while(!result){
++    if(thd->client_params!=NULL)abort();
++    if(io->event(io->ctx,ARM_COMMAND,thd,thd->server_status)){result=17;break;}
++    auto rc=do_command(thd,true);
++    if(rc==DISPATCH_COMMAND_CLOSE_CONNECTION){
++      net_flush(&thd->net);
++      io->event(io->ctx,CONNECTION_COMPLETE,thd,thd->server_status);
++      if(thd->net.error)result=16;
++      break;
++    }
++    if(rc!=DISPATCH_COMMAND_SUCCESS){result=14;break;}
++    if(net_flush(&thd->net)){result=15;break;}
++    if(io->event(io->ctx,COMMAND_COMPLETE,thd,thd->server_status)){result=17;break;}
++  }
++  io->event(io->ctx,UNREGISTER_THD,thd,thd->net.last_errno ? thd->net.last_errno : thd->get_stmt_da()->sql_errno());
++  thd->cleanup();
++  server_threads.erase(thd);
++  net_end(&thd->net);thd->net.vio=NULL;
++  delete thd;
++  set_current_thd(NULL);if(old)old->store_globals();
++  fprintf(stderr,"SESSION_RETIRED result=%d decodes=%lu\n",result,mariamem_spike_decode_count());
++  return result;
++}
+--- a/sql-common/client.c
++++ b/sql-common/client.c
+@@ -2405,6 +2405,7 @@
+ {
+   bzero(info, sizeof(*info));
+   switch (vio->type) {
++  case VIO_TYPE_MEMORY:
+   case VIO_TYPE_TCPIP:
+     info->protocol= MYSQL_VIO_TCP;
+     info->socket= (int)vio_fd(vio);
+--- a/sql/item.h
++++ b/sql/item.h
+@@ -4578,8 +4578,11 @@
+   void set_param_double(uchar **pos, ulong len);
+   void set_param_decimal(uchar **pos, ulong len);
+   void set_param_time(uchar **pos, ulong len);
++  void set_param_time_embedded(uchar **pos, ulong len);
+   void set_param_datetime(uchar **pos, ulong len);
++  void set_param_datetime_embedded(uchar **pos, ulong len);
+   void set_param_date(uchar **pos, ulong len);
++  void set_param_date_embedded(uchar **pos, ulong len);
+   void set_param_str(uchar **pos, ulong len);
+ 
+   void setup_conversion(THD *thd, uchar param_type);
+--- a/sql/net_serv.cc
++++ b/sql/net_serv.cc
+@@ -53,7 +53,7 @@
+ PSI_memory_key key_memory_NET_buff;
+ PSI_memory_key key_memory_NET_compress_packet;
+ 
+-#ifdef EMBEDDED_LIBRARY
++#if defined(EMBEDDED_LIBRARY) && !defined(MARIAMEM_NATIVE_WIRE)
+ #undef MYSQL_SERVER
+ #undef MYSQL_CLIENT
+ #define MYSQL_CLIENT
+@@ -950,6 +950,15 @@
+ #endif
+ 
+       len= uint3korr(net->buff + net->where_b);
++      if (net->thd && static_cast<THD*>(net->thd)->mariamem_native_wire &&
++          (len == 0 || len > 1048577UL))
++      {
++        net->error= 1;
++        net->last_errno= ER_NET_PACKET_TOO_LARGE;
++        MYSQL_SERVER_my_error(ER_NET_PACKET_TOO_LARGE, MYF(0));
++        len= packet_error;
++        goto end;
++      }
+       if (!len) /* End of big multi-packet */
+         goto end;
+       helping= MY_MAX(len, *complen) + net->where_b;
 --- a/sql/protocol.cc
 +++ b/sql/protocol.cc
 @@ -28,7 +28,7 @@
@@ -198,149 +513,6 @@
 +{ return wire_net_store_data(p,n); }
 +bool Protocol_binary::net_store_data_cs(const uchar *p, size_t n, CHARSET_INFO *f, CHARSET_INFO *t)
 +{ return wire_net_store_data_cs(p,n,f,t); }
---- a/libmysqld/lib_sql.cc
-+++ b/libmysqld/lib_sql.cc
-@@ -702,9 +702,9 @@
-   create_new_thread(), and prepare_new_connection_state().  This should
-   be refactored to avoid code duplication.
- */
--void *create_embedded_thd(ulong client_flag)
--{
--  THD * thd= new THD(next_thread_id());
-+static THD *create_spike_thd(ulong client_flag, bool wire)
-+{
-+  THD * thd= new THD(next_thread_id(), false, wire);
- 
-   thd->thread_stack= (char*) &thd;
-   thd->store_globals();
-@@ -734,6 +734,9 @@
-   thd->reset_globals();
-   return thd;
- }
-+
-+
-+extern "C" void *create_embedded_thd(ulong flags) { return create_spike_thd(flags,false); }
- 
- 
- THD *embedded_get_current_thd()
-@@ -1107,6 +1110,8 @@
-                                          CHARSET_INFO *charset_for_protocol,
-                                          uint pos)
- {
-+  if (this->thd->mariamem_native_wire) return wire_store_field_metadata(thd, server_field, charset_for_protocol, pos);
-+
-   CHARSET_INFO *cs= system_charset_info;
-   CHARSET_INFO *thd_cs= thd->variables.character_set_results;
-   MYSQL_DATA *data= thd->cur_data;
-@@ -1174,6 +1179,8 @@
- 
- bool Protocol::send_result_set_metadata(List<Item> *list, uint flags)
- {
-+  if (this->thd->mariamem_native_wire) return wire_send_result_set_metadata(list, flags);
-+
-   List_iterator_fast<Item> it(*list);
-   Item                     *item;
-   Protocol_text prot(thd);
-@@ -1225,6 +1232,8 @@
- 
- bool Protocol::send_list_fields(List<Field> *list, const TABLE_LIST *table_list)
- {
-+  if (this->thd->mariamem_native_wire) return wire_send_list_fields(list, table_list);
-+
-   DBUG_ENTER("send_result_set_metadata");
-   Protocol_text prot(thd);
-   List_iterator_fast<Field> it(*list);
-@@ -1252,6 +1261,8 @@
- 
- bool Protocol::write()
- {
-+  if (this->thd->mariamem_native_wire) return wire_write();
-+
-   if (!thd->mysql)            // bootstrap file handling
-     return false;
- 
-@@ -1261,6 +1272,8 @@
- 
- bool Protocol_binary::write()
- {
-+  if (thd->mariamem_native_wire) return wire_write();
-+
-   MYSQL_ROWS *cur;
-   MYSQL_DATA *data= thd->cur_data;
- 
-@@ -1305,8 +1318,10 @@
- bool Protocol::net_send_ok(THD *thd,
-             uint server_status, uint statement_warn_count,
-             ulonglong affected_rows, ulonglong id, const char *message,
--            bool)
--{
-+            bool is_eof)
-+{
-+  if (this->thd->mariamem_native_wire) return wire_net_send_ok(thd, server_status, statement_warn_count, affected_rows, id, message, is_eof);
-+
-   DBUG_ENTER("emb_net_send_ok");
-   MYSQL_DATA *data;
-   MYSQL *mysql= thd->mysql;
-@@ -1339,6 +1354,8 @@
- bool
- Protocol::net_send_eof(THD *thd, uint server_status, uint statement_warn_count)
- {
-+  if (this->thd->mariamem_native_wire) return wire_net_send_eof(thd, server_status, statement_warn_count);
-+
-   bool error= write_eof_packet(thd, server_status, statement_warn_count);
-   thd->cur_data= 0;
-   return error;
-@@ -1348,6 +1365,8 @@
- bool Protocol::net_send_error_packet(THD *thd, uint sql_errno, const char *err,
-                                      const char *sqlstate)
- {
-+  if (this->thd->mariamem_native_wire) return wire_net_send_error_packet(thd, sql_errno, err, sqlstate);
-+
-   uint error;
-   char converted_err[MYSQL_ERRMSG_SIZE];
-   MYSQL_DATA *data= thd->cur_data;
-@@ -1379,6 +1398,8 @@
- 
- void Protocol_text::prepare_for_resend()
- {
-+  if (this->thd->mariamem_native_wire) return wire_prepare_for_resend();
-+
-   MYSQL_ROWS *cur;
-   MYSQL_DATA *data= thd->cur_data;
-   DBUG_ENTER("send_data");
-@@ -1407,6 +1428,8 @@
- 
- bool Protocol_text::store_null()
- {
-+  if (this->thd->mariamem_native_wire) return wire_store_null();
-+
-   *(next_field++)= NULL;
-   ++next_mysql_field;
-   return false;
-@@ -1415,6 +1438,8 @@
- 
- bool Protocol::net_store_data(const uchar *from, size_t length)
- {
-+  if (this->thd->mariamem_native_wire) return wire_net_store_data(from, length);
-+
-   char *field_buf;
-   if (!thd->mysql)            // bootstrap file handling
-     return FALSE;
-@@ -1436,6 +1461,8 @@
- bool Protocol::net_store_data_cs(const uchar *from, size_t length,
-                               CHARSET_INFO *from_cs, CHARSET_INFO *to_cs)
- {
-+  if (this->thd->mariamem_native_wire) return wire_net_store_data_cs(from, length, from_cs, to_cs);
-+
-   size_t conv_length= length * to_cs->mbmaxlen / from_cs->mbminlen;
-   uint dummy_error;
-   char *field_buf;
-@@ -1477,3 +1504,5 @@
-   }
-   return 0;
- }
-+
-+#include "mariamem_wire_probe.inc"
 --- a/sql/protocol.h
 +++ b/sql/protocol.h
 @@ -38,6 +38,24 @@
@@ -384,17 +556,138 @@
    StringBuffer<FLOATING_POINT_BUFFER> buffer;
    bool store_numeric_string_aux(const char *from, size_t length);
  public:
---- a/sql/net_serv.cc
-+++ b/sql/net_serv.cc
-@@ -53,7 +53,7 @@
- PSI_memory_key key_memory_NET_buff;
- PSI_memory_key key_memory_NET_compress_packet;
+--- a/sql/sql_acl.cc
++++ b/sql/sql_acl.cc
+@@ -115,6 +115,11 @@
  
--#ifdef EMBEDDED_LIBRARY
-+#if defined(EMBEDDED_LIBRARY) && !defined(MARIAMEM_NATIVE_WIRE)
- #undef MYSQL_SERVER
- #undef MYSQL_CLIENT
- #define MYSQL_CLIENT
+ static plugin_ref get_auth_plugin(THD *thd, const LEX_CSTRING &name, bool *locked)
+ {
++  if (thd && thd->mariamem_native_wire) {
++    *locked=true;
++    return my_plugin_lock_by_name(thd, &name, MYSQL_AUTHENTICATION_PLUGIN);
++  }
++
+   if (name.str == native_password_plugin_name.str)
+     return native_password_plugin;
+   else if (name.str == old_password_plugin_name.str)
+@@ -13761,6 +13766,11 @@
+    MySQL authentication plugins.
+ ****************************************************************************/
+ 
++#ifdef NO_EMBEDDED_ACCESS_CHECKS
++// Same non-SSL constants as the upstream ACL-only definition.
++#define MIN_HANDSHAKE_SIZE 6
++#define NORMAL_HANDSHAKE_SIZE 6
++#endif
+ /* few defines to have less ifdef's in the code below */
+ #ifdef EMBEDDED_LIBRARY
+ #undef HAVE_OPENSSL
+@@ -13918,6 +13928,9 @@
+     data_len= SCRAMBLE_LENGTH;
+   }
+ 
++  if (thd->mariamem_native_wire)
++    thd->client_capabilities= 1ULL|4|8|512|8192|32768|65536|131072|524288|262144;
++
+   end= strnmov(end, server_version, SERVER_VERSION_LENGTH) + 1;
+ 
+   int4store((uchar*) end, mpvio->auth_info.thd->thread_id);
+@@ -14425,7 +14438,7 @@
+ }
+ 
+ 
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(MARIAMEM_NATIVE_WIRE)
+ /**
+   Check that a client uses secure connection type in case the option
+   require_secure_transport is on.
+@@ -14457,7 +14470,7 @@
+ static ulong parse_client_handshake_packet(MPVIO_EXT *mpvio,
+                                            uchar **buff, ulong pkt_len)
+ {
+-#ifndef EMBEDDED_LIBRARY
++if (mpvio->auth_info.thd->mariamem_native_wire) {
+   THD *thd= mpvio->auth_info.thd;
+   NET *net= &thd->net;
+   char *end;
+@@ -14675,6 +14688,7 @@
+     return packet_error;
+   }
+ 
++#ifndef NO_EMBEDDED_ACCESS_CHECKS
+   thd->password= passwd_len > 0;
+   if (find_mpvio_user(mpvio))
+     return packet_error;
+@@ -14751,8 +14765,12 @@
+   *buff= (uchar*) passwd;
+   return (ulong)passwd_len;
+ #else
++  return packet_error; // initialized is zero; native skip-grants returned above.
++#endif
++}
++else {
+   return 0;
+-#endif
++}
+ }
+ 
+ 
+--- a/sql/sql_class.cc
++++ b/sql/sql_class.cc
+@@ -710,10 +710,11 @@
+     return "UNKNOWN";
+ }
+ 
+-THD::THD(my_thread_id id, bool is_wsrep_applier)
++THD::THD(my_thread_id id, bool is_wsrep_applier, bool native_wire)
+   :Statement(&main_lex, &main_mem_root, STMT_CONVENTIONAL_EXECUTION,
+              /* statement id */ 0),
+    rli_fake(0), rgi_fake(0), rgi_slave(NULL),
++   mariamem_native_wire(native_wire),
+    protocol_text(this), protocol_binary(this), initial_status_var(0),
+    m_current_stage_key(0), m_psi(0), start_time(0), start_time_sec_part(0),
+    in_sub_stmt(0), log_all_errors(0),
+--- a/sql/sql_class.h
++++ b/sql/sql_class.h
+@@ -3393,6 +3393,7 @@
+   struct st_mysql_stmt *current_stmt;
+ #endif
+   Query_cache_tls query_cache_tls;
++  const bool mariamem_native_wire;
+   NET	  net;				// client connection descriptor
+   /** Additional network instrumentation for the server only. */
+   NET_SERVER m_net_server_extension;
+@@ -4611,7 +4612,7 @@
+     @param id                thread identifier
+     @param is_wsrep_applier  thread type
+   */
+-  THD(my_thread_id id, bool is_wsrep_applier= false);
++  THD(my_thread_id id, bool is_wsrep_applier= false, bool native_wire= false);
+ 
+   ~THD();
+ 
+--- a/sql/sql_parse.cc
++++ b/sql/sql_parse.cc
+@@ -1176,7 +1176,7 @@
+ }
+ #endif /* WITH_WSREP */
+ 
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(MARIAMEM_NATIVE_WIRE)
+ static enum enum_server_command fetch_command(THD *thd, char *packet)
+ {
+   enum enum_server_command
+@@ -1434,6 +1434,10 @@
+   DBUG_ASSERT(!thd->apc_target.is_enabled());
+ 
+ resume:
++  if (thd->mariamem_native_wire) {
++    extern void mariamem_spike_dispatch_start(THD*);
++    mariamem_spike_dispatch_start(thd);
++  }
+   return_value= dispatch_command(command, thd, packet+1,
+                                  (uint) (packet_length-1), blocking);
+   if (return_value == DISPATCH_COMMAND_WOULDBLOCK)
 --- a/sql/sql_prepare.cc
 +++ b/sql/sql_prepare.cc
 @@ -118,6 +118,8 @@
@@ -778,7 +1071,7 @@
 +if (thd->mariamem_native_wire) {
 +    if (thd->client_params != NULL) abort();
 +    extern unsigned long mariamem_spike_decodes;
-+    ++mariamem_spike_decodes;
++    __atomic_fetch_add(&mariamem_spike_decodes,1UL,__ATOMIC_RELAXED);
      uchar *null_array= packet;
      res= (setup_conversion_functions(this, &packet) ||
            set_params(this, null_array, packet, packet_end, expanded_query));
@@ -829,219 +1122,3 @@
  }
 +
 +unsigned long mariamem_spike_decodes= 0;
---- a/sql/item.h
-+++ b/sql/item.h
-@@ -4578,8 +4578,11 @@
-   void set_param_double(uchar **pos, ulong len);
-   void set_param_decimal(uchar **pos, ulong len);
-   void set_param_time(uchar **pos, ulong len);
-+  void set_param_time_embedded(uchar **pos, ulong len);
-   void set_param_datetime(uchar **pos, ulong len);
-+  void set_param_datetime_embedded(uchar **pos, ulong len);
-   void set_param_date(uchar **pos, ulong len);
-+  void set_param_date_embedded(uchar **pos, ulong len);
-   void set_param_str(uchar **pos, ulong len);
- 
-   void setup_conversion(THD *thd, uchar param_type);
---- a/include/violite.h
-+++ b/include/violite.h
-@@ -38,7 +38,7 @@
- enum enum_vio_type
- {
-   VIO_CLOSED, VIO_TYPE_TCPIP, VIO_TYPE_SOCKET, VIO_TYPE_NAMEDPIPE,
--  VIO_TYPE_SSL
-+  VIO_TYPE_SSL, VIO_TYPE_MEMORY
-   /* see also vio_type_names[] */
- };
- 
-@@ -49,7 +49,7 @@
- };
- 
- #define FIRST_VIO_TYPE VIO_CLOSED
--#define LAST_VIO_TYPE VIO_TYPE_SSL
-+#define LAST_VIO_TYPE VIO_TYPE_MEMORY
- 
- /**
-   VIO I/O events.
---- a/sql-common/client.c
-+++ b/sql-common/client.c
-@@ -2405,6 +2405,7 @@
- {
-   bzero(info, sizeof(*info));
-   switch (vio->type) {
-+  case VIO_TYPE_MEMORY:
-   case VIO_TYPE_TCPIP:
-     info->protocol= MYSQL_VIO_TCP;
-     info->socket= (int)vio_fd(vio);
---- a/sql/sql_acl.cc
-+++ b/sql/sql_acl.cc
-@@ -115,6 +115,11 @@
- 
- static plugin_ref get_auth_plugin(THD *thd, const LEX_CSTRING &name, bool *locked)
- {
-+  if (thd && thd->mariamem_native_wire) {
-+    *locked=true;
-+    return my_plugin_lock_by_name(thd, &name, MYSQL_AUTHENTICATION_PLUGIN);
-+  }
-+
-   if (name.str == native_password_plugin_name.str)
-     return native_password_plugin;
-   else if (name.str == old_password_plugin_name.str)
-@@ -13761,6 +13766,11 @@
-    MySQL authentication plugins.
- ****************************************************************************/
- 
-+#ifdef NO_EMBEDDED_ACCESS_CHECKS
-+// Same non-SSL constants as the upstream ACL-only definition.
-+#define MIN_HANDSHAKE_SIZE 6
-+#define NORMAL_HANDSHAKE_SIZE 6
-+#endif
- /* few defines to have less ifdef's in the code below */
- #ifdef EMBEDDED_LIBRARY
- #undef HAVE_OPENSSL
-@@ -13918,6 +13928,9 @@
-     data_len= SCRAMBLE_LENGTH;
-   }
- 
-+  if (thd->mariamem_native_wire)
-+    thd->client_capabilities= 1ULL|4|8|512|8192|32768|65536|131072|524288|262144;
-+
-   end= strnmov(end, server_version, SERVER_VERSION_LENGTH) + 1;
- 
-   int4store((uchar*) end, mpvio->auth_info.thd->thread_id);
-@@ -14425,7 +14438,7 @@
- }
- 
- 
--#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(MARIAMEM_NATIVE_WIRE)
- /**
-   Check that a client uses secure connection type in case the option
-   require_secure_transport is on.
-@@ -14457,7 +14470,7 @@
- static ulong parse_client_handshake_packet(MPVIO_EXT *mpvio,
-                                            uchar **buff, ulong pkt_len)
- {
--#ifndef EMBEDDED_LIBRARY
-+if (mpvio->auth_info.thd->mariamem_native_wire) {
-   THD *thd= mpvio->auth_info.thd;
-   NET *net= &thd->net;
-   char *end;
-@@ -14675,6 +14688,7 @@
-     return packet_error;
-   }
- 
-+#ifndef NO_EMBEDDED_ACCESS_CHECKS
-   thd->password= passwd_len > 0;
-   if (find_mpvio_user(mpvio))
-     return packet_error;
-@@ -14751,8 +14765,12 @@
-   *buff= (uchar*) passwd;
-   return (ulong)passwd_len;
- #else
-+  return packet_error; // initialized is zero; native skip-grants returned above.
-+#endif
-+}
-+else {
-   return 0;
--#endif
-+}
- }
- 
- 
---- a/sql/sql_parse.cc
-+++ b/sql/sql_parse.cc
-@@ -1176,7 +1176,7 @@
- }
- #endif /* WITH_WSREP */
- 
--#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(MARIAMEM_NATIVE_WIRE)
- static enum enum_server_command fetch_command(THD *thd, char *packet)
- {
-   enum enum_server_command
---- /dev/null
-+++ b/libmysqld/mariamem_wire_probe.inc
-@@ -0,0 +1,82 @@
-+/* Experiment-only native entry. All normal protocol bytes come from upstream. */
-+#include "sql_acl.h"
-+#include "sql_parse.h"
-+#include <cerrno>
-+
-+typedef size_t (*spike_read_cb)(void *, unsigned char *, size_t);
-+typedef size_t (*spike_write_cb)(void *, const unsigned char *, size_t);
-+struct SpikeVio {
-+  Vio vio;
-+  void *ctx;
-+  spike_read_cb read_cb;
-+  spike_write_cb write_cb;
-+  int error;
-+  bool blocking, timedout;
-+};
-+static SpikeVio *spike_v(Vio *v) { return reinterpret_cast<SpikeVio *>(v); }
-+static size_t spike_read(Vio *v, uchar *p, size_t n) {
-+  auto *s=spike_v(v);size_t r=s->read_cb(s->ctx,p,n);
-+  s->error=(r==size_t(-1))?EIO:0;return r;
-+}
-+static size_t spike_write(Vio *v,const uchar *p,size_t n) {
-+  auto *s=spike_v(v);size_t r=s->write_cb(s->ctx,p,n);
-+  s->error=(r==size_t(-1))?EIO:0;return r;
-+}
-+static int spike_errno(Vio *v){return spike_v(v)->error;}
-+static my_bool spike_false(Vio *){return false;}
-+static my_bool spike_timeout(Vio *v){return spike_v(v)->timedout;}
-+static int spike_set_timeout(Vio *,uint,my_bool){return 0;}
-+static int spike_blocking(Vio *v,my_bool b,my_bool *old){*old=spike_v(v)->blocking;spike_v(v)->blocking=b;return 0;}
-+static my_bool spike_is_blocking(Vio *v){return spike_v(v)->blocking;}
-+static int spike_nop(Vio *){return 0;}
-+static int spike_keepalive(Vio *,my_bool){return 0;}
-+static my_bool spike_peer(Vio *,char *p,uint16 *port,size_t n){snprintf(p,n,"127.0.0.1");*port=0;return false;}
-+static void spike_addr(Vio *,struct sockaddr_storage *a){memset(a,0,sizeof(*a));auto *s=(struct sockaddr_in*)a;s->sin_family=AF_INET;s->sin_addr.s_addr=htonl(INADDR_LOOPBACK);}
-+static int spike_close(Vio *v){v->state=VIO_STATE_CLOSED;return 0;}
-+static int spike_shutdown(Vio *v,int){v->state=VIO_STATE_SHUTDOWN;return 0;}
-+static my_bool spike_connected(Vio *v){return v->state==VIO_STATE_ACTIVE;}
-+static int spike_wait(Vio *,enum enum_vio_io_event,int){return 1;}
-+static void spike_delete(Vio *v){spike_close(v);}
-+extern unsigned long mariamem_spike_decodes;
-+extern "C" unsigned long mariamem_spike_decode_count(){return mariamem_spike_decodes;}
-+extern "C" int mariamem_spike_session(void *ctx,spike_read_cb read_cb,spike_write_cb write_cb)
-+{
-+  SpikeVio transport{};Vio *vio=&transport.vio;
-+  transport.ctx=ctx;transport.read_cb=read_cb;transport.write_cb=write_cb;transport.blocking=true;
-+  vio->mysql_socket.fd=INVALID_SOCKET;vio->type=VIO_TYPE_MEMORY;
-+  vio->state=VIO_STATE_ACTIVE;vio->desc="spike memory queue";vio->localhost=true;
-+  vio->read=spike_read;vio->write=spike_write;vio->vioerrno=spike_errno;
-+  vio->should_retry=spike_false;vio->was_timeout=spike_timeout;vio->timeout=spike_set_timeout;
-+  vio->vioblocking=spike_blocking;vio->is_blocking=spike_is_blocking;
-+  vio->fastsend=spike_nop;vio->viokeepalive=spike_keepalive;
-+  vio->peer_addr=spike_peer;vio->in_addr=spike_addr;vio->vioclose=spike_close;
-+  vio->shutdown=spike_shutdown;vio->is_connected=spike_connected;vio->has_data=spike_false;
-+  vio->io_wait=spike_wait;vio->viodelete=spike_delete;
-+  THD *old=current_thd;THD *thd=create_spike_thd(0,true);
-+  thd->thread_stack=(char*)&thd;thd->store_globals();
-+  auto *s=thd->security_ctx;s->host_or_ip=s->host=(char*)my_localhost;
-+  if(my_net_init(&thd->net,vio,thd,MYF(MY_THREAD_SPECIFIC)))return 11;
-+  int result=0;
-+  if(acl_authenticate(thd,0))result=12;
-+  else {
-+    // The product ignores placeholder credentials and executes as its fixed root.
-+    my_free(const_cast<char *>(s->user));s->user=my_strdup(PSI_NOT_INSTRUMENTED,"root",MYF(0));
-+    s->host_or_ip=s->host=(char*)my_localhost;
-+    strmake_buf(s->priv_user,"root");strmake_buf(s->priv_host,"localhost");
-+  }
-+  thd->protocol->end_statement();
-+  if(net_flush(&thd->net))result=13;
-+  while(!result){
-+    if(thd->client_params!=NULL)abort();
-+    auto rc=do_command(thd,true);
-+    if(rc==DISPATCH_COMMAND_CLOSE_CONNECTION){if(thd->net.error)result=16;break;}
-+    if(rc!=DISPATCH_COMMAND_SUCCESS){result=14;break;}
-+    if(net_flush(&thd->net)){result=15;break;}
-+  }
-+  server_threads.erase(thd);
-+  net_end(&thd->net);thd->net.vio=NULL;
-+  delete thd;
-+  set_current_thd(NULL);if(old)old->store_globals();
-+  fprintf(stderr,"SESSION_RETIRED result=%d decodes=%lu\n",result,mariamem_spike_decodes);
-+  return result;
-+}

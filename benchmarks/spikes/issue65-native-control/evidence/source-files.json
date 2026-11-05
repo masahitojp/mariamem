@@ -1,0 +1,58 @@
+{
+  "include/violite.h": {
+    "before_sha256": "0be1b5c9a8fb6bed71d9a504c7eef69746fa2b388adcd8b68a3642608757f1d4",
+    "after_sha256": "e9325ba0c03ee52d6852921cd8fb636d25df49ea1dfaaff00c2d70006a128c0b"
+  },
+  "libmysqld/lib_sql.cc": {
+    "before_sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
+    "after_sha256": "55d931cf2a125157d650daefa8cc792aa586d2aec45cc9cead2ae427dc9e0931"
+  },
+  "libmysqld/mariamem_control_abi.h": {
+    "before_sha256": null,
+    "after_sha256": "c5c7970f623e6b5dce79b6cd1901c73f8ab4c541d1e77b46a164a67742cb5f92"
+  },
+  "libmysqld/mariamem_wire_probe.inc": {
+    "before_sha256": null,
+    "after_sha256": "1cf475870b208795098940cee11975031f9331f6cb3a1a8f640759ee262698fb"
+  },
+  "sql-common/client.c": {
+    "before_sha256": "40d26fe8713eaa276c8b095ec055034eea4f31162c49e2feb9b7254ec0bdf3a6",
+    "after_sha256": "92c3aae9f9cdf0abcf51715b0ecaaa7933145b6b2e81204eccc2c476b8ba8db0"
+  },
+  "sql/item.h": {
+    "before_sha256": "158e3e6dc8d91a3ee96a49018e64823ee55fc33a0c0b9dc0d2e36d99efdaf951",
+    "after_sha256": "a5a9ce7c440b3a2991c7699b8a43bc7a68b6bc986d90d5f5938bb8df74c6b10f"
+  },
+  "sql/net_serv.cc": {
+    "before_sha256": "7d7b8b8a8de1834099f350912ed9255a1f376565da407e8dc461f97c72f12c93",
+    "after_sha256": "3366bcfbf34bafaa7e338e4a13408eea9fa2b3a8cf3328ca7a576039f1d86aea"
+  },
+  "sql/protocol.cc": {
+    "before_sha256": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242",
+    "after_sha256": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703"
+  },
+  "sql/protocol.h": {
+    "before_sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+    "after_sha256": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7"
+  },
+  "sql/sql_acl.cc": {
+    "before_sha256": "04e3ed5d52bf7d90b154920cabc33f9c2b8eeea75264f72d0d610906289849d5",
+    "after_sha256": "b4b101de3298877f770a40f056bada4de2abd987e11da8e7699c21f0c51fb5e7"
+  },
+  "sql/sql_class.cc": {
+    "before_sha256": "5f9127318c77887731f265d58d1c8531422cfb68b6fbf637300543d53cfd26c6",
+    "after_sha256": "c21fbcfa8b38b4a4ca11075435a856046b07804a76382d578835d85819d7167e"
+  },
+  "sql/sql_class.h": {
+    "before_sha256": "0f0872cf1ba053709938849fe13ef18e61ef12f1fec288d6f2b08df23f6bcc28",
+    "after_sha256": "f346f98960cb626755adb07256345ca3b70bdebaa8e493d049fcb3831c036276"
+  },
+  "sql/sql_parse.cc": {
+    "before_sha256": "d4fcbe0d53e2474ec9730294101549ca84c1b619fcdf6c1c37de9d70cf88fa85",
+    "after_sha256": "8ad987743653b458316b5e0190d03c256b2f873bd027900ba1b31b77dd668af7"
+  },
+  "sql/sql_prepare.cc": {
+    "before_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+    "after_sha256": "e2a2ce35a93b8ca8c8169035d1ee0d672874a0a56ed7a9d464179c022af35ab0"
+  }
+}

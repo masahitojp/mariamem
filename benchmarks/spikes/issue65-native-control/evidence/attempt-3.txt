@@ -1,0 +1,2 @@
+Disk preflight OK: 30.40 GiB free, 1.63 GiB owned
+FAIL:query_deadline:AssertionError("EOFError('control process EOF')")

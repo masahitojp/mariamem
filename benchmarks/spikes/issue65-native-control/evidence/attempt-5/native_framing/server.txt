@@ -1,0 +1,7 @@
+PASS:embedded_MYSQL_BIND
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=0 decodes=0
+SESSION_RETIRED result=12 decodes=0
+SESSION_RETIRED result=0 decodes=0
+PASS:embedded_MYSQL_BIND
+PASS:engine_shutdown_joined started=4 joined=4

@@ -1,0 +1,30 @@
+{
+  "scope": "3B native control only",
+  "passed": true,
+  "cases": [
+    {
+      "name": "query_deadline",
+      "passed": true,
+      "details": {
+        "checks": [
+          "query_deadline_poison_join",
+          "all_waiters_retire_before_free"
+        ],
+        "join_observed_seconds": 0.604065,
+        "stats": {
+          "fenced": true,
+          "poisoned": true,
+          "cause": "deadline",
+          "started": 2,
+          "joined": 2,
+          "stale": 0,
+          "denied": 0,
+          "retired_input_peak": 89,
+          "retired_output_peak": 95,
+          "sessions": []
+        }
+      },
+      "elapsed_seconds": 0.897944
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+Disk preflight OK: 30.01 GiB free, 1.63 GiB owned
+PASS:query_deadline

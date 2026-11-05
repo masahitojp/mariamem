@@ -1,0 +1,5 @@
+Disk preflight OK: 30.48 GiB free, 1.63 GiB owned
+PASS:concurrency
+PASS:gates
+PASS:rollback_fence
+FAIL:query_deadline:AssertionError("EOFError('control process EOF')")

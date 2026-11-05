@@ -1,0 +1,2 @@
+PASS:embedded_MYSQL_BIND
+SESSION_RETIRED result=16 decodes=0

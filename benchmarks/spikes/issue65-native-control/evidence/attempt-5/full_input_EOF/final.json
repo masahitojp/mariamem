@@ -1,0 +1,12 @@
+{
+  "fenced": true,
+  "poisoned": true,
+  "cause": "unexpected_peer_eof",
+  "started": 2,
+  "joined": 2,
+  "stale": 0,
+  "denied": 0,
+  "retired_input_peak": 1048581,
+  "retired_output_peak": 95,
+  "sessions": []
+}

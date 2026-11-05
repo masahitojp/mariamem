@@ -1,0 +1,22 @@
+{
+  "base": {
+    "object_sha": "712e45edc1464e2ca9f4a41290d046168364fd6b",
+    "object_type": "commit",
+    "source_commit": "712e45edc1464e2ca9f4a41290d046168364fd6b"
+  },
+  "hashes": {
+    "worktree/guest/experimental.patch": "81956fc2961143914965c5202c50695d1532c264745940fbf05d5a9537d3385a",
+    "temp/control": "5ddcf51a8b1f2dd2d69987aa113d4bf9e90216f51e0b6a218f7e6303c71bded3",
+    "temp/native/libmysqld/libmariadbd.a": "33a627981143a3ed2aa4458e7218173bfc2f307a083cd2e02685eea108a1d7d1",
+    "evidence/source-files.json": "afe31657bb63b7a3b0250e930c2934a613c9c92197b5904ba75ff1033ac5efa9",
+    "worktree/guest/routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
+    "worktree/benchmarks/spikes/issue65-native-login/client.py": "e3364ee5bb673e373284afa38ecc5affc57aa0ea1f8a5d05ed4b0b8ff1186446",
+    "worktree/benchmarks/spikes/issue65-native-control/patch.py": "1b5d90f337ec37dfd864c872fd4a466e366a788fb3f34478812a820ab1716cab",
+    "worktree/benchmarks/spikes/issue65-native-control/run.py": "ca284a4bfafdf8916d3f013873778ed851b54821e3b1ff5c698eea018ee1ccb3",
+    "worktree/benchmarks/spikes/issue65-native-control/control.cc": "fe7057082764dcfbf7d5ddda68cc648a7546a45caa5303099d5a87b9245fcefe",
+    "worktree/benchmarks/spikes/issue65-native-control/control_abi.h": "c5c7970f623e6b5dce79b6cd1901c73f8ab4c541d1e77b46a164a67742cb5f92",
+    "worktree/benchmarks/spikes/issue65-native-control/session.inc": "1cf475870b208795098940cee11975031f9331f6cb3a1a8f640759ee262698fb",
+    "worktree/benchmarks/spikes/issue65-native-control/compile.sh": "6dce50fd6b556a42c52362fdbe2565cbe51e27865c4445d98d8b6c1655ad90e8"
+  },
+  "unchanged_after_run": true
+}

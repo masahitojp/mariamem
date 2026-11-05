@@ -1,0 +1,15 @@
+{
+  "name": "query_deadline",
+  "passed": false,
+  "error": "AssertionError(\"EOFError('control process EOF')\")",
+  "traceback": [
+    "run.py:170",
+    "run.py:269",
+    "run.py:228",
+    "run.py:122",
+    "run.py:112",
+    "run.py:108",
+    "run.py:90",
+    "run.py:40"
+  ]
+}

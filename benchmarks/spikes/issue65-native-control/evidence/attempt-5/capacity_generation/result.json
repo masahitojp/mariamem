@@ -1,0 +1,216 @@
+{
+  "name": "capacity_generation",
+  "passed": true,
+  "details": {
+    "checks": [
+      "sixteen_live_native_sessions",
+      "seventeenth_rejected_without_worker",
+      "reuse_only_after_join",
+      "old_generation_DATA_ACK_EOF_ignored",
+      "wrong_instance_epoch_ignored",
+      "session_state_isolated"
+    ],
+    "before": {
+      "fenced": false,
+      "poisoned": false,
+      "cause": "",
+      "started": 16,
+      "joined": 0,
+      "stale": 0,
+      "denied": 0,
+      "retired_input_peak": 0,
+      "retired_output_peak": 0,
+      "sessions": [
+        {
+          "slot": 0,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 1,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 2,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 3,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 4,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 5,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 6,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 7,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 8,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 9,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 10,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 11,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 12,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 13,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 14,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        {
+          "slot": 15,
+          "generation": 1,
+          "phase": "idle",
+          "command": 0,
+          "status": 2,
+          "input": 0,
+          "outstanding": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        }
+      ]
+    },
+    "after": {
+      "fenced": false,
+      "poisoned": false,
+      "cause": "",
+      "started": 17,
+      "joined": 17,
+      "stale": 4,
+      "denied": 0,
+      "retired_input_peak": 89,
+      "retired_output_peak": 95,
+      "sessions": []
+    }
+  },
+  "elapsed_seconds": 0.335428
+}

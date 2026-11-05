@@ -1,0 +1,9 @@
+{
+  "comparison": "3A whole response protocol files vs3B final source",
+  "unchanged": {
+    "sql/protocol.cc": true,
+    "sql/protocol.h": true
+  },
+  "prior_body_evidence": "../../issue65-native-login/evidence/reuse-verification.json",
+  "new_cancel_mode_branch": "libmysqld/lib_sql.cc Protocol_text::remove_last_row delegates native mode to upstream no-op"
+}

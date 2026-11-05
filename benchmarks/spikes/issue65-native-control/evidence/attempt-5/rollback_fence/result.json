@@ -1,0 +1,11 @@
+{
+  "name": "rollback_fence",
+  "passed": true,
+  "details": {
+    "checks": [
+      "rollback_override_fence_only"
+    ],
+    "storage_capture": "not tested"
+  },
+  "elapsed_seconds": 0.187376
+}

@@ -1,0 +1,5 @@
+PASS:embedded_MYSQL_BIND
+SESSION_RETIRED result=0 decodes=2
+SESSION_RETIRED result=0 decodes=2
+PASS:embedded_MYSQL_BIND
+PASS:engine_shutdown_joined started=2 joined=2

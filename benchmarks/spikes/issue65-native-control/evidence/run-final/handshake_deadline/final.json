@@ -1,0 +1,12 @@
+{
+  "fenced": true,
+  "poisoned": false,
+  "cause": "",
+  "started": 2,
+  "joined": 2,
+  "stale": 0,
+  "denied": 0,
+  "retired_input_peak": 89,
+  "retired_output_peak": 95,
+  "sessions": []
+}

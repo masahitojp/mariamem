@@ -1,0 +1,12 @@
+Disk preflight OK: 31.08 GiB free, 1.63 GiB owned
+PASS:concurrency
+PASS:gates
+PASS:rollback_fence
+PASS:query_deadline
+PASS:input_deadline
+PASS:output_deadline
+PASS:handshake_deadline
+PASS:full_input_EOF
+PASS:input_overflow
+PASS:capacity_generation
+PASS:native_framing

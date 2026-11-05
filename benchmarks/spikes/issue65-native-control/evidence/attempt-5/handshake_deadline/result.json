@@ -1,0 +1,10 @@
+{
+  "name": "handshake_deadline",
+  "passed": true,
+  "details": {
+    "checks": [
+      "handshake_deadline_session_only"
+    ]
+  },
+  "elapsed_seconds": 0.660562
+}

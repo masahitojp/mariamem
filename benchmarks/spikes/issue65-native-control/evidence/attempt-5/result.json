@@ -1,0 +1,534 @@
+{
+  "scope": "3B native control only",
+  "passed": true,
+  "cases": [
+    {
+      "name": "concurrency",
+      "passed": true,
+      "details": {
+        "checks": [
+          "real_concurrent_SQL",
+          "slow_output_other_session_control_progress",
+          "output_ack_lease",
+          "pipeline_serial_native_responses",
+          "concurrent_prepared_THDs",
+          "no_response_close",
+          "late_timer_ignored"
+        ],
+        "blocked_snapshot": {
+          "fenced": false,
+          "poisoned": false,
+          "cause": "",
+          "started": 2,
+          "joined": 0,
+          "stale": 0,
+          "denied": 0,
+          "retired_input_peak": 0,
+          "retired_output_peak": 0,
+          "sessions": [
+            {
+              "slot": 0,
+              "generation": 1,
+              "phase": "executing",
+              "command": 2,
+              "status": 2,
+              "input": 0,
+              "outstanding": 65536,
+              "input_peak": 89,
+              "output_peak": 65536
+            },
+            {
+              "slot": 1,
+              "generation": 1,
+              "phase": "idle",
+              "command": 1,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            }
+          ]
+        },
+        "progress_observed_seconds": 0.001729
+      },
+      "elapsed_seconds": 1.296197
+    },
+    {
+      "name": "gates",
+      "passed": true,
+      "details": {
+        "checks": [
+          "busy_rejection_preserves_DB",
+          "transaction_rejection_preserves_DB",
+          "partial_header_busy",
+          "queued_insert_cannot_cross_fence",
+          "no_new_commands_after_fence"
+        ],
+        "effects_count": 0
+      },
+      "elapsed_seconds": 0.468868
+    },
+    {
+      "name": "rollback_fence",
+      "passed": true,
+      "details": {
+        "checks": [
+          "rollback_override_fence_only"
+        ],
+        "storage_capture": "not tested"
+      },
+      "elapsed_seconds": 0.187376
+    },
+    {
+      "name": "query_deadline",
+      "passed": true,
+      "details": {
+        "checks": [
+          "query_deadline_poison_join",
+          "all_waiters_retire_before_free"
+        ],
+        "join_observed_seconds": 0.615464,
+        "stats": {
+          "fenced": true,
+          "poisoned": true,
+          "cause": "deadline",
+          "started": 2,
+          "joined": 2,
+          "stale": 0,
+          "denied": 0,
+          "retired_input_peak": 89,
+          "retired_output_peak": 95,
+          "sessions": []
+        }
+      },
+      "elapsed_seconds": 0.905919
+    },
+    {
+      "name": "input_deadline",
+      "passed": true,
+      "details": {
+        "checks": [
+          "input_deadline_poison_join",
+          "all_waiters_retire_before_free"
+        ],
+        "join_observed_seconds": 0.605355,
+        "stats": {
+          "fenced": true,
+          "poisoned": true,
+          "cause": "deadline",
+          "started": 2,
+          "joined": 2,
+          "stale": 0,
+          "denied": 0,
+          "retired_input_peak": 89,
+          "retired_output_peak": 95,
+          "sessions": []
+        }
+      },
+      "elapsed_seconds": 0.795979
+    },
+    {
+      "name": "output_deadline",
+      "passed": true,
+      "details": {
+        "checks": [
+          "output_deadline_poison_join",
+          "all_waiters_retire_before_free"
+        ],
+        "join_observed_seconds": 0.600535,
+        "stats": {
+          "fenced": true,
+          "poisoned": true,
+          "cause": "deadline",
+          "started": 2,
+          "joined": 2,
+          "stale": 0,
+          "denied": 0,
+          "retired_input_peak": 89,
+          "retired_output_peak": 65536,
+          "sessions": []
+        }
+      },
+      "elapsed_seconds": 0.775553
+    },
+    {
+      "name": "handshake_deadline",
+      "passed": true,
+      "details": {
+        "checks": [
+          "handshake_deadline_session_only"
+        ]
+      },
+      "elapsed_seconds": 0.660562
+    },
+    {
+      "name": "full_input_EOF",
+      "passed": true,
+      "details": {
+        "checks": [
+          "EOF_observed_behind_full_input",
+          "input_payload_budget_exact",
+          "both_native_workers_joined"
+        ],
+        "full_input": {
+          "fenced": false,
+          "poisoned": false,
+          "cause": "",
+          "started": 2,
+          "joined": 0,
+          "stale": 0,
+          "denied": 0,
+          "retired_input_peak": 0,
+          "retired_output_peak": 0,
+          "sessions": [
+            {
+              "slot": 0,
+              "generation": 1,
+              "phase": "executing",
+              "command": 1,
+              "status": 2,
+              "input": 1048581,
+              "outstanding": 0,
+              "input_peak": 1048581,
+              "output_peak": 95
+            },
+            {
+              "slot": 1,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            }
+          ]
+        },
+        "final": {
+          "fenced": true,
+          "poisoned": true,
+          "cause": "unexpected_peer_eof",
+          "started": 2,
+          "joined": 2,
+          "stale": 0,
+          "denied": 0,
+          "retired_input_peak": 1048581,
+          "retired_output_peak": 95,
+          "sessions": []
+        }
+      },
+      "elapsed_seconds": 0.177972
+    },
+    {
+      "name": "input_overflow",
+      "passed": true,
+      "details": {
+        "checks": [
+          "one_byte_overflow_aborts_instance",
+          "input_payload_budget_exact",
+          "both_native_workers_joined"
+        ],
+        "full_input": {
+          "fenced": false,
+          "poisoned": false,
+          "cause": "",
+          "started": 2,
+          "joined": 0,
+          "stale": 0,
+          "denied": 0,
+          "retired_input_peak": 0,
+          "retired_output_peak": 0,
+          "sessions": [
+            {
+              "slot": 0,
+              "generation": 1,
+              "phase": "executing",
+              "command": 1,
+              "status": 2,
+              "input": 1048581,
+              "outstanding": 0,
+              "input_peak": 1048581,
+              "output_peak": 95
+            },
+            {
+              "slot": 1,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            }
+          ]
+        },
+        "final": {
+          "fenced": true,
+          "poisoned": true,
+          "cause": "pending_input_overflow",
+          "started": 2,
+          "joined": 2,
+          "stale": 0,
+          "denied": 0,
+          "retired_input_peak": 1048581,
+          "retired_output_peak": 95,
+          "sessions": []
+        }
+      },
+      "elapsed_seconds": 0.207779
+    },
+    {
+      "name": "capacity_generation",
+      "passed": true,
+      "details": {
+        "checks": [
+          "sixteen_live_native_sessions",
+          "seventeenth_rejected_without_worker",
+          "reuse_only_after_join",
+          "old_generation_DATA_ACK_EOF_ignored",
+          "wrong_instance_epoch_ignored",
+          "session_state_isolated"
+        ],
+        "before": {
+          "fenced": false,
+          "poisoned": false,
+          "cause": "",
+          "started": 16,
+          "joined": 0,
+          "stale": 0,
+          "denied": 0,
+          "retired_input_peak": 0,
+          "retired_output_peak": 0,
+          "sessions": [
+            {
+              "slot": 0,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 1,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 2,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 3,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 4,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 5,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 6,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 7,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 8,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 9,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 10,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 11,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 12,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 13,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 14,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            },
+            {
+              "slot": 15,
+              "generation": 1,
+              "phase": "idle",
+              "command": 0,
+              "status": 2,
+              "input": 0,
+              "outstanding": 0,
+              "input_peak": 89,
+              "output_peak": 95
+            }
+          ]
+        },
+        "after": {
+          "fenced": false,
+          "poisoned": false,
+          "cause": "",
+          "started": 17,
+          "joined": 17,
+          "stale": 4,
+          "denied": 0,
+          "retired_input_peak": 89,
+          "retired_output_peak": 95,
+          "sessions": []
+        }
+      },
+      "elapsed_seconds": 0.335428
+    },
+    {
+      "name": "native_framing",
+      "passed": true,
+      "details": {
+        "checks": [
+          "maximum_SQL_frame_accepted",
+          "warm_buffer_over_limit_header_rejected_before_payload",
+          "wrong_sequence_not_dispatched",
+          "previous_sequence_ERR_rejected_by_server_NET"
+        ],
+        "warm": {
+          "result": 16,
+          "net_error": 1153,
+          "executions": 1,
+          "input_peak": 126976,
+          "output_peak": 95
+        },
+        "wrong": {
+          "result": 0,
+          "net_error": 1156,
+          "executions": 0,
+          "input_peak": 89,
+          "output_peak": 95
+        },
+        "previous_ERR": {
+          "result": 12,
+          "net_error": 1156,
+          "executions": 0,
+          "input_peak": 7,
+          "output_peak": 95
+        }
+      },
+      "elapsed_seconds": 0.204838
+    }
+  ]
+}
