@@ -1,0 +1,90 @@
+[
+  {
+    "path": "libmysqld/lib_sql.cc",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "git_blob_sha": "4f1d98293aaa176c1c1f9f8f73d5ac1d8c1f5ccf",
+    "sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
+    "bytes": 38452,
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/libmysqld/lib_sql.cc"
+  },
+  {
+    "path": "sql/net_serv.cc",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "git_blob_sha": "e64b81aece851ce045474f934b6d0739242b5918",
+    "sha256": "7d7b8b8a8de1834099f350912ed9255a1f376565da407e8dc461f97c72f12c93",
+    "bytes": 36221,
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/net_serv.cc"
+  },
+  {
+    "path": "sql/protocol.cc",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "git_blob_sha": "99012e617dbbbdddb80f35e8bd1027cb8c62a069",
+    "sha256": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242",
+    "bytes": 57644,
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/protocol.cc"
+  },
+  {
+    "path": "sql/protocol.h",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "git_blob_sha": "df31760e20b84226ef2bd3e3c19c62954ec945ad",
+    "sha256": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+    "bytes": 12520,
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/protocol.h"
+  },
+  {
+    "path": "sql/sql_parse.cc",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "git_blob_sha": "75599cc8f1b1334abf307fd318cea1e7bc785444",
+    "sha256": "d4fcbe0d53e2474ec9730294101549ca84c1b619fcdf6c1c37de9d70cf88fa85",
+    "bytes": 338327,
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_parse.cc"
+  },
+  {
+    "path": "sql/sql_prepare.cc",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "git_blob_sha": "a865dc3a1267af63f5aaadd88cedb95296be4197",
+    "sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+    "bytes": 196882,
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_prepare.cc"
+  },
+  {
+    "path": "sql/sql_connect.cc",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "git_blob_sha": "d4664d39ee0ebc5383757960525456d98538d5a4",
+    "sha256": "4e28eef8497cc2e479aeeab276239c70fd1402d32932b2d8f0bea5e2a9c1cb73",
+    "bytes": 52270,
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_connect.cc"
+  },
+  {
+    "path": "sql/sql_acl.cc",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "git_blob_sha": "de8a27c99a87e56fc650b959c05913a214eef598",
+    "sha256": "04e3ed5d52bf7d90b154920cabc33f9c2b8eeea75264f72d0d610906289849d5",
+    "bytes": 494628,
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_acl.cc"
+  },
+  {
+    "path": "sql/sql_class.h",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "git_blob_sha": "db9b646e3eae6bc46859ea2623465d33c0637303",
+    "sha256": "0f0872cf1ba053709938849fe13ef18e61ef12f1fec288d6f2b08df23f6bcc28",
+    "bytes": 282306,
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_class.h"
+  },
+  {
+    "path": "include/violite.h",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "git_blob_sha": "5cc3ed4d43ea6292fcbeb4ae7dcce307ca5ce028",
+    "sha256": "0be1b5c9a8fb6bed71d9a504c7eef69746fa2b388adcd8b68a3642608757f1d4",
+    "bytes": 9980,
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/include/violite.h"
+  },
+  {
+    "path": "vio/vio.c",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "git_blob_sha": "bf1e79ae36bdb8ded6c64aab4724903a88e2b3d1",
+    "sha256": "2327a8a4fc3306f68d4f25894570f62c5bf829038efb04519dc3260927f12f46",
+    "bytes": 10225,
+    "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/vio/vio.c"
+  }
+]
