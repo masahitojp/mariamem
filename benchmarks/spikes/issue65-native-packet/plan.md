@@ -1,45 +1,79 @@
-# Issue65 native packet entry — bounded follow-up
+# Issue65 — proposal to reduce handwritten wire maintenance
 
-Human authorization: 2026-11-05, continue Issue65 after clarifying that the goal
-is to reduce host-side MySQL wire maintenance by reusing MariaDB's own protocol
-implementation. Socket publication alone is not the success criterion.
+## Current authorization
 
-## Decision and hypothesis
+Human clarification,2026-11-05: prepare the proposal first; consider experiments
+only after reviewing it. No native build, packet-entry implementation, WASIX
+regeneration or runtime experiment is currently authorized by this plan.
+The earlier preparation interpretation is superseded by this clarification.
 
-Can the existing MariaDB12.3.3 embedded SQL/storage path be combined with native
-server protocol/session code behind one byte-stream entry, without recreating
-handshake, statement parsing, result framing and statement lifecycle in an adapter?
-Use the result to recommend continue / reject / inconclusive, not main adoption.
+The aim is to delegate MySQL protocol semantics to MariaDB itself, reducing
+per-driver fixes to the Go implementation. Socket exposure and transport speed
+are secondary; moving handwritten packet handling from Go to C is not success.
 
-## Fixed inputs and environment
+## Proposed direction
 
-- Main baseline source_commit: `47121e1be0b399ba4e2270ce3e25c411ade0e2eb`.
-- MariaDB source_commit: `83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e` (12.3.3),
-  checksum-bound by the product release input lock.
-- Experiment branch: `experiment/issue65-native-packet`.
-- Native Linux/arm64 build/run in the existing checksum/identity-recorded Docker
-  build image on the current macOS arm64 host; do not call this WASIX acceptance.
-- Original checkout's four user modifications remain untouched.
+Recommend first evaluating a byte-stream entry that uses MariaDB's native protocol
+reader/writer and session lifecycle, while retaining embedded SQL/storage execution
+where feasible. A thin host adapter would own byte transport and resource lifetime;
+MariaDB would own handshake interpretation, command decoding, statement IDs,
+parameter decoding, result/error framing and protocol state.
 
-## Finite evidence and exit
+The strongest concern is that EMBEDDED_LIBRARY excludes parts of those server
+paths and substitutes embedded result structures. Restoring them could require
+more invasive changes than keeping today's Go wire code. The design therefore
+needs a small, separately approved feasibility experiment before product work.
 
-Inspect compile guards and symbol dependencies; attempt the smallest justified
-native build/prototype. Exercise one real-driver connection: handshake, SELECT1,
-prepared parameter execution, following query and QUIT/disconnect. Record who
-handles packets (native MariaDB versus handwritten bridge), state/lifetime owners,
-source patches, exact build/runtime identities, failures and unverified boundaries.
-A native ordinary-server/socket control alone cannot count as an embedded packet
-entry. No experiment results may replace current product runtime acceptance.
+## Options to compare
 
-## Budget and inconclusive exit
+| Option | Expected value | Main concern |
+| --- | --- | --- |
+| Add native protocol entry to an embedded-derived build | Preserve current engine/storage investment; reuse protocol semantics | Compile guards, THD/session initialization and embedded/native result-path coexistence are unproved |
+| Build the normal server core behind host-provided virtual I/O | Retain a broader native protocol/server path, analogous in intent to pgmem | Larger guest/build/runtime boundary, background services and initialization/cleanup costs |
+| Keep the current host wire implementation | Lowest immediate migration cost | Continued command/driver-specific compatibility maintenance |
 
-Initial active-work ceiling2 hours, including at most30 minutes of measurement
-instrumentation; heavy CI0. Initial disposable disk budget6 GiB with8 GiB minimum
-free space, owned timeout below2 hours, native build parallelism bounded after
-checking other active work. Expected source/configuration/minimal target build is
-roughly15–40 minutes elapsed if native dependencies permit; this is an estimate,
-not a success promise. Do not silently build a full WASIX guest or full matrix.
-Stop at a finite source/compile/runtime obstacle if this boundary cannot be proved
-within budget; report missing evidence, concrete next work/cost and alternatives.
-Preserve compact source/patches/logs/hashes, commit useful evidence, and remove
-owned source/build/cache/container state. Existing services/caches are not ours.
+A socket-only relay on the current unchanged guest was already rejected by the
+[initial source inspection](../../../docs/reviews/v06x-wire-relay-feasibility.md).
+The detailed Issue65 source-inspection report is on its original experiment ref:
+https://github.com/masahitojp/mariamem/blob/9c86d469de09a2426503b2578c3d743c2b29e574/docs/reviews/issue65-guest-wire-feasibility.md
+This does not prove a modified embedded entry or alternate guest impossible.
+
+## Design questions before experimentation
+
+- Which native protocol reader/writer and session-init boundaries are reusable
+  without importing the whole standalone-server lifecycle?
+- Can protocol state be owned per connection while SQL state remains in the
+  existing embedded engine? Identify what must change, not just exported symbols.
+- Where would byte transport, deadlines, disconnect, cancellation, no-response
+  commands, fatal failure and joined cleanup be owned?
+- How would the existing16-session budget, Snapshot/Fork and Live quiescence map
+  to that ownership? Existing tests do not prove an absent replacement path.
+- What upstream patch surface, regeneration cost and ongoing maintenance would
+  remain? Judge the reduction in handwritten protocol semantics explicitly.
+
+## Possible experiment, not started or approved
+
+If selected later, first try one native Linux/arm64 connection: handshake,
+SELECT1, prepared parameter execution, following SQL and QUIT. Check that MariaDB
+actually parses commands and constructs responses; an ordinary TCP-server control
+or a new handwritten packet codec cannot satisfy the proposed exit.
+Preserve exact sources, compile guards, patch set, result bytes/errors and ownership
+observations. Report continue / reject / inconclusive with concrete next costs.
+Only then consider WASIX/Go generation and both-platform product acceptance.
+
+Proposed initial ceiling:2 hours active work, at most30 minutes of instrumentation,
+heavy CI0; disposable disk6 GiB and minimum free8 GiB. Reassess build/time estimates
+before starting. These are proposal bounds, not approval to execute.
+
+Reference inputs for the proposal: main source_commit
+`47121e1be0b399ba4e2270ce3e25c411ade0e2eb`, MariaDB12.3.3 source_commit
+`83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e`.
+
+## Preparation stopped after clarification
+
+Before the clarification, a task-owned worktree was created, pinned source archives
+were verified/extracted and native tool availability in an existing Docker image
+was inspected. No MariaDB native build, source patch, packet-entry implementation,
+SQL execution, guest rebuild or CI submission occurred. The owned preparatory
+script and extracted source are discarded; the proposal and compact preparation
+record are retained. Original checkout user changes remain untouched.
