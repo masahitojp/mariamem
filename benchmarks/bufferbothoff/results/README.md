@@ -1,0 +1,70 @@
+# Both buffer-pool load and dump OFF: incremental contrast
+
+**Conclusion:** Disabling shutdown dump in addition to startup load did not show a consistent additional Close or whole-batch improvement in this finite Mac cohort. Both-arm UPDATE stalls recur. Retain this as a negative/inconclusive tuning result; there is no evidence here to recommend both OFF for speed.
+
+[Graph](report.html) · [Process CSV](processes.csv) · [Full distributions and paired results](summary.json) · [Slow query samples](selected-slow-sql.json) · [Fixed plan](plan.json)
+
+## Original question and fixed comparison
+
+The Human asked to measure **both OFF**, comparing against the preceding **load-only OFF** profile. The mistakenly proposed dump-only-OFF arm was not executed. This isolates the incremental effect of dump_at_shutdown with load_at_startup fixed OFF; it does not retest or relabel the earlier load ON/OFF comparison.
+
+| Arm | load_at_startup | dump_at_shutdown |
+|---|---|---|
+| load-off | OFF | ON |
+| both-off | OFF | OFF |
+
+M1 /16GiB /macOS27.2, Go1.27.3 arm64, CGO0, GOMAXPROCS8, GOGC100. Pipe,1,000-row fixture,48 children/process,cap=P,P4/P8,five alternating fresh-process pairs/P with rotated P order. Four separate warmups,two positive root+8-child SQL preflights,two wrong-seed negatives:28 total processes,20 primary. No retries/excluded observations or extra repetitions. No stack/trace/CPU profiler in primary runs. Disk6GiB/free12GiB and RSS3GiB safety guards did not trip.
+
+Both root and all eight preflight children/arm expose the expected load OFF and dump ON/OFF settings. The complete observed variable maps differ only in dump_at_shutdown. Other selected settings remain pool/max16MiB,log buffer2MiB,read1/write2/purge1,native AIO OFF,flush_log_at_trx_commit1,flush_sync ON,binlog OFF,connections10,table cache32,thread cache0. All25 original startup arguments retained; two explicit load/dump options appended in both arms. No schema, seed or Snapshot content is omitted.
+
+## New-cohort results
+
+Descriptive independent cell medians (Fork/cleanup components are medians of process child-p50 values):
+
+| P | Arm | Batch ms | Fork ms | CPU ms | RSS MiB | Connection retirement ms | WaitDisconnected ms | DB Close ms | Whole cleanup ms |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 4 | load-off | 620.5 | 35.48 | 2985.1 | 363.1 | 0.007 | 5.076 | 3.763 | 8.958 |
+| 4 | both-off | 610.4 | 35.45 | 3018.0 | 364.8 | 0.006 | 5.101 | 3.991 | 9.217 |
+| 8 | load-off | 560.7 | 57.14 | 3313.5 | 664.8 | 0.007 | 5.155 | 6.592 | 12.666 |
+| 8 | both-off | 559.2 | 57.64 | 3309.7 | 661.8 | 0.007 | 5.144 | 6.545 | 12.012 |
+
+Component medians do not add exactly; per-child raw spans do. Connection retirement covers sql.Conn/sql.DB Close; WaitDisconnected waits for host connection retirement; DB Close includes guest shutdown and disposal rather than solely InnoDB dump. Operation order is unchanged, with lightweight wall-clock boundaries added to the benchmark harness. Sampled RSS is process batch peak (20ms), not held-child RSS. CPU is whole batch/process, not isolated Fork CPU. Batch excludes root preparation/capture and final Snapshot Close.
+
+Fixed comparison: median of paired percentage savings; positive means both-off faster/lower.
+
+| P | Batch saved | Fork saved | CPU saved | DB Close saved | Cleanup saved | Batch /Close wins |
+|---|---:|---:|---:|---:|---:|---|
+| 4 | 0.31% | 0.35% | -2.31% | -5.40% | -4.04% | 4/5 / 2/5 |
+| 8 | -3.71% | 0.06% | 0.22% | 0.72% | 0.06% | 2/5 / 3/5 |
+
+Neither P meets the predeclared material-benefit requirement (at least5% paired batch or Close savings, same metric winning4/5 pairs, at both P). The guard is not relaxed afterward. P8 additionally has2 versus1 SQL>100ms children, failing the non-increase count guard; these tiny counts do not prove harm or estimate a population frequency. Final disposition is STOP_INCONCLUSIVE_OR_TRADEOFF. No consistent Close saving is established.
+
+## UPDATE residual reproduced in both profiles
+
+All primary COUNT spans are below100ms. The earlier rare UPDATE residual is reproduced, without a diagnostic observer:
+
+| Arm | P/round/child | COUNT ms | UPDATE ms | Verification ms | DB Close ms |
+|---|---|---:|---:|---:|---:|
+| both-off | 8/0/1 | 1.457 | 390.548 | 0.206 | 9.418 |
+| load-off | 8/0/45 | 1.697 | 383.089 | 1.946 | 16.959 |
+| both-off | 8/2/28 | 1.756 | 398.463 | 0.683 | 6.198 |
+
+No >500ms SQL span occurred. P8 load-off round0 batch928.0ms includes the383ms UPDATE; both-off round0 has390.5ms UPDATE but batch519.1ms because that child starts early. Both-off round2 has398.5ms UPDATE and batch775.1ms. Thus a slow child can or cannot determine the last worker depending on placement; do not attribute paired wall swings exclusively to dump policy. All samples remain included. No stack or engine-phase attribution exists for these cases. Dump OFF does not eliminate this UPDATE wait.
+
+## Identity, correctness and limits
+
+Product source_commit `1862f4a89397bddfa1820d835106d3437a438cf7`; measured harness source_commit `eaeb1e988bd2a087a10e6cd083fce5d5a358ac4f`; parent harness5472e3df. Clean commit identity checked with scripts/git_identity.py before build. Product difference is restricted to benchmark tooling and timing boundaries. Same exact binary in both arms, SHA256 `7c0d8dc1f8bfbced8b06cb33acef3bcf3424c0205b9bc87aff8338bcfb2f3918`. This is a different harness/binary from earlier ordinary load ON/OFF receipts, so keep the cohorts separate.
+
+Origin guest SHA256 `6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe` identifies the unchanged generated input, not a new canonical WASM containing this overlay. The argv prototype is UNQUALIFIED. Both explicit options and copied original argv use a private256-byte guest-stack frame; original caller argv/timing slots are untouched and all scratch/stack bytes are restored after server init. Unit tests cover both profiles, original pointers/order,option values/terminator,scratch bounds and full restoration, and rejection before mutation of invalid mode,stack,preimage,terminator and memory bounds.
+
+All20 primary SQL/pristine seed/independent update/verification/cap census/cleanup oracles PASS. Preflights PASS, wrong-seed controls reject as intended with cleanup. These are correctness/collection passes, not a passed performance/adoption gate. Ubuntu/large fixtures/native parity and canonical guest qualification are NOT RUN. Product API, guest/source.patch, generated source, version/release ledgers and main are unchanged.
+
+## Recommendation and next candidates
+
+Stop this finite experiment. Existing evidence supports examining startup-load OFF separately, with its already-recorded P8 Fork tradeoff; adding shutdown-dump OFF currently has no measured performance justification. Do not call the two-setting combination faster or accepted. A policy preference for skipping an unused dump would need its own rationale and canonical/platform review.
+
+The Human also supplied a Testcontainers tuning example with flush_log_at_trx_commit=0 and a flush-method change. Those settings were not run here. Existing observed commit policy is1. Commit0 is a separate possible UPDATE-path hypothesis, but benefits in disk-backed MariaDB cannot be assumed for a memory VFS. The documented name is O_DIRECT_NO_FSYNC, not O_DIRECT_NOSYNC, and version semantics differ: [MariaDB flush method](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-flush-method). The example is user-supplied container configuration, not evidence of Testcontainers defaults. A follow-up must first establish the pinned guest option support and sync implementation. No new parameter sweep is started.
+
+## Reproduction and compact retention
+
+Extract receipts.zip into an empty directory; run `python3 analyze.py --check` and `python3 overlap.py --check`. The readonly reducers validate exact20-process matrix/JSON/CSV, reject missing cells, and replay public Fork interval overlap (post-hoc, not a causal or acceptance metric). The archive retains all process/memory/effective-setting/oracle observations, selector logs, input/plan hashes and build/run/reducer scripts. SHA256SUMS.json covers published files. Rebuild new observations from clean measured harness above with archived build.py/run.py in their recorded evidence/temp/source layout. Source, executable and private caches are recreatable and removed after preservation. No original receipt is relabelled; no CI dispatch, product adoption, main integration, Qualification or release is initiated.

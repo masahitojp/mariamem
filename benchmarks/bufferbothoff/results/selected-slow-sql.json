@@ -1,0 +1,47 @@
+[
+  {
+    "variant": "both-off",
+    "parallel": 8,
+    "round": 0,
+    "index": 1,
+    "count_ms": 1.456708,
+    "update_ms": 390.547958,
+    "check_ms": 0.205792,
+    "sql_ms": 392.210667,
+    "fork_ms": 56.931833,
+    "retire_ms": 0.004291,
+    "wait_ms": 5.336542,
+    "close_ms": 9.4175,
+    "cleanup_ms": 14.761042
+  },
+  {
+    "variant": "load-off",
+    "parallel": 8,
+    "round": 0,
+    "index": 45,
+    "count_ms": 1.697375,
+    "update_ms": 383.088916,
+    "check_ms": 1.946375,
+    "sql_ms": 386.736625,
+    "fork_ms": 53.962875,
+    "retire_ms": 0.046084,
+    "wait_ms": 6.102375,
+    "close_ms": 16.959375,
+    "cleanup_ms": 23.112625
+  },
+  {
+    "variant": "both-off",
+    "parallel": 8,
+    "round": 2,
+    "index": 28,
+    "count_ms": 1.756416,
+    "update_ms": 398.463042,
+    "check_ms": 0.682958,
+    "sql_ms": 400.903792,
+    "fork_ms": 59.529375,
+    "retire_ms": 0.013459,
+    "wait_ms": 6.27075,
+    "close_ms": 6.198042,
+    "cleanup_ms": 12.484125
+  }
+]

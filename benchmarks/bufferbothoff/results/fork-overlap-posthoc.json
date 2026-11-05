@@ -1,0 +1,165 @@
+{
+  "scope": "Post-hoc reduction of public Fork intervals; not internal CPU/scheduler contention measurement; not an acceptance criterion",
+  "processes": [
+    {
+      "parallel": 4,
+      "variant": "load-off",
+      "round": 0,
+      "fork_overlap_p50": 3.634977975842042,
+      "first_eight_fork_p50_ms": 34.214875,
+      "later_fork_p50_ms": 33.234812500000004
+    },
+    {
+      "parallel": 4,
+      "variant": "load-off",
+      "round": 1,
+      "fork_overlap_p50": 3.2873416741358996,
+      "first_eight_fork_p50_ms": 36.288437,
+      "later_fork_p50_ms": 35.478750500000004
+    },
+    {
+      "parallel": 4,
+      "variant": "load-off",
+      "round": 2,
+      "fork_overlap_p50": 3.6980420271393077,
+      "first_eight_fork_p50_ms": 34.8949165,
+      "later_fork_p50_ms": 34.7552495
+    },
+    {
+      "parallel": 4,
+      "variant": "load-off",
+      "round": 3,
+      "fork_overlap_p50": 3.8096940127259797,
+      "first_eight_fork_p50_ms": 34.787271000000004,
+      "later_fork_p50_ms": 36.474646
+    },
+    {
+      "parallel": 4,
+      "variant": "load-off",
+      "round": 4,
+      "fork_overlap_p50": 3.753377866196817,
+      "first_eight_fork_p50_ms": 32.9560205,
+      "later_fork_p50_ms": 36.1707295
+    },
+    {
+      "parallel": 4,
+      "variant": "both-off",
+      "round": 0,
+      "fork_overlap_p50": 3.561754697754012,
+      "first_eight_fork_p50_ms": 42.0973335,
+      "later_fork_p50_ms": 34.228875
+    },
+    {
+      "parallel": 4,
+      "variant": "both-off",
+      "round": 1,
+      "fork_overlap_p50": 3.7866345850867082,
+      "first_eight_fork_p50_ms": 34.6971455,
+      "later_fork_p50_ms": 36.0529165
+    },
+    {
+      "parallel": 4,
+      "variant": "both-off",
+      "round": 2,
+      "fork_overlap_p50": 3.430916471406581,
+      "first_eight_fork_p50_ms": 32.7968955,
+      "later_fork_p50_ms": 34.5696255
+    },
+    {
+      "parallel": 4,
+      "variant": "both-off",
+      "round": 3,
+      "fork_overlap_p50": 3.7697191063363182,
+      "first_eight_fork_p50_ms": 37.4826665,
+      "later_fork_p50_ms": 35.5275415
+    },
+    {
+      "parallel": 4,
+      "variant": "both-off",
+      "round": 4,
+      "fork_overlap_p50": 3.5032333084822964,
+      "first_eight_fork_p50_ms": 33.258812500000005,
+      "later_fork_p50_ms": 35.77475
+    },
+    {
+      "parallel": 8,
+      "variant": "load-off",
+      "round": 0,
+      "fork_overlap_p50": 6.694386447532633,
+      "first_eight_fork_p50_ms": 53.977875,
+      "later_fork_p50_ms": 57.847083
+    },
+    {
+      "parallel": 8,
+      "variant": "load-off",
+      "round": 1,
+      "fork_overlap_p50": 6.9605902072122126,
+      "first_eight_fork_p50_ms": 62.0357705,
+      "later_fork_p50_ms": 59.2116665
+    },
+    {
+      "parallel": 8,
+      "variant": "load-off",
+      "round": 2,
+      "fork_overlap_p50": 6.707286109997963,
+      "first_eight_fork_p50_ms": 61.7976045,
+      "later_fork_p50_ms": 56.397396
+    },
+    {
+      "parallel": 8,
+      "variant": "load-off",
+      "round": 3,
+      "fork_overlap_p50": 5.851429310268422,
+      "first_eight_fork_p50_ms": 67.970562,
+      "later_fork_p50_ms": 54.78225
+    },
+    {
+      "parallel": 8,
+      "variant": "load-off",
+      "round": 4,
+      "fork_overlap_p50": 7.005459197300446,
+      "first_eight_fork_p50_ms": 56.619646,
+      "later_fork_p50_ms": 58.9880625
+    },
+    {
+      "parallel": 8,
+      "variant": "both-off",
+      "round": 0,
+      "fork_overlap_p50": 6.217745540372582,
+      "first_eight_fork_p50_ms": 53.5730415,
+      "later_fork_p50_ms": 50.772479000000004
+    },
+    {
+      "parallel": 8,
+      "variant": "both-off",
+      "round": 1,
+      "fork_overlap_p50": 7.070083484343604,
+      "first_eight_fork_p50_ms": 65.7602295,
+      "later_fork_p50_ms": 58.795103999999995
+    },
+    {
+      "parallel": 8,
+      "variant": "both-off",
+      "round": 2,
+      "fork_overlap_p50": 5.905668414886422,
+      "first_eight_fork_p50_ms": 81.537,
+      "later_fork_p50_ms": 54.20825
+    },
+    {
+      "parallel": 8,
+      "variant": "both-off",
+      "round": 3,
+      "fork_overlap_p50": 6.9563377074860515,
+      "first_eight_fork_p50_ms": 57.658958,
+      "later_fork_p50_ms": 57.372167000000005
+    },
+    {
+      "parallel": 8,
+      "variant": "both-off",
+      "round": 4,
+      "fork_overlap_p50": 6.290625060310488,
+      "first_eight_fork_p50_ms": 69.1095205,
+      "later_fork_p50_ms": 56.7251665
+    }
+  ]
+}
