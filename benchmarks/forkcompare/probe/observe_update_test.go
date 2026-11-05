@@ -17,3 +17,18 @@ func TestUpdateGuestLabelBinding(t *testing.T) {
 		}
 	}
 }
+
+func TestUpdateExecWindow(t *testing.T) {
+	for _, v := range []struct {
+		m    updateMeta
+		want bool
+	}{
+		{updateMeta{ExecEnterMS: 1, SnapshotBeginMS: 101, SnapshotEndMS: 102, ExecReturnMS: 300}, true},
+		{updateMeta{ExecEnterMS: 200, SnapshotBeginMS: 101, SnapshotEndMS: 102, ExecReturnMS: 201}, false},
+		{updateMeta{ExecEnterMS: 1, SnapshotBeginMS: 101, SnapshotEndMS: 105, ExecReturnMS: 102}, false},
+		{updateMeta{SnapshotBeginMS: 101, SnapshotEndMS: 102, ExecReturnMS: 300}, false}} {
+		if profileInsideExec(v.m) != v.want {
+			t.Fatal(v)
+		}
+	}
+}

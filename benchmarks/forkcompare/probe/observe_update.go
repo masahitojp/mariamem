@@ -18,6 +18,8 @@ var updateCaptures atomic.Uint32
 
 // This observer does not change the statement or transaction mode.
 type updateMeta struct {
+	ExecEnterMS     float64 `json:"exec_enter_ms"`
+	InsideExec      bool    `json:"snapshot_inside_actual_exec"`
 	Child           int     `json:"child"`
 	Artificial      bool    `json:"artificial"`
 	ThresholdMS     int     `json:"threshold_ms"`
@@ -85,6 +87,7 @@ func updateObserved(ctx context.Context, c *sql.Conn, index int) (result sql.Res
 		if meta.Artificial {
 			time.Sleep(200 * time.Millisecond)
 		}
+		meta.ExecEnterMS = ms(time.Since(start))
 		result, err = c.ExecContext(ctx, "UPDATE fork_probe SET v=-1 WHERE id=1")
 		meta.ExecReturnMS = ms(time.Since(start))
 		returned.Store(true)
@@ -92,6 +95,7 @@ func updateObserved(ctx context.Context, c *sql.Conn, index int) (result sql.Res
 	close(stop)
 	err = errors.Join(err, <-joined)
 	if captured {
+		meta.InsideExec = profileInsideExec(meta)
 		data, e := json.MarshalIndent(meta, "", "  ")
 		err = errors.Join(err, e)
 		if e == nil {
@@ -118,4 +122,8 @@ func hasGuestLabel(data []byte, id string) bool {
 		}
 	}
 	return false
+}
+
+func profileInsideExec(m updateMeta) bool {
+	return m.ExecEnterMS > 0 && m.SnapshotBeginMS >= m.ExecEnterMS && m.SnapshotEndMS >= m.SnapshotBeginMS && m.SnapshotEndMS <= m.ExecReturnMS
 }
