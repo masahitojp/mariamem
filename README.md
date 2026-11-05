@@ -179,7 +179,9 @@ configured before application imports; existing pools need explicit enrollment.
 
 ## Go test helper
 
-Save this as `items_test.go` in your Go module:
+Save this as `items_test.go` in a new Go test package. The Go guide extends this
+same example; do not combine both files into one package, which would duplicate
+`TestMain` and the test names:
 
 ```go
 package example_test

@@ -34,7 +34,11 @@ so an external migration command can use it normally. No Node/Python connection
 routing, global driver registration or listener-free startup is implied.
 
 For a low-level `Database` returned by Start or Fork, assign its method to the
-normal MySQL connector (add `database/sql` and the mysql import to your program):
+normal MySQL connector. The following is a function-body excerpt: `db` is that
+live `*mariamem.Database`, and the enclosing function returns an error. Import
+`database/sql` and `mysql "github.com/go-sql-driver/mysql"`; close the
+pool before the owning database. For a complete test file, use the helper
+example below and add `InProcess: true` to its keyed Options literal:
 
 ```go
 config, err := mysql.ParseDSN(db.DSN())
@@ -75,7 +79,8 @@ not SQL/wire work, and adds no compatibility or performance guarantee.
 
 Put migrations and seed SQL in `Prepare`, then request `fixture.DB(t)` in each
 test. A nil `Prepare` uses an empty baseline. The complete example includes two
-ordinary tests and bounded parallel subtests. Save it as `items_test.go`:
+ordinary tests and bounded parallel subtests. Save it as `items_test.go` in a
+new package, replacing the README example rather than adding a second TestMain:
 
 ```go
 package example_test
@@ -216,7 +221,10 @@ Go memory reclamation and OS RSS reduction have different timing.
 
 ### Per-Snapshot Fork limits
 
-The Go API adds `SnapshotOptions.MaxForks` and `Snapshot.MaxForks()`:
+Since 0.6.1, Go exposes `SnapshotOptions.MaxForks` and `Snapshot.MaxForks()`.
+This function-body excerpt assumes a live disconnected `source`, a caller-owned
+bounded `ctx`, the `mariamem` import and an enclosing function returning an error.
+Commit/close preparation pools and call `source.WaitDisconnected(ctx)` first:
 
 ```go
 prepared, err := source.Snapshot(ctx, mariamem.SnapshotOptions{MaxForks: 2})

@@ -85,10 +85,14 @@ For prepared tests, return your migrations/seed callback from
 worker, closes its source after use and owns the disconnect wait, Snapshot and
 per-test Fork teardown. Use the platform wheel from [installation](../README.md#installation).
 
-In 0.6.1, override `mariamem_max_forks` with a positive
+Since 0.6.1, override `mariamem_max_forks` with a positive
 integer and `mariamem_fork_timeout` with positive finite seconds when needed:
 
 ```python
+# conftest.py: optional settings alongside mariamem_prepare below.
+import pytest
+
+
 @pytest.fixture(scope="session")
 def mariamem_max_forks():
     return 2
@@ -154,7 +158,9 @@ Either order, or either test alone, sees the same baseline. A class groups tests
 it does not share one mutable database. Use the function-scoped fixtures for per-test mutable state.
 
 Run the same tests sequentially with ordinary pytest, or distribute them across
-processes with the separately installed pytest-xdist plugin:
+processes with pytest-xdist. The `test` extra used in the README includes it;
+if you installed only `pytest` and PyMySQL, also run
+`python -m pip install pytest-xdist`:
 
 ```sh
 python -m pytest test_users.py          # Sequential: one session baseline.
@@ -290,6 +296,11 @@ The package supports the public class
 ignored callback return values. Unknown values are rejected with
 `pytest.UsageError`; they are never silently ignored.
 
+This is an alternative to the callback example: replace `mariamem_prepare` in
+that example, create the script below, and reuse `test_users.py`. Do not define
+two preparation fixtures with the same name. Run pytest from the project root
+containing `tools/` and `test_users.py`.
+
 ```python
 # conftest.py
 import sys
@@ -388,13 +399,13 @@ with mariamem.start() as setup_db:
         conn.commit()
     setup_db.wait_disconnected()
 
-    with setup_db.snapshot() as baseline:
-        with baseline.fork() as db:
+    with setup_db.snapshot(max_forks=1) as baseline:
+        with baseline.fork(timeout=30) as db:
             with pymysql.connect(**db.connection_info()) as conn:
                 with conn.cursor() as cur:
                     cur.execute("INSERT INTO users VALUES(2)")
                 conn.commit()
-        with baseline.fork() as db:
+        with baseline.fork(timeout=30) as db:
             with pymysql.connect(**db.connection_info()) as conn:
                 with conn.cursor() as cur:
                     cur.execute("SELECT id FROM users ORDER BY id")
@@ -426,8 +437,9 @@ creation routes, not successive steps.
 ## Parallel Forks in one process
 
 For manual concurrency, share one open Snapshot between threads in the same
-process. Each task acquires its own child and SQL connection. This is separate
-from pytest-xdist, whose workers prepare independent baselines.
+process. This complete example uses two threads and an explicit two-child cap,
+with a 30-second capacity wait per child. Each task acquires its own child and
+SQL connection. This is separate from pytest-xdist, whose workers prepare independent baselines.
 
 ```python
 from concurrent.futures import ThreadPoolExecutor
@@ -437,7 +449,7 @@ import pymysql
 
 
 def check_child(baseline, user_id):
-    with baseline.fork() as db:
+    with baseline.fork(timeout=30) as db:
         with pymysql.connect(**db.connection_info()) as conn:
             with conn.cursor() as cur:
                 cur.execute("INSERT INTO users VALUES(%s)", (user_id,))
@@ -455,7 +467,7 @@ with mariamem.start() as setup_db:
             cur.execute("INSERT INTO users VALUES(1)")
         conn.commit()
     setup_db.wait_disconnected()
-    with setup_db.snapshot() as baseline:
+    with setup_db.snapshot(max_forks=2) as baseline:
         with ThreadPoolExecutor(max_workers=2) as executor:
             futures = [executor.submit(check_child, baseline, i) for i in range(2, 6)]
             for future in futures:
@@ -490,10 +502,19 @@ The host exits when the last owned handle and admitted operation finish.
 Version 0.6.1 adds a finite per-Snapshot Fork budget:
 
 ```python
-with setup_db.snapshot(max_forks=2) as baseline:
-    assert baseline.max_forks == 2  # Read-only, resolved at capture.
-    with baseline.fork(timeout=30) as child:
-        run_test(child.connection_info())
+import mariamem
+import pymysql
+
+
+with mariamem.start() as setup_db:
+    setup_db.wait_disconnected()
+    with setup_db.snapshot(max_forks=2) as baseline:
+        assert baseline.max_forks == 2  # Read-only, resolved at capture.
+        with baseline.fork(timeout=30) as child:
+            with pymysql.connect(**child.connection_info()) as conn:
+                with conn.cursor() as cur:
+                    cur.execute("SELECT 1")
+                    assert cur.fetchone() == (1,)
 ```
 
 Omitted `max_forks` resolves once using one quarter of detected memory at
