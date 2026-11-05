@@ -1,10 +1,11 @@
 {
   "contract": "issue65-experimental-thread-binding-v1",
-  "guest_sha256": "4c839906db04fe9077ddcc4af1f5756920bb502901343a80d6c4b7114d4279c8",
+  "guest_sha256": "07852302f8e0f7269e700df813383c2147428e1eff9f7ac39b52bd4e983255d4",
+  "previous_experimental_guest_sha256": "4c839906db04fe9077ddcc4af1f5756920bb502901343a80d6c4b7114d4279c8",
   "functions": {
     "code/p3/p3_pure.go": {
       "function": "Fn151",
-      "normalized_sha256": "3605fe01c48b84aafadf60255224cbdee84639c7191d85cc4c2b3dd0fc3e168b",
+      "normalized_sha256": "5114d18f2e52964eb4bf79e69809a1489cd845e03fc86193c3cdaa212c0a0730",
       "role": "free"
     },
     "code/p8/p8_pure.go": {
@@ -14,45 +15,49 @@
     },
     "code/p5/p5_pure.go": {
       "function": "Fn211",
-      "normalized_sha256": "52998945232832864603ee7363cab8084c694fa51cb6ec4a029d6551f3468374",
+      "normalized_sha256": "e43a0fe322435c6bac13aa357ef4dde56d25f64a6c772ff1dfa858a2216c456d",
       "role": "entry"
     }
   },
   "review": {
     "free": {
-      "full_body_equal_after_explicit_relocation": true,
+      "complete_body_equal_after_recorded_relocation": true,
       "function_renames": {
         "Fn153": "Fn151",
         "Fn131": "Fn129"
       },
       "changed_numeric_literals": {
-        "15246728": "15245640",
-        "15246732": "15245644",
-        "15246300": "15245212",
-        "15246304": "15245216",
-        "15246284": "15245196",
-        "15246292": "15245204",
-        "15246588": "15245500",
-        "15246288": "15245200",
-        "15246308": "15245220",
-        "15246296": "15245208",
-        "15246324": "15245236",
-        "15246316": "15245228"
+        "15246728": "15245704",
+        "15246732": "15245708",
+        "15246300": "15245276",
+        "15246304": "15245280",
+        "15246284": "15245260",
+        "15246292": "15245268",
+        "15246588": "15245564",
+        "15246288": "15245264",
+        "15246308": "15245284",
+        "15246296": "15245272",
+        "15246324": "15245300",
+        "15246316": "15245292"
       },
-      "old_sha256": "d40bb98ce99a0699a26224ccddc5431083edb010fd888daf778387d4a67bef95",
-      "new_sha256": "eceb978ef1f70a5a526a16d441604a73e705979812be31b7f5bc574dfd078a99"
+      "static_relocation_delta": [
+        -1024
+      ],
+      "previous_body_sha256": "d40bb98ce99a0699a26224ccddc5431083edb010fd888daf778387d4a67bef95",
+      "new_body_sha256": "35229a77f365c89dbe2264dbbc3e4cf7141bdc81a679df890ec9d1501fdf69bc"
     },
     "yield": {
-      "full_body_equal_after_explicit_relocation": true,
+      "complete_body_equal_after_recorded_relocation": true,
       "function_renames": {
         "Fn131": "Fn129"
       },
       "changed_numeric_literals": {},
-      "old_sha256": "91b13b652d2dc922a4a2e848aeba1520d9cb406341b5cd7e87b5243ef8d2db26",
-      "new_sha256": "c10f06f62eab7a7f88def8f1dd78934cd7fd4f84fb8cc3b21eecdf28bf908ec7"
+      "static_relocation_delta": [],
+      "previous_body_sha256": "91b13b652d2dc922a4a2e848aeba1520d9cb406341b5cd7e87b5243ef8d2db26",
+      "new_body_sha256": "c10f06f62eab7a7f88def8f1dd78934cd7fd4f84fb8cc3b21eecdf28bf908ec7"
     },
     "entry": {
-      "full_body_equal_after_explicit_relocation": true,
+      "complete_body_equal_after_recorded_relocation": true,
       "function_renames": {
         "Fn214": "Fn211",
         "Fn97": "Fn95",
@@ -67,18 +72,21 @@
       },
       "changed_numeric_literals": {
         "505": "497",
-        "15248892": "15247804",
-        "15249408": "15248320",
-        "15249456": "15248368",
-        "15250000": "15248912",
-        "15250004": "15248916",
-        "15244868": "15243780",
-        "15244865": "15243777",
-        "15250008": "15248920",
-        "15307408": "15306320"
+        "15248892": "15247868",
+        "15249408": "15248384",
+        "15249456": "15248432",
+        "15250000": "15248976",
+        "15250004": "15248980",
+        "15244868": "15243844",
+        "15244865": "15243841",
+        "15250008": "15248984",
+        "15307408": "15306384"
       },
-      "old_sha256": "d4e878fe9982f24589f100496f0ba3322e07a00d5d7bcd57542e42d5602f5179",
-      "new_sha256": "79b1464d30e3494bb144e77bdb095aef9c11a0369934f0fab0af9a5f35109f75"
+      "static_relocation_delta": [
+        -1024
+      ],
+      "previous_body_sha256": "d4e878fe9982f24589f100496f0ba3322e07a00d5d7bcd57542e42d5602f5179",
+      "new_body_sha256": "32c190fee6c8415a67ba7687b7436af80836e3e3edb30f433bd837baa727226e"
     }
   },
   "ABI_offsets": {
@@ -86,8 +94,5 @@
     "pthread.map_base": 40,
     "pthread.map_size": 44
   },
-  "runtime_adapter": "unchanged completion owner; exact new free entry before allocator; same sole yield callee",
-  "status": "experimental exact binding; not production adoption",
-  "previous_experimental_guest_sha256": "4c75d903ffafd91e87553fe57c716af0dd43d39fc12617ffc4b284303317c321",
-  "refresh": "All three complete normalized function bodies unchanged in initialization repair guest."
+  "status": "experimental exact-function binding; canonical binding unchanged"
 }
