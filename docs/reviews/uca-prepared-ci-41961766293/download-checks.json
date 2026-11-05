@@ -1,0 +1,78 @@
+[
+  {
+    "id": 13386991561,
+    "name": "uca-canonical-native-ubuntu-24.04-cbd25f027e804bbd529a85208589ba2dd2899b86",
+    "zip_sha256": "0d01f86276df212e395ad4dfa33c5aaf1b7fa6660828797397d15b5eeba95cc4",
+    "bytes": 33088,
+    "members": {
+      "actual-tables.txt": "adf13350bde2dc03ae0be76e53e043226493c8dbafe9747b13df2997c4838732",
+      "sql-children.txt": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+      "worker-identities.json": "028bef4502d6226e06113f50654ce6327d455bfcf5d5a8d09b2154096c876a02",
+      "source.json": "c7363a1561158954882ee91b6c7b387287bddf690c5aa1ab2109232f24a910bb",
+      "sql-children.json": "ac94f97246d29a9d2026073420ba1c0dca20248b76cb43226148f17f4c28d293",
+      "build-guard.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot-smoke.txt": "91ac28e87543203edb8fac4612b815f59bf36ac9a72ab315b86b2e36637fba30",
+      "input.txt": "aad8981c74c119b66aebdcbea5b28c310e93eec9eba79c18621cd279e9278353",
+      "worker-results.json": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "regeneration.json": "504ed1b3a8cc12a890f67fd5daa32a8533b73ab636e080f3c0ccd0af5104d90c",
+      "guest.json": "7e677a4f7605cca0f0a5aec228ec64fe356b84e3a92c71443c79245cb40b12a2",
+      "regeneration.txt": "9f430463b9cd1c3ef3af4865788c5bf7b32e689fa3f4e437306f92d29551208a",
+      "worker.txt": "eccff5c1b32e1445508b06397edef0c6d85b93aee18a4272b8f8ba2fbe52e7cd"
+    }
+  },
+  {
+    "id": 13386575825,
+    "name": "uca-canonical-build-cbd25f027e804bbd529a85208589ba2dd2899b86",
+    "zip_sha256": "eebd5efae10c7fd6b3712ea90aed45844c97a280ad87a48029b95f8bdea61c0b",
+    "bytes": 90938,
+    "members": {
+      "source.json": "c7363a1561158954882ee91b6c7b387287bddf690c5aa1ab2109232f24a910bb",
+      "guest-build.txt": "e1a138d8849598d7eda63e95eff8239f86f02e9c8cb9f438769ae325ae1db9b3"
+    }
+  },
+  {
+    "id": 13386565859,
+    "name": "uca-canonical-guest-cbd25f027e804bbd529a85208589ba2dd2899b86",
+    "zip_sha256": "e519428e0dd9d5779713ea34345eed9f220d4e5934c0c7eefc6c8eb0f98df937",
+    "bytes": 5387190,
+    "members": {
+      "link.txt": "e30e6728b2219aac5829d25d1d0ff1df21df67394a3a5e2e8482b0c5221ef1d1",
+      "mariamem.wasm": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+      "guest.json": "7e677a4f7605cca0f0a5aec228ec64fe356b84e3a92c71443c79245cb40b12a2",
+      "CMakeCache.txt": "3dcb95754856e5065cd523573e67c44d210011b94d726af61fb04740cfd1ce97",
+      "flags.make": "69eaaffdf3a881b44a842c30fa84b4cd6c34b1ba4263cf07b71d63acb69cfdc4"
+    }
+  },
+  {
+    "id": 13386468396,
+    "name": "uca-canonical-native-macos-15-cbd25f027e804bbd529a85208589ba2dd2899b86",
+    "zip_sha256": "479a92702d22a9cc6b38ef8d1943c21967961c7a6c9322abecbd35f2a5b8c998",
+    "bytes": 33090,
+    "members": {
+      "actual-tables.txt": "fb42985c4c3d5dd14a0fa4fc628f66f31ef93df00ce81c8aae8e5ac864e6c662",
+      "sql-children.txt": "c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431",
+      "worker-identities.json": "f6bf3e1c1351ab799cb25dbee2ed8185a93829ac5a086f970477cc446cde6a2e",
+      "source.json": "c7363a1561158954882ee91b6c7b387287bddf690c5aa1ab2109232f24a910bb",
+      "sql-children.json": "8ce47338a93c38eccbad8cf171984e7f4710e90cdbbbe6e9f9b13c5e5a14f0a8",
+      "build-guard.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot-smoke.txt": "acb50bc88917f57929611d63c707e0ccd387dae970fefba6e9100a81f12eba7b",
+      "input.txt": "3a6da152f906c2037da445cadfb5f4ece4082303c42e38026cb7865c5d453db2",
+      "worker-results.json": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "regeneration.json": "0b9402f955dd78005d0ceeecc2f6174e19084463ea444b5f049dc6f15e5adc99",
+      "guest.json": "7e677a4f7605cca0f0a5aec228ec64fe356b84e3a92c71443c79245cb40b12a2",
+      "regeneration.txt": "da3e4c16215466fc967b00afc5cabd69f1c6643bbd7e083129cc24d0662f403c",
+      "worker.txt": "bf546ef7631566191234d1f4225f3449179efbc31cdd0a63e8f1bca3d82d9455"
+    }
+  },
+  {
+    "id": 13385363822,
+    "name": "uca-native-reference-cbd25f027e804bbd529a85208589ba2dd2899b86",
+    "zip_sha256": "67974c0049f051f831c7a14ddde33d8744fd451c022d1d729bc3ce02e22e90ed",
+    "bytes": 20756,
+    "members": {
+      "source.json": "c7363a1561158954882ee91b6c7b387287bddf690c5aa1ab2109232f24a910bb",
+      "native.json": "7e6e05ceef4228f74abdfc7287bd01bf37d81ac365169631c159b79df2fac06a",
+      "image.json": "4513b69b70d0a1ab41c219ad9e66feaed177622fb4a2e333db0ba8e3ab3dd020"
+    }
+  }
+]

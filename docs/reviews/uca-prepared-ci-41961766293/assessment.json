@@ -1,0 +1,37 @@
+{
+  "result": "PASS_BOUNDED_CANONICAL_CANDIDATE",
+  "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "run_id": 41961766293,
+  "source_builds": 2,
+  "guest_zip_computed_sha256": "e519428e0dd9d5779713ea34345eed9f220d4e5934c0c7eefc6c8eb0f98df937",
+  "matrix": [
+    {
+      "platform": "macos-15",
+      "architecture": "arm64",
+      "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+      "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+      "generated_inventory_files": 106,
+      "regeneration": "PASS",
+      "actual_table_corruption_profile_worker": "PASS",
+      "ownership_controls": "PASS_6_INCLUDING_2_EXPECTED_UNSAFE_FAILURES",
+      "native_sql_two_children_cleanup": "PASS",
+      "snapshot_smoke": "PASS"
+    },
+    {
+      "platform": "ubuntu-24.04",
+      "architecture": "x86_64",
+      "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+      "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+      "generated_inventory_files": 106,
+      "regeneration": "PASS",
+      "actual_table_corruption_profile_worker": "PASS",
+      "ownership_controls": "PASS_6_INCLUDING_2_EXPECTED_UNSAFE_FAILURES",
+      "native_sql_two_children_cleanup": "PASS",
+      "snapshot_smoke": "PASS"
+    }
+  ],
+  "scope": "candidate technical acceptance only; no main integration, Qualification or release",
+  "retained_vectors": "compact summaries plus original member hashes; complete original semantic vectors retained as local evidence",
+  "required_pr_checks_at_head": "NOT_REPORTED_BY_GITHUB_PR_CHECKS_REQUIRED; separate protected integration condition"
+}

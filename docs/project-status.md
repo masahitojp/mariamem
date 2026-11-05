@@ -26,9 +26,16 @@ The [canonical candidate checkpoint](reviews/uca-prepared-canonical-candidate.md
 records one source-bound UNQUALIFIED guest build, exact nineteen-body binding,
 Mac actual table/SQL/two-child/cleanup/worker controls and five paired small-fixture
 measurements. The candidate guest is `6d744220…`; current main remains unchanged.
-Exact-source two independent C builds, both-host Go regeneration and runtime
-acceptance are PENDING CI. Earlier PR112 source-only success is not that proof.
-Product adoption, main integration, Qualification and release remain open.
+[CI41961766293](https://github.com/masahitojp/mariamem/actions/runs/41961766293)
+passes on source_commit `cbd25f027e804bbd529a85208589ba2dd2899b86`: two independent
+C builds,106-file independent Go regeneration and actual table/failure/SQL/
+Snapshot/cleanup controls on macOS15 arm64 and Ubuntu24.04 x86_64. The
+[verified receipt](reviews/uca-prepared-ci-41961766293/README.md) and
+[candidate adoption review](reviews/uca-prepared-canonical-adoption-review.md)
+close that finite technical gate. Earlier PR112 source-only success is unchanged.
+Codex recommends candidate adoption; the Human has not yet decided. Normal
+protected PR checks/current status bookkeeping remain before main integration.
+Qualification and release remain separate and unstarted.
 
 ### Historical preparation checkpoint — accepted input, runtime not yet adopted
 

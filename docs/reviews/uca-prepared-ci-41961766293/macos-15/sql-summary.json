@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "native_sha256": "7e6e05ceef4228f74abdfc7287bd01bf37d81ac365169631c159b79df2fac06a",
+  "host_sha256": "96cbc854774e4596c138647eacffe2c1cfa2b94da7fbb0deca6e595ee18f990f",
+  "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+  "children": 2,
+  "cleanup": {
+    "refs": 0,
+    "process_exit": 0,
+    "reaped": true,
+    "root_exists": false
+  },
+  "cleanup_errors": [],
+  "original_sql_json_sha256": "8ce47338a93c38eccbad8cf171984e7f4710e90cdbbbe6e9f9b13c5e5a14f0a8",
+  "semantic_sha256": "065c4d227df17b64a7ac125f4439d0aa3d450fc0dbc639ef5ffdc6faa7385c4f"
+}
