@@ -111,3 +111,13 @@ every engine-internal fault, and the documented budgets are not a throughput,
 peak-resource or cold-setup guarantee. The older
 [implementation record](reviews/v06x-go-fixture-implementation.md) preserves the
 checkpoints that preceded adoption; it is not a list of new user prerequisites.
+
+
+## Same-process pools (unreleased)
+
+Set `InProcess: true` in `mariamemtest.Options` to use `net.Pipe` for the
+helper-owned preparation and child pools. Default pools remain TCP. External
+commands using the preparation DSN still use TCP. The ownership, MaxForks,
+connection retirement and teardown rules above are unchanged. See the
+[Go connection guide](go.md#same-process-connections-unreleased) for low-level
+connector configuration and error behavior.

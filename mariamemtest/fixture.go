@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net"
 	"os"
 	"sync"
 	"testing"
@@ -23,6 +24,7 @@ import (
 // supplied DSN. It must return their original errors and retire any connections
 // it opens itself before returning. A nil callback declares an empty baseline.
 type Options struct {
+	InProcess        bool // Opt in to net.Pipe for owned Go pools; external migration DSNs remain TCP.
 	DatabaseOptions  mariamem.Options
 	Prepare          func(context.Context, *sql.DB, string) error
 	MaxForks         int           // Zero means 2; explicit values are 1..2147483647.
@@ -108,10 +110,10 @@ func (s realBaseline) fork(ctx context.Context) (database, error) {
 
 type dependencies struct {
 	start func(context.Context, mariamem.Options) (database, error)
-	open  func(string, int, int) (*sql.DB, error)
+	open  func(database, int, int) (*sql.DB, error)
 }
 
-func production() dependencies {
+func production(inProcess bool) dependencies {
 	return dependencies{
 		start: func(ctx context.Context, opts mariamem.Options) (database, error) {
 			d, err := mariamem.Start(ctx, opts)
@@ -120,12 +122,21 @@ func production() dependencies {
 			}
 			return realDatabase{d}, err
 		},
-		open: func(dsn string, maxOpen, maxIdle int) (*sql.DB, error) {
-			config, err := mysql.ParseDSN(dsn)
+		open: func(target database, maxOpen, maxIdle int) (*sql.DB, error) {
+			config, err := mysql.ParseDSN(target.DSN())
 			if err != nil {
 				return nil, err
 			}
 			config.InterpolateParams = false
+			if inProcess {
+				dialer, ok := target.(interface {
+					DialContext(context.Context, string, string) (net.Conn, error)
+				})
+				if !ok {
+					return nil, errors.New("database does not support in-process dialing")
+				}
+				config.DialFunc = dialer.DialContext
+			}
 			connector, err := mysql.NewConnector(config)
 			if err != nil {
 				return nil, err
@@ -168,7 +179,7 @@ type child struct {
 // and captures a baseline. Failed setup admits no tests and disposes its owners.
 // ctx controls setup only; Close is required after a successful New.
 func New(ctx context.Context, opts Options) (*Fixture, error) {
-	return newFixture(ctx, opts, production())
+	return newFixture(ctx, opts, production(opts.InProcess))
 }
 func newFixture(ctx context.Context, opts Options, deps dependencies) (_ *Fixture, err error) {
 	if opts.MaxForks < 0 || int64(opts.MaxForks) > forklimit.MaxForks || opts.OperationTimeout < 0 {
@@ -197,7 +208,7 @@ func newFixture(ctx context.Context, opts Options, deps dependencies) (_ *Fixtur
 			_ = source.Close()
 		}
 	}()
-	pool, openErr := deps.open(source.DSN(), 1, 1)
+	pool, openErr := deps.open(source, 1, 1)
 	var base baseline
 	stage := "prepare"
 	operationErr := openErr
@@ -302,7 +313,7 @@ func (f *Fixture) get(ctx context.Context, key any, register func(*child)) (*sql
 		c.db, err = f.base.fork(ctx)
 	}
 	if err == nil {
-		c.pool, err = f.deps.open(c.db.DSN(), 2, 1)
+		c.pool, err = f.deps.open(c.db, 2, 1)
 	}
 	if err == nil {
 		err = c.pool.PingContext(ctx)
@@ -385,7 +396,7 @@ func (f *Fixture) Close() error {
 // Failed setup skips m.Run; cleanup failure turns a zero suite exit into one.
 // Existing nonzero suite exit codes are preserved. Call os.Exit with the result.
 func Run(m *testing.M, opts Options, install func(*Fixture)) int {
-	return run(context.Background(), opts, install, m.Run, os.Stderr, production())
+	return run(context.Background(), opts, install, m.Run, os.Stderr, production(opts.InProcess))
 }
 func run(ctx context.Context, opts Options, install func(*Fixture), suite func() int, out io.Writer, deps dependencies) (code int) {
 	f, err := newFixture(ctx, opts, deps)

@@ -271,3 +271,10 @@ is later staging content and is not part of release/NOTES-v0.6.1.md.
   deadline and owner-stop behavior remain in place. See the
   [protocol limits](../mysql-protocol.md). No Node SDK or general ORM support
   declaration is added.
+
+- Go callers can explicitly select same-process MySQL wire connections using
+  `Database.DialContext` with the normal MySQL connector, or
+  `mariamemtest.Options.InProcess` for helper-owned pools. TCP remains the default
+  and available for external migration commands. Local session admission returns
+  `ErrCapacity` without a rejection worker; Close/capture/failure rules remain
+  in force. See the [Go guide](../go.md#same-process-connections-unreleased).

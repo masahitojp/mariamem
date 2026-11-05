@@ -152,6 +152,9 @@ def smoke():
         run(["go", "build", "-p", "1", "-o", host, "./cmd/mariamem-host"], env=env)
         run([sys.executable, "tests/live_acceptance/smoke.py", "--host", host], env=env)
         run(["go", "run", "./tests/live_acceptance/go_consumer", "-source-smoke"], env=env)
+    # Same-process Go transport shares the core session/ownership boundary.
+    run(["go", "test", "-p", "1", "-vet=off", "-tags", "integration",
+         "./tests/godefault", "-run", "^TestInProcess", "-count=1"], env=env)
 
 
 def main():
