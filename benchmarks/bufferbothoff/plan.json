@@ -1,0 +1,35 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness_source_commit": "5472e3df7fbee38973f030e61c0e9dd293b735bd",
+  "origin_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "authorization": "Human: compare load-only OFF against both OFF; do not run dump-only OFF.",
+  "variants": {
+    "load-off": {
+      "load": 0,
+      "dump": 1
+    },
+    "both-off": {
+      "load": 0,
+      "dump": 0
+    }
+  },
+  "parallel": [
+    4,
+    8
+  ],
+  "count": 48,
+  "pairs": 5,
+  "warmup_per_cell": 1,
+  "preflight": "root +8 children/arm effective settings, separate wrong-seed rejection/arm",
+  "measurement": "same binary all processes; ordinary Pipe, no trace/profile; COUNT/UPDATE/check, Fork, retire/WaitDisconnected/Close and batch CPU/wall/RSS",
+  "decision": "No adoption. Compare median paired Close/cleanup/batch/CPU/Fork and all tail counts. A bounded benefit requires >=5% median paired batch or Close reduction at both P, >=4/5 winning pairs for that metric at both P, no >5% paired Fork/CPU/batch regression and no new >100ms SQL tail; otherwise stop as inconclusive/tradeoff. No extra repeats.",
+  "budget": {
+    "active_minutes": 45,
+    "tooling_minutes": 15,
+    "heavy_ci": 0,
+    "disk_gib": 6,
+    "min_free_gib": 12,
+    "process_timeout_seconds": 120,
+    "build_timeout_seconds": 1200
+  }
+}

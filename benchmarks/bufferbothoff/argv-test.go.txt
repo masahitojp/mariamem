@@ -1,0 +1,91 @@
+package base
+
+import (
+	"bytes"
+	"encoding/binary"
+	"sync/atomic"
+	"testing"
+)
+
+func TestBufferLoadSelector(t *testing.T) {
+	old := loadVariant
+	defer func() { loadVariant = old }()
+	fixture := func() *Module {
+		b := bytes.Repeat([]byte{0xa5}, 16384)
+		for i, arg := range expectedLoadArgs {
+			ptr := 4096 + i*256
+			copy(b[ptr:], append([]byte(arg), 0))
+			binary.LittleEndian.PutUint32(b[512+i*4:], uint32(ptr))
+		}
+		binary.LittleEndian.PutUint32(b[612:], 0)
+		m := &Module{Memory: b, G0: 512, MemSize: new(atomic.Uint64)}
+		m.MemSize.Store(uint64(len(b)))
+		return m
+	}
+	for _, mode := range []string{"load-off", "both-off"} {
+		loadVariant = mode
+		m := fixture()
+		before := bytes.Clone(m.Memory)
+		n, argv, release := BufLoadArg(m, 512)
+		if n != 27 || argv != 256 || m.G0 != 256 {
+			t.Fatal("argc/stack")
+		}
+		if !bytes.Equal(before[:256], m.Memory[:256]) || !bytes.Equal(before[512:], m.Memory[512:]) {
+			t.Fatal("outside scratch modified")
+		}
+		if !bytes.Equal(before[512:612], m.Memory[256:356]) {
+			t.Fatal("original argv not retained")
+		}
+		want := []string{"--innodb-buffer-pool-load-at-startup=0", "--innodb-buffer-pool-dump-at-shutdown=1"}
+		if mode == "both-off" {
+			want[1] = "--innodb-buffer-pool-dump-at-shutdown=0"
+		}
+		for i, v := range want {
+			p := binary.LittleEndian.Uint32(m.Memory[356+i*4:])
+			if p < 384 || int(p)+len(v)+1 > 512 {
+				t.Fatal("option overlap")
+			}
+			if string(m.Memory[p:p+uint32(len(v)+1)]) != v+"\x00" {
+				t.Fatal("option")
+			}
+		}
+		if binary.LittleEndian.Uint32(m.Memory[364:368]) != 0 {
+			t.Fatal("terminator")
+		}
+		release()
+		if m.G0 != 512 || !bytes.Equal(before, m.Memory) {
+			t.Fatal("restoration")
+		}
+	}
+	for _, kind := range []string{"mode", "stack", "underflow", "preimage", "terminator", "bounds"} {
+		m := fixture()
+		loadVariant = "load-off"
+		switch kind {
+		case "mode":
+			loadVariant = "invalid"
+		case "stack":
+			m.G0 = 100
+		case "underflow":
+			m.G0 = 128
+		case "preimage":
+			m.Memory[4096] = 'X'
+		case "terminator":
+			m.Memory[612] = 1
+		case "bounds":
+			m.MemSize.Store(600)
+		}
+		before := bytes.Clone(m.Memory)
+		prior := m.G0
+		func() {
+			defer func() {
+				if recover() == nil {
+					t.Fatal("invalid accepted", kind)
+				}
+			}()
+			BufLoadArg(m, 512)
+		}()
+		if m.G0 != prior || !bytes.Equal(before, m.Memory) {
+			t.Fatal("invalid mutated memory", kind)
+		}
+	}
+}
