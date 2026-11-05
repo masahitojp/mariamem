@@ -29,44 +29,46 @@ type Snapshot struct {
 	Close func() error
 }
 type Sample struct {
-	OffsetMS  float64 `json:"offset_ms"`
-	TotalMS   float64 `json:"total_ms"`
-	SQLMS     float64 `json:"sql_ms"`
-	Cleanup   bool    `json:"cleanup_complete"`
-	Index     int     `json:"index"`
-	ForkMS    float64 `json:"fork_ms"`
-	ConnectMS float64 `json:"connect_ms"`
-	SelectMS  float64 `json:"select_ms"`
-	ReadyMS   float64 `json:"ready_ms"`
-	CleanupMS float64 `json:"cleanup_ms"`
-	Oracle    bool    `json:"oracle"`
-	Error     string  `json:"error,omitempty"`
+	Config    map[string]string `json:"config,omitempty"`
+	OffsetMS  float64           `json:"offset_ms"`
+	TotalMS   float64           `json:"total_ms"`
+	SQLMS     float64           `json:"sql_ms"`
+	Cleanup   bool              `json:"cleanup_complete"`
+	Index     int               `json:"index"`
+	ForkMS    float64           `json:"fork_ms"`
+	ConnectMS float64           `json:"connect_ms"`
+	SelectMS  float64           `json:"select_ms"`
+	ReadyMS   float64           `json:"ready_ms"`
+	CleanupMS float64           `json:"cleanup_ms"`
+	Oracle    bool              `json:"oracle"`
+	Error     string            `json:"error,omitempty"`
 }
 type Report struct {
-	CPUUserMS           float64  `json:"cpu_user_ms"`
-	CPUSystemMS         float64  `json:"cpu_system_ms"`
-	MinorFaults         int64    `json:"minor_faults"`
-	MajorFaults         int64    `json:"major_faults"`
-	VoluntarySwitches   int64    `json:"voluntary_switches"`
-	InvoluntarySwitches int64    `json:"involuntary_switches"`
-	LifetimeMaxRSSBytes int64    `json:"lifetime_max_rss_bytes"`
-	SyncDir             string   `json:"-"`
-	Backend             string   `json:"backend"`
-	Route               string   `json:"route"`
-	Parallel            int      `json:"parallel"`
-	Count               int      `json:"count"`
-	Go                  string   `json:"go"`
-	GOMAXPROCS          int      `json:"gomaxprocs"`
-	Version             string   `json:"server_version"`
-	StartMS             float64  `json:"root_start_ms"`
-	SnapshotMS          float64  `json:"snapshot_ms"`
-	BatchMS             float64  `json:"batch_ms"`
-	Samples             []Sample `json:"samples"`
-	RootClosed          bool     `json:"root_closed_before_forks"`
-	Cleanup             bool     `json:"cleanup_complete"`
-	Corrupt             bool     `json:"corrupt_seed"`
-	Success             bool     `json:"success"`
-	Error               string   `json:"error,omitempty"`
+	Config              map[string]string `json:"config,omitempty"`
+	CPUUserMS           float64           `json:"cpu_user_ms"`
+	CPUSystemMS         float64           `json:"cpu_system_ms"`
+	MinorFaults         int64             `json:"minor_faults"`
+	MajorFaults         int64             `json:"major_faults"`
+	VoluntarySwitches   int64             `json:"voluntary_switches"`
+	InvoluntarySwitches int64             `json:"involuntary_switches"`
+	LifetimeMaxRSSBytes int64             `json:"lifetime_max_rss_bytes"`
+	SyncDir             string            `json:"-"`
+	Backend             string            `json:"backend"`
+	Route               string            `json:"route"`
+	Parallel            int               `json:"parallel"`
+	Count               int               `json:"count"`
+	Go                  string            `json:"go"`
+	GOMAXPROCS          int               `json:"gomaxprocs"`
+	Version             string            `json:"server_version"`
+	StartMS             float64           `json:"root_start_ms"`
+	SnapshotMS          float64           `json:"snapshot_ms"`
+	BatchMS             float64           `json:"batch_ms"`
+	Samples             []Sample          `json:"samples"`
+	RootClosed          bool              `json:"root_closed_before_forks"`
+	Cleanup             bool              `json:"cleanup_complete"`
+	Corrupt             bool              `json:"corrupt_seed"`
+	Success             bool              `json:"success"`
+	Error               string            `json:"error,omitempty"`
 }
 
 func ms(t time.Duration) float64 { return float64(t) / 1e6 }
@@ -133,6 +135,10 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 	if e != nil {
 		return s, e
 	}
+	s.Config, e = settings(ctx, c)
+	if e != nil {
+		return s, e
+	}
 	at = time.Now()
 	var value int
 	e = c.QueryRowContext(ctx, "SELECT 1").Scan(&value)
@@ -195,6 +201,10 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 	pool.SetMaxOpenConns(1)
 	pool.SetMaxIdleConns(1)
 	if e = pool.QueryRowContext(ctx, "SELECT VERSION()").Scan(&r.Version); e != nil {
+		return e
+	}
+	r.Config, e = settings(ctx, pool)
+	if e != nil {
 		return e
 	}
 	if _, e = pool.ExecContext(ctx, "CREATE TABLE fork_probe (id INTEGER PRIMARY KEY,v INTEGER NOT NULL)"); e != nil {
@@ -350,4 +360,26 @@ func Main(backend string, start func(context.Context) (*Database, error)) {
 		fmt.Fprintln(os.Stderr, e)
 		os.Exit(1)
 	}
+}
+
+func settings(ctx context.Context, q interface {
+	QueryContext(context.Context, string, ...any) (*sql.Rows, error)
+}) (map[string]string, error) {
+	if os.Getenv("DEFAULT_SETTINGS_PREFLIGHT") != "1" {
+		return nil, nil
+	}
+	rs, e := q.QueryContext(ctx, "SHOW GLOBAL VARIABLES WHERE Variable_name IN ('innodb_buffer_pool_size','innodb_buffer_pool_size_max','innodb_log_buffer_size','max_connections','default_storage_engine','innodb_read_io_threads','innodb_write_io_threads','innodb_purge_threads','table_open_cache','thread_cache_size','innodb_use_native_aio','innodb_buffer_pool_load_at_startup','innodb_buffer_pool_dump_at_shutdown','innodb_io_capacity','innodb_io_capacity_max','innodb_flush_sync','innodb_flush_log_at_trx_commit','skip_networking','skip_grant_tables','log_bin','datadir','basedir','plugin_dir','lc_messages_dir','character_sets_dir','tmpdir','socket','caching_sha2_password_auto_generate_rsa_keys','caching_sha2_password_private_key_path','caching_sha2_password_public_key_path')")
+	if e != nil {
+		return nil, e
+	}
+	defer rs.Close()
+	out := map[string]string{}
+	for rs.Next() {
+		var k, v string
+		if e = rs.Scan(&k, &v); e != nil {
+			return nil, e
+		}
+		out[k] = v
+	}
+	return out, rs.Err()
 }
