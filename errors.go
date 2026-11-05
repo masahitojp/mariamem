@@ -10,6 +10,7 @@ import (
 
 // These errors identify common rejected operations; use errors.Is to test them.
 var (
+	ErrCapacity          = errors.New("database session capacity exhausted")
 	ErrBusy              = errors.New("database is busy")
 	ErrTransactionActive = errors.New("transaction is active")
 	ErrClosed            = errors.New("database or snapshot is closed")
@@ -31,7 +32,7 @@ type HostError struct {
 func (e *HostError) Error() string { return fmt.Sprintf("mariamem %s: %v", e.Code, e.Err) }
 func (e *HostError) Unwrap() error { return e.Err }
 func (e *HostError) Is(target error) bool {
-	return (e.Code == "busy" && target == ErrBusy) || (e.Code == "transaction_active" && target == ErrTransactionActive) || (e.Code == "closed" && target == ErrClosed) || (e.Code == "unusable" && target == ErrUnusable)
+	return (e.Code == "capacity" && target == ErrCapacity) || (e.Code == "busy" && target == ErrBusy) || (e.Code == "transaction_active" && target == ErrTransactionActive) || (e.Code == "closed" && target == ErrClosed) || (e.Code == "unusable" && target == ErrUnusable)
 }
 func hostError(err error, code string, closed bool) error {
 	if err == nil {

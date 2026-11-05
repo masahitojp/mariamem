@@ -2598,3 +2598,40 @@ usage limits and the active fixture inventory are updated. Protected PR CI and
 integration remain pending; Ubuntu/installed/Release qualification are not claimed.
 No new Node CI job is added. Issue #94 owns the actionable checklist; the old
 spike keeps its original context.
+
+
+## Issue #66 opt-in Go Pipe adopted on main — unreleased
+
+The Human confirmed TCP as the default and requested proceeding with integration.
+PR [#110](https://github.com/masahitojp/mariamem/pull/110) squash-merged normally
+on 2026-11-05 to main source_commit
+`8149cd094c48aeaefb5309d62203c70d2d1c65a2`; issue #66 is CLOSED/COMPLETED.
+The reviewed PR head is `0f30b1eca5ec67da4b482bc323158a5ccf4759a4`.
+Development [41902172841](https://github.com/masahitojp/mariamem/actions/runs/41902172841)
+completed check, integration and Live required gate successfully. Its actual
+execution source_commit is `c8991ca5144902b22d9a064e5158ad022f42d345`.
+Head, CI execution and merged main have identical tree
+`cc7ddee78317516634da066188445459094b65ef`.
+
+Database.DialContext selects a same-process connection per MySQL connector;
+fixture InProcess selects it for owned preparation/child pools. TCP remains the
+default and remains available for external migration commands. Admission returns
+ErrCapacity before starting a rejected Pipe worker. Successful connections retain
+the existing session cap, wire/guest, Close/capture/Fork ownership and failure
+rules. Guest/generated source, version metadata and listener startup are unchanged.
+
+The [implementation evidence](reviews/issue66-pipe-implementation/README.md)
+retains the original Darwin daily/smoke and changed-boundary race result at
+source `3d5a5ce8cc3a91e8233181b4476031f7180e2b6d`. Generated code/pN engine
+internals were excluded from focused race instrumentation; the broader compile
+was interrupted, not accepted. Ubuntu's actual source smoke also executed the
+four public TestInProcess cases successfully. No new CI job/matrix was added.
+See the [integration review](https://github.com/masahitojp/mariamem/pull/110#issuecomment-6645921325)
+for the prior-condition and detection-net assessment.
+
+The [finite spike](https://github.com/masahitojp/mariamem/tree/8f5ef18a1adf7219866ceaf03a1011e430bd6bba/benchmarks/spikes/net-pipe)
+retains its single-host timings and allocation tradeoff. Those are not new
+measurements of the public API candidate or a general suite-speedup claim.
+Integration is complete; installed artifacts, full engine/race qualification,
+performance/RSS campaigns and release publication are separate and unexecuted
+for this candidate. No release version or publication is selected here.
