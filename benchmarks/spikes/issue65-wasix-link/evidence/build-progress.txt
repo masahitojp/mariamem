@@ -1,0 +1,1169 @@
+/root/.wasixcc/llvm/LLVM-23.1.0-Linux-ARM64
+Prepared build/source from pinned archives; all guest dependencies are local.
+==> Native host tools in /work/source/build-native
+[  0%] Building C object scripts/CMakeFiles/comp_sql.dir/comp_sql.c.o
+[  0%] Building C object strings/CMakeFiles/uca-dump.dir/uca-dump.c.o
+[  0%] Building CXX object sql/CMakeFiles/gen_lex_hash.dir/gen_lex_hash.cc.o
+[  0%] Building CXX object scripts/CMakeFiles/comp_sql.dir/__/sql/sql_bootstrap.cc.o
+[  0%] Linking CXX executable gen_lex_hash
+[  0%] Linking CXX executable comp_sql
+[  0%] Built target gen_lex_hash
+[  0%] Linking C executable uca-dump
+[  0%] Built target comp_sql
+[  0%] Built target uca-dump
+[  0%] Generating ctype-uca1400data.h
+[  0%] Built target GenUnicodeDataSource
+[  0%] Building C object mysys/CMakeFiles/mysys.dir/array.c.o
+[  0%] Building C object mysys/CMakeFiles/mysys.dir/charset.c.o
+[  0%] Building C object mysys/CMakeFiles/mysys.dir/charset-def.c.o
+[  0%] Building C object mysys/CMakeFiles/mysys.dir/get_password.c.o
+[  0%] Building C object mysys/CMakeFiles/mysys.dir/my_default.c.o
+[  0%] Building C object mysys/CMakeFiles/mysys.dir/errors.c.o
+[  0%] Building C object mysys/CMakeFiles/mysys.dir/hash.c.o
+[  0%] Building C object mysys/CMakeFiles/mysys.dir/list.c.o
+[  0%] Building C object mysys/CMakeFiles/mysys.dir/mf_cache.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_dirname.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_fn_ext.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_format.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_getdate.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_iocache.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_iocache2.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_keycache.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_keycaches.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_loadpath.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_pack.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_path.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_qsort.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_qsort2.c.o
+[  6%] Building C object mysys/CMakeFiles/mysys.dir/mf_radix.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/mf_same.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/mf_sort.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/mf_soundex.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/mf_arr_appstr.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/mf_tempdir.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/mf_tempfile.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/mf_unixpath.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/mf_wcomp.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/mulalloc.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/my_access.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/my_alloc.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/my_bit.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/my_bitmap.c.o
+[ 13%] Building C object mysys/CMakeFiles/mysys.dir/my_chsize.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_compress.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_create.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_copy.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_delete.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_div.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_error.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_file.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_fopen.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_fstream.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_getexe.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_gethwaddr.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_getopt.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_getsystime.c.o
+[ 20%] Building C object mysys/CMakeFiles/mysys.dir/my_getwd.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_compare.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_init.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_lib.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_lock.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_malloc.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_mess.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_mkdir.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_mmap.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_once.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_open.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_pread.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_pthread.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_quick.c.o
+[ 26%] Building C object mysys/CMakeFiles/mysys.dir/my_read.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/my_redel.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/my_rename.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/my_seek.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/my_sleep.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/my_static.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/my_symlink.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/my_symlink2.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/my_sync.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/my_thr_init.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/my_basename.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/my_write.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/ptr_cmp.c.o
+[ 33%] Building C object mysys/CMakeFiles/mysys.dir/queues.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/stacktrace.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/string.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/thr_lock.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/thr_mutex.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/thr_rwlock.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/thr_timer.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/my_stack.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/tree.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/typelib.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/base64.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/my_memmem.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/my_getpagesize.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/guess_malloc_library.c.o
+[ 40%] Building C object mysys/CMakeFiles/mysys.dir/lf_alloc-pin.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/lf_dynarray.c.o
+[ 46%] Building CXX object mysys/CMakeFiles/mysys.dir/lf_hash.cc.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/safemalloc.c.o
+[ 46%] Building CXX object mysys/CMakeFiles/mysys.dir/my_new.cc.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/my_getncpus.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/my_safehash.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/my_chmod.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/my_rnd.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/my_uuid.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/wqueue.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/waiting_threads.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/ma_dyncol.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/__/sql-common/my_time.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/my_rdtsc.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/psi_noop.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_atomic_writes.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_cpu.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_likely.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_largepage.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/file_logger.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_dlerror.c.o
+[ 53%] Building CXX object mysys/CMakeFiles/mysys.dir/crc32/crc32c.cc.o
+[ 53%] Building CXX object mysys/CMakeFiles/mysys.dir/my_timezone.cc.o
+[ 53%] Building CXX object mysys/CMakeFiles/mysys.dir/my_compr_int.cc.o
+[ 53%] Building CXX object mysys/CMakeFiles/mysys.dir/my_thread_name.cc.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_virtual_mem.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/crc32/crc32_arm64.c.o
+[ 53%] Building CXX object mysys/CMakeFiles/mysys.dir/crc32ieee.cc.o
+[ 60%] Building C object mysys/CMakeFiles/mysys.dir/my_addr_resolve.c.o
+[ 60%] Building C object mysys/CMakeFiles/mysys.dir/my_setuser.c.o
+[ 60%] Building C object mysys/CMakeFiles/mysys.dir/my_lockmem.c.o
+[ 60%] Linking CXX static library libmysys.a
+[ 60%] Built target mysys
+[ 60%] Building C object strings/CMakeFiles/strings.dir/ctype-big5.c.o
+[ 60%] Building C object strings/CMakeFiles/strings.dir/bchange.c.o
+[ 60%] Building C object strings/CMakeFiles/strings.dir/bmove_upp.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-cp932.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-bin.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-euc_kr.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-czech.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-eucjpms.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-extra.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-gb2312.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-gbk.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-latin1.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-mb.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-simple.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-sjis.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-tis620.c.o
+[ 66%] Building C object strings/CMakeFiles/strings.dir/ctype-uca.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/ctype-uca0900.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/ctype-uca1400.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/ctype-ucs2.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/ctype-ujis.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/ctype-utf8.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/ctype-win1250ch.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/ctype.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/decimal.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/dtoa.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/int2str.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/ctype-unidata.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/is_prefix.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/llstr.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/longlong2str.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/my_strtoll10.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/my_vsnprintf.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/str2int.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/strcend.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/strend.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/strfill.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/strmake.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/strnmov.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/strxmov.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/strxnmov.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/xml.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/strmov_overlapp.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/my_strchr.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/strcont.c.o
+[ 86%] Building C object strings/CMakeFiles/strings.dir/json_lib.c.o
+[ 86%] Building C object strings/CMakeFiles/strings.dir/strappend.c.o
+[ 86%] Building C object strings/CMakeFiles/strings.dir/json_normalize.c.o
+[ 86%] Building C object strings/CMakeFiles/strings.dir/hasher-mysql5x.c.o
+[ 86%] Building C object strings/CMakeFiles/strings.dir/hasher-base31.c.o
+[ 86%] Building C object strings/CMakeFiles/strings.dir/hasher-crc32c.c.o
+[ 86%] Building C object strings/CMakeFiles/strings.dir/hasher-xxh.c.o
+[ 86%] Linking CXX static library libstrings.a
+[ 86%] Built target strings
+[ 86%] Building C object dbug/CMakeFiles/dbug.dir/dbug.c.o
+[ 86%] Linking CXX static library libdbug.a
+[ 86%] Built target dbug
+[ 86%] Building yy_mariadb.yy and yy_oracle.yy from sql_yacc.yy
+[ 93%] Building C object dbug/CMakeFiles/factorial.dir/my_main.c.o
+[ 93%] Building C object extra/CMakeFiles/comp_err.dir/comp_err.c.o
+[ 93%] Building C object dbug/CMakeFiles/factorial.dir/factorial.c.o
+[ 93%] Linking CXX executable comp_err
+[ 93%] Linking CXX executable factorial
+[ 93%] Built target comp_err
+[ 93%] Built target factorial
+[100%] [BISON][gen_mariadb_cc_hh] Building parser with bison 3.8.2
+[100%] Building CXX object sql/CMakeFiles/gen_lex_token.dir/gen_lex_token.cc.o
+[100%] Linking CXX executable gen_lex_token
+[100%] Built target gen_lex_token
+[100%] Built target import_executables
+==> WASIX configure in /work/source/build-legacy-no-postopt
+==> WASIX build lite4mariadb-wasix
+[  0%] Creating directories for 'pcre2'
+[  0%] Generating ../include/mysqld_error.h.tmp
+[  0%] Building CXX object tpool/CMakeFiles/tpool.dir/tpool_generic.cc.o
+[  0%] Performing download step (verify and extract) for 'pcre2'
+[  0%] Built target GenError
+[  0%] Creating directories for 'libfmt'
+[  0%] Performing download step (verify and extract) for 'libfmt'
+[  0%] No update step for 'pcre2'
+[  0%] No update step for 'libfmt'
+[  1%] No patch step for 'libfmt'
+[  1%] No patch step for 'pcre2'
+[  1%] No configure step for 'libfmt'
+[  1%] Performing configure step for 'pcre2'
+[  1%] No build step for 'libfmt'
+[  1%] No install step for 'libfmt'
+[  1%] Completed 'libfmt'
+[  1%] Built target libfmt
+[  1%] Generating lex_hash.h
+[  1%] Generating lex_token.h
+[  1%] Building yy_mariadb.yy and yy_oracle.yy from sql_yacc.yy
+[  1%] Building CXX object tpool/CMakeFiles/tpool.dir/task_group.cc.o
+[  3%] Building CXX object tpool/CMakeFiles/tpool.dir/task.cc.o
+[  3%] Building CXX object tpool/CMakeFiles/tpool.dir/wait_notification.cc.o
+[  3%] Building CXX object tpool/CMakeFiles/tpool.dir/aio_simulated.cc.o
+[  3%] Built target tpool
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/adler32.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/compress.c.o
+[  5%] Performing build step for 'pcre2'
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/crc32.c.o
+[  2%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_auto_possess.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/deflate.c.o
+[  5%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_chartables.c.o
+[  8%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_chkdint.c.o
+[ 11%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_compile.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/gzclose.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/gzlib.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/gzread.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/gzwrite.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/inflate.c.o
+[ 14%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_compile_cgroup.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/infback.c.o
+[ 17%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_compile_class.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/inftrees.c.o
+[ 20%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_config.c.o
+[ 23%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_context.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/inffast.c.o
+[ 26%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_convert.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/trees.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/uncompr.c.o
+[ 29%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_dfa_match.c.o
+[  5%] Building C object zlib/CMakeFiles/zlib.dir/zutil.c.o
+[  7%] Linking C static library libzlib.a
+[  7%] Built target zlib
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/src/crl.c.o
+[ 32%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_error.c.o
+[ 35%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_extuni.c.o
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/src/internal.c.o
+[ 38%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_find_bracket.c.o
+[ 41%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_jit_compile.c.o
+[ 44%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_maketables.c.o
+[ 47%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_match.c.o
+[  8%] [BISON][gen_mariadb_cc_hh] Building parser with bison 3.8.2
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/src/keys.c.o
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/src/tls.c.o
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/src/wolfio.c.o
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/src/ocsp.c.o
+[ 50%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_match_data.c.o
+[ 52%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_match_next.c.o
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/src/ssl.c.o
+[ 55%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_newline.c.o
+[ 58%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_ord2utf.c.o
+[ 61%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_pattern_info.c.o
+[ 64%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_script_run.c.o
+[ 67%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_serialize.c.o
+[ 70%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_string_utils.c.o
+[  8%] [BISON][gen_oracle_cc_hh] Building parser with bison 3.8.2
+[ 73%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_study.c.o
+[ 76%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_substitute.c.o
+[ 79%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_substring.c.o
+[ 82%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_tables.c.o
+[ 85%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_ucd.c.o
+[ 88%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_valid_utf.c.o
+[ 91%] Building C object CMakeFiles/pcre2-8-static.dir/src/pcre2_xclass.c.o
+[ 94%] Linking C static library libpcre2-8.a
+[ 94%] Built target pcre2-8-static
+[ 97%] Building C object CMakeFiles/pcre2-posix-static.dir/src/pcre2posix.c.o
+[100%] Linking C static library libpcre2-posix.a
+[100%] Built target pcre2-posix-static
+[  8%] No install step for 'pcre2'
+[  8%] Completed 'pcre2'
+[  8%] Built target pcre2
+[  8%] Building CXX object storage/csv/CMakeFiles/csv.dir/ha_tina.cc.o
+[  8%] Built target GenServerSource
+[  8%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/_check.c.o
+[  8%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/_rectest.c.o
+[  8%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_block.c.o
+[  8%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_clear.c.o
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/src/tls13.c.o
+[  8%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_close.c.o
+[  8%] Building CXX object storage/csv/CMakeFiles/csv.dir/transparent_file.cc.o
+[  8%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_create.c.o
+[  8%] Linking CXX static library libcsv.a
+[  8%] Building CXX object storage/heap/CMakeFiles/heap_embedded.dir/ha_heap.cc.o
+[  8%] Built target csv
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/aes.c.o
+[  8%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/btr/btr0btr.cc.o
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/arc4.c.o
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/asn.c.o
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/coding.c.o
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/des3.c.o
+[  8%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_delete.c.o
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/dh.c.o
+[  8%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/btr/btr0bulk.cc.o
+[  8%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_extra.c.o
+[  8%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/dsa.c.o
+[ 10%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/ecc.c.o
+[ 10%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_hash.c.o
+[ 10%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_info.c.o
+[ 10%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/ed25519.c.o
+[ 10%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/error.c.o
+[ 10%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_open.c.o
+[ 10%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/fe_operations.c.o
+[ 10%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_panic.c.o
+[ 12%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_rename.c.o
+[ 12%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/ge_operations.c.o
+[ 12%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_rfirst.c.o
+[ 12%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_rkey.c.o
+[ 12%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/hmac.c.o
+[ 12%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_rlast.c.o
+[ 12%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/logging.c.o
+[ 12%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/btr/btr0cur.cc.o
+[ 12%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_rnext.c.o
+[ 12%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/md4.c.o
+[ 12%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/md5.c.o
+[ 12%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_rprev.c.o
+[ 12%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/memory.c.o
+[ 12%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_rrnd.c.o
+[ 12%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/pkcs12.c.o
+[ 12%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_rsame.c.o
+[ 12%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/pwdbased.c.o
+[ 12%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_scan.c.o
+[ 12%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/random.c.o
+[ 12%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_static.c.o
+[ 12%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/rsa.c.o
+[ 12%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_update.c.o
+[ 12%] Building C object storage/heap/CMakeFiles/heap_embedded.dir/hp_write.c.o
+[ 12%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/sha.c.o
+[ 12%] Linking CXX static library libheap_embedded.a
+[ 12%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/sha256.c.o
+[ 12%] Built target heap_embedded
+[ 12%] Generating ctype-uca1400data.h
+[ 14%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/sha512.c.o
+[ 14%] Built target GenUnicodeDataSource
+[ 14%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/ft_boolean_search.c.o
+[ 14%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/poly1305.c.o
+[ 14%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/ft_nlq_search.c.o
+[ 14%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/chacha.c.o
+[ 14%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/btr/btr0pcur.cc.o
+[ 14%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/chacha20_poly1305.c.o
+[ 14%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/ft_parser.c.o
+[ 14%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/wc_port.c.o
+[ 14%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/ft_static.c.o
+[ 14%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/wc_encrypt.c.o
+[ 14%] Building CXX object storage/myisam/CMakeFiles/myisam_embedded.dir/ha_myisam.cc.o
+[ 14%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/hash.c.o
+[ 14%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/wolfmath.c.o
+[ 14%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/kdf.c.o
+[ 14%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/sp_int.c.o
+[ 14%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/btr/btr0sea.cc.o
+[ 14%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/sp_c32.c.o
+[ 14%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/ft_myisam.c.o
+[ 14%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/ft_stopwords.c.o
+[ 14%] Building C object extra/wolfssl/CMakeFiles/wolfssl.dir/wolfssl/wolfcrypt/src/sp_c64.c.o
+[ 14%] Linking C static library libwolfssl.a
+[ 14%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/ft_update.c.o
+[ 14%] Built target wolfssl
+[ 14%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/buf/buf0buddy.cc.o
+[ 14%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_close.c.o
+[ 16%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_create.c.o
+[ 16%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_cache.c.o
+[ 17%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_changed.c.o
+[ 17%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_delete.c.o
+[ 17%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_extra.c.o
+[ 17%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_check.c.o
+[ 17%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_info.c.o
+[ 17%] Building CXX object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/ha_myisammrg.cc.o
+[ 17%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_checksum.c.o
+[ 19%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/buf/buf0buf.cc.o
+[ 19%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_close.c.o
+[ 19%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_create.c.o
+[ 19%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_dbug.c.o
+[ 19%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_delete.c.o
+[ 19%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_delete_all.c.o
+[ 19%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_delete_table.c.o
+[ 19%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_dynrec.c.o
+[ 19%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_locking.c.o
+[ 19%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_open.c.o
+[ 19%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_extra.c.o
+[ 19%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_panic.c.o
+[ 19%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/buf/buf0dblwr.cc.o
+[ 19%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_info.c.o
+[ 19%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_queue.c.o
+[ 19%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_key.c.o
+[ 19%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_range.c.o
+[ 19%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_keycache.c.o
+[ 19%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_rfirst.c.o
+[ 19%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_locking.c.o
+[ 19%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_rkey.c.o
+[ 21%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_log.c.o
+[ 21%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_rlast.c.o
+[ 21%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_open.c.o
+[ 21%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_rnext.c.o
+[ 21%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_rnext_same.c.o
+[ 21%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_packrec.c.o
+[ 21%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_rprev.c.o
+[ 21%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/buf/buf0checksum.cc.o
+[ 23%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_rrnd.c.o
+[ 23%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_page.c.o
+[ 23%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_rsame.c.o
+[ 23%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_panic.c.o
+[ 23%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_static.c.o
+[ 23%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_preload.c.o
+[ 23%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_update.c.o
+[ 23%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_range.c.o
+[ 23%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_write.c.o
+[ 23%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_rename.c.o
+[ 23%] Building C object storage/myisammrg/CMakeFiles/myisammrg_embedded.dir/myrg_records.c.o
+[ 23%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_rfirst.c.o
+[ 23%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/buf/buf0dump.cc.o
+[ 23%] Linking CXX static library libmyisammrg_embedded.a
+[ 23%] Built target myisammrg_embedded
+[ 23%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_rlast.c.o
+[ 23%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_rnext.c.o
+[ 23%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_rnext_same.c.o
+[ 23%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_rprev.c.o
+[ 23%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_rrnd.c.o
+[ 23%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_rsame.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_rsamepos.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_scan.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_search.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_static.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_statrec.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_unique.c.o
+[ 25%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/buf/buf0flu.cc.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_update.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_write.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/rt_index.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/rt_key.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/rt_mbr.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/rt_split.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/sort.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/sp_key.c.o
+[ 25%] Building C object storage/myisam/CMakeFiles/myisam_embedded.dir/mi_rkey.c.o
+[ 25%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/buf/buf0lru.cc.o
+[ 25%] Linking CXX static library libmyisam_embedded.a
+[ 25%] Built target myisam_embedded
+[ 25%] Building CXX object storage/sequence/CMakeFiles/sequence.dir/sequence.cc.o
+[ 25%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/buf/buf0rea.cc.o
+[ 25%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/data/data0data.cc.o
+[ 25%] Linking CXX static library libsequence.a
+[ 25%] Built target sequence
+[ 25%] Building C object plugin/auth_mysql_sha2/CMakeFiles/auth_mysql_sha2.dir/mysql_sha2.c.o
+[ 25%] Building C object plugin/auth_mysql_sha2/CMakeFiles/auth_mysql_sha2.dir/sha256crypt.c.o
+[ 25%] Building C object plugin/auth_mysql_sha2/CMakeFiles/auth_mysql_sha2.dir/ssl_stuff.c.o
+[ 25%] Building C object plugin/auth_mysql_sha2/CMakeFiles/auth_mysql_sha2.dir/openssl1-compat.c.o
+[ 25%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/data/data0type.cc.o
+[ 25%] Linking C static library libauth_mysql_sha2.a
+[ 25%] Built target auth_mysql_sha2
+[ 25%] Building CXX object plugin/auth_parsec/CMakeFiles/auth_parsec.dir/server_parsec.cc.o
+[ 25%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/dict/dict0boot.cc.o
+[ 25%] Linking CXX static library libauth_parsec.a
+[ 25%] Built target auth_parsec
+[ 25%] Building CXX object plugin/feedback/CMakeFiles/feedback_embedded.dir/feedback.cc.o
+[ 25%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/dict/dict0crea.cc.o
+[ 25%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/dict/dict0dict.cc.o
+[ 25%] Building CXX object plugin/feedback/CMakeFiles/feedback_embedded.dir/sender_thread.cc.o
+[ 25%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/dict/dict0load.cc.o
+[ 25%] Building CXX object plugin/feedback/CMakeFiles/feedback_embedded.dir/url_base.cc.o
+[ 25%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/dict/dict0mem.cc.o
+[ 25%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/dict/dict0stats.cc.o
+[ 25%] Building CXX object plugin/feedback/CMakeFiles/feedback_embedded.dir/url_http.cc.o
+[ 25%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/dict/dict0stats_bg.cc.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/dict/drop.cc.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/eval/eval0eval.cc.o
+[ 26%] Building CXX object plugin/feedback/CMakeFiles/feedback_embedded.dir/utils.cc.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/eval/eval0proc.cc.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fil/fil0fil.cc.o
+[ 26%] Linking CXX static library libfeedback_embedded.a
+[ 26%] Built target feedback_embedded
+[ 26%] Building CXX object plugin/type_assoc_array/CMakeFiles/type_assoc_array_embedded.dir/sql_type_assoc_array.cc.o
+[ 26%] Building CXX object plugin/type_cursor/CMakeFiles/type_cursor_embedded.dir/plugin.cc.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fil/fil0pagecompress.cc.o
+[ 26%] Linking CXX static library libtype_cursor_embedded.a
+[ 26%] Built target type_cursor_embedded
+[ 26%] Building CXX object plugin/type_geom/CMakeFiles/type_geom_embedded.dir/plugin.cc.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fil/fil0crypt.cc.o
+[ 26%] Linking CXX static library libtype_assoc_array_embedded.a
+[ 26%] Built target type_assoc_array_embedded
+[ 26%] Building CXX object plugin/type_inet/CMakeFiles/type_inet_embedded.dir/plugin.cc.o
+[ 26%] Linking CXX static library libtype_geom_embedded.a
+[ 26%] Built target type_geom_embedded
+[ 26%] Building CXX object plugin/type_uuid/CMakeFiles/type_uuid_embedded.dir/plugin.cc.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fsp/fsp0fsp.cc.o
+[ 26%] Building CXX object plugin/type_inet/CMakeFiles/type_inet_embedded.dir/item_inetfunc.cc.o
+[ 26%] Building CXX object plugin/type_uuid/CMakeFiles/type_uuid_embedded.dir/item_uuidfunc.cc.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fsp/fsp0file.cc.o
+[ 26%] Building CXX object plugin/type_inet/CMakeFiles/type_inet_embedded.dir/sql_type_inet.cc.o
+[ 26%] Linking CXX static library libtype_uuid_embedded.a
+[ 26%] Built target type_uuid_embedded
+[ 26%] Building CXX object plugin/type_xmltype/CMakeFiles/type_xmltype_embedded.dir/plugin.cc.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fsp/fsp0space.cc.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fsp/fsp0sysspace.cc.o
+[ 26%] Building CXX object plugin/type_xmltype/CMakeFiles/type_xmltype_embedded.dir/sql_type_xmltype.cc.o
+[ 26%] Linking CXX static library libtype_inet_embedded.a
+[ 26%] Built target type_inet_embedded
+[ 26%] Building CXX object plugin/user_variables/CMakeFiles/user_variables_embedded.dir/user_variables.cc.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fsp/fsp_binlog.cc.o
+[ 26%] Linking CXX static library libtype_xmltype_embedded.a
+[ 26%] Built target type_xmltype_embedded
+[ 26%] Building CXX object plugin/userstat/CMakeFiles/userstat.dir/userstat.cc.o
+[ 26%] Linking CXX static library libuser_variables_embedded.a
+[ 26%] Built target user_variables_embedded
+[ 26%] Building C object vio/CMakeFiles/vio.dir/vio.c.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fut/fut0lst.cc.o
+[ 26%] Building C object vio/CMakeFiles/vio.dir/viosocket.c.o
+[ 26%] Building C object vio/CMakeFiles/vio.dir/viossl.c.o
+[ 26%] Building C object vio/CMakeFiles/vio.dir/viopipe.c.o
+[ 26%] Linking CXX static library libuserstat.a
+[ 26%] Built target userstat
+[ 26%] Building CXX object sql/CMakeFiles/partition_embedded.dir/ha_partition.cc.o
+[ 26%] Building C object vio/CMakeFiles/vio.dir/viosslfactories.c.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/ha/ha0storage.cc.o
+[ 26%] Linking C static library libvio.a
+[ 26%] Built target vio
+[ 26%] Building CXX object sql/CMakeFiles/sql_sequence_embedded.dir/ha_sequence.cc.o
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fts/fts0fts.cc.o
+[ 26%] Linking CXX static library libsql_sequence_embedded.a
+[ 26%] Built target sql_sequence_embedded
+[ 26%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fts/fts0ast.cc.o
+[ 26%] Linking CXX static library libpartition_embedded.a
+[ 26%] Built target partition_embedded
+[ 26%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/emb_qcache.cc.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fts/fts0blex.cc.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fts/fts0config.cc.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fts/fts0opt.cc.o
+[ 28%] Building C object libmysqld/CMakeFiles/sql_embedded.dir/libmysqld.c.o
+[ 28%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/lib_sql.cc.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fts/fts0pars.cc.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fts/fts0que.cc.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fts/fts0sql.cc.o
+[ 28%] Building C object libmysqld/CMakeFiles/sql_embedded.dir/libmysql.c.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fts/fts0tlex.cc.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/gis/gis0geo.cc.o
+[ 28%] Building C object libmysqld/CMakeFiles/sql_embedded.dir/__/sql-common/errmsg.c.o
+[ 28%] Building C object libmysqld/CMakeFiles/sql_embedded.dir/__/sql-common/client.c.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/gis/gis0rtree.cc.o
+[ 28%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/cset_narrowing.cc.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/gis/gis0sea.cc.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/fts/fts0plugin.cc.o
+[ 28%] Building C object libmysqld/CMakeFiles/sql_embedded.dir/__/sql-common/my_user.c.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/handler/ha_innodb.cc.o
+[ 28%] Building C object libmysqld/CMakeFiles/sql_embedded.dir/__/sql-common/pack.c.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/handler/handler0alter.cc.o
+[ 28%] Building C object libmysqld/CMakeFiles/sql_embedded.dir/__/sql-common/client_plugin.c.o
+[ 28%] Building C object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/password.c.o
+[ 28%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/discover.cc.o
+[ 28%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/derror.cc.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/handler/innodb_binlog.cc.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/handler/i_s.cc.o
+[ 28%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/field.cc.o
+[ 28%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/ibuf/ibuf0ibuf.cc.o
+[ 30%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/lock/lock0iter.cc.o
+[ 30%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/lock/lock0prdt.cc.o
+[ 30%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/field_conv.cc.o
+[ 30%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/lock/lock0lock.cc.o
+[ 30%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/log/log0log.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/field_comp.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/filesort_utils.cc.o
+[ 32%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/log/log0recv.cc.o
+[ 32%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/log/log0crypt.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_digest.cc.o
+[ 32%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/log/log0sync.cc.o
+[ 32%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/mem/mem0mem.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/filesort.cc.o
+[ 32%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/mtr/mtr0mtr.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/grant.cc.o
+[ 32%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/os/os0file.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/gstream.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/signal_handler.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/handler.cc.o
+[ 32%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/page/page0cur.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/hash_filo.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/hostname.cc.o
+[ 32%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/page/page0page.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/init.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_buff.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_cmpfunc.cc.o
+[ 32%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/page/page0zip.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item.cc.o
+[ 32%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/pars/lexyy.cc.o
+[ 32%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/pars/pars0grm.cc.o
+[ 32%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_create.cc.o
+[ 33%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/pars/pars0opt.cc.o
+[ 35%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_func.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/pars/pars0pars.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/pars/pars0sym.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/que/que0que.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/read/read0read.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/rem/rem0cmp.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/rem/rem0rec.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0ext.cc.o
+[ 35%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_geofunc.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0ftsort.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0import.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0ins.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0merge.cc.o
+[ 35%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_row.cc.o
+[ 35%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_strfunc.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0mysql.cc.o
+[ 35%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_subselect.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0log.cc.o
+[ 35%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_sum.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0purge.cc.o
+[ 35%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0row.cc.o
+[ 37%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0sel.cc.o
+[ 37%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_timefunc.cc.o
+[ 37%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0uins.cc.o
+[ 37%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0umod.cc.o
+[ 37%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0undo.cc.o
+[ 37%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0upd.cc.o
+[ 37%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_numconvfunc.cc.o
+[ 37%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_xmlfunc.cc.o
+[ 37%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0quiesce.cc.o
+[ 37%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_jsonfunc.cc.o
+[ 37%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/row/row0vers.cc.o
+[ 37%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/json_schema.cc.o
+[ 37%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/srv/srv0mon.cc.o
+[ 37%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/json_schema_helper.cc.o
+[ 37%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/key.cc.o
+[ 37%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/srv/srv0srv.cc.o
+[ 37%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/lock.cc.o
+[ 37%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/log.cc.o
+[ 37%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/srv/srv0start.cc.o
+[ 37%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/log_cache.cc.o
+[ 37%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/sync/srw_lock.cc.o
+[ 39%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/log_event.cc.o
+[ 39%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/trx/trx0i_s.cc.o
+[ 39%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/log_event_server.cc.o
+[ 39%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/mf_iocache.cc.o
+[ 39%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/trx/trx0purge.cc.o
+[ 39%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/my_decimal.cc.o
+[ 39%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/net_serv.cc.o
+[ 39%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_range.cc.o
+[ 39%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/trx/trx0rec.cc.o
+[ 39%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_group_by_cardinality.cc.o
+[ 39%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/trx/trx0roll.cc.o
+[ 39%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_rewrite_date_cmp.cc.o
+[ 39%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_rewrite_remove_casefold.cc.o
+[ 41%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/trx/trx0rseg.cc.o
+[ 41%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_sargable_left.cc.o
+[ 41%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_sum.cc.o
+[ 41%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/trx/trx0sys.cc.o
+[ 41%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_vcol_substitution.cc.o
+[ 41%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/trx/trx0trx.cc.o
+[ 41%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/trx/trx0undo.cc.o
+[ 41%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/parse_file.cc.o
+[ 41%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/procedure.cc.o
+[ 41%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/protocol.cc.o
+[ 41%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/ut/ut0dbg.cc.o
+[ 41%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/ut/ut0list.cc.o
+[ 42%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/records.cc.o
+[ 42%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/repl_failsafe.cc.o
+[ 42%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/ut/ut0mem.cc.o
+[ 42%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/ut/ut0new.cc.o
+[ 42%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/rpl_filter.cc.o
+[ 42%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/rpl_record.cc.o
+[ 42%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/ut/ut0rbt.cc.o
+[ 42%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/des_key_file.cc.o
+[ 42%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/rpl_injector.cc.o
+[ 42%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/ut/ut0rnd.cc.o
+[ 42%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/set_var.cc.o
+[ 42%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/ut/ut0ut.cc.o
+[ 42%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/spatial.cc.o
+[ 42%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/ut/ut0vec.cc.o
+[ 42%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sp_cache.cc.o
+[ 42%] Building CXX object storage/innobase/CMakeFiles/innobase_embedded.dir/ut/ut0wqueue.cc.o
+[ 42%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sp.cc.o
+[ 42%] Linking CXX static library libinnobase_embedded.a
+[ 42%] Built target innobase_embedded
+[ 42%] Building C object mysys/CMakeFiles/mysys.dir/array.c.o
+[ 42%] Building C object mysys/CMakeFiles/mysys.dir/charset-def.c.o
+[ 42%] Building C object mysys/CMakeFiles/mysys.dir/charset.c.o
+[ 42%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sp_head.cc.o
+[ 42%] Building C object mysys/CMakeFiles/mysys.dir/my_default.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/get_password.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/errors.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/hash.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/list.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/mf_cache.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/mf_dirname.c.o
+[ 44%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sp_pcontext.cc.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/mf_fn_ext.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/mf_format.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/mf_getdate.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/mf_iocache.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/mf_iocache2.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/mf_keycache.c.o
+[ 44%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sp_rcontext.cc.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/mf_keycaches.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/mf_loadpath.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/mf_pack.c.o
+[ 44%] Building C object mysys/CMakeFiles/mysys.dir/mf_path.c.o
+[ 44%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_acl.cc.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/mf_qsort.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/mf_qsort2.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/mf_radix.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/mf_same.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/mf_sort.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/mf_soundex.c.o
+[ 46%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_analyse.cc.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/mf_arr_appstr.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/mf_tempdir.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/mf_tempfile.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/mf_unixpath.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/mf_wcomp.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/mulalloc.c.o
+[ 46%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_base.cc.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/my_access.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/my_alloc.c.o
+[ 46%] Building C object mysys/CMakeFiles/mysys.dir/my_bit.c.o
+[ 48%] Building C object mysys/CMakeFiles/mysys.dir/my_bitmap.c.o
+[ 48%] Building C object mysys/CMakeFiles/mysys.dir/my_chsize.c.o
+[ 50%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_cache.cc.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_compress.c.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_copy.c.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_create.c.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_delete.c.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_div.c.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_error.c.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_file.c.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_fopen.c.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_fstream.c.o
+[ 50%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_class.cc.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_getexe.c.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_gethwaddr.c.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_getopt.c.o
+[ 50%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_crypt.cc.o
+[ 50%] Building C object mysys/CMakeFiles/mysys.dir/my_getsystime.c.o
+[ 50%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_cursor.cc.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_getwd.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_compare.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_init.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_lib.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_lock.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_malloc.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_mess.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_mkdir.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_mmap.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_once.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_open.c.o
+[ 51%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_db.cc.o
+[ 51%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_delete.cc.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_pread.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_pthread.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_quick.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_read.c.o
+[ 51%] Building C object mysys/CMakeFiles/mysys.dir/my_redel.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_rename.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_seek.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_sleep.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_static.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_symlink.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_symlink2.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_sync.c.o
+[ 53%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_derived.cc.o
+[ 53%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_do.cc.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_thr_init.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_basename.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/my_write.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/ptr_cmp.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/queues.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/stacktrace.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/string.c.o
+[ 53%] Building C object mysys/CMakeFiles/mysys.dir/thr_lock.c.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/thr_mutex.c.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/thr_rwlock.c.o
+[ 55%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_error.cc.o
+[ 55%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_handler.cc.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/thr_timer.c.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/my_stack.c.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/tree.c.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/typelib.c.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/base64.c.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/my_memmem.c.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/my_getpagesize.c.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/guess_malloc_library.c.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/lf_alloc-pin.c.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/lf_dynarray.c.o
+[ 55%] Building CXX object mysys/CMakeFiles/mysys.dir/lf_hash.cc.o
+[ 55%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_get_diagnostics.cc.o
+[ 55%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_help.cc.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/safemalloc.c.o
+[ 55%] Building CXX object mysys/CMakeFiles/mysys.dir/my_new.cc.o
+[ 55%] Building C object mysys/CMakeFiles/mysys.dir/my_getncpus.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/my_safehash.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/my_chmod.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/my_rnd.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/my_uuid.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/wqueue.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/waiting_threads.c.o
+[ 57%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_insert.cc.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/ma_dyncol.c.o
+[ 57%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/datadict.cc.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/__/sql-common/my_time.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/my_rdtsc.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/psi_noop.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/my_atomic_writes.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/my_cpu.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/my_likely.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/my_largepage.c.o
+[ 57%] Building C object mysys/CMakeFiles/mysys.dir/file_logger.c.o
+[ 58%] Building C object mysys/CMakeFiles/mysys.dir/my_dlerror.c.o
+[ 58%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_admin.cc.o
+[ 58%] Building CXX object mysys/CMakeFiles/mysys.dir/crc32/crc32c.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_truncate.cc.o
+[ 60%] Building CXX object mysys/CMakeFiles/mysys.dir/my_timezone.cc.o
+[ 60%] Building CXX object mysys/CMakeFiles/mysys.dir/my_compr_int.cc.o
+[ 60%] Building CXX object mysys/CMakeFiles/mysys.dir/my_thread_name.cc.o
+[ 60%] Building C object mysys/CMakeFiles/mysys.dir/my_virtual_mem.c.o
+[ 60%] Building CXX object mysys/CMakeFiles/mysys.dir/crc32ieee.cc.o
+[ 60%] Building C object mysys/CMakeFiles/mysys.dir/my_addr_resolve.c.o
+[ 60%] Building C object mysys/CMakeFiles/mysys.dir/my_setuser.c.o
+[ 60%] Linking CXX static library libmysys.a
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_reload.cc.o
+[ 60%] Built target mysys
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_lex.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/keycaches.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_list.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_load.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_locale.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_binlog.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_manager.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_oracle_outer_join.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_parse.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_bootstrap.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_partition.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_plugin.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/debug_sync.cc.o
+[ 60%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/debug.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_table_elimination.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_prepare.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_rename.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_repl.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_select.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_servers.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/group_by_handler.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/derived_handler.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/select_handler.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_show.cc.o
+[ 62%] Building C object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_state.c.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_statistics.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_string.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_table.cc.o
+[ 62%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_test.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/ddl_log.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_vectorfunc.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_trigger.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_udf.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_union.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_update.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_view.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_profile.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/gcalc_tools.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/gcalc_slicescan.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/strfunc.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/table.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/thr_malloc.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_time.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/tztime.cc.o
+[ 64%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/uniques.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/unireg.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/partition_info.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_connect.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/scheduler.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_audit.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_alter.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_partition_admin.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/event_parse_data.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_signal.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sys_vars.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/vector_mhnsw.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_builtin.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/mdl.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/transaction.cc.o
+[ 66%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_join_cache.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/multi_range_read.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_index_cond_pushdown.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_subselect.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/create_options.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/rpl_utility.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/rpl_utility_server.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/rpl_reporting.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_expression_cache.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/my_apc.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/my_json_writer.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/rpl_gtid.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/gtid_index.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_explain.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_analyze_stmt.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/compat56.cc.o
+[ 67%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_schema.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/lex_charset.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/charset_collations.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_type.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_type_composite.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_composite.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_type_row.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_mode.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_type_string.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_type_json.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_type_geom.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_type_vector.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/table_cache.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/mf_iocache_encr.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/wsrep_dummy.cc.o
+[ 69%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/encryption.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_windowfunc.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_window.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_cte.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_sequence.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/ha_sequence.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/temporary_tables.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/proxy_protocol.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/backup.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_tvc.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_split.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/rowid_filter.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_vers.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_trace.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/xa.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/json_table.cc.o
+[ 71%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_histogram_json.cc.o
+[ 73%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sp_instr.cc.o
+[ 73%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sp_cursor.cc.o
+[ 73%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_hints_parser.cc.o
+[ 73%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_hints.cc.o
+[ 73%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_trace_ddl_info.cc.o
+[ 73%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_path.cc.o
+[ 73%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/yy_mariadb.cc.o
+[ 73%] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/yy_oracle.cc.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/bchange.c.o
+[ 73%] Building C object strings/CMakeFiles/strings.dir/bmove_upp.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-big5.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-bin.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-cp932.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-czech.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-euc_kr.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-eucjpms.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-extra.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-gb2312.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-gbk.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-latin1.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-mb.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-simple.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-sjis.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-tis620.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-uca.c.o
+[ 75%] Building C object strings/CMakeFiles/strings.dir/ctype-uca0900.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/ctype-uca1400.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/ctype-ujis.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/ctype-ucs2.c.o
+[ 76%] Linking CXX static library libsql_embedded.a
+[ 76%] Building C object strings/CMakeFiles/strings.dir/ctype-utf8.c.o
+[ 76%] Built target sql_embedded
+[ 76%] Building C object strings/CMakeFiles/strings.dir/ctype-win1250ch.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/ctype.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/decimal.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/dtoa.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/int2str.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/ctype-unidata.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/is_prefix.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/llstr.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/longlong2str.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/my_strtoll10.c.o
+[ 76%] Building C object strings/CMakeFiles/strings.dir/my_vsnprintf.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/str2int.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/strcend.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/strend.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/strfill.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/strmake.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/strnmov.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/strxnmov.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/strxmov.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/xml.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/strmov_overlapp.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/my_strchr.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/strcont.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/strappend.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/json_lib.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/json_normalize.c.o
+[ 78%] Building C object strings/CMakeFiles/strings.dir/hasher-mysql5x.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/hasher-base31.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/hasher-crc32c.c.o
+[ 80%] Building C object strings/CMakeFiles/strings.dir/hasher-xxh.c.o
+[ 80%] Linking CXX static library libstrings.a
+[ 80%] Built target strings
+[ 80%] Building C object dbug/CMakeFiles/dbug.dir/dbug.c.o
+[ 80%] Linking CXX static library libdbug.a
+[ 80%] Built target dbug
+[ 80%] Building CXX object mysys_ssl/CMakeFiles/mysys_ssl.dir/my_sha1.cc.o
+[ 80%] Building CXX object mysys_ssl/CMakeFiles/mysys_ssl.dir/my_sha224.cc.o
+[ 80%] Building C object storage/myisam/CMakeFiles/myisam.dir/ft_boolean_search.c.o
+[ 80%] Building C object storage/myisam/CMakeFiles/myisam.dir/ft_nlq_search.c.o
+[ 80%] Building CXX object mysys_ssl/CMakeFiles/mysys_ssl.dir/my_sha256.cc.o
+[ 80%] Building CXX object mysys_ssl/CMakeFiles/mysys_ssl.dir/my_sha384.cc.o
+[ 82%] Building C object storage/myisam/CMakeFiles/myisam.dir/ft_parser.c.o
+[ 82%] Building CXX object mysys_ssl/CMakeFiles/mysys_ssl.dir/my_sha512.cc.o
+[ 82%] Building CXX object mysys_ssl/CMakeFiles/mysys_ssl.dir/my_md5.cc.o
+[ 82%] Building C object storage/myisam/CMakeFiles/myisam.dir/ft_static.c.o
+[ 83%] Building CXX object mysys_ssl/CMakeFiles/mysys_ssl.dir/my_crypt.cc.o
+[ 83%] Building C object mysys_ssl/CMakeFiles/mysys_ssl.dir/openssl.c.o
+[ 83%] Building CXX object storage/myisam/CMakeFiles/myisam.dir/ha_myisam.cc.o
+[ 83%] Building C object storage/myisam/CMakeFiles/myisam.dir/ft_myisam.c.o
+[ 83%] Building C object storage/myisam/CMakeFiles/myisam.dir/ft_stopwords.c.o
+[ 83%] Building C object storage/myisam/CMakeFiles/myisam.dir/ft_update.c.o
+[ 83%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_cache.c.o
+[ 83%] Linking CXX static library libmysys_ssl.a
+[ 83%] Built target mysys_ssl
+[ 83%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_changed.c.o
+[ 83%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_check.c.o
+[ 83%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_checksum.c.o
+[ 83%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_close.c.o
+[ 83%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_create.c.o
+[ 83%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_dbug.c.o
+[ 83%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_delete.c.o
+[ 83%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_delete_all.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_delete_table.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_dynrec.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_extra.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_info.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_key.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_keycache.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_locking.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_log.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_open.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_packrec.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_page.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_panic.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_preload.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_range.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_rename.c.o
+[ 85%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_rfirst.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_rlast.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_rnext.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_rnext_same.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_rprev.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_rrnd.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_rsame.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_rsamepos.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_scan.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_search.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_static.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_statrec.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_unique.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_update.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_write.c.o
+[ 87%] Building C object storage/myisam/CMakeFiles/myisam.dir/rt_index.c.o
+[ 89%] Building C object storage/myisam/CMakeFiles/myisam.dir/rt_key.c.o
+[ 89%] Building C object storage/myisam/CMakeFiles/myisam.dir/rt_mbr.c.o
+[ 89%] Building C object storage/myisam/CMakeFiles/myisam.dir/rt_split.c.o
+[ 89%] Building C object storage/myisam/CMakeFiles/myisam.dir/sort.c.o
+[ 89%] Building C object storage/myisam/CMakeFiles/myisam.dir/sp_key.c.o
+[ 89%] Building C object storage/myisam/CMakeFiles/myisam.dir/mi_rkey.c.o
+[ 89%] Linking CXX static library libmyisam.a
+[ 89%] Built target myisam
+[ 89%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_extra.c.o
+[ 89%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_init.c.o
+[ 89%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_open.c.o
+[ 89%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_info.c.o
+[ 89%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rkey.c.o
+[ 89%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rnext.c.o
+[ 89%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rnext_same.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_search.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_key_recover.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_page.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_key.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_locking.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_state.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rrnd.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_scan.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_cache.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_statrec.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_dynrec.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_packrec.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_blockrec.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_bitmap.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_update.c.o
+[ 91%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_write.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_unique.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_delete.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rprev.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rfirst.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rlast.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rsame.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rsamepos.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_panic.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_close.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_create.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_range.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_dbug.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_checksum.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_changed.c.o
+[ 92%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_static.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_delete_all.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_delete_table.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rename.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_check.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_keycache.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_preload.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_ft_parser.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_ft_update.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_ft_boolean_search.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_ft_nlq_search.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ft_maria.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_sort.c.o
+[ 94%] Building CXX object storage/maria/CMakeFiles/aria_embedded.dir/ha_maria.cc.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/trnman.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/lockman.c.o
+[ 94%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rt_index.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rt_key.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rt_mbr.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_rt_split.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_sp_key.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_control_file.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_loghandler.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_pagecache.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_pagecaches.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_checkpoint.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_recovery.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_commit.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_pagecrc.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_recovery_util.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_servicethread.c.o
+[ 96%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_norec.c.o
+[ 98%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_crypt.c.o
+[ 98%] Building C object storage/maria/CMakeFiles/aria_embedded.dir/ma_backup.c.o
+[ 98%] Linking CXX static library libaria_embedded.a
+[ 98%] Built target aria_embedded
+[ 98%] Generating mysqlserver_depends.c
+[ 98%] Building C object libmysqld/CMakeFiles/mysqlserver.dir/mysqlserver_depends.c.o
+[ 98%] Linking CXX static library libmariadbd.a
+[ 98%] Built target mysqlserver
+[ 98%] Building CXX object wasm/CMakeFiles/lite4mariadb-wasix.dir/issue65_control.cc.o
+[ 98%] Building C object wasm/CMakeFiles/lite4mariadb-wasix.dir/lite4mariadb.c.o
+[100%] Linking CXX executable /work/source/wasm/dist/lite4mariadb.wasix.wasm
+[100%] Built target lite4mariadb-wasix
+==> Artifact:

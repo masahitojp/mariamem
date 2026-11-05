@@ -21,3 +21,9 @@ guest/experimental.patch -whitespace
 
 # Preserve upstream context in the uncompiled WASIX preflight draft.
 benchmarks/spikes/issue65-wasix-preflight/evidence/composed-draft.patch -whitespace
+
+# Preserve exact CMake-generated build receipts, including generator whitespace.
+benchmarks/spikes/issue65-wasix-link/evidence/CMakeCache.txt -whitespace
+benchmarks/spikes/issue65-wasix-link/evidence/flags.make -whitespace
+benchmarks/spikes/issue65-wasix-link/evidence/link.txt -whitespace
+benchmarks/spikes/issue65-wasix-link/evidence/compile-flags/*.txt -whitespace

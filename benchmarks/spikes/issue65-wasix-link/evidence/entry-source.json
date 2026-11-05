@@ -1,0 +1,22 @@
+{
+  "prior_composed_patch_sha256": "b586cab441d98e37b2c1bfd77b2c9b60b81ce288448e4c1fa1dee92bc1fa9d42",
+  "entry_files": {
+    "wasm/CMakeLists.txt": {
+      "product_sha256": "35404ae73df8957fc1604d0a0e7fb55e4005cb7f2176bf6996a3cf511f2f75c9",
+      "after_sha256": "e68433b6f623e3539cc507fb881731e3f4bd5cb8d9cc996d8e034f5afcab0d7a"
+    },
+    "cmake/os/WASIX.cmake": {
+      "product_sha256": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
+      "after_sha256": "511f32c28eaf2ceb39a1c1d2a99cb7fa1addf90d4b36929a9f197bee0fd7b766"
+    },
+    "wasm/lite4mariadb.c": {
+      "product_sha256": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9",
+      "after_sha256": "3a8b0b36c01cefffb81ca11bec8904d511c3b9be8cdba7f8e188166b99316745"
+    },
+    "wasm/issue65_control.cc": {
+      "product_sha256": null,
+      "after_sha256": "070990bbaa2943c482095c61c55d304826a963bb5fc6c34de6736b771338c213"
+    }
+  },
+  "experimental_patch_sha256": "51c0f97ebd15af00f3d5deca4e30d295bdbf438c6226631638eb5601fb6bc401"
+}

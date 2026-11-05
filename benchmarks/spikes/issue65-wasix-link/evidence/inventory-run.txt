@@ -1,0 +1,26 @@
+{
+  "guest_sha256": "df958353fe10d0368de73d3d20737576b6c288afc3039b28ed9d2847b191135c",
+  "guest_bytes": 18446451,
+  "counts": {
+    "functions": 21745,
+    "data_segments": 3,
+    "mutable_globals": 2
+  },
+  "unknown_import_names": [],
+  "declared_fail_closed_imports": [
+    "fd_dup2",
+    "thread_signal",
+    "proc_exit2",
+    "sock_addr_local",
+    "sock_addr_peer",
+    "sock_open",
+    "sock_set_opt_flag",
+    "sock_set_opt_time",
+    "sock_set_opt_size",
+    "sock_get_opt_size",
+    "sock_bind",
+    "sock_connect",
+    "sock_send_to",
+    "resolve"
+  ]
+}

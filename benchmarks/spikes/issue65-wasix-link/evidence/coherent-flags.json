@@ -1,0 +1,18 @@
+{
+  "targets": {
+    "sql_embedded": {
+      "native_flag": true,
+      "sha256": "8857225f1311f53f474cf92b4cc57f9b35fbba4ea4f6790cf82cd424afe44de3"
+    },
+    "mysqlserver": {
+      "native_flag": true,
+      "sha256": "ef23fbde6d3af02c61edbd9622d149601a957cdee2a8ca63aff72e056b394567"
+    },
+    "entry": {
+      "native_flag": true,
+      "sha256": "6f94b398c45e5c22e4b1ba04cf039ee0ecb203a97333535dcc4313e269e8d6a4"
+    }
+  },
+  "entry_matches_committed_fixture": true,
+  "legacy_C_main_renamed": true
+}

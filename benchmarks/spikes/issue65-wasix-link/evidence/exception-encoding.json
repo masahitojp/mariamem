@@ -1,0 +1,12 @@
+{
+  "scope": "static WAT expression counts, not execution frequency",
+  "counts": {
+    "try": 13312,
+    "catch": 103,
+    "catch_all": 12108,
+    "throw": 2,
+    "rethrow": 3417,
+    "try_table": 0,
+    "throw_ref": 0
+  }
+}
