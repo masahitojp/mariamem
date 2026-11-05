@@ -9,7 +9,10 @@ p=argparse.ArgumentParser();p.add_argument('--workspace',type=Path,required=True
 product=w/'temp/product';prior=repo/'benchmarks/spikes/issue65-wasix-preflight/evidence/composed-draft.patch'
 expected='81956fc2961143914965c5202c50695d1532c264745940fbf05d5a9537d3385a'
 assert json.loads((w/'evidence/overlay.json').read_text())['patches']['guest/experimental.patch']==expected
-patch=[prior.read_text()];pins={}
+base=prior.read_text();mark='--- /dev/null\n+++ b/libmysqld/mariamem_wire_probe.inc\n';start=base.index(mark);end=base.index('\n--- ',start+len(mark))
+entry=(repo/'benchmarks/spikes/issue65-native-control/session.inc').read_text()
+base=base[:start]+''.join(difflib.unified_diff([],entry.splitlines(True),fromfile='/dev/null',tofile='b/libmysqld/mariamem_wire_probe.inc')).rstrip('\n')+base[end:]
+patch=[base];pins={}
 def add(name,new):
  old=(product/name).read_text() if (product/name).exists() else ''
  assert old!=new,name

@@ -62,6 +62,10 @@ extern "C" int mariamem_spike_control_session(SpikeIO *io)
   vio->shutdown=spike_shutdown;vio->is_connected=spike_connected;vio->has_data=spike_false;
   vio->io_wait=spike_wait;vio->viodelete=spike_delete;
   THD *old=current_thd;THD *thd=create_spike_thd(0,true);
+  // C API normally initializes these later; native sessions never bind them.
+  thd->mysql=NULL;thd->client_params=NULL;
+  thd->client_param_count=thd->client_stmt_id=0;
+  thd->extra_data=NULL;thd->extra_length=0;
   thd->thread_stack=(char*)&thd;thd->store_globals();
   auto *s=thd->security_ctx;s->host_or_ip=s->host=(char*)my_localhost;
   int result=0;
