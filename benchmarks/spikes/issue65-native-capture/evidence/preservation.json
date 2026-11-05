@@ -30,6 +30,12 @@
     "transformation": "personal paths normalized"
   },
   {
+    "path": "buffer-pool-contract-0.json",
+    "original_sha256": "7122aff20be2fc17c64e5c85853f0c78dc7ea7bdbf55961aa3f24a3910da711b",
+    "saved_sha256": "7122aff20be2fc17c64e5c85853f0c78dc7ea7bdbf55961aa3f24a3910da711b",
+    "transformation": "personal paths normalized"
+  },
+  {
     "path": "downloads.txt",
     "original_sha256": "3086b03b41286169bb529aadd35ba6013810c217317f1e34de13b8b636107729",
     "saved_sha256": "3086b03b41286169bb529aadd35ba6013810c217317f1e34de13b8b636107729",
@@ -48,9 +54,21 @@
     "transformation": "personal paths normalized"
   },
   {
+    "path": "container-before-stop.txt",
+    "original_sha256": "f326ddc2e7480e3294861a679c350baad6d7ba3122aeab82712f0eb10fd7545f",
+    "saved_sha256": "f326ddc2e7480e3294861a679c350baad6d7ba3122aeab82712f0eb10fd7545f",
+    "transformation": "personal paths normalized"
+  },
+  {
     "path": "suite-final-control.txt",
     "original_sha256": "c80994623f3cee3ba6b22c862d145f5b73e4499956bffab4623b2c44574f16f8",
     "saved_sha256": "c80994623f3cee3ba6b22c862d145f5b73e4499956bffab4623b2c44574f16f8",
+    "transformation": "personal paths normalized"
+  },
+  {
+    "path": "converter-cleanup-review.json",
+    "original_sha256": "ad3da9ab34770ad7f592c00e65401ad5679260590b5fcc6817ab93d492f424a0",
+    "saved_sha256": "ad3da9ab34770ad7f592c00e65401ad5679260590b5fcc6817ab93d492f424a0",
     "transformation": "personal paths normalized"
   },
   {
@@ -82,6 +100,12 @@
     "original_sha256": "f2c256e4241437da6fa2dc5c4f5abc2c0cca4a9932f7ba9daafeaf7d216b8878",
     "saved_sha256": "c7f95c4d41f19cf6b243185da9e56b386432bff6320fdad3e4fcd36149948d38",
     "transformation": "personal paths normalized; repeated receipt inventory omitted"
+  },
+  {
+    "path": "public-source-final.txt",
+    "original_sha256": "ad349e8387437d307c284b1289d123e7195e0cc2ff92488f70294d4abad67bab",
+    "saved_sha256": "ad349e8387437d307c284b1289d123e7195e0cc2ff92488f70294d4abad67bab",
+    "transformation": "personal paths normalized"
   },
   {
     "path": "translation-final.json",

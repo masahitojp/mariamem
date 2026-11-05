@@ -7,7 +7,9 @@ for p in (w/'temp/tools').iterdir():
 rows=[]
 for p in (w/'evidence').rglob('*'):
  if not p.is_file() or p.name.startswith(('default-cleanup-audit','cleanup-','staged-diff-check')):continue
- rel=p.relative_to(w/'evidence');raw=p.read_bytes()
+ rel=p.relative_to(w/'evidence')
+ if rel.parts[0] in ('report','view') or p.name=='report-ref.json':continue
+ raw=p.read_bytes()
  try:content=raw.decode()
  except UnicodeDecodeError:continue
  transformation='personal paths normalized'
