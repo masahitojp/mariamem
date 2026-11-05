@@ -1,0 +1,103 @@
+package prepared
+
+import (
+	"bytes"
+	"errors"
+	"io"
+	"syscall"
+	"testing"
+)
+
+func TestIssue116DirtyDestinationAndBoundaries(t *testing.T) {
+	old := issue116Skip
+	defer func() { issue116Skip = old }()
+	for _, kind := range []string{"mapped", "partial-mapped", "hole", "inherited", "partial-block", "dirty-block"} {
+		t.Run(kind, func(t *testing.T) {
+			size := int64(3*BlockSize + 7)
+			d := &rootFileData{size: size, blocks: map[int64]rootBlock{}}
+			want := make([]byte, size)
+			if kind == "mapped" || kind == "partial-mapped" || kind == "dirty-block" {
+				d.mapping = bytes.Repeat([]byte{0x39}, int(size))
+				d.limit = size
+				if kind == "partial-mapped" {
+					d.limit = BlockSize + 5
+				}
+				copy(want[:d.limit], d.mapping[:d.limit])
+			}
+			if kind == "inherited" || kind == "partial-block" || kind == "dirty-block" {
+				valid := BlockSize
+				if kind == "partial-block" {
+					valid = 9
+				}
+				data := bytes.Repeat([]byte{0x71}, BlockSize)
+				d.blocks[1] = rootBlock{Block{data, valid}, "inherited"}
+				clear(want[BlockSize : 2*BlockSize])
+				copy(want[BlockSize:BlockSize+valid], data[:valid])
+			}
+			for _, off := range []int64{-1, 0, 7, BlockSize - 2, BlockSize + 3, 2*BlockSize + 1, size - 2, size, size + 1} {
+				for _, length := range []int{0, 1, 17, BlockSize + 11, 4 * BlockSize} {
+					dst := bytes.Repeat([]byte{0xa5}, length)
+					expected := bytes.Clone(dst)
+					n := 0
+					var expectedErr error
+					if off < 0 {
+						expectedErr = syscall.EINVAL
+					} else if length == 0 {
+					} else if off >= size {
+						expectedErr = io.EOF
+					} else {
+						n = int(min(int64(length), size-off))
+						copy(expected[:n], want[off:off+int64(n)])
+						if n < length {
+							expectedErr = io.EOF
+						}
+					}
+					for _, skip := range []bool{false, true} {
+						issue116Skip = skip
+						copy(dst, bytes.Repeat([]byte{0xa5}, length))
+						got, err := rootRead(d, dst, off, NewRootSource(false), "test")
+						if got != n || !errors.Is(err, expectedErr) || !bytes.Equal(dst, expected) {
+							t.Fatalf("skip=%v off=%d len=%d n=%d/%d err=%v/%v", skip, off, length, got, n, err, expectedErr)
+						}
+					}
+				}
+			}
+		})
+	}
+}
+func TestIssue116MappedTruncateGrowAndSibling(t *testing.T) {
+	old := issue116Skip
+	defer func() { issue116Skip = old }()
+	issue116Skip = true
+	source := NewRootSource(false)
+	f := NewFileStore(source)
+	input := bytes.Repeat([]byte{0x5a}, 2*BlockSize+5)
+	if err := f.BorrowMapping(input); err != nil {
+		t.Fatal(err)
+	}
+	if err := f.Resize(BlockSize + 3); err != nil {
+		t.Fatal(err)
+	}
+	if err := f.Resize(3 * BlockSize); err != nil {
+		t.Fatal(err)
+	}
+	image, err := f.Seal()
+	if err != nil {
+		t.Fatal(err)
+	}
+	a := image.Fork(NewRootSource(false))
+	b := image.Fork(NewRootSource(false))
+	if _, err = a.WriteAt([]byte("child"), BlockSize+1); err != nil {
+		t.Fatal(err)
+	}
+	dst := bytes.Repeat([]byte{0xff}, 3*BlockSize+2)
+	n, err := b.ReadAt(dst, 0)
+	if n != 3*BlockSize || err != io.EOF {
+		t.Fatal(n, err)
+	}
+	want := make([]byte, 3*BlockSize)
+	copy(want[:BlockSize+3], input[:BlockSize+3])
+	if !bytes.Equal(dst[:n], want) || dst[n] != 0xff || dst[n+1] != 0xff {
+		t.Fatal("truncation/sibling/EOF tail changed")
+	}
+}

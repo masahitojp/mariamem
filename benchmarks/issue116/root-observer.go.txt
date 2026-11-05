@@ -1,0 +1,12 @@
+// Experiment-only mode and counters. Never forwarded to guest environment.
+var issue116Skip = os.Getenv("ISSUE116_SKIP_CLEAR") == "1"
+var issue116Diag = os.Getenv("ISSUE116_READ_DIAG") == "1"
+var issue116BlockBytes, issue116MappedBytes, issue116Reads atomic.Uint64
+func Issue116ResetReadStats() { issue116BlockBytes.Store(0);issue116MappedBytes.Store(0);issue116Reads.Store(0) }
+func Issue116ReadStats() map[string]uint64 { return map[string]uint64{"block_prefix_bytes":issue116BlockBytes.Load(),"mapped_prefix_bytes":issue116MappedBytes.Load(),"root_read_calls":issue116Reads.Load()} }
+func issue116ReadBlock(b Block,dst []byte,off int) {
+ nr:=max(0,min(len(dst),b.valid-off))
+ if issue116Diag { issue116BlockBytes.Add(uint64(nr)) }
+ if !issue116Skip { b.ReadAt(dst,off);return }
+ if nr>0 { copy(dst[:nr],b.data[off:off+nr]) };clear(dst[nr:])
+}

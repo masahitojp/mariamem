@@ -1,0 +1,50 @@
+{
+  "issue": 116,
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness": "3be0dd9ef3d9740bbd59fe32e03225f7cc717120",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "parallel": [
+    4,
+    8
+  ],
+  "count": 48,
+  "primary_pairs": 5,
+  "stage_pairs": 3,
+  "warmup": 1,
+  "modes": [
+    "baseline",
+    "suffix-only"
+  ],
+  "single_binary": "host-only experimental switch; guest receives no switch; same observation overlay in both variants",
+  "gates": {
+    "avoided_prefix_bytes_per_child_min": 1048576,
+    "p4_fork_paired_median_min_ms": 1.0,
+    "p4_fork_paired_median_min_percent": 3,
+    "p4_fork_winning_pairs_min": 4,
+    "p4_cpu_reduction_min_percent": 3,
+    "p4_cpu_winning_pairs_min": 4,
+    "p8_fork_cpu_max_regression_percent": 5,
+    "batch_max_regression_percent": 5
+  },
+  "prediction": {
+    "p4_server_init_mean_saved_ms": [
+      1,
+      3
+    ],
+    "p8_server_init_mean_saved_ms": [
+      2,
+      5
+    ],
+    "p4_support_min_ms": 0.5,
+    "p4_support_pairs_min": 2
+  },
+  "budget": {
+    "active_minutes": 60,
+    "tooling_minutes": 20,
+    "heavy_ci": 0,
+    "disk_gib": 6,
+    "min_free_gib": 12,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 120
+  }
+}

@@ -8,6 +8,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"github.com/masahitojp/mariamem/internal/prepared"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -43,30 +44,32 @@ type Sample struct {
 	Error     string  `json:"error,omitempty"`
 }
 type Report struct {
-	CPUUserMS           float64  `json:"cpu_user_ms"`
-	CPUSystemMS         float64  `json:"cpu_system_ms"`
-	MinorFaults         int64    `json:"minor_faults"`
-	MajorFaults         int64    `json:"major_faults"`
-	VoluntarySwitches   int64    `json:"voluntary_switches"`
-	InvoluntarySwitches int64    `json:"involuntary_switches"`
-	LifetimeMaxRSSBytes int64    `json:"lifetime_max_rss_bytes"`
-	SyncDir             string   `json:"-"`
-	Backend             string   `json:"backend"`
-	Route               string   `json:"route"`
-	Parallel            int      `json:"parallel"`
-	Count               int      `json:"count"`
-	Go                  string   `json:"go"`
-	GOMAXPROCS          int      `json:"gomaxprocs"`
-	Version             string   `json:"server_version"`
-	StartMS             float64  `json:"root_start_ms"`
-	SnapshotMS          float64  `json:"snapshot_ms"`
-	BatchMS             float64  `json:"batch_ms"`
-	Samples             []Sample `json:"samples"`
-	RootClosed          bool     `json:"root_closed_before_forks"`
-	Cleanup             bool     `json:"cleanup_complete"`
-	Corrupt             bool     `json:"corrupt_seed"`
-	Success             bool     `json:"success"`
-	Error               string   `json:"error,omitempty"`
+	ReadStats           map[string]uint64 `json:"read_stats,omitempty"`
+	SkipClear           bool              `json:"skip_clear"`
+	CPUUserMS           float64           `json:"cpu_user_ms"`
+	CPUSystemMS         float64           `json:"cpu_system_ms"`
+	MinorFaults         int64             `json:"minor_faults"`
+	MajorFaults         int64             `json:"major_faults"`
+	VoluntarySwitches   int64             `json:"voluntary_switches"`
+	InvoluntarySwitches int64             `json:"involuntary_switches"`
+	LifetimeMaxRSSBytes int64             `json:"lifetime_max_rss_bytes"`
+	SyncDir             string            `json:"-"`
+	Backend             string            `json:"backend"`
+	Route               string            `json:"route"`
+	Parallel            int               `json:"parallel"`
+	Count               int               `json:"count"`
+	Go                  string            `json:"go"`
+	GOMAXPROCS          int               `json:"gomaxprocs"`
+	Version             string            `json:"server_version"`
+	StartMS             float64           `json:"root_start_ms"`
+	SnapshotMS          float64           `json:"snapshot_ms"`
+	BatchMS             float64           `json:"batch_ms"`
+	Samples             []Sample          `json:"samples"`
+	RootClosed          bool              `json:"root_closed_before_forks"`
+	Cleanup             bool              `json:"cleanup_complete"`
+	Corrupt             bool              `json:"corrupt_seed"`
+	Success             bool              `json:"success"`
+	Error               string            `json:"error,omitempty"`
 }
 
 func ms(t time.Duration) float64 { return float64(t) / 1e6 }
@@ -270,6 +273,7 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 		defer profile.Close()
 		defer pprof.StopCPUProfile()
 	}
+	prepared.Issue116ResetReadStats()
 	var before, after syscall.Rusage
 	if e = syscall.Getrusage(syscall.RUSAGE_SELF, &before); e != nil {
 		return e
@@ -298,6 +302,8 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 	if e = syscall.Getrusage(syscall.RUSAGE_SELF, &after); e != nil {
 		return e
 	}
+	r.ReadStats = prepared.Issue116ReadStats()
+	r.SkipClear = os.Getenv("ISSUE116_SKIP_CLEAR") == "1"
 	r.CPUUserMS = float64(after.Utime.Nano()-before.Utime.Nano()) / 1e6
 	r.CPUSystemMS = float64(after.Stime.Nano()-before.Stime.Nano()) / 1e6
 	r.MinorFaults = after.Minflt - before.Minflt
