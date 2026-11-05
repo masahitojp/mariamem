@@ -1,8 +1,8 @@
 {
   "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
-  "parent_harness_source_commit": "94ab0a54e00ad09935c0506b1f2df4625830ec3b",
+  "parent_harness_source_commit": "cbf0022c69d2f9ff95d2199b159823d85ebc7019",
   "origin_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
-  "objective": "Distinguish pre-notify guest delay from shim signal-to-resume delay on the same natural UPDATE page wait. Not a fix/adoption/performance test.",
+  "objective": "Final finite distinction of before-notification versus after-close delay for a natural long UPDATE. No automatic follow-up.",
   "profile": "both-off,commit1,inherited O_DIRECT,other25args unchanged",
   "hooks": [
     "child binding from existing Fork context at instance creation",
@@ -37,5 +37,15 @@
     "disk_gib": 6,
     "min_free_gib": 12,
     "build_timeout_seconds": 1200
+  },
+  "collector_corrections": [
+    "Fix notify-start before query-start activation crossing; preserve exact channel association.",
+    "Use per-instance trace mutexes; global registry lookup uses sync.Map. Instrumentation still perturbs scheduling."
+  ],
+  "decisions": {
+    "no_natural_slow_query": "STOP_UNRESOLVED; no extra repeat or new collector this task",
+    "slow_query_without_matched_long_wait": "STOP_UNRESOLVED_ATTRIBUTION; report uncovered interval without assuming one long wait",
+    "matched_long_wait": "Report before-close and after-close bounds separately; original lock owner and late-notifier cause remain separate work.",
+    "dominance_rule": "For waits >100ms: BEFORE_NOTIFY if pre-close lower bound >=80% of register-to-resume; AFTER_NOTIFY if post-close lower bound >=80%; otherwise MIXED_OR_UNRESOLVED. Report raw bounds; this is classification, not performance or root-cause acceptance."
   }
 }
