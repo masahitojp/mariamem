@@ -11,16 +11,13 @@ Start fresh for light setup. When migrations or fixtures are expensive, prepare
 them once, fix that state as a Snapshot, and Fork independent databases for
 individual tests. Share the baseline, not previous tests' mutations.
 
-Python `0.6.1` / Go `v0.6.1` adds opt-in prepared Django tests, local
-pytest-xdist workers and finite per-Snapshot Fork admission. Django extras
-support 5.2 LTS, 6.0 and 6.1. In-memory Snapshots retain an automatically
-managed Python host per root lineage. Public save/load APIs remain removed.
-See the [release notes](release/NOTES-v0.6.1.md) and
+Python `0.6.2` / Go `v0.6.2` improves prepared-driver compatibility and adds
+bounded input pipelining. Go callers can explicitly select same-process Pipe
+connections; TCP remains the default. Existing prepared Django tests, local
+pytest-xdist workers and finite Snapshot/Fork admission remain available.
+See the [release notes](release/NOTES-v0.6.2.md),
+[Go connection guide](docs/go.md#same-process-connections) and
 [API migration guide](docs/changes-since-v050.md).
-
-Unreleased connection behavior: [bounded input pipelining](docs/mysql-protocol.md)
-keeps execution serial and terminates the instance if pending input exceeds
-1,048,581 bytes per physical connection.
 
 ## Installation
 
@@ -44,10 +41,10 @@ python3 -m venv .venv
 source .venv/bin/activate
 
 # macOS arm64
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.6.1/mariamem-0.6.1-py3-none-macosx_15_0_arm64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.6.2/mariamem-0.6.2-py3-none-macosx_15_0_arm64.whl'
 
 # Ubuntu x86_64: use this instead
-python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.6.1/mariamem-0.6.1-py3-none-linux_x86_64.whl'
+python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.6.2/mariamem-0.6.2-py3-none-linux_x86_64.whl'
 ```
 
 The `test` extra supplies PyMySQL and pytest tools. Use the wheel rather than a
@@ -57,7 +54,7 @@ For the published Go module:
 
 ```sh
 go mod init example.com/mariamem-test
-go get github.com/masahitojp/mariamem@v0.6.1
+go get github.com/masahitojp/mariamem@v0.6.2
 go get github.com/go-sql-driver/mysql
 ```
 
@@ -65,13 +62,13 @@ Optional release audit assets can be downloaded separately; they are not needed
 for ordinary startup:
 
 ```sh
-gh release download v0.6.1 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.6.1-corresponding-source.tar.gz'
+gh release download v0.6.2 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.6.2-corresponding-source.tar.gz'
 ```
 
 ## Supported application-test entries
 
-The following paths are supported in 0.6.1 within their documented profiles.
+The following paths are supported in 0.6.2 within their documented profiles.
 
 | Test setup | Supported entry and boundary |
 | --- | --- |
@@ -96,9 +93,12 @@ Version 0.6.1 adds finite per-Snapshot Fork admission by default. Full capacity
 waits before starting another child; see the contracts for
 [Go](docs/go.md#per-snapshot-fork-limits) and [Python](docs/python.md).
 
+For Node applications, see the [TypeORM / MikroORM connection guide](docs/node-orm.md)
+for MariaDB dialect settings and the limits of the recorded dogfood evidence.
+
 ## Prepare once, isolate each test
 
-These examples use the 0.6.1 packages installed above.
+These examples use the 0.6.2 packages installed above.
 
 ## pytest fixtures
 
@@ -266,7 +266,7 @@ with `Prepare: nil` to share an empty baseline. See the
 [Python](docs/python.md#share-preparation-isolate-mutations) and
 [Go](docs/go.md#low-level-database-lifetimes) guides for custom ownership.
 
-**Unreleased:** the local endpoint accepts any username and password, including
+The local endpoint accepts any username and password, including
 test credentials such as `test/test` or `root/root`. Credentials are not
 validated and do not select a guest account or change SQL privileges. The
 returned connection information still defaults to `root` with an empty
@@ -327,7 +327,7 @@ Server-side cursors / COM_STMT_FETCH remain unsupported.
 
 Current source builds retain a bounded local endpoint profile: TLS/compression,
 LOCAL INFILE transfer, administrative wire commands and binlog/replication
-streaming are outside0.6.1 support. See the [exact wire scope, exceptions and
+streaming are outside0.6.2 support. See the [exact wire scope, exceptions and
 bounded reopening rule](docs/decisions/v060-wire-contract.md). Application or
 Release CI success does not imply additional protocol coverage.
 
@@ -361,7 +361,7 @@ Release CI success does not imply additional protocol coverage.
   DBs and baselines contain your test data; treat sensitive data accordingly.
 - Resource use and the Fresh/prepared crossover depend on the workload.
   Large scans remain query work even when preparation is reused.
-- The 0.x API may change. See [release changes](release/NOTES-v0.6.1.md)
+- The 0.x API may change. See [release changes](release/NOTES-v0.6.2.md)
   and [API migration](docs/changes-since-v050.md).
 
 You do not need runtime implementation knowledge to use these APIs.

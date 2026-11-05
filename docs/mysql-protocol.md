@@ -1,6 +1,6 @@
 # MySQL connection protocol limits
 
-## Unreleased: bounded input pipelining
+## Bounded input pipelining (since 0.6.2)
 
 The local endpoint accepts commands sent before the previous response has been
 received. Execution and responses remain serial on each physical connection;
@@ -29,8 +29,8 @@ including commands already buffered in memory.
 These are endpoint semantics, not a declaration of support for every driver,
 ORM, version or arbitrary pipeline depth. The bounded Prisma comparison uses
 Node 24.22.1, Prisma/client/official MariaDB adapter 7.10.1 and mariadb 3.5.4.
-Its zero-parameter prepared path additionally needs the separate Issue #93 fix;
-the last-statement alias is tracked in Issue #95. There is no Node SDK addition.
+The zero-parameter prepared and last-statement-alias fixes are included in
+0.6.2. There is no Node SDK addition.
 
 The [policy decision](decisions/issue94-bounded-pipeline.md) records authorization.
 Historical protocol scope and remaining command/capability gaps remain in the

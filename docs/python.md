@@ -1,13 +1,13 @@
 # Python usage
 
-This guide describes Python `0.6.1`. In-memory Snapshots use one automatically
+This guide describes Python `0.6.2`. In-memory Snapshots use one automatically
 managed host per root lineage. Public save/load APIs are removed. See
 [API changes and migration](changes-since-v050.md) and
 [installation](../README.md#installation).
 
 Python3.11 or newer is required; Python3.9/3.10 are no longer supported.
 
-**Unreleased:** the endpoint accepts [bounded input pipelining](mysql-protocol.md)
+Since 0.6.2, the endpoint accepts [bounded input pipelining](mysql-protocol.md)
 with serial execution/responses and at most1,048,581 pending bytes per physical
 connection. Exceeding the bound terminates that database instance. This does not
 declare general Node/ORM support or add a driver-specific SDK entry.
@@ -54,7 +54,7 @@ Application connections may commit and roll back normally; isolation comes from
 discarding the entire database, not from a test transaction imposed by mariamem.
 Close your driver connections before database cleanup.
 
-**Unreleased:** the local endpoint accepts any username and password, including
+The local endpoint accepts any username and password, including
 test credentials such as `test/test` or `root/root`. Credentials are not
 validated and do not select a guest account or change SQL privileges. The
 returned connection information still defaults to `root` with an empty
@@ -365,7 +365,7 @@ allows metadata, or retained through the cause chain for read-only exceptions;
 source/baseline/test teardown still attempts remaining finalizers.
 Explicitly overriding a supplied fixture transfers that boundary's ownership to
 your implementation, including admission and cleanup. See the
-[release notes](../release/NOTES-v0.6.1.md).
+[release notes](../release/NOTES-v0.6.2.md).
 
 ## Share preparation, isolate mutations
 
@@ -617,7 +617,7 @@ Use the supplied local root/empty-password endpoint profile. TLS/SSL, compressio
 DEPRECATE_EOF and alternate authentication are not advertised/supported in this
 profile. COM_RESET_CONNECTION, server-side cursors/COM_STMT_FETCH, LOCAL INFILE
 transfer, CHANGE_USER, STATISTICS, PROCESS_INFO and binlog/replication streaming
-are outside0.6.1 support. Multi-packet continuation is also outside this profile.
+are outside0.6.2 support. Multi-packet continuation is also outside this profile.
 SQL-file import is not LOCAL INFILE; metadata SQL is not an administrative wire
 command. Per-entry uncaptured paths remain unverified;
 passing application/Release tests is not evidence of additional protocol coverage.
