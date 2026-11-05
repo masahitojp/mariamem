@@ -1,7 +1,6 @@
 /* Experiment-only native entry. All normal protocol bytes come from upstream. */
 #include "sql_acl.h"
 #include "sql_parse.h"
-#include "transaction.h"
 #include <cerrno>
 #include "mariamem_control_abi.h"
 
@@ -48,6 +47,11 @@ bool mariamem_spike_dispatch_start(THD *thd, enum enum_server_command command) {
  if(!thd->mariamem_native_wire)return false;
  auto *s=spike_v(thd->net.vio);
  return s->io->event(s->ctx,EXECUTE_START,thd,unsigned(command)) != 0;
+}
+// Observe upstream THD::cleanup's rollback in its original ordering.
+void mariamem_spike_rollback_result(THD *thd,bool failed){
+ auto *transport=spike_v(thd->net.vio);
+ if(transport)transport->io->event(transport->ctx,CLEANUP_RESULT,thd,unsigned(failed));
 }
 extern "C" int mariamem_spike_control_session(SpikeIO *io)
 {
@@ -98,9 +102,6 @@ extern "C" int mariamem_spike_control_session(SpikeIO *io)
     if(net_flush(&thd->net)){result=15;break;}
     if(io->event(io->ctx,COMMAND_COMPLETE,thd,thd->server_status)){result=17;break;}
   }
-  int rollback_error=trans_rollback(thd);
-  if(rollback_error)result=19;
-  io->event(io->ctx,CLEANUP_RESULT,thd,unsigned(rollback_error!=0));
   io->event(io->ctx,UNREGISTER_THD,thd,thd->net.last_errno ? thd->net.last_errno : thd->get_stmt_da()->sql_errno());
   thd->cleanup();
   server_threads.erase(thd);

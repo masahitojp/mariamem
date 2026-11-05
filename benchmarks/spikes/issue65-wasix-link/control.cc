@@ -56,7 +56,7 @@ struct Manager {
  std::deque<std::shared_ptr<Session>> killQueue;
  std::atomic<bool> controlOverflow{false};bool fenced=false,closing=false,poisoned=false,timerStop=false,reaperStop=false,killerStop=false,writerStop=false;
  std::string cause;uint64_t epoch=0,captureID=0;bool cleanupFailed=false;unsigned injectFailure=0;
- uint64_t started=0,joined=0,stale=0,denied=0,controlPeak=0;size_t retiredInputPeak=0,retiredOutputPeak=0;
+ uint64_t rollbackReports=0,started=0,joined=0,stale=0,denied=0,controlPeak=0;size_t retiredInputPeak=0,retiredOutputPeak=0;
  std::thread writer,timer,reaper,killer;
  Manager(){
   const char *text=std::getenv("MARIAMEM_CONTROL_EPOCH");need(text&&*text,"host instance epoch required");
@@ -89,7 +89,7 @@ struct Manager {
   {std::lock_guard<std::mutex> l(gate);if(poisoned||closing)return 1;s->status=status;s->phase=retire?RETIRING:IDLE;s->deadline=Clock::time_point::max();state(s);}return 0;
  }
  int event(Session *raw,int kind,void *thd,unsigned status){
-  if(kind==CLEANUP_RESULT){std::lock_guard<std::mutex> l(gate);if(status||injectFailure==1)cleanupFailed=true;return 0;}
+  if(kind==CLEANUP_RESULT){std::lock_guard<std::mutex> l(gate);++rollbackReports;if(status||injectFailure==1)cleanupFailed=true;return 0;}
   if(kind==REGISTER_THD){{std::lock_guard<std::mutex> pin(raw->handle);raw->thd=thd;}std::lock_guard<std::mutex> l(gate);return poisoned||closing;}
   if(kind==UNREGISTER_THD){{std::lock_guard<std::mutex> pin(raw->handle);raw->thd=nullptr;}std::lock_guard<std::mutex> l(gate);raw->netError=status;raw->phase=RETIRING;raw->deadline=Clock::time_point::max();state(slots[raw->slot]);return 0;}
   if(kind==AUTH_COMPLETE)return finish(raw,status,false);
@@ -135,12 +135,13 @@ struct Manager {
   closing=true;emit(frame(CAPTURE_STOP_ACCEPTED,f.request,{},captureID,"expected_owner_stop"));return true;
  }
  bool captureComplete(const Frame &f){std::lock_guard<std::mutex> l(gate);
+  if(rollbackReports!=started)cleanupFailed=true;
   if(poisoned||cleanupFailed||injectFailure==2){emit(frame(POISON,0,{},0,poisoned?cause:(cleanupFailed?"cleanup_failed":"engine_shutdown_injected")));return false;}
   need(started==joined,"capture native join");emit(frame(CAPTURE_STOPPED,f.request,{},captureID,statsUnlocked()));return true;
  }
  void quiesce(const Frame &f){std::lock_guard<std::mutex> l(gate);if(f.epoch!=epoch){++stale;emit(frame(REJECTED,f.request,{},5,"stale"));return;}if(fenced||poisoned||closing){emit(frame(REJECTED,f.request,{},4,"closing"));return;}for(auto &s:slots)if(s&&s->phase!=IDLE){emit(frame(REJECTED,f.request,{},1,"busy"));return;}if(!f.value)for(auto &s:slots)if(s&&(s->status&1)){emit(frame(REJECTED,f.request,{},2,"transaction_active"));return;}fenced=true;emit(frame(QUIESCED,f.request,{},1,"fenced"));}
  std::string stats(){std::lock_guard<std::mutex> l(gate);return statsUnlocked();}
- std::string statsUnlocked(){std::string s="{\"fenced\":"+std::string(fenced?"true":"false")+",\"poisoned\":"+(poisoned?"true":"false")+",\"cause\":\""+cause+"\",\"started\":"+std::to_string(started)+",\"joined\":"+std::to_string(joined)+",\"stale\":"+std::to_string(stale)+",\"denied\":"+std::to_string(denied)+",\"retired_input_peak\":"+std::to_string(retiredInputPeak)+",\"retired_output_peak\":"+std::to_string(retiredOutputPeak)+",\"sessions\":[";bool comma=false;for(auto &p:slots)if(p){std::lock_guard<std::mutex> q(p->io);if(comma)s+=",";comma=true;s+="{\"slot\":"+std::to_string(p->slot)+",\"generation\":"+std::to_string(p->generation)+",\"phase\":\""+phase_name(p->phase)+"\",\"command\":"+std::to_string(p->command)+",\"status\":"+std::to_string(p->status)+",\"input\":"+std::to_string(p->input.size())+",\"outstanding\":"+std::to_string(p->produced-p->acked)+",\"input_peak\":"+std::to_string(p->inputPeak)+",\"output_peak\":"+std::to_string(p->outputPeak)+"}";}return s+"]}";}
+ std::string statsUnlocked(){std::string s="{\"rollback_reports\":"+std::to_string(rollbackReports)+",\"fenced\":"+std::string(fenced?"true":"false")+",\"poisoned\":"+(poisoned?"true":"false")+",\"cause\":\""+cause+"\",\"started\":"+std::to_string(started)+",\"joined\":"+std::to_string(joined)+",\"stale\":"+std::to_string(stale)+",\"denied\":"+std::to_string(denied)+",\"retired_input_peak\":"+std::to_string(retiredInputPeak)+",\"retired_output_peak\":"+std::to_string(retiredOutputPeak)+",\"sessions\":[";bool comma=false;for(auto &p:slots)if(p){std::lock_guard<std::mutex> q(p->io);if(comma)s+=",";comma=true;s+="{\"slot\":"+std::to_string(p->slot)+",\"generation\":"+std::to_string(p->generation)+",\"phase\":\""+phase_name(p->phase)+"\",\"command\":"+std::to_string(p->command)+",\"status\":"+std::to_string(p->status)+",\"input\":"+std::to_string(p->input.size())+",\"outstanding\":"+std::to_string(p->produced-p->acked)+",\"input_peak\":"+std::to_string(p->inputPeak)+",\"output_peak\":"+std::to_string(p->outputPeak)+"}";}return s+"]}";}
  void dispatch(const Frame &f){
   if(f.kind==TRY_CAPTURE){tryCapture(f);return;}
   if(f.kind==INJECT){std::lock_guard<std::mutex> l(gate);injectFailure=unsigned(f.value);emit(frame(REPLY,f.request,{},f.value,"failure_injection"));return;}

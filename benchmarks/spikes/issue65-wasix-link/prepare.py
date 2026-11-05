@@ -13,6 +13,8 @@ base=prior.read_text().replace("UNREGISTER_THD=7 }", "UNREGISTER_THD=7, CLEANUP_
 base=base.replace('extern void mariamem_spike_dispatch_start(THD*);','extern bool mariamem_spike_dispatch_start(THD*, enum enum_server_command);').replace('mariamem_spike_dispatch_start(thd);','if (mariamem_spike_dispatch_start(thd,command)) return DISPATCH_COMMAND_CLOSE_CONNECTION;')
 mark='--- /dev/null\n+++ b/libmysqld/mariamem_wire_probe.inc\n';start=base.index(mark);end=base.index('\n--- ',start+len(mark))
 entry=(repo/'benchmarks/spikes/issue65-native-control/session.inc').read_text()
+if "mariamem_spike_rollback_result" in entry:
+ raise SystemExit("3D.1 uses complete guest/experimental.patch; historical3C composer has no cleanup observation hook")
 base=base[:start]+''.join(difflib.unified_diff([],entry.splitlines(True),fromfile='/dev/null',tofile='b/libmysqld/mariamem_wire_probe.inc')).rstrip('\n')+base[end:]
 patch=[base];pins={}
 def add(name,new):
