@@ -1,7 +1,7 @@
 # Releasing mariamem
 
-This source prepares the human-selected `v0.6.1`; Python spelling is `0.6.1`.
-The [versioned notes](../release/NOTES-v0.6.1.md) describe the adopted release
+This source prepares the human-selected `v0.6.2`; Python spelling is `0.6.2`.
+The [versioned notes](../release/NOTES-v0.6.2.md) describe the adopted release
 scope and named limitations. Exact final-version artifacts still require Release
 CI acceptance; preparation is not qualification or publication evidence.
 A normal release requires one human request authorizing one exact final-version SHA.
@@ -22,7 +22,7 @@ URL, exact SHA and operation immediately after submission and stops.
 
 Prepare a human-selected version with the repository release skill. Submit using
 `<venv>/bin/python scripts/release_prepare.py submit vX.Y.Z`.
-Go 1.26.10 is the 0.6.1 build toolchain (GO-2026-6809); the module minimum
+Go 1.26.10 is the 0.6.2 build toolchain (GO-2026-6809); the module minimum
 remains Go 1.26.0 and the forward-compat check uses Go 1.27.3.
 Already-prepared clean candidates are accepted without another metadata commit.
 For an allowed version/docs preparation diff, local submission runs the focused

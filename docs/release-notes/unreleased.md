@@ -260,10 +260,18 @@ guard evaluation and, only when authorized with operation=release, publication
 and public smoke. Existing component or daily CI success is not release READY.
 
 
-## Post-v0.6.1 staging — unreleased
+## Post-v0.6.1 staging — prepared for v0.6.2
 
 The original 0.6.1 draft above retains its source/evidence context. This section
 is later staging content and is not part of release/NOTES-v0.6.1.md.
+Its applicable changes are transferred to release/NOTES-v0.6.2.md; publication
+remains owned by Release CI.
+
+- Zero-parameter prepared execution accepts MariaDB's optional boolean type flag;
+  the connection-local latest-statement alias `0xFFFFFFFF` resolves prepared
+  execute/reset/close/long-data operations without reviving invalid handles.
+- The Node ORM connection guide records TypeORM/MikroORM MariaDB settings and
+  bounded evidence, without adding a Node SDK or MySQL8 SQL-parity promise.
 
 - The local MySQL endpoint accepts bounded input pipelining while keeping SQL
   execution and responses serial. At most 1,048,581 pending bytes are retained per
@@ -277,4 +285,4 @@ is later staging content and is not part of release/NOTES-v0.6.1.md.
   `mariamemtest.Options.InProcess` for helper-owned pools. TCP remains the default
   and available for external migration commands. Local session admission returns
   `ErrCapacity` without a rejection worker; Close/capture/failure rules remain
-  in force. See the [Go guide](../go.md#same-process-connections-unreleased).
+  in force. See the [Go guide](../go.md#same-process-connections).
