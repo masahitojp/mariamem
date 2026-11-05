@@ -307,9 +307,13 @@
     {
       "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
       "linked_sha256": "77d413ea6262ff9844c01b3e7b979d26c949b83ee846140399256795f7b00999"
+    },
+    {
+      "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+      "linked_sha256": "77d413ea6262ff9844c01b3e7b979d26c949b83ee846140399256795f7b00999"
     }
   ],
-  "source_commit": "275c1807f8d7dabfdd1aa529ff598f68d319820b",
+  "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
   "toolchain": {
     "archives_sha256": {
       "binaryen": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",
@@ -347,11 +351,20 @@
   },
   "guest_size": 21159842,
   "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners plus prepared UCA1400 tables; no experimental.patch",
-  "completed": false,
-  "full_guest_regeneration": false,
+  "completed": true,
+  "full_guest_regeneration": true,
   "linked_guest_sha256": "77d413ea6262ff9844c01b3e7b979d26c949b83ee846140399256795f7b00999",
   "ci_evidence": {
-    "status": "PENDING: exact-source independent source builds and both-platform runtime acceptance"
+    "status": "PASS: bounded canonical candidate; not Qualification or release approval",
+    "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+    "run_id": 41961766293,
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41961766293",
+    "receipt": "docs/reviews/uca-prepared-ci-41961766293/assessment.json",
+    "independent_generation_files": 106,
+    "platforms": [
+      "darwin-arm64",
+      "ubuntu24.04-x86_64"
+    ]
   },
   "incoming_guest_origin": {
     "source_commit": "275c1807f8d7dabfdd1aa529ff598f68d319820b",
@@ -374,5 +387,6 @@
     },
     "record_source_commit": "676515eb9244fc501b5a600791b0cf0a6174fecd",
     "record_sha256": "43bffc8c86f06e11ac6431027c0090054257c184e6b7cd28b73dc5718ce1387e"
-  }
+  },
+  "authoring_ledger_sha256": "d12d56352144c19db9b33d36bc36676440fe65691e9cf6a596fc92a2d5e832a1"
 }

@@ -2,7 +2,7 @@
   "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
   "baseline_source_commit": "de0e08a9c4248969a7522abebfdee8aea6ef9657",
   "baseline_guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
-  "result": "SOURCE_BINDING_CHECKED; BOTH_PLATFORM_ACCEPTANCE_PENDING",
+  "result": "PASS: exact19-body/data binding and six heap/mmap unsafe/protected/race controls on macOS15 arm64 and Ubuntu24.04 x86_64",
   "global_address_delta": 2759872,
   "data_segments": [
     {
@@ -568,6 +568,18 @@
   "alignment_acceptance": {
     "source_commit": "365a082bada9b5d3740d467739718d10cd155ca4",
     "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41571252134",
+    "platforms": [
+      "darwin-arm64",
+      "ubuntu24.04-x86_64"
+    ]
+  },
+  "uca_prepared_acceptance": {
+    "status": "PASS: bounded canonical candidate; not Qualification or release approval",
+    "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+    "run_id": 41961766293,
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41961766293",
+    "receipt": "docs/reviews/uca-prepared-ci-41961766293/assessment.json",
+    "independent_generation_files": 106,
     "platforms": [
       "darwin-arm64",
       "ubuntu24.04-x86_64"

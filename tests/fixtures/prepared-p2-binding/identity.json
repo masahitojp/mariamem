@@ -67,5 +67,17 @@
   },
   "prior_uca_prepared_guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
   "uca_prepared_binding_source_commit": "275c1807f8d7dabfdd1aa529ff598f68d319820b",
-  "uca_prepared_binding_status": "SOURCE_CHECKED_PLATFORM_ACCEPTANCE_PENDING"
+  "uca_prepared_binding_status": "EXACT_BINDING_AND_BOTH_PLATFORM_CONTROLS_PASS",
+  "uca_prepared_acceptance": {
+    "status": "PASS: bounded canonical candidate; not Qualification or release approval",
+    "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+    "run_id": 41961766293,
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41961766293",
+    "receipt": "docs/reviews/uca-prepared-ci-41961766293/assessment.json",
+    "independent_generation_files": 106,
+    "platforms": [
+      "darwin-arm64",
+      "ubuntu24.04-x86_64"
+    ]
+  }
 }

@@ -38,8 +38,6 @@ Prepared-driver #93/#95, pipelining #94 and Go Pipe #66 are integrated and shipp
 in 0.6.2; Node guide #99 is complete through PR #113. Their earlier
 integration-pending entries are historical, not remaining release work.
 
-<a id="adopted-ownership-optimization--unreleased"></a>
-
 ## v0.7.0 — Prepared UCA tables adopted, protected integration pending
 
 On2026-11-05 the Human approved candidate adoption of
@@ -71,6 +69,8 @@ pushes stop after acceptance so receipt-only changes do not repeat two C builds.
 Normal required `check`, `integration`, `Live required gate` and strict-base
 protection remain required for the final PR head. Main integration is pending;
 Qualification, version selection and publication are not authorized here.
+
+<a id="adopted-ownership-optimization--unreleased"></a>
 
 ## Product contract
 

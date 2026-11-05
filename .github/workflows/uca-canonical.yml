@@ -1,7 +1,7 @@
 name: Prepared UCA canonical candidate (not Qualification)
+# Bounded candidate accepted on CI41961766293. Keep manual reproduction;
+# integration bookkeeping must not automatically repeat two C builds.
 on:
-  push:
-    branches: [review/uca-prepared-adoption]
   workflow_dispatch:
 permissions:
   contents: read

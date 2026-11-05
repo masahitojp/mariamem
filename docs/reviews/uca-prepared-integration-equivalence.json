@@ -1,0 +1,34 @@
+{
+  "runtime_evidence_source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+  "included_main_source_commit": "0c4e75dc2c21421a59d04661efd72a1f58efecaa",
+  "critical_sources_unchanged": [
+    "internal",
+    "guest",
+    "python",
+    "benchmarks/ucapreparedinput",
+    "release/generated-go-inputs.json",
+    "release/generated-go-translation.json",
+    "release/generated-go-toolchain.json",
+    "release/inputs.lock.json",
+    "go.mod",
+    "go.sum",
+    "mariamem_test.go",
+    "live.go",
+    "connection.go",
+    "snapshot.go",
+    "mariamem.go",
+    "live_test.go",
+    "errors.go"
+  ],
+  "runtime_tree_objects": {
+    "internal": "2443967ffd3113c508846c34ab97a98a94d0a261",
+    "guest": "172993a93b7cd58726ac9a102fa1b13aac1cfc35",
+    "python": "5f3d50f2882271147975eedb7c5a4ae90e9be70c",
+    "benchmarks/ucapreparedinput": "b05e6c3ab7bb1e32ae603f926d64e2fb7443f2b0"
+  },
+  "preparation_generator_scripts_unchanged_except": "main-owned scripts/development_scope.py (CI selection only)",
+  "fixture_and_canonical_record_changes": "only enumerated acceptance status/CI attestation fields; expected code/data/function hashes unchanged",
+  "candidate_workflow": "all jobs/oracles/permissions unchanged; accepted one-off push trigger retired, manual reproduction retained",
+  "original_ci_receipt_checksums": "PASS",
+  "use_limit": "canonical runtime proof retained at original CBD; not new-head Release Qualification"
+}
