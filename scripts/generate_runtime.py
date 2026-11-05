@@ -114,6 +114,7 @@ def main():
     parser.add_argument('--source-module', type=Path, required=True)
     parser.add_argument('--output', type=Path, default=ROOT/'internal/generatedgo')
     parser.add_argument('--development-input', type=Path, help='explicit verified UNQUALIFIED candidate inventory')
+    parser.add_argument('--development-thread-binding', type=Path, help='explicit reviewed exact-function binding; UNQUALIFIED route only')
     args = parser.parse_args()
     src = args.source_module.resolve()
     if args.development_input:
@@ -126,7 +127,43 @@ def main():
              for suffix in ('*.go', '*.s') for p in src.rglob(suffix)}
     if files != pins['candidate_files_sha256']:
         parser.error('candidate source inventory differs from the pinned input')
-    from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs
+    from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs, apply as thread_lifetime
+    development_binding = None
+    if args.development_thread_binding:
+        if not args.development_input:
+            parser.error('experimental thread binding requires UNQUALIFIED development input')
+        import re
+        from runtime_thread_lifetime import function, apply as canonical_thread_lifetime
+        development_binding = json.loads(args.development_thread_binding.read_text())
+        if (development_binding['contract'] != 'issue65-experimental-thread-binding-v1' or
+                development_binding['guest_sha256'] != pins['guest_sha256'] or
+                development_binding['ABI_offsets'] != {'start_args.pthread':16, 'pthread.map_base':40, 'pthread.map_size':44} or
+                len(development_binding['functions']) != 3 or
+                {v['role'] for v in development_binding['functions'].values()} != {'free','yield','entry'} or
+                any(not re.fullmatch(r'code/p\d+/p\d+_pure\.go', k) or
+                    not re.fullmatch(r'Fn\d+', v['function']) or
+                    not re.fullmatch(r'[0-9a-f]{64}', v['normalized_sha256'])
+                    for k, v in development_binding['functions'].items())):
+            parser.error('experimental worker binding identity/ABI mismatch')
+        def thread_lifetime_inputs(guest_sha, candidate_files):
+            required = {'generated/base/base.go', *('generated/'+name.removeprefix('code/') for name in development_binding['functions'])}
+            if guest_sha != development_binding['guest_sha256'] or not required <= set(candidate_files):
+                raise ValueError('experimental guest/worker binding inputs mismatch')
+        def thread_lifetime(name, text):
+            if name == 'code/base/base.go':
+                return canonical_thread_lifetime(name, text)
+            item = development_binding['functions'].get(name)
+            if item is None:
+                return text
+            body = function(text, item['function'])
+            if hashlib.sha256(re.sub(r'\s+', '', body).encode()).hexdigest() != item['normalized_sha256']:
+                raise ValueError('experimental exact worker function changed: '+item['function'])
+            if item['role'] == 'free':
+                anchor = 'func '+item['function']+'(m *base.Module, l0 int32) {\n'
+                if text.count(anchor) != 1:
+                    raise ValueError('experimental free signature mismatch')
+                return text.replace(anchor, anchor+'\tif base.DeferThreadAllocationFree(m, l0) { return }\n', 1)
+            return text
     thread_lifetime_inputs(pins['guest_sha256'], files)
     data = (src/'generated/data.bin').read_bytes()
     if hashlib.sha256(data).hexdigest() != pins['data_sha256']:
@@ -159,7 +196,6 @@ def main():
             text = adapt_driver(text)
         elif name in ('fs_contract_test.go', 'guest_identity.go'):
             text = text.replace('package main', 'package generatedgo', 1)
-        from runtime_thread_lifetime import apply as thread_lifetime
         text = thread_lifetime(str(target.relative_to(out)), text)
         from runtime_failure import apply as worker_failure
         text = worker_failure(str(target.relative_to(out)), text)
@@ -181,12 +217,23 @@ def main():
         provenance.update(contract=pins['contract'], result='UNQUALIFIED',
                           dev_inputs_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest(),
                           input_manifest_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest())
+    if development_binding:
+        provenance['experimental_thread_binding_sha256'] = hashlib.sha256(args.development_thread_binding.read_bytes()).hexdigest()
     (out/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     # Production ownership glue is ordinary handwritten Go, not transpilation
     # output. Carry it into clean regenerated trees without modifying that output.
     for name in HANDWRITTEN_FILES:
         owner = handwritten_owner(ROOT, name)
         shutil.copy2(owner, out/name)
+    if development_binding:
+        free_file, free_item = next((name, item) for name, item in development_binding['functions'].items() if item['role'] == 'free')
+        part = free_file.split('/')[1]
+        (out/'runtime_thread_lifetime.go').write_text(
+            '// Experimental exact-guest completion binding; not production adoption.\n'
+            'package generatedgo\n\nimport (\n'
+            '\t"'+NEW+'/base"\n\t"'+NEW+'/'+part+'"\n)\n\n'
+            'func installGuestThreadLifetime(m *base.Module) {\n'
+            '\tbase.InstallThreadLifetime(m, '+part+'.'+free_item['function']+')\n}\n')
     print('Installed checksum-bound generated runtime:',len(inventory),'files')
 
 
