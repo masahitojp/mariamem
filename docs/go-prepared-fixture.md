@@ -1,7 +1,7 @@
 # Prepared Go tests
 
-The adopted `github.com/masahitojp/mariamem/mariamemtest` helper is supported in
-0.6.1 and later. The helper owns
+The `github.com/masahitojp/mariamem/mariamemtest` helper is supported since
+0.6.0. The helper owns
 preparation, capture, child pools and cleanup;
 your callback owns the migration/seed instructions and their success signal.
 
@@ -55,9 +55,9 @@ func TestSeed(t *testing.T) {
 }
 ```
 
-Save the example as `items_test.go` and run `go test ./...` using current source
-(`go get github.com/masahitojp/mariamem@<version-or-commit>`, replacing the
-placeholder with the main commit you are testing). The helper imports/configures its
+Save the example as `items_test.go`, install the published module as shown in
+[installation](../README.md#installation), and run `go test ./...`.
+The helper imports/configures its
 driver; the tests do not need `sql.Open` or a blank driver import.
 
 Both tests start from the declared schema/seed in either order, including after a

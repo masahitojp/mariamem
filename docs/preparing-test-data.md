@@ -1,6 +1,6 @@
 # Prepare once, test independently
 
-This adopted preparation path is supported in unreleased source builds, not published v0.5.3. Use an
+This preparation path is available since 0.6.0. Use an
 existing migration chain and seed to prepare one baseline per pytest worker;
 each marked test starts an independent child from that baseline. A test's
 committed changes do not become the next test's starting data.
@@ -11,11 +11,12 @@ the preparation DB; that callback can invoke your own setup code. A declarative
 discover migration commands or route their connections automatically. The concrete
 recipe below uses synchronous Alembic with SQLAlchemy/PyMySQL. It does not
 rewrite SQL or automatically redirect preparation SQL. The separate
-[dump preparation recipe](importing-dump.md) describes the bounded reader in unreleased source builds.
+[dump preparation recipe](importing-dump.md) describes the supported bounded reader. Install the platform wheel and optional
+extras as shown in [installation](../README.md#installation).
 
 ## An existing Alembic application
 
-Install the source build with its `pytest` and `routing-sqlalchemy` extras,
+Install the published platform wheel with its `pytest` and `routing-sqlalchemy` extras,
 plus your application's Alembic and seed dependencies. Routing currently uses
 SQLAlchemy2.0.54/PyMySQL1.2.3; the acceptance fixture uses Alembic1.18.4. Keep
 your application's migration configuration compatible with that tested driver

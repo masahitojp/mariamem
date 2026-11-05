@@ -1,6 +1,6 @@
 # Scoped application connections
 
-This adopted feature is supported on unreleased main, not part of published v0.5.3. It lets a
+Available since 0.6.0, scoped routing lets a
 pytest marker supply an independent MariaDB child while the application keeps
 its ordinary driver calls, SQL, commits and rollbacks. Preparation still happens
 once through migrations/seed; each test gets its own mutable child.

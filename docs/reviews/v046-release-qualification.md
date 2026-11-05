@@ -5,7 +5,7 @@
 PO approved all v046 usability findings and accepted the completed Go performance
 comparison. This integration stays on `experiment/v046-release-qualification`.
 Main merge/push, final version bump, tags and publication are not authorized.
-Canonical metadata therefore remains **0.4.5**; [v046 notes](../../release/NOTES-v0.4.6-draft.md)
+Canonical metadata therefore remains **0.4.5**; [v046 notes](https://github.com/masahitojp/mariamem/blob/47121e1be0b399ba4e2270ce3e25c411ade0e2eb/release/NOTES-v0.4.6-draft.md)
 are a draft. Verify CI can qualify this exact development source and its newly
 built 0.4.5-labelled private candidate artifacts, **not** the public v045 tag or
 final v046 bytes. A later approved version change requires exact final-version

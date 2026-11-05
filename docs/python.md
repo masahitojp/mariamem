@@ -14,10 +14,10 @@ declare general Node/ORM support or add a driver-specific SDK entry.
 
 ## Entry selection
 
-Version 0.6.1 offers [prepared pytest fixtures](#pytest-fixtures),
-[shadow_maria routing](connection-routing.md), the ordinary
-[Django runner recipe](django-testing.md) and the opt-in
-[`mariamem.django` prepared entry](django-prepared.md). The prepared entry adds
+Since 0.6.0, the package offers [prepared pytest fixtures](#pytest-fixtures),
+[shadow_maria routing](connection-routing.md) and the ordinary
+[Django runner recipe](django-testing.md). Since 0.6.1, the opt-in
+[`mariamem.django` prepared entry](django-prepared.md) adds
 explicit classes, a runner and a pytest-django plugin. Choose either Django
 prepared ownership or routing/shadow_maria for a run; their combined lifecycle
 is not supported. The [local pytest-xdist entry](django-prepared.md#local-pytest-xdist-workers)
@@ -187,7 +187,7 @@ examples, ownership, supported entries and actionable failures. Existing fixture
 Use the marker when application code creates its own driver connections. The
 following is a separate, complete example: put these files in a new directory
 instead of combining its `conftest.py` with the earlier direct-fixture example.
-Install current source with the `pytest` and `routing-pymysql` extras (the latter
+Install the published platform wheel with the `pytest` and `routing-pymysql` extras (the latter
 pins the supported PyMySQL1.2.3 entry).
 
 Declare the application's **original** host/port/schema in `pyproject.toml` so
@@ -527,11 +527,10 @@ preserves admitted children. Separate development-host handoff holds the origin
 slot until actual target disposal. Unconfirmed cleanup stops new admission;
 retry the responsible owner's cleanup. Normal late disposal alone does not
 automatically reopen admission. Supplied pytest/E2E/Django entries now forward
-their settings. The fixed both-host/interpreter acceptance, including the diagnostics/
-memory-source correction, passed on exact candidate cddd8dcb.
-See the [review follow-up](reviews/issue53-review-followup.md);
-[Human adoption is recorded](decisions/issue53-fork-limit-adoption.md); main
-integration remains pending.
+their settings. Finite admission shipped in 0.6.1. See the
+[adoption decision](decisions/issue53-fork-limit-adoption.md) for accepted limits
+and [current release evidence](project-status.md#current-published-release) for
+exact-version qualification; older receipts retain their own SHAs.
 
 If capture fails and closing the newly owned Snapshot also fails, the shared
 host permanently retains `captureDebt`. That owned-Snapshot Close error is
@@ -580,7 +579,7 @@ outside product support and compatibility testing; events remain unavailable
 in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
 accepted and retained, but `--skip-grant-tables` means account existence and
 privileges are not enforced. See the [approved scope](decisions/routine-support-scope.md).
-Version 0.6.1 supports real server-side execution for Go explicit/implicit
+Since 0.6.0, the endpoint supports real server-side execution for Go explicit/implicit
 Prepare and Python prepared cursors.
 `DELIMITER` is a client directive, not server SQL. Python provides
 an explicit [bounded dump reader](importing-dump.md); this is not a general
@@ -611,9 +610,12 @@ and is an allowed SKIP, not C-mode compatibility PASS; required default/pure mod
 have their own executed evidence. No driver mode is silently substituted.
 Server-side cursors / COM_STMT_FETCH remain unsupported.
 
-### Wire scope for current source builds
+<a id="wire-scope-for-current-source-builds"></a>
 
-Use the supplied local root/empty-password endpoint profile. TLS/SSL, compression,
+### Wire scope
+
+Connection information defaults to root/empty password; placeholder credentials
+are also accepted without authentication. TLS/SSL, compression,
 DEPRECATE_EOF and alternate authentication are not advertised/supported in this
 profile. COM_RESET_CONNECTION, server-side cursors/COM_STMT_FETCH, LOCAL INFILE
 transfer, CHANGE_USER, STATISTICS, PROCESS_INFO and binlog/replication streaming
@@ -628,9 +630,9 @@ See the [bounded wire contract and reopening rule](decisions/v060-wire-contract.
 Ordinary SQL errors do not invalidate the DB. Query timeout or disconnect during
 active SQL does: `closed` becomes true and `status()` raises
 `HostError(code="unusable", closed=True)`. Close it and start/fork another.
-Idle disconnect does not invalidate it. In current source builds, a fatal guest
+Idle disconnect does not invalidate it. A fatal guest
 worker trap also invalidates the DB promptly and reports its cause without waiting
-for the query timeout. Forced cleanup of non-cooperative execution is not guaranteed. Prepared boundaries for current source builds are described above.
+for the query timeout. Forced cleanup of non-cooperative execution is not guaranteed. Prepared boundaries are described above.
 
 `HostError.code` identifies startup/lifecycle categories; `stage` supplies
 diagnostic context and `__cause__` retains a Python cause. Startup failure
@@ -650,7 +652,7 @@ The bounded `import_dump(db, path)` helper is described in the
 [dump preparation guide](importing-dump.md), including the `dump` extra, supported
 MariaDB producer profile and failure cleanup. It is not a general SQL-file runner.
 
-Version 0.6.1 supports stable Live endpoints across sequential browser E2E
+Since 0.6.0, the package supports stable Live endpoints across sequential browser E2E
 cases. Use independent Forks for concurrent cases; Live does not promise a
 parallel shared mutable endpoint. See the [Live guide](live.md) for connection
 draining and reset ownership.
@@ -676,7 +678,7 @@ current OpenSSL3 CI environment does not cover this OpenSSL4 combination. See
 The [owned E2E examples](examples/e2e_owned/README.md) demonstrate
 application-specific preparation/start/quiescence/stop hooks over Live. This
 entry was approved for bounded main adoption with the supplied hook obligations;
-it is included in 0.6.1. Existing direct Live APIs remain the mechanism
+it is available since 0.6.0. Existing direct Live APIs remain the mechanism
 underneath the entry. See the [integration receipt](reviews/e2e-integration-ci-41095184074/assessment.json)
 for exact tested source/profiles. Arbitrary unregistered work and non-cooperative
 shutdown remain outside the guarantee; detailed resource characterization is deferred.

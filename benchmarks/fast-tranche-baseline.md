@@ -13,7 +13,7 @@ history or changing restore:
   independent host-process validation remains.
 
 The key fixture and source preparation are described in
-[development](../docs/development.md#first-fast-tranche-prepared-authentication-keys-and-startup-validation).
+[development](https://github.com/masahitojp/mariamem/blob/d44157adbc527da6482e205c176616489cb3ccbc/docs/development.md#first-fast-tranche-prepared-authentication-keys-and-startup-validation).
 The source-mounted snapshot → guest-memory copy, 64 KiB chunks, file inventory,
 redo/undo sizes, engine caches and Snapshot/Fork semantics are unchanged.
 No `guest/experimental.patch`, experimental runtime flags, pre-staging or

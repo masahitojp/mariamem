@@ -1,8 +1,8 @@
 # Run an application once, restore the database for each test
 
-These examples use **unreleased main with Live**, not the published v0.5.3
-package. The examples' original selection base source_commit is
-`250bceb80be4cfc9f7c844d888af864fc1d38d25`; current instructions use adopted main.
+These repository examples exercise Live, available since 0.6.0. The commands
+below build a matching host from the checkout for source verification; ordinary
+users can install the [published packages](../../../README.md#installation).
 For entry-owned lifecycle sequencing instead of manual composition, use
 [BrowserEntry / NewHTTP](../e2e_owned/README.md). Run commands from this repository root with
 Go 1.26.10 and Python 3.11 or 3.14 on a supported host. They reuse the maintained
@@ -90,7 +90,7 @@ open while you need resets. See the [Live guide](../../live.md) for failure,
 cancellation and cleanup behavior.
 
 Before building, pin your checkout and record its `source_commit`; commands
-below do not establish binary identity by themselves. For source stamping, use
+above do not establish binary identity by themselves. For source stamping, use
 `scripts/git_identity.py`'s `verify_go_binary` for the host and orders binary;
 linked-worktree builds can report the parent repository SHA and must be rejected.
 
@@ -101,8 +101,9 @@ cross-platform acceptance or main-adoption decision for the Live candidate.
 The examples were adapted from donor source_commit
 `a759cf8f90b4a75cf3456d221ef811e8bda20b34`. Its historical local browser/HTTP
 observations are not current-candidate results and are not copied here. The
-maintained Live workflow executes these exact paths on both supported host OSes,
-with Python 3.11 and 3.14, after the unchanged native/defect controls. A run is
+release-owned Live workflow executes the Python paths on both supported hosts
+and Python 3.11/3.14, and language-independent Go examples once per OS, after
+the native/defect controls. A run is
 PASS only after those commands execute on its exact source; structural checks
 alone do not prove browser or guest behavior. The local Python 3.14/OpenSSL4
 Connector/Python import failure remains a separate known FAIL; OpenSSL3 CI does

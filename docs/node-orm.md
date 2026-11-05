@@ -4,7 +4,11 @@ For TypeORM and MikroORM tests, start with their **MariaDB dialects** when
 connecting to mariamem's local MySQL-protocol endpoint. These are configuration
 examples based on bounded dogfood, not a Node SDK or blanket ORM support claim.
 The recorded run used Node24.22.1, TypeORM1.1.2, MikroORM7.2.7 and mysql2 3.24.6
-on macOS arm64. It did not qualify published 0.6.1 artifacts or Ubuntu.
+on macOS arm64. Those historical runs are not acceptance of the published 0.6.2
+artifacts or Ubuntu. Use the [published packages](../README.md#installation);
+0.6.2 adds prepared-driver fixes and [bounded pipelining](mysql-protocol.md).
+The separate [Prisma recheck](../release/NOTES-v0.6.2.md#configuration-guidance-and-validation-scope)
+retains its own source/version/platform limits.
 
 ## Own the database outside Node
 

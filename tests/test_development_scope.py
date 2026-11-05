@@ -15,10 +15,22 @@ import verify
 
 @pytest.mark.parametrize('path', [
     'README.md', 'AGENTS.md', 'docs/development.md', 'docs/reviews/measurement.md',
+    'benchmarks/fast-tranche-baseline.md', 'release/NOTES-v0.4.6-draft.md',
 ])
 def test_documentation_needs_no_runtime_receipt(path):
     assert scope.select([path])['check_scope'] == 'docs'
     assert not scope.select([path])['integration']
+
+
+@pytest.mark.parametrize('runtime', [
+    'release/NOTES-v0.6.2.md', 'release/generated-go-inputs.json',
+    'benchmarks/new-report.md', 'benchmarks/fast-tranche-baseline.py',
+    'mariamem.go',
+])
+def test_historical_doc_cleanup_keeps_active_and_unknown_inputs_conservative(runtime):
+    result = scope.select(['release/NOTES-v0.4.6-draft.md',
+                           'benchmarks/fast-tranche-baseline.md', runtime])
+    assert result['check_scope'] == 'full' and result['integration']
 
 
 def test_policy_review_pr_skips_runtime_checks():

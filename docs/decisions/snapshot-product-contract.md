@@ -4,7 +4,7 @@ Status: maintainer-approved product contract, updated for D block storage and
 Python shared-host main adoption on 2026-10-17. Release approval remains separate.
 The ownership update below was approved for productization on 2026-10-17 and
 subsequently adopted on main at candidate `52c078b`, then published in
-[v0.5.2](../../release/NOTES-v0.5.2.md). The current published v0.5.3 retains that
+[v0.5.2](../../release/NOTES-v0.5.2.md). Releases through 0.6.2 retain that
 ownership contract. Historical v0.5.1 has the earlier D/shared-host implementation;
 v0.5.0 retains the
 file-backed/save-load contract; see [version differences](../changes-since-v050.md).
@@ -82,8 +82,10 @@ removed. Test classes remain useful organization and may use the function
 fixtures. Deliberate custom sharing is not prohibited by the Python language,
 but is outside the default isolation contract.
 
-No new run-wide/shared fixture is added. Each xdist worker owns its session
-fixtures. Fixture ergonomics are deferred to v0.6.0 dogfood evidence.
+Each xdist worker owns its session fixtures; no baseline is shared across worker
+processes. The [pytest preparation entry](../python.md#pytest-fixtures) shipped
+in 0.6.0. The separately opt-in [Django entry](../django-prepared.md), shipped
+in 0.6.1, prepares class baselines while still giving each test a private Fork.
 
 ## Consequences
 
@@ -102,7 +104,7 @@ The Human subsequently approved main adoption of fixed candidate `52c078b`.
 See [current adoption status](../project-status.md#adopted-ownership-optimization--unreleased).
 Neither approval authorizes a release.
 
-## Approved routine candidate boundary — not yet adopted
+## Routine boundary — shipped in 0.6.0
 
 The Human approved minimum procedure/function initialization and its
 product-managed mysql.proc structure boundary. Fresh initializes before ready;
@@ -110,5 +112,5 @@ restored missing/incompatible definitions are rejected rather than repaired.
 Routine rows remain mutable, private child state. See
 [routine support scope](routine-support-scope.md). Packages remain outside
 support/testing/guarantees; events remain excluded by the embedded build;
-DEFINER acceptance does not promise grant enforcement. Version placement,
-main integration, Qualification and publication remain separate decisions.
+DEFINER acceptance does not promise grant enforcement. The original approval
+is distinct from the later [0.6.0 release](../../release/NOTES-v0.6.0.md).

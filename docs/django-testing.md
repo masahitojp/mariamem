@@ -1,6 +1,6 @@
 # Django standard-runner recipe
 
-The bounded standard-runner recipe is supported on adopted unreleased main.
+The bounded standard-runner recipe is supported since 0.6.0.
 Use an explicit parent process and ordinary Django MySQL settings. The parent
 starts one disposable mariamem server, supplies its endpoint before Django loads
 settings, runs `manage.py test` or pytest-django, and closes the server afterward.
@@ -15,12 +15,11 @@ before Django reaches normal test teardown. Discard that whole owner; do not
 capture it as a Snapshot or reuse it for another invocation. The recipe's owner
 context also exits if spawning the test process fails or it times out.
 
-The additional D1 prepared entry is deferred from 0.6.0 for consideration in
-0.6.1 ([Issue43](https://github.com/masahitojp/mariamem/issues/43)), not promised for
-that release. Its [explicit prepared-class entry](django-prepared.md) is now adopted on main
-after both-OS/interpreter installed-wheel acceptance, and remains unreleased. This recipe does not automatically restore a prepared Snapshot or
-arbitrary schema/seed for every test. A Django browser example using the owned
-E2E entry is not general Django lifecycle integration.
+For full prepared-state restoration, use the separate
+[prepared-class entry](django-prepared.md), shipped in 0.6.1. This ordinary
+recipe does not automatically restore a prepared Snapshot or arbitrary
+schema/seed for every test. A Django browser example using the owned E2E entry
+is not general Django lifecycle integration.
 
 Django owns per-test isolation inside that invocation:
 
@@ -46,11 +45,11 @@ cleanup are observed.
 
 ## Supported Django versions
 
-Current source supports Django5.2 LTS,6.0 and6.1. The optional `django` and
+Since 0.6.1, the package supports Django5.2 LTS,6.0 and6.1. The optional `django` and
 `django-pytest` extras accept `Django>=5.2.8,<6.2`; install the latest patch of
 your chosen supported series. Django6 requires Python3.12+, while Python3.11
-uses Django5.2. Published0.6.0 installation metadata is unchanged; the broadened
-extras and the prepared-class entry require a wheel built from current source.
+uses Django5.2. Install the [published platform wheel](../README.md#installation)
+with the appropriate extra; a source build is not required.
 
 The existing Release Django job uses representative profiles: Python3.11 +
 Django5.2.18 and Python3.14 + Django6.1.2, on each supported OS. It retains its
@@ -90,9 +89,11 @@ receipt is renamed as candidate evidence. CI retains raw outputs and source-boun
 JSON in artifacts; it installs no browser and repeats no broad xdist census.
 The six-cell results include partial-migration failure, original nonzero exits,
 no test admission after failed setup and owner disposal. Pure ownership and
-receipt mutation checks supplement these real database comparisons. This
-workflow reports CI results but is not currently a branch-protection required
-context; required-check policy is a separate decision.
+receipt mutation checks supplement these real database comparisons.
+
+The reusable workflow runs under Release CI, where Django acceptance is a
+required feature gate. It is not an additional daily PR job; see
+[CI ownership](development.md#local-verification).
 
 The local Homebrew Python3.14/OpenSSL4 Oracle Connector/Python26.7.0 import FAIL
 remains as documented in [local verification](development.md#local-verification).
@@ -102,5 +103,6 @@ OpenSSL3 CI would not qualify OpenSSL4.
 Multiple aliases/routers, Django parallel/xdist workers, async, retained external
 connections, independent multi-module applications and arbitrary projects remain
 unverified. No setup-cost, performance, persistence, session continuity or
-automatic routing claim is made. The standard-runner recipe is adopted; versioned release qualification and
-publication remain separate Human decisions.
+automatic routing claim is made. These limits describe this ordinary recipe;
+the separate prepared entry supports
+[local xdist workers](django-prepared.md#local-pytest-xdist-workers).

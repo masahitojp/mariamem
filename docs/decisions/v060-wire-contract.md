@@ -1,5 +1,11 @@
 # v0.6.0 wire-contract completion basis
 
+**Subsequent disposition (2026-11-05):** The adopted 0.6.0 scope below remains the baseline. Later releases add
+placeholder credentials (0.6.1), prepared-driver fixes and bounded pipelining
+(0.6.2); see [current protocol limits](../mysql-protocol.md) and
+[release notes](../../release/NOTES-v0.6.2.md). D1 shipped separately in 0.6.1.
+These additions do not turn historical UNVERIFIED captures into PASS.
+
 Human decision,2026-10-31. The Human adopted the English proposal from
 [PR42](https://github.com/masahitojp/mariamem/pull/42) at source_commit
 `286976c79d97e7121173357a2dc23a5be574a0da`, with the explicit conditions below.

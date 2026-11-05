@@ -1,5 +1,9 @@
 # v0.6.0 release scope
 
+**Subsequent disposition (2026-11-05):** [0.6.0](../../release/NOTES-v0.6.0.md) was published; D1 later shipped in
+[0.6.1](../../release/NOTES-v0.6.1.md). This record preserves the 0.6.0 scope
+decisions, not the current release checklist.
+
 Human decision, 2026-10-30. This record states what the 0.6.0 release contains.
 It consolidates decisions that are recorded in their own entries; it does not
 re-adopt them or replace their receipts. **Publication is not approved by this
