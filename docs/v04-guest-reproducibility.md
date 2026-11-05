@@ -1,5 +1,10 @@
 # v0.4 legacy-EH guest reproducibility
 
+> Historical versioned record. Pending work and current-version statements below
+> describe the recorded source, not today’s release requirements. Use
+> [project status](project-status.md), [current architecture](v04-generated-go-architecture.md)
+> and [release instructions](releasing.md) for present behavior.
+
 This is the generated-Go candidate's build-time contract. It does not change
 public v0.3 runtime selection, SQL semantics or Snapshot/Fork behavior.
 WASM is a build intermediate for this candidate.

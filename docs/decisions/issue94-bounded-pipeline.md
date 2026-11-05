@@ -1,5 +1,9 @@
 # Issue #94 bounded input pipelining
 
+**Subsequent disposition (2026-11-05):** The production change merged through PR #105 and shipped in
+[0.6.2](../../release/NOTES-v0.6.2.md), together with the independent #93/#95 fixes.
+The decision and spike evidence below retain their original scope.
+
 Human decision, 2026-11-05 JST: adopt per-connection bounded read-ahead for
 production implementation, with a pending-input limit of 1,048,581 bytes and
 instance abort on overflow. Preserve serial execution/responses and the existing
