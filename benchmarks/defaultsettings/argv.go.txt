@@ -21,11 +21,11 @@ func SettingsArgv(m *Module, argc, argv int32) int32 {
 	pointers := make([]uint32, argc)
 	for i := range pointers {
 		ea := MemoryEA(m, uint64(uint32(argv)), uint64(i*4), 4)
-		p := binary.LittleEndian.Uint32(m.M[ea : ea+4])
+		p := binary.LittleEndian.Uint32(m.Memory[ea : ea+4])
 		pointers[i] = p
 		var b []byte
 		for j := uint64(0); j < 512; j++ {
-			v := m.M[MemoryEA(m, uint64(p), j, 1)]
+			v := m.Memory[MemoryEA(m, uint64(p), j, 1)]
 			if v == 0 {
 				break
 			}
@@ -41,11 +41,11 @@ func SettingsArgv(m *Module, argc, argv int32) int32 {
 			continue
 		}
 		ea := MemoryEA(m, uint64(uint32(argv)), uint64(count*4), 4)
-		binary.LittleEndian.PutUint32(m.M[ea:ea+4], p)
+		binary.LittleEndian.PutUint32(m.Memory[ea:ea+4], p)
 		count++
 	}
 	ea := MemoryEA(m, uint64(uint32(argv)), uint64(count*4), 4)
-	binary.LittleEndian.PutUint32(m.M[ea:ea+4], 0)
+	binary.LittleEndian.PutUint32(m.Memory[ea:ea+4], 0)
 	if count != 25 && count != 19 {
 		panic("unexpected filtered argc")
 	}

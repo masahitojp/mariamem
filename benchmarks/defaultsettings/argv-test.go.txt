@@ -1,0 +1,85 @@
+package base
+
+import (
+	"bytes"
+	"encoding/binary"
+	"strings"
+	"testing"
+)
+
+func TestDefaultSettingsSelector(t *testing.T) {
+	old := settingsVariant
+	defer func() { settingsVariant = old }()
+	fixture := func() *Module {
+		b := bytes.Repeat([]byte{0xa5}, 16384)
+		for i, arg := range expectedSettingsArgs {
+			ptr := 4096 + i*256
+			copy(b[ptr:], append([]byte(arg), 0))
+			binary.LittleEndian.PutUint32(b[128+i*4:], uint32(ptr))
+		}
+		binary.LittleEndian.PutUint32(b[128+25*4:], 0)
+		m := &Module{Memory: b}
+		m.MemSize.Store(uint64(len(b)))
+		return m
+	}
+	for _, mode := range []string{"current", "bounded-default"} {
+		settingsVariant = mode
+		m := fixture()
+		before := bytes.Clone(m.Memory)
+		n := SettingsArgv(m, 25, 128)
+		want := 25
+		if mode == "bounded-default" {
+			want = 19
+		}
+		if n != int32(want) {
+			t.Fatal(n)
+		}
+		if !bytes.Equal(before[:128], m.Memory[:128]) || !bytes.Equal(before[128+26*4:], m.Memory[128+26*4:]) {
+			t.Fatal("changed string or non-argv memory")
+		}
+		idx := 0
+		for _, arg := range expectedSettingsArgs {
+			if mode == "bounded-default" && removedSettingsArgs[strings.SplitN(strings.TrimPrefix(arg, "--"), "=", 2)[0]] {
+				continue
+			}
+			ptr := binary.LittleEndian.Uint32(m.Memory[128+idx*4:])
+			end := ptr
+			for m.Memory[end] != 0 {
+				end++
+			}
+			if string(m.Memory[ptr:end]) != arg {
+				t.Fatal("wrong retained argv", idx)
+			}
+			idx++
+		}
+		if binary.LittleEndian.Uint32(m.Memory[128+int(n)*4:]) != 0 {
+			t.Fatal("not terminated")
+		}
+	}
+	for _, kind := range []string{"mode", "count", "preimage"} {
+		m := fixture()
+		settingsVariant = "current"
+		argc := int32(25)
+		if kind == "mode" {
+			settingsVariant = "invalid"
+		}
+		if kind == "count" {
+			argc = 24
+		}
+		if kind == "preimage" {
+			m.Memory[4096] = 'X'
+		}
+		before := bytes.Clone(m.Memory)
+		func() {
+			defer func() {
+				if recover() == nil {
+					t.Fatal("invalid input accepted", kind)
+				}
+			}()
+			SettingsArgv(m, argc, 128)
+		}()
+		if !bytes.Equal(before, m.Memory) {
+			t.Fatal("invalid input mutated argv")
+		}
+	}
+}
