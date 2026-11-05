@@ -3,6 +3,10 @@
 2026-11-05. **Design proposal only.** The Human requested step 3 design after
 steps 1 and 2. This document authorizes no implementation, adoption or release.
 
+Subsequent evidence: [3C generated-Go execution](../../../benchmarks/spikes/issue65-go-wire/README.md)
+and the [3D stopped-root design](snapshot-fork.md). The original proposal below
+retains its original evidence/decision context.
+
 ## Recommendation and decision boundary
 
 Keep an embedded engine and introduce a native wire session through a memory

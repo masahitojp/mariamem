@@ -14,6 +14,18 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Issue #65 — native protocol exploration, 3D design selected
+
+The Human selected continuation to stopped-root Snapshot/Fork design after the
+isolated generated-Go native endpoint passed its four scoped 3C cases. The
+[3C report](../benchmarks/spikes/issue65-go-wire/README.md) pins the actual guest,
+host and limits. The [3D design](design/issue65-native-protocol/snapshot-fork.md)
+keeps the existing cold-file/fresh-runtime ownership contract and proposes a
+correlated guest fence/capture shutdown. Runtime capture/restore, Live, both-host
+qualification and product adoption remain unproven; no main integration or
+release is selected. The next bounded capture/Fork proof is a recommendation,
+not work already completed or an automatically started campaign.
+
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 
 ### Current candidate — adopted after fixed-exit technical acceptance
