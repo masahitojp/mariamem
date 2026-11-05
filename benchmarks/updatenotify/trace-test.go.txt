@@ -35,9 +35,10 @@ func TestUWNotifyPairing(t *testing.T) {
 	go func() { done <- AtomicWait32At(a, 256, 0, -1) }()
 	deadline := time.Now().Add(time.Second)
 	for {
-		uwMu.Lock()
-		n := len(uwStates[a.Threads].waits)
-		uwMu.Unlock()
+		s := uwLookup(a.Threads)
+		s.mu.Lock()
+		n := len(s.waits)
+		s.mu.Unlock()
 		if n == 1 {
 			break
 		}
@@ -118,11 +119,11 @@ func TestUWBoundAndBinding(t *testing.T) {
 	p := &ThreadPool{}
 	m := &Module{Threads: p}
 	UWBind(m, 3, false)
-	if uwStates[p] != nil {
+	if uwLookup(p) != nil {
 		t.Fatal("missing child accepted")
 	}
 	UWBind(m, 3, true)
-	s := uwStates[p]
+	s := uwLookup(p)
 	for i := 0; i < uwMaxEvents+2; i++ {
 		uwAdd(s, uwEvent{Kind: "test"})
 	}
@@ -135,44 +136,87 @@ func TestUWBoundAndBinding(t *testing.T) {
 // Deterministic activation crossing: wake starts before the SQL query exists,
 // then a query waiter registers before that wake reaches its parked channel.
 func TestUWNotifyCrossesQueryStart(t *testing.T) {
- old := uwDir
- uwDir = t.TempDir()
- defer func(){ uwDir = old }()
- b := make([]byte, 65536)
- sql := "UPDATE fork_probe SET v=-1 WHERE id=1"
- copy(b[1024:], sql)
- size := new(atomic.Uint64)
- size.Store(uint64(len(b)))
- p := &ThreadPool{}
- m := &Module{Memory:b, M:unsafe.Pointer(&b[0]), MemSize:size, MemShared:true, Threads:p, G1:1}
- UWBind(m, 0, true)
- notifier := *m
- notifier.G1 = 2
- tok := UWNotifyBegin(p,256,[]*Module{&notifier})
- end := UWSqlBegin(m,1024,int32(len(sql)))
- ch := make(chan struct{})
- id := UWRegister(m,256,-1,ch)
- if id == 0 { t.Fatal("missing registration") }
- UWSignal(p,256,ch,tok,false)
- close(ch)
- UWSignal(p,256,ch,tok,true)
- <-ch
- UWWaitEvent(m,id,"wait_resume",0)
- UWWaitEvent(m,id,"wait_return",0)
- UWNotifyEnd(tok,256,1)
- end()
- UWFlush(m)
- raw,err := os.ReadFile(filepath.Join(uwDir,"child-000.json"))
- if err != nil { t.Fatal(err) }
- var state uwState
- if json.Unmarshal(raw,&state)!=nil {t.Fatal("trace decode")}
- attempts,returns,signals := 0,0,0
- for _,event := range state.Events {
-  switch event.Kind {
-  case "notify_attempt": attempts++; if event.Thread != 2 {t.Fatal("notifier identity")}
-  case "notify_return": returns++
-  case "signal_before": signals++; if event.Wait != id {t.Fatal("wait identity")}
-  }
- }
- if attempts!=1 || returns!=1 || signals!=1 {t.Fatal("missing crossing events",attempts,returns,signals)}
+	old := uwDir
+	uwDir = t.TempDir()
+	defer func() { uwDir = old }()
+	b := make([]byte, 65536)
+	sql := "UPDATE fork_probe SET v=-1 WHERE id=1"
+	copy(b[1024:], sql)
+	size := new(atomic.Uint64)
+	size.Store(uint64(len(b)))
+	p := &ThreadPool{}
+	m := &Module{Memory: b, M: unsafe.Pointer(&b[0]), MemSize: size, MemShared: true, Threads: p, G1: 1}
+	UWBind(m, 0, true)
+	notifier := *m
+	notifier.G1 = 2
+	tok := UWNotifyBegin(p, 256, []*Module{&notifier})
+	end := UWSqlBegin(m, 1024, int32(len(sql)))
+	ch := make(chan struct{})
+	id := UWRegister(m, 256, -1, ch)
+	if id == 0 {
+		t.Fatal("missing registration")
+	}
+	UWSignal(p, 256, ch, tok, false)
+	close(ch)
+	UWSignal(p, 256, ch, tok, true)
+	<-ch
+	UWWaitEvent(m, id, "wait_resume", 0)
+	UWWaitEvent(m, id, "wait_return", 0)
+	UWNotifyEnd(tok, 256, 1)
+	end()
+	UWFlush(m)
+	raw, err := os.ReadFile(filepath.Join(uwDir, "child-000.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var state uwState
+	if json.Unmarshal(raw, &state) != nil {
+		t.Fatal("trace decode")
+	}
+	attempts, returns, signals := 0, 0, 0
+	for _, event := range state.Events {
+		switch event.Kind {
+		case "notify_attempt":
+			attempts++
+			if event.Thread != 2 {
+				t.Fatal("notifier identity")
+			}
+		case "notify_return":
+			returns++
+		case "signal_before":
+			signals++
+			if event.Wait != id {
+				t.Fatal("wait identity")
+			}
+		}
+	}
+	if attempts != 1 || returns != 1 || signals != 1 {
+		t.Fatal("missing crossing events", attempts, returns, signals)
+	}
+}
+
+func TestUWIndependentInstanceAndDormantNotify(t *testing.T) {
+	old := uwDir
+	uwDir = t.TempDir()
+	defer func() { uwDir = old }()
+	a, b := &Module{Threads: &ThreadPool{}}, &Module{Threads: &ThreadPool{}}
+	UWBind(a, 1, true)
+	UWBind(b, 2, true)
+	defer UWFlush(a)
+	defer UWFlush(b)
+	state := uwLookup(a.Threads)
+	state.mu.Lock()
+	done := make(chan struct{})
+	go func() { tok := UWNotifyBegin(b.Threads, 256, nil); UWNotifyEnd(tok, 256, 0); close(done) }()
+	select {
+	case <-done:
+		state.mu.Unlock()
+	case <-time.After(time.Second):
+		state.mu.Unlock()
+		<-done
+		t.Fatal("independent instance blocked by trace mutex")
+	}
+	if len(uwLookup(b.Threads).Events) != 0 {
+		t.Fatal("unmatched dormant notify should not fill trace")
+	}
 }

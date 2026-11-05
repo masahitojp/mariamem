@@ -15,8 +15,16 @@ import (
 var uwDir = os.Getenv("UPDATE_NOTIFY_DIR")
 var uwEpoch = time.Now()
 var uwLong = int64(100 * time.Millisecond)
-var uwMu sync.Mutex
-var uwStates = map[*ThreadPool]*uwState{}
+
+// Registry lookup does not serialize independent instances' event append paths.
+var uwStates sync.Map // *ThreadPool -> *uwState
+func uwLookup(p *ThreadPool) *uwState {
+	v, ok := uwStates.Load(p)
+	if !ok {
+		return nil
+	}
+	return v.(*uwState)
+}
 
 const uwMaxEvents = 8192
 
@@ -51,6 +59,8 @@ type uwWait struct {
 	ended  bool
 }
 type uwState struct {
+	mu        sync.Mutex
+	emitted   map[uint64]bool
 	Child     int       `json:"child"`
 	Events    []uwEvent `json:"events"`
 	Truncated bool      `json:"truncated"`
@@ -60,9 +70,11 @@ type uwState struct {
 	late      map[uint64]bool
 }
 type uwNotify struct {
-	s      *uwState
-	id     uint64
-	thread int32
+	started int64
+	ea      uint64
+	s       *uwState
+	id      uint64
+	thread  int32
 }
 
 func uwNow() int64 { return time.Since(uwEpoch).Nanoseconds() }
@@ -88,25 +100,23 @@ func UWBind(m *Module, child int, ok bool) {
 	if uwDir == "" || !ok {
 		return
 	}
-	uwMu.Lock()
-	defer uwMu.Unlock()
-	if uwStates[m.Threads] != nil {
+	s := &uwState{Child: child, queries: map[int32]uwQuery{}, waits: map[chan struct{}]*uwWait{}, late: map[uint64]bool{}, emitted: map[uint64]bool{}}
+	if _, loaded := uwStates.LoadOrStore(m.Threads, s); loaded {
 		panic("duplicate trace namespace")
 	}
-	uwStates[m.Threads] = &uwState{Child: child, queries: map[int32]uwQuery{}, waits: map[chan struct{}]*uwWait{}, late: map[uint64]bool{}}
 }
 func UWFlush(m *Module) {
 	if uwDir == "" {
 		return
 	}
-	uwMu.Lock()
-	s := uwStates[m.Threads]
-	delete(uwStates, m.Threads)
-	uwMu.Unlock()
-	if s == nil {
+	value, ok := uwStates.LoadAndDelete(m.Threads)
+	if !ok {
 		return
 	}
+	s := value.(*uwState)
+	s.mu.Lock()
 	b, e := json.MarshalIndent(s, "", "  ")
+	s.mu.Unlock()
 	if e != nil {
 		panic(e)
 	}
@@ -127,20 +137,19 @@ func UWSqlBegin(m *Module, p, n int32) func() {
 	if !strings.HasPrefix(sql, "UPDATE fork_probe SET v=") {
 		return func() {}
 	}
-	uwMu.Lock()
-	s := uwStates[m.Threads]
+	s := uwLookup(m.Threads)
 	if s == nil {
-		uwMu.Unlock()
 		return func() {}
 	}
+	s.mu.Lock()
 	s.next++
 	q := uwQuery{id: s.next}
 	s.queries[m.G1] = q
 	uwAdd(s, uwEvent{NS: uwNow(), Kind: "query_begin", Thread: m.G1, Query: q.id})
-	uwMu.Unlock()
+	s.mu.Unlock()
 	return func() {
-		uwMu.Lock()
-		defer uwMu.Unlock()
+		s.mu.Lock()
+		defer s.mu.Unlock()
 		delete(s.queries, m.G1)
 		uwAdd(s, uwEvent{NS: uwNow(), Kind: "query_end", Thread: m.G1, Query: q.id})
 	}
@@ -149,15 +158,14 @@ func UWRsegBegin(m *Module, p int32) func() {
 	if uwDir == "" {
 		return func() {}
 	}
-	uwMu.Lock()
-	s := uwStates[m.Threads]
+	s := uwLookup(m.Threads)
 	if s == nil {
-		uwMu.Unlock()
 		return func() {}
 	}
+	s.mu.Lock()
 	q, ok := s.queries[m.G1]
 	if !ok {
-		uwMu.Unlock()
+		s.mu.Unlock()
 		return func() {}
 	}
 	prior := q.page
@@ -170,10 +178,10 @@ func UWRsegBegin(m *Module, p int32) func() {
 	q.page = pg
 	s.queries[m.G1] = q
 	uwAdd(s, uwEvent{NS: uwNow(), Kind: "rseg_page_begin", Thread: m.G1, Query: q.id, Rseg: pg.rseg, Page: pg.page, Space: pg.space})
-	uwMu.Unlock()
+	s.mu.Unlock()
 	return func() {
-		uwMu.Lock()
-		defer uwMu.Unlock()
+		s.mu.Lock()
+		defer s.mu.Unlock()
 		uwAdd(s, uwEvent{NS: uwNow(), Kind: "rseg_page_end", Thread: m.G1, Query: q.id, Rseg: pg.rseg, Page: pg.page, Space: pg.space})
 		q.page = prior
 		s.queries[m.G1] = q
@@ -183,15 +191,14 @@ func UWMutexBegin(m *Module, p int32) func() {
 	if uwDir == "" {
 		return func() {}
 	}
-	uwMu.Lock()
-	s := uwStates[m.Threads]
+	s := uwLookup(m.Threads)
 	if s == nil {
-		uwMu.Unlock()
 		return func() {}
 	}
+	s.mu.Lock()
 	q, ok := s.queries[m.G1]
 	if !ok || q.page.rseg == 0 {
-		uwMu.Unlock()
+		s.mu.Unlock()
 		return func() {}
 	}
 	prior := q.page.mutex
@@ -199,10 +206,10 @@ func UWMutexBegin(m *Module, p int32) func() {
 	s.queries[m.G1] = q
 	pg := q.page
 	uwAdd(s, uwEvent{NS: uwNow(), Kind: "page_mutex_slow_begin", Thread: m.G1, Query: q.id, Mutex: pg.mutex, Page: pg.page, Space: pg.space, Rseg: pg.rseg})
-	uwMu.Unlock()
+	s.mu.Unlock()
 	return func() {
-		uwMu.Lock()
-		defer uwMu.Unlock()
+		s.mu.Lock()
+		defer s.mu.Unlock()
 		uwAdd(s, uwEvent{NS: uwNow(), Kind: "page_mutex_slow_end", Thread: m.G1, Query: q.id, Mutex: pg.mutex, Page: pg.page, Space: pg.space, Rseg: pg.rseg})
 		q.page.mutex = prior
 		s.queries[m.G1] = q
@@ -212,12 +219,12 @@ func UWRegister(m *Module, ea uint64, timeout int64, ch chan struct{}) uint64 {
 	if uwDir == "" {
 		return 0
 	}
-	uwMu.Lock()
-	defer uwMu.Unlock()
-	s := uwStates[m.Threads]
+	s := uwLookup(m.Threads)
 	if s == nil {
 		return 0
 	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
 	q, ok := s.queries[m.G1]
 	if !ok {
 		return 0
@@ -233,12 +240,12 @@ func UWWaitEvent(m *Module, id uint64, kind string, rc int32) {
 		return
 	}
 	ns := uwNow()
-	uwMu.Lock()
-	defer uwMu.Unlock()
-	s := uwStates[m.Threads]
+	s := uwLookup(m.Threads)
 	if s == nil {
 		return
 	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
 	for _, w := range s.waits {
 		if w.id == id {
 			uwAdd(s, uwDecorate(uwEvent{NS: ns, Kind: kind, RC: rc}, w))
@@ -255,12 +262,12 @@ func UWNotifyBegin(p *ThreadPool, ea uint64, modules []*Module) uwNotify {
 		return uwNotify{}
 	}
 	ns := uwNow()
-	uwMu.Lock()
-	defer uwMu.Unlock()
-	s := uwStates[p]
-	if s == nil || len(s.queries) == 0 {
+	s := uwLookup(p)
+	if s == nil {
 		return uwNotify{}
 	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
 	s.next++
 	thread := int32(0)
 	if len(modules) == 1 {
@@ -269,8 +276,13 @@ func UWNotifyBegin(p *ThreadPool, ea uint64, modules []*Module) uwNotify {
 		}
 		thread = modules[0].G1
 	}
-	tok := uwNotify{s: s, id: s.next, thread: thread}
-	uwAdd(s, uwEvent{NS: ns, Kind: "notify_attempt", Thread: thread, Notify: tok.id, EA: ea})
+	// A token must exist even before a query starts: it can register a waiter
+	// before this wake acquires parkMu. Record a dormant attempt only if matched.
+	tok := uwNotify{s: s, id: s.next, thread: thread, started: ns, ea: ea}
+	if len(s.queries) > 0 {
+		s.emitted[tok.id] = true
+		uwAdd(s, uwEvent{NS: ns, Kind: "notify_attempt", Thread: thread, Notify: tok.id, EA: ea})
+	}
 	return tok
 }
 func UWNotifyEnd(tok uwNotify, ea uint64, n int32) {
@@ -278,9 +290,13 @@ func UWNotifyEnd(tok uwNotify, ea uint64, n int32) {
 		return
 	}
 	ns := uwNow()
-	uwMu.Lock()
+	tok.s.mu.Lock()
+	if !tok.s.emitted[tok.id] {
+		tok.s.mu.Unlock()
+		return
+	}
 	long := tok.s.late[tok.id]
-	uwMu.Unlock()
+	tok.s.mu.Unlock()
 	e := uwEvent{NS: ns, Kind: "notify_return", Thread: tok.thread, Notify: tok.id, EA: ea, RC: n}
 	// wake() has already unlocked parkMu before this deferred diagnostic runs.
 	if long {
@@ -295,29 +311,31 @@ func UWNotifyEnd(tok uwNotify, ea uint64, n int32) {
 			}
 		}
 	}
-	uwMu.Lock()
+	tok.s.mu.Lock()
 	uwAdd(tok.s, e)
-	uwMu.Unlock()
+	tok.s.mu.Unlock()
 }
 func UWSignal(p *ThreadPool, ea uint64, ch chan struct{}, tok uwNotify, after bool) {
 	if uwDir == "" {
 		return
 	}
 	ns := uwNow()
-	uwMu.Lock()
-	s := uwStates[p]
+	s := uwLookup(p)
 	if s == nil {
-		uwMu.Unlock()
 		return
 	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
 	w := s.waits[ch]
 	if w == nil {
-		uwMu.Unlock()
 		return
 	}
-	if w.ea != ea || tok.s != s {
-		uwMu.Unlock()
+	if w.ea != ea || tok.s != s || tok.ea != ea {
 		panic("signal namespace/address mismatch")
+	}
+	if !s.emitted[tok.id] {
+		s.emitted[tok.id] = true
+		uwAdd(s, uwEvent{NS: tok.started, Kind: "notify_attempt", Thread: tok.thread, Notify: tok.id, EA: ea})
 	}
 	e := uwDecorate(uwEvent{NS: ns, Kind: "signal_before", Notify: tok.id}, w)
 	if after {
@@ -327,5 +345,4 @@ func UWSignal(p *ThreadPool, ea uint64, ch chan struct{}, tok uwNotify, after bo
 		s.late[tok.id] = true
 	}
 	uwAdd(s, e)
-	uwMu.Unlock()
 }
