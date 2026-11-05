@@ -21,6 +21,12 @@ changes not yet published.
 | Understand protocol and toolchain limits | [MySQL protocol](mysql-protocol.md), [Go compatibility](go-compatibility.md) |
 | Migrate old Snapshot save/load usage | [Changes from 0.5.0](changes-since-v050.md), [0.5.2 ownership update](changes-since-v051.md) |
 
+## Options and compatibility
+
+- [Python fixture options and lifecycle](python-reference.md)
+- [Go ownership, Fork limits and errors](go-reference.md)
+- [SQL, driver exceptions and protocol scope](compatibility.md)
+
 ## Maintainer guides
 
 - [Architecture](v04-generated-go-architecture.md) and [Snapshot contract](decisions/snapshot-product-contract.md)

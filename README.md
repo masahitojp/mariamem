@@ -1,40 +1,20 @@
 # mariamem
 
-**Make a real MariaDB as disposable as a test double.**
+**A real MariaDB for each test, without Docker.**
 
-mariamem gives each test its own real MariaDB, without Docker or a separately
-managed database server. Use an ordinary MySQL driver, let the application
-commit and roll back normally, then discard the database when the test ends.
-There is no SQL imitation and no automatic transaction wrapper around tests.
+Connect with an ordinary MySQL driver, commit normally, and discard the database
+when the test ends. For expensive migrations or fixtures, prepare once and give
+each test an independent database from that initial state.
 
-Start fresh for light setup. When migrations or fixtures are expensive, prepare
-them once, fix that state as a Snapshot, and Fork independent databases for
-individual tests. Share the baseline, not previous tests' mutations.
-
-Python `0.6.2` / Go `v0.6.2` improves prepared-driver compatibility and adds
-bounded input pipelining. Go callers can explicitly select same-process Pipe
-connections; TCP remains the default. Existing prepared Django tests, local
-pytest-xdist workers and finite Snapshot/Fork admission remain available.
-See the [release notes](release/NOTES-v0.6.2.md),
-[Go connection guide](docs/go.md#same-process-connections) and
-[API migration guide](docs/changes-since-v050.md).
+Current release: Python `0.6.2` / Go `v0.6.2`. [Release notes](release/NOTES-v0.6.2.md).
 
 ## Installation
 
-Supported platforms are **macOS 15+ / Apple Silicon (arm64)** and
-**Ubuntu 24.04 LTS / x86_64**. Other platforms are not supported.
-Release validation uses Go 1.26.10 and Python 3.14. Package minimums are
-Go 1.26.0 and Python 3.11; they are not a tested matrix of all later versions.
-Python3.9/3.10 are no longer supported.
-External Go consumers passed on macOS arm64 with Go 1.26.8 and
-1.27.0/1.27.1/1.27.2 historically; the current forward-compat check uses
-Go 1.27.3. GO-2026-6809 affects Go <1.26.10 and 1.27.0–1.27.2. See
-[toolchain compatibility](docs/go-compatibility.md) for the exact tested scope;
-the module minimum remains Go 1.26.0.
+Supported hosts: **macOS 15+ arm64** and **Ubuntu 24.04 x86_64**.
+Python requires **3.11+**; Go requires **1.26.0+**.
+Use a GitHub Release wheel for Python; PyPI publication is currently unavailable.
 
-To install the published release, create a virtual environment and install its platform wheel.
-PyPI publication remains unavailable pending account recovery; GitHub Release
-wheels are the supported installation path.
+### Python
 
 ```sh
 python3 -m venv .venv
@@ -47,10 +27,26 @@ python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/r
 python -m pip install 'mariamem[test] @ https://github.com/masahitojp/mariamem/releases/download/v0.6.2/mariamem-0.6.2-py3-none-linux_x86_64.whl'
 ```
 
-The `test` extra supplies PyMySQL and pytest tools. Use the wheel rather than a
-Git source install: it includes the required platform executable.
+Save this as `test_database.py`:
 
-For the published Go module:
+```python
+import pymysql
+
+
+def test_query(mariamem_connection_info):
+    with pymysql.connect(**mariamem_connection_info) as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT 1")
+            assert cur.fetchone() == (1,)
+```
+
+Run `python -m pytest test_database.py`. The fixture owns an independent database
+for the test; the `with` block closes its SQL connection before fixture cleanup.
+Next: [prepare migrations and seed once](docs/python.md#pytest-fixtures).
+
+### Go
+
+In a new directory:
 
 ```sh
 go mod init example.com/mariamem-test
@@ -58,327 +54,91 @@ go get github.com/masahitojp/mariamem@v0.6.2
 go get github.com/go-sql-driver/mysql
 ```
 
-Optional release audit assets can be downloaded separately; they are not needed
-for ordinary startup:
+Save this as `database_test.go`:
+
+```go
+package example_test
+
+import (
+	"database/sql"
+	"testing"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem"
+)
+
+func TestQuery(t *testing.T) {
+	db, err := mariamem.Start(t.Context(), mariamem.Options{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() {
+		if err := db.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
+
+	pool, err := sql.Open("mysql", db.DSN())
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer pool.Close()
+
+	var value int
+	if err := pool.QueryRowContext(t.Context(), "SELECT 1").Scan(&value); err != nil {
+		t.Fatal(err)
+	}
+	if value != 1 {
+		t.Fatalf("got %d, want 1", value)
+	}
+}
+```
+
+Run `go test ./...`. Deferred cleanup closes the SQL pool before the database.
+Next: [prepare migrations and seed once](docs/go.md#prepare-once-fork-independent-databases).
+
+## Choose your next step
+
+| What you need | Guide |
+| --- | --- |
+| Python preparation and parallel tests | [Python](docs/python.md) |
+| Go preparation and parallel tests | [Go](docs/go.md) |
+| Existing Python application connections | [Opt-in routing](docs/connection-routing.md) |
+| Django | [Ordinary runner](docs/django-testing.md) · [Prepared classes and xdist](docs/django-prepared.md) |
+| Browser / HTTP E2E | [Owned entries](docs/examples/e2e_owned/README.md) |
+| Prepare from a MariaDB dump | [Dump reader](docs/importing-dump.md) |
+| Node ORMs | [Connection settings](docs/node-orm.md) |
+
+## Before using it
+
+Use mariamem for disposable test data. It runs MariaDB 12.3.3 with a bounded
+MySQL protocol profile; it does not authenticate credentials or reproduce every
+MySQL feature. Read [SQL and driver compatibility](docs/compatibility.md) when
+choosing a client. Interrupted active SQL invalidates the database; close it and
+start another. Forced reclamation of hung execution is not guaranteed.
+
+Prepared baselines are process-local. Fork capacity is finite; release children
+before acquiring more and choose worker counts for your memory budget. See
+[Python limits](docs/python-reference.md) or [Go limits](docs/go-reference.md),
+including failure paths that require a fresh lineage.
+
+[All documentation](docs/README.md) · [Architecture](docs/v04-generated-go-architecture.md) ·
+[Project status](docs/project-status.md) · [Migration from older APIs](docs/changes-since-v050.md).
+
+<details>
+<summary>Release audit files</summary>
 
 ```sh
 gh release download v0.6.2 --repo masahitojp/mariamem \
   --pattern 'SHA256SUMS' --pattern 'mariamem-0.6.2-corresponding-source.tar.gz'
 ```
 
-## Supported application-test entries
+Build/forward-compatibility pins and historical results are in
+[Go compatibility](docs/go-compatibility.md).
 
-The following paths are supported in 0.6.2 within their documented profiles.
+</details>
 
-| Test setup | Supported entry and boundary |
-| --- | --- |
-| Python prepared tests | [pytest preparation and PrepareCommand](docs/python.md#prepared-command-entry); a worker-local baseline and independent child per test |
-| Existing Python application connections | [Opt-in shadow_maria routing](docs/connection-routing.md); pinned drivers, explicit profiles and pool enrollment |
-| Go prepared tests | [mariamemtest](docs/go-prepared-fixture.md); prepare once and use a test-owned bounded child pool |
-| Sequential browser / HTTP E2E | [BrowserEntry and NewHTTP](docs/examples/e2e_owned/README.md); supplied entries own sequencing, application hooks own readiness and physical SQL/job retirement |
-| Python MariaDB dump input | [import_dump with the dump extra](docs/importing-dump.md); only the documented MariaDB12.3.3 producer profile |
-| Ordinary Django tests (5.2 LTS / 6.0 / 6.1) | [Standard-runner recipe](docs/django-testing.md); Django owns rollback/flush/fixtures, not automatic prepared-Snapshot restoration |
-
-These paths retain the exact driver, wire and lifecycle limits below. The
-[explicit prepared Django entry](docs/django-prepared.md) is included in
-0.6.1. It adds
-`mariamem.django` with dedicated classes and full prepared-state restoration;
-it is mutually exclusive with routing/shadow_maria in one run. See
-[local worker configuration](docs/django-prepared.md#configure-worker-count)
-for serial/xdist commands and worker sizing. Its four
-installed-wheel OS/Python cells passed before adoption. Procedures/functions
-and real server-side prepared execution retain the named exceptions below.
-
-Version 0.6.1 adds finite per-Snapshot Fork admission by default. Full capacity
-waits before starting another child; see the contracts for
-[Go](docs/go.md#per-snapshot-fork-limits) and [Python](docs/python.md).
-
-For Node applications, see the [TypeORM / MikroORM connection guide](docs/node-orm.md)
-for MariaDB dialect settings and the limits of the recorded dogfood evidence.
-
-## Prepare once, isolate each test
-
-These examples use the 0.6.2 packages installed above.
-
-## pytest fixtures
-
-Return your migrations and seed callback from `mariamem_prepare`:
-
-```python
-# conftest.py
-import pytest
-import pymysql
-
-
-@pytest.fixture(scope="session")
-def mariamem_prepare():
-    def prepare(db):
-        with pymysql.connect(**db.connection_info()) as conn:
-            with conn.cursor() as cur:
-                cur.execute("CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB")
-                cur.execute("INSERT INTO items VALUES(1)")
-            conn.commit()
-    return prepare
-```
-
-Request the test-owned connection settings in each test:
-
-```python
-# test_items.py
-import pymysql
-
-
-def test_commit(mariamem_connection_info):
-    with pymysql.connect(**mariamem_connection_info) as conn:
-        with conn.cursor() as cur:
-            cur.execute("DELETE FROM items")
-        conn.commit()
-
-
-def test_seed(mariamem_connection_info):
-    with pymysql.connect(**mariamem_connection_info) as conn:
-        with conn.cursor() as cur:
-            cur.execute("SELECT id FROM items")
-            assert cur.fetchall() == ((1,),)
-```
-
-Run `python -m pytest test_items.py`. Preparation runs once per pytest worker;
-each test receives an independent child. Either test order starts with the seed,
-including after another test commits or fails. Close preparation connections
-before the callback returns; the plugin owns disconnect waiting, Snapshot/Fork
-and teardown. See the [Python guide](docs/python.md#pytest-fixtures) for
-`PrepareCommand` and pytest-xdist. For existing application connections, use the
-opt-in [shadow_maria routing](docs/connection-routing.md) profile.
-
-### Existing Python application connections
-
-`@pytest.mark.shadow_maria` routes the application's ordinary connection calls
-to the current test's child. Use the [complete Python example](docs/python.md#existing-application-connections-shadow_maria)
-for the original-endpoint profile, `app` schema preparation and `app.py`; its
-setup replaces the direct `items` example above. Then the tests are:
-
-```python
-# test_app.py
-import pytest
-import app
-
-
-@pytest.mark.shadow_maria
-def test_create_user():
-    app.create_user(2)  # Ordinary application connection and commit.
-    assert app.user_ids() == [1, 2]
-
-
-@pytest.mark.shadow_maria
-def test_initial_state():
-    assert app.user_ids() == [1]  # A fresh child, even after the other test commits.
-```
-
-Each test gets its own seed even when the other test commits. Profiles must be
-configured before application imports; existing pools need explicit enrollment.
-
-## Go test helper
-
-Save this as `items_test.go` in a new Go test package. The Go guide extends this
-same example; do not combine both files into one package, which would duplicate
-`TestMain` and the test names:
-
-```go
-package example_test
-
-import (
-	"context"
-	"database/sql"
-	"os"
-	"testing"
-
-	"github.com/masahitojp/mariamem/mariamemtest"
-)
-
-var fixture *mariamemtest.Fixture
-
-func TestMain(m *testing.M) {
-	os.Exit(mariamemtest.Run(m, mariamemtest.Options{
-		Prepare: func(ctx context.Context, db *sql.DB, dsn string) error {
-			// Migration commands can use ctx and dsn. Return their original
-			// error, retain stderr and never log a DSN containing credentials.
-			if _, err := db.ExecContext(ctx,
-				"CREATE TABLE items (id INT PRIMARY KEY, label VARCHAR(32)) ENGINE=InnoDB"); err != nil {
-				return err
-			}
-			_, err := db.ExecContext(ctx, "INSERT INTO items VALUES (1, 'seed')")
-			return err
-		},
-		MaxForks: 2,
-	}, func(f *mariamemtest.Fixture) { fixture = f }))
-}
-
-func TestCommit(t *testing.T) {
-	db := fixture.DB(t)
-	if _, err := db.ExecContext(t.Context(), "DELETE FROM items"); err != nil {
-		t.Fatal(err)
-	}
-}
-
-func TestSeed(t *testing.T) {
-	db := fixture.DB(t)
-	var label string
-	if err := db.QueryRowContext(t.Context(),
-		"SELECT label FROM items WHERE id=1").Scan(&label); err != nil {
-		t.Fatal(err)
-	}
-	if label != "seed" {
-		t.Fatalf("starting label: %q", label)
-	}
-}
-```
-
-Run `go test ./...`. `Run` prepares once per package test process and closes the
-fixture after the suite; `DB(t)` acquires one independent child/pool per test and
-registers pool-before-child cleanup. Tests use ordinary SQL and commits without
-an automatic rollback wrapper. The helper provides its driver-owned pool; no
-`sql.Open`, blank driver import or manual Snapshot/Fork is needed here.
-See the [Go guide](docs/go.md#prepare-once-fork-independent-databases) for bounded
-parallel subtests and the [helper guide](docs/go-prepared-fixture.md) for lifecycle
-and failure behavior.
-
-## Start fresh
-
-Use `start()` when you want a new database without a prepared baseline, or need
-to own its lifetime outside pytest:
-
-```python
-import mariamem
-import pymysql
-
-with mariamem.start() as db:
-    with pymysql.connect(**db.connection_info()) as conn:
-        with conn.cursor() as cur:
-            cur.execute("CREATE TABLE items(id INT PRIMARY KEY) ENGINE=InnoDB")
-            cur.execute("INSERT INTO items VALUES(1)")
-        conn.commit()
-        with conn.cursor() as cur:
-            cur.execute("SELECT id FROM items")
-            assert cur.fetchone() == (1,)
-```
-
-Close SQL connections before disposing of the database. The corresponding Go
-low-level API is `mariamem.Start`; ordinary Go tests can use the helper above
-with `Prepare: nil` to share an empty baseline. See the
-[Python](docs/python.md#share-preparation-isolate-mutations) and
-[Go](docs/go.md#low-level-database-lifetimes) guides for custom ownership.
-
-The local endpoint accepts any username and password, including
-test credentials such as `test/test` or `root/root`. Credentials are not
-validated and do not select a guest account or change SQL privileges. The
-returned connection information still defaults to `root` with an empty
-password. Use a real server for authentication and per-user privilege tests.
-For ordinary `manage.py test` or pytest-django, see the
-[Django standard-runner recipe](docs/django-testing.md).
-
-## Reuse expensive preparation within a test session
-
-Baselines are process-local and retain fixed, private immutable blocks in memory.
-Heap-backed capture enforces ownership and immutability without rereading every
-byte. Content checks remain at internal import/transfer boundaries and when
-copying borrowed file mappings into owned memory.
-Each Fork has private changes and an independent MariaDB runtime. Prepare once
-per test session. Saving/loading baseline artifacts is no longer supported;
-retain migrations and seed inputs to recreate preparation in another process.
-See the [Python](docs/python.md#snapshot-ownership-and-host-lifetime) and
-[Go](docs/go.md#in-memory-baseline-lifetime) guides for ownership and cleanup.
-
-
-Stored procedures
-and functions are supported through ordinary SQL, including
-CALL result chains and Snapshot/Fork retention. Packages/package bodies are
-outside product support and compatibility testing; events remain unavailable
-in the embedded build (1235). DEFINER clauses and SQL SECURITY metadata are
-accepted and retained, but `--skip-grant-tables` means account existence and
-privileges are not enforced. See the [approved scope](docs/decisions/routine-support-scope.md).
-Since 0.6.0, the endpoint supports real server-side execution for Go explicit/implicit
-Prepare and Python prepared cursors.
-`DELIMITER` is a client directive, not server SQL. Python provides
-an explicit [bounded dump reader](docs/importing-dump.md); this is not a general
-SQL-script importer or a Go dump API.
-
-Oracle mysql-connector-python 26.7.0 has two named, accepted consumer exceptions:
-
-- For the tested prepared CALL emitting two result sets via nextset, advancing
-  after the first set can fail and leave that connection unusable. This affects
-  pure mode on both supported guest platforms and macOS C/default in the fixed
-  native-matched observations; it is not a claim about every CALL or driver.
-- macOS C/default can shorten an untyped prepared character projection of
-  A-NUL-B to A without a useful error. Typed binary columns preserve all bytes;
-  pure mode preserves that projection. This is not evidence of file corruption.
-
-Separately, in the native-matched macOS C-extension prepared syntax-error
-case, the client reports `2006/HY000` although raw wire returns `1064/42000`
-and subsequent SQL succeeds. This is the native-parity error-presentation
-disposition, not a third exception under the CALL/NUL decision. It does not
-make other `2006` errors safe or recoverable.
-
-See the [CALL/NUL boundaries](docs/decisions/prepared-consumer-exceptions.md)
-and [syntax-error presentation](docs/reviews/v06x-prepared-product-design.md#c-extension-syntax-error).
-MariaDB Connector/Python 1.1.14 passes the two CALL/NUL cases on both supported
-guest platforms; this is not blanket driver compatibility or a repair to Oracle
-Connector/Python. Ubuntu's additional explicit C-extension mode may be unavailable
-and is an allowed SKIP, not C-mode compatibility PASS; required default/pure modes
-have their own executed evidence. No driver mode is silently substituted.
-Server-side cursors / COM_STMT_FETCH remain unsupported.
-
-The published package retains a bounded local endpoint profile: TLS/compression,
-LOCAL INFILE transfer, administrative wire commands and binlog/replication
-streaming are outside0.6.2 support. See the [exact wire scope, exceptions and
-bounded reopening rule](docs/decisions/v060-wire-contract.md). Application or
-Release CI success does not imply additional protocol coverage.
-
-
-## Important limits
-
-- **Finite Fork capacity:** Fork waits when its Snapshot cap is full. Close
-  an owned child before requesting another, or bound the wait with a Go context /
-  Python timeout. Independent root Start calls remain outside Snapshot caps.
-  Auto sizing is a memory heuristic; hidden container limits require an explicit
-  cap, and multiple baselines/workers need separate budgets.
-
-- **#53 capture cleanup limit:** if capture fails and closing its newly owned
-  Snapshot also fails, that failure is permanently latched: its originating
-  slot remains occupied and parent admission stays stopped. Cleanup retry and
-  Live Reset cannot clear it; close remaining owners safely and prepare a fresh
-  independent lineage. See the [Python limits](docs/python.md).
-- Close driver connections and DB/baseline handles normally. Context managers
-  and Go cleanup functions make those boundaries explicit.
-- Close clients before Snapshot creation; active operations and unresolved
-  transactions are rejected unless rollback is explicitly requested.
-  Busy/transaction precondition rejection leaves the source available;
-  successful capture ends it.
-- Multiple connections and normal commit/rollback are supported. Current
-  session capacity is 16; excess TCP connections get recoverable MySQL error 1040,
-  while opt-in Go Pipe admission returns `ErrCapacity`.
-  This is not a permanent capacity or parallel-throughput guarantee.
-- Prepared support follows the exact client/wire boundaries above.
-- Interrupted active SQL invalidates that database. Close it and start or fork
-  another. Forced reclamation of hung execution is not guaranteed.
-- This is a test database, not a production service or security boundary.
-  DBs and baselines contain your test data; treat sensitive data accordingly.
-- Resource use and the Fresh/prepared crossover depend on the workload.
-  Large scans remain query work even when preparation is reused.
-- The 0.x API may change. See [release changes](release/NOTES-v0.6.2.md)
-  and [API migration](docs/changes-since-v050.md).
-
-You do not need runtime implementation knowledge to use these APIs.
-[Architecture](docs/v04-generated-go-architecture.md) explains the current
-implementation and technical limitations;
-[documentation index](docs/README.md) separates current guides from historical
-records. [Project status](docs/project-status.md) records current state and roadmap;
-[historical measurements](benchmarks/v043-characterization.md) preserve evidence.
-
-Project code is [GPL-2.0-only](LICENSE); components retain their own licenses in
-[NOTICE](NOTICE) and [THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES). The guest derives
-from [shyim/lite4mariadb](https://github.com/shyim/lite4mariadb) and MariaDB Server.
-The original testing API was informed by [shibukawa/pgmem](https://github.com/shibukawa/pgmem);
-mariamem's product contract is defined independently.
-
-Since 0.6.0, the package supports stable Live endpoints across sequential browser E2E
-cases. See the [Live guide](docs/live.md) for connection draining and reset ownership.
+Project code is [GPL-2.0-only](LICENSE); see [NOTICE](NOTICE) and
+[THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES). The guest derives from
+[shyim/lite4mariadb](https://github.com/shyim/lite4mariadb) and MariaDB Server;
+the original testing API was informed by [shibukawa/pgmem](https://github.com/shibukawa/pgmem).
