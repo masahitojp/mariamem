@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"strings"
+	"sync/atomic"
 	"testing"
 )
 
@@ -18,7 +19,7 @@ func TestDefaultSettingsSelector(t *testing.T) {
 			binary.LittleEndian.PutUint32(b[128+i*4:], uint32(ptr))
 		}
 		binary.LittleEndian.PutUint32(b[128+25*4:], 0)
-		m := &Module{Memory: b}
+		m := &Module{Memory: b, MemSize: new(atomic.Uint64)}
 		m.MemSize.Store(uint64(len(b)))
 		return m
 	}
