@@ -1,0 +1,10 @@
+{
+  "harness_sha256": "224ff8bc1da1e346e777a2df54b3833940f8c44ff7dab925c37908e5c3c123f1",
+  "docker_image_id": "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+  "product_baseline_source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb",
+  "kind": "isolated NET/Vio writer only; no complete embedded runtime",
+  "macos_compile_log": {
+    "raw_sha256": "a97800967cc0336f73de36a043d5d98ff49bd93e5ba3c5fae737ebe8eed96ab3",
+    "normalization": "Only the local workspace prefix is replaced with <workspace>; compiler failure text unchanged"
+  }
+}

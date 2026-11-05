@@ -1,0 +1,21 @@
+{
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "kind": "isolated-source-extraction-NET-Vio-send-seam",
+  "inputs_sha256": {
+    "sql/net_serv.cc": "7d7b8b8a8de1834099f350912ed9255a1f376565da407e8dc461f97c72f12c93",
+    "include/violite.h": "0be1b5c9a8fb6bed71d9a504c7eef69746fa2b388adcd8b68a3642608757f1d4",
+    "include/mysql_com.h": "75f5644c62eb9f20882b1730dc6525e45c4b1e58f3c4f97ff229e1aa7cbc986d"
+  },
+  "generated_source_sha256": "0a09c8f9e9fb528d5da08c71cce83b5ab5deace0f9d9d82b598c06f12a5e9ea2",
+  "compile_returncode": 0,
+  "compiler_version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "limitations": [
+    "No complete MariaDB build or embedded THD",
+    "No native packet reader, handshake, SQL, prepared decoding or result metadata",
+    "Only extracted upstream NET/Vio types and four unmodified writer functions",
+    "Harness supplies platform typedefs, buffer setup and disabled diagnostic hooks; no ABI proof",
+    "Compression, large continuation, retry/timeout/concurrency untested"
+  ],
+  "run_returncode": 0,
+  "binary_sha256": "194383d11d47b9b9e1c35a28563ea4b2c23cff20e39cb2d38dd032386d8a5d93"
+}

@@ -1,0 +1,15 @@
+/work/temp/run2/smoke.cc:79:38: error: ‘uint16’ has not been declared
+   79 |   my_bool (*peer_addr)(Vio*, char *, uint16*, size_t);
+      |                                      ^~~~~~
+/work/temp/run2/smoke.cc: In function ‘my_bool my_net_write(NET*, const uchar*, size_t)’:
+/work/temp/run2/smoke.cc:196:3: error: ‘DBUG_DUMP’ was not declared in this scope
+  196 |   DBUG_DUMP("packet_header", buff, NET_HEADER_SIZE);
+      |   ^~~~~~~~~
+/work/temp/run2/smoke.cc: In function ‘size_t get(Vio*, uchar*, size_t)’:
+/work/temp/run2/smoke.cc:367:2: error: this ‘if’ clause does not guard... [-Werror=misleading-indentation]
+  367 |  if(n) std::memcpy(p,c->bytes.data()+c->pos,n); c->pos+=n; return n;
+      |  ^~
+/work/temp/run2/smoke.cc:367:49: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  367 |  if(n) std::memcpy(p,c->bytes.data()+c->pos,n); c->pos+=n; return n;
+      |                                                 ^
+cc1plus: all warnings being treated as errors
