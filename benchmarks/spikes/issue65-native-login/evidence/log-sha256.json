@@ -1,0 +1,65 @@
+{
+  "normalization": "Trailing whitespace stripped in committed text logs only; raw logs retained in the ignored owned evidence directory.",
+  "logs": {
+    "probe-compile-2.txt": {
+      "raw_sha256": "f185b9c66404af36e1c1b88a7380e33fb85cbaf6ab6d5b5ebe69e6f7dc901b10",
+      "committed_sha256": "f185b9c66404af36e1c1b88a7380e33fb85cbaf6ab6d5b5ebe69e6f7dc901b10"
+    },
+    "run-1.txt": {
+      "raw_sha256": "94f2b6a56db89884322b98918cdf30b73ba3c93e0b964c6a167879f3defd8abc",
+      "committed_sha256": "94f2b6a56db89884322b98918cdf30b73ba3c93e0b964c6a167879f3defd8abc"
+    },
+    "run-2.txt": {
+      "raw_sha256": "02b67d44ca699927c27d173ae3a041b64939909bb2a3f85e02742ab2e1ecc8f4",
+      "committed_sha256": "02b67d44ca699927c27d173ae3a041b64939909bb2a3f85e02742ab2e1ecc8f4"
+    },
+    "run-3.txt": {
+      "raw_sha256": "ef5aa3b0d9d4c40c2acf341520a7472d6c38e2e990d0806d43d2cddc8d33b23a",
+      "committed_sha256": "ef5aa3b0d9d4c40c2acf341520a7472d6c38e2e990d0806d43d2cddc8d33b23a"
+    },
+    "probe-compile.txt": {
+      "raw_sha256": "5611011b280233ac4b9db166b497ead09689f7b2164352b61bb31ca5d09a5738",
+      "committed_sha256": "5611011b280233ac4b9db166b497ead09689f7b2164352b61bb31ca5d09a5738"
+    },
+    "build-2.txt": {
+      "raw_sha256": "bcec0b4483497cdb40a12a76e37bb87a5af8c717d45c338e0f2baacfe85f0fae",
+      "committed_sha256": "4cb3b8ff3ee95ee52c0c7597601c1c863d32e00be9e3376a20300c0fa874c5f4"
+    },
+    "build-3.txt": {
+      "raw_sha256": "50db1b0bb3defbd67c4346c953561eabab934ab39bb8b930ff1457afeb8c5133",
+      "committed_sha256": "50db1b0bb3defbd67c4346c953561eabab934ab39bb8b930ff1457afeb8c5133"
+    },
+    "build-4.txt": {
+      "raw_sha256": "5c7e9b9f7a8d1893483ee33ff9bef09592738fc0b9c30b2cd1137a42a29071ad",
+      "committed_sha256": "b65a58470de4b0d7c79780112b27e2387afa8e9447485173670be66445252963"
+    },
+    "build-5.txt": {
+      "raw_sha256": "465a2551edc917da17b83fd9ce26e9395849075069fd2aff672f64d81f97aead",
+      "committed_sha256": "465a2551edc917da17b83fd9ce26e9395849075069fd2aff672f64d81f97aead"
+    },
+    "build.txt": {
+      "raw_sha256": "c391093d62a478f4a7a38370dafeb5a05e79d6d2fbc3c617e0446ccc5efa760e",
+      "committed_sha256": "5cdd1e19366487c87a10e479377d9f8381b0d411c53a8c182f2bce9bd5292a37"
+    },
+    "build-6.txt": {
+      "raw_sha256": "089cfe3a1ab849cc9a4a9dddcbe516c4b0dc4f4f5a52d136aaf53bc076a4659c",
+      "committed_sha256": "089cfe3a1ab849cc9a4a9dddcbe516c4b0dc4f4f5a52d136aaf53bc076a4659c"
+    },
+    "configure.txt": {
+      "raw_sha256": "36a0ee6929b473d250124f7ecb786a4ed4f6ae44981a99fe5d632d41f0e944e9",
+      "committed_sha256": "e0c97cf906616e7abf46b4331a8877298690f1bae4d1df4ae27b7f1aed6b3c5a"
+    },
+    "run-1/server.txt": {
+      "raw_sha256": "bad80a1e4a62c8dd9bb27ff9353dc98021abb556edc2cef64b60f341107400eb",
+      "committed_sha256": "bad80a1e4a62c8dd9bb27ff9353dc98021abb556edc2cef64b60f341107400eb"
+    },
+    "run-2/server.txt": {
+      "raw_sha256": "9088d8493c8e1137d03de820863d11a6183efe384f5fe0830fe4ae71d3a585b8",
+      "committed_sha256": "9088d8493c8e1137d03de820863d11a6183efe384f5fe0830fe4ae71d3a585b8"
+    },
+    "run-3/server.txt": {
+      "raw_sha256": "630c1dec979e96515385b9be5db808de11772db6b00b75fccc2ef35f4285d111",
+      "committed_sha256": "630c1dec979e96515385b9be5db808de11772db6b00b75fccc2ef35f4285d111"
+    }
+  }
+}

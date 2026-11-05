@@ -1,0 +1,17 @@
+{
+  "scope": "step3A native login/output only",
+  "passed": false,
+  "checks": [],
+  "failure": "AssertionError()",
+  "process_exit_code": 1,
+  "sessions": [],
+  "command": [
+    "docker",
+    "exec",
+    "-i",
+    "mariamem-issue65-login",
+    "sh",
+    "-c",
+    "ulimit -c 0; mkdir -p /exp/temp/data; cd /exp/temp/data; exec timeout -k 2 45 /exp/temp/probe"
+  ]
+}

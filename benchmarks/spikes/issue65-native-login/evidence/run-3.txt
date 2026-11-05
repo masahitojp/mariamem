@@ -1,0 +1,18 @@
+Disk preflight OK: 32.58 GiB free, 1.63 GiB owned
+PASS:native_handshake_placeholder_secure
+PASS:native_text_metadata_null
+PASS:canonical_identity_initial_db
+PASS:native_sql_error
+PASS:following_query_after_sql_error
+PASS:native_prepare_metadata
+PASS:native_execute_binary_null_NUL
+PASS:native_execute_type_reuse
+PASS:native_malformed_int64_error
+PASS:close_has_no_reply_then_ping
+PASS:closed_statement_rejected
+PASS:quit_retire_then_second_native_login_legacy
+PASS:second_session_state_is_fresh
+PASS:product_fresh_routine_bootstrap
+PASS:embedded_MYSQL_BIND_before_after
+PASS:two_sessions_retired_and_queues_joined
+PASS:step3A_complete

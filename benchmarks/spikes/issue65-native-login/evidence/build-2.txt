@@ -1,0 +1,64 @@
+Disk preflight OK: 34.76 GiB free, 0.98 GiB owned
+[1/207] Building C object libmysqld/CMakeFiles/sql_embedded.dir/__/sql-common/my_user.c.o
+[2/207] Building C object libmysqld/CMakeFiles/sql_embedded.dir/__/sql-common/pack.c.o
+[3/207] Building C object libmysqld/CMakeFiles/sql_embedded.dir/__/sql-common/client_plugin.c.o
+[4/207] Building C object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/password.c.o
+[5/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/discover.cc.o
+[6/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/lib_sql.cc.o
+[7/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/derror.cc.o
+[8/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/field_conv.cc.o
+[9/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/field.cc.o
+[10/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/field_comp.cc.o
+[11/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/filesort_utils.cc.o
+[12/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_digest.cc.o
+[13/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/filesort.cc.o
+[14/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/gstream.cc.o
+[15/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/grant.cc.o
+[16/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/signal_handler.cc.o
+[17/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/hash_filo.cc.o
+[18/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/hostname.cc.o
+[19/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/handler.cc.o
+[20/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/init.cc.o
+[21/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_buff.cc.o
+[22/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_cmpfunc.cc.o
+[23/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item.cc.o
+[24/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_create.cc.o
+[25/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_func.cc.o
+[26/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_geofunc.cc.o
+[27/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_row.cc.o
+[28/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_strfunc.cc.o
+[29/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_subselect.cc.o
+[30/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_sum.cc.o
+[31/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_timefunc.cc.o
+[32/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_numconvfunc.cc.o
+[33/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_xmlfunc.cc.o
+[34/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/item_jsonfunc.cc.o
+[35/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/json_schema.cc.o
+[36/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/key.cc.o
+[37/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/json_schema_helper.cc.o
+[38/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/lock.cc.o
+[39/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/log.cc.o
+[40/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/log_cache.cc.o
+[41/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/log_event.cc.o
+[42/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/log_event_server.cc.o
+[43/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/mf_iocache.cc.o
+[44/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/my_decimal.cc.o
+[45/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/net_serv.cc.o
+[46/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_range.cc.o
+[47/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_group_by_cardinality.cc.o
+[48/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_rewrite_date_cmp.cc.o
+[49/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_rewrite_remove_casefold.cc.o
+[50/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_sargable_left.cc.o
+[51/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_sum.cc.o
+[52/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/parse_file.cc.o
+[53/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/opt_vcol_substitution.cc.o
+[54/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/procedure.cc.o
+[55/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/protocol.cc.o
+FAILED: libmysqld/CMakeFiles/sql_embedded.dir/__/sql/protocol.cc.o
+/usr/bin/c++ -DEMBEDDED_LIBRARY -DHAVE_CONFIG_H -DMYSQL_SERVER -D_FILE_OFFSET_BITS=64 -I/exp/temp/native/include -I/exp/temp/source/include/providers -I/exp/temp/source/include -I/exp/temp/source/libmysqld -I/exp/temp/source/sql -I/exp/temp/native/sql -I/exp/temp/source/tpool -I/exp/temp/fmt-12.2.0/include -pie -fPIC -fstack-protector --param=ssp-buffer-size=4 -moutline-atomics -O0 -DNDEBUG -DMARIAMEM_NATIVE_WIRE -D_FORTIFY_SOURCE=2 -DDBUG_OFF -std=gnu++17   -DHAVE_OPENSSL -DOPENSSL_API_COMPAT=0x10100000L -fPIC -MD -MT libmysqld/CMakeFiles/sql_embedded.dir/__/sql/protocol.cc.o -MF libmysqld/CMakeFiles/sql_embedded.dir/__/sql/protocol.cc.o.d -o libmysqld/CMakeFiles/sql_embedded.dir/__/sql/protocol.cc.o -c /exp/temp/source/sql/protocol.cc
+/exp/temp/source/sql/protocol.cc: In member function 'bool Protocol::wire_net_send_ok(THD*, uint, uint, ulonglong, ulonglong, const char*, bool)':
+/exp/temp/source/sql/protocol.cc:266:26: error: 'class Session_tracker' has no member named 'store'
+  266 |     thd->session_tracker.store(thd, &store);
+      |                          ^~~~~
+[56/207] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/records.cc.o
+ninja: build stopped: subcommand failed.

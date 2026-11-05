@@ -1,0 +1,97 @@
+[
+  {
+    "direction": "server",
+    "sequence": 0,
+    "hex": "0a31322e332e332d4d6172696144422d656d6265646465640002000000245b21327577766b000da22d02000f00150000000000000000000035647a57244d366476473c3a006d7973716c5f6e61746976655f70617373776f726400"
+  },
+  {
+    "direction": "client",
+    "sequence": 1,
+    "hex": "0da20f00000010002d0000000000000000000000000000000000000000000000746573740014787878787878787878787878787878787878787874657374006d7973716c5f6e61746976655f70617373776f726400"
+  },
+  {
+    "direction": "server",
+    "sequence": 2,
+    "hex": "00000002000000"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "0353454c4543542037204153206e2c204e554c4c204153207a2c202761272041532073"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "03"
+  },
+  {
+    "direction": "server",
+    "sequence": 2,
+    "hex": "03646566000000016e000c3f0001000000038100000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 3,
+    "hex": "03646566000000017a000c3f0000000000068000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 4,
+    "hex": "036465660000000173000ce00004000000fd0100270000"
+  },
+  {
+    "direction": "server",
+    "sequence": 5,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "server",
+    "sequence": 6,
+    "hex": "0137fb0161"
+  },
+  {
+    "direction": "server",
+    "sequence": 7,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "0353454c4543542043555252454e545f5553455228292c205553455228292c2044415441424153452829"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "03"
+  },
+  {
+    "direction": "server",
+    "sequence": 2,
+    "hex": "036465660000000e43555252454e545f555345522829000ce00000060000fd0000270000"
+  },
+  {
+    "direction": "server",
+    "sequence": 3,
+    "hex": "0364656600000006555345522829000ce00000060000fd0000270000"
+  },
+  {
+    "direction": "server",
+    "sequence": 4,
+    "hex": "036465660000000a44415441424153452829000ce00000010000fd0000270000"
+  },
+  {
+    "direction": "server",
+    "sequence": 5,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "server",
+    "sequence": 6,
+    "hex": "0e726f6f74406c6f63616c686f737405726f6f74400474657374"
+  },
+  {
+    "direction": "server",
+    "sequence": 7,
+    "hex": "fe00000200"
+  }
+]

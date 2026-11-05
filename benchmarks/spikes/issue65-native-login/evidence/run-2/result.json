@@ -1,0 +1,27 @@
+{
+  "scope": "step3A native login/output only",
+  "passed": false,
+  "checks": [
+    "native_handshake_placeholder_secure",
+    "native_text_metadata_null"
+  ],
+  "failure": "AssertionError([[b'root@localhost', b'root@', b'test']]) at client.py:119",
+  "process_exit_code": 1,
+  "sessions": [
+    {
+      "connection_id": 2,
+      "version": "12.3.3-MariaDB-embedded",
+      "capabilities": 1024525,
+      "secure_encoding": true
+    }
+  ],
+  "command": [
+    "docker",
+    "exec",
+    "-i",
+    "mariamem-issue65-login",
+    "sh",
+    "-c",
+    "ulimit -c 0; mkdir -p /exp/temp/data; cd /exp/temp/data; exec timeout -k 2 45 /exp/temp/probe"
+  ]
+}

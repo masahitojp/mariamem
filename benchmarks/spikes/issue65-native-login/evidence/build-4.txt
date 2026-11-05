@@ -1,0 +1,25 @@
+Disk preflight OK: 32.10 GiB free, 1.63 GiB owned
+[1/5] Building CXX object libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_acl.cc.o
+FAILED: libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_acl.cc.o
+/usr/bin/c++ -DEMBEDDED_LIBRARY -DHAVE_CONFIG_H -DMYSQL_SERVER -D_FILE_OFFSET_BITS=64 -I/exp/temp/native/include -I/exp/temp/source/include/providers -I/exp/temp/source/include -I/exp/temp/source/libmysqld -I/exp/temp/source/sql -I/exp/temp/native/sql -I/exp/temp/source/tpool -I/exp/temp/fmt-12.2.0/include -pie -fPIC -fstack-protector --param=ssp-buffer-size=4 -moutline-atomics -O0 -DNDEBUG -DMARIAMEM_NATIVE_WIRE -D_FORTIFY_SOURCE=2 -DDBUG_OFF -std=gnu++17   -DHAVE_OPENSSL -DOPENSSL_API_COMPAT=0x10100000L -fPIC -MD -MT libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_acl.cc.o -MF libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_acl.cc.o.d -o libmysqld/CMakeFiles/sql_embedded.dir/__/sql/sql_acl.cc.o -c /exp/temp/source/sql/sql_acl.cc
+/exp/temp/source/sql/sql_acl.cc: In function 'ulong parse_client_handshake_packet(MPVIO_EXT*, uchar**, ulong)':
+/exp/temp/source/sql/sql_acl.cc:14474:17: error: 'MIN_HANDSHAKE_SIZE' was not declared in this scope; did you mean 'OSSL_HANDSHAKE_STATE'?
+14474 |   if (pkt_len < MIN_HANDSHAKE_SIZE)
+      |                 ^~~~~~~~~~~~~~~~~~
+      |                 OSSL_HANDSHAKE_STATE
+In file included from /exp/temp/source/sql/mariadb.h:29,
+                 from /exp/temp/source/sql/sql_acl.cc:28:
+/exp/temp/source/sql/sql_acl.cc:14526:55: error: 'NORMAL_HANDSHAKE_SIZE' was not declared in this scope; did you mean 'OSSL_HANDSHAKE_STATE'?
+14526 |     if (unlikely(pkt_len == packet_error || pkt_len < NORMAL_HANDSHAKE_SIZE))
+      |                                                       ^~~~~~~~~~~~~~~~~~~~~
+/exp/temp/source/include/my_global.h:361:44: note: in definition of macro 'unlikely'
+  361 | #define unlikely(x)     __builtin_expect(((x) != 0),0)
+      |                                            ^
+/exp/temp/source/sql/sql_acl.cc:14687:7: error: 'find_mpvio_user' was not declared in this scope
+14687 |   if (find_mpvio_user(mpvio))
+      |       ^~~~~~~~~~~~~~~
+/exp/temp/source/sql/sql_acl.cc:14715:7: error: 'read_client_connect_attrs' was not declared in this scope; did you mean 'send_client_connect_attrs'?
+14715 |       read_client_connect_attrs(&next_field, ((char *)net->read_pos) + pkt_len,
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~
+      |       send_client_connect_attrs
+ninja: build stopped: subcommand failed.

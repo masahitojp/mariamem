@@ -1,0 +1,47 @@
+{
+  "scope": "step3A native login/output only",
+  "passed": true,
+  "checks": [
+    "native_handshake_placeholder_secure",
+    "native_text_metadata_null",
+    "canonical_identity_initial_db",
+    "native_sql_error",
+    "following_query_after_sql_error",
+    "native_prepare_metadata",
+    "native_execute_binary_null_NUL",
+    "native_execute_type_reuse",
+    "native_malformed_int64_error",
+    "close_has_no_reply_then_ping",
+    "closed_statement_rejected",
+    "quit_retire_then_second_native_login_legacy",
+    "second_session_state_is_fresh",
+    "product_fresh_routine_bootstrap",
+    "embedded_MYSQL_BIND_before_after",
+    "two_sessions_retired_and_queues_joined"
+  ],
+  "failure": null,
+  "process_exit_code": 0,
+  "sessions": [
+    {
+      "connection_id": 2,
+      "version": "12.3.3-MariaDB-embedded",
+      "capabilities": 1024525,
+      "secure_encoding": true
+    },
+    {
+      "connection_id": 3,
+      "version": "12.3.3-MariaDB-embedded",
+      "capabilities": 1024525,
+      "secure_encoding": false
+    }
+  ],
+  "command": [
+    "docker",
+    "exec",
+    "-i",
+    "mariamem-issue65-login",
+    "sh",
+    "-c",
+    "ulimit -c 0; mkdir -p /exp/temp/data; cd /exp/temp/data; exec timeout -k 2 45 /exp/temp/probe"
+  ]
+}

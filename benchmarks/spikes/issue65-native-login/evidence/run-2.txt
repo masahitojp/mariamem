@@ -1,0 +1,2 @@
+Disk preflight OK: 32.97 GiB free, 1.63 GiB owned
+FAIL:AssertionError([[b'root@localhost', b'root@', b'test']]) at client.py:119

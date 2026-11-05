@@ -1,0 +1,62 @@
+{
+  "methods": {
+    "Protocol::net_store_data": {
+      "native_body_unchanged": true,
+      "upstream_body_sha256": "45b4920d99c1c6a41c33de3d2e9b5f1712ffb6c13fdeb75f96789340da97ba75",
+      "patched_body_sha256": "45b4920d99c1c6a41c33de3d2e9b5f1712ffb6c13fdeb75f96789340da97ba75"
+    },
+    "Protocol::net_store_data_cs": {
+      "native_body_unchanged": true,
+      "upstream_body_sha256": "eca09b4a3bff3dca92f5676f1c1a6bac4dd5eb1f54d7881b2df2dc5cb805251e",
+      "patched_body_sha256": "eca09b4a3bff3dca92f5676f1c1a6bac4dd5eb1f54d7881b2df2dc5cb805251e"
+    },
+    "Protocol::net_send_ok": {
+      "native_body_unchanged": false,
+      "upstream_body_sha256": "45ad6b193660e8b4c5f333e4b59c483d9310a6734a66e661235d774d3d8da7a2",
+      "patched_body_sha256": "07c024b30b28dc17067f8141c4506fa1e5eaeb56f3f2458b0086984164896305"
+    },
+    "Protocol::net_send_eof": {
+      "native_body_unchanged": true,
+      "upstream_body_sha256": "d0e81999c1ed27caeb25681f361d24344958545de0ceca8d9ed3f8a70d73f68d",
+      "patched_body_sha256": "d0e81999c1ed27caeb25681f361d24344958545de0ceca8d9ed3f8a70d73f68d"
+    },
+    "Protocol::net_send_error_packet": {
+      "native_body_unchanged": true,
+      "upstream_body_sha256": "5e93dc19de793b080435fe7e1d5287c50331da5a4e478ddc0fcd7698a82fa1c6",
+      "patched_body_sha256": "5e93dc19de793b080435fe7e1d5287c50331da5a4e478ddc0fcd7698a82fa1c6"
+    },
+    "Protocol::send_result_set_metadata": {
+      "native_body_unchanged": true,
+      "upstream_body_sha256": "1d3b3b10f32f777fb62cce3afe8822ecf913a519e93f9bae56e4fd7b9e5186fe",
+      "patched_body_sha256": "1d3b3b10f32f777fb62cce3afe8822ecf913a519e93f9bae56e4fd7b9e5186fe"
+    },
+    "Protocol::send_list_fields": {
+      "native_body_unchanged": true,
+      "upstream_body_sha256": "5a3c76507462fcba5432521dc8564c670ee0e7fcf173a2b078a02178e582a23d",
+      "patched_body_sha256": "5a3c76507462fcba5432521dc8564c670ee0e7fcf173a2b078a02178e582a23d"
+    },
+    "Protocol::write": {
+      "native_body_unchanged": true,
+      "upstream_body_sha256": "ccdc5a6ab5ea1a6f41bb0fa75d3ee9c72cce7fb3475e187c27bf8476956c4320",
+      "patched_body_sha256": "ccdc5a6ab5ea1a6f41bb0fa75d3ee9c72cce7fb3475e187c27bf8476956c4320"
+    },
+    "Protocol_text::store_field_metadata": {
+      "native_body_unchanged": true,
+      "upstream_body_sha256": "31016c393dc71b9117ed9133370f9745d0ff84fbbf67b6a3c292c18b7704d62f",
+      "patched_body_sha256": "31016c393dc71b9117ed9133370f9745d0ff84fbbf67b6a3c292c18b7704d62f"
+    },
+    "Protocol_text::prepare_for_resend": {
+      "native_body_unchanged": true,
+      "upstream_body_sha256": "75dcd73e8f8a9ecf5fa16cf133691a0007215fdf0df9489b9e7c766bceba5c9f",
+      "patched_body_sha256": "75dcd73e8f8a9ecf5fa16cf133691a0007215fdf0df9489b9e7c766bceba5c9f"
+    },
+    "Protocol_text::store_null": {
+      "native_body_unchanged": true,
+      "upstream_body_sha256": "0115ff823e1591f463277084b46f65e7f9f0c2e6bf0f5a9ed75e8da19b337d32",
+      "patched_body_sha256": "0115ff823e1591f463277084b46f65e7f9f0c2e6bf0f5a9ed75e8da19b337d32"
+    }
+  },
+  "net_send_ok_difference": "Only unsupported SESSION_TRACK store is guarded to abort in embedded profile; no replacement wire encoding.",
+  "final_run_identity_matches": true,
+  "patched_source_hashes_match": true
+}

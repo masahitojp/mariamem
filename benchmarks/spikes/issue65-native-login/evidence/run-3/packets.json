@@ -1,0 +1,367 @@
+[
+  {
+    "direction": "server",
+    "sequence": 0,
+    "hex": "0a31322e332e332d4d6172696144422d656d62656464656400020000007a572756605e3839000da22d02000f001500000000000000000000572a69534336234c35647a56006d7973716c5f6e61746976655f70617373776f726400"
+  },
+  {
+    "direction": "client",
+    "sequence": 1,
+    "hex": "0da20f00000010002d0000000000000000000000000000000000000000000000746573740014787878787878787878787878787878787878787874657374006d7973716c5f6e61746976655f70617373776f726400"
+  },
+  {
+    "direction": "server",
+    "sequence": 2,
+    "hex": "00000002000000"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "0353454c4543542037204153206e2c204e554c4c204153207a2c202761272041532073"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "03"
+  },
+  {
+    "direction": "server",
+    "sequence": 2,
+    "hex": "03646566000000016e000c3f0001000000038100000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 3,
+    "hex": "03646566000000017a000c3f0000000000068000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 4,
+    "hex": "036465660000000173000ce00004000000fd0100270000"
+  },
+  {
+    "direction": "server",
+    "sequence": 5,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "server",
+    "sequence": 6,
+    "hex": "0137fb0161"
+  },
+  {
+    "direction": "server",
+    "sequence": 7,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "0353454c4543542043555252454e545f5553455228292c205553455228292c2044415441424153452829"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "03"
+  },
+  {
+    "direction": "server",
+    "sequence": 2,
+    "hex": "036465660000000e43555252454e545f555345522829000ce00000060000fd0000270000"
+  },
+  {
+    "direction": "server",
+    "sequence": 3,
+    "hex": "0364656600000006555345522829000ce00000060000fd0000270000"
+  },
+  {
+    "direction": "server",
+    "sequence": 4,
+    "hex": "036465660000000a44415441424153452829000ce00000010000fd0000270000"
+  },
+  {
+    "direction": "server",
+    "sequence": 5,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "server",
+    "sequence": 6,
+    "hex": "0e726f6f74406c6f63616c686f73740e726f6f74406c6f63616c686f73740474657374"
+  },
+  {
+    "direction": "server",
+    "sequence": 7,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "0353454c454354202a2046524f4d20746573742e6e6f5f737563685f7461626c65"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "ff7a042334325330325461626c652027746573742e6e6f5f737563685f7461626c652720646f65736e2774206578697374"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "0353454c4543542038"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "01"
+  },
+  {
+    "direction": "server",
+    "sequence": 2,
+    "hex": "036465660000000138000c3f0001000000038100000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 3,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "server",
+    "sequence": 4,
+    "hex": "0138"
+  },
+  {
+    "direction": "server",
+    "sequence": 5,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "1653454c454354203f202b2031204153206e2c203f20415320732c203f204153207a"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "000100000003000300000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 2,
+    "hex": "03646566000000013f000c3f0000000000068000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 3,
+    "hex": "036465660000000173000c3f0000000000068000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 4,
+    "hex": "03646566000000017a000c3f0000000000068000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 5,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "server",
+    "sequence": 6,
+    "hex": "03646566000000016e000c3f0011000000058000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 7,
+    "hex": "036465660000000173000c3f0000000000068000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 8,
+    "hex": "03646566000000017a000c3f0000000000068000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 9,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "1701000000000100000004010800fd000600290000000000000003610062"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "03"
+  },
+  {
+    "direction": "server",
+    "sequence": 2,
+    "hex": "03646566000000016e000c3f0016000000088000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 3,
+    "hex": "036465660000000173000ce0000c000000fd0100270000"
+  },
+  {
+    "direction": "server",
+    "sequence": 4,
+    "hex": "03646566000000017a000c3f0000000000068000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 5,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "server",
+    "sequence": 6,
+    "hex": "00102a0000000000000003610062"
+  },
+  {
+    "direction": "server",
+    "sequence": 7,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "170100000000010000000400630000000000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "03"
+  },
+  {
+    "direction": "server",
+    "sequence": 2,
+    "hex": "03646566000000016e000c3f0016000000088000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 3,
+    "hex": "036465660000000173000ce00000000000fd0100270000"
+  },
+  {
+    "direction": "server",
+    "sequence": 4,
+    "hex": "03646566000000017a000c3f0000000000068000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 5,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "server",
+    "sequence": 6,
+    "hex": "0010640000000000000000"
+  },
+  {
+    "direction": "server",
+    "sequence": 7,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "1701000000000100000004010800fd000600616263"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "ffba04234859303030496e636f727265637420617267756d656e747320746f206d7973716c645f73746d745f65786563757465"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "1901000000"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "0e"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "00000002000000"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "1701000000000100000004010800fd000600616263"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "ffdb04234859303030556e6b6e6f776e2070726570617265642073746174656d656e742068616e646c65722028312920676976656e20746f206d7973716c645f73746d745f65786563757465"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "0353455420406c65616b3d31"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "00000002000000"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "01"
+  },
+  {
+    "direction": "server",
+    "sequence": 0,
+    "hex": "0a31322e332e332d4d6172696144422d656d626564646564000300000045404f4d75286235000da22d02000f001500000000000000000000234d3d2a59615b25456b6a54006d7973716c5f6e61746976655f70617373776f726400"
+  },
+  {
+    "direction": "client",
+    "sequence": 1,
+    "hex": "0d220f00000010002d000000000000000000000000000000000000000000000000706c616365686f6c6465720074657374006d7973716c5f6e61746976655f70617373776f726400"
+  },
+  {
+    "direction": "server",
+    "sequence": 2,
+    "hex": "00000002000000"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "0353454c45435420406c65616b"
+  },
+  {
+    "direction": "server",
+    "sequence": 1,
+    "hex": "01"
+  },
+  {
+    "direction": "server",
+    "sequence": 2,
+    "hex": "0364656600000005406c65616b000c3f0000000001fb8000270000"
+  },
+  {
+    "direction": "server",
+    "sequence": 3,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "server",
+    "sequence": 4,
+    "hex": "fb"
+  },
+  {
+    "direction": "server",
+    "sequence": 5,
+    "hex": "fe00000200"
+  },
+  {
+    "direction": "client",
+    "sequence": 0,
+    "hex": "01"
+  }
+]

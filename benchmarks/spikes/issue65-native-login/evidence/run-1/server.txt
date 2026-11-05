@@ -1,0 +1,4 @@
+PASS:embedded_MYSQL_BIND
+PASS:product_fresh_bootstrap
+SESSION_RETIRED result=12 decodes=0
+FAIL:native session

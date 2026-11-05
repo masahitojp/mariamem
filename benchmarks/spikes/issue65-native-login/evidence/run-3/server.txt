@@ -1,0 +1,6 @@
+PASS:embedded_MYSQL_BIND
+PASS:product_fresh_bootstrap
+SESSION_RETIRED result=0 decodes=3
+SESSION_RETIRED result=0 decodes=3
+PASS:embedded_MYSQL_BIND
+PASS:all_sessions_retired native_decodes=3 input_peak=89 output_peak=122

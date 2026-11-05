@@ -1,0 +1,12 @@
+{
+  "benchmarks/spikes/issue65-native-login/patch.py": "16189e18acdc5490f74f55947f588f7c34670cbdaddb563909385d41c0aefd37",
+  "benchmarks/spikes/issue65-native-login/client.py": "e3364ee5bb673e373284afa38ecc5affc57aa0ea1f8a5d05ed4b0b8ff1186446",
+  "benchmarks/spikes/issue65-native-login/prepare_routine.py": "173c0fcecc6830847d8dc760109822f6cac2427e4edec3b33bef1d7d9d04afd9",
+  "benchmarks/spikes/issue65-native-login/compile.sh": "18b5dcf11282c7a26e49d80e6a7d2401da944c3e3872d27b8a042dfed4195493",
+  "benchmarks/spikes/issue65-native-login/configure.sh": "eb019f3831344e5025840c31452b09b134df5de1bea7de66e8461db7bb38d291",
+  "benchmarks/spikes/issue65-native-login/probe.cc": "905830f603742e4eeb9b1f6af983b26b73fdca5875426d4c4b1f568338eb7143",
+  "benchmarks/spikes/issue65-native-login/session.inc": "40171a54902eb27fd48cb713586653a061a88c9e851136ab7cf40a14c8c8ff4d",
+  "guest/experimental.patch": "e2523fa22b273eee5fa968ea74425fbc95cef46f175c7f4257aa291f81eae156",
+  "guest/routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
+  "scripts/routine_schema.py": "233f9fcd2b28316c793da334e3aa916954e8b86b2b1250c8d2ddc104d57cd681"
+}

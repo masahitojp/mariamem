@@ -1,3 +1,400 @@
+--- a/sql/sql_class.h
++++ b/sql/sql_class.h
+@@ -3393,6 +3393,7 @@
+   struct st_mysql_stmt *current_stmt;
+ #endif
+   Query_cache_tls query_cache_tls;
++  const bool mariamem_native_wire;
+   NET	  net;				// client connection descriptor
+   /** Additional network instrumentation for the server only. */
+   NET_SERVER m_net_server_extension;
+@@ -4611,7 +4612,7 @@
+     @param id                thread identifier
+     @param is_wsrep_applier  thread type
+   */
+-  THD(my_thread_id id, bool is_wsrep_applier= false);
++  THD(my_thread_id id, bool is_wsrep_applier= false, bool native_wire= false);
+ 
+   ~THD();
+ 
+--- a/sql/sql_class.cc
++++ b/sql/sql_class.cc
+@@ -710,10 +710,11 @@
+     return "UNKNOWN";
+ }
+ 
+-THD::THD(my_thread_id id, bool is_wsrep_applier)
++THD::THD(my_thread_id id, bool is_wsrep_applier, bool native_wire)
+   :Statement(&main_lex, &main_mem_root, STMT_CONVENTIONAL_EXECUTION,
+              /* statement id */ 0),
+    rli_fake(0), rgi_fake(0), rgi_slave(NULL),
++   mariamem_native_wire(native_wire),
+    protocol_text(this), protocol_binary(this), initial_status_var(0),
+    m_current_stage_key(0), m_psi(0), start_time(0), start_time_sec_part(0),
+    in_sub_stmt(0), log_all_errors(0),
+--- a/sql/protocol.cc
++++ b/sql/protocol.cc
+@@ -28,7 +28,7 @@
+ #include <stdarg.h>
+ 
+ static const unsigned int PACKET_BUFFER_EXTRA_ALLOC= 1024;
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(MARIAMEM_NATIVE_WIRE)
+ static bool write_eof_packet(THD *, NET *, uint, uint);
+ #endif
+ 
+@@ -38,11 +38,7 @@
+ }
+ 
+ 
+-#ifndef EMBEDDED_LIBRARY
+-bool Protocol::net_store_data(const uchar *from, size_t length)
+-#else
+-bool Protocol_binary::net_store_data(const uchar *from, size_t length)
+-#endif
++bool Protocol::wire_net_store_data(const uchar *from, size_t length)
+ {
+   ulong packet_length=packet->length();
+   /* 
+@@ -72,13 +68,8 @@
+   because column, table, database names fit into this limit.
+ */
+ 
+-#ifndef EMBEDDED_LIBRARY
+-bool Protocol::net_store_data_cs(const uchar *from, size_t length,
++bool Protocol::wire_net_store_data_cs(const uchar *from, size_t length,
+                               CHARSET_INFO *from_cs, CHARSET_INFO *to_cs)
+-#else
+-bool Protocol_binary::net_store_data_cs(const uchar *from, size_t length,
+-                              CHARSET_INFO *from_cs, CHARSET_INFO *to_cs)
+-#endif
+ {
+   uint dummy_errors;
+   /* Calculate maximum possible result length */
+@@ -202,9 +193,9 @@
+ 
+ */
+ 
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(MARIAMEM_NATIVE_WIRE)
+ bool
+-Protocol::net_send_ok(THD *thd,
++Protocol::wire_net_send_ok(THD *thd,
+                       uint server_status, uint statement_warn_count,
+                       ulonglong affected_rows, ulonglong id,
+                       const char *message, bool is_eof)
+@@ -272,7 +263,11 @@
+   if (unlikely(server_status & SERVER_SESSION_STATE_CHANGED))
+   {
+     store.set_charset(&my_charset_bin);
++#ifdef EMBEDDED_LIBRARY
++    abort(); // SESSION_TRACK is outside this explicitly advertised profile.
++#else
+     thd->session_tracker.store(thd, &store);
++#endif
+     thd->server_status&= ~SERVER_SESSION_STATE_CHANGED;
+   }
+ 
+@@ -315,7 +310,7 @@
+ */    
+ 
+ bool
+-Protocol::net_send_eof(THD *thd, uint server_status, uint statement_warn_count)
++Protocol::wire_net_send_eof(THD *thd, uint server_status, uint statement_warn_count)
+ {
+   NET *net= &thd->net;
+   bool error= FALSE;
+@@ -408,7 +403,7 @@
+    @retval TRUE  An error occurred and the messages wasn't sent properly
+ */
+ 
+-bool Protocol::net_send_error_packet(THD *thd, uint sql_errno, const char *err,
++bool Protocol::wire_net_send_error_packet(THD *thd, uint sql_errno, const char *err,
+                                      const char* sqlstate)
+ {
+   NET *net= &thd->net;
+@@ -809,7 +804,9 @@
+ 
+ bool Protocol::flush()
+ {
+-#ifndef EMBEDDED_LIBRARY
++  if (!thd->mariamem_native_wire) return false;
++
++#if !defined(EMBEDDED_LIBRARY) || defined(MARIAMEM_NATIVE_WIRE)
+   bool error;
+   thd->get_stmt_da()->set_overwrite_status(true);
+   error= net_flush(&thd->net);
+@@ -820,7 +817,7 @@
+ #endif
+ }
+ 
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(MARIAMEM_NATIVE_WIRE)
+ 
+ 
+ class Send_field_packed_extended_metadata: public Binary_string
+@@ -857,7 +854,7 @@
+ };
+ 
+ 
+-bool Protocol_text::store_field_metadata(const THD * thd,
++bool Protocol_text::wire_store_field_metadata(const THD * thd,
+                                          const Send_field &field,
+                                          CHARSET_INFO *charset_for_protocol,
+                                          uint fieldnr)
+@@ -1195,7 +1192,7 @@
+     1	Error  (Note that in this case the error is not sent to the
+     client)
+ */
+-bool Protocol::send_result_set_metadata(List<Item> *list, uint flags)
++bool Protocol::wire_send_result_set_metadata(List<Item> *list, uint flags)
+ {
+   DBUG_ENTER("Protocol::send_result_set_metadata");
+ 
+@@ -1269,7 +1266,7 @@
+ }
+ 
+ 
+-bool Protocol::send_list_fields(List<Field> *list, const TABLE_LIST *table_list)
++bool Protocol::wire_send_list_fields(List<Field> *list, const TABLE_LIST *table_list)
+ {
+   DBUG_ENTER("Protocol::send_list_fields");
+   List_iterator_fast<Field> it(*list);
+@@ -1308,7 +1305,7 @@
+ }
+ 
+ 
+-bool Protocol::write()
++bool Protocol::wire_write()
+ {
+   DBUG_ENTER("Protocol::write");
+   DBUG_RETURN(my_net_write(&thd->net, (uchar*) packet->ptr(),
+@@ -1424,8 +1421,8 @@
+   All data are sent as 'packed-string-length' followed by 'string-data'
+ ****************************************************************************/
+ 
+-#ifndef EMBEDDED_LIBRARY
+-void Protocol_text::prepare_for_resend()
++#if !defined(EMBEDDED_LIBRARY) || defined(MARIAMEM_NATIVE_WIRE)
++void Protocol_text::wire_prepare_for_resend()
+ {
+   packet->length(0);
+ #ifndef DBUG_OFF
+@@ -1433,7 +1430,7 @@
+ #endif
+ }
+ 
+-bool Protocol_text::store_null()
++bool Protocol_text::wire_store_null()
+ {
+ #ifndef DBUG_OFF
+   field_pos++;
+@@ -1996,3 +1993,8 @@
+ 
+   return ret ? FALSE : TRUE;
+ }
++
++bool Protocol_binary::net_store_data(const uchar *p, size_t n)
++{ return wire_net_store_data(p,n); }
++bool Protocol_binary::net_store_data_cs(const uchar *p, size_t n, CHARSET_INFO *f, CHARSET_INFO *t)
++{ return wire_net_store_data_cs(p,n,f,t); }
+--- a/libmysqld/lib_sql.cc
++++ b/libmysqld/lib_sql.cc
+@@ -702,9 +702,9 @@
+   create_new_thread(), and prepare_new_connection_state().  This should
+   be refactored to avoid code duplication.
+ */
+-void *create_embedded_thd(ulong client_flag)
+-{
+-  THD * thd= new THD(next_thread_id());
++static THD *create_spike_thd(ulong client_flag, bool wire)
++{
++  THD * thd= new THD(next_thread_id(), false, wire);
+ 
+   thd->thread_stack= (char*) &thd;
+   thd->store_globals();
+@@ -734,6 +734,9 @@
+   thd->reset_globals();
+   return thd;
+ }
++
++
++extern "C" void *create_embedded_thd(ulong flags) { return create_spike_thd(flags,false); }
+ 
+ 
+ THD *embedded_get_current_thd()
+@@ -1107,6 +1110,8 @@
+                                          CHARSET_INFO *charset_for_protocol,
+                                          uint pos)
+ {
++  if (this->thd->mariamem_native_wire) return wire_store_field_metadata(thd, server_field, charset_for_protocol, pos);
++
+   CHARSET_INFO *cs= system_charset_info;
+   CHARSET_INFO *thd_cs= thd->variables.character_set_results;
+   MYSQL_DATA *data= thd->cur_data;
+@@ -1174,6 +1179,8 @@
+ 
+ bool Protocol::send_result_set_metadata(List<Item> *list, uint flags)
+ {
++  if (this->thd->mariamem_native_wire) return wire_send_result_set_metadata(list, flags);
++
+   List_iterator_fast<Item> it(*list);
+   Item                     *item;
+   Protocol_text prot(thd);
+@@ -1225,6 +1232,8 @@
+ 
+ bool Protocol::send_list_fields(List<Field> *list, const TABLE_LIST *table_list)
+ {
++  if (this->thd->mariamem_native_wire) return wire_send_list_fields(list, table_list);
++
+   DBUG_ENTER("send_result_set_metadata");
+   Protocol_text prot(thd);
+   List_iterator_fast<Field> it(*list);
+@@ -1252,6 +1261,8 @@
+ 
+ bool Protocol::write()
+ {
++  if (this->thd->mariamem_native_wire) return wire_write();
++
+   if (!thd->mysql)            // bootstrap file handling
+     return false;
+ 
+@@ -1261,6 +1272,8 @@
+ 
+ bool Protocol_binary::write()
+ {
++  if (thd->mariamem_native_wire) return wire_write();
++
+   MYSQL_ROWS *cur;
+   MYSQL_DATA *data= thd->cur_data;
+ 
+@@ -1305,8 +1318,10 @@
+ bool Protocol::net_send_ok(THD *thd,
+             uint server_status, uint statement_warn_count,
+             ulonglong affected_rows, ulonglong id, const char *message,
+-            bool)
+-{
++            bool is_eof)
++{
++  if (this->thd->mariamem_native_wire) return wire_net_send_ok(thd, server_status, statement_warn_count, affected_rows, id, message, is_eof);
++
+   DBUG_ENTER("emb_net_send_ok");
+   MYSQL_DATA *data;
+   MYSQL *mysql= thd->mysql;
+@@ -1339,6 +1354,8 @@
+ bool
+ Protocol::net_send_eof(THD *thd, uint server_status, uint statement_warn_count)
+ {
++  if (this->thd->mariamem_native_wire) return wire_net_send_eof(thd, server_status, statement_warn_count);
++
+   bool error= write_eof_packet(thd, server_status, statement_warn_count);
+   thd->cur_data= 0;
+   return error;
+@@ -1348,6 +1365,8 @@
+ bool Protocol::net_send_error_packet(THD *thd, uint sql_errno, const char *err,
+                                      const char *sqlstate)
+ {
++  if (this->thd->mariamem_native_wire) return wire_net_send_error_packet(thd, sql_errno, err, sqlstate);
++
+   uint error;
+   char converted_err[MYSQL_ERRMSG_SIZE];
+   MYSQL_DATA *data= thd->cur_data;
+@@ -1379,6 +1398,8 @@
+ 
+ void Protocol_text::prepare_for_resend()
+ {
++  if (this->thd->mariamem_native_wire) return wire_prepare_for_resend();
++
+   MYSQL_ROWS *cur;
+   MYSQL_DATA *data= thd->cur_data;
+   DBUG_ENTER("send_data");
+@@ -1407,6 +1428,8 @@
+ 
+ bool Protocol_text::store_null()
+ {
++  if (this->thd->mariamem_native_wire) return wire_store_null();
++
+   *(next_field++)= NULL;
+   ++next_mysql_field;
+   return false;
+@@ -1415,6 +1438,8 @@
+ 
+ bool Protocol::net_store_data(const uchar *from, size_t length)
+ {
++  if (this->thd->mariamem_native_wire) return wire_net_store_data(from, length);
++
+   char *field_buf;
+   if (!thd->mysql)            // bootstrap file handling
+     return FALSE;
+@@ -1436,6 +1461,8 @@
+ bool Protocol::net_store_data_cs(const uchar *from, size_t length,
+                               CHARSET_INFO *from_cs, CHARSET_INFO *to_cs)
+ {
++  if (this->thd->mariamem_native_wire) return wire_net_store_data_cs(from, length, from_cs, to_cs);
++
+   size_t conv_length= length * to_cs->mbmaxlen / from_cs->mbminlen;
+   uint dummy_error;
+   char *field_buf;
+@@ -1477,3 +1504,5 @@
+   }
+   return 0;
+ }
++
++#include "mariamem_wire_probe.inc"
+--- a/sql/protocol.h
++++ b/sql/protocol.h
+@@ -38,6 +38,24 @@
+ 
+ class Protocol
+ {
++public:
++bool wire_net_store_data(const uchar *from, size_t length);
++bool wire_net_store_data_cs(const uchar *from, size_t length,
++                              CHARSET_INFO *from_cs, CHARSET_INFO *to_cs);
++bool
++wire_net_send_ok(THD *thd,
++                      uint server_status, uint statement_warn_count,
++                      ulonglong affected_rows, ulonglong id,
++                      const char *message, bool is_eof);
++bool
++wire_net_send_eof(THD *thd, uint server_status, uint statement_warn_count);
++bool wire_net_send_error_packet(THD *thd, uint sql_errno, const char *err,
++                                     const char* sqlstate);
++bool wire_send_result_set_metadata(List<Item> *list, uint flags);
++bool wire_send_list_fields(List<Field> *list, const TABLE_LIST *table_list);
++bool wire_write();
++private:
++
+ protected:
+   String *packet;
+   /* Used by net_store_data() for charset conversions */
+@@ -198,6 +216,15 @@
+ 
+ class Protocol_text :public Protocol
+ {
++public:
++bool wire_store_field_metadata(const THD * thd,
++                                         const Send_field &field,
++                                         CHARSET_INFO *charset_for_protocol,
++                                         uint fieldnr);
++void wire_prepare_for_resend();
++bool wire_store_null();
++private:
++
+   StringBuffer<FLOATING_POINT_BUFFER> buffer;
+   bool store_numeric_string_aux(const char *from, size_t length);
+ public:
+--- a/sql/net_serv.cc
++++ b/sql/net_serv.cc
+@@ -53,7 +53,7 @@
+ PSI_memory_key key_memory_NET_buff;
+ PSI_memory_key key_memory_NET_compress_packet;
+ 
+-#ifdef EMBEDDED_LIBRARY
++#if defined(EMBEDDED_LIBRARY) && !defined(MARIAMEM_NATIVE_WIRE)
+ #undef MYSQL_SERVER
+ #undef MYSQL_CLIENT
+ #define MYSQL_CLIENT
 --- a/sql/sql_prepare.cc
 +++ b/sql/sql_prepare.cc
 @@ -118,6 +118,8 @@
@@ -5,205 +402,646 @@
  #else
  #include <mysql_com.h>
 +#endif
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
++#if 1 /* native type constant is also needed in hybrid mode */
  /* Constants defining bits in parameter type flags. Flags are read from high byte of short value */
  static const uint PARAMETER_FLAG_UNSIGNED= 128U << 8;
  #endif
-@@ -202,7 +204,7 @@
+@@ -202,15 +204,12 @@
    my_bool start_param;
    my_bool read_types;
  
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
    bool (*set_params)(Prepared_statement *st, uchar *data, uchar *data_end,
                       uchar *read_pos, String *expanded_query);
    bool (*set_bulk_params)(Prepared_statement *st,
-@@ -489,7 +491,7 @@
- #endif /*!EMBEDDED_LIBRARY*/
- 
+                           uchar **read_pos, uchar *data_end, bool reset);
+-#else
+   bool (*set_params_data)(Prepared_statement *st, String *expanded_query);
+   /*TODO: add bulk support for builtin server */
+-#endif
+   bool (*set_params_from_actual_params)(Prepared_statement *stmt,
+                                         List<Item> &list,
+                                         String *expanded_query);
+@@ -429,8 +428,7 @@
+     0 in case of success, 1 otherwise
+ */
  
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+-static bool send_prep_stmt(Prepared_statement *stmt, uint columns)
++static bool send_prep_stmt_wire(Prepared_statement *stmt, uint columns)
+ {
+   NET *net= &stmt->thd->net;
+   uchar buff[12];
+@@ -473,10 +471,11 @@
+ 
+   DBUG_RETURN(error);
+ }
+-#else
+ static bool send_prep_stmt(Prepared_statement *stmt,
+                            uint columns __attribute__((unused)))
+ {
++  if (stmt->thd->mariamem_native_wire) return send_prep_stmt_wire(stmt, columns);
++
+   THD *thd= stmt->thd;
+ 
+   thd->client_stmt_id= stmt->id;
+@@ -486,10 +485,8 @@
+ 
+   return 0;
+ }
+-#endif /*!EMBEDDED_LIBRARY*/
+-
+-
+-#ifndef EMBEDDED_LIBRARY
++
++
  
  /**
    Read the length of the parameter data and return it back to
-@@ -569,7 +571,7 @@
+@@ -505,7 +502,7 @@
+     Length of data piece.
+ */
+ 
+-static ulong get_param_length(uchar **packet, ulong len)
++static ulong get_wire_param_length(uchar **packet, ulong len)
+ {
+   uchar *pos= *packet;
+   ulong length;
+@@ -549,9 +546,8 @@
+     return 0;
+   return length;
+ }
+-#else
+-#define get_param_length(packet, len) len
+-#endif /*!EMBEDDED_LIBRARY*/
++
++#define get_param_length(p,n) (current_thd->mariamem_native_wire ? get_wire_param_length(p,n) : (n))
+ 
+ /**
+   Data conversion routines.
+@@ -569,10 +565,10 @@
  
  void Item_param::set_param_tiny(uchar **pos, ulong len)
  {
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
++if (current_thd->mariamem_native_wire) {
    if (len < 1)
      return;
- #endif
-@@ -582,7 +584,7 @@
+-#endif
++}
+   int8 value= (int8) **pos;
+   set_int(unsigned_flag ? (longlong) ((uint8) value) :
+                           (longlong) value, 4);
+@@ -582,13 +578,14 @@
  void Item_param::set_param_short(uchar **pos, ulong len)
  {
    int16 value;
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
++if (current_thd->mariamem_native_wire) {
    if (len < 2)
      return;
    value= sint2korr(*pos);
-@@ -597,7 +599,7 @@
+-#else
++}
++else {
+   shortget(value, *pos);
+-#endif
++}
+   set_int(unsigned_flag ? (longlong) ((uint16) value) :
+                           (longlong) value, 6);
+   *pos+= 2;
+@@ -597,13 +594,14 @@
  void Item_param::set_param_int32(uchar **pos, ulong len)
  {
    int32 value;
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
++if (current_thd->mariamem_native_wire) {
    if (len < 4)
      return;
    value= sint4korr(*pos);
-@@ -612,7 +614,7 @@
+-#else
++}
++else {
+   longget(value, *pos);
+-#endif
++}
+   set_int(unsigned_flag ? (longlong) ((uint32) value) :
+                           (longlong) value, 11);
+   *pos+= 4;
+@@ -612,13 +610,14 @@
  void Item_param::set_param_int64(uchar **pos, ulong len)
  {
    longlong value;
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
++if (current_thd->mariamem_native_wire) {
    if (len < 8)
      return;
    value= (longlong) sint8korr(*pos);
-@@ -626,7 +628,7 @@
+-#else
++}
++else {
+   longlongget(value, *pos);
+-#endif
++}
+   set_int(value, 21);
+   *pos+= 8;
+ }
+@@ -626,13 +625,14 @@
  void Item_param::set_param_float(uchar **pos, ulong len)
  {
    float data;
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
++if (current_thd->mariamem_native_wire) {
    if (len < 4)
      return;
    float4get(data,*pos);
-@@ -640,7 +642,7 @@
+-#else
++}
++else {
+   floatget(data, *pos);
+-#endif
++}
+   set_double((double) data);
+   *pos+= 4;
+ }
+@@ -640,13 +640,14 @@
  void Item_param::set_param_double(uchar **pos, ulong len)
  {
    double data;
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
++if (current_thd->mariamem_native_wire) {
    if (len < 8)
      return;
    float8get(data,*pos);
-@@ -658,7 +660,7 @@
+-#else
++}
++else {
+   doubleget(data, *pos);
+-#endif
++}
+   set_double((double) data);
+   *pos+= 8;
+ }
+@@ -658,7 +659,6 @@
    *pos+= length;
  }
  
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
  
  /*
    Read date/time/datetime parameter values from network (binary
-@@ -862,7 +864,7 @@
+@@ -672,6 +672,8 @@
+ */
+ void Item_param::set_param_time(uchar **pos, ulong len)
+ {
++  if (!current_thd->mariamem_native_wire) return set_param_time_embedded(pos,len);
++
+   MYSQL_TIME tm;
+   ulong length= get_param_length(pos, len);
+ 
+@@ -703,6 +705,8 @@
+ 
+ void Item_param::set_param_datetime(uchar **pos, ulong len)
+ {
++  if (!current_thd->mariamem_native_wire) return set_param_datetime_embedded(pos,len);
++
+   MYSQL_TIME tm;
+   ulong length= get_param_length(pos, len);
+ 
+@@ -734,6 +738,8 @@
+ 
+ void Item_param::set_param_date(uchar **pos, ulong len)
+ {
++  if (!current_thd->mariamem_native_wire) return set_param_date_embedded(pos,len);
++
+   MYSQL_TIME tm;
+   ulong length= get_param_length(pos, len);
+ 
+@@ -755,12 +761,11 @@
+   *pos+= length;
+ }
+ 
+-#else/*!EMBEDDED_LIBRARY*/
+ /**
+   @todo
+     Add warning 'Data truncated' here
+ */
+-void Item_param::set_param_time(uchar **pos, ulong len)
++void Item_param::set_param_time_embedded(uchar **pos, ulong len)
+ {
+   MYSQL_TIME tm;
+   if (len >= sizeof (MYSQL_TIME))
+@@ -780,7 +785,7 @@
+   set_time(&tm, MYSQL_TIMESTAMP_TIME, MAX_TIME_WIDTH);
+ }
+ 
+-void Item_param::set_param_datetime(uchar **pos, ulong len)
++void Item_param::set_param_datetime_embedded(uchar **pos, ulong len)
+ {
+   MYSQL_TIME tm;
+   if (len >= sizeof (MYSQL_TIME))
+@@ -791,7 +796,7 @@
+   set_time(&tm, MYSQL_TIMESTAMP_DATETIME, MAX_DATETIME_WIDTH);
+ }
+ 
+-void Item_param::set_param_date(uchar **pos, ulong len)
++void Item_param::set_param_date_embedded(uchar **pos, ulong len)
+ {
+   MYSQL_TIME tm;
+   if (len >= sizeof (MYSQL_TIME))
+@@ -800,7 +805,6 @@
+     set_zero_time(&tm, MYSQL_TIMESTAMP_DATE);
+   set_time(&tm, MYSQL_TIMESTAMP_DATE, MAX_DATE_WIDTH);
+ }
+-#endif /*!EMBEDDED_LIBRARY*/
+ 
+ 
+ void Item_param::set_param_str(uchar **pos, ulong len)
+@@ -862,7 +866,6 @@
    */
  }
  
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
  
  /**
    Routines to assign parameters from data supplied by the client.
-@@ -4162,7 +4164,7 @@
+@@ -1170,7 +1173,6 @@
+   DBUG_RETURN(0);
+ }
+ 
+-#else
+ 
+ //TODO: support bulk parameters
+ 
+@@ -1264,7 +1266,6 @@
+   DBUG_RETURN(0);
+ }
+ 
+-#endif /*!EMBEDDED_LIBRARY*/
+ 
+ /**
+   Setup data conversion routines using an array of parameter
+@@ -3885,19 +3886,17 @@
+   uint param_number;
+   Prepared_statement *stmt;
+   Item_param *param;
+-#ifndef EMBEDDED_LIBRARY
+   char *packet_end= packet + packet_length;
+-#endif
+   DBUG_ENTER("mysql_stmt_get_longdata");
+ 
+   status_var_increment(thd->status_var.com_stmt_send_long_data);
+ 
+   thd->get_stmt_da()->disable_status();
+-#ifndef EMBEDDED_LIBRARY
++if (thd->mariamem_native_wire) {
+   /* Minimal size of long data packet is 6 bytes */
+   if (packet_length < MYSQL_LONG_DATA_HEADER)
+     DBUG_VOID_RETURN;
+-#endif
++}
+ 
+   stmt_id= uint4korr(packet);
+   packet+= 4;
+@@ -3907,7 +3906,7 @@
+ 
+   param_number= uint2korr(packet);
+   packet+= 2;
+-#ifndef EMBEDDED_LIBRARY
++if (thd->mariamem_native_wire) {
+   if (param_number >= stmt->param_count)
+   {
+     /* Error will be sent in execute call */
+@@ -3918,7 +3917,7 @@
+              "mysqld_stmt_send_long_data");
+     DBUG_VOID_RETURN;
+   }
+-#endif
++}
+ 
+   param= stmt->param_array[param_number];
+ 
+@@ -3927,11 +3926,12 @@
+ 
+   thd->set_stmt_da(&new_stmt_da);
+ 
+-#ifndef EMBEDDED_LIBRARY
++if (thd->mariamem_native_wire) {
+   param->set_longdata(packet, (ulong) (packet_end - packet));
+-#else
++}
++else {
+   param->set_longdata(thd->extra_data, thd->extra_length);
+-#endif
++}
+   if (unlikely(thd->get_stmt_da()->is_error()))
+   {
+     stmt->state= Query_arena::STMT_ERROR;
+@@ -4162,24 +4162,26 @@
    if (replace_params_with_values)
    {
      set_params_from_actual_params= insert_params_from_actual_params_with_log;
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
++if (thd->mariamem_native_wire) {
      set_params= insert_params_with_log;
      set_bulk_params= insert_bulk_params; // RBR is on for bulk operation
- #else
-@@ -4173,7 +4175,7 @@
+-#else
++}
++else {
+     //TODO: add bulk support for bulk parameters
+     set_params_data= emb_insert_params_with_log;
+-#endif
++}
+   }
    else
    {
      set_params_from_actual_params= insert_params_from_actual_params;
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
++if (thd->mariamem_native_wire) {
      set_params= insert_params;
      set_bulk_params= insert_bulk_params;
- #else
-@@ -4603,7 +4605,12 @@
+-#else
++}
++else {
+     //TODO: add bulk support for bulk parameters
+     set_params_data= emb_insert_params;
+-#endif
++}
+   }
+ }
+ 
+@@ -4603,18 +4605,22 @@
    }
    else if (param_count)
    {
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
-+#ifdef ISSUE65_NATIVE_INPUT
++if (thd->mariamem_native_wire) {
 +    if (thd->client_params != NULL) abort();
-+    extern unsigned long issue65_decode_count;
-+    ++issue65_decode_count;
-+#endif
++    extern unsigned long mariamem_spike_decodes;
++    ++mariamem_spike_decodes;
      uchar *null_array= packet;
      res= (setup_conversion_functions(this, &packet) ||
            set_params(this, null_array, packet, packet_end, expanded_query));
-@@ -4795,7 +4802,7 @@
+-#else
++}
++else {
+     /*
+       In embedded library we re-install conversion routines each time
+       we set parameters, and also we don't need to parse packet.
+       So we do it in one function.
+     */
+     res= set_params_data(this, expanded_query);
+-#endif
++}
+   }
+   lex->default_used= thd->lex->default_used;
+   thd->lex->default_used= false;
+@@ -4795,11 +4801,7 @@
  
    if (iterations)
    {
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
-     if ((*set_bulk_params)(this, &packet, packet_end, reset))
- #else
-     // bulk parameters are not supported for embedded, so it will an error
-@@ -4887,7 +4894,7 @@
+-    if ((*set_bulk_params)(this, &packet, packet_end, reset))
+-#else
+-    // bulk parameters are not supported for embedded, so it will an error
+-#endif
++    if (!thd->mariamem_native_wire || (*set_bulk_params)(this, &packet, packet_end, reset))
+     {
+       my_error(ER_WRONG_ARGUMENTS, MYF(0),
+                "mysqld_stmt_bulk_execute");
+@@ -4887,12 +4889,7 @@
      }
    }
  
 -#ifndef EMBEDDED_LIBRARY
-+#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
-   if (read_types &&
-       set_conversion_functions(this, &packet))
- #else
-@@ -6639,3 +6646,7 @@
+-  if (read_types &&
+-      set_conversion_functions(this, &packet))
+-#else
+-  // bulk parameters are not supported for embedded, so it will an error
+-#endif
++  if (!thd->mariamem_native_wire || (read_types && set_conversion_functions(this, &packet)))
+   {
+     my_error(ER_WRONG_ARGUMENTS, MYF(0),
+             "mysqld_stmt_bulk_execute");
+@@ -6639,3 +6636,5 @@
    DBUG_PRINT("exit",("Mysql handler: %p", mysql));
    DBUG_RETURN(mysql);
  }
 +
-+#ifdef ISSUE65_NATIVE_INPUT
-+unsigned long issue65_decode_count= 0;
-+#endif
---- a/libmysqld/lib_sql.cc
-+++ b/libmysqld/lib_sql.cc
-@@ -341,6 +341,16 @@
-   THD *thd;
-   my_bool res;
++unsigned long mariamem_spike_decodes= 0;
+--- a/sql/item.h
++++ b/sql/item.h
+@@ -4578,8 +4578,11 @@
+   void set_param_double(uchar **pos, ulong len);
+   void set_param_decimal(uchar **pos, ulong len);
+   void set_param_time(uchar **pos, ulong len);
++  void set_param_time_embedded(uchar **pos, ulong len);
+   void set_param_datetime(uchar **pos, ulong len);
++  void set_param_datetime_embedded(uchar **pos, ulong len);
+   void set_param_date(uchar **pos, ulong len);
++  void set_param_date_embedded(uchar **pos, ulong len);
+   void set_param_str(uchar **pos, ulong len);
  
-+#ifdef ISSUE65_NATIVE_INPUT
-+  extern const uchar *issue65_packet;
-+  extern ulong issue65_packet_length;
-+  thd= (THD*)stmt->mysql->thd;
-+  if (thd->client_params != NULL || issue65_packet == NULL) abort();
-+  res= MY_TEST(emb_advanced_command(stmt->mysql, COM_STMT_EXECUTE, 0, 0,
-+                       issue65_packet, issue65_packet_length, 1, stmt) ||
-+               emb_read_query_result(stmt->mysql));
-+  if (thd->client_params != NULL) abort();
-+#else
-   if (stmt->param_count && !stmt->bind_param_done)
-   {
-     set_stmt_error(stmt, CR_PARAMS_NOT_BOUND, unknown_sqlstate, NULL);
-@@ -357,6 +367,7 @@
-   res= MY_TEST(emb_advanced_command(stmt->mysql, COM_STMT_EXECUTE, 0, 0,
-                                     header, sizeof(header), 1, stmt) ||
-             emb_read_query_result(stmt->mysql));
-+#endif
-   stmt->affected_rows= stmt->mysql->affected_rows;
-   stmt->insert_id= stmt->mysql->insert_id;
-   stmt->server_status= stmt->mysql->server_status;
-@@ -1477,3 +1488,22 @@
-   }
-   return 0;
- }
+   void setup_conversion(THD *thd, uchar param_type);
+--- a/include/violite.h
++++ b/include/violite.h
+@@ -38,7 +38,7 @@
+ enum enum_vio_type
+ {
+   VIO_CLOSED, VIO_TYPE_TCPIP, VIO_TYPE_SOCKET, VIO_TYPE_NAMEDPIPE,
+-  VIO_TYPE_SSL
++  VIO_TYPE_SSL, VIO_TYPE_MEMORY
+   /* see also vio_type_names[] */
+ };
+ 
+@@ -49,7 +49,7 @@
+ };
+ 
+ #define FIRST_VIO_TYPE VIO_CLOSED
+-#define LAST_VIO_TYPE VIO_TYPE_SSL
++#define LAST_VIO_TYPE VIO_TYPE_MEMORY
+ 
+ /**
+   VIO I/O events.
+--- a/sql-common/client.c
++++ b/sql-common/client.c
+@@ -2405,6 +2405,7 @@
+ {
+   bzero(info, sizeof(*info));
+   switch (vio->type) {
++  case VIO_TYPE_MEMORY:
+   case VIO_TYPE_TCPIP:
+     info->protocol= MYSQL_VIO_TCP;
+     info->socket= (int)vio_fd(vio);
+--- a/sql/sql_acl.cc
++++ b/sql/sql_acl.cc
+@@ -115,6 +115,11 @@
+ 
+ static plugin_ref get_auth_plugin(THD *thd, const LEX_CSTRING &name, bool *locked)
+ {
++  if (thd && thd->mariamem_native_wire) {
++    *locked=true;
++    return my_plugin_lock_by_name(thd, &name, MYSQL_AUTHENTICATION_PLUGIN);
++  }
 +
-+#ifdef ISSUE65_NATIVE_INPUT
-+// Single-threaded spike entry only. Bytes include the 9-byte EXECUTE header,
-+// excluding the command byte and NET frame; no MYSQL_BIND parameters are used.
-+const uchar *issue65_packet= NULL;
-+ulong issue65_packet_length= 0;
-+extern unsigned long issue65_decode_count;
-+extern "C" unsigned long issue65_decodes() { return issue65_decode_count; }
-+extern "C" int issue65_raw_execute(MYSQL_STMT *stmt, const uchar *p, ulong n)
+   if (name.str == native_password_plugin_name.str)
+     return native_password_plugin;
+   else if (name.str == old_password_plugin_name.str)
+@@ -13761,6 +13766,11 @@
+    MySQL authentication plugins.
+ ****************************************************************************/
+ 
++#ifdef NO_EMBEDDED_ACCESS_CHECKS
++// Same non-SSL constants as the upstream ACL-only definition.
++#define MIN_HANDSHAKE_SIZE 6
++#define NORMAL_HANDSHAKE_SIZE 6
++#endif
+ /* few defines to have less ifdef's in the code below */
+ #ifdef EMBEDDED_LIBRARY
+ #undef HAVE_OPENSSL
+@@ -13918,6 +13928,9 @@
+     data_len= SCRAMBLE_LENGTH;
+   }
+ 
++  if (thd->mariamem_native_wire)
++    thd->client_capabilities= 1ULL|4|8|512|8192|32768|65536|131072|524288|262144;
++
+   end= strnmov(end, server_version, SERVER_VERSION_LENGTH) + 1;
+ 
+   int4store((uchar*) end, mpvio->auth_info.thd->thread_id);
+@@ -14425,7 +14438,7 @@
+ }
+ 
+ 
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(MARIAMEM_NATIVE_WIRE)
+ /**
+   Check that a client uses secure connection type in case the option
+   require_secure_transport is on.
+@@ -14457,7 +14470,7 @@
+ static ulong parse_client_handshake_packet(MPVIO_EXT *mpvio,
+                                            uchar **buff, ulong pkt_len)
+ {
+-#ifndef EMBEDDED_LIBRARY
++if (mpvio->auth_info.thd->mariamem_native_wire) {
+   THD *thd= mpvio->auth_info.thd;
+   NET *net= &thd->net;
+   char *end;
+@@ -14675,6 +14688,7 @@
+     return packet_error;
+   }
+ 
++#ifndef NO_EMBEDDED_ACCESS_CHECKS
+   thd->password= passwd_len > 0;
+   if (find_mpvio_user(mpvio))
+     return packet_error;
+@@ -14751,8 +14765,12 @@
+   *buff= (uchar*) passwd;
+   return (ulong)passwd_len;
+ #else
++  return packet_error; // initialized is zero; native skip-grants returned above.
++#endif
++}
++else {
+   return 0;
+-#endif
++}
+ }
+ 
+ 
+--- a/sql/sql_parse.cc
++++ b/sql/sql_parse.cc
+@@ -1176,7 +1176,7 @@
+ }
+ #endif /* WITH_WSREP */
+ 
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(MARIAMEM_NATIVE_WIRE)
+ static enum enum_server_command fetch_command(THD *thd, char *packet)
+ {
+   enum enum_server_command
+--- /dev/null
++++ b/libmysqld/mariamem_wire_probe.inc
+@@ -0,0 +1,82 @@
++/* Experiment-only native entry. All normal protocol bytes come from upstream. */
++#include "sql_acl.h"
++#include "sql_parse.h"
++#include <cerrno>
++
++typedef size_t (*spike_read_cb)(void *, unsigned char *, size_t);
++typedef size_t (*spike_write_cb)(void *, const unsigned char *, size_t);
++struct SpikeVio {
++  Vio vio;
++  void *ctx;
++  spike_read_cb read_cb;
++  spike_write_cb write_cb;
++  int error;
++  bool blocking, timedout;
++};
++static SpikeVio *spike_v(Vio *v) { return reinterpret_cast<SpikeVio *>(v); }
++static size_t spike_read(Vio *v, uchar *p, size_t n) {
++  auto *s=spike_v(v);size_t r=s->read_cb(s->ctx,p,n);
++  s->error=(r==size_t(-1))?EIO:0;return r;
++}
++static size_t spike_write(Vio *v,const uchar *p,size_t n) {
++  auto *s=spike_v(v);size_t r=s->write_cb(s->ctx,p,n);
++  s->error=(r==size_t(-1))?EIO:0;return r;
++}
++static int spike_errno(Vio *v){return spike_v(v)->error;}
++static my_bool spike_false(Vio *){return false;}
++static my_bool spike_timeout(Vio *v){return spike_v(v)->timedout;}
++static int spike_set_timeout(Vio *,uint,my_bool){return 0;}
++static int spike_blocking(Vio *v,my_bool b,my_bool *old){*old=spike_v(v)->blocking;spike_v(v)->blocking=b;return 0;}
++static my_bool spike_is_blocking(Vio *v){return spike_v(v)->blocking;}
++static int spike_nop(Vio *){return 0;}
++static int spike_keepalive(Vio *,my_bool){return 0;}
++static my_bool spike_peer(Vio *,char *p,uint16 *port,size_t n){snprintf(p,n,"127.0.0.1");*port=0;return false;}
++static void spike_addr(Vio *,struct sockaddr_storage *a){memset(a,0,sizeof(*a));auto *s=(struct sockaddr_in*)a;s->sin_family=AF_INET;s->sin_addr.s_addr=htonl(INADDR_LOOPBACK);}
++static int spike_close(Vio *v){v->state=VIO_STATE_CLOSED;return 0;}
++static int spike_shutdown(Vio *v,int){v->state=VIO_STATE_SHUTDOWN;return 0;}
++static my_bool spike_connected(Vio *v){return v->state==VIO_STATE_ACTIVE;}
++static int spike_wait(Vio *,enum enum_vio_io_event,int){return 1;}
++static void spike_delete(Vio *v){spike_close(v);}
++extern unsigned long mariamem_spike_decodes;
++extern "C" unsigned long mariamem_spike_decode_count(){return mariamem_spike_decodes;}
++extern "C" int mariamem_spike_session(void *ctx,spike_read_cb read_cb,spike_write_cb write_cb)
 +{
-+  if (issue65_packet != NULL) abort();
-+  issue65_packet= p;
-+  issue65_packet_length= n;
-+  int result= mysql_stmt_execute(stmt);
-+  issue65_packet= NULL;
-+  issue65_packet_length= 0;
++  SpikeVio transport{};Vio *vio=&transport.vio;
++  transport.ctx=ctx;transport.read_cb=read_cb;transport.write_cb=write_cb;transport.blocking=true;
++  vio->mysql_socket.fd=INVALID_SOCKET;vio->type=VIO_TYPE_MEMORY;
++  vio->state=VIO_STATE_ACTIVE;vio->desc="spike memory queue";vio->localhost=true;
++  vio->read=spike_read;vio->write=spike_write;vio->vioerrno=spike_errno;
++  vio->should_retry=spike_false;vio->was_timeout=spike_timeout;vio->timeout=spike_set_timeout;
++  vio->vioblocking=spike_blocking;vio->is_blocking=spike_is_blocking;
++  vio->fastsend=spike_nop;vio->viokeepalive=spike_keepalive;
++  vio->peer_addr=spike_peer;vio->in_addr=spike_addr;vio->vioclose=spike_close;
++  vio->shutdown=spike_shutdown;vio->is_connected=spike_connected;vio->has_data=spike_false;
++  vio->io_wait=spike_wait;vio->viodelete=spike_delete;
++  THD *old=current_thd;THD *thd=create_spike_thd(0,true);
++  thd->thread_stack=(char*)&thd;thd->store_globals();
++  auto *s=thd->security_ctx;s->host_or_ip=s->host=(char*)my_localhost;
++  if(my_net_init(&thd->net,vio,thd,MYF(MY_THREAD_SPECIFIC)))return 11;
++  int result=0;
++  if(acl_authenticate(thd,0))result=12;
++  else {
++    // The product ignores placeholder credentials and executes as its fixed root.
++    my_free(const_cast<char *>(s->user));s->user=my_strdup(PSI_NOT_INSTRUMENTED,"root",MYF(0));
++    s->host_or_ip=s->host=(char*)my_localhost;
++    strmake_buf(s->priv_user,"root");strmake_buf(s->priv_host,"localhost");
++  }
++  thd->protocol->end_statement();
++  if(net_flush(&thd->net))result=13;
++  while(!result){
++    if(thd->client_params!=NULL)abort();
++    auto rc=do_command(thd,true);
++    if(rc==DISPATCH_COMMAND_CLOSE_CONNECTION){if(thd->net.error)result=16;break;}
++    if(rc!=DISPATCH_COMMAND_SUCCESS){result=14;break;}
++    if(net_flush(&thd->net)){result=15;break;}
++  }
++  server_threads.erase(thd);
++  net_end(&thd->net);thd->net.vio=NULL;
++  delete thd;
++  set_current_thd(NULL);if(old)old->store_globals();
++  fprintf(stderr,"SESSION_RETIRED result=%d decodes=%lu\n",result,mariamem_spike_decodes);
 +  return result;
 +}
-+#endif
