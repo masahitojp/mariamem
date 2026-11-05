@@ -306,5 +306,40 @@
     "path": "binding-review/Fn211-diff.txt",
     "original_sha256": "9094a5260d95a9f4024d75a319c6c6b72b24b3542a8f22a27f5ad238cc789452",
     "saved_sha256": "9094a5260d95a9f4024d75a319c6c6b72b24b3542a8f22a27f5ad238cc789452"
+  },
+  {
+    "path": "translation-host.json",
+    "original_sha256": "fd6ff5f7768b390fea033615fce4595ce04941607bcf5d2e3b430f01d53faa1c",
+    "saved_sha256": "fd6ff5f7768b390fea033615fce4595ce04941607bcf5d2e3b430f01d53faa1c"
+  },
+  {
+    "path": "translation-host-initialized.json",
+    "original_sha256": "a1a79149e4823d7ae2f28be6dbe63202b616d9f11346c1ae380fe1c7082992b1",
+    "saved_sha256": "a1a79149e4823d7ae2f28be6dbe63202b616d9f11346c1ae380fe1c7082992b1"
+  },
+  {
+    "path": "translation-host-initial.json",
+    "original_sha256": "0518f49af2e7590fa4c78a1a6970f346bb09bb2a17fea16268dadcc60569f553",
+    "saved_sha256": "0518f49af2e7590fa4c78a1a6970f346bb09bb2a17fea16268dadcc60569f553"
+  },
+  {
+    "path": "installation-host.json",
+    "original_sha256": "7e7a8cbddb40f18773eb52188525e758aca893cf67ac370279b7a8ec48ae4cb1",
+    "saved_sha256": "d88c997795e12aab508adb3ca949d569a1ce29e12f889c3caa685b36b081ac3d"
+  },
+  {
+    "path": "installation-host-initialized.json",
+    "original_sha256": "43195f4361d6be57e21a9af02703bdec830ba9d1efa1077fa9ff879f798a66fe",
+    "saved_sha256": "b691ccfbfb96f7e61182000d7c3066cb82a7014b98bfbd9b91c65684cd522bd8"
+  },
+  {
+    "path": "installation-host-initial.json",
+    "original_sha256": "40a597cfd7eda45a5e20410a23eeae5d311a312481d62e433ef49c5171179f6b",
+    "saved_sha256": "e015c00a2d5faa40086afe61d1714e351d019f608f293073998f25facb1473df"
+  },
+  {
+    "path": "converter-cleanup-review.json",
+    "original_sha256": "65d7e6b6efb12cbf5a2138165e8e9acc29230cdd1f31e092d8671bbe96cd1604",
+    "saved_sha256": "65d7e6b6efb12cbf5a2138165e8e9acc29230cdd1f31e092d8671bbe96cd1604"
   }
 ]
