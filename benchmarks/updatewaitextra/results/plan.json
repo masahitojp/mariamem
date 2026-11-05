@@ -1,0 +1,22 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness": "f00c506da34c247045a2a51bbd8879ae68168cfa",
+  "origin_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "authorization": "Human requested three additional processes after previous3 did not reproduce. This is a new cohort; no relabelling old receipts.",
+  "configuration": "Same load-off/current25other argv/Pipe/1000rows/GOMAXPROCS8",
+  "natural_processes": 3,
+  "parallel": 8,
+  "count": 48,
+  "observer": "Same100ms UPDATE-only labelled profile maxone2MiB/process, plus actual ExecContext entry timestamp and strict inside-call predicate",
+  "controls": "Run selector,label-binding and pre-Exec/overlap window unit controls; do not add DB pilot/preflight runs beyond the3 requested natural processes. Existing configuration/capture controls remain separately source-bound.",
+  "stop": "Exactly3 sequential natural processes; retain all captures including invalid/overlapping snapshots; no repeats or setting changes",
+  "budget": {
+    "active_minutes": 60,
+    "tooling_minutes": 20,
+    "heavy_ci": 0,
+    "disk_gib": 6,
+    "min_free_gib": 12,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 120
+  }
+}
