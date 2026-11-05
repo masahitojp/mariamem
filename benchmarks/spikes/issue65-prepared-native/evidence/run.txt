@@ -1,0 +1,9 @@
+Disk preflight OK: 35.23 GiB free, 1.63 GiB owned
+PASS:signed_string_null
+PASS:reuse_types_embedded_NUL
+PASS:unsigned_length_encoded_300
+PASS:upstream_truncated_string_becomes_empty
+REJECT:truncated_int64 errno=1210
+PASS:valid_after_rejection
+PASS:select_native_parameters_embedded_results
+PASS:real_embedded_sql_complete decodes=7

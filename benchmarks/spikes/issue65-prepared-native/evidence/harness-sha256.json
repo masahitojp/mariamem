@@ -1,0 +1,8 @@
+{
+  "benchmarks/spikes/issue65-prepared-native/patch.py": "027cd8693616a0d3a6813edb8320c98b3a092aaca176146c70d1f689e083665f",
+  "benchmarks/spikes/issue65-prepared-native/inputs.py": "eca43f2c6d9e979b5ea3e96a1d392200ed143e6175440ed28622fda7778bbef3",
+  "benchmarks/spikes/issue65-prepared-native/configure.sh": "8596f24e2f4f3242f785b9a5e586f316a03ba055727ff788851c25b73b3da867",
+  "benchmarks/spikes/issue65-prepared-native/execute.sh": "343e26cf4b1169c03a59fb822145df65866e3fe8c3414b7c587407a40d6448fc",
+  "benchmarks/spikes/issue65-prepared-native/probe.cc": "845bc69e92285fc787e691024b2d5f6a0c28558c408c716877a63906f0925ded",
+  "guest/experimental.patch": "e11c0dcc5f9f7002a83d804aa46b88d72c9c7415f87161aa0789079771c4d507"
+}

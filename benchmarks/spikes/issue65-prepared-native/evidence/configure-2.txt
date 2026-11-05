@@ -1,0 +1,183 @@
+Disk preflight OK: 36.20 GiB free, 0.75 GiB owned
+-- Running cmake version 3.28.3
+-- MariaDB 12.3.3
+== Configuring MariaDB Connector/C
+-- Could NOT find CURL (missing: CURL_LIBRARY CURL_INCLUDE_DIR)
+-- Could NOT find ZSTD (missing: ZSTD_LIBRARIES ZSTD_INCLUDE_DIRS)
+-- SYSTEM_LIBS: /usr/lib/aarch64-linux-gnu/libz.so;dl;m;dl;m;/usr/lib/aarch64-linux-gnu/libssl.so;/usr/lib/aarch64-linux-gnu/libcrypto.so;/usr/lib/aarch64-linux-gnu/libz.so
+-- Dynamic column API support: ON
+-- WITH_NUMA=OFF: NUMA memory allocation policy disabled
+-- Performing Test have_C__Wframe_larger_than_49152
+-- Performing Test have_C__Wframe_larger_than_49152 - Success
+-- Performing Test have_CXX__Wframe_larger_than_49152
+-- Performing Test have_CXX__Wframe_larger_than_49152 - Success
+-- Performing Test HAVE_PTHREAD_THREADID_NP
+-- Performing Test HAVE_PTHREAD_THREADID_NP - Failed
+-- Looking for gettid
+-- Looking for gettid - not found
+-- Performing Test HAVE_SYS_GETTID
+-- Performing Test HAVE_SYS_GETTID - Success
+-- Performing Test HAVE_GETTHRID
+-- Performing Test HAVE_GETTHRID - Failed
+-- Performing Test HAVE_PTHREAD_GETTHREADID_NP
+-- Performing Test HAVE_PTHREAD_GETTHREADID_NP - Failed
+-- Performing Test HAVE_INTEGER_PTHREAD_SELF
+-- Performing Test HAVE_INTEGER_PTHREAD_SELF - Success
+-- Could NOT find CURL (missing: CURL_LIBRARY CURL_INCLUDE_DIR)
+-- CURL not found. VIDEX will not be compiled
+-- Looking for include file security/pam_ext.h
+-- Looking for include file security/pam_ext.h - not found
+-- Looking for include file security/pam_appl.h
+-- Looking for include file security/pam_appl.h - not found
+-- Looking for strndup
+-- Looking for strndup - found
+-- Looking for getgrouplist
+-- Looking for getgrouplist - found
+-- Performing Test HAVE_POSIX_GETGROUPLIST
+-- Performing Test HAVE_POSIX_GETGROUPLIST - Success
+-- Looking for pam_syslog
+-- Looking for pam_syslog - not found
+-- Performing Test HAVE_PEERCRED
+-- Performing Test HAVE_PEERCRED - Success
+-- Can't build aws_key_management - AWS SDK not available (AWS_SDK_EXTERNAL_PROJECT is not ON and aws-cpp-sdk-kms not found)
+-- Looking for FascistCheckUser in crack
+-- Looking for FascistCheckUser in crack - not found
+-- Looking for include file crack.h
+-- Looking for include file crack.h - not found
+-- Looking for getmntent
+-- Looking for getmntent - found
+-- Looking for getmntent
+-- Looking for getmntent - not found
+-- Looking for setmntent
+-- Looking for setmntent - found
+-- Looking for getmntinfo
+-- Looking for getmntinfo - not found
+-- Looking for include file sys/mntent.h
+-- Looking for include file sys/mntent.h - not found
+-- Looking for include file netdb.h
+-- Looking for include file netdb.h - found
+-- Could NOT find CURL (missing: CURL_LIBRARY CURL_INCLUDE_DIR)
+-- Hashicorp Key Management plugin requires curl development package
+-- Could NOT find BZip2 (missing: BZIP2_LIBRARIES BZIP2_INCLUDE_DIR)
+-- Could NOT find LZ4 (missing: LZ4_LIBRARIES LZ4_INCLUDE_DIRS) (Required is at least version "1.6")
+-- Could NOT find LibLZMA (missing: LIBLZMA_LIBRARY LIBLZMA_INCLUDE_DIR LIBLZMA_HAS_AUTO_DECODER LIBLZMA_HAS_EASY_ENCODER LIBLZMA_HAS_LZMA_PRESET)
+-- Could NOT find LZO (missing: LZO_LIBRARIES LZO_INCLUDE_DIRS)
+-- Could NOT find Snappy (missing: SNAPPY_LIBRARIES SNAPPY_INCLUDE_DIRS)
+-- Performing Test HAVE_ARMV8_CRC_CRYPTO_MARCH
+-- Performing Test HAVE_ARMV8_CRC_CRYPTO_MARCH - Success
+-- Performing Test HAVE_ARMV8_CRC
+-- Performing Test HAVE_ARMV8_CRC - Success
+-- Performing Test HAVE_ARMV8_CRYPTO
+-- Performing Test HAVE_ARMV8_CRYPTO - Success
+-- Looking for arm_acle.h
+-- Looking for arm_acle.h - found
+-- Looking for event.h
+-- Looking for event.h - not found
+-- Found BISON: /usr/bin/bison (found suitable version "3.8.2", minimum required is "2.4")
+-- Performing Test have_CXX__Wno_unused_but_set_variable
+-- Performing Test have_CXX__Wno_unused_but_set_variable - Success
+The following features have been enabled:
+
+ * ARCHIVE, Storage Engine MODULE
+ * BLACKHOLE, Storage Engine MODULE
+ * CSV, Storage Engine STATIC
+ * EXAMPLE, Storage Engine MODULE
+ * FEDERATED, Storage Engine MODULE
+ * FEDERATEDX, Storage Engine MODULE
+ * HEAP, Storage Engine STATIC
+ * INNODB_AHI, InnoDB Adaptive Hash Index
+ * INNODB_ROOT_GUESS, Cache index root block descriptors in InnoDB
+ * ARIA, Storage Engine STATIC
+ * MYISAM, Storage Engine STATIC
+ * MYISAMMRG, Storage Engine STATIC
+ * PERFSCHEMA, Storage Engine STATIC
+ * SEQUENCE, Storage Engine STATIC
+ * SPHINX, Storage Engine MODULE
+ * TEST_SQL_DISCOVERY, Storage Engine MODULE
+ * AUDIT_NULL, Server plugin MODULE
+ * AUTH_ED25519, Server plugin MODULE
+ * DIALOG_EXAMPLES, Server plugin MODULE
+ * AUTH_TEST_PLUGIN, Server plugin MODULE
+ * QA_AUTH_INTERFACE, Server plugin MODULE
+ * QA_AUTH_SERVER, Server plugin MODULE
+ * QA_AUTH_CLIENT, Server plugin MODULE
+ * AUTH_0X0100, Server plugin MODULE
+ * AUTH_MYSQL_SHA2, Server plugin MODULE
+ * AUTH_PARSEC, Server plugin MODULE
+ * AUTH_SOCKET, Server plugin STATIC
+ * DAEMON_EXAMPLE, Server plugin MODULE
+ * DEBUG_KEY_MANAGEMENT, Server plugin MODULE
+ * DISKS, Server plugin MODULE
+ * EXAMPLE_KEY_MANAGEMENT, Server plugin MODULE
+ * FEEDBACK, Server plugin STATIC
+ * FILE_KEY_MANAGEMENT, Server plugin MODULE
+ * FTEXAMPLE, Server plugin MODULE
+ * FUNC_TEST, Server plugin MODULE
+ * HANDLERSOCKET, Server plugin MODULE
+ * LOCALES, Server plugin MODULE
+ * METADATA_LOCK_INFO, Server plugin MODULE
+ * PASSWORD_REUSE_CHECK, Server plugin MODULE
+ * QUERY_CACHE_INFO, Server plugin MODULE
+ * QUERY_RESPONSE_TIME, Server plugin MODULE
+ * SERVER_AUDIT, Server plugin MODULE
+ * SIMPLE_PASSWORD_CHECK, Server plugin MODULE
+ * SQL_ERRLOG, Server plugin MODULE
+ * TEST_SQL_SERVICE, Server plugin MODULE
+ * TYPE_ASSOC_ARRAY, Server plugin STATIC
+ * TYPE_CURSOR, Server plugin STATIC
+ * TYPE_GEOM, Server plugin STATIC
+ * TYPE_INET, Server plugin STATIC
+ * TYPE_MYSQL_JSON, Server plugin MODULE
+ * TYPE_MYSQL_TIMESTAMP, Server plugin MODULE
+ * TYPE_TEST, Server plugin MODULE
+ * TYPE_UUID, Server plugin STATIC
+ * TYPE_XMLTYPE, Server plugin STATIC
+ * USER_VARIABLES, Server plugin STATIC
+ * USERSTAT, Server plugin STATIC
+ * TEST_VERSIONING, Server plugin MODULE
+ * THREAD_POOL_INFO, Server plugin STATIC
+ * PARTITION, Storage Engine STATIC
+ * SQL_SEQUENCE, Storage Engine STATIC
+ * ONLINE_ALTER_LOG, Storage Engine STATIC
+ * EMBEDDED_SERVER, Embedded MariaDB Server Library
+
+-- The following OPTIONAL packages have been found:
+
+ * ZLIB
+ * Git
+ * Threads
+ * BISON (required version >= 2.4)
+
+-- The following RECOMMENDED packages have been found:
+
+ * OpenSSL
+
+-- The following REQUIRED packages have been found:
+
+ * Curses
+
+-- The following features have been disabled:
+
+ * WSREP, WSREP replication API (to use, e.g. Galera Replication library)
+ * LIBWRAP, Support for tcp wrappers
+ * SYSTEMD, Systemd scripts and notification support
+ * DUCKDB, Storage Engine
+ * INNODB_EXTRA_DEBUG, Extra InnoDB debug checks
+ * INNOBASE, Storage Engine
+ * ROCKSDB, Storage Engine
+ * SPIDER, Storage Engine
+ * AWS_KEY_MANAGEMENT, AWS Encryption Key Management Plugin
+
+-- The following OPTIONAL packages have not been found:
+
+ * GSSAPI
+ * CURL
+ * BZip2
+ * LZ4 (required version >= 1.6)
+ * LibLZMA
+ * LZO
+ * Snappy
+
+-- Configuring done (2.7s)
+-- Generating done (0.4s)
+-- Build files have been written to: /exp/temp/native

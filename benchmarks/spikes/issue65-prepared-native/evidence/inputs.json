@@ -1,0 +1,23 @@
+[
+  {
+    "name": "libmariadb",
+    "file": "mariadb-connector-c-source.tar.gz",
+    "url": "https://codeload.github.com/MariaDB/mariadb-connector-c/tar.gz/5a6fe6016fc908518e7d2a8c128a5c108b511c17",
+    "revision": "5a6fe6016fc908518e7d2a8c128a5c108b511c17",
+    "sha256": "54562818bf2c5d56a6238738aea53fd276d5cff1fdaf9b05fa62d0a2dbab059b"
+  },
+  {
+    "name": "libfmt",
+    "file": "fmt-12.2.0.zip",
+    "url": "https://github.com/fmtlib/fmt/releases/download/12.2.0/fmt-12.2.0.zip",
+    "sha256": "a2f4a8d51178f954e4c339007f77edd76ba0cb2e36f87a48e5a5403d9be5878f"
+  },
+  {
+    "name": "mariadb",
+    "file": "mariadb-12.3.3-source.tar.gz",
+    "url": "https://codeload.github.com/MariaDB/server/tar.gz/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "revision": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+    "version": "12.3.3"
+  }
+]

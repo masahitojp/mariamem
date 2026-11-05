@@ -1,0 +1,9 @@
+{
+  "patch_reproduced": true,
+  "built_files_match_reproduced_patch": true,
+  "patched_files": {
+    "sql/sql_prepare.cc": "2238d979db1739e8b854e5fe2cee611ec0b3073454da10ce60ed332ab625f93d",
+    "libmysqld/lib_sql.cc": "d86627a51a6a25366d9b3af08b186fb05e68a314033f12076c11f762e60e070c"
+  },
+  "patch_sha256": "e11c0dcc5f9f7002a83d804aa46b88d72c9c7415f87161aa0789079771c4d507"
+}

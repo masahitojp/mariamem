@@ -1,0 +1,209 @@
+--- a/sql/sql_prepare.cc
++++ b/sql/sql_prepare.cc
+@@ -118,6 +118,8 @@
+ #include <mysql.h>
+ #else
+ #include <mysql_com.h>
++#endif
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+ /* Constants defining bits in parameter type flags. Flags are read from high byte of short value */
+ static const uint PARAMETER_FLAG_UNSIGNED= 128U << 8;
+ #endif
+@@ -202,7 +204,7 @@
+   my_bool start_param;
+   my_bool read_types;
+ 
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+   bool (*set_params)(Prepared_statement *st, uchar *data, uchar *data_end,
+                      uchar *read_pos, String *expanded_query);
+   bool (*set_bulk_params)(Prepared_statement *st,
+@@ -489,7 +491,7 @@
+ #endif /*!EMBEDDED_LIBRARY*/
+ 
+ 
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+ 
+ /**
+   Read the length of the parameter data and return it back to
+@@ -569,7 +571,7 @@
+ 
+ void Item_param::set_param_tiny(uchar **pos, ulong len)
+ {
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+   if (len < 1)
+     return;
+ #endif
+@@ -582,7 +584,7 @@
+ void Item_param::set_param_short(uchar **pos, ulong len)
+ {
+   int16 value;
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+   if (len < 2)
+     return;
+   value= sint2korr(*pos);
+@@ -597,7 +599,7 @@
+ void Item_param::set_param_int32(uchar **pos, ulong len)
+ {
+   int32 value;
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+   if (len < 4)
+     return;
+   value= sint4korr(*pos);
+@@ -612,7 +614,7 @@
+ void Item_param::set_param_int64(uchar **pos, ulong len)
+ {
+   longlong value;
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+   if (len < 8)
+     return;
+   value= (longlong) sint8korr(*pos);
+@@ -626,7 +628,7 @@
+ void Item_param::set_param_float(uchar **pos, ulong len)
+ {
+   float data;
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+   if (len < 4)
+     return;
+   float4get(data,*pos);
+@@ -640,7 +642,7 @@
+ void Item_param::set_param_double(uchar **pos, ulong len)
+ {
+   double data;
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+   if (len < 8)
+     return;
+   float8get(data,*pos);
+@@ -658,7 +660,7 @@
+   *pos+= length;
+ }
+ 
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+ 
+ /*
+   Read date/time/datetime parameter values from network (binary
+@@ -862,7 +864,7 @@
+   */
+ }
+ 
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+ 
+ /**
+   Routines to assign parameters from data supplied by the client.
+@@ -4162,7 +4164,7 @@
+   if (replace_params_with_values)
+   {
+     set_params_from_actual_params= insert_params_from_actual_params_with_log;
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+     set_params= insert_params_with_log;
+     set_bulk_params= insert_bulk_params; // RBR is on for bulk operation
+ #else
+@@ -4173,7 +4175,7 @@
+   else
+   {
+     set_params_from_actual_params= insert_params_from_actual_params;
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+     set_params= insert_params;
+     set_bulk_params= insert_bulk_params;
+ #else
+@@ -4603,7 +4605,12 @@
+   }
+   else if (param_count)
+   {
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
++#ifdef ISSUE65_NATIVE_INPUT
++    if (thd->client_params != NULL) abort();
++    extern unsigned long issue65_decode_count;
++    ++issue65_decode_count;
++#endif
+     uchar *null_array= packet;
+     res= (setup_conversion_functions(this, &packet) ||
+           set_params(this, null_array, packet, packet_end, expanded_query));
+@@ -4795,7 +4802,7 @@
+ 
+   if (iterations)
+   {
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+     if ((*set_bulk_params)(this, &packet, packet_end, reset))
+ #else
+     // bulk parameters are not supported for embedded, so it will an error
+@@ -4887,7 +4894,7 @@
+     }
+   }
+ 
+-#ifndef EMBEDDED_LIBRARY
++#if !defined(EMBEDDED_LIBRARY) || defined(ISSUE65_NATIVE_INPUT)
+   if (read_types &&
+       set_conversion_functions(this, &packet))
+ #else
+@@ -6639,3 +6646,7 @@
+   DBUG_PRINT("exit",("Mysql handler: %p", mysql));
+   DBUG_RETURN(mysql);
+ }
++
++#ifdef ISSUE65_NATIVE_INPUT
++unsigned long issue65_decode_count= 0;
++#endif
+--- a/libmysqld/lib_sql.cc
++++ b/libmysqld/lib_sql.cc
+@@ -341,6 +341,16 @@
+   THD *thd;
+   my_bool res;
+ 
++#ifdef ISSUE65_NATIVE_INPUT
++  extern const uchar *issue65_packet;
++  extern ulong issue65_packet_length;
++  thd= (THD*)stmt->mysql->thd;
++  if (thd->client_params != NULL || issue65_packet == NULL) abort();
++  res= MY_TEST(emb_advanced_command(stmt->mysql, COM_STMT_EXECUTE, 0, 0,
++                       issue65_packet, issue65_packet_length, 1, stmt) ||
++               emb_read_query_result(stmt->mysql));
++  if (thd->client_params != NULL) abort();
++#else
+   if (stmt->param_count && !stmt->bind_param_done)
+   {
+     set_stmt_error(stmt, CR_PARAMS_NOT_BOUND, unknown_sqlstate, NULL);
+@@ -357,6 +367,7 @@
+   res= MY_TEST(emb_advanced_command(stmt->mysql, COM_STMT_EXECUTE, 0, 0,
+                                     header, sizeof(header), 1, stmt) ||
+             emb_read_query_result(stmt->mysql));
++#endif
+   stmt->affected_rows= stmt->mysql->affected_rows;
+   stmt->insert_id= stmt->mysql->insert_id;
+   stmt->server_status= stmt->mysql->server_status;
+@@ -1477,3 +1488,22 @@
+   }
+   return 0;
+ }
++
++#ifdef ISSUE65_NATIVE_INPUT
++// Single-threaded spike entry only. Bytes include the 9-byte EXECUTE header,
++// excluding the command byte and NET frame; no MYSQL_BIND parameters are used.
++const uchar *issue65_packet= NULL;
++ulong issue65_packet_length= 0;
++extern unsigned long issue65_decode_count;
++extern "C" unsigned long issue65_decodes() { return issue65_decode_count; }
++extern "C" int issue65_raw_execute(MYSQL_STMT *stmt, const uchar *p, ulong n)
++{
++  if (issue65_packet != NULL) abort();
++  issue65_packet= p;
++  issue65_packet_length= n;
++  int result= mysql_stmt_execute(stmt);
++  issue65_packet= NULL;
++  issue65_packet_length= 0;
++  return result;
++}
++#endif

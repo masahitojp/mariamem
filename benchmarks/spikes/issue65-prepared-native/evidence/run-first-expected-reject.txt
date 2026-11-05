@@ -1,0 +1,7 @@
+Disk preflight OK: 35.28 GiB free, 1.60 GiB owned
+mysql_embedded: Unknown character set: 'ucs2'
+Got ERROR: "Variable 'character_set_collations' can't be set to the value of 'utf8mb3=uca1400_ai_ci,utf8mb4=uca1400_ai_ci,ucs2=uca1400_ai_ci,utf16=uca1400_ai_ci,utf32=uca1400_ai_ciT'" errno: 2000
+FAIL:truncated_string stmt=0
+PASS:signed_string_null
+PASS:reuse_types_embedded_NUL
+PASS:unsigned_length_encoded_300

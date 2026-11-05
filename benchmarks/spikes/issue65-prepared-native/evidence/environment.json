@@ -1,0 +1,47 @@
+{
+  "image_id": "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+  "platform": "linux/arm64",
+  "cpus": 2,
+  "memory_bytes": 4294967296,
+  "commands": [
+    {
+      "argv": [
+        "uname",
+        "-sm"
+      ],
+      "exit_code": 0,
+      "stdout": "Linux aarch64\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "c++",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "cmake",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "cmake version 3.28.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "pkg-config",
+        "--modversion",
+        "openssl",
+        "zlib",
+        "libpcre2-8"
+      ],
+      "exit_code": 0,
+      "stdout": "3.0.13\n1.3\n10.42\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "normalization": "Trailing whitespace removed from committed text logs; unmodified raw files retained in the owned evidence directory.",
+  "logs": {
+    "build-2.txt": {
+      "raw_sha256": "61950024827d3da7f5ecdee767a5598c1995ea9fc9b3bb7e85cb70183f842ff2",
+      "committed_sha256": "61950024827d3da7f5ecdee767a5598c1995ea9fc9b3bb7e85cb70183f842ff2"
+    },
+    "build.txt": {
+      "raw_sha256": "34457e5cc24d3f240834e2ddc962a59eca9e21f3383cb02754d6da1f8a543c1a",
+      "committed_sha256": "7f24afe30ea15c4acafe22d7b86842174294b1d488c164cb494a908ea5336950"
+    },
+    "configure.txt": {
+      "raw_sha256": "32e4214adbf74d093bac35ac23f267d8e9243a9423b03019c15f6d023f1b433b",
+      "committed_sha256": "1e5037c413415bbec9b3f7269e5cd7eabd61cf31e85802c0a8a68c780ba72cf5"
+    },
+    "run.txt": {
+      "raw_sha256": "bc31ca40c9237dad0fe0e7266e5c6d5156a1e3fc44454f2f5d268310f14321c1",
+      "committed_sha256": "bc31ca40c9237dad0fe0e7266e5c6d5156a1e3fc44454f2f5d268310f14321c1"
+    },
+    "configure-2.txt": {
+      "raw_sha256": "86cd2d15611e7c5cff68ac205dafee55a7d40bc52074c19ef2c4ffab21da6158",
+      "committed_sha256": "a5cfc75ab9d748c515eee1ea768df51a0b781c1fe4692a5af0fb1a373cd2f73c"
+    },
+    "run-first-expected-reject.txt": {
+      "raw_sha256": "d1747ea012a184966e8fa69cd5005c45d28869c1e8aee44adf5f6ac3deb801bf",
+      "committed_sha256": "90e3e472e4c995a0ad1c8619e4740c668be76e358226b1df09464d7da164dc80"
+    }
+  }
+}

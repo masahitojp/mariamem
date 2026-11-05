@@ -1,0 +1,26 @@
+{
+  "scope": "step2-native-embedded-prepared-input",
+  "conclusion": "feasible_in_tested_native_embedded_profile",
+  "final_run_exit_code": 0,
+  "native_decode_entries": 7,
+  "client_params": "NULL checked before dispatch, at each native parameter decode, and after dispatch",
+  "successful_cases": [
+    "signed_string_null",
+    "reuse_types_embedded_NUL",
+    "unsigned_length_encoded_300",
+    "upstream_truncated_string_becomes_empty",
+    "valid_after_rejection",
+    "select_native_parameters_embedded_results"
+  ],
+  "rejected_cases": [
+    {
+      "name": "truncated_int64",
+      "errno": 1210
+    }
+  ],
+  "qualification": "Truncated length-encoded string accepted as empty, matching unchanged upstream decoder; initial rejection expectation failed.",
+  "first_run_exit_code": 1,
+  "handshake_native_output_wasix_snapshot_performance": "not tested",
+  "engine_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "harness_base_source_commit": "a796ea01cef3950d9835d001ef40d20b0a93020f"
+}
