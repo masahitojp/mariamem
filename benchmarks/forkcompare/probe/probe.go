@@ -11,6 +11,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"runtime/pprof"
 	"strings"
 	"sync"
 	"syscall"
@@ -100,6 +101,7 @@ func oracle(ctx context.Context, q interface {
 	return nil
 }
 func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart time.Time) (s Sample, err error) {
+	ctx = context.WithValue(ctx, "forkstages_child", index)
 	s.Index = index
 	s.Cleanup = true
 	begin := time.Now()
@@ -254,6 +256,19 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 			case <-time.After(time.Millisecond):
 			}
 		}
+	}
+	var profile *os.File
+	if path := os.Getenv("FORKSTAGES_CPU"); path != "" {
+		profile, e = os.Create(path)
+		if e != nil {
+			return e
+		}
+		if e = pprof.StartCPUProfile(profile); e != nil {
+			profile.Close()
+			return e
+		}
+		defer profile.Close()
+		defer pprof.StopCPUProfile()
 	}
 	var before, after syscall.Rusage
 	if e = syscall.Getrusage(syscall.RUSAGE_SELF, &before); e != nil {

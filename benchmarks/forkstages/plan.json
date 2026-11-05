@@ -1,0 +1,28 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness": "e0cbbb08829612d5567221a1e31c9c8386577dfe",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "parallel": [
+    1,
+    4,
+    8
+  ],
+  "count": 48,
+  "repetitions": 3,
+  "warmup_per_cell": 1,
+  "modes": [
+    "plain",
+    "traced"
+  ],
+  "cpu_profiles": "one separate48-child batch per P; excludes root/capture; profiling results not timing controls",
+  "budget": {
+    "active_minutes": 60,
+    "tooling_minutes": 30,
+    "ci": 0,
+    "min_free_gib": 12,
+    "disk_gib": 6,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 120
+  },
+  "scope": "Go Pipe; per-child ctx-bound host stages and existing guest monotonic marks; no engine config/SQL/scheduler changes; process CPU cannot be allocated to individual overlapping Forks"
+}

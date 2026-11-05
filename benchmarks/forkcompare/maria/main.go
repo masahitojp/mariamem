@@ -3,10 +3,14 @@ package main
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	mysql "github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem"
 	"github.com/masahitojp/mariamem/benchmarks/forkcompare/probe"
+	"github.com/masahitojp/mariamem/internal/timing"
+	"os"
+	"path/filepath"
 )
 
 func wrap(d *mariamem.Database) *probe.Database {
@@ -35,6 +39,19 @@ func wrap(d *mariamem.Database) *probe.Database {
 				return nil, e
 			}
 			return &probe.Snapshot{Close: s.Close, Fork: func(ctx context.Context) (*probe.Database, error) {
+				ctx = timing.WithRecorder(ctx, func(trace timing.Trace) {
+					id, ok := ctx.Value("forkstages_child").(int)
+					if !ok {
+						panic("missing child index")
+					}
+					data, err := json.Marshal(trace)
+					if err != nil {
+						panic(err)
+					}
+					if err = os.WriteFile(filepath.Join(os.Getenv("MARIAMEM_TIMING_DIR"), fmt.Sprintf("child-%03d-%s.json", id, trace.Operation)), data, 0600); err != nil {
+						panic(err)
+					}
+				})
 				c, e := s.Fork(ctx)
 				if e != nil {
 					return nil, e
