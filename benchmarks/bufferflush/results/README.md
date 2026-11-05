@@ -1,0 +1,95 @@
+# Commit and flush-method sampling after both buffer-pool options OFF
+
+**Conclusion to the wait question:** UPDATE365.464ms still occurs with load OFF, dump OFF and commit0. Per-commit log synchronization is therefore not necessary for the observed long UPDATE span; switching that policy alone does not eliminate it. The internal execution/log/commit/background-queue phase remains unknown. No causal cure is established by the corrected-method arm having no UPDATE>100ms in this finite cohort.
+
+[Graph](report.html) · [Every process](processes.csv) · [Distributions, blocked effects and slow children](summary.json) · [Fixed plan](plan.json)
+
+## Authorized question and exact arms
+
+The Human requested additional sampling of commit0 and a flush-method option, then clarified that finding the wait cause is sufficient; adoption or a speed target is not the objective. The preceding load-only versus both-OFF contrast remains under its original receipt. This experiment starts from **both OFF**, adds commit0, then a separate corrected-method option. It is not a Testcontainers10.11 measurement: the guest here is MariaDB12.3.3.
+
+| Arm | load | dump | commit policy | flush method |
+|---|---|---|---|---|
+| both-off | OFF | OFF | 1 | inherited O_DIRECT |
+| commit0 | OFF | OFF | 0 | inherited O_DIRECT |
+| commit0-method | OFF | OFF | 0 | explicit O_DIRECT_NO_FSYNC |
+
+The supplied literal O_DIRECT_NOSYNC was attempted once and rejected: mysql_embedded reported error setting that value for innodb-flush-method, followed by unavailable InnoDB. It is not a valid timing arm and is not silently relabelled. O_DIRECT_NO_FSYNC is the separately recorded corrected spelling. Startup rejection also reaches unimplemented WASIX Proc_exit2 and a generic auth-bundle hint; these diagnostic limitations are preserved as a separate failure observation, not an auth-key diagnosis or positive-runtime failure. The root never admitted a DB and scratch was empty after process exit. Raw report cleanup_complete=false is retained: the benchmark returns before its cleanup defer on startup failure, so do not claim the rejection is a positive cleanup PASS.
+
+## Fixed cohort and effective configuration
+
+One Apple M1/16GiB/macOS27.2, Go1.27.3 arm64, CGO0, GOMAXPROCS8, GOGC100; Pipe,1,000 rows,48 independent children,cap=P,P4/P8. Five fresh-process blocks/P, rotated three-arm order and reversed alternate blocks, plus rotated P order. All three arms occur once/block; effects are blocked paired medians, not population estimates.30 primary processes/1440 children;6 separate warmups;3 positive root+8-child preflights;3 wrong-seed controls;1 literal-invalid startup attempt. One additional successful8-child preflight discovered an unavailable SQL variable before timing; its raw report/log are retained separately. **44 total processes**, no primary repeats or exclusions.
+
+Root and all8 preflight children/arm report load OFF,dump OFF and commit1 versus0 as expected. Other selected settings remain pool/max16MiB,log buffer2MiB,read1/write2/purge1,native AIO OFF,flush_sync ON,binlog OFF,max connections10,table cache32,thread cache0. SHOW exposes O_DIRECT versus O_DIRECT_NO_FSYNC. Data-file buffering,data-file write-through and log-file write-through remain OFF in all three arms. innodb_log_file_buffering is absent from this guest SHOW output; absence is recorded as **unavailable**, not OFF. Only commit policy and flush_method differ among observed maps.
+
+Primary runs have no configuration queries, trace, slow-stack observer or CPU profiler. Identical per-query timers and benchmark-only cleanup spans in every arm. Same exact binary across arms. Source/selector unit controls retain all25 original arguments and explicitly add load,dump,commit,and optional flush method in a private512-byte guest-stack argv/string frame. Tests verify option values/count/terminator,original pointers/order,containment/full restoration and malformed inputs rejected before mutation.
+
+## Query waits, with all samples retained
+
+Each row has240 primary children. COUNT>100ms is zero in every cell. No UPDATE>500ms occurs.
+
+| P | Arm | UPDATE p50 /p95 /max ms | UPDATE >100ms | Combined SQL >100ms |
+|---|---|---|---:|---:|
+| 4 | both-off | 0.600 / 3.861 / 11.432 | 0 | 0 |
+| 4 | commit0 | 0.631 / 7.132 / 365.464 | 1 | 1 |
+| 4 | commit0-method | 0.578 / 4.711 / 7.777 | 0 | 0 |
+| 8 | both-off | 0.792 / 10.771 / 378.096 | 2 | 2 |
+| 8 | commit0 | 0.638 / 12.630 / 90.418 | 0 | 1 |
+| 8 | commit0-method | 0.748 / 13.860 / 28.429 | 0 | 0 |
+
+| Arm | P/block/child | COUNT ms | UPDATE ms | Verification ms |
+|---|---|---:|---:|---:|
+| commit0 | 4/0/8 | 6.843 | 365.464 | 0.280 |
+| both-off | 8/2/30 | 2.092 | 378.096 | 0.450 |
+| both-off | 8/4/18 | 3.843 | 346.297 | 3.491 |
+| commit0 | 8/3/9 | 44.215 | 90.418 | 1.506 |
+
+P4 commit0/block0/child8 proves that an UPDATE365ms span can occur without commit=1 and with both buffer-pool options OFF. This rules out per-commit disk/log sync as a required sole explanation for all observed waits; it does not rule out periodic log/background activity or another engine queue. P8 commit0 also has one combined136ms SQL span comprised of COUNT44.2ms + UPDATE90.4ms + verification1.5ms, rather than one >100ms UPDATE. Do not merge combined-SQL and per-query tail counts.
+
+The full method arm has no >100ms UPDATE in480 primary children, but earlier finite cohorts also failed to reproduce this rare residual. Neither absence nor this tiny difference establishes a fix or population frequency. Root/child SQL,independent UPDATE verification and cleanup PASS for all primary runs. No engine stack or phase snapshot was captured.
+
+## Performance context (secondary to identifying the wait)
+
+Independent cell medians below are descriptive. Fork/Close are medians of process child-p50 values; CPU is whole batch/process, not exclusive Fork CPU. RSS is20ms sampled batch process peak, not held-child memory. Batch includes child SQL/connection retirement/WaitDisconnected/Close and excludes root preparation/capture/final Snapshot Close.
+
+| P | Arm | Batch ms | CPU ms | Fork ms | DB Close ms | RSS MiB |
+|---|---|---:|---:|---:|---:|---:|
+| 4 | both-off | 863.9 | 3790.7 | 49.75 | 6.80 | 363.3 |
+| 4 | commit0 | 881.9 | 3812.5 | 51.62 | 7.38 | 360.4 |
+| 4 | commit0-method | 867.5 | 3803.1 | 49.26 | 6.45 | 365.0 |
+| 8 | both-off | 765.0 | 3902.1 | 80.39 | 9.71 | 659.7 |
+| 8 | commit0 | 745.8 | 3954.9 | 76.22 | 10.18 | 664.8 |
+| 8 | commit0-method | 769.6 | 3894.4 | 80.07 | 10.34 | 663.5 |
+
+Positive blocked paired savings means candidate faster/lower; five blocks/P.
+
+| P | Baseline → candidate | Batch saved | CPU saved | Fork saved | UPDATE p50 saved | Batch wins |
+|---|---|---:|---:|---:|---:|---|
+| 4 | both-off → commit0 | -2.09% | 0.70% | -2.77% | -21.12% | 2/5 |
+| 4 | commit0 → commit0-method | 4.67% | 1.87% | 4.30% | 20.56% | 4/5 |
+| 4 | both-off → commit0-method | -0.42% | 0.27% | 1.93% | 8.92% | 2/5 |
+| 8 | both-off → commit0 | 4.32% | -0.12% | -0.24% | 21.22% | 3/5 |
+| 8 | commit0 → commit0-method | -0.14% | 1.61% | -5.05% | -2.38% | 2/5 |
+| 8 | both-off → commit0-method | -2.80% | 1.13% | 0.41% | 11.26% | 1/5 |
+
+No contrast establishes the fixed benefit signal at both P, including the same-metric4/5 wins and unchanged regression guards. The corrected-method versus commit0 P8 Fork guard fails narrowly (+5.05%). The full combination versus both-off changes median paired batch by+0.42%/+2.80% at P4/P8 (slower), so no whole-suite speed recommendation follows. Ordinary sub-millisecond UPDATE p50 movements are separate from the365ms outlier. Do not treat a >5% change in a tiny ordinary UPDATE span as attribution of the rare tail.
+
+## What this says about the mechanism
+
+The generated runtime constructs a block-memory filesystem for this path (`internal/generatedgo/runtime_instance.go`); WASI fd_sync/fd_datasync delegate to File.Sync, and `memFile.Sync()` returns nil without disk synchronization (`internal/generatedgo/code/base/memfs.go`). This is source evidence about the memory-file path, not a measured syscall count for each slow UPDATE. Commit-policy changes may still alter engine scheduling,logging or waits even without physical fsync cost.
+
+[MariaDB official flush-method documentation](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-flush-method) describes the variable as deprecated since11.0 and O_DIRECT_NO_FSYNC as treated like O_DIRECT. The public data/log write-through and data buffering flags observed here are equal across method arms. Thus the named option is accepted, but its name does not establish that additional sync work was removed. The container example uses10.11, and disk/container behavior cannot be transferred to this12.3.3 memory VFS. No request to add debug-no-sync or a wider parameter sweep is inferred.
+
+**Known:** startup-load OFF reduced COUNT tails in earlier independent cohorts; shutdown-dump OFF has no consistent measured extra benefit; UPDATE365ms persists under commit0; disk fsync removal alone is an inadequate sole explanation. **Unknown:** which UPDATE execution/log/commit/background queue was waiting, the wakeup source, and whether all residual UPDATEs share one mechanism. The earlier COUNT queue diagnosis must not be assigned to these UPDATEs without a captured internal wait.
+
+**Recommendation:** stop parameter sampling here rather than choose a faster-looking combination. For the wait-cause objective, the missing evidence is a natural slow UPDATE captured inside actual Exec-entry/return, with the matching current-guest stack/phase mapping. A subsequent bounded diagnostic could reuse the corrected entry-aware collector, cap collection at3 P4/P8 processes with a fixed profile budget, and end as NOT_REPRODUCED if no event. A matching symbol/phase map may need to be produced first; existing old-guest function IDs cannot be reused. That is separate work, with no extra runs silently appended to this campaign.
+
+## Provenance, collection corrections and retention
+
+Product source_commit `1862f4a89397bddfa1820d835106d3437a438cf7`; measured harness source_commit `549fd3ba4fdc92b407534bd2b4ce844951fbd4df`; parent eaeb1e98. scripts/git_identity.py verifies clean commit identity before build. Product diff is limited to benchmark tooling; no canonical guest/generated/product/API code is changed. One measured binary SHA256 `6dd778be6ae4f03bca8b77e8d3962fb5e1b3cac8739876c5fc96a4bb5586abf0`. Origin guest SHA256 `6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe` remains the original generated input; this argv prototype is **UNQUALIFIED**, not a new canonical WASM sharing that hash.
+
+Two pre-primary collector assumptions were corrected without rebuilding or changing the measured binary: (1) startup failure report cleanup_complete is false because no root was admitted; preserve it rather than falsely call cleanup PASS; (2) log_file_buffering is absent from SHOW, so record it unavailable. The initial literal attempt is not retried, and the additional successful schema-discovery preflight is separately counted. Its memory samples were not saved before that assertion; do not use it as a timed/RSS cell. The final30-process matrix remains complete and unchanged. Logs and correction notes preserve these facts.
+
+All positive runtime SQL/isolation/cleanup and three wrong-seed controls PASS; selector unit, exact matrix reduction, missing-cell rejection and checksums PASS. Performance/cause/adoption remain distinct from collection correctness. Budgets6GiB/free12GiB,RSS3GiB and process deadlines did not trip. One Mac/small fixture only; Ubuntu,large fixtures,crash durability,native parity,canonical guest qualification and release NOT RUN.
+
+Extract receipts.zip to an empty directory and run `python3 analyze.py --check` for readonly exact30-process summary/CSV/slow-case replay and missing-cell rejection. Every process/memory/effective-variable report, literal failure, schema-discovery note, logs, plan/input hashes and build/run/reducer scripts are archived. Rebuild new observations from clean measured harness with archived build.py/run.py and their evidence/temp/source layout. SHA256SUMS.json covers published files. Reproducible clone,executable and caches are removed after preserving the pushed source and compact receipt. Original receipts remain unchanged. No product adoption,CI dispatch,main integration,Qualification or release is initiated.

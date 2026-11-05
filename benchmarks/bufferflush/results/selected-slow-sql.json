@@ -1,0 +1,62 @@
+[
+  {
+    "parallel": 4,
+    "variant": "commit0",
+    "round": 0,
+    "index": 8,
+    "fork_ms": 56.62825,
+    "sql_ms": 372.587083,
+    "count_ms": 6.842709,
+    "update_ms": 365.463667,
+    "check_ms": 0.279875,
+    "cleanup_ms": 12.551583,
+    "retire_ms": 0.008667,
+    "wait_ms": 5.149334,
+    "close_ms": 7.391584
+  },
+  {
+    "parallel": 8,
+    "variant": "both-off",
+    "round": 2,
+    "index": 30,
+    "fork_ms": 105.471541,
+    "sql_ms": 380.639583,
+    "count_ms": 2.092209,
+    "update_ms": 378.096084,
+    "check_ms": 0.450458,
+    "cleanup_ms": 10.383833,
+    "retire_ms": 0.008792,
+    "wait_ms": 6.291417,
+    "close_ms": 4.08175
+  },
+  {
+    "parallel": 8,
+    "variant": "both-off",
+    "round": 4,
+    "index": 18,
+    "fork_ms": 72.1755,
+    "sql_ms": 353.631834,
+    "count_ms": 3.842792,
+    "update_ms": 346.296583,
+    "check_ms": 3.4915,
+    "cleanup_ms": 27.458166,
+    "retire_ms": 0.009209,
+    "wait_ms": 5.548125,
+    "close_ms": 21.898625
+  },
+  {
+    "parallel": 8,
+    "variant": "commit0",
+    "round": 3,
+    "index": 9,
+    "fork_ms": 89.539416,
+    "sql_ms": 136.14,
+    "count_ms": 44.21475,
+    "update_ms": 90.418458,
+    "check_ms": 1.505875,
+    "cleanup_ms": 9.471208,
+    "retire_ms": 0.014417,
+    "wait_ms": 6.5265,
+    "close_ms": 2.928125
+  }
+]

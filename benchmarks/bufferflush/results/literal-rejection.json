@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "literal": "O_DIRECT_NOSYNC",
+  "rejected": true,
+  "returncode_nonzero": true,
+  "returncode_exact": "not persisted before initial controller assertion; nonzero assertion passed",
+  "raw_cleanup_complete": false,
+  "root_never_admitted": true,
+  "scratch_empty": true,
+  "startup_shutdown_diagnostic": "unimplemented WASIX: Proc_exit2",
+  "controller_correction": "Original collector required cleanup_complete on startup failure, but probe exits before its root cleanup defer is installed. Preserve raw false; validate rejection/no-admission/empty scratch separately. This is not positive-runtime cleanup PASS. No retry of literal failure; all primary runs still pending.",
+  "report_sha256": "0a2fe2308c84badba22e58060406eb9f92f4ff42e88adad093451e0d7d7d8c27",
+  "log_sha256": "afb4a274c579415f16be0fd2f5c8fbc079cfe41f20a95632479ea924c4a34d99",
+  "timed_arm": false
+}

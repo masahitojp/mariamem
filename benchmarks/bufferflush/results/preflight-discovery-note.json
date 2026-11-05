@@ -1,0 +1,10 @@
+{
+  "result": "PASS_RUNTIME_COLLECTOR_SCHEMA_CORRECTED",
+  "processes": 1,
+  "children": 8,
+  "primary": false,
+  "source_commit": "549fd3ba4fdc92b407534bd2b4ce844951fbd4df",
+  "finding": "innodb_log_file_buffering is absent from SHOW GLOBAL VARIABLES in the pinned guest; the other four flush-method variables are present. Do not interpret absence as OFF. Initial successful preflight stopped collector before its memory/records save. Preserve report/log and repeat only the preflight under repetition -3; primary matrix not started.",
+  "runtime_success": true,
+  "cleanup_complete": true
+}
