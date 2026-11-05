@@ -1,0 +1,708 @@
+{
+  "cells": [
+    {
+      "parallel": 4,
+      "mode": "primary",
+      "variant": "baseline",
+      "processes": 5,
+      "process_values": [
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "variant": "baseline",
+          "round": 0,
+          "batch_ms": 1050.170666,
+          "cpu_per_child_ms": 65.43977083333333,
+          "fork_p50_ms": 42.287063,
+          "sql_over100ms": 1
+        },
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "variant": "baseline",
+          "round": 1,
+          "batch_ms": 679.926708,
+          "cpu_per_child_ms": 67.58179166666667,
+          "fork_p50_ms": 36.975396,
+          "sql_over100ms": 0
+        },
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "variant": "baseline",
+          "round": 2,
+          "batch_ms": 1247.518542,
+          "cpu_per_child_ms": 65.63166666666666,
+          "fork_p50_ms": 36.6715205,
+          "sql_over100ms": 1
+        },
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "variant": "baseline",
+          "round": 3,
+          "batch_ms": 686.651083,
+          "cpu_per_child_ms": 71.7355,
+          "fork_p50_ms": 38.651583,
+          "sql_over100ms": 0
+        },
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "variant": "baseline",
+          "round": 4,
+          "batch_ms": 1475.432709,
+          "cpu_per_child_ms": 68.86660416666668,
+          "fork_p50_ms": 39.986604,
+          "sql_over100ms": 1
+        }
+      ],
+      "batch_ms_median": 1050.170666,
+      "cpu_per_child_ms_median": 67.58179166666667,
+      "fork_p50_ms_median": 38.651583,
+      "sql_over100ms_median": 1
+    },
+    {
+      "parallel": 4,
+      "mode": "primary",
+      "variant": "candidate",
+      "processes": 5,
+      "process_values": [
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "variant": "candidate",
+          "round": 0,
+          "batch_ms": 739.590583,
+          "cpu_per_child_ms": 67.22591666666666,
+          "fork_p50_ms": 41.9061665,
+          "sql_over100ms": 0
+        },
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "variant": "candidate",
+          "round": 1,
+          "batch_ms": 673.002958,
+          "cpu_per_child_ms": 64.898,
+          "fork_p50_ms": 36.7792495,
+          "sql_over100ms": 0
+        },
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "variant": "candidate",
+          "round": 2,
+          "batch_ms": 663.283375,
+          "cpu_per_child_ms": 67.00354166666666,
+          "fork_p50_ms": 36.546167,
+          "sql_over100ms": 0
+        },
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "variant": "candidate",
+          "round": 3,
+          "batch_ms": 699.86975,
+          "cpu_per_child_ms": 67.55222916666666,
+          "fork_p50_ms": 38.343500000000006,
+          "sql_over100ms": 0
+        },
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "variant": "candidate",
+          "round": 4,
+          "batch_ms": 660.536875,
+          "cpu_per_child_ms": 66.94225,
+          "fork_p50_ms": 36.795292,
+          "sql_over100ms": 0
+        }
+      ],
+      "batch_ms_median": 673.002958,
+      "cpu_per_child_ms_median": 67.00354166666666,
+      "fork_p50_ms_median": 36.795292,
+      "sql_over100ms_median": 0
+    },
+    {
+      "parallel": 4,
+      "mode": "diagnostic",
+      "variant": "baseline",
+      "processes": 3,
+      "process_values": [
+        {
+          "parallel": 4,
+          "mode": "diagnostic",
+          "variant": "baseline",
+          "round": 0,
+          "batch_ms": 713.0765,
+          "cpu_per_child_ms": 67.41127083333333,
+          "fork_p50_ms": 41.6740415,
+          "sql_over100ms": 0,
+          "server_init_mean_ms": 32.9874939375,
+          "memory_mean_ms": 3.0477188125,
+          "block_prefix_bytes_per_child": 6456892.583333333,
+          "mapped_prefix_bytes_per_child": 0.0
+        },
+        {
+          "parallel": 4,
+          "mode": "diagnostic",
+          "variant": "baseline",
+          "round": 1,
+          "batch_ms": 820.729334,
+          "cpu_per_child_ms": 67.32464583333334,
+          "fork_p50_ms": 47.5158955,
+          "sql_over100ms": 0,
+          "server_init_mean_ms": 37.64234552083333,
+          "memory_mean_ms": 3.466791729166667,
+          "block_prefix_bytes_per_child": 6242866.5,
+          "mapped_prefix_bytes_per_child": 0.0
+        },
+        {
+          "parallel": 4,
+          "mode": "diagnostic",
+          "variant": "baseline",
+          "round": 2,
+          "batch_ms": 719.804583,
+          "cpu_per_child_ms": 68.94039583333334,
+          "fork_p50_ms": 42.089792,
+          "sql_over100ms": 0,
+          "server_init_mean_ms": 34.27271177083333,
+          "memory_mean_ms": 2.7744704166666665,
+          "block_prefix_bytes_per_child": 6550407.666666667,
+          "mapped_prefix_bytes_per_child": 0.0
+        }
+      ],
+      "batch_ms_median": 719.804583,
+      "cpu_per_child_ms_median": 67.41127083333333,
+      "fork_p50_ms_median": 42.089792,
+      "sql_over100ms_median": 0,
+      "server_init_mean_ms_median": 34.27271177083333,
+      "memory_mean_ms_median": 3.0477188125,
+      "block_prefix_bytes_per_child_median": 6456892.583333333,
+      "mapped_prefix_bytes_per_child_median": 0.0
+    },
+    {
+      "parallel": 4,
+      "mode": "diagnostic",
+      "variant": "candidate",
+      "processes": 3,
+      "process_values": [
+        {
+          "parallel": 4,
+          "mode": "diagnostic",
+          "variant": "candidate",
+          "round": 0,
+          "batch_ms": 699.795166,
+          "cpu_per_child_ms": 67.534875,
+          "fork_p50_ms": 40.587020499999994,
+          "sql_over100ms": 0,
+          "server_init_mean_ms": 33.0346919375,
+          "memory_mean_ms": 3.0031111666666668,
+          "block_prefix_bytes_per_child": 6640529.833333333,
+          "mapped_prefix_bytes_per_child": 0.0
+        },
+        {
+          "parallel": 4,
+          "mode": "diagnostic",
+          "variant": "candidate",
+          "round": 1,
+          "batch_ms": 723.115542,
+          "cpu_per_child_ms": 71.81725,
+          "fork_p50_ms": 40.5011665,
+          "sql_over100ms": 0,
+          "server_init_mean_ms": 34.26050689583333,
+          "memory_mean_ms": 2.895756958333333,
+          "block_prefix_bytes_per_child": 6599218.4375,
+          "mapped_prefix_bytes_per_child": 0.0
+        },
+        {
+          "parallel": 4,
+          "mode": "diagnostic",
+          "variant": "candidate",
+          "round": 2,
+          "batch_ms": 978.654209,
+          "cpu_per_child_ms": 68.5366875,
+          "fork_p50_ms": 37.447354000000004,
+          "sql_over100ms": 1,
+          "server_init_mean_ms": 32.09507283333333,
+          "memory_mean_ms": 2.8518862291666665,
+          "block_prefix_bytes_per_child": 6590675.0,
+          "mapped_prefix_bytes_per_child": 0.0
+        }
+      ],
+      "batch_ms_median": 723.115542,
+      "cpu_per_child_ms_median": 68.5366875,
+      "fork_p50_ms_median": 40.5011665,
+      "sql_over100ms_median": 0,
+      "server_init_mean_ms_median": 33.0346919375,
+      "memory_mean_ms_median": 2.895756958333333,
+      "block_prefix_bytes_per_child_median": 6599218.4375,
+      "mapped_prefix_bytes_per_child_median": 0.0
+    },
+    {
+      "parallel": 8,
+      "mode": "primary",
+      "variant": "baseline",
+      "processes": 5,
+      "process_values": [
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "variant": "baseline",
+          "round": 0,
+          "batch_ms": 584.108292,
+          "cpu_per_child_ms": 72.01372916666666,
+          "fork_p50_ms": 60.268917,
+          "sql_over100ms": 0
+        },
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "variant": "baseline",
+          "round": 1,
+          "batch_ms": 1216.3335,
+          "cpu_per_child_ms": 72.51629166666667,
+          "fork_p50_ms": 55.094854,
+          "sql_over100ms": 2
+        },
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "variant": "baseline",
+          "round": 2,
+          "batch_ms": 555.636459,
+          "cpu_per_child_ms": 72.85600000000001,
+          "fork_p50_ms": 57.026292,
+          "sql_over100ms": 0
+        },
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "variant": "baseline",
+          "round": 3,
+          "batch_ms": 576.137917,
+          "cpu_per_child_ms": 73.07375,
+          "fork_p50_ms": 61.002479,
+          "sql_over100ms": 0
+        },
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "variant": "baseline",
+          "round": 4,
+          "batch_ms": 870.315833,
+          "cpu_per_child_ms": 72.82729166666667,
+          "fork_p50_ms": 62.317417,
+          "sql_over100ms": 1
+        }
+      ],
+      "batch_ms_median": 584.108292,
+      "cpu_per_child_ms_median": 72.82729166666667,
+      "fork_p50_ms_median": 60.268917,
+      "sql_over100ms_median": 0
+    },
+    {
+      "parallel": 8,
+      "mode": "primary",
+      "variant": "candidate",
+      "processes": 5,
+      "process_values": [
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "variant": "candidate",
+          "round": 0,
+          "batch_ms": 938.82225,
+          "cpu_per_child_ms": 71.75274999999999,
+          "fork_p50_ms": 58.139770999999996,
+          "sql_over100ms": 2
+        },
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "variant": "candidate",
+          "round": 1,
+          "batch_ms": 1294.884542,
+          "cpu_per_child_ms": 72.16772916666666,
+          "fork_p50_ms": 56.224708,
+          "sql_over100ms": 2
+        },
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "variant": "candidate",
+          "round": 2,
+          "batch_ms": 882.851708,
+          "cpu_per_child_ms": 72.61060416666668,
+          "fork_p50_ms": 60.7401245,
+          "sql_over100ms": 1
+        },
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "variant": "candidate",
+          "round": 3,
+          "batch_ms": 596.123125,
+          "cpu_per_child_ms": 75.2163125,
+          "fork_p50_ms": 61.170563,
+          "sql_over100ms": 0
+        },
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "variant": "candidate",
+          "round": 4,
+          "batch_ms": 997.061709,
+          "cpu_per_child_ms": 74.81575,
+          "fork_p50_ms": 59.130917,
+          "sql_over100ms": 0
+        }
+      ],
+      "batch_ms_median": 938.82225,
+      "cpu_per_child_ms_median": 72.61060416666668,
+      "fork_p50_ms_median": 59.130917,
+      "sql_over100ms_median": 1
+    },
+    {
+      "parallel": 8,
+      "mode": "diagnostic",
+      "variant": "baseline",
+      "processes": 3,
+      "process_values": [
+        {
+          "parallel": 8,
+          "mode": "diagnostic",
+          "variant": "baseline",
+          "round": 0,
+          "batch_ms": 609.929958,
+          "cpu_per_child_ms": 74.65433333333334,
+          "fork_p50_ms": 65.348625,
+          "sql_over100ms": 0,
+          "server_init_mean_ms": 51.29501570833333,
+          "memory_mean_ms": 5.362225645833333,
+          "block_prefix_bytes_per_child": 6041831.333333333,
+          "mapped_prefix_bytes_per_child": 0.0
+        },
+        {
+          "parallel": 8,
+          "mode": "diagnostic",
+          "variant": "baseline",
+          "round": 1,
+          "batch_ms": 968.981792,
+          "cpu_per_child_ms": 76.63052083333334,
+          "fork_p50_ms": 68.8333125,
+          "sql_over100ms": 1,
+          "server_init_mean_ms": 49.81271958333333,
+          "memory_mean_ms": 5.686857708333333,
+          "block_prefix_bytes_per_child": 6391356.5,
+          "mapped_prefix_bytes_per_child": 0.0
+        },
+        {
+          "parallel": 8,
+          "mode": "diagnostic",
+          "variant": "baseline",
+          "round": 2,
+          "batch_ms": 1208.511708,
+          "cpu_per_child_ms": 77.52735416666667,
+          "fork_p50_ms": 60.3428335,
+          "sql_over100ms": 1,
+          "server_init_mean_ms": 45.359710041666666,
+          "memory_mean_ms": 6.313931520833333,
+          "block_prefix_bytes_per_child": 6401245.270833333,
+          "mapped_prefix_bytes_per_child": 0.0
+        }
+      ],
+      "batch_ms_median": 968.981792,
+      "cpu_per_child_ms_median": 76.63052083333334,
+      "fork_p50_ms_median": 65.348625,
+      "sql_over100ms_median": 1,
+      "server_init_mean_ms_median": 49.81271958333333,
+      "memory_mean_ms_median": 5.686857708333333,
+      "block_prefix_bytes_per_child_median": 6391356.5,
+      "mapped_prefix_bytes_per_child_median": 0.0
+    },
+    {
+      "parallel": 8,
+      "mode": "diagnostic",
+      "variant": "candidate",
+      "processes": 3,
+      "process_values": [
+        {
+          "parallel": 8,
+          "mode": "diagnostic",
+          "variant": "candidate",
+          "round": 0,
+          "batch_ms": 1127.279875,
+          "cpu_per_child_ms": 76.79154166666666,
+          "fork_p50_ms": 62.6374165,
+          "sql_over100ms": 1,
+          "server_init_mean_ms": 48.45509460416667,
+          "memory_mean_ms": 5.272645791666667,
+          "block_prefix_bytes_per_child": 6187229.104166667,
+          "mapped_prefix_bytes_per_child": 0.0
+        },
+        {
+          "parallel": 8,
+          "mode": "diagnostic",
+          "variant": "candidate",
+          "round": 1,
+          "batch_ms": 1087.263667,
+          "cpu_per_child_ms": 75.33260416666667,
+          "fork_p50_ms": 53.8276045,
+          "sql_over100ms": 2,
+          "server_init_mean_ms": 46.87623,
+          "memory_mean_ms": 4.222513979166667,
+          "block_prefix_bytes_per_child": 6410471.041666667,
+          "mapped_prefix_bytes_per_child": 0.0
+        },
+        {
+          "parallel": 8,
+          "mode": "diagnostic",
+          "variant": "candidate",
+          "round": 2,
+          "batch_ms": 699.035417,
+          "cpu_per_child_ms": 76.17166666666667,
+          "fork_p50_ms": 71.943021,
+          "sql_over100ms": 0,
+          "server_init_mean_ms": 62.266791749999996,
+          "memory_mean_ms": 6.505252625,
+          "block_prefix_bytes_per_child": 6160255.0625,
+          "mapped_prefix_bytes_per_child": 0.0
+        }
+      ],
+      "batch_ms_median": 1087.263667,
+      "cpu_per_child_ms_median": 76.17166666666667,
+      "fork_p50_ms_median": 62.6374165,
+      "sql_over100ms_median": 1,
+      "server_init_mean_ms_median": 48.45509460416667,
+      "memory_mean_ms_median": 5.272645791666667,
+      "block_prefix_bytes_per_child_median": 6187229.104166667,
+      "mapped_prefix_bytes_per_child_median": 0.0
+    }
+  ],
+  "paired": [
+    {
+      "parallel": 4,
+      "mode": "primary",
+      "pairs": [
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "round": 0,
+          "fork_saved_ms": 0.38089650000000574,
+          "fork_saved_percent": 0.900740020653612,
+          "cpu_saved_percent": -2.7294500127184484,
+          "batch_saved_percent": 29.57424855361557
+        },
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "round": 1,
+          "fork_saved_ms": 0.19614650000000466,
+          "fork_saved_percent": 0.5304784294940523,
+          "cpu_saved_percent": 3.9711756680023136,
+          "batch_saved_percent": 1.0183082850747427
+        },
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "round": 2,
+          "fork_saved_ms": 0.12535350000000278,
+          "fork_saved_percent": 0.34182793156886104,
+          "cpu_saved_percent": -2.090263846212448,
+          "batch_saved_percent": 46.83178224055607
+        },
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "round": 3,
+          "fork_saved_ms": 0.30808299999999633,
+          "fork_saved_percent": 0.7970773150481225,
+          "cpu_saved_percent": 5.831521120412264,
+          "batch_saved_percent": -1.9250922815481797
+        },
+        {
+          "parallel": 4,
+          "mode": "primary",
+          "round": 4,
+          "fork_saved_ms": 3.1913119999999964,
+          "fork_saved_percent": 7.980952821099773,
+          "cpu_saved_percent": 2.794321267837563,
+          "batch_saved_percent": 55.23097251600919
+        }
+      ],
+      "fork_saved_ms_median": 0.30808299999999633,
+      "fork_saved_percent_median": 0.7970773150481225,
+      "cpu_saved_percent_median": 2.794321267837563,
+      "batch_saved_percent_median": 29.57424855361557,
+      "fork_wins": 5,
+      "cpu_wins": 3
+    },
+    {
+      "parallel": 4,
+      "mode": "diagnostic",
+      "pairs": [
+        {
+          "parallel": 4,
+          "mode": "diagnostic",
+          "round": 0,
+          "fork_saved_ms": 1.0870210000000071,
+          "fork_saved_percent": 2.6083887256291405,
+          "cpu_saved_percent": -0.1833583095804059,
+          "batch_saved_percent": 1.862539853718359,
+          "server_init_saved_ms": -0.04719800000000163,
+          "memory_saved_ms": 0.0446076458333331
+        },
+        {
+          "parallel": 4,
+          "mode": "diagnostic",
+          "round": 1,
+          "fork_saved_ms": 7.014729000000003,
+          "fork_saved_percent": 14.762910234954962,
+          "cpu_saved_percent": -6.673045377451237,
+          "batch_saved_percent": 11.893542481814112,
+          "server_init_saved_ms": 3.3818386250000003,
+          "memory_saved_ms": 0.5710347708333336
+        },
+        {
+          "parallel": 4,
+          "mode": "diagnostic",
+          "round": 2,
+          "fork_saved_ms": 4.6424379999999985,
+          "fork_saved_percent": 11.029843055532318,
+          "cpu_saved_percent": 0.5855903907330706,
+          "batch_saved_percent": -35.96109723574794,
+          "server_init_saved_ms": 2.1776389374999994,
+          "memory_saved_ms": -0.07741581249999996
+        }
+      ],
+      "fork_saved_ms_median": 4.6424379999999985,
+      "fork_saved_percent_median": 11.029843055532318,
+      "cpu_saved_percent_median": -0.1833583095804059,
+      "batch_saved_percent_median": 1.862539853718359,
+      "server_init_saved_ms_median": 2.1776389374999994,
+      "memory_saved_ms_median": 0.0446076458333331,
+      "fork_wins": 3,
+      "cpu_wins": 1
+    },
+    {
+      "parallel": 8,
+      "mode": "primary",
+      "pairs": [
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "round": 0,
+          "fork_saved_ms": 2.1291460000000058,
+          "fork_saved_percent": 3.5327430887799216,
+          "cpu_saved_percent": 0.3624019609686724,
+          "batch_saved_percent": -60.72743065938191
+        },
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "round": 1,
+          "fork_saved_ms": -1.1298540000000017,
+          "fork_saved_percent": -2.050743250903264,
+          "cpu_saved_percent": 0.4806678499256978,
+          "batch_saved_percent": -6.458018462864024
+        },
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "round": 2,
+          "fork_saved_ms": -3.7138325000000023,
+          "fork_saved_percent": -6.512491641574747,
+          "cpu_saved_percent": 0.33682309395702825,
+          "batch_saved_percent": -58.89016886849034
+        },
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "round": 3,
+          "fork_saved_ms": -0.16808400000000034,
+          "fork_saved_percent": -0.2755363433672997,
+          "cpu_saved_percent": -2.9320549444910027,
+          "batch_saved_percent": -3.4688235941950474
+        },
+        {
+          "parallel": 8,
+          "mode": "primary",
+          "round": 4,
+          "fork_saved_ms": 3.1865000000000023,
+          "fork_saved_percent": 5.113337736703693,
+          "cpu_saved_percent": -2.730375231354998,
+          "batch_saved_percent": -14.563204665954865
+        }
+      ],
+      "fork_saved_ms_median": -0.16808400000000034,
+      "fork_saved_percent_median": -0.2755363433672997,
+      "cpu_saved_percent_median": 0.33682309395702825,
+      "batch_saved_percent_median": -14.563204665954865,
+      "fork_wins": 2,
+      "cpu_wins": 3
+    },
+    {
+      "parallel": 8,
+      "mode": "diagnostic",
+      "pairs": [
+        {
+          "parallel": 8,
+          "mode": "diagnostic",
+          "round": 0,
+          "fork_saved_ms": 2.711208499999998,
+          "fork_saved_percent": 4.148837867667455,
+          "cpu_saved_percent": -2.862805463402429,
+          "batch_saved_percent": -84.82120122389527,
+          "server_init_saved_ms": 2.839921104166663,
+          "memory_saved_ms": 0.08957985416666592
+        },
+        {
+          "parallel": 8,
+          "mode": "diagnostic",
+          "round": 1,
+          "fork_saved_ms": 15.005708000000006,
+          "fork_saved_percent": 21.800066646509286,
+          "cpu_saved_percent": 1.6937333226398898,
+          "batch_saved_percent": -12.206821219608631,
+          "server_init_saved_ms": 2.9364895833333335,
+          "memory_saved_ms": 1.464343729166666
+        },
+        {
+          "parallel": 8,
+          "mode": "diagnostic",
+          "round": 2,
+          "fork_saved_ms": -11.600187500000004,
+          "fork_saved_percent": -19.223803104970205,
+          "cpu_saved_percent": 1.748656992840969,
+          "batch_saved_percent": 42.157331834471556,
+          "server_init_saved_ms": -16.90708170833333,
+          "memory_saved_ms": -0.1913211041666667
+        }
+      ],
+      "fork_saved_ms_median": 2.711208499999998,
+      "fork_saved_percent_median": 4.148837867667455,
+      "cpu_saved_percent_median": 1.6937333226398898,
+      "batch_saved_percent_median": -12.206821219608631,
+      "server_init_saved_ms_median": 2.839921104166663,
+      "memory_saved_ms_median": 0.08957985416666592,
+      "fork_wins": 2,
+      "cpu_wins": 2
+    }
+  ],
+  "gates": {
+    "correctness": true,
+    "mechanism": true,
+    "p4_fork": false,
+    "p4_cpu": false,
+    "p8_guard": true,
+    "batch_guard": false
+  },
+  "prediction": {
+    "p4_supported": true,
+    "p4_server_init_saved_ms_median": 2.1776389374999994,
+    "p8_server_init_saved_ms_median": 2.839921104166663
+  },
+  "recommendation": "STOP_THIS_ROUND_THRESHOLDS_NOT_MET"
+}

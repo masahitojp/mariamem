@@ -1,0 +1,36 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "harness_source_commit": "d77a51193901de44f28e284f870530d270faf64b",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "binary_sha256": "3b2014f370c663fb2edd40d8b70071f525d1f0ba57c065f35f261fc58d60e4d0",
+  "toolchain": "go version go1.27.3 darwin/arm64",
+  "buildinfo": "<WORKSPACE>/temp/probe: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/forkcompare\tv0.0.0-20261105061423-d77a51193901\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t../..\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=d77a51193901de44f28e284f870530d270faf64b\n\tbuild\tvcs.time=2026-11-05T06:14:23Z\n\tbuild\tvcs.modified=false\n",
+  "overlay": [
+    {
+      "path": "internal/timing/timing.go",
+      "before_sha256": "9eef3299e19ff03f66c12ac1ad4de392bef005fd51c4ce98829910b3333852e2",
+      "after_sha256": "59f7c80c651b9369d48c5dee1228c43cb464664969e0d5ea9ff8e862ca38147d"
+    },
+    {
+      "path": "internal/guest/linked.go",
+      "before_sha256": "dcbde6db301a183cfa6c495323aed4c6c1319066aea0876a38a7596f2af228cd",
+      "after_sha256": "dd67786f27b1c0c2b588fc755a6d0689c61842a834bcda216cd0f2e5c41f2bef"
+    },
+    {
+      "path": "internal/generatedgo/runtime_instance.go",
+      "before_sha256": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+      "after_sha256": "b834f832e00febb6fa80ec79ec64751af049b70006e3461165ee973e1706c5fd"
+    },
+    {
+      "path": "internal/generatedgo/memory_backing_unix.go",
+      "before_sha256": "c0e5b2538e5761e7fdaa4f542eeafd78cfc099949417e50798a9b279e9ba8b54",
+      "after_sha256": "311f820813a7de664aa3f24b37f0d5ce912b892cbebaec4df61ccd9e9bd259fa"
+    },
+    {
+      "path": "internal/prepared/root.go",
+      "before_sha256": "f91ada0b4ea815791b035bb3551bed1db4c8bb836683ee14673ac62da7434212",
+      "after_sha256": "b7e9e617ba40bd80ee0b1795edaca39e3cd8d94518a681ae36512c551bd8268a"
+    }
+  ],
+  "build_seconds": 142.234855584
+}
