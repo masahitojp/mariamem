@@ -1,0 +1,4 @@
+name,parallel,children,update_p50_ms,update_max_ms,update_over100,captures
+natural-0,8,48,0.63,29.17575,0,0
+natural-1,4,48,0.30985450000000003,4.495083,0,0
+natural-2,8,48,0.861271,16.292625,0,0
