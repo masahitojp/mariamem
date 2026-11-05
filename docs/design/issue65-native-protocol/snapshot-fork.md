@@ -11,6 +11,9 @@ workers join. The strongest objection is that 3C proved only fresh execution:
 rollback, restore validation and failure ownership still require real execution.
 Proceed with one bounded capture/Fork proof before Live or consumer qualification.
 
+Subsequent execution: [bounded3D.1 report](../../../benchmarks/spikes/issue65-native-capture/README.md).
+The proposal below retains its original design-only decision/evidence context.
+
 ## Basis and scope
 
 Inspected source_commit `402cd68a9625a676f5ccaf83c47fdf7819bdd2da` on

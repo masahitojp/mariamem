@@ -1,0 +1,9 @@
+{
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "net_serv_sha256": "7d7b8b8a8de1834099f350912ed9255a1f376565da407e8dc461f97c72f12c93",
+  "noncompressed_path": "my_net_read_packet_reallen calls my_real_read; vio_read bounded by exact header/body remain; no next-command buffer bypass identified in this declared profile",
+  "compressed_path": "remain_in_buf path exists; CLIENT_COMPRESS (32) is absent from experimental native capability mask; no compressed acceptance claimed",
+  "rollback": "trans_rollback(THD*) returns bool; true on trans_check/ha_rollback_trans failure; owner calls it and reports CLEANUP_RESULT before THD unpublish/cleanup",
+  "engine_shutdown": "existing l4m_close is void; injection tests failure disposition, not detection of every real storage failure",
+  "runtime_verification": "still required; this is fixed-source inspection only"
+}

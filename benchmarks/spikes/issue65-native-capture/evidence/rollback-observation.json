@@ -1,0 +1,10 @@
+{
+  "guest_source_commit": "5d9915d9940ff691249361aafb6ea39551f29a87",
+  "guest_sha256": "c4c72644cd3fa4605a936a7eafe8d622ab4f670e5b7bdbfbdf30f0a351e8dfcf",
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "location": "THD::cleanup after table/temp cleanup, directly observing its existing trans_rollback(this) call",
+  "native_only": "mariamem_native_wire guard; embedded API retains original behavior",
+  "result": "true rollback failure is latched by CLEANUP_RESULT; exactly one report per native session required for successful capture",
+  "engine_shutdown_limit": "l4m_close remains void; injected engine failure tests disposition, not exhaustive real I/O failure detection",
+  "profile": "uncompressed; exact read sizes in native NET; no second host MySQL parser"
+}

@@ -14,17 +14,20 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Issue #65 — native protocol exploration, 3D design selected
+## Issue #65 — native protocol 3D.1 experiment, not adopted
 
-The Human selected continuation to stopped-root Snapshot/Fork design after the
-isolated generated-Go native endpoint passed its four scoped 3C cases. The
-[3C report](../benchmarks/spikes/issue65-go-wire/README.md) pins the actual guest,
-host and limits. The [3D design](design/issue65-native-protocol/snapshot-fork.md)
-keeps the existing cold-file/fresh-runtime ownership contract and proposes a
-correlated guest fence/capture shutdown. Runtime capture/restore, Live, both-host
-qualification and product adoption remain unproven; no main integration or
-release is selected. The next bounded capture/Fork proof is a recommendation,
-not work already completed or an automatically started campaign.
+The Human selected bounded capture/Fork implementation after the
+[3D design](design/issue65-native-protocol/snapshot-fork.md). The isolated native
+endpoint passes its scoped macOS arm64 [3D.1 experiment](../benchmarks/spikes/issue65-native-capture/README.md):
+stopped-root capture, fresh independent Forks, rollback, child recapture,
+parent Close, input/output fences, Go Pipe and failure ownership controls.
+The report pins actual guest/host/template/binary identities and distinguishes
+controlled failures from native execution. The earlier
+[3C evidence](../benchmarks/spikes/issue65-go-wire/README.md) keeps its own scope.
+Linux x86_64, Live, public API/CI integration and protocol/consumer acceptance
+remain unqualified. Existing production-guest Go test bindings need adaptation
+before adopting a different guest. No main integration, release, or fatal-wire
+contract change is selected; further campaigns are separate Human choices.
 
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 

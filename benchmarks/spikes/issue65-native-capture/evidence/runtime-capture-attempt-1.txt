@@ -1,0 +1,38 @@
+# github.com/masahitojp/mariamem/internal/generatedgo [github.com/masahitojp/mariamem/internal/generatedgo.test]
+internal/generatedgo/memory_backing_test.go:46:13: too many arguments in call to p8.Fn66
+	have (*base.Module, number)
+	want (*base.Module)
+internal/generatedgo/memory_backing_test.go:48:13: not enough arguments in call to p8.Fn68
+	have (*base.Module)
+	want (*base.Module, int32)
+internal/generatedgo/memory_backing_test.go:48:26: p8.Fn80(m, 0, 131072) (no value) used as value
+internal/generatedgo/memory_backing_test.go:48:40: too many arguments in call to p8.Fn80
+	have (*base.Module, number, number)
+	want (*base.Module, int32)
+internal/generatedgo/memory_backing_test.go:69:18: too many arguments in call to p8.Fn66
+	have (*base.Module, number)
+	want (*base.Module)
+internal/generatedgo/memory_backing_test.go:71:65: not enough arguments in call to p8.Fn68
+	have (*base.Module)
+	want (*base.Module, int32)
+internal/generatedgo/memory_backing_test.go:77:98: not enough arguments in call to p8.Fn68
+	have (*base.Module)
+	want (*base.Module, int32)
+internal/generatedgo/memory_backing_test.go:80:128: not enough arguments in call to p8.Fn68
+	have (*base.Module)
+	want (*base.Module, int32)
+internal/generatedgo/memory_backing_test.go:83:5: p8.Fn80(m, 0, (2 << 30) - 65536) (no value) used as value
+internal/generatedgo/memory_backing_test.go:83:19: too many arguments in call to p8.Fn80
+	have (*base.Module, number, number)
+	want (*base.Module, int32)
+internal/generatedgo/memory_backing_test.go:83:5: too many errors
+FAIL	github.com/masahitojp/mariamem/internal/generatedgo [build failed]
+FAIL
+Traceback (most recent call last):
+  File "/exp/temp/tools/runtime_tests.py", line 5, in <module>
+    os.environ['MARIAMEM_DEV_WORKSPACE']=str(w);env=go_environment({k:v for k,v in os.environ.items() if k not in ('GOCACHE','GOPATH','GOMODCACHE')});env.update(GOTOOLCHAIN='go1.26.10',CGO_ENABLED='0',GOWORK='off',GOENV='off',GOMAXPROCS='2',GOGC='50')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.10/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['go', 'test', '-p', '1', '-buildvcs=false', '-v', '-run', '^TestWireCaptureWaitsForFailedWorkerPeer$', '-timeout', '30s', './internal/generatedgo']' returned non-zero exit status 1.

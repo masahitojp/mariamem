@@ -1,0 +1,101 @@
+{
+  "profile": "3D.1 development native protocol endpoint, macOS arm64, Go1.26.10",
+  "result": "PASS for scoped experiment",
+  "cases": [
+    {
+      "name": "TestCaptureForkRollbackAndRecapture",
+      "elapsed": "0.26s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCapturePartialAndOutputRejection",
+      "elapsed": "0.41s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureQueuedFenceAndDuplicate",
+      "elapsed": "0.08s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureFailureControls",
+      "elapsed": "0.70s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureOrdinaryStopAndEOF",
+      "elapsed": "0.08s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureDebtCannotBeForgiven",
+      "elapsed": "0.08s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureConcatenatedInputAndForeignEpoch",
+      "elapsed": "0.08s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureGoPipe",
+      "elapsed": "0.08s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureRejectsInvalidRestore",
+      "elapsed": "0.08s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureJoinCancellationRetainsLease",
+      "elapsed": "0.00s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestProtocolPrepared",
+      "elapsed": "0.14s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestQueryDeadlineAndIsolation",
+      "elapsed": "0.89s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestPartialInputDeadline",
+      "elapsed": "0.87s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestSlowOutputControl",
+      "elapsed": "3.07s",
+      "result": "PASS"
+    }
+  ],
+  "subcases": [
+    "TestCaptureFailureControls/lost_fence",
+    "TestCaptureFailureControls/lost_stop_ack",
+    "TestCaptureFailureControls/lost_receipt",
+    "TestCaptureFailureControls/wrong_fence",
+    "TestCaptureFailureControls/wrong_stop_ack",
+    "TestCaptureFailureControls/wrong_receipt",
+    "TestCaptureFailureControls/cancel_before",
+    "TestCaptureFailureControls/cancel_after_fence",
+    "TestCaptureFailureControls/cleanup_failure",
+    "TestCaptureFailureControls/engine_failure",
+    "TestCaptureOrdinaryStopAndEOF/ordinary_stop",
+    "TestCaptureOrdinaryStopAndEOF/private_eof"
+  ],
+  "suite_sha256": "c80994623f3cee3ba6b22c862d145f5b73e4499956bffab4623b2c44574f16f8",
+  "controlled_worker_peer_test": "PASS with actual ThreadPool and capture adapter boundary; deliberately released peer, no forced goroutine kill claim",
+  "expected_failure_output": "FAIL:product fresh/restore bootstrap belongs to invalid-restore negative test, not a failed Go test",
+  "not_qualified": [
+    "Linux x86_64 host",
+    "Live",
+    "public API integration",
+    "full protocol/client compatibility",
+    "real storage-error detection through void engine shutdown",
+    "performance or race freedom"
+  ]
+}

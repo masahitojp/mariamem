@@ -1,0 +1,14 @@
+{
+  "guest_sha256": "c4c72644cd3fa4605a936a7eafe8d622ab4f670e5b7bdbfbdf30f0a351e8dfcf",
+  "guest_source_commit": "5d9915d9940ff691249361aafb6ea39551f29a87",
+  "host_source_commit": "ecd5d2b7ceff2085cac59f629c36d688007fc6bc",
+  "binary_sha256": "c828cc36786d3579a13ae54650531f7782e4e0c5e8cae9f18c92f1b27fd5cf74",
+  "compiled_product_files_verified": 7158,
+  "template_hashes_match": true,
+  "experimental_patch_source_blocks": {
+    "libmysqld/mariamem_control_abi.h": true,
+    "libmysqld/mariamem_wire_probe.inc": true,
+    "wasm/issue65_control.cc": true
+  },
+  "canonical_guest_patch_and_runtime_unchanged": true
+}

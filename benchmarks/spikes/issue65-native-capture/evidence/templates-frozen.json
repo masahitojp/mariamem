@@ -1,0 +1,7 @@
+{
+  "wire_test.go.txt": "25cad95e355ad88935ba1d84fc81b174e7ab9202cbb3a06be83fe1627e3108d4",
+  "main.go.txt": "16955b8e6bb4e34e34dec1750a4e66a46aeded19571300e9599e72b3b50ed4be",
+  "capture_test.go.txt": "89199311a56de2b354df6fa5a3759bc30ec9836f8d5ca87ec8512d040fd92467",
+  "runtime_wire.go.txt": "dbc22ca0753e2a4a9adb69dbacda5b7517db376ea44d122b2fc53cfb3a1b7f95",
+  "runtime_capture_test.go.txt": "99c011bbac5da0b2b922c8428555d797d34ee84a460533442d108917e9905c6d"
+}

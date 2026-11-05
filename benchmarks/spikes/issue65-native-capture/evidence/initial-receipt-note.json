@@ -1,0 +1,6 @@
+{
+  "status": "preliminary; not final acceptance",
+  "compiled_source_inventory": "host-build-initial.json records exact staged source hashes checked before/after compile",
+  "template_field_limitation": "external test templates advanced during first compile; those post-run template hashes are not the immutable original inputs; exact compiled copies preserved under initial-staged",
+  "final_pipeline": "template and assembler hashes must remain immutable through compilation"
+}

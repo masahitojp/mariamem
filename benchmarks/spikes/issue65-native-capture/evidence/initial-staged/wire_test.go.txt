@@ -1,0 +1,258 @@
+package main
+
+import (
+	"context"
+	"database/sql"
+	"encoding/json"
+	"fmt"
+	mysql "github.com/go-sql-driver/mysql"
+	"net"
+	"strings"
+	"testing"
+	"time"
+)
+
+func rootFor(t *testing.T, ms uint64) *instance {
+	t.Helper()
+	r, e := newInstance(ms)
+	if e != nil {
+		t.Fatal(e)
+	}
+	t.Cleanup(func() {
+		if e := r.close(); e != nil {
+			t.Logf("cleanup instance=%d: %v", r.epoch, e)
+			if strings.Contains(e.Error(), "join incomplete") {
+				t.Error(e)
+			}
+		}
+	})
+	return r
+}
+func dbFor(t *testing.T, r *instance, track *net.Conn) *sql.DB {
+	t.Helper()
+	address := ""
+	if r.listener == nil {
+		var e error
+		address, e = r.serve()
+		if e != nil {
+			t.Fatal(e)
+		}
+	} else {
+		address = r.listener.Addr().String()
+	}
+	network := "tcp"
+	if track != nil {
+		network = fmt.Sprintf("wire%d", r.epoch)
+		mysql.RegisterDialContext(network, func(_ context.Context, _ string) (net.Conn, error) {
+			c, e := net.Dial("tcp", address)
+			if e == nil {
+				*track = c
+			}
+			return c, e
+		})
+	}
+	db, e := sql.Open("mysql", fmt.Sprintf("root:placeholder@%s(%s)/test?timeout=5s&readTimeout=8s&writeTimeout=8s", network, address))
+	if e != nil {
+		t.Fatal(e)
+	}
+	db.SetMaxOpenConns(2)
+	if e = db.Ping(); e != nil {
+		t.Fatal(e)
+	}
+	return db
+}
+func queryOne(t *testing.T, db *sql.DB, sqlText string) int {
+	t.Helper()
+	var n int
+	if e := db.QueryRow(sqlText).Scan(&n); e != nil {
+		t.Fatal(e)
+	}
+	return n
+}
+func joined(t *testing.T, r *instance, poisonExpected bool) {
+	t.Helper()
+	e := r.close()
+	if poisonExpected {
+		if e == nil || !strings.Contains(e.Error(), "deadline") {
+			t.Fatalf("original cause=%v", e)
+		}
+	} else if e != nil {
+		t.Fatal(e)
+	}
+	select {
+	case <-r.done:
+	default:
+		t.Fatal("no complete join")
+	}
+	r.mu.Lock()
+	final := append([]byte(nil), r.finalStats...)
+	r.mu.Unlock()
+	var counters map[string]any
+	if parseErr := json.Unmarshal(final, &counters); parseErr != nil {
+		t.Fatalf("missing native final counters: %s %v", final, parseErr)
+	}
+	if counters["started"] != counters["joined"] {
+		t.Fatalf("native owners not joined: %s", final)
+	}
+	t.Logf("joined instance=%d cause=%v native=%s", r.epoch, e, final)
+}
+func TestProtocolPrepared(t *testing.T) {
+	r := rootFor(t, 5000)
+	db := dbFor(t, r, nil)
+	if queryOne(t, db, "SELECT 42") != 42 {
+		t.Fatal("result")
+	}
+	if _, e := db.Exec("SELECT * FROM missing_table"); e == nil {
+		t.Fatal("native error absent")
+	}
+	if queryOne(t, db, "SELECT 43") != 43 {
+		t.Fatal("following SQL")
+	}
+	st, e := db.Prepare("SELECT ?, ?, ?")
+	if e != nil {
+		t.Fatal(e)
+	}
+	var n int
+	var b []byte
+	var null sql.NullString
+	if e = st.QueryRow(int64(42), []byte{'a', 0, 'b'}, nil).Scan(&n, &b, &null); e != nil {
+		t.Fatal(e)
+	}
+	if n != 42 || string(b) != "a\x00b" || null.Valid {
+		t.Fatal(n, b, null)
+	}
+	if e = st.Close(); e != nil {
+		t.Fatal(e)
+	}
+	if e = db.Ping(); e != nil {
+		t.Fatal(e)
+	}
+	db.Close()
+	time.Sleep(100 * time.Millisecond)
+	again := dbFor(t, r, nil)
+	if queryOne(t, again, "SELECT 47") != 47 {
+		t.Fatal("normal close poisoned instance")
+	}
+	again.Close()
+	joined(t, r, false)
+}
+func TestQueryDeadlineAndIsolation(t *testing.T) {
+	bad := rootFor(t, 800)
+	good := rootFor(t, 5000)
+	if bad.epoch == good.epoch {
+		t.Fatal("same process identity reused")
+	}
+	a := dbFor(t, bad, nil)
+	b := dbFor(t, good, nil)
+	id := bad.sequence.Add(1)
+	ch := make(chan frame, 1)
+	bad.mu.Lock()
+	var existing key
+	for candidate := range bad.sessions {
+		existing = candidate
+		break
+	}
+	bad.pending[id] = ch
+	bad.mu.Unlock()
+	bad.writeMu.Lock()
+	fault := writeFrame(bad.in, frame{kind: peerEOF, request: id, slot: existing.slot, generation: existing.generation, epoch: good.epoch})
+	bad.writeMu.Unlock()
+	if fault != nil {
+		t.Fatal(fault)
+	}
+	select {
+	case rejected := <-ch:
+		if rejected.kind != 110 || rejected.value != 5 {
+			t.Fatal("foreign epoch accepted", rejected)
+		}
+	case <-time.After(3 * time.Second):
+		t.Fatal("foreign epoch response absent")
+	}
+	bad.mu.Lock()
+	delete(bad.pending, id)
+	bad.mu.Unlock()
+	if queryOne(t, a, "SELECT 48") != 48 {
+		t.Fatal("foreign frame damaged source")
+	}
+	var waiting int
+	if e := a.QueryRow("SELECT SLEEP(10)").Scan(&waiting); e == nil {
+		t.Fatal("deadline did not abort")
+	}
+	select {
+	case <-bad.poisoned:
+	case <-time.After(3 * time.Second):
+		t.Fatal("missing poison")
+	}
+	if queryOne(t, b, "SELECT 44") != 44 {
+		t.Fatal("sibling lost")
+	}
+	a.Close()
+	joined(t, bad, true)
+	if queryOne(t, b, "SELECT 45") != 45 {
+		t.Fatal("join affected sibling")
+	}
+	b.Close()
+	joined(t, good, false)
+}
+func TestPartialInputDeadline(t *testing.T) {
+	r := rootFor(t, 800)
+	var connection net.Conn
+	db := dbFor(t, r, &connection)
+	db.SetMaxOpenConns(1)
+	if _, e := connection.Write([]byte{1}); e != nil {
+		t.Fatal(e)
+	}
+	select {
+	case <-r.poisoned:
+	case <-time.After(4 * time.Second):
+		t.Fatal("partial input deadline did not abort")
+	}
+	db.Close()
+	joined(t, r, true)
+}
+func TestSlowOutputControl(t *testing.T) {
+	r := rootFor(t, 3000)
+	db := dbFor(t, r, nil)
+	rows, e := db.Query("SELECT REPEAT('x',4194304)")
+	if e != nil {
+		t.Fatal(e)
+	}
+	var f frame
+	var snapshot map[string]any
+	blocked := false
+	until := time.Now().Add(2 * time.Second)
+	for time.Now().Before(until) {
+		f, e = r.rpc(frame{kind: stats})
+		if e != nil {
+			t.Fatal(e)
+		}
+		if e = json.Unmarshal(f.body, &snapshot); e != nil {
+			t.Fatal(e)
+		}
+		for _, entry := range snapshot["sessions"].([]any) {
+			if entry.(map[string]any)["outstanding"].(float64) == 65536 {
+				blocked = true
+			}
+		}
+		if blocked {
+			break
+		}
+		time.Sleep(10 * time.Millisecond)
+	}
+	if !blocked {
+		t.Fatalf("output not blocked at bound: %s", f.body)
+	}
+	t.Logf("output blocked stats=%s", f.body)
+	var n int
+	if e = db.QueryRow("SELECT 46").Scan(&n); e != nil || n != 46 {
+		t.Fatal("other session/control did not progress", n, e)
+	}
+	select {
+	case <-r.poisoned:
+	case <-time.After(5 * time.Second):
+		t.Fatal("output deadline did not abort")
+	}
+	rows.Close()
+	db.Close()
+	joined(t, r, true)
+}

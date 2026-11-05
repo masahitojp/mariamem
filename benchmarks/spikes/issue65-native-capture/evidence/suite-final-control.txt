@@ -1,0 +1,178 @@
+Disk preflight OK: 22.19 GiB free, 7.90 GiB owned
+=== RUN   TestCaptureForkRollbackAndRecapture
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:107: capture epoch=1 events=[fenced stop_accepted capture_stopped guest_joined capture_approved freeze_begin freeze_complete memory_released host_joined root_owned] native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:149: capture epoch=2 events=[fenced stop_accepted capture_stopped guest_joined capture_approved freeze_begin freeze_complete memory_released host_joined root_owned] native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    capture_test.go:160: joined instance=3 cause=<nil> native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    capture_test.go:161: joined instance=4 cause=<nil> native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+[mysql] 2026/11/06 02:28:56 packets.go:58 unexpected EOF
+--- PASS: TestCaptureForkRollbackAndRecapture (0.26s)
+=== RUN   TestCapturePartialAndOutputRejection
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=2 joined=2 cleanup_failed=0
+    capture_test.go:300: joined instance=5 cause=<nil> native={"rollback_reports":2,"fenced":true,"poisoned":false,"cause":"","started":2,"joined":2,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":65536,"sessions":[]}
+--- PASS: TestCapturePartialAndOutputRejection (0.41s)
+=== RUN   TestCaptureQueuedFenceAndDuplicate
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:343: capture epoch=6 events=[fenced duplicate_stop_sent duplicate_stop_sent stop_accepted capture_stopped guest_joined capture_approved freeze_begin freeze_complete memory_released host_joined root_owned] native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    capture_test.go:360: joined instance=7 cause=<nil> native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+--- PASS: TestCaptureQueuedFenceAndDuplicate (0.08s)
+=== RUN   TestCaptureFailureControls
+=== RUN   TestCaptureFailureControls/lost_fence
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    capture_test.go:441: lost_fence consumed=true err=context deadline exceeded
+        join incomplete; resources retained: context deadline exceeded
+    wire_test.go:21: cleanup instance=8: context deadline exceeded
+=== RUN   TestCaptureFailureControls/lost_stop_ack
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:441: lost_stop_ack consumed=true err=context deadline exceeded
+        join incomplete; resources retained: context deadline exceeded
+    wire_test.go:21: cleanup instance=9: context deadline exceeded
+=== RUN   TestCaptureFailureControls/lost_receipt
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:441: lost_receipt consumed=true err=missing capture receipt
+        missing capture receipt
+    wire_test.go:21: cleanup instance=10: missing capture receipt
+=== RUN   TestCaptureFailureControls/wrong_fence
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    capture_test.go:441: wrong_fence consumed=true err=invalid capture fence
+        invalid capture fence
+    wire_test.go:21: cleanup instance=11: invalid capture fence
+=== RUN   TestCaptureFailureControls/wrong_stop_ack
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:441: wrong_stop_ack consumed=true err=invalid capture stop acceptance
+        invalid capture stop acceptance
+    wire_test.go:21: cleanup instance=12: invalid capture stop acceptance
+=== RUN   TestCaptureFailureControls/wrong_receipt
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:441: wrong_receipt consumed=true err=wrong capture receipt
+        wrong capture receipt
+    wire_test.go:21: cleanup instance=13: wrong capture receipt
+=== RUN   TestCaptureFailureControls/cancel_before
+    capture_test.go:441: cancel_before consumed=false err=context canceled
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestCaptureFailureControls/cancel_after_fence
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    capture_test.go:441: cancel_after_fence consumed=true err=context canceled
+        join incomplete; resources retained: context canceled
+    wire_test.go:21: cleanup instance=15: context canceled
+=== RUN   TestCaptureFailureControls/cleanup_failure
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=1
+    capture_test.go:441: cleanup_failure consumed=true err=guest poison: cleanup_failed
+        guest poison: cleanup_failed
+    wire_test.go:21: cleanup instance=16: guest poison: cleanup_failed
+=== RUN   TestCaptureFailureControls/engine_failure
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:441: engine_failure consumed=true err=guest poison: engine_shutdown_injected
+        guest poison: engine_shutdown_injected
+    wire_test.go:21: cleanup instance=17: guest poison: engine_shutdown_injected
+--- PASS: TestCaptureFailureControls (0.70s)
+    --- PASS: TestCaptureFailureControls/lost_fence (0.19s)
+    --- PASS: TestCaptureFailureControls/lost_stop_ack (0.19s)
+    --- PASS: TestCaptureFailureControls/lost_receipt (0.04s)
+    --- PASS: TestCaptureFailureControls/wrong_fence (0.05s)
+    --- PASS: TestCaptureFailureControls/wrong_stop_ack (0.04s)
+    --- PASS: TestCaptureFailureControls/wrong_receipt (0.04s)
+    --- PASS: TestCaptureFailureControls/cancel_before (0.04s)
+    --- PASS: TestCaptureFailureControls/cancel_after_fence (0.04s)
+    --- PASS: TestCaptureFailureControls/cleanup_failure (0.04s)
+    --- PASS: TestCaptureFailureControls/engine_failure (0.04s)
+=== RUN   TestCaptureOrdinaryStopAndEOF
+=== RUN   TestCaptureOrdinaryStopAndEOF/ordinary_stop
+NATIVE_STOP mode=ordinary started=0 joined=0 cleanup_failed=0
+    wire_test.go:21: cleanup instance=18: missing capture receipt
+=== RUN   TestCaptureOrdinaryStopAndEOF/private_eof
+NATIVE_STOP mode=ordinary started=0 joined=0 cleanup_failed=0
+    wire_test.go:21: cleanup instance=19: missing capture receipt
+--- PASS: TestCaptureOrdinaryStopAndEOF (0.08s)
+    --- PASS: TestCaptureOrdinaryStopAndEOF/ordinary_stop (0.04s)
+    --- PASS: TestCaptureOrdinaryStopAndEOF/private_eof (0.04s)
+=== RUN   TestCaptureDebtCannotBeForgiven
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:468: capture epoch=20 events=[fenced stop_accepted capture_stopped guest_joined capture_approved freeze_begin freeze_complete memory_released host_joined root_owned] native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:493: injected root-cleanup failure remains latched after actual runtime/retained-root cleanup
+--- PASS: TestCaptureDebtCannotBeForgiven (0.08s)
+=== RUN   TestCaptureConcatenatedInputAndForeignEpoch
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:546: capture epoch=22 events=[fenced stop_accepted capture_stopped guest_joined capture_approved freeze_begin freeze_complete memory_released host_joined root_owned] native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":28672,"retired_output_peak":95,"sessions":[]}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    capture_test.go:554: joined instance=23 cause=<nil> native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+--- PASS: TestCaptureConcatenatedInputAndForeignEpoch (0.08s)
+=== RUN   TestCaptureGoPipe
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:569: capture epoch=24 events=[fenced stop_accepted capture_stopped guest_joined capture_approved freeze_begin freeze_complete memory_released host_joined root_owned] native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    capture_test.go:581: joined instance=25 cause=<nil> native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+[mysql] 2026/11/06 02:28:58 packets.go:155 io: read/write on closed pipe
+--- PASS: TestCaptureGoPipe (0.08s)
+=== RUN   TestCaptureRejectsInvalidRestore
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:591: capture epoch=26 events=[fenced stop_accepted capture_stopped guest_joined capture_approved freeze_begin freeze_complete memory_released host_joined root_owned] native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+mariamem: routine_bootstrap step=columns errno=0 sqlstate=00000 reason=incompatible product-managed proc structure; not repaired error= ddl=e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc; Fresh failure with matching artifacts requires a bootstrap bug report; an incompatible restored proc structure requires preparing a new baseline.
+FAIL:product fresh/restore bootstrap
+    capture_test.go:609: restore rejected before READY: runtime before ready: generated-Go guest failure: unimplemented WASIX: Proc_exit2
+--- PASS: TestCaptureRejectsInvalidRestore (0.08s)
+=== RUN   TestCaptureJoinCancellationRetainsLease
+    capture_test.go:667: actual host join failure retains capacity; confirmed join still waits for capture ownership disposition
+--- PASS: TestCaptureJoinCancellationRetainsLease (0.00s)
+=== RUN   TestProtocolPrepared
+SESSION_RETIRED result=0 decodes=1
+SESSION_RETIRED result=16 decodes=1
+NATIVE_STOP mode=ordinary started=2 joined=2 cleanup_failed=0
+    wire_test.go:139: joined instance=28 cause=<nil> native={"rollback_reports":2,"fenced":true,"poisoned":false,"cause":"","started":2,"joined":2,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":196,"sessions":[]}
+--- PASS: TestProtocolPrepared (0.14s)
+=== RUN   TestQueryDeadlineAndIsolation
+SESSION_RETIRED result=17 decodes=0
+[mysql] 2026/11/06 02:28:59 packets.go:58 unexpected EOF
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    wire_test.go:192: joined instance=29 cause=guest poison: deadline native={"rollback_reports":1,"fenced":true,"poisoned":true,"cause":"deadline","started":1,"joined":1,"stale":1,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+SESSION_RETIRED result=0 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    wire_test.go:197: joined instance=30 cause=<nil> native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+    wire_test.go:21: cleanup instance=29: guest poison: deadline
+--- PASS: TestQueryDeadlineAndIsolation (0.89s)
+=== RUN   TestPartialInputDeadline
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    wire_test.go:213: joined instance=31 cause=guest poison: deadline native={"rollback_reports":1,"fenced":true,"poisoned":true,"cause":"deadline","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+    wire_test.go:21: cleanup instance=31: guest poison: deadline
+--- PASS: TestPartialInputDeadline (0.87s)
+=== RUN   TestSlowOutputControl
+    wire_test.go:247: output blocked stats={"rollback_reports":0,"fenced":false,"poisoned":false,"cause":"","started":1,"joined":0,"stale":0,"denied":0,"retired_input_peak":0,"retired_output_peak":0,"sessions":[{"slot":0,"generation":1,"phase":"executing","command":2,"status":2,"input":0,"outstanding":65536,"input_peak":89,"output_peak":65536}]}
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=17 decodes=0
+[mysql] 2026/11/06 02:29:03 packets.go:100 unexpected EOF
+NATIVE_STOP mode=ordinary started=2 joined=2 cleanup_failed=0
+    wire_test.go:259: joined instance=32 cause=guest poison: deadline native={"rollback_reports":2,"fenced":true,"poisoned":true,"cause":"deadline","started":2,"joined":2,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":65536,"sessions":[]}
+    wire_test.go:21: cleanup instance=32: guest poison: deadline
+--- PASS: TestSlowOutputControl (3.07s)
+PASS

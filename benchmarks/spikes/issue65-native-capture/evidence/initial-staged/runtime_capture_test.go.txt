@@ -1,0 +1,87 @@
+package generatedgo
+
+import (
+	"errors"
+	"github.com/masahitojp/mariamem/internal/forklimit"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/prepared"
+	"strings"
+	"sync/atomic"
+	"testing"
+	"time"
+	"unsafe"
+)
+
+func TestWireCaptureWaitsForFailedWorkerPeer(t *testing.T) {
+	memory := make([]byte, 65536)
+	size := &atomic.Uint64{}
+	size.Store(uint64(len(memory)))
+	m := &base.Module{Memory: memory, M: unsafe.Pointer(&memory[0]), MemSize: size, MemShared: true, Threads: &base.ThreadPool{}}
+	fs := base.NewBlockMemFS()
+	if e := fs.MkdirAll("mariadb", 0755); e != nil {
+		t.Fatal(e)
+	}
+	capture := &prepared.Capture{}
+	if e := capture.BindRootSource(fs.RootSource(), GuestSHA256); e != nil {
+		t.Fatal(e)
+	}
+	capture.Request()
+	approval := make(chan error, 1)
+	approval <- nil
+	var frozen atomic.Bool
+	life := &WireLifecycle{Capture: capture, Approval: approval, Observe: func(s string) {
+		if s == "freeze_begin" {
+			frozen.Store(true)
+		}
+	}}
+	pool, _ := forklimit.New(1)
+	lease, _ := pool.TryAcquire(false)
+	lease.Activate()
+	peerEntered, releasePeer, failed := make(chan struct{}), make(chan struct{}), make(chan struct{})
+	m.Threads.NotifyWorkerFailure(func(any) { close(failed) })
+	done := make(chan error, 1)
+	go func() {
+		done <- executeWireCapture(m, func(m *base.Module) {
+			base.ThreadLaunch(m, func(*base.Module, int32) { close(peerEntered); <-releasePeer })
+			base.ThreadLaunch(m, func(*base.Module, int32) { <-peerEntered; panic("injected worker trap") })
+		}, fs, life)
+	}()
+	select {
+	case <-failed:
+	case <-time.After(time.Second):
+		t.Fatal("worker failure not notified")
+	}
+	select {
+	case e := <-done:
+		t.Fatal("returned with live memory owner", e)
+	default:
+	}
+	if frozen.Load() {
+		t.Fatal("freeze before peer join")
+	}
+	lease.Settle(errors.New("join incomplete"))
+	if next, e := pool.TryAcquire(true); next != nil || !errors.Is(e, forklimit.ErrCleanup) {
+		t.Fatal("early capacity release", next, e)
+	}
+	close(releasePeer)
+	select {
+	case e := <-done:
+		if e == nil || !strings.Contains(e.Error(), "injected worker trap") {
+			t.Fatal(e)
+		}
+	case <-time.After(time.Second):
+		t.Fatal("released worker not joined")
+	}
+	if frozen.Load() {
+		t.Fatal("freeze after failed execution")
+	}
+	if root, e := capture.TakeRoot(GuestSHA256); root != nil || e == nil {
+		t.Fatal("failed runtime yielded root", root, e)
+	}
+	lease.Settle(nil)
+	next, e := pool.TryAcquire(true)
+	if e != nil {
+		t.Fatal("confirmed cleanup cannot recover", e)
+	}
+	next.Cancel()
+}

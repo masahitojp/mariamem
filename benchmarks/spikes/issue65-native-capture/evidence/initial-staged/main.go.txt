@@ -1,0 +1,761 @@
+// Experimental opaque MySQL-byte relay. Only the private control envelope is parsed.
+package main
+
+import (
+	"context"
+	"encoding/binary"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/masahitojp/mariamem/internal/forklimit"
+	"github.com/masahitojp/mariamem/internal/generatedgo"
+	"github.com/masahitojp/mariamem/internal/prepared"
+	stored "github.com/masahitojp/mariamem/internal/snapshot"
+	"io"
+	"net"
+	"os"
+	"sync"
+	"sync/atomic"
+	"time"
+)
+
+const (
+	open       = 1
+	data       = 2
+	ack        = 3
+	peerEOF    = 4
+	quiesce    = 5
+	stop       = 6
+	stats      = 7
+	ready      = 100
+	opened     = 101
+	raw        = 103
+	retired    = 104
+	poison     = 105
+	credit     = 106
+	state      = 107
+	statsReply = 108
+	inputLimit = 1048581
+)
+
+type frame struct {
+	kind                     byte
+	request, slot            uint32
+	epoch, generation, value uint64
+	body                     []byte
+}
+
+func readFrame(r io.Reader) (f frame, err error) {
+	var h [4]byte
+	if _, err = io.ReadFull(r, h[:]); err != nil {
+		return
+	}
+	n := binary.LittleEndian.Uint32(h[:])
+	if n < 33 || n > 65569 {
+		return f, fmt.Errorf("private frame size %d", n)
+	}
+	b := make([]byte, n)
+	if _, err = io.ReadFull(r, b); err != nil {
+		return
+	}
+	f = frame{b[0], binary.LittleEndian.Uint32(b[1:]), binary.LittleEndian.Uint32(b[5:]), binary.LittleEndian.Uint64(b[9:]), binary.LittleEndian.Uint64(b[17:]), binary.LittleEndian.Uint64(b[25:]), b[33:]}
+	return
+}
+func writeFrame(w io.Writer, f frame) error {
+	b := make([]byte, 37+len(f.body))
+	binary.LittleEndian.PutUint32(b, uint32(len(b)-4))
+	b[4] = f.kind
+	binary.LittleEndian.PutUint32(b[5:], f.request)
+	binary.LittleEndian.PutUint32(b[9:], f.slot)
+	binary.LittleEndian.PutUint64(b[13:], f.epoch)
+	binary.LittleEndian.PutUint64(b[21:], f.generation)
+	binary.LittleEndian.PutUint64(b[29:], f.value)
+	copy(b[37:], f.body)
+	for len(b) > 0 {
+		n, e := w.Write(b)
+		if e != nil {
+			return e
+		}
+		if n == 0 {
+			return io.ErrNoProgress
+		}
+		b = b[n:]
+	}
+	return nil
+}
+
+type key struct {
+	slot       uint32
+	generation uint64
+}
+type session struct {
+	root           *instance
+	id             key
+	conn           net.Conn
+	mu             sync.Mutex
+	cv             *sync.Cond
+	sent, consumed uint64
+	dead           bool
+	output         chan frame
+	ended          chan struct{}
+}
+
+func (s *session) close() {
+	s.mu.Lock()
+	if !s.dead {
+		s.dead = true
+		close(s.ended)
+		s.conn.Close()
+		s.cv.Broadcast()
+	}
+	s.mu.Unlock()
+}
+
+type instance struct {
+	disposed               bool
+	hostDone               chan struct{}
+	hostWaitOnce           sync.Once
+	capture                prepared.Capture
+	approval               chan error
+	approvalOnce           sync.Once
+	readDone               chan struct{}
+	checking, consumed     bool
+	captureID              uint64
+	stopRequest            uint32
+	stopAcked, stopReceipt bool
+	lifecycleEvents        []string
+	operation              chan struct{}
+	dropKinds              map[byte]bool
+	wrongReceipt           bool
+	lease                  *forklimit.Lease
+	captureDebt            error
+	retained               []*stored.Owned
+	failAcquisition        bool
+	afterFence             func(uint64) error
+
+	epoch                      uint64
+	in, guestIn, out, guestOut *os.File
+	writeMu, mu                sync.Mutex
+	pending                    map[uint32]chan frame
+	opening                    map[uint32]*session
+	sessions                   map[key]*session
+	sequence                   atomic.Uint32
+	ready                      chan struct{}
+	poisoned                   chan struct{}
+	done                       chan struct{}
+	wg                         sync.WaitGroup
+	stopping                   bool
+	err, errorCause            error
+	listener                   net.Listener
+	limit                      uint64
+	finalStats                 []byte
+	events                     []frame
+}
+
+var epochCounter atomic.Uint64
+
+func newInstance(ms uint64) (*instance, error) { return newRestored(ms, nil) }
+func newRestored(ms uint64, restore []prepared.Entry) (*instance, error) {
+	r := &instance{epoch: epochCounter.Add(1), pending: map[uint32]chan frame{}, opening: map[uint32]*session{}, sessions: map[key]*session{}, ready: make(chan struct{}), poisoned: make(chan struct{}), done: make(chan struct{}), limit: ms, approval: make(chan error, 1), hostDone: make(chan struct{}), readDone: make(chan struct{}), operation: make(chan struct{}, 1), dropKinds: map[byte]bool{}}
+	if r.epoch == 0 {
+		panic("instance identity exhausted")
+	}
+	var e error
+	r.guestIn, r.in, e = os.Pipe()
+	if e != nil {
+		return nil, e
+	}
+	r.out, r.guestOut, e = os.Pipe()
+	if e != nil {
+		return nil, e
+	}
+	complete := generatedgo.StartWireInstance(r.guestIn, r.guestOut, os.Stderr, "", restore, false, func(cause error) { go func() { r.fail(cause); r.guestIn.Close() }() }, r.epoch, &generatedgo.WireLifecycle{Capture: &r.capture, Approval: r.approval, Observe: r.note})
+	r.wg.Add(1)
+	go func() { defer r.wg.Done(); defer close(r.readDone); r.readLoop() }()
+	go func() {
+		e := <-complete
+		r.mu.Lock()
+		r.err = e
+		r.mu.Unlock()
+		r.guestIn.Close()
+		r.guestOut.Close()
+		close(r.done)
+	}()
+	select {
+	case <-r.ready:
+		return r, nil
+	case <-r.done:
+		return r, fmt.Errorf("runtime before ready: %v", r.result())
+	case <-time.After(30 * time.Second):
+		r.fail(errors.New("ready deadline"))
+		r.guestIn.Close()
+		return r, errors.New("ready timeout")
+	}
+}
+func (r *instance) result() error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if r.errorCause != nil {
+		return r.errorCause
+	}
+	return r.err
+}
+func (r *instance) note(e string) {
+	r.mu.Lock()
+	r.lifecycleEvents = append(r.lifecycleEvents, e)
+	r.mu.Unlock()
+}
+func (r *instance) resolve(e error) { r.approvalOnce.Do(func() { r.approval <- e }) }
+func (r *instance) fail(e error) {
+	r.resolve(e)
+	r.mu.Lock()
+	if r.errorCause == nil {
+		r.errorCause = e
+	}
+	all := make([]*session, 0, len(r.sessions))
+	for _, s := range r.sessions {
+		all = append(all, s)
+	}
+	r.mu.Unlock()
+	for _, s := range all {
+		s.close()
+	}
+}
+func (r *instance) send(f frame) error {
+	f.epoch = r.epoch
+	r.writeMu.Lock()
+	defer r.writeMu.Unlock()
+	return writeFrame(r.in, f)
+}
+
+// Closing the peer read end aborts an uncertain/partial control write.
+func (r *instance) sendContext(ctx context.Context, f frame) error {
+	if e := ctx.Err(); e != nil {
+		return e
+	}
+	done := make(chan error, 1)
+	go func() { done <- r.send(f) }()
+	select {
+	case e := <-done:
+		return e
+	case <-ctx.Done():
+		r.guestIn.Close()
+		<-done
+		return ctx.Err()
+	}
+}
+func (r *instance) pipe() (net.Conn, error) {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if r.stopping || r.checking || r.consumed {
+		return nil, errors.New("source not accepting")
+	}
+	client, server := net.Pipe()
+	r.wg.Add(1)
+	go func() { defer r.wg.Done(); r.attach(server) }()
+	return client, nil
+}
+func (r *instance) rpc(f frame, initial ...*session) (frame, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 8*time.Second)
+	defer cancel()
+	return r.rpcContext(ctx, f, initial...)
+}
+func (r *instance) rpcContext(ctx context.Context, f frame, initial ...*session) (frame, error) {
+	id := r.sequence.Add(1)
+	if id == 0 {
+		return frame{}, errors.New("request identity exhausted")
+	}
+	f.request = id
+	ch := make(chan frame, 1)
+	r.mu.Lock()
+	r.pending[id] = ch
+	if f.kind == 12 {
+		r.stopRequest = id
+	}
+	if len(initial) > 0 {
+		r.opening[id] = initial[0]
+	}
+	r.mu.Unlock()
+	defer func() { r.mu.Lock(); delete(r.pending, id); delete(r.opening, id); r.mu.Unlock() }()
+	if e := r.sendContext(ctx, f); e != nil {
+		return frame{}, e
+	}
+	select {
+	case answer := <-ch:
+		return answer, nil
+	case <-r.done:
+		return frame{}, fmt.Errorf("runtime ended: %v", r.result())
+	case <-ctx.Done():
+		return frame{}, ctx.Err()
+	}
+}
+func (r *instance) readLoop() {
+	for {
+		f, e := readFrame(r.out)
+		if e != nil {
+			r.resolve(fmt.Errorf("capture transport ended: %w", e))
+			select {
+			case <-r.done:
+			default:
+				r.mu.Lock()
+				normal := r.stopping
+				r.mu.Unlock()
+				if !normal {
+					r.fail(e)
+				}
+			}
+			return
+		}
+		if f.epoch != r.epoch {
+			r.fail(errors.New("wrong instance identity"))
+			return
+		}
+		r.mu.Lock()
+		drop := r.dropKinds[f.kind]
+		wrong := r.wrongReceipt
+		r.mu.Unlock()
+		if drop {
+			continue
+		}
+		if wrong && f.kind == 114 {
+			f.value++
+		}
+		if f.kind == 114 {
+			r.mu.Lock()
+			valid := r.consumed && r.captureID != 0 && f.value == r.captureID && f.request == r.stopRequest
+			acked := r.stopAcked
+			if valid {
+				r.stopReceipt = true
+				r.lifecycleEvents = append(r.lifecycleEvents, "capture_stopped")
+			}
+			r.mu.Unlock()
+			if !valid {
+				r.fail(errors.New("wrong capture receipt"))
+				continue
+			}
+			if acked {
+				r.resolve(nil)
+			}
+			continue
+		}
+		r.mu.Lock()
+		if len(r.events) < 10000 {
+			r.events = append(r.events, frame{kind: f.kind, slot: f.slot, generation: f.generation, value: f.value})
+		}
+		if f.kind == opened && r.opening[f.request] != nil {
+			initial := r.opening[f.request]
+			initial.id = key{f.slot, f.generation}
+			r.sessions[initial.id] = initial
+		}
+		ch := r.pending[f.request]
+		s := r.sessions[key{f.slot, f.generation}]
+		r.mu.Unlock()
+		if ch != nil {
+			ch <- f
+			continue
+		}
+		switch f.kind {
+		case ready:
+			var profile struct {
+				Lifecycle int `json:"lifecycle_profile"`
+			}
+			if json.Unmarshal(f.body, &profile) != nil || profile.Lifecycle != 1 {
+				r.fail(errors.New("wrong lifecycle profile"))
+				return
+			}
+			close(r.ready)
+		case raw:
+			if s == nil {
+				r.fail(errors.New("output without session"))
+				return
+			}
+			select {
+			case s.output <- f:
+			case <-s.ended:
+			default:
+				r.fail(errors.New("bounded host output queue overflow"))
+				return
+			}
+		case credit:
+			if s != nil {
+				s.mu.Lock()
+				s.consumed = f.value
+				s.cv.Broadcast()
+				s.mu.Unlock()
+			}
+		case retired:
+			if s != nil {
+				s.close()
+				r.mu.Lock()
+				delete(r.sessions, s.id)
+				r.mu.Unlock()
+			}
+		case 111:
+			r.mu.Lock()
+			r.finalStats = append([]byte(nil), f.body...)
+			receipt := r.stopReceipt
+			r.mu.Unlock()
+			if r.capture.Requested() && !receipt {
+				r.fail(errors.New("missing capture receipt"))
+			}
+		case poison:
+			r.fail(fmt.Errorf("guest poison: %s", f.body))
+			close(r.poisoned)
+		}
+	}
+}
+func (r *instance) serve() (string, error) {
+	l, e := net.Listen("tcp", "127.0.0.1:0")
+	if e != nil {
+		return "", e
+	}
+	r.listener = l
+	r.wg.Add(1)
+	go func() {
+		defer r.wg.Done()
+		for {
+			c, e := l.Accept()
+			if e != nil {
+				return
+			}
+			if tcp, ok := c.(*net.TCPConn); ok {
+				tcp.SetWriteBuffer(1024)
+			}
+			r.mu.Lock()
+			deny := r.stopping || r.checking || r.consumed
+			if !deny {
+				r.wg.Add(1)
+			}
+			r.mu.Unlock()
+			if deny {
+				c.Close()
+				continue
+			}
+			go func() { defer r.wg.Done(); r.attach(c) }()
+		}
+	}()
+	return l.Addr().String(), nil
+}
+func (r *instance) attach(c net.Conn) {
+	s := &session{root: r, conn: c, output: make(chan frame, 16), ended: make(chan struct{})}
+	s.cv = sync.NewCond(&s.mu)
+	f, e := r.rpc(frame{kind: open, value: r.limit}, s)
+	if e != nil || f.kind != opened {
+		c.Close()
+		return
+	}
+	r.mu.Lock()
+	closing := r.stopping
+	r.mu.Unlock()
+	if closing {
+		s.close()
+		return
+	}
+	r.wg.Add(1)
+	go func() {
+		defer r.wg.Done()
+		defer s.close()
+		for {
+			select {
+			case f := <-s.output:
+				b := f.body
+				for len(b) > 0 {
+					n, e := c.Write(b)
+					if e != nil {
+						r.send(frame{kind: peerEOF, slot: s.id.slot, generation: s.id.generation, value: 1})
+						return
+					}
+					b = b[n:]
+				}
+				if e := r.send(frame{kind: ack, slot: s.id.slot, generation: s.id.generation, value: f.value + uint64(len(f.body))}); e != nil {
+					return
+				}
+			case <-s.ended:
+				return
+			}
+		}
+	}()
+	defer func() {
+		r.mu.Lock()
+		stopping := r.stopping
+		r.mu.Unlock()
+		if !stopping {
+			r.send(frame{kind: peerEOF, slot: s.id.slot, generation: s.id.generation})
+		}
+	}()
+	b := make([]byte, 4096)
+	for {
+		s.mu.Lock()
+		for !s.dead && s.sent-s.consumed >= inputLimit {
+			s.cv.Wait()
+		}
+		if s.dead {
+			s.mu.Unlock()
+			return
+		}
+		available := uint64(inputLimit) - (s.sent - s.consumed)
+		offset := s.sent
+		s.mu.Unlock()
+		size := len(b)
+		if uint64(size) > available {
+			size = int(available)
+		}
+		n, e := c.Read(b[:size])
+		if n > 0 {
+			s.mu.Lock()
+			s.sent += uint64(n)
+			s.mu.Unlock()
+			if sendErr := r.send(frame{kind: data, slot: s.id.slot, generation: s.id.generation, value: offset, body: b[:n]}); sendErr != nil {
+				return
+			}
+		}
+		if e != nil {
+			return
+		}
+	}
+}
+func (r *instance) close() error {
+	r.resolve(errors.New("ordinary close cannot approve capture"))
+	r.mu.Lock()
+	r.stopping = true
+	l := r.listener
+	all := make([]*session, 0, len(r.sessions))
+	for _, s := range r.sessions {
+		all = append(all, s)
+	}
+	r.mu.Unlock()
+	if l != nil {
+		l.Close()
+	}
+	for _, s := range all {
+		s.close()
+	}
+	go r.send(frame{kind: stop})
+	select {
+	case <-r.done:
+		r.in.Close()
+		r.wg.Wait()
+		for _, o := range r.retained {
+			o.Close()
+		}
+		r.retained = nil
+		if r.lease != nil {
+			r.lease.Settle(r.captureDebt)
+		}
+		r.out.Close()
+		return errors.Join(r.result(), r.captureDebt)
+	case <-time.After(12 * time.Second):
+		return errors.New("join incomplete; running resources retained")
+	}
+}
+func (r *instance) stopIngress() {
+	r.mu.Lock()
+	r.stopping = true
+	l := r.listener
+	all := make([]*session, 0, len(r.sessions))
+	for _, s := range r.sessions {
+		all = append(all, s)
+	}
+	r.mu.Unlock()
+	if l != nil {
+		l.Close()
+	}
+	for _, s := range all {
+		s.close()
+	}
+}
+func (r *instance) awaitJoined(ctx context.Context) error {
+	select {
+	case <-r.done:
+	case <-ctx.Done():
+		if r.lease != nil {
+			r.lease.Settle(ctx.Err())
+		}
+		return fmt.Errorf("join incomplete; resources retained: %w", ctx.Err())
+	}
+	select {
+	case <-r.readDone:
+	case <-ctx.Done():
+		return fmt.Errorf("reader join incomplete: %w", ctx.Err())
+	}
+	r.hostWaitOnce.Do(func() { go func() { r.wg.Wait(); close(r.hostDone) }() })
+	select {
+	case <-r.hostDone:
+	case <-ctx.Done():
+		if r.lease != nil {
+			r.lease.Settle(ctx.Err())
+		}
+		return fmt.Errorf("host join incomplete: %w", ctx.Err())
+	}
+	r.in.Close()
+	r.out.Close()
+	r.mu.Lock()
+	r.disposed = true
+	r.mu.Unlock()
+	r.note("host_joined")
+	return r.result()
+}
+func (r *instance) failCapture(ctx context.Context, e error) (*stored.Owned, bool, error) {
+	r.mu.Lock()
+	r.consumed = true
+	r.checking = false
+	r.mu.Unlock()
+	r.capture.Discard()
+	r.fail(e)
+	r.stopIngress()
+	go r.send(frame{kind: stop})
+	joined := r.awaitJoined(ctx)
+	r.mu.Lock()
+	disposed := r.disposed
+	r.mu.Unlock()
+	if disposed && r.lease != nil {
+		r.lease.Settle(r.captureDebt)
+	}
+	return nil, true, errors.Join(e, joined)
+}
+func (r *instance) snapshot(ctx context.Context, rollback bool) (*stored.Owned, bool, error) {
+	select {
+	case r.operation <- struct{}{}:
+		defer func() { <-r.operation }()
+	case <-ctx.Done():
+		return nil, false, ctx.Err()
+	}
+	r.mu.Lock()
+	if r.stopping || r.consumed || r.errorCause != nil {
+		r.mu.Unlock()
+		return nil, true, errors.New("source consumed or failed")
+	}
+	r.checking = true
+	r.captureID = uint64(r.sequence.Add(1))
+	id := r.captureID
+	r.mu.Unlock()
+	if e := ctx.Err(); e != nil {
+		r.mu.Lock()
+		r.checking = false
+		r.mu.Unlock()
+		return nil, false, e
+	}
+	flag := uint64(0)
+	if rollback {
+		flag = 1
+	}
+	reply, e := r.rpcContext(ctx, frame{kind: 11, value: id, generation: flag})
+	if e != nil {
+		return r.failCapture(ctx, e)
+	}
+	if reply.kind == 110 && (reply.value == 1 || reply.value == 2) {
+		r.mu.Lock()
+		r.checking = false
+		r.mu.Unlock()
+		return nil, false, fmt.Errorf("capture precondition %d: %s", reply.value, reply.body)
+	}
+	if reply.kind != 112 || reply.value != id {
+		return r.failCapture(ctx, errors.New("invalid capture fence"))
+	}
+	r.mu.Lock()
+	r.consumed = true
+	r.mu.Unlock()
+	r.note("fenced")
+	if r.afterFence != nil {
+		if e = r.afterFence(id); e != nil {
+			return r.failCapture(ctx, e)
+		}
+	}
+	r.capture.Request()
+	reply, e = r.rpcContext(ctx, frame{kind: 12, value: id})
+	if e != nil {
+		return r.failCapture(ctx, e)
+	}
+	if reply.kind != 113 || reply.value != id {
+		return r.failCapture(ctx, errors.New("invalid capture stop acceptance"))
+	}
+	if e = ctx.Err(); e != nil {
+		return r.failCapture(ctx, e)
+	}
+	r.mu.Lock()
+	r.stopAcked = true
+	r.lifecycleEvents = append(r.lifecycleEvents, "stop_accepted")
+	receipt := r.stopReceipt
+	r.mu.Unlock()
+	if receipt {
+		r.resolve(nil)
+	}
+	r.stopIngress()
+	if e = r.awaitJoined(ctx); e != nil {
+		return r.failCapture(ctx, e)
+	}
+	image, e := r.capture.TakeRoot(generatedgo.GuestSHA256)
+	if e != nil {
+		return nil, true, e
+	}
+	owned, e := stored.OwnRoot(image, generatedgo.GuestSHA256)
+	if e != nil {
+		return nil, true, e
+	}
+	r.note("root_owned")
+	if r.failAcquisition {
+		r.captureDebt = errors.New("injected captured-root cleanup failure")
+		r.retained = append(r.retained, owned)
+		if r.lease != nil {
+			r.lease.Settle(r.captureDebt)
+		}
+		return nil, true, r.captureDebt
+	}
+	if r.lease != nil {
+		r.lease.Settle(nil)
+	}
+	return owned, true, nil
+}
+
+type baseline struct {
+	backing *stored.Owned
+	pool    *forklimit.Pool
+}
+
+func makeBaseline(o *stored.Owned) *baseline {
+	p, e := forklimit.New(2)
+	if e != nil {
+		panic(e)
+	}
+	return &baseline{o, p}
+}
+func (b *baseline) fork(ctx context.Context) (*instance, error) {
+	lease, e := b.pool.Acquire(ctx)
+	if e != nil {
+		return nil, e
+	}
+	entries, release, e := b.backing.Acquire(generatedgo.GuestSHA256)
+	if e != nil {
+		lease.Cancel()
+		return nil, e
+	}
+	defer release()
+	if e = lease.Activate(); e != nil {
+		return nil, e
+	}
+	r, e := newRestored(5000, entries)
+	if r != nil {
+		r.lease = lease
+	}
+	if e != nil {
+		if r != nil {
+			cleanupCtx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+			joined := r.awaitJoined(cleanupCtx)
+			cancel()
+			r.mu.Lock()
+			disposed := r.disposed
+			r.mu.Unlock()
+			if joined != nil && !disposed {
+				lease.Settle(joined)
+			} else {
+				lease.Settle(nil)
+			}
+		} else {
+			lease.Settle(e)
+		}
+		return r, e
+	}
+	return r, nil
+}
+func (b *baseline) close() error { b.pool.Close(); return b.backing.Close() }
+func main()                      {}

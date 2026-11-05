@@ -1,0 +1,522 @@
+package main
+
+import (
+	"context"
+	"database/sql"
+	"encoding/binary"
+	"encoding/json"
+	"errors"
+	"fmt"
+	mysql "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem/internal/forklimit"
+	"github.com/masahitojp/mariamem/internal/generatedgo"
+	stored "github.com/masahitojp/mariamem/internal/snapshot"
+	"io"
+	"net"
+	"strings"
+	"testing"
+	"time"
+)
+
+func captureNow(t *testing.T, r *instance, rollback bool) *stored.Owned {
+	t.Helper()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	o, consumed, e := r.snapshot(ctx, rollback)
+	if e != nil || !consumed || o == nil {
+		t.Fatalf("capture consumed=%v root=%v err=%v", consumed, o, e)
+	}
+	r.mu.Lock()
+	ev := append([]string(nil), r.lifecycleEvents...)
+	raw := append([]byte(nil), r.finalStats...)
+	r.mu.Unlock()
+	index := func(s string) int {
+		for i, e := range ev {
+			if e == s {
+				return i
+			}
+		}
+		t.Fatalf("missing event %s in %v", s, ev)
+		return -1
+	}
+	for _, pair := range [][2]string{{"fenced", "stop_accepted"}, {"stop_accepted", "capture_approved"}, {"capture_stopped", "capture_approved"}, {"guest_joined", "freeze_begin"}, {"capture_approved", "freeze_begin"}, {"freeze_complete", "memory_released"}, {"memory_released", "host_joined"}, {"host_joined", "root_owned"}} {
+		if index(pair[0]) >= index(pair[1]) {
+			t.Fatalf("ordering %v in %v", pair, ev)
+		}
+	}
+	var counts map[string]any
+	if json.Unmarshal(raw, &counts) != nil || counts["started"] == nil || counts["started"] != counts["joined"] {
+		t.Fatalf("native join %s", raw)
+	}
+	t.Logf("capture epoch=%d events=%v native=%s", r.epoch, ev, raw)
+	return o
+}
+func seed(t *testing.T, db *sql.DB) {
+	t.Helper()
+	for _, q := range []string{"CREATE TABLE persisted(id INT PRIMARY KEY) ENGINE=InnoDB", "INSERT INTO persisted VALUES(1)"} {
+		if _, e := db.Exec(q); e != nil {
+			t.Fatal(e)
+		}
+	}
+}
+func child(t *testing.T, b *baseline) *instance {
+	t.Helper()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	r, e := b.fork(ctx)
+	if e != nil {
+		t.Fatal(e)
+	}
+	t.Cleanup(func() { r.close() })
+	return r
+}
+func TestCaptureForkRollbackAndRecapture(t *testing.T) {
+	r := rootFor(t, 5000)
+	db := dbFor(t, r, nil)
+	defer db.Close()
+	seed(t, db)
+	if _, e := db.Exec("SET @private=7"); e != nil {
+		t.Fatal(e)
+	}
+	st, e := db.Prepare("SELECT ?")
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer st.Close()
+	tx, e := db.Begin()
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer tx.Rollback()
+	if _, e = tx.Exec("INSERT INTO persisted VALUES(2)"); e != nil {
+		t.Fatal(e)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	o, consumed, e := r.snapshot(ctx, false)
+	cancel()
+	if o != nil || consumed || e == nil || !strings.Contains(e.Error(), "transaction") {
+		t.Fatal(o, consumed, e)
+	}
+	var n int
+	if e = tx.QueryRow("SELECT COUNT(*) FROM persisted").Scan(&n); e != nil || n != 2 {
+		t.Fatal("rejected source changed", n, e)
+	}
+	b := makeBaseline(captureNow(t, r, true))
+	defer b.close()
+	a := child(t, b)
+	sibling := child(t, b)
+	ad := dbFor(t, a, nil)
+	defer ad.Close()
+	bd := dbFor(t, sibling, nil)
+	defer bd.Close()
+	if queryOne(t, ad, "SELECT COUNT(*) FROM persisted") != 1 || queryOne(t, bd, "SELECT COUNT(*) FROM persisted") != 1 {
+		t.Fatal("rollback persistence")
+	}
+	if a.epoch == sibling.epoch || a.epoch == r.epoch {
+		t.Fatal("restored identity reused")
+	}
+	var session sql.NullString
+	if e = ad.QueryRow("SELECT @private").Scan(&session); e != nil || session.Valid {
+		t.Fatal("session state restored", session, e)
+	}
+	if _, e = ad.Exec("INSERT INTO persisted VALUES(3)"); e != nil {
+		t.Fatal(e)
+	}
+	if queryOne(t, bd, "SELECT COUNT(*) FROM persisted") != 1 {
+		t.Fatal("sibling changed")
+	}
+	full, cancelFull := context.WithTimeout(context.Background(), 30*time.Millisecond)
+	unexpected, fullErr := b.fork(full)
+	cancelFull()
+	if unexpected != nil || !errors.Is(fullErr, context.DeadlineExceeded) {
+		t.Fatal("capacity not held", unexpected, fullErr)
+	}
+	if e = b.close(); e != nil {
+		t.Fatal(e)
+	}
+	if _, e = b.fork(context.Background()); !errors.Is(e, forklimit.ErrClosed) {
+		t.Fatal("closed baseline admitted", e)
+	}
+	if queryOne(t, ad, "SELECT COUNT(*) FROM persisted") != 2 || queryOne(t, bd, "SELECT COUNT(*) FROM persisted") != 1 {
+		t.Fatal("parent close revoked child")
+	}
+	nested := makeBaseline(captureNow(t, a, false))
+	defer nested.close()
+	c := child(t, nested)
+	cd := dbFor(t, c, nil)
+	defer cd.Close()
+	if queryOne(t, cd, "SELECT COUNT(*) FROM persisted") != 2 {
+		t.Fatal("modified child recapture")
+	}
+	joined(t, sibling, false)
+	joined(t, c, false)
+}
+func inspect(t *testing.T, r *instance, predicate func(map[string]any) bool) map[string]any {
+	t.Helper()
+	until := time.Now().Add(2 * time.Second)
+	var snapshot map[string]any
+	for time.Now().Before(until) {
+		f, e := r.rpc(frame{kind: stats})
+		if e != nil {
+			t.Fatal(e)
+		}
+		if e = json.Unmarshal(f.body, &snapshot); e != nil {
+			t.Fatal(e)
+		}
+		if predicate(snapshot) {
+			return snapshot
+		}
+		time.Sleep(time.Millisecond)
+	}
+	t.Fatalf("state not reached: %v", snapshot)
+	return nil
+}
+func packet(t *testing.T, c net.Conn, payload []byte) {
+	t.Helper()
+	h := make([]byte, 4+len(payload))
+	binary.LittleEndian.PutUint32(h, uint32(len(payload)))
+	h[3] = 0
+	copy(h[4:], payload)
+	if _, e := c.Write(h); e != nil {
+		t.Fatal(e)
+	}
+}
+func readPacket(t *testing.T, c net.Conn) []byte {
+	t.Helper()
+	c.SetReadDeadline(time.Now().Add(3 * time.Second))
+	defer c.SetReadDeadline(time.Time{})
+	var h [4]byte
+	if _, e := io.ReadFull(c, h[:]); e != nil {
+		t.Fatal(e)
+	}
+	n := binary.LittleEndian.Uint32(h[:]) & 0xffffff
+	if n > 1048577 {
+		t.Fatal(n)
+	}
+	p := make([]byte, n)
+	if _, e := io.ReadFull(c, p); e != nil {
+		t.Fatal(e)
+	}
+	return p
+}
+func TestCapturePartialAndOutputRejection(t *testing.T) {
+	r := rootFor(t, 5000)
+	var c net.Conn
+	db := dbFor(t, r, &c)
+	defer db.Close()
+	db.SetMaxOpenConns(2)
+	if _, e := c.Write([]byte{1}); e != nil {
+		t.Fatal(e)
+	}
+	inspect(t, r, func(s map[string]any) bool {
+		for _, v := range s["sessions"].([]any) {
+			if v.(map[string]any)["phase"] == "receiving" {
+				return true
+			}
+		}
+		return false
+	})
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	o, consumed, e := r.snapshot(ctx, false)
+	cancel()
+	if o != nil || consumed || e == nil || !strings.Contains(e.Error(), "busy") {
+		t.Fatal(o, consumed, e)
+	}
+	if _, e = c.Write([]byte{0, 0, 0, 14}); e != nil {
+		t.Fatal(e)
+	}
+	if p := readPacket(t, c); len(p) == 0 || p[0] != 0 {
+		t.Fatal("partial command lost", p)
+	}
+	if queryOne(t, db, "SELECT 42") != 42 {
+		t.Fatal("source lost after partial rejection")
+	}
+	rows, e := db.Query("SELECT REPEAT('x',4194304)")
+	if e != nil {
+		t.Fatal(e)
+	}
+	inspect(t, r, func(s map[string]any) bool {
+		for _, v := range s["sessions"].([]any) {
+			if v.(map[string]any)["outstanding"] == float64(65536) {
+				return true
+			}
+		}
+		return false
+	})
+	ctx, cancel = context.WithTimeout(context.Background(), time.Second)
+	o, consumed, e = r.snapshot(ctx, false)
+	cancel()
+	if o != nil || consumed || e == nil {
+		t.Fatal(o, consumed, e)
+	}
+	if queryOne(t, db, "SELECT 43") != 43 {
+		t.Fatal("other session lost")
+	}
+	if e = rows.Close(); e != nil {
+		t.Fatal(e)
+	}
+	if queryOne(t, db, "SELECT 44") != 44 {
+		t.Fatal("source lost after output rejection")
+	}
+	joined(t, r, false)
+}
+func TestCaptureQueuedFenceAndDuplicate(t *testing.T) {
+	r := rootFor(t, 5000)
+	var c net.Conn
+	db := dbFor(t, r, &c)
+	defer db.Close()
+	seed(t, db)
+	r.mu.Lock()
+	var k key
+	for id := range r.sessions {
+		k = id
+		break
+	}
+	r.mu.Unlock()
+	if _, e := r.rpc(frame{kind: 8, slot: k.slot, generation: k.generation, value: 1}); e != nil {
+		t.Fatal(e)
+	}
+	packet(t, c, append([]byte{3}, []byte("INSERT INTO persisted VALUES(9)")...))
+	inspect(t, r, func(s map[string]any) bool {
+		for _, v := range s["sessions"].([]any) {
+			m := v.(map[string]any)
+			if m["phase"] == "idle" && m["input"].(float64) > 0 {
+				return true
+			}
+		}
+		return false
+	})
+	r.afterFence = func(id uint64) error {
+		reply, e := r.rpc(frame{kind: 11, value: id})
+		if e != nil || reply.kind != 112 || reply.value != id {
+			return fmt.Errorf("duplicate fence: %+v %v", reply, e)
+		}
+		reply, e = r.rpc(frame{kind: 12, value: id + 1})
+		if e != nil || reply.kind != 110 {
+			return fmt.Errorf("wrong stop accepted: %+v %v", reply, e)
+		}
+		if e = r.send(frame{kind: data, slot: k.slot, generation: k.generation, value: 0, body: []byte{255}}); e != nil {
+			return e
+		}
+		return nil
+	}
+	b := makeBaseline(captureNow(t, r, false))
+	defer b.close()
+	f := child(t, b)
+	fd := dbFor(t, f, nil)
+	defer fd.Close()
+	if queryOne(t, fd, "SELECT COUNT(*) FROM persisted") != 1 {
+		t.Fatal("post-fence SQL side effect")
+	}
+	joined(t, f, false)
+}
+func assertNoRoot(t *testing.T, r *instance) {
+	t.Helper()
+	if root, e := r.capture.TakeRoot(generatedgo.GuestSHA256); e == nil || root != nil {
+		t.Fatal("failure yielded root", root, e)
+	}
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	for _, e := range r.lifecycleEvents {
+		if e == "freeze_complete" {
+			t.Fatal("failure approved freeze", r.lifecycleEvents)
+		}
+	}
+}
+func TestCaptureFailureControls(t *testing.T) {
+	for _, name := range []string{"lost_fence", "lost_stop_ack", "lost_receipt", "wrong_receipt", "cancel_before", "cancel_after_fence", "cleanup_failure", "engine_failure"} {
+		t.Run(name, func(t *testing.T) {
+			r := rootFor(t, 5000)
+			db := dbFor(t, r, nil)
+			defer db.Close()
+			ctx, cancel := context.WithTimeout(context.Background(), 150*time.Millisecond)
+			defer cancel()
+			if name == "lost_fence" {
+				r.mu.Lock()
+				r.dropKinds[112] = true
+				r.mu.Unlock()
+			}
+			if name == "lost_stop_ack" {
+				r.mu.Lock()
+				r.dropKinds[113] = true
+				r.mu.Unlock()
+			}
+			if name == "lost_receipt" {
+				r.mu.Lock()
+				r.dropKinds[114] = true
+				r.mu.Unlock()
+			}
+			if name == "wrong_receipt" {
+				r.mu.Lock()
+				r.wrongReceipt = true
+				r.mu.Unlock()
+			}
+			if name == "cancel_before" {
+				cancel()
+			}
+			if name == "cancel_after_fence" {
+				r.afterFence = func(uint64) error { cancel(); return ctx.Err() }
+			}
+			if name == "cleanup_failure" || name == "engine_failure" {
+				v := uint64(1)
+				if name == "engine_failure" {
+					v = 2
+				}
+				if _, e := r.rpc(frame{kind: 13, value: v}); e != nil {
+					t.Fatal(e)
+				}
+			}
+			o, consumed, e := r.snapshot(ctx, false)
+			if o != nil || e == nil || consumed != (name != "cancel_before") {
+				t.Fatal(o, consumed, e)
+			}
+			if name == "cancel_before" {
+				if queryOne(t, db, "SELECT 45") != 45 {
+					t.Fatal("unsent cancellation consumed source")
+				}
+			} else {
+				r.close()
+				assertNoRoot(t, r)
+			}
+			t.Logf("%s consumed=%v err=%v", name, consumed, e)
+		})
+	}
+}
+func TestCaptureOrdinaryStopAndEOF(t *testing.T) {
+	for _, name := range []string{"ordinary_stop", "private_eof"} {
+		t.Run(name, func(t *testing.T) {
+			r := rootFor(t, 5000)
+			r.capture.Request()
+			if name == "ordinary_stop" {
+				r.send(frame{kind: stop})
+			} else {
+				r.in.Close()
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+			defer cancel()
+			if e := r.awaitJoined(ctx); e == nil {
+				t.Fatal("unexpected successful capture shutdown")
+			}
+			assertNoRoot(t, r)
+		})
+	}
+}
+func TestCaptureDebtCannotBeForgiven(t *testing.T) {
+	source := rootFor(t, 5000)
+	db := dbFor(t, source, nil)
+	seed(t, db)
+	b := makeBaseline(captureNow(t, source, false))
+	defer b.close()
+	db.Close()
+	r := child(t, b)
+	rd := dbFor(t, r, nil)
+	defer rd.Close()
+	r.failAcquisition = true
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	o, consumed, e := r.snapshot(ctx, false)
+	if o != nil || !consumed || e == nil {
+		t.Fatal(o, consumed, e)
+	}
+	if e = r.close(); e == nil {
+		t.Fatal("capture cleanup debt forgotten")
+	}
+	for _, recover := range []bool{false, true} {
+		if lease, e := b.pool.TryAcquire(recover); lease != nil || !errors.Is(e, forklimit.ErrCleanup) {
+			t.Fatal("forgave capture debt", recover, lease, e)
+		}
+	}
+	max, occupied := b.pool.Usage()
+	if max != 2 || occupied != 1 {
+		t.Fatal("lost owned slot", max, occupied)
+	}
+	t.Log("injected root-cleanup failure remains latched after actual runtime/retained-root cleanup")
+}
+func TestCaptureConcatenatedInputAndForeignEpoch(t *testing.T) {
+	r := rootFor(t, 5000)
+	var c net.Conn
+	db := dbFor(t, r, &c)
+	defer db.Close()
+	seed(t, db)
+	id := r.sequence.Add(1)
+	ch := make(chan frame, 1)
+	r.mu.Lock()
+	r.pending[id] = ch
+	r.mu.Unlock()
+	r.writeMu.Lock()
+	e := writeFrame(r.in, frame{kind: 11, request: id, epoch: r.epoch + 100, value: 1})
+	r.writeMu.Unlock()
+	if e != nil {
+		t.Fatal(e)
+	}
+	select {
+	case reply := <-ch:
+		if reply.kind != 110 || reply.value != 5 {
+			t.Fatal("foreign capture accepted", reply)
+		}
+	case <-time.After(time.Second):
+		t.Fatal("foreign rejection missing")
+	}
+	r.mu.Lock()
+	delete(r.pending, id)
+	r.mu.Unlock()
+	if _, e = db.Exec("DO '" + strings.Repeat("x", 65536) + "'"); e != nil {
+		t.Fatal(e)
+	}
+	encode := func(sql string) []byte {
+		p := append([]byte{3}, []byte(sql)...)
+		b := make([]byte, 4+len(p))
+		binary.LittleEndian.PutUint32(b, uint32(len(p)))
+		copy(b[4:], p)
+		return b
+	}
+	bytes := append(encode("INSERT INTO persisted VALUES(2)"), encode("INSERT INTO persisted VALUES(3)")...)
+	if _, e = c.Write(bytes); e != nil {
+		t.Fatal(e)
+	}
+	for i := 0; i < 2; i++ {
+		p := readPacket(t, c)
+		if len(p) == 0 || p[0] != 0 {
+			t.Fatal("concatenated command", p)
+		}
+	}
+	if queryOne(t, db, "SELECT COUNT(*) FROM persisted") != 3 {
+		t.Fatal("command input lost")
+	}
+	b := makeBaseline(captureNow(t, r, false))
+	defer b.close()
+	f := child(t, b)
+	fd := dbFor(t, f, nil)
+	defer fd.Close()
+	if queryOne(t, fd, "SELECT COUNT(*) FROM persisted") != 3 {
+		t.Fatal("warm NET capture lost rows")
+	}
+	joined(t, f, false)
+}
+func TestCaptureGoPipe(t *testing.T) {
+	r := rootFor(t, 5000)
+	network := fmt.Sprintf("capturepipe%d", r.epoch)
+	mysql.RegisterDialContext(network, func(context.Context, string) (net.Conn, error) { return r.pipe() })
+	db, e := sql.Open("mysql", fmt.Sprintf("root:x@%s(ignored)/test", network))
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer db.Close()
+	if e = db.Ping(); e != nil {
+		t.Fatal(e)
+	}
+	seed(t, db)
+	b := makeBaseline(captureNow(t, r, false))
+	defer b.close()
+	if c, e := r.pipe(); e == nil {
+		c.Close()
+		t.Fatal("consumed Pipe admitted")
+	}
+	f := child(t, b)
+	fd := dbFor(t, f, nil)
+	defer fd.Close()
+	if queryOne(t, fd, "SELECT COUNT(*) FROM persisted") != 1 {
+		t.Fatal("Pipe capture lost data")
+	}
+	joined(t, f, false)
+}

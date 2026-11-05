@@ -1,0 +1,169 @@
+// Handwritten production execution adapter; not wasm2go-generated source.
+package generatedgo
+
+import (
+	"errors"
+	"fmt"
+	"io"
+	"strconv"
+	"sync"
+
+	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/prepared"
+)
+
+// Lifecycle is private to this experiment. Approval is not a guest join.
+type WireLifecycle struct {
+	Capture  *prepared.Capture
+	Approval <-chan error
+	Observe  func(string)
+}
+
+func (l *WireLifecycle) observe(event string) {
+	if l.Observe != nil {
+		l.Observe(event)
+	}
+}
+
+var wireLibraryMode sync.Once
+
+// StartWireInstance owns fresh execution/FS state. Completion includes all guest
+// workers, descriptor cleanup, snapshot export and prepared mapping release.
+// It does not serialize execution or forcibly kill non-cooperative Go workers.
+// StartWireInstance reports a fatal worker trap before joining workers.
+// onFailure must not block. The returned channel still means complete cleanup;
+// early failure never authorizes releasing memory owned by a running worker.
+func StartWireInstance(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming bool, onFailure func(error), epoch uint64, life *WireLifecycle) <-chan error {
+	return startWireInstance(in, out, stderr, transfer, restore, guestTiming, onFailure, newMemoryModule, epoch, life)
+}
+
+func startWireInstance(in io.Reader, out, stderr io.Writer, transfer string, restore []prepared.Entry, guestTiming bool, onFailure func(error), construct func(*host) (*base.Module, func() error, error), epoch uint64, life *WireLifecycle) <-chan error {
+	// CLI diagnostic entrypoints are separate command modes, not library calls.
+	wireLibraryMode.Do(func() { diagnostic = false })
+	done := make(chan error, 1)
+	go func() {
+		var err error
+		defer func() {
+			if p := recover(); p != nil {
+				err = errors.Join(err, wireGuestFailure(p))
+			}
+			done <- err
+		}()
+		w := base.DefaultWASI()
+		fs := base.NewBlockMemFS()
+		if life == nil || life.Capture == nil || life.Approval == nil {
+			err = fmt.Errorf("capture lifecycle required")
+			return
+		}
+		{
+			if err = life.Capture.BindRootSource(fs.RootSource(), GuestSHA256); err != nil {
+				return
+			}
+		}
+		if err = fs.MkdirAll("dev", 0755); err != nil {
+			return
+		}
+		if err = fs.MkdirAll("snapshot-out", 0755); err != nil {
+			return
+		}
+		w.SetFS(entropyFS{fs})
+		w.SetArgs([]string{"mariamem"})
+		if epoch == 0 || transfer != "" {
+			err = fmt.Errorf("wire experiment requires nonzero instance identity and no transfer")
+			return
+		}
+		w.SetEnv(append(wireGuestEnvironment(restore != nil, guestTiming), "MARIAMEM_CONTROL_EPOCH="+strconv.FormatUint(epoch, 10)))
+		w.SetStdin(in)
+		w.SetStdout(out)
+		w.SetStderr(stderr)
+		var maps *base.PreparedFiles
+		defer func() { err = errors.Join(err, w.CloseDescriptors(), maps.Close()) }()
+		if restore != nil {
+			maps, err = base.MapPreparedHandles(fs, restore, "mariadb")
+			if err != nil {
+				return
+			}
+		}
+		h := &host{WasiStubs: w, fdFlags: map[int32]uint16{0: 0, 1: 0, 2: 0, 3: 0}}
+		m, release, allocErr := construct(h)
+		if allocErr != nil {
+			err = allocErr
+			return
+		}
+		defer func() { releaseMemoryModule(m, release, &err); life.observe("memory_released") }()
+		m.Threads.NotifyWorkerFailure(func(cause any) {
+			if onFailure != nil {
+				onFailure(wireGuestFailure(cause))
+			}
+		})
+		if err = executeWireCapture(m, generated.Start, fs, life); err != nil {
+			return
+		}
+		if transfer != "" {
+			err = exportTransfer(fs, transfer)
+		}
+	}()
+	return done
+}
+
+// executeWireGuest is the recover boundary for both the root and joined workers.
+// Join before callers close descriptors/prepared files, including root failures.
+// It intentionally retains the existing non-cooperative-worker limitation.
+func executeWireGuest(m *base.Module, start func(*base.Module)) (err error) {
+	defer func() {
+		root := recover()
+		var worker any
+		if m != nil && m.Threads != nil {
+			worker = m.Threads.WaitThreads()
+		}
+		for _, p := range []any{root, worker} {
+			if p != nil {
+				err = errors.Join(err, wireGuestFailure(p))
+			}
+		}
+	}()
+	start(m)
+	return nil
+}
+
+// Preserve owned cleanup errors through recover, including retryable munmap errors.
+func wireGuestFailure(p any) error {
+	if e, ok := p.(error); ok {
+		return fmt.Errorf("generated-Go guest failure: %w", e)
+	}
+	return fmt.Errorf("generated-Go guest failure: %v", p)
+}
+
+// Construct per-instance guest context; ambient process variables are not inputs.
+func wireGuestEnvironment(restore, guestTiming bool) []string {
+	mode := "fresh"
+	if restore {
+		mode = "restore"
+	}
+	values := []string{"MARIAMEM_BOOT_MODE=" + mode}
+	if guestTiming {
+		values = append(values, "MARIAMEM_GUEST_TIMING=1")
+	}
+	return values
+}
+
+// This is the actual capture boundary used above, also exercised with controlled workers.
+func executeWireCapture(m *base.Module, start func(*base.Module), fs *base.MemFS, life *WireLifecycle) error {
+	if err := executeWireGuest(m, start); err != nil {
+		return err
+	}
+	life.observe("guest_joined")
+	if life.Capture.Requested() {
+		if err := <-life.Approval; err != nil {
+			return err
+		}
+		life.observe("capture_approved")
+		life.observe("freeze_begin")
+		if err := fs.FreezeRoot(GuestSHA256, life.Capture); err != nil {
+			return err
+		}
+		life.observe("freeze_complete")
+	}
+	return nil
+}

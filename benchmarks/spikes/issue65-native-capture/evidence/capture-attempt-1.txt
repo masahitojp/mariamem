@@ -1,0 +1,17 @@
+Disk preflight OK: 25.32 GiB free, 6.00 GiB owned
+=== RUN   TestCaptureForkRollbackAndRecapture
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:104: capture epoch=1 events=[fenced stop_accepted capture_stopped guest_joined capture_approved freeze_begin freeze_complete memory_released host_joined root_owned] native={"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    capture_test.go:143: capture epoch=2 events=[fenced stop_accepted capture_stopped guest_joined capture_approved freeze_begin freeze_complete memory_released host_joined root_owned] native={"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    capture_test.go:151: joined instance=3 cause=<nil> native={"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    capture_test.go:152: joined instance=4 cause=<nil> native={"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+[mysql] 2026/11/06 01:55:19 packets.go:58 unexpected EOF
+--- PASS: TestCaptureForkRollbackAndRecapture (0.24s)
+PASS

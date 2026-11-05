@@ -1,0 +1,14 @@
+Disk preflight OK: 28.28 GiB free, 0.32 GiB owned
+wasixcc
+sysroot
+binaryen
+llvm
+icu
+converter
+sysroot_pic
+mariadb
+lite4mariadb
+libmariadb
+wolfssl
+pcre2
+libfmt
