@@ -162,7 +162,7 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 		return s, e
 	}
 	queryAt = time.Now()
-	result, e := c.ExecContext(ctx, "UPDATE fork_probe SET v=-1 WHERE id=1")
+	result, e := updateObserved(ctx, c, index)
 	if e != nil {
 		return s, e
 	}
@@ -304,7 +304,9 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 				if ctx.Err() != nil {
 					return
 				}
-				s, e := one(ctx, sn, r.Route, index, at)
+				var s Sample
+				var e error
+				pprof.Do(ctx, pprof.Labels("child", fmt.Sprint(index)), func(childctx context.Context) { s, e = one(childctx, sn, r.Route, index, at) })
 				if e != nil {
 					s.Error = e.Error()
 					cancel()
