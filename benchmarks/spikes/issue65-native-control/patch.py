@@ -20,7 +20,7 @@ p=args.source/'libmysqld/mariamem_wire_probe.inc';p.write_bytes((spike/'session.
 p=args.source/'libmysqld/mariamem_control_abi.h';p.write_bytes((spike/'control_abi.h').read_bytes());files.add('libmysqld/mariamem_control_abi.h')
 p=args.source/'libmysqld/lib_sql.cc';s=p.read_text().replace('void Protocol_text::remove_last_row()\n{','void Protocol_text::remove_last_row()\n{\n  if (thd->mariamem_native_wire) return Protocol::remove_last_row();',1);p.write_text(s)
 p=args.source/'sql/sql_prepare.cc';s=p.read_text().replace('++mariamem_spike_decodes;','__atomic_fetch_add(&mariamem_spike_decodes,1UL,__ATOMIC_RELAXED);');p.write_text(s)
-p=args.source/'sql/sql_parse.cc';s=p.read_text().replace('resume:\n  return_value= dispatch_command(command, thd, packet+1,','resume:\n  if (thd->mariamem_native_wire) {\n    extern void mariamem_spike_dispatch_start(THD*);\n    mariamem_spike_dispatch_start(thd);\n  }\n  return_value= dispatch_command(command, thd, packet+1,',1);p.write_text(s)
+p=args.source/'sql/sql_parse.cc';s=p.read_text().replace('resume:\n  return_value= dispatch_command(command, thd, packet+1,','resume:\n  if (thd->mariamem_native_wire) {\n    extern bool mariamem_spike_dispatch_start(THD*, enum enum_server_command);\n    if (mariamem_spike_dispatch_start(thd,command)) return DISPATCH_COMMAND_CLOSE_CONNECTION;\n  }\n  return_value= dispatch_command(command, thd, packet+1,',1);p.write_text(s)
 p=args.source/'sql/net_serv.cc';s=p.read_text().replace('      len= uint3korr(net->buff + net->where_b);','''      len= uint3korr(net->buff + net->where_b);
       if (net->thd && static_cast<THD*>(net->thd)->mariamem_native_wire &&
           (len == 0 || len > 1048577UL))

@@ -1,0 +1,34 @@
+{
+  "scope": "3C fresh generated-Go native protocol experiment",
+  "platform": "macOS arm64",
+  "cases": [
+    {
+      "name": "TestProtocolPrepared",
+      "elapsed": "0.15s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestQueryDeadlineAndIsolation",
+      "elapsed": "0.91s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestPartialInputDeadline",
+      "elapsed": "0.87s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestSlowOutputControl",
+      "elapsed": "3.08s",
+      "result": "PASS"
+    }
+  ],
+  "log_sha256": "dd167d76d05b82ef892cb5a6abb2db4289c4158a78735e8d30169b58c0bd860e",
+  "not_qualified": [
+    "Snapshot/Fork/Live",
+    "production integration",
+    "performance",
+    "full protocol compatibility",
+    "race freedom"
+  ]
+}

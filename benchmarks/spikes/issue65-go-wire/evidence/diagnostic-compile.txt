@@ -1,0 +1,12 @@
+# github.com/masahitojp/mariamem/internal/generatedgo
+internal/generatedgo/main.go:15:2: debug redeclared in this block
+	internal/generatedgo/main.go:5:2: other declaration of debug
+internal/generatedgo/main.go:15:2: "runtime/debug" imported and not used
+Traceback (most recent call last):
+  File "/exp/temp/tools/recompile.py", line 5, in <module>
+    product=w/'temp/host/product';binary=w/'temp/host/wire.test';subprocess.run(['go','test','-c','-p','1','-trimpath','-buildvcs=false','-o',str(binary),'./cmd/issue65-wire'],cwd=product,env=env,check=True)
+                                                                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.10/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['go', 'test', '-c', '-p', '1', '-trimpath', '-buildvcs=false', '-o', '/exp/temp/host/wire.test', './cmd/issue65-wire']' returned non-zero exit status 1.

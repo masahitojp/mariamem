@@ -1,0 +1,12 @@
+[
+  {
+    "control": "wrong_guest",
+    "exit_code": 2,
+    "expected_rejection_observed": true
+  },
+  {
+    "control": "wrong_function_hash",
+    "exit_code": 1,
+    "expected_rejection_observed": true
+  }
+]

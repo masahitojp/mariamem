@@ -1,0 +1,32 @@
+Disk preflight OK: 25.91 GiB free, 6.06 GiB owned
+=== RUN   TestProtocolPrepared
+PASS:embedded_MYSQL_BIND
+THREAD_SIGNAL tid=16 signal=6
+goroutine 4 [running]:
+runtime/debug.Stack()
+	runtime/debug/stack.go:26 +0x64
+runtime/debug.PrintStack()
+	runtime/debug/stack.go:18 +0x1c
+github.com/masahitojp/mariamem/internal/generatedgo.(*host).Thread_signal(0x7ffd68?, 0x2a463ea4?, 0x14?, 0x6)
+	github.com/masahitojp/mariamem/internal/generatedgo/main.go:383 +0x80
+github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn81(...)
+	github.com/masahitojp/mariamem/internal/generatedgo/code/p8/p8_pure.go:145
+github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn148(0x7d8edf448408)
+	github.com/masahitojp/mariamem/internal/generatedgo/code/p8/p8_pure.go:1474 +0x7c
+github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn678(0x7d8edf448408, 0x191f53c0)
+	github.com/masahitojp/mariamem/internal/generatedgo/code/p3/p3_pure.go:18408 +0x2600
+github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn211(0x7d8edf448408, 0x10, 0x7d8e?)
+	github.com/masahitojp/mariamem/internal/generatedgo/code/p5/p5_pure.go:3711 +0x164
+github.com/masahitojp/mariamem/internal/generatedgo.newMemoryModule.func2.installGuestThreadLifetime.InstallThreadLifetime.1(0x7d8edf448408, 0x10, 0x2a463c5c)
+	github.com/masahitojp/mariamem/internal/generatedgo/code/base/thread_lifetime.go:58 +0x94
+github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1(0x7d8edf2ee190?, 0x0?)
+	github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:2028 +0x28
+github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1()
+	github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:2014 +0xb4
+created by github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch in goroutine 37
+	github.com/masahitojp/mariamem/internal/generatedgo/code/base/base.go:2004 +0x158
+[mysql] 2026/11/06 00:16:48 packets.go:58 unexpected EOF
+    wire_test.go:91: invalid connection
+    wire_test.go:23: cleanup instance=1: generated-Go guest failure: unimplemented WASIX: Thread_signal
+--- FAIL: TestProtocolPrepared (0.05s)
+FAIL

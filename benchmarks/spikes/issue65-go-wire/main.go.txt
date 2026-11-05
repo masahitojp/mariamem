@@ -1,0 +1,428 @@
+// Experimental opaque MySQL-byte relay. Only the private control envelope is parsed.
+package main
+
+import (
+	"encoding/binary"
+	"errors"
+	"fmt"
+	"github.com/masahitojp/mariamem/internal/generatedgo"
+	"io"
+	"net"
+	"os"
+	"sync"
+	"sync/atomic"
+	"time"
+)
+
+const (
+	open       = 1
+	data       = 2
+	ack        = 3
+	peerEOF    = 4
+	quiesce    = 5
+	stop       = 6
+	stats      = 7
+	ready      = 100
+	opened     = 101
+	raw        = 103
+	retired    = 104
+	poison     = 105
+	credit     = 106
+	state      = 107
+	statsReply = 108
+	inputLimit = 1048581
+)
+
+type frame struct {
+	kind                     byte
+	request, slot            uint32
+	epoch, generation, value uint64
+	body                     []byte
+}
+
+func readFrame(r io.Reader) (f frame, err error) {
+	var h [4]byte
+	if _, err = io.ReadFull(r, h[:]); err != nil {
+		return
+	}
+	n := binary.LittleEndian.Uint32(h[:])
+	if n < 33 || n > 65569 {
+		return f, fmt.Errorf("private frame size %d", n)
+	}
+	b := make([]byte, n)
+	if _, err = io.ReadFull(r, b); err != nil {
+		return
+	}
+	f = frame{b[0], binary.LittleEndian.Uint32(b[1:]), binary.LittleEndian.Uint32(b[5:]), binary.LittleEndian.Uint64(b[9:]), binary.LittleEndian.Uint64(b[17:]), binary.LittleEndian.Uint64(b[25:]), b[33:]}
+	return
+}
+func writeFrame(w io.Writer, f frame) error {
+	b := make([]byte, 37+len(f.body))
+	binary.LittleEndian.PutUint32(b, uint32(len(b)-4))
+	b[4] = f.kind
+	binary.LittleEndian.PutUint32(b[5:], f.request)
+	binary.LittleEndian.PutUint32(b[9:], f.slot)
+	binary.LittleEndian.PutUint64(b[13:], f.epoch)
+	binary.LittleEndian.PutUint64(b[21:], f.generation)
+	binary.LittleEndian.PutUint64(b[29:], f.value)
+	copy(b[37:], f.body)
+	for len(b) > 0 {
+		n, e := w.Write(b)
+		if e != nil {
+			return e
+		}
+		if n == 0 {
+			return io.ErrNoProgress
+		}
+		b = b[n:]
+	}
+	return nil
+}
+
+type key struct {
+	slot       uint32
+	generation uint64
+}
+type session struct {
+	root           *instance
+	id             key
+	conn           net.Conn
+	mu             sync.Mutex
+	cv             *sync.Cond
+	sent, consumed uint64
+	dead           bool
+	output         chan frame
+	ended          chan struct{}
+}
+
+func (s *session) close() {
+	s.mu.Lock()
+	if !s.dead {
+		s.dead = true
+		close(s.ended)
+		s.conn.Close()
+		s.cv.Broadcast()
+	}
+	s.mu.Unlock()
+}
+
+type instance struct {
+	epoch                      uint64
+	in, guestIn, out, guestOut *os.File
+	writeMu, mu                sync.Mutex
+	pending                    map[uint32]chan frame
+	opening                    map[uint32]*session
+	sessions                   map[key]*session
+	sequence                   atomic.Uint32
+	ready                      chan struct{}
+	poisoned                   chan struct{}
+	done                       chan struct{}
+	wg                         sync.WaitGroup
+	stopping                   bool
+	err, errorCause            error
+	listener                   net.Listener
+	limit                      uint64
+	finalStats []byte
+ events                     []frame
+}
+
+var epochCounter atomic.Uint64
+
+func newInstance(ms uint64) (*instance, error) {
+	r := &instance{epoch: epochCounter.Add(1), pending: map[uint32]chan frame{}, opening: map[uint32]*session{}, sessions: map[key]*session{}, ready: make(chan struct{}), poisoned: make(chan struct{}), done: make(chan struct{}), limit: ms}
+	if r.epoch == 0 {
+		panic("instance identity exhausted")
+	}
+	var e error
+	r.guestIn, r.in, e = os.Pipe()
+	if e != nil {
+		return nil, e
+	}
+	r.out, r.guestOut, e = os.Pipe()
+	if e != nil {
+		return nil, e
+	}
+	complete := generatedgo.StartWireInstance(r.guestIn, r.guestOut, os.Stderr, "", nil, false, func(cause error) { go func() { r.fail(cause); r.guestIn.Close() }() }, r.epoch)
+	r.wg.Add(1)
+	go func() { defer r.wg.Done(); r.readLoop() }()
+	go func() {
+		e := <-complete
+		r.mu.Lock()
+		r.err = e
+		r.mu.Unlock()
+		r.guestIn.Close()
+		r.guestOut.Close()
+		close(r.done)
+	}()
+	select {
+	case <-r.ready:
+		return r, nil
+	case <-r.done:
+		return r, fmt.Errorf("runtime before ready: %v", r.result())
+	case <-time.After(30 * time.Second):
+		r.fail(errors.New("ready deadline"))
+		r.guestIn.Close()
+		return r, errors.New("ready timeout")
+	}
+}
+func (r *instance) result() error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if r.errorCause != nil {
+		return r.errorCause
+	}
+	return r.err
+}
+func (r *instance) fail(e error) {
+	r.mu.Lock()
+	if r.errorCause == nil {
+		r.errorCause = e
+	}
+	all := make([]*session, 0, len(r.sessions))
+	for _, s := range r.sessions {
+		all = append(all, s)
+	}
+	r.mu.Unlock()
+	for _, s := range all {
+		s.close()
+	}
+}
+func (r *instance) send(f frame) error {
+	f.epoch = r.epoch
+	r.writeMu.Lock()
+	defer r.writeMu.Unlock()
+	return writeFrame(r.in, f)
+}
+func (r *instance) rpc(f frame, initial ...*session) (frame, error) {
+	id := r.sequence.Add(1)
+	if id == 0 {
+		return frame{}, errors.New("request identity exhausted")
+	}
+	f.request = id
+	ch := make(chan frame, 1)
+	r.mu.Lock()
+	r.pending[id] = ch
+	if len(initial) > 0 {
+		r.opening[id] = initial[0]
+	}
+	r.mu.Unlock()
+	defer func() { r.mu.Lock(); delete(r.pending, id); delete(r.opening, id); r.mu.Unlock() }()
+	if e := r.send(f); e != nil {
+		return frame{}, e
+	}
+	select {
+	case answer := <-ch:
+		return answer, nil
+	case <-r.done:
+		return frame{}, fmt.Errorf("runtime ended: %v", r.result())
+	case <-time.After(8 * time.Second):
+		return frame{}, errors.New("control deadline")
+	}
+}
+func (r *instance) readLoop() {
+	for {
+		f, e := readFrame(r.out)
+		if e != nil {
+			select {
+			case <-r.done:
+			default:
+				r.mu.Lock()
+				normal := r.stopping
+				r.mu.Unlock()
+				if !normal {
+					r.fail(e)
+				}
+			}
+			return
+		}
+		if f.epoch != r.epoch {
+			r.fail(errors.New("wrong instance identity"))
+			return
+		}
+		r.mu.Lock()
+		if len(r.events) < 10000 {
+			r.events = append(r.events, frame{kind: f.kind, slot: f.slot, generation: f.generation, value: f.value})
+		}
+		if f.kind == opened && r.opening[f.request] != nil {
+			initial := r.opening[f.request]
+			initial.id = key{f.slot, f.generation}
+			r.sessions[initial.id] = initial
+		}
+		ch := r.pending[f.request]
+		s := r.sessions[key{f.slot, f.generation}]
+		r.mu.Unlock()
+		if ch != nil {
+			ch <- f
+			continue
+		}
+		switch f.kind {
+		case ready:
+			close(r.ready)
+		case raw:
+			if s == nil {
+				r.fail(errors.New("output without session"))
+				return
+			}
+			select {
+			case s.output <- f:
+			case <-s.ended:
+			default:
+				r.fail(errors.New("bounded host output queue overflow"))
+				return
+			}
+		case credit:
+			if s != nil {
+				s.mu.Lock()
+				s.consumed = f.value
+				s.cv.Broadcast()
+				s.mu.Unlock()
+			}
+		case retired:
+			if s != nil { s.close(); r.mu.Lock(); delete(r.sessions,s.id); r.mu.Unlock() }
+		case 111:
+ r.mu.Lock();r.finalStats=append([]byte(nil),f.body...);r.mu.Unlock()
+ case poison:
+			r.fail(fmt.Errorf("guest poison: %s", f.body))
+			close(r.poisoned)
+		}
+	}
+}
+func (r *instance) serve() (string, error) {
+	l, e := net.Listen("tcp", "127.0.0.1:0")
+	if e != nil {
+		return "", e
+	}
+	r.listener = l
+	r.wg.Add(1)
+	go func() {
+		defer r.wg.Done()
+		for {
+			c, e := l.Accept()
+			if e != nil {
+				return
+			}
+			if tcp, ok := c.(*net.TCPConn); ok {
+				tcp.SetWriteBuffer(1024)
+			}
+			r.wg.Add(1)
+			go func() { defer r.wg.Done(); r.attach(c) }()
+		}
+	}()
+	return l.Addr().String(), nil
+}
+func (r *instance) attach(c net.Conn) {
+	s := &session{root: r, conn: c, output: make(chan frame, 16), ended: make(chan struct{})}
+	s.cv = sync.NewCond(&s.mu)
+	f, e := r.rpc(frame{kind: open, value: r.limit}, s)
+	if e != nil || f.kind != opened {
+		c.Close()
+		return
+	}
+	r.mu.Lock()
+	closing := r.stopping
+	r.mu.Unlock()
+	if closing {
+		s.close()
+		return
+	}
+	r.wg.Add(1)
+	go func() {
+		defer r.wg.Done()
+		defer s.close()
+		for {
+			select {
+			case f := <-s.output:
+				b := f.body
+				for len(b) > 0 {
+					n, e := c.Write(b)
+					if e != nil { r.send(frame{kind:peerEOF,slot:s.id.slot,generation:s.id.generation,value:1}); return }
+					b = b[n:]
+				}
+				if e := r.send(frame{kind: ack, slot: s.id.slot, generation: s.id.generation, value: f.value + uint64(len(f.body))}); e != nil {
+					return
+				}
+			case <-s.ended:
+				return
+			}
+		}
+	}()
+	defer func() {
+		r.mu.Lock()
+		stopping := r.stopping
+		r.mu.Unlock()
+		if !stopping {
+			r.send(frame{kind: peerEOF, slot: s.id.slot, generation: s.id.generation})
+		}
+	}()
+	b := make([]byte, 4096)
+	for {
+		s.mu.Lock()
+		for !s.dead && s.sent-s.consumed >= inputLimit {
+			s.cv.Wait()
+		}
+		if s.dead {
+			s.mu.Unlock()
+			return
+		}
+		available := uint64(inputLimit) - (s.sent - s.consumed)
+		offset := s.sent
+		s.mu.Unlock()
+		size := len(b)
+		if uint64(size) > available {
+			size = int(available)
+		}
+		n, e := c.Read(b[:size])
+		if n > 0 {
+			s.mu.Lock()
+			s.sent += uint64(n)
+			s.mu.Unlock()
+			if sendErr := r.send(frame{kind: data, slot: s.id.slot, generation: s.id.generation, value: offset, body: b[:n]}); sendErr != nil {
+				return
+			}
+		}
+		if e != nil {
+			return
+		}
+	}
+}
+func (r *instance) close() error {
+	r.mu.Lock()
+	r.stopping = true
+	l := r.listener
+	all := make([]*session, 0, len(r.sessions))
+	for _, s := range r.sessions {
+		all = append(all, s)
+	}
+	r.mu.Unlock()
+	if l != nil {
+		l.Close()
+	}
+	for _, s := range all {
+		s.close()
+	}
+	go r.send(frame{kind: stop})
+	select {
+	case <-r.done:
+		r.in.Close()
+		r.wg.Wait()
+		r.out.Close()
+		return r.result()
+	case <-time.After(12 * time.Second):
+		return errors.New("join incomplete; running resources retained")
+	}
+}
+func main() {
+	r, e := newInstance(5000)
+	if e != nil {
+		panic(e)
+	}
+	address, e := r.serve()
+	if e != nil {
+		panic(e)
+	}
+	fmt.Printf("%s\n", address)
+	io.Copy(io.Discard, os.Stdin)
+	if e := r.close(); e != nil {
+		panic(e)
+	}
+}

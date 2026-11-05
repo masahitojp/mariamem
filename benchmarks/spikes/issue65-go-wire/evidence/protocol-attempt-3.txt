@@ -1,0 +1,11 @@
+Disk preflight OK: 25.29 GiB free, 7.45 GiB owned
+=== RUN   TestProtocolPrepared
+PASS:embedded_MYSQL_BIND
+SESSION_RETIRED result=16 decodes=1
+[mysql] 2026/11/06 00:41:23 packets.go:58 unexpected EOF
+    wire_test.go:132: invalid connection
+PASS:embedded_MYSQL_BIND
+PASS:engine_shutdown_joined started=1 joined=1
+    wire_test.go:23: cleanup instance=1: guest poison: unexpected_peer_eof
+--- FAIL: TestProtocolPrepared (0.16s)
+FAIL

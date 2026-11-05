@@ -1,0 +1,7 @@
+{
+  "guest_sha256": "07852302f8e0f7269e700df813383c2147428e1eff9f7ac39b52bd4e983255d4",
+  "binary_sha256": "b61347c752d037cc80cc577f260564db53d69238b508aade7e0738a69f5b4cf3",
+  "host_source_commit": "a9d9502c17168dcecc98b700ef59a1eca7f65eb4",
+  "inventory_files": 7071,
+  "result": "PASS"
+}

@@ -1,0 +1,3 @@
+Disk preflight OK: 23.23 GiB free, 7.90 GiB owned
+Installed checksum-bound generated runtime: 62 files
+Built isolated wire test binary: /exp/temp/host/wire.test

@@ -1,0 +1,7 @@
+Disk preflight OK: 29.90 GiB free, 4.51 GiB owned
+Traceback (most recent call last):
+  File "/exp/temp/tools/assemble.py", line 10, in <module>
+    env=go_environment(dict(os.environ,GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='',GOMAXPROCS='2',GOGC='50',MARIAMEM_PHASE_TRACE=str(w/'evidence/host-phases.jsonl')))
+  File "/exp/worktree/scripts/build_feedback.py", line 39, in go_environment
+    raise ValueError('conflicting '+key+'; unset it before selecting task workspace')
+ValueError: conflicting GOPATH; unset it before selecting task workspace

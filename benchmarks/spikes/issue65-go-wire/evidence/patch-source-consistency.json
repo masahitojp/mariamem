@@ -1,0 +1,4 @@
+{
+  "libmysqld/mariamem_wire_probe.inc": true,
+  "wasm/issue65_control.cc": true
+}

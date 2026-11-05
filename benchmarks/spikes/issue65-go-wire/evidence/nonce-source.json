@@ -1,0 +1,5 @@
+{
+  "controller_sha256": "f71ec17e9aff0cad273dd6b02f41542c1d4e970b50547196ec4345f65eecc090",
+  "experimental_patch_sha256": "716c9e6ac82225f347450f354cdbc26ea55012cffcd71124d8a17bc95f7b2210",
+  "requirement": "host supplied decimal nonzero uint64; missing/zero/overflow fail closed; no PID fallback"
+}

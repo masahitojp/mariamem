@@ -1,0 +1,19 @@
+Disk preflight OK: 28.02 GiB free, 5.13 GiB owned
+Traceback (most recent call last):
+  File "/exp/worktree/scripts/generate_runtime.py", line 194, in <module>
+    main()
+    ~~~~^^
+  File "/exp/worktree/scripts/generate_runtime.py", line 130, in main
+    thread_lifetime_inputs(pins['guest_sha256'], files)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/exp/worktree/scripts/runtime_thread_lifetime.py", line 24, in validate_inputs
+    raise ValueError("unreviewed guest/worker allocation binding inputs")
+ValueError: unreviewed guest/worker allocation binding inputs
+Traceback (most recent call last):
+  File "/exp/temp/tools/assemble.py", line 28, in <module>
+    run([sys.executable,str(repo/'scripts/generate_runtime.py'),'--source-module',str(module),'--development-input',str(out/'installation-inputs.json'),'--output',str(staged_runtime)],env=env,check=True,phase='wire:installation')
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/exp/worktree/scripts/build_feedback.py", line 200, in run
+    raise subprocess.CalledProcessError(retcode, process.args,
+                                        output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/opt/homebrew/opt/python@3.14/bin/python3.14', '/exp/worktree/scripts/generate_runtime.py', '--source-module', '/exp/temp/host/candidate/module', '--development-input', '/exp/temp/host/installation-inputs.json', '--output', '/exp/temp/host/generatedgo']' returned non-zero exit status 1.

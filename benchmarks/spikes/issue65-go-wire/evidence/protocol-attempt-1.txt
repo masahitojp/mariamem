@@ -1,0 +1,8 @@
+Disk preflight OK: 26.11 GiB free, 5.96 GiB owned
+=== RUN   TestProtocolPrepared
+PASS:embedded_MYSQL_BIND
+[mysql] 2026/11/06 00:14:08 packets.go:58 unexpected EOF
+    wire_test.go:91: invalid connection
+    wire_test.go:23: cleanup instance=1: generated-Go guest failure: unimplemented WASIX: Thread_signal
+--- FAIL: TestProtocolPrepared (0.06s)
+FAIL

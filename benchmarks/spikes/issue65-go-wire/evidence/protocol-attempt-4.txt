@@ -1,0 +1,10 @@
+Disk preflight OK: 22.18 GiB free, 8.77 GiB owned
+=== RUN   TestProtocolPrepared
+PASS:embedded_MYSQL_BIND
+SESSION_RETIRED result=0 decodes=1
+SESSION_RETIRED result=16 decodes=1
+PASS:embedded_MYSQL_BIND
+PASS:engine_shutdown_joined started=2 joined=2
+    wire_test.go:137: joined instance=1 cause=<nil> native={"fenced":true,"poisoned":false,"cause":"","started":2,"joined":2,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":196,"sessions":[]}
+--- PASS: TestProtocolPrepared (0.19s)
+PASS

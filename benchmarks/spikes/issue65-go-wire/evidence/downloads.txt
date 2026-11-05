@@ -1,0 +1,8 @@
+Disk preflight OK: 30.12 GiB free, 2.16 GiB owned
+wasixcc
+sysroot
+binaryen
+llvm
+icu
+converter
+sysroot_pic
