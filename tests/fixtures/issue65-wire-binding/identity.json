@@ -1,7 +1,7 @@
 {
   "contract": "issue65-experimental-thread-binding-v1",
-  "guest_sha256": "a67377fd1c1648cdc248ae008776da2d456b57c179f773e22eed7f49073ca2b8",
-  "previous_experimental_guest_sha256": "07852302f8e0f7269e700df813383c2147428e1eff9f7ac39b52bd4e983255d4",
+  "guest_sha256": "c4c72644cd3fa4605a936a7eafe8d622ab4f670e5b7bdbfbdf30f0a351e8dfcf",
+  "previous_experimental_guest_sha256": "a67377fd1c1648cdc248ae008776da2d456b57c179f773e22eed7f49073ca2b8",
   "functions": {
     "code/p3/p3_pure.go": {
       "function": "Fn151",
