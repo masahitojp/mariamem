@@ -1,0 +1,30 @@
+[
+  {
+    "repository": "shyim/lite4mariadb",
+    "source_commit": "24be9371a2f6c71250a2356631ad6feab2280b02",
+    "path": "wasm/lite4mariadb.c",
+    "sha256": "c0a959b6755d3463de31d9d08d2a43031cc418a332768a0956ebfd5046e15526",
+    "bytes": 12173
+  },
+  {
+    "repository": "MariaDB/server",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "sql/sys_vars.cc",
+    "sha256": "eab6aa24f9dd5343ef7223bfd7c6dfc0f99fb7b448ad0814d3a631c08351ec96",
+    "bytes": 312500
+  },
+  {
+    "repository": "MariaDB/server",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "storage/innobase/handler/ha_innodb.cc",
+    "sha256": "0669de8bbf41e4898e99ae9b02f3346a76437e83f6a8d4e0565a2fb3efd7fd4a",
+    "bytes": 646608
+  },
+  {
+    "repository": "MariaDB/server",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "path": "sql/mysqld.cc",
+    "sha256": "b69ed88ee907f86e83f0f4d729b26cd84837f1b94b828d51683b61f81a670bb8",
+    "bytes": 378739
+  }
+]

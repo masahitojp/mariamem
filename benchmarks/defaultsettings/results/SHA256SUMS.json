@@ -1,0 +1,15 @@
+{
+  "README.md": "4bf83e3c0279c470d50c9bdb8f2c05d9ab0b97d5c0e60758c0f74a2df51421a5",
+  "analyze.py": "08d2bb131bc2ade6e0bd26627527cbcabd0a44d2feff8b560c61f433ce5b5de4",
+  "default-source-excerpts.json": "44211fb2a86b300261814f19b209a07255c482748eee4cc22d1da130433e47e7",
+  "effective-bounded-default.json": "df72d7eba534ca41901a5300757fa6e0d640575d784fb0d46a2fe97d7a7b4daf",
+  "effective-current.json": "87932c649ecb7e94ad51ea214ac15e89d6c91f5b00f912e4e85f1dd8c382b97a",
+  "inputs.json": "6c5bbb3fe483436395dc0afff3e109c2ad8e311ac1bffb2d04cd36d390e0b98f",
+  "inventory.json": "831aee351fbb8cf10707b72e093deac909ba932f5e17b235644c2f91a66c87a0",
+  "plan.json": "e994de9b4acf343d620ec2395a3ce23369a5566cd45537f51adc60a1dda614de",
+  "processes.csv": "eae5da8853013913cdac1f93721467bb39a4799b99be6f8ac3245abd9291a2b6",
+  "receipts.zip": "b36af284eb52c213950512858c504b6980c0dce42bcfdcd266a2cafaf39b4b06",
+  "report.html": "fdc59c00d8eab898bac6d0cc55bf2d34c4986c08599c880e4a0f3a97543075f1",
+  "summary.json": "37bb726611fbd4188032390c7cd924b77b87f24c64bc6b961ff7cc2d4f6f3809",
+  "upstream-inputs.json": "497673a3a6a78bf6068b982ac36edf9e0d94d8fddb8c18e4a9edef6a630f78b9"
+}

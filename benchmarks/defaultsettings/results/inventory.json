@@ -1,0 +1,288 @@
+{
+  "recipe_source_commit": "24be9371a2f6c71250a2356631ad6feab2280b02",
+  "arguments": [
+    {
+      "argument": "lite4mariadb",
+      "category": "program identity",
+      "action": "retain",
+      "sql_variable": null,
+      "current": null,
+      "bounded_default": null,
+      "source_default": "not a server option",
+      "reason": "same embedded entry"
+    },
+    {
+      "argument": "--basedir=/mariadb",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "basedir",
+      "current": "/mariadb",
+      "bounded_default": "/mariadb",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--datadir=/mariadb/data",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "datadir",
+      "current": "/mariadb/data/",
+      "bounded_default": "/mariadb/data/",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--plugin-dir=/mariadb/plugin",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "plugin_dir",
+      "current": "/mariadb/plugin/",
+      "bounded_default": "/mariadb/plugin/",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--lc-messages-dir=/mariadb/share",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "lc_messages_dir",
+      "current": "/mariadb/share",
+      "bounded_default": "/mariadb/share",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--character-sets-dir=/mariadb/share/charsets",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "character_sets_dir",
+      "current": "/mariadb/share/charsets/",
+      "bounded_default": "/mariadb/share/charsets/",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--tmpdir=/tmp",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "tmpdir",
+      "current": "/tmp",
+      "bounded_default": "/tmp",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--skip-grant-tables",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "skip_grant_tables",
+      "current": "ON",
+      "bounded_default": "ON",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--skip-networking",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "skip_networking",
+      "current": "ON",
+      "bounded_default": "ON",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--skip-log-bin",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "log_bin",
+      "current": "OFF",
+      "bounded_default": "OFF",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--innodb-use-native-aio=0",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "innodb_use_native_aio",
+      "current": "OFF",
+      "bounded_default": "OFF",
+      "source_default": "TRUE source declaration; capability/platform dependent",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--innodb-buffer-pool-size=16M",
+      "category": "resource bound",
+      "action": "retain in A/B",
+      "sql_variable": "innodb_buffer_pool_size",
+      "current": "16777216",
+      "bounded_default": "16777216",
+      "source_default": "128MiB (source declaration)",
+      "reason": "bound resource changes; capacity defaults are not tested"
+    },
+    {
+      "argument": "--loose-innodb-buffer-pool-size-max=16M",
+      "category": "resource bound",
+      "action": "retain in A/B",
+      "sql_variable": "innodb_buffer_pool_size_max",
+      "current": "16777216",
+      "bounded_default": "16777216",
+      "source_default": "computed default; not exercised: explicit bound retained",
+      "reason": "bound resource changes; capacity defaults are not tested"
+    },
+    {
+      "argument": "--innodb-log-buffer-size=2M",
+      "category": "resource bound",
+      "action": "retain in A/B",
+      "sql_variable": "innodb_log_buffer_size",
+      "current": "2097152",
+      "bounded_default": "2097152",
+      "source_default": "16MiB (source declaration)",
+      "reason": "bound resource changes; capacity defaults are not tested"
+    },
+    {
+      "argument": "--max-connections=10",
+      "category": "restored optional override",
+      "action": "omit in B",
+      "sql_variable": "max_connections",
+      "current": "10",
+      "bounded_default": "151",
+      "source_default": "MAX_CONNECTIONS_DEFAULT; observed151 when omitted",
+      "reason": "compare scheduling/cache/connection settings as a group"
+    },
+    {
+      "argument": "--default-storage-engine=InnoDB",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "default_storage_engine",
+      "current": "InnoDB",
+      "bounded_default": "InnoDB",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--loose-innodb-read-io-threads=1",
+      "category": "restored optional override",
+      "action": "omit in B",
+      "sql_variable": "innodb_read_io_threads",
+      "current": "1",
+      "bounded_default": "4",
+      "source_default": "4",
+      "reason": "compare scheduling/cache/connection settings as a group"
+    },
+    {
+      "argument": "--loose-innodb-write-io-threads=1",
+      "category": "restored optional override",
+      "action": "omit in B",
+      "sql_variable": "innodb_write_io_threads",
+      "current": "2",
+      "bounded_default": "4",
+      "source_default": "4 (minimum2)",
+      "reason": "compare scheduling/cache/connection settings as a group"
+    },
+    {
+      "argument": "--loose-innodb-purge-threads=1",
+      "category": "restored optional override",
+      "action": "omit in B",
+      "sql_variable": "innodb_purge_threads",
+      "current": "1",
+      "bounded_default": "4",
+      "source_default": "4",
+      "reason": "compare scheduling/cache/connection settings as a group"
+    },
+    {
+      "argument": "--table-open-cache=32",
+      "category": "restored optional override",
+      "action": "omit in B",
+      "sql_variable": "table_open_cache",
+      "current": "32",
+      "bounded_default": "2000",
+      "source_default": "TABLE_OPEN_CACHE_DEFAULT; observed2000 when omitted",
+      "reason": "compare scheduling/cache/connection settings as a group"
+    },
+    {
+      "argument": "--thread-cache-size=0",
+      "category": "restored optional override",
+      "action": "omit in B",
+      "sql_variable": "thread_cache_size",
+      "current": "0",
+      "bounded_default": "151",
+      "source_default": "256 declaration; startup caps to max_connections =>151",
+      "reason": "compare scheduling/cache/connection settings as a group"
+    },
+    {
+      "argument": "--socket=/tmp/mysql.sock",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "socket",
+      "current": "/tmp/mysql.sock",
+      "bounded_default": "/tmp/mysql.sock",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--caching-sha2-password-private-key-path=/mariamem-auth/private.pem",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "caching_sha2_password_private_key_path",
+      "current": "/mariamem-auth/private.pem",
+      "bounded_default": "/mariamem-auth/private.pem",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--caching-sha2-password-public-key-path=/mariamem-auth/public.pem",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "caching_sha2_password_public_key_path",
+      "current": "/mariamem-auth/public.pem",
+      "bounded_default": "/mariamem-auth/public.pem",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    },
+    {
+      "argument": "--caching-sha2-password-auto-generate-rsa-keys=OFF",
+      "category": "fixed contract/portability/path",
+      "action": "retain in A/B",
+      "sql_variable": "caching_sha2_password_auto_generate_rsa_keys",
+      "current": "OFF",
+      "bounded_default": "OFF",
+      "source_default": "not independently established here; retained in A/B",
+      "reason": "preserve existing guest paths, execution/auth contract and supported I/O mode"
+    }
+  ],
+  "additional_observed_defaults": {
+    "innodb_buffer_pool_load_at_startup": {
+      "root": "OFF",
+      "child": "ON",
+      "both_profiles_same": true
+    },
+    "innodb_buffer_pool_dump_at_shutdown": {
+      "root": "ON",
+      "child": "ON",
+      "both_profiles_same": true
+    },
+    "innodb_io_capacity": {
+      "root": "200",
+      "child": "200",
+      "both_profiles_same": true
+    },
+    "innodb_io_capacity_max": {
+      "root": "2000",
+      "child": "2000",
+      "both_profiles_same": true
+    },
+    "innodb_flush_sync": {
+      "root": "ON",
+      "child": "ON",
+      "both_profiles_same": true
+    },
+    "innodb_flush_log_at_trx_commit": {
+      "root": "1",
+      "child": "1",
+      "both_profiles_same": true
+    }
+  },
+  "limitation": "All25 original arguments inventoried; upstream default values for fixed path/auth/portability entries are not exhaustively resolved or tested. B is six-override removal under retained resource constraints, not complete upstream defaults."
+}

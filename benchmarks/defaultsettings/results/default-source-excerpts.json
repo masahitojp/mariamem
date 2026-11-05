@@ -1,0 +1,86 @@
+[
+  {
+    "file": "sys_vars.cc",
+    "line": 1905,
+    "anchor": "Sys_max_connections(",
+    "text": "static Sys_var_on_access_global<Sys_var_ulong,\n                                PRIV_SET_SYSTEM_GLOBAL_VAR_MAX_CONNECTIONS>\nSys_max_connections(\n       \"max_connections\", \"The number of simultaneous clients allowed\",\n       PARSED_EARLY GLOBAL_VAR(max_connections), CMD_LINE(REQUIRED_ARG),\n       VALID_RANGE(10, 100000),\n       DEFAULT(MAX_CONNECTIONS_DEFAULT), BLOCK_SIZE(1), NO_MUTEX_GUARD,\n       NOT_IN_BINLOG, ON_CHECK(0), ON_UPDATE(fix_max_connections));\n\nstatic Sys_var_uint Sys_default_password_lifetime(\n       \"default_password_lifetime\",\n       \"This defines the global password expiration policy. 0 means \"\n       \"automatic password expiration is disabled. If the value is a \"\n       \"positive integer N, the passwords must be changed every N days. This \""
+  },
+  {
+    "file": "sys_vars.cc",
+    "line": 4467,
+    "anchor": "Sys_table_cache_size(",
+    "text": "\n/* Check the table_definition_cache comment if makes changes */\nstatic Sys_var_ulong Sys_table_cache_size(\n       \"table_open_cache\", \"The number of cached open tables\",\n       GLOBAL_VAR(tc_size), CMD_LINE(REQUIRED_ARG),\n       VALID_RANGE(10, 1024*1024), DEFAULT(TABLE_OPEN_CACHE_DEFAULT),\n       BLOCK_SIZE(1), NO_MUTEX_GUARD, NOT_IN_BINLOG, ON_CHECK(0),\n       ON_UPDATE(fix_table_open_cache));\n\nstatic Sys_var_uint Sys_table_cache_instances(\n       \"table_open_cache_instances\", \"Maximum number of table cache instances\",\n       READ_ONLY GLOBAL_VAR(tc_instances), CMD_LINE(REQUIRED_ARG),\n       VALID_RANGE(1, 64), DEFAULT(8), BLOCK_SIZE(1));\n"
+  },
+  {
+    "file": "sys_vars.cc",
+    "line": 4479,
+    "anchor": "Sys_thread_cache_size(",
+    "text": "       VALID_RANGE(1, 64), DEFAULT(8), BLOCK_SIZE(1));\n\nstatic Sys_var_ulong Sys_thread_cache_size(\n       \"thread_cache_size\",\n       \"How many threads we should keep in a cache for reuse. These are freed after 5 minutes of idle time\",\n       GLOBAL_VAR(thread_cache_size), CMD_LINE(REQUIRED_ARG),\n       VALID_RANGE(0, 16384), DEFAULT(256), BLOCK_SIZE(1));\n\n#ifdef HAVE_POOL_OF_THREADS\nstatic bool fix_tp_max_threads(sys_var *, THD *, enum_var_type)\n{\n  tp_set_max_threads(threadpool_max_threads);\n  return false;\n}"
+  },
+  {
+    "file": "sys_vars.cc",
+    "line": 3406,
+    "anchor": "Sys_skip_networking(",
+    "text": "       READ_ONLY GLOBAL_VAR(my_disable_locking), NO_CMD_LINE, DEFAULT(TRUE));\n\nstatic Sys_var_mybool Sys_skip_networking(\n       \"skip_networking\", \"Don't allow connection with TCP/IP\",\n       READ_ONLY GLOBAL_VAR(opt_disable_networking), CMD_LINE(OPT_ARG),\n       DEFAULT(FALSE));\n\nstatic Sys_var_mybool Sys_skip_name_resolve(\n       \"skip_name_resolve\",\n       \"Don't resolve hostnames. All hostnames are IP's or 'localhost'\",\n       READ_ONLY GLOBAL_VAR(opt_skip_name_resolve),\n       CMD_LINE(OPT_ARG),\n       DEFAULT(FALSE));\n"
+  },
+  {
+    "file": "ha_innodb.cc",
+    "line": 3569,
+    "anchor": "MYSQL_SYSVAR_SIZE_T(buffer_pool_size,",
+    "text": "}\n\nstatic MYSQL_SYSVAR_SIZE_T(buffer_pool_size, buf_pool.size_in_bytes_requested,\n  PLUGIN_VAR_RQCMDARG,\n  \"The size of the memory buffer InnoDB uses to cache data\"\n  \" and indexes of its tables\",\n  nullptr, innodb_buffer_pool_size_update, 128U << 20, 2U << 20,\n  size_t(-ssize_t(innodb_buffer_pool_extent_size)), 1U << 20);\n\n#if defined __linux__ || !defined DBUG_OFF\nstatic void innodb_buffer_pool_size_auto_min_update(THD*,st_mysql_sys_var*,\n                                                    void*, const void *save)\n  noexcept\n{"
+  },
+  {
+    "file": "ha_innodb.cc",
+    "line": 3595,
+    "anchor": "MYSQL_SYSVAR_SIZE_T(buffer_pool_size_max,",
+    "text": "#endif\n\nstatic MYSQL_SYSVAR_SIZE_T(buffer_pool_size_max, buf_pool.size_in_bytes_max,\n                           PLUGIN_VAR_RQCMDARG | PLUGIN_VAR_READONLY,\n                           \"Maximum innodb_buffer_pool_size\",\n                           nullptr, nullptr,\n                           buf_pool.size_in_bytes_max_default,\n                           buf_pool.size_in_bytes_max_minimum,\n                           size_t(-ssize_t(innodb_buffer_pool_extent_size)),\n                           innodb_buffer_pool_extent_size);\n\nstatic MYSQL_SYSVAR_UINT(log_write_ahead_size, log_sys.write_size,\n  PLUGIN_VAR_RQCMDARG | PLUGIN_VAR_READONLY,\n  \"Redo log write size to avoid read-on-write; must be a power of two\","
+  },
+  {
+    "file": "ha_innodb.cc",
+    "line": 19665,
+    "anchor": "MYSQL_SYSVAR_UINT(log_buffer_size,",
+    "text": "  UNIV_PAGE_SIZE_MIN, UNIV_PAGE_SIZE_MAX, 0);\n\nstatic MYSQL_SYSVAR_UINT(log_buffer_size, log_sys.buf_size,\n  PLUGIN_VAR_RQCMDARG | PLUGIN_VAR_READONLY,\n  \"Redo log buffer size in bytes\",\n  NULL, NULL, 16U << 20, 2U << 20, log_sys.buf_size_max, 4096);\n\n  static constexpr const char *innodb_log_file_mmap_description=\n    \"Whether ib_logfile0\"\n    \" resides in persistent memory (when supported) or\"\n    \" should initially be memory-mapped\";\nstatic MYSQL_SYSVAR_BOOL(log_file_mmap, log_sys.log_mmap,\n  PLUGIN_VAR_OPCMDARG | PLUGIN_VAR_READONLY,\n  innodb_log_file_mmap_description,"
+  },
+  {
+    "file": "ha_innodb.cc",
+    "line": 19644,
+    "anchor": "MYSQL_SYSVAR_UINT(read_io_threads,",
+    "text": "}\n\nstatic MYSQL_SYSVAR_UINT(read_io_threads, srv_n_read_io_threads,\n  PLUGIN_VAR_RQCMDARG,\n  \"Number of background read I/O threads in InnoDB\",\n  NULL, innodb_read_io_threads_update , 4, 1, 64, 0);\n\nstatic MYSQL_SYSVAR_UINT(write_io_threads, srv_n_write_io_threads,\n  PLUGIN_VAR_RQCMDARG,\n  \"Number of background write I/O threads in InnoDB\",\n  NULL, innodb_write_io_threads_update, 4, 2, 64, 0);\n\nstatic MYSQL_SYSVAR_ULONG(force_recovery, srv_force_recovery,\n  PLUGIN_VAR_RQCMDARG | PLUGIN_VAR_READONLY,"
+  },
+  {
+    "file": "ha_innodb.cc",
+    "line": 19649,
+    "anchor": "MYSQL_SYSVAR_UINT(write_io_threads,",
+    "text": "  NULL, innodb_read_io_threads_update , 4, 1, 64, 0);\n\nstatic MYSQL_SYSVAR_UINT(write_io_threads, srv_n_write_io_threads,\n  PLUGIN_VAR_RQCMDARG,\n  \"Number of background write I/O threads in InnoDB\",\n  NULL, innodb_write_io_threads_update, 4, 2, 64, 0);\n\nstatic MYSQL_SYSVAR_ULONG(force_recovery, srv_force_recovery,\n  PLUGIN_VAR_RQCMDARG | PLUGIN_VAR_READONLY,\n  \"Helps to save your data in case the disk image of the database becomes corrupt. Value 5 can return bogus data, and 6 can permanently corrupt data\",\n  NULL, NULL, 0, 0, 6, 0);\n\nstatic MYSQL_SYSVAR_ULONG(page_size, srv_page_size,\n  PLUGIN_VAR_OPCMDARG | PLUGIN_VAR_READONLY,"
+  },
+  {
+    "file": "ha_innodb.cc",
+    "line": 19238,
+    "anchor": "MYSQL_SYSVAR_UINT(purge_threads,",
+    "text": "}\n\nstatic MYSQL_SYSVAR_UINT(purge_threads, srv_n_purge_threads,\n  PLUGIN_VAR_OPCMDARG,\n  \"Number of tasks for purging transaction history\",\n  NULL, innodb_purge_threads_update,\n  4,\t\t\t    /* Default setting */\n  1,\t\t\t    /* Minimum value */\n  innodb_purge_threads_MAX, /* Maximum value */\n  0);\n\nstatic MYSQL_SYSVAR_UINT(fast_shutdown, srv_fast_shutdown,\n  PLUGIN_VAR_OPCMDARG,\n  \"Speeds up the shutdown process of the InnoDB storage engine. Possible\""
+  },
+  {
+    "file": "ha_innodb.cc",
+    "line": 19816,
+    "anchor": "MYSQL_SYSVAR_BOOL(use_native_aio,",
+    "text": "  AUTOINC_NO_LOCKING, 0);\t/* Maximum value */\n\nstatic MYSQL_SYSVAR_BOOL(use_native_aio, srv_use_native_aio,\n  PLUGIN_VAR_NOCMDARG | PLUGIN_VAR_READONLY,\n  \"Use native AIO if supported on this platform\",\n  NULL, NULL, TRUE);\n\n#ifdef __linux__\nstatic MYSQL_SYSVAR_ENUM(linux_aio, srv_linux_aio_method,\n  PLUGIN_VAR_RQCMDARG | PLUGIN_VAR_READONLY,\n  \"Specifies which Linux AIO implementation should be used.\"\n  \" Possible value are \\\"auto\\\" (default) to select io_uring\"\n  \" and fallback to aio, or explicit \\\"io_uring\\\" or \\\"aio\\\"\",\n  nullptr, nullptr, SRV_LINUX_AIO_AUTO, &innodb_linux_aio_typelib);"
+  },
+  {
+    "file": "ha_innodb.cc",
+    "line": 19493,
+    "anchor": "MYSQL_SYSVAR_BOOL(buffer_pool_load_at_startup,",
+    "text": "\n/* there is no point in changing this during runtime, thus readonly */\nstatic MYSQL_SYSVAR_BOOL(buffer_pool_load_at_startup, srv_buffer_pool_load_at_startup,\n  PLUGIN_VAR_RQCMDARG | PLUGIN_VAR_READONLY,\n  \"Load the buffer pool from a file named @@innodb_buffer_pool_filename\",\n  NULL, NULL, TRUE);\n\nstatic MYSQL_SYSVAR_ULONG(lru_scan_depth, buf_pool.LRU_scan_depth,\n  PLUGIN_VAR_RQCMDARG,\n  \"How deep to scan LRU to keep it clean\",\n  NULL, innodb_buf_pool_update<ulong>, 1536, 100, ~0UL, 0);\n\nstatic MYSQL_SYSVAR_ULONG(flush_neighbors, buf_pool.flush_neighbors,\n  PLUGIN_VAR_OPCMDARG,"
+  },
+  {
+    "file": "ha_innodb.cc",
+    "line": 19442,
+    "anchor": "MYSQL_SYSVAR_BOOL(buffer_pool_dump_at_shutdown,",
+    "text": "  NULL, buffer_pool_dump_now, FALSE);\n\nstatic MYSQL_SYSVAR_BOOL(buffer_pool_dump_at_shutdown, srv_buffer_pool_dump_at_shutdown,\n  PLUGIN_VAR_RQCMDARG,\n  \"Dump the buffer pool into a file named @@innodb_buffer_pool_filename\",\n  NULL, NULL, TRUE);\n\n#if defined __linux__ || defined __FreeBSD__\n/** Update the system variable innodb_buffer_pool_in_core_dump.\n@param save    to-be-assigned value */\nstatic void innodb_buffer_pool_in_core_dump_update(THD *, st_mysql_sys_var *,\n                                                   void *, const void *save)\n{\n  mysql_mutex_lock(&buf_pool.mutex);"
+  },
+  {
+    "file": "mysqld.cc",
+    "line": 9490,
+    "anchor": "if (thread_cache_size > max_connections)",
+    "text": "\n  /* Ensure that some variables are not set higher than needed */\n  if (thread_cache_size > max_connections)\n    SYSVAR_AUTOSIZE(thread_cache_size, max_connections);\n\n  return 0;\n}\n\n\n/*\n  Create version name for running mysqld version\n  We automaticly add suffixes -debug, -embedded and -log to the version\n  name to make the version more descriptive.\n  (MYSQL_SERVER_SUFFIX is set by the compilation environment)"
+  }
+]

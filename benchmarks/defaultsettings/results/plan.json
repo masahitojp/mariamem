@@ -1,0 +1,75 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness": "3be0dd9ef3d9740bbd59fe32e03225f7cc717120",
+  "origin_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "method": "UNQUALIFIED generated-Go argv compaction at l4m_open->mysql_server_init; no new WASM; one binary/process-start selector; no canonical product edits",
+  "original_argv": [
+    "lite4mariadb",
+    "--basedir=/mariadb",
+    "--datadir=/mariadb/data",
+    "--plugin-dir=/mariadb/plugin",
+    "--lc-messages-dir=/mariadb/share",
+    "--character-sets-dir=/mariadb/share/charsets",
+    "--tmpdir=/tmp",
+    "--skip-grant-tables",
+    "--skip-networking",
+    "--skip-log-bin",
+    "--innodb-use-native-aio=0",
+    "--innodb-buffer-pool-size=16M",
+    "--loose-innodb-buffer-pool-size-max=16M",
+    "--innodb-log-buffer-size=2M",
+    "--max-connections=10",
+    "--default-storage-engine=InnoDB",
+    "--loose-innodb-read-io-threads=1",
+    "--loose-innodb-write-io-threads=1",
+    "--loose-innodb-purge-threads=1",
+    "--table-open-cache=32",
+    "--thread-cache-size=0",
+    "--socket=/tmp/mysql.sock",
+    "--caching-sha2-password-private-key-path=/mariamem-auth/private.pem",
+    "--caching-sha2-password-public-key-path=/mariamem-auth/public.pem",
+    "--caching-sha2-password-auto-generate-rsa-keys=OFF"
+  ],
+  "removed_in_bounded_default": [
+    "--max-connections=10",
+    "--loose-innodb-read-io-threads=1",
+    "--loose-innodb-write-io-threads=1",
+    "--loose-innodb-purge-threads=1",
+    "--table-open-cache=32",
+    "--thread-cache-size=0"
+  ],
+  "retained_resource_bounds": [
+    "innodb_buffer_pool_size=16MiB",
+    "innodb_buffer_pool_size_max=16MiB",
+    "innodb_log_buffer_size=2MiB"
+  ],
+  "variants": [
+    "current",
+    "bounded-default"
+  ],
+  "parallel": [
+    4,
+    8
+  ],
+  "count": 48,
+  "primary_pairs": 5,
+  "warmup": 1,
+  "preflight": "each variant one root +8children P8 with SQL effective values; separate wrong-seed controls",
+  "metrics": [
+    "batch wall and process CPU",
+    "Fork p50/p95",
+    "per-child SQL p50/p95/max and >100/>500ms counts",
+    "batch sampled peak RSS; not retained-child RSS"
+  ],
+  "decision": "Any difference is profile-level not attribution. Investigate subset only in a separately selected task. Zero slow children in finite sample is not resolution of #68. Both unchanged and unhelpful profiles complete the task. No default adoption.",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci": 0,
+    "disk_gib": 6,
+    "min_free_gib": 12,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 120,
+    "sampled_rss_stop_bytes": 3221225472
+  }
+}
