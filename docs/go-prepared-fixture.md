@@ -1,7 +1,7 @@
-# Prepared Go tests — unreleased main
+# Prepared Go tests
 
 The adopted `github.com/masahitojp/mariamem/mariamemtest` helper is supported in
-current source builds. It is not part of published v0.5.3. The helper owns
+0.6.1 and later. The helper owns
 preparation, capture, child pools and cleanup;
 your callback owns the migration/seed instructions and their success signal.
 
@@ -87,7 +87,7 @@ TestMain use `New(ctx, options)` and check `Close()` yourself. Underlying shutdo
 uses its own lifetime; canceled test contexts do not skip cleanup. Hard kills,
 noncooperative work and unregistered external pools are not automatically reaped.
 
-In the unreleased #53 candidate, the helper also passes its resolved `MaxForks`
+Since 0.6.1, the helper also passes its resolved `MaxForks`
 (default2) to its private Snapshot. The outer lifecycle budget still owns SQL
 pool cleanup; the Snapshot owns DB startup/disposal. Acquire outer before inner
 and dispose the DB before releasing outer, so the inner limit does not add a
@@ -113,11 +113,11 @@ peak-resource or cold-setup guarantee. The older
 checkpoints that preceded adoption; it is not a list of new user prerequisites.
 
 
-## Same-process pools (unreleased)
+## Same-process pools (since 0.6.2)
 
 Set `InProcess: true` in `mariamemtest.Options` to use `net.Pipe` for the
 helper-owned preparation and child pools. Default pools remain TCP. External
 commands using the preparation DSN still use TCP. The ownership, MaxForks,
 connection retirement and teardown rules above are unchanged. See the
-[Go connection guide](go.md#same-process-connections-unreleased) for low-level
+[Go connection guide](go.md#same-process-connections) for low-level
 connector configuration and error behavior.

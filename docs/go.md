@@ -1,6 +1,6 @@
 # Go usage
 
-This guide describes `v0.6.1`, including in-memory Snapshot/Fork and process-local
+This guide describes `v0.6.2`, including in-memory Snapshot/Fork and process-local
 baseline reuse. Public save/load APIs remain removed. See
 [API changes and migration](changes-since-v050.md) and
 [installation](../README.md#installation) for supported platforms.
@@ -10,18 +10,22 @@ Use `github.com/masahitojp/mariamem/mariamemtest` as the test entry. It owns
 preparation, capture, per-test pools/children and cleanup. Installation commands
 are in [Development and compatibility](#development-and-compatibility).
 
-**Unreleased:** the local endpoint accepts any username and password, including
+The local endpoint accepts any username and password, including
 test credentials such as `test/test` or `root/root`. Credentials are not
 validated and do not select a guest account or change SQL privileges. The
 returned connection information still defaults to `root` with an empty
 password. Use a real server for authentication and per-user privilege tests.
 
-**Unreleased:** the endpoint accepts [bounded input pipelining](mysql-protocol.md)
+Since 0.6.2, the endpoint accepts [bounded input pipelining](mysql-protocol.md)
 with serial execution/responses and at most1,048,581 pending bytes per physical
 connection. Exceeding the bound terminates that database instance. This does not
 declare general Node/ORM support or add a driver-specific SDK entry.
 
-## Same-process connections (unreleased)
+<a id="same-process-connections-unreleased"></a>
+
+## Same-process connections
+
+Since 0.6.2, Go callers can select same-process MySQL wire connections.
 
 TCP remains the default. For Go-owned pools, opt in to `net.Pipe` with
 `mariamemtest.Options{InProcess: true}`. This selects Pipe for the helper's
@@ -336,7 +340,7 @@ Use the supplied local root/empty-password endpoint profile. TLS/SSL, compressio
 DEPRECATE_EOF and alternate authentication are not advertised/supported in this
 profile. COM_RESET_CONNECTION, server-side cursors/COM_STMT_FETCH, LOCAL INFILE
 transfer, CHANGE_USER, STATISTICS, PROCESS_INFO and binlog/replication streaming
-are outside0.6.1 support. Multi-packet continuation is also outside this profile.
+are outside0.6.2 support. Multi-packet continuation is also outside this profile.
 SQL-file import is not LOCAL INFILE; metadata SQL is not an administrative wire
 command. Per-entry uncaptured paths remain unverified;
 passing application/Release tests is not evidence of additional protocol coverage.
@@ -370,14 +374,14 @@ internal mechanisms.
 Install the published module and optional release audit files with:
 
 ```sh
-go get github.com/masahitojp/mariamem@v0.6.1
-gh release download v0.6.1 --repo masahitojp/mariamem \
-  --pattern 'SHA256SUMS' --pattern 'mariamem-0.6.1-corresponding-source.tar.gz'
+go get github.com/masahitojp/mariamem@v0.6.2
+gh release download v0.6.2 --repo masahitojp/mariamem \
+  --pattern 'SHA256SUMS' --pattern 'mariamem-0.6.2-corresponding-source.tar.gz'
 ```
 
 Runtime details belong in [architecture](v04-generated-go-architecture.md).
 See [local verification](development.md#local-verification) for scoped
-development checks, [release notes](../release/NOTES-v0.6.1.md)
+development checks, [release notes](../release/NOTES-v0.6.2.md)
 and [API migration](changes-since-v050.md).
 The full generated guest is not
 Go race-detector clean; focused checks do not establish general race cleanliness.
