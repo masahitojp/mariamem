@@ -1,6 +1,6 @@
 {
   "contract": "issue65-experimental-thread-binding-v1",
-  "guest_sha256": "4c75d903ffafd91e87553fe57c716af0dd43d39fc12617ffc4b284303317c321",
+  "guest_sha256": "4c839906db04fe9077ddcc4af1f5756920bb502901343a80d6c4b7114d4279c8",
   "functions": {
     "code/p3/p3_pure.go": {
       "function": "Fn151",
@@ -87,5 +87,7 @@
     "pthread.map_size": 44
   },
   "runtime_adapter": "unchanged completion owner; exact new free entry before allocator; same sole yield callee",
-  "status": "experimental exact binding; not production adoption"
+  "status": "experimental exact binding; not production adoption",
+  "previous_experimental_guest_sha256": "4c75d903ffafd91e87553fe57c716af0dd43d39fc12617ffc4b284303317c321",
+  "refresh": "All three complete normalized function bodies unchanged in initialization repair guest."
 }
