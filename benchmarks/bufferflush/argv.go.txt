@@ -1,0 +1,70 @@
+package base
+
+import (
+	"encoding/binary"
+	"fmt"
+	"os"
+)
+
+var loadVariant = os.Getenv("DEFAULT_SETTINGS_VARIANT")
+var expectedLoadArgs = []string{"lite4mariadb", "--basedir=/mariadb", "--datadir=/mariadb/data", "--plugin-dir=/mariadb/plugin", "--lc-messages-dir=/mariadb/share", "--character-sets-dir=/mariadb/share/charsets", "--tmpdir=/tmp", "--skip-grant-tables", "--skip-networking", "--skip-log-bin", "--innodb-use-native-aio=0", "--innodb-buffer-pool-size=16M", "--loose-innodb-buffer-pool-size-max=16M", "--innodb-log-buffer-size=2M", "--max-connections=10", "--default-storage-engine=InnoDB", "--loose-innodb-read-io-threads=1", "--loose-innodb-write-io-threads=1", "--loose-innodb-purge-threads=1", "--table-open-cache=32", "--thread-cache-size=0", "--socket=/tmp/mysql.sock", "--caching-sha2-password-private-key-path=/mariamem-auth/private.pem", "--caching-sha2-password-public-key-path=/mariamem-auth/public.pem", "--caching-sha2-password-auto-generate-rsa-keys=OFF"}
+
+// Experiment-only selector. All original25 arguments are copied, followed by
+// explicit options in a private512-byte frame; restore the entire scratch frame.
+func flushOptions() []string {
+	if loadVariant != "both-off" && loadVariant != "commit0" && loadVariant != "commit0-method" && loadVariant != "invalid-method" {
+		panic("invalid flush variant")
+	}
+	c := "1"
+	if loadVariant != "both-off" {
+		c = "0"
+	}
+	options := []string{"--innodb-buffer-pool-load-at-startup=0", "--innodb-buffer-pool-dump-at-shutdown=0", "--innodb-flush-log-at-trx-commit=" + c}
+	if loadVariant == "commit0-method" {
+		options = append(options, "--innodb-flush-method=O_DIRECT_NO_FSYNC")
+	}
+	if loadVariant == "invalid-method" {
+		options = append(options, "--innodb-flush-method=O_DIRECT_NOSYNC")
+	}
+	return options
+}
+func BufLoadArg(m *Module, argv int32) (int32, int32, func()) {
+	options := flushOptions()
+	if m.G0 != argv || argv < 512 {
+		panic("unexpected argv/stack relation")
+	}
+	for i, arg := range expectedLoadArgs {
+		ea := MemoryEA(m, uint64(uint32(argv)), uint64(i*4), 4)
+		p := binary.LittleEndian.Uint32(m.Memory[ea : ea+4])
+		var b []byte
+		for j := uint64(0); j < 512; j++ {
+			v := m.Memory[MemoryEA(m, uint64(p), j, 1)]
+			if v == 0 {
+				break
+			}
+			b = append(b, v)
+		}
+		if string(b) != arg {
+			panic(fmt.Sprintf("argv[%d] preimage mismatch", i))
+		}
+	}
+	ea := MemoryEA(m, uint64(uint32(argv)), 0, 104)
+	if binary.LittleEndian.Uint32(m.Memory[ea+100:ea+104]) != 0 {
+		panic("missing argv terminator")
+	}
+	prior := m.G0
+	addr := prior - 512
+	at := MemoryEA(m, uint64(uint32(addr)), 0, 512)
+	var saved [512]byte
+	copy(saved[:], m.Memory[at:at+512])
+	copy(m.Memory[at:at+100], m.Memory[ea:ea+100])
+	offset := uint64(256)
+	for i, opt := range options {
+		copy(m.Memory[at+offset:], append([]byte(opt), 0))
+		binary.LittleEndian.PutUint32(m.Memory[at+100+uint64(i*4):], uint32(addr)+uint32(offset))
+		offset += uint64(len(opt) + 1)
+	}
+	binary.LittleEndian.PutUint32(m.Memory[at+100+uint64(len(options)*4):], 0)
+	m.G0 = addr
+	return int32(25 + len(options)), addr, func() { m.G0 = prior; copy(m.Memory[at:at+512], saved[:]) }
+}

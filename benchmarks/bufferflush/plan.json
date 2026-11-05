@@ -1,0 +1,59 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness_source_commit": "eaeb1e988bd2a087a10e6cd083fce5d5a358ac4f",
+  "origin_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "authorization": "Human requested additional commit/flush sampling; fixed bounded three-arm comparison, no adoption.",
+  "variants": {
+    "both-off": {
+      "load": 0,
+      "dump": 0,
+      "commit": 1,
+      "method": "inherited"
+    },
+    "commit0": {
+      "load": 0,
+      "dump": 0,
+      "commit": 0,
+      "method": "inherited"
+    },
+    "commit0-method": {
+      "load": 0,
+      "dump": 0,
+      "commit": 0,
+      "method": "O_DIRECT_NO_FSYNC"
+    }
+  },
+  "literal_negative": "One startup attempt O_DIRECT_NOSYNC, record rejection rather than silently relabel; corrected spelling explicitly separate.",
+  "parallel": [
+    4,
+    8
+  ],
+  "count": 48,
+  "primary_blocks": 5,
+  "order": "Rotate P; rotate three-arm order by block/P and reverse alternate blocks.",
+  "processes": {
+    "primary": 30,
+    "warmups": 6,
+    "effective_preflights": 3,
+    "wrong_seed": 3,
+    "literal_invalid": 1
+  },
+  "metrics": [
+    "COUNT/UPDATE/check distributions and >100/>500 counts",
+    "batch CPU/wall",
+    "Fork",
+    "retire/WaitDisconnected/Close",
+    "20ms RSS"
+  ],
+  "decision": "Descriptive bounded sampling, no statistical/population or adoption claim. For each contrast and P report all blocked paired effects/wins. Benefit signal requires >=5% median blocked batch or UPDATE-p50 reduction at both P, >=4/5 wins in that same metric at both P, no >5% median Fork/CPU/batch regression. Tails retained separately; reduced observed tails do not prove cure. No extra repeats.",
+  "limits": "Single Mac12.3.3 memory VFS; not Testcontainers10.11 or durability/crash proof; UNQUALIFIED argv overlay.",
+  "budget": {
+    "disk_gib": 6,
+    "min_free_gib": 12,
+    "active_minutes": 45,
+    "tooling_minutes": 15,
+    "heavy_ci": 0,
+    "process_timeout_seconds": 120,
+    "build_timeout_seconds": 1200
+  }
+}

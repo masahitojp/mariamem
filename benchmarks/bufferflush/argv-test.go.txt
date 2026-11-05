@@ -1,0 +1,96 @@
+package base
+
+import (
+	"bytes"
+	"encoding/binary"
+	"sync/atomic"
+	"testing"
+)
+
+func TestBufferLoadSelector(t *testing.T) {
+	old := loadVariant
+	defer func() { loadVariant = old }()
+	fixture := func() *Module {
+		b := bytes.Repeat([]byte{0xa5}, 16384)
+		for i, arg := range expectedLoadArgs {
+			ptr := 4096 + i*256
+			copy(b[ptr:], append([]byte(arg), 0))
+			binary.LittleEndian.PutUint32(b[1024+i*4:], uint32(ptr))
+		}
+		binary.LittleEndian.PutUint32(b[1124:], 0)
+		m := &Module{Memory: b, G0: 1024, MemSize: new(atomic.Uint64)}
+		m.MemSize.Store(uint64(len(b)))
+		return m
+	}
+	for _, mode := range []string{"both-off", "commit0", "commit0-method", "invalid-method"} {
+		loadVariant = mode
+		m := fixture()
+		before := bytes.Clone(m.Memory)
+		n, argv, release := BufLoadArg(m, 1024)
+		c := "1"
+		if mode != "both-off" {
+			c = "0"
+		}
+		want := []string{"--innodb-buffer-pool-load-at-startup=0", "--innodb-buffer-pool-dump-at-shutdown=0", "--innodb-flush-log-at-trx-commit=" + c}
+		if mode == "commit0-method" {
+			want = append(want, "--innodb-flush-method=O_DIRECT_NO_FSYNC")
+		}
+		if mode == "invalid-method" {
+			want = append(want, "--innodb-flush-method=O_DIRECT_NOSYNC")
+		}
+		if int(n) != 25+len(want) || argv != 512 || m.G0 != 512 {
+			t.Fatal("argc/stack")
+		}
+		if !bytes.Equal(before[:512], m.Memory[:512]) || !bytes.Equal(before[1024:], m.Memory[1024:]) {
+			t.Fatal("outside scratch modified")
+		}
+		if !bytes.Equal(before[1024:1124], m.Memory[512:612]) {
+			t.Fatal("original argv not retained")
+		}
+		for i, v := range want {
+			p := binary.LittleEndian.Uint32(m.Memory[612+i*4:])
+			if p < 768 || int(p)+len(v)+1 > 1024 {
+				t.Fatal("option overlap")
+			}
+			if string(m.Memory[p:p+uint32(len(v)+1)]) != v+"\x00" {
+				t.Fatal("option")
+			}
+		}
+		if binary.LittleEndian.Uint32(m.Memory[612+len(want)*4:]) != 0 {
+			t.Fatal("terminator")
+		}
+		release()
+		if m.G0 != 1024 || !bytes.Equal(before, m.Memory) {
+			t.Fatal("restoration")
+		}
+	}
+	for _, kind := range []string{"mode", "stack", "preimage", "terminator", "bounds"} {
+		m := fixture()
+		loadVariant = "both-off"
+		switch kind {
+		case "mode":
+			loadVariant = "invalid"
+		case "stack":
+			m.G0 = 100
+		case "preimage":
+			m.Memory[4096] = 'X'
+		case "terminator":
+			m.Memory[1124] = 1
+		case "bounds":
+			m.MemSize.Store(1100)
+		}
+		before := bytes.Clone(m.Memory)
+		prior := m.G0
+		func() {
+			defer func() {
+				if recover() == nil {
+					t.Fatal("invalid accepted", kind)
+				}
+			}()
+			BufLoadArg(m, 1024)
+		}()
+		if m.G0 != prior || !bytes.Equal(before, m.Memory) {
+			t.Fatal("invalid mutated", kind)
+		}
+	}
+}
