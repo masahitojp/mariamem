@@ -1,0 +1,94 @@
+[
+  {
+    "workload": "connect_ping",
+    "maria_tcp": {
+      "ns_per_op": 339109.0,
+      "bytes_per_op": 18718,
+      "allocs_per_op": 217
+    },
+    "maria_pipe": {
+      "ns_per_op": 156978.0,
+      "bytes_per_op": 20019,
+      "allocs_per_op": 223
+    },
+    "pgmem_tcp": {
+      "ns_per_op": 1155564.0,
+      "bytes_per_op": 328795,
+      "allocs_per_op": 1014
+    },
+    "pgmem_pipe": {
+      "ns_per_op": 796140.0,
+      "bytes_per_op": 328582,
+      "allocs_per_op": 994
+    }
+  },
+  {
+    "workload": "select1",
+    "maria_tcp": {
+      "ns_per_op": 100636.0,
+      "bytes_per_op": 9142,
+      "allocs_per_op": 98
+    },
+    "maria_pipe": {
+      "ns_per_op": 56290.0,
+      "bytes_per_op": 9944,
+      "allocs_per_op": 109
+    },
+    "pgmem_tcp": {
+      "ns_per_op": 74287.0,
+      "bytes_per_op": 906,
+      "allocs_per_op": 31
+    },
+    "pgmem_pipe": {
+      "ns_per_op": 12120.0,
+      "bytes_per_op": 843,
+      "allocs_per_op": 23
+    }
+  },
+  {
+    "workload": "prepared1",
+    "maria_tcp": {
+      "ns_per_op": 102396.0,
+      "bytes_per_op": 9536,
+      "allocs_per_op": 107
+    },
+    "maria_pipe": {
+      "ns_per_op": 59386.0,
+      "bytes_per_op": 10371,
+      "allocs_per_op": 118
+    },
+    "pgmem_tcp": {
+      "ns_per_op": 46489.0,
+      "bytes_per_op": 1284,
+      "allocs_per_op": 39
+    },
+    "pgmem_pipe": {
+      "ns_per_op": 9428.0,
+      "bytes_per_op": 1221,
+      "allocs_per_op": 28
+    }
+  },
+  {
+    "workload": "result64x128",
+    "maria_tcp": {
+      "ns_per_op": 885695.0,
+      "bytes_per_op": 99245,
+      "allocs_per_op": 824
+    },
+    "maria_pipe": {
+      "ns_per_op": 672075.0,
+      "bytes_per_op": 108204,
+      "allocs_per_op": 961
+    },
+    "pgmem_tcp": {
+      "ns_per_op": 89627.0,
+      "bytes_per_op": 12497,
+      "allocs_per_op": 232
+    },
+    "pgmem_pipe": {
+      "ns_per_op": 49932.0,
+      "bytes_per_op": 12433,
+      "allocs_per_op": 224
+    }
+  }
+]

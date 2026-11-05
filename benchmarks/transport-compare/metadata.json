@@ -1,0 +1,24 @@
+{
+  "mariamem_baseline_source_commit": "676515eb9244fc501b5a600791b0cf0a6174fecd",
+  "harness_source_commit": "764e91e688e89a266bd98e2b0da87e7db353f076",
+  "pgmem_release": {
+    "release_tag": "v1.18.2",
+    "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+    "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4",
+    "object_type": "tag"
+  },
+  "binary_sha256": "8383e1425008b2030c25e1adb6be7c0ba01e3359325f5b7f3b90545c3b4da947",
+  "toolchain": "go1.26.10",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "iterations": 500,
+  "processes": 3,
+  "result": "48 cells PASS",
+  "drivers": {
+    "mysql": "1.9.3",
+    "pgx": "5.11.0"
+  },
+  "pgx_mode": "SimpleProtocol for nonprepared SQL; explicit database/sql Prepare uses server prepared statements",
+  "binary_vcs_stamp": "not present for test binary; both source identities validated before build and binary hash retained"
+}
