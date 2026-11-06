@@ -1,0 +1,28 @@
+{
+  "actual_processes": 22,
+  "actual_children": 704,
+  "valid_processes": 18,
+  "valid_children": 688,
+  "initial_harness_attempt_processes": 4,
+  "initial_harness_attempt_children": 16,
+  "initial_source_commit": "c165430d34240d8e74595e5414a7c6d988240f3a",
+  "initial_performance_processes": 0,
+  "initial_failure": "peer SQL canceled eagerly after expected oracle error; Close reported unusable/EOF; all mappings/FDs released",
+  "fix": "join every child and disposal before coordinator cancellation",
+  "additional_valid_repetitions": 0,
+  "initial_attempt_sha256": {
+    "README.md": "0f12f4074a25e8ef3608e3f9375a31562120ef0378d800d48536aba8fbe3ce76",
+    "anonymous-p4-r-2-negative.json": "d97e879fd2e893f6f332478e1a42a66bf9bd90315eaeeb60a7e8c8374faccb5d",
+    "anonymous-p4-r-2-negative.log": "7cf6111acd2c596619a55b8f44d2c4bdd7d52d1b2ff14c03a779e7307e1e0fbc",
+    "anonymous-p4-r-2-pilot.json": "75fe8ee5f32ee0e782dd9e162d09ea5b05a7a610657bc1b15447b01b763423ae",
+    "anonymous-p4-r-2-pilot.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "host.json": "458756f00b85902695d25d462a8bbe5df5710124f6b90d1e90e750b6b17f7f7b",
+    "inputs.json": "55da63ab9fdd357364f17214886c5ba52c3d27aeb7fec6eb95b1704bfaf20a17",
+    "pages-p4-r-2-negative.json": "35adf1ed972066b92708b0534e8dd9bb1acd3e6034056d84f8eeafb3b77a8167",
+    "pages-p4-r-2-negative.log": "a5ae923dcf0f9be3c3fe07f0c18a741a47ef014127e002f69e8ab7f04e84b533",
+    "pages-p4-r-2-pilot.json": "05ed04d3205a853e52b44dcda106d2a19264cf05e5ccc1eca1f88971e717bd91",
+    "pages-p4-r-2-pilot.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "preflight-processes.json": "ddf53dbc2efe3b930279e1cda9dc87f641e3c542e2e696759480daa1b6803abd",
+    "records.json": "ec3183ce9417fbea0df2f28054f75b56600d18c1391c4bafe02c1391176a80a0"
+  }
+}

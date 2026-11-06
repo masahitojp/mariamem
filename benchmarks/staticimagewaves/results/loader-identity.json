@@ -1,0 +1,13 @@
+{
+  "prior_tested_source_commit": "69181862b141aa71f25b5ecaa16a500301d15dd9",
+  "result": "all listed loader/guest-input files byte-identical",
+  "sha256": {
+    "benchmarks/staticimage/image.go": "45c819e3f5a95afaeaa3c1971a21e352f775909712c2566ac3c38c494acae5c7",
+    "internal/generatedgo/code/base/static_pages_experiment.go": "9a398af6a98c9b08e1c933b47d5e41ca563232df06958471eb698e3ad8c9bfc8",
+    "internal/generatedgo/code/base/static_image_experiment.go": "6f7ad9120d34317fd412fe5da9b9b7549cdc305192580a5d2e7021ae6fbec4d3",
+    "internal/generatedgo/code/base/memory_mapping.go": "388e8cf70e3387db7143f9081b9e62c6ddb3edf52e4adbff223be1f9a8020cc7",
+    "internal/generatedgo/memory_backing_unix.go": "042d4c85b8a1576c6ff03ff3196beae3d566a4b7678892cd49621acc735ec6ed",
+    "internal/generatedgo/static_image_experiment.go": "e795dea346d1eb7bb1b5e4b757aa93bf99006e6cccce7e8657153952706fe84e",
+    "release/generated-go-inputs.json": "489184fdce6c2406df2393cd1ef36ff15ff0e0d74e98786e2c44e2f5b3933c2b"
+  }
+}

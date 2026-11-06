@@ -1,0 +1,10 @@
+{
+  "observed_unix_seconds": 1794003971.546321,
+  "other_matching_processes": [],
+  "load_average": [
+    2.37841796875,
+    4.31298828125,
+    5.4140625
+  ],
+  "scope": "one preflight observation, not continuous host-load control"
+}
