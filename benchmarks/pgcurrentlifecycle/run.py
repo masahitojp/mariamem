@@ -19,8 +19,8 @@ def run(variant,mode,p,rep,kind='primary',count=48,negative=False):
  if variant=='diagnostic':
   trace=t/'trace'/name;trace.mkdir(parents=True);v['UPDATE_NOTIFY_DIR']=str(trace)
  command=[str(t/('bin-'+variant)),'-mode',mode,'-parallel',str(p),'-count',str(count),'-out',str(out)]+(['-corrupt-seed'] if negative else [])
- at=time.monotonic()
  guard.check();before=resource.getrusage(resource.RUSAGE_CHILDREN)
+ at=time.monotonic()
  with (e/(name+'.txt')).open('w') as log:
   code=subprocess.run(command,cwd=b,env=v,stdout=log,stderr=subprocess.STDOUT,timeout=190).returncode
  after=resource.getrusage(resource.RUSAGE_CHILDREN)

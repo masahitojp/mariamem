@@ -1,0 +1,7 @@
+{
+  "location": "local durable evidence: build/experiment-work/pgmem-current-lifecycle/evidence/published",
+  "archives": {
+    "raw-processes.tar.gz": "49ba049470ad4ae852de96955cc4f53d149fabf35b1c50c28a8172ea366e948c",
+    "undo-traces.tar.gz": "afa72f3c5cc979d3d844394fd68b7a16f0ac34bdf27f2a867374ec3e83b46b85"
+  }
+}

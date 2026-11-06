@@ -1,0 +1,55 @@
+{
+  "decision": "Compare adopted mariamem with fixed pgmem reference on identical Fresh/Fork suites; complete-table observation only",
+  "mariamem_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "pgmem": {
+    "release_tag": "v1.18.2",
+    "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+    "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4"
+  },
+  "harness_parent": "bc5763308fd2914ec5a34233f1e0b178b0d4dead",
+  "fixed": {
+    "go": "go1.27.3",
+    "gomaxprocs": 8,
+    "gogc": 100,
+    "cgo": 0,
+    "route": "pipe",
+    "seed_rows": 1000,
+    "count": 48,
+    "modes": [
+      "fresh",
+      "fork"
+    ],
+    "parallel": [
+      1,
+      4
+    ],
+    "max_forks": "same as parallel; actual public getter asserted for both",
+    "settings": "product defaults; pgmem Database=test, as in prior comparison",
+    "drivers": {
+      "mysql": "1.9.3",
+      "pgx": "5.11.0"
+    }
+  },
+  "primary_pairs_per_cell": 5,
+  "primary_processes": 40,
+  "controls": "positive2-child and wrong-seed1-child for each product/mode:8 processes",
+  "warmup": "one48-child process per product/mode/P cell:8 processes",
+  "diagnostic": "mariamem-only Fresh/Fork P4,48children each with existing UNDO holder overlay; timing excluded",
+  "total_processes": 58,
+  "order": "five rounds rotate mode/P cells, alternate products within adjacent pairs by round+cell; no replacement or omission",
+  "measurement": "API suite from first Start through final root/Snapshot/child Close return; includes preparation/capture. Also accurate spawn-to-process-exit wall and process CPU from child rusage. No compilation/download.",
+  "close_limit": "mariamem joins workers/mappings before completed disposal; pgmem signals process Done before module unmap and frees segments asynchronously, may retain client sockets. API-return and OS-process-exit metrics are not equivalent completed-cleanup guarantees. Process exit may terminate outstanding Go cleanup.",
+  "no_rss_claim": "lifetime high-water raw only; no retained-child memory campaign",
+  "exit": "all fixed cells and controls, preserve all observations/tails, report total and phase costs and completion-boundary limits; no follow-on optimization",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci_submissions": 0,
+    "workspace_gib": 8,
+    "minimum_free_gib": 12,
+    "process_timeout_seconds": 190,
+    "build_timeout_seconds": 1200,
+    "campaign_timeout_seconds": 1800
+  },
+  "no_product_changes": true
+}

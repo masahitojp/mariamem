@@ -1,0 +1,21 @@
+{
+  "primary_comparison": "COMPLETE",
+  "source_identity": "VERIFIED",
+  "expected_controls_and_runtime_oracles": "PASS",
+  "primary_processes": 40,
+  "primary_children": 1920,
+  "all_observations_retained": true,
+  "cleanup_boundary_equivalence": "NOT_CLAIMED",
+  "process_cpu": "VALID child rusage includes complete OS process lifetime",
+  "external_process_ms": "UNSUITABLE as pure process-exit timing: measured-source controller begins before guard.check; contains preflight traversal. Retained, not used for speed conclusions.",
+  "future_timer_fix": "Report commit moves timer after preflight; measured source5792b978 remains unchanged. No extra campaign performed.",
+  "missing_optional_evidence": "For clean process-wall comparison, rerun corrected collector on new binaries/cohort. At least8 processes (one pair/cell) for a direction probe;40 for the same5-pair matrix, roughly1\u20133 minutes execution plus build/setup. This is not needed to decide the API-suite comparison.",
+  "limits": [
+    "single Mac",
+    "5 pairs/cell",
+    "product Close boundaries differ",
+    "pgmem Database=test",
+    "no memory-retention claim",
+    "no current-versus-0.6.2 pooling"
+  ]
+}
