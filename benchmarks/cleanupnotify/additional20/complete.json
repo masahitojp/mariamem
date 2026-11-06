@@ -1,0 +1,10 @@
+{
+  "result": "COLLECTED",
+  "total_processes": 46,
+  "primary_children_per_variant": 960,
+  "diagnostic_children_per_variant": 48,
+  "extra_repeats": 0,
+  "harness_source_commit": "c37d578e68b3068173a6734b38f00e11782cb123",
+  "peak_workspace_bytes": 1247551488,
+  "min_free_bytes": 37046640640
+}

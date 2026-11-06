@@ -1,0 +1,14 @@
+{
+  "source_commit": "c37d578e68b3068173a6734b38f00e11782cb123",
+  "files": {
+    "plan.json": "7a802b8ff05d745707003c14d912ecb832729e198f8393721d5c3ca4cb53d601",
+    "build.py": "259d11aa0a16e057307b62ade540a448717feb4e7b8fe117f1b438f81b36d265",
+    "run.py": "7c86680906ca5a8b41f404e569b8ea8cf8ec7b66eadeb6a9db461bffed101235",
+    "prior-inputs.json": "832ffc930922201263632e6cece46bc3656a0c75fdbe1ab27f5deda54dfe8abc",
+    "prior-summary.json": "f23783f21be18e8ae6a2964a4d02db5175b745fce5f3097d17bde413bb324e9b",
+    "analyze.py": "8d332a193e0598a5c7cfa82ae5bd0187953f5f494c3e6f8ed1f3f0e9166ab07c",
+    "undo_analysis.py": "cf893f48cf6b59079d6a33adeaaa05393c98e4a8650f23ca7eea092c906fe492",
+    "test_undo.py": "5c3125fb335f73b8bb9ac918afea482dc6d3986b9c8152b7983ad1895d47ac62"
+  },
+  "fixed_before_execution": true
+}

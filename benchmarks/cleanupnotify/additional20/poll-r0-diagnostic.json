@@ -1,0 +1,1705 @@
+{
+  "cpu_user_ms": 2606.824,
+  "cpu_system_ms": 516.287,
+  "minor_faults": 221743,
+  "major_faults": 0,
+  "voluntary_switches": 693,
+  "involuntary_switches": 10602,
+  "lifetime_max_rss_bytes": 387842048,
+  "backend": "mariamem",
+  "route": "pipe",
+  "parallel": 4,
+  "count": 48,
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "server_version": "12.3.3-MariaDB-embedded",
+  "root_start_ms": 38.152292,
+  "snapshot_ms": 2.714375,
+  "batch_ms": 712.567917,
+  "samples": [
+    {
+      "update_ms": 0.356875,
+      "retire_ms": 0.006167,
+      "wait_ms": 5.498167,
+      "close_ms": 5.945959,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000792
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.496084
+          }
+        ],
+        "elapsed_ms": 5.497042,
+        "idle_observed": true,
+        "idle_offset_ms": 0.04575,
+        "idle_to_observe_ms": 5.451459,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 0.016708,
+      "total_ms": 59.558542,
+      "sql_ms": 5.143875,
+      "cleanup_complete": true,
+      "index": 1,
+      "fork_ms": 39.734959,
+      "connect_ms": 2.897541,
+      "select_ms": 0.329667,
+      "ready_ms": 42.9625,
+      "cleanup_ms": 11.451792,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.832167,
+      "retire_ms": 0.011709,
+      "wait_ms": 5.026958,
+      "close_ms": 6.929791,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.001375
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.025125
+          }
+        ],
+        "elapsed_ms": 5.025792,
+        "idle_observed": true,
+        "idle_offset_ms": 0.103042,
+        "idle_to_observe_ms": 4.923125,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 0.06525,
+      "total_ms": 60.687875,
+      "sql_ms": 4.526458,
+      "cleanup_complete": true,
+      "index": 3,
+      "fork_ms": 40.093042,
+      "connect_ms": 3.943542,
+      "select_ms": 0.15275,
+      "ready_ms": 44.189792,
+      "cleanup_ms": 11.97125,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.196084,
+      "retire_ms": 0.004584,
+      "wait_ms": 5.460209,
+      "close_ms": 7.701542,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.0005
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.457292
+          }
+        ],
+        "elapsed_ms": 5.459625,
+        "idle_observed": true,
+        "idle_offset_ms": 0.047792,
+        "idle_to_observe_ms": 5.412042,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 0.033,
+      "total_ms": 61.262458,
+      "sql_ms": 4.764583,
+      "cleanup_complete": true,
+      "index": 2,
+      "fork_ms": 40.007833,
+      "connect_ms": 2.859667,
+      "select_ms": 0.462334,
+      "ready_ms": 43.33025,
+      "cleanup_ms": 13.167375,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.290667,
+      "retire_ms": 0.006208,
+      "wait_ms": 5.637958,
+      "close_ms": 5.981708,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000791
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.633
+          }
+        ],
+        "elapsed_ms": 5.636458,
+        "idle_observed": true,
+        "idle_offset_ms": 0.053416,
+        "idle_to_observe_ms": 5.583459,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 0.005125,
+      "total_ms": 62.955833,
+      "sql_ms": 2.684333,
+      "cleanup_complete": true,
+      "index": 0,
+      "fork_ms": 39.189333,
+      "connect_ms": 9.201209,
+      "select_ms": 0.25175,
+      "ready_ms": 48.642917,
+      "cleanup_ms": 11.627959,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.299042,
+      "retire_ms": 0.006,
+      "wait_ms": 5.041291,
+      "close_ms": 6.340334,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000708
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.036791
+          }
+        ],
+        "elapsed_ms": 5.039041,
+        "idle_observed": true,
+        "idle_offset_ms": 0.139458,
+        "idle_to_observe_ms": 4.900292,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 62.96375,
+      "total_ms": 48.590292,
+      "sql_ms": 4.326334,
+      "cleanup_complete": true,
+      "index": 7,
+      "fork_ms": 32.097417,
+      "connect_ms": 0.608,
+      "select_ms": 0.16825,
+      "ready_ms": 32.874208,
+      "cleanup_ms": 11.389375,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.274459,
+      "retire_ms": 0.016792,
+      "wait_ms": 5.063291,
+      "close_ms": 6.162667,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.002291
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.061333
+          }
+        ],
+        "elapsed_ms": 5.062166,
+        "idle_observed": true,
+        "idle_offset_ms": 0.330833,
+        "idle_to_observe_ms": 4.7315,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 60.754125,
+      "total_ms": 53.85675,
+      "sql_ms": 2.961416,
+      "cleanup_complete": true,
+      "index": 5,
+      "fork_ms": 38.768667,
+      "connect_ms": 0.818667,
+      "select_ms": 0.060791,
+      "ready_ms": 39.6485,
+      "cleanup_ms": 11.246541,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.718291,
+      "retire_ms": 0.007625,
+      "wait_ms": 5.251625,
+      "close_ms": 5.624041,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000958
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.249292
+          }
+        ],
+        "elapsed_ms": 5.250375,
+        "idle_observed": true,
+        "idle_offset_ms": 0.090167,
+        "idle_to_observe_ms": 5.160458,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 59.577,
+      "total_ms": 59.461,
+      "sql_ms": 8.150125,
+      "cleanup_complete": true,
+      "index": 4,
+      "fork_ms": 37.686333,
+      "connect_ms": 0.827125,
+      "select_ms": 1.910792,
+      "ready_ms": 40.424667,
+      "cleanup_ms": 10.885916,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.661667,
+      "retire_ms": 0.014792,
+      "wait_ms": 5.044417,
+      "close_ms": 5.733167,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.002333
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.041
+          }
+        ],
+        "elapsed_ms": 5.042791,
+        "idle_observed": true,
+        "idle_offset_ms": 0.155625,
+        "idle_to_observe_ms": 4.887541,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 61.296292,
+      "total_ms": 60.949541,
+      "sql_ms": 8.308916,
+      "cleanup_complete": true,
+      "index": 6,
+      "fork_ms": 41.527666,
+      "connect_ms": 0.253375,
+      "select_ms": 0.063,
+      "ready_ms": 41.844333,
+      "cleanup_ms": 10.795875,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.312667,
+      "retire_ms": 0.006667,
+      "wait_ms": 5.197083,
+      "close_ms": 11.886917,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.001042
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.192042
+          }
+        ],
+        "elapsed_ms": 5.195084,
+        "idle_observed": true,
+        "idle_offset_ms": 0.043167,
+        "idle_to_observe_ms": 5.152417,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 111.555542,
+      "total_ms": 52.85375,
+      "sql_ms": 3.168375,
+      "cleanup_complete": true,
+      "index": 8,
+      "fork_ms": 31.666875,
+      "connect_ms": 0.7195,
+      "select_ms": 0.205958,
+      "ready_ms": 32.592875,
+      "cleanup_ms": 17.092125,
+      "oracle": true
+    },
+    {
+      "update_ms": 2.004125,
+      "retire_ms": 0.014917,
+      "wait_ms": 5.059709,
+      "close_ms": 5.809666,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.002208
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.056
+          }
+        ],
+        "elapsed_ms": 5.058,
+        "idle_observed": true,
+        "idle_offset_ms": 0.148583,
+        "idle_to_observe_ms": 4.909833,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 119.039458,
+      "total_ms": 51.056209,
+      "sql_ms": 8.470792,
+      "cleanup_complete": true,
+      "index": 10,
+      "fork_ms": 31.389959,
+      "connect_ms": 0.243834,
+      "select_ms": 0.063125,
+      "ready_ms": 31.697209,
+      "cleanup_ms": 10.888041,
+      "oracle": true
+    },
+    {
+      "update_ms": 2.346542,
+      "retire_ms": 0.008375,
+      "wait_ms": 5.241292,
+      "close_ms": 8.646,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.001458
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.237625
+          }
+        ],
+        "elapsed_ms": 5.23975,
+        "idle_observed": true,
+        "idle_offset_ms": 0.054042,
+        "idle_to_observe_ms": 5.186125,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 114.612583,
+      "total_ms": 56.434667,
+      "sql_ms": 7.336833,
+      "cleanup_complete": true,
+      "index": 9,
+      "fork_ms": 34.686959,
+      "connect_ms": 0.43975,
+      "select_ms": 0.071625,
+      "ready_ms": 35.198875,
+      "cleanup_ms": 13.898792,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.540667,
+      "retire_ms": 0.00825,
+      "wait_ms": 5.253042,
+      "close_ms": 4.782291,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000708
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.250667
+          }
+        ],
+        "elapsed_ms": 5.25175,
+        "idle_observed": true,
+        "idle_offset_ms": 0.1385,
+        "idle_to_observe_ms": 5.113458,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 122.247708,
+      "total_ms": 52.441084,
+      "sql_ms": 7.27125,
+      "cleanup_complete": true,
+      "index": 11,
+      "fork_ms": 34.101625,
+      "connect_ms": 0.858167,
+      "select_ms": 0.163625,
+      "ready_ms": 35.123959,
+      "cleanup_ms": 10.0455,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.355459,
+      "retire_ms": 0.019583,
+      "wait_ms": 6.368958,
+      "close_ms": 9.592958,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.002875
+          },
+          {
+            "active": 0,
+            "offset_ms": 6.366708
+          }
+        ],
+        "elapsed_ms": 6.36725,
+        "idle_observed": true,
+        "idle_offset_ms": 0.757375,
+        "idle_to_observe_ms": 5.610083,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 170.097542,
+      "total_ms": 49.769583,
+      "sql_ms": 2.982,
+      "cleanup_complete": true,
+      "index": 13,
+      "fork_ms": 30.432958,
+      "connect_ms": 0.287084,
+      "select_ms": 0.079334,
+      "ready_ms": 30.799666,
+      "cleanup_ms": 15.987458,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.337875,
+      "retire_ms": 0.026125,
+      "wait_ms": 5.040375,
+      "close_ms": 6.764667,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000834
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.036584
+          }
+        ],
+        "elapsed_ms": 5.038875,
+        "idle_observed": true,
+        "idle_offset_ms": 0.077125,
+        "idle_to_observe_ms": 4.962209,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 164.410458,
+      "total_ms": 59.668834,
+      "sql_ms": 9.349084,
+      "cleanup_complete": true,
+      "index": 12,
+      "fork_ms": 36.252584,
+      "connect_ms": 1.854167,
+      "select_ms": 0.378917,
+      "ready_ms": 38.486042,
+      "cleanup_ms": 11.833458,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.254708,
+      "retire_ms": 0.004792,
+      "wait_ms": 5.06225,
+      "close_ms": 7.132333,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.00075
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.059833
+          }
+        ],
+        "elapsed_ms": 5.061125,
+        "idle_observed": true,
+        "idle_offset_ms": 0.088583,
+        "idle_to_observe_ms": 4.972959,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 171.048208,
+      "total_ms": 53.71875,
+      "sql_ms": 11.47175,
+      "cleanup_complete": true,
+      "index": 14,
+      "fork_ms": 29.696667,
+      "connect_ms": 0.251959,
+      "select_ms": 0.096083,
+      "ready_ms": 30.045084,
+      "cleanup_ms": 12.201416,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.706416,
+      "retire_ms": 0.016708,
+      "wait_ms": 5.625625,
+      "close_ms": 5.526625,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.002291
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.616416
+          }
+        ],
+        "elapsed_ms": 5.6225,
+        "idle_observed": true,
+        "idle_offset_ms": 0.17875,
+        "idle_to_observe_ms": 5.444625,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 174.690125,
+      "total_ms": 53.635583,
+      "sql_ms": 6.333,
+      "cleanup_complete": true,
+      "index": 15,
+      "fork_ms": 35.565292,
+      "connect_ms": 0.491917,
+      "select_ms": 0.07125,
+      "ready_ms": 36.12875,
+      "cleanup_ms": 11.17325,
+      "oracle": true
+    },
+    {
+      "update_ms": 4.564916,
+      "retire_ms": 0.006125,
+      "wait_ms": 5.09625,
+      "close_ms": 4.563125,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000875
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.093833
+          }
+        ],
+        "elapsed_ms": 5.095,
+        "idle_observed": true,
+        "idle_offset_ms": 0.121708,
+        "idle_to_observe_ms": 4.973625,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 224.081208,
+      "total_ms": 55.711292,
+      "sql_ms": 16.30075,
+      "cleanup_complete": true,
+      "index": 17,
+      "fork_ms": 29.366375,
+      "connect_ms": 0.290292,
+      "select_ms": 0.085,
+      "ready_ms": 29.741917,
+      "cleanup_ms": 9.668417,
+      "oracle": true
+    },
+    {
+      "update_ms": 1.776666,
+      "retire_ms": 0.02275,
+      "wait_ms": 5.137958,
+      "close_ms": 4.264416,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.003959
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.134334
+          }
+        ],
+        "elapsed_ms": 5.136167,
+        "idle_observed": true,
+        "idle_offset_ms": 0.078875,
+        "idle_to_observe_ms": 5.0575,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 219.868292,
+      "total_ms": 63.98975,
+      "sql_ms": 4.235958,
+      "cleanup_complete": true,
+      "index": 16,
+      "fork_ms": 46.512041,
+      "connect_ms": 3.666875,
+      "select_ms": 0.143959,
+      "ready_ms": 50.323166,
+      "cleanup_ms": 9.430458,
+      "oracle": true
+    },
+    {
+      "update_ms": 2.140959,
+      "retire_ms": 0.005333,
+      "wait_ms": 5.019917,
+      "close_ms": 5.02125,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000833
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.018625
+          }
+        ],
+        "elapsed_ms": 5.019083,
+        "idle_observed": true,
+        "idle_offset_ms": 0.058875,
+        "idle_to_observe_ms": 4.960333,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 224.769792,
+      "total_ms": 59.987916,
+      "sql_ms": 6.036125,
+      "cleanup_complete": true,
+      "index": 18,
+      "fork_ms": 40.5255,
+      "connect_ms": 2.581,
+      "select_ms": 0.795917,
+      "ready_ms": 43.902916,
+      "cleanup_ms": 10.0485,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.338042,
+      "retire_ms": 0.004209,
+      "wait_ms": 5.036541,
+      "close_ms": 5.601208,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000542
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.03575
+          }
+        ],
+        "elapsed_ms": 5.036042,
+        "idle_observed": true,
+        "idle_offset_ms": 0.051917,
+        "idle_to_observe_ms": 4.98425,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 228.330958,
+      "total_ms": 57.129459,
+      "sql_ms": 5.135833,
+      "cleanup_complete": true,
+      "index": 19,
+      "fork_ms": 37.368292,
+      "connect_ms": 2.490458,
+      "select_ms": 1.491292,
+      "ready_ms": 41.350334,
+      "cleanup_ms": 10.643083,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.5145,
+      "retire_ms": 0.824125,
+      "wait_ms": 5.14825,
+      "close_ms": 5.848958,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.001291
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.145708
+          }
+        ],
+        "elapsed_ms": 5.14725,
+        "idle_observed": true,
+        "idle_offset_ms": 0.047416,
+        "idle_to_observe_ms": 5.100084,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 279.794,
+      "total_ms": 57.702,
+      "sql_ms": 2.522667,
+      "cleanup_complete": true,
+      "index": 20,
+      "fork_ms": 42.631,
+      "connect_ms": 0.587208,
+      "select_ms": 0.136667,
+      "ready_ms": 43.355042,
+      "cleanup_ms": 11.823542,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.231541,
+      "retire_ms": 0.005583,
+      "wait_ms": 5.428584,
+      "close_ms": 5.4345,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.0005
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.426791
+          }
+        ],
+        "elapsed_ms": 5.427791,
+        "idle_observed": true,
+        "idle_offset_ms": 0.085708,
+        "idle_to_observe_ms": 5.342292,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 284.758833,
+      "total_ms": 55.925792,
+      "sql_ms": 2.054708,
+      "cleanup_complete": true,
+      "index": 22,
+      "fork_ms": 39.582292,
+      "connect_ms": 1.1135,
+      "select_ms": 2.302833,
+      "ready_ms": 42.999125,
+      "cleanup_ms": 10.871458,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.735625,
+      "retire_ms": 0.006458,
+      "wait_ms": 5.787292,
+      "close_ms": 7.369458,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000875
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.785166
+          }
+        ],
+        "elapsed_ms": 5.78625,
+        "idle_observed": true,
+        "idle_offset_ms": 0.068625,
+        "idle_to_observe_ms": 5.717958,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 283.86,
+      "total_ms": 58.74025,
+      "sql_ms": 3.848792,
+      "cleanup_complete": true,
+      "index": 21,
+      "fork_ms": 34.045542,
+      "connect_ms": 6.965584,
+      "select_ms": 0.714416,
+      "ready_ms": 41.725917,
+      "cleanup_ms": 13.165167,
+      "oracle": true
+    },
+    {
+      "update_ms": 2.264125,
+      "retire_ms": 0.049125,
+      "wait_ms": 5.604333,
+      "close_ms": 8.620833,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.002
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.600583
+          }
+        ],
+        "elapsed_ms": 5.602833,
+        "idle_observed": true,
+        "idle_offset_ms": 0.1505,
+        "idle_to_observe_ms": 5.452583,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 285.461333,
+      "total_ms": 58.34225,
+      "sql_ms": 6.372,
+      "cleanup_complete": true,
+      "index": 23,
+      "fork_ms": 37.026417,
+      "connect_ms": 0.53425,
+      "select_ms": 0.129041,
+      "ready_ms": 37.689917,
+      "cleanup_ms": 14.2795,
+      "oracle": true
+    },
+    {
+      "update_ms": 1.010333,
+      "retire_ms": 0.00725,
+      "wait_ms": 5.06625,
+      "close_ms": 5.9655,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000542
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.064125
+          }
+        ],
+        "elapsed_ms": 5.06525,
+        "idle_observed": true,
+        "idle_offset_ms": 0.107625,
+        "idle_to_observe_ms": 4.957917,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 337.500583,
+      "total_ms": 57.205334,
+      "sql_ms": 7.976709,
+      "cleanup_complete": true,
+      "index": 24,
+      "fork_ms": 37.514709,
+      "connect_ms": 0.532875,
+      "select_ms": 0.139875,
+      "ready_ms": 38.187709,
+      "cleanup_ms": 11.040708,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.186417,
+      "retire_ms": 0.004833,
+      "wait_ms": 5.120541,
+      "close_ms": 8.829625,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000417
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.118917
+          }
+        ],
+        "elapsed_ms": 5.119792,
+        "idle_observed": true,
+        "idle_offset_ms": 0.036875,
+        "idle_to_observe_ms": 5.083042,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 340.688125,
+      "total_ms": 57.363458,
+      "sql_ms": 3.672917,
+      "cleanup_complete": true,
+      "index": 25,
+      "fork_ms": 38.002625,
+      "connect_ms": 1.634,
+      "select_ms": 0.096625,
+      "ready_ms": 39.733708,
+      "cleanup_ms": 13.956667,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.547375,
+      "retire_ms": 0.005292,
+      "wait_ms": 5.039333,
+      "close_ms": 6.787792,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.0005
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.0375
+          }
+        ],
+        "elapsed_ms": 5.0385,
+        "idle_observed": true,
+        "idle_offset_ms": 0.079458,
+        "idle_to_observe_ms": 4.959334,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 342.602042,
+      "total_ms": 55.858,
+      "sql_ms": 10.940292,
+      "cleanup_complete": true,
+      "index": 26,
+      "fork_ms": 32.4705,
+      "connect_ms": 0.466209,
+      "select_ms": 0.146792,
+      "ready_ms": 33.083791,
+      "cleanup_ms": 11.83375,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.447417,
+      "retire_ms": 0.009583,
+      "wait_ms": 5.203584,
+      "close_ms": 6.971125,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000625
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.198708
+          }
+        ],
+        "elapsed_ms": 5.202166,
+        "idle_observed": true,
+        "idle_offset_ms": 0.048083,
+        "idle_to_observe_ms": 5.154375,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 343.808167,
+      "total_ms": 59.937458,
+      "sql_ms": 7.705333,
+      "cleanup_complete": true,
+      "index": 27,
+      "fork_ms": 38.740208,
+      "connect_ms": 1.23225,
+      "select_ms": 0.071125,
+      "ready_ms": 40.043833,
+      "cleanup_ms": 12.187625,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.367083,
+      "retire_ms": 0.0095,
+      "wait_ms": 5.421791,
+      "close_ms": 7.407083,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.001625
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.418167
+          }
+        ],
+        "elapsed_ms": 5.419708,
+        "idle_observed": true,
+        "idle_offset_ms": 0.354125,
+        "idle_to_observe_ms": 5.066167,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 394.708042,
+      "total_ms": 55.4135,
+      "sql_ms": 3.515,
+      "cleanup_complete": true,
+      "index": 28,
+      "fork_ms": 38.649708,
+      "connect_ms": 0.325166,
+      "select_ms": 0.082833,
+      "ready_ms": 39.057916,
+      "cleanup_ms": 12.840334,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.317459,
+      "retire_ms": 0.0065,
+      "wait_ms": 6.259709,
+      "close_ms": 8.330958,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.001333
+          },
+          {
+            "active": 0,
+            "offset_ms": 6.25625
+          }
+        ],
+        "elapsed_ms": 6.2575,
+        "idle_observed": true,
+        "idle_offset_ms": 0.047375,
+        "idle_to_observe_ms": 6.210458,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 398.053417,
+      "total_ms": 57.110541,
+      "sql_ms": 1.668708,
+      "cleanup_complete": true,
+      "index": 29,
+      "fork_ms": 40.197,
+      "connect_ms": 0.565792,
+      "select_ms": 0.079125,
+      "ready_ms": 40.84225,
+      "cleanup_ms": 14.59925,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.208458,
+      "retire_ms": 0.00525,
+      "wait_ms": 5.843083,
+      "close_ms": 5.948833,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000584
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.841375
+          }
+        ],
+        "elapsed_ms": 5.84225,
+        "idle_observed": true,
+        "idle_offset_ms": 0.041,
+        "idle_to_observe_ms": 5.801459,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 398.460875,
+      "total_ms": 74.029417,
+      "sql_ms": 7.133167,
+      "cleanup_complete": true,
+      "index": 30,
+      "fork_ms": 53.366708,
+      "connect_ms": 1.544833,
+      "select_ms": 0.184958,
+      "ready_ms": 55.096792,
+      "cleanup_ms": 11.798375,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.608375,
+      "retire_ms": 0.015375,
+      "wait_ms": 6.184167,
+      "close_ms": 7.834375,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.0025
+          },
+          {
+            "active": 0,
+            "offset_ms": 6.181042
+          }
+        ],
+        "elapsed_ms": 6.1825,
+        "idle_observed": true,
+        "idle_offset_ms": 0.113084,
+        "idle_to_observe_ms": 6.069625,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 403.749458,
+      "total_ms": 70.6185,
+      "sql_ms": 16.571125,
+      "cleanup_complete": true,
+      "index": 31,
+      "fork_ms": 39.071917,
+      "connect_ms": 0.72675,
+      "select_ms": 0.208208,
+      "ready_ms": 40.007084,
+      "cleanup_ms": 14.039792,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.434,
+      "retire_ms": 0.010375,
+      "wait_ms": 5.016042,
+      "close_ms": 5.150166,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.00025
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.014625
+          }
+        ],
+        "elapsed_ms": 5.015417,
+        "idle_observed": true,
+        "idle_offset_ms": 0.075667,
+        "idle_to_observe_ms": 4.940041,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 450.123417,
+      "total_ms": 64.635583,
+      "sql_ms": 5.16,
+      "cleanup_complete": true,
+      "index": 32,
+      "fork_ms": 41.841,
+      "connect_ms": 7.10175,
+      "select_ms": 0.354208,
+      "ready_ms": 49.297375,
+      "cleanup_ms": 10.177792,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.3705,
+      "retire_ms": 0.009,
+      "wait_ms": 5.065042,
+      "close_ms": 7.516375,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000709
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.061125
+          }
+        ],
+        "elapsed_ms": 5.0635,
+        "idle_observed": true,
+        "idle_offset_ms": 0.077084,
+        "idle_to_observe_ms": 4.986791,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 455.166042,
+      "total_ms": 62.002958,
+      "sql_ms": 4.833584,
+      "cleanup_complete": true,
+      "index": 33,
+      "fork_ms": 36.8365,
+      "connect_ms": 7.655125,
+      "select_ms": 0.084667,
+      "ready_ms": 44.576458,
+      "cleanup_ms": 12.592583,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.554666,
+      "retire_ms": 0.012458,
+      "wait_ms": 5.241125,
+      "close_ms": 5.741791,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.00175
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.237958
+          }
+        ],
+        "elapsed_ms": 5.239542,
+        "idle_observed": true,
+        "idle_offset_ms": 0.107583,
+        "idle_to_observe_ms": 5.132292,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 474.369958,
+      "total_ms": 45.657584,
+      "sql_ms": 2.932292,
+      "cleanup_complete": true,
+      "index": 35,
+      "fork_ms": 30.93175,
+      "connect_ms": 0.28125,
+      "select_ms": 0.513125,
+      "ready_ms": 31.726375,
+      "cleanup_ms": 10.998583,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.489458,
+      "retire_ms": 0.006208,
+      "wait_ms": 5.345417,
+      "close_ms": 8.287708,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000833
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.33925
+          }
+        ],
+        "elapsed_ms": 5.343625,
+        "idle_observed": true,
+        "idle_offset_ms": 0.045833,
+        "idle_to_observe_ms": 5.298334,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 472.492208,
+      "total_ms": 50.135834,
+      "sql_ms": 2.163583,
+      "cleanup_complete": true,
+      "index": 34,
+      "fork_ms": 32.990667,
+      "connect_ms": 1.25225,
+      "select_ms": 0.087666,
+      "ready_ms": 34.331,
+      "cleanup_ms": 13.641,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.338541,
+      "retire_ms": 0.006292,
+      "wait_ms": 6.60475,
+      "close_ms": 13.766084,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000667
+          },
+          {
+            "active": 0,
+            "offset_ms": 6.601167
+          }
+        ],
+        "elapsed_ms": 6.602834,
+        "idle_observed": true,
+        "idle_offset_ms": 0.065417,
+        "idle_to_observe_ms": 6.537708,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 514.760708,
+      "total_ms": 56.230084,
+      "sql_ms": 3.955209,
+      "cleanup_complete": true,
+      "index": 36,
+      "fork_ms": 31.458042,
+      "connect_ms": 0.35125,
+      "select_ms": 0.086208,
+      "ready_ms": 31.895792,
+      "cleanup_ms": 20.378792,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.229042,
+      "retire_ms": 0.005291,
+      "wait_ms": 5.069542,
+      "close_ms": 5.60375,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000833
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.067458
+          }
+        ],
+        "elapsed_ms": 5.068583,
+        "idle_observed": true,
+        "idle_offset_ms": 0.0345,
+        "idle_to_observe_ms": 5.034375,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 522.630542,
+      "total_ms": 51.258958,
+      "sql_ms": 1.457375,
+      "cleanup_complete": true,
+      "index": 39,
+      "fork_ms": 38.6475,
+      "connect_ms": 0.393333,
+      "select_ms": 0.079584,
+      "ready_ms": 39.120625,
+      "cleanup_ms": 10.68075,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.252334,
+      "retire_ms": 0.008458,
+      "wait_ms": 5.105625,
+      "close_ms": 7.10575,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000584
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.101667
+          }
+        ],
+        "elapsed_ms": 5.104417,
+        "idle_observed": true,
+        "idle_offset_ms": 0.045125,
+        "idle_to_observe_ms": 5.0595,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 520.029167,
+      "total_ms": 58.667625,
+      "sql_ms": 4.456541,
+      "cleanup_complete": true,
+      "index": 38,
+      "fork_ms": 41.206875,
+      "connect_ms": 0.426584,
+      "select_ms": 0.355875,
+      "ready_ms": 41.989625,
+      "cleanup_ms": 12.221208,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.276417,
+      "retire_ms": 0.010708,
+      "wait_ms": 5.03525,
+      "close_ms": 6.56,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000791
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.031416
+          }
+        ],
+        "elapsed_ms": 5.033833,
+        "idle_observed": true,
+        "idle_offset_ms": 0.062041,
+        "idle_to_observe_ms": 4.971917,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 517.171583,
+      "total_ms": 62.410584,
+      "sql_ms": 17.226875,
+      "cleanup_complete": true,
+      "index": 37,
+      "fork_ms": 32.841,
+      "connect_ms": 0.667333,
+      "select_ms": 0.067541,
+      "ready_ms": 33.576167,
+      "cleanup_ms": 11.607375,
+      "oracle": true
+    },
+    {
+      "update_ms": 3.687583,
+      "retire_ms": 0.007875,
+      "wait_ms": 5.044583,
+      "close_ms": 6.041917,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000834
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.04075
+          }
+        ],
+        "elapsed_ms": 5.042917,
+        "idle_observed": true,
+        "idle_offset_ms": 0.183959,
+        "idle_to_observe_ms": 4.859583,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 573.8915,
+      "total_ms": 61.18375,
+      "sql_ms": 11.18075,
+      "cleanup_complete": true,
+      "index": 41,
+      "fork_ms": 38.556417,
+      "connect_ms": 0.272667,
+      "select_ms": 0.076792,
+      "ready_ms": 38.906125,
+      "cleanup_ms": 11.096625,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.553,
+      "retire_ms": 0.007208,
+      "wait_ms": 5.267167,
+      "close_ms": 7.130083,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000708
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.259958
+          }
+        ],
+        "elapsed_ms": 5.265167,
+        "idle_observed": true,
+        "idle_offset_ms": 0.042667,
+        "idle_to_observe_ms": 5.223125,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 579.582792,
+      "total_ms": 61.69225,
+      "sql_ms": 4.216125,
+      "cleanup_complete": true,
+      "index": 43,
+      "fork_ms": 39.075416,
+      "connect_ms": 5.546375,
+      "select_ms": 0.440375,
+      "ready_ms": 45.062541,
+      "cleanup_ms": 12.406958,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.200542,
+      "retire_ms": 0.005459,
+      "wait_ms": 5.825167,
+      "close_ms": 8.018083,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.0005
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.822667
+          }
+        ],
+        "elapsed_ms": 5.824167,
+        "idle_observed": true,
+        "idle_offset_ms": 0.037167,
+        "idle_to_observe_ms": 5.787208,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 571.001167,
+      "total_ms": 73.906791,
+      "sql_ms": 8.947916,
+      "cleanup_complete": true,
+      "index": 40,
+      "fork_ms": 47.084208,
+      "connect_ms": 3.926958,
+      "select_ms": 0.097291,
+      "ready_ms": 51.108708,
+      "cleanup_ms": 13.85,
+      "oracle": true
+    },
+    {
+      "update_ms": 3.416209,
+      "retire_ms": 0.019083,
+      "wait_ms": 5.658292,
+      "close_ms": 11.330666,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.001667
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.650042
+          }
+        ],
+        "elapsed_ms": 5.655667,
+        "idle_observed": true,
+        "idle_offset_ms": 0.173959,
+        "idle_to_observe_ms": 5.482625,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 578.698042,
+      "total_ms": 79.090083,
+      "sql_ms": 11.124542,
+      "cleanup_complete": true,
+      "index": 42,
+      "fork_ms": 50.646333,
+      "connect_ms": 0.24475,
+      "select_ms": 0.060584,
+      "ready_ms": 50.951875,
+      "cleanup_ms": 17.012958,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.487458,
+      "retire_ms": 0.011625,
+      "wait_ms": 5.010166,
+      "close_ms": 4.84175,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.0015
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.007292
+          }
+        ],
+        "elapsed_ms": 5.008709,
+        "idle_observed": true,
+        "idle_offset_ms": 0.063792,
+        "idle_to_observe_ms": 4.94525,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 641.277792,
+      "total_ms": 53.534833,
+      "sql_ms": 10.408458,
+      "cleanup_complete": true,
+      "index": 45,
+      "fork_ms": 30.613208,
+      "connect_ms": 0.8625,
+      "select_ms": 1.783875,
+      "ready_ms": 33.260125,
+      "cleanup_ms": 9.865833,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.693708,
+      "retire_ms": 0.011916,
+      "wait_ms": 5.15,
+      "close_ms": 7.047625,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.001
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.107458
+          }
+        ],
+        "elapsed_ms": 5.147875,
+        "idle_observed": true,
+        "idle_offset_ms": 0.609167,
+        "idle_to_observe_ms": 4.539291,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 635.077375,
+      "total_ms": 66.352375,
+      "sql_ms": 12.340375,
+      "cleanup_complete": true,
+      "index": 44,
+      "fork_ms": 41.438708,
+      "connect_ms": 0.280792,
+      "select_ms": 0.079291,
+      "ready_ms": 41.799,
+      "cleanup_ms": 12.212792,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.669834,
+      "retire_ms": 0.006958,
+      "wait_ms": 5.575458,
+      "close_ms": 3.944166,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000875
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.573667
+          }
+        ],
+        "elapsed_ms": 5.574375,
+        "idle_observed": true,
+        "idle_offset_ms": 0.454125,
+        "idle_to_observe_ms": 5.120417,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 644.909375,
+      "total_ms": 65.649625,
+      "sql_ms": 11.275167,
+      "cleanup_complete": true,
+      "index": 46,
+      "fork_ms": 43.38675,
+      "connect_ms": 1.380916,
+      "select_ms": 0.0775,
+      "ready_ms": 44.845417,
+      "cleanup_ms": 9.528792,
+      "oracle": true
+    },
+    {
+      "update_ms": 0.28725,
+      "retire_ms": 0.009875,
+      "wait_ms": 5.07125,
+      "close_ms": 3.655542,
+      "wait_trace": {
+        "checks": [
+          {
+            "active": 1,
+            "offset_ms": 0.000917
+          },
+          {
+            "active": 0,
+            "offset_ms": 5.069875
+          }
+        ],
+        "elapsed_ms": 5.070459,
+        "idle_observed": true,
+        "idle_offset_ms": 0.040042,
+        "idle_to_observe_ms": 5.030583,
+        "sleep_requests": 1,
+        "success": true
+      },
+      "offset_ms": 657.797833,
+      "total_ms": 54.76875,
+      "sql_ms": 1.720333,
+      "cleanup_complete": true,
+      "index": 47,
+      "fork_ms": 43.7755,
+      "connect_ms": 0.461083,
+      "select_ms": 0.073291,
+      "ready_ms": 44.310125,
+      "cleanup_ms": 8.738167,
+      "oracle": true
+    }
+  ],
+  "root_closed_before_forks": true,
+  "cleanup_complete": true,
+  "corrupt_seed": false,
+  "success": true
+}
