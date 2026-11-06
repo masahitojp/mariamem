@@ -17,9 +17,9 @@ jobs:
     timeout-minutes: 75
     outputs:
       transit_id: ${{ steps.transit.outputs.artifact-id }}
-    env:
-      TASK_WORK: ${{ runner.temp }}/issue65-linux/guest
     steps:
+      - name: Set owned workspace path
+        run: echo "TASK_WORK=$RUNNER_TEMP/issue65-linux/guest" >> "$GITHUB_ENV"
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           path: tooling
@@ -73,9 +73,9 @@ jobs:
     needs: guest
     runs-on: ubuntu-24.04
     timeout-minutes: 50
-    env:
-      TASK_WORK: ${{ runner.temp }}/issue65-linux/runtime
     steps:
+      - name: Set owned workspace path
+        run: echo "TASK_WORK=$RUNNER_TEMP/issue65-linux/runtime" >> "$GITHUB_ENV"
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           path: tooling

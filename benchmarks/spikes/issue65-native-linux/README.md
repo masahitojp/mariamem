@@ -38,7 +38,11 @@ A retry starts a fresh full run; disposable transfer artifacts are not a cache.
 
 Local checks validate the acceptance parser, immutable guest rejection, symmetric
 source comparison and non-Linux guard with standard-library unit tests, plus
-workflow YAML, Python AST, public-source and diff checks. They do not execute
+workflow YAML, Python AST, public-source and diff checks. Workflow edits also
+require `actionlint -shellcheck= .github/workflows/issue65-native-linux.yml`
+(verified with v1.7.12). YAML parsing alone does not check Actions expression
+contexts. Set `TASK_WORK` through `$GITHUB_ENV` in a step: `runner.temp` is
+unavailable in job-level `env`. They do not execute
 Linux or establish a Linux PASS. After successful CI submission, return its URL
 and exact workflow/source SHA; follow the repository's CI handoff rule instead
 of polling. Later continuation must read actual results before starting Live.
