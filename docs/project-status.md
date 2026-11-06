@@ -185,6 +185,30 @@ live checklists; this is a direction summary, not a second acceptance ledger.
   connector exceptions; [#108](https://github.com/masahitojp/mariamem/issues/108)
   records MySQL/MariaDB differences without a compatibility implementation promise.
 
+### Issue #68 — bounded UNDO investigation stopped, 2026-11-06
+
+The Human accepted stopping repeated latency-reproduction experiments and
+retaining the observer for a future naturally occurring long event. The
+[bounded report](https://github.com/masahitojp/mariamem/blob/45b31789455da9d7ace0964712d14e873d19f4be/benchmarks/undorelay/results/README.md)
+binds measured harness `2f679a14d45acf0dac98effc7172f38301f7a3b3`.
+Two short samples establish UPDATE waiting for an rseg latch held by purge,
+while purge waits for its header page, followed by release/notification/resume.
+The page owner was I/O at background wait registration; continuous ownership
+through the query overlap is not established. The primary 144 children plus
+48 separate warmup children contained no UPDATE over 100ms. The earlier
+approximately 367ms event remains unexplained; no fix or frequency reduction
+is claimed.
+
+Keep this experimental observer and its checksum-bound replayable evidence;
+do not add natural repetitions, I/O queue instrumentation or tuning merely to
+seek another occurrence. A future long event from an otherwise justified
+measurement is the trigger to assess whether it follows this same chain and
+propose a bounded next step. This decision does not authorize automatic
+instrumentation of ordinary runs or product adoption. Return improvement
+selection to recurring Fork and cleanup costs; choose the concrete candidate
+and finite acceptance conditions separately. No runtime/default/API/release
+change or main integration is part of this stopping decision.
+
 <a id="v060--dogfood-and-fixture-ergonomics"></a>
 
 The approved product direction remains reducing environment setup, test authoring
