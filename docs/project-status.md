@@ -66,8 +66,14 @@ The Human requested continuing the compatibility experiment and updating Issue65
 scope/decisions and remaining work while retaining initial investigation history.
 The [fixed-guest compatibility observation](../benchmarks/spikes/issue65-native-compat/README.md)
 adds raw credential/capability/prepared/capacity/fatal/full-window probes after the
-22-case Linux/Live repeat. Execution is pending; suspected capacity-error and
-full-window monitoring gaps must not be relabelled PASS. No guest or controller
+22-case Linux/Live repeat. [CI42238921778](https://github.com/masahitojp/mariamem/actions/runs/42238921778)
+at source_commit `4d45d5445fe65f66237653e3bbfb5a7d6137cebb` completes all7
+groups/88 observations with6 mismatches: FOUND_ROWS, direct/Live capacity rejection,
+and full-window overflow/EOF monitoring. Credentials, tested prepared state and
+fatal EOF pass; the prior22-case lifecycle suite still passes. This is NOT_READY,
+not full compatibility acceptance. Both workspaces/transfer were disposed;
+original failures and scope are retained in the report. Keep the approved
+contract and make source-bound minimal fixes; do not weaken expectations. No guest or controller
 implementation changes are made in this step. Maintainability is the primary
 objective; transfer conversions/copies may decrease, but performance is unmeasured
 and must be compared under matched conditions after correct product integration.

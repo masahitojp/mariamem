@@ -1,0 +1,116 @@
+{
+  "result": "NOT_READY: contract mismatches",
+  "complete": true,
+  "ready": false,
+  "cases": [
+    {
+      "name": "TestCompatCredentials",
+      "result": "PASS",
+      "elapsed": "0.14s"
+    },
+    {
+      "name": "TestCompatCapabilities",
+      "result": "FAIL",
+      "elapsed": "0.11s"
+    },
+    {
+      "name": "TestCompatPreparedState",
+      "result": "PASS",
+      "elapsed": "0.51s"
+    },
+    {
+      "name": "TestCompatCapacity",
+      "result": "FAIL",
+      "elapsed": "0.12s"
+    },
+    {
+      "name": "TestCompatLiveCapacity",
+      "result": "FAIL",
+      "elapsed": "0.23s"
+    },
+    {
+      "name": "TestCompatFatalEOF",
+      "result": "PASS",
+      "elapsed": "0.50s"
+    },
+    {
+      "name": "TestCompatFullWindow",
+      "result": "FAIL",
+      "elapsed": "1.76s"
+    }
+  ],
+  "missing_cases": [],
+  "mismatches": [
+    {
+      "actual": "rows=0 err=<nil>",
+      "expected": 1,
+      "id": "accepted_FOUND_ROWS",
+      "pass": false,
+      "test": "TestCompatCapabilities"
+    },
+    {
+      "actual": "errno=0 state= error=EOF",
+      "expected": "1040/08004",
+      "id": "capacity_prelogin_tcp",
+      "pass": false,
+      "test": "TestCompatCapacity/17th_tcp"
+    },
+    {
+      "actual": "errno=0 state= error=EOF",
+      "expected": "1040/08004",
+      "id": "capacity_prelogin_pipe",
+      "pass": false,
+      "test": "TestCompatCapacity/17th_pipe"
+    },
+    {
+      "actual": "errno=0 state= error=EOF",
+      "expected": "1040/08004",
+      "id": "Live_capacity_prelogin",
+      "pass": false,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "<nil>",
+      "expected": "overflow before command deadline",
+      "id": "full_window_overflow_abort",
+      "pass": false,
+      "test": "TestCompatFullWindow/overflow"
+    },
+    {
+      "actual": "<nil>",
+      "expected": "eof before command deadline",
+      "id": "full_window_eof_abort",
+      "pass": false,
+      "test": "TestCompatFullWindow/eof"
+    }
+  ],
+  "exit_code": 1,
+  "guest_sha256": "c4c72644cd3fa4605a936a7eafe8d622ab4f670e5b7bdbfbdf30f0a351e8dfcf",
+  "guest_source_commit": "5d9915d9940ff691249361aafb6ea39551f29a87",
+  "host_source_commit": "ecd5d2b7ceff2085cac59f629c36d688007fc6bc",
+  "binary_sha256": "8d10ce084bb3af08926b2a93567367f0ad00ef90fc204cecc7b793e57cde231f",
+  "tooling_source_commit": "4d45d5445fe65f66237653e3bbfb5a7d6137cebb",
+  "not_qualified": [
+    "full command/capability profile",
+    "large aggregate output and output caps",
+    "all prepared edge vectors",
+    "public APIs",
+    "controller relocation",
+    "race freedom",
+    "performance",
+    "release"
+  ],
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42238921778",
+  "observations": 88,
+  "prior_Linux_Live_cases": 22,
+  "prior_Linux_Live_result": "PASS",
+  "mac_source_files_compared": 274,
+  "mac_source_files_different": [],
+  "source_extension": "prior Live bundle unchanged plus one compatibility test file",
+  "template_sha256": "1bab1b76e4f2f669dc86e3cfc34466295ba95f3cd0f6f2e7be93b848b7c2f6a0",
+  "probe_sha256": "10c364a99d0b2fb698798e5a309c86049375b76c9db6a8ca18681f42cdfbcae4",
+  "observations_sha256": "954c1c91b7b854d26c0e066b6edfc967b426980098f578b6ca41c9baf08def6a",
+  "platform": "native Linux x86_64; CGO_ENABLED=0; Go1.26.10",
+  "cleanup": "builder/runtime applied with no debt or retained large paths; transfer deletion job success",
+  "evidence_attribution": "full logs and inventories retained locally; this is a compact summary, not replacement execution"
+}

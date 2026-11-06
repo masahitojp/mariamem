@@ -1,4 +1,4 @@
-# Issue65 — fixed-guest compatibility observations, not adoption
+# Issue65 — fixed-guest compatibility observations: NOT_READY
 
 2026-11-06. The Human selected continuing after the approved
 [D1–D3 contract](../../../docs/decisions/issue65-native-wire-contract.md) and
@@ -16,6 +16,38 @@ host base `ecd5d2b7ceff2085cac59f629c36d688007fc6bc` with the previously
 inventoried templates. The exact triggering tooling commit supplies the one new
 `compat_test.go` source. Client path: pinned Go mysql1.9.3 plus the small raw
 MySQL4.1 test client in that file; these are not all declared consumers.
+
+## Observed result,2026-11-07
+
+**NOT_READY: actual compatibility mismatches, not a build failure.**
+[CI42238921778](https://github.com/masahitojp/mariamem/actions/runs/42238921778)
+executed source_commit `4d45d5445fe65f66237653e3bbfb5a7d6137cebb`. The guest
+build, prior22-case Linux/Live repeat and274-file macOS comparison pass. The
+compatibility run completes all7 groups and88 observations, with6 mismatches.
+[The compact receipt](evidence/ci-42238921778.json) pins the executed binary and
+templates and retains expected/actual values; original logs/inventories are saved
+in owned evidence. Neither contract nor expectations were changed after execution.
+
+| Group | Result | Actual observation |
+| --- | --- | --- |
+| Credentials | PASS | Credential matrix and canonical root; secure/legacy/empty username and following PING |
+| Capabilities | FAIL | Greeting matches; FOUND_ROWS requested on unchanged UPDATE returns affected rows0, expected1 |
+| PreparedState | PASS | Tested alias, type reuse/NUL, LONG_DATA/RESET and deferred-error recovery, D2 malformed string, CLOSE/unknown CLOSE and unknown RESET/following PING |
+| Capacity | FAIL | Mixed16 sessions, existing PING and retirement/reuse pass;17th TCP/Pipe return EOF instead of1040/08004 |
+| LiveCapacity | FAIL | Stable relay also returns EOF for17th; existing session remains usable |
+| FatalEOF | PASS | Actual native deadline closes idle peer; owner and cleanup retain deadline cause; independent instance usable |
+| FullWindow | FAIL | Exact pending-input budget reached while executing; no overflow/EOF cause observed within750ms, before10s command deadline |
+
+Recommend retaining the approved contract and fixing three named boundaries:
+FOUND_ROWS negotiation, pre-login capacity rejection and full-window overflow/EOF
+monitoring. The latter observation is bounded to750ms, not a claim that no later
+failure occurs. Source shows the relay pauses reads at a full window; native
+negotiation still needs source-level diagnosis before selecting its patch.
+Use new guest identity if a guest policy changes, keep lifecycle regressions and
+original failures. Do not combine controller relocation or benchmarks with fixes.
+Both owned CI workspaces and transfer WASM were disposed; cleanup debt is empty.
+The7-group PASS/FAIL labels retain exactly the vector scope below. No full-profile,
+public API, large-result or performance acceptance follows from passing subsets.
 
 ## Question and bounded scope
 
