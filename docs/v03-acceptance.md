@@ -1,5 +1,10 @@
 # v0.3 ORM / zero-setup acceptance
 
+> Historical versioned record. Pending work and current-version statements below
+> describe the recorded source, not today’s release requirements. Use
+> [project status](project-status.md), [current architecture](v04-generated-go-architecture.md)
+> and [release instructions](releasing.md) for present behavior.
+
 This is correctness/usability acceptance, not a release or a performance gate.
 The branch starts from `30dac13c115ed1d53e4a28e14f51dbec0d3571f0` on
 `v0.3/go-zero-setup`; production Go/Python/guest behavior is unchanged in this

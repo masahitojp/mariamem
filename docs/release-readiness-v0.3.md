@@ -1,5 +1,10 @@
 # v0.3 release-readiness re-audit
 
+> Historical versioned record. Pending work and current-version statements below
+> describe the recorded source, not today’s release requirements. Use
+> [project status](project-status.md), [current architecture](v04-generated-go-architecture.md)
+> and [release instructions](releasing.md) for present behavior.
+
 Audited `main` at `fb1dfff575d0d7cf1604d3edcdd583c8db97bb11` on
 2026-09-30 JST, after the release-pipeline fixes. This supersedes the
 `NOT READY` audit made at `96a5c3b`.

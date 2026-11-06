@@ -1,8 +1,7 @@
-# Owned E2E entry — unreleased main
+# Owned E2E entry
 
-The bounded Python BrowserEntry and Go NewHTTP entries are supported on adopted
-unreleased main; these examples show their fixed EP1/EG1 profiles.
-They are not part of published v0.5.3. The
+The bounded Python BrowserEntry and Go NewHTTP entries are supported since
+0.6.0; these repository examples show their fixed EP1/EG1 profiles. The
 [decision](../../decisions/e2e-entry-implementation.md) records implementation
 approval and its probe condition; [completed Issue18](https://github.com/masahitojp/mariamem/issues/18)
 records the accepted bounded profiles and protected main integration. The [new integrated-source receipt](../../reviews/e2e-integration-ci-41095184074/assessment.json)
@@ -20,14 +19,14 @@ preparation sessions, captures a baseline and creates Live. Preparation must
 finish migrations/seed and close its application connections/processes before
 returning. No automatic app-framework routing or command discovery is performed.
 
-The unreleased #53 candidate lets Python `Config(max_forks=2)` and Go
+Since 0.6.1, Python `Config(max_forks=2)` and Go
 `HTTPConfig{MaxForks: 2}` explicitly budget the baseline used by Live. One slot
 owns the current child and a second is needed for replacement. Explicit1
 rejects before preparation; omitted/automatic limits resolving to1 report the
 Live requirement without silently expanding the budget. Auto is a memory
 heuristic, not a CPU/latency optimum. Each independent owner/worker has its own
 budget; choose total parallel owners separately. The Python example now shows
-the candidate's explicit2 setting and requires a matching candidate SDK/host.
+an explicit2 setting; use a matching SDK/host from the same release or source.
 
 `start_ready(ctx, target, register)` / Go `StartReady` receives the actual Live
 connection target. Start only against that target. Immediately register a partial

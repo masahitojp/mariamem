@@ -4,8 +4,9 @@
 
 The local endpoint accepts commands sent before the previous response has been
 received. Execution and responses remain serial on each physical connection;
-this does not enable concurrent SQL execution or multiple SQL statements in one
-command. Existing command, SQL, packet and capability limits still apply.
+this does not enable concurrent SQL execution. Multi-statement COM_QUERY is
+a separate existing capability, selected by the client flag; pipelining does not
+change its contract. Existing command, SQL, packet and capability limits still apply.
 
 Pending raw input is limited to **1,048,581 bytes per physical connection**:
 the size of one maximum accepted command frame (1MiB SQL budget plus command

@@ -1,9 +1,10 @@
 # Releasing mariamem
 
-This source prepares the human-selected `v0.6.2`; Python spelling is `0.6.2`.
-The [versioned notes](../release/NOTES-v0.6.2.md) describe the adopted release
-scope and named limitations. Exact final-version artifacts still require Release
-CI acceptance; preparation is not qualification or publication evidence.
+The current published release is `v0.6.2`; Python spelling is `0.6.2`.
+Its [versioned notes](../release/NOTES-v0.6.2.md) describe shipped scope and
+limitations; [project status](project-status.md#current-published-release) records
+its successful Release CI and public smoke. The procedure below applies to
+the next human-selected candidate; preparation alone is not qualification.
 A normal release requires one human request authorizing one exact final-version SHA.
 An optional `verify` audit never authorizes publication.
 
@@ -308,52 +309,32 @@ The request has a five-second timeout, no polling/retries, and errors cannot fai
 consumer smoke or require another release/runtime verification. See the
 [official discovery guidance](https://pkg.go.dev/about#adding-a-package).
 
-## Next release notes — Python minimum and application-test entry
+## Release notes and usage reconciliation
 
-Before the first release containing `shadow_maria`, its versioned release notes
-must explicitly state that Python support now starts at3.11 and3.9/3.10 are
-dropped. Current source `python_requires` is `>=3.11`; published v0.5.3 retains
-its historical metadata. Also describe the new marker/preparation entry and
-that preparation uses explicit DB settings (no preparation-time automatic
-routing). See the [adopted implementation](reviews/v06x-shadow-maria-implementation.md).
-For the first release containing P1/PrepareCommand, manually carry the applicable
-items from [the sole 0.6.1 staging content source](release-notes/unreleased.md) into that
-release's tracked `release/NOTES-vX.Y.Z.md` (or prerelease equivalent). Include
-the new public declaration, same-worker admission stop after cleanup failure,
-bounded command output and compatibility/cleanup limitations. Check those items
-against the adopted code before submission. `scripts/release_prepare.py` accepts
-the explicitly versioned notes path; it does not read or generate notes from
-`docs/release-notes/unreleased.md` automatically.
-This is a required notes handoff, not a selected release version, generated notes
-file, release preparation or publication approval. Main adoption alone is not
-Qualification or release evidence.
+Use [unreleased staging](release-notes/unreleased.md) for changes merged after
+the latest published version. Before submitting a human-selected release,
+transfer applicable entries to its tracked `release/NOTES-vX.Y.Z.md` (or
+prerelease equivalent). Check them against adopted code and name compatibility
+changes and accepted limitations. `scripts/release_prepare.py` accepts that
+versioned path; it does not consume or generate notes from staging automatically.
+After publication, clear transferred staging entries; keep versioned notes and
+source-bound receipts as history.
 
-## Final usage-scope reconciliation for 0.6.1
+Reconcile README and all current Python/Go/Live/Django/preparation/dump/Node
+guides, including example READMEs. Update package installation examples to the
+selected version, distinguish newly shipped features from previous releases,
+and remove obsolete source-only or integration-pending instructions. Preserve
+callback/app-hook responsibilities, exact driver exceptions and unsupported
+paths. D1 shipped in 0.6.1; its earlier 0.6.0 deferral is historical.
 
-Before submission of the final versioned candidate, recheck README and the
-Python/Go/Live/Django/preparation/dump guides against the adopted
-[release scope](decisions/v060-release-scope.md) and
-[wire decision](decisions/v060-wire-contract.md). Supported main additions must
-be described as supported in that release, exact consumer exceptions named, and
-OUT paths not implied. The final-version preparation transfers the reviewed staging notes to
-`release/NOTES-v0.6.1.md` and updates README/Python/Go install examples to0.6.1.
-This wording reconciliation adds no runtime evidence; exact-candidate acceptance
-remains with Release CI.
-
-Carry P1, Go prepared-helper, owned browser/HTTP E2E, bounded dump, routine and
-prepared/wire limits into the versioned notes as applicable. Include Python3.11
-minimum, worker-local cleanup-debt admission, the two accepted Prepared consumer
-exceptions, the separate native-parity syntax-error presentation, and
-additional-mode/environment SKIPs, and D1's explicit deferral.
-Preserve the callback/command and app-hook responsibilities; do not promise
-cross-worker persistence, automatic pool retirement or arbitrary framework support.
-This is the existing documentation boundary, not a new runtime/trace campaign;
-Release CI success adds no packet-capture evidence or wider wire coverage.
+Documentation reconciliation adds no runtime or packet-capture evidence.
+CI still owns exact-candidate qualification and publication. Do not use old
+candidate receipts as acceptance of the new version's artifacts.
 
 ## Known limitations and release preparation
 
 Full generated guest `-race` remains **GENERAL SHARED-MEMORY MODEL WORK REQUIRED**;
-no suppression is used and it is not a v0.4 release gate. Focused handwritten
+the full generated-engine race run is not a release gate. Focused handwritten
 FD/MemFS/thread/TLS/futex race coverage remains enabled in normal integration CI.
 Forced query-timeout reclamation/hard failure containment is not guaranteed.
 The v0.5.0 ~1s startup mode has a source correction in v0.5.1;
@@ -366,8 +347,9 @@ not an added release gate. The current runtime releases its
 mmap-backed linear memory after cooperative join; remaining Go filesystem/metadata
 heap and OS accounting still differ from live allocations. The exact combined
 source's external Go1.27.2 consumers passed on both native platforms in
-[final Qualification](reviews/main-storage-qualification.md); canonical checks
-use Go1.26.8 and minimum Go remains 1.26.0. See
+[final Qualification](reviews/main-storage-qualification.md); that historical
+qualification used Go1.26.8. Current build/forward-compatibility
+pins are Go1.26.10/1.27.3, and minimum Go remains 1.26.0. See
 [historical compiler compatibility scope](go-compatibility.md).
 
 For each release, submit its exact pushed SHA once with `operation=release`.

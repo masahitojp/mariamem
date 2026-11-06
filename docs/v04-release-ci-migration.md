@@ -1,5 +1,10 @@
 # v0.4 Release CI contract migration
 
+> Historical versioned record. Pending work and current-version statements below
+> describe the recorded source, not today’s release requirements. Use
+> [project status](project-status.md), [current architecture](v04-generated-go-architecture.md)
+> and [release instructions](releasing.md) for present behavior.
+
 **Historical audit / migration evidence.** v0.4.0 is now published; the
 [project status](project-status.md) owns current release status and roadmap.
 Pending work described below records the audit boundary, not current blockers.

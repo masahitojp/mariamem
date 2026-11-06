@@ -19,8 +19,8 @@ separate macOS arm64 and Ubuntu x86_64 AOT/package jobs. New source/toolchain/WA
 and target AOT hashes are recorded in generated candidate provenance. The guard
 checks source coverage, pinned sysroot identity and external acceptance for each
 candidate; it does not relabel this older Docker/arm64 record as a new build.
-See [current build boundary](development.md#guest-build-boundary) and
-[release CI](releasing.md#ci-candidate-readiness-future-releases). The evidence
+See [current build boundary](development.md#guest--generated-source) and
+[release CI](releasing.md#ci-inputs-reuse-and-acceptance). The evidence
 chain and repeat commands below describe the historical record.
 
 ## Evidence chain

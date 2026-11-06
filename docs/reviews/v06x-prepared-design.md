@@ -191,7 +191,7 @@ specific design alternative and cost rather than weakening the north star.
 
 ## Human decision (2026-10-19): include multi-statements and re-spike on the current connector
 
-After the [bounded spike results](v06x-prepared-spike.md) were returned, the Human
+After the [bounded spike results](https://github.com/masahitojp/mariamem/blob/c6337f2237717ab7cb593e2dd34a6dd2ab49865b/docs/reviews/v06x-prepared-spike.md) were returned, the Human
 decided:
 
 1. **Multi-statement support is in scope**, not deferred. The spike's strongest

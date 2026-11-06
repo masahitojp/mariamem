@@ -1,8 +1,8 @@
 # Prepare tests from a MariaDB dump
 
-This helper is adopted on main and available in unreleased source builds.
-Install a wheel built from current source with the `pytest`, `dump` and
-`routing-pymysql` extras. It is not available in published v0.5.3.
+This helper is available since 0.6.0; the statement limit was corrected in 0.6.1.
+Install the [published platform wheel](../README.md#installation) with the
+`pytest`, `dump` and `routing-pymysql` extras for the recipe below.
 
 `import_dump` loads a supported SQL dump into a fresh mariamem database. The pytest
 plugin then prepares a baseline once per worker. Each marked test gets an

@@ -6,7 +6,7 @@ outside the promise. This is a documentation decision, not release approval.
 The strongest limitation is that there is no final versioned 0.6.0 candidate:
 installation examples still target published v0.5.3. The exact versioned source
 must receive the final wording/version/notes check described in
-[releasing](../releasing.md#final-usage-scope-reconciliation-for-060).
+[releasing](../releasing.md#release-notes-and-usage-reconciliation).
 
 ## Fixed reviewed object
 

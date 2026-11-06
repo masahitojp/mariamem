@@ -1,5 +1,9 @@
 # Routine support scope
 
+**Subsequent disposition (2026-11-05):** Procedures/functions and server-side prepared execution shipped in
+[0.6.0](../../release/NOTES-v0.6.0.md). The decision below retains its original
+adoption boundary; current behavior is in [the Go guide](../go.md).
+
 Human decision, 2026-10-20. The minimum procedure/function bootstrap is approved
 for canonical adoption preparation. **This is an adoption-scope decision, not a
 claim that the current published release already includes it.** The Human
@@ -70,7 +74,7 @@ confirmed the same bounded guest behavior on macOS arm64 and Ubuntu x86_64.
 ## Adoption boundaries
 
 Keep the product-managed proc-structure contract from the
-[Snapshot decision](snapshot-product-contract.md#approved-routine-candidate-boundary--not-yet-adopted).
+[Snapshot decision](snapshot-product-contract.md#routine-boundary--shipped-in-060).
 Fresh initializes before ready; incompatible restored structure is rejected,
 not repaired. Routine rows remain mutable, private child data.
 
