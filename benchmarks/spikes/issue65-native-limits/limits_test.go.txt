@@ -1,0 +1,418 @@
+// Observation only: preserve the approved profile, never repair it in this test.
+package main
+
+import (
+	"bytes"
+	"encoding/binary"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"net"
+	"strings"
+	"syscall"
+	"testing"
+	"time"
+)
+
+func limitsObserve(t *testing.T, id string, expected, actual any, pass bool) {
+	t.Helper()
+	b, _ := json.Marshal(map[string]any{"test": t.Name(), "id": id, "expected": expected, "actual": actual, "pass": pass})
+	t.Log("LIMITS_OBSERVATION " + string(b))
+	if !pass {
+		t.Errorf("contract mismatch: %s", id)
+	}
+}
+func limitsPing(c *compatConn) error {
+	if e := c.send(0, []byte{14}); e != nil {
+		return e
+	}
+	p, e := c.read(1)
+	if e == nil && (len(p) == 0 || p[0] != 0) {
+		return fmt.Errorf("PING %x", p)
+	}
+	return e
+}
+func limitsClosed(e error) bool {
+	var ne net.Error
+	return e != nil && !(errors.As(e, &ne) && ne.Timeout()) && (errors.Is(e, io.EOF) || errors.Is(e, io.ErrUnexpectedEOF) || errors.Is(e, syscall.ECONNRESET) || errors.Is(e, syscall.EPIPE))
+}
+func limitsLogin(t *testing.T, c *compatConn, flags uint32) []byte {
+	t.Helper()
+	c.greeting = c.mustRead(t, 0)
+	p := make([]byte, 32)
+	binary.LittleEndian.PutUint32(p, flags)
+	p[8] = 45
+	p = append(p, []byte("root\x00")...)
+	p = append(p, 0)
+	c.mustSend(t, 1, p)
+	return c.mustRead(t, 2)
+}
+func TestLimitsCommands(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		body []byte
+	}{
+		{"reset_connection", []byte{31}}, {"stmt_fetch", []byte{28, 1, 0, 0, 0, 1, 0, 0, 0}},
+		{"statistics", []byte{9}}, {"process_info", []byte{10}}, {"binlog_dump", make([]byte, 11)},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			if tc.name == "binlog_dump" {
+				tc.body[0] = 18
+			}
+			r := rootFor(t, 5000)
+			c := compatConnect(t, compatAddress(t, r), nil)
+			c.login(t, "root", true)
+			c.mustSend(t, 0, tc.body)
+			p, e := c.read(1)
+			errno, state := compatErr(p)
+			limitsObserve(t, tc.name, "ERR1235/42000", fmt.Sprintf("errno=%d state=%s err=%v marker=%x", errno, state, e, p[:min(len(p), 9)]), e == nil && errno == 1235 && state == "42000")
+			// A rejected command must leave the supported serial command stream usable.
+			e = limitsPing(c)
+			limitsObserve(t, tc.name+"_following", "PING OK", fmt.Sprint(e), e == nil)
+		})
+	}
+}
+func TestLimitsCapabilities(t *testing.T) {
+	for _, tc := range []struct {
+		name   string
+		flags  uint32
+		reject bool
+	}{
+		{"tls", 512 | 32768 | 2048, true}, {"missing_protocol41", 32768, true},
+		{"compression_not_negotiated", 512 | 32768 | 32, false}, {"deprecate_eof_not_negotiated", 512 | 32768 | 16777216, false},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			r := rootFor(t, 5000)
+			c := compatConnect(t, compatAddress(t, r), nil)
+			reply := limitsLogin(t, c, tc.flags)
+			if tc.reject {
+				errno, state := compatErr(reply)
+				limitsObserve(t, tc.name, "ERR1235/42000", fmt.Sprintf("errno=%d state=%s marker=%02x", errno, state, reply[0]), errno == 1235 && state == "42000")
+				return
+			}
+			caps, e := compatGreetingCaps(c.greeting)
+			bit := uint32(32)
+			if strings.HasPrefix(tc.name, "deprecate") {
+				bit = 16777216
+			}
+			// These unadvertised bits are masked in the old endpoint; do not invent a
+			// new requirement to reject every unknown bit or enable the extension.
+			limitsObserve(t, tc.name, "unadvertised; ordinary uncompressed login", fmt.Sprintf("caps=%x marker=%02x err=%v", caps, reply[0], e), e == nil && caps&bit == 0 && reply[0] == 0)
+			c.mustSend(t, 0, append([]byte{3}, []byte("SELECT 1")...))
+			p := c.mustRead(t, 1)
+			column := c.mustRead(t, 2)
+			eof := c.mustRead(t, 3)
+			row := c.mustRead(t, 4)
+			end := c.mustRead(t, 5)
+			ok := bytes.Equal(p, []byte{1}) && len(column) > 0 && len(eof) == 5 && eof[0] == 254 && bytes.Equal(row, []byte{1, '1'}) && len(end) == 5 && end[0] == 254
+			limitsObserve(t, tc.name+"_following", "ordinary row plus legacy EOF", fmt.Sprintf("first=%x eof=%x row=%x end=%x", p, eof, row, end), ok)
+		})
+	}
+}
+func TestLimitsInputHeaders(t *testing.T) {
+	for _, size := range []int{inputLimit - 3, 0xffffff} {
+		for _, warm := range []bool{false, true} {
+			name := fmt.Sprintf("n%d_warm%t", size, warm)
+			t.Run(name, func(t *testing.T) {
+				r := rootFor(t, 5000)
+				c := compatConnect(t, compatAddress(t, r), nil)
+				c.login(t, "root", true)
+				header := []byte{byte(size), byte(size >> 8), byte(size >> 16), 0}
+				if warm {
+					header = append(compatFrame(0, []byte{14}), header...)
+				}
+				c.c.SetWriteDeadline(time.Now().Add(time.Second))
+				n, e := c.c.Write(header)
+				if e != nil || n != len(header) {
+					t.Fatalf("header fixture %d %v", n, e)
+				}
+				if warm {
+					p := c.mustRead(t, 1)
+					if p[0] != 0 {
+						t.Fatalf("preceding PING %x", p)
+					}
+				}
+				p, e := c.read(1)
+				errno, _ := compatErr(p)
+				closed := limitsClosed(e)
+				limitsObserve(t, name, "reject header without waiting for body", fmt.Sprintf("errno=%d err=%v", errno, e), closed || (e == nil && errno != 0))
+			})
+		}
+	}
+}
+
+// Read one packet with an explicit ceiling before allocation. A continuation
+// header is itself evidence of a profile mismatch; never allocate its body.
+func limitsPacket(c *compatConn, seq byte) ([]byte, error) {
+	c.c.SetReadDeadline(time.Now().Add(5 * time.Second))
+	var h [4]byte
+	if _, e := io.ReadFull(c.c, h[:]); e != nil {
+		return nil, e
+	}
+	n := int(h[0]) | int(h[1])<<8 | int(h[2])<<16
+	if n == 0 || n > 0xfffffe || h[3] != seq {
+		return nil, fmt.Errorf("packet header len=%d seq=%d want=%d", n, h[3], seq)
+	}
+	p := make([]byte, n)
+	_, e := io.ReadFull(c.c, p)
+	return p, e
+}
+func limitsValue(p []byte, binaryRow bool) ([]byte, error) {
+	if binaryRow {
+		if len(p) < 2 || p[0] != 0 || p[1] != 0 {
+			return nil, fmt.Errorf("binary row prefix")
+		}
+		p = p[2:]
+	}
+	if len(p) == 0 {
+		return nil, io.ErrUnexpectedEOF
+	}
+	n := int(p[0])
+	prefix := 1
+	switch p[0] {
+	case 252:
+		if len(p) < 3 {
+			return nil, io.ErrUnexpectedEOF
+		}
+		n = int(binary.LittleEndian.Uint16(p[1:]))
+		prefix = 3
+	case 253:
+		if len(p) < 4 {
+			return nil, io.ErrUnexpectedEOF
+		}
+		n = int(p[1]) | int(p[2])<<8 | int(p[3])<<16
+		prefix = 4
+	case 254:
+		return nil, fmt.Errorf("unexpected 64-bit field")
+	}
+	if n != len(p)-prefix {
+		return nil, fmt.Errorf("field len=%d remaining=%d", n, len(p)-prefix)
+	}
+	return p[prefix:], nil
+}
+func limitsResultStart(t *testing.T, c *compatConn) ([]byte, error) {
+	t.Helper()
+	p, e := limitsPacket(c, 1)
+	if e != nil || p[0] == 255 {
+		return p, e
+	}
+	if !bytes.Equal(p, []byte{1}) {
+		return p, fmt.Errorf("column count %x", p)
+	}
+	if _, e = limitsPacket(c, 2); e != nil {
+		return nil, e
+	}
+	p, e = limitsPacket(c, 3)
+	if e == nil && (len(p) != 5 || p[0] != 254) {
+		e = fmt.Errorf("metadata EOF %x", p)
+	}
+	return p, e
+}
+func limitsSendQuery(t *testing.T, c *compatConn, query string, binaryRow bool) {
+	t.Helper()
+	if !binaryRow {
+		c.mustSend(t, 0, append([]byte{3}, []byte(query)...))
+		return
+	}
+	id := c.prepare(t, query)
+	p := compatID(23, id)
+	p = append(p, 0, 1, 0, 0, 0)
+	c.mustSend(t, 0, p)
+}
+func TestLimitsOutputPacket(t *testing.T) {
+	for _, binaryRow := range []bool{false, true} {
+		for _, over := range []bool{false, true} {
+			name := fmt.Sprintf("binary%t_over%t", binaryRow, over)
+			t.Run(name, func(t *testing.T) {
+				r := rootFor(t, 30000)
+				c := compatConnect(t, "", r)
+				c.login(t, "root", true)
+				length := 0xfffffe - 4
+				if binaryRow {
+					length -= 2
+				}
+				if over {
+					length++
+				}
+				limitsSendQuery(t, c, fmt.Sprintf("SELECT REPEAT('x',%d)", length), binaryRow)
+				p, e := limitsResultStart(t, c)
+				if over {
+					if e == nil && len(p) > 0 && p[0] != 255 {
+						p, e = limitsPacket(c, 4)
+					}
+					errno, _ := compatErr(p)
+					_, state := compatErr(p)
+					cause := strings.ToLower(fmt.Sprint(r.result()))
+					limitsObserve(t, name, "ERR1153/08S01 or early EOF; no continuation header", fmt.Sprintf("errno=%d state=%s err=%v row_bytes=%d owner=%s", errno, state, e, len(p), cause), (errno == 1153 && state == "08S01") || (limitsClosed(e) && !strings.Contains(cause, "deadline")))
+					c.c.Close()
+					return
+				}
+				if e == nil && len(p) > 0 && p[0] != 255 {
+					p, e = limitsPacket(c, 4)
+				} else if e == nil {
+					e = fmt.Errorf("unexpected error packet %x", p)
+				}
+				var value []byte
+				if e == nil {
+					value, e = limitsValue(p, binaryRow)
+				}
+				ok := e == nil && len(p) == 0xfffffe && len(value) == length && bytes.Count(value, []byte{'x'}) == length
+				limitsObserve(t, name, "exact 0xfffffe row packet and exact value", fmt.Sprintf("packet=%d value=%d err=%v", len(p), len(value), e), ok)
+				if !ok {
+					c.c.Close()
+					return
+				}
+				end, e := limitsPacket(c, 5)
+				ok = e == nil && len(end) == 5 && end[0] == 254
+				limitsObserve(t, name+"_following", "result EOF then PING", fmt.Sprintf("end=%x err=%v", end, e), ok && limitsPing(c) == nil)
+			})
+		}
+	}
+}
+func TestLimitsAggregate(t *testing.T) {
+	for _, binaryRow := range []bool{false, true} {
+		name := fmt.Sprintf("binary%t", binaryRow)
+		t.Run(name, func(t *testing.T) {
+			r := rootFor(t, 30000)
+			c := compatConnect(t, "", r)
+			c.login(t, "root", true)
+			peer := compatConnect(t, "", r)
+			peer.login(t, "root", true)
+			query := "WITH RECURSIVE n AS (SELECT 1 AS i UNION ALL SELECT i+1 FROM n WHERE i<40) SELECT REPEAT('x',1048576) FROM n"
+			limitsSendQuery(t, c, query, binaryRow)
+			blocked := inspect(t, r, func(s map[string]any) bool {
+				for _, v := range s["sessions"].([]any) {
+					if v.(map[string]any)["outstanding"].(float64) == 65536 {
+						return true
+					}
+				}
+				return false
+			})
+			e := limitsPing(peer)
+			limitsObserve(t, name+"_control", "other-session PING while output credit full", map[string]any{"error": fmt.Sprint(e), "stats": blocked}, e == nil)
+			p, e := limitsResultStart(t, c)
+			if e != nil || len(p) == 0 || p[0] == 255 {
+				t.Fatalf("result setup %x %v", p, e)
+			}
+			rows, total := 0, 0
+			seq := byte(4)
+			exact := true
+			for rows <= 40 {
+				p, e = limitsPacket(c, seq)
+				seq++
+				if e != nil {
+					break
+				}
+				if p[0] == 254 && len(p) == 5 {
+					break
+				}
+				var value []byte
+				value, e = limitsValue(p, binaryRow)
+				if e != nil {
+					break
+				}
+				rows++
+				total += len(value)
+				exact = exact && len(value) == 1048576 && bytes.Count(value, []byte{'x'}) == 1048576
+			}
+			limitsObserve(t, name+"_data", "40 exact 1MiB rows, total40MiB, terminal EOF", fmt.Sprintf("rows=%d bytes=%d err=%v last_bytes=%d", rows, total, e, len(p)), e == nil && rows == 40 && total == 40*1048576 && exact && len(p) == 5 && p[0] == 254)
+			stats := inspect(t, r, func(s map[string]any) bool {
+				for _, v := range s["sessions"].([]any) {
+					if v.(map[string]any)["phase"] != "idle" {
+						return false
+					}
+				}
+				return true
+			})
+			bounded := true
+			peak := float64(0)
+			for _, v := range stats["sessions"].([]any) {
+				n := v.(map[string]any)["output_peak"].(float64)
+				bounded = bounded && n <= 65536
+				peak = max(peak, n)
+			}
+			limitsObserve(t, name+"_bounds", "native output peak<=65536; following PING", map[string]any{"native_peak": peak, "stats": stats}, bounded && limitsPing(c) == nil)
+		})
+	}
+}
+
+func TestLimitsPipeWindow(t *testing.T) {
+	for _, mode := range []string{"overflow", "eof"} {
+		t.Run(mode, func(t *testing.T) {
+			r := rootFor(t, 10000)
+			independent := rootFor(t, 5000)
+			other := compatConnect(t, "", independent)
+			other.login(t, "root", true)
+			c := compatConnect(t, "", r)
+			c.login(t, "root", true)
+			c.mustSend(t, 0, append([]byte{3}, []byte("SELECT SLEEP(8)")...))
+			inspect(t, r, func(s map[string]any) bool {
+				for _, v := range s["sessions"].([]any) {
+					if v.(map[string]any)["phase"] == "executing" {
+						return true
+					}
+				}
+				return false
+			})
+			count := inputLimit
+			if mode == "overflow" {
+				count++
+			}
+			pending := bytes.Repeat(compatFrame(0, []byte{14}), (count+4)/5)[:count]
+			c.c.SetWriteDeadline(time.Now().Add(2 * time.Second))
+			sent := 0
+			for sent < len(pending) {
+				n, err := c.c.Write(pending[sent:])
+				sent += n
+				if err != nil {
+					t.Fatal("pending fixture write", sent, err)
+				}
+			}
+			snapshot := inspect(t, r, func(s map[string]any) bool {
+				if r.result() != nil {
+					return true
+				}
+				for _, v := range s["sessions"].([]any) {
+					if v.(map[string]any)["input"].(float64) >= inputLimit {
+						return true
+					}
+				}
+				return false
+			})
+			setupOK := r.result() != nil
+			for _, v := range snapshot["sessions"].([]any) {
+				if v.(map[string]any)["input"].(float64) == inputLimit {
+					setupOK = true
+				}
+			}
+			limitsObserve(t, "full_window_"+mode+"_setup", "full queue or already aborted", snapshot, setupOK)
+			if mode == "eof" {
+				c.c.Close()
+			}
+			until := time.NewTimer(750 * time.Millisecond)
+			defer until.Stop()
+			tick := time.NewTicker(time.Millisecond)
+			defer tick.Stop()
+		wait:
+			for r.result() == nil {
+				select {
+				case <-until.C:
+					break wait
+				case <-tick.C:
+				}
+			}
+			cause := r.result()
+			expected := "overflow"
+			if mode == "eof" {
+				expected = "eof"
+			}
+			text := strings.ToLower(fmt.Sprint(cause))
+			match := cause != nil && strings.Contains(text, expected) && !strings.Contains(text, "deadline")
+			limitsObserve(t, "full_window_"+mode+"_abort", expected+" before command deadline", fmt.Sprint(cause), match)
+			e := limitsPing(other)
+			limitsObserve(t, "independent_"+mode, "independent PING", fmt.Sprint(e), e == nil)
+			c.c.Close()
+		})
+	}
+}

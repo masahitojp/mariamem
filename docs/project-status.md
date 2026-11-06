@@ -246,9 +246,25 @@ main61973daa and the native FOUND_ROWS patch; host overlays add capacity rejecti
 and full-window input monitoring. Guest SHA256
 `0531ff4f348670dd5e2065a4a25fe9012ed278bd346a12093b97ff1cdfdd67e9`
 remains UNQUALIFIED. Its exact source reference has279 Go/assembly/data files.
-Linux repeat is pending; public integration, full compatibility and performance
-remain unqualified. Future legacy/native performance attribution must hold engine
+Linux repeat passes [CI42260991841](https://github.com/masahitojp/mariamem/actions/runs/42260991841)
+at candidate source_commit `2ffa5c3428a4b40c211c9f4ace1379253d337588`:22 lifecycle,
+7 groups/88 observations, zero mismatches, both supplemental controls and supporting
+checks. Source279 files match macOS; both owned workspaces and the guest transfer
+were deleted with no cleanup debt. Public integration, full compatibility and
+performance remain unqualified. Future legacy/native performance attribution must hold engine
 and UCA inputs fixed; published0.6.2 end-to-end comparison separately names UCA.
+
+
+On2026-11-07 the Human requested continuation after that PASS. A bounded
+[remaining-limit observation](../benchmarks/spikes/issue65-native-limits/README.md)
+keeps the guest/binding/runtime fixed and adds6 groups/38 named observations for
+representative OUT commands/caps, cold/warm input headers, text/binary packet
+boundaries,40MiB aggregates with blocked-output control, and Pipe full-window
+EOF/overflow. First rerun the unchanged baseline, then permit exactly one added
+test source. One Linux CI submission is authorized within this observation task;
+no new native execution is claimed before its result. Missing evidence remains
+INCOMPLETE, contract differences NOT_READY. Repairs, controller relocation and
+productization are separate work; no contract expectation is weakened.
 
 
 
