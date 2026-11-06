@@ -12,7 +12,7 @@ PATCH=(ROOT/'guest/experimental.patch').read_text()
 
 
 def section(name):
-    found=re.search(r'(?ms)^--- a/'+re.escape(name)+r'\n\+\+\+ b/'+re.escape(name)+r'\n(.*?)(?=^--- a/|\Z)',PATCH)
+    found=re.search(r'(?ms)^--- [^\n]+\n\+\+\+ b/'+re.escape(name)+r'\n(.*?)(?=^--- |\Z)',PATCH)
     if not found:raise ValueError('missing patch: '+name)
     return found[1]
 
@@ -22,6 +22,19 @@ def added_file(name):
 
 
 class NativePolicyTests(unittest.TestCase):
+    def test_all_patch_hunk_lengths(self):
+        lines=PATCH.splitlines()
+        for i,line in enumerate(lines):
+            m=re.match(r'@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@',line)
+            if not m:continue
+            end=i+1
+            while end<len(lines) and not lines[end].startswith(('@@ ','--- ')):end+=1
+            body=lines[i+1:end]
+            old=sum(x.startswith((' ','-')) for x in body)
+            new=sum(x.startswith((' ','+')) for x in body)
+            self.assertEqual(int(m[2] or 1),old, 'old hunk at line '+str(i+1))
+            self.assertEqual(int(m[4] or 1),new, 'new hunk at line '+str(i+1))
+
     def test_decoded_profile_and_numeric_boundaries(self):
         commands=json.loads((ROOT/'docs/reviews/v06x-fixture-acceptance.json').read_text())['wire']['supported_commands']
         compiler=shutil.which('c++')
@@ -53,7 +66,7 @@ size_t bad[]={0xffffff,0x1000000,size_t(-1)};for(size_t n:bad)assert(!mariamem_w
         self.assertIn('thd->mariamem_native_wire &&',sql)
 
     def test_auth_error_delivery_precedes_retirement(self):
-        body=added_file('libmysqld/lib_sql.cc')
+        body=added_file('libmysqld/mariamem_wire_probe.inc')
         start=body.index('if(!result && acl_authenticate(thd,0)) {')
         end=body.index('else if(!result)',start)
         rejection=body[start:end]
