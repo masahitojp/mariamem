@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "native_sha256": "7e6e05ceef4228f74abdfc7287bd01bf37d81ac365169631c159b79df2fac06a",
+  "host_sha256": "92c9534a5f385bc94b3522bd8819ae6688ef4dbd6718b680e0d48ae5f97b3015",
+  "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+  "children": 2,
+  "cleanup": {
+    "refs": 0,
+    "process_exit": 0,
+    "reaped": true,
+    "root_exists": false
+  },
+  "cleanup_errors": [],
+  "original_sql_json_sha256": "ac94f97246d29a9d2026073420ba1c0dca20248b76cb43226148f17f4c28d293",
+  "semantic_sha256": "065c4d227df17b64a7ac125f4439d0aa3d450fc0dbc639ef5ffdc6faa7385c4f"
+}

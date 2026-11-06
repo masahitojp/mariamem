@@ -1,0 +1,8 @@
+{
+  "result": "PASS_NATIVE",
+  "version": "12.3.3-MariaDB-ubu2404",
+  "platform": "Linux-7.0.0-1014-aws-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "original_native_json_sha256": "7e6e05ceef4228f74abdfc7287bd01bf37d81ac365169631c159b79df2fac06a",
+  "semantic_sha256": "065c4d227df17b64a7ac125f4439d0aa3d450fc0dbc639ef5ffdc6faa7385c4f"
+}

@@ -2,11 +2,14 @@
 
 Human selection,2026-11-07: fix the three demonstrated boundaries and incorporate
 published0.6.2 main. Main `0c4e75dc2c21421a59d04661efd72a1f58efecaa` is merged;
-shared release runtime was already0.6.2. Keep the release documentation cleanup
+shared release runtime was already0.6.2. Main later advanced to
+`61973daa19b6f665d7342338c3252dd7af61fc90` with prepared UCA guest/data changes;
+that commit is also merged and frozen for this task. The native guest/binding
+and runtime proof must be rebuilt on that main. Keep the release documentation cleanup
 rather than restoring old release-pending records. [Issue65](https://github.com/masahitojp/mariamem/issues/65)
 owns current work. No native-path adoption, release or performance claim.
 
-## Local native result, Linux pending
+## Pre-UCA local native result; new main requires a fresh proof
 
 macOS arm64 native execution at tooling source_commit
 `fd6d12f723cf03abcb7314b8c0290170d4c36765` passes all22 lifecycle cases and
@@ -50,7 +53,8 @@ runtime/template inputs; CI executes the final tooling SHA independently.
 
 The ordinary command/result path remains opaque. Session generation and the
 atomic SQL gate stay in guest; this is not whole-controller relocation.
-Canonical `guest/source.patch` and generated production source stay unchanged.
+Canonical `guest/source.patch` and generated production source track the frozen
+main exactly; this experiment makes no independent edits to them.
 `internal/live`'s optional rejection boundary and its test are isolated experiment
 changes, staged explicitly; public native-route wiring is not added.
 

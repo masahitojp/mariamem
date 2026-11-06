@@ -1,0 +1,15 @@
+=== RUN   TestPreparedUCATablesActualGuest
+=== RUN   TestPreparedUCATablesActualGuest/normal_ambient_ignored
+=== RUN   TestPreparedUCATablesActualGuest/profiling_does_not_verify
+    uca_prepared_integration_test.go:186: ordinary profiling diagnostics: 
+=== RUN   TestPreparedUCATablesActualGuest/six_resolved_tables
+=== RUN   TestPreparedUCATablesActualGuest/corrupt_table_rejected
+--- PASS: TestPreparedUCATablesActualGuest (0.83s)
+    --- PASS: TestPreparedUCATablesActualGuest/normal_ambient_ignored (0.11s)
+    --- PASS: TestPreparedUCATablesActualGuest/profiling_does_not_verify (0.09s)
+    --- PASS: TestPreparedUCATablesActualGuest/six_resolved_tables (0.13s)
+    --- PASS: TestPreparedUCATablesActualGuest/corrupt_table_rejected (0.50s)
+=== RUN   TestWorkerTrapActualGuestNotifiesAndIsolatesPeer
+--- PASS: TestWorkerTrapActualGuestNotifiesAndIsolatesPeer (0.17s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.997s

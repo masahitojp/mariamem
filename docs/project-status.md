@@ -38,6 +38,44 @@ Prepared-driver #93/#95, pipelining #94 and Go Pipe #66 are integrated and shipp
 in 0.6.2; Node guide #99 is complete through PR #113. Their earlier
 integration-pending entries are historical, not remaining release work.
 
+## v0.7.0 — Prepared UCA tables adopted, protected integration pending
+
+On2026-11-07 the Human authorized protected main integration through PR112.
+The failed Development run41969231695 identified an unclassified candidate
+workflow; its explicit tooling classification is corrected without changing
+runtime/guest inputs or relaxing tests. Required checks and strict-base
+protection must pass before the authorized merge.
+
+On2026-11-05 the Human approved candidate adoption of
+`cbd25f027e804bbd529a85208589ba2dd2899b86` following the
+[adoption review](reviews/uca-prepared-canonical-adoption-review.md).
+The [decision](decisions/prepared-uca-tables.md) records the bounded change and
+accepted measurement limits. This is a v0.7.0 workstream outcome, not a version
+metadata change or release approval.
+
+[CI41961766293](https://github.com/masahitojp/mariamem/actions/runs/41961766293)
+and its [verified receipt](reviews/uca-prepared-ci-41961766293/README.md) bind that
+original source: two independent C builds, identical106-file Go regeneration,
+actual table/corruption/profiling/worker controls, native SQL, independent
+children, Snapshot and cleanup on macOS15 arm64 / Ubuntu24.04 x86_64.
+The guest is `6d744220…`. Incoming single-build origin275c1807 remains
+UNQUALIFIED; no old receipt is relabelled to the integration head.
+
+Five alternating Mac fixture pairs report median Fork -23.4%, host CPU -15.5%,
+whole fixture -5.3% and one-held-child RSS increment -5.0%. ASCII SQL median
++2.0% and mixed +0.7% are retained as a small-cohort tradeoff; no blanket SQL,
+Ubuntu performance or parallel-scaling claim is added. Prepared table bytes
+replace repeated construction; each Fork still starts its own engine/runtime.
+
+Integration preserves current main0c4e75dc's published-guide/CI selector updates.
+Its runtime/guest/input bytes remain equal to the tested candidate. Only current
+acceptance bookkeeping changes, with original CI source pointers retained.
+The one-off candidate workflow remains manually reproducible; automatic campaign
+pushes stop after acceptance so receipt-only changes do not repeat two C builds.
+Normal required `check`, `integration`, `Live required gate` and strict-base
+protection remain required for the final PR head. Main integration is pending;
+Qualification, version selection and publication are not authorized here.
+
 <a id="adopted-ownership-optimization--unreleased"></a>
 
 ## Product contract
@@ -193,6 +231,12 @@ integration of current main. Main source_commit
 `0c4e75dc2c21421a59d04661efd72a1f58efecaa` is merged into the experiment branch;
 its additional changes from the shared0.6.2 source are documentation and
 source-scope tooling. This is not adoption of the native experiment on main.
+Main advanced during this work to `61973daa19b6f665d7342338c3252dd7af61fc90`
+(prepared UCA tables). The Human's requested main intake is now frozen at that
+commit and merged too. It changes guest source/data and canonical generated Go;
+therefore the local result below is pre-UCA evidence, not qualification of the
+new main. Rebuild the native guest, review a new worker binding and rerun the
+same contract/lifecycle tests before Linux submission.
 The [three-fix candidate](../benchmarks/spikes/issue65-compat-fixes/README.md)
 passes the original22 lifecycle cases and7 compatibility groups locally on
 macOS arm64 at tooling source_commit `fd6d12f723cf03abcb7314b8c0290170d4c36765`.
