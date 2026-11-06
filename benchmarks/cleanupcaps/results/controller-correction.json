@@ -1,0 +1,30 @@
+{
+  "cause": "Python loop variable round shadowed builtin round used only in progress print",
+  "runtime_changed": false,
+  "binary_changed": false,
+  "completed_measurement_processes": 9,
+  "fix": "Rename loop variable; verify and preserve exact completed prefix; skip completed combinations without rerunning",
+  "original_controller_sha256": "700fdfb7eb4e5d8a286a7bd46c7d4cb4dbb5108a753fce4b94fcca4d5f13428b",
+  "fixed_controller_sha256": "e165d16ec5c4a38c82631314f3695db2e78677e3d00af1894e0b5c17d250bc82",
+  "preserved_files": {
+    "poll-cap1-r-2-negative.json": "389d76b010dbe4ca374a164b371fa65b7cceb0ff495432c9d9fad8b68c4da015",
+    "poll-cap1-r-2-negative.log": "b28c78690c562e29cb15ef5f1c8a5790e991b826b803720e8db2ac5e6b737f5a",
+    "notify-cap1-r-2-negative.json": "21a376ff5239873b8ea526a237e06ddf813a5f53ba38ef6a3b97d7996a4bd06a",
+    "notify-cap1-r-2-negative.log": "b28c78690c562e29cb15ef5f1c8a5790e991b826b803720e8db2ac5e6b737f5a",
+    "poll-cap1-r-1-warmup.json": "9cad098d0134b4da5886117d2db3e53574ba747b7a4b18f91a78071e95b6766d",
+    "poll-cap1-r-1-warmup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "notify-cap1-r-1-warmup.json": "875c580ebdb747b2b3d04f8cb472f9d795920c6d33ccb708bbc8f95b862b89c4",
+    "notify-cap1-r-1-warmup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "poll-cap2-r-1-warmup.json": "081f3d4cfa41c8c84405dc203feb6d166b7c9ae308b83cfd96c8e79ca5f8bc21",
+    "poll-cap2-r-1-warmup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "notify-cap2-r-1-warmup.json": "ff8653880a0a63a96d80f98bcf4a82f56e71b2d06ea801845ec64aa4acd038cd",
+    "notify-cap2-r-1-warmup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "poll-cap4-r-1-warmup.json": "2aa30604d5915291372320312ad2c36b3d92987e20c3d58464b8c3604b62d332",
+    "poll-cap4-r-1-warmup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "notify-cap4-r-1-warmup.json": "cd202228ae6673584368f1f8c35cba60602aa76d5d8ddaa7e6fb34fb20cd4c16",
+    "notify-cap4-r-1-warmup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "notify-cap1-r0.json": "a1adbbf1d556e34c8425f71922e7b1641058c2a16d70dec04e4b8c9bdb114dc0",
+    "notify-cap1-r0.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "measurement_limitation": "cap1 repetition0 notify completed before the progress-print interruption; its poll counterpart runs after resumption. This pair is nonadjacent, is retained and is labelled in the report; no completed sample is replaced."
+}

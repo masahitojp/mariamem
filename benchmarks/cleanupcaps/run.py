@@ -51,9 +51,9 @@ def run(variant,rep,cap,count=48,negative=False,warmup=False,diagnostic=False):
 for variant in ['poll','notify']:run(variant,-2,1,1,negative=True)
 for cap in plan['fixed']['caps']:
  for variant in ['poll','notify']:run(variant,-1,cap,warmup=True)
-for round in plan['protocol']['rounds']:
- for cell in round['cells']:
-  for variant in cell['order']:run(variant,round['rep'],cell['cap'])
+for run_round in plan['protocol']['rounds']:
+ for cell in run_round['cells']:
+  for variant in cell['order']:run(variant,run_round['rep'],cell['cap'])
 for cap in plan['fixed']['caps']:
  for variant in ['poll','notify']:run(variant,0,cap,diagnostic=True)
 save('complete.json',{'result':'COLLECTED','total_processes':len(records),'primary_pairs_per_cap':20,'primary_children_per_arm_per_cap':960,'diagnostic_children_per_arm_per_cap':48,'extra_repeats':0,'harness_source_commit':i['harness_source_commit'],'peak_workspace_bytes':guard.peak,'min_free_bytes':guard.minimum_free})

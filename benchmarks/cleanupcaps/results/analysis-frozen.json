@@ -1,0 +1,8 @@
+{
+  "fixed_before_measurement": true,
+  "files": {
+    "analyze.py": "e13c291038c4d94fe7ffbeeec18be8388e8415f7f0b3b538bcac5235c573d2d2",
+    "undo_analysis.py": "cf893f48cf6b59079d6a33adeaaa05393c98e4a8650f23ca7eea092c906fe492",
+    "test_undo.py": "5c3125fb335f73b8bb9ac918afea482dc6d3986b9c8152b7983ad1895d47ac62"
+  }
+}

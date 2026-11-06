@@ -1,0 +1,13 @@
+{
+  "status": "REUSED_RUNTIME_SOURCE_AND_OVERLAY_NEW_HARNESS",
+  "original_report_commit": "6f780e5a7a44022e0f5c2c7bef888a233f821795",
+  "original_runtime_source_commit": "c37d578e68b3068173a6734b38f00e11782cb123",
+  "new_harness_source_commit": "d05cd878e77828b8c8b6025f4026a335b14912ce",
+  "binary_sha256_equal": false,
+  "prior_binary_sha256": "0104b348e3357a64c798c8756b30b25da411f724df8f2b76235573bb20d94742",
+  "new_binary_sha256": "770d34f73eb6dd1437c17b5c0ea4041ccaf5ca6beca5cda740ca5b01f5f0bda5",
+  "runtime_source_changed": false,
+  "guest_changed": false,
+  "measurement_changes": "Independent cap CLI/readback and ready/disposed markers; cap4 remeasured in same binary",
+  "scope": "Original focused unit/host race results remain at original SHA; new measurement resolver unit executed"
+}

@@ -1,0 +1,576 @@
+{
+  "question": "With four fixed caller workers, does MaxForks1/2/4 change the CPU cost of disconnect notification relative to polling?",
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "runtime_parent_source_commit": "c37d578e68b3068173a6734b38f00e11782cb123",
+  "prior_report_commit": "c7d70f8ba1a94fad2ed988df7ababf277f7876d5",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "fixed": {
+    "workers": 4,
+    "caps": [
+      1,
+      2,
+      4
+    ],
+    "children": 48,
+    "seed_rows": 1000,
+    "route": "pipe",
+    "gomaxprocs": 8,
+    "gogc": 100,
+    "toolchain": "go version go1.27.3 darwin/arm64",
+    "settings": "product defaults; no guest or notification strategy changes"
+  },
+  "protocol": {
+    "pairs_per_cap": 20,
+    "rounds": [
+      {
+        "rep": 0,
+        "cells": [
+          {
+            "cap": 1,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 1,
+        "cells": [
+          {
+            "cap": 2,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 2,
+        "cells": [
+          {
+            "cap": 4,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 3,
+        "cells": [
+          {
+            "cap": 1,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 4,
+        "cells": [
+          {
+            "cap": 2,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 5,
+        "cells": [
+          {
+            "cap": 4,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 6,
+        "cells": [
+          {
+            "cap": 1,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 7,
+        "cells": [
+          {
+            "cap": 2,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 8,
+        "cells": [
+          {
+            "cap": 4,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 9,
+        "cells": [
+          {
+            "cap": 1,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 10,
+        "cells": [
+          {
+            "cap": 2,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 11,
+        "cells": [
+          {
+            "cap": 4,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 12,
+        "cells": [
+          {
+            "cap": 1,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 13,
+        "cells": [
+          {
+            "cap": 2,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 14,
+        "cells": [
+          {
+            "cap": 4,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 15,
+        "cells": [
+          {
+            "cap": 1,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 16,
+        "cells": [
+          {
+            "cap": 2,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 17,
+        "cells": [
+          {
+            "cap": 4,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 18,
+        "cells": [
+          {
+            "cap": 1,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 2,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          }
+        ]
+      },
+      {
+        "rep": 19,
+        "cells": [
+          {
+            "cap": 2,
+            "order": [
+              "notify",
+              "poll"
+            ]
+          },
+          {
+            "cap": 4,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          },
+          {
+            "cap": 1,
+            "order": [
+              "poll",
+              "notify"
+            ]
+          }
+        ]
+      }
+    ],
+    "ordinary_processes": 120,
+    "ordinary_warmups": 6,
+    "wrong_seed_processes": 2,
+    "diagnostic_processes": 6,
+    "total_processes": 134,
+    "extra_repeats": 0
+  },
+  "boundaries": [
+    "Workers and cap are independent measurement options; report actual Snapshot.MaxForks readback.",
+    "Caller lifecycle intervals include admission wait and may overlap4-deep even at cap1; never call that a cap breach. Ready-to-disposed DB intervals must have peak<=cap; startup admission itself is governed by unchanged product limiter.",
+    "Fork elapsed includes capacity queueing; do not interpret cross-cap Fork medians as engine startup speed.",
+    "Cap1 still has guest internal threads/background work and four pending caller goroutines; it eliminates multiple admitted child DBs, not every concurrency source."
+  ],
+  "analysis": {
+    "main": "Per-cap20-pair whole-batch wall/CPU per child, cleanup and confirmation timing; retain every SQL tail; never pool older cohorts.",
+    "uncertainty": "seed11710000 whole-round bootstrap resamples, pair effect confidence intervals per cap; cap4-minus-cap1 CPU percentage contrast uses matched rounds. Single-host/time-dependence limits remain.",
+    "hypothesis": "If CPU increase remains at cap1, simultaneous child DBs are not required. If it shrinks near zero at cap1 and grows at2/4 with a positive contrast, cross-DB overlap is supported. Wide/contradictory intervals are inconclusive; no adaptive repeat/cap sweep."
+  },
+  "diagnostics": "One separate48-child poll/notify process per cap reuses prior UNDO holder/rseg/page/thread traces; no extra run to reproduce long SQL.",
+  "verification": "New measurement-only cap resolver gets focused unit tests; runtime/guest/overlay equality to prior receipt checked; prior host correctness/race remains on original SHA and is reused explicitly.",
+  "budget": {
+    "active_minutes": 45,
+    "tooling_minutes": 15,
+    "heavy_ci": 0,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 120,
+    "min_free_gib": 12,
+    "disk_gib": 6
+  },
+  "stop": "Complete fixed1/2/4 matrix and answer CPU/concurrency hypothesis; no product adoption, main/Qualification/release or #68 reopening."
+}
