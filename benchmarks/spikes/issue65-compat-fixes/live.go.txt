@@ -1,0 +1,184 @@
+// Experimental adapter over the unchanged production Live endpoint.
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/masahitojp/mariamem/internal/generatedgo"
+	endpoint "github.com/masahitojp/mariamem/internal/live"
+	"github.com/masahitojp/mariamem/internal/mysqlwire"
+	"sync"
+	"time"
+)
+
+type nativeLiveChild struct {
+	r       *instance
+	address string
+	mu      sync.Mutex
+	closed  bool
+	// Explicit failure/barrier models; nil/false for the actual adapter.
+	holdCleanup      bool
+	beforeRetirement func(context.Context) error
+}
+
+func (c *nativeLiveChild) Address() string { return c.address }
+func (c *nativeLiveChild) Capacity() int   { return 16 }
+func (c *nativeLiveChild) Failure() error  { return c.r.result() }
+func (c *nativeLiveChild) WaitDisconnected(ctx context.Context) error {
+	if c.beforeRetirement != nil {
+		if err := c.beforeRetirement(ctx); err != nil {
+			return err
+		}
+	}
+	tick := time.NewTicker(time.Millisecond)
+	defer tick.Stop()
+	for {
+		select {
+		case <-c.r.done:
+			return nil
+		default:
+		}
+		f, err := c.r.rpcContext(ctx, frame{kind: stats})
+		if err != nil {
+			return err
+		}
+		var s struct {
+			Sessions        []json.RawMessage `json:"sessions"`
+			Started, Joined *int
+		}
+		if err = json.Unmarshal(f.body, &s); err != nil {
+			return err
+		}
+		c.r.mu.Lock()
+		hostSessions := len(c.r.sessions)
+		c.r.mu.Unlock()
+		if s.Sessions == nil || s.Started == nil || s.Joined == nil {
+			return errors.New("incomplete native retirement stats")
+		}
+		if len(s.Sessions) == 0 && *s.Started == *s.Joined && hostSessions == 0 {
+			return nil
+		}
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-tick.C:
+		}
+	}
+}
+func (c *nativeLiveChild) Close() error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if c.closed {
+		return c.r.captureDebt
+	}
+	if c.holdCleanup {
+		err := errors.New("modeled unresolved native child cleanup")
+		c.r.lease.Settle(err)
+		return err
+	}
+	err := c.r.close()
+	// Execution cause is retained by Failure. Cleanup succeeds only after the
+	// runtime AND relay owners join; capture debt can never be forgiven.
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	joined := c.r.awaitJoined(ctx)
+	c.r.mu.Lock()
+	disposed := c.r.disposed
+	c.r.mu.Unlock()
+	if !disposed {
+		return errors.Join(err, joined)
+	}
+	c.closed = true
+	return c.r.captureDebt
+}
+
+type nativeLiveFactory struct {
+	b        *baseline
+	mu       sync.Mutex
+	children []*nativeLiveChild
+	// Set before a Reset; invoked after native READY for deterministic controls.
+	afterStart func(*nativeLiveChild) error
+	failNext   bool
+}
+
+func (f *nativeLiveFactory) factory() endpoint.Factory {
+	return endpoint.Factory{RejectCapacity: mysqlwire.RejectCapacity, Check: func() error {
+		_, release, err := f.b.backing.Acquire(generatedgo.GuestSHA256)
+		if err == nil {
+			release()
+		}
+		return err
+	}, Reserve: func(ctx context.Context, recover bool) (*endpoint.Reservation, error) {
+		if err := ctx.Err(); err != nil {
+			return nil, err
+		}
+		lease, err := f.b.pool.TryAcquire(recover)
+		if err != nil {
+			return nil, err
+		}
+		return &endpoint.Reservation{Cancel: lease.Cancel, Start: func(ctx context.Context) (endpoint.Child, error) {
+			f.mu.Lock()
+			fail := f.failNext
+			f.failNext = false
+			hook := f.afterStart
+			f.mu.Unlock()
+			if fail {
+				return nil, errors.New("modeled replacement startup failure")
+			}
+			entries, release, err := f.b.backing.Acquire(generatedgo.GuestSHA256)
+			if err != nil {
+				return nil, err
+			}
+			defer release()
+			if err = lease.Activate(); err != nil {
+				return nil, err
+			}
+			r, err := newRestoredContext(ctx, 5000, entries)
+			if r == nil {
+				lease.Settle(err)
+				return nil, err
+			}
+			r.lease = lease
+			c := &nativeLiveChild{r: r}
+			f.mu.Lock()
+			f.children = append(f.children, c)
+			f.mu.Unlock()
+			if err != nil {
+				return c, err
+			}
+			c.address, err = r.serve()
+			if err != nil {
+				return c, err
+			}
+			if hook != nil {
+				if err = hook(c); err != nil {
+					return c, err
+				}
+			}
+			return c, nil
+		}}, nil
+	}}
+}
+func (f *nativeLiveFactory) current() *nativeLiveChild {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return f.children[len(f.children)-1]
+}
+func (f *nativeLiveFactory) assertClosed() error {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	for _, c := range f.children {
+		for name, done := range map[string]<-chan struct{}{"runtime": c.r.done, "reader": c.r.readDone, "relay": c.r.hostDone} {
+			select {
+			case <-done:
+			default:
+				return fmt.Errorf("%s owner %d remains active", name, c.r.epoch)
+			}
+		}
+	}
+	return nil
+}
+
+var _ endpoint.Child = (*nativeLiveChild)(nil)

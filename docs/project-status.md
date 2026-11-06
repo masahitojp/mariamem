@@ -204,10 +204,12 @@ live checklists; this is a direction summary, not a second acceptance ledger.
   The unofficial adapter #98 and MySQL8 parity #107 were closed as not planned;
   they are not unresolved release gates.
 - **v0.6.x:** [#65](https://github.com/masahitojp/mariamem/issues/65) remains open.
-  Its [source feasibility investigation](https://github.com/masahitojp/mariamem/blob/9c86d469de09a2426503b2578c3d743c2b29e574/docs/reviews/issue65-guest-wire-feasibility.md)
-  is complete; an embedded-guest wire entry needs a separately selected experiment.
-  No guest endpoint handshake/SQL execution or implementation is established.
-  The shipped Go Pipe #66 does not implement guest-native wire relay.
+  Its initial source investigation is superseded by the separately selected native
+  memory-Vio/WASIX Snapshot/Fork/Live experiments recorded above. Native lifecycle
+  execution is established only in that isolated route; compatibility is NOT_READY
+  at CI42238921778. The Human selected the three demonstrated fixes. Public API
+  integration, adoption and release remain separate. The shipped Go Pipe #66
+  does not itself implement guest-native wire relay.
 - **v0.7.0:** [the milestone](https://github.com/masahitojp/mariamem/milestone/4)
   owns bounded initialization/resource work: #88 buffer size, #100 common
   initialization, #101 parallel stretch, #103 template reuse and #106 UCA.

@@ -22,9 +22,12 @@ type Child interface {
 	Failure() error
 }
 type Factory struct {
-	dial  func(context.Context, string) (net.Conn, error)
-	Check func() error
-	Start func(context.Context) (Child, error)
+	// Optional pre-login rejection. Must return within a fixed bound and parse
+	// no client bytes. Runs in the accept owner outside mu; no extra worker.
+	RejectCapacity func(net.Conn)
+	dial           func(context.Context, string) (net.Conn, error)
+	Check          func() error
+	Start          func(context.Context) (Child, error)
 	// Reserve is nonblocking. Healthy Reset reserves before draining; failed
 	// Reset retries owned cleanup before requesting explicit parent recovery.
 	Reserve func(context.Context, bool) (*Reservation, error)
@@ -141,9 +144,15 @@ func (e *Endpoint) accept() {
 			return
 		}
 		e.mu.Lock()
-		if e.status.State != "ready" || e.child.Failure() != nil || len(e.clients) >= e.child.Capacity() {
+		unavailable := e.status.State != "ready" || e.child.Failure() != nil
+		full := len(e.clients) >= e.child.Capacity()
+		if unavailable || full {
 			e.mu.Unlock()
-			client.Close()
+			if !unavailable && full && e.factory.RejectCapacity != nil {
+				e.factory.RejectCapacity(client)
+			} else {
+				client.Close()
+			}
 			continue
 		}
 		ctx, cancel := context.WithCancel(context.Background())

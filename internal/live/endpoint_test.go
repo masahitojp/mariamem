@@ -372,3 +372,42 @@ func TestCreationCleanupFailureReturnsOwnedTombstone(t *testing.T) {
 		t.Fatal("creation cleanup owner lost")
 	}
 }
+
+func TestCapacityResponderLeavesExistingRelayAndStatusUsable(t *testing.T) {
+	child := echo(t)
+	child.limit = 1
+	var e *Endpoint
+	called := make(chan Status, 1)
+	e = newEndpoint(t, Factory{Check: func() error { return nil }, Start: func(context.Context) (Child, error) { return child, nil }, RejectCapacity: func(c net.Conn) {
+		defer c.Close()
+		// Taking Status here must not deadlock on the admission mutex.
+		called <- e.Status()
+		c.SetWriteDeadline(time.Now().Add(time.Second))
+		c.Write([]byte("capacity"))
+	}})
+	first := connected(t, e)
+	exchange(t, first, []byte("existing"))
+	waitActive(t, e, 1)
+	rejected := connected(t, e)
+	rejected.SetReadDeadline(time.Now().Add(time.Second))
+	body, err := io.ReadAll(rejected)
+	if err != nil || string(body) != "capacity" {
+		t.Fatal(string(body), err)
+	}
+	select {
+	case s := <-called:
+		if s.State != "ready" || s.ActiveConnections != 1 || s.Generation != 0 {
+			t.Fatal(s)
+		}
+	case <-time.After(time.Second):
+		t.Fatal("capacity callback missing")
+	}
+	exchange(t, first, []byte("still usable"))
+	waitActive(t, e, 1)
+	child.mu.Lock()
+	backends := len(child.clients)
+	child.mu.Unlock()
+	if backends != 1 {
+		t.Fatal("rejection opened another backend", backends)
+	}
+}
