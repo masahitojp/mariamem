@@ -300,8 +300,17 @@ auth output is flushed/ACKed before retirement. No host parser, serializer or
 controller relocation is added. Guest source_commit
 `8f3e440ab78af570e489dd8d463cab1ed4c5aed8` pins the experimental patch and
 small pure-policy/header checks. Canonical source.patch/production code remain
-unchanged. A new guest identity, complete worker-body binding review and native
-lifecycle/contract execution are required; no new native PASS is claimed yet.
+unchanged. New guest SHA256
+`4caa85d299410467f2656d6611df5dbeb518351927ac30b0216e516d277bf094`
+(21,192,316 bytes, UNQUALIFIED) has a complete worker-body binding review.
+Fresh macOS arm64 execution at tooling source_commit
+`5b4f5f49b35fc364128d94cde1f30c5e33742c4d` passes22 lifecycle cases,
+88 old plus38 remaining-limit observations with no mismatches, both existing
+FOUND_ROWS/UCA controls and3 new rejection/session/lifetime controls. Supporting
+checks including22 canonical installer tests pass. The new281-file source
+reference is distinct from the old guest's279-file bundle. Linux repeat,
+full-profile/public integration, controller relocation, performance and adoption
+remain pending. Neither the old failure nor the new local PASS is relabeled.
 
 
 

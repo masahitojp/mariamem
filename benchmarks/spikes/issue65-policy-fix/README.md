@@ -41,7 +41,32 @@ Local development guest source_commit
 (21,192,316 bytes, UNQUALIFIED). The first local preparation failed on a
 new-file hunk count; that original log/source is retained. All patch hunk counts
 are now checked before builds. The four policy/header/source-order unit tests
-pass; worker binding and native runtime evidence are still pending.
+pass. A complete worker-body binding review and fresh native execution now pass;
+see the exact evidence below.
+
+## Fresh macOS native result
+
+At tooling source_commit `5b4f5f49b35fc364128d94cde1f30c5e33742c4d`, the
+new guest passes22 lifecycle cases,7 old compatibility groups/88 observations,
+6 remaining-limit groups/38 observations with zero mismatches, the original
+FOUND_ROWS/UCA2 controls and all3 new lifetime/session controls. Focused Live,
+actual worker-peer boundary, wrong guest/body bindings and22 canonical installer
+tests also pass. Runtime uses Go1.26.10/CGO_ENABLED=0 on macOS arm64.
+
+The new controls show that a rejected RESET preserves the variable, prepared
+handle and cached parameter type; login ERR is received before EOF/native join;
+and oversized-row ERR1153/08S01 leaves the same stream and peer usable. Both
+text and binary max+1 now return native1153 instead of a continuation header.
+40MiB text/prepared aggregate, blocked-output peer control and65536 native queue
+peak remain PASS. No total engine allocation/RSS bound is inferred.
+
+[The immutable local reference](evidence/macos-reference.json) binds281 staged
+Go/assembly/data files, templates, binding, binary and all10 formerly failing
+actual observations. Complete worker functions Fn151/free,Fn129/yield and
+Fn211/entry retain the reviewed semantic shape after recorded relocation/name
+mapping. The final reference/hash/docs change no tested guest/runtime/template;
+Linux must execute the final tooling SHA and match this source bundle.
+Linux acceptance is still pending. Local PASS is not adoption or qualification.
 
 ## Verification and budget
 

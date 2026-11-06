@@ -36,6 +36,8 @@ jobs:
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
             build-essential cmake ninja-build bison pkg-config curl ca-certificates git \
             libssl-dev zlib1g-dev libpcre2-dev libncurses-dev xz-utils
+      - name: Check native policy patch before building
+        run: python3 tooling/benchmarks/spikes/issue65-policy-fix/test_policy.py -v
       - name: Prepare owned builder workspace
         run: |
           python3 guest-source/scripts/experiment_workspace.py \
