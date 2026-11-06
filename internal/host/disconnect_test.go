@@ -1,0 +1,44 @@
+package host
+
+import (
+	"github.com/masahitojp/mariamem/internal/guest"
+	"net"
+	"testing"
+)
+
+func TestDisconnectGenerations(t *testing.T) {
+	a, b := net.Pipe()
+	defer a.Close()
+	defer b.Close()
+	s := &Server{Guest: &guest.Process{}, listener: aListener{a}, clients: map[net.Conn]*session{b: {}}}
+	n, ch, failed, done := s.DisconnectState()
+	if n != 1 || ch == nil || failed == nil || done != nil {
+		t.Fatal("invalid snapshot")
+	}
+	s.mu.Lock()
+	delete(s.clients, b)
+	s.notifyDisconnectLocked()
+	s.mu.Unlock()
+	select {
+	case <-ch:
+	default:
+		t.Fatal("no disconnect signal")
+	}
+	n, next, _, _ := s.DisconnectState()
+	if n != 0 || next == ch {
+		t.Fatal("generation not renewed")
+	}
+	s.mu.Lock()
+	s.stopAccepting()
+	s.mu.Unlock()
+	select {
+	case <-next:
+	default:
+		t.Fatal("close did not wake")
+	}
+}
+
+type aListener struct{ net.Conn }
+
+func (a aListener) Accept() (net.Conn, error) { return nil, net.ErrClosed }
+func (a aListener) Addr() net.Addr            { return a.LocalAddr() }

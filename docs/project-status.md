@@ -123,6 +123,17 @@ functional regression. See [development](development.md#local-verification),
 and [release handoff](releasing.md). Historical timing comparisons do not prove
 current CI savings; no new runtime reuse policy is approved here.
 
+## Disconnect notification candidate — verification pending
+
+On 2026-11-07 the Human authorized preparing the bounded Issue #117 notification
+change toward adoption. It replaces WaitDisconnected's fixed polling delay with
+host session/failure notifications, preserving context, Close and disposal
+contracts. The [candidate record](reviews/issue117-notification-candidate.md)
+separates the single-Mac experiment benefits/CPU tradeoff from the current
+main-based implementation and pending both-platform verification. It is not yet
+merged, shipped or release-qualified; the other initialization experiments are
+not imported by this candidate.
+
 ## Current work tracking
 
 Checked against GitHub Issues on 2026-11-05 after v0.6.2 publication. Issues own
