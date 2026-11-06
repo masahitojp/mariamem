@@ -618,6 +618,15 @@
    THD *thd= mpvio->auth_info.thd;
    NET *net= &thd->net;
    char *end;
+@@ -14491,4 +14491,8 @@
+   /* Disable those bits which are not supported by the client. */
+   compile_time_assert(sizeof(thd->client_capabilities) >= 8);
++  // Accept the local endpoint's optional FOUND_ROWS without advertising it.
++  // The intersection still preserves the client's actual choice.
++  if (thd->mariamem_native_wire)
++    thd->client_capabilities|= CLIENT_FOUND_ROWS;
+   thd->client_capabilities&= client_capabilities;
+ 
 @@ -14675,6 +14688,7 @@
      return packet_error;
    }
@@ -640,6 +649,7 @@
  }
  
  
+
 --- a/sql/sql_class.cc
 +++ b/sql/sql_class.cc
 @@ -710,10 +710,11 @@
