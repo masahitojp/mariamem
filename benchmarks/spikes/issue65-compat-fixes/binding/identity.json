@@ -1,0 +1,98 @@
+{
+  "contract": "issue65-experimental-thread-binding-v1",
+  "guest_sha256": "6956ea97ff4ad5fa7cc1b9617ec39ac0197c402c0bfa869469ec62a9ad6c3719",
+  "previous_experimental_guest_sha256": "c4c72644cd3fa4605a936a7eafe8d622ab4f670e5b7bdbfbdf30f0a351e8dfcf",
+  "functions": {
+    "code/p3/p3_pure.go": {
+      "function": "Fn151",
+      "normalized_sha256": "97c18a3b4713b4860b740c6c7988524c5d1521ddf0662a6e61b61c4f6278e053",
+      "role": "free"
+    },
+    "code/p8/p8_pure.go": {
+      "function": "Fn129",
+      "normalized_sha256": "8dde085a66cd7422bd9974506308d77fbdf3a6d4ebe386fb1b9b0649d203b707",
+      "role": "yield"
+    },
+    "code/p5/p5_pure.go": {
+      "function": "Fn211",
+      "normalized_sha256": "b78c41be053506043d2d1b8e3a944f7f78f84b3e9edaaed4d64f698c6b118e69",
+      "role": "entry"
+    }
+  },
+  "review": {
+    "free": {
+      "complete_body_equal_after_recorded_relocation": true,
+      "function_renames": {
+        "Fn153": "Fn151",
+        "Fn131": "Fn129"
+      },
+      "changed_numeric_literals": {
+        "15246728": "15245064",
+        "15246732": "15245068",
+        "15246300": "15244636",
+        "15246304": "15244640",
+        "15246284": "15244620",
+        "15246292": "15244628",
+        "15246588": "15244924",
+        "15246288": "15244624",
+        "15246308": "15244644",
+        "15246296": "15244632",
+        "15246324": "15244660",
+        "15246316": "15244652"
+      },
+      "static_relocation_delta": [
+        -1664
+      ],
+      "previous_body_sha256": "d40bb98ce99a0699a26224ccddc5431083edb010fd888daf778387d4a67bef95",
+      "new_body_sha256": "bc1af7117609cb4b11b6a96dad5e2f9aed2d7cc80ac314a91f72de507a2f2d42"
+    },
+    "yield": {
+      "complete_body_equal_after_recorded_relocation": true,
+      "function_renames": {
+        "Fn131": "Fn129"
+      },
+      "changed_numeric_literals": {},
+      "static_relocation_delta": [],
+      "previous_body_sha256": "91b13b652d2dc922a4a2e848aeba1520d9cb406341b5cd7e87b5243ef8d2db26",
+      "new_body_sha256": "c10f06f62eab7a7f88def8f1dd78934cd7fd4f84fb8cc3b21eecdf28bf908ec7"
+    },
+    "entry": {
+      "complete_body_equal_after_recorded_relocation": true,
+      "function_renames": {
+        "Fn214": "Fn211",
+        "Fn97": "Fn95",
+        "Fn210": "Fn207",
+        "Fn92": "Fn90",
+        "Fn89": "Fn87",
+        "Fn88": "Fn86",
+        "Fn84": "Fn82",
+        "Fn213": "Fn210",
+        "Fn153": "Fn151",
+        "Fn158": "Fn156"
+      },
+      "changed_numeric_literals": {
+        "505": "497",
+        "15248892": "15247228",
+        "15249408": "15247744",
+        "15249456": "15247792",
+        "15250000": "15248336",
+        "15250004": "15248340",
+        "15244868": "15243204",
+        "15244865": "15243201",
+        "15250008": "15248344",
+        "15307408": "15305744"
+      },
+      "static_relocation_delta": [
+        -1664
+      ],
+      "previous_body_sha256": "d4e878fe9982f24589f100496f0ba3322e07a00d5d7bcd57542e42d5602f5179",
+      "new_body_sha256": "875e2056d94628cab3d939e71a479165ef5217890310bc8bc004200ed5afbee3"
+    }
+  },
+  "ABI_offsets": {
+    "start_args.pthread": 16,
+    "pthread.map_base": 40,
+    "pthread.map_size": 44
+  },
+  "status": "experimental exact-function binding; canonical binding unchanged"
+}
