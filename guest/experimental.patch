@@ -1631,22 +1631,26 @@
      return false;
    }
    return false;
-@@ -4620,8 +4651,24 @@
+@@ -4620,8 +4651,26 @@
      extern unsigned long mariamem_spike_decodes;
      __atomic_fetch_add(&mariamem_spike_decodes,1UL,__ATOMIC_RELAXED);
      uchar *null_array= packet;
+-    res= (setup_conversion_functions(this, &packet) ||
+-          set_params(this, null_array, packet, packet_end, expanded_query));
 +    Item_param::Mariamem_wire_conversion *saved= NULL;
 +    if (packet[(param_count + 7) / 8])
 +    {
 +      saved= (Item_param::Mariamem_wire_conversion *)
 +        thd->alloc(sizeof(*saved) * param_count);
 +      if (!saved)
-+        return true; // thd->alloc retains the native allocation diagnostic.
-+      for (uint i= 0; i < param_count; ++i)
-+        param_array[i]->mariamem_save_conversion(&saved[i]);
++        res= true; // Retain allocation error and use common state cleanup.
++      else
++        for (uint i= 0; i < param_count; ++i)
++          param_array[i]->mariamem_save_conversion(&saved[i]);
 +    }
-     res= (setup_conversion_functions(this, &packet) ||
-           set_params(this, null_array, packet, packet_end, expanded_query));
++    if (!res)
++      res= (setup_conversion_functions(this, &packet) ||
++            set_params(this, null_array, packet, packet_end, expanded_query));
 +    if (res && saved)
 +      for (uint i= 0; i < param_count; ++i)
 +      {
@@ -1656,7 +1660,7 @@
  }
  else {
      /*
-@@ -4636,8 +4683,14 @@
+@@ -4636,8 +4685,14 @@
    thd->lex->default_used= false;
    if (res)
    {
