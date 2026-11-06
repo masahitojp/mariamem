@@ -16,7 +16,7 @@ ROOT=HERE.parents[2]
 GUEST_SOURCE='a1e3b8a0d7f3750e684610e273a28b802a7135d0'
 HOST_SOURCE=GUEST_SOURCE
 GUEST_SHA='0531ff4f348670dd5e2065a4a25fe9012ed278bd346a12093b97ff1cdfdd67e9'
-SOURCE_REFERENCE_SHA256='4b89dfca47f6aa0a6b0949a9676053d0fab6207fd61a943dfefd18802932e100'
+SOURCE_REFERENCE_SHA256='346910efe7f9a1a858e11acd2bd361d41c5ac05f586ebc47969418cdd61cff36'
 spec=importlib.util.spec_from_file_location('linux_probe',HERE.parent/'issue65-native-linux/probe.py')
 base=importlib.util.module_from_spec(spec);spec.loader.exec_module(base)
 base.GUEST_SOURCE=GUEST_SOURCE;base.HOST_SOURCE=HOST_SOURCE;base.GUEST_SHA=GUEST_SHA

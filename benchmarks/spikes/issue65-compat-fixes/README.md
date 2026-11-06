@@ -5,11 +5,32 @@ published0.6.2 main. Main `0c4e75dc2c21421a59d04661efd72a1f58efecaa` is merged;
 shared release runtime was already0.6.2. Main later advanced to
 `61973daa19b6f665d7342338c3252dd7af61fc90` with prepared UCA guest/data changes;
 that commit is also merged and frozen for this task. The native guest/binding
-and runtime proof must be rebuilt on that main. Keep the release documentation cleanup
+and runtime proof are rebuilt on that main. Keep the release documentation cleanup
 rather than restoring old release-pending records. [Issue65](https://github.com/masahitojp/mariamem/issues/65)
 owns current work. No native-path adoption, release or performance claim.
 
-## Pre-UCA local native result; new main requires a fresh proof
+## Frozen-main local native result
+
+The merged prepared-UCA source now passes fresh macOS arm64 native execution at
+tooling source_commit `d86f40aeee18121e7c33315e10607d747c2e07e1`:
+22 lifecycle cases,7 compatibility groups/88 observations with zero mismatches,
+both added FOUND_ROWS/UCA Snapshot/Fork controls, focused Live endpoint tests,
+actual worker-peer boundary, both selected-binding negative controls and22
+canonical installer tests. UCA input tests separately pass8/8 on this main.
+Guest SHA256 `0531ff4f348670dd5e2065a4a25fe9012ed278bd346a12093b97ff1cdfdd67e9`
+(21,192,194 bytes, UNQUALIFIED) has a newly reviewed complete-worker binding.
+[The current immutable macOS reference](evidence/macos-reference.json) binds
+279 Go/assembly/data files, templates, binding, binary and the six fixed actual
+observations. Linux must reproduce this source set and execute the same cases.
+The final reference/hash and documentation commits do not change the tested
+runtime/templates. Linux acceptance is pending; there is no adoption or release.
+
+The first local supporting-check attempts exposed reused scratch and an obsolete
+21-test count after main added a22nd guard. Fresh per-control temporary output
+and the frozen-main22-test expectation fix those tooling failures; the original
+runtime expectations remain unchanged. Failed-attempt receipts are retained.
+
+## Pre-UCA local native result (historical)
 
 macOS arm64 native execution at tooling source_commit
 `fd6d12f723cf03abcb7314b8c0290170d4c36765` passes all22 lifecycle cases and
@@ -22,7 +43,7 @@ New guest SHA256:
 `6956ea97ff4ad5fa7cc1b9617ec39ac0197c402c0bfa869469ec62a9ad6c3719`
 (18,437,749 bytes, UNQUALIFIED). All three complete worker bodies retain their
 previous native-profile hashes, now bound explicitly to this new guest.
-[The immutable compact macOS reference](evidence/macos-reference.json) records
+[The historical macOS reference](evidence/pre-uca-macos-reference.json) records
 278 compiled Go/assembly/data files, the binary and exact template/binding pins,
 and actual values for all6 previously failing observations. Linux must reproduce
 that source set; differences are not accepted as metadata automatically.
@@ -37,7 +58,7 @@ runtime/template inputs; CI executes the final tooling SHA independently.
 1. In the experimental MariaDB ACL patch, accept optional CLIENT_FOUND_ROWS before
    intersecting the client's capabilities. Do not add it to the greeting. Guest
    source_commit `a1e3b8a0d7f3750e684610e273a28b802a7135d0` includes the frozen
-   prepared-UCA main and this patch; a fresh build and exact worker-body binding review are required.
+   prepared-UCA main and this patch; the rebuilt guest has an exact complete-worker binding review.
 2. Native relay host reserves shared16-session capacity before guest OPEN. Keep
    reservations until native RETIRED (or confirmed disposal), not transport EOF.
    TCP rejects inline in its one accept owner through the fixed1s pre-login
@@ -77,8 +98,8 @@ oracles remain the original ones. The changed Live endpoint has an actual
 localhost capacity callback test proving Status/existing relay remain usable,
 no extra backend, and no generation change. Its full focused package is run.
 The actual generated-worker boundary control and selected-binding negative
-controls remain required. Existing21 canonical installer tests retain their
-original fixture attribution; they are not proof of the new native binding by
+controls remain required. The merged main’s22 canonical installer tests retain their
+canonical fixture attribution; they are not proof of the new native binding by
 themselves.
 
 A new guest changes generated code. Original274-file equality to the old guest
@@ -100,8 +121,8 @@ submission hand off exact SHA, URL and operation, then stop supervision.
 
 Local reference collection is an explicit `record-local` stage, restricted to
 macOS arm64 outside GitHub Actions. CI's runtime stage always uses the strict
-immutable reference comparison; no environment variable disables it. The fresh
-UCA guest/binding/reference must replace the candidate pins before submission.
+immutable reference comparison; no environment variable disables it. The
+UCA guest/binding/reference pins are selected from the fresh local execution.
 The pre-UCA proof remains a separate historical source, not an equivalent-tree
 claim for this new guest. Canonical UCA input tests pass8/8 on the merged source.
 

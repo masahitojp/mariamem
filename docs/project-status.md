@@ -234,19 +234,22 @@ source-scope tooling. This is not adoption of the native experiment on main.
 Main advanced during this work to `61973daa19b6f665d7342338c3252dd7af61fc90`
 (prepared UCA tables). The Human's requested main intake is now frozen at that
 commit and merged too. It changes guest source/data and canonical generated Go;
-therefore the local result below is pre-UCA evidence, not qualification of the
-new main. Rebuild the native guest, review a new worker binding and rerun the
-same contract/lifecycle tests before Linux submission.
+the old pre-UCA result remains historical evidence. The native guest has now
+been rebuilt, all three complete worker bodies reviewed and a fresh macOS arm64
+proof run at tooling source_commit `d86f40aeee18121e7c33315e10607d747c2e07e1`.
 The [three-fix candidate](../benchmarks/spikes/issue65-compat-fixes/README.md)
-passes the original22 lifecycle cases and7 compatibility groups locally on
-macOS arm64 at tooling source_commit `fd6d12f723cf03abcb7314b8c0290170d4c36765`.
-The6 observed mismatches are resolved there without changing expectations.
-Guest/host base `8dc2b113394630c5be7127100903a359f994db45` includes main and
-only the new native FOUND_ROWS guest change; inventoried host overlays add
-capacity rejection and full-window probe monitoring. Guest SHA256
-`6956ea97ff4ad5fa7cc1b9617ec39ac0197c402c0bfa869469ec62a9ad6c3719`
-has a separately reviewed exact worker binding. Linux repeat is pending; public
-integration, full compatibility and performance remain unqualified.
+passes22 lifecycle cases,7 compatibility groups/88 observations with zero
+mismatches, both FOUND_ROWS/UCA Snapshot/Fork controls, focused Live endpoint,
+worker-peer boundary, selected-binding controls and22 canonical installer tests.
+Guest/host base `a1e3b8a0d7f3750e684610e273a28b802a7135d0` includes frozen
+main61973daa and the native FOUND_ROWS patch; host overlays add capacity rejection
+and full-window input monitoring. Guest SHA256
+`0531ff4f348670dd5e2065a4a25fe9012ed278bd346a12093b97ff1cdfdd67e9`
+remains UNQUALIFIED. Its exact source reference has279 Go/assembly/data files.
+Linux repeat is pending; public integration, full compatibility and performance
+remain unqualified. Future legacy/native performance attribution must hold engine
+and UCA inputs fixed; published0.6.2 end-to-end comparison separately names UCA.
+
 
 
 ## Current work tracking

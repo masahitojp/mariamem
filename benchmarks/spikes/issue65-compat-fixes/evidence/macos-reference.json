@@ -1,10 +1,21 @@
 {
+  "tooling_source_commit": "d86f40aeee18121e7c33315e10607d747c2e07e1",
+  "guest_source_commit": "a1e3b8a0d7f3750e684610e273a28b802a7135d0",
+  "host_source_commit": "a1e3b8a0d7f3750e684610e273a28b802a7135d0",
+  "guest_sha256": "0531ff4f348670dd5e2065a4a25fe9012ed278bd346a12093b97ff1cdfdd67e9",
+  "binary_sha256": "38af71c3c19bc54d475c2f22f67623af7c86db8075273e367ab0edfb0008788e",
+  "lifecycle_cases": 22,
+  "mismatches": [],
+  "supporting_checks": "PASS",
+  "not_qualified": [
+    "full compatibility/profile",
+    "public APIs",
+    "whole controller relocation",
+    "race freedom",
+    "performance",
+    "release"
+  ],
   "contract": "issue65-compat-fix-macos-reference-v1",
-  "tooling_source_commit": "fd6d12f723cf03abcb7314b8c0290170d4c36765",
-  "guest_source_commit": "8dc2b113394630c5be7127100903a359f994db45",
-  "host_source_commit": "8dc2b113394630c5be7127100903a359f994db45",
-  "guest_sha256": "6956ea97ff4ad5fa7cc1b9617ec39ac0197c402c0bfa869469ec62a9ad6c3719",
-  "binary_sha256": "340da442c136064e7ae4e7408d592e06d30b8b9751c21b0c558567da4d816edb",
   "platform": {
     "system": "Darwin",
     "release": "27.2.0",
@@ -37,7 +48,7 @@
     "benchmarks/v046-usability-evidence/transactions_test.go": "dc3dc8cb9dc4dafa9d8cf4765724c8bd25305751c2b86c7f801fda83427d0b5a",
     "cmd/issue65-wire/capture_test.go": "e35a01dad1e18ceddfd7569dbba22f6a554a23057751f7ce2f2387bc93192bbd",
     "cmd/issue65-wire/compat_test.go": "1bab1b76e4f2f669dc86e3cfc34466295ba95f3cd0f6f2e7be93b848b7c2f6a0",
-    "cmd/issue65-wire/fix_controls_test.go": "d076aab655b480da537bdde7fb74f4dd6d2ac5c34c115c042e81ffda609b2e72",
+    "cmd/issue65-wire/fix_controls_test.go": "6cd9a5220ac2de0b5a02fe50759a6bb81b06af0e0d453a766d0809a4bc26ebbf",
     "cmd/issue65-wire/live.go": "a57a63a59d92c6ee12c51028b60b2b6ca04bb9b01cbbe5af2ceed4e832946d76",
     "cmd/issue65-wire/live_test.go": "9846d6fc151ee4a6acc2a3c454ff489546fabbc7924cb2e47dad0d5919ac18d8",
     "cmd/issue65-wire/main.go": "1f15e9a7999277907a85173a41357956ce715813125c6683a7a1ee6e30a98594",
@@ -76,9 +87,9 @@
     "internal/forklimit/options_test.go": "fff558e6eee26a89333cea9d3299d16f29d21e9e3a244ae20554300d2049188c",
     "internal/forklimit/pool.go": "c13a67e079e9103763f58b2bff6ce25e8cdc882a9479450b3668166f6819c762",
     "internal/forklimit/pool_test.go": "271c9b690a7bd8d891e4d88d1a74427db13fb24e0d4337e390755d39c466ce1e",
-    "internal/generatedgo/code/alias.go": "10a9bab013d252bbe495a2ff9d2c963127f0db3618b9dbc0d755e38e74c536f6",
+    "internal/generatedgo/code/alias.go": "9ca13c3826f6575ff0f41f3e8e0b16135aef9b413cf1a04002e1c699273a0de1",
     "internal/generatedgo/code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
-    "internal/generatedgo/code/base/base.go": "09ab7ceb85d0a27732cdeacfe5cd2ac8c673b9cf5f9fc7f2887f9b82cde95e05",
+    "internal/generatedgo/code/base/base.go": "7b263fd4a93440a66937087142bab7d4a389aa593c65f8263ec0df662b4daa3f",
     "internal/generatedgo/code/base/block_storage.go": "429c4c67d3cb3fd3356ae89bfaa07eaca49e83a58cad7fe1174744aede4ee73c",
     "internal/generatedgo/code/base/block_storage_test.go": "5e727e8203dcae55b6b2a8d4ffcb1169a7edb87bde5354d102a624f19e132ae1",
     "internal/generatedgo/code/base/bulk_bounds_test.go": "81ae586bce2e72eec5dbd9ebd33fee05ae26106256131957dcdcaadfea46280c",
@@ -137,37 +148,37 @@
     "internal/generatedgo/code/base/thread_lifetime.go": "e381f829248d859331ec560de111e3d5edabb1be11a84f57fb4458c3dec7de25",
     "internal/generatedgo/code/base/thread_lifetime_test.go": "00cfb003802388dbf53a663a478e681045e89b8a8e3da3b81de2317c49f82a21",
     "internal/generatedgo/code/base/wait_timeout_test.go": "bc55d663c8f53886769a6e59d9b47fb0b68cafd063e8e6101f599128729859a8",
-    "internal/generatedgo/code/generated.go": "d3529705b4c42bb6e78985e1ef6fa4022a9f07a7c85b923bd4b6f4aecddb29f0",
-    "internal/generatedgo/code/p0/alias.go": "586fe33b5170c960bb0a5050df6f13442031627f93872ab70370dc2f24539569",
-    "internal/generatedgo/code/p0/p0.go": "8bc130d0666ac84c56f7ae20a08586a6ee470f5d7b6e146744cf8098bf548acf",
-    "internal/generatedgo/code/p0/p0_pure.go": "5cc286f8c7fc699a017d9f7d29f50794349e64fe5c8350a33cf986961e8b905a",
-    "internal/generatedgo/code/p1/alias.go": "3ff6c5f7bb63f307db780759d3aa032c9a48b38946c98dc882b666455a581341",
-    "internal/generatedgo/code/p1/p1.go": "9157a160cf9bdb035295275b092569c28c580e186e315ef04bebb8d99d845e18",
-    "internal/generatedgo/code/p1/p1_pure.go": "e209b7c4472d4ba9fae5ede4b2f52939b528f608b651fd4cf78f393ec83946e4",
-    "internal/generatedgo/code/p2/alias.go": "14afafe4a6219b5d5b9d57f64b467aa8729f5edc0d3e09a66a7c28a5fa4815de",
-    "internal/generatedgo/code/p2/p2.go": "afd80071fa82e9fc35e33a08902fae2e92aa8215fc930878c76f23211fed1a88",
-    "internal/generatedgo/code/p2/p2_pure.go": "31add16624932fbd5995bf8d93cc40c4635cf03c00934ea50c264585744bc27f",
-    "internal/generatedgo/code/p3/alias.go": "dbad3b4104842d12e578570775fa5e1a046d4bcf5bbf0f2b240eba5b538715fb",
-    "internal/generatedgo/code/p3/p3.go": "a8f7ff6779698c9c0786352171d0da8fe318a4280c852454046412931d970739",
-    "internal/generatedgo/code/p3/p3_pure.go": "6776154cbb4e4870a8f7c2c2b4f2211352056c3c860a21ceca20cd8423ed4866",
-    "internal/generatedgo/code/p4/alias.go": "ea0965cec1c60566df93af6d47bd03a53a2405fb701016779d597cb2904f3f1f",
-    "internal/generatedgo/code/p4/p4.go": "7089b23cb35260b426ae0996548966483026af732659e8415ee75bc32cbafe16",
-    "internal/generatedgo/code/p4/p4_pure.go": "d2216482a515c50d13459e96cac275da5259b70fc010218eaebdf80ed399a000",
-    "internal/generatedgo/code/p5/alias.go": "8518dad59bfc3ca34b83367951c21a1733f1704601e49e5dd22efde6d91d7512",
-    "internal/generatedgo/code/p5/p5.go": "07f87c3b4692fc956381ac1de110b62a394f0ca39d7ac84d0b953e1c5cd12c13",
-    "internal/generatedgo/code/p5/p5_pure.go": "329858bdae135eee8cdc73f8044eb20e368236af0b23ca0e315d0a46ed58392a",
-    "internal/generatedgo/code/p6/alias.go": "cefcc8e1564123dcc4ed52307aab31e830880464c9901a07fab48d56c00b0f40",
-    "internal/generatedgo/code/p6/p6.go": "03bc97f9a7c65414fe26bed6cb3eceae470736a59a2e5af02829c0b57295dd18",
-    "internal/generatedgo/code/p6/p6_pure.go": "ae27f86d24f57db46f661089f761529ce8c465f3ad53a6b7b55fb7a2141487ce",
-    "internal/generatedgo/code/p7/alias.go": "aa33b24b63e05118743727509ee9b70ecd8b08b006f1e5194264204bb5580bad",
-    "internal/generatedgo/code/p7/p7.go": "a8457239af2340cd4bddc2cbab6fd28f7520039493cd5b365df34abacbfbde04",
-    "internal/generatedgo/code/p7/p7_pure.go": "caa48b9c1f7e2543fea82af30b95832500a7100a7e1f093f9668466628cb50eb",
-    "internal/generatedgo/code/p8/alias.go": "9061ea001d79ac259b2db437533bd7c4ae6e0cb3731480748f7b0094cf1fac90",
-    "internal/generatedgo/code/p8/p8.go": "3dfc6a4997bffe7b480f69cee9afed325d891d84426484ec6d0aaa77ad619d7d",
-    "internal/generatedgo/code/p8/p8_pure.go": "95efd603a1ad3fa298915a73bf0c3d43a52070266cd6680cef69f7d86c850eb0",
-    "internal/generatedgo/entry.go": "8dc93b0ee10ece9a134e20488344c75a4ea092caee3dcd1147f54f3495f7d9ae",
+    "internal/generatedgo/code/generated.go": "1044910dafcb6ea2d664cf82b09972becb3b91692fb5ca8f5f1040cc23671053",
+    "internal/generatedgo/code/p0/alias.go": "d576401b9799be427ddd07caf49fc7a2c9a402a874447ec7c98e0a5ab8518f65",
+    "internal/generatedgo/code/p0/p0.go": "ec9fe537ccd9b8f596a5d089580217011e1427b38f19907ed27414459fab2d5f",
+    "internal/generatedgo/code/p0/p0_pure.go": "ee306d3d0d2cf36433af84074daad8a3974094aca883730ff3fd2e0089c7a037",
+    "internal/generatedgo/code/p1/alias.go": "673f7c023cf18621e3b16ac9bacff0b3eda435d83c2f2ca4ecf2db4f4d9e5f51",
+    "internal/generatedgo/code/p1/p1.go": "a243b3a2720ca87ef0d945d37209d5b109bbc0bcfaeb4423582b413b44e9bec6",
+    "internal/generatedgo/code/p1/p1_pure.go": "7bb8ac9e3dc04a003fbf6956d5af21725cae303014c10deb4382830e971c1268",
+    "internal/generatedgo/code/p2/alias.go": "9ddd41502e23327fa6f308bd4df2b8b9760567f28b22f2e9774c62cc013409c1",
+    "internal/generatedgo/code/p2/p2.go": "5e57ff16b9abba5e072d138909a22e54084b4dcd38ce1ac760fcfcc446e4e4e9",
+    "internal/generatedgo/code/p2/p2_pure.go": "4df3ba16356643e84c5f027e5aeb8009b8b28fbd1f47dc739bff781651494ae4",
+    "internal/generatedgo/code/p3/alias.go": "c2b9429461d9d49ac081e010783d88ed90e6a36258e43950feae46750a66dc43",
+    "internal/generatedgo/code/p3/p3.go": "8229b410806ffeed71c4f53483813a00c1a54eb8d7e87002cbe96b09e35df6fd",
+    "internal/generatedgo/code/p3/p3_pure.go": "e4e585b0e28e61cf336a358e4697bb025419623af8b2f3c1b995d138eb8a932f",
+    "internal/generatedgo/code/p4/alias.go": "5af2eb0f63d952ac58ddbdb32a0a1c3a99c9ead84d294dcf02224e35b17de2b4",
+    "internal/generatedgo/code/p4/p4.go": "19f1e14ab7463268a7cd3a18426ca26341cfafebf05cfffe1dc6a29a9ef41afd",
+    "internal/generatedgo/code/p4/p4_pure.go": "2436e67eb2e98e9ec465804a8dfac7668591d446185acc911d6a542310de8d41",
+    "internal/generatedgo/code/p5/alias.go": "f0bdce3d140865c480168ebc8f380c049352a4450ff06e64db10d5ef21fc696b",
+    "internal/generatedgo/code/p5/p5.go": "8839bf3fe2554f15793d42e6d38e0d08fb71f43dfdcb6e776363503533e756da",
+    "internal/generatedgo/code/p5/p5_pure.go": "283c60ff0df67019ca634913d6a171b1cb6d85c69e039e74038bcc3913518bd0",
+    "internal/generatedgo/code/p6/alias.go": "6fafaabd663bc638db902c7cfb1e5b0bb38edd8447f1af1d72bee9c3bf3441a2",
+    "internal/generatedgo/code/p6/p6.go": "b1f94598cf2d2400cc3aeb26f6999f1d6610ed7f91c5bfcf7e3851609440bcc7",
+    "internal/generatedgo/code/p6/p6_pure.go": "78ce4f1825de0fc18381e69e38363fe50d653b5944940561b2543b38b74bbd54",
+    "internal/generatedgo/code/p7/alias.go": "eabe7a74a710c4ee2caac57b7d7c1630fbce888a0bdd7dcddccc157f99516923",
+    "internal/generatedgo/code/p7/p7.go": "fa12f15520e4befa7847dde00ac746f8d29c4faba71312b08f8c89fd294c2063",
+    "internal/generatedgo/code/p7/p7_pure.go": "268bb27b76ad0f1bd88cbf1bbdcb6224e8b774c47da54f9acfd5c394f2cd141c",
+    "internal/generatedgo/code/p8/alias.go": "7c22ddd91730608147b8bdf579bc2794c9043551244e05ddaaa5c856c1c246f7",
+    "internal/generatedgo/code/p8/p8.go": "6666920892ff04d05861630ab4dbb073c51bda336aa98a3f3ee7285ff8d25880",
+    "internal/generatedgo/code/p8/p8_pure.go": "8e37c29419a442626e65d1bbeb1fc8796b65d2b61b482e5954bd5eae1ecf0a61",
+    "internal/generatedgo/entry.go": "eb7566ff41a9f9524c2f8007db8397ddc4e72ada96a0ac69df716b235bd99ed5",
     "internal/generatedgo/fs_contract_test.go": "3576133358a407286ddac38586b879fbd4bcc4947ffc0d9bbd5b14d93eeba7ac",
-    "internal/generatedgo/guest_identity.go": "f14c7eb9e08e3584c855179535b12b990b40b6f695980632768d202bad268bbf",
+    "internal/generatedgo/guest_identity.go": "15f5cedc4d6cb44d39451b9f01408241dcbcdaf31cc0b8e4180f20dd1dc6d07d",
     "internal/generatedgo/host_dup_test.go": "351bf94bcca15066f75bfa56ff696c2a4d1db3ecf0ea39e415ebdb649e92343a",
     "internal/generatedgo/main.go": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe",
     "internal/generatedgo/memory_backing_other.go": "efa213c44e2fd25f5bba3bc907d1619ca1db5091a7fdd47d12c5f8e0e7588e9d",
@@ -178,9 +189,10 @@
     "internal/generatedgo/memory_lifetime.go": "77182b237acc877164e3b2b98c5c195e77ae81c038888ec1c00de17fe52de997",
     "internal/generatedgo/runtime_capture_test.go": "99c011bbac5da0b2b922c8428555d797d34ee84a460533442d108917e9905c6d",
     "internal/generatedgo/runtime_instance.go": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
-    "internal/generatedgo/runtime_instance_test.go": "40de1a7d5d2d63e71fb88446a91552a076c9d32685e9116f4eab044d92a5657c",
+    "internal/generatedgo/runtime_instance_test.go": "41a5fb837d2a62e77c3fb6bf774c6480ff1763b72a0154cf58dbdf2777edcec3",
     "internal/generatedgo/runtime_thread_lifetime.go": "0c2ad8c3be3c135955fe5ff9e39818a55a481ddd200687a4710902563e325b91",
     "internal/generatedgo/runtime_wire.go": "dbc22ca0753e2a4a9adb69dbacda5b7517db376ea44d122b2fc53cfb3a1b7f95",
+    "internal/generatedgo/uca_prepared_integration_test.go": "b8bd9656552ec5665beb3abcdf1895f88a9f35bf6ad2012dfdd5057bcffe0517",
     "internal/generatedgo/worker_trap_integration_test.go": "cf2bc12bd3660b934ce9440753f6abb81c7ed46c5c3685bc23aa907e97a3aa35",
     "internal/guest/diagnostic_test.go": "e5cd913d68d40234f68f59cd0658a55c22ac18c4508a6ebeba34ea3cfda60b3a",
     "internal/guest/disposal_test.go": "c25b0a3197b69954f920c93ce7433bfc6b69d2da8afd12a7ea34a459cfaf71dc",
@@ -235,7 +247,7 @@
     "internal/preparedproto/request_test.go": "96f4a794211c5677e010ed4aff26e9bea339a21187b328a4d431b990d9b95497",
     "internal/preparedproto/values.go": "c1aff9eb7ce4687cad5fb9d1df2290f0fa0e7ce37b1413ed33f079205f6f10cb",
     "internal/preparedproto/values_test.go": "652044ac67d8f9887a8619ebdc9d32e19934f6e5a3c7d13caf213fbd13cdaea8",
-    "internal/runtimekind/kind.go": "2c726d77c94436a12a409314d78532c757d1fdbf0347ed0e24b25bf1495c01cc",
+    "internal/runtimekind/kind.go": "60bf260c495b25431d5667660e2f3f98b9321437fc59ec8a608fd40e0a93332e",
     "internal/snapshot/handoff.go": "d5bba11d4df377cf45e5ceba7b6da60f302576457c228e15c839e2f237bfca34",
     "internal/snapshot/heap.go": "ebf5fca6868164c1f21788f6ccfa1bcd123bc075751bf018f99aa1a7fa4b826d",
     "internal/snapshot/heap_test.go": "c27b2da1d5e238ee10ecc38344ec5b3d0a17bc7e41f70345a9171e4f867fed4f",
@@ -295,7 +307,7 @@
     "compat_test.go.txt": "1bab1b76e4f2f669dc86e3cfc34466295ba95f3cd0f6f2e7be93b848b7c2f6a0",
     "endpoint.go.txt": "f90c6591624b9a124534ed7db5c564c8e6e04e8c341ce035651de64004a12a3b",
     "endpoint_test.go.txt": "dd5d2f2601f991483ca763d8d201b306129e6c7064ca0650eed3e78672cab514",
-    "fix_controls_test.go.txt": "d076aab655b480da537bdde7fb74f4dd6d2ac5c34c115c042e81ffda609b2e72",
+    "fix_controls_test.go.txt": "6cd9a5220ac2de0b5a02fe50759a6bb81b06af0e0d453a766d0809a4bc26ebbf",
     "live.go.txt": "a57a63a59d92c6ee12c51028b60b2b6ca04bb9b01cbbe5af2ceed4e832946d76",
     "live_test.go.txt": "9846d6fc151ee4a6acc2a3c454ff489546fabbc7924cb2e47dad0d5919ac18d8",
     "main.go.txt": "1f15e9a7999277907a85173a41357956ce715813125c6683a7a1ee6e30a98594",
@@ -303,56 +315,45 @@
     "runtime_wire.go.txt": "dbc22ca0753e2a4a9adb69dbacda5b7517db376ea44d122b2fc53cfb3a1b7f95",
     "wire_test.go.txt": "25cad95e355ad88935ba1d84fc81b174e7ab9202cbb3a06be83fe1627e3108d4"
   },
-  "binding_sha256": "930d400dd8c1dba2cb35d8861dc8204f2357df4b3df7d076de185a0c9297a771",
-  "lifecycle_cases": 22,
+  "binding_sha256": "fea87eb60f3780f90942c43c34d163bd608ca498cc476408c4c2e8275e7958a9",
   "compatibility_cases": [
     {
       "name": "TestCompatCredentials",
       "result": "PASS",
-      "elapsed": "0.05s"
+      "elapsed": "0.04s"
     },
     {
       "name": "TestCompatCapabilities",
       "result": "PASS",
-      "elapsed": "0.04s"
+      "elapsed": "0.03s"
     },
     {
       "name": "TestCompatPreparedState",
       "result": "PASS",
-      "elapsed": "0.21s"
+      "elapsed": "0.16s"
     },
     {
       "name": "TestCompatCapacity",
       "result": "PASS",
-      "elapsed": "0.05s"
+      "elapsed": "0.03s"
     },
     {
       "name": "TestCompatLiveCapacity",
       "result": "PASS",
-      "elapsed": "0.09s"
+      "elapsed": "0.08s"
     },
     {
       "name": "TestCompatFatalEOF",
       "result": "PASS",
-      "elapsed": "0.39s"
+      "elapsed": "0.38s"
     },
     {
       "name": "TestCompatFullWindow",
       "result": "PASS",
-      "elapsed": "0.12s"
+      "elapsed": "0.10s"
     }
   ],
   "observations": 88,
-  "mismatches": [],
-  "supporting_checks": "PASS",
-  "not_qualified": [
-    "full compatibility/profile",
-    "public APIs",
-    "whole controller relocation",
-    "race freedom",
-    "performance",
-    "release"
-  ],
   "fixed_observations": [
     {
       "actual": "rows=1 err=<nil>",
@@ -396,5 +397,11 @@
       "pass": true,
       "test": "TestCompatFullWindow/eof"
     }
-  ]
+  ],
+  "supplemental_cases": [
+    "TestFixFoundRowsNegotiatedPerConnection",
+    "TestFixPreparedUCAThroughNativeFork"
+  ],
+  "canonical_binding_tests": 22,
+  "merged_main_source_commit": "61973daa19b6f665d7342338c3252dd7af61fc90"
 }
