@@ -49,7 +49,7 @@ def main():
         run = [str(binary),'-test.v','-test.count=1','-test.timeout=90s','-test.run='+pattern]
         with (evidence/(name+'.log')).open('w') as log:
             result = subprocess.run(run,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT)
-        record = {'name':name,'build':build[:5]+['<owned-temp>/'+binary.name,package],
+        record = {'name':name,'build':build[:6]+['<owned-temp>/'+binary.name,package],
                   'run':['<owned-temp>/'+binary.name]+run[1:],
                   'binary_sha256':digest(binary),'exit_code':result.returncode}
         info['results'].append(record)
