@@ -1,0 +1,141 @@
+name: Issue65 native Live proof
+on:
+  push:
+    branches: [experiment/issue65-native-live]
+    paths:
+      - .github/workflows/issue65-native-live.yml
+      - benchmarks/spikes/issue65-native-live/probe.py
+      - benchmarks/spikes/issue65-native-live/live.go.txt
+      - benchmarks/spikes/issue65-native-live/live_test.go.txt
+permissions:
+  contents: read
+concurrency:
+  group: issue65-native-live-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  guest:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 75
+    outputs:
+      transit_id: ${{ steps.transit.outputs.artifact-id }}
+    steps:
+      - name: Set owned workspace path
+        run: echo "TASK_WORK=$RUNNER_TEMP/issue65-live/guest" >> "$GITHUB_ENV"
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          path: tooling
+          persist-credentials: false
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: 5d9915d9940ff691249361aafb6ea39551f29a87
+          path: guest-source
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install the accepted native builder tools
+        run: |
+          test "$(uname -m)" = aarch64
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            build-essential cmake ninja-build bison pkg-config curl ca-certificates git \
+            libssl-dev zlib1g-dev libpcre2-dev libncurses-dev xz-utils
+      - name: Prepare owned builder workspace
+        run: |
+          python3 guest-source/scripts/experiment_workspace.py \
+            --root "$RUNNER_TEMP/issue65-live" --repo "$GITHUB_WORKSPACE/guest-source" \
+            prepare guest --branch experiment/issue65-live-guest --min-free-gib 12 --budget-gib 12
+      - name: Reproduce only the exact UNQUALIFIED development guest
+        run: |
+          sudo -H -E /usr/bin/python3 tooling/benchmarks/spikes/issue65-native-live/probe.py \
+            build --workspace "$TASK_WORK"
+      - id: transit
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: issue65-live-guest-transit
+          path: ${{ env.TASK_WORK }}/temp/artifact/
+          if-no-files-found: error
+          retention-days: 1
+      - name: Dispose owned SDK, archives, build and worktree
+        if: always()
+        run: |
+          if test -f "$TASK_WORK/experiment.json"; then
+            sudo -H -E /usr/bin/python3 tooling/benchmarks/spikes/issue65-native-live/probe.py \
+              cleanup --workspace "$TASK_WORK"
+            sudo chown -R "$(id -u):$(id -g)" "$TASK_WORK/evidence"
+          fi
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: issue65-live-builder-evidence
+          path: ${{ env.TASK_WORK }}/evidence/
+          if-no-files-found: warn
+          retention-days: 7
+
+  linux:
+    needs: guest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Set owned workspace path
+        run: echo "TASK_WORK=$RUNNER_TEMP/issue65-live/runtime" >> "$GITHUB_ENV"
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          path: tooling
+          persist-credentials: false
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ecd5d2b7ceff2085cac59f629c36d688007fc6bc
+          path: host-source
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Check experiment acceptance guards
+        run: python tooling/benchmarks/spikes/issue65-native-linux/test_probe.py -v
+      - name: Prepare owned native x86_64 runtime workspace
+        run: |
+          test "$(uname -m)" = x86_64
+          python host-source/scripts/experiment_workspace.py \
+            --root "$RUNNER_TEMP/issue65-live" --repo "$GITHUB_WORKSPACE/host-source" \
+            prepare runtime --branch experiment/issue65-live-runtime --min-free-gib 12 --budget-gib 12
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: issue65-live-guest-transit
+          path: ${{ env.TASK_WORK }}/temp/artifact
+      - name: Native Live drain, generation, reservation and failure controls
+        run: |
+          python tooling/benchmarks/spikes/issue65-native-live/probe.py runtime --workspace "$TASK_WORK"
+      - name: Dispose owned converter, generated code, binaries and Go caches
+        if: always()
+        run: |
+          if test -f "$TASK_WORK/experiment.json"; then
+            python tooling/benchmarks/spikes/issue65-native-live/probe.py cleanup --workspace "$TASK_WORK"
+          fi
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: issue65-live-runtime-evidence
+          path: ${{ env.TASK_WORK }}/evidence/
+          if-no-files-found: warn
+          retention-days: 7
+
+  discard-transit:
+    needs: [guest, linux]
+    if: always() && needs.guest.outputs.transit_id != ''
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    permissions:
+      actions: write
+    steps:
+      - name: Delete this run's disposable guest transfer
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ARTIFACT_ID: ${{ needs.guest.outputs.transit_id }}
+        run: |
+          test -n "$ARTIFACT_ID"
+          gh api --method DELETE "repos/$GH_REPO/actions/artifacts/$ARTIFACT_ID"

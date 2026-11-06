@@ -24,13 +24,21 @@ parent Close, input/output fences, Go Pipe and failure ownership controls.
 The report pins actual guest/host/template/binary identities and distinguishes
 controlled failures from native execution. The earlier
 [3C evidence](../benchmarks/spikes/issue65-go-wire/README.md) keeps its own scope.
-Linux x86_64, Live, public API/CI integration and protocol/consumer acceptance
-remain unqualified. Existing production-guest Go test bindings need adaptation
-before adopting a different guest. The Human selected the continuation order on2026-11-06: native Linux repeat,
-then Live, compatibility/contracts, and productization/performance. The bounded
-[Linux probe](../benchmarks/spikes/issue65-native-linux/plan.md) is the next selected
-campaign; CI submission is not a Linux PASS. No main integration, release, or fatal-wire
-contract choice is implied by that ordering.
+The same-source native Linux x86_64 repeat passes in
+[CI42146945114](https://github.com/masahitojp/mariamem/actions/runs/42146945114)
+at tooling source_commit `1a91ced92d0ff005926a92767c3a82d7415e1ca8`:
+14 top-level cases, controlled worker/peer join, two negative binding controls
+and21 Python binding cases. All274 Go/assembly/data files match the macOS bundle;
+the guest hash is unchanged. Both owned workspaces and the temporary WASM transfer
+were disposed. This qualifies only the isolated experiment, not public APIs.
+
+Existing production-guest Go test bindings need adaptation before adoption.
+The Human selected Linux -> Live -> compatibility/contracts -> productization/
+performance, then authorized the bounded [3D.2 Live proof](../benchmarks/spikes/issue65-native-live/README.md).
+It reuses the unchanged Live endpoint and finite lease owner with native children;
+execution is pending. Public API/CI integration, full protocol/consumer acceptance,
+race and performance remain unqualified. No main integration, release, or
+fatal-wire contract choice is implied.
 
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 

@@ -1,0 +1,400 @@
+package main
+
+import (
+	"context"
+	"database/sql"
+	"errors"
+	"fmt"
+	"github.com/masahitojp/mariamem/internal/forklimit"
+	endpoint "github.com/masahitojp/mariamem/internal/live"
+	"net"
+	"testing"
+	"time"
+)
+
+func liveBaseline(t *testing.T) *baseline {
+	t.Helper()
+	r := rootFor(t, 5000)
+	db := dbFor(t, r, nil)
+	seed(t, db)
+	b := makeBaseline(captureNow(t, r, false))
+	db.Close()
+	t.Cleanup(func() {
+		if err := b.close(); err != nil {
+			t.Error(err)
+		}
+	})
+	return b
+}
+func startNativeLive(t *testing.T, b *baseline) (*endpoint.Endpoint, *nativeLiveFactory) {
+	t.Helper()
+	f := &nativeLiveFactory{b: b}
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	e, err := endpoint.New(ctx, f.factory(), 2*time.Second)
+	if err != nil {
+		if e != nil {
+			e.FinalCleanup()
+		}
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		if err := e.FinalCleanup(); err != nil {
+			t.Log("stored Live close cause", err)
+		}
+		if err := f.assertClosed(); err != nil {
+			t.Error(err)
+		}
+	})
+	return e, f
+}
+func liveDB(t *testing.T, e *endpoint.Endpoint) *sql.DB {
+	t.Helper()
+	d, err := sql.Open("mysql", fmt.Sprintf("root:placeholder@tcp(127.0.0.1:%d)/test?timeout=1s&readTimeout=2s&writeTimeout=2s", e.Port()))
+	if err != nil {
+		t.Fatal(err)
+	}
+	d.SetMaxOpenConns(1)
+	if err = d.Ping(); err != nil {
+		d.Close()
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { d.Close() })
+	return d
+}
+func liveState(t *testing.T, e *endpoint.Endpoint, state string, g uint64) {
+	t.Helper()
+	s := e.Status()
+	if s.State != state || s.Generation != g {
+		t.Fatalf("status=%+v want %s/%d", s, state, g)
+	}
+}
+func liveSlots(t *testing.T, b *baseline, n int) {
+	t.Helper()
+	_, got := b.pool.Usage()
+	if got != n {
+		t.Fatalf("occupied=%d want %d", got, n)
+	}
+}
+func resetLive(e *endpoint.Endpoint) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	return e.Reset(ctx, time.Second)
+}
+func noSQL(t *testing.T, e *endpoint.Endpoint) {
+	t.Helper()
+	c, err := net.DialTimeout("tcp", fmt.Sprintf("127.0.0.1:%d", e.Port()), time.Second)
+	if err != nil {
+		return
+	}
+	defer c.Close()
+	c.SetReadDeadline(time.Now().Add(time.Second))
+	var b [1]byte
+	n, err := c.Read(b[:])
+	if n != 0 || err == nil {
+		t.Fatal("SQL admission remained open", n, err)
+	}
+	if ne, ok := err.(net.Error); ok && ne.Timeout() {
+		t.Fatal("connection hung rather than denied", err)
+	}
+}
+func waitLiveState(t *testing.T, e *endpoint.Endpoint, state string) {
+	t.Helper()
+	deadline := time.After(2 * time.Second)
+	tick := time.NewTicker(time.Millisecond)
+	defer tick.Stop()
+	for {
+		if e.Status().State == state {
+			return
+		}
+		select {
+		case <-deadline:
+			t.Fatal("state not reached", e.Status())
+		case <-tick.C:
+		}
+	}
+}
+func TestNativeLiveDrainAndReset(t *testing.T) {
+	b := liveBaseline(t)
+	e, f := startNativeLive(t, b)
+	old := f.current()
+	db := liveDB(t, e)
+	if _, err := db.Exec("INSERT INTO persisted VALUES(2)"); err != nil {
+		t.Fatal(err)
+	}
+	// The SQL pool is idle but still owns a physical connection.
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	err := e.Reset(ctx, 20*time.Millisecond)
+	cancel()
+	if err == nil {
+		t.Fatal("idle pool did not block drain")
+	}
+	liveState(t, e, "ready", 0)
+	liveSlots(t, b, 1)
+	if queryOne(t, db, "SELECT COUNT(*) FROM persisted") != 2 {
+		t.Fatal("busy rejection changed data")
+	}
+	// Start drain with the same physical connection, then explicitly close it.
+	reached := make(chan struct{})
+	release := make(chan struct{})
+	defer close(release)
+	old.beforeRetirement = func(ctx context.Context) error {
+		close(reached)
+		select {
+		case <-release:
+			return nil
+		case <-ctx.Done():
+			return ctx.Err()
+		}
+	}
+	result := make(chan error, 1)
+	go func() { result <- resetLive(e) }()
+	waitLiveState(t, e, "draining")
+	liveSlots(t, b, 2)
+	noSQL(t, e)
+	db.Close()
+	select {
+	case <-reached:
+	case <-time.After(3 * time.Second):
+		t.Fatal("backend retirement not reached")
+	}
+	liveState(t, e, "switching", 0)
+	liveSlots(t, b, 2)
+	noSQL(t, e)
+	select {
+	case err := <-result:
+		t.Fatal("committed before backend retirement", err)
+	default:
+	}
+	release <- struct{}{}
+	if err := <-result; err != nil {
+		t.Fatal(err)
+	}
+	liveState(t, e, "ready", 1)
+	liveSlots(t, b, 1)
+	select {
+	case <-old.r.done:
+	default:
+		t.Fatal("old runtime not joined")
+	}
+	if f.current().r.epoch == old.r.epoch {
+		t.Fatal("reused runtime epoch")
+	}
+	fresh := liveDB(t, e)
+	if queryOne(t, fresh, "SELECT COUNT(*) FROM persisted") != 1 {
+		t.Fatal("reset copied child changes")
+	}
+	fresh.Close()
+	if err := resetLive(e); err != nil {
+		t.Fatal(err)
+	}
+	liveState(t, e, "ready", 2)
+	liveSlots(t, b, 1)
+}
+func TestNativeLiveCapacityBeforeDrain(t *testing.T) {
+	b := liveBaseline(t)
+	e, _ := startNativeLive(t, b)
+	db := liveDB(t, e)
+	sibling := child(t, b)
+	if err := resetLive(e); !errors.Is(err, forklimit.ErrFull) {
+		t.Fatal("capacity", err)
+	}
+	liveState(t, e, "ready", 0)
+	liveSlots(t, b, 2)
+	if queryOne(t, db, "SELECT 7") != 7 {
+		t.Fatal("old child unavailable")
+	}
+	if err := sibling.close(); err != nil {
+		t.Fatal(err)
+	}
+	db.Close()
+	if err := resetLive(e); err != nil {
+		t.Fatal(err)
+	}
+	liveSlots(t, b, 1)
+}
+func TestNativeLiveReplacementFailureRecovery(t *testing.T) {
+	b := liveBaseline(t)
+	e, f := startNativeLive(t, b)
+	old := f.current()
+	f.failNext = true
+	if err := resetLive(e); err == nil {
+		t.Fatal("replacement unexpectedly passed")
+	}
+	liveState(t, e, "failed", 0)
+	noSQL(t, e)
+	liveSlots(t, b, 1)
+	// A healthy old child is retained, but SQL stays blocked until explicit Reset.
+	select {
+	case <-old.r.done:
+		t.Fatal("old child was prematurely disposed")
+	default:
+	}
+	if err := resetLive(e); err != nil {
+		t.Fatal(err)
+	}
+	liveState(t, e, "ready", 1)
+	liveSlots(t, b, 1)
+	d := liveDB(t, e)
+	if queryOne(t, d, "SELECT COUNT(*) FROM persisted") != 1 {
+		t.Fatal("baseline")
+	}
+}
+func TestNativeLiveCancellationBeforeCommit(t *testing.T) {
+	b := liveBaseline(t)
+	e, f := startNativeLive(t, b)
+	reached := make(chan struct{})
+	release := make(chan struct{})
+	defer close(release)
+	f.afterStart = func(c *nativeLiveChild) error { close(reached); <-release; return nil }
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	result := make(chan error, 1)
+	go func() { result <- e.Reset(ctx, time.Second) }()
+	select {
+	case <-reached:
+	case <-time.After(3 * time.Second):
+		t.Fatal("candidate not ready")
+	}
+	liveState(t, e, "switching", 0)
+	liveSlots(t, b, 2)
+	noSQL(t, e)
+	cancel()
+	release <- struct{}{}
+	if err := <-result; err == nil {
+		t.Fatal("cancellation committed")
+	}
+	liveState(t, e, "failed", 0)
+	noSQL(t, e)
+	liveSlots(t, b, 0)
+	f.afterStart = nil
+	if err := resetLive(e); err != nil {
+		t.Fatal(err)
+	}
+	liveState(t, e, "ready", 1)
+	liveSlots(t, b, 1)
+}
+func TestNativeLiveCleanupDebtRecovery(t *testing.T) {
+	b := liveBaseline(t)
+	e, f := startNativeLive(t, b)
+	old := f.current()
+	old.holdCleanup = true
+	if err := resetLive(e); err == nil {
+		t.Fatal("cleanup failure committed")
+	}
+	liveState(t, e, "failed", 0)
+	noSQL(t, e)
+	liveSlots(t, b, 1)
+	select {
+	case <-old.r.done:
+		t.Fatal("modeled uncertain owner was lost")
+	default:
+	}
+	if lease, err := b.pool.TryAcquire(false); lease != nil || !errors.Is(err, forklimit.ErrCleanup) {
+		t.Fatal("debt admission", lease, err)
+	}
+	// Recovery may retry ordinary child disposal, then explicitly reopen the pool.
+	old.holdCleanup = false
+	if err := resetLive(e); err != nil {
+		t.Fatal(err)
+	}
+	liveState(t, e, "ready", 1)
+	liveSlots(t, b, 1)
+}
+func TestNativeLiveCaptureDebtIsPermanent(t *testing.T) {
+	b := liveBaseline(t)
+	e, f := startNativeLive(t, b)
+	c := f.current()
+	d := liveDB(t, e)
+	idle(t, c.r)
+	c.r.failAcquisition = true
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	o, consumed, err := c.r.snapshot(ctx, false)
+	d.Close()
+	if o != nil || !consumed || err == nil {
+		t.Fatal("capture debt not injected", o, consumed, err)
+	}
+	if err := c.Close(); err == nil {
+		t.Fatal("capture debt forgiven")
+	}
+	for i := 0; i < 2; i++ {
+		if err := resetLive(e); err == nil {
+			t.Fatal("Reset forgave permanent debt")
+		}
+		noSQL(t, e)
+		liveSlots(t, b, 1)
+	}
+	for _, recover := range []bool{false, true} {
+		if lease, err := b.pool.TryAcquire(recover); lease != nil || !errors.Is(err, forklimit.ErrCleanup) {
+			t.Fatal("capture debt admission", lease, err)
+		}
+	}
+	// A fresh independent lineage remains usable in the same process.
+	other := liveBaseline(t)
+	otherLive, _ := startNativeLive(t, other)
+	otherDB := liveDB(t, otherLive)
+	if queryOne(t, otherDB, "SELECT 9") != 9 {
+		t.Fatal("independent lineage failed")
+	}
+}
+func TestNativeLiveParentAndEndpointClose(t *testing.T) {
+	b := liveBaseline(t)
+	e, f := startNativeLive(t, b)
+	d := liveDB(t, e)
+	if err := b.close(); err != nil {
+		t.Fatal(err)
+	}
+	if queryOne(t, d, "SELECT 8") != 8 {
+		t.Fatal("parent Close killed child")
+	}
+	if err := resetLive(e); err == nil {
+		t.Fatal("Reset on closed parent passed")
+	}
+	liveState(t, e, "ready", 0)
+	if err := e.Close(); err != nil {
+		t.Fatal(err)
+	}
+	liveState(t, e, "closed", 0)
+	liveSlots(t, b, 0)
+	if err := f.assertClosed(); err != nil {
+		t.Fatal(err)
+	}
+	if err := e.Close(); err != nil {
+		t.Fatal(err)
+	}
+	if err := resetLive(e); err == nil {
+		t.Fatal("closed endpoint resurrected")
+	}
+}
+func TestNativeLiveInvalidRestoreNeverAdmits(t *testing.T) {
+	r := rootFor(t, 5000)
+	d := dbFor(t, r, nil)
+	seed(t, d)
+	if _, err := d.Exec("DROP TABLE mysql.proc"); err != nil {
+		t.Fatal(err)
+	}
+	b := makeBaseline(captureNow(t, r, false))
+	d.Close()
+	defer b.close()
+	f := &nativeLiveFactory{b: b}
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	e, err := endpoint.New(ctx, f.factory(), 2*time.Second)
+	if e != nil {
+		e.FinalCleanup()
+		t.Fatal("disposed startup returned an endpoint")
+	}
+	if err == nil {
+		t.Fatal("invalid restore admitted")
+	}
+	liveSlots(t, b, 0)
+	if err := f.assertClosed(); err != nil {
+		t.Fatal(err)
+	}
+	select {
+	case <-f.current().r.ready:
+		t.Fatal("invalid restore advertised READY")
+	default:
+	}
+}
