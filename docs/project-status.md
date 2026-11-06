@@ -345,6 +345,21 @@ and caches are disposed with cleanup debt0; initial pre-translation setup errors
 are preserved separately from native results.
 
 
+The G1 [Linux repeat](https://github.com/masahitojp/mariamem/actions/runs/42303099940)
+at88f68192 completes all234 observations with the same39 mismatches as macOS;
+all234 expected/actual/pass records match. Baseline and cleanup pass. The Human
+then requested continuing with the [G1 native repair](../benchmarks/spikes/issue65-g1-repair/README.md).
+Guest/checked host source65b49e3d adds native entry/length/surplus checks and
+rollback of fresh bind conversion metadata on failure. D2 remains accepted;
+no host decoder,controller relocation or canonical production change is added.
+New development guest7103c811 has complete worker-body binding checks. Fresh
+macOS execution atd7c70192 passes22 lifecycle/126 prior observations,G1 all234
+with0 mismatches,and4 new metadata/alias recovery controls plus supporting
+checks. The new283-file staged source bundle is distinct from the old guest.
+Runtime cleanup and one strict Linux repeat remain before this repair is closed;
+G2/P1/P2,public adoption and release remain separate.
+
+
 
 ## Current work tracking
 

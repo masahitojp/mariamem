@@ -1,0 +1,24 @@
+{
+  "cases": [
+    {
+      "name": "TestRepairMultiParameterDescriptorRollback",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestRepairRetainsBoundCharset",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestRepairFirstRejectedBind",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestRepairEmptyPrepareInvalidatesAlias",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    }
+  ]
+}

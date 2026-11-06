@@ -25,6 +25,25 @@ class RepairGuards(unittest.TestCase):
         h=sections('sql/item.h')
         for field in ('handler','value_handler','is_unsigned','simple','empty_string_is_null'):
             self.assertIn(field,h)
+    def test_saved_native_pass_and_reference_pins(self):
+        import hashlib,json,importlib.util
+        folder=Path(__file__).resolve().parent
+        spec=importlib.util.spec_from_file_location('g1_repair_probe',folder/'probe.py')
+        probe=importlib.util.module_from_spec(spec);spec.loader.exec_module(probe)
+        evidence=folder/'evidence'
+        result=probe.g1.analyze((evidence/'macos-g1-raw.txt').read_text(),0)
+        self.assertEqual(result,json.loads((evidence/'macos-g1-result.json').read_text()))
+        self.assertTrue(result['ready']);self.assertEqual(234,len(result['observations']))
+        reference=evidence/'macos-reference.json';ref=json.loads(reference.read_text())
+        self.assertEqual(probe.SOURCE_REFERENCE_SHA256,hashlib.sha256(reference.read_bytes()).hexdigest())
+        self.assertEqual(probe.GUEST_SHA,ref['guest_sha256'])
+        self.assertEqual(probe.GUEST_SOURCE,ref['guest_source_commit'])
+        self.assertEqual(probe.HOST_SOURCE,ref['host_source_commit'])
+        self.assertEqual(probe.GUEST_SHA,json.loads((folder/'binding/identity.json').read_text())['guest_sha256'])
+        self.assertEqual(39,len(ref['repaired_g1_observations']))
+        workflow=(ROOT/'.github/workflows/issue65-compat-fixes.yml').read_text()
+        self.assertEqual(2,workflow.count('ref: '+probe.GUEST_SOURCE))
+
     def test_unchanged_observation_fixture(self):
         import hashlib
         p=ROOT/'benchmarks/spikes/issue65-prepared-input/g1_test.go.txt'
