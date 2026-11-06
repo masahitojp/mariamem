@@ -1,0 +1,101 @@
+[
+  {
+    "mode": "diagnostic",
+    "rep": -2,
+    "negative": true,
+    "warmup": false,
+    "count": 1,
+    "report": "diagnostic-r-2-negative.json",
+    "returncode": 1,
+    "process_seconds": 1.575894583,
+    "peak_active_children": 1
+  },
+  {
+    "mode": "ordinary",
+    "rep": -1,
+    "negative": false,
+    "warmup": true,
+    "count": 48,
+    "report": "ordinary-r-1-warmup.json",
+    "returncode": 0,
+    "process_seconds": 1.621147625,
+    "peak_active_children": 4
+  },
+  {
+    "mode": "diagnostic",
+    "rep": -1,
+    "negative": false,
+    "warmup": true,
+    "count": 48,
+    "report": "diagnostic-r-1-warmup.json",
+    "returncode": 0,
+    "process_seconds": 1.6333866660000003,
+    "peak_active_children": 4
+  },
+  {
+    "mode": "ordinary",
+    "rep": 0,
+    "negative": false,
+    "warmup": false,
+    "count": 48,
+    "report": "ordinary-r0.json",
+    "returncode": 0,
+    "process_seconds": 1.6088997919999999,
+    "peak_active_children": 4
+  },
+  {
+    "mode": "diagnostic",
+    "rep": 0,
+    "negative": false,
+    "warmup": false,
+    "count": 48,
+    "report": "diagnostic-r0.json",
+    "returncode": 0,
+    "process_seconds": 1.5687337920000006,
+    "peak_active_children": 4
+  },
+  {
+    "mode": "diagnostic",
+    "rep": 1,
+    "negative": false,
+    "warmup": false,
+    "count": 48,
+    "report": "diagnostic-r1.json",
+    "returncode": 0,
+    "process_seconds": 1.576787166999999,
+    "peak_active_children": 4
+  },
+  {
+    "mode": "ordinary",
+    "rep": 1,
+    "negative": false,
+    "warmup": false,
+    "count": 48,
+    "report": "ordinary-r1.json",
+    "returncode": 0,
+    "process_seconds": 1.5938261249999996,
+    "peak_active_children": 4
+  },
+  {
+    "mode": "ordinary",
+    "rep": 2,
+    "negative": false,
+    "warmup": false,
+    "count": 48,
+    "report": "ordinary-r2.json",
+    "returncode": 0,
+    "process_seconds": 1.6289864170000001,
+    "peak_active_children": 4
+  },
+  {
+    "mode": "diagnostic",
+    "rep": 2,
+    "negative": false,
+    "warmup": false,
+    "count": 48,
+    "report": "diagnostic-r2.json",
+    "returncode": 0,
+    "process_seconds": 1.6318725420000018,
+    "peak_active_children": 4
+  }
+]

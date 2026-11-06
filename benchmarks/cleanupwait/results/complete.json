@@ -1,0 +1,10 @@
+{
+  "result": "COLLECTED",
+  "total_processes": 9,
+  "primary_children_per_mode": 144,
+  "warmup_children_per_mode": 48,
+  "extra_repeats": 0,
+  "harness_source_commit": "1a2b5dc00f8f523a9f58c8fdd66065ff2d806eb0",
+  "peak_workspace_bytes": 1648123904,
+  "min_free_bytes": 37043335168
+}
