@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"os"
 	"sync"
+	"syscall"
+	"time"
 
 	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
@@ -19,6 +21,8 @@ const maximum = 2 << 30
 var errClosed = errors.New("static image factory closed")
 
 type factory struct {
+	buildMS           float64
+	acquires          int
 	mu                sync.Mutex
 	dir               string
 	attempted, closed bool
@@ -117,7 +121,9 @@ func (f *factory) acquire() (*child, error) {
 	}
 	if !f.attempted {
 		f.attempted = true
+		at := time.Now()
 		f.buildErr = f.build()
+		f.buildMS = float64(time.Since(at)) / 1e6
 	}
 	if f.buildErr != nil {
 		return nil, f.buildErr
@@ -151,7 +157,34 @@ func (f *factory) acquire() (*child, error) {
 	}
 	m.PrepareMemoryGrow = b.Grow
 	transferred = true
+	f.acquires++
 	return &child{m, b}, nil
+}
+
+// Experiment-only adapter. The image never retains the host of an earlier DB.
+func NewEngineFactory(dir string) *factory { return newFactory(dir) }
+func (f *factory) AcquireForHost(wasi base.Wasi_snapshot_preview1Imports, wasix base.Wasix_32v1Imports) (*base.Module, func() error, error) {
+	c, e := f.acquire()
+	if e != nil {
+		return nil, nil, e
+	}
+	c.m.Wasi_snapshot_preview1 = wasi
+	c.m.Wasix_32v1 = wasix
+	return c.m, c.backing.Close, nil
+}
+func (f *factory) Close() error { return f.close() }
+func (f *factory) Stats() map[string]any {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	v := map[string]any{"builds": f.builds, "build_ms": f.buildMS, "acquires": f.acquires, "closed": f.closed, "owned_fds": len(f.files)}
+	if f.image != nil && !f.closed {
+		var st syscall.Stat_t
+		if syscall.Fstat(int(f.image.Fd()), &st) == nil {
+			v["image_logical_bytes"] = st.Size
+			v["image_allocated_bytes"] = st.Blocks * 512
+		}
+	}
+	return v
 }
 
 func (c *child) close() error {
