@@ -1,14 +1,14 @@
-name: Issue65 prepared input observations
+name: Issue65 prepared input repair
 on:
   push:
-    branches: [experiment/issue65-prepared-input]
+    branches: [experiment/issue65-g1-repair]
     paths:
       - .github/workflows/issue65-compat-fixes.yml
-      - benchmarks/spikes/issue65-prepared-input/**
+      - benchmarks/spikes/issue65-g1-repair/**
 permissions:
   contents: read
 concurrency:
-  group: issue65-g1-${{ github.ref }}
+  group: issue65-g1-repair-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   guest:
@@ -18,14 +18,14 @@ jobs:
       transit_id: ${{ steps.transit.outputs.artifact-id }}
     steps:
       - name: Set owned workspace path
-        run: echo "TASK_WORK=$RUNNER_TEMP/issue65-g1/guest" >> "$GITHUB_ENV"
+        run: echo "TASK_WORK=$RUNNER_TEMP/issue65-g1-repair/guest" >> "$GITHUB_ENV"
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           path: tooling
           persist-credentials: false
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
-          ref: 8f3e440ab78af570e489dd8d463cab1ed4c5aed8
+          ref: 65b49e3dc31e9b2da63b317e015f8f471e79a83e
           path: guest-source
           fetch-depth: 0
           persist-credentials: false
@@ -38,19 +38,21 @@ jobs:
             libssl-dev zlib1g-dev libpcre2-dev libncurses-dev xz-utils
       - name: Check native policy patch before building
         run: python3 tooling/benchmarks/spikes/issue65-policy-fix/test_policy.py -v
+      - name: Check G1 native repair seams
+        run: python3 tooling/benchmarks/spikes/issue65-g1-repair/test_patch.py -v
       - name: Prepare owned builder workspace
         run: |
           python3 guest-source/scripts/experiment_workspace.py \
-            --root "$RUNNER_TEMP/issue65-g1" --repo "$GITHUB_WORKSPACE/guest-source" \
-            prepare guest --branch experiment/issue65-g1-guest --min-free-gib 12 --budget-gib 12
+            --root "$RUNNER_TEMP/issue65-g1-repair" --repo "$GITHUB_WORKSPACE/guest-source" \
+            prepare guest --branch experiment/issue65-g1-repair-guest --min-free-gib 12 --budget-gib 12
       - name: Reproduce the reviewed FOUND_ROWS development guest
         run: |
-          sudo -H -E /usr/bin/python3 tooling/benchmarks/spikes/issue65-policy-fix/probe.py \
+          sudo -H -E /usr/bin/python3 tooling/benchmarks/spikes/issue65-g1-repair/probe.py \
             build --workspace "$TASK_WORK"
       - id: transit
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
-          name: issue65-g1-guest-transit
+          name: issue65-g1-repair-guest-transit
           path: ${{ env.TASK_WORK }}/temp/artifact/
           if-no-files-found: error
           retention-days: 1
@@ -58,14 +60,14 @@ jobs:
         if: always()
         run: |
           if test -f "$TASK_WORK/experiment.json"; then
-            sudo -H -E /usr/bin/python3 tooling/benchmarks/spikes/issue65-policy-fix/probe.py \
+            sudo -H -E /usr/bin/python3 tooling/benchmarks/spikes/issue65-g1-repair/probe.py \
               cleanup --workspace "$TASK_WORK"
             sudo chown -R "$(id -u):$(id -g)" "$TASK_WORK/evidence"
           fi
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: issue65-g1-builder-evidence
+          name: issue65-g1-repair-builder-evidence
           path: ${{ env.TASK_WORK }}/evidence/
           if-no-files-found: warn
           retention-days: 7
@@ -76,14 +78,14 @@ jobs:
     timeout-minutes: 50
     steps:
       - name: Set owned workspace path
-        run: echo "TASK_WORK=$RUNNER_TEMP/issue65-g1/runtime" >> "$GITHUB_ENV"
+        run: echo "TASK_WORK=$RUNNER_TEMP/issue65-g1-repair/runtime" >> "$GITHUB_ENV"
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           path: tooling
           persist-credentials: false
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
-          ref: 8f3e440ab78af570e489dd8d463cab1ed4c5aed8
+          ref: 65b49e3dc31e9b2da63b317e015f8f471e79a83e
           path: host-source
           fetch-depth: 0
           persist-credentials: false
@@ -104,29 +106,31 @@ jobs:
         run: python tooling/benchmarks/spikes/issue65-policy-fix/test_policy.py -v
       - name: Check prepared input evidence accounting
         run: python tooling/benchmarks/spikes/issue65-prepared-input/test_observations.py -v
+      - name: Check G1 native repair seams
+        run: python tooling/benchmarks/spikes/issue65-g1-repair/test_patch.py -v
       - name: Prepare owned native x86_64 runtime workspace
         run: |
           test "$(uname -m)" = x86_64
           python host-source/scripts/experiment_workspace.py \
-            --root "$RUNNER_TEMP/issue65-g1" --repo "$GITHUB_WORKSPACE/host-source" \
-            prepare runtime --branch experiment/issue65-g1-runtime --min-free-gib 12 --budget-gib 12
+            --root "$RUNNER_TEMP/issue65-g1-repair" --repo "$GITHUB_WORKSPACE/host-source" \
+            prepare runtime --branch experiment/issue65-g1-repair-runtime --min-free-gib 12 --budget-gib 12
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          name: issue65-g1-guest-transit
+          name: issue65-g1-repair-guest-transit
           path: ${{ env.TASK_WORK }}/temp/artifact
-      - name: Observe prepared inputs after unchanged baseline
+      - name: Verify native G1 repair and unchanged observations
         run: |
-          python tooling/benchmarks/spikes/issue65-prepared-input/probe.py runtime --workspace "$TASK_WORK"
+          python tooling/benchmarks/spikes/issue65-g1-repair/probe.py runtime --workspace "$TASK_WORK"
       - name: Dispose owned converter, generated code, binaries and Go caches
         if: always()
         run: |
           if test -f "$TASK_WORK/experiment.json"; then
-            python tooling/benchmarks/spikes/issue65-policy-fix/probe.py cleanup --workspace "$TASK_WORK"
+            python tooling/benchmarks/spikes/issue65-g1-repair/probe.py cleanup --workspace "$TASK_WORK"
           fi
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: issue65-g1-runtime-evidence
+          name: issue65-g1-repair-runtime-evidence
           path: ${{ env.TASK_WORK }}/evidence/
           if-no-files-found: warn
           retention-days: 7

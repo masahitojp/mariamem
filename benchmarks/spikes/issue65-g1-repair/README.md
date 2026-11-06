@@ -3,7 +3,9 @@
 Human continuation after CI42303099940,2026-11-07: repair the demonstrated G1
 differences, preserving the profile and D2. The prior234 observations completed
 on macOS/Linux with the same195 PASS/39 mismatches. The original fixed-guest
-receipts remain under ../issue65-prepared-input and are not relabeled.
+receipts remain under [issue65-prepared-input](../issue65-prepared-input/README.md)
+and are not relabeled. The [Linux assessment](evidence/baseline-ci42303099940.json)
+records all234 observations matching macOS,including the39 failures.
 
 The experimental guest adds checks to decoded command/EXECUTE entry, checks the
 advanced native decoder pointer for surplus input, and restores native conversion
@@ -24,3 +26,8 @@ G1 fixture234 observations. Add narrow controls for multi-parameter rollback,
 retained charset conversion,first rejected bind and empty-PREPARE alias state.
 Save failures,do not refresh expectations to match output. Dispose SDK,converter,
 archives,build trees,binaries,caches/worktrees after retaining compact evidence.
+
+Guest/checked host source_commit is `65b49e3dc31e9b2da63b317e015f8f471e79a83e`.
+New guest SHA,binding and native results remain pending. The initial mount
+preflight and interrupted/restarted SDK setup are preserved as setup records,
+not native execution evidence.

@@ -1,0 +1,65 @@
+// Controls for metadata rollback beyond the unchanged G1 observation vectors.
+package main
+
+import "testing"
+
+func repairCheck(t *testing.T, id string, r g1Reply, kind string, errno uint16, state, value string) {
+	t.Helper()
+	g1Record(t, id, r, kind, errno, state, value)
+}
+func repairTwo(a, b string, fresh bool) []byte {
+	p := []byte{0, 0}
+	if fresh {
+		p = []byte{0, 1, 253, 0, 253, 0}
+	}
+	p = append(p, byte(len(a)))
+	p = append(p, []byte(a)...)
+	p = append(p, byte(len(b)))
+	return append(p, []byte(b)...)
+}
+func TestRepairMultiParameterDescriptorRollback(t *testing.T) {
+	r := rootFor(t, 10000)
+	c := g1Connection(t, compatAddress(t, r))
+	id := c.prepare(t, "SELECT CONCAT(CAST(? AS CHAR), ':', CAST(? AS CHAR))")
+	repairCheck(t, "seed", g1Send(c, g1Exec(id, 0, 1, repairTwo("a", "b", true)), true, false), "ROW", 0, "", "a:b")
+	// First descriptor is installed before the second descriptor rejects.
+	repairCheck(t, "rejected", g1Send(c, g1Exec(id, 0, 1, []byte{0, 1, 8, 128, 17, 0}), true, false), "ERR", 1835, "HY000", "")
+	repairCheck(t, "both_cached", g1Send(c, g1Exec(id, 0, 1, repairTwo("c", "d", false)), true, false), "ROW", 0, "", "c:d")
+	if e := limitsPing(c); e != nil {
+		t.Fatal(e)
+	}
+}
+func TestRepairRetainsBoundCharset(t *testing.T) {
+	r := rootFor(t, 10000)
+	c := g1Connection(t, compatAddress(t, r))
+	repairCheck(t, "latin1", g1Send(c, append([]byte{3}, "SET NAMES latin1"...), false, false), "OK", 0, "", "")
+	id := c.prepare(t, "SELECT HEX(CONVERT(? USING utf8mb4))")
+	repairCheck(t, "seed_latin1", g1Send(c, g1Exec(id, 0, 1, compatString("\xe9", true)), true, false), "ROW", 0, "", "C3A9")
+	repairCheck(t, "utf8mb4", g1Send(c, append([]byte{3}, "SET NAMES utf8mb4"...), false, false), "OK", 0, "", "")
+	repairCheck(t, "short_scalar", g1Send(c, g1Exec(id, 0, 1, []byte{0, 1, 8, 128, 42}), true, false), "ERR", 1835, "HY000", "")
+	repairCheck(t, "original_bound_charset", g1Send(c, g1Exec(id, 0, 1, compatString("\xe9", false)), true, false), "ROW", 0, "", "C3A9")
+	repairCheck(t, "fresh_utf8mb4", g1Send(c, g1Exec(id, 0, 1, compatString("\xc3\xa9", true)), true, false), "ROW", 0, "", "C3A9")
+	if e := limitsPing(c); e != nil {
+		t.Fatal(e)
+	}
+}
+func TestRepairFirstRejectedBind(t *testing.T) {
+	r := rootFor(t, 10000)
+	c := g1Connection(t, compatAddress(t, r))
+	id := c.prepare(t, "SELECT CAST(? AS CHAR)")
+	repairCheck(t, "first_reject", g1Send(c, g1Exec(id, 0, 1, []byte{0, 1, 8, 128, 42}), true, false), "ERR", 1835, "HY000", "")
+	repairCheck(t, "no_cached_types", g1Send(c, g1Exec(id, 0, 1, compatString("cached", false)), true, false), "ERR", 1835, "HY000", "")
+	repairCheck(t, "fresh_recovery", g1Send(c, g1Exec(id, 0, 1, compatString("fresh", true)), true, false), "ROW", 0, "", "fresh")
+	if e := limitsPing(c); e != nil {
+		t.Fatal(e)
+	}
+}
+func TestRepairEmptyPrepareInvalidatesAlias(t *testing.T) {
+	r := rootFor(t, 10000)
+	c := g1Connection(t, compatAddress(t, r))
+	id := c.prepare(t, "SELECT CAST(? AS CHAR)")
+	repairCheck(t, "seed", g1Send(c, g1Exec(id, 0, 1, compatString("seed", true)), true, false), "ROW", 0, "", "seed")
+	repairCheck(t, "empty_prepare", g1Send(c, []byte{22}, false, true), "ERR", 1153, "08S01", "")
+	repairCheck(t, "alias_invalid", g1Send(c, g1Exec(0xffffffff, 0, 1, compatString("alias", true)), true, false), "ERR", 1243, "HY000", "")
+	g1Following(t, c, id, "explicit_handle", true)
+}

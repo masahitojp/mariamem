@@ -1,0 +1,31 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42303099940",
+  "candidate_source_commit": "88f6819226c671f6b4f754ee62958922cb00a662",
+  "result": "NOT_READY: contract mismatches",
+  "complete": true,
+  "observations": 234,
+  "mismatches": 39,
+  "missing": [],
+  "full_observation_differences_from_macos": [],
+  "guest_sha256": "4caa85d299410467f2656d6611df5dbeb518351927ac30b0216e516d277bf094",
+  "g1_binary_sha256": "5cb338d576a9c00788a19108affcc5aa4bce32936fe16b775ca563f1a2448abe",
+  "fixture_sha256": "804f48fa64a4467a879c3fcd65eb14b6a2b8dda53cf4bade570e163eabc0fd77",
+  "baseline_result": "PASS scoped native policy repair",
+  "source_comparison": {
+    "mac_reference_binary_sha256": "7ca5c6389e8c9980aa50709161781a462befd79afc8fea3254b70f9031250af1",
+    "compared_go_assembly_data_files": 281,
+    "different_files": []
+  },
+  "g1_staged_go_assembly_data_files": 282,
+  "cleanup_debt": {
+    "builder": [],
+    "runtime": []
+  },
+  "transit_present": false,
+  "files_sha256": {
+    "runtime/g1-result.json": "08a3f1e8e81fd0f3a13020129fc689490048f79920a99cb19aaeb1f9838dd0e9",
+    "runtime/g1-suite.txt": "1a6bf21d8c94be7d7f1e3af8705b3e66f298d0f0a66169c83b5d349415fff239",
+    "runtime/g1-build.json": "ca59211a9942db8985a20b6447eb17cea650bd077a4ea3d9346d323a0fd980d6",
+    "runtime/result.json": "513ea2094ceb0b1764f9e75236a15568bb3082aa0028106bdd59653c6ac4177e"
+  }
+}
