@@ -52,6 +52,10 @@ func g1Read(c *compatConn, binaryRow bool, prepare bool) g1Reply {
 		return r
 	}
 	if p[0] == 254 && len(p) < 9 {
+		if len(p) != 5 {
+			r.Error = "invalid protocol41 EOF"
+			return r
+		}
 		r.Kind = "EOF"
 		return r
 	}
