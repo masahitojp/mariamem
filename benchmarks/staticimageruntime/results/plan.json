@@ -1,0 +1,62 @@
+{
+  "issue": 123,
+  "baseline_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "proof_source_commit": "85a714920baf99d1048ef95bc7d561db6034982c",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "arms": [
+    "anonymous",
+    "image"
+  ],
+  "same_binary": true,
+  "route": "pipe",
+  "seed_rows": 1000,
+  "parallel": [
+    1,
+    4
+  ],
+  "max_forks": "equal to parallel",
+  "children": 48,
+  "pairs_per_cell": 5,
+  "order": "rotate P1/P4 per rep, alternate arms per rep+cell",
+  "performance_processes": 20,
+  "held_memory_processes": 20,
+  "memory_hold_children": [
+    1,
+    4
+  ],
+  "pilot_processes": 2,
+  "negative_processes": 2,
+  "warmup_processes": 4,
+  "diagnostic_processes": 2,
+  "total_processes": 50,
+  "host": "local macOS arm64",
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "CGO_ENABLED": 0,
+  "toolchain": "go1.27.3",
+  "timeout_seconds": 3600,
+  "budget_gib": 8,
+  "min_free_gib": 12,
+  "criteria": {
+    "purpose": "recommend next adoption investigation; not product acceptance",
+    "correctness": "all positive SQL/cleanup and negative oracle controls pass",
+    "fork": "paired median process child-Fork p50 improvement >=3% and >=4/5 pairs improve in each P1/P4 cell",
+    "guards": "paired median CPU, Fork-to-first-SELECT and full-suite <=+5%; report every pair; >=4/5 pairs worse by >5% is sustained regression",
+    "memory": "paired median total held RSS including image cache <=+10% for hold1/4; also report pre-root and baseline deltas",
+    "tails": "keep all children and runs; p95 and >100ms per stage; no #68 reopening",
+    "no_extra_repetitions": true
+  },
+  "boundaries": [
+    "root Start includes initial image construction",
+    "suite ends after snapshot/cache cleanup",
+    "memory is separate process current ps RSS; forced GC equally at checkpoints; not PSS or physical sharing",
+    "P1 fork CPU only; P4 process CPU not per-child exclusive"
+  ],
+  "not_run": [
+    "Ubuntu",
+    "pgmem new campaign",
+    "guest rebuild",
+    "CI",
+    "adoption/release"
+  ]
+}

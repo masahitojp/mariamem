@@ -1,0 +1,5 @@
+PASS: retained-only read-only summary replay
+PASS: independent raw-span Fork medians
+PASS: damaged expected summary rejected without overwrite
+PASS: modified primary Fork observations rejected
+PASS: published inputs unchanged by checks
