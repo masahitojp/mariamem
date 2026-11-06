@@ -1,0 +1,10 @@
+{
+  "issue65-g1-repair-guest": {
+    "cleanup_debt": [],
+    "receipt_sha256": "ca4a0e7845c1d80cab1b27e07f6721792396536caed606d893b832226ea8a855"
+  },
+  "issue65-g1-repair-host": {
+    "cleanup_debt": [],
+    "receipt_sha256": "da7771f4b0140761a387e01674d0af3237e8cfd974471bcdb4b56987e0a07c1c"
+  }
+}

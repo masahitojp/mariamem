@@ -356,7 +356,7 @@ New development guest7103c811 has complete worker-body binding checks. Fresh
 macOS execution atd7c70192 passes22 lifecycle/126 prior observations,G1 all234
 with0 mismatches,and4 new metadata/alias recovery controls plus supporting
 checks. The new283-file staged source bundle is distinct from the old guest.
-Runtime cleanup and one strict Linux repeat remain before this repair is closed;
+Local builder/runtime cleanup is complete with debt0. One strict Linux repeat remains before this repair is closed;
 G2/P1/P2,public adoption and release remain separate.
 
 

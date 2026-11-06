@@ -65,4 +65,6 @@ Recommendation: repeat this exact candidate once on native Linux with strict
 283-file comparison before closing this repair. G2 remains the next compatibility
 scope; public APIs,30s timeout,controller relocation,performance and adoption
 remain pending. Canonical guest/generated production code are unchanged.
-Runtime scratch cleanup and Linux submission are the remaining campaign steps.
+Local builder/runtime SDKs,archives,converter,generated code,binaries,Go caches
+and worktrees are disposed with [cleanup debt0](evidence/local-disposal.json).
+One strict Linux submission remains;its result has not been observed.
