@@ -35,10 +35,23 @@ were disposed. This qualifies only the isolated experiment, not public APIs.
 Existing production-guest Go test bindings need adaptation before adoption.
 The Human selected Linux -> Live -> compatibility/contracts -> productization/
 performance, then authorized the bounded [3D.2 Live proof](../benchmarks/spikes/issue65-native-live/README.md).
-It reuses the unchanged Live endpoint and finite lease owner with native children;
-execution is pending. Public API/CI integration, full protocol/consumer acceptance,
-race and performance remain unqualified. No main integration, release, or
-fatal-wire contract choice is implied.
+The [Live CI42150799762](https://github.com/masahitojp/mariamem/actions/runs/42150799762)
+passes all22 cases (14 original plus8 Live) at tooling source_commit
+`43d96a62740c8e7309e3e6709d2d83fc929c653d`. Actual native x86_64 execution
+confirms physical drain, reservation, generation commit and explicit recovery;
+ordinary-disposal and permanent capture-debt controls retain their model context.
+The guest and baseline host bundle are unchanged; two Live template files are
+added. Both owned workspaces and the transfer WASM were disposed.
+
+The Human moved to compatibility/contracts and expressed a preference for
+host-owned stateful coordination. The [contract proposal](design/issue65-native-protocol/contracts.md)
+separates host lifecycle/resource policy from authoritative guest SQL/NET state.
+Fatal established-session EOF, pinned-native malformed EXECUTE behavior and
+removal of the obsolete internal envelope limit remain proposed product choices,
+not approved exceptions. Controller relocation is future productization work.
+Public API integration, full protocol/consumer acceptance, race and performance
+remain unqualified. No main integration, release, or fatal-wire contract adoption
+is selected by proceeding to this stage.
 
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 
