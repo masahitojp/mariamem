@@ -40,6 +40,12 @@ integration-pending entries are historical, not remaining release work.
 
 ## v0.7.0 — Prepared UCA tables adopted, protected integration pending
 
+On2026-11-07 the Human authorized protected main integration through PR112.
+The failed Development run41969231695 identified an unclassified candidate
+workflow; its explicit tooling classification is corrected without changing
+runtime/guest inputs or relaxing tests. Required checks and strict-base
+protection must pass before the authorized merge.
+
 On2026-11-05 the Human approved candidate adoption of
 `cbd25f027e804bbd529a85208589ba2dd2899b86` following the
 [adoption review](reviews/uca-prepared-canonical-adoption-review.md).

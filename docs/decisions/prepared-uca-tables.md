@@ -33,3 +33,12 @@ under strict-base protection. Runtime/guest/input identity may reuse the fixed
 canonical receipt only with a recorded byte-equivalence check. Retire automatic
 pushes of the completed one-off candidate campaign; its manual workflow and all
 oracles remain available. Normal CI and future Release build guards are unchanged.
+
+
+## Protected integration authorization — 2026-11-07
+
+The Human requested main integration through PR112 after confirming the adopted
+candidate had not yet merged. Fix the Development workflow-classification
+omission, preserve the original canonical runtime receipt and merge only through
+the protected PR after required checks succeed on a fresh base. This authorizes
+the main merge; qualification, version choice and publication remain separate.

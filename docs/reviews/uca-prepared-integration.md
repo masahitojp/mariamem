@@ -33,3 +33,19 @@ receipt checksums, workflow job comparison/YAML parsing, public-source and clean
 diff checks. Runtime was not rebuilt or benchmarked again. Next: normal app-bound
 `check`, `integration`, `Live required gate` on the exact integration head, strict
 base and the separate main-merge decision. Version/publication remain separate.
+
+
+## 2026-11-07 integration follow-up
+
+The Human authorized protected main integration. Development run41969231695
+failed `test_every_maintained_workflow_has_an_explicit_reviewed_scope`: the
+manual-only uca-canonical workflow was absent from WORKFLOW_SCOPES. Its
+classification is now explicitly python/tooling, consistent with the other
+workflow definitions; changing guest/runtime inputs still selects the full
+profile. The inventory test and all required checks remain intact. This changes
+only CI-selection metadata and decision/status documentation. Canonical runtime,
+guest, preparation/generation and pinned inputs remain at the accepted bytes;
+no source build or timing repetition is justified by this correction.
+
+Focused CI-selection/efficiency tests:115 PASS. Accepted runtime/guest/input
+byte-equivalence check PASS; public-source and whitespace checks PASS.
