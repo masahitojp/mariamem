@@ -111,7 +111,7 @@ def execute(w,compare_reference=True):
     base.command(w,'pytest-install',[sys.executable,'-m','pip','install','--no-cache-dir','--disable-pip-version-check','--no-compile','--target',w/'temp/pytest','pytest==8.4.2'],180)
     code='import sys;sys.path.insert(0,sys.argv[1]);import pytest;raise SystemExit(pytest.main(["-q","-p","no:cacheprovider","--basetemp",sys.argv[2],sys.argv[3]]))'
     base.command(w,'binding-tests',[sys.executable,'-c',code,w/'temp/pytest',w/'temp/pytest-run',w/'worktree/tests/test_thread_lifetime_binding.py'],120)
-    if '21 passed' not in (w/'evidence/binding-tests.txt').read_text():raise ValueError('binding scope incomplete')
+    if '22 passed' not in (w/'evidence/binding-tests.txt').read_text():raise ValueError('binding scope incomplete')
     product=w/'temp/host/product'
     for name,pin in host['source_inventory'].items():
         if base.sha(product/name)!=pin:raise ValueError('staged source changed: '+name)
