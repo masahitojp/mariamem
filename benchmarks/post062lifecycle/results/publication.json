@@ -1,0 +1,7 @@
+{
+  "original_analysis_sha256": "78dc6f8daf7c0865f27489a355d76d5e5b6942fe1d22bdb9b46eb7f6a3e13026",
+  "published_analysis_sha256": "ee87ba508c4cb51c048fbedb18bce58712f3dbf3e8401ebd8cb1e9e2c4fd1710",
+  "validation_and_calculation_functions_unchanged": true,
+  "change": "add compact observations.json reader; original frozen file remains in local evidence",
+  "no_measurement_records_removed": true
+}

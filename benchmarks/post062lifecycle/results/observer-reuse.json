@@ -1,0 +1,8 @@
+{
+  "source_report": "bfef4027e1ed7e6a17e95b541c55b247c9f87a11",
+  "files": {
+    "undo_analysis.py": "cf893f48cf6b59079d6a33adeaaa05393c98e4a8650f23ca7eea092c906fe492",
+    "test_undo.py": "5c3125fb335f73b8bb9ac918afea482dc6d3986b9c8152b7983ad1895d47ac62"
+  },
+  "use": "reuse analyze_trace/link only; no old main/campaign result relabelled"
+}

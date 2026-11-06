@@ -1,0 +1,7 @@
+{
+  "location": "local durable evidence: build/experiment-work/post062-lifecycle/evidence/published",
+  "archives": {
+    "raw-processes.tar.gz": "ea0b42615943df652a58f73db57b6eb7637dcd42a1436139027a7995e9bf7468",
+    "undo-traces.tar.gz": "8ef91093dd911e95e58b8d0f3c0743f0ae7e24a04d6f47ed3c2b8dd2713dd9cf"
+  }
+}
