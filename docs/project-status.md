@@ -61,6 +61,17 @@ consumer acceptance, race and performance remain unqualified. Existing stable
 behavior/tests are unchanged; this decision does not adopt the candidate on main
 or select a release.
 
+The Human requested continuing the compatibility experiment and updating Issue65.
+[Issue65](https://github.com/masahitojp/mariamem/issues/65) now tracks the current
+scope/decisions and remaining work while retaining initial investigation history.
+The [fixed-guest compatibility observation](../benchmarks/spikes/issue65-native-compat/README.md)
+adds raw credential/capability/prepared/capacity/fatal/full-window probes after the
+22-case Linux/Live repeat. Execution is pending; suspected capacity-error and
+full-window monitoring gaps must not be relabelled PASS. No guest or controller
+implementation changes are made in this step. Maintainability is the primary
+objective; transfer conversions/copies may decrease, but performance is unmeasured
+and must be compared under matched conditions after correct product integration.
+
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 
 ### Current candidate — adopted after fixed-exit technical acceptance

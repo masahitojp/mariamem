@@ -1,0 +1,515 @@
+// Fixed-guest compatibility observations. Tests assert the approved target;
+// a mismatch is NOT_READY, never a reason to change that target silently.
+package main
+
+import (
+	"bytes"
+	"database/sql"
+	"encoding/binary"
+	"encoding/json"
+	"fmt"
+	mysql "github.com/go-sql-driver/mysql"
+	"io"
+	"net"
+	"strings"
+	"testing"
+	"time"
+)
+
+func compatObserve(t *testing.T, id string, expected, actual any, pass bool) {
+	t.Helper()
+	b, _ := json.Marshal(map[string]any{"test": t.Name(), "id": id, "expected": expected, "actual": actual, "pass": pass})
+	t.Log("COMPAT_OBSERVATION " + string(b))
+	if !pass {
+		t.Errorf("compatibility mismatch: %s", id)
+	}
+}
+
+type compatConn struct {
+	c        net.Conn
+	greeting []byte
+}
+
+func compatFrame(seq byte, payload []byte) []byte {
+	h := []byte{byte(len(payload)), byte(len(payload) >> 8), byte(len(payload) >> 16), seq}
+	return append(h, payload...)
+}
+func (c *compatConn) send(seq byte, payload []byte) error {
+	c.c.SetWriteDeadline(time.Now().Add(3 * time.Second))
+	b := compatFrame(seq, payload)
+	for len(b) > 0 {
+		n, err := c.c.Write(b)
+		if err != nil {
+			return err
+		}
+		if n == 0 {
+			return io.ErrShortWrite
+		}
+		b = b[n:]
+	}
+	return nil
+}
+func (c *compatConn) read(seq byte) ([]byte, error) {
+	c.c.SetReadDeadline(time.Now().Add(3 * time.Second))
+	var h [4]byte
+	if _, err := io.ReadFull(c.c, h[:]); err != nil {
+		return nil, err
+	}
+	n := int(h[0]) | int(h[1])<<8 | int(h[2])<<16
+	if h[3] != seq || n == 0 || n > 0xfffffe {
+		return nil, fmt.Errorf("packet seq=%d want=%d len=%d", h[3], seq, n)
+	}
+	b := make([]byte, n)
+	_, err := io.ReadFull(c.c, b)
+	return b, err
+}
+func (c *compatConn) mustRead(t *testing.T, seq byte) []byte {
+	t.Helper()
+	b, err := c.read(seq)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return b
+}
+func (c *compatConn) mustSend(t *testing.T, seq byte, b []byte) {
+	t.Helper()
+	if err := c.send(seq, b); err != nil {
+		t.Fatal(err)
+	}
+}
+func compatConnect(t *testing.T, address string, pipe *instance) *compatConn {
+	t.Helper()
+	var c net.Conn
+	var err error
+	if pipe != nil {
+		c, err = pipe.pipe()
+	} else {
+		c, err = net.DialTimeout("tcp", address, time.Second)
+	}
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { c.Close() })
+	return &compatConn{c: c}
+}
+func compatAddress(t *testing.T, r *instance) string {
+	t.Helper()
+	if r.listener != nil {
+		return r.listener.Addr().String()
+	}
+	a, err := r.serve()
+	if err != nil {
+		t.Fatal(err)
+	}
+	return a
+}
+func (c *compatConn) login(t *testing.T, user string, secure bool) {
+	t.Helper()
+	c.greeting = c.mustRead(t, 0)
+	flags := uint32(512)
+	if secure {
+		flags |= 32768
+	}
+	p := make([]byte, 32)
+	binary.LittleEndian.PutUint32(p, flags)
+	p[8] = 45
+	p = append(p, []byte(user)...)
+	p = append(p, 0)
+	if secure {
+		p = append(p, 3, 'a', 'b', 'c')
+	} else {
+		p = append(p, []byte("synthetic\x00")...)
+	}
+	c.mustSend(t, 1, p)
+	reply := c.mustRead(t, 2)
+	compatObserve(t, "login_"+user+fmt.Sprint(secure), "OK", fmt.Sprintf("marker=%02x", reply[0]), reply[0] == 0)
+	if reply[0] != 0 {
+		t.FailNow()
+	}
+}
+func compatGreetingCaps(b []byte) (uint32, error) {
+	if len(b) < 2 || b[0] != 10 {
+		return 0, fmt.Errorf("protocol greeting")
+	}
+	z := bytes.IndexByte(b[1:], 0)
+	if z < 0 {
+		return 0, fmt.Errorf("version terminator")
+	}
+	i := z + 2
+	// connection id4, scramble8, filler1, lower2, charset1, status2, upper2.
+	if len(b) < i+20 {
+		return 0, fmt.Errorf("short greeting")
+	}
+	return uint32(binary.LittleEndian.Uint16(b[i+13:])) | uint32(binary.LittleEndian.Uint16(b[i+18:]))<<16, nil
+}
+func (c *compatConn) ping(t *testing.T, id string) {
+	t.Helper()
+	c.mustSend(t, 0, []byte{14})
+	p := c.mustRead(t, 1)
+	compatObserve(t, id, "OK", fmt.Sprintf("marker=%02x", p[0]), p[0] == 0)
+}
+func compatErr(p []byte) (uint16, string) {
+	if len(p) < 9 || p[0] != 255 || p[3] != '#' {
+		return 0, ""
+	}
+	return binary.LittleEndian.Uint16(p[1:]), string(p[4:9])
+}
+func (c *compatConn) prepare(t *testing.T, query string) uint32 {
+	t.Helper()
+	c.mustSend(t, 0, append([]byte{22}, []byte(query)...))
+	p := c.mustRead(t, 1)
+	if len(p) < 12 || p[0] != 0 {
+		t.Fatalf("PREPARE reply %x", p)
+	}
+	seq := byte(2)
+	columns := int(binary.LittleEndian.Uint16(p[5:]))
+	params := int(binary.LittleEndian.Uint16(p[7:]))
+	for _, n := range []int{params, columns} {
+		if n == 0 {
+			continue
+		}
+		for j := 0; j < n; j++ {
+			c.mustRead(t, seq)
+			seq++
+		}
+		eof := c.mustRead(t, seq)
+		seq++
+		if eof[0] != 254 || len(eof) >= 9 {
+			t.Fatalf("prepare EOF %x", eof)
+		}
+	}
+	return binary.LittleEndian.Uint32(p[1:])
+}
+func compatID(op byte, id uint32) []byte {
+	b := make([]byte, 5)
+	b[0] = op
+	binary.LittleEndian.PutUint32(b[1:], id)
+	return b
+}
+func (c *compatConn) execute(t *testing.T, id uint32, values []byte) ([]byte, []byte) {
+	t.Helper()
+	p := compatID(23, id)
+	p = append(p, 0, 1, 0, 0, 0)
+	p = append(p, values...)
+	c.mustSend(t, 0, p)
+	first := c.mustRead(t, 1)
+	if first[0] == 255 {
+		return nil, first
+	}
+	if len(first) != 1 || first[0] != 1 {
+		t.Fatalf("one-column result expected %x", first)
+	}
+	c.mustRead(t, 2)
+	eof := c.mustRead(t, 3)
+	if eof[0] != 254 {
+		t.Fatalf("metadata EOF %x", eof)
+	}
+	row := c.mustRead(t, 4)
+	end := c.mustRead(t, 5)
+	if end[0] != 254 {
+		t.Fatalf("result EOF %x", end)
+	}
+	return row, nil
+}
+func compatString(v string, newType bool) []byte {
+	b := []byte{0, 0}
+	if newType {
+		b = []byte{0, 1, 253, 0}
+	}
+	return append(append(b, byte(len(v))), []byte(v)...)
+}
+func (c *compatConn) wantString(t *testing.T, id uint32, values []byte, want, label string) {
+	t.Helper()
+	row, errPacket := c.execute(t, id, values)
+	expected := append([]byte{0, 0, byte(len(want))}, []byte(want)...)
+	compatObserve(t, label, fmt.Sprintf("%x", expected), fmt.Sprintf("row=%x error=%x", row, errPacket), errPacket == nil && bytes.Equal(row, expected))
+}
+func compatSQL(t *testing.T, r *instance, user, password string, foundRows bool) *sql.DB {
+	t.Helper()
+	cfg := mysql.NewConfig()
+	cfg.User = user
+	cfg.Passwd = password
+	cfg.Net = "tcp"
+	cfg.Addr = compatAddress(t, r)
+	cfg.DBName = "test"
+	cfg.ClientFoundRows = foundRows
+	cfg.Timeout = time.Second
+	cfg.ReadTimeout = 3 * time.Second
+	cfg.WriteTimeout = 3 * time.Second
+	d, err := sql.Open("mysql", cfg.FormatDSN())
+	if err != nil {
+		t.Fatal(err)
+	}
+	d.SetMaxOpenConns(1)
+	t.Cleanup(func() { d.Close() })
+	return d
+}
+func TestCompatCredentials(t *testing.T) {
+	r := rootFor(t, 5000)
+	for _, cred := range [][2]string{{"root", ""}, {"test", "test"}, {"root", "root"}, {"test", ""}, {"application", "synthetic-test-secret"}} {
+		t.Run(cred[0]+fmt.Sprint(cred[1] == ""), func(t *testing.T) {
+			d := compatSQL(t, r, cred[0], cred[1], false)
+			defer d.Close()
+			var user, current string
+			err := d.QueryRow("SELECT USER(), CURRENT_USER()").Scan(&user, &current)
+			compatObserve(t, "canonical_identity", "root@... / root@localhost", fmt.Sprintf("user=%s current=%s error=%v", user, current, err), err == nil && strings.HasPrefix(user, "root@") && current == "root@localhost")
+			if err == nil {
+				if _, err = d.Exec("CREATE TEMPORARY TABLE credential_contract(id INT)"); err != nil {
+					t.Error(err)
+				}
+			}
+		})
+	}
+	for _, tc := range []struct {
+		user   string
+		secure bool
+	}{{"application", true}, {"application", false}, {"", false}} {
+		t.Run("raw_"+tc.user+fmt.Sprint(tc.secure), func(t *testing.T) {
+			c := compatConnect(t, compatAddress(t, r), nil)
+			c.login(t, tc.user, tc.secure)
+			c.ping(t, "credential_following_ping")
+			c.c.Close()
+		})
+	}
+}
+func TestCompatCapabilities(t *testing.T) {
+	r := rootFor(t, 5000)
+	c := compatConnect(t, compatAddress(t, r), nil)
+	c.login(t, "root", true)
+	caps, err := compatGreetingCaps(c.greeting)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := uint32(1 | 4 | 8 | 512 | 8192 | 32768 | 65536 | 131072 | 524288 | 262144)
+	compatObserve(t, "greeting_exact_caps", want, caps, caps == want)
+	c.c.Close()
+	d := compatSQL(t, r, "root", "", true)
+	if _, err = d.Exec("CREATE TABLE found_rows_contract(id INT)"); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = d.Exec("INSERT INTO found_rows_contract VALUES(1)"); err != nil {
+		t.Fatal(err)
+	}
+	result, err := d.Exec("UPDATE found_rows_contract SET id=1 WHERE id=1")
+	if err != nil {
+		t.Fatal(err)
+	}
+	n, err := result.RowsAffected()
+	compatObserve(t, "accepted_FOUND_ROWS", 1, fmt.Sprintf("rows=%d err=%v", n, err), err == nil && n == 1)
+}
+func TestCompatPreparedState(t *testing.T) {
+	for _, name := range []string{"type_reuse", "alias", "long_data_reset", "malformed_string_D2", "close_unknown_reset"} {
+		t.Run(name, func(t *testing.T) {
+			r := rootFor(t, 5000)
+			c := compatConnect(t, compatAddress(t, r), nil)
+			c.login(t, "root", true)
+			id := c.prepare(t, "SELECT ?")
+			switch name {
+			case "type_reuse":
+				c.wantString(t, id, compatString("a\x00b", true), "a\x00b", "typed_NUL")
+				c.wantString(t, id, compatString("reuse", false), "reuse", "stored_type_reuse")
+			case "alias":
+				c.wantString(t, 0xffffffff, compatString("alias", true), "alias", "last_statement_alias")
+			case "long_data_reset":
+				c.mustSend(t, 0, append(compatID(24, id), 0, 0, 'l', 'o', 'n', 'g'))
+				c.wantString(t, id, []byte{0, 1, 253, 0}, "long", "LONG_DATA_no_reply_and_execute")
+				c.mustSend(t, 0, compatID(26, id))
+				p := c.mustRead(t, 1)
+				compatObserve(t, "STMT_RESET", "OK", fmt.Sprintf("%x", p), p[0] == 0)
+				c.wantString(t, id, compatString("fresh", true), "fresh", "reset_clears_long_data")
+				c.mustSend(t, 0, append(compatID(24, id), 1, 0, 'x'))
+				_, bad := c.execute(t, id, compatString("bad", true))
+				errno, state := compatErr(bad)
+				compatObserve(t, "LONG_DATA_deferred_error", "1210/HY000", fmt.Sprintf("%d/%s", errno, state), errno == 1210 && state == "HY000")
+				c.mustSend(t, 0, compatID(26, id))
+				p = c.mustRead(t, 1)
+				compatObserve(t, "reset_clears_deferred_error", "OK", fmt.Sprintf("%x", p), p[0] == 0)
+				c.wantString(t, id, compatString("recovered", true), "recovered", "execute_after_reset")
+			case "malformed_string_D2":
+				c.wantString(t, id, []byte{0, 1, 253, 0, 5, 'a', 'b'}, "", "named_native_malformed_string")
+			case "close_unknown_reset":
+				c.mustSend(t, 0, compatID(25, id))
+				c.ping(t, "CLOSE_has_no_response")
+				c.mustSend(t, 0, compatID(25, id))
+				c.ping(t, "unknown_CLOSE_has_no_response")
+				c.mustSend(t, 0, compatID(26, id))
+				p := c.mustRead(t, 1)
+				errno, state := compatErr(p)
+				compatObserve(t, "unknown_RESET", "1243/HY000", fmt.Sprintf("%d/%s", errno, state), errno == 1243 && state == "HY000")
+			}
+			c.ping(t, "prepared_following_ping")
+		})
+	}
+}
+func compatCapacity(t *testing.T, r *instance, address string, mixed bool) {
+	t.Helper()
+	clients := make([]*compatConn, 16)
+	for i := range clients {
+		var pipe *instance
+		if mixed && i%2 != 0 {
+			pipe = r
+		}
+		clients[i] = compatConnect(t, address, pipe)
+		clients[i].login(t, "root", true)
+	}
+	for _, transport := range []string{"tcp", "pipe"} {
+		t.Run("17th_"+transport, func(t *testing.T) {
+			var pipe *instance
+			if transport == "pipe" {
+				pipe = r
+			}
+			extra := compatConnect(t, address, pipe)
+			p, err := extra.read(0)
+			errno, state := compatErr(p)
+			compatObserve(t, "capacity_prelogin_"+transport, "1040/08004", fmt.Sprintf("errno=%d state=%s error=%v", errno, state, err), err == nil && errno == 1040 && state == "08004")
+			extra.c.Close()
+		})
+	}
+	clients[0].ping(t, "existing_session_after_capacity_rejection")
+	clients[0].c.Close()
+	inspect(t, r, func(s map[string]any) bool { return len(s["sessions"].([]any)) == 15 && s["joined"].(float64) >= 1 })
+	replacement := compatConnect(t, address, nil)
+	replacement.login(t, "root", true)
+	replacement.ping(t, "slot_reused_after_retirement")
+	replacement.c.Close()
+	for _, c := range clients {
+		c.c.Close()
+	}
+}
+func TestCompatCapacity(t *testing.T) {
+	r := rootFor(t, 10000)
+	compatCapacity(t, r, compatAddress(t, r), true)
+}
+func TestCompatLiveCapacity(t *testing.T) {
+	b := liveBaseline(t)
+	e, f := startNativeLive(t, b)
+	address := fmt.Sprintf("127.0.0.1:%d", e.Port())
+	clients := make([]*compatConn, 16)
+	for i := range clients {
+		clients[i] = compatConnect(t, address, nil)
+		clients[i].login(t, "root", true)
+	}
+	extra := compatConnect(t, address, nil)
+	p, err := extra.read(0)
+	errno, state := compatErr(p)
+	compatObserve(t, "Live_capacity_prelogin", "1040/08004", fmt.Sprintf("errno=%d state=%s error=%v", errno, state, err), err == nil && errno == 1040 && state == "08004")
+	extra.c.Close()
+	clients[0].ping(t, "Live_existing_session_after_rejection")
+	for _, c := range clients {
+		c.c.Close()
+	}
+	inspect(t, f.current().r, func(s map[string]any) bool { return len(s["sessions"].([]any)) == 0 })
+}
+func TestCompatFatalEOF(t *testing.T) {
+	bad := rootFor(t, 300)
+	good := rootFor(t, 5000)
+	d := dbFor(t, good, nil)
+	idleConn := compatConnect(t, compatAddress(t, bad), nil)
+	idleConn.login(t, "root", true)
+	active := compatConnect(t, compatAddress(t, bad), nil)
+	active.login(t, "root", true)
+	active.mustSend(t, 0, append([]byte{3}, []byte("SELECT SLEEP(3)")...))
+	deadline := time.After(2 * time.Second)
+	tick := time.NewTicker(time.Millisecond)
+	defer tick.Stop()
+	for bad.result() == nil {
+		select {
+		case <-deadline:
+			t.Fatal("native deadline did not reach owner")
+		case <-tick.C:
+		}
+	}
+	idleConn.c.SetReadDeadline(time.Now().Add(time.Second))
+	var b [1]byte
+	n, err := idleConn.c.Read(b[:])
+	closed := n == 0 && err != nil
+	if ne, ok := err.(net.Error); ok && ne.Timeout() {
+		closed = false
+	}
+	compatObserve(t, "fatal_idle_transport_closed", "connection loss without injected ERR", fmt.Sprintf("bytes=%d error=%v", n, err), closed)
+	cause := bad.result()
+	compatObserve(t, "owner_original_deadline_cause", "deadline", fmt.Sprint(cause), cause != nil && strings.Contains(cause.Error(), "deadline"))
+	got := queryOne(t, d, "SELECT 42")
+	compatObserve(t, "independent_instance_survives", 42, got, got == 42)
+	closeErr := bad.close()
+	select {
+	case <-bad.done:
+	default:
+		t.Fatal("runtime not joined")
+	}
+	compatObserve(t, "cleanup_preserves_original_cause", "deadline", fmt.Sprint(closeErr), closeErr != nil && strings.Contains(closeErr.Error(), "deadline"))
+}
+func TestCompatFullWindow(t *testing.T) {
+	for _, mode := range []string{"overflow", "eof"} {
+		t.Run(mode, func(t *testing.T) {
+			r := rootFor(t, 10000)
+			c := compatConnect(t, compatAddress(t, r), nil)
+			c.login(t, "root", true)
+			c.mustSend(t, 0, append([]byte{3}, []byte("SELECT SLEEP(8)")...))
+			inspect(t, r, func(s map[string]any) bool {
+				for _, v := range s["sessions"].([]any) {
+					if v.(map[string]any)["phase"] == "executing" {
+						return true
+					}
+				}
+				return false
+			})
+			count := inputLimit
+			if mode == "overflow" {
+				count++
+			}
+			pending := bytes.Repeat(compatFrame(0, []byte{14}), (count+4)/5)[:count]
+			c.c.SetWriteDeadline(time.Now().Add(2 * time.Second))
+			sent := 0
+			for sent < len(pending) {
+				n, err := c.c.Write(pending[sent:])
+				sent += n
+				if err != nil {
+					t.Fatal("pending fixture write", sent, err)
+				}
+			}
+			snapshot := inspect(t, r, func(s map[string]any) bool {
+				if r.result() != nil {
+					return true
+				}
+				for _, v := range s["sessions"].([]any) {
+					if v.(map[string]any)["input"].(float64) >= inputLimit {
+						return true
+					}
+				}
+				return false
+			})
+			setupOK := r.result() != nil
+			for _, v := range snapshot["sessions"].([]any) {
+				if v.(map[string]any)["input"].(float64) == inputLimit {
+					setupOK = true
+				}
+			}
+			compatObserve(t, "full_window_"+mode+"_setup", "full queue or already aborted", snapshot, setupOK)
+			if mode == "eof" {
+				c.c.Close()
+			}
+			until := time.NewTimer(750 * time.Millisecond)
+			defer until.Stop()
+			tick := time.NewTicker(time.Millisecond)
+			defer tick.Stop()
+		wait:
+			for r.result() == nil {
+				select {
+				case <-until.C:
+					break wait
+				case <-tick.C:
+				}
+			}
+			cause := r.result()
+			expected := "overflow"
+			if mode == "eof" {
+				expected = "eof"
+			}
+			text := strings.ToLower(fmt.Sprint(cause))
+			match := cause != nil && strings.Contains(text, expected) && !strings.Contains(text, "deadline")
+			compatObserve(t, "full_window_"+mode+"_abort", expected+" before command deadline", fmt.Sprint(cause), match)
+			c.c.Close()
+		})
+	}
+}
