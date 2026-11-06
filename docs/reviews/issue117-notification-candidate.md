@@ -63,7 +63,7 @@ UNDO instrumentation are not imported.
   waiters, capture and two sequential children with cap1.
 - Handwritten race coverage excludes `internal/generatedgo/code/...` from race
   instrumentation, explicitly; it is not full generated-engine race proof.
-- Normal PR daily checks remain required. The candidate-branch push/manual `disconnect-notify.yml`
+- Normal PR daily checks remain required. The manual-only `disconnect-notify.yml`
   workflow runs the focused boundary on macOS15 arm64 and Ubuntu24.04 x86_64.
 - A small manual-only benchmark compares pool.Close + WaitDisconnected on one
   reusable Pipe DB. It hides the notification interface in the polling arm;
@@ -87,3 +87,22 @@ On macOS27.2 arm64 / Go1.27.3, source_commit
 TCP/Pipe/capture/cap1 checks PASS. CI selection tests:91 PASS; public-source and
 diff checks PASS. This is not a macOS15/Ubuntu receipt. Later changes to this
 record and the candidate workflow do not relabel those original executions.
+
+
+## Development CI trigger correction
+
+Development run [42245489882](https://github.com/masahitojp/mariamem/actions/runs/42245489882)
+failed the existing automatic-workflow policy: the candidate workflow had a
+branch-scoped push trigger. Python results were 1 FAIL, 1854 PASS, 98 SKIP and
+92 passing subtests. Runtime smoke was skipped; integration and the required
+gate failed as consequences, not independent runtime failures.
+
+Remove that push trigger; keep workflow_dispatch and the existing policy test.
+The original candidate run42245431439 keeps its original source d8a03176.
+This workflow/documentation-only correction changes no runtime, test or benchmark
+code, and does not require another performance campaign. New PR Development
+checks must pass; the original both-host candidate results remain separately
+bound rather than relabelled as the corrected head.
+
+Local verification of the correction: `tests/test_ci_efficiency.py` and
+`tests/test_development_scope.py`, 115 PASS; diff whitespace check PASS.

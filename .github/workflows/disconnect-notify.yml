@@ -1,7 +1,5 @@
 name: Disconnect notification candidate
 on:
-  push:
-    branches: [perf/issue117-disconnect-notify]
   workflow_dispatch:
 permissions:
   contents: read
