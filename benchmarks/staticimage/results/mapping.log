@@ -1,0 +1,7 @@
+=== RUN   TestMappingFailureOwnership
+--- PASS: TestMappingFailureOwnership (0.00s)
+=== RUN   TestMappingInitialCleanupFailureRetainsOwner
+--- PASS: TestMappingInitialCleanupFailureRetainsOwner (0.00s)
+=== RUN   TestStaticImageFailureOwnership
+--- PASS: TestStaticImageFailureOwnership (0.00s)
+PASS

@@ -1,0 +1,26 @@
+{
+  "issue": 123,
+  "baseline_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "scope": "constructor/mapping correctness only; no engine start, SQL, timing campaign, CI or guest rebuild",
+  "host": "local macOS arm64",
+  "timeout_seconds": 1800,
+  "workspace_budget_gib": 8,
+  "minimum_free_gib": 12,
+  "verification": [
+    "initial 256MiB bytes/globals/DataEnd/drop state",
+    "sibling and backing write isolation",
+    "worker TLS/shared memory, join before unmap",
+    "logical grow, zero, stable addresses, OS guard",
+    "concurrent factory and admission",
+    "file/mapping/protection/cleanup injected failures"
+  ],
+  "excluded": [
+    "Ubuntu runtime",
+    "real MariaDB/SQL",
+    "performance and physical shared-page attribution",
+    "product cache lifetime/API",
+    "release acceptance"
+  ],
+  "repeat_policy": "one focused run per final source; repair actual test/code failures only"
+}

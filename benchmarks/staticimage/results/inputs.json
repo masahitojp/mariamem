@@ -1,0 +1,16 @@
+{
+  "source_commit": "85a714920baf99d1048ef95bc7d561db6034982c",
+  "baseline_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "host": "macOS-27.2-arm64-arm-64bit",
+  "go": "go version go1.27.3 darwin/arm64",
+  "files_sha256": {
+    "benchmarks/staticimage/image.go": "62a4a4c6091cf927c5df6460b69b40ea73ed2e1c8542eb1c2bfad4db53ff7cb2",
+    "benchmarks/staticimage/image_test.go": "2a213b8feb42ed76dd828303930e167aadf4360cbff66caaf878083ac70a91bb",
+    "benchmarks/staticimage/plan.json": "6178385c23675a4d9640bcddf47f8bf11b0aad8b42368ea9c61fd74c659b908a",
+    "benchmarks/staticimage/run.py": "f19da25a84cdd2c799546d03b806cf03c50414d0dfdd1095628a903a14892f57",
+    "internal/generatedgo/code/base/static_image_experiment.go": "6f7ad9120d34317fd412fe5da9b9b7549cdc305192580a5d2e7021ae6fbec4d3",
+    "internal/generatedgo/code/base/static_image_experiment_test.go": "c433e4fb93ab376cf1d5e75e5687aaf6401f2c8891c75b1b16e726c53ce4dfd2"
+  },
+  "results": []
+}
