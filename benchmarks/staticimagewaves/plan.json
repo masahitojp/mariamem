@@ -1,0 +1,64 @@
+{
+  "issue": 123,
+  "baseline_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "proof_source_commit": "85a714920baf99d1048ef95bc7d561db6034982c",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "arms": [
+    "anonymous",
+    "pages"
+  ],
+  "same_binary": true,
+  "route": "pipe",
+  "seed_rows": 1000,
+  "parallel": [
+    4
+  ],
+  "max_forks": 4,
+  "children": 48,
+  "pairs_per_cell": 5,
+  "order": "rotate anonymous/pages per pair",
+  "performance_processes": 10,
+  "held_memory_processes": 0,
+  "pilot_processes": 2,
+  "negative_processes": 2,
+  "warmup_processes": 2,
+  "diagnostic_processes": 2,
+  "total_processes": 18,
+  "host": "local macOS arm64",
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "CGO_ENABLED": 0,
+  "toolchain": "go1.27.3",
+  "timeout_seconds": 600,
+  "budget_gib": 8,
+  "min_free_gib": 12,
+  "criteria": {
+    "purpose": "confirm isolated P4 Fork effect; does not grant product acceptance or relabel prior screen",
+    "correctness": "all positive SQL/cleanup; two expected negative controls; every wave obeys start/ready/cleanup boundaries",
+    "fork": "paired median child-p50 reduction >=3% and >=4/5 improve",
+    "wave_ready": "paired median wave-makespan p50 reduction >=3% and >=4/5 improve; otherwise report child vs wave distinction",
+    "cpu_guard": "paired median wave Fork process CPU <=+5%, no >=4/5 pairs worse by>5%; excludes SQL/cleanup but includes background engine work",
+    "tails": "p50/p95 and >100ms for all stages/waves; retain every run and child",
+    "no_extra_repetitions": true
+  },
+  "boundaries": [
+    "root Start includes initial image construction",
+    "suite ends after snapshot/cache cleanup",
+    "memory is separate process current ps RSS; forced GC equally at checkpoints; not PSS or physical sharing",
+    "P1 fork CPU only; P4 process CPU not per-child exclusive"
+  ],
+  "not_run": [
+    "Ubuntu",
+    "pgmem new campaign",
+    "guest rebuild",
+    "CI",
+    "adoption/release"
+  ],
+  "prototype_parent": "a16502e3",
+  "page_selection": "scan initial 256MiB, coalesce adjacent OS pages with any nonzero byte; include initialized state beyond DataEnd",
+  "changed_boundary": "anonymous reservation plus MAP_PRIVATE|MAP_FIXED only within owned initialized ranges; factory lock and first image build retained",
+  "diagnostic_scope": "one P1/P4 pair, nested child stage traces and UNDO owner logs; not performance acceptance",
+  "comparison": "current-source anonymous vs static-page-only; earlier whole-file result is historical, not a third current arm",
+  "scope": "mechanism isolation: fixed P4 waves, not replacement of completed mixed full-suite screen",
+  "wave_contract": "4 start-barrier participants; wait all Fork returns before connect/SQL; join all cleanup before next wave"
+}
