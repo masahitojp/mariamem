@@ -8,7 +8,7 @@ inputs=json.loads((e/'inputs.json').read_text());plan=json.loads((b/'plan.json')
 assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=s,text=True).strip()==inputs['harness_source_commit']
 assert not subprocess.check_output(['git','status','--porcelain'],cwd=s)
 assert sha(b/'plan.json')==inputs['plan_sha256']
-for v,i in inputs['binaries'].items():assert sha(t/v)==i['sha256']
+for v,i in inputs['binaries'].items():assert sha(t/('bin-'+v))==i['sha256']
 env={k:v for k,v in os.environ.items() if not k.startswith(('GO','MARIAMEM_','MYSQLMEM_','UPDATE_','ISSUE','FORKSTAGES_','PYTEST'))}
 env.update(GOMAXPROCS='8',GOGC='100')
 (e/'host.json').write_text(json.dumps({'platform':platform.platform(),'cpu':subprocess.check_output(['sysctl','-n','machdep.cpu.brand_string'],text=True).strip(),'memory_bytes':int(subprocess.check_output(['sysctl','-n','hw.memsize'],text=True))},indent=2)+'\n')
@@ -18,7 +18,7 @@ def run(variant,mode,p,rep,kind='primary',count=48,negative=False):
  scratch=t/'scratch'/name;scratch.mkdir();v=dict(env,TMPDIR=str(scratch))
  if variant=='diagnostic':
   trace=t/'trace'/name;trace.mkdir(parents=True);v['UPDATE_NOTIFY_DIR']=str(trace)
- command=[str(t/variant),'-mode',mode,'-parallel',str(p),'-count',str(count),'-out',str(out)]+(['-corrupt-seed'] if negative else [])
+ command=[str(t/('bin-'+variant)),'-mode',mode,'-parallel',str(p),'-count',str(count),'-out',str(out)]+(['-corrupt-seed'] if negative else [])
  at=time.monotonic()
  with (e/(name+'.txt')).open('w') as log:code=run_guarded(command,guard,cwd=b,env=v,output=log,timeout=190)
  external=(time.monotonic()-at)*1000

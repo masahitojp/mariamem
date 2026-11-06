@@ -33,15 +33,15 @@ for variant,source in [('baseline',baseline),('current',s),('diagnostic',s)]:
    code=run_guarded(['go','test','-p','1','-count=1','-overlay',str(t/'undo-overlay/overlay.json'),'-run','TestUW|TestUO|TestUR','./internal/generatedgo/code/base'],guard,cwd=s,env=env,output=log,timeout=1200)
   assert code==0,('observer unit',code)
   inputs['observer_overlay']=json.loads((t/'undo-overlay/hashes.json').read_text())
- command=['go','build','-p','1','-trimpath','-buildvcs=true']+flags+['-o',str(t/variant),'./maria']
+ command=['go','build','-p','1','-trimpath','-buildvcs=true']+flags+['-o',str(t/('bin-'+variant)),'./maria']
  at=time.monotonic()
  with (e/(variant+'-build.txt')).open('w') as log:code=run_guarded(command,guard,cwd=b,env=env,output=log,timeout=1200)
  assert code==0,(variant,code)
- info=subprocess.check_output(['go','version','-m',str(t/variant)],env=env,text=True)
+ info=subprocess.check_output(['go','version','-m',str(t/('bin-'+variant))],env=env,text=True)
  assert 'vcs.revision='+h in info and 'vcs.modified=false' in info,info
  assert str(source) in info,info
  product=plan['baseline']['source_commit'] if variant=='baseline' else plan['candidate_source_commit']
- inputs['binaries'][variant]={'sha256':sha(t/variant),'product_source_commit':product,'guest_sha256':json.loads((source/'release/generated-go-inputs.json').read_text())['guest_sha256'],'build_info':info.replace(str(w),'<WORKSPACE>'),'build_seconds':time.monotonic()-at}
+ inputs['binaries'][variant]={'sha256':sha(t/('bin-'+variant)),'product_source_commit':product,'guest_sha256':json.loads((source/'release/generated-go-inputs.json').read_text())['guest_sha256'],'build_info':info.replace(str(w),'<WORKSPACE>'),'build_seconds':time.monotonic()-at}
  (e/'inputs.json').write_text(json.dumps(inputs,indent=2)+'\n')
  print('BUILT',variant,round(time.monotonic()-at,1),'seconds',flush=True)
 assert not subprocess.check_output(['git','status','--porcelain'],cwd=s)
