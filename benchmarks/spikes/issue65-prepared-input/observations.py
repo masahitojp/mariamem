@@ -26,7 +26,7 @@ def require_extension(actual, baseline, fixture_sha):
     expected = dict(selected(baseline))
     name = 'cmd/issue65-wire/g1_test.go'
     if name in expected:
-        raise ValueError('baseline already contains limits fixture')
+        raise ValueError('baseline already contains G1 fixture')
     expected[name] = fixture_sha
     if selected(actual) != expected:
         raise ValueError('source must be exact baseline plus one pinned test fixture')

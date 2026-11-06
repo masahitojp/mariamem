@@ -1,6 +1,6 @@
 # Issue65 G1: fixed-guest prepared input observations
 
-Human continuation of the [compatibility scope review](../../../../docs/reviews/issue65-native-compatibility-scope.md),2026-11-07:
+Human continuation of the [compatibility scope review](../../../docs/reviews/issue65-native-compatibility-scope.md),2026-11-07:
 start with G1. This campaign observes the existing contract; it does not repair
 the guest, approve new malformed-input exceptions, adopt native wire or release.
 Budget: active2h/tooling30min, local native plus at most one Linux CI,
