@@ -330,6 +330,21 @@ controller migration or adoption. Existing negotiated multi-statement behavior
 is retained; no general per-entry capture requirement is added.
 
 
+Human then authorized G1. The [fixed-guest input campaign](../benchmarks/spikes/issue65-prepared-input/README.md)
+locally completed234 observations on native macOS arm64:195 PASS,39 mismatches,
+missing0 (NOT_READY). The prior22 lifecycle/126 observations and supporting
+checks still pass;281 staged source files match the accepted reference,with
+exactly one G1 fixture added for a separate282-file binary. Cursor/iteration,
+zero-parameter surplus,descriptor/scalar rejection and cached reuse,empty SQL,
+and SET_OPTION body differences remain; failed-PREPARE alias/explicit handle
+and short LONG_DATA observations pass. All fresh-type recovery and following
+PING observations pass. These are observed contract differences,not a newly
+approved exception or guest repair. The approved one Linux observation repeat
+is next;G2/P1/P2 and adoption remain pending. Used local builder/runtime scratch
+and caches are disposed with cleanup debt0; initial pre-translation setup errors
+are preserved separately from native results.
+
+
 
 ## Current work tracking
 

@@ -73,3 +73,54 @@ policy probe's `cleanup` stage; local container mount records require confirming
 the container has exited before disposing its namespace-only mount receipt.
 After successful CI submission, hand off URL,exact candidate SHA,operation and
 stop; a failing observation run is not repaired or retried automatically.
+
+## Local result: complete observations, contract mismatches
+
+Native macOS arm64 execution at tooling source_commit
+`3ef202123c137dcba5d6996cfac2e1dfec3cb92b` completed all7 groups:
+**234 observations,195 PASS,39 mismatches,missing0 — NOT_READY**.
+[Raw observations](evidence/macos-raw.txt), [parsed result](evidence/macos-result.json)
+and [identity/disposal receipt](evidence/macos-receipt.json) preserve attribution.
+The fixture SHA256 is804f48fa64a4467a879c3fcd65eb14b6a2b8dda53cf4bade570e163eabc0fd77.
+
+The unchanged baseline passes22 lifecycle,88+38 observations,2 existing and3
+policy controls,supporting checks including22 installer tests. Its281-file
+macOS reference comparison has no differences, and its binary SHA is again
+7ca5c6389e8c9980aa50709161781a462befd79afc8fea3254b70f9031250af1.
+G1 adds exactly the one fixture:282 staged Go/assembly/data files, with a full
+7346-file inventory checked before/after execution. Separate G1 binary SHA:
+da6cad640523699214de7ec797082868051a975941a0da0ea3be601f9c1592dd.
+These results do not qualify public APIs or a different guest.
+
+| Group | PASS / all | Observed discrepancy |
+| --- | --- | --- |
+| EXECUTE header | 24/32 | cursor1 yields CURSOR_EXISTS metadata EOF; flags8 and iteration0/2 execute normally, for zero/one parameter (8) |
+| Zero-param suffix | 13/15 | invalid boolean2 and surplus bytes execute normally (2) |
+| Descriptors/truncation | 106/130 | errno1210 instead of1835 for type17/typeflags1/short scalar and prefixes9,10,13..20; surplus scalar executes42 (14 reply differences). Cached type reuse subsequently fails in10 cases; fresh descriptors recover in all26 cases |
+| SQL/PREPARE bounds | 9/11 | empty QUERY/PREPARE give1065/42000 instead of1153/08S01 (2). Both exact1MiB cases,prepared execution,shared max+1 header and same-root peer pass |
+| SET_OPTION | 9/12 | empty/one-byte/surplus bodies return EOF success instead of1835/HY000 (3) |
+| Failed PREPARE/alias | 6/6 | SQL error,invalidated alias,explicit old handle cached/fresh and PING all pass |
+| LONG_DATA header | 28/28 | short bodies0..5 remain no-response; empty chunk at6 bytes and following state/recovery pass |
+
+All following-PING observations pass. The10 cached-reuse failures occur for
+short_scalar,extra_scalar,prefix13..20,after a successfully consumed response;
+they are not unread-result sequence errors. Wire evidence shows failed cached
+reuse and successful fresh recovery; it does not directly inspect native type
+cache fields. The39 observations are not39 independent bugs. D2's named malformed
+string remains accepted in the passing baseline; it is not a blanket exception
+for these scalar/descriptor/body cases.
+
+Recommendation: preserve the contract and use guest decoded entry/type-commit
+boundaries for a minimal repair proposal after the one Linux repeat. In
+particular, errno-only remapping would not fix acceptance of invalid bodies or
+cached-state recovery. Do not rebuild a Go parameter decoder to conceal these
+differences. Guest repair/new exceptions need a separate decision and identity;
+G2/P1/P2 remain as recorded in the scope review.
+
+Python3.14 is required for this reproduction (the system Python3.9 initial
+attempt stopped before translation; a restart also encountered the nonfresh
+empty output parent). Those original setup errors are retained separately and
+are not counted as native mismatches. Builder/runtime SDKs,converter checkout,
+archives,generated code,binaries,Go caches and worktrees were disposed; all3
+local disposal receipts have cleanup debt0. Only compact evidence and Git refs
+remain. The approved Linux observation CI has not yet returned a result.

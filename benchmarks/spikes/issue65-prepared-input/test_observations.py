@@ -19,6 +19,17 @@ def sample():
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_saved_native_result_matches_raw_observations(self):
+        evidence=Path(__file__).with_name('evidence')
+        result=m.analyze((evidence/'macos-raw.txt').read_text(),1)
+        saved=json.loads((evidence/'macos-result.json').read_text())
+        for key,value in result.items():
+            self.assertEqual(value,saved[key],key)
+        self.assertTrue(result['complete'])
+        self.assertFalse(result['ready'])
+        self.assertEqual(234,len(result['observations']))
+        self.assertEqual(39,len(result['mismatches']))
+
     def test_complete_scope(self):
         r=m.analyze(sample(),0)
         self.assertTrue(r['ready']);self.assertEqual(234,len(r['observations']))
