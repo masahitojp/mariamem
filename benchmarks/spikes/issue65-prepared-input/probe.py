@@ -54,7 +54,9 @@ def observe(w):
     build=json.loads((w/'evidence/g1-build.json').read_text())
     sys.path.insert(0,str(w/'worktree/scripts'))
     from dev_guest import inventory
-    if inventory(w/'temp/host/product')!=build['source_inventory'] or base.sha(w/'temp/host/g1.test')!=build['binary_sha256']:
+    if (inventory(w/'temp/host/product')!=build['source_inventory']
+        or base.sha(w/'temp/host/g1.test')!=build['binary_sha256']
+        or base.sha(w/'temp/host/wire.test')!=build['baseline_binary_sha256']):
         raise ValueError('executed G1 source/binary changed')
     base.identity(w/'worktree',fix.HOST_SOURCE)
     result.update({k:build[k] for k in ('guest_source_commit','guest_sha256','host_source_commit','tooling_source_commit','fixture_sha256','binary_sha256')})
