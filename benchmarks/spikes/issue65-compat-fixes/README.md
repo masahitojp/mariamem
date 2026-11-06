@@ -6,6 +6,29 @@ shared release runtime was already0.6.2. Keep the release documentation cleanup
 rather than restoring old release-pending records. [Issue65](https://github.com/masahitojp/mariamem/issues/65)
 owns current work. No native-path adoption, release or performance claim.
 
+## Local native result, Linux pending
+
+macOS arm64 native execution at tooling source_commit
+`fd6d12f723cf03abcb7314b8c0290170d4c36765` passes all22 lifecycle cases and
+all7 compatibility groups/88 observations, with the original6 mismatches resolved.
+The per-connection FOUND_ROWS control, focused Live endpoint tests, actual
+worker-peer boundary, selected-binding negative controls and21 canonical
+installer tests also pass. Focused `internal/live` race passes separately with
+Go1.27.3; the native generated-Go binary uses Go1.26.10, CGO_ENABLED=0.
+New guest SHA256:
+`6956ea97ff4ad5fa7cc1b9617ec39ac0197c402c0bfa869469ec62a9ad6c3719`
+(18,437,749 bytes, UNQUALIFIED). All three complete worker bodies retain their
+previous native-profile hashes, now bound explicitly to this new guest.
+[The immutable compact macOS reference](evidence/macos-reference.json) records
+278 compiled Go/assembly/data files, the binary and exact template/binding pins,
+and actual values for all6 previously failing observations. Linux must reproduce
+that source set; differences are not accepted as metadata automatically.
+The original NOT_READY receipt remains under the old observation report.
+
+This is local scoped execution, not yet Linux acceptance. A later tooling-only
+root Git trust preflight and source-reference guard do not change the compiled
+runtime/template inputs; CI executes the final tooling SHA independently.
+
 ## Bounded changes
 
 1. In the experimental MariaDB ACL patch, accept optional CLIENT_FOUND_ROWS before

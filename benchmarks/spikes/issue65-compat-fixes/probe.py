@@ -16,6 +16,7 @@ ROOT=HERE.parents[2]
 GUEST_SOURCE='8dc2b113394630c5be7127100903a359f994db45'
 HOST_SOURCE=GUEST_SOURCE
 GUEST_SHA='6956ea97ff4ad5fa7cc1b9617ec39ac0197c402c0bfa869469ec62a9ad6c3719'
+SOURCE_REFERENCE_SHA256='4b89dfca47f6aa0a6b0949a9676053d0fab6207fd61a943dfefd18802932e100'
 spec=importlib.util.spec_from_file_location('linux_probe',HERE.parent/'issue65-native-linux/probe.py')
 base=importlib.util.module_from_spec(spec);spec.loader.exec_module(base)
 base.GUEST_SOURCE=GUEST_SOURCE;base.HOST_SOURCE=HOST_SOURCE;base.GUEST_SHA=GUEST_SHA
@@ -116,7 +117,15 @@ def execute(w):
         if base.sha(product/name)!=pin:raise ValueError('staged source changed: '+name)
     if base.sha(binary)!=host['binary_sha256']:raise ValueError('binary changed')
     base.identity(w/'worktree',HOST_SOURCE)
-    base.save(w/'evidence/tooling.json',{'probe_sha256':base.sha(Path(__file__)),
+    reference=HERE/'evidence/macos-reference.json'
+    if base.sha(reference)!=SOURCE_REFERENCE_SHA256:raise ValueError('reviewed source reference changed')
+    recorded=json.loads(reference.read_text())
+    if recorded['guest_sha256']!=GUEST_SHA:raise ValueError('source reference guest differs')
+    compared,different=base.source_difference(host['source_inventory'],recorded['source_inventory'])
+    base.save(w/'evidence/source-comparison.json',{'mac_reference_binary_sha256':recorded['binary_sha256'],
+               'compared_go_assembly_data_files':compared,'different_files':different})
+    if different:raise ValueError('compiled code differs from reviewed macOS source bundle')
+    base.save(w/'evidence/tooling.json' ,{'probe_sha256':base.sha(Path(__file__)),
               'binding_sha256':base.sha(HERE/'binding/identity.json'),
               'main_source_commit':'0c4e75dc2c21421a59d04661efd72a1f58efecaa'})
     result['supporting_checks']='PASS'
@@ -146,11 +155,13 @@ def build(w):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('stage',choices=['build','downloads','runtime','translate','execute','endpoint-tests','cleanup'])
+    p.add_argument('stage',choices=['build','downloads','runtime','translate','execute','endpoint-tests','preflight','cleanup'])
     p.add_argument('--workspace',type=Path,required=True);a=p.parse_args();w=a.workspace.resolve()
     if not (w/'experiment.json').is_file():p.error('owned workspace required')
     if not re.fullmatch('[0-9a-f]{64}',GUEST_SHA):p.error('guest pin not reviewed')
     tooling_sha=subprocess.check_output(['git','-c','safe.directory='+str(ROOT),'rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    receipt=json.loads((w/'experiment.json').read_text())
+    base.safe_git(ROOT,w/'worktree',Path(receipt['repo']))
     base.identity(ROOT,tooling_sha)
     os.environ['MARIAMEM_TOOLING_SOURCE_COMMIT']=tooling_sha
     base.save(w/'evidence'/('platform-'+a.stage+'.json'),{'uname':list(platform.uname()),
@@ -158,7 +169,7 @@ def main():
               'probe_sha256':base.sha(Path(__file__)),
               'tooling_source_commit':subprocess.check_output(['git','-c','safe.directory='+str(ROOT),'rev-parse','HEAD'],cwd=ROOT,text=True).strip()})
     try:{'build':build,'downloads':base.downloads,'runtime':runtime,'translate':translate,
-         'execute':execute,'endpoint-tests':endpoint_tests,'cleanup':base.cleanup}[a.stage](w)
+         'execute':execute,'endpoint-tests':endpoint_tests,'preflight':lambda work:base.identity(work/'worktree',HOST_SOURCE),'cleanup':base.cleanup}[a.stage](w)
     except Exception as error:
         base.save(w/'evidence'/(a.stage+'-failure.json'),{'error':str(error),'probe_sha256':base.sha(Path(__file__))});raise
 

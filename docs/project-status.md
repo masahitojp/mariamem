@@ -193,6 +193,16 @@ integration of current main. Main source_commit
 `0c4e75dc2c21421a59d04661efd72a1f58efecaa` is merged into the experiment branch;
 its additional changes from the shared0.6.2 source are documentation and
 source-scope tooling. This is not adoption of the native experiment on main.
+The [three-fix candidate](../benchmarks/spikes/issue65-compat-fixes/README.md)
+passes the original22 lifecycle cases and7 compatibility groups locally on
+macOS arm64 at tooling source_commit `fd6d12f723cf03abcb7314b8c0290170d4c36765`.
+The6 observed mismatches are resolved there without changing expectations.
+Guest/host base `8dc2b113394630c5be7127100903a359f994db45` includes main and
+only the new native FOUND_ROWS guest change; inventoried host overlays add
+capacity rejection and full-window probe monitoring. Guest SHA256
+`6956ea97ff4ad5fa7cc1b9617ec39ac0197c402c0bfa869469ec62a9ad6c3719`
+has a separately reviewed exact worker binding. Linux repeat is pending; public
+integration, full compatibility and performance remain unqualified.
 
 
 ## Current work tracking
