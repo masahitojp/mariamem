@@ -374,3 +374,46 @@ func TestConcurrentCloseAdmission(t *testing.T) {
 	}
 	existing.m.Memory[8388608] ^= 0xff
 }
+
+// DataEnd does not cover all initialized state: the init flag is farther out.
+func TestPageOnlyRangeCompleteness(t *testing.T) {
+	f := ownedFactory(t)
+	if !f.pageOnly {
+		t.Skip("page-only arm")
+	}
+	first := mustChild(t, f)
+	if len(f.ranges) == 0 {
+		t.Fatal("no ranges")
+	}
+	var bytes uint64
+	for _, r := range f.ranges {
+		bytes += r.Length
+	}
+	if bytes >= generated.InitialMemoryBytes {
+		t.Fatal("not a static-only subset")
+	}
+	old := append([]base.ImageRange(nil), f.ranges...)
+	// Remove just the init-flag page; the full initial-memory oracle must reject it.
+	page := uint64(os.Getpagesize())
+	flag := uint64(26981552) / page * page
+	f.ranges = nil
+	for _, r := range old {
+		end := r.Offset + r.Length
+		if flag < r.Offset || flag >= end {
+			f.ranges = append(f.ranges, r)
+			continue
+		}
+		if r.Offset < flag {
+			f.ranges = append(f.ranges, base.ImageRange{Offset: r.Offset, Length: flag - r.Offset})
+		}
+		if flag+page < end {
+			f.ranges = append(f.ranges, base.ImageRange{Offset: flag + page, Length: end - flag - page})
+		}
+	}
+	bad := mustChild(t, f)
+	if sameInitial(first.m, bad.m) == nil {
+		t.Fatal("missed initialized state after DataEnd")
+	}
+	f.ranges = old
+	t.Logf("static-page bytes=%d ranges=%d OS-page=%d init-flag-page=%d", bytes, len(old), page, flag)
+}

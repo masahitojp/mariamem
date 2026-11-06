@@ -21,6 +21,8 @@ const maximum = 2 << 30
 var errClosed = errors.New("static image factory closed")
 
 type factory struct {
+	ranges            []base.ImageRange
+	pageOnly          bool
 	buildMS           float64
 	acquires          int
 	mu                sync.Mutex
@@ -42,8 +44,14 @@ type factory struct {
 }
 
 func newFactory(dir string) *factory {
-	return &factory{dir: dir, closeFile: (*os.File).Close, openRead: os.Open,
-		mapImage: base.NewStaticImageMapping}
+	f := &factory{dir: dir, closeFile: (*os.File).Close, openRead: os.Open,
+		mapImage: base.NewStaticImageMapping, pageOnly: os.Getenv("MARIAMEM_STATIC_IMAGE_PAGES") == "1"}
+	if f.pageOnly {
+		f.mapImage = func(fd int, initial, maximum uint64) (*base.MemoryMapping, error) {
+			return base.NewStaticPageMapping(fd, initial, maximum, f.ranges)
+		}
+	}
+	return f
 }
 
 func (f *factory) build() (err error) {
@@ -86,6 +94,12 @@ func (f *factory) build() (err error) {
 	for off := 0; off < generated.InitialMemoryBytes; off += page {
 		data := m.Memory[off : off+page]
 		if !bytes.Equal(data, zero) {
+			n := len(f.ranges)
+			if n > 0 && f.ranges[n-1].Offset+f.ranges[n-1].Length == uint64(off) {
+				f.ranges[n-1].Length += uint64(page)
+			} else {
+				f.ranges = append(f.ranges, base.ImageRange{Offset: uint64(off), Length: uint64(page)})
+			}
 			if _, err = w.WriteAt(data, int64(off)); err != nil {
 				return err
 			}
@@ -177,6 +191,14 @@ func (f *factory) Stats() map[string]any {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	v := map[string]any{"builds": f.builds, "build_ms": f.buildMS, "acquires": f.acquires, "closed": f.closed, "owned_fds": len(f.files)}
+	v["page_only"] = f.pageOnly
+	v["page_size"] = os.Getpagesize()
+	v["image_ranges"] = append([]base.ImageRange(nil), f.ranges...)
+	var mapped uint64
+	for _, r := range f.ranges {
+		mapped += r.Length
+	}
+	v["initialized_page_bytes"] = mapped
 	if f.image != nil && !f.closed {
 		var st syscall.Stat_t
 		if syscall.Fstat(int(f.image.Fd()), &st) == nil {
