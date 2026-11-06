@@ -1,0 +1,82 @@
+package main
+
+import (
+	"fmt"
+	"testing"
+)
+
+func TestPolicyRejectedResetPreservesPreparedSession(t *testing.T) {
+	r := rootFor(t, 10000)
+	c := compatConnect(t, "", r)
+	c.login(t, "root", true)
+	c.mustSend(t, 0, append([]byte{3}, []byte("SET @keep='state'")...))
+	if p := c.mustRead(t, 1); p[0] != 0 {
+		t.Fatalf("session seed %x", p)
+	}
+	id := c.prepare(t, "SELECT CONCAT(@keep, ?)")
+	c.wantString(t, id, compatString("before", true), "statebefore", "before rejected reset")
+	c.mustSend(t, 0, []byte{31})
+	p := c.mustRead(t, 1)
+	errno, state := compatErr(p)
+	if errno != 1235 || state != "42000" {
+		t.Fatalf("rejection %x", p)
+	}
+	// The same variable, handle and cached parameter type must survive rejection.
+	c.wantString(t, id, compatString("after", false), "stateafter", "after rejected reset")
+	if e := limitsPing(c); e != nil {
+		t.Fatal(e)
+	}
+}
+
+func TestPolicyLoginErrorDeliveredBeforeRetire(t *testing.T) {
+	r := rootFor(t, 5000)
+	c := compatConnect(t, "", r)
+	p := limitsLogin(t, c, 512|32768|2048)
+	errno, state := compatErr(p)
+	if errno != 1235 || state != "42000" {
+		t.Fatalf("TLS rejection %x", p)
+	}
+	_, e := c.read(3)
+	if !limitsClosed(e) {
+		t.Fatalf("rejected transport did not close: %v", e)
+	}
+	stats := inspect(t, r, func(s map[string]any) bool { return len(s["sessions"].([]any)) == 0 && s["started"] == s["joined"] })
+	if r.result() != nil {
+		t.Fatalf("auth rejection poisoned owner: %v", r.result())
+	}
+	t.Logf("auth ERR received, then EOF and native joined: %v", stats)
+	peer := compatConnect(t, "", r)
+	peer.login(t, "root", true)
+	if e := limitsPing(peer); e != nil {
+		t.Fatal(e)
+	}
+}
+
+func TestPolicyOutputErrorPreservesStream(t *testing.T) {
+	r := rootFor(t, 10000)
+	c := compatConnect(t, "", r)
+	c.login(t, "root", true)
+	c.mustSend(t, 0, append([]byte{3}, []byte(fmt.Sprintf("SELECT REPEAT('x',%d)", 0xfffffe-4+1))...))
+	p, e := limitsResultStart(t, c)
+	if e != nil {
+		t.Fatal(e)
+	}
+	if p[0] != 255 {
+		p, e = limitsPacket(c, 4)
+	}
+	errno, state := compatErr(p)
+	if e != nil || errno != 1153 || state != "08S01" {
+		t.Fatalf("native output rejection errno=%d state=%s err=%v payload=%x", errno, state, e, p[:min(16, len(p))])
+	}
+	if e := limitsPing(c); e != nil {
+		t.Fatal("same stream after rejected row", e)
+	}
+	peer := compatConnect(t, "", r)
+	peer.login(t, "root", true)
+	if e := limitsPing(peer); e != nil {
+		t.Fatal("peer after rejected row", e)
+	}
+	if r.result() != nil {
+		t.Fatal("output policy poisoned owner", r.result())
+	}
+}

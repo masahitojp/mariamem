@@ -35,6 +35,14 @@ main61973daa. Existing guest lifecycle, controller, capture gate, host relay and
 capacity code remain unchanged. Prepared/ordinary SQL errors still come from
 MariaDB. This is an experimental repair, not adoption or release.
 
+Local development guest source_commit
+`8f3e440ab78af570e489dd8d463cab1ed4c5aed8` builds guest SHA256
+`4caa85d299410467f2656d6611df5dbeb518351927ac30b0216e516d277bf094`
+(21,192,316 bytes, UNQUALIFIED). The first local preparation failed on a
+new-file hunk count; that original log/source is retained. All patch hunk counts
+are now checked before builds. The four policy/header/source-order unit tests
+pass; worker binding and native runtime evidence are still pending.
+
 ## Verification and budget
 
 Initial envelope:2h active work,30min measurement tooling, at most2 heavy CI

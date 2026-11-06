@@ -282,6 +282,28 @@ separates these facts and the extra fixed-source execution cost. No semantic
 expectation or guest identity is changed to obtain a green result.
 
 
+The corrected remaining-limit [CI42274490597](https://github.com/masahitojp/mariamem/actions/runs/42274490597)
+at source_commit `ecfa4b15c6f634356f0634aa467bdc7d39306d53` completes all38
+observations:28 pass,10 mismatches, none missing.40MiB text/prepared streaming,
+exact0xfffffe response packets, input headers and Pipe full-window behavior pass.
+Text/binary max+1 emits a forbidden0xffffff continuation header. OUT command and
+handshake rejections retain the earlier gaps; PROCESS_INFO's following-PING
+mismatch is secondary. All baseline22 lifecycle/88 compatibility observations and
+supporting checks pass. Both workspaces/transit were disposed; unlike the first
+run, no invalid-deadline or incomplete-join output appears.
+
+The Human authorized repairing these three policy boundaries on2026-11-07.
+The [native policy candidate](../benchmarks/spikes/issue65-policy-fix/README.md)
+checks decoded command, raw handshake flags before masking, and logical output
+size before NET emits packet bytes. Native diagnostics produce rejections; failed
+auth output is flushed/ACKed before retirement. No host parser, serializer or
+controller relocation is added. Guest source_commit
+`8f3e440ab78af570e489dd8d463cab1ed4c5aed8` pins the experimental patch and
+small pure-policy/header checks. Canonical source.patch/production code remain
+unchanged. A new guest identity, complete worker-body binding review and native
+lifecycle/contract execution are required; no new native PASS is claimed yet.
+
+
 
 ## Current work tracking
 

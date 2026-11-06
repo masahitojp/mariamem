@@ -1,0 +1,187 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42274490597",
+  "source_commit": "ecfa4b15c6f634356f0634aa467bdc7d39306d53",
+  "result": "NOT_READY: complete scoped observations; real contract mismatches",
+  "groups": 6,
+  "observations": 38,
+  "passing_observations": 28,
+  "mismatches": [
+    {
+      "actual": "errno=0 state= err=<nil> marker=00000002000000",
+      "expected": "ERR1235/42000",
+      "id": "reset_connection",
+      "pass": false,
+      "test": "TestLimitsCommands/reset_connection"
+    },
+    {
+      "actual": "errno=1243 state=HY000 err=<nil> marker=ffdb04234859303030",
+      "expected": "ERR1235/42000",
+      "id": "stmt_fetch",
+      "pass": false,
+      "test": "TestLimitsCommands/stmt_fetch"
+    },
+    {
+      "actual": "errno=0 state= err=<nil> marker=000000020000006e55",
+      "expected": "ERR1235/42000",
+      "id": "statistics",
+      "pass": false,
+      "test": "TestLimitsCommands/statistics"
+    },
+    {
+      "actual": "errno=0 state= err=<nil> marker=09",
+      "expected": "ERR1235/42000",
+      "id": "process_info",
+      "pass": false,
+      "test": "TestLimitsCommands/process_info"
+    },
+    {
+      "actual": "packet seq=2 want=1 len=24",
+      "expected": "PING OK",
+      "id": "process_info_following",
+      "pass": false,
+      "test": "TestLimitsCommands/process_info"
+    },
+    {
+      "actual": "errno=1047 state=08S01 err=<nil> marker=ff1704233038533031",
+      "expected": "ERR1235/42000",
+      "id": "binlog_dump",
+      "pass": false,
+      "test": "TestLimitsCommands/binlog_dump"
+    },
+    {
+      "actual": "errno=0 state= marker=00",
+      "expected": "ERR1235/42000",
+      "id": "tls",
+      "pass": false,
+      "test": "TestLimitsCapabilities/tls"
+    },
+    {
+      "actual": "errno=0 state= marker=00",
+      "expected": "ERR1235/42000",
+      "id": "missing_protocol41",
+      "pass": false,
+      "test": "TestLimitsCapabilities/missing_protocol41"
+    },
+    {
+      "actual": "errno=0 state= err=packet header len=16777215 seq=4 want=4 row_bytes=0 owner=<nil>",
+      "expected": "ERR1153/08S01 or early EOF; no continuation header",
+      "id": "binaryfalse_overtrue",
+      "pass": false,
+      "test": "TestLimitsOutputPacket/binaryfalse_overtrue"
+    },
+    {
+      "actual": "errno=0 state= err=packet header len=16777215 seq=4 want=4 row_bytes=0 owner=<nil>",
+      "expected": "ERR1153/08S01 or early EOF; no continuation header",
+      "id": "binarytrue_overtrue",
+      "pass": false,
+      "test": "TestLimitsOutputPacket/binarytrue_overtrue"
+    }
+  ],
+  "missing_observations": [],
+  "confirmed_gap_types": [
+    "OUT-command rejection and errno/SQLSTATE parity",
+    "TLS and mandatory PROTOCOL_41 handshake rejection",
+    "response payload max+1 produces forbidden0xffffff continuation header in text and binary paths"
+  ],
+  "secondary_failure": "PROCESS_INFO following PING sees unread result metadata, not independent native corruption evidence",
+  "new_confirmed_pass": [
+    "text/binary exact0xfffffe row payload, value, EOF and following PING",
+    "text/binary40MiB exact aggregate, blocked-output peer control and native queue peak65536",
+    "cold/warm input header rejection",
+    "Pipe full-window overflow and EOF; independent DB remains usable"
+  ],
+  "baseline_checks": "22 lifecycle +7 groups/88 observations +2 controls +supporting checks PASS;279 matched files",
+  "cleanup": {
+    "runtime": {
+      "applied": true,
+      "before_bytes": 2007867392,
+      "after_bytes": 3522560,
+      "cleanup_debt": [],
+      "retained_large_paths": []
+    },
+    "builder": {
+      "applied": true,
+      "before_bytes": 4474908672,
+      "after_bytes": 3870720,
+      "cleanup_debt": [],
+      "retained_large_paths": []
+    }
+  },
+  "guest_transit_deleted": true,
+  "invalid_deadline_and_join_incomplete_observed": false,
+  "not_qualified": [
+    "full protocol/client profile",
+    "all command-specific input/metadata/multi-result bounds",
+    "public integration",
+    "controller relocation",
+    "race freedom",
+    "performance",
+    "release"
+  ],
+  "evidence_sha256": {
+    "artifacts.json": "ebb49c4d82547bf70913be61dc791c1878b6ccdb7d212974f5be9e8b250ac62e",
+    "runtime/translation-inputs.json": "93d5cd9ff954842d206998fc830eb84919fff0222832a187d2ae5ecd337f2eba",
+    "runtime/converter-cleanup.json": "0f03802512dd47ac15c75a76fe7a11a363ddd2ca6e7b7594e50842bae3fd5de5",
+    "runtime/limits-build.json": "fcd2918811f01400161989127d3831d9557c4e0242465ef1d276829cf06f2dd5",
+    "runtime/tooling.json": "ba3d468311723ead78be379ee08f297a7346f9a7eec5e100244f5a0e4e72a82e",
+    "runtime/limits-build.txt": "5a02f4c893dc49423b076fdfd8a0d2fc61a989d6e7e5c00aec0190aa121ee97d",
+    "runtime/platform-endpoint-tests.json": "1f3b4eae134496934e8e21c1566a85eacbef9eb0873c4e4fc58a5cfe708756ba",
+    "runtime/compat-result.json": "a652863416ac0be6b47f895ab37686979d33ddeae855945f34ad2d04084e1d31",
+    "runtime/host-phases.jsonl": "ee8f7e3f62822ecc2638273af738956072a9523edb19a5652d6f750fef74f9e6",
+    "runtime/result.json": "2063c7925c3ddc0eb40c0ee50fff1d85e49d8338fd7307a450df2f65149176dc",
+    "runtime/runtime-boundary.txt": "42db5248865dbb7318a9f9e06f0dc90f95e35fe3a9935858132b373ad49577d8",
+    "runtime/limits-failure.json": "18875fe703588ffdded235f7560905aae90741e1907adee32198e0376185bb04",
+    "runtime/runtime-boundary-command.json": "e66bae11a7cd18614403682164c18e83c0da8460bc21e253aac35d2d363bc2b1",
+    "runtime/binding-controls.txt": "ccde19e7f27b0b6fc0661ef296438bea7462f20b7d008dbaced0124a73f2fb82",
+    "runtime/translation.txt": "f4a12b5fe5a40231a302b97d933d249a68420f9a70a70615afb6781088abd780",
+    "runtime/host-build-command.json": "f847d84e173b54e244b1f37f2c4a6f033a10f868d551fe558a5832f3e3bc3fc0",
+    "runtime/platform-runtime.json": "1f3b4eae134496934e8e21c1566a85eacbef9eb0873c4e4fc58a5cfe708756ba",
+    "runtime/host-build.txt": "8857141ed9f8a987399b0f43a0ab972e1b7549751f9b381513f84c74803c113c",
+    "runtime/fix-controls.txt": "42c1c71a7ac34853247f6dd8ff4e723e9ea3557394225353d9ba3287976973bd",
+    "runtime/cleanup-dryrun.json": "2c1f11ef651b795f93c2efcc0c2fb6ea615dd07c2364230d3ca88bde33b92592",
+    "runtime/fix-controls-command.json": "459e2e953bbdd6d889e8a65009c362e0f03acffd61273c64c06f6327a694288b",
+    "runtime/limits-result.json": "517103bf47ca64476d4872ed0af0a6d7c0061ad24b58e790cb2fbe5956f7cadd",
+    "runtime/installation-inputs.json": "dcfa1a3c2aa46d8f9a891ac080fe99f0c00131568a4d1333bded7b07d394b279",
+    "runtime/cleanup.json": "d985dbc16ecb5c40d20e92d4168b22703b1bac50cd6acad7b954811252fc5224",
+    "runtime/compat-suite-command.json": "2768c066089297a734946d5aa7b04c71e1373a9cc402a4d3996c3b5709d92a92",
+    "runtime/lifecycle-result.json": "534bcdf0f22268f0040e46ef9a10898018dad564dab523ab96617ca5c0ac13e2",
+    "runtime/live-endpoint-tests.txt": "0af49cecad97af8dae62e18f99a80f355d77bfdc6c8d0fffc645dd1724fa98c7",
+    "runtime/lifecycle-suite-command.json": "78f215722a2f04f3d8851be17fb919039e5e57297601bb2058861f0ab4b4f461",
+    "runtime/guard-wrong_guest.txt": "a8932fabad4cb414bea2f620fbae08edd2cfd33778df28482f29c3bf17c27669",
+    "runtime/pytest-install-command.json": "5962f9186efb2651e52c35d6048f8b5a1729d569f1a03fe299c51ac4ebbbe8df",
+    "runtime/guest.json": "ec28a850ad53df6737e089dc28663a9d0904fb01459d1d4d11cf26670fb9f79b",
+    "runtime/worktree-checksums.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "runtime/binding-tests.txt": "747506dab2a43a181c969cd5a4ffeb7d67b90f2a6469da2ef820a907a7f72096",
+    "runtime/limits-suite-command.json": "966aa3d2e08b3316a0c2dfccb1f34354452539749600a0c209eeb4ca045abb60",
+    "runtime/limits-build-command.json": "2061cfa821c8feb2280e3e6836bc09c19f0e4f50bf217228aa77840de3bd26cb",
+    "runtime/pytest-install.txt": "d3eb6cb38042d5424227c6f0fec2480adb8029aa39e380e7ceb41ae21673d82c",
+    "runtime/temp-checksums.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "runtime/guard-wrong_function_hash.txt": "1c30d133ce472d8ab49821cbd38becb59ef7291b523f6bfe497805f7c71558ac",
+    "runtime/translation-command.json": "04b5fd3cef41ae7e2837716eff40b02cba52d71f12db51f47e36c5c6eec14782",
+    "runtime/compat-suite.txt": "18080bf458433169b12634ba011f25e9304fa0fc2148eaaee996eba08a6b7c11",
+    "runtime/source-comparison.json": "abf995bff3b0929ac79aabec28275280d8dab176402dbd965b8b0e2d8b51be54",
+    "runtime/limits-tooling.json": "2b676e74f5ef5f3ac80970d55f89dfc78614ed5e20e5a9ff2c58b4f46b3bd3ec",
+    "runtime/binding-tests-command.json": "f5137c5d4912f443701d106c38ec86e1d7f6f7494870272e2c07adbc343b7e4e",
+    "runtime/live-endpoint-tests-command.json": "b8ab982043eaaf641b6a7b0a9a12631e3e74a9405a8b36a35bdbfdc47996296d",
+    "runtime/host-build.json": "9e3d172cdd9535293e8b58ff9c05f852edd02c03ca2618a6ad421761fb6692af",
+    "runtime/limits-suite.txt": "e5ffd676afd833371df0b87d52ddc916e2f482696d50636aa008b4e2d3e7af8b",
+    "runtime/lifecycle-suite.txt": "52e92d6a86b3b55ed9fa61bb61fe784b14bef703d2f00af17226048e33b6db70",
+    "runtime/development-binding-controls.json": "f18433a508501b83dd13197bbd9c1876c52444f04ee6c4b8ea2edbbd3596fa7b",
+    "runtime/binding-controls-command.json": "2cf0402879b63755c7d49165065c1959e24574866284927d9b1d143ec6e8140c",
+    "runtime/platform-cleanup.json": "1f3b4eae134496934e8e21c1566a85eacbef9eb0873c4e4fc58a5cfe708756ba",
+    "builder/guest-build.txt": "0e816af15ddfcd653f302e879f6a16110106cde6f76cbf7aa2fbe5d40ad74a0f",
+    "builder/phases.jsonl": "a387ba10149b06d180cbb838dd8cc9adb377dadca963274e2284111f2e461960",
+    "builder/cleanup-dryrun.json": "969a3b62448db0fa575cbff77154da78873b46dc1dd1576814c8e1b33dbd0691",
+    "builder/guest-download.txt": "dd3645b52e30e3d90b40fe5bc87fc0b725e197a49f4360f5d4913cc0c83143fd",
+    "builder/cleanup.json": "080cb42c919a63d2ea6e2e0cf66128615a2048a53556dc1e913e2eaf33e10515",
+    "builder/guest-build-command.json": "53da85dc5e73ba1e0d0375248f7c3d9d754d2932017db85c93c2e723071adcd4",
+    "builder/platform-build.json": "1f81ba421764436c97ab198dcfde0845f57d2ad05c59bd49c87f0504a260b9f3",
+    "builder/guest.json": "ec28a850ad53df6737e089dc28663a9d0904fb01459d1d4d11cf26670fb9f79b",
+    "builder/worktree-checksums.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "builder/temp-checksums.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "builder/builder.json": "bf76b6a46397041d47da5663aaa8f3415acaf3f5c32d62b96a843ba8d1f02eff",
+    "builder/guest-download-command.json": "f65289b0e865ae6d0dabd62b698cfec92a6534abb244202def2ae09e1cbe5201",
+    "builder/platform-downloads.json": "1f81ba421764436c97ab198dcfde0845f57d2ad05c59bd49c87f0504a260b9f3",
+    "builder/platform-cleanup.json": "1f81ba421764436c97ab198dcfde0845f57d2ad05c59bd49c87f0504a260b9f3"
+  }
+}
