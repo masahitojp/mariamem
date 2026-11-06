@@ -1,0 +1,14 @@
+{
+  "attempts": [
+    {
+      "source_commit": "c3999cc2",
+      "result": "dependency fetch blocked by sandbox DNS after observer/factory tests passed",
+      "error": "lookup proxy.golang.org: no such host",
+      "runtime_processes": 0
+    },
+    {
+      "source_commit": "c3999cc2",
+      "action": "same build command with network permission; logs are second attempt"
+    }
+  ]
+}

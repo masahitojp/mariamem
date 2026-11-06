@@ -1,0 +1,8 @@
+{
+  "children": 576,
+  "events": 966242,
+  "max_events_per_child": 3176,
+  "truncated": 0,
+  "binding": "process name + child index; each retained archive has exactly IDs 0..47",
+  "interpretation": "owner logs retained, not used to assign historical ordinary-run tails"
+}

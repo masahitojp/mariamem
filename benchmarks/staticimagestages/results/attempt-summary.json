@@ -1,0 +1,11 @@
+{
+  "total_runtime_processes": 13,
+  "total_children": 624,
+  "valid_comparison_processes": 12,
+  "valid_comparison_children": 576,
+  "incomplete_collector_processes": 1,
+  "incomplete_collector_children": 48,
+  "additional_valid_repetitions": 0,
+  "collected_json_scope": "12 valid comparison processes only",
+  "reason_for_restart": "outer-only recorder lacked nested startup binding; detected after first process; preserve excluded attempt and rerun same fixed matrix with repaired observer"
+}

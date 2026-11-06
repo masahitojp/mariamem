@@ -1,0 +1,17 @@
+{
+  "source_commit": "c3999cc2f592997aad4a071987ace443482dbf8a",
+  "processes": 1,
+  "children": 48,
+  "runtime_result": "SQL/cleanup PASS",
+  "collection_result": "FAIL: missing nested startup binding in sample recorder",
+  "included_in_comparison": false,
+  "retention": "local incomplete-attempt/ original reports and all traces",
+  "sha256": {
+    "README.md": "0c2978faeaa451156681e069d7d0e8f714e38b1abfed277bed4adeef74bf5442",
+    "anonymous-p1-r0-diagnostic.json": "517cb4b5c29c3937fb491e07082703df67ad0a532ba12624c4855de2340a7407",
+    "anonymous-p1-r0-diagnostic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "inputs.json": "3ff7dbd8415ad8dfe6b3a4cf029a6487d7e2a4e3e3bbc28f35547ba0c8944135",
+    "records.json": "e5ab978db8d6ce5e6180bd04d730696cabfa49110785c0e9b396d6fa89182f5e",
+    "traces.tar.gz": "7cbd50a961becc6e060050bcf97f0831b68464d51b25dcdc5577d49da4b6498d"
+  }
+}
