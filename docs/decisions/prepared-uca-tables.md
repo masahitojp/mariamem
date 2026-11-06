@@ -42,3 +42,9 @@ candidate had not yet merged. Fix the Development workflow-classification
 omission, preserve the original canonical runtime receipt and merge only through
 the protected PR after required checks succeed on a fresh base. This authorizes
 the main merge; qualification, version choice and publication remain separate.
+
+
+Protected integration completed through PR112 at main source_commit
+`61973daa19b6f665d7342338c3252dd7af61fc90`. Development42249730837 succeeded on
+`d4409411231981daff54ae08f3fb7b1bc7119708`; that PR head and the squash commit
+have identical Git trees. Original canonical acceptance stays bound to CBD.

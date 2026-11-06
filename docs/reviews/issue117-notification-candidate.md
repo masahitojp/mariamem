@@ -106,3 +106,26 @@ bound rather than relabelled as the corrected head.
 
 Local verification of the correction: `tests/test_ci_efficiency.py` and
 `tests/test_development_scope.py`, 115 PASS; diff whitespace check PASS.
+
+
+## UCA main integration and combined candidate
+
+PR112 merged at main source_commit `61973daa19b6f665d7342338c3252dd7af61fc90`
+after successful Development42249730837 on d4409411 (identical Git tree).
+The earlier main-base statements describe the first notification candidate.
+PR118 now includes this adopted UCA main through a normal merge, without
+changing the notification implementation or its oracles.
+
+Original notification run [42245431439](https://github.com/masahitojp/mariamem/actions/runs/42245431439)
+PASSes both macOS15 and Ubuntu24.04 at its original source d8a03176. Development
+[42247478801](https://github.com/masahitojp/mariamem/actions/runs/42247478801)
+PASSes all three required contexts at 5a261ab2 before the new-main merge.
+Those receipts do not qualify the combined head. Submit its exact-SHA focused
+both-host workflow once; ordinary PR checks also run on the combined head.
+The notification-only benchmark remains a narrow retirement observation;
+no combined 0.6.2-versus-UCA-plus-notification batch result is claimed.
+
+Combined-head preparation checks:116 CI policy/selection tests PASS; guest,
+generated runtime and generation-input bytes match the new main exactly;
+public-source and diff checks PASS. Runtime boundary execution is submitted to
+CI on this combined source rather than reusing the old-head platform PASS.
