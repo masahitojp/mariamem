@@ -1,0 +1,19 @@
+package mariamem
+import("context";"errors";"testing";"time")
+type issue117Backend struct {fakeBackend; idle time.Time}
+func(f *issue117Backend)Issue117Idle()time.Time{return f.idle}
+func TestIssue117Observer(t *testing.T){
+ for _,active:=range []int{0,1}{
+  t.Run(string(rune('0'+active)),func(t *testing.T){
+   f:=&issue117Backend{fakeBackend:fakeBackend{active:active},idle:time.Now().Add(-2*time.Millisecond)}
+   db:=&Database{server:f};var got map[string]any
+   ctx,cancel:=context.WithTimeout(context.Background(),time.Millisecond);defer cancel()
+   ctx=context.WithValue(ctx,"issue117_wait_record",func(v map[string]any){got=v})
+   err:=db.WaitDisconnected(ctx)
+   if got==nil {t.Fatal("no record")}
+   if active==0 {if err!=nil||got["success"]!=true||got["idle_observed"]!=true||got["sleep_requests"]!=0||got["idle_to_observe_ms"].(float64)<2{t.Fatalf("zero %v %#v",err,got)}} else {
+    if !errors.Is(err,context.DeadlineExceeded)||got["success"]!=false||got["idle_observed"]!=false {t.Fatalf("active %v %#v",err,got)}
+   }
+  })
+ }
+}

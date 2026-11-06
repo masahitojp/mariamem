@@ -29,6 +29,11 @@ type Snapshot struct {
 	Close func() error
 }
 type Sample struct {
+	RetireMS  float64        `json:"retire_ms"`
+	WaitMS    float64        `json:"wait_ms"`
+	CloseMS   float64        `json:"close_ms"`
+	WaitTrace map[string]any `json:"wait_trace,omitempty"`
+
 	OffsetMS  float64 `json:"offset_ms"`
 	TotalMS   float64 `json:"total_ms"`
 	SQLMS     float64 `json:"sql_ms"`
@@ -69,8 +74,10 @@ type Report struct {
 	Error               string   `json:"error,omitempty"`
 }
 
-func ms(t time.Duration) float64 { return float64(t) / 1e6 }
-func retire(d *Database, p *sql.DB, c *sql.Conn) error {
+func ms(t time.Duration) float64                       { return float64(t) / 1e6 }
+func retire(d *Database, p *sql.DB, c *sql.Conn) error { return retireMeasured(d, p, c, nil) }
+func retireMeasured(d *Database, p *sql.DB, c *sql.Conn, sample *Sample) error {
+	at := time.Now()
 	var e error
 	if c != nil {
 		e = errors.Join(e, c.Close())
@@ -78,13 +85,27 @@ func retire(d *Database, p *sql.DB, c *sql.Conn) error {
 	if p != nil {
 		e = errors.Join(e, p.Close())
 	}
+	if sample != nil {
+		sample.RetireMS = ms(time.Since(at))
+	}
 	if d != nil {
 		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 		defer cancel()
+		if sample != nil && os.Getenv("ISSUE117_TRACE") == "1" {
+			ctx = context.WithValue(ctx, "issue117_wait_record", func(trace map[string]any) { sample.WaitTrace = trace })
+		}
+		at = time.Now()
 		if d.Wait != nil {
 			e = errors.Join(e, d.Wait(ctx))
 		}
+		if sample != nil {
+			sample.WaitMS = ms(time.Since(at))
+		}
+		at = time.Now()
 		e = errors.Join(e, d.Close())
+		if sample != nil {
+			sample.CloseMS = ms(time.Since(at))
+		}
 	}
 	return e
 }
@@ -116,7 +137,7 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 	var c *sql.Conn
 	defer func() {
 		at := time.Now()
-		cleanupErr := retire(d, p, c)
+		cleanupErr := retireMeasured(d, p, c, &s)
 		s.Cleanup = cleanupErr == nil
 		err = errors.Join(err, cleanupErr)
 		s.CleanupMS = ms(time.Since(at))
