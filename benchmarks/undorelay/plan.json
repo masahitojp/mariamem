@@ -1,0 +1,72 @@
+{
+  "question": "Bind UPDATE rseg-latch wait to a held purge rseg scope, background header-page wait and sampled page owner; stop at correspondence and release order.",
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness_source_commit": "f678de708c7e376f53b6d021976fc7f17827e3e4",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "fixed": {
+    "parallel": 8,
+    "cap": 8,
+    "children": 48,
+    "route": "pipe",
+    "gomaxprocs": 8,
+    "gogc": 100,
+    "variant": "both-off",
+    "commit": 1,
+    "flush_method": "O_DIRECT",
+    "buffer_pool_bytes": 16777216,
+    "external_controller": "same20ms RSS sampler and ready/go/done handshake as update-replay-pair;3GiB per-process RSS guard",
+    "toolchain": "go version go1.27.3 darwin/arm64"
+  },
+  "protocol": {
+    "preflight": {
+      "processes": 1,
+      "children": 8
+    },
+    "wrong_seed": {
+      "processes": 1,
+      "children": 1
+    },
+    "warmup": {
+      "processes": 1,
+      "children": 48
+    },
+    "primary": {
+      "processes": 3,
+      "children_each": 48
+    },
+    "total_processes": 6,
+    "extra_repeats": 0,
+    "max_events_per_child": 8192,
+    "owner_threshold_ms": 100,
+    "max_profile_bytes": 2097152
+  },
+  "hooks": [
+    "Fn17010 exact slow rseg latch call: waiting rseg pointer and requested latch address",
+    "Fn17211 each successful rseg acquisition: thread/scope/rseg identity; before/after actual successful unlock; scope end/abort",
+    "Existing Fn17227 header identity plus Fn18164 page owner scope now enabled for purge context",
+    "Existing matched AtomicWait/channel close/resume events; owner sample at registration and one100ms timer for query or background page wait"
+  ],
+  "acceptance": "Require same child instance and exact query waiting_rseg == purge held_rseg == background page scope rseg, overlapping observed held interval, matching page IDs, untruncated trace and valid SQL/cleanup. Claim full release sequence only if observed in order. Sampling does not establish continuous owner history or IO queue-stage attribution.",
+  "stop": {
+    "no_long": "NOT_REPRODUCED; report short matched chains separately, no extra collector or repetition",
+    "long_with_chain": "Report owner kind and release ordering, preserve unresolved IO stage or thread-holder work; stop",
+    "long_without_chain": "Report missing interval/binding; stop without assuming a chain"
+  },
+  "budget": {
+    "active_minutes": 45,
+    "tooling_minutes": 25,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 120,
+    "min_free_gib": 12,
+    "disk_gib": 6,
+    "heavy_ci": 0
+  },
+  "limits": [
+    "Instrumented local Mac only; no product change/adoption.",
+    "Purge context starts after actual acquisition; recorded held interval is a lower bound.",
+    "Owner fields sampled atomically but not as one coherent snapshot; zero/changing owner unresolved.",
+    "Thread ID is guest TLS context; owner pthread value is distinct.",
+    "Warmup events are retained separately, not added to primary denominator.",
+    "No arbitrary background scope outside exact Fn17211; no full ownership timeline."
+  ]
+}

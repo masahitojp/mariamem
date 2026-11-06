@@ -1,0 +1,121 @@
+package base
+
+import (
+	"sync/atomic"
+	"unsafe"
+)
+
+func urEvent(m *Module, q uwQuery, kind string, rseg uint32) uwEvent {
+	e := uwEvent{NS: uwNow(), Kind: kind, Thread: m.G1, Query: q.id, Role: q.role, HeldRseg: q.heldRseg, WaitingRseg: q.waitingRseg, Rseg: rseg, Mutex: rseg + 4, RC: m.ExcPending}
+	return e
+}
+
+// Called only after Fn17211 has acquired this rseg latch. A recorded held
+// interval starts later than real acquisition and ends before real unlock.
+func URPurgeAcquire(m *Module, rseg int32) {
+	s := uwLookup(m.Threads)
+	if s == nil {
+		return
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.closed {
+		return
+	}
+	previous, exists := s.queries[m.G1]
+	if exists && previous.role == "purge" {
+		panic("overlapping purge rseg scope")
+	}
+	s.next++
+	q := uwQuery{id: s.next, role: "purge", heldRseg: uint32(rseg)}
+	if exists {
+		copy := previous
+		q.prior = &copy
+	}
+	s.queries[m.G1] = q
+	// Atomic load bound to this guest's rseg+4 lock word. This is not a holder ID.
+	e := urEvent(m, q, "purge_acquired", uint32(rseg))
+	e.RsegWord = atomic.LoadUint32((*uint32)(unsafe.Add(m.M, AtomicEA(m, rseg, 4, 4))))
+	uwAdd(s, e)
+}
+func URPurgeRelease(m *Module, rseg int32, after bool) {
+	s := uwLookup(m.Threads)
+	if s == nil {
+		return
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.closed {
+		return
+	}
+	q, ok := s.queries[m.G1]
+	if !ok || q.role != "purge" || q.heldRseg != uint32(rseg) {
+		panic("purge release identity mismatch")
+	}
+	kind := "purge_release_before"
+	if after {
+		kind = "purge_release_after"
+	}
+	uwAdd(s, urEvent(m, q, kind, uint32(rseg)))
+}
+func urEnd(m *Module, aborted bool) {
+	s := uwLookup(m.Threads)
+	if s == nil {
+		return
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	q, ok := s.queries[m.G1]
+	if !ok || q.role != "purge" {
+		return
+	}
+	kind := "purge_scope_end"
+	if aborted {
+		kind = "purge_scope_abort"
+	}
+	if !s.closed {
+		uwAdd(s, urEvent(m, q, kind, q.heldRseg))
+	}
+	for _, w := range s.waits {
+		if w.query == q.id && w.timer != nil {
+			w.timer.Stop()
+			w.ended = true
+		}
+	}
+	if q.prior == nil {
+		delete(s.queries, m.G1)
+	} else {
+		s.queries[m.G1] = *q.prior
+	}
+}
+func URPurgeEnd(m *Module)  { urEnd(m, false) }
+func URPurgeExit(m *Module) { urEnd(m, true) }
+func URQueryRsegWait(m *Module, rseg int32) func() {
+	s := uwLookup(m.Threads)
+	if s == nil {
+		return func() {}
+	}
+	s.mu.Lock()
+	q, ok := s.queries[m.G1]
+	if s.closed || !ok || q.role != "update" {
+		s.mu.Unlock()
+		return func() {}
+	}
+	prior := q.waitingRseg
+	q.waitingRseg = uint32(rseg)
+	s.queries[m.G1] = q
+	uwAdd(s, urEvent(m, q, "query_rseg_wait_begin", uint32(rseg)))
+	s.mu.Unlock()
+	return func() {
+		s.mu.Lock()
+		defer s.mu.Unlock()
+		if !s.closed {
+			uwAdd(s, urEvent(m, q, "query_rseg_wait_end", uint32(rseg)))
+		}
+		current, ok := s.queries[m.G1]
+		if ok && current.id == q.id {
+			current.waitingRseg = prior
+			s.queries[m.G1] = current
+		}
+	}
+}
