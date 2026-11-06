@@ -25,10 +25,15 @@ type Database struct {
 	Close    func() error
 }
 type Snapshot struct {
+	MaxForks int
+
 	Fork  func(context.Context) (*Database, error)
 	Close func() error
 }
 type Sample struct {
+	ChildReadyOffsetMS float64 `json:"child_ready_offset_ms"`
+	DisposedOffsetMS   float64 `json:"disposed_offset_ms"`
+
 	UpdateMS float64 `json:"update_ms"`
 
 	RetireMS  float64        `json:"retire_ms"`
@@ -50,6 +55,9 @@ type Sample struct {
 	Error     string  `json:"error,omitempty"`
 }
 type Report struct {
+	MaxForks         int `json:"max_forks"`
+	ResolvedMaxForks int `json:"resolved_max_forks"`
+
 	CPUUserMS           float64  `json:"cpu_user_ms"`
 	CPUSystemMS         float64  `json:"cpu_system_ms"`
 	MinorFaults         int64    `json:"minor_faults"`
@@ -135,6 +143,7 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 	if e != nil {
 		return s, e
 	}
+	s.ChildReadyOffsetMS = ms(time.Since(batchStart))
 	var p *sql.DB
 	var c *sql.Conn
 	defer func() {
@@ -143,6 +152,7 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 		s.Cleanup = cleanupErr == nil
 		err = errors.Join(err, cleanupErr)
 		s.CleanupMS = ms(time.Since(at))
+		s.DisposedOffsetMS = ms(time.Since(batchStart))
 	}()
 	at := time.Now()
 	p, e = d.Open(route)
@@ -250,10 +260,14 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 		}
 	}
 	at = time.Now()
-	sn, e = root.Snapshot(ctx, r.Parallel)
+	sn, e = root.Snapshot(ctx, r.MaxForks)
 	r.SnapshotMS = ms(time.Since(at))
 	if e != nil {
 		return e
+	}
+	r.ResolvedMaxForks = sn.MaxForks
+	if r.Backend == "mariamem" && r.ResolvedMaxForks != r.MaxForks {
+		return fmt.Errorf("resolved cap=%d expected=%d", r.ResolvedMaxForks, r.MaxForks)
 	}
 	if e = root.Close(); e != nil {
 		return e
@@ -350,6 +364,7 @@ func Main(backend string, start func(context.Context) (*Database, error)) {
 	r := &Report{Backend: backend, Go: runtime.Version(), GOMAXPROCS: runtime.GOMAXPROCS(0)}
 	flag.StringVar(&r.Route, "route", "tcp", "tcp or pipe")
 	flag.IntVar(&r.Parallel, "parallel", 1, "maximum live child workers")
+	flag.IntVar(&r.MaxForks, "max-forks", 0, "Snapshot cap, independent of workers;0 defaults to worker count")
 	flag.IntVar(&r.Count, "count", 20, "child count")
 	flag.BoolVar(&r.Corrupt, "corrupt-seed", false, "negative control: child oracle must fail")
 	out := flag.String("out", "", "required report path")
@@ -359,6 +374,12 @@ func Main(backend string, start func(context.Context) (*Database, error)) {
 		fmt.Fprintln(os.Stderr, "invalid arguments")
 		os.Exit(2)
 	}
+	cap, capErr := resolveMaxForks(r.Parallel, r.MaxForks)
+	if capErr != nil {
+		fmt.Fprintln(os.Stderr, capErr)
+		os.Exit(2)
+	}
+	r.MaxForks = cap
 	e := run(r, start)
 	r.Success = e == nil
 	if e != nil {
@@ -375,4 +396,14 @@ func Main(backend string, start func(context.Context) (*Database, error)) {
 		fmt.Fprintln(os.Stderr, e)
 		os.Exit(1)
 	}
+}
+
+func resolveMaxForks(workers, requested int) (int, error) {
+	if workers < 1 || workers > 8 || requested < 0 || requested > 8 {
+		return 0, fmt.Errorf("invalid measurement workers/cap")
+	}
+	if requested == 0 {
+		return workers, nil
+	}
+	return requested, nil
 }

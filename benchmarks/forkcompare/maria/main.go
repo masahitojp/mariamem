@@ -34,7 +34,7 @@ func wrap(d *mariamem.Database) *probe.Database {
 			if e != nil {
 				return nil, e
 			}
-			return &probe.Snapshot{Close: s.Close, Fork: func(ctx context.Context) (*probe.Database, error) {
+			return &probe.Snapshot{MaxForks: s.MaxForks(), Close: s.Close, Fork: func(ctx context.Context) (*probe.Database, error) {
 
 				c, e := s.Fork(ctx)
 				if e != nil {
