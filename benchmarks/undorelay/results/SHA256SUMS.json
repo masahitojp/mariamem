@@ -1,0 +1,10 @@
+{
+  "README.md": "aa8257b6aa732131d5b0a6acc5d791a69ac896fb4539a1c1e6cb1ca12aa80a31",
+  "analyze.py": "cf893f48cf6b59079d6a33adeaaa05393c98e4a8650f23ca7eea092c906fe492",
+  "inputs.json": "37c755d0c1ea8eef8a1cf2ab8e8593e0466f1ea9e7a2351ddd089131c496313d",
+  "links.csv": "b1a420e9522f882d598982efd753e46269f5149aa244ad467224c0b9b8fb35d8",
+  "raw-SHA256SUMS.json": "0dbb77f9cb9e75139461a5c23297ce6aa8c666abd9968c8d986ab512128132d2",
+  "raw-evidence.tar.gz": "4c6c59d3b144f319f9ff57c2fc6dfb393cb1d33f8de82657b3c3fef46e26b263",
+  "summary.json": "e9b671ab5be2c0187ad40aaebfd72ba944ed755a8f9940781ae6a8b85d74101c",
+  "test_analysis.py": "c93c34b7a366a14b4246383a07cf24b7154d12ee579677b2c0fc78831ff3b91f"
+}
