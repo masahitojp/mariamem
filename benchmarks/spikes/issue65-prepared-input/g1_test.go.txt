@@ -1,0 +1,345 @@
+// Fixed-guest G1 observations; a mismatch is evidence, never an oracle change.
+package main
+
+import (
+	"bytes"
+	"encoding/binary"
+	"encoding/json"
+	"fmt"
+	"strings"
+	"testing"
+)
+
+func g1Observe(t *testing.T, id, expected, actual string, pass bool) {
+	t.Helper()
+	b, _ := json.Marshal(map[string]any{"test": t.Name(), "id": id, "expected": expected, "actual": actual, "pass": pass})
+	t.Log("G1_OBSERVATION " + string(b))
+	if !pass {
+		t.Errorf("G1 contract mismatch: %s", id)
+	}
+}
+
+// Capture the finite response, including cursor metadata EOF (no row follows).
+// Raw packets are bounded by the inherited reader before allocation.
+type g1Reply struct {
+	Kind         string
+	Errno        uint16
+	State, Value string
+	Packets      []string
+	Error        string
+}
+
+func g1Read(c *compatConn, binaryRow bool, prepare bool) g1Reply {
+	r := g1Reply{}
+	seq := byte(1)
+	read := func() []byte {
+		p, e := c.read(seq)
+		seq++
+		if e != nil {
+			r.Error = e.Error()
+			return nil
+		}
+		r.Packets = append(r.Packets, fmt.Sprintf("%x", p[:min(len(p), 64)]))
+		return p
+	}
+	p := read()
+	if p == nil {
+		return r
+	}
+	if p[0] == 255 {
+		r.Kind = "ERR"
+		r.Errno, r.State = compatErr(p)
+		return r
+	}
+	if p[0] == 254 && len(p) < 9 {
+		r.Kind = "EOF"
+		return r
+	}
+	if prepare && p[0] == 0 && len(p) >= 12 {
+		r.Kind = "PREPARED"
+		for _, n := range []uint16{binary.LittleEndian.Uint16(p[7:]), binary.LittleEndian.Uint16(p[5:])} {
+			if n > 64 {
+				r.Error = "metadata count exceeds fixture bound"
+				return r
+			}
+			if n > 0 {
+				for j := uint16(0); j < n; j++ {
+					if read() == nil {
+						return r
+					}
+				}
+				e := read()
+				if len(e) != 5 || e[0] != 254 {
+					r.Error = "prepare metadata EOF"
+					return r
+				}
+			}
+		}
+		r.Value = fmt.Sprint(binary.LittleEndian.Uint32(p[1:]))
+		return r
+	}
+	if p[0] == 0 {
+		r.Kind = "OK"
+		return r
+	}
+	if !bytes.Equal(p, []byte{1}) {
+		r.Error = "not a one-column result"
+		return r
+	}
+	if read() == nil {
+		return r
+	}
+	meta := read()
+	if len(meta) != 5 || meta[0] != 254 {
+		r.Error = "metadata EOF"
+		return r
+	}
+	if binary.LittleEndian.Uint16(meta[3:])&64 != 0 {
+		r.Kind = "CURSOR"
+		return r
+	}
+	row := read()
+	if row == nil {
+		return r
+	}
+	if row[0] == 255 {
+		r.Kind = "ERR"
+		r.Errno, r.State = compatErr(row)
+		return r
+	}
+	value, e := limitsValue(row, binaryRow)
+	if e != nil {
+		r.Error = e.Error()
+		return r
+	}
+	end := read()
+	if len(end) != 5 || end[0] != 254 {
+		r.Error = "result EOF"
+		return r
+	}
+	r.Kind = "ROW"
+	r.Value = string(value)
+	return r
+}
+func g1Send(c *compatConn, p []byte, binaryRow, prepare bool) g1Reply {
+	if e := c.send(0, p); e != nil {
+		return g1Reply{Error: e.Error()}
+	}
+	return g1Read(c, binaryRow, prepare)
+}
+func g1Record(t *testing.T, id string, r g1Reply, kind string, errno uint16, state, value string) {
+	b, _ := json.Marshal(r)
+	want := fmt.Sprintf("%s errno=%d state=%s value=%q", kind, errno, state, value)
+	g1Observe(t, id, want, string(b), r.Error == "" && r.Kind == kind && r.Errno == errno && r.State == state && (kind != "ROW" || r.Value == value))
+}
+func g1Exec(id uint32, flags byte, iteration uint32, values []byte) []byte {
+	p := compatID(23, id)
+	p = append(p, flags, 0, 0, 0, 0)
+	binary.LittleEndian.PutUint32(p[6:], iteration)
+	return append(p, values...)
+}
+func g1Connection(t *testing.T, address string) *compatConn {
+	c := compatConnect(t, address, nil)
+	c.login(t, "root", true)
+	return c
+}
+func g1Following(t *testing.T, c *compatConn, id uint32, prefix string, param bool) {
+	e := limitsPing(c)
+	g1Observe(t, prefix+"_ping", "PING OK", fmt.Sprint(e), e == nil)
+	values := []byte(nil)
+	want := "zero"
+	if param {
+		values = compatString("cached", false)
+		want = "cached"
+	}
+	g1Record(t, prefix+"_cached", g1Send(c, g1Exec(id, 0, 1, values), true, false), "ROW", 0, "", want)
+	if param {
+		g1Record(t, prefix+"_fresh", g1Send(c, g1Exec(id, 0, 1, compatString("fresh", true)), true, false), "ROW", 0, "", "fresh")
+	}
+}
+func TestG1ExecuteHeader(t *testing.T) {
+	r := rootFor(t, 10000)
+	address := compatAddress(t, r)
+	for _, param := range []bool{false, true} {
+		for _, tc := range []struct {
+			name  string
+			flags byte
+			iter  uint32
+			errno uint16
+			state string
+		}{{"cursor", 1, 1, 1235, "42000"}, {"flags8", 8, 1, 1235, "42000"}, {"iteration0", 0, 0, 1835, "HY000"}, {"iteration2", 0, 2, 1835, "HY000"}} {
+			name := fmt.Sprintf("param%t_%s", param, tc.name)
+			t.Run(name, func(t *testing.T) {
+				c := g1Connection(t, address)
+				query := "SELECT CAST('zero' AS CHAR)"
+				values := []byte(nil)
+				if param {
+					query = "SELECT CAST(? AS CHAR)"
+				}
+				id := c.prepare(t, query)
+				if param {
+					g1Record(t, name+"_seed", g1Send(c, g1Exec(id, 0, 1, compatString("seed", true)), true, false), "ROW", 0, "", "seed")
+					values = compatString("test", false)
+				}
+				g1Record(t, name, g1Send(c, g1Exec(id, tc.flags, tc.iter, values), true, false), "ERR", tc.errno, tc.state, "")
+				g1Following(t, c, id, name, param)
+			})
+		}
+	}
+}
+func TestG1ZeroParamSuffix(t *testing.T) {
+	r := rootFor(t, 10000)
+	address := compatAddress(t, r)
+	for _, tc := range []struct {
+		name  string
+		body  []byte
+		valid bool
+	}{{"none", nil, true}, {"zero", []byte{0}, true}, {"one", []byte{1}, true}, {"two", []byte{2}, false}, {"extra", []byte{0, 0}, false}} {
+		t.Run(tc.name, func(t *testing.T) {
+			c := g1Connection(t, address)
+			id := c.prepare(t, "SELECT CAST('zero' AS CHAR)")
+			reply := g1Send(c, g1Exec(id, 0, 1, tc.body), true, false)
+			if tc.valid {
+				g1Record(t, tc.name, reply, "ROW", 0, "", "zero")
+			} else {
+				g1Record(t, tc.name, reply, "ERR", 1835, "HY000", "")
+			}
+			g1Following(t, c, id, tc.name, false)
+		})
+	}
+}
+func TestG1Descriptors(t *testing.T) {
+	r := rootFor(t, 10000)
+	address := compatAddress(t, r)
+	names := []string{"newtypes2", "type17", "typeflags1", "short_scalar", "extra_scalar"}
+	for i := 0; i < 21; i++ {
+		names = append(names, fmt.Sprintf("prefix%d", i))
+	}
+	for _, name := range names {
+		t.Run(name, func(t *testing.T) {
+			c := g1Connection(t, address)
+			id := c.prepare(t, "SELECT CAST(? AS CHAR)")
+			g1Record(t, name+"_seed", g1Send(c, g1Exec(id, 0, 1, compatString("seed", true)), true, false), "ROW", 0, "", "seed")
+			p := g1Exec(id, 0, 1, []byte{0, 1, 8, 128, 42, 0, 0, 0, 0, 0, 0, 0}) // command + 21-byte body
+			switch name {
+			case "newtypes2":
+				p[11] = 2
+			case "type17":
+				p[12] = 17
+			case "typeflags1":
+				p[13] = 1
+			case "short_scalar":
+				p = p[:len(p)-1]
+			case "extra_scalar":
+				p = append(p, 0)
+			default:
+				var n int
+				fmt.Sscanf(name, "prefix%d", &n)
+				p = p[:1+n]
+			}
+			g1Record(t, name, g1Send(c, p, true, false), "ERR", 1835, "HY000", "")
+			g1Following(t, c, id, name, true)
+		})
+	}
+}
+func TestG1SQLBounds(t *testing.T) {
+	r := rootFor(t, 10000)
+	address := compatAddress(t, r)
+	for _, op := range []byte{3, 22} {
+		for _, size := range []int{0, 1048576} {
+			name := fmt.Sprintf("op%d_n%d", op, size)
+			t.Run(name, func(t *testing.T) {
+				c := g1Connection(t, address)
+				sql := ""
+				if size > 0 {
+					base := "SELECT CAST('bound' AS CHAR) /*"
+					sql = base + strings.Repeat(" ", size-len(base)-2) + "*/"
+				}
+				reply := g1Send(c, append([]byte{op}, sql...), false, op == 22)
+				if size == 0 {
+					g1Record(t, name, reply, "ERR", 1153, "08S01", "")
+				} else if op == 3 {
+					g1Record(t, name, reply, "ROW", 0, "", "bound")
+				} else {
+					g1Record(t, name, reply, "PREPARED", 0, "", "")
+					if reply.Kind == "PREPARED" {
+						var id uint32
+						fmt.Sscan(reply.Value, &id)
+						g1Record(t, name+"_execute", g1Send(c, g1Exec(id, 0, 1, nil), true, false), "ROW", 0, "", "bound")
+					} else {
+						g1Observe(t, name+"_execute", "prepared execution", "prepare failed", false)
+					}
+				}
+				e := limitsPing(c)
+				g1Observe(t, name+"_ping", "PING OK", fmt.Sprint(e), e == nil)
+			})
+		}
+	}
+	// max+1 SQL hits the global command-header bound before opcode/body. This
+	// captures that header only; it is not a claim that SQL dispatch saw a body.
+	t.Run("max_plus_one_header", func(t *testing.T) {
+		c := g1Connection(t, address)
+		p := []byte{2, 0, 16, 0}
+		n, e := c.c.Write(p)
+		reply, re := c.read(1)
+		errno, _ := compatErr(reply)
+		g1Observe(t, "max_plus_one_header", "bounded rejection before body", fmt.Sprintf("written=%d error=%v read=%v errno=%d", n, e, re, errno), e == nil && n == 4 && (limitsClosed(re) || (re == nil && errno == 1153)))
+		peer := g1Connection(t, address)
+		e = limitsPing(peer)
+		g1Observe(t, "max_plus_one_peer", "same-root peer PING", fmt.Sprint(e), e == nil)
+	})
+}
+func TestG1SetOption(t *testing.T) {
+	r := rootFor(t, 10000)
+	address := compatAddress(t, r)
+	for _, tc := range []struct {
+		name  string
+		body  []byte
+		errno uint16
+		state string
+	}{{"empty", nil, 1835, "HY000"}, {"short", []byte{0}, 1835, "HY000"}, {"on", []byte{0, 0}, 0, ""}, {"off", []byte{1, 0}, 0, ""}, {"unknown", []byte{255, 255}, 1047, "08S01"}, {"surplus", []byte{0, 0, 0}, 1835, "HY000"}} {
+		t.Run(tc.name, func(t *testing.T) {
+			c := g1Connection(t, address)
+			kind := "ERR"
+			if tc.errno == 0 {
+				kind = "EOF"
+			}
+			g1Record(t, tc.name, g1Send(c, append([]byte{27}, tc.body...), false, false), kind, tc.errno, tc.state, "")
+			e := limitsPing(c)
+			g1Observe(t, tc.name+"_ping", "PING OK", fmt.Sprint(e), e == nil)
+		})
+	}
+}
+func TestG1FailedPrepareAlias(t *testing.T) {
+	r := rootFor(t, 10000)
+	c := g1Connection(t, compatAddress(t, r))
+	id := c.prepare(t, "SELECT CAST(? AS CHAR)")
+	g1Record(t, "seed", g1Send(c, g1Exec(id, 0, 1, compatString("seed", true)), true, false), "ROW", 0, "", "seed")
+	g1Record(t, "failed_prepare", g1Send(c, append([]byte{22}, "SELECT FROM"...), false, true), "ERR", 1064, "42000", "")
+	g1Record(t, "alias", g1Send(c, g1Exec(0xffffffff, 0, 1, compatString("alias", true)), true, false), "ERR", 1243, "HY000", "")
+	g1Following(t, c, id, "old_handle", true)
+}
+func TestG1LongDataHeader(t *testing.T) {
+	r := rootFor(t, 10000)
+	address := compatAddress(t, r)
+	for n := 0; n <= 6; n++ {
+		name := fmt.Sprintf("n%d", n)
+		t.Run(name, func(t *testing.T) {
+			c := g1Connection(t, address)
+			id := c.prepare(t, "SELECT CAST(? AS CHAR)")
+			g1Record(t, name+"_seed", g1Send(c, g1Exec(id, 0, 1, compatString("seed", true)), true, false), "ROW", 0, "", "seed")
+			p := append(compatID(24, id), 0, 0)
+			c.mustSend(t, 0, p[:1+n])
+			e := limitsPing(c)
+			g1Observe(t, name+"_no_response_ping", "no LONG_DATA response; PING OK", fmt.Sprint(e), e == nil)
+			values := compatString("cached", false)
+			want := "cached"
+			if n == 6 {
+				values = []byte{0, 0}
+				want = ""
+			}
+			g1Record(t, name+"_state", g1Send(c, g1Exec(id, 0, 1, values), true, false), "ROW", 0, "", want)
+			g1Record(t, name+"_fresh", g1Send(c, g1Exec(id, 0, 1, compatString("fresh", true)), true, false), "ROW", 0, "", "fresh")
+		})
+	}
+}
