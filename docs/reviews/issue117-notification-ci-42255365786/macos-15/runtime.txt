@@ -1,0 +1,1 @@
+ok  	github.com/masahitojp/mariamem/tests/godefault	1.209s

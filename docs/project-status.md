@@ -168,16 +168,24 @@ functional regression. See [development](development.md#local-verification),
 and [release handoff](releasing.md). Historical timing comparisons do not prove
 current CI savings; no new runtime reuse policy is approved here.
 
-## Disconnect notification candidate — verification pending
+## Disconnect notification adopted on main — unreleased
 
-On 2026-11-07 the Human authorized preparing the bounded Issue #117 notification
-change toward adoption. It replaces WaitDisconnected's fixed polling delay with
-host session/failure notifications, preserving context, Close and disposal
-contracts. The [candidate record](reviews/issue117-notification-candidate.md)
-separates the single-Mac experiment benefits/CPU tradeoff from the current
-main-based implementation and pending both-platform verification. It is not yet
-merged, shipped or release-qualified; the other initialization experiments are
-not imported by this candidate.
+On2026-11-07 PR118 merged to main source_commit
+`2434a536c50e5bd23129dd9940d6371e80a23366`, after Development42254980323 and
+both-platform candidate42255365786 succeeded at
+`a5fce7485cb4cb74cbc982c8c342a104f06c8ca6`. Both commits have the same Git tree.
+The [saved acceptance receipt](reviews/issue117-notification-ci-42255365786/README.md)
+keeps original source/platform identities and checksums.
+
+WaitDisconnected now uses host session/failure notifications while preserving
+context, Close and completed-disposal contracts. UCA is included in this tested
+combination. Both-host checks cover focused handwritten races and real TCP/Pipe,
+Snapshot/cap1 reuse; generated engine race instrumentation remains excluded.
+Connection-retirement measurements are narrow, without a timing gate, and do
+not establish a combined full-suite speedup over0.6.2. The prior single-Mac
+performance/CPU tradeoffs remain in the
+[candidate record](reviews/issue117-notification-candidate.md). Versioned release
+qualification and publication remain separate.
 
 ## Current work tracking
 

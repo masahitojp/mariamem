@@ -129,3 +129,14 @@ Combined-head preparation checks:116 CI policy/selection tests PASS; guest,
 generated runtime and generation-input bytes match the new main exactly;
 public-source and diff checks PASS. Runtime boundary execution is submitted to
 CI on this combined source rather than reusing the old-head platform PASS.
+
+
+## Main integration completed
+
+Both-platform candidate42255365786 and Development42254980323 succeeded on
+`a5fce7485cb4cb74cbc982c8c342a104f06c8ca6`. PR118 squash-merged to
+`2434a536c50e5bd23129dd9940d6371e80a23366` with identical Git tree. The
+[saved receipt](issue117-notification-ci-42255365786/README.md) contains compact
+source-bound results and verified artifact/member hashes. Earlier pending and
+failed checkpoints above retain their original context; this completes the
+combined candidate's main integration, not a versioned release.

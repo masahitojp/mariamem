@@ -1,0 +1,20 @@
+{
+  "README.md": "07ca97f82da1d77f8ac19f0226e9b77e666bada41d57208a5e36648fa8018ab2",
+  "assessment.json": "f5ae5ff075ceec0dfb193f811786da2d26f5caa04ecd8058819741f9409a0d34",
+  "macos-15/binary-sha256.txt": "f452c728a75d91e9da0f6c5ee1a08cb6518ea7abcbcc9c497cae3c53b3466d06",
+  "macos-15/contracts.txt": "dcf8314ba272f28e8ba566374edee0173cee6731d7dbffd0eb7ad5b8bd68a87e",
+  "macos-15/go.txt": "077dec62e8d33611342a1349cacb348362593f6028f03f3d345b05b156bd9662",
+  "macos-15/measurement.json": "2cc721838300896c8d8f0c1895a577be85085e6f0d34737d3dc07efe01cd1e86",
+  "macos-15/os-version.txt": "e0a9e270c507499fb163b6bb80e62f10c6fca344ce2c93fa2987fe42caf94b29",
+  "macos-15/platform.txt": "cbe5ef41ccd885de7b4bc2289a859d22befa8502a79093746315811b53036559",
+  "macos-15/runtime.txt": "b0852d99deabf2ce10243761d0bccad423817f46f3ddbfb87956b50449acbdfc",
+  "macos-15/source.json": "1066b3c1614836855398fe4053d99b6f801f7d55672fb9ad6357356a981b9c71",
+  "ubuntu-24.04/binary-sha256.txt": "377600ed342073169868a73d84786a25065d47f84df7da093ffdacca3ea4640c",
+  "ubuntu-24.04/contracts.txt": "208029e11f449c5af06089fc0872929b57b249f6ba04d00c69d700cf1cda8b31",
+  "ubuntu-24.04/go.txt": "4e0b213cba780f63b02f3ab9001ee61e4101d254e0af1a8205574c19dad0f93b",
+  "ubuntu-24.04/measurement.json": "8e565dfd7b3e7574d6023c11e6ddb7fdb96a9fa117c672fb537c376fd8ce2915",
+  "ubuntu-24.04/os-version.txt": "87458b3b1f1ca0e5c693ade771de7007c3783bdc692fa6b39eb6414bf2af2763",
+  "ubuntu-24.04/platform.txt": "2437786a005300b4d25ddff7c65a91bdfe873d85b22086b4a7b863f333197732",
+  "ubuntu-24.04/runtime.txt": "502820ca5c5e07d655bda5805e31c1d3401370c3eba4652a7a9475b7e3bc71fe",
+  "ubuntu-24.04/source.json": "1066b3c1614836855398fe4053d99b6f801f7d55672fb9ad6357356a981b9c71"
+}
