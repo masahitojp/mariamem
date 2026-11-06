@@ -17,7 +17,7 @@ OLD_FIX=HERE.parent/'issue65-compat-fixes'
 LIMITS_FIXTURE_SHA256='808fe47bd4ee69f8e80b9702170429b1cfe56d2cbd83d3721c184bdb3cc16549'
 GUEST_SOURCE='65b49e3dc31e9b2da63b317e015f8f471e79a83e'
 HOST_SOURCE=GUEST_SOURCE
-GUEST_SHA='UNREVIEWED'
+GUEST_SHA='7103c8116151a386b1359e9ea02fda7e31fe8145f37a221001f97e7de2ce9a91'
 SOURCE_REFERENCE_SHA256='UNRECORDED'
 spec=importlib.util.spec_from_file_location('linux_probe',HERE.parent/'issue65-native-linux/probe.py')
 base=importlib.util.module_from_spec(spec);spec.loader.exec_module(base)
@@ -149,6 +149,9 @@ def execute(w,compare_reference=True):
     base.command(w,'binding-tests',[sys.executable,'-c',code,w/'temp/pytest',w/'temp/pytest-run',w/'worktree/tests/test_thread_lifetime_binding.py'],120)
     if '22 passed' not in (w/'evidence/binding-tests.txt').read_text():raise ValueError('binding scope incomplete')
     product=w/'temp/host/product'
+    sys.path.insert(0,str(w/'worktree/scripts'))
+    from dev_guest import inventory
+    if inventory(product)!=host['source_inventory']:raise ValueError('full executed source inventory changed')
     for name,pin in host['source_inventory'].items():
         if base.sha(product/name)!=pin:raise ValueError('staged source changed: '+name)
     if base.sha(binary)!=host['binary_sha256']:raise ValueError('binary changed')
