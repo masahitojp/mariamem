@@ -7,6 +7,46 @@ The [saved baseline receipt](evidence/baseline-ci.json) retains that result and
 cleanup attribution. The current task changes tests/tooling only. It does not
 repair guest policy, relocate the controller, adopt native wire or release it.
 
+## First CI result: real profile gaps plus an invalid test configuration
+
+[CI42266736265](https://github.com/masahitojp/mariamem/actions/runs/42266736265)
+at source_commit `b08c3c938660ca74885b8e967e7a2adb71cdccaf` fails with
+**INCOMPLETE**, not a complete output/aggregate judgment.
+[The saved result](evidence/ci-42266736265.json) has26/38 observations,
+18 passing,8 mismatches and12 missing observations. All6 top-level groups ran.
+The unchanged baseline22 lifecycle/88 compatibility observations, both controls,
+supporting checks and279-file comparison still pass.
+
+Confirmed gaps: RESET_CONNECTION and STATISTICS return success; PROCESS_INFO
+returns a result set; STMT_FETCH returns1243/HY000 and BINLOG_DUMP1047/08S01
+instead of the declared1235/42000 rejection. TLS flags and missing PROTOCOL_41
+are accepted. This does not establish working TLS, cursors or replication.
+PROCESS_INFO's following-PING sequence mismatch is a secondary result of unread
+result metadata after the unexpected result set, not separate evidence of native
+wire corruption. Compression/DEPRECATE_EOF masking and old-style EOF pass.
+Cold/warm oversize/continuation headers and Pipe overflow/EOF pass.
+
+Six output/aggregate subcases used30000ms when the fixed guest OPEN envelope is
+100..10000ms. They fail before login with `deadline configuration`; their12
+required observations never ran. Their `join incomplete` errors must not be
+relabeled native cleanup success. Both CI workspace cleanups and transit deletion
+are separately confirmed. This test configuration error is corrected to10000ms;
+an added source-contract guard checks every fixture OPEN against the pinned
+patch. Local observer/source tests now pass11/11. The corrected native cases
+remain unexecuted; this commit is not a rerun PASS.
+
+Recommendation: retain the approved profile and reject OUT commands/invalid
+handshake flags at the guest's native decoded boundary, not a host parser.
+BINLOG_DUMP needs rejection-error parity, not a replication implementation.
+The output/aggregate cases still need one corrected fixed-guest execution before
+an output-policy repair can be designed. A rerun of this guest alone will still
+fail the already confirmed command/handshake oracles; do not treat it as an
+expected green retry. The initial single-CI observation budget has been consumed.
+Obtaining the12 missing observations costs one additional fixed-source guest
+build/translation plus Linux execution (roughly20min in this run; no timing or
+performance guarantee). Preserve the original failure when choosing that next
+step or a separately identified guest-policy repair.
+
 ## Fixed inputs and bounded work
 
 Guest and checked host source_commit remain

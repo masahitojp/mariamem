@@ -1,0 +1,498 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42266736265",
+  "source_commit": "b08c3c938660ca74885b8e967e7a2adb71cdccaf",
+  "result": {
+    "result": "INCOMPLETE: missing execution evidence",
+    "complete": false,
+    "ready": false,
+    "exit_code": 1,
+    "cases": [
+      {
+        "name": "TestLimitsCommands",
+        "result": "FAIL",
+        "elapsed": "0.42s"
+      },
+      {
+        "name": "TestLimitsCapabilities",
+        "result": "FAIL",
+        "elapsed": "0.30s"
+      },
+      {
+        "name": "TestLimitsInputHeaders",
+        "result": "PASS",
+        "elapsed": "0.32s"
+      },
+      {
+        "name": "TestLimitsOutputPacket",
+        "result": "FAIL",
+        "elapsed": "60.28s"
+      },
+      {
+        "name": "TestLimitsAggregate",
+        "result": "FAIL",
+        "elapsed": "30.14s"
+      },
+      {
+        "name": "TestLimitsPipeWindow",
+        "result": "PASS",
+        "elapsed": "0.32s"
+      }
+    ],
+    "observations": [
+      {
+        "actual": "errno=0 state= err=<nil> marker=00000002000000",
+        "expected": "ERR1235/42000",
+        "id": "reset_connection",
+        "pass": false,
+        "test": "TestLimitsCommands/reset_connection"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "reset_connection_following",
+        "pass": true,
+        "test": "TestLimitsCommands/reset_connection"
+      },
+      {
+        "actual": "errno=1243 state=HY000 err=<nil> marker=ffdb04234859303030",
+        "expected": "ERR1235/42000",
+        "id": "stmt_fetch",
+        "pass": false,
+        "test": "TestLimitsCommands/stmt_fetch"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "stmt_fetch_following",
+        "pass": true,
+        "test": "TestLimitsCommands/stmt_fetch"
+      },
+      {
+        "actual": "errno=0 state= err=<nil> marker=000000020000006e55",
+        "expected": "ERR1235/42000",
+        "id": "statistics",
+        "pass": false,
+        "test": "TestLimitsCommands/statistics"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "statistics_following",
+        "pass": true,
+        "test": "TestLimitsCommands/statistics"
+      },
+      {
+        "actual": "errno=0 state= err=<nil> marker=09",
+        "expected": "ERR1235/42000",
+        "id": "process_info",
+        "pass": false,
+        "test": "TestLimitsCommands/process_info"
+      },
+      {
+        "actual": "packet seq=2 want=1 len=24",
+        "expected": "PING OK",
+        "id": "process_info_following",
+        "pass": false,
+        "test": "TestLimitsCommands/process_info"
+      },
+      {
+        "actual": "errno=1047 state=08S01 err=<nil> marker=ff1704233038533031",
+        "expected": "ERR1235/42000",
+        "id": "binlog_dump",
+        "pass": false,
+        "test": "TestLimitsCommands/binlog_dump"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "binlog_dump_following",
+        "pass": true,
+        "test": "TestLimitsCommands/binlog_dump"
+      },
+      {
+        "actual": "errno=0 state= marker=00",
+        "expected": "ERR1235/42000",
+        "id": "tls",
+        "pass": false,
+        "test": "TestLimitsCapabilities/tls"
+      },
+      {
+        "actual": "errno=0 state= marker=00",
+        "expected": "ERR1235/42000",
+        "id": "missing_protocol41",
+        "pass": false,
+        "test": "TestLimitsCapabilities/missing_protocol41"
+      },
+      {
+        "actual": "caps=fa20d marker=00 err=<nil>",
+        "expected": "unadvertised; ordinary uncompressed login",
+        "id": "compression_not_negotiated",
+        "pass": true,
+        "test": "TestLimitsCapabilities/compression_not_negotiated"
+      },
+      {
+        "actual": "first=01 eof=fe00000200 row=0131 end=fe00000200",
+        "expected": "ordinary row plus legacy EOF",
+        "id": "compression_not_negotiated_following",
+        "pass": true,
+        "test": "TestLimitsCapabilities/compression_not_negotiated"
+      },
+      {
+        "actual": "caps=fa20d marker=00 err=<nil>",
+        "expected": "unadvertised; ordinary uncompressed login",
+        "id": "deprecate_eof_not_negotiated",
+        "pass": true,
+        "test": "TestLimitsCapabilities/deprecate_eof_not_negotiated"
+      },
+      {
+        "actual": "first=01 eof=fe00000200 row=0131 end=fe00000200",
+        "expected": "ordinary row plus legacy EOF",
+        "id": "deprecate_eof_not_negotiated_following",
+        "pass": true,
+        "test": "TestLimitsCapabilities/deprecate_eof_not_negotiated"
+      },
+      {
+        "actual": "errno=1153 err=<nil>",
+        "expected": "reject header without waiting for body",
+        "id": "n1048578_warmfalse",
+        "pass": true,
+        "test": "TestLimitsInputHeaders/n1048578_warmfalse"
+      },
+      {
+        "actual": "errno=1153 err=<nil>",
+        "expected": "reject header without waiting for body",
+        "id": "n1048578_warmtrue",
+        "pass": true,
+        "test": "TestLimitsInputHeaders/n1048578_warmtrue"
+      },
+      {
+        "actual": "errno=1153 err=<nil>",
+        "expected": "reject header without waiting for body",
+        "id": "n16777215_warmfalse",
+        "pass": true,
+        "test": "TestLimitsInputHeaders/n16777215_warmfalse"
+      },
+      {
+        "actual": "errno=1153 err=<nil>",
+        "expected": "reject header without waiting for body",
+        "id": "n16777215_warmtrue",
+        "pass": true,
+        "test": "TestLimitsInputHeaders/n16777215_warmtrue"
+      },
+      {
+        "actual": {
+          "cause": "",
+          "denied": 0,
+          "fenced": false,
+          "joined": 0,
+          "poisoned": false,
+          "retired_input_peak": 0,
+          "retired_output_peak": 0,
+          "rollback_reports": 0,
+          "sessions": [
+            {
+              "command": 1,
+              "generation": 1,
+              "input": 1048576,
+              "input_peak": 1048576,
+              "output_peak": 95,
+              "outstanding": 0,
+              "phase": "executing",
+              "slot": 0,
+              "status": 2
+            }
+          ],
+          "stale": 0,
+          "started": 1
+        },
+        "expected": "full queue or already aborted",
+        "id": "full_window_overflow_setup",
+        "pass": true,
+        "test": "TestLimitsPipeWindow/overflow"
+      },
+      {
+        "actual": "guest poison: pending_input_overflow",
+        "expected": "overflow before command deadline",
+        "id": "full_window_overflow_abort",
+        "pass": true,
+        "test": "TestLimitsPipeWindow/overflow"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "independent PING",
+        "id": "independent_overflow",
+        "pass": true,
+        "test": "TestLimitsPipeWindow/overflow"
+      },
+      {
+        "actual": {
+          "cause": "",
+          "denied": 0,
+          "fenced": false,
+          "joined": 0,
+          "poisoned": false,
+          "retired_input_peak": 0,
+          "retired_output_peak": 0,
+          "rollback_reports": 0,
+          "sessions": [
+            {
+              "command": 1,
+              "generation": 1,
+              "input": 1048581,
+              "input_peak": 1048581,
+              "output_peak": 95,
+              "outstanding": 0,
+              "phase": "executing",
+              "slot": 0,
+              "status": 2
+            }
+          ],
+          "stale": 0,
+          "started": 1
+        },
+        "expected": "full queue or already aborted",
+        "id": "full_window_eof_setup",
+        "pass": true,
+        "test": "TestLimitsPipeWindow/eof"
+      },
+      {
+        "actual": "guest poison: unexpected_peer_eof",
+        "expected": "eof before command deadline",
+        "id": "full_window_eof_abort",
+        "pass": true,
+        "test": "TestLimitsPipeWindow/eof"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "independent PING",
+        "id": "independent_eof",
+        "pass": true,
+        "test": "TestLimitsPipeWindow/eof"
+      }
+    ],
+    "mismatches": [
+      {
+        "actual": "errno=0 state= err=<nil> marker=00000002000000",
+        "expected": "ERR1235/42000",
+        "id": "reset_connection",
+        "pass": false,
+        "test": "TestLimitsCommands/reset_connection"
+      },
+      {
+        "actual": "errno=1243 state=HY000 err=<nil> marker=ffdb04234859303030",
+        "expected": "ERR1235/42000",
+        "id": "stmt_fetch",
+        "pass": false,
+        "test": "TestLimitsCommands/stmt_fetch"
+      },
+      {
+        "actual": "errno=0 state= err=<nil> marker=000000020000006e55",
+        "expected": "ERR1235/42000",
+        "id": "statistics",
+        "pass": false,
+        "test": "TestLimitsCommands/statistics"
+      },
+      {
+        "actual": "errno=0 state= err=<nil> marker=09",
+        "expected": "ERR1235/42000",
+        "id": "process_info",
+        "pass": false,
+        "test": "TestLimitsCommands/process_info"
+      },
+      {
+        "actual": "packet seq=2 want=1 len=24",
+        "expected": "PING OK",
+        "id": "process_info_following",
+        "pass": false,
+        "test": "TestLimitsCommands/process_info"
+      },
+      {
+        "actual": "errno=1047 state=08S01 err=<nil> marker=ff1704233038533031",
+        "expected": "ERR1235/42000",
+        "id": "binlog_dump",
+        "pass": false,
+        "test": "TestLimitsCommands/binlog_dump"
+      },
+      {
+        "actual": "errno=0 state= marker=00",
+        "expected": "ERR1235/42000",
+        "id": "tls",
+        "pass": false,
+        "test": "TestLimitsCapabilities/tls"
+      },
+      {
+        "actual": "errno=0 state= marker=00",
+        "expected": "ERR1235/42000",
+        "id": "missing_protocol41",
+        "pass": false,
+        "test": "TestLimitsCapabilities/missing_protocol41"
+      }
+    ],
+    "missing_observations": [
+      {
+        "group": "TestLimitsAggregate",
+        "id": "binaryfalse_bounds"
+      },
+      {
+        "group": "TestLimitsAggregate",
+        "id": "binaryfalse_control"
+      },
+      {
+        "group": "TestLimitsAggregate",
+        "id": "binaryfalse_data"
+      },
+      {
+        "group": "TestLimitsAggregate",
+        "id": "binarytrue_bounds"
+      },
+      {
+        "group": "TestLimitsAggregate",
+        "id": "binarytrue_control"
+      },
+      {
+        "group": "TestLimitsAggregate",
+        "id": "binarytrue_data"
+      },
+      {
+        "group": "TestLimitsOutputPacket",
+        "id": "binaryfalse_overfalse"
+      },
+      {
+        "group": "TestLimitsOutputPacket",
+        "id": "binaryfalse_overfalse_following"
+      },
+      {
+        "group": "TestLimitsOutputPacket",
+        "id": "binaryfalse_overtrue"
+      },
+      {
+        "group": "TestLimitsOutputPacket",
+        "id": "binarytrue_overfalse"
+      },
+      {
+        "group": "TestLimitsOutputPacket",
+        "id": "binarytrue_overfalse_following"
+      },
+      {
+        "group": "TestLimitsOutputPacket",
+        "id": "binarytrue_overtrue"
+      }
+    ],
+    "guest_sha256": "0531ff4f348670dd5e2065a4a25fe9012ed278bd346a12093b97ff1cdfdd67e9",
+    "guest_source_commit": "a1e3b8a0d7f3750e684610e273a28b802a7135d0",
+    "tooling_source_commit": "b08c3c938660ca74885b8e967e7a2adb71cdccaf",
+    "binary_sha256": "fa2e755ded2287466ac4178284af20a264cd5449e4f004f9ac61806e5c81ce78",
+    "baseline_checks": "22 lifecycle +7 groups/88 observations +2 controls +supporting checks PASS",
+    "not_qualified": [
+      "full protocol/client profile",
+      "all command-specific input/metadata/multi-result bounds",
+      "public integration",
+      "controller relocation",
+      "race freedom",
+      "performance",
+      "release"
+    ]
+  },
+  "baseline": {
+    "result": "PASS for scoped compatibility observations",
+    "ready": true,
+    "guest_sha256": "0531ff4f348670dd5e2065a4a25fe9012ed278bd346a12093b97ff1cdfdd67e9",
+    "tooling_source_commit": "b08c3c938660ca74885b8e967e7a2adb71cdccaf",
+    "lifecycle_cases": 22,
+    "source_reference_status": "MATCHED",
+    "supporting_checks": "PASS"
+  },
+  "source_extension": {
+    "baseline_matched_files": 279,
+    "added_files": [
+      "cmd/issue65-wire/limits_test.go"
+    ],
+    "binary_sha256": "fa2e755ded2287466ac4178284af20a264cd5449e4f004f9ac61806e5c81ce78",
+    "fixture_sha256": "a93090acec2277226b5496bf8ae7adf9d7b6fea77064cabe62ff0fdbd128e421"
+  },
+  "cleanup": {
+    "builder": {
+      "applied": true,
+      "before_bytes": 4474912768,
+      "after_bytes": 3870720,
+      "cleanup_debt": [],
+      "retained_large_paths": []
+    },
+    "runtime": {
+      "applied": true,
+      "before_bytes": 2007887872,
+      "after_bytes": 3510272,
+      "cleanup_debt": [],
+      "retained_large_paths": []
+    }
+  },
+  "guest_transit_deleted": true,
+  "harness_defect": "Six output/aggregate subcases OPEN with30000ms, outside fixed guest100..10000ms; fail before login, no output-bound/aggregate evidence. Their native join was not established; CI workspace disposal is a separate fact.",
+  "secondary_failure": "process_info_following reads unread result metadata after command unexpectedly returns a result set; not an independent proof of native stream corruption.",
+  "evidence_sha256": {
+    "artifacts.json": "78bf5eaea0b788e43954db22f7b939bd485cd5bed02c45a1eac0acdefe644edc",
+    "runtime/translation-inputs.json": "93d5cd9ff954842d206998fc830eb84919fff0222832a187d2ae5ecd337f2eba",
+    "runtime/converter-cleanup.json": "0f03802512dd47ac15c75a76fe7a11a363ddd2ca6e7b7594e50842bae3fd5de5",
+    "runtime/limits-build.json": "c31aed4bc6c2778d2b46669252cc05c071c0b2179b64eb59b3b3cc681031c646",
+    "runtime/tooling.json": "ba3d468311723ead78be379ee08f297a7346f9a7eec5e100244f5a0e4e72a82e",
+    "runtime/limits-build.txt": "5a02f4c893dc49423b076fdfd8a0d2fc61a989d6e7e5c00aec0190aa121ee97d",
+    "runtime/platform-endpoint-tests.json": "c522a645cad6bc780d842fb43b299bfc58894b6d87e016c494fbd0f5ab31a9ca",
+    "runtime/compat-result.json": "ba0a1d28f8903948186697f1d175f5a10e103bd49239f55238fadc4fd2b020c5",
+    "runtime/host-phases.jsonl": "71decd7664c03b84a7d16e8a976a5cb4648e0338a7ce64dfe1952c298daaad4d",
+    "runtime/result.json": "99e0454167dc482c2d708263820f46b914df3d438452561d4e4ea5d19acc3346",
+    "runtime/runtime-boundary.txt": "42db5248865dbb7318a9f9e06f0dc90f95e35fe3a9935858132b373ad49577d8",
+    "runtime/limits-failure.json": "253e21a42a3fcb7649246b1fa98bca4f30405a0d94da047062e9df0c9cde2468",
+    "runtime/runtime-boundary-command.json": "e66bae11a7cd18614403682164c18e83c0da8460bc21e253aac35d2d363bc2b1",
+    "runtime/binding-controls.txt": "ccde19e7f27b0b6fc0661ef296438bea7462f20b7d008dbaced0124a73f2fb82",
+    "runtime/translation.txt": "f4a12b5fe5a40231a302b97d933d249a68420f9a70a70615afb6781088abd780",
+    "runtime/host-build-command.json": "f847d84e173b54e244b1f37f2c4a6f033a10f868d551fe558a5832f3e3bc3fc0",
+    "runtime/platform-runtime.json": "c522a645cad6bc780d842fb43b299bfc58894b6d87e016c494fbd0f5ab31a9ca",
+    "runtime/host-build.txt": "8857141ed9f8a987399b0f43a0ab972e1b7549751f9b381513f84c74803c113c",
+    "runtime/fix-controls.txt": "f5959e3bff0c4a228403ab755dd14637c35c2b92cde7fccc192ba2c3d8ae3cec",
+    "runtime/cleanup-dryrun.json": "6ce16ea5f8dab233fcb90d98f0574e9a08e5f8c42b9292ffc5040676afd71e3a",
+    "runtime/fix-controls-command.json": "459e2e953bbdd6d889e8a65009c362e0f03acffd61273c64c06f6327a694288b",
+    "runtime/limits-result.json": "99187e8a9a44764af537cbb788ba3112970681bebace8cf3da3acb09fd2be818",
+    "runtime/installation-inputs.json": "dcfa1a3c2aa46d8f9a891ac080fe99f0c00131568a4d1333bded7b07d394b279",
+    "runtime/cleanup.json": "62e08bc8b04e9592ee852496818dae33ac2c73b25296fc8a5493134cddffd40d",
+    "runtime/compat-suite-command.json": "2768c066089297a734946d5aa7b04c71e1373a9cc402a4d3996c3b5709d92a92",
+    "runtime/lifecycle-result.json": "1b808174221c71a5ca21369713e548d0981a5428ad63ac0eb6cb07ed7ab01bfa",
+    "runtime/live-endpoint-tests.txt": "2e5c77618cb42096610f155dd72482d8489c654d00b9fda40595dc94c6489555",
+    "runtime/lifecycle-suite-command.json": "78f215722a2f04f3d8851be17fb919039e5e57297601bb2058861f0ab4b4f461",
+    "runtime/guard-wrong_guest.txt": "a8932fabad4cb414bea2f620fbae08edd2cfd33778df28482f29c3bf17c27669",
+    "runtime/pytest-install-command.json": "5962f9186efb2651e52c35d6048f8b5a1729d569f1a03fe299c51ac4ebbbe8df",
+    "runtime/guest.json": "ec28a850ad53df6737e089dc28663a9d0904fb01459d1d4d11cf26670fb9f79b",
+    "runtime/worktree-checksums.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "runtime/binding-tests.txt": "81dd9f34c3fffbaf6e27600918310bf4155aff6df24970789d3dd957606e5ced",
+    "runtime/limits-suite-command.json": "966aa3d2e08b3316a0c2dfccb1f34354452539749600a0c209eeb4ca045abb60",
+    "runtime/limits-build-command.json": "2061cfa821c8feb2280e3e6836bc09c19f0e4f50bf217228aa77840de3bd26cb",
+    "runtime/pytest-install.txt": "a97ffcff3d1a064793dfd6be1f5a66b218ea30c355a06fbdebe738584575550d",
+    "runtime/temp-checksums.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "runtime/guard-wrong_function_hash.txt": "1c30d133ce472d8ab49821cbd38becb59ef7291b523f6bfe497805f7c71558ac",
+    "runtime/translation-command.json": "04b5fd3cef41ae7e2837716eff40b02cba52d71f12db51f47e36c5c6eec14782",
+    "runtime/compat-suite.txt": "45293dceecdcb67fbb4b4b6d3d19edf4760228f2c561bc64be3cc5e19caeeb6b",
+    "runtime/source-comparison.json": "abf995bff3b0929ac79aabec28275280d8dab176402dbd965b8b0e2d8b51be54",
+    "runtime/limits-tooling.json": "0f5b71bda07a73ad4f7a31d2546b1c39dc3e21585ba9a3e7838577d8cec4bafb",
+    "runtime/binding-tests-command.json": "f5137c5d4912f443701d106c38ec86e1d7f6f7494870272e2c07adbc343b7e4e",
+    "runtime/live-endpoint-tests-command.json": "b8ab982043eaaf641b6a7b0a9a12631e3e74a9405a8b36a35bdbfdc47996296d",
+    "runtime/host-build.json": "86aedc02c116ae491cf43ff74c9da8ed7553ede6506dea317b321a8da7962455",
+    "runtime/limits-suite.txt": "5bfbf75ef94066f5a20b35f4ff101a2d1aa54cebf9659aa77a5340b4a692abc5",
+    "runtime/lifecycle-suite.txt": "a456d44a3201791eefbac4bd3f6a5d4b6d772fd1cc66f75512fd53c90962e482",
+    "runtime/development-binding-controls.json": "f18433a508501b83dd13197bbd9c1876c52444f04ee6c4b8ea2edbbd3596fa7b",
+    "runtime/binding-controls-command.json": "2cf0402879b63755c7d49165065c1959e24574866284927d9b1d143ec6e8140c",
+    "runtime/platform-cleanup.json": "c522a645cad6bc780d842fb43b299bfc58894b6d87e016c494fbd0f5ab31a9ca",
+    "builder/guest-build.txt": "2d2046616dd56560ff34a0285bf80699aab1c08df8992d55fff5257ebf71956b",
+    "builder/phases.jsonl": "d496c5aa4d07f6cd2f0ecd6e2ca728b35c5a125fc6b2485abfcfed0a71cb42bc",
+    "builder/cleanup-dryrun.json": "c806ac9f0cb18b1f8ff51dcc2b7728cb4b65bfd301a3034bbc89ca8326fb98bc",
+    "builder/guest-download.txt": "dd3645b52e30e3d90b40fe5bc87fc0b725e197a49f4360f5d4913cc0c83143fd",
+    "builder/cleanup.json": "b0d9b9c43b27221cdf5fb0f95c37daeabb0f2258061373a1704c2a67c56e3f95",
+    "builder/guest-build-command.json": "53da85dc5e73ba1e0d0375248f7c3d9d754d2932017db85c93c2e723071adcd4",
+    "builder/platform-build.json": "a76695c4c7e224b4bddd93f2cf03f598e0ee245b1583b4307fca23a984ea950c",
+    "builder/guest.json": "ec28a850ad53df6737e089dc28663a9d0904fb01459d1d4d11cf26670fb9f79b",
+    "builder/worktree-checksums.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "builder/temp-checksums.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "builder/builder.json": "bf76b6a46397041d47da5663aaa8f3415acaf3f5c32d62b96a843ba8d1f02eff",
+    "builder/guest-download-command.json": "f65289b0e865ae6d0dabd62b698cfec92a6534abb244202def2ae09e1cbe5201",
+    "builder/platform-downloads.json": "a76695c4c7e224b4bddd93f2cf03f598e0ee245b1583b4307fca23a984ea950c",
+    "builder/platform-cleanup.json": "a76695c4c7e224b4bddd93f2cf03f598e0ee245b1583b4307fca23a984ea950c"
+  }
+}

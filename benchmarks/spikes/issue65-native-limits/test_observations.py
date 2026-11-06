@@ -1,6 +1,7 @@
 import copy
 import importlib.util
 import json
+import re
 from pathlib import Path
 import unittest
 
@@ -70,6 +71,22 @@ class EvidenceTests(unittest.TestCase):
         bad=dict(actual);bad['extra.go']='new'
         with self.assertRaises(ValueError):m.require_extension(bad,base,'fixture')
         with self.assertRaises(ValueError):m.require_extension(actual,actual,'fixture')
+
+    def test_fixture_deadlines_fit_fixed_guest_open_contract(self):
+        root=Path(__file__).resolve().parents[3]
+        patch=(root/'guest/experimental.patch').read_text()
+        match=re.search(r'need\(ms>=(\d+)&&ms<=(\d+),"deadline configuration"\)',patch)
+        self.assertIsNotNone(match, 'review changed guest OPEN envelope')
+        low,high=map(int,match.groups())
+        fixture=Path(__file__).with_name('limits_test.go.txt').read_text()
+        setting=re.search(r'const limitsDeadlineMS uint64 = (\d+)',fixture)
+        self.assertIsNotNone(setting)
+        values=re.findall(r'rootFor\(t, ([^)]+)\)',fixture)
+        self.assertTrue(values)
+        for value in values:
+            number=int(setting[1]) if value=='limitsDeadlineMS' else int(value)
+            self.assertLessEqual(low,number)
+            self.assertLessEqual(number,high)
 
     def test_probe_imports_its_own_observer(self):
         # The earlier probe imports a same-named module; the new observer must

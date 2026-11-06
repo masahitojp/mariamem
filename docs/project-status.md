@@ -267,6 +267,21 @@ INCOMPLETE, contract differences NOT_READY. Repairs, controller relocation and
 productization are separate work; no contract expectation is weakened.
 
 
+The first remaining-limit [CI42266736265](https://github.com/masahitojp/mariamem/actions/runs/42266736265)
+at source_commit `b08c3c938660ca74885b8e967e7a2adb71cdccaf` is INCOMPLETE:
+26/38 observations,18 passing,8 mismatches and12 unexecuted. Baseline22/88 still
+passes. OUT-command rejection and TLS/PROTOCOL_41 rejection differ from the
+approved profile; PROCESS_INFO's following-packet mismatch is secondary to its
+unexpected result set. Cold/warm input headers and Pipe full-window EOF/overflow
+pass. Six output/aggregate subcases never reach login because their30000ms test
+OPEN exceeds the fixed guest10000ms ceiling. The test is corrected to10000ms and
+a source-contract check added; no corrected native PASS is claimed. Workspace
+cleanup/transit deletion succeeded, while native join was not proven for those
+invalid-OPEN cases. The [report](../benchmarks/spikes/issue65-native-limits/README.md)
+separates these facts and the extra fixed-source execution cost. No semantic
+expectation or guest identity is changed to obtain a green result.
+
+
 
 ## Current work tracking
 

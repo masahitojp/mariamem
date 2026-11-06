@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// Keep every OPEN inside the fixed guest fixture's100..10000ms envelope.
+const limitsDeadlineMS uint64 = 10000
+
 func limitsObserve(t *testing.T, id string, expected, actual any, pass bool) {
 	t.Helper()
 	b, _ := json.Marshal(map[string]any{"test": t.Name(), "id": id, "expected": expected, "actual": actual, "pass": pass})
@@ -225,7 +228,7 @@ func TestLimitsOutputPacket(t *testing.T) {
 		for _, over := range []bool{false, true} {
 			name := fmt.Sprintf("binary%t_over%t", binaryRow, over)
 			t.Run(name, func(t *testing.T) {
-				r := rootFor(t, 30000)
+				r := rootFor(t, limitsDeadlineMS)
 				c := compatConnect(t, "", r)
 				c.login(t, "root", true)
 				length := 0xfffffe - 4
@@ -274,7 +277,7 @@ func TestLimitsAggregate(t *testing.T) {
 	for _, binaryRow := range []bool{false, true} {
 		name := fmt.Sprintf("binary%t", binaryRow)
 		t.Run(name, func(t *testing.T) {
-			r := rootFor(t, 30000)
+			r := rootFor(t, limitsDeadlineMS)
 			c := compatConnect(t, "", r)
 			c.login(t, "root", true)
 			peer := compatConnect(t, "", r)
