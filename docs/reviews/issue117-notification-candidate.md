@@ -63,7 +63,7 @@ UNDO instrumentation are not imported.
   waiters, capture and two sequential children with cap1.
 - Handwritten race coverage excludes `internal/generatedgo/code/...` from race
   instrumentation, explicitly; it is not full generated-engine race proof.
-- Normal PR daily checks remain required. The manual `disconnect-notify.yml`
+- Normal PR daily checks remain required. The candidate-branch push/manual `disconnect-notify.yml`
   workflow runs the focused boundary on macOS15 arm64 and Ubuntu24.04 x86_64.
 - A small manual-only benchmark compares pool.Close + WaitDisconnected on one
   reusable Pipe DB. It hides the notification interface in the polling arm;
@@ -79,3 +79,11 @@ and one submitted both-platform CI run with retained source-bound output.
 CI owns execution; Ubuntu/macOS15 results remain unverified until they finish.
 If this narrow check fails, diagnose it before adoption; do not reopen the
 whole startup/UNDO investigation. Full release qualification is a later task.
+
+## Local verification
+
+On macOS27.2 arm64 / Go1.27.3, source_commit
+`8e31f4424b53acd5182271ceee62f571edf69c93`. Focused handwritten race contracts and real
+TCP/Pipe/capture/cap1 checks PASS. CI selection tests:91 PASS; public-source and
+diff checks PASS. This is not a macOS15/Ubuntu receipt. Later changes to this
+record and the candidate workflow do not relabel those original executions.

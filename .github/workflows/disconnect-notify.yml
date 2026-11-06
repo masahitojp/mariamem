@@ -1,5 +1,7 @@
 name: Disconnect notification candidate
 on:
+  push:
+    branches: [perf/issue117-disconnect-notify]
   workflow_dispatch:
 permissions:
   contents: read
@@ -59,6 +61,7 @@ jobs:
         run: |
           set -o pipefail
           go test -c -o build/disconnect-bench.test .
+          shasum -a 256 build/disconnect-bench.test > build/disconnect-evidence/binary-sha256.txt
           # Six fixed pairs, alternating order. Each benchmark has Go's one-op
           # calibration plus 48 measured retirements. No retries or exclusions.
           for pair in 1 2 3 4 5 6; do
@@ -71,6 +74,36 @@ jobs:
                 2>&1 | tee "build/disconnect-evidence/pair-${pair}-${mode}.txt"
             done
           done
+      - name: Summarize connection retirement and seal evidence
+        if: always()
+        shell: python
+        run: |
+          import hashlib, json, os, re, statistics
+          from pathlib import Path
+          root = Path('build/disconnect-evidence')
+          pairs = []
+          for pair in range(1, 7):
+              values = {}
+              for mode in ('Poll', 'Notify'):
+                  path = root / f'pair-{pair}-{mode}.txt'
+                  if path.exists():
+                      rows = re.findall(r'^BenchmarkDisconnectRetirement' + mode + r'-[0-9]+\s+48\s+([0-9.]+) ns/op', path.read_text(), re.M)
+                      if len(rows) == 1:
+                          values[mode] = float(rows[0]) / 1e6
+              if len(values) == 2:
+                  pairs.append({'pair': pair, 'poll_ms': values['Poll'], 'notify_ms': values['Notify'],
+                                'difference_ms': values['Notify'] - values['Poll']})
+          result = {'source_commit': os.environ['GITHUB_SHA'], 'scope': 'pool.Close + WaitDisconnected; excludes SQL/setup/final DB.Close',
+                    'complete': len(pairs) == 6, 'pairs': pairs}
+          if pairs:
+              result['median_paired_difference_ms'] = statistics.median(p['difference_ms'] for p in pairs)
+          (root / 'measurement.json').write_text(json.dumps(result, indent=2) + '\n')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('\nConnection-retirement observations (not a performance gate):\n```json\n' + json.dumps(result, indent=2) + '\n```\n')
+          hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in root.iterdir() if p.is_file() and p.name != 'SHA256SUMS.json'}
+          (root / 'SHA256SUMS.json').write_text(json.dumps(hashes, indent=2, sort_keys=True) + '\n')
+          if len(pairs) != 6:
+              raise SystemExit('incomplete measurement; see retained logs')
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
