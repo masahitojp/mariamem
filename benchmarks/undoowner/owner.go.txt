@@ -1,0 +1,114 @@
+package base
+
+import (
+	"sync/atomic"
+	"unsafe"
+)
+
+// Bound to layout.json and exact generated p3 bytes. The block is buffer-fixed
+// by Fn18164 for the scope. No goroutine reads it after UWOwnerEnd or UWFlush.
+type uoBinding struct {
+	ptr                unsafe.Pointer
+	block, page, space uint32
+}
+type uoSample struct {
+	BeginNS       int64  `json:"begin_ns"`
+	EndNS         int64  `json:"end_ns"`
+	Block         uint32 `json:"block"`
+	Page          uint32 `json:"page"`
+	Space         uint32 `json:"space"`
+	ExpectedPage  uint32 `json:"expected_page"`
+	ExpectedSpace uint32 `json:"expected_space"`
+	OwnerBefore   uint32 `json:"owner_before"`
+	OwnerAfter    uint32 `json:"owner_after"`
+	Mutex         uint32 `json:"mutex_word"`
+	Readers       uint32 `json:"readers_word"`
+	State         uint32 `json:"state"`
+	Kind          string `json:"kind"`
+	IOState       string `json:"io_state"`
+	PageMatches   bool   `json:"page_matches"`
+}
+
+func uoClassify(x *uoSample) {
+	x.PageMatches = x.Page == x.ExpectedPage && x.Space == x.ExpectedSpace
+	x.Kind = "UNRESOLVED"
+	if !x.PageMatches {
+		x.Kind = "PAGE_MISMATCH"
+	} else if x.OwnerBefore == x.OwnerAfter && x.Mutex&1 != 0 {
+		if x.OwnerBefore == ^uint32(0) {
+			x.Kind = "IO"
+		} else if x.OwnerBefore != 0 {
+			x.Kind = "THREAD"
+		}
+	}
+	x.IOState = "NOT_IO_FIXED"
+	if x.State >= 6<<29 {
+		x.IOState = "WRITE_FIX"
+	} else if x.State >= 4<<29 {
+		x.IOState = "READ_FIX"
+	}
+}
+func uoRead(b *uoBinding) *uoSample {
+	load := func(off uintptr) uint32 { return atomic.LoadUint32((*uint32)(unsafe.Add(b.ptr, off))) }
+	x := &uoSample{BeginNS: uwNow(), Block: b.block, ExpectedPage: b.page, ExpectedSpace: b.space}
+	x.OwnerBefore = load(156)
+	// Page identity is immutable while Fn18164 holds its buffer fix. Atomic reads
+	// avoid observer writes; the collection is still not a coherent snapshot.
+	x.Page = load(0)
+	x.Space = load(4)
+	x.Mutex = load(24)
+	x.Readers = load(148)
+	x.State = load(172)
+	x.OwnerAfter = load(156)
+	x.EndNS = uwNow()
+	uoClassify(x)
+	return x
+}
+func UWOwnerBegin(m *Module, block int32) func() {
+	s := uwLookup(m.Threads)
+	if s == nil {
+		return func() {}
+	}
+	s.mu.Lock()
+	q, ok := s.queries[m.G1]
+	if s.closed || !ok || q.page.rseg == 0 {
+		s.mu.Unlock()
+		return func() {}
+	}
+	if q.page.owner != nil {
+		s.mu.Unlock()
+		panic("nested page-owner scope")
+	}
+	ea := MemoryEA(m, uint64(uint32(block)), 0, 176)
+	b := &uoBinding{ptr: unsafe.Add(m.M, ea), block: uint32(block), page: q.page.page, space: q.page.space}
+	q.page.owner = b
+	s.queries[m.G1] = q
+	uwAdd(s, uwEvent{NS: uwNow(), Kind: "owner_scope_begin", Thread: m.G1, Query: q.id, Page: q.page.page, Space: q.page.space, Rseg: q.page.rseg, Mutex: uint32(block) + 24, Owner: uoRead(b)})
+	s.mu.Unlock()
+	return func() {
+		s.mu.Lock()
+		defer s.mu.Unlock()
+		for _, w := range s.waits {
+			if w.page.owner == b && w.timer != nil {
+				w.timer.Stop()
+				w.ended = true
+			}
+		}
+		if !s.closed {
+			uwAdd(s, uwEvent{NS: uwNow(), Kind: "owner_scope_end", Thread: m.G1, Query: q.id, Owner: uoRead(b)})
+		}
+		q = s.queries[m.G1]
+		q.page.owner = nil
+		s.queries[m.G1] = q
+	}
+}
+func uoLate(s *uwState, w *uwWait) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.closed || w.ended || w.page.owner == nil {
+		return
+	}
+	e := uwDecorate(uwEvent{NS: uwNow(), Kind: "owner_still_waiting"}, w)
+	e.Owner = uoRead(w.page.owner)
+	uwAdd(s, e)
+}

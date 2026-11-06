@@ -1,0 +1,58 @@
+{
+  "decision": "Compare released0.6.2 with adopted UCA+disconnect notification; determine full-suite change and Fresh vs Fork ordering",
+  "baseline": {
+    "release_tag": "v0.6.2",
+    "tag_object_sha": "cebdb4114187171bd418b0a1b419e1c27368808d",
+    "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb"
+  },
+  "candidate_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "harness_ancestor": "00cbd7799176409fbb0be2a608940f4e9d5a2843",
+  "observer_source_ref": "d05cd878e77828b8c8b6025f4026a335b14912ce",
+  "fixed": {
+    "count": 48,
+    "seed_rows": 1000,
+    "route": "pipe",
+    "modes": [
+      "fresh",
+      "fork"
+    ],
+    "parallel": [
+      1,
+      4
+    ],
+    "gomaxprocs": 8,
+    "gogc": 100,
+    "go": "go1.27.3",
+    "cgo": 0,
+    "fork_cap": "equal to worker count",
+    "fresh_cap": "bounded by workers; root Start outside Snapshot limiter",
+    "settings": "product defaults"
+  },
+  "primary_pairs_per_cell": 5,
+  "primary_processes": 40,
+  "warmups": "one48-child process per version/mode/parallel cell =8",
+  "controls": "two-child positive and one-child wrong-seed per version/mode =8",
+  "diagnostic": "current-only Fresh/Fork atP4, one48-child process each, original bounded UNDO holder overlay; excluded from primary statistics. Old generated identity is incompatible, no baseline diagnostic claim.",
+  "total_processes": 58,
+  "order": "five rounds; rotate(mode,parallel)cells; baseline/current pair order alternates by(round+cell); adjacent version pairs; no posthoc removal/repetition",
+  "primary_boundary": "first Start through final root/Snapshot/child disposal; excludes compile/download and process startup/reportIO; external process wall separately",
+  "metrics": [
+    "suite wall and CPU",
+    "root preparation/capture/final cleanup",
+    "per-child Start/Fork,connect,seed,SQL,retire(including WaitDisconnected),Close",
+    "SQL>100ms counts; all retained",
+    "lifetime high-waterRSS raw only; not retained-childRSS"
+  ],
+  "exit": "40 primary processes plus fixed controls/warmups and selected diagnostics; compare all four cells, preserve complete observations and report limits; no follow-on optimization",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci_submissions": 0,
+    "minimum_free_gib": 12,
+    "workspace_budget_gib": 7,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 190,
+    "campaign_timeout_seconds": 1800
+  },
+  "no_product_changes": true
+}
