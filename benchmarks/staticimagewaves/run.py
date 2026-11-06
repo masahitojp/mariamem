@@ -14,11 +14,11 @@ env={k:v for k,v in os.environ.items() if not k.startswith(('GO','MARIAMEM_','MY
 guard=DiskGuard(w,12,8);records=[];deadline=time.monotonic()+600
 def run(arm,p,rep,kind,count=48):
  name=f'{arm}-p{p}-r{rep}-{kind}';out=e/(name+'.json');assert not out.exists(),name
- scratch=t/'scratch'/name;scratch.mkdir();v=dict(env,TMPDIR=str(scratch),MARIAMEM_STATIC_IMAGE_EXPERIMENT='1' if arm=='pages' else '0',MARIAMEM_STATIC_IMAGE_PAGES='1' if arm=='pages' else '0')
+ scratch=t/'scratch'/('valid-'+name);scratch.mkdir();v=dict(env,TMPDIR=str(scratch),MARIAMEM_STATIC_IMAGE_EXPERIMENT='1' if arm=='pages' else '0',MARIAMEM_STATIC_IMAGE_PAGES='1' if arm=='pages' else '0')
  variant='diagnostic' if kind=='diagnostic' else 'ordinary'
  if kind=='diagnostic':
-  trace=t/'trace'/name;trace.mkdir();v['UPDATE_NOTIFY_DIR']=str(trace)
-  timing=t/'trace'/(name+'-timing');timing.mkdir();v['MARIAMEM_TIMING_DIR']=str(timing)
+  trace=t/'trace'/('valid-'+name);trace.mkdir();v['UPDATE_NOTIFY_DIR']=str(trace)
+  timing=t/'trace'/('valid-'+name+'-timing');timing.mkdir();v['MARIAMEM_TIMING_DIR']=str(timing)
  command=[str(t/variant),'-fixed-waves','-mode','fork','-parallel',str(p),'-count',str(count),'-out',str(out)]
  if kind=='negative':command+=['-corrupt-seed']
  if kind=='pilot':command+=['-semantic']

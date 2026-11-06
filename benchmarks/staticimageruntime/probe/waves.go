@@ -64,9 +64,9 @@ func fixedWaveBatch(ctx context.Context, r *Report, start func(context.Context) 
 			go func(lane, index int) {
 				defer wg.Done()
 				s, e := one(context.WithValue(ctx, waveKey{}, gate), r, lane, index, start, sn)
-				if e != nil {
-					cancel()
-				}
+				if e != nil && s.Error == "" {
+					s.Error = e.Error()
+				} // Preserve every error; join peers before cancellation.
 				results <- s
 			}(lane, baseIndex+lane)
 		}
@@ -81,6 +81,7 @@ func fixedWaveBatch(ctx context.Context, r *Report, start func(context.Context) 
 			}
 		}
 		if err != nil {
+			cancel()
 			break
 		}
 	}

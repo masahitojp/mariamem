@@ -29,7 +29,7 @@ func TestFixedWaveForkFailureJoinsChildren(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	var attempts, completed, closes atomic.Int32
-	sn := &Snapshot{Fork: func(context.Context) (*Database, error) {
+	sn := &Snapshot{Fork: func(peerCtx context.Context) (*Database, error) {
 		n := attempts.Add(1)
 		defer completed.Add(1)
 		if n == 1 {
@@ -40,7 +40,13 @@ func TestFixedWaveForkFailureJoinsChildren(t *testing.T) {
 				t.Error("connection admitted before all Forks returned")
 			}
 			return nil, errors.New("injected connect failure")
-		}, Close: func() error { closes.Add(1); return nil }}, nil
+		}, Close: func() error {
+			if peerCtx.Err() != nil {
+				t.Error("peer canceled before disposal")
+			}
+			closes.Add(1)
+			return nil
+		}}, nil
 	}}
 	r := &Report{Parallel: 4, Count: 48, origin: time.Now()}
 	e := fixedWaveBatch(ctx, r, nil, sn, cancel)
