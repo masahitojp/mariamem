@@ -29,6 +29,13 @@ jobs:
           test -z "$(git status --porcelain)"
           go version > build/disconnect-evidence/go.txt
           uname -a > build/disconnect-evidence/platform.txt
+          if [ "${{ matrix.runner }}" = macos-15 ]; then
+            test "$(uname -m)" = arm64
+            sw_vers > build/disconnect-evidence/os-version.txt
+          else
+            test "$(uname -m)" = x86_64
+            cat /etc/os-release > build/disconnect-evidence/os-version.txt
+          fi
           cp release/generated-go-inputs.json build/disconnect-evidence/generated-go-inputs.json
       - name: Notification and disposal contracts with handwritten race detection
         shell: bash

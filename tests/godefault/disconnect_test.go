@@ -73,6 +73,7 @@ func TestDisconnectNotificationTransports(t *testing.T) {
 				if err != nil {
 					t.Fatal(err)
 				}
+				t.Cleanup(func() { _ = child.Close() })
 				pool := pipePool(t, child)
 				var n int
 				if err = pool.QueryRowContext(ctx, "SELECT 42").Scan(&n); err != nil || n != 42 {
