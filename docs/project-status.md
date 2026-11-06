@@ -308,9 +308,26 @@ Fresh macOS arm64 execution at tooling source_commit
 88 old plus38 remaining-limit observations with no mismatches, both existing
 FOUND_ROWS/UCA controls and3 new rejection/session/lifetime controls. Supporting
 checks including22 canonical installer tests pass. The new281-file source
-reference is distinct from the old guest's279-file bundle. Linux repeat,
-full-profile/public integration, controller relocation, performance and adoption
-remain pending. Neither the old failure nor the new local PASS is relabeled.
+reference is distinct from the old guest's279-file bundle.
+[CI42289241674](https://github.com/masahitojp/mariamem/actions/runs/42289241674)
+then passes on exact candidate `ba3e092eced56ca67a5cf5a16e7e3a84a96df752`:
+22 lifecycle/126 observations, both existing controls,3 policy controls and
+supporting checks;281 staged source files match macOS. Both workspace cleanups
+and transit disposal succeed. Full-profile/public integration, controller
+relocation, performance and adoption remain pending. Old failures retain their
+original sources; neither the local nor Linux PASS is full qualification.
+
+
+The Human requested organizing remaining compatibility work on2026-11-07.
+The [SHA-pinned scope review](reviews/issue65-native-compatibility-scope.md)
+separates scoped PASS from unverified input/metadata/result-chain/public paths.
+It recommends finite prepared-input observations first: cursor/iteration fields
+have a concrete source difference from the old decoder and are invisible to the
+current native suite. Public defaults (30s) also differ from the prototype's
+100..10000ms envelope and must be reconciled at productization. This is a review
+recommendation, not a newly approved profile exception, runtime change, experiment,
+controller migration or adoption. Existing negotiated multi-statement behavior
+is retained; no general per-entry capture requirement is added.
 
 
 
@@ -325,9 +342,10 @@ live checklists; this is a direction summary, not a second acceptance ledger.
 - **v0.6.x:** [#65](https://github.com/masahitojp/mariamem/issues/65) remains open.
   Its initial source investigation is superseded by the separately selected native
   memory-Vio/WASIX Snapshot/Fork/Live experiments recorded above. Native lifecycle
-  execution is established only in that isolated route; compatibility is NOT_READY
-  at CI42238921778. The Human selected the three demonstrated fixes. Public API
-  integration, adoption and release remain separate. The shipped Go Pipe #66
+  execution is established only in that isolated route. The selected repairs pass
+  scoped macOS/Linux CI42289241674; remaining compatibility and productization
+  conditions are in the scope review above. Public API integration, adoption and
+  release remain separate. The shipped Go Pipe #66
   does not itself implement guest-native wire relay.
 - **v0.7.0:** [the milestone](https://github.com/masahitojp/mariamem/milestone/4)
   owns bounded initialization/resource work: #88 buffer size, #100 common

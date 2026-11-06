@@ -1,0 +1,309 @@
+{
+  "reviewed_artifact": {
+    "path": "benchmarks/spikes/issue65-policy-fix/README.md",
+    "source_commit": "ba3e092eced56ca67a5cf5a16e7e3a84a96df752",
+    "sha256": "8feff7eed4db8d317861e3565bd08356b5224ba8be1a343a5c888931fca0c766"
+  },
+  "identities": {
+    "candidate": {
+      "object_sha": "ba3e092eced56ca67a5cf5a16e7e3a84a96df752",
+      "object_type": "commit",
+      "source_commit": "ba3e092eced56ca67a5cf5a16e7e3a84a96df752"
+    },
+    "base": {
+      "object_sha": "ecfa4b15c6f634356f0634aa467bdc7d39306d53",
+      "object_type": "commit",
+      "source_commit": "ecfa4b15c6f634356f0634aa467bdc7d39306d53"
+    },
+    "guest_source": {
+      "object_sha": "8f3e440ab78af570e489dd8d463cab1ed4c5aed8",
+      "object_type": "commit",
+      "source_commit": "8f3e440ab78af570e489dd8d463cab1ed4c5aed8"
+    },
+    "mac_proof": {
+      "object_sha": "5b4f5f49b35fc364128d94cde1f30c5e33742c4d",
+      "object_type": "commit",
+      "source_commit": "5b4f5f49b35fc364128d94cde1f30c5e33742c4d"
+    },
+    "frozen_main": {
+      "object_sha": "61973daa19b6f665d7342338c3252dd7af61fc90",
+      "object_type": "commit",
+      "source_commit": "61973daa19b6f665d7342338c3252dd7af61fc90"
+    }
+  },
+  "run": {
+    "url": "https://github.com/masahitojp/mariamem/actions/runs/42289241674",
+    "head_sha": "ba3e092eced56ca67a5cf5a16e7e3a84a96df752",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "guest",
+        "databaseId": 128138008663,
+        "conclusion": "success",
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/42289241674/job/128138008663",
+        "startedAt": "2026-11-06T20:32:44Z",
+        "completedAt": "2026-11-06T20:41:23Z"
+      },
+      {
+        "name": "linux",
+        "databaseId": 128142216633,
+        "conclusion": "success",
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/42289241674/job/128142216633",
+        "startedAt": "2026-11-06T20:41:25Z",
+        "completedAt": "2026-11-06T20:50:48Z"
+      },
+      {
+        "name": "discard-transit",
+        "databaseId": 128146742468,
+        "conclusion": "success",
+        "url": "https://github.com/masahitojp/mariamem/actions/runs/42289241674/job/128146742468",
+        "startedAt": "2026-11-06T20:50:50Z",
+        "completedAt": "2026-11-06T20:50:54Z"
+      }
+    ]
+  },
+  "guest_sha256": "4caa85d299410467f2656d6611df5dbeb518351927ac30b0216e516d277bf094",
+  "mac_reference_sha256": "d1504d0c0138da6e033f4cd937a90fde63c2750b25ea5d8a3e1a244f480cefbb",
+  "lifecycle_cases": [
+    {
+      "name": "TestCaptureForkRollbackAndRecapture",
+      "elapsed": "0.37s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCapturePartialAndOutputRejection",
+      "elapsed": "0.51s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureQueuedFenceAndDuplicate",
+      "elapsed": "0.16s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureFailureControls",
+      "elapsed": "1.06s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureOrdinaryStopAndEOF",
+      "elapsed": "0.16s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureDebtCannotBeForgiven",
+      "elapsed": "0.16s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureConcatenatedInputAndForeignEpoch",
+      "elapsed": "0.16s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureGoPipe",
+      "elapsed": "0.15s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureRejectsInvalidRestore",
+      "elapsed": "0.15s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureJoinCancellationRetainsLease",
+      "elapsed": "0.00s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveDrainAndReset",
+      "elapsed": "0.33s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveCapacityBeforeDrain",
+      "elapsed": "0.29s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveReplacementFailureRecovery",
+      "elapsed": "0.23s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveCancellationBeforeCommit",
+      "elapsed": "0.30s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveCleanupDebtRecovery",
+      "elapsed": "0.29s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveCaptureDebtIsPermanent",
+      "elapsed": "0.32s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveParentAndEndpointClose",
+      "elapsed": "0.15s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveInvalidRestoreNeverAdmits",
+      "elapsed": "0.15s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestProtocolPrepared",
+      "elapsed": "0.18s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestQueryDeadlineAndIsolation",
+      "elapsed": "0.97s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestPartialInputDeadline",
+      "elapsed": "0.88s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestSlowOutputControl",
+      "elapsed": "3.08s",
+      "result": "PASS"
+    }
+  ],
+  "compatibility_groups": [
+    {
+      "name": "TestCompatCredentials",
+      "result": "PASS",
+      "elapsed": "0.11s"
+    },
+    {
+      "name": "TestCompatCapabilities",
+      "result": "PASS",
+      "elapsed": "0.08s"
+    },
+    {
+      "name": "TestCompatPreparedState",
+      "result": "PASS",
+      "elapsed": "0.38s"
+    },
+    {
+      "name": "TestCompatCapacity",
+      "result": "PASS",
+      "elapsed": "0.08s"
+    },
+    {
+      "name": "TestCompatLiveCapacity",
+      "result": "PASS",
+      "elapsed": "0.17s"
+    },
+    {
+      "name": "TestCompatFatalEOF",
+      "result": "PASS",
+      "elapsed": "0.46s"
+    },
+    {
+      "name": "TestCompatFullWindow",
+      "result": "PASS",
+      "elapsed": "0.18s"
+    }
+  ],
+  "compatibility_observations": 88,
+  "limit_groups": [
+    {
+      "name": "TestLimitsCommands",
+      "result": "PASS",
+      "elapsed": "0.40s"
+    },
+    {
+      "name": "TestLimitsCapabilities",
+      "result": "PASS",
+      "elapsed": "0.30s"
+    },
+    {
+      "name": "TestLimitsInputHeaders",
+      "result": "PASS",
+      "elapsed": "0.31s"
+    },
+    {
+      "name": "TestLimitsOutputPacket",
+      "result": "PASS",
+      "elapsed": "1.97s"
+    },
+    {
+      "name": "TestLimitsAggregate",
+      "result": "PASS",
+      "elapsed": "3.90s"
+    },
+    {
+      "name": "TestLimitsPipeWindow",
+      "result": "PASS",
+      "elapsed": "0.34s"
+    }
+  ],
+  "limit_observations": 38,
+  "mismatches": [],
+  "policy_controls": {
+    "cases": [
+      {
+        "name": "TestPolicyRejectedResetPreservesPreparedSession",
+        "elapsed": "0.12s",
+        "result": "PASS"
+      },
+      {
+        "name": "TestPolicyLoginErrorDeliveredBeforeRetire",
+        "elapsed": "0.11s",
+        "result": "PASS"
+      },
+      {
+        "name": "TestPolicyOutputErrorPreservesStream",
+        "elapsed": "0.21s",
+        "result": "PASS"
+      }
+    ]
+  },
+  "existing_controls": 2,
+  "canonical_installer_tests": 22,
+  "supporting_checks": "PASS",
+  "source_comparison": {
+    "mac_reference_binary_sha256": "7ca5c6389e8c9980aa50709161781a462befd79afc8fea3254b70f9031250af1",
+    "compared_go_assembly_data_files": 281,
+    "different_files": []
+  },
+  "cleanup": {
+    "builder": {
+      "applied": true,
+      "after_bytes": 3874816,
+      "retained_large_paths": [],
+      "cleanup_debt": []
+    },
+    "runtime": {
+      "applied": true,
+      "after_bytes": 2486272,
+      "retained_large_paths": [],
+      "cleanup_debt": []
+    }
+  },
+  "original_evidence_sha256": {
+    "runtime/result.json": "976fc0d415696a6cbb28f98006b2e32993fae2942c3da51a15e0d6e7289c574a",
+    "runtime/limits-result.json": "beab6f03c95f6a609c507fa7d3fcfe6e0ffd9563573a98beda86c71ec3f0d735",
+    "runtime/host-build.json": "549dcb442b387546d29e7bff7e925ba7d71038cd158db14b142702aae2c50a4a",
+    "runtime/policy-controls.json": "d1968a5755146f70d5542ac1e159a9c59684e2068f671caf4b85f955a88eb583",
+    "runtime/cleanup.json": "f1e67e38ca589a085899310f70e4b3aac6a8d4a60b29eabc6e533883c3bb3182",
+    "builder/guest.json": "c4cb3c1db5aa18bc5d441e1c68352fd9401f96978d6b3652b1ff43d140bffda4",
+    "builder/cleanup.json": "73e82b2ba0bd538b2a112ea5484d6b0bccfe2fd442185cfd11665677d3d94139"
+  },
+  "review_limit": "Metadata and saved completed-run evidence read only; no new build/runtime/performance/qualification execution.",
+  "guest_transit_deleted": true,
+  "artifact_list_sha256": "dc7c150f84ee439cfc0bd59dcdaf71bbe74ca3287fc79d6551424966cd31c716",
+  "go_build": {
+    "version": "go1.26.10",
+    "cgo_enabled": false,
+    "evidence": "original runtime/host-build.json digest recorded below"
+  }
+}

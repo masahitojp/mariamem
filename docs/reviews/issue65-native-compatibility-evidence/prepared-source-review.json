@@ -1,0 +1,11 @@
+{
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "upstream_sql_prepare_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+  "canonical_prepared_sha256": "48f08ae4fda7990d376fe2e8c809c0a2a0d364979c3e83bb9f1a65b380819fa5",
+  "candidate_patched_sql_prepare_sha256": "47c1a5550a76a9b088e7115eac4e5044eb71be109f19238f58100161f18593a4",
+  "patch_application": "fuzz0",
+  "runtime_execution": "NOT_RUN; source review only",
+  "candidate_source_commit": "ba3e092eced56ca67a5cf5a16e7e3a84a96df752",
+  "guest_source_commit": "8f3e440ab78af570e489dd8d463cab1ed4c5aed8",
+  "upstream_url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_prepare.cc"
+}

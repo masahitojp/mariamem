@@ -66,7 +66,13 @@ actual observations. Complete worker functions Fn151/free,Fn129/yield and
 Fn211/entry retain the reviewed semantic shape after recorded relocation/name
 mapping. The final reference/hash/docs change no tested guest/runtime/template;
 Linux must execute the final tooling SHA and match this source bundle.
-Linux acceptance is still pending. Local PASS is not adoption or qualification.
+Post-CI update: [CI42289241674](https://github.com/masahitojp/mariamem/actions/runs/42289241674)
+at candidate `ba3e092eced56ca67a5cf5a16e7e3a84a96df752` passes all three jobs,
+22 lifecycle/126 observations, both existing and3 new controls, supporting
+checks and281-file comparison. Both owned workspaces and transit were disposed.
+This is scoped native execution, not public-route adoption or qualification.
+The [compatibility scope review](../../../docs/reviews/issue65-native-compatibility-scope.md)
+records unverified paths and proposed next work; it changes no tested runtime.
 
 ## Verification and budget
 

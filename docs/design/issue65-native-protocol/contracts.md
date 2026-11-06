@@ -65,6 +65,18 @@ Compatibility basis: the inspected source's
 This is an exact-source basis, not a claim that the experiment tracks future main.
 Before adoption, reconcile the actual integration base and its later decisions.
 
+## Current evidence after the native policy repair
+
+The original gap observations below remain scoped to43d96a62. The fixed
+candidate `ba3e092eced56ca67a5cf5a16e7e3a84a96df752` passes its22-case/126-observation
+native campaign on macOS arm64 and Linux x86_64 at
+[CI42289241674](https://github.com/masahitojp/mariamem/actions/runs/42289241674).
+This closes the tested boundaries, not the entire table or public integration.
+The [scope review](../../reviews/issue65-native-compatibility-scope.md) maps each
+remaining item to actual coverage, legacy-only checks and its proposed stage.
+It recommends a finite prepared-input check next; it does not authorize new
+experiments, relax this contract or select production adoption.
+
 ## State belongs with the authority that can make it true
 
 | State / responsibility | Target authority | Guest/host counterpart and invariant |
@@ -112,7 +124,7 @@ hooks enforce guest-side requirements; the host never parses normal MySQL packet
 | Credentials and identity | Preserve placeholder username/password acceptance, canonical root SQL identity and existing full local test privileges. Preserve default returned root/empty credentials. No account authentication promise. | Rebind the credential matrix, empty username, secure/legacy response, initial DB/charset, USER()/CURRENT_USER(), malformed login and follow-up SQL. |
 | Capabilities | Preserve bits1,4,8,512,8192,32768,65536,131072,524288; conditional PS_MULTI_RESULTS262144 only for validated prepared execution. Preserve accepted FOUND_ROWS2 behavior; no upstream default leakage. | Capture greeting and negotiated subsets; text/prepared multi-results, FOUND_ROWS status/affected rows, malformed required flags. Advertising bits alone does not prove negotiated behavior. |
 | Commands | Keep QUIT1, INIT_DB2, QUERY3, PING14, PREPARE22, EXECUTE23, LONG_DATA24, CLOSE25, STMT_RESET26, SET_OPTION27. | Guest native decoded-command allowlist and raw negative paths. RESET_CONNECTION31, STMT_FETCH28/cursors, LOCAL INFILE, admin/replication remain OUT. STMT_RESET and Live Reset do not enable RESET_CONNECTION. |
-| Login/output scope | Retain no TLS, compression, DEPRECATE_EOF or alternate auth; no packet continuation or multi-statement expansion. Normal packets come from native NET/Protocol. | Reject unsupported login/commands without desynchronizing supported subsequent work where the existing profile permits recovery. |
+| Login/output scope | Retain no TLS, compression, DEPRECATE_EOF or alternate auth; no packet continuation. Preserve existing negotiated multi-statement COM_QUERY / SET_OPTION behavior without expanding it. Normal packets come from native NET/Protocol. | Reject unsupported login/commands without desynchronizing supported subsequent work where the existing profile permits recovery. |
 | Prepared session state | Keep alias0xffffffff, zero-parameter flags, signed/unsigned/NULL/NUL/temporal values, type reuse, session isolation, RESET and long-data error lifetime. Native owns the state. | Raw vectors for explicit/alias IDs, failed/new prepare invalidation, CLOSE/RESET short and surplus bodies, unknown handles, invalid index/deferred error, RESET clearing and following-query oracles. D2 is the named approved exception. |
 | No-response commands | QUIT/CLOSE/LONG_DATA do not gain a synthetic response. Completion is native dispatch/lifecycle completion. | Chain the next PING/EXECUTE/QUERY immediately; compare response sequence, results, handle lifetime and retirement, not merely absence of an error. |
 | Client input limits | Preserve1MiB SQL, nonzero command payload <=1,048,577 bytes and command-specific EXECUTE/LONG_DATA bounds. Reject continuation at every NET header, including warm buffers, before allocation/read. | Boundary and max+1 cases for each command; native decoded lengths and existing typed-codec limits as source anchors. A blanket NET cap is insufficient. |
