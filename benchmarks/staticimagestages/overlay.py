@@ -49,9 +49,14 @@ patch('internal/generatedgo/memory_backing_unix.go',[
  })''')])
 patch('benchmarks/staticimageruntime/probe/probe.go',[
  ('"context"','"context"\n"github.com/masahitojp/mariamem/internal/timing"'),
- ('type Sample struct {','type Sample struct {\n Trace *timing.Trace `json:"trace,omitempty"`'),
- ('\tvar d *Database\n\tvar p *sql.DB', '''ctx=timing.WithRecorder(ctx,func(tr timing.Trace){ if tr.Operation=="fork" {s.Trace=&tr} })
+ ('type Sample struct {','type Sample struct {\n Traces map[string]timing.Trace `json:"traces,omitempty"`'),
+ ('\tvar d *Database\n\tvar p *sql.DB', '''s.Traces=make(map[string]timing.Trace)
+ ctx=timing.WithRecorder(ctx,func(tr timing.Trace){s.Traces[tr.Operation]=tr})
  var d *Database
  var p *sql.DB''')])
+patch('internal/timing/timing.go',[
+ ('var sequence atomic.Uint64','var sequence atomic.Uint64\nvar stagesEpoch = time.Now()'),
+ ('type Trace struct {','type Trace struct {\n EpochNS int64 `json:"epoch_ns"`'),
+ ('ctx = context.WithValue(ctx, key{}, t)','t.EpochNS=t.start.Sub(stagesEpoch).Nanoseconds()\nctx = context.WithValue(ctx, key{}, t)')])
 (o/'overlay.json').write_text(json.dumps(maps,indent=2)+'\n')
 (o/'hashes.json').write_text(json.dumps(hashes,indent=2)+'\n')
