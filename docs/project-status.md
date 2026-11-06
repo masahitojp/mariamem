@@ -38,7 +38,14 @@ Prepared-driver #93/#95, pipelining #94 and Go Pipe #66 are integrated and shipp
 in 0.6.2; Node guide #99 is complete through PR #113. Their earlier
 integration-pending entries are historical, not remaining release work.
 
-## v0.7.0 — Prepared UCA tables adopted, protected integration pending
+## v0.7.0 — Prepared UCA tables integrated on main, unreleased
+
+On2026-11-07 PR112 squash-merged to main source_commit
+`61973daa19b6f665d7342338c3252dd7af61fc90` after Development
+[42249730837](https://github.com/masahitojp/mariamem/actions/runs/42249730837)
+passed all required checks at source `d4409411231981daff54ae08f3fb7b1bc7119708`.
+The squash commit and tested PR head have identical Git trees. Main integration
+is complete; this is not a versioned release or new performance measurement.
 
 On2026-11-07 the Human authorized protected main integration through PR112.
 The failed Development run41969231695 identified an unclassified candidate
@@ -73,7 +80,7 @@ acceptance bookkeeping changes, with original CI source pointers retained.
 The one-off candidate workflow remains manually reproducible; automatic campaign
 pushes stop after acceptance so receipt-only changes do not repeat two C builds.
 Normal required `check`, `integration`, `Live required gate` and strict-base
-protection remain required for the final PR head. Main integration is pending;
+protection were satisfied for the final PR head. Main integration is complete;
 Qualification, version selection and publication are not authorized here.
 
 <a id="adopted-ownership-optimization--unreleased"></a>
@@ -160,6 +167,17 @@ functional regression. See [development](development.md#local-verification),
 [regression versus measurement](decisions/release-regression-vs-measurement.md)
 and [release handoff](releasing.md). Historical timing comparisons do not prove
 current CI savings; no new runtime reuse policy is approved here.
+
+## Disconnect notification candidate — verification pending
+
+On 2026-11-07 the Human authorized preparing the bounded Issue #117 notification
+change toward adoption. It replaces WaitDisconnected's fixed polling delay with
+host session/failure notifications, preserving context, Close and disposal
+contracts. The [candidate record](reviews/issue117-notification-candidate.md)
+separates the single-Mac experiment benefits/CPU tradeoff from the current
+main-based implementation and pending both-platform verification. It is not yet
+merged, shipped or release-qualified; the other initialization experiments are
+not imported by this candidate.
 
 ## Current work tracking
 

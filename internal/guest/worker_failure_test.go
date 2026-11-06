@@ -64,6 +64,7 @@ func TestWorkerTrapFailsPendingCallsBeforeCompletion(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	failureSignal := p.FailureDone()
 	responses := make(chan error, 2)
 	for slot := uint32(0); slot < 2; slot++ {
 		go func() { _, err := p.Call(ctx, 2, slot, []byte("SELECT 1")); responses <- err }()
@@ -77,6 +78,11 @@ func TestWorkerTrapFailsPendingCallsBeforeCompletion(t *testing.T) {
 		case <-time.After(3 * time.Second):
 			t.Fatal("pending request waited for timeout or join")
 		}
+	}
+	select {
+	case <-failureSignal:
+	default:
+		t.Fatal("worker trap did not notify disconnect waiters")
 	}
 	if !errors.Is(p.Err(), want) {
 		t.Fatal("instance did not retain original failure", p.Err())

@@ -353,6 +353,9 @@ Multiple SQL clients have separate sessions, transactions and temporary tables.
 Current capacity is 16, not a permanent API or throughput guarantee. Excess TCP
 connections receive recoverable MySQL error 1040; Go Pipe admission returns
 `ErrCapacity`. Slots are reused after disconnect cleanup. Close the pool before `WaitDisconnected`.
+`WaitDisconnected` observes host session cleanup; it does not close pools,
+prevent new connections or complete database disposal. Stop application work
+first, and use a context deadline when the caller needs a bounded wait.
 The DSN enables driver-side parameter interpolation for ordinary queries.
 Go explicit Prepare uses real prepared execution since 0.6.0;
 interpolation is not required as a substitute for it.

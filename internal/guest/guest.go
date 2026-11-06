@@ -103,6 +103,7 @@ type Process struct {
 	next               uint32
 	pending            map[uint32]chan response
 	failure            error
+	failureDone        chan struct{}
 	stopping           bool
 	writes             chan struct{}
 	done               chan struct{}
@@ -120,6 +121,20 @@ func StartGenerated(ctx context.Context, transfer string, restore []prepared.Ent
 }
 func (p *Process) PID() int              { return os.Getpid() }
 func (p *Process) Done() <-chan struct{} { return p.done }
+
+// FailureDone closes at the first failure, even while worker retirement is
+// pending. It is a health notification, not permission to reclaim resources.
+func (p *Process) FailureDone() <-chan struct{} {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.failureDone == nil {
+		p.failureDone = make(chan struct{})
+		if p.failure != nil {
+			close(p.failureDone)
+		}
+	}
+	return p.failureDone
+}
 
 // Err reports the cause that made the guest unusable, if any.
 func (p *Process) Err() error {
@@ -151,6 +166,9 @@ func (p *Process) fail(err error) {
 	defer p.mu.Unlock()
 	if p.failure == nil {
 		p.failure = err
+		if p.failureDone != nil {
+			close(p.failureDone)
+		}
 	}
 	err = p.failure
 	for id, ch := range p.pending {

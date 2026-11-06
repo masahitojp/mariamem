@@ -1,0 +1,111 @@
+name: Disconnect notification candidate
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version: '1.26.10'
+          cache: true
+          cache-dependency-path: |
+            go.mod
+            go.sum
+      - name: Record exact source and platform
+        shell: bash
+        run: |
+          mkdir -p build/disconnect-evidence
+          python3 scripts/git_identity.py inspect HEAD > build/disconnect-evidence/source.json
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -z "$(git status --porcelain)"
+          go version > build/disconnect-evidence/go.txt
+          uname -a > build/disconnect-evidence/platform.txt
+          if [ "${{ matrix.runner }}" = macos-15 ]; then
+            test "$(uname -m)" = arm64
+            sw_vers > build/disconnect-evidence/os-version.txt
+          else
+            test "$(uname -m)" = x86_64
+            cat /etc/os-release > build/disconnect-evidence/os-version.txt
+          fi
+          cp release/generated-go-inputs.json build/disconnect-evidence/generated-go-inputs.json
+      - name: Notification and disposal contracts with handwritten race detection
+        shell: bash
+        run: |
+          set -o pipefail
+          go test -p 1 -count=1 -race -gcflags='github.com/masahitojp/mariamem/internal/generatedgo/code/...=-race=false' \
+            -run 'TestWaitDisconnected|TestDisconnectGenerations|TestFailureSignal|TestWorkerTrapFailsPendingCallsBeforeCompletion|TestConsumedFailureKeepsTransferUntilGuestAndWorkersJoin' \
+            . ./internal/host ./internal/guest 2>&1 | tee build/disconnect-evidence/contracts.txt
+      - name: Real TCP and Pipe disconnect, capture and child retirement
+        shell: bash
+        run: |
+          set -o pipefail
+          go test -p 1 -count=1 -timeout=5m -tags=integration \
+            -run 'TestDisconnectNotificationTransports|TestInProcessConnectionLifecycle|TestInProcessCapacityAndClose' \
+            ./tests/godefault 2>&1 | tee build/disconnect-evidence/runtime.txt
+      - name: Bounded retirement measurement (not a performance gate)
+        shell: bash
+        env:
+          GOMAXPROCS: '4'
+          GOGC: '100'
+        run: |
+          set -o pipefail
+          go test -c -o build/disconnect-bench.test .
+          shasum -a 256 build/disconnect-bench.test > build/disconnect-evidence/binary-sha256.txt
+          # Six fixed pairs, alternating order. Each benchmark has Go's one-op
+          # calibration plus 48 measured retirements. No retries or exclusions.
+          for pair in 1 2 3 4 5 6; do
+            modes='Poll Notify'
+            if [ $((pair % 2)) = 0 ]; then modes='Notify Poll'; fi
+            for mode in $modes; do
+              build/disconnect-bench.test -test.run '^$' \
+                -test.bench "^BenchmarkDisconnectRetirement${mode}$" \
+                -test.benchtime=48x -test.count=1 -test.timeout=2m \
+                2>&1 | tee "build/disconnect-evidence/pair-${pair}-${mode}.txt"
+            done
+          done
+      - name: Summarize connection retirement and seal evidence
+        if: always()
+        shell: python
+        run: |
+          import hashlib, json, os, re, statistics
+          from pathlib import Path
+          root = Path('build/disconnect-evidence')
+          pairs = []
+          for pair in range(1, 7):
+              values = {}
+              for mode in ('Poll', 'Notify'):
+                  path = root / f'pair-{pair}-{mode}.txt'
+                  if path.exists():
+                      rows = re.findall(r'^BenchmarkDisconnectRetirement' + mode + r'-[0-9]+\s+48\s+([0-9.]+) ns/op', path.read_text(), re.M)
+                      if len(rows) == 1:
+                          values[mode] = float(rows[0]) / 1e6
+              if len(values) == 2:
+                  pairs.append({'pair': pair, 'poll_ms': values['Poll'], 'notify_ms': values['Notify'],
+                                'difference_ms': values['Notify'] - values['Poll']})
+          result = {'source_commit': os.environ['GITHUB_SHA'], 'scope': 'pool.Close + WaitDisconnected; excludes SQL/setup/final DB.Close',
+                    'complete': len(pairs) == 6, 'pairs': pairs}
+          if pairs:
+              result['median_paired_difference_ms'] = statistics.median(p['difference_ms'] for p in pairs)
+          (root / 'measurement.json').write_text(json.dumps(result, indent=2) + '\n')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('\nConnection-retirement observations (not a performance gate):\n```json\n' + json.dumps(result, indent=2) + '\n```\n')
+          hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in root.iterdir() if p.is_file() and p.name != 'SHA256SUMS.json'}
+          (root / 'SHA256SUMS.json').write_text(json.dumps(hashes, indent=2, sort_keys=True) + '\n')
+          if len(pairs) != 6:
+              raise SystemExit('incomplete measurement; see retained logs')
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: disconnect-${{ matrix.runner }}-${{ github.sha }}
+          path: build/disconnect-evidence
+          if-no-files-found: error
+          retention-days: 30

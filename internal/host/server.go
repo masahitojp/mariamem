@@ -22,20 +22,21 @@ import (
 )
 
 type Server struct {
-	Guest        *guest.Process
-	listener     net.Listener
-	mu           sync.Mutex
-	clients      map[net.Conn]*session
-	slots        []bool
-	closing      bool
-	workers      sync.WaitGroup
-	workersOnce  sync.Once
-	workersDone  chan struct{}
-	disposeOnce  sync.Once
-	disposer     *disposal.Owner
-	queryTimeout time.Duration
-	transfer     string
-	build        string
+	Guest             *guest.Process
+	listener          net.Listener
+	mu                sync.Mutex
+	clients           map[net.Conn]*session
+	disconnectChanged chan struct{}
+	slots             []bool
+	closing           bool
+	workers           sync.WaitGroup
+	workersOnce       sync.Once
+	workersDone       chan struct{}
+	disposeOnce       sync.Once
+	disposer          *disposal.Owner
+	queryTimeout      time.Duration
+	transfer          string
+	build             string
 }
 
 type session struct {
@@ -113,9 +114,31 @@ func start(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, 
 	go s.accept()
 	return s, nil
 }
-func (s *Server) Port() int      { return s.listener.Addr().(*net.TCPAddr).Port }
-func (s *Server) Closing() bool  { s.mu.Lock(); defer s.mu.Unlock(); return s.closing }
-func (s *Server) Active() int    { s.mu.Lock(); defer s.mu.Unlock(); return len(s.clients) }
+func (s *Server) Port() int     { return s.listener.Addr().(*net.TCPAddr).Port }
+func (s *Server) Closing() bool { s.mu.Lock(); defer s.mu.Unlock(); return s.closing }
+func (s *Server) Active() int   { s.mu.Lock(); defer s.mu.Unlock(); return len(s.clients) }
+
+// DisconnectState samples the count and registers its change notification under
+// one lock, so a disconnect between sampling and waiting cannot be lost.
+// Notifications only prompt a recheck; none establishes completed disposal.
+func (s *Server) DisconnectState() (active int, changed, failed, done <-chan struct{}) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.disconnectChanged == nil {
+		s.disconnectChanged = make(chan struct{})
+	}
+	return len(s.clients), s.disconnectChanged, s.Guest.FailureDone(), s.Guest.Done()
+}
+
+// notifyDisconnectLocked broadcasts to all waiters without a goroutine per
+// waiter. Allocate the next generation only when another observer needs it.
+func (s *Server) notifyDisconnectLocked() {
+	if s.disconnectChanged != nil {
+		close(s.disconnectChanged)
+		s.disconnectChanged = nil
+	}
+}
+
 func (s *Server) Capacity() int  { return len(s.slots) }
 func (s *Server) Failure() error { return s.Guest.Err() }
 func (s *Server) Busy() bool {
@@ -190,6 +213,7 @@ func (s *Server) attach(conn net.Conn) error {
 			defer s.mu.Unlock()
 			delete(s.clients, conn)
 			s.slots[state.slot] = false
+			s.notifyDisconnectLocked()
 		}()
 		activity := mysqlwire.Activity{
 			Begin: func() bool {
@@ -233,6 +257,7 @@ func (s *Server) Close(ctx context.Context) (err error) {
 // stopAccepting requires mu. The same lock gates handshake/query admission.
 func (s *Server) stopAccepting() {
 	s.closing = true
+	s.notifyDisconnectLocked()
 	s.listener.Close()
 	for conn := range s.clients {
 		conn.Close()

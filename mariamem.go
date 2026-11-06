@@ -284,11 +284,31 @@ func (db *Database) WaitDisconnected(ctx context.Context) error {
 			db.mu.Unlock()
 			return hostError(ErrClosed, "closed", true)
 		}
-		active := db.server.Active()
+		var active int
+		var changed, failed, done <-chan struct{}
+		if observer, ok := db.server.(interface {
+			DisconnectState() (int, <-chan struct{}, <-chan struct{}, <-chan struct{})
+		}); ok {
+			active, changed, failed, done = observer.DisconnectState()
+		} else {
+			active = db.server.Active()
+		}
 		db.mu.Unlock()
 		if active == 0 {
 			return nil
 		}
+		// Never hold db.mu while waiting: Close must be able to wake us.
+		if changed != nil {
+			select {
+			case <-ctx.Done():
+				return ctx.Err()
+			case <-changed:
+			case <-failed:
+			case <-done:
+			}
+			continue
+		}
+		// Preserve the contract for internal backends without notifications.
 		select {
 		case <-ctx.Done():
 			return ctx.Err()
