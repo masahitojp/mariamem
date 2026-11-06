@@ -1,0 +1,505 @@
+{
+  "result": "AUXILIARY_LONG_UPDATE_ONLY",
+  "primary_result": "NEITHER_REPRODUCED",
+  "primary_processes": 10,
+  "primary_children": 480,
+  "arms": {
+    "original": {
+      "n": 240,
+      "p50_ms": 0.5734375,
+      "p95_ms": 6.893026749999996,
+      "max_ms": 24.187625,
+      "gt100": 0,
+      "gt300": 0
+    },
+    "owner": {
+      "n": 240,
+      "p50_ms": 0.765646,
+      "p95_ms": 8.294748199999999,
+      "max_ms": 76.485833,
+      "gt100": 0,
+      "gt300": 0
+    }
+  },
+  "processes": [
+    {
+      "arm": "original",
+      "pair": 0,
+      "batch_ms": 591.768333,
+      "update": {
+        "n": 48,
+        "p50_ms": 0.707333,
+        "p95_ms": 5.237301849999998,
+        "max_ms": 7.686708,
+        "gt100": 0,
+        "gt300": 0
+      }
+    },
+    {
+      "arm": "owner",
+      "pair": 0,
+      "batch_ms": 608.867125,
+      "update": {
+        "n": 48,
+        "p50_ms": 1.0579375,
+        "p95_ms": 10.083289349999996,
+        "max_ms": 12.789292,
+        "gt100": 0,
+        "gt300": 0
+      }
+    },
+    {
+      "arm": "owner",
+      "pair": 1,
+      "batch_ms": 547.934333,
+      "update": {
+        "n": 48,
+        "p50_ms": 0.704292,
+        "p95_ms": 7.604472799999999,
+        "max_ms": 12.47325,
+        "gt100": 0,
+        "gt300": 0
+      }
+    },
+    {
+      "arm": "original",
+      "pair": 1,
+      "batch_ms": 627.373292,
+      "update": {
+        "n": 48,
+        "p50_ms": 0.5259585,
+        "p95_ms": 8.618631149999995,
+        "max_ms": 24.187625,
+        "gt100": 0,
+        "gt300": 0
+      }
+    },
+    {
+      "arm": "original",
+      "pair": 2,
+      "batch_ms": 644.037875,
+      "update": {
+        "n": 48,
+        "p50_ms": 0.380708,
+        "p95_ms": 8.390206249999993,
+        "max_ms": 14.282125,
+        "gt100": 0,
+        "gt300": 0
+      }
+    },
+    {
+      "arm": "owner",
+      "pair": 2,
+      "batch_ms": 551.506542,
+      "update": {
+        "n": 48,
+        "p50_ms": 0.728146,
+        "p95_ms": 7.1183916499999995,
+        "max_ms": 20.336,
+        "gt100": 0,
+        "gt300": 0
+      }
+    },
+    {
+      "arm": "owner",
+      "pair": 3,
+      "batch_ms": 663.706792,
+      "update": {
+        "n": 48,
+        "p50_ms": 0.5373749999999999,
+        "p95_ms": 4.953830699999999,
+        "max_ms": 76.485833,
+        "gt100": 0,
+        "gt300": 0
+      }
+    },
+    {
+      "arm": "original",
+      "pair": 3,
+      "batch_ms": 513.710834,
+      "update": {
+        "n": 48,
+        "p50_ms": 0.7324585,
+        "p95_ms": 7.04535175,
+        "max_ms": 15.687333,
+        "gt100": 0,
+        "gt300": 0
+      }
+    },
+    {
+      "arm": "original",
+      "pair": 4,
+      "batch_ms": 566.937583,
+      "update": {
+        "n": 48,
+        "p50_ms": 0.5907290000000001,
+        "p95_ms": 3.9270043999999995,
+        "max_ms": 9.422,
+        "gt100": 0,
+        "gt300": 0
+      }
+    },
+    {
+      "arm": "owner",
+      "pair": 4,
+      "batch_ms": 682.944208,
+      "update": {
+        "n": 48,
+        "p50_ms": 0.727208,
+        "p95_ms": 6.63481645,
+        "max_ms": 14.081792,
+        "gt100": 0,
+        "gt300": 0
+      }
+    }
+  ],
+  "auxiliary_processes": [
+    {
+      "arm": "original",
+      "warmup": false,
+      "preflight": true,
+      "update": {
+        "n": 8,
+        "p50_ms": 0.402625,
+        "p95_ms": 2.827131249999999,
+        "max_ms": 3.664375,
+        "gt100": 0,
+        "gt300": 0
+      }
+    },
+    {
+      "arm": "owner",
+      "warmup": false,
+      "preflight": true,
+      "update": {
+        "n": 8,
+        "p50_ms": 0.439,
+        "p95_ms": 4.621814899999998,
+        "max_ms": 6.323209,
+        "gt100": 0,
+        "gt300": 0
+      }
+    },
+    {
+      "arm": "original",
+      "warmup": true,
+      "preflight": false,
+      "update": {
+        "n": 48,
+        "p50_ms": 0.40554199999999996,
+        "p95_ms": 9.265749999999988,
+        "max_ms": 13.395666,
+        "gt100": 0,
+        "gt300": 0
+      }
+    },
+    {
+      "arm": "owner",
+      "warmup": true,
+      "preflight": false,
+      "update": {
+        "n": 48,
+        "p50_ms": 0.7278335,
+        "p95_ms": 10.712637499999998,
+        "max_ms": 366.797334,
+        "gt100": 1,
+        "gt300": 1
+      }
+    }
+  ],
+  "auxiliary_slow_updates": [
+    {
+      "arm": "owner",
+      "warmup": true,
+      "preflight": false,
+      "sample": {
+        "retire_ms": 0.008166,
+        "wait_ms": 5.071875,
+        "close_ms": 6.971042,
+        "count_ms": 4.540584,
+        "update_ms": 366.797334,
+        "check_ms": 0.985709,
+        "offset_ms": 358.419417,
+        "total_ms": 452.766292,
+        "sql_ms": 372.325084,
+        "cleanup_complete": true,
+        "index": 12,
+        "fork_ms": 57.0815,
+        "connect_ms": 11.194959,
+        "select_ms": 0.109708,
+        "ready_ms": 68.387875,
+        "cleanup_ms": 12.05275,
+        "oracle": true
+      }
+    }
+  ],
+  "slow_updates": [],
+  "owner_page_waits": [
+    {
+      "primary": false,
+      "pair": -1,
+      "child": 18,
+      "wait": 186,
+      "registered_to_return_ms": 3.5645,
+      "owner_at_registration": {
+        "begin_ns": 676155250,
+        "end_ns": 676155291,
+        "block": 417336960,
+        "page": 3,
+        "space": 1,
+        "expected_page": 3,
+        "expected_space": 1,
+        "owner_before": 4294967295,
+        "owner_after": 4294967295,
+        "mutex_word": 5,
+        "readers_word": 0,
+        "state": 3221225473,
+        "kind": "IO",
+        "io_state": "WRITE_FIX",
+        "page_matches": true
+      },
+      "threshold_owner": null,
+      "threshold_before_signal": false
+    },
+    {
+      "primary": false,
+      "pair": -1,
+      "child": 35,
+      "wait": 253,
+      "registered_to_return_ms": 5.947292,
+      "owner_at_registration": {
+        "begin_ns": 859979333,
+        "end_ns": 859979375,
+        "block": 415255816,
+        "page": 3,
+        "space": 1,
+        "expected_page": 3,
+        "expected_space": 1,
+        "owner_before": 4294967295,
+        "owner_after": 4294967295,
+        "mutex_word": 5,
+        "readers_word": 0,
+        "state": 3221225473,
+        "kind": "IO",
+        "io_state": "WRITE_FIX",
+        "page_matches": true
+      },
+      "threshold_owner": null,
+      "threshold_before_signal": false
+    },
+    {
+      "primary": false,
+      "pair": -1,
+      "child": 36,
+      "wait": 28,
+      "registered_to_return_ms": 6.016209,
+      "owner_at_registration": {
+        "begin_ns": 837279875,
+        "end_ns": 837279916,
+        "block": 417348560,
+        "page": 3,
+        "space": 1,
+        "expected_page": 3,
+        "expected_space": 1,
+        "owner_before": 4294967295,
+        "owner_after": 4294967295,
+        "mutex_word": 5,
+        "readers_word": 0,
+        "state": 3221225473,
+        "kind": "IO",
+        "io_state": "WRITE_FIX",
+        "page_matches": true
+      },
+      "threshold_owner": null,
+      "threshold_before_signal": false
+    },
+    {
+      "primary": true,
+      "pair": 0,
+      "child": 2,
+      "wait": 13,
+      "registered_to_return_ms": 2.185459,
+      "owner_at_registration": {
+        "begin_ns": 167255333,
+        "end_ns": 167255375,
+        "block": 417335336,
+        "page": 3,
+        "space": 1,
+        "expected_page": 3,
+        "expected_space": 1,
+        "owner_before": 4294967295,
+        "owner_after": 4294967295,
+        "mutex_word": 5,
+        "readers_word": 0,
+        "state": 3221225473,
+        "kind": "IO",
+        "io_state": "WRITE_FIX",
+        "page_matches": true
+      },
+      "threshold_owner": null,
+      "threshold_before_signal": false
+    },
+    {
+      "primary": true,
+      "pair": 0,
+      "child": 40,
+      "wait": 16,
+      "registered_to_return_ms": 2.18775,
+      "owner_at_registration": {
+        "begin_ns": 592711916,
+        "end_ns": 592711958,
+        "block": 415239808,
+        "page": 3,
+        "space": 1,
+        "expected_page": 3,
+        "expected_space": 1,
+        "owner_before": 4294967295,
+        "owner_after": 4294967295,
+        "mutex_word": 5,
+        "readers_word": 0,
+        "state": 3221225473,
+        "kind": "IO",
+        "io_state": "WRITE_FIX",
+        "page_matches": true
+      },
+      "threshold_owner": null,
+      "threshold_before_signal": false
+    },
+    {
+      "primary": true,
+      "pair": 2,
+      "child": 45,
+      "wait": 155,
+      "registered_to_return_ms": 1.485958,
+      "owner_at_registration": {
+        "begin_ns": 597553584,
+        "end_ns": 597553709,
+        "block": 415239808,
+        "page": 3,
+        "space": 1,
+        "expected_page": 3,
+        "expected_space": 1,
+        "owner_before": 4294967295,
+        "owner_after": 4294967295,
+        "mutex_word": 5,
+        "readers_word": 0,
+        "state": 3221225473,
+        "kind": "IO",
+        "io_state": "WRITE_FIX",
+        "page_matches": true
+      },
+      "threshold_owner": null,
+      "threshold_before_signal": false
+    },
+    {
+      "primary": true,
+      "pair": 3,
+      "child": 42,
+      "wait": 39,
+      "registered_to_return_ms": 14.728292,
+      "owner_at_registration": {
+        "begin_ns": 700171625,
+        "end_ns": 700171625,
+        "block": 415239808,
+        "page": 3,
+        "space": 1,
+        "expected_page": 3,
+        "expected_space": 1,
+        "owner_before": 4294967295,
+        "owner_after": 4294967295,
+        "mutex_word": 5,
+        "readers_word": 0,
+        "state": 3221225473,
+        "kind": "IO",
+        "io_state": "WRITE_FIX",
+        "page_matches": true
+      },
+      "threshold_owner": null,
+      "threshold_before_signal": false
+    },
+    {
+      "primary": true,
+      "pair": 3,
+      "child": 47,
+      "wait": 373,
+      "registered_to_return_ms": 0.193667,
+      "owner_at_registration": {
+        "begin_ns": 784601500,
+        "end_ns": 784601625,
+        "block": 417342760,
+        "page": 3,
+        "space": 1,
+        "expected_page": 3,
+        "expected_space": 1,
+        "owner_before": 4294967295,
+        "owner_after": 4294967295,
+        "mutex_word": 5,
+        "readers_word": 0,
+        "state": 3221225473,
+        "kind": "IO",
+        "io_state": "WRITE_FIX",
+        "page_matches": true
+      },
+      "threshold_owner": null,
+      "threshold_before_signal": false
+    },
+    {
+      "primary": true,
+      "pair": 4,
+      "child": 13,
+      "wait": 56,
+      "registered_to_return_ms": 0.699459,
+      "owner_at_registration": {
+        "begin_ns": 285322708,
+        "end_ns": 285322792,
+        "block": 417335336,
+        "page": 3,
+        "space": 1,
+        "expected_page": 3,
+        "expected_space": 1,
+        "owner_before": 4294967295,
+        "owner_after": 4294967295,
+        "mutex_word": 5,
+        "readers_word": 0,
+        "state": 3221225473,
+        "kind": "IO",
+        "io_state": "WRITE_FIX",
+        "page_matches": true
+      },
+      "threshold_owner": null,
+      "threshold_before_signal": false
+    }
+  ],
+  "captures": [
+    {
+      "exec_enter_ms": 0.007583,
+      "snapshot_inside_actual_exec": true,
+      "child": 12,
+      "artificial": false,
+      "threshold_ms": 100,
+      "snapshot_begin_ms": 102.265917,
+      "snapshot_end_ms": 106.022583,
+      "exec_return_ms": 366.299708,
+      "bytes": 68528,
+      "truncated": false,
+      "labels_bound": true,
+      "primary": false,
+      "arm": "owner",
+      "pair": -1,
+      "file": "owner-p8-r-1-warmup-capture-child-012.json"
+    }
+  ],
+  "controls": {
+    "preflight": 2,
+    "wrong_seed": 2,
+    "warmups": 2
+  },
+  "limits": [
+    "Five pairs do not estimate population frequency or prove observer causality.",
+    "Same product/SQL and external controller; owner arm adds query watchdog, trace hooks, labels and writer-owner sampling.",
+    "This restores original external sampler/handshake but not historical host load, full mixed-variant campaign history, or identical thread scheduling.",
+    "No new runtime instrumentation and no product/guest/API/release changes.",
+    "No adoption decision based on observed speed; primary metric is UPDATE>100ms count and duration."
+  ],
+  "stop": "Fixed protocol completed; no extra repetition or automatic follow-up"
+}

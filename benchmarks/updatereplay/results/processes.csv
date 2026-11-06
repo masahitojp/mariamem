@@ -1,0 +1,17 @@
+arm,repetition,warmup,preflight,negative,count,batch_ms,update_max_ms,update_gt100
+original,-3,False,True,False,8,219.8845,3.664375,0
+original,-2,False,False,True,1,36.309041,0,0
+owner,-3,False,True,False,8,133.59075,6.323209,0
+owner,-2,False,False,True,1,35.41675,0,0
+original,-1,True,False,False,48,594.77625,13.395666,0
+owner,-1,True,False,False,48,937.333125,366.797334,1
+original,0,False,False,False,48,591.768333,7.686708,0
+owner,0,False,False,False,48,608.867125,12.789292,0
+owner,1,False,False,False,48,547.934333,12.47325,0
+original,1,False,False,False,48,627.373292,24.187625,0
+original,2,False,False,False,48,644.037875,14.282125,0
+owner,2,False,False,False,48,551.506542,20.336,0
+owner,3,False,False,False,48,663.706792,76.485833,0
+original,3,False,False,False,48,513.710834,15.687333,0
+original,4,False,False,False,48,566.937583,9.422,0
+owner,4,False,False,False,48,682.944208,14.081792,0

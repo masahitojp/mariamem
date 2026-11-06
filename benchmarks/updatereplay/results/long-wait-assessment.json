@@ -1,0 +1,128 @@
+{
+  "result": "NATURAL_LONG_UPDATE_IN_WARMUP",
+  "primary_comparison": false,
+  "artificial": false,
+  "source_commit": "f678de708c7e376f53b6d021976fc7f17827e3e4",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "child": 12,
+  "update_ms": 366.797334,
+  "actual_exec_ms": 366.292125,
+  "profile_ms": 3.7566659999999956,
+  "profile_inside_actual_exec": true,
+  "wait_id": 22,
+  "ea": 17881412,
+  "query_thread": 630762496,
+  "notifier_thread": 458402720,
+  "notify_id": 25,
+  "wait_registered_to_resume_ms": 364.481041,
+  "registered_to_signal_before_ms": 363.423916,
+  "registered_to_signal_after_ms": 363.424291,
+  "signal_before_to_resume_ms": 1.057125,
+  "signal_after_to_resume_ms": 1.05675,
+  "wait_registered_to_return_ms": 364.482041,
+  "preclose_fraction_lower_bound": 0.9970996433803535,
+  "page_owner_observed": false,
+  "query_stack_fn_chain": [
+    "88",
+    "92",
+    "16626",
+    "17010",
+    "18025",
+    "18029",
+    "17047",
+    "17044",
+    "17169",
+    "18480",
+    "7241",
+    "15597",
+    "15616",
+    "15185",
+    "14581",
+    "14576",
+    "5562",
+    "5853",
+    "257",
+    "267",
+    "214"
+  ],
+  "background_stack_fn_chain": [
+    "88",
+    "216",
+    "16621",
+    "18164",
+    "18164",
+    "17227",
+    "17211",
+    "18231",
+    "16586",
+    "16595",
+    "16599",
+    "214"
+  ],
+  "notifier_callers": [
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*ThreadPool).wake.func1 github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:11659",
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/base.(*ThreadPool).wake github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:11678",
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/base.AtomicNotify github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:1881",
+    "github.com/masahitojp/mariamem/internal/generatedgo.(*host).futexWake github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/main.go:168",
+    "github.com/masahitojp/mariamem/internal/generatedgo.(*host).Futex_wake_all github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/main.go:174",
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn89 github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p8/p8_pure.go:219",
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn17211 github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p2/p2_pure.go:831506",
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn18231 github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p8/p8_pure.go:375104",
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16586 github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:893243",
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn16595 github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p6/p6_pure.go:893507",
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16599 github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p7/p7_pure.go:852466",
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn214 github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/p5/p5_pure.go:3711",
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/base.InstallThreadLifetime.1 github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/thread_lifetime.go:58",
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadSpawn.func1 github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2034",
+    "github.com/masahitojp/mariamem/internal/generatedgo/code/base.ThreadLaunch.func1 github.com/masahitojp/mariamem@v0.6.2/internal/generatedgo/code/base/base.go:2020",
+    "runtime.goexit runtime/asm_arm64.s:1039"
+  ],
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "upstream_inputs": {
+    "storage/innobase/trx/trx0purge.cc": {
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "7956ec9af7e034edc8701c17f85d6b50edaacd44ba08709ba8802a4c14beeefd",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/trx/trx0purge.cc",
+      "bytes": 48646,
+      "acquisition": "verified pinned local cache"
+    },
+    "storage/innobase/trx/trx0rec.cc": {
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "d8ee776548dc7dd712ef35916c3f57eb7f6f7cca216b1f7538dee0c51b2eb3bf",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/trx/trx0rec.cc",
+      "bytes": 72757,
+      "acquisition": "verified pinned local cache"
+    },
+    "storage/innobase/include/trx0rseg.h": {
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "234ff08ee467efc455c7ea232fb1e5b2f35fbf7785668b2793225c93a7303897",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/include/trx0rseg.h",
+      "bytes": 10753,
+      "acquisition": "verified pinned local cache"
+    },
+    "storage/innobase/include/srw_lock.h": {
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "sha256": "242c8c99edfb8c3d75b42edd9b997e9a31c0dc509ea5d80e0d585968cb31dea0",
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/innobase/include/srw_lock.h",
+      "bytes": 21948,
+      "acquisition": "verified pinned local cache"
+    }
+  },
+  "source_correspondence": {
+    "query": "Fn17010 at p1_pure.go731129 calls Fn16626 after CAS0->INT_MAX on rseg pointer+4, before cached undo assignment; matches inlined trx_undo_assign_low rseg.latch acquisition",
+    "notify": "Fn17211 at p2_pure.go831506 calls wake_all after unlocking array rseg.latch;128 entries at128byte stride, get via Fn17227 within the loop, matches purge_sys_t::iterator::free_history/free_history_rseg",
+    "address": "Fn17211 rseg latch=17897668+offset, offset=-16384+i*128; recorded17881412 corresponds i=1. This binds notifier address to a latch, not snapshot background page to that exact rseg.",
+    "snapshot": "Same-child background stack Fn17211 -> Fn17227 -> Fn18164 -> Fn16621: purge-like path waiting on a page writer mutex at snapshot time. No page owner/ID or background thread-ID binding at that snapshot."
+  },
+  "limits": [
+    "Current generated/C structural correspondence, not full recovered symbol map.",
+    "Matching notifier identifies releasing path, not the original owner for all363ms.",
+    "Concurrent background page wait supports a relay hypothesis but its page/rseg identity is not captured.",
+    "Page owner recorder was scoped to query thread: it cannot attribute the background page wait to IO.",
+    "Do not equate this with the earlier355ms event whose query itself waited on the page writer mutex."
+  ],
+  "generated_sha256": {
+    "internal/generatedgo/code/p1/p1_pure.go": "99190e12f785f014b85578b0fd3edc1c96ec91e7736c1230fd58d8209490300f",
+    "internal/generatedgo/code/p2/p2_pure.go": "0d067e13916b78f9d0f569c704b99d9d6f8b6b3320aa3e135bcdace785d294a4"
+  }
+}
