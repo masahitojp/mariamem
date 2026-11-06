@@ -1,0 +1,3 @@
+ProductName:		macOS
+ProductVersion:		15.8.2
+BuildVersion:		24H232

@@ -1,0 +1,42 @@
+{
+  "result": "PASS",
+  "source_commit": "a5fce7485cb4cb74cbc982c8c342a104f06c8ca6",
+  "candidate_run": 42255365786,
+  "development_run": 42254980323,
+  "main_commit": "2434a536c50e5bd23129dd9940d6371e80a23366",
+  "identical_candidate_and_main_tree": "0fa6676b8bcbf3256df8b5dd00e3e16058f2ed51",
+  "platforms": {
+    "ubuntu-24.04": {
+      "artifact_id": 13523740490,
+      "zip_sha256": "784bbdf091206300f689a7dcc78b5e05860fece7bcc1fb27a9ed202bb22365e9",
+      "all_original_members_verified": true,
+      "saved_files_sha256": {
+        "measurement.json": "8e565dfd7b3e7574d6023c11e6ddb7fdb96a9fa117c672fb537c376fd8ce2915",
+        "contracts.txt": "208029e11f449c5af06089fc0872929b57b249f6ba04d00c69d700cf1cda8b31",
+        "runtime.txt": "502820ca5c5e07d655bda5805e31c1d3401370c3eba4652a7a9475b7e3bc71fe",
+        "source.json": "1066b3c1614836855398fe4053d99b6f801f7d55672fb9ad6357356a981b9c71",
+        "go.txt": "4e0b213cba780f63b02f3ab9001ee61e4101d254e0af1a8205574c19dad0f93b",
+        "platform.txt": "2437786a005300b4d25ddff7c65a91bdfe873d85b22086b4a7b863f333197732",
+        "os-version.txt": "87458b3b1f1ca0e5c693ade771de7007c3783bdc692fa6b39eb6414bf2af2763",
+        "binary-sha256.txt": "377600ed342073169868a73d84786a25065d47f84df7da093ffdacca3ea4640c"
+      },
+      "median_paired_difference_ms": -5.1817245
+    },
+    "macos-15": {
+      "artifact_id": 13522224144,
+      "zip_sha256": "aec9f70021e1c2fcfc702ac54bf51db06d66920c514780a301ee77de6cf2932c",
+      "all_original_members_verified": true,
+      "saved_files_sha256": {
+        "measurement.json": "2cc721838300896c8d8f0c1895a577be85085e6f0d34737d3dc07efe01cd1e86",
+        "contracts.txt": "dcf8314ba272f28e8ba566374edee0173cee6731d7dbffd0eb7ad5b8bd68a87e",
+        "runtime.txt": "b0852d99deabf2ce10243761d0bccad423817f46f3ddbfb87956b50449acbdfc",
+        "source.json": "1066b3c1614836855398fe4053d99b6f801f7d55672fb9ad6357356a981b9c71",
+        "go.txt": "077dec62e8d33611342a1349cacb348362593f6028f03f3d345b05b156bd9662",
+        "platform.txt": "cbe5ef41ccd885de7b4bc2289a859d22befa8502a79093746315811b53036559",
+        "os-version.txt": "e0a9e270c507499fb163b6bb80e62f10c6fca344ce2c93fa2987fe42caf94b29",
+        "binary-sha256.txt": "f452c728a75d91e9da0f6c5ee1a08cb6518ea7abcbcc9c497cae3c53b3466d06"
+      },
+      "median_paired_difference_ms": -6.321514499999999
+    }
+  }
+}

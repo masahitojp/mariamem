@@ -1,0 +1,44 @@
+{
+  "source_commit": "a5fce7485cb4cb74cbc982c8c342a104f06c8ca6",
+  "scope": "pool.Close + WaitDisconnected; excludes SQL/setup/final DB.Close",
+  "complete": true,
+  "pairs": [
+    {
+      "pair": 1,
+      "poll_ms": 6.377111,
+      "notify_ms": 0.058271,
+      "difference_ms": -6.31884
+    },
+    {
+      "pair": 2,
+      "poll_ms": 6.818741,
+      "notify_ms": 0.096838,
+      "difference_ms": -6.721903
+    },
+    {
+      "pair": 3,
+      "poll_ms": 6.429599,
+      "notify_ms": 0.10541,
+      "difference_ms": -6.324189
+    },
+    {
+      "pair": 4,
+      "poll_ms": 6.322353,
+      "notify_ms": 0.113733,
+      "difference_ms": -6.20862
+    },
+    {
+      "pair": 5,
+      "poll_ms": 9.859737,
+      "notify_ms": 0.092139,
+      "difference_ms": -9.767598000000001
+    },
+    {
+      "pair": 6,
+      "poll_ms": 6.079514,
+      "notify_ms": 0.09673,
+      "difference_ms": -5.982784
+    }
+  ],
+  "median_paired_difference_ms": -6.321514499999999
+}
