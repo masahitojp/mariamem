@@ -1,11 +1,13 @@
 {
   "contract": "issue65-experimental-thread-binding-v1",
-  "guest_sha256": "6956ea97ff4ad5fa7cc1b9617ec39ac0197c402c0bfa869469ec62a9ad6c3719",
-  "previous_experimental_guest_sha256": "c4c72644cd3fa4605a936a7eafe8d622ab4f670e5b7bdbfbdf30f0a351e8dfcf",
+  "guest_sha256": "0531ff4f348670dd5e2065a4a25fe9012ed278bd346a12093b97ff1cdfdd67e9",
+  "previous_experimental_guest_sha256": "6956ea97ff4ad5fa7cc1b9617ec39ac0197c402c0bfa869469ec62a9ad6c3719",
+  "canonical_reference_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "canonical_reference_source_commit": "ab8c3503f35e6ded515e2e0c58efc508099f6baf",
   "functions": {
     "code/p3/p3_pure.go": {
       "function": "Fn151",
-      "normalized_sha256": "97c18a3b4713b4860b740c6c7988524c5d1521ddf0662a6e61b61c4f6278e053",
+      "normalized_sha256": "b3fc8378540027d3a8f891b3f432231248d0aff0139e104b49e387ce62014d10",
       "role": "free"
     },
     "code/p8/p8_pure.go": {
@@ -15,7 +17,7 @@
     },
     "code/p5/p5_pure.go": {
       "function": "Fn211",
-      "normalized_sha256": "b78c41be053506043d2d1b8e3a944f7f78f84b3e9edaaed4d64f698c6b118e69",
+      "normalized_sha256": "24809ad1a013a432689ec4ce48cec8391dc703ad3f4970f5e1ff2d7dbc902927",
       "role": "entry"
     }
   },
@@ -27,24 +29,24 @@
         "Fn131": "Fn129"
       },
       "changed_numeric_literals": {
-        "15246728": "15245064",
-        "15246732": "15245068",
-        "15246300": "15244636",
-        "15246304": "15244640",
-        "15246284": "15244620",
-        "15246292": "15244628",
-        "15246588": "15244924",
-        "15246288": "15244624",
-        "15246308": "15244644",
-        "15246296": "15244632",
-        "15246324": "15244660",
-        "15246316": "15244652"
+        "18000840": "17999240",
+        "18000844": "17999244",
+        "18000412": "17998812",
+        "18000416": "17998816",
+        "18000396": "17998796",
+        "18000404": "17998804",
+        "18000700": "17999100",
+        "18000400": "17998800",
+        "18000420": "17998820",
+        "18000408": "17998808",
+        "18000436": "17998836",
+        "18000428": "17998828"
       },
       "static_relocation_delta": [
-        -1664
+        -1600
       ],
-      "previous_body_sha256": "d40bb98ce99a0699a26224ccddc5431083edb010fd888daf778387d4a67bef95",
-      "new_body_sha256": "bc1af7117609cb4b11b6a96dad5e2f9aed2d7cc80ac314a91f72de507a2f2d42"
+      "canonical_reference_body_sha256": "8e7c209192d8592d7af9e2c91bd47f2270638977418d1624d3e530185849810d",
+      "new_body_sha256": "c0e21f92bbe5440e64b3dbe3729a1245344911a7407a5e0fa1c7204a51545837"
     },
     "yield": {
       "complete_body_equal_after_recorded_relocation": true,
@@ -53,7 +55,7 @@
       },
       "changed_numeric_literals": {},
       "static_relocation_delta": [],
-      "previous_body_sha256": "91b13b652d2dc922a4a2e848aeba1520d9cb406341b5cd7e87b5243ef8d2db26",
+      "canonical_reference_body_sha256": "91b13b652d2dc922a4a2e848aeba1520d9cb406341b5cd7e87b5243ef8d2db26",
       "new_body_sha256": "c10f06f62eab7a7f88def8f1dd78934cd7fd4f84fb8cc3b21eecdf28bf908ec7"
     },
     "entry": {
@@ -72,21 +74,21 @@
       },
       "changed_numeric_literals": {
         "505": "497",
-        "15248892": "15247228",
-        "15249408": "15247744",
-        "15249456": "15247792",
-        "15250000": "15248336",
-        "15250004": "15248340",
-        "15244868": "15243204",
-        "15244865": "15243201",
-        "15250008": "15248344",
-        "15307408": "15305744"
+        "18003004": "18001404",
+        "18003520": "18001920",
+        "18003568": "18001968",
+        "18004112": "18002512",
+        "18004116": "18002516",
+        "17998980": "17997380",
+        "17998977": "17997377",
+        "18004120": "18002520",
+        "18061520": "18059920"
       },
       "static_relocation_delta": [
-        -1664
+        -1600
       ],
-      "previous_body_sha256": "d4e878fe9982f24589f100496f0ba3322e07a00d5d7bcd57542e42d5602f5179",
-      "new_body_sha256": "875e2056d94628cab3d939e71a479165ef5217890310bc8bc004200ed5afbee3"
+      "canonical_reference_body_sha256": "e2c425c2f1e5fa153d029b27ad6f5239b6aa20f6fd6e2bf2ef1f2f93ea2b4bcb",
+      "new_body_sha256": "31588b3c4758d11ce7d80bdd782fb7af73e940278216aca7f87892896708d55f"
     }
   },
   "ABI_offsets": {
