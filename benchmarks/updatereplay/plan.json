@@ -1,0 +1,93 @@
+{
+  "question": "Does the original timer harness still show >100ms UPDATE tails under the same external controller as the latest owner-observed harness?",
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "arms": {
+    "original": {
+      "source_commit": "549fd3ba4fdc92b407534bd2b4ce844951fbd4df",
+      "overlay": "benchmarks/bufferflush/overlay.py",
+      "prior_binary_sha256": "6dd778be6ae4f03bca8b77e8d3962fb5e1b3cac8739876c5fc96a4bb5586abf0"
+    },
+    "owner": {
+      "source_commit": "f678de708c7e376f53b6d021976fc7f17827e3e4",
+      "overlay": "benchmarks/undoowner/overlay.py",
+      "prior_binary_sha256": "55222550661e15d87a2deb2a446eecda1e2b9e7409a845525506ea2131c260fc"
+    }
+  },
+  "fixed": {
+    "parallel": 8,
+    "children_per_batch": 48,
+    "route": "pipe",
+    "max_forks": 8,
+    "gomaxprocs": 8,
+    "gogc": 100,
+    "variant": "both-off",
+    "commit": 1,
+    "flush_method": "O_DIRECT",
+    "fixture_rows": 1000,
+    "sql_sequence": "COUNT/SUM pristine oracle -> UPDATE v=-1 -> affected1 -> SELECT v=-1 -> retire/WaitDisconnected/Close",
+    "external_controller": "Original20ms libproc RSS sampling, ready/go/done handshake on both arms. 3GiB process RSS guard.",
+    "toolchain": "go version go1.27.3 darwin/arm64"
+  },
+  "protocol": {
+    "pairs": [
+      [
+        "original",
+        "owner"
+      ],
+      [
+        "owner",
+        "original"
+      ],
+      [
+        "original",
+        "owner"
+      ],
+      [
+        "owner",
+        "original"
+      ],
+      [
+        "original",
+        "owner"
+      ]
+    ],
+    "primary_processes": 10,
+    "primary_children": 480,
+    "preflight_per_arm": {
+      "processes": 1,
+      "children": 8
+    },
+    "wrong_seed_per_arm": {
+      "processes": 1,
+      "children": 1
+    },
+    "warmup_per_arm": {
+      "processes": 1,
+      "children": 48
+    },
+    "total_processes": 16,
+    "max_extra_runs": 0
+  },
+  "limits": [
+    "Five pairs do not estimate population frequency or prove observer causality.",
+    "Same product/SQL and external controller; owner arm adds query watchdog, trace hooks, labels and writer-owner sampling.",
+    "This restores original external sampler/handshake but not historical host load, full mixed-variant campaign history, or identical thread scheduling.",
+    "No new runtime instrumentation and no product/guest/API/release changes.",
+    "No adoption decision based on observed speed; primary metric is UPDATE>100ms count and duration."
+  ],
+  "exit": {
+    "neither": "STOP_NOT_REPRODUCED; leave historical tail unresolved, no automatic repeat or new collector",
+    "only_original": "Observer-associated difference candidate, not proof; preserve all raw results",
+    "only_owner": "Observer-associated difference or rarity; not proof of regression",
+    "both": "Reproduction returned; report paired events and use existing owner capture only if present, no automatic followup"
+  },
+  "budget": {
+    "active_minutes": 40,
+    "build_timeout_per_arm_seconds": 1200,
+    "process_timeout_seconds": 120,
+    "disk_gib": 8,
+    "min_free_gib": 12,
+    "heavy_ci": 0
+  }
+}
