@@ -1,0 +1,166 @@
+package base
+
+import (
+	"sync/atomic"
+	"testing"
+	"unsafe"
+)
+
+func urFixture(t *testing.T) (*Module, func()) {
+	t.Helper()
+	old := uwDir
+	uwDir = t.TempDir()
+	t.Cleanup(func() { uwDir = old })
+	b := make([]byte, 65536)
+	sql := "UPDATE fork_probe SET v=-1 WHERE id=1"
+	copy(b[1024:], sql)
+	size := new(atomic.Uint64)
+	size.Store(uint64(len(b)))
+	m := &Module{Memory: b, M: unsafe.Pointer(&b[0]), MemSize: size, MemShared: true, Threads: &ThreadPool{}, G1: 1}
+	put := func(addr uint32, v uint32) { atomic.StoreUint32((*uint32)(unsafe.Add(m.M, addr)), v) }
+	put(2048, 4096)
+	put(2048+4, 0x7fffffff)
+	put(2048+36, 3)
+	put(4096+32, 1)
+	put(8192, 3)
+	put(8196, 1)
+	put(8192+24, 3)
+	put(8192+156, ^uint32(0))
+	put(8192+172, (6<<29)+1)
+	UWBind(m, 0, true)
+	end := UWSqlBegin(m, 1024, int32(len(sql)))
+	return m, func() { end(); UWFlush(m) }
+}
+func urSignal(m *Module, ea uint64, ch chan struct{}) {
+	tok := UWNotifyBegin(m.Threads, ea, []*Module{m})
+	UWSignal(m.Threads, ea, ch, tok, false)
+	close(ch)
+	UWSignal(m.Threads, ea, ch, tok, true)
+	UWNotifyEnd(tok, ea, 1)
+}
+func TestURBoundRelay(t *testing.T) {
+	m, end := urFixture(t)
+	defer end()
+	purge := *m
+	purge.G1 = 2
+	io := *m
+	io.G1 = 3
+	URPurgeAcquire(&purge, 2048)
+	endR := UWRsegBegin(&purge, 2048)
+	endO := UWOwnerBegin(&purge, 8192)
+	endM := UWMutexBegin(&purge, 8192+24)
+	cp := make(chan struct{})
+	wp := UWRegister(&purge, 512, -1, cp)
+	endQ := URQueryRsegWait(m, 2048)
+	cq := make(chan struct{})
+	wq := UWRegister(m, 2052, -1, cq)
+	urSignal(&io, 512, cp)
+	UWWaitEvent(&purge, wp, "wait_resume", 0)
+	UWWaitEvent(&purge, wp, "wait_return", 0)
+	endM()
+	endO()
+	endR()
+	URPurgeRelease(&purge, 2048, false)
+	atomic.StoreUint32((*uint32)(unsafe.Add(m.M, 2052)), 0)
+	URPurgeRelease(&purge, 2048, true)
+	urSignal(&purge, 2052, cq)
+	URPurgeEnd(&purge)
+	UWWaitEvent(m, wq, "wait_resume", 0)
+	UWWaitEvent(m, wq, "wait_return", 0)
+	endQ()
+	s := uwLookup(m.Threads)
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	foundP, foundQ := false, false
+	var acquired, releaseBefore, releaseAfter, querySignal, queryResume int64
+	for _, e := range s.Events {
+		switch e.Kind {
+		case "purge_acquired":
+			acquired = e.NS
+		case "purge_release_before":
+			releaseBefore = e.NS
+		case "purge_release_after":
+			releaseAfter = e.NS
+		case "wait_registered":
+			if e.Wait == wp {
+				foundP = true
+				if e.Role != "purge" || e.HeldRseg != 2048 || e.Rseg != 2048 || e.Page != 3 || e.Space != 1 || e.Owner == nil || e.Owner.Kind != "IO" {
+					t.Fatal(e)
+				}
+			}
+			if e.Wait == wq {
+				foundQ = true
+				if e.Role != "update" || e.WaitingRseg != 2048 || e.EA != 2052 || e.Owner != nil {
+					t.Fatal(e)
+				}
+			}
+		case "signal_before":
+			if e.Wait == wq {
+				querySignal = e.NS
+			}
+		case "wait_resume":
+			if e.Wait == wq {
+				queryResume = e.NS
+			}
+		}
+	}
+	if !foundP || !foundQ || !(acquired < releaseBefore && releaseBefore <= releaseAfter && releaseAfter <= querySignal && querySignal <= queryResume) {
+		t.Fatal("bad chain timestamps")
+	}
+	if _, ok := s.queries[2]; ok {
+		t.Fatal("purge scope leaked")
+	}
+}
+func TestURAbortAndPriorContext(t *testing.T) {
+	m, end := urFixture(t)
+	defer end()
+	s := uwLookup(m.Threads)
+	original := s.queries[1]
+	URPurgeAcquire(m, 2048)
+	URPurgeExit(m)
+	if q := s.queries[1]; q.id != original.id || q.role != "update" {
+		t.Fatal("query context not restored")
+	}
+	p := *m
+	p.G1 = 2
+	URPurgeAcquire(&p, 2048)
+	endR := UWRsegBegin(&p, 2048)
+	endO := UWOwnerBegin(&p, 8192)
+	endM := UWMutexBegin(&p, 8192+24)
+	ch := make(chan struct{})
+	UWRegister(&p, 512, -1, ch)
+	URPurgeExit(&p)
+	s.mu.Lock()
+	w := s.waits[ch]
+	w.page.owner.ptr = nil
+	n := len(s.Events)
+	s.mu.Unlock()
+	uoLate(s, w)
+	if len(s.Events) != n {
+		t.Fatal("aborted callback sampled")
+	}
+	// These closures belong to an intentionally aborted synthetic scope and are
+	// not invoked after its page lifetime ended. Real unwind runs inner closures first.
+	_ = endR
+	_ = endO
+	_ = endM
+}
+func TestURIdentityMismatch(t *testing.T) {
+	m, end := urFixture(t)
+	defer end()
+	p := *m
+	p.G1 = 2
+	URPurgeAcquire(&p, 2048)
+	caught := false
+	func() { defer func() { caught = recover() != nil }(); URPurgeRelease(&p, 2176, false) }()
+	if !caught {
+		t.Fatal("wrong rseg accepted")
+	}
+	URPurgeExit(&p)
+	other := *m
+	other.Threads = &ThreadPool{}
+	URPurgeAcquire(&other, 2048)
+	if uwLookup(other.Threads) != nil {
+		t.Fatal("wrong instance acquired scope")
+	}
+}

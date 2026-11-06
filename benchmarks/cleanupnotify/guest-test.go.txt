@@ -1,0 +1,3 @@
+package guest
+import("errors";"testing")
+func TestIssue117FailureSignal(t *testing.T){for _,before:=range []bool{false,true}{p:=&Process{};want:=errors.New("failed before owner join");if before{p.fail(want)};ch:=p.FailureDone();if !before{select{case <-ch:t.Fatal("premature signal");default:};p.fail(want)};select{case <-ch:default:t.Fatal("failure not notified")};p.fail(errors.New("later"));if !errors.Is(p.Err(),want){t.Fatal("cause replaced")};if ch!=p.FailureDone(){t.Fatal("unstable failure signal")}}}

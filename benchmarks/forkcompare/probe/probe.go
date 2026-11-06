@@ -29,6 +29,8 @@ type Snapshot struct {
 	Close func() error
 }
 type Sample struct {
+	UpdateMS float64 `json:"update_ms"`
+
 	RetireMS  float64        `json:"retire_ms"`
 	WaitMS    float64        `json:"wait_ms"`
 	CloseMS   float64        `json:"close_ms"`
@@ -170,7 +172,9 @@ func one(ctx context.Context, sn *Snapshot, route string, index int, batchStart 
 	if e = oracle(ctx, c); e != nil {
 		return s, e
 	}
-	result, e := c.ExecContext(ctx, "UPDATE fork_probe SET v=-1 WHERE id=1")
+	updateAt := time.Now()
+	result, e := updateObserved(ctx, c, index)
+	s.UpdateMS = ms(time.Since(updateAt))
 	if e != nil {
 		return s, e
 	}

@@ -1,0 +1,155 @@
+package base
+
+import (
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"sync/atomic"
+	"testing"
+	"time"
+	"unsafe"
+)
+
+func TestUOClassification(t *testing.T) {
+	for _, c := range []struct {
+		a, b, word uint32
+		page       uint32
+		want       string
+	}{{^uint32(0), ^uint32(0), 3, 3, "IO"}, {72, 72, 3, 3, "THREAD"}, {0, 0, 3, 3, "UNRESOLVED"}, {72, 73, 3, 3, "UNRESOLVED"}, {72, 72, 0, 3, "UNRESOLVED"}, {72, 72, 3, 4, "PAGE_MISMATCH"}} {
+		x := &uoSample{OwnerBefore: c.a, OwnerAfter: c.b, Mutex: c.word, Page: c.page, ExpectedPage: 3, State: 6 << 29}
+		uoClassify(x)
+		if x.Kind != c.want || x.IOState != "WRITE_FIX" {
+			t.Fatal(c, x)
+		}
+	}
+}
+func uoFixture(t *testing.T) (*Module, func(), func()) {
+	t.Helper()
+	old := uwDir
+	uwDir = t.TempDir()
+	t.Cleanup(func() { uwDir = old })
+	b := make([]byte, 65536)
+	sql := "UPDATE fork_probe SET v=-1 WHERE id=1"
+	copy(b[1024:], sql)
+	size := new(atomic.Uint64)
+	size.Store(uint64(len(b)))
+	p := &ThreadPool{}
+	m := &Module{Memory: b, M: unsafe.Pointer(&b[0]), MemSize: size, MemShared: true, Threads: p, G1: 1}
+	put := func(addr uint32, v uint32) { atomic.StoreUint32((*uint32)(unsafe.Add(m.M, addr)), v) }
+	put(2048, 4096)
+	put(2048+36, 3)
+	put(4096+32, 1)
+	put(8192, 3)
+	put(8196, 1)
+	put(8192+24, 3)
+	put(8192+156, ^uint32(0))
+	put(8192+172, (6<<29)+1)
+	UWBind(m, 0, true)
+	endQ := UWSqlBegin(m, 1024, int32(len(sql)))
+	endR := UWRsegBegin(m, 2048)
+	endO := UWOwnerBegin(m, 8192)
+	endM := UWMutexBegin(m, 8192+24)
+	return m, func() { endM(); endO() }, func() { endR(); endQ(); UWFlush(m) }
+}
+func TestUOLateAndLifetime(t *testing.T) {
+	old := uwLong
+	uwLong = int64(5 * time.Millisecond)
+	defer func() { uwLong = old }()
+	m, endScope, end := uoFixture(t)
+	s := uwLookup(m.Threads)
+	ch := make(chan struct{})
+	id := UWRegister(m, 256, -1, ch)
+	deadline := time.Now().Add(time.Second)
+	found := false
+	for time.Now().Before(deadline) {
+		s.mu.Lock()
+		for _, e := range s.Events {
+			if e.Kind == "owner_still_waiting" {
+				found = true
+				if e.Owner.Kind != "IO" || e.Owner.IOState != "WRITE_FIX" || e.Wait != id || e.Mutex != 8192+24 {
+					t.Fatal(e)
+				}
+			}
+		}
+		s.mu.Unlock()
+		if found {
+			break
+		}
+		time.Sleep(time.Millisecond)
+	}
+	if !found {
+		t.Fatal("no late sample")
+	}
+	UWWaitEvent(m, id, "wait_return", 0)
+	endScope()
+	s.mu.Lock()
+	n := len(s.Events)
+	w := s.waits[ch]
+	s.mu.Unlock()
+	uoLate(s, w)
+	s.mu.Lock()
+	if len(s.Events) != n {
+		t.Fatal("sample after scope end")
+	}
+	s.mu.Unlock()
+	end()
+	data, err := os.ReadFile(filepath.Join(uwDir, "child-000.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var saved uwState
+	if json.Unmarshal(data, &saved) != nil || saved.Truncated {
+		t.Fatal("serialization")
+	}
+	uoLate(s, w)
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if len(s.Events) != n+2 {
+		t.Fatal("callback after flush", len(s.Events), n)
+	}
+}
+func TestUOEndedWaitAndFlushCancel(t *testing.T) {
+	old := uwLong
+	uwLong = int64(time.Hour)
+	defer func() { uwLong = old }()
+	m, endScope, end := uoFixture(t)
+	s := uwLookup(m.Threads)
+	ch := make(chan struct{})
+	id := UWRegister(m, 256, -1, ch)
+	UWWaitEvent(m, id, "wait_return", 0)
+	endScope()
+	end()
+	// A stale callback must not dereference a page once the scope/instance ended.
+	s.mu.Lock()
+	w := s.waits[ch]
+	n := len(s.Events)
+	w.page.owner.ptr = nil
+	s.mu.Unlock()
+	uoLate(s, w)
+	if len(s.Events) != n {
+		t.Fatal("stale sample")
+	}
+}
+func TestUONamespaceAndThread(t *testing.T) {
+	m, endScope, end := uoFixture(t)
+	s := uwLookup(m.Threads)
+	atomic.StoreUint32((*uint32)(unsafe.Add(m.M, 8192+156)), 88)
+	ch := make(chan struct{})
+	id := UWRegister(m, 256, -1, ch)
+	UWWaitEvent(m, id, "wait_return", 0)
+	s.mu.Lock()
+	for _, e := range s.Events {
+		if e.Kind == "wait_registered" && (e.Owner == nil || e.Owner.Kind != "THREAD") {
+			t.Fatal(e)
+		}
+	}
+	s.mu.Unlock()
+	other := *m
+	other.Threads = &ThreadPool{}
+	UWOwnerBegin(&other, 8192)()
+	if uwLookup(other.Threads) != nil {
+		t.Fatal("wrong namespace")
+	}
+	endScope()
+	end()
+}
