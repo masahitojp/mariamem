@@ -10,6 +10,7 @@ from guest_experiment import patch_files
 from guest_input import descriptor, apply_series
 from prepared_auth_keys import write_header
 from routine_schema import prepare as prepare_routine_schema
+from uca_prepared import prepare as prepare_uca
 from guest_auth_hooks import prepare as prepare_auth_source
 
 source = ROOT / "build/source"
@@ -37,6 +38,7 @@ for name, relative in (("libmariadb", "libmariadb"), ("wolfssl", "extra/wolfssl/
 for name, expected in LOCK["pristine_files"].items():
     if digest(source / name) != expected:
         raise ValueError(f"unexpected upstream file: {name}")
+uca_prepared = prepare_uca(ROOT, source)
 portability_series = apply_series(ROOT, source, guest_input)
 subprocess.run(["patch", "--batch", "--forward", "--fuzz=0", "-p1", "-i", str(ROOT / "guest/source.patch")], cwd=source, check=True)
 # A disposable experiment patch is separate from the canonical product patch.
@@ -96,14 +98,14 @@ for name, cmake in (("pcre2", "cmake/pcre.cmake"), ("libfmt", "cmake/libfmt.cmak
     if text.count(entry["url"]) != 1:
         raise ValueError(f"unexpected dependency URL in {cmake}")
     path.write_text(text.replace(entry["url"], "${CMAKE_SOURCE_DIR}/mariamem-dependencies/" + entry["file"]))
-manifest = {"guest_input": guest_input, "portability_series": portability_series, "routine_schema": routine_schema,
+manifest = {"uca_prepared": uca_prepared, "guest_input": guest_input, "portability_series": portability_series, "routine_schema": routine_schema,
             "inputs_lock_sha256": digest(ROOT / "release/inputs.lock.json"),
             "overlays": {p.name: digest(p) for p in sorted((ROOT / "guest").iterdir()) if p.is_file()},
             "modified_files": {name: digest(source / name) for name in
                                (*LOCK["pristine_files"], *(name for patch in portability_series for name in patch["after_sha256"]), "wasm/wire_api.inc", "wasm/resident.inc",
                                 "wasm/snapshot_fs.inc", "wasm/startup_timing.inc", "wasm/init_diagnostics.inc",
                                 "wasm/prepared_auth_keys.inc", "wasm/routine_bootstrap.inc", "wasm/prepared_api.inc", routine_schema["header"], auth_header, *auth_files,
-                                "include/mariamem_init_diagnostics.h", *diagnostic_files,
+                                "include/mariamem_init_diagnostics.h", "strings/ctype-uca.c", "include/m_ctype.h", uca_prepared["header"], *diagnostic_files,
                                 "cmake/pcre.cmake", "cmake/libfmt.cmake", *experimental_files)}}
 if experimental.exists():
     manifest["experimental_patch"] = {"file": "guest/experimental.patch", "sha256": digest(experimental)}

@@ -82,6 +82,9 @@ def verify_build(root, commit, directory=None):
     require(prepared.get('guest_input')==guest_input and prepared.get('portability_series')==guest_input['patches'], 'guest portability input/series differs')
     require(not prepared.get('experimental_patch') and 'experimental.patch' not in prepared['overlays'],'experimental guest patch')
     require(prepared['modified_files']==canonical['prepared_source']['modified_files'],'modified guest source differs')
+    from uca_prepared import verify_record as verify_uca_record
+    verify_uca_record(root, prepared.get('uca_prepared'))
+    require(prepared.get('uca_prepared') == canonical['prepared_source'].get('uca_prepared'), 'canonical prepared UCA inputs differ')
     require(prepared['overlays']=={p.name:digest(p) for p in (root/'guest').iterdir() if p.is_file()},'source overlays differ')
     require(prepared['inputs_lock_sha256']==digest(root/'release/inputs.lock.json'),'guest input lock differs')
     tool=guest['toolchain']

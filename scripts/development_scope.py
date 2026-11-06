@@ -25,6 +25,7 @@ WORKFLOW_SCOPES = {
     '.github/workflows/connection-routing.yml': 'python',
     '.github/workflows/preparation-migration.yml': 'python',
     '.github/workflows/worker-failure.yml': 'python',
+    '.github/workflows/uca-canonical.yml': 'python',
 }
 # Explicit tooling boundaries; do not classify every .py file as runtime-free.
 TOOLING = {

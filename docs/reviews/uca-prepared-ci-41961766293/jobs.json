@@ -1,0 +1,533 @@
+{
+  "total_count": 4,
+  "jobs": [
+    {
+      "id": 127029530126,
+      "run_id": 41961766293,
+      "workflow_name": "Prepared UCA canonical candidate (not Qualification)",
+      "head_branch": "review/uca-prepared-adoption",
+      "run_url": "https://api.github.com/repos/masahitojp/mariamem/actions/runs/41961766293",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUnVIOc8AAAAdk4zODg",
+      "head_sha": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/jobs/127029530126",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/41961766293/job/127029530126",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-05T03:27:59Z",
+      "started_at": "2026-11-05T03:28:01Z",
+      "completed_at": "2026-11-05T03:29:19Z",
+      "name": "reference",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-05T03:28:02Z",
+          "completed_at": "2026-11-05T03:28:05Z"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-05T03:28:05Z",
+          "completed_at": "2026-11-05T03:28:24Z"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-05T03:28:24Z",
+          "completed_at": "2026-11-05T03:29:07Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-05T03:29:07Z",
+          "completed_at": "2026-11-05T03:29:07Z"
+        },
+        {
+          "name": "Fixed MariaDB native control",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-05T03:29:07Z",
+          "completed_at": "2026-11-05T03:29:13Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-05T03:29:13Z",
+          "completed_at": "2026-11-05T03:29:15Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-05T03:29:15Z",
+          "completed_at": "2026-11-05T03:29:15Z"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-05T03:29:15Z",
+          "completed_at": "2026-11-05T03:29:15Z"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-05T03:29:15Z",
+          "completed_at": "2026-11-05T03:29:16Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-05T03:29:16Z",
+          "completed_at": "2026-11-05T03:29:16Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/masahitojp/mariamem/check-runs/127029530126",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000003182,
+      "runner_name": "GitHub Actions 1000003182",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 127029530332,
+      "run_id": 41961766293,
+      "workflow_name": "Prepared UCA canonical candidate (not Qualification)",
+      "head_branch": "review/uca-prepared-adoption",
+      "run_url": "https://api.github.com/repos/masahitojp/mariamem/actions/runs/41961766293",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUnVIOc8AAAAdk4zO3A",
+      "head_sha": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/jobs/127029530332",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/41961766293/job/127029530332",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-05T03:27:59Z",
+      "started_at": "2026-11-05T03:28:03Z",
+      "completed_at": "2026-11-05T03:41:54Z",
+      "name": "guest",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-05T03:28:03Z",
+          "completed_at": "2026-11-05T03:28:04Z"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-05T03:28:04Z",
+          "completed_at": "2026-11-05T03:28:08Z"
+        },
+        {
+          "name": "Source builder dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-05T03:28:08Z",
+          "completed_at": "2026-11-05T03:28:25Z"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-05T03:28:25Z",
+          "completed_at": "2026-11-05T03:29:03Z"
+        },
+        {
+          "name": "Bind clean exact candidate and build twice",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-05T03:29:03Z",
+          "completed_at": "2026-11-05T03:41:48Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-05T03:41:48Z",
+          "completed_at": "2026-11-05T03:41:50Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-05T03:41:50Z",
+          "completed_at": "2026-11-05T03:41:52Z"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-05T03:41:52Z",
+          "completed_at": "2026-11-05T03:41:52Z"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-05T03:41:52Z",
+          "completed_at": "2026-11-05T03:41:53Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-05T03:41:53Z",
+          "completed_at": "2026-11-05T03:41:53Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/masahitojp/mariamem/check-runs/127029530332",
+      "labels": [
+        "ubuntu-24.04-arm"
+      ],
+      "runner_id": 1000003183,
+      "runner_name": "GitHub Actions 1000003183",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 127034132821,
+      "run_id": 41961766293,
+      "workflow_name": "Prepared UCA canonical candidate (not Qualification)",
+      "head_branch": "review/uca-prepared-adoption",
+      "run_url": "https://api.github.com/repos/masahitojp/mariamem/actions/runs/41961766293",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUnVIOc8AAAAdk9MJVQ",
+      "head_sha": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/jobs/127034132821",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/41961766293/job/127034132821",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-05T03:41:55Z",
+      "started_at": "2026-11-05T03:41:57Z",
+      "completed_at": "2026-11-05T03:53:30Z",
+      "name": "native (macos-15)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-05T03:41:57Z",
+          "completed_at": "2026-11-05T03:42:00Z"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-05T03:42:00Z",
+          "completed_at": "2026-11-05T03:42:39Z"
+        },
+        {
+          "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-05T03:42:39Z",
+          "completed_at": "2026-11-05T03:42:42Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-05T03:42:42Z",
+          "completed_at": "2026-11-05T03:42:42Z"
+        },
+        {
+          "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-05T03:42:42Z",
+          "completed_at": "2026-11-05T03:42:43Z"
+        },
+        {
+          "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-05T03:42:43Z",
+          "completed_at": "2026-11-05T03:42:44Z"
+        },
+        {
+          "name": "Exact clean source and source input controls",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-05T03:42:44Z",
+          "completed_at": "2026-11-05T03:42:52Z"
+        },
+        {
+          "name": "Independent Go regeneration and canonical build guard",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-05T03:42:52Z",
+          "completed_at": "2026-11-05T03:47:34Z"
+        },
+        {
+          "name": "Actual table parity, corrupt input, profiling separation and worker survival",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-05T03:47:34Z",
+          "completed_at": "2026-11-05T03:52:45Z"
+        },
+        {
+          "name": "Worker ownership negative and protected controls",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-05T03:52:46Z",
+          "completed_at": "2026-11-05T03:53:12Z"
+        },
+        {
+          "name": "Native SQL differential, two children and cleanup",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-05T03:53:12Z",
+          "completed_at": "2026-11-05T03:53:19Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-05T03:53:19Z",
+          "completed_at": "2026-11-05T03:53:21Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22,
+          "started_at": "2026-11-05T03:53:21Z",
+          "completed_at": "2026-11-05T03:53:21Z"
+        },
+        {
+          "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-11-05T03:53:21Z",
+          "completed_at": "2026-11-05T03:53:25Z"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-11-05T03:53:25Z",
+          "completed_at": "2026-11-05T03:53:26Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-11-05T03:53:26Z",
+          "completed_at": "2026-11-05T03:53:28Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/masahitojp/mariamem/check-runs/127034132821",
+      "labels": [
+        "macos-15"
+      ],
+      "runner_id": 1000003184,
+      "runner_name": "GitHub Actions 1000003184",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 127034132834,
+      "run_id": 41961766293,
+      "workflow_name": "Prepared UCA canonical candidate (not Qualification)",
+      "head_branch": "review/uca-prepared-adoption",
+      "run_url": "https://api.github.com/repos/masahitojp/mariamem/actions/runs/41961766293",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUnVIOc8AAAAdk9MJYg",
+      "head_sha": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/jobs/127034132834",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/41961766293/job/127034132834",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-05T03:41:55Z",
+      "started_at": "2026-11-05T03:41:57Z",
+      "completed_at": "2026-11-05T03:50:41Z",
+      "name": "native (ubuntu-24.04)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-05T03:41:58Z",
+          "completed_at": "2026-11-05T03:41:59Z"
+        },
+        {
+          "name": "Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-05T03:41:59Z",
+          "completed_at": "2026-11-05T03:42:33Z"
+        },
+        {
+          "name": "Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-05T03:42:33Z",
+          "completed_at": "2026-11-05T03:42:33Z"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-05T03:42:33Z",
+          "completed_at": "2026-11-05T03:42:33Z"
+        },
+        {
+          "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-05T03:42:33Z",
+          "completed_at": "2026-11-05T03:42:35Z"
+        },
+        {
+          "name": "Run actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-05T03:42:35Z",
+          "completed_at": "2026-11-05T03:42:35Z"
+        },
+        {
+          "name": "Exact clean source and source input controls",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-05T03:42:35Z",
+          "completed_at": "2026-11-05T03:42:46Z"
+        },
+        {
+          "name": "Independent Go regeneration and canonical build guard",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-05T03:42:46Z",
+          "completed_at": "2026-11-05T03:45:36Z"
+        },
+        {
+          "name": "Actual table parity, corrupt input, profiling separation and worker survival",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-05T03:45:36Z",
+          "completed_at": "2026-11-05T03:49:59Z"
+        },
+        {
+          "name": "Worker ownership negative and protected controls",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-05T03:49:59Z",
+          "completed_at": "2026-11-05T03:50:28Z"
+        },
+        {
+          "name": "Native SQL differential, two children and cleanup",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-05T03:50:28Z",
+          "completed_at": "2026-11-05T03:50:33Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-05T03:50:33Z",
+          "completed_at": "2026-11-05T03:50:34Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22,
+          "started_at": "2026-11-05T03:50:34Z",
+          "completed_at": "2026-11-05T03:50:35Z"
+        },
+        {
+          "name": "Post Run actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-11-05T03:50:35Z",
+          "completed_at": "2026-11-05T03:50:39Z"
+        },
+        {
+          "name": "Post Run actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-11-05T03:50:39Z",
+          "completed_at": "2026-11-05T03:50:39Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-11-05T03:50:39Z",
+          "completed_at": "2026-11-05T03:50:40Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/masahitojp/mariamem/check-runs/127034132834",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000003185,
+      "runner_name": "GitHub Actions 1000003185",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "scope": "LOCAL_CANONICAL_CANDIDATE_NOT_ADOPTED",
+  "guest_origin_source_commit": "275c1807f8d7dabfdd1aa529ff598f68d319820b",
+  "runtime_test_source_commit": "c7472177239f7b9c14f425034940ef9c2b73bf19",
+  "performance_source_commit": "40dd1e2ae57f85a137a8cf66d29f8cc6231899c4",
+  "baseline_source_commit": "676515eb9244fc501b5a600791b0cf0a6174fecd",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "local_platform": "macOS27.2-arm64",
+  "source_build": "ONE_OBSERVED_BUILD_UNQUALIFIED",
+  "worker_binding": {
+    "result": "PASS_EXACT_RELOCATION_ONLY",
+    "functions": 19,
+    "bss_delta": 2754112,
+    "tls_bytes": 505,
+    "tls_sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df",
+    "readonly_replay_and_three_mutations": "PASS"
+  },
+  "actual_guest": {
+    "six_tables": "PASS",
+    "corruption": "PASS",
+    "profiling_separation": "PASS",
+    "worker_trap_and_healthy_peer": "PASS",
+    "mapping_cleanup": "PASS"
+  },
+  "native_sql_two_children_cleanup": "PASS",
+  "snapshot_smoke": "PASS",
+  "worker_ownership_controls": [
+    {
+      "name": "heap-0",
+      "exit_code": 1,
+      "expected_failure": true,
+      "passed": true
+    },
+    {
+      "name": "heap-1",
+      "exit_code": 0,
+      "expected_failure": false,
+      "passed": true
+    },
+    {
+      "name": "heap-1-race",
+      "exit_code": 0,
+      "expected_failure": false,
+      "passed": true
+    },
+    {
+      "name": "mmap-0",
+      "exit_code": 1,
+      "expected_failure": true,
+      "passed": true
+    },
+    {
+      "name": "mmap-1",
+      "exit_code": 0,
+      "expected_failure": false,
+      "passed": true
+    },
+    {
+      "name": "mmap-1-race",
+      "exit_code": 0,
+      "expected_failure": false,
+      "passed": true
+    }
+  ],
+  "canonical_two_source_builds": "PENDING_CI",
+  "macos15_arm64": "PENDING_CI",
+  "ubuntu24_04_x86_64": "PENDING_CI",
+  "independent_go_regeneration": "PENDING_CI",
+  "adoption": "OPEN_HUMAN_DECISION",
+  "main_integration": false,
+  "qualification": false,
+  "release": false
+}

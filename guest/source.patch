@@ -142,3 +142,64 @@
      }
      set_timespec(abstime, 1);
  
+--- a/include/m_ctype.h
++++ b/include/m_ctype.h
+@@ -216,7 +216,7 @@
+   MY_CONTRACTIONS contractions;
+   uint    levelno;
+   MY_UCA_CONTRACTION_HASH contraction_hash;
+-  MY_UCA_LEVEL_BOOSTER *booster;
++  const MY_UCA_LEVEL_BOOSTER *booster;
+ } MY_UCA_WEIGHT_LEVEL;
+ 
+ 
+--- a/strings/ctype-uca.c
++++ b/strings/ctype-uca.c
+@@ -39,6 +39,9 @@
+ #include "ctype-uca0520.h"
+ #include "ctype-unidata.h"
+ #include "my_bit.h"
++#if defined(__wasi__)
++#include "mariamem_uca_prepared.h"
++#endif
+ 
+ typedef struct
+ {
+@@ -34288,12 +34291,36 @@
+ }
+ 
+ 
+-static MY_UCA_LEVEL_BOOSTER *
++static const MY_UCA_LEVEL_BOOSTER *
+ my_uca_level_booster_new(MY_CHARSET_LOADER *loader,
+                          CHARSET_INFO *cs,
+                          MY_UCA_WEIGHT_LEVEL *level)
+ {
+   MY_UCA_LEVEL_BOOSTER *res;
++#if defined(__wasi__)
++  /* Prepared tables: exact built-in UCA1400 default PAD ai_ci identities only.
++     Other encodings/tailorings/aliases retain the original producer. */
++  if ((cs->number == 2048 || cs->number == 2304) && level->levelno < 3 &&
++      level == &my_uca1400_info_tailored[
++                  my_uca1400_collation_id_to_charset_id(cs->number)][0].level[level->levelno])
++  {
++    const MY_UCA_LEVEL_BOOSTER *cached= &prepared[level->levelno];
++    /* Private test-only full-table verification; never enabled by profiling. */
++    if (getenv("MARIAMEM_UCA_VERIFY_INTERNAL"))
++    {
++      int match;
++      if (!(res= my_uca_level_booster_alloc(loader)))
++        abort();
++      my_uca_level_booster_populate(res, level, cs);
++      match= memcmp(res, cached, sizeof(*res)) == 0;
++      fprintf(stderr, "UCA_PREPARED_VERIFY id=%u level=%u bytes=%u match=%d\n",
++              cs->number, level->levelno, (unsigned) sizeof(*res), match);
++      if (!match)
++        abort();
++    }
++    return cached;
++  }
++#endif
+   if (!(res= my_uca_level_booster_alloc(loader)))
+     return NULL;
+   my_uca_level_booster_populate(res, level, cs);

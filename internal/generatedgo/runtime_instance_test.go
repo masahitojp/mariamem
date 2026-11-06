@@ -168,6 +168,7 @@ func TestControlledGuestFirstWorkerTrap(t *testing.T) {
 }
 
 func TestGuestEnvironmentIsPerInstance(t *testing.T) {
+	t.Setenv("MARIAMEM_UCA_VERIFY_INTERNAL", "1")
 	t.Setenv("MARIAMEM_BOOT_MODE", "restore")
 	t.Setenv("MARIAMEM_GUEST_TIMING", "1")
 	for _, restore := range []bool{false, true} {
