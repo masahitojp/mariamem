@@ -1,0 +1,67 @@
+{
+  "issue": 123,
+  "baseline_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "arms": [
+    "anonymous",
+    "image"
+  ],
+  "same_binary": true,
+  "route": "pipe",
+  "seed_rows": 1000,
+  "parallel": [
+    1,
+    4
+  ],
+  "max_forks": "equal to parallel",
+  "children": 48,
+  "order": "rotate P1/P4 per rep, alternate arms per rep+cell",
+  "host": "local macOS arm64",
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "CGO_ENABLED": 0,
+  "toolchain": "go1.27.3",
+  "budget_gib": 8,
+  "min_free_gib": 12,
+  "not_run": [
+    "Ubuntu",
+    "pgmem new campaign",
+    "guest rebuild",
+    "CI",
+    "adoption/release"
+  ],
+  "prototype_source_commit": "7ea413d3085da619fa6444228ba5f13d10154804",
+  "prior_report_commit": "90f9deaa7c1550264ed2a94473e05d08bbd42974",
+  "pairs_per_cell": 3,
+  "total_processes": 12,
+  "diagnostic_processes": 12,
+  "process_timeout_seconds": 190,
+  "build_timeout_seconds": 1200,
+  "campaign_timeout_seconds": 2400,
+  "no_extra_repetitions": true,
+  "purpose": "Stage attribution only; not a new performance/adoption gate",
+  "exit": "Identify one next candidate supported by per-child stage data, or stop inconclusive. Do not implement the candidate.",
+  "partition": [
+    "before_memory",
+    "factory_lock_wait",
+    "map_and_protect",
+    "module_init",
+    "memory_other",
+    "handoff",
+    "execute_to_ready",
+    "ready_handling",
+    "diagnostic_finish"
+  ],
+  "criteria": [
+    "all 576 SQL oracles and cleanup pass",
+    "exact child-to-trace and owner mapping, no truncated owner traces",
+    "per-child partition nonnegative and reconciles to external Fork",
+    "image build occurs only in root Start, separate from child Fork",
+    "p50/p95/>100ms and every pair retained; no tail exclusion",
+    "P4 elapsed attribution is not exclusive CPU attribution"
+  ],
+  "remaining_limitations": [
+    "observer changes scheduling and time; historical ordinary performance judgment unchanged",
+    "execute_to_ready includes guest, scheduler and transport; does not prove file fault or InnoDB mechanism"
+  ]
+}
