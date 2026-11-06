@@ -1,0 +1,3965 @@
+{
+  "processes": [
+    {
+      "name": "anonymous-p1-r0-diagnostic",
+      "arm": "anonymous",
+      "parallel": 1,
+      "metrics": {
+        "before_memory": {
+          "n": 48,
+          "p50": 0.254729,
+          "p95": 0.38954099999999997,
+          "mean": 0.27750508333333335,
+          "max": 0.760583,
+          "over_100ms": 0
+        },
+        "factory_lock_wait": {
+          "n": 48,
+          "p50": 0.0,
+          "p95": 0,
+          "mean": 0,
+          "max": 0,
+          "over_100ms": 0
+        },
+        "map_and_protect": {
+          "n": 48,
+          "p50": 0.012145499999999962,
+          "p95": 0.014459,
+          "mean": 0.012051291666666663,
+          "max": 0.014708999999999972,
+          "over_100ms": 0
+        },
+        "module_init": {
+          "n": 48,
+          "p50": 2.1435834999999996,
+          "p95": 2.4140829999999998,
+          "mean": 2.1733004375,
+          "max": 2.449625,
+          "over_100ms": 0
+        },
+        "handoff": {
+          "n": 48,
+          "p50": 0.003770500000000121,
+          "p95": 0.00533299999999981,
+          "mean": 0.0038923125000000225,
+          "max": 0.006250000000000089,
+          "over_100ms": 0
+        },
+        "execute_to_ready": {
+          "n": 48,
+          "p50": 29.7748545,
+          "p95": 36.262125000000005,
+          "mean": 30.2929393125,
+          "max": 41.992292,
+          "over_100ms": 0
+        },
+        "ready_handling": {
+          "n": 48,
+          "p50": 0.46972900000000095,
+          "p95": 0.880749999999999,
+          "mean": 0.5624339374999998,
+          "max": 1.0030830000000002,
+          "over_100ms": 0
+        },
+        "diagnostic_finish": {
+          "n": 48,
+          "p50": 0.09864599999987789,
+          "p95": 0.2252499999999955,
+          "mean": 0.12176049999999787,
+          "max": 0.24808300000002959,
+          "over_100ms": 0
+        },
+        "memory_other": {
+          "n": 48,
+          "p50": 0.0032294999999999963,
+          "p95": 0.004291000000000267,
+          "mean": 0.0033549791666666697,
+          "max": 0.006375000000000242,
+          "over_100ms": 0
+        },
+        "fork_total": {
+          "n": 48,
+          "p50": 32.960291500000096,
+          "p95": 39.097667,
+          "mean": 33.447237854166666,
+          "max": 45.452291,
+          "over_100ms": 0
+        },
+        "guest_server_init": {
+          "n": 48,
+          "p50": 27.8975625,
+          "p95": 34.229166,
+          "mean": 28.4388125625,
+          "max": 39.03875,
+          "over_100ms": 0
+        },
+        "guest_routine_schema": {
+          "n": 48,
+          "p50": 1.1957709999999988,
+          "p95": 2.5180830000000043,
+          "mean": 1.4116926041666669,
+          "max": 2.8697079999999993,
+          "over_100ms": 0
+        },
+        "first_select": {
+          "n": 48,
+          "p50": 33.654791500000044,
+          "p95": 39.68387500000017,
+          "mean": 34.21375085416666,
+          "max": 46.75512499999999,
+          "over_100ms": 0
+        }
+      },
+      "children": [
+        {
+          "before_memory": 0.25725,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.012249999999999983,
+          "module_init": 2.084625,
+          "handoff": 0.002583000000000002,
+          "execute_to_ready": 27.462292,
+          "ready_handling": 1.0030830000000002,
+          "diagnostic_finish": 0.12399900000000486,
+          "memory_other": 0.002459000000000433,
+          "fork_total": 30.948541000000006,
+          "guest_server_init": 25.82925,
+          "guest_routine_schema": 1.2253749999999997,
+          "first_select": 31.856791
+        },
+        {
+          "before_memory": 0.33245800000000003,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013166000000000011,
+          "module_init": 2.0755000000000003,
+          "handoff": 0.0027080000000001547,
+          "execute_to_ready": 41.992292,
+          "ready_handling": 0.8939170000000018,
+          "diagnostic_finish": 0.1397490000000019,
+          "memory_other": 0.0025009999999996424,
+          "fork_total": 45.452291,
+          "guest_server_init": 39.03875,
+          "guest_routine_schema": 2.5180830000000043,
+          "first_select": 46.75512499999999
+        },
+        {
+          "before_memory": 0.253083,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.010041999999999995,
+          "module_init": 2.2167079999999997,
+          "handoff": 0.003582999999999892,
+          "execute_to_ready": 28.594791999999998,
+          "ready_handling": 0.4436250000000044,
+          "diagnostic_finish": 0.10591699999999449,
+          "memory_other": 0.0037920000000002396,
+          "fork_total": 31.631541999999996,
+          "guest_server_init": 27.012458,
+          "guest_routine_schema": 1.1773750000000014,
+          "first_select": 32.508084
+        },
+        {
+          "before_memory": 0.366875,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.012207999999999997,
+          "module_init": 2.056375,
+          "handoff": 0.003833999999999893,
+          "execute_to_ready": 29.142708,
+          "ready_handling": 0.5602499999999999,
+          "diagnostic_finish": 0.09891699999998593,
+          "memory_other": 0.003458000000000183,
+          "fork_total": 32.244624999999985,
+          "guest_server_init": 27.590458,
+          "guest_routine_schema": 1.088208999999999,
+          "first_select": 33.51525000000004
+        },
+        {
+          "before_memory": 0.26170899999999997,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.010875000000000024,
+          "module_init": 2.0626249999999997,
+          "handoff": 0.002666000000000057,
+          "execute_to_ready": 27.036334,
+          "ready_handling": 0.5545830000000009,
+          "diagnostic_finish": 0.0866660000000401,
+          "memory_other": 0.002874999999999961,
+          "fork_total": 30.01833300000004,
+          "guest_server_init": 24.829834,
+          "guest_routine_schema": 1.6612909999999985,
+          "first_select": 30.782167000000015
+        },
+        {
+          "before_memory": 0.23825000000000002,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013334000000000013,
+          "module_init": 2.449625,
+          "handoff": 0.0042919999999999625,
+          "execute_to_ready": 27.832375,
+          "ready_handling": 0.4867500000000007,
+          "diagnostic_finish": 0.09625100000001297,
+          "memory_other": 0.003082000000000029,
+          "fork_total": 31.123959000000013,
+          "guest_server_init": 26.173875000000002,
+          "guest_routine_schema": 1.2414999999999985,
+          "first_select": 31.663958999999977
+        },
+        {
+          "before_memory": 0.22075,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.01041700000000001,
+          "module_init": 2.0890839999999997,
+          "handoff": 0.003750000000000142,
+          "execute_to_ready": 26.171958,
+          "ready_handling": 0.6637079999999997,
+          "diagnostic_finish": 0.0966260000000041,
+          "memory_other": 0.003499000000000141,
+          "fork_total": 29.259792000000004,
+          "guest_server_init": 24.614957999999998,
+          "guest_routine_schema": 1.1275830000000013,
+          "first_select": 30.876791999999966
+        },
+        {
+          "before_memory": 0.253208,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.01229199999999997,
+          "module_init": 2.0648750000000007,
+          "handoff": 0.0037080000000004887,
+          "execute_to_ready": 28.51375,
+          "ready_handling": 0.43762499999999704,
+          "diagnostic_finish": 0.09104199999999807,
+          "memory_other": 0.0037919999999993514,
+          "fork_total": 31.380291999999997,
+          "guest_server_init": 26.950083,
+          "guest_routine_schema": 1.1500000000000021,
+          "first_select": 32.43883299999999
+        },
+        {
+          "before_memory": 0.241875,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.012041999999999997,
+          "module_init": 1.9800839999999997,
+          "handoff": 0.00416599999999967,
+          "execute_to_ready": 27.715084000000004,
+          "ready_handling": 0.48424999999999585,
+          "diagnostic_finish": 0.09245800000001125,
+          "memory_other": 0.004124000000000461,
+          "fork_total": 30.53408300000001,
+          "guest_server_init": 26.084208,
+          "guest_routine_schema": 1.1196250000000028,
+          "first_select": 31.286457999999982
+        },
+        {
+          "before_memory": 0.26204099999999997,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.01150000000000001,
+          "module_init": 2.0318750000000003,
+          "handoff": 0.0027089999999998504,
+          "execute_to_ready": 30.341500000000003,
+          "ready_handling": 0.4724999999999966,
+          "diagnostic_finish": 0.08754200000004175,
+          "memory_other": 0.002874999999999961,
+          "fork_total": 33.21254200000004,
+          "guest_server_init": 28.449458999999997,
+          "guest_routine_schema": 1.4989580000000018,
+          "first_select": 33.829792
+        },
+        {
+          "before_memory": 0.236625,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011749999999999983,
+          "module_init": 2.174083,
+          "handoff": 0.0037910000000001,
+          "execute_to_ready": 29.286959,
+          "ready_handling": 0.4552080000000025,
+          "diagnostic_finish": 0.10345799999996785,
+          "memory_other": 0.0030839999999994205,
+          "fork_total": 32.27495799999997,
+          "guest_server_init": 27.643250000000002,
+          "guest_routine_schema": 1.1998339999999992,
+          "first_select": 33.51850000000002
+        },
+        {
+          "before_memory": 0.213625,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.00933299999999998,
+          "module_init": 2.083708,
+          "handoff": 0.002874999999999961,
+          "execute_to_ready": 29.221833,
+          "ready_handling": 0.4755839999999978,
+          "diagnostic_finish": 0.08799899999996796,
+          "memory_other": 0.0030840000000003087,
+          "fork_total": 32.09804099999997,
+          "guest_server_init": 27.638333,
+          "guest_routine_schema": 1.1622090000000007,
+          "first_select": 32.818040999999994
+        },
+        {
+          "before_memory": 0.760583,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011917000000000066,
+          "module_init": 2.0190409999999996,
+          "handoff": 0.003916999999999948,
+          "execute_to_ready": 29.569750000000003,
+          "ready_handling": 0.4454159999999945,
+          "diagnostic_finish": 0.09412500000002666,
+          "memory_other": 0.00495900000000038,
+          "fork_total": 32.90970800000002,
+          "guest_server_init": 27.990459,
+          "guest_routine_schema": 1.1702909999999989,
+          "first_select": 33.612708
+        },
+        {
+          "before_memory": 0.24795799999999998,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.010999999999999982,
+          "module_init": 2.0863750000000003,
+          "handoff": 0.0034999999999998366,
+          "execute_to_ready": 28.815458,
+          "ready_handling": 0.3655830000000009,
+          "diagnostic_finish": 0.09729199999996396,
+          "memory_other": 0.0037919999999997955,
+          "fork_total": 31.630957999999964,
+          "guest_server_init": 27.355167,
+          "guest_routine_schema": 1.0801669999999994,
+          "first_select": 32.59979099999998
+        },
+        {
+          "before_memory": 0.254208,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.014459,
+          "module_init": 2.354708,
+          "handoff": 0.0045000000000001705,
+          "execute_to_ready": 29.124167,
+          "ready_handling": 0.8318330000000032,
+          "diagnostic_finish": 0.188875000000003,
+          "memory_other": 0.0034999999999998366,
+          "fork_total": 32.776250000000005,
+          "guest_server_init": 26.8885,
+          "guest_routine_schema": 1.7528749999999995,
+          "first_select": 33.95433300000002
+        },
+        {
+          "before_memory": 0.243375,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011834000000000011,
+          "module_init": 2.0244999999999997,
+          "handoff": 0.003916999999999948,
+          "execute_to_ready": 31.285916999999998,
+          "ready_handling": 0.8411249999999981,
+          "diagnostic_finish": 0.2252499999999955,
+          "memory_other": 0.002999000000000418,
+          "fork_total": 34.63891699999999,
+          "guest_server_init": 28.222082999999998,
+          "guest_routine_schema": 2.532667,
+          "first_select": 35.67041699999993
+        },
+        {
+          "before_memory": 0.252542,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.010749999999999926,
+          "module_init": 2.424292,
+          "handoff": 0.004709000000000074,
+          "execute_to_ready": 28.920040999999998,
+          "ready_handling": 0.4283750000000026,
+          "diagnostic_finish": 0.08962500000000517,
+          "memory_other": 0.0036240000000002937,
+          "fork_total": 32.13395800000001,
+          "guest_server_init": 27.332834000000002,
+          "guest_routine_schema": 1.1323329999999991,
+          "first_select": 32.771082999999976
+        },
+        {
+          "before_memory": 0.234792,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.012165999999999982,
+          "module_init": 2.08575,
+          "handoff": 0.0032919999999996286,
+          "execute_to_ready": 30.651332999999997,
+          "ready_handling": 0.8163340000000048,
+          "diagnostic_finish": 0.24808300000002959,
+          "memory_other": 0.0025420000000000442,
+          "fork_total": 34.05429200000003,
+          "guest_server_init": 28.987375,
+          "guest_routine_schema": 1.2126249999999992,
+          "first_select": 35.29362500000002
+        },
+        {
+          "before_memory": 0.277875,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013666999999999985,
+          "module_init": 2.116,
+          "handoff": 0.003541999999999934,
+          "execute_to_ready": 29.906792,
+          "ready_handling": 0.8141660000000002,
+          "diagnostic_finish": 0.21962500000000063,
+          "memory_other": 0.0037910000000001,
+          "fork_total": 33.355458,
+          "guest_server_init": 27.320667,
+          "guest_routine_schema": 2.112957999999999,
+          "first_select": 34.33866699999999
+        },
+        {
+          "before_memory": 0.334375,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013500000000000068,
+          "module_init": 2.316084,
+          "handoff": 0.003750000000000142,
+          "execute_to_ready": 34.932042,
+          "ready_handling": 0.880749999999999,
+          "diagnostic_finish": 0.22029200000005744,
+          "memory_other": 0.0026239999999995156,
+          "fork_total": 38.70341700000006,
+          "guest_server_init": 32.802459,
+          "guest_routine_schema": 1.5155829999999995,
+          "first_select": 39.31995900000004
+        },
+        {
+          "before_memory": 0.27779200000000004,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.009041999999999994,
+          "module_init": 2.269959,
+          "handoff": 0.00533299999999981,
+          "execute_to_ready": 32.753,
+          "ready_handling": 0.4191250000000011,
+          "diagnostic_finish": 0.09658299999994568,
+          "memory_other": 0.004291000000000267,
+          "fork_total": 35.83512499999995,
+          "guest_server_init": 31.02525,
+          "guest_routine_schema": 1.2977079999999965,
+          "first_select": 36.36354199999994
+        },
+        {
+          "before_memory": 0.275292,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.008540999999999965,
+          "module_init": 2.312708,
+          "handoff": 0.004040999999999961,
+          "execute_to_ready": 28.083375,
+          "ready_handling": 0.7289589999999997,
+          "diagnostic_finish": 0.24808199999998592,
+          "memory_other": 0.003543000000000074,
+          "fork_total": 31.664540999999986,
+          "guest_server_init": 25.8655,
+          "guest_routine_schema": 1.7613749999999975,
+          "first_select": 32.23816599999998
+        },
+        {
+          "before_memory": 0.25933300000000004,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011332999999999926,
+          "module_init": 2.281792,
+          "handoff": 0.003665999999999947,
+          "execute_to_ready": 29.943834,
+          "ready_handling": 0.41004099999999966,
+          "diagnostic_finish": 0.09679200000017119,
+          "memory_other": 0.0040839999999997545,
+          "fork_total": 33.01087500000017,
+          "guest_server_init": 27.612334,
+          "guest_routine_schema": 1.9183330000000005,
+          "first_select": 33.572167000000036
+        },
+        {
+          "before_memory": 0.261208,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.010458999999999996,
+          "module_init": 2.195875,
+          "handoff": 0.003874999999999851,
+          "execute_to_ready": 29.642917,
+          "ready_handling": 0.8344159999999974,
+          "diagnostic_finish": 0.22054200000017943,
+          "memory_other": 0.003458000000000183,
+          "fork_total": 33.17275000000018,
+          "guest_server_init": 28.078500000000002,
+          "guest_routine_schema": 1.1153750000000002,
+          "first_select": 33.69687500000009
+        },
+        {
+          "before_memory": 0.25775000000000003,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.01141700000000001,
+          "module_init": 2.078625,
+          "handoff": 0.005082999999999949,
+          "execute_to_ready": 32.2175,
+          "ready_handling": 0.41774999999999807,
+          "diagnostic_finish": 0.08983400000001751,
+          "memory_other": 0.0024999999999999467,
+          "fork_total": 35.08045900000002,
+          "guest_server_init": 29.774167,
+          "guest_routine_schema": 2.0416659999999993,
+          "first_select": 35.79745900000012
+        },
+        {
+          "before_memory": 0.29933299999999996,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013458000000000025,
+          "module_init": 2.171209,
+          "handoff": 0.003375000000000128,
+          "execute_to_ready": 29.468125,
+          "ready_handling": 0.41437499999999616,
+          "diagnostic_finish": 0.10029199999996052,
+          "memory_other": 0.003957999999999906,
+          "fork_total": 32.47412499999996,
+          "guest_server_init": 27.909542,
+          "guest_routine_schema": 1.1681659999999994,
+          "first_select": 33.160707999999886
+        },
+        {
+          "before_memory": 0.271208,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011583999999999983,
+          "module_init": 2.22125,
+          "handoff": 0.003750000000000142,
+          "execute_to_ready": 30.240459000000005,
+          "ready_handling": 0.4094999999999942,
+          "diagnostic_finish": 0.09629100000004343,
+          "memory_other": 0.0034159999999996415,
+          "fork_total": 33.25745800000004,
+          "guest_server_init": 28.654834,
+          "guest_routine_schema": 1.1616660000000003,
+          "first_select": 33.97612499999991
+        },
+        {
+          "before_memory": 0.24587499999999998,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.010958000000000023,
+          "module_init": 2.065875,
+          "handoff": 0.003459000000000323,
+          "execute_to_ready": 30.399124999999998,
+          "ready_handling": 0.470165999999999,
+          "diagnostic_finish": 0.10099999999994225,
+          "memory_other": 0.003457999999999739,
+          "fork_total": 33.29991599999994,
+          "guest_server_init": 27.885583,
+          "guest_routine_schema": 2.107208,
+          "first_select": 33.82358299999987
+        },
+        {
+          "before_memory": 0.38954099999999997,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.014624999999999999,
+          "module_init": 2.155833,
+          "handoff": 0.0045000000000001705,
+          "execute_to_ready": 30.798458,
+          "ready_handling": 0.46929200000000293,
+          "diagnostic_finish": 0.09533400000000114,
+          "memory_other": 0.003251000000000115,
+          "fork_total": 33.930834000000004,
+          "guest_server_init": 29.309458,
+          "guest_routine_schema": 1.0949580000000019,
+          "first_select": 34.540209000000004
+        },
+        {
+          "before_memory": 0.236041,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.010540999999999995,
+          "module_init": 2.0670830000000002,
+          "handoff": 0.0034159999999996415,
+          "execute_to_ready": 36.262125000000005,
+          "ready_handling": 0.42149999999999466,
+          "diagnostic_finish": 0.09362600000000043,
+          "memory_other": 0.003334999999999866,
+          "fork_total": 39.097667,
+          "guest_server_init": 34.664417,
+          "guest_routine_schema": 1.1917079999999984,
+          "first_select": 39.68387500000017
+        },
+        {
+          "before_memory": 0.252708,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.01279199999999997,
+          "module_init": 2.238542,
+          "handoff": 0.004375000000000018,
+          "execute_to_ready": 31.885167,
+          "ready_handling": 0.4589160000000021,
+          "diagnostic_finish": 0.09375099999993353,
+          "memory_other": 0.0032079999999998776,
+          "fork_total": 34.94945899999993,
+          "guest_server_init": 30.327665999999997,
+          "guest_routine_schema": 1.1238340000000022,
+          "first_select": 35.513374999999996
+        },
+        {
+          "before_memory": 0.23675,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011999999999999983,
+          "module_init": 2.2705,
+          "handoff": 0.0039159999999998085,
+          "execute_to_ready": 27.503459,
+          "ready_handling": 0.8453750000000007,
+          "diagnostic_finish": 0.09512499999985025,
+          "memory_other": 0.0031249999999998224,
+          "fork_total": 30.97024999999985,
+          "guest_server_init": 25.872792,
+          "guest_routine_schema": 1.1472080000000027,
+          "first_select": 31.57766599999991
+        },
+        {
+          "before_memory": 0.2395,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013791999999999971,
+          "module_init": 2.11525,
+          "handoff": 0.006250000000000089,
+          "execute_to_ready": 28.017167,
+          "ready_handling": 0.44054200000000066,
+          "diagnostic_finish": 0.09620899999998045,
+          "memory_other": 0.0031239999999996826,
+          "fork_total": 30.93183399999998,
+          "guest_server_init": 26.459917,
+          "guest_routine_schema": 1.1320409999999974,
+          "first_select": 31.48675000000003
+        },
+        {
+          "before_memory": 0.27508299999999997,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.012124999999999941,
+          "module_init": 2.096917,
+          "handoff": 0.004417000000000115,
+          "execute_to_ready": 26.982708,
+          "ready_handling": 0.4188330000000029,
+          "diagnostic_finish": 0.0991260000000409,
+          "memory_other": 0.0027500000000002522,
+          "fork_total": 29.891959000000043,
+          "guest_server_init": 25.514457999999998,
+          "guest_routine_schema": 1.0896250000000016,
+          "first_select": 30.479667000000063
+        },
+        {
+          "before_memory": 0.234875,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.012792000000000026,
+          "module_init": 2.1271669999999996,
+          "handoff": 0.004875000000000185,
+          "execute_to_ready": 27.357375,
+          "ready_handling": 0.4617919999999991,
+          "diagnostic_finish": 0.11604099999996365,
+          "memory_other": 0.0035409999999997943,
+          "fork_total": 30.318457999999964,
+          "guest_server_init": 25.806042,
+          "guest_routine_schema": 1.1738329999999983,
+          "first_select": 31.088999999999942
+        },
+        {
+          "before_memory": 0.23791600000000002,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.009582999999999953,
+          "module_init": 2.115625,
+          "handoff": 0.004042000000000101,
+          "execute_to_ready": 27.895290999999997,
+          "ready_handling": 0.49591700000000216,
+          "diagnostic_finish": 0.0836670000000268,
+          "memory_other": 0.002959000000000156,
+          "fork_total": 30.845000000000027,
+          "guest_server_init": 26.211209,
+          "guest_routine_schema": 1.2509580000000007,
+          "first_select": 31.41816700000004
+        },
+        {
+          "before_memory": 0.23412500000000003,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013624999999999998,
+          "module_init": 2.04075,
+          "handoff": 0.0047920000000001295,
+          "execute_to_ready": 28.357708,
+          "ready_handling": 0.4834580000000024,
+          "diagnostic_finish": 0.09966700000017426,
+          "memory_other": 0.0027919999999994616,
+          "fork_total": 31.236917000000176,
+          "guest_server_init": 26.790625,
+          "guest_routine_schema": 1.1407500000000006,
+          "first_select": 31.690875000000005
+        },
+        {
+          "before_memory": 0.235458,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.010792000000000024,
+          "module_init": 2.170417,
+          "handoff": 0.003750000000000142,
+          "execute_to_ready": 27.555208,
+          "ready_handling": 0.4398750000000007,
+          "diagnostic_finish": 0.09716699999986744,
+          "memory_other": 0.002874999999999961,
+          "fork_total": 30.51554199999987,
+          "guest_server_init": 25.99325,
+          "guest_routine_schema": 1.1406670000000005,
+          "first_select": 31.146083999999973
+        },
+        {
+          "before_memory": 0.25145799999999996,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.014708999999999972,
+          "module_init": 2.1399169999999996,
+          "handoff": 0.0040000000000000036,
+          "execute_to_ready": 31.840540999999995,
+          "ready_handling": 0.840875000000004,
+          "diagnostic_finish": 0.20100000000007867,
+          "memory_other": 0.003083000000000613,
+          "fork_total": 35.29558300000008,
+          "guest_server_init": 30.187166,
+          "guest_routine_schema": 1.169625,
+          "first_select": 35.98033299999997
+        },
+        {
+          "before_memory": 0.298209,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.012375000000000025,
+          "module_init": 2.1357920000000004,
+          "handoff": 0.004666000000000281,
+          "execute_to_ready": 29.952542000000005,
+          "ready_handling": 0.3870419999999939,
+          "diagnostic_finish": 0.09058299999995967,
+          "memory_other": 0.003082999999999725,
+          "fork_total": 32.88429199999996,
+          "guest_server_init": 28.319625000000002,
+          "guest_routine_schema": 1.2537919999999971,
+          "first_select": 33.459957999999915
+        },
+        {
+          "before_memory": 0.267708,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.012666999999999984,
+          "module_init": 2.156459,
+          "handoff": 0.003667000000000087,
+          "execute_to_ready": 33.976208,
+          "ready_handling": 0.46212500000000034,
+          "diagnostic_finish": 0.09770800000000435,
+          "memory_other": 0.003373999999999988,
+          "fork_total": 36.979916,
+          "guest_server_init": 32.155833,
+          "guest_routine_schema": 1.3135830000000013,
+          "first_select": 37.71149999999989
+        },
+        {
+          "before_memory": 0.260625,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013041999999999998,
+          "module_init": 2.1472499999999997,
+          "handoff": 0.0037910000000001,
+          "execute_to_ready": 32.305084,
+          "ready_handling": 0.8116249999999994,
+          "diagnostic_finish": 0.12145800000001827,
+          "memory_other": 0.0029580000000004603,
+          "fork_total": 35.66583300000002,
+          "guest_server_init": 30.782083,
+          "guest_routine_schema": 1.0879590000000015,
+          "first_select": 36.22708299999999
+        },
+        {
+          "before_memory": 0.24379099999999998,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013292000000000026,
+          "module_init": 2.3805840000000003,
+          "handoff": 0.0028329999999998634,
+          "execute_to_ready": 36.276959,
+          "ready_handling": 0.4581659999999985,
+          "diagnostic_finish": 0.10383400000004883,
+          "memory_other": 0.0029160000000003627,
+          "fork_total": 39.48237500000005,
+          "guest_server_init": 34.229166,
+          "guest_routine_schema": 1.6274170000000012,
+          "first_select": 40.27649999999994
+        },
+        {
+          "before_memory": 0.25525,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.01237499999999997,
+          "module_init": 2.2150420000000004,
+          "handoff": 0.0034170000000002254,
+          "execute_to_ready": 31.036707999999997,
+          "ready_handling": 0.42875000000000085,
+          "diagnostic_finish": 0.10987499999995265,
+          "memory_other": 0.003082999999999725,
+          "fork_total": 34.06449999999995,
+          "guest_server_init": 29.045084,
+          "guest_routine_schema": 1.5934160000000013,
+          "first_select": 34.81379100000004
+        },
+        {
+          "before_memory": 0.283416,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.014083000000000012,
+          "module_init": 2.279084,
+          "handoff": 0.00533299999999981,
+          "execute_to_ready": 33.735209000000005,
+          "ready_handling": 0.8455409999999972,
+          "diagnostic_finish": 0.14329300000019174,
+          "memory_other": 0.006375000000000242,
+          "fork_total": 37.31233400000019,
+          "guest_server_init": 31.996707999999998,
+          "guest_routine_schema": 1.273208000000004,
+          "first_select": 37.98854200000005
+        },
+        {
+          "before_memory": 0.262833,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.012500000000000011,
+          "module_init": 2.316875,
+          "handoff": 0.0031250000000002665,
+          "execute_to_ready": 31.483208,
+          "ready_handling": 0.49099999999999966,
+          "diagnostic_finish": 0.09837499999976984,
+          "memory_other": 0.002833999999999559,
+          "fork_total": 34.67074999999977,
+          "guest_server_init": 27.972792000000002,
+          "guest_routine_schema": 2.8697079999999993,
+          "first_select": 35.5012499999998
+        },
+        {
+          "before_memory": 0.483,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011083000000000065,
+          "module_init": 2.342041,
+          "handoff": 0.0036249999999999893,
+          "execute_to_ready": 31.120749999999997,
+          "ready_handling": 0.43883300000000247,
+          "diagnostic_finish": 0.16579199999983985,
+          "memory_other": 0.003833999999999893,
+          "fork_total": 34.56895799999984,
+          "guest_server_init": 29.036834,
+          "guest_routine_schema": 1.659708000000002,
+          "first_select": 35.220666000000165
+        },
+        {
+          "before_memory": 0.250709,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.014374999999999971,
+          "module_init": 2.4140829999999998,
+          "handoff": 0.003667000000000087,
+          "execute_to_ready": 30.453499999999995,
+          "ready_handling": 0.4383750000000006,
+          "diagnostic_finish": 0.09966599999983572,
+          "memory_other": 0.003375000000000572,
+          "fork_total": 33.67774999999983,
+          "guest_server_init": 28.827708,
+          "guest_routine_schema": 1.176209,
+          "first_select": 34.415750000000116
+        }
+      ],
+      "root_trace": {
+        "epoch_ns": 11124209,
+        "operation": "startup",
+        "pid": 3355,
+        "events": [
+          {
+            "name": "begin",
+            "offset_ns": 375
+          },
+          {
+            "name": "native_identity_checked",
+            "offset_ns": 958
+          },
+          {
+            "name": "metadata_snapshot_validated",
+            "offset_ns": 4708
+          },
+          {
+            "name": "transfer_prepared",
+            "offset_ns": 57833
+          },
+          {
+            "name": "linked_execution_begin",
+            "offset_ns": 105416
+          },
+          {
+            "name": "runtime/instance_begin",
+            "offset_ns": 182875
+          },
+          {
+            "name": "runtime/prepared_handles_begin",
+            "offset_ns": 352291
+          },
+          {
+            "name": "runtime/prepared_handles_ready",
+            "offset_ns": 352333
+          },
+          {
+            "name": "runtime/memory_begin",
+            "offset_ns": 355958
+          },
+          {
+            "name": "runtime/map_begin",
+            "offset_ns": 356458
+          },
+          {
+            "name": "runtime/map_end",
+            "offset_ns": 379708
+          },
+          {
+            "name": "runtime/module_begin",
+            "offset_ns": 379833
+          },
+          {
+            "name": "runtime/module_end",
+            "offset_ns": 9749833
+          },
+          {
+            "name": "runtime/memory_ready",
+            "offset_ns": 9751458
+          },
+          {
+            "name": "runtime/guest_execute_begin",
+            "offset_ns": 9765708
+          },
+          {
+            "name": "ready_header_received",
+            "offset_ns": 57027541
+          },
+          {
+            "name": "ready_frame_decoded",
+            "offset_ns": 57490583
+          },
+          {
+            "name": "ready_response_observed",
+            "offset_ns": 57495708
+          },
+          {
+            "name": "guest_ready",
+            "offset_ns": 57496291
+          },
+          {
+            "name": "wire_listener_ready",
+            "offset_ns": 57649875
+          },
+          {
+            "name": "guest_timing_read",
+            "offset_ns": 57655791
+          },
+          {
+            "name": "end",
+            "offset_ns": 57675166
+          }
+        ],
+        "guest": {
+          "version": 1,
+          "clock": "guest_monotonic",
+          "events": [
+            {
+              "name": "guest_main",
+              "offset_ns": 0
+            },
+            {
+              "name": "restore_begin",
+              "offset_ns": 98125
+            },
+            {
+              "name": "restore_complete",
+              "offset_ns": 98250
+            },
+            {
+              "name": "open_begin",
+              "offset_ns": 98334
+            },
+            {
+              "name": "server_init_begin",
+              "offset_ns": 101000
+            },
+            {
+              "name": "server_init_complete",
+              "offset_ns": 35116292
+            },
+            {
+              "name": "bootstrap_complete",
+              "offset_ns": 36685667
+            },
+            {
+              "name": "routine_schema_begin",
+              "offset_ns": 36700667
+            },
+            {
+              "name": "routine_schema_complete",
+              "offset_ns": 45648834
+            },
+            {
+              "name": "ready_prepared",
+              "offset_ns": 45685250
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "pages-p1-r0-diagnostic",
+      "arm": "pages",
+      "parallel": 1,
+      "metrics": {
+        "before_memory": {
+          "n": 48,
+          "p50": 0.2553125,
+          "p95": 0.590333,
+          "mean": 0.29422835416666665,
+          "max": 0.866084,
+          "over_100ms": 0
+        },
+        "factory_lock_wait": {
+          "n": 48,
+          "p50": 0.00020799999999998597,
+          "p95": 0.00029200000000007,
+          "mean": 0.0001970416666666648,
+          "max": 0.00045800000000001395,
+          "over_100ms": 0
+        },
+        "map_and_protect": {
+          "n": 48,
+          "p50": 0.172729,
+          "p95": 0.203042,
+          "mean": 0.180094625,
+          "max": 0.333167,
+          "over_100ms": 0
+        },
+        "module_init": {
+          "n": 48,
+          "p50": 0.306458,
+          "p95": 0.3483330000000001,
+          "mean": 0.31890708333333334,
+          "max": 0.5972909999999999,
+          "over_100ms": 0
+        },
+        "handoff": {
+          "n": 48,
+          "p50": 0.0018954999999999944,
+          "p95": 0.0034170000000000034,
+          "mean": 0.0020711666666666678,
+          "max": 0.0044999999999999485,
+          "over_100ms": 0
+        },
+        "execute_to_ready": {
+          "n": 48,
+          "p50": 30.151521000000002,
+          "p95": 37.493625,
+          "mean": 30.422470479166666,
+          "max": 39.166208999999995,
+          "over_100ms": 0
+        },
+        "ready_handling": {
+          "n": 48,
+          "p50": 0.4514584999999993,
+          "p95": 0.8595419999999976,
+          "mean": 0.5487978124999996,
+          "max": 1.0898330000000023,
+          "over_100ms": 0
+        },
+        "diagnostic_finish": {
+          "n": 48,
+          "p50": 0.09927100000003364,
+          "p95": 0.2628330000000645,
+          "mean": 0.13642612499999376,
+          "max": 0.37145800000000406,
+          "over_100ms": 0
+        },
+        "memory_other": {
+          "n": 48,
+          "p50": 0.0016455000000000497,
+          "p95": 0.003249999999999864,
+          "mean": 0.0018186041666666622,
+          "max": 0.003790999999999878,
+          "over_100ms": 0
+        },
+        "fork_total": {
+          "n": 48,
+          "p50": 31.441250000000025,
+          "p95": 38.98675,
+          "mean": 31.90501129166666,
+          "max": 41.072125,
+          "over_100ms": 0
+        },
+        "guest_server_init": {
+          "n": 48,
+          "p50": 28.195937999999998,
+          "p95": 34.264,
+          "mean": 28.501302125,
+          "max": 36.447291,
+          "over_100ms": 0
+        },
+        "guest_routine_schema": {
+          "n": 48,
+          "p50": 1.205416500000002,
+          "p95": 2.489874999999998,
+          "mean": 1.3898748750000003,
+          "max": 2.638832999999998,
+          "over_100ms": 0
+        },
+        "first_select": {
+          "n": 48,
+          "p50": 32.055582999999956,
+          "p95": 40.096000000000004,
+          "mean": 32.66902166666668,
+          "max": 41.83241699999999,
+          "over_100ms": 0
+        }
+      },
+      "children": [
+        {
+          "before_memory": 0.242708,
+          "factory_lock_wait": 0.00020899999999998697,
+          "map_and_protect": 0.168125,
+          "module_init": 0.32937500000000003,
+          "handoff": 0.0016249999999999876,
+          "execute_to_ready": 37.493625,
+          "ready_handling": 0.3782499999999942,
+          "diagnostic_finish": 0.37145800000000406,
+          "memory_other": 0.0013749999999999596,
+          "fork_total": 38.98675,
+          "guest_server_init": 34.264,
+          "guest_routine_schema": 1.4099160000000026,
+          "first_select": 41.418542
+        },
+        {
+          "before_memory": 0.351625,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.203042,
+          "module_init": 0.32383300000000004,
+          "handoff": 0.001790999999999987,
+          "execute_to_ready": 39.166208999999995,
+          "ready_handling": 0.8140000000000001,
+          "diagnostic_finish": 0.20954100000000153,
+          "memory_other": 0.0018759999999999333,
+          "fork_total": 41.072125,
+          "guest_server_init": 36.447291,
+          "guest_routine_schema": 2.200375000000001,
+          "first_select": 41.83241699999999
+        },
+        {
+          "before_memory": 0.866084,
+          "factory_lock_wait": 0.00024999999999997247,
+          "map_and_protect": 0.2905829999999999,
+          "module_init": 0.33666600000000013,
+          "handoff": 0.0025000000000001688,
+          "execute_to_ready": 32.556332999999995,
+          "ready_handling": 0.816749999999999,
+          "diagnostic_finish": 0.11733300000000213,
+          "memory_other": 0.0023339999999999472,
+          "fork_total": 34.988833,
+          "guest_server_init": 30.828291,
+          "guest_routine_schema": 1.2191670000000023,
+          "first_select": 35.69304200000002
+        },
+        {
+          "before_memory": 0.240917,
+          "factory_lock_wait": 8.299999999999974e-05,
+          "map_and_protect": 0.16733399999999998,
+          "module_init": 0.308917,
+          "handoff": 0.002666000000000057,
+          "execute_to_ready": 28.952334000000004,
+          "ready_handling": 0.4278749999999967,
+          "diagnostic_finish": 0.08429100000003587,
+          "memory_other": 0.001583000000000001,
+          "fork_total": 30.186000000000035,
+          "guest_server_init": 27.342083000000002,
+          "guest_routine_schema": 1.161166999999999,
+          "first_select": 31.080291000000045
+        },
+        {
+          "before_memory": 0.315292,
+          "factory_lock_wait": 0.00020800000000004149,
+          "map_and_protect": 0.18454099999999996,
+          "module_init": 0.346166,
+          "handoff": 0.002083000000000057,
+          "execute_to_ready": 29.570417000000003,
+          "ready_handling": 0.4001249999999992,
+          "diagnostic_finish": 0.09174899999998942,
+          "memory_other": 0.0025849999999999485,
+          "fork_total": 30.91316599999999,
+          "guest_server_init": 27.577375,
+          "guest_routine_schema": 1.490833000000002,
+          "first_select": 31.437291000000016
+        },
+        {
+          "before_memory": 0.245458,
+          "factory_lock_wait": 0.00045800000000001395,
+          "map_and_protect": 0.168416,
+          "module_init": 0.31908299999999995,
+          "handoff": 0.0019580000000000153,
+          "execute_to_ready": 34.167209,
+          "ready_handling": 0.4065830000000048,
+          "diagnostic_finish": 0.1390840000000253,
+          "memory_other": 0.0016679999999999473,
+          "fork_total": 35.44991700000003,
+          "guest_server_init": 31.190458,
+          "guest_routine_schema": 2.489874999999998,
+          "first_select": 35.960500000000025
+        },
+        {
+          "before_memory": 0.26787500000000003,
+          "factory_lock_wait": 0.00016599999999999948,
+          "map_and_protect": 0.171084,
+          "module_init": 0.32250000000000006,
+          "handoff": 0.0023339999999999472,
+          "execute_to_ready": 30.868333,
+          "ready_handling": 0.45520799999999895,
+          "diagnostic_finish": 0.10945900000000108,
+          "memory_other": 0.0014159999999999728,
+          "fork_total": 32.198375,
+          "guest_server_init": 28.98725,
+          "guest_routine_schema": 1.361540999999999,
+          "first_select": 34.06116700000001
+        },
+        {
+          "before_memory": 0.25758400000000004,
+          "factory_lock_wait": 0.00020900000000001473,
+          "map_and_protect": 0.177875,
+          "module_init": 0.309334,
+          "handoff": 0.0020839999999999748,
+          "execute_to_ready": 30.421916,
+          "ready_handling": 0.774167000000002,
+          "diagnostic_finish": 0.2162909999999556,
+          "memory_other": 0.0018729999999999025,
+          "fork_total": 32.161332999999956,
+          "guest_server_init": 28.450916,
+          "guest_routine_schema": 1.4898340000000019,
+          "first_select": 32.738707999999974
+        },
+        {
+          "before_memory": 0.231625,
+          "factory_lock_wait": 0.00016700000000000048,
+          "map_and_protect": 0.166,
+          "module_init": 0.30445799999999995,
+          "handoff": 0.001875000000000071,
+          "execute_to_ready": 30.45725,
+          "ready_handling": 0.42504200000000125,
+          "diagnostic_finish": 0.09283400000000341,
+          "memory_other": 0.0015829999999999456,
+          "fork_total": 31.680834000000004,
+          "guest_server_init": 27.969,
+          "guest_routine_schema": 2.0114160000000005,
+          "first_select": 32.45441699999998
+        },
+        {
+          "before_memory": 0.27075,
+          "factory_lock_wait": 0.00020899999999995922,
+          "map_and_protect": 0.18366700000000002,
+          "module_init": 0.30987500000000007,
+          "handoff": 0.003041999999999989,
+          "execute_to_ready": 28.86525,
+          "ready_handling": 0.4449159999999992,
+          "diagnostic_finish": 0.0944589999999792,
+          "memory_other": 0.0018319999999998893,
+          "fork_total": 30.173999999999978,
+          "guest_server_init": 27.153792,
+          "guest_routine_schema": 1.1999999999999993,
+          "first_select": 30.86891700000001
+        },
+        {
+          "before_memory": 0.24425000000000002,
+          "factory_lock_wait": 8.299999999999974e-05,
+          "map_and_protect": 0.171333,
+          "module_init": 0.313291,
+          "handoff": 0.0027090000000000725,
+          "execute_to_ready": 28.022458,
+          "ready_handling": 0.5038749999999972,
+          "diagnostic_finish": 0.0894580000000218,
+          "memory_other": 0.0014179999999999748,
+          "fork_total": 29.34887500000002,
+          "guest_server_init": 26.383083,
+          "guest_routine_schema": 1.1490420000000015,
+          "first_select": 30.076125000000047
+        },
+        {
+          "before_memory": 0.40850000000000003,
+          "factory_lock_wait": 0.00012499999999998623,
+          "map_and_protect": 0.1935,
+          "module_init": 0.5972909999999999,
+          "handoff": 0.0020000000000000018,
+          "execute_to_ready": 27.418208,
+          "ready_handling": 0.44495900000000077,
+          "diagnostic_finish": 0.0949579999999628,
+          "memory_other": 0.002666999999999864,
+          "fork_total": 29.162207999999964,
+          "guest_server_init": 25.698375,
+          "guest_routine_schema": 1.2460420000000028,
+          "first_select": 29.700166999999965
+        },
+        {
+          "before_memory": 0.239333,
+          "factory_lock_wait": 0.0002500000000000002,
+          "map_and_protect": 0.16358399999999998,
+          "module_init": 0.29537499999999994,
+          "handoff": 0.001583000000000001,
+          "execute_to_ready": 28.944625000000002,
+          "ready_handling": 0.4053749999999958,
+          "diagnostic_finish": 0.08591700000009794,
+          "memory_other": 0.0017080000000001538,
+          "fork_total": 30.137750000000096,
+          "guest_server_init": 27.342624999999998,
+          "guest_routine_schema": 1.1175829999999998,
+          "first_select": 30.955125000000066
+        },
+        {
+          "before_memory": 0.24229099999999998,
+          "factory_lock_wait": 0.00016599999999999948,
+          "map_and_protect": 0.164709,
+          "module_init": 0.2979590000000001,
+          "handoff": 0.0016660000000000563,
+          "execute_to_ready": 27.969375000000003,
+          "ready_handling": 0.8497089999999972,
+          "diagnostic_finish": 0.21683300000000827,
+          "memory_other": 0.0017499999999999738,
+          "fork_total": 29.74445800000001,
+          "guest_server_init": 26.02725,
+          "guest_routine_schema": 1.4652910000000006,
+          "first_select": 30.338750000000005
+        },
+        {
+          "before_memory": 0.249333,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.169458,
+          "module_init": 0.298667,
+          "handoff": 0.0023329999999999185,
+          "execute_to_ready": 32.024375000000006,
+          "ready_handling": 0.4081249999999983,
+          "diagnostic_finish": 0.11058300000001253,
+          "memory_other": 0.0015009999999999746,
+          "fork_total": 33.264583000000016,
+          "guest_server_init": 30.321542,
+          "guest_routine_schema": 1.2078330000000008,
+          "first_select": 33.86699999999996
+        },
+        {
+          "before_memory": 0.267,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.181875,
+          "module_init": 0.314458,
+          "handoff": 0.0017500000000000293,
+          "execute_to_ready": 31.156584000000002,
+          "ready_handling": 0.42816600000000093,
+          "diagnostic_finish": 0.1000420000000517,
+          "memory_other": 0.0016249999999999876,
+          "fork_total": 32.45170800000005,
+          "guest_server_init": 29.468417,
+          "guest_routine_schema": 1.2409580000000027,
+          "first_select": 33.19575000000009
+        },
+        {
+          "before_memory": 0.26329199999999997,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.18,
+          "module_init": 0.30758300000000005,
+          "handoff": 0.001583000000000001,
+          "execute_to_ready": 30.3225,
+          "ready_handling": 0.8175419999999995,
+          "diagnostic_finish": 0.22429100000001512,
+          "memory_other": 0.0013759999999999883,
+          "fork_total": 32.118375000000015,
+          "guest_server_init": 28.451999999999998,
+          "guest_routine_schema": 1.3660000000000032,
+          "first_select": 33.07783399999994
+        },
+        {
+          "before_memory": 0.296667,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.17979199999999995,
+          "module_init": 0.28674999999999995,
+          "handoff": 0.0019159999999999178,
+          "execute_to_ready": 29.980542,
+          "ready_handling": 0.44200000000000017,
+          "diagnostic_finish": 0.0933749999999911,
+          "memory_other": 0.0016250000000000986,
+          "fork_total": 31.28287499999999,
+          "guest_server_init": 28.264292,
+          "guest_routine_schema": 1.2496669999999988,
+          "first_select": 31.961291000000074
+        },
+        {
+          "before_memory": 0.243875,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.16349999999999998,
+          "module_init": 0.315417,
+          "handoff": 0.0012919999999999598,
+          "execute_to_ready": 28.734,
+          "ready_handling": 0.4214580000000012,
+          "diagnostic_finish": 0.14595799999995407,
+          "memory_other": 0.0014170000000001126,
+          "fork_total": 30.027124999999955,
+          "guest_server_init": 27.131625,
+          "guest_routine_schema": 1.1487499999999997,
+          "first_select": 30.490666000000033
+        },
+        {
+          "before_memory": 0.309125,
+          "factory_lock_wait": 0.00024999999999997247,
+          "map_and_protect": 0.179083,
+          "module_init": 0.292083,
+          "handoff": 0.0025840000000000307,
+          "execute_to_ready": 27.709999999999997,
+          "ready_handling": 0.4090000000000025,
+          "diagnostic_finish": 0.08695800000000276,
+          "memory_other": 0.0020000000000000018,
+          "fork_total": 28.991083000000003,
+          "guest_server_init": 26.098125,
+          "guest_routine_schema": 1.1852920000000005,
+          "first_select": 29.599042000000054
+        },
+        {
+          "before_memory": 0.229208,
+          "factory_lock_wait": 0.00012499999999998623,
+          "map_and_protect": 0.168834,
+          "module_init": 0.2994999999999999,
+          "handoff": 0.0018329999999999735,
+          "execute_to_ready": 30.343167,
+          "ready_handling": 0.45887499999999903,
+          "diagnostic_finish": 0.09670800000005997,
+          "memory_other": 0.0013750000000001261,
+          "fork_total": 31.59962500000006,
+          "guest_server_init": 28.719959,
+          "guest_routine_schema": 1.122916,
+          "first_select": 32.19125000000008
+        },
+        {
+          "before_memory": 0.2545,
+          "factory_lock_wait": 0.00020900000000001473,
+          "map_and_protect": 0.171375,
+          "module_init": 0.298417,
+          "handoff": 0.0013329999999999176,
+          "execute_to_ready": 27.262667000000004,
+          "ready_handling": 0.8595419999999976,
+          "diagnostic_finish": 0.15095800000002058,
+          "memory_other": 0.0016660000000000008,
+          "fork_total": 29.00066700000002,
+          "guest_server_init": 25.635834,
+          "guest_routine_schema": 1.1582909999999984,
+          "first_select": 29.64737500000001
+        },
+        {
+          "before_memory": 0.255625,
+          "factory_lock_wait": 0.00016599999999999948,
+          "map_and_protect": 0.16999999999999998,
+          "module_init": 0.29904200000000003,
+          "handoff": 0.00316699999999992,
+          "execute_to_ready": 27.594041,
+          "ready_handling": 0.827375,
+          "diagnostic_finish": 0.2228339999999669,
+          "memory_other": 0.0020420000000000438,
+          "fork_total": 29.37429199999997,
+          "guest_server_init": 25.948584,
+          "guest_routine_schema": 1.1140410000000003,
+          "first_select": 30.30470800000012
+        },
+        {
+          "before_memory": 0.25458400000000003,
+          "factory_lock_wait": 0.00016700000000002824,
+          "map_and_protect": 0.16729099999999997,
+          "module_init": 0.2912500000000001,
+          "handoff": 0.001583000000000112,
+          "execute_to_ready": 28.729208,
+          "ready_handling": 0.42420900000000117,
+          "diagnostic_finish": 0.0925410000000646,
+          "memory_other": 0.0015419999999998213,
+          "fork_total": 29.962375000000065,
+          "guest_server_init": 27.07375,
+          "guest_routine_schema": 1.203000000000003,
+          "first_select": 30.795499999999947
+        },
+        {
+          "before_memory": 0.27233399999999996,
+          "factory_lock_wait": 0.00016700000000002824,
+          "map_and_protect": 0.18258399999999997,
+          "module_init": 0.28262499999999996,
+          "handoff": 0.002874999999999961,
+          "execute_to_ready": 29.967792,
+          "ready_handling": 0.45066699999999926,
+          "diagnostic_finish": 0.0895409999999508,
+          "memory_other": 0.0022900000000000698,
+          "fork_total": 31.25087499999995,
+          "guest_server_init": 28.127584,
+          "guest_routine_schema": 1.3499160000000003,
+          "first_select": 31.830124999999953
+        },
+        {
+          "before_memory": 0.240375,
+          "factory_lock_wait": 0.00016700000000000048,
+          "map_and_protect": 0.174083,
+          "module_init": 0.29687499999999994,
+          "handoff": 0.001791000000000098,
+          "execute_to_ready": 30.437625,
+          "ready_handling": 0.4691250000000018,
+          "diagnostic_finish": 0.093458000000048,
+          "memory_other": 0.0015839999999999743,
+          "fork_total": 31.71508300000005,
+          "guest_server_init": 28.76525,
+          "guest_routine_schema": 1.18825,
+          "first_select": 32.51587500000005
+        },
+        {
+          "before_memory": 0.255,
+          "factory_lock_wait": 0.00020800000000004149,
+          "map_and_protect": 0.18674999999999997,
+          "module_init": 0.33324999999999994,
+          "handoff": 0.001583000000000001,
+          "execute_to_ready": 30.808584,
+          "ready_handling": 1.0898330000000023,
+          "diagnostic_finish": 0.13241600000002762,
+          "memory_other": 0.001666999999999974,
+          "fork_total": 32.80929100000003,
+          "guest_server_init": 29.002416,
+          "guest_routine_schema": 1.308917000000001,
+          "first_select": 33.608875000000126
+        },
+        {
+          "before_memory": 0.275166,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.18562499999999998,
+          "module_init": 0.291125,
+          "handoff": 0.0023340000000000583,
+          "execute_to_ready": 29.000165999999997,
+          "ready_handling": 0.8767090000000017,
+          "diagnostic_finish": 0.2628330000000645,
+          "memory_other": 0.0017920000000000158,
+          "fork_total": 30.895958000000064,
+          "guest_server_init": 27.33475,
+          "guest_routine_schema": 1.1583749999999995,
+          "first_select": 31.461082999999917
+        },
+        {
+          "before_memory": 0.590333,
+          "factory_lock_wait": 0.00029200000000007,
+          "map_and_protect": 0.333167,
+          "module_init": 0.3483330000000001,
+          "handoff": 0.0035840000000000316,
+          "execute_to_ready": 31.295791,
+          "ready_handling": 0.7081670000000031,
+          "diagnostic_finish": 0.2030840000000964,
+          "memory_other": 0.003790999999999878,
+          "fork_total": 33.4865420000001,
+          "guest_server_init": 29.577292000000003,
+          "guest_routine_schema": 1.1849579999999982,
+          "first_select": 34.23175000000015
+        },
+        {
+          "before_memory": 0.310125,
+          "factory_lock_wait": 0.00020900000000001473,
+          "map_and_protect": 0.17116599999999998,
+          "module_init": 0.30862500000000004,
+          "handoff": 0.0022079999999999878,
+          "execute_to_ready": 32.756417000000006,
+          "ready_handling": 0.42337499999999295,
+          "diagnostic_finish": 0.09520799999995688,
+          "memory_other": 0.002208999999999961,
+          "fork_total": 34.069541999999956,
+          "guest_server_init": 30.983084,
+          "guest_routine_schema": 1.2889159999999968,
+          "first_select": 34.897500000000036
+        },
+        {
+          "before_memory": 0.606667,
+          "factory_lock_wait": 0.00029200000000007,
+          "map_and_protect": 0.18920800000000004,
+          "module_init": 0.3440000000000001,
+          "handoff": 0.0034170000000000034,
+          "execute_to_ready": 35.517083,
+          "ready_handling": 0.4177919999999986,
+          "diagnostic_finish": 0.09462499999990115,
+          "memory_other": 0.0022079999999999878,
+          "fork_total": 37.1752919999999,
+          "guest_server_init": 32.285709,
+          "guest_routine_schema": 2.638832999999998,
+          "first_select": 38.414374999999836
+        },
+        {
+          "before_memory": 0.498916,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.1885000000000001,
+          "module_init": 0.573375,
+          "handoff": 0.0044999999999999485,
+          "execute_to_ready": 34.068667,
+          "ready_handling": 0.8119999999999976,
+          "diagnostic_finish": 0.2236250000001263,
+          "memory_other": 0.0035839999999999206,
+          "fork_total": 36.373375000000124,
+          "guest_server_init": 32.13975,
+          "guest_routine_schema": 1.2152500000000046,
+          "first_select": 37.48075000000017
+        },
+        {
+          "before_memory": 0.277167,
+          "factory_lock_wait": 0.00016599999999999948,
+          "map_and_protect": 0.18095799999999995,
+          "module_init": 0.320167,
+          "handoff": 0.0019580000000000153,
+          "execute_to_ready": 37.902333,
+          "ready_handling": 0.47416700000000134,
+          "diagnostic_finish": 0.10691600000000534,
+          "memory_other": 0.0023760000000001558,
+          "fork_total": 39.266208000000006,
+          "guest_server_init": 34.517334,
+          "guest_routine_schema": 2.6101659999999995,
+          "first_select": 40.096000000000004
+        },
+        {
+          "before_memory": 0.2845,
+          "factory_lock_wait": 0.000250000000000028,
+          "map_and_protect": 0.185458,
+          "module_init": 0.32725000000000004,
+          "handoff": 0.0022079999999999878,
+          "execute_to_ready": 32.197625,
+          "ready_handling": 0.46829199999999105,
+          "diagnostic_finish": 0.3520419999998907,
+          "memory_other": 0.003249999999999864,
+          "fork_total": 33.82087499999989,
+          "guest_server_init": 30.426541999999998,
+          "guest_routine_schema": 1.2768329999999999,
+          "first_select": 34.63241599999992
+        },
+        {
+          "before_memory": 0.287375,
+          "factory_lock_wait": 0.00020899999999995922,
+          "map_and_protect": 0.18729200000000001,
+          "module_init": 0.31408299999999995,
+          "handoff": 0.0020000000000000018,
+          "execute_to_ready": 32.263792,
+          "ready_handling": 0.8412920000000028,
+          "diagnostic_finish": 0.20766599999999613,
+          "memory_other": 0.001749000000000167,
+          "fork_total": 34.105458,
+          "guest_server_init": 30.365250000000003,
+          "guest_routine_schema": 1.3539169999999991,
+          "first_select": 34.93387500000017
+        },
+        {
+          "before_memory": 0.258792,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.17879099999999998,
+          "module_init": 0.32299999999999995,
+          "handoff": 0.0017499999999999183,
+          "execute_to_ready": 31.188041,
+          "ready_handling": 0.49116699999999724,
+          "diagnostic_finish": 0.09850000000001558,
+          "memory_other": 0.0016680000000000583,
+          "fork_total": 32.54191700000001,
+          "guest_server_init": 29.522958000000003,
+          "guest_routine_schema": 1.1917919999999995,
+          "first_select": 33.16754199999991
+        },
+        {
+          "before_memory": 0.247959,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.17070900000000003,
+          "module_init": 0.30337500000000006,
+          "handoff": 0.001666999999999974,
+          "execute_to_ready": 28.993458,
+          "ready_handling": 0.43650000000000233,
+          "diagnostic_finish": 0.183541999999985,
+          "memory_other": 0.0012489999999999446,
+          "fork_total": 30.338666999999987,
+          "guest_server_init": 27.342208,
+          "guest_routine_schema": 1.1237090000000016,
+          "first_select": 31.130333000000064
+        },
+        {
+          "before_memory": 0.25383300000000003,
+          "factory_lock_wait": 0.00016699999999997273,
+          "map_and_protect": 0.164333,
+          "module_init": 0.29962500000000003,
+          "handoff": 0.0014170000000000016,
+          "execute_to_ready": 30.733458000000002,
+          "ready_handling": 0.4366249999999994,
+          "diagnostic_finish": 0.09275099999996783,
+          "memory_other": 0.0014580000000000148,
+          "fork_total": 31.98366699999997,
+          "guest_server_init": 29.06175,
+          "guest_routine_schema": 1.1808750000000003,
+          "first_select": 32.629875000000084
+        },
+        {
+          "before_memory": 0.236958,
+          "factory_lock_wait": 0.00016699999999997273,
+          "map_and_protect": 0.163458,
+          "module_init": 0.2984590000000001,
+          "handoff": 0.00187499999999996,
+          "execute_to_ready": 27.732125,
+          "ready_handling": 0.4099579999999996,
+          "diagnostic_finish": 0.09233399999999392,
+          "memory_other": 0.001583000000000001,
+          "fork_total": 28.936916999999994,
+          "guest_server_init": 26.112875,
+          "guest_routine_schema": 1.1587499999999977,
+          "first_select": 29.59699999999998
+        },
+        {
+          "before_memory": 0.251834,
+          "factory_lock_wait": 0.00016699999999997273,
+          "map_and_protect": 0.178792,
+          "module_init": 0.32466700000000004,
+          "handoff": 0.001958999999999933,
+          "execute_to_ready": 28.631791,
+          "ready_handling": 0.42791700000000077,
+          "diagnostic_finish": 0.09241699999984476,
+          "memory_other": 0.0015399999999999303,
+          "fork_total": 29.911083999999846,
+          "guest_server_init": 25.885042,
+          "guest_routine_schema": 2.2576660000000004,
+          "first_select": 30.51924999999983
+        },
+        {
+          "before_memory": 0.25470899999999996,
+          "factory_lock_wait": 0.00024999999999997247,
+          "map_and_protect": 0.167167,
+          "module_init": 0.290375,
+          "handoff": 0.0015420000000000433,
+          "execute_to_ready": 27.464624999999998,
+          "ready_handling": 0.47541700000000375,
+          "diagnostic_finish": 0.11320800000009967,
+          "memory_other": 0.0016240000000000698,
+          "fork_total": 28.7689170000001,
+          "guest_server_init": 25.861167,
+          "guest_routine_schema": 1.1000830000000015,
+          "first_select": 29.283292000000074
+        },
+        {
+          "before_memory": 0.242125,
+          "factory_lock_wait": 0.00016599999999999948,
+          "map_and_protect": 0.17824999999999996,
+          "module_init": 0.305333,
+          "handoff": 0.0015419999999999323,
+          "execute_to_ready": 30.378625,
+          "ready_handling": 0.4522499999999994,
+          "diagnostic_finish": 0.09104199999985596,
+          "memory_other": 0.001750999999999947,
+          "fork_total": 31.651083999999855,
+          "guest_server_init": 28.570958,
+          "guest_routine_schema": 1.113042,
+          "first_select": 32.14987499999984
+        },
+        {
+          "before_memory": 0.256083,
+          "factory_lock_wait": 0.00016699999999997273,
+          "map_and_protect": 0.16212500000000002,
+          "module_init": 0.28312499999999996,
+          "handoff": 0.001290999999999931,
+          "execute_to_ready": 27.268459,
+          "ready_handling": 0.4661660000000012,
+          "diagnostic_finish": 0.09725000000004158,
+          "memory_other": 0.0012500000000000289,
+          "fork_total": 28.535916000000043,
+          "guest_server_init": 25.66375,
+          "guest_routine_schema": 1.1674579999999999,
+          "first_select": 29.053916000000072
+        },
+        {
+          "before_memory": 0.207458,
+          "factory_lock_wait": 0.00012499999999998623,
+          "map_and_protect": 0.15237499999999995,
+          "module_init": 0.27016699999999993,
+          "handoff": 0.0014579999999999593,
+          "execute_to_ready": 27.700917,
+          "ready_handling": 0.42774999999999963,
+          "diagnostic_finish": 0.08895799999988796,
+          "memory_other": 0.0012500000000000844,
+          "fork_total": 28.85045799999989,
+          "guest_server_init": 26.152459,
+          "guest_routine_schema": 1.1190409999999993,
+          "first_select": 29.510999999999967
+        },
+        {
+          "before_memory": 0.237458,
+          "factory_lock_wait": 0.00016699999999997273,
+          "map_and_protect": 0.15954099999999996,
+          "module_init": 0.2800409999999999,
+          "handoff": 0.0017500000000000293,
+          "execute_to_ready": 26.737667000000002,
+          "ready_handling": 0.40391599999999883,
+          "diagnostic_finish": 0.08141700000012264,
+          "memory_other": 0.0015430000000001831,
+          "fork_total": 27.903500000000122,
+          "guest_server_init": 25.163083,
+          "guest_routine_schema": 1.1359169999999992,
+          "first_select": 28.455124999999953
+        },
+        {
+          "before_memory": 0.239417,
+          "factory_lock_wait": 0.00016700000000002824,
+          "map_and_protect": 0.15991699999999998,
+          "module_init": 0.27825,
+          "handoff": 0.001583000000000001,
+          "execute_to_ready": 31.283667,
+          "ready_handling": 0.38029200000000074,
+          "diagnostic_finish": 0.08633299999981148,
+          "memory_other": 0.0013739999999999863,
+          "fork_total": 32.43099999999981,
+          "guest_server_init": 28.460040999999997,
+          "guest_routine_schema": 2.2804170000000035,
+          "first_select": 33.24700000000007
+        },
+        {
+          "before_memory": 0.235209,
+          "factory_lock_wait": 0.00012499999999998623,
+          "map_and_protect": 0.164417,
+          "module_init": 0.2957499999999999,
+          "handoff": 0.0021250000000001545,
+          "execute_to_ready": 28.496958000000003,
+          "ready_handling": 0.6076249999999987,
+          "diagnostic_finish": 0.1076669999998714,
+          "memory_other": 0.0013330000000000841,
+          "fork_total": 29.91120899999987,
+          "guest_server_init": 26.887875,
+          "guest_routine_schema": 1.105208000000001,
+          "first_select": 30.546041999999943
+        },
+        {
+          "before_memory": 0.255667,
+          "factory_lock_wait": 0.000250000000000028,
+          "map_and_protect": 0.174875,
+          "module_init": 0.2983750000000001,
+          "handoff": 0.0017089999999999606,
+          "execute_to_ready": 28.722291,
+          "ready_handling": 0.8521670000000015,
+          "diagnostic_finish": 0.12370799999991178,
+          "memory_other": 0.0013329999999999176,
+          "fork_total": 30.430374999999913,
+          "guest_server_init": 27.077458,
+          "guest_routine_schema": 1.1968749999999986,
+          "first_select": 30.974290999999994
+        }
+      ],
+      "root_trace": {
+        "epoch_ns": 10412833,
+        "operation": "startup",
+        "pid": 3479,
+        "events": [
+          {
+            "name": "begin",
+            "offset_ns": 542
+          },
+          {
+            "name": "native_identity_checked",
+            "offset_ns": 1000
+          },
+          {
+            "name": "metadata_snapshot_validated",
+            "offset_ns": 23042
+          },
+          {
+            "name": "transfer_prepared",
+            "offset_ns": 77292
+          },
+          {
+            "name": "linked_execution_begin",
+            "offset_ns": 104458
+          },
+          {
+            "name": "runtime/instance_begin",
+            "offset_ns": 136125
+          },
+          {
+            "name": "runtime/prepared_handles_begin",
+            "offset_ns": 171542
+          },
+          {
+            "name": "runtime/prepared_handles_ready",
+            "offset_ns": 171667
+          },
+          {
+            "name": "runtime/memory_begin",
+            "offset_ns": 172583
+          },
+          {
+            "name": "runtime/image_lock_begin",
+            "offset_ns": 176250
+          },
+          {
+            "name": "runtime/image_lock_acquired",
+            "offset_ns": 180333
+          },
+          {
+            "name": "runtime/image_build_begin",
+            "offset_ns": 180458
+          },
+          {
+            "name": "runtime/image_build_end",
+            "offset_ns": 49583250
+          },
+          {
+            "name": "runtime/map_begin",
+            "offset_ns": 49586375
+          },
+          {
+            "name": "runtime/map_end",
+            "offset_ns": 49802750
+          },
+          {
+            "name": "runtime/module_begin",
+            "offset_ns": 49802875
+          },
+          {
+            "name": "runtime/module_end",
+            "offset_ns": 50179583
+          },
+          {
+            "name": "runtime/memory_ready",
+            "offset_ns": 50184250
+          },
+          {
+            "name": "runtime/guest_execute_begin",
+            "offset_ns": 50194417
+          },
+          {
+            "name": "ready_header_received",
+            "offset_ns": 77536000
+          },
+          {
+            "name": "ready_frame_decoded",
+            "offset_ns": 77839875
+          },
+          {
+            "name": "ready_response_observed",
+            "offset_ns": 77850625
+          },
+          {
+            "name": "guest_ready",
+            "offset_ns": 77851292
+          },
+          {
+            "name": "wire_listener_ready",
+            "offset_ns": 77974208
+          },
+          {
+            "name": "guest_timing_read",
+            "offset_ns": 77989833
+          },
+          {
+            "name": "end",
+            "offset_ns": 77997000
+          }
+        ],
+        "guest": {
+          "version": 1,
+          "clock": "guest_monotonic",
+          "events": [
+            {
+              "name": "guest_main",
+              "offset_ns": 0
+            },
+            {
+              "name": "restore_begin",
+              "offset_ns": 69917
+            },
+            {
+              "name": "restore_complete",
+              "offset_ns": 70042
+            },
+            {
+              "name": "open_begin",
+              "offset_ns": 70250
+            },
+            {
+              "name": "server_init_begin",
+              "offset_ns": 73084
+            },
+            {
+              "name": "server_init_complete",
+              "offset_ns": 23226625
+            },
+            {
+              "name": "bootstrap_complete",
+              "offset_ns": 23430750
+            },
+            {
+              "name": "routine_schema_begin",
+              "offset_ns": 23432584
+            },
+            {
+              "name": "routine_schema_complete",
+              "offset_ns": 26773917
+            },
+            {
+              "name": "ready_prepared",
+              "offset_ns": 26796709
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "pages-p4-r0-diagnostic",
+      "arm": "pages",
+      "parallel": 4,
+      "metrics": {
+        "before_memory": {
+          "n": 48,
+          "p50": 0.28347900000000004,
+          "p95": 0.624417,
+          "mean": 0.35594885416666666,
+          "max": 0.7501249999999999,
+          "over_100ms": 0
+        },
+        "factory_lock_wait": {
+          "n": 48,
+          "p50": 0.00020849999999994484,
+          "p95": 1.400791,
+          "mean": 0.1539314375,
+          "max": 2.200208,
+          "over_100ms": 0
+        },
+        "map_and_protect": {
+          "n": 48,
+          "p50": 0.08514600000000003,
+          "p95": 1.0639580000000002,
+          "mean": 0.20052779166666668,
+          "max": 1.686709,
+          "over_100ms": 0
+        },
+        "module_init": {
+          "n": 48,
+          "p50": 0.3223745000000001,
+          "p95": 0.7903329999999998,
+          "mean": 0.3739349375,
+          "max": 1.1825420000000002,
+          "over_100ms": 0
+        },
+        "handoff": {
+          "n": 48,
+          "p50": 0.001709000000000016,
+          "p95": 0.0052920000000002965,
+          "mean": 0.0022551874999999985,
+          "max": 0.007584000000000035,
+          "over_100ms": 0
+        },
+        "execute_to_ready": {
+          "n": 48,
+          "p50": 37.60927050000001,
+          "p95": 52.836292,
+          "mean": 39.242762104166665,
+          "max": 61.856457999999996,
+          "over_100ms": 0
+        },
+        "ready_handling": {
+          "n": 48,
+          "p50": 0.7114585000000027,
+          "p95": 1.6114589999999964,
+          "mean": 0.7393333541666669,
+          "max": 2.404333000000001,
+          "over_100ms": 0
+        },
+        "diagnostic_finish": {
+          "n": 48,
+          "p50": 0.14149999999999352,
+          "p95": 0.328290999999993,
+          "mean": 0.19860587500000149,
+          "max": 1.2297499999999744,
+          "over_100ms": 0
+        },
+        "memory_other": {
+          "n": 48,
+          "p50": 0.0020000000000000295,
+          "p95": 0.006581999999999422,
+          "mean": 0.0028262916666666527,
+          "max": 0.017083999999999433,
+          "over_100ms": 0
+        },
+        "fork_total": {
+          "n": 48,
+          "p50": 39.88647949999998,
+          "p95": 57.042666999999994,
+          "mean": 41.27012583333333,
+          "max": 64.816709,
+          "over_100ms": 0
+        },
+        "guest_server_init": {
+          "n": 48,
+          "p50": 34.834417,
+          "p95": 46.442083,
+          "mean": 36.0351536875,
+          "max": 57.649125,
+          "over_100ms": 0
+        },
+        "guest_routine_schema": {
+          "n": 48,
+          "p50": 1.405187999999999,
+          "p95": 3.610208,
+          "mean": 1.814130166666667,
+          "max": 3.8916250000000048,
+          "over_100ms": 0
+        },
+        "first_select": {
+          "n": 48,
+          "p50": 41.4419585,
+          "p95": 60.66695899999999,
+          "mean": 43.018481833333325,
+          "max": 65.80012500000001,
+          "over_100ms": 0
+        }
+      },
+      "children": [
+        {
+          "before_memory": 0.7501249999999999,
+          "factory_lock_wait": 2.200208,
+          "map_and_protect": 0.19225000000000003,
+          "module_init": 0.4175,
+          "handoff": 0.0052920000000002965,
+          "execute_to_ready": 52.836292,
+          "ready_handling": 1.6314999999999955,
+          "diagnostic_finish": 0.33970699999999,
+          "memory_other": 0.004292000000000407,
+          "fork_total": 58.37716599999999,
+          "guest_server_init": 46.442083,
+          "guest_routine_schema": 3.7417500000000032,
+          "first_select": 61.56020799999999
+        },
+        {
+          "before_memory": 0.45670900000000003,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.3844160000000001,
+          "module_init": 0.9351250000000002,
+          "handoff": 0.005916000000000032,
+          "execute_to_ready": 54.635,
+          "ready_handling": 0.5137089999999986,
+          "diagnostic_finish": 0.10220799999999741,
+          "memory_other": 0.009375999999999829,
+          "fork_total": 57.042666999999994,
+          "guest_server_init": 43.018667,
+          "guest_routine_schema": 3.8916250000000048,
+          "first_select": 60.66695899999999
+        },
+        {
+          "before_memory": 0.448458,
+          "factory_lock_wait": 1.400791,
+          "map_and_protect": 0.16958300000000004,
+          "module_init": 0.39445900000000034,
+          "handoff": 0.004999999999999893,
+          "execute_to_ready": 61.856457999999996,
+          "ready_handling": 0.4207499999999982,
+          "diagnostic_finish": 0.10412600000000793,
+          "memory_other": 0.017083999999999433,
+          "fork_total": 64.816709,
+          "guest_server_init": 57.649125,
+          "guest_routine_schema": 2.477708,
+          "first_select": 65.80012500000001
+        },
+        {
+          "before_memory": 0.449584,
+          "factory_lock_wait": 2.0185000000000004,
+          "map_and_protect": 0.16470900000000022,
+          "module_init": 0.25824999999999987,
+          "handoff": 0.0030839999999998646,
+          "execute_to_ready": 40.233166000000004,
+          "ready_handling": 1.6114589999999964,
+          "diagnostic_finish": 0.24329099999999926,
+          "memory_other": 0.006581999999999422,
+          "fork_total": 44.988625,
+          "guest_server_init": 37.183791,
+          "guest_routine_schema": 1.3254590000000022,
+          "first_select": 59.906875
+        },
+        {
+          "before_memory": 0.270583,
+          "factory_lock_wait": 0.00020900000000001473,
+          "map_and_protect": 0.08800000000000002,
+          "module_init": 1.1825420000000002,
+          "handoff": 0.00216700000000003,
+          "execute_to_ready": 35.535166,
+          "ready_handling": 0.477209000000002,
+          "diagnostic_finish": 0.10750000000002302,
+          "memory_other": 0.0027489999999996684,
+          "fork_total": 37.66612500000002,
+          "guest_server_init": 31.067666000000003,
+          "guest_routine_schema": 2.9193749999999987,
+          "first_select": 38.228917000000024
+        },
+        {
+          "before_memory": 0.27391699999999997,
+          "factory_lock_wait": 0.00016700000000002824,
+          "map_and_protect": 0.07854200000000006,
+          "module_init": 0.309917,
+          "handoff": 0.0014580000000001814,
+          "execute_to_ready": 36.96525,
+          "ready_handling": 0.8260000000000005,
+          "diagnostic_finish": 1.2297499999999744,
+          "memory_other": 0.001540999999999848,
+          "fork_total": 39.686541999999974,
+          "guest_server_init": 34.750125000000004,
+          "guest_routine_schema": 1.463707999999997,
+          "first_select": 41.59366699999998
+        },
+        {
+          "before_memory": 0.274959,
+          "factory_lock_wait": 8.299999999999974e-05,
+          "map_and_protect": 0.07808300000000001,
+          "module_init": 0.34391600000000005,
+          "handoff": 0.00216700000000003,
+          "execute_to_ready": 31.763666000000004,
+          "ready_handling": 0.8311669999999935,
+          "diagnostic_finish": 0.16233299999999673,
+          "memory_other": 0.0017509999999998915,
+          "fork_total": 33.458124999999995,
+          "guest_server_init": 29.916249999999998,
+          "guest_routine_schema": 1.1977919999999997,
+          "first_select": 36.365207999999996
+        },
+        {
+          "before_memory": 0.47983400000000004,
+          "factory_lock_wait": 0.00012499999999998623,
+          "map_and_protect": 0.574875,
+          "module_init": 0.32141600000000015,
+          "handoff": 0.0017500000000001403,
+          "execute_to_ready": 40.431833,
+          "ready_handling": 0.663375000000002,
+          "diagnostic_finish": 0.1358749999999631,
+          "memory_other": 0.0017919999999997938,
+          "fork_total": 42.610874999999965,
+          "guest_server_init": 36.771375,
+          "guest_routine_schema": 2.423334000000004,
+          "first_select": 44.52474999999998
+        },
+        {
+          "before_memory": 0.288375,
+          "factory_lock_wait": 8.299999999994423e-05,
+          "map_and_protect": 0.08962499999999995,
+          "module_init": 0.17616699999999996,
+          "handoff": 0.0015419999999999323,
+          "execute_to_ready": 37.490750000000006,
+          "ready_handling": 0.992207999999998,
+          "diagnostic_finish": 0.2187500000000071,
+          "memory_other": 0.0013330000000001951,
+          "fork_total": 39.25883300000001,
+          "guest_server_init": 34.627625,
+          "guest_routine_schema": 1.1645839999999978,
+          "first_select": 42.49754199999998
+        },
+        {
+          "before_memory": 0.25070899999999996,
+          "factory_lock_wait": 0.00012500000000004174,
+          "map_and_protect": 0.07225000000000004,
+          "module_init": 0.21770899999999999,
+          "handoff": 0.0019160000000000288,
+          "execute_to_ready": 35.66058399999999,
+          "ready_handling": 1.4976660000000024,
+          "diagnostic_finish": 0.2551249999999925,
+          "memory_other": 0.0010409999999999031,
+          "fork_total": 37.95712499999999,
+          "guest_server_init": 31.994458,
+          "guest_routine_schema": 2.5499170000000007,
+          "first_select": 40.889249999999976
+        },
+        {
+          "before_memory": 0.296208,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 1.686709,
+          "module_init": 0.3507499999999999,
+          "handoff": 0.002000000000000224,
+          "execute_to_ready": 41.479291,
+          "ready_handling": 0.41550000000000153,
+          "diagnostic_finish": 0.11900100000003278,
+          "memory_other": 0.0029170000000002805,
+          "fork_total": 44.352584000000036,
+          "guest_server_init": 39.645250000000004,
+          "guest_routine_schema": 1.2207909999999984,
+          "first_select": 44.80595900000003
+        },
+        {
+          "before_memory": 0.2645,
+          "factory_lock_wait": 0.8700419999999999,
+          "map_and_protect": 0.07424999999999993,
+          "module_init": 0.15012499999999984,
+          "handoff": 0.0017499999999999183,
+          "execute_to_ready": 36.563,
+          "ready_handling": 0.4640419999999992,
+          "diagnostic_finish": 0.1073329999999757,
+          "memory_other": 0.003999000000000419,
+          "fork_total": 38.49904099999998,
+          "guest_server_init": 33.148416,
+          "guest_routine_schema": 1.3087500000000034,
+          "first_select": 40.007000000000005
+        },
+        {
+          "before_memory": 0.24116700000000002,
+          "factory_lock_wait": 0.21850000000000003,
+          "map_and_protect": 0.07999999999999996,
+          "module_init": 0.17191600000000007,
+          "handoff": 0.0010410000000000696,
+          "execute_to_ready": 41.622499999999995,
+          "ready_handling": 0.29050000000000153,
+          "diagnostic_finish": 0.09037499999998744,
+          "memory_other": 0.0010009999999999186,
+          "fork_total": 42.716999999999985,
+          "guest_server_init": 39.996916999999996,
+          "guest_routine_schema": 1.2958750000000023,
+          "first_select": 44.297124999999994
+        },
+        {
+          "before_memory": 0.292417,
+          "factory_lock_wait": 0.00016699999999997273,
+          "map_and_protect": 0.38933300000000004,
+          "module_init": 0.3257079999999999,
+          "handoff": 0.001583000000000112,
+          "execute_to_ready": 35.257417,
+          "ready_handling": 0.5170420000000036,
+          "diagnostic_finish": 0.14112499999996686,
+          "memory_other": 0.0025000000000000577,
+          "fork_total": 36.927291999999966,
+          "guest_server_init": 33.577833,
+          "guest_routine_schema": 0.9682079999999971,
+          "first_select": 37.77574999999996
+        },
+        {
+          "before_memory": 0.249417,
+          "factory_lock_wait": 8.299999999999974e-05,
+          "map_and_protect": 0.07395800000000002,
+          "module_init": 0.154333,
+          "handoff": 0.0012079999999999869,
+          "execute_to_ready": 41.622167000000005,
+          "ready_handling": 0.994499999999995,
+          "diagnostic_finish": 0.29299999999995663,
+          "memory_other": 0.001458999999999988,
+          "fork_total": 43.390124999999955,
+          "guest_server_init": 37.594417,
+          "guest_routine_schema": 3.610208,
+          "first_select": 44.975832999999966
+        },
+        {
+          "before_memory": 0.256792,
+          "factory_lock_wait": 8.399999999997299e-05,
+          "map_and_protect": 0.07191699999999995,
+          "module_init": 0.21591700000000003,
+          "handoff": 0.0013329999999999176,
+          "execute_to_ready": 33.3275,
+          "ready_handling": 0.8879169999999945,
+          "diagnostic_finish": 0.298625000000051,
+          "memory_other": 0.0015400000000000413,
+          "fork_total": 35.06162500000005,
+          "guest_server_init": 29.862417,
+          "guest_routine_schema": 1.2850419999999971,
+          "first_select": 39.69712500000003
+        },
+        {
+          "before_memory": 0.28275,
+          "factory_lock_wait": 0.00020899999999995922,
+          "map_and_protect": 0.085542,
+          "module_init": 0.32829099999999994,
+          "handoff": 0.0014579999999999593,
+          "execute_to_ready": 36.271208,
+          "ready_handling": 0.7537500000000037,
+          "diagnostic_finish": 0.10083300000002282,
+          "memory_other": 0.0022500000000001408,
+          "fork_total": 37.826291000000026,
+          "guest_server_init": 33.992957999999994,
+          "guest_routine_schema": 1.2465420000000051,
+          "first_select": 39.18045799999999
+        },
+        {
+          "before_memory": 0.278125,
+          "factory_lock_wait": 0.00024999999999997247,
+          "map_and_protect": 0.083791,
+          "module_init": 0.311208,
+          "handoff": 0.0020409999999999595,
+          "execute_to_ready": 41.160084,
+          "ready_handling": 0.43529100000000653,
+          "diagnostic_finish": 0.10320799999997377,
+          "memory_other": 0.0017100000000000448,
+          "fork_total": 42.375707999999975,
+          "guest_server_init": 36.039833,
+          "guest_routine_schema": 2.5757079999999988,
+          "first_select": 42.87149999999997
+        },
+        {
+          "before_memory": 0.610333,
+          "factory_lock_wait": 0.0003340000000000565,
+          "map_and_protect": 0.16620899999999994,
+          "module_init": 0.590708,
+          "handoff": 0.00216700000000003,
+          "execute_to_ready": 45.083833,
+          "ready_handling": 0.8455829999999978,
+          "diagnostic_finish": 0.2589590000000186,
+          "memory_other": 0.0036239999999999606,
+          "fork_total": 47.56175000000002,
+          "guest_server_init": 42.707625,
+          "guest_routine_schema": 1.8552079999999975,
+          "first_select": 48.376791000000026
+        },
+        {
+          "before_memory": 0.30920899999999996,
+          "factory_lock_wait": 0.0002910000000000412,
+          "map_and_protect": 0.08475000000000005,
+          "module_init": 0.325917,
+          "handoff": 0.0018329999999999735,
+          "execute_to_ready": 33.909375000000004,
+          "ready_handling": 0.6883750000000006,
+          "diagnostic_finish": 0.13100000000003575,
+          "memory_other": 0.0019999999999999463,
+          "fork_total": 35.45275000000004,
+          "guest_server_init": 32.003625,
+          "guest_routine_schema": 1.2679580000000001,
+          "first_select": 37.942499999999995
+        },
+        {
+          "before_memory": 0.27,
+          "factory_lock_wait": 0.00012499999999993072,
+          "map_and_protect": 0.08224999999999999,
+          "module_init": 0.305125,
+          "handoff": 0.0014999999999999458,
+          "execute_to_ready": 35.614166,
+          "ready_handling": 0.7764590000000027,
+          "diagnostic_finish": 0.328290999999993,
+          "memory_other": 0.0015000000000001124,
+          "fork_total": 37.37941599999999,
+          "guest_server_init": 33.930707999999996,
+          "guest_routine_schema": 1.1422080000000037,
+          "first_select": 38.564332999999976
+        },
+        {
+          "before_memory": 0.285584,
+          "factory_lock_wait": 0.00016699999999997273,
+          "map_and_protect": 0.07895799999999997,
+          "module_init": 0.31074999999999997,
+          "handoff": 0.001583000000000001,
+          "execute_to_ready": 32.41375,
+          "ready_handling": 0.35720900000000455,
+          "diagnostic_finish": 0.09866599999997305,
+          "memory_other": 0.0012080000000000979,
+          "fork_total": 33.547874999999976,
+          "guest_server_init": 30.224,
+          "guest_routine_schema": 1.7341249999999988,
+          "first_select": 33.977499999999964
+        },
+        {
+          "before_memory": 0.27325,
+          "factory_lock_wait": 0.00024999999999997247,
+          "map_and_protect": 0.08245800000000003,
+          "module_init": 0.30599999999999994,
+          "handoff": 0.001459000000000099,
+          "execute_to_ready": 32.270500000000006,
+          "ready_handling": 0.388582999999997,
+          "diagnostic_finish": 0.0941670000000343,
+          "memory_other": 0.0020419999999999883,
+          "fork_total": 33.418709000000035,
+          "guest_server_init": 30.567042,
+          "guest_routine_schema": 1.2062920000000013,
+          "first_select": 34.53704200000004
+        },
+        {
+          "before_memory": 0.304125,
+          "factory_lock_wait": 0.00020900000000001473,
+          "map_and_protect": 1.139958,
+          "module_init": 0.3514579999999998,
+          "handoff": 0.003082999999999947,
+          "execute_to_ready": 34.519375,
+          "ready_handling": 0.7345420000000047,
+          "diagnostic_finish": 0.19479200000000674,
+          "memory_other": 0.006417000000000117,
+          "fork_total": 37.25395900000001,
+          "guest_server_init": 29.512959000000002,
+          "guest_routine_schema": 1.1990829999999981,
+          "first_select": 39.81174999999996
+        },
+        {
+          "before_memory": 0.24679099999999998,
+          "factory_lock_wait": 0.09699999999999998,
+          "map_and_protect": 0.180458,
+          "module_init": 0.39275000000000004,
+          "handoff": 0.002458999999999989,
+          "execute_to_ready": 37.727791,
+          "ready_handling": 1.1164589999999919,
+          "diagnostic_finish": 0.32066699999998605,
+          "memory_other": 0.0020419999999999883,
+          "fork_total": 40.08641699999998,
+          "guest_server_init": 34.918709,
+          "guest_routine_schema": 2.0985000000000014,
+          "first_select": 42.004958999999985
+        },
+        {
+          "before_memory": 0.490583,
+          "factory_lock_wait": 0.00020900000000001473,
+          "map_and_protect": 0.08087500000000003,
+          "module_init": 0.309833,
+          "handoff": 0.0017089999999999606,
+          "execute_to_ready": 32.278833,
+          "ready_handling": 0.8382919999999956,
+          "diagnostic_finish": 0.21033300000000565,
+          "memory_other": 0.0019580000000000153,
+          "fork_total": 34.212625,
+          "guest_server_init": 29.638834,
+          "guest_routine_schema": 2.0212080000000014,
+          "first_select": 35.10091699999998
+        },
+        {
+          "before_memory": 0.278,
+          "factory_lock_wait": 0.00016599999999999948,
+          "map_and_protect": 0.07645799999999997,
+          "module_init": 0.305834,
+          "handoff": 0.0015000000000000568,
+          "execute_to_ready": 36.670958,
+          "ready_handling": 0.7903340000000014,
+          "diagnostic_finish": 0.2639160000000871,
+          "memory_other": 0.001666999999999974,
+          "fork_total": 38.38883300000009,
+          "guest_server_init": 33.144083,
+          "guest_routine_schema": 2.9321669999999997,
+          "first_select": 39.48149999999998
+        },
+        {
+          "before_memory": 0.263625,
+          "factory_lock_wait": 8.299999999994423e-05,
+          "map_and_protect": 0.07579199999999997,
+          "module_init": 0.26691699999999996,
+          "handoff": 0.001666999999999974,
+          "execute_to_ready": 50.308082999999996,
+          "ready_handling": 0.7920420000000021,
+          "diagnostic_finish": 0.12424900000000605,
+          "memory_other": 0.0018330000000001956,
+          "fork_total": 51.83429100000001,
+          "guest_server_init": 47.840792,
+          "guest_routine_schema": 1.5723330000000004,
+          "first_select": 52.30533300000002
+        },
+        {
+          "before_memory": 0.278791,
+          "factory_lock_wait": 0.00020900000000001473,
+          "map_and_protect": 1.0639580000000002,
+          "module_init": 0.52075,
+          "handoff": 0.0025410000000003485,
+          "execute_to_ready": 35.345583999999995,
+          "ready_handling": 0.7861249999999984,
+          "diagnostic_finish": 0.2098339999999297,
+          "memory_other": 0.0027919999999996836,
+          "fork_total": 38.210583999999926,
+          "guest_server_init": 32.717499999999994,
+          "guest_routine_schema": 1.2747500000000045,
+          "first_select": 39.567458999999985
+        },
+        {
+          "before_memory": 0.25545799999999996,
+          "factory_lock_wait": 0.575458,
+          "map_and_protect": 0.08208300000000002,
+          "module_init": 0.18120800000000015,
+          "handoff": 0.0014579999999999593,
+          "execute_to_ready": 36.874375,
+          "ready_handling": 0.3897499999999994,
+          "diagnostic_finish": 0.09966599999996362,
+          "memory_other": 0.001834999999999809,
+          "fork_total": 38.46129099999996,
+          "guest_server_init": 35.124207999999996,
+          "guest_routine_schema": 1.280417,
+          "first_select": 39.198582999999985
+        },
+        {
+          "before_memory": 0.30375,
+          "factory_lock_wait": 0.00029200000000001447,
+          "map_and_protect": 0.08912500000000001,
+          "module_init": 0.49279200000000006,
+          "handoff": 0.0029159999999999187,
+          "execute_to_ready": 35.162917,
+          "ready_handling": 0.4977080000000029,
+          "diagnostic_finish": 0.11000100000003954,
+          "memory_other": 0.002541000000000071,
+          "fork_total": 36.66204200000004,
+          "guest_server_init": 33.132374999999996,
+          "guest_routine_schema": 1.3955839999999995,
+          "first_select": 37.903999999999996
+        },
+        {
+          "before_memory": 0.265459,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.08266699999999999,
+          "module_init": 0.29033400000000004,
+          "handoff": 0.0013330000000000286,
+          "execute_to_ready": 41.380624999999995,
+          "ready_handling": 0.761375000000001,
+          "diagnostic_finish": 0.11283300000003038,
+          "memory_other": 0.001499000000000028,
+          "fork_total": 42.89633300000003,
+          "guest_server_init": 33.713916999999995,
+          "guest_routine_schema": 2.284958000000003,
+          "first_select": 43.565166999999974
+        },
+        {
+          "before_memory": 0.575958,
+          "factory_lock_wait": 0.00024999999999997247,
+          "map_and_protect": 0.14812499999999995,
+          "module_init": 0.6620840000000001,
+          "handoff": 0.003958999999999824,
+          "execute_to_ready": 39.863833,
+          "ready_handling": 0.7629170000000016,
+          "diagnostic_finish": 0.26037500000002467,
+          "memory_other": 0.003874000000000155,
+          "fork_total": 42.281375000000025,
+          "guest_server_init": 36.249542,
+          "guest_routine_schema": 2.630082999999999,
+          "first_select": 43.44387500000005
+        },
+        {
+          "before_memory": 0.339625,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.09254199999999996,
+          "module_init": 0.425542,
+          "handoff": 0.0026249999999999885,
+          "execute_to_ready": 41.389416999999995,
+          "ready_handling": 0.4362080000000006,
+          "diagnostic_finish": 0.12158400000000569,
+          "memory_other": 0.002541000000000182,
+          "fork_total": 42.810292000000004,
+          "guest_server_init": 39.049042,
+          "guest_routine_schema": 1.7207909999999984,
+          "first_select": 44.017083999999954
+        },
+        {
+          "before_memory": 0.625458,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.08945900000000007,
+          "module_init": 0.34183299999999994,
+          "handoff": 0.001666999999999863,
+          "execute_to_ready": 40.517165999999996,
+          "ready_handling": 0.8000000000000043,
+          "diagnostic_finish": 0.21620900000004895,
+          "memory_other": 0.002000000000000113,
+          "fork_total": 42.59400000000005,
+          "guest_server_init": 36.389542,
+          "guest_routine_schema": 3.5104159999999993,
+          "first_select": 43.87733400000002
+        },
+        {
+          "before_memory": 0.278,
+          "factory_lock_wait": 0.00016700000000002824,
+          "map_and_protect": 0.080542,
+          "module_init": 0.30654200000000004,
+          "handoff": 0.0015419999999999323,
+          "execute_to_ready": 44.291458,
+          "ready_handling": 0.38237500000000324,
+          "diagnostic_finish": 0.09591699999998582,
+          "memory_other": 0.001456999999999986,
+          "fork_total": 45.43799999999999,
+          "guest_server_init": 42.608,
+          "guest_routine_schema": 1.2385829999999984,
+          "first_select": 45.82941699999992
+        },
+        {
+          "before_memory": 0.266625,
+          "factory_lock_wait": 0.00012500000000004174,
+          "map_and_protect": 0.08304199999999995,
+          "module_init": 0.3233330000000001,
+          "handoff": 0.0019159999999998067,
+          "execute_to_ready": 34.4365,
+          "ready_handling": 0.4485419999999962,
+          "diagnostic_finish": 0.11083399999995436,
+          "memory_other": 0.0024170000000000025,
+          "fork_total": 35.673333999999954,
+          "guest_server_init": 32.158334,
+          "guest_routine_schema": 1.326207999999994,
+          "first_select": 39.11399999999992
+        },
+        {
+          "before_memory": 0.29695900000000003,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.08258300000000002,
+          "module_init": 0.327583,
+          "handoff": 0.001458999999999988,
+          "execute_to_ready": 43.331875000000004,
+          "ready_handling": 0.982208,
+          "diagnostic_finish": 0.24004099999996242,
+          "memory_other": 0.001417000000000057,
+          "fork_total": 45.264332999999965,
+          "guest_server_init": 40.644000000000005,
+          "guest_routine_schema": 1.8739999999999952,
+          "first_select": 46.414041999999995
+        },
+        {
+          "before_memory": 0.26170899999999997,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.07654200000000005,
+          "module_init": 0.28837500000000005,
+          "handoff": 0.0012079999999999869,
+          "execute_to_ready": 39.0615,
+          "ready_handling": 2.404333000000001,
+          "diagnostic_finish": 0.11904100000000284,
+          "memory_other": 0.0013749999999999596,
+          "fork_total": 42.214291,
+          "guest_server_init": 36.808665999999995,
+          "guest_routine_schema": 1.213000000000001,
+          "first_select": 42.745874999999955
+        },
+        {
+          "before_memory": 0.595083,
+          "factory_lock_wait": 0.0003750000000000142,
+          "map_and_protect": 0.17162500000000003,
+          "module_init": 0.7903329999999998,
+          "handoff": 0.007584000000000035,
+          "execute_to_ready": 34.943749999999994,
+          "ready_handling": 0.6599580000000032,
+          "diagnostic_finish": 0.2575420000000648,
+          "memory_other": 0.004874999999999963,
+          "fork_total": 37.431125000000065,
+          "guest_server_init": 31.347042,
+          "guest_routine_schema": 2.371915999999999,
+          "first_select": 38.80787500000008
+        },
+        {
+          "before_memory": 0.27208299999999996,
+          "factory_lock_wait": 0.00020899999999995922,
+          "map_and_protect": 0.07983299999999999,
+          "module_init": 0.29308399999999996,
+          "handoff": 0.0012919999999999598,
+          "execute_to_ready": 45.105624999999996,
+          "ready_handling": 0.5398330000000016,
+          "diagnostic_finish": 0.17729200000000844,
+          "memory_other": 0.0012070000000001246,
+          "fork_total": 46.47045800000001,
+          "guest_server_init": 43.456417,
+          "guest_routine_schema": 1.0771250000000023,
+          "first_select": 47.91641600000003
+        },
+        {
+          "before_memory": 0.244292,
+          "factory_lock_wait": 8.299999999999974e-05,
+          "map_and_protect": 0.07537500000000003,
+          "module_init": 0.280125,
+          "handoff": 0.0012500000000000844,
+          "execute_to_ready": 42.263917,
+          "ready_handling": 0.8333749999999966,
+          "diagnostic_finish": 0.25333300000004755,
+          "memory_other": 0.002166999999999919,
+          "fork_total": 43.95391700000005,
+          "guest_server_init": 36.334458,
+          "guest_routine_schema": 1.9694590000000005,
+          "first_select": 44.661500000000046
+        },
+        {
+          "before_memory": 0.562875,
+          "factory_lock_wait": 0.0003750000000000142,
+          "map_and_protect": 0.1508750000000001,
+          "module_init": 0.6697500000000001,
+          "handoff": 0.003166000000000002,
+          "execute_to_ready": 34.343959,
+          "ready_handling": 0.5062500000000014,
+          "diagnostic_finish": 0.2818749999999426,
+          "memory_other": 0.0029169999999998364,
+          "fork_total": 36.52204199999994,
+          "guest_server_init": 31.461584,
+          "guest_routine_schema": 1.0528330000000032,
+          "first_select": 38.00487499999997
+        },
+        {
+          "before_memory": 0.624417,
+          "factory_lock_wait": 0.00033399999999994545,
+          "map_and_protect": 0.27025,
+          "module_init": 0.3262090000000002,
+          "handoff": 0.0016249999999997655,
+          "execute_to_ready": 40.08675,
+          "ready_handling": 0.39670800000000384,
+          "diagnostic_finish": 0.10204100000005667,
+          "memory_other": 0.0033319999999998906,
+          "fork_total": 41.81166600000006,
+          "guest_server_init": 37.590042,
+          "guest_routine_schema": 1.4147919999999985,
+          "first_select": 42.62183300000004
+        },
+        {
+          "before_memory": 0.555625,
+          "factory_lock_wait": 0.0002910000000000412,
+          "map_and_protect": 0.1532920000000001,
+          "module_init": 0.43595800000000007,
+          "handoff": 0.004249999999999865,
+          "execute_to_ready": 36.587208,
+          "ready_handling": 0.46758300000000474,
+          "diagnostic_finish": 0.12087499999996254,
+          "memory_other": 0.00341799999999981,
+          "fork_total": 38.32849999999996,
+          "guest_server_init": 32.390499999999996,
+          "guest_routine_schema": 1.2860840000000024,
+          "first_select": 38.74816699999997
+        },
+        {
+          "before_memory": 0.269416,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.08437499999999998,
+          "module_init": 0.3021670000000001,
+          "handoff": 0.001583000000000001,
+          "execute_to_ready": 35.144209,
+          "ready_handling": 0.7935410000000047,
+          "diagnostic_finish": 0.20483399999996976,
+          "memory_other": 0.0014170000000000016,
+          "fork_total": 36.80174999999997,
+          "guest_server_init": 32.687083,
+          "guest_routine_schema": 1.9314579999999992,
+          "first_select": 38.40975000000003
+        },
+        {
+          "before_memory": 0.493625,
+          "factory_lock_wait": 0.0002089999999999037,
+          "map_and_protect": 0.093333,
+          "module_init": 0.31179199999999996,
+          "handoff": 0.0017090000000000716,
+          "execute_to_ready": 39.0855,
+          "ready_handling": 0.4415829999999943,
+          "diagnostic_finish": 0.11987499999998619,
+          "memory_other": 0.0019570000000000976,
+          "fork_total": 40.549582999999984,
+          "guest_server_init": 36.871167,
+          "guest_routine_schema": 1.3176249999999996,
+          "first_select": 41.00274999999999
+        },
+        {
+          "before_memory": 0.284208,
+          "factory_lock_wait": 0.00020799999999998597,
+          "map_and_protect": 0.08970899999999998,
+          "module_init": 0.3485420000000001,
+          "handoff": 0.0014999999999999458,
+          "execute_to_ready": 38.928416999999996,
+          "ready_handling": 0.6461660000000009,
+          "diagnostic_finish": 0.14187500000002018,
+          "memory_other": 0.0014159999999999728,
+          "fork_total": 40.44204100000002,
+          "guest_server_init": 37.186375,
+          "guest_routine_schema": 1.2127079999999992,
+          "first_select": 41.290250000000015
+        }
+      ],
+      "root_trace": {
+        "epoch_ns": 9426334,
+        "operation": "startup",
+        "pid": 3634,
+        "events": [
+          {
+            "name": "begin",
+            "offset_ns": 416
+          },
+          {
+            "name": "native_identity_checked",
+            "offset_ns": 791
+          },
+          {
+            "name": "metadata_snapshot_validated",
+            "offset_ns": 4208
+          },
+          {
+            "name": "transfer_prepared",
+            "offset_ns": 62500
+          },
+          {
+            "name": "linked_execution_begin",
+            "offset_ns": 83541
+          },
+          {
+            "name": "runtime/instance_begin",
+            "offset_ns": 108375
+          },
+          {
+            "name": "runtime/prepared_handles_begin",
+            "offset_ns": 153666
+          },
+          {
+            "name": "runtime/prepared_handles_ready",
+            "offset_ns": 153750
+          },
+          {
+            "name": "runtime/memory_begin",
+            "offset_ns": 158875
+          },
+          {
+            "name": "runtime/image_lock_begin",
+            "offset_ns": 159375
+          },
+          {
+            "name": "runtime/image_lock_acquired",
+            "offset_ns": 162625
+          },
+          {
+            "name": "runtime/image_build_begin",
+            "offset_ns": 162750
+          },
+          {
+            "name": "runtime/image_build_end",
+            "offset_ns": 46052000
+          },
+          {
+            "name": "runtime/map_begin",
+            "offset_ns": 46057041
+          },
+          {
+            "name": "runtime/map_end",
+            "offset_ns": 46269416
+          },
+          {
+            "name": "runtime/module_begin",
+            "offset_ns": 46269666
+          },
+          {
+            "name": "runtime/module_end",
+            "offset_ns": 46662583
+          },
+          {
+            "name": "runtime/memory_ready",
+            "offset_ns": 46670458
+          },
+          {
+            "name": "runtime/guest_execute_begin",
+            "offset_ns": 46684125
+          },
+          {
+            "name": "ready_header_received",
+            "offset_ns": 74546000
+          },
+          {
+            "name": "ready_frame_decoded",
+            "offset_ns": 74711708
+          },
+          {
+            "name": "ready_response_observed",
+            "offset_ns": 74719291
+          },
+          {
+            "name": "guest_ready",
+            "offset_ns": 74719750
+          },
+          {
+            "name": "wire_listener_ready",
+            "offset_ns": 74805708
+          },
+          {
+            "name": "guest_timing_read",
+            "offset_ns": 74823625
+          },
+          {
+            "name": "end",
+            "offset_ns": 74828750
+          }
+        ],
+        "guest": {
+          "version": 1,
+          "clock": "guest_monotonic",
+          "events": [
+            {
+              "name": "guest_main",
+              "offset_ns": 0
+            },
+            {
+              "name": "restore_begin",
+              "offset_ns": 63709
+            },
+            {
+              "name": "restore_complete",
+              "offset_ns": 63834
+            },
+            {
+              "name": "open_begin",
+              "offset_ns": 64084
+            },
+            {
+              "name": "server_init_begin",
+              "offset_ns": 66500
+            },
+            {
+              "name": "server_init_complete",
+              "offset_ns": 23502875
+            },
+            {
+              "name": "bootstrap_complete",
+              "offset_ns": 24108625
+            },
+            {
+              "name": "routine_schema_begin",
+              "offset_ns": 24112042
+            },
+            {
+              "name": "routine_schema_complete",
+              "offset_ns": 27278792
+            },
+            {
+              "name": "ready_prepared",
+              "offset_ns": 27305084
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "anonymous-p4-r0-diagnostic",
+      "arm": "anonymous",
+      "parallel": 4,
+      "metrics": {
+        "before_memory": {
+          "n": 48,
+          "p50": 0.309021,
+          "p95": 0.862208,
+          "mean": 0.42007122916666667,
+          "max": 0.957625,
+          "over_100ms": 0
+        },
+        "factory_lock_wait": {
+          "n": 48,
+          "p50": 0.0,
+          "p95": 0,
+          "mean": 0,
+          "max": 0,
+          "over_100ms": 0
+        },
+        "map_and_protect": {
+          "n": 48,
+          "p50": 0.014270499999999992,
+          "p95": 2.4985,
+          "mean": 0.45613625,
+          "max": 5.250667,
+          "over_100ms": 0
+        },
+        "module_init": {
+          "n": 48,
+          "p50": 2.690354,
+          "p95": 4.924541,
+          "mean": 3.0610069583333335,
+          "max": 5.7332920000000005,
+          "over_100ms": 0
+        },
+        "handoff": {
+          "n": 48,
+          "p50": 0.003729499999999941,
+          "p95": 0.00649999999999995,
+          "mean": 0.007001708333333255,
+          "max": 0.12300000000000022,
+          "over_100ms": 0
+        },
+        "execute_to_ready": {
+          "n": 48,
+          "p50": 42.837354000000005,
+          "p95": 61.553459,
+          "mean": 45.592200541666664,
+          "max": 88.4965,
+          "over_100ms": 0
+        },
+        "ready_handling": {
+          "n": 48,
+          "p50": 0.7998330000000031,
+          "p95": 4.032249999999998,
+          "mean": 1.1849235416666672,
+          "max": 6.3452079999999995,
+          "over_100ms": 0
+        },
+        "diagnostic_finish": {
+          "n": 48,
+          "p50": 0.17245849999998697,
+          "p95": 0.9713750000000374,
+          "mean": 0.2749930833333381,
+          "max": 2.9823740000000143,
+          "over_100ms": 0
+        },
+        "memory_other": {
+          "n": 48,
+          "p50": 0.003146000000000093,
+          "p95": 0.011166999999999483,
+          "mean": 0.004356770833333384,
+          "max": 0.022373999999999228,
+          "over_100ms": 0
+        },
+        "fork_total": {
+          "n": 48,
+          "p50": 48.45602099999999,
+          "p95": 70.846959,
+          "mean": 51.00069008333334,
+          "max": 94.47858299999999,
+          "over_100ms": 0
+        },
+        "guest_server_init": {
+          "n": 48,
+          "p50": 40.091750000000005,
+          "p95": 59.587916,
+          "mean": 41.919947083333334,
+          "max": 85.986209,
+          "over_100ms": 0
+        },
+        "guest_routine_schema": {
+          "n": 48,
+          "p50": 1.5836460000000052,
+          "p95": 4.739874999999998,
+          "mean": 2.2097856041666666,
+          "max": 9.742582999999996,
+          "over_100ms": 0
+        },
+        "first_select": {
+          "n": 48,
+          "p50": 49.65510400000002,
+          "p95": 71.914084,
+          "mean": 52.825843666666664,
+          "max": 95.4665,
+          "over_100ms": 0
+        }
+      },
+      "children": [
+        {
+          "before_memory": 0.241916,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011083999999999983,
+          "module_init": 3.5025,
+          "handoff": 0.002666000000000057,
+          "execute_to_ready": 61.316,
+          "ready_handling": 0.582499999999996,
+          "diagnostic_finish": 0.2626249999999999,
+          "memory_other": 0.0031250000000002665,
+          "fork_total": 65.922416,
+          "guest_server_init": 57.208333,
+          "guest_routine_schema": 1.3996250000000003,
+          "first_select": 68.678
+        },
+        {
+          "before_memory": 0.36574999999999996,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.009291999999999967,
+          "module_init": 2.9492499999999997,
+          "handoff": 0.004833000000000087,
+          "execute_to_ready": 67.61233399999999,
+          "ready_handling": 2.396375000000006,
+          "diagnostic_finish": 0.2458339999999879,
+          "memory_other": 0.005791000000000768,
+          "fork_total": 73.58945899999999,
+          "guest_server_init": 64.830125,
+          "guest_routine_schema": 1.8246250000000117,
+          "first_select": 74.99654199999999
+        },
+        {
+          "before_memory": 0.862208,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.020791000000000004,
+          "module_init": 4.474041000000001,
+          "handoff": 0.00649999999999995,
+          "execute_to_ready": 88.4965,
+          "ready_handling": 0.49558299999999633,
+          "diagnostic_finish": 0.11037499999999056,
+          "memory_other": 0.012584999999999624,
+          "fork_total": 94.47858299999999,
+          "guest_server_init": 85.986209,
+          "guest_routine_schema": 1.6542499999999905,
+          "first_select": 95.4665
+        },
+        {
+          "before_memory": 0.957625,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.01258400000000015,
+          "module_init": 5.158625000000001,
+          "handoff": 0.0026250000000000995,
+          "execute_to_ready": 61.553459,
+          "ready_handling": 2.876666,
+          "diagnostic_finish": 0.2630010000000027,
+          "memory_other": 0.022373999999999228,
+          "fork_total": 70.846959,
+          "guest_server_init": 59.587916,
+          "guest_routine_schema": 1.5416249999999962,
+          "first_select": 71.914084
+        },
+        {
+          "before_memory": 0.280042,
+          "factory_lock_wait": 0,
+          "map_and_protect": 5.250667,
+          "module_init": 4.440541999999998,
+          "handoff": 0.004166999999998922,
+          "execute_to_ready": 42.632000000000005,
+          "ready_handling": 0.2889160000000004,
+          "diagnostic_finish": 0.11987499999998619,
+          "memory_other": 0.00562400000000185,
+          "fork_total": 53.02183299999999,
+          "guest_server_init": 40.700167,
+          "guest_routine_schema": 0.8800409999999985,
+          "first_select": 53.80437499999999
+        },
+        {
+          "before_memory": 0.24254199999999998,
+          "factory_lock_wait": 0,
+          "map_and_protect": 2.3220829999999997,
+          "module_init": 4.541084,
+          "handoff": 0.0039999999999995595,
+          "execute_to_ready": 42.744083,
+          "ready_handling": 6.3452079999999995,
+          "diagnostic_finish": 0.286625000000015,
+          "memory_other": 0.003708000000001377,
+          "fork_total": 56.489333000000016,
+          "guest_server_init": 41.084208000000004,
+          "guest_routine_schema": 1.0386669999999967,
+          "first_select": 58.16470799999999
+        },
+        {
+          "before_memory": 0.292167,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013209000000000026,
+          "module_init": 2.571833,
+          "handoff": 0.0025839999999996976,
+          "execute_to_ready": 43.228125,
+          "ready_handling": 0.4015410000000017,
+          "diagnostic_finish": 0.10491700000000748,
+          "memory_other": 0.0021659999999998902,
+          "fork_total": 46.61654200000001,
+          "guest_server_init": 40.000750000000004,
+          "guest_routine_schema": 1.2128749999999968,
+          "first_select": 47.269458000000014
+        },
+        {
+          "before_memory": 0.598083,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.02345800000000009,
+          "module_init": 4.032209,
+          "handoff": 0.0029159999999999187,
+          "execute_to_ready": 54.831334,
+          "ready_handling": 1.4618750000000063,
+          "diagnostic_finish": 0.18445800000000645,
+          "memory_other": 0.003542000000000378,
+          "fork_total": 61.13787500000001,
+          "guest_server_init": 46.133250000000004,
+          "guest_routine_schema": 7.869124999999997,
+          "first_select": 63.21550000000002
+        },
+        {
+          "before_memory": 0.286875,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.014124999999999999,
+          "module_init": 2.428167,
+          "handoff": 0.0022919999999997387,
+          "execute_to_ready": 46.550125,
+          "ready_handling": 4.032249999999998,
+          "diagnostic_finish": 0.30766699999999503,
+          "memory_other": 0.0029159999999999187,
+          "fork_total": 53.624416999999994,
+          "guest_server_init": 44.533208,
+          "guest_routine_schema": 1.4157920000000033,
+          "first_select": 54.724249999999984
+        },
+        {
+          "before_memory": 0.485209,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013041999999999998,
+          "module_init": 2.2379170000000004,
+          "handoff": 0.002874999999999961,
+          "execute_to_ready": 43.308291,
+          "ready_handling": 0.3713339999999974,
+          "diagnostic_finish": 0.09695800000000787,
+          "memory_other": 0.0025409999999994604,
+          "fork_total": 46.518167000000005,
+          "guest_server_init": 41.277167,
+          "guest_routine_schema": 1.592375000000004,
+          "first_select": 47.220957999999996
+        },
+        {
+          "before_memory": 0.286209,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.012292000000000025,
+          "module_init": 2.6635830000000005,
+          "handoff": 0.003750000000000142,
+          "execute_to_ready": 45.545125000000006,
+          "ready_handling": 3.147665999999994,
+          "diagnostic_finish": 1.4370830000000154,
+          "memory_other": 0.0031249999999993783,
+          "fork_total": 53.09883300000001,
+          "guest_server_init": 42.143833,
+          "guest_routine_schema": 2.9077920000000006,
+          "first_select": 54.25841600000001
+        },
+        {
+          "before_memory": 0.284708,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011792000000000025,
+          "module_init": 2.277167,
+          "handoff": 0.003375000000000128,
+          "execute_to_ready": 51.004957999999995,
+          "ready_handling": 0.8576670000000064,
+          "diagnostic_finish": 0.21650000000001768,
+          "memory_other": 0.0028329999999994193,
+          "fork_total": 54.65900000000002,
+          "guest_server_init": 47.741417,
+          "guest_routine_schema": 2.593625000000003,
+          "first_select": 56.75212500000001
+        },
+        {
+          "before_memory": 0.303334,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.010958000000000023,
+          "module_init": 3.590875,
+          "handoff": 0.005208999999999797,
+          "execute_to_ready": 48.78637499999999,
+          "ready_handling": 0.7689160000000044,
+          "diagnostic_finish": 0.22070799999995927,
+          "memory_other": 0.007333000000000034,
+          "fork_total": 53.69370799999996,
+          "guest_server_init": 46.193792,
+          "guest_routine_schema": 1.3190829999999991,
+          "first_select": 55.617166
+        },
+        {
+          "before_memory": 0.277459,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011874999999999969,
+          "module_init": 5.7332920000000005,
+          "handoff": 0.0047920000000001295,
+          "execute_to_ready": 42.930625,
+          "ready_handling": 0.39937500000000625,
+          "diagnostic_finish": 0.10995799999999889,
+          "memory_other": 0.002498999999999363,
+          "fork_total": 49.469875,
+          "guest_server_init": 40.817792,
+          "guest_routine_schema": 1.5147079999999988,
+          "first_select": 50.144416999999976
+        },
+        {
+          "before_memory": 0.44595799999999997,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.008958000000000022,
+          "module_init": 4.924541,
+          "handoff": 0.004291000000000267,
+          "execute_to_ready": 51.11450000000001,
+          "ready_handling": 0.6261249999999947,
+          "diagnostic_finish": 0.12999999999997414,
+          "memory_other": 0.004418000000000255,
+          "fork_total": 57.258790999999974,
+          "guest_server_init": 45.108167,
+          "guest_routine_schema": 4.739874999999998,
+          "first_select": 61.53166599999997
+        },
+        {
+          "before_memory": 0.276417,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.014874999999999972,
+          "module_init": 2.847292,
+          "handoff": 0.004375000000000018,
+          "execute_to_ready": 44.392374999999994,
+          "ready_handling": 0.9067080000000018,
+          "diagnostic_finish": 0.25225000000002495,
+          "memory_other": 0.006708000000000158,
+          "fork_total": 48.70100000000002,
+          "guest_server_init": 42.111125,
+          "guest_routine_schema": 1.405417,
+          "first_select": 49.220208000000014
+        },
+        {
+          "before_memory": 0.6565000000000001,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.02475000000000005,
+          "module_init": 2.9861670000000005,
+          "handoff": 0.003458999999999879,
+          "execute_to_ready": 44.281416,
+          "ready_handling": 0.6104589999999988,
+          "diagnostic_finish": 0.12158299999996558,
+          "memory_other": 0.004373999999999878,
+          "fork_total": 48.68870799999996,
+          "guest_server_init": 40.434166999999995,
+          "guest_routine_schema": 3.042250000000003,
+          "first_select": 52.26637499999998
+        },
+        {
+          "before_memory": 0.578708,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.029999999999999916,
+          "module_init": 2.806625,
+          "handoff": 0.003750000000000142,
+          "execute_to_ready": 37.872125000000004,
+          "ready_handling": 0.5272089999999992,
+          "diagnostic_finish": 0.15150000000004837,
+          "memory_other": 0.0027080000000001547,
+          "fork_total": 41.97262500000005,
+          "guest_server_init": 35.760292,
+          "guest_routine_schema": 1.2684579999999954,
+          "first_select": 42.416875000000005
+        },
+        {
+          "before_memory": 0.382291,
+          "factory_lock_wait": 0,
+          "map_and_protect": 2.138,
+          "module_init": 4.3955839999999995,
+          "handoff": 0.005167000000000144,
+          "execute_to_ready": 38.382167,
+          "ready_handling": 1.1554159999999953,
+          "diagnostic_finish": 0.1712090000000117,
+          "memory_other": 0.009166000000000452,
+          "fork_total": 46.63900000000001,
+          "guest_server_init": 34.503709,
+          "guest_routine_schema": 2.4805410000000023,
+          "first_select": 48.88554199999999
+        },
+        {
+          "before_memory": 0.266542,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.008207999999999993,
+          "module_init": 2.5255830000000006,
+          "handoff": 0.0042919999999999625,
+          "execute_to_ready": 36.25825,
+          "ready_handling": 0.44641700000000384,
+          "diagnostic_finish": 0.1013319999999922,
+          "memory_other": 0.00316699999999992,
+          "fork_total": 39.61379099999999,
+          "guest_server_init": 34.733791999999994,
+          "guest_routine_schema": 1.1080830000000006,
+          "first_select": 41.06420800000001
+        },
+        {
+          "before_memory": 0.598625,
+          "factory_lock_wait": 0,
+          "map_and_protect": 1.100041,
+          "module_init": 2.3759999999999994,
+          "handoff": 0.003957999999999018,
+          "execute_to_ready": 40.661375,
+          "ready_handling": 2.106709000000002,
+          "diagnostic_finish": 0.11041600000001495,
+          "memory_other": 0.005001000000000921,
+          "fork_total": 46.962125000000015,
+          "guest_server_init": 37.231958000000006,
+          "guest_routine_schema": 1.3826249999999973,
+          "first_select": 47.60925000000003
+        },
+        {
+          "before_memory": 0.290875,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.016708,
+          "module_init": 2.444292,
+          "handoff": 0.0026250000000000995,
+          "execute_to_ready": 41.830291,
+          "ready_handling": 0.33841699999999975,
+          "diagnostic_finish": 0.11129199999998463,
+          "memory_other": 0.0025419999999996,
+          "fork_total": 45.037041999999985,
+          "guest_server_init": 39.678791000000004,
+          "guest_routine_schema": 1.8731669999999951,
+          "first_select": 45.505791999999985
+        },
+        {
+          "before_memory": 0.345375,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.01187500000000008,
+          "module_init": 2.871792,
+          "handoff": 0.004125000000000156,
+          "execute_to_ready": 40.490791,
+          "ready_handling": 1.0331249999999983,
+          "diagnostic_finish": 0.13075100000003914,
+          "memory_other": 0.0027080000000001547,
+          "fork_total": 44.89054200000004,
+          "guest_server_init": 36.925334,
+          "guest_routine_schema": 2.8107499999999987,
+          "first_select": 45.848208
+        },
+        {
+          "before_memory": 0.938083,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.01187500000000008,
+          "module_init": 2.237958,
+          "handoff": 0.003874999999999851,
+          "execute_to_ready": 42.307916999999996,
+          "ready_handling": 0.48995800000000145,
+          "diagnostic_finish": 0.9713750000000374,
+          "memory_other": 0.002584000000000586,
+          "fork_total": 46.963625000000036,
+          "guest_server_init": 40.18275,
+          "guest_routine_schema": 1.7482910000000018,
+          "first_select": 49.13966700000003
+        },
+        {
+          "before_memory": 0.268,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011207999999999996,
+          "module_init": 2.3512090000000003,
+          "handoff": 0.0032079999999998776,
+          "execute_to_ready": 46.64575,
+          "ready_handling": 0.6947079999999985,
+          "diagnostic_finish": 0.21520899999998733,
+          "memory_other": 0.0023329999999996964,
+          "fork_total": 50.19162499999999,
+          "guest_server_init": 44.904333,
+          "guest_routine_schema": 1.3329999999999984,
+          "first_select": 50.775458000000015
+        },
+        {
+          "before_memory": 0.654291,
+          "factory_lock_wait": 0,
+          "map_and_protect": 1.5590000000000002,
+          "module_init": 2.709458000000001,
+          "handoff": 0.0037919999999997955,
+          "execute_to_ready": 33.870542,
+          "ready_handling": 0.42283299999999713,
+          "diagnostic_finish": 0.10275100000004045,
+          "memory_other": 0.00454199999999938,
+          "fork_total": 39.32720900000004,
+          "guest_server_init": 32.169375,
+          "guest_routine_schema": 1.202582999999997,
+          "first_select": 39.73633399999994
+        },
+        {
+          "before_memory": 0.516167,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013665999999999956,
+          "module_init": 2.5605,
+          "handoff": 0.0037089999999997403,
+          "execute_to_ready": 39.396208,
+          "ready_handling": 0.4206670000000017,
+          "diagnostic_finish": 0.21566599999997038,
+          "memory_other": 0.0016249999999997655,
+          "fork_total": 43.12820799999997,
+          "guest_server_init": 35.927167,
+          "guest_routine_schema": 2.3865830000000017,
+          "first_select": 43.60537499999998
+        },
+        {
+          "before_memory": 0.634166,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.023708000000000062,
+          "module_init": 2.6712499999999997,
+          "handoff": 0.0034999999999998366,
+          "execute_to_ready": 42.083917,
+          "ready_handling": 0.8610830000000007,
+          "diagnostic_finish": 0.2530420000000859,
+          "memory_other": 0.004917000000000282,
+          "fork_total": 46.53558300000009,
+          "guest_server_init": 39.939707999999996,
+          "guest_routine_schema": 1.5749170000000063,
+          "first_select": 47.106041000000005
+        },
+        {
+          "before_memory": 0.366625,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.012624999999999997,
+          "module_init": 3.1159160000000004,
+          "handoff": 0.0030409999999996273,
+          "execute_to_ready": 47.210167,
+          "ready_handling": 0.33116700000000066,
+          "diagnostic_finish": 0.15912499999999596,
+          "memory_other": 0.00333400000000017,
+          "fork_total": 51.202,
+          "guest_server_init": 36.1605,
+          "guest_routine_schema": 1.2674579999999978,
+          "first_select": 61.23083299999996
+        },
+        {
+          "before_memory": 0.306917,
+          "factory_lock_wait": 0,
+          "map_and_protect": 1.0760830000000001,
+          "module_init": 2.506709,
+          "handoff": 0.004166000000000114,
+          "execute_to_ready": 42.061709,
+          "ready_handling": 0.5614160000000012,
+          "diagnostic_finish": 0.16183400000001313,
+          "memory_other": 0.004833000000000087,
+          "fork_total": 46.683667000000014,
+          "guest_server_init": 32.856958,
+          "guest_routine_schema": 1.0449170000000052,
+          "first_select": 51.78475000000003
+        },
+        {
+          "before_memory": 0.720542,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.0372920000000001,
+          "module_init": 3.333875,
+          "handoff": 0.004291000000000267,
+          "execute_to_ready": 40.642917,
+          "ready_handling": 1.6860420000000005,
+          "diagnostic_finish": 2.9823740000000143,
+          "memory_other": 0.005124999999999602,
+          "fork_total": 49.412458000000015,
+          "guest_server_init": 30.176459,
+          "guest_routine_schema": 1.0361249999999984,
+          "first_select": 50.09000000000003
+        },
+        {
+          "before_memory": 0.285292,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.009083000000000008,
+          "module_init": 2.327125,
+          "handoff": 0.004874999999999741,
+          "execute_to_ready": 32.973125,
+          "ready_handling": 4.238082999999996,
+          "diagnostic_finish": 0.14695800000000503,
+          "memory_other": 0.0026250000000000995,
+          "fork_total": 39.987166,
+          "guest_server_init": 30.571959,
+          "guest_routine_schema": 1.2096660000000021,
+          "first_select": 44.30641600000001
+        },
+        {
+          "before_memory": 0.432625,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.016083000000000014,
+          "module_init": 2.416416,
+          "handoff": 0.0039159999999998085,
+          "execute_to_ready": 40.682334,
+          "ready_handling": 0.9274580000000014,
+          "diagnostic_finish": 0.2028750000000059,
+          "memory_other": 0.003043000000000351,
+          "fork_total": 44.68475000000001,
+          "guest_server_init": 37.743375,
+          "guest_routine_schema": 1.8362920000000003,
+          "first_select": 45.83891700000004
+        },
+        {
+          "before_memory": 0.493583,
+          "factory_lock_wait": 0,
+          "map_and_protect": 3.9546669999999997,
+          "module_init": 2.8242080000000005,
+          "handoff": 0.12300000000000022,
+          "execute_to_ready": 35.883708,
+          "ready_handling": 1.3147920000000042,
+          "diagnostic_finish": 0.17370799999996223,
+          "memory_other": 0.011166999999999483,
+          "fork_total": 44.77883299999996,
+          "guest_server_init": 33.98675,
+          "guest_routine_schema": 1.2649590000000046,
+          "first_select": 47.82041600000002
+        },
+        {
+          "before_memory": 0.534959,
+          "factory_lock_wait": 0,
+          "map_and_protect": 1.408,
+          "module_init": 3.5031250000000003,
+          "handoff": 0.0018329999999995295,
+          "execute_to_ready": 38.313792,
+          "ready_handling": 1.5314580000000007,
+          "diagnostic_finish": 0.15691600000008066,
+          "memory_other": 0.002875000000000405,
+          "fork_total": 45.45295800000008,
+          "guest_server_init": 35.514875,
+          "guest_routine_schema": 2.502625000000002,
+          "first_select": 48.3542920000001
+        },
+        {
+          "before_memory": 0.262459,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.014415999999999984,
+          "module_init": 2.528708,
+          "handoff": 0.0022079999999999878,
+          "execute_to_ready": 54.777041999999994,
+          "ready_handling": 0.494958000000004,
+          "diagnostic_finish": 0.13079100000004473,
+          "memory_other": 0.002251000000000225,
+          "fork_total": 58.212833000000046,
+          "guest_server_init": 50.545542,
+          "guest_routine_schema": 3.749749999999999,
+          "first_select": 58.69983300000001
+        },
+        {
+          "before_memory": 0.39725,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.01650000000000007,
+          "module_init": 2.459208,
+          "handoff": 0.0031250000000002665,
+          "execute_to_ready": 37.483875,
+          "ready_handling": 0.7417499999999961,
+          "diagnostic_finish": 0.20499999999994856,
+          "memory_other": 0.0032919999999996286,
+          "fork_total": 41.309999999999945,
+          "guest_server_init": 35.587416999999995,
+          "guest_routine_schema": 1.3461660000000037,
+          "first_select": 44.059582999999975
+        },
+        {
+          "before_memory": 0.28641700000000003,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.014791999999999972,
+          "module_init": 2.3908750000000003,
+          "handoff": 0.002333999999999836,
+          "execute_to_ready": 59.777666,
+          "ready_handling": 0.9570000000000007,
+          "diagnostic_finish": 0.20279200000003783,
+          "memory_other": 0.0022489999999999455,
+          "fork_total": 63.63412500000004,
+          "guest_server_init": 55.422,
+          "guest_routine_schema": 3.534208999999997,
+          "first_select": 64.54304200000001
+        },
+        {
+          "before_memory": 0.580666,
+          "factory_lock_wait": 0,
+          "map_and_protect": 2.4985,
+          "module_init": 3.323166000000001,
+          "handoff": 0.0033329999999995863,
+          "execute_to_ready": 39.625792,
+          "ready_handling": 0.40554199999999696,
+          "diagnostic_finish": 0.12758400000004144,
+          "memory_other": 0.004250999999999561,
+          "fork_total": 46.56883400000004,
+          "guest_server_init": 36.317833,
+          "guest_routine_schema": 2.564416999999999,
+          "first_select": 47.58512500000006
+        },
+        {
+          "before_memory": 0.272959,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.010666000000000064,
+          "module_init": 2.663792,
+          "handoff": 0.0037919999999997955,
+          "execute_to_ready": 40.236082999999994,
+          "ready_handling": 0.9957080000000005,
+          "diagnostic_finish": 0.23645900000001774,
+          "memory_other": 0.0024999999999999467,
+          "fork_total": 44.421959000000015,
+          "guest_server_init": 34.434083,
+          "guest_routine_schema": 3.1879589999999993,
+          "first_select": 48.72008399999993
+        },
+        {
+          "before_memory": 0.291666,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.016458000000000028,
+          "module_init": 2.3502919999999996,
+          "handoff": 0.0024169999999998915,
+          "execute_to_ready": 52.297625000000004,
+          "ready_handling": 0.8307500000000019,
+          "diagnostic_finish": 0.10395899999997482,
+          "memory_other": 0.002375000000000682,
+          "fork_total": 55.89554199999998,
+          "guest_server_init": 47.686,
+          "guest_routine_schema": 2.6494579999999956,
+          "first_select": 56.78208299999994
+        },
+        {
+          "before_memory": 0.264917,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011249999999999982,
+          "module_init": 2.3485840000000002,
+          "handoff": 0.0024999999999999467,
+          "execute_to_ready": 37.46129199999999,
+          "ready_handling": 0.9675410000000042,
+          "diagnostic_finish": 0.20191699999997326,
+          "memory_other": 0.0019160000000000288,
+          "fork_total": 41.25991699999997,
+          "guest_server_init": 34.214833,
+          "guest_routine_schema": 1.3108339999999998,
+          "first_select": 45.680124999999975
+        },
+        {
+          "before_memory": 0.297417,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011041999999999996,
+          "module_init": 2.4048749999999997,
+          "handoff": 0.003750000000000142,
+          "execute_to_ready": 37.784833,
+          "ready_handling": 0.36975000000000335,
+          "diagnostic_finish": 0.2282919999999251,
+          "memory_other": 0.004040999999999961,
+          "fork_total": 41.10399999999993,
+          "guest_server_init": 36.146249999999995,
+          "guest_routine_schema": 1.1725840000000005,
+          "first_select": 41.83874999999989
+        },
+        {
+          "before_memory": 0.634625,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.024125000000000063,
+          "module_init": 4.533333,
+          "handoff": 0.0029170000000000584,
+          "execute_to_ready": 45.460792,
+          "ready_handling": 0.5918330000000012,
+          "diagnostic_finish": 0.10104099999998084,
+          "memory_other": 0.0027920000000003498,
+          "fork_total": 51.35145799999998,
+          "guest_server_init": 42.310083,
+          "guest_routine_schema": 2.7277500000000003,
+          "first_select": 52.25274999999999
+        },
+        {
+          "before_memory": 0.311125,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.014790999999999999,
+          "module_init": 2.3217499999999998,
+          "handoff": 0.0026250000000000995,
+          "execute_to_ready": 42.16991599999999,
+          "ready_handling": 1.3851670000000027,
+          "diagnostic_finish": 0.17524999999998414,
+          "memory_other": 0.0032090000000000174,
+          "fork_total": 46.38383299999998,
+          "guest_server_init": 39.036207999999995,
+          "guest_routine_schema": 2.608000000000004,
+          "first_select": 48.76441599999998
+        },
+        {
+          "before_memory": 0.242375,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.013834000000000013,
+          "module_init": 2.399208,
+          "handoff": 0.003083000000000169,
+          "execute_to_ready": 53.682624999999994,
+          "ready_handling": 1.2587090000000032,
+          "diagnostic_finish": 0.22041599999997885,
+          "memory_other": 0.002749999999999808,
+          "fork_total": 57.82299999999998,
+          "guest_server_init": 48.470333000000004,
+          "guest_routine_schema": 2.8788750000000007,
+          "first_select": 60.086915999999974
+        },
+        {
+          "before_memory": 0.289875,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.012292000000000025,
+          "module_init": 2.8375,
+          "handoff": 0.0032080000000003217,
+          "execute_to_ready": 43.260625,
+          "ready_handling": 1.6755420000000072,
+          "diagnostic_finish": 0.14166700000001953,
+          "memory_other": 0.0026250000000000995,
+          "fork_total": 48.22333400000002,
+          "guest_server_init": 41.271708,
+          "guest_routine_schema": 1.3143340000000023,
+          "first_select": 48.70687499999997
+        },
+        {
+          "before_memory": 0.275,
+          "factory_lock_wait": 0,
+          "map_and_protect": 0.011917000000000011,
+          "module_init": 3.030333,
+          "handoff": 0.048957999999999835,
+          "execute_to_ready": 46.512750000000004,
+          "ready_handling": 0.5459579999999988,
+          "diagnostic_finish": 0.13575000000005844,
+          "memory_other": 0.004916999999999838,
+          "fork_total": 50.56558300000006,
+          "guest_server_init": 35.855459,
+          "guest_routine_schema": 9.742582999999996,
+          "first_select": 51.55779200000006
+        }
+      ],
+      "root_trace": {
+        "epoch_ns": 9913125,
+        "operation": "startup",
+        "pid": 3706,
+        "events": [
+          {
+            "name": "begin",
+            "offset_ns": 458
+          },
+          {
+            "name": "native_identity_checked",
+            "offset_ns": 833
+          },
+          {
+            "name": "metadata_snapshot_validated",
+            "offset_ns": 4250
+          },
+          {
+            "name": "transfer_prepared",
+            "offset_ns": 50250
+          },
+          {
+            "name": "linked_execution_begin",
+            "offset_ns": 75541
+          },
+          {
+            "name": "runtime/instance_begin",
+            "offset_ns": 96375
+          },
+          {
+            "name": "runtime/prepared_handles_begin",
+            "offset_ns": 128583
+          },
+          {
+            "name": "runtime/prepared_handles_ready",
+            "offset_ns": 128708
+          },
+          {
+            "name": "runtime/memory_begin",
+            "offset_ns": 132958
+          },
+          {
+            "name": "runtime/map_begin",
+            "offset_ns": 135916
+          },
+          {
+            "name": "runtime/map_end",
+            "offset_ns": 149833
+          },
+          {
+            "name": "runtime/module_begin",
+            "offset_ns": 150041
+          },
+          {
+            "name": "runtime/module_end",
+            "offset_ns": 2623125
+          },
+          {
+            "name": "runtime/memory_ready",
+            "offset_ns": 2625750
+          },
+          {
+            "name": "runtime/guest_execute_begin",
+            "offset_ns": 2628958
+          },
+          {
+            "name": "ready_header_received",
+            "offset_ns": 27233708
+          },
+          {
+            "name": "ready_frame_decoded",
+            "offset_ns": 27382500
+          },
+          {
+            "name": "ready_response_observed",
+            "offset_ns": 27389625
+          },
+          {
+            "name": "guest_ready",
+            "offset_ns": 27398041
+          },
+          {
+            "name": "wire_listener_ready",
+            "offset_ns": 27543083
+          },
+          {
+            "name": "guest_timing_read",
+            "offset_ns": 27616083
+          },
+          {
+            "name": "end",
+            "offset_ns": 27620416
+          }
+        ],
+        "guest": {
+          "version": 1,
+          "clock": "guest_monotonic",
+          "events": [
+            {
+              "name": "guest_main",
+              "offset_ns": 0
+            },
+            {
+              "name": "restore_begin",
+              "offset_ns": 46792
+            },
+            {
+              "name": "restore_complete",
+              "offset_ns": 47042
+            },
+            {
+              "name": "open_begin",
+              "offset_ns": 47125
+            },
+            {
+              "name": "server_init_begin",
+              "offset_ns": 49542
+            },
+            {
+              "name": "server_init_complete",
+              "offset_ns": 20904292
+            },
+            {
+              "name": "bootstrap_complete",
+              "offset_ns": 21125459
+            },
+            {
+              "name": "routine_schema_begin",
+              "offset_ns": 21130667
+            },
+            {
+              "name": "routine_schema_complete",
+              "offset_ns": 24179834
+            },
+            {
+              "name": "ready_prepared",
+              "offset_ns": 24200667
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "scope": "one diagnostic pair per cell, not performance acceptance",
+  "mean_deltas": {
+    "1": {
+      "before_memory": 0.016723270833333304,
+      "factory_lock_wait": 0.0001970416666666648,
+      "map_and_protect": 0.16804333333333335,
+      "module_init": -1.8543933541666666,
+      "handoff": -0.0018211458333333547,
+      "execute_to_ready": 0.1295311666666663,
+      "ready_handling": -0.013636125000000221,
+      "diagnostic_finish": 0.014665624999995894,
+      "memory_other": -0.0015363750000000076,
+      "fork_total": -1.5422265625000051,
+      "guest_server_init": 0.06248956249999793,
+      "guest_routine_schema": -0.021817729166666577,
+      "first_select": -1.544729187499982
+    },
+    "4": {
+      "before_memory": -0.06412237500000001,
+      "factory_lock_wait": 0.1539314375,
+      "map_and_protect": -0.25560845833333334,
+      "module_init": -2.6870720208333334,
+      "handoff": -0.004746520833333256,
+      "execute_to_ready": -6.349438437499998,
+      "ready_handling": -0.44559018750000035,
+      "diagnostic_finish": -0.07638720833333662,
+      "memory_other": -0.0015304791666667316,
+      "fork_total": -9.730564250000008,
+      "guest_server_init": -5.884793395833334,
+      "guest_routine_schema": -0.39565543749999965,
+      "first_select": -9.807361833333339
+    }
+  }
+}

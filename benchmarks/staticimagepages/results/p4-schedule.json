@@ -1,0 +1,248 @@
+{
+  "scope": "descriptive existing-data timeline only; no tail removal or causal assignment",
+  "rows": [
+    {
+      "name": "pages-p4-r0-primary",
+      "arm": "pages",
+      "rep": 0,
+      "sql_tails": [],
+      "fork_call_overlap_weighted": 3.5406347700759238
+    },
+    {
+      "name": "anonymous-p4-r0-primary",
+      "arm": "anonymous",
+      "rep": 0,
+      "sql_tails": [],
+      "fork_call_overlap_weighted": 3.2992945460137233
+    },
+    {
+      "name": "anonymous-p4-r1-primary",
+      "arm": "anonymous",
+      "rep": 1,
+      "sql_tails": [
+        {
+          "child": 10,
+          "stage": "update",
+          "ms": 780.820291,
+          "overlapping_fork_children": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47
+          ],
+          "count": 37
+        }
+      ],
+      "fork_call_overlap_weighted": 3.034068577139186
+    },
+    {
+      "name": "pages-p4-r1-primary",
+      "arm": "pages",
+      "rep": 1,
+      "sql_tails": [],
+      "fork_call_overlap_weighted": 3.1714011650670177
+    },
+    {
+      "name": "pages-p4-r2-primary",
+      "arm": "pages",
+      "rep": 2,
+      "sql_tails": [
+        {
+          "child": 27,
+          "stage": "count_sum",
+          "ms": 810.1850420000001,
+          "overlapping_fork_children": [
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47
+          ],
+          "count": 20
+        }
+      ],
+      "fork_call_overlap_weighted": 3.005704065221369
+    },
+    {
+      "name": "anonymous-p4-r2-primary",
+      "arm": "anonymous",
+      "rep": 2,
+      "sql_tails": [
+        {
+          "child": 2,
+          "stage": "count_sum",
+          "ms": 775.726625,
+          "overlapping_fork_children": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ],
+          "count": 40
+        }
+      ],
+      "fork_call_overlap_weighted": 2.6494890700162563
+    },
+    {
+      "name": "anonymous-p4-r3-primary",
+      "arm": "anonymous",
+      "rep": 3,
+      "sql_tails": [
+        {
+          "child": 1,
+          "stage": "count_sum",
+          "ms": 775.203875,
+          "overlapping_fork_children": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ],
+          "count": 40
+        }
+      ],
+      "fork_call_overlap_weighted": 2.9024705658756007
+    },
+    {
+      "name": "pages-p4-r3-primary",
+      "arm": "pages",
+      "rep": 3,
+      "sql_tails": [],
+      "fork_call_overlap_weighted": 3.5037294979423073
+    },
+    {
+      "name": "pages-p4-r4-primary",
+      "arm": "pages",
+      "rep": 4,
+      "sql_tails": [],
+      "fork_call_overlap_weighted": 3.340114148407363
+    },
+    {
+      "name": "anonymous-p4-r4-primary",
+      "arm": "anonymous",
+      "rep": 4,
+      "sql_tails": [],
+      "fork_call_overlap_weighted": 3.5822595660010923
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "page_size": 16384,
+  "initialized_page_bytes": 8863744,
+  "image_ranges": [
+    {
+      "offset": 8388608,
+      "length": 2555904
+    },
+    {
+      "offset": 10993664,
+      "length": 49152
+    },
+    {
+      "offset": 11059200,
+      "length": 802816
+    },
+    {
+      "offset": 11911168,
+      "length": 49152
+    },
+    {
+      "offset": 11976704,
+      "length": 802816
+    },
+    {
+      "offset": 12828672,
+      "length": 49152
+    },
+    {
+      "offset": 12894208,
+      "length": 163840
+    },
+    {
+      "offset": 13107200,
+      "length": 32768
+    },
+    {
+      "offset": 13156352,
+      "length": 98304
+    },
+    {
+      "offset": 13287424,
+      "length": 49152
+    },
+    {
+      "offset": 13402112,
+      "length": 65536
+    },
+    {
+      "offset": 13533184,
+      "length": 147456
+    },
+    {
+      "offset": 13697024,
+      "length": 114688
+    },
+    {
+      "offset": 13828096,
+      "length": 49152
+    },
+    {
+      "offset": 13959168,
+      "length": 49152
+    },
+    {
+      "offset": 14090240,
+      "length": 131072
+    },
+    {
+      "offset": 14237696,
+      "length": 114688
+    },
+    {
+      "offset": 14385152,
+      "length": 442368
+    },
+    {
+      "offset": 14876672,
+      "length": 32768
+    },
+    {
+      "offset": 14925824,
+      "length": 114688
+    },
+    {
+      "offset": 15073280,
+      "length": 2932736
+    },
+    {
+      "offset": 26968064,
+      "length": 16384
+    }
+  ],
+  "image_logical_bytes": 2147483648,
+  "image_allocated_bytes": 26984448
+}

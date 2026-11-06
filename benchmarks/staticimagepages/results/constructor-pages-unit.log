@@ -1,0 +1,30 @@
+=== RUN   TestFullInitialEqualityAndIsolation
+    image_test.go:106: initial256MiB_sha256=a742525b94f94000341a4bdbd3136623a763a0c7c982035a5e97d065c8d3b2f7 globals=[8388608 17998464] DataEnd=17998969 init_flag=2
+--- PASS: TestFullInitialEqualityAndIsolation (0.31s)
+=== RUN   TestWorkerTLSGrowAndRetirement
+--- PASS: TestWorkerTLSGrowAndRetirement (0.07s)
+=== RUN   TestConcurrentFactoryAndFailures
+=== RUN   TestConcurrentFactoryAndFailures/build
+=== RUN   TestConcurrentFactoryAndFailures/read_open
+=== RUN   TestConcurrentFactoryAndFailures/writer_close
+=== RUN   TestConcurrentFactoryAndFailures/mapping
+=== RUN   TestConcurrentFactoryAndFailures/cache_close
+=== RUN   TestConcurrentFactoryAndFailures/metadata
+--- PASS: TestConcurrentFactoryAndFailures (0.25s)
+    --- PASS: TestConcurrentFactoryAndFailures/build (0.00s)
+    --- PASS: TestConcurrentFactoryAndFailures/read_open (0.04s)
+    --- PASS: TestConcurrentFactoryAndFailures/writer_close (0.05s)
+    --- PASS: TestConcurrentFactoryAndFailures/mapping (0.04s)
+    --- PASS: TestConcurrentFactoryAndFailures/cache_close (0.04s)
+    --- PASS: TestConcurrentFactoryAndFailures/metadata (0.04s)
+=== RUN   TestGuardFault
+    image_test.go:338: subprocess rejected write beyond logical memory with OS fault
+--- PASS: TestGuardFault (0.05s)
+=== RUN   TestConcurrentCloseAdmission
+--- PASS: TestConcurrentCloseAdmission (0.05s)
+=== RUN   TestPageOnlyRangeCompleteness
+    image_test.go:418: static-page bytes=8863744 ranges=22 OS-page=16384 init-flag-page=26968064
+--- PASS: TestPageOnlyRangeCompleteness (0.04s)
+PASS
+final active mappings=0 reserved=0 rw=0
+ok  	github.com/masahitojp/mariamem/benchmarks/staticimage	1.370s
