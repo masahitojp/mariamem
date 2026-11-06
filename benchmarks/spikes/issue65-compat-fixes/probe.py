@@ -13,9 +13,9 @@ import sys
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[2]
-GUEST_SOURCE='8dc2b113394630c5be7127100903a359f994db45'
+GUEST_SOURCE='a1e3b8a0d7f3750e684610e273a28b802a7135d0'
 HOST_SOURCE=GUEST_SOURCE
-GUEST_SHA='6956ea97ff4ad5fa7cc1b9617ec39ac0197c402c0bfa869469ec62a9ad6c3719'
+GUEST_SHA='0531ff4f348670dd5e2065a4a25fe9012ed278bd346a12093b97ff1cdfdd67e9'
 SOURCE_REFERENCE_SHA256='4b89dfca47f6aa0a6b0949a9676053d0fab6207fd61a943dfefd18802932e100'
 spec=importlib.util.spec_from_file_location('linux_probe',HERE.parent/'issue65-native-linux/probe.py')
 base=importlib.util.module_from_spec(spec);spec.loader.exec_module(base)
@@ -51,7 +51,7 @@ def tools(w,with_binding=True):
         shutil.copy2(source,dest/name)
     shutil.copy2(HERE.parent/'issue65-native-live/live_test.go.txt',dest/'live_test.go.txt')
     shutil.copy2(HERE.parent/'issue65-native-compat/compat_test.go.txt',dest/'compat_test.go.txt')
-    for name in ('assemble.py','main.go.txt','live.go.txt','endpoint.go.txt','endpoint_test.go.txt','guard_controls.py','fix_controls_test.go.txt'):
+    for name in ('assemble.py','main.go.txt','live.go.txt','endpoint.go.txt','endpoint_test.go.txt','guard_controls.py','runtime_tests.py','fix_controls_test.go.txt'):
         shutil.copy2(HERE/name,dest/name)
     if with_binding:
         binding=json.loads((HERE/'binding/identity.json').read_text())
@@ -76,7 +76,7 @@ def runtime(w):
     execute(w)
 
 
-def execute(w):
+def execute(w,compare_reference=True):
     dest=tools(w)
     base.command(w,'host-build',[sys.executable,dest/'assemble.py','--workspace',w,'--resume'],1500)
     host=json.loads((w/'evidence/host-build.json').read_text());binary=w/'temp/host/wire.test'
@@ -102,13 +102,13 @@ def execute(w):
                    'whole controller relocation','race freedom','performance','release']})
     base.save(w/'evidence/compat-result.json',result)
     base.save(w/'evidence/result.json',{'result':'INCOMPLETE: supporting checks pending','compatibility':result['result']})
-    base.command(w,'fix-controls',[binary,'-test.v','-test.run=^TestFixFoundRowsNegotiatedPerConnection$','-test.timeout=30s'],45)
-    if '--- PASS: TestFixFoundRowsNegotiatedPerConnection ' not in (w/'evidence/fix-controls.txt').read_text():raise ValueError('FOUND_ROWS opt-in isolation control missing')
+    base.command(w,'fix-controls',[binary,'-test.v','-test.run=^TestFix','-test.timeout=60s'],75)
+    base.cases_from_log((w/'evidence/fix-controls.txt').read_text(),{'TestFixFoundRowsNegotiatedPerConnection','TestFixPreparedUCAThroughNativeFork'})
     base.command(w,'live-endpoint-tests',[sys.executable,Path(__file__),'endpoint-tests','--workspace',w],120)
     base.command(w,'runtime-boundary',[sys.executable,dest/'runtime_tests.py'],300)
     base.command(w,'binding-controls',[sys.executable,dest/'guard_controls.py'],120)
     # Guard tests remain explicitly tied to the installer/canonical source fixture.
-    base.command(w,'pytest-install',[sys.executable,'-m','pip','install','--disable-pip-version-check','--no-compile','--target',w/'temp/pytest','pytest==8.4.2'],180)
+    base.command(w,'pytest-install',[sys.executable,'-m','pip','install','--no-cache-dir','--disable-pip-version-check','--no-compile','--target',w/'temp/pytest','pytest==8.4.2'],180)
     code='import sys;sys.path.insert(0,sys.argv[1]);import pytest;raise SystemExit(pytest.main(["-q","-p","no:cacheprovider","--basetemp",sys.argv[2],sys.argv[3]]))'
     base.command(w,'binding-tests',[sys.executable,'-c',code,w/'temp/pytest',w/'temp/pytest-run',w/'worktree/tests/test_thread_lifetime_binding.py'],120)
     if '21 passed' not in (w/'evidence/binding-tests.txt').read_text():raise ValueError('binding scope incomplete')
@@ -117,17 +117,21 @@ def execute(w):
         if base.sha(product/name)!=pin:raise ValueError('staged source changed: '+name)
     if base.sha(binary)!=host['binary_sha256']:raise ValueError('binary changed')
     base.identity(w/'worktree',HOST_SOURCE)
-    reference=HERE/'evidence/macos-reference.json'
-    if base.sha(reference)!=SOURCE_REFERENCE_SHA256:raise ValueError('reviewed source reference changed')
-    recorded=json.loads(reference.read_text())
-    if recorded['guest_sha256']!=GUEST_SHA:raise ValueError('source reference guest differs')
-    compared,different=base.source_difference(host['source_inventory'],recorded['source_inventory'])
-    base.save(w/'evidence/source-comparison.json',{'mac_reference_binary_sha256':recorded['binary_sha256'],
-               'compared_go_assembly_data_files':compared,'different_files':different})
-    if different:raise ValueError('compiled code differs from reviewed macOS source bundle')
+    if compare_reference:
+        reference=HERE/'evidence/macos-reference.json'
+        if base.sha(reference)!=SOURCE_REFERENCE_SHA256:raise ValueError('reviewed source reference changed')
+        recorded=json.loads(reference.read_text())
+        if recorded['guest_sha256']!=GUEST_SHA:raise ValueError('source reference guest differs')
+        compared,different=base.source_difference(host['source_inventory'],recorded['source_inventory'])
+        base.save(w/'evidence/source-comparison.json',{'mac_reference_binary_sha256':recorded['binary_sha256'],
+                   'compared_go_assembly_data_files':compared,'different_files':different})
+        if different:raise ValueError('compiled code differs from reviewed macOS source bundle')
+        result['source_reference_status']='MATCHED'
+    else:
+        result['source_reference_status']='LOCAL_REFERENCE_CANDIDATE'
     base.save(w/'evidence/tooling.json' ,{'probe_sha256':base.sha(Path(__file__)),
               'binding_sha256':base.sha(HERE/'binding/identity.json'),
-              'main_source_commit':'0c4e75dc2c21421a59d04661efd72a1f58efecaa'})
+              'main_source_commit':'61973daa19b6f665d7342338c3252dd7af61fc90'})
     result['supporting_checks']='PASS'
     base.save(w/'evidence/result.json',result)
     if not result['ready']:raise ValueError(result['result'])
@@ -153,9 +157,15 @@ def build(w):
     base.save(w/'evidence/builder.json', {'machine':platform.machine(), 'system':platform.system(), 'source_commit':GUEST_SOURCE, 'guest_sha256':GUEST_SHA, 'probe_sha256':base.sha(Path(__file__))})
 
 
+def record_local(w):
+    if os.environ.get('GITHUB_ACTIONS')=='true' or platform.system()!='Darwin' or platform.machine()!='arm64':
+        raise ValueError('reference recording is explicit local macOS arm64 only; CI cannot bypass comparison')
+    execute(w,compare_reference=False)
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('stage',choices=['build','downloads','runtime','translate','execute','endpoint-tests','preflight','cleanup'])
+    p.add_argument('stage',choices=['build','downloads','runtime','translate','execute','record-local','endpoint-tests','preflight','cleanup'])
     p.add_argument('--workspace',type=Path,required=True);a=p.parse_args();w=a.workspace.resolve()
     if not (w/'experiment.json').is_file():p.error('owned workspace required')
     if not re.fullmatch('[0-9a-f]{64}',GUEST_SHA):p.error('guest pin not reviewed')
@@ -169,7 +179,7 @@ def main():
               'probe_sha256':base.sha(Path(__file__)),
               'tooling_source_commit':subprocess.check_output(['git','-c','safe.directory='+str(ROOT),'rev-parse','HEAD'],cwd=ROOT,text=True).strip()})
     try:{'build':build,'downloads':base.downloads,'runtime':runtime,'translate':translate,
-         'execute':execute,'endpoint-tests':endpoint_tests,'preflight':lambda work:base.identity(work/'worktree',HOST_SOURCE),'cleanup':base.cleanup}[a.stage](w)
+         'execute':execute,'record-local':record_local,'endpoint-tests':endpoint_tests,'preflight':lambda work:base.identity(work/'worktree',HOST_SOURCE),'cleanup':base.cleanup}[a.stage](w)
     except Exception as error:
         base.save(w/'evidence'/(a.stage+'-failure.json'),{'error':str(error),'probe_sha256':base.sha(Path(__file__))});raise
 

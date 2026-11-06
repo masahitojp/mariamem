@@ -1,6 +1,10 @@
 package main
 
-import "testing"
+import (
+	"database/sql"
+	"fmt"
+	"testing"
+)
 
 func TestFixFoundRowsNegotiatedPerConnection(t *testing.T) {
 	r := rootFor(t, 5000)
@@ -31,5 +35,37 @@ func TestFixFoundRowsNegotiatedPerConnection(t *testing.T) {
 				t.Fatal(n, err, "want", tc.want)
 			}
 		})
+	}
+}
+
+// The new main changes the prepared UCA data, so check its SQL path through
+// native sessions and a fresh restored runtime, not only the old C API entry.
+func TestFixPreparedUCAThroughNativeFork(t *testing.T) {
+	r := rootFor(t, 5000)
+	db := dbFor(t, r, nil)
+	check := func(d *sql.DB) {
+		t.Helper()
+		for _, encoding := range []string{"utf8mb3", "utf8mb4"} {
+			q := fmt.Sprintf("SELECT STRCMP(_%s'a' COLLATE %s_uca1400_ai_ci,_%s'A' COLLATE %s_uca1400_ai_ci)", encoding, encoding, encoding, encoding)
+			if got := queryOne(t, d, q); got != 0 {
+				t.Fatal(encoding, got)
+			}
+		}
+	}
+	check(db)
+	for _, q := range []string{"CREATE TABLE uca_native(id INT PRIMARY KEY, v VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci, KEY(v)) ENGINE=InnoDB", "INSERT INTO uca_native VALUES(1,'a'),(2,'b')"} {
+		if _, err := db.Exec(q); err != nil {
+			t.Fatal(err)
+		}
+	}
+	b := makeBaseline(captureNow(t, r, false))
+	defer b.close()
+	db.Close()
+	c := child(t, b)
+	fresh := dbFor(t, c, nil)
+	defer fresh.Close()
+	check(fresh)
+	if got := queryOne(t, fresh, "SELECT COUNT(*) FROM uca_native WHERE v='A'"); got != 1 {
+		t.Fatal("restored UCA index", got)
 	}
 }

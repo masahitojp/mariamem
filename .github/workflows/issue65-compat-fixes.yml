@@ -13,6 +13,7 @@ on:
       - benchmarks/spikes/issue65-compat-fixes/endpoint_test.go.txt
       - benchmarks/spikes/issue65-compat-fixes/fix_controls_test.go.txt
       - benchmarks/spikes/issue65-compat-fixes/guard_controls.py
+      - benchmarks/spikes/issue65-compat-fixes/runtime_tests.py
       - benchmarks/spikes/issue65-compat-fixes/binding/identity.json
 permissions:
   contents: read
@@ -34,7 +35,7 @@ jobs:
           persist-credentials: false
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
-          ref: 8dc2b113394630c5be7127100903a359f994db45
+          ref: a1e3b8a0d7f3750e684610e273a28b802a7135d0
           path: guest-source
           fetch-depth: 0
           persist-credentials: false
@@ -90,7 +91,7 @@ jobs:
           persist-credentials: false
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
-          ref: 8dc2b113394630c5be7127100903a359f994db45
+          ref: a1e3b8a0d7f3750e684610e273a28b802a7135d0
           path: host-source
           fetch-depth: 0
           persist-credentials: false

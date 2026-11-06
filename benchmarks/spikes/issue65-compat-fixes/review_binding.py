@@ -1,7 +1,7 @@
 from pathlib import Path
 import re,json,hashlib,sys
 w=Path('.');repo=w/'worktree';root=w/'temp/host/candidate/module/generated';sys.path.insert(0,str(repo/'scripts'));from runtime_thread_lifetime import function
-previous=json.loads((repo/'tests/fixtures/issue65-wire-binding/identity.json').read_text());dest=w/'evidence/reviewed-binding';dest.mkdir(exist_ok=True);p=dest/'identity.json';functions={};comparisons={} 
+previous=json.loads((Path(__file__).resolve().parent/'binding/identity.json').read_text());canonical=json.loads((repo/'tests/fixtures/prepared-p2-binding/identity.json').read_text());dest=w/'evidence/reviewed-binding';dest.mkdir(exist_ok=True);p=dest/'identity.json';functions={};comparisons={} 
 def shape(text):
  text=re.sub(r'\bFn\d+\b','FN',text);text=re.sub(r'(?<![A-Za-z0-9_])\d+\b','NUMBER',text);return re.sub(r'\s+','',text)
 index={}
@@ -27,9 +27,9 @@ for old,role in [('Fn153','free'),('Fn131','yield'),('Fn214','entry')]:
  assert re.sub(r'\s+','',mapped)==re.sub(r'\s+','',after),role
  if role=='free':assert set(re.findall(r'\bFn\d+\(m',after))=={new+'(m',names['Fn131']+'(m'};assert 'm.G0' not in after and 'm.G1' not in after
  functions['code/'+str(matches[0].relative_to(root))]={'function':new,'normalized_sha256':hashlib.sha256(re.sub(r'\s+','',after).encode()).hexdigest(),'role':role}
- comparisons[role]={'complete_body_equal_after_recorded_relocation':True,'function_renames':names,'changed_numeric_literals':changed,'static_relocation_delta':list(deltas),'previous_body_sha256':hashlib.sha256(before.encode()).hexdigest(),'new_body_sha256':hashlib.sha256(after.encode()).hexdigest()}
+ comparisons[role]={'complete_body_equal_after_recorded_relocation':True,'function_renames':names,'changed_numeric_literals':changed,'static_relocation_delta':list(deltas),'canonical_reference_body_sha256':hashlib.sha256(before.encode()).hexdigest(),'new_body_sha256':hashlib.sha256(after.encode()).hexdigest()}
  (dest/(new+'.txt')).write_text(after)
 for existing in dest.glob('Fn*.txt'):
  if existing.stem not in selected:existing.unlink()
-g=json.loads((w/'temp/artifact/guest.json').read_text());record={'contract':'issue65-experimental-thread-binding-v1','guest_sha256':g['guest_sha256'],'previous_experimental_guest_sha256':previous['guest_sha256'],'functions':functions,'review':comparisons,'ABI_offsets':{'start_args.pthread':16,'pthread.map_base':40,'pthread.map_size':44},'status':'experimental exact-function binding; canonical binding unchanged'}
+g=json.loads((w/'temp/artifact/guest.json').read_text());record={'contract':'issue65-experimental-thread-binding-v1','guest_sha256':g['guest_sha256'],'previous_experimental_guest_sha256':previous['guest_sha256'],'canonical_reference_guest_sha256':canonical['guest_sha256'],'canonical_reference_source_commit':canonical['source_commit'],'functions':functions,'review':comparisons,'ABI_offsets':{'start_args.pthread':16,'pthread.map_base':40,'pthread.map_size':44},'status':'experimental exact-function binding; canonical binding unchanged'}
 p.write_text(json.dumps(record,indent=2)+'\n');(w/'evidence/binding-review').mkdir(exist_ok=True);(w/'evidence/binding-review/final-refresh.json').write_text(json.dumps(record,indent=2)+'\n');print('Reviewed complete worker bodies for',g['guest_sha256'])

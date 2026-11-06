@@ -36,8 +36,8 @@ runtime/template inputs; CI executes the final tooling SHA independently.
 
 1. In the experimental MariaDB ACL patch, accept optional CLIENT_FOUND_ROWS before
    intersecting the client's capabilities. Do not add it to the greeting. Guest
-   source_commit `8dc2b113394630c5be7127100903a359f994db45` includes main and this
-   patch; a fresh build and exact worker-body binding review are required.
+   source_commit `a1e3b8a0d7f3750e684610e273a28b802a7135d0` includes the frozen
+   prepared-UCA main and this patch; a fresh build and exact worker-body binding review are required.
 2. Native relay host reserves shared16-session capacity before guest OPEN. Keep
    reservations until native RETIRED (or confirmed disposal), not transport EOF.
    TCP rejects inline in its one accept owner through the fixed1s pre-login
@@ -60,7 +60,7 @@ changes, staged explicitly; public native-route wiring is not added.
 
 ## Source and correctness boundary
 
-Guest and checked host base both use8dc2b113. Tooling supplies inventoried host
+Guest and checked host base both usea1e3b8a0. Tooling supplies inventoried host
 main/Live/endpoint overlays and tests on top, so guest provenance is checked
 against its exact clean source, not an arbitrary cross-commit receipt. The
 assembler's explicit development binding comes from reviewed complete worker
@@ -70,7 +70,9 @@ and the six original mismatches remain intact.
 
 The same14 capture/protocol plus8 Live cases and the same7 compatibility groups
 must execute without changing expectations. An added per-connection control
-checks FOUND_ROWS false -> true -> false; greeting and alias/RESET/LONG_DATA
+checks FOUND_ROWS false -> true -> false. A new-main-dependent control checks
+utf8mb3/utf8mb4 UCA comparisons and a UCA index after native Snapshot/Fork.
+Greeting and alias/RESET/LONG_DATA
 oracles remain the original ones. The changed Live endpoint has an actual
 localhost capacity callback test proving Status/existing relay remain usable,
 no extra backend, and no generation change. Its full focused package is run.
@@ -95,3 +97,16 @@ is claimed from these three fixes. Preserve original failures and partial output
 All SDK/build/converter/Go caches/binaries/container/worktrees are disposable;
 retain compact receipts, identities, exact reviewed binding and logs. After CI
 submission hand off exact SHA, URL and operation, then stop supervision.
+
+Local reference collection is an explicit `record-local` stage, restricted to
+macOS arm64 outside GitHub Actions. CI's runtime stage always uses the strict
+immutable reference comparison; no environment variable disables it. The fresh
+UCA guest/binding/reference must replace the candidate pins before submission.
+The pre-UCA proof remains a separate historical source, not an equivalent-tree
+claim for this new guest. Canonical UCA input tests pass8/8 on the merged source.
+
+Prepared UCA changes initialization/Fork independently of wire. Future performance
+attribution must compare legacy/native wire with the same frozen-main engine/UCA
+inputs; a separate end-to-end comparison to published0.6.2 must name that engine
+change. Do not attribute main's UCA benefit to native wire or infer a speedup from
+these one-shot functional test timings.
