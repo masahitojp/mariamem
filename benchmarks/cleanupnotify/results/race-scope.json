@@ -1,0 +1,11 @@
+{
+  "initial_attempt": "Stopped broad generated-code race compilation before test execution; no runtime failure claimed",
+  "selected_scope": "root, internal/host, internal/guest and other non-code dependencies instrumented; internal/generatedgo/code/... compiled without race instrumentation",
+  "reason": "Changed channel synchronization is in Go host lifecycle; reused generated MariaDB/UNDO collector has normal focused tests and prior observer race evidence",
+  "new_command": "['go','test','-race','-p','1','-count=1','-gcflags=github.com/masahitojp/mariamem/internal/generatedgo/code/...=-race=false','-run','TestIssue117|TestWaitDisconnected|TestWorkerTrapFailsPendingCallsBeforeCompletion','-overlay',str(t/'overlay/overlay.json'),'.','./internal/host','./internal/guest'],",
+  "initial_stop": {
+    "runner": "ProcessStopError after group kill PermissionError",
+    "resolved_by": "Subsequent process inventory confirmed old process group8520 has zero members; no orphan compiler or measurement remained",
+    "generated_exclusion_checked": "Actual compiler command contains -race=false for generated code; host packages remain instrumented"
+  }
+}

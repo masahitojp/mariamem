@@ -1,0 +1,3 @@
+ok  	github.com/masahitojp/mariamem	1.225s
+ok  	github.com/masahitojp/mariamem/internal/host	0.286s
+ok  	github.com/masahitojp/mariamem/internal/guest	0.780s

@@ -1,0 +1,73 @@
+{
+  "question": "Replace Go WaitDisconnected periodic checks with state-change notification while preserving error/cancel/Close and completed disposal; measure cleanup and whole-batch effects.",
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "parent_harness_source_commit": "1a2b5dc00f8f523a9f58c8fdd66065ff2d806eb0",
+  "observer_source_commit": "2f679a14d45acf0dac98effc7172f38301f7a3b3",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "fixed": {
+    "parallel": 4,
+    "cap": 4,
+    "children": 48,
+    "seed_rows": 1000,
+    "route": "pipe",
+    "gomaxprocs": 8,
+    "gogc": 100,
+    "toolchain": "go version go1.27.3 darwin/arm64",
+    "config": "unchanged product defaults; observer selector overlays excluded"
+  },
+  "protocol": {
+    "ordinary_pairs": 5,
+    "ordinary_order": [
+      [
+        "poll",
+        "notify"
+      ],
+      [
+        "notify",
+        "poll"
+      ],
+      [
+        "poll",
+        "notify"
+      ],
+      [
+        "notify",
+        "poll"
+      ],
+      [
+        "poll",
+        "notify"
+      ]
+    ],
+    "ordinary_warmups": 2,
+    "diagnostic_processes": 2,
+    "wrong_seed_processes": 2,
+    "wrong_seed_children_each": 1,
+    "total_processes": 16,
+    "extra_repeats": 0
+  },
+  "diagnostics": "Separate poll/notify48-child processes enable previous UNDO holder/waiter collector (same child/rseg/page/thread/notification identities;8192 events per child,one100ms owner sample). Preserve all traces, do not add runs to reproduce tails. Diagnostic timing is not the ordinary A/B.",
+  "correctness": [
+    "active connection never succeeds",
+    "deadline/cancel preserves DB usability",
+    "multiple waiters",
+    "disconnect before select does not lose wakeup",
+    "partial disconnect keeps waiting",
+    "Close wakes without deadlock",
+    "guest failure wakes before owner join",
+    "repeat fail signal idempotence",
+    "SQL seed/update/value/independence",
+    "cap and full disposal/lease path unchanged"
+  ],
+  "candidate_lead": "All correctness pass; ordinary per-process median WaitDisconnected improves >=3ms in >=4/5 pairs, cleanup improves >=2ms in >=4/5 pairs. Preserve all batch wall/CPU/SQL tails; if wall median >5% worse or CPU/child >5% worse, do not recommend unconditionally. Small local candidate only, not adoption.",
+  "budget": {
+    "active_minutes": 60,
+    "tooling_minutes": 20,
+    "heavy_ci": 0,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 120,
+    "min_free_gib": 12,
+    "disk_gib": 6
+  },
+  "stop": "Finite comparison and bounded recommendation; no #68 reopening or tail-driven repeat; no main integration/adoption/release."
+}
