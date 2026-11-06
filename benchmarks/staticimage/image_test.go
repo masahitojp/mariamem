@@ -23,6 +23,19 @@ import (
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/p8"
 )
 
+func TestMain(m *testing.M) {
+	code := m.Run()
+	stats := base.MemoryMappingStats()
+	for _, key := range []string{"active_mappings", "active_reserved_bytes", "active_rw_bytes"} {
+		if stats[key] != 0 {
+			fmt.Fprintln(os.Stderr, "final ownership debt", key, stats[key])
+			code = 1
+		}
+	}
+	fmt.Printf("final active mappings=%d reserved=%d rw=%d\n", stats["active_mappings"], stats["active_reserved_bytes"], stats["active_rw_bytes"])
+	os.Exit(code)
+}
+
 func mustChild(t *testing.T, f *factory) *child {
 	t.Helper()
 	c, err := f.acquire()
@@ -323,4 +336,41 @@ func TestGuardFault(t *testing.T) {
 		t.Fatalf("not expected protection fault: %v %s", err, out)
 	}
 	t.Log("subprocess rejected write beyond logical memory with OS fault")
+}
+
+func TestConcurrentCloseAdmission(t *testing.T) {
+	f := ownedFactory(t)
+	existing := mustChild(t, f)
+	start := make(chan struct{})
+	results := make(chan error, 9)
+	for i := 0; i < 8; i++ {
+		go func() {
+			<-start
+			c, err := f.acquire()
+			if errors.Is(err, errClosed) {
+				results <- nil
+				return
+			}
+			if err != nil {
+				results <- err
+				return
+			}
+			c.m.Memory[8388608] ^= 0xff
+			results <- c.close()
+		}()
+	}
+	go func() { <-start; results <- f.close() }()
+	close(start)
+	for i := 0; i < 9; i++ {
+		if err := <-results; err != nil {
+			t.Fatal(err)
+		}
+	}
+	if _, err := f.acquire(); !errors.Is(err, errClosed) {
+		t.Fatal("admission reopened", err)
+	}
+	if len(f.files) != 0 || f.image.Fd() != ^uintptr(0) {
+		t.Fatal("cache FD retained")
+	}
+	existing.m.Memory[8388608] ^= 0xff
 }
