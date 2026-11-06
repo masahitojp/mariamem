@@ -757,7 +757,10 @@
  
 --- a/sql/sql_parse.cc
 +++ b/sql/sql_parse.cc
-@@ -16,6 +16,7 @@
+@@ -13,12 +13,13 @@
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1335  USA */
  
  #define MYSQL_LEX 1
  #include "mariadb.h"
@@ -765,7 +768,13 @@
  #include "sql_priv.h"
  #include "sql_parse.h"        // sql_kill, *_precheck, *_prepare
  #include "lock.h"             // try_transactional_lock,
-@@ -1176,7 +1177,7 @@
+                               // check_transactional_lock,
+                               // set_handler_table_locks,
+                               // lock_global_read_lock,
+@@ -1173,13 +1174,13 @@
+   return (command == COM_STMT_FETCH            ||
+           command == COM_STMT_SEND_LONG_DATA   ||
+           command == COM_STMT_CLOSE);
  }
  #endif /* WITH_WSREP */
  
@@ -774,7 +783,13 @@
  static enum enum_server_command fetch_command(THD *thd, char *packet)
  {
    enum enum_server_command
-@@ -1434,6 +1435,10 @@
+     command= (enum enum_server_command) (uchar) packet[0];
+   DBUG_ENTER("fetch_command");
+ 
+@@ -1431,12 +1432,16 @@
+   my_net_set_read_timeout(net, thd->variables.net_read_timeout);
+ 
+   DBUG_ASSERT(packet_length);
    DBUG_ASSERT(!thd->apc_target.is_enabled());
  
  resume:
@@ -785,7 +800,13 @@
    return_value= dispatch_command(command, thd, packet+1,
                                   (uint) (packet_length-1), blocking);
    if (return_value == DISPATCH_COMMAND_WOULDBLOCK)
-@@ -1707,6 +1712,12 @@
+   {
+     /* Save current state, and resume later.*/
+     thd->async_state.m_command= command;
+@@ -1704,12 +1709,18 @@
+                command != COM_QUIT &&
+                command != COM_STMT_PREPARE &&
+                command != COM_STMT_EXECUTE &&
                 command != COM_STMT_CLOSE))
    {
      my_error(ER_MUST_CHANGE_PASSWORD, MYF(0));
@@ -798,6 +819,9 @@
      goto dispatch_end;
    }
  
+   switch (command) {
+   case COM_INIT_DB:
+   {
 --- a/sql/sql_prepare.cc
 +++ b/sql/sql_prepare.cc
 @@ -118,6 +118,8 @@

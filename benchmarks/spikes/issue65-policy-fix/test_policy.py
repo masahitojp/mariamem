@@ -53,7 +53,7 @@ size_t bad[]={0xffffff,0x1000000,size_t(-1)};for(size_t n:bad)assert(!mariamem_w
         self.assertIn('thd->mariamem_native_wire &&',sql)
 
     def test_auth_error_delivery_precedes_retirement(self):
-        body=added_file('libmysqld/mariamem_native_wire.cc')
+        body=added_file('libmysqld/lib_sql.cc')
         start=body.index('if(!result && acl_authenticate(thd,0)) {')
         end=body.index('else if(!result)',start)
         rejection=body[start:end]
