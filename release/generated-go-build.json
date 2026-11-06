@@ -1,10 +1,5 @@
 {
-  "compiled_guest_source_scope": "MariaDB12.3.3 canonical prepared/routine/text owners plus scoped buffer-pool alignment; no experimental.patch",
-  "completed": true,
-  "full_guest_regeneration": true,
-  "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
-  "guest_size": 18405462,
-  "linked_guest_sha256": "f501e8bab180cc82965e3024b84a10c73e5892426bdd1a5750ed212639193fb9",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
   "prepared_source": {
     "guest_input": {
       "candidate": "MariaDB 12.3.3",
@@ -117,6 +112,7 @@
       "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
       "cmake/pcre.cmake": "ed0dbf1f78b8fe86ed04e1a85cdeaeec3b2b9c271b0ee4a5f9eb036d43eb0907",
       "configure.cmake": "f14251cbb6717181cfd4a9e26fabd0d49399b762ce81f6e6cfdcbc224f5c0ff8",
+      "include/m_ctype.h": "4c360869272e90e63b88e6eaaa657288e8747f8fb282f8ed616a342562b3ed2e",
       "include/mariamem_init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
       "include/my_global.h": "60aaa58fee20a00cb09737eb45a09b3882eaaa6564f9d7bfae77662c07434b9b",
       "include/my_stacktrace.h": "8437a3f83abbb3cc6e29fbf588a8e0c8507820c3a066ba8707198da7f925861f",
@@ -142,6 +138,8 @@
       "storage/innobase/srv/srv0start.cc": "bca5515ad8421103ff8fa675d420dbc0e105e12585aece0057401bef55350c2d",
       "storage/maria/ha_maria.cc": "465fe7518073e467a97710e48626fbf4dbdd15f28ec20d2d074087b6d7871c36",
       "storage/maria/ma_loghandler.c": "515a8afc9aef1cccd7055028441aae249021835c49f5dd1353982d7fc8542281",
+      "strings/ctype-uca.c": "93af2c4177e291a5943aac823747a9576c6c1dc2bb25411d61e3cdedfe758f42",
+      "strings/mariamem_uca_prepared.h": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
       "wasm/CMakeLists.txt": "c202123fef2d0ac6ec8da5d659d488907aaff4b8040a5a6e514255c3d47fd254",
       "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
       "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9",
@@ -167,7 +165,7 @@
       "routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
       "routine_schema.json": "3b6de53bc59ad91dc5c606c435b26f408eb26ff9a091b253d799af86e2460dfd",
       "snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
-      "source.patch": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16",
+      "source.patch": "430273666a1f2c38ba5e0441ada7e3d1036ad94e5ccfc486f956e2b214b674b7",
       "startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
       "test-auth-keypair.json": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be",
       "wire_core.inc": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a"
@@ -288,19 +286,34 @@
       "metadata_sha256": "104f0b429207adc28e83f453c0889f4d7d71eb97ff886a66af926b4de944cbd4",
       "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
       "source_file_sha256": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d"
+    },
+    "uca_prepared": {
+      "contract": "prepared-uca1400-v1",
+      "header": "strings/mariamem_uca_prepared.h",
+      "header_sha256": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
+      "input_files_sha256": {
+        "benchmarks/ucapreparedinput/check.py": "beea3a7aea019869779b8396c60b105af50d4cc6b44aa7c95bbf4c550b7e81b3",
+        "benchmarks/ucapreparedinput/input.json": "5965bca79c0d1c508a0932d0477972727a4c1d19c23ab95d26069ce0a12029dc",
+        "benchmarks/ucapreparedinput/level0.u16le.json": "e41d17a205523e9a33bf8a2a5ee81175ed9ddc1eef1254193eb5499748cf548e",
+        "benchmarks/ucapreparedinput/level1.u16le.json": "9243e3977c9f7b0a5e0f6c075cf7d06079157280d8d95a31fdee724b927b7584",
+        "benchmarks/ucapreparedinput/level2.u16le.json": "e38bc9436e591fa5e4dbc80fdad48ee694b6dac17a529fae64f2ccd929f44ff4"
+      },
+      "numeric_bytes": 2754048,
+      "source_check": "PRISTINE_SOURCE_HASHES_PASS",
+      "verification_env": "MARIAMEM_UCA_VERIFY_INTERNAL"
     }
   },
   "repetitions": [
     {
-      "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
-      "linked_sha256": "f501e8bab180cc82965e3024b84a10c73e5892426bdd1a5750ed212639193fb9"
+      "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+      "linked_sha256": "77d413ea6262ff9844c01b3e7b979d26c949b83ee846140399256795f7b00999"
     },
     {
-      "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
-      "linked_sha256": "f501e8bab180cc82965e3024b84a10c73e5892426bdd1a5750ed212639193fb9"
+      "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+      "linked_sha256": "77d413ea6262ff9844c01b3e7b979d26c949b83ee846140399256795f7b00999"
     }
   ],
-  "source_commit": "365a082bada9b5d3740d467739718d10cd155ca4",
+  "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
   "toolchain": {
     "archives_sha256": {
       "binaryen": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8",
@@ -332,42 +345,48 @@
       "lld": "LLD 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)",
       "llvm": "clang version 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /root/.wasixcc/llvm/bin",
       "make": "GNU Make 4.3\nBuilt for aarch64-unknown-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
-      "python": "Python 3.14.9",
+      "python": "Python 3.12.3",
       "wasixcc": "wasixcc 0.4.7"
     }
   },
+  "guest_size": 21159842,
+  "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners plus prepared UCA1400 tables; no experimental.patch",
+  "completed": true,
+  "full_guest_regeneration": true,
+  "linked_guest_sha256": "77d413ea6262ff9844c01b3e7b979d26c949b83ee846140399256795f7b00999",
   "ci_evidence": {
     "status": "PASS: bounded canonical candidate; not Qualification or release approval",
-    "source_commit": "365a082bada9b5d3740d467739718d10cd155ca4",
-    "run_id": 41571252134,
-    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41571252134",
-    "receipt": "docs/reviews/issue63-canonical-adoption/ci-41571252134/receipt.json",
-    "independent_generation_files": 104,
+    "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+    "run_id": 41961766293,
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41961766293",
+    "receipt": "docs/reviews/uca-prepared-ci-41961766293/assessment.json",
+    "independent_generation_files": 106,
     "platforms": [
       "darwin-arm64",
       "ubuntu24.04-x86_64"
     ]
   },
   "incoming_guest_origin": {
-    "source_commit": "1b0a0c5c569c49f3643550911d62d85d351f15fb",
+    "source_commit": "275c1807f8d7dabfdd1aa529ff598f68d319820b",
     "contract": "development-unqualified-v1",
-    "use": "Observed single canonical-source bootstrap for inventory authoring; not independent-build or release evidence"
+    "use": "Observed single canonical-source bootstrap for inventory authoring only; UNQUALIFIED, not independent-build or release evidence"
   },
   "previous_canonical_evidence": {
-    "source_commit": "c7960d604f525c15d66fc003b0341989c4719267",
+    "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
     "ci_evidence": {
-      "status": "PASS: scoped P6; not Qualification/release approval",
-      "source_commit": "c7960d604f525c15d66fc003b0341989c4719267",
-      "run_id": 39859160329,
-      "run_url": "https://github.com/masahitojp/mariamem/actions/runs/39859160329",
-      "receipt": "docs/reviews/v06x-prepared-p6-complete-evidence/receipt.json",
-      "independent_generation_files": 99,
+      "status": "PASS: bounded canonical candidate; not Qualification or release approval",
+      "source_commit": "365a082bada9b5d3740d467739718d10cd155ca4",
+      "run_id": 41571252134,
+      "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41571252134",
+      "receipt": "docs/reviews/issue63-canonical-adoption/ci-41571252134/receipt.json",
+      "independent_generation_files": 104,
       "platforms": [
         "darwin-arm64",
         "ubuntu24.04-x86_64"
       ]
     },
-    "guest_sha256": "8f6177627855232d096cfb3987d94e35c19fc4fc0c7f32ca8c69ff9fd4990a40"
+    "record_source_commit": "676515eb9244fc501b5a600791b0cf0a6174fecd",
+    "record_sha256": "43bffc8c86f06e11ac6431027c0090054257c184e6b7cd28b73dc5718ce1387e"
   },
-  "canonical_build_sha256": "c095a06a6d9c532ab11b8abe26ffc698a1bf81d3c1ed98ea2c3637260c7bcccd"
+  "authoring_ledger_sha256": "d12d56352144c19db9b33d36bc36676440fe65691e9cf6a596fc92a2d5e832a1"
 }

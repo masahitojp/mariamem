@@ -1,27 +1,27 @@
 {
-  "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
   "baseline_source_commit": "de0e08a9c4248969a7522abebfdee8aea6ef9657",
   "baseline_guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
-  "result": "PASS: exact19-body/data binding and all six original heap/mmap unsafe/protected/race controls on macOS15 arm64 and Ubuntu24.04 x86_64",
-  "global_address_delta": 5760,
+  "result": "PASS: exact19-body/data binding and six heap/mmap unsafe/protected/race controls on macOS15 arm64 and Ubuntu24.04 x86_64",
+  "global_address_delta": 2759872,
   "data_segments": [
     {
       "offset": 8388608,
       "begin": 0,
-      "end": 6213094
+      "end": 8967206
     },
     {
-      "offset": 14601728,
-      "begin": 6213094,
-      "end": 6855714
+      "offset": 17355840,
+      "begin": 8967206,
+      "end": 9609826
     },
     {
-      "offset": 15244352,
-      "begin": 6855714,
-      "end": 6856219
+      "offset": 17998464,
+      "begin": 9609826,
+      "end": 9610331
     }
   ],
-  "data_sha256": "6111bfe83de71695517e3d9f25fed842d4a43bfc6ae774815abafd81af9064dd",
+  "data_sha256": "11724ad9c5d0163498f4c0b1c9a575c2eb4445424917e7d050190887ca6b126e",
   "tls_bytes": 505,
   "tls_sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df",
   "function_map": {
@@ -43,7 +43,7 @@
     "221": 219,
     "212": 210,
     "215": 213,
-    "4056": 4068
+    "4056": 4069
   },
   "functions": [
     {
@@ -98,11 +98,11 @@
       "new_function": 97,
       "function": "Fn97",
       "file": "p5/p5_pure.go",
-      "normalized_sha256": "9c92af7025434061038ddb1ab97f9ea0f9ed83eb2e47f3c93175b32706c5cb20",
+      "normalized_sha256": "b7b3a293a12bcb40fd903aeb05f9083de70856e1c42252a621b6b7bc8a599b7b",
       "integer_changes": [
         [
           15239105,
-          15244865
+          17998977
         ]
       ],
       "direct_calls": [
@@ -132,7 +132,7 @@
       "new_function": 150,
       "function": "Fn150",
       "file": "p8/p8_pure.go",
-      "normalized_sha256": "e803c78f51e1a6af154ff5c8f791dbb8d8e4c09c441b4532c9fe534ccd4cddef",
+      "normalized_sha256": "1f0db8d956548d37bfdaff7ef7a11e15ff83d490b836de5dee519ecc291d9978",
       "integer_changes": [
         [
           8687180,
@@ -140,11 +140,11 @@
         ],
         [
           15239148,
-          15244908
+          17999020
         ],
         [
           15239168,
-          15244928
+          17999040
         ]
       ],
       "direct_calls": [
@@ -170,151 +170,151 @@
       "new_function": 152,
       "function": "Fn152",
       "file": "p1/p1_pure.go",
-      "normalized_sha256": "a62e983a0e8175ce7e35df5415095b33d37c3f6a1490360e21334dc35c9c418a",
+      "normalized_sha256": "f743b63a4f9b0a40dd61bd8335561675355093832664ce4e24e634ff624c3344",
       "integer_changes": [
         [
           15240500,
-          15246260
+          18000372
         ],
         [
           15240504,
-          15246264
+          18000376
         ],
         [
           15240508,
-          15246268
+          18000380
         ],
         [
           15240512,
-          15246272
+          18000384
         ],
         [
           15240516,
-          15246276
+          18000388
         ],
         [
           15240520,
-          15246280
+          18000392
         ],
         [
           15240524,
-          15246284
+          18000396
         ],
         [
           15240528,
-          15246288
+          18000400
         ],
         [
           15240532,
-          15246292
+          18000404
         ],
         [
           15240536,
-          15246296
+          18000408
         ],
         [
           15240540,
-          15246300
+          18000412
         ],
         [
           15240544,
-          15246304
+          18000416
         ],
         [
           15240548,
-          15246308
+          18000420
         ],
         [
           15240552,
-          15246312
+          18000424
         ],
         [
           15240556,
-          15246316
+          18000428
         ],
         [
           15240560,
-          15246320
+          18000432
         ],
         [
           15240564,
-          15246324
+          18000436
         ],
         [
           15240572,
-          15246332
+          18000444
         ],
         [
           15240576,
-          15246336
+          18000448
         ],
         [
           15240580,
-          15246340
+          18000452
         ],
         [
           15240584,
-          15246344
+          18000456
         ],
         [
           15240588,
-          15246348
+          18000460
         ],
         [
           15240592,
-          15246352
+          18000464
         ],
         [
           15240596,
-          15246356
+          18000468
         ],
         [
           15240600,
-          15246360
+          18000472
         ],
         [
           15240828,
-          15246588
+          18000700
         ],
         [
           15240956,
-          15246716
+          18000828
         ],
         [
           15240960,
-          15246720
+          18000832
         ],
         [
           15240964,
-          15246724
+          18000836
         ],
         [
           15240968,
-          15246728
+          18000840
         ],
         [
           15240972,
-          15246732
+          18000844
         ],
         [
           15240976,
-          15246736
+          18000848
         ],
         [
           15240980,
-          15246740
+          18000852
         ],
         [
           15240984,
-          15246744
+          18000856
         ],
         [
           15240988,
-          15246748
+          18000860
         ],
         [
           15241000,
-          15246760
+          18000872
         ]
       ],
       "direct_calls": [
@@ -327,55 +327,55 @@
       "new_function": 153,
       "function": "Fn153",
       "file": "p3/p3_pure.go",
-      "normalized_sha256": "4aa80a3d7f3cc57a06cf3939fdba594c874365e69f428ebdf587bd337f5a587a",
+      "normalized_sha256": "15882f19e1b430f8135f53c43180e51db820ad620e6b1355988aa4f837982f1a",
       "integer_changes": [
         [
           15240524,
-          15246284
+          18000396
         ],
         [
           15240528,
-          15246288
+          18000400
         ],
         [
           15240532,
-          15246292
+          18000404
         ],
         [
           15240536,
-          15246296
+          18000408
         ],
         [
           15240540,
-          15246300
+          18000412
         ],
         [
           15240544,
-          15246304
+          18000416
         ],
         [
           15240548,
-          15246308
+          18000420
         ],
         [
           15240556,
-          15246316
+          18000428
         ],
         [
           15240564,
-          15246324
+          18000436
         ],
         [
           15240828,
-          15246588
+          18000700
         ],
         [
           15240968,
-          15246728
+          18000840
         ],
         [
           15240972,
-          15246732
+          18000844
         ]
       ],
       "direct_calls": [
@@ -396,7 +396,7 @@
       "new_function": 214,
       "function": "Fn214",
       "file": "p5/p5_pure.go",
-      "normalized_sha256": "139b6e0be1213a2c03785e33e29c7e3e709be938888819a0b4e670c8daa939ec",
+      "normalized_sha256": "6e7ad52c8a686c75594269839bff675ded36be094efc99da48c03b8778a2fd00",
       "integer_changes": [
         [
           497,
@@ -404,39 +404,39 @@
         ],
         [
           15239105,
-          15244865
+          17998977
         ],
         [
           15239108,
-          15244868
+          17998980
         ],
         [
           15243132,
-          15248892
+          18003004
         ],
         [
           15243648,
-          15249408
+          18003520
         ],
         [
           15243696,
-          15249456
+          18003568
         ],
         [
           15244240,
-          15250000
+          18004112
         ],
         [
           15244244,
-          15250004
+          18004116
         ],
         [
           15244248,
-          15250008
+          18004120
         ],
         [
           15301648,
-          15307408
+          18061520
         ]
       ],
       "direct_calls": [
@@ -456,19 +456,19 @@
       "new_function": 215,
       "function": "Fn215",
       "file": "p8/p8_pure.go",
-      "normalized_sha256": "58dd12423bb3378b8cf8ce9951ca091c9bcd2af576feb92c9ae19bfd4c977fa6",
+      "normalized_sha256": "4f0a8570fbbf6d1a9594f684fe2a009ce9a2f90a719cc5e51c97edfb909bbfc6",
       "integer_changes": [
         [
           15243132,
-          15248892
+          18003004
         ],
         [
           15244240,
-          15250000
+          18004112
         ],
         [
           15244244,
-          15250004
+          18004116
         ]
       ],
       "direct_calls": [
@@ -479,24 +479,24 @@
       "old_function": 221,
       "new_function": 219,
       "function": "Fn219",
-      "file": "p7/p7_pure.go",
-      "normalized_sha256": "fa71736767696b81ee8fb6ea2b3effbdfff3076ed12364bf5ad4cf52cd5bf063",
+      "file": "p3/p3_pure.go",
+      "normalized_sha256": "14488fa245e8368eea2a111fb71028393cc36b7d761c81063e89a4281961133b",
       "integer_changes": [
         [
           15243132,
-          15248892
+          18003004
         ],
         [
           15244244,
-          15250004
+          18004116
         ],
         [
           15244248,
-          15250008
+          18004120
         ],
         [
           15301648,
-          15307408
+          18061520
         ]
       ],
       "direct_calls": [
@@ -520,32 +520,32 @@
       "new_function": 213,
       "function": "Fn213",
       "file": "p8/p8_pure.go",
-      "normalized_sha256": "dca98ebe13dc975cc51693e58181fd4c8d6c099b2acc68d685bd003321c9b1c7",
+      "normalized_sha256": "67723a96acc922519aeb30da6eea2b18043c43fc97c9b214db0e9a763e3f5ee9",
       "integer_changes": [],
       "direct_calls": [
         100,
         135,
-        4068
+        4069
       ]
     },
     {
       "old_function": 4056,
-      "new_function": 4068,
-      "function": "Fn4068",
+      "new_function": 4069,
+      "function": "Fn4069",
       "file": "p7/p7_pure.go",
-      "normalized_sha256": "4396e9c3b6e0dcb6209f4dc4e11a863be4416498bf77e880fd420fdd768ebe18",
+      "normalized_sha256": "3032e002e5c068ed2432792aec8631b140c0542730902b7f590faffe0c72ff87",
       "integer_changes": [
         [
           15466168,
-          15471928
+          18226040
         ],
         [
           15466172,
-          15471932
+          18226044
         ],
         [
           15466176,
-          15471936
+          18226048
         ]
       ],
       "direct_calls": [
@@ -568,6 +568,18 @@
   "alignment_acceptance": {
     "source_commit": "365a082bada9b5d3740d467739718d10cd155ca4",
     "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41571252134",
+    "platforms": [
+      "darwin-arm64",
+      "ubuntu24.04-x86_64"
+    ]
+  },
+  "uca_prepared_acceptance": {
+    "status": "PASS: bounded canonical candidate; not Qualification or release approval",
+    "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
+    "run_id": 41961766293,
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/41961766293",
+    "receipt": "docs/reviews/uca-prepared-ci-41961766293/assessment.json",
+    "independent_generation_files": 106,
     "platforms": [
       "darwin-arm64",
       "ubuntu24.04-x86_64"

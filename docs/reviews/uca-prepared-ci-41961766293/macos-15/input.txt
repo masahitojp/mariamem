@@ -1,0 +1,13 @@
+test_bounded_decode_and_framing (test_uca_prepared_input.PreparedInputTests.test_bounded_decode_and_framing) ... ok
+test_cli_fresh_emit_and_readonly_compare (test_uca_prepared_input.PreparedInputTests.test_cli_fresh_emit_and_readonly_compare) ... ok
+test_corruption_and_rehashed_wrong_data (test_uca_prepared_input.PreparedInputTests.test_corruption_and_rehashed_wrong_data) ... ok
+test_known_input_readonly (test_uca_prepared_input.PreparedInputTests.test_known_input_readonly) ... ok
+test_paths_symlinks_duplicate_fields (test_uca_prepared_input.PreparedInputTests.test_paths_symlinks_duplicate_fields) ... ok
+test_source_archive_layout_levels (test_uca_prepared_input.PreparedInputTests.test_source_archive_layout_levels) ... ok
+test_source_preparation_provenance_and_no_overwrite (test_uca_prepared_input.PreparedInputTests.test_source_preparation_provenance_and_no_overwrite) ... ok
+test_wrong_pristine_source (test_uca_prepared_input.PreparedInputTests.test_wrong_pristine_source) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.105s
+
+OK

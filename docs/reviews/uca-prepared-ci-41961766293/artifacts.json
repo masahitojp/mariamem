@@ -1,0 +1,105 @@
+{
+  "total_count": 5,
+  "artifacts": [
+    {
+      "id": 13386991561,
+      "node_id": "MDg6QXJ0aWZhY3QxMzM4Njk5MTU2MQ==",
+      "name": "uca-canonical-native-ubuntu-24.04-cbd25f027e804bbd529a85208589ba2dd2899b86",
+      "size_in_bytes": 33088,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13386991561",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13386991561/zip",
+      "expired": false,
+      "digest": "sha256:0d01f86276df212e395ad4dfa33c5aaf1b7fa6660828797397d15b5eeba95cc4",
+      "created_at": "2026-11-05T03:50:34Z",
+      "updated_at": "2026-11-05T03:50:34Z",
+      "expires_at": "2026-11-12T03:50:33Z",
+      "workflow_run": {
+        "id": 41961766293,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "review/uca-prepared-adoption",
+        "head_sha": "cbd25f027e804bbd529a85208589ba2dd2899b86"
+      }
+    },
+    {
+      "id": 13386575825,
+      "node_id": "MDg6QXJ0aWZhY3QxMzM4NjU3NTgyNQ==",
+      "name": "uca-canonical-build-cbd25f027e804bbd529a85208589ba2dd2899b86",
+      "size_in_bytes": 90938,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13386575825",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13386575825/zip",
+      "expired": false,
+      "digest": "sha256:eebd5efae10c7fd6b3712ea90aed45844c97a280ad87a48029b95f8bdea61c0b",
+      "created_at": "2026-11-05T03:41:51Z",
+      "updated_at": "2026-11-05T03:41:51Z",
+      "expires_at": "2026-11-12T03:41:51Z",
+      "workflow_run": {
+        "id": 41961766293,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "review/uca-prepared-adoption",
+        "head_sha": "cbd25f027e804bbd529a85208589ba2dd2899b86"
+      }
+    },
+    {
+      "id": 13386565859,
+      "node_id": "MDg6QXJ0aWZhY3QxMzM4NjU2NTg1OQ==",
+      "name": "uca-canonical-guest-cbd25f027e804bbd529a85208589ba2dd2899b86",
+      "size_in_bytes": 5387190,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13386565859",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13386565859/zip",
+      "expired": false,
+      "digest": "sha256:e519428e0dd9d5779713ea34345eed9f220d4e5934c0c7eefc6c8eb0f98df937",
+      "created_at": "2026-11-05T03:41:50Z",
+      "updated_at": "2026-11-05T03:41:50Z",
+      "expires_at": "2026-11-12T03:41:49Z",
+      "workflow_run": {
+        "id": 41961766293,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "review/uca-prepared-adoption",
+        "head_sha": "cbd25f027e804bbd529a85208589ba2dd2899b86"
+      }
+    },
+    {
+      "id": 13386468396,
+      "node_id": "MDg6QXJ0aWZhY3QxMzM4NjQ2ODM5Ng==",
+      "name": "uca-canonical-native-macos-15-cbd25f027e804bbd529a85208589ba2dd2899b86",
+      "size_in_bytes": 33090,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13386468396",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13386468396/zip",
+      "expired": false,
+      "digest": "sha256:479a92702d22a9cc6b38ef8d1943c21967961c7a6c9322abecbd35f2a5b8c998",
+      "created_at": "2026-11-05T03:53:21Z",
+      "updated_at": "2026-11-05T03:53:21Z",
+      "expires_at": "2026-11-12T03:53:20Z",
+      "workflow_run": {
+        "id": 41961766293,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "review/uca-prepared-adoption",
+        "head_sha": "cbd25f027e804bbd529a85208589ba2dd2899b86"
+      }
+    },
+    {
+      "id": 13385363822,
+      "node_id": "MDg6QXJ0aWZhY3QxMzM4NTM2MzgyMg==",
+      "name": "uca-native-reference-cbd25f027e804bbd529a85208589ba2dd2899b86",
+      "size_in_bytes": 20756,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13385363822",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13385363822/zip",
+      "expired": false,
+      "digest": "sha256:67974c0049f051f831c7a14ddde33d8744fd451c022d1d729bc3ce02e22e90ed",
+      "created_at": "2026-11-05T03:29:15Z",
+      "updated_at": "2026-11-05T03:29:15Z",
+      "expires_at": "2026-11-12T03:29:13Z",
+      "workflow_run": {
+        "id": 41961766293,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "review/uca-prepared-adoption",
+        "head_sha": "cbd25f027e804bbd529a85208589ba2dd2899b86"
+      }
+    }
+  ]
+}
