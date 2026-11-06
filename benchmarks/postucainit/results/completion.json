@@ -1,0 +1,9 @@
+{
+  "result": "COLLECTED",
+  "total_processes": 18,
+  "primary_processes": 12,
+  "extra_repetitions": 0,
+  "harness_source_commit": "3cfc71a256ea4d4739853fa7a314ca2dd260df48",
+  "peak_workspace_bytes": 1536978944,
+  "minimum_free_bytes": 36951388160
+}

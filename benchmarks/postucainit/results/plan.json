@@ -1,0 +1,35 @@
+{
+  "issue": 121,
+  "product_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "observer_source_commit": "311b916a",
+  "fixed": {
+    "parallel": [
+      1,
+      4
+    ],
+    "pairs": 3,
+    "count": 48,
+    "seed": 1000,
+    "route": "pipe",
+    "mode": "fork",
+    "cap": "parallel",
+    "go": "1.27.3",
+    "gomaxprocs": 8,
+    "gogc": 100
+  },
+  "order": "rotate P order each round; alternate off/on by round+P ordinal",
+  "controls": "one traced P4 positive4 + one traced P1 wrong-seed1",
+  "warmups": "one48-child process per P/mode",
+  "total_processes": 18,
+  "observer": "one binary, timing+init+UNDO holder on versus off; on diagnostic only, no stage CPU attribution",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "workspace_gib": 8,
+    "min_free_gib": 12,
+    "heavy_ci": 0,
+    "new_guest_builds": 0
+  },
+  "exit": "select at most two source-grounded local candidates; no further nested measurements, no optimization implementation"
+}

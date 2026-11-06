@@ -1,0 +1,20 @@
+[
+  {
+    "path": "libmysqld/lib_sql.cc",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "github_blob": "4f1d98293aaa176c1c1f9f8f73d5ac1d8c1f5ccf",
+    "sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e"
+  },
+  {
+    "path": "sql/mysqld.cc",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "github_blob": "ae5df9761505b6bf7d1c2057be784219b02bfc75",
+    "sha256": "b69ed88ee907f86e83f0f4d729b26cd84837f1b94b828d51683b61f81a670bb8"
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "github_blob": "ad23ae353b25c5e071f0fe93916708a62a46bbdc",
+    "sha256": "92862e29209ac942c1aeb1902c8a99f8b0e6ca0243c2b539cdf0d697c965f8be"
+  }
+]

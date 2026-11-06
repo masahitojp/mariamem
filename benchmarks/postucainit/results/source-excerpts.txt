@@ -1,0 +1,230 @@
+libmysqld/lib_sql.cc @ 83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e
+581:   /* Must be initialized early for comparison of options name */
+582:   system_charset_info= &my_charset_utf8mb3_general_ci;
+583:   sys_var_init();
+584: 
+585:   int ho_error= handle_early_options();
+586:   if (ho_error != 0)
+587:     return 1;
+588: 
+589:   my_timer_init(&sys_timer_info);
+590: 
+591:   if (init_common_variables())
+592:   {
+593:     mysql_server_end();
+594:     return 1;
+595:   }
+596: 
+597:   mysql_data_home= mysql_real_data_home;
+598:   mysql_data_home_len= mysql_real_data_home_len;
+599: 
+600:   /* Get default temporary directory */
+601:   opt_mysql_tmpdir=getenv("TMPDIR");	/* Use this if possible */
+
+sql/mysqld.cc @ 83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e
+4450:   */
+4451:   myf utf8_flag= global_system_variables.old_behavior &
+4452:                  OLD_MODE_UTF8_IS_UTF8MB3 ? MY_UTF8_IS_UTF8MB3 : 0;
+4453: 
+4454:   old_mode_deprecated_warnings(global_system_variables.old_behavior);
+4455: 
+4456:   if (character_set_collations_str[0])
+4457:   {
+4458:     Lex_cstring_strlen str(character_set_collations_str);
+4459:     if (global_system_variables.character_set_collations.
+4460:                                   from_text(str, utf8_flag))
+4461:     {
+4462:       sql_print_error(ER_DEFAULT(ER_WRONG_VALUE_FOR_VAR),
+4463:                       "character_set_collations", character_set_collations_str);
+4464:     }
+4465:   }
+4466: 
+4467:   for (;;)
+4468:   {
+4469:     char *next_character_set_name= strchr(default_character_set_name, ',');
+4470:     if (next_character_set_name)
+
+storage/innobase/srv/srv0start.cc @ 83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e
+1400: 	/* Check if undo tablespaces and redo log files exist before creating
+1401: 	a new system tablespace */
+1402: 	if (create_new_db) {
+1403: 		err = srv_check_undo_redo_logs_exists();
+1404: 		if (err != DB_SUCCESS) {
+1405: 			return(srv_init_abort(DB_ERROR));
+1406: 		}
+1407: 		recv_sys.debug_free();
+1408: 	} else {
+1409: 		ut_ad(srv_operation <= SRV_OPERATION_EXPORT_RESTORED
+1410: 		      || srv_operation == SRV_OPERATION_RESTORE
+1411: 		      || srv_operation == SRV_OPERATION_RESTORE_EXPORT);
+1412: 		ut_ad(!recv_sys.recovery_on);
+1413: 
+1414: 		if (srv_force_recovery < SRV_FORCE_NO_LOG_REDO) {
+1415: 			log_sys.latch.wr_lock();
+1416: 			err = recv_sys.find_checkpoint();
+1417: 			log_sys.latch.wr_unlock();
+1418: 			if (err != DB_SUCCESS) {
+1419: 				return srv_init_abort(err);
+1420: 			}
+1421: 		}
+1422: 	}
+1423: 
+1424: 	/* Open or create the data files. */
+1425: 	ulint	sum_of_new_sizes;
+1426: 
+1427: 	err = srv_sys_space.open_or_create(
+1428: 		false, create_new_db, &sum_of_new_sizes);
+1429: 
+1430: 	switch (err) {
+1431: 	case DB_SUCCESS:
+1432: 		break;
+1433: 	case DB_CANNOT_OPEN_FILE:
+1434: 		ib::error()
+1435: 			<< "Could not open or create the system tablespace. If"
+1436: 			" you tried to add new data files to the system"
+1437: 			" tablespace, and it failed here, you should now"
+1438: 			" edit innodb_data_file_path in my.cnf back to what"
+1439: 			" it was, and remove the new ibdata files InnoDB"
+1440: 			" created in this failed attempt. InnoDB only wrote"
+1441: 			" those files full of zeros, but did not yet use"
+1442: 			" them in any way. But be careful: do not remove"
+
+storage/innobase/srv/srv0start.cc @ 83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e
+1490: 	if (err != DB_SUCCESS
+1491: 	    && srv_force_recovery < SRV_FORCE_NO_UNDO_LOG_SCAN) {
+1492: 
+1493: 		return(srv_init_abort(err));
+1494: 	}
+1495: 
+1496: 	/* Initialize objects used by dict stats gathering thread, which
+1497: 	can also be used by recovery if it tries to drop some table */
+1498: 	if (!srv_read_only_mode) {
+1499: 		dict_stats_init();
+1500: 	}
+1501: 
+1502: 	trx_sys.create();
+1503: 
+1504: 	if (create_new_db) {
+1505: 		ut_ad(!srv_read_only_mode);
+1506: 
+1507: 		mtr.start();
+1508: 		ut_ad(fil_system.sys_space->id == 0);
+1509: 		compile_time_assert(TRX_SYS_SPACE == 0);
+1510: 		err = fsp_header_init(fil_system.sys_space,
+1511: 				      uint32_t(sum_of_new_sizes), &mtr);
+1512: 		/* Allocate dummy change buffer pages for backward
+1513: 		compatibility and to prevent a downgrade. */
+1514: 		if (err != DB_SUCCESS) {
+1515: 		} else if (buf_block_t *b =
+1516: 			   fseg_create(fil_system.sys_space, PAGE_DATA, &mtr,
+1517: 				       &err)) {
+1518: 			ut_ad(b->page.id()
+1519: 			      == page_id_t(0, FSP_IBUF_HEADER_PAGE_NO));
+1520: 			b = fseg_alloc_free_page_general(
+1521: 				b->page.frame + PAGE_DATA,
+1522: 				FSP_IBUF_TREE_ROOT_PAGE_NO, FSP_UP, false,
+1523: 				&mtr, &mtr, &err);
+1524: 			if (b) {
+1525: 				ut_ad(b->page.id() == page_id_t
+1526: 				      (0, FSP_IBUF_TREE_ROOT_PAGE_NO));
+1527: 				mtr.set_modified(*b);
+1528: 				fsp_init_file_page(fil_system.sys_space, b,
+1529: 						   &mtr);
+1530: 			} else {
+1531: 				ut_ad(err != DB_SUCCESS);
+1532: 			}
+
+storage/innobase/srv/srv0start.cc @ 83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e
+1560: 		/* Suppress warnings in fil_space_t::create() for files
+1561: 		that are being read before dict_boot() has recovered
+1562: 		DICT_HDR_MAX_SPACE_ID. */
+1563: 		fil_system.space_id_reuse_warned = true;
+1564: 
+1565: 		/* We always try to do a recovery, even if the database had
+1566: 		been shut down normally: this is the normal startup path */
+1567: 
+1568: 		err = recv_recovery_from_checkpoint_start();
+1569: 		recv_sys.close_files();
+1570: 
+
+storage/innobase/srv/srv0start.cc @ 83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e
+1600: 				= trx_rseg_get_n_undo_tablespaces();
+1601: 			break;
+1602: 		default:
+1603: 			ut_ad("wrong mariabackup mode" == 0);
+1604: 		}
+1605: 
+1606: 		if (err != DB_SUCCESS) {
+1607: 			return srv_init_abort(err);
+1608: 		}
+1609: 
+1610: 		if (srv_force_recovery < SRV_FORCE_NO_LOG_REDO) {
+1611: 			/* Apply the hashed log records to the
+1612: 			respective file pages, for the last batch of
+1613: 			recv_group_scan_log_recs().
+1614: 			Since it may generate huge batch of threadpool tasks,
+1615: 			for read io task group, scale down thread creation rate
+1616: 			by temporarily restricting tpool concurrency.
+1617: 			*/
+1618: 			srv_thread_pool->set_concurrency(srv_n_read_io_threads);
+1619: 
+1620: 			mysql_mutex_lock(&recv_sys.mutex);
+1621: 			recv_sys.apply(true);
+1622: 			mysql_mutex_unlock(&recv_sys.mutex);
+1623: 
+1624: 			srv_thread_pool->set_concurrency();
+1625: 
+1626: 			if (recv_sys.is_corrupt_log()
+1627: 			    || recv_sys.is_corrupt_fs()) {
+1628: 				return(srv_init_abort(DB_CORRUPTION));
+1629: 			}
+1630: 
+1631: 			if (srv_operation != SRV_OPERATION_RESTORE
+1632: 			    || recv_needed_recovery) {
+1633: 			}
+1634: 
+1635: 			DBUG_PRINT("ib_log", ("apply completed"));
+1636: 
+1637: 			if (srv_operation != SRV_OPERATION_RESTORE) {
+1638: 				err = srv_load_tables(must_upgrade_ibuf);
+1639: 				if (err != DB_SUCCESS) {
+1640: 					return srv_init_abort(err);
+1641: 				}
+1642: 
+1643: 				err = trx_lists_init_at_db_start();
+1644: 				if (err != DB_SUCCESS) {
+1645: 					return srv_init_abort(err);
+1646: 				}
+1647: 
+1648: 				if (recv_needed_recovery) {
+1649: 					trx_sys_print_mysql_binlog_offset();
+1650: 				}
+1651: 			} else if (recv_needed_recovery) {
+1652: 				err = trx_lists_init_at_db_start();
+1653: 				if (err != DB_SUCCESS) {
+1654: 					return srv_init_abort(err);
+1655: 				}
+1656: 				trx_sys_print_mysql_binlog_offset();
+1657: 			}
+1658: 		}
+1659: 
+1660: 		fil_system.space_id_reuse_warned = false;
+
+storage/innobase/srv/srv0start.cc @ 83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e
+1680: 		if (!srv_read_only_mode) {
+1681: 			const uint32_t flags = FSP_FLAGS_PAGE_SSIZE();
+1682: 			for (uint32_t id = srv_undo_space_id_start;
+1683: 			     id <= srv_undo_tablespaces; id++) {
+1684: 				if (fil_space_t* space = fil_space_get(id)) {
+1685: 					fsp_flags_try_adjust(space, flags);
+1686: 				}
+1687: 			}
+1688: 
+1689: 			if (sum_of_new_sizes > 0) {
+1690: 				/* New data file(s) were added */
+1691: 				mtr.start();
+1692: 				mtr.x_lock_space(fil_system.sys_space);
+1693: 				buf_block_t* block = buf_page_get(
+1694: 					page_id_t(0, 0), 0,
+1695: 					RW_SX_LATCH, &mtr);
+1696: 				/* The first page of the system tablespace

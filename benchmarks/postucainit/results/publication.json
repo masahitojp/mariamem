@@ -1,0 +1,9 @@
+{
+  "full_observation_replay_equals_compact": true,
+  "numeric_reducer_ast_equal": true,
+  "original_analyzer_sha256": "34654008d742977e928338b55480e3087dfac85da7fd907519ea684017507305",
+  "published_analyzer_sha256": "25836d1bbcb30d65e197376e44cef7401976077936f1aae9b254ba9c82614d3a",
+  "adapter_change": "lossless event-name dictionary loader only; numerical functions unchanged",
+  "private_workspace_prefix": "not published; input build_info uses <WORKSPACE>",
+  "compact_roundtrip_checked": true
+}

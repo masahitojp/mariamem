@@ -1,0 +1,12 @@
+{
+  "latest_lifecycle": "5792b9788bf90c311893582e1e0196a775738ade",
+  "latest_raw_has_init_markers": false,
+  "latest_raw_process_sha256": "49ba049470ad4ae852de96955cc4f53d149fabf35b1c50c28a8172ea366e948c",
+  "previous_uca_stages_source": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "previous_stages_have_initialization": false,
+  "previous_stages_guest_keys": [
+    "version",
+    "clock",
+    "events"
+  ]
+}

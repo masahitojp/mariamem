@@ -1,0 +1,19 @@
+{
+  "original_observations_sha256": "878d3c79fe8ca8749acc663f127ade6dccad1bbe0cf140a3cfa8f328952139df",
+  "original_archive_sha256": "346cb9b38896b9cef64c9eb4619d1e9617d8cd9824100c98c29687b4d12a862c",
+  "retained": "all18 processes, all samples/spans/oracles, every initialization stage event including duplicate plugin invocations, resource deltas in separate archive",
+  "local_full_observations": "../observations-full.json.gz",
+  "undo_archives": {
+    "on-p1-r1-primary-undo.tar.gz": "6ed9d95e9b1f6a7173e933f2bfe1a6dedb6334a594d9f5f4b457cbc033fb45c4",
+    "on-p1-r0-primary-undo.tar.gz": "09304ae21d91965a96023934025687be9f76035eed1b5ab07e42596bf1b2221e",
+    "on-p4-r-1-warmup-undo.tar.gz": "f9d6fe56a6c784064f4229b091b53af625fdf6eab2f112c8d8e899f791f0df43",
+    "on-p1-r2-primary-undo.tar.gz": "e7ded85e73f931170fef29e4ee4bbdaec6abc046d5f545d83c6eea62468154fb",
+    "on-p4-r2-primary-undo.tar.gz": "d6232d74e2845ce1ef7f26f7a617d0c5bae09b3da76e5ac3a2b7e72532020fa3",
+    "on-p1-r-1-warmup-undo.tar.gz": "da39885535ebeaadd1f1388e44695e025f81de2298af78bd6d1e154d8bc225ba",
+    "on-p4-r0-primary-undo.tar.gz": "5c82c793536cc9cc2da25198766603c354d28cc371d0689c10847d6b11c8354e",
+    "on-p4-r1-primary-undo.tar.gz": "f997bf67c1a420d1010bbafc75a3271c42fe15d3885a3ab6a79e2c09e209e907",
+    "on-p4-r-2-pilot-undo.tar.gz": "30d0cc27fe368e65cc6236dd5ef7f051cf5502717eebaff7f8b10135e57cd898",
+    "on-p1-r-2-negative-undo.tar.gz": "9a3ae1640e8422e4ee4b048962fa1ae7dadcd9c18771318df40876e6cf2b0177"
+  },
+  "compact_observations_sha256": "5a7701ecf001a55c03e953d81a2f14661f42be39c68f10142bb3928120744ced"
+}

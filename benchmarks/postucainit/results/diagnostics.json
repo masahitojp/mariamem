@@ -1,0 +1,10 @@
+{
+  "children": 389,
+  "purge_scopes": 100224,
+  "purge_aborts": 0,
+  "query_rseg_waits": 3,
+  "background_page_waits": 6,
+  "links": 0,
+  "max_events_per_child": 2773,
+  "scope": "all observer-on processes, including pilots and warmups; not primary performance or #68 investigation"
+}
