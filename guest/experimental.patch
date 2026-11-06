@@ -170,7 +170,7 @@
 +#include "mariamem_wire_probe.inc"
 --- /dev/null
 +++ b/libmysqld/mariamem_control_abi.h
-@@ -0,0 +1,17 @@
+@@ -0,0 +1,18 @@
 +#pragma once
 +#include <cstddef>
 +#include <cstdint>
@@ -190,7 +190,7 @@
 +extern "C" unsigned long mariamem_spike_decode_count();
 --- /dev/null
 +++ b/libmysqld/mariamem_wire_probe.inc
-@@ -0,0 +1,113 @@
+@@ -0,0 +1,120 @@
 +/* Experiment-only native entry. All normal protocol bytes come from upstream. */
 +#include "sql_acl.h"
 +#include "sql_parse.h"
@@ -269,7 +269,14 @@
 +  int result=0;
 +  if(my_net_init(&thd->net,vio,thd,MYF(MY_THREAD_SPECIFIC)))result=11;
 +  if(io->event(io->ctx,REGISTER_THD,thd,0))result=17;
-+  if(!result && acl_authenticate(thd,0))result=12;
++  if(!result && acl_authenticate(thd,0)) {
++    result=12;
++    // A native login rejection must be flushed and ACKed before RETIRED
++    // closes the host transport, just like an established command response.
++    thd->protocol->end_statement();
++    if(!net_flush(&thd->net))
++      io->event(io->ctx,CONNECTION_COMPLETE,thd,thd->server_status);
++  }
 +  else if(!result) {
 +    // The product ignores placeholder credentials and executes as its fixed root.
 +    my_free(const_cast<char *>(s->user));s->user=my_strdup(PSI_NOT_INSTRUMENTED,"root",MYF(0));
@@ -330,7 +337,15 @@
    void setup_conversion(THD *thd, uchar param_type);
 --- a/sql/net_serv.cc
 +++ b/sql/net_serv.cc
-@@ -53,7 +53,7 @@
+@@ -36,6 +36,7 @@
+  */
+ 
+ #include "mariadb.h"
++#include "mariamem_wire_policy.h"
+ #include <mysql.h>
+ #include <mysql_com.h>
+ #include <mysqld_error.h>
+@@ -53,7 +54,7 @@
  PSI_memory_key key_memory_NET_buff;
  PSI_memory_key key_memory_NET_compress_packet;
  
@@ -339,7 +354,23 @@
  #undef MYSQL_SERVER
  #undef MYSQL_CLIENT
  #define MYSQL_CLIENT
-@@ -950,6 +950,15 @@
+@@ -414,6 +415,15 @@
+ 
+   if (unlikely(!net->vio)) /* nowhere to write */
+     return 0;
++
++  if (net->thd && static_cast<THD*>(net->thd)->mariamem_native_wire &&
++      !mariamem_wire_output_allowed(len))
++  {
++    // No header, sequence advance or body bytes for this packet were emitted.
++    // Leave NET usable so the normal diagnostic path can send its native ERR.
++    MYSQL_SERVER_my_error(ER_NET_PACKET_TOO_LARGE, MYF(0));
++    return 1;
++  }
+ 
+   MYSQL_NET_WRITE_START(len);
+ 
+@@ -950,6 +960,15 @@
  #endif
  
        len= uint3korr(net->buff + net->where_b);
@@ -566,7 +597,15 @@
  public:
 --- a/sql/sql_acl.cc
 +++ b/sql/sql_acl.cc
-@@ -115,6 +115,11 @@
+@@ -26,6 +26,7 @@
+ */
+ 
+ #include "mariadb.h"                          /* NO_EMBEDDED_ACCESS_CHECKS */
++#include "mariamem_wire_policy.h"
+ #include "sql_priv.h"
+ #include "sql_acl.h"         // MYSQL_DB_FIELD_COUNT, ACL_ACCESS
+ #include "sql_base.h"                           // close_mysql_tables
+@@ -115,6 +116,11 @@
  
  static plugin_ref get_auth_plugin(THD *thd, const LEX_CSTRING &name, bool *locked)
  {
@@ -578,7 +617,7 @@
    if (name.str == native_password_plugin_name.str)
      return native_password_plugin;
    else if (name.str == old_password_plugin_name.str)
-@@ -13761,6 +13766,11 @@
+@@ -13761,6 +13767,11 @@
     MySQL authentication plugins.
  ****************************************************************************/
  
@@ -590,7 +629,7 @@
  /* few defines to have less ifdef's in the code below */
  #ifdef EMBEDDED_LIBRARY
  #undef HAVE_OPENSSL
-@@ -13918,6 +13928,9 @@
+@@ -13918,6 +13929,9 @@
      data_len= SCRAMBLE_LENGTH;
    }
  
@@ -600,7 +639,7 @@
    end= strnmov(end, server_version, SERVER_VERSION_LENGTH) + 1;
  
    int4store((uchar*) end, mpvio->auth_info.thd->thread_id);
-@@ -14425,7 +14438,7 @@
+@@ -14425,7 +14439,7 @@
  }
  
  
@@ -609,7 +648,7 @@
  /**
    Check that a client uses secure connection type in case the option
    require_secure_transport is on.
-@@ -14457,7 +14470,7 @@
+@@ -14457,7 +14471,7 @@
  static ulong parse_client_handshake_packet(MPVIO_EXT *mpvio,
                                             uchar **buff, ulong pkt_len)
  {
@@ -618,7 +657,21 @@
    THD *thd= mpvio->auth_info.thd;
    NET *net= &thd->net;
    char *end;
-@@ -14491,4 +14491,8 @@
+@@ -14474,6 +14488,12 @@
+ 
+   ulonglong client_capabilities= uint2korr(net->read_pos);
+   compile_time_assert(sizeof(client_capabilities) >= 8);
++  if (!mariamem_wire_handshake_allowed(client_capabilities))
++  {
++    my_error(ER_NOT_SUPPORTED_YET, MYF(0), "connection capabilities");
++    return packet_error;
++  }
++
+   if (client_capabilities & CLIENT_PROTOCOL_41)
+   {
+     if (pkt_len < 32)
+@@ -14490,6 +14510,10 @@
+ 
    /* Disable those bits which are not supported by the client. */
    compile_time_assert(sizeof(thd->client_capabilities) >= 8);
 +  // Accept the local endpoint's optional FOUND_ROWS without advertising it.
@@ -627,7 +680,8 @@
 +    thd->client_capabilities|= CLIENT_FOUND_ROWS;
    thd->client_capabilities&= client_capabilities;
  
-@@ -14675,6 +14688,7 @@
+   DBUG_PRINT("info", ("client capabilities: %llu", thd->client_capabilities));
+@@ -14675,6 +14699,7 @@
      return packet_error;
    }
  
@@ -635,7 +689,7 @@
    thd->password= passwd_len > 0;
    if (find_mpvio_user(mpvio))
      return packet_error;
-@@ -14751,8 +14765,12 @@
+@@ -14751,8 +14776,12 @@
    *buff= (uchar*) passwd;
    return (ulong)passwd_len;
  #else
@@ -649,7 +703,6 @@
  }
  
  
-
 --- a/sql/sql_class.cc
 +++ b/sql/sql_class.cc
 @@ -710,10 +710,11 @@
@@ -704,7 +757,15 @@
  
 --- a/sql/sql_parse.cc
 +++ b/sql/sql_parse.cc
-@@ -1176,7 +1176,7 @@
+@@ -16,6 +16,7 @@
+ 
+ #define MYSQL_LEX 1
+ #include "mariadb.h"
++#include "mariamem_wire_policy.h"
+ #include "sql_priv.h"
+ #include "sql_parse.h"        // sql_kill, *_precheck, *_prepare
+ #include "lock.h"             // try_transactional_lock,
+@@ -1176,7 +1177,7 @@
  }
  #endif /* WITH_WSREP */
  
@@ -713,7 +774,7 @@
  static enum enum_server_command fetch_command(THD *thd, char *packet)
  {
    enum enum_server_command
-@@ -1434,6 +1434,10 @@
+@@ -1434,6 +1435,10 @@
    DBUG_ASSERT(!thd->apc_target.is_enabled());
  
  resume:
@@ -724,6 +785,19 @@
    return_value= dispatch_command(command, thd, packet+1,
                                   (uint) (packet_length-1), blocking);
    if (return_value == DISPATCH_COMMAND_WOULDBLOCK)
+@@ -1707,6 +1712,12 @@
+                command != COM_STMT_CLOSE))
+   {
+     my_error(ER_MUST_CHANGE_PASSWORD, MYF(0));
++    goto dispatch_end;
++  }
++
++  if (thd->mariamem_native_wire && !mariamem_wire_command_allowed(command))
++  {
++    my_error(ER_NOT_SUPPORTED_YET, MYF(0), "command");
+     goto dispatch_end;
+   }
+ 
 --- a/sql/sql_prepare.cc
 +++ b/sql/sql_prepare.cc
 @@ -118,6 +118,8 @@
@@ -1405,3 +1479,35 @@
 + fprintf(stderr,"NATIVE_STOP mode=%s started=%llu joined=%llu cleanup_failed=%u\n",capture?"capture":"ordinary",(unsigned long long)manager.started,(unsigned long long)manager.joined,unsigned(manager.cleanupFailed));
 + return ok?0:21;
 +}
+
+--- a/sql/mariamem_wire_policy.h
++++ b/sql/mariamem_wire_policy.h
+@@ -0,0 +1,28 @@
++// The local native profile constrains already-decoded values. No wire parser,
++// parameter registry, transport state or response serializer belongs here.
++#ifndef MARIAMEM_WIRE_POLICY_H
++#define MARIAMEM_WIRE_POLICY_H
++#include <stddef.h>
++#include <stdint.h>
++static inline bool mariamem_wire_command_allowed(unsigned command)
++{
++  switch (command) {
++  case 1: case 2: case 3: case 14: case 22:
++  case 23: case 24: case 25: case 26: case 27:
++    return true;
++  default:
++    return false;
++  }
++}
++static inline bool mariamem_wire_handshake_allowed(uint64_t flags)
++{
++  // Require PROTOCOL_41; reject SSL before server/client capability intersection.
++  // Other unadvertised extension bits retain their existing masked behavior.
++  return (flags & 512U) != 0 && (flags & 2048U) == 0;
++}
++static inline bool mariamem_wire_output_allowed(size_t payload)
++{
++  // A logical packet may never enter upstream continuation framing.
++  return payload <= 0xfffffeUL;
++}
++#endif
