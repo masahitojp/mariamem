@@ -26,8 +26,11 @@ controlled failures from native execution. The earlier
 [3C evidence](../benchmarks/spikes/issue65-go-wire/README.md) keeps its own scope.
 Linux x86_64, Live, public API/CI integration and protocol/consumer acceptance
 remain unqualified. Existing production-guest Go test bindings need adaptation
-before adopting a different guest. No main integration, release, or fatal-wire
-contract change is selected; further campaigns are separate Human choices.
+before adopting a different guest. The Human selected the continuation order on2026-11-06: native Linux repeat,
+then Live, compatibility/contracts, and productization/performance. The bounded
+[Linux probe](../benchmarks/spikes/issue65-native-linux/plan.md) is the next selected
+campaign; CI submission is not a Linux PASS. No main integration, release, or fatal-wire
+contract choice is implied by that ordering.
 
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 
