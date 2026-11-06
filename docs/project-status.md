@@ -43,15 +43,23 @@ ordinary-disposal and permanent capture-debt controls retain their model context
 The guest and baseline host bundle are unchanged; two Live template files are
 added. Both owned workspaces and the transfer WASM were disposed.
 
-The Human moved to compatibility/contracts and expressed a preference for
-host-owned stateful coordination. The [contract proposal](design/issue65-native-protocol/contracts.md)
-separates host lifecycle/resource policy from authoritative guest SQL/NET state.
-Fatal established-session EOF, pinned-native malformed EXECUTE behavior and
-removal of the obsolete internal envelope limit remain proposed product choices,
-not approved exceptions. Controller relocation is future productization work.
-Public API integration, full protocol/consumer acceptance, race and performance
-remain unqualified. No main integration, release, or fatal-wire contract adoption
-is selected by proceeding to this stage.
+The Human moved to compatibility/contracts, prefers host-owned stateful
+coordination, and on2026-11-06 approved all three recommended changes in the
+[native wire decision](decisions/issue65-native-wire-contract.md): transport close
+on fatal established-session failure with original cause/cleanup state retained
+by the mariamem owner, the named pinned-native malformed EXECUTE exception, and
+removal of the obsolete internal32MiB envelope limit from streaming while
+retaining client SQL/command/output-packet bounds.
+
+The [contract and ownership boundary](design/issue65-native-protocol/contracts.md)
+retains authoritative SQL/NET/THD state in guest and lifecycle/resource policy in
+host. Custom C++ controller code should shrink; removal of all custom C++ is not
+proven, and MariaDB's native implementation remains. Controller relocation is
+future productization work. The approved behavior still needs native-route
+implementation and compatibility evidence. Public API integration, full protocol/
+consumer acceptance, race and performance remain unqualified. Existing stable
+behavior/tests are unchanged; this decision does not adopt the candidate on main
+or select a release.
 
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 

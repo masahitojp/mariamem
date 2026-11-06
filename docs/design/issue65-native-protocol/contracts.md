@@ -1,31 +1,36 @@
-# Issue65 — compatibility contract and host/guest ownership proposal
+# Issue65 — compatibility contract and host/guest ownership
 
-2026-11-06. **Contract proposal; no runtime changes or adoption.**
-The Human selected compatibility/contracts after Linux and Live, and asked to
-prefer the host for stateful coordination. This document makes that preference
-concrete without treating every guest state as movable. It records proposed
-observable behavior and the evidence needed to accept it. It is not a second
-issue checklist or authorization to relocate the controller wholesale.
+2026-11-06. **D1–D3 approved for the native endpoint; implementation and
+compatibility acceptance remain pending.** The Human accepted all three
+recommendations after discussing SQL-client connection loss and owner-side
+error reporting. The [decision](../../decisions/issue65-native-wire-contract.md)
+records the approval and its scope. The original proposal is preserved at
+source_commit `a1dfa69a4727fcedcd4b5a7ba46b8acb0fa1a610`.
 
-**Decision needed:** accept the three observable changes in the table below as
-conditions of the native endpoint, or require a different disposition before
-implementation. Recommend host-owned resource policy with guest-owned atomic SQL
-admission, native normal wire semantics, and EOF after fatal instance failure.
-The decisive reason is that host lifecycle ownership already works through the
-unchanged Live endpoint, while an opaque relay cannot safely synthesize an ERR
-inside an arbitrary native response. The strongest objection is compatibility:
-existing clients/tests can rely on a server ERR containing the original cause.
-That is a real contract change, requiring explicit approval, not test cleanup.
+The Human selected compatibility/contracts after Linux and Live, and prefers
+host-owned stateful coordination. Host owns lifecycle/resource policy; guest
+retains authoritative native SQL admission and session state. Native normal wire
+semantics and transport close after fatal instance failure avoid synthesizing ERR
+inside an arbitrary native response. Wire-only clients lose the original-cause
+message; the owning mariamem object/diagnostics must retain that cause and cleanup
+state. This approved tradeoff is not yet a verified public API implementation.
 
-| Proposed change requiring Human decision | Recommendation and consequence |
+| Approved change | Contract and consequence |
 | --- | --- |
 | D1: fatal failure after a native session starts | Close every transport of that instance; preserve the first cause and cleanup disposition through the owner API/diagnostics. Do not guarantee a server ERR2013/HY000 or its message on an established stream. Keep bounded host pre-login rejection separately. Wire-only consumers lose the original-cause message. |
 | D2: malformed EXECUTE string whose length exceeds remaining bytes | Retain the pinned native decoder's observed empty-string acceptance, explicitly named as an exception. Do not duplicate the parameter decoder in Go. A stricter rule would require a minimal guest/upstream change and separate evidence. |
 | D3: old internal JSON/typed bridge envelope | Remove that representation's 32MiB limit from the new streaming route; retain the separate client command/SQL/output-packet bounds. Do not invent an equivalent aggregate byte limit or claim bounded total SQL/RSS. Large aggregate results may complete where the old representation failed; limits must be documented and measured. |
 
-Until selected, D1–D3 remain **PROPOSED**. The stable product contract and legacy
-regressions remain in force. Host preference does not by itself approve these
-observable changes, new commands, client profiles or production integration.
+D1–D3 are **APPROVED** for the future native route. The running stable product
+and its legacy regressions remain unchanged until implementation and verification.
+This approval adds no commands, client profiles, main integration or release.
+
+“Owner” means the host-side mariamem DB/Live resource owner that starts/stops the
+instance and retains disposal responsibility, not the SQL username or ORM pool.
+The SQL driver observes connection loss (wording depends on the driver/transport);
+the mariamem management side must expose the original failure and cleanup state.
+Ordinary SQL errors still use native ERR and permit subsequent commands where
+specified; they are not reclassified as fatal instance failure.
 
 ## Source and evidence boundary
 
@@ -50,7 +55,7 @@ all prepared edges, 17th-connection behavior, overflow parity, or race freedom.
 Some failure controls are explicit models, as the original reports state.
 The [original design](README.md) and [capture design](snapshot-fork.md) retain
 their original decision/evidence context. No historical pending claim is silently
-relabelled as acceptance of this contract proposal.
+relabelled as acceptance of this approved contract.
 
 Compatibility basis: the inspected source's
 [wire contract](../../decisions/v060-wire-contract.md),
@@ -86,19 +91,29 @@ A future direct callback/shim must be a separate small proof of ownership,
 blocking/wakeup, cancellation and join behavior. It must not simultaneously change
 protocol semantics, controller placement and the measured baseline.
 
+The custom C++ Manager can therefore shrink substantially: host-side admission,
+identity allocation, queue policy and lifecycle orchestration need not remain in
+that proof controller. This does not remove MariaDB's own C/C++ or establish that
+all custom C++ can disappear. Memory-Vio callbacks, native initialization/cleanup,
+THD/NET and buffered-input hooks, the atomic SQL gate, rollback observation and
+native cancellation/join mechanics still need a guest-side boundary. Scheduling
+or tracking their work can move independently from the native operations they
+control. The amount removable is not measured; retain correctness/ownership
+proofs while moving one boundary at a time.
+
 ## Observable compatibility profile
 
-The entries below are contract requirements or explicitly proposed exceptions,
+The entries below are contract requirements or explicitly approved exceptions,
 not claims that the present fixture implements every row. Native decode/policy
 hooks enforce guest-side requirements; the host never parses normal MySQL packets.
 
-| Boundary | Proposed disposition | Required native-route evidence before adoption |
+| Boundary | Target disposition | Required native-route evidence before adoption |
 | --- | --- | --- |
 | Credentials and identity | Preserve placeholder username/password acceptance, canonical root SQL identity and existing full local test privileges. Preserve default returned root/empty credentials. No account authentication promise. | Rebind the credential matrix, empty username, secure/legacy response, initial DB/charset, USER()/CURRENT_USER(), malformed login and follow-up SQL. |
 | Capabilities | Preserve bits1,4,8,512,8192,32768,65536,131072,524288; conditional PS_MULTI_RESULTS262144 only for validated prepared execution. Preserve accepted FOUND_ROWS2 behavior; no upstream default leakage. | Capture greeting and negotiated subsets; text/prepared multi-results, FOUND_ROWS status/affected rows, malformed required flags. Advertising bits alone does not prove negotiated behavior. |
 | Commands | Keep QUIT1, INIT_DB2, QUERY3, PING14, PREPARE22, EXECUTE23, LONG_DATA24, CLOSE25, STMT_RESET26, SET_OPTION27. | Guest native decoded-command allowlist and raw negative paths. RESET_CONNECTION31, STMT_FETCH28/cursors, LOCAL INFILE, admin/replication remain OUT. STMT_RESET and Live Reset do not enable RESET_CONNECTION. |
 | Login/output scope | Retain no TLS, compression, DEPRECATE_EOF or alternate auth; no packet continuation or multi-statement expansion. Normal packets come from native NET/Protocol. | Reject unsupported login/commands without desynchronizing supported subsequent work where the existing profile permits recovery. |
-| Prepared session state | Keep alias0xffffffff, zero-parameter flags, signed/unsigned/NULL/NUL/temporal values, type reuse, session isolation, RESET and long-data error lifetime. Native owns the state. | Raw vectors for explicit/alias IDs, failed/new prepare invalidation, CLOSE/RESET short and surplus bodies, unknown handles, invalid index/deferred error, RESET clearing and following-query oracles. D2 is the named proposed exception. |
+| Prepared session state | Keep alias0xffffffff, zero-parameter flags, signed/unsigned/NULL/NUL/temporal values, type reuse, session isolation, RESET and long-data error lifetime. Native owns the state. | Raw vectors for explicit/alias IDs, failed/new prepare invalidation, CLOSE/RESET short and surplus bodies, unknown handles, invalid index/deferred error, RESET clearing and following-query oracles. D2 is the named approved exception. |
 | No-response commands | QUIT/CLOSE/LONG_DATA do not gain a synthetic response. Completion is native dispatch/lifecycle completion. | Chain the next PING/EXECUTE/QUERY immediately; compare response sequence, results, handle lifetime and retirement, not merely absence of an error. |
 | Client input limits | Preserve1MiB SQL, nonzero command payload <=1,048,577 bytes and command-specific EXECUTE/LONG_DATA bounds. Reject continuation at every NET header, including warm buffers, before allocation/read. | Boundary and max+1 cases for each command; native decoded lengths and existing typed-codec limits as source anchors. A blanket NET cap is insufficient. |
 | Pipeline / disconnect | Preserve serial execution and ordered responses, cumulative pending raw input1,048,581 bytes per physical connection, overflow aborting that instance, monitoring EOF even at a full window. | Deterministically hold SQL/output, fill exact budget, inject one extra byte or peer EOF, require bounded failure and an independent DB still usable. Include TCP and Pipe. No host command parser is needed to count raw outstanding bytes. |
@@ -153,8 +168,7 @@ These are source observations at43d96a62, not newly executed negative tests.
 
 ## Proceeding conditions and cost
 
-First obtain the D1–D3 dispositions and agreement on the responsibility boundary.
-Then run one bounded compatibility experiment, initially2h active/tooling30min,
+The D1–D3 Human decision is complete. Next run one bounded compatibility experiment, initially2h active/tooling30min,
 at most2 heavy CI submissions, owned12GiB/free floor12GiB per builder/runtime.
 Reuse the fixed guest only for observations it can make; any policy patch gets a
 new guest identity and separate old/new evidence. Start with raw handshake/caps,

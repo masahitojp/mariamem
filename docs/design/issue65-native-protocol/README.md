@@ -6,6 +6,11 @@ steps 1 and 2. This document authorizes no implementation, adoption or release.
 Subsequent evidence: [3C generated-Go execution](../../../benchmarks/spikes/issue65-go-wire/README.md)
 and the [3D stopped-root design](snapshot-fork.md). The original proposal below
 retains its original evidence/decision context.
+Later decision: the Human approved the three native-route contract dispositions
+on2026-11-06; see the [decision](../../decisions/issue65-native-wire-contract.md)
+and [current compatibility contract](contracts.md). Open product choices in the
+historical proposal below describe its original date, not a remaining approval
+request. Implementation and compatibility acceptance are still pending.
 
 ## Recommendation and decision boundary
 
