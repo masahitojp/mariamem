@@ -15,10 +15,10 @@ HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[2]
 OLD_FIX=HERE.parent/'issue65-compat-fixes'
 LIMITS_FIXTURE_SHA256='808fe47bd4ee69f8e80b9702170429b1cfe56d2cbd83d3721c184bdb3cc16549'
-GUEST_SOURCE='b2d9a2a6e37ed7dd3149b6c85f8908d8d11df17a'
+GUEST_SOURCE='be244a0bdb510a22417241c2aa2f76a9093aac1b'
 HOST_SOURCE=GUEST_SOURCE
-GUEST_SHA='a75416e3b677b83fb9fca4d213dd67ec32c1e1732939d275866183828aa868ee'
-SOURCE_REFERENCE_SHA256='260d3983e797791bb84e61380bde57a07d6f3a65c3607d4790bc794cf9ef5562'
+GUEST_SHA='PENDING_P1_TIMEOUT_GUEST'
+SOURCE_REFERENCE_SHA256='PENDING_P1_TIMEOUT_REFERENCE'
 spec=importlib.util.spec_from_file_location('linux_probe',HERE.parent/'issue65-native-linux/probe.py')
 base=importlib.util.module_from_spec(spec);spec.loader.exec_module(base)
 base.GUEST_SOURCE=GUEST_SOURCE;base.HOST_SOURCE=HOST_SOURCE;base.GUEST_SHA=GUEST_SHA
@@ -100,7 +100,7 @@ def tools(w,with_binding=True):
     from build_generated_guest import download
     pin=json.loads((w/'worktree/release/generated-go-toolchain.json').read_text())['archives']['converter']
     download(pin,w/'worktree/build/downloads')
-    for name in ('main.go.txt','runtime_wire.go.txt','completion_probe.go.txt','owner_native_test.go.txt','lifetime_overlay.py'):
+    for name in ('main.go.txt','runtime_wire.go.txt','completion_probe.go.txt','owner_native_test.go.txt','timeout_native_test.go.txt','timeout_contract_test.go.txt','lifetime_overlay.py'):
         shutil.copy2(HERE/name,dest/name)
     for name in ('owner.go','owner_test.go'):
         shutil.copy2(ROOT/'internal/nativewire'/name,dest/(name+'.txt'))
@@ -207,7 +207,7 @@ def execute(w,compare_reference=True):
                    'compared_go_assembly_data_files':compared,'different_files':different,
                    'reference_adjustments':[]})
         if different:raise ValueError('compiled code differs from reviewed macOS source bundle')
-        result['source_reference_status']='MATCHED_P1_OWNER_REFERENCE'
+        result['source_reference_status']='MATCHED_P1_TIMEOUT_REFERENCE'
     else:
         result['source_reference_status']='LOCAL_REFERENCE_CANDIDATE'
     base.save(w/'evidence/tooling.json' ,{'probe_sha256':base.sha(Path(__file__)),
@@ -222,7 +222,7 @@ def execute(w,compare_reference=True):
     result['lifetime_cases']=10
     result['native_fault_controls']=3
     result['ready']=result['ready'] and limits_result['ready'] and g1_result['ready']
-    result['result']='PASS scoped native P1-a baseline' if result['ready'] else 'NOT_READY: native P1-a baseline'
+    result['result']='PASS scoped native P1-b baseline' if result['ready'] else 'NOT_READY: native P1-a baseline'
     base.save(w/'evidence/result.json',result)
     if not result['ready']:raise ValueError(result['result'])
 def build(w):

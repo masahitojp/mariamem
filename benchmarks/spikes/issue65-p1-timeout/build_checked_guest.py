@@ -17,7 +17,7 @@ def main():
             subprocess.run([sys.executable,HERE/'check_source.py','--source',repo/'build/source/sql/sql_prepare.cc','--output',output],check=True)
             shutil.copy2(output/'result.json',w/'evidence/source-seams.json')
             controls=w/'temp/controller-controls'
-            subprocess.run([sys.executable,HERE/'controller_controls.py','--source',repo/'build/source/wasm/issue65_control.cc','--output',controls],check=True)
+            subprocess.run([sys.executable,HERE/'check_timeout.py','--source',repo/'build/source/wasm/issue65_control.cc','--header',repo/'build/source/wasm/issue65_deadline.h','--output',controls],check=True)
             shutil.copy2(controls/'result.json',w/'evidence/controller-controls.json');checked.append(True)
         return result
     builder.observed_run=run

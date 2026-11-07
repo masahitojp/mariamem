@@ -1,7 +1,7 @@
 from pathlib import Path
 import re,json,hashlib,sys
 w=Path('.');repo=w/'worktree';root=w/'temp/host/candidate/module/generated';sys.path.insert(0,str(repo/'scripts'));from runtime_thread_lifetime import function
-previous=json.loads((Path(__file__).resolve().parent.parent/'issue65-g2-repair/binding/identity.json').read_text());canonical=json.loads((repo/'tests/fixtures/prepared-p2-binding/identity.json').read_text());dest=w/'evidence/reviewed-binding';dest.mkdir(exist_ok=True);p=dest/'identity.json';functions={};comparisons={}
+previous=json.loads((Path(__file__).resolve().parent.parent/'issue65-p1-owner/binding/identity.json').read_text());canonical=json.loads((repo/'tests/fixtures/prepared-p2-binding/identity.json').read_text());dest=w/'evidence/reviewed-binding';dest.mkdir(exist_ok=True);p=dest/'identity.json';functions={};comparisons={}
 def shape(text):
  text=re.sub(r'\bFn\d+\b','FN',text);text=re.sub(r'(?<![A-Za-z0-9_])\d+\b','NUMBER',text);return re.sub(r'\s+','',text)
 index={}
