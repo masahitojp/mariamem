@@ -1,0 +1,15 @@
+sql/sql_show.cc:1655:    if (length == 1 && !system_charset_info->ident_map[chr])
+sql/sql_cache.cc:2574:  query_state_map= my_charset_latin1.state_map;
+sql/sql_lex.cc:2041:  const uchar *const state_map= cs->state_map;
+sql/sql_lex.cc:2042:  const uchar *const ident_map= cs->ident_map;
+sql/sql_lex.cc:2669:  const uchar *const ident_map= cs->ident_map;
+sql/sql_lex.cc:2818:  const uchar *const ident_map= cs->ident_map;
+sql/sql_lex.cc:2855:  const uchar *const ident_map= cs->ident_map;
+sql/sql_lex.cc:2856:  const uchar *const state_map= cs->state_map;
+sql/simple_tokenizer.h:140:    for ( ; str < end && m_cs->ident_map[(uchar) *str]; str++, res.length++)
+sql/simple_tokenizer.h:155:    for ( ; m_cs->ident_map[(uchar) *str]; )
+sql/log_event_server.cc:2037:        if (!cs->state_map)
+sql/sql_table.cc:1318:  const uchar *const state_map= thd->charset()->state_map;
+mysys/charset.c:66:  if (!(cs->state_map= state_map= (uchar*) my_once_alloc(256*2, MYF(MY_WME))))
+mysys/charset.c:69:  cs->ident_map= ident_map= state_map + 256;
+mysys/charset.c:733:      if (cs[0]->m_ctype && !cs[0]->state_map)

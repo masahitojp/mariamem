@@ -1,0 +1,17 @@
+{
+  "product_source_commit": "1862f4a89397bddfa1820d835106d3437a438cf7",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "generated_p3_sha256": "df1076eca2e4cb5fa8cce55ebc85fb672ed448a718780378c66cd6cb7dbe482c",
+  "page_scope": "Fn18164 L272: Fn16621(m,v985), v985=v899+24; v899 is fixed buf_page_t",
+  "offsets": {
+    "page_id_low_page": 0,
+    "page_id_high_space": 4,
+    "writer_mutex": 24,
+    "readers": 148,
+    "writer_owner": 156,
+    "zip_fix_state": 172
+  },
+  "excluded": "recursive at152 is not atomic: do not sample concurrently",
+  "FOR_IO": 4294967295,
+  "source_basis": "Pinned sux_lock.h FOR_IO and writer; buf0buf.h READ_FIX=4<<29 WRITE_FIX=6<<29; current Fn17227 packs page|space<<32 and current Fn18164 compares block+0 against requested page_id; loads156 owner and172 state atomically."
+}
