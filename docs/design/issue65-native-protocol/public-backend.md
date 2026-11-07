@@ -27,13 +27,13 @@ consumer全profile/性能はP2、canonical生成物・常設CI・main候補整�
 
 | 現状 | 接続方針 |
 | --- | --- |
-| `mariamem.go:67` のprivate backendは既にDial/Close/Snapshot/Active/Capacity/Failureを持つが、startupは`:128`の具体的host.StartGeneratedと`:138`のs.Guest.Doneへ依存 | 既存の狭いprivate interfaceを保ち、factoryの内部service契約にPort/Done等を揃える。fakeへ不要な全methodを強制しない |
+| `mariamem.go:65` のprivate backendは既にDial/Close/Snapshot/Active/Capacity/Failureを持つが、startupは`:128`の具体的host.StartGeneratedと`:135`のs.Guest.Doneへ依存 | 既存の狭いprivate interfaceを保ち、factoryの内部service契約にPort/Done等を揃える。fakeへ不要な全methodを強制しない |
 | `connection.go:33` のDialContextはendpoint/contextを検査してbackendへ委譲。`internal/host/server.go:154`はcapacity errorをworker開始前に返す | native backendも同じ確定受付境界を使う。prototype pipeのwire ERR返却を公開Dialへ持ち込まない |
 | `internal/control/shared.go:48`は*host.Server。`:150`付近はbaselineからquery/startup/shutdownを継承 | 共通serviceへ変更し、既存Go/PythonのOptions/lease/late-response所有を維持 |
 | `internal/host/disposal.go:23`のdisposerと`internal/disposal/disposal.go:102`のRetain/Continueがlate join・削除を所有 | native backendも同じtyped ownerへ合流。plain join errorだけでStart/Closeから返さない |
-| `snapshot.go:117`のForkはs.optsを渡し、`:69`以降のcaptureDebtは永久debtを保護 | prototypeの固定5000ms forkや独自poolを移植しない。既存Snapshot/forklimitが唯一の親lease所有者 |
+| `snapshot.go:127`のForkはs.optsを渡し、`:69`以降のcaptureDebtは永久debtを保護 | prototypeの固定5000ms forkや独自poolを移植しない。既存Snapshot/forklimitが唯一の親lease所有者 |
 | `internal/live/endpoint.go:17`のChildは既にbyte relay用の抽象。physical drain→child disposal→replacement commitを持つ | endpointの世代・予約・retry・tombstoneを作り直さずnative childへつなぐ |
-| `cmd/mariamem-host/main.go:120`付近はGuest.PID/Doneへ直接依存 | shared controlに加えてstandalone host metadata/終了待ちもserviceへ移す。PIDの既存意味はguest.Process.PIDと照合して維持 |
+| `cmd/mariamem-host/main.go:120`付近はGuest.PID/Doneへ直接依存 | shared controlに加えてstandalone host metadata/終了待ちもserviceへ移す。PIDは`internal/guest/guest.go:121`のos.Getpid()という既存意味を維持 |
 
 ## 共通backendと依存方向
 
