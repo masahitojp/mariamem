@@ -1,0 +1,66 @@
+package base
+
+import (
+ "context"
+ "encoding/json"
+ "time"
+ "github.com/masahitojp/mariamem/internal/timing"
+)
+
+// One function-local recorder: no lookup, clock or log operation per undo slot.
+type RsegCost struct {
+ PageNS [4]int64 `json:"page_ns"`
+ PageCalls [4]int `json:"page_calls"`
+ UndoNS int64 `json:"undo_ns"`
+ UndoCalls int64 `json:"undo_calls"`
+ ScanNS int64 `json:"scan_ns"`
+ ScanInclusiveNS int64 `json:"scan_inclusive_ns"`
+ ScanCalls int64 `json:"scan_calls"`
+ Slots int64 `json:"slots"`
+ NullSlots int64 `json:"null_slots"`
+ Registered int64 `json:"registered"`
+ PageSize int32 `json:"page_size"`
+ Complete bool `json:"complete"`
+ ctx context.Context
+ now func()time.Time
+ scanAt time.Time
+ undoAtScan int64
+ pageMismatch bool
+}
+func RsegCostBegin(m *Module)*RsegCost {
+ v,ok:=openSpanContexts.Load(m.Threads);if !ok{return nil}
+ return &RsegCost{ctx:v.(context.Context),now:time.Now}
+}
+func(r *RsegCost)Page(kind int)func(){
+ if r==nil{return func(){}}
+ if kind<0 || kind>=4{panic("invalid rseg page category")}
+ at:=r.now();r.PageCalls[kind]++
+ return func(){r.PageNS[kind]+=r.now().Sub(at).Nanoseconds()}
+}
+func(r *RsegCost)Undo()func(){
+ if r==nil{return func(){}}
+ at:=r.now();r.UndoCalls++
+ return func(){r.UndoNS+=r.now().Sub(at).Nanoseconds()}
+}
+func(r *RsegCost)Register(){if r!=nil{r.Registered++}}
+func(r *RsegCost)ScanBegin(pageSize int32){
+ if r==nil{return}
+ if !r.scanAt.IsZero(){panic("nested rseg slot scan")}
+ if pageSize<4096 || pageSize>65536 || pageSize&(pageSize-1)!=0{panic("invalid rseg page size")}
+ if r.PageSize!=0 && r.PageSize!=pageSize{r.pageMismatch=true}
+ r.PageSize=pageSize;r.undoAtScan=r.UndoNS;r.scanAt=r.now()
+}
+func(r *RsegCost)ScanEnd(){
+ if r==nil{return}
+ if r.scanAt.IsZero(){panic("missing rseg slot scan begin")}
+ elapsed:=r.now().Sub(r.scanAt).Nanoseconds()
+ r.ScanInclusiveNS+=elapsed;r.ScanNS+=elapsed-(r.UndoNS-r.undoAtScan)
+ r.ScanCalls++;r.Slots+=int64(r.PageSize/16);r.scanAt=time.Time{}
+}
+func(r *RsegCost)Finish(){
+ if r==nil{return}
+ r.NullSlots=r.Slots-r.UndoCalls
+ r.Complete=r.scanAt.IsZero() && !r.pageMismatch && r.ScanCalls==r.Registered && r.ScanNS>=0 && r.NullSlots>=0
+ data,err:=json.Marshal(r);if err!=nil{panic(err)}
+ if r.ctx!=nil{timing.Mark(r.ctx,"innodb/rseg_cost/"+string(data))}
+}

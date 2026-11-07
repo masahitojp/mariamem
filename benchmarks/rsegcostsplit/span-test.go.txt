@@ -1,0 +1,22 @@
+package base
+import("context";"encoding/json";"strings";"testing";"time";"github.com/masahitojp/mariamem/internal/timing")
+func TestRsegCostNestedTimingAndCounts(t *testing.T){
+ now:=time.Unix(1,0);r:=&RsegCost{now:func()time.Time{return now}}
+ r.Register();r.ScanBegin(16384);now=now.Add(10*time.Nanosecond)
+ undo:=r.Undo();now=now.Add(20*time.Nanosecond);undo();now=now.Add(30*time.Nanosecond);r.ScanEnd()
+ page:=r.Page(2);now=now.Add(100*time.Nanosecond);page();r.Finish()
+ if !r.Complete || r.ScanNS!=40 || r.ScanInclusiveNS!=60 || r.UndoNS!=20 || r.Slots!=1024 || r.NullSlots!=1023 || r.PageNS[2]!=100 || r.PageCalls[2]!=1{t.Fatalf("%+v",r)}
+}
+func TestRsegCostIncompleteAndInvalid(t *testing.T){
+ now:=time.Unix(1,0);r:=&RsegCost{now:func()time.Time{return now}};r.Register();r.ScanBegin(16384);r.Finish();if r.Complete{t.Fatal("incomplete scan accepted")}
+ for _,f:=range []func(){func(){r.ScanBegin(16384)},func(){(&RsegCost{now:r.now}).ScanEnd()},func(){(&RsegCost{now:r.now}).ScanBegin(123)},func(){r.Page(4)}}{
+  caught:=false;func(){defer func(){caught=recover()!=nil}();f()}();if !caught{t.Fatal("invalid input accepted")}
+ }
+}
+func TestRsegCostOwnerAndDisabled(t *testing.T){
+ m:=&Module{Threads:&ThreadPool{}};r:=RsegCostBegin(m);if r!=nil{t.Fatal("unbound root observed")};r.Register();r.ScanBegin(1);r.ScanEnd();r.Page(0)();r.Undo()();r.Finish()
+ t.Setenv("MARIAMEM_TIMING_DIR",t.TempDir());var got timing.Trace
+ ctx,finish:=timing.Begin(timing.WithRecorder(context.Background(),func(x timing.Trace){got=x}),"startup")
+ OpenSpanBind(m,ctx,true);r=RsegCostBegin(m);r.Register();r.ScanBegin(16384);r.ScanEnd();r.Finish();OpenSpanUnbind(m);finish()
+ count:=0;for _,e:=range got.Events{if strings.HasPrefix(e.Name,"innodb/rseg_cost/"){count++;var v RsegCost;if err:=json.Unmarshal([]byte(strings.TrimPrefix(e.Name,"innodb/rseg_cost/")),&v);err!=nil || !v.Complete || v.NullSlots!=1024{t.Fatal(e,err)}}};if count!=1{t.Fatal(got)}
+}
