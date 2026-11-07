@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "<WORKSPACE>/worktree/benchmarks/spikes/generated-go-integration/translate_guest.py", line 77, in <module>
+    main()
+  File "<WORKSPACE>/worktree/benchmarks/spikes/generated-go-integration/translate_guest.py", line 50, in main
+    archive.extractall(converter, filter='data')
+TypeError: extractall() got an unexpected keyword argument 'filter'

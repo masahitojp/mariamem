@@ -1,0 +1,2 @@
+go: errors parsing go.mod:
+go.mod:10: syntax error (unterminated block started at <WORKSPACE>/temp/probe-baseline/go.mod:5:1)

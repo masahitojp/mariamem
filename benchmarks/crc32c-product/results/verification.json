@@ -1,0 +1,38 @@
+{
+  "source_commit": "1057adf8fb430f5540f9d4f420f6b3f6f2012aa9",
+  "go": "go version go1.26.10 darwin/arm64",
+  "steps": [
+    {
+      "name": "translate",
+      "exit_code": 0,
+      "seconds": 164.82892137500002
+    },
+    {
+      "name": "memory32",
+      "exit_code": 0,
+      "seconds": 6.730064958000014
+    },
+    {
+      "name": "candidate",
+      "exit_code": 0,
+      "seconds": 22.019071249999996
+    },
+    {
+      "name": "install",
+      "exit_code": 0,
+      "seconds": 26.53340025
+    },
+    {
+      "name": "crc-units",
+      "exit_code": 0,
+      "seconds": 248.39818891599998
+    },
+    {
+      "name": "lifecycle",
+      "exit_code": 0,
+      "seconds": 31.979519459000016
+    }
+  ],
+  "generation_source_commit": "9548803f4b51d7d89ecbcb95caa9078d9ece9de9",
+  "generation_reuse_reason": "Only JSON provenance ordering and corresponding license hashes corrected; generation implementation/input/output code identical."
+}

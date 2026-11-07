@@ -1,0 +1,34 @@
+{
+  "baseline_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "candidate_source_commit": "1057adf8fb430f5540f9d4f420f6b3f6f2012aa9",
+  "probe_sha256": "55da8656ccd6f8fc1199a63c574402c9c6ed8af58b2c4830ac481bccd7a7346d",
+  "parallel": [
+    1,
+    4
+  ],
+  "children": 48,
+  "primary_pairs": 3,
+  "routes": [
+    "fork",
+    "fresh"
+  ],
+  "orders": [
+    [
+      "baseline",
+      "candidate"
+    ],
+    [
+      "candidate",
+      "baseline"
+    ],
+    [
+      "baseline",
+      "candidate"
+    ]
+  ],
+  "ordinary": "product only; no overlay, guest timing, static image or owner logs",
+  "processes": 44,
+  "expected_children": 1572,
+  "negative_controls": 4,
+  "criteria": "all normal state/cleanup pass, negative seed controls fail cleanly; report all pairs, no performance threshold or exclusions"
+}

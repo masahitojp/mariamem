@@ -1,0 +1,13 @@
+{
+  "source_commit": "1057adf8fb430f5540f9d4f420f6b3f6f2012aa9",
+  "source_suites": [
+    "tests/test_crc32c_adapter.py",
+    "tests/test_generated_runtime_inventory.py",
+    "tests/test_distribution_licenses.py",
+    "tests/test_packaging_license_mirrors.py"
+  ],
+  "passed": 78,
+  "additional_unchanged_binding_suites_passed": 28,
+  "scope": "source/installer/license tests; not platform qualification",
+  "additional_unchanged_binding_source_commit": "e4fcd19afab77723e5eba7dda3bc6b8441878712"
+}

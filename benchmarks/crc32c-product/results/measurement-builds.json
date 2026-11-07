@@ -1,0 +1,16 @@
+{
+  "baseline": {
+    "library_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+    "probe_sha256": "55da8656ccd6f8fc1199a63c574402c9c6ed8af58b2c4830ac481bccd7a7346d",
+    "binary_sha256": "8159283d01e36ccae2ffc348136235da104624a8664f88299e1be7ac66d95114",
+    "seconds": 156.95212541695219,
+    "build_info": "<WORKSPACE>/temp/probe-baseline.bin: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/crcproduct\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/crcproduct\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t<WORKSPACE>/temp/baseline\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  },
+  "candidate": {
+    "library_source_commit": "1057adf8fb430f5540f9d4f420f6b3f6f2012aa9",
+    "probe_sha256": "55da8656ccd6f8fc1199a63c574402c9c6ed8af58b2c4830ac481bccd7a7346d",
+    "binary_sha256": "0eab0f3b2df560dc78da6126ca44172fb126e48e175b00d8b2f7aefc9818f05f",
+    "seconds": 156.06158079206944,
+    "build_info": "<WORKSPACE>/temp/probe-candidate.bin: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/crcproduct\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/crcproduct\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t<WORKSPACE>/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  }
+}

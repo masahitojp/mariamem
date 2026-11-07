@@ -1,0 +1,13 @@
+{
+  "cpu": "Apple M1",
+  "memory_bytes": 17179869184,
+  "os": "macOS27.2",
+  "os_build": "26B123",
+  "architecture": "arm64",
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "transport": "Pipe",
+  "timing_hooks": false,
+  "owner_observer": false,
+  "experimental_static_image": false
+}

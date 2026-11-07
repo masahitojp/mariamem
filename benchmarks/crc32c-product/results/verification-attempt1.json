@@ -1,0 +1,11 @@
+{
+  "source_commit": "e4fcd19afab77723e5eba7dda3bc6b8441878712",
+  "go": "go version go1.26.10 darwin/arm64",
+  "steps": [
+    {
+      "name": "translate",
+      "exit_code": 1,
+      "seconds": 0.9471534169999999
+    }
+  ]
+}

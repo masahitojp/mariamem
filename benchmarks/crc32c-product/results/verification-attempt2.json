@@ -1,0 +1,26 @@
+{
+  "source_commit": "9548803f4b51d7d89ecbcb95caa9078d9ece9de9",
+  "go": "go version go1.26.10 darwin/arm64",
+  "steps": [
+    {
+      "name": "translate",
+      "exit_code": 0,
+      "seconds": 164.82892137500002
+    },
+    {
+      "name": "memory32",
+      "exit_code": 0,
+      "seconds": 6.730064958000014
+    },
+    {
+      "name": "candidate",
+      "exit_code": 0,
+      "seconds": 22.019071249999996
+    },
+    {
+      "name": "install",
+      "exit_code": 0,
+      "seconds": 26.53340025
+    }
+  ]
+}

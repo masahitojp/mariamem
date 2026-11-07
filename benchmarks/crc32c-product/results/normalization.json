@@ -1,0 +1,27 @@
+{
+  "translate.txt": {
+    "original_sha256": "4aba8bbf939d00005a617fecad32ab3d56d13131c2bed6e1f23d99f9114f0c1b",
+    "published_sha256": "2b340ef0e5f8131ab8e11b27dbec2e06f85127f3b3dcb507799b87caf79de02f",
+    "method": "workspace/toolchain path prefix substitution only"
+  },
+  "translate-attempt1.txt": {
+    "original_sha256": "b12f374a16b3dd48682dc33a7aca1d3e99778840452ff5044183cedb543df334",
+    "published_sha256": "5509edde5f24dbb87dd6d7bd3161d5cf2e5bde32540714a232ef0e722377f6c1",
+    "method": "workspace/toolchain path prefix substitution only"
+  },
+  "candidate.txt": {
+    "original_sha256": "6910bd3a541e526c1c03769d248bbad100093670ac711d5b9dd46ef3f4076cf7",
+    "published_sha256": "367a12c3b9da7ad0151f3a25eff851e075a408ef788c9f5adc637eba388bf92d",
+    "method": "workspace/toolchain path prefix substitution only"
+  },
+  "build-baseline-attempt1.txt": {
+    "original_sha256": "596989975677275b490a6176e5bfcda1a80a4ead4a18f2ba6857cad666db2f2c",
+    "published_sha256": "04231bd2a402c7008a2ef25d3ef9a8a8363c4007466489469f3ec82c4011ffb1",
+    "method": "workspace/toolchain path prefix substitution only"
+  },
+  "verify-observed.py.txt": {
+    "original_sha256": "283c3c1a39563c7689feb301a1938754e6137a383443778822f18fd2e7e24332",
+    "published_sha256": "18946634cd70bca8bb264a39a4d4d44646998265051259bc034edfac811083a0",
+    "method": "workspace/toolchain path prefix substitution only"
+  }
+}
