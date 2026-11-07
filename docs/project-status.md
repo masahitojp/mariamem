@@ -419,10 +419,22 @@ contract when reassessed. Historical FAIL/raw records are preserved,not relabele
 as a new successful execution. Future fixture preparation changes only the two
 named expectation/predicate lines with an explicit preimage hash and records
 both fixture hashes. After the failure report,one corrected-contract CI is submitted through the
-existing guest-build/G2-runtime dependency. Its result and fresh execution of
-the adjusted fixture remain unobserved. The saved both-platform evidence is
+existing guest-build/G2-runtime dependency. The corrected repeat is recorded below. The saved both-platform evidence is
 assessed under the explicit approved contract.
 P1/P2/adoption/release remain pending.
+
+
+The corrected-contract [CI42338117054](https://github.com/masahitojp/mariamem/actions/runs/42338117054)
+succeeds at exact source_commit f3fe907ac238e738c94b684426e6230b23a3c163.
+G2 all241 observations PASS with0 mismatch/missing;G1 all234 and the full
+existing baseline/supporting checks pass. Guest242f5cfd reproduces from76abfed4,
+the283-file baseline source comparison and all241 observation comparison pass,
+and builder/runtime/transit cleanup succeeds with debt0. This freshly executes
+the approved1043 fixture on Linux;Mac evidence retains its explicit contract
+reassessment and historical execution context. Finite G1/G2 work is complete.
+Next is P1 public wiring and host lifecycle/resource ownership,including30s
+public timeout and owner diagnostics;P2 consumers/performance,canonical adoption
+and release remain separate. This success does not approve integration or release.
 
 
 
@@ -438,8 +450,8 @@ live checklists; this is a direction summary, not a second acceptance ledger.
   Its initial source investigation is superseded by the separately selected native
   memory-Vio/WASIX Snapshot/Fork/Live experiments recorded above. Native lifecycle
   execution is established only in that isolated route. The selected repairs pass
-  scoped macOS/Linux CI42316326944,including the G1 input repair. Remaining G2
-  compatibility and P1/P2 productization conditions are in the scope review above. Public API integration, adoption and
+  scoped native G1/G2 checks through CI42338117054 under the approved contract.
+  P1 public wiring/host ownership and P2 consumers/performance remain pending. Public API integration, adoption and
   release remain separate. The shipped Go Pipe #66
   does not itself implement guest-native wire relay.
 - **v0.7.0:** [the milestone](https://github.com/masahitojp/mariamem/milestone/4)

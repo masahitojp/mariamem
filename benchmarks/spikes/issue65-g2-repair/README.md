@@ -101,8 +101,8 @@ Linux observations also satisfy the approved1043 contract. Both-platform saved
 observations now agree with that contract;this is not a fresh execution of the
 adjusted fixture. The Human failure report is addressed by submitting one corrected-contract CI.
 The existing G2 workflow requires its fixed-guest build producer before runtime
-execution,so that existing path runs once despite unchanged engine code. Its
-new result remains unobserved. P1 public wiring/ownership,P2 consumers/performance,
+execution,so that existing path runs once despite unchanged engine code. The
+subsequent successful result is recorded below. P1 public wiring/ownership,P2 consumers/performance,
 adoption and release remain separate.
 
 Reproduction uses Python3.14,Go1.26.10 and owned fixed-source workspaces:
@@ -124,3 +124,23 @@ SDK,archives,generated code,binaries and Go caches were deleted after evidence
 collection. Author scratch/worktree is disposed after the final evidence commit;
 retained refs and compact originals reconstruct the run. Existing user changes
 in the shared checkout are outside these owned workspaces and remain preserved.
+
+## Corrected-contract Linux repeat: scoped PASS
+
+[CI42338117054](https://github.com/masahitojp/mariamem/actions/runs/42338117054)
+succeeds at exact source_commit `f3fe907ac238e738c94b684426e6230b23a3c163`.
+[The reduced receipt](evidence/ci42338117054.json) confirms G2 all241 PASS,
+0 mismatch/missing,the full234 G1 and existing baseline/supporting checks PASS.
+Guest242f5cfd reproduces from source76abfed4;the283-file baseline comparison and
+all241 observation comparison against the explicitly adjusted Mac reference pass.
+The approved fixture SHA254fa4b5 and original SHAa13951d5 are both recorded.
+This is a fresh Linux execution of the approved fixture. Mac remains the saved
+native execution with the explicit1043 contract reassessment;it is not relabeled
+as a fresh rerun. Builder/runtime/transit disposal succeeds with cleanup debt0.
+
+G1/G2 observation and repair work is complete within this finite scope. Next is
+P1:public native wiring,host lifecycle/resource ownership,public timeout defaults
+and owner diagnostics. SQL/THD/NET/prepared state and the atomic capture/SQL gate
+remain guest responsibilities. P2 declared consumers/performance,canonical
+adoption and release are later gates. No new runtime change follows from this
+result-recording task.
