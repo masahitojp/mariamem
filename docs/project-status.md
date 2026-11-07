@@ -458,7 +458,13 @@ source files and all241 G2 observations under the unchanged comparison rules.
 Builder/runtime cleanup debt is0 and the disposable guest transfer is deleted.
 The [saved receipt](../benchmarks/spikes/issue65-p1-owner/evidence/ci42346396518.json)
 completes the bounded P1-a implementation/verification on both native platforms.
-Next is P1-b public timeout domain;P1-c public backend/owner integration follows.
+The Human requested continuing to P1-b. The
+[bounded timeout implementation](../benchmarks/spikes/issue65-p1-timeout/README.md)
+preserves zero/default30s and the positive Go time.Duration nanosecond domain,
+with profile3 OPEN nanoseconds and overflow-safe elapsed-clock comparison.
+Host unit/race and C++ source-mutation checks pass;the fixed-source guest build,
+new native route observations and Linux comparison are in progress.
+P1-c public backend/owner integration follows after P1-b verification.
 This is not public route integration or canonical adoption. Public30s timeout,
 backend/owner diagnostics,remaining host coordination and P2 consumers/performance
 remain separate steps.

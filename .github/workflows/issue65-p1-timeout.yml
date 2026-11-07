@@ -1,0 +1,179 @@
+name: Issue65 P1 timeout domain
+on:
+  push:
+    branches: [experiment/issue65-p1-timeout]
+    paths:
+      - .github/workflows/issue65-p1-timeout.yml
+      - benchmarks/spikes/issue65-p1-timeout/**
+      - internal/nativewire/**
+      - guest/experimental.patch
+permissions:
+  contents: read
+concurrency:
+  group: issue65-p1-timeout-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  guest:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 75
+    outputs:
+      transit_id: ${{ steps.transit.outputs.artifact-id }}
+    steps:
+      - name: Set owned workspace path
+        run: echo "TASK_WORK=$RUNNER_TEMP/issue65-p1-timeout/guest" >> "$GITHUB_ENV"
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          path: tooling
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: be244a0bdb510a22417241c2aa2f76a9093aac1b
+          path: guest-source
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Check P1-b source,guest,timeout and observation pins
+        run: python3 tooling/benchmarks/spikes/issue65-p1-timeout/test_reference.py -v
+      - name: Install the accepted native builder tools
+        run: |
+          test "$(uname -m)" = aarch64
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            build-essential cmake ninja-build bison pkg-config curl ca-certificates git \
+            libssl-dev zlib1g-dev libpcre2-dev libncurses-dev xz-utils
+      - name: Check native policy patch before building
+        run: python3 tooling/benchmarks/spikes/issue65-policy-fix/test_policy.py -v
+      - name: Check approved short-handshake contract
+        run: python3 tooling/benchmarks/spikes/issue65-g2-repair/test_handshake_contract.py -v
+      - name: Check G2 repair evidence and source identity pins
+        run: python3 tooling/benchmarks/spikes/issue65-g2-repair/test_reference.py -v
+      - name: Check G1 native repair seams
+        run: python3 tooling/benchmarks/spikes/issue65-g1-repair/test_patch.py -v
+      - name: Prepare owned builder workspace
+        run: |
+          python3 guest-source/scripts/experiment_workspace.py \
+            --root "$RUNNER_TEMP/issue65-p1-timeout" --repo "$GITHUB_WORKSPACE/guest-source" \
+            prepare guest --branch experiment/issue65-p1-timeout-guest --min-free-gib 12 --budget-gib 12
+      - name: Reproduce the reviewed profile3 development guest
+        run: |
+          sudo -H -E /usr/bin/python3 tooling/benchmarks/spikes/issue65-p1-timeout/probe_baseline.py \
+            build --workspace "$TASK_WORK"
+      - name: Require the checked prepared source receipt
+        run: test -s "$TASK_WORK/evidence/source-seams.json"
+      - id: transit
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: issue65-p1-timeout-guest-transit
+          path: ${{ env.TASK_WORK }}/temp/artifact/
+          if-no-files-found: error
+          retention-days: 1
+      - name: Dispose owned SDK, archives, build and worktree
+        if: always()
+        run: |
+          if test -f "$TASK_WORK/experiment.json"; then
+            sudo -H -E /usr/bin/python3 tooling/benchmarks/spikes/issue65-p1-timeout/probe_baseline.py \
+              cleanup --workspace "$TASK_WORK"
+            sudo chown -R "$(id -u):$(id -g)" "$TASK_WORK/evidence"
+          fi
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: issue65-p1-timeout-builder-evidence
+          path: ${{ env.TASK_WORK }}/evidence/
+          if-no-files-found: warn
+          retention-days: 7
+
+  linux:
+    needs: guest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Set owned workspace path
+        run: echo "TASK_WORK=$RUNNER_TEMP/issue65-p1-timeout/runtime" >> "$GITHUB_ENV"
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          path: tooling
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: be244a0bdb510a22417241c2aa2f76a9093aac1b
+          path: host-source
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Check P1-b source,guest,timeout and observation pins
+        run: python3 tooling/benchmarks/spikes/issue65-p1-timeout/test_reference.py -v
+      - name: Check experiment acceptance guards
+        run: python tooling/benchmarks/spikes/issue65-native-linux/test_probe.py -v
+      - name: Check compatibility evidence accounting
+        run: python tooling/benchmarks/spikes/issue65-native-compat/test_observations.py -v
+      - name: Check remaining-limit evidence and source guards
+        run: python tooling/benchmarks/spikes/issue65-native-limits/test_observations.py -v
+      - name: Check native policy predicates and seam order
+        run: python tooling/benchmarks/spikes/issue65-policy-fix/test_policy.py -v
+      - name: Check prepared input evidence accounting
+        run: python tooling/benchmarks/spikes/issue65-prepared-input/test_observations.py -v
+      - name: Check approved short-handshake contract
+        run: python3 tooling/benchmarks/spikes/issue65-g2-repair/test_handshake_contract.py -v
+      - name: Check G2 repair evidence and source identity pins
+        run: python3 tooling/benchmarks/spikes/issue65-g2-repair/test_reference.py -v
+      - name: Check G1 native repair seams
+        run: python tooling/benchmarks/spikes/issue65-g1-repair/test_patch.py -v
+      - name: Check unchanged G2 exact observation accounting
+        run: python tooling/benchmarks/spikes/issue65-g2/test_observations.py -v
+      - name: Check full platform observation comparison
+        run: python tooling/benchmarks/spikes/issue65-g2-repair/test_compare_results.py -v
+      - name: Prepare owned native x86_64 runtime workspace
+        run: |
+          test "$(uname -m)" = x86_64
+          python host-source/scripts/experiment_workspace.py \
+            --root "$RUNNER_TEMP/issue65-p1-timeout" --repo "$GITHUB_WORKSPACE/host-source" \
+            prepare runtime --branch experiment/issue65-p1-timeout-runtime --min-free-gib 12 --budget-gib 12
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: issue65-p1-timeout-guest-transit
+          path: ${{ env.TASK_WORK }}/temp/artifact
+      - name: Check host owner race and failure detection
+        run: python tooling/benchmarks/spikes/issue65-p1-timeout/owner_controls.py --workspace "$TASK_WORK"
+      - name: Check timeout value and overflow mutation detection
+        run: python tooling/benchmarks/spikes/issue65-p1-timeout/timeout_controls.py --workspace "$TASK_WORK"
+      - name: Verify timeout domain,ownership and original regressions
+        run: |
+          python tooling/benchmarks/spikes/issue65-p1-timeout/probe.py runtime --workspace "$TASK_WORK"
+      - name: Dispose owned converter, generated code, binaries and Go caches
+        if: always()
+        run: |
+          if test -f "$TASK_WORK/experiment.json"; then
+            python tooling/benchmarks/spikes/issue65-p1-timeout/probe_baseline.py cleanup --workspace "$TASK_WORK"
+          fi
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: issue65-p1-timeout-runtime-evidence
+          path: ${{ env.TASK_WORK }}/evidence/
+          if-no-files-found: warn
+          retention-days: 7
+
+  discard-transit:
+    needs: [guest, linux]
+    if: always() && needs.guest.outputs.transit_id != ''
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    permissions:
+      actions: write
+    steps:
+      - name: Delete this run's disposable guest transfer
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ARTIFACT_ID: ${{ needs.guest.outputs.transit_id }}
+        run: |
+          test -n "$ARTIFACT_ID"
+          gh api --method DELETE "repos/$GH_REPO/actions/artifacts/$ARTIFACT_ID"
