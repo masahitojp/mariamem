@@ -1,0 +1,231 @@
+package main
+
+import (
+	"context"
+	"database/sql"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/masahitojp/mariamem/internal/nativewire"
+	"io"
+	"math"
+	"strconv"
+	"strings"
+	"testing"
+	"time"
+)
+
+func timeoutRoot(t *testing.T, d time.Duration) *instance {
+	t.Helper()
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	r, e := newTimeoutConfigured(ctx, d, nil, nil)
+	if r != nil {
+		t.Cleanup(func() {
+			if e := r.close(); e != nil {
+				t.Log("timeout cleanup:", e)
+				if strings.Contains(e.Error(), "join incomplete") {
+					t.Error(e)
+				}
+			}
+		})
+	}
+	if e != nil {
+		t.Fatal(e)
+	}
+	return r
+}
+func timeoutLogin(t *testing.T, r *instance) *compatConn {
+	t.Helper()
+	c := compatConnect(t, "", r)
+	c.login(t, "root", true)
+	return c
+}
+func timeoutBudget(t *testing.T, r *instance) uint64 {
+	t.Helper()
+	f, e := r.rpc(frame{kind: 9, slot: 0, generation: 1})
+	if e != nil || f.kind != 102 {
+		t.Fatal("timeout inspect", f, e)
+	}
+	var info struct {
+		Nanos string `json:"timeout_ns"`
+	}
+	if e = json.Unmarshal(f.body, &info); e != nil {
+		t.Fatal(e)
+	}
+	ns, e := strconv.ParseUint(info.Nanos, 10, 64)
+	if e != nil {
+		t.Fatal(e)
+	}
+	return ns
+}
+func TestTimeoutExactValues(t *testing.T) {
+	for _, d := range []time.Duration{0, 99 * time.Millisecond, 30*time.Second + 1, time.Duration(math.MaxInt64)} {
+		t.Run(strconv.FormatInt(int64(d), 10), func(t *testing.T) {
+			r := timeoutRoot(t, d)
+			c := timeoutLogin(t, r)
+			want, e := nativewire.TimeoutNanos(d)
+			if e != nil {
+				t.Fatal(e)
+			}
+			if got := timeoutBudget(t, r); got != want {
+				t.Fatal("timeout budget changed", got, want)
+			}
+			c.ping(t, "exact timeout remains usable")
+		})
+	}
+}
+func TestTimeoutAboveOldCeiling(t *testing.T) {
+	r := timeoutRoot(t, 0)
+	address := compatAddress(t, r)
+	db, e := sql.Open("mysql", fmt.Sprintf("root:synthetic@tcp(%s)/test?timeout=5s&readTimeout=15s&writeTimeout=5s", address))
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer db.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	var value int
+	started := time.Now()
+	if e = db.QueryRowContext(ctx, "SELECT SLEEP(10.2)").Scan(&value); e != nil || value != 0 {
+		t.Fatal("public30s default did not survive old10s ceiling", value, e)
+	}
+	if time.Since(started) < 10*time.Second {
+		t.Fatal("long-query probe did not reach the old ceiling")
+	}
+	if e = db.Ping(); e != nil {
+		t.Fatal(e)
+	}
+}
+func TestTimeoutTinyHandshake(t *testing.T) {
+	r := timeoutRoot(t, time.Nanosecond)
+	c := compatConnect(t, "", r)
+	c.c.SetReadDeadline(time.Now().Add(3 * time.Second))
+	_, e := io.Copy(io.Discard, c.c)
+	if e != nil {
+		t.Fatal("tiny handshake timeout did not close cleanly", e)
+	}
+	ownerWait(t, "tiny handshake retirement", func() bool { return ownerCount(r) == 0 })
+	if r.result() != nil {
+		t.Fatal("handshake timeout poisoned the instance", r.result())
+	}
+	if _, e = r.rpc(frame{kind: stats}); e != nil {
+		t.Fatal(e)
+	}
+}
+func TestTimeoutFirstByteAndIdle(t *testing.T) {
+	const budget = 300 * time.Millisecond
+	r := timeoutRoot(t, budget)
+	c := timeoutLogin(t, r)
+	time.Sleep(2 * budget)
+	c.ping(t, "idle does not spend command budget")
+	idle(t, r)
+	start := time.Now()
+	if _, e := c.c.Write([]byte{1}); e != nil {
+		t.Fatal(e)
+	}
+	select {
+	case <-r.poisoned:
+	case <-time.After(3 * time.Second):
+		t.Fatal("first-byte timeout did not fire on partial header")
+	}
+	if time.Since(start) < budget/2 {
+		t.Fatal("new command inherited an old deadline")
+	}
+	if r.result() == nil || !strings.Contains(r.result().Error(), "deadline") {
+		t.Fatal(r.result())
+	}
+}
+func TestTimeoutStaleCommandToken(t *testing.T) {
+	r := timeoutRoot(t, 30*time.Second+1)
+	c := timeoutLogin(t, r)
+	c.ping(t, "first command")
+	idle(t, r)
+	state := func() (uint64, string) {
+		f, e := r.rpc(frame{kind: stats})
+		if e != nil {
+			t.Fatal(e)
+		}
+		var s struct {
+			Sessions []struct {
+				Command uint64 `json:"command"`
+				Phase   string `json:"phase"`
+			} `json:"sessions"`
+		}
+		if e = json.Unmarshal(f.body, &s); e != nil || len(s.Sessions) != 1 {
+			t.Fatal(string(f.body), e)
+		}
+		return s.Sessions[0].Command, s.Sessions[0].Phase
+	}
+	old, _ := state()
+	if _, e := c.c.Write([]byte{1}); e != nil {
+		t.Fatal(e)
+	}
+	var current uint64
+	ownerWait(t, "new receiving command", func() bool { n, phase := state(); current = n; return n > old && phase == "receiving" })
+	f, e := r.rpc(frame{kind: 10, slot: 0, generation: 1, value: old})
+	if e != nil || f.kind != 110 || f.value != 5 || r.result() != nil {
+		t.Fatal("stale timeout cancelled a new command", f, e, r.result())
+	}
+	if e = r.send(frame{kind: 10, slot: 0, generation: 1, value: current}); e != nil {
+		t.Fatal(e)
+	}
+	select {
+	case <-r.poisoned:
+	case <-time.After(3 * time.Second):
+		t.Fatal("current command cancellation did not fire")
+	}
+	if r.result() == nil || !strings.Contains(r.result().Error(), "deadline_injected") {
+		t.Fatal(r.result())
+	}
+}
+func TestTimeoutInvalidConfiguration(t *testing.T) {
+	before := epochCounter.Load()
+	for _, d := range []time.Duration{-1, time.Duration(math.MinInt64)} {
+		r, e := newTimeoutConfigured(context.Background(), d, nil, nil)
+		if r != nil || !errors.Is(e, nativewire.ErrTimeout) {
+			t.Fatal(r, e)
+		}
+	}
+	if epochCounter.Load() != before {
+		t.Fatal("invalid configuration allocated an instance epoch")
+	}
+	r, e := newRestoredContext(context.Background(), math.MaxUint64, nil)
+	if r != nil || !errors.Is(e, nativewire.ErrTimeout) {
+		t.Fatal("fixture milliseconds wrapped", r, e)
+	}
+	r = timeoutRoot(t, 0)
+	for _, ns := range []uint64{0, uint64(math.MaxInt64) + 1, math.MaxUint64} {
+		f, e := r.rpc(frame{kind: open, slot: 0, generation: 1, value: ns})
+		if e != nil || f.kind != 110 || f.value != 9 || r.result() != nil {
+			t.Fatal("invalid guest timeout accepted", ns, f, e, r.result())
+		}
+	}
+	c := timeoutLogin(t, r)
+	c.ping(t, "invalid timeout did not advance native watermark")
+}
+func TestTimeoutCancelledStartup(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	r, e := newTimeoutConfigured(ctx, 0, nil, nil)
+	if r == nil || !errors.Is(e, context.Canceled) {
+		t.Fatal(r, e)
+	}
+	if closeErr := r.close(); !errors.Is(closeErr, context.Canceled) {
+		t.Fatal("startup cancellation cause lost", closeErr)
+	}
+	if ownerCount(r) != 0 {
+		t.Fatal("cancelled startup retained a disposed lease")
+	}
+}
+func TestTimeoutProfile2Rejected(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	r, e := newTimeoutConfigured(ctx, 0, nil, func(r *instance) { r.legacyTimeoutProfile = true })
+	if r != nil {
+		defer r.close()
+	}
+	if e == nil || r == nil || r.result() == nil {
+		t.Fatal("legacy millisecond profile accepted", e)
+	}
+}

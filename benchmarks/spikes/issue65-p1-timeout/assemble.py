@@ -50,8 +50,10 @@ cmd=product/'cmd/issue65-wire';cmd.mkdir();shutil.copyfile(w/'temp/tools/main.go
 for name in ('live.go','live_test.go','compat_test.go','fix_controls_test.go','limits_test.go','policy_controls_test.go','g1_test.go','repair_controls_test.go'):
  shutil.copyfile(w/'temp/tools'/(name+'.txt'),cmd/name)
 shutil.copyfile(w/'temp/tools/owner_native_test.go.txt',cmd/'owner_native_test.go')
+shutil.copyfile(w/'temp/tools/timeout_native_test.go.txt',cmd/'timeout_native_test.go')
+shutil.copyfile(w/'temp/tools/timeout_contract_test.go.txt',product/'timeout_contract_test.go')
 go_root=Path(subprocess.check_output(['go','env','GOROOT'],env=env,text=True).strip());run([str(go_root/'bin/gofmt'),'-w',str(runtime/'runtime_wire.go'),str(cmd/'main.go'),str(cmd/'wire_test.go'),str(cmd/'capture_test.go'),str(runtime/'runtime_capture_test.go'),str(cmd/'live.go'),str(cmd/'live_test.go'),str(cmd/'compat_test.go'),str(cmd/'fix_controls_test.go'),str(cmd/'limits_test.go'),str(cmd/'policy_controls_test.go'),str(cmd/'g1_test.go'),str(cmd/'repair_controls_test.go')],env=env,check=True,phase='wire:gofmt')
-subprocess.run([str(go_root/'bin/gofmt'),'-w',str(runtime/'code/base/thread_lifetime.go'),str(runtime/'code/base/completion_probe.go'),str(cmd/'owner_native_test.go')],check=True)
+subprocess.run([str(go_root/'bin/gofmt'),'-w',str(runtime/'code/base/thread_lifetime.go'),str(runtime/'code/base/completion_probe.go'),str(cmd/'owner_native_test.go'),str(cmd/'timeout_native_test.go'),str(product/'timeout_contract_test.go')],check=True)
 pins=inventory(product);binary=out/'wire.test'
 run(['go','test','-c','-p','1','-trimpath','-buildvcs=false','-o',str(binary),'./cmd/issue65-wire'],cwd=product,env=env,check=True,phase='wire:host-compile')
 assert inventory(product)==pins;assert source_identity(repo)==origin

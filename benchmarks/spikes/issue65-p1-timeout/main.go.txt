@@ -120,6 +120,7 @@ type instance struct {
 	owner                     *nativewire.Owner
 	beforeOpen                func(*session)
 	wrongProfile, wrongOpened bool
+	legacyTimeoutProfile      bool
 	beforeRelayDone           func(*session, uint8)
 	afterRelayDone            func(*session, uint8)
 	afterNativeRetired        func(*session)
@@ -466,6 +467,7 @@ func (r *instance) receiveFrame(f frame) bool {
 	r.mu.Lock()
 	drop := r.dropKinds[f.kind]
 	wrongProfile, wrongOpened := r.wrongProfile, r.wrongOpened
+	legacyTimeoutProfile := r.legacyTimeoutProfile
 	wrong := r.wrongReceipt
 	wrongFence, wrongAck := r.wrongFence, r.wrongStopAck
 	r.mu.Unlock()
@@ -474,6 +476,9 @@ func (r *instance) receiveFrame(f frame) bool {
 	}
 	if f.kind == ready && wrongProfile {
 		f.body = []byte(`{"lifecycle_profile":1}`)
+	}
+	if f.kind == ready && legacyTimeoutProfile {
+		f.body = []byte(`{"lifecycle_profile":2}`)
 	}
 	if f.kind == opened && wrongOpened {
 		f.generation++

@@ -174,6 +174,14 @@ def execute(w,compare_reference=True):
            'TestOwnerWrongProfile','TestOwnerWrongOpened','TestOwnerRequestExhaustion'}
     rows=base.cases_from_log((w/'evidence/owner-native.txt').read_text(),names)
     base.save(w/'evidence/owner-native.json',{'cases':[{'name':n,'elapsed':t,'result':'PASS'} for n,t in rows]})
+    base.command(w,'timeout-native',[binary,'-test.v','-test.run=^TestTimeout','-test.timeout=90s'],120)
+    cases=base.cases_from_log((w/'evidence/timeout-native.txt').read_text(),{
+      'TestTimeoutExactValues','TestTimeoutAboveOldCeiling','TestTimeoutTinyHandshake',
+      'TestTimeoutFirstByteAndIdle','TestTimeoutStaleCommandToken','TestTimeoutInvalidConfiguration',
+      'TestTimeoutCancelledStartup','TestTimeoutProfile2Rejected'})
+    base.save(w/'evidence/timeout-native.json',{'cases':[{'name':n,'elapsed':t,'result':'PASS'} for n,t in cases]})
+    base.command(w,'public-timeout-contract',[sys.executable,HERE/'public_contract.py','--workspace',w],180)
+    base.cases_from_log((w/'evidence/public-timeout-contract.txt').read_text(),{'TestNativeTimeoutPublicDefaults'})
     base.command(w,'lifetime-leaf',[sys.executable,HERE/'lifetime_tests.py','--workspace',w],240)
     base.cases_from_log((w/'evidence/lifetime-leaf.txt').read_text(),{
       'TestWorkerReclaimWaitsForLastAccess','TestDetachedSelfReclaimEndsBeforePoolCompletion',
@@ -183,6 +191,7 @@ def execute(w,compare_reference=True):
       'TestDeferredAllocatorFailureIsRetained','TestLateReclaimerYieldCannotWriteDeadTLS'})
 
     base.command(w,'native-controls',[sys.executable,HERE/'native_controls.py','--workspace',w],700)
+    base.command(w,'timeout-native-controls',[sys.executable,HERE/'timeout_native_controls.py','--workspace',w],700)
     base.command(w,'binding-controls',[sys.executable,dest/'guard_controls.py'],120)
     # Guard tests remain explicitly tied to the installer/canonical source fixture.
     base.command(w,'pytest-install',[sys.executable,'-m','pip','install','--no-cache-dir','--disable-pip-version-check','--no-compile','--target',w/'temp/pytest','pytest==8.4.2'],180)
@@ -218,6 +227,9 @@ def execute(w,compare_reference=True):
     result['policy_controls']=3
     result['g1_result']=g1_result
     result['repair_controls']=4
+    result['timeout_cases']=8
+    result['timeout_native_fault_controls']=3
+    result['public_timeout_contract']=1
     result['owner_cases']=9
     result['lifetime_cases']=10
     result['native_fault_controls']=3
