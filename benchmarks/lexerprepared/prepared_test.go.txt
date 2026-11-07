@@ -1,7 +1,7 @@
 package base
 import("testing";"sync/atomic";"unsafe")
 func lpTestModule()*Module{b:=make([]byte,32*1024*1024);n:=new(atomic.Uint64);n.Store(uint64(len(b)));return &Module{Memory:b,M:unsafe.Pointer(&b[0]),MemSize:n}}
-func lpTestBinding()(uint32,lpBinding){for p,b:=range lpBindings{return p,b};panic("empty")}
+func lpTestBinding()(uint32,lpBinding){var best uint32;for p:=range lpBindings{if best==0||p<best{best=p}};if best==0||best>=32*1024*1024{panic("no bounded fixture")};return best,lpBindings[best]}
 func TestLPFallbackAndAllocationFailure(t *testing.T){
  old:=lpMode;lpMode="prepared";defer func(){lpMode=old}()
  m:=lpTestModule();cs,b:=lpTestBinding()

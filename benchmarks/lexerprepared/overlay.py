@@ -15,7 +15,7 @@ if '--undo' in sys.argv:
  hashes=json.loads((o/'undo/hashes.json').read_text())
 def read(rel):return Path(mapping.get(str(s/rel),s/rel)).read_text()
 def put(rel,text):
- p=s/rel;dest=o/Path(rel).name;dest.write_text(text);mapping[str(p)]=str(dest)
+ p=s/rel;dest=o/rel.replace("/","_");dest.write_text(text);mapping[str(p)]=str(dest)
  row={'path':rel,'before_sha256':hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None,'after_sha256':hashlib.sha256(text.encode()).hexdigest()}
  hashes[:]=[x for x in hashes if x['path']!=rel];hashes.append(row)
 rel='internal/generatedgo/code/base/base.go';v=read(rel);assert v.count('type Module struct {')==1;put(rel,v.replace('type Module struct {','type Module struct {\n LPBase uint32\n LPFallbackChecked bool',1))
