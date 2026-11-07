@@ -10,7 +10,7 @@ import (
 	"fmt"
 	mysql "github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem"
-	"github.com/masahitojp/mariamem/benchmarks/lexerprepared/probe"
+	"github.com/masahitojp/mariamem/benchmarks/lexercandidate/probe"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
 )
 
