@@ -1,0 +1,16 @@
+{
+  "full_public_check": "FAIL six historical evidence files",
+  "unchanged_from_source_commit": "30910a0952314b0125358615bb76269c1701c0a4",
+  "unchanged_failure_files": [
+    "benchmarks/spikes/issue65-p1-owner/evidence/ci42346396518.json",
+    "benchmarks/spikes/issue65-p1-owner/evidence/macos-g2-build.json",
+    "benchmarks/spikes/issue65-p1-owner/evidence/macos-reference.json",
+    "benchmarks/spikes/issue65-p1-timeout/evidence/initial-helper-read-failure.txt",
+    "benchmarks/spikes/issue65-p1-timeout/evidence/macos-g2-build.json",
+    "benchmarks/spikes/issue65-p1-timeout/evidence/macos-reference.json"
+  ],
+  "changed_source_and_evidence": "PASS identical policy patterns",
+  "new_Python_AST": "PASS",
+  "document_links": "PASS",
+  "guard_weakened": false
+}

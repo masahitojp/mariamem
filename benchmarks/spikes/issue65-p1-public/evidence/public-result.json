@@ -1,0 +1,29 @@
+{
+  "result": "PASS scoped public C2",
+  "platform": "darwin-arm64",
+  "host_source_commit": "3602b186f309eb3af349df494470d28b8bb800c2",
+  "qualifier_source_commit": "af42349d368e281f530935c33d620af3b6ebf7e1",
+  "qualifier_sha256": "fad7e9ed3a96ae171cf5191b6231886ffaa32924332e23f01057f4e30c643ba2",
+  "public_python_fixture_sha256": "6623c2de44430d9e804b285c716b81db41b79fd96681d4c9d18416a0536f8876",
+  "guest_sha256": "d4f30818c3410db186db5ef1c9abc5f14af0cdc52bb2b76bbca369e02eb1b481",
+  "source_receipt_sha256": "ed1c39e00095eeecb261f804c1fac91654d21ea16a9d0601cfbb13c95000f075",
+  "binary_receipt_sha256": "f4650e1925994b526b87ad2468802fd8147476d26e8807007b7ffa3e2fffbd9d",
+  "wheel_sha256": "d169bdbab99f62fce9394ca5f8227d1ca958ccce805693adfdddc22980dcbec3",
+  "public_go_tests": [
+    "TestNativePublicDefaultTimeout",
+    "TestNativePublicFatalCauseAndIsolation",
+    "TestNativePublicGoRoutes",
+    "TestNativePublicSharedCapacity"
+  ],
+  "public_python": "installed wheel default managed/control",
+  "factory_disabled_controls": 2,
+  "legacy_wire_tripwire": "present in all positive artifacts; no invocation",
+  "not_verified": [
+    "opposite supported OS public path",
+    "full C3 Snapshot/Fork/Live/fault oracles",
+    "all declared consumers",
+    "performance",
+    "canonical adoption",
+    "release"
+  ]
+}

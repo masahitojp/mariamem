@@ -1,0 +1,35 @@
+{
+  "result": "PASS bounded public lifecycle consumers",
+  "platform": "darwin",
+  "host_source_commit": "3602b186f309eb3af349df494470d28b8bb800c2",
+  "observer_source_commit": "545ca1f83e7749d59556edfbab2c4f9bee36b45e",
+  "source_receipt_sha256": "ed1c39e00095eeecb261f804c1fac91654d21ea16a9d0601cfbb13c95000f075",
+  "go_binary_sha256": "8589a3fa77c468a5321916364d00aef3f9756bfc08cd5b45f9460d53c6aa957a",
+  "go_fixture_sha256": "60272ccf4f4075d5b98ddc0bdd44fa63d5374f195e7b9492cd9980b3592590a0",
+  "python_fixture_sha256": "c7b6d0fd5df231dac06a2cfc54c82854d0fa178425a929c0406c7eb208507529",
+  "go": {
+    "busy_refused": true,
+    "closed_parent_refused": true,
+    "result": "PASS_SOURCE_GO_LIVE",
+    "source_consumed": true,
+    "sum_after_reset": 1
+  },
+  "python": {
+    "result": "PASS_INSTALLED_PYTHON_LIVE",
+    "source_consumed": true,
+    "host_reaped": true,
+    "directory_removed": true,
+    "max_forks": 2,
+    "capacity_timeout_preserved": true,
+    "live_capacity_busy_preserved": true
+  },
+  "not_verified": [
+    "full native C3 failure and permanent-debt injection",
+    "exact inherited durations and Live Reset settings",
+    "all original G1/G2/lifecycle oracles on this core",
+    "opposite native OS",
+    "performance",
+    "adoption",
+    "release"
+  ]
+}

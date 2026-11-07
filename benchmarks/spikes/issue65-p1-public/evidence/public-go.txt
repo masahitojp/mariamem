@@ -1,0 +1,19 @@
+=== RUN   TestNativePublicGoRoutes
+=== RUN   TestNativePublicGoRoutes/false
+=== RUN   TestNativePublicGoRoutes/true
+--- PASS: TestNativePublicGoRoutes (0.09s)
+    --- PASS: TestNativePublicGoRoutes/false (0.00s)
+    --- PASS: TestNativePublicGoRoutes/true (0.00s)
+=== RUN   TestNativePublicSharedCapacity
+--- PASS: TestNativePublicSharedCapacity (0.03s)
+=== RUN   TestNativePublicFatalCauseAndIsolation
+=== RUN   TestNativePublicFatalCauseAndIsolation/false
+[mysql] 2026/11/07 18:52:52 packets.go:58 unexpected EOF
+=== RUN   TestNativePublicFatalCauseAndIsolation/true
+[mysql] 2026/11/07 18:52:52 packets.go:58 unexpected EOF
+--- PASS: TestNativePublicFatalCauseAndIsolation (0.35s)
+    --- PASS: TestNativePublicFatalCauseAndIsolation/false (0.17s)
+    --- PASS: TestNativePublicFatalCauseAndIsolation/true (0.18s)
+=== RUN   TestNativePublicDefaultTimeout
+--- PASS: TestNativePublicDefaultTimeout (10.23s)
+PASS

@@ -1,0 +1,8 @@
+--- FAIL: TestBackendCaptureFenceRejectionAndOwnership (0.00s)
+    --- FAIL: TestBackendCaptureFenceRejectionAndOwnership/1 (0.00s)
+        backend_test.go:397: rejected capture: <nil> true invalid capture fence
+    --- FAIL: TestBackendCaptureFenceRejectionAndOwnership/2 (0.00s)
+        backend_test.go:397: rejected capture: <nil> true invalid capture fence
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/nativewire	0.289s
+FAIL

@@ -1,0 +1,5 @@
+--- FAIL: TestBackendPendingOpenCaptureAndFirstCause (0.00s)
+    backend_test.go:507: first cause overwritten
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/nativewire	0.280s
+FAIL

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import mariamem; mariamem.start(host_binary='<public-workspace>/temp/factory-control-puso5u5s/mariamem-host')
+                     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<public-workspace>/temp/venv/lib/python3.14/site-packages/mariamem/__init__.py", line 316, in start
+    return Database(**options)
+  File "<public-workspace>/temp/venv/lib/python3.14/site-packages/mariamem/__init__.py", line 140, in __init__
+    reply = session.request("start", response_timeout=startup_timeout+_STARTUP_REPLY_MARGIN,
+                            _cleanup=None if self._remote is None else self._remote.late_start, **fields)
+  File "<public-workspace>/temp/venv/lib/python3.14/site-packages/mariamem/_session.py", line 255, in request
+    raise exc
+mariamem.HostError: native factory disabled

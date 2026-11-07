@@ -1,0 +1,10 @@
+{
+  "original_receipt_sha256": "f4650e1925994b526b87ad2468802fd8147476d26e8807007b7ffa3e2fffbd9d",
+  "normalization": "only artifact location in go_buildinfo",
+  "record": {
+    "public_test_sha256": "5d6e197842b4056477ab34c5520e029de4a46dfd5e41c474ff35e575e60bad44",
+    "host_sha256": "bb4eb728ca664f9f9a9c923227bd146b754f532a41c792ad6ec651e00a5340dc",
+    "source_receipt_sha256": "ed1c39e00095eeecb261f804c1fac91654d21ea16a9d0601cfbb13c95000f075",
+    "go_buildinfo": "<artifact>/mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  }
+}

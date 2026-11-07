@@ -1,6 +1,6 @@
 # Issue65 P1 — native経路の製品化計画
 
-状態: **HumanがP1-aの実装を承認。macOS／Linuxの限定検証済み。P1-bもmacOS／Linuxの限定検証済み。P1-cはC1抽出の単体確認まで。main採用・release未承認。**
+状態: **HumanがP1-aの実装を承認。macOS／Linuxの限定検証済み。P1-bもmacOS／Linuxの限定検証済み。P1-cはC2公開接続・基本consumerをMacで限定確認、C3は残件。main採用・release未承認。**
 
 設計時点のartifactとreviewは`9f4977135941acff010987e49ff0cad9221b2734` /
 `3f934997cd8ead4daf6a639c7fc75cbb1d863e06`に保持する。以下の完了条件をP1-aの実装・検証に適用する。
@@ -200,3 +200,12 @@ Humanの継続依頼により[C1共通core](../../../benchmarks/spikes/issue65-p
 fake-runner/raceと5負例で単体確認した。公開factoryと専用cmdは未切替で、実nativeでの再検証も未実施。
 C2公開Go/Python接続→C3 Snapshot/Fork/Live・設定・失敗契約・両OS受入れが残る。
 既存証跡6ファイルによるpublic-source検査FAILは別記し、公開可能性PASSとはしていない。
+
+## P1-c C2公開接続のMac確認
+
+[実装と固定証跡](../../../benchmarks/spikes/issue65-p1-public/README.md)。
+公開Go TCP/Pipe、installed Pythonの通常start/shared-control、standalone hostがnative coreへ到達した。
+同じguest/runtimeを使い、native factory無効化でGo/Pythonの検査が失敗する。既存公開consumerで
+Snapshot/Fork/Liveの基本経路も確認した。C2の結果は固定UNQUALIFIED artifactのMac限定。
+C3のprecise duration継承、実failure/永久debt・元oracles再bind・Linuxは未完了で、
+P1-c全体・main採用・性能・releaseを完了扱いにしない。canonical factory/guestは据え置く。

@@ -1,0 +1,4 @@
+ok  	github.com/masahitojp/mariamem	1.036s
+ok  	github.com/masahitojp/mariamem/internal/host	0.103s
+ok  	github.com/masahitojp/mariamem/internal/control	1.003s
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]

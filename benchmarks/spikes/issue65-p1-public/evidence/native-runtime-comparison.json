@@ -1,0 +1,8 @@
+{
+  "matched": true,
+  "compared_runtime_production_files": 79,
+  "old_only": [],
+  "new_only": [],
+  "different_files": [],
+  "reference": "P1-b macos-reference.json; production Go/assembly/data only; test fixtures excluded"
+}

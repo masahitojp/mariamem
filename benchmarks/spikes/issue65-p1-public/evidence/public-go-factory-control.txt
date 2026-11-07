@@ -1,0 +1,4 @@
+=== RUN   TestNativePublicGoRoutes
+    public_native_test.go:46: mariamem start: native factory disabled
+--- FAIL: TestNativePublicGoRoutes (0.01s)
+FAIL

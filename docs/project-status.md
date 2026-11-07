@@ -476,20 +476,33 @@ eight timeout cases and builder/runtime cleanup debt0. Host unit/race and
 source-mutation checks pass. Bounded P1-b verification is complete on both native platforms.
 The Human requested P1-c continuation. The [public backend plan](design/issue65-native-protocol/public-backend.md)
 and [source review](reviews/issue65-p1-public-backend-plan.md) define its full scope.
-The [C1 extraction candidate](../benchmarks/spikes/issue65-p1-core/README.md), source_commit
-f0008bb41828f7d9f728b3e1ffbb9367b704f1fb, now puts instance framing/relay/admission/capture
-behind an injected per-instance runner with no generatedgo/mysqlwire/forklimit dependency.
-Fake-runner tests check immediate failure versus joined Done,typed late cleanup,
-shared admission and guest capture rejection; ten new backend tests plus existing
-owner/timeout/disposal pass race10 repeats,and five source overlays are detected.
-This is unit evidence,not native/public runtime acceptance. The dedicated cmd is
-not yet rebound. Existing experimental evidence makes the full public-source guard
-fail on six unchanged files; no guard was relaxed. C2 public Go/control/Python wiring,
-C3 Snapshot/Fork/Live settings/debt/faults and both-native acceptance remain open.
-No new guest build,native run,benchmark or CI was submitted in this continuation.
-This is not public route integration or canonical adoption. Public30s timeout,
-backend/owner diagnostics,remaining host coordination and P2 consumers/performance
-remain separate steps.
+The [C1 extraction candidate](../benchmarks/spikes/issue65-p1-core/README.md) extracted
+instance framing/relay/admission/capture behind a per-instance runner. Its fake
+owner/lifetime checks remain unit evidence.
+The Human requested starting public wiring. The [C2 implementation/results](../benchmarks/spikes/issue65-p1-public/README.md)
+now connects public Go,Python shared/control and standalone host to one private
+service/factory. Canonical source keeps its existing runtime; the checked
+UNQUALIFIED artifact defaults to native without a new public option/runtime kind.
+Host build source_commit is3602b186f309eb3af349df494470d28b8bb800c2;
+main observer isaf42349d368e281f530935c33d620af3b6ebf7e1 and lifecycle observer
+is545ca1f83e7749d59556edfbab2c4f9bee36b45e. Guest/installer remain fixed atbe244a0b,
+with d4f30818 reproduced and all79 production runtime Go/assembly/data files
+matching the P1-b Mac reference. No canonical guard was relaxed.
+Mac Go TCP/Pipe prepared queries,same-session SQL error recovery,shared16/17
+admission,fatal EOF plus owner deadline/isolation,and default30s accepting
+SLEEP(10.2) pass. An installed wheel's default Python start/shared-control and
+standalone ready/status/close pass. Disabling the native factory makes both Go
+and Python checks fail;legacy Serve's staged tripwire is never invoked.
+Unchanged Go and installed Python consumers also pass basic public Snapshot/Fork/Live,
+independence,reset,capacity,held-connection drain and closed-parent conditions.
+Focused owner/host/control/core race and vet pass. A startup-completion race now
+keeps the first runtime cause,with100 completed-before-READY iterations checked.
+Full public-source guard still fails on six unchanged historical evidence files;
+changed source checks pass. P1-c remains open for C3 precise inherited settings,
+real fault/permanent-debt/late-cleanup injections,original lifecycle/compat/limit/G1/G2
+oracles rebound to this core/public routes,and Linux acceptance. No new CI or
+benchmark was submitted. Canonical adoption,P1-d/e and P2 remain separate steps.
+
 
 
 

@@ -1,0 +1,1 @@
+{"result": "PASS_INSTALLED_PYTHON_LIVE", "module": "<public-workspace>/temp/venv/lib/python3.14/site-packages/mariamem/__init__.py", "source_consumed": true, "host_reaped": true, "directory_removed": true, "max_forks": 2, "capacity_timeout_preserved": true, "live_capacity_busy_preserved": true}

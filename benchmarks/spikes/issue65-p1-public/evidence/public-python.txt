@@ -1,0 +1,1 @@
+{"result": "PASS_PUBLIC_PYTHON", "module": "<public-workspace>/temp/venv/lib/python3.14/site-packages/mariamem/__init__.py", "normal_sql_error_survives": true, "fatal_wire_eof": true, "owner_original_cause": true, "independent_instance": true, "managed_host_reaped": true, "temporary_removed": true, "standalone_ready_status_close": true}
