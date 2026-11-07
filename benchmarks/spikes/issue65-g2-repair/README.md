@@ -86,3 +86,9 @@ The first local measurement explicitly ran translate → complete binding review
 → baseline record-local → observe. Subsequent local and Linux replay use strict
 reference comparison. The workflow is issue65-g2-repair.yml;submit exact candidate
 SHA once,hand off its run URL/operation,and stop.
+
+Local builder/runtime disposal is complete with [cleanup debt0](evidence/cleanup-summary.json).
+SDK,archives,generated code,binaries and Go caches were deleted after evidence
+collection. Author scratch/worktree is disposed after the final evidence commit;
+retained refs and compact originals reconstruct the run. Existing user changes
+in the shared checkout are outside these owned workspaces and remain preserved.

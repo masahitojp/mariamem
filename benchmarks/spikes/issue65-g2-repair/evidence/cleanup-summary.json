@@ -1,0 +1,16 @@
+{
+  "issue65-g2-repair-guest": {
+    "cleanup_debt": [],
+    "worktree_exists": false,
+    "temp_exists": false,
+    "before_bytes": 9405972480,
+    "after_bytes": 4436619264
+  },
+  "issue65-g2-repair-host": {
+    "cleanup_debt": [],
+    "worktree_exists": false,
+    "temp_exists": false,
+    "before_bytes": 6408728576,
+    "after_bytes": 3873738752
+  }
+}
