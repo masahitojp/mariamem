@@ -80,9 +80,12 @@ def main():
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / name, target)
         runtime = product / "internal/generatedgo"
+        staged_runtime = out / "generatedgo"
         run([sys.executable, origin / "scripts/generate_runtime.py", "--source-module", module,
              "--development-input", inputs_path, "--development-thread-binding",
-             ROOT / "benchmarks/spikes/issue65-p1-timeout/binding/identity.json", "--output", runtime], "public-install")
+             ROOT / "benchmarks/spikes/issue65-p1-timeout/binding/identity.json", "--output", staged_runtime], "public-install")
+        assert not runtime.exists()
+        shutil.move(staged_runtime, runtime)
         shutil.copy2(ROOT / "benchmarks/spikes/issue65-p1-timeout/runtime_wire.go.txt", runtime / "runtime_wire.go")
         # Preserve the exact reviewed P1-b handwritten completion observation
         # seam required by RuntimeWire. No generated function body is patched.
