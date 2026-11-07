@@ -11,7 +11,7 @@
   "linked_sha256": "77d413ea6262ff9844c01b3e7b979d26c949b83ee846140399256795f7b00999",
   "symbol_map_sha256": "60e7f420c9140414f5d6879b8004bcc517a06f9dec69d9184cff3c0bfcc57e30",
   "symbol_map_entries": 21753,
-  "generated_provenance_sha256": "7005f24341e3b42230847885e4eae7f5a05a9742fb9273bdca4df544dbc7ed01",
+  "generated_provenance_sha256": "ace734a1fb72ea2e83b35315f4f805d9132b87298d8a437aeb0b3bc80d6cda83",
   "method": "Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.",
   "retained_symbols": {
     "MariaDB": {
@@ -516,7 +516,7 @@
     "implementation_source_commit": "e4fcd19afab77723e5eba7dda3bc6b8441878712",
     "previous_evidence_sha256": "9646cbb3ddd42aaee7e6a1b02ec44a164d88a9f300c090a6dda5ccf9a629287a",
     "previous_generated_provenance_sha256": "1905b4de580e4488cb40a04f62846e82cdcd3a11f5dc3077c784b18c6da125c6",
-    "current_generated_provenance_sha256": "7005f24341e3b42230847885e4eae7f5a05a9742fb9273bdca4df544dbc7ed01",
+    "current_generated_provenance_sha256": "ace734a1fb72ea2e83b35315f4f805d9132b87298d8a437aeb0b3bc80d6cda83",
     "changed_generated_files": {
       "code/p4/crc32c_reference_test.go": {
         "before": null,
