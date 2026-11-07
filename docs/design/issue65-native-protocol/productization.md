@@ -41,6 +41,11 @@
 native join→foreign reclaim→host completion待機は既存コードを組み合わせた根拠である。
 今回、新しいnative worker barrierの実行はしていない。新guestと移設routeでこの順序を壊す
 negative controlを検出することをP1-aの完了条件にする。既存bindingの単体PASSだけで代用しない。
+現在のnative supporting commandは `benchmarks/spikes/issue65-compat-fixes/runtime_tests.py:8` の
+`TestWireCaptureWaitsForFailedWorkerPeer`に限定され、production index-bound testsを除外している。
+baseのThreadLifetime testsが存在することを、この新guestで実行済みの証明にはしない。
+P1-aでは対象guestのbindingに結び付けてleaf testsと実routeのbarrierを選択する。
+
 
 ## P1-a: 最初の境界 — 接続予約とidentity
 
