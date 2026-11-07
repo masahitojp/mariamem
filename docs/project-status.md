@@ -245,3 +245,14 @@ checkpoints and obsolete pending headings. Its full text is preserved at
 Use that pinned history, versioned [release notes](../release/NOTES-v0.6.2.md),
 individual decisions and source-bound review receipts for past results. Old
 FAIL/SKIP/pending records are not rewritten as later release acceptance.
+
+## CRC32C optimization — approved candidate implementation, not main adoption
+
+On 2026-11-07 the Human approved adopting the equivalent CRC32C calculation and
+creating a minimal product candidate. Preserve checksum/LSN/bounds checks and
+completed disposal; retain the approximately +1% experimental Fresh batch
+difference as an unresolved observation. The [candidate record](reviews/crc32c-candidate.md)
+pins both experiments, the canonical installer boundary and finite verification
+exit. Product integration requires reproducible generation and supported-platform
+verification. No release, broader format support or experimental static-image
+adoption follows from this approval.

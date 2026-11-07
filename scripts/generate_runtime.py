@@ -17,6 +17,8 @@ OLD = 'example.com/mariamem-spike/generated'
 NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
 # Canonical installer ownership boundary; the verifier consumes this same list.
 HANDWRITTEN_FILES = (
+    'code/base/crc32c.go',
+    'code/p4/crc32c_test.go',
     'code/base/memfs.go',
     'code/base/block_storage.go',
     'code/base/block_storage_test.go',
@@ -132,6 +134,8 @@ def main():
     data = (src/'generated/data.bin').read_bytes()
     if hashlib.sha256(data).hexdigest() != pins['data_sha256']:
         parser.error('initial guest data identity mismatch')
+    from runtime_crc32c import validate_inputs as crc_inputs
+    crc_inputs(pins['guest_sha256'], data)
     out = args.output.resolve()
     if out.exists():
         parser.error('output must be fresh')
@@ -166,6 +170,11 @@ def main():
         text = worker_failure(str(target.relative_to(out)), text)
         from runtime_write import apply as write_errors
         text = write_errors(str(target.relative_to(out)), text)
+        from runtime_crc32c import apply as crc32c, reference_source, PATH as crc_path
+        if str(target.relative_to(out)) == crc_path:
+            (out/'code/p4').mkdir(parents=True, exist_ok=True)
+            (out/'code/p4/crc32c_reference_test.go').write_text(reference_source(text))
+        text = crc32c(str(target.relative_to(out)), text)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text)
     # Only dedicated mariamem commands dispatch this entry; no consumer init hook.

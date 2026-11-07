@@ -47,7 +47,7 @@
     "code/p3/p3_pure.go": "df1076eca2e4cb5fa8cce55ebc85fb672ed448a718780378c66cd6cb7dbe482c",
     "code/p4/alias.go": "562e3cdbc35f1c7e6bedf83b064bb74e1ba9060028d6d2b4c5c8f11aad25cc31",
     "code/p4/p4.go": "d486a3ebacf638812aea24d0a1f848e836fc9fcf4ce5ae86af5fe79b0ec1d784",
-    "code/p4/p4_pure.go": "5198551c0c17cfbd33382053796c201d57d67ae1319e7e43c1859191c668b50b",
+    "code/p4/p4_pure.go": "713bc4711a428730882ad78e653260517b7032e0311635fc9d241e2961e4265d",
     "code/p5/alias.go": "c73139097014ee1b79b116a1d8713bc76023650eb7f75ad61b6b778fdf8e0aeb",
     "code/p5/p5.go": "0ffdf11ff4616e954a69765605829614b481c1b1fee1875b2ae37f936ff58b9a",
     "code/p5/p5_pure.go": "8ddc2f0ab2f67d840a9a545a32410efe3a39cd5fb4d230f3cd0ca6c40ec1fa6e",
@@ -63,6 +63,7 @@
     "entry.go": "af09af864562c535ec2f0349b916a2214c2e9c9d68dc9ebf624dcc810b7d5002",
     "fs_contract_test.go": "3576133358a407286ddac38586b879fbd4bcc4947ffc0d9bbd5b14d93eeba7ac",
     "guest_identity.go": "83fd031910778362f18910b09c8a28b271519f93de5202754f2103b41fc3e403",
-    "main.go": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe"
+    "main.go": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe",
+    "code/p4/crc32c_reference_test.go": "d05e59f2562d888b7e487b5f3d4f34974cac46317b6a9c31b611b783dcaf4885"
   }
 }
