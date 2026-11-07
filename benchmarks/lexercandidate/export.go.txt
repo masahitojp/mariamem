@@ -21,3 +21,9 @@ func LCExport(m *Module,cs int32){
  data,e:=json.Marshal(lcRows);if e!=nil{panic(e)}
  if e=os.WriteFile(lcExportPath,append(data,'\n'),0600);e!=nil{panic(e)}
 }
+
+var lcByNumber=func()map[uint32]lpBinding{
+ out:=map[uint32]lpBinding{}
+ for _,b:=range lpBindings {if _,ok:=out[b.number];ok{panic("duplicate compiled charset ID")};out[b.number]=b}
+ if len(out)!=638{panic("compiled charset ID inventory")};return out
+}()
