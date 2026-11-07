@@ -562,3 +562,17 @@ func TestBackendNativeCauseSurvivesRuntimeCompletion(t *testing.T) {
 		t.Fatalf("native cause replaced by completion: %v", b.Failure())
 	}
 }
+
+func TestBackendStartupPreservesCompletedRuntimeCause(t *testing.T) {
+	cause := errors.New("original bootstrap worker failure")
+	for i := 0; i < 100; i++ {
+		runner := func(Execution) <-chan error { done := make(chan error, 1); done <- cause; return done }
+		b, e := Start(context.Background(), Config{Runner: runner, Build: "fake-guest"})
+		if b != nil || !errors.Is(e, cause) {
+			t.Fatalf("original startup cause lost: %v %v", b, e)
+		}
+		if err := disposal.Retry(context.Background(), e); err != nil {
+			t.Fatal(err)
+		}
+	}
+}

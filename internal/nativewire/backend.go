@@ -161,6 +161,9 @@ func Start(ctx context.Context, cfg Config) (*Backend, error) {
 
 func (r *Backend) startFailure(cause error) error {
 	r.fail(cause)
+	// Completion/ctx and the early-failure channel can become ready together.
+	// Returning a generic startup branch must not hide the first runtime cause.
+	cause = r.Failure()
 	if err := r.disposer.Probe(); err != nil {
 		return disposal.Retain(cause, err, r.disposer)
 	}
