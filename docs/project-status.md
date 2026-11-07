@@ -437,6 +437,14 @@ public timeout and owner diagnostics;P2 consumers/performance,canonical adoption
 and release remain separate. This success does not approve integration or release.
 
 
+The Human requested proceeding to P1 after scoped G1/G2 completion.
+The [productization plan](design/issue65-native-protocol/productization.md) proposes
+host-owned session reservations/identity as the first bounded implementation,
+with explicit private profile2 and retirement/relay-join conditions. This task
+records source inspection and a plan,not a new runtime implementation or public
+adoption. Public timeout/wiring,remaining host coordination and P2 stay explicit.
+
+
 
 ## Current work tracking
 

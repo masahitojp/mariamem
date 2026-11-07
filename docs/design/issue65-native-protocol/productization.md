@@ -1,0 +1,152 @@
+# Issue65 P1 — native経路の製品化計画
+
+状態: **設計案。runtime未実装、main採用・release未承認。**
+
+今回決めることは、P1の最初の実装を **hostによる接続枠とsession identityの所有** に絞るかです。
+推奨します。現在もhostは接続数を予約していますが、slot/generationの発行はC++にあり、
+二つの管理を一つのownerへ揃えると、公開APIへ接続する前に所有権を明確にできます。
+最大の懸念は、OPENの結果が不明なときや終了通知の直後に枠を再利用し、古いworkerやframeを
+新接続へ結び付けることです。以下の保留規則と、枠解放の二条件を実装・検出条件にします。
+
+## 固定した根拠と範囲
+
+- 調査base: `781fa29926be06856728741df96a1a4713e93af3`。
+- 実行済み候補: `f3fe907ac238e738c94b684426e6230b23a3c163`。
+- guest/checked host source: `76abfed4b5f920c79efd5fef33c848c21ac040c9`。
+- UNQUALIFIED guest SHA256: `242f5cfd446ac65dc3d7322ead668cd2ec5473193cf4bb58b69c7c5b3cfe6e87`。
+- [CI42338117054](https://github.com/masahitojp/mariamem/actions/runs/42338117054):
+  LinuxでG2全241、G1全234、既存22 lifecycle/88互換性/38 limitsとsupporting checksがPASS。
+  [保存receipt](../../../benchmarks/spikes/issue65-g2-repair/evidence/ci42338117054.json)は
+  guest再現、283-file比較、承認済み契約でのMac241観測照合、cleanupを保持。
+  Macの1043ケースは既存実測の契約再評価であり、更新fixtureを新しく実行したとは扱わない。
+- [承認済み責務表](contracts.md#state-belongs-with-the-authority-that-can-make-it-true)と
+  [D1–D3](../../decisions/issue65-native-wire-contract.md)を変更しない。
+  4型のnative NULL動作とshort fixed-headerの1043/08S01も保持する。
+
+以下のfile:lineは上記baseの行番号。既存CIのPASSは、これから変更するrouteのPASSではない。
+
+## 現状の実装から分かったこと
+
+| 現状 | 根拠 | 設計への帰結 |
+| --- | --- | --- |
+| C++が空きslotを選び、per-slot generationを増やしてOPENEDを返す | `guest/experimental.patch:1419` (`Manager::open`) | host予約とguest発行を一緒に移す。hostが選びguestが選び直す方式にしない |
+| TCP/Pipeはhostの`reserved`を共有し、OPEN失敗時の不確実性を保持する | `benchmarks/spikes/issue65-compat-fixes/main.go.txt:279`,`:283`,`:497` | 新ownerに予約・identity・解放をまとめ、既存の保守的な失敗処理を維持 |
+| OPENEDからhostのsession mapへidentityを取り込み、RETIREDで予約を返す | 同`:395`,`:437` | OPENEDを信用して新しいidentityを採用せず、予約済みtupleとの完全一致を検査する |
+| guestのRETIRED発行は`worker.join()`後 | `guest/experimental.patch:1465` (`reapLoop`) | guest joinを残す。THD unregisterやtransport EOFを代用しない |
+| foreign allocation-freeはworkerの最後のアクセス終了を待つ | `internal/generatedgo/code/base/thread_lifetime.go:46`,`:90`,`:113`、`thread_lifetime_test.go:40` | 既存completion/reclaimを再利用。C++ joinだけを独立したGo完了保証とは扱わない |
+| WASIX joinがmap_baseを解放する経路は既存J1調査に記録済み | `docs/reviews/v050-boundary-join-fixes.md:82`、P6 `v06x-prepared-p6-canonical.md:100` | 新guestでbinding/closureを照合し、移設routeで遅延barrier試験を追加する。新しいper-session join APIは前提にしない |
+| `WaitThreads`はrootのspawn停止後に使う全worker join | `internal/generatedgo/code/base/base.go:11645` | 稼働中の各session退役で呼ばない。共有reader/全体WaitGroupも同様 |
+| 公開Startは`host.StartGenerated`と具体的な`Guest.Done()`へ接続し、legacy `mysqlwire.Serve`が動く | `mariamem.go:128`以降、`internal/host/server.go:169`以降 | 専用cmdが動くことと公開backend実装を区別する |
+
+native join→foreign reclaim→host completion待機は既存コードを組み合わせた根拠である。
+今回、新しいnative worker barrierの実行はしていない。新guestと移設routeでこの順序を壊す
+negative controlを検出することをP1-aの完了条件にする。既存bindingの単体PASSだけで代用しない。
+
+## P1-a: 最初の境界 — 接続予約とidentity
+
+### hostが所有するもの
+
+instance epoch、16枠のlease、各slotのgeneration、OPEN要求との対応、sessionのhost relay終了。
+TCP/Pipeで別々の上限やallocatorを持たない。Live frontend generation、session generation、
+generated worker IDは別物として扱う。host ownerのlockで予約とClose/captureの受付停止を直列化する。
+外部I/Oやjoinを待っている間、そのlockを保持しない。
+
+private frameの33-byte headerは変えず、OPENの`epoch/slot/generation`をhostが指定する。
+`request`はRPC相関、`value`はこの段階では既存timeout値のまま。READYの`lifecycle_profile`を
+**2**にし、host/guestとも一致を必須にする。profile1との自動fallbackや混在対応は加えない。
+
+- epochはinstanceごとに新規発行。Fork/Live Resetでは新ownerを作り、leaseやcounterをbaselineから継承しない。
+- slotは0..15。generationはper-slotの単調増加uint64、0は無効。破棄した予約の番号も再使用しない。
+- RPC request IDとepochもwrapして再使用しない。最大値到達後は飽和した失敗状態を維持する。
+  現`atomic.Add`で一度0を検出するだけでは、次回に1へ戻れるため不十分（同main.go`:174`,`:313`）。
+- slot generation/request exhaustionはinstanceを停止し、ownerに原因を残す。epochの発行不能はStartを失敗させる。
+  境界試験はbinary frame/typed integerで行い、JSON float64の精度に依存しない。
+
+### guestに残すもの
+
+slotごとの実Session/THD、受理済みgenerationのwatermark、既存join/reaperとatomic SQL/capture gate。
+guestは指定されたslotが空き、epoch一致、generationが非zeroかつそのslotのwatermarkより新しいことを
+確かめる。slotを探したりgenerationを増やしたりしない。watermarkはリプレイ検査の派生状態であり、
+別のidentity allocatorではない。拒否した要求でwatermarkを進めない。
+
+OPENED/REJECTEDはrequestと要求slot/generationを対応させ、hostが一致を検査する。
+応答envelopeのepochは稼働instanceのepoch。foreign-epoch要求への拒否を、新しいOPEN成功として採用しない。OPENED後のnative出力許可の
+既存順序も残す。guest側のoccupied/invalid-slot拒否はhostとの不整合として扱い、通常の容量不足に
+見せかけない。通常の17接続目はhostの予約時点で拒否し、既存の固定pre-login応答を再利用する。
+SQL packetをhostが読む処理や、正常なgreeting/OK/ERR/rowの生成は加えない。
+
+### leaseの状態と解放
+
+```mermaid
+stateDiagram-v2
+    Free --> Reserved: hostがtupleを発行
+    Reserved --> Free: 送信へ渡す前の確定取消
+    Reserved --> Opening: OPEN送信を開始
+    Opening --> Active: 正しいOPENED
+    Opening --> Free: worker未生成が確定した拒否
+    Opening --> Uncertain: 応答喪失・部分送信・取消
+    Active --> Retiring: close・EOF・stop
+    Retiring --> Free: native退役確認 AND session relay join
+    Uncertain --> Disposed: instance全体のjoinとdisposal
+```
+
+`Free`への遷移でも次のgenerationは増やす。instanceが停止/failed/capturingなら新規予約は不可。
+送信開始後の単なるerrorを「未送信」とみなさない。現在のprivate route同様、OPENの結果が不明なら
+instanceを失敗させ、枠と資源をrootの完了まで保持する。public Dial取消の受理契約はP1-cで別途照合する。
+
+解放は **native RETIREDに結び付く実worker完了** と **当該sessionのreader/writer relay終了** の両方を
+満たしてから一度だけ行う。ここでnative worker完了とは、native joinと、foreign reclaimで待つ
+最後のguest/linear-memoryアクセス終了を指す。RETIREDをinstance全体の`ThreadPool.WaitThreads`完了と
+同一視しない。instanceのFS/linear-memory/backing解放は従来通りroot停止後の全worker joinとdisposalを
+必要とし、session枠の再利用とは別条件で保持する。
+native frameを読む共有readLoop内でrelay終了を待たず、session単位の完了処理へ
+渡す。全instanceのreader/worker WaitGroupをsession joinに使わない。古い/重複RETIRED、CREDIT、OUTPUTは
+完全なtupleで判別し、新generationの枠・byte accountingを変更できない。
+
+失敗/CloseでRETIREDを受け取れなくても、root worker join・reader/relay joinとdisposal完了までは保持する。
+完了しないworkerの強制回収は保証しない。既存のfirst cause、cleanup debt、capture debtを潰さない。
+
+### P1-aに入れない変更
+
+SQL admission、first-byte deadlineのguest atomic gate、timer scheduling、Vioのqueue/wakeup、
+input/output credit上限、Snapshotの最終capture fence、native cancellation機構は維持する。
+公開APIの切替、timeout範囲変更、canonical generated-Goの置換も同じ差分に混ぜない。
+
+## 続くP1の順序
+
+| 段階 | 変更する境界 | 完了の判断 |
+| --- | --- | --- |
+| P1-a | hostの予約/identity/退役所有とprivate profile2 | 下記検出条件＋移設routeの既存native検査が両OSで通る |
+| P1-b | 公開timeout設定を新経路で表現する | 既定30sと既存受理値を保存。100..10000msに丸めない。first-byte基準と古いcommand token拒否を維持。設定値・取消・overflowの試験と実経路確認 |
+| P1-c | 専用cmdからprivate reusable backendへ抽出し、公開Go/PythonのStart/Dial/Snapshot/Fork/Liveへ接続 | owner Err/ErrUnusable/first cause/debt、Close/WaitDisconnected、正常接続、dial取消、fault処理を公開routeで確認。native routeを無効にするnegative controlが検査を落とす |
+| P1-d | queue policy/輸送deadline/watchdogなど残るhost管理を境界ごとに移す | 総pending所有、blocked output、stale token、stop/captureの最終gateをそれぞれ検査。guest機構を消すだけでは完了しない |
+| P1-e | production生成・検出CI・採用候補の整理 | 最新mainとの差を照合し、HANDWRITTEN_FILES/provenance/生成物所有とpublic CIを結び直す。実験patchをそのままmainへmergeしない |
+
+timerの配置はP1-dで判断する。遅延したhost通知からSQL admissionを推測してguest watchdogを削らない。
+P2は宣言driver/ORM等の実public native経路での受入れと同条件の性能比較。0.6.2との差にはengine/UCA等の
+別要因を分ける。canonical採用とreleaseは後のHuman判断であり、この計画の承認に含めない。
+
+## 検出条件 — 既存CIの限界と追加する検査
+
+| 壊れ方 | 既存の検出 | P1-aで追加/結び直す検査 |
+| --- | --- | --- |
+| TCPとPipeが別枠になる、退役中に17接続目を許す | `TestCompatCapacity`、`TestCompatLiveCapacity`、`TestCaptureGoPipe`は基本動作を検査。二つの退役条件の遅延順序は未検出 | mixed TCP/Pipeで16枠。native側/host relay側を別々に止め、一方だけの完了では再予約できないこと |
+| guestがhost指定slot/genを無視して自前発行 | 現CIはguest発行identityで動くため不可視 | 指定tupleの一致、profile1拒否。guestが指定を無視するmutationで実native試験が落ちること |
+| 古いepoch/slot/genが新sessionを動かす | `TestQueryDeadlineAndIsolation`はforeign epochを検査 | slot再利用後の古いDATA/ACK/EOF/RETIRED/OPENEDとduplicate OPEN。新session/容量への影響ゼロ、拒否前後のSQL/PING |
+| OPEN応答喪失でleaseを戻す | 現attachはlost OPENをfail扱い。named uncertain-OPEN専用oracleはない | OPEN受理後にOPENEDを落とし、native workerと予約がroot disposalまで保持されること。pre-send確定取消と区別 |
+| native RETIREDを早期発行、最後のGoアクセス前に再利用 | `TestWorkerReclaimWaitsForLastAccess`等はleafのreclaimを検査。現capacity試験は完全な移設経路のbarrierではない | native join→foreign free→Go completionの経路にbarrier。早期RETIRED/早期host lease releaseのnegative controlsを拒否。新guestのbinding/closureを再照合 |
+| identityのwrapで衝突 | ThreadPool ID用の`TestThreadIdentityConcurrentAllocationAndExhaustion`は別namespace | epoch/request/session generationそれぞれの最終値、次回/次々回も失敗、並行発行。resetして再使用しない |
+| owner変更でcapture/Liveの順序を壊す | native14+Live8、`TestCaptureJoinCancellationRetainsLease`、`TestNativeLiveCapacityBeforeDrain`など | 既存22を新routeへ再使用。新規受付停止とOPEN競合、失敗/取消でlease/debtが残ること |
+| 通常wire/SQLを壊す | G1 234、G2 241と88互換性/38 limits | profile2の新guest/host bundleで元のoraclesを再実行。1043契約の限定fixture変更だけを維持 |
+| 専用cmdだけが通りpublic defaultやownerが未接続 | 現native CIには見えない | P1-cのpublic-route検査。ここをP1-a PASSで充足扱いにしない |
+
+新guestのsource/worker bindingを確認してから実行する。最初は既存private byte/control seamで進め、
+cgo/direct callbackやsysroot ABI変更を加えない。host ownerの決定的unit/fault試験を先に置き、次に新guestを
+一度build・binding reviewし、macOS native＋Linux CIを各1 cohortで実行する計画。これは次の実装taskの
+予算案であり、現時点の新実行やCI提出ではない。失敗時は同じartifactの闇雲な再実行ではなく、原因と残条件を記録する。
+
+## 進める条件
+
+P1-aのprivate profile2と上記完了条件を実装対象として確定してからruntimeを変更する。
+合格した場合にP1-bへ進む。根拠のある退役barrierを作れなければ枠を早く解放する妥協はせず、
+既存completion seamに不足する観測だけを限定して追加する。そこでSQL/transport全体の作り直しへ広げない。
