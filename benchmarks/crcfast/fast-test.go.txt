@@ -1,5 +1,5 @@
-package p4
-import("testing";"encoding/hex";"encoding/binary";"bytes";"math/rand";"sync/atomic";"unsafe";"github.com/masahitojp/mariamem/internal/generatedgo/code/base")
+package p4_test
+import("github.com/masahitojp/mariamem/internal/generatedgo/code/p4";_ "github.com/masahitojp/mariamem/internal/generatedgo/code/p8";"testing";"encoding/hex";"encoding/binary";"bytes";"math/rand";"sync/atomic";"unsafe";"github.com/masahitojp/mariamem/internal/generatedgo/code/base")
 func crcModule()*base.Module{
  mem:=make([]byte,32<<20);m:=&base.Module{Memory:mem,M:unsafe.Pointer(unsafe.SliceData(mem)),MemSize:&atomic.Uint64{},G0:1<<20};m.MemSize.Store(uint64(len(mem)))
  table,e:=hex.DecodeString("TABLE_HEX");if e!=nil{panic(e)};copy(mem[15555072:],table);return m
@@ -24,7 +24,7 @@ func TestCRCFastPageValidation(t *testing.T){
    for _,mutation:=range []string{"valid","payload","checksum","lsn"}{
     copy(page,pristine)
     switch mutation{case "payload":page[100]^=1;case "checksum":page[size-1]^=1;case "lsn":page[20]=1;binary.BigEndian.PutUint32(page[size-4:],crcBitwise(page[:size-4]))}
-    before:=append([]byte(nil),page...);base.CRCFastEnabled=false;old:=Fn18145(m,0,int32(addr),16);base.CRCFastEnabled=true;fast:=Fn18145(m,0,int32(addr),16)
+    before:=append([]byte(nil),page...);base.CRCFastEnabled=false;old:=p4.Fn18145(m,0,int32(addr),16);base.CRCFastEnabled=true;fast:=p4.Fn18145(m,0,int32(addr),16)
     if old!=fast||(mutation=="valid" && old!=0)||(mutation!="valid" && old==0)||!bytes.Equal(before,page)||m.ExcPending!=0{t.Fatalf("size=%d offset=%d mutation=%s old=%d fast=%d",size,off,mutation,old,fast)};cases++
    }
   }
