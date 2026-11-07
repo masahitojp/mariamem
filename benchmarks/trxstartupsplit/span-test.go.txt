@@ -1,0 +1,9 @@
+package base
+import("context";"testing";"github.com/masahitojp/mariamem/internal/timing")
+func TestTrxSplitActualBranchAndInvalid(t *testing.T){
+ t.Setenv("MARIAMEM_TIMING_DIR",t.TempDir());var got timing.Trace
+ ctx,finish:=timing.Begin(timing.WithRecorder(context.Background(),func(x timing.Trace){got=x}),"startup")
+ m:=&Module{Threads:&ThreadPool{}};TrxSplitUndoBranch(m,7);OpenSpanBind(m,ctx,true);defer OpenSpanUnbind(m)
+ TrxSplitUndoBranch(m,0);TrxSplitUndoBranch(m,1);panicked:=false;func(){defer func(){panicked=recover()!=nil}();TrxSplitUndoBranch(m,2)}();if !panicked{t.Fatal("invalid boolean accepted")};finish()
+ want:=[]string{"begin","innodb/undo_empty","innodb/undo_nonempty","end"};if len(got.Events)!=len(want){t.Fatal(got.Events)};for i,v:=range got.Events{if v.Name!=want[i]{t.Fatal(got.Events)}}
+}

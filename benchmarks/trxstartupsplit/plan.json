@@ -1,0 +1,61 @@
+{
+  "question": "Does the dominant transaction-list startup time come from purge manager construction, rollback-segment array initialization, or residual UNDO processing; which single improvement should be investigated next?",
+  "mapping_started_unix": 1794018949.591955,
+  "mapping_budget_seconds": 1800,
+  "if_identified": {
+    "Go_builds": 1,
+    "build_timeout_seconds": 1200,
+    "primary": "P1 Fresh/Fork, 3 alternating pairs, 48 children, same warm static image and schema/seed",
+    "run_timeout_seconds": 900,
+    "keep": "all phases/tails/owners/cleanup"
+  },
+  "if_not_identified": "stop with evidence and guest-regeneration cost boundary; do not rebuild guest",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "forbidden": [
+    "product/guest changes",
+    "skip recovery or validation",
+    "new optimization prototype",
+    "extra repetitions",
+    "guest rebuild"
+  ],
+  "budget_gib": 8,
+  "min_free_gib": 12,
+  "mapping_result": "identified: exact direct calls and inlined boundary regions; no guest rebuild",
+  "primary_processes": 6,
+  "warmup_processes": 2,
+  "positive_pilots": 2,
+  "negative_controls": 2,
+  "total_processes": 12,
+  "children": 48,
+  "parallel": [
+    1
+  ],
+  "observers": [
+    "on"
+  ],
+  "modes": [
+    "fresh",
+    "fork"
+  ],
+  "same_binary": true,
+  "image": "static-page prototype warm in both; equal baseline prepared before children",
+  "criteria": [
+    "same prior partition + transaction-list split adds back with nonnegative remainder",
+    "purge and rseg spans once for existing route and absent on fresh",
+    "runtime empty/nonempty UNDO branch recorded once per existing-route child",
+    "all logs/owners/cleanup retained; no extra samples; choose one bounded next improvement"
+  ],
+  "baseline_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "active_work_budget_seconds": 7200,
+  "tooling_budget_seconds": 1800,
+  "heavy_ci_submissions": 0,
+  "builds": 1,
+  "build_timeout_seconds": 1200,
+  "run_timeout_seconds": 900,
+  "primary": "P1 3 alternating Fresh/Fork pairs x48, same diagnostic binary/image/baseline",
+  "processes": 12,
+  "all_children": 394,
+  "started_unix": 1794019482.3898828,
+  "exit": "nonoverlapping partition of the transaction_lists interval and recommendation of one next improvement; if mapping or measurements inconclusive stop with missing evidence/cost",
+  "native_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+}

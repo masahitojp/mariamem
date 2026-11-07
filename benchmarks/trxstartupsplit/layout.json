@@ -1,0 +1,15 @@
+{
+  "p2_sha256": "0d067e13916b78f9d0f569c704b99d9d6f8b6b3320aa3e135bcdace785d294a4",
+  "caller": "Fn18291",
+  "callee": "Fn17233",
+  "purge_begin": "L13",
+  "purge_end_call": "v481 = Fn17233(m)",
+  "undo_nonempty_value": "v484 from guest address17864585; native trx_sys.is_undo_empty() == !undo_log_nonempty",
+  "body_sha256": "c321362518a6f07b5910341bef90a40aca07c8551a1fcf5bc9e81b35bb15b028",
+  "checks": [
+    "\nL13:\n\t;",
+    "v481 = Fn17233(m)",
+    "v484 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 17864585, 0, 1))))",
+    "v126 = int32(-32)"
+  ]
+}

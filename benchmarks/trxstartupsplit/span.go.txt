@@ -1,0 +1,5 @@
+package base
+func TrxSplitUndoBranch(m *Module,nonempty int32){
+ if _,ok:=openSpanContexts.Load(m.Threads);!ok{return}
+ if nonempty==0{OpenSpanMark(m,"innodb/undo_empty")}else if nonempty==1{OpenSpanMark(m,"innodb/undo_nonempty")}else{panic("pinned undo boolean input changed")}
+}
