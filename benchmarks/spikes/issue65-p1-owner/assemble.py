@@ -8,7 +8,8 @@ from build_feedback import go_environment,run
 from common import digest
 os.environ['MARIAMEM_DEV_WORKSPACE']=str(w)
 isolated_env={k:v for k,v in os.environ.items() if k not in ('GOCACHE','GOPATH','GOMODCACHE')}
-env=go_environment(dict(isolated_env,CGO_ENABLED='0',GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='',GOMAXPROCS='2',GOGC='50',MARIAMEM_PHASE_TRACE=str(w/'evidence/host-phases.jsonl')))
+task_tmp=w/'temp/go-tmp';task_tmp.mkdir(exist_ok=True)
+env=go_environment(dict(isolated_env,CGO_ENABLED='0',GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOTMPDIR=str(task_tmp),TMPDIR=str(task_tmp),GOFLAGS='',GOEXPERIMENT='',GOMAXPROCS='2',GOGC='50',MARIAMEM_PHASE_TRACE=str(w/'evidence/host-phases.jsonl')))
 guest=w/'temp/artifact';record=verify_guest(repo,guest);origin=source_identity(repo);out=w/'temp/host';out.mkdir(exist_ok=a.resume)
 spike=repo/'benchmarks/spikes/generated-go-integration';translation=out/'translation'
 if not a.resume:

@@ -54,8 +54,9 @@ def go_env(w):
     sys.path.insert(0,str(w/'worktree/scripts'))
     from build_feedback import go_environment
     stripped={k:v for k,v in os.environ.items() if k not in ('GOCACHE','GOPATH','GOMODCACHE')}
+    task_tmp=w/'temp/go-tmp';task_tmp.mkdir(exist_ok=True)
     return go_environment(dict(stripped,MARIAMEM_DEV_WORKSPACE=str(w),CGO_ENABLED='0',
-                              GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',
+                              GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOTMPDIR=str(task_tmp),TMPDIR=str(task_tmp),
                               GOFLAGS='',GOEXPERIMENT='',GOMAXPROCS='2',GOGC='50'))
 
 
