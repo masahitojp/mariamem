@@ -1,0 +1,72 @@
+{
+  "result": "PASS",
+  "layout": {
+    "p2_sha256": "0d067e13916b78f9d0f569c704b99d9d6f8b6b3320aa3e135bcdace785d294a4",
+    "caller": "Fn18291",
+    "callee": "Fn17233",
+    "purge_begin": "L13",
+    "purge_end_call": "v481 = Fn17233(m)",
+    "undo_nonempty_value": "v484 from guest address17864585; native trx_sys.is_undo_empty() == !undo_log_nonempty",
+    "body_sha256": "c321362518a6f07b5910341bef90a40aca07c8551a1fcf5bc9e81b35bb15b028",
+    "checks": [
+      "\nL13:\n\t;",
+      "v481 = Fn17233(m)",
+      "v484 = int32(*(*uint8)(unsafe.Add(mBase, base.MemoryEA(m, 17864585, 0, 1))))",
+      "v126 = int32(-32)"
+    ]
+  },
+  "native_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "native_anchors": [
+    {
+      "file": "storage/innobase/trx/trx0trx.cc",
+      "lines": "709-742",
+      "meaning": "normal route purge create then rseg init, followed by empty-UNDO early return"
+    },
+    {
+      "file": "storage/innobase/trx/trx0purge.cc",
+      "lines": "70-121",
+      "meaning": "graph of innodb_purge_threads_MAX (32 in generated code), then purge state/locks initialization"
+    },
+    {
+      "file": "storage/innobase/trx/trx0rseg.cc",
+      "lines": "596-744",
+      "meaning": "rseg array initialization loops all rollback segment slots and restores registered segments"
+    },
+    {
+      "file": "storage/innobase/include/trx0sys.h",
+      "lines": "1382",
+      "meaning": "is_undo_empty() == !undo_log_nonempty"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "storage/innobase/trx/trx0trx.cc",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "github_blob": "b35fe36685ec6b3e8d4286595d0793e423f95650",
+      "sha256": "a460e2d34558fdacedd448938566ebbb7d67279cb317a80e69fce7610a32b582",
+      "bytes": 65060
+    },
+    {
+      "path": "storage/innobase/trx/trx0purge.cc",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "github_blob": "2c7e58e7c2e41c6ebab310d855f7c173269ecd92",
+      "sha256": "7956ec9af7e034edc8701c17f85d6b50edaacd44ba08709ba8802a4c14beeefd",
+      "bytes": 48646
+    },
+    {
+      "path": "storage/innobase/trx/trx0rseg.cc",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "github_blob": "2bd7dbeb997d75cf5a894586d493e0e845723bc1",
+      "sha256": "dfd69fa5d4b87506ff4ff171540c6cb1699a2666aed2b485604734dba61981d1",
+      "bytes": 24998
+    },
+    {
+      "path": "storage/innobase/include/trx0sys.h",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "github_blob": "37b52f59273208ab6534c0bcc59d3995a15fbcd7",
+      "sha256": "71caae6678525292115d0e1863d056811b2c7542834995f7eba92e300d212444",
+      "bytes": 43233
+    }
+  ],
+  "rseg_array_body_sha256": "b4cb59756a812fc7c9a6f10d85bd1725c58d84dc81774f5d1331c1af50ecdc19"
+}

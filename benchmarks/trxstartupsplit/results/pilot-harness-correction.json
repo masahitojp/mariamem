@@ -1,0 +1,11 @@
+{
+  "original_binary_source_commit": "7254c32b97dd96297f72d71f83f78df34ad444eb",
+  "process": "fresh-on-p1-r-2-pilot",
+  "exit_code": 0,
+  "runtime_success": true,
+  "cleanup": true,
+  "retained_children": 4,
+  "repeated_children": 0,
+  "reason": "incorrect Fresh-absence expectation; Fresh executes Fn18291 via v12129 before dictionary_create, Fork via v20211 after dictionary load",
+  "correction": "same plan and binary; require split markers once in both routes; resume remaining eleven processes"
+}

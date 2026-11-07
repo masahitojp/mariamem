@@ -1,0 +1,8 @@
+{
+  "runner_source_commit": "4bc558779f328376151d36c010bb239d02e8b275",
+  "binary_source_commit": "7254c32b97dd96297f72d71f83f78df34ad444eb",
+  "allowed_diff": [
+    "benchmarks/trxstartupsplit/run.py"
+  ],
+  "same_instrumentation_binary": true
+}

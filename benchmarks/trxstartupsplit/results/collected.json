@@ -1,0 +1,9 @@
+{
+  "result": "COLLECTED",
+  "processes": 12,
+  "primary_processes": 6,
+  "extra_repetitions": 0,
+  "source_commit": "7254c32b97dd96297f72d71f83f78df34ad444eb",
+  "peak_owned_bytes": 1879367680,
+  "minimum_free_bytes": 28498104320
+}

@@ -1,0 +1,25 @@
+{
+  "question": "Does the dominant transaction-list startup time come from purge manager construction, rollback-segment array initialization, or residual UNDO processing; which single improvement should be investigated next?",
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "maximum_upstream_files": 4,
+  "active_work_budget_seconds": 7200,
+  "tooling_budget_seconds": 1800,
+  "builds": 1,
+  "build_timeout_seconds": 1200,
+  "heavy_ci_submissions": 0,
+  "run_timeout_seconds": 900,
+  "primary": "P1 3 alternating Fresh/Fork pairs x48, same diagnostic binary/image/baseline",
+  "processes": 12,
+  "all_children": 394,
+  "started_unix": 1794019482.3898828,
+  "exit": "nonoverlapping partition of the transaction_lists interval and recommendation of one next improvement; if mapping or measurements inconclusive stop with missing evidence/cost",
+  "forbidden": [
+    "product/guest changes",
+    "skip recovery or validation",
+    "new optimization prototype",
+    "extra repetitions",
+    "guest rebuild"
+  ],
+  "min_free_gib": 12,
+  "budget_gib": 8
+}
