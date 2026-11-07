@@ -1,0 +1,12 @@
+{
+  "result": "PASS actual source seams;not engine/runtime qualification",
+  "source_sha256": "f589debd2a6bfd677c589965845f43d88f3483d9f70f34a24cf6c150db9ee513",
+  "function_sha256": {
+    "parameter_type_sanity_check": "27a8435723104dc6988eff48cf7c63b17d7da8ff0be417fafdc67575753d17ff",
+    "stmt_execute_packet_sanity_check": "5e6390f53cf79ba19d6e162777720ac8d608a42bbc0b1d8dde82b305cc5a2db0",
+    "mariamem_wire_null_fallback": "39118d9f01fb59508ce9c8597b5defea2dd9de64097c0769aa3c12a2658e3ad1",
+    "insert_params": "c01aab1a471a044f73526e49a686520ff5da9dde680e2c21400550e8c29abdd0",
+    "insert_params_with_log": "5ec4b66a76c12b93c17077da0ef463b1fa69d29802e4367f571235a44b1456cc"
+  },
+  "output": "PASS actual prepared seams:descriptor preflight,NULL fallback,strict surplus,LONG_DATA1210;logged/nonlogged\n"
+}

@@ -10,5 +10,6 @@
   "observed_candidate": "157d545cd4f081686f2cad585017cca3fcf49ba4",
   "linux_run": 42330785223,
   "human_decision": "Preserve native NULL fallback for BIT,GEOMETRY,INT24,YEAR;do not introduce a value decoder",
-  "short_handshake": "Unchanged;1043/08S01 vs legacy1045/28000 remains a contract decision"
+  "short_handshake": "Unchanged;1043/08S01 vs legacy1045/28000 remains a contract decision",
+  "patched_sql_prepare_sha256": "f589debd2a6bfd677c589965845f43d88f3483d9f70f34a24cf6c150db9ee513"
 }

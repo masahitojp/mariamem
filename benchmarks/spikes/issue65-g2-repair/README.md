@@ -24,3 +24,19 @@ Linux CI for this repair;active2h,owned workspaces12GiB each,free floor12GiB.
 The existing full G1 baseline and unchanged241 G2 observations are the runtime
 regression checks. Short-handshake mismatch is expected to remain NOT_READY.
 Until new guest/binding/runtime evidence exists,this is an unverified candidate.
+
+The actual prepared source is SHA-pinned and compiled in a small C++ harness
+with dependency stubs in [check_source.py](check_source.py). It checks descriptor
+preflight(including an invalid second descriptor),the four NULL fallbacks,
+bitmap-NULL surplus rejection,ordinary strict surplus and1210 in logged and
+nonlogged insertion paths. This source-seam check is not an engine qualification.
+The CI builder runs it immediately after source preparation and before the
+unchanged build script disposes that source. The G1 patch-text guard now accounts
+for added/removed lines when checking the replacement end condition;its runtime
+oracles remain unchanged.
+
+[Platform comparison](compare_results.py) retains every expected/actual/pass field
+except the named mid-output drain byte count already observed to vary with
+scheduling. It validates that quantity's integer schema and never changes the
+contract readiness result. Missing/duplicate rows,another actual difference,
+changed expectations/pass outcomes or a different guest cannot match.

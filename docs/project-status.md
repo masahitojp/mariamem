@@ -390,9 +390,21 @@ BIT,GEOMETRY,INT24,YEAR;two concern LONG_DATA errno/pending-stream preservation;
 one is short-handshake1043/08S01 versus the legacy1045/28000 expectation.
 The strict G1 baseline still passes. Metadata/result chains and representative
 D1 cases pass,including reachable exact/max+1 metadata packet bounds and129
-CALL results. Original oracles and guest7103c811 remain fixed. One Linux
-observation is being submitted;its result is unobserved. Repairs and any new
-exception decision are separate;P1/P2/adoption/release remain pending.
+CALL results. Original oracles and guest7103c811 remain fixed. The [Linux repeat42330785223](https://github.com/masahitojp/mariamem/actions/runs/42330785223)
+completes241 with the same11 mismatch records and all expectations/pass outcomes
+matching macOS. Only the PASS mid-output drain byte count differs with timing.
+Baseline,builder/runtime/transit cleanup pass;NOT_READY is a reproduced contract
+result,not an unexecuted Linux set.
+
+The Human then requested repairs and explicitly chose upstream NULL fallback
+for BIT,GEOMETRY,INT24,YEAR. These handlers do not consume values;preserve that
+behavior without adding a decoder. The [G2 repair](../benchmarks/spikes/issue65-g2-repair/README.md)
+candidate76abfed4 makes that narrow exception to G1's added end check,prevalidates
+fresh descriptors before binding/state cleanup and preserves native1210 for
+LONG_DATA type mismatch. It remains unverified as an engine candidate until new
+guest/binding/runtime evidence is collected. Short-handshake1043 versus1045 is
+unchanged and still requires a contract decision or compatibility repair.
+P1/P2/adoption/release remain pending.
 
 
 

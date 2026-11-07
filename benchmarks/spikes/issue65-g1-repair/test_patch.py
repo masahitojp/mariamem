@@ -16,7 +16,16 @@ class RepairGuards(unittest.TestCase):
         p=sections('sql/sql_prepare.cc')
         self.assertIn('get_wire_param_length(pos, len, true)',p)
         self.assertIn('if (consume_overdeclared_string)',p)
-        self.assertEqual(2,p.count('stmt->thd->mariamem_native_wire && read_pos != data_end'))
+        guard='stmt->thd->mariamem_native_wire && read_pos != data_end'
+        added='\n'.join(line[1:] for line in p.splitlines() if line.startswith('+'))
+        removed='\n'.join(line[1:] for line in p.splitlines() if line.startswith('-'))
+        if 'mariamem_wire_null_fallback' in added:
+            # G2 replaces both original guards with the Human-approved native
+            # NULL fallback condition;removed patch lines are not active code.
+            self.assertEqual(2,added.count(guard));self.assertEqual(2,removed.count(guard))
+            self.assertEqual(2,added.count('mariamem_native_wire && !native_null_fallback &&'))
+        else:
+            self.assertEqual(2,added.count(guard)-removed.count(guard))
         self.assertIn('uint4korr(packet + 5) != 1',p)
         self.assertIn('packet_end != packet && packet[0] > 1',p)
     def test_restore_all_descriptors_after_native_decode_failure(self):
