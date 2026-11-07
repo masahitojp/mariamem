@@ -30,6 +30,26 @@ g1_spec=importlib.util.spec_from_file_location('repair_g1_observations',HERE.par
 g1=importlib.util.module_from_spec(g1_spec);g1_spec.loader.exec_module(g1)
 
 
+
+CAPTURE_FIXTURE_BEFORE='e35a01dad1e18ceddfd7569dbba22f6a554a23057751f7ce2f2387bc93192bbd'
+CAPTURE_FIXTURE_AFTER='655525c2bbae543f5e466c1880f4d4a0e5406e5c0b921feec646dc5fddbfd5bc'
+CAPTURE_FIXTURE_NAME='cmd/issue65-wire/capture_test.go'
+
+def prepared_capture_fixture(raw):
+    import hashlib
+    if hashlib.sha256(raw).hexdigest()!=CAPTURE_FIXTURE_BEFORE:raise ValueError('capture fixture preimage changed')
+    anchor=b'\trd := dbFor(t, r, nil)\n\tdefer rd.Close()\n\tr.failAcquisition = true\n'
+    if raw.count(anchor)!=1:raise ValueError('capture fixture anchor changed')
+    corrected=raw.replace(anchor,anchor.replace(b'\tr.failAcquisition',b'\tidle(t, r)\n\tr.failAcquisition'))
+    if hashlib.sha256(corrected).hexdigest()!=CAPTURE_FIXTURE_AFTER:raise ValueError('capture fixture correction changed')
+    return corrected
+
+def adjusted_capture_reference(inventory):
+    if inventory.get(CAPTURE_FIXTURE_NAME)!=CAPTURE_FIXTURE_BEFORE:raise ValueError('capture reference preimage changed')
+    expected=dict(inventory);expected[CAPTURE_FIXTURE_NAME]=CAPTURE_FIXTURE_AFTER
+    return expected
+
+
 def go_env(w):
     sys.path.insert(0,str(w/'worktree/scripts'))
     from build_feedback import go_environment
@@ -55,6 +75,7 @@ def tools(w,with_binding=True):
         if name in reference['prototype_templates_sha256'] and base.sha(source)!=reference['prototype_templates_sha256'][name]:
             raise ValueError('historical regression template changed: '+name)
         shutil.copy2(source,dest/name)
+    (dest/'capture_test.go.txt').write_bytes(prepared_capture_fixture((original/'capture_test.go.txt').read_bytes()))
     shutil.copy2(HERE.parent/'issue65-native-live/live_test.go.txt',dest/'live_test.go.txt')
     shutil.copy2(HERE.parent/'issue65-native-compat/compat_test.go.txt',dest/'compat_test.go.txt')
     known=json.loads((OLD_FIX/'evidence/macos-reference.json').read_text())['template_sha256']
@@ -161,11 +182,12 @@ def execute(w,compare_reference=True):
         if base.sha(reference)!=SOURCE_REFERENCE_SHA256:raise ValueError('reviewed source reference changed')
         recorded=json.loads(reference.read_text())
         if recorded['guest_sha256']!=GUEST_SHA:raise ValueError('source reference guest differs')
-        compared,different=base.source_difference(host['source_inventory'],recorded['source_inventory'])
+        compared,different=base.source_difference(host['source_inventory'],adjusted_capture_reference(recorded['source_inventory']))
         base.save(w/'evidence/source-comparison.json',{'mac_reference_binary_sha256':recorded['binary_sha256'],
-                   'compared_go_assembly_data_files':compared,'different_files':different})
+                   'compared_go_assembly_data_files':compared,'different_files':different,
+                   'reference_adjustments':[{'file':CAPTURE_FIXTURE_NAME,'before':CAPTURE_FIXTURE_BEFORE,'after':CAPTURE_FIXTURE_AFTER,'reason':'wait for guest idle before capture-debt injection'}]})
         if different:raise ValueError('compiled code differs from reviewed macOS source bundle')
-        result['source_reference_status']='MATCHED'
+        result['source_reference_status']='MATCHED_WITH_CAPTURE_FIXTURE_ADJUSTMENT'
     else:
         result['source_reference_status']='LOCAL_REFERENCE_CANDIDATE'
     base.save(w/'evidence/tooling.json' ,{'probe_sha256':base.sha(Path(__file__)),

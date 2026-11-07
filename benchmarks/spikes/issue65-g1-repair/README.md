@@ -68,3 +68,35 @@ remain pending. Canonical guest/generated production code are unchanged.
 Local builder/runtime SDKs,archives,converter,generated code,binaries,Go caches
 and worktrees are disposed with [cleanup debt0](evidence/local-disposal.json).
 One strict Linux submission remains;its result has not been observed.
+
+## Linux repeat: blocked by an existing capture-debt fixture race
+
+[CI42311855948](https://github.com/masahitojp/mariamem/actions/runs/42311855948),
+exact candidate9b795c736e4c14d27ac749f9a7974e713fc6e29e,is INCOMPLETE.
+[The assessment](evidence/ci42311855948.json) records21/22 lifecycle PASS;
+TestCaptureDebtCannotBeForgiven returns `capture precondition 1: busy`,
+root=nil/consumed=false,before reaching its injected acquisition failure.
+The DB client receives PING before guest command-completion/ACK necessarily
+makes capture idle. Other capture fixtures explicitly call idle(t,r) first;
+this direct snapshot path omitted that synchronization. Linux G1,compatibility
+and limit observations were not run. The macOS G1 PASS remains valid at its
+original source;this run does not qualify the repaired guest on Linux.
+
+The saved CI283-file source inventory exactly matches the immutable macOS
+reference(offline comparison);guest7103c811 reproduces exactly. Builder/runtime
+cleanup debt0 and discard-transit job succeed. The failing lifecycle result is
+retained;it is not relabeled PASS or a harmless skipped test.
+
+The correction adds only `idle(t,r)` before failAcquisition in the staged
+capture fixture. The historical template remains unchanged. A deterministic
+before/after hash guard permits exactly that insertion;all assertions and the
+separate busy-rejection cases remain unchanged. Linux source comparison keeps
+the immutable Mac reference and explicitly substitutes this one pinned fixture
+hash,records that adjustment,and continues comparing all283 files. It does not
+claim byte-identical source to the earlier Mac execution.
+
+Six focused source/evidence guards pass,including exact one-line delta and
+unchanged assertions. Corrected native execution remains NOT_RUN. The approved
+Linux1-run budget is consumed. One additional repeat would rebuild the same
+pinned guest and execute the complete corrected suite(about20min based on recent
+runs,queue/time not guaranteed);no rerun has been submitted.

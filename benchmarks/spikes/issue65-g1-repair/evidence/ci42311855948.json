@@ -1,0 +1,32 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42311855948",
+  "candidate_source_commit": "9b795c736e4c14d27ac749f9a7974e713fc6e29e",
+  "result": "INCOMPLETE: lifecycle fixture precondition failed before compatibility/G1 suites",
+  "lifecycle": {
+    "pass": 21,
+    "fail": 1,
+    "failed_case": "TestCaptureDebtCannotBeForgiven",
+    "actual": "root=nil consumed=false capture precondition 1: busy",
+    "injected_cleanup_failure_reached": false
+  },
+  "compatibility_and_limit_observations_executed": 0,
+  "g1_observations_executed": 0,
+  "source_comparison": {
+    "staged_go_assembly_data_files": 283,
+    "different_files": [],
+    "assessment": "offline comparison of saved CI host-build inventory with immutable macOS reference"
+  },
+  "guest_source_commit": "65b49e3dc31e9b2da63b317e015f8f471e79a83e",
+  "guest_sha256": "7103c8116151a386b1359e9ea02fda7e31fe8145f37a221001f97e7de2ce9a91",
+  "binary_sha256": "b4d443fda0300fadccf75b82c63d572531d88cc801bf42b2dc842f1a558d9ceb",
+  "cleanup_debt": {
+    "builder": [],
+    "runtime": []
+  },
+  "fixture_fix": {
+    "historical_fixture_unchanged": true,
+    "insertion": "idle(t, r) before failAcquisition injection",
+    "corrected_fixture_sha256": "655525c2bbae543f5e466c1880f4d4a0e5406e5c0b921feec646dc5fddbfd5bc"
+  },
+  "runtime_reexecution": "NOT_RUN"
+}

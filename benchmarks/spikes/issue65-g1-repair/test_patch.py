@@ -44,6 +44,21 @@ class RepairGuards(unittest.TestCase):
         workflow=(ROOT/'.github/workflows/issue65-compat-fixes.yml').read_text()
         self.assertEqual(2,workflow.count('ref: '+probe.GUEST_SOURCE))
 
+    def test_capture_debt_fixture_only_adds_idle_before_injection(self):
+        import importlib.util,hashlib,json
+        folder=Path(__file__).resolve().parent
+        spec=importlib.util.spec_from_file_location('idle_fix_probe',folder/'probe.py')
+        probe=importlib.util.module_from_spec(spec);spec.loader.exec_module(probe)
+        raw=(folder.parent/'issue65-native-capture/capture_test.go.txt').read_bytes()
+        corrected=probe.prepared_capture_fixture(raw)
+        self.assertEqual(raw,corrected.replace(b'\tdefer rd.Close()\n\tidle(t, r)\n\tr.failAcquisition',b'\tdefer rd.Close()\n\tr.failAcquisition',1))
+        self.assertEqual(probe.CAPTURE_FIXTURE_AFTER,hashlib.sha256(corrected).hexdigest())
+        with self.assertRaises(ValueError):probe.prepared_capture_fixture(raw+b'\n')
+        ref=json.loads((folder/'evidence/macos-reference.json').read_text())['source_inventory']
+        adjusted=probe.adjusted_capture_reference(ref)
+        self.assertEqual({probe.CAPTURE_FIXTURE_NAME}, {k for k in ref.keys()|adjusted.keys() if ref.get(k)!=adjusted.get(k)})
+        with self.assertRaises(ValueError):probe.adjusted_capture_reference(adjusted)
+
     def test_unchanged_observation_fixture(self):
         import hashlib
         p=ROOT/'benchmarks/spikes/issue65-prepared-input/g1_test.go.txt'

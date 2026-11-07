@@ -360,6 +360,17 @@ Local builder/runtime cleanup is complete with debt0. One strict Linux repeat re
 G2/P1/P2,public adoption and release remain separate.
 
 
+The G1 repair Linux repeat42311855948 stops in the existing capture-debt test:
+21/22 lifecycle pass,but a direct snapshot immediately after PING sees busy
+before the intended acquisition-failure injection. G1/compatibility/limits are
+unexecuted,not mismatches or PASS. Saved283-file inventory matches macOS and
+new guest7103c811 reproduces;workspace/transit disposal succeeds. A staged test
+correction adds the existing idle wait before injection,retaining every debt
+assertion and the separate busy-rejection cases. Its one-file source adjustment
+is explicitly pinned against the unchanged Mac reference. Native rerun is pending;
+the single approved Linux run is consumed. See the G1 repair report for evidence.
+
+
 
 ## Current work tracking
 
