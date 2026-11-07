@@ -73,3 +73,14 @@ then decide whether the missing exclusive map cost warrants one small diagnostic
 If cost is small or candidate binding proves impractical, defer and return to
 #88; do not recursively add more structures. No default/SQL/API/release change
 is authorized by this report.
+
+## Subsequent fixed lifecycle comparison
+
+The approved CRC-main comparison completed all58processes without replacing or
+omitting observations. ForkP4 suite medians are455.3ms for mariamem and345.9ms
+for pgmem; mariamem FreshP4 is567.8ms. One primary mariamem count_sum802.10ms
+tail is retained. These whole-lifecycle results do not identify the exclusive
+cost of lexer maps. See the [full report](../pgcurrentlifecycle/results/README.md)
+and [interactive chart](../pgcurrentlifecycle/results/report.html). Next, if
+authorized, measure only init_state_maps calls/unique pairs/exclusive time
+before deciding on a prepared-map prototype. No prototype is implemented.

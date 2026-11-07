@@ -1,0 +1,6 @@
+{
+  "time": "2026-11-07T10:55:25.910483+00:00",
+  "start_docker_stats": "no running containers reported",
+  "mid_campaign_observation": "VM 37.6% CPU; two Spotlight workers18.9% each; interactive desktop active. No claim of an isolated host. Human authorized measurement.",
+  "sampling": "one process snapshot during run; not a continuous load monitor"
+}
