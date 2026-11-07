@@ -5,13 +5,18 @@ sys.path.insert(0,str(s/'scripts'))
 from experiment_disk import DiskGuard,run_guarded
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 inputs=json.loads((e/'inputs.json').read_text());plan=json.loads((b/'plan.json').read_text())
-assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=s,text=True).strip()==inputs['source_commit']
+head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=s,text=True).strip()
+from git_identity import require_commit
+require_commit(s,head);require_commit(s,inputs['source_commit'])
+changed=subprocess.check_output(['git','diff','--name-only',inputs['source_commit'],head],cwd=s,text=True).splitlines()
+assert all(p=='benchmarks/trxstartupsplit/run.py' for p in changed),changed
+(e/'runner-identity.json').write_text(json.dumps({'runner_source_commit':head,'binary_source_commit':inputs['source_commit'],'allowed_diff':changed,'same_instrumentation_binary':True},indent=2)+'\n')
 assert not subprocess.check_output(['git','status','--porcelain'],cwd=s)
 assert sha(b/'plan.json')==inputs['plan_sha256']
 for name,meta in inputs['binaries'].items():assert sha(t/name)==meta['sha256']
 env={k:v for k,v in os.environ.items() if not k.startswith(('GO','MARIAMEM_','MYSQLMEM_','UPDATE_','ISSUE','FORKSTAGES_'))};env.update(GOMAXPROCS='8',GOGC='100')
 (e/'host.json').write_text(json.dumps({'platform':platform.platform(),'cpu':subprocess.check_output(['sysctl','-n','machdep.cpu.brand_string'],text=True).strip(),'memory_bytes':int(subprocess.check_output(['sysctl','-n','hw.memsize'],text=True))},indent=2)+'\n')
-guard=DiskGuard(w,12,8);records=[];deadline=time.monotonic()+900
+guard=DiskGuard(w,12,8);records=json.loads((e/'records.json').read_text()) if (e/'records.json').exists() else [];deadline=time.monotonic()+900
 def run(mode,observer,p,rep,kind,count=48):
  arm='pages'
  name=f'{mode}-{observer}-p{p}-r{rep}-{kind}';out=e/(name+'.json');assert not out.exists(),name
@@ -63,8 +68,8 @@ def run(mode,observer,p,rep,kind,count=48):
    names=[x['name'] for x in sample['traces']['startup']['events']]
    required=['outer_begin','outer_end','undo_tablespaces_begin','undo_tablespaces_end']+(['dictionary_create_begin','dictionary_create_end'] if mode=='fresh' else ['recovery_begin','recovery_end','dictionary_boot_begin','dictionary_boot_end','redo_apply_begin','redo_apply_end','dictionary_load_begin','dictionary_load_end','transaction_lists_begin','transaction_lists_end'])
    assert all(names.count('innodb/'+n)==1 for n in required),(mode,names)
-   assert all(names.count('innodb/'+n)==int(mode=='fork') for n in ['purge_create_begin','purge_create_end','rseg_array_begin','rseg_array_end'])
-   assert names.count('innodb/undo_empty')+names.count('innodb/undo_nonempty')==int(mode=='fork')
+   assert all(names.count('innodb/'+n)==1 for n in ['purge_create_begin','purge_create_end','rseg_array_begin','rseg_array_end'])
+   assert names.count('innodb/undo_empty')+names.count('innodb/undo_nonempty')==1
    assert names.count('innodb/system_space_open_begin')==names.count('innodb/system_space_open_end')==1
    assert names.count('innodb/system_space_create_new')==int(mode=='fresh') and names.count('innodb/system_space_existing')==int(mode=='fork')
   timing_reports={p.name:json.loads(p.read_text()) for p in timing.glob('*.json')}
@@ -80,7 +85,10 @@ def run(mode,observer,p,rep,kind,count=48):
   (e/'records.json').write_text(json.dumps(records,indent=2)+'\n')
  print(name,'expected FAIL' if kind=='negative' else 'PASS',round(r['suite_ms'],2),flush=True)
 for mode in ['fresh','fork']:
- run(mode,'on',1,-2,'pilot',4);run(mode,'on',1,-2,'negative',1)
+ if mode=='fresh':
+  existing=next(x for x in records if x['name']=='fresh-on-p1-r-2-pilot');assert existing['exit_code']==0 and existing.get('owner_archive') and existing.get('harness_assertion')
+ else:run(mode,'on',1,-2,'pilot',4)
+ run(mode,'on',1,-2,'negative',1)
 for mode in ['fresh','fork']:run(mode,'on',1,-1,'warmup')
 for rep in range(3):
  for mode in (['fresh','fork'] if rep%2==0 else ['fork','fresh']):run(mode,'on',1,rep,'primary')
