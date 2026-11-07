@@ -1,0 +1,63 @@
+{
+  "question": "Is dominant rseg read_complete elapsed time checksum/corruption validation, conditional recovery, or other processing?",
+  "mapping_started_unix": 1794025653.143127,
+  "mapping_budget_seconds": 1800,
+  "if_identified": {
+    "Go_builds": 1,
+    "build_timeout_seconds": 1200,
+    "primary": "P1 Fresh/Fork, 3 alternating pairs, 48 children, same warm static image and schema/seed",
+    "run_timeout_seconds": 900,
+    "keep": "all phases/tails/owners/cleanup"
+  },
+  "if_not_identified": "stop with evidence and guest-regeneration cost boundary; do not rebuild guest",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "forbidden": [
+    "product/guest changes",
+    "skip recovery or validation",
+    "new optimization prototype",
+    "extra repetitions",
+    "guest rebuild"
+  ],
+  "budget_gib": 8,
+  "min_free_gib": 12,
+  "mapping_result": "mapped: Fn18174 read_complete, Fn18145 buf_page_is_corrupted with inlined full_crc32 L23 to L36, Fn17470 recv_recover_page",
+  "primary_processes": 6,
+  "warmup_processes": 2,
+  "positive_pilots": 2,
+  "negative_controls": 2,
+  "total_processes": 12,
+  "children": 48,
+  "parallel": [
+    1
+  ],
+  "observers": [
+    "on"
+  ],
+  "modes": [
+    "fresh",
+    "fork"
+  ],
+  "same_binary": true,
+  "image": "static-page prototype warm in both; equal baseline prepared before children",
+  "criteria": [
+    "Validation/recovery exclusive parts add back inside128 header read_complete calls",
+    "Record actual recovery branch and verification invocation counts",
+    "Same finite P1 three alternating Fresh/Fork pairs, SQL/isolation/cleanup and owner logs preserved",
+    "Dominant-path recommendation requires per-child median >=0.5ms and >=50 percent of read_complete; no optimization"
+  ],
+  "baseline_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "active_work_budget_seconds": 7200,
+  "tooling_budget_seconds": 1800,
+  "heavy_ci_submissions": 0,
+  "builds": 1,
+  "build_timeout_seconds": 1200,
+  "run_timeout_seconds": 900,
+  "primary": "P1 3 alternating Fresh/Fork pairs x48, same diagnostic binary/image/baseline",
+  "processes": 12,
+  "all_children": 394,
+  "started_unix": 1794025653.143127,
+  "exit": "Identify dominant validation/recovery component or stop inconclusive; no optimization",
+  "native_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "observer_scope": "Header-only function-local aggregation, no global worker timing or off-observer performance claim",
+  "mapping_seconds": 293.28064584732056
+}

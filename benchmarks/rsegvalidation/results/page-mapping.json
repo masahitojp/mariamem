@@ -1,0 +1,59 @@
+{
+  "function": "Fn18164",
+  "native": "buf_page_get_gen",
+  "p3_sha256": "df1076eca2e4cb5fa8cce55ebc85fb672ed448a718780378c66cd6cb7dbe482c",
+  "raw_body_sha256": "12968dba4a55a206bfba1edcabe889d039e2887fdc23c03f26c071349a0828ce",
+  "inherited_owner_body_sha256": "009f526a743832d642383d086edababe28198848855d6fff8bf615fc325e34ea",
+  "anchors": [
+    "func Fn18164(m *base.Module, l0 int64, l1 int32, l2 int32, l3 int32, l4 int32, l5 int32) int32 {",
+    "\nL18:\n\t;",
+    "\nL111:\n\t;",
+    "\nL114:\n\t;",
+    "Fn16792(m, v99, v104, v110, int32(1))",
+    "Fn16788(m, v99)",
+    "Fn16787(m, v580, v108)"
+  ],
+  "phases": [
+    "lookup",
+    "sync_read_miss",
+    "random_read_ahead",
+    "read_wait"
+  ],
+  "nested_read": {
+    "function": "Fn16789",
+    "body_sha256": "1681f0b19d7c6d8db407d375c26a53029fea6e01be994d09b97ad691b77c4138",
+    "anchors": [
+      [
+        0,
+        "Fn16791(m, l0, l1, l3, l5)",
+        3,
+        true
+      ],
+      [
+        1,
+        "Fn17564(m, v16+int32(24), l4, v16+int32(8), base.I64_extend_i32_u(v81)*(l0&int64(4294967295)), v81, v88, v47)",
+        12,
+        false
+      ],
+      [
+        2,
+        "Fn18174(m, v47, v154, v157)",
+        6,
+        true
+      ],
+      [
+        3,
+        "Fn16787(m, v47, v45)",
+        6,
+        false
+      ]
+    ],
+    "phases": [
+      "frame_init",
+      "sync_io_request",
+      "read_complete",
+      "race_read_wait"
+    ]
+  },
+  "scope": "exact rseg header caller Module only; nonreentrant top call; other/latch residual explicit; nested phases counted within read miss"
+}
