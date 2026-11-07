@@ -23,3 +23,22 @@ review,Mac native timeout/ownership and original regressions,then at most one
 Linux CI cohort. Preserve original expectations and approved1043 G2 adaptation.
 All actual runtime results are pending. No public route,canonical generated
 source,consumer/performance or release change is included.
+
+
+Light checks pass:eight host owner/timeout unit tests under the race detector,
+four detected Go timeout mutations and nine detected C++ source mutations with
+undefined-behavior sanitizer. C++ checks run both on the extracted source and
+again on the actual prepared guest files. Existing ten observation/source guard
+commands pass. The first local helper read failed before engine compilation;
+the original error is retained and an exact Git-archive tooling snapshot is
+used to resume with the same guest source and already verified archives.
+
+Native tests will distinguish exact configuration from scheduling accuracy:
+real INSPECT values are decimal strings to avoid float64 precision loss;
+MaxInt64 acceptance and PING are checked without claiming a292-year wait.
+The first-byte/idle and stale/current command-token cases exercise existing
+guest gates. The public Options-default comparison is a focused unit check;
+public native backend wiring and inherited Options for Fork/Live remain P1-c.
+
+Zero/default30s here follows Go Options. Existing control-string and Python
+option validation are unchanged;no new Python zero-duration acceptance is added.
