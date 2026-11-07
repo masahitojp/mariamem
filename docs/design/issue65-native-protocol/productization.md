@@ -3,17 +3,17 @@
 状態: **HumanがP1-aの実装を承認。macOSの限定検証済み、Linux照合待ち。main採用・release未承認。**
 
 設計時点のartifactとreviewは`9f4977135941acff010987e49ff0cad9221b2734` /
-`3f934997cd8ead4daf6a639c7fc75cbb1d863e06`に保持する。以下の完了条件を維持してP1-aを実装する。
+`3f934997cd8ead4daf6a639c7fc75cbb1d863e06`に保持する。以下の完了条件をP1-aの実装・検証に適用する。
 [実装とmacOS実測](../../../benchmarks/spikes/issue65-p1-owner/README.md)を保存した。
 Linuxで同一guest・ソース・観測を照合するまで、両OSの完了とは扱わない。
 
-今回決めることは、P1の最初の実装を **hostによる接続枠とsession identityの所有** に絞るかです。
-推奨します。現在もhostは接続数を予約していますが、slot/generationの発行はC++にあり、
-二つの管理を一つのownerへ揃えると、公開APIへ接続する前に所有権を明確にできます。
+承認したP1最初の実装範囲は、**hostによる接続枠とsession identityの所有** です。
+設計時点ではhostの接続予約とC++のslot/generation発行が分かれていました。
+二つの管理を一つのownerへ揃え、公開APIへ接続する前に所有権を明確にする方針です。
 最大の懸念は、OPENの結果が不明なときや終了通知の直後に枠を再利用し、古いworkerやframeを
 新接続へ結び付けることです。以下の保留規則と、枠解放の二条件を実装・検出条件にします。
 
-## 固定した根拠と範囲
+## 設計時点で固定した根拠と範囲
 
 - 調査base: `781fa29926be06856728741df96a1a4713e93af3`。
 - 実行済み候補: `f3fe907ac238e738c94b684426e6230b23a3c163`。

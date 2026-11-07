@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "workspaces": [
+    {
+      "workspace": "issue65-p1-guest",
+      "cleanup_debt": [],
+      "before_bytes": 11461451776,
+      "after_bytes": 6913474560,
+      "receipt_sha256": "98a09adee5e4ff996ca6bb28c8597ccd0ce129879ed70d042592ae252ea5495b",
+      "worktree_removed": true,
+      "temp_removed": true
+    },
+    {
+      "workspace": "issue65-p1-host",
+      "cleanup_debt": [],
+      "before_bytes": 5119000576,
+      "after_bytes": 2231607296,
+      "receipt_sha256": "74a77d5b9075d93eb52e289b9d9653af4411a891791715b558df4ca823c7e405",
+      "worktree_removed": true,
+      "temp_removed": true
+    }
+  ],
+  "retained": "compact evidence and Git refs only;author workspace finalized separately"
+}
