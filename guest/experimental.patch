@@ -1744,3 +1744,115 @@
    void setup_conversion(THD *thd, uchar param_type);
    void setup_conversion_blob(THD *thd);
    void setup_conversion_string(THD *thd, CHARSET_INFO *fromcs);
+--- a/sql/sql_prepare.cc
++++ b/sql/sql_prepare.cc
+@@ -913,6 +913,15 @@
+     1  otherwise
+ */
+ 
++// These upstream handlers return NULL without consuming input bytes. Keep
++// that native behavior; do not reinterpret their payload in a second decoder.
++static bool mariamem_wire_null_fallback(const Item_param *param)
++{
++  enum_field_types type= param->type_handler()->field_type();
++  return type == MYSQL_TYPE_BIT || type == MYSQL_TYPE_GEOMETRY ||
++         type == MYSQL_TYPE_INT24 || type == MYSQL_TYPE_YEAR;
++}
++
+ static bool insert_params_with_log(Prepared_statement *stmt, uchar *null_array,
+                                    uchar *read_pos, uchar *data_end,
+                                    String *query)
+@@ -922,6 +931,7 @@
+   Item_param **end= begin + stmt->param_count;
+   Copy_query_with_rewrite acc(thd, stmt->query(), stmt->query_length(), query);
+   DBUG_ENTER("insert_params_with_log");
++  bool native_null_fallback= false;
+ 
+   for (Item_param **it= begin; it < end; ++it)
+   {
+@@ -934,6 +944,9 @@
+       {
+         if (read_pos >= data_end)
+           DBUG_RETURN(1);
++        if (stmt->thd->mariamem_native_wire &&
++            mariamem_wire_null_fallback(param))
++          native_null_fallback= true;
+         param->set_param_func(&read_pos, (uint) (data_end - read_pos));
+         if (param->has_no_value())
+           DBUG_RETURN(1);
+@@ -952,7 +965,11 @@
+       supplied type of placeholder can accept a data stream.
+     */
+     else if (!param->type_handler()->is_param_long_data_type())
++    {
++      if (stmt->thd->mariamem_native_wire)
++        my_error(ER_WRONG_ARGUMENTS, MYF(0), "mysqld_stmt_execute");
+       DBUG_RETURN(1);
++    }
+ 
+     if (acc.append(param))
+       DBUG_RETURN(1);
+@@ -965,7 +982,8 @@
+   if (acc.finalize())
+     DBUG_RETURN(1);
+ 
+-  if (stmt->thd->mariamem_native_wire && read_pos != data_end)
++  if (stmt->thd->mariamem_native_wire && !native_null_fallback &&
++      read_pos != data_end)
+     DBUG_RETURN(1);
+   DBUG_RETURN(0);
+ }
+@@ -979,6 +997,7 @@
+   Item_param **end= begin + stmt->param_count;
+ 
+   DBUG_ENTER("insert_params");
++  bool native_null_fallback= false;
+ 
+   for (Item_param **it= begin; it < end; ++it)
+   {
+@@ -992,6 +1011,9 @@
+       {
+         if (read_pos >= data_end)
+           DBUG_RETURN(1);
++        if (stmt->thd->mariamem_native_wire &&
++            mariamem_wire_null_fallback(param))
++          native_null_fallback= true;
+         param->set_param_func(&read_pos, (uint) (data_end - read_pos));
+         if (param->has_no_value())
+           DBUG_RETURN(1);
+@@ -1004,12 +1026,17 @@
+       supplied type of placeholder can accept a data stream.
+     */
+     else if (!param->type_handler()->is_param_long_data_type())
++    {
++      if (stmt->thd->mariamem_native_wire)
++        my_error(ER_WRONG_ARGUMENTS, MYF(0), "mysqld_stmt_execute");
+       DBUG_RETURN(1);
++    }
+     if (param->convert_str_value(stmt->thd))
+       DBUG_RETURN(1);                           /* out of memory */
+     param->sync_clones();
+   }
+-  if (stmt->thd->mariamem_native_wire && read_pos != data_end)
++  if (stmt->thd->mariamem_native_wire && !native_null_fallback &&
++      read_pos != data_end)
+     DBUG_RETURN(1);
+   DBUG_RETURN(0);
+ }
+@@ -3451,6 +3478,16 @@
+       If true, the packet is guaranteed too short for the number of
+       parameters in the PS
+     */
++    if (stmt->thd->mariamem_native_wire && !bulk_op &&
++        packet_length >= min_len_for_param_count)
++    {
++      // Validate every descriptor before setup_conversion_functions can mutate
++      // any binding. A rejected descriptor must retain pending LONG_DATA.
++      const uchar *types= packet + null_bitmap_bytes + 1;
++      for (uint i= 0; i < stmt->param_count; ++i)
++        if (parameter_type_sanity_check(uint2korr(types + 2*i)))
++          return true;
++    }
+     return (packet_length < min_len_for_param_count);
+   }
+   else
