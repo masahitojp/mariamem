@@ -40,3 +40,49 @@ except the named mid-output drain byte count already observed to vary with
 scheduling. It validates that quantity's integer schema and never changes the
 contract readiness result. Missing/duplicate rows,another actual difference,
 changed expectations/pass outcomes or a different guest cannot match.
+
+## Native macOS result
+
+Guest/checked host source_commit `76abfed4b5f920c79efd5fef33c848c21ac040c9`,
+UNQUALIFIED guest SHA256
+`242f5cfd446ac65dc3d7322ead668cd2ec5473193cf4bb58b69c7c5b3cfe6e87`.
+Complete free/yield/entry worker bodies match the prior7103 guest byte for byte;
+canonical P2 mapping and16/40/44 ABI offsets are checked in [binding](binding/identity.json).
+
+At tooling6939d8625eaa8662d2ed40c9258a795ecd3c3e91,the unchanged G2 fixture
+completes all241 observations:240 PASS,1 mismatch,0 missing. All10 intended
+observations are repaired:four input types on fresh/reuse,wrong LONG type1210,
+and pending LONG_DATA retained after a rejected descriptor. None of the original
+230 PASS observations regresses. [Original result](evidence/macos-g2-result.json)
+and [raw log](evidence/macos-g2-raw.txt) retain the failed short-handshake
+expectation1045/28000 and actual1043/08S01. **NOT_READY** remains correct.
+No original runtime oracle was edited or candidate output adopted as an oracle.
+
+The strict regression baseline passes22 lifecycle,88 compatibility,38 limits,
+all234 G1,2 existing/3 policy/4 repair controls and supporting checks(including22
+canonical binding installer tests). A new [283-file source reference](evidence/macos-reference.json)
+already includes the capture idle fixture correction and requires no additional
+adjustment. [G2 build summary](evidence/macos-build-summary.json) pins a separate
+binary and284 staged Go/assembly/data files:full7420→7421 inventory adds only
+the original G2 test source. These are staged files,not a claim all283 compile on
+both operating systems. Full original inventories remain in owned evidence.
+
+Local results establish the finite repair;one Linux repeat is next and unobserved.
+The expected remaining short-handshake mismatch still makes that CI NOT_READY.
+Do not retry it to obtain green or silently loosen the expectation. A contract
+decision or compatibility repair for that case remains separate,as do P1 public
+wiring/ownership and P2 consumers/performance/adoption/release.
+
+Reproduction uses Python3.14,Go1.26.10 and owned fixed-source workspaces:
+
+```sh
+python3 benchmarks/spikes/issue65-g2-repair/probe_baseline.py build --workspace "$BUILDER_WORK"
+python3.14 benchmarks/spikes/issue65-g2-repair/probe.py local --workspace "$HOST_WORK"
+# Native Linux x86_64,with the frozen Mac source/result comparisons:
+python3 benchmarks/spikes/issue65-g2-repair/probe.py runtime --workspace "$HOST_WORK"
+```
+
+The first local measurement explicitly ran translate → complete binding review
+→ baseline record-local → observe. Subsequent local and Linux replay use strict
+reference comparison. The workflow is issue65-g2-repair.yml;submit exact candidate
+SHA once,hand off its run URL/operation,and stop.

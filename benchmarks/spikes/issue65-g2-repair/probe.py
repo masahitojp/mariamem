@@ -18,7 +18,7 @@ def load(name,path):
 fix=load('g2_baseline_probe',HERE/'probe_baseline.py')
 observer=load('g2_observer',HERE.parent/'issue65-g2/observations.py')
 base=fix.base
-G2_REFERENCE_SHA256='PENDING_NEW_G2_REFERENCE'
+G2_REFERENCE_SHA256='d307057e5d9f85945a79aaf6b06feae5826c8da39f5186d0de0e1a666a57d22f'
 comparison=load('g2_repair_compare',HERE/'compare_results.py')
 
 def compile_fixture(w):

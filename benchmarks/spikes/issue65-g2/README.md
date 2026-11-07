@@ -76,7 +76,7 @@ python3 benchmarks/spikes/issue65-g2/probe.py runtime --workspace "$HOST_WORK"
 The existing workflow file targets experiment/issue65-g2,with native Linux arm64
 guest build and x86_64 execution. Retain raw logs/results even on NOT_READY,dispose
 SDK/converter/generated code/binaries/caches/worktrees and transit,then hand off
-exact SHA/run URL/operation and stop. Linux execution has not been observed yet.
+exact SHA/run URL/operation and stop. Linux CI42330785223 completed all241 with the same11 mismatches as macOS.
 
 ## Native macOS observation,2026-11-07
 
@@ -123,3 +123,10 @@ Local builder,runtime and bootstrap-tool workspaces have been disposed with
 inventory receipts remain under owned evidence;Git contains the reduced report,
 raw observation log and checksummed results. Public command/build receipts replace
 only the local workspace prefix with `<owned-runtime-workspace>`.
+
+The [Linux repeat42330785223](https://github.com/masahitojp/mariamem/actions/runs/42330785223)
+reproduces all11 mismatch records,with identical expectations/pass outcomes for
+all241. Only the passing mid-output drain quantity varies with scheduling.
+Baseline and builder/runtime/transit cleanup pass. The separately authorized
+[G2 repair](../issue65-g2-repair/README.md) follows;it does not rewrite this
+fixed-guest observation result.

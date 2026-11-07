@@ -1,0 +1,31 @@
+{
+  "guest_source_commit": "76abfed4b5f920c79efd5fef33c848c21ac040c9",
+  "guest_sha256": "242f5cfd446ac65dc3d7322ead668cd2ec5473193cf4bb58b69c7c5b3cfe6e87",
+  "host_source_commit": "76abfed4b5f920c79efd5fef33c848c21ac040c9",
+  "macos_g2_tooling_source_commit": "6939d8625eaa8662d2ed40c9258a795ecd3c3e91",
+  "runtime_baseline": "PASS22 lifecycle/88 compatibility/38 limits/234 G1/2 existing controls/3 policy controls/4 repair controls/supporting checks incl22 binding installer tests",
+  "g2": {
+    "complete": true,
+    "observations": 241,
+    "pass": 240,
+    "mismatches": 1,
+    "missing": 0,
+    "original_failures_repaired": 10,
+    "original_pass_regressions": 0,
+    "remaining": "short_fixed_header:legacy1045/28000 versus native1043/08S01",
+    "result": "NOT_READY"
+  },
+  "focused_checks": {
+    "source_seams": "PASS actual prepared source,logged/nonlogged with dependency stubs;not engine qualification",
+    "reference_guards": 6,
+    "platform_comparison_tests": 7,
+    "g1_patch_guards": 6,
+    "g2_evidence_tests": 13,
+    "actionlint": "PASS1.7.12 checksum verified",
+    "python_ast": "PASS",
+    "public_source_check": "PASS",
+    "diff_check": "PASS"
+  },
+  "linux": "UNOBSERVED;one run to submit;expected short-handshake mismatch remains NOT_READY",
+  "canonical_runtime_guest_release_changed": false
+}

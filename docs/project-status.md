@@ -401,8 +401,13 @@ for BIT,GEOMETRY,INT24,YEAR. These handlers do not consume values;preserve that
 behavior without adding a decoder. The [G2 repair](../benchmarks/spikes/issue65-g2-repair/README.md)
 candidate76abfed4 makes that narrow exception to G1's added end check,prevalidates
 fresh descriptors before binding/state cleanup and preserves native1210 for
-LONG_DATA type mismatch. It remains unverified as an engine candidate until new
-guest/binding/runtime evidence is collected. Short-handshake1043 versus1045 is
+LONG_DATA type mismatch. New UNQUALIFIED guest242f5cfd has complete worker binding checks
+with all three bodies byte-identical to7103c811 and unchanged16/40/44 ABI.
+Native macOS at tooling6939d862 passes the complete existing baseline and all241
+G2 observations execute:240 PASS,1 mismatch,0 missing. The10 intended differences
+are repaired with no original PASS regression. Original G1/G2 oracles stay fixed.
+The new283-file reference and284-file one-fixture extension are separately pinned;
+one Linux repeat is next and unobserved. Short-handshake1043 versus1045 is
 unchanged and still requires a contract decision or compatibility repair.
 P1/P2/adoption/release remain pending.
 

@@ -1,0 +1,19 @@
+{
+  "ci42330785223.json": "a5198e5e5d3d3aeea98b6af7367a085b338597b203543ed2baefa96f25bf4aab",
+  "guest.json": "44c07ec1a14066eb55e01dc89b0004c4f5cde08680e55ffa91685703aa55ed38",
+  "macos-baseline-binding-controls.txt": "6faceeda3175289a02fd25f0f5d3d0b940147abbaf84cdb5599cd49f09f8df6f",
+  "macos-baseline-binding-tests.txt": "0ace0ae54c717d2036523a8f419eb66dda2c3696d6bdc58eafb7db7066703d73",
+  "macos-baseline-compat-result.json": "caf1caceef01cd7d7cf6a1a22c323436534c08502d661444849b85060579666f",
+  "macos-baseline-g1-result.json": "9bd2b7080809dff2a1001f6b3ff195b5f08c385789d10c0647c39866345241cb",
+  "macos-baseline-lifecycle-result.json": "7b90f8c14b2de58d62f7b3cd01735bd7ddc46deb6ae5e630dd58730337279214",
+  "macos-baseline-limits-result.json": "de0d8fb6ca70df4c2e08c92ebcdc8bc0533d3cc0dc942d909113b6acaa401b41",
+  "macos-baseline-policy-controls.json": "34fd771fcd62f08d74319635ae90e132d160ffd3fec537a14203b2f65d42f432",
+  "macos-baseline-repair-controls.json": "94806ca18a6c93b068f844800eff546e629f63ec9894fa1d50f83c288587496d",
+  "macos-baseline-result.json": "4bff60123ee1696441aa80db500fe022a8ec70113027148a3021f36645d3a732",
+  "macos-build-summary.json": "0c1dd49b74077e6b93bbdf12e5045dc465e086d5fa971ccd3ae7100a52688369",
+  "macos-g2-raw.txt": "976a48433129da855edbf945c348ea0c85f07da8c78642d52216e14a99eef02f",
+  "macos-g2-result.json": "d307057e5d9f85945a79aaf6b06feae5826c8da39f5186d0de0e1a666a57d22f",
+  "macos-reference.json": "1846ff7a9ce4af3e89896586cfe1706a9c30be29731bbcadc3cff4411e03fa8f",
+  "source-seams.json": "99973e0b71aaedd6c98f363c18d338acad478eaee29053a9b52284d9eaed43b9",
+  "verification-summary.json": "c042aa0bc3458bc366b4af4443bb40d566731d4412438b98c5af4d7af96e600b"
+}
