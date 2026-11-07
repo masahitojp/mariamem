@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Fixed-guest G2: strict accepted baseline, then one observation-only source extension."""
 import argparse
+import hashlib
 import importlib.util
 import json
 import os
 from pathlib import Path
 import platform
-import shutil
 import subprocess
 import sys
 
@@ -20,6 +20,7 @@ observer=load('g2_observer',HERE.parent/'issue65-g2/observations.py')
 base=fix.base
 G2_REFERENCE_SHA256='d307057e5d9f85945a79aaf6b06feae5826c8da39f5186d0de0e1a666a57d22f'
 comparison=load('g2_repair_compare',HERE/'compare_results.py')
+contract=load('g2_handshake_contract',HERE/'handshake_contract.py')
 
 def compile_fixture(w):
     product=w/'temp/host/product'
@@ -30,18 +31,20 @@ def compile_fixture(w):
     baseline=host['source_inventory']
     if inventory(product)!=baseline:raise ValueError('full baseline inventory differs before G2 extension')
     if base.sha(w/'temp/host/wire.test')!=host['binary_sha256']:raise ValueError('baseline binary changed')
-    shutil.copyfile(fixture,product/'cmd/issue65-wire/g2_test.go')
+    prepared=contract.fixture(fixture.read_bytes())
+    fixture_sha=hashlib.sha256(prepared).hexdigest()
+    (product/'cmd/issue65-wire/g2_test.go').write_bytes(prepared)
     pins=inventory(product)
-    expected=dict(baseline,**{'cmd/issue65-wire/g2_test.go':base.sha(fixture)})
+    expected=dict(baseline,**{'cmd/issue65-wire/g2_test.go':fixture_sha})
     if pins!=expected:raise ValueError('full source must be unchanged baseline plus G2 fixture')
-    count=observer.require_extension(pins,baseline,base.sha(fixture))
+    count=observer.require_extension(pins,baseline,fixture_sha)
     binary=w/'temp/host/g2.test'
     env=fix.go_env(w)
     subprocess.run(['go','test','-c','-p','1','-trimpath','-buildvcs=false','-o',str(binary),'./cmd/issue65-wire'],cwd=product,env=env,check=True)
     if inventory(product)!=pins:raise ValueError('source changed while compiling G2')
     base.save(w/'evidence/g2-build.json',{'guest_source_commit':fix.GUEST_SOURCE,'guest_sha256':fix.GUEST_SHA,
         'host_source_commit':fix.HOST_SOURCE,'baseline_binary_sha256':host['binary_sha256'],
-        'binary_sha256':base.sha(binary),'fixture_sha256':base.sha(fixture),'source_inventory':pins,
+        'binary_sha256':base.sha(binary),'fixture_sha256':fixture_sha,'original_fixture_sha256':base.sha(fixture),'contract':contract.CONTRACT,'source_inventory':pins,
         'staged_go_assembly_data_files':count,
         'tooling_source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         'go_buildinfo':subprocess.check_output(['go','version','-m',str(binary)],env=env,text=True)})
@@ -61,14 +64,14 @@ def observe(w):
         or base.sha(w/'temp/host/wire.test')!=build['baseline_binary_sha256']):
         raise ValueError('executed G2 source/binary changed')
     base.identity(w/'worktree',fix.HOST_SOURCE)
-    result.update({k:build[k] for k in ('guest_source_commit','guest_sha256','host_source_commit','tooling_source_commit','fixture_sha256','binary_sha256')})
+    result.update({k:build[k] for k in ('guest_source_commit','guest_sha256','host_source_commit','tooling_source_commit','fixture_sha256','binary_sha256','original_fixture_sha256','contract')})
     result['baseline_result']=json.loads((w/'evidence/result.json').read_text())['result']
     result['not_qualified']=['unobserved G2 combinations','public APIs','controller relocation','performance','adoption','release']
     base.save(w/'evidence/g2-result.json',result)
     if platform.system()=='Linux':
         reference=HERE/'evidence/macos-g2-result.json'
         if base.sha(reference)!=G2_REFERENCE_SHA256:raise ValueError('G2 Mac comparison reference changed')
-        compared=comparison.compare(json.loads(reference.read_text()),result)
+        compared=comparison.compare(contract.reference_for_comparison(json.loads(reference.read_text())),result)
         base.save(w/'evidence/g2-source-platform-comparison.json',compared)
         if not compared['matched']:raise ValueError('G2 observations differ from Mac;original result retained')
     if not result['ready']:raise ValueError(result['result'])

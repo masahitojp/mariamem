@@ -2,8 +2,8 @@
 
 Human continuation after CI42330785223: repair the observed type/LONG_DATA gaps.
 The Human explicitly chose to preserve upstream NULL fallback for BIT,GEOMETRY,
-INT24,YEAR. Original G1/G2 oracles remain fixed;short handshake stays a visible
-contract difference. No canonical guest/host integration or release.
+INT24,YEAR. Historical G1/G2 oracles remain fixed;the original short-handshake difference
+is preserved in their records. The approved1043 contract is recorded below. No canonical guest/host integration or release.
 
 Pinned upstream83e909fc sql_type.cc:8226 Type_handler::Item_param_set_param_func
 sets NULL without advancing the packet. BIT,INT24,YEAR inherit that fallback;GEOMETRY explicitly performs the same
@@ -55,7 +55,8 @@ observations are repaired:four input types on fresh/reuse,wrong LONG type1210,
 and pending LONG_DATA retained after a rejected descriptor. None of the original
 230 PASS observations regresses. [Original result](evidence/macos-g2-result.json)
 and [raw log](evidence/macos-g2-raw.txt) retain the failed short-handshake
-expectation1045/28000 and actual1043/08S01. **NOT_READY** remains correct.
+expectation1045/28000 and actual1043/08S01. **NOT_READY** remains correct for
+that execution under its then-current legacy contract.
 No original runtime oracle was edited or candidate output adopted as an oracle.
 
 The strict regression baseline passes22 lifecycle,88 compatibility,38 limits,
@@ -67,11 +68,42 @@ binary and284 staged Go/assembly/data files:full7420→7421 inventory adds only
 the original G2 test source. These are staged files,not a claim all283 compile on
 both operating systems. Full original inventories remain in owned evidence.
 
-Local results establish the finite repair;one Linux repeat is next and unobserved.
-The expected remaining short-handshake mismatch still makes that CI NOT_READY.
-Do not retry it to obtain green or silently loosen the expectation. A contract
-decision or compatibility repair for that case remains separate,as do P1 public
-wiring/ownership and P2 consumers/performance/adoption/release.
+## Approved short-handshake contract
+
+The Human adopted native **1043 / 08S01 (Bad handshake)** for the named short
+fixed-header login case. It replaces the former1045/28000 expectation. Ordinary
+authentication failures and other native SQL errors keep their own contracts.
+No guest,host runtime,wire parser or error-number translation is added.
+
+[The contract assessment](evidence/handshake-contract-adjudication.json) checks
+the saved actual packet against1043/08S01. All241 saved macOS observations satisfy
+the approved current contract. This is a reassessment of saved evidence,not a new
+runtime execution or a rewritten PASS result. Historical raw logs,failed cases,
+exit code,fixture and source/binary hashes remain unchanged.
+
+[The future fixture preparation](handshake_contract.py) checks the original
+fixture hash and changes exactly the two lines for this named expectation and
+predicate. The staged build records both original and approved fixture hashes.
+Platform comparison applies the same explicit contract adjustment to reference
+observation rows only;other expected/actual/pass fields remain strict. It never
+accepts1045,another SQLSTATE,a malformed ERR packet or a read error for this case.
+
+[CI42336040253](https://github.com/masahitojp/mariamem/actions/runs/42336040253)
+was submitted at64ee91e2 **before** this decision and still uses the old expectation.
+The Human then reported its failure. Diagnosis confirms all241 execute,240 PASS
+and only the old short-header mismatch remains. G1 baseline,283-file source
+comparison,all241 observation comparison and builder/runtime/transit disposal
+pass. Its historical CI result stays failure/NOT_READY.
+
+[The Linux contract assessment](evidence/ci42336040253-approved-contract.json)
+and [unchanged Linux result](evidence/linux-g2-legacy-result.json) show all241 saved
+Linux observations also satisfy the approved1043 contract. Both-platform saved
+observations now agree with that contract;this is not a fresh execution of the
+adjusted fixture. The Human failure report is addressed by submitting one corrected-contract CI.
+The existing G2 workflow requires its fixed-guest build producer before runtime
+execution,so that existing path runs once despite unchanged engine code. Its
+new result remains unobserved. P1 public wiring/ownership,P2 consumers/performance,
+adoption and release remain separate.
 
 Reproduction uses Python3.14,Go1.26.10 and owned fixed-source workspaces:
 

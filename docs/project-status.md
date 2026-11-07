@@ -407,8 +407,21 @@ Native macOS at tooling6939d862 passes the complete existing baseline and all241
 G2 observations execute:240 PASS,1 mismatch,0 missing. The10 intended differences
 are repaired with no original PASS regression. Original G1/G2 oracles stay fixed.
 The new283-file reference and284-file one-fixture extension are separately pinned;
-one Linux repeat is next and unobserved. Short-handshake1043 versus1045 is
-unchanged and still requires a contract decision or compatibility repair.
+[Linux CI42336040253](https://github.com/masahitojp/mariamem/actions/runs/42336040253)
+was submitted at64ee91e2 under the old1045 expectation. The Human reported its
+failure:all241 execute,240 PASS and only that short-header mismatch remains.
+G1 baseline,283-file source comparison,all241 observation comparison and cleanup
+pass;its historical CI conclusion remains failure/NOT_READY.
+The Human subsequently adopted **1043/08S01** for the named short fixed-header
+handshake case. No runtime translation is required. The saved native packet
+already matches that contract;all241 saved Mac and Linux observations satisfy the approved
+contract when reassessed. Historical FAIL/raw records are preserved,not relabeled
+as a new successful execution. Future fixture preparation changes only the two
+named expectation/predicate lines with an explicit preimage hash and records
+both fixture hashes. After the failure report,one corrected-contract CI is submitted through the
+existing guest-build/G2-runtime dependency. Its result and fresh execution of
+the adjusted fixture remain unobserved. The saved both-platform evidence is
+assessed under the explicit approved contract.
 P1/P2/adoption/release remain pending.
 
 

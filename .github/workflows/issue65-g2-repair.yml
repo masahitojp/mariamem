@@ -38,6 +38,8 @@ jobs:
             libssl-dev zlib1g-dev libpcre2-dev libncurses-dev xz-utils
       - name: Check native policy patch before building
         run: python3 tooling/benchmarks/spikes/issue65-policy-fix/test_policy.py -v
+      - name: Check approved short-handshake contract
+        run: python3 tooling/benchmarks/spikes/issue65-g2-repair/test_handshake_contract.py -v
       - name: Check G2 repair evidence and source identity pins
         run: python3 tooling/benchmarks/spikes/issue65-g2-repair/test_reference.py -v
       - name: Check G1 native repair seams
@@ -110,6 +112,8 @@ jobs:
         run: python tooling/benchmarks/spikes/issue65-policy-fix/test_policy.py -v
       - name: Check prepared input evidence accounting
         run: python tooling/benchmarks/spikes/issue65-prepared-input/test_observations.py -v
+      - name: Check approved short-handshake contract
+        run: python3 tooling/benchmarks/spikes/issue65-g2-repair/test_handshake_contract.py -v
       - name: Check G2 repair evidence and source identity pins
         run: python3 tooling/benchmarks/spikes/issue65-g2-repair/test_reference.py -v
       - name: Check G1 native repair seams
