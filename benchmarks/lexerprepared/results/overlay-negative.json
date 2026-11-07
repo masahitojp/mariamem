@@ -1,0 +1,9 @@
+{
+  "valid_overlay": "PASS",
+  "rejected": [
+    "prepared-byte corruption",
+    "binding number drift",
+    "input summary identity drift",
+    "generated source drift"
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "source_commit": "fad2eba20a0954ef5fa93c9e1c83e15a1013d40a",
+  "product_source_commit": "3d8b2201c1f36fa5b7264e0450104055f3822272",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "plan_sha256": "78e06799a5c7fdb03463eccc5c9f76b27d39f59cee6c1b5947b1e9e26ff5c91b",
+  "binaries": {
+    "normal": {
+      "sha256": "6a09ee125418682e6af724c517f8e41a74d966c152b48c3717202d6a8fa69176",
+      "build_info": "<WORKSPACE>/temp/normal: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/lexerprepared\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/lexerprepared\tv0.0.0-20261107123655-fad2eba20a09\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=fad2eba20a0954ef5fa93c9e1c83e15a1013d40a\n\tbuild\tvcs.time=2026-11-07T12:36:55Z\n\tbuild\tvcs.modified=false\n",
+      "overlay": [
+        {
+          "path": "internal/generatedgo/code/base/base.go",
+          "before_sha256": "a62b16a8c8568c355b495398d939de74cd651781cf2f733124563cbab237f658",
+          "after_sha256": "7e2651a5b0001a528e621d461d9948a8d6b062d45e3c92414d6f78c35b4c8cf5"
+        },
+        {
+          "path": "internal/generatedgo/code/p1/p1_pure.go",
+          "before_sha256": "99190e12f785f014b85578b0fd3edc1c96ec91e7736c1230fd58d8209490300f",
+          "after_sha256": "c93259224bd77fe65c52a083f5260e1d0a0adeb2f9c3bf1e8e12e97f3d19b53a"
+        },
+        {
+          "path": "internal/generatedgo/code/p1/alias.go",
+          "before_sha256": "40ba68bdcb3721a516ddb19a396fa9a5f55c2ae6578c7b3d7e51a22ccf1bee2f",
+          "after_sha256": "edb4a85fbe228439d2b8a50584525d69ddf483e8edb5dd6d58632d0fe0cec76a"
+        },
+        {
+          "path": "internal/generatedgo/code/p4/lexer_prepared.go",
+          "before_sha256": null,
+          "after_sha256": "ff16d1ccfea8be2f65c63d9fe6ff059a834210b635e9ad69b146ca5e10c31e2d"
+        },
+        {
+          "path": "internal/generatedgo/code/base/lexer_prepared.go",
+          "before_sha256": null,
+          "after_sha256": "55ba9c38206424b10be692452bfa0eee58173df2fa0c3fa32e70a0d2122daf3e"
+        },
+        {
+          "path": "internal/generatedgo/code/base/lexer_prepared_test.go",
+          "before_sha256": null,
+          "after_sha256": "cba769d733f70d0f32be7f8e1604f699add4c42f9a74e0809352f85e81216a4c"
+        },
+        {
+          "path": "internal/generatedgo/code/base/lexer_tables.go",
+          "before_sha256": null,
+          "after_sha256": "36e44f5a535c6f82c6f6fbd27db7c30fa457639fa67d64aca0cf8fc8768f2655"
+        }
+      ],
+      "build_seconds": 107.030617625
+    },
+    "diagnostic": {
+      "sha256": "dd300b44149ed11a53056b67fc87f9b3fc518589691c9c1461cbfd323ea2ed40",
+      "build_info": "<WORKSPACE>/temp/diagnostic: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/lexerprepared\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/lexerprepared\tv0.0.0-20261107123655-fad2eba20a09\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=fad2eba20a0954ef5fa93c9e1c83e15a1013d40a\n\tbuild\tvcs.time=2026-11-07T12:36:55Z\n\tbuild\tvcs.modified=false\n",
+      "overlay": [
+        {
+          "path": "internal/timing/timing.go",
+          "before_sha256": "9eef3299e19ff03f66c12ac1ad4de392bef005fd51c4ce98829910b3333852e2",
+          "after_sha256": "59f7c80c651b9369d48c5dee1228c43cb464664969e0d5ea9ff8e862ca38147d"
+        },
+        {
+          "path": "internal/guest/linked.go",
+          "before_sha256": "dcbde6db301a183cfa6c495323aed4c6c1319066aea0876a38a7596f2af228cd",
+          "after_sha256": "dd67786f27b1c0c2b588fc755a6d0689c61842a834bcda216cd0f2e5c41f2bef"
+        },
+        {
+          "path": "internal/generatedgo/memory_backing_unix.go",
+          "before_sha256": "c0e5b2538e5761e7fdaa4f542eeafd78cfc099949417e50798a9b279e9ba8b54",
+          "after_sha256": "311f820813a7de664aa3f24b37f0d5ce912b892cbebaec4df61ccd9e9bd259fa"
+        },
+        {
+          "path": "internal/generatedgo/runtime_instance.go",
+          "before_sha256": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+          "after_sha256": "491b31f8c5444339ab9b9516b6c3b8de844bcdf69cfed0ea5f20430a73fef8ec"
+        },
+        {
+          "path": "internal/generatedgo/code/p7/p7_pure.go",
+          "before_sha256": "fe9bad7c797c93ea1a49be8f0c70aca488c7e68da031a69a5c6a6028c6cc9417",
+          "after_sha256": "9763d2a0334931179b78f2f69685a117a3745ce9baf0730a1ec811a524fc7c04"
+        },
+        {
+          "path": "internal/generatedgo/code/p8/p8_pure.go",
+          "before_sha256": "a7ac300ed8fc797dde310f455ae7515a19201b2ccd2ddf9f24692fc867448c3d",
+          "after_sha256": "1de98c1f21dabee7d6f72def0b6e46ba648f5549417472d4a76ce2e8ee3ee8b9"
+        },
+        {
+          "path": "internal/generatedgo/code/p6/p6_pure.go",
+          "before_sha256": "8e36e314305143c272d712006dff7de5d1948190e0cf2d5146c76b257306e325",
+          "after_sha256": "ac032968c41a1ee8875be4ef0583515055309b020a383f1e8d9d3383bb656e71"
+        },
+        {
+          "path": "internal/generatedgo/code/base/update_notify_test.go",
+          "before_sha256": null,
+          "after_sha256": "2e06b503155e8a18a0c9b5a2e20a30abfa801eedc31af48b0ae97828b801673d"
+        },
+        {
+          "path": "internal/generatedgo/code/p3/p3_pure.go",
+          "before_sha256": "df1076eca2e4cb5fa8cce55ebc85fb672ed448a718780378c66cd6cb7dbe482c",
+          "after_sha256": "745986a636e4fc2e136d761e84509148678fcb193f2ba9a7d300b50454bc2946"
+        },
+        {
+          "path": "internal/generatedgo/code/base/undo_owner.go",
+          "before_sha256": null,
+          "after_sha256": "019b4126172a84923f90cd9400baef1cfc13d927fbb4978ea88645fdd47f6ab0"
+        },
+        {
+          "path": "internal/generatedgo/code/base/undo_owner_test.go",
+          "before_sha256": null,
+          "after_sha256": "920e6218202c2dcc6f28bea6967177df813e4bd4bd70ba34f470c985ae12bcc8"
+        },
+        {
+          "path": "internal/generatedgo/code/p2/p2_pure.go",
+          "before_sha256": "0d067e13916b78f9d0f569c704b99d9d6f8b6b3320aa3e135bcdace785d294a4",
+          "after_sha256": "b8e8d210e9252c8648c5899ccf73648ccd1b6876ab2915808cf2483f8a8f3d38"
+        },
+        {
+          "path": "internal/generatedgo/code/base/update_notify.go",
+          "before_sha256": null,
+          "after_sha256": "7be911de604841208ec03eef98cc62cbd81b8913605b946db1f41aa4f045b40f"
+        },
+        {
+          "path": "internal/generatedgo/code/base/undo_relay.go",
+          "before_sha256": null,
+          "after_sha256": "3a5d511153bfa76fa52d1fbbbee02f3bd40087e8a3be8f744f1fa7a8c51c3108"
+        },
+        {
+          "path": "internal/generatedgo/code/base/undo_relay_test.go",
+          "before_sha256": null,
+          "after_sha256": "1714c059fdb1756a39e4a88d70b12e930bc6e7a5783f23ae002769eb7385b1a9"
+        },
+        {
+          "path": "internal/generatedgo/code/base/base.go",
+          "before_sha256": "a62b16a8c8568c355b495398d939de74cd651781cf2f733124563cbab237f658",
+          "after_sha256": "6fd2b56e7da4f887e206d58d395352a317cbd2074487b948eaf7f8570a2e4f7b"
+        },
+        {
+          "path": "internal/generatedgo/code/p1/p1_pure.go",
+          "before_sha256": "99190e12f785f014b85578b0fd3edc1c96ec91e7736c1230fd58d8209490300f",
+          "after_sha256": "c387dcde8e1c98e4f6d2cb5ef081b9e2a750c750b22d8bc6ef7fdb69fd30f99c"
+        },
+        {
+          "path": "internal/generatedgo/code/p1/alias.go",
+          "before_sha256": "40ba68bdcb3721a516ddb19a396fa9a5f55c2ae6578c7b3d7e51a22ccf1bee2f",
+          "after_sha256": "edb4a85fbe228439d2b8a50584525d69ddf483e8edb5dd6d58632d0fe0cec76a"
+        },
+        {
+          "path": "internal/generatedgo/code/p4/lexer_prepared.go",
+          "before_sha256": null,
+          "after_sha256": "ff16d1ccfea8be2f65c63d9fe6ff059a834210b635e9ad69b146ca5e10c31e2d"
+        },
+        {
+          "path": "internal/generatedgo/code/base/lexer_prepared.go",
+          "before_sha256": null,
+          "after_sha256": "55ba9c38206424b10be692452bfa0eee58173df2fa0c3fa32e70a0d2122daf3e"
+        },
+        {
+          "path": "internal/generatedgo/code/base/lexer_prepared_test.go",
+          "before_sha256": null,
+          "after_sha256": "cba769d733f70d0f32be7f8e1604f699add4c42f9a74e0809352f85e81216a4c"
+        },
+        {
+          "path": "internal/generatedgo/code/base/lexer_tables.go",
+          "before_sha256": null,
+          "after_sha256": "36e44f5a535c6f82c6f6fbd27db7c30fa457639fa67d64aca0cf8fc8768f2655"
+        }
+      ],
+      "build_seconds": 97.892893708
+    }
+  }
+}

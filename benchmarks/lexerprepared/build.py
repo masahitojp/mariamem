@@ -29,5 +29,5 @@ for variant in ['normal','diagnostic']:
  info=subprocess.check_output(['go','version','-m',str(t/variant)],env=env,text=True)
  assert 'vcs.revision='+head in info and 'vcs.modified=false' in info and str(s) in info
  record['binaries'][variant]={'sha256':sha(t/variant),'build_info':info.replace(str(w),'<WORKSPACE>'),'overlay':json.loads((overlay/'hashes.json').read_text()),'build_seconds':time.monotonic()-at}
- (e/'inputs.json').write_text(json.dumps(record,indent=2)+'\\n')
+ (e/'inputs.json').write_text(json.dumps(record,indent=2)+'\n')
  print('BUILD PASS',variant,round(time.monotonic()-at,1),flush=True)

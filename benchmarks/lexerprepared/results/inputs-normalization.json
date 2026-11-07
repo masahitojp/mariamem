@@ -1,0 +1,7 @@
+{
+  "reason": "collector wrote literal backslash-n after valid JSON; only trailing two bytes converted to newline",
+  "original_sha256": "de55a2e1c6d80ca1b428de98f242c0410fba5baed0ab4e536dcb04f2746a5aa2",
+  "normalized_sha256": "30027df00b4a274b7f0583a0fb14069642b042ae72b653bc38a4b5aea75cb677",
+  "binaries_changed": false,
+  "measurement_processes_started": 0
+}

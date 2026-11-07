@@ -1,0 +1,8 @@
+{
+  "result": "COLLECTED",
+  "processes": 56,
+  "primary_processes": 40,
+  "primary_children": 1920,
+  "extra_trials": 0,
+  "source_commit": "fad2eba20a0954ef5fa93c9e1c83e15a1013d40a"
+}

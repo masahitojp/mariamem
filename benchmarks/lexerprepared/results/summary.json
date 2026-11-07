@@ -1,0 +1,2260 @@
+{
+  "all_samples_retained": true,
+  "cells": {
+    "original-fork-p1": {
+      "median": {
+        "batch_ms": 1232.6184170000001,
+        "cpu_ms": 1814.17,
+        "final_ms": 0.013417000000117696,
+        "prepare_ms": 43.889166,
+        "suite_ms": 1276.520958
+      },
+      "phase_process_median_ms": {
+        "close": 1.9365829999999846,
+        "connect": 0.28858350000001565,
+        "count_sum": 1.0687915000000032,
+        "retire": 0.04933350000004566,
+        "select1": 0.08535400000005211,
+        "start_or_fork": 21.252103500000004,
+        "update": 0.21283350000001633,
+        "verify_update": 0.13243749999998045,
+        "version": 0.10945800000000361
+      },
+      "processes": [
+        {
+          "batch_ms": 1207.5676250000001,
+          "child_median_ms": {
+            "close": 1.9332915000000526,
+            "connect": 0.292603999999983,
+            "count_sum": 1.0838125000000218,
+            "retire": 0.04985449999998082,
+            "select1": 0.09124999999998806,
+            "start_or_fork": 20.65727099999998,
+            "update": 0.21181250000002194,
+            "verify_update": 0.13243749999998045,
+            "version": 0.10945800000000361
+          },
+          "cpu_ms": 1797.87,
+          "final_ms": 0.014832999999953245,
+          "prepare_ms": 43.66925,
+          "rep": 0,
+          "root_spans": [
+            {
+              "begin_ms": 0.033667,
+              "end_ms": 32.985542,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 32.985833,
+              "end_ms": 33.419542,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 33.419875,
+              "end_ms": 41.000167,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 41.003083,
+              "end_ms": 41.061208,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 41.061292,
+              "end_ms": 43.667,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 43.667875,
+              "end_ms": 43.668083,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 1251.245583,
+              "end_ms": 1251.245792,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 1251.245917,
+              "end_ms": 1251.246625,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1251.251708
+        },
+        {
+          "batch_ms": 1194.892459,
+          "child_median_ms": {
+            "close": 1.918062999999961,
+            "connect": 0.29054150000001755,
+            "count_sum": 1.0847495000000151,
+            "retire": 0.04900049999999112,
+            "select1": 0.08960450000006404,
+            "start_or_fork": 20.73056250000002,
+            "update": 0.2149584999999945,
+            "verify_update": 0.1357290000000262,
+            "version": 0.09499999999999886
+          },
+          "cpu_ms": 1776.323,
+          "final_ms": 0.013916000000108397,
+          "prepare_ms": 43.569125,
+          "rep": 1,
+          "root_spans": [
+            {
+              "begin_ms": 0.034792,
+              "end_ms": 32.8145,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 32.814709,
+              "end_ms": 33.217917,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 33.218084,
+              "end_ms": 40.93825,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 40.9385,
+              "end_ms": 41.000875,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 41.000959,
+              "end_ms": 43.567334,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 43.567667,
+              "end_ms": 43.567875,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 1238.471417,
+              "end_ms": 1238.471542,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 1238.471709,
+              "end_ms": 1238.472834,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1238.4755
+        },
+        {
+          "batch_ms": 1233.587125,
+          "child_median_ms": {
+            "close": 1.9365829999999846,
+            "connect": 0.28858350000001565,
+            "count_sum": 1.0687915000000032,
+            "retire": 0.04810400000002346,
+            "select1": 0.0845834999999937,
+            "start_or_fork": 21.30506299999996,
+            "update": 0.2141045000000048,
+            "verify_update": 0.134832999999972,
+            "version": 0.10737499999999045
+          },
+          "cpu_ms": 1814.17,
+          "final_ms": 0.013417000000117696,
+          "prepare_ms": 44.121917,
+          "rep": 2,
+          "root_spans": [
+            {
+              "begin_ms": 0.034292,
+              "end_ms": 33.355375,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 33.355792,
+              "end_ms": 33.786167,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 33.786334,
+              "end_ms": 41.313709,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 41.314,
+              "end_ms": 41.381542,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 41.381625,
+              "end_ms": 44.119375,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 44.119542,
+              "end_ms": 44.11975,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 1277.718834,
+              "end_ms": 1277.719,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 1277.719042,
+              "end_ms": 1277.72,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1277.722459
+        },
+        {
+          "batch_ms": 1232.6184170000001,
+          "child_median_ms": {
+            "close": 1.9739789999999857,
+            "connect": 0.28531249999993236,
+            "count_sum": 1.0599369999999908,
+            "retire": 0.04933350000004566,
+            "select1": 0.08474999999998545,
+            "start_or_fork": 21.476541499999996,
+            "update": 0.21283350000001633,
+            "verify_update": 0.13214549999999292,
+            "version": 0.1349999999999909
+          },
+          "cpu_ms": 1815.07,
+          "final_ms": 0.013374999999996362,
+          "prepare_ms": 43.889166,
+          "rep": 3,
+          "root_spans": [
+            {
+              "begin_ms": 0.033291,
+              "end_ms": 33.127708,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 33.127916,
+              "end_ms": 33.496416,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 33.496583,
+              "end_ms": 41.13175,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 41.131958,
+              "end_ms": 41.182958,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 41.183125,
+              "end_ms": 43.885666,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 43.886833,
+              "end_ms": 43.887083,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 1276.51725,
+              "end_ms": 1276.517458,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 1276.517666,
+              "end_ms": 1276.518458,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1276.520958
+        },
+        {
+          "batch_ms": 1239.552375,
+          "child_median_ms": {
+            "close": 1.9521459999999706,
+            "connect": 0.2884789999999384,
+            "count_sum": 1.0432084999999915,
+            "retire": 0.05154200000004039,
+            "select1": 0.08535400000005211,
+            "start_or_fork": 21.252103500000004,
+            "update": 0.21122850000000426,
+            "verify_update": 0.1303119999999467,
+            "version": 0.12129099999999937
+          },
+          "cpu_ms": 1828.282,
+          "final_ms": 0.012124999999969077,
+          "prepare_ms": 43.954958,
+          "rep": 4,
+          "root_spans": [
+            {
+              "begin_ms": 0.034875,
+              "end_ms": 33.191166,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 33.191541,
+              "end_ms": 33.710833,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 33.710958,
+              "end_ms": 41.205291,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 41.205541,
+              "end_ms": 41.257041,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 41.257125,
+              "end_ms": 43.952333,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 43.953291,
+              "end_ms": 43.9535,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 1283.515583,
+              "end_ms": 1283.515833,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 1283.515958,
+              "end_ms": 1283.51675,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1283.519458
+        }
+      ],
+      "range_suite_ms": [
+        1238.4755,
+        1283.519458
+      ],
+      "sql_gt100ms_children": 0,
+      "sql_gt100ms_count": 0
+    },
+    "original-fork-p4": {
+      "median": {
+        "batch_ms": 437.234083,
+        "cpu_ms": 2259.405,
+        "final_ms": 0.021624999999971806,
+        "prepare_ms": 44.841625,
+        "suite_ms": 482.842541
+      },
+      "phase_process_median_ms": {
+        "close": 3.999333000000007,
+        "connect": 0.4368335000000343,
+        "count_sum": 1.2319374999999866,
+        "retire": 0.07814600000000382,
+        "select1": 0.10077100000000883,
+        "start_or_fork": 26.86072949999999,
+        "update": 0.2813954999999879,
+        "verify_update": 0.16870850000000814,
+        "version": 0.06850000000000023
+      },
+      "processes": [
+        {
+          "batch_ms": 422.02641700000004,
+          "child_median_ms": {
+            "close": 3.5207289999999887,
+            "connect": 0.47237500000001376,
+            "count_sum": 1.2296039999999948,
+            "retire": 0.06143800000002386,
+            "select1": 0.08883300000001526,
+            "start_or_fork": 27.042437500000005,
+            "update": 0.2813954999999879,
+            "verify_update": 0.15987499999999955,
+            "version": 0.06850000000000023
+          },
+          "cpu_ms": 2245.119,
+          "final_ms": 0.01866699999999355,
+          "prepare_ms": 43.821583,
+          "rep": 0,
+          "root_spans": [
+            {
+              "begin_ms": 0.03525,
+              "end_ms": 32.984542,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 32.984833,
+              "end_ms": 33.436125,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 33.436292,
+              "end_ms": 41.094458,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 41.094625,
+              "end_ms": 41.14625,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 41.146375,
+              "end_ms": 43.816625,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 43.816958,
+              "end_ms": 43.817208,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 465.858417,
+              "end_ms": 465.858542,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 465.858583,
+              "end_ms": 465.864167,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 465.866667
+        },
+        {
+          "batch_ms": 434.128458,
+          "child_median_ms": {
+            "close": 3.8227080000000058,
+            "connect": 0.45945850000001087,
+            "count_sum": 1.5482915000000048,
+            "retire": 0.11452100000001053,
+            "select1": 0.14320800000000133,
+            "start_or_fork": 26.86072949999999,
+            "update": 0.303583500000002,
+            "verify_update": 0.19887500000000102,
+            "version": 1.7529169999999965
+          },
+          "cpu_ms": 2354.561,
+          "final_ms": 0.021624999999971806,
+          "prepare_ms": 44.4765,
+          "rep": 1,
+          "root_spans": [
+            {
+              "begin_ms": 0.035292,
+              "end_ms": 33.909833,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 33.910083,
+              "end_ms": 34.274458,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 34.274583,
+              "end_ms": 41.813542,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 41.813708,
+              "end_ms": 41.872375,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 41.872542,
+              "end_ms": 44.471458,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 44.472208,
+              "end_ms": 44.472458,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 478.62225,
+              "end_ms": 478.622417,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 478.622583,
+              "end_ms": 478.62375,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 478.626583
+        },
+        {
+          "batch_ms": 1031.580916,
+          "child_median_ms": {
+            "close": 3.999333000000007,
+            "connect": 0.4049580000000219,
+            "count_sum": 1.2319374999999866,
+            "retire": 0.07814600000000382,
+            "select1": 0.08758349999999382,
+            "start_or_fork": 26.54914599999998,
+            "update": 0.29004150000000095,
+            "verify_update": 0.16870850000000814,
+            "version": 0.06712500000000432
+          },
+          "cpu_ms": 2268.319,
+          "final_ms": 0.061916999999994005,
+          "prepare_ms": 44.841625,
+          "rep": 2,
+          "root_spans": [
+            {
+              "begin_ms": 0.03675,
+              "end_ms": 33.64125,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 33.6415,
+              "end_ms": 34.169833,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 34.17,
+              "end_ms": 42.140666,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 42.141,
+              "end_ms": 42.200833,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 42.200916,
+              "end_ms": 44.839416,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 44.840125,
+              "end_ms": 44.84025,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 1076.461666,
+              "end_ms": 1076.462583,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 1076.466291,
+              "end_ms": 1076.470916,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [
+            {
+              "index": 23,
+              "ms": 802.2719159999999,
+              "phase": "count_sum"
+            }
+          ],
+          "suite_ms": 1076.484458
+        },
+        {
+          "batch_ms": 883.3435840000001,
+          "child_median_ms": {
+            "close": 4.180874999999986,
+            "connect": 0.4368335000000343,
+            "count_sum": 1.2453960000000137,
+            "retire": 0.08031199999999217,
+            "select1": 0.10977049999999622,
+            "start_or_fork": 25.660853999999986,
+            "update": 0.24029149999998367,
+            "verify_update": 0.19116650000000845,
+            "version": 0.24066700000000196
+          },
+          "cpu_ms": 2259.405,
+          "final_ms": 0.031957999999917774,
+          "prepare_ms": 46.798958,
+          "rep": 3,
+          "root_spans": [
+            {
+              "begin_ms": 0.035,
+              "end_ms": 35.744,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 35.74425,
+              "end_ms": 36.174333,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 36.1745,
+              "end_ms": 43.983833,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 43.984042,
+              "end_ms": 44.037833,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 44.037917,
+              "end_ms": 46.796417,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 46.797125,
+              "end_ms": 46.797333,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 930.167333,
+              "end_ms": 930.167708,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 930.167875,
+              "end_ms": 930.169458,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [
+            {
+              "index": 5,
+              "ms": 788.886208,
+              "phase": "count_sum"
+            }
+          ],
+          "suite_ms": 930.1745
+        },
+        {
+          "batch_ms": 437.234083,
+          "child_median_ms": {
+            "close": 4.384145499999981,
+            "connect": 0.383916499999998,
+            "count_sum": 1.1514999999999844,
+            "retire": 0.05354150000002278,
+            "select1": 0.10077100000000883,
+            "start_or_fork": 28.043521000000005,
+            "update": 0.2554375000000064,
+            "verify_update": 0.15052099999999768,
+            "version": 0.06583299999999781
+          },
+          "cpu_ms": 2214.002,
+          "final_ms": 0.018624999999985903,
+          "prepare_ms": 45.589833,
+          "rep": 4,
+          "root_spans": [
+            {
+              "begin_ms": 0.034291,
+              "end_ms": 34.758083,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 34.758333,
+              "end_ms": 35.159208,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 35.159333,
+              "end_ms": 42.818708,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 42.818916,
+              "end_ms": 42.884041,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 42.884208,
+              "end_ms": 45.586291,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 45.587166,
+              "end_ms": 45.588458,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 482.837916,
+              "end_ms": 482.838125,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 482.838166,
+              "end_ms": 482.839333,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 482.842541
+        }
+      ],
+      "range_suite_ms": [
+        465.866667,
+        1076.484458
+      ],
+      "sql_gt100ms_children": 2,
+      "sql_gt100ms_count": 2
+    },
+    "original-fresh-p1": {
+      "median": {
+        "batch_ms": 1673.487875,
+        "cpu_ms": 2636.411,
+        "final_ms": 0.011332999999922322,
+        "prepare_ms": 0.037,
+        "suite_ms": 1673.535667
+      },
+      "phase_process_median_ms": {
+        "close": 2.6533959999999865,
+        "connect": 0.3023959999999306,
+        "count_sum": 0.7479579999999899,
+        "retire": 0.053082999999901403,
+        "seed": 7.271478999999999,
+        "select1": 0.08864550000004101,
+        "start_or_fork": 22.753708499999902,
+        "update": 0.1904999999999859,
+        "verify_update": 0.13135399999998754,
+        "version": 0.11608300000000327
+      },
+      "processes": [
+        {
+          "batch_ms": 1661.623458,
+          "child_median_ms": {
+            "close": 2.617270999999988,
+            "connect": 0.3006880000000365,
+            "count_sum": 0.7479579999999899,
+            "retire": 0.053082999999901403,
+            "seed": 7.3177705000000515,
+            "select1": 0.09345849999996858,
+            "start_or_fork": 22.391416999999947,
+            "update": 0.18662550000004785,
+            "verify_update": 0.13135399999998754,
+            "version": 0.15516699999999872
+          },
+          "cpu_ms": 2609.735,
+          "final_ms": 0.010833000000047832,
+          "prepare_ms": 0.035834,
+          "rep": 0,
+          "root_spans": [
+            {
+              "begin_ms": 1661.66725,
+              "end_ms": 1661.667459,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1661.670125
+        },
+        {
+          "batch_ms": 1678.294083,
+          "child_median_ms": {
+            "close": 2.6031880000000456,
+            "connect": 0.30464649999998983,
+            "count_sum": 0.7482709999998178,
+            "retire": 0.05620800000002646,
+            "seed": 7.3748125000000755,
+            "select1": 0.09264550000000327,
+            "start_or_fork": 22.866499999999988,
+            "update": 0.19110399999999572,
+            "verify_update": 0.1328965000000153,
+            "version": 0.11608300000000327
+          },
+          "cpu_ms": 2679.788,
+          "final_ms": 0.01637499999992542,
+          "prepare_ms": 0.036125,
+          "rep": 1,
+          "root_spans": [
+            {
+              "begin_ms": 1678.343291,
+              "end_ms": 1678.343416,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1678.346583
+        },
+        {
+          "batch_ms": 1673.487875,
+          "child_median_ms": {
+            "close": 2.659958999999901,
+            "connect": 0.3023959999999306,
+            "count_sum": 0.7457914999999389,
+            "retire": 0.051791499999978896,
+            "seed": 7.271478999999999,
+            "select1": 0.08864550000004101,
+            "start_or_fork": 22.753708499999902,
+            "update": 0.18885399999997787,
+            "verify_update": 0.13118749999998158,
+            "version": 0.10824999999999818
+          },
+          "cpu_ms": 2607.142,
+          "final_ms": 0.0105829999999969,
+          "prepare_ms": 0.037209,
+          "rep": 2,
+          "root_spans": [
+            {
+              "begin_ms": 1673.532792,
+              "end_ms": 1673.532917,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1673.535667
+        },
+        {
+          "batch_ms": 1668.564875,
+          "child_median_ms": {
+            "close": 2.681687000000011,
+            "connect": 0.30833350000000337,
+            "count_sum": 0.7520210000000134,
+            "retire": 0.0539789999999698,
+            "seed": 7.261042000000003,
+            "select1": 0.08597900000000891,
+            "start_or_fork": 22.522875000000013,
+            "update": 0.19220799999993687,
+            "verify_update": 0.13706250000007003,
+            "version": 0.18720800000000537
+          },
+          "cpu_ms": 2639.614,
+          "final_ms": 0.011332999999922322,
+          "prepare_ms": 0.037,
+          "rep": 3,
+          "root_spans": [
+            {
+              "begin_ms": 1668.610333,
+              "end_ms": 1668.610458,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1668.613208
+        },
+        {
+          "batch_ms": 1700.90975,
+          "child_median_ms": {
+            "close": 2.6533959999999865,
+            "connect": 0.29510449999997945,
+            "count_sum": 0.7476460000000316,
+            "retire": 0.052396000000044296,
+            "seed": 7.2677295000000015,
+            "select1": 0.08631200000002082,
+            "start_or_fork": 23.280374999999992,
+            "update": 0.1904999999999859,
+            "verify_update": 0.12941649999993388,
+            "version": 0.10687500000000227
+          },
+          "cpu_ms": 2636.411,
+          "final_ms": 0.011999999999943611,
+          "prepare_ms": 0.03775,
+          "rep": 4,
+          "root_spans": [
+            {
+              "begin_ms": 1700.956542,
+              "end_ms": 1700.95675,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1700.9595
+        }
+      ],
+      "range_suite_ms": [
+        1661.670125,
+        1700.9595
+      ],
+      "sql_gt100ms_children": 0,
+      "sql_gt100ms_count": 0
+    },
+    "original-fresh-p4": {
+      "median": {
+        "batch_ms": 602.6888329999999,
+        "cpu_ms": 3327.427,
+        "final_ms": 0.01700000000005275,
+        "prepare_ms": 0.040791,
+        "suite_ms": 602.743583
+      },
+      "phase_process_median_ms": {
+        "close": 5.298000000000002,
+        "connect": 0.4446039999999982,
+        "count_sum": 0.8473535000000254,
+        "retire": 0.06597899999999157,
+        "seed": 9.9238335,
+        "select1": 0.09577049999998621,
+        "start_or_fork": 28.68335399999998,
+        "update": 0.2614795000000072,
+        "verify_update": 0.16881300000003563,
+        "version": 0.08654099999999687
+      },
+      "processes": [
+        {
+          "batch_ms": 590.468,
+          "child_median_ms": {
+            "close": 5.298000000000002,
+            "connect": 0.4446039999999982,
+            "count_sum": 0.851729000000006,
+            "retire": 0.06597899999999157,
+            "seed": 9.9238335,
+            "select1": 0.0806039999999868,
+            "start_or_fork": 27.227645499999994,
+            "update": 0.2614795000000072,
+            "verify_update": 0.23145849999999868,
+            "version": 0.08654099999999687
+          },
+          "cpu_ms": 3293.763,
+          "final_ms": 0.01841699999999946,
+          "prepare_ms": 0.040791,
+          "rep": 0,
+          "root_spans": [
+            {
+              "begin_ms": 590.521125,
+              "end_ms": 590.521416,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 590.527208
+        },
+        {
+          "batch_ms": 584.759834,
+          "child_median_ms": {
+            "close": 4.577000000000012,
+            "connect": 0.4434374999999875,
+            "count_sum": 0.8455835000000036,
+            "retire": 0.07733300000001009,
+            "seed": 9.456020499999994,
+            "select1": 0.09939649999995481,
+            "start_or_fork": 26.89908299999999,
+            "update": 0.30368799999997975,
+            "verify_update": 0.17693749999999753,
+            "version": 0.0944160000000025
+          },
+          "cpu_ms": 3327.427,
+          "final_ms": 0.014499999999998181,
+          "prepare_ms": 0.044791,
+          "rep": 1,
+          "root_spans": [
+            {
+              "begin_ms": 584.815958,
+              "end_ms": 584.816125,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 584.819125
+        },
+        {
+          "batch_ms": 657.178375,
+          "child_median_ms": {
+            "close": 4.8775830000000155,
+            "connect": 0.6058960000000155,
+            "count_sum": 0.8119374999999707,
+            "retire": 0.0640204999999554,
+            "seed": 11.753687500000012,
+            "select1": 0.11881199999993441,
+            "start_or_fork": 28.68335399999998,
+            "update": 0.24056300000000874,
+            "verify_update": 0.1469380000000058,
+            "version": 0.23041600000000528
+          },
+          "cpu_ms": 3305.684,
+          "final_ms": 0.017875000000003638,
+          "prepare_ms": 0.036959,
+          "rep": 2,
+          "root_spans": [
+            {
+              "begin_ms": 657.229834,
+              "end_ms": 657.229959,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 657.233209
+        },
+        {
+          "batch_ms": 602.6888329999999,
+          "child_median_ms": {
+            "close": 5.385291499999994,
+            "connect": 0.3368124999999793,
+            "count_sum": 0.8498959999999443,
+            "retire": 0.07462450000002718,
+            "seed": 9.965354000000005,
+            "select1": 0.07414600000001315,
+            "start_or_fork": 28.903395499999988,
+            "update": 0.266666999999984,
+            "verify_update": 0.16277100000000644,
+            "version": 0.07133400000000023
+          },
+          "cpu_ms": 3427.009,
+          "final_ms": 0.015582999999992353,
+          "prepare_ms": 0.039167,
+          "rep": 3,
+          "root_spans": [
+            {
+              "begin_ms": 602.740208,
+              "end_ms": 602.740458,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 602.743583
+        },
+        {
+          "batch_ms": 612.404167,
+          "child_median_ms": {
+            "close": 5.907041000000007,
+            "connect": 0.49962499999996624,
+            "count_sum": 0.8473535000000254,
+            "retire": 0.06291649999997162,
+            "seed": 9.444395499999956,
+            "select1": 0.09577049999998621,
+            "start_or_fork": 30.4884165,
+            "update": 0.23131199999998842,
+            "verify_update": 0.16881300000003563,
+            "version": 0.07954200000000355
+          },
+          "cpu_ms": 3355.899,
+          "final_ms": 0.01700000000005275,
+          "prepare_ms": 0.053875,
+          "rep": 4,
+          "root_spans": [
+            {
+              "begin_ms": 612.471125,
+              "end_ms": 612.471417,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 612.475042
+        }
+      ],
+      "range_suite_ms": [
+        584.819125,
+        657.233209
+      ],
+      "sql_gt100ms_children": 0,
+      "sql_gt100ms_count": 0
+    },
+    "prepared-fork-p1": {
+      "median": {
+        "batch_ms": 1106.424416,
+        "cpu_ms": 1682.655,
+        "final_ms": 0.015084000000115338,
+        "prepare_ms": 42.342,
+        "suite_ms": 1148.533542
+      },
+      "phase_process_median_ms": {
+        "close": 1.923811999999998,
+        "connect": 0.2868749999999807,
+        "count_sum": 1.0659794999999974,
+        "retire": 0.04945850000001428,
+        "select1": 0.08754149999998617,
+        "start_or_fork": 18.818812999999988,
+        "update": 0.21279150000009395,
+        "verify_update": 0.13618750000003388,
+        "version": 0.11162500000000364
+      },
+      "processes": [
+        {
+          "batch_ms": 1090.6675,
+          "child_median_ms": {
+            "close": 1.8802500000000748,
+            "connect": 0.28364550000000577,
+            "count_sum": 1.0754165000000029,
+            "retire": 0.05041650000002562,
+            "select1": 0.08754149999998617,
+            "start_or_fork": 18.542833499999972,
+            "update": 0.2114379999999727,
+            "verify_update": 0.1325625000000059,
+            "version": 0.09670800000000668
+          },
+          "cpu_ms": 1665.584,
+          "final_ms": 0.013915999999881024,
+          "prepare_ms": 42.722209,
+          "rep": 0,
+          "root_spans": [
+            {
+              "begin_ms": 0.038334,
+              "end_ms": 32.048959,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 32.049209,
+              "end_ms": 32.399375,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 32.399542,
+              "end_ms": 40.092959,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 40.093125,
+              "end_ms": 40.150584,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 40.150667,
+              "end_ms": 42.719917,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 42.72025,
+              "end_ms": 42.720417,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 1133.399917,
+              "end_ms": 1133.400084,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 1133.400417,
+              "end_ms": 1133.401209,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1133.403625
+        },
+        {
+          "batch_ms": 1099.877791,
+          "child_median_ms": {
+            "close": 1.9004375000000024,
+            "connect": 0.29045849999999973,
+            "count_sum": 1.060895999999957,
+            "retire": 0.04889550000007148,
+            "select1": 0.08558300000004238,
+            "start_or_fork": 18.818812999999988,
+            "update": 0.2095420000001127,
+            "verify_update": 0.13706250000007003,
+            "version": 0.08400000000000318
+          },
+          "cpu_ms": 1682.655,
+          "final_ms": 0.015084000000115338,
+          "prepare_ms": 41.407459,
+          "rep": 1,
+          "root_spans": [
+            {
+              "begin_ms": 0.035167,
+              "end_ms": 30.917709,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 30.917959,
+              "end_ms": 31.288959,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 31.289209,
+              "end_ms": 38.753292,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 38.753584,
+              "end_ms": 38.813625,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 38.813667,
+              "end_ms": 41.404542,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 41.40525,
+              "end_ms": 41.4055,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 1141.297042,
+              "end_ms": 1141.297209,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 1141.297334,
+              "end_ms": 1141.298084,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1141.300334
+        },
+        {
+          "batch_ms": 1106.424416,
+          "child_median_ms": {
+            "close": 1.923811999999998,
+            "connect": 0.2883749999999168,
+            "count_sum": 1.0870415000000264,
+            "retire": 0.04945850000001428,
+            "select1": 0.0878955000000019,
+            "start_or_fork": 18.77437500000002,
+            "update": 0.2156875000000582,
+            "verify_update": 0.13704150000002358,
+            "version": 0.17320899999999995
+          },
+          "cpu_ms": 1676.399,
+          "final_ms": 0.016541999999844847,
+          "prepare_ms": 42.092584,
+          "rep": 2,
+          "root_spans": [
+            {
+              "begin_ms": 0.034084,
+              "end_ms": 31.411959,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 31.41225,
+              "end_ms": 31.751667,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 31.751792,
+              "end_ms": 39.430459,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 39.430625,
+              "end_ms": 39.4875,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 39.487625,
+              "end_ms": 42.09025,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 42.090459,
+              "end_ms": 42.090667,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 1148.528959,
+              "end_ms": 1148.529042,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 1148.529084,
+              "end_ms": 1148.530209,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1148.533542
+        },
+        {
+          "batch_ms": 1109.835875,
+          "child_median_ms": {
+            "close": 1.9362709999999481,
+            "connect": 0.28470850000007886,
+            "count_sum": 1.0659794999999974,
+            "retire": 0.04925000000000068,
+            "select1": 0.0869579999999246,
+            "start_or_fork": 18.82204150000001,
+            "update": 0.21279150000009395,
+            "verify_update": 0.13618750000003388,
+            "version": 0.17516700000000185
+          },
+          "cpu_ms": 1700.884,
+          "final_ms": 0.012334000000009837,
+          "prepare_ms": 42.744583,
+          "rep": 3,
+          "root_spans": [
+            {
+              "begin_ms": 0.036417,
+              "end_ms": 31.36775,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 31.367958,
+              "end_ms": 31.800083,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 31.80025,
+              "end_ms": 39.768708,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 39.768917,
+              "end_ms": 39.830333,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 39.8305,
+              "end_ms": 42.73875,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 42.739667,
+              "end_ms": 42.740125,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 1152.589292,
+              "end_ms": 1152.589375,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 1152.589458,
+              "end_ms": 1152.590292,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1152.592792
+        },
+        {
+          "batch_ms": 1118.1923749999999,
+          "child_median_ms": {
+            "close": 1.9242914999999812,
+            "connect": 0.2868749999999807,
+            "count_sum": 1.0581459999999794,
+            "retire": 0.049583499999997116,
+            "select1": 0.0876255000000441,
+            "start_or_fork": 19.052729499999998,
+            "update": 0.21658300000001418,
+            "verify_update": 0.13345850000001747,
+            "version": 0.11162500000000364
+          },
+          "cpu_ms": 1698.921,
+          "final_ms": 0.01695800000015879,
+          "prepare_ms": 42.342,
+          "rep": 4,
+          "root_spans": [
+            {
+              "begin_ms": 0.034583,
+              "end_ms": 31.569083,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 31.569292,
+              "end_ms": 31.958125,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 31.958333,
+              "end_ms": 39.572417,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 39.572708,
+              "end_ms": 39.63275,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 39.632875,
+              "end_ms": 42.3365,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 42.337375,
+              "end_ms": 42.337583,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 1160.543958,
+              "end_ms": 1160.544042,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 1160.544125,
+              "end_ms": 1160.544917,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1160.551333
+        }
+      ],
+      "range_suite_ms": [
+        1133.403625,
+        1160.551333
+      ],
+      "sql_gt100ms_children": 0,
+      "sql_gt100ms_count": 0
+    },
+    "prepared-fork-p4": {
+      "median": {
+        "batch_ms": 422.62062499999996,
+        "cpu_ms": 2171.211,
+        "final_ms": 0.017666999999960353,
+        "prepare_ms": 42.819541,
+        "suite_ms": 464.68075
+      },
+      "phase_process_median_ms": {
+        "close": 4.047541500000008,
+        "connect": 0.41231249999998454,
+        "count_sum": 1.2282505000000015,
+        "retire": 0.07177050000000662,
+        "select1": 0.1153124999999946,
+        "start_or_fork": 24.12718799999999,
+        "update": 0.2885414999999796,
+        "verify_update": 0.1879585000000361,
+        "version": 0.08554199999998957
+      },
+      "processes": [
+        {
+          "batch_ms": 418.019042,
+          "child_median_ms": {
+            "close": 4.047541500000008,
+            "connect": 0.43189600000000894,
+            "count_sum": 1.2731045000000165,
+            "retire": 0.07437500000001762,
+            "select1": 0.1291039999999839,
+            "start_or_fork": 25.93768749999998,
+            "update": 0.31452099999999916,
+            "verify_update": 0.17397899999998856,
+            "version": 0.08554199999998957
+          },
+          "cpu_ms": 2248.602,
+          "final_ms": 0.017666999999960353,
+          "prepare_ms": 42.819541,
+          "rep": 0,
+          "root_spans": [
+            {
+              "begin_ms": 0.035333,
+              "end_ms": 31.678,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 31.678291,
+              "end_ms": 32.141833,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 32.141916,
+              "end_ms": 40.049833,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 40.050166,
+              "end_ms": 40.117125,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 40.117208,
+              "end_ms": 42.814875,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 42.816333,
+              "end_ms": 42.816541,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 460.852625,
+              "end_ms": 460.852791,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 460.852916,
+              "end_ms": 460.853666,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 460.85625
+        },
+        {
+          "batch_ms": 938.802167,
+          "child_median_ms": {
+            "close": 2.7848749999999995,
+            "connect": 0.5072705000000042,
+            "count_sum": 1.2282505000000015,
+            "retire": 0.07858349999997927,
+            "select1": 0.1153124999999946,
+            "start_or_fork": 23.015666999999993,
+            "update": 0.2885414999999796,
+            "verify_update": 0.1953954999999894,
+            "version": 0.16695899999999142
+          },
+          "cpu_ms": 2134.572,
+          "final_ms": 0.03820799999994051,
+          "prepare_ms": 43.675,
+          "rep": 1,
+          "root_spans": [
+            {
+              "begin_ms": 0.034375,
+              "end_ms": 32.880292,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 32.880584,
+              "end_ms": 33.294292,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 33.2945,
+              "end_ms": 41.03075,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 41.031042,
+              "end_ms": 41.09,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 41.090125,
+              "end_ms": 43.669542,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 43.670167,
+              "end_ms": 43.670459,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 982.506125,
+              "end_ms": 982.506875,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 982.507542,
+              "end_ms": 982.509625,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [
+            {
+              "index": 15,
+              "ms": 798.8893750000001,
+              "phase": "count_sum"
+            }
+          ],
+          "suite_ms": 982.515375
+        },
+        {
+          "batch_ms": 984.7126249999999,
+          "child_median_ms": {
+            "close": 3.7554374999999993,
+            "connect": 0.3942289999999957,
+            "count_sum": 1.1681245000000047,
+            "retire": 0.07177050000000662,
+            "select1": 0.08114599999998973,
+            "start_or_fork": 22.506062500000006,
+            "update": 0.2910415000000057,
+            "verify_update": 0.16787500000000222,
+            "version": 0.07933300000000543
+          },
+          "cpu_ms": 2104.691,
+          "final_ms": 0.06175000000007458,
+          "prepare_ms": 44.937042,
+          "rep": 2,
+          "root_spans": [
+            {
+              "begin_ms": 0.034042,
+              "end_ms": 33.874,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 33.874333,
+              "end_ms": 34.256542,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 34.25675,
+              "end_ms": 42.231708,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 42.232167,
+              "end_ms": 42.291333,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 42.291417,
+              "end_ms": 44.931583,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 44.933417,
+              "end_ms": 44.933667,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 1029.6965,
+              "end_ms": 1029.697667,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 1029.698375,
+              "end_ms": 1029.701833,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [
+            {
+              "index": 17,
+              "ms": 798.567209,
+              "phase": "count_sum"
+            }
+          ],
+          "suite_ms": 1029.711417
+        },
+        {
+          "batch_ms": 417.847375,
+          "child_median_ms": {
+            "close": 4.251479500000016,
+            "connect": 0.3347920000000215,
+            "count_sum": 1.4090419999999995,
+            "retire": 0.059562999999997146,
+            "select1": 0.10535450000000424,
+            "start_or_fork": 26.090145500000006,
+            "update": 0.2877080000000092,
+            "verify_update": 0.1879585000000361,
+            "version": 0.22112500000000068
+          },
+          "cpu_ms": 2171.211,
+          "final_ms": 0.015707999999960975,
+          "prepare_ms": 42.517375,
+          "rep": 3,
+          "root_spans": [
+            {
+              "begin_ms": 0.034166,
+              "end_ms": 31.69225,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 31.692458,
+              "end_ms": 32.096666,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 32.096875,
+              "end_ms": 39.7735,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 39.773875,
+              "end_ms": 39.837708,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 39.837791,
+              "end_ms": 42.51375,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 42.514583,
+              "end_ms": 42.514833,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 460.376,
+              "end_ms": 460.37625,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 460.376291,
+              "end_ms": 460.37725,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 460.380458
+        },
+        {
+          "batch_ms": 422.62062499999996,
+          "child_median_ms": {
+            "close": 4.829228999999998,
+            "connect": 0.41231249999998454,
+            "count_sum": 1.213833500000007,
+            "retire": 0.06406199999999984,
+            "select1": 0.12372899999999021,
+            "start_or_fork": 24.12718799999999,
+            "update": 0.27468749999999886,
+            "verify_update": 0.2532290000000046,
+            "version": 0.07524999999999693
+          },
+          "cpu_ms": 2199.307,
+          "final_ms": 0.01620900000000347,
+          "prepare_ms": 42.043916,
+          "rep": 4,
+          "root_spans": [
+            {
+              "begin_ms": 0.032875,
+              "end_ms": 31.327541,
+              "name": "root_start"
+            },
+            {
+              "begin_ms": 31.32775,
+              "end_ms": 31.699666,
+              "name": "root_connect"
+            },
+            {
+              "begin_ms": 31.699833,
+              "end_ms": 39.216041,
+              "name": "root_seed"
+            },
+            {
+              "begin_ms": 39.21625,
+              "end_ms": 39.335958,
+              "name": "root_retire"
+            },
+            {
+              "begin_ms": 39.336125,
+              "end_ms": 42.036333,
+              "name": "snapshot"
+            },
+            {
+              "begin_ms": 42.037541,
+              "end_ms": 42.037708,
+              "name": "root_close"
+            },
+            {
+              "begin_ms": 464.676333,
+              "end_ms": 464.676583,
+              "name": "final_root_retire"
+            },
+            {
+              "begin_ms": 464.67675,
+              "end_ms": 464.677791,
+              "name": "snapshot_close"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 464.68075
+        }
+      ],
+      "range_suite_ms": [
+        460.380458,
+        1029.711417
+      ],
+      "sql_gt100ms_children": 2,
+      "sql_gt100ms_count": 2
+    },
+    "prepared-fresh-p1": {
+      "median": {
+        "batch_ms": 1578.146041,
+        "cpu_ms": 2508.764,
+        "final_ms": 0.011750000000120053,
+        "prepare_ms": 0.038166,
+        "suite_ms": 1578.1955
+      },
+      "phase_process_median_ms": {
+        "close": 2.613958500000024,
+        "connect": 0.29702100000008613,
+        "count_sum": 0.7499585000000764,
+        "retire": 0.05266649999998663,
+        "seed": 7.313542000000041,
+        "select1": 0.08908350000001519,
+        "start_or_fork": 20.556812499999978,
+        "update": 0.1889795000000163,
+        "verify_update": 0.1312919999999167,
+        "version": 0.1395830000000018
+      },
+      "processes": [
+        {
+          "batch_ms": 1562.804375,
+          "child_median_ms": {
+            "close": 2.5883960000000457,
+            "connect": 0.3024994999999535,
+            "count_sum": 0.751729499999982,
+            "retire": 0.05266649999998663,
+            "seed": 7.313542000000041,
+            "select1": 0.08749999999997726,
+            "start_or_fork": 20.265583000000078,
+            "update": 0.19045849999992015,
+            "verify_update": 0.12827099999998381,
+            "version": 0.16225000000000023
+          },
+          "cpu_ms": 2508.764,
+          "final_ms": 0.01587500000005093,
+          "prepare_ms": 0.054,
+          "rep": 0,
+          "root_spans": [
+            {
+              "begin_ms": 1562.871458,
+              "end_ms": 1562.871625,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1562.87425
+        },
+        {
+          "batch_ms": 1556.8559169999999,
+          "child_median_ms": {
+            "close": 2.5633960000000116,
+            "connect": 0.30652049999997644,
+            "count_sum": 0.7499585000000764,
+            "retire": 0.05243749999999636,
+            "seed": 7.354354000000029,
+            "select1": 0.08943700000000376,
+            "start_or_fork": 20.40137550000003,
+            "update": 0.18912499999999,
+            "verify_update": 0.1304374999999709,
+            "version": 0.11558300000000088
+          },
+          "cpu_ms": 2491.817,
+          "final_ms": 0.011750000000120053,
+          "prepare_ms": 0.038166,
+          "rep": 1,
+          "root_spans": [
+            {
+              "begin_ms": 1556.903291,
+              "end_ms": 1556.903333,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1556.905833
+        },
+        {
+          "batch_ms": 1588.2315409999999,
+          "child_median_ms": {
+            "close": 2.6149790000000053,
+            "connect": 0.29702100000008613,
+            "count_sum": 0.7463960000000611,
+            "retire": 0.05264599999998154,
+            "seed": 7.320396500000015,
+            "select1": 0.08908350000001519,
+            "start_or_fork": 20.556812499999978,
+            "update": 0.1889795000000163,
+            "verify_update": 0.1312919999999167,
+            "version": 0.1395830000000018
+          },
+          "cpu_ms": 2521.488,
+          "final_ms": 0.011666999999988548,
+          "prepare_ms": 0.036084,
+          "rep": 2,
+          "root_spans": [
+            {
+              "begin_ms": 1588.276334,
+              "end_ms": 1588.276542,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1588.279292
+        },
+        {
+          "batch_ms": 1611.857417,
+          "child_median_ms": {
+            "close": 2.613958500000024,
+            "connect": 0.2960205000000258,
+            "count_sum": 0.7456454999999949,
+            "retire": 0.05279149999998367,
+            "seed": 7.286999999999978,
+            "select1": 0.09135399999996707,
+            "start_or_fork": 21.246312499999988,
+            "update": 0.1866459999999961,
+            "verify_update": 0.1325834999999529,
+            "version": 0.09345799999999826
+          },
+          "cpu_ms": 2555.332,
+          "final_ms": 0.012124999999969077,
+          "prepare_ms": 0.055875,
+          "rep": 3,
+          "root_spans": [
+            {
+              "begin_ms": 1611.922125,
+              "end_ms": 1611.922167,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1611.925417
+        },
+        {
+          "batch_ms": 1578.146041,
+          "child_median_ms": {
+            "close": 2.6302499999999895,
+            "connect": 0.29172949999993136,
+            "count_sum": 0.7561454999999953,
+            "retire": 0.05389549999998877,
+            "seed": 7.274979500000029,
+            "select1": 0.08856249999999477,
+            "start_or_fork": 20.872583500000005,
+            "update": 0.1875624999999559,
+            "verify_update": 0.13222900000001303,
+            "version": 0.234375
+          },
+          "cpu_ms": 2503.717,
+          "final_ms": 0.011709000000109882,
+          "prepare_ms": 0.03775,
+          "rep": 4,
+          "root_spans": [
+            {
+              "begin_ms": 1578.192041,
+              "end_ms": 1578.192208,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 1578.1955
+        }
+      ],
+      "range_suite_ms": [
+        1556.905833,
+        1611.925417
+      ],
+      "sql_gt100ms_children": 0,
+      "sql_gt100ms_count": 0
+    },
+    "prepared-fresh-p4": {
+      "median": {
+        "batch_ms": 578.296917,
+        "cpu_ms": 3223.126,
+        "final_ms": 0.015750000000025466,
+        "prepare_ms": 0.03675,
+        "suite_ms": 578.349834
+      },
+      "phase_process_median_ms": {
+        "close": 5.49862499999999,
+        "connect": 0.4608750000000157,
+        "count_sum": 0.8661670000000186,
+        "retire": 0.0784579999999977,
+        "seed": 10.25395850000001,
+        "select1": 0.09227099999998245,
+        "start_or_fork": 25.467332999999982,
+        "update": 0.2618745000000331,
+        "verify_update": 0.18218750000004036,
+        "version": 0.16270799999999497
+      },
+      "processes": [
+        {
+          "batch_ms": 578.296917,
+          "child_median_ms": {
+            "close": 5.49862499999999,
+            "connect": 0.5198749999999848,
+            "count_sum": 0.89477100000002,
+            "retire": 0.09262500000000884,
+            "seed": 8.980458499999997,
+            "select1": 0.1458744999999979,
+            "start_or_fork": 25.467332999999982,
+            "update": 0.328957999999993,
+            "verify_update": 0.22835399999999595,
+            "version": 0.06700000000000017
+          },
+          "cpu_ms": 3347.279,
+          "final_ms": 0.01641699999993307,
+          "prepare_ms": 0.0365,
+          "rep": 0,
+          "root_spans": [
+            {
+              "begin_ms": 578.347125,
+              "end_ms": 578.347292,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 578.349834
+        },
+        {
+          "batch_ms": 555.506208,
+          "child_median_ms": {
+            "close": 3.963062000000008,
+            "connect": 0.4608750000000157,
+            "count_sum": 0.8641245000000026,
+            "retire": 0.0784579999999977,
+            "seed": 9.754187000000002,
+            "select1": 0.08579149999999913,
+            "start_or_fork": 25.004791499999996,
+            "update": 0.2618745000000331,
+            "verify_update": 0.17764599999998154,
+            "version": 0.13937500000000114
+          },
+          "cpu_ms": 3150.46,
+          "final_ms": 0.01587500000005093,
+          "prepare_ms": 0.03675,
+          "rep": 1,
+          "root_spans": [
+            {
+              "begin_ms": 555.5555,
+              "end_ms": 555.55575,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 555.558833
+        },
+        {
+          "batch_ms": 594.150708,
+          "child_median_ms": {
+            "close": 5.5236039999999775,
+            "connect": 0.5168960000000027,
+            "count_sum": 0.8661670000000186,
+            "retire": 0.06691700000003209,
+            "seed": 10.60364550000001,
+            "select1": 0.09227099999998245,
+            "start_or_fork": 26.07029150000001,
+            "update": 0.2629999999999768,
+            "verify_update": 0.18218750000004036,
+            "version": 1.7231250000000031
+          },
+          "cpu_ms": 3178.786,
+          "final_ms": 0.015458999999964362,
+          "prepare_ms": 0.037458,
+          "rep": 2,
+          "root_spans": [
+            {
+              "begin_ms": 594.200458,
+              "end_ms": 594.200666,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 594.203625
+        },
+        {
+          "batch_ms": 571.541792,
+          "child_median_ms": {
+            "close": 5.093312500000003,
+            "connect": 0.45327100000000087,
+            "count_sum": 0.8498125000000414,
+            "retire": 0.07181299999999169,
+            "seed": 10.25395850000001,
+            "select1": 0.07574999999999932,
+            "start_or_fork": 26.022875499999998,
+            "update": 0.24764550000000085,
+            "verify_update": 0.17104150000000118,
+            "version": 0.6146670000000043
+          },
+          "cpu_ms": 3264.851,
+          "final_ms": 0.015457999999966887,
+          "prepare_ms": 0.036291,
+          "rep": 3,
+          "root_spans": [
+            {
+              "begin_ms": 571.5905,
+              "end_ms": 571.590708,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 571.593541
+        },
+        {
+          "batch_ms": 578.832875,
+          "child_median_ms": {
+            "close": 5.521416499999997,
+            "connect": 0.4494589999999903,
+            "count_sum": 0.8700625000000031,
+            "retire": 0.09945799999999849,
+            "seed": 10.276187499999992,
+            "select1": 0.11187499999999773,
+            "start_or_fork": 25.462541500000015,
+            "update": 0.2252495000000181,
+            "verify_update": 0.2130420000000015,
+            "version": 0.16270799999999497
+          },
+          "cpu_ms": 3223.126,
+          "final_ms": 0.015750000000025466,
+          "prepare_ms": 0.037041,
+          "rep": 4,
+          "root_spans": [
+            {
+              "begin_ms": 578.882416,
+              "end_ms": 578.882625,
+              "name": "final_root_retire"
+            }
+          ],
+          "sql_gt100ms": [],
+          "suite_ms": 578.885666
+        }
+      ],
+      "range_suite_ms": [
+        555.558833,
+        594.203625
+      ],
+      "sql_gt100ms_children": 0,
+      "sql_gt100ms_count": 0
+    }
+  },
+  "fresh_fork_ordering": {
+    "original-p1": {
+      "fork_ms": 1276.520958,
+      "fork_vs_fresh_pct": -23.72311010925111,
+      "fresh_ms": 1673.535667
+    },
+    "original-p4": {
+      "fork_ms": 482.842541,
+      "fork_vs_fresh_pct": -19.89254558351723,
+      "fresh_ms": 602.743583
+    },
+    "prepared-p1": {
+      "fork_ms": 1148.533542,
+      "fork_vs_fresh_pct": -27.22488804460538,
+      "fresh_ms": 1578.1955
+    },
+    "prepared-p4": {
+      "fork_ms": 464.68075,
+      "fork_vs_fresh_pct": -19.65403589966276,
+      "fresh_ms": 578.349834
+    }
+  },
+  "paired_version_effects": {
+    "fork-p1": {
+      "median_paired_prepared_cpu_pct": -7.075549614337384,
+      "median_paired_prepared_wall_pct": -9.580542330975705,
+      "median_paired_start_or_fork_delta_ms": -2.199374000000006,
+      "pairs": [
+        {
+          "cpu_change_pct": -7.3579291049964635,
+          "rep": 0,
+          "start_or_fork_delta_ms": -2.114437500000008,
+          "suite_change_pct": -9.41841535532194,
+          "suite_delta_ms": -117.84808300000009
+        },
+        {
+          "cpu_change_pct": -5.273140076438809,
+          "rep": 1,
+          "start_or_fork_delta_ms": -1.911749500000031,
+          "suite_change_pct": -7.84635352092149,
+          "suite_delta_ms": -97.17516599999999
+        },
+        {
+          "cpu_change_pct": -7.594161517388132,
+          "rep": 2,
+          "start_or_fork_delta_ms": -2.530687999999941,
+          "suite_change_pct": -10.110874712268025,
+          "suite_delta_ms": -129.18891700000017
+        },
+        {
+          "cpu_change_pct": -6.29099704143642,
+          "rep": 3,
+          "start_or_fork_delta_ms": -2.6544999999999845,
+          "suite_change_pct": -9.708275075574601,
+          "suite_delta_ms": -123.92816600000015
+        },
+        {
+          "cpu_change_pct": -7.075549614337384,
+          "rep": 4,
+          "start_or_fork_delta_ms": -2.199374000000006,
+          "suite_change_pct": -9.580542330975705,
+          "suite_delta_ms": -122.96812499999987
+        }
+      ],
+      "prepared_faster_pairs": 5,
+      "start_or_fork_faster_pairs": 5
+    },
+    "fork-p4": {
+      "median_paired_prepared_cpu_pct": -3.903417050064084,
+      "median_paired_prepared_wall_pct": -3.761431410410876,
+      "median_paired_start_or_fork_delta_ms": -3.8450624999999974,
+      "pairs": [
+        {
+          "cpu_change_pct": 0.1551365428736684,
+          "rep": 0,
+          "start_or_fork_delta_ms": -1.104750000000024,
+          "suite_change_pct": -1.0755045069580027,
+          "suite_delta_ms": -5.010417000000018
+        },
+        {
+          "cpu_change_pct": -9.343100476054778,
+          "rep": 1,
+          "start_or_fork_delta_ms": -3.8450624999999974,
+          "suite_change_pct": 105.27806225088003,
+          "suite_delta_ms": 503.88879199999997
+        },
+        {
+          "cpu_change_pct": -7.213623833332095,
+          "rep": 2,
+          "start_or_fork_delta_ms": -4.043083499999973,
+          "suite_change_pct": -4.344980612808802,
+          "suite_delta_ms": -46.77304099999992
+        },
+        {
+          "cpu_change_pct": -3.903417050064084,
+          "rep": 3,
+          "start_or_fork_delta_ms": 0.42929150000001925,
+          "suite_change_pct": -50.50601172145657,
+          "suite_delta_ms": -469.794042
+        },
+        {
+          "cpu_change_pct": -0.6637302043991045,
+          "rep": 4,
+          "start_or_fork_delta_ms": -3.916333000000016,
+          "suite_change_pct": -3.761431410410876,
+          "suite_delta_ms": -18.161790999999994
+        }
+      ],
+      "prepared_faster_pairs": 4,
+      "start_or_fork_faster_pairs": 4
+    },
+    "fresh-p1": {
+      "median_paired_prepared_cpu_pct": -3.8690135205298626,
+      "median_paired_prepared_wall_pct": -5.945576893608773,
+      "median_paired_start_or_fork_delta_ms": -2.1968959999999242,
+      "pairs": [
+        {
+          "cpu_change_pct": -3.8690135205298626,
+          "rep": 0,
+          "start_or_fork_delta_ms": -2.1258339999998697,
+          "suite_change_pct": -5.945576893608773,
+          "suite_delta_ms": -98.79587500000002
+        },
+        {
+          "cpu_change_pct": -7.014398153883816,
+          "rep": 1,
+          "start_or_fork_delta_ms": -2.465124499999959,
+          "suite_change_pct": -7.235737316122625,
+          "suite_delta_ms": -121.44074999999998
+        },
+        {
+          "cpu_change_pct": -3.2853599842279424,
+          "rep": 2,
+          "start_or_fork_delta_ms": -2.1968959999999242,
+          "suite_change_pct": -5.094386494482772,
+          "suite_delta_ms": -85.25637500000016
+        },
+        {
+          "cpu_change_pct": -3.1929668504561692,
+          "rep": 3,
+          "start_or_fork_delta_ms": -1.2765625000000256,
+          "suite_change_pct": -3.3972996694630053,
+          "suite_delta_ms": -56.68779100000006
+        },
+        {
+          "cpu_change_pct": -5.033130266866581,
+          "rep": 4,
+          "start_or_fork_delta_ms": -2.4077914999999876,
+          "suite_change_pct": -7.217338214107971,
+          "suite_delta_ms": -122.7639999999999
+        }
+      ],
+      "prepared_faster_pairs": 5,
+      "start_or_fork_faster_pairs": 5
+    },
+    "fresh-p4": {
+      "median_paired_prepared_cpu_pct": -3.956406316161476,
+      "median_paired_prepared_wall_pct": -5.168042079346369,
+      "median_paired_start_or_fork_delta_ms": -2.6130624999999696,
+      "pairs": [
+        {
+          "cpu_change_pct": 1.624767780802694,
+          "rep": 0,
+          "start_or_fork_delta_ms": -1.760312500000012,
+          "suite_change_pct": -2.062119041261856,
+          "suite_delta_ms": -12.177373999999986
+        },
+        {
+          "cpu_change_pct": -5.318433732731032,
+          "rep": 1,
+          "start_or_fork_delta_ms": -1.8942914999999942,
+          "suite_change_pct": -5.003306278672048,
+          "suite_delta_ms": -29.260291999999936
+        },
+        {
+          "cpu_change_pct": -3.8387819283391966,
+          "rep": 2,
+          "start_or_fork_delta_ms": -2.6130624999999696,
+          "suite_change_pct": -9.590139867688885,
+          "suite_delta_ms": -63.029584
+        },
+        {
+          "cpu_change_pct": -4.731764637910196,
+          "rep": 3,
+          "start_or_fork_delta_ms": -2.88051999999999,
+          "suite_change_pct": -5.168042079346369,
+          "suite_delta_ms": -31.150041999999985
+        },
+        {
+          "cpu_change_pct": -3.956406316161476,
+          "rep": 4,
+          "start_or_fork_delta_ms": -5.025874999999985,
+          "suite_change_pct": -5.4842032240719485,
+          "suite_delta_ms": -33.589376000000016
+        }
+      ],
+      "prepared_faster_pairs": 5,
+      "start_or_fork_faster_pairs": 5
+    }
+  },
+  "primary_children": 1920,
+  "primary_processes": 40,
+  "prototype_threshold_met": true
+}

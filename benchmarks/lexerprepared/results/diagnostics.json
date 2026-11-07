@@ -1,0 +1,28 @@
+{
+  "scope": "mariamem-only diagnostic, excluded from primary timing",
+  "processes": [
+    {
+      "mode": "fork",
+      "arm": "original",
+      "suite_ms": 615.914,
+      "update_gt100ms": 0,
+      "max_update_ms": 2.548999999999978,
+      "traces": 48
+    },
+    {
+      "mode": "fork",
+      "arm": "prepared",
+      "suite_ms": 482.539375,
+      "update_gt100ms": 0,
+      "max_update_ms": 1.9347080000000005,
+      "traces": 48
+    }
+  ],
+  "children": 96,
+  "purge_scopes": 24960,
+  "purge_aborts": 0,
+  "query_rseg_waits": [],
+  "background_page_waits": [],
+  "links": [],
+  "max_events_per_child": 2449
+}

@@ -1,0 +1,18 @@
+{
+  "source": "62fbbe53",
+  "before_any_measurement": true,
+  "failures": [
+    {
+      "stage": "synthetic unit fixture",
+      "summary": "random binding could exceed32MiB synthetic module; observed OOB; select bounded minimum offset instead",
+      "original_full_log": "tool output only; subsequent unit run overwrote file"
+    },
+    {
+      "stage": "normal Go build",
+      "summary": "overlay p4/base lexer_prepared.go basename collision; use unique full-relative destination",
+      "log": "preflight-normal-build.txt"
+    }
+  ],
+  "controller_error": "first correction command used root-relative paths from worktree; no edits occurred; unintended retry then exposed overlay collision",
+  "measurement_processes": 0
+}
