@@ -1,0 +1,57 @@
+[
+  {
+    "rep": 0,
+    "mode": "off",
+    "report": "off-0.json"
+  },
+  {
+    "rep": 0,
+    "mode": "timed",
+    "report": "timed-0.json"
+  },
+  {
+    "rep": 1,
+    "mode": "timed",
+    "report": "timed-1.json"
+  },
+  {
+    "rep": 1,
+    "mode": "off",
+    "report": "off-1.json"
+  },
+  {
+    "rep": 2,
+    "mode": "off",
+    "report": "off-2.json"
+  },
+  {
+    "rep": 2,
+    "mode": "timed",
+    "report": "timed-2.json"
+  },
+  {
+    "rep": 3,
+    "mode": "timed",
+    "report": "timed-3.json"
+  },
+  {
+    "rep": 3,
+    "mode": "off",
+    "report": "off-3.json"
+  },
+  {
+    "rep": 4,
+    "mode": "off",
+    "report": "off-4.json"
+  },
+  {
+    "rep": 4,
+    "mode": "timed",
+    "report": "timed-4.json"
+  },
+  {
+    "rep": 0,
+    "mode": "inventory",
+    "report": "inventory-0.json"
+  }
+]

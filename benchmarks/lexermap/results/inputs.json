@@ -1,0 +1,26 @@
+{
+  "source_commit": "fe96aaffa9c117e6c697d58ce1a7a58bd7e08b14",
+  "product_source_commit": "3d8b2201c1f36fa5b7264e0450104055f3822272",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "plan_sha256": "eb9753026d24b7539345c9b6eed6198ed26eb15d9b42b6e1156bd1672a2fa305",
+  "binary_sha256": "15475ee6998b16c2cb4c81169a05530cfef09e678010dd3f9d7ddab506d8af8c",
+  "build_info": "<WORKSPACE>/temp/probe: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/lexermap\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/lexermap\tv0.0.0-20261107120343-fe96aaffa9c1\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=fe96aaffa9c117e6c697d58ce1a7a58bd7e08b14\n\tbuild\tvcs.time=2026-11-07T12:03:43Z\n\tbuild\tvcs.modified=false\n",
+  "overlay": [
+    {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "before_sha256": "713bc4711a428730882ad78e653260517b7032e0311635fc9d241e2961e4265d",
+      "after_sha256": "079952bc5a5fc1d401340ff06be1283f09ea7512cb4e060bc8828f704dbd578b"
+    },
+    {
+      "path": "internal/generatedgo/code/base/lexer_observer.go",
+      "before_sha256": null,
+      "after_sha256": "8d473c54f57575e6268b23cb4235380b97248040e21b8205594c76b7410867f9"
+    },
+    {
+      "path": "internal/generatedgo/code/base/lexer_observer_test.go",
+      "before_sha256": null,
+      "after_sha256": "e241e9c9086213e3d45ead677302860adcee1c041db37ddb71d926838130acf2"
+    }
+  ],
+  "build_seconds": 107.451971125
+}
