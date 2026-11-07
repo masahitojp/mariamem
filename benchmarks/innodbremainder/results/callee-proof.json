@@ -1,0 +1,62 @@
+{
+  "Fn17510": {
+    "file": "internal/generatedgo/code/p3/p3_pure.go",
+    "body_sha256": "e7f7ba09501b36f9860d039d60d68a29a7a87a95a967883d1edb36e117d3b32c",
+    "strings": [
+      "Database physically writes the file full: ",
+      " did not exist: new to be created",
+      " opened in read-only mode",
+      " size to ",
+      "Could not create undo tablespace '",
+      "%s/undo%03u",
+      "InnoDB: Unable to open create tablespace '%s'.",
+      "srv_undo_tablespaces <= TRX_SYS_N_RSEGS",
+      "Unable to allocate ",
+      "Setting file ",
+      "%s/undo%03zu",
+      "!create_new_undo || srv_operation <= SRV_OPERATION_EXPORT_RESTORED",
+      "Data file ",
+      "!i || prev_id + 1 == space_id",
+      "/work/source/storage/innobase/srv/srv0start.cc",
+      "Can't create UNDO tablespace "
+    ]
+  },
+  "Fn18291": {
+    "native": "trx_lists_init_at_db_start",
+    "proof_strings": [
+      "Retry with innodb_force_recovery=5",
+      "Trx id counter is ",
+      "row operations to undo"
+    ],
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "body_sha256": "c321362518a6f07b5910341bef90a40aca07c8551a1fcf5bc9e81b35bb15b028"
+  },
+  "inline_recovery": {
+    "begin_label": "L1752",
+    "end_label": "L1850",
+    "anchors": [
+      "17864432 space_id_reuse_warned=1",
+      "17862110 recovery_on=1",
+      "log0recv.cc:4806 assertion",
+      "close_files vector iteration immediately follows L1850"
+    ]
+  },
+  "inline_load": {
+    "begin_label": "L3479",
+    "end_label": "L3613",
+    "anchors": [
+      "mem_heap_create(1000)",
+      "four dict_load_indexes calls Fn17707",
+      "Fn17059 load_sys_tables",
+      "mtr destructor before L3613"
+    ]
+  },
+  "Fn17052": {
+    "file": "internal/generatedgo/code/p5/p5_pure.go",
+    "body_sha256": "952e0ad3dcfe9ddb7d25540c1c296486ff305596649cfaec4742cd008b22b802"
+  },
+  "Fn17054": {
+    "file": "internal/generatedgo/code/p2/p2_pure.go",
+    "body_sha256": "ad518058e7ae5de827cd2bab982b9833ce8df7254c7664f74bf6d629d0db70b8"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "unix": 1794019097.831357,
+  "processes": [
+    "54562 /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python -B benchmarks/innodbremainder/build.py",
+    "56182 go build -p 1 -mod=readonly -trimpath -buildvcs=true -overlay <WORKSPACE>/temp/overlay/overlay.json -o <WORKSPACE>/temp/diagnostic ./benchmarks/staticimageruntime/maria",
+    "58604 /opt/homebrew/Cellar/go/1.27.3/libexec/pkg/tool/darwin_arm64/compile -o <WORKSPACE>/temp/gotmp/go-build3784608793/b203/_pkg_.a -trimpath <WORKSPACE>/worktree/internal/generatedgo/code/p6=>github.com/masahitojp/mariamem/internal/generatedgo/code/p6;<WORKSPACE>/temp/overlay/uw-p6_pure.go=>github.com/masahitojp/mariamem/internal/generatedgo/code/p6/p6_pure.go;<WORKSPACE>/temp/gotmp/go-build3784608793/b203=> -p github.com/masahitojp/mariamem/internal/generatedgo/code/p6 -lang=go1.26 -complete -buildid UpqG8gE2fi5F9XMAAWqJ/UpqG8gE2fi5F9XMAAWqJ -goversion go1.27.3 -c=8 -shared -nolocalimports -importcfg <WORKSPACE>/temp/gotmp/go-build3784608793/b203/importcfg -pack <WORKSPACE>/worktree/internal/generatedgo/code/p6/alias.go <WORKSPACE>/worktree/internal/generatedgo/code/p6/p6.go <WORKSPACE>/temp/overlay/uw-p6_pure.go"
+  ]
+}

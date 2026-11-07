@@ -1,0 +1,8 @@
+[
+  {
+    "file": "process-observation.json",
+    "rule": "owned workspace absolute prefix -> <WORKSPACE>",
+    "original_sha256": "78c356e1591d9cfb0f1539c75e82165ac46a896ce7f2c10697dcebf19c3691d5",
+    "published_sha256": "5a065f218d7e7c95d0014fa325bda31cf85d68f798281d29c653cbacc98988d4"
+  }
+]

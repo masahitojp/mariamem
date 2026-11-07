@@ -1,0 +1,139 @@
+{
+  "result": "PASS",
+  "layout": {
+    "caller": "Fn18569",
+    "p0_sha256": "76eed591de25d2bae7daa653136ee26530478cf7f303b827b22d0bbbbee3e3d9",
+    "marks": [
+      [
+        "L1752",
+        "recovery_begin"
+      ],
+      [
+        "L1850",
+        "recovery_end"
+      ],
+      [
+        "L3479",
+        "dictionary_load_begin"
+      ],
+      [
+        "L3613",
+        "dictionary_load_end"
+      ]
+    ],
+    "calls": [
+      [
+        "v11433 = Fn17510(m, v11097, v11092)",
+        "undo_tablespaces"
+      ],
+      [
+        "v12159 = Fn17052(m)",
+        "dictionary_create"
+      ],
+      [
+        "v18866 = Fn17054(m)",
+        "dictionary_boot"
+      ],
+      [
+        "v20211 = Fn18291(m)",
+        "transaction_lists"
+      ]
+    ],
+    "apply_needle": "L3470:\n\t;\n\tv19431 = Fn93(m, int32(17862080))\n\tmBase = m.M\n\tFn17465(m, int32(1))",
+    "source_basis": "docs/reviews/innodb-startup-source/source-map.json",
+    "native_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+  },
+  "callee_proof": {
+    "Fn17510": {
+      "file": "internal/generatedgo/code/p3/p3_pure.go",
+      "body_sha256": "e7f7ba09501b36f9860d039d60d68a29a7a87a95a967883d1edb36e117d3b32c",
+      "strings": [
+        "Database physically writes the file full: ",
+        " did not exist: new to be created",
+        " opened in read-only mode",
+        " size to ",
+        "Could not create undo tablespace '",
+        "%s/undo%03u",
+        "InnoDB: Unable to open create tablespace '%s'.",
+        "srv_undo_tablespaces <= TRX_SYS_N_RSEGS",
+        "Unable to allocate ",
+        "Setting file ",
+        "%s/undo%03zu",
+        "!create_new_undo || srv_operation <= SRV_OPERATION_EXPORT_RESTORED",
+        "Data file ",
+        "!i || prev_id + 1 == space_id",
+        "/work/source/storage/innobase/srv/srv0start.cc",
+        "Can't create UNDO tablespace "
+      ]
+    },
+    "Fn18291": {
+      "native": "trx_lists_init_at_db_start",
+      "proof_strings": [
+        "Retry with innodb_force_recovery=5",
+        "Trx id counter is ",
+        "row operations to undo"
+      ],
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "body_sha256": "c321362518a6f07b5910341bef90a40aca07c8551a1fcf5bc9e81b35bb15b028"
+    },
+    "inline_recovery": {
+      "begin_label": "L1752",
+      "end_label": "L1850",
+      "anchors": [
+        "17864432 space_id_reuse_warned=1",
+        "17862110 recovery_on=1",
+        "log0recv.cc:4806 assertion",
+        "close_files vector iteration immediately follows L1850"
+      ]
+    },
+    "inline_load": {
+      "begin_label": "L3479",
+      "end_label": "L3613",
+      "anchors": [
+        "mem_heap_create(1000)",
+        "four dict_load_indexes calls Fn17707",
+        "Fn17059 load_sys_tables",
+        "mtr destructor before L3613"
+      ]
+    },
+    "Fn17052": {
+      "file": "internal/generatedgo/code/p5/p5_pure.go",
+      "body_sha256": "952e0ad3dcfe9ddb7d25540c1c296486ff305596649cfaec4742cd008b22b802"
+    },
+    "Fn17054": {
+      "file": "internal/generatedgo/code/p2/p2_pure.go",
+      "body_sha256": "ad518058e7ae5de827cd2bab982b9833ce8df7254c7664f74bf6d629d0db70b8"
+    }
+  },
+  "used_upstream_files": [
+    {
+      "path": "storage/innobase/trx/trx0trx.cc",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "github_blob": "b35fe36685ec6b3e8d4286595d0793e423f95650",
+      "sha256": "a460e2d34558fdacedd448938566ebbb7d67279cb317a80e69fce7610a32b582",
+      "bytes": 65060
+    },
+    {
+      "path": "storage/innobase/log/log0recv.cc",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "github_blob": "7e22525f8ddf35302ed3003973b4158033a186bd",
+      "sha256": "23fc5b440fc297e8a6d08e19942eadb912092684d9d1bc4b5bdef3395d2003ca",
+      "bytes": 160134
+    },
+    {
+      "path": "storage/innobase/dict/dict0boot.cc",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "github_blob": "39026dd6a97763bd26cd3e95ceb048b62d015680",
+      "sha256": "d10d91383f60a69004dd64af90fcdcb8be92677636b4146575850946026d6748",
+      "bytes": 13678
+    },
+    {
+      "path": "storage/innobase/srv/srv0start.cc",
+      "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "github_blob": "ad23ae353b25c5e071f0fe93916708a62a46bbdc",
+      "sha256": "92862e29209ac942c1aeb1902c8a99f8b0e6ca0243c2b539cdf0d697c965f8be",
+      "bytes": 63721
+    }
+  ],
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe"
+}

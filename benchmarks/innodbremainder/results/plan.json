@@ -1,0 +1,51 @@
+{
+  "question": "Which non-overlapping startup work accounts for the remaining Fresh/Fork InnoDB open/recovery interval?",
+  "mapping_started_unix": 1794018949.591955,
+  "mapping_budget_seconds": 1800,
+  "if_identified": {
+    "Go_builds": 1,
+    "build_timeout_seconds": 1200,
+    "primary": "P1 Fresh/Fork, 3 alternating pairs, 48 children, same warm static image and schema/seed",
+    "run_timeout_seconds": 900,
+    "keep": "all phases/tails/owners/cleanup"
+  },
+  "if_not_identified": "stop with evidence and guest-regeneration cost boundary; do not rebuild guest",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "forbidden": [
+    "guest changes",
+    "recovery/validation bypass",
+    "product/API changes",
+    "Issue68 reopening"
+  ],
+  "budget_gib": 8,
+  "min_free_gib": 12,
+  "mapping_result": "identified: exact direct calls and inlined boundary regions; no guest rebuild",
+  "primary_processes": 6,
+  "warmup_processes": 2,
+  "positive_pilots": 2,
+  "negative_controls": 2,
+  "total_processes": 12,
+  "children": 48,
+  "parallel": [
+    1
+  ],
+  "observers": [
+    "on"
+  ],
+  "modes": [
+    "fresh",
+    "fork"
+  ],
+  "same_binary": true,
+  "image": "static-page prototype warm in both; equal baseline prepared before children",
+  "criteria": [
+    "all required route-specific marks occur once and are ordered",
+    "all measured intervals fit inside host outer interval and sum with nonnegative residual",
+    "all children, tails, owner logs and cleanup retained",
+    "diagnostic attribution only, no product adoption"
+  ],
+  "baseline_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "active_work_budget_seconds": 7200,
+  "tooling_budget_seconds": 1800,
+  "heavy_ci_submissions": 0
+}
