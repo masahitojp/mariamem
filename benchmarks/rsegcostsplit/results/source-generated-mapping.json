@@ -1,0 +1,16 @@
+{
+  "source_commit": "eb1082ba1263650b83b12b472ff9dc98381ac30d",
+  "measured_source_commit": "7254c32b97dd96297f72d71f83f78df34ad444eb",
+  "p2_sha256": "0d067e13916b78f9d0f569c704b99d9d6f8b6b3320aa3e135bcdace785d294a4",
+  "function": "Fn17233",
+  "body_sha256": "b4cb59756a812fc7c9a6f10d85bd1725c58d84dc81774f5d1331c1af50ecdc19",
+  "checks": [
+    "\nL85:\n",
+    "if v616 != int32(-1)",
+    "v629 = Fn16802(",
+    "if base.Ui32(int32(127)) < base.Ui32(v73)",
+    "v118 = Fn18164(m, int64(5)",
+    "v352 = Fn18164(m, v341|v343"
+  ],
+  "interpretation": "L85 reads 4-byte slot and compares to -1; endian conversion and Fn16802 only on non-null L87 path. Source/generated loop is not assembly or timing evidence."
+}

@@ -1,0 +1,20 @@
+{
+  "function": "Fn17233",
+  "body_sha256": "b4cb59756a812fc7c9a6f10d85bd1725c58d84dc81774f5d1331c1af50ecdc19",
+  "page_categories": [
+    "trx_sys",
+    "space_header",
+    "rseg_header",
+    "history_page"
+  ],
+  "page_calls": [
+    "Fn18164(m, int64(5), int32(2), v115, int32(10), v33, v115)",
+    "Fn18164(m, v324<<(uint(int64(32))%64), int32(2), int32(0), int32(10), v33, v21+int32(740))",
+    "Fn18164(m, v341|v343<<(uint(int64(32))%64), int32(2), int32(0), int32(10), v33, v21+int32(740))",
+    "Fn18164(m, base.I64_extend_i32_u(v729)|v738<<(uint(int64(32))%64), int32(1), int32(0), int32(10), v33, v21+int32(740))"
+  ],
+  "undo_call": "Fn16802(m, v258, v593, int32(base.Ui32((v616^base.I32_rotr(v616, int32(16)))&int32(-16711936))>>(uint(v624)%32))^base.I32_rotr(v616, v624))",
+  "scan_begin": "after v588 page size load before L82/L85",
+  "scan_end": "L84 after completed loop; nested undo time subtracted",
+  "counter": "page_size/16 per completed scan, undo_calls counts non-null slots; no per-slot hook"
+}
