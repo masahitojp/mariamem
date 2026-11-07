@@ -1,0 +1,22 @@
+[
+  {
+    "argv": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python",
+      "scripts/verify.py",
+      "check"
+    ],
+    "exit_code": 0,
+    "name": "source-unit-checks",
+    "seconds": 542.5726515839999
+  },
+  {
+    "argv": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python",
+      "scripts/verify.py",
+      "integration"
+    ],
+    "exit_code": 0,
+    "name": "runtime-integration",
+    "seconds": 899.147970417
+  }
+]

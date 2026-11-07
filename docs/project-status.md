@@ -246,26 +246,42 @@ Use that pinned history, versioned [release notes](../release/NOTES-v0.6.2.md),
 individual decisions and source-bound review receipts for past results. Old
 FAIL/SKIP/pending records are not rewritten as later release acceptance.
 
-## CRC32C optimization — approved candidate implementation, not main adoption
+## CRC32C optimization — main adoption approved, unreleased
 
-On 2026-11-07 the Human approved adopting the equivalent CRC32C calculation and
-creating a minimal product candidate. Preserve checksum/LSN/bounds checks and
-completed disposal; retain the approximately +1% experimental Fresh batch
-difference as an unresolved observation. The [candidate record](reviews/crc32c-candidate.md)
-pins both experiments, the canonical installer boundary and finite verification
-exit. Product integration requires reproducible generation and supported-platform
-verification. No release, broader format support or experimental static-image
-adoption follows from this approval.
+On 2026-11-07 the Human accepted the adoption review and approved protected main
+integration of the bounded CRC32C candidate through PR125. The accepted observed
+tradeoff is Fresh P4 batch wall +51.944ms (approximately5%, all three pairs slower)
+and Fresh P1 batch CPU +234.809ms, alongside Fork startup p50 improvements in all
+six P1/P4 pairs (median paired -9.305/-10.731ms). The Fresh cause remains unknown;
+this is neither a universal speedup nor an approximately1% regression bound.
+No additional sampling or root-cause investigation is required for this adoption.
+Main merge follows required checks/strict-base protection. Release/version
+selection, experimental static-image sharing and broader format support remain
+separate decisions.
 
-Local candidate1057adf8 has passed independent regeneration, CRC/validator and
-real-guest lifecycle checks. Its finite product comparison improves Fork startup
-in all six P1/P4 pairs, but Fresh P4 batch wall increases in all three pairs
-(median paired +51.944ms, approximately5% of baseline batch) and Fresh P1 CPU
-increases. Keep these as main-adoption review items; the earlier experimental
-approximately1% Fresh cost is not a product bound. All samples and long waits
-remain in the linked candidate receipt. Supported-platform CI remains separate.
-First run42345783454 at `a2b960abc0100cc8dc8509ce84bf8881762bbc75` passed
-source checks on both platforms but stopped at the prepared-consumer import:
-the qualification workflow omitted Connector/Python26.7.0. The dependency and
-an early import guard are now added; full runtime acceptance awaits a new
-exact-source run. See the candidate record for the failed-run artifact identities.
+The [candidate record](reviews/crc32c-candidate.md) preserves the initial
+implementation approval, fixed exit and single-Mac comparison. Four technical
+conditions are satisfied: canonical regeneration/input-drift checks; CRC and
+validator equivalence/negative tests; supported-platform real SQL/isolation/
+cleanup; and the finite product comparison. Generated-code ownership, guest and
+converter pins, public API and completed-disposal guarantees remain unchanged.
+
+[Runtime CI42349570517](https://github.com/masahitojp/mariamem/actions/runs/42349570517)
+passed on macOS15 arm64 and Ubuntu24.04 x86_64 at
+`bb894d6658cd575f8262736698d3e9ede7f67360`. The
+[compact receipt](reviews/crc32c-ci-42349570517/README.md) records both job names,
+IDs, artifact ZIP digests, original command/result/cleanup JSON and checksums.
+The earlier dependency-failure run42345783454 remains bound to a2b960ab;
+its receipt is not relabeled as success.
+
+Changes after measured source `1057adf8fb430f5540f9d4f420f6b3f6f2012aa9`
+are the qualification workflow dependency addition and its contract test, plus
+records. `internal/`, `guest/`, `release/` and `scripts/` are identical (empty
+Git diff); runtime bytes are unchanged. CI evidence remains bound to
+`bb894d6658cd575f8262736698d3e9ede7f67360`; later record-only commits reuse it
+on that explicit basis, not as a new exact-head execution.
+
+Related work: #121's finite attribution is complete; #122 retains the candidate
+list and CRC/PR125 disposition. Static-image sharing in #123 is a distinct
+prototype and receives no product adoption from this decision. The measurement
+branch remains separate from the minimal product PR.

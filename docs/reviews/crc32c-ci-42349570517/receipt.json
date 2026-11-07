@@ -1,0 +1,61 @@
+{
+  "run_id": 42349570517,
+  "source_commit": "bb894d6658cd575f8262736698d3e9ede7f67360",
+  "measured_source_commit": "1057adf8fb430f5540f9d4f420f6b3f6f2012aa9",
+  "result": "PASS",
+  "scope": "runtime-qualification-v1; not release qualification/publication",
+  "verification": "ZIP digests, every original artifact file checksum, source inventory hash and CRC source bindings verified; both check/integration exit 0",
+  "platforms": [
+    {
+      "job_id": 128334615017,
+      "job_name": "Runtime qualification — darwin-arm64",
+      "artifact_id": 13564909844,
+      "artifact_name": "runtime-darwin-arm64-bb894d6658cd575f8262736698d3e9ede7f67360",
+      "artifact_zip_sha256": "d349bc70694cedbc5f87a63eb61149a6a5a8f94a59d478ecbd07d405739149a2",
+      "environment": {
+        "architecture": "arm64",
+        "product_version": "15.8.2",
+        "system": "Darwin"
+      },
+      "go_version": "go version go1.26.10 darwin/arm64",
+      "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+      "git_tree_sha256": "0fa6b81d68dffdf996a01d2a41a54442e459947e26641c86612c6a505b17a261",
+      "source_inventory_sha256": "27639d3adff75e3efbce156a83d6672056bd5a53338b818159535d6bec636689",
+      "original_artifact_files_sha256": {
+        "cleanup.json": "0244e37316854466e7cfba631adc1d2b92c1d5cc4489a05d08dd448f7e4cf747",
+        "commands.json": "a9f9e583905a4bd76e730e658f57558653dd94df9f804a322f180c65f67c495e",
+        "correctness.json": "2b4ff943d68fe5ca684e54ddde4fa699649cf6610e545d4784ec37711c942ea2",
+        "inputs.json": "a4ca31f32cba3f09191d67778ee903f60e6aaa6b345e77261937d21a97bf46c6",
+        "runtime-integration.log": "b4ca163a164990ffba0120174a67d9247e0455784fb3d9ab1da1301e84442fca",
+        "source-inventory.json": "27639d3adff75e3efbce156a83d6672056bd5a53338b818159535d6bec636689",
+        "source-unit-checks.log": "cc40a06f28badd48909e661c1146e147fb2383a20f258ba5475d80a0b9a089b8"
+      }
+    },
+    {
+      "job_id": 128334614729,
+      "job_name": "Runtime qualification — ubuntu24.04-x86_64",
+      "artifact_id": 13566030300,
+      "artifact_name": "runtime-ubuntu24.04-x86_64-bb894d6658cd575f8262736698d3e9ede7f67360",
+      "artifact_zip_sha256": "f626ca3e4347a565add143b47b1ffb17d365b86a020bc736e8e9171258ab3367",
+      "environment": {
+        "architecture": "x86_64",
+        "distribution": "ubuntu",
+        "system": "Linux",
+        "version_id": "24.04"
+      },
+      "go_version": "go version go1.26.10 linux/amd64",
+      "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+      "git_tree_sha256": "0fa6b81d68dffdf996a01d2a41a54442e459947e26641c86612c6a505b17a261",
+      "source_inventory_sha256": "27639d3adff75e3efbce156a83d6672056bd5a53338b818159535d6bec636689",
+      "original_artifact_files_sha256": {
+        "cleanup.json": "0244e37316854466e7cfba631adc1d2b92c1d5cc4489a05d08dd448f7e4cf747",
+        "commands.json": "9e65839d4ca99ccfe408935b320f0e72040db660a1a05fecbdfee2256bb2a675",
+        "correctness.json": "2b4ff943d68fe5ca684e54ddde4fa699649cf6610e545d4784ec37711c942ea2",
+        "inputs.json": "efe74b94d80c2d6309fdc5d640956ffa613ee0d3cb425f154c14c1510992cb57",
+        "runtime-integration.log": "e99bd9947b018b14eb9080dfce171474fb21cebbe63ffdfa42d43c03660cf393",
+        "source-inventory.json": "27639d3adff75e3efbce156a83d6672056bd5a53338b818159535d6bec636689",
+        "source-unit-checks.log": "6c6cec3e06f018d94cda2ca6bd7ae219348f32eeedb1afaa673f716ac3a7c938"
+      }
+    }
+  ]
+}

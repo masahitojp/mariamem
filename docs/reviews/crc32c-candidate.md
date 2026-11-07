@@ -3,8 +3,9 @@
 The Human approved adopting the equivalent CRC32C calculation and building a
 minimal product candidate on 2026-11-07. The approximately +1% Fresh batch
 counter-result remains an unresolved observation, not a universal regression
-claim or a zero-cost guarantee. Main integration and release are not approved
-by that decision.
+claim or a zero-cost guarantee. That initial decision did not approve main
+integration or release. The later main-adoption decision is recorded below;
+release remains separate.
 
 ## Reviewed evidence and scope
 
@@ -72,7 +73,14 @@ outside this exit. Original experiment evidence is never relabeled to this SHA.
 Local candidate `1057adf8fb430f5540f9d4f420f6b3f6f2012aa9` passes independent
 regeneration, 78 source/ownership/license tests, 832 CRC cases, 80 differential
 validator cases, and real Snapshot/Fork/Pipe/Close/capacity checks on macOS27.2
-arm64 with Go1.26.10. Later product-branch edits only record these results.
+arm64 with Go1.26.10.
+
+Changes after measured source `1057adf8fb430f5540f9d4f420f6b3f6f2012aa9`
+are the qualification workflow dependency addition and its contract test, plus
+records. `internal/`, `guest/`, `release/` and `scripts/` are identical (empty
+Git diff); runtime bytes are unchanged. CI evidence remains bound to
+`bb894d6658cd575f8262736698d3e9ede7f67360`; later record-only commits reuse it
+on that explicit basis, not as a new exact-head execution.
 
 [Full local receipt and all measurements](https://github.com/masahitojp/mariamem/blob/4f68e66f07f0cc976606e671c03899f55928add6/benchmarks/crc32c-product/results/README.md)
 are saved on a separate evidence branch; they are not part of this product PR.
@@ -96,11 +104,13 @@ approximately1%. Fresh P1 CPU also increases. P4 Fork batch variation includes
 one786.73ms candidate cleanup and one785.79ms baseline SQL span in different
 pairs; all are retained and their causes are unassigned.
 
-Recommend retaining the candidate for supported-platform correctness CI and
-then reviewing main adoption with these counter-results explicitly visible.
-This is not universal performance non-regression. No further samples or
-root-cause campaign are added. macOS15/Ubuntu runtime CI remains to be observed;
-no product-platform matrix PASS, main merge or release is claimed here.
+On 2026-11-07 the Human accepted these observed Fresh costs and approved main
+adoption of the bounded CRC32C candidate through PR125. This accepts Fresh P4
+batch +51.944ms (approximately5%) and Fresh P1 batch CPU +234.809ms as the
+observed tradeoff; their cause remains unknown, and no universal non-regression
+or approximately1% bound is claimed. No further samples or root-cause campaign
+are made prerequisites. Main integration follows the protected PR process;
+version selection and release are separate.
 
 
 ## First runtime CI submission — dependency failure
@@ -118,7 +128,8 @@ The workflow now installs that same fixed dependency and checks its import and
 version before expensive builds. A workflow contract test detects removal of
 the install or early import check. Product, generated code and guest bytes are
 unchanged by this correction; original local performance/regeneration receipts
-retain their original source identity. A new exact-source CI run is required.
+retain their original source identity. The required replacement run is recorded
+in the subsequent success section; this failed receipt remains unchanged.
 
 Failed-run artifacts (original ZIP SHA256):
 
@@ -126,3 +137,31 @@ Failed-run artifacts (original ZIP SHA256):
   `3ec6b0ada5c66fd9d7d4f113fbf3c0bf1c04aa0bd742113c8c685bfc727fd81d`
 - Ubuntu job128323101495, artifact13564176557:
   `27fb1622ebe440edb7b5ab57c2435c013278adad4e7f279ac135509ff04047e9`
+
+
+## Successful runtime CI and adoption record
+
+[Run42349570517](https://github.com/masahitojp/mariamem/actions/runs/42349570517)
+at `bb894d6658cd575f8262736698d3e9ede7f67360` passed both jobs:
+
+- `Runtime qualification — darwin-arm64`: job128334615017, artifact13564909844;
+  original ZIP SHA256 `d349bc70694cedbc5f87a63eb61149a6a5a8f94a59d478ecbd07d405739149a2`.
+- `Runtime qualification — ubuntu24.04-x86_64`: job128334614729, artifact13566030300;
+  original ZIP SHA256 `f626ca3e4347a565add143b47b1ffb17d365b86a020bc736e8e9171258ab3367`.
+
+The [retained checksum-bound receipt](crc32c-ci-42349570517/README.md) records
+source/platform/command/result identities. Both full source checks and runtime
+integration passed, including the previously unavailable prepared-consumer gate.
+
+The adoption review reconciled the four fixed exits: unchanged runtime and
+109-file regeneration hashes; bounded CRC/validator controls on both platforms;
+real DB isolation/cleanup; retained-only replay of44 processes/1572 children.
+Performance remains the single-Mac finite comparison above, not Ubuntu or P8
+performance evidence. Synthetic corruption cases do not prove every encrypted
+or compressed format. No usage/API/cleanup contract changes were found.
+
+Human accepted the Fresh tradeoff and main adoption on2026-11-07. The current
+direction is owned by [project-status](../project-status.md#crc32c-optimization--main-adoption-approved-unreleased).
+#121's finite attribution is complete; #122 tracks candidate dispositions and
+PR125. #123's static-image prototype is separate and is not adopted by this
+CRC decision. The measured evidence branch is not part of the product merge.

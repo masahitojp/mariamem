@@ -1,0 +1,13 @@
+{
+  "boundaries": [
+    "Go real SQL/lifecycle",
+    "Python wire/import/isolation/lifecycle",
+    "handwritten races",
+    "memory32 traps",
+    "source/unit"
+  ],
+  "candidate_sha": "bb894d6658cd575f8262736698d3e9ede7f67360",
+  "contract": "runtime-qualification-v1",
+  "result": "PASS",
+  "version": 1
+}
