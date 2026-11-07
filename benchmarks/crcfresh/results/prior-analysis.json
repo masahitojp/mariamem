@@ -1,0 +1,152 @@
+{
+  "source_commit": "7ecb119a194f9bdebba34d4f743f0ae6a460c711",
+  "report_commit": "e1fe6d448c5193a02cb5fa0f59ecdccbae631945",
+  "summary_sha256": "41fc1fd67500886bf4f907c2270ec244cb4d98d3836fb73506a376da7692e977",
+  "finding": "Fresh slowdown spans startup, seed and cleanup, especially pair2; original primary has no detailed startup trace and no count of selected CRC invocations",
+  "processes": [
+    {
+      "name": "fresh-software-off-p1-r0-primary",
+      "arm": "software",
+      "rep": 0,
+      "phase_means_ms": {
+        "close": 5.035155333333343,
+        "connect": 0.32688541666668475,
+        "count_sum": 0.7500407916666774,
+        "fork_cpu": 33.007729166666664,
+        "retire": 0.05568743750002684,
+        "same_state": 30.979532979166677,
+        "seed": 7.228407125000009,
+        "select1": 0.1028732708333105,
+        "start_or_fork": 22.563605083333332,
+        "update": 0.20082114583332888,
+        "verify_update": 0.13215887499999468,
+        "wave_ready_wait": 0.0036005833333347206,
+        "wave_start_wait": 0.003361166666659384
+      },
+      "start_early8_mean": 22.30566675,
+      "start_late40_mean": 22.61519275,
+      "batch_ms": 1747.9125,
+      "batch_cpu_ms": 2732.431
+    },
+    {
+      "name": "fresh-fast-off-p1-r0-primary",
+      "arm": "fast",
+      "rep": 0,
+      "phase_means_ms": {
+        "close": 5.06705197916666,
+        "connect": 0.3430676666666672,
+        "count_sum": 0.757191020833336,
+        "fork_cpu": 33.397395833333334,
+        "retire": 0.05782116666666415,
+        "same_state": 31.35386537499998,
+        "seed": 7.236531208333328,
+        "select1": 0.10359724999999582,
+        "start_or_fork": 22.90309618749999,
+        "update": 0.20227266666666477,
+        "verify_update": 0.15109466666667556,
+        "wave_ready_wait": 0.003793395833339671,
+        "wave_start_wait": 0.0037612499999883178
+      },
+      "start_early8_mean": 23.243447625000005,
+      "start_late40_mean": 22.835025899999987,
+      "batch_ms": 1768.510417,
+      "batch_cpu_ms": 2769.81
+    },
+    {
+      "name": "fresh-fast-off-p1-r1-primary",
+      "arm": "fast",
+      "rep": 1,
+      "phase_means_ms": {
+        "close": 5.154748270833323,
+        "connect": 0.3839201041666689,
+        "count_sum": 0.7944487499999863,
+        "fork_cpu": 33.7341875,
+        "retire": 0.06272052083333168,
+        "same_state": 31.68775954166666,
+        "seed": 7.497380145833329,
+        "select1": 0.10426641666666499,
+        "start_or_fork": 22.90012675000001,
+        "update": 0.22494097916666966,
+        "verify_update": 0.1551676041666671,
+        "wave_ready_wait": 0.0037101041666695402,
+        "wave_start_wait": 0.003666687499997915
+      },
+      "start_early8_mean": 23.378260499999996,
+      "start_late40_mean": 22.80450000000001,
+      "batch_ms": 1790.300542,
+      "batch_cpu_ms": 2839.268
+    },
+    {
+      "name": "fresh-software-off-p1-r1-primary",
+      "arm": "software",
+      "rep": 1,
+      "phase_means_ms": {
+        "close": 5.149214395833338,
+        "connect": 0.3369584166666784,
+        "count_sum": 0.7575982083333299,
+        "fork_cpu": 32.87470833333333,
+        "retire": 0.055085937500006864,
+        "same_state": 31.093399395833323,
+        "seed": 7.4288914791666665,
+        "select1": 0.09394612499998622,
+        "start_or_fork": 22.465905312500006,
+        "update": 0.2048889583333239,
+        "verify_update": 0.13552429166666582,
+        "wave_ready_wait": 0.0042526874999921915,
+        "wave_start_wait": 0.003702208333331569
+      },
+      "start_early8_mean": 23.243333124999996,
+      "start_late40_mean": 22.31041975000001,
+      "batch_ms": 1759.1961250000002,
+      "batch_cpu_ms": 2768.366
+    },
+    {
+      "name": "fresh-software-off-p1-r2-primary",
+      "arm": "software",
+      "rep": 2,
+      "phase_means_ms": {
+        "close": 5.068144979166658,
+        "connect": 0.3699687708333285,
+        "count_sum": 0.7533272291666595,
+        "fork_cpu": 32.709041666666664,
+        "retire": 0.05703297916666609,
+        "same_state": 30.904316791666666,
+        "seed": 7.28035066666666,
+        "select1": 0.0997030624999858,
+        "start_or_fork": 22.39332462500001,
+        "update": 0.1961127916666602,
+        "verify_update": 0.1406562708333423,
+        "wave_ready_wait": 0.0036875624999925805,
+        "wave_start_wait": 0.003711791666667056
+      },
+      "start_early8_mean": 22.454671624999996,
+      "start_late40_mean": 22.38105522500001,
+      "batch_ms": 1746.144,
+      "batch_cpu_ms": 2746.176
+    },
+    {
+      "name": "fresh-fast-off-p1-r2-primary",
+      "arm": "fast",
+      "rep": 2,
+      "phase_means_ms": {
+        "close": 5.410187499999977,
+        "connect": 0.40132733333333537,
+        "count_sum": 0.8022179583333312,
+        "fork_cpu": 35.2803125,
+        "retire": 0.06487589583331695,
+        "same_state": 32.74371441666666,
+        "seed": 7.838741333333339,
+        "select1": 0.13636368750000738,
+        "start_or_fork": 23.5571371875,
+        "update": 0.23163018750000072,
+        "verify_update": 0.15784285416668364,
+        "wave_ready_wait": 0.003930562499995756,
+        "wave_start_wait": 0.003791708333322319
+      },
+      "start_early8_mean": 22.969234624999995,
+      "start_late40_mean": 23.674717700000002,
+      "batch_ms": 1853.889625,
+      "batch_cpu_ms": 3028.473
+    }
+  ]
+}

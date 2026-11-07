@@ -1,0 +1,8 @@
+=== RUN   TestCRCFastEquivalence
+    crc_fast_test.go:13: 832 lengths/alignment cases + independent bitwise + known vector PASS
+--- PASS: TestCRCFastEquivalence (0.14s)
+=== RUN   TestCRCFastPageValidation
+    crc_fast_test.go:32: 80 actual Fn18145 valid/corrupt/LSN cases PASS
+--- PASS: TestCRCFastPageValidation (0.03s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	0.494s

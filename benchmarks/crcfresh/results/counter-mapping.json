@@ -1,0 +1,7 @@
+{
+  "entry": "Fn18145 entry; all validator calls",
+  "crc": "L23 before CRCFastEnabled branch; all selected full-page CRC compute paths",
+  "scope": "atomic process lifetime total and mutex-protected exact ThreadPool child owner lifetime; root/unbound = total minus child sums",
+  "mode": "process result records actual CRCFastEnabled",
+  "timing": "counts only, no per-call timers; process stats captured after suite timer and resource sample"
+}
