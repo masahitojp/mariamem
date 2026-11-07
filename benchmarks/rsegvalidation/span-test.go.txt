@@ -1,0 +1,24 @@
+package base
+import("testing";"time")
+func TestRsegValidationAccountingAndScope(t *testing.T){
+ m:=&Module{Threads:&ThreadPool{}};r:=&RsegCost{};release:=RsegPageBind(m,r);defer release()
+ if RsegValidationBegin(m,0)!=nil{t.Fatal("outside page captured")}
+ p:=RsegPageBegin(m,2,0,10);now:=time.Unix(1,0);p.now=func()time.Time{return now};p.start=now
+ p.Begin(0);if RsegValidationBegin(m,1)!=nil{t.Fatal("lookup captured")};p.Lookup(false);done:=p.Phase(1)
+ c:=RsegValidationBegin(m,1);if c==nil{t.Fatal("missing completion")}
+ if RsegValidationCurrent(m)!=nil{t.Fatal("outside validation")}
+ v:=c.Phase(0);if RsegValidationCurrent(m)!=c{t.Fatal("missing active validation")}
+ if RsegValidationCurrent(&Module{Threads:m.Threads})!=nil{t.Fatal("other worker captured")}
+ now=now.Add(5*time.Nanosecond);c.CRCBegin(16380);now=now.Add(30*time.Nanosecond);c.CRCEnd();now=now.Add(7*time.Nanosecond);v()
+ v=c.Phase(1);if RsegValidationCurrent(m)!=nil{t.Fatal("nested recovery attribution")};now=now.Add(20*time.Nanosecond);v();c.Finish();done();p.Finish()
+ s:=r.HeaderPath.Validation;if s.Calls!=1||s.RecoveryFlag!=1||s.NS!=[2]int64{42,20}||s.Counts!=[2]int64{1,1}||s.CRCNS!=30||s.CRCCalls!=1||s.CRCBytes!=16380||s.Incomplete!=0||p.completion!=nil{t.Fatalf("%+v",s)}
+ var nilc *RsegValidationCall;nilc.Phase(0)();nilc.CRCBegin(1);nilc.CRCEnd();nilc.Finish()
+}
+func TestRsegValidationRejectsOverlapAndIncomplete(t *testing.T){
+ now:=time.Unix(1,0);p:=&RsegPageCall{b:&rsegPageBinding{s:&RsegPageStats{}},now:func()time.Time{return now}}
+ c:=&RsegValidationCall{p:p,phase:-1};end:=c.Phase(0);c.CRCBegin(16)
+ for _,f:=range []func(){func(){c.Phase(1)},func(){c.CRCBegin(1)},end}{
+  caught:=false;func(){defer func(){caught=recover()!=nil}();f()}();if !caught{t.Fatal("invalid overlap accepted")}
+ }
+ c.Finish();if p.b.s.Validation.Incomplete!=1{t.Fatal("incomplete accepted")}
+}

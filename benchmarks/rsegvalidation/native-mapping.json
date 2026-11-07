@@ -1,0 +1,8 @@
+{
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "buf0buf_sha256": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1",
+  "read_complete": "3553-3687: decrypt, page ID, decompress, check corrupt, optional recv_recover_page, unlock",
+  "validation": "630-691: full_crc32 flag16, page size minus4, seed~0, CRC table lookups, final~0 XOR and stored checksum comparison, then LSN checks",
+  "recovery": "read_complete generated L25 l2 test -> L237 -> L19 frame check -> L17 Fn17470(space,page); false -> L18 READ_FIX decrement",
+  "scope": "four direct Fn18145 calls within Fn18174; nested CRC span only while that exact direct validation is active; no change to SQL, validation, recovery, guest or product behavior"
+}

@@ -1,0 +1,39 @@
+package base
+import "time"
+type RsegValidationStats struct {
+ Calls int64 `json:"calls"`
+ RecoveryFlag int64 `json:"recovery_flag"`
+ NS [2]int64 `json:"ns"`
+ Counts [2]int64 `json:"counts"`
+ CRCNS int64 `json:"crc_ns"`
+ CRCCalls int64 `json:"crc_calls"`
+ CRCBytes int64 `json:"crc_bytes"`
+ Incomplete int64 `json:"incomplete"`
+}
+type RsegValidationCall struct {p *RsegPageCall;phase int;at time.Time;crcAt time.Time;crcActive bool}
+func RsegValidationCurrent(m *Module)*RsegValidationCall {
+ v,ok:=rsegPageBindings.Load(m);if !ok{return nil};p:=v.(*rsegPageBinding).current.Load()
+ if p==nil||p.phase!=1{return nil};c:=p.completion;if c==nil||c.phase!=0{return nil};return c
+}
+func RsegValidationBegin(m *Module,recovery int32)*RsegValidationCall {
+ v,ok:=rsegPageBindings.Load(m);if !ok{return nil};p:=v.(*rsegPageBinding).current.Load()
+ if p==nil||p.phase!=1{return nil};if p.completion!=nil{panic("nested read_complete")}
+ c:=&RsegValidationCall{p:p,phase:-1};p.completion=c;p.b.s.Validation.Calls++
+ if recovery!=0{p.b.s.Validation.RecoveryFlag++};return c
+}
+func(c *RsegValidationCall)Phase(kind int)func(){
+ if c==nil{return func(){}}
+ if kind<0||kind>=2||c.phase!=-1{panic("overlapping completion category")}
+ c.phase=kind;c.at=c.p.now();c.p.b.s.Validation.Counts[kind]++
+ return func(){if c.phase!=kind||c.crcActive{panic("unfinished completion category")};c.p.b.s.Validation.NS[kind]+=c.p.now().Sub(c.at).Nanoseconds();c.phase=-1}
+}
+func(c *RsegValidationCall)CRCBegin(bytes int32){
+ if c==nil{return};if c.phase!=0||c.crcActive||bytes<0{panic("invalid checksum span")}
+ c.crcActive=true;c.crcAt=c.p.now();s:=&c.p.b.s.Validation;s.CRCCalls++;s.CRCBytes+=int64(bytes)
+}
+func(c *RsegValidationCall)CRCEnd(){
+ if c==nil{return};if !c.crcActive{panic("missing checksum span")};c.p.b.s.Validation.CRCNS+=c.p.now().Sub(c.crcAt).Nanoseconds();c.crcActive=false
+}
+func(c *RsegValidationCall)Finish(){
+ if c==nil{return};if c.phase!=-1||c.crcActive{c.p.b.s.Validation.Incomplete++};c.p.completion=nil
+}
