@@ -1,0 +1,49 @@
+{
+  "contract": "issue65-p1-b-local-v1",
+  "status": "PASS scoped macOS;Linux repetition pending",
+  "guest_source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+  "host_source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+  "guest_sha256": "d4f30818c3410db186db5ef1c9abc5f14af0cdc52bb2b76bbca369e02eb1b481",
+  "private_lifecycle_profile": 3,
+  "open_timeout_unit": "positive uint64 nanoseconds,1..MaxInt64",
+  "host_build_tooling_commit": "3dc1393f343d9e385c28e24123ca97351134bf9e",
+  "g2_tooling_commit": "0ceed824e3667d5a0f296e4a007f2c9f7eeecc47",
+  "selected_baseline_files": 291,
+  "selected_g2_files": 292,
+  "cases": {
+    "host_unit_race": 8,
+    "host_timeout_source_mutations": 4,
+    "cpp_source_mutations_with_engine_stubs": 9,
+    "native_timeout": 8,
+    "native_timeout_faults": 3,
+    "public_options_contract": 1,
+    "native_ownership": 9,
+    "native_ownership_faults": 3,
+    "owner_source_mutations": 7,
+    "lifetime_leaf": 10,
+    "lifecycle_live": 22,
+    "compat_observations": 88,
+    "limit_observations": 38,
+    "g1_observations": 234,
+    "g2_observations": 241,
+    "binding_unit": 22
+  },
+  "long_query": {
+    "sql": "SELECT SLEEP(10.2)",
+    "observed_test_seconds": "10.23",
+    "result": "PASS under default30s"
+  },
+  "verification_repairs": [
+    "local helper read failed before engine compilation;resumed from immutable Git archive on same source and verified SDK downloads",
+    "separated two fault-runner JSON output paths;reran the affected six controls after G2;full executed source inventory restored unchanged",
+    "matched public Options test compiler flags to baseline to reuse generated runtime compilation"
+  ],
+  "not_qualified": [
+    "Linux guest/source/observation repetition",
+    "public native backend and inherited Fork/Live options",
+    "remaining controller relocation",
+    "consumer/performance",
+    "canonical adoption",
+    "release"
+  ]
+}

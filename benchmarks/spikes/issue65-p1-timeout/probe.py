@@ -18,7 +18,7 @@ def load(name,path):
 fix=load('g2_baseline_probe',HERE/'probe_baseline.py')
 observer=load('g2_observer',HERE.parent/'issue65-g2/observations.py')
 base=fix.base
-G2_REFERENCE_SHA256='PENDING_P1_TIMEOUT_G2_REFERENCE'
+G2_REFERENCE_SHA256='fcaccd222034e3262f46fef5678a2bbd0a8b4c8a2bd10a2cb739d3e083078688'
 comparison=load('g2_repair_compare',HERE.parent/'issue65-g2-repair/compare_results.py')
 contract=load('g2_handshake_contract',HERE.parent/'issue65-g2-repair/handshake_contract.py')
 

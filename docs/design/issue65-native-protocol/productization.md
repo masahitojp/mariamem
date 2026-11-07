@@ -1,6 +1,6 @@
 # Issue65 P1 — native経路の製品化計画
 
-状態: **HumanがP1-aの実装を承認。macOS／Linuxの限定検証済み。次はP1-b。main採用・release未承認。**
+状態: **HumanがP1-aの実装を承認。macOS／Linuxの限定検証済み。P1-bはmacOS確認済み、Linux照合待ち。main採用・release未承認。**
 
 設計時点のartifactとreviewは`9f4977135941acff010987e49ff0cad9221b2734` /
 `3f934997cd8ead4daf6a639c7fc75cbb1d863e06`に保持する。以下の完了条件をP1-aの実装・検証に適用する。
@@ -170,3 +170,17 @@ cgo/direct callbackやsysroot ABI変更を加えない。host ownerの決定的u
 P1-aのprivate profile2と上記完了条件を実装対象として確定してからruntimeを変更する。
 合格した場合にP1-bへ進む。根拠のある退役barrierを作れなければ枠を早く解放する妥協はせず、
 既存completion seamに不足する観測だけを限定して追加する。そこでSQL/transport全体の作り直しへ広げない。
+
+
+## P1-b実装・macOS確認、Linux照合待ち
+
+Humanの継続依頼により、[P1-b](../../../benchmarks/spikes/issue65-p1-timeout/README.md)を実装した。
+Go Optionsの0/default30sと正のtime.Duration全域をprivate profile3で正確なnanosecondsとして運ぶ。
+旧profile2のmillisecondsとは混在せず、33-byte headerは維持する。guestは1..MaxInt64を検査し、
+期限の加算をunsigned elapsed ticks比較へ置換した。first-byte admission、timer配置、5ms poll、
+SQL/capture gateとnative cancellationの権限は変えない。既存fixtureのmillisecondsは検査付きで変換する。
+
+Macでは専用8試験・実経路負例3、actual public Options比較と既存P1-a/G1/G2がPASS。
+最大durationの実時間待機は主張せず、設定値のtyped/string観測・直後のSQL・境界算術を組み合わせる。
+291-file sourceと全241観測のLinux照合を残す。公開backend接続・Go/Python制御APIへの再bind、
+Fork/LiveのOptions継承はP1-cで確認し、このprivate routeのPASSだけで公開統合済みとは扱わない。

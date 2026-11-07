@@ -1,0 +1,42 @@
+[
+  {
+    "test": "issue65-native-linux/test_probe.py",
+    "exit": 0
+  },
+  {
+    "test": "issue65-native-compat/test_observations.py",
+    "exit": 0
+  },
+  {
+    "test": "issue65-native-limits/test_observations.py",
+    "exit": 0
+  },
+  {
+    "test": "issue65-policy-fix/test_policy.py",
+    "exit": 0
+  },
+  {
+    "test": "issue65-prepared-input/test_observations.py",
+    "exit": 0
+  },
+  {
+    "test": "issue65-g2-repair/test_handshake_contract.py",
+    "exit": 0
+  },
+  {
+    "test": "issue65-g2-repair/test_reference.py",
+    "exit": 0
+  },
+  {
+    "test": "issue65-g1-repair/test_patch.py",
+    "exit": 0
+  },
+  {
+    "test": "issue65-g2/test_observations.py",
+    "exit": 0
+  },
+  {
+    "test": "issue65-g2-repair/test_compare_results.py",
+    "exit": 0
+  }
+]

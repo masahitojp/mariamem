@@ -1,0 +1,2 @@
+go: downloading go1.26.10 (darwin/arm64)
+ok  	github.com/masahitojp/mariamem/internal/nativewire	1.311s

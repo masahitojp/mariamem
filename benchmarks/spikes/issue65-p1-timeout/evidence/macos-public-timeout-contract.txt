@@ -1,0 +1,6 @@
+Disk preflight OK: 21.10 GiB free, 3.43 GiB owned
+=== RUN   TestNativeTimeoutPublicDefaults
+--- PASS: TestNativeTimeoutPublicDefaults (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem	0.814s
+PASS

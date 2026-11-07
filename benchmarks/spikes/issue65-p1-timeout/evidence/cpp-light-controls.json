@@ -1,0 +1,48 @@
+{
+  "scope": "exact timeout header and OPEN with engine stubs;not a full engine run",
+  "controller_sha256": "23945328f5acd2956eb10d3a5dda77522b303169319b918a19988d7a79893303",
+  "header_sha256": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
+  "sanitizer": "undefined with no recovery",
+  "cases": [
+    {
+      "name": "positive",
+      "exit": 0
+    },
+    {
+      "name": "legacy_range",
+      "exit": -6
+    },
+    {
+      "name": "rounds_milliseconds",
+      "exit": -6
+    },
+    {
+      "name": "adds_overflowing_deadline",
+      "exit": -6
+    },
+    {
+      "name": "forgets_disarm",
+      "exit": -6
+    },
+    {
+      "name": "fails_to_rearm",
+      "exit": -6
+    },
+    {
+      "name": "narrows_open_timeout",
+      "exit": -6
+    },
+    {
+      "name": "guest_chooses_own_tuple",
+      "exit": -6
+    },
+    {
+      "name": "accepts_replayed_generation",
+      "exit": -6
+    },
+    {
+      "name": "reject_advances_watermark",
+      "exit": -6
+    }
+  ]
+}

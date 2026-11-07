@@ -462,8 +462,14 @@ The Human requested continuing to P1-b. The
 [bounded timeout implementation](../benchmarks/spikes/issue65-p1-timeout/README.md)
 preserves zero/default30s and the positive Go time.Duration nanosecond domain,
 with profile3 OPEN nanoseconds and overflow-safe elapsed-clock comparison.
-Host unit/race and C++ source-mutation checks pass;the fixed-source guest build,
-new native route observations and Linux comparison are in progress.
+Mac passes eight new native timeout cases and three timeout fault controls,
+including SLEEP(10.2) under default30s,precise duration inspection,first-byte
+expiry and stale/current cancellation tokens. Actual public Options normalization,
+P1-a nine ownership cases,ten lifetime leaves and original G1/G2 suites pass.
+Checked source_commit be244a0bdb510a22417241c2aa2f76a9093aac1b produces
+UNQUALIFIED guest d4f30818c3410db186db5ef1c9abc5f14af0cdc52bb2b76bbca369e02eb1b481.
+Linux guest reproduction,291-file source and241-observation comparisons are
+pending. Host unit/race and source-mutation checks also pass.
 P1-c public backend/owner integration follows after P1-b verification.
 This is not public route integration or canonical adoption. Public30s timeout,
 backend/owner diagnostics,remaining host coordination and P2 consumers/performance

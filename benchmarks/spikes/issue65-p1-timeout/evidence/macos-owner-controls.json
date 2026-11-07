@@ -1,0 +1,55 @@
+{
+  "tooling_source_commit": "3b8bac2239e42056eddc3e1c8f0be7dded76b53b",
+  "source_sha256": "0dd07095b203472a4a2dfd31fa8d8e4c6a0890ad913447178142b142083522c3",
+  "test_sha256": "cb0bd5486e21133a50e071480b11a3365ff07052e3eba6b3100567f250037c55",
+  "cases": [
+    {
+      "name": "positive",
+      "exit": 0,
+      "expected": "PASS",
+      "assertion_detected": false
+    },
+    {
+      "name": "ignores_native_completion",
+      "exit": 1,
+      "expected": "FAIL",
+      "assertion_detected": true
+    },
+    {
+      "name": "ignores_reader_join",
+      "exit": 1,
+      "expected": "FAIL",
+      "assertion_detected": true
+    },
+    {
+      "name": "ignores_writer_join",
+      "exit": 1,
+      "expected": "FAIL",
+      "assertion_detected": true
+    },
+    {
+      "name": "releases_uncertain_open",
+      "exit": 1,
+      "expected": "FAIL",
+      "assertion_detected": true
+    },
+    {
+      "name": "ignores_opened_identity",
+      "exit": 1,
+      "expected": "FAIL",
+      "assertion_detected": true
+    },
+    {
+      "name": "ignores_capture_open",
+      "exit": 1,
+      "expected": "FAIL",
+      "assertion_detected": true
+    },
+    {
+      "name": "wraps_requests_again",
+      "exit": 1,
+      "expected": "FAIL",
+      "assertion_detected": true
+    }
+  ]
+}

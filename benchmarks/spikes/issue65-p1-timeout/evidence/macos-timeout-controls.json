@@ -1,0 +1,32 @@
+{
+  "tooling_source_commit": "ea1a0a4ebbabdec17d495334035447956c56ad75",
+  "source_sha256": "b390e5562197d34ec2e19466ddd2e8216f09be333961923378202cfb23b83ca5",
+  "test_sha256": "4b3da6981e91c9fe8fab7e8ac08a5ecc76b1c5f016b612635f349fbfb07a6388",
+  "cases": [
+    {
+      "name": "positive",
+      "exit": 0,
+      "expected": "PASS"
+    },
+    {
+      "name": "wrong_default",
+      "exit": 1,
+      "expected": "FAIL"
+    },
+    {
+      "name": "rounds_milliseconds",
+      "exit": 1,
+      "expected": "FAIL"
+    },
+    {
+      "name": "rejects_submillisecond",
+      "exit": 1,
+      "expected": "FAIL"
+    },
+    {
+      "name": "fixture_multiply_overflow",
+      "exit": 1,
+      "expected": "FAIL"
+    }
+  ]
+}
