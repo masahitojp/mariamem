@@ -10,6 +10,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/masahitojp/mariamem/internal/artifacts"
 	"github.com/masahitojp/mariamem/internal/disposal"
 	"github.com/masahitojp/mariamem/internal/mysqlwire"
 	"github.com/masahitojp/mariamem/internal/nativewire"
@@ -29,6 +30,9 @@ type Native struct {
 var _ Service = (*Native)(nil)
 
 func StartNative(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, stderr io.Writer, build string, runner nativewire.Runner) (Service, error) {
+	if e := artifacts.ValidatePlatform(ctx); e != nil {
+		return nil, e
+	}
 	return startNative(ctx, restore, timeout, stderr, build, runner, func() (net.Listener, error) { return net.Listen("tcp4", "127.0.0.1:0") })
 }
 func startNative(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, stderr io.Writer, build string, runner nativewire.Runner, listen func() (net.Listener, error)) (Service, error) {

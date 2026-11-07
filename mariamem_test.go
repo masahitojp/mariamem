@@ -871,3 +871,36 @@ func TestDialContextPreconditions(t *testing.T) {
 		t.Fatal("capacity classification lost")
 	}
 }
+
+type nativeDebtBackend struct {
+	*fakeBackend
+	debt error
+}
+
+func (b *nativeDebtBackend) CaptureDebt() error     { return b.debt }
+func (b *nativeDebtBackend) DisposalComplete() bool { return true }
+func TestNativeCaptureDebtReachesPublicParent(t *testing.T) {
+	parent := controlledSnapshot(t, 1)
+	lease, e := parent.forkLimit().TryAcquire(false)
+	if e != nil {
+		t.Fatal(e)
+	}
+	if e = lease.Activate(); e != nil {
+		t.Fatal(e)
+	}
+	cause := errors.New("captured-root ownership failed")
+	backend := &fakeBackend{snapshot: func(context.Context, bool) (*stored.Owned, bool, error) { return nil, true, cause }}
+	child := testDB(t, backend)
+	child.server = &nativeDebtBackend{backend, cause}
+	child.lease = lease
+	if _, e = child.Snapshot(context.Background(), SnapshotOptions{MaxForks: 1}); !errors.Is(e, cause) {
+		t.Fatal(e)
+	}
+	if !errors.Is(child.captureDebt, cause) {
+		t.Fatal("backend debt lost")
+	}
+	_ = child.Close() // Physical completion must not forgive captured-root debt.
+	if _, e = parent.forkLimit().TryAcquire(false); !errors.Is(e, forklimit.ErrCleanup) {
+		t.Fatalf("parent lease forgiven: %v", e)
+	}
+}
