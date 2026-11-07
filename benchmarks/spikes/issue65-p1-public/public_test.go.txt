@@ -47,17 +47,22 @@ func TestNativePublicGoRoutes(t *testing.T) {
 	for _, pipe := range []bool{false, true} {
 		t.Run(fmt.Sprint(pipe), func(t *testing.T) {
 			pool := publicPool(t, db, pipe)
+			connection, e := pool.Conn(context.Background())
+			if e != nil {
+				t.Fatal(e)
+			}
+			defer connection.Close()
 			var n int
-			if e := pool.QueryRow("SELECT ? + ?", 13, 29).Scan(&n); e != nil || n != 42 {
+			if e := connection.QueryRowContext(context.Background(), "SELECT ? + ?", 13, 29).Scan(&n); e != nil || n != 42 {
 				t.Fatalf("prepared: %d %v", n, e)
 			}
-			if _, e := pool.Exec("SELECT * FROM no_such_public_table"); e == nil {
+			if _, e := connection.ExecContext(context.Background(), "SELECT * FROM no_such_public_table"); e == nil {
 				t.Fatal("missing ordinary SQL error")
 			}
 			if e := db.Err(); e != nil {
 				t.Fatalf("ordinary error poisoned owner: %v", e)
 			}
-			if e := pool.QueryRow("SELECT 17").Scan(&n); e != nil || n != 17 {
+			if e := connection.QueryRowContext(context.Background(), "SELECT 17").Scan(&n); e != nil || n != 17 {
 				t.Fatal(n, e)
 			}
 		})
