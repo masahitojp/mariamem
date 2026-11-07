@@ -16,7 +16,7 @@ while pending:
  if n in seen or n=='L36':continue
  seen.add(n);body=blocks[n];assert 'return ' not in body and 'Fn' not in body;edges=re.findall(r'goto (L\d+)',body);assert edges;pending+=edges
 pre=f[f.index('\n\tmBase :='):f.index('\n\tv13 = m.G0')].replace('\n\tvar v40 int32\n\t_ = v40','')
-ref='func crcOriginal(m *base.Module,l1,v40 int32)uint32{'+pre+'\n goto L23\n'+''.join(n+':\n'+blocks[n] for n in sorted(seen,key=lambda x:int(x[1:])))+'\nL36:\nreturn ^uint32(v495)\n}\n'
+ref='func crcOriginal(m *base.Module,l1,v40 int32)uint32{'+pre+'\n goto L23\n'+'\n'.join(n+':\n'+blocks[n] for n in sorted(seen,key=lambda x:int(x[1:])))+'\nL36:\nreturn ^uint32(v495)\n}\n'
 g=(s/'internal/generatedgo/code/generated.go').read_text();literal=g.split('var wasm2goData_data_bin = []byte(',1)[1].split('\n',1)[0][:-1];data=ast.literal_eval(literal).encode('latin1');table=data[15555072-8388608:15555072-8388608+4096];assert len(table)==4096
 unit=(d/'fast-test.go.txt').read_text().replace('// ORIGINAL_REFERENCE',ref).replace('TABLE_HEX',table.hex())
 for target,body in [('internal/generatedgo/code/base/crc_fast.go',(d/'fast.go.txt').read_text()),('internal/generatedgo/code/p4/crc_fast_test.go',unit)]:
