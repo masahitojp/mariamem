@@ -1,9 +1,11 @@
 # Issue65 P1 — native経路の製品化計画
 
-状態: **HumanがP1-aの実装を承認。実装・検証中。main採用・release未承認。**
+状態: **HumanがP1-aの実装を承認。macOSの限定検証済み、Linux照合待ち。main採用・release未承認。**
 
 設計時点のartifactとreviewは`9f4977135941acff010987e49ff0cad9221b2734` /
 `3f934997cd8ead4daf6a639c7fc75cbb1d863e06`に保持する。以下の完了条件を維持してP1-aを実装する。
+[実装とmacOS実測](../../../benchmarks/spikes/issue65-p1-owner/README.md)を保存した。
+Linuxで同一guest・ソース・観測を照合するまで、両OSの完了とは扱わない。
 
 今回決めることは、P1の最初の実装を **hostによる接続枠とsession identityの所有** に絞るかです。
 推奨します。現在もhostは接続数を予約していますが、slot/generationの発行はC++にあり、

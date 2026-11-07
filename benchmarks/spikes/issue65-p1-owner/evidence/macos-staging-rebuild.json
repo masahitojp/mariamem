@@ -1,0 +1,7 @@
+{
+  "first_binary_sha256": "a2cd812d9a7d7e8e8ca169e424aad6c2ed6e13376b2ab48a0a8090dfb122becd",
+  "second_binary_sha256": "a2cd812d9a7d7e8e8ca169e424aad6c2ed6e13376b2ab48a0a8090dfb122becd",
+  "binary_identical": true,
+  "full_source_identical": true,
+  "reason": "fix successful Go-package log footer and contain temporary builds; runtime code unchanged"
+}

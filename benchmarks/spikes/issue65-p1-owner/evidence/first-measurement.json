@@ -1,0 +1,8 @@
+{
+  "scope": "first UNQUALIFIED guest measurement; CI reproduces a fixed reviewed hash",
+  "guest_source_commit": "b2d9a2a6e37ed7dd3149b6c85f8908d8d11df17a",
+  "wrapper_sha256": "1375550a9b284ee0a83b863bfe2c903199c890e12e3de79a91b222b9e207cd5d",
+  "wrapper": "import importlib.util,json,hashlib,sys\nfrom pathlib import Path\nroot=Path(sys.argv[1]);w=Path('/exp')\nspec=importlib.util.spec_from_file_location('fix',root/'benchmarks/spikes/issue65-g2-repair/probe_baseline.py');fix=importlib.util.module_from_spec(spec);spec.loader.exec_module(fix)\nsource='b2d9a2a6e37ed7dd3149b6c85f8908d8d11df17a'\nfix.GUEST_SOURCE=fix.HOST_SOURCE=fix.base.GUEST_SOURCE=fix.base.HOST_SOURCE=source\noriginal=fix.base.guest_record\ndef first_record(work):\n r=json.loads((work/'temp/artifact/guest.json').read_text());assert r['source_commit']==source and r['result']=='UNQUALIFIED'\n fix.GUEST_SHA=fix.base.GUEST_SHA=hashlib.sha256((work/'temp/artifact/mariamem.wasm').read_bytes()).hexdigest()\n return original(work)\nfix.base.guest_record=first_record\nif len(sys.argv)>2 and sys.argv[2]=='downloads':fix.base.downloads(w)\nelse:\n command=fix.base.command\n def pinned_command(work,label,args,timeout):\n  if label=='guest-download':args=[sys.executable,Path(__file__),root,'downloads']\n  return command(work,label,args,timeout)\n fix.base.command=pinned_command;fix.build(w)\n",
+  "docker_image": "sha256:3ded805d8dcae3ffdf39515c3f0540b27b695719570903594452f8787abe570f",
+  "source_identity_checked": true
+}

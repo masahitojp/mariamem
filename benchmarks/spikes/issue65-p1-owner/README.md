@@ -16,7 +16,7 @@ An uncertain OPEN remains owned until root disposal. Native root worker join,
 shared reader/host joins and backing disposal stay separate from slot reuse.
 Owner unit/race tests cover the two completion orders,uncertain OPEN,capture
 preconditions,stale identities and repeated/concurrent counter exhaustion.
-Runtime/native tests and both-platform evidence are pending.
+macOS runtime/native checks pass;Linux reproduction is pending.
 
 A private INSPECT response exposes a live native worker's pthread identity for
 retirement-barrier tests. The staged handwritten ThreadLifetime owner receives
@@ -61,3 +61,34 @@ Late OUTPUT/CREDIT/RETIRED/OPENED controls enter the same receiver used by the
 transport;stale DATA/ACK/EOF go to the actual guest. Native completion
 instrumentation is limited to handwritten staging glue. No canonical generated
 function body,public owner API or public default route is changed.
+
+
+## macOS result — Linux acceptance pending
+
+Fixed guest SHA256:`a75416e3b677b83fb9fca4d213dd67ec32c1e1732939d275866183828aa868ee`
+(UNQUALIFIED). Worker Fn151/free,Fn129/yield and Fn211/entry match the complete
+reviewed bodies after recorded relocation;ABI offsets remain16/40/44.
+
+- Host owner:six race-checked unit tests,seven detected source mutations.
+- Exact guest OPEN method:positive plus three detected source mutations with
+  engine stubs. Actual native route:nine PASS,three detected fault controls.
+- Lifetime:ten leaf tests PASS on the new staged runtime. The first collector
+  rejected the Go package footer after all assertions passed. Its original
+  log/failure is retained. The collector fix and owned temporary-directory
+  change produce an identical binary and full source inventory on rebuild.
+- Original baseline:22 lifecycle/Live cases,88 compat observations,38 limits,
+  G1 all234,existing fix/policy/repair controls and worker/binding support PASS.
+- G2:all241 PASS,zero mismatch/missing,freshly executing the approved1043 fixture
+  on Mac. Baseline287 selected Go/assembly/data files;G2 adds exactly one
+  approved fixture for288. No original assertion is weakened.
+
+The [baseline source record](evidence/macos-reference.json),
+[G2 result](evidence/macos-g2-result.json),[G2 source record](evidence/macos-g2-build.json),
+[ownership cases](evidence/macos-owner-native.json) and
+[native fault controls](evidence/macos-native-controls.json) preserve the
+source/binary binding. `test_reference.py` checks these pins and CI fixed source
+refs before expensive work. Linux must rebuild guest a75416e3,match the287-file
+source reference and compare all241 expected/actual/pass observations. Original
+comparison rules ignore only the already-approved nonnegative mid-output byte
+count. Linux acceptance,public integration,performance and adoption are not
+claimed by the Mac result.

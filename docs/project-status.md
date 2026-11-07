@@ -443,10 +443,17 @@ The Human approved the bounded P1-a implementation after the
 The experiment implements one host-owned16-slot reservation/identity table,
 private profile2 host-selected OPEN tuples and release only after native
 retirement plus both session relay joins. OPEN uncertainty retains its lease
-until root disposal; counters saturate instead of wrapping. Verification of the
-new guest/host bundle is in progress. This is not public route integration or
-canonical adoption. Public30s timeout,backend/owner diagnostics,remaining host
-coordination and P2 consumers/performance remain separate steps.
+until root disposal; counters saturate instead of wrapping. The
+[implementation/evidence](../benchmarks/spikes/issue65-p1-owner/README.md) uses
+checked source_commit b2d9a2a6e37ed7dd3149b6c85f8908d8d11df17a and UNQUALIFIED
+guest a75416e3b677b83fb9fca4d213dd67ec32c1e1732939d275866183828aa868ee.
+Mac passes nine native ownership cases,three native fault controls,ten lifetime
+leaf tests and the original22 lifecycle/88 compat/38 limits/G1 234/G2 241.
+Host unit/race and source-mutation checks pass. Linux reproduction,287-file
+baseline comparison and241-observation comparison are pending CI submission.
+This is not public route integration or canonical adoption. Public30s timeout,
+backend/owner diagnostics,remaining host coordination and P2 consumers/performance
+remain separate steps.
 
 
 

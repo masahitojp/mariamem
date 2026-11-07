@@ -1,0 +1,23 @@
+{
+  "scope": "exact Manager::open with engine stubs; not an engine run",
+  "source_sha256": "ab9890c071da2df7432e6ce6ff1656711dc09ff1ce6f52e88d2301b01b6aeaf4",
+  "method_sha256": "dc95bcb1e08985e8fee777eaf49dfa36d50fdf18dd3105539c04944bd3c04277",
+  "cases": [
+    {
+      "name": "positive",
+      "exit": 0
+    },
+    {
+      "name": "guest_chooses_own_tuple",
+      "exit": -6
+    },
+    {
+      "name": "accepts_replayed_generation",
+      "exit": -6
+    },
+    {
+      "name": "reject_advances_watermark",
+      "exit": -6
+    }
+  ]
+}

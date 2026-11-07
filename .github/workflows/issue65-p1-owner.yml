@@ -24,6 +24,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           path: tooling
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -31,6 +32,8 @@ jobs:
           path: guest-source
           fetch-depth: 0
           persist-credentials: false
+      - name: Check P1 source,guest and observation pins
+        run: python3 tooling/benchmarks/spikes/issue65-p1-owner/test_reference.py -v
       - name: Install the accepted native builder tools
         run: |
           test "$(uname -m)" = aarch64
@@ -90,6 +93,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           path: tooling
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
@@ -104,6 +108,8 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.14'
+      - name: Check P1 source,guest and observation pins
+        run: python3 tooling/benchmarks/spikes/issue65-p1-owner/test_reference.py -v
       - name: Check experiment acceptance guards
         run: python tooling/benchmarks/spikes/issue65-native-linux/test_probe.py -v
       - name: Check compatibility evidence accounting

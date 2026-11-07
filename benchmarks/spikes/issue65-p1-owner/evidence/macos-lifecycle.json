@@ -1,0 +1,114 @@
+{
+  "cases": [
+    {
+      "name": "TestCaptureForkRollbackAndRecapture",
+      "elapsed": "0.22s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCapturePartialAndOutputRejection",
+      "elapsed": "0.41s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureQueuedFenceAndDuplicate",
+      "elapsed": "0.06s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureFailureControls",
+      "elapsed": "0.62s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureOrdinaryStopAndEOF",
+      "elapsed": "0.06s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureDebtCannotBeForgiven",
+      "elapsed": "0.06s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureConcatenatedInputAndForeignEpoch",
+      "elapsed": "0.07s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureGoPipe",
+      "elapsed": "0.07s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureRejectsInvalidRestore",
+      "elapsed": "0.06s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestCaptureJoinCancellationRetainsLease",
+      "elapsed": "0.00s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveDrainAndReset",
+      "elapsed": "0.15s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveCapacityBeforeDrain",
+      "elapsed": "0.14s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveReplacementFailureRecovery",
+      "elapsed": "0.10s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveCancellationBeforeCommit",
+      "elapsed": "0.13s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveCleanupDebtRecovery",
+      "elapsed": "0.13s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveCaptureDebtIsPermanent",
+      "elapsed": "0.13s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveParentAndEndpointClose",
+      "elapsed": "0.06s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestNativeLiveInvalidRestoreNeverAdmits",
+      "elapsed": "0.06s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestProtocolPrepared",
+      "elapsed": "0.13s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestQueryDeadlineAndIsolation",
+      "elapsed": "0.86s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestPartialInputDeadline",
+      "elapsed": "0.83s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestSlowOutputControl",
+      "elapsed": "3.04s",
+      "result": "PASS"
+    }
+  ]
+}

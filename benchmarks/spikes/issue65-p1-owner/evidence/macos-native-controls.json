@@ -1,0 +1,28 @@
+{
+  "script_sha256": "58ce004833d0fe6cea4ec303e532dc337c288226c685876c0b2d5d271a8e9dd0",
+  "tooling_source_commit": "4be7a8691acf98ef2d5066bf6c1d2194c63a8912",
+  "cases": [
+    {
+      "name": "wrong_native_open_tuple",
+      "test": "TestOwnerHostIdentity",
+      "exit": 1,
+      "assertion": "native session identity mismatch",
+      "binary_sha256": "c7b66496c818c53e73b034ff004f591150e5b02a941f199554e4926fd32ddaa4"
+    },
+    {
+      "name": "early_native_retired",
+      "test": "TestOwnerNativeRetirementFence",
+      "exit": 1,
+      "assertion": "native RETIRED before final worker completion",
+      "binary_sha256": "b1c6fd0eff35ef5a25c91368cbd972029454d4381daa51f1b5eac97b8feaea7d"
+    },
+    {
+      "name": "early_host_release",
+      "test": "TestOwnerHostRelayFence",
+      "exit": 1,
+      "assertion": "native retirement forgave unjoined relay",
+      "binary_sha256": "b731c10a47b06c6e76cb04b54ae7f6893d722d245f81983ee38089a8dbc07e61"
+    }
+  ],
+  "original_source_restored": true
+}
