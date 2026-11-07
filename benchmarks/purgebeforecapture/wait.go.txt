@@ -1,0 +1,28 @@
+package probe
+import("context";"database/sql";"fmt";"strconv";"strings";"time")
+type PurgePoint struct { AtMS float64 `json:"at_ms"`; History uint64 `json:"history"` }
+type PurgeReport struct { Mode string `json:"mode"`; Points []PurgePoint `json:"points"`; TargetReached bool `json:"target_reached"`; TimedOut bool `json:"timed_out"`; ElapsedMS float64 `json:"elapsed_ms"` }
+func purgePolicy(ctx context.Context,mode string,now func()time.Time,sleep func(context.Context,time.Duration)error,read func(context.Context)(uint64,error))(out PurgeReport,err error){
+ out.Mode=mode;out.Points=[]PurgePoint{};start:=now();defer func(){out.ElapsedMS=ms(now().Sub(start))}()
+ if mode!="now" && mode!="drain"{return out,fmt.Errorf("invalid purge mode %s",mode)}
+ zeroes:=0
+ for {
+  value,e:=read(ctx);if e!=nil{return out,e};elapsed:=now().Sub(start);out.Points=append(out.Points,PurgePoint{ms(elapsed),value})
+  if value==0{zeroes++}else{zeroes=0}
+  if mode=="now"{return out,nil}
+  if elapsed>=100*time.Millisecond && zeroes>=2{out.TargetReached=true;return out,nil}
+  if elapsed>=time.Second{out.TimedOut=true;return out,nil}
+  delay:=20*time.Millisecond;if remain:=time.Second-elapsed;delay>remain{delay=remain}
+  if e:=sleep(ctx,delay);e!=nil{return out,e}
+ }
+}
+func purgeBeforeCapture(ctx context.Context,c *sql.Conn,r *Report)error{
+ ctx,cancel:=context.WithTimeout(ctx,1500*time.Millisecond);defer cancel()
+ var err error
+ r.Purge,err=purgePolicy(ctx,r.PurgeMode,time.Now,func(ctx context.Context,d time.Duration)error{timer:=time.NewTimer(d);defer timer.Stop();select{case <-timer.C:return nil;case <-ctx.Done():return ctx.Err()}},func(ctx context.Context)(uint64,error){
+  var name,value string
+  if e:=c.QueryRowContext(ctx,"SHOW GLOBAL STATUS LIKE 'Innodb_history_list_length'").Scan(&name,&value);e!=nil{return 0,fmt.Errorf("purge history observation: %w",e)}
+  if !strings.EqualFold(name,"Innodb_history_list_length"){return 0,fmt.Errorf("unexpected history counter %s",name)}
+  n,e:=strconv.ParseUint(value,10,64);if e!=nil{return 0,fmt.Errorf("invalid history counter %q: %w",value,e)};return n,nil
+ });return err
+}
