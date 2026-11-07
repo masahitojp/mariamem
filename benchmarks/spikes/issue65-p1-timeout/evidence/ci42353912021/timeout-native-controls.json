@@ -1,0 +1,28 @@
+{
+  "script_sha256": "cbe53b01e079b6714f67e7a18499cfc0709874112dd1aefb767ebcc1dd5a429c",
+  "tooling_source_commit": "f6888cca1f1aa800b0d80ccc3fcb1a40b8dc5dfd",
+  "cases": [
+    {
+      "name": "wrong_default_timeout",
+      "test": "TestTimeoutExactValues",
+      "exit": 1,
+      "assertion": "timeout budget changed",
+      "binary_sha256": "e1d9403895a90ad519cec2f977235c89051f011224e7c401df4fa4a5dbcc0b85"
+    },
+    {
+      "name": "narrows_wire_timeout",
+      "test": "TestTimeoutExactValues",
+      "exit": 1,
+      "assertion": "timeout budget changed",
+      "binary_sha256": "53b11df92455fa14fadd9004778f82a1fb55a9c05c0c339ae8bbbee81e01bb64"
+    },
+    {
+      "name": "accepts_old_millisecond_profile",
+      "test": "TestTimeoutProfile2Rejected",
+      "exit": 1,
+      "assertion": "legacy millisecond profile accepted",
+      "binary_sha256": "f543e8af0e5aec7136a754437426b02dbbc124d9e3c7f72203340d7040a3ab1a"
+    }
+  ],
+  "original_source_restored": true
+}

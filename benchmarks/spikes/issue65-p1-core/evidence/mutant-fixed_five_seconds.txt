@@ -1,0 +1,5 @@
+--- FAIL: TestBackendOpaqueRelayAndTypedTimeout (0.00s)
+    backend_test.go:202: OPEN={kind:1 request:1 slot:0 epoch:1 generation:1 value:5000000000 body:[]}
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/nativewire	0.297s
+FAIL

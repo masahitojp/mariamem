@@ -468,17 +468,25 @@ expiry and stale/current cancellation tokens. Actual public Options normalizatio
 P1-a nine ownership cases,ten lifetime leaves and original G1/G2 suites pass.
 Checked source_commit be244a0bdb510a22417241c2aa2f76a9093aac1b produces
 UNQUALIFIED guest d4f30818c3410db186db5ef1c9abc5f14af0cdc52bb2b76bbca369e02eb1b481.
-Linux guest reproduction,291-file source and241-observation comparisons are
-pending. Host unit/race and source-mutation checks also pass.
-P1-c public backend/owner integration follows after P1-b verification.
-The Human requested continuing. The [public backend plan](design/issue65-native-protocol/public-backend.md)
-and [source review](reviews/issue65-p1-public-backend-plan.md) concretize that direction:
-reuse existing public Snapshot/forklimit/Live/disposal ownership, separate immediate
-failure from fully joined Done, and preserve shared TCP/Dial admission and settings.
-P1-c includes both Go and Python public routes; extraction alone is not completion.
-This continuation produced documentation only, not a runtime implementation.
-The single P1-b metadata observation was in_progress at exact candidate f6888cca1f1aa800b0d80ccc3fcb1a40b8dc5dfd;
-its success remains unverified here and is prerequisite to native public artifact execution.
+Linux [CI42353912021](https://github.com/masahitojp/mariamem/actions/runs/42353912021)
+succeeds at exact candidate f6888cca1f1aa800b0d80ccc3fcb1a40b8dc5dfd.
+The [saved receipt](../benchmarks/spikes/issue65-p1-timeout/evidence/ci42353912021.json)
+confirms guest reproduction,291-file source and241-observation comparisons,
+eight timeout cases and builder/runtime cleanup debt0. Host unit/race and
+source-mutation checks pass. Bounded P1-b verification is complete on both native platforms.
+The Human requested P1-c continuation. The [public backend plan](design/issue65-native-protocol/public-backend.md)
+and [source review](reviews/issue65-p1-public-backend-plan.md) define its full scope.
+The [C1 extraction candidate](../benchmarks/spikes/issue65-p1-core/README.md), source_commit
+f0008bb41828f7d9f728b3e1ffbb9367b704f1fb, now puts instance framing/relay/admission/capture
+behind an injected per-instance runner with no generatedgo/mysqlwire/forklimit dependency.
+Fake-runner tests check immediate failure versus joined Done,typed late cleanup,
+shared admission and guest capture rejection; ten new backend tests plus existing
+owner/timeout/disposal pass race10 repeats,and five source overlays are detected.
+This is unit evidence,not native/public runtime acceptance. The dedicated cmd is
+not yet rebound. Existing experimental evidence makes the full public-source guard
+fail on six unchanged files; no guard was relaxed. C2 public Go/control/Python wiring,
+C3 Snapshot/Fork/Live settings/debt/faults and both-native acceptance remain open.
+No new guest build,native run,benchmark or CI was submitted in this continuation.
 This is not public route integration or canonical adoption. Public30s timeout,
 backend/owner diagnostics,remaining host coordination and P2 consumers/performance
 remain separate steps.

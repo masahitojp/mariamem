@@ -1,0 +1,14 @@
+{
+  "full_check": "FAIL",
+  "reason": "pre-existing machine-local path content",
+  "unchanged_from_source_commit": "68881baf5a417454d03ee0bb74d273df092550eb",
+  "unchanged_failure_files": [
+    "benchmarks/spikes/issue65-p1-owner/evidence/ci42346396518.json",
+    "benchmarks/spikes/issue65-p1-owner/evidence/macos-g2-build.json",
+    "benchmarks/spikes/issue65-p1-owner/evidence/macos-reference.json",
+    "benchmarks/spikes/issue65-p1-timeout/evidence/initial-helper-read-failure.txt",
+    "benchmarks/spikes/issue65-p1-timeout/evidence/macos-g2-build.json",
+    "benchmarks/spikes/issue65-p1-timeout/evidence/macos-reference.json"
+  ],
+  "policy_weakened": false
+}

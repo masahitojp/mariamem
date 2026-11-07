@@ -1,6 +1,6 @@
 # Issue65 P1 — native経路の製品化計画
 
-状態: **HumanがP1-aの実装を承認。macOS／Linuxの限定検証済み。P1-bはmacOS確認済み、Linux照合待ち。main採用・release未承認。**
+状態: **HumanがP1-aの実装を承認。macOS／Linuxの限定検証済み。P1-bもmacOS／Linuxの限定検証済み。P1-cはC1抽出の単体確認まで。main採用・release未承認。**
 
 設計時点のartifactとreviewは`9f4977135941acff010987e49ff0cad9221b2734` /
 `3f934997cd8ead4daf6a639c7fc75cbb1d863e06`に保持する。以下の完了条件をP1-aの実装・検証に適用する。
@@ -191,3 +191,12 @@ Humanの継続依頼を[公開backend計画](public-backend.md)と
 [source review](../../reviews/issue65-p1-public-backend-plan.md)へ具体化した。
 Go/control/Pythonの既存ownerへ接続し、Snapshot/Fork/Live・typed disposal・設定継承までを
 P1-cの範囲とする。現在は設計/source照合のみ。P1-b成功は未確認で、実行開始の前提に残す。
+
+## P1-b成功確認とP1-c C1抽出候補
+
+[CI42353912021成功receipt](../../../benchmarks/spikes/issue65-p1-timeout/evidence/ci42353912021.json)で
+P1-bのLinux guest再現・291-file/241観測照合を確認した。上の「Linux待ち」は実装時の記録。
+Humanの継続依頼により[C1共通core](../../../benchmarks/spikes/issue65-p1-core/README.md)を抽出し、
+fake-runner/raceと5負例で単体確認した。公開factoryと専用cmdは未切替で、実nativeでの再検証も未実施。
+C2公開Go/Python接続→C3 Snapshot/Fork/Live・設定・失敗契約・両OS受入れが残る。
+既存証跡6ファイルによるpublic-source検査FAILは別記し、公開可能性PASSとはしていない。

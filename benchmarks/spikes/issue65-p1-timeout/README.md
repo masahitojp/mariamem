@@ -73,3 +73,11 @@ and [G2 reference](evidence/macos-g2-result.json) bind this cohort. Linux must
 reproduce this guest,all291 selected source files and all241 G2 observations.
 The existing comparison exception is only the validated nonnegative mid-output
 byte count. P1-c public integration and inherited Fork/Live options remain open.
+
+## Linux確認完了
+
+[CI42353912021](https://github.com/masahitojp/mariamem/actions/runs/42353912021)は候補
+`f6888cca1f1aa800b0d80ccc3fcb1a40b8dc5dfd`で全3 jobs成功。
+[保存receipt](evidence/ci42353912021.json)でguest d4f30818の再現、291-file比較、
+241観測照合、専用timeout8 cases、builder/runtime cleanup debt0を確認した。
+P1-bの両native平台での限定検証を完了。公開API接続とFork/Live設定継承はP1-cに残る。

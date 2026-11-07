@@ -1,0 +1,7 @@
+{
+  "matched": true,
+  "compared_observations": 241,
+  "different_records": [],
+  "ignored_quantity": "TestG2FatalStates/mid_output mid_output_active.actual.drained_native_bytes only;all other fields retained",
+  "qualification": "comparison does not turn contract mismatches into PASS"
+}

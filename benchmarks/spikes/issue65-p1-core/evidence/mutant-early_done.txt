@@ -1,0 +1,5 @@
+--- FAIL: TestBackendDoneWaitsForHostRelayAfterExecution (0.00s)
+    backend_test.go:466: completed before held owner joined
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/nativewire	0.343s
+FAIL
