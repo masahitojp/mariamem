@@ -16,7 +16,7 @@ An uncertain OPEN remains owned until root disposal. Native root worker join,
 shared reader/host joins and backing disposal stay separate from slot reuse.
 Owner unit/race tests cover the two completion orders,uncertain OPEN,capture
 preconditions,stale identities and repeated/concurrent counter exhaustion.
-macOS runtime/native checks pass;Linux reproduction is pending.
+macOS and native Linux scoped checks pass;see the fixed CI receipt below.
 
 A private INSPECT response exposes a live native worker's pthread identity for
 retirement-barrier tests. The staged handwritten ThreadLifetime owner receives
@@ -63,7 +63,7 @@ instrumentation is limited to handwritten staging glue. No canonical generated
 function body,public owner API or public default route is changed.
 
 
-## macOS result — Linux acceptance pending
+## macOS result — recorded before the Linux repeat
 
 Fixed guest SHA256:`a75416e3b677b83fb9fca4d213dd67ec32c1e1732939d275866183828aa868ee`
 (UNQUALIFIED). Worker Fn151/free,Fn129/yield and Fn211/entry match the complete
@@ -92,3 +92,28 @@ source reference and compare all241 expected/actual/pass observations. Original
 comparison rules ignore only the already-approved nonnegative mid-output byte
 count. Linux acceptance,public integration,performance and adoption are not
 claimed by the Mac result.
+
+
+## Linux repeat — bounded P1-a complete
+
+[CI42346396518](https://github.com/masahitojp/mariamem/actions/runs/42346396518)
+succeeds on exact candidate source_commit
+`738bbbe58674f097161a1db2c1eda91536e416fe`;guest,linux and discard-transit
+jobs all succeed. The [receipt](evidence/ci42346396518.json) binds the candidate,
+source/guest hashes,artifact checksums,actual counts and cleanup outcomes.
+
+Linux reproduces guest a75416e3 from checked b2d9a2a6,passes nine native
+ownership cases,three native-route fault controls,ten lifetime leaves and
+six owner unit tests with race detection/seven source mutation controls.
+The exact OPEN seam also passes its three engine-stub source mutations.
+Original22 lifecycle/Live,88 compat,38 limits,G1 234,G2 241 and supporting
+checks pass. All287 baseline Go/assembly/data files match Mac;all241 G2
+expected/actual/pass records match under the existing single ignored byte-count
+rule. Neither assertions nor accepted contracts are weakened by this repeat.
+Builder/runtime cleanup debt is0;the disposable transfer artifact is deleted.
+
+P1-a is complete for this experimental boundary on both native platforms.
+Next is P1-b public timeout handling,then P1-c public native backend/owner
+integration. Remaining coordination,consumer/performance,canonical adoption and
+release are separate unfinished work. This result is bound to the tested
+candidate above;documentation/result commits do not relabel its CI evidence.

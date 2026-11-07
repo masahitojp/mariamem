@@ -1,11 +1,14 @@
 # Issue65 P1 — native経路の製品化計画
 
-状態: **HumanがP1-aの実装を承認。macOSの限定検証済み、Linux照合待ち。main採用・release未承認。**
+状態: **HumanがP1-aの実装を承認。macOS／Linuxの限定検証済み。次はP1-b。main採用・release未承認。**
 
 設計時点のartifactとreviewは`9f4977135941acff010987e49ff0cad9221b2734` /
 `3f934997cd8ead4daf6a639c7fc75cbb1d863e06`に保持する。以下の完了条件をP1-aの実装・検証に適用する。
 [実装とmacOS実測](../../../benchmarks/spikes/issue65-p1-owner/README.md)を保存した。
-Linuxで同一guest・ソース・観測を照合するまで、両OSの完了とは扱わない。
+[CI42346396518](https://github.com/masahitojp/mariamem/actions/runs/42346396518)で
+同一guest・287ファイル・G2全241観測のLinux照合が完了した。
+[固定候補のreceipt](../../../benchmarks/spikes/issue65-p1-owner/evidence/ci42346396518.json)を保存。
+完了範囲はP1-aであり、後続P1-b以降の完了・採用判断とは分ける。
 
 承認したP1最初の実装範囲は、**hostによる接続枠とsession identityの所有** です。
 設計時点ではhostの接続予約とC++のslot/generation発行が分かれていました。
@@ -133,7 +136,7 @@ input/output credit上限、Snapshotの最終capture fence、native cancellation
 
 | 段階 | 変更する境界 | 完了の判断 |
 | --- | --- | --- |
-| P1-a | hostの予約/identity/退役所有とprivate profile2 | 下記検出条件＋移設routeの既存native検査が両OSで通る |
+| P1-a（限定検証済み） | hostの予約/identity/退役所有とprivate profile2 | 下記検出条件＋移設routeの既存native検査が両OSで通る。CI42346396518で確認 |
 | P1-b | 公開timeout設定を新経路で表現する | 既定30sと既存受理値を保存。100..10000msに丸めない。first-byte基準と古いcommand token拒否を維持。設定値・取消・overflowの試験と実経路確認 |
 | P1-c | 専用cmdからprivate reusable backendへ抽出し、公開Go/PythonのStart/Dial/Snapshot/Fork/Liveへ接続 | owner Err/ErrUnusable/first cause/debt、Close/WaitDisconnected、正常接続、dial取消、fault処理を公開routeで確認。native routeを無効にするnegative controlが検査を落とす |
 | P1-d | queue policy/輸送deadline/watchdogなど残るhost管理を境界ごとに移す | 総pending所有、blocked output、stale token、stop/captureの最終gateをそれぞれ検査。guest機構を消すだけでは完了しない |

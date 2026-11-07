@@ -449,8 +449,16 @@ checked source_commit b2d9a2a6e37ed7dd3149b6c85f8908d8d11df17a and UNQUALIFIED
 guest a75416e3b677b83fb9fca4d213dd67ec32c1e1732939d275866183828aa868ee.
 Mac passes nine native ownership cases,three native fault controls,ten lifetime
 leaf tests and the original22 lifecycle/88 compat/38 limits/G1 234/G2 241.
-Host unit/race and source-mutation checks pass. Linux reproduction,287-file
-baseline comparison and241-observation comparison are pending CI submission.
+Host unit/race and source-mutation checks pass.
+[CI42346396518](https://github.com/masahitojp/mariamem/actions/runs/42346396518)
+succeeds at exact candidate source_commit
+738bbbe58674f097161a1db2c1eda91536e416fe. Linux reproduces guest a75416e3,
+passes the same ownership/lifetime and original suites,matches all287 baseline
+source files and all241 G2 observations under the unchanged comparison rules.
+Builder/runtime cleanup debt is0 and the disposable guest transfer is deleted.
+The [saved receipt](../benchmarks/spikes/issue65-p1-owner/evidence/ci42346396518.json)
+completes the bounded P1-a implementation/verification on both native platforms.
+Next is P1-b public timeout domain;P1-c public backend/owner integration follows.
 This is not public route integration or canonical adoption. Public30s timeout,
 backend/owner diagnostics,remaining host coordination and P2 consumers/performance
 remain separate steps.
@@ -470,7 +478,7 @@ live checklists; this is a direction summary, not a second acceptance ledger.
   memory-Vio/WASIX Snapshot/Fork/Live experiments recorded above. Native lifecycle
   execution is established only in that isolated route. The selected repairs pass
   scoped native G1/G2 checks through CI42338117054 under the approved contract.
-  P1 public wiring/host ownership and P2 consumers/performance remain pending. Public API integration, adoption and
+  P1-a host session ownership is complete in the experiment. Public wiring,remaining host coordination and P2 consumers/performance remain pending. Public API integration, adoption and
   release remain separate. The shipped Go Pipe #66
   does not itself implement guest-native wire relay.
 - **v0.7.0:** [the milestone](https://github.com/masahitojp/mariamem/milestone/4)

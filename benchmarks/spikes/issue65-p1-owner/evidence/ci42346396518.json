@@ -1,0 +1,491 @@
+{
+  "contract": "issue65-p1-a-ci-receipt-v1",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42346396518",
+  "run_id": 42346396518,
+  "candidate_source_commit": "738bbbe58674f097161a1db2c1eda91536e416fe",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "guest",
+      "conclusion": "success",
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/42346396518/job/128324971831",
+      "cleanup_steps": [
+        {
+          "name": "Dispose owned SDK, archives, build and worktree",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "linux",
+      "conclusion": "success",
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/42346396518/job/128327034331",
+      "cleanup_steps": [
+        {
+          "name": "Dispose owned converter, generated code, binaries and Go caches",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "discard-transit",
+      "conclusion": "success",
+      "url": "https://github.com/masahitojp/mariamem/actions/runs/42346396518/job/128329870777",
+      "cleanup_steps": [
+        {
+          "name": "Delete this run's disposable guest transfer",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "guest_source_commit": "b2d9a2a6e37ed7dd3149b6c85f8908d8d11df17a",
+  "host_source_commit": "b2d9a2a6e37ed7dd3149b6c85f8908d8d11df17a",
+  "guest_sha256": "a75416e3b677b83fb9fca4d213dd67ec32c1e1732939d275866183828aa868ee",
+  "source_comparison": {
+    "mac_reference_binary_sha256": "a2cd812d9a7d7e8e8ca169e424aad6c2ed6e13376b2ab48a0a8090dfb122becd",
+    "compared_go_assembly_data_files": 287,
+    "different_files": [],
+    "reference_adjustments": []
+  },
+  "g2_comparison": {
+    "matched": true,
+    "compared_observations": 241,
+    "different_records": [],
+    "ignored_quantity": "TestG2FatalStates/mid_output mid_output_active.actual.drained_native_bytes only;all other fields retained",
+    "qualification": "comparison does not turn contract mismatches into PASS"
+  },
+  "scope": {
+    "native_ownership_cases": 9,
+    "native_fault_controls": 3,
+    "host_owner_unit_race": 6,
+    "host_source_mutations": 7,
+    "cpp_source_mutations_with_engine_stubs": 3,
+    "lifetime_leaf": 10,
+    "lifecycle_live": 22,
+    "compatibility_observations": 88,
+    "limits_observations": 38,
+    "g1_observations": 234,
+    "g2_observations": 241,
+    "binding_unit": 22
+  },
+  "cleanup": {
+    "builder_debt": [],
+    "runtime_debt": [],
+    "transit_remaining": false
+  },
+  "evidence_artifacts": [
+    {
+      "id": 13564771266,
+      "name": "issue65-p1-owner-runtime-evidence",
+      "bytes": 984064
+    },
+    {
+      "id": 13563449887,
+      "name": "issue65-p1-owner-builder-evidence",
+      "bytes": 661220
+    }
+  ],
+  "artifact_files": {
+    "issue65-p1-owner-runtime-evidence/translation-inputs.json": {
+      "sha256": "9adcc375f10992c9d05b1c74ac979da40dacd421ee2e8e9d8a9f5b0563a62469",
+      "bytes": 6367
+    },
+    "issue65-p1-owner-runtime-evidence/g1-suite-command.json": {
+      "sha256": "ffeaecc91b38a2bd2e5cd13000dd35f29163a9ec162df3c1211a0b12f5d2badd",
+      "bytes": 187
+    },
+    "issue65-p1-owner-runtime-evidence/converter-cleanup.json": {
+      "sha256": "0f03802512dd47ac15c75a76fe7a11a363ddd2ca6e7b7594e50842bae3fd5de5",
+      "bytes": 243
+    },
+    "issue65-p1-owner-runtime-evidence/policy-controls.json": {
+      "sha256": "8220582f4891a46e1bfb5a38e68328a5c599050c3cd644abc0edf71a130b7ad3",
+      "bytes": 384
+    },
+    "issue65-p1-owner-runtime-evidence/tooling.json": {
+      "sha256": "720a56372a4dee5b22d92123944e2226df15b773ba41404b62e3a4e259111923",
+      "bytes": 258
+    },
+    "issue65-p1-owner-runtime-evidence/owner-control-releases_uncertain_open.txt": {
+      "sha256": "11587801daef332560072760e691e0c93828b085f8bc88b05ef7ebd61e80ca10",
+      "bytes": 141
+    },
+    "issue65-p1-owner-runtime-evidence/g2-source-platform-comparison.json": {
+      "sha256": "55ed5762bb2aaace23437e15f18cb3ad40393b080e83793debeceb2f70094e2a",
+      "bytes": 289
+    },
+    "issue65-p1-owner-runtime-evidence/platform-endpoint-tests.json": {
+      "sha256": "2aecacae102b450bd6846ce306cca83e6b408263016d9b2a1d180a5fffacc7cb",
+      "bytes": 381
+    },
+    "issue65-p1-owner-runtime-evidence/compat-result.json": {
+      "sha256": "af25a041e55b45dcaa5ee7e0a47a4698dde5d7599f23377678353ff3ea61b736",
+      "bytes": 18015
+    },
+    "issue65-p1-owner-runtime-evidence/native-controls.txt": {
+      "sha256": "79af11fc7cd76777975fc37cd8baa0b9998ca7e91c40656ce32d0ab99f8b6bff",
+      "bytes": 98
+    },
+    "issue65-p1-owner-runtime-evidence/native-controls-command.json": {
+      "sha256": "9dace968b605f427ec2793d3d0128317507ddc14361eeb3282912c969765074f",
+      "bytes": 283
+    },
+    "issue65-p1-owner-runtime-evidence/repair-controls.txt": {
+      "sha256": "b5dabf9c530c2885bc318f736e06007114accf206254b14ad6516ee3296427ac",
+      "bytes": 8209
+    },
+    "issue65-p1-owner-runtime-evidence/owner-control-ignores_capture_open.txt": {
+      "sha256": "ad04f2149db164ac227fc725ebf147f45bf3a2215872fb80d4eed05c485c81fe",
+      "bytes": 124
+    },
+    "issue65-p1-owner-runtime-evidence/host-phases.jsonl": {
+      "sha256": "faab543eb4ecd27bac0c4cddc1bc9df38620b44468ba59803071b8d7195092da",
+      "bytes": 14178
+    },
+    "issue65-p1-owner-runtime-evidence/lifetime-leaf.txt": {
+      "sha256": "272a77d87bab8e02bbfc6ac05ab5c6dcff8226442a01447bc716b8b7f42e5f9e",
+      "bytes": 2388
+    },
+    "issue65-p1-owner-runtime-evidence/result.json": {
+      "sha256": "af096248d15aac2ceb4a86aab3e779ecec6b74e3c9da7d0a70c9addd3ff0a5ec",
+      "bytes": 117662
+    },
+    "issue65-p1-owner-runtime-evidence/policy-controls-command.json": {
+      "sha256": "910339a6872d16b2611800229c5f8dc8db7af7ab858f4aaf9a0ce72f5b185295",
+      "bytes": 189
+    },
+    "issue65-p1-owner-runtime-evidence/runtime-boundary.txt": {
+      "sha256": "887b32ac58f17b67ed0ef0936847d6de82845e0e47026e40e266b64ea3589134",
+      "bytes": 948
+    },
+    "issue65-p1-owner-runtime-evidence/g2-suite-command.json": {
+      "sha256": "3faeda4ad1b239c990f09f2f74e555d75b60a4b8a23052036e1addb45f1bc154",
+      "bytes": 185
+    },
+    "issue65-p1-owner-runtime-evidence/g2-platform-compile.json": {
+      "sha256": "4e697d6328c9366d6a9e12b571cfa447d9622cf170dc2ce6f7560a8c22b351f1",
+      "bytes": 330
+    },
+    "issue65-p1-owner-runtime-evidence/owner-control-wraps_requests_again.txt": {
+      "sha256": "6b3c652e836ce11ee00b4c27dad85156a70dae3115a78e4e737070e8a34e9f76",
+      "bytes": 134
+    },
+    "issue65-p1-owner-runtime-evidence/repair-controls.json": {
+      "sha256": "59f9117e82629628a99d7ac66481fe155e1171893d92cd80b4e4e64121b2a2e4",
+      "bytes": 476
+    },
+    "issue65-p1-owner-runtime-evidence/runtime-boundary-command.json": {
+      "sha256": "18246c579f7b0b7ccf3c18c7b8f15725e633e339be5bdc9718b606c5ecb5fd27",
+      "bytes": 187
+    },
+    "issue65-p1-owner-runtime-evidence/binding-controls.txt": {
+      "sha256": "a16c3c0386f40009a927e58a7c1f04b710e2a9932512eefe2400568f7850118e",
+      "bytes": 221
+    },
+    "issue65-p1-owner-runtime-evidence/translation.txt": {
+      "sha256": "0b308399d773daf09118d2377c34ed96cf168196ee4a434ba453a0659ca01ed6",
+      "bytes": 14205
+    },
+    "issue65-p1-owner-runtime-evidence/policy-controls.txt": {
+      "sha256": "e31871fdde5def47c7520546ec2253848d4c47ee068be3b204ca119e5411ec9b",
+      "bytes": 2169
+    },
+    "issue65-p1-owner-runtime-evidence/owner-control-ignores_reader_join.txt": {
+      "sha256": "872fd9632877cc1007fe7ea482d05f96d2a95cd01491ae9aaa3ef65788ee68d2",
+      "bytes": 127
+    },
+    "issue65-p1-owner-runtime-evidence/g1-suite.txt": {
+      "sha256": "a75ad51c1adda9c63aecf87522fe0ecf67a120c050049412b18cf218b7c62540",
+      "bytes": 94053
+    },
+    "issue65-p1-owner-runtime-evidence/host-build-command.json": {
+      "sha256": "f4f1ded4e3924b95264ec58c1dd32e1df4e3e0306d6c4cc1e0524a891c948c6a",
+      "bytes": 274
+    },
+    "issue65-p1-owner-runtime-evidence/platform-runtime.json": {
+      "sha256": "2aecacae102b450bd6846ce306cca83e6b408263016d9b2a1d180a5fffacc7cb",
+      "bytes": 381
+    },
+    "issue65-p1-owner-runtime-evidence/host-build.txt": {
+      "sha256": "03ba48515e01f580cf4b5b957bf187c20a8b2d7009f1bff0d23bfe7099e3fa93",
+      "bytes": 306
+    },
+    "issue65-p1-owner-runtime-evidence/repair-controls-command.json": {
+      "sha256": "ab85189908be5b79dfce8bb8282cedb3dcda713384e17ee198f19e71a7c06335",
+      "bytes": 189
+    },
+    "issue65-p1-owner-runtime-evidence/fix-controls.txt": {
+      "sha256": "29117001e3a721d4119d568cc1d0aca3891faaa5aadc606f19c7a5037db16d39",
+      "bytes": 1368
+    },
+    "issue65-p1-owner-runtime-evidence/owner-control-ignores_writer_join.txt": {
+      "sha256": "b65cb8b3115da11be14da1a4d254844e2591825384bf6512ed0cc470c03c57f5",
+      "bytes": 233
+    },
+    "issue65-p1-owner-runtime-evidence/native-controls.json": {
+      "sha256": "79d3f523ef6f3a47887c8cf4d4b405a199a1228159c8e1105b33fd54500aa332",
+      "bytes": 1003
+    },
+    "issue65-p1-owner-runtime-evidence/cleanup-dryrun.json": {
+      "sha256": "31d42861f54b42ed97fc41a19531829c6e0603b35c2d33de27c3d0f7f999dc89",
+      "bytes": 459
+    },
+    "issue65-p1-owner-runtime-evidence/fix-controls-command.json": {
+      "sha256": "5c89237e9cc121802b8ac23c812e0fdd6c605127b8bcec3f4fb06f55a08a7a9b",
+      "bytes": 186
+    },
+    "issue65-p1-owner-runtime-evidence/g2-compile-command.json": {
+      "sha256": "1b5c90269ed8797bfeea53f7c602689a5e3b48dd269fe9a583d2389d0af34cef",
+      "bytes": 288
+    },
+    "issue65-p1-owner-runtime-evidence/limits-result.json": {
+      "sha256": "eafe814fc12e85fa039514f3e40c346b5d56473b82a832b248a9c844e4cba52d",
+      "bytes": 14102
+    },
+    "issue65-p1-owner-runtime-evidence/installation-inputs.json": {
+      "sha256": "19040dad76e00ba99949859292933dbd0e8ba465646ec9fff3c778e1b1b3ec8b",
+      "bytes": 13327
+    },
+    "issue65-p1-owner-runtime-evidence/cleanup.json": {
+      "sha256": "53b806265f428c6e9894a09ca43330a031330f5351b9aab24793217e95e1f6fa",
+      "bytes": 455
+    },
+    "issue65-p1-owner-runtime-evidence/compat-suite-command.json": {
+      "sha256": "b18a1c56e871dd0b2383a6e3fc93680d11d6f35cf86e3ba82ca73ecc285002a2",
+      "bytes": 191
+    },
+    "issue65-p1-owner-runtime-evidence/lifecycle-result.json": {
+      "sha256": "7ae045a5e843cc0823f517fa1b798cf38adcfedab9945b61d26b86774ab47766",
+      "bytes": 2478
+    },
+    "issue65-p1-owner-runtime-evidence/owner-native.json": {
+      "sha256": "a7227059da96e9d8747a206d6eb49451e6c5134cfdbba326d9e0974e94903a55",
+      "bytes": 945
+    },
+    "issue65-p1-owner-runtime-evidence/early_native_retired.txt": {
+      "sha256": "568d79bbe4a9597423bd6df74e7fc77ba592e1e613d4118223c02d9cd16a0789",
+      "bytes": 3403
+    },
+    "issue65-p1-owner-runtime-evidence/g2-compile.txt": {
+      "sha256": "e3c1ef4bf9c297cc866db83b45f7be57d836eb227d5f95d6e3c9d988497c0e65",
+      "bytes": 50
+    },
+    "issue65-p1-owner-runtime-evidence/live-endpoint-tests.txt": {
+      "sha256": "a72b3d0c18a20a03fec13359878ca5c29956ebe7447ebc129f6ed712ba41d67b",
+      "bytes": 1926
+    },
+    "issue65-p1-owner-runtime-evidence/g2-suite.txt": {
+      "sha256": "0d42ed8ef78734452321d45fc21a8b87ad9c5724c3b55b086eabc8ad1c15aee6",
+      "bytes": 157309
+    },
+    "issue65-p1-owner-runtime-evidence/g2-build.json": {
+      "sha256": "e3168f3baeb3ab5222683a121205cce1d0f082c152beb411a6fb6cc891f0484c",
+      "bytes": 1063451
+    },
+    "issue65-p1-owner-runtime-evidence/lifecycle-suite-command.json": {
+      "sha256": "61889d7e9119f6f4403b3e706f502f6e7556cdcb015e4ea4ff84f78a76b7fb31",
+      "bytes": 307
+    },
+    "issue65-p1-owner-runtime-evidence/guard-wrong_guest.txt": {
+      "sha256": "a8932fabad4cb414bea2f620fbae08edd2cfd33778df28482f29c3bf17c27669",
+      "bytes": 337
+    },
+    "issue65-p1-owner-runtime-evidence/pytest-install-command.json": {
+      "sha256": "607b423c9ecabe0ddde396ed27bc8690ae3eae354924540cb888665472a6a01c",
+      "bytes": 321
+    },
+    "issue65-p1-owner-runtime-evidence/g2-result.json": {
+      "sha256": "ccfe31229da7dafeeae6609ae2d7c9f0aff6fc4299112d541556d733d73f7e6d",
+      "bytes": 218057
+    },
+    "issue65-p1-owner-runtime-evidence/early_host_release.txt": {
+      "sha256": "8df72127cedddfa8e0bd3fc2bbbe1ec588efa2829132d20b26e5b10617c0be68",
+      "bytes": 3343
+    },
+    "issue65-p1-owner-runtime-evidence/guest.json": {
+      "sha256": "0a9be60cadebe8a8e91df5d4b9705a82bf1e2f0889e2f43c1f93a4c20a6a5287",
+      "bytes": 1102592
+    },
+    "issue65-p1-owner-runtime-evidence/lifetime-leaf-command.json": {
+      "sha256": "50904e53aa902c8853c67bcb599cd3102339495e8ff8079339d152f859a4ffa4",
+      "bytes": 282
+    },
+    "issue65-p1-owner-runtime-evidence/owner-controls.json": {
+      "sha256": "220045dfd451e3f1e4d62aae906f2360b10975fbf82f9c94a9a66293ad79cf79",
+      "bytes": 1277
+    },
+    "issue65-p1-owner-runtime-evidence/worktree-checksums.json": {
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "issue65-p1-owner-runtime-evidence/binding-tests.txt": {
+      "sha256": "8e959d2a62fd6d07d01a1fcc2f8d88567320ad093dfe75b1a4872618169bb7a8",
+      "bytes": 149
+    },
+    "issue65-p1-owner-runtime-evidence/owner-native-command.json": {
+      "sha256": "a975a1f004ce550cfa08da3aa83cab27cfa8da246366d2c32265275d1b248001",
+      "bytes": 190
+    },
+    "issue65-p1-owner-runtime-evidence/limits-suite-command.json": {
+      "sha256": "95c6dcfb59590396b1b9866032ed054cb4d8390728ad9064019e48c50c1a5e29",
+      "bytes": 191
+    },
+    "issue65-p1-owner-runtime-evidence/pytest-install.txt": {
+      "sha256": "03dd6ee25ab86b1137bd5577a60391384d98c022b0d1ad04f63aff97c73cae01",
+      "bytes": 1170
+    },
+    "issue65-p1-owner-runtime-evidence/temp-checksums.json": {
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "issue65-p1-owner-runtime-evidence/g1-result.json": {
+      "sha256": "fc8d11c2f9d9c10e6dde336ef61d484f34d31102937c79a26d97f15946d13f0e",
+      "bytes": 80925
+    },
+    "issue65-p1-owner-runtime-evidence/g2-platform-runtime.json": {
+      "sha256": "4e697d6328c9366d6a9e12b571cfa447d9622cf170dc2ce6f7560a8c22b351f1",
+      "bytes": 330
+    },
+    "issue65-p1-owner-runtime-evidence/guard-wrong_function_hash.txt": {
+      "sha256": "4e5a0113f5196c9c55e87430104bed4b6e43b47d9d72eb5a741135132a14f74e",
+      "bytes": 625
+    },
+    "issue65-p1-owner-runtime-evidence/owner-control-ignores_opened_identity.txt": {
+      "sha256": "d57ab2ff279d29bf95ecff14e9cfad5b50374842da1875cb7436c99cec074f07",
+      "bytes": 143
+    },
+    "issue65-p1-owner-runtime-evidence/translation-command.json": {
+      "sha256": "29d6ac277b67120f5c405f26780699f0e22dfec9de96dde61a1acdc702c4c431",
+      "bytes": 282
+    },
+    "issue65-p1-owner-runtime-evidence/compat-suite.txt": {
+      "sha256": "2d2faccfe0c57c8c33e6bef90547bbea8234b3e23803ab745968ccd5010dfca1",
+      "bytes": 21156
+    },
+    "issue65-p1-owner-runtime-evidence/owner-native.txt": {
+      "sha256": "7db8c872dd214dc294d5027536f50aafc87035690769af96d3ac72074a2a826e",
+      "bytes": 9733
+    },
+    "issue65-p1-owner-runtime-evidence/source-comparison.json": {
+      "sha256": "675591a79fb28c8dafe60d0ff3e3e7ee345ab9422b4eecab3818a8804d9ae9e6",
+      "bytes": 202
+    },
+    "issue65-p1-owner-runtime-evidence/owner-control-ignores_native_completion.txt": {
+      "sha256": "ef4793f30d50fcc30d8842f93f7ff1ef14433f88e52da0a5699ec8b8f48d04a7",
+      "bytes": 127
+    },
+    "issue65-p1-owner-runtime-evidence/binding-tests-command.json": {
+      "sha256": "2fedccfd94ad8b38c4f63f1c432ae93120f3a74658105bfc51d737048ab118e2",
+      "bytes": 526
+    },
+    "issue65-p1-owner-runtime-evidence/live-endpoint-tests-command.json": {
+      "sha256": "8f3435fc1f34544eb4b39c19c879d0f59054577b5e7ca37f4c516f966e59563a",
+      "bytes": 304
+    },
+    "issue65-p1-owner-runtime-evidence/wrong_native_open_tuple.txt": {
+      "sha256": "6d92b4afa2afad7702f93530d132556486f4e6e064b90e9c706c0dd5e8cddde6",
+      "bytes": 282
+    },
+    "issue65-p1-owner-runtime-evidence/host-build.json": {
+      "sha256": "51aee211c6a4482debdc155836d16e6d162c41eab3a7c253b503ee8dbf2dd5fd",
+      "bytes": 1065349
+    },
+    "issue65-p1-owner-runtime-evidence/limits-suite.txt": {
+      "sha256": "6c0fb407b2ba6d572c0d20e1c835851467a4ef8982335f1d33d9a62c35ce4741",
+      "bytes": 19294
+    },
+    "issue65-p1-owner-runtime-evidence/lifecycle-suite.txt": {
+      "sha256": "ee807aac95a1ea2c94be943e49d616a35b58795c4d2932afa14a805c6de066d0",
+      "bytes": 21291
+    },
+    "issue65-p1-owner-runtime-evidence/development-binding-controls.json": {
+      "sha256": "f18433a508501b83dd13197bbd9c1876c52444f04ee6c4b8ea2edbbd3596fa7b",
+      "bytes": 209
+    },
+    "issue65-p1-owner-runtime-evidence/owner-control-positive.txt": {
+      "sha256": "db4c1db279bab24f182e1b09d4cdd0c9aa277643344c6da9560cad7645c81247",
+      "bytes": 26
+    },
+    "issue65-p1-owner-runtime-evidence/binding-controls-command.json": {
+      "sha256": "781fa3eec25825b8ede1fe10b7f43d43ed04506f9451c750e18762e512af9bc0",
+      "bytes": 188
+    },
+    "issue65-p1-owner-runtime-evidence/platform-cleanup.json": {
+      "sha256": "2aecacae102b450bd6846ce306cca83e6b408263016d9b2a1d180a5fffacc7cb",
+      "bytes": 381
+    },
+    "issue65-p1-owner-builder-evidence/source-seams.json": {
+      "sha256": "99973e0b71aaedd6c98f363c18d338acad478eaee29053a9b52284d9eaed43b9",
+      "bytes": 816
+    },
+    "issue65-p1-owner-builder-evidence/guest-build.txt": {
+      "sha256": "a3149533960ed2acc8e3c20e373e33939d4addfe6321af800d15d125535ae69e",
+      "bytes": 2727994
+    },
+    "issue65-p1-owner-builder-evidence/phases.jsonl": {
+      "sha256": "5c03d4525e9e7fee25a2a568cdd082d1e43fbfe760a05f8c79c531ee5240e00a",
+      "bytes": 14167
+    },
+    "issue65-p1-owner-builder-evidence/controller-controls.json": {
+      "sha256": "4e8985993d0b0c41bce3b9cd06564d3e40530b9f0eeb1f43e46f27ab47847a49",
+      "bytes": 539
+    },
+    "issue65-p1-owner-builder-evidence/cleanup-dryrun.json": {
+      "sha256": "3cda4f5f8b98345d4854ed6f65e4bd72050760b5ef08a9766c645404bdfa58b1",
+      "bytes": 457
+    },
+    "issue65-p1-owner-builder-evidence/guest-download.txt": {
+      "sha256": "aa39109a91ab586a4591d86296b180d7b1a42a7aa4eb293e2d63199af0932839",
+      "bytes": 160
+    },
+    "issue65-p1-owner-builder-evidence/cleanup.json": {
+      "sha256": "6ce2e8d19e6c0e73f1f40a0f775f47eceab6174e048b4898a516e06671d50f45",
+      "bytes": 453
+    },
+    "issue65-p1-owner-builder-evidence/guest-build-command.json": {
+      "sha256": "5b058c42e39dbc115a1cd78c7495bf48f99ddcd0a3e46e62e1ff0153a0ebaaba",
+      "bytes": 252
+    },
+    "issue65-p1-owner-builder-evidence/platform-build.json": {
+      "sha256": "d7885ea0b6963d1922296d28d37569e071e1ceb78e9bf393852072de4dd184a3",
+      "bytes": 385
+    },
+    "issue65-p1-owner-builder-evidence/guest.json": {
+      "sha256": "0a9be60cadebe8a8e91df5d4b9705a82bf1e2f0889e2f43c1f93a4c20a6a5287",
+      "bytes": 1102592
+    },
+    "issue65-p1-owner-builder-evidence/worktree-checksums.json": {
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "issue65-p1-owner-builder-evidence/temp-checksums.json": {
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3
+    },
+    "issue65-p1-owner-builder-evidence/builder.json": {
+      "sha256": "b28385eb33d773ac0f37daf13412c2c908623259bc4d64cd92a765df22abebcd",
+      "bytes": 283
+    },
+    "issue65-p1-owner-builder-evidence/guest-download-command.json": {
+      "sha256": "fef023a605ce810f34655742e47d25935bf4911ec20259099beac55dc9faf0ca",
+      "bytes": 263
+    },
+    "issue65-p1-owner-builder-evidence/platform-downloads.json": {
+      "sha256": "d7885ea0b6963d1922296d28d37569e071e1ceb78e9bf393852072de4dd184a3",
+      "bytes": 385
+    },
+    "issue65-p1-owner-builder-evidence/platform-cleanup.json": {
+      "sha256": "d7885ea0b6963d1922296d28d37569e071e1ceb78e9bf393852072de4dd184a3",
+      "bytes": 385
+    }
+  },
+  "not_qualified": [
+    "public native API/owner integration",
+    "public timeout domain",
+    "remaining controller relocation",
+    "consumer/performance",
+    "canonical adoption",
+    "release"
+  ]
+}
