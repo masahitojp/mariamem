@@ -1,0 +1,37 @@
+{
+  "upstream_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "guest_source_commit": "65b49e3dc31e9b2da63b317e015f8f471e79a83e",
+  "files_sha256": {
+    "include/mysql_com.h": "75f5644c62eb9f20882b1730dc6525e45c4b1e58f3c4f97ff229e1aa7cbc986d",
+    "sql/item.cc": "693e2f3f50567fb00e0865ba624360b47cbf71e3d3524f70fa280214d8ceb1e8",
+    "sql/protocol.cc": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242",
+    "sql/sql_const.h": "f285c3c70e65da7a8d277cef6ee12b561ba052e4db39164c1e314e416a5f34af",
+    "sql/sql_parse.cc": "d4fcbe0d53e2474ec9730294101549ca84c1b619fcdf6c1c37de9d70cf88fa85",
+    "sql/sql_yacc.yy": "4e4a6a8e3b98d860954d846a0ae497589ec149324857d50d196b16be06293969"
+  },
+  "findings": [
+    {
+      "path": "sql/item.cc",
+      "line": 1305,
+      "fact": "normal Item name calls make_name with MAX_ALIAS_NAME-1=255 system-charset bytes"
+    },
+    {
+      "path": "sql/sql_yacc.yy",
+      "line": 15843,
+      "fact": "sole SQL caller of set_name_no_truncate in pinned SQL source is LOAD DATA SET value expression"
+    },
+    {
+      "path": "sql/sql_parse.cc",
+      "function": "st_select_lex::add_table_to_list",
+      "fact": "physical table/db names are checked; supplied alias is separately copied into TABLE_LIST; no truncation seen in this path"
+    },
+    {
+      "path": "sql/protocol.cc",
+      "line": 872,
+      "fact": "ColumnDefinition41 stores six strings,then13 fixed bytes;send_result_set_metadata writes each descriptor separately"
+    }
+  ],
+  "reachability": "NOT_YET_CONFIRMED;standard column-name bounds do not prove a metadata packet bound for table aliases/internal SQL",
+  "selected_runtime_probe": "table alias4096 control,then exact0xfffffe/max+1 metadata through internally generated SQL PREPARE;command SQL remains below1MiB",
+  "qualification_rule": "failed reachability/prepare precondition is INCOMPLETE,not proof of unreachability or a relaxed packet contract"
+}

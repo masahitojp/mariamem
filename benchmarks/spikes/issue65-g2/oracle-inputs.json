@@ -1,0 +1,19 @@
+{
+  "source": "existing pinned native captures,not generated from candidate output",
+  "files_sha256": {
+    "tests/fixtures/prepared-p1-native.json": "8b573d792eba148cb75b282b58324ea0558a088bd10fef4d1666cdd5887dbe7f",
+    "tests/fixtures/prepared-p2-native.json": "4dd63f276c1cf4b86b6312b4b93a625a9293e35c87775e60797a3b4aee60169d",
+    "tests/fixtures/prepared-p2-values.json": "857e67d5f2e6e20dd0506fb2bea6e727fbc3b25e3a2626dce870f75b046465fe",
+    "tests/fixtures/prepared-p3-native.json": "de359c104285e514343097cded40309198becf39442afc83a5e2f8dc36aa2fb6",
+    "tests/v06_prepared_p1_probe.py": "5d6a70f835a106ca565a61dd435dfb810b729790cca8da15f8dfb1e853aa5ece",
+    "tests/v06_prepared_p2_probe.py": "bdc57b37ce30b429c237ded672b16363e7ebf0b275d66183d50ebdfdef66dbd6",
+    "tests/v06_prepared_p3_matrix.py": "8b6121db1666043584e49f920b2a14c7d9503a3cf1ddcf369b51b02f05fcbb6e",
+    "tests/fixtures/prepared-p2-matrix-native.json": "267d97358f968b7a535194cb021149b86b41f8903c1869ed7b7a07f45d3c6f74",
+    "tests/v06_prepared_p2_matrix.py": "8d88db3627f66137a8ef791bcd05b612f740e97aa68eae9166827fcb2129ca50",
+    "tests/fixtures/prepared-long-data-native.json": "65cb353d525d571a70876055b66292be188ef98daba98584253646094be190c9",
+    "tests/v06_prepared_long_data_probe.py": "aa26d8d7b3b36115d4190e649915d36d5ff0b536d74b5c003f7fabc1efd63d76"
+  },
+  "prepare_cases": 6,
+  "value_cases": 19,
+  "call_cases": 14
+}

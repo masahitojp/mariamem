@@ -1,0 +1,1017 @@
+// Observation-only G2. Raw native goldens are immutable; mismatches stay visible.
+package main
+
+import (
+	"bytes"
+	"context"
+	"encoding/binary"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"io"
+	"reflect"
+	"strings"
+	"testing"
+	"time"
+)
+
+type g2Oracle struct {
+	Additional []struct {
+		Name  string
+		Type  int
+		Value string
+		Trace []map[string]any
+	}
+	Long []struct {
+		Name  string
+		Trace [][]map[string]any
+	}
+	Prepare []struct {
+		Name, SQL string
+		Expected  map[string]any
+	}
+	Values []struct {
+		Name, Packet string
+		Expected     map[string]any
+	}
+	Calls []struct {
+		Name string
+		Spec struct {
+			Args, Body     string
+			Values, Second []*int
+			PS             *bool
+			Alter          bool
+		}
+		Trace [][]map[string]any
+	}
+}
+
+func g2Gold(t *testing.T) g2Oracle {
+	t.Helper()
+	var o g2Oracle
+	if e := json.Unmarshal([]byte(g2OracleJSON), &o); e != nil {
+		t.Fatal(e)
+	}
+	return o
+}
+func g2Observe(t *testing.T, id string, want, actual any, pass bool) {
+	t.Helper()
+	b, _ := json.Marshal(map[string]any{"test": t.Name(), "id": id, "expected": want, "actual": actual, "pass": pass})
+	t.Log("G2_OBSERVATION " + string(b))
+	if !pass {
+		t.Errorf("G2 contract mismatch: %s", id)
+	}
+}
+func g2Normalize(x any) any {
+	b, _ := json.Marshal(x)
+	var out any
+	json.Unmarshal(b, &out)
+	return out
+}
+func g2Equal(a, b any) bool { return reflect.DeepEqual(g2Normalize(a), g2Normalize(b)) }
+func g2Hex(p []byte) string { return hex.EncodeToString(p) }
+func g2Error(p []byte) map[string]any {
+	n, s := compatErr(p)
+	return map[string]any{"error_packet": g2Hex(p), "errno": n, "sqlstate": s}
+}
+func g2Len(p []byte, at *int) (uint64, error) {
+	if *at >= len(p) {
+		return 0, io.ErrUnexpectedEOF
+	}
+	v := p[*at]
+	*at = *at + 1
+	switch v {
+	case 252:
+		if len(p)-*at < 2 {
+			return 0, io.ErrUnexpectedEOF
+		}
+		n := binary.LittleEndian.Uint16(p[*at:])
+		*at += 2
+		return uint64(n), nil
+	case 253:
+		if len(p)-*at < 3 {
+			return 0, io.ErrUnexpectedEOF
+		}
+		n := uint64(p[*at]) | uint64(p[*at+1])<<8 | uint64(p[*at+2])<<16
+		*at += 3
+		return n, nil
+	case 254:
+		if len(p)-*at < 8 {
+			return 0, io.ErrUnexpectedEOF
+		}
+		n := binary.LittleEndian.Uint64(p[*at:])
+		*at += 8
+		return n, nil
+	case 251, 255:
+		return 0, fmt.Errorf("invalid integer marker %d", v)
+	}
+	return uint64(v), nil
+}
+
+// Finite fixture reader:160 results,128 columns,2000 rows. These are test
+// workload bounds,not product ceilings; the native129-result oracle is included.
+func g2Packet(c *compatConn, seq byte) ([]byte, error) {
+	c.c.SetReadDeadline(time.Now().Add(12 * time.Second))
+	var h [4]byte
+	if _, e := io.ReadFull(c.c, h[:]); e != nil {
+		return nil, e
+	}
+	n := int(h[0]) | int(h[1])<<8 | int(h[2])<<16
+	if n == 0 || n > 0xfffffe || h[3] != seq {
+		return nil, fmt.Errorf("packet header len%d seq%d want%d", n, h[3], seq)
+	}
+	p := make([]byte, n)
+	_, e := io.ReadFull(c.c, p)
+	return p, e
+}
+func g2Read(c *compatConn) ([]map[string]any, error) {
+	seq := byte(1)
+	read := func() ([]byte, error) { p, e := g2Packet(c, seq); seq++; return p, e }
+	var parts []map[string]any
+	for len(parts) < 160 {
+		p, e := read()
+		if e != nil {
+			return parts, e
+		}
+		if p[0] == 255 {
+			return append(parts, g2Error(p)), nil
+		}
+		var part map[string]any
+		var status uint16
+		if p[0] == 0 {
+			at := 1
+			if _, e = g2Len(p, &at); e != nil {
+				return parts, e
+			}
+			if _, e = g2Len(p, &at); e != nil {
+				return parts, e
+			}
+			if len(p)-at < 4 {
+				return parts, io.ErrUnexpectedEOF
+			}
+			status = binary.LittleEndian.Uint16(p[at:])
+			part = map[string]any{"ok_packet": g2Hex(p), "status": status}
+		} else {
+			at := 0
+			count, e := g2Len(p, &at)
+			if e != nil || count == 0 || count > 128 {
+				return parts, fmt.Errorf("column count %d: %v", count, e)
+			}
+			cols := []string{}
+			for i := uint64(0); i < count; i++ {
+				p, e = read()
+				if e != nil {
+					return parts, e
+				}
+				cols = append(cols, g2Hex(p))
+			}
+			meta, e := read()
+			if e != nil {
+				return parts, e
+			}
+			if len(meta) != 5 || meta[0] != 254 {
+				return parts, fmt.Errorf("metadata EOF %x", meta)
+			}
+			rows := []string{}
+			for {
+				p, e = read()
+				if e != nil {
+					return parts, e
+				}
+				if p[0] == 255 {
+					part = g2Error(p)
+					part["columns"] = cols
+					part["rows"] = rows
+					part["metadata_end"] = g2Hex(meta)
+					return append(parts, part), nil
+				}
+				if p[0] == 254 && len(p) < 9 {
+					if len(p) != 5 {
+						return parts, fmt.Errorf("terminal EOF %x", p)
+					}
+					break
+				}
+				if len(rows) >= 2000 {
+					return parts, fmt.Errorf("fixture row bound")
+				}
+				rows = append(rows, g2Hex(p))
+			}
+			status = binary.LittleEndian.Uint16(p[3:])
+			part = map[string]any{"columns": cols, "rows": rows, "metadata_end": g2Hex(meta), "terminal": g2Hex(p), "status": status}
+		}
+		parts = append(parts, part)
+		if status&8 == 0 {
+			return parts, nil
+		}
+	}
+	return parts, fmt.Errorf("fixture result bound")
+}
+func g2Command(c *compatConn, p []byte) ([]map[string]any, error) {
+	if e := c.send(0, p); e != nil {
+		return nil, e
+	}
+	return g2Read(c)
+}
+func g2Setup(t *testing.T, c *compatConn, sql string) {
+	t.Helper()
+	p, e := g2Command(c, append([]byte{3}, sql...))
+	if e != nil || len(p) != 1 || p[0]["ok_packet"] == nil {
+		t.Fatalf("setup %q: %v %v", sql, p, e)
+	}
+}
+func g2Login(t *testing.T, c *compatConn, ps bool, db string, charset byte) ([]byte, error) {
+	flags := uint32(1 | 4 | 8 | 512 | 8192 | 32768 | 131072)
+	if ps {
+		flags |= 262144
+	}
+	return g2LoginFlags(t, c, flags, db, charset)
+}
+func g2LoginFlags(t *testing.T, c *compatConn, flags uint32, db string, charset byte) ([]byte, error) {
+	t.Helper()
+	c.greeting = c.mustRead(t, 0)
+	p := make([]byte, 32)
+	binary.LittleEndian.PutUint32(p, flags)
+	p[8] = charset
+	p = append(p, []byte("root\x00\x00")...)
+	p = append(p, db...)
+	p = append(p, 0)
+	if e := c.send(1, p); e != nil {
+		return nil, e
+	}
+	return c.read(2)
+}
+func g2Connect(t *testing.T, address string, ps bool) *compatConn {
+	t.Helper()
+	c := compatConnect(t, address, nil)
+	p, e := g2Login(t, c, ps, "test", 45)
+	if e != nil || len(p) == 0 || p[0] != 0 {
+		t.Fatalf("login %x %v", p, e)
+	}
+	g2Setup(t, c, "SET NAMES utf8mb4 COLLATE utf8mb4_general_ci")
+	g2Setup(t, c, "SET sql_mode='', time_zone='+00:00'")
+	return c
+}
+func g2Prepare(c *compatConn, sql string) (uint32, map[string]any, error) {
+	if e := c.send(0, append([]byte{22}, sql...)); e != nil {
+		return 0, nil, e
+	}
+	p, e := g2Packet(c, 1)
+	if e != nil {
+		return 0, nil, e
+	}
+	if p[0] == 255 {
+		return 0, g2Error(p), nil
+	}
+	if len(p) != 12 || p[0] != 0 {
+		return 0, nil, fmt.Errorf("prepare %x", p)
+	}
+	id := binary.LittleEndian.Uint32(p[1:])
+	seq := byte(2)
+	groups := [][]string{{}, {}}
+	for i, n := range []uint16{binary.LittleEndian.Uint16(p[7:]), binary.LittleEndian.Uint16(p[5:])} {
+		if n > 128 {
+			return id, nil, fmt.Errorf("fixture prepare count")
+		}
+		for j := uint16(0); j < n; j++ {
+			q, e := g2Packet(c, seq)
+			seq++
+			if e != nil {
+				return id, nil, e
+			}
+			groups[i] = append(groups[i], g2Hex(q))
+		}
+		if n > 0 {
+			q, e := g2Packet(c, seq)
+			seq++
+			if e != nil || len(q) != 5 || q[0] != 254 {
+				return id, nil, fmt.Errorf("prepare EOF %x %v", q, e)
+			}
+		}
+	}
+	return id, map[string]any{"parameters": groups[0], "columns": groups[1], "warnings": binary.LittleEndian.Uint16(p[10:])}, nil
+}
+func g2Following(t *testing.T, c *compatConn, name string) {
+	t.Helper()
+	p, e := g2Command(c, append([]byte{3}, "SELECT 1, @p3_after_error"...))
+	want := []string{"0131fb"}
+	ok := e == nil && len(p) == 1 && g2Equal(p[0]["rows"], want)
+	g2Observe(t, name, "following SELECT 1,NULL", map[string]any{"parts": p, "error": fmt.Sprint(e)}, ok)
+}
+func g2Ping(t *testing.T, c *compatConn, name string) {
+	t.Helper()
+	e := limitsPing(c)
+	g2Observe(t, name, "PING OK", fmt.Sprint(e), e == nil)
+}
+func TestG2PrepareMetadata(t *testing.T) {
+	for _, tc := range g2Gold(t).Prepare {
+		t.Run(tc.Name, func(t *testing.T) {
+			r := rootFor(t, 10000)
+			c := g2Connect(t, compatAddress(t, r), true)
+			g2Setup(t, c, "CREATE TABLE test.prepared_p1_items(id INT PRIMARY KEY,payload VARBINARY(20)) ENGINE=InnoDB")
+			g2Setup(t, c, "CREATE PROCEDURE test.prepared_p1_proc(IN n INT) SELECT n AS value")
+			id, meta, e := g2Prepare(c, tc.SQL)
+			g2Observe(t, tc.Name, tc.Expected, map[string]any{"metadata": meta, "error": fmt.Sprint(e)}, e == nil && g2Equal(meta, tc.Expected))
+			if id != 0 {
+				c.mustSend(t, 0, compatID(25, id))
+			}
+			g2Ping(t, c, tc.Name+"_following")
+		})
+	}
+}
+func TestG2TypedValues(t *testing.T) {
+	for _, tc := range g2Gold(t).Values {
+		t.Run(tc.Name, func(t *testing.T) {
+			r := rootFor(t, 10000)
+			c := g2Connect(t, compatAddress(t, r), true)
+			id, _, e := g2Prepare(c, "SELECT ? AS v")
+			if e != nil || id == 0 {
+				t.Fatal("prepare", e)
+			}
+			body, e := hex.DecodeString(tc.Packet)
+			if e != nil {
+				t.Fatal(e)
+			}
+			binary.LittleEndian.PutUint32(body, id)
+			for _, reuse := range []bool{false, true} {
+				p := body
+				if reuse {
+					p = append(append([]byte{}, body[:10]...), 0)
+					p = append(p, body[13:]...)
+				}
+				parts, e := g2Command(c, append([]byte{23}, p...))
+				var value any
+				if len(parts) == 1 {
+					value = map[string]any{"columns": parts[0]["columns"], "rows": parts[0]["rows"], "terminal": parts[0]["terminal"]}
+				}
+				g2Observe(t, fmt.Sprintf("%s_reuse%t", tc.Name, reuse), tc.Expected, map[string]any{"result": value, "error": fmt.Sprint(e)}, e == nil && g2Equal(value, tc.Expected))
+			}
+			g2Ping(t, c, tc.Name+"_following")
+		})
+	}
+}
+func g2Ints(id uint32, values []*int, reuse bool) []byte {
+	if len(values) == 0 {
+		return g1Exec(id, 0, 1, nil)
+	}
+	p := make([]byte, (len(values)+7)/8)
+	for i, v := range values {
+		if v == nil {
+			p[i/8] |= 1 << uint(i%8)
+		}
+	}
+	if reuse {
+		p = append(p, 0)
+	} else {
+		p = append(p, 1)
+		for range values {
+			p = append(p, 3, 0)
+		}
+	}
+	for _, v := range values {
+		if v != nil {
+			var b [4]byte
+			binary.LittleEndian.PutUint32(b[:], uint32(*v))
+			p = append(p, b[:]...)
+		}
+	}
+	return g1Exec(id, 0, 1, p)
+}
+func TestG2CallChains(t *testing.T) {
+	for _, tc := range g2Gold(t).Calls {
+		t.Run(tc.Name, func(t *testing.T) {
+			r := rootFor(t, 10000)
+			ps := tc.Spec.PS == nil || *tc.Spec.PS
+			c := g2Connect(t, compatAddress(t, r), ps)
+			g2Setup(t, c, "SET @p3_after_error=0, @p3_marker=0")
+			if tc.Spec.Alter {
+				g2Setup(t, c, "CREATE TABLE test.prepared_p3_matrix_items(id INT PRIMARY KEY,v VARCHAR(12)) ENGINE=InnoDB")
+				g2Setup(t, c, "INSERT INTO test.prepared_p3_matrix_items VALUES(1,'seed')")
+			}
+			g2Setup(t, c, "CREATE PROCEDURE test.prepared_p3_matrix_proc("+tc.Spec.Args+") BEGIN "+tc.Spec.Body+" END")
+			id, meta, e := g2Prepare(c, "CALL test.prepared_p3_matrix_proc("+strings.TrimSuffix(strings.Repeat("?,", len(tc.Spec.Values)), ",")+")")
+			if e != nil || id == 0 {
+				t.Fatal("prepare", meta, e)
+			}
+			for i, want := range tc.Trace {
+				values := tc.Spec.Values
+				if i > 0 {
+					if tc.Spec.Alter {
+						g2Setup(t, c, "ALTER TABLE test.prepared_p3_matrix_items MODIFY v VARBINARY(12), ADD added BIGINT DEFAULT 9")
+					} else {
+						values = tc.Spec.Second
+					}
+				}
+				parts, e := g2Command(c, g2Ints(id, values, i > 0))
+				g2Observe(t, fmt.Sprintf("%s_trace%d", tc.Name, i), want, map[string]any{"parts": parts, "error": fmt.Sprint(e)}, e == nil && g2Equal(parts, want))
+				following, e := g2Command(c, append([]byte{3}, "SELECT 1, @p3_after_error"...))
+				g2Observe(t, fmt.Sprintf("%s_following%d", tc.Name, i), "row1,0 after complete chain", map[string]any{"parts": following, "error": fmt.Sprint(e)}, e == nil && len(following) == 1 && g2Equal(following[0]["rows"], []string{"01310130"}))
+			}
+			c.mustSend(t, 0, compatID(25, id))
+			g2Ping(t, c, tc.Name+"_close_ping")
+		})
+	}
+}
+func g2Value(id uint32, typ byte, value []byte, reuse bool) []byte {
+	p := []byte{0, 0}
+	if !reuse {
+		p = []byte{0, 1, typ, 0}
+	}
+	switch typ {
+	case 1, 2, 3, 4, 5, 8, 9, 13:
+		p = append(p, value...)
+	case 7, 10, 11, 12, 14:
+		p = append(p, byte(len(value)))
+		p = append(p, value...)
+	default:
+		p = append(p, byte(len(value)))
+		p = append(p, value...)
+	}
+	return g1Exec(id, 0, 1, p)
+}
+func TestG2AdditionalTypes(t *testing.T) {
+	for _, tc := range g2Gold(t).Additional {
+		t.Run(tc.Name, func(t *testing.T) {
+			r := rootFor(t, 10000)
+			c := g2Connect(t, compatAddress(t, r), true)
+			id := c.prepare(t, "SELECT ? AS v")
+			value, e := hex.DecodeString(tc.Value)
+			if e != nil {
+				t.Fatal(e)
+			}
+			for i, want := range tc.Trace {
+				parts, e := g2Command(c, g2Value(id, byte(tc.Type), value, i > 0))
+				var actual any
+				if len(parts) == 1 {
+					if parts[0]["error_packet"] != nil {
+						actual = map[string]any{"kind": "error", "errno": parts[0]["errno"], "sqlstate": parts[0]["sqlstate"]}
+					} else {
+						actual = map[string]any{"kind": "rows", "columns": parts[0]["columns"], "rows": parts[0]["rows"], "terminal": parts[0]["terminal"]}
+					}
+				}
+				g2Observe(t, fmt.Sprintf("%s_trace%d", tc.Name, i), want, map[string]any{"result": actual, "error": fmt.Sprint(e)}, e == nil && g2Equal(want, actual))
+			}
+			g2Ping(t, c, tc.Name+"_following")
+		})
+	}
+}
+func g2Chunk(t *testing.T, c *compatConn, id uint32, index uint16, data []byte) {
+	t.Helper()
+	p := compatID(24, id)
+	p = append(p, byte(index), byte(index>>8))
+	c.mustSend(t, 0, append(p, data...))
+}
+func g2Stream(id uint32, types []byte, mask byte, reuse bool, inline []byte) []byte {
+	p := []byte{mask, 0}
+	if !reuse {
+		p[1] = 1
+		for _, typ := range types {
+			p = append(p, typ, 0)
+		}
+	}
+	return g1Exec(id, 0, 1, append(p, inline...))
+}
+func TestG2LongDataStates(t *testing.T) {
+	for _, tc := range g2Gold(t).Long {
+		t.Run(tc.Name, func(t *testing.T) {
+			r := rootFor(t, 10000)
+			c := g2Connect(t, compatAddress(t, r), true)
+			trace := [][]map[string]any{}
+			errs := []string{}
+			execute := func(p []byte) {
+				parts, e := g2Command(c, p)
+				trace = append(trace, parts)
+				errs = append(errs, fmt.Sprint(e))
+			}
+			switch tc.Name {
+			case "chunks-binary-mixed-parameters":
+				id := c.prepare(t, "SELECT ? AS a,? AS n,? AS b")
+				g2Chunk(t, c, id, 0, []byte{'A', 0})
+				g2Chunk(t, c, id, 2, []byte("日本語"))
+				g2Chunk(t, c, id, 0, []byte("B"))
+				execute(g2Stream(id, []byte{252, 3, 252}, 4, false, []byte{23, 0, 0, 0}))
+			case "empty-stream-overrides-null":
+				id := c.prepare(t, "SELECT ? AS v")
+				g2Chunk(t, c, id, 0, nil)
+				g2Chunk(t, c, id, 0, nil)
+				execute(g2Stream(id, []byte{252}, 1, false, nil))
+				execute(g1Exec(id, 0, 1, []byte{1, 1, 252, 0}))
+			case "type-reuse-and-change":
+				id := c.prepare(t, "SELECT ? AS v")
+				execute(g2Value(id, 252, []byte("first"), false))
+				g2Chunk(t, c, id, 0, []byte("long"))
+				g2Chunk(t, c, id, 0, []byte("-reuse"))
+				execute(g2Stream(id, []byte{252}, 0, true, nil))
+				execute(g2Value(id, 252, []byte("inline"), true))
+				g2Chunk(t, c, id, 0, []byte("文字"))
+				execute(g2Stream(id, []byte{253}, 0, false, nil))
+			case "two-statement-ownership":
+				a := c.prepare(t, "SELECT ? AS v")
+				b := c.prepare(t, "SELECT ? AS v")
+				g2Chunk(t, c, a, 0, []byte("first"))
+				g2Chunk(t, c, b, 0, []byte("second"))
+				execute(g2Stream(b, []byte{252}, 0, false, nil))
+				execute(g2Stream(a, []byte{252}, 0, false, nil))
+			case "wrong-LONG-type":
+				id := c.prepare(t, "SELECT ? AS v")
+				g2Chunk(t, c, id, 0, []byte("abc"))
+				execute(g2Stream(id, []byte{3}, 0, false, nil))
+				execute(g2Value(id, 252, []byte("z"), false))
+			case "reset-stream":
+				id := c.prepare(t, "SELECT ? AS v")
+				execute(g2Value(id, 252, []byte("first"), false))
+				g2Chunk(t, c, id, 0, []byte("discarded"))
+				reply := g1Send(c, compatID(26, id), false, false)
+				g2Observe(t, tc.Name+"_reset", "RESET OK", reply, reply.Kind == "OK" && reply.Error == "")
+				execute(g2Value(id, 252, []byte("new"), true))
+			}
+			ok := g2Equal(trace, tc.Trace)
+			for _, e := range errs {
+				ok = ok && e == "<nil>"
+			}
+			g2Observe(t, tc.Name, tc.Trace, map[string]any{"trace": trace, "errors": errs}, ok)
+			g2Ping(t, c, tc.Name+"_following")
+		})
+	}
+	t.Run("malformed_preserves_stream", func(t *testing.T) {
+		r := rootFor(t, 10000)
+		c := g2Connect(t, compatAddress(t, r), true)
+		id := c.prepare(t, "SELECT CAST(? AS CHAR)")
+		seed := g1Send(c, g2Value(id, 252, []byte("seed"), false), true, false)
+		if seed.Kind != "ROW" || seed.Value != "seed" {
+			t.Fatal(seed)
+		}
+		g2Chunk(t, c, id, 0, []byte("kept"))
+		bad := g1Send(c, g1Exec(id, 0, 1, []byte{0, 1, 252, 1}), true, false)
+		g2Observe(t, "malformed_rejected", "1835/HY000", bad, bad.Kind == "ERR" && bad.Errno == 1835 && bad.State == "HY000")
+		got := g1Send(c, g1Exec(id, 0, 1, []byte{0, 0}), true, false)
+		g2Observe(t, "malformed_retains_stream", "pending LONG_DATA kept after rejected descriptor", got, got.Kind == "ROW" && got.Value == "kept" && got.Error == "")
+		fresh := g1Send(c, g2Value(id, 252, []byte("fresh"), false), true, false)
+		g2Observe(t, "malformed_fresh", "fresh recovery", fresh, fresh.Kind == "ROW" && fresh.Value == "fresh" && fresh.Error == "")
+		g2Ping(t, c, "malformed_following")
+	})
+}
+func TestG2LifecycleBodies(t *testing.T) {
+	for n := 0; n <= 5; n++ {
+		t.Run(fmt.Sprint(n), func(t *testing.T) {
+			r := rootFor(t, 10000)
+			c := g2Connect(t, compatAddress(t, r), true)
+			id := c.prepare(t, "SELECT ?")
+			if id >= 256 {
+				t.Fatal("fixture needs small id")
+			}
+			body := make([]byte, max(n, 4))
+			binary.LittleEndian.PutUint32(body, id)
+			if n == 5 {
+				body[4] = 'x'
+			}
+			body = body[:n]
+			reply := g1Send(c, append([]byte{26}, body...), false, false)
+			valid := reply.Error == "" && reply.Kind == "OK"
+			want := "RESET OK"
+			if n == 0 {
+				valid = reply.Error == "" && reply.Kind == "ERR" && reply.Errno == 1243 && reply.State == "HY000"
+				want = "unknown zero handle1243/HY000"
+			}
+			g2Observe(t, fmt.Sprintf("n%d_reset", n), want, reply, valid)
+			c.mustSend(t, 0, append([]byte{25}, body...))
+			g2Ping(t, c, fmt.Sprintf("n%d_close_no_response", n))
+			after := g1Send(c, compatID(26, id), false, false)
+			valid = after.Error == "" && after.Kind == "ERR" && after.Errno == 1243 && after.State == "HY000"
+			want = "closed handle1243/HY000"
+			if n == 0 {
+				valid = after.Error == "" && after.Kind == "OK"
+				want = "untouched explicit handle"
+			}
+			g2Observe(t, fmt.Sprintf("n%d_handle", n), want, after, valid)
+		})
+	}
+}
+func TestG2MultiStatements(t *testing.T) {
+	for _, mode := range []string{"handshake", "option_on", "option_off"} {
+		t.Run(mode, func(t *testing.T) {
+			r := rootFor(t, 10000)
+			c := compatConnect(t, compatAddress(t, r), nil)
+			flags := uint32(1 | 4 | 8 | 512 | 8192 | 32768 | 131072)
+			if mode != "option_on" {
+				flags |= 65536
+			}
+			p, e := g2LoginFlags(t, c, flags, "test", 45)
+			if e != nil || p[0] != 0 {
+				t.Fatalf("login %x %v", p, e)
+			}
+			if mode != "handshake" {
+				option := byte(0)
+				if mode == "option_off" {
+					option = 1
+				}
+				reply := g1Send(c, []byte{27, option, 0}, false, false)
+				g2Observe(t, mode+"_set", "EOF success", reply, reply.Kind == "EOF" && reply.Error == "")
+			}
+			parts, e := g2Command(c, append([]byte{3}, "SELECT 11 AS first_value; SELECT 22 AS second_value"...))
+			ok := e == nil && len(parts) == 2
+			if ok {
+				ok = g2Equal(parts[0]["rows"], []string{"023131"}) && g2Equal(parts[1]["rows"], []string{"023232"}) && uint16(parts[0]["status"].(uint16))&8 != 0 && uint16(parts[1]["status"].(uint16))&8 == 0
+			}
+			want := "two results,intermediate MORE_RESULTS,terminal clear"
+			if mode == "option_off" {
+				want = "1064/42000"
+				ok = e == nil && len(parts) == 1 && parts[0]["errno"] == uint16(1064) && parts[0]["sqlstate"] == "42000"
+			}
+			g2Observe(t, mode, want, map[string]any{"parts": parts, "error": fmt.Sprint(e)}, ok)
+			got, e := g2Command(c, append([]byte{3}, "SELECT 3"...))
+			g2Observe(t, mode+"_following", "following SELECT3", map[string]any{"parts": got, "error": fmt.Sprint(e)}, e == nil && len(got) == 1 && g2Equal(got[0]["rows"], []string{"0133"}))
+		})
+	}
+}
+func g2FieldName(encoded string) (string, int, error) {
+	p, e := hex.DecodeString(encoded)
+	if e != nil {
+		return "", 0, e
+	}
+	at := 0
+	name := ""
+	for i := 0; i < 6; i++ {
+		n, e := g2Len(p, &at)
+		if e != nil || n > uint64(len(p)-at) {
+			return "", len(p), fmt.Errorf("descriptor string %d", i)
+		}
+		if i == 4 {
+			name = string(p[at : at+int(n)])
+		}
+		at += int(n)
+	}
+	if len(p)-at != 13 || p[at] != 12 {
+		return "", len(p), fmt.Errorf("descriptor fixed suffix")
+	}
+	return name, len(p), nil
+}
+func TestG2MetadataBoundary(t *testing.T) {
+	for _, name := range []string{"ascii_alias255", "unicode_alias255_bytes", "literal65536"} {
+		t.Run(name, func(t *testing.T) {
+			r := rootFor(t, 10000)
+			c := g2Connect(t, compatAddress(t, r), true)
+			want := strings.Repeat("a", 255)
+			value := "v"
+			sql := "SELECT 'v' AS `" + want + "`"
+			if name == "unicode_alias255_bytes" {
+				want = strings.Repeat("界", 85)
+				sql = "SELECT 'v' AS `" + want + "`"
+			}
+			if name == "literal65536" {
+				value = strings.Repeat("v", 65536)
+				want = strings.Repeat("v", 255)
+				sql = "SELECT '" + value + "'"
+			}
+			id, meta, e := g2Prepare(c, sql)
+			observed := ""
+			size := 0
+			var fieldErr error
+			if cols, ok := meta["columns"].([]string); ok && len(cols) == 1 {
+				observed, size, fieldErr = g2FieldName(cols[0])
+			}
+			g2Observe(t, name+"_metadata", "selected standard descriptor name255 bytes and bounded packet", map[string]any{"name_bytes": len(observed), "packet_bytes": size, "prepare_error": fmt.Sprint(e), "field_error": fmt.Sprint(fieldErr)}, e == nil && id != 0 && fieldErr == nil && observed == want && size < 6211)
+			parts, e := g2Command(c, g1Exec(id, 0, 1, nil))
+			var got []byte
+			var rowErr error
+			if len(parts) == 1 {
+				if rows, ok := parts[0]["rows"].([]string); ok && len(rows) == 1 {
+					raw, de := hex.DecodeString(rows[0])
+					if de != nil {
+						rowErr = de
+					} else {
+						got, rowErr = limitsValue(raw, true)
+					}
+				}
+			}
+			g2Observe(t, name+"_value", "original value unaffected by metadata label bound", map[string]any{"bytes": len(got), "error": fmt.Sprint(e), "row_error": fmt.Sprint(rowErr)}, e == nil && rowErr == nil && bytes.Equal(got, []byte(value)))
+			g2Ping(t, c, name+"_following")
+		})
+	}
+}
+func TestG2LoginStates(t *testing.T) {
+	for _, name := range []string{"initial_db", "missing_db", "short_fixed_header", "truncated_auth", "explicit_charset"} {
+		t.Run(name, func(t *testing.T) {
+			r := rootFor(t, 10000)
+			address := compatAddress(t, r)
+			c := compatConnect(t, address, nil)
+			db := "test"
+			if name == "missing_db" {
+				db = "g2_missing_database"
+			}
+			var p []byte
+			var e error
+			if name == "short_fixed_header" || name == "truncated_auth" {
+				c.greeting = c.mustRead(t, 0)
+				body := []byte{0, 130, 0, 0}
+				if name == "truncated_auth" {
+					body = make([]byte, 32)
+					binary.LittleEndian.PutUint32(body, 512|32768)
+					body[8] = 45
+					body = append(body, []byte("root\x00\x03x")...)
+				}
+				e = c.send(1, body)
+				if e == nil {
+					p, e = c.read(2)
+				}
+			} else {
+				p, e = g2Login(t, c, true, db, 45)
+			}
+			errno, state := compatErr(p)
+			pass := e == nil && len(p) > 0 && p[0] == 0
+			want := "login OK"
+			if name == "missing_db" {
+				want = "1049/42000"
+				pass = e == nil && errno == 1049 && state == "42000"
+			}
+			if name == "short_fixed_header" {
+				want = "legacy1045/28000"
+				pass = e == nil && errno == 1045 && state == "28000"
+			}
+			if name == "truncated_auth" {
+				want = "reject malformed auth without timeout"
+				pass = limitsClosed(e) || (e == nil && errno != 0)
+			}
+			g2Observe(t, name, want, map[string]any{"packet": g2Hex(p), "error": fmt.Sprint(e)}, pass)
+			if name == "initial_db" {
+				got := g1Send(c, append([]byte{3}, "SELECT DATABASE()"...), false, false)
+				g2Observe(t, name+"_state", "initial database test", got, got.Kind == "ROW" && got.Value == "test" && got.Error == "")
+			} else if name == "explicit_charset" {
+				g2Setup(t, c, "SET NAMES latin1")
+				got := g1Send(c, append([]byte{3}, "SELECT @@character_set_client"...), false, false)
+				g2Observe(t, name+"_state", "explicit SET NAMES latin1", got, got.Kind == "ROW" && got.Value == "latin1" && got.Error == "")
+			} else {
+				peer := g2Connect(t, address, true)
+				g2Ping(t, peer, name+"_peer")
+			}
+		})
+	}
+}
+func g2WaitCause(t *testing.T, r *instance) {
+	t.Helper()
+	deadline := time.Now().Add(5 * time.Second)
+	for r.result() == nil && time.Now().Before(deadline) {
+		time.Sleep(time.Millisecond)
+	}
+	if r.result() == nil {
+		t.Fatal("fixture: owner deadline did not arrive")
+	}
+}
+
+// Validate the remainder of the known40x1MiB text-row stream through EOF,
+// allowing a truncated final native packet and rejecting an injected wire ERR.
+func g2DrainRows(c *compatConn, firstLen int) (int64, error) {
+	total := int64(0)
+	remaining := firstLen - 4 - 16
+	seq := byte(5)
+	buf := make([]byte, 32768)
+	for packets := 0; packets < 41; packets++ {
+		for remaining > 0 {
+			n, e := c.c.Read(buf[:min(len(buf), remaining)])
+			for _, v := range buf[:n] {
+				if v != 'x' {
+					return total, fmt.Errorf("non-native row byte %02x", v)
+				}
+			}
+			total += int64(n)
+			remaining -= n
+			if e != nil {
+				if limitsClosed(e) {
+					return total, nil
+				}
+				return total, e
+			}
+		}
+		var h [4]byte
+		if _, e := io.ReadFull(c.c, h[:]); e != nil {
+			if limitsClosed(e) {
+				return total, nil
+			}
+			return total, e
+		}
+		size := int(h[0]) | int(h[1])<<8 | int(h[2])<<16
+		if h[3] != seq || size == 0 || size > 0xfffffe {
+			return total, fmt.Errorf("frame %x expected%d", h, seq)
+		}
+		seq++
+		if size == 5 {
+			return total, fmt.Errorf("normal terminal arrived before fatal EOF")
+		}
+		if size != 1048580 {
+			return total, fmt.Errorf("unexpected row size%d", size)
+		}
+		var prefix [4]byte
+		if _, e := io.ReadFull(c.c, prefix[:]); e != nil {
+			if limitsClosed(e) {
+				return total, nil
+			}
+			return total, e
+		}
+		if prefix != [4]byte{253, 0, 0, 16} {
+			return total, fmt.Errorf("row prefix %x", prefix)
+		}
+		remaining = size - 4
+	}
+	return total, fmt.Errorf("fixture row-count bound")
+}
+func TestG2FatalStates(t *testing.T) {
+	for _, name := range []string{"partial_body", "mid_output", "buffered_future"} {
+		t.Run(name, func(t *testing.T) {
+			ms := uint64(1000)
+			if name == "mid_output" {
+				ms = 2000
+			}
+			bad := rootFor(t, ms)
+			good := rootFor(t, 10000)
+			address := compatAddress(t, bad)
+			peer := g2Connect(t, address, true)
+			active := g2Connect(t, address, true)
+			nativePrefix := false
+			rowSize := 0
+			switch name {
+			case "partial_body":
+				active.c.SetWriteDeadline(time.Now().Add(time.Second))
+				p := []byte{64, 0, 0, 0, 3, 'S', 'E'}
+				n, e := active.c.Write(p)
+				if e != nil || n != len(p) {
+					t.Fatal("partial body", n, e)
+				}
+				nativePrefix = true
+			case "buffered_future":
+				active.mustSend(t, 0, append([]byte{3}, "SELECT SLEEP(4)"...))
+				inspect(t, bad, func(s map[string]any) bool {
+					for _, v := range s["sessions"].([]any) {
+						if v.(map[string]any)["phase"] == "executing" {
+							return true
+						}
+					}
+					return false
+				})
+				active.mustSend(t, 0, []byte{14})
+				active.mustSend(t, 0, append([]byte{3}, "SELECT 777"...))
+				inspect(t, bad, func(s map[string]any) bool {
+					for _, v := range s["sessions"].([]any) {
+						if v.(map[string]any)["input"].(float64) >= 5 {
+							return true
+						}
+					}
+					return false
+				})
+				nativePrefix = true
+			case "mid_output":
+				active.mustSend(t, 0, append([]byte{3}, "SELECT REPEAT('x',1048576) FROM (SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8) a CROSS JOIN (SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) b"...))
+				first := active.mustRead(t, 1)
+				column := active.mustRead(t, 2)
+				meta := active.mustRead(t, 3)
+				var h [4]byte
+				active.c.SetReadDeadline(time.Now().Add(3 * time.Second))
+				if _, e := io.ReadFull(active.c, h[:]); e != nil {
+					t.Fatal(e)
+				}
+				rowSize = int(h[0]) | int(h[1])<<8 | int(h[2])<<16
+				var prefix [20]byte
+				if _, e := io.ReadFull(active.c, prefix[:]); e != nil {
+					t.Fatal(e)
+				}
+				nativePrefix = bytes.Equal(first, []byte{1}) && len(column) > 0 && len(meta) == 5 && meta[0] == 254 && rowSize == 1048580 && h[3] == 4 && bytes.Equal(prefix[:4], []byte{253, 0, 0, 16}) && bytes.Equal(prefix[4:], bytes.Repeat([]byte{'x'}, 16))
+			}
+			g2WaitCause(t, bad)
+			var transportErr error
+			var buffered int64
+			if name == "mid_output" {
+				active.c.SetReadDeadline(time.Now().Add(3 * time.Second))
+				buffered, transportErr = g2DrainRows(active, rowSize)
+			} else {
+				p, e := active.read(1)
+				transportErr = e
+				if len(p) > 0 {
+					transportErr = fmt.Errorf("unexpected following packet%x", p)
+				}
+			}
+			eof := limitsClosed(transportErr)
+			if name == "mid_output" {
+				eof = transportErr == nil
+			}
+			g2Observe(t, name+"_active", "native prefix(if emitted) then EOF;no injected ERR/future reply", map[string]any{"prefix_valid": nativePrefix, "drained_native_bytes": buffered, "error": fmt.Sprint(transportErr)}, nativePrefix && eof)
+			_, e := peer.read(1)
+			g2Observe(t, name+"_peer", "same-instance idle peer EOF", fmt.Sprint(e), limitsClosed(e))
+			cause := bad.result()
+			g2Observe(t, name+"_owner", "owner original deadline cause", fmt.Sprint(cause), cause != nil && strings.Contains(cause.Error(), "deadline"))
+			independent := g2Connect(t, compatAddress(t, good), true)
+			g2Ping(t, independent, name+"_independent")
+			ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+			defer cancel()
+			closeErr := bad.close()
+			joined := bad.awaitJoined(ctx)
+			g2Observe(t, name+"_cleanup", "joined and original deadline retained", map[string]any{"close": fmt.Sprint(closeErr), "join": fmt.Sprint(joined)}, closeErr != nil && strings.Contains(closeErr.Error(), "deadline") && joined != nil && strings.Contains(joined.Error(), "deadline"))
+		})
+	}
+}
+func g2TableAlias(p []byte) ([]byte, error) {
+	at := 0
+	for i := 0; i < 6; i++ {
+		n, e := g2Len(p, &at)
+		if e != nil || n > uint64(len(p)-at) {
+			return nil, fmt.Errorf("metadata string%d", i)
+		}
+		if i == 2 {
+			return p[at : at+int(n)], nil
+		}
+		at += int(n)
+	}
+	return nil, fmt.Errorf("missing table alias")
+}
+func g2Dynamic(t *testing.T, c *compatConn, n int) (bool, any) {
+	t.Helper()
+	for _, sql := range []string{fmt.Sprintf("SET @g2_meta_sql=CONCAT('SELECT * FROM test.g2_metadata AS `',REPEAT('a',%d),'`')", n), "PREPARE g2_meta_stmt FROM @g2_meta_sql"} {
+		p, e := g2Command(c, append([]byte{3}, sql...))
+		if e != nil || len(p) != 1 || p[0]["ok_packet"] == nil {
+			return false, map[string]any{"sql": sql, "parts": p, "error": fmt.Sprint(e)}
+		}
+	}
+	return true, "internal SQL prepared"
+}
+func TestG2LargeMetadata(t *testing.T) {
+	r := rootFor(t, 10000)
+	c := g2Connect(t, compatAddress(t, r), true)
+	g2Setup(t, c, "CREATE TABLE test.g2_metadata(v INT) ENGINE=InnoDB")
+	g2Setup(t, c, "INSERT INTO test.g2_metadata VALUES(1)")
+	ok, setup := g2Dynamic(t, c, 4096)
+	g2Observe(t, "control_prepare", "4096-byte table alias prepares", setup, ok)
+	overhead := 0
+	if ok {
+		parts, e := g2Command(c, append([]byte{3}, "EXECUTE g2_meta_stmt"...))
+		valid := e == nil && len(parts) == 1
+		if valid {
+			cols, yes := parts[0]["columns"].([]string)
+			valid = yes && len(cols) == 1
+			if valid {
+				raw, de := hex.DecodeString(cols[0])
+				alias, ae := g2TableAlias(raw)
+				valid = de == nil && ae == nil && bytes.Equal(alias, bytes.Repeat([]byte{'a'}, 4096))
+				overhead = len(raw) - 4096 + 1
+			}
+		}
+		g2Observe(t, "control_metadata", "actual table alias4096 in ColumnDefinition41", map[string]any{"large_alias_overhead": overhead, "error": fmt.Sprint(e)}, valid)
+	} else {
+		g2Observe(t, "control_metadata", "4096-byte metadata path", "prepare rejected", false)
+	}
+	for _, over := range []bool{false, true} {
+		name := fmt.Sprintf("over%t", over)
+		t.Run(name, func(t *testing.T) {
+			if overhead <= 0 {
+				for _, tail := range []string{"_prepare", "_packet", "_following"} {
+					g2Observe(t, name+tail, "reachable metadata boundary", "control path unavailable", false)
+				}
+				return
+			}
+			n := 0xfffffe - overhead
+			if over {
+				n++
+			}
+			ok, detail := g2Dynamic(t, c, n)
+			g2Observe(t, name+"_prepare", "internally generated SQL prepares below native max_allowed_packet", detail, ok)
+			if !ok {
+				g2Observe(t, name+"_packet", "metadata boundary response", "prepare rejected", false)
+				g2Ping(t, c, name+"_following")
+				return
+			}
+			if e := c.send(0, append([]byte{3}, "EXECUTE g2_meta_stmt"...)); e != nil {
+				t.Fatal(e)
+			}
+			first, e := limitsPacket(c, 1)
+			var field []byte
+			var fe error
+			if e == nil && bytes.Equal(first, []byte{1}) {
+				field, fe = limitsPacket(c, 2)
+			} else {
+				field = first
+				fe = e
+			}
+			if over {
+				errno, state := compatErr(field)
+				g2Observe(t, name+"_packet", "native1153/08S01 before oversized metadata header/body", map[string]any{"first": g2Hex(first), "packet_prefix": g2Hex(field[:min(len(field), 64)]), "error": fmt.Sprint(fe)}, fe == nil && errno == 1153 && state == "08S01")
+			} else {
+				alias, ae := g2TableAlias(field)
+				valid := fe == nil && len(field) == 0xfffffe && ae == nil && len(alias) == n
+				for _, v := range alias {
+					valid = valid && v == 'a'
+				}
+				var meta, row, end []byte
+				if fe == nil {
+					meta, e = c.read(3)
+					if e == nil {
+						row, e = c.read(4)
+					}
+					if e == nil {
+						end, e = c.read(5)
+					}
+				}
+				valid = valid && e == nil && len(meta) == 5 && meta[0] == 254 && bytes.Equal(row, []byte{1, '1'}) && len(end) == 5 && end[0] == 254
+				g2Observe(t, name+"_packet", "exact0xfffffe metadata plus native row/EOF", map[string]any{"packet_bytes": len(field), "alias_bytes": len(alias), "alias_error": fmt.Sprint(ae), "error": fmt.Sprint(fe), "suffix_error": fmt.Sprint(e)}, valid)
+			}
+			g2Ping(t, c, name+"_following")
+		})
+	}
+}
+
+const g2OracleJSON = `{"prepare":[{"name":"placeholder","sql":"SELECT ?","expected":{"parameters":["03646566000000013f000c3f0000000000068000000000"],"columns":["03646566000000013f000c3f0000000000068000000000"],"warnings":0}},{"name":"typed-expressions","sql":"SELECT CAST(? AS SIGNED) AS n, CAST(? AS CHAR) AS txt","expected":{"parameters":["03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000"],"columns":["03646566000000016e000c3f0002000000038000000000","0364656600000003747874000c2d0000000000fd0000000000"],"warnings":0}},{"name":"dml","sql":"INSERT INTO test.prepared_p1_items(id,payload) VALUES(?,?)","expected":{"parameters":["03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000"],"columns":[],"warnings":0}},{"name":"call","sql":"CALL test.prepared_p1_proc(?)","expected":{"parameters":["03646566000000013f000c3f0000000000068000000000"],"columns":[],"warnings":0}},{"name":"zero-parameters","sql":"SELECT 1 AS value","expected":{"parameters":[],"columns":["036465660000000576616c7565000c3f0001000000038100000000"],"warnings":0}},{"name":"counts65","sql":"SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","expected":{"parameters":["03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000"],"columns":["03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000","03646566000000013f000c3f0000000000068000000000"],"warnings":0}}],"values":[{"name":"null","packet":"01000000000100000001010600","value":"","type":6,"unsigned":false,"null":true,"expected":{"columns":["036465660000000176000c3f0000000000068000000000"],"rows":["0004"],"terminal":"fe00000200"}},{"name":"signed-tiny-min","packet":"0100000000010000000001010080","value":"80","type":1,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c3f0004000000018100000000"],"rows":["000080"],"terminal":"fe00000200"}},{"name":"unsigned-tiny-max","packet":"01000000000100000000010180ff","value":"ff","type":1,"unsigned":true,"null":false,"expected":{"columns":["036465660000000176000c3f000400000001a100000000"],"rows":["0000ff"],"terminal":"fe00000200"}},{"name":"signed-short-min","packet":"010000000001000000000102000080","value":"0080","type":2,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c3f0006000000028100000000"],"rows":["00000080"],"terminal":"fe00000200"}},{"name":"unsigned-short-max","packet":"01000000000100000000010280ffff","value":"ffff","type":2,"unsigned":true,"null":false,"expected":{"columns":["036465660000000176000c3f000600000002a100000000"],"rows":["0000ffff"],"terminal":"fe00000200"}},{"name":"signed-long-min","packet":"0100000000010000000001030000000080","value":"00000080","type":3,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c3f000b000000038100000000"],"rows":["000000000080"],"terminal":"fe00000200"}},{"name":"unsigned-long-max","packet":"01000000000100000000010380ffffffff","value":"ffffffff","type":3,"unsigned":true,"null":false,"expected":{"columns":["036465660000000176000c3f000b00000003a100000000"],"rows":["0000ffffffff"],"terminal":"fe00000200"}},{"name":"signed-longlong-min","packet":"010000000001000000000108000000000000000080","value":"0000000000000080","type":8,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c3f0015000000088100000000"],"rows":["00000000000000000080"],"terminal":"fe00000200"}},{"name":"unsigned-longlong-max","packet":"01000000000100000000010880ffffffffffffffff","value":"ffffffffffffffff","type":8,"unsigned":true,"null":false,"expected":{"columns":["036465660000000176000c3f001500000008a100000000"],"rows":["0000ffffffffffffffff"],"terminal":"fe00000200"}},{"name":"float-negative-zero","packet":"0100000000010000000001040000000080","value":"00000080","type":4,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c3f00170000000481001f0000"],"rows":["000000000000"],"terminal":"fe00000200"}},{"name":"double-nan-payload","packet":"01000000000100000000010500341200000000f87f","value":"341200000000f87f","type":5,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c3f00170000000581001f0000"],"rows":["0000341200000000f87f"],"terminal":"fe00000200"}},{"name":"empty-string","packet":"0100000000010000000001fe0000","value":"","type":254,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c2d0000000000fe0100270000"],"rows":["000000"],"terminal":"fe00000200"}},{"name":"blob-nul","packet":"0100000000010000000001fc0003410042","value":"410042","type":252,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c3f0003000000fc8100270000"],"rows":["000003410042"],"terminal":"fe00000200"}},{"name":"unicode","packet":"0100000000010000000001fd0006e697a5e69cac","value":"e697a5e69cac","type":253,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c2d0008000000fd0100270000"],"rows":["000006e697a5e69cac"],"terminal":"fe00000200"}},{"name":"decimal-exact-scale","packet":"0100000000010000000001f600083132332e34353030","value":"3132332e34353030","type":246,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c3f0009000000f68100040000"],"rows":["0000083132332e34353030"],"terminal":"fe00000200"}},{"name":"zero-date","packet":"01000000000100000000010a0000","value":"","type":10,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c3f000a0000000a8100000000"],"rows":["000000"],"terminal":"fe00000200"}},{"name":"leap-date","packet":"01000000000100000000010a0004e807021d","value":"e807021d","type":10,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c3f000a0000000a8100000000"],"rows":["000004e807021d"],"terminal":"fe00000200"}},{"name":"datetime-microseconds","packet":"01000000000100000000010c000be907010203040540e20100","value":"e907010203040540e20100","type":12,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c3f00130000000c8100060000"],"rows":["00000be907010203040540e20100"],"terminal":"fe00000200"}},{"name":"negative-time-over-24h","packet":"01000000000100000000010b000c0102000000030405f1fb0900","value":"0102000000030405f1fb0900","type":11,"unsigned":false,"null":false,"expected":{"columns":["036465660000000176000c3f00170000000b8100060000"],"rows":["00000c0102000000030405f1fb0900"],"terminal":"fe00000200"}}],"calls":[{"name":"zero-results","spec":{"args":"","body":"SET @p3_marker=7;","values":[],"counts":[1]},"trace":[[{"ok_packet":"00000002000000","status":2}]]},{"name":"one-result","spec":{"args":"","body":"SELECT 17 AS v;","values":[],"counts":[2]},"trace":[[{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000011000000"],"terminal":"fe00000a00","status":10},{"ok_packet":"00000002000000","status":2}]]},{"name":"several-results","spec":{"args":"","body":"SELECT 1 AS v; SELECT _utf8mb4'\u65e5\u672c\u8a9e' AS text_value, NULL AS nil_value; SELECT CAST('123.4500' AS DECIMAL(12,4)) AS d, X'00FF' AS b;","values":[],"counts":[4]},"trace":[[{"columns":["036465660000000176000c3f0001000000038100000000"],"metadata_end":"fe00000a00","rows":["000001000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000a746578745f76616c7565000c2d000c000000fd0100270000","03646566000000096e696c5f76616c7565000c3f0000000000068000000000"],"metadata_end":"fe00000a00","rows":["000809e697a5e69cace8aa9e"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000164000c3f000e000000f68100040000","036465660000000162000c3f0002000000fda100000000"],"metadata_end":"fe00000a00","rows":["0000083132332e343530300200ff"],"terminal":"fe00000a00","status":10},{"ok_packet":"00000002000000","status":2}]]},{"name":"129-results","spec":{"args":"","body":"SELECT 0 AS v;SELECT 1 AS v;SELECT 2 AS v;SELECT 3 AS v;SELECT 4 AS v;SELECT 5 AS v;SELECT 6 AS v;SELECT 7 AS v;SELECT 8 AS v;SELECT 9 AS v;SELECT 10 AS v;SELECT 11 AS v;SELECT 12 AS v;SELECT 13 AS v;SELECT 14 AS v;SELECT 15 AS v;SELECT 16 AS v;SELECT 17 AS v;SELECT 18 AS v;SELECT 19 AS v;SELECT 20 AS v;SELECT 21 AS v;SELECT 22 AS v;SELECT 23 AS v;SELECT 24 AS v;SELECT 25 AS v;SELECT 26 AS v;SELECT 27 AS v;SELECT 28 AS v;SELECT 29 AS v;SELECT 30 AS v;SELECT 31 AS v;SELECT 32 AS v;SELECT 33 AS v;SELECT 34 AS v;SELECT 35 AS v;SELECT 36 AS v;SELECT 37 AS v;SELECT 38 AS v;SELECT 39 AS v;SELECT 40 AS v;SELECT 41 AS v;SELECT 42 AS v;SELECT 43 AS v;SELECT 44 AS v;SELECT 45 AS v;SELECT 46 AS v;SELECT 47 AS v;SELECT 48 AS v;SELECT 49 AS v;SELECT 50 AS v;SELECT 51 AS v;SELECT 52 AS v;SELECT 53 AS v;SELECT 54 AS v;SELECT 55 AS v;SELECT 56 AS v;SELECT 57 AS v;SELECT 58 AS v;SELECT 59 AS v;SELECT 60 AS v;SELECT 61 AS v;SELECT 62 AS v;SELECT 63 AS v;SELECT 64 AS v;SELECT 65 AS v;SELECT 66 AS v;SELECT 67 AS v;SELECT 68 AS v;SELECT 69 AS v;SELECT 70 AS v;SELECT 71 AS v;SELECT 72 AS v;SELECT 73 AS v;SELECT 74 AS v;SELECT 75 AS v;SELECT 76 AS v;SELECT 77 AS v;SELECT 78 AS v;SELECT 79 AS v;SELECT 80 AS v;SELECT 81 AS v;SELECT 82 AS v;SELECT 83 AS v;SELECT 84 AS v;SELECT 85 AS v;SELECT 86 AS v;SELECT 87 AS v;SELECT 88 AS v;SELECT 89 AS v;SELECT 90 AS v;SELECT 91 AS v;SELECT 92 AS v;SELECT 93 AS v;SELECT 94 AS v;SELECT 95 AS v;SELECT 96 AS v;SELECT 97 AS v;SELECT 98 AS v;SELECT 99 AS v;SELECT 100 AS v;SELECT 101 AS v;SELECT 102 AS v;SELECT 103 AS v;SELECT 104 AS v;SELECT 105 AS v;SELECT 106 AS v;SELECT 107 AS v;SELECT 108 AS v;SELECT 109 AS v;SELECT 110 AS v;SELECT 111 AS v;SELECT 112 AS v;SELECT 113 AS v;SELECT 114 AS v;SELECT 115 AS v;SELECT 116 AS v;SELECT 117 AS v;SELECT 118 AS v;SELECT 119 AS v;SELECT 120 AS v;SELECT 121 AS v;SELECT 122 AS v;SELECT 123 AS v;SELECT 124 AS v;SELECT 125 AS v;SELECT 126 AS v;SELECT 127 AS v;SELECT 128 AS v;","values":[],"counts":[130]},"trace":[[{"columns":["036465660000000176000c3f0001000000038100000000"],"metadata_end":"fe00000a00","rows":["000000000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0001000000038100000000"],"metadata_end":"fe00000a00","rows":["000001000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0001000000038100000000"],"metadata_end":"fe00000a00","rows":["000002000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0001000000038100000000"],"metadata_end":"fe00000a00","rows":["000003000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0001000000038100000000"],"metadata_end":"fe00000a00","rows":["000004000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0001000000038100000000"],"metadata_end":"fe00000a00","rows":["000005000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0001000000038100000000"],"metadata_end":"fe00000a00","rows":["000006000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0001000000038100000000"],"metadata_end":"fe00000a00","rows":["000007000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0001000000038100000000"],"metadata_end":"fe00000a00","rows":["000008000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0001000000038100000000"],"metadata_end":"fe00000a00","rows":["000009000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00000a000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00000b000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00000c000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00000d000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00000e000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00000f000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000010000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000011000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000012000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000013000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000014000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000015000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000016000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000017000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000018000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000019000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00001a000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00001b000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00001c000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00001d000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00001e000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00001f000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000020000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000021000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000022000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000023000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000024000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000025000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000026000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000027000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000028000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000029000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00002a000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00002b000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00002c000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00002d000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00002e000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00002f000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000030000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000031000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000032000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000033000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000034000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000035000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000036000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000037000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000038000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000039000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00003a000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00003b000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00003c000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00003d000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00003e000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00003f000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000040000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000041000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000042000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000043000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000044000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000045000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000046000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000047000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000048000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000049000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00004a000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00004b000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00004c000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00004d000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00004e000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00004f000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000050000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000051000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000052000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000053000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000054000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000055000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000056000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000057000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000058000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000059000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00005a000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00005b000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00005c000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00005d000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00005e000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00005f000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000060000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000061000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000062000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000063000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000064000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000065000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000066000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000067000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000068000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000069000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["00006a000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["00006b000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["00006c000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["00006d000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["00006e000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["00006f000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000070000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000071000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000072000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000073000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000074000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000075000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000076000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000077000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000078000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000079000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["00007a000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["00007b000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["00007c000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["00007d000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["00007e000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["00007f000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000176000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000080000000"],"terminal":"fe00000a00","status":10},{"ok_packet":"00000002000000","status":2}]]},{"name":"IN","spec":{"args":"IN v INT","body":"SELECT v AS input_value;","values":[19],"counts":[2]},"trace":[[{"columns":["036465660000000b696e7075745f76616c756501760c3f000b000000030000000000"],"metadata_end":"fe00000a00","rows":["000013000000"],"terminal":"fe00000a00","status":10},{"ok_packet":"00000002000000","status":2}]]},{"name":"OUT-only","spec":{"args":"OUT v INT","body":"SET v=44;","values":[null],"counts":[2],"out":true},"trace":[[{"columns":["0364656604746573741770726570617265645f70335f6d61747269785f70726f631770726570617265645f70335f6d61747269785f70726f63017601760c3f000b000000030000000000"],"metadata_end":"fe00000a10","rows":["00002c000000"],"terminal":"fe00000a10","status":4106},{"ok_packet":"00000002000000","status":2}]]},{"name":"INOUT-reuse","spec":{"args":"INOUT v INT","body":"SELECT v AS before_value; SET v=v+7; SELECT v AS after_value;","values":[5],"second":[9],"counts":[4,4],"out":true},"trace":[[{"columns":["036465660000000c6265666f72655f76616c756501760c3f000b000000030000000000"],"metadata_end":"fe00000a00","rows":["000005000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000b61667465725f76616c756501760c3f000b000000030000000000"],"metadata_end":"fe00000a00","rows":["00000c000000"],"terminal":"fe00000a00","status":10},{"columns":["0364656604746573741770726570617265645f70335f6d61747269785f70726f631770726570617265645f70335f6d61747269785f70726f63017601760c3f000b000000030000000000"],"metadata_end":"fe00000a10","rows":["00000c000000"],"terminal":"fe00000a10","status":4106},{"ok_packet":"00000002000000","status":2}],[{"columns":["036465660000000c6265666f72655f76616c756501760c3f000b000000030000000000"],"metadata_end":"fe00000a00","rows":["000009000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000b61667465725f76616c756501760c3f000b000000030000000000"],"metadata_end":"fe00000a00","rows":["000010000000"],"terminal":"fe00000a00","status":10},{"columns":["0364656604746573741770726570617265645f70335f6d61747269785f70726f631770726570617265645f70335f6d61747269785f70726f63017601760c3f000b000000030000000000"],"metadata_end":"fe00000a10","rows":["000010000000"],"terminal":"fe00000a10","status":4106},{"ok_packet":"00000002000000","status":2}]]},{"name":"IN-OUT-INOUT-reuse","spec":{"args":"IN seed INT, OUT twice INT, INOUT total INT","body":"SET twice=seed*2; SET total=total+seed; SELECT seed AS input_value;","values":[2,null,5],"second":[3,null,9],"counts":[3,3],"out":true},"trace":[[{"columns":["036465660000000b696e7075745f76616c756504736565640c3f000b000000030000000000"],"metadata_end":"fe00000a00","rows":["000002000000"],"terminal":"fe00000a00","status":10},{"columns":["0364656604746573741770726570617265645f70335f6d61747269785f70726f631770726570617265645f70335f6d61747269785f70726f630574776963650574776963650c3f000b000000030000000000","0364656604746573741770726570617265645f70335f6d61747269785f70726f631770726570617265645f70335f6d61747269785f70726f6305746f74616c05746f74616c0c3f000b000000030000000000"],"metadata_end":"fe00000a10","rows":["00000400000007000000"],"terminal":"fe00000a10","status":4106},{"ok_packet":"00000002000000","status":2}],[{"columns":["036465660000000b696e7075745f76616c756504736565640c3f000b000000030000000000"],"metadata_end":"fe00000a00","rows":["000003000000"],"terminal":"fe00000a00","status":10},{"columns":["0364656604746573741770726570617265645f70335f6d61747269785f70726f631770726570617265645f70335f6d61747269785f70726f630574776963650574776963650c3f000b000000030000000000","0364656604746573741770726570617265645f70335f6d61747269785f70726f631770726570617265645f70335f6d61747269785f70726f6305746f74616c05746f74616c0c3f000b000000030000000000"],"metadata_end":"fe00000a10","rows":["0000060000000c000000"],"terminal":"fe00000a10","status":4106},{"ok_packet":"00000002000000","status":2}]]},{"name":"later-error","spec":{"args":"","body":"SELECT 101 AS before_error; SIGNAL SQLSTATE '45000' SET MYSQL_ERRNO=1644, MESSAGE_TEXT='P3 later error'; SET @p3_after_error=1;","values":[],"counts":[2],"error":true},"trace":[[{"columns":["036465660000000c6265666f72655f6572726f72000c3f0003000000038100000000"],"metadata_end":"fe00000a00","rows":["000065000000"],"terminal":"fe00000a00","status":10},{"error_packet":"ff6c062334353030305033206c61746572206572726f72","errno":1644,"sqlstate":"45000"}]]},{"name":"initial-error","spec":{"args":"","body":"SIGNAL SQLSTATE '45000' SET MYSQL_ERRNO=1644, MESSAGE_TEXT='P3 initial error'; SELECT 102 AS unreachable;","values":[],"counts":[1],"error":true},"trace":[[{"error_packet":"ff6c06233435303030503320696e697469616c206572726f72","errno":1644,"sqlstate":"45000"}]]},{"name":"metadata-change","spec":{"args":"","body":"SELECT * FROM test.prepared_p3_matrix_items; SELECT COUNT(*) AS n FROM test.prepared_p3_matrix_items;","values":[],"counts":[3,3],"alter":true},"trace":[[{"columns":["0364656604746573741870726570617265645f70335f6d61747269785f6974656d731870726570617265645f70335f6d61747269785f6974656d730269640269640c3f000b000000030350000000","0364656604746573741870726570617265645f70335f6d61747269785f6974656d731870726570617265645f70335f6d61747269785f6974656d73017601760c2d0030000000fd0000000000"],"metadata_end":"fe00002a00","rows":["0000010000000473656564"],"terminal":"fe00002a00","status":42},{"columns":["03646566000000016e000c3f0015000000088100000000"],"metadata_end":"fe00002a00","rows":["00000100000000000000"],"terminal":"fe00002a00","status":42},{"ok_packet":"00000022000000","status":34}],[{"columns":["0364656604746573741870726570617265645f70335f6d61747269785f6974656d731870726570617265645f70335f6d61747269785f6974656d730269640269640c3f000b000000030350000000","0364656604746573741870726570617265645f70335f6d61747269785f6974656d731870726570617265645f70335f6d61747269785f6974656d73017601760c3f000c000000fd8000000000","0364656604746573741870726570617265645f70335f6d61747269785f6974656d731870726570617265645f70335f6d61747269785f6974656d730561646465640561646465640c3f0014000000080000000000"],"metadata_end":"fe00002a00","rows":["00000100000004736565640900000000000000"],"terminal":"fe00002a00","status":42},{"columns":["03646566000000016e000c3f0015000000088100000000"],"metadata_end":"fe00002a00","rows":["00000100000000000000"],"terminal":"fe00002a00","status":42},{"ok_packet":"00000022000000","status":34}]]},{"name":"PS-flag-multiple","spec":{"args":"OUT v INT","body":"SELECT 11 AS first_value; SELECT 22 AS second_value; SET v=44;","values":[null],"counts":[4],"out":true},"trace":[[{"columns":["036465660000000b66697273745f76616c7565000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00000b000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000c7365636f6e645f76616c7565000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000016000000"],"terminal":"fe00000a00","status":10},{"columns":["0364656604746573741770726570617265645f70335f6d61747269785f70726f631770726570617265645f70335f6d61747269785f70726f63017601760c3f000b000000030000000000"],"metadata_end":"fe00000a10","rows":["00002c000000"],"terminal":"fe00000a10","status":4106},{"ok_packet":"00000002000000","status":2}]]},{"name":"no-PS-flag-OUT","spec":{"args":"OUT v INT","body":"SET v=44;","values":[null],"counts":[1],"ps":false},"trace":[[{"ok_packet":"00000002000000","status":2}]]},{"name":"no-PS-flag-multiple","spec":{"args":"OUT v INT","body":"SELECT 11 AS first_value; SELECT 22 AS second_value; SET v=44;","values":[null],"counts":[3],"ps":false},"trace":[[{"columns":["036465660000000b66697273745f76616c7565000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["00000b000000"],"terminal":"fe00000a00","status":10},{"columns":["036465660000000c7365636f6e645f76616c7565000c3f0002000000038100000000"],"metadata_end":"fe00000a00","rows":["000016000000"],"terminal":"fe00000a00","status":10},{"ok_packet":"00000002000000","status":2}]]}],"additional":[{"name":"parameter-type-0","type":0,"value":"3132332e34353030","trace":[{"kind":"rows","columns":["036465660000000176000c3f0009000000008100040000"],"rows":["0000083132332e34353030"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c3f0009000000008100040000"],"rows":["0000083132332e34353030"],"terminal":"fe00000200"}]},{"name":"parameter-type-15","type":15,"value":"74657874","trace":[{"kind":"rows","columns":["036465660000000176000c2d0010000000fd0100270000"],"rows":["00000474657874"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c2d0010000000fd0100270000"],"rows":["00000474657874"],"terminal":"fe00000200"}]},{"name":"parameter-type-16","type":16,"value":"01","trace":[{"kind":"rows","columns":["036465660000000176000c3f0000000000108000000000"],"rows":["0004"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c3f0000000000108000000000"],"rows":["0004"],"terminal":"fe00000200"}]},{"name":"parameter-type-247","type":247,"value":"616c706861","trace":[{"kind":"rows","columns":["036465660000000176000c2d0014000000fd0100270000"],"rows":["000005616c706861"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c2d0014000000fd0100270000"],"rows":["000005616c706861"],"terminal":"fe00000200"}]},{"name":"parameter-type-248","type":248,"value":"616c706861","trace":[{"kind":"rows","columns":["036465660000000176000c2d0014000000fd0100270000"],"rows":["000005616c706861"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c2d0014000000fd0100270000"],"rows":["000005616c706861"],"terminal":"fe00000200"}]},{"name":"parameter-type-249","type":249,"value":"00ff","trace":[{"kind":"rows","columns":["036465660000000176000c3f0002000000f98100270000"],"rows":["00000200ff"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c3f0002000000f98100270000"],"rows":["00000200ff"],"terminal":"fe00000200"}]},{"name":"parameter-type-250","type":250,"value":"00ff","trace":[{"kind":"rows","columns":["036465660000000176000c3f0002000000fa8100270000"],"rows":["00000200ff"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c3f0002000000fa8100270000"],"rows":["00000200ff"],"terminal":"fe00000200"}]},{"name":"parameter-type-251","type":251,"value":"00ff","trace":[{"kind":"rows","columns":["036465660000000176000c3f0002000000fb8100270000"],"rows":["00000200ff"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c3f0002000000fb8100270000"],"rows":["00000200ff"],"terminal":"fe00000200"}]},{"name":"parameter-type-255","type":255,"value":"00ff","trace":[{"kind":"rows","columns":["036465660000000176000c3f0000000000ff8000000000"],"rows":["0004"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c3f0000000000ff8000000000"],"rows":["0004"],"terminal":"fe00000200"}]},{"name":"parameter-type-9","type":9,"value":"000080ff","trace":[{"kind":"rows","columns":["036465660000000176000c3f0000000000098000000000"],"rows":["0004"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c3f0000000000098000000000"],"rows":["0004"],"terminal":"fe00000200"}]},{"name":"parameter-type-13","type":13,"value":"e807","trace":[{"kind":"rows","columns":["036465660000000176000c3f00000000000d8000000000"],"rows":["0004"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c3f00000000000d8000000000"],"rows":["0004"],"terminal":"fe00000200"}]},{"name":"parameter-type-14","type":14,"value":"e807021d","trace":[{"kind":"rows","columns":["036465660000000176000c3f000a0000000a8100000000"],"rows":["000004e807021d"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c3f000a0000000a8100000000"],"rows":["000004e807021d"],"terminal":"fe00000200"}]},{"name":"parameter-type-7","type":7,"value":"e807021d0c223840e20100","trace":[{"kind":"rows","columns":["036465660000000176000c3f0013000000078100060000"],"rows":["00000be807021d0c223840e20100"],"terminal":"fe00000200"},{"kind":"rows","columns":["036465660000000176000c3f0013000000078100060000"],"rows":["00000be807021d0c223840e20100"],"terminal":"fe00000200"}]}],"long":[{"name":"chunks-binary-mixed-parameters","trace":[[{"columns":["036465660000000161000c3f0003000000fc8100270000","03646566000000016e000c3f000b000000038100000000","036465660000000162000c3f0009000000fc8100270000"],"metadata_end":"fe00000200","rows":["0000034100421700000009e697a5e69cace8aa9e"],"terminal":"fe00000200","status":2}]]},{"name":"empty-stream-overrides-null","trace":[[{"columns":["036465660000000176000c3f0000000000fc8100270000"],"metadata_end":"fe00000200","rows":["000000"],"terminal":"fe00000200","status":2}],[{"columns":["036465660000000176000c3f0000000000fc8000000000"],"metadata_end":"fe00000200","rows":["0004"],"terminal":"fe00000200","status":2}]]},{"name":"type-reuse-and-change","trace":[[{"columns":["036465660000000176000c3f0005000000fc8100270000"],"metadata_end":"fe00000200","rows":["0000056669727374"],"terminal":"fe00000200","status":2}],[{"columns":["036465660000000176000c3f000a000000fc8100270000"],"metadata_end":"fe00000200","rows":["00000a6c6f6e672d7265757365"],"terminal":"fe00000200","status":2}],[{"columns":["036465660000000176000c3f0006000000fc8100270000"],"metadata_end":"fe00000200","rows":["000006696e6c696e65"],"terminal":"fe00000200","status":2}],[{"columns":["036465660000000176000c2d0008000000fd0100270000"],"metadata_end":"fe00000200","rows":["000006e69687e5ad97"],"terminal":"fe00000200","status":2}]]},{"name":"two-statement-ownership","trace":[[{"columns":["036465660000000176000c3f0006000000fc8100270000"],"metadata_end":"fe00000200","rows":["0000067365636f6e64"],"terminal":"fe00000200","status":2}],[{"columns":["036465660000000176000c3f0005000000fc8100270000"],"metadata_end":"fe00000200","rows":["0000056669727374"],"terminal":"fe00000200","status":2}]]},{"name":"wrong-LONG-type","trace":[[{"error_packet":"ffba04234859303030496e636f727265637420617267756d656e747320746f206d7973716c645f73746d745f65786563757465","errno":1210,"sqlstate":"HY000"}],[{"columns":["036465660000000176000c3f0001000000fc8100270000"],"metadata_end":"fe00000200","rows":["0000017a"],"terminal":"fe00000200","status":2}]]},{"name":"reset-stream","trace":[[{"columns":["036465660000000176000c3f0005000000fc8100270000"],"metadata_end":"fe00000200","rows":["0000056669727374"],"terminal":"fe00000200","status":2}],[{"columns":["036465660000000176000c3f0003000000fc8100270000"],"metadata_end":"fe00000200","rows":["0000036e6577"],"terminal":"fe00000200","status":2}]]}]}`
