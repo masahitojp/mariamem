@@ -109,7 +109,11 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
         target = module/'generated'/relative.removeprefix('code/')
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text('package generated\n'+body)
-    data = b'fixture data'
+    from runtime_crc32c import TABLE_OFFSET
+    target = module/'generated/p4/p4_pure.go'
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text('package p4\n' + (ROOT/'tests/fixtures/pinned-crc-validator.go.txt').read_text())
+    data = bytes(TABLE_OFFSET) + bytes.fromhex((ROOT/'tests/fixtures/pinned-crc-table.hex').read_text())
     (module/'generated/data.bin').write_bytes(data)
     (project/'release').mkdir()
     (project/'release/generated-go-inputs.json').write_text(json.dumps({

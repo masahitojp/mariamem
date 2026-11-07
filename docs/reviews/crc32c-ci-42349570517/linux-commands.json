@@ -1,0 +1,22 @@
+[
+  {
+    "argv": [
+      "/opt/hostedtoolcache/Python/3.14.10/x64/bin/python",
+      "scripts/verify.py",
+      "check"
+    ],
+    "exit_code": 0,
+    "name": "source-unit-checks",
+    "seconds": 550.417698929
+  },
+  {
+    "argv": [
+      "/opt/hostedtoolcache/Python/3.14.10/x64/bin/python",
+      "scripts/verify.py",
+      "integration"
+    ],
+    "exit_code": 0,
+    "name": "runtime-integration",
+    "seconds": 858.3743589219999
+  }
+]
