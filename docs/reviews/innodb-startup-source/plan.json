@@ -1,0 +1,18 @@
+{
+  "question": "Which work differs between fresh and restored InnoDB startup inside the existing innodb_memory_background_complete -> innodb_open_recovery_complete interval?",
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "prior_measurement_source_commit": "398133d0a05f00e53c795f318aec7113261b6cac",
+  "active_work_budget_seconds": 3600,
+  "tooling_budget_seconds": 300,
+  "maximum_upstream_files": 8,
+  "per_fetch_timeout_seconds": 30,
+  "new_measurement_processes": 0,
+  "builds": 0,
+  "heavy_ci_submissions": 0,
+  "evidence": ["pinned srv_start control flow and selected callees", "canonical guest patches/hooks touching these functions", "prior matched Fresh/Fork phases"],
+  "exit": "A branch-aware reading/verification/reconstruction map and one next measurable boundary; if exclusive costs cannot be inferred, explicitly state that and the finite follow-up cost.",
+  "forbidden": ["skip recovery or validation", "product/runtime changes", "unbounded recursive callgraph", "reopen Issue68", "new timing campaign or guest build"],
+  "storage_budget_gib": 1,
+  "min_free_gib": 12
+}

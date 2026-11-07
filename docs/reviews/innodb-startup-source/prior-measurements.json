@@ -1,0 +1,51 @@
+{
+  "measured_source_commit": "398133d0a05f00e53c795f318aec7113261b6cac",
+  "report_commit": "67b88dc4d5d1b997c43568769f90551091a09fc2",
+  "summary_sha256": "5e6899b57d7ddd8586d80550eebe4d0d027c3987349949bb396094ebf7e7296e",
+  "values": [
+    {
+      "parallel": 1,
+      "mode": "fresh",
+      "diagnostic_means_ms": {
+        "init.common": 8.344347215277777,
+        "init.plugin.InnoDB": 5.582692430555555,
+        "init.innodb_open_recovery": 0.7109334722222223,
+        "init.innodb_transactions": 2.007083361111111,
+        "init.server_init": 19.997043965277776
+      }
+    },
+    {
+      "parallel": 1,
+      "mode": "fork",
+      "diagnostic_means_ms": {
+        "init.common": 8.4293568125,
+        "init.plugin.InnoDB": 9.432581298611112,
+        "init.innodb_open_recovery": 6.517118,
+        "init.innodb_transactions": 0.13661920833333333,
+        "init.server_init": 23.809040805555554
+      }
+    },
+    {
+      "parallel": 4,
+      "mode": "fresh",
+      "diagnostic_means_ms": {
+        "init.common": 9.257413805555556,
+        "init.plugin.InnoDB": 6.842161798611111,
+        "init.innodb_open_recovery": 0.8317633124999999,
+        "init.innodb_transactions": 2.2713877152777777,
+        "init.server_init": 24.335421875
+      }
+    },
+    {
+      "parallel": 4,
+      "mode": "fork",
+      "diagnostic_means_ms": {
+        "init.common": 9.007401347222222,
+        "init.plugin.InnoDB": 11.187212944444445,
+        "init.innodb_open_recovery": 7.215687208333334,
+        "init.innodb_transactions": 0.13788511805555562,
+        "init.server_init": 29.3331455625
+      }
+    }
+  ]
+}

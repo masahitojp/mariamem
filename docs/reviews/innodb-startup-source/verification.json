@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "upstream_files": 8,
+  "upstream_blob_and_sha256": "verified",
+  "source_anchors": 29,
+  "local_patch_input_hashes": "unchanged",
+  "new_runtime_tests": 0,
+  "new_builds": 0,
+  "new_measurements": 0
+}

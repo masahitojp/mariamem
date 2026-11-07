@@ -1,0 +1,10 @@
+{
+  "README.md": "7fac68ed67980520c7e3a41d69c12affd02182862a9ecf1002080013de4a4ccf",
+  "acquire.py": "a626a54477da51a77cfe1c06322854b57acbd596fa9073ef6da423e86cdc4a09",
+  "local-inputs.json": "61154470ede07876e83315c96db2fb5af32307143550b260c28b1e619b62b44e",
+  "plan.json": "3c248937dde97667df6403b1738710ad5d8793b055e652e5ad2960a33912aade",
+  "prior-measurements.json": "0b8852532b1c75fc29ac2d3bd90c586c2c3d18bae844a0d1773730e446c861a6",
+  "source-files.json": "486bc897d0bcde1e4482e8b013fa698dfd4944beba2d3a70d3c6953bfce40e6d",
+  "source-map.json": "37a6036dbe110e1627c423151e36eb2feec1a1810c3443b4da9b836b2d7b073b",
+  "verification.json": "d4d870ae14eb683681f2c6d4c6503cde0dbd718bc9f1948558351cc2503bc62f"
+}

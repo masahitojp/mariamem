@@ -1,0 +1,208 @@
+[
+  {
+    "path": "storage/innobase/handler/ha_innodb.cc",
+    "anchor": "bool\tcreate_new_db = false;",
+    "lines": [
+      4245
+    ]
+  },
+  {
+    "path": "storage/innobase/handler/ha_innodb.cc",
+    "anchor": "srv_sys_space.check_file_spec(&create_new_db",
+    "lines": [
+      4248
+    ]
+  },
+  {
+    "path": "storage/innobase/handler/ha_innodb.cc",
+    "anchor": "err = srv_start(create_new_db);",
+    "lines": [
+      4254
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "static dberr_t srv_load_tables(",
+    "lines": [
+      1209
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "static uint32_t srv_undo_tablespace_open(",
+    "lines": [
+      626
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "dberr_t srv_undo_tablespaces_init(",
+    "lines": [
+      865
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "err = recv_sys.find_checkpoint();",
+    "lines": [
+      1416
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "err = srv_sys_space.open_or_create(",
+    "lines": [
+      1427
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "trx_sys.create();",
+    "lines": [
+      1502
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "err = dict_create();",
+    "lines": [
+      1547
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "err = recv_recovery_from_checkpoint_start();",
+    "lines": [
+      1568
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "err = dict_boot();",
+    "lines": [
+      1592
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "recv_sys.apply(true);",
+    "lines": [
+      1076,
+      1182,
+      1621
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "err = srv_load_tables(must_upgrade_ibuf);",
+    "lines": [
+      1638
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "err = trx_lists_init_at_db_start();",
+    "lines": [
+      1643,
+      1652
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "err = srv_log_rebuild_if_needed();",
+    "lines": [
+      1672
+    ]
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "anchor": "/* Create the doublewrite buffer to a new tablespace */",
+    "lines": [
+      1769
+    ]
+  },
+  {
+    "path": "storage/innobase/log/log0recv.cc",
+    "anchor": "dberr_t recv_sys_t::find_checkpoint()",
+    "lines": [
+      1693
+    ]
+  },
+  {
+    "path": "storage/innobase/log/log0recv.cc",
+    "anchor": "void recv_sys_t::apply(bool last_batch)",
+    "lines": [
+      4089
+    ]
+  },
+  {
+    "path": "storage/innobase/log/log0recv.cc",
+    "anchor": "static bool recv_scan_log(bool last_phase,",
+    "lines": [
+      4254
+    ]
+  },
+  {
+    "path": "storage/innobase/log/log0recv.cc",
+    "anchor": "dberr_t recv_recovery_from_checkpoint_start()",
+    "lines": [
+      4812
+    ]
+  },
+  {
+    "path": "storage/innobase/log/log0log.cc",
+    "anchor": "static void *log_mmap(",
+    "lines": [
+      196
+    ]
+  },
+  {
+    "path": "storage/innobase/log/log0log.cc",
+    "anchor": "bool log_t::attach(",
+    "lines": [
+      320
+    ]
+  },
+  {
+    "path": "storage/innobase/include/log0recv.h",
+    "anchor": "static constexpr size_t tmp_buf_size",
+    "lines": [
+      265
+    ]
+  },
+  {
+    "path": "storage/innobase/dict/dict0boot.cc",
+    "anchor": "dberr_t dict_create()",
+    "lines": [
+      102
+    ]
+  },
+  {
+    "path": "storage/innobase/dict/dict0boot.cc",
+    "anchor": "dberr_t dict_boot()",
+    "lines": [
+      197
+    ]
+  },
+  {
+    "path": "storage/innobase/trx/trx0trx.cc",
+    "anchor": "dberr_t trx_lists_init_at_db_start()",
+    "lines": [
+      709
+    ]
+  },
+  {
+    "path": "storage/innobase/fsp/fsp0sysspace.cc",
+    "anchor": "inline dberr_t SysTablespace::read_lsn_and_check_flags()",
+    "lines": [
+      566
+    ]
+  },
+  {
+    "path": "storage/innobase/fsp/fsp0sysspace.cc",
+    "anchor": "SysTablespace::open_or_create(",
+    "lines": [
+      893
+    ]
+  }
+]

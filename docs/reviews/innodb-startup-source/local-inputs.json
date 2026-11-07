@@ -1,0 +1,15 @@
+{
+  "files_sha256": {
+    "guest/input.json": "d43f9d4123363b487b0d13ec0699ed769e1fcbeb573d2b52fe0ea8adae7b566f",
+    "guest/patches/common-portability.patch": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16",
+    "guest/patches/12.3.3-redo.patch": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22",
+    "scripts/guest_init_hooks.py": "34a863ee6c9be5899b38b4133ef037de58ca245a2e6d6cc0657a3bb2b809882a",
+    "internal/generatedgo/runtime_instance.go": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+    "guest/resident.inc": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c"
+  },
+  "upstream_file_count": 8,
+  "upstream_bytes": 1038568,
+  "new_builds": 0,
+  "new_measurements": 0,
+  "heavy_ci": 0
+}
