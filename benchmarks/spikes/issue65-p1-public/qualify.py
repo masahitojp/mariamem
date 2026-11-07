@@ -26,8 +26,9 @@ def main():
                GOTOOLCHAIN="go1.26.10", CGO_ENABLED="0", GOMAXPROCS="2", GOGC="50", GOWORK="off", GOFLAGS="")
     sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
     sys.path.insert(0, str(ROOT / "scripts"))
-    from dev_guest import inventory
+    from dev_guest import inventory, source_identity
     from native_target import current_target, platform_fields
+    qualifier_origin=source_identity(ROOT)
     receipt = json.loads((w / "evidence/public-source.json").read_text())
     assert receipt["source_inventory"] == inventory(product)
     binaries=json.loads((w / "evidence/public-binaries.json").read_text())
@@ -97,8 +98,11 @@ func Start(context.Context,*snapshot.Owned,time.Duration,io.Writer)(Service,erro
         code = 'import mariamem; mariamem.start(host_binary='+repr(str(control / "mariamem-host"))+')'
         run([python, "-I", "-c", code], "public-python-factory-control", external, pyenv, expected_fail=True)
     assert receipt["source_inventory"] == inventory(product)
+    assert source_identity(ROOT)==qualifier_origin
     (w / "evidence/public-result.json").write_text(json.dumps(dict(
         result="PASS scoped public C2", platform=target["platform"], host_source_commit=receipt["host_source_commit"],
+        qualifier_source_commit=qualifier_origin["commit"], qualifier_sha256=sha(Path(__file__)),
+        public_python_fixture_sha256=sha(HERE/"python_public.py"),
         guest_sha256=receipt["guest_sha256"], source_receipt_sha256=sha(w / "evidence/public-source.json"),
         binary_receipt_sha256=sha(w / "evidence/public-binaries.json"), wheel_sha256=sha(wheel),
         public_go_tests=sorted(cases), public_python="installed wheel default managed/control", factory_disabled_controls=2,
