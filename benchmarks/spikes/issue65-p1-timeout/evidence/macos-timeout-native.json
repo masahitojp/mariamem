@@ -1,0 +1,44 @@
+{
+  "cases": [
+    {
+      "name": "TestTimeoutExactValues",
+      "elapsed": "0.13s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestTimeoutAboveOldCeiling",
+      "elapsed": "10.23s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestTimeoutTinyHandshake",
+      "elapsed": "0.07s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestTimeoutFirstByteAndIdle",
+      "elapsed": "0.94s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestTimeoutStaleCommandToken",
+      "elapsed": "0.04s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestTimeoutInvalidConfiguration",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestTimeoutCancelledStartup",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestTimeoutProfile2Rejected",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    }
+  ]
+}

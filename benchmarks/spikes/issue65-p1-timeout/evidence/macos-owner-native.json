@@ -1,0 +1,49 @@
+{
+  "cases": [
+    {
+      "name": "TestOwnerHostIdentity",
+      "elapsed": "0.04s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestOwnerNativeRetirementFence",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestOwnerHostRelayFence",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestOwnerCapturePendingOpen",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestOwnerLostOpen",
+      "elapsed": "8.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestOwnerStaleFrames",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestOwnerWrongProfile",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestOwnerWrongOpened",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestOwnerRequestExhaustion",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    }
+  ]
+}
