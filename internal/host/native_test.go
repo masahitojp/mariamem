@@ -2,9 +2,11 @@ package host
 
 import (
 	"context"
+	"encoding/binary"
 	"errors"
 	"io"
 	"net"
+	"sync"
 	"testing"
 	"time"
 
@@ -85,5 +87,56 @@ func TestNativeStartupRetainsBorrowedBaseline(t *testing.T) {
 		}
 	case <-time.After(time.Second):
 		t.Fatal("late borrowed baseline not released")
+	}
+}
+
+type nativeIdleListener struct {
+	done chan struct{}
+	once sync.Once
+}
+
+func (l *nativeIdleListener) Accept() (net.Conn, error) { <-l.done; return nil, net.ErrClosed }
+func (l *nativeIdleListener) Close() error              { l.once.Do(func() { close(l.done) }); return nil }
+func (l *nativeIdleListener) Addr() net.Addr            { return &net.TCPAddr{Port: 1} }
+func TestNativeLateStartupCancellationRetainsDisposal(t *testing.T) {
+	release := make(chan struct{})
+	defer func() {
+		select {
+		case <-release:
+		default:
+			close(release)
+		}
+	}()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	listener := &nativeIdleListener{done: make(chan struct{})}
+	runner := func(x nativewire.Execution) <-chan error {
+		done := make(chan error, 1)
+		go func() {
+			body := []byte(`{"lifecycle_profile":3}`)
+			packet := make([]byte, 37+len(body))
+			binary.LittleEndian.PutUint32(packet, uint32(33+len(body)))
+			packet[4] = 100
+			binary.LittleEndian.PutUint64(packet[13:], x.Epoch)
+			copy(packet[37:], body)
+			_, _ = x.Output.Write(packet)
+			_, _ = io.Copy(io.Discard, x.Input)
+			<-release
+			done <- nil
+		}()
+		return done
+	}
+	service, err := startNative(ctx, nil, time.Second, io.Discard, "fake", runner, func() (net.Listener, error) { cancel(); return listener, nil })
+	if service != nil || !errors.Is(err, context.Canceled) || len(disposal.Owners(err)) != 1 {
+		t.Fatalf("late startup cancellation: %v %v", service, err)
+	}
+	select {
+	case <-listener.done:
+	default:
+		t.Fatal("listener admission survived failed startup")
+	}
+	close(release)
+	if e := disposal.Retry(context.Background(), err); e != nil {
+		t.Fatal(e)
 	}
 }
