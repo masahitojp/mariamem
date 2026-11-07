@@ -6,6 +6,7 @@ source checkout; the resulting runtime is then an explicit host-stage input.
 """
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -83,6 +84,16 @@ def main():
              "--development-input", inputs_path, "--development-thread-binding",
              ROOT / "benchmarks/spikes/issue65-p1-timeout/binding/identity.json", "--output", runtime], "public-install")
         shutil.copy2(ROOT / "benchmarks/spikes/issue65-p1-timeout/runtime_wire.go.txt", runtime / "runtime_wire.go")
+        # Preserve the exact reviewed P1-b handwritten completion observation
+        # seam required by RuntimeWire. No generated function body is patched.
+        overlay_path = ROOT / "benchmarks/spikes/issue65-p1-timeout/lifetime_overlay.py"
+        spec = importlib.util.spec_from_file_location("public_lifetime_overlay", overlay_path)
+        overlay = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(overlay)
+        lifetime = runtime / "code/base/thread_lifetime.go"
+        lifetime.write_bytes(overlay.apply(lifetime.read_bytes()))
+        completion = runtime / "code/base/completion_probe.go"
+        shutil.copy2(ROOT / "benchmarks/spikes/issue65-p1-timeout/completion_probe.go.txt", completion)
         shutil.copy2(HERE / "factory.go.txt", product / "internal/host/factory.go")
         shutil.copy2(HERE / "public_test.go.txt", product / "public_native_test.go")
         kind = product / "internal/runtimekind/kind.go"
@@ -100,8 +111,9 @@ def main():
         wire.write_text(text)
         # Full source overlay inventory records the tripwire/factory/runtime and
         # public fixture, not just a claimed route/source identifier.
-        run(["gofmt", "-w", runtime / "runtime_wire.go", product / "internal/host/factory.go",
-             product / "public_native_test.go", wire], "public-gofmt")
+        go_root = Path(subprocess.check_output(["go", "env", "GOROOT"], env=env, text=True).strip())
+        run([go_root / "bin/gofmt", "-w", runtime / "runtime_wire.go", product / "internal/host/factory.go",
+             product / "public_native_test.go", lifetime, completion, wire], "public-gofmt")
         receipt = dict(contract="issue65-public-unqualified", host_source_commit=host_origin["commit"],
                        guest_origin_source_commit=ORIGIN, runtime_installer_source_commit=ORIGIN,
                        guest_sha256=GUEST, source_inventory=inventory(product),
