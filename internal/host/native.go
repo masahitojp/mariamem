@@ -55,6 +55,9 @@ func startNative(ctx context.Context, restore *snapshot.Owned, timeout time.Dura
 	if e == nil {
 		e = b.Serve(l)
 	}
+	if e == nil {
+		e = ctx.Err()
+	}
 	if e != nil {
 		probe, cancel := context.WithCancel(context.Background())
 		cancel()
