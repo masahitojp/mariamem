@@ -18,7 +18,7 @@ LIMITS_FIXTURE_SHA256='808fe47bd4ee69f8e80b9702170429b1cfe56d2cbd83d3721c184bdb3
 GUEST_SOURCE='be244a0bdb510a22417241c2aa2f76a9093aac1b'
 HOST_SOURCE=GUEST_SOURCE
 GUEST_SHA='d4f30818c3410db186db5ef1c9abc5f14af0cdc52bb2b76bbca369e02eb1b481'
-SOURCE_REFERENCE_SHA256='PENDING_P1_TIMEOUT_REFERENCE'
+SOURCE_REFERENCE_SHA256='88e66b7bc44754cfbcaa9b345749fd9a505e6b20e790d446e5ff0954ec949e99'
 spec=importlib.util.spec_from_file_location('linux_probe',HERE.parent/'issue65-native-linux/probe.py')
 base=importlib.util.module_from_spec(spec);spec.loader.exec_module(base)
 base.GUEST_SOURCE=GUEST_SOURCE;base.HOST_SOURCE=HOST_SOURCE;base.GUEST_SHA=GUEST_SHA
