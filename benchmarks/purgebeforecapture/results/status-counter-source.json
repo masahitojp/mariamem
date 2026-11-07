@@ -1,0 +1,6 @@
+{
+  "query": "SHOW GLOBAL STATUS LIKE 'Innodb_history_list_length'",
+  "documentation": "https://mariadb.com/docs/server/ha-and-performance/optimization-and-tuning/system-variables/innodb-status-variables",
+  "meaning": "global InnoDB history list length; distinct from startup undo_log_nonempty bool",
+  "missing_input_policy": "fail closed if absent/invalid; no alternate query or extra build"
+}
