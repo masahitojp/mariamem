@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -29,6 +30,10 @@ def main():
     from native_target import current_target, platform_fields
     receipt = json.loads((w / "evidence/public-source.json").read_text())
     assert receipt["source_inventory"] == inventory(product)
+    binaries=json.loads((w / "evidence/public-binaries.json").read_text())
+    assert binaries["public_test_sha256"]==sha(out/"public.test")
+    assert binaries["host_sha256"]==sha(out/"mariamem-host")
+    assert binaries["source_receipt_sha256"]==sha(w/"evidence/public-source.json")
     def run(argv, name, cwd=product, environment=env, expected_fail=False):
         result = subprocess.run([str(x) for x in argv], cwd=cwd, env=environment, text=True,
                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=240)
@@ -38,7 +43,10 @@ def main():
         else:
             assert result.returncode == 0, result.stdout
         return result.stdout
-    run([out / "public.test", "-test.v", "-test.run=^TestNativePublic", "-test.timeout=120s"], "public-go")
+    go_log=run([out / "public.test", "-test.v", "-test.run=^TestNativePublic", "-test.timeout=120s"], "public-go")
+    expected={"TestNativePublicGoRoutes","TestNativePublicSharedCapacity","TestNativePublicFatalCauseAndIsolation","TestNativePublicDefaultTimeout"}
+    cases=re.findall(r"^--- PASS: (TestNativePublic\w+) \(",go_log,re.M)
+    assert set(cases)==expected and len(cases)==len(expected) and "--- SKIP:" not in go_log,go_log
     # Package the exact tested host into an ordinary local wheel. No release
     # inputs, version, approval state or canonical guest manifest is edited.
     package = out / "python"
@@ -65,7 +73,10 @@ def main():
     external.mkdir()
     shutil.copy2(HERE / "python_public.py", external / "consumer.py")
     pyenv = {k: v for k, v in env.items() if k != "PYTHONPATH"}
-    run([python, "-I", external / "consumer.py"], "public-python", external, pyenv)
+    python_log=run([python, "-I", external / "consumer.py"], "public-python", external, pyenv)
+    python_result=json.loads(python_log.strip())
+    assert python_result["result"]=="PASS_PUBLIC_PYTHON"
+    assert Path(python_result["module"]).is_relative_to(w/"temp/venv"),python_result
     # Overlay only the factory; identical generated runtime/guest/public fixture.
     disabled = '''package host
 import("context";"errors";"io";"time";"github.com/masahitojp/mariamem/internal/snapshot")
@@ -87,12 +98,12 @@ func Start(context.Context,*snapshot.Owned,time.Duration,io.Writer)(Service,erro
         run([python, "-I", "-c", code], "public-python-factory-control", external, pyenv, expected_fail=True)
     assert receipt["source_inventory"] == inventory(product)
     (w / "evidence/public-result.json").write_text(json.dumps(dict(
-        result="PASS scoped macOS public C2", host_source_commit=receipt["host_source_commit"],
+        result="PASS scoped public C2", platform=target["platform"], host_source_commit=receipt["host_source_commit"],
         guest_sha256=receipt["guest_sha256"], source_receipt_sha256=sha(w / "evidence/public-source.json"),
         binary_receipt_sha256=sha(w / "evidence/public-binaries.json"), wheel_sha256=sha(wheel),
-        public_go_tests=4, public_python="installed wheel default managed/control", factory_disabled_controls=2,
+        public_go_tests=sorted(cases), public_python="installed wheel default managed/control", factory_disabled_controls=2,
         legacy_wire_tripwire="present in all positive artifacts; no invocation",
-        not_verified=["Linux public path", "full C3 Snapshot/Fork/Live/fault oracles", "all declared consumers", "performance", "canonical adoption", "release"]), indent=2) + "\n")
+        not_verified=["opposite supported OS public path", "full C3 Snapshot/Fork/Live/fault oracles", "all declared consumers", "performance", "canonical adoption", "release"]), indent=2) + "\n")
 
 
 if __name__ == "__main__":
