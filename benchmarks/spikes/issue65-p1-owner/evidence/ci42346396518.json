@@ -487,5 +487,12 @@
     "consumer/performance",
     "canonical adoption",
     "release"
-  ]
+  ],
+  "runtime_identity": {
+    "host_binary_sha256": "3a76ad806f312d3c277a644870e1816a1245c58f7e2851b699c9da9503c13441",
+    "g2_binary_sha256": "11054149f9432e0fa1456246edb0e9c65dba87b00e8fb95f67c31cb72db55b19",
+    "go_buildinfo": "/home/runner/work/_temp/issue65-p1-owner/runtime/temp/host/wire.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/issue65-wire\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=amd64\n\tbuild\tGOOS=linux\n\tbuild\tGOAMD64=v1\n",
+    "host_build_record_sha256": "51aee211c6a4482debdc155836d16e6d162c41eab3a7c253b503ee8dbf2dd5fd",
+    "g2_build_record_sha256": "e3168f3baeb3ab5222683a121205cce1d0f082c152beb411a6fb6cc891f0484c"
+  }
 }
