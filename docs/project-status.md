@@ -443,6 +443,9 @@ host-owned session reservations/identity as the first bounded implementation,
 with explicit private profile2 and retirement/relay-join conditions. This task
 records source inspection and a plan,not a new runtime implementation or public
 adoption. Public timeout/wiring,remaining host coordination and P2 stay explicit.
+The [plan review](reviews/issue65-p1-host-ownership-plan.md) pins the artifact and
+cross-checks prior conditions and CI blind spots;it recommends this bounded
+implementation scope,not canonical adoption.
 
 
 
