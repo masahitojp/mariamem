@@ -106,6 +106,13 @@ native frameを読む共有readLoop内でrelay終了を待たず、session単位
 失敗/CloseでRETIREDを受け取れなくても、root worker join・reader/relay joinとdisposal完了までは保持する。
 完了しないworkerの強制回収は保証しない。既存のfirst cause、cleanup debt、capture debtを潰さない。
 
+capture開始時は同じhost owner lockで受付を止め、`Reserved/Opening/Uncertain`があれば、guest fenceを
+要求する前にbusy/failedとして戻す。既に送信中のOPENを、hostの見かけ上のidleで追い越さない。
+これらが無い場合もhost状態はSnapshot許可ではなく、guestの最終SQL/capture fenceを必須にする。
+Activeなidle sessionやRetiringの扱いを、hostのcounterだけで新しく緩和・拒否しない。sourceの消費と
+FS/backing解放は従来のguest確認・全join条件に従う。
+
+
 ### P1-aに入れない変更
 
 SQL admission、first-byte deadlineのguest atomic gate、timer scheduling、Vioのqueue/wakeup、
