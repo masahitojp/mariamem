@@ -121,6 +121,7 @@ type instance struct {
 	beforeOpen                func(*session)
 	wrongProfile, wrongOpened bool
 	beforeRelayDone           func(*session, uint8)
+	afterRelayDone            func(*session, uint8)
 	afterNativeRetired        func(*session)
 	completionTarget          uint32
 	completionEntered         chan struct{}
@@ -318,7 +319,11 @@ func (s *session) relayDone(part uint8) {
 	if released {
 		delete(r.sessions, s.id)
 	}
+	after := r.afterRelayDone
 	r.mu.Unlock()
+	if after != nil {
+		after(s, part)
+	}
 	if e != nil {
 		r.fail(e)
 	}

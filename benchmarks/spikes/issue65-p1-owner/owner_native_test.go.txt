@@ -142,9 +142,16 @@ func TestOwnerHostRelayFence(t *testing.T) {
 	k := key{0, 1}
 	entered := make(chan struct{})
 	nativeDone := make(chan struct{})
+	writerDone := make(chan struct{})
+	var writerOnce sync.Once
 	var nativeOnce sync.Once
 	var once sync.Once
 	r.mu.Lock()
+	r.afterRelayDone = func(s *session, part uint8) {
+		if s.id == k && part == nativewire.Writer {
+			writerOnce.Do(func() { close(writerDone) })
+		}
+	}
 	r.afterNativeRetired = func(s *session) {
 		if s.id == k {
 			nativeOnce.Do(func() { close(nativeDone) })
@@ -167,6 +174,11 @@ func TestOwnerHostRelayFence(t *testing.T) {
 	case <-nativeDone:
 	case <-time.After(12 * time.Second):
 		t.Fatal("native retirement did not complete")
+	}
+	select {
+	case <-writerDone:
+	case <-time.After(12 * time.Second):
+		t.Fatal("writer relay did not finish")
 	}
 	if ownerCount(r) != 16 {
 		t.Fatal("native retirement forgave unjoined relay")
