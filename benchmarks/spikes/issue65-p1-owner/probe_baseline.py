@@ -18,7 +18,7 @@ LIMITS_FIXTURE_SHA256='808fe47bd4ee69f8e80b9702170429b1cfe56d2cbd83d3721c184bdb3
 GUEST_SOURCE='b2d9a2a6e37ed7dd3149b6c85f8908d8d11df17a'
 HOST_SOURCE=GUEST_SOURCE
 GUEST_SHA='a75416e3b677b83fb9fca4d213dd67ec32c1e1732939d275866183828aa868ee'
-SOURCE_REFERENCE_SHA256='PENDING_P1_REFERENCE'
+SOURCE_REFERENCE_SHA256='260d3983e797791bb84e61380bde57a07d6f3a65c3607d4790bc794cf9ef5562'
 spec=importlib.util.spec_from_file_location('linux_probe',HERE.parent/'issue65-native-linux/probe.py')
 base=importlib.util.module_from_spec(spec);spec.loader.exec_module(base)
 base.GUEST_SOURCE=GUEST_SOURCE;base.HOST_SOURCE=HOST_SOURCE;base.GUEST_SHA=GUEST_SHA
@@ -207,19 +207,22 @@ def execute(w,compare_reference=True):
                    'compared_go_assembly_data_files':compared,'different_files':different,
                    'reference_adjustments':[]})
         if different:raise ValueError('compiled code differs from reviewed macOS source bundle')
-        result['source_reference_status']='MATCHED_NEW_G2_REPAIR_REFERENCE'
+        result['source_reference_status']='MATCHED_P1_OWNER_REFERENCE'
     else:
         result['source_reference_status']='LOCAL_REFERENCE_CANDIDATE'
     base.save(w/'evidence/tooling.json' ,{'probe_sha256':base.sha(Path(__file__)),
               'binding_sha256':base.sha(HERE/'binding/identity.json'),
-              'main_source_commit':'61973daa19b6f665d7342338c3252dd7af61fc90'})
+              'historical_main_baseline_commit':'61973daa19b6f665d7342338c3252dd7af61fc90'})
     result['supporting_checks']='PASS'
     result['limits_result']=limits_result
     result['policy_controls']=3
     result['g1_result']=g1_result
     result['repair_controls']=4
+    result['owner_cases']=9
+    result['lifetime_cases']=10
+    result['native_fault_controls']=3
     result['ready']=result['ready'] and limits_result['ready'] and g1_result['ready']
-    result['result']='PASS scoped native G1 repair' if result['ready'] else 'NOT_READY: native G1 repair'
+    result['result']='PASS scoped native P1-a baseline' if result['ready'] else 'NOT_READY: native P1-a baseline'
     base.save(w/'evidence/result.json',result)
     if not result['ready']:raise ValueError(result['result'])
 def build(w):
