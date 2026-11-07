@@ -1,0 +1,22 @@
+package base
+import "sync/atomic"
+type CRCProbeCounters struct {
+ ValidatorCalls uint64 `json:"validator_calls"`
+ Calls uint64 `json:"crc_calls"`
+ FastCalls uint64 `json:"fast_calls"`
+ Bytes uint64 `json:"crc_bytes"`
+}
+var crcProbeValidator,crcProbeCalls,crcProbeFast,crcProbeBytes atomic.Uint64
+func CRCProbeEnter(m *Module){
+ crcProbeValidator.Add(1)
+ if s:=uwLookup(m.Threads);s!=nil{s.mu.Lock();s.CRC.ValidatorCalls++;s.mu.Unlock()}
+}
+func CRCProbeRecord(m *Module,n int32){
+ if n<0{panic("negative CRC observation length")}
+ crcProbeCalls.Add(1);crcProbeBytes.Add(uint64(n));if CRCFastEnabled{crcProbeFast.Add(1)}
+ if s:=uwLookup(m.Threads);s!=nil{s.mu.Lock();s.CRC.Calls++;s.CRC.Bytes+=uint64(n);if CRCFastEnabled{s.CRC.FastCalls++};s.mu.Unlock()}
+}
+func CRCProbeStats()map[string]uint64{
+ enabled:=uint64(0);if CRCFastEnabled{enabled=1}
+ return map[string]uint64{"validator_calls":crcProbeValidator.Load(),"crc_calls":crcProbeCalls.Load(),"fast_calls":crcProbeFast.Load(),"crc_bytes":crcProbeBytes.Load(),"fast_enabled":enabled}
+}

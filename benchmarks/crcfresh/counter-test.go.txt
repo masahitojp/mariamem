@@ -1,0 +1,13 @@
+package base
+import("testing";"sync")
+func TestCRCProbeScopeAndConcurrency(t *testing.T){
+ saved:=CRCFastEnabled;defer func(){CRCFastEnabled=saved}();CRCFastEnabled=true
+ before:=CRCProbeStats();pool:=&ThreadPool{};m:=&Module{Threads:pool};worker:=&Module{Threads:pool};other:=&Module{Threads:&ThreadPool{}};s:=&uwState{}
+ uwStates.Store(pool,s);defer uwStates.Delete(pool)
+ var wg sync.WaitGroup
+ for i:=0;i<8;i++{wg.Add(1);go func(){defer wg.Done();for j:=0;j<10;j++{CRCProbeEnter(worker);CRCProbeRecord(worker,16)}}()};wg.Wait()
+ CRCProbeEnter(m);CRCProbeRecord(m,8);CRCProbeEnter(other);CRCProbeRecord(other,4)
+ s.mu.Lock();got:=s.CRC;s.mu.Unlock();if got!=(CRCProbeCounters{81,81,81,1288}){t.Fatalf("bound %+v",got)}
+ after:=CRCProbeStats();if after["validator_calls"]-before["validator_calls"]!=82||after["crc_calls"]-before["crc_calls"]!=82||after["fast_calls"]-before["fast_calls"]!=82||after["crc_bytes"]-before["crc_bytes"]!=1292{t.Fatal(after,before)}
+ CRCFastEnabled=false;CRCProbeRecord(worker,32);after2:=CRCProbeStats();if after2["fast_calls"]!=after["fast_calls"]||after2["crc_calls"]!=after["crc_calls"]+1{t.Fatal("software branch miscount")}
+}
