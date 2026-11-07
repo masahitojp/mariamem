@@ -1,0 +1,71 @@
+[
+  {
+    "text": "innodb_memory_background_complete",
+    "data_offsets": [
+      231632
+    ],
+    "memory_offsets": [
+      8620240
+    ]
+  },
+  {
+    "text": "innodb_open_recovery_complete",
+    "data_offsets": [
+      231240
+    ],
+    "memory_offsets": [
+      8619848
+    ]
+  },
+  {
+    "text": "Cannot start InnoDB",
+    "data_offsets": [
+      457432
+    ],
+    "memory_offsets": [
+      8846040
+    ]
+  },
+  {
+    "text": "Tablespace size stored in header is",
+    "data_offsets": [
+      528818
+    ],
+    "memory_offsets": [
+      8917426
+    ]
+  },
+  {
+    "text": "The data file",
+    "data_offsets": [
+      253162,
+      274502,
+      522259
+    ],
+    "memory_offsets": [
+      8641770,
+      8663110,
+      8910867
+    ]
+  },
+  {
+    "text": "must be writable",
+    "data_offsets": [
+      254286,
+      525569
+    ],
+    "memory_offsets": [
+      8642894,
+      8914177
+    ]
+  },
+  {
+    "text": "must be readable",
+    "data_offsets": [
+      260608
+    ],
+    "memory_offsets": [
+      8649216
+    ]
+  }
+]
