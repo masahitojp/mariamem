@@ -94,3 +94,30 @@ func TestRendezvousReleasesOnlyAfterAllArrive(t *testing.T) {
 		t.Fatal("release/callback count")
 	}
 }
+
+func TestFixedWaveFreshUsesStartAndJoins(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	var starts, closes atomic.Int32
+	start := func(peerCtx context.Context) (*Database, error) {
+		starts.Add(1)
+		return &Database{
+			Open: func(string) (*sql.DB, error) {
+				if starts.Load() != 4 {
+					t.Error("early connection")
+				}
+				return nil, errors.New("injected connect failure")
+			},
+			Close: func() error {
+				if peerCtx.Err() != nil {
+					t.Error("premature cancellation")
+				}
+				closes.Add(1)
+				return nil
+			}}, nil
+	}
+	r := &Report{Mode: "fresh", Parallel: 4, Count: 48, origin: time.Now()}
+	if e := fixedWaveBatch(ctx, r, start, nil, cancel); e == nil || starts.Load() != 4 || closes.Load() != 4 || len(r.Samples) != 4 {
+		t.Fatalf("fresh wave: err=%v starts=%d closes=%d", e, starts.Load(), closes.Load())
+	}
+}

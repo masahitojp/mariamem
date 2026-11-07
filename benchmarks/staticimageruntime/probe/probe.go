@@ -50,6 +50,7 @@ type Sample struct {
 	Version string   `json:"version,omitempty"`
 }
 type Report struct {
+	PrepareBaseline  bool           `json:"prepare_baseline"`
 	FixedWaves       bool           `json:"fixed_waves"`
 	Waves            []Wave         `json:"waves,omitempty"`
 	Semantic         bool           `json:"semantic"`
@@ -312,7 +313,7 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 			return e
 		}
 	}
-	if r.Mode == "fork" {
+	if r.Mode == "fork" || r.PrepareBaseline {
 		if err = measured(&r.Root, r.origin, "root_start", func() error { var e error; root, e = start(ctx); return e }); err != nil {
 			return
 		}
@@ -342,8 +343,12 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 	if r.Held {
 		return held(ctx, r, sn)
 	}
+	caseSnapshot := sn
+	if r.Mode == "fresh" {
+		caseSnapshot = nil
+	}
 	if r.FixedWaves {
-		return fixedWaveBatch(ctx, r, start, sn, cancel)
+		return fixedWaveBatch(ctx, r, start, caseSnapshot, cancel)
 	}
 	jobs := make(chan int, r.Count)
 	for i := 0; i < r.Count; i++ {
@@ -371,7 +376,7 @@ func run(r *Report, start func(context.Context) (*Database, error)) (err error) 
 						break
 					}
 				}
-				s, e := one(ctx, r, lane, index, start, sn)
+				s, e := one(ctx, r, lane, index, start, caseSnapshot)
 				active.Add(-1)
 				if e != nil {
 					cancel()
@@ -403,13 +408,14 @@ func Main(backend string, start func(context.Context) (*Database, error)) {
 	flag.StringVar(&r.Mode, "mode", "fork", "fresh or fork")
 	flag.IntVar(&r.Parallel, "parallel", 1, "bounded worker count")
 	flag.IntVar(&r.Count, "count", 48, "isolated cases")
+	flag.BoolVar(&r.PrepareBaseline, "prepare-baseline", false, "prepare equal baseline and warm image even for fresh comparison")
 	flag.BoolVar(&r.FixedWaves, "fixed-waves", false, "synchronize Fork start and all-ready before SQL; join cleanup before next wave")
 	flag.BoolVar(&r.Semantic, "semantic", false, "pilot SQL coverage")
 	flag.BoolVar(&r.Held, "held", false, "separate held-child memory checkpoint")
 	flag.BoolVar(&r.Corrupt, "corrupt-seed", false, "negative oracle")
 	out := flag.String("out", "", "JSON result")
 	flag.Parse()
-	if *out == "" || (r.Mode != "fresh" && r.Mode != "fork") || r.Parallel < 1 || r.Parallel > 8 || r.Count < r.Parallel || (r.FixedWaves && (r.Mode != "fork" || r.Held || r.Count%r.Parallel != 0)) {
+	if *out == "" || (r.Mode != "fresh" && r.Mode != "fork") || r.Parallel < 1 || r.Parallel > 8 || r.Count < r.Parallel || (r.FixedWaves && (r.Held || r.Count%r.Parallel != 0 || (r.Mode == "fresh" && !r.PrepareBaseline))) {
 		fmt.Fprintln(os.Stderr, "invalid arguments")
 		os.Exit(2)
 	}
