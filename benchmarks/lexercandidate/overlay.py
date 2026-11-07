@@ -1,0 +1,12 @@
+from pathlib import Path
+import subprocess,sys,json,hashlib
+s,o=map(lambda p:Path(p).resolve(),sys.argv[1:]);b=s/'benchmarks/lexercandidate'
+subprocess.run([sys.executable,str(s/'benchmarks/lexerprepared/overlay.py'),str(s),str(o),'--undo'],check=True)
+m=json.loads((o/'overlay.json').read_text());h=json.loads((o/'hashes.json').read_text())
+def put(rel,v):
+ p=s/rel;d=o/('lc-'+rel.replace('/','_'));d.write_text(v);m['Replace'][str(p)]=str(d)
+ h[:]=[x for x in h if x['path']!=rel];h.append({'path':rel,'before_sha256':hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None,'after_sha256':hashlib.sha256(v.encode()).hexdigest()})
+r='internal/generatedgo/runtime_instance.go';v=Path(m['Replace'][str(s/r)]).read_text();a='values = append(values, "MARIAMEM_GUEST_TIMING=1")';assert v.count(a)==1;put(r,v.replace(a,'values = append(values, "MARIAMEM_GUEST_TIMING=1", "MARIAMEM_INIT_DIAGNOSTICS=1")'))
+r='internal/generatedgo/code/base/lexer_prepared.go';v=Path(m['Replace'][str(s/r)]).read_text();a='int32)int32{\n if lpMode';assert v.count(a)==1;put(r,v.replace(a,'int32)int32{\n LCExport(m,cs)\n if lpMode'))
+put('internal/generatedgo/code/base/lexer_export.go',(b/'export.go.txt').read_text())
+(o/'overlay.json').write_text(json.dumps(m,indent=2)+'\n');(o/'hashes.json').write_text(json.dumps(h,indent=2)+'\n')

@@ -1,0 +1,24 @@
+{
+  "issue": 126,
+  "product_source_commit": "3d8b2201c1f36fa5b7264e0450104055f3822272",
+  "parent_prototype": "90b0b840137b32c6b4ac3240b8181cb691de36fd",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "scope": "Prepare bounded C-source candidate, independently replay original C producer on captured inputs, and attribute current Go prototype Fork. C guest build/translation/native SQL/both-platform acceptance remain separate pending evidence. No adoption.",
+  "campaign": {
+    "binary_builds": 1,
+    "primary": "Fork P1/P4 x original/prepared x off/on observer x 3 repetitions x48 children; alternate arms and rotate cells",
+    "warmup_processes": 8,
+    "sql_control_processes": 2,
+    "negative_processes": 2,
+    "input_inventory_processes": 1,
+    "total_processes": 37,
+    "primary_processes": 24,
+    "primary_children": 1152,
+    "diagnostic_children": 576,
+    "process_timeout_seconds": 190,
+    "build_timeout_seconds": 1200,
+    "budget_gib": 10,
+    "min_free_gib": 12
+  },
+  "interpretation": "Use per-child p50/p95 and >100ms, retain all samples. Compare diagnostic off/on overhead. Current guest has unavailable stage CPU clocks; elapsed only. Static C candidate not measured until actual rebuild. Stop after finite campaign."
+}

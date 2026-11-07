@@ -1,0 +1,23 @@
+package base
+import("encoding/hex";"encoding/json";"os";"sync")
+var lcExportPath=os.Getenv("LC_INPUT_PATH")
+var lcMu sync.Mutex
+var lcRows=map[uint32]lcInput{}
+type lcInput struct{Number uint32 `json:"number"`; CType string `json:"ctype_hex"`; Charlen []int32 `json:"charlen"`}
+func LCExport(m *Module,cs int32){
+ if lcExportPath=="" {return}
+ number:=lpU32(m,uint32(cs))
+ lcMu.Lock();defer lcMu.Unlock()
+ if _,ok:=lcRows[number];ok{return}
+ row:=lcInput{Number:number,CType:hex.EncodeToString(lpBytes(m,lpU32(m,uint32(cs)+40),257))}
+ saved:=m.G0;m.G0-=16;defer func(){m.G0=saved}()
+ p:=uint32(m.G0);handler:=lpU32(m,lpU32(m,uint32(cs)+104)+88)
+ for i:=0;i<256;i++{
+  lpBytes(m,p,1)[0]=byte(i)
+  rc:=m.T0[handler].(func(*Module,int32,int32,int32)int32)(m,cs,int32(p),int32(p+1))
+  if m.ExcPending!=0 {panic("charlen export exception")};row.Charlen=append(row.Charlen,rc)
+ }
+ lcRows[number]=row
+ data,e:=json.Marshal(lcRows);if e!=nil{panic(e)}
+ if e=os.WriteFile(lcExportPath,append(data,'\n'),0600);e!=nil{panic(e)}
+}
