@@ -415,3 +415,14 @@ def test_existing_workflow_owns_only_versioned_native_runtime_qualification():
     for historical in ('run_compare.py','build_alpha.py','--phase','--baseline','performance-correctness'):
         assert historical not in workflow
     assert 'scripts/validate_product_candidate.py --candidate-sha' in workflow
+
+
+def test_runtime_workflow_installs_and_imports_prepared_connector_before_builds():
+    workflow = (ROOT / runtime.WORKFLOW).read_text()
+    install = workflow.split('- name: Install deterministic validation dependencies\n', 1)[1]
+    install, qualification = install.split('- name: Source and runtime correctness', 1)
+    pip = next(line for line in install.splitlines() if 'python -m pip install ' in line)
+    assert 'mysql-connector-python==26.7.0' in pip.split()
+    probe = 'python -c "import mysql.connector as connector; assert connector.__version__ == \'26.7.0\'"'
+    assert install.index(pip) < install.index(probe)
+    assert 'scripts/validate_product_candidate.py' in qualification

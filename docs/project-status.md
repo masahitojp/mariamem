@@ -264,3 +264,8 @@ in all six P1/P4 pairs, but Fresh P4 batch wall increases in all three pairs
 increases. Keep these as main-adoption review items; the earlier experimental
 approximately1% Fresh cost is not a product bound. All samples and long waits
 remain in the linked candidate receipt. Supported-platform CI remains separate.
+First run42345783454 at `a2b960abc0100cc8dc8509ce84bf8881762bbc75` passed
+source checks on both platforms but stopped at the prepared-consumer import:
+the qualification workflow omitted Connector/Python26.7.0. The dependency and
+an early import guard are now added; full runtime acceptance awaits a new
+exact-source run. See the candidate record for the failed-run artifact identities.

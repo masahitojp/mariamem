@@ -101,3 +101,28 @@ then reviewing main adoption with these counter-results explicitly visible.
 This is not universal performance non-regression. No further samples or
 root-cause campaign are added. macOS15/Ubuntu runtime CI remains to be observed;
 no product-platform matrix PASS, main merge or release is claimed here.
+
+
+## First runtime CI submission — dependency failure
+
+[Run42345783454](https://github.com/masahitojp/mariamem/actions/runs/42345783454)
+at `a2b960abc0100cc8dc8509ce84bf8881762bbc75` failed on both macOS15 arm64
+and Ubuntu24.04 x86_64. Source/unit checks passed. Integration reached the
+prepared-consumer environment probe, which failed with
+`ModuleNotFoundError: No module named 'mysql'`: this manual qualification
+workflow omitted `mysql-connector-python==26.7.0`, already installed by normal
+Development CI. Earlier runtime checks passed; the prepared-consumer gate did
+not execute to completion. This is not a full platform PASS.
+
+The workflow now installs that same fixed dependency and checks its import and
+version before expensive builds. A workflow contract test detects removal of
+the install or early import check. Product, generated code and guest bytes are
+unchanged by this correction; original local performance/regeneration receipts
+retain their original source identity. A new exact-source CI run is required.
+
+Failed-run artifacts (original ZIP SHA256):
+
+- macOS job128323101139, artifact13563994067:
+  `3ec6b0ada5c66fd9d7d4f113fbf3c0bf1c04aa0bd742113c8c685bfc727fd81d`
+- Ubuntu job128323101495, artifact13564176557:
+  `27fb1622ebe440edb7b5ab57c2435c013278adad4e7f279ac135509ff04047e9`
