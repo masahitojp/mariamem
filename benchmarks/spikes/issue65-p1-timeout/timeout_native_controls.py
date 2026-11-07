@@ -22,4 +22,4 @@ try:
   rows.append({'name':name,'test':test,'exit':result.returncode,'assertion':assertion,'binary_sha256':m.base.sha(binary)})
 finally:
  for path,data in original.items():path.write_bytes(data)
-(w/'evidence/native-controls.json').write_text(json.dumps({'script_sha256':m.base.sha(Path(__file__)),'tooling_source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=here.parents[2],text=True).strip(),'cases':rows,'original_source_restored':all(path.read_bytes()==data for path,data in original.items())},indent=2)+'\n');print('PASS three detected timeout native-route fault controls')
+(w/'evidence/timeout-native-controls.json').write_text(json.dumps({'script_sha256':m.base.sha(Path(__file__)),'tooling_source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=here.parents[2],text=True).strip(),'cases':rows,'original_source_restored':all(path.read_bytes()==data for path,data in original.items())},indent=2)+'\n');print('PASS three detected timeout native-route fault controls')
