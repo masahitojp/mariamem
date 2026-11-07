@@ -339,8 +339,8 @@ zero-parameter surplus,descriptor/scalar rejection and cached reuse,empty SQL,
 and SET_OPTION body differences remain; failed-PREPARE alias/explicit handle
 and short LONG_DATA observations pass. All fresh-type recovery and following
 PING observations pass. These are observed contract differences,not a newly
-approved exception or guest repair. The approved one Linux observation repeat
-is next;G2/P1/P2 and adoption remain pending. Used local builder/runtime scratch
+approved exception or guest repair. The subsequent Linux observation repeat
+is recorded below;G2/P1/P2 and adoption remain pending. Used local builder/runtime scratch
 and caches are disposed with cleanup debt0; initial pre-translation setup errors
 are preserved separately from native results.
 
@@ -356,7 +356,7 @@ New development guest7103c811 has complete worker-body binding checks. Fresh
 macOS execution atd7c70192 passes22 lifecycle/126 prior observations,G1 all234
 with0 mismatches,and4 new metadata/alias recovery controls plus supporting
 checks. The new283-file staged source bundle is distinct from the old guest.
-Local builder/runtime cleanup is complete with debt0. One strict Linux repeat remains before this repair is closed;
+Local builder/runtime cleanup is complete with debt0. The Linux results follow;
 G2/P1/P2,public adoption and release remain separate.
 
 
@@ -367,8 +367,20 @@ unexecuted,not mismatches or PASS. Saved283-file inventory matches macOS and
 new guest7103c811 reproduces;workspace/transit disposal succeeds. A staged test
 correction adds the existing idle wait before injection,retaining every debt
 assertion and the separate busy-rejection cases. Its one-file source adjustment
-is explicitly pinned against the unchanged Mac reference. Native rerun is pending;
-the single approved Linux run is consumed. See the G1 repair report for evidence.
+is explicitly pinned against the unchanged Mac reference. The initial Linux
+run budget was consumed;the Human approved one additional repeat,recorded below.
+
+
+The corrected [Linux CI42316326944](https://github.com/masahitojp/mariamem/actions/runs/42316326944)
+succeeds at exact source_commit b9dc3b31c82a49670ab9b72aaa220abe3922522e.
+G1 repair is complete within its finite scope:22 lifecycle/126 prior observations,
+all234 G1 observations and4 repair controls plus existing/supporting checks pass.
+All234 G1 records match macOS exactly. The283-file comparison passes with the
+one capture-fixture adjustment explicitly recorded;guest7103c811,binding/runtime
+and G1 expectations remain fixed. Builder/runtime/transit disposal succeeds with
+cleanup debt0. G2 metadata/result chains and representative remaining states are
+next;P1 public wiring/controller ownership and P2 consumers/performance/adoption
+remain pending. Issue65 stays open;this is not canonical adoption or release.
 
 
 
@@ -384,8 +396,8 @@ live checklists; this is a direction summary, not a second acceptance ledger.
   Its initial source investigation is superseded by the separately selected native
   memory-Vio/WASIX Snapshot/Fork/Live experiments recorded above. Native lifecycle
   execution is established only in that isolated route. The selected repairs pass
-  scoped macOS/Linux CI42289241674; remaining compatibility and productization
-  conditions are in the scope review above. Public API integration, adoption and
+  scoped macOS/Linux CI42316326944,including the G1 input repair. Remaining G2
+  compatibility and P1/P2 productization conditions are in the scope review above. Public API integration, adoption and
   release remain separate. The shipped Go Pipe #66
   does not itself implement guest-native wire relay.
 - **v0.7.0:** [the milestone](https://github.com/masahitojp/mariamem/milestone/4)

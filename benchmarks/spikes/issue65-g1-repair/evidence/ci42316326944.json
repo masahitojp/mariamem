@@ -1,0 +1,60 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42316326944",
+  "source_commit": "b9dc3b31c82a49670ab9b72aaa220abe3922522e",
+  "result": "PASS scoped native G1 repair",
+  "all_jobs": {
+    "guest": "success",
+    "linux": "success",
+    "discard-transit": "success"
+  },
+  "guest_source_commit": "65b49e3dc31e9b2da63b317e015f8f471e79a83e",
+  "host_source_commit": "65b49e3dc31e9b2da63b317e015f8f471e79a83e",
+  "guest_sha256": "7103c8116151a386b1359e9ea02fda7e31fe8145f37a221001f97e7de2ce9a91",
+  "binary_sha256": "4ada9fb52b031b94922ecd09efaa9b6ed8e3e7b47af7de76ad3cce74910f3d06",
+  "lifecycle_cases": 22,
+  "compatibility_observations": 88,
+  "limit_observations": 38,
+  "g1_observations": 234,
+  "g1_mismatches": [],
+  "g1_missing": [],
+  "all_234_observation_records_equal_macos": true,
+  "existing_controls": 2,
+  "policy_controls": 3,
+  "repair_controls": 4,
+  "supporting_checks": "PASS",
+  "canonical_installer_tests": 22,
+  "source_comparison": {
+    "mac_reference_binary_sha256": "c78d70d016ca03854ce1b815e387f474040761132b25f3c29bc122b07c277403",
+    "compared_go_assembly_data_files": 283,
+    "different_files": [],
+    "reference_adjustments": [
+      {
+        "file": "cmd/issue65-wire/capture_test.go",
+        "before": "e35a01dad1e18ceddfd7569dbba22f6a554a23057751f7ce2f2387bc93192bbd",
+        "after": "655525c2bbae543f5e466c1880f4d4a0e5406e5c0b921feec646dc5fddbfd5bc",
+        "reason": "wait for guest idle before capture-debt injection"
+      }
+    ]
+  },
+  "cleanup_debt": {
+    "builder": [],
+    "runtime": []
+  },
+  "transit_deleted": true,
+  "not_qualified": [
+    "full compatibility/profile",
+    "public APIs",
+    "whole controller relocation",
+    "race freedom",
+    "performance",
+    "release"
+  ],
+  "raw_evidence_sha256": {
+    "runtime/result.json": "d5361990d4c5854b8ae60acf60c2972a7be31fa21d69556bcbc7382944d82a6c",
+    "runtime/g1-result.json": "c48c300f50f485159a0828861a95537cea0e10442f3a4429afa3aa59049b6510",
+    "runtime/host-build.json": "17df29e29f50c0262bfcc00c75b6e469b622b7807c1f2668afd8e1e20670969b",
+    "runtime/source-comparison.json": "1a64ed365a6295708d9a9a865e81923fcc519ba8233c33b41a3f5f78b03d7cab",
+    "builder/cleanup.json": "65a4d2df2c223dac5051e3972069247f7756f245c4a0b05434714cf307771355",
+    "runtime/cleanup.json": "f74730d2945aa38a8bfd30fbf13046980fd3afa787181624126c34404847c2bc"
+  }
+}

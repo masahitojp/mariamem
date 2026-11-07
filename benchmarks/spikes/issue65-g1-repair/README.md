@@ -67,7 +67,7 @@ scope; public APIs,30s timeout,controller relocation,performance and adoption
 remain pending. Canonical guest/generated production code are unchanged.
 Local builder/runtime SDKs,archives,converter,generated code,binaries,Go caches
 and worktrees are disposed with [cleanup debt0](evidence/local-disposal.json).
-One strict Linux submission remains;its result has not been observed.
+The Linux repeat and subsequent fixture correction are recorded below.
 
 ## Linux repeat: blocked by an existing capture-debt fixture race
 
@@ -96,7 +96,32 @@ hash,records that adjustment,and continues comparing all283 files. It does not
 claim byte-identical source to the earlier Mac execution.
 
 Six focused source/evidence guards pass,including exact one-line delta and
-unchanged assertions. Corrected native execution remains NOT_RUN. The approved
-Linux1-run budget is consumed. One additional repeat would rebuild the same
-pinned guest and execute the complete corrected suite(about20min based on recent
-runs,queue/time not guaranteed);no rerun has been submitted.
+unchanged assertions. At this diagnosis checkpoint,corrected native execution was NOT_RUN and the
+initial Linux1-run budget was consumed. The Human subsequently approved one
+additional repeat;the confirmed result follows.
+
+
+## Corrected Linux repeat: G1 repair complete within the scoped profile
+
+[CI42316326944](https://github.com/masahitojp/mariamem/actions/runs/42316326944)
+succeeds at exact source_commit `b9dc3b31c82a49670ab9b72aaa220abe3922522e`.
+[The saved receipt](evidence/ci42316326944.json) confirms guest/linux/discard-transit
+success,new guest7103c811 reproduction,22 lifecycle cases,88 compatibility and38
+limit observations,G1 all234 observations with zero mismatches/missing,2 existing
+controls,3 policy controls,4 repair controls and supporting checks(including22
+canonical installer tests). All234 expected/actual/pass records exactly match
+macOS. Capture-debt injection now reaches its intended path and passes with
+all assertions retained.
+
+All283 staged Go/assembly/data files match the reference after the explicitly
+recorded one-file capture fixture correction. This is not byte-identical test
+source to the earlier Mac run;the guest/binding/runtime code and G1 oracles remain
+unchanged. Builder/runtime cleanup debt0 and transfer-artifact deletion are
+confirmed from cleanup receipts and the artifact API.
+
+The G1 input repair and its bounded macOS/Linux checks are complete. Preserve the
+original39-mismatch run and the incomplete lifecycle run under their own sources.
+Next is G2:metadata/type/charset/result-chain compatibility and the remaining
+representative lifecycle/login/body states from the scope review. Public API
+integration,controller relocation,matched performance,adoption and release remain
+separate. This result does not close Issue65 or qualify the public native route.
