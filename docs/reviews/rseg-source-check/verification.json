@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "kind": "source_identity_and_anchors_only",
+  "native_files": 9,
+  "anchors": 14,
+  "generated_identity_matches_previous_measured_function": true,
+  "core_source_files_absent_from_guest_patch_targets": [
+    "storage/innobase/trx/trx0rseg.cc",
+    "storage/innobase/trx/trx0sys.cc",
+    "storage/innobase/trx/trx0undo.cc",
+    "storage/innobase/include/trx0rseg.h",
+    "storage/innobase/include/trx0types.h"
+  ],
+  "new_runtime_measurements": 0,
+  "builds": 0,
+  "ci_submissions": 0
+}

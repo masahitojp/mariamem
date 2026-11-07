@@ -1,0 +1,100 @@
+[
+  {
+    "path": "storage/innobase/trx/trx0rseg.cc",
+    "start_line": 420,
+    "end_line": 446,
+    "meaning": "Every restored segment scans all undo slots; only non-null entries construct undo objects.",
+    "excerpt_sha256": "ef75e588a49d89229bb610a1876dd15239add85a4e6bdd07c4567b1fad303359"
+  },
+  {
+    "path": "storage/innobase/trx/trx0rseg.cc",
+    "start_line": 453,
+    "end_line": 574,
+    "meaning": "Each registered segment fetches space header and rseg header; history nodes are conditional.",
+    "excerpt_sha256": "507c74ab2a619d75baaf183cd262fb0a5996cd228f24362bad7370524d00d152"
+  },
+  {
+    "path": "storage/innobase/trx/trx0rseg.cc",
+    "start_line": 596,
+    "end_line": 726,
+    "meaning": "128 slot loop, per-slot mini-transaction, repeated TRX_SYS lookup, restore registered slots.",
+    "excerpt_sha256": "45f01adbfda56c60ea0134ab58b3dfd8291c53f8589b34468ef73c8731d587f7"
+  },
+  {
+    "path": "storage/innobase/trx/trx0sys.cc",
+    "start_line": 128,
+    "end_line": 164,
+    "meaning": "Fresh creates first persistent segment then invokes transaction-list restoration.",
+    "excerpt_sha256": "160599e9cb5fcd38cf78002cf65ac84951952f3e25c275153d51bcb93480535b"
+  },
+  {
+    "path": "storage/innobase/trx/trx0sys.cc",
+    "start_line": 287,
+    "end_line": 348,
+    "meaning": "Later successful writable startup fills persistent segment slots to 128.",
+    "excerpt_sha256": "9d0520616a5fc0f4e702c2014be3e900e8ccbf6aa2fd9643008fd7d53301e141"
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "start_line": 1534,
+    "end_line": 1541,
+    "meaning": "Fresh deliberately creates first segment only before doublewrite.",
+    "excerpt_sha256": "fd10052158e4cd1fd61743381047647ae8da868fd1fbced29f23674a62e7efc1"
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "start_line": 1785,
+    "end_line": 1799,
+    "meaning": "Remaining segments created later after doublewrite.",
+    "excerpt_sha256": "ff781b1ff4461e74bd8bcac5baf24330745978476160cd0aa2452c7980d06df4"
+  },
+  {
+    "path": "storage/innobase/include/trx0types.h",
+    "start_line": 132,
+    "end_line": 136,
+    "meaning": "Persistent segment array limit128.",
+    "excerpt_sha256": "ff44ec89d9da226a6adbc19b36754383aa536ac8c612a30ea123b3ae223474f8"
+  },
+  {
+    "path": "storage/innobase/include/trx0rseg.h",
+    "start_line": 50,
+    "end_line": 54,
+    "meaning": "Undo slots per segment = page size /16.",
+    "excerpt_sha256": "991a2a5db80e357222486286f3d726eef6adaa98ea6b20eee0e1b03469f3c765"
+  },
+  {
+    "path": "storage/innobase/include/trx0rseg.h",
+    "start_line": 264,
+    "end_line": 272,
+    "meaning": "Undo slot read at 4-byte spacing.",
+    "excerpt_sha256": "8eb8a4ff7a8e9bb8a19eef0339cc003852a608f954f7126ff81b40ba752f12c5"
+  },
+  {
+    "path": "storage/innobase/include/trx0sys.h",
+    "start_line": 66,
+    "end_line": 74,
+    "meaning": "TRX_SYS lookup takes page latch through buffer pool.",
+    "excerpt_sha256": "d1268471514823ca4a7277a931c460c276f89b471275a5ff880c7a61416f5205"
+  },
+  {
+    "path": "storage/innobase/trx/trx0undo.cc",
+    "start_line": 960,
+    "end_line": 1140,
+    "meaning": "Used/cached undo headers checked and runtime objects restored.",
+    "excerpt_sha256": "da61e2078d805c2dfce1442070469cf9e538b841d174c4f86973e853afc8cb96"
+  },
+  {
+    "path": "storage/innobase/trx/trx0undo.cc",
+    "start_line": 1144,
+    "end_line": 1188,
+    "meaning": "Allocation only for actual undo object construction, not every empty slot.",
+    "excerpt_sha256": "e3be980b41a0841ee451f7f3d8d8575ab59061f09bde274cd96f703ce81eb6fe"
+  },
+  {
+    "path": "storage/innobase/buf/buf0buf.cc",
+    "start_line": 2766,
+    "end_line": 2820,
+    "meaning": "Page lookup may be cache hit, read, or read wait; calls are not physical I/O counts.",
+    "excerpt_sha256": "b69103e5c3194edd05314607e63df529409d01271536c21d4fa94c79ca26ac7f"
+  }
+]

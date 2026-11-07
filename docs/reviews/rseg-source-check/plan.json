@@ -1,0 +1,10 @@
+{
+  "question": "Does persistent rollback-segment startup contain a concrete safely reducible repeated operation after purge-before-capture failed to reduce its ~5ms cost?",
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "context_report_commit": "eb1082ba1263650b83b12b472ff9dc98381ac30d",
+  "scope": "source only; no build, runtime measurement, guest patch, adoption or CI",
+  "active_minutes": 30,
+  "maximum_files": 12,
+  "exit": "One grounded optimization candidate or no candidate; distinguish unmeasured cost from source work count",
+  "inconclusive": "Record missing subcomponent cost and a bounded next observation; do not start it"
+}
