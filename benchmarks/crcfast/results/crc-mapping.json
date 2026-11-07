@@ -1,0 +1,8 @@
+{
+  "source_function": "Fn18145",
+  "replacement": "L23 CRC compute only; original L36 complement, checksum comparison and LSN checks retained",
+  "crc_table_sha256": "aa14839f04e2220eb7b6543158c9e0bee0f787fdd2ee2f2ee83125aa5a373dad",
+  "crc_reference_body_sha256": "00b8098d56ecefaa947a3919ef18764ce32d02b3c53ee10c91a222b6efbb81bd",
+  "original_body_sha256": "e7f55f842faf017b47fa0d01d1bdb23a1fd19967644f617b6e4a6860662ebc09",
+  "ordinary": "same instrumented binary with detailed timing disabled; owner logging enabled in both arms"
+}

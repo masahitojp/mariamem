@@ -1,0 +1,56 @@
+[
+  {
+    "function": "Fn18174",
+    "before_sha256": "0db2891e971d0433cccd9d0ee91c9ad141a4b08a27b7f5d719a77b5042fb4718",
+    "after_sha256": "e87a2deffd525e5f8469e002c9dc1528b1f4caf2282263f03c63a860205a19ac",
+    "anchors": [
+      {
+        "before": "func Fn18174(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {",
+        "after": "func Fn18174(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {\n vc:=base.RsegValidationBegin(m,l2);defer vc.Finish()",
+        "count": 1
+      },
+      {
+        "before": "Fn18145(m, int32(1), v31, v33)",
+        "after": "func()int32{defer vc.Phase(0)();return Fn18145(m, int32(1), v31, v33)}()",
+        "count": 2
+      },
+      {
+        "before": "Fn18145(m, int32(1), v822, v826)",
+        "after": "func()int32{defer vc.Phase(0)();return Fn18145(m, int32(1), v822, v826)}()",
+        "count": 1
+      },
+      {
+        "before": "Fn18145(m, int32(1), v1197, v1212)",
+        "after": "func()int32{defer vc.Phase(0)();return Fn18145(m, int32(1), v1197, v1212)}()",
+        "count": 1
+      },
+      {
+        "before": "Fn17470(m, v2800, v2748)",
+        "after": "func()int32{defer vc.Phase(1)();return Fn17470(m, v2800, v2748)}()",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "function": "Fn18145",
+    "before_sha256": "e7f55f842faf017b47fa0d01d1bdb23a1fd19967644f617b6e4a6860662ebc09",
+    "after_sha256": "5bb3b21546d742766d42a3f9d2f0430fced6a97779f921e503d97e2e3dcc3102",
+    "anchors": [
+      {
+        "before": "func Fn18145(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {",
+        "after": "func Fn18145(m *base.Module, l0 int32, l1 int32, l2 int32) int32 {\n vc:=base.RsegValidationCurrent(m)",
+        "count": 1
+      },
+      {
+        "before": "\nL23:\n\t;",
+        "after": "\nL23:\n\t;\n vc.CRCBegin(v40)",
+        "count": 1
+      },
+      {
+        "before": "\nL36:\n\t;",
+        "after": "\nL36:\n\t;\n vc.CRCEnd()",
+        "count": 1
+      }
+    ]
+  }
+]

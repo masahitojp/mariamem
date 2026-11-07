@@ -1,0 +1,17 @@
+{
+  "attempt_source": "96f989c3",
+  "stage": "generated correctness test compilation before benchmark binary build",
+  "error": "expected ';', found L37",
+  "cause": "extracted reference basic blocks lacked separator newline",
+  "correction_source": "1a069666",
+  "benchmark_binary_built_in_failed_attempt": false,
+  "runtime_runs_in_failed_attempt": 0,
+  "second_prebinary_failure": {
+    "source": "1a069666",
+    "stage": "test link",
+    "cause": "p4 tests alone did not link later generated partitions",
+    "correction": "7ecb119a external p4_test imports p8 chain",
+    "log": "crc-link-failure.log",
+    "benchmark_runs": 0
+  }
+}

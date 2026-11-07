@@ -1,0 +1,8 @@
+# github.com/masahitojp/mariamem/internal/generatedgo/code/p4.test
+github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18145: relocation target github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn18144 not defined
+github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18145: relocation target github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn12436 not defined
+github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18145: relocation target github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn1148 not defined
+github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18145: relocation target github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16653 not defined
+github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn18145: relocation target github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn16654 not defined
+FAIL	github.com/masahitojp/mariamem/internal/generatedgo/code/p4 [build failed]
+FAIL

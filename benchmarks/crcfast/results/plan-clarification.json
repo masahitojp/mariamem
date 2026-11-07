@@ -1,0 +1,16 @@
+{
+  "measured_plan": "plan.json retained unchanged, hash bound in inputs.json",
+  "clarification_timing": "after fixed campaign; no sample, threshold or result changed",
+  "removed_legacy_mapping_fields": {
+    "mapping_started_unix": 1794025653.143127,
+    "mapping_seconds": 293.28064584732056,
+    "mapping_budget_seconds": 1800
+  },
+  "replaced_legacy_fields": {
+    "exit": "Identify dominant validation/recovery component or stop inconclusive; no optimization",
+    "observer_scope": "Header-only function-local aggregation, no global worker timing or off-observer performance claim"
+  },
+  "current_exit": "Complete fixed correctness and paired comparison campaign; recommend continue/defer with all observed regressions, without adoption",
+  "current_observer_scope": "Ordinary primary: detailed timing off, owner logging on. Two diagnostic runs: inherited rseg-header timing on. Same binary and runtime settings apart from CRC switch.",
+  "reason": "Copied attribution plan had stale exit/mapping text; user authorized optimization and new question/criteria/runner fixed it before execution. Report commit removes stale text; binary source remains 7ecb119a."
+}

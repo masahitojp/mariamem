@@ -1,0 +1,10 @@
+{
+  "toolchain": "go1.27.3",
+  "files": {
+    "crc32.go": "85f9b1484d31d449fda4c70b6df4e8c78455b5384d06fecd5f7a359638de2f76",
+    "crc32_arm64.go": "e3c97e14322a0dd605f21797bf1aff2cbfac580ed41b109cabab909d35b7f320",
+    "crc32_arm64.s": "aedb6699f5f65086add1e0b86c8824fcf5f29cfb08c390c19b55441b01bac1b5"
+  },
+  "dispatch": "Castagnoli table recognized by hash/crc32; arm64 path depends on internal/cpu.ARM64.HasCRC32; software fallback otherwise",
+  "scope": "CPU-feature dispatch source inspected; no forced-ISA benchmark or x86 claim"
+}

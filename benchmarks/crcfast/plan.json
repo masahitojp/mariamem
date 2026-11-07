@@ -1,7 +1,5 @@
 {
   "question": "Can equivalent Go CRC32C computation reduce Fork elapsed time while preserving page corruption checks?",
-  "mapping_started_unix": 1794025653.143127,
-  "mapping_budget_seconds": 1800,
   "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
   "forbidden": [
     "product adoption/main merge",
@@ -49,10 +47,9 @@
   "processes": 26,
   "all_children": 884,
   "started_unix": 1794026841.594317,
-  "exit": "Identify dominant validation/recovery component or stop inconclusive; no optimization",
+  "exit": "Complete fixed correctness and paired comparison campaign; recommend continue/defer with all observed regressions, without adoption",
   "native_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
-  "observer_scope": "Header-only function-local aggregation, no global worker timing or off-observer performance claim",
-  "mapping_seconds": 293.28064584732056,
+  "observer_scope": "Ordinary primary: detailed timing off, owner logging on. Two diagnostic runs: inherited rseg-header timing on. Same binary and runtime settings apart from CRC switch.",
   "diagnostic_processes": 2,
   "arms": [
     "software",
