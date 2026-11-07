@@ -1,0 +1,33 @@
+package base
+import("testing";"time")
+func TestRsegPageAccounting(t *testing.T){
+ now:=time.Unix(1,0);b:=&rsegPageBinding{s:&RsegPageStats{}};b.busy.Store(true)
+ p:=&RsegPageCall{b:b,now:func()time.Time{return now},start:now,phase:-1}
+ p.Begin(0);now=now.Add(10*time.Nanosecond);p.Lookup(false)
+ done:=p.Phase(1);now=now.Add(20*time.Nanosecond);done()
+ done=p.Phase(2);now=now.Add(3*time.Nanosecond);done()
+ p.Begin(0);now=now.Add(7*time.Nanosecond);p.Lookup(true)
+ done=p.Phase(3);now=now.Add(30*time.Nanosecond);done();now=now.Add(5*time.Nanosecond);p.Finish()
+ s:=b.s;if s.Calls!=1||s.Hits!=1||s.Misses!=1||s.Lookups!=2||s.PhaseNS!=[4]int64{17,20,3,30}||s.TotalNS!=75||s.OtherNS!=5||s.Incomplete!=0||b.busy.Load(){t.Fatalf("%+v",s)}
+}
+func TestRsegPageExactModuleScope(t *testing.T){
+ pool:=&ThreadPool{};m:=&Module{Threads:pool};other:=&Module{Threads:pool};r:=&RsegCost{}
+ if RsegPageBegin(m,2,0,10)!=nil{t.Fatal("unbound captured")};release:=RsegPageBind(m,r)
+ if RsegPageBegin(other,2,0,10)!=nil{t.Fatal("sibling worker captured")}
+ p:=RsegPageBegin(m,2,0,10);if p==nil||RsegPageBegin(m,2,0,10)!=nil{t.Fatal("nested attribution")};p.Begin(0);p.Lookup(true);p.Finish();release()
+ if RsegPageBegin(m,2,0,10)!=nil||r.HeaderPath.Calls!=1{t.Fatal("binding leak")}
+ var disabled *RsegPageCall;disabled.Phase(1)();disabled.Lookup(true);disabled.Finish()
+}
+func TestRsegPageIncompleteAndOverlap(t *testing.T){
+ now:=time.Unix(1,0);p:=&RsegPageCall{b:&rsegPageBinding{s:&RsegPageStats{}},now:func()time.Time{return now},start:now,phase:-1};p.Begin(0);p.Finish();if p.b.s.Incomplete!=1{t.Fatal("incomplete accepted")}
+ for _,f:=range []func(){func(){p.Begin(1)},func(){(&RsegPageCall{phase:-1}).End()},func(){(&RsegPageCall{phase:-1}).Begin(4)}}{
+  caught:=false;func(){defer func(){caught=recover()!=nil}();f()}();if !caught{t.Fatal("invalid accepted")}
+ }
+}
+func TestRsegPageNestedScope(t *testing.T){
+ m:=&Module{Threads:&ThreadPool{}};r:=&RsegCost{};release:=RsegPageBind(m,r);defer release()
+ p:=RsegPageBegin(m,2,0,10);now:=time.Unix(1,0);p.now=func()time.Time{return now};p.start=now
+ p.Begin(0);RsegPageNested(m,0)();p.Lookup(false)
+ done:=p.Phase(1);n:=RsegPageNested(m,1);now=now.Add(20*time.Nanosecond);n();n=RsegPageNested(m,2);now=now.Add(30*time.Nanosecond);n();done();p.Finish()
+ if r.HeaderPath.ReadNestedNS!=[4]int64{0,20,30,0}||r.HeaderPath.ReadNestedCalls!=[4]int64{0,1,1,0}||r.HeaderPath.PhaseNS[1]!=50{t.Fatalf("%+v",r.HeaderPath)}
+}

@@ -1,0 +1,70 @@
+package base
+import("sync";"sync/atomic";"time")
+
+type RsegPageStats struct {
+ Calls int64 `json:"calls"`
+ Lookups int64 `json:"lookups"`
+ Hits int64 `json:"hits"`
+ Misses int64 `json:"misses"`
+ PhaseNS [4]int64 `json:"phase_ns"`
+ PhaseCalls [4]int64 `json:"phase_calls"`
+ TotalNS int64 `json:"total_ns"`
+ OtherNS int64 `json:"other_ns"`
+ Incomplete int64 `json:"incomplete"`
+ ReadNestedNS [4]int64 `json:"read_nested_ns"`
+ ReadNestedCalls [4]int64 `json:"read_nested_calls"`
+}
+type rsegPageBinding struct{s *RsegPageStats;busy atomic.Bool;current atomic.Pointer[RsegPageCall]}
+var rsegPageBindings sync.Map // exact *Module, not shared ThreadPool
+func RsegPageBind(m *Module,r *RsegCost)func(){
+ if r==nil{return func(){}}
+ b:=&rsegPageBinding{s:&r.HeaderPath}
+ if _,exists:=rsegPageBindings.LoadOrStore(m,b);exists{panic("duplicate header binding")}
+ return func(){if b.busy.Load(){panic("header call not finished")};rsegPageBindings.Delete(m)}
+}
+type RsegPageCall struct{
+ b *rsegPageBinding
+ now func()time.Time
+ start time.Time
+ phaseAt time.Time
+ phase int
+ ns [4]int64
+ calls [4]int64
+ hits,misses int64
+}
+func RsegPageBegin(m *Module,latch,guess,mode int32)*RsegPageCall{
+ v,ok:=rsegPageBindings.Load(m);if !ok{return nil};b:=v.(*rsegPageBinding)
+ // Reentrant page requests remain inside their parent's measured call.
+ if !b.busy.CompareAndSwap(false,true){return nil}
+ if latch!=2 || guess!=0 || mode!=10{panic("pinned header page arguments changed")}
+ p:=&RsegPageCall{b:b,now:time.Now,start:time.Now(),phase:-1};b.current.Store(p);return p
+}
+// Nested categories: frame initialization, synchronous IO request, read completion,
+// and the race-to-existing-page read_wait path. Only inside the top read miss.
+func RsegPageNested(m *Module,kind int)func(){
+ v,ok:=rsegPageBindings.Load(m);if !ok{return func(){}};p:=v.(*rsegPageBinding).current.Load()
+ if p==nil||p.phase!=1{return func(){}}
+ if kind<0||kind>=4{panic("invalid nested read category")}
+ at:=p.now();p.b.s.ReadNestedCalls[kind]++
+ return func(){p.b.s.ReadNestedNS[kind]+=p.now().Sub(at).Nanoseconds()}
+}
+func(p *RsegPageCall)Begin(kind int){
+ if p==nil{return};if kind<0||kind>=4||p.phase!=-1{panic("overlapping page path phase")}
+ p.phase=kind;p.phaseAt=p.now();p.calls[kind]++
+}
+func(p *RsegPageCall)End(){
+ if p==nil{return};if p.phase<0{panic("missing page path phase")}
+ p.ns[p.phase]+=p.now().Sub(p.phaseAt).Nanoseconds();p.phase=-1
+}
+func(p *RsegPageCall)Phase(kind int)func(){p.Begin(kind);return func(){p.End()}}
+func(p *RsegPageCall)Lookup(hit bool){
+ if p==nil{return};if p.phase!=0{panic("missing lookup phase")};p.End()
+ if hit{p.hits++}else{p.misses++}
+}
+func(p *RsegPageCall)Finish(){
+ if p==nil{return}
+ elapsed:=p.now().Sub(p.start).Nanoseconds();s:=p.b.s;s.Calls++;s.TotalNS+=elapsed;s.Hits+=p.hits;s.Misses+=p.misses;s.Lookups+=p.calls[0]
+ other:=elapsed;for i:=range p.ns{s.PhaseNS[i]+=p.ns[i];s.PhaseCalls[i]+=p.calls[i];other-=p.ns[i]}
+ s.OtherNS+=other;if p.phase!=-1||other<0||p.calls[0]!=p.hits+p.misses{s.Incomplete++}
+ p.b.current.Store(nil);p.b.busy.Store(false)
+}

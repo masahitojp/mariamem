@@ -1,0 +1,63 @@
+{
+  "question": "Within the dominant128 rseg-header acquisitions, is elapsed time in buffer-pool lookup, read-miss handling, page read completion wait, or subsequent latch/other work?",
+  "mapping_started_unix": 1794024357.7358332,
+  "mapping_budget_seconds": 1800,
+  "if_identified": {
+    "Go_builds": 1,
+    "build_timeout_seconds": 1200,
+    "primary": "P1 Fresh/Fork, 3 alternating pairs, 48 children, same warm static image and schema/seed",
+    "run_timeout_seconds": 900,
+    "keep": "all phases/tails/owners/cleanup"
+  },
+  "if_not_identified": "stop with evidence and guest-regeneration cost boundary; do not rebuild guest",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "forbidden": [
+    "product/guest changes",
+    "skip recovery or validation",
+    "new optimization prototype",
+    "extra repetitions",
+    "guest rebuild"
+  ],
+  "budget_gib": 8,
+  "min_free_gib": 12,
+  "mapping_result": "identified: exact rseg-header Module binding; Fn18164 lookup outcomes, Fn16792 synchronous miss, Fn16788 random read-ahead, Fn16787 read_wait; disjoint totals and residual; read-miss nested frame-init, IO request, read_complete and race read_wait",
+  "primary_processes": 6,
+  "warmup_processes": 2,
+  "positive_pilots": 2,
+  "negative_controls": 2,
+  "total_processes": 12,
+  "children": 48,
+  "parallel": [
+    1
+  ],
+  "observers": [
+    "on"
+  ],
+  "modes": [
+    "fresh",
+    "fork"
+  ],
+  "same_binary": true,
+  "image": "static-page prototype warm in both; equal baseline prepared before children",
+  "criteria": [
+    "Header-only nested components add back without overlap to prior rseg-header acquisition time",
+    "Actual hit/miss/wait counts on header calls; preserve original SQL/state/ownership and cleanup",
+    "Same P1 three alternating Fresh/Fork pairs, no extra repetitions or optimization",
+    "Recommend next action only for path >=50 percent of header acquisition time and >=0.5ms median; otherwise report inconclusive",
+    "Nested read-miss times add back within parent read-miss interval; observer overhead explicit"
+  ],
+  "baseline_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "active_work_budget_seconds": 7200,
+  "tooling_budget_seconds": 1800,
+  "heavy_ci_submissions": 0,
+  "builds": 1,
+  "build_timeout_seconds": 1200,
+  "run_timeout_seconds": 900,
+  "primary": "P1 3 alternating Fresh/Fork pairs x48, same diagnostic binary/image/baseline",
+  "processes": 12,
+  "all_children": 394,
+  "started_unix": 1794024357.735832,
+  "exit": "Identify one dominant page-acquisition path or bounded inconclusive result; no optimization",
+  "native_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "observer_scope": "Header-only function-local aggregation, no global worker timing or off-observer performance claim"
+}
