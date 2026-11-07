@@ -24,6 +24,7 @@ changes not yet published.
 ## Maintainer guides
 
 - [Architecture](v04-generated-go-architecture.md) and [Snapshot contract](decisions/snapshot-product-contract.md)
+- [Startup, Snapshot and Fork lifecycle (日本語)](internals/startup-lifecycle.md) — processing stages, reuse and measurement boundaries
 - [Development and proportional verification](development.md)
 - [Release preparation and CI handoff](releasing.md)
 - [Disposable experiment workspaces](experiment-workspace.md)
