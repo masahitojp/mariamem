@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "workspaces": [
+    {
+      "workspace": "issue65-p1-timeout-guest",
+      "cleanup_debt": [],
+      "worktree_removed": true,
+      "temp_removed": true,
+      "before_bytes": 7772667904,
+      "after_bytes": 3188219904
+    },
+    {
+      "workspace": "issue65-p1-timeout-host",
+      "cleanup_debt": [],
+      "worktree_removed": true,
+      "temp_removed": true,
+      "before_bytes": 6064508928,
+      "after_bytes": 2249469952
+    }
+  ],
+  "retained": "compact evidence and Git refs;author workspace finalized separately"
+}
