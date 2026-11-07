@@ -1,0 +1,30 @@
+package base
+import("context";"testing";"github.com/masahitojp/mariamem/internal/timing")
+func TestOpenSpanContextAndBranches(t *testing.T){
+ t.Setenv("MARIAMEM_TIMING_DIR",t.TempDir())
+ for _,create:=range []int32{0,1}{
+  var got timing.Trace
+  ctx,finish:=timing.Begin(timing.WithRecorder(context.Background(),func(x timing.Trace){got=x}),"startup")
+  m:=&Module{Threads:&ThreadPool{}};OpenSpanBind(m,ctx,true)
+  done:=OpenSpanEnter(m,26778912,0,create);done();OpenSpanUnbind(m);OpenSpanUnbind(m);finish()
+  branch:="innodb/system_space_existing";if create!=0{branch="innodb/system_space_create_new"}
+  want:=[]string{"begin",branch,"innodb/system_space_open_begin","innodb/system_space_open_end","end"}
+  if len(got.Events)!=len(want){t.Fatal(got.Events)}
+  for i,x:=range got.Events{if x.Name!=want[i]||(i>0&&x.Offset<got.Events[i-1].Offset){t.Fatal(got.Events)}}
+ }
+}
+func TestOpenSpanIgnoresRootAndRejectsLayoutDrift(t *testing.T){
+ t.Setenv("MARIAMEM_TIMING_DIR",t.TempDir());var got timing.Trace
+ ctx,finish:=timing.Begin(timing.WithRecorder(context.Background(),func(x timing.Trace){got=x}),"startup")
+ m:=&Module{Threads:&ThreadPool{}};OpenSpanBind(m,ctx,false);OpenSpanEnter(m,0,0,0)();finish()
+ if len(got.Events)!=2{t.Fatal("root observed")}
+ OpenSpanBind(m,ctx,true);defer OpenSpanUnbind(m)
+ panicked:=false;func(){defer func(){panicked=recover()!=nil}();OpenSpanEnter(m,1,0,0)}();if !panicked{t.Fatal("layout drift accepted")}
+}
+func TestOpenSpanEndOnPanic(t *testing.T){
+ t.Setenv("MARIAMEM_TIMING_DIR",t.TempDir());var got timing.Trace
+ ctx,finish:=timing.Begin(timing.WithRecorder(context.Background(),func(x timing.Trace){got=x}),"startup")
+ m:=&Module{Threads:&ThreadPool{}};OpenSpanBind(m,ctx,true);defer OpenSpanUnbind(m)
+ func(){defer func(){recover()}();defer OpenSpanEnter(m,26778912,0,0)();panic("injected guest panic")}();finish()
+ if got.Events[len(got.Events)-2].Name!="innodb/system_space_open_end"{t.Fatal(got.Events)}
+}

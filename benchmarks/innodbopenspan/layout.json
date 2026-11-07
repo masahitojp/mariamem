@@ -1,0 +1,30 @@
+{
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "mapping_elapsed_seconds": 167.0749990940094,
+  "p0_sha256": "76eed591de25d2bae7daa653136ee26530478cf7f303b827b22d0bbbbee3e3d9",
+  "p2_sha256": "0d067e13916b78f9d0f569c704b99d9d6f8b6b3320aa3e135bcdace785d294a4",
+  "containing_function": "Fn18569",
+  "call_site": "Fn18569:L742 -> Fn16690",
+  "signature": "m, this=26778912, is_temp=0, create_new_db=v11097, sum_new_sizes=v11085+792",
+  "marker_begin": {
+    "text": "innodb_memory_background_complete",
+    "address": 8620240,
+    "call": "Fn227"
+  },
+  "marker_end": {
+    "text": "innodb_open_recovery_complete",
+    "address": 8619848,
+    "call": "Fn227"
+  },
+  "callee": "Fn16690",
+  "callee_lines": 3688,
+  "native_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "native_function": "SysTablespace::open_or_create",
+  "proof": [
+    "unique existing begin/end marker strings in data segment0 at base8388608 locate srv_start body Fn18569",
+    "single matching 4-argument method call in this body",
+    "callee has sum-size out parameter initialization and create_new_db branch",
+    "callee refers to fsp0sysspace.cc plus system tablespace space-ID/header and first/second doublewrite extent read errors",
+    "call and return/exception behavior preserved; helper touches no guest memory"
+  ]
+}

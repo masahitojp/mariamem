@@ -1,0 +1,20 @@
+package base
+
+import (
+ "context"
+ "sync"
+ "github.com/masahitojp/mariamem/internal/timing"
+)
+var openSpanContexts sync.Map // *ThreadPool -> child startup context
+func OpenSpanBind(m *Module,ctx context.Context,child bool){
+ if child && timing.Enabled(ctx){if _,exists:=openSpanContexts.LoadOrStore(m.Threads,ctx);exists{panic("duplicate open-span context")}}
+}
+func OpenSpanUnbind(m *Module){openSpanContexts.Delete(m.Threads)}
+func OpenSpanEnter(m *Module,space,isTemp,createNew int32)func(){
+ value,ok:=openSpanContexts.Load(m.Threads);if !ok{return func(){}}
+ if space!=26778912 || isTemp!=0 || (createNew!=0 && createNew!=1){panic("pinned system-tablespace call arguments changed")}
+ ctx:=value.(context.Context)
+ if createNew!=0{timing.Mark(ctx,"innodb/system_space_create_new")}else{timing.Mark(ctx,"innodb/system_space_existing")}
+ timing.Mark(ctx,"innodb/system_space_open_begin")
+ return func(){timing.Mark(ctx,"innodb/system_space_open_end")}
+}
