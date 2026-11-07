@@ -6,8 +6,8 @@ INT24,YEAR. Original G1/G2 oracles remain fixed;short handshake stays a visible
 contract difference. No canonical guest/host integration or release.
 
 Pinned upstream83e909fc sql_type.cc:8226 Type_handler::Item_param_set_param_func
-sets NULL without advancing the packet. The four observed type handlers inherit
-that fallback. The G1 exact-consumption check converted that upstream behavior
+sets NULL without advancing the packet. BIT,INT24,YEAR inherit that fallback;GEOMETRY explicitly performs the same
+NULL operation in sql_type_geom.cc:680. The G1 exact-consumption check converted that upstream behavior
 into1835. Preserve the native fallback without adding a decoder:only a non-NULL
 parameter actually visiting one of these four handlers exempts the remaining
 bytes from the added end check. This also preserves upstream cursor behavior in

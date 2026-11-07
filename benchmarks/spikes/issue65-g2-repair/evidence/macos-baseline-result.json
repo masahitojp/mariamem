@@ -1,0 +1,2922 @@
+{
+  "result": "PASS scoped native G1 repair",
+  "complete": true,
+  "ready": true,
+  "cases": [
+    {
+      "name": "TestCompatCredentials",
+      "result": "PASS",
+      "elapsed": "0.03s"
+    },
+    {
+      "name": "TestCompatCapabilities",
+      "result": "PASS",
+      "elapsed": "0.03s"
+    },
+    {
+      "name": "TestCompatPreparedState",
+      "result": "PASS",
+      "elapsed": "0.16s"
+    },
+    {
+      "name": "TestCompatCapacity",
+      "result": "PASS",
+      "elapsed": "0.03s"
+    },
+    {
+      "name": "TestCompatLiveCapacity",
+      "result": "PASS",
+      "elapsed": "0.07s"
+    },
+    {
+      "name": "TestCompatFatalEOF",
+      "result": "PASS",
+      "elapsed": "0.38s"
+    },
+    {
+      "name": "TestCompatFullWindow",
+      "result": "PASS",
+      "elapsed": "0.10s"
+    }
+  ],
+  "missing_cases": [],
+  "observations": [
+    {
+      "actual": "user=root@localhost current=root@localhost error=<nil>",
+      "expected": "root@... / root@localhost",
+      "id": "canonical_identity",
+      "pass": true,
+      "test": "TestCompatCredentials/roottrue"
+    },
+    {
+      "actual": "user=root@localhost current=root@localhost error=<nil>",
+      "expected": "root@... / root@localhost",
+      "id": "canonical_identity",
+      "pass": true,
+      "test": "TestCompatCredentials/testfalse"
+    },
+    {
+      "actual": "user=root@localhost current=root@localhost error=<nil>",
+      "expected": "root@... / root@localhost",
+      "id": "canonical_identity",
+      "pass": true,
+      "test": "TestCompatCredentials/rootfalse"
+    },
+    {
+      "actual": "user=root@localhost current=root@localhost error=<nil>",
+      "expected": "root@... / root@localhost",
+      "id": "canonical_identity",
+      "pass": true,
+      "test": "TestCompatCredentials/testtrue"
+    },
+    {
+      "actual": "user=root@localhost current=root@localhost error=<nil>",
+      "expected": "root@... / root@localhost",
+      "id": "canonical_identity",
+      "pass": true,
+      "test": "TestCompatCredentials/applicationfalse"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_applicationtrue",
+      "pass": true,
+      "test": "TestCompatCredentials/raw_applicationtrue"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "credential_following_ping",
+      "pass": true,
+      "test": "TestCompatCredentials/raw_applicationtrue"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_applicationfalse",
+      "pass": true,
+      "test": "TestCompatCredentials/raw_applicationfalse"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "credential_following_ping",
+      "pass": true,
+      "test": "TestCompatCredentials/raw_applicationfalse"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_false",
+      "pass": true,
+      "test": "TestCompatCredentials/raw_false"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "credential_following_ping",
+      "pass": true,
+      "test": "TestCompatCredentials/raw_false"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapabilities"
+    },
+    {
+      "actual": 1024525,
+      "expected": 1024525,
+      "id": "greeting_exact_caps",
+      "pass": true,
+      "test": "TestCompatCapabilities"
+    },
+    {
+      "actual": "rows=1 err=<nil>",
+      "expected": 1,
+      "id": "accepted_FOUND_ROWS",
+      "pass": true,
+      "test": "TestCompatCapabilities"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatPreparedState/type_reuse"
+    },
+    {
+      "actual": "row=000003610062 error=",
+      "expected": "000003610062",
+      "id": "typed_NUL",
+      "pass": true,
+      "test": "TestCompatPreparedState/type_reuse"
+    },
+    {
+      "actual": "row=0000057265757365 error=",
+      "expected": "0000057265757365",
+      "id": "stored_type_reuse",
+      "pass": true,
+      "test": "TestCompatPreparedState/type_reuse"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "prepared_following_ping",
+      "pass": true,
+      "test": "TestCompatPreparedState/type_reuse"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatPreparedState/alias"
+    },
+    {
+      "actual": "row=000005616c696173 error=",
+      "expected": "000005616c696173",
+      "id": "last_statement_alias",
+      "pass": true,
+      "test": "TestCompatPreparedState/alias"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "prepared_following_ping",
+      "pass": true,
+      "test": "TestCompatPreparedState/alias"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "row=0000046c6f6e67 error=",
+      "expected": "0000046c6f6e67",
+      "id": "LONG_DATA_no_reply_and_execute",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "00000002000000",
+      "expected": "OK",
+      "id": "STMT_RESET",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "row=0000056672657368 error=",
+      "expected": "0000056672657368",
+      "id": "reset_clears_long_data",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "1210/HY000",
+      "expected": "1210/HY000",
+      "id": "LONG_DATA_deferred_error",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "00000002000000",
+      "expected": "OK",
+      "id": "reset_clears_deferred_error",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "row=0000097265636f7665726564 error=",
+      "expected": "0000097265636f7665726564",
+      "id": "execute_after_reset",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "prepared_following_ping",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatPreparedState/malformed_string_D2"
+    },
+    {
+      "actual": "row=000000 error=",
+      "expected": "000000",
+      "id": "named_native_malformed_string",
+      "pass": true,
+      "test": "TestCompatPreparedState/malformed_string_D2"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "prepared_following_ping",
+      "pass": true,
+      "test": "TestCompatPreparedState/malformed_string_D2"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatPreparedState/close_unknown_reset"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "CLOSE_has_no_response",
+      "pass": true,
+      "test": "TestCompatPreparedState/close_unknown_reset"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "unknown_CLOSE_has_no_response",
+      "pass": true,
+      "test": "TestCompatPreparedState/close_unknown_reset"
+    },
+    {
+      "actual": "1243/HY000",
+      "expected": "1243/HY000",
+      "id": "unknown_RESET",
+      "pass": true,
+      "test": "TestCompatPreparedState/close_unknown_reset"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "prepared_following_ping",
+      "pass": true,
+      "test": "TestCompatPreparedState/close_unknown_reset"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "errno=1040 state=08004 error=<nil>",
+      "expected": "1040/08004",
+      "id": "capacity_prelogin_tcp",
+      "pass": true,
+      "test": "TestCompatCapacity/17th_tcp"
+    },
+    {
+      "actual": "errno=1040 state=08004 error=<nil>",
+      "expected": "1040/08004",
+      "id": "capacity_prelogin_pipe",
+      "pass": true,
+      "test": "TestCompatCapacity/17th_pipe"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "existing_session_after_capacity_rejection",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "slot_reused_after_retirement",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "errno=1040 state=08004 error=<nil>",
+      "expected": "1040/08004",
+      "id": "Live_capacity_prelogin",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "Live_existing_session_after_rejection",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatFatalEOF"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatFatalEOF"
+    },
+    {
+      "actual": "bytes=0 error=EOF",
+      "expected": "connection loss without injected ERR",
+      "id": "fatal_idle_transport_closed",
+      "pass": true,
+      "test": "TestCompatFatalEOF"
+    },
+    {
+      "actual": "guest poison: deadline",
+      "expected": "deadline",
+      "id": "owner_original_deadline_cause",
+      "pass": true,
+      "test": "TestCompatFatalEOF"
+    },
+    {
+      "actual": 42,
+      "expected": 42,
+      "id": "independent_instance_survives",
+      "pass": true,
+      "test": "TestCompatFatalEOF"
+    },
+    {
+      "actual": "guest poison: deadline",
+      "expected": "deadline",
+      "id": "cleanup_preserves_original_cause",
+      "pass": true,
+      "test": "TestCompatFatalEOF"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatFullWindow/overflow"
+    },
+    {
+      "actual": {
+        "cause": "pending_input_overflow",
+        "denied": 0,
+        "fenced": true,
+        "joined": 0,
+        "poisoned": true,
+        "retired_input_peak": 0,
+        "retired_output_peak": 0,
+        "rollback_reports": 0,
+        "sessions": [
+          {
+            "command": 1,
+            "generation": 1,
+            "input": 0,
+            "input_peak": 1048576,
+            "output_peak": 95,
+            "outstanding": 0,
+            "phase": "executing",
+            "slot": 0,
+            "status": 2
+          }
+        ],
+        "stale": 0,
+        "started": 1
+      },
+      "expected": "full queue or already aborted",
+      "id": "full_window_overflow_setup",
+      "pass": true,
+      "test": "TestCompatFullWindow/overflow"
+    },
+    {
+      "actual": "guest poison: pending_input_overflow",
+      "expected": "overflow before command deadline",
+      "id": "full_window_overflow_abort",
+      "pass": true,
+      "test": "TestCompatFullWindow/overflow"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatFullWindow/eof"
+    },
+    {
+      "actual": {
+        "cause": "",
+        "denied": 0,
+        "fenced": false,
+        "joined": 0,
+        "poisoned": false,
+        "retired_input_peak": 0,
+        "retired_output_peak": 0,
+        "rollback_reports": 0,
+        "sessions": [
+          {
+            "command": 1,
+            "generation": 1,
+            "input": 1048581,
+            "input_peak": 1048581,
+            "output_peak": 95,
+            "outstanding": 0,
+            "phase": "executing",
+            "slot": 0,
+            "status": 2
+          }
+        ],
+        "stale": 0,
+        "started": 1
+      },
+      "expected": "full queue or already aborted",
+      "id": "full_window_eof_setup",
+      "pass": true,
+      "test": "TestCompatFullWindow/eof"
+    },
+    {
+      "actual": "guest poison: unexpected_peer_eof",
+      "expected": "eof before command deadline",
+      "id": "full_window_eof_abort",
+      "pass": true,
+      "test": "TestCompatFullWindow/eof"
+    }
+  ],
+  "mismatches": [],
+  "exit_code": 0,
+  "guest_source_commit": "76abfed4b5f920c79efd5fef33c848c21ac040c9",
+  "host_source_commit": "76abfed4b5f920c79efd5fef33c848c21ac040c9",
+  "guest_sha256": "242f5cfd446ac65dc3d7322ead668cd2ec5473193cf4bb58b69c7c5b3cfe6e87",
+  "binary_sha256": "7ac18cc717368ef206b83bace36237bc75ca8413010d1b937749c0cebd4bf278",
+  "tooling_source_commit": "234be1a44203480a1e52d71e226a66adcc73e80a",
+  "lifecycle_cases": 22,
+  "not_qualified": [
+    "full compatibility/profile",
+    "public APIs",
+    "whole controller relocation",
+    "race freedom",
+    "performance",
+    "release"
+  ],
+  "source_reference_status": "LOCAL_REFERENCE_CANDIDATE",
+  "supporting_checks": "PASS",
+  "limits_result": {
+    "result": "PASS scoped native limits",
+    "complete": true,
+    "ready": true,
+    "exit_code": 0,
+    "cases": [
+      {
+        "name": "TestLimitsCommands",
+        "result": "PASS",
+        "elapsed": "0.16s"
+      },
+      {
+        "name": "TestLimitsCapabilities",
+        "result": "PASS",
+        "elapsed": "0.13s"
+      },
+      {
+        "name": "TestLimitsInputHeaders",
+        "result": "PASS",
+        "elapsed": "0.13s"
+      },
+      {
+        "name": "TestLimitsOutputPacket",
+        "result": "PASS",
+        "elapsed": "1.53s"
+      },
+      {
+        "name": "TestLimitsAggregate",
+        "result": "PASS",
+        "elapsed": "3.08s"
+      },
+      {
+        "name": "TestLimitsPipeWindow",
+        "result": "PASS",
+        "elapsed": "0.13s"
+      }
+    ],
+    "observations": [
+      {
+        "actual": "errno=1235 state=42000 err=<nil> marker=ffd304233432303030",
+        "expected": "ERR1235/42000",
+        "id": "reset_connection",
+        "pass": true,
+        "test": "TestLimitsCommands/reset_connection"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "reset_connection_following",
+        "pass": true,
+        "test": "TestLimitsCommands/reset_connection"
+      },
+      {
+        "actual": "errno=1235 state=42000 err=<nil> marker=ffd304233432303030",
+        "expected": "ERR1235/42000",
+        "id": "stmt_fetch",
+        "pass": true,
+        "test": "TestLimitsCommands/stmt_fetch"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "stmt_fetch_following",
+        "pass": true,
+        "test": "TestLimitsCommands/stmt_fetch"
+      },
+      {
+        "actual": "errno=1235 state=42000 err=<nil> marker=ffd304233432303030",
+        "expected": "ERR1235/42000",
+        "id": "statistics",
+        "pass": true,
+        "test": "TestLimitsCommands/statistics"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "statistics_following",
+        "pass": true,
+        "test": "TestLimitsCommands/statistics"
+      },
+      {
+        "actual": "errno=1235 state=42000 err=<nil> marker=ffd304233432303030",
+        "expected": "ERR1235/42000",
+        "id": "process_info",
+        "pass": true,
+        "test": "TestLimitsCommands/process_info"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "process_info_following",
+        "pass": true,
+        "test": "TestLimitsCommands/process_info"
+      },
+      {
+        "actual": "errno=1235 state=42000 err=<nil> marker=ffd304233432303030",
+        "expected": "ERR1235/42000",
+        "id": "binlog_dump",
+        "pass": true,
+        "test": "TestLimitsCommands/binlog_dump"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "binlog_dump_following",
+        "pass": true,
+        "test": "TestLimitsCommands/binlog_dump"
+      },
+      {
+        "actual": "errno=1235 state=42000 marker=ff",
+        "expected": "ERR1235/42000",
+        "id": "tls",
+        "pass": true,
+        "test": "TestLimitsCapabilities/tls"
+      },
+      {
+        "actual": "errno=1235 state=42000 marker=ff",
+        "expected": "ERR1235/42000",
+        "id": "missing_protocol41",
+        "pass": true,
+        "test": "TestLimitsCapabilities/missing_protocol41"
+      },
+      {
+        "actual": "caps=fa20d marker=00 err=<nil>",
+        "expected": "unadvertised; ordinary uncompressed login",
+        "id": "compression_not_negotiated",
+        "pass": true,
+        "test": "TestLimitsCapabilities/compression_not_negotiated"
+      },
+      {
+        "actual": "first=01 eof=fe00000200 row=0131 end=fe00000200",
+        "expected": "ordinary row plus legacy EOF",
+        "id": "compression_not_negotiated_following",
+        "pass": true,
+        "test": "TestLimitsCapabilities/compression_not_negotiated"
+      },
+      {
+        "actual": "caps=fa20d marker=00 err=<nil>",
+        "expected": "unadvertised; ordinary uncompressed login",
+        "id": "deprecate_eof_not_negotiated",
+        "pass": true,
+        "test": "TestLimitsCapabilities/deprecate_eof_not_negotiated"
+      },
+      {
+        "actual": "first=01 eof=fe00000200 row=0131 end=fe00000200",
+        "expected": "ordinary row plus legacy EOF",
+        "id": "deprecate_eof_not_negotiated_following",
+        "pass": true,
+        "test": "TestLimitsCapabilities/deprecate_eof_not_negotiated"
+      },
+      {
+        "actual": "errno=1153 err=<nil>",
+        "expected": "reject header without waiting for body",
+        "id": "n1048578_warmfalse",
+        "pass": true,
+        "test": "TestLimitsInputHeaders/n1048578_warmfalse"
+      },
+      {
+        "actual": "errno=1153 err=<nil>",
+        "expected": "reject header without waiting for body",
+        "id": "n1048578_warmtrue",
+        "pass": true,
+        "test": "TestLimitsInputHeaders/n1048578_warmtrue"
+      },
+      {
+        "actual": "errno=1153 err=<nil>",
+        "expected": "reject header without waiting for body",
+        "id": "n16777215_warmfalse",
+        "pass": true,
+        "test": "TestLimitsInputHeaders/n16777215_warmfalse"
+      },
+      {
+        "actual": "errno=1153 err=<nil>",
+        "expected": "reject header without waiting for body",
+        "id": "n16777215_warmtrue",
+        "pass": true,
+        "test": "TestLimitsInputHeaders/n16777215_warmtrue"
+      },
+      {
+        "actual": "packet=16777214 value=16777210 err=<nil>",
+        "expected": "exact 0xfffffe row packet and exact value",
+        "id": "binaryfalse_overfalse",
+        "pass": true,
+        "test": "TestLimitsOutputPacket/binaryfalse_overfalse"
+      },
+      {
+        "actual": "end=fe00000200 err=<nil>",
+        "expected": "result EOF then PING",
+        "id": "binaryfalse_overfalse_following",
+        "pass": true,
+        "test": "TestLimitsOutputPacket/binaryfalse_overfalse"
+      },
+      {
+        "actual": "errno=1153 state=08S01 err=<nil> row_bytes=60 owner=<nil>",
+        "expected": "ERR1153/08S01 or early EOF; no continuation header",
+        "id": "binaryfalse_overtrue",
+        "pass": true,
+        "test": "TestLimitsOutputPacket/binaryfalse_overtrue"
+      },
+      {
+        "actual": "packet=16777214 value=16777208 err=<nil>",
+        "expected": "exact 0xfffffe row packet and exact value",
+        "id": "binarytrue_overfalse",
+        "pass": true,
+        "test": "TestLimitsOutputPacket/binarytrue_overfalse"
+      },
+      {
+        "actual": "end=fe00000200 err=<nil>",
+        "expected": "result EOF then PING",
+        "id": "binarytrue_overfalse_following",
+        "pass": true,
+        "test": "TestLimitsOutputPacket/binarytrue_overfalse"
+      },
+      {
+        "actual": "errno=1153 state=08S01 err=<nil> row_bytes=60 owner=<nil>",
+        "expected": "ERR1153/08S01 or early EOF; no continuation header",
+        "id": "binarytrue_overtrue",
+        "pass": true,
+        "test": "TestLimitsOutputPacket/binarytrue_overtrue"
+      },
+      {
+        "actual": {
+          "error": "<nil>",
+          "stats": {
+            "cause": "",
+            "denied": 0,
+            "fenced": false,
+            "joined": 0,
+            "poisoned": false,
+            "retired_input_peak": 0,
+            "retired_output_peak": 0,
+            "rollback_reports": 0,
+            "sessions": [
+              {
+                "command": 1,
+                "generation": 1,
+                "input": 0,
+                "input_peak": 113,
+                "output_peak": 65536,
+                "outstanding": 65536,
+                "phase": "executing",
+                "slot": 0,
+                "status": 2
+              },
+              {
+                "command": 0,
+                "generation": 1,
+                "input": 0,
+                "input_peak": 45,
+                "output_peak": 95,
+                "outstanding": 0,
+                "phase": "idle",
+                "slot": 1,
+                "status": 2
+              }
+            ],
+            "stale": 0,
+            "started": 2
+          }
+        },
+        "expected": "other-session PING while output credit full",
+        "id": "binaryfalse_control",
+        "pass": true,
+        "test": "TestLimitsAggregate/binaryfalse"
+      },
+      {
+        "actual": "rows=40 bytes=41943040 err=<nil> last_bytes=5",
+        "expected": "40 exact 1MiB rows, total40MiB, terminal EOF",
+        "id": "binaryfalse_data",
+        "pass": true,
+        "test": "TestLimitsAggregate/binaryfalse"
+      },
+      {
+        "actual": {
+          "native_peak": 65536,
+          "stats": {
+            "cause": "",
+            "denied": 0,
+            "fenced": false,
+            "joined": 0,
+            "poisoned": false,
+            "retired_input_peak": 0,
+            "retired_output_peak": 0,
+            "rollback_reports": 0,
+            "sessions": [
+              {
+                "command": 1,
+                "generation": 1,
+                "input": 0,
+                "input_peak": 113,
+                "output_peak": 65536,
+                "outstanding": 0,
+                "phase": "idle",
+                "slot": 0,
+                "status": 34
+              },
+              {
+                "command": 1,
+                "generation": 1,
+                "input": 0,
+                "input_peak": 45,
+                "output_peak": 95,
+                "outstanding": 0,
+                "phase": "idle",
+                "slot": 1,
+                "status": 2
+              }
+            ],
+            "stale": 0,
+            "started": 2
+          }
+        },
+        "expected": "native output peak<=65536; following PING",
+        "id": "binaryfalse_bounds",
+        "pass": true,
+        "test": "TestLimitsAggregate/binaryfalse"
+      },
+      {
+        "actual": {
+          "error": "<nil>",
+          "stats": {
+            "cause": "",
+            "denied": 0,
+            "fenced": false,
+            "joined": 0,
+            "poisoned": false,
+            "retired_input_peak": 0,
+            "retired_output_peak": 0,
+            "rollback_reports": 0,
+            "sessions": [
+              {
+                "command": 2,
+                "generation": 1,
+                "input": 0,
+                "input_peak": 113,
+                "output_peak": 65536,
+                "outstanding": 65536,
+                "phase": "executing",
+                "slot": 0,
+                "status": 2
+              },
+              {
+                "command": 0,
+                "generation": 1,
+                "input": 0,
+                "input_peak": 45,
+                "output_peak": 95,
+                "outstanding": 0,
+                "phase": "idle",
+                "slot": 1,
+                "status": 2
+              }
+            ],
+            "stale": 0,
+            "started": 2
+          }
+        },
+        "expected": "other-session PING while output credit full",
+        "id": "binarytrue_control",
+        "pass": true,
+        "test": "TestLimitsAggregate/binarytrue"
+      },
+      {
+        "actual": "rows=40 bytes=41943040 err=<nil> last_bytes=5",
+        "expected": "40 exact 1MiB rows, total40MiB, terminal EOF",
+        "id": "binarytrue_data",
+        "pass": true,
+        "test": "TestLimitsAggregate/binarytrue"
+      },
+      {
+        "actual": {
+          "native_peak": 65536,
+          "stats": {
+            "cause": "",
+            "denied": 0,
+            "fenced": false,
+            "joined": 0,
+            "poisoned": false,
+            "retired_input_peak": 0,
+            "retired_output_peak": 0,
+            "rollback_reports": 0,
+            "sessions": [
+              {
+                "command": 2,
+                "generation": 1,
+                "input": 0,
+                "input_peak": 113,
+                "output_peak": 65536,
+                "outstanding": 0,
+                "phase": "idle",
+                "slot": 0,
+                "status": 34
+              },
+              {
+                "command": 1,
+                "generation": 1,
+                "input": 0,
+                "input_peak": 45,
+                "output_peak": 95,
+                "outstanding": 0,
+                "phase": "idle",
+                "slot": 1,
+                "status": 2
+              }
+            ],
+            "stale": 0,
+            "started": 2
+          }
+        },
+        "expected": "native output peak<=65536; following PING",
+        "id": "binarytrue_bounds",
+        "pass": true,
+        "test": "TestLimitsAggregate/binarytrue"
+      },
+      {
+        "actual": {
+          "cause": "",
+          "denied": 0,
+          "fenced": false,
+          "joined": 0,
+          "poisoned": false,
+          "retired_input_peak": 0,
+          "retired_output_peak": 0,
+          "rollback_reports": 0,
+          "sessions": [
+            {
+              "command": 1,
+              "generation": 1,
+              "input": 1048576,
+              "input_peak": 1048576,
+              "output_peak": 95,
+              "outstanding": 0,
+              "phase": "executing",
+              "slot": 0,
+              "status": 2
+            }
+          ],
+          "stale": 0,
+          "started": 1
+        },
+        "expected": "full queue or already aborted",
+        "id": "full_window_overflow_setup",
+        "pass": true,
+        "test": "TestLimitsPipeWindow/overflow"
+      },
+      {
+        "actual": "guest poison: pending_input_overflow",
+        "expected": "overflow before command deadline",
+        "id": "full_window_overflow_abort",
+        "pass": true,
+        "test": "TestLimitsPipeWindow/overflow"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "independent PING",
+        "id": "independent_overflow",
+        "pass": true,
+        "test": "TestLimitsPipeWindow/overflow"
+      },
+      {
+        "actual": {
+          "cause": "",
+          "denied": 0,
+          "fenced": false,
+          "joined": 0,
+          "poisoned": false,
+          "retired_input_peak": 0,
+          "retired_output_peak": 0,
+          "rollback_reports": 0,
+          "sessions": [
+            {
+              "command": 1,
+              "generation": 1,
+              "input": 1048581,
+              "input_peak": 1048581,
+              "output_peak": 95,
+              "outstanding": 0,
+              "phase": "executing",
+              "slot": 0,
+              "status": 2
+            }
+          ],
+          "stale": 0,
+          "started": 1
+        },
+        "expected": "full queue or already aborted",
+        "id": "full_window_eof_setup",
+        "pass": true,
+        "test": "TestLimitsPipeWindow/eof"
+      },
+      {
+        "actual": "guest poison: unexpected_peer_eof",
+        "expected": "eof before command deadline",
+        "id": "full_window_eof_abort",
+        "pass": true,
+        "test": "TestLimitsPipeWindow/eof"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "independent PING",
+        "id": "independent_eof",
+        "pass": true,
+        "test": "TestLimitsPipeWindow/eof"
+      }
+    ],
+    "mismatches": [],
+    "missing_observations": []
+  },
+  "policy_controls": 3,
+  "g1_result": {
+    "result": "PASS scoped G1 inputs",
+    "complete": true,
+    "ready": true,
+    "exit_code": 0,
+    "cases": [
+      {
+        "name": "TestG1ExecuteHeader",
+        "result": "PASS",
+        "elapsed": "0.04s"
+      },
+      {
+        "name": "TestG1ZeroParamSuffix",
+        "result": "PASS",
+        "elapsed": "0.04s"
+      },
+      {
+        "name": "TestG1Descriptors",
+        "result": "PASS",
+        "elapsed": "0.06s"
+      },
+      {
+        "name": "TestG1SQLBounds",
+        "result": "PASS",
+        "elapsed": "0.11s"
+      },
+      {
+        "name": "TestG1SetOption",
+        "result": "PASS",
+        "elapsed": "0.03s"
+      },
+      {
+        "name": "TestG1FailedPrepareAlias",
+        "result": "PASS",
+        "elapsed": "0.03s"
+      },
+      {
+        "name": "TestG1LongDataHeader",
+        "result": "PASS",
+        "elapsed": "0.03s"
+      }
+    ],
+    "observations": [
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1235,\"State\":\"42000\",\"Value\":\"\",\"Packets\":[\"ffd304233432303030546869732076657273696f6e206f66204d61726961444220646f65736e27742079657420737570706f72742027637572736f7220666c61\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1235 state=42000 value=\"\"",
+        "id": "paramfalse_cursor",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramfalse_cursor"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "paramfalse_cursor_ping",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramfalse_cursor"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"zero\",\"Packets\":[\"01\",\"03646566000000144341535428277a65726f27204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"0000047a65726f\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"zero\"",
+        "id": "paramfalse_cursor_cached",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramfalse_cursor"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1235,\"State\":\"42000\",\"Value\":\"\",\"Packets\":[\"ffd304233432303030546869732076657273696f6e206f66204d61726961444220646f65736e27742079657420737570706f72742027637572736f7220666c61\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1235 state=42000 value=\"\"",
+        "id": "paramfalse_flags8",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramfalse_flags8"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "paramfalse_flags8_ping",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramfalse_flags8"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"zero\",\"Packets\":[\"01\",\"03646566000000144341535428277a65726f27204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"0000047a65726f\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"zero\"",
+        "id": "paramfalse_flags8_cached",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramfalse_flags8"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "paramfalse_iteration0",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramfalse_iteration0"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "paramfalse_iteration0_ping",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramfalse_iteration0"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"zero\",\"Packets\":[\"01\",\"03646566000000144341535428277a65726f27204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"0000047a65726f\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"zero\"",
+        "id": "paramfalse_iteration0_cached",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramfalse_iteration0"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "paramfalse_iteration2",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramfalse_iteration2"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "paramfalse_iteration2_ping",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramfalse_iteration2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"zero\",\"Packets\":[\"01\",\"03646566000000144341535428277a65726f27204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"0000047a65726f\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"zero\"",
+        "id": "paramfalse_iteration2_cached",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramfalse_iteration2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "paramtrue_cursor_seed",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_cursor"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1235,\"State\":\"42000\",\"Value\":\"\",\"Packets\":[\"ffd304233432303030546869732076657273696f6e206f66204d61726961444220646f65736e27742079657420737570706f72742027637572736f7220666c61\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1235 state=42000 value=\"\"",
+        "id": "paramtrue_cursor",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_cursor"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "paramtrue_cursor_ping",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_cursor"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "paramtrue_cursor_cached",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_cursor"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "paramtrue_cursor_fresh",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_cursor"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "paramtrue_flags8_seed",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_flags8"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1235,\"State\":\"42000\",\"Value\":\"\",\"Packets\":[\"ffd304233432303030546869732076657273696f6e206f66204d61726961444220646f65736e27742079657420737570706f72742027637572736f7220666c61\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1235 state=42000 value=\"\"",
+        "id": "paramtrue_flags8",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_flags8"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "paramtrue_flags8_ping",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_flags8"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "paramtrue_flags8_cached",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_flags8"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "paramtrue_flags8_fresh",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_flags8"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "paramtrue_iteration0_seed",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_iteration0"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "paramtrue_iteration0",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_iteration0"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "paramtrue_iteration0_ping",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_iteration0"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "paramtrue_iteration0_cached",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_iteration0"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "paramtrue_iteration0_fresh",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_iteration0"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "paramtrue_iteration2_seed",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_iteration2"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "paramtrue_iteration2",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_iteration2"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "paramtrue_iteration2_ping",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_iteration2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "paramtrue_iteration2_cached",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_iteration2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "paramtrue_iteration2_fresh",
+        "pass": true,
+        "test": "TestG1ExecuteHeader/paramtrue_iteration2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"zero\",\"Packets\":[\"01\",\"03646566000000144341535428277a65726f27204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"0000047a65726f\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"zero\"",
+        "id": "none",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/none"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "none_ping",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/none"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"zero\",\"Packets\":[\"01\",\"03646566000000144341535428277a65726f27204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"0000047a65726f\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"zero\"",
+        "id": "none_cached",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/none"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"zero\",\"Packets\":[\"01\",\"03646566000000144341535428277a65726f27204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"0000047a65726f\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"zero\"",
+        "id": "zero",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/zero"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "zero_ping",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/zero"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"zero\",\"Packets\":[\"01\",\"03646566000000144341535428277a65726f27204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"0000047a65726f\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"zero\"",
+        "id": "zero_cached",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/zero"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"zero\",\"Packets\":[\"01\",\"03646566000000144341535428277a65726f27204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"0000047a65726f\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"zero\"",
+        "id": "one",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/one"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "one_ping",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/one"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"zero\",\"Packets\":[\"01\",\"03646566000000144341535428277a65726f27204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"0000047a65726f\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"zero\"",
+        "id": "one_cached",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/one"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "two",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/two"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "two_ping",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/two"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"zero\",\"Packets\":[\"01\",\"03646566000000144341535428277a65726f27204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"0000047a65726f\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"zero\"",
+        "id": "two_cached",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/two"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "extra",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/extra"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "extra_ping",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/extra"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"zero\",\"Packets\":[\"01\",\"03646566000000144341535428277a65726f27204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"0000047a65726f\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"zero\"",
+        "id": "extra_cached",
+        "pass": true,
+        "test": "TestG1ZeroParamSuffix/extra"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "newtypes2_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/newtypes2"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "newtypes2",
+        "pass": true,
+        "test": "TestG1Descriptors/newtypes2"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "newtypes2_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/newtypes2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "newtypes2_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/newtypes2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "newtypes2_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/newtypes2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "type17_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/type17"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "type17",
+        "pass": true,
+        "test": "TestG1Descriptors/type17"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "type17_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/type17"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "type17_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/type17"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "type17_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/type17"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "typeflags1_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/typeflags1"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "typeflags1",
+        "pass": true,
+        "test": "TestG1Descriptors/typeflags1"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "typeflags1_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/typeflags1"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "typeflags1_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/typeflags1"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "typeflags1_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/typeflags1"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "short_scalar_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/short_scalar"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "short_scalar",
+        "pass": true,
+        "test": "TestG1Descriptors/short_scalar"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "short_scalar_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/short_scalar"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "short_scalar_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/short_scalar"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "short_scalar_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/short_scalar"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "extra_scalar_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/extra_scalar"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "extra_scalar",
+        "pass": true,
+        "test": "TestG1Descriptors/extra_scalar"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "extra_scalar_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/extra_scalar"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "extra_scalar_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/extra_scalar"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "extra_scalar_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/extra_scalar"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix0_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix0"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix0",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix0"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix0_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix0"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix0_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix0"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix0_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix0"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix1_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix1"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix1",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix1"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix1_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix1"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix1_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix1"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix1_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix1"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix2_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix2"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix2",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix2"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix2_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix2_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix2_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix3_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix3"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix3",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix3"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix3_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix3"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix3_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix3"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix3_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix3"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix4_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix4"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix4",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix4"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix4_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix4"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix4_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix4"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix4_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix4"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix5_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix5"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix5",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix5"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix5_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix5"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix5_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix5"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix5_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix5"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix6_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix6"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix6",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix6"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix6_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix6"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix6_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix6"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix6_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix6"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix7_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix7"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix7",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix7"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix7_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix7"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix7_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix7"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix7_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix7"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix8_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix8"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix8",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix8"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix8_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix8"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix8_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix8"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix8_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix8"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix9_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix9"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix9",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix9"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix9_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix9"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix9_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix9"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix9_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix9"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix10_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix10"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix10",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix10"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix10_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix10"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix10_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix10"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix10_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix10"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix11_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix11"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix11",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix11"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix11_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix11"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix11_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix11"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix11_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix11"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix12_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix12"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix12",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix12"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix12_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix12"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix12_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix12"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix12_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix12"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix13_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix13"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix13",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix13"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix13_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix13"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix13_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix13"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix13_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix13"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix14_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix14"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix14",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix14"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix14_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix14"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix14_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix14"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix14_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix14"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix15_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix15"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix15",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix15"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix15_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix15"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix15_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix15"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix15_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix15"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix16_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix16"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix16",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix16"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix16_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix16"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix16_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix16"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix16_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix16"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix17_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix17"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix17",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix17"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix17_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix17"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix17_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix17"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix17_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix17"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix18_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix18"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix18",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix18"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix18_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix18"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix18_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix18"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix18_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix18"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix19_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix19"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix19",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix19"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix19_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix19"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix19_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix19"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix19_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix19"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "prefix20_seed",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix20"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "prefix20",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix20"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "prefix20_ping",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix20"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "prefix20_cached",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix20"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "prefix20_fresh",
+        "pass": true,
+        "test": "TestG1Descriptors/prefix20"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1153,\"State\":\"08S01\",\"Value\":\"\",\"Packets\":[\"ff8104233038533031476f742061207061636b657420626967676572207468616e20276d61785f616c6c6f7765645f7061636b657427206279746573\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1153 state=08S01 value=\"\"",
+        "id": "op3_n0",
+        "pass": true,
+        "test": "TestG1SQLBounds/op3_n0"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "op3_n0_ping",
+        "pass": true,
+        "test": "TestG1SQLBounds/op3_n0"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"bound\",\"Packets\":[\"01\",\"0364656600000015434153542827626f756e6427204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"05626f756e64\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"bound\"",
+        "id": "op3_n1048576",
+        "pass": true,
+        "test": "TestG1SQLBounds/op3_n1048576"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "op3_n1048576_ping",
+        "pass": true,
+        "test": "TestG1SQLBounds/op3_n1048576"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1153,\"State\":\"08S01\",\"Value\":\"\",\"Packets\":[\"ff8104233038533031476f742061207061636b657420626967676572207468616e20276d61785f616c6c6f7765645f7061636b657427206279746573\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1153 state=08S01 value=\"\"",
+        "id": "op22_n0",
+        "pass": true,
+        "test": "TestG1SQLBounds/op22_n0"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "op22_n0_ping",
+        "pass": true,
+        "test": "TestG1SQLBounds/op22_n0"
+      },
+      {
+        "actual": "{\"Kind\":\"PREPARED\",\"Errno\":0,\"State\":\"\",\"Value\":\"1\",\"Packets\":[\"000100000001000000000000\",\"0364656600000015434153542827626f756e6427204153204348415229000ce00014000000fd0000000000\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "PREPARED errno=0 state= value=\"\"",
+        "id": "op22_n1048576",
+        "pass": true,
+        "test": "TestG1SQLBounds/op22_n1048576"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"bound\",\"Packets\":[\"01\",\"0364656600000015434153542827626f756e6427204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"000005626f756e64\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"bound\"",
+        "id": "op22_n1048576_execute",
+        "pass": true,
+        "test": "TestG1SQLBounds/op22_n1048576"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "op22_n1048576_ping",
+        "pass": true,
+        "test": "TestG1SQLBounds/op22_n1048576"
+      },
+      {
+        "actual": "written=4 error=<nil> read=<nil> errno=1153",
+        "expected": "bounded rejection before body",
+        "id": "max_plus_one_header",
+        "pass": true,
+        "test": "TestG1SQLBounds/max_plus_one_header"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "same-root peer PING",
+        "id": "max_plus_one_peer",
+        "pass": true,
+        "test": "TestG1SQLBounds/max_plus_one_header"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "empty",
+        "pass": true,
+        "test": "TestG1SetOption/empty"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "empty_ping",
+        "pass": true,
+        "test": "TestG1SetOption/empty"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "short",
+        "pass": true,
+        "test": "TestG1SetOption/short"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "short_ping",
+        "pass": true,
+        "test": "TestG1SetOption/short"
+      },
+      {
+        "actual": "{\"Kind\":\"EOF\",\"Errno\":0,\"State\":\"\",\"Value\":\"\",\"Packets\":[\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "EOF errno=0 state= value=\"\"",
+        "id": "on",
+        "pass": true,
+        "test": "TestG1SetOption/on"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "on_ping",
+        "pass": true,
+        "test": "TestG1SetOption/on"
+      },
+      {
+        "actual": "{\"Kind\":\"EOF\",\"Errno\":0,\"State\":\"\",\"Value\":\"\",\"Packets\":[\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "EOF errno=0 state= value=\"\"",
+        "id": "off",
+        "pass": true,
+        "test": "TestG1SetOption/off"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "off_ping",
+        "pass": true,
+        "test": "TestG1SetOption/off"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1047,\"State\":\"08S01\",\"Value\":\"\",\"Packets\":[\"ff1704233038533031556e6b6e6f776e20636f6d6d616e64\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1047 state=08S01 value=\"\"",
+        "id": "unknown",
+        "pass": true,
+        "test": "TestG1SetOption/unknown"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "unknown_ping",
+        "pass": true,
+        "test": "TestG1SetOption/unknown"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1835,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ff2b072348593030304d616c666f726d656420636f6d6d756e69636174696f6e207061636b6574\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1835 state=HY000 value=\"\"",
+        "id": "surplus",
+        "pass": true,
+        "test": "TestG1SetOption/surplus"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "surplus_ping",
+        "pass": true,
+        "test": "TestG1SetOption/surplus"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "seed",
+        "pass": true,
+        "test": "TestG1FailedPrepareAlias"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1064,\"State\":\"42000\",\"Value\":\"\",\"Packets\":[\"ff2804233432303030596f75206861766520616e206572726f7220696e20796f75722053514c2073796e7461783b20636865636b20746865206d616e75616c20\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1064 state=42000 value=\"\"",
+        "id": "failed_prepare",
+        "pass": true,
+        "test": "TestG1FailedPrepareAlias"
+      },
+      {
+        "actual": "{\"Kind\":\"ERR\",\"Errno\":1243,\"State\":\"HY000\",\"Value\":\"\",\"Packets\":[\"ffdb04234859303030556e6b6e6f776e2070726570617265642073746174656d656e742068616e646c65722028343239343936373239352920676976656e2074\"],\"Error\":\"\"}",
+        "expected": "ERR errno=1243 state=HY000 value=\"\"",
+        "id": "alias",
+        "pass": true,
+        "test": "TestG1FailedPrepareAlias"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "PING OK",
+        "id": "old_handle_ping",
+        "pass": true,
+        "test": "TestG1FailedPrepareAlias"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "old_handle_cached",
+        "pass": true,
+        "test": "TestG1FailedPrepareAlias"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "old_handle_fresh",
+        "pass": true,
+        "test": "TestG1FailedPrepareAlias"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "n0_seed",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n0"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "no LONG_DATA response; PING OK",
+        "id": "n0_no_response_ping",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n0"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "n0_state",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n0"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "n0_fresh",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n0"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "n1_seed",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n1"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "no LONG_DATA response; PING OK",
+        "id": "n1_no_response_ping",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n1"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "n1_state",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n1"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "n1_fresh",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n1"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "n2_seed",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n2"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "no LONG_DATA response; PING OK",
+        "id": "n2_no_response_ping",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "n2_state",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "n2_fresh",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n2"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "n3_seed",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n3"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "no LONG_DATA response; PING OK",
+        "id": "n3_no_response_ping",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n3"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "n3_state",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n3"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "n3_fresh",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n3"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "n4_seed",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n4"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "no LONG_DATA response; PING OK",
+        "id": "n4_no_response_ping",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n4"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "n4_state",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n4"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "n4_fresh",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n4"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "n5_seed",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n5"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "no LONG_DATA response; PING OK",
+        "id": "n5_no_response_ping",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n5"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"cached\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00018000000fd0000000000\",\"fe00000200\",\"000006636163686564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"cached\"",
+        "id": "n5_state",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n5"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "n5_fresh",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n5"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"seed\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00010000000fd0000000000\",\"fe00000200\",\"00000473656564\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"seed\"",
+        "id": "n6_seed",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n6"
+      },
+      {
+        "actual": "<nil>",
+        "expected": "no LONG_DATA response; PING OK",
+        "id": "n6_no_response_ping",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n6"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00000000000fd0000000000\",\"fe00000200\",\"000000\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"\"",
+        "id": "n6_state",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n6"
+      },
+      {
+        "actual": "{\"Kind\":\"ROW\",\"Errno\":0,\"State\":\"\",\"Value\":\"fresh\",\"Packets\":[\"01\",\"036465660000000f43415354283f204153204348415229000ce00014000000fd0000000000\",\"fe00000200\",\"0000056672657368\",\"fe00000200\"],\"Error\":\"\"}",
+        "expected": "ROW errno=0 state= value=\"fresh\"",
+        "id": "n6_fresh",
+        "pass": true,
+        "test": "TestG1LongDataHeader/n6"
+      }
+    ],
+    "mismatches": [],
+    "missing_observations": []
+  },
+  "repair_controls": 4
+}

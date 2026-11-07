@@ -4,7 +4,9 @@
     "sql_type.h": "2fd8d460095f728fe4dac046e5ac41da03abd69b01f2726591eeb276caee7923",
     "item.h": "158e3e6dc8d91a3ee96a49018e64823ee55fc33a0c0b9dc0d2e36d99efdaf951",
     "sql_type.cc": "b117e0f564d1973bb3882b2eaef7a1dd64dc067037b165a98f5ffd4fa02cfffd",
-    "sql_prepare.cc": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3"
+    "sql_prepare.cc": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+    "sql_type_geom.h": "737810f6667edfd0f26ce316ccecd7db629f932b0a52def574a55cc12b2ab6c1",
+    "sql_type_geom.cc": "8bd41af7fc0273d3923176b2036e0c9bbc574bd8823b8681c260db70fe5672f0"
   },
   "baseline_source_commit": "65b49e3dc31e9b2da63b317e015f8f471e79a83e",
   "observed_candidate": "157d545cd4f081686f2cad585017cca3fcf49ba4",

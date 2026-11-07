@@ -1,0 +1,19 @@
+{
+  "cases": [
+    {
+      "name": "TestPolicyRejectedResetPreservesPreparedSession",
+      "elapsed": "0.04s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestPolicyLoginErrorDeliveredBeforeRetire",
+      "elapsed": "0.03s",
+      "result": "PASS"
+    },
+    {
+      "name": "TestPolicyOutputErrorPreservesStream",
+      "elapsed": "0.12s",
+      "result": "PASS"
+    }
+  ]
+}
