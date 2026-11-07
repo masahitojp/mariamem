@@ -1,0 +1,19 @@
+package host
+
+import (
+	"context"
+	"io"
+	"time"
+
+	"github.com/masahitojp/mariamem/internal/generatedgo"
+	"github.com/masahitojp/mariamem/internal/nativewire"
+	"github.com/masahitojp/mariamem/internal/snapshot"
+)
+
+// Explicit UNQUALIFIED staging overlay. There is no legacy fallback or public
+// option: the artifact's ordinary Go/Python entrypoints all use this factory.
+func Start(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, stderr io.Writer) (Service, error) {
+	return StartNative(ctx, restore, timeout, stderr, generatedgo.GuestSHA256, func(x nativewire.Execution) <-chan error {
+		return generatedgo.StartWireInstance(x.Input, x.Output, x.Stderr, "", x.Restore, false, x.Failure, x.Epoch, &generatedgo.WireLifecycle{Capture: x.Capture, Approval: x.Approval})
+	})
+}

@@ -1,0 +1,139 @@
+package mariamem_test
+
+import (
+	"context"
+	"database/sql"
+	"errors"
+	"fmt"
+	"io"
+	"net"
+	"testing"
+	"time"
+
+	mysql "github.com/go-sql-driver/mysql"
+	mariamem "github.com/masahitojp/mariamem"
+)
+
+func publicDB(t *testing.T, opts mariamem.Options) *mariamem.Database {
+	t.Helper()
+	db, e := mariamem.Start(context.Background(), opts)
+	if e != nil {
+		t.Fatal(e)
+	}
+	t.Cleanup(func() { _ = db.Close() })
+	return db
+}
+func publicPool(t *testing.T, db *mariamem.Database, pipe bool) *sql.DB {
+	t.Helper()
+	cfg, e := mysql.ParseDSN(db.DSN())
+	if e != nil {
+		t.Fatal(e)
+	}
+	cfg.InterpolateParams = false
+	if pipe {
+		cfg.DialFunc = db.DialContext
+	}
+	connector, e := mysql.NewConnector(cfg)
+	if e != nil {
+		t.Fatal(e)
+	}
+	pool := sql.OpenDB(connector)
+	pool.SetMaxIdleConns(0)
+	t.Cleanup(func() { _ = pool.Close() })
+	return pool
+}
+func TestNativePublicGoRoutes(t *testing.T) {
+	db := publicDB(t, mariamem.Options{})
+	for _, pipe := range []bool{false, true} {
+		t.Run(fmt.Sprint(pipe), func(t *testing.T) {
+			pool := publicPool(t, db, pipe)
+			var n int
+			if e := pool.QueryRow("SELECT ? + ?", 13, 29).Scan(&n); e != nil || n != 42 {
+				t.Fatalf("prepared: %d %v", n, e)
+			}
+			if _, e := pool.Exec("SELECT * FROM no_such_public_table"); e == nil {
+				t.Fatal("missing ordinary SQL error")
+			}
+			if e := db.Err(); e != nil {
+				t.Fatalf("ordinary error poisoned owner: %v", e)
+			}
+			if e := pool.QueryRow("SELECT 17").Scan(&n); e != nil || n != 17 {
+				t.Fatal(n, e)
+			}
+		})
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	if e := db.WaitDisconnected(ctx); e != nil {
+		t.Fatal(e)
+	}
+}
+func TestNativePublicSharedCapacity(t *testing.T) {
+	db := publicDB(t, mariamem.Options{})
+	tcp := publicPool(t, db, false)
+	pipe := publicPool(t, db, true)
+	var conns []*sql.Conn
+	defer func() {
+		for _, c := range conns {
+			_ = c.Close()
+		}
+	}()
+	for i := 0; i < 16; i++ {
+		p := tcp
+		if i%2 == 1 {
+			p = pipe
+		}
+		c, e := p.Conn(context.Background())
+		if e != nil {
+			t.Fatal(i, e)
+		}
+		conns = append(conns, c)
+	}
+	info := db.ConnectionInfo()
+	addr := fmt.Sprintf("%s:%d", info.Host, info.Port)
+	if c, e := db.DialContext(context.Background(), "tcp", addr); c != nil || !errors.Is(e, mariamem.ErrCapacity) {
+		t.Fatalf("pipe capacity: %v %v", c, e)
+	}
+	c, e := net.DialTimeout("tcp", addr, time.Second)
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer c.Close()
+	_ = c.SetReadDeadline(time.Now().Add(2 * time.Second))
+	packet := make([]byte, 256)
+	n, e := io.ReadFull(c, packet[:7])
+	if e != nil || n < 7 || packet[4] != 255 || int(packet[5])|int(packet[6])<<8 != 1040 {
+		t.Fatalf("TCP capacity: %x %v", packet[:n], e)
+	}
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	if c, e := db.DialContext(ctx, "tcp", addr); c != nil || !errors.Is(e, context.Canceled) {
+		t.Fatalf("canceled dial: %v %v", c, e)
+	}
+}
+func TestNativePublicFatalCauseAndIsolation(t *testing.T) {
+	for _, pipe := range []bool{false, true} {
+		t.Run(fmt.Sprint(pipe), func(t *testing.T) {
+			db := publicDB(t, mariamem.Options{QueryTimeout: 120 * time.Millisecond})
+			pool := publicPool(t, db, pipe)
+			peer := publicDB(t, mariamem.Options{})
+			healthy := publicPool(t, peer, false)
+			if _, e := pool.Exec("DO SLEEP(2)"); e == nil {
+				t.Fatal("deadline query succeeded")
+			}
+			if e := db.Err(); !errors.Is(e, mariamem.ErrUnusable) || !errors.Is(e, context.DeadlineExceeded) {
+				t.Fatalf("owner cause: %v", e)
+			}
+			if e := healthy.Ping(); e != nil {
+				t.Fatalf("independent instance: %v", e)
+			}
+		})
+	}
+}
+func TestNativePublicDefaultTimeout(t *testing.T) {
+	db := publicDB(t, mariamem.Options{})
+	pool := publicPool(t, db, false)
+	if _, e := pool.Exec("DO SLEEP(10.2)"); e != nil {
+		t.Fatalf("public30s default: %v", e)
+	}
+}

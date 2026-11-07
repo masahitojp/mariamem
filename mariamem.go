@@ -125,14 +125,14 @@ func startLeased(ctx context.Context, opts Options, restore *stored.Owned, lease
 	timing.Mark(ctx, "runtime_directory_ready")
 	startup, cancel := context.WithTimeout(ctx, opts.StartupTimeout)
 	defer cancel()
-	s, err := host.StartGenerated(startup, restore, opts.QueryTimeout, &db.logs)
+	s, err := host.Start(startup, restore, opts.QueryTimeout, &db.logs)
 	if err != nil {
 		return nil, hostError(disposal.RemoveAfter(err, temp), "start", true)
 	}
 	timing.Mark(ctx, "host_returned")
 	db.server = s
 	db.info = ConnectionInfo{Host: "127.0.0.1", Port: s.Port(), User: "root", Database: "test"}
-	go db.watch(s.Guest.Done())
+	go db.watch(s.Done())
 	timing.Mark(ctx, "database_ready")
 	return db, nil
 }
