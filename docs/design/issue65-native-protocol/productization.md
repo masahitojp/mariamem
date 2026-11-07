@@ -184,3 +184,10 @@ Macでは専用8試験・実経路負例3、actual public Options比較と既存
 最大durationの実時間待機は主張せず、設定値のtyped/string観測・直後のSQL・境界算術を組み合わせる。
 291-file sourceと全241観測のLinux照合を残す。公開backend接続・Go/Python制御APIへの再bind、
 Fork/LiveのOptions継承はP1-cで確認し、このprivate routeのPASSだけで公開統合済みとは扱わない。
+
+## P1-c公開backendの具体化
+
+Humanの継続依頼を[公開backend計画](public-backend.md)と
+[source review](../../reviews/issue65-p1-public-backend-plan.md)へ具体化した。
+Go/control/Pythonの既存ownerへ接続し、Snapshot/Fork/Live・typed disposal・設定継承までを
+P1-cの範囲とする。現在は設計/source照合のみ。P1-b成功は未確認で、実行開始の前提に残す。

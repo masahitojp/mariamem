@@ -471,6 +471,14 @@ UNQUALIFIED guest d4f30818c3410db186db5ef1c9abc5f14af0cdc52bb2b76bbca369e02eb1b4
 Linux guest reproduction,291-file source and241-observation comparisons are
 pending. Host unit/race and source-mutation checks also pass.
 P1-c public backend/owner integration follows after P1-b verification.
+The Human requested continuing. The [public backend plan](design/issue65-native-protocol/public-backend.md)
+and [source review](reviews/issue65-p1-public-backend-plan.md) concretize that direction:
+reuse existing public Snapshot/forklimit/Live/disposal ownership, separate immediate
+failure from fully joined Done, and preserve shared TCP/Dial admission and settings.
+P1-c includes both Go and Python public routes; extraction alone is not completion.
+This continuation produced documentation only, not a runtime implementation.
+The single P1-b metadata observation was in_progress at exact candidate f6888cca1f1aa800b0d80ccc3fcb1a40b8dc5dfd;
+its success remains unverified here and is prerequisite to native public artifact execution.
 This is not public route integration or canonical adoption. Public30s timeout,
 backend/owner diagnostics,remaining host coordination and P2 consumers/performance
 remain separate steps.
