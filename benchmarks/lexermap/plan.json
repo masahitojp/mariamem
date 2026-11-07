@@ -1,0 +1,30 @@
+{
+  "issue": 126,
+  "product_source_commit": "3d8b2201c1f36fa5b7264e0450104055f3822272",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "source_parent": "77c7b4357b09923b1ac73d0461528b08938ce834",
+  "scope": "diagnostic only: original init_state_maps unchanged; generated-Go overlay wrapper",
+  "function": "p4.Fn955",
+  "source_identification": "structural correspondence: allocator512/MY_WME16, state/ident fields72/76, ctype40/charlen handler104+88,256 classification and final x/b/n states; optimized WASM has no names",
+  "runs": "5 alternating off/timed process pairs + 1 inventory process; every process Fresh root ->1000-row seed ->Snapshot cap1 ->4 sequential Forks ->final cleanup",
+  "initializations": 55,
+  "toolchain": "go1.27.3",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "route": "pipe",
+  "decision_threshold": "Recommend prepared-map prototype only if median summed function elapsed per Fork >=1ms across5 timed processes; below threshold recommend defer for Fork-time priority. Timing includes allocator/classifier callees, excludes hashing/recording, is elapsed not CPU and not guaranteed removable cost. Material observer impact or uncertain binding => inconclusive, no automatic expanded campaign.",
+  "timing_control": "Same diagnostic binary with observation disabled; explicit 100000 empty timer-pair calibration; no traces within function, no hash in timed mode. Inventory separate.",
+  "budgets": {
+    "minutes": 60,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 60,
+    "builds": 1,
+    "primary_processes": 10,
+    "inventory_processes": 1,
+    "workspace_gib": 6,
+    "min_free_gib": 12,
+    "c_builds": 0,
+    "ci": 0
+  },
+  "exit": "call counts, unique table pairs/full512 bytes, function-sum elapsed vs Fork API, correctness/cleanup and honest recommendation; no product changes/prototype/adoption/release"
+}

@@ -1,0 +1,11 @@
+package base
+import "testing"
+func TestLexerRejectsMalformedPair(t *testing.T) {
+ for _,b:=range [][]byte{nil,make([]byte,511),make([]byte,512),make([]byte,513)} {
+  if LexerValidatePair(b)==nil {t.Fatal("malformed maps accepted")}
+ }
+}
+func TestLexerDrainConsumesRecords(t *testing.T) {
+ lexerRows=[]LexerRow{{Number:1},{Number:2}}
+ if len(LexerDrain())!=2 || len(LexerDrain())!=0 {t.Fatal("records retained")}
+}
