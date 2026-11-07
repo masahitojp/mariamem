@@ -1,0 +1,100 @@
+{
+  "contract": "issue65-experimental-thread-binding-v1",
+  "guest_sha256": "242f5cfd446ac65dc3d7322ead668cd2ec5473193cf4bb58b69c7c5b3cfe6e87",
+  "previous_experimental_guest_sha256": "7103c8116151a386b1359e9ea02fda7e31fe8145f37a221001f97e7de2ce9a91",
+  "canonical_reference_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "canonical_reference_source_commit": "ab8c3503f35e6ded515e2e0c58efc508099f6baf",
+  "functions": {
+    "code/p3/p3_pure.go": {
+      "function": "Fn151",
+      "normalized_sha256": "b3fc8378540027d3a8f891b3f432231248d0aff0139e104b49e387ce62014d10",
+      "role": "free"
+    },
+    "code/p8/p8_pure.go": {
+      "function": "Fn129",
+      "normalized_sha256": "8dde085a66cd7422bd9974506308d77fbdf3a6d4ebe386fb1b9b0649d203b707",
+      "role": "yield"
+    },
+    "code/p5/p5_pure.go": {
+      "function": "Fn211",
+      "normalized_sha256": "24809ad1a013a432689ec4ce48cec8391dc703ad3f4970f5e1ff2d7dbc902927",
+      "role": "entry"
+    }
+  },
+  "review": {
+    "free": {
+      "complete_body_equal_after_recorded_relocation": true,
+      "function_renames": {
+        "Fn153": "Fn151",
+        "Fn131": "Fn129"
+      },
+      "changed_numeric_literals": {
+        "18000840": "17999240",
+        "18000844": "17999244",
+        "18000412": "17998812",
+        "18000416": "17998816",
+        "18000396": "17998796",
+        "18000404": "17998804",
+        "18000700": "17999100",
+        "18000400": "17998800",
+        "18000420": "17998820",
+        "18000408": "17998808",
+        "18000436": "17998836",
+        "18000428": "17998828"
+      },
+      "static_relocation_delta": [
+        -1600
+      ],
+      "canonical_reference_body_sha256": "8e7c209192d8592d7af9e2c91bd47f2270638977418d1624d3e530185849810d",
+      "new_body_sha256": "c0e21f92bbe5440e64b3dbe3729a1245344911a7407a5e0fa1c7204a51545837"
+    },
+    "yield": {
+      "complete_body_equal_after_recorded_relocation": true,
+      "function_renames": {
+        "Fn131": "Fn129"
+      },
+      "changed_numeric_literals": {},
+      "static_relocation_delta": [],
+      "canonical_reference_body_sha256": "91b13b652d2dc922a4a2e848aeba1520d9cb406341b5cd7e87b5243ef8d2db26",
+      "new_body_sha256": "c10f06f62eab7a7f88def8f1dd78934cd7fd4f84fb8cc3b21eecdf28bf908ec7"
+    },
+    "entry": {
+      "complete_body_equal_after_recorded_relocation": true,
+      "function_renames": {
+        "Fn214": "Fn211",
+        "Fn97": "Fn95",
+        "Fn210": "Fn207",
+        "Fn92": "Fn90",
+        "Fn89": "Fn87",
+        "Fn88": "Fn86",
+        "Fn84": "Fn82",
+        "Fn213": "Fn210",
+        "Fn153": "Fn151",
+        "Fn158": "Fn156"
+      },
+      "changed_numeric_literals": {
+        "505": "497",
+        "18003004": "18001404",
+        "18003520": "18001920",
+        "18003568": "18001968",
+        "18004112": "18002512",
+        "18004116": "18002516",
+        "17998980": "17997380",
+        "17998977": "17997377",
+        "18004120": "18002520",
+        "18061520": "18059920"
+      },
+      "static_relocation_delta": [
+        -1600
+      ],
+      "canonical_reference_body_sha256": "e2c425c2f1e5fa153d029b27ad6f5239b6aa20f6fd6e2bf2ef1f2f93ea2b4bcb",
+      "new_body_sha256": "31588b3c4758d11ce7d80bdd782fb7af73e940278216aca7f87892896708d55f"
+    }
+  },
+  "ABI_offsets": {
+    "start_args.pthread": 16,
+    "pthread.map_base": 40,
+    "pthread.map_size": 44
+  },
+  "status": "experimental exact-function binding; canonical binding unchanged"
+}
