@@ -437,15 +437,16 @@ public timeout and owner diagnostics;P2 consumers/performance,canonical adoption
 and release remain separate. This success does not approve integration or release.
 
 
-The Human requested proceeding to P1 after scoped G1/G2 completion.
-The [productization plan](design/issue65-native-protocol/productization.md) proposes
-host-owned session reservations/identity as the first bounded implementation,
-with explicit private profile2 and retirement/relay-join conditions. This task
-records source inspection and a plan,not a new runtime implementation or public
-adoption. Public timeout/wiring,remaining host coordination and P2 stay explicit.
-The [plan review](reviews/issue65-p1-host-ownership-plan.md) pins the artifact and
-cross-checks prior conditions and CI blind spots;it recommends this bounded
-implementation scope,not canonical adoption.
+The Human approved the bounded P1-a implementation after the
+[productization plan](design/issue65-native-protocol/productization.md) and
+[plan review](reviews/issue65-p1-host-ownership-plan.md).
+The experiment implements one host-owned16-slot reservation/identity table,
+private profile2 host-selected OPEN tuples and release only after native
+retirement plus both session relay joins. OPEN uncertainty retains its lease
+until root disposal; counters saturate instead of wrapping. Verification of the
+new guest/host bundle is in progress. This is not public route integration or
+canonical adoption. Public30s timeout,backend/owner diagnostics,remaining host
+coordination and P2 consumers/performance remain separate steps.
 
 
 

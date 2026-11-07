@@ -27,61 +27,66 @@ func opened(t *testing.T, o *Owner, l *Lease) {
 }
 func TestCapacityRequiresNativeAndBothRelays(t *testing.T) {
 	for _, nativeFirst := range []bool{false, true} {
-		o := New(7)
+		for _, firstPart := range []uint8{Reader, Writer} {
+			secondPart := uint8(Reader|Writer) ^ firstPart
+			o := New(7)
 
-		var first *Lease
-		for i := 0; i < Capacity; i++ {
-			l := lease(t, o)
-			opened(t, o, l)
-			if i == 0 {
-				first = l
+			var first *Lease
+			for i := 0; i < Capacity; i++ {
+				l := lease(t, o)
+				opened(t, o, l)
+				if i == 0 {
+					first = l
+				}
 			}
-		}
-		if _, e := o.ReserveLocked(); !errors.Is(e, ErrCapacity) {
-			t.Fatal(e)
-		}
-		if nativeFirst {
-			if done, e := o.NativeRetiredLocked(first); done || e != nil {
+			if _, e := o.ReserveLocked(); !errors.Is(e, ErrCapacity) {
+				t.Fatal(e)
+			}
+			if nativeFirst {
+				if done, e := o.NativeRetiredLocked(first); done || e != nil {
+					t.Fatal(done, e)
+				}
+			}
+			if done, e := o.RelayDoneLocked(first, firstPart); done || e != nil {
 				t.Fatal(done, e)
 			}
-		}
-		if done, e := o.RelayDoneLocked(first, Reader); done || e != nil {
-			t.Fatal(done, e)
-		}
-		if !nativeFirst {
-			if done, e := o.RelayDoneLocked(first, Writer); done || e != nil {
+			if !nativeFirst {
+				if done, e := o.RelayDoneLocked(first, secondPart); done || e != nil {
+					t.Fatal(done, e)
+				}
+			}
+			if _, e := o.ReserveLocked(); !errors.Is(e, ErrCapacity) {
+				t.Fatal("early reuse", e)
+			}
+			var done bool
+			var e error
+			if nativeFirst {
+				done, e = o.RelayDoneLocked(first, secondPart)
+			} else {
+				done, e = o.NativeRetiredLocked(first)
+			}
+			if !done || e != nil {
 				t.Fatal(done, e)
 			}
-		}
-		if _, e := o.ReserveLocked(); !errors.Is(e, ErrCapacity) {
-			t.Fatal("early reuse", e)
-		}
-		var done bool
-		var e error
-		if nativeFirst {
-			done, e = o.RelayDoneLocked(first, Writer)
-		} else {
-			done, e = o.NativeRetiredLocked(first)
-		}
-		if !done || e != nil {
-			t.Fatal(done, e)
-		}
-		replacement := lease(t, o)
-		if replacement.token.Slot != first.token.Slot || replacement.token.Generation <= first.token.Generation {
-			t.Fatal("identity reuse")
-		}
-		if !o.StaleLocked(first.token) {
-			t.Fatal("old token accepted")
-		}
-		if _, e = o.NativeRetiredLocked(first); e == nil {
-			t.Fatal("old retirement accepted")
-		}
-		if o.CountLocked() != Capacity {
-			t.Fatal("capacity changed")
+			replacement := lease(t, o)
+			if replacement.token.Slot != first.token.Slot || replacement.token.Generation <= first.token.Generation {
+				t.Fatal("identity reuse")
+			}
+			if !o.StaleLocked(first.token) {
+				t.Fatal("old token accepted")
+			}
+			if _, e = o.NativeRetiredLocked(first); e == nil {
+				t.Fatal("old retirement accepted")
+			}
+			if o.CountLocked() != Capacity {
+				t.Fatal("capacity changed")
+			}
+
 		}
 
 	}
 }
+
 func TestUncertainOpenRetainsLeaseUntilDisposal(t *testing.T) {
 	o := New(1)
 	l := lease(t, o)

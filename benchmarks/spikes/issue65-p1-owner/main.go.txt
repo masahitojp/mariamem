@@ -117,13 +117,16 @@ func (s *session) close() {
 }
 
 type instance struct {
-	owner             *nativewire.Owner
-	beforeRelayDone   func(*session, uint8)
-	completionTarget  uint32
-	completionEntered chan struct{}
-	completionRelease <-chan struct{}
-	completionOnce    sync.Once
-	pipeReject        chan struct{}
+	owner                     *nativewire.Owner
+	beforeOpen                func(*session)
+	wrongProfile, wrongOpened bool
+	beforeRelayDone           func(*session, uint8)
+	afterNativeRetired        func(*session)
+	completionTarget          uint32
+	completionEntered         chan struct{}
+	completionRelease         <-chan struct{}
+	completionOnce            sync.Once
+	pipeReject                chan struct{}
 
 	duplicateStop            bool
 	receiptCount             int
@@ -177,6 +180,9 @@ func newRestored(ms uint64, restore []prepared.Entry) (*instance, error) {
 	return newRestoredContext(ctx, ms, restore)
 }
 func newRestoredContext(ctx context.Context, ms uint64, restore []prepared.Entry) (*instance, error) {
+	return newRestoredConfigured(ctx, ms, restore, nil)
+}
+func newRestoredConfigured(ctx context.Context, ms uint64, restore []prepared.Entry, configure func(*instance)) (*instance, error) {
 	epoch, e := nativewire.Next64(&epochCounter)
 	if e != nil {
 		return nil, e
@@ -184,6 +190,9 @@ func newRestoredContext(ctx context.Context, ms uint64, restore []prepared.Entry
 	own := nativewire.New(epoch)
 	r := &instance{owner: own, pipeReject: make(chan struct{}, 1), epoch: epoch, pending: map[uint32]chan frame{}, opening: map[uint32]*session{}, sessions: map[key]*session{}, ready: make(chan struct{}), poisoned: make(chan struct{}), done: make(chan struct{}), limit: ms, approval: make(chan error, 1), hostDone: make(chan struct{}), readDone: make(chan struct{}), operation: make(chan struct{}, 1), dropKinds: map[byte]bool{}}
 
+	if configure != nil {
+		configure(r)
+	}
 	r.guestIn, r.in, e = os.Pipe()
 	if e != nil {
 		return nil, e
@@ -321,7 +330,11 @@ func (r *instance) nativeRetired(s *session) {
 	if released {
 		delete(r.sessions, s.id)
 	}
+	hook := r.afterNativeRetired
 	r.mu.Unlock()
+	if hook != nil {
+		hook(s)
+	}
 	if e != nil {
 		r.fail(e)
 	}
@@ -420,121 +433,137 @@ func (r *instance) readLoop() {
 			}
 			return
 		}
-		if f.epoch != r.epoch {
-			r.fail(errors.New("wrong instance identity"))
+		if !r.receiveFrame(f) {
 			return
-		}
-		r.mu.Lock()
-		drop := r.dropKinds[f.kind]
-		wrong := r.wrongReceipt
-		wrongFence, wrongAck := r.wrongFence, r.wrongStopAck
-		r.mu.Unlock()
-		if drop {
-			continue
-		}
-		if (wrong && f.kind == 114) || (wrongFence && f.kind == 112) || (wrongAck && f.kind == 113) {
-			f.value++
-		}
-		if f.kind == 114 {
-			r.mu.Lock()
-			valid := r.consumed && r.captureID != 0 && f.value == r.captureID && f.request == r.stopRequest
-			acked := r.stopAcked
-			if valid {
-				r.stopReceipt = true
-				r.receiptCount++
-				r.lifecycleEvents = append(r.lifecycleEvents, "capture_stopped")
-			}
-			r.mu.Unlock()
-			if !valid {
-				r.fail(errors.New("wrong capture receipt"))
-				continue
-			}
-			if acked {
-				r.resolve(nil)
-			}
-			continue
-		}
-		r.mu.Lock()
-		if len(r.events) < 10000 {
-			r.events = append(r.events, frame{kind: f.kind, slot: f.slot, generation: f.generation, value: f.value})
-		}
-		if f.kind == opened && r.opening[f.request] != nil {
-			initial := r.opening[f.request]
-			if e := r.owner.OpenedLocked(initial.lease, nativewire.Token{r.epoch, f.slot, f.generation}); e != nil {
-				r.mu.Unlock()
-				r.fail(e)
-				r.guestIn.Close()
-				return
-			}
-		}
-		initial := r.opening[f.request]
-		if f.kind == 110 && initial != nil {
-			if f.value != 4 || r.owner.RejectLocked(initial.lease, nativewire.Token{r.epoch, f.slot, f.generation}) != nil {
-				r.mu.Unlock()
-				r.fail(errors.New("unexpected native OPEN rejection"))
-				r.guestIn.Close()
-				return
-			}
-		}
-		ch := r.pending[f.request]
-		s := r.sessions[key{f.slot, f.generation}]
-		stale := r.owner.StaleLocked(nativewire.Token{r.epoch, f.slot, f.generation})
-		r.mu.Unlock()
-		if ch != nil {
-			ch <- f
-			continue
-		}
-		switch f.kind {
-		case ready:
-			var profile struct {
-				Lifecycle int `json:"lifecycle_profile"`
-			}
-			if json.Unmarshal(f.body, &profile) != nil || profile.Lifecycle != 2 {
-				r.fail(errors.New("wrong lifecycle profile"))
-				r.guestIn.Close()
-				return
-			}
-			close(r.ready)
-		case raw:
-			if s == nil {
-				if stale {
-					continue
-				}
-				r.fail(errors.New("output without session"))
-				return
-			}
-			select {
-			case s.output <- f:
-			case <-s.ended:
-			default:
-				r.fail(errors.New("bounded host output queue overflow"))
-				return
-			}
-		case credit:
-			if s != nil {
-				s.mu.Lock()
-				s.consumed = f.value
-				s.cv.Broadcast()
-				s.mu.Unlock()
-			}
-		case retired:
-			if s != nil {
-				r.nativeRetired(s)
-			}
-		case 111:
-			r.mu.Lock()
-			r.finalStats = append([]byte(nil), f.body...)
-			receipt := r.stopReceipt
-			r.mu.Unlock()
-			if r.capture.Requested() && !receipt {
-				r.fail(errors.New("missing capture receipt"))
-			}
-		case poison:
-			r.fail(fmt.Errorf("guest poison: %s", f.body))
-			close(r.poisoned)
 		}
 	}
 }
+
+// receiveFrame is shared by the transport and explicit late-frame controls.
+func (r *instance) receiveFrame(f frame) bool {
+	if f.epoch != r.epoch {
+		r.fail(errors.New("wrong instance identity"))
+		return false
+	}
+	r.mu.Lock()
+	drop := r.dropKinds[f.kind]
+	wrongProfile, wrongOpened := r.wrongProfile, r.wrongOpened
+	wrong := r.wrongReceipt
+	wrongFence, wrongAck := r.wrongFence, r.wrongStopAck
+	r.mu.Unlock()
+	if drop {
+		return true
+	}
+	if f.kind == ready && wrongProfile {
+		f.body = []byte(`{"lifecycle_profile":1}`)
+	}
+	if f.kind == opened && wrongOpened {
+		f.generation++
+	}
+	if (wrong && f.kind == 114) || (wrongFence && f.kind == 112) || (wrongAck && f.kind == 113) {
+		f.value++
+	}
+	if f.kind == 114 {
+		r.mu.Lock()
+		valid := r.consumed && r.captureID != 0 && f.value == r.captureID && f.request == r.stopRequest
+		acked := r.stopAcked
+		if valid {
+			r.stopReceipt = true
+			r.receiptCount++
+			r.lifecycleEvents = append(r.lifecycleEvents, "capture_stopped")
+		}
+		r.mu.Unlock()
+		if !valid {
+			r.fail(errors.New("wrong capture receipt"))
+			return true
+		}
+		if acked {
+			r.resolve(nil)
+		}
+		return true
+	}
+	r.mu.Lock()
+	if len(r.events) < 10000 {
+		r.events = append(r.events, frame{kind: f.kind, slot: f.slot, generation: f.generation, value: f.value})
+	}
+	if f.kind == opened && r.opening[f.request] != nil {
+		initial := r.opening[f.request]
+		if e := r.owner.OpenedLocked(initial.lease, nativewire.Token{r.epoch, f.slot, f.generation}); e != nil {
+			r.mu.Unlock()
+			r.fail(e)
+			r.guestIn.Close()
+			return false
+		}
+	}
+	initial := r.opening[f.request]
+	if f.kind == 110 && initial != nil {
+		if f.value != 4 || r.owner.RejectLocked(initial.lease, nativewire.Token{r.epoch, f.slot, f.generation}) != nil {
+			r.mu.Unlock()
+			r.fail(errors.New("unexpected native OPEN rejection"))
+			r.guestIn.Close()
+			return false
+		}
+	}
+	ch := r.pending[f.request]
+	s := r.sessions[key{f.slot, f.generation}]
+	stale := r.owner.StaleLocked(nativewire.Token{r.epoch, f.slot, f.generation})
+	r.mu.Unlock()
+	if ch != nil {
+		ch <- f
+		return true
+	}
+	switch f.kind {
+	case ready:
+		var profile struct {
+			Lifecycle int `json:"lifecycle_profile"`
+		}
+		if json.Unmarshal(f.body, &profile) != nil || profile.Lifecycle != 2 {
+			r.fail(errors.New("wrong lifecycle profile"))
+			r.guestIn.Close()
+			return false
+		}
+		close(r.ready)
+	case raw:
+		if s == nil {
+			if stale {
+				return true
+			}
+			r.fail(errors.New("output without session"))
+			return false
+		}
+		select {
+		case s.output <- f:
+		case <-s.ended:
+		default:
+			r.fail(errors.New("bounded host output queue overflow"))
+			return false
+		}
+	case credit:
+		if s != nil {
+			s.mu.Lock()
+			s.consumed = f.value
+			s.cv.Broadcast()
+			s.mu.Unlock()
+		}
+	case retired:
+		if s != nil {
+			r.nativeRetired(s)
+		}
+	case 111:
+		r.mu.Lock()
+		r.finalStats = append([]byte(nil), f.body...)
+		receipt := r.stopReceipt
+		r.mu.Unlock()
+		if r.capture.Requested() && !receipt {
+			r.fail(errors.New("missing capture receipt"))
+		}
+	case poison:
+		r.fail(fmt.Errorf("guest poison: %s", f.body))
+		close(r.poisoned)
+	}
+	return true
+}
+
 func (r *instance) serve() (string, error) {
 	l, e := net.Listen("tcp", "127.0.0.1:0")
 	if e != nil {
@@ -589,6 +618,12 @@ func (r *instance) serve() (string, error) {
 func (r *instance) attach(s *session) {
 	c := s.conn
 	writerStarted := false
+	r.mu.Lock()
+	before := r.beforeOpen
+	r.mu.Unlock()
+	if before != nil {
+		before(s)
+	}
 	defer s.relayDone(nativewire.Reader)
 	defer func() {
 		if !writerStarted {
