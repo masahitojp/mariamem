@@ -1,0 +1,310 @@
+package main
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"github.com/masahitojp/mariamem/internal/nativewire"
+	"math"
+	"sync"
+	"testing"
+	"time"
+)
+
+func ownerCount(r *instance) int { r.mu.Lock(); defer r.mu.Unlock(); return r.owner.CountLocked() }
+func ownerWait(t *testing.T, what string, predicate func() bool) {
+	t.Helper()
+	end := time.Now().Add(12 * time.Second)
+	for time.Now().Before(end) {
+		if predicate() {
+			return
+		}
+		time.Sleep(time.Millisecond)
+	}
+	t.Fatal("owner wait:", what)
+}
+func ownerRelease(t *testing.T) (chan struct{}, func()) {
+	t.Helper()
+	ch := make(chan struct{})
+	var once sync.Once
+	release := func() { once.Do(func() { close(ch) }) }
+	t.Cleanup(release)
+	return ch, release
+}
+func ownerHasRetired(r *instance, k key) bool {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	for _, f := range r.events {
+		if f.kind == retired && f.slot == k.slot && f.generation == k.generation {
+			return true
+		}
+	}
+	return false
+}
+func ownerFill(t *testing.T, r *instance) []*compatConn {
+	t.Helper()
+	address := compatAddress(t, r)
+	var out []*compatConn
+	for i := 0; i < 16; i++ {
+		var pipe *instance
+		if i%2 == 1 {
+			pipe = r
+		}
+		c := compatConnect(t, address, pipe)
+		c.login(t, "root", true)
+		out = append(out, c)
+	}
+	return out
+}
+func ownerCapacity(t *testing.T, r *instance) {
+	t.Helper()
+	extra := compatConnect(t, "", r)
+	p, e := extra.read(0)
+	code, state := compatErr(p)
+	if e != nil || code != 1040 || state != "08004" {
+		t.Fatalf("premature reuse: %x %v", p, e)
+	}
+	extra.c.Close()
+}
+func TestOwnerHostIdentity(t *testing.T) {
+	r := rootFor(t, 10000)
+	r.mu.Lock()
+	ghost, e := r.owner.ReserveLocked()
+	r.mu.Unlock()
+	if e != nil {
+		t.Fatal(e)
+	}
+	c := compatConnect(t, compatAddress(t, r), nil)
+	c.login(t, "root", true)
+	c.ping(t, "host requested slot")
+	r.mu.Lock()
+	s := r.sessions[key{1, 1}]
+	r.mu.Unlock()
+	if s == nil {
+		t.Fatal("guest ignored host slot")
+	}
+	reply, e := r.rpc(frame{kind: open, slot: 1, generation: 1, value: 10000})
+	if e != nil || reply.kind != 110 || reply.value != 8 {
+		t.Fatal("duplicate OPEN", reply, e)
+	}
+	r.mu.Lock()
+	r.owner.CancelReservedLocked(ghost)
+	r.owner.RelayDoneLocked(ghost, nativewire.Reader)
+	r.owner.RelayDoneLocked(ghost, nativewire.Writer)
+	r.mu.Unlock()
+	c.ping(t, "duplicate OPEN did not disturb native session")
+}
+func TestOwnerNativeRetirementFence(t *testing.T) {
+	r := rootFor(t, 10000)
+	release, unblock := ownerRelease(t)
+	clients := ownerFill(t, r)
+	k := key{0, 1}
+	f, e := r.rpc(frame{kind: 9, slot: k.slot, generation: k.generation})
+	if e != nil || f.kind != 102 || f.value == 0 || f.value > math.MaxUint32 {
+		t.Fatal("native worker identity", f, e)
+	}
+	entered := make(chan struct{})
+	r.mu.Lock()
+	r.completionTarget = uint32(f.value)
+	r.completionEntered = entered
+	r.completionRelease = release
+	r.mu.Unlock()
+	clients[0].c.Close()
+	select {
+	case <-entered:
+	case <-time.After(12 * time.Second):
+		t.Fatal("native completion barrier not reached")
+	}
+	if ownerHasRetired(r, k) {
+		t.Fatal("native RETIRED before final worker completion")
+	}
+	if ownerCount(r) != 16 {
+		t.Fatal("native worker capacity released early")
+	}
+	ownerCapacity(t, r)
+	clients[2].ping(t, "other worker remains usable")
+	unblock()
+	ownerWait(t, "native+relay retirement", func() bool { return ownerCount(r) == 15 })
+	replacement := compatConnect(t, "", r)
+	replacement.login(t, "root", true)
+	replacement.ping(t, "replacement after real retirement")
+	r.mu.Lock()
+	next := r.sessions[key{0, 2}]
+	r.mu.Unlock()
+	if next == nil {
+		t.Fatal("generation not advanced after retirement")
+	}
+}
+func TestOwnerHostRelayFence(t *testing.T) {
+	r := rootFor(t, 10000)
+	release, unblock := ownerRelease(t)
+	clients := ownerFill(t, r)
+	k := key{0, 1}
+	entered := make(chan struct{})
+	nativeDone := make(chan struct{})
+	writerDone := make(chan struct{})
+	var writerOnce sync.Once
+	var nativeOnce sync.Once
+	var once sync.Once
+	r.mu.Lock()
+	r.afterRelayDone = func(s *session, part uint8) {
+		if s.id == k && part == nativewire.Writer {
+			writerOnce.Do(func() { close(writerDone) })
+		}
+	}
+	r.afterNativeRetired = func(s *session) {
+		if s.id == k {
+			nativeOnce.Do(func() { close(nativeDone) })
+		}
+	}
+	r.beforeRelayDone = func(s *session, part uint8) {
+		if s.id == k && part == nativewire.Reader {
+			once.Do(func() { close(entered) })
+			<-release
+		}
+	}
+	r.mu.Unlock()
+	clients[0].c.Close()
+	select {
+	case <-entered:
+	case <-time.After(12 * time.Second):
+		t.Fatal("relay barrier not reached")
+	}
+	select {
+	case <-nativeDone:
+	case <-time.After(12 * time.Second):
+		t.Fatal("native retirement did not complete")
+	}
+	select {
+	case <-writerDone:
+	case <-time.After(12 * time.Second):
+		t.Fatal("writer relay did not finish")
+	}
+	if ownerCount(r) != 16 {
+		t.Fatal("native retirement forgave unjoined relay")
+	}
+	ownerCapacity(t, r)
+	unblock()
+	ownerWait(t, "relay release", func() bool { return ownerCount(r) == 15 })
+}
+func TestOwnerCapturePendingOpen(t *testing.T) {
+	r := rootFor(t, 10000)
+	release, unblock := ownerRelease(t)
+	entered := make(chan struct{})
+	var once sync.Once
+	r.mu.Lock()
+	r.beforeOpen = func(*session) { once.Do(func() { close(entered) }); <-release }
+	r.mu.Unlock()
+	c := compatConnect(t, compatAddress(t, r), nil)
+	select {
+	case <-entered:
+	case <-time.After(5 * time.Second):
+		t.Fatal("OPEN barrier")
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	o, consumed, e := r.snapshot(ctx, false)
+	if o != nil || consumed || !errors.Is(e, nativewire.ErrBusy) {
+		t.Fatal("capture overtook host OPEN", o, consumed, e)
+	}
+	unblock()
+	c.login(t, "root", true)
+	c.ping(t, "source usable after busy capture")
+}
+func TestOwnerLostOpen(t *testing.T) {
+	r := rootFor(t, 10000)
+	r.mu.Lock()
+	r.dropKinds[opened] = true
+	r.mu.Unlock()
+	c := compatConnect(t, compatAddress(t, r), nil)
+	ownerWait(t, "uncertain OPEN", func() bool { return r.result() != nil })
+	if ownerCount(r) != 1 {
+		t.Fatal("lost OPEN reservation released")
+	}
+	c.c.Close()
+	if e := r.close(); e == nil {
+		t.Fatal("missing OPEN cause")
+	}
+	if ownerCount(r) != 0 {
+		t.Fatal("disposal did not settle uncertain OPEN")
+	}
+}
+func TestOwnerStaleFrames(t *testing.T) {
+	r := rootFor(t, 10000)
+	c := compatConnect(t, compatAddress(t, r), nil)
+	c.login(t, "root", true)
+	c.c.Close()
+	ownerWait(t, "first retirement", func() bool { return ownerCount(r) == 0 })
+	next := compatConnect(t, "", r)
+	next.login(t, "root", true)
+	for _, kind := range []byte{data, ack, peerEOF} {
+		reply, e := r.rpc(frame{kind: kind, slot: 0, generation: 1})
+		if e != nil || reply.kind != 110 {
+			t.Fatal("stale input accepted", kind, reply, e)
+		}
+	}
+	r.mu.Lock()
+	current := r.sessions[key{0, 2}]
+	r.mu.Unlock()
+	if current == nil {
+		t.Fatal("replacement missing")
+	}
+	for _, kind := range []byte{raw, credit, retired, opened} {
+		if !r.receiveFrame(frame{kind: kind, epoch: r.epoch, slot: 0, generation: 1, value: math.MaxUint64, body: []byte("stale output")}) {
+			t.Fatal("late frame killed instance", kind)
+		}
+	}
+	current.mu.Lock()
+	consumed := current.consumed
+	dead := current.dead
+	current.mu.Unlock()
+	if consumed == math.MaxUint64 || dead {
+		t.Fatal("late callback reached replacement", consumed, dead, len(current.output))
+	}
+	next.ping(t, "stale frames do not target replacement")
+	if ownerCount(r) != 1 {
+		t.Fatal("stale retirement changed capacity")
+	}
+}
+func TestOwnerWrongProfile(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	r, e := newRestoredConfigured(ctx, 10000, nil, func(r *instance) { r.wrongProfile = true })
+	if r != nil {
+		defer r.close()
+	}
+	if e == nil || r == nil || r.result() == nil {
+		t.Fatal("profile1 accepted", e)
+	}
+}
+func TestOwnerWrongOpened(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	r, e := newRestoredConfigured(ctx, 10000, nil, func(r *instance) { r.wrongOpened = true })
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer r.close()
+	c := compatConnect(t, compatAddress(t, r), nil)
+	p, e := c.read(0)
+	if e == nil {
+		t.Fatalf("unvalidated identity forwarded SQL bytes: %x", p)
+	}
+	ownerWait(t, "wrong OPENED failure", func() bool { return r.result() != nil })
+	if !errors.Is(r.result(), nativewire.ErrIdentity) {
+		t.Fatal(r.result())
+	}
+}
+func TestOwnerRequestExhaustion(t *testing.T) {
+	r := rootFor(t, 10000)
+	r.sequence.Store(math.MaxUint32)
+	for i := 0; i < 3; i++ {
+		_, e := r.rpc(frame{kind: stats})
+		if !errors.Is(e, nativewire.ErrExhausted) {
+			t.Fatal("request reused", i, e)
+		}
+	}
+	if !errors.Is(r.result(), nativewire.ErrExhausted) {
+		t.Fatal(fmt.Sprint(r.result()))
+	}
+}

@@ -1,0 +1,21 @@
+package mariamem
+
+import (
+	"github.com/masahitojp/mariamem/internal/nativewire"
+	"math"
+	"testing"
+	"time"
+)
+
+func TestNativeTimeoutPublicDefaults(t *testing.T) {
+	for _, d := range []time.Duration{-1, time.Duration(math.MinInt64), 0, 1, 999999, time.Millisecond, 30 * time.Second, 30*time.Second + 1, time.Duration(math.MaxInt64)} {
+		opts, publicErr := (Options{QueryTimeout: d}).defaults()
+		ns, nativeErr := nativewire.TimeoutNanos(d)
+		if (publicErr == nil) != (nativeErr == nil) {
+			t.Fatal(d, publicErr, nativeErr)
+		}
+		if publicErr == nil && ns != uint64(opts.QueryTimeout) {
+			t.Fatal(d, ns, opts.QueryTimeout)
+		}
+	}
+}
