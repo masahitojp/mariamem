@@ -1,0 +1,13 @@
+{
+  "mac_reference_binary_sha256": "c78d70d016ca03854ce1b815e387f474040761132b25f3c29bc122b07c277403",
+  "compared_go_assembly_data_files": 283,
+  "different_files": [],
+  "reference_adjustments": [
+    {
+      "file": "cmd/issue65-wire/capture_test.go",
+      "before": "e35a01dad1e18ceddfd7569dbba22f6a554a23057751f7ce2f2387bc93192bbd",
+      "after": "655525c2bbae543f5e466c1880f4d4a0e5406e5c0b921feec646dc5fddbfd5bc",
+      "reason": "wait for guest idle before capture-debt injection"
+    }
+  ]
+}

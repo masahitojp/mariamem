@@ -76,4 +76,50 @@ python3 benchmarks/spikes/issue65-g2/probe.py runtime --workspace "$HOST_WORK"
 The existing workflow file targets experiment/issue65-g2,with native Linux arm64
 guest build and x86_64 execution. Retain raw logs/results even on NOT_READY,dispose
 SDK/converter/generated code/binaries/caches/worktrees and transit,then hand off
-exact SHA/run URL/operation and stop. No runtime result is claimed yet.
+exact SHA/run URL/operation and stop. Linux execution has not been observed yet.
+
+## Native macOS observation,2026-11-07
+
+Fixed guest7103c811 was reproduced. At tooling source_commit
+`18c546b2e3ad431c9383ab7fe198a8a9c0b02bae`,all241 G2 observations completed:
+230 PASS,11 contract mismatches,0 missing. The result is **NOT_READY**.
+[Original result](evidence/macos/g2-result.json) and [raw log](evidence/macos/g2-suite.txt)
+retain every expectation and actual outcome. No oracle,guest or acceptance
+exception was changed to obtain this result.
+
+| Remaining difference | Observations | Expected / observed |
+| --- | --- | --- |
+| BIT16,GEOMETRY255,INT24 9,YEAR13 input |8| original native rows on fresh/reuse /1835 HY000 |
+| LONG_DATA with wrong LONG type |1|1210 HY000 /1835 HY000;following fresh execution recovers|
+| Pending LONG_DATA after rejected descriptor |1|stream retained /cached execution1835;fresh execution recovers|
+| Short fixed handshake header |1|legacy1045/28000 /native1043/08S01 Bad handshake|
+
+These are observed differences;the precise patch causes have not been isolated.
+The short-header result needs a contract decision or a scoped compatibility fix;
+it is not silently accepted as another exception. Four type failures are eight
+fresh/reuse observations,not eight independently established bugs.
+
+All named metadata,19 typed-value vectors,CALL chains(including129 results),
+CLOSE/RESET,text multi-statements and three D1 fatal-state workloads pass.
+Large table-alias metadata is reachable through internal SQL:exact0xfffffe bytes
+passes,max+1 produces1153/08S01 before an oversized header,and following PING
+works. Normal255-byte column-name truncation is not a general packet-size proof.
+
+The unchanged strict baseline passes22 lifecycle,88 compatibility,38 limit and
+234 G1 observations,plus existing controls/supporting checks. The283-file G1
+reference comparison retains its explicit capture-fixture idle adjustment.
+[Build summary](evidence/macos/build-summary.json) pins the separate G2 binary,
+284 staged Go/assembly/data files and the full7372→7373-file inventory extension:
+exactly one test source,no runtime or guest change. Full inventories and original
+command receipts remain in the owned workspace evidence outside Git.
+
+Recommendation:use the one authorized Linux observation to establish whether the
+same finite differences reproduce,then isolate native type decoding/LONG_DATA
+preservation repairs separately. This G2 result does not qualify public adoption;
+P1 ownership/public wiring and P2 declared consumers/performance still remain.
+
+Local builder,runtime and bootstrap-tool workspaces have been disposed with
+[cleanup debt0](evidence/macos/cleanup-summary.json). Compact originals and full
+inventory receipts remain under owned evidence;Git contains the reduced report,
+raw observation log and checksummed results. Public command/build receipts replace
+only the local workspace prefix with `<owned-runtime-workspace>`.

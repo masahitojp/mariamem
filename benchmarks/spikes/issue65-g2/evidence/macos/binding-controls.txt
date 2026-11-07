@@ -1,0 +1,2 @@
+Disk preflight OK: 24.88 GiB free, 2.24 GiB owned
+[{'control': 'wrong_guest', 'exit_code': 2, 'expected_rejection_observed': True}, {'control': 'wrong_function_hash', 'exit_code': 1, 'expected_rejection_observed': True}]

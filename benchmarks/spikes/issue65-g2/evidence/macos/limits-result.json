@@ -1,0 +1,508 @@
+{
+  "result": "PASS scoped native limits",
+  "complete": true,
+  "ready": true,
+  "exit_code": 0,
+  "cases": [
+    {
+      "name": "TestLimitsCommands",
+      "result": "PASS",
+      "elapsed": "0.35s"
+    },
+    {
+      "name": "TestLimitsCapabilities",
+      "result": "PASS",
+      "elapsed": "0.24s"
+    },
+    {
+      "name": "TestLimitsInputHeaders",
+      "result": "PASS",
+      "elapsed": "0.21s"
+    },
+    {
+      "name": "TestLimitsOutputPacket",
+      "result": "PASS",
+      "elapsed": "2.89s"
+    },
+    {
+      "name": "TestLimitsAggregate",
+      "result": "PASS",
+      "elapsed": "6.42s"
+    },
+    {
+      "name": "TestLimitsPipeWindow",
+      "result": "PASS",
+      "elapsed": "0.19s"
+    }
+  ],
+  "observations": [
+    {
+      "actual": "errno=1235 state=42000 err=<nil> marker=ffd304233432303030",
+      "expected": "ERR1235/42000",
+      "id": "reset_connection",
+      "pass": true,
+      "test": "TestLimitsCommands/reset_connection"
+    },
+    {
+      "actual": "<nil>",
+      "expected": "PING OK",
+      "id": "reset_connection_following",
+      "pass": true,
+      "test": "TestLimitsCommands/reset_connection"
+    },
+    {
+      "actual": "errno=1235 state=42000 err=<nil> marker=ffd304233432303030",
+      "expected": "ERR1235/42000",
+      "id": "stmt_fetch",
+      "pass": true,
+      "test": "TestLimitsCommands/stmt_fetch"
+    },
+    {
+      "actual": "<nil>",
+      "expected": "PING OK",
+      "id": "stmt_fetch_following",
+      "pass": true,
+      "test": "TestLimitsCommands/stmt_fetch"
+    },
+    {
+      "actual": "errno=1235 state=42000 err=<nil> marker=ffd304233432303030",
+      "expected": "ERR1235/42000",
+      "id": "statistics",
+      "pass": true,
+      "test": "TestLimitsCommands/statistics"
+    },
+    {
+      "actual": "<nil>",
+      "expected": "PING OK",
+      "id": "statistics_following",
+      "pass": true,
+      "test": "TestLimitsCommands/statistics"
+    },
+    {
+      "actual": "errno=1235 state=42000 err=<nil> marker=ffd304233432303030",
+      "expected": "ERR1235/42000",
+      "id": "process_info",
+      "pass": true,
+      "test": "TestLimitsCommands/process_info"
+    },
+    {
+      "actual": "<nil>",
+      "expected": "PING OK",
+      "id": "process_info_following",
+      "pass": true,
+      "test": "TestLimitsCommands/process_info"
+    },
+    {
+      "actual": "errno=1235 state=42000 err=<nil> marker=ffd304233432303030",
+      "expected": "ERR1235/42000",
+      "id": "binlog_dump",
+      "pass": true,
+      "test": "TestLimitsCommands/binlog_dump"
+    },
+    {
+      "actual": "<nil>",
+      "expected": "PING OK",
+      "id": "binlog_dump_following",
+      "pass": true,
+      "test": "TestLimitsCommands/binlog_dump"
+    },
+    {
+      "actual": "errno=1235 state=42000 marker=ff",
+      "expected": "ERR1235/42000",
+      "id": "tls",
+      "pass": true,
+      "test": "TestLimitsCapabilities/tls"
+    },
+    {
+      "actual": "errno=1235 state=42000 marker=ff",
+      "expected": "ERR1235/42000",
+      "id": "missing_protocol41",
+      "pass": true,
+      "test": "TestLimitsCapabilities/missing_protocol41"
+    },
+    {
+      "actual": "caps=fa20d marker=00 err=<nil>",
+      "expected": "unadvertised; ordinary uncompressed login",
+      "id": "compression_not_negotiated",
+      "pass": true,
+      "test": "TestLimitsCapabilities/compression_not_negotiated"
+    },
+    {
+      "actual": "first=01 eof=fe00000200 row=0131 end=fe00000200",
+      "expected": "ordinary row plus legacy EOF",
+      "id": "compression_not_negotiated_following",
+      "pass": true,
+      "test": "TestLimitsCapabilities/compression_not_negotiated"
+    },
+    {
+      "actual": "caps=fa20d marker=00 err=<nil>",
+      "expected": "unadvertised; ordinary uncompressed login",
+      "id": "deprecate_eof_not_negotiated",
+      "pass": true,
+      "test": "TestLimitsCapabilities/deprecate_eof_not_negotiated"
+    },
+    {
+      "actual": "first=01 eof=fe00000200 row=0131 end=fe00000200",
+      "expected": "ordinary row plus legacy EOF",
+      "id": "deprecate_eof_not_negotiated_following",
+      "pass": true,
+      "test": "TestLimitsCapabilities/deprecate_eof_not_negotiated"
+    },
+    {
+      "actual": "errno=1153 err=<nil>",
+      "expected": "reject header without waiting for body",
+      "id": "n1048578_warmfalse",
+      "pass": true,
+      "test": "TestLimitsInputHeaders/n1048578_warmfalse"
+    },
+    {
+      "actual": "errno=1153 err=<nil>",
+      "expected": "reject header without waiting for body",
+      "id": "n1048578_warmtrue",
+      "pass": true,
+      "test": "TestLimitsInputHeaders/n1048578_warmtrue"
+    },
+    {
+      "actual": "errno=1153 err=<nil>",
+      "expected": "reject header without waiting for body",
+      "id": "n16777215_warmfalse",
+      "pass": true,
+      "test": "TestLimitsInputHeaders/n16777215_warmfalse"
+    },
+    {
+      "actual": "errno=1153 err=<nil>",
+      "expected": "reject header without waiting for body",
+      "id": "n16777215_warmtrue",
+      "pass": true,
+      "test": "TestLimitsInputHeaders/n16777215_warmtrue"
+    },
+    {
+      "actual": "packet=16777214 value=16777210 err=<nil>",
+      "expected": "exact 0xfffffe row packet and exact value",
+      "id": "binaryfalse_overfalse",
+      "pass": true,
+      "test": "TestLimitsOutputPacket/binaryfalse_overfalse"
+    },
+    {
+      "actual": "end=fe00000200 err=<nil>",
+      "expected": "result EOF then PING",
+      "id": "binaryfalse_overfalse_following",
+      "pass": true,
+      "test": "TestLimitsOutputPacket/binaryfalse_overfalse"
+    },
+    {
+      "actual": "errno=1153 state=08S01 err=<nil> row_bytes=60 owner=<nil>",
+      "expected": "ERR1153/08S01 or early EOF; no continuation header",
+      "id": "binaryfalse_overtrue",
+      "pass": true,
+      "test": "TestLimitsOutputPacket/binaryfalse_overtrue"
+    },
+    {
+      "actual": "packet=16777214 value=16777208 err=<nil>",
+      "expected": "exact 0xfffffe row packet and exact value",
+      "id": "binarytrue_overfalse",
+      "pass": true,
+      "test": "TestLimitsOutputPacket/binarytrue_overfalse"
+    },
+    {
+      "actual": "end=fe00000200 err=<nil>",
+      "expected": "result EOF then PING",
+      "id": "binarytrue_overfalse_following",
+      "pass": true,
+      "test": "TestLimitsOutputPacket/binarytrue_overfalse"
+    },
+    {
+      "actual": "errno=1153 state=08S01 err=<nil> row_bytes=60 owner=<nil>",
+      "expected": "ERR1153/08S01 or early EOF; no continuation header",
+      "id": "binarytrue_overtrue",
+      "pass": true,
+      "test": "TestLimitsOutputPacket/binarytrue_overtrue"
+    },
+    {
+      "actual": {
+        "error": "<nil>",
+        "stats": {
+          "cause": "",
+          "denied": 0,
+          "fenced": false,
+          "joined": 0,
+          "poisoned": false,
+          "retired_input_peak": 0,
+          "retired_output_peak": 0,
+          "rollback_reports": 0,
+          "sessions": [
+            {
+              "command": 1,
+              "generation": 1,
+              "input": 0,
+              "input_peak": 113,
+              "output_peak": 65536,
+              "outstanding": 65536,
+              "phase": "executing",
+              "slot": 0,
+              "status": 2
+            },
+            {
+              "command": 0,
+              "generation": 1,
+              "input": 0,
+              "input_peak": 45,
+              "output_peak": 95,
+              "outstanding": 0,
+              "phase": "idle",
+              "slot": 1,
+              "status": 2
+            }
+          ],
+          "stale": 0,
+          "started": 2
+        }
+      },
+      "expected": "other-session PING while output credit full",
+      "id": "binaryfalse_control",
+      "pass": true,
+      "test": "TestLimitsAggregate/binaryfalse"
+    },
+    {
+      "actual": "rows=40 bytes=41943040 err=<nil> last_bytes=5",
+      "expected": "40 exact 1MiB rows, total40MiB, terminal EOF",
+      "id": "binaryfalse_data",
+      "pass": true,
+      "test": "TestLimitsAggregate/binaryfalse"
+    },
+    {
+      "actual": {
+        "native_peak": 65536,
+        "stats": {
+          "cause": "",
+          "denied": 0,
+          "fenced": false,
+          "joined": 0,
+          "poisoned": false,
+          "retired_input_peak": 0,
+          "retired_output_peak": 0,
+          "rollback_reports": 0,
+          "sessions": [
+            {
+              "command": 1,
+              "generation": 1,
+              "input": 0,
+              "input_peak": 113,
+              "output_peak": 65536,
+              "outstanding": 0,
+              "phase": "idle",
+              "slot": 0,
+              "status": 34
+            },
+            {
+              "command": 1,
+              "generation": 1,
+              "input": 0,
+              "input_peak": 45,
+              "output_peak": 95,
+              "outstanding": 0,
+              "phase": "idle",
+              "slot": 1,
+              "status": 2
+            }
+          ],
+          "stale": 0,
+          "started": 2
+        }
+      },
+      "expected": "native output peak<=65536; following PING",
+      "id": "binaryfalse_bounds",
+      "pass": true,
+      "test": "TestLimitsAggregate/binaryfalse"
+    },
+    {
+      "actual": {
+        "error": "<nil>",
+        "stats": {
+          "cause": "",
+          "denied": 0,
+          "fenced": false,
+          "joined": 0,
+          "poisoned": false,
+          "retired_input_peak": 0,
+          "retired_output_peak": 0,
+          "rollback_reports": 0,
+          "sessions": [
+            {
+              "command": 2,
+              "generation": 1,
+              "input": 0,
+              "input_peak": 113,
+              "output_peak": 65536,
+              "outstanding": 65536,
+              "phase": "executing",
+              "slot": 0,
+              "status": 2
+            },
+            {
+              "command": 0,
+              "generation": 1,
+              "input": 0,
+              "input_peak": 45,
+              "output_peak": 95,
+              "outstanding": 0,
+              "phase": "idle",
+              "slot": 1,
+              "status": 2
+            }
+          ],
+          "stale": 0,
+          "started": 2
+        }
+      },
+      "expected": "other-session PING while output credit full",
+      "id": "binarytrue_control",
+      "pass": true,
+      "test": "TestLimitsAggregate/binarytrue"
+    },
+    {
+      "actual": "rows=40 bytes=41943040 err=<nil> last_bytes=5",
+      "expected": "40 exact 1MiB rows, total40MiB, terminal EOF",
+      "id": "binarytrue_data",
+      "pass": true,
+      "test": "TestLimitsAggregate/binarytrue"
+    },
+    {
+      "actual": {
+        "native_peak": 65536,
+        "stats": {
+          "cause": "",
+          "denied": 0,
+          "fenced": false,
+          "joined": 0,
+          "poisoned": false,
+          "retired_input_peak": 0,
+          "retired_output_peak": 0,
+          "rollback_reports": 0,
+          "sessions": [
+            {
+              "command": 2,
+              "generation": 1,
+              "input": 0,
+              "input_peak": 113,
+              "output_peak": 65536,
+              "outstanding": 0,
+              "phase": "idle",
+              "slot": 0,
+              "status": 34
+            },
+            {
+              "command": 1,
+              "generation": 1,
+              "input": 0,
+              "input_peak": 45,
+              "output_peak": 95,
+              "outstanding": 0,
+              "phase": "idle",
+              "slot": 1,
+              "status": 2
+            }
+          ],
+          "stale": 0,
+          "started": 2
+        }
+      },
+      "expected": "native output peak<=65536; following PING",
+      "id": "binarytrue_bounds",
+      "pass": true,
+      "test": "TestLimitsAggregate/binarytrue"
+    },
+    {
+      "actual": {
+        "cause": "pending_input_overflow",
+        "denied": 0,
+        "fenced": true,
+        "joined": 0,
+        "poisoned": true,
+        "retired_input_peak": 0,
+        "retired_output_peak": 0,
+        "rollback_reports": 0,
+        "sessions": [
+          {
+            "command": 1,
+            "generation": 1,
+            "input": 0,
+            "input_peak": 1048576,
+            "output_peak": 95,
+            "outstanding": 0,
+            "phase": "executing",
+            "slot": 0,
+            "status": 2
+          }
+        ],
+        "stale": 0,
+        "started": 1
+      },
+      "expected": "full queue or already aborted",
+      "id": "full_window_overflow_setup",
+      "pass": true,
+      "test": "TestLimitsPipeWindow/overflow"
+    },
+    {
+      "actual": "guest poison: pending_input_overflow",
+      "expected": "overflow before command deadline",
+      "id": "full_window_overflow_abort",
+      "pass": true,
+      "test": "TestLimitsPipeWindow/overflow"
+    },
+    {
+      "actual": "<nil>",
+      "expected": "independent PING",
+      "id": "independent_overflow",
+      "pass": true,
+      "test": "TestLimitsPipeWindow/overflow"
+    },
+    {
+      "actual": {
+        "cause": "",
+        "denied": 0,
+        "fenced": false,
+        "joined": 0,
+        "poisoned": false,
+        "retired_input_peak": 0,
+        "retired_output_peak": 0,
+        "rollback_reports": 0,
+        "sessions": [
+          {
+            "command": 1,
+            "generation": 1,
+            "input": 1048581,
+            "input_peak": 1048581,
+            "output_peak": 95,
+            "outstanding": 0,
+            "phase": "executing",
+            "slot": 0,
+            "status": 2
+          }
+        ],
+        "stale": 0,
+        "started": 1
+      },
+      "expected": "full queue or already aborted",
+      "id": "full_window_eof_setup",
+      "pass": true,
+      "test": "TestLimitsPipeWindow/eof"
+    },
+    {
+      "actual": "guest poison: unexpected_peer_eof",
+      "expected": "eof before command deadline",
+      "id": "full_window_eof_abort",
+      "pass": true,
+      "test": "TestLimitsPipeWindow/eof"
+    },
+    {
+      "actual": "<nil>",
+      "expected": "independent PING",
+      "id": "independent_eof",
+      "pass": true,
+      "test": "TestLimitsPipeWindow/eof"
+    }
+  ],
+  "mismatches": [],
+  "missing_observations": []
+}

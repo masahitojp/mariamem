@@ -1,0 +1,33 @@
+Disk preflight OK: 25.13 GiB free, 2.17 GiB owned
+=== RUN   TestRealLimiterCapacityBusyPreservesEndpointAndReleasesDrainReservation
+--- PASS: TestRealLimiterCapacityBusyPreservesEndpointAndReleasesDrainReservation (0.01s)
+=== RUN   TestRealLimiterCapTwoCleanupRetryBeforeRecovery
+--- PASS: TestRealLimiterCapTwoCleanupRetryBeforeRecovery (0.00s)
+=== RUN   TestRealLimiterExplicitResetCannotForgiveAnotherOwner
+--- PASS: TestRealLimiterExplicitResetCannotForgiveAnotherOwner (0.00s)
+=== RUN   TestBinaryBusyResetAndHalfClose
+--- PASS: TestBinaryBusyResetAndHalfClose (0.01s)
+=== RUN   TestFailureRefusesClientsAndRetry
+--- PASS: TestFailureRefusesClientsAndRetry (0.00s)
+=== RUN   TestCancellationOnBothSidesOfCommit
+=== RUN   TestCancellationOnBothSidesOfCommit/before
+=== RUN   TestCancellationOnBothSidesOfCommit/after
+--- PASS: TestCancellationOnBothSidesOfCommit (0.00s)
+    --- PASS: TestCancellationOnBothSidesOfCommit/before (0.00s)
+    --- PASS: TestCancellationOnBothSidesOfCommit/after (0.00s)
+=== RUN   TestBaselineClosePreconditionPreservesCurrentChild
+--- PASS: TestBaselineClosePreconditionPreservesCurrentChild (0.00s)
+=== RUN   TestCapacityAndQueuedCancellation
+--- PASS: TestCapacityAndQueuedCancellation (0.00s)
+=== RUN   TestConcurrentCloseWaitsForResetAndStopsWorkers
+--- PASS: TestConcurrentCloseWaitsForResetAndStopsWorkers (0.00s)
+=== RUN   TestCleanupFailureIsRetainedAndCloseResultStable
+--- PASS: TestCleanupFailureIsRetainedAndCloseResultStable (0.00s)
+=== RUN   TestInFlightDialIsReservedAndCancelledByClose
+--- PASS: TestInFlightDialIsReservedAndCancelledByClose (0.00s)
+=== RUN   TestCreationCleanupFailureReturnsOwnedTombstone
+--- PASS: TestCreationCleanupFailureReturnsOwnedTombstone (0.00s)
+=== RUN   TestCapacityResponderLeavesExistingRelayAndStatusUsable
+--- PASS: TestCapacityResponderLeavesExistingRelayAndStatusUsable (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/live	0.283s

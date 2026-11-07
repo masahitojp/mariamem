@@ -1,0 +1,12 @@
+{
+  "uname": [
+    "Darwin",
+    "MacBookAir",
+    "27.2.0",
+    "Darwin Kernel Version 27.2.0: Wed Oct 14 23:46:57 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T8103",
+    "arm64",
+    "arm"
+  ],
+  "tooling_source_commit": "18c546b2e3ad431c9383ab7fe198a8a9c0b02bae",
+  "probe_sha256": "6b4d31bbf3c17c615880a8f2d20da49c999320b76ea4b218d16b563edbcb8900"
+}

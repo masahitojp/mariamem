@@ -1,0 +1,23 @@
+{
+  "issue65-g2-host": {
+    "cleanup_debt": [],
+    "worktree_exists": false,
+    "temp_exists": false,
+    "before_bytes": 4072148992,
+    "after_bytes": 1906376704
+  },
+  "issue65-g2-guest": {
+    "cleanup_debt": [],
+    "worktree_exists": false,
+    "temp_exists": false,
+    "before_bytes": 9142009856,
+    "after_bytes": 4608782336
+  },
+  "issue65-g2-tools": {
+    "cleanup_debt": [],
+    "worktree_exists": false,
+    "temp_exists": false,
+    "before_bytes": 4608794624,
+    "after_bytes": 4244647936
+  }
+}

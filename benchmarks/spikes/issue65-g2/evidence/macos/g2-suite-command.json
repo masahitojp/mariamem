@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "<owned-runtime-workspace>/temp/host/g2.test",
+    "-test.v",
+    "-test.run=^TestG2",
+    "-test.timeout=240s"
+  ],
+  "timeout_seconds": 270,
+  "source_receipt_sha256": "d3cf61c63c789e9a58b45a3b083bb648a32fc6f5d8528b09a955c8b75fa6cd6f"
+}

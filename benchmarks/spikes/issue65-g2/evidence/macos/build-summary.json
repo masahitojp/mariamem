@@ -1,0 +1,21 @@
+{
+  "guest_source_commit": "65b49e3dc31e9b2da63b317e015f8f471e79a83e",
+  "guest_sha256": "7103c8116151a386b1359e9ea02fda7e31fe8145f37a221001f97e7de2ce9a91",
+  "host_source_commit": "65b49e3dc31e9b2da63b317e015f8f471e79a83e",
+  "baseline_binary_sha256": "2c158c86ecaf400f9e8625087f8e0cc1d68a5dbbab70212d6d0caf95574875f9",
+  "binary_sha256": "cb12ae52f88595e595ccbd8b5a7eab953baf4df10fdcdaf2f98cf007379ac04c",
+  "fixture_sha256": "a13951d5117558b1ccfa5df7b32edb0ddc68f9d0e2a7b41a6899fa8b0751efb4",
+  "staged_go_assembly_data_files": 284,
+  "tooling_source_commit": "18c546b2e3ad431c9383ab7fe198a8a9c0b02bae",
+  "go_buildinfo": "<owned-runtime-workspace>/temp/host/g2.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/issue65-wire\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "full_inventory_file_count": 7373,
+  "full_inventory_sha256": "fbd3ffea4598d7fa5ddcb83acab8d9e557ca1c7cc0b1ac45527392b5d3bd6876",
+  "baseline_full_inventory_file_count": 7372,
+  "baseline_full_inventory_sha256": "ba8c70fca180c548be8f73cabcc17e06edd2f32acd4b58d8c4df96d42191ef98",
+  "extension": {
+    "path": "cmd/issue65-wire/g2_test.go",
+    "sha256": "a13951d5117558b1ccfa5df7b32edb0ddc68f9d0e2a7b41a6899fa8b0751efb4",
+    "only_change": true
+  },
+  "inventory_hash_format": "UTF-8 JSON sorted keys,separators comma/colon,no newline"
+}

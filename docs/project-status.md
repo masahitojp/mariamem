@@ -383,6 +383,18 @@ next;P1 public wiring/controller ownership and P2 consumers/performance/adoption
 remain pending. Issue65 stays open;this is not canonical adoption or release.
 
 
+G2 now has a [fixed-guest native macOS observation](../benchmarks/spikes/issue65-g2/README.md)
+at tooling18c546b2:all241 named observations complete,230 PASS and11 contract
+mismatches,0 missing;NOT_READY. Eight differences are fresh/reuse input for
+BIT,GEOMETRY,INT24,YEAR;two concern LONG_DATA errno/pending-stream preservation;
+one is short-handshake1043/08S01 versus the legacy1045/28000 expectation.
+The strict G1 baseline still passes. Metadata/result chains and representative
+D1 cases pass,including reachable exact/max+1 metadata packet bounds and129
+CALL results. Original oracles and guest7103c811 remain fixed. One Linux
+observation is being submitted;its result is unobserved. Repairs and any new
+exception decision are separate;P1/P2/adoption/release remain pending.
+
+
 
 ## Current work tracking
 

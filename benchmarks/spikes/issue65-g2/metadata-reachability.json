@@ -31,7 +31,8 @@
       "fact": "ColumnDefinition41 stores six strings,then13 fixed bytes;send_result_set_metadata writes each descriptor separately"
     }
   ],
-  "reachability": "NOT_YET_CONFIRMED;standard column-name bounds do not prove a metadata packet bound for table aliases/internal SQL",
+  "reachability": "CONFIRMED in native macOS G2: alias4096 control and exact0xfffffe descriptor succeeded;max+1 returned1153/08S01 before oversized header;following PING passed",
   "selected_runtime_probe": "table alias4096 control,then exact0xfffffe/max+1 metadata through internally generated SQL PREPARE;command SQL remains below1MiB",
-  "qualification_rule": "failed reachability/prepare precondition is INCOMPLETE,not proof of unreachability or a relaxed packet contract"
+  "qualification_rule": "failed reachability/prepare precondition is INCOMPLETE,not proof of unreachability or a relaxed packet contract",
+  "runtime_evidence": "evidence/macos/g2-result.json: TestG2LargeMetadata"
 }
