@@ -1,0 +1,6 @@
+{
+  "runner_source_commit": "d48ecf650431380f0baf35793450c1b0c5db3733",
+  "binary_source_commit": "d48ecf650431380f0baf35793450c1b0c5db3733",
+  "allowed_diff": [],
+  "same_instrumentation_binary": true
+}

@@ -1,0 +1,1934 @@
+{
+  "result": "DOMINANT_PATH_IDENTIFIED",
+  "dominant": [
+    "header.read.read_complete"
+  ],
+  "criterion": "Fork pooled per-child median component >=0.5ms AND median per-child share >=50 percent of rseg-header acquisition",
+  "cells": [
+    {
+      "mode": "fresh",
+      "children": 144,
+      "metrics": {
+        "api_startup": {
+          "n": 144,
+          "p50": 23.90418699999998,
+          "p95": 27.201165999999944,
+          "mean": 24.34811831944444,
+          "max": 33.756999999999834,
+          "over_100ms": 0
+        },
+        "rseg_array": {
+          "n": 144,
+          "p50": 0.04508349999999961,
+          "p95": 0.0517909999999997,
+          "mean": 0.0465381805555555,
+          "max": 0.09162500000000051,
+          "over_100ms": 0
+        },
+        "rseg.page.rseg_header": {
+          "n": 144,
+          "p50": 0.000833,
+          "p95": 0.001375,
+          "mean": 0.0009088194444444444,
+          "max": 0.002292,
+          "over_100ms": 0
+        },
+        "header.sync_read_miss": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.lookup": {
+          "n": 144,
+          "p50": 8.3e-05,
+          "p95": 8.4e-05,
+          "mean": 6.540277777777778e-05,
+          "max": 0.000208,
+          "over_100ms": 0
+        },
+        "header.read.frame_init": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.read.sync_io_request": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.read.read_complete": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.read.race_read_wait": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.read.other": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.random_read_ahead": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.read_wait": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.other": {
+          "n": 144,
+          "p50": 0.0005835,
+          "p95": 0.001042,
+          "mean": 0.0006602916666666667,
+          "max": 0.002083,
+          "over_100ms": 0
+        },
+        "header.wrapper": {
+          "n": 144,
+          "p50": 0.000167,
+          "p95": 0.00025100000000000003,
+          "mean": 0.000183125,
+          "max": 0.0004589999999999999,
+          "over_100ms": 0
+        }
+      },
+      "ratios": {
+        "header.lookup": {
+          "n": 144,
+          "p50": 0.06795430463576158,
+          "p95": 0.12443778110944528,
+          "mean": 0.0760575433745836,
+          "max": 0.23771428571428568,
+          "over_100ms": 0
+        },
+        "header.read.frame_init": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.read.sync_io_request": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.read.read_complete": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.read.race_read_wait": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.read.other": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.random_read_ahead": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.read_wait": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.other": {
+          "n": 144,
+          "p50": 0.722,
+          "p95": 0.8278145695364238,
+          "mean": 0.7144286150372732,
+          "max": 0.9088132635253054,
+          "over_100ms": 0
+        },
+        "header.wrapper": {
+          "n": 144,
+          "p50": 0.2,
+          "p95": 0.3184296619411123,
+          "mean": 0.20951384158814323,
+          "max": 0.4079999999999999,
+          "over_100ms": 0
+        }
+      },
+      "counts": {
+        "count.header.lookup": {
+          "min": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "count.header.sync_read_miss": {
+          "min": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "count.header.random_read_ahead": {
+          "min": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "count.header.read_wait": {
+          "min": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "count.header.read.frame_init": {
+          "min": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "count.header.read.sync_io_request": {
+          "min": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "count.header.read.read_complete": {
+          "min": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "count.header.read.race_read_wait": {
+          "min": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "count.header.calls": {
+          "min": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "count.header.lookups": {
+          "min": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "count.header.hits": {
+          "min": 1,
+          "max": 1,
+          "mean": 1
+        },
+        "count.header.misses": {
+          "min": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "count.header.clock_reads": {
+          "min": 4,
+          "max": 4,
+          "mean": 4
+        }
+      },
+      "early_late": [
+        {
+          "run": "fresh-on-p1-r0-primary",
+          "early": {
+            "api_startup": {
+              "n": 8,
+              "p50": 24.039645499999992,
+              "p95": 29.74875,
+              "mean": 24.692661375,
+              "max": 29.74875,
+              "over_100ms": 0
+            },
+            "rseg_array": {
+              "n": 8,
+              "p50": 0.04443749999999991,
+              "p95": 0.0827909999999985,
+              "mean": 0.04998412499999949,
+              "max": 0.0827909999999985,
+              "over_100ms": 0
+            },
+            "rseg.page.rseg_header": {
+              "n": 8,
+              "p50": 0.000896,
+              "p95": 0.00125,
+              "mean": 0.000932375,
+              "max": 0.00125,
+              "over_100ms": 0
+            },
+            "header.sync_read_miss": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.lookup": {
+              "n": 8,
+              "p50": 8.3e-05,
+              "p95": 8.4e-05,
+              "mean": 7.8125e-05,
+              "max": 8.4e-05,
+              "over_100ms": 0
+            },
+            "header.read.frame_init": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.sync_io_request": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.read_complete": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.race_read_wait": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.other": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.random_read_ahead": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read_wait": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.other": {
+              "n": 8,
+              "p50": 0.0005415,
+              "p95": 0.001,
+              "mean": 0.000645625,
+              "max": 0.001,
+              "over_100ms": 0
+            },
+            "header.wrapper": {
+              "n": 8,
+              "p50": 0.00018800000000000007,
+              "p95": 0.00029200000000000005,
+              "mean": 0.00020862500000000004,
+              "max": 0.00029200000000000005,
+              "over_100ms": 0
+            }
+          },
+          "late": {
+            "api_startup": {
+              "n": 40,
+              "p50": 23.453625000000045,
+              "p95": 25.59725000000003,
+              "mean": 23.75006765,
+              "max": 28.268332999999984,
+              "over_100ms": 0
+            },
+            "rseg_array": {
+              "n": 40,
+              "p50": 0.04375000000000018,
+              "p95": 0.04791599999999896,
+              "mean": 0.04425205000000001,
+              "max": 0.05191700000000132,
+              "over_100ms": 0
+            },
+            "rseg.page.rseg_header": {
+              "n": 40,
+              "p50": 0.000833,
+              "p95": 0.001042,
+              "mean": 0.000853025,
+              "max": 0.002041,
+              "over_100ms": 0
+            },
+            "header.sync_read_miss": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.lookup": {
+              "n": 40,
+              "p50": 4.2e-05,
+              "p95": 8.4e-05,
+              "mean": 6.1425e-05,
+              "max": 8.4e-05,
+              "over_100ms": 0
+            },
+            "header.read.frame_init": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.sync_io_request": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.read_complete": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.race_read_wait": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.other": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.random_read_ahead": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read_wait": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.other": {
+              "n": 40,
+              "p50": 0.000583,
+              "p95": 0.000792,
+              "mean": 0.0006105,
+              "max": 0.00175,
+              "over_100ms": 0
+            },
+            "header.wrapper": {
+              "n": 40,
+              "p50": 0.00016650000000000004,
+              "p95": 0.00025,
+              "mean": 0.0001811,
+              "max": 0.0004589999999999999,
+              "over_100ms": 0
+            }
+          }
+        },
+        {
+          "run": "fresh-on-p1-r1-primary",
+          "early": {
+            "api_startup": {
+              "n": 8,
+              "p50": 25.101916999999986,
+              "p95": 27.53824999999999,
+              "mean": 25.25016175000001,
+              "max": 27.53824999999999,
+              "over_100ms": 0
+            },
+            "rseg_array": {
+              "n": 8,
+              "p50": 0.04654150000000001,
+              "p95": 0.09162500000000051,
+              "mean": 0.05314574999999988,
+              "max": 0.09162500000000051,
+              "over_100ms": 0
+            },
+            "rseg.page.rseg_header": {
+              "n": 8,
+              "p50": 0.0008125,
+              "p95": 0.002209,
+              "mean": 0.001000125,
+              "max": 0.002209,
+              "over_100ms": 0
+            },
+            "header.sync_read_miss": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.lookup": {
+              "n": 8,
+              "p50": 8.3e-05,
+              "p95": 8.4e-05,
+              "mean": 6.7625e-05,
+              "max": 8.4e-05,
+              "over_100ms": 0
+            },
+            "header.read.frame_init": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.sync_io_request": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.read_complete": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.race_read_wait": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.other": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.random_read_ahead": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read_wait": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.other": {
+              "n": 8,
+              "p50": 0.0005415,
+              "p95": 0.001958,
+              "mean": 0.00072925,
+              "max": 0.001958,
+              "over_100ms": 0
+            },
+            "header.wrapper": {
+              "n": 8,
+              "p50": 0.00020849999999999995,
+              "p95": 0.00025,
+              "mean": 0.00020325,
+              "max": 0.00025,
+              "over_100ms": 0
+            }
+          },
+          "late": {
+            "api_startup": {
+              "n": 40,
+              "p50": 24.763500000000022,
+              "p95": 27.323208000000022,
+              "mean": 25.094670774999987,
+              "max": 33.756999999999834,
+              "over_100ms": 0
+            },
+            "rseg_array": {
+              "n": 40,
+              "p50": 0.0453960000000011,
+              "p95": 0.05154199999999953,
+              "mean": 0.047192774999999854,
+              "max": 0.0803339999999988,
+              "over_100ms": 0
+            },
+            "rseg.page.rseg_header": {
+              "n": 40,
+              "p50": 0.0009375,
+              "p95": 0.001375,
+              "mean": 0.000988425,
+              "max": 0.002292,
+              "over_100ms": 0
+            },
+            "header.sync_read_miss": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.lookup": {
+              "n": 40,
+              "p50": 8.3e-05,
+              "p95": 8.4e-05,
+              "mean": 6.675e-05,
+              "max": 0.000125,
+              "over_100ms": 0
+            },
+            "header.read.frame_init": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.sync_io_request": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.read_complete": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.race_read_wait": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.other": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.random_read_ahead": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read_wait": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.other": {
+              "n": 40,
+              "p50": 0.0006460000000000001,
+              "p95": 0.001166,
+              "mean": 0.0007323,
+              "max": 0.002083,
+              "over_100ms": 0
+            },
+            "header.wrapper": {
+              "n": 40,
+              "p50": 0.000167,
+              "p95": 0.00025100000000000003,
+              "mean": 0.000189375,
+              "max": 0.00033300000000000007,
+              "over_100ms": 0
+            }
+          }
+        },
+        {
+          "run": "fresh-on-p1-r2-primary",
+          "early": {
+            "api_startup": {
+              "n": 8,
+              "p50": 23.52554149999999,
+              "p95": 24.84904200000001,
+              "mean": 23.787218749999994,
+              "max": 24.84904200000001,
+              "over_100ms": 0
+            },
+            "rseg_array": {
+              "n": 8,
+              "p50": 0.04504200000000047,
+              "p95": 0.08620800000000095,
+              "mean": 0.050088375000000296,
+              "max": 0.08620800000000095,
+              "over_100ms": 0
+            },
+            "rseg.page.rseg_header": {
+              "n": 8,
+              "p50": 0.0007705,
+              "p95": 0.001125,
+              "mean": 0.00080725,
+              "max": 0.001125,
+              "over_100ms": 0
+            },
+            "header.sync_read_miss": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.lookup": {
+              "n": 8,
+              "p50": 8.3e-05,
+              "p95": 8.4e-05,
+              "mean": 7.3e-05,
+              "max": 8.4e-05,
+              "over_100ms": 0
+            },
+            "header.read.frame_init": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.sync_io_request": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.read_complete": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.race_read_wait": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.other": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.random_read_ahead": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read_wait": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.other": {
+              "n": 8,
+              "p50": 0.000521,
+              "p95": 0.000833,
+              "mean": 0.000578,
+              "max": 0.000833,
+              "over_100ms": 0
+            },
+            "header.wrapper": {
+              "n": 8,
+              "p50": 0.00016600000000000002,
+              "p95": 0.00020899999999999988,
+              "mean": 0.00015624999999999998,
+              "max": 0.00020899999999999988,
+              "over_100ms": 0
+            }
+          },
+          "late": {
+            "api_startup": {
+              "n": 40,
+              "p50": 23.7832085,
+              "p95": 26.52570800000001,
+              "mean": 24.062479149999994,
+              "max": 26.98654099999999,
+              "over_100ms": 0
+            },
+            "rseg_array": {
+              "n": 40,
+              "p50": 0.04506250000000023,
+              "p95": 0.05029199999999889,
+              "mean": 0.045448975,
+              "max": 0.05145899999999948,
+              "over_100ms": 0
+            },
+            "rseg.page.rseg_header": {
+              "n": 40,
+              "p50": 0.000833,
+              "p95": 0.001167,
+              "mean": 0.00088235,
+              "max": 0.002041,
+              "over_100ms": 0
+            },
+            "header.sync_read_miss": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.lookup": {
+              "n": 40,
+              "p50": 4.2e-05,
+              "p95": 8.4e-05,
+              "mean": 6.3525e-05,
+              "max": 0.000208,
+              "over_100ms": 0
+            },
+            "header.read.frame_init": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.sync_io_request": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.read_complete": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.race_read_wait": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.other": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.random_read_ahead": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read_wait": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.other": {
+              "n": 40,
+              "p50": 0.000583,
+              "p95": 0.000916,
+              "mean": 0.000643675,
+              "max": 0.001791,
+              "over_100ms": 0
+            },
+            "header.wrapper": {
+              "n": 40,
+              "p50": 0.00016699999999999994,
+              "p95": 0.00025,
+              "mean": 0.00017515,
+              "max": 0.00033300000000000007,
+              "over_100ms": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "mode": "fork",
+      "children": 144,
+      "metrics": {
+        "api_startup": {
+          "n": 144,
+          "p50": 27.049396,
+          "p95": 32.176207999999974,
+          "mean": 27.71016236805555,
+          "max": 37.098792,
+          "over_100ms": 0
+        },
+        "rseg_array": {
+          "n": 144,
+          "p50": 5.242103999999999,
+          "p95": 5.710583,
+          "mean": 5.330073180555556,
+          "max": 6.895916999999999,
+          "over_100ms": 0
+        },
+        "rseg.page.rseg_header": {
+          "n": 144,
+          "p50": 4.456224000000001,
+          "p95": 4.859416,
+          "mean": 4.531052881944444,
+          "max": 5.885041,
+          "over_100ms": 0
+        },
+        "header.sync_read_miss": {
+          "n": 144,
+          "p50": 4.396915,
+          "p95": 4.795788,
+          "mean": 4.470570666666666,
+          "max": 5.807961,
+          "over_100ms": 0
+        },
+        "header.lookup": {
+          "n": 144,
+          "p50": 0.0059605000000000005,
+          "p95": 0.006663,
+          "mean": 0.006048159722222222,
+          "max": 0.007877,
+          "over_100ms": 0
+        },
+        "header.read.frame_init": {
+          "n": 144,
+          "p50": 0.020215999999999998,
+          "p95": 0.022801,
+          "mean": 0.020499048611111112,
+          "max": 0.026792,
+          "over_100ms": 0
+        },
+        "header.read.sync_io_request": {
+          "n": 144,
+          "p50": 0.16330850000000002,
+          "p95": 0.238284,
+          "mean": 0.17931947916666666,
+          "max": 0.275668,
+          "over_100ms": 0
+        },
+        "header.read.read_complete": {
+          "n": 144,
+          "p50": 4.1653970000000005,
+          "p95": 4.514377,
+          "mean": 4.225860326388889,
+          "max": 5.53016,
+          "over_100ms": 0
+        },
+        "header.read.race_read_wait": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.read.other": {
+          "n": 144,
+          "p50": 0.044182,
+          "p95": 0.048479,
+          "mean": 0.0448918125,
+          "max": 0.056546,
+          "over_100ms": 0
+        },
+        "header.random_read_ahead": {
+          "n": 144,
+          "p50": 0.005332,
+          "p95": 0.005796,
+          "mean": 0.005378618055555556,
+          "max": 0.007249,
+          "over_100ms": 0
+        },
+        "header.read_wait": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.other": {
+          "n": 144,
+          "p50": 0.0332595,
+          "p95": 0.038783,
+          "mean": 0.033940576388888886,
+          "max": 0.046128,
+          "over_100ms": 0
+        },
+        "header.wrapper": {
+          "n": 144,
+          "p50": 0.014877999999999947,
+          "p95": 0.016503000000000156,
+          "mean": 0.015114861111111119,
+          "max": 0.032255999999999396,
+          "over_100ms": 0
+        }
+      },
+      "ratios": {
+        "header.lookup": {
+          "n": 144,
+          "p50": 0.0013315463626117855,
+          "p95": 0.0013891888382618512,
+          "mean": 0.001335015733187275,
+          "max": 0.0014524513468036587,
+          "over_100ms": 0
+        },
+        "header.read.frame_init": {
+          "n": 144,
+          "p50": 0.004501252739212839,
+          "p95": 0.004797055461965901,
+          "mean": 0.004524106728214314,
+          "max": 0.005559060352605194,
+          "over_100ms": 0
+        },
+        "header.read.sync_io_request": {
+          "n": 144,
+          "p50": 0.03649979842260881,
+          "p95": 0.04994996443457708,
+          "mean": 0.039490381034113474,
+          "max": 0.059153670667498874,
+          "over_100ms": 0
+        },
+        "header.read.read_complete": {
+          "n": 144,
+          "p50": 0.9357520328266943,
+          "p95": 0.93749191759996,
+          "mean": 0.9327279788629055,
+          "max": 0.9396977863025934,
+          "over_100ms": 0
+        },
+        "header.read.race_read_wait": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.read.other": {
+          "n": 144,
+          "p50": 0.009881362025528952,
+          "p95": 0.010283784342167932,
+          "mean": 0.009908378367896348,
+          "max": 0.010927688331080657,
+          "over_100ms": 0
+        },
+        "header.random_read_ahead": {
+          "n": 144,
+          "p50": 0.0011889405644092959,
+          "p95": 0.0012259665086375017,
+          "mean": 0.0011872077972070849,
+          "max": 0.0012392598986649451,
+          "over_100ms": 0
+        },
+        "header.read_wait": {
+          "n": 144,
+          "p50": 0.0,
+          "p95": 0.0,
+          "mean": 0.0,
+          "max": 0.0,
+          "over_100ms": 0
+        },
+        "header.other": {
+          "n": 144,
+          "p50": 0.007428620654298904,
+          "p95": 0.008068860042321829,
+          "mean": 0.007490142074245989,
+          "max": 0.009566327720968834,
+          "over_100ms": 0
+        },
+        "header.wrapper": {
+          "n": 144,
+          "p50": 0.00330659629549729,
+          "p95": 0.003522872744818422,
+          "mean": 0.00333678940223,
+          "max": 0.0073242423657555785,
+          "over_100ms": 0
+        }
+      },
+      "counts": {
+        "count.header.lookup": {
+          "min": 128,
+          "max": 128,
+          "mean": 128
+        },
+        "count.header.sync_read_miss": {
+          "min": 128,
+          "max": 128,
+          "mean": 128
+        },
+        "count.header.random_read_ahead": {
+          "min": 128,
+          "max": 128,
+          "mean": 128
+        },
+        "count.header.read_wait": {
+          "min": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "count.header.read.frame_init": {
+          "min": 128,
+          "max": 128,
+          "mean": 128
+        },
+        "count.header.read.sync_io_request": {
+          "min": 128,
+          "max": 128,
+          "mean": 128
+        },
+        "count.header.read.read_complete": {
+          "min": 128,
+          "max": 128,
+          "mean": 128
+        },
+        "count.header.read.race_read_wait": {
+          "min": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "count.header.calls": {
+          "min": 128,
+          "max": 128,
+          "mean": 128
+        },
+        "count.header.lookups": {
+          "min": 128,
+          "max": 128,
+          "mean": 128
+        },
+        "count.header.hits": {
+          "min": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "count.header.misses": {
+          "min": 128,
+          "max": 128,
+          "mean": 128
+        },
+        "count.header.clock_reads": {
+          "min": 1792,
+          "max": 1792,
+          "mean": 1792
+        }
+      },
+      "early_late": [
+        {
+          "run": "fork-on-p1-r0-primary",
+          "early": {
+            "api_startup": {
+              "n": 8,
+              "p50": 26.655771,
+              "p95": 29.857625,
+              "mean": 26.991198000000004,
+              "max": 29.857625,
+              "over_100ms": 0
+            },
+            "rseg_array": {
+              "n": 8,
+              "p50": 5.2176665,
+              "p95": 5.410208999999998,
+              "mean": 5.245854124999999,
+              "max": 5.410208999999998,
+              "over_100ms": 0
+            },
+            "rseg.page.rseg_header": {
+              "n": 8,
+              "p50": 4.4409995,
+              "p95": 4.566212,
+              "mean": 4.457141125,
+              "max": 4.566212,
+              "over_100ms": 0
+            },
+            "header.sync_read_miss": {
+              "n": 8,
+              "p50": 4.382247,
+              "p95": 4.504706,
+              "mean": 4.39692775,
+              "max": 4.504706,
+              "over_100ms": 0
+            },
+            "header.lookup": {
+              "n": 8,
+              "p50": 0.005917,
+              "p95": 0.006084,
+              "mean": 0.005906875,
+              "max": 0.006084,
+              "over_100ms": 0
+            },
+            "header.read.frame_init": {
+              "n": 8,
+              "p50": 0.019774,
+              "p95": 0.020217,
+              "mean": 0.0198825,
+              "max": 0.020217,
+              "over_100ms": 0
+            },
+            "header.read.sync_io_request": {
+              "n": 8,
+              "p50": 0.204316,
+              "p95": 0.214122,
+              "mean": 0.20262225,
+              "max": 0.214122,
+              "over_100ms": 0
+            },
+            "header.read.read_complete": {
+              "n": 8,
+              "p50": 4.1073515,
+              "p95": 4.232959,
+              "mean": 4.130721875,
+              "max": 4.232959,
+              "over_100ms": 0
+            },
+            "header.read.race_read_wait": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.other": {
+              "n": 8,
+              "p50": 0.0433945,
+              "p95": 0.045007,
+              "mean": 0.043701125,
+              "max": 0.045007,
+              "over_100ms": 0
+            },
+            "header.random_read_ahead": {
+              "n": 8,
+              "p50": 0.005248,
+              "p95": 0.005418,
+              "mean": 0.0052625,
+              "max": 0.005418,
+              "over_100ms": 0
+            },
+            "header.read_wait": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.other": {
+              "n": 8,
+              "p50": 0.0336005,
+              "p95": 0.04011,
+              "mean": 0.034397375,
+              "max": 0.04011,
+              "over_100ms": 0
+            },
+            "header.wrapper": {
+              "n": 8,
+              "p50": 0.014753999999999934,
+              "p95": 0.01532100000000014,
+              "mean": 0.014646625000000135,
+              "max": 0.01532100000000014,
+              "over_100ms": 0
+            }
+          },
+          "late": {
+            "api_startup": {
+              "n": 40,
+              "p50": 26.71237549999995,
+              "p95": 30.526166999999987,
+              "mean": 27.209177125000004,
+              "max": 33.921167000000196,
+              "over_100ms": 0
+            },
+            "rseg_array": {
+              "n": 40,
+              "p50": 5.193167,
+              "p95": 5.311207999999999,
+              "mean": 5.2173562250000005,
+              "max": 5.517042,
+              "over_100ms": 0
+            },
+            "rseg.page.rseg_header": {
+              "n": 40,
+              "p50": 4.4142105,
+              "p95": 4.507962,
+              "mean": 4.4335583,
+              "max": 4.692282,
+              "over_100ms": 0
+            },
+            "header.sync_read_miss": {
+              "n": 40,
+              "p50": 4.355584,
+              "p95": 4.449209,
+              "mean": 4.37446535,
+              "max": 4.626833,
+              "over_100ms": 0
+            },
+            "header.lookup": {
+              "n": 40,
+              "p50": 0.0059145,
+              "p95": 0.0062,
+              "mean": 0.005942875,
+              "max": 0.006219,
+              "over_100ms": 0
+            },
+            "header.read.frame_init": {
+              "n": 40,
+              "p50": 0.0198535,
+              "p95": 0.021,
+              "mean": 0.020084375,
+              "max": 0.024585,
+              "over_100ms": 0
+            },
+            "header.read.sync_io_request": {
+              "n": 40,
+              "p50": 0.161044,
+              "p95": 0.205083,
+              "mean": 0.168078,
+              "max": 0.210421,
+              "over_100ms": 0
+            },
+            "header.read.read_complete": {
+              "n": 40,
+              "p50": 4.1198515,
+              "p95": 4.215088,
+              "mean": 4.1422933,
+              "max": 4.375493,
+              "over_100ms": 0
+            },
+            "header.read.race_read_wait": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.other": {
+              "n": 40,
+              "p50": 0.0437775,
+              "p95": 0.045187,
+              "mean": 0.044009675,
+              "max": 0.049003,
+              "over_100ms": 0
+            },
+            "header.random_read_ahead": {
+              "n": 40,
+              "p50": 0.005292,
+              "p95": 0.005419,
+              "mean": 0.005274475,
+              "max": 0.005546,
+              "over_100ms": 0
+            },
+            "header.read_wait": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.other": {
+              "n": 40,
+              "p50": 0.0331205,
+              "p95": 0.036064,
+              "mean": 0.03326715,
+              "max": 0.03847,
+              "over_100ms": 0
+            },
+            "header.wrapper": {
+              "n": 40,
+              "p50": 0.014562499999999812,
+              "p95": 0.015335999999999572,
+              "mean": 0.014608449999999929,
+              "max": 0.015829000000000093,
+              "over_100ms": 0
+            }
+          }
+        },
+        {
+          "run": "fork-on-p1-r1-primary",
+          "early": {
+            "api_startup": {
+              "n": 8,
+              "p50": 26.391062500000004,
+              "p95": 27.589042000000006,
+              "mean": 26.4117605,
+              "max": 27.589042000000006,
+              "over_100ms": 0
+            },
+            "rseg_array": {
+              "n": 8,
+              "p50": 5.1665835,
+              "p95": 5.286834000000001,
+              "mean": 5.194416749999999,
+              "max": 5.286834000000001,
+              "over_100ms": 0
+            },
+            "rseg.page.rseg_header": {
+              "n": 8,
+              "p50": 4.392959,
+              "p95": 4.454658,
+              "mean": 4.40953525,
+              "max": 4.454658,
+              "over_100ms": 0
+            },
+            "header.sync_read_miss": {
+              "n": 8,
+              "p50": 4.3351690000000005,
+              "p95": 4.395248,
+              "mean": 4.35103775,
+              "max": 4.395248,
+              "over_100ms": 0
+            },
+            "header.lookup": {
+              "n": 8,
+              "p50": 0.0059355,
+              "p95": 0.006088,
+              "mean": 0.00591125,
+              "max": 0.006088,
+              "over_100ms": 0
+            },
+            "header.read.frame_init": {
+              "n": 8,
+              "p50": 0.0194585,
+              "p95": 0.020044,
+              "mean": 0.019469625,
+              "max": 0.020044,
+              "over_100ms": 0
+            },
+            "header.read.sync_io_request": {
+              "n": 8,
+              "p50": 0.156724,
+              "p95": 0.172539,
+              "mean": 0.158458875,
+              "max": 0.172539,
+              "over_100ms": 0
+            },
+            "header.read.read_complete": {
+              "n": 8,
+              "p50": 4.115168000000001,
+              "p95": 4.173544,
+              "mean": 4.129813375,
+              "max": 4.173544,
+              "over_100ms": 0
+            },
+            "header.read.race_read_wait": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.other": {
+              "n": 8,
+              "p50": 0.0433505,
+              "p95": 0.043883,
+              "mean": 0.043295875,
+              "max": 0.043883,
+              "over_100ms": 0
+            },
+            "header.random_read_ahead": {
+              "n": 8,
+              "p50": 0.005267,
+              "p95": 0.005379,
+              "mean": 0.005274,
+              "max": 0.005379,
+              "over_100ms": 0
+            },
+            "header.read_wait": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.other": {
+              "n": 8,
+              "p50": 0.032791,
+              "p95": 0.034473,
+              "mean": 0.032843875,
+              "max": 0.034473,
+              "over_100ms": 0
+            },
+            "header.wrapper": {
+              "n": 8,
+              "p50": 0.014523000000000064,
+              "p95": 0.015087999999999546,
+              "mean": 0.014468374999999978,
+              "max": 0.015087999999999546,
+              "over_100ms": 0
+            }
+          },
+          "late": {
+            "api_startup": {
+              "n": 40,
+              "p50": 26.37527100000011,
+              "p95": 29.484375,
+              "mean": 26.908965649999985,
+              "max": 34.454124999999976,
+              "over_100ms": 0
+            },
+            "rseg_array": {
+              "n": 40,
+              "p50": 5.185916500000001,
+              "p95": 5.329124999999998,
+              "mean": 5.2119104,
+              "max": 5.403124999999999,
+              "over_100ms": 0
+            },
+            "rseg.page.rseg_header": {
+              "n": 40,
+              "p50": 4.410044,
+              "p95": 4.529003,
+              "mean": 4.4296528,
+              "max": 4.588926,
+              "over_100ms": 0
+            },
+            "header.sync_read_miss": {
+              "n": 40,
+              "p50": 4.3522289999999995,
+              "p95": 4.468757,
+              "mean": 4.370528625,
+              "max": 4.52696,
+              "over_100ms": 0
+            },
+            "header.lookup": {
+              "n": 40,
+              "p50": 0.005901,
+              "p95": 0.006208,
+              "mean": 0.005921925,
+              "max": 0.00629,
+              "over_100ms": 0
+            },
+            "header.read.frame_init": {
+              "n": 40,
+              "p50": 0.019936000000000002,
+              "p95": 0.021665,
+              "mean": 0.020056225,
+              "max": 0.021952,
+              "over_100ms": 0
+            },
+            "header.read.sync_io_request": {
+              "n": 40,
+              "p50": 0.1585405,
+              "p95": 0.169709,
+              "mean": 0.159313125,
+              "max": 0.170415,
+              "over_100ms": 0
+            },
+            "header.read.read_complete": {
+              "n": 40,
+              "p50": 4.132649,
+              "p95": 4.229451,
+              "mean": 4.147150775,
+              "max": 4.28942,
+              "over_100ms": 0
+            },
+            "header.read.race_read_wait": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.other": {
+              "n": 40,
+              "p50": 0.043581,
+              "p95": 0.04603,
+              "mean": 0.0440085,
+              "max": 0.047226,
+              "over_100ms": 0
+            },
+            "header.random_read_ahead": {
+              "n": 40,
+              "p50": 0.005312,
+              "p95": 0.005467,
+              "mean": 0.00528715,
+              "max": 0.005504,
+              "over_100ms": 0
+            },
+            "header.read_wait": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.other": {
+              "n": 40,
+              "p50": 0.032629,
+              "p95": 0.034685,
+              "mean": 0.0327943,
+              "max": 0.035514,
+              "over_100ms": 0
+            },
+            "header.wrapper": {
+              "n": 40,
+              "p50": 0.01461749999999995,
+              "p95": 0.015716000000000285,
+              "mean": 0.01512080000000009,
+              "max": 0.032255999999999396,
+              "over_100ms": 0
+            }
+          }
+        },
+        {
+          "run": "fork-on-p1-r2-primary",
+          "early": {
+            "api_startup": {
+              "n": 8,
+              "p50": 28.95156250000001,
+              "p95": 31.89254199999999,
+              "mean": 28.805338499999998,
+              "max": 31.89254199999999,
+              "over_100ms": 0
+            },
+            "rseg_array": {
+              "n": 8,
+              "p50": 5.5573749999999995,
+              "p95": 5.907292,
+              "mean": 5.592421875,
+              "max": 5.907292,
+              "over_100ms": 0
+            },
+            "rseg.page.rseg_header": {
+              "n": 8,
+              "p50": 4.7176095,
+              "p95": 5.044003,
+              "mean": 4.75590775,
+              "max": 5.044003,
+              "over_100ms": 0
+            },
+            "header.sync_read_miss": {
+              "n": 8,
+              "p50": 4.652543,
+              "p95": 4.976585,
+              "mean": 4.691702,
+              "max": 4.976585,
+              "over_100ms": 0
+            },
+            "header.lookup": {
+              "n": 8,
+              "p50": 0.006311000000000001,
+              "p95": 0.007006,
+              "mean": 0.00640175,
+              "max": 0.007006,
+              "over_100ms": 0
+            },
+            "header.read.frame_init": {
+              "n": 8,
+              "p50": 0.021334,
+              "p95": 0.023004,
+              "mean": 0.021512375,
+              "max": 0.023004,
+              "over_100ms": 0
+            },
+            "header.read.sync_io_request": {
+              "n": 8,
+              "p50": 0.21117350000000001,
+              "p95": 0.275668,
+              "mean": 0.223996625,
+              "max": 0.275668,
+              "over_100ms": 0
+            },
+            "header.read.read_complete": {
+              "n": 8,
+              "p50": 4.341941,
+              "p95": 4.627043,
+              "mean": 4.398964375,
+              "max": 4.627043,
+              "over_100ms": 0
+            },
+            "header.read.race_read_wait": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.other": {
+              "n": 8,
+              "p50": 0.0474965,
+              "p95": 0.05087,
+              "mean": 0.047228624999999996,
+              "max": 0.05087,
+              "over_100ms": 0
+            },
+            "header.random_read_ahead": {
+              "n": 8,
+              "p50": 0.0054625,
+              "p95": 0.005874,
+              "mean": 0.0055205,
+              "max": 0.005874,
+              "over_100ms": 0
+            },
+            "header.read_wait": {
+              "n": 8,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.other": {
+              "n": 8,
+              "p50": 0.035352499999999995,
+              "p95": 0.04038,
+              "mean": 0.036668875,
+              "max": 0.04038,
+              "over_100ms": 0
+            },
+            "header.wrapper": {
+              "n": 8,
+              "p50": 0.01562600000000014,
+              "p95": 0.016472000000000264,
+              "mean": 0.015614624999999993,
+              "max": 0.016472000000000264,
+              "over_100ms": 0
+            }
+          },
+          "late": {
+            "api_startup": {
+              "n": 40,
+              "p50": 28.464854500000058,
+              "p95": 34.01991699999985,
+              "mean": 29.196782349999985,
+              "max": 37.098792,
+              "over_100ms": 0
+            },
+            "rseg_array": {
+              "n": 40,
+              "p50": 5.443895499999998,
+              "p95": 6.504707999999999,
+              "mean": 5.552458274999999,
+              "max": 6.895916999999999,
+              "over_100ms": 0
+            },
+            "rseg.page.rseg_header": {
+              "n": 40,
+              "p50": 4.626333499999999,
+              "p95": 5.569254,
+              "mean": 4.72406245,
+              "max": 5.885041,
+              "over_100ms": 0
+            },
+            "header.sync_read_miss": {
+              "n": 40,
+              "p50": 4.564852,
+              "p95": 5.498706,
+              "mean": 4.661126925,
+              "max": 5.807961,
+              "over_100ms": 0
+            },
+            "header.lookup": {
+              "n": 40,
+              "p50": 0.00619,
+              "p95": 0.006956,
+              "mean": 0.0062646,
+              "max": 0.007877,
+              "over_100ms": 0
+            },
+            "header.read.frame_init": {
+              "n": 40,
+              "p50": 0.021168,
+              "p95": 0.023292,
+              "mean": 0.021483075,
+              "max": 0.026792,
+              "over_100ms": 0
+            },
+            "header.read.sync_io_request": {
+              "n": 40,
+              "p50": 0.2067495,
+              "p95": 0.244594,
+              "mean": 0.20114345,
+              "max": 0.272001,
+              "over_100ms": 0
+            },
+            "header.read.read_complete": {
+              "n": 40,
+              "p50": 4.3019415,
+              "p95": 5.18512,
+              "mean": 4.391753175,
+              "max": 5.53016,
+              "over_100ms": 0
+            },
+            "header.read.race_read_wait": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.read.other": {
+              "n": 40,
+              "p50": 0.04665,
+              "p95": 0.051673,
+              "mean": 0.046747225,
+              "max": 0.056546,
+              "over_100ms": 0
+            },
+            "header.random_read_ahead": {
+              "n": 40,
+              "p50": 0.005493,
+              "p95": 0.006577,
+              "mean": 0.00559,
+              "max": 0.007249,
+              "over_100ms": 0
+            },
+            "header.read_wait": {
+              "n": 40,
+              "p50": 0.0,
+              "p95": 0.0,
+              "mean": 0.0,
+              "max": 0.0,
+              "over_100ms": 0
+            },
+            "header.other": {
+              "n": 40,
+              "p50": 0.0346145,
+              "p95": 0.040338,
+              "mean": 0.0353426,
+              "max": 0.046128,
+              "over_100ms": 0
+            },
+            "header.wrapper": {
+              "n": 40,
+              "p50": 0.01530750000000003,
+              "p95": 0.01823900000000034,
+              "mean": 0.015738324999999987,
+              "max": 0.0192009999999998,
+              "over_100ms": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "scope": "One diagnostic build; attribution only, not optimization/adoption or CPU measurement"
+}

@@ -1,0 +1,8 @@
+{
+  "file": "storage/innobase/buf/buf0buf.cc",
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "start": 3485,
+  "end": 3687,
+  "excerpt_sha256": "88c6e9d845809adf6b3f6e68d9681367d6ceffdebde71c58ad62a3b7d0fcbe67",
+  "meaning": "read_complete includes decrypt/decompress checks, page identity, corruption/checksum validation, conditional recovery and unlocking; their individual costs are not measured"
+}

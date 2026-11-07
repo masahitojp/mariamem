@@ -1,0 +1,33 @@
+{
+  "native_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "anchors": [
+    {
+      "file": "storage/innobase/buf/buf0buf.cc",
+      "start": 2760,
+      "end": 2831,
+      "sha256": "fac9b36131a4cbbdd4704ce3c9319eaf96c2e09e885ac432a932f3673496e467",
+      "meaning": "hash lookup outcomes, read miss, read-ahead, read_wait"
+    },
+    {
+      "file": "storage/innobase/buf/buf0rea.cc",
+      "start": 206,
+      "end": 231,
+      "sha256": "75a04cf4c1c10cc980bec79b222281c585cf4c59b14f827402c22642e4fe9561",
+      "meaning": "read_wait lock acquisition"
+    },
+    {
+      "file": "storage/innobase/buf/buf0rea.cc",
+      "start": 275,
+      "end": 375,
+      "sha256": "88fde541da5ee8e4295a5686fd189c8b5fd8c9582c442d2013a0f272c0b98890",
+      "meaning": "read-low race-to-existing wait, sync IO and completion"
+    },
+    {
+      "file": "storage/innobase/buf/buf0rea.cc",
+      "start": 504,
+      "end": 545,
+      "sha256": "d955d131d00275c8241ab0ccf2b214649239c85c8039de991cd6dd53eac15cf6",
+      "meaning": "buf_read_page always supplies error pointer to low; last argument unzip, not sync"
+    }
+  ]
+}
