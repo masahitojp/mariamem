@@ -1,0 +1,38 @@
+package base
+import("testing";"sync/atomic";"unsafe")
+func lpTestModule()*Module{b:=make([]byte,32*1024*1024);n:=new(atomic.Uint64);n.Store(uint64(len(b)));return &Module{Memory:b,M:unsafe.Pointer(&b[0]),MemSize:n}}
+func lpTestBinding()(uint32,lpBinding){for p,b:=range lpBindings{return p,b};panic("empty")}
+func TestLPFallbackAndAllocationFailure(t *testing.T){
+ old:=lpMode;lpMode="prepared";defer func(){lpMode=old}()
+ m:=lpTestModule();cs,b:=lpTestBinding()
+ lpPut(m,cs,b.number);lpPut(m,cs+12,1)
+ calls:=0;original:=func(_ *Module,_ int32)int32{calls++;return 7}
+ alloc:=func(_ *Module,_ int32,_ int32)int32{panic("should not allocate")}
+ if LPCompiled(m,128,original,alloc)!=7||calls!=1{t.Fatal("unknown descriptor")}
+ lpPut(m,cs,b.number+4096)
+ if LPCompiled(m,int32(cs),original,alloc)!=7||calls!=2{t.Fatal("number mismatch")}
+ lpPut(m,cs,b.number);lpPut(m,cs+12,0)
+ if LPCompiled(m,int32(cs),original,alloc)!=7||calls!=3{t.Fatal("noncompiled")}
+ lpPut(m,cs+12,1)
+ if LPCompiled(m,int32(cs),original,func(*Module,int32,int32)int32{return 0})!=1||m.LPBase!=0||lpU32(m,cs+72)!=0{t.Fatal("OOM")}
+ if LPCompiled(m,int32(cs),original,func(m *Module,_ int32,_ int32)int32{m.ExcPending=1;return 0})!=0||m.ExcPending!=1||m.LPBase!=0{t.Fatal("exception")}
+}
+func TestLPCopyAndInstanceSeparation(t *testing.T){
+ old:=lpMode;lpMode="prepared";defer func(){lpMode=old}()
+ cs,b:=lpTestBinding();a,z:=lpTestModule(),lpTestModule()
+ for _,m:=range []*Module{a,z}{
+  lpPut(m,cs,b.number);lpPut(m,cs+12,1);count:=0
+  alloc:=func(_ *Module,n,flag int32)int32{count++;if n!=14336||flag!=16{t.Fatal(n,flag)};return 30000000}
+  original:=func(*Module,int32)int32{t.Fatal("unexpected original");return 1}
+  for i:=0;i<2;i++{if LPCompiled(m,int32(cs),original,alloc)!=0{t.Fatal("failed")}}
+  if count!=1||lpU32(m,cs+76)!=lpU32(m,cs+72)+256{t.Fatal("layout/copy count")}
+ }
+ ptr:=lpU32(a,cs+72);before:=lpBytes(z,ptr,512)[0];lpBytes(a,ptr,512)[0]^=255
+ if lpBytes(z,ptr,512)[0]!=before{t.Fatal("cross-instance mutation")}
+}
+func TestLPRejectsCorruptData(t *testing.T){
+ data:=append([]byte(nil),lpData...);data[0]^=1
+ if lpValidate(data,lpBindings,lpSHA)==nil{t.Fatal("corruption accepted")}
+ bad:=make(map[uint32]lpBinding);for k,v:=range lpBindings{bad[k]=v};cs,b:=lpTestBinding();b.pair=28;bad[cs]=b
+ if lpValidate(lpData,bad,lpSHA)==nil{t.Fatal("bad binding accepted")}
+}

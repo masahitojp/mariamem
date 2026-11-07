@@ -1,0 +1,22 @@
+{
+  "issue": 126,
+  "product_source_commit": "3d8b2201c1f36fa5b7264e0450104055f3822272",
+  "parent": "858b497302830845c9b5b17b00cba94432d449f7",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "prototype": "Go overlay: compiled-registration callsite only; prepared14336-byte blob allocated once in each guest my_once arena; per-instance pointers. Dynamic callsites untouched. Not C static-data productization.",
+  "admission": "pinned function/file hashes and descriptor address+number; exact compiled boot callsite before XML; unknown or mismatched descriptors use original. Allocation failure returned, not suppressed.",
+  "proof": "verify mode original algorithm versus all512 bytes for638 bindings per real initialization; actual unknown-descriptor original fallback before engine start; unit number mismatch/unknown/OOM/corruption/cross-instance",
+  "measurement": "same binary original/prepared env arms; Fresh/Fork x P1/P4,48children,5 alternating pairs/cell,8warmups,2negative seed pilots,4original/verify SQL controls and2separate ForkP4 UNDO diagnostic processes;56 total, no outlier omission/replacement",
+  "budgets": {
+    "minutes": 60,
+    "builds": 2,
+    "build_timeout_seconds": 1200,
+    "process_timeout_seconds": 190,
+    "workspace_gib": 6,
+    "min_free_gib": 12,
+    "c_builds": 0,
+    "ci": 0
+  },
+  "decision": "Recommend canonical guest prototype only if correctness controls pass and median paired Fork API improves >=0.5ms atP1 with >=4/5 improving pairs; report P4, whole suite, CPU and all tails, do not use headlining average without distribution. Otherwise defer/inconclusive, no new campaign.",
+  "limitations": "singleMac; tableproducer uses prior observed exact bytes, not independent native C generator; arena-backed copied blob approximates static guest data; no RSS claim or adoption"
+}

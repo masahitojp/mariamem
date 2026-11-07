@@ -1,0 +1,68 @@
+package base
+import (
+ "bytes"
+ "crypto/sha256"
+ "encoding/hex"
+ "fmt"
+ "os"
+ "sync/atomic"
+ "unsafe"
+)
+type lpBinding struct {number, pair uint32}
+var lpMode=os.Getenv("LP_MODE")
+var lpOriginal,lpHits,lpFallback,lpVerified,lpUnknownVerified,lpCopies atomic.Uint64
+func lpBytes(m *Module,p uint32,n uint64)[]byte{return unsafe.Slice((*byte)(unsafe.Add(m.M,MemoryEA(m,uint64(p),0,n))),int(n))}
+func lpU32(m *Module,p uint32)uint32{return *(*uint32)(unsafe.Add(m.M,MemoryEA(m,uint64(p),0,4)))}
+func lpPut(m *Module,p,v uint32){*(*uint32)(unsafe.Add(m.M,MemoryEA(m,uint64(p),0,4)))=v}
+func lpValidate(data []byte,bindings map[uint32]lpBinding,want string)error{
+ if len(data)!=28*512||len(bindings)!=638{return fmt.Errorf("prepared map shape")}
+ h:=sha256.Sum256(data);if hex.EncodeToString(h[:])!=want{return fmt.Errorf("prepared map checksum")}
+ for p,b:=range bindings{if p==0||b.number==0||b.pair>=28{return fmt.Errorf("prepared map binding")}}
+ return nil
+}
+func init(){
+ if lpMode!=""&&lpMode!="original"&&lpMode!="prepared"&&lpMode!="verify"{panic("unknown LP_MODE")}
+ if err:=lpValidate(lpData,lpBindings,lpSHA);err!=nil{panic(err)}
+}
+func LPCompiled(m *Module,cs int32,original func(*Module,int32)int32,alloc func(*Module,int32,int32)int32)int32{
+ if lpMode==""||lpMode=="original"{lpOriginal.Add(1);return original(m,cs)}
+ b,ok:=lpBindings[uint32(cs)]
+ if !ok||lpU32(m,uint32(cs))!=b.number||lpU32(m,uint32(cs)+12)&1==0{
+  lpFallback.Add(1);return original(m,cs)
+ }
+ if m.LPBase==0{
+  ptr:=alloc(m,int32(len(lpData)),16)
+  if m.ExcPending!=0{return 0}
+  if ptr==0{return 1}
+  copy(lpBytes(m,uint32(ptr),uint64(len(lpData))),lpData)
+  m.LPBase=uint32(ptr);lpCopies.Add(1)
+ }
+ target:=m.LPBase+b.pair*512
+ if lpMode=="verify"{
+  rc:=original(m,cs);if rc!=0||m.ExcPending!=0{return rc}
+  ptr:=lpU32(m,uint32(cs)+72)
+  if lpU32(m,uint32(cs)+76)!=ptr+256||!bytes.Equal(lpBytes(m,ptr,512),lpBytes(m,target,512)){panic("prepared map mismatch")}
+  lpVerified.Add(1)
+  if !m.LPFallbackChecked{
+   // Exact wasm32 CHARSET_INFO size112 through coll pointer108.
+   clone:=alloc(m,112,16);if clone==0||m.ExcPending!=0{panic("fallback probe allocation")}
+   copy(lpBytes(m,uint32(clone),112),lpBytes(m,uint32(cs),112))
+   lpPut(m,uint32(clone)+72,0);lpPut(m,uint32(clone)+76,0)
+   before:=lpFallback.Load()
+   rc=LPCompiled(m,clone,original,alloc)
+   if rc!=0||m.ExcPending!=0||lpFallback.Load()!=before+1{panic("unknown descriptor fallback")}
+   ptr=lpU32(m,uint32(clone)+72)
+   if !bytes.Equal(lpBytes(m,ptr,512),lpBytes(m,target,512)){panic("fallback content")}
+   m.LPFallbackChecked=true;lpUnknownVerified.Add(1)
+  }
+ }
+ lpPut(m,uint32(cs)+72,target);lpPut(m,uint32(cs)+76,target+256)
+ lpHits.Add(1)
+ return 0
+}
+func LPStats()map[string]uint64{
+ m:=MemoryMappingStats()
+ m["lp_original"]=lpOriginal.Load();m["lp_hits"]=lpHits.Load();m["lp_fallback"]=lpFallback.Load()
+ m["lp_verified"]=lpVerified.Load();m["lp_unknown_verified"]=lpUnknownVerified.Load();m["lp_copies"]=lpCopies.Load()
+ return m
+}
