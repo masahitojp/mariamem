@@ -1,0 +1,61 @@
+{
+  "question": "Can equivalent Go CRC32C computation reduce Fork elapsed time while preserving page corruption checks?",
+  "mapping_started_unix": 1794025653.143127,
+  "mapping_budget_seconds": 1800,
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "forbidden": [
+    "product adoption/main merge",
+    "checksum/LSN checks bypass",
+    "guest rebuild",
+    "extra repetitions",
+    "changing non-CRC settings"
+  ],
+  "budget_gib": 8,
+  "min_free_gib": 12,
+  "mapping_result": "exact full_crc32 compute span replaced; original complement/checksum comparison and LSN logic retained",
+  "primary_processes": 12,
+  "warmup_processes": 4,
+  "positive_pilots": 4,
+  "negative_controls": 4,
+  "total_processes": 26,
+  "children": 48,
+  "parallel": [
+    1
+  ],
+  "observers": [
+    "off primary (owner logs retained)",
+    "on diagnostic"
+  ],
+  "modes": [
+    "fresh",
+    "fork"
+  ],
+  "same_binary": true,
+  "image": "static-page prototype warm in both; equal baseline prepared before children",
+  "criteria": [
+    "Exact original-generated and independent bitwise CRC equality for lengths/alignments; actual generated page validator preserves valid/corrupt/LSN results",
+    "All SQL/isolation/cleanup controls pass in both arms",
+    "Report all three paired primary Fork API p50, batch/suite wall and CPU; no tail exclusions",
+    "Recommend continued candidate work only if all three primary Fork API p50 pairs improve and median improvement >=1ms; measured total/suite and CPU regressions remain explicit"
+  ],
+  "baseline_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "active_work_budget_seconds": 7200,
+  "tooling_budget_seconds": 1800,
+  "heavy_ci_submissions": 0,
+  "builds": 1,
+  "build_timeout_seconds": 1200,
+  "run_timeout_seconds": 900,
+  "primary": "P1, Fresh/Fork, software/Go CRC, 3 alternating pairs each; owner logging on and detailed timing off",
+  "processes": 26,
+  "all_children": 884,
+  "started_unix": 1794026841.594317,
+  "exit": "Identify dominant validation/recovery component or stop inconclusive; no optimization",
+  "native_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "observer_scope": "Header-only function-local aggregation, no global worker timing or off-observer performance claim",
+  "mapping_seconds": 293.28064584732056,
+  "diagnostic_processes": 2,
+  "arms": [
+    "software",
+    "fast"
+  ]
+}

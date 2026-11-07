@@ -1,0 +1,12 @@
+package base
+import("hash/crc32";"os";"runtime";"unsafe")
+// Experimental process-wide switch, fixed before DB/worker creation.
+var CRCFastEnabled = os.Getenv("MARIAMEM_CRC_FAST") == "1"
+var crcFastTable = crc32.MakeTable(crc32.Castagnoli)
+func CRCFast(m *Module,addr,size int32)uint32{
+ start:=MemoryEA(m,uint64(uint32(addr)),0,uint64(uint32(size)))
+ b:=unsafe.Slice((*byte)(unsafe.Add(m.M,uintptr(start))),int(uint32(size)))
+ value:=crc32.Checksum(b,crcFastTable)
+ runtime.KeepAlive(m)
+ return value
+}
