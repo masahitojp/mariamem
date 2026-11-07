@@ -1,0 +1,73 @@
+"""Replay matched Fresh/Fork observations without build/temp dependencies."""
+from pathlib import Path
+import json,gzip,statistics,sys,hashlib
+from stage_core import child,stats
+from init_core import decompose
+
+def reduce(p):
+ rs=json.loads((p/'records.json').read_text());obs=json.loads(gzip.decompress((p/'observations.json.gz').read_bytes()));owners=json.loads((p/'owner-summary.json').read_text());timings=json.loads(gzip.decompress((p/'timing-index.json.gz').read_bytes()))
+ assert len(rs)==32 and len({r['name'] for r in rs})==32
+ assert {k:sum(r['kind']==k for r in rs) for k in ['pilot','negative','warmup','primary']}=={'pilot':2,'negative':2,'warmup':4,'primary':24}
+ processes=[];children=[];tails=[];total=0;wavecount=0;owner_count=0
+ expected={(P,m,o,rep) for P in [1,4] for m in ['fresh','fork'] for o in ['off','on'] for rep in range(3)};seen=set()
+ for rec in rs:
+  r=obs[rec['report']];negative=rec['kind']=='negative';assert r['mode']==rec['mode'] and r['prepare_baseline'] and r['fixed_waves']
+  assert r['cleanup'] and r['resolved_max_forks']==rec['parallel'] and r['max_active']==rec['parallel']
+  assert all(r['cleanup_stats'][k]==0 for k in ['active_mappings','active_rw_bytes','active_reserved_bytes','release_failures','grow_failures'])
+  assert r['image_after_close']['closed'] and r['image_after_close']['owned_fds']==0
+  assert r['image_before_close']['page_only'] and r['image_before_close']['enabled'] and r['image_before_close']['builds']==1 and r['image_before_close']['acquires']==len(r['samples'])+1
+  if negative:assert rec['exit_code']==1 and not r['success'] and 'pristine oracle' in r['error']
+  else:assert rec['exit_code']==0 and r['success'] and len(r['samples'])==rec['count'] and all(s['oracle'] and s['cleanup'] and not s.get('error') for s in r['samples'])
+  assert sorted(s['index'] for s in r['samples'])==list(range(len(r['samples'])))
+  total+=len(r['samples']);end=0
+  for w in r['waves']:
+   ss=[s for s in r['samples'] if s['index']//r['parallel']==w['index']];assert len(ss)==r['parallel']
+   assert end<=w['begin_ms']<=w['forks_begin_ms']<=w['all_ready_ms']<=w['end_ms'];end=w['end_ms'];wavecount+=1
+   for s in ss:
+    z={v['name']:v for v in s['spans']};assert len(z)==len(s['spans']) and s['cleanup']
+    assert w['forks_begin_ms']<=z['start_or_fork']['begin_ms']<=z['start_or_fork']['end_ms']<=w['all_ready_ms']<=z['connect']['begin_ms'] and s['end_ms']<=w['end_ms']
+    assert ('seed' in z)==(r['mode']=='fresh')
+  if rec['observer']=='on':
+   o=next(o for o in owners if o['name']==rec['name']);assert o['truncated']==0 and o['child_indices']==list(range(rec['count']));owner_count+=rec['count']
+  dd=[]
+  for sample in r['samples']:
+   sp={v['name']:v for v in sample['spans']};d={'api_startup':sp['start_or_fork']['end_ms']-sp['start_or_fork']['begin_ms']}
+   if not negative:
+    d['same_state']=sp['count_sum']['end_ms']-sp['start_or_fork']['begin_ms'];d['seed_sql']=sp['seed']['end_ms']-sp['seed']['begin_ms'] if r['mode']=='fresh' else 0
+   for name,z in sp.items():
+    elapsed=z['end_ms']-z['begin_ms']
+    if elapsed>100:tails.append(dict(run=rec['name'],child=sample['index'],stage=name,ms=elapsed))
+   if rec['observer']=='on':
+    tr=sample['traces'];assert set(tr)==({'startup','api_startup','fork'} if r['mode']=='fork' else {'startup','api_startup'})
+    assert hashlib.sha256(json.dumps(tr['startup'],sort_keys=True,separators=(',',':')).encode()).hexdigest() in {v['canonical_sha256'] for v in timings[rec['name']].values()}
+    host=child(sample,'image');host['guest_post_server_to_routines_complete']=host.pop('guest_routine_schema');d.update({'host.'+k:v for k,v in host.items()})
+    init=decompose(tr);d.update({'init.'+k:v for k,v in init.items()})
+    assert abs(init['server_init']-sum(init[k] for k in ['common','components_before_plugins','plugins','components_after_plugins','server_other']))<1e-6
+    g={x['name']:x['offset_ns']/1e6 for x in tr['startup']['guest']['events']}
+    for label,a,b in [('guest_restore','restore_begin','restore_complete'),('internal_bootstrap','server_init_complete','bootstrap_complete'),('routine_schema','routine_schema_begin','routine_schema_complete')]:d[label]=g[b]-g[a]
+    children.append(dict(run=rec['name'],child=sample['index'],ms=d))
+   else:assert not sample.get('traces')
+   dd.append(d)
+  if rec['kind']=='primary':
+   key=(rec['parallel'],rec['mode'],rec['observer'],rec['rep']);assert key in expected and key not in seen;seen.add(key)
+   processes.append(dict(name=rec['name'],parallel=rec['parallel'],mode=rec['mode'],observer=rec['observer'],rep=rec['rep'],metrics={k:stats([x[k] for x in dd]) for k in dd[0]},suite_ms=r['suite_ms'],batch_ms=r['batch_ms'],suite_cpu_ms=r['suite_cpu_ms'],setup_spans=r['root_spans']))
+ assert seen==expected and total==1354 and owner_count==586
+ cells=[];comparisons=[];observer_effect=[]
+ for P in [1,4]:
+  for o in ['off','on']:
+   for m in ['fresh','fork']:
+    rows=[r for r in processes if r['parallel']==P and r['observer']==o and r['mode']==m];assert len(rows)==3
+    cells.append(dict(parallel=P,observer=o,mode=m,metrics={k:dict(mean=statistics.mean(v['metrics'][k]['mean'] for v in rows),median_process_p50=statistics.median(v['metrics'][k]['p50'] for v in rows),median_process_p95=statistics.median(v['metrics'][k]['p95'] for v in rows),over_100ms=sum(v['metrics'][k]['over_100ms'] for v in rows)) for k in rows[0]['metrics']}))
+   for rep in range(3):
+    a=next(r for r in processes if (r['parallel'],r['observer'],r['mode'],r['rep'])==(P,o,'fresh',rep));b=next(r for r in processes if (r['parallel'],r['observer'],r['mode'],r['rep'])==(P,o,'fork',rep))
+    comparisons.append(dict(parallel=P,observer=o,rep=rep,fork_minus_fresh_mean_ms={k:b['metrics'][k]['mean']-a['metrics'][k]['mean'] for k in a['metrics']},fork_minus_fresh_p50_ms={k:b['metrics'][k]['p50']-a['metrics'][k]['p50'] for k in a['metrics']}))
+  for m in ['fresh','fork']:
+   deltas=[]
+   for rep in range(3):
+    a=next(r for r in processes if (r['parallel'],r['observer'],r['mode'],r['rep'])==(P,'off',m,rep));b=next(r for r in processes if (r['parallel'],r['observer'],r['mode'],r['rep'])==(P,'on',m,rep));deltas.append(b['metrics']['api_startup']['p50']-a['metrics']['api_startup']['p50'])
+   observer_effect.append(dict(parallel=P,mode=m,p50_deltas_ms=deltas,median_ms=statistics.median(deltas)))
+ return dict(source_commit=json.loads((p/'inputs.json').read_text())['source_commit'],processes=processes,cells=cells,comparisons=comparisons,observer_effect=observer_effect,tails=tails,total_children=total,owner_children=owner_count,waves=wavecount,scope='matched warm-image startup attribution, not optimization acceptance')
+if __name__=='__main__':
+ p=Path(sys.argv[1]);out=reduce(p)
+ if '--check' in sys.argv:assert out==json.loads((p/'summary.json').read_text());print('PASS: matched state, 1354 children, 586 owners, all phases/waves and cleanup')
+ else:(p/'summary.json').write_text(json.dumps(out,indent=2)+'\n')

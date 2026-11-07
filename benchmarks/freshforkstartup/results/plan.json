@@ -1,0 +1,61 @@
+{
+  "issue": 123,
+  "purpose": "Fresh versus Fork startup attribution at equal verified schema/data; not a new optimization/adoption gate",
+  "baseline_source_commit": "66f2fe9d4bbde9b20323e9ee9b1562f3af16b8a4",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "modes": [
+    "fresh",
+    "fork"
+  ],
+  "observers": [
+    "off",
+    "on"
+  ],
+  "parallel": [
+    1,
+    4
+  ],
+  "children": 48,
+  "pairs_per_cell": 3,
+  "primary_processes": 24,
+  "warmup_processes": 4,
+  "positive_pilots": 2,
+  "negative_controls": 2,
+  "total_processes": 32,
+  "same_binary": true,
+  "route": "pipe",
+  "seed": "1000 fork_probe integers; schema/count/sum/update oracles identical",
+  "image": "static-page-only prototype enabled and warm in both modes; setup builds baseline even in Fresh; report separately",
+  "fork_cap": "P; Fresh bound by driver wave size only, not Snapshot limiter",
+  "schedule": "synchronized starts, all-ready before SQL, full disposal before next wave",
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "toolchain": "go1.27.3",
+  "budget_gib": 8,
+  "min_free_gib": 12,
+  "runtime_timeout_seconds": 900,
+  "process_timeout_seconds": 190,
+  "comparisons": [
+    "API startup (excludes Fresh schema/seed)",
+    "same-state checkpoint (after COUNT/SUM oracle; Fresh includes schema/seed)",
+    "server/common/plugin/InnoDB stages, means additive and child quantiles",
+    "observer effect in each route; no fixed correction",
+    "setup/image build cost separately"
+  ],
+  "exit": "identify which startup intervals differ consistently, or state inconclusive; no follow-on prototype in this campaign",
+  "criteria": [
+    "all positive oracles/disposal pass; wrong-seed controls fail and clean",
+    "Fresh has seed span; Fork does not; identical verified baseline metadata",
+    "same-source/guest/binary and no silent route fallback",
+    "every wave boundary and phase partition checks",
+    "retain every pair/tail; no extra repetitions; no #68 reopening"
+  ],
+  "not_run": [
+    "new guest build",
+    "pgmem new timings",
+    "RSS repeat",
+    "Ubuntu",
+    "CI",
+    "adoption/main/release"
+  ]
+}
