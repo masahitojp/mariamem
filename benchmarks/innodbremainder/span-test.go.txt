@@ -1,0 +1,9 @@
+package base
+import("context";"testing";"github.com/masahitojp/mariamem/internal/timing")
+func TestRemainderContextAndDeferredEnd(t *testing.T){
+ t.Setenv("MARIAMEM_TIMING_DIR",t.TempDir());var got timing.Trace
+ ctx,finish:=timing.Begin(timing.WithRecorder(context.Background(),func(x timing.Trace){got=x}),"startup")
+ m:=&Module{Threads:&ThreadPool{}};OpenSpanMark(m,"ignored");OpenSpanBind(m,ctx,true)
+ func(){defer func(){recover()}();defer RemainderEnter(m,"undo_tablespaces")();panic("injected")}();OpenSpanUnbind(m);OpenSpanMark(m,"ignored");finish()
+ want:=[]string{"begin","innodb/undo_tablespaces_begin","innodb/undo_tablespaces_end","end"};if len(got.Events)!=len(want){t.Fatal(got.Events)};for i,v:=range got.Events{if v.Name!=want[i]{t.Fatal(got.Events)}}
+}

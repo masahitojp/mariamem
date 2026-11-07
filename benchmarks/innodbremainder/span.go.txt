@@ -1,0 +1,4 @@
+package base
+import("context";"github.com/masahitojp/mariamem/internal/timing")
+func OpenSpanMark(m *Module,name string){if value,ok:=openSpanContexts.Load(m.Threads);ok{timing.Mark(value.(context.Context),name)}}
+func RemainderEnter(m *Module,name string)func(){OpenSpanMark(m,"innodb/"+name+"_begin");return func(){OpenSpanMark(m,"innodb/"+name+"_end")}}

@@ -1,0 +1,43 @@
+{
+  "caller": "Fn18569",
+  "p0_sha256": "76eed591de25d2bae7daa653136ee26530478cf7f303b827b22d0bbbbee3e3d9",
+  "marks": [
+    [
+      "L1752",
+      "recovery_begin"
+    ],
+    [
+      "L1850",
+      "recovery_end"
+    ],
+    [
+      "L3479",
+      "dictionary_load_begin"
+    ],
+    [
+      "L3613",
+      "dictionary_load_end"
+    ]
+  ],
+  "calls": [
+    [
+      "v11433 = Fn17510(m, v11097, v11092)",
+      "undo_tablespaces"
+    ],
+    [
+      "v12159 = Fn17052(m)",
+      "dictionary_create"
+    ],
+    [
+      "v18866 = Fn17054(m)",
+      "dictionary_boot"
+    ],
+    [
+      "v20211 = Fn18291(m)",
+      "transaction_lists"
+    ]
+  ],
+  "apply_needle": "L3470:\n\t;\n\tv19431 = Fn93(m, int32(17862080))\n\tmBase = m.M\n\tFn17465(m, int32(1))",
+  "source_basis": "docs/reviews/innodb-startup-source/source-map.json",
+  "native_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+}
