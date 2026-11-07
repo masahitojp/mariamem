@@ -256,3 +256,11 @@ pins both experiments, the canonical installer boundary and finite verification
 exit. Product integration requires reproducible generation and supported-platform
 verification. No release, broader format support or experimental static-image
 adoption follows from this approval.
+
+Local candidate1057adf8 has passed independent regeneration, CRC/validator and
+real-guest lifecycle checks. Its finite product comparison improves Fork startup
+in all six P1/P4 pairs, but Fresh P4 batch wall increases in all three pairs
+(median paired +51.944ms, approximately5% of baseline batch) and Fresh P1 CPU
+increases. Keep these as main-adoption review items; the earlier experimental
+approximately1% Fresh cost is not a product bound. All samples and long waits
+remain in the linked candidate receipt. Supported-platform CI remains separate.

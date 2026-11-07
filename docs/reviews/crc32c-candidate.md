@@ -67,5 +67,37 @@ for a Human decision; do not silently broaden the investigation. Cross-platform
 performance, cold installation, RSS savings and a universal speed guarantee are
 outside this exit. Original experiment evidence is never relabeled to this SHA.
 
-Status at candidate creation: implementation and verification in progress;
-no product-platform matrix PASS or main adoption is claimed.
+## Current local result and remaining decision
+
+Local candidate `1057adf8fb430f5540f9d4f420f6b3f6f2012aa9` passes independent
+regeneration, 78 source/ownership/license tests, 832 CRC cases, 80 differential
+validator cases, and real Snapshot/Fork/Pipe/Close/capacity checks on macOS27.2
+arm64 with Go1.26.10. Later product-branch edits only record these results.
+
+[Full local receipt and all measurements](https://github.com/masahitojp/mariamem/blob/4f68e66f07f0cc976606e671c03899f55928add6/benchmarks/crc32c-product/results/README.md)
+are saved on a separate evidence branch; they are not part of this product PR.
+The fixed 44-process/1572-child product-only campaign completed without retries
+or sample exclusions; all normal SQL/cleanup oracles and expected-negative
+controls passed. No static-image or observer overlay was used.
+
+Median paired differences (candidate minus baseline):
+
+| Route | P | Startup p50 |48-child batch wall|Batch CPU|
+|---|---:|---:|---:|---:|
+|Fork|1|−9.305ms|−734.793ms|−1043.577ms|
+|Fork|4|−10.731ms|−291.438ms|−1308.583ms|
+|Fresh|1|+0.815ms|−40.038ms|+234.809ms|
+|Fresh|4|−0.741ms|+51.944ms|−68.460ms|
+
+Fork startup p50 improves in all six P1/P4 pairs. However, Fresh P4 batch wall
+increases in all three pairs (+18.442/+51.944/+78.646ms); its +51.944ms paired
+median is about5% of the baseline median batch, not the earlier experiment's
+approximately1%. Fresh P1 CPU also increases. P4 Fork batch variation includes
+one786.73ms candidate cleanup and one785.79ms baseline SQL span in different
+pairs; all are retained and their causes are unassigned.
+
+Recommend retaining the candidate for supported-platform correctness CI and
+then reviewing main adoption with these counter-results explicitly visible.
+This is not universal performance non-regression. No further samples or
+root-cause campaign are added. macOS15/Ubuntu runtime CI remains to be observed;
+no product-platform matrix PASS, main merge or release is claimed here.
