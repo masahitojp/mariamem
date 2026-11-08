@@ -139,8 +139,13 @@ The8MiB candidate (#88) is separate and is not adopted by this direction.
 The generated-Go spike supports this intervention but does not prove stable
 variance reduction or eliminate long PREPARE waits. Its observation-disabled
 CPU median increased1.7%; resource results and residual waits remain explicit.
-Canonical C/bootstrap bytes, generated installation, independent reproduction,
-and both-host correctness are not yet accepted. #140 remains open; this is not
+[Bootstrap CI42509593737](reviews/startup-cap-ci-42509593737/README.md) passed
+at8d3da071 as one UNQUALIFIED C build. The
+[canonical installation](reviews/startup-cap-installation/README.md) selects guest
+8e3761ea; clean installed source1b446e53 passes bounded local CRC, actual
+UCA/lexer/worker, Snapshot/Fork/Close and attribution checks. Complete static data
+and protected worker/CRC bodies are unchanged. Independent two-build reproduction
+and both-host canonical correctness remain pending. #140 remains open; this is not
 main integration, Qualification, a version choice or publication approval.
 
 ## Product contract
