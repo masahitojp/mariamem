@@ -13,6 +13,7 @@ from routine_schema import prepare as prepare_routine_schema
 from uca_prepared import prepare as prepare_uca
 from lexer_prepared import prepare as prepare_lexer
 from guest_auth_hooks import prepare as prepare_auth_source
+from startup_concurrency import validate as validate_startup_concurrency
 
 source = ROOT / "build/source"
 if source.exists():
@@ -43,6 +44,7 @@ uca_prepared = prepare_uca(ROOT, source)
 lexer_prepared = prepare_lexer(ROOT, source)
 portability_series = apply_series(ROOT, source, guest_input)
 subprocess.run(["patch", "--batch", "--forward", "--fuzz=0", "-p1", "-i", str(ROOT / "guest/source.patch")], cwd=source, check=True)
+startup_concurrency = validate_startup_concurrency(source)
 # A disposable experiment patch is separate from the canonical product patch.
 experimental = ROOT / "guest/experimental.patch"
 experimental_files = patch_files(ROOT)
@@ -100,7 +102,7 @@ for name, cmake in (("pcre2", "cmake/pcre.cmake"), ("libfmt", "cmake/libfmt.cmak
     if text.count(entry["url"]) != 1:
         raise ValueError(f"unexpected dependency URL in {cmake}")
     path.write_text(text.replace(entry["url"], "${CMAKE_SOURCE_DIR}/mariamem-dependencies/" + entry["file"]))
-manifest = {"lexer_prepared": lexer_prepared, "uca_prepared": uca_prepared, "guest_input": guest_input, "portability_series": portability_series, "routine_schema": routine_schema,
+manifest = {"startup_concurrency": startup_concurrency, "lexer_prepared": lexer_prepared, "uca_prepared": uca_prepared, "guest_input": guest_input, "portability_series": portability_series, "routine_schema": routine_schema,
             "inputs_lock_sha256": digest(ROOT / "release/inputs.lock.json"),
             "overlays": {p.name: digest(p) for p in sorted((ROOT / "guest").iterdir()) if p.is_file()},
             "modified_files": {name: digest(source / name) for name in

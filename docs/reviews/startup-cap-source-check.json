@@ -1,0 +1,19 @@
+{
+  "contract": "normal-startup-concurrency-v1",
+  "selection": "existing-default-with-existing-clamps",
+  "files_sha256": {
+    "storage/innobase/buf/buf0dump.cc": "341be4e6df1487e8805f1eca1e258e003e9c4cff0bb49fe85e1e5e311c2b1dc2",
+    "storage/innobase/srv/srv0start.cc": "cc4ec7700d576dda2d870f1378042ac95471a0a4151d752ce88280d62d79d86e"
+  },
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "base_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "canonical_patch_sha256": "9209fdfdecb09f6aed48061c6c5dadd0e36992f5dc3b30bce29d79e242c870ef",
+  "pristine_files_sha256": {
+    "storage/innobase/buf/buf0dump.cc": "ec2c958d91a49126f2fd960f2260d11428c4bd5c7e72f1dd6f65c2ef83da12fe",
+    "storage/innobase/srv/srv0start.cc": "92862e29209ac942c1aeb1902c8a99f8b0e6ca0243c2b539cdf0d697c965f8be"
+  },
+  "validation": "patch --batch --forward --fuzz=0; validate both prepared source regions",
+  "qualification": "NOT_RUN",
+  "runtime": "NOT_RUN",
+  "native_platforms": "NOT_RUN"
+}

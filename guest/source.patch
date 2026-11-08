@@ -216,3 +216,34 @@
 +#else
 @@ -734,0 +742 @@
 +#endif
+--- a/storage/innobase/buf/buf0dump.cc
++++ b/storage/innobase/buf/buf0dump.cc
+@@ -705,7 +705,9 @@
+ #ifdef WITH_WSREP
+ 		if (!get_wsrep_recovery()) {
+ #endif /* WITH_WSREP */
+-			srv_thread_pool->set_concurrency(srv_n_read_io_threads);
++			/* mariamem: keep normal global concurrency; the read task
++			group already bounds read I/O. */
++			srv_thread_pool->set_concurrency();
+ 			buf_load();
+ 			srv_thread_pool->set_concurrency();
+ #ifdef WITH_WSREP
+--- a/storage/innobase/srv/srv0start.cc
++++ b/storage/innobase/srv/srv0start.cc
+@@ -1611,11 +1611,11 @@
+ 			/* Apply the hashed log records to the
+ 			respective file pages, for the last batch of
+ 			recv_group_scan_log_recs().
+-			Since it may generate huge batch of threadpool tasks,
+-			for read io task group, scale down thread creation rate
+-			by temporarily restricting tpool concurrency.
++			mariamem: keep normal global concurrency during recovery.
++			The read task group already bounds read I/O; restricting the
++			whole pool also delays tasks needed to complete those reads.
+ 			*/
+-			srv_thread_pool->set_concurrency(srv_n_read_io_threads);
++			srv_thread_pool->set_concurrency();
+ 
+ 			mysql_mutex_lock(&recv_sys.mutex);
+ 			recv_sys.apply(true);

@@ -1,0 +1,50 @@
+name: Startup concurrency candidate input (not Qualification)
+on:
+  push:
+    branches: [experiment/startup-cap-canonical]
+    paths:
+      - guest/source.patch
+      - scripts/prepare_guest.py
+      - scripts/startup_concurrency.py
+      - tests/test_startup_concurrency.py
+      - .github/workflows/startup-cap-candidate.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  guest:
+    runs-on: ubuntu-24.04-arm
+    container:
+      image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
+    timeout-minutes: 100
+    steps:
+      - name: Source builder dependencies
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Exact clean canonical source and single UNQUALIFIED bootstrap build
+        env:
+          HOME: /root
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          mkdir -p build/startup-cap-ci
+          python3 scripts/git_identity.py inspect HEAD > build/startup-cap-ci/source.json
+          python3 -c 'import json,os;assert json.load(open("build/startup-cap-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          test ! -e guest/experimental.patch
+          python3 -m unittest discover -s tests -p test_startup_concurrency.py -v
+          python3 scripts/build_generated_guest.py --development-output /tmp/startup-cap-guest > build/startup-cap-ci/build.txt 2>&1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: startup-cap-guest-${{ github.sha }}
+          path: /tmp/startup-cap-guest
+          if-no-files-found: error
+          retention-days: 14
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: startup-cap-build-${{ github.sha }}
+          path: build/startup-cap-ci
+          if-no-files-found: error
+          retention-days: 14

@@ -28,6 +28,7 @@ WORKFLOW_SCOPES = {
     '.github/workflows/worker-failure.yml': 'python',
     '.github/workflows/uca-canonical.yml': 'python',
     '.github/workflows/lexer-canonical-input.yml': 'python',
+    '.github/workflows/startup-cap-candidate.yml': 'python',
 }
 # Explicit tooling boundaries; do not classify every .py file as runtime-free.
 TOOLING = {
@@ -88,6 +89,7 @@ PURE_TESTS = {
     'tests/test_guest_provenance.py',
     'tests/test_guest_repro_tools.py',
     'tests/test_guest_startup_timing.py',
+    'tests/test_startup_concurrency.py',
     'tests/test_init_diagnostics.py',
     'tests/test_isolation_baseline.py',
     'tests/test_memory_envelope.py',

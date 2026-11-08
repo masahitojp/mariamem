@@ -127,6 +127,22 @@ measurement, Qualification, version selection or publication is authorized.
 P4 whole-batch/RSS/Ubuntu speedup and actual dynamic XML-loader runtime coverage
 remain outside the accepted claim.
 
+## v0.7.0 — Normal startup concurrency: production candidate authorized
+
+On2026-11-09 the Human chose to advance the #140 startup-concurrency mitigation
+to a production adoption candidate. Keep normal global thread-pool concurrency
+through buffer-pool startup loading and redo application, while retaining read
+group1 and buffer pool16MiB. The [decision and fixed exit](decisions/startup-global-concurrency.md)
+record the two-call canonical patch, original source-bound evidence and limits.
+The8MiB candidate (#88) is separate and is not adopted by this direction.
+
+The generated-Go spike supports this intervention but does not prove stable
+variance reduction or eliminate long PREPARE waits. Its observation-disabled
+CPU median increased1.7%; resource results and residual waits remain explicit.
+Canonical C/bootstrap bytes, generated installation, independent reproduction,
+and both-host correctness are not yet accepted. #140 remains open; this is not
+main integration, Qualification, a version choice or publication approval.
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally
