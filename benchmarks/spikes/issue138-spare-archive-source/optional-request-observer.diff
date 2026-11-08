@@ -1,0 +1,38 @@
+--- a/storage/innobase/buf/buf0flu.cc
++++ b/storage/innobase/buf/buf0flu.cc
+@@ -2772,0 +2773,6 @@
++    static bool observed_consume= false;
++    if (!observed_consume)
++    {
++      observed_consume= true;
++      fprintf(stderr, "ISSUE138_REQUEST consume=nonzero\n");
++    }
+@@ -2822,0 +2829,6 @@
++      static bool observed_sync_request= false;
++      if (create_spare_archive && !observed_sync_request)
++      {
++        observed_sync_request= true;
++        fprintf(stderr, "ISSUE138_REQUEST origin=sync nonzero\n");
++      }
+@@ -2828,0 +2841,11 @@
++    static bool observed_pending_gates= false;
++    if (create_spare_archive && !observed_pending_gates)
++    {
++      observed_pending_gates= true;
++      fprintf(stderr, "ISSUE138_REQUEST snapshot sync=%d idle=%d lru=%d empty=%d lwm_zero=%d\n",
++              int(buf_flush_sync_lsn.load() != 0),
++              int(buf_pool.page_cleaner_idle()),
++              int(buf_pool.need_LRU_eviction()),
++              int(!UT_LIST_GET_LEN(buf_pool.flush_list)),
++              int(srv_max_dirty_pages_pct_lwm == 0.0));
++    }
+@@ -2898,0 +2922 @@
++        {
+@@ -2899,0 +2924,7 @@
++          static bool observed_ordinary_request= false;
++          if (create_spare_archive && !observed_ordinary_request)
++          {
++            observed_ordinary_request= true;
++            fprintf(stderr, "ISSUE138_REQUEST origin=ordinary nonzero\n");
++          }
++        }

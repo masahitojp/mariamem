@@ -1,0 +1,20 @@
+{
+  "legacy": {
+    "file": "benchmarks/spikes/issue137-helper-continuation/evidence/floor6/legacy/CMakeCache.txt",
+    "sha256": "eb8c894cc651eacf457212824b5ae3bc6bacbf55bb758365793169b3999a2098",
+    "settings": [
+      "CMAKE_BUILD_TYPE:STRING=Release",
+      "WITH_INNODB_PMEM:BOOL=OFF",
+      "WITH_WSREP:BOOL=OFF"
+    ]
+  },
+  "native": {
+    "file": "benchmarks/spikes/issue138-paired-capture/evidence/native/CMakeCache.txt",
+    "sha256": "79046af0b6a4549cda9bf29e0f75496034f4bd27fb9534d7642eb5c44962086e",
+    "settings": [
+      "CMAKE_BUILD_TYPE:STRING=Release",
+      "WITH_INNODB_PMEM:BOOL=OFF",
+      "WITH_WSREP:BOOL=OFF"
+    ]
+  }
+}

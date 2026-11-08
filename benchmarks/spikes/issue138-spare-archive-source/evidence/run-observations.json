@@ -1,0 +1,56 @@
+{
+  "immutable_raw_path": "benchmarks/spikes/issue137-helper-continuation/evidence/floor6/legacy/floor6-legacy-suite.txt",
+  "immutable_raw_sha256": "2082db2e177bddff0158db1d2351100410ca85ea29552830c4d089b783c94567",
+  "supplemental_states": [
+    {
+      "event": "SPARE_OBSERVE",
+      "time_ns": 1794154217246627000,
+      "stage": "archive-on-drained",
+      "state": {
+        "active_connections": 0,
+        "busy": false,
+        "id": 6,
+        "ok": true,
+        "state": "ready"
+      },
+      "logs": "ISSUE138_BRANCH timed_wait\n"
+    },
+    {
+      "event": "SPARE_OBSERVE",
+      "time_ns": 1794154222250868000,
+      "stage": "branch-missing-or-root-failed",
+      "state": {
+        "active_connections": 0,
+        "busy": false,
+        "id": 714,
+        "ok": true,
+        "state": "ready"
+      },
+      "logs": "ISSUE138_BRANCH timed_wait\n"
+    }
+  ],
+  "not_observed": [
+    "page_cleaner idle flag",
+    "LRU/free lists/try_LRU_scan",
+    "buf_flush_sync_lsn",
+    "request production/source/consumption",
+    "first_lsn and resize_log open state",
+    "actual archive/LRU/flush flag readbacks",
+    "supplemental exact numeric start/end LSN values"
+  ],
+  "passed_source_assertions": [
+    "256 successful INSERTs",
+    "end LSN greater than start plus2x4194304",
+    "5s positive marker missing with root healthy/drained"
+  ],
+  "separate_common_case_archive": [
+    {
+      "event": "ISSUE138_ARCHIVE",
+      "start": 36889,
+      "end": 16947491,
+      "checkpoint": 16959831,
+      "rows": 256,
+      "bytes": 16777216
+    }
+  ]
+}

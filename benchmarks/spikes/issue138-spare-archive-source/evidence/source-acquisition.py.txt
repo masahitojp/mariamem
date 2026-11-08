@@ -1,0 +1,15 @@
+from pathlib import Path
+import json,urllib.request,hashlib,tarfile
+r=Path.cwd();w=r/'build/experiment-work/issue138-source';old=json.loads((r/'benchmarks/spikes/issue137-helper-continuation/evidence/branch-source-identities.json').read_text());pin=next(x for x in json.loads((r/'release/inputs.lock.json').read_text())['inputs'] if x['name']=='mariadb')
+p=w/'temp/source.tar.gz'
+with urllib.request.urlopen(pin['url'],timeout=60) as src,p.open('wb') as out:
+ import shutil
+ shutil.copyfileobj(src,out)
+assert hashlib.sha256(p.read_bytes()).hexdigest()==pin['sha256']
+files={}
+with tarfile.open(p) as t:
+ for n,v in old['files'].items():
+  m=[m for m in t.getmembers() if m.name.endswith('/'+n)];assert len(m)==1
+  data=t.extractfile(m[0]).read();assert hashlib.sha256(data).hexdigest()==v['sha256']
+  target=w/'temp/source'/n;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(data);files[n]=v
+(w/'evidence/acquisition.json').write_text(json.dumps({'source_commit':old['source_commit'],'tag_object_sha':'308a50778fb4916ddde0d2923feea3d11dcc92c8','archive':pin,'archive_bytes':p.stat().st_size,'verified_files':files,'method':'Exact official commit archive independently matched to locked SHA256 and prior known whole-file digests; no SDK/source build'},indent=2)+'\n')

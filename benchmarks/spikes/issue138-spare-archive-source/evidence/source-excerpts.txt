@@ -1,0 +1,1359 @@
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+161: void buf_pool_t::page_cleaner_wakeup(bool for_LRU) noexcept
+162: {
+163:   mysql_mutex_assert_owner(&flush_list_mutex);
+164:   ut_d(buf_flush_validate_skip());
+165:   if (!page_cleaner_idle())
+166:   {
+167:     if (for_LRU)
+168:       /* Ensure that the page cleaner is not in a timed wait. */
+169:       pthread_cond_signal(&do_flush_list);
+170:     return;
+171:   }
+172:   double dirty_pct= double(UT_LIST_GET_LEN(buf_pool.flush_list)) * 100.0 /
+173:     double(UT_LIST_GET_LEN(buf_pool.LRU) + UT_LIST_GET_LEN(buf_pool.free));
+174:   double pct_lwm= srv_max_dirty_pages_pct_lwm;
+175:
+176:   /* if pct_lwm != 0.0, adaptive flushing is enabled.
+177:   signal buf page cleaner thread
+178:   - if pct_lwm <= dirty_pct then it will invoke adaptive flushing flow
+179:   - if pct_lwm > dirty_pct then it will invoke idle flushing flow.
+180:
+181:   idle_flushing:
+182:   dirty_pct < innodb_max_dirty_pages_pct_lwm so it could be an
+183:   idle flushing use-case.
+184:
+185:   Why is last_activity_count not updated always?
+186:   - let's first understand when is server activity count updated.
+187:   - it is updated on commit of a transaction trx_t::commit() and not
+188:     on adding a page to the flush list.
+189:   - page_cleaner_wakeup is called when a page is added to the flush list.
+190:
+191:   - now let's say the first user thread, updates the count from X -> Y but
+192:     is yet to commit the transaction (so activity count is still Y).
+193:     followup user threads will see the updated count as (Y) that is matching
+194:     the universal server activity count (Y), giving a false impression that
+195:     the server is idle.
+196:
+197:   How to avoid this?
+198:   - by allowing last_activity_count to updated when page-cleaner is made
+199:     active and has work to do. This ensures that the last_activity signal
+200:     is consumed by the page-cleaner before the next one is generated. */
+201:   if (for_LRU ||
+202:       (pct_lwm != 0.0 && (pct_lwm <= dirty_pct ||
+203:                           last_activity_count == srv_get_activity_count())) ||
+204:       srv_max_buf_pool_modified_pct <= dirty_pct)
+205:   {
+206:     page_cleaner_idle_flag= false;
+207:     pthread_cond_signal(&do_flush_list);
+208:   }
+209: }
+210:
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+1843: inline lsn_t log_t::write_checkpoint(lsn_t checkpoint, lsn_t end_lsn) noexcept
+1844: {
+1845:   ut_ad(!srv_read_only_mode);
+1846:   ut_ad(!recv_sys.rpo);
+1847:   ut_ad(archive || checkpoint >= first_lsn);
+1848:   ut_ad(end_lsn >= checkpoint);
+1849:   const lsn_t current_lsn{get_lsn()};
+1850:   ut_ad(write_lsn <= current_lsn);
+1851:   ut_ad(end_lsn <= current_lsn);
+1852:   ut_ad(end_lsn + SIZE_OF_FILE_CHECKPOINT +
+1853:         8 * is_encrypted() <= current_lsn ||
+1854:         srv_shutdown_state > SRV_SHUTDOWN_INITIATED);
+1855:   ut_ad(this->end_lsn <= end_lsn);
+1856:   ut_ad(checkpoint_buf != buf);
+1857:   ut_ad(!checkpoint_buf || checkpoint_buf != resize_buf);
+1858:   ut_ad(buf != resize_buf);
+1859:   ut_ad(latch_have_wr());
+1860:
+1861:   size_t offset;
+1862:   static_assert(CPU_LEVEL1_DCACHE_LINESIZE >= 64, "efficiency");
+1863:   static_assert(CPU_LEVEL1_DCACHE_LINESIZE <= 4096, "compatibility");
+1864:   lsn_t resizing{resize_lsn.load(std::memory_order_relaxed)};
+1865:   byte *c= checkpoint_buf;
+1866:   lsn_t archive_header_was_reset{0};
+1867:
+1868:   if (archive)
+1869:   {
+1870:     ut_ad(!resizing);
+1871:     ut_ad(is_opened());
+1872: #ifdef HAVE_PMEM
+1873:     ut_ad(!resize_buf || !checkpoint_buf);
+1874:     ut_ad(!resize_buf || resize_log.is_opened());
+1875: #else
+1876:     ut_ad(!resize_buf);
+1877: #endif
+1878:     if (end_lsn >= first_lsn + (
+1879: #ifdef HAVE_PMEM
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+1900:       unmap_old_checkpoint:
+1901:         checkpoint_buf= nullptr;
+1902:         my_munmap(c, lseek(resize_log.m_file, 0, SEEK_END));
+1903:         goto first_checkpoint_in_new_archive;
+1904:       }
+1905:       else
+1906: #endif
+1907:       if (resize_log.is_opened())
+1908:       {
+1909:         first_lsn+= capacity();
+1910:
+1911: #ifdef HAVE_PMEM
+1912:         ut_ad(!c == is_mmap());
+1913:         if (!c)
+1914:         {
+1915:         first_checkpoint_in_new_archive:
+1916:           c= buf;
+1917:           ut_ad(!memcmp_aligned<512>(c, field_ref_zero, START_OFFSET));
+1918:         }
+1919:         else
+1920: #endif
+1921:         {
+1922:           ut_ad(resize_target == os_file_get_size(log.m_file));
+1923:           ut_ad(write_lsn <= first_lsn + resize_target);
+1924:
+1925:           memset_aligned<512>(c, 0, write_size);
+1926:
+1927:           const lsn_t offset{current_lsn - first_lsn + START_OFFSET};
+1928:           if (UNIV_UNLIKELY(offset > resize_target))
+1929:           {
+1930:             /* Allow the new log file to grow, because we did not complete a
+1931:             checkpoint quickly enough. Automatically adjust
+1932:             innodb_log_file_size to a larger size. */
+1933:             resize_target= (offset + 4095) & ~off_t{4095};
+1934:             sql_print_warning("InnoDB: Adjusting innodb_log_file_size="
+1935:                               LSN_PF "k", resize_target >> 10);
+1936:             ut_a(os_file_set_size(get_archive_path().c_str(), log.m_file,
+1937:                                   resize_target, false));
+1938:           }
+1939:         }
+1940:         srv_log_file_size= file_size= resize_target;
+1941:         set_capacity();
+1942:         archive_header_was_reset= first_lsn + capacity();
+1943:         ut_ad(current_lsn >= first_lsn);
+1944:         ut_ad(current_lsn < archive_header_was_reset);
+1945:         next_checkpoint_no= uint16_t(4 * is_encrypted());
+1946:
+1947:         if (is_encrypted())
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+2083:     }
+2084:   }
+2085:   else if (archive_header_was_reset)
+2086:   {
+2087:     ut_ad(resize_log.m_file != log.m_file);
+2088:     /* Make the previous archived log file read-only */
+2089: #ifdef _WIN32
+2090:     resize_log.close();
+2091:     SetFileAttributesA(get_archive_path().c_str(),
+2092:                        FILE_ATTRIBUTE_READONLY | FILE_ATTRIBUTE_ARCHIVE);
+2093: #else
+2094:     struct stat st;
+2095:     if (!fstat(resize_log.m_file, &st))
+2096:       st.st_mode&= 0444;
+2097:     else
+2098:       st.st_mode= 0444;
+2099:     if (fchmod(resize_log.m_file, st.st_mode))
+2100:       my_error(ER_ERROR_ON_CLOSE, MYF(ME_ERROR_LOG),
+2101:                get_archive_path().c_str(), errno);
+2102:     resize_log.close();
+2103: #endif
+2104:   }
+2105:   else
+2106:     goto checkpoint_completed;
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+2200:   else if (resizing_completed)
+2201:     ib::info() << "Resized log to " << ib::bytes_iec{resizing_completed}
+2202:       << "; start LSN=" << resizing;
+2203:   else
+2204:     buf_flush_ahead(end_lsn + 1, false);
+2205:
+2206:   return archive_header_was_reset;
+2207: }
+2208:
+2209: /** Initiate a log checkpoint, discarding the start of the log.
+2210: @param oldest_lsn   the checkpoint LSN
+2211: @param end_lsn      log_sys.get_lsn()
+2212: @return the lsn to invoke log_sys.archive_create(lsn, false) on
+2213: @retval 0 if log_sys.archive_create() should not be called */
+2214: static lsn_t log_checkpoint_low(lsn_t oldest_lsn, lsn_t end_lsn) noexcept
+2215: {
+2216:   ut_ad(!srv_read_only_mode);
+2217:   ut_ad(!recv_no_log_write);
+2218:   ut_ad(log_sys.latch_have_wr());
+2219:   ut_ad(oldest_lsn <= end_lsn);
+2220:   ut_ad(end_lsn == log_sys.get_lsn());
+2221:
+2222:   if (oldest_lsn == log_sys.last_checkpoint_lsn ||
+2223:       (oldest_lsn == end_lsn &&
+2224:        !log_sys.resize_in_progress() &&
+2225:        (!log_sys.archive || !log_sys.circular_recovery_from_0()) &&
+2226:        oldest_lsn == log_sys.last_checkpoint_lsn +
+2227:        log_sys.is_encrypted() * 8 + SIZE_OF_FILE_CHECKPOINT))
+2228:     if (oldest_lsn != log_sys.get_first_lsn())
+2229:     {
+2230:       /* Do nothing, because nothing was logged (other than a
+2231:       FILE_CHECKPOINT record) since the previous checkpoint. */
+2232:       log_sys.latch.wr_unlock();
+2233:       return 0;
+2234:     }
+2235:
+2236:   ut_ad(oldest_lsn > log_sys.last_checkpoint_lsn ||
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+2287:   {
+2288:     m_log.close(end);
+2289:     m_log.push(static_cast<const byte*>(buf), uint32_t(size));
+2290:   }
+2291:   m_modifications= true;
+2292: }
+2293:
+2294: /** Make a checkpoint. Note that this function does not flush dirty
+2295: blocks from the buffer pool: it only checks what is lsn of the oldest
+2296: modification in the pool, and writes information about the lsn in
+2297: log file. Use log_make_checkpoint() to flush also the pool.
+2298: @return the lsn to invoke log_sys.archive_create(lsn, false) on
+2299: @retval 0 if log_sys.archive_create() should not be called */
+2300: static lsn_t log_checkpoint() noexcept
+2301: {
+2302:   ut_ad(!recv_recovery_is_on());
+2303:
+2304: #if defined HAVE_valgrind && !__has_feature(memory_sanitizer)
+2305:   /* The built-in scheduler in Valgrind may neglect some threads for a
+2306:   long time.  Under Valgrind, let us explicitly wait for page write
+2307:   completion in order to avoid a result difference in the test
+2308:   innodb.page_cleaner. */
+2309:   os_aio_wait_until_no_pending_writes(false);
+2310: #endif
+2311:
+2312:   fil_flush_file_spaces();
+2313:   binlog_write_up_to_now();
+2314:
+2315:   if (UNIV_UNLIKELY(recv_sys.rpo != 0))
+2316:     return 0;
+2317:
+2318:   log_sys.latch.wr_lock();
+2319:   const lsn_t end_lsn= log_sys.get_lsn();
+2320:   mysql_mutex_lock(&buf_pool.flush_list_mutex);
+2321:   const lsn_t oldest_lsn= buf_pool.get_oldest_modification(end_lsn);
+2322:   // FIXME: limit oldest_lsn below binlog split write LSN
+2323:   mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+2324:   return log_checkpoint_low(oldest_lsn, end_lsn);
+2325: }
+2326:
+2327: /** Wait for all dirty pages up to an LSN to be written out.
+2328: NOTE: The calling thread is not allowed to hold any buffer page latches!
+2329: @param lsn       the checkpoint to wait for
+2330: @param checkpoint whether an empty checkpoint needs to be written */
+2331: ATTRIBUTE_COLD void buf_flush_wait(lsn_t lsn, bool checkpoint) noexcept
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+2340:            (!log_sys.archive || !log_sys.circular_recovery_from_0()) &&
+2341:            lsn == log_sys.last_checkpoint_lsn +
+2342:            SIZE_OF_FILE_CHECKPOINT + 8 * log_sys.is_encrypted());
+2343:   else if (buf_flush_sync_lsn < lsn)
+2344:     goto set_target;
+2345:   else
+2346:     goto wake;
+2347:
+2348:   while ((oldest_lsn= buf_pool.get_oldest_modification(lsn)) < lsn)
+2349:   {
+2350:     if (buf_flush_sync_lsn < lsn)
+2351:     {
+2352:     set_target:
+2353:       buf_flush_sync_lsn= lsn;
+2354:     wake:
+2355:       log_sys.latch.wr_unlock();
+2356:       ut_ad(buf_page_cleaner_is_active);
+2357:       buf_pool.page_cleaner_set_idle(false);
+2358:       pthread_cond_signal(&buf_pool.do_flush_list);
+2359:       MONITOR_INC(MONITOR_FLUSH_SYNC_WAITS);
+2360:       my_cond_wait(&buf_pool.done_flush_list,
+2361:                    &buf_pool.flush_list_mutex.m_mutex);
+2362:     }
+2363:     else
+2364:       log_sys.latch.wr_unlock();
+2365:     mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+2366:     os_aio_wait_until_no_pending_writes(false);
+2367:
+2368:     log_sys.latch.wr_lock();
+2369:     mysql_mutex_lock(&buf_pool.flush_list_mutex);
+2370:
+2371:     if (checkpoint)
+2372:     {
+2373:       lsn= log_sys.get_lsn();
+2374:       if (lsn != log_sys.last_checkpoint_lsn +
+2375:           SIZE_OF_FILE_CHECKPOINT + 8 * log_sys.is_encrypted() ||
+2376:           (log_sys.archive && log_sys.circular_recovery_from_0()))
+2377:       {
+2378:         buf_flush_sync_lsn= lsn;
+2379:         log_sys.set_check_for_checkpoint(true);
+2380:         goto wake;
+2381:       }
+2382:     }
+2383:   }
+2384:
+2385:   if (oldest_lsn >= buf_flush_sync_lsn)
+2386:   {
+2387:     buf_flush_sync_lsn= 0;
+2388:     pthread_cond_broadcast(&buf_pool.done_flush_list);
+2389:   }
+2390: }
+2391:
+2392: /** Initiate more eager page flushing if the log checkpoint age is too old.
+2393: @param lsn      buf_pool.get_oldest_modification(LSN_MAX) target
+2394: @param furious  true=furious flushing, false=limit to innodb_io_capacity */
+2395: ATTRIBUTE_COLD void buf_flush_ahead(lsn_t lsn, bool furious) noexcept
+2396: {
+2397:   ut_ad(!srv_read_only_mode);
+2398:   ut_ad(!recv_sys.rpo);
+2399:
+2400:   DBUG_EXECUTE_IF("ib_log_checkpoint_avoid_hard",
+2401:                   if (!log_sys.archive) return;);
+2402:
+2403:   if (!furious)
+2404:   {
+2405:     if (!buf_flush_async_lsn.bump(lsn))
+2406:       return;
+2407:
+2408:     /* In non-furious mode, concurrent writes to the log will remain
+2409:     possible, and we are gently requesting buf_flush_page_cleaner()
+2410:     to do more work to avoid a later call with furious=true.
+2411:     We will only wake the buf_flush_page_cleaner() from an indefinite
+2412:     my_cond_wait(), but we will not disturb the regular 1-second sleep.
+2413:
+2414:     To reduce contention for a gentle request case, the idle flag of
+2415:     buf_pool is read outside of a buf_pool.flush_list_mutex critical
+2416:     section, allowing early return.
+2417:
+2418:     If the decision to return early was (unlikely) wrong, subsequent
+2419:     wake-side paths (including further buf_flush_ahead() calls under
+2420:     redo-log pressure) are expected to perform the wake eventually. */
+2421:     if (!buf_pool.page_cleaner_idle())
+2422:       return;
+2423:
+2424:     /* Signal under buf_pool.flush_list_mutex. */
+2425:     mysql_mutex_lock(&buf_pool.flush_list_mutex);
+2426:     goto wake;
+2427:   }
+2428:
+2429:   /* The furious path forces a log checkpoint via
+2430:   log_sys.set_check_for_checkpoint(true), so the buf_flush_sync_lsn
+2431:   bump, the checkpoint flag, and the cleaner wake must all be observed
+2432:   together by any thread synchronising on buf_pool.flush_list_mutex. */
+2433:   if (buf_flush_sync_lsn < lsn)
+2434:   {
+2435:     mysql_mutex_lock(&buf_pool.flush_list_mutex);
+2436:     if (buf_flush_sync_lsn < lsn)
+2437:     {
+2438:       buf_flush_sync_lsn= lsn;
+2439:       /* Request any concurrent threads to wait for this batch to complete,
+2440:       in log_free_check(). */
+2441:       log_sys.set_check_for_checkpoint(true);
+2442:       /* Immediately wake up buf_flush_page_cleaner(), even when it
+2443:       is in the middle of a 1-second my_cond_timedwait(). */
+2444:     wake:
+2445:       buf_pool.page_cleaner_set_idle(false);
+2446:       pthread_cond_signal(&buf_pool.do_flush_list);
+2447:     }
+2448:     mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+2449:   }
+2450: }
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+2510:     return false;
+2511:
+2512:   fil_flush_file_spaces();
+2513:   binlog_write_up_to_now();
+2514:   log_sys.latch.wr_lock();
+2515:   const lsn_t newest_lsn= log_sys.get_lsn();
+2516:   mysql_mutex_lock(&buf_pool.flush_list_mutex);
+2517:   lsn_t measure= buf_pool.get_oldest_modification(0);
+2518:   const lsn_t checkpoint_lsn= measure ? measure : newest_lsn;
+2519:   lsn_t create_spare_archive{0};
+2520:   // FIXME: limit checkpoint_lsn below binlog split write LSN
+2521:
+2522:   if (checkpoint_lsn > log_sys.last_checkpoint_lsn +
+2523:       SIZE_OF_FILE_CHECKPOINT + 8 * log_sys.is_encrypted())
+2524:   {
+2525:     mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+2526:     create_spare_archive= log_checkpoint_low(checkpoint_lsn, newest_lsn);
+2527:     log_sys.latch.wr_lock();
+2528:     mysql_mutex_lock(&buf_pool.flush_list_mutex);
+2529:     measure= buf_pool.get_oldest_modification(0);
+2530:   }
+2531:
+2532:   if (measure);
+2533:   else if (srv_shutdown_state < SRV_SHUTDOWN_CLEANUP ||
+2534:            log_sys.get_lsn() == log_sys.last_checkpoint_lsn +
+2535:            SIZE_OF_FILE_CHECKPOINT + 8 * log_sys.is_encrypted())
+2536:     measure= LSN_MAX;
+2537:   else
+2538:     buf_flush_sync_lsn= newest_lsn;
+2539:
+2540:   /* After attempting log checkpoint, check if we have reached our target. */
+2541:   if (measure >= buf_flush_sync_lsn)
+2542:     buf_flush_sync_lsn= 0;
+2543:   else
+2544:     buf_flush_async_lsn.try_clear_if_at_most(measure);
+2545:
+2546:   log_sys.latch.wr_unlock();
+2547:   /* wake up buf_flush_wait() */
+2548:   pthread_cond_broadcast(&buf_pool.done_flush_list);
+2549:   mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+2550:   return create_spare_archive;
+2551: }
+2552:
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+2754:
+2755: TPOOL_SUPPRESS_TSAN
+2756: bool buf_pool_t::need_LRU_eviction() const noexcept
+2757: {
+2758:   /* try_LRU_scan==false means that buf_LRU_get_free_block() is waiting
+2759:   for buf_flush_page_cleaner() to evict some blocks */
+2760:   return UNIV_UNLIKELY(!try_LRU_scan ||
+2761:                        (UT_LIST_GET_LEN(LRU) > BUF_LRU_MIN_LEN &&
+2762:                         UT_LIST_GET_LEN(free) < LRU_scan_depth / 2));
+2763: }
+2764:
+2765: /** Invoke log_t::archive_create() when needed.
+2766: @param lsn  argument to log_t::archive_create(), or 0 if no call
+2767: @return 0 (always) */
+2768: static lsn_t buf_flush_archive_create(lsn_t lsn) noexcept
+2769: {
+2770:   mysql_mutex_assert_not_owner(&buf_pool.flush_list_mutex);
+2771:   if (UNIV_UNLIKELY(lsn != 0))
+2772:   {
+2773:     log_sys.latch.rd_lock();
+2774:     if (log_sys.archive)
+2775:       log_sys.archive_create(lsn, false);
+2776:     log_sys.latch.rd_unlock();
+2777:   }
+2778:   return false;
+2779: }
+2780:
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+2795:   ut_ad(buf_page_cleaner_is_active);
+2796:
+2797:   ulint last_pages= 0;
+2798:   timespec abstime;
+2799:   set_timespec(abstime, 1);
+2800:
+2801:   lsn_t lsn_limit;
+2802:   ulint last_activity_count= srv_get_activity_count();
+2803:   lsn_t create_spare_archive{0};
+2804:
+2805:   for (;;)
+2806:   {
+2807:     DBUG_EXECUTE_IF("ib_page_cleaner_sleep",
+2808:     {
+2809:       std::this_thread::sleep_for(std::chrono::seconds(1));
+2810:       /* Cover the logging code in debug mode. */
+2811:       buf_pool.print_flush_info();
+2812:       buf_dblwr.lock();
+2813:       buf_dblwr.print_info();
+2814:       buf_dblwr.unlock();
+2815:     });
+2816:     lsn_limit= buf_flush_sync_lsn;
+2817:
+2818:     if (UNIV_UNLIKELY(lsn_limit != 0) && UNIV_LIKELY(srv_flush_sync))
+2819:     {
+2820:     furious_flush:
+2821:       buf_flush_archive_create(create_spare_archive);
+2822:       create_spare_archive= buf_flush_sync_for_checkpoint(lsn_limit);
+2823:       last_pages= 0;
+2824:       set_timespec(abstime, 1);
+2825:       continue;
+2826:     }
+2827:
+2828:     mysql_mutex_lock(&buf_pool.flush_list_mutex);
+2829:     if (!buf_pool.need_LRU_eviction())
+2830:     {
+2831:       if (UNIV_UNLIKELY(srv_shutdown_state >= SRV_SHUTDOWN_LAST_PHASE))
+2832:         break;
+2833:
+2834:       if (buf_pool.page_cleaner_idle() &&
+2835:           (!UT_LIST_GET_LEN(buf_pool.flush_list) ||
+2836:            srv_max_dirty_pages_pct_lwm == 0.0))
+2837:       {
+2838:         buf_pool.LRU_warned_clear();
+2839:         if (UNIV_UNLIKELY(create_spare_archive != 0))
+2840:           goto timed_wait;
+2841:         /* We are idle; wait for buf_pool.page_cleaner_wakeup() */
+2842:         my_cond_wait(&buf_pool.do_flush_list,
+2843:                      &buf_pool.flush_list_mutex.m_mutex);
+2844:       }
+2845:       else
+2846:       timed_wait:
+2847:         my_cond_timedwait(&buf_pool.do_flush_list,
+2848:                           &buf_pool.flush_list_mutex.m_mutex, &abstime);
+2849:     }
+2850:
+2851:     set_timespec(abstime, 1);
+2852:
+2853:     lsn_limit= buf_flush_sync_lsn;
+2854:     lsn_t oldest_lsn= buf_pool.get_oldest_modification(0);
+2855:
+2856:     if (!oldest_lsn)
+2857:     {
+2858:     fully_unemployed:
+2859:       if (srv_shutdown_state < SRV_SHUTDOWN_CLEANUP)
+2860:         buf_flush_sync_lsn= 0;
+2861:     set_idle:
+2862:       buf_pool.page_cleaner_set_idle(true);
+2863:     set_almost_idle:
+2864:       pthread_cond_broadcast(&buf_pool.done_flush_LRU);
+2865:       pthread_cond_broadcast(&buf_pool.done_flush_list);
+2866:       mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+2867:       buf_dblwr.flush_buffered_writes();
+2868:
+2869:       do
+2870:       {
+2871:         if (recv_recovery_is_on())
+2872:           continue;
+2873:         create_spare_archive= buf_flush_archive_create(create_spare_archive);
+2874: #ifdef WITH_WSREP
+2875:         extern Atomic_relaxed<bool> wsrep_sst_disable_writes;
+2876:         if (UNIV_UNLIKELY(wsrep_sst_disable_writes))
+2877:           continue; /* See sst_disable_innodb_writes() */
+2878: #endif
+2879:         IF_DBUG(if (log_sys.last_checkpoint_lsn > log_sys.get_first_lsn() &&
+2880:                     srv_shutdown_state < SRV_SHUTDOWN_CLEANUP &&
+2881:                     (_db_keyword_(nullptr, "ib_log_checkpoint_avoid", 1) ||
+2882:                      _db_keyword_(nullptr, "ib_log_checkpoint_avoid_hard", 1)))
+2883:                   continue,);
+2884:         if (log_sys.check_for_checkpoint() ||
+2885:             (!srv_startup_is_before_trx_rollback_phase &&
+2886:              srv_operation <= SRV_OPERATION_EXPORT_RESTORED))
+2887:           create_spare_archive= log_checkpoint();
+2888:       }
+2889:       while (false);
+2890:
+2891:       if (UNIV_UNLIKELY(srv_shutdown_state >= SRV_SHUTDOWN_LAST_PHASE))
+2892:       {
+2893:         mysql_mutex_lock(&buf_pool.flush_list_mutex);
+2894:         break;
+2895:       }
+2896:
+2897:       if (!buf_pool.need_LRU_eviction())
+2898:         continue;
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+2990:           pct_lwm= 0.0;
+2991:           goto possibly_unemployed;
+2992:         }
+2993:       }
+2994:     }
+2995:     else if (dirty_pct < srv_max_buf_pool_modified_pct)
+2996:     possibly_unemployed:
+2997:       /* Snapshot-based; no coordination with concurrent lock-free
+2998:       buf_flush_ahead() bumpers. A bumper that observed
+2999:       page_cleaner_idle()==false earlier in this iteration took its
+3000:       early return; flipping idle=true here leaves its target
+3001:       unacknowledged until another wake path fires. Same premise as the
+3002:       bumper's early return: under sustained redo-log pressure,
+3003:       subsequent buf_flush_ahead() calls observe
+3004:       page_cleaner_idle()==true and take the wake path. */
+3005:       if (!soft_lsn_limit && !af_needed_for_redo(oldest_lsn))
+3006:         goto set_idle;
+3007:
+3008:     buf_pool.page_cleaner_set_idle(false);
+3009:     buf_pool.n_flush_inc();
+3010:     mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+3011:
+3012:     if (UNIV_UNLIKELY(soft_lsn_limit != 0))
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+3110:   buf_flush_async_lsn.init();
+3111:   buf_flush_sync_lsn= 0;
+3112:   buf_page_cleaner_is_active= true;
+3113:   std::thread(buf_flush_page_cleaner).detach();
+3114: }
+3115:
+3116: /** Make a checkpoint. */
+3117: ATTRIBUTE_COLD void log_make_checkpoint() noexcept
+3118: {
+3119:   buf_flush_sync_batch(0, true);
+3120: }
+3121:
+3122: /** Wait for the persistent data to be written out.
+3123: NOTE: The calling thread is not allowed to hold any buffer page latches!
+3124: @param lsn        minimum checkpoint to wait for
+3125: @param checkpoint whether an empty checkpoint needs to be written */
+3126: ATTRIBUTE_COLD void buf_flush_sync_batch(lsn_t lsn, bool checkpoint) noexcept
+3127: {
+3128:   thd_wait_begin(nullptr, THD_WAIT_DISKIO);
+3129:   tpool::tpool_wait_begin();
+3130:   log_sys.latch.wr_lock();
+3131:   lsn= std::max(lsn, log_sys.get_lsn());
+3132:   mysql_mutex_lock(&buf_pool.flush_list_mutex);
+3133:   buf_flush_wait(lsn, checkpoint);
+3134:   log_sys.latch.wr_unlock();
+3135:   mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+3136:   tpool::tpool_wait_end();
+3137:   thd_wait_end(nullptr);
+3138: }
+3139:
+3140: ATTRIBUTE_COLD void buf_pool_t::print_flush_info() const noexcept
+3141: {
+3142:   /* We do dirty read of UT_LIST count variable. */
+3143:   size_t lru_size= UT_LIST_GET_LEN(LRU);
+3144:   size_t dirty_size= UT_LIST_GET_LEN(flush_list);
+3145:   size_t free_size= UT_LIST_GET_LEN(free);
+
+FILE storage/innobase/log/log0log.cc SHA256 6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c
+765: /** SET GLOBAL innodb_log_archive
+766: @param archive  the new value of innodb_log_archive
+767: @param thd      SQL connection */
+768: void log_t::set_archive(my_bool archive, THD *thd) noexcept
+769: {
+770:   thd_wait_begin(thd, THD_WAIT_DISKIO);
+771:   tpool::tpool_wait_begin();
+772:   lsn_t wait_lsn;
+773:
+774:   for (;;)
+775:   {
+776:     wait_lsn= 0;
+777:     IF_WIN(log_resize_acquire(), latch.wr_lock());
+778:     if (resize_in_progress())
+779:     {
+780:       my_printf_error(ER_WRONG_USAGE,
+781:                       "SET GLOBAL innodb_log_file_size is in progress",
+782:                       MYF(0));
+783:       break;
+784:     }
+785:     if (archive == this->archive)
+786:       break;
+787:     if (thd_kill_level(thd))
+788:       break;
+789:
+790:     if (resize_log.is_opened())
+791:     {
+792:       /* Prevent a race condition with write_checkpoint() */
+793: #ifdef HAVE_PMEM
+794:     retry:
+795: #endif
+796:       wait_lsn= 0;
+797:     retry_after_checkpoint:
+798:       IF_WIN(log_resize_release_locks(),);
+799:       if (wait_lsn)
+800:       {
+801:         mysql_mutex_lock(&buf_pool.flush_list_mutex);
+802:         buf_flush_wait(wait_lsn, circular_recovery_from_sequence_bit_0);
+803:         mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+804:       }
+805:       latch.wr_unlock();
+806:       continue;
+807:     }
+808:
+809:     wait_lsn= get_lsn();
+810:     const lsn_t checkpoint{last_checkpoint_lsn};
+811:
+812:     if (archive)
+813:     {
+814:       const lsn_t limit{wait_lsn - (wait_lsn - first_lsn) % capacity()};
+815:       ut_ad(get_sequence_bit(limit) == get_sequence_bit(wait_lsn));
+816:       if (checkpoint < limit)
+817:         /*
+818:           The circular ib_logfile0 is currently wrapped around between
+
+FILE storage/innobase/log/log0log.cc SHA256 6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c
+884:     ut_ad(!resize_log.is_opened());
+885:
+886:     const lsn_t old_first_lsn{first_lsn};
+887:     if (archive)
+888:     {
+889:       first_lsn= wait_lsn;
+890:       resize_target= file_size;
+891:     }
+892:     std::string normal_name{get_circular_path()};
+893:     std::string arch_name{get_archive_path()};
+894:
+895:     const char *old_name= normal_name.c_str();
+896:     const char *new_name= arch_name.c_str();
+897:     if (!archive)
+898:     {
+899:       std::swap(old_name, new_name);
+900:       std::string spare{get_archive_path(first_lsn + capacity())};
+901:       if (!get_sequence_bit(checkpoint))
+902:         /*
+903:           In the innodb_log_archive=ON format, mtr_t::finish_writer()
+904:           always writes the sequence bit as 1. Ensure that the
+905:           innodb_log_archive=OFF recovery will expect this value.
+906:         */
+907:         first_lsn-= capacity();
+908:       ut_ad(get_sequence_bit(checkpoint));
+
+FILE storage/innobase/log/log0log.cc SHA256 6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c
+950:       break;
+951:     }
+952:
+953:     if (archive)
+954:     {
+955:       header_rewrite(true);
+956:       archive_set_size();
+957:       wait_lsn= 0;
+958:     }
+959:     else
+960:     {
+961:       ut_ad(wait_lsn == get_lsn());
+962:       /* apply similar logic as log_close() */
+963:       const lsn_t checkpoint_age{wait_lsn - checkpoint};
+964:       if (checkpoint_age < max_modified_age_async)
+965:         wait_lsn= 0;
+966:       else
+967:         wait_lsn= ((wait_lsn - max_checkpoint_age) & ~lsn_t{1}) |
+968:           lsn_t{checkpoint_age >= max_checkpoint_age};
+969:     }
+970:
+971:     archived_lsn= end_lsn;
+972:     this->archive= archive;
+973:     mtr_t::finisher_update();
+974:     break;
+975:   }
+976:
+977:   IF_WIN(log_resize_release(), latch.wr_unlock());
+978:   tpool::tpool_wait_end();
+979:   thd_wait_end(thd);
+980:   if (wait_lsn)
+981:     mtr_flush_ahead(wait_lsn);
+982: }
+
+FILE storage/innobase/log/log0log.cc SHA256 6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c
+1224: ATTRIBUTE_COLD void log_t::archive_new_write(const byte *buf, size_t length,
+1225:                                              lsn_t offset) noexcept
+1226: {
+1227:   ut_ad(latch_have_wr());
+1228:   ut_ad(write_lock.is_owner());
+1229:   ut_ad(archive);
+1230:   ut_ad(!resize_buf);
+1231:   ut_ad(!resize_in_progress());
+1232:   ut_ad(resize_target >= FILE_SIZE_MIN);
+1233:   ut_ad(length);
+1234:   ut_ad(!is_mmap());
+1235:   ut_ad(is_latest());
+1236:
+1237:   if (!resize_log.is_opened());
+1238:   else if (UNIV_UNLIKELY(resize_log.m_file == log.m_file))
+1239:     /* write_checkpoint() is waiting in log_write_and_flush_prepare()
+1240:     for us to finish. Let us create a new file normally. */
+1241:     resize_log.m_file= OS_FILE_CLOSED;
+1242:   else
+1243:   {
+1244:     /* We had already created a new log file in a previous invocation
+1245:     of this function. The old log file (now pointed by resize_log)
+1246:     will be closed in write_checkpoint() once the first checkpoint in
+1247:     this new log file has been written. */
+1248:     ut_ad(offset >= file_size);
+1249:     offset-= file_size - START_OFFSET;
+1250:     log.write(offset, {buf, length});
+1251:     offset+= length;
+1252:     if (UNIV_UNLIKELY(offset > resize_target))
+1253:     {
+1254:       set_check_for_checkpoint(true);
+1255:       /* Allow the new log file to grow, because we did not complete a
+1256:       checkpoint quickly enough. Automatically adjust
+1257:       innodb_log_file_size to a larger size. */
+1258:       resize_target= (offset + 4095) & ~off_t{4095};
+1259:       sql_print_warning("InnoDB: Adjusting innodb_log_file_size="
+1260:                         LSN_PF "k", resize_target >> 10);
+1261:       length= size_t(offset) & 4095;
+1262:       if (length)
+1263:         log.write(offset, {field_ref_zero, 4096 - length});
+1264:     }
+1265:     return;
+1266:   }
+1267:
+1268:   if (const size_t first{size_t(file_size - offset)})
+1269:   {
+1270:     log.write(offset, {buf, first});
+1271:     length-= first;
+1272:     buf+= first;
+1273:   }
+1274:
+1275:   ut_a(offset + length + START_OFFSET <= file_size + resize_target);
+1276:
+1277:   archive_create(first_lsn + capacity(), true);
+1278:   if (length)
+1279:     log.write(START_OFFSET, {buf, length});
+1280: }
+1281:
+1282: ATTRIBUTE_COLD void log_t::archive_create(lsn_t lsn, bool ex) noexcept
+1283: {
+1284:   ut_ad(ex ? latch_have_wr() : latch_have_rd());
+1285:   ut_ad(archive);
+1286:
+1287:   if (UNIV_UNLIKELY(resize_log.is_opened()))
+1288:   {
+1289:     ut_a(!ex);
+1290:     return;
+1291:   }
+1292:
+1293:   ut_ad(lsn == first_lsn + os_file_get_size(log.m_file) - START_OFFSET);
+1294:   std::string path{get_archive_path(lsn)};
+1295:   bool success;
+1296:   os_file_t file=
+1297:     os_file_create_func(path.c_str(), OS_FILE_CREATE, OS_LOG_FILE,
+1298:                         false, &success);
+1299:   ut_ad(success == (file != OS_FILE_CLOSED));
+1300:
+1301:   if (file == OS_FILE_CLOSED)
+1302:   {
+1303:     if (!ex)
+1304:       /* The file already exists, and we were only attempting to
+1305:       create and allocate it in advance. Assume that our work is
+1306:       already done. */
+1307:       return;
+1308:
+1309:     file= os_file_create_func(path.c_str(), OS_FILE_OPEN, OS_LOG_FILE,
+1310:                               false, &success);
+1311:     ut_ad(success == (file != OS_FILE_CLOSED));
+1312:   }
+1313:
+1314:   if (file != OS_FILE_CLOSED)
+1315:   {
+1316:     /* On Windows, os_file_set_size() sets the exact size;
+1317:     on POSIX, it sets the minimum. write_checkpoint() needs the exact size. */
+1318:     success= os_file_set_size(path.c_str(), file, resize_target);
+1319:     if (success && ex && IF_WIN(true, !ftruncate(file, resize_target)))
+1320:     {
+1321:       ut_ad(os_file_get_size(file) == resize_target);
+1322: #ifdef HAVE_PMEM
+1323:       if (is_mmap())
+1324:       {
+1325:         ut_ad(is_mmap_writeable());
+1326:         ut_ad(!resize_buf);
+1327:         bool is_pmem;
+1328:         resize_buf=
+1329:           static_cast<byte*>(::log_mmap(file, is_pmem,
+1330:                                         resize_target, READ_WRITE));
+1331:         if (resize_buf == MAP_FAILED);
+1332:         else if (!is_pmem)
+1333:           my_munmap(resize_buf, resize_target);
+1334:         else
+1335:           goto success;
+1336:         resize_buf= nullptr;
+1337:       }
+1338:       else
+1339:       {
+1340:       success:
+1341: #endif
+1342:         /* Will be closed in write_checkpoint() */
+1343:         resize_log= log;
+1344:         log= file;
+1345:         return;
+1346: #ifdef HAVE_PMEM
+1347:       }
+1348: #endif
+1349:     }
+1350:     os_file_close(file);
+1351:     if (!ex)
+1352:       return;
+1353:   }
+1354:   else if (!ex)
+1355:     return;
+1356:
+1357:   sql_print_error("[FATAL] InnoDB: Failed to create %s of %" PRIu64
+1358:                   " bytes", path.c_str(), resize_target);
+
+FILE storage/innobase/log/log0log.cc SHA256 6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c
+1759:     }
+1760:
+1761:     ut_ad(base + (write_lsn_offset & (WRITE_TO_BUF - 1)) == lsn);
+1762:     write_to_log++;
+1763:     DBUG_PRINT("ib_log", ("write " LSN_PF " to " LSN_PF " at " LSN_PF,
+1764:                           write_lsn, lsn, offset));
+1765:
+1766:     if (resizing != RESIZING && archive && offset + length > file_size)
+1767:     {
+1768:       archive_new_write(write_buf, length, offset);
+1769:       if (resizing != RETAIN_LATCH)
+1770:         latch.wr_unlock();
+1771:       goto written;
+1772:     }
+1773:
+1774:     if (resizing != RETAIN_LATCH)
+
+FILE storage/innobase/include/log0log.h SHA256 a6aca13c8455456678dd28eee363eb1d1f059025c8aac00c1f4d502f50b45d49
+542:   /** Try to create an archive log file.
+543:   @param lsn  first_lsn of the log file
+544:   @param ex   whether we are holding exclusive latch (and must succeed) */
+545:   ATTRIBUTE_COLD void archive_create(lsn_t lsn, bool ex) noexcept;
+546:
+547:   /** Create a new log file when the current one will fill up.
+548:   @param buf     log records to append
+549:   @param length  size of the log records, in bytes
+550:   @param offset  log file offset */
+551:   ATTRIBUTE_COLD void archive_new_write(const byte *buf, size_t length,
+552:                                         lsn_t offset) noexcept;
+553:
+554:   /** Ensure that innodb_log_archive=ON will default to the current
+555:   innodb_log_file_size if no size has been specified. */
+556:   void archive_set_size() noexcept
+557:   {
+558:     ut_ad(!resize_in_progress());
+559:     if (!resize_target)
+560:       resize_target= file_size;
+561:   }
+562:
+563:   bool check_for_checkpoint() const noexcept
+564:   {
+565:     return UNIV_UNLIKELY(need_checkpoint.load(std::memory_order_relaxed));
+566:   }
+567:   void set_check_for_checkpoint(bool need) noexcept
+568:   {
+569:     need_checkpoint.store(need, std::memory_order_relaxed);
+570:   }
+571:   /** @return the maximum checkpoint age */
+572:   lsn_t checkpoint_age_max() const noexcept
+573:   { return max_checkpoint_age + archive * file_size; }
+
+FILE storage/innobase/include/log0log.h SHA256 a6aca13c8455456678dd28eee363eb1d1f059025c8aac00c1f4d502f50b45d49
+693:   }
+694:
+695:   /** @return capacity in bytes */
+696:   lsn_t capacity() const noexcept { return file_size - START_OFFSET; }
+697:
+698:   /** Set the LSN of the log file at file creation. */
+699:   void set_first_lsn(lsn_t lsn) noexcept { write_lsn= first_lsn= lsn; }
+700:   /** @return the first LSN of the log file */
+701:   lsn_t get_first_lsn() const noexcept { return first_lsn; }
+
+FILE storage/innobase/handler/ha_innodb.cc SHA256 def0d30a0c39d416030d2cf74fe5bd595d75106f5d72ca2f3017cd16db83ef4f
+17688: 		srv_max_dirty_pages_pct_lwm = in_val;
+17689: 	}
+17690:
+17691: 	srv_max_buf_pool_modified_pct = in_val;
+17692:
+17693: 	mysql_mutex_unlock(&LOCK_global_system_variables);
+17694: 	mysql_mutex_lock(&buf_pool.flush_list_mutex);
+17695: 	buf_pool.page_cleaner_wakeup();
+17696: 	mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+17697: 	mysql_mutex_lock(&LOCK_global_system_variables);
+17698: }
+17699:
+17700: /****************************************************************//**
+17701: Update the system variable innodb_max_dirty_pages_pct_lwm using the
+17702: "saved" value. This function is registered as a callback with MySQL. */
+17703: static
+17704: void
+17705: innodb_max_dirty_pages_pct_lwm_update(
+17706: /*==================================*/
+17707: 	THD*				thd,	/*!< in: thread handle */
+17708: 	st_mysql_sys_var*, void*,
+17709: 	const void*			save)	/*!< in: immediate result
+17710: 						from check function */
+17711: {
+17712: 	double	in_val = *static_cast<const double*>(save);
+17713: 	if (in_val > srv_max_buf_pool_modified_pct) {
+17714: 		in_val = srv_max_buf_pool_modified_pct;
+17715: 		push_warning_printf(thd, Sql_condition::WARN_LEVEL_WARN,
+17716: 				    ER_WRONG_ARGUMENTS,
+17717: 				    "innodb_max_dirty_pages_pct_lwm"
+17718: 				    " cannot be set higher than"
+17719: 				    " innodb_max_dirty_pages_pct.");
+17720: 		push_warning_printf(thd, Sql_condition::WARN_LEVEL_WARN,
+17721: 				    ER_WRONG_ARGUMENTS,
+17722: 				    "Setting innodb_max_dirty_page_pct_lwm"
+17723: 				    " to %lf",
+17724: 				    in_val);
+17725: 	}
+17726:
+17727: 	srv_max_dirty_pages_pct_lwm = in_val;
+17728:
+17729: 	mysql_mutex_unlock(&LOCK_global_system_variables);
+17730: 	mysql_mutex_lock(&buf_pool.flush_list_mutex);
+17731: 	buf_pool.page_cleaner_wakeup();
+17732: 	mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+17733: 	mysql_mutex_lock(&LOCK_global_system_variables);
+17734: }
+17735:
+17736: /*************************************************************//**
+17737: Don't allow to set innodb_fast_shutdown=0 if purge threads are
+17738: already down.
+
+FILE storage/innobase/handler/ha_innodb.cc SHA256 def0d30a0c39d416030d2cf74fe5bd595d75106f5d72ca2f3017cd16db83ef4f
+18594: /** Update a field that is protected by buf_pool.mutex */
+18595: template<typename T>
+18596: static void innodb_buf_pool_update(THD *thd, st_mysql_sys_var *,
+18597:                                    void *val, const void *save)
+18598: {
+18599:   mysql_mutex_lock(&buf_pool.mutex);
+18600:   *static_cast<T*>(val)= *static_cast<const T*>(save);
+18601:   mysql_mutex_unlock(&buf_pool.mutex);
+18602: }
+18603:
+
+FILE storage/innobase/handler/ha_innodb.cc SHA256 def0d30a0c39d416030d2cf74fe5bd595d75106f5d72ca2f3017cd16db83ef4f
+19364: static MYSQL_SYSVAR_DOUBLE(max_dirty_pages_pct, srv_max_buf_pool_modified_pct,
+19365:   PLUGIN_VAR_RQCMDARG,
+19366:   "Percentage of dirty pages allowed in bufferpool",
+19367:   NULL, innodb_max_dirty_pages_pct_update, 90.0, 0, 99.999, 0);
+19368:
+19369: static MYSQL_SYSVAR_DOUBLE(max_dirty_pages_pct_lwm,
+19370:   srv_max_dirty_pages_pct_lwm,
+19371:   PLUGIN_VAR_RQCMDARG,
+19372:   "Percentage of dirty pages at which flushing kicks in. "
+19373:   "The value 0 (default) means 'refer to innodb_max_dirty_pages_pct'",
+19374:   NULL, innodb_max_dirty_pages_pct_lwm_update, 0, 0, 99.999, 0);
+19375:
+19376: static MYSQL_SYSVAR_DOUBLE(adaptive_flushing_lwm,
+19377:   srv_adaptive_flushing_lwm,
+19378:   PLUGIN_VAR_RQCMDARG,
+19379:   "Percentage of log capacity below which no adaptive flushing happens",
+19380:   NULL, NULL, 10.0, 0.0, 70.0, 0);
+19381:
+19382: static MYSQL_SYSVAR_BOOL(adaptive_flushing, srv_adaptive_flushing,
+19383:   PLUGIN_VAR_NOCMDARG,
+19384:   "Attempt flushing dirty pages to avoid IO bursts at checkpoints",
+19385:   NULL, NULL, TRUE);
+19386:
+19387: static MYSQL_SYSVAR_BOOL(flush_sync, srv_flush_sync,
+19388:   PLUGIN_VAR_NOCMDARG,
+19389:   "Allow IO bursts at the checkpoints ignoring io_capacity setting",
+19390:   NULL, NULL, TRUE);
+19391:
+
+FILE storage/innobase/handler/ha_innodb.cc SHA256 def0d30a0c39d416030d2cf74fe5bd595d75106f5d72ca2f3017cd16db83ef4f
+19569: static MYSQL_SYSVAR_ULONG(lru_scan_depth, buf_pool.LRU_scan_depth,
+19570:   PLUGIN_VAR_RQCMDARG,
+19571:   "How deep to scan LRU to keep it clean",
+19572:   NULL, innodb_buf_pool_update<ulong>, 1536, 100, ~0UL, 0);
+19573:
+
+FILE storage/innobase/handler/ha_innodb.cc SHA256 def0d30a0c39d416030d2cf74fe5bd595d75106f5d72ca2f3017cd16db83ef4f
+19772: static void innodb_log_archive_update(THD *thd, st_mysql_sys_var*,
+19773:                                       void *, const void *save) noexcept
+19774: {
+19775:   /* MDEV-36828 TODO: On failure, report which other setting
+19776:   conflicted with the request */
+19777:   log_sys.set_archive(*static_cast<const my_bool*>(save), thd);
+19778: }
+19779:
+19780: static MYSQL_SYSVAR_BOOL(log_archive, log_sys.archive,
+19781:   PLUGIN_VAR_OPCMDARG,
+19782:   "Whether log archiving is desired",
+19783:   nullptr, innodb_log_archive_update, FALSE);
+19784:
+19785: static MYSQL_SYSVAR_UINT64_T(log_archive_start, innodb_log_archive_start,
+19786:   PLUGIN_VAR_RQCMDARG | PLUGIN_VAR_READONLY,
+
+FILE storage/innobase/mtr/mtr0mtr.cc SHA256 fbdfa77b02d17202ae7f0cf180dc89867035a6d7f56aa4e9441b31907e4ac292
+410:
+411: ATTRIBUTE_NOINLINE ATTRIBUTE_COLD
+412: void mtr_flush_ahead(lsn_t flush_lsn) noexcept
+413: {
+414:   buf_flush_ahead(flush_lsn, bool(flush_lsn & 1));
+415: }
+416:
+417: template<bool mmap>
+
+FILE storage/innobase/mtr/mtr0mtr.cc SHA256 fbdfa77b02d17202ae7f0cf180dc89867035a6d7f56aa4e9441b31907e4ac292
+1092: @return lsn for invoking buf_flush_ahead() on, with "furious" flag in the LSB
+1093: @retval 0 if buf_flush_ahead() will not have to be invoked */
+1094: static lsn_t log_close(lsn_t lsn) noexcept
+1095: {
+1096:   ut_ad(log_sys.latch_have_any());
+1097:
+1098:   const lsn_t checkpoint_age= lsn - log_sys.last_checkpoint_lsn;
+1099:   const lsn_t max_age= log_sys.max_modified_age_async;
+1100:
+1101:   if (UNIV_UNLIKELY(checkpoint_age >= log_sys.log_capacity) &&
+1102:       /* silence message on create_log_file() after the log had been deleted */
+1103:       checkpoint_age != lsn)
+1104:     log_overwrite_warning(lsn);
+1105:   else if (UNIV_LIKELY(checkpoint_age <= max_age))
+1106:     return 0;
+1107:
+1108:   /* The last checkpoint is too old. Let us set an appropriate
+1109:   checkpoint age target, that is, a checkpoint LSN target that is the
+1110:   current LSN minus the maximum age. Let us see if are exceeding the
+1111:   log_t::checkpoint_margin() limit that will involve a synchronous wait
+1112:   in each write operation. */
+1113:
+1114:   const bool furious{checkpoint_age >= log_sys.checkpoint_age_max()};
+1115:
+1116:   /* If furious==true, we could set a less aggressive target
+1117:   (lsn - log_sys.max_checkpoint_age) instead of what we will be using
+1118:   in both cases (lsn - log_sys.max_checkpoint_age_async).
+1119:
+1120:   The aim of the more aggressive target is that mtr_flush_ahead() will
+1121:   request more progress in buf_flush_page_cleaner() sooner, so that it
+1122:   will be less likely that several threads will end up waiting in
+1123:   log_t::checkpoint_margin(). That function will use the less aggressive
+1124:   limit (lsn - log_sys.max_checkpoint_age) in order to minimize the
+1125:   synchronous wait time. */
+1126:   if (furious)
+1127:     log_sys.set_check_for_checkpoint(true);
+1128:
+1129:   return ((lsn - max_age) & ~lsn_t{1}) | lsn_t{furious};
+1130: }
+1131:
+1132: inline void mtr_t::page_checksum(const buf_page_t &bpage)
+
+FILE storage/innobase/include/buf0buf.h SHA256 01532d5d3495f1cb73a9c269b61e49e2671c5c43de37b9a10344b71192df8727
+1588:   /** @return whether the page cleaner must sleep due to being idle.
+1589:   Lock-free read of page_cleaner_idle_flag; safe to call without
+1590:   flush_list_mutex (used by the early-return in buf_flush_ahead()). */
+1591:   bool page_cleaner_idle() const noexcept
+1592:   {
+1593:     return page_cleaner_idle_flag;
+1594:   }
+1595:
+1596:   /** @return whether the page cleaner may be initiating writes */
+1597:   bool page_cleaner_active() const noexcept
+1598:   {
+1599:     mysql_mutex_assert_owner(&flush_list_mutex);
+1600:     return page_cleaner_status != 0;
+1601:   }
+1602:
+1603:   /** Wake up the page cleaner if needed.
+1604:   @param for_LRU  whether to wake up for LRU eviction */
+1605:   void page_cleaner_wakeup(bool for_LRU= false) noexcept;
+1606:
+1607:   /** Register whether an explicit wakeup of the page cleaner is needed */
+1608:   void page_cleaner_set_idle(bool deep_sleep) noexcept
+1609:   {
+1610:     mysql_mutex_assert_owner(&flush_list_mutex);
+1611:     page_cleaner_idle_flag= deep_sleep;
+1612:   }
+
+FILE wasm/lite4mariadb.c
+323:   char *argv[]= {
+324:     (char *)"lite4mariadb",
+325:     (char *)"--basedir=/mariadb",
+326:     (char *)"--datadir=/mariadb/data",
+327:     (char *)"--plugin-dir=/mariadb/plugin",
+328:     (char *)"--lc-messages-dir=/mariadb/share",
+329:     (char *)"--character-sets-dir=/mariadb/share/charsets",
+330:     (char *)"--tmpdir=/tmp",
+331:     (char *)"--skip-grant-tables",
+332:     (char *)"--skip-networking",
+333:     (char *)"--skip-log-bin",
+334:     (char *)"--innodb-use-native-aio=0",
+335:     (char *)"--innodb-buffer-pool-size=16M",
+336:     (char *)"--loose-innodb-buffer-pool-size-max=16M",
+337:     (char *)"--innodb-log-buffer-size=2M",
+338:     (char *)"--max-connections=10",
+339:     (char *)"--default-storage-engine=InnoDB",
+340:     (char *)"--loose-innodb-read-io-threads=1",
+341:     (char *)"--loose-innodb-write-io-threads=1",
+342:     (char *)"--loose-innodb-purge-threads=1",
+343:     (char *)"--table-open-cache=32",
+344:     (char *)"--thread-cache-size=0",
+345:     (char *)"--socket=/tmp/mysql.sock",
+346:     NULL
+347:   };
+
+FILE storage/innobase/handler/ha_innodb.cc SHA256 def0d30a0c39d416030d2cf74fe5bd595d75106f5d72ca2f3017cd16db83ef4f
+18857: static void innodb_log_file_size_update(THD *thd, st_mysql_sys_var*,
+18858:                                         void *var, const void *save)
+18859: {
+18860:   ut_ad(var == &srv_log_file_size);
+18861:   mysql_mutex_unlock(&LOCK_global_system_variables);
+18862:
+18863:   if (high_level_read_only || recv_sys.rpo)
+18864:     ib_senderrf(thd, IB_LOG_LEVEL_ERROR, ER_READ_ONLY_MODE);
+18865:   else if (
+18866: #ifdef HAVE_PMEM
+18867:            !log_sys.is_mmap() &&
+18868: #endif
+18869:            *static_cast<const ulonglong*>(save) < log_sys.buf_size +
+18870:            log_t::START_OFFSET)
+18871:     my_printf_error(ER_WRONG_ARGUMENTS,
+18872:                     "innodb_log_file_size must be at least"
+18873:                     " innodb_log_buffer_size=%u", MYF(0), log_sys.buf_size);
+18874:   else
+18875:   {
+18876:     switch (log_sys.resize_start(*static_cast<const ulonglong*>(save), thd)) {
+18877:     case log_t::RESIZE_NO_CHANGE:
+18878:       break;
+18879:     case log_t::RESIZE_IN_PROGRESS:
+18880:       my_printf_error(ER_WRONG_USAGE,
+18881:                       "innodb_log_file_size change is already in progress",
+18882:                       MYF(0));
+18883:       break;
+18884:     case log_t::RESIZE_FAILED:
+18885:       ib_senderrf(thd, IB_LOG_LEVEL_ERROR, ER_CANT_CREATE_HANDLER_FILE);
+18886:       break;
+18887:     case log_t::RESIZE_STARTED:
+18888:       for (timespec abstime;;)
+18889:       {
+18890:         if (thd_kill_level(thd))
+18891:         {
+18892:           log_sys.resize_abort(thd);
+18893:           break;
+18894:         }
+18895:
+18896:         set_timespec(abstime, 5);
+18897:         mysql_mutex_lock(&buf_pool.flush_list_mutex);
+18898:         lsn_t resizing= log_sys.resize_in_progress();
+18899:         if (resizing > buf_pool.get_oldest_modification(0))
+18900:         {
+18901:           buf_pool.page_cleaner_wakeup(true);
+18902:           my_cond_timedwait(&buf_pool.done_flush_list,
+18903:                             &buf_pool.flush_list_mutex.m_mutex, &abstime);
+18904:           resizing= log_sys.resize_in_progress();
+18905:         }
+18906:         mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+18907:         if (!resizing || !log_sys.resize_running(thd))
+18908:           break;
+18909:         log_sys.latch.wr_lock();
+18910:         while (resizing > log_sys.get_lsn())
+18911:         {
+18912:           ut_ad(!log_sys.is_mmap());
+18913:           /* The server is almost idle. Write dummy FILE_CHECKPOINT records
+18914:           to ensure that the log resizing will complete. */
+18915:           mtr_t mtr{nullptr};
+18916:           mtr.start();
+18917:           mtr.commit_files(log_sys.last_checkpoint_lsn);
+18918:         }
+18919:         log_sys.latch.wr_unlock();
+18920:       }
+18921:     }
+18922:   }
+18923:   mysql_mutex_lock(&LOCK_global_system_variables);
+18924: }
+18925:
+18926: /** Update innodb_status_output or innodb_status_output_locks,
+18927: which control InnoDB "status monitor" output to the error log.
+18928: @param[out]	var	current value
+18929: @param[in]	save	to-be-assigned value */
+
+FILE storage/innobase/log/log0log.cc SHA256 6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c
+988: log_t::resize_start_status log_t::resize_start(os_offset_t size, void *thd)
+989:   noexcept
+990: {
+991:   ut_ad(size >= 4U << 20);
+992:   ut_ad(!(size & 4095));
+993:   ut_ad(!srv_read_only_mode);
+994:   ut_ad(!recv_sys.rpo);
+995:   ut_ad(thd);
+996:   log_resize_acquire();
+997:
+998:   resize_start_status status;
+999:
+1000:   if (size == file_size)
+1001:     status= RESIZE_NO_CHANGE;
+1002:   else if (resize_in_progress())
+1003:     status= RESIZE_IN_PROGRESS;
+1004:   else if (archive)
+1005:   {
+1006:     if (resize_log.is_opened())
+1007:       /* The resize_target must not be changed after
+1008:       archive_new_write() or archived_mmap_switch_prepare() and before
+1009:       write_checkpoint() has been invoked. */
+1010:       status= RESIZE_IN_PROGRESS;
+1011:     else
+1012:     {
+1013:       status= RESIZE_NO_CHANGE;
+1014:       /* When the current log becomes full and a new archivable log file
+1015:       is being created, it will be of this size. At that point we will assign
+1016:       file_size= resize_target for HAVE_PMEM). */
+1017:       resize_target= size;
+1018:     }
+1019:   }
+1020:   else
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+1286:                                      size_t to_withdraw) noexcept
+1287: {
+1288:   size_t scanned= 0;
+1289:   mysql_mutex_assert_owner(&buf_pool.mutex);
+1290:   size_t free_limit{buf_pool.LRU_scan_depth};
+1291:   if (UNIV_UNLIKELY(to_withdraw > free_limit))
+1292:     to_withdraw= free_limit;
+1293:   const auto neighbors= UT_LIST_GET_LEN(buf_pool.LRU) < BUF_LRU_OLD_MIN_LEN
+1294:     ? 0 : buf_pool.flush_neighbors;
+1295:   fil_space_t *space= nullptr;
+1296:   uint32_t last_space_id= FIL_NULL;
+1297:   static_assert(FIL_NULL > SRV_TMP_SPACE_ID, "consistency");
+1298:   static_assert(FIL_NULL > SRV_SPACE_ID_UPPER_BOUND, "consistency");
+1299:
+1300:   /* BUF_LRU_MIN_LEN (256) is too high value for low buffer pool(BP) size. For
+1301:   example, for BP size lower than 80M and 16 K page size, the limit is more than
+1302:   5% of total BP and for lowest BP 6M, it is 80% of the BP. Non-data objects
+1303:   like explicit locks could occupy part of the BP pool reducing the pages
+1304:   available for LRU. If LRU reaches minimum limit and if no free pages are
+1305:   available, server would hang with page cleaner not able to free any more
+1306:   pages. To avoid such hang, we adjust the LRU limit lower than the limit for
+1307:   data objects as checked in buf_LRU_check_size_of_non_data_objects() i.e. one
+1308:   page less than 5% of BP. */
+1309:   const size_t buf_lru_min_len=
+1310:     std::min((buf_pool.usable_size()) / 20 - 1, size_t{BUF_LRU_MIN_LEN});
+1311:
+1312:   for (buf_page_t *bpage= UT_LIST_GET_LAST(buf_pool.LRU);
+1313:        bpage &&
+1314:        ((UT_LIST_GET_LEN(buf_pool.LRU) > buf_lru_min_len &&
+1315:          UT_LIST_GET_LEN(buf_pool.free) < free_limit) ||
+1316:         to_withdraw ||
+1317:         recv_recovery_is_on());
+1318:        ++scanned, bpage= buf_pool.lru_hp.get())
+1319:   {
+1320:     buf_page_t *prev= UT_LIST_GET_PREV(LRU, bpage);
+1321:     buf_pool.lru_hp.set(prev);
+1322:     auto state= bpage->state();
+1323:     ut_ad(state >= buf_page_t::FREED);
+1324:     ut_ad(bpage->in_LRU_list);
+1325:
+1326:     if (!bpage->oldest_modification())
+1327:     {
+1328:     evict:
+1329:       if (state != buf_page_t::FREED &&
+1330:           (state >= buf_page_t::READ_FIX || (~buf_page_t::LRU_MASK & state)))
+1331:         continue;
+1332:       if (UNIV_UNLIKELY(to_withdraw != 0))
+1333:         to_withdraw= buf_flush_LRU_to_withdraw(to_withdraw, *bpage);
+1334:       buf_LRU_free_page(bpage, true);
+1335:       ++n->evicted;
+
+FILE storage/innobase/buf/buf0flu.cc SHA256 5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818
+2175:         IF_WIN(,log.close());
+2176:         std::swap(log, resize_log);
+2177:         ut_free_dodump(buf, buf_size);
+2178:         ut_free_dodump(flush_buf, buf_size);
+2179:         buf= resize_buf;
+2180:         flush_buf= resize_flush_buf;
+2181:       }
+2182:       srv_log_file_size= resizing_completed= file_size= resize_target;
+2183:       first_lsn= resizing;
+2184:       set_capacity();
+2185:     }
+2186:     ut_ad(!resize_log.is_opened());
+2187:     resize_buf= nullptr;
+2188:     resize_flush_buf= nullptr;
+2189:     resize_target= 0;
+2190:     resize_lsn.store(0, std::memory_order_relaxed);
+2191:     resize_initiator= nullptr;
+2192:     writer_update(false);
+2193:   }
+2194:
+2195:   log_resize_release();
+2196:
+
+FILE storage/innobase/buf/buf0flu.cc shared ordinary-tail active entry
+2943:       mysql_mutex_unlock(&buf_pool.mutex);
+2944:       last_pages+= n;
+2945:     check_oldest_and_set_idle:
+2946:       mysql_mutex_lock(&buf_pool.flush_list_mutex);
+2947:       buf_pool.n_flush_dec();
+2948:       oldest_lsn= buf_pool.get_oldest_modification(0);
+2949:       if (!oldest_lsn)
+2950:         goto fully_unemployed;
+2951:       buf_flush_async_lsn.try_clear_if_at_most(oldest_lsn);
+2952:       buf_pool.page_cleaner_set_idle(false);
+2953:       goto set_almost_idle;
+2954:     }
+2955:     else if (UNIV_UNLIKELY(srv_shutdown_state >= SRV_SHUTDOWN_LAST_PHASE))
+2956:       break;
+2957:
+2958:     const ulint dirty_blocks= UT_LIST_GET_LEN(buf_pool.flush_list);
+2959:     /* We perform dirty reads of the LRU+free list lengths here.
+2960:     Division by zero is not possible, because buf_pool.flush_list is

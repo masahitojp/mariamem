@@ -1,0 +1,43 @@
+{
+  "touched_public_boundary": "PASS",
+  "new_files_checked": 23,
+  "source_patch_application": "PASS zero-fuzz full pre/post hashes match actual both-route prepared inventories",
+  "recipe_application": "PASS zero-fuzz both full actual bootstrap recipe hashes",
+  "proposed_Python": "PASS AST only after zero-fuzz patch application",
+  "optional_CPP": "zero-fuzz proposal application and conditional/statement diff inspection only; no compile",
+  "request_lookup": "exhaustive name lookup in archive InnoDB .cc/.h/.inl",
+  "unchanged_runtime_tests_run": 0,
+  "guest_host_translation_SQL_CI_benchmark_executions": 0,
+  "protected_files": "byte-equal to e6ce0837; hashes saved",
+  "historical_reports": "unmodified",
+  "repo_identities": {
+    "32c799031f619164d3730b61a0bc9d7ae48dcd9b": {
+      "object_sha": "32c799031f619164d3730b61a0bc9d7ae48dcd9b",
+      "object_type": "commit",
+      "source_commit": "32c799031f619164d3730b61a0bc9d7ae48dcd9b"
+    },
+    "4b3954a0faf42986459bc1ee68727be16d67bcbb": {
+      "object_sha": "4b3954a0faf42986459bc1ee68727be16d67bcbb",
+      "object_type": "commit",
+      "source_commit": "4b3954a0faf42986459bc1ee68727be16d67bcbb"
+    },
+    "e6ce0837e757cbf9075bb5534834df71e34ec182": {
+      "object_sha": "e6ce0837e757cbf9075bb5534834df71e34ec182",
+      "object_type": "commit",
+      "source_commit": "e6ce0837e757cbf9075bb5534834df71e34ec182"
+    }
+  },
+  "issue_context": {
+    "65": {
+      "body_sha256": "c2430715d5c9b6ef9703040f8f4c014f29c43fdb6f5dbd52aeccb9991e65c3b0",
+      "source": "current GitHub issue read before source analysis"
+    },
+    "138": {
+      "body_sha256": "da84864c09a64ef7bfbcdd048b7619f9b302a190771c2af5e30bb97c09ec8f60",
+      "source": "current GitHub issue read before source analysis"
+    }
+  },
+  "optional_observer_labels": "sync/ordinary call-site names; ordinary is not an idle-state claim",
+  "proposal_diff_format": "zero-context hunks to avoid whitespace-only context lines in public text; exact full preimage/postimage SHA pins plus zero-fuzz reapplication verified",
+  "excerpt_format": "line-number prefixes with display-only trailing whitespace stripped; original full-file digests unchanged"
+}

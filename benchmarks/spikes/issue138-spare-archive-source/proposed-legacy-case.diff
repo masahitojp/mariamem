@@ -1,0 +1,17 @@
+--- a/benchmarks/spikes/issue137-helper-continuation/legacy_spare_archive.py
++++ b/benchmarks/spikes/issue137-helper-continuation/legacy_spare_archive.py
+@@ -36 +36 @@
+-    q.execute('SELECT @@GLOBAL.innodb_max_dirty_pages_pct,@@GLOBAL.innodb_max_dirty_pages_pct_lwm,@@GLOBAL.innodb_flush_sync');settings=q.fetchone()
++    q.execute('SELECT @@GLOBAL.innodb_max_dirty_pages_pct,@@GLOBAL.innodb_max_dirty_pages_pct_lwm,@@GLOBAL.innodb_flush_sync,@@GLOBAL.innodb_lru_scan_depth');settings=q.fetchone()
+@@ -38 +38,7 @@
+-    q.execute('SET GLOBAL innodb_max_dirty_pages_pct_lwm=0');q.execute('SET GLOBAL innodb_max_dirty_pages_pct=0');q.execute('SET GLOBAL innodb_flush_sync=ON')
++    q.execute('SET GLOBAL innodb_lru_scan_depth=100')
++    q.execute('SET GLOBAL innodb_max_dirty_pages_pct_lwm=0');q.execute('SET GLOBAL innodb_max_dirty_pages_pct=0');q.execute('SET GLOBAL innodb_flush_sync=OFF')
++    q.execute('SELECT @@GLOBAL.innodb_log_archive,@@GLOBAL.innodb_log_file_size,@@GLOBAL.innodb_flush_sync,@@GLOBAL.innodb_lru_scan_depth,@@GLOBAL.innodb_max_dirty_pages_pct,@@GLOBAL.innodb_max_dirty_pages_pct_lwm')
++    assert tuple(map(int,q.fetchone()))==(1,4194304,0,100,0,0)
++    q.execute('SELECT @@GLOBAL.innodb_buffer_pool_size,@@GLOBAL.innodb_page_size,@@GLOBAL.innodb_adaptive_flushing,@@GLOBAL.innodb_io_capacity')
++    print(json.dumps({'event':'SPARE_INITIAL_CONFIG','values':q.fetchone(),'logs':root.logs}),flush=True)
++    assert MARKER not in root.logs
+@@ -51 +57 @@
+-    q.execute('SET GLOBAL innodb_max_dirty_pages_pct=%s',(settings[0],));q.execute('SET GLOBAL innodb_max_dirty_pages_pct_lwm=%s',(settings[1],));q.execute('SET GLOBAL innodb_flush_sync=%s',(settings[2],))
++    q.execute('SET GLOBAL innodb_max_dirty_pages_pct=%s',(settings[0],));q.execute('SET GLOBAL innodb_max_dirty_pages_pct_lwm=%s',(settings[1],));q.execute('SET GLOBAL innodb_flush_sync=%s',(settings[2],));q.execute('SET GLOBAL innodb_lru_scan_depth=%s',(settings[3],))

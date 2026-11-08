@@ -1,0 +1,13 @@
+{
+  "latest_source_guard_sample": {
+    "owned_bytes": 50864128,
+    "free_bytes": 18800640000,
+    "peak_owned_bytes": 50864128,
+    "minimum_free_bytes": 18800640000
+  },
+  "scratch_budget_gib": 2,
+  "floor_gib": 6,
+  "no_heavy_execution": true,
+  "source_acquisition_tooling_error": "Initial local script treated lock inputs list as mapping; TypeError before download, corrected to named entry selection",
+  "global_defaults_changed": false
+}

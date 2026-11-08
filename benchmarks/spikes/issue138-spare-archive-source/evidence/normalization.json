@@ -1,0 +1,7 @@
+{
+  "initial.json": {
+    "raw_sha256": "5610193f24ff340ea73b7bc716be1c3ca0e543179234970abfc048f2cb14ae8f",
+    "normalized_sha256": "30f5eab25339c839f7d4186707e2647fdc6ceb1f0481a132b63aae20dd2419a5",
+    "operation": "literal assigned workspace prefix only"
+  }
+}

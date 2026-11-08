@@ -1,0 +1,54 @@
+{
+  "base_commit": "e6ce0837e757cbf9075bb5534834df71e34ec182",
+  "initial_dirty_ignored": [],
+  "free_bytes": 20316160000,
+  "min_free_gib": 6,
+  "budget_gib": 2,
+  "known_source_hashes": {
+    "source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+    "files": {
+      "storage/innobase/handler/ha_innodb.cc": {
+        "bytes": 650192,
+        "sha256": "def0d30a0c39d416030d2cf74fe5bd595d75106f5d72ca2f3017cd16db83ef4f"
+      },
+      "storage/innobase/include/log0crypt.h": {
+        "bytes": 4452,
+        "sha256": "b9d7ba01b40fa46cd7c21aebc7206172902e1e6fa4b639eef8fa0e4eb01ff8d6"
+      },
+      "storage/innobase/include/log0log.h": {
+        "bytes": 28835,
+        "sha256": "a6aca13c8455456678dd28eee363eb1d1f059025c8aac00c1f4d502f50b45d49"
+      },
+      "storage/innobase/buf/buf0flu.cc": {
+        "bytes": 102904,
+        "sha256": "5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818"
+      },
+      "storage/innobase/log/log0sync.h": {
+        "bytes": 2902,
+        "sha256": "d585e41c58360e812481d2b8944ddea285040037dd19733efdca8253505aafa3"
+      },
+      "storage/innobase/log/log0log.cc": {
+        "bytes": 66105,
+        "sha256": "6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c"
+      }
+    },
+    "primary_origin": "https://raw.githubusercontent.com/MariaDB/server/"
+  },
+  "initial_cleanup": {
+    "before_bytes": 4096,
+    "after_bytes": 4096,
+    "applied": false,
+    "decisions": [
+      {
+        "path": "<OWNER>/build/experiment-work/issue138-source",
+        "classification": "KEEP",
+        "code": "active_task",
+        "reason": "recorded prepared/running experiment: issue138-source",
+        "automatic": false,
+        "bytes": 4096
+      }
+    ],
+    "retained_large_paths": [],
+    "cleanup_debt": []
+  }
+}

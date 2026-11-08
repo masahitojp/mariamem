@@ -1,0 +1,40 @@
+{
+  "source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+  "tag_object_sha": "308a50778fb4916ddde0d2923feea3d11dcc92c8",
+  "archive": {
+    "name": "mariadb",
+    "file": "mariadb-13.0.2-source.tar.gz",
+    "url": "https://codeload.github.com/MariaDB/server/tar.gz/620a4b5624222048fece7fe1789978ae0675cae2",
+    "revision": "620a4b5624222048fece7fe1789978ae0675cae2",
+    "sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+    "version": "13.0.2"
+  },
+  "archive_bytes": 49119382,
+  "verified_files": {
+    "storage/innobase/handler/ha_innodb.cc": {
+      "bytes": 650192,
+      "sha256": "def0d30a0c39d416030d2cf74fe5bd595d75106f5d72ca2f3017cd16db83ef4f"
+    },
+    "storage/innobase/include/log0crypt.h": {
+      "bytes": 4452,
+      "sha256": "b9d7ba01b40fa46cd7c21aebc7206172902e1e6fa4b639eef8fa0e4eb01ff8d6"
+    },
+    "storage/innobase/include/log0log.h": {
+      "bytes": 28835,
+      "sha256": "a6aca13c8455456678dd28eee363eb1d1f059025c8aac00c1f4d502f50b45d49"
+    },
+    "storage/innobase/buf/buf0flu.cc": {
+      "bytes": 102904,
+      "sha256": "5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818"
+    },
+    "storage/innobase/log/log0sync.h": {
+      "bytes": 2902,
+      "sha256": "d585e41c58360e812481d2b8944ddea285040037dd19733efdca8253505aafa3"
+    },
+    "storage/innobase/log/log0log.cc": {
+      "bytes": 66105,
+      "sha256": "6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c"
+    }
+  },
+  "method": "Exact official commit archive independently matched to locked SHA256 and prior known whole-file digests; no SDK/source build"
+}

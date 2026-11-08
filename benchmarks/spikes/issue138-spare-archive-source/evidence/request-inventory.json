@@ -1,0 +1,45 @@
+{
+  "name": "create_spare_archive",
+  "all_innodb_occurrences": {
+    "storage/innobase/buf/buf0flu.cc": [
+      {
+        "line": 2519,
+        "text": "  lsn_t create_spare_archive{0};"
+      },
+      {
+        "line": 2526,
+        "text": "    create_spare_archive= log_checkpoint_low(checkpoint_lsn, newest_lsn);"
+      },
+      {
+        "line": 2550,
+        "text": "  return create_spare_archive;"
+      },
+      {
+        "line": 2803,
+        "text": "  lsn_t create_spare_archive{0};"
+      },
+      {
+        "line": 2821,
+        "text": "      buf_flush_archive_create(create_spare_archive);"
+      },
+      {
+        "line": 2822,
+        "text": "      create_spare_archive= buf_flush_sync_for_checkpoint(lsn_limit);"
+      },
+      {
+        "line": 2839,
+        "text": "        if (UNIV_UNLIKELY(create_spare_archive != 0))"
+      },
+      {
+        "line": 2873,
+        "text": "        create_spare_archive= buf_flush_archive_create(create_spare_archive);"
+      },
+      {
+        "line": 2887,
+        "text": "          create_spare_archive= log_checkpoint();"
+      }
+    ]
+  },
+  "classification": "page-cleaner local scalar and sync-helper local return scalar; no other innodb declaration/atomic increment/setter found",
+  "source_archive_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e"
+}

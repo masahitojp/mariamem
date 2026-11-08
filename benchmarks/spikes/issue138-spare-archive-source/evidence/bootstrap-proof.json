@@ -1,0 +1,20 @@
+{
+  "recipe_file": "wasm/lite4mariadb.c",
+  "shared_postimage_sha256": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9",
+  "actual_full_prepared_sha256": {
+    "legacy": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9",
+    "native": "b25cb802cdc352f451caead95061a21dd71680c4a805c07377834d9da0a059f9"
+  },
+  "legacy_matches_actual_entire_file": true,
+  "bootstrap_arguments_unchanged_by_shared_patch": true,
+  "native_bootstrap_only_patch": "guest/experimental.patch preserves l4m_open argv; changes include/entry export logic elsewhere",
+  "fixed_arguments": [
+    "--innodb-buffer-pool-size=16M",
+    "--loose-innodb-buffer-pool-size-max=16M",
+    "--innodb-log-buffer-size=2M"
+  ],
+  "lru_scan_depth_default": 1536,
+  "lru_scan_depth_sql_minimum": 100,
+  "native_matches_actual_entire_file": true,
+  "native_full_postimage_sha256": "b25cb802cdc352f451caead95061a21dd71680c4a805c07377834d9da0a059f9"
+}

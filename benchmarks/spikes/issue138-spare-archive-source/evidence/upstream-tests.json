@@ -1,0 +1,6 @@
+{
+  "mysql-test/suite/innodb/t/log_archive.test": {
+    "sha256": "941221d54f922ecbb9faa8e18584a8dc92936cd05c7601912511429a251c20d2",
+    "bytes": 9498
+  }
+}

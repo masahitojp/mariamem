@@ -1,0 +1,17 @@
+{
+  "proposed_legacy_case": {
+    "preimage_sha256": "5100c0aa4e5e2b1fadf012d24f5e7ae0a211c5ca0a83f34600e9cfca7e3e094a",
+    "proposed_postimage_sha256": "b7bc75bd871a930f08c3c779a080911ebfe2532577d19f3964d126a1d558fe81",
+    "applied": false,
+    "executed": false,
+    "syntax": "AST parse only; no import/execution"
+  },
+  "optional_cpp_observer": {
+    "preimage_sha256": "c149bbf197f772aad5b2cdf9790f7e51fd3975ea08860a4cd398972331b44fcc",
+    "proposed_postimage_sha256": "8a69b02094fd47ab1a414db8f67130dda8d5296b2d1ca34f42586cd31c103838",
+    "applied": false,
+    "compiled": false,
+    "observation_only_intent": "same assignments and predicates; braces preserve the original ordinary checkpoint conditional; first nonzero producer per route and first nonzero consumption; stderr timing may perturb scheduling",
+    "gate_snapshot": "point in time, duplicate original predicates; not an atomic causal oracle and may perturb scheduling"
+  }
+}

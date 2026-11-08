@@ -1,0 +1,61 @@
+Full prepared SHA256 c149bbf197f772aad5b2cdf9790f7e51fd3975ea08860a4cd398972331b44fcc
+2820:     furious_flush:
+2821:       buf_flush_archive_create(create_spare_archive);
+2822:       create_spare_archive= buf_flush_sync_for_checkpoint(lsn_limit);
+2823:       last_pages= 0;
+2824:       set_timespec(abstime, 1);
+2825:       continue;
+2826:     }
+2827:
+2828:     mysql_mutex_lock(&buf_pool.flush_list_mutex);
+2829:     if (!buf_pool.need_LRU_eviction())
+2830:     {
+2831:       if (UNIV_UNLIKELY(srv_shutdown_state >= SRV_SHUTDOWN_LAST_PHASE))
+2832:         break;
+2833:
+2834:       /* Recheck under flush_list_mutex before either wait. */
+2835:       if (buf_flush_sync_lsn.load() == 0)
+2836:       {
+2837:         if (buf_pool.page_cleaner_idle() &&
+2838:             (!UT_LIST_GET_LEN(buf_pool.flush_list) ||
+2839:              srv_max_dirty_pages_pct_lwm == 0.0))
+2840:         {
+2841:           buf_pool.LRU_warned_clear();
+2842:           if (UNIV_UNLIKELY(create_spare_archive != 0))
+2843:           {
+2844:             static bool reported= false;
+2845:             if (!reported) { reported= true; fprintf(stderr, "ISSUE138_BRANCH spare_archive\n"); }
+2846:             goto timed_wait;
+2847:           }
+2848:           /* We are idle; wait for buf_pool.page_cleaner_wakeup() */
+2849:           my_cond_wait(&buf_pool.do_flush_list,
+2850:                        &buf_pool.flush_list_mutex.m_mutex);
+2851:         }
+2852:         else
+2853:         timed_wait:
+2854:         {
+2855:           static bool reported= false;
+2856:           if (!reported) { reported= true; fprintf(stderr, "ISSUE138_BRANCH timed_wait\n"); }
+2857:           my_cond_timedwait(&buf_pool.do_flush_list,
+2858:                             &buf_pool.flush_list_mutex.m_mutex, &abstime);
+2859:         }
+2860:       }
+2861:     }
+2862:
+2863:     set_timespec(abstime, 1);
+2864:
+2865:     lsn_limit= buf_flush_sync_lsn;
+2866:     lsn_t oldest_lsn= buf_pool.get_oldest_modification(0);
+2867:
+2868:     if (!oldest_lsn)
+2869:     {
+2870:     fully_unemployed:
+2871:       if (srv_shutdown_state < SRV_SHUTDOWN_CLEANUP)
+2872:         buf_flush_sync_lsn= 0;
+2873:     set_idle:
+2874:       buf_pool.page_cleaner_set_idle(true);
+2875:     set_almost_idle:
+2876:       pthread_cond_broadcast(&buf_pool.done_flush_LRU);
+2877:       pthread_cond_broadcast(&buf_pool.done_flush_list);
+2878:       mysql_mutex_unlock(&buf_pool.flush_list_mutex);
+2879:       buf_dblwr.flush_buffered_writes();

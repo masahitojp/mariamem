@@ -1,0 +1,351 @@
+{
+  "patterns": [
+    "create_spare_archive",
+    "archive_new_write(",
+    "archive_create(",
+    "archived_mmap_switch_complete(",
+    "page_cleaner_wakeup(",
+    "mtr_flush_ahead(",
+    "log_checkpoint_low("
+  ],
+  "matches": {
+    "storage/innobase/buf/buf0buf.cc": [
+      {
+        "line": 1070,
+        "text": "  page_cleaner_wakeup(true);"
+      },
+      {
+        "line": 1902,
+        "text": "  page_cleaner_wakeup(true);"
+      },
+      {
+        "line": 2116,
+        "text": "    page_cleaner_wakeup(true);"
+      }
+    ],
+    "storage/innobase/buf/buf0flu.cc": [
+      {
+        "line": 161,
+        "text": "void buf_pool_t::page_cleaner_wakeup(bool for_LRU) noexcept"
+      },
+      {
+        "line": 1888,
+        "text": "        /* @see archived_mmap_switch_complete() */"
+      },
+      {
+        "line": 2212,
+        "text": "@return the lsn to invoke log_sys.archive_create(lsn, false) on"
+      },
+      {
+        "line": 2213,
+        "text": "@retval 0 if log_sys.archive_create() should not be called */"
+      },
+      {
+        "line": 2214,
+        "text": "static lsn_t log_checkpoint_low(lsn_t oldest_lsn, lsn_t end_lsn) noexcept"
+      },
+      {
+        "line": 2298,
+        "text": "@return the lsn to invoke log_sys.archive_create(lsn, false) on"
+      },
+      {
+        "line": 2299,
+        "text": "@retval 0 if log_sys.archive_create() should not be called */"
+      },
+      {
+        "line": 2324,
+        "text": "  return log_checkpoint_low(oldest_lsn, end_lsn);"
+      },
+      {
+        "line": 2455,
+        "text": "@return the lsn to invoke log_sys.archive_create(lsn, false) on"
+      },
+      {
+        "line": 2456,
+        "text": "@retval 0 if log_sys.archive_create() should not be called */"
+      },
+      {
+        "line": 2519,
+        "text": "  lsn_t create_spare_archive{0};"
+      },
+      {
+        "line": 2526,
+        "text": "    create_spare_archive= log_checkpoint_low(checkpoint_lsn, newest_lsn);"
+      },
+      {
+        "line": 2550,
+        "text": "  return create_spare_archive;"
+      },
+      {
+        "line": 2765,
+        "text": "/** Invoke log_t::archive_create() when needed."
+      },
+      {
+        "line": 2766,
+        "text": "@param lsn  argument to log_t::archive_create(), or 0 if no call"
+      },
+      {
+        "line": 2768,
+        "text": "static lsn_t buf_flush_archive_create(lsn_t lsn) noexcept"
+      },
+      {
+        "line": 2775,
+        "text": "      log_sys.archive_create(lsn, false);"
+      },
+      {
+        "line": 2803,
+        "text": "  lsn_t create_spare_archive{0};"
+      },
+      {
+        "line": 2821,
+        "text": "      buf_flush_archive_create(create_spare_archive);"
+      },
+      {
+        "line": 2822,
+        "text": "      create_spare_archive= buf_flush_sync_for_checkpoint(lsn_limit);"
+      },
+      {
+        "line": 2839,
+        "text": "        if (UNIV_UNLIKELY(create_spare_archive != 0))"
+      },
+      {
+        "line": 2841,
+        "text": "        /* We are idle; wait for buf_pool.page_cleaner_wakeup() */"
+      },
+      {
+        "line": 2873,
+        "text": "        create_spare_archive= buf_flush_archive_create(create_spare_archive);"
+      },
+      {
+        "line": 2887,
+        "text": "          create_spare_archive= log_checkpoint();"
+      }
+    ],
+    "storage/innobase/buf/buf0lru.cc": [
+      {
+        "line": 340,
+        "text": "  * invoke buf_pool.page_cleaner_wakeup(true) and wait its completion"
+      },
+      {
+        "line": 377,
+        "text": "        buf_pool.page_cleaner_wakeup(true);"
+      },
+      {
+        "line": 432,
+        "text": "      buf_pool.page_cleaner_wakeup(true);"
+      }
+    ],
+    "storage/innobase/handler/ha_innodb.cc": [
+      {
+        "line": 17695,
+        "text": "\tbuf_pool.page_cleaner_wakeup();"
+      },
+      {
+        "line": 17731,
+        "text": "\tbuf_pool.page_cleaner_wakeup();"
+      },
+      {
+        "line": 18901,
+        "text": "          buf_pool.page_cleaner_wakeup(true);"
+      }
+    ],
+    "storage/innobase/include/buf0buf.h": [
+      {
+        "line": 1605,
+        "text": "  void page_cleaner_wakeup(bool for_LRU= false) noexcept;"
+      }
+    ],
+    "storage/innobase/include/buf0lru.h": [
+      {
+        "line": 82,
+        "text": "  * invoke buf_pool.page_cleaner_wakeup(true) and wait its completion"
+      }
+    ],
+    "storage/innobase/include/log0log.h": [
+      {
+        "line": 306,
+        "text": "  and archived_mmap_switch_complete(),"
+      },
+      {
+        "line": 535,
+        "text": "  /** @return whether archived_mmap_switch_complete() needs to be called */"
+      },
+      {
+        "line": 545,
+        "text": "  ATTRIBUTE_COLD void archive_create(lsn_t lsn, bool ex) noexcept;"
+      },
+      {
+        "line": 551,
+        "text": "  ATTRIBUTE_COLD void archive_new_write(const byte *buf, size_t length,"
+      },
+      {
+        "line": 614,
+        "text": "  ATTRIBUTE_COLD lsn_t archived_mmap_switch_complete() noexcept;"
+      },
+      {
+        "line": 734,
+        "text": "  @return the lsn to invoke archive_create(lsn, false) on"
+      },
+      {
+        "line": 735,
+        "text": "  @retval 0 if archive_create() should not be called */"
+      }
+    ],
+    "storage/innobase/include/log0recv.h": [
+      {
+        "line": 229,
+        "text": "  buf_flush_page_cleaner() will not invoke log_checkpoint_low(),"
+      }
+    ],
+    "storage/innobase/include/mtr0mtr.h": [
+      {
+        "line": 60,
+        "text": "void mtr_flush_ahead(lsn_t flush_lsn) noexcept;"
+      }
+    ],
+    "storage/innobase/log/log0log.cc": [
+      {
+        "line": 873,
+        "text": "        /* Wait for a call to archived_mmap_switch_complete() */"
+      },
+      {
+        "line": 981,
+        "text": "    mtr_flush_ahead(wait_lsn);"
+      },
+      {
+        "line": 1008,
+        "text": "      archive_new_write() or archived_mmap_switch_prepare() and before"
+      },
+      {
+        "line": 1224,
+        "text": "ATTRIBUTE_COLD void log_t::archive_new_write(const byte *buf, size_t length,"
+      },
+      {
+        "line": 1277,
+        "text": "  archive_create(first_lsn + capacity(), true);"
+      },
+      {
+        "line": 1282,
+        "text": "ATTRIBUTE_COLD void log_t::archive_create(lsn_t lsn, bool ex) noexcept"
+      },
+      {
+        "line": 1550,
+        "text": "      /* archive_create(..., false) had recently succeeded in another thread */"
+      },
+      {
+        "line": 1554,
+        "text": "      archived_mmap_switch_complete() were invoked by another thread,"
+      },
+      {
+        "line": 1558,
+        "text": "      archive_create(first_lsn + capacity(), true);"
+      },
+      {
+        "line": 1768,
+        "text": "      archive_new_write(write_buf, length, offset);"
+      },
+      {
+        "line": 1882,
+        "text": "    /* Ensure that a call to log_t::archive_new_write() will be"
+      }
+    ],
+    "storage/innobase/log/log0recv.cc": [
+      {
+        "line": 4215,
+        "text": "\t\tbuf_pool.page_cleaner_wakeup();"
+      }
+    ],
+    "storage/innobase/mtr/mtr0mtr.cc": [
+      {
+        "line": 276,
+        "text": "    checkpoint. log_checkpoint_low() acquires exclusive log_sys.latch before"
+      },
+      {
+        "line": 353,
+        "text": "ATTRIBUTE_COLD lsn_t log_t::archived_mmap_switch_complete() noexcept"
+      },
+      {
+        "line": 380,
+        "text": "    const lsn_t lsn{log_sys.archived_mmap_switch_complete()};"
+      },
+      {
+        "line": 412,
+        "text": "void mtr_flush_ahead(lsn_t flush_lsn) noexcept"
+      },
+      {
+        "line": 456,
+        "text": "    buf_pool.page_cleaner_wakeup();"
+      },
+      {
+        "line": 529,
+        "text": "    mtr_flush_ahead(lsns.second);"
+      },
+      {
+        "line": 601,
+        "text": "  /* Concurrent log_checkpoint_low() must be impossible. */"
+      },
+      {
+        "line": 708,
+        "text": "  buf_pool.page_cleaner_wakeup();"
+      },
+      {
+        "line": 1120,
+        "text": "  The aim of the more aggressive target is that mtr_flush_ahead() will"
+      },
+      {
+        "line": 1370,
+        "text": "      log_t::archived_mmap_switch_complete(), and our entire log must"
+      }
+    ]
+  },
+  "full_files": {
+    "storage/innobase/buf/buf0buf.cc": {
+      "sha256": "106c0dcde167b735a2c7a401a1c45b10fe3d5f80a8ce392cb714b81d87e39482",
+      "bytes": 127031
+    },
+    "storage/innobase/buf/buf0flu.cc": {
+      "sha256": "5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818",
+      "bytes": 102904
+    },
+    "storage/innobase/buf/buf0lru.cc": {
+      "sha256": "f31a3bf64f37b89618885f008812b2247fb70384b1052740fdcbfc17757de5fc",
+      "bytes": 42659
+    },
+    "storage/innobase/handler/ha_innodb.cc": {
+      "sha256": "def0d30a0c39d416030d2cf74fe5bd595d75106f5d72ca2f3017cd16db83ef4f",
+      "bytes": 650192
+    },
+    "storage/innobase/include/buf0buf.h": {
+      "sha256": "01532d5d3495f1cb73a9c269b61e49e2671c5c43de37b9a10344b71192df8727",
+      "bytes": 69385
+    },
+    "storage/innobase/include/buf0lru.h": {
+      "sha256": "a9f5342492f50a2616a275c3890464ad8b33403faa21705fc5af96e1ec09f45d",
+      "bytes": 8234
+    },
+    "storage/innobase/include/log0log.h": {
+      "sha256": "a6aca13c8455456678dd28eee363eb1d1f059025c8aac00c1f4d502f50b45d49",
+      "bytes": 28835
+    },
+    "storage/innobase/include/log0recv.h": {
+      "sha256": "9bdd19b0838d4497c20e45ecf99420709f8e3eb650c778bbff452e15ce937630",
+      "bytes": 22326
+    },
+    "storage/innobase/include/mtr0mtr.h": {
+      "sha256": "aef3690a2bb4fbf5532090b3137785e97c844706c1bfa15d8978dcf6e18515d7",
+      "bytes": 30896
+    },
+    "storage/innobase/log/log0log.cc": {
+      "sha256": "6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c",
+      "bytes": 66105
+    },
+    "storage/innobase/log/log0recv.cc": {
+      "sha256": "f016843a8ded7d135842122ec86502119a1bcfb37de7d7a26ab6076afed722c3",
+      "bytes": 193906
+    },
+    "storage/innobase/mtr/mtr0mtr.cc": {
+      "sha256": "fbdfa77b02d17202ae7f0cf180dc89867035a6d7f56aa4e9441b31907e4ac292",
+      "bytes": 53515
+    }
+  }
+}
