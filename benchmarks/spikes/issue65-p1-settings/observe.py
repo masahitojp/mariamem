@@ -105,10 +105,38 @@ def control_detected(result, duration):
             and all(r['timeout_ns'] == duration for r in starts))
 
 
+def receipt_chain(receipt, host_commit, guest_sha, product_inventory, *, base=None, base_sha=None):
+    """Validate a derived inventory without relabelling its original producer."""
+    if (receipt['host_source_commit'] != host_commit or receipt['guest_sha256'] != guest_sha
+            or receipt['source_inventory'] != product_inventory):
+        raise ValueError('public artifact identity/inventory differs')
+    if receipt.get('contract') == 'issue65-public-unqualified':
+        if base is not None:
+            raise ValueError('base receipt is only valid for a lifetime overlay')
+        return dict(contract=receipt['contract'])
+    if receipt.get('contract') != 'issue130-public-lifetime-UNEXECUTED' or base is None:
+        raise ValueError('lifetime overlay requires its original C2 receipt')
+    if (base.get('contract') != 'issue65-public-unqualified'
+            or receipt.get('runtime_executed') is not False
+            or receipt.get('input_receipt_sha256') != base_sha
+            or receipt.get('input_source_inventory') != base.get('source_inventory')):
+        raise ValueError('lifetime receipt chain differs')
+    for field in ('host_source_commit', 'guest_sha256', 'guest_origin_source_commit',
+                  'runtime_installer_source_commit'):
+        if receipt.get(field) != base.get(field):
+            raise ValueError('lifetime overlay changed original producer identity: ' + field)
+    if not re.fullmatch('[0-9a-f]{40}', receipt.get('observer_source_commit', '')):
+        raise ValueError('lifetime observer commit missing')
+    return dict(contract=receipt['contract'], base_source_receipt_sha256=base_sha,
+                lifetime_observer_source_commit=receipt['observer_source_commit'])
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--mode', choices=('unit', 'runtime'), required=True)
     parser.add_argument('--workspace', type=Path, help='existing C2 public staging workspace')
+    parser.add_argument('--source-receipt', type=Path, help='explicit C2 or derived lifetime source receipt; original stays unchanged')
+    parser.add_argument('--base-source-receipt', type=Path, help='original C2 receipt required for a lifetime-derived inventory')
     parser.add_argument('--expected-host-source-commit')
     parser.add_argument('--expected-guest-sha256')
     parser.add_argument('--evidence', type=Path, required=True, help='fresh owned output directory')
@@ -147,14 +175,20 @@ def main():
         observer = source_identity(ROOT)  # fail before build on uncommitted fixtures
         w = args.workspace.resolve()
         product = w / 'temp/public/product'
-        receipt_path = w / 'evidence/public-source.json'
+        receipt_path = (args.source_receipt or w / 'evidence/public-source.json').resolve()
         receipt = json.loads(receipt_path.read_text())
-        if (receipt['host_source_commit'] != args.expected_host_source_commit
-                or receipt['guest_sha256'] != args.expected_guest_sha256
-                or receipt['source_inventory'] != inventory(product)):
-            raise ValueError('public artifact identity/inventory differs')
+        base_path = args.base_source_receipt.resolve() if args.base_source_receipt else None
+        base = json.loads(base_path.read_text()) if base_path else None
+        if base_path == receipt_path:
+            raise ValueError('derived and original source receipts must be separate')
+        chain = receipt_chain(receipt, args.expected_host_source_commit, args.expected_guest_sha256,
+                              inventory(product), base=base,
+                              base_sha=digest(base_path) if base_path else None)
+        if 'lifetime_observer_source_commit' in chain:
+            require_commit(ROOT, chain['lifetime_observer_source_commit'])
         if 'StartNative(' not in (product / 'internal/host/factory.go').read_text() or 'panic("legacy wire route tripwire")' not in (product / 'internal/mysqlwire/wire.go').read_text():
             raise ValueError('expected native factory and legacy tripwire')
+        selected_receipt_sha = digest(receipt_path)
         env['CGO_ENABLED'] = '0'
         env['GOCACHE'] = str(w / 'temp/gocache')
         env['GOMODCACHE'] = str(w / 'temp/gomodcache')
@@ -187,13 +221,16 @@ def main():
                 if not control_detected(result, duration):
                     raise RuntimeError('5000ms control not detected by exact guest assertion:\n' + result.stdout)
                 controls.append(dict(duration_ns=duration, detected=True, exit=result.returncode))
-        if inventory(product) != receipt['source_inventory'] or source_identity(ROOT) != observer:
+        if (inventory(product) != receipt['source_inventory'] or source_identity(ROOT) != observer
+                or digest(receipt_path) != selected_receipt_sha
+                or base_path and digest(base_path) != chain['base_source_receipt_sha256']):
             raise ValueError('observation changed source')
         report = dict(result='PASS bounded Go public exact inheritance',
                       observer_source_commit=identity.source_commit,
                       host_source_commit=receipt['host_source_commit'], guest_sha256=receipt['guest_sha256'],
                       platform=sys.platform, fixtures_sha256=fixtures,
-                      source_receipt_sha256=digest(receipt_path), observations=rows, controls=controls,
+                      source_receipt_sha256=digest(receipt_path), source_receipt_chain=chain,
+                      observations=rows, controls=controls,
                       positive_binary_sha256=positive_sha, control_binary_sha256=negative_sha,
                       control_source_sha256=mutation_sha,
                       not_verified=['installed Python shared/control exact settings', 'original full C3 lifecycle/fault oracles',

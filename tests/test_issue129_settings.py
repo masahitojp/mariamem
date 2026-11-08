@@ -99,5 +99,68 @@ class SettingsObserverTests(unittest.TestCase):
                 observer.fixed5000(source)
 
 
+class IntegratedReceiptTests(unittest.TestCase):
+    def receipts(self):
+        base = dict(contract='issue65-public-unqualified', host_source_commit='a' * 40,
+                    guest_sha256='b' * 64, guest_origin_source_commit='c' * 40,
+                    runtime_installer_source_commit='c' * 40, source_inventory={'old': 'oldhash'})
+        derived = dict(base, contract='issue130-public-lifetime-UNEXECUTED',
+                       source_inventory={'old': 'newhash', 'fixture': 'fixturehash'},
+                       input_source_inventory=base['source_inventory'],
+                       input_receipt_sha256='d' * 64, observer_source_commit='e' * 40,
+                       runtime_executed=False)
+        return base, derived
+
+    def test_derived_receipt_preserves_original_producer_and_observer(self):
+        base, derived = self.receipts()
+        original = copy.deepcopy((base, derived))
+        chain = observer.receipt_chain(derived, base['host_source_commit'], base['guest_sha256'],
+                                       derived['source_inventory'], base=base, base_sha='d' * 64)
+        self.assertEqual(chain['lifetime_observer_source_commit'], 'e' * 40)
+        self.assertEqual(chain['base_source_receipt_sha256'], 'd' * 64)
+        self.assertEqual((base, derived), original)
+        observer.receipt_chain(base, base['host_source_commit'], base['guest_sha256'], base['source_inventory'])
+
+    def test_spoofed_or_missing_receipt_chain_rejected(self):
+        base, derived = self.receipts()
+        for field, value in [('host_source_commit', 'f' * 40), ('guest_sha256', 'f' * 64),
+                             ('guest_origin_source_commit', 'f' * 40),
+                             ('runtime_installer_source_commit', 'f' * 40),
+                             ('input_source_inventory', {}), ('input_receipt_sha256', 'f' * 64),
+                             ('runtime_executed', True), ('observer_source_commit', 'missing'),
+                             ('contract', 'issue65-public-unqualified')]:
+            bad = dict(derived, **{field: value})
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                observer.receipt_chain(bad, base['host_source_commit'], base['guest_sha256'],
+                                       derived['source_inventory'], base=base, base_sha='d' * 64)
+        with self.assertRaises(ValueError):
+            observer.receipt_chain(derived, base['host_source_commit'], base['guest_sha256'],
+                                   derived['source_inventory'])
+        with self.assertRaises(ValueError):
+            observer.receipt_chain(derived, base['host_source_commit'], base['guest_sha256'],
+                                   {}, base=base, base_sha='d' * 64)
+
+    def test_settings_overlay_and_control_keep_lifetime_source(self):
+        path = ROOT / 'benchmarks/spikes/issue130-public-lifetime/overlay.py'
+        spec = importlib.util.spec_from_file_location('integrated_lifetime', path)
+        lifetime = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(lifetime)
+        names = ('internal/nativewire/backend.go', 'internal/nativewire/relay.go',
+                 'internal/nativewire/capture.go', 'internal/host/factory.go')
+        source = {name: (ROOT / name).read_bytes() for name in names}
+        combined = lifetime.overlay(source)  # in memory only; no product staged
+        self.assertFalse(set(observer.FIXTURES) & set(combined))
+        self.assertFalse(set(observer.UNITS) & set(combined))
+        backend = combined['internal/nativewire/backend.go'].decode()
+        mutated = observer.fixed5000(backend)
+        self.assertIn('ConfigureIssue130', mutated)
+        self.assertIn('ForceIdleState', mutated)
+        self.assertEqual(mutated.replace(
+            'limit: func() uint64 { if len(cfg.Restore) != 0 { return uint64(5000*time.Millisecond) }; return limit }(),',
+            'limit: limit,', 1), backend)
+        for name in names:
+            self.assertEqual(source[name], (ROOT / name).read_bytes())
+
+
 if __name__ == '__main__':
     unittest.main()

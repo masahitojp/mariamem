@@ -1,0 +1,56 @@
+{
+  "result": "PASS source-only integration preparation",
+  "parents": [
+    "846e181185d2ed0d311ab6a9850109a245f1e2fc",
+    "3c47dfbcd3b44691e99cbcf2fe3b1b1d042b049c",
+    "c24cbb6ec2063088cf2edd08eb9358ecb0579f19"
+  ],
+  "merged_source_parent": "7313047a781912018e63e98b30e042e6984995e0",
+  "original_assertions_preserved": true,
+  "fixture_and_strict_preimage_hashes": {
+    "benchmarks/spikes/issue65-p1-settings/inspect.go.txt": "9f88b81f4138c79f5cc0b85286413e0b2b63783dad2e261d1cd33c7c713246a8",
+    "benchmarks/spikes/issue65-p1-settings/inspect_test.go.txt": "83580c96d28f09dee461b3221abfa4f5601ba080d2eb0c9a8d1b1f723d637de5",
+    "benchmarks/spikes/issue65-p1-settings/live_observer.go.txt": "6106528edc0784cc7ed21226c986c59db909d5a41695479731022a961e28529b",
+    "benchmarks/spikes/issue65-p1-settings/live_observer_test.go.txt": "187a05cbb5f857666a4d911bc62d049c208e05e1ca07f6cedb7b3d1a5d49d4fd",
+    "benchmarks/spikes/issue65-p1-settings/public_settings_test.go.txt": "773bb32cec399f365d40e9a0fd32e6903dd146dea0c9342e8c923f1658a0216e",
+    "benchmarks/spikes/issue130-public-lifetime/control_test.go.txt": "edbdbccad51973a698a4dbee06d40097a13504ae3fe6ca8d46f70c4a7e1ef812",
+    "benchmarks/spikes/issue130-public-lifetime/factory.go.txt": "c76b80dc22650caf0d044471e4ab1af55ca21a0217a6aea626d91e6624ec1e5f",
+    "benchmarks/spikes/issue130-public-lifetime/hook_unit_test.go.txt": "98f1336ecc08e99c27f546cddcc4c257c5eca679f20b0315524ad9b8bcb358ba",
+    "benchmarks/spikes/issue130-public-lifetime/hooks.go.txt": "9dff929f1e0c946184db31c921e0b16bef4b4d1a6597c0637d3d77f856c2719a",
+    "benchmarks/spikes/issue130-public-lifetime/public_test.go.txt": "4da19d35316016f393ec96569ae8552314f4210ae1343b35f800a7375f58604e",
+    "internal/control/native_owner_test.go": "1fcc422059d73c99ad1c5ef3e0ad4019b070c0cc6fcf0f7cd1e14d4bfdf73542",
+    "benchmarks/spikes/issue130-public-lifetime/overlay.py": "fa1b173301163a0cb3e0d0e342497bc887ad7d7eef033648ddf805d441609b93"
+  },
+  "original_c2_receipt_sha256": "ed1c39e00095eeecb261f804c1fac91654d21ea16a9d0601cfbb13c95000f075",
+  "original_producer_source_commit": "3602b186f309eb3af349df494470d28b8bb800c2",
+  "guest_sha256": "d4f30818c3410db186db5ef1c9abc5f14af0cdc52bb2b76bbca369e02eb1b481",
+  "python_tests": {
+    "combined_settings_lifetime": 13,
+    "normalization_preservation": 5
+  },
+  "full_public_source_guard": "PASS",
+  "runtime_acceptance": "UNEXECUTED",
+  "guest_builds": 0,
+  "runtime_builds": 0,
+  "staging_runs": 0,
+  "compile_only_runs": 0,
+  "ci_submissions": 0,
+  "benchmarks": 0,
+  "parent_identities": [
+    {
+      "object_sha": "846e181185d2ed0d311ab6a9850109a245f1e2fc",
+      "object_type": "commit",
+      "source_commit": "846e181185d2ed0d311ab6a9850109a245f1e2fc"
+    },
+    {
+      "object_sha": "3c47dfbcd3b44691e99cbcf2fe3b1b1d042b049c",
+      "object_type": "commit",
+      "source_commit": "3c47dfbcd3b44691e99cbcf2fe3b1b1d042b049c"
+    },
+    {
+      "object_sha": "c24cbb6ec2063088cf2edd08eb9358ecb0579f19",
+      "object_type": "commit",
+      "source_commit": "c24cbb6ec2063088cf2edd08eb9358ecb0579f19"
+    }
+  ]
+}
