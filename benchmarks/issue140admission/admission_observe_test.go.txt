@@ -1,0 +1,106 @@
+package base
+
+import "testing"
+
+func admissionSetup(db string) (*Module, func(), *ReadIORequest) {
+	m, off := readTestModule(db)
+	dispatchCB(m, 256, 512)
+	AtomicStore32At(m, 304, 12531)
+	AtomicStore32At(m, 308, 256)
+	AtomicStore32At(m, 312, 1536)
+	ObserveIOSubmit(m, 256)()
+	return m, off, ioFind(m, 256)
+}
+func admissionQueue(m *Module, pool int32, head, tail uint32) {
+	AtomicStore32At(m, uint64(pool)+136, 4)
+	AtomicStore32At(m, uint64(pool)+140, 2048)
+	AtomicStore32At(m, uint64(pool)+152, int32(tail))
+	AtomicStore32At(m, uint64(pool)+156, int32(head))
+	AtomicStore32At(m, uint64(pool)+180, 3)
+	AtomicStore32At(m, uint64(pool)+344, 1)
+}
+func TestAdmissionObservationGlobalMembershipAndCounters(t *testing.T) {
+	m, off, q := admissionSetup("global")
+	defer off()
+	admissionQueue(m, 1024, 0, 1)
+	AtomicStore32At(m, 2048, 300)
+	ObserveGlobalGate(m, 1024)
+	p := &q.InitialAdmission
+	if p.BlockedCount != 1 || p.FirstBlocked.Active != 3 || p.FirstBlocked.Concurrency != 1 || p.FirstBlocked.Queue != 1 {
+		t.Fatal("missed exact queued request")
+	}
+	first := p.FirstBlocked.At
+	AtomicStore32At(m, 1392, 2)
+	ObserveGlobalGate(m, 1024)
+	if p.BlockedCount != 1 || p.LastAllowed == nil || p.LastAllowed.Long != 2 || p.FirstBlocked.At != first {
+		t.Fatal("bad excluded long counter")
+	}
+	ObserveGlobalDequeue(m, 1024, 300)
+	if p.Pool != 1024 || p.Dequeued < p.LastAllowed.At {
+		t.Fatal("dequeue binding")
+	}
+}
+func TestAdmissionObservationNotQueuedAndWrap(t *testing.T) {
+	m, off, q := admissionSetup("wrap")
+	defer off()
+	admissionQueue(m, 1024, 0, 1)
+	AtomicStore32At(m, 2048, 0)
+	ObserveGlobalGate(m, 1024)
+	if q.InitialAdmission.BlockedCount != 0 {
+		t.Fatal("pending mistaken for queue membership")
+	}
+	admissionQueue(m, 1024, 3, 1)
+	AtomicStore32At(m, 2060, 300)
+	ObserveGlobalGate(m, 1024)
+	if q.InitialAdmission.BlockedCount != 1 || q.InitialAdmission.FirstBlocked.Queue != 2 {
+		t.Fatal("wrapped queue not scanned")
+	}
+	AtomicStore32At(m, 304, 12539)
+	ObserveGlobalGate(m, 1024)
+	if q.CompletionAdmission.BlockedCount != 1 || q.InitialAdmission.BlockedCount != 1 {
+		t.Fatal("stages conflated")
+	}
+}
+func TestAdmissionObservationGroupQueueAndRun(t *testing.T) {
+	m, off, q := admissionSetup("group")
+	defer off()
+	AtomicStore32At(m, 1536, 4)
+	AtomicStore32At(m, 1552, 2)
+	AtomicStore32At(m, 1556, 1)
+	ObserveGroupEnter(m, 300)
+	ObserveGroupGate(m, 300, 1536, 1, 1)
+	ObserveGroupRun(m, 300)
+	p := &q.InitialAdmission
+	if !p.Queued || p.GroupQueue != 1 || p.Limit != 1 || p.Running != 1 || p.GroupEnter > p.GroupGate || p.GroupGate > p.GroupRun {
+		t.Fatal("group queue record")
+	}
+	AtomicStore32At(m, 304, 12539)
+	ObserveGroupEnter(m, 300)
+	ObserveGroupGate(m, 300, 1536, 0, 1)
+	ObserveGroupRun(m, 300)
+	if q.CompletionAdmission.Queued || q.CompletionAdmission.GroupRun == 0 {
+		t.Fatal("free completion group")
+	}
+}
+func TestAdmissionObservationWrongTaskAndScanBound(t *testing.T) {
+	m, off, q := admissionSetup("negative")
+	defer off()
+	ObserveGroupEnter(m, 304)
+	if q.InitialAdmission.GroupEnter != 0 {
+		t.Fatal("wrong task address")
+	}
+	admissionQueue(m, 1024, 0, 1)
+	AtomicStore32At(m, 2048, 300)
+	AtomicStore32At(m, 304, 999)
+	ObserveGlobalGate(m, 1024)
+	if q.InitialAdmission.BlockedCount != 0 {
+		t.Fatal("wrong callback")
+	}
+	AtomicStore32At(m, 1160, 2048)
+	AtomicStore32At(m, 1176, 1025)
+	ObserveGlobalGate(m, 1024)
+	r, _ := readRegistry.Load(m.Threads)
+	if !r.(*ReadObserver).Truncated {
+		t.Fatal("scan overflow silently ignored")
+	}
+}
