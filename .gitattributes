@@ -31,3 +31,5 @@ benchmarks/spikes/issue65-wasix-link/evidence/compile-flags/*.txt -whitespace
 # Preserve upstream patch/context bytes in the source-only update-cost evidence.
 benchmarks/spikes/issue128-update/adaptations/*.patch -whitespace
 benchmarks/spikes/issue128-update/evidence/upstream/*.diff -whitespace
+# Exact reviewed target-trial patch context; preserve upstream bytes.
+benchmarks/spikes/issue128-real/inputs/*.patch -whitespace

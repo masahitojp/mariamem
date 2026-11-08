@@ -1,0 +1,210 @@
+--- a/wasm/lite4mariadb.c
++++ b/wasm/lite4mariadb.c
+@@ -9,6 +9,11 @@
+ #include <string.h>
+ #include <sys/stat.h>
+ #include <errno.h>
++#ifdef L4M_RESIDENT
++#include "startup_timing.inc"
++#else
++#define startup_mark(name) ((void)0)
++#endif
+ 
+ #ifdef __EMSCRIPTEN__
+ #include <emscripten.h>
+@@ -343,13 +348,20 @@
+     (char *)"--table-open-cache=32",
+     (char *)"--thread-cache-size=0",
+     (char *)"--socket=/tmp/mysql.sock",
++#ifdef L4M_RESIDENT
++    (char *)"--caching-sha2-password-private-key-path=/mariamem-auth/private.pem",
++    (char *)"--caching-sha2-password-public-key-path=/mariamem-auth/public.pem",
++    (char *)"--caching-sha2-password-auto-generate-rsa-keys=OFF",
++#endif
+     NULL
+   };
+   int argc= (int)(sizeof(argv) / sizeof(argv[0]) - 1);
+ 
++  startup_mark("server_init_begin");
+   if (mysql_server_init(argc, argv, NULL))
+     return 1;
+ 
++  startup_mark("server_init_complete");
+   g_mysql= mysql_init(NULL);
+   if (!g_mysql)
+   {
+@@ -358,7 +370,11 @@
+   }
+ 
+   if (!mysql_real_connect(g_mysql, NULL, "root", "", NULL, 0, NULL,
++#ifdef L4M_RESIDENT
++                          0))
++#else
+                           CLIENT_MULTI_STATEMENTS))
++#endif
+   {
+     mysql_close(g_mysql);
+     g_mysql= NULL;
+@@ -371,6 +387,7 @@
+   (void)mysql_query(g_mysql, "CREATE DATABASE IF NOT EXISTS test");
+   (void)mysql_select_db(g_mysql, "test");
+   g_open= 1;
++  startup_mark("bootstrap_complete");
+   return 0;
+ }
+ 
+@@ -449,7 +466,7 @@
+   return dup_str("{\"ok\":false,\"error\":\"oom\"}");
+ }
+ 
+-#ifdef __wasi__
++#if defined(__wasi__) && !defined(L4M_RESIDENT)
+ /*
+   WASIX CLI entry point: opens the embedded server, runs each argument as
+   a statement and prints one JSON envelope per statement.
+@@ -533,3 +550,5 @@
+   free(b.p);
+   return dup_str("{\"ok\":false,\"error\":\"oom\"}");
+ }
++
++#include "wire_api.inc"
+--- a/wasm/CMakeLists.txt
++++ b/wasm/CMakeLists.txt
+@@ -6,7 +6,7 @@
+ 
+ IF(WASIX)
+   ADD_EXECUTABLE(lite4mariadb-wasix lite4mariadb.c)
+-  TARGET_COMPILE_DEFINITIONS(lite4mariadb-wasix PRIVATE EMBEDDED_LIBRARY)
++  TARGET_COMPILE_DEFINITIONS(lite4mariadb-wasix PRIVATE EMBEDDED_LIBRARY L4M_RESIDENT)
+   TARGET_INCLUDE_DIRECTORIES(lite4mariadb-wasix PRIVATE
+     ${CMAKE_SOURCE_DIR}/include
+     ${CMAKE_BINARY_DIR}/include
+@@ -29,6 +29,7 @@
+     "SHELL:-Wl,-z,stack-size=8388608"
+     "SHELL:-Wl,--export=l4m_open"
+     "SHELL:-Wl,--export=l4m_query"
++    "SHELL:-Wl,--export=l4m_query_v2"
+     "SHELL:-Wl,--export=l4m_exec_multi"
+     "SHELL:-Wl,--export=l4m_escape"
+     "SHELL:-Wl,--export=l4m_close"
+--- a/mysys/my_lib.c
++++ b/mysys/my_lib.c
+@@ -166,9 +166,16 @@
+       mystat= &statbuf;
+       bzero(mystat, sizeof(*mystat));
+       (void) strmov(tmp_file, dp->d_name);
++#ifdef __wasi__
++      /* WASIX stat reports file type without POSIX permission bits.
++         Check readability through libc instead of hiding every database. */
++      if (!my_stat(tmp_path, mystat, MyFlags) || access(tmp_path, R_OK))
++        continue;
++#else
+       (void) my_stat(tmp_path, mystat, MyFlags);
+       if (!(mystat->st_mode & MY_S_IREAD))
+         continue;
++#endif
+     }
+ 
+     if (!(finfo.name= strdup_root(&dirh->root, dp->d_name)))
+--- a/storage/innobase/buf/buf0flu.cc
++++ b/storage/innobase/buf/buf0flu.cc
+@@ -2831,21 +2831,25 @@
+       if (UNIV_UNLIKELY(srv_shutdown_state >= SRV_SHUTDOWN_LAST_PHASE))
+         break;
+ 
+-      if (buf_pool.page_cleaner_idle() &&
+-          (!UT_LIST_GET_LEN(buf_pool.flush_list) ||
+-           srv_max_dirty_pages_pct_lwm == 0.0))
++      /* Recheck under flush_list_mutex before either wait. */
++      if (buf_flush_sync_lsn.load() == 0)
+       {
+-        buf_pool.LRU_warned_clear();
+-        if (UNIV_UNLIKELY(create_spare_archive != 0))
+-          goto timed_wait;
+-        /* We are idle; wait for buf_pool.page_cleaner_wakeup() */
+-        my_cond_wait(&buf_pool.do_flush_list,
+-                     &buf_pool.flush_list_mutex.m_mutex);
++        if (buf_pool.page_cleaner_idle() &&
++            (!UT_LIST_GET_LEN(buf_pool.flush_list) ||
++             srv_max_dirty_pages_pct_lwm == 0.0))
++        {
++          buf_pool.LRU_warned_clear();
++          if (UNIV_UNLIKELY(create_spare_archive != 0))
++            goto timed_wait;
++          /* We are idle; wait for buf_pool.page_cleaner_wakeup() */
++          my_cond_wait(&buf_pool.do_flush_list,
++                       &buf_pool.flush_list_mutex.m_mutex);
++        }
++        else
++        timed_wait:
++          my_cond_timedwait(&buf_pool.do_flush_list,
++                            &buf_pool.flush_list_mutex.m_mutex, &abstime);
+       }
+-      else
+-      timed_wait:
+-        my_cond_timedwait(&buf_pool.do_flush_list,
+-                          &buf_pool.flush_list_mutex.m_mutex, &abstime);
+     }
+ 
+     set_timespec(abstime, 1);
+--- a/include/m_ctype.h
++++ b/include/m_ctype.h
+@@ -216,7 +216,7 @@
+   MY_CONTRACTIONS contractions;
+   uint    levelno;
+   MY_UCA_CONTRACTION_HASH contraction_hash;
+-  MY_UCA_LEVEL_BOOSTER *booster;
++  const MY_UCA_LEVEL_BOOSTER *booster;
+ } MY_UCA_WEIGHT_LEVEL;
+ 
+ 
+--- a/strings/ctype-uca.c
++++ b/strings/ctype-uca.c
+@@ -39,6 +39,9 @@
+ #include "ctype-uca0520.h"
+ #include "ctype-unidata.h"
+ #include "my_bit.h"
++#if defined(__wasi__)
++#include "mariamem_uca_prepared.h"
++#endif
+ 
+ typedef struct
+ {
+@@ -34288,12 +34291,36 @@
+ }
+ 
+ 
+-static MY_UCA_LEVEL_BOOSTER *
++static const MY_UCA_LEVEL_BOOSTER *
+ my_uca_level_booster_new(MY_CHARSET_LOADER *loader,
+                          CHARSET_INFO *cs,
+                          MY_UCA_WEIGHT_LEVEL *level)
+ {
+   MY_UCA_LEVEL_BOOSTER *res;
++#if defined(__wasi__)
++  /* Prepared tables: exact built-in UCA1400 default PAD ai_ci identities only.
++     Other encodings/tailorings/aliases retain the original producer. */
++  if ((cs->number == 2048 || cs->number == 2304) && level->levelno < 3 &&
++      level == &my_uca1400_info_tailored[
++                  my_uca1400_collation_id_to_charset_id(cs->number)][0].level[level->levelno])
++  {
++    const MY_UCA_LEVEL_BOOSTER *cached= &prepared[level->levelno];
++    /* Private test-only full-table verification; never enabled by profiling. */
++    if (getenv("MARIAMEM_UCA_VERIFY_INTERNAL"))
++    {
++      int match;
++      if (!(res= my_uca_level_booster_alloc(loader)))
++        abort();
++      my_uca_level_booster_populate(res, level, cs);
++      match= memcmp(res, cached, sizeof(*res)) == 0;
++      fprintf(stderr, "UCA_PREPARED_VERIFY id=%u level=%u bytes=%u match=%d\n",
++              cs->number, level->levelno, (unsigned) sizeof(*res), match);
++      if (!match)
++        abort();
++    }
++    return cached;
++  }
++#endif
+   if (!(res= my_uca_level_booster_alloc(loader)))
+     return NULL;
+   my_uca_level_booster_populate(res, level, cs);

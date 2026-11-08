@@ -1,0 +1,26 @@
+{
+  "mariadb": {
+    "sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+    "bytes": 49119382
+  },
+  "lite4mariadb": {
+    "sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd",
+    "bytes": 49317689
+  },
+  "libmariadb": {
+    "sha256": "54562818bf2c5d56a6238738aea53fd276d5cff1fdaf9b05fa62d0a2dbab059b",
+    "bytes": 1396802
+  },
+  "wolfssl": {
+    "sha256": "2754bcd8a0a3fed5ae19574506d0bf003eee7264ec8bed4ebb15409494246fd3",
+    "bytes": 26729937
+  },
+  "pcre2": {
+    "sha256": "d74c183c86c77248ad50017c7f45bae8f88106a6cca5d87ad09917e1c6fb0784",
+    "bytes": 3088100
+  },
+  "libfmt": {
+    "sha256": "a2f4a8d51178f954e4c339007f77edd76ba0cb2e36f87a48e5a5403d9be5878f",
+    "bytes": 1486029
+  }
+}

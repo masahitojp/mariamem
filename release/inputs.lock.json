@@ -125,11 +125,11 @@
     },
     {
       "name": "mariadb",
-      "file": "mariadb-12.3.3-source.tar.gz",
-      "url": "https://codeload.github.com/MariaDB/server/tar.gz/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
-      "revision": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
-      "sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
-      "version": "12.3.3"
+      "file": "mariadb-13.0.2-source.tar.gz",
+      "url": "https://codeload.github.com/MariaDB/server/tar.gz/620a4b5624222048fece7fe1789978ae0675cae2",
+      "revision": "620a4b5624222048fece7fe1789978ae0675cae2",
+      "sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+      "version": "13.0.2"
     }
   ],
   "pristine_files": {

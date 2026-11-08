@@ -2,11 +2,11 @@
   "schema": 1,
   "scope": "PREPARED_UCA1400_SOURCE_INPUT_V1",
   "prototype_source_commit": "e33fc6ce3bae390c6dda0fd92d024d8094df8731",
-  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
-  "source_archive_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+  "mariadb_source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+  "source_archive_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
   "pristine_files_sha256": {
     "strings/ctype-uca.c": "c4f34ead2f9c1e7b2a88175a25550a4efffc35f0f13be8c6584afcc9ff074a2f",
-    "include/m_ctype.h": "b0c8684ffbe3b6e374b3f0bc49a162e2fc2309a2de3d20fdfb19250cca5a128b"
+    "include/m_ctype.h": "628b8e8639dfcac88fe7eeb12418925370650835ae26f6a68bbbde5d0a3f762c"
   },
   "unicode_input_sha256": "c38aa26b5afe8564caf683120db2d165f8f67fec231614f3517b02996aa94804",
   "raw_bytes_per_level": 918016,

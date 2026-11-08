@@ -24,7 +24,7 @@ def inputs(root=ROOT):
     pin = json.loads((root / 'guest/prepared_source_patch.json').read_text())
     source = json.loads((root / 'guest/input.json').read_text())
     patch_file = pin.get('patch_file', 'guest/experimental.patch')
-    if patch_file not in ('guest/experimental.patch', 'guest/patches/12.3.3-prepared.patch'):
+    if patch_file not in ('guest/experimental.patch', 'guest/patches/13.0.2-prepared.patch'):
         raise ValueError('unregistered prepared source patch')
     patch = root / patch_file
     if patch_file != 'guest/experimental.patch':

@@ -1,0 +1,14 @@
+--- a/storage/innobase/log/log0log.cc
++++ b/storage/innobase/log/log0log.cc
+@@ -359,7 +359,10 @@
+         log_maybe_unbuffered= true;
+       }
+ # endif
+-      IF_WIN(,mprotect(ptr, size_t(size), PROT_READ));
++#if !defined(_WIN32) && !defined(__wasi__)
++      /* Preserve target mapping lifecycle; WASIX cannot change protection. */
++      mprotect(ptr, size_t(size), PROT_READ);
++#endif
+       buf= static_cast<byte*>(ptr);
+       writer_update(false);
+ # ifdef HAVE_PMEM

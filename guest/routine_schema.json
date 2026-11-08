@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
-  "server_version": "12.3.3",
+  "source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+  "server_version": "13.0.2",
   "source_file": "scripts/mariadb_system_tables.sql",
   "source_file_sha256": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d",
   "ddl_sha256": "e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc",

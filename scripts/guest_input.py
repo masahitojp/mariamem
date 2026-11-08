@@ -16,7 +16,11 @@ def safe_relative(name):
 def descriptor(root, lock):
     root = Path(root)
     value = json.loads((root / 'guest/input.json').read_text())
-    if value['schema'] != 1 or value['version'] != '12.3.3':
+    # This experiment branch is pinned to one explicitly reviewed target.
+    if (value['schema'] != 1 or value['version'] != '13.0.2' or
+            value.get('experiment_contract') != 'issue128-target-source-v1' or
+            value['source_commit'] != '620a4b5624222048fece7fe1789978ae0675cae2' or
+            value['tag_object_sha'] != '308a50778fb4916ddde0d2923feea3d11dcc92c8'):
         raise ValueError('unregistered guest input')
     entries = {e['name']: e for e in lock['inputs']}
     source, recipe = entries[value['source_input']], entries[value['recipe_input']]
@@ -35,6 +39,15 @@ def descriptor(root, lock):
             raise ValueError('guest patch file inventory differs: ' + name)
         for file in files:
             safe_relative(file)
+    overlay = value['source_overlay']
+    if (overlay['file'] != 'benchmarks/spikes/issue128-real/inputs/shared-source.patch' or
+            digest(root / overlay['file']) != overlay['sha256']):
+        raise ValueError('target source overlay identity mismatch')
+    files = re.findall(r'^\+\+\+ b/(.+)$', (root / overlay['file']).read_text(), re.M)
+    if set(files) != set(overlay['before_sha256']) or set(files) != set(overlay['after_sha256']):
+        raise ValueError('target source overlay inventory differs')
+    for file in files:
+        safe_relative(file)
     return value
 
 
