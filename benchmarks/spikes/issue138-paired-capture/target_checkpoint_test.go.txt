@@ -1,0 +1,87 @@
+package main
+
+import (
+ "strconv"
+ "context"
+ "encoding/json"
+ "errors"
+ "fmt"
+ "testing"
+ "time"
+)
+
+// Finite semantic regression for the shared 13.0 log/wait adaptation, not a benchmark.
+func TestIssue138CheckpointArchiveTransitions(t *testing.T) {
+ r := timeoutRoot(t, 30*time.Second)
+ db := dbFor(t, r, nil)
+ defer db.Close()
+ status := func(name string) uint64 {
+  t.Helper()
+  var key, value string
+  if err := db.QueryRow("SHOW GLOBAL STATUS LIKE '"+name+"'").Scan(&key, &value); err != nil { t.Fatal(err) }
+  n, err := strconv.ParseUint(value, 10, 64); if err != nil { t.Fatal(err) }; return n
+ }
+ exec := func(q string) { t.Helper(); if _,err:=db.Exec(q); err!=nil { t.Fatal(q,err) } }
+ exec("SET GLOBAL innodb_log_file_size=4194304")
+ exec("SET GLOBAL innodb_log_archive=ON")
+ var enabled, size uint64
+ if err:=db.QueryRow("SELECT @@GLOBAL.innodb_log_archive,@@GLOBAL.innodb_log_file_size").Scan(&enabled,&size);err!=nil {t.Fatal(err)}
+ if enabled!=1 || size!=4194304 { t.Fatal("target log settings",enabled,size) }
+ start:=status("Innodb_lsn_current")
+ exec("CREATE TABLE issue128_checkpoint(id INT PRIMARY KEY,v LONGBLOB) ENGINE=InnoDB")
+ for i:=0;i<256;i++ { if _,err:=db.Exec("INSERT INTO issue128_checkpoint VALUES(?,REPEAT('x',65536))",i);err!=nil { t.Fatal("bounded write",i,err) } }
+ end:=status("Innodb_lsn_current")
+ if end<=start+2*size { t.Fatal("insufficient redo turnover",start,end,size) }
+ exec("SET GLOBAL innodb_log_archive=OFF")
+ checkpoint:=status("Innodb_lsn_last_checkpoint")
+ if checkpoint<=start { t.Fatal("checkpoint did not advance",start,checkpoint) }
+ var rows,total uint64
+ if err:=db.QueryRow("SELECT COUNT(*),SUM(OCTET_LENGTH(v)) FROM issue128_checkpoint").Scan(&rows,&total);err!=nil {t.Fatal(err)}
+ if rows!=256 || total!=256*65536 {t.Fatal(rows,total)}
+ t.Logf("ISSUE128_ARCHIVE start=%d end=%d checkpoint=%d log_size=%d rows=%d bytes=%d",start,end,checkpoint,size,rows,total)
+ if err:=db.Close();err!=nil {t.Fatal(err)}
+ if err:=issue138Observe(t,r,"close",false);err!=nil {t.Fatal(err)}
+ ctx,cancel:=context.WithTimeout(context.Background(),5*time.Second)
+ err:=issue138Drain(ctx,r);cancel()
+ observed:=issue138Observe(t,r,"drain-complete-or-timeout",err==nil)
+ if err!=nil || observed!=nil {t.Fatal("drain",err,observed)}
+ t.Cleanup(func(){ if t.Failed() { r.mu.Lock();consumed:=r.consumed;r.mu.Unlock();if !consumed {_=issue138Observe(t,r,"capture-rejection",false)} } })
+ baseline:=makeBaseline(captureNow(t,r,false));t.Cleanup(func(){ if err:=baseline.backing.Close();err!=nil {t.Error(err)} })
+ restored:=child(t,baseline);t.Cleanup(func(){if err:=restored.close();err!=nil {t.Error(err)}});next:=dbFor(t,restored,nil);defer next.Close()
+ if err:=next.QueryRow("SELECT COUNT(*),SUM(OCTET_LENGTH(v)) FROM issue128_checkpoint").Scan(&rows,&total);err!=nil {t.Fatal(err)}
+ if rows!=256 || total!=256*65536 {t.Fatal("restored contents",rows,total)}
+ var sum,bad uint64
+ if err:=next.QueryRow("SELECT SUM(id),SUM(v != REPEAT('x',65536)) FROM issue128_checkpoint").Scan(&sum,&bad);err!=nil || sum!=32640 || bad!=0 {t.Fatal("exact restored data",sum,bad,err)}
+ sibling:=child(t,baseline);t.Cleanup(func(){if err:=sibling.close();err!=nil {t.Error(err)}})
+ other:=dbFor(t,sibling,nil);defer other.Close()
+ if _,err:=next.Exec("INSERT INTO issue128_checkpoint VALUES(999,'private')");err!=nil {t.Fatal(err)}
+ if err:=other.QueryRow("SELECT COUNT(*) FROM issue128_checkpoint").Scan(&rows);err!=nil || rows!=256 {t.Fatal("child isolation",rows,err)}
+}
+
+// Reuse the existing adapter; never mistake its root-done shortcut for drain.
+func issue138Drain(ctx context.Context,r *instance) error {
+ select {case <-r.done:return errors.New("root exited before drain");default:}
+ if e:=(&nativeLiveChild{r:r}).WaitDisconnected(ctx);e!=nil {return e}
+ select {case <-r.done:return errors.New("root exited during drain");default:}
+ r.mu.Lock();defer r.mu.Unlock()
+ if r.errorCause!=nil || len(r.sessions)!=0 || r.owner.CountLocked()!=0 {return fmt.Errorf("host drain incomplete: sessions=%d leases=%d cause=%v",len(r.sessions),r.owner.CountLocked(),r.errorCause)}
+ return nil
+}
+func issue138Observe(t *testing.T,r *instance,stage string,drained bool) error {
+ t.Helper();ctx,cancel:=context.WithTimeout(context.Background(),500*time.Millisecond);defer cancel()
+ f,e:=r.rpcContext(ctx,frame{kind:stats})
+ r.mu.Lock();host,leases,cause,epoch:=len(r.sessions),r.owner.CountLocked(),r.errorCause,r.epoch;r.mu.Unlock()
+ t.Logf("ISSUE138_OBSERVE time=%d stage=%s epoch=%d stats=%s host=%d leases=%d cause=%v rpc=%v",time.Now().UnixNano(),stage,epoch,f.body,host,leases,cause,e)
+ if !drained {return e}
+ var state struct {Sessions []json.RawMessage;Started,Joined *int;Poisoned bool}
+ if e!=nil {return e};if e=json.Unmarshal(f.body,&state);e!=nil {return e}
+ if state.Sessions==nil || len(state.Sessions)!=0 || state.Started==nil || state.Joined==nil || *state.Started!=*state.Joined || state.Poisoned || host!=0 || leases!=0 || cause!=nil {return errors.New("incomplete real drain observation")}
+ select {case <-r.done:return errors.New("root died at observation");default:};return nil
+}
+func TestIssue138RootDeathIsNotDrain(t *testing.T) {
+ done:=make(chan struct{});close(done);r:=&instance{done:done}
+ ctx,cancel:=context.WithTimeout(context.Background(),time.Second);defer cancel()
+ if e:=(&nativeLiveChild{r:r}).WaitDisconnected(ctx);e!=nil {t.Fatal("sentinel contract",e)}
+ if e:=issue138Drain(ctx,r);e==nil {t.Fatal("dead root accepted as drain")}
+ t.Log("ISSUE138_CONTROL root-done shortcut rejected")
+}

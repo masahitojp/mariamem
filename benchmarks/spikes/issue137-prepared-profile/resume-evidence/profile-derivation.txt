@@ -1,0 +1,2 @@
+patching file 'libmysqld/libmysql.c'
+Derived exact native profile; legacy patch unchanged

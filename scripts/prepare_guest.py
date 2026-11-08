@@ -42,6 +42,7 @@ uca_prepared = prepare_uca(ROOT, source)
 portability_series = apply_series(ROOT, source, guest_input)
 # Exact reviewed target overlay; guest/source.patch stays canonical and untouched.
 source_overlay = apply_series(ROOT, source, {'patches': [guest_input['source_overlay']]})
+observation_overlay = apply_series(ROOT, source, {'patches': [guest_input['observation_overlay']]}) if 'observation_overlay' in guest_input else []
 # A disposable experiment patch is separate from the canonical product patch.
 experimental = ROOT / "guest/experimental.patch"
 experimental_files = patch_files(ROOT)
@@ -50,10 +51,10 @@ prepared_patch = None
 canonical_prepared = None
 if (ROOT / "guest/prepared_source_patch.json").exists():
     pin = json.loads((ROOT / "guest/prepared_source_patch.json").read_text())
-    if pin.get('patch_file') == 'guest/patches/13.0.2-prepared.patch':
-        from prepared_source_patch import inputs as prepared_inputs, check_functions
+    if pin.get('patch_file') in ('guest/patches/13.0.2-prepared.patch', 'guest/patches/13.0.2-native-prepared.patch'):
+        from prepared_source_patch import inputs as prepared_inputs, check_profile_source
         canonical_prepared = prepared_inputs(ROOT)
-        check_functions(source, ROOT, 'after')
+        check_profile_source(source, ROOT)
 if experimental.exists():
     if canonical_prepared is not None:
         # Future experiments remain isolated and release provenance rejects them.
@@ -99,7 +100,7 @@ for name, cmake in (("pcre2", "cmake/pcre.cmake"), ("libfmt", "cmake/libfmt.cmak
     if text.count(entry["url"]) != 1:
         raise ValueError(f"unexpected dependency URL in {cmake}")
     path.write_text(text.replace(entry["url"], "${CMAKE_SOURCE_DIR}/mariamem-dependencies/" + entry["file"]))
-manifest = {"uca_prepared": uca_prepared, "guest_input": guest_input, "portability_series": portability_series, "source_overlay": source_overlay, "routine_schema": routine_schema,
+manifest = {"observation_overlay": observation_overlay, "prepared_profile": canonical_prepared, "uca_prepared": uca_prepared, "guest_input": guest_input, "portability_series": portability_series, "source_overlay": source_overlay, "routine_schema": routine_schema,
             "inputs_lock_sha256": digest(ROOT / "release/inputs.lock.json"),
             "overlays": {p.name: digest(p) for p in sorted((ROOT / "guest").iterdir()) if p.is_file()},
             "modified_files": {name: digest(source / name) for name in

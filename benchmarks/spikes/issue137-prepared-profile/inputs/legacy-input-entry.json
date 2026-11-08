@@ -1,0 +1,14 @@
+{
+  "file": "guest/patches/13.0.2-prepared.patch",
+  "sha256": "757357d0dc05c557ee1ee871438561277e22d7e445980534b588e979afa15db7",
+  "before_sha256": {
+    "libmysqld/lib_sql.cc": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
+    "libmysqld/libmysql.c": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+    "sql/sql_prepare.cc": "bcbcee024ba06281948b1d1a13faa4e7495f2bc56beb2f692d852205cfda82f4"
+  },
+  "after_sha256": {
+    "libmysqld/lib_sql.cc": "9f1d1f9152032ec14a619cd48ebcb9ec62a057298c19d871876d5285cca02ec9",
+    "libmysqld/libmysql.c": "bb852ad028162f95bc43e6e7cb38d30b197398585f6deb07e94c08c9db2dff67",
+    "sql/sql_prepare.cc": "6b021ec92b623b9d82db93dc78bc3ff250184852c64ea2394bd575fad4f45227"
+  }
+}

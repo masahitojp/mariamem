@@ -1,0 +1,5 @@
+Disk preflight OK: 21.88 GiB free, 0.00 GiB owned
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0 3015k    0  6881    0     0  13812      0  0:03:43 --:--:--  0:03:43 13812100 3015k  100 3015k    0     0  3863k      0 --:--:-- --:--:-- --:--:-- 10.4M

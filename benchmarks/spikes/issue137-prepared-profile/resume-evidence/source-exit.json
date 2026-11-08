@@ -1,0 +1,17 @@
+{
+  "full_preparation": true,
+  "postimages": {
+    "sql/sql_prepare.cc": "59ab990153eedeaabba9163b4d782f176c27b198e63aa8e1e91474f50fc30168",
+    "libmysqld/libmysql.c": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+    "libmysqld/lib_sql.cc": "27b0dfa3f822f6a0b8fa36fdd7567c7337ff072cf59d42fb060713b8941ffdf2",
+    "wasm/lite4mariadb.c": "b25cb802cdc352f451caead95061a21dd71680c4a805c07377834d9da0a059f9",
+    "storage/innobase/buf/buf0flu.cc": "c149bbf197f772aad5b2cdf9790f7e51fd3975ea08860a4cd398972331b44fcc"
+  },
+  "absent_adapters": [
+    "mariamem_stmt_parameter_metadata",
+    "mariamem_stmt_parameter_items"
+  ],
+  "legacy_functions_exact_original": true,
+  "guard_tests": "both profiles pass plus missing-profile and unexpected-full-file-edit rejection",
+  "link_runtime_proof": "pending"
+}

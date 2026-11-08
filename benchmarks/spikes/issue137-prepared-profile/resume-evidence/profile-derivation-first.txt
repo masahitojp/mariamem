@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/masahito/orca/workspaces/mariamem/experiment-issue65-upgrade-trial/benchmarks/spikes/issue137-prepared-profile/derive_profile.py", line 13, in <module>
+    expected=pin['native_overlay']['after_sha256'].get(n,next(i['after_sha256'] for i in old['files'] if i['file']==n));assert sha(b)==expected,(n,sha(b),expected)
+                                                                                                                               ^^^^^^^^^^^^^^^^
+AssertionError: ('libmysqld/lib_sql.cc', 'dacabfb43e77c481bf3e270d244da781e69a3dbd16d195f4ac2cb63fc8f4f427', '6ec2686da0a6c19ab53528582724bf70fba6b9f95a5b904a2236e4987786fb60')

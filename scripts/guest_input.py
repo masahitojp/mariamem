@@ -48,7 +48,17 @@ def descriptor(root, lock):
         raise ValueError('target source overlay inventory differs')
     for file in files:
         safe_relative(file)
+    observation = value.get('observation_overlay')
+    if observation is not None:
+        if (observation['file'] != 'guest/patches/13.0.2-pagecleaner-observe.patch' or
+                digest(root / observation['file']) != observation['sha256'] or
+                set(observation['before_sha256']) != {'storage/innobase/buf/buf0flu.cc'} or
+                set(observation['after_sha256']) != {'storage/innobase/buf/buf0flu.cc'}):
+            raise ValueError('target observation overlay differs')
     native = value.get('native_overlay')
+    profile = value.get('prepared_profile')
+    if profile not in ('legacy-full', 'native-text') or (profile == 'native-text') != (native is not None):
+        raise ValueError('missing or mismatched explicit prepared profile')
     if (root / 'guest/experimental.patch').exists() != (native is not None):
         raise ValueError('target native overlay presence differs')
     if native is not None:

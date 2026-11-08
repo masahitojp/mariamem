@@ -1,0 +1,27 @@
+{
+  "old_full": {
+    "sql/sql_prepare.cc": "06ba5b6bbe1a474f7b7fa120587d62588065c7a7c2b4941565da0c6176c0821b",
+    "libmysqld/libmysql.c": "bb852ad028162f95bc43e6e7cb38d30b197398585f6deb07e94c08c9db2dff67",
+    "libmysqld/lib_sql.cc": "6ec2686da0a6c19ab53528582724bf70fba6b9f95a5b904a2236e4987786fb60"
+  },
+  "before": {
+    "sql/sql_prepare.cc": "bcbcee024ba06281948b1d1a13faa4e7495f2bc56beb2f692d852205cfda82f4",
+    "libmysqld/libmysql.c": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+    "libmysqld/lib_sql.cc": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e"
+  },
+  "native_prepared": {
+    "sql/sql_prepare.cc": "40c3d341c5e3534801bbb1fecc0c9b7e7c7f093654ca4918b735220af92dad09",
+    "libmysqld/libmysql.c": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+    "libmysqld/lib_sql.cc": "0a8c11d33ed2aab4a461888dc4f5a070a71775cc997f825725a261076ccd8340"
+  },
+  "native_final": {
+    "sql/sql_prepare.cc": "59ab990153eedeaabba9163b4d782f176c27b198e63aa8e1e91474f50fc30168",
+    "libmysqld/libmysql.c": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+    "libmysqld/lib_sql.cc": "e34f753e36caeead4661be86cd80396a42c87f97bc631d89c7a9f83b71239a0f"
+  },
+  "removed_exports": [
+    "mariamem_stmt_parameter_items",
+    "mariamem_stmt_parameter_metadata"
+  ],
+  "retained": "TIME full width; embedded text metadata OOM guard; native conversion snapshot and all native controller logic"
+}
