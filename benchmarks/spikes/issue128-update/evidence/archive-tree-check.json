@@ -1,0 +1,18 @@
+{
+  "mariadb-12.3.3": {
+    "archive_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+    "checked_files": 26928,
+    "archive_paths_absent_from_tree": [],
+    "blob_mismatches": [],
+    "tree_blobs_absent_from_archive": [],
+    "method": "Git blob SHA1 for every archive file/symlink against shallow-fetched official tag tree; no checkout/build"
+  },
+  "mariadb-13.0.2": {
+    "archive_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+    "checked_files": 27071,
+    "archive_paths_absent_from_tree": [],
+    "blob_mismatches": [],
+    "tree_blobs_absent_from_archive": [],
+    "method": "Git blob SHA1 for every archive file/symlink against shallow-fetched official tag tree; no checkout/build"
+  }
+}

@@ -1,0 +1,11 @@
+--- 12.3.3/storage/innobase/buf/buf0buf.cc
++++ 13.0.2/storage/innobase/buf/buf0buf.cc
+@@ -605,7 +605,7 @@
+ 
+   sql_print_error("InnoDB: Your database may be corrupt or"
+                   " you may have copied the InnoDB"
+-                  " tablespace but not the ib_logfile0. %s",
++                  " tablespaces but not the log. %s",
+                   FORCE_RECOVERY_MSG);
+ 
+   return true;

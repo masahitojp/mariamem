@@ -1,0 +1,44 @@
+[
+  {
+    "owned_bytes": 559783936,
+    "free_bytes": 20930560000,
+    "peak_owned_bytes": 559783936,
+    "minimum_free_bytes": 20930560000
+  },
+  {
+    "owned_bytes": 967602176,
+    "free_bytes": 20520960000,
+    "peak_owned_bytes": 967602176,
+    "minimum_free_bytes": 20520960000
+  },
+  {
+    "owned_bytes": 967692288,
+    "free_bytes": 20520960000,
+    "peak_owned_bytes": 967692288,
+    "minimum_free_bytes": 20520960000
+  },
+  {
+    "owned_bytes": 967868416,
+    "free_bytes": 20520960000,
+    "peak_owned_bytes": 967868416,
+    "minimum_free_bytes": 20520960000
+  },
+  {
+    "owned_bytes": 969326592,
+    "free_bytes": 20520960000,
+    "peak_owned_bytes": 969326592,
+    "minimum_free_bytes": 20520960000
+  },
+  {
+    "owned_bytes": 979050496,
+    "free_bytes": 20480000000,
+    "peak_owned_bytes": 979050496,
+    "minimum_free_bytes": 20480000000
+  },
+  {
+    "owned_bytes": 980508672,
+    "free_bytes": 20480000000,
+    "peak_owned_bytes": 980508672,
+    "minimum_free_bytes": 20480000000
+  }
+]

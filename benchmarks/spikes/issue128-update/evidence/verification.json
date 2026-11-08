@@ -1,0 +1,16 @@
+{
+  "python_tool_compile": "PASS",
+  "diagnostic_replays": "Original/corrected observer and shared-adapted trial collected for all three pinned inputs; diagnostic failure statuses deliberately retained",
+  "shared_input_rebind": "UCA/routine exact target fixture passes unchanged numeric/DDL/metadata expectations",
+  "placement_proof": "Original EOF insertion malformed; corrected EOF insertion follows function close; independently replayed",
+  "new_bundle_public_source": "PASS using unchanged publication allowlist/patterns; also separate-root check receipt saved",
+  "full_public_source": "FAIL on six unchanged historical Issue65 evidence paths; see public-final.txt; no original guard relaxation",
+  "diff_check": "PASS with narrow .gitattributes exceptions preserving upstream patch/context bytes, following existing repository convention",
+  "original_source_status": "Clean at task start; no pre-existing user changes observed",
+  "helper_cleanup_dry_run": "No candidates, no retained large paths, cleanup_debt=[]",
+  "builds_runtime_benchmarks_ci": "NOT RUN (authorized source-only slice)",
+  "tooling_observer_errors": "Initial routine helper positional-call error, existing recipe directory on first replay, and first placement observer assuming a nonexistent contiguous brace string; corrected without source/oracle relaxation",
+  "files_checked": 52,
+  "retained_paths_over_1gib": [],
+  "recorded_utc": "2026-11-08T04:57:53.357727+00:00"
+}

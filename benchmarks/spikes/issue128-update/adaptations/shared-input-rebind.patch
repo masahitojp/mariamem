@@ -1,0 +1,79 @@
+--- a/guest/input.json
++++ b/guest/input.json
+@@ -1,8 +1,8 @@
+ {
+   "schema": 1,
+-  "candidate": "MariaDB 12.3.3",
+-  "tag_object_sha": "bd852bcd567fedc89ad4521e2f1a64c7a1e0d0f0",
+-  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
++  "candidate": "MariaDB 13.0.2",
++  "tag_object_sha": "308a50778fb4916ddde0d2923feea3d11dcc92c8",
++  "source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+   "recipe_source_commit": "24be9371a2f6c71250a2356631ad6feab2280b02",
+   "portability_source_base": "b2a8c2234dbc276fe3947633c9ffea454badf48f",
+   "recipe_files_sha256": {
+@@ -13,7 +13,7 @@
+     "wasm/platforms/Platform/WASIX.cmake": "24d0ba74185453b0624c4a381c9bc2f67f19071e54d3b5e55e553136271419f7",
+     "wasm/wasix-toolchain.cmake": "114c296e33df8bb68bab6797d1b40b11834a2c3cfe1e934ffbe87037816c32ea"
+   },
+-  "version": "12.3.3",
++  "version": "13.0.2",
+   "source_input": "mariadb",
+   "recipe_input": "lite4mariadb",
+   "patches": [
+@@ -98,6 +98,6 @@
+       }
+     }
+   ],
+-  "source_archive_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
++  "source_archive_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+   "recipe_archive_sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd"
+ }
+--- a/release/inputs.lock.json
++++ b/release/inputs.lock.json
+@@ -125,11 +125,11 @@
+     },
+     {
+       "name": "mariadb",
+-      "file": "mariadb-12.3.3-source.tar.gz",
+-      "url": "https://codeload.github.com/MariaDB/server/tar.gz/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+-      "revision": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+-      "sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+-      "version": "12.3.3"
++      "file": "mariadb-13.0.2-source.tar.gz",
++      "url": "https://codeload.github.com/MariaDB/server/tar.gz/620a4b5624222048fece7fe1789978ae0675cae2",
++      "revision": "620a4b5624222048fece7fe1789978ae0675cae2",
++      "sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
++      "version": "13.0.2"
+     }
+   ],
+   "pristine_files": {
+--- a/benchmarks/ucapreparedinput/input.json
++++ b/benchmarks/ucapreparedinput/input.json
+@@ -2,11 +2,11 @@
+   "schema": 1,
+   "scope": "PREPARED_UCA1400_SOURCE_INPUT_V1",
+   "prototype_source_commit": "e33fc6ce3bae390c6dda0fd92d024d8094df8731",
+-  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+-  "source_archive_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
++  "mariadb_source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
++  "source_archive_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+   "pristine_files_sha256": {
+     "strings/ctype-uca.c": "c4f34ead2f9c1e7b2a88175a25550a4efffc35f0f13be8c6584afcc9ff074a2f",
+-    "include/m_ctype.h": "b0c8684ffbe3b6e374b3f0bc49a162e2fc2309a2de3d20fdfb19250cca5a128b"
++    "include/m_ctype.h": "628b8e8639dfcac88fe7eeb12418925370650835ae26f6a68bbbde5d0a3f762c"
+   },
+   "unicode_input_sha256": "c38aa26b5afe8564caf683120db2d165f8f67fec231614f3517b02996aa94804",
+   "raw_bytes_per_level": 918016,
+--- a/guest/routine_schema.json
++++ b/guest/routine_schema.json
+@@ -1,7 +1,7 @@
+ {
+   "version": 1,
+-  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+-  "server_version": "12.3.3",
++  "source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
++  "server_version": "13.0.2",
+   "source_file": "scripts/mariadb_system_tables.sql",
+   "source_file_sha256": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d",
+   "ddl_sha256": "e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc",

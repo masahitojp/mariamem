@@ -1,0 +1,10 @@
+419343eaebdbba6ad0c5801f5dee6c84af55683f	refs/tags/mariadb-12.3.1
+21a0714a118614982d20bfa504763d7247800091	refs/tags/mariadb-12.3.1^{}
+13e640debb54541d25390644cc63756f213bb729	refs/tags/mariadb-12.3.2
+9f98f82b14a9b939834281672b6d0cf965db69a3	refs/tags/mariadb-12.3.2^{}
+bd852bcd567fedc89ad4521e2f1a64c7a1e0d0f0	refs/tags/mariadb-12.3.3
+83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e	refs/tags/mariadb-12.3.3^{}
+abe8833c70bd6808d46722cfe2d56d19262b1d33	refs/tags/mariadb-13.0.1
+7f923870722c5d382e16d56af526d1ee4e03f987	refs/tags/mariadb-13.0.1^{}
+308a50778fb4916ddde0d2923feea3d11dcc92c8	refs/tags/mariadb-13.0.2
+620a4b5624222048fece7fe1789978ae0675cae2	refs/tags/mariadb-13.0.2^{}

@@ -1,0 +1,12 @@
+{
+  "scope": "This worker checkout only; no shared cache or other worktree cleanup",
+  "scratch_path": "build/issue128-temp",
+  "scratch_allocated_bytes_before_cleanup": 571789312,
+  "scratch_exists_after_cleanup": false,
+  "free_bytes_after_cleanup": 21667840000,
+  "retained_files_over_1gib": [],
+  "cleanup_debt": [],
+  "retained_reason": "Compact source identities, original failure/patch observations, reviewed diffs, reproduction scripts and reports; branch/worktree ownership remains with coordinator",
+  "owned_processes": "All foreground guarded task commands exited; no builds/containers/background services launched",
+  "finalized_utc": "2026-11-08T04:57:27.166235+00:00"
+}

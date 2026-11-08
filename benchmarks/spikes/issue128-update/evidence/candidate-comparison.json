@@ -1,0 +1,52 @@
+{
+  "legacy": {
+    "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb",
+    "common_patches": {
+      "guest/patches/common-portability.patch": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16",
+      "guest/patches/12.3.3-redo.patch": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22",
+      "guest/patches/12.3.3-prepared.patch": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4",
+      "guest/patches/12.3.3-buffer-alignment.patch": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+    },
+    "source_patch_sha256": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16"
+  },
+  "old-native": {
+    "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+    "common_patches": {
+      "guest/patches/common-portability.patch": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16",
+      "guest/patches/12.3.3-redo.patch": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22",
+      "guest/patches/12.3.3-prepared.patch": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4",
+      "guest/patches/12.3.3-buffer-alignment.patch": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+    },
+    "source_patch_sha256": "430273666a1f2c38ba5e0441ada7e3d1036ad94e5ccfc486f956e2b214b674b7"
+  },
+  "native": {
+    "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3",
+    "common_patches": {
+      "guest/patches/common-portability.patch": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16",
+      "guest/patches/12.3.3-redo.patch": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22",
+      "guest/patches/12.3.3-prepared.patch": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4",
+      "guest/patches/12.3.3-buffer-alignment.patch": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+    },
+    "source_patch_sha256": "430273666a1f2c38ba5e0441ada7e3d1036ad94e5ccfc486f956e2b214b674b7"
+  },
+  "common_patches_identical": true,
+  "legacy_source_patch_is_native_prefix": true,
+  "native_source_patch_equals_old_native": true,
+  "adapted_selected_hashes": {
+    "legacy": {
+      "sql/sql_prepare.cc": "6b021ec92b623b9d82db93dc78bc3ff250184852c64ea2394bd575fad4f45227",
+      "storage/innobase/buf/buf0flu.cc": "a3dd5252ad5866f8b486209f65b4e772f39c9a2d3d5a961b07cbf136a29ce123",
+      "storage/innobase/log/log0log.cc": "a4c299251b9b98efefaedfbf242a01586e706ab39decebe06539f1f2e099d9cc"
+    },
+    "old-native": {
+      "sql/sql_prepare.cc": "06ba5b6bbe1a474f7b7fa120587d62588065c7a7c2b4941565da0c6176c0821b",
+      "storage/innobase/buf/buf0flu.cc": "a3dd5252ad5866f8b486209f65b4e772f39c9a2d3d5a961b07cbf136a29ce123",
+      "storage/innobase/log/log0log.cc": "a4c299251b9b98efefaedfbf242a01586e706ab39decebe06539f1f2e099d9cc"
+    },
+    "native": {
+      "sql/sql_prepare.cc": "06ba5b6bbe1a474f7b7fa120587d62588065c7a7c2b4941565da0c6176c0821b",
+      "storage/innobase/buf/buf0flu.cc": "a3dd5252ad5866f8b486209f65b4e772f39c9a2d3d5a961b07cbf136a29ce123",
+      "storage/innobase/log/log0log.cc": "a4c299251b9b98efefaedfbf242a01586e706ab39decebe06539f1f2e099d9cc"
+    }
+  }
+}

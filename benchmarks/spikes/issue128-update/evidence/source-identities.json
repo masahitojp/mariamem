@@ -1,0 +1,23 @@
+{
+  "mariadb-12.3.3": {
+    "tag_object_sha": "bd852bcd567fedc89ad4521e2f1a64c7a1e0d0f0",
+    "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "object_type": "tag"
+  },
+  "mariadb-13.0.2": {
+    "tag_object_sha": "308a50778fb4916ddde0d2923feea3d11dcc92c8",
+    "source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+    "object_type": "tag"
+  },
+  "candidates": {
+    "legacy": {
+      "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb"
+    },
+    "old-native": {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b"
+    },
+    "native": {
+      "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3"
+    }
+  }
+}

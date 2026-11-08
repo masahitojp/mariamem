@@ -1,0 +1,15 @@
+Disk preflight OK: 19.68 GiB free, 0.52 GiB owned
+Traceback (most recent call last):
+  File "<REPO>/benchmarks/spikes/issue128-update/trial.py", line 209, in <module>
+    (fetch if args.operation == 'fetch' else trial)()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "<REPO>/benchmarks/spikes/issue128-update/trial.py", line 116, in trial
+    extract(SCRATCH / 'lite4mariadb.tar.gz', recipe)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/scripts/common.py", line 43, in extract
+    destination.mkdir(parents=True, exist_ok=False)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.10/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 1011, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+FileExistsError: [Errno 17] File exists: '<REPO>/build/issue128-temp/recipe'

@@ -1,0 +1,15 @@
+{
+  "storage/innobase/log/log0log.cc": {
+    "before_sha256": "6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c",
+    "after_sha256": "a4c299251b9b98efefaedfbf242a01586e706ab39decebe06539f1f2e099d9cc"
+  },
+  "storage/innobase/buf/buf0flu.cc": {
+    "before_sha256": "5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818",
+    "after_sha256": "a3dd5252ad5866f8b486209f65b4e772f39c9a2d3d5a961b07cbf136a29ce123"
+  },
+  "preserved-create-spare-archive": "Original target timed_wait label/goto and create_spare_archive branch retained inside the guarded wait block.",
+  "sql/sql_prepare.cc": {
+    "target_pristine_sha256": "bcbcee024ba06281948b1d1a13faa4e7495f2bc56beb2f692d852205cfda82f4",
+    "change": "EOF adapter insertion moved from old line 6641 to target EOF line 6642; full target preimage recorded in surface-inventory.json, old function-body fixtures unchanged."
+  }
+}

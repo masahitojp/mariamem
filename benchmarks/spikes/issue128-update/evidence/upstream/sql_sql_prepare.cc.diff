@@ -1,0 +1,28 @@
+--- 12.3.3/sql/sql_prepare.cc
++++ 13.0.2/sql/sql_prepare.cc
+@@ -1585,6 +1585,7 @@
+                                      DT_INIT | DT_PREPARE))
+     goto error;
+ 
++  lex->resolve_optimizer_hints();
+   thd->lex->used_tables= 0;                        // Updated by setup_fields
+ 
+   /*
+@@ -2325,7 +2326,6 @@
+ 
+   lex->first_lists_tables_same();
+   lex->fix_first_select_number();
+-  lex->resolve_optimizer_hints();
+   tables= lex->query_tables;
+ 
+   /* set context for commands which do not use setup_tables */
+@@ -5340,7 +5340,8 @@
+     general_log_write(thd, COM_STMT_EXECUTE, thd->query(), thd->query_length());
+ 
+   if (open_cursor)
+-    error= mysql_open_cursor(thd, result_arg, cursor_arg);
++    error= mysql_open_cursor(thd, result_arg, cursor_arg,
++                             Lex_ident_column(), nullptr);
+   else
+   {
+     /*

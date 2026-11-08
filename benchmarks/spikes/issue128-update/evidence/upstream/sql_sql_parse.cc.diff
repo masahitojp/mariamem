@@ -1,0 +1,36 @@
+--- 12.3.3/sql/sql_parse.cc
++++ 13.0.2/sql/sql_parse.cc
+@@ -3538,7 +3538,6 @@
+   */
+   lex->first_lists_tables_same();
+   lex->fix_first_select_number();
+-  lex->resolve_optimizer_hints();
+   /* should be assigned after making first tables same */
+   all_tables= lex->query_tables;
+   /* set context for commands which do not use setup_tables */
+@@ -4673,6 +4672,7 @@
+       select_lex->table_list.first= second_table;
+       select_lex->context.table_list=
+         select_lex->context.first_name_resolution_table= second_table;
++      lex->resolve_optimizer_hints();
+       res= mysql_insert_select_prepare(thd, result);
+       Write_record write;
+       if (!res &&
+@@ -5338,9 +5338,6 @@
+     if (lex->type & (
+     REFRESH_GRANT                           |
+     REFRESH_HOSTS                           |
+-#ifdef HAVE_OPENSSL
+-    REFRESH_DES_KEY_FILE                    |
+-#endif
+     /*
+       Write all flush log statements except
+       FLUSH LOGS
+@@ -6126,6 +6123,7 @@
+ 
+   if (!(res= open_and_lock_tables(thd, all_tables, TRUE, 0)))
+   {
++    lex->resolve_optimizer_hints();
+     if (lex->describe)
+     {
+       /*

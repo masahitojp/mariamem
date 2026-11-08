@@ -1,0 +1,35 @@
+{
+  "uca": {
+    "status": "PASS",
+    "result": {
+      "contract": "prepared-uca1400-v1",
+      "input_files_sha256": {
+        "benchmarks/ucapreparedinput/input.json": "413db75b71e4d271b5e56b2be25237d9ec4c968d569fae4a30a5fa1d5211b199",
+        "benchmarks/ucapreparedinput/check.py": "beea3a7aea019869779b8396c60b105af50d4cc6b44aa7c95bbf4c550b7e81b3",
+        "benchmarks/ucapreparedinput/level0.u16le.json": "e41d17a205523e9a33bf8a2a5ee81175ed9ddc1eef1254193eb5499748cf548e",
+        "benchmarks/ucapreparedinput/level1.u16le.json": "9243e3977c9f7b0a5e0f6c075cf7d06079157280d8d95a31fdee724b927b7584",
+        "benchmarks/ucapreparedinput/level2.u16le.json": "e38bc9436e591fa5e4dbc80fdad48ee694b6dac17a529fae64f2ccd929f44ff4"
+      },
+      "source_check": "PRISTINE_SOURCE_HASHES_PASS",
+      "header": "strings/mariamem_uca_prepared.h",
+      "header_sha256": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
+      "numeric_bytes": 2754048,
+      "verification_env": "MARIAMEM_UCA_VERIFY_INTERNAL"
+    },
+    "wall_seconds": 0.19845558307133615
+  },
+  "routine": {
+    "status": "PASS",
+    "result": {
+      "source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+      "source_file_sha256": "22e23166715ef17156ae2c6e2d8ae20a699ee5c6192cedfd85a367e22e39893d",
+      "ddl_sha256": "e2f51d66c5f860d0d56dcbffe31e1101182625fa70685dc8c3c68ce8ef6c7cfc",
+      "metadata_sha256": "104f0b429207adc28e83f453c0889f4d7d71eb97ff886a66af926b4de944cbd4",
+      "header": "wasm/routine_schema_sql.inc",
+      "header_sha256": "6d5554821c8a989d22f7e60831981aecb461f6e1a1d168f8644ffd8de5beaeea"
+    },
+    "wall_seconds": 0.0013326669577509165
+  },
+  "qualification": "Exact new source fixture binding only; no canonical preparation/build/semantic qualification",
+  "preserved_oracles": "UCA numeric input/headers/raw hashes, Unicode file identity, routine DDL/metadata expectations unchanged"
+}

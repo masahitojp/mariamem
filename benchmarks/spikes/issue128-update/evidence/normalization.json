@@ -1,0 +1,86 @@
+[
+  {
+    "original_name": "evidence/download-commands.json",
+    "normalized_name": "evidence/download-commands.json",
+    "original_sha256": "a46980da56a76755fa517efaff9e3bb0cd3fb1d69e2a6b439b5dd1eb94680c30",
+    "normalized_sha256": "9e24b19f9970f1c5a00746f5843f9be584b38409a970531121ec0a9a9f2d8f25",
+    "substitution": "task repository absolute path -> <REPO>; log extension -> .txt for source publication"
+  },
+  {
+    "original_name": "evidence/fetch-commands.json",
+    "normalized_name": "evidence/fetch-commands.json",
+    "original_sha256": "0820158026e6a88feb8f05a4f665f85c3c38c8bafef9119c890b67b29758d62a",
+    "normalized_sha256": "20c11ac81d2ec5c7f09c6534ef615ab097f1b63b9d97bdfd9915b464c814b636",
+    "substitution": "task repository absolute path -> <REPO>; log extension -> .txt for source publication"
+  },
+  {
+    "original_name": "evidence/fetch.log",
+    "normalized_name": "evidence/fetch.txt",
+    "original_sha256": "8659f8b89b27a6e46936e91244d03666fff0c791415a6fbd7b14d6fc9a455805",
+    "normalized_sha256": "f8f1c7722a7f59607a7f5471b2d55f0fe39a39c6254d916f1707e27639ed6adc",
+    "substitution": "task repository absolute path -> <REPO>; log extension -> .txt for source publication"
+  },
+  {
+    "original_name": "evidence/public-check.log",
+    "normalized_name": "evidence/public-check.txt",
+    "original_sha256": "1fe7fddcca0f7c955f0bb9677ee60a198873bcefee6742f31d13d02f4f233fda",
+    "normalized_sha256": "3f2732c528bfc28cd601586ac2f6d20a71e6958e343daad499c712adc47bb691",
+    "substitution": "task repository absolute path -> <REPO>; log extension -> .txt for source publication"
+  },
+  {
+    "original_name": "evidence/trial-adapted.json",
+    "normalized_name": "evidence/trial-adapted.json",
+    "original_sha256": "9a7d4e223930dec35bc8dab8d151e9664c0dd18cd706516a988d4428235960e6",
+    "normalized_sha256": "b826611b8b71daed9496e0fd2960f1dea530a20a1d4482b59bc31563106ae344",
+    "substitution": "task repository absolute path -> <REPO>; log extension -> .txt for source publication"
+  },
+  {
+    "original_name": "evidence/trial-adapted.log",
+    "normalized_name": "evidence/trial-adapted.txt",
+    "original_sha256": "011dbf74fb96b8ccf7133cd1b4b7db10491935350c375a20c80d9852275157ca",
+    "normalized_sha256": "011dbf74fb96b8ccf7133cd1b4b7db10491935350c375a20c80d9852275157ca",
+    "substitution": "task repository absolute path -> <REPO>; log extension -> .txt for source publication"
+  },
+  {
+    "original_name": "evidence/trial-initial.json",
+    "normalized_name": "evidence/trial-initial.json",
+    "original_sha256": "63c0d474c6d7c7ee1f26d38821831c8d79f0008607b5bbca7d5121383868c4d9",
+    "normalized_sha256": "ae186fc9715d88ad27963084388cf6ccf894ecc5c4091838132065526cb1683f",
+    "substitution": "task repository absolute path -> <REPO>; log extension -> .txt for source publication"
+  },
+  {
+    "original_name": "evidence/trial-replay.log",
+    "normalized_name": "evidence/trial-replay.txt",
+    "original_sha256": "a634bacf065317f3eefbb173e7a4078d3948407af20af23cfd1d72535847fb74",
+    "normalized_sha256": "553b93dde38e902f62d5e1728f3a114e2098db249edea3b4637ee3cfd4b524c8",
+    "substitution": "task repository absolute path -> <REPO>; log extension -> .txt for source publication"
+  },
+  {
+    "original_name": "evidence/trial-replay2.log",
+    "normalized_name": "evidence/trial-replay2.txt",
+    "original_sha256": "b3ab6ea7d8f390cb787a69c41eee62f59dd688d6e2a2e0edc58cbb1b51700ed9",
+    "normalized_sha256": "b3ab6ea7d8f390cb787a69c41eee62f59dd688d6e2a2e0edc58cbb1b51700ed9",
+    "substitution": "task repository absolute path -> <REPO>; log extension -> .txt for source publication"
+  },
+  {
+    "original_name": "evidence/trial-results.json",
+    "normalized_name": "evidence/trial-results.json",
+    "original_sha256": "ad5018904ac29a1574fab38f5874137d440f4d13309f0c643c448d08dbb96e9c",
+    "normalized_sha256": "e1e23c6da3d8e5bf66cb41c00fdff686da3984f23f3d86303d9c66b2a708c305",
+    "substitution": "task repository absolute path -> <REPO>; log extension -> .txt for source publication"
+  },
+  {
+    "original_name": "evidence/trial.log",
+    "normalized_name": "evidence/trial.txt",
+    "original_sha256": "34926b9e9fb55c52ce74bf5599d5efa400559a88799464f40100eba94250c5a3",
+    "normalized_sha256": "34926b9e9fb55c52ce74bf5599d5efa400559a88799464f40100eba94250c5a3",
+    "substitution": "task repository absolute path -> <REPO>; log extension -> .txt for source publication"
+  },
+  {
+    "original_name": "build/issue128-temp/public-final.txt",
+    "normalized_name": "evidence/public-final.txt",
+    "original_sha256": "08a9bc0cbf8e89e29816324ca6ecd758b62ae9df2456e2b1dc012bb12418cf76",
+    "normalized_sha256": "18e8ac02d9e61bc9b9159f63a80130cb613eb73df70fa00246dc223629b8ba2d",
+    "substitution": "task repository absolute path -> <REPO>"
+  }
+]

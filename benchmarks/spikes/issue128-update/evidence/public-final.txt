@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "<REPO>/scripts/check_public.py", line 79, in <module>
+    result = check()
+  File "<REPO>/scripts/check_public.py", line 74, in check
+    raise ValueError("\n".join(errors))
+ValueError: local path or credential-like content: benchmarks/spikes/issue65-p1-owner/evidence/ci42346396518.json
+local path or credential-like content: benchmarks/spikes/issue65-p1-owner/evidence/macos-g2-build.json
+local path or credential-like content: benchmarks/spikes/issue65-p1-owner/evidence/macos-reference.json
+local path or credential-like content: benchmarks/spikes/issue65-p1-timeout/evidence/initial-helper-read-failure.txt
+local path or credential-like content: benchmarks/spikes/issue65-p1-timeout/evidence/macos-g2-build.json
+local path or credential-like content: benchmarks/spikes/issue65-p1-timeout/evidence/macos-reference.json

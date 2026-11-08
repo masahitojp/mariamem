@@ -1,0 +1,1 @@
+Disk preflight OK: 19.53 GiB free, 0.52 GiB owned

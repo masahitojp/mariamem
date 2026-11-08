@@ -1,0 +1,560 @@
+{
+  "legacy": {
+    "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb",
+    "records": [
+      {
+        "stage": "locked-source-archive",
+        "status": "FAIL",
+        "expected_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+        "actual_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+        "note": "Original fetch would reject the target before extraction; diagnostic tree only."
+      },
+      {
+        "stage": "unchanged-series-preimage-guard",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "guest patch preimage differs: configure.cmake",
+        "wall_seconds": 0.00020837504416704178
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-legacy/guest/patches/common-portability.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.029411167022772133,
+        "output": "patching file CMakeLists.txt\npatching file 'cmake/os/Emscripten.cmake'\npatching file 'cmake/os/WASIX.cmake'\npatching file 'cmake/pcre.cmake'\npatching file configure.cmake\npatching file 'include/my_global.h'\npatching file 'include/my_stacktrace.h'\npatching file 'libmysqld/libmysql.c'\npatching file 'mysys/CMakeLists.txt'\npatching file 'mysys/my_largepage.c'\npatching file 'mysys/my_lock.c'\npatching file 'mysys/my_timezone.cc'\npatching file 'mysys/my_virtual_mem.c'\npatching file 'sql/sql_plugin.cc'\npatching file 'storage/innobase/fil/fil0fil.cc'\npatching file 'storage/innobase/os/os0file.cc'\npatching file 'storage/maria/ma_loghandler.c'\n",
+        "stage": "guest/patches/common-portability.patch",
+        "preimage_drift": {
+          "configure.cmake": {
+            "expected": "98b0926c7a4f7346080765cf64efd316288455185b2c2b812d79d130f8bc8d3e",
+            "actual": "cb45e51f7987591b6c5508218a54a0d93fff6dd54bf2fab42fc87aff33abc9f4"
+          },
+          "storage/innobase/fil/fil0fil.cc": {
+            "expected": "fcab85397990f72624ed57b77d667c15f64fcd9fcd26bb8f37a366407f1bab1c",
+            "actual": "c7c180898ad82fe4f668b387360ef1dd3e31257274762b082c21abc5b524cb5b"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/benchmarks/spikes/issue128-update/adaptations/redo.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.005491833086125553,
+        "output": "patching file 'storage/innobase/log/log0log.cc'\n",
+        "stage": "guest/patches/12.3.3-redo.patch",
+        "preimage_drift": {
+          "storage/innobase/log/log0log.cc": {
+            "expected": "999ed3b38d49d9d4f4de50e4244f5bcc7a802aa6a41d4861834d99ed49f47a07",
+            "actual": "6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "8a9cd1b99d0ed37b17874c2e2cac2592ee2552f6f82f39c6bed17b882012e727"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/benchmarks/spikes/issue128-update/adaptations/prepared.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.012642040965147316,
+        "output": "patching file 'sql/sql_prepare.cc'\npatching file 'libmysqld/libmysql.c'\npatching file 'libmysqld/lib_sql.cc'\n",
+        "stage": "guest/patches/12.3.3-prepared.patch",
+        "preimage_drift": {
+          "sql/sql_prepare.cc": {
+            "expected": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+            "actual": "bcbcee024ba06281948b1d1a13faa4e7495f2bc56beb2f692d852205cfda82f4"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "757357d0dc05c557ee1ee871438561277e22d7e445980534b588e979afa15db7"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-legacy/guest/patches/12.3.3-buffer-alignment.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.008572084014303982,
+        "output": "patching file 'mysys/my_largepage.c'\npatching file 'include/my_sys.h'\npatching file 'storage/innobase/buf/buf0buf.cc'\n",
+        "stage": "guest/patches/12.3.3-buffer-alignment.patch",
+        "preimage_drift": {
+          "storage/innobase/buf/buf0buf.cc": {
+            "expected": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1",
+            "actual": "106c0dcde167b735a2c7a401a1c45b10fe3d5f80a8ce392cb714b81d87e39482"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/benchmarks/spikes/issue128-update/adaptations/legacy-source.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.007712583988904953,
+        "output": "patching file 'wasm/lite4mariadb.c'\npatching file 'wasm/CMakeLists.txt'\npatching file 'mysys/my_lib.c'\npatching file 'storage/innobase/buf/buf0flu.cc'\n",
+        "stage": "guest/source.patch",
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "fc1999525a97e074e7440061abad8a814a20bbc4249c78f54af954b3bd288cf0"
+      },
+      {
+        "stage": "unchanged-prepared-function-oracles",
+        "status": "PASS",
+        "result": null,
+        "wall_seconds": 0.0029187920736148953
+      },
+      {
+        "stage": "guest_init_hooks",
+        "status": "PASS",
+        "result": [
+          "libmysqld/lib_sql.cc",
+          "sql/mysqld.cc",
+          "sql/sql_plugin.cc",
+          "storage/maria/ha_maria.cc",
+          "storage/innobase/handler/ha_innodb.cc",
+          "storage/innobase/srv/srv0start.cc"
+        ],
+        "wall_seconds": 0.004938500002026558
+      },
+      {
+        "stage": "guest_auth_hooks",
+        "status": "PASS",
+        "result": [
+          "plugin/auth_mysql_sha2/mysql_sha2.c",
+          "plugin/auth_mysql_sha2/ssl_stuff.c"
+        ],
+        "wall_seconds": 0.00035979202948510647
+      },
+      {
+        "stage": "routine_schema",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "routine source version mismatch",
+        "wall_seconds": 0.000273333047516644
+      }
+    ],
+    "rejects": {},
+    "wall_seconds": 8.92745354201179,
+    "qualification": "NOT_PREPARED_NOT_BUILT_NOT_ACCEPTED"
+  },
+  "old-native": {
+    "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+    "records": [
+      {
+        "stage": "locked-source-archive",
+        "status": "FAIL",
+        "expected_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+        "actual_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+        "note": "Original fetch would reject the target before extraction; diagnostic tree only."
+      },
+      {
+        "stage": "unchanged-UCA-pristine-guard",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "pristine source mismatch: include/m_ctype.h",
+        "wall_seconds": 0.0030322500970214605
+      },
+      {
+        "stage": "unchanged-series-preimage-guard",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "guest patch preimage differs: configure.cmake",
+        "wall_seconds": 0.00022441602777689695
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-old-native/guest/patches/common-portability.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.0300757079385221,
+        "output": "patching file CMakeLists.txt\npatching file 'cmake/os/Emscripten.cmake'\npatching file 'cmake/os/WASIX.cmake'\npatching file 'cmake/pcre.cmake'\npatching file configure.cmake\npatching file 'include/my_global.h'\npatching file 'include/my_stacktrace.h'\npatching file 'libmysqld/libmysql.c'\npatching file 'mysys/CMakeLists.txt'\npatching file 'mysys/my_largepage.c'\npatching file 'mysys/my_lock.c'\npatching file 'mysys/my_timezone.cc'\npatching file 'mysys/my_virtual_mem.c'\npatching file 'sql/sql_plugin.cc'\npatching file 'storage/innobase/fil/fil0fil.cc'\npatching file 'storage/innobase/os/os0file.cc'\npatching file 'storage/maria/ma_loghandler.c'\n",
+        "stage": "guest/patches/common-portability.patch",
+        "preimage_drift": {
+          "configure.cmake": {
+            "expected": "98b0926c7a4f7346080765cf64efd316288455185b2c2b812d79d130f8bc8d3e",
+            "actual": "cb45e51f7987591b6c5508218a54a0d93fff6dd54bf2fab42fc87aff33abc9f4"
+          },
+          "storage/innobase/fil/fil0fil.cc": {
+            "expected": "fcab85397990f72624ed57b77d667c15f64fcd9fcd26bb8f37a366407f1bab1c",
+            "actual": "c7c180898ad82fe4f668b387360ef1dd3e31257274762b082c21abc5b524cb5b"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/benchmarks/spikes/issue128-update/adaptations/redo.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.006384874926880002,
+        "output": "patching file 'storage/innobase/log/log0log.cc'\n",
+        "stage": "guest/patches/12.3.3-redo.patch",
+        "preimage_drift": {
+          "storage/innobase/log/log0log.cc": {
+            "expected": "999ed3b38d49d9d4f4de50e4244f5bcc7a802aa6a41d4861834d99ed49f47a07",
+            "actual": "6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "8a9cd1b99d0ed37b17874c2e2cac2592ee2552f6f82f39c6bed17b882012e727"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/benchmarks/spikes/issue128-update/adaptations/prepared.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.0136281669838354,
+        "output": "patching file 'sql/sql_prepare.cc'\npatching file 'libmysqld/libmysql.c'\npatching file 'libmysqld/lib_sql.cc'\n",
+        "stage": "guest/patches/12.3.3-prepared.patch",
+        "preimage_drift": {
+          "sql/sql_prepare.cc": {
+            "expected": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+            "actual": "bcbcee024ba06281948b1d1a13faa4e7495f2bc56beb2f692d852205cfda82f4"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "757357d0dc05c557ee1ee871438561277e22d7e445980534b588e979afa15db7"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-old-native/guest/patches/12.3.3-buffer-alignment.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.009280625032261014,
+        "output": "patching file 'mysys/my_largepage.c'\npatching file 'include/my_sys.h'\npatching file 'storage/innobase/buf/buf0buf.cc'\n",
+        "stage": "guest/patches/12.3.3-buffer-alignment.patch",
+        "preimage_drift": {
+          "storage/innobase/buf/buf0buf.cc": {
+            "expected": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1",
+            "actual": "106c0dcde167b735a2c7a401a1c45b10fe3d5f80a8ce392cb714b81d87e39482"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/benchmarks/spikes/issue128-update/adaptations/old-native-source.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.05754670803435147,
+        "output": "patching file 'wasm/lite4mariadb.c'\npatching file 'wasm/CMakeLists.txt'\npatching file 'mysys/my_lib.c'\npatching file 'storage/innobase/buf/buf0flu.cc'\npatching file 'include/m_ctype.h'\npatching file 'strings/ctype-uca.c'\n",
+        "stage": "guest/source.patch",
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "e3048124e9a2eab88ac9766ef729c4ca0ef1c2bccbddae3c430368ce91d2f62d"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-old-native/guest/experimental.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.08573804202023894,
+        "output": "patching file 'include/violite.h'\npatching file 'libmysqld/lib_sql.cc'\npatching file 'libmysqld/mariamem_control_abi.h'\npatching file 'libmysqld/mariamem_wire_probe.inc'\npatching file 'sql-common/client.c'\npatching file 'sql/item.h'\npatching file 'sql/net_serv.cc'\npatching file 'sql/protocol.cc'\npatching file 'sql/protocol.h'\npatching file 'sql/sql_acl.cc'\npatching file 'sql/sql_class.cc'\npatching file 'sql/sql_class.h'\npatching file 'sql/sql_parse.cc'\npatching file 'sql/sql_prepare.cc'\npatching file 'wasm/CMakeLists.txt'\npatching file 'cmake/os/WASIX.cmake'\npatching file 'wasm/lite4mariadb.c'\npatching file 'wasm/issue65_control.cc'\npatching file 'sql/mariamem_wire_policy.h'\npatching file 'sql/sql_prepare.cc'\npatching file 'sql/sql_parse.cc'\npatching file 'sql/item.h'\npatching file 'sql/sql_prepare.cc'\npatching file 'wasm/issue65_control.cc'\npatching file 'wasm/issue65_control.cc'\npatching file 'wasm/issue65_deadline.h'\n",
+        "stage": "guest/experimental.patch",
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "8ce9b4c9c338d5a57cf3094602d41fb5aab961154a30b77fb0b10fa928282b46"
+      },
+      {
+        "stage": "unchanged-prepared-function-oracles",
+        "status": "PASS",
+        "result": null,
+        "wall_seconds": 0.0024451250210404396
+      },
+      {
+        "stage": "guest_init_hooks",
+        "status": "PASS",
+        "result": [
+          "libmysqld/lib_sql.cc",
+          "sql/mysqld.cc",
+          "sql/sql_plugin.cc",
+          "storage/maria/ha_maria.cc",
+          "storage/innobase/handler/ha_innodb.cc",
+          "storage/innobase/srv/srv0start.cc"
+        ],
+        "wall_seconds": 0.005050582927651703
+      },
+      {
+        "stage": "guest_auth_hooks",
+        "status": "PASS",
+        "result": [
+          "plugin/auth_mysql_sha2/mysql_sha2.c",
+          "plugin/auth_mysql_sha2/ssl_stuff.c"
+        ],
+        "wall_seconds": 0.0003463749308139086
+      },
+      {
+        "stage": "routine_schema",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "routine source version mismatch",
+        "wall_seconds": 0.00019950000569224358
+      }
+    ],
+    "rejects": {},
+    "wall_seconds": 8.908928417018615,
+    "qualification": "NOT_PREPARED_NOT_BUILT_NOT_ACCEPTED"
+  },
+  "native": {
+    "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3",
+    "records": [
+      {
+        "stage": "locked-source-archive",
+        "status": "FAIL",
+        "expected_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+        "actual_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+        "note": "Original fetch would reject the target before extraction; diagnostic tree only."
+      },
+      {
+        "stage": "unchanged-UCA-pristine-guard",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "pristine source mismatch: include/m_ctype.h",
+        "wall_seconds": 0.003244832972995937
+      },
+      {
+        "stage": "unchanged-series-preimage-guard",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "guest patch preimage differs: configure.cmake",
+        "wall_seconds": 0.0002295409794896841
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-native/guest/patches/common-portability.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.03067720797844231,
+        "output": "patching file CMakeLists.txt\npatching file 'cmake/os/Emscripten.cmake'\npatching file 'cmake/os/WASIX.cmake'\npatching file 'cmake/pcre.cmake'\npatching file configure.cmake\npatching file 'include/my_global.h'\npatching file 'include/my_stacktrace.h'\npatching file 'libmysqld/libmysql.c'\npatching file 'mysys/CMakeLists.txt'\npatching file 'mysys/my_largepage.c'\npatching file 'mysys/my_lock.c'\npatching file 'mysys/my_timezone.cc'\npatching file 'mysys/my_virtual_mem.c'\npatching file 'sql/sql_plugin.cc'\npatching file 'storage/innobase/fil/fil0fil.cc'\npatching file 'storage/innobase/os/os0file.cc'\npatching file 'storage/maria/ma_loghandler.c'\n",
+        "stage": "guest/patches/common-portability.patch",
+        "preimage_drift": {
+          "configure.cmake": {
+            "expected": "98b0926c7a4f7346080765cf64efd316288455185b2c2b812d79d130f8bc8d3e",
+            "actual": "cb45e51f7987591b6c5508218a54a0d93fff6dd54bf2fab42fc87aff33abc9f4"
+          },
+          "storage/innobase/fil/fil0fil.cc": {
+            "expected": "fcab85397990f72624ed57b77d667c15f64fcd9fcd26bb8f37a366407f1bab1c",
+            "actual": "c7c180898ad82fe4f668b387360ef1dd3e31257274762b082c21abc5b524cb5b"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/benchmarks/spikes/issue128-update/adaptations/redo.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.00629133393522352,
+        "output": "patching file 'storage/innobase/log/log0log.cc'\n",
+        "stage": "guest/patches/12.3.3-redo.patch",
+        "preimage_drift": {
+          "storage/innobase/log/log0log.cc": {
+            "expected": "999ed3b38d49d9d4f4de50e4244f5bcc7a802aa6a41d4861834d99ed49f47a07",
+            "actual": "6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "8a9cd1b99d0ed37b17874c2e2cac2592ee2552f6f82f39c6bed17b882012e727"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/benchmarks/spikes/issue128-update/adaptations/prepared.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.01446554099675268,
+        "output": "patching file 'sql/sql_prepare.cc'\npatching file 'libmysqld/libmysql.c'\npatching file 'libmysqld/lib_sql.cc'\n",
+        "stage": "guest/patches/12.3.3-prepared.patch",
+        "preimage_drift": {
+          "sql/sql_prepare.cc": {
+            "expected": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+            "actual": "bcbcee024ba06281948b1d1a13faa4e7495f2bc56beb2f692d852205cfda82f4"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "757357d0dc05c557ee1ee871438561277e22d7e445980534b588e979afa15db7"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-native/guest/patches/12.3.3-buffer-alignment.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.009847583016380668,
+        "output": "patching file 'mysys/my_largepage.c'\npatching file 'include/my_sys.h'\npatching file 'storage/innobase/buf/buf0buf.cc'\n",
+        "stage": "guest/patches/12.3.3-buffer-alignment.patch",
+        "preimage_drift": {
+          "storage/innobase/buf/buf0buf.cc": {
+            "expected": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1",
+            "actual": "106c0dcde167b735a2c7a401a1c45b10fe3d5f80a8ce392cb714b81d87e39482"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/benchmarks/spikes/issue128-update/adaptations/native-source.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.0556517910445109,
+        "output": "patching file 'wasm/lite4mariadb.c'\npatching file 'wasm/CMakeLists.txt'\npatching file 'mysys/my_lib.c'\npatching file 'storage/innobase/buf/buf0flu.cc'\npatching file 'include/m_ctype.h'\npatching file 'strings/ctype-uca.c'\n",
+        "stage": "guest/source.patch",
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "e3048124e9a2eab88ac9766ef729c4ca0ef1c2bccbddae3c430368ce91d2f62d"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-native/guest/experimental.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.08508349990006536,
+        "output": "patching file 'include/violite.h'\npatching file 'libmysqld/lib_sql.cc'\npatching file 'libmysqld/mariamem_control_abi.h'\npatching file 'libmysqld/mariamem_wire_probe.inc'\npatching file 'sql-common/client.c'\npatching file 'sql/item.h'\npatching file 'sql/net_serv.cc'\npatching file 'sql/protocol.cc'\npatching file 'sql/protocol.h'\npatching file 'sql/sql_acl.cc'\npatching file 'sql/sql_class.cc'\npatching file 'sql/sql_class.h'\npatching file 'sql/sql_parse.cc'\npatching file 'sql/sql_prepare.cc'\npatching file 'wasm/CMakeLists.txt'\npatching file 'cmake/os/WASIX.cmake'\npatching file 'wasm/lite4mariadb.c'\npatching file 'wasm/issue65_control.cc'\npatching file 'sql/mariamem_wire_policy.h'\npatching file 'sql/sql_prepare.cc'\npatching file 'sql/sql_parse.cc'\npatching file 'sql/item.h'\npatching file 'sql/sql_prepare.cc'\npatching file 'wasm/issue65_control.cc'\npatching file 'wasm/issue65_control.cc'\npatching file 'wasm/issue65_deadline.h'\npatching file 'wasm/CMakeLists.txt'\npatching file 'wasm/lite4mariadb.c'\npatching file 'wasm/issue65_control.cc'\n",
+        "stage": "guest/experimental.patch",
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "867e3a8b2aaab3be3d4bd20e64236d63d1915ede04be94a3437f7e5874f1295d"
+      },
+      {
+        "stage": "unchanged-prepared-function-oracles",
+        "status": "PASS",
+        "result": null,
+        "wall_seconds": 0.0023551250342279673
+      },
+      {
+        "stage": "guest_init_hooks",
+        "status": "PASS",
+        "result": [
+          "libmysqld/lib_sql.cc",
+          "sql/mysqld.cc",
+          "sql/sql_plugin.cc",
+          "storage/maria/ha_maria.cc",
+          "storage/innobase/handler/ha_innodb.cc",
+          "storage/innobase/srv/srv0start.cc"
+        ],
+        "wall_seconds": 0.005030333995819092
+      },
+      {
+        "stage": "guest_auth_hooks",
+        "status": "PASS",
+        "result": [
+          "plugin/auth_mysql_sha2/mysql_sha2.c",
+          "plugin/auth_mysql_sha2/ssl_stuff.c"
+        ],
+        "wall_seconds": 0.00035016704350709915
+      },
+      {
+        "stage": "routine_schema",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "routine source version mismatch",
+        "wall_seconds": 0.00019429100211709738
+      }
+    ],
+    "rejects": {},
+    "wall_seconds": 9.149001999991015,
+    "qualification": "NOT_PREPARED_NOT_BUILT_NOT_ACCEPTED"
+  }
+}

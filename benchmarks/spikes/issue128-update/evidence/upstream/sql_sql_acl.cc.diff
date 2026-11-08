@@ -1,0 +1,74 @@
+--- 12.3.3/sql/sql_acl.cc
++++ 13.0.2/sql/sql_acl.cc
+@@ -62,7 +62,6 @@
+ 
+ #define MAX_SCRAMBLE_LENGTH 1024
+ 
+-bool mysql_user_table_is_in_short_password_format= false;
+ bool using_global_priv_table= true;
+ 
+ // set that from field length in acl_load?
+@@ -1383,42 +1382,11 @@
+     {
+       int password_length= password()->field_length /
+                            password()->charset()->mbmaxlen;
+-      if (password_length < SCRAMBLED_PASSWORD_CHAR_LENGTH_323)
++      if (password_length < SCRAMBLED_PASSWORD_CHAR_LENGTH)
+       {
+         sql_print_error("Fatal error: mysql.user table is damaged or in "
+-                        "unsupported 3.20 format.");
++                        "unsupported format.");
+         return 1;
+-      }
+-
+-      mysql_mutex_lock(&LOCK_global_system_variables);
+-      if (password_length < SCRAMBLED_PASSWORD_CHAR_LENGTH)
+-      {
+-        if (opt_secure_auth)
+-        {
+-          mysql_mutex_unlock(&LOCK_global_system_variables);
+-          sql_print_error("Fatal error: mysql.user table is in old format, "
+-                          "but server started with --secure-auth option.");
+-          return 1;
+-        }
+-        mysql_user_table_is_in_short_password_format= true;
+-        if (global_system_variables.old_passwords)
+-          mysql_mutex_unlock(&LOCK_global_system_variables);
+-        else
+-        {
+-          extern sys_var *Sys_old_passwords_ptr;
+-          Sys_old_passwords_ptr->value_origin= sys_var::AUTO;
+-          global_system_variables.old_passwords= 1;
+-          mysql_mutex_unlock(&LOCK_global_system_variables);
+-          sql_print_warning("mysql.user table is not updated to new password format; "
+-                            "Disabling new password usage until "
+-                            "mysql_fix_privilege_tables is run");
+-        }
+-        m_table->in_use->variables.old_passwords= 1;
+-      }
+-      else
+-      {
+-        mysql_user_table_is_in_short_password_format= false;
+-        mysql_mutex_unlock(&LOCK_global_system_variables);
+       }
+     }
+     return 0;
+@@ -13978,9 +13946,6 @@
+ 
+ static bool secure_auth(THD *thd)
+ {
+-  if (!opt_secure_auth)
+-    return 0;
+-
+   /*
+     If the server is running in secure auth mode, short scrambles are
+     forbidden. Extra juggling to report the same error as the old code.
+@@ -14597,6 +14562,8 @@
+   }
+   else if (!(thd->client_capabilities & CLIENT_PLUGIN_AUTH_LENENC_CLIENT_DATA))
+   {
++    /* Packet buffer is null-terminated by the network layer, so strend(user)
++       stays within bounds and passwd remains within the packet. */
+     passwd_len= (uchar)(*passwd++);
+     db= thd->client_capabilities & CLIENT_CONNECT_WITH_DB ?
+       passwd + passwd_len : 0;

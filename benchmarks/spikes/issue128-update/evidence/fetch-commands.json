@@ -1,0 +1,32 @@
+[
+  {
+    "argv": [
+      "git",
+      "-C",
+      "<REPO>/build/issue128-temp/identity.git",
+      "fetch",
+      "--depth=1",
+      "--filter=blob:none",
+      "https://github.com/MariaDB/server.git",
+      "refs/tags/mariadb-12.3.3:refs/tags/mariadb-12.3.3"
+    ],
+    "returncode": 0,
+    "wall_seconds": 0.9456215829122812,
+    "output": "From https://github.com/MariaDB/server\n * [new tag]         mariadb-12.3.3 -> mariadb-12.3.3\n"
+  },
+  {
+    "argv": [
+      "git",
+      "-C",
+      "<REPO>/build/issue128-temp/identity.git",
+      "fetch",
+      "--depth=1",
+      "--filter=blob:none",
+      "https://github.com/MariaDB/server.git",
+      "refs/tags/mariadb-13.0.2:refs/tags/mariadb-13.0.2"
+    ],
+    "returncode": 0,
+    "wall_seconds": 0.8478717500111088,
+    "output": "From https://github.com/MariaDB/server\n * [new tag]         mariadb-13.0.2 -> mariadb-13.0.2\n"
+  }
+]

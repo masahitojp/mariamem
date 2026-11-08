@@ -1,0 +1,22 @@
+{
+  "observer_start_utc_approx": "2026-11-08T04:43:00+00:00",
+  "source_findings_complete_utc": "2026-11-08T04:53:20+00:00",
+  "accounting_recorded_utc": "2026-11-08T04:56:08.077772+00:00",
+  "active_minutes_estimate": 18,
+  "measurement_tooling_minutes_estimate": 9,
+  "method": "Human/agent work estimated from observer timestamps; not a stopwatch or per-candidate manual effort measurement. Reporting/cleanup follows this record.",
+  "limits": {
+    "active_minutes": 120,
+    "tooling_minutes_within_active": 30,
+    "heavy_ci": 0,
+    "scratch_gib": 2,
+    "free_floor_gib": 12
+  },
+  "guest_builds": 0,
+  "host_builds": 0,
+  "translations": 0,
+  "runtime_suites": 0,
+  "benchmarks": 0,
+  "heavy_ci_submissions": 0,
+  "cleanup_completed_utc": "2026-11-08T04:57:27.166695+00:00"
+}

@@ -1,0 +1,19 @@
+--- 12.3.3/include/m_ctype.h
++++ 13.0.2/include/m_ctype.h
+@@ -1491,6 +1491,16 @@
+                   const uchar *b, size_t blen)
+ {
+   return (ci->coll->strnncollsp)(ci, a, alen, b, blen);
++}
++
++static inline int
++my_ci_strnncollsp_nchars(CHARSET_INFO *ci,
++                         const uchar *a, size_t alen,
++                         const uchar *b, size_t blen,
++                         size_t nchars,
++                         uint flags)
++{
++  return (ci->coll->strnncollsp_nchars)(ci, a, alen, b, blen, nchars, flags);
+ }
+ 
+ 

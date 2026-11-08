@@ -1,0 +1,65 @@
+[
+  {
+    "argv": [
+      "curl",
+      "--fail",
+      "--location",
+      "--retry",
+      "2",
+      "--max-time",
+      "300",
+      "--output",
+      "<REPO>/build/issue128-temp/target.tar.gz",
+      "https://codeload.github.com/MariaDB/server/tar.gz/620a4b5624222048fece7fe1789978ae0675cae2"
+    ],
+    "returncode": 0,
+    "wall_seconds": 8.992245165980421,
+    "output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100 3546k    0 3546k    0     0  3584k      0 --:--:-- --:--:-- --:--:-- 3582k\n100 8957k    0 8957k    0     0  4504k      0 --:--:--  0:00:01 --:--:-- 4503k\n100 14.8M    0 14.8M    0     0  5076k      0 --:--:--  0:00:02 --:--:-- 5075k\n100 20.8M    0 20.8M    0     0  5341k      0 --:--:--  0:00:03 --:--:-- 5341k\n100 26.0M    0 26.0M    0     0  5357k      0 --:--:--  0:00:04 --:--:-- 5356k\n100 31.6M    0 31.6M    0     0  5411k      0 --:--:--  0:00:05 --:--:-- 5772k\n100 37.0M    0 37.0M    0     0  5435k      0 --:--:--  0:00:06 --:--:-- 5805k\n100 42.0M    0 42.0M    0     0  5387k      0 --:--:--  0:00:07 --:--:-- 5573k\n100 46.8M    0 46.8M    0     0  5348k      0 --:--:--  0:00:08 --:--:-- 5353k\n",
+    "name": "target",
+    "url": "https://codeload.github.com/MariaDB/server/tar.gz/620a4b5624222048fece7fe1789978ae0675cae2",
+    "sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+    "bytes": 49119382
+  },
+  {
+    "argv": [
+      "curl",
+      "--fail",
+      "--location",
+      "--retry",
+      "2",
+      "--max-time",
+      "300",
+      "--output",
+      "<REPO>/build/issue128-temp/mariadb.tar.gz",
+      "https://codeload.github.com/MariaDB/server/tar.gz/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e"
+    ],
+    "returncode": 0,
+    "wall_seconds": 9.397986833937466,
+    "output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100 3642k    0 3642k    0     0  3813k      0 --:--:-- --:--:-- --:--:-- 3810k\n100 8729k    0 8729k    0     0  4458k      0 --:--:--  0:00:01 --:--:-- 4458k\n100 13.3M    0 13.3M    0     0  4620k      0 --:--:--  0:00:02 --:--:-- 4619k\n100 17.8M    0 17.8M    0     0  4610k      0 --:--:--  0:00:03 --:--:-- 4610k\n100 22.9M    0 22.9M    0     0  4745k      0 --:--:--  0:00:04 --:--:-- 4745k\n100 28.0M    0 28.0M    0     0  4826k      0 --:--:--  0:00:05 --:--:-- 5020k\n100 33.4M    0 33.4M    0     0  4928k      0 --:--:--  0:00:06 --:--:-- 5111k\n100 39.1M    0 39.1M    0     0  5036k      0 --:--:--  0:00:07 --:--:-- 5281k\n100 44.4M    0 44.4M    0     0  5085k      0 --:--:--  0:00:08 --:--:-- 5461k\n100 46.7M    0 46.7M    0     0  5101k      0 --:--:--  0:00:09 --:--:-- 5499k\n",
+    "name": "mariadb",
+    "url": "https://codeload.github.com/MariaDB/server/tar.gz/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+    "sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+    "bytes": 49022246
+  },
+  {
+    "argv": [
+      "curl",
+      "--fail",
+      "--location",
+      "--retry",
+      "2",
+      "--max-time",
+      "300",
+      "--output",
+      "<REPO>/build/issue128-temp/lite4mariadb.tar.gz",
+      "https://codeload.github.com/shyim/lite4mariadb/tar.gz/24be9371a2f6c71250a2356631ad6feab2280b02"
+    ],
+    "returncode": 0,
+    "wall_seconds": 8.903231125092134,
+    "output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100  685k    0  685k    0     0  1351k      0 --:--:-- --:--:-- --:--:-- 1349k\n100 7137k    0 7137k    0     0  4732k      0 --:--:--  0:00:01 --:--:-- 4729k\n100 12.7M    0 12.7M    0     0  5215k      0 --:--:--  0:00:02 --:--:-- 5214k\n100 18.2M    0 18.2M    0     0  5327k      0 --:--:--  0:00:03 --:--:-- 5327k\n100 24.0M    0 24.0M    0     0  5463k      0 --:--:--  0:00:04 --:--:-- 5463k\n100 29.4M    0 29.4M    0     0  5481k      0 --:--:--  0:00:05 --:--:-- 5900k\n100 34.7M    0 34.7M    0     0  5467k      0 --:--:--  0:00:06 --:--:-- 5689k\n100 39.9M    0 39.9M    0     0  5450k      0 --:--:--  0:00:07 --:--:-- 5568k\n100 45.2M    0 45.2M    0     0  5445k      0 --:--:--  0:00:08 --:--:-- 5528k\n100 47.0M    0 47.0M    0     0  5421k      0 --:--:--  0:00:08 --:--:-- 5377k\n",
+    "name": "lite4mariadb",
+    "url": "https://codeload.github.com/shyim/lite4mariadb/tar.gz/24be9371a2f6c71250a2356631ad6feab2280b02",
+    "sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd",
+    "bytes": 49317689
+  }
+]

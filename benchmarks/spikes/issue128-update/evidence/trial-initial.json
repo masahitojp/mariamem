@@ -1,0 +1,571 @@
+{
+  "legacy": {
+    "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb",
+    "records": [
+      {
+        "stage": "locked-source-archive",
+        "status": "FAIL",
+        "expected_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+        "actual_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+        "note": "Original fetch would reject the target before extraction; diagnostic tree only."
+      },
+      {
+        "stage": "unchanged-series-preimage-guard",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "guest patch preimage differs: configure.cmake",
+        "wall_seconds": 0.000223665963858366
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-legacy/guest/patches/common-portability.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.05345495801884681,
+        "output": "patching file CMakeLists.txt\npatching file 'cmake/os/Emscripten.cmake'\npatching file 'cmake/os/WASIX.cmake'\npatching file 'cmake/pcre.cmake'\npatching file configure.cmake\npatching file 'include/my_global.h'\npatching file 'include/my_stacktrace.h'\npatching file 'libmysqld/libmysql.c'\npatching file 'mysys/CMakeLists.txt'\npatching file 'mysys/my_largepage.c'\npatching file 'mysys/my_lock.c'\npatching file 'mysys/my_timezone.cc'\npatching file 'mysys/my_virtual_mem.c'\npatching file 'sql/sql_plugin.cc'\npatching file 'storage/innobase/fil/fil0fil.cc'\npatching file 'storage/innobase/os/os0file.cc'\npatching file 'storage/maria/ma_loghandler.c'\n",
+        "stage": "guest/patches/common-portability.patch",
+        "preimage_drift": {
+          "configure.cmake": {
+            "expected": "98b0926c7a4f7346080765cf64efd316288455185b2c2b812d79d130f8bc8d3e",
+            "actual": "cb45e51f7987591b6c5508218a54a0d93fff6dd54bf2fab42fc87aff33abc9f4"
+          },
+          "storage/innobase/fil/fil0fil.cc": {
+            "expected": "fcab85397990f72624ed57b77d667c15f64fcd9fcd26bb8f37a366407f1bab1c",
+            "actual": "c7c180898ad82fe4f668b387360ef1dd3e31257274762b082c21abc5b524cb5b"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-legacy/guest/patches/12.3.3-redo.patch"
+        ],
+        "returncode": 1,
+        "wall_seconds": 0.00619662506505847,
+        "output": "patching file 'storage/innobase/log/log0log.cc'\n1 out of 1 hunks failed--saving rejects to 'storage/innobase/log/log0log.cc.rej'\n",
+        "stage": "guest/patches/12.3.3-redo.patch",
+        "preimage_drift": {
+          "storage/innobase/log/log0log.cc": {
+            "expected": "999ed3b38d49d9d4f4de50e4244f5bcc7a802aa6a41d4861834d99ed49f47a07",
+            "actual": "6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-legacy/guest/patches/12.3.3-prepared.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.012819333001971245,
+        "output": "patching file 'sql/sql_prepare.cc'\npatching file 'libmysqld/libmysql.c'\npatching file 'libmysqld/lib_sql.cc'\n",
+        "stage": "guest/patches/12.3.3-prepared.patch",
+        "preimage_drift": {
+          "sql/sql_prepare.cc": {
+            "expected": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+            "actual": "bcbcee024ba06281948b1d1a13faa4e7495f2bc56beb2f692d852205cfda82f4"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-legacy/guest/patches/12.3.3-buffer-alignment.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.009182958048768342,
+        "output": "patching file 'mysys/my_largepage.c'\npatching file 'include/my_sys.h'\npatching file 'storage/innobase/buf/buf0buf.cc'\n",
+        "stage": "guest/patches/12.3.3-buffer-alignment.patch",
+        "preimage_drift": {
+          "storage/innobase/buf/buf0buf.cc": {
+            "expected": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1",
+            "actual": "106c0dcde167b735a2c7a401a1c45b10fe3d5f80a8ce392cb714b81d87e39482"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-legacy/guest/source.patch"
+        ],
+        "returncode": 1,
+        "wall_seconds": 0.009127042023465037,
+        "output": "patching file 'wasm/lite4mariadb.c'\npatching file 'wasm/CMakeLists.txt'\npatching file 'mysys/my_lib.c'\npatching file 'storage/innobase/buf/buf0flu.cc'\n1 out of 1 hunks failed--saving rejects to 'storage/innobase/buf/buf0flu.cc.rej'\n",
+        "stage": "guest/source.patch",
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16"
+      },
+      {
+        "stage": "unchanged-prepared-function-oracles",
+        "status": "PASS",
+        "result": null,
+        "wall_seconds": 0.0029748749220743775
+      },
+      {
+        "stage": "guest_init_hooks",
+        "status": "PASS",
+        "result": [
+          "libmysqld/lib_sql.cc",
+          "sql/mysqld.cc",
+          "sql/sql_plugin.cc",
+          "storage/maria/ha_maria.cc",
+          "storage/innobase/handler/ha_innodb.cc",
+          "storage/innobase/srv/srv0start.cc"
+        ],
+        "wall_seconds": 0.005066834040917456
+      },
+      {
+        "stage": "guest_auth_hooks",
+        "status": "PASS",
+        "result": [
+          "plugin/auth_mysql_sha2/mysql_sha2.c",
+          "plugin/auth_mysql_sha2/ssl_stuff.c"
+        ],
+        "wall_seconds": 0.00035833404399454594
+      },
+      {
+        "stage": "routine_schema",
+        "status": "FAIL",
+        "exception": "TypeError",
+        "error": "prepare() takes 1 positional argument but 2 were given",
+        "wall_seconds": 4.041008651256561e-06
+      }
+    ],
+    "rejects": {
+      "storage/innobase/buf/buf0flu.cc.rej": "@@ -2593,18 +2593,23 @@\n       if (UNIV_UNLIKELY(srv_shutdown_state >= SRV_SHUTDOWN_LAST_PHASE))\n         break;\n \n-      if (buf_pool.page_cleaner_idle() &&\n-          (!UT_LIST_GET_LEN(buf_pool.flush_list) ||\n-           srv_max_dirty_pages_pct_lwm == 0.0))\n+      /* A checkpoint target can arrive after the pre-lock read. Do not\n+      sleep on a signal already delivered while acquiring this mutex. */\n+      if (buf_flush_sync_lsn.load() == 0)\n       {\n-        buf_pool.LRU_warned_clear();\n-        /* We are idle; wait for buf_pool.page_cleaner_wakeup() */\n-        my_cond_wait(&buf_pool.do_flush_list,\n-                     &buf_pool.flush_list_mutex.m_mutex);\n+        if (buf_pool.page_cleaner_idle() &&\n+            (!UT_LIST_GET_LEN(buf_pool.flush_list) ||\n+             srv_max_dirty_pages_pct_lwm == 0.0))\n+        {\n+          buf_pool.LRU_warned_clear();\n+          /* We are idle; wait for buf_pool.page_cleaner_wakeup() */\n+          my_cond_wait(&buf_pool.do_flush_list,\n+                       &buf_pool.flush_list_mutex.m_mutex);\n+        }\n+        else\n+          my_cond_timedwait(&buf_pool.do_flush_list,\n+                            &buf_pool.flush_list_mutex.m_mutex, &abstime);\n       }\n-      else\n-        my_cond_timedwait(&buf_pool.do_flush_list,\n-                          &buf_pool.flush_list_mutex.m_mutex, &abstime);\n     }\n     set_timespec(abstime, 1);\n \n",
+      "storage/innobase/log/log0log.cc.rej": "@@ -342,7 +342,10 @@\n         log.close();\n         log_buffered= false;\n         log_maybe_unbuffered= true;\n-        IF_WIN(,mprotect(ptr, size_t(size), PROT_READ));\n+#if !defined(_WIN32) && !defined(__wasi__)\n+        /* Same WASIX protection limitation as lite4mariadb's newer source. */\n+        mprotect(ptr, size_t(size), PROT_READ);\n+#endif\n       }\n # endif\n       buf= static_cast<byte*>(ptr);\n"
+    },
+    "wall_seconds": 9.085352083900943,
+    "qualification": "NOT_PREPARED_NOT_BUILT_NOT_ACCEPTED"
+  },
+  "old-native": {
+    "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+    "records": [
+      {
+        "stage": "locked-source-archive",
+        "status": "FAIL",
+        "expected_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+        "actual_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+        "note": "Original fetch would reject the target before extraction; diagnostic tree only."
+      },
+      {
+        "stage": "unchanged-UCA-pristine-guard",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "pristine source mismatch: include/m_ctype.h",
+        "wall_seconds": 0.0030565409688279033
+      },
+      {
+        "stage": "unchanged-series-preimage-guard",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "guest patch preimage differs: configure.cmake",
+        "wall_seconds": 0.00021087494678795338
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-old-native/guest/patches/common-portability.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.029914208105765283,
+        "output": "patching file CMakeLists.txt\npatching file 'cmake/os/Emscripten.cmake'\npatching file 'cmake/os/WASIX.cmake'\npatching file 'cmake/pcre.cmake'\npatching file configure.cmake\npatching file 'include/my_global.h'\npatching file 'include/my_stacktrace.h'\npatching file 'libmysqld/libmysql.c'\npatching file 'mysys/CMakeLists.txt'\npatching file 'mysys/my_largepage.c'\npatching file 'mysys/my_lock.c'\npatching file 'mysys/my_timezone.cc'\npatching file 'mysys/my_virtual_mem.c'\npatching file 'sql/sql_plugin.cc'\npatching file 'storage/innobase/fil/fil0fil.cc'\npatching file 'storage/innobase/os/os0file.cc'\npatching file 'storage/maria/ma_loghandler.c'\n",
+        "stage": "guest/patches/common-portability.patch",
+        "preimage_drift": {
+          "configure.cmake": {
+            "expected": "98b0926c7a4f7346080765cf64efd316288455185b2c2b812d79d130f8bc8d3e",
+            "actual": "cb45e51f7987591b6c5508218a54a0d93fff6dd54bf2fab42fc87aff33abc9f4"
+          },
+          "storage/innobase/fil/fil0fil.cc": {
+            "expected": "fcab85397990f72624ed57b77d667c15f64fcd9fcd26bb8f37a366407f1bab1c",
+            "actual": "c7c180898ad82fe4f668b387360ef1dd3e31257274762b082c21abc5b524cb5b"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-old-native/guest/patches/12.3.3-redo.patch"
+        ],
+        "returncode": 1,
+        "wall_seconds": 0.006189667037688196,
+        "output": "patching file 'storage/innobase/log/log0log.cc'\n1 out of 1 hunks failed--saving rejects to 'storage/innobase/log/log0log.cc.rej'\n",
+        "stage": "guest/patches/12.3.3-redo.patch",
+        "preimage_drift": {
+          "storage/innobase/log/log0log.cc": {
+            "expected": "999ed3b38d49d9d4f4de50e4244f5bcc7a802aa6a41d4861834d99ed49f47a07",
+            "actual": "6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-old-native/guest/patches/12.3.3-prepared.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.01361224998254329,
+        "output": "patching file 'sql/sql_prepare.cc'\npatching file 'libmysqld/libmysql.c'\npatching file 'libmysqld/lib_sql.cc'\n",
+        "stage": "guest/patches/12.3.3-prepared.patch",
+        "preimage_drift": {
+          "sql/sql_prepare.cc": {
+            "expected": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+            "actual": "bcbcee024ba06281948b1d1a13faa4e7495f2bc56beb2f692d852205cfda82f4"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-old-native/guest/patches/12.3.3-buffer-alignment.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.009339167037978768,
+        "output": "patching file 'mysys/my_largepage.c'\npatching file 'include/my_sys.h'\npatching file 'storage/innobase/buf/buf0buf.cc'\n",
+        "stage": "guest/patches/12.3.3-buffer-alignment.patch",
+        "preimage_drift": {
+          "storage/innobase/buf/buf0buf.cc": {
+            "expected": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1",
+            "actual": "106c0dcde167b735a2c7a401a1c45b10fe3d5f80a8ce392cb714b81d87e39482"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-old-native/guest/source.patch"
+        ],
+        "returncode": 1,
+        "wall_seconds": 0.056606250000186265,
+        "output": "patching file 'wasm/lite4mariadb.c'\npatching file 'wasm/CMakeLists.txt'\npatching file 'mysys/my_lib.c'\npatching file 'storage/innobase/buf/buf0flu.cc'\n1 out of 1 hunks failed--saving rejects to 'storage/innobase/buf/buf0flu.cc.rej'\npatching file 'include/m_ctype.h'\npatching file 'strings/ctype-uca.c'\n",
+        "stage": "guest/source.patch",
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "430273666a1f2c38ba5e0441ada7e3d1036ad94e5ccfc486f956e2b214b674b7"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-old-native/guest/experimental.patch"
+        ],
+        "returncode": 1,
+        "wall_seconds": 0.08582520904019475,
+        "output": "patching file 'include/violite.h'\npatching file 'libmysqld/lib_sql.cc'\npatching file 'libmysqld/mariamem_control_abi.h'\npatching file 'libmysqld/mariamem_wire_probe.inc'\npatching file 'sql-common/client.c'\npatching file 'sql/item.h'\npatching file 'sql/net_serv.cc'\npatching file 'sql/protocol.cc'\npatching file 'sql/protocol.h'\npatching file 'sql/sql_acl.cc'\npatching file 'sql/sql_class.cc'\npatching file 'sql/sql_class.h'\npatching file 'sql/sql_parse.cc'\npatching file 'sql/sql_prepare.cc'\n1 out of 33 hunks failed--saving rejects to 'sql/sql_prepare.cc.rej'\npatching file 'wasm/CMakeLists.txt'\npatching file 'cmake/os/WASIX.cmake'\npatching file 'wasm/lite4mariadb.c'\npatching file 'wasm/issue65_control.cc'\npatching file 'sql/mariamem_wire_policy.h'\npatching file 'sql/sql_prepare.cc'\npatching file 'sql/sql_parse.cc'\npatching file 'sql/item.h'\npatching file 'sql/sql_prepare.cc'\npatching file 'wasm/issue65_control.cc'\npatching file 'wasm/issue65_control.cc'\npatching file 'wasm/issue65_deadline.h'\n",
+        "stage": "guest/experimental.patch",
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "8ce9b4c9c338d5a57cf3094602d41fb5aab961154a30b77fb0b10fa928282b46"
+      },
+      {
+        "stage": "unchanged-prepared-function-oracles",
+        "status": "PASS",
+        "result": null,
+        "wall_seconds": 0.0024720000801607966
+      },
+      {
+        "stage": "guest_init_hooks",
+        "status": "PASS",
+        "result": [
+          "libmysqld/lib_sql.cc",
+          "sql/mysqld.cc",
+          "sql/sql_plugin.cc",
+          "storage/maria/ha_maria.cc",
+          "storage/innobase/handler/ha_innodb.cc",
+          "storage/innobase/srv/srv0start.cc"
+        ],
+        "wall_seconds": 0.005274082999676466
+      },
+      {
+        "stage": "guest_auth_hooks",
+        "status": "PASS",
+        "result": [
+          "plugin/auth_mysql_sha2/mysql_sha2.c",
+          "plugin/auth_mysql_sha2/ssl_stuff.c"
+        ],
+        "wall_seconds": 0.00041733402758836746
+      },
+      {
+        "stage": "routine_schema",
+        "status": "FAIL",
+        "exception": "TypeError",
+        "error": "prepare() takes 1 positional argument but 2 were given",
+        "wall_seconds": 3.959052264690399e-06
+      }
+    ],
+    "rejects": {
+      "sql/sql_prepare.cc.rej": "@@ -6662,3 +6659,4 @@\n   return static_cast<void *>(&stmt->lex->param_list);\n }\n #endif\n+unsigned long mariamem_spike_decodes= 0;\n",
+      "storage/innobase/buf/buf0flu.cc.rej": "@@ -2593,18 +2593,23 @@\n       if (UNIV_UNLIKELY(srv_shutdown_state >= SRV_SHUTDOWN_LAST_PHASE))\n         break;\n \n-      if (buf_pool.page_cleaner_idle() &&\n-          (!UT_LIST_GET_LEN(buf_pool.flush_list) ||\n-           srv_max_dirty_pages_pct_lwm == 0.0))\n+      /* A checkpoint target can arrive after the pre-lock read. Do not\n+      sleep on a signal already delivered while acquiring this mutex. */\n+      if (buf_flush_sync_lsn.load() == 0)\n       {\n-        buf_pool.LRU_warned_clear();\n-        /* We are idle; wait for buf_pool.page_cleaner_wakeup() */\n-        my_cond_wait(&buf_pool.do_flush_list,\n-                     &buf_pool.flush_list_mutex.m_mutex);\n+        if (buf_pool.page_cleaner_idle() &&\n+            (!UT_LIST_GET_LEN(buf_pool.flush_list) ||\n+             srv_max_dirty_pages_pct_lwm == 0.0))\n+        {\n+          buf_pool.LRU_warned_clear();\n+          /* We are idle; wait for buf_pool.page_cleaner_wakeup() */\n+          my_cond_wait(&buf_pool.do_flush_list,\n+                       &buf_pool.flush_list_mutex.m_mutex);\n+        }\n+        else\n+          my_cond_timedwait(&buf_pool.do_flush_list,\n+                            &buf_pool.flush_list_mutex.m_mutex, &abstime);\n       }\n-      else\n-        my_cond_timedwait(&buf_pool.do_flush_list,\n-                          &buf_pool.flush_list_mutex.m_mutex, &abstime);\n     }\n     set_timespec(abstime, 1);\n \n",
+      "storage/innobase/log/log0log.cc.rej": "@@ -342,7 +342,10 @@\n         log.close();\n         log_buffered= false;\n         log_maybe_unbuffered= true;\n-        IF_WIN(,mprotect(ptr, size_t(size), PROT_READ));\n+#if !defined(_WIN32) && !defined(__wasi__)\n+        /* Same WASIX protection limitation as lite4mariadb's newer source. */\n+        mprotect(ptr, size_t(size), PROT_READ);\n+#endif\n       }\n # endif\n       buf= static_cast<byte*>(ptr);\n"
+    },
+    "wall_seconds": 8.862963249906898,
+    "qualification": "NOT_PREPARED_NOT_BUILT_NOT_ACCEPTED"
+  },
+  "native": {
+    "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3",
+    "records": [
+      {
+        "stage": "locked-source-archive",
+        "status": "FAIL",
+        "expected_sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845",
+        "actual_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+        "note": "Original fetch would reject the target before extraction; diagnostic tree only."
+      },
+      {
+        "stage": "unchanged-UCA-pristine-guard",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "pristine source mismatch: include/m_ctype.h",
+        "wall_seconds": 0.0031216669594869018
+      },
+      {
+        "stage": "unchanged-series-preimage-guard",
+        "status": "FAIL",
+        "exception": "ValueError",
+        "error": "guest patch preimage differs: configure.cmake",
+        "wall_seconds": 0.00020987493917346
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-native/guest/patches/common-portability.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.029382666922174394,
+        "output": "patching file CMakeLists.txt\npatching file 'cmake/os/Emscripten.cmake'\npatching file 'cmake/os/WASIX.cmake'\npatching file 'cmake/pcre.cmake'\npatching file configure.cmake\npatching file 'include/my_global.h'\npatching file 'include/my_stacktrace.h'\npatching file 'libmysqld/libmysql.c'\npatching file 'mysys/CMakeLists.txt'\npatching file 'mysys/my_largepage.c'\npatching file 'mysys/my_lock.c'\npatching file 'mysys/my_timezone.cc'\npatching file 'mysys/my_virtual_mem.c'\npatching file 'sql/sql_plugin.cc'\npatching file 'storage/innobase/fil/fil0fil.cc'\npatching file 'storage/innobase/os/os0file.cc'\npatching file 'storage/maria/ma_loghandler.c'\n",
+        "stage": "guest/patches/common-portability.patch",
+        "preimage_drift": {
+          "configure.cmake": {
+            "expected": "98b0926c7a4f7346080765cf64efd316288455185b2c2b812d79d130f8bc8d3e",
+            "actual": "cb45e51f7987591b6c5508218a54a0d93fff6dd54bf2fab42fc87aff33abc9f4"
+          },
+          "storage/innobase/fil/fil0fil.cc": {
+            "expected": "fcab85397990f72624ed57b77d667c15f64fcd9fcd26bb8f37a366407f1bab1c",
+            "actual": "c7c180898ad82fe4f668b387360ef1dd3e31257274762b082c21abc5b524cb5b"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-native/guest/patches/12.3.3-redo.patch"
+        ],
+        "returncode": 1,
+        "wall_seconds": 0.0063466670690104365,
+        "output": "patching file 'storage/innobase/log/log0log.cc'\n1 out of 1 hunks failed--saving rejects to 'storage/innobase/log/log0log.cc.rej'\n",
+        "stage": "guest/patches/12.3.3-redo.patch",
+        "preimage_drift": {
+          "storage/innobase/log/log0log.cc": {
+            "expected": "999ed3b38d49d9d4f4de50e4244f5bcc7a802aa6a41d4861834d99ed49f47a07",
+            "actual": "6765e99c6dcb5c2976d378da6163facae53ab42ee6d700023259fdb726c68d6c"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-native/guest/patches/12.3.3-prepared.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.01369166700169444,
+        "output": "patching file 'sql/sql_prepare.cc'\npatching file 'libmysqld/libmysql.c'\npatching file 'libmysqld/lib_sql.cc'\n",
+        "stage": "guest/patches/12.3.3-prepared.patch",
+        "preimage_drift": {
+          "sql/sql_prepare.cc": {
+            "expected": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+            "actual": "bcbcee024ba06281948b1d1a13faa4e7495f2bc56beb2f692d852205cfda82f4"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-native/guest/patches/12.3.3-buffer-alignment.patch"
+        ],
+        "returncode": 0,
+        "wall_seconds": 0.010124374995939434,
+        "output": "patching file 'mysys/my_largepage.c'\npatching file 'include/my_sys.h'\npatching file 'storage/innobase/buf/buf0buf.cc'\n",
+        "stage": "guest/patches/12.3.3-buffer-alignment.patch",
+        "preimage_drift": {
+          "storage/innobase/buf/buf0buf.cc": {
+            "expected": "56c39160b207e16482d0f501e7b58b48708848caf74567cf2fa6ae83a3fddfb1",
+            "actual": "106c0dcde167b735a2c7a401a1c45b10fe3d5f80a8ce392cb714b81d87e39482"
+          }
+        },
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-native/guest/source.patch"
+        ],
+        "returncode": 1,
+        "wall_seconds": 0.05755224998574704,
+        "output": "patching file 'wasm/lite4mariadb.c'\npatching file 'wasm/CMakeLists.txt'\npatching file 'mysys/my_lib.c'\npatching file 'storage/innobase/buf/buf0flu.cc'\n1 out of 1 hunks failed--saving rejects to 'storage/innobase/buf/buf0flu.cc.rej'\npatching file 'include/m_ctype.h'\npatching file 'strings/ctype-uca.c'\n",
+        "stage": "guest/source.patch",
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "430273666a1f2c38ba5e0441ada7e3d1036ad94e5ccfc486f956e2b214b674b7"
+      },
+      {
+        "argv": [
+          "patch",
+          "--batch",
+          "--forward",
+          "--fuzz=0",
+          "-p1",
+          "-i",
+          "<REPO>/build/issue128-temp/candidate-native/guest/experimental.patch"
+        ],
+        "returncode": 1,
+        "wall_seconds": 0.08715762500651181,
+        "output": "patching file 'include/violite.h'\npatching file 'libmysqld/lib_sql.cc'\npatching file 'libmysqld/mariamem_control_abi.h'\npatching file 'libmysqld/mariamem_wire_probe.inc'\npatching file 'sql-common/client.c'\npatching file 'sql/item.h'\npatching file 'sql/net_serv.cc'\npatching file 'sql/protocol.cc'\npatching file 'sql/protocol.h'\npatching file 'sql/sql_acl.cc'\npatching file 'sql/sql_class.cc'\npatching file 'sql/sql_class.h'\npatching file 'sql/sql_parse.cc'\npatching file 'sql/sql_prepare.cc'\n1 out of 33 hunks failed--saving rejects to 'sql/sql_prepare.cc.rej'\npatching file 'wasm/CMakeLists.txt'\npatching file 'cmake/os/WASIX.cmake'\npatching file 'wasm/lite4mariadb.c'\npatching file 'wasm/issue65_control.cc'\npatching file 'sql/mariamem_wire_policy.h'\npatching file 'sql/sql_prepare.cc'\npatching file 'sql/sql_parse.cc'\npatching file 'sql/item.h'\npatching file 'sql/sql_prepare.cc'\npatching file 'wasm/issue65_control.cc'\npatching file 'wasm/issue65_control.cc'\npatching file 'wasm/issue65_deadline.h'\npatching file 'wasm/CMakeLists.txt'\npatching file 'wasm/lite4mariadb.c'\npatching file 'wasm/issue65_control.cc'\n",
+        "stage": "guest/experimental.patch",
+        "status": "DIAGNOSTIC_ONLY",
+        "patch_sha256": "867e3a8b2aaab3be3d4bd20e64236d63d1915ede04be94a3437f7e5874f1295d"
+      },
+      {
+        "stage": "unchanged-prepared-function-oracles",
+        "status": "PASS",
+        "result": null,
+        "wall_seconds": 0.0024675410240888596
+      },
+      {
+        "stage": "guest_init_hooks",
+        "status": "PASS",
+        "result": [
+          "libmysqld/lib_sql.cc",
+          "sql/mysqld.cc",
+          "sql/sql_plugin.cc",
+          "storage/maria/ha_maria.cc",
+          "storage/innobase/handler/ha_innodb.cc",
+          "storage/innobase/srv/srv0start.cc"
+        ],
+        "wall_seconds": 0.005050249979831278
+      },
+      {
+        "stage": "guest_auth_hooks",
+        "status": "PASS",
+        "result": [
+          "plugin/auth_mysql_sha2/mysql_sha2.c",
+          "plugin/auth_mysql_sha2/ssl_stuff.c"
+        ],
+        "wall_seconds": 0.00031637505162507296
+      },
+      {
+        "stage": "routine_schema",
+        "status": "FAIL",
+        "exception": "TypeError",
+        "error": "prepare() takes 1 positional argument but 2 were given",
+        "wall_seconds": 3.6670826375484467e-06
+      }
+    ],
+    "rejects": {
+      "sql/sql_prepare.cc.rej": "@@ -6662,3 +6659,4 @@\n   return static_cast<void *>(&stmt->lex->param_list);\n }\n #endif\n+unsigned long mariamem_spike_decodes= 0;\n",
+      "storage/innobase/buf/buf0flu.cc.rej": "@@ -2593,18 +2593,23 @@\n       if (UNIV_UNLIKELY(srv_shutdown_state >= SRV_SHUTDOWN_LAST_PHASE))\n         break;\n \n-      if (buf_pool.page_cleaner_idle() &&\n-          (!UT_LIST_GET_LEN(buf_pool.flush_list) ||\n-           srv_max_dirty_pages_pct_lwm == 0.0))\n+      /* A checkpoint target can arrive after the pre-lock read. Do not\n+      sleep on a signal already delivered while acquiring this mutex. */\n+      if (buf_flush_sync_lsn.load() == 0)\n       {\n-        buf_pool.LRU_warned_clear();\n-        /* We are idle; wait for buf_pool.page_cleaner_wakeup() */\n-        my_cond_wait(&buf_pool.do_flush_list,\n-                     &buf_pool.flush_list_mutex.m_mutex);\n+        if (buf_pool.page_cleaner_idle() &&\n+            (!UT_LIST_GET_LEN(buf_pool.flush_list) ||\n+             srv_max_dirty_pages_pct_lwm == 0.0))\n+        {\n+          buf_pool.LRU_warned_clear();\n+          /* We are idle; wait for buf_pool.page_cleaner_wakeup() */\n+          my_cond_wait(&buf_pool.do_flush_list,\n+                       &buf_pool.flush_list_mutex.m_mutex);\n+        }\n+        else\n+          my_cond_timedwait(&buf_pool.do_flush_list,\n+                            &buf_pool.flush_list_mutex.m_mutex, &abstime);\n       }\n-      else\n-        my_cond_timedwait(&buf_pool.do_flush_list,\n-                          &buf_pool.flush_list_mutex.m_mutex, &abstime);\n     }\n     set_timespec(abstime, 1);\n \n",
+      "storage/innobase/log/log0log.cc.rej": "@@ -342,7 +342,10 @@\n         log.close();\n         log_buffered= false;\n         log_maybe_unbuffered= true;\n-        IF_WIN(,mprotect(ptr, size_t(size), PROT_READ));\n+#if !defined(_WIN32) && !defined(__wasi__)\n+        /* Same WASIX protection limitation as lite4mariadb's newer source. */\n+        mprotect(ptr, size_t(size), PROT_READ);\n+#endif\n       }\n # endif\n       buf= static_cast<byte*>(ptr);\n"
+    },
+    "wall_seconds": 8.93094279197976,
+    "qualification": "NOT_PREPARED_NOT_BUILT_NOT_ACCEPTED"
+  }
+}
