@@ -10,7 +10,7 @@ def submit(text):
  header='func Fn18241(m *base.Module, l0 int32, l1 int32) int32 {';assert text.count(header)==1;return text.replace(header,header+'\nendIO:=base.ObserveIOSubmit(m,l1);defer endIO()',1)
 change('internal/generatedgo/code/p8/p8_pure.go','Fn18241',submit)
 def worker(text):
- h='func Fn18242(m *base.Module, l0 int32) {';assert text.count(h)==1;text=text.replace(h,h+'\nbase.ObserveIOWorker(m,l0)',1);a=text.index(h);z=text.index('\nfunc ',a+1);part=text[a:z];assert part.count('L2:\n\t;')==1;part=part.replace('L2:\n\t;','L2:\n\t;\nbase.ObserveIOSyncEnd(m,l0)',1);needle='m.T0[v51].(func(*base.Module, int32, int32))(m, v47, l0+int32(44))';assert part.count(needle)==1;part=part.replace(needle,'endSubmit:=base.ObserveIOCompletionSubmit(m,l0)\n'+needle+'\nendSubmit()',1);return text[:a]+part+text[z:]
+ h='func Fn18242(m *base.Module, l0 int32) {';assert text.count(h)==1;text=text.replace(h,h+'\nvar dispatchEnd func()\nbase.ObserveIOWorker(m,l0)',1);a=text.index(h);z=text.index('\nfunc ',a+1);part=text[a:z];assert part.count('L2:\n\t;')==1;part=part.replace('L2:\n\t;','L2:\n\t;\nbase.ObserveIOSyncEnd(m,l0)',1);needle='m.T0[v51].(func(*base.Module, int32, int32))(m, v47, l0+int32(44))';assert part.count(needle)==1;part=part.replace(needle,'dispatchEnd=base.ObserveIOCompletionSubmit(m,l0)\n'+needle+'\ndispatchEnd()',1);return text[:a]+part+text[z:]
 change('internal/generatedgo/code/p7/p7_pure.go','Fn18242',worker)
 def callback(text):
  h='func Fn18280(m *base.Module, l0 int32) {';assert text.count(h)==1;return text.replace(h,h+'\nendCallback:=base.ObserveIOCallback(m,l0);defer endCallback()',1)
