@@ -33,3 +33,8 @@ benchmarks/spikes/issue128-update/adaptations/*.patch -whitespace
 benchmarks/spikes/issue128-update/evidence/upstream/*.diff -whitespace
 # Exact reviewed target-trial patch context; preserve upstream bytes.
 benchmarks/spikes/issue128-real/inputs/*.patch -whitespace
+# Exact CMake/compiler receipts, including original generator whitespace.
+benchmarks/spikes/issue128-real/evidence/*/CMakeCache.txt -whitespace
+benchmarks/spikes/issue128-real/evidence/*/build.txt -whitespace
+benchmarks/spikes/issue128-real/evidence/*/flags.make -whitespace
+benchmarks/spikes/issue128-real/evidence/*/link.txt -whitespace
