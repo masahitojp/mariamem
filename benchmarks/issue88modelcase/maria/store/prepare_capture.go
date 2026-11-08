@@ -1,4 +1,4 @@
-// Bounded caller-scope stack capture, experiment only. No guest/runtime hooks.
+// Issue140: one polling watcher; no timer/goroutine is created per PREPARE.
 package store
 
 import (
@@ -27,14 +27,19 @@ type PrepareCapture struct {
 	Bytes           int    `json:"bytes"`
 	ProfileFile     string `json:"profile_file"`
 	Error           string `json:"error,omitempty"`
-	mu              sync.Mutex
+	returned        atomic.Int64
+	clock           func() int64
 	data            []byte
 }
 
 var prepareCaptureUsed atomic.Bool
-var prepareCaptureWG sync.WaitGroup
-var prepareCaptureMu sync.Mutex
-var prepareCaptures []*PrepareCapture
+var prepareCaptures []*PrepareCapture // written by watcher; read after watcher joined
+var prepareActive sync.Map            // db_id -> *atomic.Pointer[PrepareCapture]
+var prepareWatchOnce sync.Once
+var prepareWatchStarted atomic.Bool
+var prepareWatchStop = make(chan struct{})
+var prepareWatchDone = make(chan struct{})
+var prepareWatchStopOnce sync.Once
 var prepareCaptureEnabled = os.Getenv("ISSUE68_CAPTURE") == "1"
 var prepareControlOnly = os.Getenv("ISSUE68_CONTROL") == "1"
 
@@ -53,48 +58,53 @@ func (b *boundedProfile) Write(p []byte) (int, error) {
 	_, _ = b.Buffer.Write(p)
 	return n, nil
 }
+func pollPrepareCalls() {
+	defer close(prepareWatchDone)
+	ticker := time.NewTicker(20 * time.Millisecond)
+	defer ticker.Stop()
+	for {
+		select {
+		case <-prepareWatchStop:
+			return
+		case <-ticker.C:
+			prepareActive.Range(func(_, value any) bool {
+				c := value.(*atomic.Pointer[PrepareCapture]).Load()
+				if c == nil || c.returned.Load() != 0 || c.clock()-c.CallEnterUS < 100000 {
+					return true
+				}
+				if !prepareCaptureUsed.CompareAndSwap(false, true) {
+					return false
+				}
+				c.SnapshotBeginUS = c.clock()
+				var b boundedProfile
+				err := pprof.Lookup("goroutine").WriteTo(&b, 1)
+				c.SnapshotEndUS = c.clock()
+				c.data = append([]byte(nil), b.Bytes()...)
+				c.Bytes = len(c.data)
+				c.Truncated = b.truncated
+				if err != nil {
+					c.Error = err.Error()
+				}
+				prepareCaptures = append(prepareCaptures, c)
+				return false
+			})
+			if prepareCaptureUsed.Load() {
+				return
+			}
+		}
+	}
+}
 func startPrepareCapture(o *sampleObserver, phase string, ordinal int) func() {
 	if !prepareCaptureEnabled || o == nil || prepareCaptureUsed.Load() || (phase != "positive_control" && prepareControlOnly) {
 		return nil
 	}
-	c := &PrepareCapture{DBID: o.dbID, Lane: o.lane, Phase: phase, Ordinal: ordinal, CallEnterUS: o.clock()}
-	prepareCaptureWG.Add(1)
-	timer := time.AfterFunc(100*time.Millisecond, func() {
-		defer prepareCaptureWG.Done()
-		c.mu.Lock()
-		if c.CallReturnUS != 0 || !prepareCaptureUsed.CompareAndSwap(false, true) {
-			c.mu.Unlock()
-			return
-		}
-		c.SnapshotBeginUS = o.clock()
-		c.mu.Unlock()
-		var b boundedProfile
-		err := pprof.Lookup("goroutine").WriteTo(&b, 1)
-		c.mu.Lock()
-		c.SnapshotEndUS = o.clock()
-		c.data = append([]byte(nil), b.Bytes()...)
-		c.Bytes = len(c.data)
-		c.Truncated = b.truncated
-		if err != nil {
-			c.Error = err.Error()
-		}
-		c.mu.Unlock()
-		prepareCaptureMu.Lock()
-		prepareCaptures = append(prepareCaptures, c)
-		prepareCaptureMu.Unlock()
-	})
-	return func() {
-		end := o.clock()
-		c.mu.Lock()
-		c.CallReturnUS = end
-		c.mu.Unlock()
-		if timer.Stop() {
-			prepareCaptureWG.Done()
-		}
-	}
+	prepareWatchOnce.Do(func() { prepareWatchStarted.Store(true); go pollPrepareCalls() })
+	value, _ := prepareActive.LoadOrStore(o.dbID, &atomic.Pointer[PrepareCapture]{})
+	active := value.(*atomic.Pointer[PrepareCapture])
+	c := &PrepareCapture{DBID: o.dbID, Lane: o.lane, Phase: phase, Ordinal: ordinal, CallEnterUS: o.clock(), clock: o.clock}
+	active.Store(c)
+	return func() { c.returned.Store(o.clock()); active.CompareAndSwap(c, nil) }
 }
-
-// Positive control: actual SQL-side sleep, same caller window and DB-owner label.
 func CapturePositiveControl(ctx context.Context, f func() error) error {
 	o, ok := ctx.Value(sampleObserverKey{}).(sampleObserver)
 	if !ok {
@@ -108,9 +118,12 @@ func CapturePositiveControl(ctx context.Context, f func() error) error {
 	return e
 }
 
-// Call only after all test operations returned. Serialization is outside suite time.
+// Called after all cases return. Join watcher and serialize outside suite timing.
 func WritePrepareCaptures(dir string) error {
-	prepareCaptureWG.Wait()
+	if prepareWatchStarted.Load() {
+		prepareWatchStopOnce.Do(func() { close(prepareWatchStop) })
+		<-prepareWatchDone
+	}
 	if dir == "" {
 		return nil
 	}
@@ -118,6 +131,7 @@ func WritePrepareCaptures(dir string) error {
 		return err
 	}
 	for i, c := range prepareCaptures {
+		c.CallReturnUS = c.returned.Load()
 		c.ProfileFile = fmt.Sprintf("profile-%d.txt", i)
 		if err := os.WriteFile(filepath.Join(dir, c.ProfileFile), c.data, 0600); err != nil {
 			return err
