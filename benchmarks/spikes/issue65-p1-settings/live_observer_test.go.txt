@@ -1,0 +1,17 @@
+package live
+
+import "testing"
+
+func TestC3ObserverFollowsReplacement(t *testing.T) {
+	first, second := &echoChild{}, &echoChild{}
+	e := &Endpoint{child: first}
+	if e.C3ObservedChild() != first {
+		t.Fatal("wrong initial child")
+	}
+	e.mu.Lock()
+	e.child = second
+	e.mu.Unlock()
+	if e.C3ObservedChild() != second {
+		t.Fatal("stale replacement child")
+	}
+}

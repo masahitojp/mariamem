@@ -1,0 +1,10 @@
+package live
+
+// Staged observation only: identify the child reached through the stable public
+// TCP endpoint. The fixture serializes Reset and holds one physical connection
+// during INSPECT; the pointer is never used to perform SQL or reset the child.
+func (e *Endpoint) C3ObservedChild() Child {
+	e.mu.Lock()
+	defer e.mu.Unlock()
+	return e.child
+}
