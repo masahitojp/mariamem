@@ -6,12 +6,12 @@
     "Imported functions are host requirements, not copied library function bodies; examples require generated definitions.",
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
-  "audit_source_commit": "c7472177239f7b9c14f425034940ef9c2b73bf19",
-  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
-  "linked_sha256": "77d413ea6262ff9844c01b3e7b979d26c949b83ee846140399256795f7b00999",
+  "audit_source_commit": "287b3a00d2936ba3e4887e4ed5405244383309b7",
+  "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "linked_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722",
   "symbol_map_sha256": "60e7f420c9140414f5d6879b8004bcc517a06f9dec69d9184cff3c0bfcc57e30",
   "symbol_map_entries": 21753,
-  "generated_provenance_sha256": "ace734a1fb72ea2e83b35315f4f805d9132b87298d8a437aeb0b3bc80d6cda83",
+  "generated_provenance_sha256": "c6c589fe92aa09184a4e16910492bf477cd0fc82f6f44505cf0e448404f4aed6",
   "method": "Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.",
   "retained_symbols": {
     "MariaDB": {
@@ -356,9 +356,9 @@
   },
   "result": "PASS: positive retained-function evidence for every recorded component family",
   "host_check": {
-    "source_commit": "c7472177239f7b9c14f425034940ef9c2b73bf19",
-    "sha256": "29d41d8dbb97af03779b27fbcd2e01da15e60742231149e4c00c9b44d2e7e00f",
-    "buildinfo": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.2-0.20261105024445-c7472177239f\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=c7472177239f7b9c14f425034940ef9c2b73bf19\n\tbuild\tvcs.time=2026-11-05T02:44:45Z\n\tbuild\tvcs.modified=false\n",
+    "source_commit": "287b3a00d2936ba3e4887e4ed5405244383309b7",
+    "sha256": "c12eeec13163b2aff2f22789bf4beec027dbe158ef8aeeb4529a27f705d0a670",
+    "buildinfo": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.3-0.20261108061112-287b3a00d293\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=287b3a00d2936ba3e4887e4ed5405244383309b7\n\tbuild\tvcs.time=2026-11-08T06:11:12Z\n\tbuild\tvcs.modified=false\n",
     "note": "Diagnostic attribution, not new release approval."
   },
   "previous_attribution": {
@@ -528,5 +528,23 @@
       }
     },
     "reason": "Canonical installer replaces only full-page CRC calculation blocks in Fn18145 with Go standard-library Castagnoli CRC, retaining validation comparisons and function signatures. An exact original validator is added as test-only source. Guest, linked artifact, converter, dependencies, all retained-symbol example bodies and distributed notice bytes are unchanged. Go runtime/library attribution already exists. Historical audit source/host/symbol-map identities are retained; this is source continuity, not a new binary-symbol attribution or release audit."
+  },
+  "prior_lexer_canonical_audit": {
+    "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+    "linked_sha256": "77d413ea6262ff9844c01b3e7b979d26c949b83ee846140399256795f7b00999",
+    "audit_source_commit": "c7472177239f7b9c14f425034940ef9c2b73bf19",
+    "record_sha256": "4216a7d1cb622522a093ade1ebe8cf09fb49453bd9e6fd1b89d3dc40ad881378"
+  },
+  "lexer_canonical_source_refresh": {
+    "source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
+    "run_id": 42448601842,
+    "binaryen": {
+      "binaryen_url": "https://github.com/WebAssembly/binaryen/releases/download/version_133/binaryen-version_133-arm64-macos.tar.gz",
+      "archive_sha256": "ad66da82ac13f163e424b1643f16c6dfcccc98b5966296b43e52d3cab04f84a8",
+      "symbol_map_sha256": "60e7f420c9140414f5d6879b8004bcc517a06f9dec69d9184cff3c0bfcc57e30",
+      "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1"
+    },
+    "status": "PASS: exact guest reproduction and retained functions re-audited on clean canonical host",
+    "host_audit_source_commit": "287b3a00d2936ba3e4887e4ed5405244383309b7"
   }
 }

@@ -19,7 +19,7 @@ def main():
     positive=verify_build(ROOT,commit)
     results=[]
     for name in ('contract','source','guest','linked','one-build','different-builds','experimental',
-                 'source-file','overlay','toolchain','regen-source','regen-result','inventory','provenance','converter','patch','translation'):
+                 'source-file','lexer-input','overlay','toolchain','regen-source','regen-result','inventory','provenance','converter','patch','translation'):
         guest=copy.deepcopy(positive['guest']);regen=copy.deepcopy(positive['regeneration'])
         if name=='contract':guest['contract']='unqualified'
         elif name=='source':guest['source_commit']='0'*40
@@ -29,6 +29,7 @@ def main():
         elif name=='different-builds':guest['repetitions'][1]['guest_sha256']='0'*64
         elif name=='experimental':guest['prepared_source']['experimental_patch']={'sha256':'0'*64}
         elif name=='source-file':guest['prepared_source']['modified_files'][next(iter(guest['prepared_source']['modified_files']))]='0'*64
+        elif name=='lexer-input':guest['prepared_source']['lexer_prepared']['header_sha256']='0'*64
         elif name=='overlay':guest['prepared_source']['overlays'][next(iter(guest['prepared_source']['overlays']))]='0'*64
         elif name=='toolchain':guest['toolchain']['archives_sha256']['converter']='0'*64
         elif name=='regen-source':regen['source_commit']='0'*40
@@ -51,7 +52,7 @@ def main():
                 raise AssertionError('build guard accepted mutation: '+name)
     a.output.parent.mkdir(parents=True,exist_ok=True)
     a.output.write_text(json.dumps({'source_commit':commit,'positive':'PASS','negative':results,'result':'PASS'},indent=2)+'\n')
-    print('PASS: actual canonical build and17 independently rejected evidence mutations')
+    print('PASS: actual canonical build and18 independently rejected evidence mutations')
 
 
 if __name__=='__main__':main()

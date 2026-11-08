@@ -85,6 +85,39 @@ Qualification, version selection and publication are not authorized here.
 
 <a id="adopted-ownership-optimization--unreleased"></a>
 
+## v0.7.0 — Prepared lexer maps accepted; main integration decision pending
+
+On2026-11-08 the Human accepted the recommendation to adopt the bounded
+prepared lexer-map candidate reviewed at source_commit
+`8d5f8284cedde31751d4e53e52ddfd61f69432ab`, against main
+`3d8b2201c1f36fa5b7264e0450104055f3822272`. The
+[decision](decisions/prepared-lexer-maps.md) accepts serial Fork/CPU improvements
+with the stated P4/RSS limits. No new performance campaign was added.
+
+The minimal canonical product candidate now passes at source_commit
+`b04b49dbc3dee5e2773b8d775d2202ca1eccff92` in
+[CI42463414255](https://github.com/masahitojp/mariamem/actions/runs/42463414255).
+Two independent C builds reproduce the reviewed guest/linked bytes; macOS15 arm64
+and Ubuntu24.04 x86_64 independently regenerate identical110-file inventories.
+Both hosts pass full638-table equality/corruption/profiling separation, UCA,
+CRC, actual worker failure, forced J1 controls,18 build-evidence mutations,
+normal/binary-prepared SQL/native comparison, two pristine children and cleanup.
+[The checksum-bound receipt](reviews/lexer-canonical-ci-42463414255/README.md)
+retains exact source/job/artifact identities. Development42463420122 also passes
+at b04b49db. This is bounded candidate acceptance, not release Qualification.
+
+Stage1 CI42448601842 remains pinned to fd615a53, and the original experimental
+CI42437059943 remains pinned to host6134274a / C origin b1a265cc. Neither is
+relabeled as the canonical source. Current acceptance bookkeeping changes only
+documentation, the build ledger and fixture status metadata; tested runtime,
+source/adapter/workflow and test-body bytes stay equal to b04b49db.
+
+[The main-integration review](reviews/prepared-lexer-main-integration-review.md)
+recommends protected PR136 integration, subject to Human approval and the current
+PR's required strict-base checks. Main integration, version selection,
+Qualification and publication are not yet authorized. P4 whole-batch/RSS/Ubuntu
+speedup and actual dynamic XML-loader runtime coverage are not claimed.
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally

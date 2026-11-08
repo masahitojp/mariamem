@@ -1,0 +1,289 @@
+{
+  "artifacts": [
+    {
+      "digest": "sha256:cde5d95a46f539f5169b0cb264b1f8fa93801fb6c433f5a83ab7a9f9a0f9dd5c",
+      "expired": false,
+      "id": 13605086532,
+      "name": "lexer-canonical-guest-2-fd615a53495b615ca2fec6007006f4a24f98d902"
+    },
+    {
+      "digest": "sha256:9193764305e51c34b4fb1ea645141e91aa376594170dc70f218268ba891de95f",
+      "expired": false,
+      "id": 13604871718,
+      "name": "lexer-canonical-build-1-fd615a53495b615ca2fec6007006f4a24f98d902"
+    },
+    {
+      "digest": "sha256:8a6d6a26dc03d93c29daa311a74792d73637dc32cecba499185318f92fefed6a",
+      "expired": false,
+      "id": 13604607609,
+      "name": "lexer-canonical-reference-fd615a53495b615ca2fec6007006f4a24f98d902"
+    },
+    {
+      "digest": "sha256:fe04b4731001087d867ea8c5c5d244e89e17b3ab3cea9856a25e95e1f803ac67",
+      "expired": false,
+      "id": 13604538921,
+      "name": "lexer-canonical-comparison-fd615a53495b615ca2fec6007006f4a24f98d902"
+    },
+    {
+      "digest": "sha256:8796fe45721bf4a883f0a26ef9199e8b24d76ce5e33804f56ffc1ccfc3c1b6c5",
+      "expired": false,
+      "id": 13604284529,
+      "name": "lexer-canonical-build-2-fd615a53495b615ca2fec6007006f4a24f98d902"
+    },
+    {
+      "digest": "sha256:2eaf89f0c2f11c0421a59532e9639a392a0a0d6cb478e00d8b04455d29dc962d",
+      "expired": false,
+      "id": 13604208355,
+      "name": "lexer-canonical-guest-1-fd615a53495b615ca2fec6007006f4a24f98d902"
+    }
+  ],
+  "canonical_digest_encoding": "SHA256 of UTF-8 json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=True)",
+  "canonical_metadata_reference": {
+    "comparison": "both original guest records equal these canonical prepared-source/toolchain values; duplicate payload omitted",
+    "path": "release/generated-go-build.json",
+    "prepared_source_canonical_sha256": "14701a92e5db52dc765b69a440e37bebce939ec2f0f9e1502b4dd6d2b6e43caa",
+    "source_commit": "381c0ae04bf131a969fbad5ca13fa305778e2283",
+    "toolchain_canonical_sha256": "3722bc156a0a9ac362e1fcfdf0c6b4777f750f69782a4b24073acc716c56ec73"
+  },
+  "downloaded_zip_verification": [
+    {
+      "artifact_id": 13604208355,
+      "name": "first",
+      "zip_sha256": "2eaf89f0c2f11c0421a59532e9639a392a0a0d6cb478e00d8b04455d29dc962d"
+    },
+    {
+      "artifact_id": 13605086532,
+      "name": "second",
+      "zip_sha256": "cde5d95a46f539f5169b0cb264b1f8fa93801fb6c433f5a83ab7a9f9a0f9dd5c"
+    },
+    {
+      "artifact_id": 13604607609,
+      "name": "reference",
+      "zip_sha256": "8a6d6a26dc03d93c29daa311a74792d73637dc32cecba499185318f92fefed6a"
+    },
+    {
+      "artifact_id": 13604538921,
+      "name": "comparison",
+      "zip_sha256": "fe04b4731001087d867ea8c5c5d244e89e17b3ab3cea9856a25e95e1f803ac67"
+    },
+    {
+      "artifact_id": 13597734722,
+      "name": "raw",
+      "zip_sha256": "da2d5a695b8045a924742dbbea1cac87b88e8da218e6e726245d0e9e39fb11ba"
+    }
+  ],
+  "guest_record": {
+    "canonical_build_sha256": "d0b79c0e53fd474f64b1e8bbb017c4f4d7b012c5887434052f2abfafb4393834",
+    "contract": "development-unqualified-v1",
+    "guest_bytes": 21177343,
+    "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+    "repetitions": [
+      {
+        "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+        "linked_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722"
+      }
+    ],
+    "result": "UNQUALIFIED",
+    "source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
+    "source_identity": {
+      "commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
+      "files_count": 6856,
+      "files_sha256_canonical_digest": "7af1919b9fc3d104d16c56177d2e91f4c62401e1915f5b4600260422d0eb4304",
+      "reconstruction": "git ls-tree -r fd615a53495b615ca2fec6007006f4a24f98d902; hash each tracked blob"
+    }
+  },
+  "independent_build_comparison": {
+    "build_record_sha256": [
+      "c7160e06737e270dad5e9dfa9f8a0d16f793b188e014c248c8b90a0ed7047bf2",
+      "c7160e06737e270dad5e9dfa9f8a0d16f793b188e014c248c8b90a0ed7047bf2"
+    ],
+    "canonical_runtime_installation": "PENDING",
+    "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+    "independent_builds": 2,
+    "linked_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722",
+    "qualification": "NOT_RUN",
+    "release": "NOT_APPROVED",
+    "result": "PASS_TWO_CANONICAL_SOURCE_BUILDS",
+    "same_bytes_as_experiment_origin": "b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+    "source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902"
+  },
+  "installation_continuity": {
+    "changed": {
+      "code/p4/crc32c_test.go": {
+        "after": "69ac801890c4eec0bd61b9898262f45f33773f0be6f177b7451a49ffdeb01ed4",
+        "before": "5669ab491bc7d75751a8f56c55fd13f50d6c486e05dfb6aac2470efe10eaf6cb"
+      },
+      "lexer_prepared_integration_test.go": {
+        "after": "7262c76ac0c99644e9c0af2693c0c99cdb2e3ad709104904d9020d66ccc07ff9",
+        "before": null
+      },
+      "provenance.json": {
+        "after": "c6c589fe92aa09184a4e16910492bf477cd0fc82f6f44505cf0e448404f4aed6",
+        "before": "27054cff7ba54a83080a1a9e2a4fb7f72ca0429bcce748f3e06f3686d6654ed7"
+      }
+    },
+    "comparison": "canonical installer vs experimental actual C guest inventory",
+    "identical_files": 107,
+    "reference_run": 42437059943,
+    "reference_source_commit": "6134274a268155379329d9bd1ae394897e1f7e8e"
+  },
+  "jobs": [
+    {
+      "conclusion": "success",
+      "head_sha": "fd615a53495b615ca2fec6007006f4a24f98d902",
+      "id": 128632763727,
+      "name": "guest (2)",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "fd615a53495b615ca2fec6007006f4a24f98d902",
+      "id": 128632763844,
+      "name": "guest (1)",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "fd615a53495b615ca2fec6007006f4a24f98d902",
+      "id": 128632763882,
+      "name": "reference",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "fd615a53495b615ca2fec6007006f4a24f98d902",
+      "id": 128634390912,
+      "name": "compare",
+      "status": "completed"
+    }
+  ],
+  "local_validation": {
+    "actual_tables_uca_lexer_worker_crc": "PASS",
+    "canonical_both_host_acceptance": "PENDING",
+    "ci_policy_subtests": 5,
+    "ci_policy_tests": 119,
+    "focused_input_adapter_tests": 126,
+    "fresh_snapshot_two_children_cleanup_smoke": "PASS",
+    "host_sha256": "c12eeec13163b2aff2f22789bf4beec027dbe158ef8aeeb4529a27f705d0a670",
+    "host_source_commit": "287b3a00d2936ba3e4887e4ed5405244383309b7",
+    "host_vcs_clean": true,
+    "log_normalization": {
+      "original_sha256": "b9495e08549ec054d48e083e6866d8de124947325e16d4cbea2acfe00a078ec3",
+      "path": "local-actual-guest.txt",
+      "published_sha256": "3e795cfc32a36e4c4795f1645917f821d520a24bc42b59d48cf6a5becc4f709f",
+      "rule": "strip trailing whitespace only; no test output removed"
+    },
+    "preflight_failures": [
+      {
+        "error": "host_setup: compiled guest identity mismatch",
+        "kind": "product_identity",
+        "resolution": "Promoted remaining internal/runtimekind/kind.go identity and reran real host smoke successfully"
+      },
+      {
+        "error": "Nested worktree Go VCS metadata pointed at outer repo; audit rejected it",
+        "kind": "local_build_provenance",
+        "resolution": "Rebuilt from clean task-owned clone; verified vcs.revision=287b3a00 and vcs.modified=false, then audit PASS"
+      }
+    ],
+    "retained_functions_audit": "PASS",
+    "table_test_source_commit": "4ff5bfaa2025d2aa335596bfce7cf4feaa9c7a6b",
+    "worker_fixture_exact_packaging": "PASS; forced runtime schedules deferred to both-host CI"
+  },
+  "native_image": {
+    "Architecture": "amd64",
+    "Id": "sha256:dfff46ef3f9d674ab66853ee68066e495af7942bfa4255dc39ce2ff64ac05cbe",
+    "Os": "linux",
+    "RepoDigests": [
+      "mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1"
+    ]
+  },
+  "native_reference": {
+    "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+    "prepared": {
+      "number": 7,
+      "protocol": "COM_STMT_PREPARE/EXECUTE",
+      "text_hex": "4100275ce697a5e69cace8aa9e"
+    },
+    "result": "PASS_NATIVE",
+    "semantic": {
+      "comments": [
+        [
+          5
+        ]
+      ],
+      "identifier": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "literals": [
+        [
+          "\u65e5\u672c\u8a9e",
+          "0041",
+          5,
+          "word",
+          "a'b"
+        ]
+      ],
+      "modes": [
+        [
+          2,
+          "a\\b"
+        ]
+      ],
+      "nul": [
+        [
+          "610062"
+        ]
+      ]
+    },
+    "source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
+    "version": "12.3.3-MariaDB-ubu2404"
+  },
+  "original_guest_record_sha256": "c7160e06737e270dad5e9dfa9f8a0d16f793b188e014c248c8b90a0ed7047bf2",
+  "original_published_receipt": {
+    "path": "docs/reviews/lexer-canonical-ci-42448601842",
+    "published_files_sha256": {
+      "README.md": "d84ec79ee8e06891df5faa24464b45bd0c5ffaa487ab5981904aded8d65ce3d5",
+      "SHA256SUMS.json": "8e42812c9d58382c5c29c66075433e96f65e4360fb0a35f1542f4fce924adb7c",
+      "artifacts-verified.json": "38256f4c76c3744157a85bcafecc042c54b150c6fd386c0a771a577f118d3ce8",
+      "artifacts.json": "c45a4cf9afa443402bd776419e220cabe033d6b95d4a8c9bc13b65ce483f0304",
+      "assessment.json": "c187839fbc9d273a96446727152dc232e303ba2b0f3c9c6e2558c54397a4fad7",
+      "comparison.json": "5a9a6ae159bd9eae98af58ea5781399daf818547dd85ae259f13ebafd86f3806",
+      "first-guest-reduced.json": "c97d0598296bda75415087d6f4918868d3687222bd2866fbdd85a850b5452ff2",
+      "installation-continuity.json": "df1f53ce8209aa5ca90cac4a555e3475d3533335549134bc5ff2d6863d1b7d53",
+      "jobs.json": "8191cafdf5bf1abfd015f15dd21dfca96db5d03e758df8ba47c5d3a46f8b4301",
+      "local-actual-guest.txt": "3e795cfc32a36e4c4795f1645917f821d520a24bc42b59d48cf6a5becc4f709f",
+      "local-validation.json": "bd7ff4dfe29e8f30c6ab1644a340010ffa77928412a86c8d9bd97d1745aa1640",
+      "reference-image.json": "22af0a1018e5d7bf7a48fa7eee2305a2809cac30c0dbc3b252e3125e35bae2a2",
+      "reference-native.json": "08f34fd05658b1b8fb8780b709c0dc748491cb7face3e6b3319b9cec6283842d",
+      "reference-source.json": "4cb88f3d70e7c06e8db25c1f73907f646691bd8596f069b7da388866f02b4f59",
+      "run.json": "c166fcda4e5fb35b242d55d57275685ebf55c68a2f7849ddeaaa6be18ff636c6",
+      "second-guest-reduced.json": "c97d0598296bda75415087d6f4918868d3687222bd2866fbdd85a850b5452ff2",
+      "source-proof.json": "cae10c26c5fe37fe2b74289114584cf9092234457be2cf48d144da2fc9860935"
+    },
+    "source_commit": "381c0ae04bf131a969fbad5ca13fa305778e2283"
+  },
+  "purpose": "canonical source input acquisition; not installed acceptance",
+  "run": {
+    "conclusion": "success",
+    "event": "push",
+    "head_sha": "fd615a53495b615ca2fec6007006f4a24f98d902",
+    "html_url": "https://github.com/masahitojp/mariamem/actions/runs/42448601842",
+    "id": 42448601842,
+    "status": "completed"
+  },
+  "schema": 1,
+  "source_inventory_proof": {
+    "method": "Compare each original guest source inventory with git archive tracked blob hashes; both equal",
+    "result": "PASS",
+    "source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
+    "source_inventory_canonical_sha256": "7af1919b9fc3d104d16c56177d2e91f4c62401e1915f5b4600260422d0eb4304",
+    "tracked_files": 6856
+  }
+}

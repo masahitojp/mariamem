@@ -1,0 +1,734 @@
+{
+  "artifacts": [
+    {
+      "digest": "sha256:009d61c7344f36f357e00f9786439ecaad5b7bbeb250ba012fbb7858137f33e2",
+      "expired": false,
+      "id": 13611003967,
+      "name": "lexer-canonical-native-macos-15-b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+    },
+    {
+      "digest": "sha256:c84cb9c2cecba3ab014c0b287091d16bc8a28dec27ebda129026c582abc25b17",
+      "expired": false,
+      "id": 13610743078,
+      "name": "lexer-canonical-native-ubuntu-24.04-b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+    },
+    {
+      "digest": "sha256:10c604202b6b7062dfb2ef0ae97da685ce2e3839576dbda06ad73d845066458a",
+      "expired": false,
+      "id": 13610628088,
+      "name": "lexer-canonical-guest-b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+    },
+    {
+      "digest": "sha256:b6cc6b6cb18d8017f398d537d3e5b2ff41fbcf52b1a60a98055a661e7785a84a",
+      "expired": false,
+      "id": 13610533486,
+      "name": "lexer-canonical-build-b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+    },
+    {
+      "digest": "sha256:b5fec454e42d3fa138b8cc5863204325004e13e0314b65dd6d11c06f9e89785d",
+      "expired": false,
+      "id": 13610104871,
+      "name": "lexer-native-reference-b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+    }
+  ],
+  "canonical_digest_encoding": "SHA256 of UTF-8 json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=True)",
+  "development_run": {
+    "conclusion": "success",
+    "event": "pull_request",
+    "head_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+    "html_url": "https://github.com/masahitojp/mariamem/actions/runs/42463420122",
+    "id": 42463420122,
+    "status": "completed"
+  },
+  "downloaded_zip_verification": [
+    {
+      "artifact_id": 13611003967,
+      "files_sha256": {
+        "SHA256SUMS.json": "dffda596dbf284d9794a484a54caf9655924027c6be88a8e7838c034c7cc8d93",
+        "actual-tables.txt": "90871375b8eac833b42325caca0891e34c7d019bb349e49355c964902a2d8b3f",
+        "build-guard.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "build-negative.json": "37e71ff301e2da2a17b5469ce1be4c26d07d6bdd24f48251b3f9c4924e1433ba",
+        "build-negative.txt": "7d7c662fba2b4a39d525f6d832da69ad0b18f8c3ee42df6ab48623f7facafa44",
+        "crc.txt": "98b834c9ffa4eb6422557dd8b0b7520b1ae26992f782f0380550151db213384e",
+        "guest.json": "5833a92320043437e1838e19b119195e96e863cddb2154880d7ef664f3141cbf",
+        "input.txt": "b949b9a66a387c46821e6e112c64f90c737295992c86d3f290b8e9e711fb3446",
+        "regeneration.json": "6ca052ae02ddaf4aafce68f220e68d85df4a290f2b8f03ddf3ff9268e018f46b",
+        "regeneration.txt": "632e5811315fb8995da3e7a883e4b96e9d99766ecbfb50e97a5801eac6b638ee",
+        "snapshot-smoke.txt": "82c201bb904df7561785e93b567cf9f67336470fb20ba42c9846547bf1029aea",
+        "source.json": "e6d0cba9346ee8e2283c09cc468c558131fa3db22e525dd2621718b1140639b6",
+        "sql-children.json": "60ade8d08f9a06659a58d3328c4b8de67b204228cafac0acc44490a4882f3e50",
+        "sql-children.txt": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd",
+        "worker-identities.json": "c9f2d99e221aabd749aecf2d8faaad0727e687f44e4a950a835b93574af0713a",
+        "worker-results.json": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+        "worker.txt": "6e9febbedc5478dd3de3f9d1b021f7c5e9f391fdbcc5a5dd69f5a96781c59872"
+      },
+      "host": "macos",
+      "zip_sha256": "009d61c7344f36f357e00f9786439ecaad5b7bbeb250ba012fbb7858137f33e2"
+    },
+    {
+      "artifact_id": 13610743078,
+      "files_sha256": {
+        "SHA256SUMS.json": "86a2f36bc27bd56c9cc7e063a1e308c3235fef95862fb1a89a796de64a05f88b",
+        "actual-tables.txt": "5462a0bd553b0a35202ce7f36ac081faae4e353a8942e2432973fda70d9eb281",
+        "build-guard.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "build-negative.json": "37e71ff301e2da2a17b5469ce1be4c26d07d6bdd24f48251b3f9c4924e1433ba",
+        "build-negative.txt": "7d7c662fba2b4a39d525f6d832da69ad0b18f8c3ee42df6ab48623f7facafa44",
+        "crc.txt": "d750ec1ffa063d308d7b148eb83f9aac8f63f31709c7fa2a37471f2a6c5179ba",
+        "guest.json": "5833a92320043437e1838e19b119195e96e863cddb2154880d7ef664f3141cbf",
+        "input.txt": "511b4eefb63e8e81f4dc20946aea588da38f150a426473d183e6368c6c0a9fec",
+        "regeneration.json": "5c46307d6e682fb92db557198b712e538d76b4c9d0a591ccb207b500fcffcb95",
+        "regeneration.txt": "e3ff0eac88ba2752c5026ca39d7d5966dafa63674689ce1533c104b99f868ceb",
+        "snapshot-smoke.txt": "f6b6e232e0345fa742cf57cbc60c8884709a6f029bd43161ca6e812c9175f2a8",
+        "source.json": "e6d0cba9346ee8e2283c09cc468c558131fa3db22e525dd2621718b1140639b6",
+        "sql-children.json": "ccdfaadf6dc1dd345541c464ea31637b796a5ae2b5a476c509a0971b902f4645",
+        "sql-children.txt": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd",
+        "worker-identities.json": "568cdaf5e4c8afd527ee6a8761a95cb7640e9dfa4e47105fb154c4f9b0b1a049",
+        "worker-results.json": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+        "worker.txt": "0033dee6afcb7164a44286f1f9b94ad0c1068103c5d90168b71a9d2c4d2337d7"
+      },
+      "host": "ubuntu",
+      "zip_sha256": "c84cb9c2cecba3ab014c0b287091d16bc8a28dec27ebda129026c582abc25b17"
+    },
+    {
+      "artifact_id": 13610104871,
+      "files_sha256": {
+        "image.json": "4db47ff1f25c613d38888edb425c044a74fbf03f4e88fe10d146684c3124776c",
+        "native.json": "f2c9a002a294fd0e28b224bf1cde31ec740fa5813e6939591f5259401cfc9388",
+        "source.json": "e6d0cba9346ee8e2283c09cc468c558131fa3db22e525dd2621718b1140639b6"
+      },
+      "host": "reference",
+      "zip_sha256": "b5fec454e42d3fa138b8cc5863204325004e13e0314b65dd6d11c06f9e89785d"
+    }
+  ],
+  "hosts": {
+    "macos": {
+      "CRC": {
+        "length_alignment_cases": 832,
+        "page_validation_cases": 80,
+        "result": "PASS",
+        "tests": [
+          "TestCRC32CEquivalence",
+          "TestCRC32CPageValidation"
+        ]
+      },
+      "actual_guest_passed_tests": [
+        "TestPreparedLexerTablesActualGuest",
+        "TestPreparedLexerTablesActualGuest/normal_ambient_ignored",
+        "TestPreparedLexerTablesActualGuest/profiling_does_not_verify",
+        "TestPreparedLexerTablesActualGuest/all_638_compiled_descriptors",
+        "TestPreparedLexerTablesActualGuest/corrupt_table_rejected",
+        "TestPreparedUCATablesActualGuest",
+        "TestPreparedUCATablesActualGuest/normal_ambient_ignored",
+        "TestPreparedUCATablesActualGuest/profiling_does_not_verify",
+        "TestPreparedUCATablesActualGuest/six_resolved_tables",
+        "TestPreparedUCATablesActualGuest/corrupt_table_rejected",
+        "TestWorkerTrapActualGuestNotifiesAndIsolatesPeer"
+      ],
+      "canonical_metadata_reference": {
+        "path": "release/generated-go-build.json",
+        "prepared_source_canonical_sha256": "14701a92e5db52dc765b69a440e37bebce939ec2f0f9e1502b4dd6d2b6e43caa",
+        "source_commit": "381c0ae04bf131a969fbad5ca13fa305778e2283",
+        "toolchain_canonical_sha256": "3722bc156a0a9ac362e1fcfdf0c6b4777f750f69782a4b24073acc716c56ec73"
+      },
+      "evidence_mutations": {
+        "canonical_sha256": "1a270cef91b4cd8d269f2cfad6a52e7b68547548c55f2870a5dd1db31e96f4a9",
+        "shared_result": "shared_evidence_mutations"
+      },
+      "generated_inventory_reference": {
+        "canonical_sha256": "f4435351a615d2bcde6660e25ac15e626b841b7d6fe11be0710a9943d14e3577",
+        "files": 110,
+        "path": "internal/generatedgo",
+        "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      },
+      "guest_build": {
+        "canonical_build_sha256": "55a03cb7e87628740412ded46504c5052a371ba4472383ac8222be8cea1f6e24",
+        "contract": "generated-go-v1",
+        "guest_bytes": 21177343,
+        "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+        "repetitions": [
+          {
+            "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+            "linked_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722"
+          },
+          {
+            "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+            "linked_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722"
+          }
+        ],
+        "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      },
+      "raw_translation": {
+        "converter_archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+        "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+        "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+        "patched_converter_sha256": "d42d1b4cf0995d8c7fe39777518a059a7dcd3c3d14e26d889197a1d34d116579"
+      },
+      "regeneration": {
+        "contract": "generated-go-v1",
+        "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+        "input_manifest_sha256": "4d41949e824c72a8fb1dc4b5a782eb9926d707db1d9671bd840e1dd0c1d2eee8",
+        "provenance_sha256": "c6c589fe92aa09184a4e16910492bf477cd0fc82f6f44505cf0e448404f4aed6",
+        "result": "PASS",
+        "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+        "toolchain_pins_sha256": "8be84eea6e38432eabbc1ba3095551d90b8b213f765a5423207d2dca40c21b8a"
+      },
+      "snapshot_smoke": {
+        "passed": 1,
+        "result": "PASS"
+      },
+      "source_identity": {
+        "object_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+        "object_type": "commit",
+        "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      },
+      "sql_children_cleanup": {
+        "children": 2,
+        "cleanup": {
+          "process_exit": 0,
+          "reaped": true,
+          "refs": 0,
+          "root_exists": false
+        },
+        "cleanup_errors": [],
+        "host_sha256": "16001760f97adb24ffe31d932ee925ce073bb1a313d5dfdcc1d7d712a183b9e7",
+        "native_sha256": "f2c9a002a294fd0e28b224bf1cde31ec740fa5813e6939591f5259401cfc9388",
+        "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+        "prepared": {
+          "number": 7,
+          "protocol": "COM_STMT_PREPARE/EXECUTE",
+          "text_hex": "4100275ce697a5e69cace8aa9e"
+        },
+        "result": "PASS_GUEST",
+        "semantic": {
+          "comments": [
+            [
+              5
+            ]
+          ],
+          "identifier": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "literals": [
+            [
+              "\u65e5\u672c\u8a9e",
+              "0041",
+              5,
+              "word",
+              "a'b"
+            ]
+          ],
+          "modes": [
+            [
+              2,
+              "a\\b"
+            ]
+          ],
+          "nul": [
+            [
+              "610062"
+            ]
+          ]
+        },
+        "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      },
+      "translation_inventory_reference": {
+        "files": 51,
+        "files_canonical_sha256": "ec94cf589d7bdd3426ba2ea2b5a5bcb18071186427f824a4b12ea50e83ce095f",
+        "patches_canonical_sha256": "abcdadebedf31f81ad751e9402ccb96afda4f57bd863987fc4b931b7aabd2d2e",
+        "path": "release/generated-go-translation.json",
+        "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      },
+      "worker_schedules": [
+        {
+          "exit_code": 1,
+          "expected_failure": true,
+          "name": "heap-0",
+          "passed": true
+        },
+        {
+          "exit_code": 0,
+          "expected_failure": false,
+          "name": "heap-1",
+          "passed": true
+        },
+        {
+          "exit_code": 0,
+          "expected_failure": false,
+          "name": "heap-1-race",
+          "passed": true
+        },
+        {
+          "exit_code": 1,
+          "expected_failure": true,
+          "name": "mmap-0",
+          "passed": true
+        },
+        {
+          "exit_code": 0,
+          "expected_failure": false,
+          "name": "mmap-1",
+          "passed": true
+        },
+        {
+          "exit_code": 0,
+          "expected_failure": false,
+          "name": "mmap-1-race",
+          "passed": true
+        }
+      ]
+    },
+    "ubuntu": {
+      "CRC": {
+        "length_alignment_cases": 832,
+        "page_validation_cases": 80,
+        "result": "PASS",
+        "tests": [
+          "TestCRC32CEquivalence",
+          "TestCRC32CPageValidation"
+        ]
+      },
+      "actual_guest_passed_tests": [
+        "TestPreparedLexerTablesActualGuest",
+        "TestPreparedLexerTablesActualGuest/normal_ambient_ignored",
+        "TestPreparedLexerTablesActualGuest/profiling_does_not_verify",
+        "TestPreparedLexerTablesActualGuest/all_638_compiled_descriptors",
+        "TestPreparedLexerTablesActualGuest/corrupt_table_rejected",
+        "TestPreparedUCATablesActualGuest",
+        "TestPreparedUCATablesActualGuest/normal_ambient_ignored",
+        "TestPreparedUCATablesActualGuest/profiling_does_not_verify",
+        "TestPreparedUCATablesActualGuest/six_resolved_tables",
+        "TestPreparedUCATablesActualGuest/corrupt_table_rejected",
+        "TestWorkerTrapActualGuestNotifiesAndIsolatesPeer"
+      ],
+      "canonical_metadata_reference": {
+        "path": "release/generated-go-build.json",
+        "prepared_source_canonical_sha256": "14701a92e5db52dc765b69a440e37bebce939ec2f0f9e1502b4dd6d2b6e43caa",
+        "source_commit": "381c0ae04bf131a969fbad5ca13fa305778e2283",
+        "toolchain_canonical_sha256": "3722bc156a0a9ac362e1fcfdf0c6b4777f750f69782a4b24073acc716c56ec73"
+      },
+      "evidence_mutations": {
+        "canonical_sha256": "1a270cef91b4cd8d269f2cfad6a52e7b68547548c55f2870a5dd1db31e96f4a9",
+        "shared_result": "shared_evidence_mutations"
+      },
+      "generated_inventory_reference": {
+        "canonical_sha256": "f4435351a615d2bcde6660e25ac15e626b841b7d6fe11be0710a9943d14e3577",
+        "files": 110,
+        "path": "internal/generatedgo",
+        "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      },
+      "guest_build": {
+        "canonical_build_sha256": "55a03cb7e87628740412ded46504c5052a371ba4472383ac8222be8cea1f6e24",
+        "contract": "generated-go-v1",
+        "guest_bytes": 21177343,
+        "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+        "repetitions": [
+          {
+            "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+            "linked_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722"
+          },
+          {
+            "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+            "linked_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722"
+          }
+        ],
+        "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      },
+      "raw_translation": {
+        "converter_archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+        "converter_commit": "730057c146463f663e8774587bc96fb2bea91af8",
+        "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+        "patched_converter_sha256": "8fdaf10b8582f5a2d7c0b52529f536820fb3418fc26465911f78b5f24814dd09"
+      },
+      "regeneration": {
+        "contract": "generated-go-v1",
+        "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+        "input_manifest_sha256": "4d41949e824c72a8fb1dc4b5a782eb9926d707db1d9671bd840e1dd0c1d2eee8",
+        "provenance_sha256": "c6c589fe92aa09184a4e16910492bf477cd0fc82f6f44505cf0e448404f4aed6",
+        "result": "PASS",
+        "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+        "toolchain_pins_sha256": "8be84eea6e38432eabbc1ba3095551d90b8b213f765a5423207d2dca40c21b8a"
+      },
+      "snapshot_smoke": {
+        "passed": 1,
+        "result": "PASS"
+      },
+      "source_identity": {
+        "object_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+        "object_type": "commit",
+        "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      },
+      "sql_children_cleanup": {
+        "children": 2,
+        "cleanup": {
+          "process_exit": 0,
+          "reaped": true,
+          "refs": 0,
+          "root_exists": false
+        },
+        "cleanup_errors": [],
+        "host_sha256": "45127ab29772312b72737039bed8a84b9df8c11273d3cf2ece5a1b789482bea6",
+        "native_sha256": "f2c9a002a294fd0e28b224bf1cde31ec740fa5813e6939591f5259401cfc9388",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+        "prepared": {
+          "number": 7,
+          "protocol": "COM_STMT_PREPARE/EXECUTE",
+          "text_hex": "4100275ce697a5e69cace8aa9e"
+        },
+        "result": "PASS_GUEST",
+        "semantic": {
+          "comments": [
+            [
+              5
+            ]
+          ],
+          "identifier": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "literals": [
+            [
+              "\u65e5\u672c\u8a9e",
+              "0041",
+              5,
+              "word",
+              "a'b"
+            ]
+          ],
+          "modes": [
+            [
+              2,
+              "a\\b"
+            ]
+          ],
+          "nul": [
+            [
+              "610062"
+            ]
+          ]
+        },
+        "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      },
+      "translation_inventory_reference": {
+        "files": 51,
+        "files_canonical_sha256": "ec94cf589d7bdd3426ba2ea2b5a5bcb18071186427f824a4b12ea50e83ce095f",
+        "patches_canonical_sha256": "abcdadebedf31f81ad751e9402ccb96afda4f57bd863987fc4b931b7aabd2d2e",
+        "path": "release/generated-go-translation.json",
+        "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      },
+      "worker_schedules": [
+        {
+          "exit_code": 1,
+          "expected_failure": true,
+          "name": "heap-0",
+          "passed": true
+        },
+        {
+          "exit_code": 0,
+          "expected_failure": false,
+          "name": "heap-1",
+          "passed": true
+        },
+        {
+          "exit_code": 0,
+          "expected_failure": false,
+          "name": "heap-1-race",
+          "passed": true
+        },
+        {
+          "exit_code": 1,
+          "expected_failure": true,
+          "name": "mmap-0",
+          "passed": true
+        },
+        {
+          "exit_code": 0,
+          "expected_failure": false,
+          "name": "mmap-1",
+          "passed": true
+        },
+        {
+          "exit_code": 0,
+          "expected_failure": false,
+          "name": "mmap-1-race",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "integration_policy_readback": {
+    "base_commit": "3d8b2201c1f36fa5b7264e0450104055f3822272",
+    "code_head": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+    "draft_at_read": true,
+    "enforce_admins": true,
+    "mergeable": "MERGEABLE",
+    "observed_at_utc": "2026-11-08T09:13:16.808885+00:00",
+    "operation": "read only; no repository settings changed",
+    "pr": 136,
+    "required_contexts": [
+      "check",
+      "integration",
+      "Live required gate"
+    ],
+    "strict": true
+  },
+  "jobs": [
+    {
+      "conclusion": "success",
+      "head_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+      "id": 128677392694,
+      "name": "guest",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+      "id": 128677392880,
+      "name": "reference",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+      "id": 128680408235,
+      "name": "native (macos-15)",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+      "id": 128680408276,
+      "name": "native (ubuntu-24.04)",
+      "status": "completed"
+    }
+  ],
+  "native_reference": {
+    "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+    "prepared": {
+      "number": 7,
+      "protocol": "COM_STMT_PREPARE/EXECUTE",
+      "text_hex": "4100275ce697a5e69cace8aa9e"
+    },
+    "result": "PASS_NATIVE",
+    "semantic": {
+      "comments": [
+        [
+          5
+        ]
+      ],
+      "identifier": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "literals": [
+        [
+          "\u65e5\u672c\u8a9e",
+          "0041",
+          5,
+          "word",
+          "a'b"
+        ]
+      ],
+      "modes": [
+        [
+          2,
+          "a\\b"
+        ]
+      ],
+      "nul": [
+        [
+          "610062"
+        ]
+      ]
+    },
+    "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+    "version": "12.3.3-MariaDB-ubu2404"
+  },
+  "original_path_normalization": {
+    "hash_mapping": "Join downloaded_zip_verification file hashes with original_published_receipt published_files_sha256 by host/path; original normalization manifest hash is retained in the snapshot.",
+    "prefixes": [
+      "known macOS/Ubuntu checkout root -> <CHECKOUT>",
+      "known macOS/Ubuntu runner temp root -> <RUNNER_TEMP>",
+      "known macOS/Ubuntu hosted toolcache root -> <TOOLCACHE>"
+    ],
+    "rules": "Replace only listed known CI runner prefixes; strip trailing whitespace from console logs. Nested SHA256SUMS remain original CI manifests. Root checksum manifest covers published bytes."
+  },
+  "original_published_receipt": {
+    "path": "docs/reviews/lexer-canonical-ci-42463414255",
+    "published_files_sha256": {
+      "README.md": "004ef058108aa6f727b0b11d1de2a1667b5ef2edbcd4fe02bacd18b16b2de83c",
+      "SHA256SUMS.json": "322efe8102e4ddd1fa666891b5699dcab347db8d3119a4162d8c15911e0754b2",
+      "artifacts-verified.json": "ffafdb90e68b4afbaf5c9efdedf92c7b55ae993a6e7bdb957d1390db07aff825",
+      "artifacts.json": "82fd6574796110ec91a43ae5c532a7f1bddc3d7f322b06fc3b350b176a5403d9",
+      "assessment.json": "284a3c1ad1400919811fab07f3e8e02fc6db6b93cdb4271fcf1e88766d8c8b1f",
+      "development-run.json": "9f88665d8e98e2cb5123c43d5564cf4678bfbd6e38ff5473c74f5f3f952d12d0",
+      "integration-policy-readback.json": "543ad0c7ca6839c423b14183afbde3c18f781ad2bdf876590a8e90815d98feee",
+      "jobs.json": "f48cfe25afd4ee2f6775f7156135df87ff622ddcec6ed69ea9db2ca52bc94519",
+      "macos/SHA256SUMS.json": "dffda596dbf284d9794a484a54caf9655924027c6be88a8e7838c034c7cc8d93",
+      "macos/actual-tables.txt": "7d412bcbaf4738af3e31769f28d6c1fa5dea2111e257c0eec3fea265401bce64",
+      "macos/build-guard.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "macos/build-negative.json": "37e71ff301e2da2a17b5469ce1be4c26d07d6bdd24f48251b3f9c4924e1433ba",
+      "macos/build-negative.txt": "7d7c662fba2b4a39d525f6d832da69ad0b18f8c3ee42df6ab48623f7facafa44",
+      "macos/crc.txt": "98b834c9ffa4eb6422557dd8b0b7520b1ae26992f782f0380550151db213384e",
+      "macos/guest.json": "5833a92320043437e1838e19b119195e96e863cddb2154880d7ef664f3141cbf",
+      "macos/input.txt": "b949b9a66a387c46821e6e112c64f90c737295992c86d3f290b8e9e711fb3446",
+      "macos/regeneration.json": "6ca052ae02ddaf4aafce68f220e68d85df4a290f2b8f03ddf3ff9268e018f46b",
+      "macos/regeneration.txt": "b9e4e3199eed7edb3ecce72cbcd4b85fe05907dc26f0d846fd0cd26527606cd9",
+      "macos/snapshot-smoke.txt": "82c201bb904df7561785e93b567cf9f67336470fb20ba42c9846547bf1029aea",
+      "macos/source.json": "e6d0cba9346ee8e2283c09cc468c558131fa3db22e525dd2621718b1140639b6",
+      "macos/sql-children.json": "60ade8d08f9a06659a58d3328c4b8de67b204228cafac0acc44490a4882f3e50",
+      "macos/sql-children.txt": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd",
+      "macos/worker-identities.json": "c9f2d99e221aabd749aecf2d8faaad0727e687f44e4a950a835b93574af0713a",
+      "macos/worker-results.json": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "macos/worker.txt": "96326ef6c95a254ebb3f9f49b0a9be4da6bab848ea2de1e1f08dcb56f23d9ea3",
+      "normalization.json": "39f0ab26c373caab9a8042ff6c007c44bd0f219837f250bded7c2523c8954e0b",
+      "reference/image.json": "4db47ff1f25c613d38888edb425c044a74fbf03f4e88fe10d146684c3124776c",
+      "reference/native.json": "f2c9a002a294fd0e28b224bf1cde31ec740fa5813e6939591f5259401cfc9388",
+      "reference/source.json": "e6d0cba9346ee8e2283c09cc468c558131fa3db22e525dd2621718b1140639b6",
+      "run.json": "4031943f1077a27a8f07de39be7aba3699ddc8ca3499955d01aae303c11e41da",
+      "ubuntu/SHA256SUMS.json": "86a2f36bc27bd56c9cc7e063a1e308c3235fef95862fb1a89a796de64a05f88b",
+      "ubuntu/actual-tables.txt": "754ef03ce20f0a5be6542027ba41f7e7168a815b82eee7baad29722b816bd3db",
+      "ubuntu/build-guard.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ubuntu/build-negative.json": "37e71ff301e2da2a17b5469ce1be4c26d07d6bdd24f48251b3f9c4924e1433ba",
+      "ubuntu/build-negative.txt": "7d7c662fba2b4a39d525f6d832da69ad0b18f8c3ee42df6ab48623f7facafa44",
+      "ubuntu/crc.txt": "d750ec1ffa063d308d7b148eb83f9aac8f63f31709c7fa2a37471f2a6c5179ba",
+      "ubuntu/guest.json": "5833a92320043437e1838e19b119195e96e863cddb2154880d7ef664f3141cbf",
+      "ubuntu/input.txt": "511b4eefb63e8e81f4dc20946aea588da38f150a426473d183e6368c6c0a9fec",
+      "ubuntu/regeneration.json": "5c46307d6e682fb92db557198b712e538d76b4c9d0a591ccb207b500fcffcb95",
+      "ubuntu/regeneration.txt": "b9e4e3199eed7edb3ecce72cbcd4b85fe05907dc26f0d846fd0cd26527606cd9",
+      "ubuntu/snapshot-smoke.txt": "f6b6e232e0345fa742cf57cbc60c8884709a6f029bd43161ca6e812c9175f2a8",
+      "ubuntu/source.json": "e6d0cba9346ee8e2283c09cc468c558131fa3db22e525dd2621718b1140639b6",
+      "ubuntu/sql-children.json": "ccdfaadf6dc1dd345541c464ea31637b796a5ae2b5a476c509a0971b902f4645",
+      "ubuntu/sql-children.txt": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd",
+      "ubuntu/worker-identities.json": "568cdaf5e4c8afd527ee6a8761a95cb7640e9dfa4e47105fb154c4f9b0b1a049",
+      "ubuntu/worker-results.json": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "ubuntu/worker.txt": "96326ef6c95a254ebb3f9f49b0a9be4da6bab848ea2de1e1f08dcb56f23d9ea3"
+    },
+    "source_commit": "381c0ae04bf131a969fbad5ca13fa305778e2283"
+  },
+  "purpose": "bounded canonical product candidate acceptance",
+  "run": {
+    "conclusion": "success",
+    "event": "workflow_dispatch",
+    "head_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+    "html_url": "https://github.com/masahitojp/mariamem/actions/runs/42463414255",
+    "id": 42463414255,
+    "status": "completed"
+  },
+  "schema": 1,
+  "shared_evidence_mutations": {
+    "negative": [
+      {
+        "error": "wrong build contract",
+        "mutation": "contract",
+        "rejected": true
+      },
+      {
+        "error": "build source differs",
+        "mutation": "source",
+        "rejected": true
+      },
+      {
+        "error": "guest identity differs",
+        "mutation": "guest",
+        "rejected": true
+      },
+      {
+        "error": "linked guest differs",
+        "mutation": "linked",
+        "rejected": true
+      },
+      {
+        "error": "independent rebuild evidence missing/different",
+        "mutation": "one-build",
+        "rejected": true
+      },
+      {
+        "error": "independent rebuild evidence missing/different",
+        "mutation": "different-builds",
+        "rejected": true
+      },
+      {
+        "error": "experimental guest patch",
+        "mutation": "experimental",
+        "rejected": true
+      },
+      {
+        "error": "modified guest source differs",
+        "mutation": "source-file",
+        "rejected": true
+      },
+      {
+        "error": "prepared lexer source-input provenance differs",
+        "mutation": "lexer-input",
+        "rejected": true
+      },
+      {
+        "error": "source overlays differ",
+        "mutation": "overlay",
+        "rejected": true
+      },
+      {
+        "error": "toolchain archives differ",
+        "mutation": "toolchain",
+        "rejected": true
+      },
+      {
+        "error": "build source differs",
+        "mutation": "regen-source",
+        "rejected": true
+      },
+      {
+        "error": "generation inputs differ",
+        "mutation": "regen-result",
+        "rejected": true
+      },
+      {
+        "error": "generated source inventory differs",
+        "mutation": "inventory",
+        "rejected": true
+      },
+      {
+        "error": "generated provenance differs",
+        "mutation": "provenance",
+        "rejected": true
+      },
+      {
+        "error": "converter identity/output differs: converter_commit",
+        "mutation": "converter",
+        "rejected": true
+      },
+      {
+        "error": "converter identity/output differs: patches_sha256",
+        "mutation": "patch",
+        "rejected": true
+      },
+      {
+        "error": "converter identity/output differs: files_sha256",
+        "mutation": "translation",
+        "rejected": true
+      }
+    ],
+    "positive": "PASS",
+    "result": "PASS",
+    "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+  }
+}

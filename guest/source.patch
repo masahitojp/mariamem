@@ -203,3 +203,16 @@
    if (!(res= my_uca_level_booster_alloc(loader)))
      return NULL;
    my_uca_level_booster_populate(res, level, cs);
+--- a/mysys/charset.c
++++ b/mysys/charset.c
+@@ -120,0 +121,4 @@
++
++#if defined(__wasi__)
++#include "mariamem_lexer_prepared.h"
++#endif
+@@ -733,0 +738,3 @@
++#if defined(__wasi__)
++        if (mariamem_init_compiled_state_maps(*cs))
++#else
+@@ -734,0 +742 @@
++#endif

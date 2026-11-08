@@ -59,9 +59,6 @@ func Fn130(m *base.Module, l0 int32) int32
 //go:linkname Fn131 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn131
 func Fn131(m *base.Module)
 
-//go:linkname Fn135 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn135
-func Fn135(m *base.Module, l0 int32)
-
 //go:linkname Fn143 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn143
 func Fn143(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
@@ -124,6 +121,9 @@ func Fn188(m *base.Module, l0 int32, l1 int32) int32
 
 //go:linkname Fn189 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn189
 func Fn189(m *base.Module, l0 int32, l1 int32) int32
+
+//go:linkname Fn190 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn190
+func Fn190(m *base.Module, l0 int32) int32
 
 //go:linkname Fn191 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn191
 func Fn191(m *base.Module, l0 int32, l1 int32) int32
@@ -323,7 +323,7 @@ func Fn783(m *base.Module, l0 int32, l1 int32) int32
 //go:linkname Fn784 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn784
 func Fn784(m *base.Module, l0 int32, l1 int32)
 
-//go:linkname Fn787 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn787
+//go:linkname Fn787 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn787
 func Fn787(m *base.Module, l0 int32, l1 int32) int32
 
 //go:linkname Fn788 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn788
@@ -589,9 +589,6 @@ func Fn1275(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
 //go:linkname Fn1276 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn1276
 func Fn1276(m *base.Module, l0 int32) int32
-
-//go:linkname Fn1278 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn1278
-func Fn1278(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
 //go:linkname Fn1279 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn1279
 func Fn1279(m *base.Module, l0 int32, l1 int32) int32
@@ -1292,7 +1289,7 @@ func Fn3929(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 //go:linkname Fn3930 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn3930
 func Fn3930(m *base.Module, l0 int32, l1 int32) int32
 
-//go:linkname Fn3934 github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn3934
+//go:linkname Fn3934 github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn3934
 func Fn3934(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
 //go:linkname Fn3936 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn3936
@@ -1369,6 +1366,9 @@ func Fn4103(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32, l5
 
 //go:linkname Fn4111 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn4111
 func Fn4111(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32, l5 int32, l6 int32) int32
+
+//go:linkname Fn4145 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn4145
+func Fn4145(m *base.Module, l0 int32, l1 int32) int32
 
 //go:linkname Fn4147 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn4147
 func Fn4147(m *base.Module, l0 int32, l1 int32)
@@ -2075,18 +2075,6 @@ func Fn5747(m *base.Module, l0 int32, l1 int32) int32
 //go:linkname Fn5759 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn5759
 func Fn5759(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
-//go:linkname Fn5796 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn5796
-func Fn5796(m *base.Module, l0 int32, l1 int32, l2 int64, l3 int32)
-
-//go:linkname Fn5797 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn5797
-func Fn5797(m *base.Module, l0 int32, l1 int32, l2 float64, l3 int32)
-
-//go:linkname Fn5798 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn5798
-func Fn5798(m *base.Module, l0 int32, l1 int32, l2 int32)
-
-//go:linkname Fn5799 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn5799
-func Fn5799(m *base.Module, l0 int32, l1 int32, l2 int32)
-
 //go:linkname Fn5809 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn5809
 func Fn5809(m *base.Module, l0 int32) int32
 
@@ -2149,6 +2137,9 @@ func Fn6443(m *base.Module, l0 int32)
 
 //go:linkname Fn6444 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn6444
 func Fn6444(m *base.Module, l0 int32, l1 int32, l2 int32)
+
+//go:linkname Fn6445 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn6445
+func Fn6445(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
 //go:linkname Fn6725 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn6725
 func Fn6725(m *base.Module, l0 int32) int32
@@ -2324,7 +2315,7 @@ func Fn7254(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32
 //go:linkname Fn7330 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn7330
 func Fn7330(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
-//go:linkname Fn7331 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn7331
+//go:linkname Fn7331 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn7331
 func Fn7331(m *base.Module, l0 int32, l1 int32) int32
 
 //go:linkname Fn7333 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn7333
@@ -2579,7 +2570,7 @@ func Fn10504(m *base.Module) int32
 //go:linkname Fn10517 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn10517
 func Fn10517(m *base.Module, l0 int32, l1 int32) int32
 
-//go:linkname Fn10518 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn10518
+//go:linkname Fn10518 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn10518
 func Fn10518(m *base.Module, l0 int32) int32
 
 //go:linkname Fn10519 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn10519
@@ -2810,7 +2801,7 @@ func Fn12529(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32)
 //go:linkname Fn12536 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn12536
 func Fn12536(m *base.Module, l0 int32) int32
 
-//go:linkname Fn12537 github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn12537
+//go:linkname Fn12537 github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn12537
 func Fn12537(m *base.Module, l0 int32) int32
 
 //go:linkname Fn12538 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn12538
@@ -2984,6 +2975,18 @@ func Fn13230(m *base.Module, l0 int32, l1 int32)
 //go:linkname Fn13245 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn13245
 func Fn13245(m *base.Module, l0 int32, l1 int32)
 
+//go:linkname Fn13258 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn13258
+func Fn13258(m *base.Module, l0 int32, l1 int32, l2 int32) int32
+
+//go:linkname Fn13260 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13260
+func Fn13260(m *base.Module, l0 int32, l1 int32, l2 int32) int32
+
+//go:linkname Fn13262 github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn13262
+func Fn13262(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int64, l5 int32, l6 int32, l7 int32, l8 int32, l9 int32, l10 int32, l11 int64, l12 int64, l13 int32, l14 int32) int32
+
+//go:linkname Fn13263 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn13263
+func Fn13263(m *base.Module, l0 int32)
+
 //go:linkname Fn13272 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13272
 func Fn13272(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32
 
@@ -3122,6 +3125,9 @@ func Fn13523(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32, l
 //go:linkname Fn13526 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13526
 func Fn13526(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
+//go:linkname Fn13528 github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13528
+func Fn13528(m *base.Module, l0 int32, l1 int32) int32
+
 //go:linkname Fn13530 github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13530
 func Fn13530(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
@@ -3209,7 +3215,7 @@ func Fn13946(m *base.Module, l0 int32, l1 int32)
 //go:linkname Fn13954 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13954
 func Fn13954(m *base.Module, l0 int32)
 
-//go:linkname Fn13958 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn13958
+//go:linkname Fn13958 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13958
 func Fn13958(m *base.Module, l0 int32, l1 int32)
 
 //go:linkname Fn13959 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn13959
@@ -3223,6 +3229,15 @@ func Fn13963(m *base.Module, l0 int32, l1 int32, l2 int32)
 
 //go:linkname Fn13965 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13965
 func Fn13965(m *base.Module, l0 int32, l1 int32)
+
+//go:linkname Fn13977 github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn13977
+func Fn13977(m *base.Module, l0 int32) int32
+
+//go:linkname Fn13978 github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn13978
+func Fn13978(m *base.Module, l0 int32, l1 int32) int32
+
+//go:linkname Fn13979 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn13979
+func Fn13979(m *base.Module, l0 int32)
 
 //go:linkname Fn13980 github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn13980
 func Fn13980(m *base.Module, l0 int32, l1 int32) int32
@@ -3464,7 +3479,7 @@ func Fn14752(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32) i
 //go:linkname Fn14827 github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn14827
 func Fn14827(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32, l4 int32, l5 int32, l6 int32) int32
 
-//go:linkname Fn14841 github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn14841
+//go:linkname Fn14841 github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn14841
 func Fn14841(m *base.Module, l0 int32) int32
 
 //go:linkname Fn14958 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn14958
@@ -3586,6 +3601,9 @@ func Fn15289(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
 //go:linkname Fn15294 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn15294
 func Fn15294(m *base.Module, l0 int32, l1 int32, l2 int32) int32
+
+//go:linkname Fn15348 github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn15348
+func Fn15348(m *base.Module, l0 int32, l1 int32, l2 int32)
 
 //go:linkname Fn15359 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn15359
 func Fn15359(m *base.Module, l0 int32) int32
@@ -3809,6 +3827,9 @@ func Fn15730(m *base.Module, l0 int32, l1 int32) int32
 //go:linkname Fn15732 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn15732
 func Fn15732(m *base.Module, l0 int32) int32
 
+//go:linkname Fn15734 github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn15734
+func Fn15734(m *base.Module, l0 int32, l1 int32, l2 int32) int32
+
 //go:linkname Fn15738 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn15738
 func Fn15738(m *base.Module, l0 int32, l1 int32) int32
 
@@ -3874,6 +3895,21 @@ func Fn15993(m *base.Module, l0 int32, l1 int32, l2 int32) int32
 
 //go:linkname Fn16006 github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn16006
 func Fn16006(m *base.Module, l0 int32, l1 int32, l2 int32) int32
+
+//go:linkname Fn16239 github.com/masahitojp/mariamem/internal/generatedgo/code/p5.Fn16239
+func Fn16239(m *base.Module, l0 int32, l1 int32, l2 int32) int32
+
+//go:linkname Fn16240 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16240
+func Fn16240(m *base.Module, l0 int32, l1 int32) int32
+
+//go:linkname Fn16241 github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn16241
+func Fn16241(m *base.Module, l0 int32, l1 int32) int32
+
+//go:linkname Fn16246 github.com/masahitojp/mariamem/internal/generatedgo/code/p1.Fn16246
+func Fn16246(m *base.Module, l0 int32, l1 int32, l2 float32, l3 int32, l4 int32, l5 int32) int32
+
+//go:linkname Fn16253 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn16253
+func Fn16253(m *base.Module, l0 int32)
 
 //go:linkname Fn16255 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16255
 func Fn16255(m *base.Module, l0 int32, l1 int32, l2 int32)
@@ -5728,6 +5764,9 @@ func Fn21507(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32
 
 //go:linkname Fn21521 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn21521
 func Fn21521(m *base.Module, l0 int32, l1 int32)
+
+//go:linkname Fn21525 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn21525
+func Fn21525(m *base.Module, l0 int32)
 
 //go:linkname Fn21528 github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn21528
 func Fn21528(m *base.Module, l0 int32, l1 int32, l2 int32) int32

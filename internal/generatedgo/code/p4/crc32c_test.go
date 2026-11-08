@@ -21,7 +21,7 @@ func crcModule() *base.Module {
 	if e != nil {
 		panic(e)
 	}
-	copy(mem[15555072:], table)
+	copy(mem[15569536:], table)
 	return m
 }
 func crcBitwise(b []byte) uint32 {
@@ -78,7 +78,7 @@ func TestCRC32CPageValidation(t *testing.T) {
 	rng := rand.New(rand.NewSource(117))
 	cases := 0
 	for _, size := range []int{4096, 8192, 16384, 32768, 65536} {
-		binary.LittleEndian.PutUint32(m.Memory[26850608:], uint32(size))
+		binary.LittleEndian.PutUint32(m.Memory[26865072:], uint32(size))
 		for _, off := range []int{0, 1, 7, 15} {
 			addr := (2 << 20) + off
 			page := m.Memory[addr : addr+size]
