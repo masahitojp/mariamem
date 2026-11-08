@@ -73,7 +73,15 @@ def verify_source_origin(root, origin):
         require(set(origin['files_sha256']) == old_names, 'guest origin source inventory missing/mismatched')
         changed = set(git('diff','--name-only',origin['commit'],current['commit']).decode().splitlines())
         host_stages = {'scripts/dev_guest.py','scripts/generate_runtime.py','scripts/regenerate_release_guest.py'}
-        require(all(n in host_stages or n.startswith(('docs/','tests/')) for n in changed),
+        host_stages |= {'scripts/runtime_development_binding.py', '.github/workflows/lexer-host.yml',
+                        'scripts/development_scope.py',
+                        'benchmarks/lexerbinding/README.md', 'benchmarks/lexerbinding/analyze.py',
+                        'benchmarks/lexerbinding/fetch.py', 'benchmarks/lexerbinding/test_bindings.py',
+                        'benchmarks/lexerhost/binding.json', 'benchmarks/lexerhost/worker-layout.json',
+                        'benchmarks/lexerhost/run.py', 'benchmarks/lexerhost/acquire.py',
+                        'benchmarks/lexerhost/README.md'}
+        require(all(n in host_stages or n.startswith(('docs/','tests/',
+                    'benchmarks/lexerbinding/ci-42433100335/')) for n in changed),
                 'guest source/build inputs changed; fresh guest build required')
         for name, sha in origin['files_sha256'].items():
             actual = (hashlib.sha256(git('show',origin['commit']+':'+name)).hexdigest()
@@ -131,7 +139,12 @@ def install_inputs(record, module, root=None):
         actual = verify_guest(root, guest)
         require(digest(guest/'guest.json') == record['guest_record_sha256'] and
                 actual['guest_sha256'] == record['guest_sha256'], 'dev acquisition provenance mismatch')
-        verify_translation(root, translation, record['guest_sha256'])
+        raw = verify_translation(root, translation, record['guest_sha256'])
+        if record.get('development_binding'):
+            from runtime_development_binding import verify_raw, PROFILE_SHA256
+            require(record.get('development_binding_sha256') == PROFILE_SHA256, 'dev binding provenance mismatch')
+            profile = verify_raw(root, record['development_binding'], actual, raw)
+            require(record['data_sha256'] == profile['data_sha256'], 'dev binding data mismatch')
         require(digest(translation/'input-manifest.json') == record['translation_record_sha256'],
                 'dev translation provenance mismatch')
     require(record['source_inventory'] == inventory(module), 'dev candidate source identity mismatch')
@@ -139,7 +152,7 @@ def install_inputs(record, module, root=None):
     return record
 
 
-def regenerate_development(root, guest, output):
+def regenerate_development(root, guest, output, binding=None):
     """Existing regeneration stages, with bound dev inputs and an isolated host copy."""
     import os
     import shutil
@@ -161,6 +174,9 @@ def regenerate_development(root, guest, output):
              '--output', str(translation)], env=env, check=True, phase='dev:translation',
             inputs=[guest/'guest.json', guest/'mariamem.wasm'], outputs=[translation/'input-manifest.json'])
         raw = verify_translation(root, translation, record['guest_sha256'])
+        if binding:
+            from runtime_development_binding import verify_raw
+            verify_raw(root, binding, record, raw)
         run([sys.executable, str(spike/'setup_candidate.py'), '--source-only',
              '--source-module', str(translation/'module'), '--guest', str(guest/'mariamem.wasm'),
              '--input-manifest', str(translation/'input-manifest.json'), '--output', str(out/'candidate')],
@@ -173,6 +189,9 @@ def regenerate_development(root, guest, output):
                   'guest_directory':str(guest), 'translation_directory':str(translation),
                   'guest_record_sha256':digest(guest/'guest.json'),
                   'translation_record_sha256':digest(translation/'input-manifest.json')}
+        if binding:
+            from runtime_development_binding import PROFILE_SHA256
+            inputs.update(development_binding=binding, development_binding_sha256=PROFILE_SHA256)
         write(out/'installation-inputs.json', inputs)
         # Only committed source is copied; never old generated code/native binaries.
         product = out/'product'
@@ -185,7 +204,8 @@ def regenerate_development(root, guest, output):
         staged_runtime = out/'generatedgo'
         runtime = product/'internal/generatedgo'
         run([sys.executable, str(root/'scripts/generate_runtime.py'), '--source-module', str(module),
-             '--development-input', str(out/'installation-inputs.json'), '--output', str(staged_runtime)],
+             '--development-input', str(out/'installation-inputs.json'), '--output', str(staged_runtime),
+             *(['--development-binding', binding] if binding else [])],
             env=env, check=True, phase='dev:installation', outputs=[staged_runtime/'provenance.json'])
         shutil.move(str(staged_runtime), runtime)
         # The compiled host compatibility identity must refer to this guest too.

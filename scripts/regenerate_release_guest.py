@@ -20,11 +20,17 @@ def main():
     p.add_argument('--guest-dir',type=Path,default=ROOT/'build/generated-release')
     p.add_argument('--output',type=Path,default=ROOT/'build/release-regeneration')
     p.add_argument('--development', action='store_true', help='isolated UNQUALIFIED translation/host/SQL route; explicit external --output required')
+    p.add_argument('--development-binding', choices=['lexer-prepared-c1'])
     a=p.parse_args(); guest=a.guest_dir.resolve(); out=a.output.resolve()
     if a.development:
         from dev_guest import regenerate_development
-        regenerate_development(ROOT, guest, a.output)
+        if a.development_binding:
+            regenerate_development(ROOT, guest, a.output, binding=a.development_binding)
+        else:
+            regenerate_development(ROOT, guest, a.output)
         return
+    if a.development_binding:
+        p.error('development binding requires --development')
     pins=json.loads((ROOT/'release/generated-go-inputs.json').read_text())
     record=json.loads((guest/'guest.json').read_text())
     if digest(guest/'mariamem.wasm') != pins['guest_sha256'] or record['guest_sha256'] != pins['guest_sha256']:

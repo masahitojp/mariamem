@@ -146,6 +146,17 @@ both-host table/corruption/native SQL/independent-child/worker/cleanup acceptanc
 Input acquisition does not establish actual guest acceptance, new performance,
 independent C reproducibility, adoption, main integration, Qualification or release.
 
+The Human then authorized explicit host binding and actual-guest acceptance.
+The [fixed host-stage recipe](../benchmarks/lexerhost/README.md) adds an opt-in,
+UNQUALIFIED single-guest profile without changing canonical CRC/thread adapters,
+product generated code or release inputs. It reuses the exact successful C guest
+and native reference, freezes the complete raw inventory and keeps original C
+source separate from the current host source. The next bounded both-host CI
+checks full638-table equality/corruption, native SQL/two-child isolation,
+worker/J1 ownership and cleanup. Actual C guest acceptance is not yet observed;
+new performance, independent C reproducibility, adoption/integration and release
+remain separate gates.
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally

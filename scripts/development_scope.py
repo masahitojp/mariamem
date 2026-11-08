@@ -28,6 +28,7 @@ WORKFLOW_SCOPES = {
     '.github/workflows/worker-failure.yml': 'python',
     '.github/workflows/uca-canonical.yml': 'python',
     '.github/workflows/lexer-candidate.yml': 'python',
+    '.github/workflows/lexer-host.yml': 'python',
 }
 # Explicit tooling boundaries; do not classify every .py file as runtime-free.
 TOOLING = {

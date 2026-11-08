@@ -22,9 +22,15 @@ def data_file(path):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--run',action='store_true')
+    parser.add_argument('--development-binding', choices=['lexer-prepared-c1'])
     a=parser.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
     runtime=ROOT/'internal/generatedgo';provenance=json.loads((runtime/'provenance.json').read_text())
-    layout=json.loads((ROOT/'tests/fixtures/routine-thread-layout.json').read_text())
+    global binding
+    if a.development_binding:
+        from runtime_development_binding import adapters, profile
+        profile(ROOT, a.development_binding)
+        binding, _ = adapters(ROOT, a.development_binding, provenance['guest_sha256'])
+    layout=json.loads((ROOT/('benchmarks/lexerhost/worker-layout.json' if a.development_binding else 'tests/fixtures/routine-thread-layout.json')).read_text())
     assert provenance['guest_sha256']==layout['guest_sha256']==binding.GUEST_SHA256
     baseline=json.loads((ROOT/'tests/fixtures/routine-j1-baseline.json').read_text())
     mapping={int(k):int(v) for k,v in layout['function_map'].items()}

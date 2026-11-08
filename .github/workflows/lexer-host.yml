@@ -1,0 +1,59 @@
+name: Prepared lexer actual C guest acceptance (UNQUALIFIED)
+on:
+  push:
+    branches: [experiment/lexer-candidate]
+    paths:
+      - benchmarks/lexerhost/**
+      - scripts/dev_guest.py
+      - scripts/generate_runtime.py
+      - scripts/regenerate_release_guest.py
+      - scripts/runtime_development_binding.py
+      - tests/test_lexer_host_binding.py
+      - tests/routine_thread_fixture.py
+      - .github/workflows/lexer-host.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  acceptance:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 80
+    env:
+      GOTOOLCHAIN: go1.26.10
+      PYTHONDONTWRITEBYTECODE: '1'
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Input and negative controls
+        run: |
+          python -m pip install pytest==9.1.1 PyMySQL==1.2.3
+          python -c 'import platform,os;assert (platform.system(),platform.machine())==(("Darwin","arm64") if os.environ["RUNNER_OS"]=="macOS" else ("Linux","x86_64"))'
+          python -m pytest -q tests/test_dev_guest_tools.py tests/test_lexer_host_binding.py
+          python -m unittest discover -s benchmarks/lexerbinding -p test_bindings.py -v
+          python scripts/check_public.py
+      - name: Acquire immutable C input and native reference
+        run: python benchmarks/lexerhost/acquire.py --output "$RUNNER_TEMP/lexer-host-acquired"
+      - name: Exact host binding and actual guest gates
+        run: |
+          python benchmarks/lexerhost/run.py --acquired "$RUNNER_TEMP/lexer-host-acquired" --output "$RUNNER_TEMP/lexer-host-product" --receipt build/lexer-host-receipt
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: lexer-host-${{ matrix.runner }}-${{ github.sha }}
+          path: build/lexer-host-receipt
+          if-no-files-found: error
+          retention-days: 7

@@ -117,7 +117,10 @@ def main():
     parser.add_argument('--source-module', type=Path, required=True)
     parser.add_argument('--output', type=Path, default=ROOT/'internal/generatedgo')
     parser.add_argument('--development-input', type=Path, help='explicit verified UNQUALIFIED candidate inventory')
+    parser.add_argument('--development-binding', choices=['lexer-prepared-c1'])
     args = parser.parse_args()
+    if args.development_binding and not args.development_input:
+        parser.error('development binding requires explicit development input')
     src = args.source_module.resolve()
     if args.development_input:
         from dev_guest import external_output, install_inputs
@@ -129,13 +132,20 @@ def main():
              for suffix in ('*.go', '*.s') for p in src.rglob(suffix)}
     if files != pins['candidate_files_sha256']:
         parser.error('candidate source inventory differs from the pinned input')
-    from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs
-    thread_lifetime_inputs(pins['guest_sha256'], files)
+    import runtime_thread_lifetime as thread_binding
+    import runtime_crc32c as crc_binding
+    if pins.get('development_binding') != args.development_binding:
+        parser.error('development binding does not match installation inputs')
+    if args.development_binding:
+        from runtime_development_binding import adapters, PROFILE_SHA256
+        if pins.get('development_binding_sha256') != PROFILE_SHA256:
+            parser.error('development binding provenance mismatch')
+        thread_binding, crc_binding = adapters(ROOT, args.development_binding, pins['guest_sha256'])
+    thread_binding.validate_inputs(pins['guest_sha256'], files)
     data = (src/'generated/data.bin').read_bytes()
     if hashlib.sha256(data).hexdigest() != pins['data_sha256']:
         parser.error('initial guest data identity mismatch')
-    from runtime_crc32c import validate_inputs as crc_inputs
-    crc_inputs(pins['guest_sha256'], data)
+    crc_binding.validate_inputs(pins['guest_sha256'], data)
     out = args.output.resolve()
     if out.exists():
         parser.error('output must be fresh')
@@ -164,17 +174,15 @@ def main():
             text = adapt_driver(text)
         elif name in ('fs_contract_test.go', 'guest_identity.go'):
             text = text.replace('package main', 'package generatedgo', 1)
-        from runtime_thread_lifetime import apply as thread_lifetime
-        text = thread_lifetime(str(target.relative_to(out)), text)
+        text = thread_binding.apply(str(target.relative_to(out)), text)
         from runtime_failure import apply as worker_failure
         text = worker_failure(str(target.relative_to(out)), text)
         from runtime_write import apply as write_errors
         text = write_errors(str(target.relative_to(out)), text)
-        from runtime_crc32c import apply as crc32c, reference_source, PATH as crc_path
-        if str(target.relative_to(out)) == crc_path:
+        if str(target.relative_to(out)) == crc_binding.PATH:
             (out/'code/p4').mkdir(parents=True, exist_ok=True)
-            (out/'code/p4/crc32c_reference_test.go').write_text(reference_source(text))
-        text = crc32c(str(target.relative_to(out)), text)
+            (out/'code/p4/crc32c_reference_test.go').write_text(crc_binding.reference_source(text))
+        text = crc_binding.apply(str(target.relative_to(out)), text)
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(text)
     # Only dedicated mariamem commands dispatch this entry; no consumer init hook.
