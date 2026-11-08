@@ -1,0 +1,35 @@
+{
+  "issue": 88,
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "parent_diagnostic_source_commit": "87510b1a909d14846d010a62f6e575d7887f951b",
+  "origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "setting": "innodb_buffer_pool_size and size_max",
+  "values": [
+    16,
+    8
+  ],
+  "pool_mib": [
+    16,
+    8
+  ],
+  "workload": "shop70/Pipe/P8/cap9",
+  "pairs_per_mode": 5,
+  "modes": [
+    "off",
+    "on"
+  ],
+  "warmups_per_mode": 2,
+  "controls": 1,
+  "capture_limit_per_process": 1,
+  "threshold_ms": 100,
+  "active_budget_hours": 2,
+  "tooling_budget_minutes": 30,
+  "timeout_seconds": 1200,
+  "min_free_gib": 8,
+  "budget_gib": 10,
+  "heavy_ci_limit": 0,
+  "stop": "5 alternating pairs per observation mode,4 warmups and1 live control; no extra sampling. Whole-suite and per-child Fork elapsed distribution, CPU/process peakRSS, SQL phase and global queue. No default adoption or general large-fixture acceptance.",
+  "question": "Under the normal-startup-global-cap candidate, compare only16/8MiB buffer pool in the same shop70/Pipe/P8 fixture.",
+  "read_threads": 1,
+  "startup_cap": "normal"
+}
