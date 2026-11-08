@@ -179,5 +179,15 @@ sidecars are explicitly **not raw C2 receipts**.
 
 Builder source/SDK/download scratch has been disposed after preserving inputs,
 hashes and diagnostics. [Builder cleanup](evidence/builder-cleanup.json).
-Runtime scratch cleanup is pending final evidence checkpoint; the Orca worktree
-and its lifecycle remain with the coordinator.
+Runtime scratch, ordinary source clone, Go caches, binaries and duplicate
+operational records are disposed. The converter source REVIEW was resolved by a
+byte-for-byte replay of its pinned archive plus 13 patches (420 files, no Git
+refs). No remaining checkout path exceeds 1GiB; cleanup debt is **0**.
+[Converter inspection](evidence/converter-source-cleanup.json),
+[helper receipt](evidence/runtime-cleanup.normalized.json),
+[final storage](evidence/storage-final.json).
+Only the pre-existing tracked `build/go.mod` remains in build storage. No C2
+byte bundle or raw translation/install receipt is retained; phase/source hashes
+and recipes support recreation, not direct qualification. The Orca worktree and
+its lifecycle remain with the coordinator; no other worker cache/checkout was
+cleaned.

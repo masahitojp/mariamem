@@ -1,0 +1,4 @@
+Disk preflight OK: 20.66 GiB free, 0.12 GiB owned
+usage: build_generated_guest.py [-h] [--repetitions REPETITIONS]
+                                [--development-output DEVELOPMENT_OUTPUT]
+build_generated_guest.py: error: refuse existing work/SDK/source/output; use a fresh builder

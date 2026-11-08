@@ -1,0 +1,37 @@
+{
+  "status": "COMPLETE owned scratch disposal",
+  "before_final_build_bytes": 58941440,
+  "after_final_build_bytes": 4096,
+  "retained_build_source": "build/go.mod (pre-existing tracked source)",
+  "removed": [
+    {
+      "path": "build/buffer-pool-contract-0.json",
+      "bytes": 4096,
+      "classification": "DELETE",
+      "reason": "Completed owned source/build/runtime scratch and duplicate raw operational receipts; exact source, inputs, hashes, native raw observations and normalized sidecars retained in Git"
+    },
+    {
+      "path": "build/prepared-source.json",
+      "bytes": 24576,
+      "classification": "DELETE",
+      "reason": "Completed owned source/build/runtime scratch and duplicate raw operational receipts; exact source, inputs, hashes, native raw observations and normalized sidecars retained in Git"
+    },
+    {
+      "path": "build/preparation-inputs.lock.json",
+      "bytes": 8192,
+      "classification": "DELETE",
+      "reason": "Completed owned source/build/runtime scratch and duplicate raw operational receipts; exact source, inputs, hashes, native raw observations and normalized sidecars retained in Git"
+    },
+    {
+      "path": "build/issue127",
+      "bytes": 58900480,
+      "classification": "DELETE",
+      "reason": "Completed owned source/build/runtime scratch and duplicate raw operational receipts; exact source, inputs, hashes, native raw observations and normalized sidecars retained in Git"
+    }
+  ],
+  "remaining_paths_over_1GiB": [],
+  "cleanup_debt": [],
+  "orca_worktree": "Retained for coordinator lifecycle; no other checkout/cache was cleaned",
+  "guest_bundle": "Guest/linked binaries, converter, translation/data.bin, Go native binaries and caches disposed; retained metadata and source are not a complete C2 producer bundle",
+  "source_refs": "Source 8c8b5f1c and evidence checkpoint 91633832 are ancestors of the retained/pushed experiment branch"
+}
