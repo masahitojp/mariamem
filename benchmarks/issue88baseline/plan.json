@@ -1,0 +1,27 @@
+{
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "buffer_pool_bytes": 16777216,
+  "buffer_pool_max_bytes": 16777216,
+  "transport": "Pipe",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "go": "go1.27.3",
+  "serial_processes": 5,
+  "children_per_process": 48,
+  "warmup_children_per_serial_process": 1,
+  "retention_processes": 5,
+  "retention_children": [
+    0,
+    1,
+    4
+  ],
+  "rss_settle": "GC + FreeOSMemory + 100ms at every checkpoint",
+  "fixture_rows": 1000,
+  "payload_bytes_per_row": 32,
+  "order": "serial then hold, repeated 5 times",
+  "timeout_seconds": 900,
+  "budget_gib": 10,
+  "min_free_gib": 8,
+  "scope": "Current 16MiB baseline only. No 8MiB candidate, large-fixture guard, parallel throughput or #68 attribution. All samples/tails retained; same manifest/harness required for later comparable arm."
+}
