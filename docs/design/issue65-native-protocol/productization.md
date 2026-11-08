@@ -1,5 +1,11 @@
 # Issue65 P1 — native経路の製品化計画
 
+Primary objective (Human,2026-11-08): reduce MariaDB update cost and follow upstream sooner.
+[Update-surface inventory and next bounded investigation](upgrade-surface.md).
+Native wiring/host relocation must be evaluated against actual update work,
+including guest patches, generated bindings and verification. Preserve C3 scope;
+clean reproduction and experiment cleanup remain adoption conditions.
+
 状態: **HumanがP1-aの実装を承認。macOS／Linuxの限定検証済み。P1-bもmacOS／Linuxの限定検証済み。P1-cはC2公開接続・基本consumerをMacで限定確認、C3は残件。main採用・release未承認。**
 
 設計時点のartifactとreviewは`9f4977135941acff010987e49ff0cad9221b2734` /

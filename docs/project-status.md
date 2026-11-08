@@ -506,6 +506,23 @@ benchmark was submitted. Canonical adoption,P1-d/e and P2 remain separate steps.
 
 
 
+## Issue65 — update cost is the primary objective (2026-11-08)
+
+The Human clarified that the objective is reducing MariaDB version-update work
+and following upstream sooner. Native wire and host/glue relocation are means.
+Acceptance includes a real version-update trial, tracking manual investigation,
+patch/binding repair and build/verification cost. If native wiring increases the
+total burden, reconsider its placement or approach. Runtime PASS and line-count
+reduction alone do not establish this benefit.
+
+The [initial source inventory](design/issue65-native-protocol/upgrade-surface.md)
+pins9f8dad6 and identifies bootstrap's remaining embedded C API use and prepared
+conversion recovery's internal-layout dependence. Neither an irreducible patch
+size nor an alternative build has been proved. This source-only investigation
+preserves the open C3 acceptance and does not approve a replacement architecture.
+Issue65 owns the detailed checklist, including local-dependency removal,
+clean-environment reproduction and experiment cleanup before main adoption.
+
 ## Current work tracking
 
 Checked against GitHub Issues on 2026-11-05 after v0.6.2 publication. Issues own

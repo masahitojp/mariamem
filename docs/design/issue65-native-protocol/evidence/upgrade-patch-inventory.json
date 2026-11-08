@@ -1,0 +1,286 @@
+{
+  "source_commit": "9f8dad6cb1b3730f190ed3cdd5176e6bdff9dadd",
+  "patch": "guest/experimental.patch",
+  "patch_sha256": "8ce9b4c9c338d5a57cf3094602d41fb5aab961154a30b77fb0b10fa928282b46",
+  "patch_lines": 2013,
+  "unique_files": 20,
+  "scope": "textual patch sections, not net final source diff or irreducible patch size",
+  "files": [
+    {
+      "path": "include/violite.h",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 1,
+          "hunks": 2,
+          "added": 2,
+          "removed": 2
+        }
+      ]
+    },
+    {
+      "path": "libmysqld/lib_sql.cc",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 21,
+          "hunks": 16,
+          "added": 34,
+          "removed": 5
+        }
+      ]
+    },
+    {
+      "path": "libmysqld/mariamem_control_abi.h",
+      "new_file": true,
+      "sections": [
+        {
+          "patch_line": 171,
+          "hunks": 1,
+          "added": 17,
+          "removed": 0
+        }
+      ]
+    },
+    {
+      "path": "libmysqld/mariamem_wire_probe.inc",
+      "new_file": true,
+      "sections": [
+        {
+          "patch_line": 191,
+          "hunks": 1,
+          "added": 120,
+          "removed": 0
+        }
+      ]
+    },
+    {
+      "path": "sql-common/client.c",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 314,
+          "hunks": 1,
+          "added": 1,
+          "removed": 0
+        }
+      ]
+    },
+    {
+      "path": "sql/item.h",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 324,
+          "hunks": 1,
+          "added": 3,
+          "removed": 0
+        },
+        {
+          "patch_line": 1707,
+          "hunks": 1,
+          "added": 31,
+          "removed": 0
+        }
+      ]
+    },
+    {
+      "path": "sql/net_serv.cc",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 338,
+          "hunks": 4,
+          "added": 20,
+          "removed": 1
+        }
+      ]
+    },
+    {
+      "path": "sql/protocol.cc",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 389,
+          "hunks": 16,
+          "added": 27,
+          "removed": 25
+        }
+      ]
+    },
+    {
+      "path": "sql/protocol.h",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 555,
+          "hunks": 2,
+          "added": 27,
+          "removed": 0
+        }
+      ]
+    },
+    {
+      "path": "sql/sql_acl.cc",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 598,
+          "hunks": 10,
+          "added": 32,
+          "removed": 3
+        }
+      ]
+    },
+    {
+      "path": "sql/sql_class.cc",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 706,
+          "hunks": 2,
+          "added": 12,
+          "removed": 2
+        }
+      ]
+    },
+    {
+      "path": "sql/sql_class.h",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 739,
+          "hunks": 2,
+          "added": 2,
+          "removed": 1
+        }
+      ]
+    },
+    {
+      "path": "sql/sql_parse.cc",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 758,
+          "hunks": 4,
+          "added": 12,
+          "removed": 1
+        },
+        {
+          "patch_line": 1680,
+          "hunks": 1,
+          "added": 18,
+          "removed": 0
+        }
+      ]
+    },
+    {
+      "path": "sql/sql_prepare.cc",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 825,
+          "hunks": 33,
+          "added": 67,
+          "removed": 69
+        },
+        {
+          "patch_line": 1538,
+          "hunks": 10,
+          "added": 62,
+          "removed": 7
+        },
+        {
+          "patch_line": 1747,
+          "hunks": 9,
+          "added": 39,
+          "removed": 2
+        }
+      ]
+    },
+    {
+      "path": "wasm/CMakeLists.txt",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 1258,
+          "hunks": 1,
+          "added": 3,
+          "removed": 1
+        }
+      ]
+    },
+    {
+      "path": "cmake/os/WASIX.cmake",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 1271,
+          "hunks": 1,
+          "added": 3,
+          "removed": 0
+        }
+      ]
+    },
+    {
+      "path": "wasm/lite4mariadb.c",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 1280,
+          "hunks": 1,
+          "added": 20,
+          "removed": 0
+        }
+      ]
+    },
+    {
+      "path": "wasm/issue65_control.cc",
+      "new_file": true,
+      "sections": [
+        {
+          "patch_line": 1306,
+          "hunks": 1,
+          "added": 197,
+          "removed": 0
+        },
+        {
+          "patch_line": 1859,
+          "hunks": 3,
+          "added": 14,
+          "removed": 2
+        },
+        {
+          "patch_line": 1898,
+          "hunks": 6,
+          "added": 15,
+          "removed": 14
+        }
+      ]
+    },
+    {
+      "path": "sql/mariamem_wire_policy.h",
+      "new_file": false,
+      "sections": [
+        {
+          "patch_line": 1507,
+          "hunks": 1,
+          "added": 28,
+          "removed": 0
+        }
+      ]
+    },
+    {
+      "path": "wasm/issue65_deadline.h",
+      "new_file": true,
+      "sections": [
+        {
+          "patch_line": 1984,
+          "hunks": 1,
+          "added": 27,
+          "removed": 0
+        }
+      ]
+    }
+  ]
+}
