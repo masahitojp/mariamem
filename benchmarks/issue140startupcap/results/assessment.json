@@ -1,0 +1,12 @@
+{
+  "status": "COMPARISON_COMPLETE",
+  "recommendation": "Promising bounded candidate for review, not a complete PREPARE fix or adoption",
+  "source_commit": "8d36aed9054618f0ed6993bfdedaab69d0119acc",
+  "valid_cases": 1750,
+  "cap_events": 1050,
+  "observer_closed": 286,
+  "invalid_prior_attempt": "f937d89930cfc7a3ac52c15e1ead8578aab55b46",
+  "product_changed": false,
+  "platform": "single Mac",
+  "remaining": "Unobserved candidate tails unbound; canonical C/WASM and other-platform acceptance separate."
+}
