@@ -1,0 +1,14 @@
+{
+  "gocache": {
+    "reason": "Host compilation completed; runtime binary does not need compiler/module cache"
+  },
+  "gopath": {
+    "reason": "Host compilation completed; runtime binary does not need compiler/module cache"
+  },
+  "modcache": {
+    "reason": "Host compilation completed; runtime binary does not need compiler/module cache"
+  },
+  "go-tmp": {
+    "reason": "Host compilation completed; runtime binary does not need compiler/module cache"
+  }
+}

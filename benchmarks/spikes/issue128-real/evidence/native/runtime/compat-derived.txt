@@ -1,0 +1,210 @@
+=== RUN   TestCompatCredentials
+=== RUN   TestCompatCredentials/roottrue
+    compat_test.go:255: COMPAT_OBSERVATION {"actual":"user=root@localhost current=root@localhost error=\u003cnil\u003e","expected":"root@... / root@localhost","id":"canonical_identity","pass":true,"test":"TestCompatCredentials/roottrue"}
+=== RUN   TestCompatCredentials/testfalse
+SESSION_RETIRED result=0 decodes=0
+    compat_test.go:255: COMPAT_OBSERVATION {"actual":"user=root@localhost current=root@localhost error=\u003cnil\u003e","expected":"root@... / root@localhost","id":"canonical_identity","pass":true,"test":"TestCompatCredentials/testfalse"}
+=== RUN   TestCompatCredentials/rootfalse
+SESSION_RETIRED result=0 decodes=0
+    compat_test.go:255: COMPAT_OBSERVATION {"actual":"user=root@localhost current=root@localhost error=\u003cnil\u003e","expected":"root@... / root@localhost","id":"canonical_identity","pass":true,"test":"TestCompatCredentials/rootfalse"}
+=== RUN   TestCompatCredentials/testtrue
+SESSION_RETIRED result=0 decodes=0
+    compat_test.go:255: COMPAT_OBSERVATION {"actual":"user=root@localhost current=root@localhost error=\u003cnil\u003e","expected":"root@... / root@localhost","id":"canonical_identity","pass":true,"test":"TestCompatCredentials/testtrue"}
+=== RUN   TestCompatCredentials/applicationfalse
+SESSION_RETIRED result=0 decodes=0
+    compat_test.go:255: COMPAT_OBSERVATION {"actual":"user=root@localhost current=root@localhost error=\u003cnil\u003e","expected":"root@... / root@localhost","id":"canonical_identity","pass":true,"test":"TestCompatCredentials/applicationfalse"}
+=== RUN   TestCompatCredentials/raw_applicationtrue
+SESSION_RETIRED result=0 decodes=0
+    compat_test.go:269: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_applicationtrue","pass":true,"test":"TestCompatCredentials/raw_applicationtrue"}
+    compat_test.go:270: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"credential_following_ping","pass":true,"test":"TestCompatCredentials/raw_applicationtrue"}
+=== RUN   TestCompatCredentials/raw_applicationfalse
+SESSION_RETIRED result=16 decodes=0
+    compat_test.go:269: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_applicationfalse","pass":true,"test":"TestCompatCredentials/raw_applicationfalse"}
+    compat_test.go:270: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"credential_following_ping","pass":true,"test":"TestCompatCredentials/raw_applicationfalse"}
+=== RUN   TestCompatCredentials/raw_false
+SESSION_RETIRED result=16 decodes=0
+    compat_test.go:269: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_false","pass":true,"test":"TestCompatCredentials/raw_false"}
+    compat_test.go:270: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"credential_following_ping","pass":true,"test":"TestCompatCredentials/raw_false"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=8 joined=8 cleanup_failed=0
+--- PASS: TestCompatCredentials (0.03s)
+    --- PASS: TestCompatCredentials/roottrue (0.00s)
+    --- PASS: TestCompatCredentials/testfalse (0.00s)
+    --- PASS: TestCompatCredentials/rootfalse (0.00s)
+    --- PASS: TestCompatCredentials/testtrue (0.00s)
+    --- PASS: TestCompatCredentials/applicationfalse (0.00s)
+    --- PASS: TestCompatCredentials/raw_applicationtrue (0.00s)
+    --- PASS: TestCompatCredentials/raw_applicationfalse (0.00s)
+    --- PASS: TestCompatCredentials/raw_false (0.00s)
+=== RUN   TestCompatCapabilities
+    compat_test.go:278: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapabilities"}
+    compat_test.go:284: COMPAT_OBSERVATION {"actual":1024525,"expected":1024525,"id":"greeting_exact_caps","pass":true,"test":"TestCompatCapabilities"}
+SESSION_RETIRED result=16 decodes=0
+    compat_test.go:298: COMPAT_OBSERVATION {"actual":"rows=1 err=\u003cnil\u003e","expected":1,"id":"accepted_FOUND_ROWS","pass":true,"test":"TestCompatCapabilities"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=2 joined=2 cleanup_failed=0
+--- PASS: TestCompatCapabilities (0.04s)
+=== RUN   TestCompatPreparedState
+=== RUN   TestCompatPreparedState/type_reuse
+    compat_test.go:305: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatPreparedState/type_reuse"}
+    compat_test.go:309: COMPAT_OBSERVATION {"actual":"row=000003610062 error=","expected":"000003610062","id":"typed_NUL","pass":true,"test":"TestCompatPreparedState/type_reuse"}
+    compat_test.go:310: COMPAT_OBSERVATION {"actual":"row=0000057265757365 error=","expected":"0000057265757365","id":"stored_type_reuse","pass":true,"test":"TestCompatPreparedState/type_reuse"}
+    compat_test.go:340: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"prepared_following_ping","pass":true,"test":"TestCompatPreparedState/type_reuse"}
+SESSION_RETIRED result=16 decodes=2
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestCompatPreparedState/alias
+    compat_test.go:305: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatPreparedState/alias"}
+    compat_test.go:312: COMPAT_OBSERVATION {"actual":"row=000005616c696173 error=","expected":"000005616c696173","id":"last_statement_alias","pass":true,"test":"TestCompatPreparedState/alias"}
+    compat_test.go:340: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"prepared_following_ping","pass":true,"test":"TestCompatPreparedState/alias"}
+SESSION_RETIRED result=16 decodes=1
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestCompatPreparedState/long_data_reset
+    compat_test.go:305: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatPreparedState/long_data_reset"}
+    compat_test.go:315: COMPAT_OBSERVATION {"actual":"row=0000046c6f6e67 error=","expected":"0000046c6f6e67","id":"LONG_DATA_no_reply_and_execute","pass":true,"test":"TestCompatPreparedState/long_data_reset"}
+    compat_test.go:318: COMPAT_OBSERVATION {"actual":"00000002000000","expected":"OK","id":"STMT_RESET","pass":true,"test":"TestCompatPreparedState/long_data_reset"}
+    compat_test.go:319: COMPAT_OBSERVATION {"actual":"row=0000056672657368 error=","expected":"0000056672657368","id":"reset_clears_long_data","pass":true,"test":"TestCompatPreparedState/long_data_reset"}
+    compat_test.go:323: COMPAT_OBSERVATION {"actual":"1210/HY000","expected":"1210/HY000","id":"LONG_DATA_deferred_error","pass":true,"test":"TestCompatPreparedState/long_data_reset"}
+    compat_test.go:326: COMPAT_OBSERVATION {"actual":"00000002000000","expected":"OK","id":"reset_clears_deferred_error","pass":true,"test":"TestCompatPreparedState/long_data_reset"}
+    compat_test.go:327: COMPAT_OBSERVATION {"actual":"row=0000097265636f7665726564 error=","expected":"0000097265636f7665726564","id":"execute_after_reset","pass":true,"test":"TestCompatPreparedState/long_data_reset"}
+    compat_test.go:340: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"prepared_following_ping","pass":true,"test":"TestCompatPreparedState/long_data_reset"}
+SESSION_RETIRED result=16 decodes=3
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestCompatPreparedState/malformed_string_D2
+    compat_test.go:305: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatPreparedState/malformed_string_D2"}
+    compat_test.go:329: COMPAT_OBSERVATION {"actual":"row=000000 error=","expected":"000000","id":"named_native_malformed_string","pass":true,"test":"TestCompatPreparedState/malformed_string_D2"}
+    compat_test.go:340: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"prepared_following_ping","pass":true,"test":"TestCompatPreparedState/malformed_string_D2"}
+SESSION_RETIRED result=16 decodes=1
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestCompatPreparedState/close_unknown_reset
+    compat_test.go:305: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatPreparedState/close_unknown_reset"}
+    compat_test.go:332: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"CLOSE_has_no_response","pass":true,"test":"TestCompatPreparedState/close_unknown_reset"}
+    compat_test.go:334: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"unknown_CLOSE_has_no_response","pass":true,"test":"TestCompatPreparedState/close_unknown_reset"}
+    compat_test.go:338: COMPAT_OBSERVATION {"actual":"1243/HY000","expected":"1243/HY000","id":"unknown_RESET","pass":true,"test":"TestCompatPreparedState/close_unknown_reset"}
+    compat_test.go:340: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"prepared_following_ping","pass":true,"test":"TestCompatPreparedState/close_unknown_reset"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+--- PASS: TestCompatPreparedState (0.15s)
+    --- PASS: TestCompatPreparedState/type_reuse (0.03s)
+    --- PASS: TestCompatPreparedState/alias (0.03s)
+    --- PASS: TestCompatPreparedState/long_data_reset (0.03s)
+    --- PASS: TestCompatPreparedState/malformed_string_D2 (0.03s)
+    --- PASS: TestCompatPreparedState/close_unknown_reset (0.03s)
+=== RUN   TestCompatCapacity
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+=== RUN   TestCompatCapacity/17th_tcp
+    compat_test.go:364: COMPAT_OBSERVATION {"actual":"errno=1040 state=08004 error=\u003cnil\u003e","expected":"1040/08004","id":"capacity_prelogin_tcp","pass":true,"test":"TestCompatCapacity/17th_tcp"}
+=== RUN   TestCompatCapacity/17th_pipe
+    compat_test.go:364: COMPAT_OBSERVATION {"actual":"errno=1040 state=08004 error=\u003cnil\u003e","expected":"1040/08004","id":"capacity_prelogin_pipe","pass":true,"test":"TestCompatCapacity/17th_pipe"}
+=== NAME  TestCompatCapacity
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"existing_session_after_capacity_rejection","pass":true,"test":"TestCompatCapacity"}
+SESSION_RETIRED result=16 decodes=0
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatCapacity"}
+    compat_test.go:381: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"slot_reused_after_retirement","pass":true,"test":"TestCompatCapacity"}
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=17 joined=17 cleanup_failed=0
+--- PASS: TestCompatCapacity (0.04s)
+    --- PASS: TestCompatCapacity/17th_tcp (0.00s)
+    --- PASS: TestCompatCapacity/17th_pipe (0.00s)
+=== RUN   TestCompatLiveCapacity
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    compat_test.go:384: capture epoch=36 events=[fenced stop_accepted capture_stopped guest_joined capture_approved freeze_begin freeze_complete memory_released host_joined root_owned] native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":95,"sessions":[]}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:390: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:395: COMPAT_OBSERVATION {"actual":"errno=1040 state=08004 error=\u003cnil\u003e","expected":"1040/08004","id":"Live_capacity_prelogin","pass":true,"test":"TestCompatLiveCapacity"}
+    compat_test.go:397: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"Live_existing_session_after_rejection","pass":true,"test":"TestCompatLiveCapacity"}
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=16 joined=16 cleanup_failed=0
+--- PASS: TestCompatLiveCapacity (0.07s)
+=== RUN   TestCompatFatalEOF
+    compat_test.go:408: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatFatalEOF"}
+    compat_test.go:410: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatFatalEOF"}
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=17 decodes=0
+    compat_test.go:429: COMPAT_OBSERVATION {"actual":"bytes=0 error=EOF","expected":"connection loss without injected ERR","id":"fatal_idle_transport_closed","pass":true,"test":"TestCompatFatalEOF"}
+    compat_test.go:431: COMPAT_OBSERVATION {"actual":"guest poison: deadline","expected":"deadline","id":"owner_original_deadline_cause","pass":true,"test":"TestCompatFatalEOF"}
+    compat_test.go:433: COMPAT_OBSERVATION {"actual":42,"expected":42,"id":"independent_instance_survives","pass":true,"test":"TestCompatFatalEOF"}
+NATIVE_STOP mode=ordinary started=2 joined=2 cleanup_failed=0
+    compat_test.go:440: COMPAT_OBSERVATION {"actual":"guest poison: deadline","expected":"deadline","id":"cleanup_preserves_original_cause","pass":true,"test":"TestCompatFatalEOF"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    wire_test.go:21: cleanup instance=38: guest poison: deadline
+--- PASS: TestCompatFatalEOF (0.37s)
+=== RUN   TestCompatFullWindow
+=== RUN   TestCompatFullWindow/overflow
+    compat_test.go:447: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatFullWindow/overflow"}
+SESSION_RETIRED result=17 decodes=0
+    compat_test.go:488: COMPAT_OBSERVATION {"actual":{"cause":"pending_input_overflow","denied":0,"fenced":true,"joined":0,"poisoned":true,"retired_input_peak":0,"retired_output_peak":0,"rollback_reports":0,"sessions":[{"command":1,"generation":1,"input":0,"input_peak":1048576,"output_peak":95,"outstanding":0,"phase":"executing","slot":0,"status":2}],"stale":0,"started":1},"expected":"full queue or already aborted","id":"full_window_overflow_setup","pass":true,"test":"TestCompatFullWindow/overflow"}
+    compat_test.go:511: COMPAT_OBSERVATION {"actual":"guest poison: pending_input_overflow","expected":"overflow before command deadline","id":"full_window_overflow_abort","pass":true,"test":"TestCompatFullWindow/overflow"}
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    wire_test.go:21: cleanup instance=40: guest poison: pending_input_overflow
+=== RUN   TestCompatFullWindow/eof
+    compat_test.go:447: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestCompatFullWindow/eof"}
+    compat_test.go:488: COMPAT_OBSERVATION {"actual":{"cause":"","denied":0,"fenced":false,"joined":0,"poisoned":false,"retired_input_peak":0,"retired_output_peak":0,"rollback_reports":0,"sessions":[{"command":1,"generation":1,"input":1048581,"input_peak":1048581,"output_peak":95,"outstanding":0,"phase":"executing","slot":0,"status":2}],"stale":0,"started":1},"expected":"full queue or already aborted","id":"full_window_eof_setup","pass":true,"test":"TestCompatFullWindow/eof"}
+SESSION_RETIRED result=17 decodes=0
+    compat_test.go:511: COMPAT_OBSERVATION {"actual":"guest poison: unexpected_peer_eof","expected":"eof before command deadline","id":"full_window_eof_abort","pass":true,"test":"TestCompatFullWindow/eof"}
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    wire_test.go:21: cleanup instance=41: guest poison: unexpected_peer_eof
+--- PASS: TestCompatFullWindow (0.10s)
+    --- PASS: TestCompatFullWindow/overflow (0.06s)
+    --- PASS: TestCompatFullWindow/eof (0.04s)
+PASS

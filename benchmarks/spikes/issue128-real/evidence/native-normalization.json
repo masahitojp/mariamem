@@ -1,0 +1,32 @@
+[
+  {
+    "file": "native/runtime/host-phases.jsonl",
+    "raw_sha256": "999c344a1adb2fc5df19b63bf6fcc49b8a7a814e0a4fcef6514b913165ec741b",
+    "normalized_sha256": "2ab320602d4d5b5af7bbf39ea23c4f12b2c8b2b99deae6f13411e7c3155b5971",
+    "rule": "Task checkout prefix -> <REPO>; hashes/semantic expectations/failures unchanged"
+  },
+  {
+    "file": "native/runtime/translation.txt",
+    "raw_sha256": "422b1b816232207d37f60b286f1908c598463314ea9ec2bdf53fb2278bead860",
+    "normalized_sha256": "a74333f9b7b9c31726c781d065651c2eed910da24c29e0b2ea4dfbade53c4dec",
+    "rule": "Task checkout prefix -> <REPO>; hashes/semantic expectations/failures unchanged"
+  },
+  {
+    "file": "native/runtime/semantic.txt",
+    "raw_sha256": "c3bdad774a47f31c8b4f8d2f9ece48458a8eb08ea70e96e2d5bf887450a43921",
+    "normalized_sha256": "f5967004b183e45ca1f7d5b4b99a7374d0a47653c49b6b0aa15245db5aaf1062",
+    "rule": "Task checkout prefix -> <REPO>; hashes/semantic expectations/failures unchanged"
+  },
+  {
+    "file": "native/runtime/host-build.txt",
+    "raw_sha256": "3a0a6f28d93fad7fa749ad833d61cc1fb3a3504958c4a383c834634bb4366dee",
+    "normalized_sha256": "910088e015adceb451d606c7d0ff39b26b473c79f8c0fbee3797937173766a59",
+    "rule": "Task checkout prefix -> <REPO>; hashes/semantic expectations/failures unchanged"
+  },
+  {
+    "file": "native/runtime/host-build.json",
+    "raw_sha256": "ce6b1afbadd6f6595e388c20f01862e901f012cac61a71d6e2fa28cdddc99857",
+    "normalized_sha256": "9a095fc6080b639c0a8331bac9230d25d3e4df2d1d610ab422754f05f1b96620",
+    "rule": "Task checkout prefix -> <REPO>; hashes/semantic expectations/failures unchanged"
+  }
+]

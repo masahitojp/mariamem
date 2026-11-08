@@ -1,0 +1,7 @@
+{
+  "fresh_canonical_builder_success": true,
+  "source_commit": "e6502de0781826488c984aa5637dfe593a74799d",
+  "target_source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+  "guest_sha256": "b7672dcca277ec9a1294b82ec33ab68cab578ba6244c81dc31ffe37586e0486d",
+  "wall_seconds": 886.0155875710188
+}

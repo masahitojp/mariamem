@@ -1,0 +1,12 @@
+{
+  "status": "INCOMPLETE_EARLY_GO_TEMP_ACCOUNTING",
+  "legacy_original_record": "legacy/runtime/go-temp-accounting.json",
+  "samples_in_original": 0,
+  "zero_fields_are_measured_peaks": false,
+  "reason": "The supplemental observer attached after the compiler had already exited; its zeros/empty list are not an observation of peak usage",
+  "whole_filesystem_free_floor_active_for_Go": true,
+  "first_Go_owned_path_counter_covered_external_temp": false,
+  "later_explicit_owned_TMPDIR_GOTMPDIR": true,
+  "known_budget_breach": false,
+  "remaining_legacy_go_temp_exists": false
+}

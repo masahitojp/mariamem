@@ -1,0 +1,10 @@
+{
+  "P1_metadata_equal": true,
+  "P2_repair_cases": 15,
+  "different_cases": [],
+  "scope": "Full recorded PREPARE metadata and P2 trace comparison against original controls; old control version is not a newly executed native 13.0.2 control",
+  "reference_sha256": {
+    "prepared-p1-native.json": "8b573d792eba148cb75b282b58324ea0558a088bd10fef4d1666cdd5887dbe7f",
+    "prepared-p2-repair-native.json": "ec2b8efbfaf624fcff7e98246fe17f24466c197fa4df01af968a18777ad65ee1"
+  }
+}

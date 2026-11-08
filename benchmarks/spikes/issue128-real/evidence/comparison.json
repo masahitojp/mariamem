@@ -1,0 +1,79 @@
+{
+  "result": "INCONCLUSIVE_TOTAL_UPDATE_BURDEN",
+  "shared_toolchain_equal": true,
+  "shared_preparation_equal": {
+    "portability_series": true,
+    "source_overlay": true,
+    "uca_prepared": true,
+    "routine_schema": true
+  },
+  "same_common_modified_files": {
+    "CMakeLists.txt": "6c70d280b3a7a1736d5ba7260fb113a44e8f094d23c9de9dd4ec0da3ce88402d",
+    "cmake/libfmt.cmake": "436e87408474a62f2c344ea6de4ccbcc02e65f900f00a8474073513c082da765",
+    "cmake/os/Emscripten.cmake": "af8159bccbfa7d33a5860091fb3c3a716b58df5a2daf57892d6970fb5feb3675",
+    "cmake/pcre.cmake": "ed0dbf1f78b8fe86ed04e1a85cdeaeec3b2b9c271b0ee4a5f9eb036d43eb0907",
+    "configure.cmake": "8bbb6636d9b0ef5094288dcc3de17a80e51fd2721a5b5003774d2f746daebb41",
+    "include/m_ctype.h": "4b52a9cc32bcf5e0a732a87c963f6efe0288b5de6638d9bea2d240f8cb28c668",
+    "include/mariamem_init_diagnostics.h": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea",
+    "include/my_global.h": "60aaa58fee20a00cb09737eb45a09b3882eaaa6564f9d7bfae77662c07434b9b",
+    "include/my_stacktrace.h": "8437a3f83abbb3cc6e29fbf588a8e0c8507820c3a066ba8707198da7f925861f",
+    "include/my_sys.h": "ca63169323dcca605124befff5f40a56b78d3385e10f7d901a66ae7238634db5",
+    "libmysqld/libmysql.c": "bb852ad028162f95bc43e6e7cb38d30b197398585f6deb07e94c08c9db2dff67",
+    "mysys/CMakeLists.txt": "9cb50fe418b6557872329ee9a4ab30e24b168eabdc0f4b6d04eeb99a7088ef94",
+    "mysys/my_largepage.c": "c1107852a72152a8a481c86d77f80f360dadaddd7cea73e492d45bacef6706ae",
+    "mysys/my_lib.c": "d00d2647d98e49272c6652e0dc5a88438d86da5856c6007d70f0047a994f0f26",
+    "mysys/my_lock.c": "7aed29f87e0ad6bc7978ce4794c0f10b1c99a52903c207ee49314632e60ecc46",
+    "mysys/my_timezone.cc": "6777513d495db9a832b52f248455156b79dfa1a778fc86b2aa6e14d90c15ad50",
+    "mysys/my_virtual_mem.c": "ea8d8902f9ac07987defed73e64a3dd974705f94e24bb29728c07797d75855d0",
+    "plugin/auth_mysql_sha2/mysql_sha2.c": "2dfb8b6e0ca9bc26e1aa6ab50c8009f0d5be850d3d7ad0c56b9413b4acc3928e",
+    "plugin/auth_mysql_sha2/ssl_stuff.c": "8621b8bbb5cab82eb32b736938fcfebf66a09a4acd388bcca5be8c2962ff0d02",
+    "sql/mysqld.cc": "8e7a8447958b58ae59255d0b1eb5c4f0c982839eab648773a48f8d6f12001085",
+    "sql/sql_plugin.cc": "a8811caebf288bf5257e7ffe5669c44ae27e607af5cf31adbb7e8631b7d85443",
+    "storage/innobase/buf/buf0buf.cc": "6d830ac3772e12323c1907776c66ad5d74278d1819a901e8324495b21bda4307",
+    "storage/innobase/buf/buf0flu.cc": "a3dd5252ad5866f8b486209f65b4e772f39c9a2d3d5a961b07cbf136a29ce123",
+    "storage/innobase/fil/fil0fil.cc": "ec7797b294e86fc0926a5d2dc00be6f1d3f7b6dae7cb0bc0743333a624649d37",
+    "storage/innobase/handler/ha_innodb.cc": "a4e0119fb9bd62d1a456acc67e30ddebf38a4ab62eff88318227b622ab920594",
+    "storage/innobase/log/log0log.cc": "a4c299251b9b98efefaedfbf242a01586e706ab39decebe06539f1f2e099d9cc",
+    "storage/innobase/os/os0file.cc": "4b8515af8e247a22fde4bf8524ab6e68932f436dbc25290e6dcb8d4987ca2c73",
+    "storage/innobase/srv/srv0start.cc": "c9b1c1343f88298b55ea0cdaaa6d147d9b26a8683cc3a829ae11284ba5f6b9da",
+    "storage/maria/ha_maria.cc": "465fe7518073e467a97710e48626fbf4dbdd15f28ec20d2d074087b6d7871c36",
+    "storage/maria/ma_loghandler.c": "515a8afc9aef1cccd7055028441aae249021835c49f5dd1353982d7fc8542281",
+    "strings/ctype-uca.c": "93af2c4177e291a5943aac823747a9576c6c1dc2bb25411d61e3cdedfe758f42",
+    "strings/mariamem_uca_prepared.h": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
+    "wasm/init_diagnostics.inc": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d",
+    "wasm/mariamem_test_auth_keypair.h": "9abcb667518beb1902e68e8eb660d27a4b4c10f126113dcfc49206c843825c44",
+    "wasm/prepared_api.inc": "762a0021c0c5ac2385367e389b5be2a0e54bbf5f50b57b56fd66725a4e027334",
+    "wasm/prepared_auth_keys.inc": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af",
+    "wasm/resident.inc": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c",
+    "wasm/routine_bootstrap.inc": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b",
+    "wasm/routine_schema_sql.inc": "6d5554821c8a989d22f7e60831981aecb461f6e1a1d168f8644ffd8de5beaeea",
+    "wasm/snapshot_fs.inc": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd",
+    "wasm/startup_timing.inc": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2",
+    "wasm/wire_api.inc": "d1f20b50ca23f470873d383513d8f927e85ece2173dec65f8ea6a9f24b31c24a"
+  },
+  "native_overlay_files": 20,
+  "native_overlay_sha256": "867e3a8b2aaab3be3d4bd20e64236d63d1915ede04be94a3437f7e5874f1295d",
+  "new_native_functional_cpp_repairs": 0,
+  "guest_producers": {
+    "legacy": {
+      "source_commit": "ecf81035009bd4e353ddee302f73c781c77a3f28",
+      "guest_sha256": "1854c8106abf275e67c84b6e43a6035109021d81d3612f54d0f17baa31906214",
+      "guest_bytes": 21215058,
+      "fresh_canonical_builder_success": true,
+      "fresh_target_producer_success": true
+    },
+    "native": {
+      "source_commit": "e6502de0781826488c984aa5637dfe593a74799d",
+      "guest_sha256": "b7672dcca277ec9a1294b82ec33ab68cab578ba6244c81dc31ffe37586e0486d",
+      "guest_bytes": 21237000,
+      "fresh_canonical_builder_success": true,
+      "fresh_target_producer_success": true
+    }
+  },
+  "limits": [
+    "Original verification profiles differ; no normalized total-cost ratio",
+    "Additional native archive-to-capture regression FAIL",
+    "No public C3/bothOS/consumer/performance/adoption acceptance",
+    "First Go stage owned temporary-byte accounting incomplete"
+  ]
+}

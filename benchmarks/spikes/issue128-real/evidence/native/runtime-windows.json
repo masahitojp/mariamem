@@ -1,0 +1,23 @@
+{
+  "native-suite.txt": {
+    "raw_sha256": "41a7b2544953ae80752731852dcbe70ac065b17a6966091985f8f29075b09bde",
+    "created_unix": 1794119618.84148,
+    "last_write_unix": 1794119662.2169425,
+    "write_window_seconds": 43.37546253204346,
+    "scope": "File creation-to-last-write window, not exact command wall/CPU or active effort"
+  },
+  "target-checkpoint.txt": {
+    "raw_sha256": "3929df97a981cf0e649a3e75cbe4b555d86dde6a70476e19e18a6541b0465078",
+    "created_unix": 1794119663.0101023,
+    "last_write_unix": 1794119664.1114979,
+    "write_window_seconds": 1.101395606994629,
+    "scope": "File creation-to-last-write window, not exact command wall/CPU or active effort"
+  },
+  "semantic.txt": {
+    "raw_sha256": "c3bdad774a47f31c8b4f8d2f9ece48458a8eb08ea70e96e2d5bf887450a43921",
+    "created_unix": 1794119616.402293,
+    "last_write_unix": 1794119664.1609101,
+    "write_window_seconds": 47.75861716270447,
+    "scope": "File creation-to-last-write window, not exact command wall/CPU or active effort"
+  }
+}

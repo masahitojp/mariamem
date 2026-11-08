@@ -1,0 +1,101 @@
+{
+  "legacy": [
+    {
+      "phase": "translate:converter-build",
+      "wall_seconds": 8.75506112491712,
+      "returncode": 0
+    },
+    {
+      "phase": "translate:wasm2go",
+      "wall_seconds": 78.8155344169354,
+      "returncode": 0
+    },
+    {
+      "phase": "legacy:translation",
+      "wall_seconds": 100.22332824999467,
+      "returncode": 0
+    },
+    {
+      "phase": "legacy:source-adapter",
+      "wall_seconds": 18.19387945800554,
+      "returncode": 0
+    },
+    {
+      "phase": "legacy:installation",
+      "wall_seconds": 20.665870958007872,
+      "returncode": 0
+    },
+    {
+      "phase": "legacy:host-compile",
+      "wall_seconds": 147.62122820795048,
+      "returncode": 0
+    },
+    {
+      "phase": "legacy:finite-semantic-smoke",
+      "wall_seconds": 0.02590745803900063,
+      "returncode": 1
+    },
+    {
+      "phase": "legacy:finite-semantic-smoke",
+      "wall_seconds": 1.9175534169189632,
+      "returncode": 0
+    },
+    {
+      "phase": "legacy:v06_prepared_p1_probe.py",
+      "wall_seconds": 0.20837158302310854,
+      "returncode": 1
+    },
+    {
+      "phase": "legacy:finite-semantic-smoke",
+      "wall_seconds": 0.6602280420484021,
+      "returncode": 0
+    },
+    {
+      "phase": "legacy:v06_prepared_p1_probe.py",
+      "wall_seconds": 0.2555420841090381,
+      "returncode": 0
+    },
+    {
+      "phase": "legacy:v06_prepared_p2_repair_probe.py",
+      "wall_seconds": 1.0189957079710439,
+      "returncode": 0
+    }
+  ],
+  "native": [
+    {
+      "phase": "translate:converter-build",
+      "wall_seconds": 10.551398291019723,
+      "returncode": 0
+    },
+    {
+      "phase": "translate:wasm2go",
+      "wall_seconds": 96.51192979107145,
+      "returncode": 0
+    },
+    {
+      "phase": "wire:translation",
+      "wall_seconds": 118.82099387503695,
+      "returncode": 0
+    },
+    {
+      "phase": "wire:source-adapter",
+      "wall_seconds": 19.662795166950673,
+      "returncode": 0
+    },
+    {
+      "phase": "wire:installation",
+      "wall_seconds": 19.905334917013533,
+      "returncode": 0
+    },
+    {
+      "phase": "wire:gofmt",
+      "wall_seconds": 0.011853167088702321,
+      "returncode": 0
+    },
+    {
+      "phase": "wire:host-compile",
+      "wall_seconds": 232.11628370801918,
+      "returncode": 0
+    }
+  ]
+}

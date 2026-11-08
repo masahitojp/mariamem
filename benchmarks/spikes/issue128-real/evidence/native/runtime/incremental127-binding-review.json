@@ -1,0 +1,78 @@
+{
+  "free": {
+    "old_function": "Fn151",
+    "new_function": "Fn151",
+    "old_body_sha256": "e39ae9c0b04930af7656a79278364a255bf2abfb27f7565843aa014cc3596bd8",
+    "new_body_sha256": "fbc715621c945f57f8056bf3ddeb0f926ceee8503027eed95c07dd155061384b",
+    "changed_numeric_literals": {
+      "17998728": "18014088",
+      "17998732": "18014092",
+      "17998300": "18013660",
+      "17998304": "18013664",
+      "17998284": "18013644",
+      "17998292": "18013652",
+      "17998588": "18013948",
+      "17998288": "18013648",
+      "17998308": "18013668",
+      "17998296": "18013656",
+      "17998324": "18013684",
+      "17998316": "18013676"
+    },
+    "function_renames": {
+      "Fn151": "Fn151",
+      "Fn129": "Fn129"
+    },
+    "incremental_static_deltas": [
+      15360
+    ],
+    "complete_body_equivalence_after_exact_maps": true,
+    "small_constants_TLS_and_ABI_preserved": true
+  },
+  "yield": {
+    "old_function": "Fn129",
+    "new_function": "Fn129",
+    "old_body_sha256": "c10f06f62eab7a7f88def8f1dd78934cd7fd4f84fb8cc3b21eecdf28bf908ec7",
+    "new_body_sha256": "c10f06f62eab7a7f88def8f1dd78934cd7fd4f84fb8cc3b21eecdf28bf908ec7",
+    "changed_numeric_literals": {},
+    "function_renames": {
+      "Fn129": "Fn129"
+    },
+    "incremental_static_deltas": [],
+    "complete_body_equivalence_after_exact_maps": true,
+    "small_constants_TLS_and_ABI_preserved": true
+  },
+  "entry": {
+    "old_function": "Fn520",
+    "new_function": "Fn520",
+    "old_body_sha256": "bf0d48a86c3b15013878b674a975840901eb1fb986c3f2c3c861991f72a43652",
+    "new_body_sha256": "badbad6566001a478f7220c501f9933e69a469fed83b01abf9a7334d0e0c8018",
+    "changed_numeric_literals": {
+      "18115688": "18131048",
+      "18116208": "18131568",
+      "18116256": "18131616",
+      "18116800": "18132160",
+      "18116804": "18132164",
+      "17996868": "18012228",
+      "17996865": "18012225",
+      "17998808": "18014168",
+      "18056208": "18071568"
+    },
+    "function_renames": {
+      "Fn520": "Fn520",
+      "Fn95": "Fn95",
+      "Fn517": "Fn517",
+      "Fn90": "Fn90",
+      "Fn87": "Fn87",
+      "Fn86": "Fn86",
+      "Fn82": "Fn82",
+      "Fn220": "Fn220",
+      "Fn151": "Fn151",
+      "Fn156": "Fn156"
+    },
+    "incremental_static_deltas": [
+      15360
+    ],
+    "complete_body_equivalence_after_exact_maps": true,
+    "small_constants_TLS_and_ABI_preserved": true
+  }
+}

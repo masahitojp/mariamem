@@ -1,0 +1,6 @@
+Disk preflight OK: 14.38 GiB free, 3.32 GiB owned
+Traceback (most recent call last):
+  File "<REPO>/build/issue128-real/temp/native_driver.py", line 56, in <module>
+    assert target.returncode==0 and '--- PASS: TestIssue128CheckpointArchiveTransitions' in log
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

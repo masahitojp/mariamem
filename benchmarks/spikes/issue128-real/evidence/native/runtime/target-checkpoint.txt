@@ -1,0 +1,7 @@
+=== RUN   TestIssue128CheckpointArchiveTransitions
+    target_checkpoint_test.go:37: ISSUE128_ARCHIVE start=36889 end=16947841 checkpoint=16960243 log_size=4194304 rows=256 bytes=16777216
+SESSION_RETIRED result=0 decodes=256
+    target_checkpoint_test.go:39: capture consumed=false root=<nil> err=capture precondition 1: busy
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+--- FAIL: TestIssue128CheckpointArchiveTransitions (1.09s)
+FAIL

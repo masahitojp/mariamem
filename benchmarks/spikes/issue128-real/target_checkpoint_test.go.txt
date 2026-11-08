@@ -1,0 +1,43 @@
+package main
+
+import (
+ "strconv"
+ "testing"
+ "time"
+)
+
+// Finite semantic regression for the shared 13.0 log/wait adaptation, not a benchmark.
+func TestIssue128CheckpointArchiveTransitions(t *testing.T) {
+ r := timeoutRoot(t, 30*time.Second)
+ db := dbFor(t, r, nil)
+ defer db.Close()
+ status := func(name string) uint64 {
+  t.Helper()
+  var key, value string
+  if err := db.QueryRow("SHOW GLOBAL STATUS LIKE '"+name+"'").Scan(&key, &value); err != nil { t.Fatal(err) }
+  n, err := strconv.ParseUint(value, 10, 64); if err != nil { t.Fatal(err) }; return n
+ }
+ exec := func(q string) { t.Helper(); if _,err:=db.Exec(q); err!=nil { t.Fatal(q,err) } }
+ exec("SET GLOBAL innodb_log_file_size=4194304")
+ exec("SET GLOBAL innodb_log_archive=ON")
+ var enabled, size uint64
+ if err:=db.QueryRow("SELECT @@GLOBAL.innodb_log_archive,@@GLOBAL.innodb_log_file_size").Scan(&enabled,&size);err!=nil {t.Fatal(err)}
+ if enabled!=1 || size!=4194304 { t.Fatal("target log settings",enabled,size) }
+ start:=status("Innodb_lsn_current")
+ exec("CREATE TABLE issue128_checkpoint(id INT PRIMARY KEY,v LONGBLOB) ENGINE=InnoDB")
+ for i:=0;i<256;i++ { if _,err:=db.Exec("INSERT INTO issue128_checkpoint VALUES(?,REPEAT('x',65536))",i);err!=nil { t.Fatal("bounded write",i,err) } }
+ end:=status("Innodb_lsn_current")
+ if end<=start+2*size { t.Fatal("insufficient redo turnover",start,end,size) }
+ exec("SET GLOBAL innodb_log_archive=OFF")
+ checkpoint:=status("Innodb_lsn_last_checkpoint")
+ if checkpoint<=start { t.Fatal("checkpoint did not advance",start,checkpoint) }
+ var rows,total uint64
+ if err:=db.QueryRow("SELECT COUNT(*),SUM(OCTET_LENGTH(v)) FROM issue128_checkpoint").Scan(&rows,&total);err!=nil {t.Fatal(err)}
+ if rows!=256 || total!=256*65536 {t.Fatal(rows,total)}
+ t.Logf("ISSUE128_ARCHIVE start=%d end=%d checkpoint=%d log_size=%d rows=%d bytes=%d",start,end,checkpoint,size,rows,total)
+ if err:=db.Close();err!=nil {t.Fatal(err)}
+ baseline:=makeBaseline(captureNow(t,r,false));t.Cleanup(func(){ if err:=baseline.backing.Close();err!=nil {t.Error(err)} })
+ restored:=child(t,baseline);t.Cleanup(func(){if err:=restored.close();err!=nil {t.Error(err)}});next:=dbFor(t,restored,nil);defer next.Close()
+ if err:=next.QueryRow("SELECT COUNT(*),SUM(OCTET_LENGTH(v)) FROM issue128_checkpoint").Scan(&rows,&total);err!=nil {t.Fatal(err)}
+ if rows!=256 || total!=256*65536 {t.Fatal("restored contents",rows,total)}
+}

@@ -1,0 +1,5 @@
+{
+  "exit": 1,
+  "passed": false,
+  "scope": "Additional target-native archive ON/OFF, bounded redo turnover, checkpoint and capture/restore semantic regression; exact internal timed_wait branch hit is not instrumented"
+}

@@ -1,0 +1,164 @@
+=== RUN   TestLimitsCommands
+=== RUN   TestLimitsCommands/reset_connection
+    limits_test.go:68: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsCommands/reset_connection"}
+    limits_test.go:72: LIMITS_OBSERVATION {"actual":"errno=1235 state=42000 err=\u003cnil\u003e marker=ffd304233432303030","expected":"ERR1235/42000","id":"reset_connection","pass":true,"test":"TestLimitsCommands/reset_connection"}
+    limits_test.go:75: LIMITS_OBSERVATION {"actual":"\u003cnil\u003e","expected":"PING OK","id":"reset_connection_following","pass":true,"test":"TestLimitsCommands/reset_connection"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsCommands/stmt_fetch
+    limits_test.go:68: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsCommands/stmt_fetch"}
+    limits_test.go:72: LIMITS_OBSERVATION {"actual":"errno=1235 state=42000 err=\u003cnil\u003e marker=ffd304233432303030","expected":"ERR1235/42000","id":"stmt_fetch","pass":true,"test":"TestLimitsCommands/stmt_fetch"}
+    limits_test.go:75: LIMITS_OBSERVATION {"actual":"\u003cnil\u003e","expected":"PING OK","id":"stmt_fetch_following","pass":true,"test":"TestLimitsCommands/stmt_fetch"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsCommands/statistics
+    limits_test.go:68: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsCommands/statistics"}
+    limits_test.go:72: LIMITS_OBSERVATION {"actual":"errno=1235 state=42000 err=\u003cnil\u003e marker=ffd304233432303030","expected":"ERR1235/42000","id":"statistics","pass":true,"test":"TestLimitsCommands/statistics"}
+    limits_test.go:75: LIMITS_OBSERVATION {"actual":"\u003cnil\u003e","expected":"PING OK","id":"statistics_following","pass":true,"test":"TestLimitsCommands/statistics"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsCommands/process_info
+    limits_test.go:68: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsCommands/process_info"}
+    limits_test.go:72: LIMITS_OBSERVATION {"actual":"errno=1235 state=42000 err=\u003cnil\u003e marker=ffd304233432303030","expected":"ERR1235/42000","id":"process_info","pass":true,"test":"TestLimitsCommands/process_info"}
+    limits_test.go:75: LIMITS_OBSERVATION {"actual":"\u003cnil\u003e","expected":"PING OK","id":"process_info_following","pass":true,"test":"TestLimitsCommands/process_info"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsCommands/binlog_dump
+    limits_test.go:68: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsCommands/binlog_dump"}
+    limits_test.go:72: LIMITS_OBSERVATION {"actual":"errno=1235 state=42000 err=\u003cnil\u003e marker=ffd304233432303030","expected":"ERR1235/42000","id":"binlog_dump","pass":true,"test":"TestLimitsCommands/binlog_dump"}
+    limits_test.go:75: LIMITS_OBSERVATION {"actual":"\u003cnil\u003e","expected":"PING OK","id":"binlog_dump_following","pass":true,"test":"TestLimitsCommands/binlog_dump"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+--- PASS: TestLimitsCommands (0.15s)
+    --- PASS: TestLimitsCommands/reset_connection (0.03s)
+    --- PASS: TestLimitsCommands/stmt_fetch (0.03s)
+    --- PASS: TestLimitsCommands/statistics (0.03s)
+    --- PASS: TestLimitsCommands/process_info (0.03s)
+    --- PASS: TestLimitsCommands/binlog_dump (0.03s)
+=== RUN   TestLimitsCapabilities
+=== RUN   TestLimitsCapabilities/tls
+SESSION_RETIRED result=12 decodes=0
+    limits_test.go:94: LIMITS_OBSERVATION {"actual":"errno=1235 state=42000 marker=ff","expected":"ERR1235/42000","id":"tls","pass":true,"test":"TestLimitsCapabilities/tls"}
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsCapabilities/missing_protocol41
+SESSION_RETIRED result=12 decodes=0
+    limits_test.go:94: LIMITS_OBSERVATION {"actual":"errno=1235 state=42000 marker=ff","expected":"ERR1235/42000","id":"missing_protocol41","pass":true,"test":"TestLimitsCapabilities/missing_protocol41"}
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsCapabilities/compression_not_negotiated
+    limits_test.go:104: LIMITS_OBSERVATION {"actual":"caps=fa20d marker=00 err=\u003cnil\u003e","expected":"unadvertised; ordinary uncompressed login","id":"compression_not_negotiated","pass":true,"test":"TestLimitsCapabilities/compression_not_negotiated"}
+    limits_test.go:112: LIMITS_OBSERVATION {"actual":"first=01 eof=fe00000200 row=0131 end=fe00000200","expected":"ordinary row plus legacy EOF","id":"compression_not_negotiated_following","pass":true,"test":"TestLimitsCapabilities/compression_not_negotiated"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsCapabilities/deprecate_eof_not_negotiated
+    limits_test.go:104: LIMITS_OBSERVATION {"actual":"caps=fa20d marker=00 err=\u003cnil\u003e","expected":"unadvertised; ordinary uncompressed login","id":"deprecate_eof_not_negotiated","pass":true,"test":"TestLimitsCapabilities/deprecate_eof_not_negotiated"}
+    limits_test.go:112: LIMITS_OBSERVATION {"actual":"first=01 eof=fe00000200 row=0131 end=fe00000200","expected":"ordinary row plus legacy EOF","id":"deprecate_eof_not_negotiated_following","pass":true,"test":"TestLimitsCapabilities/deprecate_eof_not_negotiated"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+--- PASS: TestLimitsCapabilities (0.12s)
+    --- PASS: TestLimitsCapabilities/tls (0.03s)
+    --- PASS: TestLimitsCapabilities/missing_protocol41 (0.03s)
+    --- PASS: TestLimitsCapabilities/compression_not_negotiated (0.03s)
+    --- PASS: TestLimitsCapabilities/deprecate_eof_not_negotiated (0.03s)
+=== RUN   TestLimitsInputHeaders
+=== RUN   TestLimitsInputHeaders/n1048578_warmfalse
+    limits_test.go:123: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsInputHeaders/n1048578_warmfalse"}
+SESSION_RETIRED result=16 decodes=0
+    limits_test.go:142: LIMITS_OBSERVATION {"actual":"errno=1153 err=\u003cnil\u003e","expected":"reject header without waiting for body","id":"n1048578_warmfalse","pass":true,"test":"TestLimitsInputHeaders/n1048578_warmfalse"}
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsInputHeaders/n1048578_warmtrue
+    limits_test.go:123: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsInputHeaders/n1048578_warmtrue"}
+SESSION_RETIRED result=16 decodes=0
+    limits_test.go:142: LIMITS_OBSERVATION {"actual":"errno=1153 err=\u003cnil\u003e","expected":"reject header without waiting for body","id":"n1048578_warmtrue","pass":true,"test":"TestLimitsInputHeaders/n1048578_warmtrue"}
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsInputHeaders/n16777215_warmfalse
+    limits_test.go:123: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsInputHeaders/n16777215_warmfalse"}
+SESSION_RETIRED result=16 decodes=0
+    limits_test.go:142: LIMITS_OBSERVATION {"actual":"errno=1153 err=\u003cnil\u003e","expected":"reject header without waiting for body","id":"n16777215_warmfalse","pass":true,"test":"TestLimitsInputHeaders/n16777215_warmfalse"}
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsInputHeaders/n16777215_warmtrue
+    limits_test.go:123: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsInputHeaders/n16777215_warmtrue"}
+    limits_test.go:142: LIMITS_OBSERVATION {"actual":"errno=1153 err=\u003cnil\u003e","expected":"reject header without waiting for body","id":"n16777215_warmtrue","pass":true,"test":"TestLimitsInputHeaders/n16777215_warmtrue"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+--- PASS: TestLimitsInputHeaders (0.12s)
+    --- PASS: TestLimitsInputHeaders/n1048578_warmfalse (0.03s)
+    --- PASS: TestLimitsInputHeaders/n1048578_warmtrue (0.03s)
+    --- PASS: TestLimitsInputHeaders/n16777215_warmfalse (0.03s)
+    --- PASS: TestLimitsInputHeaders/n16777215_warmtrue (0.03s)
+=== RUN   TestLimitsOutputPacket
+=== RUN   TestLimitsOutputPacket/binaryfalse_overfalse
+    limits_test.go:233: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsOutputPacket/binaryfalse_overfalse"}
+    limits_test.go:264: LIMITS_OBSERVATION {"actual":"packet=16777214 value=16777210 err=\u003cnil\u003e","expected":"exact 0xfffffe row packet and exact value","id":"binaryfalse_overfalse","pass":true,"test":"TestLimitsOutputPacket/binaryfalse_overfalse"}
+    limits_test.go:271: LIMITS_OBSERVATION {"actual":"end=fe00000200 err=\u003cnil\u003e","expected":"result EOF then PING","id":"binaryfalse_overfalse_following","pass":true,"test":"TestLimitsOutputPacket/binaryfalse_overfalse"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsOutputPacket/binaryfalse_overtrue
+    limits_test.go:233: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsOutputPacket/binaryfalse_overtrue"}
+    limits_test.go:250: LIMITS_OBSERVATION {"actual":"errno=1153 state=08S01 err=\u003cnil\u003e row_bytes=60 owner=\u003cnil\u003e","expected":"ERR1153/08S01 or early EOF; no continuation header","id":"binaryfalse_overtrue","pass":true,"test":"TestLimitsOutputPacket/binaryfalse_overtrue"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsOutputPacket/binarytrue_overfalse
+    limits_test.go:233: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsOutputPacket/binarytrue_overfalse"}
+    limits_test.go:264: LIMITS_OBSERVATION {"actual":"packet=16777214 value=16777208 err=\u003cnil\u003e","expected":"exact 0xfffffe row packet and exact value","id":"binarytrue_overfalse","pass":true,"test":"TestLimitsOutputPacket/binarytrue_overfalse"}
+    limits_test.go:271: LIMITS_OBSERVATION {"actual":"end=fe00000200 err=\u003cnil\u003e","expected":"result EOF then PING","id":"binarytrue_overfalse_following","pass":true,"test":"TestLimitsOutputPacket/binarytrue_overfalse"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+=== RUN   TestLimitsOutputPacket/binarytrue_overtrue
+    limits_test.go:233: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsOutputPacket/binarytrue_overtrue"}
+    limits_test.go:250: LIMITS_OBSERVATION {"actual":"errno=1153 state=08S01 err=\u003cnil\u003e row_bytes=60 owner=\u003cnil\u003e","expected":"ERR1153/08S01 or early EOF; no continuation header","id":"binarytrue_overtrue","pass":true,"test":"TestLimitsOutputPacket/binarytrue_overtrue"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+--- PASS: TestLimitsOutputPacket (1.42s)
+    --- PASS: TestLimitsOutputPacket/binaryfalse_overfalse (0.60s)
+    --- PASS: TestLimitsOutputPacket/binaryfalse_overtrue (0.11s)
+    --- PASS: TestLimitsOutputPacket/binarytrue_overfalse (0.60s)
+    --- PASS: TestLimitsOutputPacket/binarytrue_overtrue (0.11s)
+=== RUN   TestLimitsAggregate
+=== RUN   TestLimitsAggregate/binaryfalse
+    limits_test.go:282: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsAggregate/binaryfalse"}
+    limits_test.go:284: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsAggregate/binaryfalse"}
+    limits_test.go:296: LIMITS_OBSERVATION {"actual":{"error":"\u003cnil\u003e","stats":{"cause":"","denied":0,"fenced":false,"joined":0,"poisoned":false,"retired_input_peak":0,"retired_output_peak":0,"rollback_reports":0,"sessions":[{"command":1,"generation":1,"input":0,"input_peak":113,"output_peak":65536,"outstanding":65536,"phase":"executing","slot":0,"status":2},{"command":0,"generation":1,"input":0,"input_peak":45,"output_peak":95,"outstanding":0,"phase":"idle","slot":1,"status":2}],"stale":0,"started":2}},"expected":"other-session PING while output credit full","id":"binaryfalse_control","pass":true,"test":"TestLimitsAggregate/binaryfalse"}
+    limits_test.go:322: LIMITS_OBSERVATION {"actual":"rows=40 bytes=41943040 err=\u003cnil\u003e last_bytes=5","expected":"40 exact 1MiB rows, total40MiB, terminal EOF","id":"binaryfalse_data","pass":true,"test":"TestLimitsAggregate/binaryfalse"}
+    limits_test.go:338: LIMITS_OBSERVATION {"actual":{"native_peak":65536,"stats":{"cause":"","denied":0,"fenced":false,"joined":0,"poisoned":false,"retired_input_peak":0,"retired_output_peak":0,"rollback_reports":0,"sessions":[{"command":1,"generation":1,"input":0,"input_peak":113,"output_peak":65536,"outstanding":0,"phase":"idle","slot":0,"status":34},{"command":1,"generation":1,"input":0,"input_peak":45,"output_peak":95,"outstanding":0,"phase":"idle","slot":1,"status":2}],"stale":0,"started":2}},"expected":"native output peak\u003c=65536; following PING","id":"binaryfalse_bounds","pass":true,"test":"TestLimitsAggregate/binaryfalse"}
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=2 joined=2 cleanup_failed=0
+=== RUN   TestLimitsAggregate/binarytrue
+    limits_test.go:282: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsAggregate/binarytrue"}
+    limits_test.go:284: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsAggregate/binarytrue"}
+    limits_test.go:296: LIMITS_OBSERVATION {"actual":{"error":"\u003cnil\u003e","stats":{"cause":"","denied":0,"fenced":false,"joined":0,"poisoned":false,"retired_input_peak":0,"retired_output_peak":0,"rollback_reports":0,"sessions":[{"command":2,"generation":1,"input":0,"input_peak":113,"output_peak":65536,"outstanding":65536,"phase":"executing","slot":0,"status":2},{"command":0,"generation":1,"input":0,"input_peak":45,"output_peak":95,"outstanding":0,"phase":"idle","slot":1,"status":2}],"stale":0,"started":2}},"expected":"other-session PING while output credit full","id":"binarytrue_control","pass":true,"test":"TestLimitsAggregate/binarytrue"}
+    limits_test.go:322: LIMITS_OBSERVATION {"actual":"rows=40 bytes=41943040 err=\u003cnil\u003e last_bytes=5","expected":"40 exact 1MiB rows, total40MiB, terminal EOF","id":"binarytrue_data","pass":true,"test":"TestLimitsAggregate/binarytrue"}
+    limits_test.go:338: LIMITS_OBSERVATION {"actual":{"native_peak":65536,"stats":{"cause":"","denied":0,"fenced":false,"joined":0,"poisoned":false,"retired_input_peak":0,"retired_output_peak":0,"rollback_reports":0,"sessions":[{"command":2,"generation":1,"input":0,"input_peak":113,"output_peak":65536,"outstanding":0,"phase":"idle","slot":0,"status":34},{"command":1,"generation":1,"input":0,"input_peak":45,"output_peak":95,"outstanding":0,"phase":"idle","slot":1,"status":2}],"stale":0,"started":2}},"expected":"native output peak\u003c=65536; following PING","id":"binarytrue_bounds","pass":true,"test":"TestLimitsAggregate/binarytrue"}
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=2 joined=2 cleanup_failed=0
+--- PASS: TestLimitsAggregate (2.82s)
+    --- PASS: TestLimitsAggregate/binaryfalse (1.41s)
+    --- PASS: TestLimitsAggregate/binarytrue (1.41s)
+=== RUN   TestLimitsPipeWindow
+=== RUN   TestLimitsPipeWindow/overflow
+    limits_test.go:349: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsPipeWindow/overflow"}
+    limits_test.go:351: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsPipeWindow/overflow"}
+SESSION_RETIRED result=17 decodes=0
+    limits_test.go:392: LIMITS_OBSERVATION {"actual":{"cause":"","denied":0,"fenced":false,"joined":0,"poisoned":false,"retired_input_peak":0,"retired_output_peak":0,"rollback_reports":0,"sessions":[{"command":1,"generation":1,"input":1048576,"input_peak":1048576,"output_peak":95,"outstanding":0,"phase":"executing","slot":0,"status":2}],"stale":0,"started":1},"expected":"full queue or already aborted","id":"full_window_overflow_setup","pass":true,"test":"TestLimitsPipeWindow/overflow"}
+    limits_test.go:415: LIMITS_OBSERVATION {"actual":"guest poison: pending_input_overflow","expected":"overflow before command deadline","id":"full_window_overflow_abort","pass":true,"test":"TestLimitsPipeWindow/overflow"}
+    limits_test.go:417: LIMITS_OBSERVATION {"actual":"\u003cnil\u003e","expected":"independent PING","id":"independent_overflow","pass":true,"test":"TestLimitsPipeWindow/overflow"}
+SESSION_RETIRED result=17 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    wire_test.go:21: cleanup instance=154: guest poison: pending_input_overflow
+=== RUN   TestLimitsPipeWindow/eof
+    limits_test.go:349: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsPipeWindow/eof"}
+    limits_test.go:351: COMPAT_OBSERVATION {"actual":"marker=00","expected":"OK","id":"login_roottrue","pass":true,"test":"TestLimitsPipeWindow/eof"}
+    limits_test.go:392: LIMITS_OBSERVATION {"actual":{"cause":"","denied":0,"fenced":false,"joined":0,"poisoned":false,"retired_input_peak":0,"retired_output_peak":0,"rollback_reports":0,"sessions":[{"command":1,"generation":1,"input":1048581,"input_peak":1048581,"output_peak":95,"outstanding":0,"phase":"executing","slot":0,"status":2}],"stale":0,"started":1},"expected":"full queue or already aborted","id":"full_window_eof_setup","pass":true,"test":"TestLimitsPipeWindow/eof"}
+SESSION_RETIRED result=17 decodes=0
+    limits_test.go:415: LIMITS_OBSERVATION {"actual":"guest poison: unexpected_peer_eof","expected":"eof before command deadline","id":"full_window_eof_abort","pass":true,"test":"TestLimitsPipeWindow/eof"}
+    limits_test.go:417: LIMITS_OBSERVATION {"actual":"\u003cnil\u003e","expected":"independent PING","id":"independent_eof","pass":true,"test":"TestLimitsPipeWindow/eof"}
+SESSION_RETIRED result=16 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+    wire_test.go:21: cleanup instance=156: guest poison: unexpected_peer_eof
+--- PASS: TestLimitsPipeWindow (0.13s)
+    --- PASS: TestLimitsPipeWindow/overflow (0.06s)
+    --- PASS: TestLimitsPipeWindow/eof (0.07s)
+PASS

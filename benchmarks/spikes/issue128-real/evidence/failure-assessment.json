@@ -1,0 +1,32 @@
+{
+  "result": "UNRESOLVED_ADDITIONAL_SEMANTIC_FAILURE",
+  "first_failure": "capture precondition 1: busy; consumed=false; no root",
+  "original_native_suite": "79/79 plus 701 named observations PASS, no fail/skip",
+  "archive_checkpoint_observations": {
+    "lsn_start": 36889,
+    "lsn_end": 16947841,
+    "last_checkpoint": 16960243,
+    "configured_initial_log_bytes": 4194304,
+    "rows": 256,
+    "payload_bytes": 16777216,
+    "post_stress_restore": "NOT EXECUTED"
+  },
+  "cleanup_observed": {
+    "native_started": 1,
+    "native_joined": 1,
+    "cleanup_failed": 0
+  },
+  "source_facts": [
+    "tryCapture rejects any native slot phase other than IDLE under the gate",
+    "idle observes a point-in-time phase, not full retirement/drain",
+    "TCP close, QUIT/EOF and native retirement may cross that observation",
+    "Original legacy dev smoke explicitly waits for disconnection"
+  ],
+  "inference": "An insufficient synchronization precondition in the new test is plausible, but not proved; no engine/native regression is established",
+  "not_proved": [
+    "Exact internal timed_wait/create_spare_archive pending branch hit",
+    "Capture and restore after this archive workload",
+    "Equivalent archive workload on the legacy route"
+  ],
+  "stop_rule": "No subsequent build/runtime/CI or retry after this unresolved failure"
+}

@@ -1,0 +1,6 @@
+Disk preflight OK: 14.65 GiB free, 3.25 GiB owned
+Installed checksum-bound generated runtime: 62 files
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+go: downloading filippo.io/edwards25519 v1.1.0
+Built isolated wire test binary: <REPO>/build/issue128-real/temp/runtime/native/temp/host/wire.test
+compile completed

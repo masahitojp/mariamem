@@ -1,0 +1,16 @@
+{
+  "scope": "Experiment target preparation/helpers, fresh producers, regenerated bindings and finite suites; additional semantic failure stops acceptance",
+  "python_compile": "PASS touched Python tools and retained operational drivers",
+  "target_identity_negative_guards": "PASS: swapped commit/tag, wrong version/archive, changed/missing native overlay rejected",
+  "full_preparation": "PASS exact complete pre/postimages and pinned dependency acquisition",
+  "fresh_producers": "2 PASS; no incremental continuation",
+  "legacy_finite_semantics": "Original smoke plus 6 P1 and 15 P2 repair scenarios PASS; recorded original control comparisons PASS",
+  "native_original_semantics": "79 original cases, including22 lifecycle and701 named observations PASS; FAIL0/SKIP0",
+  "native_additional_semantics": "FAIL capture busy after archive/checkpoint/row checks; restore not run",
+  "full_public_source": "FAIL only six unchanged historical Issue65 evidence files after fixing new report wording; guard not relaxed",
+  "new_bundle_public_source": "Validated below using unchanged public source allowlist and patterns",
+  "initial_Go_temp_guard": "Incomplete owned temp accounting, explicitly assessed; no measured zero peak or known breach claimed",
+  "ci": 0,
+  "benchmarks": 0,
+  "scope_reduction": "No additional execution after stop rule; pending requirements are explicitly unfinished"
+}

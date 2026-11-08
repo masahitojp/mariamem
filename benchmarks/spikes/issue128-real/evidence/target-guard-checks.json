@@ -1,0 +1,9 @@
+{
+  "exact_target_descriptor": "PASS",
+  "tag_object_as_source": "REJECTED",
+  "commit_as_tag": "REJECTED",
+  "wrong_version": "REJECTED",
+  "wrong_archive": "REJECTED",
+  "changed_native_bytes": "REJECTED",
+  "missing_native_overlay": "REJECTED"
+}

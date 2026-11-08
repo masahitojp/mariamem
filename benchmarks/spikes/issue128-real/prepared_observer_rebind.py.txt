@@ -1,0 +1,15 @@
+from pathlib import Path
+import shutil
+def rebind(repo, destination):
+    destination.mkdir(parents=True, exist_ok=True)
+    for name in ("v06_prepared_p1_probe.py", "v06_prepared_p2_matrix.py", "v06_prepared_p2_repair_probe.py"):
+        text = (repo/"tests"/name).read_text()
+        if name == "v06_prepared_p1_probe.py":
+            old = "assert version.startswith('12.3.3'),version"
+            assert text.count(old) == 1
+            text = text.replace(old, "assert version == '13.0.2-MariaDB-embedded',version")
+        if name == "v06_prepared_p2_matrix.py":
+            old = "assert query(c,'SELECT VERSION()')[0][0].startswith('12.3.3')"
+            assert text.count(old) == 1
+            text = text.replace(old, "assert query(c,'SELECT VERSION()')[0][0] == '13.0.2-MariaDB-embedded'")
+        (destination/name).write_text(text)

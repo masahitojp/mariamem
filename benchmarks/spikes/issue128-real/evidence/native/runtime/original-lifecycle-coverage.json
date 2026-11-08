@@ -1,0 +1,35 @@
+{
+  "original_cases": 22,
+  "all_original_cases_passed": true,
+  "fixtures_and_cases": {
+    "benchmarks/spikes/issue65-native-capture/wire_test.go.txt": [
+      "TestProtocolPrepared",
+      "TestQueryDeadlineAndIsolation",
+      "TestPartialInputDeadline",
+      "TestSlowOutputControl"
+    ],
+    "benchmarks/spikes/issue65-native-capture/capture_test.go.txt": [
+      "TestCaptureForkRollbackAndRecapture",
+      "TestCapturePartialAndOutputRejection",
+      "TestCaptureQueuedFenceAndDuplicate",
+      "TestCaptureFailureControls",
+      "TestCaptureOrdinaryStopAndEOF",
+      "TestCaptureDebtCannotBeForgiven",
+      "TestCaptureConcatenatedInputAndForeignEpoch",
+      "TestCaptureGoPipe",
+      "TestCaptureRejectsInvalidRestore",
+      "TestCaptureJoinCancellationRetainsLease"
+    ],
+    "benchmarks/spikes/issue65-native-live/live_test.go.txt": [
+      "TestNativeLiveDrainAndReset",
+      "TestNativeLiveCapacityBeforeDrain",
+      "TestNativeLiveReplacementFailureRecovery",
+      "TestNativeLiveCancellationBeforeCommit",
+      "TestNativeLiveCleanupDebtRecovery",
+      "TestNativeLiveCaptureDebtIsPermanent",
+      "TestNativeLiveParentAndEndpointClose",
+      "TestNativeLiveInvalidRestoreNeverAdmits"
+    ]
+  },
+  "missing": []
+}

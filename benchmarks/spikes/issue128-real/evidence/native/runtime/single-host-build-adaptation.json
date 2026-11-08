@@ -1,0 +1,7 @@
+{
+  "reason": "Include the original approved G2 fixture before the one host compilation; do not recompile a second baseline binary",
+  "original_assembler_sha256": "e565c910e0af3c75956989239a67e1947e9e5c99c6b80b35dea0291ab770966b",
+  "actual_assembler_sha256": "c546956ec20556f7bcaff5eaa2d9084ebaeba3795e5be7b0b5e4ef80ac37f4dc",
+  "g2_fixture_sha256": "254fa4b516cb97e1079d0a1bd625c31a5f696be1ff12edf7c94a35d37d92ce90",
+  "g2_contract": "issue65-short-fixed-header-1043-v1"
+}

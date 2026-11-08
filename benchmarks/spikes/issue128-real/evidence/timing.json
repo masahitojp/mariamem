@@ -1,0 +1,37 @@
+{
+  "started_utc_approx": "2026-11-08T05:28:43+00:00",
+  "stopped_semantic_execution_utc": "2026-11-08T06:34:24+00:00",
+  "reporting_recorded_utc": "2026-11-08T06:56:47.240646+00:00",
+  "active_minutes_estimate_including_reporting_cleanup": 55,
+  "measurement_tooling_minutes_estimate_within_active": 27,
+  "estimation_method": "Coarse agent work estimates from task timestamps, not a stopwatch or CPU measurement; exact child waits remain in producer/phase records",
+  "manual_active_estimate_buckets_minutes": {
+    "shared_target_registration_preparation": 10,
+    "legacy_binding_observer_environment_triage": 10,
+    "native_pinning_fixture_binding_setup": 10,
+    "target_regression_and_readonly_failure_triage": 8,
+    "preservation_reporting_verification_cleanup": 17
+  },
+  "ceilings": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "total_wall_minutes": 270,
+    "clean_guest_builds": 2,
+    "translation_host_builds": 2,
+    "guest_timeout_seconds": 3600,
+    "host_timeout_seconds": 1800,
+    "runtime_timeout_seconds": 1800,
+    "owned_gib": 12,
+    "minimum_free_gib": 12
+  },
+  "actual": {
+    "clean_guest_builds": 2,
+    "incremental_guest_builds": 0,
+    "translation_host_builds": 2,
+    "ci": 0,
+    "benchmarks": 0,
+    "runtime_native_original_cases": 79,
+    "runtime_native_additional_cases": 1,
+    "additional_case_result": "FAIL"
+  }
+}
