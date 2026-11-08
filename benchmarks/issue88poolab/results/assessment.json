@@ -1,0 +1,17 @@
+{
+  "attempt1": {
+    "source_commit": "78c52ee79a1592558afc387af26697c8a87b3f23",
+    "result": "FAIL before build or any measurement",
+    "reason": "selector callsite preimage used stale Fn5738; guarded assertion rejected it"
+  },
+  "final": {
+    "source_commit": "caaebef0f4ac49f61fe4d7828092c80bb39f18bd",
+    "result": "40/40 process success",
+    "selector_tests": "PASS, both variants +4 negative cases",
+    "runtime_files_changed": false,
+    "two_argv_overlay": true,
+    "both_platform_acceptance": "NOT_RUN",
+    "canonical_guest_regeneration": "NOT_RUN",
+    "default_change": "NOT_AUTHORIZED"
+  }
+}
