@@ -1,0 +1,87 @@
+package nativewire
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"github.com/masahitojp/mariamem/internal/disposal"
+	"sync"
+	"testing"
+	"time"
+)
+
+// Synthetic private-frame peer only; this verifies hook attachment and the
+// post-join ownership-error path without counting it as real guest evidence.
+func TestIssue130HookOwnRootFailure(t *testing.T) {
+	f := newFake()
+	runner := func(x Execution) <-chan error {
+		x.ConfigureIssue130(&Issue130Hooks{OwnRootBuild: "wrong-build"})
+		return f.run(x)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	b, e := Start(ctx, Config{Runner: runner, Build: "fake-guest"})
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer b.Close(ctx)
+	owned, consumed, operation := b.SnapshotHeap(ctx, false)
+	if owned != nil || !consumed || operation == nil || b.CaptureDebt() == nil {
+		t.Fatal("ownership fault not reached", operation)
+	}
+	if !b.DisposalComplete() || b.Active() != 0 {
+		t.Fatal("physical cleanup incomplete")
+	}
+	_ = b.Close(ctx)
+	if b.CaptureDebt() == nil {
+		t.Fatal("physical cleanup forgave capture debt")
+	}
+}
+
+func TestIssue130HookRelayHold(t *testing.T) {
+	for _, part := range []uint8{Reader, Writer} {
+		t.Run(fmt.Sprint(part), func(t *testing.T) {
+			entered, release := make(chan struct{}), make(chan struct{})
+			var once sync.Once
+			unblock := func() { once.Do(func() { close(release) }) }
+			defer unblock()
+			f := newFake()
+			h := &Issue130Hooks{RelayDone: func(_ Token, p uint8) {
+				if p == part {
+					close(entered)
+					<-release
+				}
+			}}
+			runner := func(x Execution) <-chan error { x.ConfigureIssue130(h); return f.run(x) }
+			b, e := Start(context.Background(), Config{Runner: runner, Build: "fake-guest"})
+			if e != nil {
+				t.Fatal(e)
+			}
+			c, e := b.DialContext(context.Background())
+			if e != nil {
+				t.Fatal(e)
+			}
+			defer c.Close()
+			nextOpen(t, f)
+			cause := errors.New("fake peer fault")
+			f.fail <- cause
+			waitFor(t, entered)
+			waitFor(t, b.executionDone)
+			remainsOpen(t, b.Done())
+			if b.Active() != 1 || b.DisposalComplete() {
+				t.Fatal("relay hook did not retain owner")
+			}
+			ctx, cancel := context.WithCancel(context.Background())
+			cancel()
+			operation := b.Close(ctx)
+			if !errors.Is(operation, cause) || len(disposal.Owners(operation)) != 1 {
+				t.Fatal(operation)
+			}
+			unblock()
+			waitFor(t, b.Done())
+			if e := disposal.Retry(context.Background(), operation); e != nil {
+				t.Fatal(e)
+			}
+		})
+	}
+}

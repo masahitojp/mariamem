@@ -1,0 +1,43 @@
+package host
+
+import (
+	"context"
+	"io"
+	"sync"
+	"time"
+
+	"github.com/masahitojp/mariamem/internal/generatedgo"
+	"github.com/masahitojp/mariamem/internal/nativewire"
+	"github.com/masahitojp/mariamem/internal/snapshot"
+)
+
+// A one-shot fixture registration, consumed by the next ordinary public Start
+// or Fork. Never parallelize tests that install this explicit staging factory.
+var issue130Next struct {
+	sync.Mutex
+	hooks *nativewire.Issue130Hooks
+}
+
+func Issue130Next(h *nativewire.Issue130Hooks) func() {
+	issue130Next.Lock()
+	defer issue130Next.Unlock()
+	if issue130Next.hooks != nil {
+		panic("unconsumed Issue130 hooks")
+	}
+	issue130Next.hooks = h
+	return func() { issue130Next.Lock(); defer issue130Next.Unlock(); issue130Next.hooks = nil }
+}
+func Start(ctx context.Context, restore *snapshot.Owned, timeout time.Duration, stderr io.Writer) (Service, error) {
+	issue130Next.Lock()
+	h := issue130Next.hooks
+	issue130Next.hooks = nil
+	issue130Next.Unlock()
+	return StartNative(ctx, restore, timeout, stderr, generatedgo.GuestSHA256, func(x nativewire.Execution) <-chan error {
+		x.ConfigureIssue130(h)
+		life := &generatedgo.WireLifecycle{Capture: x.Capture, Approval: x.Approval}
+		if h != nil {
+			life.BeforeWorkerComplete = h.WorkerComplete
+		}
+		return generatedgo.StartWireInstance(x.Input, x.Output, x.Stderr, "", x.Restore, false, x.Failure, x.Epoch, life)
+	})
+}

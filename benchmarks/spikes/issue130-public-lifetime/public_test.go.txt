@@ -1,0 +1,268 @@
+package mariamem
+
+import (
+	"context"
+	"database/sql"
+	"errors"
+	"os"
+	"sync"
+	"sync/atomic"
+	"testing"
+	"time"
+
+	mysql "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem/internal/disposal"
+	"github.com/masahitojp/mariamem/internal/forklimit"
+	"github.com/masahitojp/mariamem/internal/host"
+	"github.com/masahitojp/mariamem/internal/nativewire"
+)
+
+// Staged only. These call ordinary public Start/Fork/Snapshot, real SQL and the
+// real worker completion seam. No fake runner/service is accepted by this file.
+func issue130Wait(t *testing.T, ch <-chan struct{}) {
+	t.Helper()
+	select {
+	case <-ch:
+	case <-time.After(15 * time.Second):
+		t.Fatal("Issue130 barrier timed out")
+	}
+}
+func issue130Open(t *testing.T, ch <-chan struct{}) {
+	t.Helper()
+	select {
+	case <-ch:
+		t.Fatal("Done closed before all joins")
+	default:
+	}
+}
+func issue130Start(t *testing.T, opts Options) *Database {
+	t.Helper()
+	db, e := Start(context.Background(), opts)
+	if e != nil {
+		t.Fatal(e)
+	}
+	t.Cleanup(func() { _ = db.Close() })
+	if _, ok := db.server.(*host.Native); !ok {
+		t.Fatal("public route is not native")
+	}
+	return db
+}
+func issue130Pool(t *testing.T, db *Database) *sql.DB {
+	t.Helper()
+	cfg, e := mysql.ParseDSN(db.DSN())
+	if e != nil {
+		t.Fatal(e)
+	}
+	cfg.DialFunc = db.DialContext
+	c, e := mysql.NewConnector(cfg)
+	if e != nil {
+		t.Fatal(e)
+	}
+	pool := sql.OpenDB(c)
+	pool.SetMaxOpenConns(1)
+	pool.SetMaxIdleConns(1)
+	t.Cleanup(func() { _ = pool.Close() })
+	return pool
+}
+func TestIssue130PublicSeparateJoins(t *testing.T) {
+	for _, boundary := range []string{"worker", "reader", "writer"} {
+		t.Run(boundary, func(t *testing.T) {
+			peer := issue130Start(t, Options{})
+			healthy := issue130Pool(t, peer)
+			entered, release := make(chan struct{}), make(chan struct{})
+			var once sync.Once
+			unblock := func() { once.Do(func() { close(release) }) }
+			defer unblock()
+			// Release before registered DB cleanup, even on assertion failure.
+			var armed atomic.Bool
+			var held atomic.Bool
+			hold := func() {
+				if armed.Load() && held.CompareAndSwap(false, true) {
+					close(entered)
+					<-release
+				}
+			}
+			h := &nativewire.Issue130Hooks{}
+			if boundary == "worker" {
+				h.WorkerComplete = func(uint32) { hold() }
+			} else {
+				part := uint8(nativewire.Reader)
+				if boundary == "writer" {
+					part = nativewire.Writer
+				}
+				h.RelayDone = func(_ nativewire.Token, p uint8) {
+					if p == part {
+						hold()
+					}
+				}
+			}
+			t.Cleanup(host.Issue130Next(h))
+			db := issue130Start(t, Options{QueryTimeout: 150 * time.Millisecond, ShutdownTimeout: 20 * time.Millisecond})
+			b := db.server.(*host.Native)
+			pool := issue130Pool(t, db)
+			if e := pool.Ping(); e != nil {
+				t.Fatal(e)
+			}
+			armed.Store(true)
+			query := make(chan error, 1)
+			go func() { _, e := pool.Exec("DO SLEEP(2)"); query <- e }()
+			issue130Wait(t, entered)
+			// Err must not wait on a public watcher that took db.mu too early.
+			errResult := make(chan error, 1)
+			go func() { errResult <- db.Err() }()
+			select {
+			case e := <-errResult:
+				if !errors.Is(e, ErrUnusable) || !errors.Is(e, context.DeadlineExceeded) {
+					t.Fatal(e)
+				}
+			case <-time.After(time.Second):
+				t.Fatal("Err blocked before native/relay join")
+			}
+			select {
+			case e := <-query:
+				if e == nil {
+					t.Fatal("fatal SQL succeeded")
+				}
+			case <-time.After(time.Second):
+				t.Fatal("fatal SQL did not lose connection")
+			}
+			if !errors.Is(b.Failure(), context.DeadlineExceeded) {
+				t.Fatal(b.Failure())
+			}
+			issue130Open(t, b.Done())
+			if b.DisposalComplete() || b.Active() != 1 {
+				t.Fatalf("early cleanup: disposed=%v active=%d", b.DisposalComplete(), b.Active())
+			}
+			if e := healthy.Ping(); e != nil {
+				t.Fatal("independent DB failed", e)
+			}
+			path := db.temporary
+			closed := make(chan error, 1)
+			go func() { closed <- db.Close() }()
+			var first error
+			select {
+			case first = <-closed:
+			case <-time.After(time.Second):
+				t.Fatal("Close ignored shutdown deadline")
+			}
+			if !errors.Is(first, context.DeadlineExceeded) || len(disposal.Owners(first)) == 0 {
+				t.Fatal("lost typed cleanup/cause", first)
+			}
+			if _, e := os.Stat(path); e != nil {
+				t.Fatal("temp removed before join", e)
+			}
+			unblock()
+			issue130Wait(t, b.Done())
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+			defer cancel()
+			if e := disposal.Retry(ctx, first); e != nil {
+				t.Fatal(e)
+			}
+			if !b.DisposalComplete() || b.Active() != 0 {
+				t.Fatal("late physical cleanup incomplete")
+			}
+			if _, e := os.Stat(path); !os.IsNotExist(e) {
+				t.Fatal("late temp cleanup incomplete", e)
+			}
+			if db.Close() != first || !errors.Is(db.Err(), context.DeadlineExceeded) {
+				t.Fatal("late cleanup rewrote stored result/cause")
+			}
+		})
+	}
+}
+func TestIssue130PublicPermanentDebtIsolation(t *testing.T) {
+	root := issue130Start(t, Options{})
+	parent, e := root.Snapshot(context.Background(), SnapshotOptions{MaxForks: 2})
+	if e != nil {
+		t.Fatal(e)
+	}
+	t.Cleanup(func() { _ = parent.Close() })
+	sibling, e := parent.Fork(context.Background())
+	if e != nil {
+		t.Fatal(e)
+	}
+	t.Cleanup(func() { _ = sibling.Close() })
+	other := issue130Start(t, Options{})
+	independent, e := other.Snapshot(context.Background(), SnapshotOptions{MaxForks: 1})
+	if e != nil {
+		t.Fatal(e)
+	}
+	t.Cleanup(func() { _ = independent.Close() })
+	// Actual guest capture still runs; only post-join OwnRoot receives the wrong
+	// build identity. This is an injected host ownership fault, not a guest trap.
+	t.Cleanup(host.Issue130Next(&nativewire.Issue130Hooks{OwnRootBuild: "issue130-wrong-build"}))
+	child, e := parent.Fork(context.Background())
+	if e != nil {
+		t.Fatal(e)
+	}
+	t.Cleanup(func() { _ = child.Close() })
+	captured, operation := child.Snapshot(context.Background(), SnapshotOptions{MaxForks: 1})
+	if captured != nil || operation == nil || child.captureDebt == nil {
+		t.Fatal("missing permanent capture debt", operation)
+	}
+	b := child.server.(*host.Native)
+	if !b.DisposalComplete() || b.Active() != 0 {
+		t.Fatal("fixture did not reach physical cleanup")
+	}
+	stored := child.Close()
+	if e := disposal.Retry(context.Background(), operation); e != nil {
+		t.Fatal(e)
+	}
+	if child.Close() != stored {
+		t.Fatal("Close result changed")
+	}
+	if _, e := parent.Fork(context.Background()); !errors.Is(e, forklimit.ErrCleanup) {
+		t.Fatal("parent debt forgiven", e)
+	}
+	if e := issue130Pool(t, sibling).Ping(); e != nil {
+		t.Fatal("sibling affected", e)
+	}
+	if e := sibling.Close(); e != nil {
+		t.Fatal(e)
+	}
+	if _, occupied := parent.forkLimit().Usage(); occupied != 1 {
+		t.Fatal("debt retained unrelated lease", occupied)
+	}
+	if _, e := parent.Fork(context.Background()); !errors.Is(e, forklimit.ErrCleanup) {
+		t.Fatal("sibling cleanup forgave debt", e)
+	}
+	fresh, e := independent.Fork(context.Background())
+	if e != nil {
+		t.Fatal("independent parent affected", e)
+	}
+	if e := fresh.Close(); e != nil {
+		t.Fatal(e)
+	}
+	_ = parent.Close()
+	if _, e := parent.Fork(context.Background()); !errors.Is(e, ErrClosed) {
+		t.Fatal("closed parent recovered", e)
+	}
+}
+
+func TestIssue130PublicFinalFenceDespiteIdleCache(t *testing.T) {
+	t.Cleanup(host.Issue130Next(&nativewire.Issue130Hooks{ForceIdleState: true}))
+	db := issue130Start(t, Options{})
+	b := db.server.(*host.Native)
+	pool := issue130Pool(t, db)
+	conn, e := pool.Conn(context.Background())
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer conn.Close()
+	if _, e = conn.ExecContext(context.Background(), "BEGIN"); e != nil {
+		t.Fatal(e)
+	}
+	if b.Busy() {
+		t.Fatal("idle-cache injection not installed")
+	}
+	captured, e := db.Snapshot(context.Background(), SnapshotOptions{MaxForks: 1})
+	if captured != nil || !errors.Is(e, ErrTransactionActive) || db.Closed() {
+		t.Fatal("guest final fence bypassed", captured, e)
+	}
+	if _, e = conn.ExecContext(context.Background(), "ROLLBACK"); e != nil {
+		t.Fatal("rejected capture consumed source", e)
+	}
+	if e = db.Err(); e != nil {
+		t.Fatal("rejection poisoned source", e)
+	}
+}

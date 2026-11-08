@@ -1,0 +1,129 @@
+package control
+
+import (
+	"context"
+	"database/sql"
+	"errors"
+	"fmt"
+	"os"
+	"path/filepath"
+	"sync"
+	"sync/atomic"
+	"testing"
+	"time"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem/internal/disposal"
+	"github.com/masahitojp/mariamem/internal/host"
+	"github.com/masahitojp/mariamem/internal/nativewire"
+)
+
+// The management boundary used by Python, running a real native worker. This
+// does not claim installed Python client/error serialization coverage.
+func TestIssue130NativeControlWorkerAndLateLogFailure(t *testing.T) {
+	entered, release := make(chan struct{}), make(chan struct{})
+	var armed, held atomic.Bool
+	var once sync.Once
+	unblock := func() { once.Do(func() { close(release) }) }
+	t.Cleanup(unblock)
+	t.Cleanup(host.Issue130Next(&nativewire.Issue130Hooks{WorkerComplete: func(uint32) {
+		if armed.Load() && held.CompareAndSwap(false, true) {
+			close(entered)
+			<-release
+		}
+	}}))
+	logPath := filepath.Join(t.TempDir(), "owned-log")
+	d, e := makeDB(context.Background(), Request{LogPath: logPath, QueryTimeout: "150ms", ShutdownTimeout: "20ms"}, nil, true)
+	if e != nil {
+		t.Fatal(e)
+	}
+	t.Cleanup(func() { unblock(); _ = d.close(); _ = d.retryCleanup(context.Background()) })
+	b, ok := d.server.(*host.Native)
+	if !ok {
+		t.Fatal("control route is not native")
+	}
+	m := newManager()
+	m.dbs[1] = d
+	pool, e := sql.Open("mysql", fmt.Sprintf("root@tcp(127.0.0.1:%d)/test", b.Port()))
+	if e != nil {
+		t.Fatal(e)
+	}
+	pool.SetMaxOpenConns(1)
+	defer func() { unblock(); _ = pool.Close() }()
+	if e = pool.Ping(); e != nil {
+		t.Fatal(e)
+	}
+	armed.Store(true)
+	query := make(chan error, 1)
+	go func() { _, e := pool.Exec("DO SLEEP(2)"); query <- e }()
+	select {
+	case <-entered:
+	case <-time.After(15 * time.Second):
+		t.Fatal("real worker barrier missing")
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	status, e := m.call(ctx, Request{Op: "status", Handle: 1})
+	if !errors.Is(e, context.DeadlineExceeded) || status["closed"] != true {
+		t.Fatal("status lost immediate cause", status, e)
+	}
+	select {
+	case <-b.Done():
+		t.Fatal("early Done")
+	default:
+	}
+	if b.DisposalComplete() || b.Active() != 1 {
+		t.Fatal("early control resource release")
+	}
+	select {
+	case e := <-query:
+		if e == nil {
+			t.Fatal("fatal SQL succeeded")
+		}
+	case <-ctx.Done():
+		t.Fatal("fatal SQL did not lose connection")
+	}
+	// Keep the original log FD open while substituting a portable remove fault.
+	if e = os.Remove(logPath); e != nil {
+		t.Fatal(e)
+	}
+	if e = os.Mkdir(logPath, 0700); e != nil {
+		t.Fatal(e)
+	}
+	obstruction := filepath.Join(logPath, "held")
+	if e = os.WriteFile(obstruction, []byte("remove fault"), 0600); e != nil {
+		t.Fatal(e)
+	}
+	first := d.close()
+	if !errors.Is(first, context.DeadlineExceeded) || len(disposal.Owners(first)) == 0 {
+		t.Fatal("lost typed late owner", first)
+	}
+	if d.disposed() {
+		t.Fatal("control disposed before join")
+	}
+	unblock()
+	joined, stop := context.WithTimeout(context.Background(), 15*time.Second)
+	defer stop()
+	if e = disposal.Wait(joined, b.Done()); e != nil {
+		t.Fatal(e)
+	}
+	if e = disposal.Retry(joined, first); e == nil {
+		t.Fatal("log removal fault hidden")
+	}
+	if d.disposed() {
+		t.Fatal("log failure reported disposed")
+	}
+	if e = os.Remove(obstruction); e != nil {
+		t.Fatal(e)
+	}
+	_ = d.retryCleanup(joined) // Original native failure remains the operation result.
+	if !d.disposed() || !b.DisposalComplete() {
+		t.Fatal("late log cleanup incomplete")
+	}
+	if _, e = os.Stat(logPath); !os.IsNotExist(e) {
+		t.Fatal("owned log remains", e)
+	}
+	if d.close() != first {
+		t.Fatal("stored control Close result changed")
+	}
+}

@@ -1,0 +1,104 @@
+{
+  "base_identity": {
+    "object_type": "commit",
+    "source_commit": "a5ee1ed9cc2c6932d317fba77c339b364acd48df",
+    "checked_with": "scripts/git_identity.py inspect HEAD before host builds"
+  },
+  "environment": {
+    "platform": "Darwin arm64",
+    "go": "go1.27.3",
+    "python": "3.14"
+  },
+  "checked_files_sha256": {
+    "internal/control/native_owner_test.go": "1fcc422059d73c99ad1c5ef3e0ad4019b070c0cc6fcf0f7cd1e14d4bfdf73542",
+    "tests/test_issue130_lifetime_overlay.py": "5ea5750ec281914e86062d014e126a1d3d55e72850411c5c1aa6ed2b2aad1e9e",
+    "benchmarks/spikes/issue130-public-lifetime/overlay.py": "fa1b173301163a0cb3e0d0e342497bc887ad7d7eef033648ddf805d441609b93",
+    "benchmarks/spikes/issue130-public-lifetime/control_test.go.txt": "edbdbccad51973a698a4dbee06d40097a13504ae3fe6ca8d46f70c4a7e1ef812",
+    "benchmarks/spikes/issue130-public-lifetime/factory.go.txt": "c76b80dc22650caf0d044471e4ab1af55ca21a0217a6aea626d91e6624ec1e5f",
+    "benchmarks/spikes/issue130-public-lifetime/hook_unit_test.go.txt": "98f1336ecc08e99c27f546cddcc4c257c5eca679f20b0315524ad9b8bcb358ba",
+    "benchmarks/spikes/issue130-public-lifetime/hooks.go.txt": "9dff929f1e0c946184db31c921e0b16bef4b4d1a6597c0637d3d77f856c2719a",
+    "benchmarks/spikes/issue130-public-lifetime/public_test.go.txt": "4da19d35316016f393ec96569ae8552314f4210ae1343b35f800a7375f58604e"
+  },
+  "checks": [
+    {
+      "command": "go test -count=3 . ./internal/control ./internal/host -run '^Test(Native|ConsumedCaptureRetainsCleanup|ConsumedChildCapture|InvalidatedState)'",
+      "status": "PASS",
+      "evidence_class": "synthetic host/owner units"
+    },
+    {
+      "command": "go test -race -count=3 ./internal/nativewire ./internal/disposal ./internal/forklimit",
+      "status": "PASS",
+      "evidence_class": "synthetic core/disposal/admission units"
+    },
+    {
+      "command": "go vet . ./internal/control ./internal/host ./internal/nativewire ./internal/disposal ./internal/forklimit",
+      "status": "PASS"
+    },
+    {
+      "command": "go test -overlay=TEMP_OVERLAY -run '^$' -vet=off . ./internal/control ./internal/nativewire",
+      "status": "PASS_COMPILE_ONLY",
+      "detail": "generatedgo StartWireInstance stub panics if invoked; no tests executed"
+    },
+    {
+      "command": "go test -race -overlay=TEMP_OVERLAY -run '^TestIssue130Hook' -count=3 ./internal/nativewire",
+      "status": "PASS",
+      "evidence_class": "private-frame fake runner; not a native guest"
+    },
+    {
+      "command": "python3.14 -m unittest tests/test_issue130_lifetime_overlay.py -v",
+      "status": "PASS",
+      "tests": 4
+    },
+    {
+      "command": "python3.14 -m py_compile benchmarks/spikes/issue130-public-lifetime/overlay.py tests/test_issue130_lifetime_overlay.py",
+      "status": "PASS"
+    },
+    {
+      "command": "unchanged C1 mutations.py --evidence evidence/core-controls",
+      "status": "PASS",
+      "controls_detected": 5,
+      "evidence_class": "synthetic core source mutations"
+    },
+    {
+      "command": "go test -race -count=3 . ./internal/control ./internal/host -run '^Test(Native|ConsumedCaptureRetainsCleanup|ConsumedChildCapture|InvalidatedState)'",
+      "status": "STOPPED",
+      "exit": 130,
+      "detail": "stopped when transitive unchanged generated runtime packages were recompiling; no host-race PASS claimed"
+    },
+    {
+      "command": "python3.14 scripts/check_public.py",
+      "status": "FAIL_PREEXISTING",
+      "detail": "same six historical evidence paths already recorded by C2; preserved unchanged"
+    },
+    {
+      "command": "changed/new source subset via scripts/check_public.check",
+      "status": "PASS",
+      "receipt": "changed-public-source.json"
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS"
+    }
+  ],
+  "actual_native_guest_executions": 0,
+  "guest_builds": 0,
+  "ci_submissions": 0,
+  "benchmarks": 0,
+  "not_verified": [
+    "real public worker/relay/log/debt/fence execution",
+    "real public startup late cleanup",
+    "installed Python fault/error serialization and cleanup",
+    "actual-public negative controls",
+    "Linux native acceptance",
+    "Issue130 completion",
+    "MariaDB update-cost improvement"
+  ],
+  "historical_public_source_failures": [
+    "benchmarks/spikes/issue65-p1-owner/evidence/ci42346396518.json",
+    "benchmarks/spikes/issue65-p1-owner/evidence/macos-g2-build.json",
+    "benchmarks/spikes/issue65-p1-owner/evidence/macos-reference.json",
+    "benchmarks/spikes/issue65-p1-timeout/evidence/initial-helper-read-failure.txt",
+    "benchmarks/spikes/issue65-p1-timeout/evidence/macos-g2-build.json",
+    "benchmarks/spikes/issue65-p1-timeout/evidence/macos-reference.json"
+  ]
+}

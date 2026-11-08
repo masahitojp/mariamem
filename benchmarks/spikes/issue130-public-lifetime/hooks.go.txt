@@ -1,0 +1,19 @@
+package nativewire
+
+// Issue130Hooks is installed only in a disposable acceptance artifact. Fields
+// are immutable after Configure returns, before any execution or relay starts.
+// WorkerComplete runs at the existing real pthread lifetime completion seam;
+// RelayDone runs before the host reports a relay joined (outside owner locks).
+type Issue130Hooks struct {
+	WorkerComplete func(uint32)
+	RelayDone      func(Token, uint8)
+	ForceIdleState bool
+	OwnRootBuild   string
+}
+
+func (r *Backend) issue130Build(build string) string {
+	if r.issue130 != nil && r.issue130.OwnRootBuild != "" {
+		return r.issue130.OwnRootBuild
+	}
+	return build
+}

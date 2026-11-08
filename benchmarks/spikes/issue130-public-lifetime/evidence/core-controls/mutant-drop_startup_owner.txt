@@ -1,0 +1,6 @@
+--- FAIL: TestBackendCanceledStartupOwnsLateParentRemoval (0.00s)
+    backend_test.go:361: startup: context canceled
+        disposal is not yet complete
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/nativewire	0.273s
+FAIL

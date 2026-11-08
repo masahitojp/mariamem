@@ -1,0 +1,32 @@
+[
+  {
+    "name": "early_done",
+    "test": "TestBackendDoneWaitsForHostRelayAfterExecution",
+    "exit": 1,
+    "detected": true
+  },
+  {
+    "name": "drop_startup_owner",
+    "test": "TestBackendCanceledStartupOwnsLateParentRemoval",
+    "exit": 1,
+    "detected": true
+  },
+  {
+    "name": "fixed_five_seconds",
+    "test": "TestBackendOpaqueRelayAndTypedTimeout",
+    "exit": 1,
+    "detected": true
+  },
+  {
+    "name": "forgive_rejection",
+    "test": "TestBackendCaptureFenceRejectionAndOwnership",
+    "exit": 1,
+    "detected": true
+  },
+  {
+    "name": "overwrite_first_cause",
+    "test": "TestBackendPendingOpenCaptureAndFirstCause",
+    "exit": 1,
+    "detected": true
+  }
+]

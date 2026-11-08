@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "files": {
+    "benchmarks/spikes/issue130-public-lifetime/README.md": "5601492a690ea70e52fc9276c4ad7b70734994d166123913871f11be2400e14c",
+    "benchmarks/spikes/issue130-public-lifetime/control_test.go.txt": "edbdbccad51973a698a4dbee06d40097a13504ae3fe6ca8d46f70c4a7e1ef812",
+    "benchmarks/spikes/issue130-public-lifetime/evidence/checks.json": "5e496376f0b298ac7c046525b247895c1ad401749421eb9d9335af3cf08ac176",
+    "benchmarks/spikes/issue130-public-lifetime/evidence/core-controls/mutant-drop_startup_owner.txt": "d957f715fecb9f4d2b0c81e72983880bd471b15df8a484be75a0c0207fd469b0",
+    "benchmarks/spikes/issue130-public-lifetime/evidence/core-controls/mutant-early_done.txt": "bc98e4620b4e2d98983f08bab4b4cc6f71849166fdb688f6532f1f3ab5d5dee2",
+    "benchmarks/spikes/issue130-public-lifetime/evidence/core-controls/mutant-fixed_five_seconds.txt": "e01fd80a5d99d98e7e40da8e7f06923f2cb6d84fae8fb20db11f9d40862578a4",
+    "benchmarks/spikes/issue130-public-lifetime/evidence/core-controls/mutant-forgive_rejection.txt": "3a932bc88fc2deefe5a12aef034c86d05f45834646a4e8eb62e3d02020ce7be0",
+    "benchmarks/spikes/issue130-public-lifetime/evidence/core-controls/mutant-overwrite_first_cause.txt": "b03fcb6997c02e1ed172dcd8386d043c7d6316711b6acfc63afffa47c9e34a96",
+    "benchmarks/spikes/issue130-public-lifetime/evidence/core-controls/mutations.json": "206bb45732dd28de485176990440fa052df3768556e9dc733c57d442b3fb8ae5",
+    "benchmarks/spikes/issue130-public-lifetime/factory.go.txt": "c76b80dc22650caf0d044471e4ab1af55ca21a0217a6aea626d91e6624ec1e5f",
+    "benchmarks/spikes/issue130-public-lifetime/hook_unit_test.go.txt": "98f1336ecc08e99c27f546cddcc4c257c5eca679f20b0315524ad9b8bcb358ba",
+    "benchmarks/spikes/issue130-public-lifetime/hooks.go.txt": "9dff929f1e0c946184db31c921e0b16bef4b4d1a6597c0637d3d77f856c2719a",
+    "benchmarks/spikes/issue130-public-lifetime/overlay.py": "fa1b173301163a0cb3e0d0e342497bc887ad7d7eef033648ddf805d441609b93",
+    "benchmarks/spikes/issue130-public-lifetime/public_test.go.txt": "4da19d35316016f393ec96569ae8552314f4210ae1343b35f800a7375f58604e",
+    "internal/control/native_owner_test.go": "1fcc422059d73c99ad1c5ef3e0ad4019b070c0cc6fcf0f7cd1e14d4bfdf73542",
+    "tests/test_issue130_lifetime_overlay.py": "5ea5750ec281914e86062d014e126a1d3d55e72850411c5c1aa6ed2b2aad1e9e"
+  }
+}
