@@ -1,0 +1,218 @@
+{
+  "source": {
+    "object_sha": "428fbfc942b6c6feafef38980fa117417cd07870",
+    "object_type": "commit",
+    "source_commit": "428fbfc942b6c6feafef38980fa117417cd07870"
+  },
+  "plan": {
+    "issue": 140,
+    "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+    "parent_diagnostic_source_commit": "bcab9e6e07f9bf237c98a39eeba62cbcfd1e3997",
+    "origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+    "setting": "innodb_read_io_threads",
+    "values": [
+      1,
+      4
+    ],
+    "pool_mib": 16,
+    "workload": "shop70/Pipe/P8/cap9",
+    "pairs_per_mode": 5,
+    "modes": [
+      "off",
+      "on"
+    ],
+    "warmups_per_mode": 2,
+    "controls": 1,
+    "capture_limit_per_process": 1,
+    "threshold_ms": 100,
+    "active_budget_hours": 2,
+    "tooling_budget_minutes": 30,
+    "timeout_seconds": 1200,
+    "min_free_gib": 8,
+    "budget_gib": 10,
+    "heavy_ci_limit": 0,
+    "stop": "Fixed5 pairs per mode; no extension if tail absent. Compare global queue distribution and whole-suite wall/CPU/maxrss; no adoption."
+  },
+  "host": {
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "go": "go version go1.27.3 darwin/arm64",
+    "cpu": "Apple M1",
+    "memory": "17179869184"
+  },
+  "overlay": {
+    "generated_path": "internal/generatedgo/code/p5/p5_pure.go",
+    "before_sha256": "650546161662f32d14238dd8d3a1f4e62eeadddbeba78d94a95d9d6e7c696852",
+    "after_sha256": "19baaf0b0f87e4df8cd3ae00f134ace78f1ba1d3489e7bfc41010ec1ebcda04a",
+    "selector_sha256": "48b600d4bc1d3a5f6c61e72885d2e5a7b57dab3efa011cbb27a7a3742b676552"
+  },
+  "read_overlay": [
+    {
+      "path": "internal/generatedgo/code/p8/p8_pure.go",
+      "before_sha256": "ffef04b8d9819df6aa2ed8651d54c2a256c5f23f03316c3e46766a3456dd654c",
+      "after_sha256": "67a497897044ffd35befaef77a750f050cdc269a1361f16320677a8c0b1cff76"
+    },
+    {
+      "path": "internal/generatedgo/code/p6/p6_pure.go",
+      "before_sha256": "8c601112594d37bd6da4bf10bfa3469c029c56bd0f1037a2f024a83f29ff475c",
+      "after_sha256": "28a36c8f6f427660c794707a011a9538e53f0c4e713bf9dcc0799bb999c9c467"
+    },
+    {
+      "path": "internal/generatedgo/code/base/base.go",
+      "before_sha256": "1c9fba94164c0f821743bb66135d3d2afe4dd904788f2f09c1dd66a6ef612ef2",
+      "after_sha256": "a93d1bf9ab0b543180413dd4e77196ec707260c72edae38b7ad462a5ee5eaeba"
+    },
+    {
+      "path": "internal/generatedgo/runtime_instance.go",
+      "before_sha256": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+      "after_sha256": "f3068959d25738ddaf1a8e1105440ac616b495bf5f85ac7d697a2b1638710156"
+    },
+    {
+      "path": "internal/guest/linked.go",
+      "before_sha256": "dcbde6db301a183cfa6c495323aed4c6c1319066aea0876a38a7596f2af228cd",
+      "after_sha256": "4efd6e1718e63cd835999498f357be666a5a9ee02f9db0d1abedd58257844b2b"
+    }
+  ],
+  "dispatch_overlay": [
+    {
+      "path": "internal/generatedgo/code/p8/p8_pure.go",
+      "function": "Fn18241",
+      "original_function_sha256": "df8628916b532e78fc19ff1c87abd47f6f70088e2da13f6f97b264d94fb963c0",
+      "before_sha256": "ffef04b8d9819df6aa2ed8651d54c2a256c5f23f03316c3e46766a3456dd654c",
+      "after_sha256": "04d0e336c4274a594a5e2c9820c39451244f073062efd5632d86c56bcff35add"
+    },
+    {
+      "path": "internal/generatedgo/code/p7/p7_pure.go",
+      "function": "Fn18242",
+      "original_function_sha256": "399d65ef1c4fad4ad9dd7cd0f9352f032340079d38ec4ebb484b6856b9528239",
+      "before_sha256": "8eaf6165058b31d06c675e94abff5c6f6b6c030b00ac2e09a5bf9c45cc810a1f",
+      "after_sha256": "4360f355a5b71639d0b39dc5e9f82e7a92fb2e18cbe0036b04270021384b34e8"
+    },
+    {
+      "path": "internal/generatedgo/code/p6/p6_pure.go",
+      "function": "Fn18280",
+      "original_function_sha256": "5d09b0e4d55b4216303ef3cb23ecf55b1aa97cf55435219b06752cf1856b6168",
+      "before_sha256": "8c601112594d37bd6da4bf10bfa3469c029c56bd0f1037a2f024a83f29ff475c",
+      "after_sha256": "175a2bd0c1d841e1db382a4043ef89346a054051e465edcf56bc9615a1fe616c"
+    },
+    {
+      "path": "internal/generatedgo/code/base/base.go",
+      "function": "AtomicNotify",
+      "original_function_sha256": "cfe714a89f88af955e081ce0aafb8293b039623520145636f52c7a5da03fc426",
+      "before_sha256": "1c9fba94164c0f821743bb66135d3d2afe4dd904788f2f09c1dd66a6ef612ef2",
+      "after_sha256": "afe3c76f0f711c626fa00affec3612b1b9921dcc91ac6aeb5908df87adc6cee2"
+    }
+  ],
+  "admission_overlay": [
+    {
+      "path": "internal/generatedgo/code/p6/p6_pure.go",
+      "function": "Fn16586",
+      "original_function_sha256": "cdc039967a980bfa9f2ef604793eb1c3a8624ec0876958030d2463cc7d0087ea",
+      "before_sha256": "8c601112594d37bd6da4bf10bfa3469c029c56bd0f1037a2f024a83f29ff475c",
+      "after_sha256": "cc8660c6365a23b6e469890c28749892657e5d5f0aacd9316887504fac544416"
+    },
+    {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "function": "Fn16594",
+      "original_function_sha256": "a1892305d09ec02104b568b2934b35159d53a7b422fef067fc590f9e80fca844",
+      "before_sha256": "7f88e5b4cb406369303b67a07d61c39f64e25daa02735a7a38ee12157a0c9d13",
+      "after_sha256": "53ff974dca90bf3c72320e299af7670b27148eaa9375848c770adb65e50cd64d"
+    },
+    {
+      "path": "internal/generatedgo/code/p7/p7_pure.go",
+      "function": "Fn16596",
+      "original_function_sha256": "74eaa5c5bc297eb0982be515cb0194d35dcc2ffbaeae6f632fe242adcb39f8a9",
+      "before_sha256": "8eaf6165058b31d06c675e94abff5c6f6b6c030b00ac2e09a5bf9c45cc810a1f",
+      "after_sha256": "56fb3c1c73c27dca24d3d731837e638f3e88c121e7743585ce3fa5431b37519d"
+    }
+  ],
+  "setting_overlay": [
+    {
+      "path": "benchmarks/issue88modelcase/maria/store/backend_test.go",
+      "before_sha256": "fc9ce226ccc3d97330161a2cd8da21821817780003e7f5fa5e3997721abe534c",
+      "after_sha256": "a565a2225d981702fe5f8df0ea4017c047658d74bce08e31f1d1f49bef2cfa66"
+    },
+    {
+      "path": "benchmarks/issue88modelcase/maria/store/fixture_test.go",
+      "before_sha256": "117c08e1c739a8a081ea61d3148b80a4b5233b0c77035b9fa91e90ff4be335e8",
+      "after_sha256": "6710794cca53b13e08c411121fc79a416a0d104b0cb6f90749e387a476eeb85f"
+    },
+    {
+      "path": "internal/generatedgo/code/base/admission_observe_test.go",
+      "before_sha256": null,
+      "after_sha256": "77d0074036a7218ef37d58e7f6409ad24835a97cc0d415be615e88989ff79e55"
+    },
+    {
+      "path": "internal/generatedgo/code/base/base.go",
+      "before_sha256": "1c9fba94164c0f821743bb66135d3d2afe4dd904788f2f09c1dd66a6ef612ef2",
+      "after_sha256": "afe3c76f0f711c626fa00affec3612b1b9921dcc91ac6aeb5908df87adc6cee2"
+    },
+    {
+      "path": "internal/generatedgo/code/base/dispatch_observe_test.go",
+      "before_sha256": null,
+      "after_sha256": "bf91ee281c833a81c29ffcb48e0361ecf4e06ab97994669e79b6463711beced7"
+    },
+    {
+      "path": "internal/generatedgo/code/base/pool_selector.go",
+      "before_sha256": null,
+      "after_sha256": "2780262a3094e08db47078bce561fe0705c17c035fb59e717a506a11064117ae"
+    },
+    {
+      "path": "internal/generatedgo/code/base/pool_selector_test.go",
+      "before_sha256": null,
+      "after_sha256": "f8eadbf42d1aba3b7ae1f466234704fff1312b2ca79678734eb1e4e3e2e5a019"
+    },
+    {
+      "path": "internal/generatedgo/code/base/read_observe.go",
+      "before_sha256": null,
+      "after_sha256": "b868eea57a728385902eb3c88280ddca213a9046c50ee5dff2396f6797a3da55"
+    },
+    {
+      "path": "internal/generatedgo/code/base/read_observe_test.go",
+      "before_sha256": null,
+      "after_sha256": "905537de272dcbb06987a0643f97acf3393d29c24536f5eb5aee984a2eca5a54"
+    },
+    {
+      "path": "internal/generatedgo/code/base/read_setting_test.go",
+      "before_sha256": null,
+      "after_sha256": "5da6729cd0974b47a09658b75cbc7e9ab5e40f994ef62541cf7379c076ccdfc7"
+    },
+    {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "before_sha256": "7f88e5b4cb406369303b67a07d61c39f64e25daa02735a7a38ee12157a0c9d13",
+      "after_sha256": "53ff974dca90bf3c72320e299af7670b27148eaa9375848c770adb65e50cd64d"
+    },
+    {
+      "path": "internal/generatedgo/code/p5/p5_pure.go",
+      "before_sha256": "650546161662f32d14238dd8d3a1f4e62eeadddbeba78d94a95d9d6e7c696852",
+      "after_sha256": "19baaf0b0f87e4df8cd3ae00f134ace78f1ba1d3489e7bfc41010ec1ebcda04a"
+    },
+    {
+      "path": "internal/generatedgo/code/p6/p6_pure.go",
+      "before_sha256": "8c601112594d37bd6da4bf10bfa3469c029c56bd0f1037a2f024a83f29ff475c",
+      "after_sha256": "cc8660c6365a23b6e469890c28749892657e5d5f0aacd9316887504fac544416"
+    },
+    {
+      "path": "internal/generatedgo/code/p7/p7_pure.go",
+      "before_sha256": "8eaf6165058b31d06c675e94abff5c6f6b6c030b00ac2e09a5bf9c45cc810a1f",
+      "after_sha256": "56fb3c1c73c27dca24d3d731837e638f3e88c121e7743585ce3fa5431b37519d"
+    },
+    {
+      "path": "internal/generatedgo/code/p8/p8_pure.go",
+      "before_sha256": "ffef04b8d9819df6aa2ed8651d54c2a256c5f23f03316c3e46766a3456dd654c",
+      "after_sha256": "04d0e336c4274a594a5e2c9820c39451244f073062efd5632d86c56bcff35add"
+    },
+    {
+      "path": "internal/generatedgo/runtime_instance.go",
+      "before_sha256": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+      "after_sha256": "f3068959d25738ddaf1a8e1105440ac616b495bf5f85ac7d697a2b1638710156"
+    },
+    {
+      "path": "internal/guest/linked.go",
+      "before_sha256": "dcbde6db301a183cfa6c495323aed4c6c1319066aea0876a38a7596f2af228cd",
+      "after_sha256": "4efd6e1718e63cd835999498f357be666a5a9ee02f9db0d1abedd58257844b2b"
+    }
+  ],
+  "binary_sha256": "37e4e9f3bac22adb6da97de854c0c6394e433ec3f5a6d383e3ecbce5e8104c0d",
+  "build_info": "<WORKSPACE>/temp/probe: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue88modelcase/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/issue88modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t../..\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "build_seconds": 123.005944833
+}

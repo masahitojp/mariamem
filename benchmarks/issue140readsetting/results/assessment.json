@@ -1,0 +1,13 @@
+{
+  "status": "COMPARISON_COMPLETE",
+  "recommendation": "Do not adopt read4 as the #140 fix; possible mitigation with unproven stable unobserved benefit",
+  "source_commit": "428fbfc942b6c6feafef38980fa117417cd07870",
+  "cases": 1750,
+  "closed_observers": 286,
+  "natural_processes": 20,
+  "warmups": 4,
+  "controls": 1,
+  "platform": "observed Mac only",
+  "product_changed": false,
+  "remaining": "Global worker waiting accounting / transient startup cap remedy design remains separate."
+}
