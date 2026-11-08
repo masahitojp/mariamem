@@ -85,6 +85,33 @@ Qualification, version selection and publication are not authorized here.
 
 <a id="adopted-ownership-optimization--unreleased"></a>
 
+## v0.7.0 — Prepared lexer-map candidate, evidence acquisition in progress
+
+On2026-11-08 the Human authorized continuing Issue126's prepared lexer-map
+prototype into a bounded C-source candidate and measuring the remaining Fork
+stages. This authorizes candidate work, not adoption, main integration or release.
+The [current attribution and candidate gate](../benchmarks/lexercandidate/results/README.md)
+keeps the measured Go-overlay source950b4b40 separate from the unbuilt C patch.
+The exact product baseline remains3d8b2201; canonical guest/generated inputs and
+public APIs are unchanged. `guest/experimental.patch` is experiment-only.
+
+In the corrected single-Mac attribution, ordinary Fork p50 is19.27ms/P1 and
+25.40ms/P4. Diagnostic-on common initialization remains largest at5.90/6.42ms,
+followed by InnoDB4.67/5.91ms. Observer overhead is9.5–20.5%; those stage times
+are not assigned to ordinary Fork totals. All tails and preflight failures remain
+recorded. An initial diagnostic warmup exposed the Go prototype's guest-address
+allowlist as relocation-sensitive; the final surrogate and C candidate use
+unique compiled IDs only at the pre-XML compiled registration callsite.
+
+Standalone original-C algorithm replay passes all638 full512-byte maps and
+bounded fallback/OOM/corruption controls. Actual C guest acceptance is pending.
+The next experiment CI acquires one UNQUALIFIED C build, a native SQL reference
+and macOS/Ubuntu raw translations. Existing exact guest/function CRC/thread
+ownership bindings must be re-established from those outputs before installation;
+they are not disabled or silently generalized. That CI's successful input/
+translation receipt is not actual guest, native SQL differential, performance,
+independent two-C-build reproducibility or Qualification acceptance.
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally

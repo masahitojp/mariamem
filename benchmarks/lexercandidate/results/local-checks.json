@@ -1,0 +1,22 @@
+{
+  "result": "PASS_FOCUSED_LOCAL_CHECKS",
+  "public_sources": 7003,
+  "development_scope_tests": 93,
+  "Go_LP_tests": 4,
+  "replay_analysis_tests": 3,
+  "replay_negative_mutations": 7,
+  "codec_negative_mutations": 4,
+  "UNDO_link_tests": 2,
+  "workflow_contract_tests": 1,
+  "workflow_mutations": 9,
+  "workflow_yaml": "PASS",
+  "unchanged_boundaries": [
+    "internal/",
+    "python/",
+    "guest/source.patch",
+    "release/"
+  ],
+  "new_guest_patch": "experimental only; not executed as WASM locally",
+  "preexisting_root_user_edits": "preserved: docs/development.md, scripts/development_scope.py, scripts/live_ci.py, tests/test_development_scope.py",
+  "paperwork_scope": "No full unchanged-runtime verification or release gate run; C input/translation CI submitted separately"
+}

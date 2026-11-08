@@ -1,0 +1,12 @@
+{
+  "measured_primary_replacements": 0,
+  "items": [
+    "sandbox Go module DNS failure",
+    "nested-module probe import failure",
+    "address-bound warmup partial fallback (226 hits/412 fallbacks per initialization); SQL/cleanup PASS; stopped before primary",
+    "C replay patch-check directory already held generated header; corrected to fresh owned directory and replay passed",
+    "verification environment lacked pytest; 93 checks then passed in isolated pinned venv",
+    "workflow unit first used ubuntu-24.04 image spelling instead of ubuntu:24.04; corrected assertion, all nine mutations passed",
+    "report copy attempted with wrong relative working directory and failed before writes; corrected to absolute workspace; no runtime rerun"
+  ]
+}

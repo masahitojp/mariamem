@@ -1,0 +1,33 @@
+{
+  "result": "LOCAL_DIAGNOSTIC_AND_C_COMPONENT_PASS",
+  "measured_source_commit": "950b4b408de3d7f3f7424f58099f9e010861a483",
+  "product_source_commit": "3d8b2201c1f36fa5b7264e0450104055f3822272",
+  "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "binary_sha256": "2751e7f2c7c413d9c55c3328d463dbb98c8923890afb73c1834b9884208aca4f",
+  "primary_processes": 24,
+  "primary_children": 1152,
+  "traced_primary_children": 576,
+  "samples_removed": 0,
+  "C_candidate_patch_sha256": "86002e157897f8d5ff11642ff0b7f75e5acf2b6cac09fc78c1df7b19c401c387",
+  "checks": {
+    "full_matrix_and_readonly_replay": "PASS",
+    "C_original_algorithm_and_patch": "638 full512 maps PASS; dynamic/unknown/OOM/static pointer/independent metadata/control/corruption",
+    "Go_overlay_unit": "four LP tests PASS, including relocated descriptor",
+    "analysis_tests": "three tests, seven matrix/trace/census mutations and four codec negatives PASS",
+    "UNDO_link_tests": "two tests with instance/rseg/scope/thread/page/interval mutations PASS",
+    "workflow_contract": "one test, nine negative mutations PASS",
+    "development_scope_tests": "93 PASS",
+    "workflow_yaml": "PASS",
+    "public_source_before_final_bundle": "6971 files PASS; final scan separately recorded"
+  },
+  "pending": [
+    "actual C guest build",
+    "new guest exact runtime transformation rebinding",
+    "actual guest table verification/corruption",
+    "native SQL differential and child cleanup for C guest",
+    "both-platform actual C guest acceptance",
+    "C guest performance",
+    "independent two-C-build reproducibility"
+  ],
+  "decision": "continue finite C-input/translation acquisition only; no product adoption/main/Qualification/release"
+}

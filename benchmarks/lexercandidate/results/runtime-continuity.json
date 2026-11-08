@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "measured_source_commit": "950b4b408de3d7f3f7424f58099f9e010861a483",
+  "non_test_overlay_files": {
+    "internal/timing/timing.go": "59f7c80c651b9369d48c5dee1228c43cb464664969e0d5ea9ff8e862ca38147d",
+    "internal/guest/linked.go": "dd67786f27b1c0c2b588fc755a6d0689c61842a834bcda216cd0f2e5c41f2bef",
+    "internal/generatedgo/memory_backing_unix.go": "311f820813a7de664aa3f24b37f0d5ce912b892cbebaec4df61ccd9e9bd259fa",
+    "internal/generatedgo/code/p7/p7_pure.go": "9763d2a0334931179b78f2f69685a117a3745ce9baf0730a1ec811a524fc7c04",
+    "internal/generatedgo/code/p8/p8_pure.go": "1de98c1f21dabee7d6f72def0b6e46ba648f5549417472d4a76ce2e8ee3ee8b9",
+    "internal/generatedgo/code/p6/p6_pure.go": "ac032968c41a1ee8875be4ef0583515055309b020a383f1e8d9d3383bb656e71",
+    "internal/generatedgo/code/p3/p3_pure.go": "745986a636e4fc2e136d761e84509148678fcb193f2ba9a7d300b50454bc2946",
+    "internal/generatedgo/code/base/undo_owner.go": "019b4126172a84923f90cd9400baef1cfc13d927fbb4978ea88645fdd47f6ab0",
+    "internal/generatedgo/code/p2/p2_pure.go": "b8e8d210e9252c8648c5899ccf73648ccd1b6876ab2915808cf2483f8a8f3d38",
+    "internal/generatedgo/code/base/update_notify.go": "7be911de604841208ec03eef98cc62cbd81b8913605b946db1f41aa4f045b40f",
+    "internal/generatedgo/code/base/undo_relay.go": "3a5d511153bfa76fa52d1fbbbee02f3bd40087e8a3be8f744f1fa7a8c51c3108",
+    "internal/generatedgo/code/base/base.go": "6fd2b56e7da4f887e206d58d395352a317cbd2074487b948eaf7f8570a2e4f7b",
+    "internal/generatedgo/code/p1/p1_pure.go": "c387dcde8e1c98e4f6d2cb5ef081b9e2a750c750b22d8bc6ef7fdb69fd30f99c",
+    "internal/generatedgo/code/p1/alias.go": "edb4a85fbe228439d2b8a50584525d69ddf483e8edb5dd6d58632d0fe0cec76a",
+    "internal/generatedgo/code/p4/lexer_prepared.go": "ff16d1ccfea8be2f65c63d9fe6ff059a834210b635e9ad69b146ca5e10c31e2d",
+    "internal/generatedgo/code/base/lexer_tables.go": "36e44f5a535c6f82c6f6fbd27db7c30fa457639fa67d64aca0cf8fc8768f2655",
+    "internal/generatedgo/runtime_instance.go": "bac23b7d688d93a445823b8d3952a953efd67fa24681fa590ce38fcead79840b",
+    "internal/generatedgo/code/base/lexer_prepared.go": "047bcc65707028d7b8d0c8aecb2e38035c827f115d677f17fc73ab9f4a87a58c",
+    "internal/generatedgo/code/base/lexer_export.go": "73305017a94e287598d1f811d2b07ba6f856084ebf33210ba535372f767f0b69"
+  },
+  "scope": "New post-measurement files are C source candidate, CI/preparation/test/report files. Every non-test Go runtime overlay byte is identical to measured950b4b40. This does not qualify new C patch bytes or imply the C guest was measured."
+}

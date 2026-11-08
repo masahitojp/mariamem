@@ -5,7 +5,6 @@
   "guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
   "scope": "Prepare bounded C-source candidate, independently replay original C producer on captured inputs, and attribute current Go prototype Fork. C guest build/translation/native SQL/both-platform acceptance remain separate pending evidence. No adoption. Relocation correction: Go surrogate now selects unique compiled IDs at same pre-XML compiled callsite; no guest address dependency. Diagnostic allocation changed heap addresses and exposed fallback in the first warmup, before any primary sampling.",
   "campaign": {
-    "binary_builds": 1,
     "primary": "Fork P1/P4 x original/prepared x off/on observer x 3 repetitions x48 children; alternate arms and rotate cells",
     "warmup_processes": 8,
     "sql_control_processes": 2,
@@ -18,8 +17,10 @@
     "process_timeout_seconds": 190,
     "build_timeout_seconds": 1200,
     "budget_gib": 10,
-    "min_free_gib": 12
+    "min_free_gib": 12,
+    "final_binary_builds": 1
   },
   "interpretation": "Use per-child p50/p95 and >100ms, retain all samples. Compare diagnostic off/on overhead. Current guest has unavailable stage CPU clocks; elapsed only. Static C candidate not measured until actual rebuild. Stop after finite campaign.",
-  "preflight_attempts": "two build failures (network/module), eight completed preflight processes and one prepared traced warmup with valid SQL/cleanup but 412/638 fallbacks per initialization; all preserved separately, zero primary rows discarded"
+  "preflight_attempts": "two build failures (network/module), eight completed preflight processes and one prepared traced warmup with valid SQL/cleanup but 412/638 fallbacks per initialization; all preserved separately, zero primary rows discarded",
+  "next_ci_gate": "one UNQUALIFIED C guest build + native SQL reference + raw translations on both OSes. Existing exact CRC/thread runtime binding requires inspection/rebinding before actual host installation. No guard bypass; actual guest acceptance remains pending."
 }

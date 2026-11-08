@@ -1,0 +1,7 @@
+{
+  "archives": {
+    "undo-traces.tar.gz": "1e0e68291b9f4ac18586e19b553a3cb2bfd6fbfbe7aeeca27b60e695921ba0cc",
+    "preflight-traces.tar.gz": "740e666260009d4da3abb3403d48b6df0eda562adb772c1e8d1d47fc3b33e068"
+  },
+  "scope": "External/local archives; not in Git. Compact observations in Git replay all timing/initialization traces. UNDO owner/event replay additionally needs undo archive."
+}

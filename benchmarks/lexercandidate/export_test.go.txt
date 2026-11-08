@@ -1,0 +1,11 @@
+package base
+import "testing"
+func TestLPRelocatedCompiledDescriptor(t *testing.T){
+ old:=lpMode;lpMode="prepared";defer func(){lpMode=old}()
+ _,binding:=lpTestBinding();m:=lpTestModule();cs:=uint32(128)
+ if _,ok:=lpBindings[cs];ok{t.Fatal("fixture must be outside old address allowlist")}
+ lpPut(m,cs,binding.number);lpPut(m,cs+12,1)
+ original:=func(*Module,int32)int32{t.Fatal("relocated known compiled descriptor fell back");return 1}
+ if LPCompiled(m,int32(cs),original,func(*Module,int32,int32)int32{return 30000000})!=0{t.Fatal("prepared assignment")}
+ if lpU32(m,cs+72)!=30000000+binding.pair*512{t.Fatal("wrong pair")}
+}

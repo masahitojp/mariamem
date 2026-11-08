@@ -58,4 +58,3 @@ def decompose(trace):
  for k in ['process_cpu_ns','thread_cpu_ns']:
   assert all(x[k] is None for x in init['events']),'stage CPU availability changed'
  return out
-
