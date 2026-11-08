@@ -1,0 +1,10 @@
+--- a/storage/innobase/buf/buf0dump.cc
++++ b/storage/innobase/buf/buf0dump.cc
+@@ -708,1 +708,1 @@
+-			srv_thread_pool->set_concurrency(srv_n_read_io_threads);
++			srv_thread_pool->set_concurrency();
+--- a/storage/innobase/srv/srv0start.cc
++++ b/storage/innobase/srv/srv0start.cc
+@@ -1618,1 +1618,1 @@
+-			srv_thread_pool->set_concurrency(srv_n_read_io_threads);
++			srv_thread_pool->set_concurrency();

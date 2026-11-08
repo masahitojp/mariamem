@@ -1,0 +1,31 @@
+{
+  "issue": 140,
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "parent_diagnostic_source_commit": "d4d3cca3fdf3dcfa9ea907cf85dda1afab4e8c02",
+  "origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "setting": "temporary global startup concurrency",
+  "values": [
+    "restricted",
+    "normal"
+  ],
+  "pool_mib": 16,
+  "workload": "shop70/Pipe/P8/cap9",
+  "pairs_per_mode": 5,
+  "modes": [
+    "off",
+    "on"
+  ],
+  "warmups_per_mode": 2,
+  "controls": 1,
+  "capture_limit_per_process": 1,
+  "threshold_ms": 100,
+  "active_budget_hours": 2,
+  "tooling_budget_minutes": 30,
+  "timeout_seconds": 1200,
+  "min_free_gib": 8,
+  "budget_gib": 10,
+  "heavy_ci_limit": 0,
+  "stop": "Fixed5 alternating pairs per observation mode; no extra runs; SQL/cleanup, wall spread, CPU/peakRSS, global/group distribution; no adoption.",
+  "question": "Does keeping normal global concurrency through startup remove global queue tails while read group stays1?",
+  "read_threads": 1
+}

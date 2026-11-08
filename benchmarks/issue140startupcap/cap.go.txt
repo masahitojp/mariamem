@@ -1,0 +1,17 @@
+package base
+
+import("encoding/json";"fmt";"os";"sync")
+type StartupCapEvent struct {DB string `json:"db_id"`; Phase string `json:"phase"`; Pool uint32 `json:"pool"`; Requested int32 `json:"requested"`; Selected int32 `json:"selected"`; Resolved int32 `json:"resolved"`; Min int32 `json:"min"`; Max int32 `json:"max"`}
+var startupMu sync.Mutex
+var startupDB=map[*ThreadPool]string{}
+var startupPending=map[*Module]*StartupCapEvent{}
+var startupEvents []*StartupCapEvent
+func RegisterStartupCap(m *Module,db string){startupMu.Lock();defer startupMu.Unlock();startupDB[m.Threads]=db}
+func StartupCapArg(m *Module,pool,requested int32,phase string)int32{
+ mode:=os.Getenv("ISSUE140_STARTUP_CAP");if mode!="restricted" && mode!="normal"{panic("invalid startup cap mode")};if requested!=1 || (phase!="load" && phase!="recovery"){panic("unexpected startup preimage")}
+ selected:=requested;if mode=="normal"{selected=0}
+ startupMu.Lock();defer startupMu.Unlock();if len(startupEvents)>=128 || startupPending[m]!=nil{panic("startup cap observer bound")};db:=startupDB[m.Threads];if db==""{panic("missing startup DB")};v:=&StartupCapEvent{DB:db,Phase:phase,Pool:uint32(pool),Requested:requested,Selected:selected};startupEvents=append(startupEvents,v);startupPending[m]=v;return selected
+}
+// Called immediately after the original cap store, under its existing pool mutex.
+func ResolveStartupCap(m *Module,pool,resolved,min,max int32){startupMu.Lock();defer startupMu.Unlock();v:=startupPending[m];if v==nil{return};if v.Pool!=uint32(pool){panic("wrong startup pool")};v.Resolved=resolved;v.Min=min;v.Max=max;delete(startupPending,m)}
+func WriteStartupCaps(path string)error{startupMu.Lock();defer startupMu.Unlock();if len(startupPending)!=0{return fmt.Errorf("unresolved startup cap")};b,e:=json.Marshal(startupEvents);if e!=nil{return e};return os.WriteFile(path,append(b,'\n'),0600)}
