@@ -1,0 +1,6 @@
+{
+  "source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+  "tag_object_sha": "308a50778fb4916ddde0d2923feea3d11dcc92c8",
+  "tag_object_type": "tag",
+  "method": "git_identity.inspect_ref and require_commit on shallow blob-filtered official tag fetch"
+}

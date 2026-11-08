@@ -1,4 +1,4 @@
-HTTP/2 302 
+HTTP/2 302
 date: Sun, 08 Nov 2026 12:43:39 GMT
 content-type: text/html; charset=utf-8
 vary: X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, X-Requested-With, X-GitHub-Client-Version, Sec-Fetch-Site,Accept-Encoding, Accept, X-Requested-With
@@ -15,7 +15,7 @@ content-length: 0
 x-github-request-id: 58C3:31C0D1:1000170:1A1772E:6AF06E7B
 x-github-edge-region: japaneast
 
-HTTP/2 200 
+HTTP/2 200
 last-modified: Mon, 20 Oct 2025 22:07:36 GMT
 etag: "0x8DE102513AB2F3D"
 server: Windows-Azure-Blob/1.0 Microsoft-HTTPAPI/2.0

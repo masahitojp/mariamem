@@ -1,0 +1,5 @@
+{
+  "raw_sha256": "c33f49e0dddd6f5b72b07b645c6cda3467d929675a6dd5f35938312d8d941844",
+  "normalized_sha256": "6840993393e41437ac94160ad974f4f196894309c05dbdeb71b24872af021bec",
+  "operation": "CRLF to LF and trailing whitespace removed; HTTP response semantics unchanged"
+}
