@@ -35,3 +35,15 @@ Development42448605095 caught a push-trigger policy violation, fixed by making
 the input workflow manual. The above successful input run keeps its original
 fd615a53 identity. It is not relabelled as the subsequent canonical runtime
 candidate, Qualification, performance measurement, main integration or release.
+
+Local authoring checks:126 focused source/adapter tests;119 CI-policy tests plus
+5 subcases; real full638 lexer/UCA/corruption/worker/CRC controls; exact worker
+fixture packaging; actual Fresh/Snapshot/two-child/cleanup smoke. Retained-library
+audit uses clean host source287b3a00; no versioned release is authorized. See
+`local-validation.json` for source boundaries and the two repaired preflight
+findings. Both-host canonical installed acceptance remains pending.
+
+After clean host/audit source287b3a00, the final authoring delta contains only
+license evidence/inventory mirrors and receipt records. Runtime, guest, adapter,
+fixture and workflow bytes are unchanged from that host source. Canonical CI
+will bind and execute the submitted final source independently.
