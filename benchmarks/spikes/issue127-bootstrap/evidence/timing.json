@@ -1,0 +1,35 @@
+{
+  "scope": "File creation-to-last-write windows, not CPU or exact active effort; failed original and successful continuation remain distinct",
+  "records": {
+    "build.log": {
+      "raw_sha256": "611c58115545648c1bb50a53bc5ff0efdce6a6263b3022c4b907cd5cd9530dd5",
+      "created_unix": 1794109213.0710096,
+      "last_write_unix": 1794110382.2051508,
+      "write_window_seconds": 1169.1341412067413
+    },
+    "resume.log": {
+      "raw_sha256": "bc288af00e1ceb2ed4f98985b52e38a82763f594f8bc00f4e8b2c63f4c29fdc1",
+      "created_unix": 1794110650.3976142,
+      "last_write_unix": 1794110842.3383226,
+      "write_window_seconds": 191.94070839881897
+    },
+    "translate.log": {
+      "raw_sha256": "6e5f756540f9cf815718ef8cc1d2b19fcce2b33f14f6f0241f997b929fd79e87",
+      "created_unix": 1794110874.3590145,
+      "last_write_unix": 1794111006.9165177,
+      "write_window_seconds": 132.5575032234192
+    },
+    "compile.log": {
+      "raw_sha256": "6469eee6774e347bd71ae7aff3124679b4e2506647ccea63b00da83b312e958c",
+      "created_unix": 1794111334.9936118,
+      "last_write_unix": 1794111579.927378,
+      "write_window_seconds": 244.9337661266327
+    },
+    "native.log": {
+      "raw_sha256": "c344c3634595319a1a6562362873c202ec1115651d150dcff2b283532d2e99f1",
+      "created_unix": 1794111633.6032379,
+      "last_write_unix": 1794111687.3328545,
+      "write_window_seconds": 53.72961664199829
+    }
+  }
+}

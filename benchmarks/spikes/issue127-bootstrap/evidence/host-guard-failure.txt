@@ -1,0 +1,4 @@
+Disk preflight OK: 21.55 GiB free, 4.96 GiB owned
+[Errno 34] Result too large: '${REPO}/build/issue127/work/source/build-legacy-no-postopt/storage/innobase/CMakeFiles/innobase_embedded.dir/ut/ut0rbt.cc.o.d'
+
+Owned container was explicitly stopped and inactivity confirmed. The unchanged guard was then run inside the container on the same verified host-backed build filesystem; no floor/ceiling change.

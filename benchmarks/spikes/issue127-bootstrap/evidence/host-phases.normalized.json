@@ -1,0 +1,420 @@
+{
+  "original_sha256": "2293754e9fbdf4b4eecf5ebae590bb979264e15ac26744ff35616dfcfa63947f",
+  "normalization": "Task checkout prefix replaced by ${REPO}; operational path normalization only",
+  "records": [
+    {
+      "argv": [
+        "go",
+        "build",
+        "-mod=readonly",
+        "-trimpath",
+        "-buildvcs=false",
+        "-o",
+        "${REPO}/build/issue127/runtime/temp/host/translation/wasm2go",
+        "./cmd/wasm2go"
+      ],
+      "context": {
+        "architecture": "arm64",
+        "git_status": [],
+        "go_environment": {
+          "CGO_ENABLED": "0",
+          "GOARCH": null,
+          "GOCACHE": "${REPO}/build/issue127/runtime/temp/gocache",
+          "GOENV": "off",
+          "GOEXPERIMENT": "",
+          "GOFLAGS": "",
+          "GOMODCACHE": "${REPO}/build/issue127/runtime/temp/modcache",
+          "GOOS": null,
+          "GOPATH": "${REPO}/build/issue127/runtime/temp/gopath",
+          "GOTOOLCHAIN": "go1.26.10",
+          "GOWORK": "off"
+        },
+        "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+        "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3",
+        "system": "Darwin",
+        "tools": {
+          "go": "go: downloading go1.26.10 (darwin/arm64)\ngo version go1.26.10 darwin/arm64"
+        },
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "cwd": "${REPO}/build/issue127/runtime/temp/host/translation/converter/wasm2go-730057c146463f663e8774587bc96fb2bea91af8",
+      "inputs": {
+        "${REPO}/build/issue127/runtime/worktree/build/downloads/wasm2go-upstream.tar.gz": {
+          "bytes": 1203214,
+          "sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f"
+        }
+      },
+      "kind": "diagnostic-not-qualification",
+      "observer_seconds_excluding_append": 11.36785737494938,
+      "outputs": {
+        "${REPO}/build/issue127/runtime/temp/host/translation/wasm2go": {
+          "bytes": 10773154,
+          "sha256": "69f769a128434543fc0abf04a8f4ba8ed2650c1d44baadc3bc07b95daa4061d0"
+        }
+      },
+      "phase": "translate:converter-build",
+      "pid": 91767,
+      "resources": {
+        "peak_rss_bytes": 247136256,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+        "status": "Available",
+        "system_seconds": 2.395769,
+        "user_seconds": 23.010373
+      },
+      "returncode": 0,
+      "started_at_utc": "2026-11-08T04:07:59Z",
+      "version": 1,
+      "wall_seconds": 9.617209166986868
+    },
+    {
+      "argv": [
+        "${REPO}/build/issue127/runtime/temp/host/translation/wasm2go",
+        "-pure",
+        "-i",
+        "${REPO}/build/issue127/output/artifact/mariamem.wasm",
+        "-out-dir",
+        "${REPO}/build/issue127/runtime/temp/host/translation/module/generated",
+        "-pkg",
+        "generated",
+        "-import",
+        "example.com/mariamem-spike/generated"
+      ],
+      "context": {
+        "architecture": "arm64",
+        "git_status": [],
+        "go_environment": {
+          "CGO_ENABLED": "0",
+          "GOARCH": null,
+          "GOCACHE": "${REPO}/build/issue127/runtime/temp/gocache",
+          "GOENV": "off",
+          "GOEXPERIMENT": "",
+          "GOFLAGS": "",
+          "GOMODCACHE": "${REPO}/build/issue127/runtime/temp/modcache",
+          "GOOS": null,
+          "GOPATH": "${REPO}/build/issue127/runtime/temp/gopath",
+          "GOTOOLCHAIN": "go1.26.10",
+          "GOWORK": "off"
+        },
+        "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+        "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3",
+        "system": "Darwin",
+        "tools": {},
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "cwd": "${REPO}/build/issue127/runtime/worktree",
+      "inputs": {
+        "${REPO}/build/issue127/runtime/temp/artifact/mariamem.wasm": {
+          "bytes": 21181659,
+          "sha256": "873c9daf38f6e7f5005dbdbdf8e920b396fe5591ab74bfedcad37b436c50d3dc"
+        },
+        "${REPO}/build/issue127/runtime/temp/host/translation/wasm2go": {
+          "bytes": 10773154,
+          "sha256": "69f769a128434543fc0abf04a8f4ba8ed2650c1d44baadc3bc07b95daa4061d0"
+        }
+      },
+      "kind": "diagnostic-not-qualification",
+      "observer_seconds_excluding_append": 0.10067375097423792,
+      "outputs": {
+        "${REPO}/build/issue127/runtime/temp/host/translation/module/generated/alias.go": {
+          "bytes": 466590,
+          "sha256": "8b6b49246445d42ff29ede6876ac0288ffa98f5594f4d6829eab21e9971dd74a"
+        },
+        "${REPO}/build/issue127/runtime/temp/host/translation/module/generated/main.go": {
+          "reason": "FileNotFoundError",
+          "status": "Unavailable"
+        }
+      },
+      "phase": "translate:wasm2go",
+      "pid": 91767,
+      "resources": {
+        "peak_rss_bytes": 3481665536,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+        "status": "Available",
+        "system_seconds": 13.895777,
+        "user_seconds": 107.612013
+      },
+      "returncode": 0,
+      "started_at_utc": "2026-11-08T04:08:20Z",
+      "version": 1,
+      "wall_seconds": 86.15685004100669
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "${REPO}/build/issue127/runtime/worktree/benchmarks/spikes/generated-go-integration/translate_guest.py",
+        "--guest",
+        "${REPO}/build/issue127/runtime/temp/artifact/mariamem.wasm",
+        "--guest-sha256",
+        "873c9daf38f6e7f5005dbdbdf8e920b396fe5591ab74bfedcad37b436c50d3dc",
+        "--converter-archive",
+        "${REPO}/build/issue127/runtime/worktree/build/downloads/wasm2go-upstream.tar.gz",
+        "--output",
+        "${REPO}/build/issue127/runtime/temp/host/translation"
+      ],
+      "context": {
+        "architecture": "arm64",
+        "git_status": [],
+        "go_environment": {
+          "CGO_ENABLED": "0",
+          "GOARCH": null,
+          "GOCACHE": "${REPO}/build/issue127/runtime/temp/gocache",
+          "GOENV": "off",
+          "GOEXPERIMENT": "",
+          "GOFLAGS": "",
+          "GOMODCACHE": "${REPO}/build/issue127/runtime/temp/modcache",
+          "GOOS": null,
+          "GOPATH": "${REPO}/build/issue127/runtime/temp/gopath",
+          "GOTOOLCHAIN": "go1.26.10",
+          "GOWORK": "off"
+        },
+        "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+        "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3",
+        "system": "Darwin",
+        "tools": {},
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "cwd": "${REPO}/build/issue127/runtime/worktree",
+      "inputs": {},
+      "kind": "diagnostic-not-qualification",
+      "observer_seconds_excluding_append": 0.06719679106026888,
+      "outputs": {},
+      "phase": "wire:translation",
+      "pid": 91744,
+      "resources": {
+        "peak_rss_bytes": 3481665536,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+        "status": "Available",
+        "system_seconds": 18.154019,
+        "user_seconds": 133.376457
+      },
+      "returncode": 0,
+      "started_at_utc": "2026-11-08T04:07:59Z",
+      "version": 1,
+      "wall_seconds": 107.67823854193557
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "${REPO}/build/issue127/runtime/worktree/benchmarks/spikes/generated-go-integration/setup_candidate.py",
+        "--source-only",
+        "--source-module",
+        "${REPO}/build/issue127/runtime/temp/host/translation/module",
+        "--guest",
+        "${REPO}/build/issue127/runtime/temp/artifact/mariamem.wasm",
+        "--input-manifest",
+        "${REPO}/build/issue127/runtime/temp/host/translation/input-manifest.json",
+        "--output",
+        "${REPO}/build/issue127/runtime/temp/host/candidate"
+      ],
+      "context": {
+        "architecture": "arm64",
+        "git_status": [],
+        "go_environment": {
+          "CGO_ENABLED": "0",
+          "GOARCH": null,
+          "GOCACHE": "${REPO}/build/issue127/runtime/temp/gocache",
+          "GOENV": "off",
+          "GOEXPERIMENT": "",
+          "GOFLAGS": "",
+          "GOMODCACHE": "${REPO}/build/issue127/runtime/temp/modcache",
+          "GOOS": null,
+          "GOPATH": "${REPO}/build/issue127/runtime/temp/gopath",
+          "GOTOOLCHAIN": "go1.26.10",
+          "GOWORK": "off"
+        },
+        "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+        "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3",
+        "system": "Darwin",
+        "tools": {},
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "cwd": "${REPO}/build/issue127/runtime/worktree",
+      "inputs": {},
+      "kind": "diagnostic-not-qualification",
+      "observer_seconds_excluding_append": 0.07919154199771583,
+      "outputs": {},
+      "phase": "wire:source-adapter",
+      "pid": 91744,
+      "resources": {
+        "peak_rss_bytes": 737837056,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+        "status": "Available",
+        "system_seconds": 0.453161,
+        "user_seconds": 23.518416
+      },
+      "returncode": 0,
+      "started_at_utc": "2026-11-08T04:09:47Z",
+      "version": 1,
+      "wall_seconds": 19.07829983299598
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "${REPO}/build/issue127/runtime/worktree/scripts/generate_runtime.py",
+        "--source-module",
+        "${REPO}/build/issue127/runtime/temp/host/candidate/module",
+        "--development-input",
+        "${REPO}/build/issue127/runtime/temp/host/installation-inputs.json",
+        "--development-thread-binding",
+        "${REPO}/build/issue127/runtime/temp/tools/binding.json",
+        "--output",
+        "${REPO}/build/issue127/runtime/temp/host/generatedgo"
+      ],
+      "context": {
+        "architecture": "arm64",
+        "git_status": [],
+        "go_environment": {
+          "CGO_ENABLED": "0",
+          "GOARCH": null,
+          "GOCACHE": "${REPO}/build/issue127/runtime/temp/gocache",
+          "GOENV": "off",
+          "GOEXPERIMENT": "",
+          "GOFLAGS": "",
+          "GOMODCACHE": "${REPO}/build/issue127/runtime/temp/modcache",
+          "GOOS": null,
+          "GOPATH": "${REPO}/build/issue127/runtime/temp/gopath",
+          "GOTOOLCHAIN": "go1.26.10",
+          "GOWORK": "off"
+        },
+        "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+        "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3",
+        "system": "Darwin",
+        "tools": {},
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "cwd": "${REPO}/build/issue127/runtime/worktree",
+      "inputs": {},
+      "kind": "diagnostic-not-qualification",
+      "observer_seconds_excluding_append": 0.06361825007479638,
+      "outputs": {},
+      "phase": "wire:installation",
+      "pid": 97077,
+      "resources": {
+        "peak_rss_bytes": 708919296,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+        "status": "Available",
+        "system_seconds": 1.00151,
+        "user_seconds": 23.351842
+      },
+      "returncode": 0,
+      "started_at_utc": "2026-11-08T04:15:41Z",
+      "version": 1,
+      "wall_seconds": 19.68741637491621
+    },
+    {
+      "argv": [
+        "${REPO}/build/issue127/runtime/temp/modcache/golang.org/toolchain@v0.0.1-go1.26.10.darwin-arm64/bin/gofmt",
+        "-w",
+        "${REPO}/build/issue127/runtime/temp/host/product/internal/generatedgo/runtime_wire.go",
+        "${REPO}/build/issue127/runtime/temp/host/product/cmd/issue65-wire/main.go",
+        "${REPO}/build/issue127/runtime/temp/host/product/cmd/issue65-wire/wire_test.go",
+        "${REPO}/build/issue127/runtime/temp/host/product/cmd/issue65-wire/capture_test.go",
+        "${REPO}/build/issue127/runtime/temp/host/product/internal/generatedgo/runtime_capture_test.go",
+        "${REPO}/build/issue127/runtime/temp/host/product/cmd/issue65-wire/live.go",
+        "${REPO}/build/issue127/runtime/temp/host/product/cmd/issue65-wire/live_test.go",
+        "${REPO}/build/issue127/runtime/temp/host/product/cmd/issue65-wire/compat_test.go",
+        "${REPO}/build/issue127/runtime/temp/host/product/cmd/issue65-wire/fix_controls_test.go",
+        "${REPO}/build/issue127/runtime/temp/host/product/cmd/issue65-wire/limits_test.go",
+        "${REPO}/build/issue127/runtime/temp/host/product/cmd/issue65-wire/policy_controls_test.go",
+        "${REPO}/build/issue127/runtime/temp/host/product/cmd/issue65-wire/g1_test.go",
+        "${REPO}/build/issue127/runtime/temp/host/product/cmd/issue65-wire/repair_controls_test.go"
+      ],
+      "context": {
+        "architecture": "arm64",
+        "git_status": [],
+        "go_environment": {
+          "CGO_ENABLED": "0",
+          "GOARCH": null,
+          "GOCACHE": "${REPO}/build/issue127/runtime/temp/gocache",
+          "GOENV": "off",
+          "GOEXPERIMENT": "",
+          "GOFLAGS": "",
+          "GOMODCACHE": "${REPO}/build/issue127/runtime/temp/modcache",
+          "GOOS": null,
+          "GOPATH": "${REPO}/build/issue127/runtime/temp/gopath",
+          "GOTOOLCHAIN": "go1.26.10",
+          "GOWORK": "off"
+        },
+        "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+        "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3",
+        "system": "Darwin",
+        "tools": {},
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "cwd": "${REPO}/build/issue127/runtime/worktree",
+      "inputs": {},
+      "kind": "diagnostic-not-qualification",
+      "observer_seconds_excluding_append": 0.07749162497930229,
+      "outputs": {},
+      "phase": "wire:gofmt",
+      "pid": 97077,
+      "resources": {
+        "peak_rss_bytes": 9175040,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+        "status": "Available",
+        "system_seconds": 0.002804,
+        "user_seconds": 0.012724
+      },
+      "returncode": 0,
+      "started_at_utc": "2026-11-08T04:16:01Z",
+      "version": 1,
+      "wall_seconds": 0.011340333032421768
+    },
+    {
+      "argv": [
+        "go",
+        "test",
+        "-c",
+        "-p",
+        "1",
+        "-trimpath",
+        "-buildvcs=false",
+        "-o",
+        "${REPO}/build/issue127/runtime/temp/host/wire.test",
+        "./cmd/issue65-wire"
+      ],
+      "context": {
+        "architecture": "arm64",
+        "git_status": [],
+        "go_environment": {
+          "CGO_ENABLED": "0",
+          "GOARCH": null,
+          "GOCACHE": "${REPO}/build/issue127/runtime/temp/gocache",
+          "GOENV": "off",
+          "GOEXPERIMENT": "",
+          "GOFLAGS": "",
+          "GOMODCACHE": "${REPO}/build/issue127/runtime/temp/modcache",
+          "GOOS": null,
+          "GOPATH": "${REPO}/build/issue127/runtime/temp/gopath",
+          "GOTOOLCHAIN": "go1.26.10",
+          "GOWORK": "off"
+        },
+        "python": "3.14.10 (main, Oct 25 2026, 17:12:00) [Clang 21.0.0 (clang-2100.3.34.2)]",
+        "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3",
+        "system": "Darwin",
+        "tools": {
+          "go": "go version go1.26.10 darwin/arm64"
+        },
+        "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "cwd": "${REPO}/build/issue127/runtime/temp/host/product",
+      "inputs": {},
+      "kind": "diagnostic-not-qualification",
+      "observer_seconds_excluding_append": 0.0779633759520948,
+      "outputs": {},
+      "phase": "wire:host-compile",
+      "pid": 97077,
+      "resources": {
+        "peak_rss_bytes": 3062759424,
+        "scope": "wait4 child rusage; descendant attribution is OS-dependent; RSS is a high-water mark, not summed simultaneous tree RSS",
+        "status": "Available",
+        "system_seconds": 11.165186,
+        "user_seconds": 332.420511
+      },
+      "returncode": 0,
+      "started_at_utc": "2026-11-08T04:16:02Z",
+      "version": 1,
+      "wall_seconds": 214.4253669580212
+    }
+  ]
+}

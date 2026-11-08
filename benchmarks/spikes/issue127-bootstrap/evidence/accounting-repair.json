@@ -1,0 +1,10 @@
+{
+  "initial_driver_sha256": "9de24817d29c3b6335fb316fc0a170f7d9f7362249830c10e3dd973b803a3ace",
+  "initial_driver_exit": 1,
+  "initial_error": "compat analyzer invalid observation identity/schema on the combined suite log",
+  "native_command_exit": 0,
+  "raw_native_log_sha256": "fd0e21cc91496ea6583bd1f6819147cd21375cb0bdbb0f0fdfa137361315f4e5",
+  "resolution": "Split the unchanged raw log by top-level TestCompat/TestLimits/TestG1/TestG2 blocks and run existing unchanged analyzers; require all 79 declared Go cases, no skip/fail, and exact counts 88/38/234/241",
+  "new_runtime_execution": false,
+  "analyzed_script_sha256": "f7d0e4090ef0c8ee7507bbd7a30ca924ea82646b3e7b05f073a541e0a3465c21"
+}

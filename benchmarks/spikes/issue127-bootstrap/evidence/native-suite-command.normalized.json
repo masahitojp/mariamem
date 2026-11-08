@@ -1,0 +1,15 @@
+{
+  "contract": "issue127-public-normalized-evidence-v1",
+  "original_sha256": "6de30eaf25aae421303d2682f1190596e782309aa35efaf21d7657e3a9c1b317",
+  "normalization": "Replace the task checkout absolute prefix with ${REPO}; all other values retained",
+  "not_a_raw_C2_receipt": true,
+  "record": {
+    "argv": [
+      "${REPO}/build/issue127/runtime/temp/host/all.test",
+      "-test.v",
+      "-test.timeout=240s"
+    ],
+    "exit": 0,
+    "timeout": 270
+  }
+}

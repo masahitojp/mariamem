@@ -1,0 +1,22 @@
+{
+  "contract": "issue127-public-normalized-evidence-v1",
+  "original_sha256": "e0c1f7b2fffc3cd645caf50901a60061c1bc3ad78c5de0cd59186123b50e8068",
+  "normalization": "Replace the task checkout absolute prefix with ${REPO}; all other values retained",
+  "not_a_raw_C2_receipt": true,
+  "record": {
+    "argv": [
+      "go",
+      "test",
+      "-c",
+      "-p",
+      "1",
+      "-trimpath",
+      "-buildvcs=false",
+      "-o",
+      "${REPO}/build/issue127/runtime/temp/host/all.test",
+      "./cmd/issue65-wire"
+    ],
+    "exit": 0,
+    "timeout": 300
+  }
+}

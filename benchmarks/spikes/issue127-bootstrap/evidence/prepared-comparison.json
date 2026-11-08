@@ -1,0 +1,20 @@
+{
+  "result": "PASS only entry/glue files differ",
+  "base_source_commit": "a5ee1ed9cc2c6932d317fba77c339b364acd48df",
+  "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3",
+  "compared_files": 61,
+  "changes": {
+    "wasm/CMakeLists.txt": {
+      "base": "0996b3ca9d4cd1a760989614b5448456b49cd3fb6f640ac5547a17a45023ffe7",
+      "candidate": "1305f9c23111a7b5d27399ca336f7853fea94d6cd2c9c76856da51415360894f"
+    },
+    "wasm/issue65_control.cc": {
+      "base": "23945328f5acd2956eb10d3a5dda77522b303169319b918a19988d7a79893303",
+      "candidate": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f"
+    },
+    "wasm/lite4mariadb.c": {
+      "base": "44c9093cb2a13734299162603555a884a1c531e238cd1687ff9cdc0bdb81dbeb",
+      "candidate": "b25cb802cdc352f451caead95061a21dd71680c4a805c07377834d9da0a059f9"
+    }
+  }
+}
