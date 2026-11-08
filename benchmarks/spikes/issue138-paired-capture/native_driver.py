@@ -1,0 +1,59 @@
+import argparse,importlib.util,json,os,re,shutil,subprocess,sys,time
+from pathlib import Path
+owner=Path.cwd();w=owner/'build/issue128-real/temp/runtime/native';repo=w/'worktree';sys.path.insert(0,str(repo/'scripts'))
+from dev_guest import verify_guest,source_identity,inventory
+from common import digest
+from build_feedback import run
+
+def load(name,path):
+ spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+p=argparse.ArgumentParser();p.add_argument('stage',choices=['translate','compile','test']);a=p.parse_args()
+artifact=owner/'build/issue128-real/temp/native/output/artifact';record=verify_guest(repo,artifact);assert record['fresh_canonical_builder_success'] is True and record['fresh_target_producer_success'] is True
+source=record['source_commit'];assert source_identity(repo)['commit']==source
+link=w/'temp/artifact'
+if not link.exists():link.symlink_to(artifact,target_is_directory=True)
+cache=repo/'build/downloads'
+if not cache.exists():cache.symlink_to(owner/'build/issue128-real/temp/downloads',target_is_directory=True)
+probe=load('issue128_native_baseline',repo/'benchmarks/spikes/issue65-p1-timeout/probe_baseline.py')
+probe.GUEST_SOURCE=probe.HOST_SOURCE=source;probe.GUEST_SHA=record['guest_sha256'];probe.base.GUEST_SOURCE=probe.base.HOST_SOURCE=source;probe.base.GUEST_SHA=record['guest_sha256']
+os.environ['MARIAMEM_DEV_WORKSPACE']=str(w);env=probe.go_env(w);env['MARIAMEM_TOOLING_SOURCE_COMMIT']=source
+if a.stage=='translate':
+ (w/'evidence/host-deadline.json').write_text(json.dumps({'started_unix':time.time(),'deadline_unix':time.time()+1800})+'\n')
+ dest=probe.tools(w,with_binding=False)
+ run([sys.executable,str(dest/'assemble.py'),'--workspace',str(w),'--translate-only'],env=env,check=True,phase='native:translation')
+elif a.stage=='compile':
+ deadline=json.loads((w/'evidence/host-deadline.json').read_text())['deadline_unix'];assert time.time()<deadline
+ binding=json.loads((w/'evidence/reviewed-binding/identity.json').read_text());assert binding['guest_sha256']==record['guest_sha256'];shutil.copy2(w/'evidence/reviewed-binding/identity.json',w/'temp/tools/binding.json')
+ contract=load('issue128_g2_handshake',repo/'benchmarks/spikes/issue65-g2-repair/handshake_contract.py');fixture=contract.fixture((repo/'benchmarks/spikes/issue65-g2/g2_test.go.txt').read_bytes());(w/'temp/tools/g2_test.go.txt').write_bytes(fixture)
+ assembler=w/'temp/tools/assemble.py';text=assembler.read_text();anchor="pins=inventory(product);binary=out/'wire.test'";assert text.count(anchor)==1
+ text=text.replace(anchor,"shutil.copy2(w/'temp/tools/g2_test.go.txt',cmd/'g2_test.go')\nshutil.copy2(w/'temp/tools/target_checkpoint_test.go.txt',cmd/'target_checkpoint_test.go')\n"+anchor);shutil.copy2(owner/'build/issue128-real/temp/target_checkpoint_test.go.txt',w/'temp/tools/target_checkpoint_test.go.txt');assembler.write_text(text)
+ (w/'evidence/single-host-build-adaptation.json').write_text(json.dumps({'reason':'Include the original approved G2 fixture before the one host compilation; do not recompile a second baseline binary','original_assembler_sha256':digest(repo/'benchmarks/spikes/issue65-p1-timeout/assemble.py'),'actual_assembler_sha256':digest(assembler),'g2_fixture_sha256':digest(w/'temp/tools/g2_test.go.txt'),'g2_contract':contract.CONTRACT},indent=2)+'\n')
+ run([sys.executable,str(assembler),'--workspace',str(w),'--resume'],env=env,check=True,timeout=max(1,deadline-time.time()),phase='native:host-build')
+else:
+ product=w/'temp/host/product';binary=w/'temp/host/wire.test';host=json.loads((w/'evidence/host-build.json').read_text());assert digest(binary)==host['binary_sha256'];assert inventory(product)==host['source_inventory']
+ with (w/'evidence/root-death-control.txt').open('w') as output:
+  run([str(binary),'-test.v','-test.run=^TestIssue138RootDeathIsNotDrain$','-test.timeout=10s'],cwd=product,env=env,stdout=output,stderr=subprocess.STDOUT,timeout=15,check=True,phase='native:root-death-negative')
+ with (w/'evidence/native-suite.txt').open('w') as output:
+  reference=json.loads((repo/'benchmarks/spikes/issue127-bootstrap/evidence/native-result.json').read_text())['cases'];pattern='^('+'|'.join(re.escape(x) for x in reference)+')$'
+  result=run([str(binary),'-test.v','-test.failfast','-test.run='+pattern,'-test.timeout=240s'],cwd=product,env=env,stdout=output,stderr=subprocess.STDOUT,timeout=270,phase='native:original-finite-suite')
+ text=(w/'evidence/native-suite.txt').read_text();assert result.returncode==0 and '--- FAIL:' not in text and '--- SKIP:' not in text
+ assert inventory(product)==host['source_inventory'] and digest(binary)==host['binary_sha256']
+ observer=load('issue128_g2_observations',repo/'benchmarks/spikes/issue65-g2/observations.py')
+ for name,analyzer in [('compat',probe.analyze),('limits',probe.limit_observations.analyze),('g1',probe.g1.analyze),('g2',observer.analyze)]:
+  prefix={'compat':'TestCompat','limits':'TestLimits','g1':'TestG1','g2':'TestG2'}[name];selected=[];current=''
+  for line in text.splitlines():
+   start=re.fullmatch(r'=== RUN   (Test\w+)',line)
+   if start:current=start[1]
+   if current.startswith(prefix) and line!='PASS':selected.append(line)
+  derived='\n'.join(selected)+'\nPASS\n';(w/'evidence'/(name+'-derived.txt')).write_text(derived);r=analyzer(derived,0);(w/'evidence'/(name+'-result.json')).write_text(json.dumps(r,indent=2)+'\n');assert r['ready'],(name,r)
+ declared=set()
+ for file in (product/'cmd/issue65-wire').glob('*_test.go'):declared.update(re.findall(r'^func (Test\w+)\(',file.read_text(),re.M))
+ passed=re.findall(r'^--- PASS: (Test\w+) \(',text,re.M);reference=json.loads((repo/'benchmarks/spikes/issue127-bootstrap/evidence/native-result.json').read_text())['cases'];assert declared==set(reference)|{'TestIssue138CheckpointArchiveTransitions','TestIssue138RootDeathIsNotDrain'} and set(passed)==set(reference) and len(passed)==len(reference),(declared^set(reference),set(passed)^set(reference))
+ (w/'evidence/native-result.json').write_text(json.dumps({'result':'PASS original finite native suite','source_commit':source,'guest_sha256':record['guest_sha256'],'binary_sha256':digest(binary),'cases':sorted(passed),'observations':{'compat':88,'limits':38,'g1':234,'g2':241},'scope':'Original isolated route; not public C3/bothOS/adoption; archived-log pending-branch hit not claimed'},indent=2)+'\n')
+if a.stage=='test':
+  with (w/'evidence/target-checkpoint.txt').open('w') as output:
+   target=run([str(binary),'-test.v','-test.run=^TestIssue138CheckpointArchiveTransitions$','-test.timeout=120s'],cwd=product,env=env,stdout=output,stderr=subprocess.STDOUT,timeout=145,phase='native:target-checkpoint-archive')
+  log=(w/'evidence/target-checkpoint.txt').read_text()
+  (w/'evidence/target-checkpoint-result.json').write_text(json.dumps({'exit':target.returncode,'passed':target.returncode==0 and '--- PASS: TestIssue138CheckpointArchiveTransitions' in log,'scope':'Additional native archive, real drain, capture/restore/isolation; branch markers analyzed separately'},indent=2)+'\n')
+  assert target.returncode==0 and '--- PASS: TestIssue138CheckpointArchiveTransitions' in log
+print(a.stage,'completed')
