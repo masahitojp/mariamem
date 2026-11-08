@@ -1,0 +1,45 @@
+{
+  "question": "Does 8MiB improve the realistic complete shop test suite compared with16MiB? pgmem as same-machine reference.",
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "mariamem_origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "pgmem": {
+    "release_tag": "v1.18.2",
+    "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+    "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4"
+  },
+  "upstream_modelcase": "bench/modelcase from pinned pgmem MIT source; original70 test cases and expected values retained; explicit MariaDB SQL dialect port",
+  "arms": [
+    "mariamem16",
+    "mariamem8",
+    "pgmem"
+  ],
+  "repeats": 5,
+  "warmup_processes_per_arm": 1,
+  "primary_processes": 15,
+  "order": "rotate three arms each repetition, one process at a time",
+  "parallel": 8,
+  "max_forks": 9,
+  "reader_baseline": "one extra Fork shared by50 readers on BOTH engines after source Close;20 private writer Forks. This differs from website20-fork model but equalizes consuming-Snapshot lifecycle.",
+  "cases": {
+    "read": 50,
+    "write": 20
+  },
+  "fixture": {
+    "categories": 20,
+    "products": 500,
+    "users": 1000,
+    "sample_orders_per_child": 40
+  },
+  "transport": "Pipe on both",
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "per_process_timeout_seconds": 120,
+  "total_timeout_seconds": 1200,
+  "min_free_gib": 8,
+  "budget_gib": 10,
+  "tooling_budget_minutes": 30,
+  "active_budget_hours": 2,
+  "heavy_ci_limit": 0,
+  "exit": "Five runs each or explicit failed input; all outliers retained. Report full suite elapsed including boot/schema/seed/Snapshot/SQL/Close and process CPU, spans. No new candidate adoption, main or release. No Testcontainers campaign."
+}

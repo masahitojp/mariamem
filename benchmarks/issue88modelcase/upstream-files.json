@@ -1,0 +1,6 @@
+{
+  "bench/modelcase/store/store.go": "60bceafadd8d19aedae743749b6a66cf2ae33a8ba22b854f08717a43e4abd67f",
+  "bench/modelcase/store/seed.go": "5155c796231fc0d1690fd3dc656954a79150bc596e05d183c77b415c9ace4e51",
+  "bench/modelcase/store/read_test.go": "4a26ec4a913b1d1b1e47f2d3e57b0d953f971ba4dc8843bb851297657777b2e9",
+  "bench/modelcase/store/write_test.go": "2ed5f6b38e728ae6cd22daff5714186f98119638666cdcdc2d75d740f5dd1cb1"
+}

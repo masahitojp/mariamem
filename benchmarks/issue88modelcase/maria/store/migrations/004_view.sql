@@ -1,0 +1,1 @@
+CREATE VIEW user_order_totals AS SELECT u.id AS user_id,u.name,count(o.id) AS orders,COALESCE(sum(o.total_cents),0) AS total_cents FROM users u LEFT JOIN orders o ON o.user_id=u.id AND o.status<>'cancelled' GROUP BY u.id
