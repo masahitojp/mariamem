@@ -1,0 +1,40 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Prepared lexer — actual C measurement</title><style>body{font:16px/1.65 system-ui,sans-serif;margin:0;background:#f4f6fa;color:#18232d}main{max-width:1120px;margin:auto;padding:38px 28px}h1{font-size:32px;line-height:1.3}h2{font-size:22px;margin-top:38px}.card{background:white;padding:22px;border:1px solid #dce2e8;border-radius:12px;margin:20px 0}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{padding:8px 12px;border-bottom:1px solid #e5e9ee;text-align:right}th:first-child,td:first-child{text-align:left}.muted{color:#52616b;font-size:14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}svg{width:100%;height:auto}.base{color:#667587}.candidate{color:#087fa0}code{font-size:13px;overflow-wrap:anywhere}a{color:#087fa0}@media(max-width:750px){.grid{grid-template-columns:1fr}main{padding:22px 12px}table{font-size:13px}th,td{padding:6px}}</style><main>
+<h1>字句解析表の事前生成：実C版の計測</h1>
+<p>同じMac・Go1.27.3・Pipe・1000行のseed・48子を使用。採用済み実装と実C候補を交互に3回ずつ実行しました。全観測・尾部を保持しています。</p>
+<p class="muted">通常実行のバイナリはGo試作オーバーレイなし。観測付き実行は別バイナリです。CI実ゲスト受入は両OSでPASS、性能値はこのMacだけの結果です。</p>
+<div class="card grid">
+<svg viewBox="0 0 500 120" role="img" aria-label="Start/Fork p50 — FORK P1"><text x="0" y="20" font-size="16" fill="#18232d">Start/Fork p50 — FORK P1</text><text x="0" y="61" font-size="14">採用済み</text><rect x="80" y="43" width="300.00" height="25" rx="3" fill="#667587"/><text x="390.00" y="61" font-size="14">21.15 ms</text><text x="0" y="98" font-size="14">実C候補</text><rect x="80" y="80" width="274.42" height="25" rx="3" fill="#087fa0"/><text x="364.42" y="98" font-size="14">19.35 ms</text></svg>
+<svg viewBox="0 0 500 120" role="img" aria-label="Start/Fork p50 — FORK P4"><text x="0" y="20" font-size="16" fill="#18232d">Start/Fork p50 — FORK P4</text><text x="0" y="61" font-size="14">採用済み</text><rect x="80" y="43" width="300.00" height="25" rx="3" fill="#667587"/><text x="390.00" y="61" font-size="14">28.97 ms</text><text x="0" y="98" font-size="14">実C候補</text><rect x="80" y="80" width="292.04" height="25" rx="3" fill="#087fa0"/><text x="382.04" y="98" font-size="14">28.21 ms</text></svg>
+<svg viewBox="0 0 500 120" role="img" aria-label="48子 batch wall p50 — FORK P1"><text x="0" y="20" font-size="16" fill="#18232d">48子 batch wall p50 — FORK P1</text><text x="0" y="61" font-size="14">採用済み</text><rect x="80" y="43" width="300.00" height="25" rx="3" fill="#667587"/><text x="390.00" y="61" font-size="14">1249.17 ms</text><text x="0" y="98" font-size="14">実C候補</text><rect x="80" y="80" width="274.01" height="25" rx="3" fill="#087fa0"/><text x="364.01" y="98" font-size="14">1140.93 ms</text></svg>
+<svg viewBox="0 0 500 120" role="img" aria-label="48子 batch wall p50 — FORK P4"><text x="0" y="20" font-size="16" fill="#18232d">48子 batch wall p50 — FORK P4</text><text x="0" y="61" font-size="14">採用済み</text><rect x="80" y="43" width="300.00" height="25" rx="3" fill="#667587"/><text x="390.00" y="61" font-size="14">489.66 ms</text><text x="0" y="98" font-size="14">実C候補</text><rect x="80" y="80" width="297.05" height="25" rx="3" fill="#087fa0"/><text x="387.05" y="98" font-size="14">484.85 ms</text></svg>
+</div><div class="card"><h2>通常実行</h2><table><tr><th>条件</th><th>Start/Fork p50<br>旧 → 候補 (ms)</th><th>48子 batch wall p50<br>旧 → 候補 (ms)</th><th>batch CPU p50<br>旧 → 候補 (ms)</th><th>process peak RSS p50<br>旧 → 候補 (MiB)</th></tr>
+<tr><td>FRESH P1</td><td>23.24 → 21.27</td><td>1829.08 → 1710.19</td><td>2701.62 → 2621.43</td><td>135.45 → 135.39</td></tr>
+<tr><td>FRESH P4</td><td>30.45 → 29.44</td><td>695.52 → 658.21</td><td>3577.74 → 3496.35</td><td>389.70 → 414.48</td></tr>
+<tr><td>FORK P1</td><td>21.15 → 19.35</td><td>1249.17 → 1140.93</td><td>1804.65 → 1705.06</td><td>135.00 → 135.58</td></tr>
+<tr><td>FORK P4</td><td>28.97 → 28.21</td><td>489.66 → 484.85</td><td>2424.13 → 2262.18</td><td>421.11 → 436.20</td></tr>
+</table><p class="muted">Start/Forkは各cell144子のp50。バッチ/CPU/RSSは3プロセスのp50。RSSはプロセスの生涯最大値で、子1個の保持量ではありません。Freshは毎子seed作成、Forkは準備済みseedを分離して利用します。</p></div>
+<div class="card"><h2>3ペアそれぞれの変化</h2><table><tr><th>条件</th><th>Start/Fork p50変化率</th><th>batch wall変化率</th><th>batch CPU変化率</th></tr>
+<tr><td>fork-p1-off</td><td>-9.1%, -8.4%, -8.8%</td><td>-9.7%, -6.3%, -7.8%</td><td>-6.2%, -4.6%, -6.0%</td></tr>
+<tr><td>fork-p4-off</td><td>-8.9%, +5.0%, -6.5%</td><td>+78.0%, -1.0%, -7.7%</td><td>-5.8%, -4.4%, -11.7%</td></tr>
+<tr><td>fresh-p1-off</td><td>-8.3%, -11.6%, -7.8%</td><td>-6.5%, -13.5%, +0.1%</td><td>-4.1%, -1.6%, -2.8%</td></tr>
+<tr><td>fresh-p4-off</td><td>-3.1%, -3.5%, -3.5%</td><td>-6.8%, +1.9%, -6.1%</td><td>-3.5%, -2.3%, -4.2%</td></tr>
+</table><p class="muted">負値が短縮。小標本であり、交互実行でも温度・OSスケジューリング・SQL尾部の交絡は残ります。</p></div>
+<div class="card"><h2>Forkの内訳（観測付き）</h2><table><tr><th>工程 p50 (ms)</th><th>P1 旧 → 候補</th><th>P4 旧 → 候補</th></tr>
+<tr><td>メモリ準備</td><td>1.83 → 1.84</td><td>2.75 → 2.86</td></tr>
+<tr><td>サーバー初期化</td><td>17.66 → 16.03</td><td>24.79 → 22.08</td></tr>
+<tr><td>routine構造</td><td>0.88 → 0.90</td><td>1.01 → 0.97</td></tr>
+<tr><td>子FS・ファイル接続</td><td>0.06 → 0.05</td><td>0.06 → 0.06</td></tr>
+<tr><td>内部接続</td><td>0.10 → 0.10</td><td>0.11 → 0.10</td></tr>
+<tr><td>startup外のhost</td><td>0.92 → 0.81</td><td>1.26 → 1.35</td></tr>
+<tr><td>実行開始・受信などの残り</td><td>0.31 → 0.30</td><td>0.51 → 0.53</td></tr>
+<tr><td>その他guest</td><td>0.04 → 0.04</td><td>0.04 → 0.04</td></tr>
+<tr><td>ready後のhost</td><td>0.06 → 0.06</td><td>0.08 → 0.07</td></tr>
+</table><p class="muted">工程p50の和は全体p50になりません。各子の内訳は実測Fork時間へ一致することを再生で検査しています。server_init内部のcommon/InnoDB/Ariaは今回分離していません。</p><h3>観測によるFork p50の変化</h3><p>
+baseline-p1: 21.15 → 22.11 ms (+4.5%) / baseline-p4: 28.97 → 32.17 ms (+11.0%) / candidate-p1: 19.35 → 20.38 ms (+5.4%) / candidate-p4: 28.21 → 30.44 ms (+7.9%)
+</p></div><div class="card"><h2>尾部を残した分布</h2><table><tr><th>条件</th><th>Fork p95 (ms)</th><th>Fork &gt;100ms</th><th>COUNT/SUM &gt;100ms</th><th>UPDATE &gt;100ms</th></tr>
+<tr><td>baseline P1</td><td>25.64</td><td>0/144</td><td>0/144</td><td>0/144</td></tr>
+<tr><td>baseline P4</td><td>36.54</td><td>0/144</td><td>0/144</td><td>0/144</td></tr>
+<tr><td>candidate P1</td><td>22.94</td><td>0/144</td><td>0/144</td><td>0/144</td></tr>
+<tr><td>candidate P4</td><td>39.46</td><td>0/144</td><td>1/144</td><td>0/144</td></tr>
+</table><p class="muted">特定閾値を超えた子やバッチを除外していません。SQL尾部の所有者を観測していないため、UNDO待ちとは断定しません。</p></div>
+<p class="muted">Harness source: <code>ac31af58f94b5b732375f4be177d5c8a12e27fc3</code><br>Host binding: <code>6134274a268155379329d9bd1ae394897e1f7e8e</code><br>C origin: <code>b1a265cc30a8603ced743c8aeb59c752751ff9d6</code><br>Candidate guest: <code>14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1</code></p><p><a href="summary.json">集計JSON</a> · <a href="children.csv">全primary子のCSV</a> · <a href="README.md">結論・条件</a></p></main></html>

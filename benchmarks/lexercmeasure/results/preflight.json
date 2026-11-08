@@ -1,0 +1,11 @@
+{
+  "runtime_builds": "PASS first build campaign",
+  "runtime_measurement_attempts": 52,
+  "runtime_extra_trials": 0,
+  "host_metadata_preflight": {
+    "first_attempt": "sandbox sysctl permission denial before any guest process",
+    "retry": "same committed run.py under required permissions; all52 fixed processes completed"
+  },
+  "analysis_preflight": "fixed missing repetition in pair lookup before writing any summary; regression test covers per-repetition pairing",
+  "analysis_test_preflight": "Use an explicit module file import so the historical Go-prototype analyze.py cannot shadow the actual-C analyzer; final tests PASS"
+}

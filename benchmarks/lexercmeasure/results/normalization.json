@@ -1,0 +1,59 @@
+{
+  "files": {
+    "inputs.json": {
+      "original_sha256": "6e7ece56630d7ac065704d9c3f6f3c419204b7241f1f8b0e37d82ab977a7aca2",
+      "published_sha256": "6e7ece56630d7ac065704d9c3f6f3c419204b7241f1f8b0e37d82ab977a7aca2"
+    },
+    "host.json": {
+      "original_sha256": "4990d2a1685ea0215299ad24b6060c4a1297efeb213862f05f2ed377ef96957e",
+      "published_sha256": "4990d2a1685ea0215299ad24b6060c4a1297efeb213862f05f2ed377ef96957e"
+    },
+    "completion.json": {
+      "original_sha256": "9632063d7706691ef8ab10983f53686bc6a1285b01adab4a84a2e5edc55b101c",
+      "published_sha256": "9632063d7706691ef8ab10983f53686bc6a1285b01adab4a84a2e5edc55b101c"
+    },
+    "binding-validation.json": {
+      "original_sha256": "6781a318d6f8f35126454d7a1aeddf144494e371d9776f45f90a1f3f5e620f6d",
+      "published_sha256": "6781a318d6f8f35126454d7a1aeddf144494e371d9776f45f90a1f3f5e620f6d"
+    },
+    "summary.json": {
+      "original_sha256": "c318c91cb27a4b308d2eb291c5966a122387dafb737deeaee344e57da85b5416",
+      "published_sha256": "c318c91cb27a4b308d2eb291c5966a122387dafb737deeaee344e57da85b5416"
+    },
+    "children.csv": {
+      "original_sha256": "bafe6771b7241d26cb2cb1df8559d215f88d490672d8080ac920a9db8c5210a0",
+      "published_sha256": "bafe6771b7241d26cb2cb1df8559d215f88d490672d8080ac920a9db8c5210a0"
+    },
+    "report.html": {
+      "original_sha256": "9a81cf9e829e9a8ef9d17183b1aec6e3caa19e9fcfc87ad7127d10703555978c",
+      "published_sha256": "9a81cf9e829e9a8ef9d17183b1aec6e3caa19e9fcfc87ad7127d10703555978c"
+    },
+    "acquire.txt": {
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "regeneration.txt": {
+      "original_sha256": "cea701350fe71756083591542019cf0657701ef69edc15e2b55694ad309bb657",
+      "published_sha256": "0566d8e70c03a0553c7795edc09731afe94e0de58a7bf26b424744a6410df6d3"
+    },
+    "baseline-off-build.txt": {
+      "original_sha256": "bc341a6fc6cd5119497626cfa7308723f86f7225818b7c510b976030d8f41c30",
+      "published_sha256": "bc341a6fc6cd5119497626cfa7308723f86f7225818b7c510b976030d8f41c30"
+    },
+    "baseline-on-build.txt": {
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "candidate-off-build.txt": {
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "candidate-on-build.txt": {
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "published_prefix": "<WORKSPACE>",
+  "observations": "losslessly packed by benchmarks/lexercandidate/codec.py; checksum-bound decoded canonical JSON",
+  "normalization": "Replace the owned workspace root with <WORKSPACE>; original/published byte hashes retained, private path omitted"
+}

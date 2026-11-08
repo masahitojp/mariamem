@@ -2,6 +2,12 @@
 
 ## Recent measurement and discovery reports
 
+- [Actual C prepared lexer maps](lexercmeasure/results/README.md),
+  [standalone graph](lexercmeasure/results/report.html): both-host correctness
+  followed by one-Mac paired Fresh/Fork P1/P4 measurements. Serial Fork p50
+  improves8.5%; P4 wall/SQL-tail and RSS limits remain explicit. All samples,
+  exact source/binary identities and read-only replay are retained.
+
 - [D/shared-host adopted implementation](../docs/reviews/d-heap-shared-host.md)
   and [current comparison harness](sharedhost/README.md): identity-bound macOS
   preparation/Snapshot/children/Close results, resource observations and retained

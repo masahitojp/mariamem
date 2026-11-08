@@ -1,0 +1,12 @@
+{
+  "result": "COLLECTED",
+  "source_commit": "ac31af58f94b5b732375f4be177d5c8a12e27fc3",
+  "processes": 52,
+  "primary_processes": 36,
+  "primary_children": 1728,
+  "extra_trials": 0,
+  "budget": {
+    "peak_bytes": 5226008576,
+    "min_free_bytes": 23672434688
+  }
+}

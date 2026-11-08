@@ -1,0 +1,5 @@
+{
+  "module_replacements": "PASS: actual build information binds both exact product paths",
+  "same_observer_overlay": "PASS: all before/after hashes identical across arms",
+  "runtime_source_matches_CI": true
+}

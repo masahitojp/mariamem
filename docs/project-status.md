@@ -169,6 +169,18 @@ its immutable C origin b1a265cc or relabelling historical failures. Next is a
 paired actual-C performance measurement; prior Go-surrogate timing is not reused
 as a C-candidate speed claim. Adoption/integration and release remain separate.
 
+The paired actual-C measurement is now complete at harness sourceac31af58 on
+one AppleM1 Mac. [Results and graph](../benchmarks/lexercmeasure/results/README.md)
+retain all52 processes/1728 primary children: ordinary Fork p50
+21.15→19.35ms/P1 (-8.5%) and28.97→28.21ms/P4 (-2.7%). P1 improves in all three
+pairs; Fork batch CPU falls in every pair at both parallelisms. Server_init
+remains dominant in the separate coarse diagnostic traces. Candidate P4 contains
+COUNT/SUM790/798ms tails in ordinary/diagnostic runs; their owner/cause is
+unobserved. Stable P4 whole-batch acceleration and RSS reduction are not claimed.
+The recommendation is to take this bounded result to adoption review, not add
+unplanned sampling. No adoption, main integration, independent C reproducibility
+or release decision has been made by this measurement.
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally

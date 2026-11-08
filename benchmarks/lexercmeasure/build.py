@@ -40,6 +40,7 @@ for arm,product in [('baseline',source),('candidate',T/'regenerated/product')]:
   run(arm+'-'+obs+'-build',['go','build','-p','1','-trimpath','-buildvcs=true','-mod=readonly','-modfile',mod,*overlay,'-o',binary,'.'],cwd=B)
   info=subprocess.check_output(['go','version','-m',str(binary)],env=env,text=True)
   assert 'vcs.revision='+HEAD in info and 'vcs.modified=false' in info
+  assert '=>\t'+str(product) in info and 'CGO_ENABLED=0' in info
   record['binaries'][arm+'-'+obs]={'sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),'bytes':binary.stat().st_size,'build_seconds':time.monotonic()-at,'build_info':info.replace(str(W),'<WORKSPACE>'),'overlay':hashes,'guest_sha256':P[arm+'_guest_sha256']}
   (E/'inputs.json').write_text(json.dumps(record,indent=2)+'\n')
 assert inventory(T/'regenerated/product/internal/generatedgo')==dev['generated_inventory']
