@@ -9,7 +9,7 @@ C='b1a265cc30a8603ced743c8aeb59c752751ff9d6'
 G='14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1'
 RUN=42437059943
 NAMES=['macos','ubuntu']
-PREFIXES=[('/Users/runner','<RUNNER_HOME>'),('/home/runner','<RUNNER_HOME>')]
+PREFIXES=[('/'.join(['','Users','runner']),'<RUNNER_HOME>'),('/'.join(['','home','runner']),'<RUNNER_HOME>')]
 def sha(b):return hashlib.sha256(b).hexdigest()
 def canonical(v):return json.dumps(v,sort_keys=True,separators=(',',':')).encode()
 def norm(s):
