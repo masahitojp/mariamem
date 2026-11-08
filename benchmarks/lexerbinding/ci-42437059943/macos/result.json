@@ -1,0 +1,42 @@
+{
+  "result": "PASS_ACTUAL_C_GUEST",
+  "contract": "development-unqualified-v1",
+  "host_source_commit": "6134274a268155379329d9bd1ae394897e1f7e8e",
+  "c_source_commit": "b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+  "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "binding_sha256": "c62401a2712090b696a1fcff57679d427ba57f9d39178bf20376a7177897ef10",
+  "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "performance": "NOT_MEASURED",
+  "qualification": "NOT_RUN",
+  "adoption": "NOT_APPROVED",
+  "test_overlay": {
+    "sha256": "55c05729e36c67c7a3da61fd7ca6faa330b2a9dfe7d2a7e4c6530140410d6465",
+    "lexer_oracle_sha256": "1688b8498401449d6b028bc44e1615d4db16fef1fc679aa244ef3619c7a6a1f0",
+    "crc_original_sha256": "5669ab491bc7d75751a8f56c55fd13f50d6c486e05dfb6aac2470efe10eaf6cb",
+    "crc_relocated_sha256": "69ac801890c4eec0bd61b9898262f45f33773f0be6f177b7451a49ffdeb01ed4"
+  },
+  "host_sha256": "9c5cc967e74e04b703bd783eefa345192d9a2547c084d5e8b1907b0e94ec1409",
+  "commands": [
+    {
+      "name": "regeneration",
+      "exit_code": 0
+    },
+    {
+      "name": "tables-corruption-worker",
+      "exit_code": 0
+    },
+    {
+      "name": "crc-differential",
+      "exit_code": 0
+    },
+    {
+      "name": "join-ownership",
+      "exit_code": 0
+    },
+    {
+      "name": "sql-native-children-cleanup",
+      "exit_code": 0
+    }
+  ]
+}

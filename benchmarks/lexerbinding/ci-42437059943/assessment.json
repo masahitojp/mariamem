@@ -1,0 +1,56 @@
+{
+  "adoption": "NOT_APPROVED",
+  "c_source_commit": "b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+  "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "host_source_commit": "6134274a268155379329d9bd1ae394897e1f7e8e",
+  "hosts": {
+    "macos": {
+      "gates": {
+        "J1": {
+          "expected_failures_detected": 2,
+          "protected_successes": 4
+        },
+        "cleanup": "PASS",
+        "corrupt_table": "PASS",
+        "crc": "PASS",
+        "dev_smoke": "PASS",
+        "full_638_tables": "PASS",
+        "native_sql_two_children": "PASS",
+        "worker_trap": "PASS"
+      },
+      "host_sha256": "9c5cc967e74e04b703bd783eefa345192d9a2547c084d5e8b1907b0e94ec1409",
+      "job": 128598050713,
+      "machine": "arm64",
+      "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+      "result": "PASS_ACTUAL_C_GUEST"
+    },
+    "ubuntu": {
+      "gates": {
+        "J1": {
+          "expected_failures_detected": 2,
+          "protected_successes": 4
+        },
+        "cleanup": "PASS",
+        "corrupt_table": "PASS",
+        "crc": "PASS",
+        "dev_smoke": "PASS",
+        "full_638_tables": "PASS",
+        "native_sql_two_children": "PASS",
+        "worker_trap": "PASS"
+      },
+      "host_sha256": "22c0dafab541e4dd8e94e2a35390bb89336494e0996a8a127e3678e82a375e23",
+      "job": 128598050833,
+      "machine": "x86_64",
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+      "result": "PASS_ACTUAL_C_GUEST"
+    }
+  },
+  "independent_c_builds": 1,
+  "installed_files_identical_excluding_provenance": 108,
+  "performance": "NOT_MEASURED_FOR_C_GUEST",
+  "provenance_difference": "host-specific installation paths/converter binary; no runtime source byte difference",
+  "qualification": "NOT_RUN",
+  "raw_files_identical": 51,
+  "result": "PASS_BOUNDED_ACTUAL_C_GUEST",
+  "run": 42437059943
+}

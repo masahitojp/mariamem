@@ -1,0 +1,15 @@
+=== RUN   TestPreparedLexerTablesActualGuest
+=== RUN   TestPreparedLexerTablesActualGuest/normal_ambient_ignored
+=== RUN   TestPreparedLexerTablesActualGuest/profiling_does_not_verify
+    lexer_prepared_candidate_test.go:175: ordinary profiling diagnostics: 
+=== RUN   TestPreparedLexerTablesActualGuest/all_638_compiled_descriptors
+=== RUN   TestPreparedLexerTablesActualGuest/corrupt_table_rejected
+--- PASS: TestPreparedLexerTablesActualGuest (0.70s)
+    --- PASS: TestPreparedLexerTablesActualGuest/normal_ambient_ignored (0.40s)
+    --- PASS: TestPreparedLexerTablesActualGuest/profiling_does_not_verify (0.11s)
+    --- PASS: TestPreparedLexerTablesActualGuest/all_638_compiled_descriptors (0.10s)
+    --- PASS: TestPreparedLexerTablesActualGuest/corrupt_table_rejected (0.10s)
+=== RUN   TestWorkerTrapActualGuestNotifiesAndIsolatesPeer
+--- PASS: TestWorkerTrapActualGuestNotifiesAndIsolatesPeer (0.12s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.888s

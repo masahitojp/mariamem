@@ -1,0 +1,62 @@
+{
+  "product_baseline_source_commit": "3d8b2201c1f36fa5b7264e0450104055f3822272",
+  "host_binding_source_commit": "6134274a268155379329d9bd1ae394897e1f7e8e",
+  "c_source_commit": "b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+  "candidate_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "baseline_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
+  "acceptance_run": 42437059943,
+  "go": "go1.27.3",
+  "host": "local macOS arm64",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "transport": "Pipe",
+  "rows": 1000,
+  "children": 48,
+  "arms": [
+    "baseline",
+    "candidate"
+  ],
+  "primary_cells": [
+    [
+      "fresh",
+      1,
+      "off"
+    ],
+    [
+      "fresh",
+      4,
+      "off"
+    ],
+    [
+      "fork",
+      1,
+      "off"
+    ],
+    [
+      "fork",
+      4,
+      "off"
+    ],
+    [
+      "fork",
+      1,
+      "on"
+    ],
+    [
+      "fork",
+      4,
+      "on"
+    ]
+  ],
+  "repetitions": 3,
+  "warmups_per_cell_arm": 1,
+  "primary_processes": 36,
+  "warmup_processes": 12,
+  "controls": 4,
+  "total_processes": 52,
+  "process_timeout_seconds": 190,
+  "build_timeout_seconds": 1800,
+  "budget_gib": 10,
+  "min_free_gib": 12,
+  "scope": "Actual C candidate vs adopted bytes; three alternating pairs, all children/tails retained. Ordinary off binaries have no Go experiment overlay. On diagnostics use existing generic Fork stage overlay, no guest function-address instrumentation. No inner common/InnoDB/plugin attribution or UNDO-owner claim from coarse traces. Desktop single-host measurements, not CI performance. No adoption."
+}

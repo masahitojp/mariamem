@@ -1,0 +1,52 @@
+{
+  "guest": {
+    "run_id": 42433100335,
+    "artifact_id": 13598059891,
+    "zip_sha256": "953a2589b5c846ef118c99020a7e6505ff83d0e2d8dc5f617fcdf778467c6f90",
+    "metadata": {
+      "id": 13598059891,
+      "node_id": "MDg6QXJ0aWZhY3QxMzU5ODA1OTg5MQ==",
+      "name": "lexer-candidate-guest-b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+      "size_in_bytes": 11877888,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13598059891",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13598059891/zip",
+      "expired": false,
+      "digest": "sha256:953a2589b5c846ef118c99020a7e6505ff83d0e2d8dc5f617fcdf778467c6f90",
+      "created_at": "2026-11-08T01:19:24Z",
+      "updated_at": "2026-11-08T01:19:24Z",
+      "expires_at": "2026-11-15T01:19:23Z",
+      "workflow_run": {
+        "id": 42433100335,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "experiment/lexer-candidate",
+        "head_sha": "b1a265cc30a8603ced743c8aeb59c752751ff9d6"
+      }
+    }
+  },
+  "reference": {
+    "run_id": 42433100335,
+    "artifact_id": 13597914099,
+    "zip_sha256": "5785b4ace826613149f1b769a03ca218129ab53234327403d6c0f2f8293e76d6",
+    "metadata": {
+      "id": 13597914099,
+      "node_id": "MDg6QXJ0aWZhY3QxMzU5NzkxNDA5OQ==",
+      "name": "lexer-candidate-reference-b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+      "size_in_bytes": 2291,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13597914099",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13597914099/zip",
+      "expired": false,
+      "digest": "sha256:5785b4ace826613149f1b769a03ca218129ab53234327403d6c0f2f8293e76d6",
+      "created_at": "2026-11-08T01:11:18Z",
+      "updated_at": "2026-11-08T01:11:18Z",
+      "expires_at": "2026-11-15T01:11:17Z",
+      "workflow_run": {
+        "id": 42433100335,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "experiment/lexer-candidate",
+        "head_sha": "b1a265cc30a8603ced743c8aeb59c752751ff9d6"
+      }
+    }
+  }
+}

@@ -157,6 +157,18 @@ worker/J1 ownership and cleanup. Actual C guest acceptance is not yet observed;
 new performance, independent C reproducibility, adoption/integration and release
 remain separate gates.
 
+Actual C guest acceptance now passes on both macOS15 arm64 and Ubuntu24.04
+x86_64 at host source6134274a in
+[CI42437059943](https://github.com/masahitojp/mariamem/actions/runs/42437059943).
+The [source-bound receipt](../benchmarks/lexerbinding/ci-42437059943/README.md)
+records full638-table comparison/corruption, CRC, actual worker trap, forced J1
+unsafe/protected/race controls, native SQL/two-child isolation and cleanup.
+All108 installed runtime files excluding host-specific provenance match across
+hosts. This closes the pending bounded actual-guest gate above, without changing
+its immutable C origin b1a265cc or relabelling historical failures. Next is a
+paired actual-C performance measurement; prior Go-surrogate timing is not reused
+as a C-candidate speed claim. Adoption/integration and release remain separate.
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally

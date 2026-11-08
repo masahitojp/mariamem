@@ -1,0 +1,167 @@
+{
+  "development_records": "Source inventories reduced only after exact validation; original file hashes remain in artifacts-verified.json and development-reduced.json",
+  "files": {
+    "macos/SHA256SUMS.json": {
+      "original_sha256": "b7ebf73c26bbdfa66eb2e24625d9becd87b499485ea7d58049a12c3a4d395ec5",
+      "published_sha256": "b7ebf73c26bbdfa66eb2e24625d9becd87b499485ea7d58049a12c3a4d395ec5"
+    },
+    "macos/acquisition.json": {
+      "original_sha256": "71c4f01fb10480ee96a1fed931e6f6066df915df843ed5893f3db0b289dd462a",
+      "published_sha256": "71c4f01fb10480ee96a1fed931e6f6066df915df843ed5893f3db0b289dd462a"
+    },
+    "macos/crc-differential.txt": {
+      "original_sha256": "f2a2fd340232df71490995346857b24264cc7e51ba7391740a03a250c8e92df5",
+      "published_sha256": "f2a2fd340232df71490995346857b24264cc7e51ba7391740a03a250c8e92df5"
+    },
+    "macos/installation-inputs.json": {
+      "original_sha256": "462f3fffa1902a1edf554ccbc58d3db638f3fccc7c9f5fddc0d50029a37fdcde",
+      "published_sha256": "e987db230fe26e2026a35b5101bff918dc1b7632a4b4c6d411dc8b83186b0d60"
+    },
+    "macos/join-ownership.txt": {
+      "original_sha256": "e6cad0b839ee6d359387d8f573ee7d4383ced90ca1e052922573e2d925d7bfa1",
+      "published_sha256": "46d6248924512948bed546bec7061ebe5bfcde07baf683d73c23cfcf6cfa8719"
+    },
+    "macos/join/heap-0.txt": {
+      "original_sha256": "3899826f4aa2f267119843a18b999a6c26b25c45a9ec6758054fd5ea183521f8",
+      "published_sha256": "3899826f4aa2f267119843a18b999a6c26b25c45a9ec6758054fd5ea183521f8"
+    },
+    "macos/join/heap-1-race.txt": {
+      "original_sha256": "7e35ab810fcb4d6c227ba3f2938287a36fb7b7d86f7fd437817670c9c59f22ac",
+      "published_sha256": "7e35ab810fcb4d6c227ba3f2938287a36fb7b7d86f7fd437817670c9c59f22ac"
+    },
+    "macos/join/heap-1.txt": {
+      "original_sha256": "bc6ddc8219a554427ec16890fdeb5715286c4545fdfc48048a227c29467ab51c",
+      "published_sha256": "bc6ddc8219a554427ec16890fdeb5715286c4545fdfc48048a227c29467ab51c"
+    },
+    "macos/join/identities.json": {
+      "original_sha256": "67d2aff39db5ecbdfd128ed268fe5ebc543cf3cf445bdfeb574c298e69046c83",
+      "published_sha256": "67d2aff39db5ecbdfd128ed268fe5ebc543cf3cf445bdfeb574c298e69046c83"
+    },
+    "macos/join/mmap-0.txt": {
+      "original_sha256": "a4599c46e7820ec9cd9ed5b025995f2018cb54205e26dea9af73e228c9604966",
+      "published_sha256": "a4599c46e7820ec9cd9ed5b025995f2018cb54205e26dea9af73e228c9604966"
+    },
+    "macos/join/mmap-1-race.txt": {
+      "original_sha256": "c5c8fa8271078db23bb83906bb85cba42af8dbfef8390571dc10bc85d2a4791b",
+      "published_sha256": "c5c8fa8271078db23bb83906bb85cba42af8dbfef8390571dc10bc85d2a4791b"
+    },
+    "macos/join/mmap-1.txt": {
+      "original_sha256": "abc6c4af8e01cb8cff529b0af591ed986b81f2d6e05c3ebe117d3eb5a6df3808",
+      "published_sha256": "abc6c4af8e01cb8cff529b0af591ed986b81f2d6e05c3ebe117d3eb5a6df3808"
+    },
+    "macos/join/results.json": {
+      "original_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "published_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a"
+    },
+    "macos/regeneration.txt": {
+      "original_sha256": "be7f1daa8b21932390e8df8cf507f861065d451e85157abcb8bff05c7c4dd026",
+      "published_sha256": "44dd7bfa77ed38c7e2d2dfc8971c612aed3955ed9cfd869faca5c2d58c77f10e"
+    },
+    "macos/result.json": {
+      "original_sha256": "ed6e2e335e76deee33d577c3f3dfad101b937b2eec3d36dc3a5244f881922155",
+      "published_sha256": "ed6e2e335e76deee33d577c3f3dfad101b937b2eec3d36dc3a5244f881922155"
+    },
+    "macos/sql-native-children-cleanup.txt": {
+      "original_sha256": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd",
+      "published_sha256": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd"
+    },
+    "macos/sql.json": {
+      "original_sha256": "5be64d7eb2f8bb2631aeccf9e99831bfb8161e052cc85a85a8df179723e8b558",
+      "published_sha256": "5be64d7eb2f8bb2631aeccf9e99831bfb8161e052cc85a85a8df179723e8b558"
+    },
+    "macos/tables-corruption-worker.txt": {
+      "original_sha256": "cad22eecbb1ac2e632a6cdef8cf582f510f39af3749ce065dfc6353c9a6cc091",
+      "published_sha256": "cad22eecbb1ac2e632a6cdef8cf582f510f39af3749ce065dfc6353c9a6cc091"
+    },
+    "ubuntu/SHA256SUMS.json": {
+      "original_sha256": "5728d3f5e749a7f204c1c2ae4b97787b408f7ed9c737867a631c9808516129ef",
+      "published_sha256": "5728d3f5e749a7f204c1c2ae4b97787b408f7ed9c737867a631c9808516129ef"
+    },
+    "ubuntu/acquisition.json": {
+      "original_sha256": "71c4f01fb10480ee96a1fed931e6f6066df915df843ed5893f3db0b289dd462a",
+      "published_sha256": "71c4f01fb10480ee96a1fed931e6f6066df915df843ed5893f3db0b289dd462a"
+    },
+    "ubuntu/crc-differential.txt": {
+      "original_sha256": "4432f8063111f299b1e1899411e3f4b8445a8ba253df6e4b05064df60fdb1313",
+      "published_sha256": "4432f8063111f299b1e1899411e3f4b8445a8ba253df6e4b05064df60fdb1313"
+    },
+    "ubuntu/installation-inputs.json": {
+      "original_sha256": "bc470c16c0fe3473cf71cce53f8318c9bc91998102c80409224af5e10432eea0",
+      "published_sha256": "832c77605ef1c2c0c4e03675a499e003ea4690b352c8911c390368bdfefbd1e8"
+    },
+    "ubuntu/join-ownership.txt": {
+      "original_sha256": "af33e4feedf245f4e5c5617493dda95f924d1fdca1001d1e45308e9dbfa5ff9b",
+      "published_sha256": "46d6248924512948bed546bec7061ebe5bfcde07baf683d73c23cfcf6cfa8719"
+    },
+    "ubuntu/join/heap-0.txt": {
+      "original_sha256": "cdbd0005c81190c27f177239b5801b4ffc710e73dcd02497dc9cc832e10b0d14",
+      "published_sha256": "cdbd0005c81190c27f177239b5801b4ffc710e73dcd02497dc9cc832e10b0d14"
+    },
+    "ubuntu/join/heap-1-race.txt": {
+      "original_sha256": "4bd14c6bf27807c5dd73f2788e2feab48de62f1d2b22a1c09e90a3bc75f858c3",
+      "published_sha256": "4bd14c6bf27807c5dd73f2788e2feab48de62f1d2b22a1c09e90a3bc75f858c3"
+    },
+    "ubuntu/join/heap-1.txt": {
+      "original_sha256": "f0b103f7787917e612ddbe0fecaa4fba04c5371cdc27f8dedcee7d4a79d6e808",
+      "published_sha256": "f0b103f7787917e612ddbe0fecaa4fba04c5371cdc27f8dedcee7d4a79d6e808"
+    },
+    "ubuntu/join/identities.json": {
+      "original_sha256": "2fbf21af5d78f1bbadd8db8d24ec8dac3b1da5bd17a59c05bd36e68f67d949a5",
+      "published_sha256": "2fbf21af5d78f1bbadd8db8d24ec8dac3b1da5bd17a59c05bd36e68f67d949a5"
+    },
+    "ubuntu/join/mmap-0.txt": {
+      "original_sha256": "716ab180e0ac4ae6c242bba530eb437c1240c9d19fd6a84e4079b6ac4130b514",
+      "published_sha256": "716ab180e0ac4ae6c242bba530eb437c1240c9d19fd6a84e4079b6ac4130b514"
+    },
+    "ubuntu/join/mmap-1-race.txt": {
+      "original_sha256": "71c7735c93f644e04d6ec57f097a2d7b2904dc6118bf68253eae93e618ec72d8",
+      "published_sha256": "71c7735c93f644e04d6ec57f097a2d7b2904dc6118bf68253eae93e618ec72d8"
+    },
+    "ubuntu/join/mmap-1.txt": {
+      "original_sha256": "2231611d8b573dfbf874724b1da3cd9e34d32a28109b11266bbd06a14b0e8537",
+      "published_sha256": "2231611d8b573dfbf874724b1da3cd9e34d32a28109b11266bbd06a14b0e8537"
+    },
+    "ubuntu/join/results.json": {
+      "original_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+      "published_sha256": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a"
+    },
+    "ubuntu/regeneration.txt": {
+      "original_sha256": "d6196da81582c6865ea34da3e5d88942df44403ef004dd34825ef68292a4d88d",
+      "published_sha256": "91dd1cdaa012ed546e87362fd3d510d40079276a1a9122351209f19bcfb48938"
+    },
+    "ubuntu/result.json": {
+      "original_sha256": "e679b92ab7375a77b47e1557835d8a979f5dfeca0792e844be2d146ac8b57714",
+      "published_sha256": "e679b92ab7375a77b47e1557835d8a979f5dfeca0792e844be2d146ac8b57714"
+    },
+    "ubuntu/sql-native-children-cleanup.txt": {
+      "original_sha256": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd",
+      "published_sha256": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd"
+    },
+    "ubuntu/sql.json": {
+      "original_sha256": "842e8a97cf833fb1460519d921cea86786dc7cbbb40fae924c786e31b181d2d0",
+      "published_sha256": "842e8a97cf833fb1460519d921cea86786dc7cbbb40fae924c786e31b181d2d0"
+    },
+    "ubuntu/tables-corruption-worker.txt": {
+      "original_sha256": "ef1d4ee19092eddaa590620af38a1c2cad1e44fc78272539d922c472e0119ce5",
+      "published_sha256": "ef1d4ee19092eddaa590620af38a1c2cad1e44fc78272539d922c472e0119ce5"
+    }
+  },
+  "prefixes": [
+    {
+      "original_parts": [
+        "",
+        "Users",
+        "runner"
+      ],
+      "published": "<RUNNER_HOME>"
+    },
+    {
+      "original_parts": [
+        "",
+        "home",
+        "runner"
+      ],
+      "published": "<RUNNER_HOME>"
+    }
+  ]
+}
