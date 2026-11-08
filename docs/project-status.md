@@ -85,7 +85,7 @@ Qualification, version selection and publication are not authorized here.
 
 <a id="adopted-ownership-optimization--unreleased"></a>
 
-## v0.7.0 — Prepared lexer maps accepted; main integration decision pending
+## v0.7.0 — Prepared lexer maps integrated on main, unreleased
 
 On2026-11-08 the Human accepted the recommendation to adopt the bounded
 prepared lexer-map candidate reviewed at source_commit
@@ -108,15 +108,24 @@ at b04b49db. This is bounded candidate acceptance, not release Qualification.
 
 Stage1 CI42448601842 remains pinned to fd615a53, and the original experimental
 CI42437059943 remains pinned to host6134274a / C origin b1a265cc. Neither is
-relabeled as the canonical source. Current acceptance bookkeeping changes only
-documentation, the build ledger and fixture status metadata; tested runtime,
-source/adapter/workflow and test-body bytes stay equal to b04b49db.
+relabeled as the canonical source. Acceptance follow-ups changed documentation,
+the build ledger, fixture status metadata and GitHub display attributes; tested
+runtime, guest, adapter, workflow and test-body bytes stay equal to b04b49db.
 
-[The main-integration review](reviews/prepared-lexer-main-integration-review.md)
-recommends protected PR136 integration, subject to Human approval and the current
-PR's required strict-base checks. Main integration, version selection,
-Qualification and publication are not yet authorized. P4 whole-batch/RSS/Ubuntu
-speedup and actual dynamic XML-loader runtime coverage are not claimed.
+On2026-11-08 the Human approved the
+[main-integration review](reviews/prepared-lexer-main-integration-review.md).
+[PR136](https://github.com/masahitojp/mariamem/pull/136) squash-merged to main
+source_commit `9003f0febea952a4117de9964991b9f032ad76bf` after required
+check/integration/Live required gate all passed in
+[Development42468613070](https://github.com/masahitojp/mariamem/actions/runs/42468613070)
+at PR head `65e70eea0670fa48a10235c519af66c0b48ca7f1`.
+The merged main and approved PR head have identical Git tree
+`956cc89c9152b16a4f1128536eeb21f2d64daad5`; strict freshness and admin protection
+were retained, with no bypass. The final tree retains compact receipts and
+GitHub generated-diff attributes. Main integration is complete; no new runtime
+measurement, Qualification, version selection or publication is authorized.
+P4 whole-batch/RSS/Ubuntu speedup and actual dynamic XML-loader runtime coverage
+remain outside the accepted claim.
 
 ## Product contract
 
