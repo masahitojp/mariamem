@@ -1,0 +1,12 @@
+{
+  "recorded_utc": "2026-11-08T14:57:13.619399+00:00",
+  "free_bytes": 14663680000,
+  "free_gib": 13.6566162109375,
+  "owned_source_test_scratch_removed": true,
+  "remaining_own_paths_over_1gib": [],
+  "cleanup_debt": [],
+  "heavy_started": false,
+  "capacity_decision_pending": true,
+  "temporary_owned_ceiling_gib": 24,
+  "unchanged_free_floor_gib": 12
+}

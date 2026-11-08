@@ -61,3 +61,19 @@ at the later snapshot, but settlement/unique-data ownership is for that owner
 to verify. It is not ours and will not be deleted. Its size alone cannot supply
 the estimated5.6–7.4GiB additional headroom. No heavy attempt will be launched
 knowingly below the projection; coordinator capacity decision is required.
+
+Source preservation4d395ba5 was pushed before removing the~29MiB owned venv,
+full-file fixture staging and fetched source. All unique inputs/digests/source
+changes remain in Git; no runtime bundle is retained. After cleanup14:57:13Z,
+free13.66GiB (a changing whole-volume observation), checkout~400.8MiB, build only
+tracked go.mod, ignored state empty, retained>1GiB none, owned cleanup debt0.
+This does not supply the projected18–20GiB available space, nor explain changes
+in whole-volume free space. No shared defaults/images/other checkouts changed.
+Source phase elapsed~29min; active upper bound29min including waits, tooling
+estimated10–15min (not stopwatch measurements), within this continuation90/20.
+No guest/host/runtime/SQL/CI/benchmark started. Both137/138 remain Open. Removed
+adapter obligation remains established source evidence; the added profile/helper
+cost is real, so total update burden is still INCONCLUSIVE, not an automatic win.
+Await a concrete capacity decision before any heavy work. Wall ceiling remains
+4h30 from the continuation start (~14:28Z); capacity waiting is not an automatic
+budget extension. Original f0 helperFAIL and old601/701 audit remain historical.
