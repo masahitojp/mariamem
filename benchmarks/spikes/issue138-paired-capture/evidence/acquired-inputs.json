@@ -1,0 +1,54 @@
+{
+  "sysroot-ehpic.tar.gz": {
+    "bytes": 6175261,
+    "sha256": "54e00486bd0ab658009120c3980b967f96c95ec2ec10d23ba49261b9931927d0"
+  },
+  "wasixcc-aarch64-unknown-linux-gnu.tar.gz": {
+    "bytes": 3180286,
+    "sha256": "b4cf06f3ce00a0b2bdc376de24324bac2c963f4672914bf9a1ba99000a4866a7"
+  },
+  "libicu70_70.1-2_arm64.deb": {
+    "bytes": 10503646,
+    "sha256": "ac68372cf4a976e6a206858fd9b28c68e49d37d650b9b8653270038a6e7bc174"
+  },
+  "wasm2go-upstream.tar.gz": {
+    "bytes": 1203214,
+    "sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f"
+  },
+  "sysroot-eh.tar.gz": {
+    "bytes": 6142222,
+    "sha256": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4"
+  },
+  "mariadb-13.0.2-source.tar.gz": {
+    "bytes": 49119382,
+    "sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e"
+  },
+  "wolfssl-source.tar.gz": {
+    "bytes": 26729937,
+    "sha256": "2754bcd8a0a3fed5ae19574506d0bf003eee7264ec8bed4ebb15409494246fd3"
+  },
+  "fmt-12.2.0.zip": {
+    "bytes": 1486029,
+    "sha256": "a2f4a8d51178f954e4c339007f77edd76ba0cb2e36f87a48e5a5403d9be5878f"
+  },
+  "LLVM-23.1.0-Linux-ARM64.tar.xz": {
+    "bytes": 1828948604,
+    "sha256": "cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4"
+  },
+  "mariadb-connector-c-source.tar.gz": {
+    "bytes": 1396802,
+    "sha256": "54562818bf2c5d56a6238738aea53fd276d5cff1fdaf9b05fa62d0a2dbab059b"
+  },
+  "lite4mariadb-source.tar.gz": {
+    "bytes": 49317689,
+    "sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd"
+  },
+  "binaryen-version_133-aarch64-linux.tar.gz": {
+    "bytes": 105577739,
+    "sha256": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8"
+  },
+  "pcre2-10.47.zip": {
+    "bytes": 3088100,
+    "sha256": "d74c183c86c77248ad50017c7f45bae8f88106a6cca5d87ad09917e1c6fb0784"
+  }
+}

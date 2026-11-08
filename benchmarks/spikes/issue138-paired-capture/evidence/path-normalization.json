@@ -79,5 +79,15 @@
     "raw_sha256": "caf1a3d20d8aadda714c18a217858d0fd7eea0b1ae36ff93e392d0623aff7724",
     "normalized_sha256": "ef8c4e691c9d658bd7804a1b1e7a3383a5492d1e01f01643ad0d4af79bd2a359",
     "operation": "trailing blank EOF removed; flags unchanged"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/helper-cleanup-applied.json": {
+    "raw_sha256": "542c84ed74985a3af630953dfda1b0c9920488dd301a3b9d6017f35cc9f1bef2",
+    "normalized_sha256": "dc955636085b04c7ff474d0c204c214a9c5e6040fa47a56a3a5e1af6cdc66fca",
+    "operation": "literal owned checkout/home path substitution"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/lifecycle-after.json": {
+    "raw_sha256": "f4f38ca3e855ed290207770f2aa562a3015b9da504c2c136e9915234e47a2d30",
+    "normalized_sha256": "893ebdeae6f59416ed5992fd6b94fff666ff12455f233872c1a471db22a671a4",
+    "operation": "literal owned checkout/home path substitution"
   }
 }

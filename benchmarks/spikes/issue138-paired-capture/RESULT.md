@@ -166,3 +166,27 @@ existing compatibility boundary was missed until final verification. No repair
 or expectation change followed the resource stop. The source integration gap
 requires5–15min focused work in addition to the proposed legacy continuation;
 no overall green/helper-suite PASS is claimed.
+
+## Preservation and cleanup
+
+Evidence/source preservation commit4f888097 was pushed before scratch disposal;
+legacy producer32c799 is separately pushed and native4b3954 remains reachable
+in pushed history. Main helper was finalized and dry-run/apply inspected. All
+owned SDK/source/download/cache/generated/binary/staging/venv/publication scratch
+was removed; readonly Go module-cache directories were made writable only after
+that owner exited. Main tracked build/go.mod remains. No shared Docker images,
+other workspaces or parent protected files were deleted or modified.
+
+At14:02:49Z, assigned checkout~400.7MiB, owned build only tracked go.mod,
+free13.58GiB, ignored inventory empty, retained paths>1GiB none and visible owned
+cleanup debt0. Both owned containers were absent before deletion. This is not a
+claim that whole-machine space pressure was diagnosed or that another legacy
+producer now fits. Orca/coordinator owns assigned-workspace lifecycle.
+
+Published output normalizes literal checkout/home paths and trailing diagnostic
+whitespace only; raw/normalized digest chains are in path-normalization.json.
+Original504/1cFAIL and historical reports are unchanged. No observations, expected
+values, original tests or source preimage/oracle were rewritten. Scoped public
+source-policy checks use unchanged patterns on changed/new files only; no full
+repository/release PASS is claimed. Final JSON/link/checksum/diff checks accompany
+the handoff. The helper compatibility failure remains an explicit non-PASS.

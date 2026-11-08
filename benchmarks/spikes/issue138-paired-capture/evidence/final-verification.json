@@ -1,0 +1,17 @@
+{
+  "recorded_utc": "2026-11-08T14:04:43.984466+00:00",
+  "scope": "changed/new files only",
+  "public_source_files": 108,
+  "public_source_policy": "PASS unchanged checker",
+  "all_evidence_json_parse": "PASS",
+  "report_relative_links": "PASS",
+  "normalization_hashes": "PASS",
+  "protected_originals_and_oracles": "UNCHANGED",
+  "unrelated_native_patch_sections": "UNCHANGED",
+  "existing_helper_tests": "FAIL first unprofiled fixture; recorded, not repaired",
+  "guest_builds": "native1 success; legacy1 SDK-interrupted attempt",
+  "host_builds": 1,
+  "runtime": "native finite only",
+  "cleanup_debt": [],
+  "retained_over_1gib": []
+}
