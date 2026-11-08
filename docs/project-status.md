@@ -521,11 +521,31 @@ conversion recovery's internal-layout dependence. Neither an irreducible patch
 size nor an alternative build has been proved. This source-only investigation
 preserves the open C3 acceptance and does not approve a replacement architecture.
 The [bootstrap reachability follow-up](design/issue65-native-protocol/bootstrap-reachability.md)
-finds no legacy prepared call on the ordinary native startup path, while old
-resident includes/exports remain. It proposes isolating bootstrap from the old
-entry as a bounded experiment; build/link/runtime elimination is not yet proved.
-Issue65 owns the detailed checklist, including local-dependency removal,
-clean-environment reproduction and experiment cleanup before main adoption.
+is historical source analysis. [#127's limited result](../benchmarks/spikes/issue127-bootstrap/README.md)
+subsequently excluded the old resident/prepared entry and exports from the native
+build while retaining embedded text bootstrap. Its original12.3.3 build was an
+incremental continuation, not fresh canonical reproduction. Shared prepared
+patches and native MariaDB internal dependencies remain.
+
+[#128's13.0.2 update trial](../benchmarks/spikes/issue128-real/README.md) completed
+both fresh producers, new exact binding reviews, legacy finite checks and native
+79 cases/701 observations, with three shared repairs and zero new native C++
+repairs. The additional archive-to-capture check failed busy; capture/restore and
+paired legacy archive verification remain open. Total update burden is
+INCONCLUSIVE, not demonstrated worse for native. The
+[#131 source maintenance map](design/issue65-native-protocol/issue131-maintenance-map.md)
+distinguishes legacy-only prepared adapters from the still-reachable embedded
+text metadata guard and native conversion snapshot. It proposes a bounded
+native preparation-profile split for a later Human decision, without implementing
+or adopting it.
+
+Public C3/settings/fault/debt/Linux acceptance remains pending. Public preflight
+fd7aea91 targets12.3.3/#127 origin8c8b5f1c, separately from13.0.2 producer e6502de0.
+#132 fixes the public candidate's version/producer/guest/binding/host tuple;
+#134 carries it into formal generation and records revalidation after changes.
+13.0.2 product adoption is not implied. Issue65 owns the detailed checklist,
+including local-dependency removal, clean reproduction and final cleanup before
+main adoption.
 
 ## Current work tracking
 
