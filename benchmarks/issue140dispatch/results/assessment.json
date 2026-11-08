@@ -16,7 +16,7 @@
   "scope": "Observation and configuration source map only; canonical runtime/API/guest/release unchanged.",
   "attempts": "One helper-guarded run, COMPLETE. Initial goto declaration correction committed before any build.",
   "retention": "All page/read/park records, all referenced request generations and every request with submit-to-callback >=50ms retained; unreferenced shorter requests reduced to per-instance census and original-record digest. Not all short-request timings retained.",
-  "public_source_check": "PASS: 6994 files",
+  "public_source_check": "PASS: 7003 files",
   "python_sources": "All new Python sources compile",
   "replay": "PASS: profile/page/request/notification binding, four mutations, ordering, census and checksums",
   "runtime_diff": "No committed internal/guest/release/root module changes"
