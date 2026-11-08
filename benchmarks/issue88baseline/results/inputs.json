@@ -1,0 +1,46 @@
+{
+  "source": {
+    "object_sha": "83fd60a9e7a8792404a491250d6486010540eab1",
+    "object_type": "commit",
+    "source_commit": "83fd60a9e7a8792404a491250d6486010540eab1"
+  },
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "plan": {
+    "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+    "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+    "buffer_pool_bytes": 16777216,
+    "buffer_pool_max_bytes": 16777216,
+    "transport": "Pipe",
+    "gomaxprocs": 8,
+    "gogc": 100,
+    "go": "go1.27.3",
+    "serial_processes": 5,
+    "children_per_process": 48,
+    "warmup_children_per_serial_process": 1,
+    "retention_processes": 5,
+    "retention_children": [
+      0,
+      1,
+      4
+    ],
+    "rss_settle": "GC + FreeOSMemory + 100ms at every checkpoint",
+    "fixture_rows": 1000,
+    "payload_bytes_per_row": 32,
+    "order": "serial then hold, repeated 5 times",
+    "timeout_seconds": 900,
+    "budget_gib": 10,
+    "min_free_gib": 8,
+    "scope": "Current 16MiB baseline only. No 8MiB candidate, large-fixture guard, parallel throughput or #68 attribution. All samples/tails retained; same manifest/harness required for later comparable arm."
+  },
+  "host": {
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "go": "go version go1.27.3 darwin/arm64",
+    "cpu": "Apple M1",
+    "memory": "17179869184"
+  },
+  "runtime_diff_from_main": "",
+  "binary_sha256": "30d5555abe5dcbd9b00c8fa95bb2d22b48b45bd110be44d0286443a038ac688a",
+  "build_seconds": 97.256635292,
+  "build_info": "<WORKSPACE>/temp/baseline: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue88baseline\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.3-0.20261108113148-83fd60a9e7a8\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=83fd60a9e7a8792404a491250d6486010540eab1\n\tbuild\tvcs.time=2026-11-08T11:31:48Z\n\tbuild\tvcs.modified=false\n"
+}

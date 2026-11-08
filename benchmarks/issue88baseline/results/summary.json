@@ -1,0 +1,116 @@
+{
+  "scope": "Single-Mac current-main 16MiB baseline, not an 8MiB comparison or product acceptance. No exclusions.",
+  "processes": 10,
+  "primary_serial_children": 240,
+  "warmup_serial_children": 5,
+  "series": {
+    "fork_ms": {
+      "pooled_p50": 18.673145499999997,
+      "pooled_p95": 22.408625,
+      "max": 26.949625,
+      "over_100ms": 0,
+      "per_process_p50": [
+        18.692375,
+        18.930604000000002,
+        19.137124999999997,
+        18.5591255,
+        18.046478999999998
+      ]
+    },
+    "fork_cpu_ms": {
+      "pooled_p50": 28.068500000000057,
+      "pooled_p95": 31.865999999999985,
+      "max": 38.684,
+      "over_100ms": 0,
+      "per_process_p50": [
+        28.543999999999926,
+        28.312500000000057,
+        28.94999999999999,
+        27.845500000000015,
+        27.245000000000033
+      ]
+    },
+    "first_sql_ms": {
+      "pooled_p50": 1.6857295,
+      "pooled_p95": 2.098125,
+      "max": 3.830875,
+      "over_100ms": 0,
+      "per_process_p50": [
+        1.7020625,
+        1.6693335,
+        1.730521,
+        1.680542,
+        1.6678545
+      ]
+    },
+    "disconnect_ms": {
+      "pooled_p50": 0.046791,
+      "pooled_p95": 0.061959,
+      "max": 0.263375,
+      "over_100ms": 0,
+      "per_process_p50": [
+        0.047917,
+        0.046459,
+        0.04575,
+        0.047896,
+        0.045562
+      ]
+    },
+    "close_ms": {
+      "pooled_p50": 1.8515835,
+      "pooled_p95": 2.045292,
+      "max": 3.563959,
+      "over_100ms": 0,
+      "per_process_p50": [
+        1.849375,
+        1.8340625,
+        1.857396,
+        1.8726875,
+        1.8601670000000001
+      ]
+    }
+  },
+  "rss": [
+    {
+      "repeat": 0,
+      "baseline_mib": 53.515625,
+      "one_child_increment_mib": 72.875,
+      "four_child_increment_mib": 297.0625,
+      "four_child_per_child_mib": 74.265625
+    },
+    {
+      "repeat": 1,
+      "baseline_mib": 53.5625,
+      "one_child_increment_mib": 72.859375,
+      "four_child_increment_mib": 296.015625,
+      "four_child_per_child_mib": 74.00390625
+    },
+    {
+      "repeat": 2,
+      "baseline_mib": 53.578125,
+      "one_child_increment_mib": 72.3125,
+      "four_child_increment_mib": 294.609375,
+      "four_child_per_child_mib": 73.65234375
+    },
+    {
+      "repeat": 3,
+      "baseline_mib": 53.296875,
+      "one_child_increment_mib": 72.59375,
+      "four_child_increment_mib": 295.046875,
+      "four_child_per_child_mib": 73.76171875
+    },
+    {
+      "repeat": 4,
+      "baseline_mib": 53.421875,
+      "one_child_increment_mib": 72.890625,
+      "four_child_increment_mib": 297.4375,
+      "four_child_per_child_mib": 74.359375
+    }
+  ],
+  "rss_medians": {
+    "baseline_mib": 53.515625,
+    "one_child_increment_mib": 72.859375,
+    "four_child_increment_mib": 296.015625,
+    "four_child_per_child_mib": 74.00390625
+  }
+}
