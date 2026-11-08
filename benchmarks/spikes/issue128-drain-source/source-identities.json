@@ -1,0 +1,70 @@
+{
+  "producer": "e6502de0781826488c984aa5637dfe593a74799d",
+  "evidence_head": "1c5a6d59c70f6b5e39e1e92d0f659cb3f83b59b1",
+  "guest_sha256": "b7672dcca277ec9a1294b82ec33ab68cab578ba6244c81dc31ffe37586e0486d",
+  "host_sha256": "2e6949fa322677f5a2b1ba02da90489214d78c25fa18d36c12d4c3cf4a9fb014",
+  "sources": [
+    {
+      "path": "benchmarks/spikes/issue65-p1-timeout/main.go.txt",
+      "source_commit": "e6502de0781826488c984aa5637dfe593a74799d",
+      "sha256": "aca4c6d52ef0e21b4a2d6138c883532e87e5cebacee1826164892d5b7f94a334",
+      "compiled_template_sha256": "aca4c6d52ef0e21b4a2d6138c883532e87e5cebacee1826164892d5b7f94a334"
+    },
+    {
+      "path": "benchmarks/spikes/issue65-compat-fixes/live.go.txt",
+      "source_commit": "e6502de0781826488c984aa5637dfe593a74799d",
+      "sha256": "a57a63a59d92c6ee12c51028b60b2b6ca04bb9b01cbbe5af2ceed4e832946d76",
+      "compiled_template_sha256": "a57a63a59d92c6ee12c51028b60b2b6ca04bb9b01cbbe5af2ceed4e832946d76"
+    },
+    {
+      "path": "internal/nativewire/owner.go",
+      "source_commit": "e6502de0781826488c984aa5637dfe593a74799d",
+      "sha256": "0dd07095b203472a4a2dfd31fa8d8e4c6a0890ad913447178142b142083522c3",
+      "compiled_template_sha256": "0dd07095b203472a4a2dfd31fa8d8e4c6a0890ad913447178142b142083522c3"
+    },
+    {
+      "path": "benchmarks/spikes/issue65-native-capture/capture_test.go.txt",
+      "source_commit": "e6502de0781826488c984aa5637dfe593a74799d",
+      "sha256": "e35a01dad1e18ceddfd7569dbba22f6a554a23057751f7ce2f2387bc93192bbd",
+      "compiled_template_sha256": "655525c2bbae543f5e466c1880f4d4a0e5406e5c0b921feec646dc5fddbfd5bc"
+    },
+    {
+      "path": "guest/experimental.patch",
+      "source_commit": "e6502de0781826488c984aa5637dfe593a74799d",
+      "sha256": "867e3a8b2aaab3be3d4bd20e64236d63d1915ede04be94a3437f7e5874f1295d",
+      "compiled_template_sha256": null
+    },
+    {
+      "path": "mariamem.go",
+      "source_commit": "e6502de0781826488c984aa5637dfe593a74799d",
+      "sha256": "18ecdc71ec2b52246defd4b49871902ebad0e702650add1cacbcf733186015de",
+      "compiled_template_sha256": null
+    },
+    {
+      "path": "internal/live/endpoint.go",
+      "source_commit": "e6502de0781826488c984aa5637dfe593a74799d",
+      "sha256": "f90c6591624b9a124534ed7db5c564c8e6e04e8c341ce035651de64004a12a3b",
+      "compiled_template_sha256": "f90c6591624b9a124534ed7db5c564c8e6e04e8c341ce035651de64004a12a3b"
+    },
+    {
+      "path": "benchmarks/spikes/issue65-p1-timeout/owner_native_test.go.txt",
+      "source_commit": "e6502de0781826488c984aa5637dfe593a74799d",
+      "sha256": "d6c751aaa15ddeb555481d9f2cae07049b7e67cde167bbc7adc1729ea7b57dd3",
+      "compiled_template_sha256": "d6c751aaa15ddeb555481d9f2cae07049b7e67cde167bbc7adc1729ea7b57dd3"
+    }
+  ],
+  "controller_sha256": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f",
+  "original_failure_sha256": "3929df97a981cf0e649a3e75cbe4b555d86dde6a70476e19e18a6541b0465078",
+  "driver_source": {
+    "source_commit": "62984ada4402df6571557bc3fed2bcbde48ec908",
+    "tag_name": "v1.9.3",
+    "path": "connection.go",
+    "full_file_sha256": "3e71ec42bd799f219db5edebcb129ddbba0748592a10b8387ae33a8d0b99b64c",
+    "read_command": "gh api 'repos/go-sql-driver/mysql/contents/connection.go?ref=v1.9.3' --jq .content | base64 decode",
+    "retained_lines": [
+      158,
+      194
+    ]
+  },
+  "controller_matches_actual_prepared_proof": true
+}

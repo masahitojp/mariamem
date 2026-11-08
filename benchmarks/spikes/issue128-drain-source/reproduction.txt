@@ -1,0 +1,38 @@
+Source-only reproduction (no build/runtime commands):
+
+1. Read the pinned originals:
+   git show e6502de0781826488c984aa5637dfe593a74799d:guest/experimental.patch
+   git show e6502de0781826488c984aa5637dfe593a74799d:benchmarks/spikes/issue65-p1-timeout/main.go.txt
+   git show e6502de0781826488c984aa5637dfe593a74799d:benchmarks/spikes/issue65-compat-fixes/live.go.txt
+   git show e6502de0781826488c984aa5637dfe593a74799d:internal/nativewire/owner.go
+   Compare SHA256 against source-identities.json and actual host-build template pins.
+
+2. Controller reconstruction using Python3.14 and the system patch utility:
+   raw = subprocess.check_output(['git','show',
+       'e6502de0781826488c984aa5637dfe593a74799d:guest/experimental.patch'])
+   sections = re.split(rb'(?=^--- )', raw, flags=re.M)
+   selected = b''.join(s for s in sections if re.search(
+       rb'^\+\+\+ b/wasm/issue65_control.cc$', s, re.M))
+   With tempfile.TemporaryDirectory(dir='/private/tmp') as scratch:
+       subprocess.run(['patch','-p1','--fuzz=0','--batch'], input=selected,
+           cwd=scratch, check=True)
+       sha256(Path(scratch,'wasm/issue65_control.cc').read_bytes())
+   Require e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f,
+   also present in issue128-real/evidence/native/prepared-proof.json.
+   The saved controller.cc.txt is exactly these bytes. No upstream archive needed.
+
+3. External dependency primary-source read (one small file, no cache/archive):
+   gh api 'repos/go-sql-driver/mysql/contents/connection.go?ref=v1.9.3' --jq .content
+   Decode base64, require full-file SHA256 from source-identities.json.
+   gh api repos/go-sql-driver/mysql/commits/v1.9.3 --jq .sha
+   Require source_commit 62984ada4402df6571557bc3fed2bcbde48ec908.
+   Retained excerpt is original lines158–194; source identity is not a tag-object pin.
+
+4. Original failure/report/probe preservation:
+   Compare current bytes of issue128-real/README.md, target_checkpoint_test.go.txt,
+   evidence/native/runtime/target-checkpoint.txt with git show
+   1c5a6d59c70f6b5e39e1e92d0f659cb3f83b59b1:<path>.
+   Require original_failure_sha256 from source-identities.json.
+
+5. Review report, links, JSON, git diff --check and status --short --ignored.
+   No unchanged runtime tests are necessary for this evidence-only commit.

@@ -1,0 +1,38 @@
+PROPOSAL ONLY — never applied or executed in this source-only slice.
+Original target_checkpoint_test.go.txt and captureNow/oracles stay immutable.
+This diff targets the reviewed additional-test input for the next combined build.
+
+--- a/target_checkpoint_test.go
++++ b/target_checkpoint_test.go
+@@
+ import (
++ "context"
+@@
+  if err:=db.Close();err!=nil {t.Fatal(err)}
++ // No more clients are admitted by this fixture after pool closure.
++ // Reuse the existing adapter: empty guest slots + native joins + host leases.
++ drainCtx, cancelDrain := context.WithTimeout(context.Background(), 5*time.Second)
++ err := (&nativeLiveChild{r:r}).WaitDisconnected(drainCtx)
++ cancelDrain()
++ // Always record one bounded observation, including when drain times out.
++ obsCtx, cancelObs := context.WithTimeout(context.Background(), 500*time.Millisecond)
++ f, obsErr := r.rpcContext(obsCtx, frame{kind:stats})
++ cancelObs()
++ r.mu.Lock()
++ host, leases, cause := len(r.sessions), r.owner.CountLocked(), r.errorCause
++ r.mu.Unlock()
++ t.Logf("ISSUE128_DRAIN err=%v stats=%s stats_err=%v host=%d leases=%d cause=%v", err, f.body, obsErr, host, leases, cause)
++ if err!=nil || obsErr!=nil || host!=0 || leases!=0 || cause!=nil {t.Fatal("drain incomplete")}
++ select {case <-r.done: t.Fatal("root exited before capture"); default:}
+  baseline:=makeBaseline(captureNow(t,r,false))
+
+Review before application: the adapter itself parses and requires native
+sessions=[] and started==joined. Its done shortcut can return nil; the explicit
+root-alive/cause checks prevent treating shutdown as successful drain. The
+fixture must own all clients and forbid new opens between drain and capture.
+On failure, retain err, raw STATS, host/lease counts and recent event identities
+BEFORE timeoutRoot's ordinary-close cleanup. Do not invoke another capture.
+For capture-error diagnostics add a new observer-only variant of this additional
+fixture's capture call which logs the same bounded observation before its existing
+Fatal; keep consumed/root/error and captureNow's full ordering/count oracles.
+Do not edit the historical helper or drop its checks. No sleep or busy retry.
