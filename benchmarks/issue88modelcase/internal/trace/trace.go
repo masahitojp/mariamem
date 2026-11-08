@@ -69,3 +69,6 @@ func (r *Recorder) Write(path string) error {
 }
 
 func ms(d time.Duration) float64 { return float64(d.Microseconds()) / 1000 }
+
+// OffsetUS associates caller-only sample observations with this suite clock.
+func (r *Recorder) OffsetUS() int64 { return time.Since(r.t0).Microseconds() }

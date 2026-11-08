@@ -1,0 +1,55 @@
+{
+  "question": "Which caller SQL operation accounts for sample-loading time and long waits, and does this clarify16/8MiB tradeoff?",
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "parent_modelcase_source_commit": "f66b7dbb58e2e402ffc11a35749e607a0eb235ea",
+  "origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "arms": [
+    16,
+    8
+  ],
+  "pairs": 5,
+  "primary_processes": 10,
+  "warmup_processes": 2,
+  "observer_off_sanity_processes": 2,
+  "order": "16/8 on even pairs;8/16 on odd; each process fresh; all warmups/controls separate",
+  "workload": "unchanged shop70:50 shared reads,20 private writers,40 sample orders/loader; one extra shared-reader Fork on both settings",
+  "transport": "Pipe",
+  "parallel": 8,
+  "max_forks": 9,
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "primary_observations": [
+    "order_insert",
+    "item_insert",
+    "stock_update",
+    "commit"
+  ],
+  "coverage_observations": [
+    "begin",
+    "prepare",
+    "statement_close",
+    "rollback_cleanup"
+  ],
+  "duration_precision": "integer microseconds per caller SQL operation",
+  "per_loader_expected_counts": {
+    "begin": 1,
+    "prepare": 3,
+    "order_insert": 40,
+    "item_insert": 100,
+    "stock_update": 100,
+    "commit": 1,
+    "statement_close": 3,
+    "rollback_cleanup": 1
+  },
+  "retention": "All durations by phase; contextual global begin/order/product IDs and errors for calls>=50ms. No file writes or global lock per SQL call. One record emission per loader. Persist after suite timing.",
+  "analysis": "Per-call p50/p95/max, per-loader phase totals, >=100/500ms events and timeline alignment. Parallel elapsed is not CPU. No lock-holder or UNDO/shim attribution from caller timings alone.",
+  "timeout_seconds": 900,
+  "per_process_timeout_seconds": 120,
+  "min_free_gib": 8,
+  "budget_gib": 10,
+  "tooling_budget_minutes": 30,
+  "active_budget_hours": 2,
+  "heavy_ci_limit": 0,
+  "exit": "Exactly five instrumented pairs plus fixed warmup/sanity controls, or named missing input. Retain all tails; no automatic extra sampling or product default change."
+}

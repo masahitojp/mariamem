@@ -145,44 +145,59 @@ func priceOf(productID int64) int64 { return 500 + (productID*37)%20000 }
 // LoadSample inserts SampleOrders one row at a time inside one transaction,
 // the way a fixture loader does, and reserves their stock.
 func LoadSample(ctx context.Context, db *sql.DB) error {
-	tx, err := db.BeginTx(ctx, nil)
-	if err != nil {
+	r := newSampleRecord(ctx)
+	defer r.finish()
+	var tx *sql.Tx
+	if err := r.measure("begin", 0, 0, func() error { var e error; tx, e = db.BeginTx(ctx, nil); return e }); err != nil {
 		return err
 	}
-	defer tx.Rollback()
-	insOrder, err := tx.PrepareContext(ctx, `INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id`)
-	if err != nil {
+	defer func() { _ = r.measure("rollback_cleanup", 0, 0, tx.Rollback) }()
+	var insOrder, insItem, reserve *sql.Stmt
+	if err := r.measure("prepare", 0, 0, func() error {
+		var e error
+		insOrder, e = tx.PrepareContext(ctx, `INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id`)
+		return e
+	}); err != nil {
 		return err
 	}
-	defer insOrder.Close()
-	insItem, err := tx.PrepareContext(ctx, `INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)`)
-	if err != nil {
+	defer func() { _ = r.measure("statement_close", 0, 0, insOrder.Close) }()
+	if err := r.measure("prepare", 0, 0, func() error {
+		var e error
+		insItem, e = tx.PrepareContext(ctx, `INSERT INTO order_items(order_id, product_id, quantity, unit_price_cents) VALUES (?, ?, ?, ?)`)
+		return e
+	}); err != nil {
 		return err
 	}
-	defer insItem.Close()
-	reserve, err := tx.PrepareContext(ctx, `UPDATE products SET stock = stock - ? WHERE id = ?`)
-	if err != nil {
+	defer func() { _ = r.measure("statement_close", 0, 0, insItem.Close) }()
+	if err := r.measure("prepare", 0, 0, func() error {
+		var e error
+		reserve, e = tx.PrepareContext(ctx, `UPDATE products SET stock = stock - ? WHERE id = ?`)
+		return e
+	}); err != nil {
 		return err
 	}
-	defer reserve.Close()
+	defer func() { _ = r.measure("statement_close", 0, 0, reserve.Close) }()
 	for _, o := range SampleOrders() {
 		var id int64
-		if err := insOrder.QueryRowContext(ctx, o.UserID, o.Status).Scan(&id); err != nil {
+		if err := r.measure("order_insert", o.ID, 0, func() error { return insOrder.QueryRowContext(ctx, o.UserID, o.Status).Scan(&id) }); err != nil {
 			return err
 		}
 		if id != o.ID {
 			return fmt.Errorf("store: sample order %d got id %d; the copy is not fresh", o.ID, id)
 		}
 		for _, it := range o.Items {
-			if _, err := insItem.ExecContext(ctx, id, it.ProductID, it.Quantity, it.UnitPriceCents); err != nil {
+			if err := r.measure("item_insert", o.ID, it.ProductID, func() error {
+				_, e := insItem.ExecContext(ctx, id, it.ProductID, it.Quantity, it.UnitPriceCents)
+				return e
+			}); err != nil {
 				return err
 			}
-			if _, err := reserve.ExecContext(ctx, it.Quantity, it.ProductID); err != nil {
+			if err := r.measure("stock_update", o.ID, it.ProductID, func() error { _, e := reserve.ExecContext(ctx, it.Quantity, it.ProductID); return e }); err != nil {
 				return err
 			}
 		}
 	}
-	return tx.Commit()
+	return r.measure("commit", 0, 0, tx.Commit)
 }
 
 // ResetSample returns a shared database to the master state: the sample

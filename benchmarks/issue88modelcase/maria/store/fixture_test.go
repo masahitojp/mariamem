@@ -3,6 +3,7 @@ package store_test
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"github.com/masahitojp/mariamem/benchmarks/issue88modelcase/internal/trace"
 	"github.com/masahitojp/mariamem/benchmarks/issue88modelcase/maria/store"
@@ -34,6 +35,20 @@ type fixture struct {
 }
 
 var fx *fixture
+var sampleRecords []*store.SampleRecord
+var sampleMu sync.Mutex
+
+func sampleContext(lane string) context.Context {
+	ctx := context.Background()
+	if os.Getenv("ISSUE88_SAMPLE_PHASES") != "1" {
+		return ctx
+	}
+	return store.WithSampleObserver(ctx, lane, fx.rec.OffsetUS, func(r *store.SampleRecord) {
+		sampleMu.Lock()
+		defer sampleMu.Unlock()
+		sampleRecords = append(sampleRecords, r)
+	})
+}
 
 func must(e error) {
 	if e != nil {
@@ -101,6 +116,11 @@ func TestMain(m *testing.M) {
 		code = 2
 	}
 	must(fx.rec.Write(os.Getenv("MODELCASE_TRACE")))
+	if path := os.Getenv("SAMPLE_PHASES_OUT"); path != "" {
+		data, e := json.Marshal(sampleRecords)
+		must(e)
+		must(os.WriteFile(path, append(data, '\n'), 0600))
+	}
 	os.Exit(code)
 }
 func (f *fixture) Group(t *testing.T, writes bool) { t.Helper(); t.Parallel() }
@@ -117,7 +137,7 @@ func (f *fixture) Read(t *testing.T) *sql.DB {
 		f.sharedDB = f.sharedOwner.open()
 		f.sharedDB.SetMaxOpenConns(8)
 		done = f.rec.Start("sample", "sample", "shared")
-		f.sharedErr = store.LoadSample(context.Background(), f.sharedDB)
+		f.sharedErr = store.LoadSample(sampleContext("shared"), f.sharedDB)
 		done()
 	})
 	if f.sharedErr != nil {
@@ -145,7 +165,7 @@ func (f *fixture) Write(t *testing.T) *sql.DB {
 	p.SetMaxOpenConns(1)
 	t.Cleanup(func() { done := f.rec.Start("close", "cleanup", t.Name()); retire(owner, p); done() })
 	done = f.rec.Start("sample", "sample", t.Name())
-	if e = store.LoadSample(context.Background(), p); e != nil {
+	if e = store.LoadSample(sampleContext(t.Name()), p); e != nil {
 		t.Fatal(e)
 	}
 	done()
