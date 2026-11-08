@@ -85,6 +85,25 @@ Qualification, version selection and publication are not authorized here.
 
 <a id="adopted-ownership-optimization--unreleased"></a>
 
+## v0.7.0 — Prepared lexer maps adopted; canonical integration pending
+
+On2026-11-08 the Human accepted the recommendation to adopt the bounded
+prepared lexer-map candidate reviewed at source_commit
+`8d5f8284cedde31751d4e53e52ddfd61f69432ab`, against main
+`3d8b2201c1f36fa5b7264e0450104055f3822272`.
+The [decision and fixed completion gates](decisions/prepared-lexer-maps.md)
+accept serial Fork/CPU improvements with the stated P4/RSS limits. This approves
+creating the minimal product candidate; main integration and release are separate.
+
+Stage1 moves only source generation into the canonical preparation path and
+submits two independent clean C builds plus a native normal/prepared SQL reference.
+Existing product generated Go, exact adapters and release pins remain on the
+adopted baseline until those source-bound inputs pass. Stage2 installs the new
+canonical runtime, carries the actual-table/negative/worker/cleanup controls,
+adds both-host binary prepared SQL/native comparison, updates provenance and
+retained-function attribution, and obtains exact candidate acceptance.
+Neither stage is complete merely because the prior experimental CI passed.
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally
