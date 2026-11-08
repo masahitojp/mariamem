@@ -1,0 +1,17 @@
+{
+  "recorded_utc": "2026-11-08T14:49:57.270917+00:00",
+  "free_bytes": 13548212224,
+  "free_gib": 12.617755889892578,
+  "temporary_owned_ceiling_gib": 24,
+  "free_floor_gib": 12,
+  "heavy_started": false,
+  "prior_native_guest_peak_gib": 7.457,
+  "prior_native_initial_owned_gib": 1.24,
+  "estimated_incremental_guest_gib": 6.217,
+  "projected_min_start_free_gib": 18.217,
+  "recommended_headroom_free_gib": 20,
+  "future_peak_not_guaranteed": true,
+  "own_large_scratch_paths": [],
+  "other_active_observed": "parent prepare-poll Go compile at initial audit; not ours, not interrupted",
+  "other_workspace_cleanup_authorized": false
+}

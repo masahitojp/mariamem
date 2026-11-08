@@ -89,14 +89,12 @@ def test_command_failure_not_hidden(tree, monkeypatch):
 
 def test_repository_binding_and_time_repair_preserved():
     pin = patch.inputs(ROOT)
-    old = json.loads((ROOT / 'tests/fixtures/prepared-time-source-history.json').read_text())
+    old = json.loads((ROOT / pin.get('time_source_fixture', 'tests/fixtures/prepared-time-source-history.json')).read_text())
     assert pin['files'][0]['file']==old['file']
     assert pin['files'][0]['before_sha256']==old['before_sha256']
     assert pin['time_only_intermediate_sha256']==old['after_sha256']
     text=(ROOT/patch.inputs(ROOT)['patch_file']).read_text()
-    start=text.index('\n@@')
-    end=text.index('\n@@',start+3)
-    assert sha(text[:end+1].encode())==old['patch_sha256']
+    assert sha(patch.time_repair_prefix(text).encode())==old['patch_sha256']
 
 
 def test_repository_binding_is_after_portability():
@@ -128,3 +126,9 @@ def test_canonical_series_entry_mismatch_rejected(tree):
     patch.apply(source,root)
     v['patches'][-1]['sha256']='wrong';d.write_text(json.dumps(v))
     with pytest.raises(ValueError,match='canonical prepared source series differs'):patch.inputs(root)
+
+
+def test_historical_time_component_expectation_is_unchanged():
+    old = json.loads((ROOT/'tests/fixtures/prepared-time-source-history.json').read_text())
+    text = (ROOT/'guest/patches/12.3.3-prepared.patch').read_text()
+    assert sha(patch.time_repair_prefix(text).encode()) == old['patch_sha256']

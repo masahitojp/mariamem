@@ -1,0 +1,157 @@
+package main
+
+import (
+	"bytes"
+	"context"
+	"database/sql"
+	"fmt"
+	"io"
+	"os"
+	"strings"
+	"sync"
+	"testing"
+	"time"
+)
+
+// Test-only stderr observation; no control-protocol or SQL decoder changes.
+type issue137SpareMarker struct {
+	tail string
+	seen chan struct{}
+	once sync.Once
+}
+
+func (s *issue137SpareMarker) Write(p []byte) (int, error) {
+	s.tail += string(p)
+	if strings.Contains(s.tail, "ISSUE138_BRANCH spare_archive") {
+		s.once.Do(func() { close(s.seen) })
+	}
+	if len(s.tail) > 1024 {
+		s.tail = s.tail[len(s.tail)-1024:]
+	}
+	return len(p), nil
+}
+func TestIssue137SpareArchive(t *testing.T) {
+	original := os.Stderr
+	read, write, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	marker := &issue137SpareMarker{seen: make(chan struct{})}
+	joined := make(chan struct{})
+	os.Stderr = write
+	go func() { defer close(joined); _, _ = io.Copy(io.MultiWriter(original, marker), read) }()
+	t.Cleanup(func() { os.Stderr = original; _ = write.Close(); <-joined; _ = read.Close() })
+	r := timeoutRoot(t, 30*time.Second)
+	db := dbFor(t, r, nil)
+	exec := func(q string) {
+		t.Helper()
+		if _, err := db.Exec(q); err != nil {
+			t.Fatal(q, err)
+		}
+	}
+	var max, lwm float64
+	var flush uint64
+	if err := db.QueryRow("SELECT @@GLOBAL.innodb_max_dirty_pages_pct,@@GLOBAL.innodb_max_dirty_pages_pct_lwm,@@GLOBAL.innodb_flush_sync").Scan(&max, &lwm, &flush); err != nil {
+		t.Fatal(err)
+	}
+	exec("SET GLOBAL innodb_log_file_size=4194304")
+	exec("SET GLOBAL innodb_log_archive=ON")
+	exec("SET GLOBAL innodb_max_dirty_pages_pct_lwm=0")
+	exec("SET GLOBAL innodb_max_dirty_pages_pct=0")
+	exec("SET GLOBAL innodb_flush_sync=ON")
+	exec("CREATE TABLE issue138_spare(id INT PRIMARY KEY,v LONGBLOB) ENGINE=InnoDB")
+	status := func(name string) uint64 {
+		t.Helper()
+		var k string
+		var n uint64
+		if err := db.QueryRow("SHOW GLOBAL STATUS LIKE '"+name+"'").Scan(&k, &n); err != nil {
+			t.Fatal(err)
+		}
+		return n
+	}
+	start := status("Innodb_lsn_current")
+	for i := 0; i < 256; i++ {
+		if _, err := db.Exec("INSERT INTO issue138_spare VALUES(?,REPEAT('x',65536))", i); err != nil {
+			t.Fatal(i, err)
+		}
+	}
+	end := status("Innodb_lsn_current")
+	if end <= start+2*4194304 {
+		t.Fatal("redo turnover", start, end)
+	}
+	if err := db.Close(); err != nil {
+		t.Fatal(err)
+	}
+	drain := func(stage string) {
+		t.Helper()
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		err := issue138Drain(ctx, r)
+		cancel()
+		obs := issue138Observe(t, r, stage, err == nil)
+		if err != nil || obs != nil {
+			t.Fatal(err, obs)
+		}
+	}
+	drain("archive-on-drained")
+	select {
+	case <-marker.seen:
+	case <-r.done:
+		t.Fatal("root died before positive branch")
+	case <-time.After(5 * time.Second):
+		t.Fatal("positive spare-archive hook absent; checkpoint alone insufficient")
+	}
+	db = dbFor(t, r, nil)
+	exec("SET GLOBAL innodb_log_archive=OFF")
+	exec(fmt.Sprintf("SET GLOBAL innodb_max_dirty_pages_pct=%g", max))
+	exec(fmt.Sprintf("SET GLOBAL innodb_max_dirty_pages_pct_lwm=%g", lwm))
+	exec(fmt.Sprintf("SET GLOBAL innodb_flush_sync=%d", flush))
+	checkpoint := status("Innodb_lsn_last_checkpoint")
+	if checkpoint <= start {
+		t.Fatal("checkpoint", start, checkpoint)
+	}
+	if err := db.Close(); err != nil {
+		t.Fatal(err)
+	}
+	drain("branch-pre-capture-drained")
+	b := makeBaseline(captureNow(t, r, false))
+	t.Cleanup(func() {
+		if err := b.backing.Close(); err != nil {
+			t.Error(err)
+		}
+	})
+	a, sibling := child(t, b), child(t, b)
+	ad, bd := dbFor(t, a, nil), dbFor(t, sibling, nil)
+	defer ad.Close()
+	defer bd.Close()
+	exact := func(c *sql.DB) {
+		t.Helper()
+		rows, err := c.Query("SELECT id,v FROM issue138_spare ORDER BY id")
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer rows.Close()
+		n := 0
+		expected := bytes.Repeat([]byte("x"), 65536)
+		for rows.Next() {
+			var id int
+			var v []byte
+			if err := rows.Scan(&id, &v); err != nil {
+				t.Fatal(err)
+			}
+			if id != n || !bytes.Equal(v, expected) {
+				t.Fatal("exact data", id, n, len(v))
+			}
+			n++
+		}
+		if rows.Err() != nil || n != 256 {
+			t.Fatal("row completion", n, rows.Err())
+		}
+	}
+	exact(ad)
+	exact(bd)
+	if _, err := ad.Exec("INSERT INTO issue138_spare VALUES(999,'private')"); err != nil {
+		t.Fatal(err)
+	}
+	exact(bd)
+	t.Logf("SPARE_ARCHIVE_PASS start=%d end=%d checkpoint=%d rows=256 bytes=16777216", start, end, checkpoint)
+}

@@ -31,35 +31,58 @@ def inputs(root=ROOT):
     profile = source.get('prepared_profile')
     profiles = {'legacy-full': 'guest/patches/13.0.2-prepared.patch',
                 'native-text': 'guest/patches/13.0.2-native-prepared.patch'}
-    if profile not in profiles or pin.get('profile') != profile or patch_file != profiles[profile]:
-        raise ValueError('missing or mismatched explicit prepared profile')
-    if (profile == 'native-text') != ('native_overlay' in source):
-        raise ValueError('prepared profile differs from guest route')
-    if patch_file not in profiles.values():
+    explicit = (source.get('source_commit') == '620a4b5624222048fece7fe1789978ae0675cae2' or
+                'prepared_profile' in source or 'profile' in pin or
+                patch_file in profiles.values())
+    if explicit:
+        if profile not in profiles or pin.get('profile') != profile or patch_file != profiles[profile]:
+            raise ValueError('missing or mismatched explicit prepared profile')
+        if (profile == 'native-text') != ('native_overlay' in source):
+            raise ValueError('prepared profile differs from guest route')
+    elif patch_file not in ('guest/experimental.patch', 'guest/patches/12.3.3-prepared.patch'):
         raise ValueError('unregistered prepared source patch')
     patch = root / patch_file
+    changed = [i for i in pin['files'] if i['before_sha256'] != i['after_sha256']]
     if patch_file != 'guest/experimental.patch':
         entries = [e for e in source.get('patches', []) if e['file'] == patch_file]
         if (len(entries) != 1 or entries[0]['sha256'] != pin['patch_sha256'] or
-                entries[0]['before_sha256'] != {i['file']: i['before_sha256'] for i in pin['files']} or
-                entries[0]['after_sha256'] != {i['file']: i['after_sha256'] for i in pin['files']}):
+                entries[0]['before_sha256'] != {i['file']: i['before_sha256'] for i in changed} or
+                entries[0]['after_sha256'] != {i['file']: i['after_sha256'] for i in changed}):
             raise ValueError('canonical prepared source series differs')
     names = [item['file'] for item in pin['files']]
     expected_names = ['sql/sql_prepare.cc', 'libmysqld/libmysql.c', 'libmysqld/lib_sql.cc']
-    if profile == 'native-text':
-        expected_names.remove('libmysqld/libmysql.c')
     portability = next((item for item in source.get('patches', [])
                         if item['file'] == 'guest/patches/common-portability.patch'), {})
     if (pin['source_commit'] != source['source_commit'] or
             names != expected_names or
-            (pin.get('unchanged_files', {}).get('libmysqld/libmysql.c') if profile == 'native-text'
-             else pin['files'][1]['before_sha256']) != portability.get('after_sha256', {}).get('libmysqld/libmysql.c') or
+            pin['files'][1]['before_sha256'] != portability.get('after_sha256', {}).get('libmysqld/libmysql.c') or
             patch.is_symlink() or digest(patch) != pin['patch_sha256'] or
             digest(root / 'tests/fixtures/prepared-p2-source-functions.json') != pin['component_fixture_sha256'] or
             digest(root / 'tests/fixtures/prepared-param-order-functions.json') != pin['parameter_fixture_sha256'] or
-            re.findall(r'^\+\+\+ b/(.+)$', patch.read_text(), re.M) != names):
+            re.findall(r'^\+\+\+ b/(.+)$', patch.read_text(), re.M) != [i['file'] for i in changed]):
         raise ValueError('prepared source patch inputs changed')
+    if profile == 'native-text':
+        item = pin['files'][1]
+        if (item['before_sha256'] != item['after_sha256'] or
+                pin.get('unchanged_files') != {item['file']: item['before_sha256']}):
+            raise ValueError('native unchanged C API image differs')
+    if explicit:
+        proof = json.loads((root / pin['time_source_fixture']).read_text())
+        prefix = time_repair_prefix(patch.read_text())
+        import hashlib
+        if (proof['source_commit'] != source['source_commit'] or
+                proof['before_sha256'] != pin['files'][0]['before_sha256'] or
+                proof['after_sha256'] != pin['time_only_intermediate_sha256'] or
+                hashlib.sha256(prefix.encode()).hexdigest() != proof['patch_sha256']):
+            raise ValueError('target TIME component proof changed')
     return pin
+
+
+def time_repair_prefix(text):
+    """First exact hunk ends at the next hunk OR next file, not its header."""
+    start = text.index('\n@@')
+    boundaries = [p for marker in ('\n@@', '\n--- ') if (p := text.find(marker, start + 3)) != -1]
+    return text[:min(boundaries) + 1] if boundaries else text
 
 
 def check_profile_source(source, root=ROOT):

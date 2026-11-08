@@ -1,0 +1,11 @@
+Disk preflight OK: 12.62 GiB free, 0.42 GiB owned
+patching file 'sql/sql_prepare.cc'
+patching file 'libmysqld/lib_sql.cc'
+patching file 'sql/sql_prepare.cc'
+patching file 'libmysqld/libmysql.c'
+patching file 'libmysqld/lib_sql.cc'
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.046s
+
+OK

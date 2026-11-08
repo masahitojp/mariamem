@@ -1,0 +1,1 @@
+Primary source lookup log/log0log.cc succeeded; log/log0write.cc returned HTTP404 (not a pinned dependency acquisition), then include/log0log.h read directly. No engine/dependency change or runtime was attempted.

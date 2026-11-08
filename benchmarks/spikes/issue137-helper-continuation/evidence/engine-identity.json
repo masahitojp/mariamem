@@ -1,0 +1,21 @@
+{
+  "base": "f0e25f1b09086c0857a80a8a82a9ee3931f4daf3",
+  "exact_unchanged_engine_inputs": {
+    "guest/input.json": "f18bcfab85424fd071d06de57c67ce3ad9ca3a5fe0884de9c6f11b33a9d27a5b",
+    "guest/source.patch": "430273666a1f2c38ba5e0441ada7e3d1036ad94e5ccfc486f956e2b214b674b7",
+    "guest/experimental.patch": "33b81d6570ad0ac7dbb41c8e8255dd9124e5b1c142565f1c4dab1c74fc64741a",
+    "guest/patches/13.0.2-native-prepared.patch": "67fbe7a17c7a8c0809878a45ab6e6cc6405a543beaad30d5bab467f7dfb334ca",
+    "guest/patches/13.0.2-prepared.patch": "757357d0dc05c557ee1ee871438561277e22d7e445980534b588e979afa15db7",
+    "guest/patches/13.0.2-pagecleaner-observe.patch": "593e1048d73542e057937134926260b74c9ca27a80e738d6017977dfc4f9b8e0",
+    "release/inputs.lock.json": "3e2e710302ce381cdd114cbda309e8b4d6af8e59501bb58b60393f3a6bc59ae0",
+    "release/generated-go-toolchain.json": "8be84eea6e38432eabbc1ba3095551d90b8b213f765a5423207d2dca40c21b8a",
+    "scripts/prepare_guest.py": "13f4b5f5a8d2f0daa414ab13c4aa91324b897c285e8065a7353ec917d8e51b8b"
+  },
+  "effective_profile_full_pre_postimages_equal": true,
+  "native_logical_counterpart_source": "4b3954a0faf42986459bc1ee68727be16d67bcbb",
+  "native_guest_sha256": "889f21b796c4daaf5244486cce84bfe6a82c758437af400e831d0ed10f0a067e",
+  "legacy_producer_source": "32c799031f619164d3730b61a0bc9d7ae48dcd9b",
+  "artifact_binaries_available": false,
+  "native_rebuild_for_helper_fix_needed": false,
+  "syntax_checks": "PASS5 touched Python sources"
+}

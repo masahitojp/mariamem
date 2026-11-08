@@ -1,0 +1,15 @@
+{
+  "helper_suite": "PASS16/16 complete; no -x",
+  "exact_profiles": "PASS both full source profiles and corruption/selectors/TIME negatives",
+  "branch_observer": "PASS3 source controls only",
+  "python_syntax": "PASS6 files",
+  "native_fixture_syntax": "gofmt parse only, not host compilation",
+  "public_touched_boundary": {
+    "passed": true,
+    "files": 24
+  },
+  "historical_f0_evidence": "UNCHANGED",
+  "engine_inputs": "UNCHANGED",
+  "heavy_builds_started": 0,
+  "capacity_decision": "pending"
+}

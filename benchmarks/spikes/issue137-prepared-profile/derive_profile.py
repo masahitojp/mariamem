@@ -48,7 +48,7 @@ newfinal[names[1]]=before[names[1]]
 def diff(n,a,b):return ''.join(difflib.unified_diff(a.decode().splitlines(True),b.decode().splitlines(True),fromfile='a/'+n,tofile='b/'+n)).encode()
 patch=b''.join(diff(n,before[n],prepared[n]) for n in names);path=R/'guest/patches/13.0.2-native-prepared.patch';path.write_bytes(patch)
 entry={'file':str(path.relative_to(R)),'sha256':sha(patch),'before_sha256':{n:sha(before[n]) for n in names if before[n]!=prepared[n]},'after_sha256':{n:sha(prepared[n]) for n in names if before[n]!=prepared[n]}}
-np=dict(old,profile='native-text',patch_file=entry['file'],patch_sha256=entry['sha256'],files=[dict(file=n,before_sha256=sha(before[n]),after_sha256=sha(prepared[n])) for n in names if before[n]!=prepared[n]],unchanged_files={names[1]:sha(before[names[1]])},purpose='Trial native TIME and embedded text metadata allocation guard; no legacy MYSQL_BIND or parameter metadata adapter repairs')
+np=dict(old,profile='native-text',patch_file=entry['file'],patch_sha256=entry['sha256'],files=[dict(file=n,before_sha256=sha(before[n]),after_sha256=sha(prepared[n])) for n in names],unchanged_files={names[1]:sha(before[names[1]])},purpose='Trial native TIME and embedded text metadata allocation guard; no legacy MYSQL_BIND or parameter metadata adapter repairs')
 (R/'guest/prepared_source_patch.json').write_text(json.dumps(np,indent=2)+'\n');(OUT/'native-prepared.json').write_text(json.dumps(np,indent=2)+'\n')
 pin['patches']=[entry if e['file']==old['patch_file'] else e for e in pin['patches']];pin['prepared_profile']='native-text'
 # Collapse only the affected native patch sections to exact profile pre/postimages.

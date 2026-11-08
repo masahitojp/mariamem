@@ -1,0 +1,7 @@
+{
+  "benchmarks/spikes/issue137-helper-continuation/evidence/python-setup.txt": {
+    "raw_sha256": "b59114125c78703af08450f618bb15682210c13c64f3df24ed73eb90021af8af",
+    "normalized_sha256": "fd4134e9f7f9e6e0a65cdef91667336b6014cd42a3199d2e35ffabd73ddaa701",
+    "operation": "literal owner/home paths and trailing diagnostic whitespace only"
+  }
+}
