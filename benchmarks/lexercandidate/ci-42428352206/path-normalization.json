@@ -1,0 +1,17 @@
+{
+  "assessment.json": {
+    "original_sha256": "b932d807d44b12a9aa7f150c67e646e4ab503b7b326be8268665a336615447bd",
+    "published_sha256": "eabc78ea5840310ef1cc0b1955f84c61c64aa0212b8d2894e0a1c147dbdb0a7a",
+    "replacement": "GitHub container HOME prefix -> <CI_HOME>/; no diagnostic values changed"
+  },
+  "guest-build.txt": {
+    "original_sha256": "e31ffc73896b32192f4203f4c5708ba64728c69c89cc089eb0d062b953dafee7",
+    "published_sha256": "72294832320d9799d7edbd7711107f6c5c94c2cfe12b445115c837dc481b0a29",
+    "replacement": "GitHub container HOME prefix -> <CI_HOME>/; no diagnostic values changed; line-end trailing whitespace removed"
+  },
+  "README.md": {
+    "original_sha256": "97ffe0172e713b23b6edeb934268b34c36c90a6d536a5a9c2457f73000797299",
+    "published_sha256": "86a19291d05423362c71df4b06e0138688861cf4d0d31d60121260698606e848",
+    "replacement": "GitHub container HOME prefix -> <CI_HOME>/; no diagnostic values changed"
+  }
+}

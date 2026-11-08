@@ -22,6 +22,9 @@ jobs:
           DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
       - name: Bind exact source, independently replay C producer and build once
+        env:
+          # The accepted SDK recipe installs under /root/.wasixcc.
+          HOME: /root
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           mkdir -p build/lexer-ci

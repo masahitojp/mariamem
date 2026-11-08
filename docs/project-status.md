@@ -112,6 +112,15 @@ they are not disabled or silently generalized. That CI's successful input/
 translation receipt is not actual guest, native SQL differential, performance,
 independent two-C-build reproducibility or Qualification acceptance.
 
+The first C-input acquisition [CI42428352206](https://github.com/masahitojp/mariamem/actions/runs/42428352206)
+failed on source86edd6cd during WASIX CMake configuration: the SDK is installed
+under `/root/.wasixcc`, while the container's default HOME points to
+`/github/home`. The [original source-bound receipt](../benchmarks/lexercandidate/ci-42428352206/README.md)
+retains standalone C-map replay/native-reference PASS and translation SKIP.
+The narrow repair matches the existing accepted builder's `HOME=/root` setting
+and adds missing/wrong-HOME negative controls. Guest/runtime/release inputs are
+unchanged; a corrected CI result is still required.
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally
