@@ -520,6 +520,10 @@ pins9f8dad6 and identifies bootstrap's remaining embedded C API use and prepared
 conversion recovery's internal-layout dependence. Neither an irreducible patch
 size nor an alternative build has been proved. This source-only investigation
 preserves the open C3 acceptance and does not approve a replacement architecture.
+The [bootstrap reachability follow-up](design/issue65-native-protocol/bootstrap-reachability.md)
+finds no legacy prepared call on the ordinary native startup path, while old
+resident includes/exports remain. It proposes isolating bootstrap from the old
+entry as a bounded experiment; build/link/runtime elimination is not yet proved.
 Issue65 owns the detailed checklist, including local-dependency removal,
 clean-environment reproduction and experiment cleanup before main adoption.
 

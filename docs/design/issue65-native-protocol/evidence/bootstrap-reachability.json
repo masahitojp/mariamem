@@ -1,0 +1,19 @@
+{
+  "source_commit": "28e962b0f25fec6c2f7787e9d0338319abdeaf60",
+  "patch_sha256": "8ce9b4c9c338d5a57cf3094602d41fb5aab961154a30b77fb0b10fa928282b46",
+  "controller_patch_sections": 3,
+  "controller_sha256": "23945328f5acd2956eb10d3a5dda77522b303169319b918a19988d7a79893303",
+  "identifier_call_syntax_counts": {
+    "embedded_prepared": 1,
+    "connect": 1,
+    "query": 1,
+    "issue65_bootstrap": 2,
+    "mariamem_spike_control_session": 1
+  },
+  "result": "PASS source-only controller reconstruction and direct-call checks",
+  "limits": [
+    "Counts include declarations/definitions; not a compiler call graph",
+    "No linked-symbol reachability,build or runtime proof",
+    "Legacy exported functions and renamed main remain separate potential roots"
+  ]
+}
