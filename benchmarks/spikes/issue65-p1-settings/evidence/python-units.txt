@@ -1,0 +1,11 @@
+test_complete_observations (test_issue129_settings.SettingsObserverTests.test_complete_observations) ... ok
+test_control_needs_real_guest_assertion_after_exact_start (test_issue129_settings.SettingsObserverTests.test_control_needs_real_guest_assertion_after_exact_start) ... ok
+test_missing_duplicate_and_failed_observations_rejected (test_issue129_settings.SettingsObserverTests.test_missing_duplicate_and_failed_observations_rejected) ... ok
+test_mutation_preimage_is_exact (test_issue129_settings.SettingsObserverTests.test_mutation_preimage_is_exact) ... ok
+test_overlay_additive_and_control_keeps_start (test_issue129_settings.SettingsObserverTests.test_overlay_additive_and_control_keeps_start) ... ok
+test_wrong_values_and_runtime_identity_rejected (test_issue129_settings.SettingsObserverTests.test_wrong_values_and_runtime_identity_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.004s
+
+OK

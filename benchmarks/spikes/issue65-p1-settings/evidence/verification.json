@@ -1,0 +1,36 @@
+{
+  "implementation_source_commit": "4c10a1f817f584f6577723d0ab5d399dc747121d",
+  "base_source_commit": "a5ee1ed9cc2c6932d317fba77c339b364acd48df",
+  "result": "PASS focused observer preparation; runtime acceptance UNEXECUTED",
+  "python": "3.14",
+  "go": "go1.26.10 darwin/arm64",
+  "python_units": 6,
+  "observer_go_tests": 3,
+  "race": true,
+  "source_checks": {
+    "python_syntax": "PASS",
+    "go_format": "PASS",
+    "changed_public_source_patterns": "PASS",
+    "diff_check": "PASS",
+    "full_public_source": "FAIL: six unchanged historical P1-owner/P1-timeout evidence paths"
+  },
+  "heavy_guest_builds": 0,
+  "full_runtime_stages": 0,
+  "runtime_acceptance": "UNEXECUTED",
+  "ci_submissions": 0,
+  "preexisting_user_changes": [],
+  "remaining": [
+    "actual-guest public fixture compile and both positive vectors",
+    "both actual-guest inherited5000ms controls",
+    "installed Python shared/control exact settings",
+    "original full C3 lifecycle and fault oracles",
+    "same integration candidate on both native platforms"
+  ],
+  "evidence_sha256": {
+    "observer-unit-result.json": "244145d90a9a8b27437619470062d60c47fd13be9fad7ef0b55904dce8318e64",
+    "initial-toolchain-verification-stop.txt": "ada7a35dad97c07adb261f4e4810ef8eff4e28733f0ad14f0a7120a4d1f60472",
+    "python-units.txt": "bbd01d870b321178fa1c494a68d826cee6fbdb17bb240885a475b87fe208da80",
+    "initial-toolchain-download-stop.txt": "b9c7c4f68f86acbc963ef039f712667c05f65492ed664db25b9120f5d0fb03e5",
+    "observer-unit-race.txt": "518849ecee73df16d91c76763c8f559dd621bdfac2e8427a85aad0424d95661a"
+  }
+}

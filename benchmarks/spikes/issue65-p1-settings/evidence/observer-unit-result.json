@@ -1,0 +1,13 @@
+{
+  "result": "PASS observer unit/race only",
+  "source_commit": "4c10a1f817f584f6577723d0ab5d399dc747121d",
+  "fixtures_sha256": {
+    "public_settings_test.go.txt": "773bb32cec399f365d40e9a0fd32e6903dd146dea0c9342e8c923f1658a0216e",
+    "inspect.go.txt": "9f88b81f4138c79f5cc0b85286413e0b2b63783dad2e261d1cd33c7c713246a8",
+    "inspect_test.go.txt": "83580c96d28f09dee461b3221abfa4f5601ba080d2eb0c9a8d1b1f723d637de5",
+    "live_observer_test.go.txt": "187a05cbb5f857666a4d911bc62d049c208e05e1ca07f6cedb7b3d1a5d49d4fd",
+    "live_observer.go.txt": "6106528edc0784cc7ed21226c986c59db909d5a41695479731022a961e28529b"
+  },
+  "runtime_acceptance": "UNEXECUTED",
+  "observer_sha256": "d6d568113a3e5e5f5e0d369f5550c8e0ab7c7e17be3fef3cff054b937598a992"
+}
