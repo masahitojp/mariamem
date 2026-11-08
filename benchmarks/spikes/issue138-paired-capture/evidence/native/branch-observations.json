@@ -1,0 +1,6 @@
+{
+  "timed_wait_marker_present": true,
+  "spare_archive_marker_present": false,
+  "scope": "extra native scenario; checkpoint advancement alone not branch proof",
+  "pending": "positive create_spare_archive!=0 branch hit"
+}

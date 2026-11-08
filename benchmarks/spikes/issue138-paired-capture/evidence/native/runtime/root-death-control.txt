@@ -1,0 +1,4 @@
+=== RUN   TestIssue138RootDeathIsNotDrain
+    target_checkpoint_test.go:86: ISSUE138_CONTROL root-done shortcut rejected
+--- PASS: TestIssue138RootDeathIsNotDrain (0.00s)
+PASS

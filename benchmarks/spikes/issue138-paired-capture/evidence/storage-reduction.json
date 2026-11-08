@@ -1,0 +1,6 @@
+{
+  "deleted_owned_archive": "build/downloads/LLVM-23.1.0-Linux-ARM64.tar.xz",
+  "bytes": 1828948604,
+  "sha256": "cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4",
+  "reason": "native guest completed, SDK removed; host uses Go, LLVM archive inactive; legacy must reacquire same pinned bytes"
+}

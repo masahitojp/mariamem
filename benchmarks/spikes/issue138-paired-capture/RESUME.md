@@ -32,3 +32,8 @@ runner reuses DiskGuard/run_guarded and conservatively counts the entire assigne
 checkout, exporting sampled peak/minimum and duration; the guest inner guard
 counts every owned Docker mount. No shared cache is mandatory. No CI/public C3/
 consumer/benchmark run. Staging/cache is removed after compact preservation.
+
+Final result is in RESULT.md: native original79 and all four named analyzer
+families passed (actual total601; inherited701 is an arithmetic discrepancy),
+as did the two added cases. Legacy did not compile after the disk-floor stop;
+positive spare-archive branch and helper compatibility remain incomplete.

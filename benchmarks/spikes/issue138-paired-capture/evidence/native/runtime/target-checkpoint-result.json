@@ -1,0 +1,5 @@
+{
+  "exit": 0,
+  "passed": true,
+  "scope": "Additional native archive, real drain, capture/restore/isolation; branch markers analyzed separately"
+}

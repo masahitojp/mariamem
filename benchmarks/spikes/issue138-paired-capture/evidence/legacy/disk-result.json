@@ -1,0 +1,17 @@
+{
+  "initial": {
+    "owned_bytes": 1505714176,
+    "free_bytes": 17310191616,
+    "peak_owned_bytes": 1505714176,
+    "minimum_free_bytes": 17310191616
+  },
+  "peak_owned_bytes": 3865792512,
+  "minimum_free_bytes": 14017187840,
+  "exit": 1,
+  "error": {
+    "exception": "DiskLimit",
+    "message": "experiment interrupted; owned child group will be stopped"
+  },
+  "wall_seconds": 269.4198738299892,
+  "scope": "/owned contains every task-owned download, source, SDK, compiler cache, temp, work and output mount"
+}

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "build/issue128-real/temp/venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/test_prepared_source_patch.py",
+    "-x",
+    "-q",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "exit": 1,
+  "error": null,
+  "wall_seconds": 3.457896332954988,
+  "peak_conservatively_owned_bytes": 4353081344,
+  "minimum_free_bytes": 14706905088,
+  "scope": "entire assigned checkout including all host/container mounts, source, SDK, caches, temp, output"
+}

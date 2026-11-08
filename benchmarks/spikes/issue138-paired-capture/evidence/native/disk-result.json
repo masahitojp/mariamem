@@ -1,0 +1,14 @@
+{
+  "initial": {
+    "owned_bytes": 1327267840,
+    "free_bytes": 22301442048,
+    "peak_owned_bytes": 1327267840,
+    "minimum_free_bytes": 22301442048
+  },
+  "peak_owned_bytes": 8007106560,
+  "minimum_free_bytes": 15690665984,
+  "exit": 0,
+  "error": null,
+  "wall_seconds": 1517.1672489420162,
+  "scope": "/owned contains every task-owned download, source, SDK, compiler cache, temp, work and output mount"
+}

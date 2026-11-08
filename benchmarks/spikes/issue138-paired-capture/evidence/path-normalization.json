@@ -1,0 +1,83 @@
+{
+  "benchmarks/spikes/issue138-paired-capture/evidence/python-environment.txt": {
+    "raw_sha256": "446dce1710dd52a339ec2e187fea76355a42ddbfc96b1072c628b8ab9af83062",
+    "normalized_sha256": "57880c99ca513f9e305695e81fdd8ecd1a875f897bcd4c150ff4d3aa68f5fa50",
+    "operation": "literal owned-checkout/home path substitution only"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/helper-compatibility-check.txt": {
+    "raw_sha256": "4e2022881cd5bb169b62519dc6f082b457899cb9cb2edc38a33dffda78cd077a",
+    "normalized_sha256": "c93783211772f2fe9ef3182640284f67076b51661d78397c5fb7a829b6e01bbd",
+    "operation": "literal owned-checkout/home path substitution only; trailing log whitespace/blank EOF removed, semantic observations unchanged",
+    "path_normalized_sha256": "7e59d1f4e419ca41f58640fa1161d2a1c515240266991a461e483971b53edd22"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/lifecycle-before.json": {
+    "raw_sha256": "2f30325bc4c65b6b145aef3e1534fdf26a97ad99953b87998f7d593749b369f7",
+    "normalized_sha256": "98c43a692d897899cf963a7f0b652e0e833242c8aa281981898493ca9082bb36",
+    "operation": "literal owned-checkout/home path substitution only"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/helper-cleanup-dry-run.json": {
+    "raw_sha256": "26f8ecc62ee1538ca039a86431cef4845d4d1795ab70b5a05a3a25b893cebae4",
+    "normalized_sha256": "13d1ce991581a07577ea10084ab572b82edb4179997f27c09e91cef0e1a6bdc9",
+    "operation": "literal owned-checkout/home path substitution only"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/native/host-installation-inputs.json": {
+    "raw_sha256": "2e744f9dfe9510c9aac992b06b98302a9a6a3b322e13e61ff75b7d4839958abf",
+    "normalized_sha256": "59d29943261bc5eca966da55d4d741fd0c30b44fb0dc1c64040a2798d16e3e00",
+    "operation": "literal owned-checkout/home path substitution only"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/native/native-translation.txt": {
+    "raw_sha256": "575eeb385ca870ad809cfc2bd3a9841c666091eea140379c62ae282b5115beee",
+    "normalized_sha256": "44c91aa326ae9d807352d0955a0b85384c4513904f8985a18ba0999edb2abf3c",
+    "operation": "literal owned-checkout/home path substitution only"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/native/native-host-build.txt": {
+    "raw_sha256": "013c18d8586a707489c66a5df253ab73ae5269363492207705b59fee23fb19e3",
+    "normalized_sha256": "cff48f3565c444273994d85c38bb75302ebb21b5288a1a6710332e01979f118b",
+    "operation": "literal owned-checkout/home path substitution only"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/native/runtime/negative-body-digest.txt": {
+    "raw_sha256": "122961218cc723bd38deecbebf8dc187846b022ef60b32aa351582314dbc20a7",
+    "normalized_sha256": "5fed5159af1dc3ff2191b98634537687830d4eddff64ffdefe988c05f835a653",
+    "operation": "literal owned-checkout/home path substitution only"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/native/runtime/host-phases.jsonl": {
+    "raw_sha256": "4ea3b7605cc1bd6858127d7c4ce8ce00ba95f57db9fa37d18e5588f2bd33ccae",
+    "normalized_sha256": "d0e27457149ccfcf06387f3933d414e16ac2f5f5cf61592f94e73e5e0dbe6c3a",
+    "operation": "literal owned-checkout/home path substitution only"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/native/runtime/host-build.json": {
+    "raw_sha256": "322ff3cec75b3312b83e9890b925d8a91b4b8b7e40957411b5cbe412aa33eccc",
+    "normalized_sha256": "3fc997414318e70070f906cbb53232eacb8682887749d6ea7a97ce12c39576b1",
+    "operation": "literal owned-checkout/home path substitution only"
+  },
+  "benchmarks/spikes/issue137-prepared-profile/resume-evidence/profile-derivation-reverse.txt": {
+    "raw_sha256": "c37f2fe061f6dc9962afffcd68269e932a50ba2aabefc6e583242a23a2e20290",
+    "normalized_sha256": "a2b3c6896d77c00355b4de3ac64658be97c935c6d1da5082eb21cb1a846b2a3f",
+    "operation": "literal owned-checkout/home path substitution only"
+  },
+  "benchmarks/spikes/issue137-prepared-profile/resume-evidence/profile-derivation-first.txt": {
+    "raw_sha256": "144c5e9811f95e655bc7c6a1e987ad542524b759fb2b92113b1018a96b2baad9",
+    "normalized_sha256": "a2900444bbcefbf87cd1788384d79e6a138f3330984c2a2e84c93d03f3e16d73",
+    "operation": "literal owned-checkout/home path substitution only"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/native/link.txt": {
+    "raw_sha256": "07db00ce3c2612488ec8fb20e68754f40a1d0de3c031340a72e658c1cd676d0d",
+    "operation": "; trailing log whitespace/blank EOF removed, semantic observations unchanged",
+    "normalized_sha256": "32bae3a99c112bad424bd4d239bf4171742f5b50f89b1d6281554f3fd3e8387a"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/native/native-producer-console.txt": {
+    "raw_sha256": "84c4f6a689d70b271267f24787ecc8c7cb0614bfd6d252fd1ed28e10fd467af8",
+    "operation": "; trailing log whitespace/blank EOF removed, semantic observations unchanged",
+    "normalized_sha256": "6af5c3ca23905d3cae418d8c60c41bf9dee19e34991f74b28251073026c53f14"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/native/CMakeCache.txt": {
+    "raw_sha256": "eb8c894cc651eacf457212824b5ae3bc6bacbf55bb758365793169b3999a2098",
+    "operation": "; trailing log whitespace/blank EOF removed, semantic observations unchanged",
+    "normalized_sha256": "79046af0b6a4549cda9bf29e0f75496034f4bd27fb9534d7642eb5c44962086e"
+  },
+  "benchmarks/spikes/issue138-paired-capture/evidence/native/flags.make": {
+    "raw_sha256": "caf1a3d20d8aadda714c18a217858d0fd7eea0b1ae36ff93e392d0623aff7724",
+    "normalized_sha256": "ef8c4e691c9d658bd7804a1b1e7a3383a5492d1e01f01643ad0d4af79bd2a359",
+    "operation": "trailing blank EOF removed; flags unchanged"
+  }
+}

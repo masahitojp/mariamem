@@ -1,0 +1,15 @@
+{
+  "actual_counts": {
+    "compat": 88,
+    "limits": 38,
+    "g1": 234,
+    "g2": 241
+  },
+  "actual_total": 601,
+  "historical_prose_total": 701,
+  "arithmetic_discrepancy": 100,
+  "original_cases_passed": 79,
+  "original_test_expectations_changed": false,
+  "extra_100_observations_evidenced": false,
+  "explanation": "Historical127/128 aggregate prose disagrees with its explicitly enumerated families; old reports untouched"
+}

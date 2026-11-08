@@ -52,3 +52,7 @@ root/hostlease checks and exact guest stats, with a deadroot sentinel negative
 before native suite. OriginalcaptureNow/openidle fixtures unchanged; failure
 cleanup records one bounded rejection observation, never retries capture.
 Same finite legacy workload/probe is supplied separately; route programs differ.
+
+Final result is in RESULT.md: native profile implemented and finite native
+verification passed, but legacy SDK setup stopped at the free-space floor and
+the final historical-helper compatibility check failed. No paired acceptance.

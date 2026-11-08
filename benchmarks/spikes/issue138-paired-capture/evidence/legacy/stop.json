@@ -1,0 +1,15 @@
+{
+  "outcome": "STOPPED by outer whole-checkout free-space guard",
+  "outer_exit": 2,
+  "outer_reported_free_gib": 11.98,
+  "outer_reported_owned_gib": 4.04,
+  "ceiling_gib": 12,
+  "floor_gib": 12,
+  "compiler_started": false,
+  "source_preparation_started_in_producer": false,
+  "guest_artifact_produced": false,
+  "translation_host_started": false,
+  "runtime_started": false,
+  "source_commit": "32c799031f619164d3730b61a0bc9d7ae48dcd9b",
+  "note": "Inner guard records different sampled free space; do not substitute its minimum for the outer breach. No retry."
+}

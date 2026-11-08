@@ -1,0 +1,14 @@
+{
+  "owner": "mariamem-experiment-v1",
+  "name": "issue137",
+  "repo": "<REPO>",
+  "state": "prepared",
+  "base_sha": "74da0d92c4e165615610c3810bd4415eb3aad140",
+  "created": 1794141847.368372,
+  "min_free_gib": 12.0,
+  "budget_gib": 12.0,
+  "disposable": [
+    "temp"
+  ],
+  "evidence": "evidence"
+}

@@ -1,0 +1,36 @@
+F
+=================================== FAILURES ===================================
+___________________ test_exact_apply_and_double_application ____________________
+
+tree = (PosixPath('<REPO>/build/issue128-real/temp/common-...upgrade-trial/build/issue128-real/temp/common-tmp/pytest-of-masahito/pytest-0/test_exact_apply_and_double_ap0/source'))
+
+    def test_exact_apply_and_double_application(tree):
+        root, source = tree
+>       patch.apply(source, root)
+
+tests/test_prepared_source_patch.py:51:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts/prepared_source_patch.py:79: in apply
+    pin = inputs(root)
+          ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = PosixPath('<REPO>/build/issue128-real/temp/common-tmp/pytest-of-masahito/pytest-0/test_exact_apply_and_double_ap0/root')
+
+    def inputs(root=ROOT):
+        root = Path(root)
+        pin = json.loads((root / 'guest/prepared_source_patch.json').read_text())
+        source = json.loads((root / 'guest/input.json').read_text())
+        patch_file = pin.get('patch_file', 'guest/experimental.patch')
+        profile = source.get('prepared_profile')
+        profiles = {'legacy-full': 'guest/patches/13.0.2-prepared.patch',
+                    'native-text': 'guest/patches/13.0.2-native-prepared.patch'}
+        if profile not in profiles or pin.get('profile') != profile or patch_file != profiles[profile]:
+>           raise ValueError('missing or mismatched explicit prepared profile')
+E           ValueError: missing or mismatched explicit prepared profile
+
+scripts/prepared_source_patch.py:35: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_prepared_source_patch.py::test_exact_apply_and_double_application
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed in 0.12s

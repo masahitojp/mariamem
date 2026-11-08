@@ -1,0 +1,711 @@
+{
+  "result": "PASS for scoped compatibility observations",
+  "complete": true,
+  "ready": true,
+  "cases": [
+    {
+      "name": "TestCompatCredentials",
+      "result": "PASS",
+      "elapsed": "0.04s"
+    },
+    {
+      "name": "TestCompatCapabilities",
+      "result": "PASS",
+      "elapsed": "0.03s"
+    },
+    {
+      "name": "TestCompatPreparedState",
+      "result": "PASS",
+      "elapsed": "0.15s"
+    },
+    {
+      "name": "TestCompatCapacity",
+      "result": "PASS",
+      "elapsed": "0.04s"
+    },
+    {
+      "name": "TestCompatLiveCapacity",
+      "result": "PASS",
+      "elapsed": "0.07s"
+    },
+    {
+      "name": "TestCompatFatalEOF",
+      "result": "PASS",
+      "elapsed": "0.36s"
+    },
+    {
+      "name": "TestCompatFullWindow",
+      "result": "PASS",
+      "elapsed": "0.08s"
+    }
+  ],
+  "missing_cases": [],
+  "observations": [
+    {
+      "actual": "user=root@localhost current=root@localhost error=<nil>",
+      "expected": "root@... / root@localhost",
+      "id": "canonical_identity",
+      "pass": true,
+      "test": "TestCompatCredentials/roottrue"
+    },
+    {
+      "actual": "user=root@localhost current=root@localhost error=<nil>",
+      "expected": "root@... / root@localhost",
+      "id": "canonical_identity",
+      "pass": true,
+      "test": "TestCompatCredentials/testfalse"
+    },
+    {
+      "actual": "user=root@localhost current=root@localhost error=<nil>",
+      "expected": "root@... / root@localhost",
+      "id": "canonical_identity",
+      "pass": true,
+      "test": "TestCompatCredentials/rootfalse"
+    },
+    {
+      "actual": "user=root@localhost current=root@localhost error=<nil>",
+      "expected": "root@... / root@localhost",
+      "id": "canonical_identity",
+      "pass": true,
+      "test": "TestCompatCredentials/testtrue"
+    },
+    {
+      "actual": "user=root@localhost current=root@localhost error=<nil>",
+      "expected": "root@... / root@localhost",
+      "id": "canonical_identity",
+      "pass": true,
+      "test": "TestCompatCredentials/applicationfalse"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_applicationtrue",
+      "pass": true,
+      "test": "TestCompatCredentials/raw_applicationtrue"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "credential_following_ping",
+      "pass": true,
+      "test": "TestCompatCredentials/raw_applicationtrue"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_applicationfalse",
+      "pass": true,
+      "test": "TestCompatCredentials/raw_applicationfalse"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "credential_following_ping",
+      "pass": true,
+      "test": "TestCompatCredentials/raw_applicationfalse"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_false",
+      "pass": true,
+      "test": "TestCompatCredentials/raw_false"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "credential_following_ping",
+      "pass": true,
+      "test": "TestCompatCredentials/raw_false"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapabilities"
+    },
+    {
+      "actual": 1024525,
+      "expected": 1024525,
+      "id": "greeting_exact_caps",
+      "pass": true,
+      "test": "TestCompatCapabilities"
+    },
+    {
+      "actual": "rows=1 err=<nil>",
+      "expected": 1,
+      "id": "accepted_FOUND_ROWS",
+      "pass": true,
+      "test": "TestCompatCapabilities"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatPreparedState/type_reuse"
+    },
+    {
+      "actual": "row=000003610062 error=",
+      "expected": "000003610062",
+      "id": "typed_NUL",
+      "pass": true,
+      "test": "TestCompatPreparedState/type_reuse"
+    },
+    {
+      "actual": "row=0000057265757365 error=",
+      "expected": "0000057265757365",
+      "id": "stored_type_reuse",
+      "pass": true,
+      "test": "TestCompatPreparedState/type_reuse"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "prepared_following_ping",
+      "pass": true,
+      "test": "TestCompatPreparedState/type_reuse"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatPreparedState/alias"
+    },
+    {
+      "actual": "row=000005616c696173 error=",
+      "expected": "000005616c696173",
+      "id": "last_statement_alias",
+      "pass": true,
+      "test": "TestCompatPreparedState/alias"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "prepared_following_ping",
+      "pass": true,
+      "test": "TestCompatPreparedState/alias"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "row=0000046c6f6e67 error=",
+      "expected": "0000046c6f6e67",
+      "id": "LONG_DATA_no_reply_and_execute",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "00000002000000",
+      "expected": "OK",
+      "id": "STMT_RESET",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "row=0000056672657368 error=",
+      "expected": "0000056672657368",
+      "id": "reset_clears_long_data",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "1210/HY000",
+      "expected": "1210/HY000",
+      "id": "LONG_DATA_deferred_error",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "00000002000000",
+      "expected": "OK",
+      "id": "reset_clears_deferred_error",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "row=0000097265636f7665726564 error=",
+      "expected": "0000097265636f7665726564",
+      "id": "execute_after_reset",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "prepared_following_ping",
+      "pass": true,
+      "test": "TestCompatPreparedState/long_data_reset"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatPreparedState/malformed_string_D2"
+    },
+    {
+      "actual": "row=000000 error=",
+      "expected": "000000",
+      "id": "named_native_malformed_string",
+      "pass": true,
+      "test": "TestCompatPreparedState/malformed_string_D2"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "prepared_following_ping",
+      "pass": true,
+      "test": "TestCompatPreparedState/malformed_string_D2"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatPreparedState/close_unknown_reset"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "CLOSE_has_no_response",
+      "pass": true,
+      "test": "TestCompatPreparedState/close_unknown_reset"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "unknown_CLOSE_has_no_response",
+      "pass": true,
+      "test": "TestCompatPreparedState/close_unknown_reset"
+    },
+    {
+      "actual": "1243/HY000",
+      "expected": "1243/HY000",
+      "id": "unknown_RESET",
+      "pass": true,
+      "test": "TestCompatPreparedState/close_unknown_reset"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "prepared_following_ping",
+      "pass": true,
+      "test": "TestCompatPreparedState/close_unknown_reset"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "errno=1040 state=08004 error=<nil>",
+      "expected": "1040/08004",
+      "id": "capacity_prelogin_tcp",
+      "pass": true,
+      "test": "TestCompatCapacity/17th_tcp"
+    },
+    {
+      "actual": "errno=1040 state=08004 error=<nil>",
+      "expected": "1040/08004",
+      "id": "capacity_prelogin_pipe",
+      "pass": true,
+      "test": "TestCompatCapacity/17th_pipe"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "existing_session_after_capacity_rejection",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "slot_reused_after_retirement",
+      "pass": true,
+      "test": "TestCompatCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "errno=1040 state=08004 error=<nil>",
+      "expected": "1040/08004",
+      "id": "Live_capacity_prelogin",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "Live_existing_session_after_rejection",
+      "pass": true,
+      "test": "TestCompatLiveCapacity"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatFatalEOF"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatFatalEOF"
+    },
+    {
+      "actual": "bytes=0 error=EOF",
+      "expected": "connection loss without injected ERR",
+      "id": "fatal_idle_transport_closed",
+      "pass": true,
+      "test": "TestCompatFatalEOF"
+    },
+    {
+      "actual": "guest poison: deadline",
+      "expected": "deadline",
+      "id": "owner_original_deadline_cause",
+      "pass": true,
+      "test": "TestCompatFatalEOF"
+    },
+    {
+      "actual": 42,
+      "expected": 42,
+      "id": "independent_instance_survives",
+      "pass": true,
+      "test": "TestCompatFatalEOF"
+    },
+    {
+      "actual": "guest poison: deadline",
+      "expected": "deadline",
+      "id": "cleanup_preserves_original_cause",
+      "pass": true,
+      "test": "TestCompatFatalEOF"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatFullWindow/overflow"
+    },
+    {
+      "actual": {
+        "cause": "pending_input_overflow",
+        "denied": 0,
+        "fenced": true,
+        "joined": 0,
+        "poisoned": true,
+        "retired_input_peak": 0,
+        "retired_output_peak": 0,
+        "rollback_reports": 0,
+        "sessions": [
+          {
+            "command": 1,
+            "generation": 1,
+            "input": 0,
+            "input_peak": 1048576,
+            "output_peak": 95,
+            "outstanding": 0,
+            "phase": "executing",
+            "slot": 0,
+            "status": 2
+          }
+        ],
+        "stale": 0,
+        "started": 1
+      },
+      "expected": "full queue or already aborted",
+      "id": "full_window_overflow_setup",
+      "pass": true,
+      "test": "TestCompatFullWindow/overflow"
+    },
+    {
+      "actual": "guest poison: pending_input_overflow",
+      "expected": "overflow before command deadline",
+      "id": "full_window_overflow_abort",
+      "pass": true,
+      "test": "TestCompatFullWindow/overflow"
+    },
+    {
+      "actual": "marker=00",
+      "expected": "OK",
+      "id": "login_roottrue",
+      "pass": true,
+      "test": "TestCompatFullWindow/eof"
+    },
+    {
+      "actual": {
+        "cause": "",
+        "denied": 0,
+        "fenced": false,
+        "joined": 0,
+        "poisoned": false,
+        "retired_input_peak": 0,
+        "retired_output_peak": 0,
+        "rollback_reports": 0,
+        "sessions": [
+          {
+            "command": 1,
+            "generation": 1,
+            "input": 1048581,
+            "input_peak": 1048581,
+            "output_peak": 95,
+            "outstanding": 0,
+            "phase": "executing",
+            "slot": 0,
+            "status": 2
+          }
+        ],
+        "stale": 0,
+        "started": 1
+      },
+      "expected": "full queue or already aborted",
+      "id": "full_window_eof_setup",
+      "pass": true,
+      "test": "TestCompatFullWindow/eof"
+    },
+    {
+      "actual": "guest poison: unexpected_peer_eof",
+      "expected": "eof before command deadline",
+      "id": "full_window_eof_abort",
+      "pass": true,
+      "test": "TestCompatFullWindow/eof"
+    }
+  ],
+  "mismatches": [],
+  "exit_code": 0
+}

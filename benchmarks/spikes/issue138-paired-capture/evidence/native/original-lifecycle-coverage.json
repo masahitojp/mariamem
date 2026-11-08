@@ -1,0 +1,28 @@
+{
+  "original_cases": 22,
+  "all_original_cases_passed": true,
+  "cases": [
+    "TestCaptureConcatenatedInputAndForeignEpoch",
+    "TestCaptureDebtCannotBeForgiven",
+    "TestCaptureFailureControls",
+    "TestCaptureForkRollbackAndRecapture",
+    "TestCaptureGoPipe",
+    "TestCaptureJoinCancellationRetainsLease",
+    "TestCaptureOrdinaryStopAndEOF",
+    "TestCapturePartialAndOutputRejection",
+    "TestCaptureQueuedFenceAndDuplicate",
+    "TestCaptureRejectsInvalidRestore",
+    "TestNativeLiveCancellationBeforeCommit",
+    "TestNativeLiveCapacityBeforeDrain",
+    "TestNativeLiveCaptureDebtIsPermanent",
+    "TestNativeLiveCleanupDebtRecovery",
+    "TestNativeLiveDrainAndReset",
+    "TestNativeLiveInvalidRestoreNeverAdmits",
+    "TestNativeLiveParentAndEndpointClose",
+    "TestNativeLiveReplacementFailureRecovery",
+    "TestPartialInputDeadline",
+    "TestProtocolPrepared",
+    "TestQueryDeadlineAndIsolation",
+    "TestSlowOutputControl"
+  ]
+}

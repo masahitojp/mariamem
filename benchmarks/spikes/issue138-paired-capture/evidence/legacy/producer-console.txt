@@ -1,0 +1,18 @@
+Disk preflight OK: 16.12 GiB free, 1.79 GiB owned
+Created command "/root/.wasixcc/bin/wasixcc"
+Created command "/root/.wasixcc/bin/wasix++"
+Created command "/root/.wasixcc/bin/wasixcc++"
+Created command "/root/.wasixcc/bin/wasixar"
+Created command "/root/.wasixcc/bin/wasixnm"
+Created command "/root/.wasixcc/bin/wasixranlib"
+Created command "/root/.wasixcc/bin/wasixld"
+Traceback (most recent call last):
+  File "/repo/benchmarks/spikes/issue128-real/guard_builder.py", line 18, in <module>
+    code = run_guarded([sys.executable, str(Path(__file__).with_name('build_checked.py'))],
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/repo/scripts/experiment_disk.py", line 125, in run_guarded
+    time.sleep(interval)
+  File "/repo/scripts/experiment_disk.py", line 112, in interrupted
+    raise DiskLimit('experiment interrupted; owned child group will be stopped')
+experiment_disk.DiskLimit: experiment interrupted; owned child group will be stopped
+disk guard stopped: free=11.98 GiB (minimum 12.00), owned output=4.04 GiB (budget 12.00). Run scripts/experiment_workspace.py cleanup in dry-run mode; preserve compact evidence and inspect REVIEW items before --apply. After their users stop, discard recreatable caches; retain only unique evidence/active state.

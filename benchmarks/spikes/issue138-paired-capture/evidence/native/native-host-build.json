@@ -1,0 +1,13 @@
+{
+  "command": [
+    "build/issue128-real/temp/venv/bin/python",
+    "benchmarks/spikes/issue138-paired-capture/native_driver.py",
+    "compile"
+  ],
+  "exit": 0,
+  "error": null,
+  "wall_seconds": 247.67854341608472,
+  "peak_conservatively_owned_bytes": 8481878016,
+  "minimum_free_bytes": 13993684992,
+  "scope": "entire assigned checkout including all host/container mounts, source, SDK, caches, temp, output"
+}

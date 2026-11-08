@@ -1,0 +1,16 @@
+=== RUN   TestIssue138CheckpointArchiveTransitions
+ISSUE138_BRANCH timed_wait
+    target_checkpoint_test.go:41: ISSUE128_ARCHIVE start=36889 end=16947491 checkpoint=16956473 log_size=4194304 rows=256 bytes=16777216
+    target_checkpoint_test.go:43: ISSUE138_OBSERVE time=1794144726581358000 stage=close epoch=1 stats={"rollback_reports":0,"fenced":false,"poisoned":false,"cause":"","started":1,"joined":0,"stale":0,"denied":0,"retired_input_peak":0,"retired_output_peak":0,"sessions":[{"slot":0,"generation":1,"phase":"idle","command":778,"status":34,"input":0,"outstanding":0,"input_peak":89,"output_peak":252}]} host=1 leases=1 cause=<nil> rpc=<nil>
+SESSION_RETIRED result=0 decodes=256
+    target_checkpoint_test.go:46: ISSUE138_OBSERVE time=1794144726582682000 stage=drain-complete-or-timeout epoch=1 stats={"rollback_reports":1,"fenced":false,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":252,"sessions":[]} host=0 leases=0 cause=<nil> rpc=<nil>
+NATIVE_STOP mode=capture started=1 joined=1 cleanup_failed=0
+    target_checkpoint_test.go:49: capture epoch=1 events=[fenced stop_accepted capture_stopped guest_joined capture_approved freeze_begin freeze_complete memory_released host_joined root_owned] native={"rollback_reports":1,"fenced":true,"poisoned":false,"cause":"","started":1,"joined":1,"stale":0,"denied":0,"retired_input_peak":89,"retired_output_peak":252,"sessions":[]}
+ISSUE138_BRANCH timed_wait
+ISSUE138_BRANCH timed_wait
+SESSION_RETIRED result=16 decodes=0
+SESSION_RETIRED result=0 decodes=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+--- PASS: TestIssue138CheckpointArchiveTransitions (1.40s)
+PASS
