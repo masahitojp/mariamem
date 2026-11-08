@@ -1,0 +1,44 @@
+{
+  "question": "Does 16->8MiB improve Fork elapsed/RSS without unacceptable SQL cost?",
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "experimental_delta": "Same binary, validated argv[11]/argv[12] strings 16M->8M before mysql_server_init. No change to algorithm, compiled guest identity is origin only; experimental overlay hashes separate. Both arms execute full argv validation.",
+  "arms": [
+    16,
+    8
+  ],
+  "pairs": 5,
+  "order": "16/8 on even pairs, 8/16 on odd; rotate fixture/mode cells",
+  "fixtures": {
+    "small": {
+      "rows": 1000,
+      "payload_bytes": 32,
+      "measured_serial_children": 48
+    },
+    "large": {
+      "rows": 24576,
+      "payload_bytes": 1024,
+      "measured_serial_children": 8,
+      "guard": "ANALYZE and DATA_LENGTH+INDEX_LENGTH >16MiB"
+    }
+  },
+  "modes": [
+    "serial",
+    "hold"
+  ],
+  "warmup_serial_children_per_process": 1,
+  "rss": "same-process 0/1/4 held; GC + FreeOSMemory +100ms before every point",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "transport": "Pipe",
+  "go": "go1.27.3",
+  "processes": 40,
+  "per_process_timeout_seconds": 180,
+  "total_timeout_seconds": 1200,
+  "budget_gib": 10,
+  "min_free_gib": 8,
+  "tooling_budget_minutes": 30,
+  "active_budget_hours": 2,
+  "heavy_ci_limit": 0,
+  "exit": "fixed 5 pairs; retain all outliers; candidate / retain16 / specific missing-input hold; no automatic sweep or resampling. Single-Mac experiment only; canonical guest rebuild and both-OS acceptance are separate."
+}
