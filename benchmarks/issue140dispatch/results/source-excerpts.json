@@ -1,0 +1,80 @@
+[
+  {
+    "path": "tpool/aio_simulated.cc",
+    "first_line": 134,
+    "last_line": 161,
+    "text": "  }\n\n  static void simulated_aio_callback(void *param)\n  {\n    aiocb *cb= (aiocb *) param;\n    synchronous(cb);\n    cb->m_internal_task.m_func= cb->m_callback;\n    thread_pool *pool= (thread_pool *)cb->m_internal;\n    pool->submit_task(&cb->m_internal_task);\n  }\n\n  int submit_io(aiocb *aiocb) override\n  {\n    aiocb->m_internal_task.m_func = simulated_aio_callback;\n    aiocb->m_internal_task.m_arg = aiocb;\n    aiocb->m_internal_task.m_group = aiocb->m_group;\n    aiocb->m_internal = m_pool;\n    m_pool->submit_task(&aiocb->m_internal_task);\n    return 0;\n  }\n\n  int bind(native_file_handle &fd) override { return 0; }\n  int unbind(const native_file_handle &fd) override { return 0; }\n  const char *get_implementation() const override { return \"simulated\"; }\n};\n\naio *create_simulated_aio(thread_pool *tp)\n{\n"
+  },
+  {
+    "path": "tpool/tpool_generic.cc",
+    "first_line": 43,
+    "last_line": 47,
+    "text": "  aio *create_win_aio(thread_pool* tp, int max_io);\n#endif\n\n  static const std::chrono::milliseconds LONG_TASK_DURATION = std::chrono::milliseconds(500);\n  static const int  OVERSUBSCRIBE_FACTOR = 2;\n"
+  },
+  {
+    "path": "tpool/tpool_generic.cc",
+    "first_line": 759,
+    "last_line": 786,
+    "text": "  m_active_threads(),\n  m_mtx(),\n  m_thread_timeout(std::chrono::milliseconds(60000)),\n  m_timer_interval(std::chrono::milliseconds(400)),\n  m_cv_no_threads(),\n  m_cv_timer(),\n  m_tasks_enqueued(),\n  m_tasks_dequeued(),\n  m_wakeups(),\n  m_spurious_wakeups(),\n  m_timer_state(timer_state_t::ON),\n  m_timestamp(),\n  m_long_tasks_count(),\n  m_waiting_task_count(),\n  m_last_thread_creation(),\n  m_min_threads(min_threads),\n  m_max_threads(max_threads),\n  m_last_thread_count(),\n  m_last_activity()\n{\n  set_concurrency();\n\n  // start the timer\n  if (m_min_threads != m_max_threads)\n  {\n    m_maintenance_timer= new timer_generic(thread_pool_generic::maintenance_func, this, nullptr);\n    m_maintenance_timer->set_time(0, (int)m_timer_interval.count());\n  }\n"
+  },
+  {
+    "path": "tpool/tpool_generic.cc",
+    "first_line": 790,
+    "last_line": 805,
+    "text": "void thread_pool_generic::maybe_wake_or_create_thread()\n{\n  if (m_task_queue.empty())\n    return;\n  DBUG_ASSERT(m_active_threads.size() >= static_cast<size_t>(m_long_tasks_count + m_waiting_task_count));\n  if (m_active_threads.size() - m_long_tasks_count - m_waiting_task_count > m_concurrency)\n    return;\n  if (!m_standby_threads.empty())\n  {\n    wake(WAKE_REASON_TASK);\n  }\n  else\n  {\n    add_thread();\n  }\n}\n"
+  },
+  {
+    "path": "tpool/tpool_generic.cc",
+    "first_line": 828,
+    "last_line": 871,
+    "text": "void thread_pool_generic::submit_task(task* task)\n{\n  std::unique_lock<std::mutex> lk(m_mtx);\n  if (m_in_shutdown)\n    return;\n  task->add_ref();\n  m_tasks_enqueued++;\n  m_task_queue.push(task);\n  maybe_wake_or_create_thread();\n}\n\n\n/* Notify thread pool that current thread is going to wait */\nvoid thread_pool_generic::wait_begin()\n{\n  if (!tls_worker_data || tls_worker_data->is_long_task())\n    return;\n  std::unique_lock<std::mutex> lk(m_mtx);\n  if(tls_worker_data->is_long_task())\n  {\n    /*\n     Current task flag could have become \"long-running\"\n     while waiting for the lock, thus recheck.\n    */\n    return;\n  }\n  DBUG_ASSERT(!tls_worker_data->is_waiting());\n  tls_worker_data->m_state |= worker_data::WAITING;\n  m_waiting_task_count++;\n\n  /* Maintain concurrency */\n  maybe_wake_or_create_thread();\n}\n\n\nvoid thread_pool_generic::wait_end()\n{\n  if (tls_worker_data && tls_worker_data->is_waiting())\n  {\n    std::unique_lock<std::mutex> lk(m_mtx);\n    tls_worker_data->m_state &= ~worker_data::WAITING;\n    m_waiting_task_count--;\n  }\n}\n"
+  },
+  {
+    "path": "tpool/tpool.h",
+    "first_line": 146,
+    "last_line": 177,
+    "text": "struct aiocb\n#ifdef _WIN32\n  :OVERLAPPED\n#endif\n{\n#if defined HAVE_LIBAIO || defined HAVE_URING\n  union {\n# ifdef HAVE_LIBAIO\n    /** The context between io_submit() and io_getevents();\n    must be the first data member! */\n    iocb m_iocb;\n# endif\n# ifdef HAVE_URING\n    /** The context between io_uring_submit() and io_uring_wait_cqe() */\n    iovec m_iovec;\n# endif\n  };\n#endif\n  native_file_handle m_fh;\n  aio_opcode m_opcode;\n  unsigned long long m_offset;\n  void *m_buffer;\n  unsigned int m_len;\n  callback_func m_callback;\n  task_group* m_group;\n  /* Returned length and error code*/\n  size_t m_ret_len;\n  int m_err;\n  void *m_internal;\n  task m_internal_task;\n  alignas(8) char m_userdata[MAX_AIO_USERDATA_LEN];\n\n"
+  },
+  {
+    "path": "storage/innobase/os/os0file.cc",
+    "first_line": 75,
+    "last_line": 85,
+    "text": "class io_slots\n{\nprivate:\n\ttpool::cache<tpool::aiocb, true> m_cache;\n\ttpool::task_group m_group;\n\tint m_max_aio;\npublic:\n\tio_slots(int max_submitted_io, int max_callback_concurrency) :\n\t\tm_cache(max_submitted_io), m_group(max_callback_concurrency, false),\n\t\tm_max_aio(max_submitted_io)\n\t{\n"
+  },
+  {
+    "path": "storage/innobase/os/os0file.cc",
+    "first_line": 3045,
+    "last_line": 3054,
+    "text": "static void read_io_callback(void *c)\n{\n  tpool::aiocb *cb= static_cast<tpool::aiocb*>(c);\n  ut_ad(cb->m_opcode == tpool::aio_opcode::AIO_PREAD);\n  ut_ad(read_slots->contains(cb));\n  const IORequest &request= *static_cast<const IORequest*>\n    (static_cast<const void*>(cb->m_userdata));\n  request.read_complete(cb->m_err);\n  read_slots->release(cb);\n}\n"
+  },
+  {
+    "path": "storage/innobase/os/os0file.cc",
+    "first_line": 3075,
+    "last_line": 3113,
+    "text": "int os_aio_init() noexcept\n{\n  int max_write_events= int(srv_n_write_io_threads *\n                            OS_AIO_N_PENDING_IOS_PER_THREAD);\n  int max_read_events= int(srv_n_read_io_threads *\n                           OS_AIO_N_PENDING_IOS_PER_THREAD);\n  int max_events= max_read_events + max_write_events;\n  int ret= 1;\n\n  if (srv_use_native_aio)\n  {\n    tpool::aio_implementation aio_impl= tpool::OS_IO_DEFAULT;\n#ifdef __linux__\n    compile_time_assert(SRV_LINUX_AIO_IO_URING == (srv_linux_aio_t)tpool::OS_IO_URING);\n    compile_time_assert(SRV_LINUX_AIO_LIBAIO == (srv_linux_aio_t) tpool::OS_IO_LIBAIO);\n    compile_time_assert(SRV_LINUX_AIO_AUTO == (srv_linux_aio_t) tpool::OS_IO_DEFAULT);\n    aio_impl=(tpool::aio_implementation) srv_linux_aio_method;\n#endif\n\n    ret= srv_thread_pool->configure_aio(srv_use_native_aio, max_events,\n                                        aio_impl);\n    if (ret)\n    {\n      srv_use_native_aio= false;\n      sql_print_warning(\"InnoDB: native AIO failed: falling back to\"\n                        \" innodb_use_native_aio=OFF\");\n    }\n    else\n      sql_print_information(\"InnoDB: Using %s\", srv_thread_pool\n                            ->get_aio_implementation());\n  }\n  if (ret)\n    ret= srv_thread_pool->configure_aio(false, max_events,\n                                        tpool::OS_IO_DEFAULT);\n  if (!ret)\n  {\n    read_slots= new io_slots(max_read_events, srv_n_read_io_threads);\n    write_slots= new io_slots(max_write_events, srv_n_write_io_threads);\n  }\n"
+  },
+  {
+    "path": "storage/innobase/os/os0file.cc",
+    "first_line": 3332,
+    "last_line": 3345,
+    "text": "\ttpool::aiocb* cb = slots->acquire();\n\n\tcb->m_buffer = buf;\n\tcb->m_callback = callback;\n\tcb->m_group = slots->get_task_group();\n\tcb->m_fh = type.node->handle.m_file;\n\tcb->m_len = (int)n;\n\tcb->m_offset = offset;\n\tcb->m_opcode = opcode;\n\tnew (cb->m_userdata) IORequest{type};\n\n\tif (srv_thread_pool->submit_io(cb)) {\n\t\tslots->release(cb);\n\t\tos_file_handle_error_no_exit(type.node->name, type.is_read()\n"
+  },
+  {
+    "path": "storage/innobase/fil/fil0fil.cc",
+    "first_line": 2950,
+    "last_line": 2982,
+    "text": "void IORequest::read_complete(int io_error) const noexcept\n{\n  ut_ad(fil_validate_skip());\n  ut_ad(node);\n  ut_ad(is_read());\n  ut_ad(bpage);\n  ut_d(auto s= bpage->state());\n  ut_ad(s > buf_page_t::READ_FIX);\n  ut_ad(s <= buf_page_t::WRITE_FIX);\n\n  const page_id_t id(bpage->id());\n  const bool in_recovery{recv_sys.recovery_on};\n\n  if (UNIV_UNLIKELY(io_error != 0))\n  {\n    sql_print_error(\"InnoDB: Read error %d of page \" UINT32PF \" in file %s\",\n                    io_error, id.page_no(), node->name);\n    recv_sys.free_corrupted_page(id, *node);\n    buf_pool.corrupted_evict(bpage, buf_page_t::READ_FIX + 1);\n  corrupted:\n    if (in_recovery && !srv_force_recovery)\n    {\n      mysql_mutex_lock(&recv_sys.mutex);\n      recv_sys.set_corrupt_fs();\n      mysql_mutex_unlock(&recv_sys.mutex);\n    }\n  }\n  else if (bpage->read_complete(*node, in_recovery))\n    goto corrupted;\n  else\n    bpage->unfix();\n\n  node->space->release();\n"
+  },
+  {
+    "path": "storage/innobase/buf/buf0dump.cc",
+    "first_line": 699,
+    "last_line": 712,
+    "text": "static void buf_dump_load_func(void *)\n{\n\tut_ad(!srv_read_only_mode);\n\tstatic bool first_time = true;\n\tif (first_time && srv_buffer_pool_load_at_startup) {\n\n#ifdef WITH_WSREP\n\t\tif (!get_wsrep_recovery()) {\n#endif /* WITH_WSREP */\n\t\t\tsrv_thread_pool->set_concurrency(srv_n_read_io_threads);\n\t\t\tbuf_load();\n\t\t\tsrv_thread_pool->set_concurrency();\n#ifdef WITH_WSREP\n\t\t}\n"
+  },
+  {
+    "path": "storage/innobase/srv/srv0start.cc",
+    "first_line": 1608,
+    "last_line": 1626,
+    "text": "\t\t}\n\n\t\tif (srv_force_recovery < SRV_FORCE_NO_LOG_REDO) {\n\t\t\t/* Apply the hashed log records to the\n\t\t\trespective file pages, for the last batch of\n\t\t\trecv_group_scan_log_recs().\n\t\t\tSince it may generate huge batch of threadpool tasks,\n\t\t\tfor read io task group, scale down thread creation rate\n\t\t\tby temporarily restricting tpool concurrency.\n\t\t\t*/\n\t\t\tsrv_thread_pool->set_concurrency(srv_n_read_io_threads);\n\n\t\t\tmysql_mutex_lock(&recv_sys.mutex);\n\t\t\trecv_sys.apply(true);\n\t\t\tmysql_mutex_unlock(&recv_sys.mutex);\n\n\t\t\tsrv_thread_pool->set_concurrency();\n\n\t\t\tif (recv_sys.is_corrupt_log()\n"
+  }
+]

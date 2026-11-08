@@ -1,0 +1,23 @@
+{
+  "result": "BOUND_STAGE",
+  "measured_source_commit": "fef99e33ee99174f57c11ec4b3b9b4c86dab2582",
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "binary_sha256": "d8c0969a5876a4bb050ed69af6c6f578d5727ec66de8dc63106f8a21824c0c03",
+  "controls": "6 synthetic race tests PASS; one live SQL SLEEP control PASS",
+  "natural_processes": 8,
+  "case_count": 630,
+  "active_mappings_after": 0,
+  "observers_closed": 198,
+  "record_truncation": false,
+  "profile_bound_prepares": 2,
+  "phase_result": "One captured foreground read request delayed before synchronous I/O; another delayed after I/O before completion callback. No frequency or setting-adoption claim.",
+  "missing": "Whether generic global pool admission or read task-group admission held each task; no pool counters or maintenance tick observed.",
+  "scope": "Observation and configuration source map only; canonical runtime/API/guest/release unchanged.",
+  "attempts": "One helper-guarded run, COMPLETE. Initial goto declaration correction committed before any build.",
+  "retention": "All page/read/park records, all referenced request generations and every request with submit-to-callback >=50ms retained; unreferenced shorter requests reduced to per-instance census and original-record digest. Not all short-request timings retained.",
+  "public_source_check": "PASS: 6994 files",
+  "python_sources": "All new Python sources compile",
+  "replay": "PASS: profile/page/request/notification binding, four mutations, ordering, census and checksums",
+  "runtime_diff": "No committed internal/guest/release/root module changes"
+}

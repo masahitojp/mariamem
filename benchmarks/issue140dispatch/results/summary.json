@@ -1,0 +1,248 @@
+{
+  "processes": [
+    {
+      "run": "control-0-pool16-on",
+      "calls": 20,
+      "retained_scopes": 20,
+      "park_events": 20
+    },
+    {
+      "run": "natural-1-pool16-off",
+      "calls": 22,
+      "retained_scopes": 21,
+      "park_events": 21
+    },
+    {
+      "run": "natural-2-pool16-on",
+      "calls": 30,
+      "retained_scopes": 29,
+      "park_events": 29
+    },
+    {
+      "run": "natural-3-pool8-on",
+      "calls": 19,
+      "retained_scopes": 19,
+      "park_events": 19
+    },
+    {
+      "run": "natural-4-pool8-off",
+      "calls": 22,
+      "retained_scopes": 21,
+      "park_events": 21
+    },
+    {
+      "run": "natural-5-pool8-off",
+      "calls": 12,
+      "retained_scopes": 12,
+      "park_events": 12
+    },
+    {
+      "run": "natural-6-pool8-on",
+      "calls": 17,
+      "retained_scopes": 17,
+      "park_events": 17
+    },
+    {
+      "run": "natural-7-pool16-on",
+      "calls": 22,
+      "retained_scopes": 21,
+      "park_events": 21
+    },
+    {
+      "run": "natural-8-pool16-off",
+      "calls": 20,
+      "retained_scopes": 20,
+      "park_events": 20
+    }
+  ],
+  "profile_bound_prepares": [
+    {
+      "run": "natural-2-pool16-on",
+      "db_id": "issue68-db-14",
+      "scope_id": 1,
+      "space": 2,
+      "page": 7,
+      "trx": 409254784,
+      "pool_begin_called": true,
+      "scope_ms": 795.687,
+      "register_to_signal_before_ms": 795.625,
+      "signal_after_to_resume_ms": 0.03,
+      "caller_ms": 801.172,
+      "prepare_ordinal": 3,
+      "lane": "TestShipOrder/pending_rejected",
+      "io_id": 165,
+      "cb": 413529216,
+      "initial_dispatch_ms": 1.071,
+      "initial_dispatch_after_submit_return_ms": 1.071,
+      "synchronous_io_ms": 0.003,
+      "completion_dispatch_ms": 795.146,
+      "completion_dispatch_after_submit_return_ms": 795.146,
+      "callback_to_notify_ms": 0.017
+    },
+    {
+      "run": "natural-3-pool8-on",
+      "db_id": "issue68-db-20",
+      "scope_id": 2,
+      "space": 10,
+      "page": 0,
+      "trx": 0,
+      "pool_begin_called": false,
+      "scope_ms": 386.125,
+      "register_to_signal_before_ms": 386.067,
+      "signal_after_to_resume_ms": 0.048,
+      "caller_ms": 389.732,
+      "prepare_ordinal": 1,
+      "lane": "TestDeleteUser/user_36",
+      "io_id": 3,
+      "cb": 413516256,
+      "initial_dispatch_ms": 385.218,
+      "initial_dispatch_after_submit_return_ms": 385.218,
+      "synchronous_io_ms": 0.002,
+      "completion_dispatch_ms": 1.777,
+      "completion_dispatch_after_submit_return_ms": 1.777,
+      "callback_to_notify_ms": 0.027
+    }
+  ],
+  "natural_long_waits": [
+    {
+      "run": "natural-2-pool16-on",
+      "db_id": "issue68-db-14",
+      "scope_id": 2,
+      "space": 3,
+      "page": 1,
+      "trx": 0,
+      "pool_begin_called": false,
+      "scope_ms": 793.028,
+      "register_to_signal_before_ms": 792.931,
+      "signal_after_to_resume_ms": 0.069
+    },
+    {
+      "run": "natural-2-pool16-on",
+      "db_id": "issue68-db-14",
+      "scope_id": 1,
+      "space": 2,
+      "page": 7,
+      "trx": 409254784,
+      "pool_begin_called": true,
+      "scope_ms": 795.687,
+      "register_to_signal_before_ms": 795.625,
+      "signal_after_to_resume_ms": 0.03
+    },
+    {
+      "run": "natural-3-pool8-on",
+      "db_id": "issue68-db-20",
+      "scope_id": 2,
+      "space": 10,
+      "page": 0,
+      "trx": 0,
+      "pool_begin_called": false,
+      "scope_ms": 386.125,
+      "register_to_signal_before_ms": 386.067,
+      "signal_after_to_resume_ms": 0.048
+    },
+    {
+      "run": "natural-3-pool8-on",
+      "db_id": "issue68-db-20",
+      "scope_id": 1,
+      "space": 46,
+      "page": 1,
+      "trx": 409252928,
+      "pool_begin_called": true,
+      "scope_ms": 387.032,
+      "register_to_signal_before_ms": 386.99,
+      "signal_after_to_resume_ms": 0.025
+    },
+    {
+      "run": "natural-4-pool8-off",
+      "db_id": "issue68-db-18",
+      "scope_id": 1,
+      "space": 10,
+      "page": 0,
+      "trx": 0,
+      "pool_begin_called": false,
+      "scope_ms": 383.246,
+      "register_to_signal_before_ms": 383.223,
+      "signal_after_to_resume_ms": 0.014
+    },
+    {
+      "run": "natural-8-pool16-off",
+      "db_id": "issue68-db-7",
+      "scope_id": 1,
+      "space": 9,
+      "page": 0,
+      "trx": 409254784,
+      "pool_begin_called": true,
+      "scope_ms": 793.741,
+      "register_to_signal_before_ms": 793.664,
+      "signal_after_to_resume_ms": 0.047
+    },
+    {
+      "run": "natural-8-pool16-off",
+      "db_id": "issue68-db-12",
+      "scope_id": 1,
+      "space": 10,
+      "page": 0,
+      "trx": 0,
+      "pool_begin_called": false,
+      "scope_ms": 789.859,
+      "register_to_signal_before_ms": 789.818,
+      "signal_after_to_resume_ms": 0.035
+    }
+  ],
+  "io_census": [
+    {
+      "run": "control-0-pool16-on",
+      "total": 3642,
+      "retained": 263,
+      "omitted_short_unreferenced": 3379
+    },
+    {
+      "run": "natural-1-pool16-off",
+      "total": 4027,
+      "retained": 21,
+      "omitted_short_unreferenced": 4006
+    },
+    {
+      "run": "natural-2-pool16-on",
+      "total": 3541,
+      "retained": 202,
+      "omitted_short_unreferenced": 3339
+    },
+    {
+      "run": "natural-3-pool8-on",
+      "total": 2345,
+      "retained": 141,
+      "omitted_short_unreferenced": 2204
+    },
+    {
+      "run": "natural-4-pool8-off",
+      "total": 2470,
+      "retained": 143,
+      "omitted_short_unreferenced": 2327
+    },
+    {
+      "run": "natural-5-pool8-off",
+      "total": 1722,
+      "retained": 12,
+      "omitted_short_unreferenced": 1710
+    },
+    {
+      "run": "natural-6-pool8-on",
+      "total": 2407,
+      "retained": 17,
+      "omitted_short_unreferenced": 2390
+    },
+    {
+      "run": "natural-7-pool16-on",
+      "total": 4210,
+      "retained": 21,
+      "omitted_short_unreferenced": 4189
+    },
+    {
+      "run": "natural-8-pool16-off",
+      "total": 3863,
+      "retained": 270,
+      "omitted_short_unreferenced": 3593
+    }
+  ]
+}
