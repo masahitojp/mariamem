@@ -15,3 +15,53 @@ tests/dump_import_acceptance/input/application.sql whitespace=-blank-at-eol
 
 # Preserve checksum-bound dbt CLI receipts; timestamp-only lines have trailing spaces.
 docs/reviews/dbt-revalidation-evidence/**/*.txt whitespace=-blank-at-eol
+
+# Commit canonical generated output, but collapse it in GitHub reviews.
+internal/generatedgo/** linguist-generated=true
+# Handwritten owners remain visible; names follow generate_runtime.HANDWRITTEN_FILES.
+internal/generatedgo/code/base/crc32c.go linguist-generated=false
+internal/generatedgo/code/p4/crc32c_test.go linguist-generated=false
+internal/generatedgo/code/base/memfs.go linguist-generated=false
+internal/generatedgo/code/base/block_storage.go linguist-generated=false
+internal/generatedgo/code/base/block_storage_test.go linguist-generated=false
+internal/generatedgo/code/base/heap_snapshot.go linguist-generated=false
+internal/generatedgo/code/base/heap_snapshot_test.go linguist-generated=false
+internal/generatedgo/code/base/fd_allocate_test.go linguist-generated=false
+internal/generatedgo/code/base/bulk_bounds_test.go linguist-generated=false
+internal/generatedgo/code/base/wait_timeout_test.go linguist-generated=false
+internal/generatedgo/code/base/thread_identity_test.go linguist-generated=false
+internal/generatedgo/code/base/thread_lifetime.go linguist-generated=false
+internal/generatedgo/code/base/thread_lifetime_test.go linguist-generated=false
+internal/generatedgo/code/base/runtime_failure.go linguist-generated=false
+internal/generatedgo/code/base/runtime_failure_test.go linguist-generated=false
+internal/generatedgo/runtime_thread_lifetime.go linguist-generated=false
+internal/generatedgo/code/base/narrow_load_test.go linguist-generated=false
+internal/generatedgo/code/base/narrow_load_supported.go linguist-generated=false
+internal/generatedgo/code/base/narrow_load_other.go linguist-generated=false
+internal/generatedgo/code/base/narrow_load_darwin_arm64.s linguist-generated=false
+internal/generatedgo/code/base/narrow_load_linux_amd64.s linguist-generated=false
+internal/generatedgo/code/base/narrow_write_supported.go linguist-generated=false
+internal/generatedgo/code/base/narrow_write_other.go linguist-generated=false
+internal/generatedgo/code/base/narrow_write_darwin_arm64.s linguist-generated=false
+internal/generatedgo/code/base/narrow_write_linux_amd64.s linguist-generated=false
+internal/generatedgo/code/base/narrow_write_test.go linguist-generated=false
+internal/generatedgo/code/base/owned_prepared.go linguist-generated=false
+internal/generatedgo/code/base/owned_prepared_test.go linguist-generated=false
+internal/generatedgo/runtime_instance.go linguist-generated=false
+internal/generatedgo/runtime_instance_test.go linguist-generated=false
+internal/generatedgo/host_dup_test.go linguist-generated=false
+internal/generatedgo/worker_trap_integration_test.go linguist-generated=false
+internal/generatedgo/uca_prepared_integration_test.go linguist-generated=false
+internal/generatedgo/lexer_prepared_integration_test.go linguist-generated=false
+internal/generatedgo/code/base/fd_dup_test.go linguist-generated=false
+internal/generatedgo/code/base/runtime_cleanup.go linguist-generated=false
+internal/generatedgo/code/base/host_memory_test.go linguist-generated=false
+internal/generatedgo/code/base/fd_write_test.go linguist-generated=false
+internal/generatedgo/memory_backing_unix.go linguist-generated=false
+internal/generatedgo/memory_backing_other.go linguist-generated=false
+internal/generatedgo/memory_lifetime.go linguist-generated=false
+internal/generatedgo/memory_backing_test.go linguist-generated=false
+internal/generatedgo/memory_controlled_test.go linguist-generated=false
+internal/generatedgo/memory_host_test.go linguist-generated=false
+internal/generatedgo/code/base/memory_mapping.go linguist-generated=false
+internal/generatedgo/code/base/memory_mapping_test.go linguist-generated=false

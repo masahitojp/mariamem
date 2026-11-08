@@ -18,7 +18,7 @@ branch `experiment/lexer-canonical`, PR136. These inputs were reconstructed from
 the approved [decision](../decisions/prepared-lexer-maps.md) and PR identity.
 The [checksum-bound receipt](lexer-canonical-ci-42463414255/README.md) verifies
 run/job/artifact metadata and original ZIP checksums. Development42463420122 also
-passes at the code source. Follow-up receipt/ledger/status updates retain that
+passes at the code source. Follow-up receipt/ledger/status and GitHub display updates retain that
 original identity and document code equality; their own required checks remain
 mandatory before merge.
 
@@ -28,7 +28,7 @@ mandatory before merge.
 | Independent source build | SATISFIED. guest128677392694 has2 agreeing fresh-source repetitions; build guards reject missing/different repetitions |
 | Canonical Go installation and exact CRC/thread binding | SATISFIED. both platform inventories:110 identical files; full-body/data checks retained; new table oracle in HANDWRITTEN_FILES |
 | Both-host actual638-table/corruption/profiling/CRC/worker/J1 controls | SATISFIED. native128680408235/128680408276; original forced-failure assertions retained |
-| Prepared/native SQL, two independent children and cleanup | SATISFIED. both sql-children.json match the same pinned native reference including binary prepared output; refs0/exit0/reaped/root removal |
+| Prepared/native SQL, two independent children and cleanup | SATISFIED. both structured SQL results in receipt.json match the same pinned native reference including binary prepared output; refs0/exit0/reaped/root removal |
 | Retained-library/ownership bookkeeping | SATISFIED. canonical installer ownership checks and clean host287b3a00 retained-function audit; exact guest reproduced with Binaryen133; Development source/inventory/license checks pass |
 | Evidence identity and old receipt preservation | SATISFIED. canonical42463414255/b04b49db, input42448601842/fd615a53 and experimental42437059943/6134274a remain distinct |
 
@@ -78,3 +78,26 @@ and strict-base freshness pass; record the resulting main source/tree identity.
 This review did not run a new benchmark, execute cold/setup-cost trials, broaden
 SQL/charset/app coverage, or repeat real-guest tests after CI. It reads the
 canonical source/installer/fixtures and verifies the exact existing CI artifacts.
+
+## Review order for the source diff
+
+1. `guest/source.patch`, `scripts/lexer_prepared.py`, and
+   `benchmarks/lexerpreparedinput/wrapper.c.inc`: compiled-only selection, source
+   pins, numeric table production and original fallback.
+2. `scripts/runtime_crc32c.py`, `scripts/runtime_thread_lifetime.py`,
+   `scripts/generate_runtime.py`, `internal/runtimekind/kind.go`,
+   `scripts/generated_release.py`: exact binding, installer ownership, host
+   identity and input attestation.
+3. `internal/generatedgo/lexer_prepared_integration_test.go`,
+   `tests/lexer_prepared_acceptance.py`, fixture updates and the manual candidate
+   workflow: actual table/negative/native/prepared/ownership/cleanup assertions.
+4. `release/generated-go-*.json` and the two compact CI receipt directories:
+   source/hash continuity and observed outcomes.
+
+`.gitattributes` collapses canonical generated output on GitHub while explicitly
+leaving every current HANDWRITTEN_FILES owner visible. The large Go output stays
+committed for reproducible source distribution; inspect its generator/binding
+changes first and use independent regeneration/whole-body checks for the output.
+This display attribute changes no build or runtime behavior. CI receipt console
+transcripts/API payloads/repeated inventories have been reduced to structured
+results and source/hash references under the compact-evidence rule.

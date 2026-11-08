@@ -1,7 +1,0 @@
-{
-  "source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
-  "tracked_files": 6856,
-  "source_inventory_canonical_sha256": "7af1919b9fc3d104d16c56177d2e91f4c62401e1915f5b4600260422d0eb4304",
-  "method": "Compare each original guest source inventory with git archive tracked blob hashes; both equal",
-  "result": "PASS"
-}

@@ -723,6 +723,23 @@ Preserve compact JSON/CSV, final reports and checksums; dispose owned temp/build
 outputs after finalization. Confirm shared-cache inactivity, preserve unique evidence, then delete
 recreatable caches; regeneration cost is not a KEEP reason. See [workspace cleanup](experiment-workspace.md) and [project status](project-status.md).
 
+### Compact CI receipts
+
+For new or revised receipts, keep the decision report, source/run/job/artifact
+identities and digests, structured PASS/FAIL/SKIP outcomes, essential SQL/negative/
+cleanup results and checksums. Verify original artifact bytes before reduction.
+Repeated generated inventories and build metadata may reference exact committed
+source plus a canonical digest after equality is checked. The repository copy
+must retain the facts needed for its acceptance claim even after CI artifacts
+expire. Preserve unique failure/measurement observations needed for the decision.
+
+Routine console transcripts, full REST responses and duplicated per-host
+metadata are not the compact result. Reduce them into the above records, retain
+original hashes and the inspected source anchor, and discard recreatable copies.
+Do not merely compress raw payloads into a less reviewable form or relabel old
+receipts. This applies to the representation of new/revised receipts; it does not
+rewrite the context of historical accepted evidence.
+
 ## Guest patch maintenance
 
 Guest portability maintenance follows the approved
