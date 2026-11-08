@@ -1,0 +1,6 @@
+tree 4b24904049007aa895c945548b82dccdaacbeadd
+parent ba0d134749e68e17d1e75e04e929704c29b44250
+author Oleksandr Byelkin <sanja@mariadb.com> 1789048123 +0200
+committer Oleksandr Byelkin <sanja@mariadb.com> 1789048123 +0200
+
+new columnstore (df4f261f1f622adb2c266527e3fd3c8c4ddaa636 25.10.7)

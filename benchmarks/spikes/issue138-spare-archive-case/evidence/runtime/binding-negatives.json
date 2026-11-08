@@ -1,0 +1,16 @@
+{
+  "body-digest": {
+    "rejected": true,
+    "exit": 1,
+    "expected_error": "experimental exact worker function changed",
+    "mutation": "reviewed expected function digest",
+    "generated_runtime_was_not_compiled": true
+  },
+  "ABI-offset": {
+    "rejected": true,
+    "exit": 2,
+    "expected_error": "experimental worker binding identity/ABI mismatch",
+    "mutation": "ABI map_size44 to48",
+    "generated_runtime_was_not_compiled": true
+  }
+}

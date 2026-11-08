@@ -1,0 +1,15 @@
+{
+  "floor_gib": 6,
+  "owned_ceiling_gib": 24,
+  "command": [
+    "build/issue128-real/temp/venv/bin/python",
+    "benchmarks/spikes/issue138-spare-archive-case/legacy_driver.py",
+    "translate"
+  ],
+  "exit": 0,
+  "error": null,
+  "wall_seconds": 130.38750995800365,
+  "peak_conservatively_owned_bytes": 5565456384,
+  "minimum_free_bytes": 17524875264,
+  "scope": "entire assigned checkout including all host/container mounts, source, SDK, caches, temp, output"
+}

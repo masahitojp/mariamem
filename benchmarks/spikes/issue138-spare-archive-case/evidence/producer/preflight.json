@@ -1,0 +1,12 @@
+{
+  "source_commit": "32c799031f619164d3730b61a0bc9d7ae48dcd9b",
+  "target_source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+  "tag_object_sha": "308a50778fb4916ddde0d2923feea3d11dcc92c8",
+  "fresh_conditions": {
+    "work_empty": true,
+    "sdk_absent": true,
+    "source_absent": true,
+    "unpack_absent": true
+  },
+  "builder_sha256": "2e53dcb2f853574bc7c2248189af789a74292148303755a25603d43aaeceaa21"
+}

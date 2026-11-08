@@ -1,0 +1,15 @@
+{
+  "floor_gib": 6,
+  "owned_ceiling_gib": 24,
+  "command": [
+    "build/issue128-real/temp/venv/bin/python",
+    "benchmarks/spikes/issue138-paired-capture/binding_negatives.py",
+    "legacy"
+  ],
+  "exit": 0,
+  "error": null,
+  "wall_seconds": 5.914931165985763,
+  "peak_conservatively_owned_bytes": 4521029632,
+  "minimum_free_bytes": 17367756800,
+  "scope": "entire assigned checkout including all host/container mounts, source, SDK, caches, temp, output"
+}

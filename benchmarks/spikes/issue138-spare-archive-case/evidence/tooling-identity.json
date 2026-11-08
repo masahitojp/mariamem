@@ -1,0 +1,18 @@
+{
+  "tooling_source_commit": "ffc1cfd3e22267e47217804fa321d2115b1e2cdc",
+  "files": {
+    "benchmarks/spikes/issue138-spare-archive-case/legacy_spare_archive.py": {
+      "git_blob_sha": "627e4c7ac41020ff0064dd4e63c0b38aa65f2b59",
+      "sha256": "ac822754c81aec03b62802d0df8bae9fe8f2c488a0a45e7520e8466274bc4661"
+    },
+    "benchmarks/spikes/issue138-spare-archive-case/legacy_driver.py": {
+      "git_blob_sha": "875e0097f67b211a390f4cadf032705f7b97137f",
+      "sha256": "856cb930f6126a090b6cff56f92f5bae85ff3afda2db237de1ec07062e65a6a8"
+    },
+    "benchmarks/spikes/issue138-spare-archive-case/run_owned.py": {
+      "git_blob_sha": "fe3e237eed8e9610fafe567e126bc25b3643f5f0",
+      "sha256": "eea9c92474e976dcfadae25194f0868aaa450d972622a3c9d3a867e957922bc2"
+    }
+  },
+  "producer_source_commit": "32c799031f619164d3730b61a0bc9d7ae48dcd9b"
+}

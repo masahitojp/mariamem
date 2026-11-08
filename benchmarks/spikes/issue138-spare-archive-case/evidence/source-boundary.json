@@ -10,5 +10,8 @@
   "helper_tests": "19/19 complete original helper16/observer3",
   "exact_profiles": "PASS actual full-file profiles and negatives",
   "optional_observer": false,
-  "native_rebuild": false
+  "native_rebuild": false,
+  "actual_full_prepared_inventory_equal_to_prior_legacy": true,
+  "actual_prepared_source_file_count": 31014,
+  "actual_guest_exact_reproduction": true
 }

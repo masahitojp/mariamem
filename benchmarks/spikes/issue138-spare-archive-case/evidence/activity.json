@@ -1,0 +1,12 @@
+{
+  "host_process_categories_after_launch": {
+    "go": 0,
+    "compile": 0,
+    "clang": 0,
+    "clang++": 0,
+    "mariamem-dev-host": 0,
+    "docker": 1
+  },
+  "ownership": "Only named task container and build/issue128-real/temp belong to this run; other processes/workspaces protected",
+  "shared_image_modified_or_deleted": false
+}

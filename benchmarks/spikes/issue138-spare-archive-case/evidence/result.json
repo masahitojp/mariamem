@@ -1,0 +1,126 @@
+{
+  "outcome": "FAILED positive marker absent in one authorized primary case",
+  "tooling_source_commit": "ffc1cfd3e22267e47217804fa321d2115b1e2cdc",
+  "fixture_sha256": "ac822754c81aec03b62802d0df8bae9fe8f2c488a0a45e7520e8466274bc4661",
+  "producer_source_commit": "32c799031f619164d3730b61a0bc9d7ae48dcd9b",
+  "guest_sha256": "d29caafda1ed32851df856dc7fcba3871c3c7ea75df8f2c5d4976b3eb9132c95",
+  "host_sha256": "2379e23373cf8f2c84f67774499343beb63db31acc8173464c9dd4a05b66ef21",
+  "guest_and_host_reproduce_previous_bytes": true,
+  "all_prepared_31014_files_reproduce": true,
+  "whole_body_binding_equals_previous": true,
+  "TLS": 505,
+  "ABI_offsets": [
+    16,
+    40,
+    44
+  ],
+  "smoke_pass": 1,
+  "P1_pass": 6,
+  "P2_pass": 15,
+  "common_archive_capture_restore_isolation": "PASS",
+  "primary_readbacks_and_states": [
+    {
+      "event": "ISSUE138_ARCHIVE",
+      "start": 36889,
+      "end": 16947892,
+      "checkpoint": 16960294,
+      "rows": 256,
+      "bytes": 16777216
+    },
+    {
+      "event": "ISSUE138_OBSERVE",
+      "time_ns": 1794159345161651000,
+      "stage": "close",
+      "state": {
+        "active_connections": 1,
+        "busy": true,
+        "id": 4,
+        "ok": true,
+        "state": "ready"
+      }
+    },
+    {
+      "event": "ISSUE138_OBSERVE",
+      "time_ns": 1794159345161903000,
+      "stage": "drain-complete",
+      "state": {
+        "active_connections": 0,
+        "busy": false,
+        "id": 6,
+        "ok": true,
+        "state": "ready"
+      }
+    },
+    {
+      "event": "SPARE_SAVED_CONFIG",
+      "settings": [
+        90.0,
+        0.0,
+        1,
+        1536
+      ],
+      "initial_archive": 0
+    },
+    {
+      "event": "SPARE_APPLIED_CONTROLS",
+      "values": [
+        1,
+        4194304,
+        0,
+        100,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "event": "SPARE_INITIAL_CONFIG",
+      "values": [
+        16777216,
+        16384,
+        1,
+        200
+      ],
+      "logs": "ISSUE138_BRANCH timed_wait\n"
+    },
+    {
+      "event": "SPARE_OBSERVE",
+      "time_ns": 1794159346997835000,
+      "stage": "archive-on-drained",
+      "state": {
+        "active_connections": 0,
+        "busy": false,
+        "id": 7,
+        "ok": true,
+        "state": "ready"
+      },
+      "logs": "ISSUE138_BRANCH timed_wait\n"
+    },
+    {
+      "event": "SPARE_OBSERVE",
+      "time_ns": 1794159351999390000,
+      "stage": "branch-missing-or-root-failed",
+      "state": {
+        "active_connections": 0,
+        "busy": false,
+        "id": 791,
+        "ok": true,
+        "state": "ready"
+      },
+      "logs": "ISSUE138_BRANCH timed_wait\n"
+    }
+  ],
+  "positive_marker": "ABSENT within one5s observation",
+  "primary_restore_controls_exact_digest_capture_children": "NOT RUN after missing marker; instance disposed by context cleanup",
+  "suite_exit": 1,
+  "fresh_guests": 1,
+  "translations": 1,
+  "host_compilations": 1,
+  "suite_commands": 1,
+  "native_producers": 0,
+  "retries": 0,
+  "CI": 0,
+  "benchmarks": 0,
+  "optional_observer_applied": false,
+  "algorithm_modified": false,
+  "overall_maintenance_burden": "INCONCLUSIVE"
+}

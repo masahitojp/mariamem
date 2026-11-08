@@ -1,0 +1,57 @@
+{
+  "primary-legacy-suite.txt": {
+    "raw_sha256": "d7832f1e3401fec881c69759798d97f3ddcd25f552ef749118d235102959dca6",
+    "normalized_sha256": "502d53f17a6059fa0ed8d831bcc1ce65430ef86348508a0b50fc1197091aee2c",
+    "operation": "literal owner/home path prefixes only"
+  },
+  "launch.json": {
+    "raw_sha256": "07cbd9b44728a651fd7574a995a9ec35baa2ab97697a0cc481c2c73481a94199",
+    "normalized_sha256": "44530448104cdffe6b17a3a7c2d93a10df458e0d3ef007037f5dd9643f103d2b",
+    "operation": "literal owner/home path prefixes only"
+  },
+  "primary-legacy-translation.txt": {
+    "raw_sha256": "fe2ab0b5b26ec0c9acb53c071474759a1452ae40a6caed3a3b83f14ca045ab7c",
+    "normalized_sha256": "8b424ce9a86b6e310e307020bd6bbc08395c3556a27df4de5ba9d578b6fa4d06",
+    "operation": "literal owner/home path prefixes only"
+  },
+  "producer/outer-producer.json": {
+    "raw_sha256": "56e34820b3ad543f89783f0022404e3bc9be89f4212d1351ec7a8df7b242eca0",
+    "normalized_sha256": "306bdfea7745b9dd7430b2c02fbb4a912dc035e14a68ce32cc241dcef1ad5ed7",
+    "operation": "literal owner/home path prefixes only"
+  },
+  "runtime/negative-body-digest.txt": {
+    "raw_sha256": "6218f0106b3a4075ca3d98aabd874cc6c36293cdd5e3d8ae2dbf4ede01817464",
+    "normalized_sha256": "b87bcb72fcfc1f89f93a53b8bdb826342230fc933ebfcb3462ac70b53fed8240",
+    "operation": "literal owner/home path prefixes only"
+  },
+  "runtime/host-phases.jsonl": {
+    "raw_sha256": "904063d060fc8b8416944a63b7d5bfaa3f6830f0cec2d78615d5df11db3e8cbd",
+    "normalized_sha256": "2ac28be6071facfdac97435e3f58d0a81fee62e4ef4b68eee3780990c1de450c",
+    "operation": "literal owner/home path prefixes only"
+  },
+  "runtime/installation-inputs.json": {
+    "raw_sha256": "acdf6641f48eb85d09d1d1538606fbe07de514f793eee6f389a5bd8aa75123fd",
+    "normalized_sha256": "dc0c1e9667bbaba981ebf2c4019730a6e3fcca92e7aa47ebe17694e8c4508a5d",
+    "operation": "literal owner/home path prefixes only"
+  },
+  "producer/CMakeCache.txt": {
+    "raw_sha256": "eb8c894cc651eacf457212824b5ae3bc6bacbf55bb758365793169b3999a2098",
+    "normalized_sha256": "79046af0b6a4549cda9bf29e0f75496034f4bd27fb9534d7642eb5c44962086e",
+    "operation": "display-only trailing diagnostic whitespace and redundant EOF blank lines; actual runtime failure content untouched"
+  },
+  "producer/console.txt": {
+    "raw_sha256": "0b3bfc27eb052cbcafdec63350b888f3d9847daf686972c1f0ba00d4f86c5ffc",
+    "normalized_sha256": "51fce64aaf6cacbf2619a26655bebe7248475a9b9678c282058aa3365c14af59",
+    "operation": "display-only trailing diagnostic whitespace and redundant EOF blank lines; actual runtime failure content untouched"
+  },
+  "producer/flags.make": {
+    "raw_sha256": "69eaaffdf3a881b44a842c30fa84b4cd6c34b1ba4263cf07b71d63acb69cfdc4",
+    "normalized_sha256": "ba9a54843fd5335357fb8b5436c25b696c37785e676e5ebaf22890d151588d9e",
+    "operation": "display-only trailing diagnostic whitespace and redundant EOF blank lines; actual runtime failure content untouched"
+  },
+  "producer/link.txt": {
+    "raw_sha256": "e30e6728b2219aac5829d25d1d0ff1df21df67394a3a5e2e8482b0c5221ef1d1",
+    "normalized_sha256": "562ec9495bf4e27a8ee017497405240d4fc4bf2baebbe73c53cdba8d9e248922",
+    "operation": "display-only trailing diagnostic whitespace and redundant EOF blank lines; actual runtime failure content untouched"
+  }
+}
