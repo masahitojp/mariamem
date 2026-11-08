@@ -17,6 +17,7 @@ import (
 )
 
 type database struct {
+	id       string
 	open     func() *sql.DB
 	close    func() error
 	wait     func() error
@@ -38,12 +39,12 @@ var fx *fixture
 var sampleRecords []*store.SampleRecord
 var sampleMu sync.Mutex
 
-func sampleContext(lane string) context.Context {
+func sampleContext(lane string, dbID string) context.Context {
 	ctx := context.Background()
 	if os.Getenv("ISSUE88_SAMPLE_PHASES") != "1" {
 		return ctx
 	}
-	return store.WithSampleObserver(ctx, lane, fx.rec.OffsetUS, func(r *store.SampleRecord) {
+	return store.WithSampleObserver(ctx, lane, dbID, fx.rec.OffsetUS, func(r *store.SampleRecord) {
 		sampleMu.Lock()
 		defer sampleMu.Unlock()
 		sampleRecords = append(sampleRecords, r)
@@ -83,6 +84,13 @@ func TestMain(m *testing.M) {
 	must(store.Migrate(ctx, p))
 	must(store.SeedMaster(ctx, p))
 	checkSettings(p, fx.rec)
+	if os.Getenv("ISSUE68_CONTROL") == "1" {
+		var n int
+		must(store.CapturePositiveControl(sampleContext("positive_control", root.id), func() error { return p.QueryRow("SELECT SLEEP(0.25)").Scan(&n) }))
+		if n != 0 {
+			panic("sleep oracle")
+		}
+	}
 	must(p.Close())
 	if root.wait != nil {
 		must(root.wait())
@@ -121,6 +129,7 @@ func TestMain(m *testing.M) {
 		must(e)
 		must(os.WriteFile(path, append(data, '\n'), 0600))
 	}
+	must(store.WritePrepareCaptures(os.Getenv("ISSUE68_CAPTURE_DIR")))
 	os.Exit(code)
 }
 func (f *fixture) Group(t *testing.T, writes bool) { t.Helper(); t.Parallel() }
@@ -137,7 +146,7 @@ func (f *fixture) Read(t *testing.T) *sql.DB {
 		f.sharedDB = f.sharedOwner.open()
 		f.sharedDB.SetMaxOpenConns(8)
 		done = f.rec.Start("sample", "sample", "shared")
-		f.sharedErr = store.LoadSample(sampleContext("shared"), f.sharedDB)
+		f.sharedErr = store.LoadSample(sampleContext("shared", f.sharedOwner.id), f.sharedDB)
 		done()
 	})
 	if f.sharedErr != nil {
@@ -165,7 +174,7 @@ func (f *fixture) Write(t *testing.T) *sql.DB {
 	p.SetMaxOpenConns(1)
 	t.Cleanup(func() { done := f.rec.Start("close", "cleanup", t.Name()); retire(owner, p); done() })
 	done = f.rec.Start("sample", "sample", t.Name())
-	if e = store.LoadSample(sampleContext(t.Name()), p); e != nil {
+	if e = store.LoadSample(sampleContext(t.Name(), owner.id), p); e != nil {
 		t.Fatal(e)
 	}
 	done()

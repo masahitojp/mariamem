@@ -9,12 +9,26 @@ import (
 	"github.com/masahitojp/mariamem/benchmarks/issue88modelcase/internal/trace"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
 	"os"
+	"runtime/pprof"
 	"strconv"
+	"sync/atomic"
 )
 
+var dbSequence atomic.Int32
+
 func backendName() string { return "mariamem-" + os.Getenv("ISSUE88_POOL_MIB") }
-func wrap(d *mariamem.Database) *database {
-	return &database{open: func() *sql.DB {
+func labeledStart(ctx context.Context, f func(context.Context) (*mariamem.Database, error)) (*database, error) {
+	id := fmt.Sprintf("issue68-db-%d", dbSequence.Add(1))
+	var d *mariamem.Database
+	var err error
+	pprof.Do(ctx, pprof.Labels("db_id", id), func(ctx context.Context) { d, err = f(ctx) })
+	if err != nil {
+		return nil, err
+	}
+	return wrap(d, id), nil
+}
+func wrap(d *mariamem.Database, id string) *database {
+	return &database{id: id, open: func() *sql.DB {
 		cfg, e := mysql.ParseDSN(d.DSN())
 		must(e)
 		cfg.DialFunc = d.DialContext
@@ -29,23 +43,11 @@ func wrap(d *mariamem.Database) *database {
 		if e != nil {
 			return nil, nil, e
 		}
-		return func() (*database, error) {
-			ctx, cancel := timeout()
-			defer cancel()
-			c, e := s.Fork(ctx)
-			if e != nil {
-				return nil, e
-			}
-			return wrap(c), nil
-		}, s.Close, nil
+		return func() (*database, error) { ctx, cancel := timeout(); defer cancel(); return labeledStart(ctx, s.Fork) }, s.Close, nil
 	}}
 }
 func startBackend(ctx context.Context) (*database, error) {
-	d, e := mariamem.Start(ctx, mariamem.Options{})
-	if e != nil {
-		return nil, e
-	}
-	return wrap(d), nil
+	return labeledStart(ctx, func(ctx context.Context) (*mariamem.Database, error) { return mariamem.Start(ctx, mariamem.Options{}) })
 }
 func checkSettings(p *sql.DB, r *trace.Recorder) {
 	for _, key := range []string{"innodb_buffer_pool_size", "innodb_buffer_pool_size_max"} {
