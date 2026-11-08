@@ -6,6 +6,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
 	"os"
 	"path/filepath"
 	"runtime/pprof"
@@ -15,18 +16,20 @@ import (
 )
 
 type PrepareCapture struct {
-	DBID            string `json:"db_id"`
-	Lane            string `json:"lane"`
-	Phase           string `json:"phase"`
-	Ordinal         int    `json:"prepare_ordinal"`
-	CallEnterUS     int64  `json:"call_enter_us"`
-	CallReturnUS    int64  `json:"call_return_us"`
-	SnapshotBeginUS int64  `json:"snapshot_begin_us"`
-	SnapshotEndUS   int64  `json:"snapshot_end_us"`
-	Truncated       bool   `json:"truncated"`
-	Bytes           int    `json:"bytes"`
-	ProfileFile     string `json:"profile_file"`
-	Error           string `json:"error,omitempty"`
+	ReadBefore      []base.ReadSnapshot `json:"read_before"`
+	ReadAfter       []base.ReadSnapshot `json:"read_after"`
+	DBID            string              `json:"db_id"`
+	Lane            string              `json:"lane"`
+	Phase           string              `json:"phase"`
+	Ordinal         int                 `json:"prepare_ordinal"`
+	CallEnterUS     int64               `json:"call_enter_us"`
+	CallReturnUS    int64               `json:"call_return_us"`
+	SnapshotBeginUS int64               `json:"snapshot_begin_us"`
+	SnapshotEndUS   int64               `json:"snapshot_end_us"`
+	Truncated       bool                `json:"truncated"`
+	Bytes           int                 `json:"bytes"`
+	ProfileFile     string              `json:"profile_file"`
+	Error           string              `json:"error,omitempty"`
 	returned        atomic.Int64
 	clock           func() int64
 	data            []byte
@@ -76,8 +79,10 @@ func pollPrepareCalls() {
 					return false
 				}
 				c.SnapshotBeginUS = c.clock()
+				c.ReadBefore = base.SnapshotReadObservation(c.DBID)
 				var b boundedProfile
 				err := pprof.Lookup("goroutine").WriteTo(&b, 1)
+				c.ReadAfter = base.SnapshotReadObservation(c.DBID)
 				c.SnapshotEndUS = c.clock()
 				c.data = append([]byte(nil), b.Bytes()...)
 				c.Bytes = len(c.data)

@@ -1,0 +1,67 @@
+{
+  "issue": "https://github.com/masahitojp/mariamem/issues/140",
+  "question": "Bind naturally long PREPARE to same-instance read_wait page/trx, actual parked channel notification and waiter resume.",
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "parent_diagnostic_source_commit": "7e6547f95b84b12c608a88c39221da62da4ce256",
+  "workload": "same shop70/Pipe/P8/cap9",
+  "natural_blocks": [
+    [
+      [
+        16,
+        false
+      ],
+      [
+        16,
+        true
+      ],
+      [
+        8,
+        true
+      ],
+      [
+        8,
+        false
+      ]
+    ],
+    [
+      [
+        8,
+        false
+      ],
+      [
+        8,
+        true
+      ],
+      [
+        16,
+        true
+      ],
+      [
+        16,
+        false
+      ]
+    ]
+  ],
+  "natural_processes": 8,
+  "positive_controls": 1,
+  "poll_interval_ms": 20,
+  "threshold_ms": 100,
+  "capture_limit_per_process": 1,
+  "profile_cap_bytes": 2097152,
+  "observer": "Overlay-only read_wait/latch and actual host park/wake hooks. Same hooks in all arms; polling watcher remains on/off. Diagnostic timings are not performance evidence.",
+  "precision": "Clock offsets are microseconds; register to signal-before and signal-after to resume partition host-channel wait. Resume may precede signal-after on another CPU. No read submission/start timestamp; notification stack identifies caller only.",
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "host": "local M1/macOS arm64",
+  "timeout_seconds": 900,
+  "min_free_gib": 8,
+  "budget_gib": 10,
+  "active_budget_hours": 2,
+  "tooling_budget_minutes": 30,
+  "heavy_ci_limit": 0,
+  "exit": "Focused positive/negative park/wake controls, one SQL sleep control, fixed8 natural suites. BOUND_LONG_WAIT / PARTIAL / NO_USABLE_CAPTURE. No automatic extension or fix/main/release.",
+  "scope_cap_per_instance": 256,
+  "wait_cap_per_instance": 1024
+}

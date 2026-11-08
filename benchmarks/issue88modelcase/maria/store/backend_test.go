@@ -47,6 +47,7 @@ func wrap(d *mariamem.Database, id string) *database {
 	}}
 }
 func startBackend(ctx context.Context) (*database, error) {
+	base.InitReadObservation(fx.rec.OffsetUS)
 	return labeledStart(ctx, func(ctx context.Context) (*mariamem.Database, error) { return mariamem.Start(ctx, mariamem.Options{}) })
 }
 func checkSettings(p *sql.DB, r *trace.Recorder) {

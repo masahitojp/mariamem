@@ -1,0 +1,120 @@
+package base
+
+import (
+	"sync/atomic"
+	"testing"
+	"time"
+	"unsafe"
+)
+
+func readTestModule(db string) (*Module, func()) {
+	InitReadObservation(func() int64 { return time.Now().UnixMicro() })
+	m := &Module{Memory: make([]byte, 4096), Threads: &ThreadPool{}, MemSize: &atomic.Uint64{}, MemShared: true}
+	m.M = unsafe.Pointer(unsafe.SliceData(m.Memory))
+	m.MemSize.Store(uint64(len(m.Memory)))
+	m.Threads.nextTID.Store(1)
+	return m, RegisterReadObservation(m, db)
+}
+func TestReadObservationSignalBinding(t *testing.T) {
+	m, off := readTestModule("control")
+	defer off()
+	AtomicStore32At(m, 512, 7)
+	AtomicStore32At(m, 516, 9)
+	done := make(chan struct{})
+	go func() {
+		defer close(done)
+		ObserveReadWait(m, 512, 123, func() {
+			end := ObserveReadLatch(m, 536)
+			defer end()
+			if AtomicWait32At(m, 1024, 0, int64(time.Second)) != 0 {
+				t.Error("not notified")
+			}
+		})
+	}()
+	deadline := time.Now().Add(time.Second)
+	for {
+		v := SnapshotReadObservation("control")
+		if len(v) == 1 && len(v[0].WaitIDs) == 1 {
+			if v[0].Fields.Space != 7 || v[0].Fields.Page != 9 || v[0].Trx != 123 {
+				t.Fatal(v)
+			}
+			break
+		}
+		if time.Now().After(deadline) {
+			t.Fatal("no registered wait")
+		}
+		time.Sleep(time.Millisecond)
+	}
+	wrong, closeWrong := readTestModule("wrong")
+	if wrong.Threads.wake(1024, 1) != 0 {
+		t.Fatal("cross-instance wake")
+	}
+	closeWrong()
+	if m.Threads.wake(1024, 0) != 0 {
+		t.Fatal("zero wake")
+	}
+	if m.Threads.wake(1028, 1) != 0 {
+		t.Fatal("wrong address")
+	}
+	if m.Threads.wake(1024, 1) != 1 {
+		t.Fatal("missed actual wake")
+	}
+	select {
+	case <-done:
+	case <-time.After(time.Second):
+		t.Fatal("wait not resumed")
+	}
+	rAny, _ := readRegistry.Load(m.Threads)
+	r := rAny.(*ReadObserver)
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if len(r.Scopes) != 1 {
+		t.Fatal("scope count", len(r.Scopes))
+	}
+	s := r.Scopes[0]
+	w := s.Waits[0]
+	if w.Register > w.SignalBefore || w.SignalBefore > w.SignalAfter || w.SignalBefore > w.Resume || w.Resume > w.Return || len(w.pcs) == 0 {
+		t.Fatalf("bad ordering %+v", w)
+	}
+	if s.m != nil || len(r.waiters) != 0 {
+		t.Fatal("retained live state")
+	}
+}
+func TestReadObservationTimeoutAndRetiredScope(t *testing.T) {
+	m, off := readTestModule("timeout")
+	ObserveReadWait(m, 512, 0, func() {
+		end := ObserveReadLatch(m, 536)
+		defer end()
+		if AtomicWait32At(m, 1024, 0, int64(time.Millisecond)) != 2 {
+			t.Fatal("timeout expected")
+		}
+	})
+	v, _ := readRegistry.Load(m.Threads)
+	r := v.(*ReadObserver)
+	w := r.Scopes[0].Waits[0]
+	if w.SignalBefore != 0 || w.SignalAfter != 0 || w.Resume != 0 || w.Return == 0 {
+		t.Fatal("false notification")
+	}
+	if len(SnapshotReadObservation("timeout")) != 0 {
+		t.Fatal("retired scope sampled")
+	}
+	off()
+	m.M = nil
+	if len(SnapshotReadObservation("timeout")) != 0 {
+		t.Fatal("closed instance sampled")
+	}
+}
+func TestReadObservationUnrelatedLatch(t *testing.T) {
+	m, off := readTestModule("unrelated")
+	defer off()
+	ObserveReadWait(m, 512, 0, func() {
+		end := ObserveReadLatch(m, 540)
+		defer end()
+		AtomicWait32At(m, 1024, 0, int64(time.Millisecond))
+	})
+	v, _ := readRegistry.Load(m.Threads)
+	r := v.(*ReadObserver)
+	if len(r.Scopes) != 1 || len(r.Scopes[0].Waits) != 0 {
+		t.Fatal("unrelated latch attributed")
+	}
+}

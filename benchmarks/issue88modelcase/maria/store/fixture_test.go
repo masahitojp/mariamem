@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/masahitojp/mariamem/benchmarks/issue88modelcase/internal/trace"
 	"github.com/masahitojp/mariamem/benchmarks/issue88modelcase/maria/store"
+	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
 	"os"
 	"strconv"
 	"sync"
@@ -130,6 +131,7 @@ func TestMain(m *testing.M) {
 		must(os.WriteFile(path, append(data, '\n'), 0600))
 	}
 	must(store.WritePrepareCaptures(os.Getenv("ISSUE68_CAPTURE_DIR")))
+	must(base.WriteReadObservation(os.Getenv("READ_OBSERVATION_OUT")))
 	os.Exit(code)
 }
 func (f *fixture) Group(t *testing.T, writes bool) { t.Helper(); t.Parallel() }
