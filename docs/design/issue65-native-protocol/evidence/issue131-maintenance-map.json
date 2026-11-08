@@ -2041,7 +2041,9 @@
           }
         ]
       }
-    ]
+    ],
+    "matched_actual_target_prepared_postimages": true,
+    "recipe_python": "from pathlib import Path\nimport subprocess\nroot=Path('build/experiment-work/issue131-source/temp/source')\nroot.mkdir(parents=True,exist_ok=True)\nlines=Path('guest/experimental.patch').read_text().splitlines(True)\nsections=[]\nfor line in lines:\n    if line.startswith('--- '): sections.append([])\n    sections[-1].append(line)\nfor sec in sections:\n    target=sec[1][6:].strip()\n    if target in ['libmysqld/mariamem_control_abi.h','libmysqld/mariamem_wire_probe.inc','wasm/issue65_control.cc','wasm/issue65_deadline.h','sql/mariamem_wire_policy.h']:\n        subprocess.run(['patch','--batch','--fuzz=0','-p1'],cwd=root,input=''.join(sec),text=True,check=True)\n"
   },
   "prepared_families": [
     {
@@ -2154,5 +2156,41 @@
     "translations": 0,
     "ci": 0,
     "source_archives_acquired": 0
+  },
+  "companion_diagnosis": {
+    "source_commit": "14c3b38a40d809ffc3efab1cebeed6b1332afee7",
+    "path": "benchmarks/spikes/issue128-drain-source/README.md",
+    "finding": "Source synchronization gap established; recorded FAIL cause not established",
+    "combined_proposal": "Reuse bounded WaitDisconnected with live healthy root and zero host session/lease checks only for additional close-before-capture fixture; preserve original open-idle capture semantics",
+    "runtime_executed": false
+  },
+  "verification": {
+    "changed_publication_boundary": "PASS3 files using scripts/check_public.check on source copies",
+    "native_targets_and_prepared_citations": "PASS20 targets,6 families, in-bounds exact patch section targets and SHA256",
+    "relative_report_links": "PASS",
+    "source_equivalence": "PASS no diff to e6502de0 for native patch/nativewire/prepared overlay",
+    "new_files_actual_target_postimages": "PASS5 files",
+    "full_public_check": "not claimed; unexpected --help executes read-only scanner, interrupted",
+    "runtime_tests": "not run; docs-only boundary",
+    "protected_parent_files": "not modified",
+    "other_workspaces": "not modified or cleaned"
+  },
+  "completion": {
+    "recorded_utc": "2026-11-08T09:20:20.751571+00:00",
+    "cleanup": {
+      "owned_scope": "build/experiment-work/issue131-source",
+      "before_cleanup_bytes": 229376,
+      "after_cleanup_bytes": 32768,
+      "temp_removed": true,
+      "remaining": "compact helper receipt, publication-check result and exported small reproduction tooling; no build/download/cache/source staging",
+      "retained_paths_over_1gib": [],
+      "cleanup_debt": [],
+      "workspace_total_approx_mib": 387,
+      "free_space_approx_gib": 23,
+      "other_worker_or_parent_deletions": false
+    },
+    "budget_note": "Source work completed within60min active/15min tooling; source-only elapsed wall about15min including reads/reporting/publication; no stopwatch claim for active effort",
+    "preservation_commit_before_cleanup": "470c986f",
+    "ref": "refs/heads/experiment/issue131-maintenance-map"
   }
 }
