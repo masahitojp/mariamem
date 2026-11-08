@@ -1,0 +1,822 @@
+{
+  "scope": "Caller-only diagnostic: same70-case Pipe/P8 suite,5 alternating16/8 pairs;2 warmups and2 observer-off sanity runs separate. All observations retained; per-call wall includes engine/driver/host/scheduling. No CPU attribution or lock owner inference.",
+  "arms": {
+    "16": {
+      "suite_ms": [
+        516.596,
+        552.69,
+        569.657,
+        525.848,
+        582.541
+      ],
+      "suite_p50_ms": 552.69,
+      "cpu_ms": [
+        2882.436,
+        2838.654,
+        2891.5359999999996,
+        2903.763,
+        2982.192
+      ],
+      "cpu_p50_ms": 2891.5359999999996,
+      "loader_total_ms": {
+        "p50": 86.665,
+        "p95": 114.559,
+        "max": 444.814
+      },
+      "loader_unattributed_ms": {
+        "p50": 0.193,
+        "max": 0.371
+      },
+      "phases": {
+        "order_insert": {
+          "calls": 4200,
+          "per_call_ms": {
+            "p50": 0.202,
+            "p95": 0.669,
+            "p99": 1.667,
+            "max": 400.391,
+            "ge100ms": 1,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 11.708,
+            "p95": 20.418,
+            "max": 406.186
+          }
+        },
+        "item_insert": {
+          "calls": 10500,
+          "per_call_ms": {
+            "p50": 0.272,
+            "p95": 0.911,
+            "p99": 1.598,
+            "max": 11.682,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 40.616,
+            "p95": 54.383,
+            "max": 65.151
+          }
+        },
+        "stock_update": {
+          "calls": 10500,
+          "per_call_ms": {
+            "p50": 0.1365,
+            "p95": 0.496,
+            "p99": 1.037,
+            "max": 10.64,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 20.715,
+            "p95": 29.115,
+            "max": 37.312
+          }
+        },
+        "commit": {
+          "calls": 105,
+          "per_call_ms": {
+            "p50": 0.285,
+            "p95": 0.688,
+            "p99": 1.003,
+            "max": 1.071,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 0.285,
+            "p95": 0.688,
+            "max": 1.071
+          }
+        },
+        "begin": {
+          "calls": 105,
+          "per_call_ms": {
+            "p50": 3.073,
+            "p95": 15.021,
+            "p99": 29.565,
+            "max": 36.194,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 3.073,
+            "p95": 15.021,
+            "max": 36.194
+          }
+        },
+        "prepare": {
+          "calls": 315,
+          "per_call_ms": {
+            "p50": 1.107,
+            "p95": 5.807,
+            "p99": 9.826,
+            "max": 14.122,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 4.237,
+            "p95": 14.085,
+            "max": 18.002
+          }
+        },
+        "statement_close": {
+          "calls": 315,
+          "per_call_ms": {
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          }
+        },
+        "rollback_cleanup": {
+          "calls": 105,
+          "per_call_ms": {
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          }
+        }
+      }
+    },
+    "8": {
+      "suite_ms": [
+        584.193,
+        1236.867,
+        1222.039,
+        639.822,
+        833.778
+      ],
+      "suite_p50_ms": 833.778,
+      "cpu_ms": [
+        2898.09,
+        2960.929,
+        2885.054,
+        2743.799,
+        2964.201
+      ],
+      "cpu_p50_ms": 2898.09,
+      "loader_total_ms": {
+        "p50": 83.972,
+        "p95": 431.725,
+        "max": 878.964
+      },
+      "loader_unattributed_ms": {
+        "p50": 0.193,
+        "max": 0.246
+      },
+      "phases": {
+        "order_insert": {
+          "calls": 4200,
+          "per_call_ms": {
+            "p50": 0.195,
+            "p95": 0.631,
+            "p99": 1.381,
+            "max": 5.914,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 11.279,
+            "p95": 16.594,
+            "max": 32.511
+          }
+        },
+        "item_insert": {
+          "calls": 10500,
+          "per_call_ms": {
+            "p50": 0.272,
+            "p95": 0.871,
+            "p99": 1.512,
+            "max": 11.723,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 39.382,
+            "p95": 53.128,
+            "max": 66.691
+          }
+        },
+        "stock_update": {
+          "calls": 10500,
+          "per_call_ms": {
+            "p50": 0.134,
+            "p95": 0.431,
+            "p99": 0.885,
+            "max": 7.777,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 19.678,
+            "p95": 27.891,
+            "max": 38.404
+          }
+        },
+        "commit": {
+          "calls": 105,
+          "per_call_ms": {
+            "p50": 0.255,
+            "p95": 0.825,
+            "p99": 1.589,
+            "max": 2.532,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 0.255,
+            "p95": 0.825,
+            "max": 2.532
+          }
+        },
+        "begin": {
+          "calls": 105,
+          "per_call_ms": {
+            "p50": 2.972,
+            "p95": 12.116,
+            "p99": 18.478,
+            "max": 18.716,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 2.972,
+            "p95": 12.116,
+            "max": 18.716
+          }
+        },
+        "prepare": {
+          "calls": 315,
+          "per_call_ms": {
+            "p50": 1.317,
+            "p95": 7.168,
+            "p99": 395.47,
+            "max": 799.041,
+            "ge100ms": 6,
+            "ge500ms": 2
+          },
+          "per_loader_sum_ms": {
+            "p50": 5.8,
+            "p95": 389.922,
+            "max": 802.401
+          }
+        },
+        "statement_close": {
+          "calls": 315,
+          "per_call_ms": {
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          }
+        },
+        "rollback_cleanup": {
+          "calls": 105,
+          "per_call_ms": {
+            "p50": 0.0,
+            "p95": 0.0,
+            "p99": 0.0,
+            "max": 0.0,
+            "ge100ms": 0,
+            "ge500ms": 0
+          },
+          "per_loader_sum_ms": {
+            "p50": 0.0,
+            "p95": 0.0,
+            "max": 0.0
+          }
+        }
+      }
+    }
+  },
+  "long_operations_ge100ms": [
+    {
+      "pool_mib": 16,
+      "pair": 4,
+      "lane": "TestApplyDiscount/music_25",
+      "phase": "order_insert",
+      "order_id": 1,
+      "product_id": 0,
+      "begin_us": 133707,
+      "duration_us": 400391
+    },
+    {
+      "pool_mib": 8,
+      "pair": 1,
+      "lane": "TestApplyDiscount/books_10",
+      "phase": "prepare",
+      "order_id": 0,
+      "product_id": 0,
+      "begin_us": 135015,
+      "duration_us": 394851,
+      "prepare_ordinal": 1,
+      "prepared_statement": "orders INSERT"
+    },
+    {
+      "pool_mib": 8,
+      "pair": 1,
+      "lane": "TestCreateOrder/out_of_stock",
+      "phase": "prepare",
+      "order_id": 0,
+      "product_id": 0,
+      "begin_us": 352641,
+      "duration_us": 797773,
+      "prepare_ordinal": 2,
+      "prepared_statement": "order_items INSERT"
+    },
+    {
+      "pool_mib": 8,
+      "pair": 2,
+      "lane": "TestCancelOrder/another_paid",
+      "phase": "prepare",
+      "order_id": 0,
+      "product_id": 0,
+      "begin_us": 357312,
+      "duration_us": 799041,
+      "prepare_ordinal": 1,
+      "prepared_statement": "orders INSERT"
+    },
+    {
+      "pool_mib": 8,
+      "pair": 3,
+      "lane": "TestShipOrder/one_paid",
+      "phase": "prepare",
+      "order_id": 0,
+      "product_id": 0,
+      "begin_us": 202164,
+      "duration_us": 387765,
+      "prepare_ordinal": 1,
+      "prepared_statement": "orders INSERT"
+    },
+    {
+      "pool_mib": 8,
+      "pair": 4,
+      "lane": "TestDeleteUser/user_15",
+      "phase": "prepare",
+      "order_id": 0,
+      "product_id": 0,
+      "begin_us": 352075,
+      "duration_us": 395470,
+      "prepare_ordinal": 1,
+      "prepared_statement": "orders INSERT"
+    },
+    {
+      "pool_mib": 8,
+      "pair": 4,
+      "lane": "TestDeleteUser/user_36",
+      "phase": "prepare",
+      "order_id": 0,
+      "product_id": 0,
+      "begin_us": 352049,
+      "duration_us": 401243,
+      "prepare_ordinal": 1,
+      "prepared_statement": "orders INSERT"
+    }
+  ],
+  "run_details": [
+    {
+      "pool_mib": 16,
+      "pair": 0,
+      "suite_ms": 516.596,
+      "largest_loader": {
+        "lane": "TestCreateOrder/out_of_stock",
+        "total_ms": 122.298,
+        "phase_totals_ms": {
+          "begin": 3.942,
+          "commit": 0.175,
+          "item_insert": 52.731,
+          "order_insert": 30.408,
+          "prepare": 8.763,
+          "rollback_cleanup": 0.0,
+          "statement_close": 0.0,
+          "stock_update": 26.078
+        }
+      },
+      "operations_ge100ms": 0
+    },
+    {
+      "pool_mib": 16,
+      "pair": 1,
+      "suite_ms": 552.69,
+      "largest_loader": {
+        "lane": "TestCancelOrder/another_paid",
+        "total_ms": 108.854,
+        "phase_totals_ms": {
+          "begin": 3.01,
+          "commit": 0.135,
+          "item_insert": 47.46,
+          "order_insert": 15.191,
+          "prepare": 6.259,
+          "rollback_cleanup": 0.0,
+          "statement_close": 0.0,
+          "stock_update": 36.607
+        }
+      },
+      "operations_ge100ms": 0
+    },
+    {
+      "pool_mib": 16,
+      "pair": 2,
+      "suite_ms": 569.657,
+      "largest_loader": {
+        "lane": "TestCancelOrder/paid",
+        "total_ms": 159.313,
+        "phase_totals_ms": {
+          "begin": 36.194,
+          "commit": 0.178,
+          "item_insert": 65.151,
+          "order_insert": 20.192,
+          "prepare": 2.114,
+          "rollback_cleanup": 0.0,
+          "statement_close": 0.0,
+          "stock_update": 35.287
+        }
+      },
+      "operations_ge100ms": 0
+    },
+    {
+      "pool_mib": 16,
+      "pair": 3,
+      "suite_ms": 525.848,
+      "largest_loader": {
+        "lane": "TestShipOrder/all_paid",
+        "total_ms": 114.559,
+        "phase_totals_ms": {
+          "begin": 1.488,
+          "commit": 0.238,
+          "item_insert": 52.014,
+          "order_insert": 23.934,
+          "prepare": 3.378,
+          "rollback_cleanup": 0.0,
+          "statement_close": 0.0,
+          "stock_update": 33.168
+        }
+      },
+      "operations_ge100ms": 0
+    },
+    {
+      "pool_mib": 16,
+      "pair": 4,
+      "suite_ms": 582.541,
+      "largest_loader": {
+        "lane": "TestApplyDiscount/music_25",
+        "total_ms": 444.814,
+        "phase_totals_ms": {
+          "begin": 1.108,
+          "commit": 0.17,
+          "item_insert": 23.248,
+          "order_insert": 406.186,
+          "prepare": 3.312,
+          "rollback_cleanup": 0.0,
+          "statement_close": 0.0,
+          "stock_update": 10.625
+        }
+      },
+      "operations_ge100ms": 1
+    },
+    {
+      "pool_mib": 8,
+      "pair": 0,
+      "suite_ms": 584.193,
+      "largest_loader": {
+        "lane": "TestDeleteUser/user_15",
+        "total_ms": 126.606,
+        "phase_totals_ms": {
+          "begin": 0.475,
+          "commit": 1.589,
+          "item_insert": 48.928,
+          "order_insert": 18.053,
+          "prepare": 21.332,
+          "rollback_cleanup": 0.0,
+          "statement_close": 0.0,
+          "stock_update": 36.012
+        }
+      },
+      "operations_ge100ms": 0
+    },
+    {
+      "pool_mib": 8,
+      "pair": 1,
+      "suite_ms": 1236.867,
+      "largest_loader": {
+        "lane": "TestCreateOrder/out_of_stock",
+        "total_ms": 878.964,
+        "phase_totals_ms": {
+          "begin": 1.268,
+          "commit": 0.226,
+          "item_insert": 43.803,
+          "order_insert": 12.618,
+          "prepare": 801.96,
+          "rollback_cleanup": 0.0,
+          "statement_close": 0.0,
+          "stock_update": 18.884
+        }
+      },
+      "operations_ge100ms": 2
+    },
+    {
+      "pool_mib": 8,
+      "pair": 2,
+      "suite_ms": 1222.039,
+      "largest_loader": {
+        "lane": "TestCancelOrder/another_paid",
+        "total_ms": 858.534,
+        "phase_totals_ms": {
+          "begin": 1.511,
+          "commit": 0.176,
+          "item_insert": 31.327,
+          "order_insert": 8.479,
+          "prepare": 802.401,
+          "rollback_cleanup": 0.0,
+          "statement_close": 0.0,
+          "stock_update": 14.458
+        }
+      },
+      "operations_ge100ms": 1
+    },
+    {
+      "pool_mib": 8,
+      "pair": 3,
+      "suite_ms": 639.822,
+      "largest_loader": {
+        "lane": "TestShipOrder/one_paid",
+        "total_ms": 431.725,
+        "phase_totals_ms": {
+          "begin": 0.541,
+          "commit": 0.158,
+          "item_insert": 23.548,
+          "order_insert": 6.415,
+          "prepare": 389.922,
+          "rollback_cleanup": 0.0,
+          "statement_close": 0.0,
+          "stock_update": 10.96
+        }
+      },
+      "operations_ge100ms": 1
+    },
+    {
+      "pool_mib": 8,
+      "pair": 4,
+      "suite_ms": 833.778,
+      "largest_loader": {
+        "lane": "TestDeleteUser/user_36",
+        "total_ms": 479.409,
+        "phase_totals_ms": {
+          "begin": 6.23,
+          "commit": 0.148,
+          "item_insert": 36.022,
+          "order_insert": 10.16,
+          "prepare": 409.526,
+          "rollback_cleanup": 0.0,
+          "statement_close": 0.0,
+          "stock_update": 17.118
+        }
+      },
+      "operations_ge100ms": 2
+    }
+  ],
+  "paired_suite": {
+    "percent_changes": [
+      13.085080023848427,
+      123.79037073223684,
+      114.52189650965403,
+      21.67432413929502,
+      43.127779847255376
+    ],
+    "median_percent": 43.127779847255376,
+    "improved_pairs": 0
+  },
+  "paired_loader_phase_medians": {
+    "order_insert": {
+      "16_ms": [
+        10.872,
+        11.314,
+        11.646,
+        13.144,
+        12.466
+      ],
+      "8_ms": [
+        12.146,
+        11.511,
+        11.677,
+        10.456,
+        11.293
+      ],
+      "improved_pairs": 2,
+      "deltas_ms": [
+        1.274000000000001,
+        0.19699999999999918,
+        0.030999999999998806,
+        -2.6880000000000006,
+        -1.173
+      ]
+    },
+    "item_insert": {
+      "16_ms": [
+        40.255,
+        38.363,
+        41.628,
+        43.951,
+        40.084
+      ],
+      "8_ms": [
+        39.908,
+        39.516,
+        43.348,
+        36.235,
+        39.514
+      ],
+      "improved_pairs": 3,
+      "deltas_ms": [
+        -0.3470000000000013,
+        1.1529999999999987,
+        1.7199999999999989,
+        -7.716000000000001,
+        -0.5700000000000003
+      ]
+    },
+    "stock_update": {
+      "16_ms": [
+        19.346,
+        21.236,
+        22.585,
+        25.23,
+        20.362
+      ],
+      "8_ms": [
+        19.803,
+        19.718,
+        20.522,
+        18.065,
+        20.383
+      ],
+      "improved_pairs": 3,
+      "deltas_ms": [
+        0.45700000000000074,
+        -1.5180000000000007,
+        -2.0630000000000024,
+        -7.164999999999999,
+        0.021000000000000796
+      ]
+    },
+    "commit": {
+      "16_ms": [
+        0.301,
+        0.327,
+        0.208,
+        0.236,
+        0.216
+      ],
+      "8_ms": [
+        0.249,
+        0.323,
+        0.261,
+        0.178,
+        0.236
+      ],
+      "improved_pairs": 3,
+      "deltas_ms": [
+        -0.05199999999999999,
+        -0.0040000000000000036,
+        0.05300000000000002,
+        -0.057999999999999996,
+        0.01999999999999999
+      ]
+    },
+    "begin": {
+      "16_ms": [
+        3.518,
+        3.488,
+        4.68,
+        1.723,
+        1.787
+      ],
+      "8_ms": [
+        1.461,
+        1.269,
+        2.612,
+        4.478,
+        3.92
+      ],
+      "improved_pairs": 3,
+      "deltas_ms": [
+        -2.0569999999999995,
+        -2.2190000000000003,
+        -2.0679999999999996,
+        2.755,
+        2.133
+      ]
+    },
+    "prepare": {
+      "16_ms": [
+        3.671,
+        3.965,
+        4.483,
+        3.995,
+        4.719
+      ],
+      "8_ms": [
+        7.173,
+        4.484,
+        5.054,
+        4.565,
+        7.319
+      ],
+      "improved_pairs": 0,
+      "deltas_ms": [
+        3.5020000000000002,
+        0.5190000000000001,
+        0.5710000000000006,
+        0.5700000000000003,
+        2.5999999999999996
+      ]
+    },
+    "statement_close": {
+      "16_ms": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "8_ms": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "improved_pairs": 0,
+      "deltas_ms": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "rollback_cleanup": {
+      "16_ms": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "8_ms": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "improved_pairs": 0,
+      "deltas_ms": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "sanity_controls": [
+    {
+      "pool_mib": 16,
+      "suite_ms": 1002.557,
+      "cpu_ms": 2903.428
+    },
+    {
+      "pool_mib": 8,
+      "suite_ms": 510.476,
+      "cpu_ms": 2837.91
+    }
+  ]
+}

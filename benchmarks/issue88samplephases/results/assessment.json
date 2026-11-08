@@ -1,0 +1,17 @@
+{
+  "result": "PASS bounded diagnostic",
+  "source_commit": "f824a6b262f8aa632ef1afa3d91c88778644588d",
+  "primary_processes": 10,
+  "primary_cases": 700,
+  "primary_loaders": 210,
+  "expected_phase_counts_verified_per_loader": true,
+  "primary_operation_count": 52290,
+  "warmup_processes": 2,
+  "observer_off_sanity_processes": 2,
+  "active_mappings_after_each_process": 0,
+  "runtime_guest_api_changes": false,
+  "exclusions": 0,
+  "original_external_runner_sha256": "f640d48db382ca4fe245525df8739d9c28e08e3c89751030e693c988c167c97a",
+  "conclusion": "Typical repeated cost is item INSERT; primary long calls>=100ms are6 PREPARE calls at8MiB and1 first orders INSERT at16MiB. No >=100ms stock UPDATE or COMMIT. Internal cause/owner unknown.",
+  "recommendation": "Retain8MiB as startup/RSS candidate, not an established whole-suite win; investigate the identified PREPARE entry if further work is selected, without assuming tails are random or8MiB-only."
+}
