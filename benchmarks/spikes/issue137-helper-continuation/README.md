@@ -77,3 +77,16 @@ cost is real, so total update burden is still INCONCLUSIVE, not an automatic win
 Await a concrete capacity decision before any heavy work. Wall ceiling remains
 4h30 from the continuation start (~14:28Z); capacity waiting is not an automatic
 budget extension. Original f0 helperFAIL and old601/701 audit remain historical.
+
+
+## Floor6 continuation outcome
+
+The Human-approved floor6/ceiling24 execution is recorded in [FLOOR6.md](FLOOR6.md).
+Legacy fresh generation, exact binding/negatives, original smoke/P1/P2 and the
+original paired archive/capture/restore/isolation case PASS. The additional
+positive spare_archive marker is absent after its single5s observation; the
+root remains healthy/drained. This finite coverage failure stops execution,
+without retry or an additional native producer. Supplemental capture/digest
+checks and positive native branch coverage remain NOT RUN; overall NOT_READY,
+maintenance burden INCONCLUSIVE. Original f0 FAIL/source-only reports retain
+their historical context. Owned scratch is cleaned with debt0.

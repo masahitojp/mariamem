@@ -120,4 +120,17 @@ Public C3/factory/installed Python/bothOS132/134,128 final comparison, main/prod
 version adoption and release are separate. All four protected parent files are
 byte-identical to f0; no pre-existing user edits were present at this phase's start.
 
-Cleanup result is recorded separately after compact evidence is committed/pushed.
+Compact evidence was committed/pushed as1b20bd3b before final disposal. The
+workspace helper rejected the ordinary clone as unregistered; exact SHA, clean
+tracked/ignored state, retained history and inactivity were checked before manual
+removal. A first rmtree stopped at a read-only Go module-cache LICENSE; only
+owner-write on task-owned directories was restored, then cleanup completed.
+The initial before-delete byte sample was not persisted, so it is unknown; the
+recovery removed the remaining2.763GiB of owned scratch. All source/SDK/archive/
+Go cache/module/toolchain/generated/output/venv/TMPDIR staging is now absent.
+Final helper dry-run: no decisions, retained>1GiB paths or cleanup debt. Checkout
+about410MiB, ignored state empty; final free17.98GiB is a changing whole-volume
+observation, not an attributed storage saving. No user or other workspace/image
+was removed. Exact failure, cleanup notes and hashes are retained in cleanup.json.
+Two identical duplicate producer log/outer-record copies were reduced to their
+canonical evidence files; their content was already preserved in1b20bd3b.

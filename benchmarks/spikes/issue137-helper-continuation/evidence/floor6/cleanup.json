@@ -1,0 +1,26 @@
+{
+  "before_initial_cleanup_bytes": null,
+  "initial_cleanup_note": "Inspection/assertions confirmed both ordinary clones clean including ignored state, exact32c799 retained/pushed, and owned hosts/container stopped; the first rmtree partially succeeded then encountered read-only Go module source LICENSE. No pre-removal byte snapshot was persisted.",
+  "recovery_start_owned_scratch_bytes": 2966560768,
+  "recovery_start_free_bytes": 18971574272,
+  "initial_failure": {
+    "type": "PermissionError",
+    "errno": 13,
+    "file": "LICENSE",
+    "context": "owned Go module cache read-only directories"
+  },
+  "recovery": "Only user-owned directories inside the exact continuation temp root had owner-write restored, then deleted; no shared/user workspace permissions changed",
+  "helper_dry_run": {
+    "error": "worktree is not registered; inspect Git ownership before removal",
+    "code": "inspection_error"
+  },
+  "helper_fixture_review": "Complete3-file profile fixture was fetched/pinned/hash-checked; original source identity and exact profile source tests are saved, so recreatable staging removed manually",
+  "unique_evidence_pushed_commit": "1b20bd3b",
+  "owned_hosts": 0,
+  "owned_containers": 0,
+  "after_owned_scratch_bytes": 0,
+  "after_free_bytes": 19300425728,
+  "remaining_over_1gib": [],
+  "cleanup_debt": [],
+  "finished_utc": "2026-11-08T16:16:59Z"
+}

@@ -1,0 +1,11 @@
+{
+  "touched_public_boundary_passed": true,
+  "checked_files": 56,
+  "syntax_passed": true,
+  "helper_suite": "19/19 before heavy, includes all16 helper tests; no oracle edits thereafter",
+  "profiles": "PASS exact full-file profiles and negative cases before heavy",
+  "original_runtime": "smoke1/P1six/P2fifteen/common paired PASS",
+  "positive_branch": "FAIL; no retry/no new native build",
+  "parent_files_untouched": true,
+  "ignored_state_expected_empty": true
+}

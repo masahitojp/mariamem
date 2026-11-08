@@ -59,3 +59,16 @@ slot. This report is the pre-build dependency justification, not a result.
 The stimulus is source-grounded but not guaranteed to hit. One finite failure
 must be preserved, not followed by an automatic parameter/workload campaign.
 No producer/host/SQL was started: capacity is currently insufficient at floor12.
+
+
+## Floor6 continuation outcome
+
+The Human-approved floor6/ceiling24 execution is recorded in [FLOOR6.md](FLOOR6.md).
+Legacy fresh generation, exact binding/negatives, original smoke/P1/P2 and the
+original paired archive/capture/restore/isolation case PASS. The additional
+positive spare_archive marker is absent after its single5s observation; the
+root remains healthy/drained. This finite coverage failure stops execution,
+without retry or an additional native producer. Supplemental capture/digest
+checks and positive native branch coverage remain NOT RUN; overall NOT_READY,
+maintenance burden INCONCLUSIVE. Original f0 FAIL/source-only reports retain
+their historical context. Owned scratch is cleaned with debt0.
