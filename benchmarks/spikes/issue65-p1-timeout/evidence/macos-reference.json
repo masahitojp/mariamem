@@ -3,7 +3,7 @@
   "binary_sha256": "134cfe2eb26b0e3ef26080b5141a2fd1bd6626a2a7e0af86f9f38945cb6697a2",
   "binding_sha256": "4988447ffef0545a8fcda996d50a9b17fe3e0ee7e9db17555139dbaccc400132",
   "contract": "issue65-wire-prototype-unqualified",
-  "go_buildinfo": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/issue65-p1-timeout-host/temp/host/wire.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/issue65-wire\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "go_buildinfo": "${HOST_BUILD}/wire.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/issue65-wire\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
   "guest_sha256": "d4f30818c3410db186db5ef1c9abc5f14af0cdc52bb2b76bbca369e02eb1b481",
   "guest_source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
   "host_source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",

@@ -1,0 +1,948 @@
+{
+  "contract": "issue133-c2-source-dependency-inventory-v1",
+  "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+  "fixed_origin_source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+  "scope": "Source/links/hashes only; no builds, artifact downloads, runtime validation or other workspace inspection.",
+  "remote_source_checks": {
+    "method": "Read-only GitHub commits API; commit/tree present, not a fresh clone test",
+    "commits": {
+      "be244a0bdb510a22417241c2aa2f76a9093aac1b": "577fa02f4d1e322643f97eda1544a26645c8c369",
+      "ae9c243f1f65ae0adb94dbd10b5049d298475afa": "601fefc10ef01dd44087a4a0fa63fb051f2dc8c8",
+      "3602b186f309eb3af349df494470d28b8bb800c2": "a5d7c115b147a55487a2eba2ca1739b5275757cb"
+    }
+  },
+  "dependencies": [
+    {
+      "id": "source-refs",
+      "kind": "ref",
+      "required_inputs": [
+        "host source clean Git checkout at selected candidate",
+        "guest worktree at be244a0bdb510a22417241c2aa2f76a9093aac1b",
+        "historical host 3602b186f309eb3af349df494470d28b8bb800c2; observers in saved receipts"
+      ],
+      "classification": "committed; three commits available by public GitHub API; fresh clone/fetch not executed",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 37
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/dev_guest.py",
+          "line": 42
+        }
+      ],
+      "reproduction_gap": "Current candidate is not the historical host or observer; do not reuse historical PASS or all-files inventory as current acceptance. Need exact refs and full source identities available in clean job.",
+      "suggested_placement_134": "Explicit separate guest-source and host-source checkout inputs, exact SHA and Git identity checks; no sibling/local branch requirement."
+    },
+    {
+      "id": "workspace-layout",
+      "kind": "path/receipt",
+      "required_inputs": [
+        "PUBLIC/temp and PUBLIC/evidence",
+        "GUEST/worktree",
+        "GUEST/temp/artifact",
+        "optional experiment.json; physical canonical absolute paths"
+      ],
+      "classification": "operational local paths; recreatable; no old workspace inspected",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 29
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 43
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/dev_guest.py",
+          "line": 20
+        }
+      ],
+      "reproduction_gap": "C2 creates temp/public without parents and writes evidence; parent layout must already exist. Installer output must be fresh/outside origin and forbidden namespaces. C2 itself does not prepare ownership receipts.",
+      "suggested_placement_134": "One explicit owned job workspace schema, create parent directories, pass artifact directories; preserve raw receipts while rebasing fresh receipts to new paths."
+    },
+    {
+      "id": "guest-bundle",
+      "kind": "artifact/receipt",
+      "required_inputs": [
+        "GUEST/temp/artifact/mariamem.wasm",
+        "GUEST/temp/artifact/linked.wasm",
+        "GUEST/temp/artifact/guest.json"
+      ],
+      "classification": "not committed as C2 bundle; regeneration recipe committed; current availability outside this checkout unknown",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 39
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/dev_guest.py",
+          "line": 86
+        }
+      ],
+      "reproduction_gap": "Verifier requires actual WASM+linked bytes and complete UNQUALIFIED guest.json; saved C2 summary only stores their hashes. No known public immutable bundle URL in C2 receipt; no rebuild or artifact fetch performed.",
+      "suggested_placement_134": "Explicit producer artifact containing all three files, input source inventory/toolchain/patch identities and SHA256 manifest; consume only after verify_guest."
+    },
+    {
+      "id": "guest-build-source",
+      "kind": "source",
+      "required_inputs": [
+        "all tracked fixed-origin source",
+        "guest/input.json, source.patch, experimental.patch and guest overlays",
+        "release/inputs.lock.json",
+        "guest/patches and prepared UCA bundle",
+        "prepare_guest helpers and recipe"
+      ],
+      "classification": "committed at fixed origin; source-only hashes recorded",
+      "consumers": [
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/build_generated_guest.py",
+          "line": 112
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/prepare_guest.py",
+          "line": 21
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/uca_prepared.py",
+          "line": 6
+        }
+      ],
+      "reproduction_gap": "Canonical source patch alone cannot reproduce this experimental guest. Need fixed experimental patch and full preparation dependencies. No source replay performed.",
+      "suggested_placement_134": "Formal guest input lock includes every selected overlay/descriptor and UCA numeric inputs; keep canonical versus experimental provenance distinct."
+    },
+    {
+      "id": "upstream-source-archives",
+      "kind": "fetch/cache",
+      "required_inputs": [
+        "MariaDB, lite4mariadb, connector-c, wolfSSL, PCRE2, fmt archives"
+      ],
+      "classification": "URLs and SHA256 committed; fetchable by recipe, transport/content availability untested",
+      "consumers": [
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/prepare_guest.py",
+          "line": 23
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/prepare_guest.py",
+          "line": 93
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/common.py",
+          "line": 20
+        }
+      ],
+      "reproduction_gap": "Six selected lock entries enumerated below; other lock entries are not direct prepare_guest archive reads. No archive was downloaded or hash-verified in this task.",
+      "suggested_placement_134": "Checksum-addressed downloads from lock; optional verified offline mirror; cache miss must download/verify, never use an undocumented local copy."
+    },
+    {
+      "id": "builder-toolchain",
+      "kind": "fetch/platform/cache",
+      "required_inputs": [
+        "seven toolchain archives including converter",
+        "fresh Linux aarch64 root builder",
+        "/work empty; /root/.wasixcc absent",
+        "host build-essential/cmake/bison/make/patch/git and workflow packages"
+      ],
+      "classification": "archive locks and builder/workflow committed; fresh environment/regeneration unverified",
+      "consumers": [
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/build_generated_guest.py",
+          "line": 47
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/build_generated_guest.py",
+          "line": 64
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": ".github/workflows/issue65-p1-timeout.yml",
+          "line": 42
+        }
+      ],
+      "reproduction_gap": "OS packages are selected by apt without a fully immutable image/package lock. P1-b wrapper additionally needs owned experiment receipt, mount permissions and prepared-source seam checks.",
+      "suggested_placement_134": "Formal isolated builder job/image plus recorded tool versions; transfer verified guest bundle; no persistent /root SDK or sibling checkout needed."
+    },
+    {
+      "id": "builder-observability",
+      "kind": "source/env/receipt",
+      "required_inputs": [
+        "P1-b build_checked_guest.py/check_source.py/check_timeout.py",
+        "GUEST/experiment.json and mounts.json for P1-b wrapper",
+        "MARIAMEM_PHASE_TRACE; MARIAMEM_TOOLING_SOURCE_COMMIT on wrapper route",
+        "source-seams/controller-controls and preparation/build logs"
+      ],
+      "classification": "tooling source committed; concrete run receipts generated; old run paths not inspected",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-timeout/probe_baseline.py",
+          "line": 240
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-timeout/build_checked_guest.py",
+          "line": 14
+        }
+      ],
+      "reproduction_gap": "Generic builder recipe alone does not emit the P1-b seam-control receipts; formal recipe must choose and bind equivalent checks. Mount/trace paths are operational, not input archives.",
+      "suggested_placement_134": "Guest producer owns finite checks and emits compact receipts with its exact tooling SHA; retain failure context, not a reused builder tree."
+    },
+    {
+      "id": "translation-tool",
+      "kind": "fetch/source/cache",
+      "required_inputs": [
+        "pinned converter archive and 13 converter patches",
+        "wait-contract-test.go.txt",
+        "Go1.26.10, git, tar extraction-capable Python"
+      ],
+      "classification": "archive URL/hash and patches committed; binary regeneratable but not regenerated",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 54
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "benchmarks/spikes/generated-go-integration/translate_guest.py",
+          "line": 21
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "benchmarks/spikes/generated-go-integration/translate_guest.py",
+          "line": 59
+        }
+      ],
+      "reproduction_gap": "Converter archive/modules not downloaded; Go toolchain and converter module acquisition remain external dependencies. Patched converter executable hash is output/platform dependent.",
+      "suggested_placement_134": "Maintained translator package with ordered patch lock and recorded toolchain; build converter in job or authenticate exact producer executable."
+    },
+    {
+      "id": "translation-bundle",
+      "kind": "artifact/receipt",
+      "required_inputs": [
+        "PUBLIC/temp/public/translation/input-manifest.json",
+        "translation/guest.wasm",
+        "translation/wasm2go",
+        "translation/module including generated/data.bin"
+      ],
+      "classification": "generated intermediates; not committed as C2 bundle; regeneratable recipe; current availability unknown",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 58
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/dev_guest.py",
+          "line": 108
+        }
+      ],
+      "reproduction_gap": "Input manifest hash alone does not restore generated bytes, guest copy or converter executable. verifier checks all four kinds. Original C2 manifest is referenced only by digest in summary.",
+      "suggested_placement_134": "Explicit translation artifact/manifest, or regenerate inside same job; carry complete verifier-required files, not just JSON."
+    },
+    {
+      "id": "candidate-adapter",
+      "kind": "source/artifact",
+      "required_inputs": [
+        "setup_candidate.py --source-only",
+        "setup_audit.py and patch_memfs.py",
+        "10 copied adapter/template files",
+        "PUBLIC/temp/public/candidate/module"
+      ],
+      "classification": "adapter source committed at fixed origin; module generated, not present as C2 bundle",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 59
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "benchmarks/spikes/generated-go-integration/setup_candidate.py",
+          "line": 42
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "benchmarks/spikes/generated-go-integration/setup_audit.py",
+          "line": 11
+        }
+      ],
+      "reproduction_gap": "Explicit input-manifest is passed; default accepted-generated-source.json and legacy Wasmer native artifacts are not used on source-only path. No adapter execution occurred.",
+      "suggested_placement_134": "Maintained adapter module and required templates pinned with translator; retain source-only separation from old Wasmer candidate build."
+    },
+    {
+      "id": "installer-input-receipt",
+      "kind": "receipt/path",
+      "required_inputs": [
+        "PUBLIC/temp/public/installation-inputs.json",
+        "candidate module full inventory/data/candidate files",
+        "guest_directory and translation_directory plus receipt digests"
+      ],
+      "classification": "generated receipt with live local path references; historical C2 exact receipt unavailable here",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 67
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/dev_guest.py",
+          "line": 124
+        }
+      ],
+      "reproduction_gap": "Moving receipt alone fails because installer reopens guest and translation directories and verifies bytes; changing paths changes its hash. Do not rewrite historical receipt/pins.",
+      "suggested_placement_134": "New job creates fresh path-bound receipt after verified artifact restore; bind logical artifact IDs and fresh receipt digest in downstream proof."
+    },
+    {
+      "id": "installer-source",
+      "kind": "source",
+      "required_inputs": [
+        "fixed-origin generate_runtime.py, dev_guest.py and runtime adaptation modules",
+        "fixed-origin handwritten owner files and bounded fixtures"
+      ],
+      "classification": "committed fixed-origin code; source inventory pinned",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 84
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/generate_runtime.py",
+          "line": 226
+        }
+      ],
+      "reproduction_gap": "Installer imports runtime_atomic_loads/memfs/thread_lifetime/failure/write and copies handwritten owners; copying just generate_runtime.py is incomplete. Installer provenance inventory precedes some owner copies/overlays; final public-source inventory is the complete staged boundary.",
+      "suggested_placement_134": "Maintained generator/adapters with explicit owner-source inventory and final post-overlay manifest, retaining original origin identity."
+    },
+    {
+      "id": "public-overlays",
+      "kind": "source",
+      "required_inputs": [
+        "P1-b binding/identity.json",
+        "runtime_wire.go.txt, completion_probe.go.txt, lifetime_overlay.py",
+        "C2 factory.go.txt, public_test.go.txt",
+        "canonical guest pin for kind replacement; legacy Serve tripwire"
+      ],
+      "classification": "committed current host inputs; exact preimage/binding checks present",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 85
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 92
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 100
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 113
+        }
+      ],
+      "reproduction_gap": "P1-b fixture directory is a real input, not a cache. Lifetime PREIMAGE and 3 worker ABI/body bindings must match generated output. No automatic compatibility proof for another guest.",
+      "suggested_placement_134": "Promote production-required runtime/factory pieces into maintained owner/generator locations; keep fault/tripwire/test-only parts under acceptance fixtures with explicit scope."
+    },
+    {
+      "id": "host-source-product",
+      "kind": "source/artifact",
+      "required_inputs": [
+        "all tracked host files except internal/generatedgo",
+        "PUBLIC/temp/public/product after runtime install/overlays",
+        "PUBLIC/evidence/public-source.json"
+      ],
+      "classification": "host source committed; staged product regeneratable; historical inventory retained",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 76
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 120
+        }
+      ],
+      "reproduction_gap": "All tracked files are copied, including unrelated historical evidence and tracked build/go.mod; deleting build directory can remove required tracked content. Selected current source differs from historical host; must emit new inventory.",
+      "suggested_placement_134": "Explicit formal staged-source selection/owner inventory including required build/go.mod; do not silently modify historical inventories or broaden artifact reuse."
+    },
+    {
+      "id": "host-binaries",
+      "kind": "artifact/receipt",
+      "required_inputs": [
+        "PUBLIC/temp/public/public.test",
+        "PUBLIC/temp/public/mariamem-host",
+        "PUBLIC/evidence/public-binaries.json"
+      ],
+      "classification": "not committed as executables/raw receipt; historical normalized receipt committed; regeneratable unverified",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 130
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/qualify.py",
+          "line": 34
+        }
+      ],
+      "reproduction_gap": "Qualification requires raw binary receipt digest and both binary hashes; normalized historical receipt has a different container and cannot replace raw JSON. No fetch location for old binaries recorded.",
+      "suggested_placement_134": "Same-job compilation or authenticated producer bundle with raw receipt and files; emit fresh build-info normalization sidecar only for publication."
+    },
+    {
+      "id": "host-go-dependencies",
+      "kind": "fetch/env/cache",
+      "required_inputs": [
+        "Go1.26.10 launcher/toolchain and gofmt",
+        "host go.mod/go.sum (mysql v1.9.3, edwards25519 v1.1.0)",
+        "converter go.mod/go.sum from pinned upstream archive",
+        "PUBLIC/temp/gocache and temp/gomodcache"
+      ],
+      "classification": "version and host module checksums committed; caches recreatable; remote/toolchain/module fetch not verified",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+          "line": 44
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "benchmarks/spikes/generated-go-integration/translate_guest.py",
+          "line": 54
+        }
+      ],
+      "reproduction_gap": "Empty compiler cache is not evidence loss. Network Go module/proxy/sumdb and initial Go launcher still required unless verified mirrored; converter transitive module lock is inside un-fetched archive.",
+      "suggested_placement_134": "Pinned Go installation and separately bounded module/compiler caches with checksum verification; no historical cache mandatory."
+    },
+    {
+      "id": "inherited-environment",
+      "kind": "env",
+      "required_inputs": [
+        "PATH and executable discovery",
+        "GOPATH, GOENV, GOEXPERIMENT, GOOS, GOARCH, GOROOT, GOAMD64, GOMAXPROCS",
+        "GOPROXY/GOSUMDB, proxy/cert environment",
+        "MARIAMEM_DEV_WORKSPACE, MARIAMEM_PHASE_TRACE, TMPDIR",
+        "MARIAMEM_WHEEL_PLATFORM"
+      ],
+      "classification": "partially overwritten by C2; remaining values inherited and not fully recorded",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/qualify.py",
+          "line": 25
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/lifecycle.py",
+          "line": 24
+        },
+        {
+          "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+          "path": "scripts/build_feedback.py",
+          "line": 19
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "python/setup.py",
+          "line": 29
+        }
+      ],
+      "reproduction_gap": "Only some Go knobs are reset; lifecycle omits GOGC override. Origin go_environment can reject inherited MARIAMEM_DEV_WORKSPACE with mismatched checkout/cache names. -I and removal of PYTHONPATH do not sanitize Go/pip/OS environment.",
+      "suggested_placement_134": "Explicit environment allowlist and recorded effective tool/platform fields; isolate Python and Go stages, validate owned-cache activation; no claims of current hermeticity."
+    },
+    {
+      "id": "python-build-environment",
+      "kind": "env/fetch/path",
+      "required_inputs": [
+        "PUBLIC/temp/venv/bin/python",
+        "pip, setuptools, wheel, PyMySQL",
+        "Python >=3.11 and supported native platform"
+      ],
+      "classification": "venv pre-existing operational dependency; profile versions recorded, not installed/locked by C2",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/qualify.py",
+          "line": 68
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "python/pyproject.toml",
+          "line": 2
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/python_public.py",
+          "line": 7
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "tests/live_acceptance/installed_python.py",
+          "line": 5
+        }
+      ],
+      "reproduction_gap": "qualify creates no venv and pip uses --no-build-isolation/--no-deps; must preinstall build deps and PyMySQL. Saved profile Python3.14.10/PyMySQL1.2.3/setuptools80.9.0/wheel0.45.1 does not prove current availability or supply pip lock.",
+      "suggested_placement_134": "Formal Python setup with pinned build/consumer requirements and hashes, supported interpreter profile, fresh venv and recorded package list."
+    },
+    {
+      "id": "python-package-wheel",
+      "kind": "source/artifact/receipt",
+      "required_inputs": [
+        "staged product/python",
+        "root license files/licenses and python/license-inventory.json",
+        "native/manifest.json, host binary and native_target metadata",
+        "temp/public/python, wheels/*.whl, consumer directory"
+      ],
+      "classification": "source committed; package/wheel/installed module generated locally; original wheel availability unknown",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/qualify.py",
+          "line": 54
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/qualify.py",
+          "line": 58
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "python/setup.py",
+          "line": 44
+        }
+      ],
+      "reproduction_gap": "Requires first-use output paths; exactly one wheel expected. Installed module must resolve under venv. Hash only in historical result cannot restore wheel. Current observer root supplies licenses/target metadata separately from staged host source.",
+      "suggested_placement_134": "Platform wheel job consumes exact host binary and source receipt; deterministic fresh outputs, full license/observer inputs, authenticated wheel and install manifest."
+    },
+    {
+      "id": "qualification-chain",
+      "kind": "source/receipt",
+      "required_inputs": [
+        "C2 python_public.py and public test fixture",
+        "public-source + raw public-binaries + binaries",
+        "Go and Python factory-disabled overlays; generated logs/public-result"
+      ],
+      "classification": "fixtures/source and historical result committed; current acceptance not executed",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/qualify.py",
+          "line": 37
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/qualify.py",
+          "line": 82
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/qualify.py",
+          "line": 31
+        }
+      ],
+      "reproduction_gap": "Saved result is scoped historical Mac C2, not current candidate or Linux. Need newly bound producer/observer receipts and negative controls; assertions can be disabled by Python optimization if effective interpreter not controlled.",
+      "suggested_placement_134": "Formal acceptance entry with explicit fixture/tooling SHA, effective interpreter flags and same-artifact negative controls; preserve failure evidence."
+    },
+    {
+      "id": "lifecycle-chain",
+      "kind": "source/receipt/path",
+      "required_inputs": [
+        "staged tests/live_acceptance/go_consumer/main.go and dependencies",
+        "current tests/live_acceptance/installed_python.py",
+        "installed wheel/venv and temp/public/consumer from qualify",
+        "public-source receipt and newly compiled live-consumer"
+      ],
+      "classification": "fixtures committed; installed/compiled state local generated; regenerate chain required",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/lifecycle.py",
+          "line": 33
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/lifecycle.py",
+          "line": 37
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/lifecycle.py",
+          "line": 39
+        }
+      ],
+      "reproduction_gap": "lifecycle checks product source inventory but does not reopen public-binaries/wheel hash chain; assumes qualify left intended wheel installed. It records current Python observer separately from staged Go fixture.",
+      "suggested_placement_134": "Make lifecycle depend explicitly on authenticated installed wheel and exact staged source artifact; bind both fixture origins, not a prepopulated venv."
+    },
+    {
+      "id": "historical-proof-and-missing-inputs",
+      "kind": "receipt/ref",
+      "required_inputs": [
+        "C2 receipt.json/public-source.json/public-binaries-normalized.json/public-result.json/public-lifecycle-result.json",
+        "P1-b CI42353912021 and baseline source inventories",
+        "previous normalization raw commit mapping"
+      ],
+      "classification": "compact historical evidence committed; necessary exact C2 raw artifact receipts not all preserved as files",
+      "consumers": [
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/README.md",
+          "line": 66
+        },
+        {
+          "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+          "path": "benchmarks/spikes/issue65-p1-public/qualify.py",
+          "line": 107
+        }
+      ],
+      "reproduction_gap": "Summary guest/linked/translation hashes and raw binary receipt SHA are identities, not artifact availability. No confirmed uniquely local-only mandatory input found; availability of uncommitted historical bundles globally remains unknown because other workspaces/caches were deliberately not inspected.",
+      "suggested_placement_134": "Keep immutable historical evidence and raw mapping; formal current generation emits complete reconstructable manifests/artifact IDs without requiring old physical workspace; no retrospective PASS."
+    }
+  ],
+  "declared_fetch_inputs": {
+    "availability": "not downloaded or endpoint-probed; locks only",
+    "toolchain_archives": {
+      "wasixcc": {
+        "file": "wasixcc-aarch64-unknown-linux-gnu.tar.gz",
+        "url": "https://github.com/wasix-org/wasixcc/releases/download/v0.4.7/wasixcc-aarch64-unknown-linux-gnu.tar.gz",
+        "sha256": "b4cf06f3ce00a0b2bdc376de24324bac2c963f4672914bf9a1ba99000a4866a7"
+      },
+      "sysroot": {
+        "file": "sysroot-eh.tar.gz",
+        "url": "https://github.com/wasix-org/wasix-libc/releases/download/v2026-07-03.1/sysroot-eh.tar.gz",
+        "sha256": "8c54240afabda1106c19f284bdfff77f29932caa55f82756f87d01f69ffd50f4"
+      },
+      "binaryen": {
+        "file": "binaryen-version_133-aarch64-linux.tar.gz",
+        "url": "https://github.com/WebAssembly/binaryen/releases/download/version_133/binaryen-version_133-aarch64-linux.tar.gz",
+        "sha256": "89c07ea56faf38d0fbecf36ca8ec0721756716185f265b568e133d427f299bf8"
+      },
+      "llvm": {
+        "file": "LLVM-23.1.0-Linux-ARM64.tar.xz",
+        "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-23.1.0/LLVM-23.1.0-Linux-ARM64.tar.xz",
+        "sha256": "cfb31bfc713ef453248bf5bd026312f838ad6c52c25623e987cb6a340f3050d4"
+      },
+      "icu": {
+        "file": "libicu70_70.1-2_arm64.deb",
+        "url": "https://ports.ubuntu.com/ubuntu-ports/pool/main/i/icu/libicu70_70.1-2_arm64.deb",
+        "sha256": "ac68372cf4a976e6a206858fd9b28c68e49d37d650b9b8653270038a6e7bc174"
+      },
+      "converter": {
+        "file": "wasm2go-upstream.tar.gz",
+        "url": "https://codeload.github.com/goccy/wasm2go/tar.gz/730057c146463f663e8774587bc96fb2bea91af8",
+        "sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f"
+      },
+      "sysroot_pic": {
+        "file": "sysroot-ehpic.tar.gz",
+        "url": "https://github.com/wasix-org/wasix-libc/releases/download/v2026-07-03.1/sysroot-ehpic.tar.gz",
+        "sha256": "54e00486bd0ab658009120c3980b967f96c95ec2ec10d23ba49261b9931927d0"
+      }
+    },
+    "selected_source_archives": [
+      {
+        "name": "lite4mariadb",
+        "file": "lite4mariadb-source.tar.gz",
+        "url": "https://codeload.github.com/shyim/lite4mariadb/tar.gz/24be9371a2f6c71250a2356631ad6feab2280b02",
+        "revision": "24be9371a2f6c71250a2356631ad6feab2280b02",
+        "sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd"
+      },
+      {
+        "name": "libmariadb",
+        "file": "mariadb-connector-c-source.tar.gz",
+        "url": "https://codeload.github.com/MariaDB/mariadb-connector-c/tar.gz/5a6fe6016fc908518e7d2a8c128a5c108b511c17",
+        "revision": "5a6fe6016fc908518e7d2a8c128a5c108b511c17",
+        "sha256": "54562818bf2c5d56a6238738aea53fd276d5cff1fdaf9b05fa62d0a2dbab059b"
+      },
+      {
+        "name": "wolfssl",
+        "file": "wolfssl-source.tar.gz",
+        "url": "https://codeload.github.com/wolfSSL/wolfssl/tar.gz/1d363f3adceba9d1478230ede476a37b0dcdef24",
+        "revision": "1d363f3adceba9d1478230ede476a37b0dcdef24",
+        "sha256": "2754bcd8a0a3fed5ae19574506d0bf003eee7264ec8bed4ebb15409494246fd3"
+      },
+      {
+        "name": "pcre2",
+        "file": "pcre2-10.47.zip",
+        "url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.47/pcre2-10.47.zip",
+        "sha256": "d74c183c86c77248ad50017c7f45bae8f88106a6cca5d87ad09917e1c6fb0784"
+      },
+      {
+        "name": "libfmt",
+        "file": "fmt-12.2.0.zip",
+        "url": "https://github.com/fmtlib/fmt/releases/download/12.2.0/fmt-12.2.0.zip",
+        "sha256": "a2f4a8d51178f954e4c339007f77edd76ba0cb2e36f87a48e5a5403d9be5878f"
+      },
+      {
+        "name": "mariadb",
+        "file": "mariadb-12.3.3-source.tar.gz",
+        "url": "https://codeload.github.com/MariaDB/server/tar.gz/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+        "revision": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+        "sha256": "36319b89c4373cf35e5c5c08686625eccae2816257b6982a4815ff552b945845"
+      }
+    ]
+  },
+  "cited_source_sha256": [
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": ".github/workflows/issue65-p1-timeout.yml",
+      "sha256": "f9e36edab9dfa138e973fb19b6b0a8ada99b0911c9795ccca3d01c2d9a2773c8"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-public/README.md",
+      "sha256": "db3297ed4bc155a4cbf63aa95c3ab864d221cf17a49ca5eb75900eca3a4bf08b"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+      "sha256": "dc0d802aec741d17365d886e49f5ad1e0c8edd5c623b7ea48f2949d0d13a4f6a"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-public/evidence/public-binaries-normalized.json",
+      "sha256": "4f9259e720d71b094a023e7a1548c3dd726117a4c0641c19aa298252f0a67661"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-public/evidence/public-lifecycle-result.json",
+      "sha256": "8e7af57251d77434bb1a50200a37a2e9fabbe8478e2d039667bc07e5ddc814f6"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-public/evidence/public-result.json",
+      "sha256": "dd78b1c1c034775846e07843ce4d5a7eaf0adf84c9574845ffe8f2fc1a134858"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-public/evidence/public-source.json",
+      "sha256": "ed1c39e00095eeecb261f804c1fac91654d21ea16a9d0601cfbb13c95000f075"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-public/evidence/receipt.json",
+      "sha256": "6e227247b64a15204d8436215e0416240b859464f26ad4f6b4d01f249000c21d"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-public/factory.go.txt",
+      "sha256": "5a4ea01c686f57ac6f132b1a34e9161e9a575e58ab501b759f74e09057330a32"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-public/lifecycle.py",
+      "sha256": "6448c47bf3cf6a6ff4141d3f1f5ff35a8ec4e0afc7cfea7fe784b461d236c6be"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-public/public_test.go.txt",
+      "sha256": "41b378c4768aaf8ac7ca6fadf87c54bd8051b187ef5e5a0063add857041c440f"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-public/python_public.py",
+      "sha256": "6623c2de44430d9e804b285c716b81db41b79fd96681d4c9d18416a0536f8876"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-public/qualify.py",
+      "sha256": "fad7e9ed3a96ae171cf5191b6231886ffaa32924332e23f01057f4e30c643ba2"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-timeout/binding/identity.json",
+      "sha256": "4988447ffef0545a8fcda996d50a9b17fe3e0ee7e9db17555139dbaccc400132"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-timeout/build_checked_guest.py",
+      "sha256": "8f37a51e1c81d434bc6cbb4221c0fc7386f2edb6c5d12661e82287b4352efa51"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-timeout/completion_probe.go.txt",
+      "sha256": "28537bd16c88a2899e502ca47a82fdbb231323bc87c94fd8bd6906c07b976e62"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-timeout/lifetime_overlay.py",
+      "sha256": "0183f255a38cc7cd92d13a08d4b6050995e9fcc2845bfa55096301fb18ddb993"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-timeout/probe_baseline.py",
+      "sha256": "83383548925d3354ee4bee98c45f15570e7c2265726866e696614400db96f0c5"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "benchmarks/spikes/issue65-p1-timeout/runtime_wire.go.txt",
+      "sha256": "2302fb0d4386b9c4c305758428ca37c9cc54dc2c5a72ebed00197117bb6eb9a1"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "python/pyproject.toml",
+      "sha256": "d79a32641551b55add53f926d85b32960b462e8bb59f7b42b215db614f7f031f"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "python/setup.py",
+      "sha256": "965fc3369bd245a62125bff7f66128e4a1ccecd74710e2010f2e7eeedb042e83"
+    },
+    {
+      "source_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+      "path": "tests/live_acceptance/installed_python.py",
+      "sha256": "c7b6d0fd5df231dac06a2cfc54c82854d0fa178425a929c0406c7eb208507529"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "benchmarks/spikes/generated-go-integration/setup_audit.py",
+      "sha256": "66f5437bf5458ceadfef262003782a292c21ee2254a76e59b2b297c812c386db"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "benchmarks/spikes/generated-go-integration/setup_candidate.py",
+      "sha256": "8e1ce7f6d2bc363186ede6ae0af6f36e7279033e99252a052f6eaa51605dc2ec"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "benchmarks/spikes/generated-go-integration/translate_guest.py",
+      "sha256": "6df1b3a0ced97f7f1be50f7ca4857321aafa030370e03713f72dfe9051c0fae4"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "benchmarks/ucapreparedinput/input.json",
+      "sha256": "5965bca79c0d1c508a0932d0477972727a4c1d19c23ab95d26069ce0a12029dc"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "build/go.mod",
+      "sha256": "23b2199f0ea175849ec37179ed03decbbfc549ac7362b80476238edace1ba189"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "guest/experimental.patch",
+      "sha256": "8ce9b4c9c338d5a57cf3094602d41fb5aab961154a30b77fb0b10fa928282b46"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "guest/input.json",
+      "sha256": "d43f9d4123363b487b0d13ec0699ed769e1fcbeb573d2b52fe0ea8adae7b566f"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "guest/source.patch",
+      "sha256": "430273666a1f2c38ba5e0441ada7e3d1036ad94e5ccfc486f956e2b214b674b7"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "release/generated-go-build.json",
+      "sha256": "d0b79c0e53fd474f64b1e8bbb017c4f4d7b012c5887434052f2abfafb4393834"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "release/generated-go-inputs.json",
+      "sha256": "489184fdce6c2406df2393cd1ef36ff15ff0e0d74e98786e2c44e2f5b3933c2b"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "release/generated-go-toolchain.json",
+      "sha256": "8be84eea6e38432eabbc1ba3095551d90b8b213f765a5423207d2dca40c21b8a"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "release/generated-go-translation.json",
+      "sha256": "35c25cc4e8dde10227b8a4fc0046de9b5652cee154578a03b68ea4a3fa485fa9"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "release/inputs.lock.json",
+      "sha256": "886f8d91cd002caf2ec006cb8f675bf209e078886c9caee586f62f50d2dd451c"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "scripts/build_feedback.py",
+      "sha256": "901b664dc661c1085d41abaf449c7d1f36b344bb7baf46dc06ef7676776ec67b"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "scripts/build_generated_guest.py",
+      "sha256": "2e53dcb2f853574bc7c2248189af789a74292148303755a25603d43aaeceaa21"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "scripts/common.py",
+      "sha256": "2446cc932a99d61383d1c417510415735c4216864cd75a01634672e527ee8f6a"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "scripts/dev_guest.py",
+      "sha256": "cf43b556d96486a65748cf5a960359d6f06acd05b1881e4395b72bdba79ab21b"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "scripts/generate_runtime.py",
+      "sha256": "af75ecd5cb6ff589f0074c16f286145bac6adf91bba327968966b72742c29280"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "scripts/prepare_guest.py",
+      "sha256": "12a7e0ab85fd9402da2a84e8ea9f551ba08420ff4a48696f9fef45927de945b4"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "scripts/runtime_atomic_loads.py",
+      "sha256": "5ec21237a556b10c7afa37c6ce5ae047f1338a5857614015542d40edc56eeceb"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "scripts/runtime_failure.py",
+      "sha256": "252451998e262d683ff7f306810bc25d765eb280b1481cfe7be4ae3e678e4455"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "scripts/runtime_memfs.py",
+      "sha256": "93b3ebdc3d99ffb3d837ef6634e7ea0255a8002b9a24a84726c2fad9fc3af49d"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "scripts/runtime_thread_lifetime.py",
+      "sha256": "65f100c06421c32d68dc43cdc243fe726482e30de333da63a0cefdca4196b3df"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "scripts/runtime_write.py",
+      "sha256": "783d630c8b8d3ad0f57e5b682c3eb3f3ae784a02c0ea0bd7811939ba38c6c1b5"
+    },
+    {
+      "source_commit": "be244a0bdb510a22417241c2aa2f76a9093aac1b",
+      "path": "scripts/uca_prepared.py",
+      "sha256": "7e3b0a24f88796df8f8cb2c810156b7eb4ecbe2c53eeefff9a0b6dc35fef9cdc"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "source_input_commit": "a5ee1ed9cc2c6932d317fba77c339b364acd48df",
+  "python": "/opt/homebrew/bin/python3.14",
+  "checks": {
+    "path_only_provenance": {
+      "passed": 5
+    },
+    "owner_reference": {
+      "passed": 5
+    },
+    "timeout_reference": {
+      "passed": 7
+    },
+    "publication_extraction_boundary": {
+      "passed": 10,
+      "runner": "unittest directly; pytest unavailable"
+    },
+    "touched_python_ast": {
+      "passed": 4
+    },
+    "full_public_source": {
+      "passed": true,
+      "files": 7615,
+      "guard_unchanged": true,
+      "guard_sha256": "2cc506f2c0b799a62df603bc169adde1afa43694cca28d165070fe7b3a9c1a3f"
+    },
+    "diff_check": "PASS",
+    "protected_files": "all four unchanged in this worktree; root user changes untouched"
+  },
+  "cleanup": {
+    "scope": "own Orca worktree only; coordinator owns workspace lifecycle",
+    "before_allocated_kib": 366476,
+    "removed_generated_pycache_directories": 10,
+    "removed_generated_pycache_file_bytes": 181113,
+    "removed_public_guard_output_bytes": 1082034,
+    "workspace_paths_over_1gib": [],
+    "owned_scratch_cleanup_debt": [],
+    "shared_and_other_worker_paths": "not cleaned; global audit remains #133/coordinator",
+    "helper_cleanup_dry_run": {
+      "before_bytes": 0,
+      "after_bytes": 0,
+      "decisions": [],
+      "retained_large_paths": [],
+      "cleanup_debt": []
+    },
+    "after_allocated_kib": 366496
+  },
+  "not_run": [
+    "guest/runtime builds",
+    "CI",
+    "runtime acceptance",
+    "benchmarks",
+    "global local-dependency/cleanup audit"
+  ]
+}

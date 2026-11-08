@@ -1,5 +1,5 @@
 Disk preflight OK: 23.05 GiB free, 2.31 GiB owned
-  File "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/issue65-p1-timeout/worktree/benchmarks/spikes/issue65-p1-timeout/build_checked_guest.py", line 26
+  File "${CHECKED_WORKTREE}/benchmarks/spikes/issue65-p1-timeout/build_checked_guest.py", line 26
     if checked!=[True]:raise ValueError('prepared source 
                                         ^
 SyntaxError: unterminated string literal (detected at line 26)
