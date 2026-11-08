@@ -1,0 +1,44 @@
+{
+  "observed_utc": "2026-11-08T09:37:24.460275+00:00",
+  "status": "STOPPED: pinned shared PCRE2 acquisition returned HTTP504 twice",
+  "fresh_guest_builds": 0,
+  "translation_host_builds": 0,
+  "runtime_suites": 0,
+  "candidate_implemented": false,
+  "target_identity_reverified_this_run": false,
+  "downloaded_verified": [
+    {
+      "name": "lite4mariadb",
+      "url": "https://codeload.github.com/shyim/lite4mariadb/tar.gz/24be9371a2f6c71250a2356631ad6feab2280b02",
+      "sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd",
+      "bytes": 49317689
+    },
+    {
+      "name": "libmariadb",
+      "url": "https://codeload.github.com/MariaDB/mariadb-connector-c/tar.gz/5a6fe6016fc908518e7d2a8c128a5c108b511c17",
+      "sha256": "54562818bf2c5d56a6238738aea53fd276d5cff1fdaf9b05fa62d0a2dbab059b",
+      "bytes": 1396802
+    },
+    {
+      "name": "wolfssl",
+      "url": "https://codeload.github.com/wolfSSL/wolfssl/tar.gz/1d363f3adceba9d1478230ede476a37b0dcdef24",
+      "sha256": "2754bcd8a0a3fed5ae19574506d0bf003eee7264ec8bed4ebb15409494246fd3",
+      "bytes": 26729937
+    },
+    {
+      "name": "mariadb",
+      "url": "https://codeload.github.com/MariaDB/server/tar.gz/620a4b5624222048fece7fe1789978ae0675cae2",
+      "sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+      "bytes": 49119382
+    }
+  ],
+  "incomplete_prepared_files": {
+    "sql/sql_prepare.cc": "06ba5b6bbe1a474f7b7fa120587d62588065c7a7c2b4941565da0c6176c0821b",
+    "sql/sql_parse.cc": "0fb551c37b3ad6c8678cfa0fda982a587b668f2cf391bd408ec68c0c557ef18c",
+    "libmysqld/libmysql.c": "bb852ad028162f95bc43e6e7cb38d30b197398585f6deb07e94c08c9db2dff67",
+    "libmysqld/lib_sql.cc": "dacabfb43e77c481bf3e270d244da781e69a3dbd16d195f4ac2cb63fc8f4f427",
+    "wasm/issue65_control.cc": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f"
+  },
+  "complete_prepared_manifest_exists": false,
+  "note": "Partial preparation only; no completed canonical success or profile elimination claimed; peak/minimum guard samples not exported by reused CLI"
+}

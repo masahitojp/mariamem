@@ -1,0 +1,183 @@
+
+# sql/sql_prepare.cc SHA256 06ba5b6bbe1a474f7b7fa120587d62588065c7a7c2b4941565da0c6176c0821b
+4217: void Prepared_statement::setup_set_params()
+4218: {
+4219:   /*
+4220:     Note: BUG#25843 applies here too (query cache lookup uses thd->db, not
+4221:     db from "prepare" time).
+4222:   */
+4223:   if (query_cache_maybe_disabled(thd)) // we won't expand the query
+4224:     lex->safe_to_cache_query= FALSE;   // so don't cache it at Execution
+4225: 
+4226:   /*
+4227:     Decide if we have to expand the query (because we must write it to logs or
+4228:     because we want to look it up in the query cache) or not.
+4229:   */
+4230:   bool replace_params_with_values= false;
+4231:   // binlog
+4232:   replace_params_with_values|= mysql_bin_log.is_open() && is_update_query(lex->sql_command);
+4233:   // general or slow log
+4234:   replace_params_with_values|= opt_log || thd->variables.sql_log_slow;
+4235:   // query cache
+4236:   replace_params_with_values|= query_cache_is_cacheable_query(lex);
+4237:   // but never for compound statements
+4238:   replace_params_with_values&= lex->sql_command != SQLCOM_COMPOUND;
+4239: 
+4240:   if (replace_params_with_values)
+4241:   {
+4242:     set_params_from_actual_params= insert_params_from_actual_params_with_log;
+4243: if (thd->mariamem_native_wire) {
+4244:     set_params= insert_params_with_log;
+4245:     set_bulk_params= insert_bulk_params; // RBR is on for bulk operation
+4246: }
+4247: else {
+4248:     //TODO: add bulk support for bulk parameters
+4249:     set_params_data= emb_insert_params_with_log;
+4250: }
+4251:   }
+4252:   else
+4253:   {
+4254:     set_params_from_actual_params= insert_params_from_actual_params;
+4255: if (thd->mariamem_native_wire) {
+4256:     set_params= insert_params;
+4257:     set_bulk_params= insert_bulk_params;
+4258: }
+4259: else {
+4260:     //TODO: add bulk support for bulk parameters
+4261:     set_params_data= emb_insert_params;
+4262: }
+4263:   }
+4264: }
+4265: 
+4650:     {
+4651:       /*
+4652:         Set placehoder values from prepared_stmt.params() only for
+4653:         static cursors.
+4654:         Dynamic cursors set placeholder values using a different way:
+4655:         with help of sp_instr_set_ps_placeholder instructions.
+4656:       */
+4657:       res= set_params_from_actual_params(this, thd->lex->prepared_stmt.params(),
+4658:                                          expanded_query);
+4659:     }
+4660:     else
+4661:     {
+4662:       /*
+4663:         Set parameters from sp_instr_set_ps_placeholder's.
+4664:         Non-zero instr_set_placeholder_count is not possible for
+4665:         SQL Standard dynamic cursors:
+4666:           DECLARE c CURSOR FOR stmt;
+4667:           PREPARE stmt FROM 'SELECT ?';
+4668:           OPEN c USING 'value';
+4669:         It's only possibly for Oracle style dynamic cursors:
+4670:           OPEN c FOR 'SELECT ?'
+4671: 
+4672:         as sp_instr_set_ps_placeholder handles USING expressions as follows:
+4673:         - whites the value directly to Prepared_statement::param_array[idx]
+4674:           for the former
+4675:         - caches the value in sp_instr_set_ps_placeholder for the latter.
+4676:       */
+4677:       DBUG_ASSERT(!instrs_set_placeholder.count() ||
+4678:                   clex->prepared_stmt.code() != nullptr);
+4679:       if (instrs_set_placeholder.count() &&
+4680:           set_placeholders_from_instr(instrs_set_placeholder))
+4681:         return true;
+4682:     }
+4683:   }
+4684:   else if (param_count)
+4685:   {
+4686: if (thd->mariamem_native_wire) {
+4687:     if (thd->client_params != NULL) abort();
+4688:     extern unsigned long mariamem_spike_decodes;
+4689:     __atomic_fetch_add(&mariamem_spike_decodes,1UL,__ATOMIC_RELAXED);
+4690:     uchar *null_array= packet;
+4691:     Item_param::Mariamem_wire_conversion *saved= NULL;
+4692:     if (packet[(param_count + 7) / 8])
+4693:     {
+4694:       saved= (Item_param::Mariamem_wire_conversion *)
+4695:         thd->alloc(sizeof(*saved) * param_count);
+4696:       if (!saved)
+4697:         res= true; // Retain allocation error and use common state cleanup.
+4698:       else
+4699:         for (uint i= 0; i < param_count; ++i)
+4700:           param_array[i]->mariamem_save_conversion(&saved[i]);
+4701:     }
+4702:     if (!res)
+4703:       res= (setup_conversion_functions(this, &packet) ||
+4704:             set_params(this, null_array, packet, packet_end, expanded_query));
+4705:     if (res && saved)
+4706:       for (uint i= 0; i < param_count; ++i)
+4707:       {
+4708:         param_array[i]->mariamem_restore_conversion(saved[i]);
+4709:         param_array[i]->sync_clones();
+4710:       }
+4711: }
+4712: else {
+4713:     /*
+4714:       In embedded library we re-install conversion routines each time
+4715:       we set parameters, and also we don't need to parse packet.
+4716:       So we do it in one function.
+4717:     */
+4718:     res= set_params_data(this, expanded_query);
+4719: }
+4720:   }
+
+# libmysqld/lib_sql.cc SHA256 dacabfb43e77c481bf3e270d244da781e69a3dbd16d195f4ac2cb63fc8f4f427
+345:   if (stmt->param_count && !stmt->bind_param_done)
+346:   {
+347:     set_stmt_error(stmt, CR_PARAMS_NOT_BOUND, unknown_sqlstate, NULL);
+348:     DBUG_RETURN(1);
+349:   }
+350: 
+351:   int4store(header, stmt->stmt_id);
+352:   header[4]= (uchar) stmt->flags;
+353:   header[5]= header[6]= header[7]= header[8]= 0; // safety
+354:   thd= (THD*)stmt->mysql->thd;
+355:   thd->client_param_count= stmt->param_count;
+356:   thd->client_params= stmt->params;
+357: 
+358:   res= MY_TEST(emb_advanced_command(stmt->mysql, COM_STMT_EXECUTE, 0, 0,
+359:                                     header, sizeof(header), 1, stmt) ||
+360:             emb_read_query_result(stmt->mysql));
+361:   stmt->affected_rows= stmt->mysql->affected_rows;
+362:   stmt->insert_id= stmt->mysql->insert_id;
+1152:   client_field->type= server_field.type_handler()->type_code_for_protocol();
+1153:   client_field->flags= (uint16) server_field.flags;
+1154:   client_field->decimals= server_field.decimals;
+1155: 
+1156: #ifdef __wasi__
+1157:   /* Metadata allocation failure must be returned before strlen dereferences. */
+1158:   if (!client_field->db || !client_field->table || !client_field->name ||
+1159:       !client_field->org_table || !client_field->org_name)
+1160:     return true;
+1161: #endif
+1162: 
+1163:   client_field->db_length=		(uint)strlen(client_field->db);
+1164:   client_field->table_length=		(uint)strlen(client_field->table);
+1165:   client_field->name_length=		(uint)strlen(client_field->name);
+1166:   client_field->org_name_length=	(uint)strlen(client_field->org_name);
+1167:   client_field->org_table_length=	(uint)strlen(client_field->org_table);
+1168: 
+1169:   client_field->catalog= dup_str_aux(field_alloc, "def", 3, cs, thd_cs);
+1170:   client_field->catalog_length= 3;
+1171: 
+1172:   if (server_field.has_extended_metadata())
+
+# wasm/lite4mariadb.c SHA256 b25cb802cdc352f451caead95061a21dd71680c4a805c07377834d9da0a059f9
+1: /*
+2:   Thin C API around libmariadbd for the WASM / JS package.
+3:   Returns malloc'd JSON; the JS wrapper frees it via l4m_free().
+4: */
+5: 
+6: #include <mysql.h>
+7: #include <stdio.h>
+8: #include <stdlib.h>
+9: #include <string.h>
+10: #include <sys/stat.h>
+11: #include <errno.h>
+12: #ifdef L4M_RESIDENT
+13: #include "startup_timing.inc"
+14: #else
+15: #define startup_mark(name) ((void)0)
+16: #endif
+17: 
+18: #ifdef __EMSCRIPTEN__
