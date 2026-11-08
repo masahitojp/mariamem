@@ -111,3 +111,13 @@ not native build/repair cost. These active buckets are estimates, not stopwatch
 measurements. Initialpreparation uses a900s acquisition guard, retry180s; both
 returned nonzero before timeout. Measured end snapshot: ownedbuild1.007GiB,
 free21.29GiB,2026-11-08T09:37:24Z, not claimed sampled peak/minimum.
+
+Final cleanup: preserved initial evidence commitf342dfa4 was pushed before
+removing ownedsource/unpack/downloads (~1.007GiB). Helper issue137 was finalized,
+cleanup dry-run inspected and apply completed; its lifecycle JSON is retained
+in evidence/lifecycle.json. Helper receipt/bytecode scratch removed, tracked
+build/go.mod remains. Checkout~388MiB, free22.32GiB; no retained path>1GiB,
+cleanup debt0. Other workspaces/images/caches untouched. Excerpt line-prefix
+whitespace was normalized after diff-check identified it; source hash and raw
+failure logs are unchanged. Final diff-check passes. Orca/coordinator owns
+assigned-workspace removal.

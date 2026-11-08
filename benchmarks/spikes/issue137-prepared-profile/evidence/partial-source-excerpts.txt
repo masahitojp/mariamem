@@ -8,7 +8,7 @@
 4222:   */
 4223:   if (query_cache_maybe_disabled(thd)) // we won't expand the query
 4224:     lex->safe_to_cache_query= FALSE;   // so don't cache it at Execution
-4225: 
+4225:
 4226:   /*
 4227:     Decide if we have to expand the query (because we must write it to logs or
 4228:     because we want to look it up in the query cache) or not.
@@ -22,7 +22,7 @@
 4236:   replace_params_with_values|= query_cache_is_cacheable_query(lex);
 4237:   // but never for compound statements
 4238:   replace_params_with_values&= lex->sql_command != SQLCOM_COMPOUND;
-4239: 
+4239:
 4240:   if (replace_params_with_values)
 4241:   {
 4242:     set_params_from_actual_params= insert_params_from_actual_params_with_log;
@@ -48,7 +48,7 @@
 4262: }
 4263:   }
 4264: }
-4265: 
+4265:
 4650:     {
 4651:       /*
 4652:         Set placehoder values from prepared_stmt.params() only for
@@ -70,7 +70,7 @@
 4668:           OPEN c USING 'value';
 4669:         It's only possibly for Oracle style dynamic cursors:
 4670:           OPEN c FOR 'SELECT ?'
-4671: 
+4671:
 4672:         as sp_instr_set_ps_placeholder handles USING expressions as follows:
 4673:         - whites the value directly to Prepared_statement::param_array[idx]
 4674:           for the former
@@ -127,14 +127,14 @@
 347:     set_stmt_error(stmt, CR_PARAMS_NOT_BOUND, unknown_sqlstate, NULL);
 348:     DBUG_RETURN(1);
 349:   }
-350: 
+350:
 351:   int4store(header, stmt->stmt_id);
 352:   header[4]= (uchar) stmt->flags;
 353:   header[5]= header[6]= header[7]= header[8]= 0; // safety
 354:   thd= (THD*)stmt->mysql->thd;
 355:   thd->client_param_count= stmt->param_count;
 356:   thd->client_params= stmt->params;
-357: 
+357:
 358:   res= MY_TEST(emb_advanced_command(stmt->mysql, COM_STMT_EXECUTE, 0, 0,
 359:                                     header, sizeof(header), 1, stmt) ||
 360:             emb_read_query_result(stmt->mysql));
@@ -143,23 +143,23 @@
 1152:   client_field->type= server_field.type_handler()->type_code_for_protocol();
 1153:   client_field->flags= (uint16) server_field.flags;
 1154:   client_field->decimals= server_field.decimals;
-1155: 
+1155:
 1156: #ifdef __wasi__
 1157:   /* Metadata allocation failure must be returned before strlen dereferences. */
 1158:   if (!client_field->db || !client_field->table || !client_field->name ||
 1159:       !client_field->org_table || !client_field->org_name)
 1160:     return true;
 1161: #endif
-1162: 
+1162:
 1163:   client_field->db_length=		(uint)strlen(client_field->db);
 1164:   client_field->table_length=		(uint)strlen(client_field->table);
 1165:   client_field->name_length=		(uint)strlen(client_field->name);
 1166:   client_field->org_name_length=	(uint)strlen(client_field->org_name);
 1167:   client_field->org_table_length=	(uint)strlen(client_field->org_table);
-1168: 
+1168:
 1169:   client_field->catalog= dup_str_aux(field_alloc, "def", 3, cs, thd_cs);
 1170:   client_field->catalog_length= 3;
-1171: 
+1171:
 1172:   if (server_field.has_extended_metadata())
 
 # wasm/lite4mariadb.c SHA256 b25cb802cdc352f451caead95061a21dd71680c4a805c07377834d9da0a059f9
@@ -167,7 +167,7 @@
 2:   Thin C API around libmariadbd for the WASM / JS package.
 3:   Returns malloc'd JSON; the JS wrapper frees it via l4m_free().
 4: */
-5: 
+5:
 6: #include <mysql.h>
 7: #include <stdio.h>
 8: #include <stdlib.h>
@@ -179,5 +179,5 @@
 14: #else
 15: #define startup_mark(name) ((void)0)
 16: #endif
-17: 
+17:
 18: #ifdef __EMSCRIPTEN__

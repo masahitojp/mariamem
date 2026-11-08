@@ -1,0 +1,21 @@
+{
+  "experiment.json": {
+    "owner": "mariamem-experiment-v1",
+    "name": "issue137",
+    "repo": "/Users/masahito/orca/workspaces/mariamem/experiment-issue65-upgrade-trial",
+    "state": "cleaned",
+    "base_sha": "14c3b38a40d809ffc3efab1cebeed6b1332afee7",
+    "created": 1794130445.372942,
+    "min_free_gib": 12.0,
+    "budget_gib": 12.0,
+    "disposable": [
+      "temp"
+    ],
+    "evidence": "evidence",
+    "source": null,
+    "archived_files": 0,
+    "cleaned": 1794130702.056097
+  },
+  "evidence/worktree-checksums.json": [],
+  "evidence/temp-checksums.json": []
+}
