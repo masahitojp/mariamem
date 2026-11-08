@@ -1,0 +1,10 @@
+{
+  "complete_helper_and_observer_command": "python -m pytest tests/test_prepared_source_patch.py benchmarks/spikes/issue137-helper-continuation/test_branch_observer.py -q",
+  "passed": 19,
+  "failed": 0,
+  "complete_exact_profile_test": "profiles.txt: PASS both full-file profiles and corruption/selectors/TIME negatives",
+  "syntax": "PASS ast parse both changed guard wrappers",
+  "touched_public_boundary": "PASS 3 current files",
+  "full_public_boundary": "pre-existing 10 historical evidence/reference findings; not modified in this task",
+  "old_f0_failure_unchanged": true
+}

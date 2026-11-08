@@ -1,0 +1,28 @@
+.                                                                        [100%]
+1 passed in 1.33s
+{"event": "ISSUE138_ARCHIVE", "start": 36889, "end": 16947491, "checkpoint": 16959831, "rows": 256, "bytes": 16777216}
+{"event": "ISSUE138_OBSERVE", "time_ns": 1794154215575225000, "stage": "close", "state": {"active_connections": 0, "busy": false, "id": 4, "ok": true, "state": "ready"}}
+{"event": "ISSUE138_OBSERVE", "time_ns": 1794154215575453000, "stage": "drain-complete", "state": {"active_connections": 0, "busy": false, "id": 6, "ok": true, "state": "ready"}}
+ISSUE138_PAIRED legacy archive/drain/capture/restore/isolation PASS
+{"event": "SPARE_OBSERVE", "time_ns": 1794154217246627000, "stage": "archive-on-drained", "state": {"active_connections": 0, "busy": false, "id": 6, "ok": true, "state": "ready"}, "logs": "ISSUE138_BRANCH timed_wait\n"}
+{"event": "SPARE_OBSERVE", "time_ns": 1794154222250868000, "stage": "branch-missing-or-root-failed", "state": {"active_connections": 0, "busy": false, "id": 714, "ok": true, "state": "ready"}, "logs": "ISSUE138_BRANCH timed_wait\n"}
+Traceback (most recent call last):
+  File "<OWNER>/benchmarks/spikes/issue137-helper-continuation/legacy_spare_archive.py", line 61, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "<OWNER>/benchmarks/spikes/issue137-helper-continuation/legacy_spare_archive.py", line 45, in main
+    try:wait_branch(root,5)
+        ~~~~~~~~~~~^^^^^^^^
+  File "<OWNER>/benchmarks/spikes/issue137-helper-continuation/legacy_spare_archive.py", line 15, in wait_branch
+    if remaining<=0:raise TimeoutError('positive spare-archive hook absent; checkpoint progress is insufficient')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: positive spare-archive hook absent; checkpoint progress is insufficient
+test completed
+Traceback (most recent call last):
+  File "<OWNER>/benchmarks/spikes/issue138-paired-capture/legacy_driver.py", line 54, in <module>
+    run([sys.executable,str(owner/'benchmarks/spikes/issue137-helper-continuation/legacy_spare_archive.py')],cwd=product,env=smoke_env,check=True,timeout=300,phase='legacy:positive-spare-archive')
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<OWNER>/build/issue128-real/temp/runtime/legacy/worktree/scripts/build_feedback.py", line 200, in run
+    raise subprocess.CalledProcessError(retcode, process.args,
+                                        output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<OWNER>/build/issue128-real/temp/venv/bin/python', '<OWNER>/benchmarks/spikes/issue137-helper-continuation/legacy_spare_archive.py']' returned non-zero exit status 1.

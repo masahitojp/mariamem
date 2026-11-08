@@ -4,7 +4,7 @@ from pathlib import Path
 R=Path(__file__).resolve().parents[3];sys.path.insert(0,str(R/'scripts'))
 from experiment_disk import DiskGuard,run_guarded
 name,timeout=sys.argv[1],float(sys.argv[2]);args=sys.argv[3:];start=time.monotonic()
-guard=DiskGuard(R,12,12) # Conservative: includes tracked checkout and all owned caches.
+guard=DiskGuard(R,6,24) # This continuation only: Human floor6/ceiling24; includes checkout/caches.
 out=R/'build/issue128-real/temp';out.mkdir(parents=True,exist_ok=True)
 os.environ['TMPDIR']=str(out/'common-tmp');Path(os.environ['TMPDIR']).mkdir(exist_ok=True)
 os.environ['GOTMPDIR']=os.environ['TMPDIR'];os.environ['PYTHONDONTWRITEBYTECODE']='1'

@@ -1,0 +1,45 @@
+{
+  "outcome": "FAILED positive branch coverage; original finite legacy and paired scenario PASS",
+  "producer_source_commit": "32c799031f619164d3730b61a0bc9d7ae48dcd9b",
+  "guest_sha256": "d29caafda1ed32851df856dc7fcba3871c3c7ea75df8f2c5d4976b3eb9132c95",
+  "host_sha256": "2379e23373cf8f2c84f67774499343beb63db31acc8173464c9dd4a05b66ef21",
+  "smoke": {
+    "passed": 1,
+    "skipped": 0
+  },
+  "P1": {
+    "passed": 6
+  },
+  "P2": {
+    "passed": 15,
+    "failures": 0
+  },
+  "paired_archive_capture_restore_isolation": "PASS original matched workload",
+  "positive_spare_archive": {
+    "result": "FAIL timeout5s",
+    "root_at_failure": {
+      "event": "SPARE_OBSERVE",
+      "time_ns": 1794154222250868000,
+      "stage": "branch-missing-or-root-failed",
+      "state": {
+        "active_connections": 0,
+        "busy": false,
+        "id": 714,
+        "ok": true,
+        "state": "ready"
+      },
+      "logs": "ISSUE138_BRANCH timed_wait\n"
+    },
+    "supplemental_capture_restore_exact_hash": "NOT RUN after missing marker"
+  },
+  "fresh_guests": 1,
+  "translations": 1,
+  "host_compilations": 1,
+  "suite_commands": 1,
+  "additional_native_producers": 0,
+  "CI": 0,
+  "benchmarks": 0,
+  "runtime_inputs_modified": false,
+  "overall_maintenance_burden": "INCONCLUSIVE",
+  "stopped_on_first_unresolved_finite_case_failure": true
+}

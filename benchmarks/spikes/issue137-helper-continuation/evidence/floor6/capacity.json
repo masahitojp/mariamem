@@ -1,0 +1,10 @@
+{
+  "owned_bytes": 917368832,
+  "free_bytes": 16964661248,
+  "peak_owned_bytes": 917368832,
+  "minimum_free_bytes": 16964661248,
+  "min_free_gib": 6,
+  "budget_gib": 24,
+  "other_containers_running": 0,
+  "source_status": "clean pinned32c799"
+}

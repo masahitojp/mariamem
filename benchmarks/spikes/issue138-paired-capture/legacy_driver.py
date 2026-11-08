@@ -49,3 +49,6 @@ print(a.stage,'completed')
 
 if a.stage=='test':
  run([sys.executable,str(repo/'benchmarks/spikes/issue138-paired-capture/legacy_checkpoint.py')],cwd=product,env=smoke_env,check=True,timeout=300,phase='legacy:paired-archive')
+
+if a.stage=='test':
+ run([sys.executable,str(owner/'benchmarks/spikes/issue137-helper-continuation/legacy_spare_archive.py')],cwd=product,env=smoke_env,check=True,timeout=300,phase='legacy:positive-spare-archive')

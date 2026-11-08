@@ -1,0 +1,42 @@
+{
+  "launch.json": {
+    "raw_sha256": "df35f75bcd8b187227c7b1c3502f5cea3fbce9cb36112e4e212337c2fe16c563",
+    "normalized_sha256": "8566b83132080ff9d33c042dc02ebac2e3a49a967229f347c4478462b081569b",
+    "operation": "literal assigned owner/home paths only"
+  },
+  "legacy/floor6-legacy-producer.json": {
+    "raw_sha256": "b787d712b53673054b4c96ba745bd2fe357d6ce5ebfb1f67cd0fc7583362b246",
+    "normalized_sha256": "4fcc7653a2d9eca3de579fd6783e2898c0d35e753ada3446178404b063f931d3",
+    "operation": "literal assigned owner/home paths only"
+  },
+  "legacy/floor6-legacy-suite.txt": {
+    "raw_sha256": "608450764532c56dcc22ad46108e820ce343f5cbfc975bd93d4523c2c466a97b",
+    "normalized_sha256": "2082db2e177bddff0158db1d2351100410ca85ea29552830c4d089b783c94567",
+    "operation": "literal assigned owner/home paths only"
+  },
+  "legacy/outer-producer.json": {
+    "raw_sha256": "b787d712b53673054b4c96ba745bd2fe357d6ce5ebfb1f67cd0fc7583362b246",
+    "normalized_sha256": "4fcc7653a2d9eca3de579fd6783e2898c0d35e753ada3446178404b063f931d3",
+    "operation": "literal assigned owner/home paths only"
+  },
+  "legacy/floor6-legacy-translation.txt": {
+    "raw_sha256": "fe2ab0b5b26ec0c9acb53c071474759a1452ae40a6caed3a3b83f14ca045ab7c",
+    "normalized_sha256": "8b424ce9a86b6e310e307020bd6bbc08395c3556a27df4de5ba9d578b6fa4d06",
+    "operation": "literal assigned owner/home paths only"
+  },
+  "legacy/runtime/negative-body-digest.txt": {
+    "raw_sha256": "6218f0106b3a4075ca3d98aabd874cc6c36293cdd5e3d8ae2dbf4ede01817464",
+    "normalized_sha256": "b87bcb72fcfc1f89f93a53b8bdb826342230fc933ebfcb3462ac70b53fed8240",
+    "operation": "literal assigned owner/home paths only"
+  },
+  "legacy/runtime/host-phases.jsonl": {
+    "raw_sha256": "1dc6ef685d17f52e686765021494ce4ae44dd156270b5f6da5e16a97ce5c8095",
+    "normalized_sha256": "09d71ab310b755ba81c07e8e5963e2e234781e4231e73092b8d599bf40af28e0",
+    "operation": "literal assigned owner/home paths only"
+  },
+  "legacy/runtime/installation-inputs.json": {
+    "raw_sha256": "acdf6641f48eb85d09d1d1538606fbe07de514f793eee6f389a5bd8aa75123fd",
+    "normalized_sha256": "dc0c1e9667bbaba981ebf2c4019730a6e3fcca92e7aa47ebe17694e8c4508a5d",
+    "operation": "literal assigned owner/home paths only"
+  }
+}

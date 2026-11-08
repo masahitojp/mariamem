@@ -1,0 +1,13 @@
+{
+  "command": [
+    "build/issue128-real/temp/venv/bin/python",
+    "benchmarks/spikes/issue138-paired-capture/legacy_driver.py",
+    "compile"
+  ],
+  "exit": 0,
+  "error": null,
+  "wall_seconds": 196.21168558299541,
+  "peak_conservatively_owned_bytes": 5914120192,
+  "minimum_free_bytes": 17986142208,
+  "scope": "entire assigned checkout including all host/container mounts, source, SDK, caches, temp, output"
+}

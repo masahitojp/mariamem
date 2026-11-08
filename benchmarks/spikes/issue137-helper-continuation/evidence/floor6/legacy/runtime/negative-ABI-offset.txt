@@ -1,0 +1,5 @@
+usage: generate_runtime.py [-h] --source-module SOURCE_MODULE
+                           [--output OUTPUT]
+                           [--development-input DEVELOPMENT_INPUT]
+                           [--development-thread-binding DEVELOPMENT_THREAD_BINDING]
+generate_runtime.py: error: experimental worker binding identity/ABI mismatch

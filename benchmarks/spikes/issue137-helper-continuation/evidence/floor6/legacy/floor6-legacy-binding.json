@@ -1,0 +1,13 @@
+{
+  "command": [
+    "build/issue128-real/temp/venv/bin/python",
+    "benchmarks/spikes/issue138-paired-capture/review_binding.py",
+    "legacy"
+  ],
+  "exit": 0,
+  "error": null,
+  "wall_seconds": 15.863373417058028,
+  "peak_conservatively_owned_bytes": 4445626368,
+  "minimum_free_bytes": 19755974656,
+  "scope": "entire assigned checkout including all host/container mounts, source, SDK, caches, temp, output"
+}

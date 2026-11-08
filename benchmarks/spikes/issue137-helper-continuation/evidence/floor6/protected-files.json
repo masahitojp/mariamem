@@ -1,0 +1,6 @@
+{
+  "docs/development.md": "985c8ddec293bfb7a2a4be6309cc9fcd6ec40bab90ac93ef14160184696a1ecd",
+  "scripts/development_scope.py": "e66ac363508a5ddc249caf86f2db178fa49f25fde55df7ff3bfa941c866e9665",
+  "scripts/live_ci.py": "258ccb260b971df332e6152daf764c4f523d3bb3fd77357088838a983ef32f8a",
+  "tests/test_development_scope.py": "58cfab7dfcae8ea00e0761a8702aaad884d248e1f12c0e457c95e600e5a185b4"
+}
