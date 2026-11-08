@@ -1,0 +1,70 @@
+{
+  "result": "PARTIAL: no usable natural PREPARE capture; relation to prior Issue68 mechanism remains unverified",
+  "controls": {
+    "scope_ms": 252.389,
+    "profile_begin_after_enter_ms": 101.048,
+    "profile_duration_ms": 2.117,
+    "matching_db_blocks": 12,
+    "matching_guest_blocks": 8,
+    "foreground_query_anchor": "current p7.Fn5853; exact body equality against prior named mysql_real_query anchor",
+    "truncated": false,
+    "profile_bytes": 28368,
+    "negative_mutations_rejected": [
+      "wrong DB",
+      "outside caller window",
+      "truncated profile",
+      "no guest frames"
+    ]
+  },
+  "natural": [
+    {
+      "name": "natural-0-pool16",
+      "pool_mib": 16,
+      "suite_ms": 577.01,
+      "prepare_calls": 63,
+      "max_prepare_ms": 14.506,
+      "prepare_ge100ms": 0,
+      "captures": 0
+    },
+    {
+      "name": "natural-1-pool8",
+      "pool_mib": 8,
+      "suite_ms": 556.208,
+      "prepare_calls": 63,
+      "max_prepare_ms": 16.743,
+      "prepare_ge100ms": 0,
+      "captures": 0
+    },
+    {
+      "name": "natural-2-pool8",
+      "pool_mib": 8,
+      "suite_ms": 604.55,
+      "prepare_calls": 63,
+      "max_prepare_ms": 22.877,
+      "prepare_ge100ms": 0,
+      "captures": 0
+    },
+    {
+      "name": "natural-3-pool16",
+      "pool_mib": 16,
+      "suite_ms": 605.678,
+      "prepare_calls": 63,
+      "max_prepare_ms": 7.923,
+      "prepare_ge100ms": 0,
+      "captures": 0
+    }
+  ],
+  "late_control_prepare_calls": [
+    {
+      "lane": "TestApplyDiscount/music_25",
+      "duration_ms": 375.465,
+      "profile": "not captured; reserved control slot already used"
+    },
+    {
+      "lane": "TestApplyDiscount/games_0",
+      "duration_ms": 403.384,
+      "profile": "not captured; reserved control slot already used"
+    }
+  ],
+  "no_resampling": true
+}

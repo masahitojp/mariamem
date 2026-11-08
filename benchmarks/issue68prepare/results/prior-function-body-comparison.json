@@ -1,0 +1,32 @@
+{
+  "16806": {
+    "path": "internal/generatedgo/code/p4/p4_pure.go",
+    "current_sha256": "68354f0c3cd51e09cafc7ef79788407d03754d1077c7172426b4b3c62c1a50a2",
+    "prior_sha256": "05d30d8edb5d5da63cb423c06290dda65bb449f8366111a3d6751884d7bc2870",
+    "exact_body_equal": false
+  },
+  "18164": {
+    "path": "internal/generatedgo/code/p3/p3_pure.go",
+    "current_sha256": "f019e263eb536cbc496f600050eb5a30c087fa96dabcc4eaa05fe605ddea1b06",
+    "prior_sha256": "12968dba4a55a206bfba1edcabe889d039e2887fdc23c03f26c071349a0828ce",
+    "exact_body_equal": false
+  },
+  "5853": {
+    "path": "internal/generatedgo/code/p7/p7_pure.go",
+    "current_sha256": "450bd6f0820e89bfdd3ee4344d9c180c5082035c005140405d3a30d1d40c0361",
+    "prior_sha256": "450bd6f0820e89bfdd3ee4344d9c180c5082035c005140405d3a30d1d40c0361",
+    "exact_body_equal": true
+  },
+  "17227": {
+    "path": "internal/generatedgo/code/p8/p8_pure.go",
+    "current_sha256": "9e0331dcbb05028d9495f2bf5c232b276e3760b3f74aeb568fd3d22199f44edd",
+    "prior_sha256": "9e0331dcbb05028d9495f2bf5c232b276e3760b3f74aeb568fd3d22199f44edd",
+    "exact_body_equal": true
+  },
+  "16621": {
+    "path": "internal/generatedgo/code/p6/p6_pure.go",
+    "current_sha256": "98b3992bbdc3723795ce010b0e067d409fbc25aa209ae1c866f1d7f6b6e44b39",
+    "prior_sha256": "baceac4636251d99bd96a1cf18216567e213fc1e50f7f98f34726c7db4645c8f",
+    "exact_body_equal": false
+  }
+}

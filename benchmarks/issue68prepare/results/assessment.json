@@ -1,0 +1,14 @@
+{
+  "result": "PARTIAL / no usable natural PREPARE stack",
+  "measured_source_commit": "2ef12c4a455d8e759325c277827355bd35d27ec6",
+  "control_processes": 1,
+  "natural_processes": 4,
+  "case_oracles_passed": 350,
+  "cleanup_all_active_mappings_zero": true,
+  "old_issue68_equivalence": "UNVERIFIED",
+  "positive_control_foreground_binding": "p7.Fn5853 in exact target DB label group, body-equal to prior named mysql_real_query anchor; bounded snapshot wholly within real SQL SLEEP scope",
+  "old_undo_function_ids_reused": false,
+  "runtime_guest_api_changed": false,
+  "original_external_runner_sha256": "fe8a811a58d08b16561f35f496919f9063ec2ecbe0ad47b39d269c682aab625b",
+  "stop": "No extra repetitions, tuning, default change, fix, main or release"
+}

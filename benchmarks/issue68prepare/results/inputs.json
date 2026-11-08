@@ -1,0 +1,49 @@
+{
+  "source": {
+    "object_sha": "2ef12c4a455d8e759325c277827355bd35d27ec6",
+    "object_type": "commit",
+    "source_commit": "2ef12c4a455d8e759325c277827355bd35d27ec6"
+  },
+  "plan": {
+    "question": "Does the reproducible shop PREPARE tail enter the previously observed Issue68 wait path or a different one?",
+    "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+    "origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+    "new_reopening_trigger": "Repeated natural PREPARE400/800ms in unchanged real shop70 workload, not another old UPDATE batch.",
+    "prior_issue68": "Old1862f4a8/guest6d744220 UPDATE355ms had an undo-page structural correspondence; short later samples bound purge/rseg/page IO owner. Long UPDATE cause remained unknown. Do not reuse old function IDs or owners.",
+    "workload": "same shop70/Pipe/P8,cap9,16/8MiB. NoSQL/settings intervention beyond already tested pool values.",
+    "natural_runs": [
+      16,
+      8,
+      8,
+      16
+    ],
+    "positive_control": "one separate16MiB suite, actual SQL SELECT SLEEP(0.25) before Snapshot; validate caller window, db_id label and generated guest stack. No natural runs if binding control fails.",
+    "capture_limit_per_process": 1,
+    "capture_trigger_ms": 100,
+    "profile_cap_bytes": 2097152,
+    "usable": "snapshot wholly within actual caller window, untruncated, matching database owner label and generated guest frames. Still a point sample, not total wait duration.",
+    "labels": "root/fork started in pprof.Do with unique per-process DB id; spawned guest threads inherit labels. Positive control validates this on current binary.",
+    "budget_gib": 10,
+    "min_free_gib": 8,
+    "timeout_seconds": 900,
+    "tooling_budget_minutes": 30,
+    "active_budget_hours": 2,
+    "heavy_ci_limit": 0,
+    "exit": "one positive control then4natural suites, no resampling. SAME_PATH / DIFFERENT_PATH / PARTIAL / NOT_REPRODUCED with matching evidence; no root-cause or parameter fix without evidence."
+  },
+  "host": {
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "go": "go version go1.27.3 darwin/arm64",
+    "cpu": "Apple M1",
+    "memory": "17179869184"
+  },
+  "overlay": {
+    "generated_path": "internal/generatedgo/code/p5/p5_pure.go",
+    "before_sha256": "650546161662f32d14238dd8d3a1f4e62eeadddbeba78d94a95d9d6e7c696852",
+    "after_sha256": "19baaf0b0f87e4df8cd3ae00f134ace78f1ba1d3489e7bfc41010ec1ebcda04a",
+    "selector_sha256": "48b600d4bc1d3a5f6c61e72885d2e5a7b57dab3efa011cbb27a7a3742b676552"
+  },
+  "binary_sha256": "b0b1c02c6b9ccabed7c74d6c24005ec96b580f6e798858e4fde20f6d1d07de35",
+  "build_info": "<WORKSPACE>/temp/probe: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue88modelcase/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/issue88modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t../..\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "build_seconds": 124.55982941699999
+}

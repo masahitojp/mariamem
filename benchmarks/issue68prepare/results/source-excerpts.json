@@ -1,0 +1,65 @@
+{
+  "libmysqld/libmysql.c": {
+    "original_sha256": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
+    "unpatched_upstream": true,
+    "ranges": [
+      {
+        "line": 1599,
+        "end_line": 1608,
+        "text": "mysql_stmt_prepare(MYSQL_STMT *stmt, const char *query, ulong length)\n{\n  MYSQL *mysql= stmt->mysql;\n  DBUG_ENTER(\"mysql_stmt_prepare\");\n\n  if (!mysql)\n  {\n    /* mysql can be reset in mysql_close called from mysql_reconnect */\n    set_stmt_error(stmt, CR_SERVER_LOST, unknown_sqlstate, NULL);\n    DBUG_RETURN(1);"
+      },
+      {
+        "line": 1646,
+        "end_line": 1662,
+        "text": "      set_stmt_errmsg(stmt, &mysql->net);\n      DBUG_RETURN(1);\n    }\n  }\n\n  if (stmt_command(mysql, COM_STMT_PREPARE, (const uchar*) query, length, stmt))\n  {\n    set_stmt_errmsg(stmt, &mysql->net);\n    DBUG_RETURN(1);\n  }\n\n  if ((*mysql->methods->read_prepare_result)(mysql, stmt))\n  {\n    set_stmt_errmsg(stmt, &mysql->net);\n    DBUG_RETURN(1);\n  }\n"
+      }
+    ]
+  },
+  "libmysqld/lib_sql.cc": {
+    "original_sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
+    "unpatched_upstream": true,
+    "ranges": [
+      {
+        "line": 108,
+        "end_line": 115,
+        "text": "emb_advanced_command(MYSQL *mysql, enum enum_server_command command,\n\t\t     const uchar *header, ulong header_length,\n\t\t     const uchar *arg, ulong arg_length, my_bool skip_check,\n                     MYSQL_STMT *stmt)\n{\n  my_bool result= 1;\n  THD *thd=(THD *) mysql->thd, *old_current_thd= current_thd;\n  NET *net= &mysql->net;"
+      },
+      {
+        "line": 167,
+        "end_line": 175,
+        "text": "  if (header)\n  {\n    arg= header;\n    arg_length= header_length;\n  }\n\n  result= dispatch_command(command, thd, (char *) arg, arg_length);\n  thd->cur_data= 0;\n  thd->mysys_var= NULL;"
+      }
+    ]
+  },
+  "sql/sql_prepare.cc": {
+    "original_sha256": "2e6d7bebe2d332b3b95690d61c903ecd749b94a04a04820ebd9bc5d8a4957ed3",
+    "unpatched_upstream": true,
+    "ranges": [
+      {
+        "line": 1420,
+        "end_line": 1452,
+        "text": "static bool mysql_test_insert_common(Prepared_statement *stmt,\n                                     TABLE_LIST *table_list,\n                                     List<Item> &fields,\n                                     List<List_item> &values_list,\n                                     List<Item> &update_fields,\n                                     List<Item> &update_values,\n                                     enum_duplicates duplic,\n                                     bool ignore)\n{\n  THD *thd= stmt->thd;\n  List_iterator_fast<List_item> its(values_list);\n  List_item *values;\n  bool cache_results= FALSE;\n  DBUG_ENTER(\"mysql_test_insert_common\");\n\n  if (insert_precheck(thd, table_list))\n    goto error;\n\n  /*\n    open temporary memory pool for temporary data allocated by derived\n    tables & preparation procedure\n    Note that this is done without locks (should not be needed as we will not\n    access any data here)\n    If we would use locks, then we have to ensure we are not using\n    TL_WRITE_DELAYED as having two such locks can cause table corruption.\n  */\n  if (open_normal_and_derived_tables(thd, table_list,\n                                     MYSQL_OPEN_FORCE_SHARED_MDL, DT_INIT))\n    goto error;\n\n  if ((values= its++))\n  {\n    uint value_count;"
+      },
+      {
+        "line": 2366,
+        "end_line": 2375,
+        "text": "#endif\n  switch (sql_command) {\n  case SQLCOM_REPLACE:\n  case SQLCOM_INSERT:\n    res= mysql_test_insert(stmt, tables, lex->field_list,\n                           lex->many_values,\n                           lex->update_list, lex->value_list,\n                           lex->duplicates, lex->ignore);\n    break;\n"
+      },
+      {
+        "line": 2669,
+        "end_line": 2702,
+        "text": "void mysqld_stmt_prepare(THD *thd, const char *packet, uint packet_length)\n{\n  Protocol *save_protocol= thd->protocol;\n  Prepared_statement *stmt;\n  DBUG_ENTER(\"mysqld_stmt_prepare\");\n  DBUG_PRINT(\"prep_query\", (\"%s\", packet));\n\n  /* First of all clear possible warnings from the previous command */\n  thd->reset_for_next_command();\n\n  if (! (stmt= new Prepared_statement(thd)))\n    goto end;           /* out of memory: error is set in Sql_alloc */\n\n  if (thd->stmt_map.insert(thd, stmt))\n  {\n    /*\n      The error is set in the insert. The statement itself\n      will be also deleted there (this is how the hash works).\n    */\n    goto end;\n  }\n\n  thd->protocol= &thd->protocol_binary;\n\n  /* Create PS table entry, set query text after rewrite. */\n  stmt->m_prepared_stmt= MYSQL_CREATE_PS(stmt, stmt->id,\n                                         thd->m_statement_psi,\n                                         stmt->name.str, stmt->name.length);\n\n  if (stmt->prepare(packet, packet_length))\n  {\n    /*\n       Prepare failed and stmt will be freed.\n       Now we have to save the query_string in the so the"
+      },
+      {
+        "line": 4393,
+        "end_line": 4409,
+        "text": "      lex->sql_command != SQLCOM_DEALLOCATE_PREPARE)\n  {\n    thd->restore_backup_statement(this, &stmt_backup);\n    thd->restore_active_arena(this, &stmt_backup);\n    thd->stmt_arena= old_stmt_arena;\n    thd->cur_stmt = save_cur_stmt;\n    my_error(ER_MUST_CHANGE_PASSWORD, MYF(0));\n    DBUG_RETURN(true);\n  }\n  lex->set_trg_event_type_for_tables();\n\n#ifdef PROTECT_STATEMENT_MEMROOT\n  executed_counter= 0;\n#endif\n\n  /*\n    While doing context analysis of the query (in check_prepared_statement)"
+      },
+      {
+        "line": 4440,
+        "end_line": 4478,
+        "text": "  /* \n   The only case where we should have items in the thd->free_list is\n   after stmt->set_params_from_vars(), which may in some cases create\n   Item_null objects.\n  */\n\n  if (likely(error == 0))\n    error= check_prepared_statement(this);\n\n  if (unlikely(error))\n  {\n    /*\n      let the following code know we're not in PS anymore,\n      the won't be any EXECUTE, so we need a full cleanup\n    */\n    lex->context_analysis_only&= ~CONTEXT_ANALYSIS_ONLY_PREPARE;\n  }\n\n  /* The order is important */\n  lex->unit.cleanup();\n\n  /* No need to commit statement transaction, it's not started. */\n  DBUG_ASSERT(thd->transaction->stmt.is_empty());\n\n  close_thread_tables_for_query(thd);\n  thd->mdl_context.rollback_to_savepoint(mdl_savepoint);\n\n  /*\n    Transaction rollback was requested since MDL deadlock was discovered\n    while trying to open tables. Rollback transaction in all storage\n    engines including binary log and release all locks.\n\n    Once dynamic SQL is allowed as substatements the below if-statement\n    has to be adjusted to not do rollback in substatement.\n  */\n  DBUG_ASSERT(! thd->in_sub_stmt);\n  if (thd->transaction_rollback_request)\n  {\n    trans_rollback_implicit(thd);"
+      }
+    ]
+  }
+}
