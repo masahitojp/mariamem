@@ -1,0 +1,16 @@
+{
+  "initial_helper_attempt": {
+    "result": "STOPPED_BEFORE_RUN",
+    "reason": "Incorrect runner path duplicated worktree/; no compiler or suite ran in that attempt. Cleanup declined generated overlays until reproduction declaration.",
+    "console_original_sha256": "230a517694d02f751aeefc134b3f705caf9cb4aa0b0dc1956dcf654a1b3cd3c2",
+    "published_console": "/Library/Developer/CommandLineTools/usr/bin/python3: can't open file '<WORKSPACE>/worktree/worktree/benchmarks/issue140read/run.py': [Errno 2] No such file or directory\n"
+  },
+  "manual_disk_guard_attempt": {
+    "result": "COMPLETE",
+    "focused_race_controls": 3,
+    "positive_control_processes": 1,
+    "natural_processes": 8,
+    "test_cases": 630,
+    "all_active_mappings_after": 0
+  }
+}
