@@ -1,0 +1,32 @@
+{
+  "result": "C_ALGORITHM_REPLAY_AND_PATCH_PASS",
+  "descriptors": 638,
+  "unique_pairs": 28,
+  "payload_bytes": 14336,
+  "pristine_source_sha256": "d120e40dea53badcb20c28a70189c88b483df02dd7ce7979fb6a7c234cb506f3",
+  "original_function_sha256": "b49c047d85e45dd7ebea17d1bc27fd63fc7b95d8f4216dfbfbda12180e079fb9",
+  "captured_inputs_sha256": "b6ab53e789c91470a12535655fb6774991122132fdb22a89e5b3dfa2e4385bdd",
+  "header_sha256": "f0cb53c663cefef698d63dbb1409ec6302c2b33e824bf71881bb2c60cf1745a7",
+  "patch_sha256": "2177ff664635990f63f84d212c4dd34c44f5a9f432c35ec2874969043d01ff7c",
+  "native_harness_sha256": "c1ad18e39b58732911ddc8d0bbcfe9050c31280316579f617a63034d79732078",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.4.1.1)",
+  "command": [
+    "cc",
+    "-std=gnu99",
+    "-D_POSIX_C_SOURCE=200809L",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "<TEMP>/native-producer.c",
+    "-o",
+    "<TEMP>/native-producer"
+  ],
+  "const_typedef": "typedef const struct charset_info_st CHARSET_INFO;",
+  "const_typedef_source_sha256": "fc4d434c83576a251088ba695ca9b84c3219229e6e3975348e20070bc7a12a13",
+  "const_signature_negative_exit": 1,
+  "corruption_negative_exit": -6,
+  "scope": "Original pinned C state-map algorithm with captured m_ctype and one-byte charlen results. Not a native full MariaDB server/handler build or SQL differential. Known compiled IDs use guest read-only static data; dynamic callsites unchanged. Removed allocation means known-ID OOM branch eliminated by construction.",
+  "actual_c_guest_build": "NOT_RUN",
+  "both_platform_acceptance": "NOT_RUN"
+}

@@ -5,9 +5,9 @@ S=Path(__file__).resolve().parents[2]
 B=S/'benchmarks/lexercandidate';W=S.parent;T=W/'temp';E=W/'evidence'
 SHA=lambda b:hashlib.sha256(b).hexdigest()
 def pinned():
- files={'mysys/charset.c':'d120e40dea53badcb20c28a70189c88b483df02dd7ce7979fb6a7c234cb506f3','include/m_ctype.h':'b0c8684ffbe3b6e374b3f0bc49a162e2fc2309a2de3d20fdfb19250cca5a128b'}
+ files={'include/my_global.h':'fc4d434c83576a251088ba695ca9b84c3219229e6e3975348e20070bc7a12a13','mysys/charset.c':'d120e40dea53badcb20c28a70189c88b483df02dd7ce7979fb6a7c234cb506f3','include/m_ctype.h':'b0c8684ffbe3b6e374b3f0bc49a162e2fc2309a2de3d20fdfb19250cca5a128b'}
  for n,h in files.items():assert SHA((T/'pristine'/n).read_bytes())==h
- return (T/'pristine/mysys/charset.c').read_text(),(T/'pristine/include/m_ctype.h').read_text()
+ return (T/'pristine/mysys/charset.c').read_text(),(T/'pristine/include/m_ctype.h').read_text(),(T/'pristine/include/my_global.h').read_text()
 def header(table):
  data=bytes.fromhex(table['data_hex']);assert len(data)==14336 and SHA(data)==table['data_sha256']
  numbers={v['number']:v['pair'] for v in table['bindings'].values()};assert len(numbers)==638
@@ -18,7 +18,7 @@ def header(table):
  for n,p in sorted(numbers.items()):out.append(f'    case {n}: return mariamem_lexer_pairs[{p}];\n')
  out.append('    default: return NULL;\n  }\n}\n')
  out.append(r'''
-static my_bool mariamem_init_compiled_state_maps(CHARSET_INFO *cs)
+static my_bool mariamem_init_compiled_state_maps(struct charset_info_st *cs)
 {
   const uchar *pair;
   /* This wrapper is called only by the pre-XML compiled registration loop.
@@ -47,7 +47,8 @@ def main():
  global T,E
  p=argparse.ArgumentParser();p.add_argument('--work-dir',type=Path,default=W);p.add_argument('--check',action='store_true');a=p.parse_args()
  T=a.work_dir.resolve()/'temp';E=a.work_dir.resolve()/'evidence';T.mkdir(parents=True,exist_ok=True);E.mkdir(parents=True,exist_ok=True)
- source,mctype=pinned();table=json.loads((S/'benchmarks/lexerprepared/tables.json').read_text());text=header(table)
+ source,mctype,global_header=pinned();table=json.loads((S/'benchmarks/lexerprepared/tables.json').read_text());text=header(table)
+ charset_typedef=re.search(r'^typedef const struct charset_info_st CHARSET_INFO;$',global_header,re.M).group()
  data=json.loads((B/'producer-inputs.json').read_text());assert len(data)==638
  function=re.search(r'static my_bool is_multi_byte_ident\(.*?\n}\n\nstatic my_bool init_state_maps\(.*?\n}',source,re.S).group()
  enum=re.search(r'enum my_lex_states\s*\{.*?\n};',mctype,re.S).group()
@@ -71,19 +72,21 @@ typedef int my_bool;
 static int allocations, fail_alloc;
 static void *last_alloc;
 static void *my_once_alloc(size_t n,int flags) {assert(flags==16);allocations++;return last_alloc=fail_alloc?NULL:malloc(n);}
-typedef struct charset_info_st {uint number,state;const uchar *m_ctype,*state_map,*ident_map;int32_t charlen[256];} CHARSET_INFO;
+struct charset_info_st {uint number,state;const uchar *m_ctype,*state_map,*ident_map;int32_t charlen[256];};
+@CHARSET_INFO_TYPEDEF@
 static int my_ci_charlen(CHARSET_INFO *cs,const uchar *p,const uchar *end){assert(end==p+1);return cs->charlen[*p];}
 '''
+ shim=shim.replace('@CHARSET_INFO_TYPEDEF@',charset_typedef)
  maincode=r'''
-static void reset(CHARSET_INFO *cs){if(last_alloc)free(last_alloc);last_alloc=NULL;allocations=0;cs->state_map=cs->ident_map=NULL;}
+static void reset(struct charset_info_st *cs){if(last_alloc)free(last_alloc);last_alloc=NULL;allocations=0;cs->state_map=cs->ident_map=NULL;}
 int main(void){
- CHARSET_INFO cs;uchar ctype[257],expected[512];uint n=0;memset(&cs,0,sizeof(cs));cs.m_ctype=ctype;
+ struct charset_info_st cs;uchar ctype[257],expected[512];uint n=0;memset(&cs,0,sizeof(cs));cs.m_ctype=ctype;
  while(fread(&cs.number,4,1,stdin)==1){
   assert(fread(ctype,257,1,stdin)==1);assert(fread(cs.charlen,1024,1,stdin)==1);assert(fread(expected,512,1,stdin)==1);cs.state=MY_CS_COMPILED;
   reset(&cs);assert(init_state_maps(&cs)==0);assert(allocations==1);assert(!memcmp(cs.state_map,expected,256)&&!memcmp(cs.ident_map,expected+256,256));
   reset(&cs);assert(mariamem_init_compiled_state_maps(&cs)==0);assert(allocations==0);assert(!memcmp(cs.state_map,expected,256)&&!memcmp(cs.ident_map,expected+256,256));
   const uchar *saved=cs.state_map;
-  CHARSET_INFO other=cs;other.state_map=other.ident_map=NULL;assert(mariamem_init_compiled_state_maps(&other)==0);assert(other.state_map==saved);assert(cs.state_map==saved);
+  struct charset_info_st other=cs;other.state_map=other.ident_map=NULL;assert(mariamem_init_compiled_state_maps(&other)==0);assert(other.state_map==saved);assert(cs.state_map==saved);
   cs.state=0;reset(&cs);assert(mariamem_init_compiled_state_maps(&cs)==0);assert(allocations==1);assert(!memcmp(cs.state_map,expected,256));
   cs.state=MY_CS_COMPILED;uint number=cs.number;cs.number=65535;reset(&cs);assert(mariamem_init_compiled_state_maps(&cs)==0);assert(allocations==1);assert(!memcmp(cs.ident_map,expected+256,256));
   reset(&cs);fail_alloc=1;assert(mariamem_init_compiled_state_maps(&cs)==1);assert(cs.state_map==NULL);fail_alloc=0;cs.number=number;
@@ -98,8 +101,16 @@ int main(void){
  for number,row in sorted(data.items(),key=lambda x:int(x[0])):
   n=int(number);assert row['number']==n and len(row['charlen'])==256;ctype=bytes.fromhex(row['ctype_hex']);assert len(ctype)==257
   raw.extend(struct.pack('<I',n)+ctype+struct.pack('<256i',*row['charlen'])+blob[numbers[n]*512:(numbers[n]+1)*512])
- program=T/'native-producer';command=['cc','-std=c11','-D_POSIX_C_SOURCE=200809L','-O2','-Wall','-Wextra','-Werror',str(c),'-o',str(program)]
+ program=T/'native-producer';command=['cc','-std=gnu99','-D_POSIX_C_SOURCE=200809L','-O2','-Wall','-Wextra','-Werror',str(c),'-o',str(program)]
  subprocess.run(command,check=True)
+ # Reintroduce the observed wrong const-alias signature. The same real typedef
+ # must reject mutation of CHARSET_INFO through that argument, before DB builds.
+ signature='mariamem_init_compiled_state_maps(struct charset_info_st *cs)'
+ assert c.read_text().count(signature)==1
+ wrong=T/'native-producer-const-bad.c';wrong.write_text(c.read_text().replace(signature,'mariamem_init_compiled_state_maps(CHARSET_INFO *cs)',1))
+ rejected=subprocess.run(command[:-3]+[str(wrong),'-o',str(T/'native-producer-const-bad')],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+ assert rejected.returncode!=0 and b'error:' in rejected.stderr and (b'const' in rejected.stderr or b'read-only' in rejected.stderr),'const qualification regression not rejected'
+ (E/'native-producer-const-negative.txt').write_bytes(rejected.stderr.replace(str(T).encode(),b'<TEMP>'))
  result=subprocess.run([str(program)],input=raw,stdout=subprocess.PIPE,stderr=subprocess.PIPE,check=True)
  (E/'native-producer.txt').write_bytes(result.stdout);(E/'native-producer.stderr.txt').write_bytes(result.stderr)
  assert result.stderr.count(b'LEXER_PREPARED_VERIFY')==638
@@ -123,6 +134,6 @@ int main(void){
  assert (scratch/'mysys/charset.c').read_text()==changed and (scratch/'mysys/mariamem_lexer_prepared.h').read_text()==text
  assert changed.count('init_state_maps(to)')==1 and changed.count('init_state_maps(newcs)')==2
  shutil.rmtree(scratch)
- record={'result':'C_ALGORITHM_REPLAY_AND_PATCH_PASS','descriptors':638,'unique_pairs':28,'payload_bytes':14336,'pristine_source_sha256':SHA(source.encode()),'original_function_sha256':SHA(function.encode()),'captured_inputs_sha256':SHA((B/'producer-inputs.json').read_bytes()),'header_sha256':SHA(text.encode()),'patch_sha256':SHA(patch.encode()),'native_harness_sha256':SHA(c.read_bytes()),'compiler':subprocess.check_output(['cc','--version'],text=True).splitlines()[0],'command':['cc','-std=c11','-D_POSIX_C_SOURCE=200809L','-O2','-Wall','-Wextra','-Werror','<TEMP>/native-producer.c','-o','<TEMP>/native-producer'],'corruption_negative_exit':neg.returncode,'scope':'Original pinned C state-map algorithm with captured m_ctype and one-byte charlen results. Not a native full MariaDB server/handler build or SQL differential. Known compiled IDs use guest read-only static data; dynamic callsites unchanged. Removed allocation means known-ID OOM branch eliminated by construction.','actual_c_guest_build':'NOT_RUN','both_platform_acceptance':'NOT_RUN'}
+ record={'result':'C_ALGORITHM_REPLAY_AND_PATCH_PASS','descriptors':638,'unique_pairs':28,'payload_bytes':14336,'pristine_source_sha256':SHA(source.encode()),'original_function_sha256':SHA(function.encode()),'captured_inputs_sha256':SHA((B/'producer-inputs.json').read_bytes()),'header_sha256':SHA(text.encode()),'patch_sha256':SHA(patch.encode()),'native_harness_sha256':SHA(c.read_bytes()),'compiler':subprocess.check_output(['cc','--version'],text=True).splitlines()[0],'command':['cc','-std=gnu99','-D_POSIX_C_SOURCE=200809L','-O2','-Wall','-Wextra','-Werror','<TEMP>/native-producer.c','-o','<TEMP>/native-producer'],'const_typedef':charset_typedef,'const_typedef_source_sha256':SHA(global_header.encode()),'const_signature_negative_exit':rejected.returncode,'corruption_negative_exit':neg.returncode,'scope':'Original pinned C state-map algorithm with captured m_ctype and one-byte charlen results. Not a native full MariaDB server/handler build or SQL differential. Known compiled IDs use guest read-only static data; dynamic callsites unchanged. Removed allocation means known-ID OOM branch eliminated by construction.','actual_c_guest_build':'NOT_RUN','both_platform_acceptance':'NOT_RUN'}
  (E/'c-source-check.json').write_text(json.dumps(record,indent=2)+'\n');print(json.dumps(record,indent=2))
 if __name__=='__main__':main()

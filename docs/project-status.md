@@ -121,6 +121,17 @@ The narrow repair matches the existing accepted builder's `HOME=/root` setting
 and adds missing/wrong-HOME negative controls. Guest/runtime/release inputs are
 unchanged; a corrected CI result is still required.
 
+The second acquisition [CI42431032597](https://github.com/masahitojp/mariamem/actions/runs/42431032597)
+passed the HOME/configuration boundary, then failed to compile the experimental
+initializer: upstream `CHARSET_INFO` is const-qualified. The
+[const-correction receipt](../benchmarks/lexercandidate/ci-42431032597/README.md)
+records why the old mutable native shim missed it. The initializer now takes
+`struct charset_info_st *`, matching the original producer. The replay imports
+the pinned upstream const typedef and must reject the old wrong signature before
+building the guest. Full638-map/component controls pass locally; actual WASIX
+build/translation acceptance remains pending. Prepared table payload and prior
+Go measurement bytes are unchanged.
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally

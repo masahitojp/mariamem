@@ -1166,7 +1166,7 @@
 +  }
 +}
 +
-+static my_bool mariamem_init_compiled_state_maps(CHARSET_INFO *cs)
++static my_bool mariamem_init_compiled_state_maps(struct charset_info_st *cs)
 +{
 +  const uchar *pair;
 +  /* This wrapper is called only by the pre-XML compiled registration loop.

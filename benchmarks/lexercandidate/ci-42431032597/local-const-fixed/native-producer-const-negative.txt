@@ -1,0 +1,25 @@
+<TEMP>/native-producer-const-bad.c:1278:28: error: passing 'CHARSET_INFO *' (aka 'const struct charset_info_st *') to parameter of type 'struct charset_info_st *' discards qualifiers [-Werror,-Wincompatible-pointer-types-discards-qualifiers]
+ 1278 |     return init_state_maps(cs);
+      |                            ^~
+<TEMP>/native-producer-const-bad.c:58:56: note: passing argument to parameter 'cs' here
+   58 | static my_bool init_state_maps(struct charset_info_st *cs)
+      |                                                        ^
+<TEMP>/native-producer-const-bad.c:1281:25: error: passing 'CHARSET_INFO *' (aka 'const struct charset_info_st *') to parameter of type 'struct charset_info_st *' discards qualifiers [-Werror,-Wincompatible-pointer-types-discards-qualifiers]
+ 1281 |     if (init_state_maps(cs))
+      |                         ^~
+<TEMP>/native-producer-const-bad.c:58:56: note: passing argument to parameter 'cs' here
+   58 | static my_bool init_state_maps(struct charset_info_st *cs)
+      |                                                        ^
+<TEMP>/native-producer-const-bad.c:1289:16: error: cannot assign to variable 'cs' with const-qualified type 'CHARSET_INFO *' (aka 'const struct charset_info_st *')
+ 1289 |   cs->state_map= pair;
+      |   ~~~~~~~~~~~~~^
+<TEMP>/native-producer-const-bad.c:1270:64: note: variable 'cs' declared const here
+ 1270 | static my_bool mariamem_init_compiled_state_maps(CHARSET_INFO *cs)
+      |                                                  ~~~~~~~~~~~~~~^~
+<TEMP>/native-producer-const-bad.c:1290:16: error: cannot assign to variable 'cs' with const-qualified type 'CHARSET_INFO *' (aka 'const struct charset_info_st *')
+ 1290 |   cs->ident_map= pair + 256;
+      |   ~~~~~~~~~~~~~^
+<TEMP>/native-producer-const-bad.c:1270:64: note: variable 'cs' declared const here
+ 1270 | static my_bool mariamem_init_compiled_state_maps(CHARSET_INFO *cs)
+      |                                                  ~~~~~~~~~~~~~~^~
+4 errors generated.

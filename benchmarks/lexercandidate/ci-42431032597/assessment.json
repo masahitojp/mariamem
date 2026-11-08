@@ -1,0 +1,19 @@
+{
+  "result": "FAIL_WASIX_C_COMPILE_CONST_QUALIFICATION",
+  "source_commit": "b3d3c7faffc063b993fd87acd90b79eef09982ee",
+  "run": 42431032597,
+  "guest_job": 128579735536,
+  "reference_job": 128579735759,
+  "reference_result": "SUCCESS",
+  "translation": "SKIP_DEPENDENCY_FAILED",
+  "artifact": {
+    "id": 13598220400,
+    "zip_sha256": "f06cabe90eb10a86940ed610e729108994afae36c8a9a583c071fe849bd224f8"
+  },
+  "full_original_build_log_sha256": "ac8ed6ded5406dea9a8a57268231ec362ee44f0e60c34231f7b9cbef408bd751",
+  "excerpt_sha256": "980a0fcfe52d27775d9324c0cb2bb3c42c47594f6532d4bda2d89e6a421ce414",
+  "cause": "Production include/my_global.h defines CHARSET_INFO as const struct charset_info_st; candidate initializer used the read-only alias as a mutable argument. Native shim incorrectly declared it mutable and missed this integration error.",
+  "fix": "Only initializer parameter changes to struct charset_info_st*, matching original init_state_maps. Import exact upstream typedef into replay, use mutable struct for fixtures, and require wrong const-alias parameter to fail compilation under GNU99 before guest build. No const cast or qualification removal.",
+  "local_fixed_result": "638 full512 maps and fallback/OOM/corruption PASS; reintroduced wrong parameter fails native compilation",
+  "scope": "Old failed receipts kept on b3d3c7fa; table payload/Go timing/production runtime/canonical guest/release unchanged. New full WASIX C build and translations remain pending."
+}

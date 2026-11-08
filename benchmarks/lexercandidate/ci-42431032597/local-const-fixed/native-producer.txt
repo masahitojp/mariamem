@@ -1,0 +1,1 @@
+PASS original-C full512 replay, prepared assignment, metadata independence, dynamic/unknown fallback, OOM and internal controls: 638 descriptors
