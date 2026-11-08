@@ -1,11 +1,21 @@
-name: Startup concurrency candidate input (not Qualification)
+name: Startup concurrency canonical candidate (not Qualification)
+# Stage1:42509593737 at8d3da071, single UNQUALIFIED input; never relabel.
+# Automatic only while this candidate branch is active; stop after acceptance.
 on:
   push:
     branches: [experiment/startup-cap-canonical]
     paths:
-      - guest/source.patch
+      - guest/**
+      - internal/generatedgo/**
+      - internal/runtimekind/**
+      - release/generated-go-*.json
       - scripts/prepare_guest.py
       - scripts/startup_concurrency.py
+      - scripts/generate_runtime.py
+      - scripts/generated_release.py
+      - scripts/runtime_crc32c.py
+      - scripts/runtime_thread_lifetime.py
+      - scripts/check_prepared_build_guards.py
       - tests/test_startup_concurrency.py
       - .github/workflows/startup-cap-candidate.yml
   workflow_dispatch:
@@ -23,7 +33,7 @@ jobs:
           apt-get update
           DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-      - name: Exact clean canonical source and single UNQUALIFIED bootstrap build
+      - name: Bind clean exact candidate and build twice
         env:
           HOME: /root
         run: |
@@ -33,18 +43,121 @@ jobs:
           python3 -c 'import json,os;assert json.load(open("build/startup-cap-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
           test -z "$(git status --porcelain)"
           test ! -e guest/experimental.patch
-          python3 -m unittest discover -s tests -p test_startup_concurrency.py -v
-          python3 scripts/build_generated_guest.py --development-output /tmp/startup-cap-guest > build/startup-cap-ci/build.txt 2>&1
+          python3 scripts/build_generated_guest.py --repetitions 2 > build/startup-cap-ci/guest-build.txt 2>&1
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
-          name: startup-cap-guest-${{ github.sha }}
-          path: /tmp/startup-cap-guest
+          name: startup-cap-canonical-guest-${{ github.sha }}
+          path: build/generated-release
           if-no-files-found: error
           retention-days: 14
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: startup-cap-build-${{ github.sha }}
+          name: startup-cap-canonical-build-${{ github.sha }}
           path: build/startup-cap-ci
+          if-no-files-found: error
+          retention-days: 14
+  reference:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      mariadb:
+        image: mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+          MARIADB_DATABASE: test
+        ports: ['3307:3306']
+        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Fixed MariaDB native control
+        run: |
+          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0
+          mkdir -p build/startup-cap-reference
+          docker image inspect mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1 --format '{{json .}}' > build/startup-cap-reference/image.json
+          python scripts/git_identity.py inspect HEAD > build/startup-cap-reference/source.json
+          python -c 'import json,os;assert json.load(open("build/startup-cap-reference/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          python tests/lexer_prepared_acceptance.py --native-port 3307 --output build/startup-cap-reference/native.json
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: startup-cap-native-reference-${{ github.sha }}
+          path: build/startup-cap-reference
+          if-no-files-found: error
+          retention-days: 14
+  native:
+    needs: [guest, reference]
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    env:
+      GOTOOLCHAIN: go1.26.10
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: startup-cap-canonical-guest-${{ github.sha }}
+          path: build/generated-release
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: startup-cap-native-reference-${{ github.sha }}
+          path: build/startup-cap-reference
+      - name: Exact clean source and source input controls
+        run: |
+          go clean -testcache
+          python -c 'import platform,os;expected=("Darwin","arm64") if os.environ["RUNNER_OS"]=="macOS" else ("Linux","x86_64");assert (platform.system(),platform.machine())==expected,(platform.system(),platform.machine())'
+          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0 pytest==9.1.1
+          mkdir -p build/startup-cap-ci
+          python scripts/git_identity.py inspect HEAD > build/startup-cap-ci/source.json
+          python -c 'import json,os;assert json.load(open("build/startup-cap-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python -m unittest discover -s tests -p test_lexer_prepared_input.py -v > build/startup-cap-ci/input.txt 2>&1
+          python -m unittest discover -s tests -p test_startup_concurrency.py -v > build/startup-cap-ci/startup-input.txt 2>&1
+      - name: Independent Go regeneration and canonical build guard
+        run: |
+          python scripts/regenerate_release_guest.py --output "$RUNNER_TEMP/startup-cap-regeneration" > build/startup-cap-ci/regeneration.txt 2>&1
+          cp build/generated-release/guest.json build/startup-cap-ci/guest.json
+          cp build/generated-release/regeneration.json build/startup-cap-ci/regeneration.json
+          python -c 'import os,sys;sys.path.insert(0,"scripts");from common import ROOT;from generated_release import verify_build;verify_build(ROOT,os.environ["GITHUB_SHA"])' > build/startup-cap-ci/build-guard.txt 2>&1
+      - name: Evidence guard mutation controls
+        run: python scripts/check_prepared_build_guards.py --output build/startup-cap-ci/build-negative.json > build/startup-cap-ci/build-negative.txt 2>&1
+      - name: Exact CRC body and validation differential
+        run: go test -trimpath -p 1 -count=1 ./internal/generatedgo/code/p4 -run '^TestCRC32C' -v > build/startup-cap-ci/crc.txt 2>&1
+      - name: Actual UCA/lexer parity, corruption, profiling separation and worker survival
+        run: go test -trimpath -p 1 -tags integration -count=1 ./internal/generatedgo -run 'TestPreparedUCATablesActualGuest|TestPreparedLexerTablesActualGuest|TestWorkerTrapActualGuestNotifiesAndIsolatesPeer' -v > build/startup-cap-ci/actual-tables.txt 2>&1
+      - name: Worker ownership negative and protected controls
+        run: |
+          python tests/routine_thread_fixture.py --output "$RUNNER_TEMP/startup-cap-worker" --run > build/startup-cap-ci/worker.txt 2>&1
+          cp "$RUNNER_TEMP/startup-cap-worker/identities.json" build/startup-cap-ci/worker-identities.json
+          cp "$RUNNER_TEMP/startup-cap-worker/results.json" build/startup-cap-ci/worker-results.json
+      - name: Normal/binary-prepared native SQL differential, two children and cleanup
+        run: |
+          go build -p 1 -trimpath -o build/startup-cap-ci/mariamem-host ./cmd/mariamem-host
+          PYTHONPATH=python python tests/lexer_prepared_acceptance.py --host build/startup-cap-ci/mariamem-host --native build/startup-cap-reference/native.json --output build/startup-cap-ci/sql-children.json > build/startup-cap-ci/sql-children.txt 2>&1
+          PYTHONPATH=python MARIAMEM_TEST_HOST="$GITHUB_WORKSPACE/build/startup-cap-ci/mariamem-host" python -m pytest tests/test_dev_guest_smoke.py -q > build/startup-cap-ci/snapshot-smoke.txt 2>&1
+      - name: Bind compact receipt checksums
+        if: success()
+        run: |
+          python -c 'import hashlib,json,pathlib;d=pathlib.Path("build/startup-cap-ci");(d/"SHA256SUMS.json").write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(d.iterdir()) if p.suffix in (".txt",".json") and p.name!="SHA256SUMS.json"},indent=2)+"\n")'
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: startup-cap-canonical-native-${{ matrix.runner }}-${{ github.sha }}
+          path: |
+            build/startup-cap-ci/*.txt
+            build/startup-cap-ci/*.json
           if-no-files-found: error
           retention-days: 14

@@ -6,12 +6,12 @@
     "Imported functions are host requirements, not copied library function bodies; examples require generated definitions.",
     "Does not independently rebuild sysroot or provide a complete linked-file SBOM."
   ],
-  "audit_source_commit": "287b3a00d2936ba3e4887e4ed5405244383309b7",
-  "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
-  "linked_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722",
+  "audit_source_commit": null,
+  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "linked_sha256": "bc18d9e6c28a0393a4d59a6934ce71f59aa16efb113866e7472e12844ec243ee",
   "symbol_map_sha256": "60e7f420c9140414f5d6879b8004bcc517a06f9dec69d9184cff3c0bfcc57e30",
   "symbol_map_entries": 21753,
-  "generated_provenance_sha256": "c6c589fe92aa09184a4e16910492bf477cd0fc82f6f44505cf0e448404f4aed6",
+  "generated_provenance_sha256": "bbef4f5985c52a264bad5c2c10556454014b41c161f7d039a0f9954921e24af0",
   "method": "Pinned Binaryen133 symbol map reproduces guest bytes; actual canonical Go definitions and clean-source native host symbols re-audited.",
   "retained_symbols": {
     "MariaDB": {
@@ -354,12 +354,10 @@
     "path": "release/generated-license-evidence.json",
     "sha256": "d6be8ec2d2b3601a77d34e437b967508a0cb9f54373b68aa74c374b9f00f9067"
   },
-  "result": "PASS: positive retained-function evidence for every recorded component family",
+  "result": "PENDING clean candidate host attribution",
   "host_check": {
-    "source_commit": "287b3a00d2936ba3e4887e4ed5405244383309b7",
-    "sha256": "c12eeec13163b2aff2f22789bf4beec027dbe158ef8aeeb4529a27f705d0a670",
-    "buildinfo": "mariamem-host: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/mariamem-host\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.3-0.20261108061112-287b3a00d293\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=287b3a00d2936ba3e4887e4ed5405244383309b7\n\tbuild\tvcs.time=2026-11-08T06:11:12Z\n\tbuild\tvcs.modified=false\n",
-    "note": "Diagnostic attribution, not new release approval."
+    "source_commit": null,
+    "status": "PENDING clean candidate host attribution"
   },
   "previous_attribution": {
     "source_commit": "808df8b614906a9cd918229e2754d33a5a76dc4b",
@@ -546,5 +544,10 @@
     },
     "status": "PASS: exact guest reproduction and retained functions re-audited on clean canonical host",
     "host_audit_source_commit": "287b3a00d2936ba3e4887e4ed5405244383309b7"
+  },
+  "previous_lexer_audit": {
+    "audit_source_commit": "287b3a00d2936ba3e4887e4ed5405244383309b7",
+    "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+    "record_sha256": "24df60a54d70fe254432ee48a5f19a676a115f8c0ebc9a5e25cddaabe01e070a"
   }
 }

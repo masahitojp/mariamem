@@ -17,13 +17,13 @@ func Fn67(m *base.Module)
 //go:linkname Fn117 github.com/masahitojp/mariamem/internal/generatedgo/code/p2.Fn117
 func Fn117(m *base.Module) int32
 
-//go:linkname Fn132 github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn132
+//go:linkname Fn132 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn132
 func Fn132(m *base.Module)
 
-//go:linkname Fn133 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn133
+//go:linkname Fn133 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn133
 func Fn133(m *base.Module, l0 int32)
 
-//go:linkname Fn134 github.com/masahitojp/mariamem/internal/generatedgo/code/p0.Fn134
+//go:linkname Fn134 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn134
 func Fn134(m *base.Module, l0 int32)
 
 //go:linkname Fn137 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn137
@@ -10703,9 +10703,6 @@ func InitElemSeg_6_4(m *base.Module)
 //go:linkname InitElemSeg_6_5 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.InitElemSeg_6_5
 func InitElemSeg_6_5(m *base.Module)
 
-//go:linkname InitElemSeg_6_6 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.InitElemSeg_6_6
-func InitElemSeg_6_6(m *base.Module)
-
 //go:linkname InitElemSeg_7_0 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.InitElemSeg_7_0
 func InitElemSeg_7_0(m *base.Module)
 
@@ -10861,6 +10858,9 @@ func InitElemSeg_8_42(m *base.Module)
 
 //go:linkname InitElemSeg_8_43 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.InitElemSeg_8_43
 func InitElemSeg_8_43(m *base.Module)
+
+//go:linkname InitElemSeg_8_44 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.InitElemSeg_8_44
+func InitElemSeg_8_44(m *base.Module)
 
 //go:linkname InitElemSeg_8_5 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.InitElemSeg_8_5
 func InitElemSeg_8_5(m *base.Module)

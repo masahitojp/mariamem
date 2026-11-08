@@ -1,0 +1,13 @@
+{
+  "base_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "bootstrap_source_commit": "8d3da071015f4b6a3b0e77197e12648850d3d910",
+  "function_count": 21688,
+  "literal_changed_functions": 1412,
+  "simd_helpers": 1024,
+  "helper_body_multiset_equal": true,
+  "functions_different_after_full_helper_body_substitution": [
+    "Fn18569",
+    "Fn17499"
+  ],
+  "new_generated_provenance_sha256": "bbef4f5985c52a264bad5c2c10556454014b41c161f7d039a0f9954921e24af0"
+}

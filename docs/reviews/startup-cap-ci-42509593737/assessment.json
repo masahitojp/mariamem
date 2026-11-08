@@ -1,0 +1,45 @@
+{
+  "result": "PASS_SINGLE_BOOTSTRAP_INPUT_ONLY",
+  "source_commit": "8d3da071015f4b6a3b0e77197e12648850d3d910",
+  "run_id": 42509593737,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42509593737",
+  "jobs": [
+    {
+      "id": 128819545200,
+      "name": "guest",
+      "conclusion": "success"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13628982950,
+      "name": "startup-cap-guest-8d3da071015f4b6a3b0e77197e12648850d3d910",
+      "digest": "sha256:833fc5195625782722a7bad763a418f9bd66897e2253845d387b5040c795048c"
+    },
+    {
+      "id": 13628729948,
+      "name": "startup-cap-build-8d3da071015f4b6a3b0e77197e12648850d3d910",
+      "digest": "sha256:45629e6b192eebd2f6d11877e8f0ed42403a9944150c1f216b693c519bfb6143"
+    }
+  ],
+  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "linked_sha256": "bc18d9e6c28a0393a4d59a6934ce71f59aa16efb113866e7472e12844ec243ee",
+  "guest_record_sha256": "19e61f326da6b40e342448c78356ba427799d0913812d42386e17111b4c89ee2",
+  "guest_bytes": 21177331,
+  "contract": "development-unqualified-v1",
+  "guest_result": "UNQUALIFIED",
+  "prepared_startup_concurrency": {
+    "contract": "normal-startup-concurrency-v1",
+    "files_sha256": {
+      "storage/innobase/buf/buf0dump.cc": "341be4e6df1487e8805f1eca1e258e003e9c4cff0bb49fe85e1e5e311c2b1dc2",
+      "storage/innobase/srv/srv0start.cc": "cc4ec7700d576dda2d870f1378042ac95471a0a4151d752ce88280d62d79d86e"
+    },
+    "selection": "existing-default-with-existing-clamps"
+  },
+  "source_patch_sha256": "9209fdfdecb09f6aed48061c6c5dadd0e36992f5dc3b30bce29d79e242c870ef",
+  "independent_builds": 1,
+  "platform": "linux-arm64 source builder only",
+  "product_platform_acceptance": "NOT_RUN",
+  "qualification": "NOT_RUN",
+  "release": "NOT_APPROVED"
+}

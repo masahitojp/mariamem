@@ -1,6 +1,6 @@
 {
   "source_commit": "ab8c3503f35e6ded515e2e0c58efc508099f6baf",
-  "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
   "baseline_guest_sha256": "976bbc588a7e70b8c7eff064a492021fb7e44d464dc84fbfd44054c9d044ea87",
   "previous_guest_sha256": "3bfb1030a0588aa0d8f64b7bcd0a220d0eae8f95a181b8e1ff5f99eaffa320a8",
   "functions": {
@@ -88,5 +88,11 @@
     "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
     "status": "PASS"
   },
-  "source_commit_role": "Original prepared-P2 authoring origin; current lexer input and canonical acceptance have separate named source fields."
+  "source_commit_role": "Original prepared-P2 authoring origin; current lexer input and canonical acceptance have separate named source fields.",
+  "startup_concurrency_binding": {
+    "source_commit": "8d3da071015f4b6a3b0e77197e12648850d3d910",
+    "previous_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+    "data_and_bound_functions": "EXACTLY_IDENTICAL",
+    "canonical_acceptance": "PENDING"
+  }
 }

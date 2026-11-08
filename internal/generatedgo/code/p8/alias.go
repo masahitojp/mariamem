@@ -8,6 +8,9 @@ import (
 //go:linkname Fn70 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn70
 func Fn70(m *base.Module, l0 int32) int32
 
+//go:linkname Fn82 github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn82
+func Fn82(m *base.Module, l0 int32)
+
 //go:linkname Fn88 github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn88
 func Fn88(m *base.Module, l0 int32, l1 int32, l2 int64) int32
 
@@ -128,7 +131,7 @@ func Fn241(m *base.Module, l0 int32, l1 int32) int32
 //go:linkname Fn242 github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn242
 func Fn242(m *base.Module, l0 int32, l1 int32) int32
 
-//go:linkname Fn243 github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn243
+//go:linkname Fn243 github.com/masahitojp/mariamem/internal/generatedgo/code/p3.Fn243
 func Fn243(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32
 
 //go:linkname Fn258 github.com/masahitojp/mariamem/internal/generatedgo/code/p6.Fn258
