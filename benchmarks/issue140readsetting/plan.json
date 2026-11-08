@@ -1,0 +1,29 @@
+{
+  "issue": 140,
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "parent_diagnostic_source_commit": "bcab9e6e07f9bf237c98a39eeba62cbcfd1e3997",
+  "origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "setting": "innodb_read_io_threads",
+  "values": [
+    1,
+    4
+  ],
+  "pool_mib": 16,
+  "workload": "shop70/Pipe/P8/cap9",
+  "pairs_per_mode": 5,
+  "modes": [
+    "off",
+    "on"
+  ],
+  "warmups_per_mode": 2,
+  "controls": 1,
+  "capture_limit_per_process": 1,
+  "threshold_ms": 100,
+  "active_budget_hours": 2,
+  "tooling_budget_minutes": 30,
+  "timeout_seconds": 1200,
+  "min_free_gib": 8,
+  "budget_gib": 10,
+  "heavy_ci_limit": 0,
+  "stop": "Fixed5 pairs per mode; no extension if tail absent. Compare global queue distribution and whole-suite wall/CPU/maxrss; no adoption."
+}

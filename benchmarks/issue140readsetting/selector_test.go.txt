@@ -1,0 +1,8 @@
+package base
+import("bytes";"encoding/binary";"sync/atomic";"testing")
+func TestReadSetting(t *testing.T) {
+ oldR,oldP:=readThreads,poolMiB;defer func(){readThreads,poolMiB=oldR,oldP}();poolMiB="16"
+ fixture:=func()*Module {b:=bytes.Repeat([]byte{0xa5},16384);for i,s:=range expectedSettingsArgs {p:=4096+i*256;copy(b[p:],append([]byte(s),0));binary.LittleEndian.PutUint32(b[128+i*4:],uint32(p))};m:=&Module{Memory:b,MemSize:&atomic.Uint64{}};m.MemSize.Store(uint64(len(b)));return m}
+ for _,v:=range []string{"1","4","0","8","bad",""} {t.Run(v,func(t *testing.T){readThreads=v;m:=fixture();before:=bytes.Clone(m.Memory);ok:=v=="1"||v=="4";panicked:=false;func(){defer func(){if recover()!=nil{panicked=true}}();PoolArgv(m,25,128)}();if panicked==ok{t.Fatal("validation")};want:=bytes.Clone(before);if v=="4"{want[4096+16*256+len(expectedSettingsArgs[16])-1]='4'};if !bytes.Equal(m.Memory,want){t.Fatal("unexpected mutation")}})}
+}
+func TestReadObservationDisabled(t *testing.T){t.Setenv("ISSUE140_OBSERVE","0");m:=&Module{Threads:&ThreadPool{}};close:=RegisterReadObservation(m,"disabled");if _,ok:=readRegistry.Load(m.Threads);ok{t.Fatal("registered disabled observer")};called:=false;ObserveReadWait(m,0,0,func(){called=true});ObserveGlobalGate(m,0);if !called{t.Fatal("guest operation skipped")};close()}
