@@ -1,0 +1,56 @@
+Original raw log SHA256: 611c58115545648c1bb50a53bc5ff0efdce6a6263b3022c4b907cd5cd9530dd5
+
+13 warnings generated.
+13 warnings generated.
+[ 98%] Linking CXX static library libsql_embedded.a
+[ 98%] Built target sql_embedded
+[ 98%] Generating mysqlserver_depends.c
+[ 98%] Building C object libmysqld/CMakeFiles/mysqlserver.dir/mysqlserver_depends.c.o
+clang: warning: argument '--target=wasm32-wasi' is deprecated, use --target=wasm32-wasip1 instead [-Wdeprecated]
+[ 98%] Linking CXX static library libmariadbd.a
+[ 98%] Built target mysqlserver
+[ 98%] Building CXX object wasm/CMakeFiles/lite4mariadb-wasix.dir/issue65_control.cc.o
+[ 98%] Building C object wasm/CMakeFiles/lite4mariadb-wasix.dir/lite4mariadb.c.o
+clang++clang: warning: argument '--target=wasm32-wasi' is deprecated, use --target=wasm32-wasip1 instead [-Wdeprecated]
+: warning: argument '--target=wasm32-wasi' is deprecated, use --target=wasm32-wasip1 instead [-Wdeprecated]
+/work/source/wasm/issue65_control.cc:75:35: error: use of undeclared identifier 'mysql_thread_init'
+   75 |   killer=std::thread([this]{need(!mysql_thread_init(),"killer thread init");for(;;){std::shared_ptr<Session>s;{std::unique_lock<std::mutex> l(killMu);killReady.wait(l,[&]{return killerStop||!killQueue.empty();});if(killQueue.empty()&&killerStop)break;s=killQueue.front();killQueue.pop_front();}std::lock_guard<std::mutex> pin(s->handle);if(s->thd)mariamem_spike_kill(s->thd);}mysql_thread_end();});
+      |                                   ^~~~~~~~~~~~~~~~~
+/work/source/wasm/issue65_control.cc:75:377: error: use of undeclared identifier 'mysql_thread_end'
+   75 |   killer=std::thread([this]{need(!mysql_thread_init(),"killer thread init");for(;;){std::shared_ptr<Session>s;{std::unique_lock<std::mutex> l(killMu);killReady.wait(l,[&]{return killerStop||!killQueue.empty();});if(killQueue.empty()&&killerStop)break;s=killQueue.front();killQueue.pop_front();}std::lock_guard<std::mutex> pin(s->handle);if(s->thd)mariamem_spike_kill(s->thd);}mysql_thread_end();});
+      |                                                                                                                                                                                                                                                                                                                                                                                         ^~~~~~~~~~~~~~~~
+/work/source/wasm/issue65_control.cc:84:64: error: use of undeclared identifier 'COM_QUIT'
+   84 |    if(retire&&inputEOF&&s->phase==RECEIVING&&s->nativeCommand!=COM_QUIT){poisonLocked("unexpected_peer_eof");return 1;}
+      |                                                                ^~~~~~~~
+/work/source/wasm/issue65_control.cc:97:250: error: use of undeclared identifier 'COM_QUIT'
+   97 |   if(kind==EXECUTE_START){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(fenced||poisoned||closing)return 1;bool inputEOF;{std::lock_guard<std::mutex> q(raw->io);inputEOF=raw->inputEOF;}raw->nativeCommand=status;if(inputEOF&&status!=COM_QUIT){poisonLocked("unexpected_peer_eof");return 1;}raw->phase=EXECUTING;++raw->executions;state(s);return poisoned||closing;}
+      |                                                                                                                                                                                                                                                          ^~~~~~~~
+/work/source/wasm/issue65_control.cc:120:40: error: use of undeclared identifier 'mysql_thread_init'
+  120 |   s->worker=std::thread([this,s]{need(!mysql_thread_init(),"session thread init");SpikeIO io{s.get(),readCb,writeCb,errorCb,waitCb,closeCb,eventCb};int result=mariamem_spike_control_session(&io);mysql_thread_end();{std::lock_guard<std::mutex> l(gate);s->result=result;s->workerDone=true;progress.notify_all();}});
+      |                                        ^~~~~~~~~~~~~~~~~
+/work/source/wasm/issue65_control.cc:120:196: error: use of undeclared identifier 'mysql_thread_end'
+  120 |   s->worker=std::thread([this,s]{need(!mysql_thread_init(),"session thread init");SpikeIO io{s.get(),readCb,writeCb,errorCb,waitCb,closeCb,eventCb};int result=mariamem_spike_control_session(&io);mysql_thread_end();{std::lock_guard<std::mutex> l(gate);s->result=result;s->workerDone=true;progress.notify_all();}});
+      |                                                                                                                                                                                                    ^~~~~~~~~~~~~~~~
+/work/source/wasm/issue65_control.cc:133:75: error: use of undeclared identifier 'COM_QUIT'
+  133 |   if(!fenced&&!closing&&!poisoned&&s->phase==EXECUTING&&s->nativeCommand!=COM_QUIT)poisonLocked("unexpected_peer_eof");
+      |                                                                           ^~~~~~~~
+7 errors generated.
+Error: Command failed with status: exit status: 1; the command was: "/root/.wasixcc/llvm/bin/clang++" "--sysroot" "/root/.wasixcc/sysroot/sysroot-eh" "--target=wasm32-wasi" "-c" "-matomics" "-mbulk-memory" "-mmutable-globals" "-pthread" "-mthread-model" "posix" "-fno-trapping-math" "-D_WASI_EMULATED_MMAN" "-D_WASI_EMULATED_SIGNAL" "-D_WASI_EMULATED_PROCESS_CLOCKS" "-fwasm-exceptions" "-mllvm" "--wasm-enable-eh" "-mllvm" "--wasm-enable-sjlj" "-mllvm" "--wasm-use-legacy-eh=true" "-ftls-model=local-exec" "-msimd128" "-mrelaxed-simd" "-mextended-const" "-DEMBEDDED_LIBRARY" "-DHAVE_CONFIG_H" "-DL4M_RESIDENT" "-DMARIAMEM_NATIVE_WIRE" "-D_FILE_OFFSET_BITS=64" "-I/work/source/build-legacy-no-postopt/include" "-I/work/source/include/providers" "-I/work/source/include" "-Werror=uninitialized-explicit-init" "-Werror=uninitialized-const-reference" "-Werror=uninitialized-explicit-init" "-Werror=uninitialized-const-reference" "-Werror=uninitialized" "-O3" "-DNDEBUG" "-DDBUG_OFF" "-std=gnu++17" "-pthread" "-fexceptions" "-fno-strict-aliasing" "-MD" "-MT" "wasm/CMakeFiles/lite4mariadb-wasix.dir/issue65_control.cc.o" "-MF" "CMakeFiles/lite4mariadb-wasix.dir/issue65_control.cc.o.d" "-c" "/work/source/wasm/issue65_control.cc" "-o" "CMakeFiles/lite4mariadb-wasix.dir/issue65_control.cc.o"
+gmake[3]: *** [wasm/CMakeFiles/lite4mariadb-wasix.dir/build.make:90: wasm/CMakeFiles/lite4mariadb-wasix.dir/issue65_control.cc.o] Error 1
+gmake[2]: *** [CMakeFiles/Makefile2:4344: wasm/CMakeFiles/lite4mariadb-wasix.dir/all] Error 2
+gmake[1]: *** [CMakeFiles/Makefile2:4351: wasm/CMakeFiles/lite4mariadb-wasix.dir/rule] Error 2
+gmake: *** [Makefile:1346: lite4mariadb-wasix] Error 2
+Traceback (most recent call last):
+  File "/repo/benchmarks/spikes/issue127-bootstrap/build_checked_guest.py", line 27, in <module>
+    builder.main()
+  File "/repo/scripts/build_generated_guest.py", line 129, in main
+    observed_run(['bash', shell, 'build-no-postopt'], env=env, check=True,
+  File "/repo/benchmarks/spikes/issue127-bootstrap/build_checked_guest.py", line 17, in run
+    result = original(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/repo/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['bash', PosixPath('/repo/benchmarks/spikes/wasm2go/legacy_eh_toolchain.sh'), 'build-no-postopt']' returned non-zero exit status 2.

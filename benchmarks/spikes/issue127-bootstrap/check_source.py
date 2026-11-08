@@ -27,6 +27,7 @@ def main():
     assert '--export=l4m_' not in cmake
     assert 'main=issue65_legacy_main' not in cmake
     assert 'mysql_stmt_' not in controller and 'MYSQL_BIND' not in controller
+    assert '#include <mysql.h>' in controller  # thread init/end and COM_QUIT
     assert '#include "routine_bootstrap.inc"' not in controller
     assert '#include "prepared_auth_keys.inc"' in glue
     assert '#include "routine_bootstrap.inc"' in glue

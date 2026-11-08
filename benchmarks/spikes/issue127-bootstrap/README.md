@@ -34,7 +34,8 @@ Candidate: select `MARIAMEM_BOOTSTRAP_ONLY` for the existing glue translation
 unit; keep the exact l4m_open/l4m_close and issue65_bootstrap/shutdown bodies,
 exclude JSON helpers and wire_api (therefore prepared_api/resident/snapshot_fs),
 and include only auth/routine bootstrap. Remove seven l4m export roots and dead
-controller embedded-prepared examples plus their mysql/routine includes.
+controller embedded-prepared examples plus their routine include. Keep mysql.h
+for live thread init/end and COM_QUIT declarations.
 No duplicated bootstrap implementation and no engine patch removal.
 
 Pre-build source check passes: complete open/close/bootstrap and Manager bodies
@@ -45,3 +46,12 @@ under a fresh owned bind mount. The build uses an empty owned /work, read-only
 source, fresh owned SDK, canonical build_generated_guest.py development route,
 and its unchanged clean-source/toolchain guards. Prepared sources are checked
 again before compile. Output is UNQUALIFIED, never release evidence.
+
+The first compilation failed in the controller after removing mysql.h: live
+mysql_thread_init/mysql_thread_end/COM_QUIT declarations are required. Restore
+that shared include; this corrects the same candidate, with no engine/decoder/
+ownership changes. The first failure remains evidence. Continue the same build
+by recompiling the controller and linking, after freshly preparing the corrected
+source and comparing it with the existing engine source. This is an incremental
+development continuation, not a claim that the fresh canonical builder finished.
+A later fresh full-source build remains required for formal reproduction.
