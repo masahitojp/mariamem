@@ -1,0 +1,25 @@
+{
+  "scope": "This worker checkout and its exact owned build/issue128-real tree only",
+  "before_allocated_bytes": 3565309952,
+  "after_owned_scratch_bytes": 0,
+  "scratch_exists": false,
+  "download_symlink_exists": false,
+  "free_before_bytes": 16875520000,
+  "free_after_bytes": 17899520000,
+  "retained_paths_over_1gib": [],
+  "cleanup_debt": [],
+  "inactivity": "Both owned Docker containers absent; producer/translation/compiler/runtime sessions exited; only audit shell/rg appeared in process check",
+  "preserved": "Pushed source/evidence history, exact target/producer/artifact hashes, inventories, reviewed bindings, original failures, operational driver source and lifecycle receipts",
+  "recreated_removed": [
+    "Archives and SDKs",
+    "Full ordinary source clones and their nonunique Git metadata",
+    "Full prepared/build trees",
+    "Generated Go and compiler/module caches",
+    "Guest and host executable bytes",
+    "Python venv and package staging",
+    "Operational duplicate logs/receipts"
+  ],
+  "external_go_temp_exists": false,
+  "protected_parent_or_other_worker_paths_touched": false,
+  "recorded_utc": "2026-11-08T07:02:33.675950+00:00"
+}

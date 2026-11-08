@@ -33,5 +33,7 @@
     "runtime_native_original_cases": 79,
     "runtime_native_additional_cases": 1,
     "additional_case_result": "FAIL"
-  }
+  },
+  "cleanup_completed_utc": "2026-11-08T07:02:33.675950+00:00",
+  "total_wall_seconds_approx": 5630.676413
 }

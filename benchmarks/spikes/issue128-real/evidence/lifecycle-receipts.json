@@ -1,0 +1,36 @@
+{
+  "legacy": {
+    "raw_sha256": "08eb1a2104e7c4839a14f6c6f1f6615caf2e9912fe1d754d0e7459e9f84ee8cb",
+    "normalized_record": {
+      "owner": "mariamem-experiment-v1",
+      "name": "legacy",
+      "repo": "<REPO>",
+      "state": "completed",
+      "base_sha": "ecf81035009bd4e353ddee302f73c781c77a3f28",
+      "created": 1794117265.509741,
+      "min_free_gib": 12.0,
+      "budget_gib": 12.0,
+      "disposable": [
+        "temp"
+      ],
+      "evidence": "evidence"
+    }
+  },
+  "native": {
+    "raw_sha256": "424bc404bd7ff169d4432ee3ae291c6c37177a9c5ef64e9a7d82bfe6f5e96712",
+    "normalized_record": {
+      "owner": "mariamem-experiment-v1",
+      "name": "native",
+      "repo": "<REPO>",
+      "state": "completed",
+      "base_sha": "e6502de0781826488c984aa5637dfe593a74799d",
+      "created": 1794118512.9009302,
+      "min_free_gib": 12.0,
+      "budget_gib": 12.0,
+      "disposable": [
+        "temp"
+      ],
+      "evidence": "evidence"
+    }
+  }
+}
