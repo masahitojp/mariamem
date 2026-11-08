@@ -1,0 +1,41 @@
+{
+  "helper_apply": {
+    "before_bytes": 50982912,
+    "after_bytes": 45056,
+    "applied": true,
+    "decisions": [
+      {
+        "path": "<OWNER>/build/experiment-work/issue138-source",
+        "classification": "DELETE",
+        "code": "completed_recreatable_state",
+        "reason": "completed owned scratch/worktree; compact knowledge exported before removal",
+        "automatic": true,
+        "bytes": 50982912
+      }
+    ],
+    "retained_large_paths": [],
+    "cleanup_debt": []
+  },
+  "helper_result_raw_sha256": "61640091447ef8f8c370fb23ffc02389776f9263b9b60d09ce81f8fd71142369",
+  "normalization": "literal assigned workspace prefix only",
+  "saved_before_cleanup_commit": "73255c7e",
+  "remaining_helper_metadata": {
+    ".experiment.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cleanup-policy.json": "764905a69e0736b5a8affbe430070e225156b1c6692e442dac4fb5f1d01b02ab",
+    "experiment.json": "06997bb629861cc959cb55492b857fb0370e9ca471b2a444ab1a46ac4def9c54",
+    "evidence/upstream-tests.json": "66c78542d0829d5462732d6bf8b5b868a05b8dad38c989682a4552f7d96da31c",
+    "evidence/acquisition.json": "2f22e3ad61087fd9ef7a126deec1655d086dfda0a0c4612767fd5e705cad566a",
+    "evidence/recipe.json": "11da6368c212d9fec57e5d6f75684a82aa0021265fd7777d5454175fd1617de0",
+    "evidence/patch-proof.json": "c55bac26d483b290509fb49e27c7fffacf6f4e25d8797f89924164ea555aab57",
+    "evidence/worktree-checksums.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "evidence/temp-checksums.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "evidence/cross-reference.json": "91a3ee09ef6d889ed62fa3736448bf9215c94dc17fd0e4ad8001603d728a5224"
+  },
+  "source_download_temp_bytes_after": 0,
+  "no_user_or_other_owner_cleanup": true,
+  "finished_utc": "2026-11-08T16:52:48Z",
+  "paths_over_1gib": [],
+  "cleanup_debt": [],
+  "final_free_bytes": 20316160000,
+  "checkout_allocated_bytes": 429887488
+}

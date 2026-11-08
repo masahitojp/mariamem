@@ -236,8 +236,9 @@ borrowed as embedded live-branch evidence.
 
 The diff applies with zero fuzz to the pinned original supplemental Python fixture
 and its resulting text passes AST parsing only. The optional observer diff also
-applies to the exact C149 postimage in disposable source scratch. No code outside
-this new report directory was changed, imported or executed as a runtime test.
+applies to the exact C149 postimage in disposable source scratch. No tracked code outside
+this new report directory changed; the proposed fixture was not imported or
+executed as a runtime test.
 
 ### Route, cost and adoption boundary for the next decision
 
@@ -283,3 +284,16 @@ and evidence/cleanup.json; no unchanged runtime tests were run. The four protect
 parent files and all historical evidence are unchanged. Source scratch and guarded
 acquisition scripts are disposable after report preservation; no other owner,
 workspace, cache or Docker image is in cleanup scope.
+
+
+Final preservation/cleanup: source evidence was pushed at73255c7e before helper
+finalization and scoped cleanup. The helper deleted48.6MiB of recreatable source/
+archive/proposal staging under its explicit reproduction record; duplicated
+small helper metadata was reduced into cleanup.json and removed. Scratch0,
+ignored state empty, no remaining path>1GiB and cleanup debt0; checkout about410MiB.
+The final free-space sample is18.92GiB, a changing whole-volume observation.
+This slice used approximately25-30min active including6-9min acquisition/proposal
+tooling, with wall about26min through cleanup/report finalization, within45/10/60.
+These are labeled estimates, not stopwatch measurements. Guest/host builds,
+translation, SQL/runtime, CI and benchmarks were all0. No global default, existing
+source/oracle/report, protected parent file, user/workspace or shared image changed.
