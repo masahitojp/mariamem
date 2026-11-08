@@ -16,7 +16,8 @@ the accepted guest hash. The two-builder gate detects any binary difference.
 not installed or claimed executed by Stage1. Stage2 moves it to the handwritten
 runtime ownership list and runs it against the canonical installed guest.
 
-Stage1 workflow `lexer-canonical-input.yml` runs two independent C builders and
+Stage1 workflow `lexer-canonical-input.yml` is manually dispatched; automatic CI
+belongs to Development. It runs two independent C builders and
 records a normal/binary-prepared native SQL reference. It leaves product runtime,
 adapters and release pins unchanged until source evidence is available. Follow
 [the approved fixed gates](../../docs/decisions/prepared-lexer-maps.md).

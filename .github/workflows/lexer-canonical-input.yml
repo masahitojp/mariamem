@@ -1,16 +1,7 @@
 name: Prepared lexer canonical source inputs (not Qualification)
+# Candidate input builds are manually dispatched; automatic CI belongs to Development.
+# Original two-build input run:42448601842 at fd615a53 (not relabelled).
 on:
-  push:
-    branches: [experiment/lexer-canonical]
-    paths:
-      - guest/source.patch
-      - scripts/lexer_prepared.py
-      - scripts/prepare_guest.py
-      - scripts/check_lexer_canonical_builds.py
-      - benchmarks/lexerpreparedinput/**
-      - tests/test_lexer_prepared_input.py
-      - tests/lexer_prepared_acceptance.py
-      - .github/workflows/lexer-canonical-input.yml
   workflow_dispatch:
 permissions:
   contents: read
