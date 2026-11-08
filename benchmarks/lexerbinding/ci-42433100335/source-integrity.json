@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "C_origin_source_commit": "b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+  "source_inventory_files": 7038,
+  "all_origin_source_hashes_match_git": true,
+  "current_guest_overlays_match_C_record": true,
+  "toolchain_pins_and_archive_identities": "PASS",
+  "WASM_and_linked_file_hashes": "PASS",
+  "scope": "Immutable original C origin checked independently; no source-origin policy altered and no acceptance claimed for later host sources."
+}

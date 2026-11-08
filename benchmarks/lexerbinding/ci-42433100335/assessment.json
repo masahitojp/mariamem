@@ -1,0 +1,35 @@
+{
+  "result": "C_INPUT_AND_BOTH_HOST_TRANSLATION_ACQUIRED",
+  "run": 42433100335,
+  "source_commit": "b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+  "jobs": {
+    "guest": 128586085267,
+    "reference": 128586085057,
+    "translation_ubuntu": 128588054700,
+    "translation_macos": 128588054719
+  },
+  "all_jobs": "SUCCESS",
+  "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "linked_wasm_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722",
+  "guest_record_original_sha256": "828544af498d191b12b4d3d5d57b0159f70a127be344742bc211af4026820dba",
+  "independent_C_builds": 1,
+  "both_host_generated_inventory_identical": true,
+  "generated_files_per_host": 51,
+  "raw_data_sha256": "c72fba3e13f65b1c9be455ee4533a5dc91f2121f0fed600a3c8db6ea8c157faf",
+  "const_component_replay": "638 full512 maps PASS; wrong-const signature rejected",
+  "native_reference": "PASS_NATIVE",
+  "host_binding_inspection": "PASS; CRC/thread target bodies differ only at recorded addresses; TLS and layout evidence retained",
+  "offline_pin_proposal_tests": "7 PASS; canonical guards remain unchanged and reject new guest",
+  "actual_guest_acceptance": "NOT_RUN",
+  "performance": "NOT_MEASURED_FOR_C_GUEST",
+  "qualification": "NOT_RUN",
+  "adoption": "NOT_APPROVED",
+  "next_work": "Use exact guest/input hashes and full proposed target-body hashes for a scoped host-stage binding; execute table/corruption/native SQL/two-child/worker/cleanup gates on both hosts. Keep C origin and host adapter origin distinct, no fuzzy or broad source-origin exception. C rebuilds are not needed while these exact artifacts are available.",
+  "prepared_payload": {
+    "bytes": 14336,
+    "sha256": "55949e464524473580aa0f5b1b7224e50f9ec5313d55a1bc8b3dd24ce7788a85",
+    "new_raw_data_offset": 6753456,
+    "occurrences": 1,
+    "scope": "compiled constant bytes only, not actual guest pointer selection/verification"
+  }
+}

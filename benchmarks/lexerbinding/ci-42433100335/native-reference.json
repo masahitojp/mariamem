@@ -1,0 +1,43 @@
+{
+  "result": "PASS_NATIVE",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+  "source_commit": "b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+  "version": "12.3.3-MariaDB-ubu2404",
+  "semantic": {
+    "literals": [
+      [
+        "\u65e5\u672c\u8a9e",
+        "0041",
+        5,
+        "word",
+        "a'b"
+      ]
+    ],
+    "comments": [
+      [
+        5
+      ]
+    ],
+    "identifier": [
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "nul": [
+      [
+        "610062"
+      ]
+    ],
+    "modes": [
+      [
+        2,
+        "a\\b"
+      ]
+    ]
+  }
+}

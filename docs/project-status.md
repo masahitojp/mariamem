@@ -91,7 +91,7 @@ On2026-11-08 the Human authorized continuing Issue126's prepared lexer-map
 prototype into a bounded C-source candidate and measuring the remaining Fork
 stages. This authorizes candidate work, not adoption, main integration or release.
 The [current attribution and candidate gate](../benchmarks/lexercandidate/results/README.md)
-keeps the measured Go-overlay source950b4b40 separate from the unbuilt C patch.
+keeps the measured Go-overlay source950b4b40 separate from the C input build.
 The exact product baseline remains3d8b2201; canonical guest/generated inputs and
 public APIs are unchanged. `guest/experimental.patch` is experiment-only.
 
@@ -131,6 +131,20 @@ the pinned upstream const typedef and must reject the old wrong signature before
 building the guest. Full638-map/component controls pass locally; actual WASIX
 build/translation acceptance remains pending. Prepared table payload and prior
 Go measurement bytes are unchanged.
+
+C-input acquisition is now complete at sourceb1a265cc in
+[successful CI42433100335](https://github.com/masahitojp/mariamem/actions/runs/42433100335):
+one UNQUALIFIED C build, native SQL reference and both-OS raw translations PASS.
+The new guest is `14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1`;
+both hosts produced identical51-file inventories. This supersedes the pending
+input-build status after the two original failures, without relabelling them.
+The [source-bound receipt and host-binding inspection](../benchmarks/lexerbinding/README.md)
+record exact CRC/worker target references and unchanged non-address instructions,
+TLS and BSS layout. Seven offline proposal tests pass; canonical guards remain
+unchanged and reject the new guest. Next is scoped host-stage binding and actual
+both-host table/corruption/native SQL/independent-child/worker/cleanup acceptance.
+Input acquisition does not establish actual guest acceptance, new performance,
+independent C reproducibility, adoption, main integration, Qualification or release.
 
 ## Product contract
 

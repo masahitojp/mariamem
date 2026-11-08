@@ -1,0 +1,21 @@
+{
+  "scope": "CI receipt + finite exact host-binding inspection for new C guest; no adoption or performance campaign",
+  "source_commit": "b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+  "run": 42433100335,
+  "new_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "budgets": {
+    "inspection_minutes": 30,
+    "C_builds": 0,
+    "benchmark_processes": 0,
+    "workspace_gib": 4,
+    "min_free_gib": 8
+  },
+  "checks": [
+    "all artifact ZIP digests and exact source identities",
+    "macOS/Ubuntu raw generated inventory equality",
+    "thread entry/free/reclaimer correspondence and concrete deltas",
+    "CRC complete validator/table correspondence and concrete deltas",
+    "unchanged runtime helper preimage checks"
+  ],
+  "stop": "If structural changes beyond provable ID/data relocation appear, record missing proof and stop before changing runtime bindings. No fuzzy matching or disabled guards."
+}

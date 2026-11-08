@@ -1,0 +1,786 @@
+{
+  "result": "EXACT_TRANSLATION_AND_RELOCATION_INSPECTION_PASS",
+  "source_commit": "b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+  "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "both_hosts_generated_files": 51,
+  "both_hosts_identical": true,
+  "unchanged_raw_files": {
+    "base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
+    "base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
+    "base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
+    "base/cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
+    "base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
+    "base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+    "base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+    "base/sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+    "base/simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
+    "base/simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c",
+    "base/simd_asm_decls_amd64.go": "8cd739faed219b86305f36152639461265627ddf3ce99ece79af31172ee4a023",
+    "base/simd_asm_decls_arm64.go": "b8233d5f511991ce47dbd3aa82f17004f9f0a001af5c3feba18f3bf2be1f514d",
+    "base/simd_fallback.go": "83141bdc4d20c44bc2b62312c29d8b34164c75542bc9590729b77d7b342a675d",
+    "base/simd_pair.go": "f4ebb41696ef6bb57709ee4e44622572159745382a06d49630278503fed479db",
+    "base/simd_relaxed.go": "84b1a59cccf949026fefa74e4377176839e4d09fde0bac9b192e2754abe8fdd9",
+    "base/simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
+    "base/simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
+    "base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
+    "base/spike_contract_test.go": "2ea04d8502569740c3d7f779c5a3c9cbdbbc46f4ed8606bd80ba272494d0b947",
+    "base/spike_wait.go": "c2b80910af482014de9e54f587bed748b36a0678ff7146a9f6b4110f95baf730"
+  },
+  "changed_raw_files": [
+    "alias.go",
+    "base/base.go",
+    "data.bin",
+    "generated.go",
+    "p0/alias.go",
+    "p0/p0.go",
+    "p0/p0_pure.go",
+    "p1/alias.go",
+    "p1/p1.go",
+    "p1/p1_pure.go",
+    "p2/alias.go",
+    "p2/p2.go",
+    "p2/p2_pure.go",
+    "p3/alias.go",
+    "p3/p3.go",
+    "p3/p3_pure.go",
+    "p4/alias.go",
+    "p4/p4.go",
+    "p4/p4_pure.go",
+    "p5/alias.go",
+    "p5/p5.go",
+    "p5/p5_pure.go",
+    "p6/alias.go",
+    "p6/p6.go",
+    "p6/p6_pure.go",
+    "p7/alias.go",
+    "p7/p7.go",
+    "p7/p7_pure.go",
+    "p8/alias.go",
+    "p8/p8.go",
+    "p8/p8_pure.go"
+  ],
+  "data_bytes": 9624795,
+  "data_sha256": "c72fba3e13f65b1c9be455ee4533a5dc91f2121f0fed600a3c8db6ea8c157faf",
+  "address_delta": 14464,
+  "diagnostic_string_delta": 64,
+  "memory_initialization": {
+    "old_init_compact_sha256": "9e4f99c9b236acd13b40b695bdb6b15555d556dc518cac4ff26b46a2948292e8",
+    "new_init_compact_sha256": "e0f3169d2d26eee47eb4c55495434b066b004248f775894dbc9316c1a898ce55",
+    "address_and_length_moves": {
+      "26981552": 26996016,
+      "8967206": 8981670,
+      "17355840": 17370304,
+      "17998464": 18012928,
+      "17998976": 18013440
+    },
+    "initial_stack_base": 8388608,
+    "tls_bytes": 505,
+    "tls_sha256": "11982067548b495ef1cfdc73abf137051e80f65d5fc7e67b2339c434882bf9df",
+    "BSS_bytes_unchanged": 8982576,
+    "relocated_address_proof": [
+      {
+        "old": 8828555,
+        "new": 8828619,
+        "kind": "exact NUL-terminated diagnostic string",
+        "bytes": 133,
+        "sha256": "c558c010d477c07155833e0b041d02322700fdcc0e378e56a7d4af72f521e01b"
+      },
+      {
+        "old": 15555072,
+        "new": 15569536,
+        "kind": "same relative offset in identical full CRC table",
+        "table_offset": 0
+      },
+      {
+        "old": 15556096,
+        "new": 15570560,
+        "kind": "same relative offset in identical full CRC table",
+        "table_offset": 1024
+      },
+      {
+        "old": 15557120,
+        "new": 15571584,
+        "kind": "same relative offset in identical full CRC table",
+        "table_offset": 2048
+      },
+      {
+        "old": 15558144,
+        "new": 15572608,
+        "kind": "same relative offset in identical full CRC table",
+        "table_offset": 3072
+      },
+      {
+        "old": 17983348,
+        "new": 17997812,
+        "kind": "same data-region offset; pointer to identical recovery diagnostic string",
+        "old_pointer": 8826661,
+        "new_pointer": 8826725,
+        "string_bytes": 169,
+        "string_sha256": "e9567e51d2961697bcd00620faf6c756aece92222fd5774f560afa9107aac0ce"
+      },
+      {
+        "old": 17998977,
+        "new": 18013441,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1
+      },
+      {
+        "old": 17998980,
+        "new": 18013444,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 4
+      },
+      {
+        "old": 18000396,
+        "new": 18014860,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1420
+      },
+      {
+        "old": 18000400,
+        "new": 18014864,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1424
+      },
+      {
+        "old": 18000404,
+        "new": 18014868,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1428
+      },
+      {
+        "old": 18000408,
+        "new": 18014872,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1432
+      },
+      {
+        "old": 18000412,
+        "new": 18014876,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1436
+      },
+      {
+        "old": 18000416,
+        "new": 18014880,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1440
+      },
+      {
+        "old": 18000420,
+        "new": 18014884,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1444
+      },
+      {
+        "old": 18000428,
+        "new": 18014892,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1452
+      },
+      {
+        "old": 18000436,
+        "new": 18014900,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1460
+      },
+      {
+        "old": 18000700,
+        "new": 18015164,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1724
+      },
+      {
+        "old": 18000840,
+        "new": 18015304,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1864
+      },
+      {
+        "old": 18000844,
+        "new": 18015308,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 1868
+      },
+      {
+        "old": 18003004,
+        "new": 18017468,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 4028
+      },
+      {
+        "old": 18003520,
+        "new": 18017984,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 4544
+      },
+      {
+        "old": 18003568,
+        "new": 18018032,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 4592
+      },
+      {
+        "old": 18004112,
+        "new": 18018576,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 5136
+      },
+      {
+        "old": 18004116,
+        "new": 18018580,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 5140
+      },
+      {
+        "old": 18004120,
+        "new": 18018584,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 5144
+      },
+      {
+        "old": 18061520,
+        "new": 18075984,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 62544
+      },
+      {
+        "old": 26848592,
+        "new": 26863056,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 8849616
+      },
+      {
+        "old": 26848896,
+        "new": 26863360,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 8849920
+      },
+      {
+        "old": 26850608,
+        "new": 26865072,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 8851632
+      },
+      {
+        "old": 26850628,
+        "new": 26865092,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 8851652
+      },
+      {
+        "old": 26974280,
+        "new": 26988744,
+        "kind": "same relative offset in unchanged-length zeroed BSS",
+        "region_offset": 8975304
+      }
+    ]
+  },
+  "host_converter_binaries": {
+    "ubuntu": "8fdaf10b8582f5a2d7c0b52529f536820fb3418fc26465911f78b5f24814dd09",
+    "macos": "d42d1b4cf0995d8c7fe39777518a059a7dcd3c3d14e26d889197a1d34d116579"
+  },
+  "thread_functions": {
+    "code/p3/p3_pure.go": {
+      "name": "Fn153",
+      "old_normalized_sha256": "15882f19e1b430f8135f53c43180e51db820ad620e6b1355988aa4f837982f1a",
+      "new_normalized_sha256": "c0ee0ebf54f6d47449613c68411aff49c1529c7684d339b82a1b651a39d6da4e",
+      "new_exact_sha256": "f50d772bc4b8f11551dbef56a5b2b4292eeb67e4d49e52bec6cbc7dbc34564d5",
+      "replacements": [
+        {
+          "old": 18000396,
+          "new": 18014860,
+          "occurrences": 8
+        },
+        {
+          "old": 18000400,
+          "new": 18014864,
+          "occurrences": 8
+        },
+        {
+          "old": 18000404,
+          "new": 18014868,
+          "occurrences": 6
+        },
+        {
+          "old": 18000408,
+          "new": 18014872,
+          "occurrences": 3
+        },
+        {
+          "old": 18000412,
+          "new": 18014876,
+          "occurrences": 1
+        },
+        {
+          "old": 18000416,
+          "new": 18014880,
+          "occurrences": 5
+        },
+        {
+          "old": 18000420,
+          "new": 18014884,
+          "occurrences": 2
+        },
+        {
+          "old": 18000428,
+          "new": 18014892,
+          "occurrences": 3
+        },
+        {
+          "old": 18000436,
+          "new": 18014900,
+          "occurrences": 1
+        },
+        {
+          "old": 18000700,
+          "new": 18015164,
+          "occurrences": 5
+        },
+        {
+          "old": 18000840,
+          "new": 18015304,
+          "occurrences": 2
+        },
+        {
+          "old": 18000844,
+          "new": 18015308,
+          "occurrences": 4
+        }
+      ],
+      "non_address_bytes": "EXACT_MATCH",
+      "function_name": "UNCHANGED"
+    },
+    "code/p8/p8_pure.go": {
+      "name": "Fn131",
+      "old_normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "new_normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "new_exact_sha256": "91b13b652d2dc922a4a2e848aeba1520d9cb406341b5cd7e87b5243ef8d2db26",
+      "replacements": [],
+      "non_address_bytes": "EXACT_MATCH",
+      "function_name": "UNCHANGED"
+    },
+    "code/p5/p5_pure.go": {
+      "name": "Fn214",
+      "old_normalized_sha256": "6e7ad52c8a686c75594269839bff675ded36be094efc99da48c03b8778a2fd00",
+      "new_normalized_sha256": "58d275858c6b01c3b0215602d551abf6eae55ead54a8afb75a6cbfdd91abfd08",
+      "new_exact_sha256": "2318047ad7aeb2392ddb3e265d70f47f997e23b9a991d7b28b345454f3097c5e",
+      "replacements": [
+        {
+          "old": 17998977,
+          "new": 18013441,
+          "occurrences": 1
+        },
+        {
+          "old": 17998980,
+          "new": 18013444,
+          "occurrences": 3
+        },
+        {
+          "old": 18003004,
+          "new": 18017468,
+          "occurrences": 14
+        },
+        {
+          "old": 18003520,
+          "new": 18017984,
+          "occurrences": 24
+        },
+        {
+          "old": 18003568,
+          "new": 18018032,
+          "occurrences": 1
+        },
+        {
+          "old": 18004112,
+          "new": 18018576,
+          "occurrences": 9
+        },
+        {
+          "old": 18004116,
+          "new": 18018580,
+          "occurrences": 8
+        },
+        {
+          "old": 18004120,
+          "new": 18018584,
+          "occurrences": 1
+        },
+        {
+          "old": 18061520,
+          "new": 18075984,
+          "occurrences": 1
+        }
+      ],
+      "non_address_bytes": "EXACT_MATCH",
+      "function_name": "UNCHANGED"
+    }
+  },
+  "crc": {
+    "path": "code/p4/p4_pure.go",
+    "function": "Fn18145",
+    "old_exact_sha256": "e7f55f842faf017b47fa0d01d1bdb23a1fd19967644f617b6e4a6860662ebc09",
+    "new_exact_sha256": "6f6e3b37817d3a0f876a70d3aaaaf511baeea4294acdebe711291e75f9bb1d37",
+    "replacements": [
+      {
+        "old": 8828555,
+        "new": 8828619,
+        "occurrences": 2
+      },
+      {
+        "old": 15555072,
+        "new": 15569536,
+        "occurrences": 16
+      },
+      {
+        "old": 15556096,
+        "new": 15570560,
+        "occurrences": 6
+      },
+      {
+        "old": 15557120,
+        "new": 15571584,
+        "occurrences": 6
+      },
+      {
+        "old": 15558144,
+        "new": 15572608,
+        "occurrences": 6
+      },
+      {
+        "old": 17983348,
+        "new": 17997812,
+        "occurrences": 2
+      },
+      {
+        "old": 26848592,
+        "new": 26863056,
+        "occurrences": 2
+      },
+      {
+        "old": 26848896,
+        "new": 26863360,
+        "occurrences": 1
+      },
+      {
+        "old": 26850608,
+        "new": 26865072,
+        "occurrences": 3
+      },
+      {
+        "old": 26850628,
+        "new": 26865092,
+        "occurrences": 2
+      },
+      {
+        "old": 26974280,
+        "new": 26988744,
+        "occurrences": 4
+      }
+    ],
+    "non_address_bytes": "EXACT_MATCH",
+    "table_sha256": "aa14839f04e2220eb7b6543158c9e0bee0f787fdd2ee2f2ee83125aa5a373dad",
+    "table_bytes": 4096,
+    "old_table_offset": 7166464,
+    "new_table_offset": 7180928,
+    "table_matches": 1
+  },
+  "runtime_helper_preimages": "PASS; exact strict preimages after normal source adaptation/gofmt; generic base, relative.go and prepared_files.go byte-equal canonical; specialized SIMD compiler output is separately inventoried, not asserted equivalent",
+  "SIMD_specializations": {
+    "specializations": 1024,
+    "changed_count": 284,
+    "changed_names": [
+      "Simd_p_fx0",
+      "Simd_p_fx1",
+      "Simd_p_fx2",
+      "Simd_p_fx3",
+      "Simd_p_fx4",
+      "Simd_p_fx5",
+      "Simd_p_fx6",
+      "Simd_p_fx7",
+      "Simd_p_fx8",
+      "Simd_p_fx9",
+      "Simd_p_fx10",
+      "Simd_p_fx11",
+      "Simd_p_fx12",
+      "Simd_p_fx13",
+      "Simd_p_fx14",
+      "Simd_p_fx15",
+      "Simd_p_fx16",
+      "Simd_p_fx17",
+      "Simd_p_fx18",
+      "Simd_p_fx19",
+      "Simd_p_fx20",
+      "Simd_p_fx21",
+      "Simd_p_fx22",
+      "Simd_p_fx23",
+      "Simd_p_fx24",
+      "Simd_p_fx25",
+      "Simd_p_fx26",
+      "Simd_p_fx27",
+      "Simd_p_fx28",
+      "Simd_p_fx30",
+      "Simd_p_fx31",
+      "Simd_p_fx32",
+      "Simd_p_fx33",
+      "Simd_p_fx34",
+      "Simd_p_fx36",
+      "Simd_p_fx103",
+      "Simd_p_fx129",
+      "Simd_p_fx142",
+      "Simd_p_fx143",
+      "Simd_p_fx150",
+      "Simd_p_fx151",
+      "Simd_p_fx153",
+      "Simd_p_fx163",
+      "Simd_p_fx164",
+      "Simd_p_fx165",
+      "Simd_p_fx166",
+      "Simd_p_fx206",
+      "Simd_p_fx258",
+      "Simd_p_fx261",
+      "Simd_p_fx262",
+      "Simd_p_fx263",
+      "Simd_p_fx265",
+      "Simd_p_fx270",
+      "Simd_p_fx271",
+      "Simd_p_fx272",
+      "Simd_p_fx281",
+      "Simd_p_fx282",
+      "Simd_p_fx283",
+      "Simd_p_fx312",
+      "Simd_p_fx313",
+      "Simd_p_fx314",
+      "Simd_p_fx315",
+      "Simd_p_fx399",
+      "Simd_p_fx400",
+      "Simd_p_fx401",
+      "Simd_p_fx402",
+      "Simd_p_fx403",
+      "Simd_p_fx404",
+      "Simd_p_fx405",
+      "Simd_p_fx406",
+      "Simd_p_fx407",
+      "Simd_p_fx408",
+      "Simd_p_fx409",
+      "Simd_p_fx410",
+      "Simd_p_fx411",
+      "Simd_p_fx412",
+      "Simd_p_fx413",
+      "Simd_p_fx414",
+      "Simd_p_fx415",
+      "Simd_p_fx416",
+      "Simd_p_fx417",
+      "Simd_p_fx418",
+      "Simd_p_fx419",
+      "Simd_p_fx420",
+      "Simd_p_fx421",
+      "Simd_p_fx422",
+      "Simd_p_fx423",
+      "Simd_p_fx424",
+      "Simd_p_fx425",
+      "Simd_p_fx426",
+      "Simd_p_fx427",
+      "Simd_p_fx428",
+      "Simd_p_fx429",
+      "Simd_p_fx430",
+      "Simd_p_fx431",
+      "Simd_p_fx432",
+      "Simd_p_fx433",
+      "Simd_p_fx434",
+      "Simd_p_fx435",
+      "Simd_p_fx436",
+      "Simd_p_fx437",
+      "Simd_p_fx438",
+      "Simd_p_fx439",
+      "Simd_p_fx440",
+      "Simd_p_fx441",
+      "Simd_p_fx475",
+      "Simd_p_fx478",
+      "Simd_p_fx481",
+      "Simd_p_fx486",
+      "Simd_p_fx498",
+      "Simd_p_fx499",
+      "Simd_p_fx500",
+      "Simd_p_fx501",
+      "Simd_p_fx502",
+      "Simd_p_fx503",
+      "Simd_p_fx504",
+      "Simd_p_fx505",
+      "Simd_p_fx506",
+      "Simd_p_fx507",
+      "Simd_p_fx508",
+      "Simd_p_fx509",
+      "Simd_p_fx510",
+      "Simd_p_fx511",
+      "Simd_p_fx512",
+      "Simd_p_fx513",
+      "Simd_p_fx514",
+      "Simd_p_fx515",
+      "Simd_p_fx516",
+      "Simd_p_fx517",
+      "Simd_p_fx518",
+      "Simd_p_fx519",
+      "Simd_p_fx520",
+      "Simd_p_fx521",
+      "Simd_p_fx522",
+      "Simd_p_fx523",
+      "Simd_p_fx524",
+      "Simd_p_fx525",
+      "Simd_p_fx526",
+      "Simd_p_fx527",
+      "Simd_p_fx528",
+      "Simd_p_fx529",
+      "Simd_p_fx530",
+      "Simd_p_fx531",
+      "Simd_p_fx532",
+      "Simd_p_fx533",
+      "Simd_p_fx534",
+      "Simd_p_fx535",
+      "Simd_p_fx536",
+      "Simd_p_fx537",
+      "Simd_p_fx538",
+      "Simd_p_fx539",
+      "Simd_p_fx540",
+      "Simd_p_fx541",
+      "Simd_p_fx542",
+      "Simd_p_fx543",
+      "Simd_p_fx544",
+      "Simd_p_fx545",
+      "Simd_p_fx546",
+      "Simd_p_fx547",
+      "Simd_p_fx548",
+      "Simd_p_fx549",
+      "Simd_p_fx550",
+      "Simd_p_fx551",
+      "Simd_p_fx552",
+      "Simd_p_fx553",
+      "Simd_p_fx554",
+      "Simd_p_fx555",
+      "Simd_p_fx556",
+      "Simd_p_fx557",
+      "Simd_p_fx558",
+      "Simd_p_fx559",
+      "Simd_p_fx560",
+      "Simd_p_fx561",
+      "Simd_p_fx562",
+      "Simd_p_fx563",
+      "Simd_p_fx564",
+      "Simd_p_fx565",
+      "Simd_p_fx566",
+      "Simd_p_fx567",
+      "Simd_p_fx568",
+      "Simd_p_fx569",
+      "Simd_p_fx570",
+      "Simd_p_fx571",
+      "Simd_p_fx572",
+      "Simd_p_fx573",
+      "Simd_p_fx574",
+      "Simd_p_fx575",
+      "Simd_p_fx576",
+      "Simd_p_fx577",
+      "Simd_p_fx578",
+      "Simd_p_fx579",
+      "Simd_p_fx580",
+      "Simd_p_fx581",
+      "Simd_p_fx582",
+      "Simd_p_fx583",
+      "Simd_p_fx584",
+      "Simd_p_fx585",
+      "Simd_p_fx586",
+      "Simd_p_fx587",
+      "Simd_p_fx588",
+      "Simd_p_fx589",
+      "Simd_p_fx590",
+      "Simd_p_fx591",
+      "Simd_p_fx592",
+      "Simd_p_fx593",
+      "Simd_p_fx594",
+      "Simd_p_fx595",
+      "Simd_p_fx596",
+      "Simd_p_fx597",
+      "Simd_p_fx598",
+      "Simd_p_fx599",
+      "Simd_p_fx600",
+      "Simd_p_fx601",
+      "Simd_p_fx602",
+      "Simd_p_fx603",
+      "Simd_p_fx604",
+      "Simd_p_fx605",
+      "Simd_p_fx606",
+      "Simd_p_fx607",
+      "Simd_p_fx608",
+      "Simd_p_fx609",
+      "Simd_p_fx610",
+      "Simd_p_fx611",
+      "Simd_p_fx612",
+      "Simd_p_fx613",
+      "Simd_p_fx614",
+      "Simd_p_fx615",
+      "Simd_p_fx616",
+      "Simd_p_fx617",
+      "Simd_p_fx618",
+      "Simd_p_fx619",
+      "Simd_p_fx620",
+      "Simd_p_fx621",
+      "Simd_p_fx622",
+      "Simd_p_fx623",
+      "Simd_p_fx624",
+      "Simd_p_fx625",
+      "Simd_p_fx626",
+      "Simd_p_fx627",
+      "Simd_p_fx628",
+      "Simd_p_fx629",
+      "Simd_p_fx630",
+      "Simd_p_fx631",
+      "Simd_p_fx632",
+      "Simd_p_fx633",
+      "Simd_p_fx634",
+      "Simd_p_fx635",
+      "Simd_p_fx636",
+      "Simd_p_fx637",
+      "Simd_p_fx638",
+      "Simd_p_fx639",
+      "Simd_p_fx640",
+      "Simd_p_fx641",
+      "Simd_p_fx642",
+      "Simd_p_fx643",
+      "Simd_p_fx644",
+      "Simd_p_fx667",
+      "Simd_p_fx668",
+      "Simd_p_fx669",
+      "Simd_p_fx703",
+      "Simd_p_fx708",
+      "Simd_p_fx756",
+      "Simd_p_fx763",
+      "Simd_p_fx775",
+      "Simd_p_fx776",
+      "Simd_p_fx778",
+      "Simd_p_fx779",
+      "Simd_p_fx796",
+      "Simd_p_fx821",
+      "Simd_p_fx885",
+      "Simd_p_fx890",
+      "Simd_p_fx900",
+      "Simd_p_fx927",
+      "Simd_p_fx937",
+      "Simd_p_fx943",
+      "Simd_p_fx982",
+      "Simd_p_fx984",
+      "Simd_p_fx985",
+      "Simd_p_fx991",
+      "Simd_p_fx1006",
+      "Simd_p_fx1008",
+      "Simd_p_fx1021",
+      "Simd_p_fx1022",
+      "Simd_p_fx1023"
+    ],
+    "generic_base_bytes_excluding_SIMD": "EXACT_MATCH",
+    "old_adapted_sha256": "a62b16a8c8568c355b495398d939de74cd651781cf2f733124563cbab237f658",
+    "new_adapted_sha256": "1c9fba94164c0f821743bb66135d3d2afe4dd904788f2f09c1dd66a6ef612ef2",
+    "limits": "Guest-specialized SIMD bodies include real generated changes and were not asserted equivalent. They remain untouched raw compiler output, bound by the complete new inventory. Actual guest table/SQL/worker controls remain required."
+  },
+  "actual_guest_acceptance": "NOT_RUN",
+  "bindings_installed": "NO; original guards unchanged",
+  "scope": "Offline exact correspondence only. Numeric relocation comparison is a recorded inspection, not a fuzzy runtime acceptance rule."
+}
