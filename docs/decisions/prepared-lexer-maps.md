@@ -55,7 +55,13 @@ coverage, not an actual full-loader runtime acceptance claim.
    minimal final candidate for main integration. Existing product CI remains
    required. Versioned release is a later decision.
 
-Stage1 source and reference acquisition is **pending**, not a new PASS. Stage2
-canonical runtime installation and both-host acceptance are **not yet run**.
+Stage1 source and reference acquisition passed in
+[CI42448601842](https://github.com/masahitojp/mariamem/actions/runs/42448601842)
+at fd615a53495b615ca2fec6007006f4a24f98d902. Its
+[source-bound receipt](../reviews/lexer-canonical-ci-42448601842/README.md)
+records two independent builds and the native prepared reference. Stage2
+canonical runtime installation is authored; exact-candidate both-host acceptance
+is **pending**. No new performance campaign was added.
+
 The experimental run42437059943 at6134274a stays experimental evidence, with C
 origin b1a265cc; it is never relabelled to the canonical source commit.

@@ -1,0 +1,16 @@
+{
+  "result": "PASS_TWO_CANONICAL_SOURCE_BUILDS_AND_NATIVE_REFERENCE",
+  "source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
+  "run": 42448601842,
+  "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "linked_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722",
+  "independent_builds": 2,
+  "prepared_native": "PASS",
+  "installed_both_host_acceptance": "PENDING",
+  "translation_reuse": {
+    "source_commit": "b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+    "run": 42433100335,
+    "guest_identical_to_both_fresh_canonical_builds": true,
+    "raw_files_verified": 51
+  }
+}

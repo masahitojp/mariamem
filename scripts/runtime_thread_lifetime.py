@@ -7,14 +7,14 @@ before installing the handoff; this is a single-guest binding, not a generic ABI
 import hashlib
 import re
 
-# Reviewed prepared guest binding promoted by P6. See the whole-body/data
-# fixture and P6 closure review; canonical rebuilds must match this single
-# identity. No fuzzy allocation/reclaimer matching is permitted.
-GUEST_SHA256 = "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe"
+# Exact prepared-lexer guest binding, preserving the reviewed P6/J1 ownership
+# transforms. Full bodies/data are checked against pinned fixtures; the prior
+# guest is not an alternate accepted identity. No fuzzy matching is permitted.
+GUEST_SHA256 = "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1"
 FUNCTIONS = {
-    "code/p3/p3_pure.go": ("Fn153", "15882f19e1b430f8135f53c43180e51db820ad620e6b1355988aa4f837982f1a"),
+    "code/p3/p3_pure.go": ("Fn153", "c0ee0ebf54f6d47449613c68411aff49c1529c7684d339b82a1b651a39d6da4e"),
+    "code/p5/p5_pure.go": ("Fn214", "58d275858c6b01c3b0215602d551abf6eae55ead54a8afb75a6cbfdd91abfd08"),
     "code/p8/p8_pure.go": ("Fn131", "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"),
-    "code/p5/p5_pure.go": ("Fn214", "6e7ad52c8a686c75594269839bff675ded36be094efc99da48c03b8778a2fd00"),
 }
 
 

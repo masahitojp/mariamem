@@ -12,9 +12,9 @@ the reviewed fallback and private verifier semantics. The header's descriptive
 comment changes during canonical packaging; runtime bytes must still reproduce
 the accepted guest hash. The two-builder gate detects any binary difference.
 
-`actual_guest_test.go.txt` is the future canonical integration-test input. It is
-not installed or claimed executed by Stage1. Stage2 moves it to the handwritten
-runtime ownership list and runs it against the canonical installed guest.
+The table oracle now lives in `internal/generatedgo/lexer_prepared_integration_test.go`
+and is carried by the canonical installer's `HANDWRITTEN_FILES` ownership list.
+Its exact-candidate both-host execution remains a CI gate.
 
 Stage1 workflow `lexer-canonical-input.yml` is manually dispatched; automatic CI
 belongs to Development. It runs two independent C builders and

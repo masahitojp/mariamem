@@ -1,0 +1,20 @@
+{
+  "changed": {
+    "code/p4/crc32c_test.go": {
+      "after": "69ac801890c4eec0bd61b9898262f45f33773f0be6f177b7451a49ffdeb01ed4",
+      "before": "5669ab491bc7d75751a8f56c55fd13f50d6c486e05dfb6aac2470efe10eaf6cb"
+    },
+    "lexer_prepared_integration_test.go": {
+      "after": "7262c76ac0c99644e9c0af2693c0c99cdb2e3ad709104904d9020d66ccc07ff9",
+      "before": null
+    },
+    "provenance.json": {
+      "after": "c6c589fe92aa09184a4e16910492bf477cd0fc82f6f44505cf0e448404f4aed6",
+      "before": "27054cff7ba54a83080a1a9e2a4fb7f72ca0429bcce748f3e06f3686d6654ed7"
+    }
+  },
+  "comparison": "canonical installer vs experimental actual C guest inventory",
+  "identical_files": 107,
+  "reference_run": 42437059943,
+  "reference_source_commit": "6134274a268155379329d9bd1ae394897e1f7e8e"
+}

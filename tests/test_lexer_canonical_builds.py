@@ -53,13 +53,16 @@ class CanonicalBuildTests(unittest.TestCase):
                     with self.assertRaises(ValueError): invoke([record, bad])
                     (second / 'linked.wasm').write_bytes(b'linked')
 
-    def test_workflow_keeps_two_jobs_and_staged_contract(self):
+    def test_workflow_keeps_independent_regeneration_and_actual_controls(self):
         text = (ROOT / '.github/workflows/lexer-canonical-input.yml').read_text()
-        for required in ['trial: [1, 2]', 'HOME: /root', 'test ! -e guest/experimental.patch',
-                         'lexer-canonical-guest-1-${{ github.sha }}', 'lexer-canonical-guest-2-${{ github.sha }}',
-                         'scripts/check_lexer_canonical_builds.py', 'tests/lexer_prepared_acceptance.py',
-                         'mysql-connector-python==26.7.0']:
+        for required in ['workflow_dispatch:', 'HOME: /root', 'test ! -e guest/experimental.patch',
+                         'scripts/build_generated_guest.py --repetitions 2', 'runner: [macos-15, ubuntu-24.04]',
+                         'scripts/regenerate_release_guest.py', 'scripts/check_prepared_build_guards.py',
+                         'TestPreparedLexerTablesActualGuest', 'TestWorkerTrapActualGuestNotifiesAndIsolatesPeer',
+                         'tests/routine_thread_fixture.py', 'tests/lexer_prepared_acceptance.py',
+                         'mysql-connector-python==26.7.0', "-run '^TestCRC32C'"]:
             self.assertIn(required, text)
+        self.assertNotIn('  push:', text)
         self.assertNotIn('continue-on-error', text)
         self.assertNotIn('operation: release', text)
 

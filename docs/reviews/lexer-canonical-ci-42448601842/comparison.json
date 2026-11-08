@@ -1,0 +1,15 @@
+{
+  "result": "PASS_TWO_CANONICAL_SOURCE_BUILDS",
+  "source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
+  "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "linked_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722",
+  "independent_builds": 2,
+  "build_record_sha256": [
+    "c7160e06737e270dad5e9dfa9f8a0d16f793b188e014c248c8b90a0ed7047bf2",
+    "c7160e06737e270dad5e9dfa9f8a0d16f793b188e014c248c8b90a0ed7047bf2"
+  ],
+  "same_bytes_as_experiment_origin": "b1a265cc30a8603ced743c8aeb59c752751ff9d6",
+  "canonical_runtime_installation": "PENDING",
+  "qualification": "NOT_RUN",
+  "release": "NOT_APPROVED"
+}

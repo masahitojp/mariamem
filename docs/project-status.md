@@ -104,6 +104,19 @@ adds both-host binary prepared SQL/native comparison, updates provenance and
 retained-function attribution, and obtains exact candidate acceptance.
 Neither stage is complete merely because the prior experimental CI passed.
 
+Stage1 now passes at sourcefd615a53 in
+[CI42448601842](https://github.com/masahitojp/mariamem/actions/runs/42448601842):
+two independent canonical-source C builds reproduce the reviewed linked/guest
+bytes, with a normal/binary-prepared native reference. Development42450789310
+passes at cee04983 after restoring the manual-only input-build policy. The
+[source-bound receipt](reviews/lexer-canonical-ci-42448601842/README.md) preserves
+both original identities. Stage2 installs the canonical generated runtime and
+exact CRC/thread bindings; only test/provenance bytes differ from the accepted
+experimental installed runtime. Both-host canonical regeneration, actual-table,
+prepared/native SQL, ownership and cleanup acceptance remain pending at this
+candidate. No new speed, main integration, Qualification or release is claimed.
+
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally
