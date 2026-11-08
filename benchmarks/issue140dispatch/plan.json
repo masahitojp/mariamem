@@ -1,0 +1,68 @@
+{
+  "issue": "https://github.com/masahitojp/mariamem/issues/140",
+  "question": "Partition same-request simulated AIO initial dispatch, synchronous I/O and completion dispatch before notification; inspect related settings without changing them.",
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "parent_diagnostic_source_commit": "7a9653c4301fba2f3e4aa52853647c22e1c871ab",
+  "workload": "same shop70/Pipe/P8/cap9",
+  "natural_blocks": [
+    [
+      [
+        16,
+        false
+      ],
+      [
+        16,
+        true
+      ],
+      [
+        8,
+        true
+      ],
+      [
+        8,
+        false
+      ]
+    ],
+    [
+      [
+        8,
+        false
+      ],
+      [
+        8,
+        true
+      ],
+      [
+        16,
+        true
+      ],
+      [
+        16,
+        false
+      ]
+    ]
+  ],
+  "natural_processes": 8,
+  "positive_controls": 1,
+  "poll_interval_ms": 20,
+  "threshold_ms": 100,
+  "capture_limit_per_process": 1,
+  "profile_cap_bytes": 2097152,
+  "observer": "Previous page/park/channel observer plus aiocb-generation submit/worker/sync-end/completion-submit/callback timestamps and notifier identity. No per-I/O profile.",
+  "precision": "API-submit entry/return bracket dispatch; they do not timestamp the internal queue push. Worker may start before submit returns. Callback begins before page unlock notification. No unguarded pool-counter reads.",
+  "go": "go1.27.3",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "host": "local M1/macOS arm64",
+  "timeout_seconds": 900,
+  "min_free_gib": 8,
+  "budget_gib": 10,
+  "active_budget_hours": 2,
+  "tooling_budget_minutes": 30,
+  "heavy_ci_limit": 0,
+  "exit": "Synthetic pipeline/generation/negative binding controls; one live SLEEP control; fixed8 natural suites. BOUND_STAGE / PARTIAL / NO_CAPTURE. Related settings source map only; no sweep/fix/main/release.",
+  "scope_cap_per_instance": 256,
+  "wait_cap_per_instance": 1024,
+  "io_cap_per_instance": 4096
+}

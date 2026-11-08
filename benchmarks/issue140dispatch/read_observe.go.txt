@@ -1,0 +1,424 @@
+package base
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"os"
+	"runtime"
+	"runtime/pprof"
+	"strconv"
+	"sync"
+	"sync/atomic"
+	"unsafe"
+)
+
+type ReadFields struct {
+	Space  uint32 `json:"space"`
+	Page   uint32 `json:"page"`
+	State  uint32 `json:"state"`
+	Raw156 uint32 `json:"raw_offset156"`
+	Raw24  uint32 `json:"raw_offset24"`
+}
+type ReadFrame struct {
+	Function string `json:"function"`
+	File     string `json:"file"`
+	Line     int    `json:"line"`
+}
+type ReadWaitEvent struct {
+	IOID         int         `json:"io_id"`
+	NotifyIOID   int         `json:"notify_io_id"`
+	ID           int         `json:"id"`
+	EA           uint64      `json:"ea"`
+	Register     int64       `json:"register_us"`
+	SignalBefore int64       `json:"signal_before_us"`
+	SignalAfter  int64       `json:"signal_after_us"`
+	Resume       int64       `json:"resume_us"`
+	Return       int64       `json:"return_us"`
+	Notifier     []ReadFrame `json:"notifier"`
+	owner        *ReadObserver
+	scope        *ReadScope
+	ch           chan struct{}
+	pcs          []uintptr
+}
+type ReadScope struct {
+	ID         int              `json:"id"`
+	DB         string           `json:"db_id"`
+	Block      uint32           `json:"block"`
+	Trx        uint32           `json:"trx"`
+	Start      int64            `json:"start_us"`
+	End        int64            `json:"end_us"`
+	PoolBegin  int64            `json:"pool_begin_us"`
+	PoolEnd    int64            `json:"pool_end_us"`
+	LatchBegin int64            `json:"latch_begin_us"`
+	LatchEnd   int64            `json:"latch_end_us"`
+	Entry      ReadFields       `json:"entry"`
+	Exit       ReadFields       `json:"exit"`
+	Waits      []*ReadWaitEvent `json:"waits"`
+	r          *ReadObserver
+	m          *Module
+	latching   bool
+}
+type ReadObserver struct {
+	IOs         []*ReadIORequest `json:"ios"`
+	ioSeq       int
+	byCB        map[uint32]*ReadIORequest
+	byBlock     map[uint32]*ReadIORequest
+	DB          string       `json:"db_id"`
+	Closed      bool         `json:"closed"`
+	Calls       int          `json:"calls"`
+	DroppedFast int          `json:"dropped_fast"`
+	Truncated   bool         `json:"truncated"`
+	Scopes      []*ReadScope `json:"scopes"`
+	mu          sync.Mutex
+	active      map[int]*ReadScope
+	waiters     map[chan struct{}]*ReadWaitEvent
+	waitCount   atomic.Int32
+	seq         int
+	waitSeq     int
+}
+type ReadSnapshot struct {
+	DB        string     `json:"db_id"`
+	Scope     int        `json:"scope_id"`
+	At        int64      `json:"at_us"`
+	Block     uint32     `json:"block"`
+	Trx       uint32     `json:"trx"`
+	PoolBegin int64      `json:"pool_begin_us"`
+	Fields    ReadFields `json:"fields"`
+	WaitIDs   []int      `json:"active_wait_ids"`
+}
+
+var readRegistry sync.Map
+var readListMu sync.Mutex
+var readList []*ReadObserver
+var readClock func() int64
+var readClockOnce sync.Once
+
+func InitReadObservation(clock func() int64) { readClockOnce.Do(func() { readClock = clock }) }
+func readFields(m *Module, b uint32) ReadFields {
+	get := func(offset uint32) uint32 {
+		return atomic.LoadUint32((*uint32)(unsafe.Add(m.M, AtomicEA(m, int32(b), int32(offset), 4))))
+	}
+	return ReadFields{get(0), get(4), get(172), get(156), get(24)}
+}
+func RegisterReadObservation(m *Module, db string) func() {
+	if readClock == nil {
+		panic("read clock absent")
+	}
+	r := &ReadObserver{DB: db, active: map[int]*ReadScope{}, waiters: map[chan struct{}]*ReadWaitEvent{}}
+	readRegistry.Store(m.Threads, r)
+	readListMu.Lock()
+	readList = append(readList, r)
+	readListMu.Unlock()
+	return func() {
+		r.mu.Lock()
+		defer r.mu.Unlock()
+		if len(r.active) != 0 || len(r.waiters) != 0 {
+			panic("read observation still active")
+		}
+		r.Closed = true
+		readRegistry.Delete(m.Threads)
+	}
+}
+func ClearReadThreadLabel(m *Module) {
+	m.ReadScope = nil
+	if value, ok := readRegistry.Load(m.Threads); ok {
+		r := value.(*ReadObserver)
+		pprof.SetGoroutineLabels(pprof.WithLabels(context.Background(), pprof.Labels("db_id", r.DB)))
+	}
+}
+func ObserveReadWait(m *Module, block, trx int32, f func()) {
+	value, ok := readRegistry.Load(m.Threads)
+	if !ok {
+		f()
+		return
+	}
+	r := value.(*ReadObserver)
+	r.mu.Lock()
+	r.Calls++
+	r.seq++
+	if r.seq > 256 {
+		r.Truncated = true
+		r.mu.Unlock()
+		f()
+		return
+	}
+	s := &ReadScope{ID: r.seq, DB: r.DB, Block: uint32(block), Trx: uint32(trx), Start: readClock(), Entry: readFields(m, uint32(block)), r: r, m: m}
+	r.active[s.ID] = s
+	r.mu.Unlock()
+	previous := m.ReadScope
+	m.ReadScope = s
+	defer func() {
+		r.mu.Lock()
+		s.End = readClock()
+		s.Exit = readFields(m, s.Block)
+		delete(r.active, s.ID)
+		s.m = nil
+		if len(s.Waits) > 0 || s.End-s.Start >= 1000 {
+			r.Scopes = append(r.Scopes, s)
+		} else {
+			r.DroppedFast++
+		}
+		r.mu.Unlock()
+		m.ReadScope = previous
+	}()
+	pprof.Do(context.Background(), pprof.Labels("db_id", r.DB, "read_scope", strconv.Itoa(s.ID)), func(context.Context) { f() })
+}
+func ObserveReadLatch(m *Module, lock int32) func() {
+	s := m.ReadScope
+	if s == nil || uint32(lock) != s.Block+24 {
+		return func() {}
+	}
+	s.r.mu.Lock()
+	s.latching = true
+	s.LatchBegin = readClock()
+	s.r.mu.Unlock()
+	return func() { s.r.mu.Lock(); s.LatchEnd = readClock(); s.latching = false; s.r.mu.Unlock() }
+}
+func ObserveReadPool(m *Module, begin bool) {
+	s := m.ReadScope
+	if s == nil {
+		return
+	}
+	s.r.mu.Lock()
+	if begin {
+		s.PoolBegin = readClock()
+	} else {
+		s.PoolEnd = readClock()
+	}
+	s.r.mu.Unlock()
+}
+
+// Called while parkMu is held, before a notifier can remove/close this channel.
+func ReadObserveRegister(m *Module, ea uint64, ch chan struct{}) *ReadWaitEvent {
+	s := m.ReadScope
+	if s == nil || !s.latching {
+		return nil
+	}
+	r := s.r
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	r.waitSeq++
+	if r.waitSeq > 1024 {
+		r.Truncated = true
+		return nil
+	}
+	v := &ReadWaitEvent{ID: r.waitSeq, EA: ea, Register: readClock(), owner: r, scope: s, ch: ch}
+	s.Waits = append(s.Waits, v)
+	if q := r.byBlock[s.Block]; q != nil {
+		v.IOID = q.ID
+	}
+	r.waiters[ch] = v
+	r.waitCount.Add(1)
+	return v
+}
+func ReadObserveResume(v *ReadWaitEvent) {
+	if v == nil {
+		return
+	}
+	v.owner.mu.Lock()
+	v.Resume = readClock()
+	v.owner.mu.Unlock()
+}
+func ReadObserveReturn(v *ReadWaitEvent) {
+	if v == nil {
+		return
+	}
+	r := v.owner
+	r.mu.Lock()
+	v.Return = readClock()
+	delete(r.waiters, v.ch)
+	r.waitCount.Add(-1)
+	r.mu.Unlock()
+}
+func ReadObserveSignalBefore(p *ThreadPool, ea uint64, ch chan struct{}, actor ...*Module) *ReadWaitEvent {
+	value, ok := readRegistry.Load(p)
+	if !ok {
+		return nil
+	}
+	r := value.(*ReadObserver)
+	if r.waitCount.Load() == 0 {
+		return nil
+	}
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	v := r.waiters[ch]
+	if v == nil || v.EA != ea {
+		return nil
+	}
+	if len(actor) > 0 && actor[0] != nil {
+		q := actor[0].ActiveReadIO
+		if q != nil && q.r == r && q.Block == v.scope.Block {
+			v.NotifyIOID = q.ID
+		}
+	}
+	v.SignalBefore = readClock()
+	return v
+}
+func ReadObserveSignalAfter(v *ReadWaitEvent) {
+	if v == nil {
+		return
+	}
+	at := readClock()
+	pcs := make([]uintptr, 48)
+	n := runtime.Callers(2, pcs)
+	v.owner.mu.Lock()
+	v.SignalAfter = at
+	v.pcs = pcs[:n]
+	v.owner.mu.Unlock()
+}
+func SnapshotReadObservation(db string) []ReadSnapshot {
+	var out []ReadSnapshot
+	readRegistry.Range(func(_, value any) bool {
+		r := value.(*ReadObserver)
+		if r.DB != db {
+			return true
+		}
+		r.mu.Lock()
+		defer r.mu.Unlock()
+		for _, s := range r.active {
+			v := ReadSnapshot{DB: r.DB, Scope: s.ID, At: readClock(), Block: s.Block, Trx: s.Trx, PoolBegin: s.PoolBegin, Fields: readFields(s.m, s.Block)}
+			for _, w := range s.Waits {
+				if w.Return == 0 {
+					v.WaitIDs = append(v.WaitIDs, w.ID)
+				}
+			}
+			out = append(out, v)
+		}
+		return true
+	})
+	return out
+}
+
+// Only call after all DBs and the profiler watcher are joined.
+func WriteReadObservation(path string) error {
+	for _, r := range readList {
+		r.mu.Lock()
+		if !r.Closed {
+			r.mu.Unlock()
+			return fmt.Errorf("unclosed observer %s", r.DB)
+		}
+		for _, s := range r.Scopes {
+			for _, w := range s.Waits {
+				frames := runtime.CallersFrames(w.pcs)
+				for len(w.pcs) > 0 {
+					frame, more := frames.Next()
+					w.Notifier = append(w.Notifier, ReadFrame{frame.Function, frame.File, frame.Line})
+					if !more {
+						break
+					}
+				}
+				w.pcs = nil
+			}
+		}
+		r.mu.Unlock()
+	}
+	data, e := json.Marshal(readList)
+	if e != nil {
+		return e
+	}
+	return os.WriteFile(path, append(data, '\n'), 0600)
+}
+
+// aiocb layout and callback indices are guarded against current generated code.
+// Submit times bracket API calls, not the inaccessible internal queue push.
+type ReadIORequest struct {
+	ID                     int    `json:"id"`
+	CB                     uint32 `json:"cb"`
+	Block                  uint32 `json:"block"`
+	Space                  uint32 `json:"space"`
+	Page                   uint32 `json:"page"`
+	Submit                 int64  `json:"submit_us"`
+	SubmitReturn           int64  `json:"submit_return_us"`
+	Worker                 int64  `json:"worker_us"`
+	SyncEnd                int64  `json:"sync_end_us"`
+	CompletionSubmit       int64  `json:"completion_submit_us"`
+	CompletionSubmitReturn int64  `json:"completion_submit_return_us"`
+	Callback               int64  `json:"callback_us"`
+	CallbackReturn         int64  `json:"callback_return_us"`
+	r                      *ReadObserver
+}
+
+func ioWord(m *Module, cb int32, off int32) uint32 {
+	return uint32(*(*int32)(unsafe.Add(m.M, MemoryEA(m, uint64(uint32(cb)), uint64(uint32(off)), 4))))
+}
+func ObserveIOSubmit(m *Module, cb int32) func() {
+	value, ok := readRegistry.Load(m.Threads)
+	if !ok || ioWord(m, cb, 4) != 0 || ioWord(m, cb, 24) != 12539 {
+		return func() {}
+	}
+	r := value.(*ReadObserver)
+	r.mu.Lock()
+	r.ioSeq++
+	if r.ioSeq > 4096 {
+		r.Truncated = true
+		r.mu.Unlock()
+		return func() {}
+	}
+	block := ioWord(m, cb, 64)
+	fields := readFields(m, block)
+	q := &ReadIORequest{ID: r.ioSeq, CB: uint32(cb), Block: block, Space: fields.Space, Page: fields.Page, Submit: readClock(), r: r}
+	if r.byCB == nil {
+		r.byCB = map[uint32]*ReadIORequest{}
+		r.byBlock = map[uint32]*ReadIORequest{}
+	}
+	r.byCB[uint32(cb)] = q
+	r.byBlock[block] = q
+	r.IOs = append(r.IOs, q)
+	r.mu.Unlock()
+	return func() { r.mu.Lock(); q.SubmitReturn = readClock(); r.mu.Unlock() }
+}
+func ioFind(m *Module, cb int32) *ReadIORequest {
+	value, ok := readRegistry.Load(m.Threads)
+	if !ok {
+		return nil
+	}
+	r := value.(*ReadObserver)
+	r.mu.Lock()
+	q := r.byCB[uint32(cb)]
+	if q != nil && (ioWord(m, cb, 4) != 0 || ioWord(m, cb, 24) != 12539 || ioWord(m, cb, 64) != q.Block) {
+		q = nil
+	}
+	r.mu.Unlock()
+	return q
+}
+func ObserveIOWorker(m *Module, cb int32) {
+	q := ioFind(m, cb)
+	if q == nil {
+		return
+	}
+	q.r.mu.Lock()
+	q.Worker = readClock()
+	q.r.mu.Unlock()
+}
+func ObserveIOSyncEnd(m *Module, cb int32) {
+	q := ioFind(m, cb)
+	if q == nil {
+		return
+	}
+	q.r.mu.Lock()
+	q.SyncEnd = readClock()
+	q.r.mu.Unlock()
+}
+func ObserveIOCompletionSubmit(m *Module, cb int32) func() {
+	q := ioFind(m, cb)
+	if q == nil {
+		return func() {}
+	}
+	q.r.mu.Lock()
+	q.CompletionSubmit = readClock()
+	q.r.mu.Unlock()
+	return func() { q.r.mu.Lock(); q.CompletionSubmitReturn = readClock(); q.r.mu.Unlock() }
+}
+func ObserveIOCallback(m *Module, cb int32) func() {
+	q := ioFind(m, cb)
+	if q == nil {
+		return func() {}
+	}
+	q.r.mu.Lock()
+	q.Callback = readClock()
+	q.r.mu.Unlock()
+	previous := m.ActiveReadIO
+	m.ActiveReadIO = q
+	return func() { m.ActiveReadIO = previous; q.r.mu.Lock(); q.CallbackReturn = readClock(); q.r.mu.Unlock() }
+}

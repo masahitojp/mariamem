@@ -1,0 +1,101 @@
+package base
+
+import (
+	"testing"
+	"time"
+)
+
+func dispatchCB(m *Module, cb, block int32) {
+	AtomicStore32At(m, uint64(cb)+4, 0)
+	AtomicStore32At(m, uint64(cb)+24, 12539)
+	AtomicStore32At(m, uint64(cb)+64, block)
+}
+func TestDispatchObservationFullBinding(t *testing.T) {
+	m, off := readTestModule("dispatch")
+	defer off()
+	dispatchCB(m, 256, 512)
+	actor := *m
+	endSubmit := ObserveIOSubmit(m, 256)
+	endSubmit()
+	ObserveIOWorker(m, 256)
+	ObserveIOSyncEnd(m, 256)
+	endCompletion := ObserveIOCompletionSubmit(m, 256)
+	endCompletion()
+	done := make(chan struct{})
+	go func() {
+		defer close(done)
+		ObserveReadWait(m, 512, 0, func() { end := ObserveReadLatch(m, 536); defer end(); AtomicWait32At(m, 1024, 0, int64(time.Second)) })
+	}()
+	deadline := time.Now().Add(time.Second)
+	for {
+		v := SnapshotReadObservation("dispatch")
+		if len(v) == 1 && len(v[0].WaitIDs) == 1 {
+			break
+		}
+		if time.Now().After(deadline) {
+			t.Fatal("not parked")
+		}
+		time.Sleep(time.Millisecond)
+	}
+	endCallback := ObserveIOCallback(&actor, 256)
+	if AtomicNotify(&actor, 1024, 0, 1) != 1 {
+		t.Fatal("wake")
+	}
+	endCallback()
+	<-done
+	value, _ := readRegistry.Load(m.Threads)
+	r := value.(*ReadObserver)
+	q := r.IOs[0]
+	w := r.Scopes[0].Waits[0]
+	if w.IOID != q.ID || w.NotifyIOID != q.ID || actor.ActiveReadIO != nil {
+		t.Fatal("request identity not bound")
+	}
+	if !(q.Submit <= q.Worker && q.Worker <= q.SyncEnd && q.SyncEnd <= q.CompletionSubmit && q.CompletionSubmit <= q.Callback && q.Callback <= w.SignalBefore) {
+		t.Fatal("bad phase order", q)
+	}
+}
+func TestDispatchObservationReuseAndWriteExclusion(t *testing.T) {
+	m, off := readTestModule("reuse")
+	defer off()
+	dispatchCB(m, 256, 512)
+	ObserveIOSubmit(m, 256)()
+	ObserveIOWorker(m, 256)
+	ObserveIOSyncEnd(m, 256)
+	ObserveIOCompletionSubmit(m, 256)()
+	end := ObserveIOCallback(m, 256)
+	old := m.ActiveReadIO
+	end()
+	dispatchCB(m, 256, 768)
+	ObserveIOSubmit(m, 256)()
+	value, _ := readRegistry.Load(m.Threads)
+	r := value.(*ReadObserver)
+	if len(r.IOs) != 2 || r.IOs[1].ID == old.ID || r.byCB[256].Block != 768 {
+		t.Fatal("reused cb merged")
+	}
+	AtomicStore32At(m, 260, 1)
+	ObserveIOSubmit(m, 256)()
+	ObserveIOWorker(m, 256)
+	if len(r.IOs) != 2 || r.IOs[1].Worker != 0 {
+		t.Fatal("write classified as read")
+	}
+}
+func TestDispatchObservationWrongNotifier(t *testing.T) {
+	m, off := readTestModule("wrong-io")
+	defer off()
+	dispatchCB(m, 256, 768)
+	ObserveIOSubmit(m, 256)()
+	s := &ReadScope{Block: 512, r: ioFind(m, 256).r}
+	r := s.r
+	ch := make(chan struct{})
+	w := &ReadWaitEvent{scope: s, owner: r, EA: 1024, ch: ch}
+	r.waiters[ch] = w
+	r.waitCount.Add(1)
+	end := ObserveIOCallback(m, 256)
+	ReadObserveSignalBefore(m.Threads, 1024, ch, m)
+	end()
+	if w.NotifyIOID != 0 {
+		t.Fatal("wrong block attributed")
+	}
+	delete(r.waiters, ch)
+	r.waitCount.Add(-1)
+}

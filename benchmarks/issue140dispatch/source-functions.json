@@ -1,0 +1,14 @@
+{
+  "Fn18241": {
+    "path": "internal/generatedgo/code/p8/p8_pure.go",
+    "sha256": "df8628916b532e78fc19ff1c87abd47f6f70088e2da13f6f97b264d94fb963c0"
+  },
+  "Fn18242": {
+    "path": "internal/generatedgo/code/p7/p7_pure.go",
+    "sha256": "399d65ef1c4fad4ad9dd7cd0f9352f032340079d38ec4ebb484b6856b9528239"
+  },
+  "Fn18280": {
+    "path": "internal/generatedgo/code/p6/p6_pure.go",
+    "sha256": "5d09b0e4d55b4216303ef3cb23ecf55b1aa97cf55435219b06752cf1856b6168"
+  }
+}
