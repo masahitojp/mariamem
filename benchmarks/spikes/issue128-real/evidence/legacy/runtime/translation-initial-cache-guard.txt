@@ -1,0 +1,7 @@
+Disk preflight OK: 18.72 GiB free, 2.37 GiB owned
+Traceback (most recent call last):
+  File "<REPO>/build/issue128-real/temp/legacy_driver.py", line 11, in <module>
+    env=go_environment(dict(os.environ,CGO_ENABLED='0',GOTOOLCHAIN='go1.26.10',GOWORK='off',GOENV='off',GOFLAGS='',GOEXPERIMENT='',GOMAXPROCS='2',GOGC='50',MARIAMEM_PHASE_TRACE=str(w/'evidence/host-phases.jsonl')))
+  File "<REPO>/build/issue128-real/temp/runtime/legacy/worktree/scripts/build_feedback.py", line 39, in go_environment
+    raise ValueError('conflicting '+key+'; unset it before selecting task workspace')
+ValueError: conflicting GOPATH; unset it before selecting task workspace

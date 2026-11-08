@@ -1,0 +1,17 @@
+{
+  "v06_prepared_p1_probe.py": {
+    "original_sha256": "5d6a70f835a106ca565a61dd435dfb810b729790cca8da15f8dfb1e853aa5ece",
+    "target_observer_sha256": "39903a9abe975a693a57d87cc9b4308364230fbe3e22a4bbe07d771e2f76515c",
+    "change": "Exact target version identity only; all protocol/type/error/schema expectations unchanged"
+  },
+  "v06_prepared_p2_matrix.py": {
+    "original_sha256": "8d88db3627f66137a8ef791bcd05b612f740e97aa68eae9166827fcb2129ca50",
+    "target_observer_sha256": "e27a7469eae8d73298614cc649c49a5798a883e8060ee157446fbd6483d94899",
+    "change": "Exact target version identity only; all protocol/type/error/schema expectations unchanged"
+  },
+  "v06_prepared_p2_repair_probe.py": {
+    "original_sha256": "c4dcf14ac4b0d94daf75d4842e44dc5e1f2ef2815b51a01ccb5ec44404133cb3",
+    "target_observer_sha256": "c4dcf14ac4b0d94daf75d4842e44dc5e1f2ef2815b51a01ccb5ec44404133cb3",
+    "change": "Byte-identical original fixture"
+  }
+}

@@ -1,0 +1,21 @@
+Disk preflight OK: 15.30 GiB free, 4.16 GiB owned
+.                                                                        [100%]
+1 passed in 1.68s
+Traceback (most recent call last):
+  File "<REPO>/build/issue128-real/temp/runtime/legacy/worktree/tests/v06_prepared_p1_probe.py", line 136, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "<REPO>/build/issue128-real/temp/runtime/legacy/worktree/tests/v06_prepared_p1_probe.py", line 121, in main
+    result=exercise(db.connection_info())
+  File "<REPO>/build/issue128-real/temp/runtime/legacy/worktree/tests/v06_prepared_p1_probe.py", line 53, in exercise
+    assert version.startswith('12.3.3'),version
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+AssertionError: 13.0.2-MariaDB-embedded
+Traceback (most recent call last):
+  File "<REPO>/build/issue128-real/temp/legacy_driver.py", line 44, in <module>
+    run([sys.executable,str(repo/'tests'/name),'--host',str(binary),'--output',str(w/'evidence'/(name+'.json'))],cwd=product,env=smoke_env,check=True,timeout=900,phase='legacy:'+name)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/build/issue128-real/temp/runtime/legacy/worktree/scripts/build_feedback.py", line 200, in run
+    raise subprocess.CalledProcessError(retcode, process.args,
+                                        output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<REPO>/build/issue128-real/temp/python/bin/python', '<REPO>/build/issue128-real/temp/runtime/legacy/worktree/tests/v06_prepared_p1_probe.py', '--host', '<REPO>/build/issue128-real/temp/runtime/legacy/temp/host/mariamem-dev-host', '--output', '<REPO>/build/issue128-real/temp/runtime/legacy/evidence/v06_prepared_p1_probe.py.json']' returned non-zero exit status 1.

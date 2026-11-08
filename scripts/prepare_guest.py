@@ -57,7 +57,7 @@ if (ROOT / "guest/prepared_source_patch.json").exists():
 if experimental.exists():
     if canonical_prepared is not None:
         # Future experiments remain isolated and release provenance rejects them.
-        subprocess.run(["patch", "--batch", "--forward", "--fuzz=0", "-p1", "-i", str(experimental)], cwd=source, check=True)
+        apply_series(ROOT, source, {'patches': [guest_input['native_overlay']]})
     elif (ROOT / "guest/prepared_source_patch.json").exists():
         from prepared_source_patch import apply as apply_prepared_patch
         prepared_patch = apply_prepared_patch(source)

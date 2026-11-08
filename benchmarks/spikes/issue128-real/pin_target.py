@@ -60,6 +60,8 @@ for old in pin['patches']:
     patches.append(apply(ROOT / relative))
 pin['patches'] = patches
 pin['source_overlay'] = apply(ROOT / 'benchmarks/spikes/issue128-real/inputs/shared-source.patch')
+if '--native' in sys.argv:
+    pin['native_overlay'] = apply(ROOT / 'guest/experimental.patch')
 # Both published legacy and native use this prepared UCA base for comparison.
 pin['experiment_contract'] = 'issue128-target-source-v1'
 (ROOT / 'guest/input.json').write_text(json.dumps(pin, indent=2) + '\n')

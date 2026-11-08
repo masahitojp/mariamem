@@ -1,0 +1,3 @@
+Disk preflight OK: 16.46 GiB free, 3.20 GiB owned
+Installed checksum-bound generated runtime: 62 files
+compile completed

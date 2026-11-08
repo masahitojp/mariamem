@@ -1,0 +1,110 @@
+{
+  "contract": "issue65-experimental-thread-binding-v1",
+  "guest_sha256": "1854c8106abf275e67c84b6e43a6035109021d81d3612f54d0f17baa31906214",
+  "source_commit": "ecf81035009bd4e353ddee302f73c781c77a3f28",
+  "target_source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+  "functions": {
+    "code/p3/p3_pure.go": {
+      "function": "Fn153",
+      "normalized_sha256": "4b63292b8adc84ccb39dd26bcaef72f939774dfd074e1132c372ed72896c2083",
+      "role": "free"
+    },
+    "code/p8/p8_pure.go": {
+      "function": "Fn131",
+      "normalized_sha256": "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932",
+      "role": "yield"
+    },
+    "code/p5/p5_pure.go": {
+      "function": "Fn214",
+      "normalized_sha256": "1d9454944333e9425738b60f47fe6769bb690cf27c08a528c0bc34b0d7457272",
+      "role": "entry"
+    }
+  },
+  "review": {
+    "free": {
+      "complete_body_equal_after_recorded_relocation": true,
+      "function_renames": {
+        "Fn153": "Fn153",
+        "Fn131": "Fn131"
+      },
+      "changed_numeric_literals": {
+        "18000840": "18016136",
+        "18000844": "18016140",
+        "18000412": "18015708",
+        "18000416": "18015712",
+        "18000396": "18015692",
+        "18000404": "18015700",
+        "18000700": "18015996",
+        "18000400": "18015696",
+        "18000420": "18015716",
+        "18000408": "18015704",
+        "18000436": "18015732",
+        "18000428": "18015724"
+      },
+      "canonical_body_sha256": "8e7c209192d8592d7af9e2c91bd47f2270638977418d1624d3e530185849810d",
+      "candidate_body_sha256": "616e2e2ae86394d173495adb143646cbc8d467f96e52e4ac0e164fd04740f1c0",
+      "tls_init_bytes": 505,
+      "table_pointer_relocation": null,
+      "discovery_shape_is_not_a_validation_oracle": true,
+      "small_constants_and_ABI_offsets_preserved": true
+    },
+    "yield": {
+      "complete_body_equal_after_recorded_relocation": true,
+      "function_renames": {
+        "Fn131": "Fn131"
+      },
+      "changed_numeric_literals": {},
+      "canonical_body_sha256": "91b13b652d2dc922a4a2e848aeba1520d9cb406341b5cd7e87b5243ef8d2db26",
+      "candidate_body_sha256": "91b13b652d2dc922a4a2e848aeba1520d9cb406341b5cd7e87b5243ef8d2db26",
+      "tls_init_bytes": 505,
+      "table_pointer_relocation": null,
+      "discovery_shape_is_not_a_validation_oracle": true,
+      "small_constants_and_ABI_offsets_preserved": true
+    },
+    "entry": {
+      "complete_body_equal_after_recorded_relocation": true,
+      "function_renames": {
+        "Fn214": "Fn214",
+        "Fn97": "Fn97",
+        "Fn210": "Fn210",
+        "Fn92": "Fn92",
+        "Fn89": "Fn89",
+        "Fn88": "Fn88",
+        "Fn84": "Fn84",
+        "Fn213": "Fn213",
+        "Fn153": "Fn153",
+        "Fn158": "Fn158"
+      },
+      "changed_numeric_literals": {
+        "18003004": "18018300",
+        "18003520": "18018816",
+        "18003568": "18018864",
+        "18004112": "18019408",
+        "18004116": "18019412",
+        "17998980": "18014276",
+        "17998977": "18014273",
+        "18004120": "18019416",
+        "18061520": "18076816"
+      },
+      "canonical_body_sha256": "e2c425c2f1e5fa153d029b27ad6f5239b6aa20f6fd6e2bf2ef1f2f93ea2b4bcb",
+      "candidate_body_sha256": "03485546e80b0089fd312fdb765d07c2c5a00c264ddf0886e8641a768d37b1e1",
+      "tls_init_bytes": 505,
+      "table_pointer_relocation": {
+        "old_index": 12,
+        "new_index": 12,
+        "old_function": "Fn133",
+        "new_function": "Fn133",
+        "old_body_sha256": "c5500d345612bf7931beccb35ecc5e593c77eb377f4507c9cb5cd921804b091f",
+        "new_body_sha256": "c5500d345612bf7931beccb35ecc5e593c77eb377f4507c9cb5cd921804b091f"
+      },
+      "discovery_shape_is_not_a_validation_oracle": true,
+      "small_constants_and_ABI_offsets_preserved": true
+    }
+  },
+  "ABI_offsets": {
+    "start_args.pthread": 16,
+    "pthread.map_base": 40,
+    "pthread.map_size": 44
+  },
+  "status": "Exact new guest function bodies reviewed; UNQUALIFIED experimental target only"
+}

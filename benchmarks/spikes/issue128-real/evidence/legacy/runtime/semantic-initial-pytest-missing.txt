@@ -1,0 +1,10 @@
+Disk preflight OK: 15.36 GiB free, 4.13 GiB owned
+/opt/homebrew/opt/python@3.14/bin/python3.14: No module named pytest
+Traceback (most recent call last):
+  File "<REPO>/build/issue128-real/temp/legacy_driver.py", line 39, in <module>
+    run([sys.executable,'-m','pytest',str(repo/'tests/test_dev_guest_smoke.py'),'-q','--junitxml='+str(w/'evidence/dev-smoke.xml')],cwd=product,env=smoke_env,check=True,timeout=1800,phase='legacy:finite-semantic-smoke')
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<REPO>/build/issue128-real/temp/runtime/legacy/worktree/scripts/build_feedback.py", line 200, in run
+    raise subprocess.CalledProcessError(retcode, process.args,
+                                        output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/opt/homebrew/opt/python@3.14/bin/python3.14', '-m', 'pytest', '<REPO>/build/issue128-real/temp/runtime/legacy/worktree/tests/test_dev_guest_smoke.py', '-q', '--junitxml=<REPO>/build/issue128-real/temp/runtime/legacy/evidence/dev-smoke.xml']' returned non-zero exit status 1.

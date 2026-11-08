@@ -48,6 +48,18 @@ def descriptor(root, lock):
         raise ValueError('target source overlay inventory differs')
     for file in files:
         safe_relative(file)
+    native = value.get('native_overlay')
+    if (root / 'guest/experimental.patch').exists() != (native is not None):
+        raise ValueError('target native overlay presence differs')
+    if native is not None:
+        if (native['file'] != 'guest/experimental.patch' or
+                digest(root / native['file']) != native['sha256']):
+            raise ValueError('target native overlay identity mismatch')
+        names = re.findall(r'^\+\+\+ b/(.+)$', (root / native['file']).read_text(), re.M)
+        if set(names) != set(native['before_sha256']) or set(names) != set(native['after_sha256']):
+            raise ValueError('target native overlay inventory differs')
+        for name in names:
+            safe_relative(name)
     return value
 
 

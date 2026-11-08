@@ -1,0 +1,15 @@
+from pathlib import Path
+import json,os,signal,sys,time
+sys.path.insert(0,'scripts');from experiment_disk import allocated_bytes
+root=Path('build/issue128-real/temp').absolute();external=Path('/private/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/go-build1572849496');peak=0;outside_peak=0;minimum=None;start=time.monotonic();samples=[]
+while True:
+ try:os.kill(64967,0)
+ except ProcessLookupError:break
+ inside=allocated_bytes(root);outside=allocated_bytes(external);free=os.statvfs(root).f_bavail*os.statvfs(root).f_frsize;peak=max(peak,inside+outside);outside_peak=max(outside_peak,outside);minimum=free if minimum is None else min(minimum,free)
+ samples.append({'elapsed_seconds':time.monotonic()-start,'owned_inside_bytes':inside,'owned_go_temp_bytes':outside,'free_bytes':free})
+ if inside+outside>12*1024**3 or free<12*1024**3:
+  os.killpg(64967,signal.SIGTERM);raise RuntimeError('combined owned storage/floor breach')
+ if time.monotonic()-start>1500:raise TimeoutError('owned compiler accounting watchdog')
+ time.sleep(2)
+(root/'runtime/legacy/evidence/go-temp-accounting.json').write_text(json.dumps({'external_temp':'<TMP>/go-build1572849496','combined_sampled_peak_bytes':peak,'external_sampled_peak_bytes':outside_peak,'minimum_free_bytes':minimum,'samples':samples,'limitation':'Combined counter attached after host compilation started; early Go temp was outside the initial owned-path counter, while the global free-floor guard was active.'},indent=2)+'\n')
+print('Combined Go temp accounting complete',peak,outside_peak)

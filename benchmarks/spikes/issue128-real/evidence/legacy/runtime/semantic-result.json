@@ -1,0 +1,6 @@
+{
+  "guest_sha256": "1854c8106abf275e67c84b6e43a6035109021d81d3612f54d0f17baa31906214",
+  "result": "PASS original dev smoke plus original P1 and P2 repair probes",
+  "scope": "Fresh SQL, InnoDB writes, commit/rollback, Snapshot, three independent Forks, shared host/close/drain checks; not native suites or public C3",
+  "source_commit": "ecf81035009bd4e353ddee302f73c781c77a3f28"
+}

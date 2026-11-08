@@ -3,6 +3,7 @@
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import sys
 import time
@@ -18,6 +19,7 @@ def write(path, data):
 
 
 started = time.monotonic()
+os.environ.setdefault('MARIAMEM_PHASE_TRACE', '/output/phases.jsonl')
 identity = inspect_ref(repo, 'HEAD')
 require_commit(repo, identity.source_commit)
 assert identity.object_type == 'commit'

@@ -1,0 +1,38 @@
+[
+  {
+    "file": "python-install.txt",
+    "raw_sha256": "aa9e031b2d76552758e70f58ab0a4c559813849457a4f8b53a72f5bc482a718f",
+    "normalized_sha256": "3a5afc24365553b8c9dd95292c2da8d63939b3224674a8eaf27bc0f7d2815da1",
+    "rule": "Task repository path -> <REPO>; semantic content and original failures retained"
+  },
+  {
+    "file": "legacy/runtime/translation-initial-cache-guard.txt",
+    "raw_sha256": "f9d41c47e6a3e593fb92c3cfc839893a84cff713dcb6a4406a4f4cd071c1b21f",
+    "normalized_sha256": "aa6fae9fa468b8be4fc89d7d9ae418b4b881c682127c7258d77ecb309be41421",
+    "rule": "Task repository path -> <REPO>; semantic content and original failures retained"
+  },
+  {
+    "file": "legacy/runtime/host-phases.jsonl",
+    "raw_sha256": "11bc8625e7dda9a57ef5e903c3d9de00dcf83bda0fc75f3633f4ed7d9659d1a5",
+    "normalized_sha256": "91bbafd7482f7cf5d15c22bf2a442ff0de41850a075579c0fd3e2ab586423899",
+    "rule": "Task repository path -> <REPO>; semantic content and original failures retained"
+  },
+  {
+    "file": "legacy/runtime/translation.txt",
+    "raw_sha256": "e07fe585f4c11cf7b4b40ab2fd105aba71c3a6d1e44067102d21412dd7e77bf6",
+    "normalized_sha256": "24fdf4b5db414003092aeac92ed0d7c5b8b3e270f602bd5183514fb3d4241fa9",
+    "rule": "Task repository path -> <REPO>; semantic content and original failures retained"
+  },
+  {
+    "file": "legacy/runtime/semantic-original-version-guard.txt",
+    "raw_sha256": "ad50bdaf121ecd1a8c278fa7e3107e3c58cbc3ea2d31ce6fad0652113fd2ebc8",
+    "normalized_sha256": "99b97367d14645730b17db325bc1e6fca621a4ee79b97a07b5d82fb31a80e8ea",
+    "rule": "Task repository path -> <REPO>; semantic content and original failures retained"
+  },
+  {
+    "file": "legacy/runtime/semantic-initial-pytest-missing.txt",
+    "raw_sha256": "d9c767e8e2d67016ba1373e23a97d78b15dfe65d4a84c3d9f9c78baabfd6d212",
+    "normalized_sha256": "8fcc0b3e94c5f72a02c0282f3360578b1ec544208e509d30d46530d79b62ae9d",
+    "rule": "Task repository path -> <REPO>; semantic content and original failures retained"
+  }
+]

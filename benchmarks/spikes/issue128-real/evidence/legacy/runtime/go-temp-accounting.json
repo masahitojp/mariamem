@@ -1,0 +1,8 @@
+{
+  "external_temp": "<TMP>/go-build1572849496",
+  "combined_sampled_peak_bytes": 0,
+  "external_sampled_peak_bytes": 0,
+  "minimum_free_bytes": null,
+  "samples": [],
+  "limitation": "Combined counter attached after host compilation started; early Go temp was outside the initial owned-path counter, while the global free-floor guard was active."
+}

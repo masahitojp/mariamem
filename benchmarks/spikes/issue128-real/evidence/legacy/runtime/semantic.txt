@@ -1,0 +1,4 @@
+Disk preflight OK: 15.30 GiB free, 4.16 GiB owned
+.                                                                        [100%]
+1 passed in 0.41s
+test completed

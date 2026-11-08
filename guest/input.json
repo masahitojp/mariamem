@@ -120,5 +120,53 @@
       "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9"
     }
   },
-  "experiment_contract": "issue128-target-source-v1"
+  "experiment_contract": "issue128-target-source-v1",
+  "native_overlay": {
+    "file": "guest/experimental.patch",
+    "sha256": "867e3a8b2aaab3be3d4bd20e64236d63d1915ede04be94a3437f7e5874f1295d",
+    "before_sha256": {
+      "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
+      "include/violite.h": "0be1b5c9a8fb6bed71d9a504c7eef69746fa2b388adcd8b68a3642608757f1d4",
+      "libmysqld/lib_sql.cc": "9f1d1f9152032ec14a619cd48ebcb9ec62a057298c19d871876d5285cca02ec9",
+      "libmysqld/mariamem_control_abi.h": null,
+      "libmysqld/mariamem_wire_probe.inc": null,
+      "sql-common/client.c": "40d26fe8713eaa276c8b095ec055034eea4f31162c49e2feb9b7254ec0bdf3a6",
+      "sql/item.h": "00aeacd83b3892472837dae8bb04c5dae74f9e694a0907625c210fe20544a74b",
+      "sql/mariamem_wire_policy.h": null,
+      "sql/net_serv.cc": "7d7b8b8a8de1834099f350912ed9255a1f376565da407e8dc461f97c72f12c93",
+      "sql/protocol.cc": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242",
+      "sql/protocol.h": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+      "sql/sql_acl.cc": "db399e9c21cbd86fe0f82d7938eaaa0747055092d8fb031d9785d35717d70efc",
+      "sql/sql_class.cc": "9ec18f0b51b89d1f3240f19c28e43f21ba01b4b9d78d7171c4a327e806b303ef",
+      "sql/sql_class.h": "b808088bd758fdf052a37916ce7402e73d273360bf789e7ed01d78b51bfdc083",
+      "sql/sql_parse.cc": "3510eda6ae7ddd07d16a289b680193d03216d0c66d7f65be0eafa6f80946ce73",
+      "sql/sql_prepare.cc": "6b021ec92b623b9d82db93dc78bc3ff250184852c64ea2394bd575fad4f45227",
+      "wasm/CMakeLists.txt": "35404ae73df8957fc1604d0a0e7fb55e4005cb7f2176bf6996a3cf511f2f75c9",
+      "wasm/issue65_control.cc": null,
+      "wasm/issue65_deadline.h": null,
+      "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9"
+    },
+    "after_sha256": {
+      "cmake/os/WASIX.cmake": "511f32c28eaf2ceb39a1c1d2a99cb7fa1addf90d4b36929a9f197bee0fd7b766",
+      "include/violite.h": "e9325ba0c03ee52d6852921cd8fb636d25df49ea1dfaaff00c2d70006a128c0b",
+      "libmysqld/lib_sql.cc": "6ec2686da0a6c19ab53528582724bf70fba6b9f95a5b904a2236e4987786fb60",
+      "libmysqld/mariamem_control_abi.h": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075",
+      "libmysqld/mariamem_wire_probe.inc": "584949484d8432b0b538876adbd2f6571ff50893882976cc56ea8b9508bcfc78",
+      "sql-common/client.c": "92c3aae9f9cdf0abcf51715b0ecaaa7933145b6b2e81204eccc2c476b8ba8db0",
+      "sql/item.h": "d46a51764ea7fec7904bad3858cce004fb9b19579bb76a63daf501abcb480c22",
+      "sql/mariamem_wire_policy.h": "b49dc0565b4ea31d71b2323cdc04ceb3e260cd2b7df80c003a3d2dbb0a7d5580",
+      "sql/net_serv.cc": "a7daad10c40681147cba3d0a17e8cf24f9cef89f1b82844bb75195dd386e0452",
+      "sql/protocol.cc": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703",
+      "sql/protocol.h": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7",
+      "sql/sql_acl.cc": "9792893c0d6e8375a489387f5836ae51f3e8381df400df144db6b3496e535b6a",
+      "sql/sql_class.cc": "55f9157807bbb27671ed3baf774e06b46d9b6b005e6dd1802d687f714642cf24",
+      "sql/sql_class.h": "c0a95966b944c5fab4b386ff4863278d1880a1e8b063543be681c6259e5454df",
+      "sql/sql_parse.cc": "0fb551c37b3ad6c8678cfa0fda982a587b668f2cf391bd408ec68c0c557ef18c",
+      "sql/sql_prepare.cc": "06ba5b6bbe1a474f7b7fa120587d62588065c7a7c2b4941565da0c6176c0821b",
+      "wasm/CMakeLists.txt": "2020eddc8244dbfe4063270603efd52e4a901f7a3540492006552e93c8b9c81a",
+      "wasm/issue65_control.cc": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f",
+      "wasm/issue65_deadline.h": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
+      "wasm/lite4mariadb.c": "b25cb802cdc352f451caead95061a21dd71680c4a805c07377834d9da0a059f9"
+    }
+  }
 }
