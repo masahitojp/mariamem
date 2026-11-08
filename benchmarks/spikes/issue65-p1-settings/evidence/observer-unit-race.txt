@@ -1,0 +1,2 @@
+ok  	github.com/masahitojp/mariamem/internal/nativewire	1.165s
+ok  	github.com/masahitojp/mariamem/internal/live	1.159s

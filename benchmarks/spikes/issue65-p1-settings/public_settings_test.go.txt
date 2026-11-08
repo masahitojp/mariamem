@@ -1,0 +1,178 @@
+package mariamem
+
+import (
+	"context"
+	"database/sql"
+	"encoding/json"
+	"fmt"
+	"strconv"
+	"testing"
+	"time"
+
+	mysql "github.com/go-sql-driver/mysql"
+	"github.com/masahitojp/mariamem/internal/host"
+	"github.com/masahitojp/mariamem/internal/nativewire"
+)
+
+func c3Options(t *testing.T, phase string, got, want Options) {
+	t.Helper()
+	if got != want {
+		t.Fatalf("exact Options phase=%s: got %+v want %+v", phase, got, want)
+	}
+}
+func c3Observe(t *testing.T, phase, route, dsn string, db *Database, pipe bool, want Options, liveGeneration uint64) {
+	t.Helper()
+	c3Options(t, phase, db.opts, want)
+	native, ok := db.server.(*host.Native)
+	if !ok {
+		t.Fatalf("%s did not reach native public backend: %T", phase, db.server)
+	}
+	cfg, err := mysql.ParseDSN(dsn)
+	if err != nil {
+		t.Fatal(err)
+	}
+	cfg.InterpolateParams = false
+	if pipe {
+		cfg.DialFunc = db.DialContext
+	}
+	connector, err := mysql.NewConnector(cfg)
+	if err != nil {
+		t.Fatal(err)
+	}
+	pool := sql.OpenDB(connector)
+	pool.SetMaxIdleConns(0)
+	defer pool.Close()
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	connection, err := pool.Conn(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer connection.Close()
+	var answer int
+	if err = connection.QueryRowContext(ctx, "SELECT ? + ?", 13, 29).Scan(&answer); err != nil || answer != 42 {
+		t.Fatalf("public prepared query phase=%s route=%s: %d %v", phase, route, answer, err)
+	}
+	observed, err := native.C3InspectTimeout(ctx)
+	if err != nil {
+		t.Fatalf("guest INSPECT phase=%s route=%s: %v", phase, route, err)
+	}
+	expected := strconv.FormatInt(int64(want.QueryTimeout), 10)
+	if observed.TimeoutNS != expected {
+		t.Fatalf("exact guest timeout phase=%s route=%s: got %s want %s", phase, route, observed.TimeoutNS, expected)
+	}
+	if err = db.Err(); err != nil {
+		t.Fatal(err)
+	}
+	data, err := json.Marshal(struct {
+		Case           string `json:"case"`
+		Phase          string `json:"phase"`
+		Route          string `json:"route"`
+		LiveGeneration uint64 `json:"live_generation"`
+		StartupNS      string `json:"startup_ns"`
+		ShutdownNS     string `json:"shutdown_ns"`
+		nativewire.C3TimeoutObservation
+	}{t.Name(), phase, route, liveGeneration, strconv.FormatInt(int64(want.StartupTimeout), 10), strconv.FormatInt(int64(want.ShutdownTimeout), 10), observed})
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log("C3_SETTINGS " + string(data))
+	if err = connection.Close(); err != nil {
+		t.Fatal(err)
+	}
+	if err = pool.Close(); err != nil {
+		t.Fatal(err)
+	}
+	if err = db.WaitDisconnected(ctx); err != nil {
+		t.Fatal(err)
+	}
+}
+func c3Direct(t *testing.T, phase string, db *Database, opts Options) {
+	t.Helper()
+	for _, pipe := range []bool{false, true} {
+		route := "tcp"
+		if pipe {
+			route = "pipe"
+		}
+		c3Observe(t, phase, route, db.DSN(), db, pipe, opts, 0)
+	}
+}
+func c3Live(t *testing.T, phase string, l *Live, opts Options, generation uint64) {
+	t.Helper()
+	if s := l.Status(); s.State != "ready" || s.Generation != generation {
+		t.Fatalf("%s status: %+v", phase, s)
+	}
+	child, ok := l.endpoint.C3ObservedChild().(liveChild)
+	if !ok {
+		t.Fatalf("unexpected Live child: %T", l.endpoint.C3ObservedChild())
+	}
+	c3Observe(t, phase, "tcp", l.DSN(), child.Database, false, opts, generation)
+	deadline := time.Now().Add(5 * time.Second)
+	for l.Status().ActiveConnections != 0 {
+		if time.Now().After(deadline) {
+			t.Fatal("physical Live connection did not drain")
+		}
+		time.Sleep(time.Millisecond)
+	}
+}
+func TestNativePublicExactSettingsInheritance(t *testing.T) {
+	for _, d := range []time.Duration{1234*time.Millisecond + 567890*time.Nanosecond, 30*time.Second + time.Nanosecond} {
+		t.Run(fmt.Sprint(int64(d)), func(t *testing.T) {
+			opts := Options{StartupTimeout: 90*time.Second + 17*time.Nanosecond, ShutdownTimeout: 20*time.Second + 19*time.Nanosecond, QueryTimeout: d}
+			db, err := Start(context.Background(), opts)
+			if err != nil {
+				t.Fatal(err)
+			}
+			t.Cleanup(func() {
+				if err := db.Close(); err != nil {
+					t.Error(err)
+				}
+			})
+			c3Direct(t, "start", db, opts)
+			snapshot, err := db.Snapshot(context.Background(), SnapshotOptions{MaxForks: 2})
+			if err != nil {
+				t.Fatal(err)
+			}
+			t.Cleanup(func() {
+				if err := snapshot.Close(); err != nil {
+					t.Error(err)
+				}
+			})
+			c3Options(t, "snapshot", snapshot.opts, opts)
+			if !db.Closed() {
+				t.Fatal("Snapshot did not consume source")
+			}
+			child, err := snapshot.Fork(context.Background())
+			if err != nil {
+				t.Fatal(err)
+			}
+			t.Cleanup(func() {
+				if err := child.Close(); err != nil {
+					t.Error(err)
+				}
+			})
+			c3Direct(t, "fork", child, opts)
+			if err := child.Close(); err != nil {
+				t.Fatal(err)
+			}
+			live, err := snapshot.Live(context.Background())
+			if err != nil {
+				t.Fatal(err)
+			}
+			t.Cleanup(func() {
+				if err := live.Close(); err != nil {
+					t.Error(err)
+				}
+			})
+			c3Live(t, "live", live, opts, 0)
+			before := live.ConnectionInfo()
+			if err := live.Reset(context.Background(), ResetOptions{DrainTimeout: 2 * time.Second}); err != nil {
+				t.Fatal(err)
+			}
+			if live.ConnectionInfo() != before {
+				t.Fatal("Reset changed stable endpoint")
+			}
+			c3Live(t, "reset", live, opts, 1)
+		})
+	}
+}

@@ -1,0 +1,79 @@
+package nativewire
+
+import (
+	"context"
+	"encoding/json"
+	"io"
+	"os"
+	"testing"
+)
+
+func TestC3TimeoutReply(t *testing.T) {
+	token := Token{41, 7, 23}
+	for _, ns := range []string{"1234567890", "30000000001", "9223372036854775807"} {
+		body, _ := json.Marshal(map[string]string{"timeout_ns": ns})
+		f := frame{kind: 102, epoch: token.Epoch, slot: token.Slot, generation: token.Generation, body: body}
+		got, err := c3TimeoutReply(f, token)
+		if err != nil || got.TimeoutNS != ns || got.Epoch != 41 || got.Slot != 7 || got.Generation != 23 {
+			t.Fatal(got, err)
+		}
+		for _, change := range []func(*frame){func(f *frame) { f.kind = 110 }, func(f *frame) { f.epoch++ }, func(f *frame) { f.slot++ }, func(f *frame) { f.generation++ }} {
+			bad := f
+			change(&bad)
+			if _, err := c3TimeoutReply(bad, token); err == nil {
+				t.Fatal("accepted wrong reply", bad)
+			}
+		}
+	}
+	for _, body := range []string{`{}`, `{"timeout_ns":"0"}`, `{"timeout_ns":"-1"}`, `{"timeout_ns":"01"}`, `{"timeout_ns":"9223372036854775808"}`, `{"timeout_ns":30000000001}`, `not json`} {
+		if _, err := c3TimeoutReply(frame{kind: 102, epoch: 41, slot: 7, generation: 23, body: []byte(body)}, token); err == nil {
+			t.Fatal("accepted", body)
+		}
+	}
+}
+
+// Exercise actual host framing/request correlation with pipes, without claiming
+// this tiny peer is a MariaDB runtime or public acceptance.
+func TestC3InspectUsesGuestReply(t *testing.T) {
+	input, writer, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer input.Close()
+	defer writer.Close()
+	b := &Backend{in: writer, epoch: 41, pending: map[uint32]chan frame{}, opening: map[uint32]*session{},
+		sessions: map[key]*session{{7, 23}: {}}, failed: make(chan struct{}), executionDone: make(chan struct{})}
+	done := make(chan error, 1)
+	go func() {
+		f, err := readFrame(input)
+		if err != nil {
+			done <- err
+			return
+		}
+		if f.kind != 9 || f.epoch != 41 || f.slot != 7 || f.generation != 23 {
+			done <- io.ErrUnexpectedEOF
+			return
+		}
+		b.mu.Lock()
+		response := b.pending[f.request]
+		b.mu.Unlock()
+		response <- frame{kind: 102, request: f.request, epoch: 41, slot: 7, generation: 23, body: []byte(`{"timeout_ns":"30000000001"}`)}
+		done <- nil
+	}()
+	got, err := b.C3InspectTimeout(context.Background())
+	if err != nil || got.TimeoutNS != "30000000001" {
+		t.Fatal(got, err)
+	}
+	if err := <-done; err != nil {
+		t.Fatal(err)
+	}
+	delete(b.sessions, key{7, 23})
+	if _, err := b.C3InspectTimeout(context.Background()); err == nil {
+		t.Fatal("accepted absent session")
+	}
+	b.sessions[key{7, 23}] = &session{}
+	b.sessions[key{8, 24}] = &session{}
+	if _, err := b.C3InspectTimeout(context.Background()); err == nil {
+		t.Fatal("accepted ambiguous session")
+	}
+}

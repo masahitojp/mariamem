@@ -1,0 +1,54 @@
+package nativewire
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"strconv"
+)
+
+// Staged observation only. The existing profile3 guest answers INSPECT with its
+// session deadline, not the host's cached limit or the public Options value.
+// No guest bytes, relay handling or production API are changed.
+type C3TimeoutObservation struct {
+	Epoch      uint64 `json:"epoch"`
+	Slot       uint32 `json:"slot"`
+	Generation uint64 `json:"generation"`
+	TimeoutNS  string `json:"timeout_ns"`
+}
+
+func (r *Backend) C3InspectTimeout(ctx context.Context) (C3TimeoutObservation, error) {
+	r.mu.Lock()
+	if len(r.sessions) != 1 {
+		n := len(r.sessions)
+		r.mu.Unlock()
+		return C3TimeoutObservation{}, fmt.Errorf("inspect needs one physical session, got %d", n)
+	}
+	var id key
+	for k := range r.sessions {
+		id = k
+	}
+	epoch := r.epoch
+	r.mu.Unlock()
+	f, err := r.rpcContext(ctx, frame{kind: 9, slot: id.slot, generation: id.generation})
+	if err != nil {
+		return C3TimeoutObservation{}, err
+	}
+	return c3TimeoutReply(f, Token{epoch, id.slot, id.generation})
+}
+func c3TimeoutReply(f frame, token Token) (C3TimeoutObservation, error) {
+	if f.kind != 102 || f.epoch != token.Epoch || f.slot != token.Slot || f.generation != token.Generation {
+		return C3TimeoutObservation{}, fmt.Errorf("unexpected INSPECT reply: kind=%d identity=%d/%d/%d", f.kind, f.epoch, f.slot, f.generation)
+	}
+	var body struct {
+		TimeoutNS string `json:"timeout_ns"`
+	}
+	if err := json.Unmarshal(f.body, &body); err != nil {
+		return C3TimeoutObservation{}, err
+	}
+	ns, err := strconv.ParseUint(body.TimeoutNS, 10, 63)
+	if err != nil || ns == 0 || strconv.FormatUint(ns, 10) != body.TimeoutNS {
+		return C3TimeoutObservation{}, fmt.Errorf("invalid exact guest timeout_ns %q", body.TimeoutNS)
+	}
+	return C3TimeoutObservation{f.epoch, f.slot, f.generation, body.TimeoutNS}, nil
+}

@@ -1,0 +1,1 @@
+go: golang.org/toolchain@v0.0.1-go1.26.10.darwin-arm64: verifying module: golang.org/toolchain@v0.0.1-go1.26.10.darwin-arm64: initializing sumdb.Client: checking tree#70945912: Get "https://proxy.golang.org/sumdb/sum.golang.org/supported": dial tcp: lookup proxy.golang.org: no such host
