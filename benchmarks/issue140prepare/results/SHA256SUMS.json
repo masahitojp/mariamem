@@ -1,0 +1,14 @@
+{
+  "README.md": "9edeeed62e296774e3ed8d1adbb1c4649037cea7e9fe9ff39528241a061c06fb",
+  "analyze.py": "601429edb20b60d53112377393e68ea485221ae4f4d3efec11b4a92e5065f4d8",
+  "assessment.json": "43ac3689d44a08e025587ab3d5b755a74be4b8008aeaed347d407cd708cfe4e4",
+  "control-0-pool16-on/profile-0.txt": "c5e1e1de574e9cb7ddd80d2ff6d654429c6b33b28c0b77c25a12093fcfcc0e62",
+  "inputs.json": "9e0f5e8d5b9bc6893ea2b44218655d175649c49e7956e660c932bd20918f6c87",
+  "natural-3-pool8-on/profile-0.txt": "c486143c83d68f439cc93298d1fb4bed7beee0d66d455a3f90d06c3d201f0e60",
+  "natural-7-pool16-on/profile-0.txt": "3ac07ea7b526f830f5887cb538a329ebe5e9a5c23cd3b900217fda42b91c79c7",
+  "observations.json": "1336bc98f137b4747a19b37f71fd9eca7ab357393614aa82a7bdf30512872ae0",
+  "source-binding.json": "de87ef63aa1c09bf62cf35037de5cd062a257717ae2261d4e1c7a85ca6432019",
+  "source-excerpts.json": "ebc29bf71069769d35572e0f40ca446e9529333468a86e332a1703fcd2376b8e",
+  "source-inputs.json": "a7fae10689e4fc236dda0f9fb367be8a6b808691796e2314adf3c6f9e46dfc48",
+  "summary.json": "3ff92c106785206ab1d7b1e9654662a1618be1366844bc19397eec180b53692b"
+}

@@ -1,0 +1,87 @@
+{
+  "source": {
+    "object_sha": "d18a1d86d427e5ee67da3b8d4d9ae8227863a565",
+    "object_type": "commit",
+    "source_commit": "d18a1d86d427e5ee67da3b8d4d9ae8227863a565"
+  },
+  "plan": {
+    "issue": "https://github.com/masahitojp/mariamem/issues/140",
+    "question": "Capture a natural long PREPARE under a single polling watcher and compare its current-source path with Issue68.",
+    "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+    "origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+    "parent_diagnostic_source_commit": "2ef12c4a455d8e759325c277827355bd35d27ec6",
+    "workload": "same shop70/Pipe/P8/cap9",
+    "natural_blocks": [
+      [
+        [
+          16,
+          false
+        ],
+        [
+          16,
+          true
+        ],
+        [
+          8,
+          true
+        ],
+        [
+          8,
+          false
+        ]
+      ],
+      [
+        [
+          8,
+          false
+        ],
+        [
+          8,
+          true
+        ],
+        [
+          16,
+          true
+        ],
+        [
+          16,
+          false
+        ]
+      ]
+    ],
+    "natural_processes": 8,
+    "positive_controls": 1,
+    "poll_interval_ms": 20,
+    "threshold_ms": 100,
+    "capture_limit_per_process": 1,
+    "profile_cap_bytes": 2097152,
+    "observer": "atomic published in-flight call pointer, one watcher, no per-query timer/goroutine. Profile may perturb scheduling; no performance adoption claim.",
+    "precision": "microsecond caller/snapshot offsets; point-in-time profile is not entire wait attribution",
+    "go": "go1.27.3",
+    "gomaxprocs": 8,
+    "gogc": 100,
+    "host": "local M1/macOS arm64",
+    "timeout_seconds": 900,
+    "min_free_gib": 8,
+    "budget_gib": 10,
+    "active_budget_hours": 2,
+    "tooling_budget_minutes": 30,
+    "heavy_ci_limit": 0,
+    "exit": "one live SQL control, fixed8 natural runs on/off; SAME_PATH / DIFFERENT_PATH / PARTIAL / NO_USABLE_CAPTURE. No automatic sampling beyond this, no parameter change or fix/main/release."
+  },
+  "host": {
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "go": "go version go1.27.3 darwin/arm64",
+    "cpu": "Apple M1",
+    "memory": "17179869184"
+  },
+  "overlay": {
+    "generated_path": "internal/generatedgo/code/p5/p5_pure.go",
+    "before_sha256": "650546161662f32d14238dd8d3a1f4e62eeadddbeba78d94a95d9d6e7c696852",
+    "after_sha256": "19baaf0b0f87e4df8cd3ae00f134ace78f1ba1d3489e7bfc41010ec1ebcda04a",
+    "selector_sha256": "48b600d4bc1d3a5f6c61e72885d2e5a7b57dab3efa011cbb27a7a3742b676552"
+  },
+  "binary_sha256": "80b1a219251fe439b13040037b024f44a9ca3610d37c2d6a4a21f1da59165aa0",
+  "build_info": "<WORKSPACE>/temp/probe: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue88modelcase/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/issue88modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t../..\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n",
+  "build_seconds": 123.953656458
+}

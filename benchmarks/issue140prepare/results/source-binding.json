@@ -1,0 +1,37 @@
+{
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "kind": "selected structural correspondence, no full C symbol map",
+  "functions": {
+    "Fn16624": {
+      "path": "internal/generatedgo/code/p6/p6_pure.go",
+      "line": 896036,
+      "sha256": "6ebbf6fd7dead009bca7b6be4ecf05728beca3cc43aaec3a6dca5a7efd1c6420"
+    },
+    "Fn16787": {
+      "path": "internal/generatedgo/code/p8/p8_pure.go",
+      "line": 358724,
+      "sha256": "b79e696c495ce3c2ab0347f413f20f5939758fb706fa7f5911831a959e646019"
+    },
+    "Fn18164": {
+      "path": "internal/generatedgo/code/p3/p3_pure.go",
+      "line": 961856,
+      "sha256": "f019e263eb536cbc496f600050eb5a30c087fa96dabcc4eaa05fe605ddea1b06"
+    },
+    "Fn18162": {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "line": 1033592,
+      "sha256": "974a58c53282a641d5da2bd0f49ea33632c9b6d465eb070237234da70def0d49"
+    },
+    "Fn17217": {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "line": 895575,
+      "sha256": "4226c5e6ed7b5b0c767c8c1ab8589969d67153e112b3e16584da3a2db53903be"
+    }
+  },
+  "static_literals": {
+    "8705264": "/work/source/storage/innobase/trx/trx0purge.cc",
+    "8759171": "hdr_page_no != FIL_NULL",
+    "8542780": "tail.trx_no <= last_trx_no"
+  },
+  "literal_note": "Code provenance anchors only; not evidence an assertion failed."
+}

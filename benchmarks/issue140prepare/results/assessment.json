@@ -1,0 +1,18 @@
+{
+  "issue": 140,
+  "result": "NATURAL_PREPARE_CAPTURED / shared read-completion path located; root cause unresolved",
+  "measured_source_commit": "d18a1d86d427e5ee67da3b8d4d9ae8227863a565",
+  "natural_processes": 8,
+  "control_processes": 1,
+  "natural_cases": 560,
+  "all_case_oracles_passed": 630,
+  "captures_natural": 2,
+  "sizes_with_usable_capture": [
+    8,
+    16
+  ],
+  "old_issue68": "common buffer-page subsystem; immediate gate differs from old UPDATE writer-mutex/undo path; shared cause not proven",
+  "no_setting_or_product_changes": true,
+  "original_external_runner_sha256": "d8cd6a5ab4f7edc6b5a8976d74cb24658d49ff42c13c7341de2ac5b4520139a4",
+  "stop": "fixed8natural done; no further runtime sampling, fix or default/main/release change"
+}

@@ -1,0 +1,428 @@
+{
+  "result": "NATURAL_PREPARE_CAPTURED; immediate page-read-completion path differs from old UPDATE writer acquisition, common root cause UNVERIFIED",
+  "natural_runs": [
+    {
+      "name": "natural-1-pool16-off",
+      "block": 0,
+      "pool_mib": 16,
+      "watcher": false,
+      "suite_ms": 584.733,
+      "long_calls": [
+        {
+          "lane": "TestCancelOrder/pending",
+          "phase": "prepare",
+          "duration_ms": 388.932
+        }
+      ],
+      "captures": 0
+    },
+    {
+      "name": "natural-2-pool16-on",
+      "block": 0,
+      "pool_mib": 16,
+      "watcher": true,
+      "suite_ms": 536.455,
+      "long_calls": [],
+      "captures": 0
+    },
+    {
+      "name": "natural-3-pool8-on",
+      "block": 0,
+      "pool_mib": 8,
+      "watcher": true,
+      "suite_ms": 757.144,
+      "long_calls": [
+        {
+          "lane": "TestCancelOrder/pending",
+          "phase": "prepare",
+          "duration_ms": 385.95
+        },
+        {
+          "lane": "TestShipOrder/twice",
+          "phase": "prepare",
+          "duration_ms": 394.684
+        }
+      ],
+      "captures": 1
+    },
+    {
+      "name": "natural-4-pool8-off",
+      "block": 0,
+      "pool_mib": 8,
+      "watcher": false,
+      "suite_ms": 952.727,
+      "long_calls": [
+        {
+          "lane": "TestCancelOrder/another_paid",
+          "phase": "prepare",
+          "duration_ms": 383.359
+        },
+        {
+          "lane": "TestCreateOrder/out_of_stock",
+          "phase": "prepare",
+          "duration_ms": 774.771
+        }
+      ],
+      "captures": 0
+    },
+    {
+      "name": "natural-5-pool8-off",
+      "block": 1,
+      "pool_mib": 8,
+      "watcher": false,
+      "suite_ms": 585.97,
+      "long_calls": [],
+      "captures": 0
+    },
+    {
+      "name": "natural-6-pool8-on",
+      "block": 1,
+      "pool_mib": 8,
+      "watcher": true,
+      "suite_ms": 569.58,
+      "long_calls": [],
+      "captures": 0
+    },
+    {
+      "name": "natural-7-pool16-on",
+      "block": 1,
+      "pool_mib": 16,
+      "watcher": true,
+      "suite_ms": 622.735,
+      "long_calls": [
+        {
+          "lane": "TestCreateOrder/five_lines",
+          "phase": "prepare",
+          "duration_ms": 400.614
+        }
+      ],
+      "captures": 1
+    },
+    {
+      "name": "natural-8-pool16-off",
+      "block": 1,
+      "pool_mib": 16,
+      "watcher": false,
+      "suite_ms": 634.222,
+      "long_calls": [],
+      "captures": 0
+    }
+  ],
+  "captures": [
+    {
+      "run": "natural-3-pool8-on",
+      "pool_mib": 8,
+      "db_id": "issue68-db-10",
+      "lane": "TestCancelOrder/pending",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "caller_ms": 385.949,
+      "snapshot_after_entry_ms": 115.854,
+      "snapshot_ms": 4.373,
+      "foreground_function_chain": [
+        [
+          "p7",
+          "Fn88"
+        ],
+        [
+          "p4",
+          "Fn216"
+        ],
+        [
+          "p6",
+          "Fn16624"
+        ],
+        [
+          "p8",
+          "Fn16787"
+        ],
+        [
+          "p3",
+          "Fn18164"
+        ],
+        [
+          "p1",
+          "Fn18010"
+        ],
+        [
+          "p1",
+          "Fn17711"
+        ],
+        [
+          "p5",
+          "Fn17710"
+        ],
+        [
+          "p4",
+          "Fn17739"
+        ],
+        [
+          "p2",
+          "Fn18458"
+        ],
+        [
+          "p5",
+          "Fn7142"
+        ],
+        [
+          "p0",
+          "Fn15721"
+        ],
+        [
+          "p0",
+          "Fn13464"
+        ],
+        [
+          "p0",
+          "Fn13492"
+        ],
+        [
+          "p7",
+          "Fn13502"
+        ],
+        [
+          "p6",
+          "Fn14813"
+        ],
+        [
+          "p1",
+          "Fn14811"
+        ],
+        [
+          "p1",
+          "Fn5562"
+        ],
+        [
+          "p1",
+          "Fn267"
+        ],
+        [
+          "p5",
+          "Fn214"
+        ]
+      ],
+      "background_function_chain": [
+        [
+          "p7",
+          "Fn88"
+        ],
+        [
+          "p4",
+          "Fn216"
+        ],
+        [
+          "p6",
+          "Fn16624"
+        ],
+        [
+          "p8",
+          "Fn16787"
+        ],
+        [
+          "p4",
+          "Fn18162"
+        ],
+        [
+          "p4",
+          "Fn17217"
+        ],
+        [
+          "p1",
+          "Fn17221"
+        ],
+        [
+          "p5",
+          "Fn18228"
+        ],
+        [
+          "p6",
+          "Fn16586"
+        ],
+        [
+          "p6",
+          "Fn16595"
+        ],
+        [
+          "p7",
+          "Fn16599"
+        ],
+        [
+          "p5",
+          "Fn214"
+        ]
+      ],
+      "profile_sha256": "c486143c83d68f439cc93298d1fb4bed7beee0d66d455a3f90d06c3d201f0e60",
+      "profile_bytes": 232823
+    },
+    {
+      "run": "natural-7-pool16-on",
+      "pool_mib": 16,
+      "db_id": "issue68-db-9",
+      "lane": "TestCreateOrder/five_lines",
+      "sql": "INSERT INTO orders(user_id, status) VALUES (?, ?) RETURNING id",
+      "caller_ms": 400.614,
+      "snapshot_after_entry_ms": 109.507,
+      "snapshot_ms": 2.645,
+      "foreground_function_chain": [
+        [
+          "p7",
+          "Fn88"
+        ],
+        [
+          "p4",
+          "Fn216"
+        ],
+        [
+          "p6",
+          "Fn16624"
+        ],
+        [
+          "p8",
+          "Fn16787"
+        ],
+        [
+          "p3",
+          "Fn18164"
+        ],
+        [
+          "p1",
+          "Fn18010"
+        ],
+        [
+          "p1",
+          "Fn17711"
+        ],
+        [
+          "p5",
+          "Fn17710"
+        ],
+        [
+          "p4",
+          "Fn17739"
+        ],
+        [
+          "p2",
+          "Fn18458"
+        ],
+        [
+          "p5",
+          "Fn7142"
+        ],
+        [
+          "p0",
+          "Fn15721"
+        ],
+        [
+          "p0",
+          "Fn13464"
+        ],
+        [
+          "p0",
+          "Fn13492"
+        ],
+        [
+          "p7",
+          "Fn13502"
+        ],
+        [
+          "p6",
+          "Fn14813"
+        ],
+        [
+          "p1",
+          "Fn14811"
+        ],
+        [
+          "p1",
+          "Fn5562"
+        ],
+        [
+          "p1",
+          "Fn267"
+        ],
+        [
+          "p5",
+          "Fn214"
+        ]
+      ],
+      "background_function_chain": [
+        [
+          "p7",
+          "Fn88"
+        ],
+        [
+          "p4",
+          "Fn216"
+        ],
+        [
+          "p6",
+          "Fn16624"
+        ],
+        [
+          "p8",
+          "Fn16787"
+        ],
+        [
+          "p4",
+          "Fn18162"
+        ],
+        [
+          "p4",
+          "Fn17217"
+        ],
+        [
+          "p1",
+          "Fn17221"
+        ],
+        [
+          "p5",
+          "Fn18228"
+        ],
+        [
+          "p6",
+          "Fn16586"
+        ],
+        [
+          "p6",
+          "Fn16595"
+        ],
+        [
+          "p7",
+          "Fn16599"
+        ],
+        [
+          "p5",
+          "Fn214"
+        ]
+      ],
+      "profile_sha256": "3ac07ea7b526f830f5887cb538a329ebe5e9a5c23cd3b900217fda42b91c79c7",
+      "profile_bytes": 128808
+    }
+  ],
+  "control": {
+    "call_ms": 252.533,
+    "snapshot_ms": 1.347,
+    "matching_db_blocks": 11,
+    "profile_bytes": 26347
+  },
+  "negative_mutations": [
+    {
+      "run": "natural-3-pool8-on",
+      "rejected": [
+        "wrong_db",
+        "outside_window",
+        "truncated",
+        "missing_read_wait"
+      ]
+    },
+    {
+      "run": "natural-7-pool16-on",
+      "rejected": [
+        "wrong_db",
+        "outside_window",
+        "truncated",
+        "missing_read_wait"
+      ]
+    }
+  ],
+  "same_foreground_chain_across_pool_sizes": true
+}
