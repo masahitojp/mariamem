@@ -1,0 +1,13 @@
+{
+  "base_commit": "0865ceecb5be31e2ccddca334a5fb93774adf551",
+  "original_fixture_sha256": "5100c0aa4e5e2b1fadf012d24f5e7ae0a211c5ca0a83f34600e9cfca7e3e094a",
+  "exact_proposed_postimage_sha256": "b7bc75bd871a930f08c3c779a080911ebfe2532577d19f3964d126a1d558fe81",
+  "applied_fixture_sha256": "ac822754c81aec03b62802d0df8bae9fe8f2c488a0a45e7520e8466274bc4661",
+  "difference_from_proposal": "Evidence only: initial archiveOFF assertion and saved/applied/restored values logged; exact restore assertion; no workload/wait/capture changes",
+  "original_driver_sha256": "134dd178c8505b4b4bab23960f2c54a0d8021d7119d324300b47eb7263d4b9d7",
+  "new_driver_sha256": "856cb930f6126a090b6cff56f92f5bae85ff3afda2db237de1ec07062e65a6a8",
+  "driver_change": "Only supplemental fixture path; original stages/oracles/common case unchanged",
+  "optional_hook_applied": false,
+  "readback": "Exact numeric tuple equality (no integer truncation), evidence serialization handles numeric types only; all original data/wait/capture oracles unchanged",
+  "guard_sha256": "eea9c92474e976dcfadae25194f0868aaa450d972622a3c9d3a867e957922bc2"
+}

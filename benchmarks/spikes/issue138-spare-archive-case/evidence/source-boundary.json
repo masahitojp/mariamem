@@ -1,0 +1,14 @@
+{
+  "base_commit": "0865ceecb5be31e2ccddca334a5fb93774adf551",
+  "producer_source_commit": "32c799031f619164d3730b61a0bc9d7ae48dcd9b",
+  "existing_shared_identity_path": "benchmarks/spikes/issue137-helper-continuation/evidence/floor6/shared-identity.json",
+  "existing_shared_identity_sha256": "6fdce757b3781c436ca6f2eba24996a53c770e24f10d5fb8450abdff3315b18e",
+  "producer_input_files_unmodified": true,
+  "wait_branch_AST_equal_to_original": true,
+  "syntax": "PASS3 files",
+  "touched_public_boundary": true,
+  "helper_tests": "19/19 complete original helper16/observer3",
+  "exact_profiles": "PASS actual full-file profiles and negatives",
+  "optional_observer": false,
+  "native_rebuild": false
+}
