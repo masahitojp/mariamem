@@ -1,0 +1,2471 @@
+{
+  "profiles": [
+    {
+      "run": "natural-16-pool8-on",
+      "variant": "8",
+      "read_threads": 1,
+      "db": "issue68-db-2",
+      "scope": 1,
+      "io": 3,
+      "page": [
+        10,
+        0
+      ],
+      "prepare_ordinal": 1,
+      "prepare_ms": 394.149,
+      "initial_global_ms": 389.421,
+      "completion_global_ms": 6.559,
+      "initial_group_ms": 0.001,
+      "completion_group_ms": 0.025,
+      "sync_io_ms": 0.002,
+      "initial_first_blocked": null,
+      "completion_first_blocked": {
+        "at_us": 540024,
+        "pool": 268563744,
+        "active": 19,
+        "long": 0,
+        "waiting": 2,
+        "concurrency": 16,
+        "queue": 190,
+        "caller": "github.com/masahitojp/mariamem/internal/generatedgo/code/p7.Fn16605"
+      }
+    }
+  ],
+  "cases": 1750,
+  "closed_observers": 286,
+  "runs": [
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 14.91,
+          "p95_ms": 25.167,
+          "p99_ms": 31.37,
+          "max_ms": 31.37,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 14.084,
+          "p95_ms": 19.425,
+          "p99_ms": 21.448,
+          "max_ms": 21.448,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 45.995,
+          "p95_ms": 49.797,
+          "p99_ms": 54.099,
+          "max_ms": 54.099,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 22.701,
+          "p95_ms": 26.864,
+          "p99_ms": 27.706,
+          "max_ms": 27.706,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.199,
+          "p95_ms": 0.757,
+          "p99_ms": 15.746,
+          "max_ms": 15.746,
+          "ge100ms": 0
+        }
+      },
+      "name": "control-0-pool16-on",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "control",
+      "pair": -1,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 874.924,
+      "cpu_ms": 3248.2279999999996,
+      "peak_rss_mib": 785.390625,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 2.409,
+        "p95_ms": 16.85,
+        "p99_ms": 22.315,
+        "max_ms": 22.315,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 37.734,
+        "p95_ms": 49.042,
+        "p99_ms": 59.03,
+        "max_ms": 59.03,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 7898,
+        "p50_ms": 2.091,
+        "p95_ms": 10.438,
+        "p99_ms": 12.558,
+        "max_ms": 16.459,
+        "ge100ms": 0
+      },
+      "group_queue": {
+        "n": 7898,
+        "p50_ms": 0.532,
+        "p95_ms": 6.919,
+        "p99_ms": 10.373,
+        "max_ms": 11.583,
+        "ge100ms": 0
+      },
+      "read_requests": 3949,
+      "requests_with_global_ge100ms": 0,
+      "profile_count": 1
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 10.225,
+          "p95_ms": 21.66,
+          "p99_ms": 30.038,
+          "max_ms": 30.038,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 14.791,
+          "p95_ms": 21.674,
+          "p99_ms": 25.442,
+          "max_ms": 25.442,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 50.269,
+          "p95_ms": 65.694,
+          "p99_ms": 69.982,
+          "max_ms": 69.982,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 28.879,
+          "p95_ms": 35.495,
+          "p99_ms": 43.542,
+          "max_ms": 43.542,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.287,
+          "p95_ms": 0.585,
+          "p99_ms": 0.673,
+          "max_ms": 0.673,
+          "ge100ms": 0
+        }
+      },
+      "name": "warmup-1-pool16-off",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "warmup",
+      "pair": -1,
+      "read_threads": 1,
+      "observe": false,
+      "wall_ms": 643.63,
+      "cpu_ms": 3122.0530000000003,
+      "peak_rss_mib": 766.03125,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 2.091,
+        "p95_ms": 9.675,
+        "p99_ms": 18.376,
+        "max_ms": 18.376,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 37.972,
+        "p95_ms": 54.245,
+        "p99_ms": 55.106,
+        "max_ms": 55.106,
+        "ge100ms": 0
+      },
+      "global_queue": null,
+      "group_queue": null,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 4.189,
+          "p95_ms": 18.578,
+          "p99_ms": 19.054,
+          "max_ms": 19.054,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 16.064,
+          "p95_ms": 27.516,
+          "p99_ms": 30.195,
+          "max_ms": 30.195,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 52.647,
+          "p95_ms": 68.131,
+          "p99_ms": 74.517,
+          "max_ms": 74.517,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 27.861,
+          "p95_ms": 45.635,
+          "p99_ms": 46.678,
+          "max_ms": 46.678,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.346,
+          "p95_ms": 1.885,
+          "p99_ms": 13.241,
+          "max_ms": 13.241,
+          "ge100ms": 0
+        }
+      },
+      "name": "warmup-2-pool8-off",
+      "pool_mib": 8,
+      "variant": "8",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "warmup",
+      "pair": -1,
+      "read_threads": 1,
+      "observe": false,
+      "wall_ms": 645.961,
+      "cpu_ms": 3098.971,
+      "peak_rss_mib": 703.359375,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.392,
+        "p95_ms": 8.265,
+        "p99_ms": 16.625,
+        "max_ms": 16.625,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 34.412,
+        "p95_ms": 57.747,
+        "p99_ms": 65.209,
+        "max_ms": 65.209,
+        "ge100ms": 0
+      },
+      "global_queue": null,
+      "group_queue": null,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 9.183,
+          "p95_ms": 22.786,
+          "p99_ms": 46.663,
+          "max_ms": 46.663,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 14.005,
+          "p95_ms": 17.891,
+          "p99_ms": 28.128,
+          "max_ms": 28.128,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 49.293,
+          "p95_ms": 64.288,
+          "p99_ms": 72.997,
+          "max_ms": 72.997,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 26.574,
+          "p95_ms": 32.8,
+          "p99_ms": 51.949,
+          "max_ms": 51.949,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.262,
+          "p95_ms": 1.192,
+          "p99_ms": 1.262,
+          "max_ms": 1.262,
+          "ge100ms": 0
+        }
+      },
+      "name": "warmup-3-pool16-on",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "warmup",
+      "pair": -1,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 699.702,
+      "cpu_ms": 3325.0550000000003,
+      "peak_rss_mib": 774.46875,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 2.041,
+        "p95_ms": 15.79,
+        "p99_ms": 40.82,
+        "max_ms": 40.82,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 45.873,
+        "p95_ms": 70.516,
+        "p99_ms": 78.164,
+        "max_ms": 78.164,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 6752,
+        "p50_ms": 2.954,
+        "p95_ms": 24.379,
+        "p99_ms": 25.892,
+        "max_ms": 30.695,
+        "ge100ms": 0
+      },
+      "group_queue": {
+        "n": 6752,
+        "p50_ms": 0.242,
+        "p95_ms": 7.628,
+        "p99_ms": 17.803,
+        "max_ms": 19.446,
+        "ge100ms": 0
+      },
+      "read_requests": 3376,
+      "requests_with_global_ge100ms": 0,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 8.23,
+          "p95_ms": 25.928,
+          "p99_ms": 31.74,
+          "max_ms": 31.74,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 14.461,
+          "p95_ms": 22.874,
+          "p99_ms": 37.553,
+          "max_ms": 37.553,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 53.63,
+          "p95_ms": 64.873,
+          "p99_ms": 66.678,
+          "max_ms": 66.678,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 26.875,
+          "p95_ms": 37.224,
+          "p99_ms": 43.987,
+          "max_ms": 43.987,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.341,
+          "p95_ms": 1.208,
+          "p99_ms": 4.096,
+          "max_ms": 4.096,
+          "ge100ms": 0
+        }
+      },
+      "name": "warmup-4-pool8-on",
+      "pool_mib": 8,
+      "variant": "8",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "warmup",
+      "pair": -1,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 623.835,
+      "cpu_ms": 3201.4489999999996,
+      "peak_rss_mib": 638.125,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 2.554,
+        "p95_ms": 13.126,
+        "p99_ms": 23.827,
+        "max_ms": 23.827,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 43.766,
+        "p95_ms": 67.595,
+        "p99_ms": 72.033,
+        "max_ms": 72.033,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 3892,
+        "p50_ms": 2.192,
+        "p95_ms": 15.349,
+        "p99_ms": 17.012,
+        "max_ms": 22.524,
+        "ge100ms": 0
+      },
+      "group_queue": {
+        "n": 3892,
+        "p50_ms": 0.0,
+        "p95_ms": 1.783,
+        "p99_ms": 22.291,
+        "max_ms": 22.379,
+        "ge100ms": 0
+      },
+      "read_requests": 1946,
+      "requests_with_global_ge100ms": 0,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 6.107,
+          "p95_ms": 18.869,
+          "p99_ms": 399.882,
+          "max_ms": 399.882,
+          "ge100ms": 1
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 13.292,
+          "p95_ms": 21.679,
+          "p99_ms": 806.448,
+          "max_ms": 806.448,
+          "ge100ms": 1
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 41.842,
+          "p95_ms": 54.743,
+          "p99_ms": 56.829,
+          "max_ms": 56.829,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 21.045,
+          "p95_ms": 27.098,
+          "p99_ms": 29.387,
+          "max_ms": 29.387,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.305,
+          "p95_ms": 0.719,
+          "p99_ms": 0.754,
+          "max_ms": 0.754,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-5-pool16-off",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 0,
+      "read_threads": 1,
+      "observe": false,
+      "wall_ms": 1258.341,
+      "cpu_ms": 3180.1440000000002,
+      "peak_rss_mib": 876.890625,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.408,
+        "p95_ms": 8.017,
+        "p99_ms": 396.155,
+        "max_ms": 396.155,
+        "ge100ms": 1
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 41.419,
+        "p95_ms": 49.154,
+        "p99_ms": 52.748,
+        "max_ms": 52.748,
+        "ge100ms": 0
+      },
+      "global_queue": null,
+      "group_queue": null,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 5.528,
+          "p95_ms": 396.714,
+          "p99_ms": 401.545,
+          "max_ms": 401.545,
+          "ge100ms": 2
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 11.286,
+          "p95_ms": 15.206,
+          "p99_ms": 15.585,
+          "max_ms": 15.585,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 43.604,
+          "p95_ms": 53.855,
+          "p99_ms": 56.842,
+          "max_ms": 56.842,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 20.847,
+          "p95_ms": 28.889,
+          "p99_ms": 34.059,
+          "max_ms": 34.059,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.331,
+          "p95_ms": 0.887,
+          "p99_ms": 1.068,
+          "max_ms": 1.068,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-6-pool8-off",
+      "pool_mib": 8,
+      "variant": "8",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 0,
+      "read_threads": 1,
+      "observe": false,
+      "wall_ms": 854.356,
+      "cpu_ms": 2974.033,
+      "peak_rss_mib": 692.84375,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.341,
+        "p95_ms": 4.151,
+        "p99_ms": 399.997,
+        "max_ms": 399.997,
+        "ge100ms": 2
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 40.928,
+        "p95_ms": 57.15,
+        "p99_ms": 61.662,
+        "max_ms": 61.662,
+        "ge100ms": 0
+      },
+      "global_queue": null,
+      "group_queue": null,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 14.302,
+          "p95_ms": 32.877,
+          "p99_ms": 36.222,
+          "max_ms": 36.222,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 15.028,
+          "p95_ms": 23.627,
+          "p99_ms": 30.006,
+          "max_ms": 30.006,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 48.223,
+          "p95_ms": 63.639,
+          "p99_ms": 67.755,
+          "max_ms": 67.755,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 26.197,
+          "p95_ms": 35.422,
+          "p99_ms": 37.44,
+          "max_ms": 37.44,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.354,
+          "p95_ms": 1.559,
+          "p99_ms": 5.695,
+          "max_ms": 5.695,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-7-pool16-on",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 0,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 661.312,
+      "cpu_ms": 3278.806,
+      "peak_rss_mib": 781.703125,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 2.206,
+        "p95_ms": 22.692,
+        "p99_ms": 32.054,
+        "max_ms": 32.054,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 47.129,
+        "p95_ms": 73.051,
+        "p99_ms": 81.555,
+        "max_ms": 81.555,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 7846,
+        "p50_ms": 4.829,
+        "p95_ms": 17.307,
+        "p99_ms": 19.434,
+        "max_ms": 22.948,
+        "ge100ms": 0
+      },
+      "group_queue": {
+        "n": 7846,
+        "p50_ms": 0.518,
+        "p95_ms": 11.066,
+        "p99_ms": 14.692,
+        "max_ms": 19.792,
+        "ge100ms": 0
+      },
+      "read_requests": 3923,
+      "requests_with_global_ge100ms": 0,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 11.503,
+          "p95_ms": 21.626,
+          "p99_ms": 22.919,
+          "max_ms": 22.919,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 15.69,
+          "p95_ms": 28.556,
+          "p99_ms": 36.741,
+          "max_ms": 36.741,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 49.879,
+          "p95_ms": 68.916,
+          "p99_ms": 70.861,
+          "max_ms": 70.861,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 26.951,
+          "p95_ms": 39.233,
+          "p99_ms": 47.899,
+          "max_ms": 47.899,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.228,
+          "p95_ms": 1.905,
+          "p99_ms": 2.47,
+          "max_ms": 2.47,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-8-pool8-on",
+      "pool_mib": 8,
+      "variant": "8",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 0,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 684.328,
+      "cpu_ms": 3172.0330000000004,
+      "peak_rss_mib": 692.5625,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 2.522,
+        "p95_ms": 11.088,
+        "p99_ms": 12.931,
+        "max_ms": 12.931,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 43.984,
+        "p95_ms": 59.348,
+        "p99_ms": 68.317,
+        "max_ms": 68.317,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 4056,
+        "p50_ms": 0.702,
+        "p95_ms": 8.024,
+        "p99_ms": 12.888,
+        "max_ms": 13.46,
+        "ge100ms": 0
+      },
+      "group_queue": {
+        "n": 4056,
+        "p50_ms": 0.001,
+        "p95_ms": 5.663,
+        "p99_ms": 16.431,
+        "max_ms": 16.546,
+        "ge100ms": 0
+      },
+      "read_requests": 2028,
+      "requests_with_global_ge100ms": 0,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 9.665,
+          "p95_ms": 19.617,
+          "p99_ms": 20.067,
+          "max_ms": 20.067,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 14.639,
+          "p95_ms": 21.814,
+          "p99_ms": 28.116,
+          "max_ms": 28.116,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 50.006,
+          "p95_ms": 62.468,
+          "p99_ms": 68.265,
+          "max_ms": 68.265,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 24.745,
+          "p95_ms": 35.917,
+          "p99_ms": 37.234,
+          "max_ms": 37.234,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.309,
+          "p95_ms": 0.748,
+          "p99_ms": 1.261,
+          "max_ms": 1.261,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-9-pool8-on",
+      "pool_mib": 8,
+      "variant": "8",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 1,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 686.391,
+      "cpu_ms": 3258.353,
+      "peak_rss_mib": 696.90625,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 2.194,
+        "p95_ms": 9.016,
+        "p99_ms": 17.469,
+        "max_ms": 17.469,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 36.814,
+        "p95_ms": 64.931,
+        "p99_ms": 65.953,
+        "max_ms": 65.953,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 4220,
+        "p50_ms": 1.711,
+        "p95_ms": 7.71,
+        "p99_ms": 11.094,
+        "max_ms": 11.816,
+        "ge100ms": 0
+      },
+      "group_queue": {
+        "n": 4220,
+        "p50_ms": 0.001,
+        "p95_ms": 4.573,
+        "p99_ms": 6.38,
+        "max_ms": 10.392,
+        "ge100ms": 0
+      },
+      "read_requests": 2110,
+      "requests_with_global_ge100ms": 0,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 18.153,
+          "p95_ms": 37.565,
+          "p99_ms": 40.362,
+          "max_ms": 40.362,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 14.552,
+          "p95_ms": 24.989,
+          "p99_ms": 27.653,
+          "max_ms": 27.653,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 49.825,
+          "p95_ms": 73.888,
+          "p99_ms": 74.756,
+          "max_ms": 74.756,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 24.88,
+          "p95_ms": 35.293,
+          "p99_ms": 42.485,
+          "max_ms": 42.485,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.354,
+          "p95_ms": 0.798,
+          "p99_ms": 3.4,
+          "max_ms": 3.4,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-10-pool16-on",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 1,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 741.978,
+      "cpu_ms": 3456.918,
+      "peak_rss_mib": 696.953125,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 2.246,
+        "p95_ms": 27.655,
+        "p99_ms": 32.775,
+        "max_ms": 32.775,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 49.156,
+        "p95_ms": 67.153,
+        "p99_ms": 79.373,
+        "max_ms": 79.373,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 7866,
+        "p50_ms": 3.652,
+        "p95_ms": 19.21,
+        "p99_ms": 21.102,
+        "max_ms": 23.968,
+        "ge100ms": 0
+      },
+      "group_queue": {
+        "n": 7866,
+        "p50_ms": 0.05,
+        "p95_ms": 8.51,
+        "p99_ms": 14.482,
+        "max_ms": 14.843,
+        "ge100ms": 0
+      },
+      "read_requests": 3933,
+      "requests_with_global_ge100ms": 0,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 7.629,
+          "p95_ms": 18.236,
+          "p99_ms": 22.248,
+          "max_ms": 22.248,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 14.451,
+          "p95_ms": 20.261,
+          "p99_ms": 29.682,
+          "max_ms": 29.682,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 53.433,
+          "p95_ms": 68.335,
+          "p99_ms": 80.938,
+          "max_ms": 80.938,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 27.119,
+          "p95_ms": 36.394,
+          "p99_ms": 36.434,
+          "max_ms": 36.434,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.377,
+          "p95_ms": 1.712,
+          "p99_ms": 2.014,
+          "max_ms": 2.014,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-11-pool8-off",
+      "pool_mib": 8,
+      "variant": "8",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 1,
+      "read_threads": 1,
+      "observe": false,
+      "wall_ms": 591.425,
+      "cpu_ms": 3153.71,
+      "peak_rss_mib": 709.78125,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.823,
+        "p95_ms": 9.56,
+        "p99_ms": 12.238,
+        "max_ms": 12.238,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 38.125,
+        "p95_ms": 51.405,
+        "p99_ms": 51.634,
+        "max_ms": 51.634,
+        "ge100ms": 0
+      },
+      "global_queue": null,
+      "group_queue": null,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 8.781,
+          "p95_ms": 16.897,
+          "p99_ms": 20.556,
+          "max_ms": 20.556,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 15.028,
+          "p95_ms": 19.266,
+          "p99_ms": 21.91,
+          "max_ms": 21.91,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 48.091,
+          "p95_ms": 61.802,
+          "p99_ms": 62.112,
+          "max_ms": 62.112,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 24.484,
+          "p95_ms": 40.417,
+          "p99_ms": 41.65,
+          "max_ms": 41.65,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.346,
+          "p95_ms": 0.558,
+          "p99_ms": 0.691,
+          "max_ms": 0.691,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-12-pool16-off",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 1,
+      "read_threads": 1,
+      "observe": false,
+      "wall_ms": 587.771,
+      "cpu_ms": 3232.422,
+      "peak_rss_mib": 764.65625,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.745,
+        "p95_ms": 11.202,
+        "p99_ms": 16.383,
+        "max_ms": 16.383,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 43.149,
+        "p95_ms": 54.274,
+        "p99_ms": 57.343,
+        "max_ms": 57.343,
+        "ge100ms": 0
+      },
+      "global_queue": null,
+      "group_queue": null,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 7.672,
+          "p95_ms": 17.065,
+          "p99_ms": 401.533,
+          "max_ms": 401.533,
+          "ge100ms": 1
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 13.27,
+          "p95_ms": 16.935,
+          "p99_ms": 20.561,
+          "max_ms": 20.561,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 45.374,
+          "p95_ms": 55.708,
+          "p99_ms": 55.861,
+          "max_ms": 55.861,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 22.901,
+          "p95_ms": 26.476,
+          "p99_ms": 28.929,
+          "max_ms": 28.929,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.342,
+          "p95_ms": 0.816,
+          "p99_ms": 0.877,
+          "max_ms": 0.877,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-13-pool16-off",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 2,
+      "read_threads": 1,
+      "observe": false,
+      "wall_ms": 777.366,
+      "cpu_ms": 3297.453,
+      "peak_rss_mib": 686.03125,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.72,
+        "p95_ms": 10.841,
+        "p99_ms": 400.03,
+        "max_ms": 400.03,
+        "ge100ms": 1
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 48.844,
+        "p95_ms": 68.921,
+        "p99_ms": 78.659,
+        "max_ms": 78.659,
+        "ge100ms": 0
+      },
+      "global_queue": null,
+      "group_queue": null,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 5.113,
+          "p95_ms": 21.951,
+          "p99_ms": 25.788,
+          "max_ms": 25.788,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 13.343,
+          "p95_ms": 18.198,
+          "p99_ms": 18.521,
+          "max_ms": 18.521,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 44.744,
+          "p95_ms": 51.937,
+          "p99_ms": 52.134,
+          "max_ms": 52.134,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 22.323,
+          "p95_ms": 26.02,
+          "p99_ms": 26.054,
+          "max_ms": 26.054,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.29,
+          "p95_ms": 0.583,
+          "p99_ms": 0.824,
+          "max_ms": 0.824,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-14-pool8-off",
+      "pool_mib": 8,
+      "variant": "8",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 2,
+      "read_threads": 1,
+      "observe": false,
+      "wall_ms": 648.62,
+      "cpu_ms": 3086.378,
+      "peak_rss_mib": 705.59375,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.233,
+        "p95_ms": 6.494,
+        "p99_ms": 19.715,
+        "max_ms": 19.715,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 40.986,
+        "p95_ms": 56.815,
+        "p99_ms": 66.489,
+        "max_ms": 66.489,
+        "ge100ms": 0
+      },
+      "global_queue": null,
+      "group_queue": null,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 17.412,
+          "p95_ms": 34.709,
+          "p99_ms": 39.445,
+          "max_ms": 39.445,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 13.185,
+          "p95_ms": 20.075,
+          "p99_ms": 29.266,
+          "max_ms": 29.266,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 44.735,
+          "p95_ms": 52.55,
+          "p99_ms": 54.859,
+          "max_ms": 54.859,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 23.464,
+          "p95_ms": 28.778,
+          "p99_ms": 29.224,
+          "max_ms": 29.224,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.278,
+          "p95_ms": 0.566,
+          "p99_ms": 0.613,
+          "max_ms": 0.613,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-15-pool16-on",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 2,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 620.927,
+      "cpu_ms": 3485.638,
+      "peak_rss_mib": 775.109375,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 2.705,
+        "p95_ms": 24.32,
+        "p99_ms": 37.537,
+        "max_ms": 37.537,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 41.941,
+        "p95_ms": 75.032,
+        "p99_ms": 81.797,
+        "max_ms": 81.797,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 7802,
+        "p50_ms": 3.522,
+        "p95_ms": 20.702,
+        "p99_ms": 29.414,
+        "max_ms": 29.581,
+        "ge100ms": 0
+      },
+      "group_queue": {
+        "n": 7802,
+        "p50_ms": 0.332,
+        "p95_ms": 6.928,
+        "p99_ms": 19.944,
+        "max_ms": 22.487,
+        "ge100ms": 0
+      },
+      "read_requests": 3901,
+      "requests_with_global_ge100ms": 0,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 5.454,
+          "p95_ms": 385.504,
+          "p99_ms": 396.143,
+          "max_ms": 396.143,
+          "ge100ms": 2
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 12.317,
+          "p95_ms": 16.839,
+          "p99_ms": 23.883,
+          "max_ms": 23.883,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 42.686,
+          "p95_ms": 57.002,
+          "p99_ms": 57.48,
+          "max_ms": 57.48,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 21.992,
+          "p95_ms": 25.565,
+          "p99_ms": 28.548,
+          "max_ms": 28.548,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.3,
+          "p95_ms": 0.482,
+          "p99_ms": 0.787,
+          "max_ms": 0.787,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-16-pool8-on",
+      "pool_mib": 8,
+      "variant": "8",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 2,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 642.734,
+      "cpu_ms": 3408.181,
+      "peak_rss_mib": 674.484375,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.214,
+        "p95_ms": 11.527,
+        "p99_ms": 394.149,
+        "max_ms": 394.149,
+        "ge100ms": 2
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 38.3,
+        "p95_ms": 66.798,
+        "p99_ms": 71.018,
+        "max_ms": 71.018,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 4872,
+        "p50_ms": 1.234,
+        "p95_ms": 383.782,
+        "p99_ms": 390.998,
+        "max_ms": 391.536,
+        "ge100ms": 244
+      },
+      "group_queue": {
+        "n": 4872,
+        "p50_ms": 0.301,
+        "p95_ms": 2.886,
+        "p99_ms": 4.765,
+        "max_ms": 5.046,
+        "ge100ms": 0
+      },
+      "read_requests": 2436,
+      "requests_with_global_ge100ms": 244,
+      "profile_count": 1
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 9.898,
+          "p95_ms": 24.039,
+          "p99_ms": 24.685,
+          "max_ms": 24.685,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 14.617,
+          "p95_ms": 20.485,
+          "p99_ms": 21.773,
+          "max_ms": 21.773,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 46.351,
+          "p95_ms": 64.006,
+          "p99_ms": 70.047,
+          "max_ms": 70.047,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 23.84,
+          "p95_ms": 35.614,
+          "p99_ms": 46.535,
+          "max_ms": 46.535,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.213,
+          "p95_ms": 0.422,
+          "p99_ms": 0.459,
+          "max_ms": 0.459,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-17-pool8-on",
+      "pool_mib": 8,
+      "variant": "8",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 3,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 620.941,
+      "cpu_ms": 3362.687,
+      "peak_rss_mib": 692.46875,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 2.651,
+        "p95_ms": 11.475,
+        "p99_ms": 22.14,
+        "max_ms": 22.14,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 41.494,
+        "p95_ms": 57.053,
+        "p99_ms": 70.348,
+        "max_ms": 70.348,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 4092,
+        "p50_ms": 1.27,
+        "p95_ms": 11.266,
+        "p99_ms": 25.766,
+        "max_ms": 26.105,
+        "ge100ms": 0
+      },
+      "group_queue": {
+        "n": 4092,
+        "p50_ms": 0.001,
+        "p95_ms": 3.709,
+        "p99_ms": 13.903,
+        "max_ms": 14.209,
+        "ge100ms": 0
+      },
+      "read_requests": 2046,
+      "requests_with_global_ge100ms": 0,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 10.594,
+          "p95_ms": 18.066,
+          "p99_ms": 27.068,
+          "max_ms": 27.068,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 13.441,
+          "p95_ms": 19.056,
+          "p99_ms": 19.18,
+          "max_ms": 19.18,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 47.978,
+          "p95_ms": 57.997,
+          "p99_ms": 58.276,
+          "max_ms": 58.276,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 24.318,
+          "p95_ms": 32.51,
+          "p99_ms": 33.968,
+          "max_ms": 33.968,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.27,
+          "p95_ms": 1.054,
+          "p99_ms": 1.545,
+          "max_ms": 1.545,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-18-pool16-on",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 3,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 645.745,
+      "cpu_ms": 3538.9120000000003,
+      "peak_rss_mib": 795.0,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.892,
+        "p95_ms": 12.4,
+        "p99_ms": 18.593,
+        "max_ms": 18.593,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 45.453,
+        "p95_ms": 64.028,
+        "p99_ms": 82.573,
+        "max_ms": 82.573,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 7702,
+        "p50_ms": 4.567,
+        "p95_ms": 22.915,
+        "p99_ms": 30.56,
+        "max_ms": 31.543,
+        "ge100ms": 0
+      },
+      "group_queue": {
+        "n": 7702,
+        "p50_ms": 0.001,
+        "p95_ms": 5.948,
+        "p99_ms": 8.597,
+        "max_ms": 10.146,
+        "ge100ms": 0
+      },
+      "read_requests": 3851,
+      "requests_with_global_ge100ms": 0,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 5.966,
+          "p95_ms": 18.026,
+          "p99_ms": 18.095,
+          "max_ms": 18.095,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 12.758,
+          "p95_ms": 14.831,
+          "p99_ms": 16.86,
+          "max_ms": 16.86,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 43.6,
+          "p95_ms": 51.711,
+          "p99_ms": 55.997,
+          "max_ms": 55.997,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 21.858,
+          "p95_ms": 27.12,
+          "p99_ms": 28.505,
+          "max_ms": 28.505,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.258,
+          "p95_ms": 0.514,
+          "p99_ms": 0.562,
+          "max_ms": 0.562,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-19-pool8-off",
+      "pool_mib": 8,
+      "variant": "8",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 3,
+      "read_threads": 1,
+      "observe": false,
+      "wall_ms": 571.109,
+      "cpu_ms": 3199.061,
+      "peak_rss_mib": 632.734375,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.682,
+        "p95_ms": 8.339,
+        "p99_ms": 15.262,
+        "max_ms": 15.262,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 46.809,
+        "p95_ms": 61.36,
+        "p99_ms": 70.604,
+        "max_ms": 70.604,
+        "ge100ms": 0
+      },
+      "global_queue": null,
+      "group_queue": null,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 6.185,
+          "p95_ms": 14.346,
+          "p99_ms": 17.365,
+          "max_ms": 17.365,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 12.785,
+          "p95_ms": 19.649,
+          "p99_ms": 20.357,
+          "max_ms": 20.357,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 46.794,
+          "p95_ms": 62.147,
+          "p99_ms": 65.717,
+          "max_ms": 65.717,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 22.617,
+          "p95_ms": 39.891,
+          "p99_ms": 40.093,
+          "max_ms": 40.093,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.355,
+          "p95_ms": 1.103,
+          "p99_ms": 1.183,
+          "max_ms": 1.183,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-20-pool16-off",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 3,
+      "read_threads": 1,
+      "observe": false,
+      "wall_ms": 656.257,
+      "cpu_ms": 3296.771,
+      "peak_rss_mib": 775.9375,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.628,
+        "p95_ms": 7.095,
+        "p99_ms": 13.324,
+        "max_ms": 13.324,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 43.751,
+        "p95_ms": 56.687,
+        "p99_ms": 62.611,
+        "max_ms": 62.611,
+        "ge100ms": 0
+      },
+      "global_queue": null,
+      "group_queue": null,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 6.287,
+          "p95_ms": 14.228,
+          "p99_ms": 15.617,
+          "max_ms": 15.617,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 15.787,
+          "p95_ms": 22.838,
+          "p99_ms": 27.628,
+          "max_ms": 27.628,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 54.851,
+          "p95_ms": 68.869,
+          "p99_ms": 75.019,
+          "max_ms": 75.019,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 29.382,
+          "p95_ms": 45.572,
+          "p99_ms": 49.512,
+          "max_ms": 49.512,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.276,
+          "p95_ms": 0.806,
+          "p99_ms": 1.699,
+          "max_ms": 1.699,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-21-pool16-off",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 4,
+      "read_threads": 1,
+      "observe": false,
+      "wall_ms": 656.77,
+      "cpu_ms": 3291.129,
+      "peak_rss_mib": 777.65625,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.249,
+        "p95_ms": 4.661,
+        "p99_ms": 11.869,
+        "max_ms": 11.869,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 41.588,
+        "p95_ms": 53.82,
+        "p99_ms": 60.967,
+        "max_ms": 60.967,
+        "ge100ms": 0
+      },
+      "global_queue": null,
+      "group_queue": null,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 6.167,
+          "p95_ms": 19.957,
+          "p99_ms": 21.536,
+          "max_ms": 21.536,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 15.558,
+          "p95_ms": 20.17,
+          "p99_ms": 24.402,
+          "max_ms": 24.402,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 52.877,
+          "p95_ms": 65.891,
+          "p99_ms": 71.681,
+          "max_ms": 71.681,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 29.918,
+          "p95_ms": 40.551,
+          "p99_ms": 45.238,
+          "max_ms": 45.238,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.295,
+          "p95_ms": 0.714,
+          "p99_ms": 0.734,
+          "max_ms": 0.734,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-22-pool8-off",
+      "pool_mib": 8,
+      "variant": "8",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 4,
+      "read_threads": 1,
+      "observe": false,
+      "wall_ms": 666.296,
+      "cpu_ms": 3308.093,
+      "peak_rss_mib": 691.09375,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 2.091,
+        "p95_ms": 10.614,
+        "p99_ms": 15.036,
+        "max_ms": 15.036,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 53.459,
+        "p95_ms": 73.274,
+        "p99_ms": 82.572,
+        "max_ms": 82.572,
+        "ge100ms": 0
+      },
+      "global_queue": null,
+      "group_queue": null,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 10.129,
+          "p95_ms": 33.53,
+          "p99_ms": 46.712,
+          "max_ms": 46.712,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 15.611,
+          "p95_ms": 30.0,
+          "p99_ms": 30.148,
+          "max_ms": 30.148,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 48.676,
+          "p95_ms": 88.334,
+          "p99_ms": 105.057,
+          "max_ms": 105.057,
+          "ge100ms": 1
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 26.514,
+          "p95_ms": 51.481,
+          "p99_ms": 57.132,
+          "max_ms": 57.132,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.315,
+          "p95_ms": 1.103,
+          "p99_ms": 1.198,
+          "max_ms": 1.198,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-23-pool16-on",
+      "pool_mib": 16,
+      "variant": "16",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 4,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 666.734,
+      "cpu_ms": 3541.778,
+      "peak_rss_mib": 805.46875,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 2.185,
+        "p95_ms": 21.873,
+        "p99_ms": 34.456,
+        "max_ms": 34.456,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 47.51,
+        "p95_ms": 64.973,
+        "p99_ms": 66.972,
+        "max_ms": 66.972,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 6906,
+        "p50_ms": 4.88,
+        "p95_ms": 25.478,
+        "p99_ms": 28.761,
+        "max_ms": 29.159,
+        "ge100ms": 0
+      },
+      "group_queue": {
+        "n": 6906,
+        "p50_ms": 0.001,
+        "p95_ms": 5.56,
+        "p99_ms": 8.963,
+        "max_ms": 10.958,
+        "ge100ms": 0
+      },
+      "read_requests": 3453,
+      "requests_with_global_ge100ms": 0,
+      "profile_count": 0
+    },
+    {
+      "phase_totals": {
+        "prepare": {
+          "n": 21,
+          "p50_ms": 10.998,
+          "p95_ms": 21.903,
+          "p99_ms": 23.923,
+          "max_ms": 23.923,
+          "ge100ms": 0
+        },
+        "order_insert": {
+          "n": 21,
+          "p50_ms": 16.34,
+          "p95_ms": 25.422,
+          "p99_ms": 30.583,
+          "max_ms": 30.583,
+          "ge100ms": 0
+        },
+        "item_insert": {
+          "n": 21,
+          "p50_ms": 50.995,
+          "p95_ms": 79.539,
+          "p99_ms": 79.568,
+          "max_ms": 79.568,
+          "ge100ms": 0
+        },
+        "stock_update": {
+          "n": 21,
+          "p50_ms": 29.212,
+          "p95_ms": 38.204,
+          "p99_ms": 44.821,
+          "max_ms": 44.821,
+          "ge100ms": 0
+        },
+        "commit": {
+          "n": 21,
+          "p50_ms": 0.291,
+          "p95_ms": 1.096,
+          "p99_ms": 1.789,
+          "max_ms": 1.789,
+          "ge100ms": 0
+        }
+      },
+      "name": "natural-24-pool8-on",
+      "pool_mib": 8,
+      "variant": "8",
+      "cap_phases": {
+        "load": 21,
+        "recovery": 21
+      },
+      "resolved_caps": [
+        16
+      ],
+      "kind": "natural",
+      "pair": 4,
+      "read_threads": 1,
+      "observe": true,
+      "wall_ms": 695.873,
+      "cpu_ms": 3307.487,
+      "peak_rss_mib": 700.0625,
+      "prepare": {
+        "n": 63,
+        "p50_ms": 1.556,
+        "p95_ms": 16.592,
+        "p99_ms": 19.451,
+        "max_ms": 19.451,
+        "ge100ms": 0
+      },
+      "fork": {
+        "n": 21,
+        "p50_ms": 38.085,
+        "p95_ms": 56.44,
+        "p99_ms": 61.774,
+        "max_ms": 61.774,
+        "ge100ms": 0
+      },
+      "global_queue": {
+        "n": 4188,
+        "p50_ms": 1.609,
+        "p95_ms": 10.497,
+        "p99_ms": 15.573,
+        "max_ms": 15.905,
+        "ge100ms": 0
+      },
+      "group_queue": {
+        "n": 4188,
+        "p50_ms": 0.001,
+        "p95_ms": 2.881,
+        "p99_ms": 5.455,
+        "max_ms": 6.14,
+        "ge100ms": 0
+      },
+      "read_requests": 2094,
+      "requests_with_global_ge100ms": 0,
+      "profile_count": 0
+    }
+  ],
+  "groups": [
+    {
+      "observe": false,
+      "variant": "16",
+      "pool_mib": 16,
+      "read_threads": 1,
+      "wall_min_ms": 587.771,
+      "wall_max_ms": 1258.341,
+      "wall_mad_ms": 68.999,
+      "wall_median_ms": 656.77,
+      "cpu_median_ms": 3291.129,
+      "fork_p50_median_ms": 43.149,
+      "fork_p95_median_ms": 54.274,
+      "peak_rss_median_mib": 775.938,
+      "prepare_ge100ms": 2,
+      "runs_with_prepare_ge100ms": 2,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "global_stage_ge100ms": null,
+      "group_stage_ge100ms": null,
+      "global_p95_median_ms": null,
+      "global_p99_median_ms": null,
+      "sample_phase_total_median_ms": {
+        "prepare": 6.287,
+        "order_insert": 13.292,
+        "item_insert": 46.794,
+        "stock_update": 22.901,
+        "commit": 0.342
+      }
+    },
+    {
+      "observe": false,
+      "variant": "8",
+      "pool_mib": 8,
+      "read_threads": 1,
+      "wall_min_ms": 571.109,
+      "wall_max_ms": 854.356,
+      "wall_mad_ms": 57.195,
+      "wall_median_ms": 648.62,
+      "cpu_median_ms": 3153.71,
+      "fork_p50_median_ms": 40.986,
+      "fork_p95_median_ms": 57.15,
+      "peak_rss_median_mib": 692.844,
+      "prepare_ge100ms": 2,
+      "runs_with_prepare_ge100ms": 1,
+      "read_requests": null,
+      "requests_with_global_ge100ms": null,
+      "global_stage_ge100ms": null,
+      "group_stage_ge100ms": null,
+      "global_p95_median_ms": null,
+      "global_p99_median_ms": null,
+      "sample_phase_total_median_ms": {
+        "prepare": 5.966,
+        "order_insert": 13.343,
+        "item_insert": 44.744,
+        "stock_update": 22.323,
+        "commit": 0.295
+      }
+    },
+    {
+      "observe": true,
+      "variant": "16",
+      "pool_mib": 16,
+      "read_threads": 1,
+      "wall_min_ms": 620.927,
+      "wall_max_ms": 741.978,
+      "wall_mad_ms": 15.567,
+      "wall_median_ms": 661.312,
+      "cpu_median_ms": 3485.638,
+      "fork_p50_median_ms": 47.129,
+      "fork_p95_median_ms": 67.153,
+      "peak_rss_median_mib": 781.703,
+      "prepare_ge100ms": 0,
+      "runs_with_prepare_ge100ms": 0,
+      "read_requests": 19061,
+      "requests_with_global_ge100ms": 0,
+      "global_stage_ge100ms": 0,
+      "group_stage_ge100ms": 0,
+      "global_p95_median_ms": 20.702,
+      "global_p99_median_ms": 28.761,
+      "sample_phase_total_median_ms": {
+        "prepare": 14.302,
+        "order_insert": 14.552,
+        "item_insert": 48.223,
+        "stock_update": 24.88,
+        "commit": 0.315
+      }
+    },
+    {
+      "observe": true,
+      "variant": "8",
+      "pool_mib": 8,
+      "read_threads": 1,
+      "wall_min_ms": 620.941,
+      "wall_max_ms": 695.873,
+      "wall_mad_ms": 11.545,
+      "wall_median_ms": 684.328,
+      "cpu_median_ms": 3307.487,
+      "fork_p50_median_ms": 38.3,
+      "fork_p95_median_ms": 59.348,
+      "peak_rss_median_mib": 692.562,
+      "prepare_ge100ms": 2,
+      "runs_with_prepare_ge100ms": 1,
+      "read_requests": 10714,
+      "requests_with_global_ge100ms": 244,
+      "global_stage_ge100ms": 244,
+      "group_stage_ge100ms": 0,
+      "global_p95_median_ms": 10.497,
+      "global_p99_median_ms": 15.573,
+      "sample_phase_total_median_ms": {
+        "prepare": 9.898,
+        "order_insert": 14.639,
+        "item_insert": 49.879,
+        "stock_update": 24.745,
+        "commit": 0.291
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "observe": false,
+      "pair": 0,
+      "wall_delta_ms": -403.985,
+      "wall_delta_pct": -32.1,
+      "cpu_delta_pct": -6.48,
+      "peak_rss_delta_mib": -184.047
+    },
+    {
+      "observe": false,
+      "pair": 1,
+      "wall_delta_ms": 3.654,
+      "wall_delta_pct": 0.62,
+      "cpu_delta_pct": -2.44,
+      "peak_rss_delta_mib": -54.875
+    },
+    {
+      "observe": false,
+      "pair": 2,
+      "wall_delta_ms": -128.746,
+      "wall_delta_pct": -16.56,
+      "cpu_delta_pct": -6.4,
+      "peak_rss_delta_mib": 19.562
+    },
+    {
+      "observe": false,
+      "pair": 3,
+      "wall_delta_ms": -85.148,
+      "wall_delta_pct": -12.97,
+      "cpu_delta_pct": -2.96,
+      "peak_rss_delta_mib": -143.203
+    },
+    {
+      "observe": false,
+      "pair": 4,
+      "wall_delta_ms": 9.526,
+      "wall_delta_pct": 1.45,
+      "cpu_delta_pct": 0.52,
+      "peak_rss_delta_mib": -86.562
+    },
+    {
+      "observe": true,
+      "pair": 0,
+      "wall_delta_ms": 23.016,
+      "wall_delta_pct": 3.48,
+      "cpu_delta_pct": -3.26,
+      "peak_rss_delta_mib": -89.141
+    },
+    {
+      "observe": true,
+      "pair": 1,
+      "wall_delta_ms": -55.587,
+      "wall_delta_pct": -7.49,
+      "cpu_delta_pct": -5.74,
+      "peak_rss_delta_mib": -0.047
+    },
+    {
+      "observe": true,
+      "pair": 2,
+      "wall_delta_ms": 21.807,
+      "wall_delta_pct": 3.51,
+      "cpu_delta_pct": -2.22,
+      "peak_rss_delta_mib": -100.625
+    },
+    {
+      "observe": true,
+      "pair": 3,
+      "wall_delta_ms": -24.804,
+      "wall_delta_pct": -3.84,
+      "cpu_delta_pct": -4.98,
+      "peak_rss_delta_mib": -102.531
+    },
+    {
+      "observe": true,
+      "pair": 4,
+      "wall_delta_ms": 29.139,
+      "wall_delta_pct": 4.37,
+      "cpu_delta_pct": -6.62,
+      "peak_rss_delta_mib": -105.406
+    }
+  ],
+  "percentile_method": "nearest rank, median arithmetic; per-run stage counts include two stages/read; correlated request counts are not independent stalls"
+}

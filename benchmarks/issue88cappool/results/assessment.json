@@ -1,0 +1,10 @@
+{
+  "status": "COMPARISON_COMPLETE",
+  "source_commit": "73c358ebdb06ed88f8da1d45af8abaa2d0655425",
+  "recommendation": "8MiB remains a promising memory/CPU candidate with startup-cap patch; no major whole-suite speedup claim or default adoption",
+  "cases": 1750,
+  "closed_observers": 286,
+  "cap_events": 1050,
+  "remaining": "Larger-working-set tradeoff under combined candidate and one remaining8MiB global-tail mechanism; no further campaign in this step.",
+  "product_changed": false
+}
