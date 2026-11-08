@@ -1,0 +1,21 @@
+{
+  "source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "files": {
+    "tpool/task.cc": {
+      "blob_sha": "81ec88590cedfc78c9f1e7d76f2799dfe7500ba4",
+      "sha256": "350435454e5ff80534a06641f387fb09194da203e62c26b46ecb853e46a34d54"
+    },
+    "tpool/task_group.cc": {
+      "blob_sha": "426df2356862dcf833300c75eb86b57814fc7f9b",
+      "sha256": "efe0e8153e81aaeac6d39755f84114c35bda1ccacc09ed318515cc5407813b8e"
+    },
+    "tpool/tpool_generic.cc": {
+      "blob_sha": "372886f7348f7e70c32b561fd521630c5a900345",
+      "sha256": "5aa908eba25625c652adf3df2d08723116491127bfef1d61148f2e91a8218280"
+    },
+    "tpool/tpool_structs.h": {
+      "blob_sha": "8077651de1c1b97d537e0bfa6dcd678352d459b8",
+      "sha256": "a23e146c15799960082b27953f7813cd63169afd02c5b487e8e4d4a774198d0f"
+    }
+  }
+}

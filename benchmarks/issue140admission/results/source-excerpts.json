@@ -1,0 +1,44 @@
+[
+  {
+    "path": "tpool/task.cc",
+    "first_line": 25,
+    "last_line": 41,
+    "text": "    m_func(func), m_arg(arg), m_group(group) {}\n\n  void task::execute()\n  {\n    if (m_group)\n    {\n      /* Executing in a group (limiting concurrency).*/\n      m_group->execute(this);\n    }\n    else\n    {\n      /* Execute directly. */\n      m_func(m_arg);\n      release();\n    }\n  }\n\n"
+  },
+  {
+    "path": "tpool/task_group.cc",
+    "first_line": 56,
+    "last_line": 94,
+    "text": "  }\n  void task_group::execute(task* t)\n  {\n    std::unique_lock<std::mutex> lk(m_mtx);\n    if (m_tasks_running == m_max_concurrent_tasks)\n    {\n      /* Queue for later execution by another thread.*/\n      m_queue.push(t);\n      m_total_enqueues++;\n      return;\n    }\n    m_tasks_running++;\n    for (;;)\n    {\n      lk.unlock();\n      if (t)\n      {\n        t->m_func(t->m_arg);\n        if (m_enable_task_release)\n          t->release();\n      }\n      lk.lock();\n      m_total_tasks++;\n      if (m_queue.empty())\n        break;\n      t = m_queue.front();\n      m_queue.pop();\n    }\n    m_tasks_running--;\n  }\n\n  void task_group::cancel_pending(task* t)\n  {\n    std::unique_lock<std::mutex> lk(m_mtx);\n    if (!t)\n      m_queue.clear();\n    for (auto it = m_queue.begin(); it != m_queue.end(); it++)\n    {\n      if (*it == t)\n"
+  },
+  {
+    "path": "tpool/tpool_generic.cc",
+    "first_line": 466,
+    "last_line": 502,
+    "text": "*/\nbool thread_pool_generic::get_task(worker_data *thread_var, task **t)\n{\n  std::unique_lock<std::mutex> lk(m_mtx);\n\n  if (thread_var->is_long_task())\n  {\n    DBUG_ASSERT(m_long_tasks_count);\n    m_long_tasks_count--;\n  }\n  DBUG_ASSERT(!thread_var->is_waiting());\n  thread_var->m_state = worker_data::NONE;\n\n  while (m_task_queue.empty())\n  {\n    if (m_in_shutdown)\n      return false;\n\n    if (!wait_for_tasks(lk, thread_var))\n      return false;\n    if (m_task_queue.empty())\n    {\n      m_spurious_wakeups++;\n      continue;\n    }\n  }\n\n  /* Dequeue from the task queue.*/\n  *t= m_task_queue.front();\n  m_task_queue.pop();\n  m_tasks_dequeued++;\n  thread_var->m_state |= worker_data::EXECUTING_TASK;\n  thread_var->m_task_start_time = m_timestamp;\n  return true;\n}\n\n/** Worker thread shutdown routine. */\n"
+  },
+  {
+    "path": "tpool/tpool_generic.cc",
+    "first_line": 520,
+    "last_line": 536,
+    "text": "void thread_pool_generic::worker_main(worker_data *thread_var)\n{\n  task* task;\n  set_tls_pool(this);\n  m_worker_init_callback();\n\n  tls_worker_data = thread_var;\n  m_thread_creation_pending.clear();\n\n  while (get_task(thread_var, &task) && task)\n  {\n    task->execute();\n  }\n\n  m_worker_destroy_callback();\n\n  worker_end(thread_var);\n"
+  },
+  {
+    "path": "tpool/tpool_generic.cc",
+    "first_line": 587,
+    "last_line": 635,
+    "text": "  Periodic job to fix thread count and concurrency,\n  in case of long tasks, etc\n*/\nvoid thread_pool_generic::maintenance()\n{\n  /*\n    If pool is busy (i.e the its mutex is currently locked), we can\n    skip the maintenance task, some times, to lower mutex contention\n  */\n  static int skip_counter;\n  const int MAX_SKIPS = 10;\n  std::unique_lock<std::mutex> lk(m_mtx, std::defer_lock);\n  if (skip_counter == MAX_SKIPS)\n  {\n    lk.lock();\n  }\n  else if (!lk.try_lock())\n  {\n    skip_counter++;\n    return;\n  }\n\n  skip_counter = 0;\n\n  m_timestamp = std::chrono::system_clock::now();\n\n  if (m_task_queue.empty())\n  {\n    check_idle(m_timestamp);\n    m_last_activity = m_tasks_dequeued + m_wakeups;\n    return;\n  }\n\n  m_long_tasks_count = 0;\n  for (auto thread_data = m_active_threads.front();\n    thread_data;\n    thread_data = thread_data->m_next)\n  {\n    if (thread_data->is_executing_task() &&\n       !thread_data->is_waiting() &&\n      (thread_data->is_long_task()\n      || (m_timestamp - thread_data->m_task_start_time > LONG_TASK_DURATION)))\n    {\n      thread_data->m_state |= worker_data::LONG_TASK;\n      m_long_tasks_count++;\n    }\n  }\n\n  maybe_wake_or_create_thread();\n"
+  },
+  {
+    "path": "tpool/tpool_generic.cc",
+    "first_line": 790,
+    "last_line": 805,
+    "text": "void thread_pool_generic::maybe_wake_or_create_thread()\n{\n  if (m_task_queue.empty())\n    return;\n  DBUG_ASSERT(m_active_threads.size() >= static_cast<size_t>(m_long_tasks_count + m_waiting_task_count));\n  if (m_active_threads.size() - m_long_tasks_count - m_waiting_task_count > m_concurrency)\n    return;\n  if (!m_standby_threads.empty())\n  {\n    wake(WAKE_REASON_TASK);\n  }\n  else\n  {\n    add_thread();\n  }\n}\n"
+  },
+  {
+    "path": "tpool/tpool_generic.cc",
+    "first_line": 828,
+    "last_line": 862,
+    "text": "void thread_pool_generic::submit_task(task* task)\n{\n  std::unique_lock<std::mutex> lk(m_mtx);\n  if (m_in_shutdown)\n    return;\n  task->add_ref();\n  m_tasks_enqueued++;\n  m_task_queue.push(task);\n  maybe_wake_or_create_thread();\n}\n\n\n/* Notify thread pool that current thread is going to wait */\nvoid thread_pool_generic::wait_begin()\n{\n  if (!tls_worker_data || tls_worker_data->is_long_task())\n    return;\n  std::unique_lock<std::mutex> lk(m_mtx);\n  if(tls_worker_data->is_long_task())\n  {\n    /*\n     Current task flag could have become \"long-running\"\n     while waiting for the lock, thus recheck.\n    */\n    return;\n  }\n  DBUG_ASSERT(!tls_worker_data->is_waiting());\n  tls_worker_data->m_state |= worker_data::WAITING;\n  m_waiting_task_count++;\n\n  /* Maintain concurrency */\n  maybe_wake_or_create_thread();\n}\n\n\n"
+  }
+]

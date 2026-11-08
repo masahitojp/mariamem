@@ -1,0 +1,22 @@
+{
+  "result": "GLOBAL_DISPATCH",
+  "measured_source_commit": "c9b25c6be1190407752a921f0acc93dd63c6464f",
+  "product_source_commit": "a3b2b6457147e2b8edbd31fec77ab6ec04f11b22",
+  "origin_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "binary_sha256": "9727b6da0e1d4a05249fed7f819edb10e5aa4024993a65cd5d6e8cd091d161f7",
+  "controls": "10 synthetic helper tests with race detector PASS; one live SQL SLEEP control PASS",
+  "natural_processes": 8,
+  "cases": 630,
+  "active_mappings_after": 0,
+  "closed_instance_observers": 198,
+  "truncation": false,
+  "profile_bound_long_prepares": 1,
+  "observed_case": "815.432ms PREPARE; selected completion request 791.395ms before global dequeue, 0.001ms from group entry to run. Group running0/limit1; actual global queue membership and rejected gate snapshots bound to same request.",
+  "natural_census": "758 read requests >=100ms across5 processes, all have a >=100ms global stage; none have a >=100ms group stage. Correlated requests, not758 independent incidents or PREPAREs.",
+  "missing": "Identities and effective accounting of individual active/long/waiting workers; first gate reopening/timer event; no config or fix selection.",
+  "scope": "Observation only; exact committed runtime/guest/API/release inputs unchanged.",
+  "retention": "All request timing tuples retained. Full request metadata for every referenced or >=50ms request; short unreferenced metadata reduced to census/digest. All scopes/parks/profiles/SQL traces retained.",
+  "public_source_check": "PASS: 7025 files",
+  "python_tooling": "All new Python sources compile",
+  "replay": "PASS: same request/page/notification, gate formula/pool identity, all timing census, four mutations and checksums"
+}
