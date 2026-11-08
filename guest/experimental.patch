@@ -2011,3 +2011,98 @@
 +};
 +}
 +#endif
+--- a/wasm/CMakeLists.txt
++++ b/wasm/CMakeLists.txt
+@@ -6,7 +6,7 @@
+ 
+ IF(WASIX)
+   ADD_EXECUTABLE(lite4mariadb-wasix lite4mariadb.c issue65_control.cc)
+-  SET_SOURCE_FILES_PROPERTIES(lite4mariadb.c PROPERTIES COMPILE_DEFINITIONS "main=issue65_legacy_main")
++  SET_SOURCE_FILES_PROPERTIES(lite4mariadb.c PROPERTIES COMPILE_DEFINITIONS "MARIAMEM_BOOTSTRAP_ONLY")
+   TARGET_COMPILE_FEATURES(lite4mariadb-wasix PRIVATE cxx_std_17)
+   TARGET_COMPILE_DEFINITIONS(lite4mariadb-wasix PRIVATE EMBEDDED_LIBRARY L4M_RESIDENT)
+   TARGET_INCLUDE_DIRECTORIES(lite4mariadb-wasix PRIVATE
+@@ -49,13 +49,6 @@
+     "SHELL:-Wl,--initial-memory=268435456"
+     "SHELL:-Wl,--max-memory=2147483648"
+     "SHELL:-Wl,-z,stack-size=8388608"
+-    "SHELL:-Wl,--export=l4m_open"
+-    "SHELL:-Wl,--export=l4m_query"
+-    "SHELL:-Wl,--export=l4m_query_v2"
+-    "SHELL:-Wl,--export=l4m_exec_multi"
+-    "SHELL:-Wl,--export=l4m_escape"
+-    "SHELL:-Wl,--export=l4m_close"
+-    "SHELL:-Wl,--export=l4m_free"
+     "SHELL:-Wl,--export=malloc"
+     "SHELL:-Wl,--export=free"
+   )
+--- a/wasm/lite4mariadb.c
++++ b/wasm/lite4mariadb.c
+@@ -32,6 +32,7 @@
+   }
+ }
+ 
++#ifndef MARIAMEM_BOOTSTRAP_ONLY
+ typedef struct
+ {
+   char *p;
+@@ -313,6 +314,8 @@
+   }
+   return failed;
+ }
++
++#endif /* legacy JSON helpers */
+ 
+ EMSCRIPTEN_KEEPALIVE
+ int l4m_open(void)
+@@ -406,6 +409,7 @@
+   }
+ }
+ 
++#ifndef MARIAMEM_BOOTSTRAP_ONLY
+ EMSCRIPTEN_KEEPALIVE
+ void l4m_free(char *p)
+ {
+@@ -552,6 +556,13 @@
+ }
+ 
+ #include "wire_api.inc"
++#else
++/* Native entry needs text bootstrap/auth, not resident slots or MYSQL_BIND. */
++#include <unistd.h>
++#include "routine_bootstrap.inc"
++#include "prepared_auth_keys.inc"
++extern int mariamem_auth_keys_ready(void);
++#endif /* legacy entry or bootstrap-only glue */
+ 
+ /* Experimental fresh/restore native-wire entry; no fixture SQL on shutdown. */
+ int issue65_bootstrap(void)
+--- a/wasm/issue65_control.cc
++++ b/wasm/issue65_control.cc
+@@ -18,7 +17,6 @@
+ #include <cerrno>
+ #include <unistd.h>
+ #include "../libmysqld/mariamem_control_abi.h"
+-#include "routine_bootstrap.inc"
+ #include "issue65_deadline.h"
+ using Clock=std::chrono::steady_clock;
+ using Bytes=std::vector<unsigned char>;
+@@ -179,18 +177,6 @@
+  }
+  void stopWriter(){ {std::lock_guard<std::mutex> l(outMu);writerStop=true;outReady.notify_all();}writer.join();}
+ };
+-static MYSQL *connect(){MYSQL *m=mysql_init(nullptr);need(m!=nullptr,"mysql_init");mysql_options(m,MYSQL_OPT_USE_EMBEDDED_CONNECTION,nullptr);if(!mysql_real_connect(m,nullptr,"root","",nullptr,0,nullptr,0)){fprintf(stderr,"FAIL:connect %u %s\n",mysql_errno(m),mysql_error(m));std::exit(1);}return m;}
+-static void query(MYSQL *m,const char *s){if(mysql_query(m,s)){fprintf(stderr,"FAIL:SQL %s %u %s\n",s,mysql_errno(m),mysql_error(m));std::exit(1);}}
+-static void embedded_prepared(MYSQL *m){
+- auto before=mariamem_spike_decode_count();MYSQL_STMT *st=mysql_stmt_init(m);const char *sql="SELECT ?, ?";
+- need(!mysql_stmt_prepare(st,sql,strlen(sql)),"embedded prepare");long long n=42,got=0;char s[3]={'a',0,'b'},out[8]={};unsigned long len=3,outlen=0;MYSQL_BIND in[2]={},result[2]={};
+- in[0].buffer_type=MYSQL_TYPE_LONGLONG;in[0].buffer=&n;in[1].buffer_type=MYSQL_TYPE_STRING;in[1].buffer=s;in[1].buffer_length=3;in[1].length=&len;
+- need(!mysql_stmt_bind_param(st,in),"embedded bind input");need(!mysql_stmt_execute(st),"embedded execute");
+- result[0].buffer_type=MYSQL_TYPE_LONGLONG;result[0].buffer=&got;result[1].buffer_type=MYSQL_TYPE_STRING;result[1].buffer=out;result[1].buffer_length=sizeof(out);result[1].length=&outlen;
+- need(!mysql_stmt_bind_result(st,result),"embedded bind result");need(!mysql_stmt_store_result(st),"embedded store");need(!mysql_stmt_fetch(st),"embedded fetch");need(got==42&&outlen==3&&!memcmp(s,out,3),"embedded typed result");need(mysql_stmt_fetch(st)==MYSQL_NO_DATA,"embedded one row");need(!mysql_stmt_close(st),"embedded stmt close");need(before==mariamem_spike_decode_count(),"embedded did not use native decode");
+- fprintf(stderr,"PASS:embedded_MYSQL_BIND\n");
+-}
+-
+ extern "C" int issue65_bootstrap(void);
+ extern "C" void issue65_shutdown(void);
+ int main(){

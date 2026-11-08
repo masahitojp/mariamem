@@ -1,0 +1,76 @@
+"""Issue127 candidate runner: reuse fixed P1-b oracles with explicit new identities."""
+import argparse, importlib.util, json, os, re, shutil, subprocess, sys
+from pathlib import Path
+OWNER_ROOT=Path(__file__).resolve().parents[2]
+w=OWNER_ROOT/'build/issue127/runtime'
+ROOT=w/'worktree'
+SOURCE='8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3'
+sys.path.insert(0,str(ROOT/'scripts'))
+from dev_guest import verify_guest, source_identity, inventory
+from common import digest
+
+def load(name,path):
+ spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+p=argparse.ArgumentParser();p.add_argument('stage',choices=['translate','compile','test']);a=p.parse_args()
+assert (w/'experiment.json').is_file() and ROOT.is_dir() and not ROOT.is_symlink()
+(w/'temp').mkdir(exist_ok=True);(w/'evidence').mkdir(exist_ok=True)
+for name,target in [('temp/artifact',OWNER_ROOT/'build/issue127/output/artifact')]:
+ path=w/name
+ if not path.exists():path.symlink_to(target,target_is_directory=True)
+record=verify_guest(ROOT,w/'temp/artifact');assert source_identity(ROOT)['commit']==SOURCE and record['source_commit']==SOURCE
+probe=load('issue127_baseline',ROOT/'benchmarks/spikes/issue65-p1-timeout/probe_baseline.py')
+# New candidate identities; historical fixtures and their checksums stay fixed.
+probe.GUEST_SOURCE=probe.HOST_SOURCE=SOURCE;probe.GUEST_SHA=record['guest_sha256']
+probe.base.GUEST_SOURCE=probe.base.HOST_SOURCE=SOURCE;probe.base.GUEST_SHA=record['guest_sha256']
+env=probe.go_env(w);env['MARIAMEM_TOOLING_SOURCE_COMMIT']=SOURCE
+os.environ['MARIAMEM_DEV_WORKSPACE']=str(w)
+
+def run(argv,label,timeout=1200,cwd=ROOT):
+ with (w/'evidence'/(label+'.txt')).open('w') as f:
+  result=subprocess.run([str(x) for x in argv],cwd=cwd,env=env,stdout=f,stderr=subprocess.STDOUT,timeout=timeout)
+ (w/'evidence'/(label+'-command.json')).write_text(json.dumps({'argv':[str(x) for x in argv],'exit':result.returncode,'timeout':timeout},indent=2)+'\n')
+ result.check_returncode()
+
+if a.stage=='translate':
+ dest=probe.tools(w,with_binding=False)
+ run([sys.executable,dest/'assemble.py','--workspace',w,'--translate-only'],'translation')
+elif a.stage=='compile':
+ binding=json.loads((w/'evidence/reviewed-binding/identity.json').read_text())
+ assert binding['guest_sha256']==record['guest_sha256']
+ shutil.copy2(w/'evidence/reviewed-binding/identity.json',w/'temp/tools/binding.json')
+ run([sys.executable,w/'temp/tools/assemble.py','--workspace',w,'--resume'],'host-build',1500)
+else:
+ product=w/'temp/host/product';host=json.loads((w/'evidence/host-build.json').read_text())
+ assert inventory(product)==host['source_inventory']
+ baseline=w/'temp/host/wire.test';assert digest(baseline)==host['binary_sha256']
+ # Preserve baseline separately, then add exactly the approved G2 fixture.
+ contract=load('issue127_handshake',ROOT/'benchmarks/spikes/issue65-g2-repair/handshake_contract.py')
+ fixture=contract.fixture((ROOT/'benchmarks/spikes/issue65-g2/g2_test.go.txt').read_bytes())
+ (product/'cmd/issue65-wire/g2_test.go').write_bytes(fixture)
+ expected=dict(host['source_inventory'],**{'cmd/issue65-wire/g2_test.go':__import__('hashlib').sha256(fixture).hexdigest()})
+ assert inventory(product)==expected
+ binary=w/'temp/host/all.test'
+ run(['go','test','-c','-p','1','-trimpath','-buildvcs=false','-o',binary,'./cmd/issue65-wire'],'g2-compile',300,product)
+ run([binary,'-test.v','-test.timeout=240s'],'native-suite',270,product)
+ assert inventory(product)==expected and digest(baseline)==host['binary_sha256']
+ text=(w/'evidence/native-suite.txt').read_text();assert '--- SKIP:' not in text and '--- FAIL:' not in text
+ observer=load('issue127_g2_accounting',ROOT/'benchmarks/spikes/issue65-g2/observations.py')
+ for name, analyzer in [('compat',probe.analyze),('limits',probe.limit_observations.analyze),('g1',probe.g1.analyze),('g2',observer.analyze)]:
+  prefix={'compat':'TestCompat','limits':'TestLimits','g1':'TestG1','g2':'TestG2'}[name]
+  selected=[];current=''
+  for line in text.splitlines():
+   start=re.fullmatch(r'=== RUN   (Test\w+)',line)
+   if start:current=start[1]
+   if current.startswith(prefix) and line!='PASS':selected.append(line)
+  derived='\n'.join(selected)+'\nPASS\n'
+  (w/'evidence'/(name+'-derived.txt')).write_text(derived)
+  result=analyzer(derived,0)
+  (w/'evidence'/(name+'-result.json')).write_text(json.dumps(result,indent=2)+'\n')
+  assert result['ready'],(name,result['result'])
+ declared=set()
+ for file in (product/'cmd/issue65-wire').glob('*_test.go'):
+  declared.update(re.findall(r'^func (Test\w+)\(',file.read_text(),re.M))
+ passed=re.findall(r'^--- PASS: (Test\w+) \(',text,re.M)
+ assert set(passed)==declared and len(passed)==len(declared),(set(passed)^declared)
+ (w/'evidence/native-result.json').write_text(json.dumps({'result':'PASS finite native suite','source_commit':SOURCE,'guest_sha256':record['guest_sha256'],'binary_sha256':digest(binary),'baseline_binary_sha256':digest(baseline),'cases':sorted(passed),'source_inventory':expected,'g2_contract':contract.CONTRACT,'limits':['No public backend/C3 qualification','No Linux runtime repeat','No MariaDB version-update trial','No performance/adoption/release']},indent=2)+'\n')
+print(a.stage,'PASS')

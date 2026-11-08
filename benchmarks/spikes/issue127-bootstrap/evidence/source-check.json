@@ -1,0 +1,18 @@
+{
+  "result": "PASS source-only",
+  "source_files": {
+    "wasm/lite4mariadb.c": "b25cb802cdc352f451caead95061a21dd71680c4a805c07377834d9da0a059f9",
+    "wasm/issue65_control.cc": "b9de8206b5d359ee25daa3aa2b138d0242cbec1b0e76d27fd95795d565cb4e1f",
+    "wasm/CMakeLists.txt": "1305f9c23111a7b5d27399ca336f7853fea94d6cd2c9c76856da51415360894f"
+  },
+  "canonical_inputs": {
+    "guest/source.patch": "430273666a1f2c38ba5e0441ada7e3d1036ad94e5ccfc486f956e2b214b674b7",
+    "guest/patches/12.3.3-prepared.patch": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4",
+    "guest/input.json": "d43f9d4123363b487b0d13ec0699ed769e1fcbeb573d2b52fe0ea8adae7b566f",
+    "scripts/prepare_guest.py": "12a7e0ab85fd9402da2a84e8ea9f551ba08420ff4a48696f9fef45927de945b4"
+  },
+  "limits": [
+    "Not compilation/link/runtime evidence",
+    "Existing prepared patch and engine/internal conversion dependencies remain"
+  ]
+}

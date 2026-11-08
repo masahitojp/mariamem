@@ -1,0 +1,44 @@
+{
+  "before_owned_bytes": 6931763200,
+  "after_owned_bytes": 897495040,
+  "removed": [
+    {
+      "path": "build/source",
+      "bytes": 548052992,
+      "classification": "DELETE",
+      "reason": "Owned recreatable builder source, SDK or downloads; input hashes, patch, diagnostics and guest bundle preserved"
+    },
+    {
+      "path": "build/unpack",
+      "bytes": 407506944,
+      "classification": "DELETE",
+      "reason": "Owned recreatable builder source, SDK or downloads; input hashes, patch, diagnostics and guest bundle preserved"
+    },
+    {
+      "path": "build/downloads",
+      "bytes": 2106662912,
+      "classification": "DELETE",
+      "reason": "Owned recreatable builder source, SDK or downloads; input hashes, patch, diagnostics and guest bundle preserved"
+    },
+    {
+      "path": "build/issue127/container-root",
+      "bytes": 1974603776,
+      "classification": "DELETE",
+      "reason": "Owned recreatable builder source, SDK or downloads; input hashes, patch, diagnostics and guest bundle preserved"
+    },
+    {
+      "path": "build/issue127/work",
+      "bytes": 997449728,
+      "classification": "DELETE",
+      "reason": "Owned recreatable builder source, SDK or downloads; input hashes, patch, diagnostics and guest bundle preserved"
+    },
+    {
+      "path": "build/issue127/sdk",
+      "bytes": 0,
+      "classification": "DELETE",
+      "reason": "Owned recreatable builder source, SDK or downloads; input hashes, patch, diagnostics and guest bundle preserved"
+    }
+  ],
+  "active_guest_bundle": "build/issue127/output/artifact for current native runtime verification",
+  "orca_worktree": "untouched"
+}

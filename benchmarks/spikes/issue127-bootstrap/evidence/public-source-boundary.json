@@ -1,0 +1,14 @@
+{
+  "full_check": "FAIL six unchanged historical evidence files",
+  "new_spike_boundary": "PASS unchanged policy patterns",
+  "historical_failures": [
+    "ValueError: local path or credential-like content: benchmarks/spikes/issue65-p1-owner/evidence/ci42346396518.json",
+    "local path or credential-like content: benchmarks/spikes/issue65-p1-owner/evidence/macos-g2-build.json",
+    "local path or credential-like content: benchmarks/spikes/issue65-p1-owner/evidence/macos-reference.json",
+    "local path or credential-like content: benchmarks/spikes/issue65-p1-timeout/evidence/initial-helper-read-failure.txt",
+    "local path or credential-like content: benchmarks/spikes/issue65-p1-timeout/evidence/macos-g2-build.json",
+    "local path or credential-like content: benchmarks/spikes/issue65-p1-timeout/evidence/macos-reference.json"
+  ],
+  "separate_cleanup_commit": "ae9c243f1f65ae0adb94dbd10b5049d298475afa",
+  "no_historical_files_edited": true
+}

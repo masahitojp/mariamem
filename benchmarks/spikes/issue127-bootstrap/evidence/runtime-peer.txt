@@ -1,0 +1,30 @@
+Disk preflight OK: 18.92 GiB free, 2.25 GiB owned
+{
+  "command": [
+    "go",
+    "test",
+    "-trimpath",
+    "-p",
+    "1",
+    "-buildvcs=false",
+    "-v",
+    "-run",
+    "^TestWireCaptureWaitsForFailedWorkerPeer$",
+    "-timeout",
+    "30s",
+    "internal/generatedgo/entry.go",
+    "internal/generatedgo/guest_identity.go",
+    "internal/generatedgo/main.go",
+    "internal/generatedgo/memory_backing_unix.go",
+    "internal/generatedgo/memory_lifetime.go",
+    "internal/generatedgo/runtime_instance.go",
+    "internal/generatedgo/runtime_thread_lifetime.go",
+    "internal/generatedgo/runtime_wire.go",
+    "internal/generatedgo/runtime_capture_test.go"
+  ],
+  "excluded": "production index-bound tests are outside this focused command; new guest broad-package qualification is not claimed"
+}
+=== RUN   TestWireCaptureWaitsForFailedWorkerPeer
+--- PASS: TestWireCaptureWaitsForFailedWorkerPeer (0.00s)
+PASS
+ok  	command-line-arguments	0.306s

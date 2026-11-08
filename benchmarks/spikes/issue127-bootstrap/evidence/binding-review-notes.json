@@ -1,0 +1,31 @@
+{
+  "result": "PASS exact development binding review after explicit relocation review",
+  "guest_sha256": "873c9daf38f6e7f5005dbdbdf8e920b396fe5591ab74bfedcad37b436c50d3dc",
+  "source_commit": "8c8b5f1c09765c9fb51c2b640ed2fc32d759fbe3",
+  "canonical_binding_unchanged": true,
+  "tool_assumption_rejections": [
+    {
+      "comparison": "one numeric mapping for all occurrences",
+      "found": "The literal 12 is both an unchanged struct offset and a no-op destructor function-table pointer; only the latter becomes 94",
+      "resolution": "Checked old T0[12] -> Fn133 and new T0[94] -> Fn131; complete no-op bodies match after function rename, then normalize only the one exact branch line"
+    },
+    {
+      "comparison": "one static relocation delta per worker",
+      "found": "Entry addresses relocate in four regions: 112688, -5312, 112684, -2112",
+      "resolution": "Pin these exact deltas and the full per-address map; require aligned, injective mapping and whole-body equality after recorded function/static relocations"
+    }
+  ],
+  "tls": {
+    "canonical_reference_bytes": 505,
+    "previous_P1b_bytes": 497,
+    "new_exported_tls_size": 489,
+    "new_generated_G2": 489,
+    "new_entry_MemoryInit_bytes": 489,
+    "note": "Four legacy TLS definitions excluded in source; source count is not a claim that all four survived old linking"
+  },
+  "review_limits": [
+    "Only explicit development binding; canonical ABI/guest binding not changed",
+    "No generic proof of arbitrary future linker changes",
+    "Fresh full-source reproduction and supported-platform public qualification remain pending"
+  ]
+}

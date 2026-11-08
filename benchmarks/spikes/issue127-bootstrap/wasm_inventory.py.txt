@@ -1,0 +1,42 @@
+"""Inspect actual linked WASM exports/function names without execution."""
+import json,sys
+from pathlib import Path
+
+def leb(data, pos):
+ n=0;shift=0
+ while True:
+  b=data[pos];pos+=1;n|=(b&127)<<shift
+  if not b&128:return n,pos
+  shift+=7
+
+def string(data,pos):
+ n,pos=leb(data,pos);return data[pos:pos+n].decode(),pos+n
+
+p=Path(sys.argv[1]);data=p.read_bytes();assert data[:8]==b'\0asm\x01\0\0\0'
+pos=8;exports=[];names=[];custom=[];initial_globals=[]
+while pos<len(data):
+ section=data[pos];length,start=leb(data,pos+1);body=data[start:start+length];pos=start+length
+ if section==6:
+  count,j=leb(body,0)
+  for i in range(min(count,4)):
+   value_type,mutable,opcode=body[j:j+3];j+=3
+   assert value_type==0x7f and opcode==0x41
+   value,j=leb(body,j);assert body[j]==0x0b;j+=1
+   initial_globals.append({'index':i,'initial_i32':value,'mutable':mutable})
+ elif section==7:
+  count,j=leb(body,0)
+  for _ in range(count):
+   name,j=string(body,j);kind=body[j];index,j=leb(body,j+1);exports.append({'name':name,'kind':kind,'index':index})
+ elif section==0:
+  name,j=string(body,0);custom.append(name)
+  if name=='name':
+   while j<len(body):
+    kind=body[j];n,j=leb(body,j+1);end=j+n
+    if kind==1:
+     count,k=leb(body,j)
+     for _ in range(count):
+      index,k=leb(body,k);name,k=string(body,k);names.append({'index':index,'name':name})
+    j=end
+legacy=[x for x in names if __import__('re').search(r'(^|[^A-Za-z_])(ps_call|ps_dispatch|ps_prepare|ps_execute|multi_worker|issue65_legacy_main|l4m_query|l4m_query_v2|l4m_exec_multi|embedded_prepared)([^A-Za-z_]|$)',x['name'])]
+assert not [e for e in exports if e['name'].startswith('l4m_')]
+print(json.dumps({'file':p.name,'sha256':__import__('hashlib').sha256(data).hexdigest(),'bytes':len(data),'exports':exports,'first_four_defined_globals':initial_globals,'custom_sections':custom,'named_functions':len(names),'legacy_named_functions':legacy,'embedded_named_functions':[x for x in names if __import__('re').search(r'mariamem_stmt_parameter|mysql_stmt_(bind|prepare|execute)|set_params_data',x['name'])],'bootstrap_named_functions':[x for x in names if 'issue65_bootstrap' in x['name'] or 'l4m_open' in x['name']],'limits':['Absence of names without a name section does not prove absence of internal functions']},indent=2))

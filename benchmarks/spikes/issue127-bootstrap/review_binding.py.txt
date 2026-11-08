@@ -1,0 +1,48 @@
+from pathlib import Path
+import re,json,hashlib,sys
+w=Path('.');repo=w/'worktree';root=w/'temp/host/candidate/module/generated';sys.path.insert(0,str(repo/'scripts'));from runtime_thread_lifetime import function
+previous=json.loads((repo/'benchmarks/spikes/issue65-p1-timeout/binding/identity.json').read_text());canonical=json.loads((repo/'tests/fixtures/prepared-p2-binding/identity.json').read_text());dest=w/'evidence/reviewed-binding';dest.mkdir(exist_ok=True);p=dest/'identity.json';functions={};comparisons={}
+def shape(text):
+ text=re.sub(r'\bFn\d+\b','FN',text);text=re.sub(r'(?<![A-Za-z0-9_])\d+\b','NUMBER',text);return re.sub(r'\s+','',text)
+index={}
+for file in root.glob('p*/*pure.go'):
+ text=file.read_text();starts=list(re.finditer(r'^func (Fn\d+)\(',text,re.M))
+ for i,m in enumerate(starts):
+  chunk=text[m.start():starts[i+1].start() if i+1<len(starts) else len(text)];body=chunk[:chunk.rfind('\n}')+2];index.setdefault(shape(body),[]).append((file,m[1]))
+selected=[]
+old_table=repo/'internal/generatedgo/code/p8/p8.go';new_table=root/'p8/p8.go'
+assert '\tm.T0[12] = Fn133\n' in old_table.read_text()
+assert '\tm.T0[94] = Fn131\n' in new_table.read_text()
+old_noop=function((repo/'internal/generatedgo/code/p8/p8_pure.go').read_text(),'Fn133')
+new_noop=function((root/'p8/p8_pure.go').read_text(),'Fn131')
+assert re.sub(r'\s+','',old_noop.replace('Fn133','Fn131'))==re.sub(r'\s+','',new_noop)
+assert 'm.G2 = int32(489)' in (root/'generated.go').read_text()
+for old,role in [('Fn153','free'),('Fn131','yield'),('Fn214','entry')]:
+ before=(repo/'tests/fixtures/prepared-p2-binding'/(old+'.txt')).read_text();found=index.get(shape(before),[]);assert len(found)==1,(role,found)
+ file,new=found[0];matches=[file];selected.append(new);after=function(file.read_text(),new);(dest/(role+'-candidate.txt')).write_text(after);a=before.splitlines();b=after.splitlines();assert len(a)==len(b),(role,len(a),len(b));names={};numbers={}
+ for left,right in zip(a,b):
+  if role=='entry' and left=='\tif v152 == int32(12) {':
+   assert right=='\tif v152 == int32(94) {';left=right
+  aa=re.findall(r'\bFn\d+\b',left);bb=re.findall(r'\bFn\d+\b',right);assert len(aa)==len(bb)
+  for x,y in zip(aa,bb):assert names.get(x,y)==y;names[x]=y
+  aa=re.findall(r'(?<![A-Za-z0-9_])\d+\b',left);bb=re.findall(r'(?<![A-Za-z0-9_])\d+\b',right);assert len(aa)==len(bb)
+  for x,y in zip(aa,bb):assert numbers.get(x,y)==y,(role,x,y,numbers.get(x),left,right);numbers[x]=y
+ changed={x:y for x,y in numbers.items() if x!=y};deltas=set()
+ for x,y in changed.items():
+  if role=='entry' and x=='505' and y=='489':continue
+  assert int(x)>15000000 and int(y)>15000000,(role,x,y);deltas.add(int(y)-int(x))
+ assert (deltas=={112688,-5312,112684,-2112} if role=='entry' else len(deltas)<=1),(role,deltas)
+ static={x:y for x,y in changed.items() if int(x)>15000000}
+ assert all((int(y)-int(x))%4==0 for x,y in static.items())
+ assert len(set(static.values()))==len(static)
+ mapped=re.sub(r'\bFn\d+\b',lambda m:names[m[0]],before.replace('\tif v152 == int32(12) {','\tif v152 == int32(94) {') if role=='entry' else before);mapped=re.sub(r'(?<![A-Za-z0-9_])\d+\b',lambda m:numbers[m[0]],mapped)
+ assert re.sub(r'\s+','',mapped)==re.sub(r'\s+','',after),role
+ if role=='free':assert set(re.findall(r'\bFn\d+\(m',after))=={new+'(m',names['Fn131']+'(m'};assert 'm.G0' not in after and 'm.G1' not in after
+ functions['code/'+str(matches[0].relative_to(root))]={'function':new,'normalized_sha256':hashlib.sha256(re.sub(r'\s+','',after).encode()).hexdigest(),'role':role}
+ comparisons[role]={'complete_body_equal_after_recorded_relocation':True,'function_renames':names,'changed_numeric_literals':changed,'static_relocation_delta':list(deltas),'canonical_reference_body_sha256':hashlib.sha256(before.encode()).hexdigest(),'new_body_sha256':hashlib.sha256(after.encode()).hexdigest()}
+ if role=='entry':comparisons[role]['table_pointer_relocation']={'old_index':12,'new_index':94,'old_function':'Fn133','new_function':'Fn131','proof':'Both table entries point to byte-identical no-op destructor bodies after name relocation','old_body_sha256':hashlib.sha256(old_noop.encode()).hexdigest(),'new_body_sha256':hashlib.sha256(new_noop.encode()).hexdigest(),'old_table_sha256':hashlib.sha256(old_table.read_bytes()).hexdigest(),'new_table_sha256':hashlib.sha256(new_table.read_bytes()).hexdigest()};comparisons[role]['tls_init_bytes']=489
+ (dest/(new+'.txt')).write_text(after)
+for existing in dest.glob('Fn*.txt'):
+ if existing.stem not in selected:existing.unlink()
+g=json.loads((w/'temp/artifact/guest.json').read_text());record={'contract':'issue65-experimental-thread-binding-v1','guest_sha256':g['guest_sha256'],'previous_experimental_guest_sha256':previous['guest_sha256'],'canonical_reference_guest_sha256':canonical['guest_sha256'],'canonical_reference_source_commit':canonical['source_commit'],'functions':functions,'review':comparisons,'ABI_offsets':{'start_args.pthread':16,'pthread.map_base':40,'pthread.map_size':44},'status':'experimental exact-function binding; canonical binding unchanged'}
+p.write_text(json.dumps(record,indent=2)+'\n');(w/'evidence/binding-review').mkdir(exist_ok=True);(w/'evidence/binding-review/final-refresh.json').write_text(json.dumps(record,indent=2)+'\n');print('Reviewed complete worker bodies for',g['guest_sha256'])

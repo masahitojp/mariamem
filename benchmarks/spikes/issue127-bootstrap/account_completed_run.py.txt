@@ -1,0 +1,37 @@
+import importlib.util,json,re,sys,hashlib
+from pathlib import Path
+owner=Path(__file__).resolve().parents[2];w=owner/'build/issue127/runtime';repo=w/'worktree'
+sys.path.insert(0,str(repo/'scripts'))
+from dev_guest import inventory,verify_guest
+from common import digest
+
+def load(name,path):
+ spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+probe=load('accounting_baseline',repo/'benchmarks/spikes/issue65-p1-timeout/probe_baseline.py')
+g2=load('accounting_g2',repo/'benchmarks/spikes/issue65-g2/observations.py')
+contract=load('accounting_contract',repo/'benchmarks/spikes/issue65-g2-repair/handshake_contract.py')
+record=verify_guest(repo,w/'temp/artifact');assert record['guest_sha256']=='873c9daf38f6e7f5005dbdbdf8e920b396fe5591ab74bfedcad37b436c50d3dc'
+assert json.loads((w/'evidence/native-suite-command.json').read_text())['exit']==0
+product=w/'temp/host/product';host=json.loads((w/'evidence/host-build.json').read_text())
+fixture=contract.fixture((repo/'benchmarks/spikes/issue65-g2/g2_test.go.txt').read_bytes())
+expected=dict(host['source_inventory'],**{'cmd/issue65-wire/g2_test.go':hashlib.sha256(fixture).hexdigest()})
+assert inventory(product)==expected
+assert digest(w/'temp/host/wire.test')==host['binary_sha256']
+text=(w/'evidence/native-suite.txt').read_text();assert text.endswith('PASS\n') and '--- FAIL:' not in text and '--- SKIP:' not in text
+declared=set()
+for file in (product/'cmd/issue65-wire').glob('*_test.go'):declared.update(re.findall(r'^func (Test\w+)\(',file.read_text(),re.M))
+passed=re.findall(r'^--- PASS: (Test\w+) \(',text,re.M)
+assert set(passed)==declared and len(passed)==len(declared)==79
+counts={}
+for name,analyzer in [('compat',probe.analyze),('limits',probe.limit_observations.analyze),('g1',probe.g1.analyze),('g2',g2.analyze)]:
+ prefix={'compat':'TestCompat','limits':'TestLimits','g1':'TestG1','g2':'TestG2'}[name];selected=[];current=''
+ for line in text.splitlines():
+  start=re.fullmatch(r'=== RUN   (Test\w+)',line)
+  if start:current=start[1]
+  if current.startswith(prefix) and line!='PASS':selected.append(line)
+ derived='\n'.join(selected)+'\nPASS\n';(w/'evidence'/(name+'-derived.txt')).write_text(derived)
+ result=analyzer(derived,0);assert result['ready'],(name,result['result'])
+ (w/'evidence'/(name+'-result.json')).write_text(json.dumps(result,indent=2)+'\n');counts[name]=len(result['observations'])
+assert counts=={'compat':88,'limits':38,'g1':234,'g2':241},counts
+result={'result':'PASS finite native run; accounting repaired over unchanged raw log','source_commit':record['source_commit'],'guest_sha256':record['guest_sha256'],'binary_sha256':digest(w/'temp/host/all.test'),'baseline_binary_sha256':host['binary_sha256'],'cases':sorted(passed),'observation_counts':counts,'raw_log_sha256':digest(w/'evidence/native-suite.txt'),'source_inventory':expected,'g2_contract':contract.CONTRACT,'accounting':'Go execution exit0/79 PASS was unchanged; split raw log by top-level test prefix for existing suite-specific analyzers','limits':['Private native route only; no C2 public/backend or settings fixture run','No Linux runtime repeat','No MariaDB update trial/performance/adoption/release','Fresh canonical builder success not established']}
+(w/'evidence/native-result.json').write_text(json.dumps(result,indent=2)+'\n');print(result['result'],counts)
