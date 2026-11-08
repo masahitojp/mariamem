@@ -1,0 +1,57 @@
+{
+  "result": "PASS_GUEST",
+  "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+  "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+  "native_sha256": "f2c9a002a294fd0e28b224bf1cde31ec740fa5813e6939591f5259401cfc9388",
+  "host_sha256": "45127ab29772312b72737039bed8a84b9df8c11273d3cf2ece5a1b789482bea6",
+  "children": 2,
+  "semantic": {
+    "literals": [
+      [
+        "\u65e5\u672c\u8a9e",
+        "0041",
+        5,
+        "word",
+        "a'b"
+      ]
+    ],
+    "comments": [
+      [
+        5
+      ]
+    ],
+    "identifier": [
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "nul": [
+      [
+        "610062"
+      ]
+    ],
+    "modes": [
+      [
+        2,
+        "a\\b"
+      ]
+    ]
+  },
+  "prepared": {
+    "protocol": "COM_STMT_PREPARE/EXECUTE",
+    "text_hex": "4100275ce697a5e69cace8aa9e",
+    "number": 7
+  },
+  "cleanup_errors": [],
+  "cleanup": {
+    "refs": 0,
+    "process_exit": 0,
+    "reaped": true,
+    "root_exists": false
+  }
+}

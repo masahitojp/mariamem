@@ -350,7 +350,7 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
+  "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
   "guest_size": 21177343,
   "linked_guest_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722",
   "repetitions": [
@@ -364,13 +364,19 @@
     }
   ],
   "compiled_guest_source_scope": "MariaDB12.3.3 canonical guest owners, prepared UCA1400 and compiled lexer maps; no experimental.patch",
-  "completed": false,
-  "full_guest_regeneration": false,
+  "completed": true,
+  "full_guest_regeneration": true,
   "ci_evidence": {
-    "status": "TWO_CANONICAL_SOURCE_BOOTSTRAP_BUILDS_PASS; installed candidate acceptance pending",
-    "source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
-    "run_id": 42448601842,
-    "receipt": "docs/reviews/lexer-canonical-ci-42448601842/assessment.json"
+    "status": "PASS: bounded canonical candidate; not Qualification or release approval",
+    "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+    "run_id": 42463414255,
+    "receipt": "docs/reviews/lexer-canonical-ci-42463414255/assessment.json",
+    "independent_generation_files": 110,
+    "platforms": [
+      "darwin-arm64",
+      "ubuntu24.04-x86_64"
+    ],
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42463414255"
   },
   "previous_canonical_evidence": {
     "source_commit": "cbd25f027e804bbd529a85208589ba2dd2899b86",
@@ -393,6 +399,12 @@
     "source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
     "contract": "development-unqualified-v1",
     "independent_source_builds": 2,
-    "use": "Both source builds produced reviewed bytes. Canonical exact-source installed acceptance pending."
+    "use": "Bootstrap input only; independent canonical acceptance is recorded under ci_evidence."
+  },
+  "canonical_bootstrap_input_evidence": {
+    "receipt": "docs/reviews/lexer-canonical-ci-42448601842/assessment.json",
+    "run_id": 42448601842,
+    "source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
+    "status": "TWO_CANONICAL_SOURCE_BOOTSTRAP_BUILDS_PASS; installed candidate acceptance pending"
   }
 }

@@ -1,0 +1,105 @@
+{
+  "total_count": 5,
+  "artifacts": [
+    {
+      "id": 13611003967,
+      "node_id": "MDg6QXJ0aWZhY3QxMzYxMTAwMzk2Nw==",
+      "name": "lexer-canonical-native-macos-15-b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+      "size_in_bytes": 26336,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13611003967",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13611003967/zip",
+      "expired": false,
+      "digest": "sha256:009d61c7344f36f357e00f9786439ecaad5b7bbeb250ba012fbb7858137f33e2",
+      "created_at": "2026-11-08T09:00:08Z",
+      "updated_at": "2026-11-08T09:00:08Z",
+      "expires_at": "2026-11-15T09:00:06Z",
+      "workflow_run": {
+        "id": 42463414255,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "experiment/lexer-canonical",
+        "head_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      }
+    },
+    {
+      "id": 13610743078,
+      "node_id": "MDg6QXJ0aWZhY3QxMzYxMDc0MzA3OA==",
+      "name": "lexer-canonical-native-ubuntu-24.04-b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+      "size_in_bytes": 26324,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13610743078",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13610743078/zip",
+      "expired": false,
+      "digest": "sha256:c84cb9c2cecba3ab014c0b287091d16bc8a28dec27ebda129026c582abc25b17",
+      "created_at": "2026-11-08T08:54:48Z",
+      "updated_at": "2026-11-08T08:54:48Z",
+      "expires_at": "2026-11-15T08:54:47Z",
+      "workflow_run": {
+        "id": 42463414255,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "experiment/lexer-canonical",
+        "head_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      }
+    },
+    {
+      "id": 13610628088,
+      "node_id": "MDg6QXJ0aWZhY3QxMzYxMDYyODA4OA==",
+      "name": "lexer-canonical-guest-b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+      "size_in_bytes": 5389202,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13610628088",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13610628088/zip",
+      "expired": false,
+      "digest": "sha256:10c604202b6b7062dfb2ef0ae97da685ce2e3839576dbda06ad73d845066458a",
+      "created_at": "2026-11-08T08:47:05Z",
+      "updated_at": "2026-11-08T08:47:05Z",
+      "expires_at": "2026-11-15T08:47:04Z",
+      "workflow_run": {
+        "id": 42463414255,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "experiment/lexer-canonical",
+        "head_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      }
+    },
+    {
+      "id": 13610533486,
+      "node_id": "MDg6QXJ0aWZhY3QxMzYxMDUzMzQ4Ng==",
+      "name": "lexer-canonical-build-b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+      "size_in_bytes": 92852,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13610533486",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13610533486/zip",
+      "expired": false,
+      "digest": "sha256:b6cc6b6cb18d8017f398d537d3e5b2ff41fbcf52b1a60a98055a661e7785a84a",
+      "created_at": "2026-11-08T08:47:06Z",
+      "updated_at": "2026-11-08T08:47:06Z",
+      "expires_at": "2026-11-15T08:47:05Z",
+      "workflow_run": {
+        "id": 42463414255,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "experiment/lexer-canonical",
+        "head_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      }
+    },
+    {
+      "id": 13610104871,
+      "node_id": "MDg6QXJ0aWZhY3QxMzYxMDEwNDg3MQ==",
+      "name": "lexer-native-reference-b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+      "size_in_bytes": 2368,
+      "url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13610104871",
+      "archive_download_url": "https://api.github.com/repos/masahitojp/mariamem/actions/artifacts/13610104871/zip",
+      "expired": false,
+      "digest": "sha256:b5fec454e42d3fa138b8cc5863204325004e13e0314b65dd6d11c06f9e89785d",
+      "created_at": "2026-11-08T08:34:04Z",
+      "updated_at": "2026-11-08T08:34:04Z",
+      "expires_at": "2026-11-15T08:34:04Z",
+      "workflow_run": {
+        "id": 42463414255,
+        "repository_id": 1383417913,
+        "head_repository_id": 1383417913,
+        "head_branch": "experiment/lexer-canonical",
+        "head_sha": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+      }
+    }
+  ]
+}

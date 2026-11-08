@@ -60,8 +60,14 @@ Stage1 source and reference acquisition passed in
 at fd615a53495b615ca2fec6007006f4a24f98d902. Its
 [source-bound receipt](../reviews/lexer-canonical-ci-42448601842/README.md)
 records two independent builds and the native prepared reference. Stage2
-canonical runtime installation is authored; exact-candidate both-host acceptance
-is **pending**. No new performance campaign was added.
+canonical installation and both-host acceptance passed at source_commit
+`b04b49dbc3dee5e2773b8d775d2202ca1eccff92` in
+[CI42463414255](https://github.com/masahitojp/mariamem/actions/runs/42463414255).
+The [checksum-bound canonical receipt](../reviews/lexer-canonical-ci-42463414255/README.md)
+closes all technical gates above, including normal/binary-prepared native SQL.
+Development42463420122 passes at that same source. No new performance campaign
+was added. Protected main integration is the remaining Human decision;
+Qualification and release remain separate.
 
 The experimental run42437059943 at6134274a stays experimental evidence, with C
 origin b1a265cc; it is never relabelled to the canonical source commit.

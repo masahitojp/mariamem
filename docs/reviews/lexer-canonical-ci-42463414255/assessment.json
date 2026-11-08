@@ -1,0 +1,62 @@
+{
+  "development_run": 42463420122,
+  "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "hosts": {
+    "macos": {
+      "J1_expected_failures": 2,
+      "J1_protected_successes": 4,
+      "binary_prepared": {
+        "number": 7,
+        "protocol": "COM_STMT_PREPARE/EXECUTE",
+        "text_hex": "4100275ce697a5e69cace8aa9e"
+      },
+      "children": 2,
+      "cleanup": {
+        "process_exit": 0,
+        "reaped": true,
+        "refs": 0,
+        "root_exists": false
+      },
+      "evidence_mutations_rejected": 18,
+      "generated_files": 110,
+      "host_sha256": "16001760f97adb24ffe31d932ee925ce073bb1a313d5dfdcc1d7d712a183b9e7",
+      "job": 128680408235,
+      "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+      "result": "PASS",
+      "tables": 638
+    },
+    "ubuntu": {
+      "J1_expected_failures": 2,
+      "J1_protected_successes": 4,
+      "binary_prepared": {
+        "number": 7,
+        "protocol": "COM_STMT_PREPARE/EXECUTE",
+        "text_hex": "4100275ce697a5e69cace8aa9e"
+      },
+      "children": 2,
+      "cleanup": {
+        "process_exit": 0,
+        "reaped": true,
+        "refs": 0,
+        "root_exists": false
+      },
+      "evidence_mutations_rejected": 18,
+      "generated_files": 110,
+      "host_sha256": "45127ab29772312b72737039bed8a84b9df8c11273d3cf2ece5a1b789482bea6",
+      "job": 128680408276,
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+      "result": "PASS",
+      "tables": 638
+    }
+  },
+  "independent_generated_files": 110,
+  "independent_source_builds": 2,
+  "linked_sha256": "69dbde341c47149463d57b9f6cd4d2683506e7936dc756a4793f5425b788a722",
+  "main_integration": "NOT_APPROVED",
+  "performance": "NO_NEW_MEASUREMENT; accepted prior single-Mac limits retained",
+  "qualification": "NOT_RUN",
+  "release": "NOT_APPROVED",
+  "result": "PASS_BOUNDED_CANONICAL_CANDIDATE",
+  "run": 42463414255,
+  "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92"
+}

@@ -82,5 +82,11 @@
   },
   "prior_lexer_prepared_guest_sha256": "6d7442204d39bc28eb4b34401874b84b4d3f517c2bb698ba7f3a465027c36cbe",
   "lexer_prepared_input_source_commit": "fd615a53495b615ca2fec6007006f4a24f98d902",
-  "lexer_prepared_installed_acceptance": "PENDING"
+  "lexer_prepared_installed_acceptance": {
+    "receipt": "docs/reviews/lexer-canonical-ci-42463414255/assessment.json",
+    "run_id": 42463414255,
+    "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+    "status": "PASS"
+  },
+  "source_commit_role": "Original prepared-P2 authoring origin; current lexer input and canonical acceptance have separate named source fields."
 }

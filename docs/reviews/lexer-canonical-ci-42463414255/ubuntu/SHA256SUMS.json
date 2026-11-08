@@ -1,0 +1,18 @@
+{
+  "actual-tables.txt": "5462a0bd553b0a35202ce7f36ac081faae4e353a8942e2432973fda70d9eb281",
+  "build-guard.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "build-negative.json": "37e71ff301e2da2a17b5469ce1be4c26d07d6bdd24f48251b3f9c4924e1433ba",
+  "build-negative.txt": "7d7c662fba2b4a39d525f6d832da69ad0b18f8c3ee42df6ab48623f7facafa44",
+  "crc.txt": "d750ec1ffa063d308d7b148eb83f9aac8f63f31709c7fa2a37471f2a6c5179ba",
+  "guest.json": "5833a92320043437e1838e19b119195e96e863cddb2154880d7ef664f3141cbf",
+  "input.txt": "511b4eefb63e8e81f4dc20946aea588da38f150a426473d183e6368c6c0a9fec",
+  "regeneration.json": "5c46307d6e682fb92db557198b712e538d76b4c9d0a591ccb207b500fcffcb95",
+  "regeneration.txt": "e3ff0eac88ba2752c5026ca39d7d5966dafa63674689ce1533c104b99f868ceb",
+  "snapshot-smoke.txt": "f6b6e232e0345fa742cf57cbc60c8884709a6f029bd43161ca6e812c9175f2a8",
+  "source.json": "e6d0cba9346ee8e2283c09cc468c558131fa3db22e525dd2621718b1140639b6",
+  "sql-children.json": "ccdfaadf6dc1dd345541c464ea31637b796a5ae2b5a476c509a0971b902f4645",
+  "sql-children.txt": "dd47983383fd3d6fe8cef804e7a97577221a6ce53f554c1462ebbafec1adc0cd",
+  "worker-identities.json": "568cdaf5e4c8afd527ee6a8761a95cb7640e9dfa4e47105fb154c4f9b0b1a049",
+  "worker-results.json": "55d8538f5bceab67e4ec9a843a9b7874d5138e3143952a6691a73e692a90c05a",
+  "worker.txt": "0033dee6afcb7164a44286f1f9b94ad0c1068103c5d90168b71a9d2c4d2337d7"
+}

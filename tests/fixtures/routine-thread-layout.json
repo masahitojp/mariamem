@@ -586,5 +586,10 @@
     ]
   },
   "canonical_source_origin": "fd615a53495b615ca2fec6007006f4a24f98d902",
-  "canonical_acceptance": "PENDING"
+  "canonical_acceptance": {
+    "receipt": "docs/reviews/lexer-canonical-ci-42463414255/assessment.json",
+    "run_id": 42463414255,
+    "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
+    "status": "PASS"
+  }
 }
