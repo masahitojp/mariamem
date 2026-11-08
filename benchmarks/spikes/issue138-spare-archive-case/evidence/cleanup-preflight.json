@@ -1,0 +1,19 @@
+{
+  "saved_before_cleanup_commit": "108c5985c56e2274b6856fc8db565ece93964a54",
+  "ordinary_clones": {
+    "build/issue128-real/temp/source-legacy": {
+      "source_commit": "32c799031f619164d3730b61a0bc9d7ae48dcd9b",
+      "tracked_untracked_ignored_clean": true,
+      "retained_in_owner_Git": true
+    },
+    "build/issue128-real/temp/runtime/legacy/worktree": {
+      "source_commit": "32c799031f619164d3730b61a0bc9d7ae48dcd9b",
+      "tracked_untracked_ignored_clean": true,
+      "retained_in_owner_Git": true
+    }
+  },
+  "owned_host_processes": 0,
+  "owned_container": 0,
+  "read_only_Go_dirs_owner_write_restored_for_deletion_only": true,
+  "other_owners_images_workspaces_touched": false
+}

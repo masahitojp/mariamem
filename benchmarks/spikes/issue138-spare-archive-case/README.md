@@ -134,7 +134,7 @@ scratch was removed after evidence capture and before host compilation. One
 producer/translation/host/suite, native0, retries0, CI0, benchmark0. Do not rank
 native/legacy speed from these setup-dependent, unequal programs.
 
-Active work is estimated15-25min including preparation, evidence/reporting and
+Active work is estimated20-25min including preparation, evidence/reporting and
 cleanup, with runner/fixture tooling3-5min; waits are separate, not charged as
 measured active work. These are estimates, not stopwatch values, within30/5.
 Wall through execution is about33min from17:03Z to17:36Z, within2h.
@@ -151,5 +151,18 @@ verification cost remain real. Overall maintenance burden is **INCONCLUSIVE**.
 Personal owner paths and trailing producer diagnostic whitespace are normalized
 with original and normalized hashes; SQL/readback/failure content is unchanged.
 
-Cleanup and final scoped checks follow preservation; their exact outcome is
-recorded in evidence/cleanup.json and the checksum manifest after disposal.
+Runtime evidence was committed/pushed as108c5985 before final disposal. Clean
+ordinary32c799 clones and retained owner history were inspected before removal.
+The helper protected the converter's uncommitted extracted Git tree; all420 files
+were proven equal to the locked archive plus13 exact source32 patches, with no
+HEAD/history or unique edit, then this owned copy was removed. The remaining
+scoped helper cleanup succeeded. A final audit paused on an unlisted tools folder;
+its sole wrapper matched the committed guard, then it was removed too.
+
+All owned source/SDK/archive/download/cache/build/translation/output/binary/venv/
+TMPDIR/GOTMPDIR/public-check staging is removed. Final helper dry-run has no
+decisions, retained>1GiB paths or debt; ignored state empty, checkout about419MiB.
+Cleanup details and exact final free sample are in evidence/cleanup.json; free-space
+changes on the whole volume are not attributed to this cleanup. No user state,
+other checkout/image, protected parent file or historical result changed.
+The final checksum manifest and source checks cover this new report only.

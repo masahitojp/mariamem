@@ -1,0 +1,17 @@
+{
+  "touched_public_boundary": "PASS",
+  "files_checked": 61,
+  "syntax": "PASS3 Python files",
+  "complete_helper_observer": "19/19 PASS before guest; no changed original expectations",
+  "exact_profiles": "PASS actual source and negative controls before guest",
+  "producer_guest_host_prepared_inventory": "Exact previous bytes reproduced",
+  "complete_binding": "Exact prior binding and real installer body/ABI negatives PASS",
+  "runtime_original_finite_and_common": "PASS",
+  "primary": "FAIL missing positive marker; post-marker operations NOT RUN",
+  "runtime_retries": 0,
+  "optional_hook": false,
+  "protected_files_and_historical_reports": "UNCHANGED",
+  "ignored_state_after_cleanup": "EMPTY",
+  "paths_over_1gib": [],
+  "cleanup_debt": []
+}

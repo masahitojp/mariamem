@@ -1,0 +1,30 @@
+{
+  "helper_apply": {
+    "before_bytes": 1954246656,
+    "after_bytes": 1310720,
+    "applied": true,
+    "decisions": [
+      {
+        "path": "<OWNER>/build/issue128-real/temp/runtime/legacy",
+        "classification": "DELETE",
+        "code": "completed_recreatable_state",
+        "reason": "completed owned scratch/worktree; compact knowledge exported before removal",
+        "automatic": true,
+        "bytes": 1954246656
+      }
+    ],
+    "retained_large_paths": [],
+    "cleanup_debt": []
+  },
+  "all_own_source_SDK_archive_download_cache_generated_host_translation_output_venv_temp_removed": true,
+  "remaining_paths_over_1gib": [],
+  "cleanup_debt": [],
+  "owned_children_stopped_before_cleanup": true,
+  "converter_REVIEW_resolution": "420 files exactly equal locked archive+13 source32 patches; no HEAD/history or unique edit",
+  "final_audit_note": "The first final-manual pass deliberately stopped at an unlisted tools directory; its sole wrapper matched the committed guard byte-for-byte, then it was removed",
+  "other_owners_shared_images_workspaces_touched": false,
+  "saved_before_cleanup_commit": "108c5985",
+  "final_free_bytes": 16711680000,
+  "checkout_allocated_bytes": 439336960,
+  "finished_utc": "2026-11-08T17:45:21Z"
+}
