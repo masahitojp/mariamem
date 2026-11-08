@@ -1,0 +1,16 @@
+{
+  "result": "PASS bounded realistic measurement",
+  "source_commit": "2c4827dc7a54e4247396a4afdaa306f03d4b8665",
+  "primary_processes": 15,
+  "warmup_processes": 3,
+  "primary_read_cases": 750,
+  "primary_write_cases": 300,
+  "all_case_oracles": true,
+  "mariamem_final_active_mappings": 0,
+  "pgmem_cleanup_scope": "public Close returned; full resource-disposal parity not asserted",
+  "no_exclusions": true,
+  "next_recommendation": "retain16 default for now;8MiB startup/RSS improvement does not establish whole-suite speedup; no additional sampling requested automatically",
+  "original_runner_sha256": "a84415db1eb7f69154b3d9175d682372aa206487cfc1f7390866edc6b89a6553",
+  "html_validation": "JS execution, both zoom modes, three SVG charts and geometry PASS; native browser visual inspection unavailable (CUA browser host unavailable)",
+  "runtime_guest_api_changes": false
+}
