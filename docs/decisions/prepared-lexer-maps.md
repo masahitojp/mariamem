@@ -1,8 +1,9 @@
 # Prepared compiled lexer maps: adoption decision
 
 On2026-11-08 the Human accepted the recommendation to adopt this bounded
-optimization and prepare a minimal product candidate. This does not authorize
-main integration, Qualification, version selection or publication.
+optimization and prepare a minimal product candidate. That candidate-adoption
+approval did not itself authorize main integration, Qualification, version
+selection or publication.
 
 Reviewed evidence source_commit: `8d5f8284cedde31751d4e53e52ddfd61f69432ab`.
 Product base: `3d8b2201c1f36fa5b7264e0450104055f3822272`.
@@ -66,8 +67,22 @@ canonical installation and both-host acceptance passed at source_commit
 The [checksum-bound canonical receipt](../reviews/lexer-canonical-ci-42463414255/README.md)
 closes all technical gates above, including normal/binary-prepared native SQL.
 Development42463420122 passes at that same source. No new performance campaign
-was added. Protected main integration is the remaining Human decision;
-Qualification and release remain separate.
+was added. The Human subsequently approved protected main integration as
+recorded below; Qualification and release remain separate.
 
 The experimental run42437059943 at6134274a stays experimental evidence, with C
 origin b1a265cc; it is never relabelled to the canonical source commit.
+
+## Protected main integration completed
+
+On2026-11-08 the Human approved PR136 main integration. The PR squash-merged
+to main source_commit `9003f0febea952a4117de9964991b9f032ad76bf` from approved
+head `65e70eea0670fa48a10235c519af66c0b48ca7f1`. Both have tree
+`956cc89c9152b16a4f1128536eeb21f2d64daad5`. Development42468613070 passed
+check/integration/Live required gate at that head; strict/admin protection was
+read back immediately before merging and was not bypassed. Canonical heavy
+acceptance remains pinned to b04b49db in42463414255 with the documented code
+equality, and old input/experimental receipts retain their original identities.
+
+Main integration is complete. Qualification, version choice and publication are
+separate decisions. This completion record changes documentation only.
