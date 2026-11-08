@@ -7484,5 +7484,5 @@
   },
   "staged_go_assembly_data_files": 288,
   "tooling_source_commit": "7034a24615899091efcd77fcb6950957df9bf670",
-  "go_buildinfo": "/Users/masahito/src/mysqlmem/publish/mariamem/build/experiment-work/issue65-p1-host/temp/host/g2.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/issue65-wire\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+  "go_buildinfo": "${HOST_BUILD}/g2.test: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/cmd/issue65-wire\n\tmod\tgithub.com/masahitojp/mariamem\t(devel)\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
 }

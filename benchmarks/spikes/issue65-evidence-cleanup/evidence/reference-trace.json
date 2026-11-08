@@ -1,0 +1,266 @@
+{
+  "source_commit": "a5ee1ed9cc2c6932d317fba77c339b364acd48df",
+  "method": "Search every tracked text file for each full evidence path and raw SHA256, then inspect executable basename/dynamic readers and workflow entry points.",
+  "files": [
+    {
+      "path": "benchmarks/spikes/issue65-p1-owner/evidence/ci42346396518.json",
+      "raw_sha256": "24571b3a9602ffb40f92e8f3df0f4c7ce2cb5c8490e3a75074ed78cef8f75284",
+      "references": [
+        {
+          "path": "benchmarks/spikes/issue65-p1-core/evidence/public-source-boundary.json",
+          "lines": [
+            6
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-public/evidence/public-source.json",
+          "lines": [
+            1285
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-public/evidence/source-boundary.json",
+          "lines": [
+            5
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-timeout/evidence/macos-g2-build.json",
+          "lines": [
+            1274
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-timeout/evidence/macos-reference.json",
+          "lines": [
+            1299
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "docs/design/issue65-native-protocol/productization.md",
+          "lines": [
+            16
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "docs/project-status.md",
+          "lines": [
+            459
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "docs/reviews/issue65-p1-public-backend-plan.md",
+          "lines": [
+            33
+          ],
+          "kind": "historical record/documentation"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/issue65-p1-owner/evidence/macos-g2-build.json",
+      "raw_sha256": "e368b0148ef66f8ce107171cb141d1f81ff6ca08e666bb0a1789632ac4e52146",
+      "references": [
+        {
+          "path": "benchmarks/spikes/issue65-p1-core/evidence/public-source-boundary.json",
+          "lines": [
+            7
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-owner/evidence/macos-summary.json",
+          "lines": [
+            44
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-public/evidence/public-source.json",
+          "lines": [
+            1291
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-public/evidence/source-boundary.json",
+          "lines": [
+            6
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-timeout/evidence/macos-g2-build.json",
+          "lines": [
+            1280
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-timeout/evidence/macos-reference.json",
+          "lines": [
+            1305
+          ],
+          "kind": "historical record/documentation"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/issue65-p1-owner/evidence/macos-reference.json",
+      "raw_sha256": "260d3983e797791bb84e61380bde57a07d6f3a65c3607d4790bc794cf9ef5562",
+      "references": [
+        {
+          "path": "benchmarks/spikes/issue65-p1-core/evidence/public-source-boundary.json",
+          "lines": [
+            8
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-owner/evidence/macos-summary.json",
+          "lines": [
+            52
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-owner/probe_baseline.py",
+          "lines": [
+            21
+          ],
+          "kind": "executable consumer"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-public/evidence/public-source.json",
+          "lines": [
+            1299
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-public/evidence/source-boundary.json",
+          "lines": [
+            7
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-timeout/evidence/macos-g2-build.json",
+          "lines": [
+            1288
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-timeout/evidence/macos-reference.json",
+          "lines": [
+            1313
+          ],
+          "kind": "historical record/documentation"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/issue65-p1-timeout/evidence/initial-helper-read-failure.txt",
+      "raw_sha256": "bf10b5a26dc352972ee273e34b6c0de72720730387c4f57e3a39df55f8cc9aff",
+      "references": [
+        {
+          "path": "benchmarks/spikes/issue65-p1-core/evidence/public-source-boundary.json",
+          "lines": [
+            9
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-public/evidence/public-source.json",
+          "lines": [
+            1341
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-public/evidence/source-boundary.json",
+          "lines": [
+            8
+          ],
+          "kind": "historical record/documentation"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/issue65-p1-timeout/evidence/macos-g2-build.json",
+      "raw_sha256": "7b81bbbec591f45f88c2a503189f7c3b35ef79ed134f0de44e297df038f257eb",
+      "references": [
+        {
+          "path": "benchmarks/spikes/issue65-p1-core/evidence/public-source-boundary.json",
+          "lines": [
+            10
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-public/evidence/public-source.json",
+          "lines": [
+            1344
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-public/evidence/source-boundary.json",
+          "lines": [
+            9
+          ],
+          "kind": "historical record/documentation"
+        }
+      ]
+    },
+    {
+      "path": "benchmarks/spikes/issue65-p1-timeout/evidence/macos-reference.json",
+      "raw_sha256": "88e66b7bc44754cfbcaa9b345749fd9a505e6b20e790d446e5ff0954ec949e99",
+      "references": [
+        {
+          "path": "benchmarks/spikes/issue65-p1-core/evidence/public-source-boundary.json",
+          "lines": [
+            11
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-public/evidence/public-source.json",
+          "lines": [
+            1352
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-public/evidence/source-boundary.json",
+          "lines": [
+            10
+          ],
+          "kind": "historical record/documentation"
+        },
+        {
+          "path": "benchmarks/spikes/issue65-p1-timeout/probe_baseline.py",
+          "lines": [
+            21
+          ],
+          "kind": "executable consumer"
+        }
+      ]
+    }
+  ],
+  "dynamic_readers": {
+    "baseline": "Each owner/timeout probe_baseline.py reads HERE/evidence/macos-reference.json, hashes through issue65-native-linux/probe.py:sha, and compares generated Go/assembly/data source inventory.",
+    "G2": "Each owner/timeout probe.py imports probe_baseline as fix and independently pins unchanged macos-g2-result.json; test_reference.py verifies both chains plus the exact one-fixture inventory extension.",
+    "workflow": "issue65-p1-owner.yml and issue65-p1-timeout.yml run the local test_reference.py and probe readers from tooling; original guest-source refs remain fixed.",
+    "public": "check_public.py computes current source hashes; C2 assemble/qualify/lifecycle inventory checks address staged products, not historical repository-source hashes."
+  },
+  "historical_reference_policy": "All historical source_inventory entries and FAIL records stay raw/base-bound; normalization.json maps raw and normalized bytes. Only two current baseline SOURCE_REFERENCE_SHA256 constants change."
+}
