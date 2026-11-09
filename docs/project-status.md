@@ -23,8 +23,8 @@ for the formal preparation/generation/binding path. Keep12.3.3 stable and retain
 13.2/13.3 acceptance. Upstream's roadmap also labels13.3 LTS, while13.2.0 is a
 Preview. The13.2 source/archive identity and common source preparation are now
 verified; formal generation and raw translation pass CI. Selected binding
-installation and initial macOS public routes now pass; complete both-OS public
-acceptance remains unfinished. This direction is not approval to publish a preview
+installation and initial public routes now pass on both product OSes; complete
+public acceptance remains unfinished. This direction is not approval to publish a preview
 or a13.3 release.
 
 [Issue65](https://github.com/masahitojp/mariamem/issues/65) governs all related
@@ -82,9 +82,20 @@ intended startup cause. The same CI42657118990 guest is reused: no guest rebuild
 or raw retranslation was performed. Initial and final non-test Go/assembly
 inventories match; the added final identity fixture is executed separately.
 
-The both-OS initial route workflow is prepared for this candidate, not yet a
-PASS. It is an intermediate execution gate, not a replacement for the fixed
-#132 exit. Settings precision, real join/fault controls, original22/88/38/G1/G2/P1
+[CI42666454893](https://github.com/masahitojp/mariamem/actions/runs/42666454893)
+now passes on exact source_commit `37e79f644e53bd8a38182621f66a58a87e38289a`
+for macOS arm64 and Linux x86_64. [Checked receipts](design/issue134-binding/ci42666454893.json)
+bind the same guest/binding and the public-source/installer/generated provenance
+chain. The five public Go tests, Python smoke and both factory-disabled controls
+execute on each OS. The two source inventories differ only in path-bound
+provenance metadata; execution source bytes match. Downloaded evidence does not
+include host binaries, so the host hashes remain producer-recorded observations.
+
+Measured phase sums are644.23s on macOS and369.43s on Linux, including installation
+and compilation; peak owned storage is2.36/1.99GiB respectively. No guest rebuild
+or raw retranslation was needed. These are acquisition/verification costs, not a
+runtime-speed comparison or saved person-hours. This is an intermediate execution
+gate, not a replacement for the fixed#132 exit. Settings precision, real join/fault controls, original22/88/38/G1/G2/P1
 oracle rebinding, installed-wheel acceptance and permanent normal-CI native-route
 placement remain. Common adapter/remaining provenance ownership and#128 total
 cost remain unfinished. [Installation procedure](../guest/versions/README.md#selected-binding-and-public-source-installation)
@@ -148,9 +159,13 @@ binding, registration/proof metadata and public verification remain. Do not use
 patch counts or source equality as saved person-hours. Preserve original build
 cost evidence and distinguish one-time setup from recurring update work.
 
-**Next: submit the same candidate to the initial both-OS public route CI, then
-complete #132's settings, real-fault, original-oracle and installed-wheel rows.**
-Use the existing#129/#130 fixtures and retain the fixed exit; the initial gate
+**Next: connect #129's exact settings/inheritance observations and #130's
+real-join/fault fixtures to this selected public candidate.** Preserve the
+existing installation dependency: lifetime hooks/inventory first, settings
+second (B→L→S). Start by checking actual guest values across Start TCP/Pipe,
+Fork TCP/Pipe, Live and Reset, with the original fixed-five-second Fork negative.
+Then complete the real-fault, original-oracle and installed-wheel rows on both
+OSes. Use the existing fixtures and retain the fixed exit; the initial gate
 cannot close#132/#134. Keep exact source/guest/binding/host/fixture identities,
 measure machine phases in CI and record remaining manual decisions for#128.
 No cost-only rebuild, controller relocation or resumed#138 experiment is added.

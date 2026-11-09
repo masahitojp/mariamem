@@ -1,0 +1,204 @@
+{
+  "schema": "selected-public-ci-observation-v1",
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42666454893",
+  "source_commit": "37e79f644e53bd8a38182621f66a58a87e38289a",
+  "result": "PASS",
+  "scope": "Initial public routes, not full #132 acceptance or release",
+  "receipt_chain_rechecked": true,
+  "cross_platform_source_differences": [
+    "internal/generatedgo/provenance.json"
+  ],
+  "cross_platform_execution_sources_identical": true,
+  "guest_builds_in_this_cohort": 0,
+  "raw_translations_in_this_cohort": 0,
+  "platforms": {
+    "macos-15": {
+      "binding_sha256": "01d3baf37f3e0ab7b17ec6df08b9a520215c43e7fb0024b464f05f7b4b317c75",
+      "budget_gib": 8.0,
+      "guest_sha256": "607cab7baa164aad064aad4d4e8622249a58204cf828650fab5bd9c8d436b3b4",
+      "host_sha256": "902e87c3f7f9a264c220835b2015219d2f6a377b49a0f5886ef8b50c450f8cb4",
+      "min_free_gib": 8.0,
+      "phases": [
+        {
+          "exit_code": 0,
+          "phase": "install",
+          "seconds": 100.058335166
+        },
+        {
+          "exit_code": 0,
+          "phase": "public-go",
+          "seconds": 521.824528542
+        },
+        {
+          "exit_code": 0,
+          "phase": "host-owner-units",
+          "seconds": 7.922944959000006
+        },
+        {
+          "exit_code": 0,
+          "phase": "host-build",
+          "seconds": 4.1148787919998995
+        },
+        {
+          "exit_code": 0,
+          "phase": "public-python",
+          "seconds": 2.024281374999987
+        },
+        {
+          "exit_code": 1,
+          "phase": "factory-disabled-go",
+          "seconds": 2.9412611249999827
+        },
+        {
+          "exit_code": 0,
+          "phase": "factory-disabled-host-build",
+          "seconds": 3.854722250000009
+        },
+        {
+          "exit_code": 1,
+          "phase": "factory-disabled-python",
+          "seconds": 1.4881363750000673
+        }
+      ],
+      "producer_source_commit": "ecddf5afb248673eee2055d5b842e617ea799964",
+      "release_eligible": false,
+      "resources": {
+        "free_bytes": 45758492672,
+        "minimum_free_bytes": 45301067776,
+        "owned_bytes": 2049925120,
+        "peak_owned_bytes": 2531586048
+      },
+      "result": "PASS",
+      "scope": "Initial public routes only; full #132 acceptance NOT_RUN",
+      "source_commit": "37e79f644e53bd8a38182621f66a58a87e38289a",
+      "source_receipt_sha256": "914d3a07a1c53e8ee60e4d99a26c1bc64d97428054689a93f37292a9251eaadc",
+      "artifact_id": 13696754181,
+      "artifact_name": "selected-public-macos-15-37e79f644e53bd8a38182621f66a58a87e38289a",
+      "phase_seconds_sum": 644.229088584,
+      "source_inventory_members": 6893,
+      "source_inventory_sha256": "f7b89e688c56c83def3d0ef759eaf14d6de48b089656f835c2d48339f808a98b",
+      "observed_build_settings": {
+        "GOOS": "darwin",
+        "GOARCH": "arm64",
+        "CGO_ENABLED": "0"
+      },
+      "source_receipt_chain": "public-result -> public-source -> installation-inputs <- generated provenance: hashes match",
+      "factory_negative_only_changed_file": "internal/host/factory.go",
+      "factory_negative_cause": "selected native factory disabled control",
+      "artifact_files_sha256": {
+        "factory-disabled-go.txt": "8ae66f1271686c67fc0559c9fbeca47ed2bb336221f268bc45717782c7ee68fd",
+        "factory-disabled-host-build.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "factory-disabled-python.txt": "4e03a21d2a92aa28974e30999d57f6ea73cf52ebf1b30c492008414192abf2fe",
+        "host-build.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "host-owner-units.txt": "2edf4d087ca464f6d17ae2e51c4e016fbbf1962012ef3466263671830768d044",
+        "install/installation-inputs.json": "dbea2b15d098189e6f00e6d4c87f1cf416ea5ea017ec1bfef8ccbeebcc57f89a",
+        "install/product/internal/generatedgo/provenance.json": "b46ad737252a6d6378cfd9fb56c9c8cfdf7b88211d9728c968f2cb5dea291428",
+        "install/public-source.json": "914d3a07a1c53e8ee60e4d99a26c1bc64d97428054689a93f37292a9251eaadc",
+        "install.txt": "b5f2f5c3bc2d36134ada36e5affce26704ed8ddb057f2344e7ae8c77fc2e3b91",
+        "public-go.txt": "641f17c6939267ea8da4e384fe85a6d60bb2613613cdca55369aa2ce4c58872b",
+        "public-python.txt": "0cddb2f9522c5fc98e9503738cea759bed811b3ad3b391083a46a5d5f403e174",
+        "public-result.json": "1ec89af42f4346c158f1244c6572f778c849b23697be2dd5122c492c9779d10e"
+      }
+    },
+    "ubuntu-24.04": {
+      "binding_sha256": "01d3baf37f3e0ab7b17ec6df08b9a520215c43e7fb0024b464f05f7b4b317c75",
+      "budget_gib": 8.0,
+      "guest_sha256": "607cab7baa164aad064aad4d4e8622249a58204cf828650fab5bd9c8d436b3b4",
+      "host_sha256": "7068ed1decc38731fa4fcb4e394c6f64564cbfb7a12b8e5da9a3d3142439afd2",
+      "min_free_gib": 8.0,
+      "phases": [
+        {
+          "exit_code": 0,
+          "phase": "install",
+          "seconds": 51.265917400000006
+        },
+        {
+          "exit_code": 0,
+          "phase": "public-go",
+          "seconds": 309.571990947
+        },
+        {
+          "exit_code": 0,
+          "phase": "host-owner-units",
+          "seconds": 2.2842994569999746
+        },
+        {
+          "exit_code": 0,
+          "phase": "host-build",
+          "seconds": 1.5441390810000257
+        },
+        {
+          "exit_code": 0,
+          "phase": "public-python",
+          "seconds": 0.8559230319999642
+        },
+        {
+          "exit_code": 1,
+          "phase": "factory-disabled-go",
+          "seconds": 1.5150655790000087
+        },
+        {
+          "exit_code": 0,
+          "phase": "factory-disabled-host-build",
+          "seconds": 1.5382308369999578
+        },
+        {
+          "exit_code": 1,
+          "phase": "factory-disabled-python",
+          "seconds": 0.851306328000021
+        }
+      ],
+      "producer_source_commit": "ecddf5afb248673eee2055d5b842e617ea799964",
+      "release_eligible": false,
+      "resources": {
+        "free_bytes": 89066266624,
+        "minimum_free_bytes": 88797581312,
+        "owned_bytes": 1867788288,
+        "peak_owned_bytes": 2135580672
+      },
+      "result": "PASS",
+      "scope": "Initial public routes only; full #132 acceptance NOT_RUN",
+      "source_commit": "37e79f644e53bd8a38182621f66a58a87e38289a",
+      "source_receipt_sha256": "0fe3a7715bd0f276c3b2c1af63dc7f923b9a82f7c8f084ee04678d75230e5856",
+      "artifact_id": 13696957500,
+      "artifact_name": "selected-public-ubuntu-24.04-37e79f644e53bd8a38182621f66a58a87e38289a",
+      "phase_seconds_sum": 369.426872661,
+      "source_inventory_members": 6893,
+      "source_inventory_sha256": "80e9ded7f833de00747c133f189d62e09706985d2d41ab0415d58a3fa92361ec",
+      "observed_build_settings": {
+        "GOOS": "linux",
+        "GOARCH": "amd64",
+        "CGO_ENABLED": "0"
+      },
+      "source_receipt_chain": "public-result -> public-source -> installation-inputs <- generated provenance: hashes match",
+      "factory_negative_only_changed_file": "internal/host/factory.go",
+      "factory_negative_cause": "selected native factory disabled control",
+      "artifact_files_sha256": {
+        "factory-disabled-go.txt": "162567b6225fe1813a0dd698f49fc2213dd6e9dc985176a5e773260a719aeecd",
+        "factory-disabled-host-build.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "factory-disabled-python.txt": "8efc0ff81fe27030d521782e88d27fd385ff57b2f3d36c6f577611f381347568",
+        "host-build.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "host-owner-units.txt": "40d36e825a3cc7417aede0cea2570e5a4236c15b14ca1084945faee81614e71f",
+        "install/installation-inputs.json": "2dfb9abd0cd95f77d518992a9a85de91d091c9f6564fe552f4b298b7b06b6798",
+        "install/product/internal/generatedgo/provenance.json": "49a1b755082a5e99b97dbcae630fd9dc7b664d49329a4453295432bd077a60b9",
+        "install/public-source.json": "0fe3a7715bd0f276c3b2c1af63dc7f923b9a82f7c8f084ee04678d75230e5856",
+        "install.txt": "a9f8b8011c52d421303a77428e988da097d800c4f65b0c904392f561d034adc5",
+        "public-go.txt": "bbe048e533a191e69eaa6ea208ac8469c882476acfff1cff963f9b69451bfcea",
+        "public-python.txt": "b4eb7be9000651a3e89c6a77e8b346d05d1d706d620aa6f8193e574a39b3ced1",
+        "public-result.json": "9389dec52115d09eee44e76afc758c446e16c1ecd4ce2cb9b12152e2072ba2ce"
+      }
+    }
+  },
+  "limitations": [
+    "Downloaded receipts/logs checked; binaries and full generated source are not in this artifact, so no independent binary rehash or execution performed here",
+    "Settings precision/inheritance, real joins/faults, original 22/88/38/G1/G2/P1 public oracle rebinding, installed wheel and permanent native CI placement remain",
+    "Phase durations include compiler/tool setup; not SQL runtime speed or controlled upgrade-cost improvement"
+  ],
+  "next": {
+    "fixture_source_commit": "fd7aea9178a0f798de4a742ddb573a877f6c1f28",
+    "work": "Move existing settings/lifetime fixtures into maintained acceptance owners and bind their receipts to the selected installer",
+    "installation_dependency": "Existing #130 hooks/lifetime inventory before #129 settings overlay (B -> L -> S); do not change guest or controller merely to relocate fixtures",
+    "first_observations": "Actual guest INSPECT for exact settings on Start TCP/Pipe, Fork TCP/Pipe, Live and Reset; fixed-five-second Fork negative after correct Start rows",
+    "kept_exit": "Both-platform full #132 cohort and #128 maintenance-cost judgment; no new preparation-only exit"
+  }
+}
