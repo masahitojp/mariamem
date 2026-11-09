@@ -25,6 +25,12 @@ var layoutJSON []byte
 
 var errClosed = errors.New("static image factory closed")
 
+// cleanupOwner is implemented by base.MemoryReleaseError; retain retry authority.
+type cleanupOwner interface {
+	error
+	Close() error
+}
+
 type factory struct {
 	layout            imagelayout.Layout
 	layoutErr         error
@@ -174,7 +180,7 @@ func (f *factory) acquire() (*child, error) {
 	}
 	b, err := f.mapImage(int(f.image.Fd()), generated.InitialMemoryBytes, maximum)
 	if err != nil {
-		var debt *base.MemoryReleaseError
+		var debt cleanupOwner
 		if errors.As(err, &debt) {
 			f.debt = debt
 			f.buildErr = err
@@ -310,7 +316,7 @@ func (f *factory) buildSafely() (err error) {
 				err = fmt.Errorf("initial image constructor: %v", p)
 			}
 		}
-		var debt *base.MemoryReleaseError
+		var debt cleanupOwner
 		if errors.As(err, &debt) && f.debt == nil {
 			f.debt = debt
 		}

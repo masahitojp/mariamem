@@ -520,3 +520,42 @@ func TestBuildPanicLatchesAndDisposes(t *testing.T) {
 		t.Fatal("retry or retained file")
 	}
 }
+
+// Model an unsuccessful unmap with the same retry authority as MemoryReleaseError.
+type failingCleanup struct {
+	attempts int
+	fail     bool
+}
+
+func (d *failingCleanup) Error() string { return "injected unmap debt" }
+func (d *failingCleanup) Close() error {
+	d.attempts++
+	if d.fail {
+		return syscall.EBUSY
+	}
+	return nil
+}
+func TestMapCleanupDebtStopsAdmissionAfterRecovery(t *testing.T) {
+	f := ownedFactory(t)
+	survivor := mustChild(t, f)
+	debt := &failingCleanup{fail: true}
+	maps := 0
+	f.mapImage = func(int, uint64, uint64) (*base.MemoryMapping, error) {
+		maps++
+		return nil, errors.Join(syscall.ENOMEM, debt)
+	}
+	if _, e := f.acquire(); !errors.Is(e, syscall.EBUSY) || f.debt == nil {
+		t.Fatal("lost cleanup authority", e)
+	}
+	debt.fail = false
+	if _, e := f.acquire(); e == nil || f.debt != nil || debt.attempts != 2 {
+		t.Fatal("cleanup retry", e, debt)
+	}
+	if _, e := f.acquire(); e == nil || maps != 1 {
+		t.Fatal("admitted after uncertainty", e, maps)
+	}
+	survivor.m.Memory[8388608] ^= 0xff
+	if len(f.files) != 0 {
+		t.Fatal("image FD retained after admission stopped")
+	}
+}
