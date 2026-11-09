@@ -1,15 +1,6 @@
 name: Process static image candidate (not Qualification)
 on:
   workflow_dispatch:
-  push:
-    branches: [experiment/issue123-product]
-    paths:
-      - internal/**
-      - scripts/**
-      - tests/**
-      - go.mod
-      - go.sum
-      - .github/workflows/static-image-candidate.yml
 permissions:
   contents: read
 jobs:

@@ -4,7 +4,7 @@ from pathlib import Path
 
 def test_static_image_candidate_boundaries():
     root = Path(__file__).resolve().parents[1]
-    text = (root/'.github/workflows/static-image-candidate.yml').read_text()
+    text = (root/'.github/workflows/issue123-layout.yml').read_text()
     for contract in (
         'runner: [macos-15, ubuntu-24.04]', 'go-version: \'1.26.10\'',
         'scripts/git_identity.py inspect HEAD', 'os.environ["GITHUB_SHA"]',
@@ -16,3 +16,4 @@ def test_static_image_candidate_boundaries():
     ):
         assert contract in text
     assert 'operation: release' not in text and 'continue-on-error' not in text
+    assert '  workflow_dispatch:' in text and '  push:' not in text and '  pull_request:' not in text
