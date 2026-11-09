@@ -11,7 +11,10 @@ def test_static_image_candidate_boundaries():
         'test -z "$(git status --porcelain)"', 'go clean -testcache',
         './internal/generatedgo/layoutgen -check',
         'scripts/verify_generated_runtime.py', 'tests/test_runtime_static_image.py',
-        './internal/generatedgo/image', 'scripts/verify.py integration',
+        './internal/generatedgo/image', 'scripts/verify.py smoke',
+        './tests/gointegration ./tests/godefault ./tests/generatedmemory',
+        'TestProcessImageSurvivesIndependentRootsAndSnapshots',
+        'tests/test_owned_snapshot.py', 'tests/snapshots.py',
         'if-no-files-found: error', 'SHA256SUMS.json',
     ):
         assert contract in text
