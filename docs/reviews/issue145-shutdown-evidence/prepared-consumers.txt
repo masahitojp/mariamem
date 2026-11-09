@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/scripts/check_prepared_consumers.py", line 31, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/scripts/check_prepared_consumers.py", line 22, in main
+    run([sys.executable,'tests/v06_prepared_p5_compare.py','--actual',actual,
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/scripts/check_prepared_consumers.py", line 15, in run
+    return subprocess.run([str(x) for x in args],cwd=ROOT,check=check,timeout=300)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.18/Frameworks/Python.framework/Versions/3.11/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/temp/consumer-venv/bin/python', 'tests/v06_prepared_p5_compare.py', '--actual', '../temp/prepared-consumers/consumers.json', '--native', 'tests/fixtures/prepared-p5-native-macos314.json', '--actual-environment', '../temp/prepared-consumers/environment.json', '--native-cext-environment', 'tests/fixtures/prepared-p5-native-macos314-environment.json', '--actual-edges', '../temp/prepared-consumers/edges.json', '--native-edges', 'tests/fixtures/prepared-p5-native-macos314-edges.json', '--accepted-disposition', 'docs/decisions/prepared-consumer-exceptions.md', '--consumer-exit', '1', '--output', '../temp/prepared-consumers/matching.json']' returned non-zero exit status 1.

@@ -122,8 +122,8 @@ Discarding a fresh or Fork database uses `2`; capturing a root or exporting a
 snapshot uses `1`, including a Snapshot derived from a Fork. The host overrides
 client changes to this global before stopping the engine. Configuration failure
 aborts disposal/capture through the existing guest cleanup path and cannot
-publish a successful snapshot. Session rollback and worker/memory reclamation
-still complete before Close returns.
+publish a successful snapshot. A successful Close still waits for session rollback
+and worker/memory reclamation; failures retain the existing disposal contract.
 
 Ordinary baselines do not retain one backing FD per prepared file. Historical
 137-file/FD-limit results describe the released file-backed implementation,
