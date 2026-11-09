@@ -22,14 +22,24 @@ for fixture,n in [('large',8)]:
  for key in out['serial']['16']:
   base=out['serial']['16'][key]['process_p50'];cand=out['serial']['8'][key]['process_p50'];pct=[100*(c/b-1) for b,c in zip(base,cand)]
   out['paired'][key]={'percent_deltas':pct,'median_percent':med(pct),'improved_pairs':sum(c<b for b,c in zip(base,cand)),'ms_deltas':[c-b for b,c in zip(base,cand)]}
+ out['process_totals']={}
+ for mode in ('serial','hold'):
+  out['process_totals'][mode]={}
+  for key in ('prepare_ms','whole_process_ms','whole_process_cpu_ms'):
+   vs={str(arm):[r[key] for r in obs if r['mode']==mode and r['requested_pool_mib']==arm] for arm in (16,8)}
+   b,c=vs['16'],vs['8'];out['process_totals'][mode][key]={'16':b,'8':c,'median16':med(b),'median8':med(c),'paired_percent':[100*(y/x-1) for x,y in zip(b,c)],'wins':sum(y<x for x,y in zip(b,c))}
  out['physical_table_bytes']=sorted(set(r['table_allocated_bytes'] for r in obs if r['fixture']==fixture))
  summary['fixtures'][fixture]=out
 for r in obs:
+ assert r['table_allocated_bytes']>16*2**20 and r['read_threads']==1
  assert r['success'] and r['mapping_stats']['active_mappings']==0
  assert all(v==r['requested_pool_mib']*2**20 for v in r['settings'].values())
  if r['mode']=='serial':assert r['child_settings']==r['settings']
 text=json.dumps(summary,indent=2)+'\n'
-if args.check:assert (root/'summary.json').read_text()==text
+if args.check:
+ assert (root/'summary.json').read_text()==text
+ import hashlib
+ for name,digest in json.loads((root/'SHA256SUMS.json').read_text()).items():assert hashlib.sha256((root/name).read_bytes()).hexdigest()==digest,name
 else:(root/'summary.json').write_text(text)
 for f,o in summary['fixtures'].items():
  print(f,'physical',o['physical_table_bytes'])

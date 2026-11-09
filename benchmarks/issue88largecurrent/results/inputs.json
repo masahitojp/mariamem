@@ -1,0 +1,70 @@
+{
+  "source": {
+    "object_sha": "9a8944545ef11a43ebd09cc70e5171413874b711",
+    "object_type": "commit",
+    "source_commit": "9a8944545ef11a43ebd09cc70e5171413874b711"
+  },
+  "product_source_commit": "279fa530d03cab1bd025df91bf5130bbf845a721",
+  "origin_guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "plan": {
+    "question": "On current adopted startup-global-concurrency main, what SQL/cache tradeoff does 16->8MiB cause on a >16MiB table?",
+    "base_commit": "279fa530d03cab1bd025df91bf5130bbf845a721",
+    "origin_guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+    "harness_origin": "f781a68419ab2282ac08fdc62e79670da54beadd",
+    "fixture": {
+      "rows": 24576,
+      "payload_bytes": 1024,
+      "allocated_guard": ">16MiB after ANALYZE",
+      "serial_children": 8
+    },
+    "modes": [
+      "serial",
+      "hold"
+    ],
+    "pairs": 5,
+    "processes": 20,
+    "order": "alternate 16/8 then 8/16 each pair; rotate serial/hold each pair",
+    "serial_warmup_children_per_process": 1,
+    "rss": "independent hold process, checkpoints 0/1/4; GC+FreeOSMemory+100ms",
+    "transport": "Pipe",
+    "max_forks": 4,
+    "gomaxprocs": 8,
+    "gogc": 100,
+    "go": "go1.27.3",
+    "read_threads": 1,
+    "delta": "same binary validated two-argv selector, 16M->8M size and size_max only; canonical main runtime unchanged",
+    "metrics": [
+      "Fork wall/process CPU",
+      "first scan including lazy connect",
+      "second full scan",
+      "UPDATE+point oracle",
+      "lifecycle wall",
+      "prepare and whole process wall/CPU including warmup+final pristine",
+      "held RSS"
+    ],
+    "exit": "fixed5 pairs; all outliers retained; report tradeoff; no automatic sample extension, adoption or CI",
+    "budget": {
+      "active_hours": 2,
+      "tooling_minutes": 30,
+      "heavy_ci": 0,
+      "min_free_gib": 8,
+      "owned_gib": 10,
+      "run_timeout_seconds": 1800
+    }
+  },
+  "host": {
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "go": "go version go1.27.3 darwin/arm64",
+    "cpu": "Apple M1",
+    "memory": "17179869184"
+  },
+  "binary_sha256": "1ff47eb1c2ca4c1c41cc29f6727dcbe3cca882cfa487292654d676dfc715c443",
+  "build_seconds": 104.619727792,
+  "build_info": "<WORKSPACE>/temp/probe: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue88largecurrent\n\tmod\tgithub.com/masahitojp/mariamem\tv0.6.3-0.20261109141353-9a8944545ef1\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tDefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=9a8944545ef11a43ebd09cc70e5171413874b711\n\tbuild\tvcs.time=2026-11-09T14:13:53Z\n\tbuild\tvcs.modified=false\n",
+  "overlay": {
+    "generated_path": "internal/generatedgo/code/p5/p5_pure.go",
+    "before_sha256": "39b3e13d8b844012a75c7deacfc48c0cc08b0587d46f41eaed18793ec166d9a1",
+    "after_sha256": "a50a2e0dd6634bb0ed9bc1634982b0d92969817b04c7cd7c0fc86cadbfabd5ed",
+    "selector_sha256": "48b600d4bc1d3a5f6c61e72885d2e5a7b57dab3efa011cbb27a7a3742b676552"
+  }
+}
