@@ -1,0 +1,27 @@
+--- a/sql/sql_prepare.cc
++++ b/sql/sql_prepare.cc
+@@ -777,7 +777,7 @@
+     tm.minute= 59;
+     tm.second= 59;
+   }
+-  set_time(&tm, MYSQL_TIMESTAMP_TIME, MAX_TIME_WIDTH);
++  set_time(&tm, MYSQL_TIMESTAMP_TIME, MAX_TIME_FULL_WIDTH);
+ }
+ 
+ void Item_param::set_param_datetime(uchar **pos, ulong len)
+--- a/libmysqld/lib_sql.cc
++++ b/libmysqld/lib_sql.cc
+@@ -1143,6 +1143,13 @@
+   client_field->flags= (uint16) server_field.flags;
+   client_field->decimals= server_field.decimals;
+ 
++#ifdef __wasi__
++  /* Metadata allocation failure must be returned before strlen dereferences. */
++  if (!client_field->db || !client_field->table || !client_field->name ||
++      !client_field->org_table || !client_field->org_name)
++    return true;
++#endif
++
+   client_field->db_length=		(uint)strlen(client_field->db);
+   client_field->table_length=		(uint)strlen(client_field->table);
+   client_field->name_length=		(uint)strlen(client_field->name);

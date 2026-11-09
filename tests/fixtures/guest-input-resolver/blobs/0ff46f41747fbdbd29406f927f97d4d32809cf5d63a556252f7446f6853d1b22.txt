@@ -1,0 +1,14 @@
+--- a/storage/innobase/log/log0log.cc
++++ b/storage/innobase/log/log0log.cc
+@@ -342,7 +342,10 @@
+         log.close();
+         log_buffered= false;
+         log_maybe_unbuffered= true;
+-        IF_WIN(,mprotect(ptr, size_t(size), PROT_READ));
++#if !defined(_WIN32) && !defined(__wasi__)
++        /* Same WASIX protection limitation as lite4mariadb's newer source. */
++        mprotect(ptr, size_t(size), PROT_READ);
++#endif
+       }
+ # endif
+       buf= static_cast<byte*>(ptr);

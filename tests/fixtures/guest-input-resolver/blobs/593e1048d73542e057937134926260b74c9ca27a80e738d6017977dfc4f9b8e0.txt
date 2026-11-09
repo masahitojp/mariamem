@@ -1,0 +1,26 @@
+--- a/storage/innobase/buf/buf0flu.cc
++++ b/storage/innobase/buf/buf0flu.cc
+@@ -2840,15 +2840,23 @@
+         {
+           buf_pool.LRU_warned_clear();
+           if (UNIV_UNLIKELY(create_spare_archive != 0))
++          {
++            static bool reported= false;
++            if (!reported) { reported= true; fprintf(stderr, "ISSUE138_BRANCH spare_archive\n"); }
+             goto timed_wait;
++          }
+           /* We are idle; wait for buf_pool.page_cleaner_wakeup() */
+           my_cond_wait(&buf_pool.do_flush_list,
+                        &buf_pool.flush_list_mutex.m_mutex);
+         }
+         else
+         timed_wait:
++        {
++          static bool reported= false;
++          if (!reported) { reported= true; fprintf(stderr, "ISSUE138_BRANCH timed_wait\n"); }
+           my_cond_timedwait(&buf_pool.do_flush_list,
+                             &buf_pool.flush_list_mutex.m_mutex, &abstime);
++        }
+       }
+     }
+ 
