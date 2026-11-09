@@ -1,0 +1,120 @@
+{
+  "run_id": 42652906053,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42652906053",
+  "source_commit": "0f60415f3c8d3dcd8ee43a116f3d773acf38f7bf",
+  "workflow_result": "FAIL",
+  "platforms": {
+    "macos": {
+      "artifact_sha256": "74cc91b6e9c3f49fcd53ee0f2090f9cdbc0551b6b52bfb1fef405c43cc7a0060",
+      "result": {
+        "result": "PASS",
+        "source_commit": "0f60415f3c8d3dcd8ee43a116f3d773acf38f7bf",
+        "cases": [
+          {
+            "case": "fresh-p1",
+            "expected_failure": false,
+            "exit_code": 0,
+            "result": "PASS"
+          },
+          {
+            "case": "fork-p1",
+            "expected_failure": false,
+            "exit_code": 0,
+            "result": "PASS"
+          },
+          {
+            "case": "fresh-p4",
+            "expected_failure": false,
+            "exit_code": 0,
+            "result": "PASS"
+          },
+          {
+            "case": "fork-p4",
+            "expected_failure": false,
+            "exit_code": 0,
+            "result": "PASS"
+          },
+          {
+            "case": "fresh-p1-negative",
+            "expected_failure": true,
+            "exit_code": 1,
+            "result": "PASS"
+          },
+          {
+            "case": "fork-p1-negative",
+            "expected_failure": true,
+            "exit_code": 1,
+            "result": "PASS"
+          }
+        ],
+        "layout_negative_controls": 4,
+        "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+        "product_adoption": false
+      },
+      "go": "go version go1.26.10 darwin/arm64",
+      "page_size": 16384,
+      "checksums_verified": true,
+      "workflow_cleanup": "FAIL; read-only module cache; job-status step did not execute",
+      "artifact_id": 13691652957,
+      "job_id": 129283688890,
+      "job_url": "https://github.com/masahitojp/mariamem/actions/runs/42652906053/job/129283688890",
+      "job_conclusion": "failure"
+    },
+    "ubuntu": {
+      "artifact_sha256": "e50f8151e9353820ba927a45b3dc858a4b0f68515dbd632a438167537fb5c491",
+      "result": {
+        "result": "PASS",
+        "source_commit": "0f60415f3c8d3dcd8ee43a116f3d773acf38f7bf",
+        "cases": [
+          {
+            "case": "fresh-p1",
+            "expected_failure": false,
+            "exit_code": 0,
+            "result": "PASS"
+          },
+          {
+            "case": "fork-p1",
+            "expected_failure": false,
+            "exit_code": 0,
+            "result": "PASS"
+          },
+          {
+            "case": "fresh-p4",
+            "expected_failure": false,
+            "exit_code": 0,
+            "result": "PASS"
+          },
+          {
+            "case": "fork-p4",
+            "expected_failure": false,
+            "exit_code": 0,
+            "result": "PASS"
+          },
+          {
+            "case": "fresh-p1-negative",
+            "expected_failure": true,
+            "exit_code": 1,
+            "result": "PASS"
+          },
+          {
+            "case": "fork-p1-negative",
+            "expected_failure": true,
+            "exit_code": 1,
+            "result": "PASS"
+          }
+        ],
+        "layout_negative_controls": 4,
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+        "product_adoption": false
+      },
+      "go": "go version go1.26.10 linux/amd64",
+      "page_size": 4096,
+      "checksums_verified": true,
+      "workflow_cleanup": "FAIL; read-only module cache; job-status step did not execute",
+      "artifact_id": 13691243967,
+      "job_id": 129283688278,
+      "job_url": "https://github.com/masahitojp/mariamem/actions/runs/42652906053/job/129283688278",
+      "job_conclusion": "failure"
+    }
+  }
+}

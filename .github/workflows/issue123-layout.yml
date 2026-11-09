@@ -35,6 +35,8 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.14'
+      - name: Read-only module cleanup regression
+        run: python -m unittest benchmarks/issue123layout/test_cleanup.py -v
       - name: Exact-source bounded constructor and real-DB checks
         run: >-
           python scripts/experiment_disk.py --work-dir build/issue123-layout
@@ -47,6 +49,11 @@ jobs:
           PRIOR_JOB_STATUS: ${{ job.status }}
         run: |
           mkdir -p build/issue123-layout/evidence
+          # Downloaded module directories are read-only; let Go remove its own
+          # job-local module cache before removing the remaining owned scratch.
+          if [ -d build/issue123-layout/temp/modcache ]; then
+            GOMODCACHE="$PWD/build/issue123-layout/temp/modcache" go clean -modcache
+          fi
           rm -rf build/issue123-layout/temp
           python - <<'PY'
           import hashlib,json,os
