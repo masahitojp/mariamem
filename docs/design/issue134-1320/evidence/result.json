@@ -54,5 +54,11 @@
     "peak_owned_bytes": 2360930304,
     "minimum_free_bytes": 31948800000
   },
-  "final_identity_preparation": "PASS; full prepared tree identical after binding preview provenance into resolved_sha256"
+  "final_identity_preparation": "PASS; full prepared tree identical after binding preview provenance into resolved_sha256",
+  "cleanup": {
+    "owned_source_archives_git_objects_and_trees": "removed after evidence checksum verification",
+    "logical_bytes_removed": 2033848597,
+    "worktree": "remove after commit/push verification"
+  },
+  "public_source_guard": "PASS"
 }
