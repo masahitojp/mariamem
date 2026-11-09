@@ -1,0 +1,125 @@
+{
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42657118990",
+  "artifact_id": 13692959037,
+  "artifact_name": "selected-guest-ecddf5afb248673eee2055d5b842e617ea799964",
+  "producer_source_commit": "ecddf5afb248673eee2055d5b842e617ea799964",
+  "selection": "13.2.0/native-text",
+  "upstream_source_commit": "c9f28ba0afec6d29e4688255dce8caaf7e91233d",
+  "handoff_sha256": "d1a164aaa19dfb12641af8b960d82bb1532d1345b2c201593a9938dd9d0db873",
+  "guest_record_sha256": "52c76c1b568e296bc7bb9baf2f396d0cebcc96e97e4a30f11205d565d1c7bc11",
+  "binding_input_record_sha256": "c9d6986429d6637c55e6412ca6397a1ce0ff1bf8dcfe12ddd90a2f48ab0778d5",
+  "translation_record_sha256": "013cf79c939fcd2aab361d2656fc59b80556a5897bd89a71b3272af0e7cd296f",
+  "guest_sha256": "607cab7baa164aad064aad4d4e8622249a58204cf828650fab5bd9c8d436b3b4",
+  "repetitions": [
+    {
+      "guest_sha256": "607cab7baa164aad064aad4d4e8622249a58204cf828650fab5bd9c8d436b3b4",
+      "linked_sha256": "72d52ae696ac98c76c748511c8e62451f51599eb6d4c292ce020c6af9ed164b3"
+    },
+    {
+      "guest_sha256": "607cab7baa164aad064aad4d4e8622249a58204cf828650fab5bd9c8d436b3b4",
+      "linked_sha256": "72d52ae696ac98c76c748511c8e62451f51599eb6d4c292ce020c6af9ed164b3"
+    }
+  ],
+  "independent_prepared_trees": [
+    {
+      "members": 32834,
+      "sha256": "643cb432fbb6a3733093da791890b90b582ac4d88796ebf640e82487b5257bad"
+    },
+    {
+      "members": 32834,
+      "sha256": "643cb432fbb6a3733093da791890b90b582ac4d88796ebf640e82487b5257bad"
+    }
+  ],
+  "toolchain_pins_sha256": "8be84eea6e38432eabbc1ba3095551d90b8b213f765a5423207d2dca40c21b8a",
+  "translation_files_sha256": {
+    "alias.go": "fe24257014fb8032cdab5dfa53c7ef64e9385eef5df7719454c1967970d9c250",
+    "base/base.go": "d46cbffd155c776ce269e3236318cc473f0884b29d51bdea169d9ec89e770dd8",
+    "base/cpufeat_amd64.go": "0a576786862c115b2d3a6946a8a7f70bb4278c5e524c54c157f4c3262107b2df",
+    "base/cpufeat_amd64.s": "08d2648f8caeef35ff889c4fc5333210376e0bd3e9ebabe9293075eb95c4f287",
+    "base/cpufeat_arm64_darwin.go": "f2b8363817c5b342b0714d8a6c8fca6ac47e66a16db07ed708739eb49dbec4b3",
+    "base/cpufeat_arm64_linux.go": "d3af74975176bf62cc68c47b9c061b2deb0f13b62d1ef79dbac12dfc1b4021b0",
+    "base/cpufeat_arm64_other.go": "beec6cef51060a92294ee490b3e4b6fd328c7d86dc49cdf2664c704f483cf3eb",
+    "base/sharedimage.go": "e7558472f020ff3c570b8f4da1e2260658f439c2636c968836e3ab976329aadb",
+    "base/sharedimage_mmap.go": "17279215d55bbd9dccb6c3f6240a559ed74de6e57107d27c15391d7f1f90a2be",
+    "base/sharedimage_nommap.go": "cef7c313dd74c8e0c705277187ac498f7d39824fb9fbef111f12277cf2a5f0d4",
+    "base/simd_asm_amd64.s": "9e932e0aeb07551753d5d3517b89cad0b8fb4ee6816fe81b51026142bdebe687",
+    "base/simd_asm_arm64.s": "983c35d11746f0bb2f78bf6535c826b9faacfdf978cbfa2dd18665d978b3419c",
+    "base/simd_asm_decls_amd64.go": "8cd739faed219b86305f36152639461265627ddf3ce99ece79af31172ee4a023",
+    "base/simd_asm_decls_arm64.go": "b8233d5f511991ce47dbd3aa82f17004f9f0a001af5c3feba18f3bf2be1f514d",
+    "base/simd_fallback.go": "83141bdc4d20c44bc2b62312c29d8b34164c75542bc9590729b77d7b342a675d",
+    "base/simd_pair.go": "f4ebb41696ef6bb57709ee4e44622572159745382a06d49630278503fed479db",
+    "base/simd_relaxed.go": "84b1a59cccf949026fefa74e4377176839e4d09fde0bac9b192e2754abe8fdd9",
+    "base/simd_scalar.go": "1a65c32cf306d30d7f29108b71df3cc51efb362cbf7c82b852998ba38ddd9835",
+    "base/simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
+    "base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
+    "base/spike_contract_test.go": "2ea04d8502569740c3d7f779c5a3c9cbdbbc46f4ed8606bd80ba272494d0b947",
+    "base/spike_wait.go": "c2b80910af482014de9e54f587bed748b36a0678ff7146a9f6b4110f95baf730",
+    "data.bin": "f92eaea9fdd68cf913a52c630b3d669ae763d7ce0137c54b57ebea9924d68efc",
+    "generated.go": "d4ad21f88d0ad02ee8574c9ec04828c80dc8037065342ec9326cb60eafa902de",
+    "p0/alias.go": "b243951482a59513111bf5daf3cc98847c5168d34b8110180d8b218f901e85cd",
+    "p0/p0.go": "50dda285ac48452befb3c029be1a00f367c19d546c5842a486bc2d56c0c8b60b",
+    "p0/p0_pure.go": "6389bf199f34588bc5c32eda5c7c9320e613c0e93ac2d10b8548ed8a27848a97",
+    "p1/alias.go": "2543c5000673de477d215a95772d7a12df5a77fe345a9b4059263ac43c50115f",
+    "p1/p1.go": "c351171b5b85c9dda738e88af60de810954e77d19ba2a1ade7f6b2a2f6fcfb97",
+    "p1/p1_pure.go": "81702d8b203700301baf15ffe29a5d9efe350955d6173736577feaca01e5c196",
+    "p2/alias.go": "21083d2e70c692a28f368beebb68795174458eb46c00acff01160f921cf68490",
+    "p2/p2.go": "991e4f27c066644032dd029648307f0ecbe56fc4b2e099b38f1f8b3de5988e22",
+    "p2/p2_pure.go": "49edd2b853492c35571c56bc900158fcc03c6e30180b174c614f64a302a25c9f",
+    "p3/alias.go": "9260b85f27b920c289c4f7956e16c10a50e4daaafbfd1007983be8c52d03129d",
+    "p3/p3.go": "c8350a6f0416996807dd18f177117eb9f536fec766dd91ab6de16af14081a3cb",
+    "p3/p3_pure.go": "c1649abeab62d2d014bb747cad536ef6f41166f372c4da82e2dfad65609cbb9b",
+    "p4/alias.go": "c1c50e694141abc7c7a7a25314a2cba63a77ec5d79d2c89c5e160f60be7c7f2d",
+    "p4/p4.go": "b8fda0101a8583358525a7c361319a58931c5ff55216c9ef153020731e502b6c",
+    "p4/p4_pure.go": "7e8aa6a94b5dbe2cdc4a8fbcfe89c49e62368fd57dc60a8ff9c6218ab16b295d",
+    "p5/alias.go": "2a2699a6e73e145b8a7ece689af153a9c200f0115d4490def5e54c37d5e5b8d6",
+    "p5/p5.go": "51e69a53b0ef322754cca34209b4d259205ce0b4de406fb5de7cb738ab4f1959",
+    "p5/p5_pure.go": "54221c6f9047d90f57c7effa798342a213166d919309d9f8baabdc8fbe5d0603",
+    "p6/alias.go": "1a6aea697921f9705584670d96cd24ab0fb1e39633a7c664bc98f08373b62581",
+    "p6/p6.go": "dd857ed0e99f3507fe78b493aa6d124d1297fe966fa31a81bd2f6b65bd1f18f5",
+    "p6/p6_pure.go": "23c964453b7e901afd2490c3aeff490b1c831d4ab16d4da0cc9eff585b11b1e8",
+    "p7/alias.go": "bd48c76d747df6748f3467477652d2e99dd133aff422743370f9efe4ce4f38c7",
+    "p7/p7.go": "a0dbf2e6858274c152203a092ad70fd614fc9ff89423b8bc5e0936dbccbd3b66",
+    "p7/p7_pure.go": "d8dd7af894f4b764a0db713deee49c13fce66b06f952ddb57758baf5c4c402f0",
+    "p8/alias.go": "1ec0b7fb5545f1f7ee948423e6a08a41ee7af23ca637ccbcf0f8fd068ea77ac4",
+    "p8/p8.go": "2e11a21f86687e38b3074144d100fd451861af943e4d4b0c14a30e04dd811df3",
+    "p8/p8_pure.go": "857e765d9c3b1fdc767acb7d5addaef553a96c67953f3c6e3e8ba0a98749eb7f"
+  },
+  "converter_archive_sha256": "1adc74bb1594ed1d300d9382b9da27402728939fc021024d977e9c98afd2467f",
+  "converter_binary_sha256": "6fa69c3592d721a438860d9a8886407a560bbb09c0500686bf87884d6210e3c0",
+  "verification": {
+    "archive": "PASS",
+    "selected_guest_receipt_and_source_origin": "PASS",
+    "two_independent_source_builds": "PASS",
+    "translation_complete_inventory": "PASS",
+    "handoff_record_links": "PASS",
+    "three_worker_body_comparison": "PASS (see comparison.json)",
+    "binding_installation": "NOT_RUN",
+    "public_both_os_acceptance": "NOT_RUN"
+  },
+  "producer_measurements": {
+    "binding": "NOT_REVIEWED",
+    "budget_gib": 24.0,
+    "min_free_gib": 8.0,
+    "minimum_free_bytes": 107858706432,
+    "peak_owned_bytes": 5392891904,
+    "phases": [
+      {
+        "exit_code": 0,
+        "name": "independent-guest-builds",
+        "wall_seconds": 724.684262969
+      },
+      {
+        "exit_code": 0,
+        "name": "translation-for-binding-review",
+        "wall_seconds": 100.79768022300004
+      }
+    ],
+    "public_acceptance": "NOT_RUN",
+    "resolved_sha256": "6bfe430f7d9eb6e401ec88d2709d523dd921f14faf727086c1ffaa8dbcc8f9fe",
+    "result": "BINDING_REVIEW_REQUIRED",
+    "selection": "13.2.0/native-text",
+    "source_commit": "ecddf5afb248673eee2055d5b842e617ea799964"
+  },
+  "cost_judgment": "INCONCLUSIVE; machine duration includes acquisition/setup and is not a controlled saving comparison",
+  "remaining": "Selected installation/factory and exact binding integration, public both-OS original oracles, upgrade-cost judgment; #138 remains stopped/unwaived"
+}

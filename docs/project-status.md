@@ -22,7 +22,8 @@ for the formal preparation/generation/binding path. Keep12.3.3 stable and retain
 13.0.2 inputs/results as historical comparison vectors; do not relabel them as
 13.2/13.3 acceptance. Upstream's roadmap also labels13.3 LTS, while13.2.0 is a
 Preview. The13.2 source/archive identity and common source preparation are now
-verified; formal generation/binding/public acceptance remain unexecuted. This direction is not approval to publish a preview
+verified; formal generation and raw translation now pass CI. Binding installation
+and public acceptance remain unexecuted. This direction is not approval to publish a preview
 or a13.3 release.
 
 [Issue65](https://github.com/masahitojp/mariamem/issues/65) governs all related
@@ -64,20 +65,32 @@ still hands off URL/SHA/operation and stops; it is not acceptance completion.
 #135 consumer/performance and #133 final audit remain later adoption conditions.
 #138 remains stopped/unwaived; main adoption and release remain separate decisions.
 
-**First selected CI failure, 2026-11-10:** run42653638495 on190b5c62
-passed boundary tests but stopped at SDK inventory before MariaDB preparation:
-a local artifact-inventory import shadowed the SDK inventory function. Explicit
-aliases fix the producer entrypoint; regression cases reproduce the original
-failure in all three routes and pass after the fix. The
-[failure receipt](design/issue134-ci42653638495.json) preserves the original result.
-Actual independent builds/translation and later binding/public acceptance remain
-unverified; the same CI plan and budgets are resubmitted with this correction.
+**Selected generation verified, 2026-11-10:** [CI42657118990](https://github.com/masahitojp/mariamem/actions/runs/42657118990)
+passes on source_commit `ecddf5afb248673eee2055d5b842e617ea799964`.
+Two independent fresh source builds match both linked and final WASM; the new
+13.2 guest is `607cab7baa164aad064aad4d4e8622249a58204cf828650fab5bd9c8d436b3b4`.
+The downloaded archive, selected producer receipt and all51 translated files were
+verified. [CI evidence](design/issue134-binding/ci.json) retains exact identities
+and measured costs (724.68s for both builds including setup,100.80s translation).
+This is actual generation evidence, not public or release acceptance.
+
+The initial worker-binding comparison locates Fn151/free,Fn129/yield and
+Fn520/entry. Against the preserved13.0.2 bodies, yield is byte-identical; all
+changes in the complete free/entry bodies are one67648-byte static relocation.
+TLS initialization size489, no-op table target94/Fn131 and relative constants
+are unchanged. [Exact comparison](design/issue134-binding/comparison.json) and
+[recheck script](design/issue134-binding/verify.py) preserve the finite scope.
+Constant/control-flow mutations are rejected. Binding installation and public
+runtime acceptance remain unexecuted; no old guest's runtime PASS is transferred.
+
+The earlier [run42653638495 failure](design/issue134-ci42653638495.json) remains
+recorded: the SDK inventory name collision was fixed before this successful run.
 
 **Formal producer connection, 2026-11-10:** the experiment now carries registered
 selection through the existing builder and a distinct selected-guest verifier.
 It rejects mixed inputs/old receipts, requires independent source builds and
 exports exact translation inputs for binding review. Local routing/receipt tests
-are not actual 13.2 compilation. The selected CI acquisition step obtains those
+are not actual 13.2 compilation. The selected CI acquisition step has obtained those
 new bytes; its handoff does not close B/C. Exact binding/public installation,
 both-OS acceptance and the #128 cost judgment remain unfinished. The
 [producer procedure](../guest/versions/README.md#formal-producer-and-binding-handoff)
@@ -106,7 +119,7 @@ binding, registration/proof metadata and public verification remain. Do not use
 patch counts or source equality as saved person-hours. Preserve original build
 cost evidence and distinguish one-time setup from recurring update work.
 
-**Next: formal generation/binding and public candidate assembly on13.2** in#134/#132,
+**Next: bind the verified13.2 artifacts and assemble the public candidate** in#134/#132,
 using the existing composition/fixtures from#129/#130. Before a heavy cohort,
 state the exact producer/binding/receipt migration and remaining manual work;
 use that same required cohort for the#128 cost observation, avoiding duplicate
