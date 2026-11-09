@@ -1,0 +1,10 @@
+{
+  "12.3.3-legacy-full-original.txt": "3869065e830da46df140ddb56962d45d5fefee612a521784eb68742eacc66b32",
+  "12.3.3-legacy-full-selected.txt": "3869065e830da46df140ddb56962d45d5fefee612a521784eb68742eacc66b32",
+  "13.0.2-legacy-full-original.txt": "3d7eed44dcd432435040cc1497293e27799917d8158ee03b9da645d148ab7652",
+  "13.0.2-legacy-full-selected.txt": "3d7eed44dcd432435040cc1497293e27799917d8158ee03b9da645d148ab7652",
+  "13.0.2-native-text-original.txt": "ab5edf6763310670f1e9e7e01047dfa1d488577f7b47cb086af830d8327a9e71",
+  "13.0.2-native-text-selected.txt": "ab5edf6763310670f1e9e7e01047dfa1d488577f7b47cb086af830d8327a9e71",
+  "comparison.json": "2c113a347ec45eeeaf54a92abdcf558799e0ab11f172d66364b55829f637dd40",
+  "verification.json": "906ddb49b86c5f667e61e19392e684d03d2934d0860fa8ac2003d2b947dd3842"
+}

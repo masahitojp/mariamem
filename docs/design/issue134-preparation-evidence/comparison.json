@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "candidate_source_commit": "cee676e8fcd77ee15db2b31639a1c100758c5b1b",
+  "scope": "prepared source content/mode/link equality; no build/runtime acceptance",
+  "comparisons": [
+    {
+      "selection": "12.3.3/legacy-full",
+      "original_source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb",
+      "engine_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "tag_object_sha": "bd852bcd567fedc89ad4521e2f1a64c7a1e0d0f0",
+      "resolved_sha256": "39174a667f2e11756e6d4fdbc57a0e905e8ee9fd56e9aad4da5b5257f4a00402",
+      "members_original": 32201,
+      "members_selected": 32201,
+      "original_tree_sha256": "1e6036999ab52e9757333c698bd52da77625aeca4011664dc4547f68035cb8fe",
+      "selected_tree_sha256": "1e6036999ab52e9757333c698bd52da77625aeca4011664dc4547f68035cb8fe",
+      "different_paths": [],
+      "original_seconds": 16.43932304199916,
+      "selected_seconds": 16.152379708000808,
+      "result": "PASS"
+    },
+    {
+      "selection": "13.0.2/legacy-full",
+      "original_source_commit": "32c799031f619164d3730b61a0bc9d7ae48dcd9b",
+      "engine_source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+      "tag_object_sha": "308a50778fb4916ddde0d2923feea3d11dcc92c8",
+      "resolved_sha256": "0e3f030a241cbb65f84aa23e4dbae0999fdbaca80156492b9d176dc37bf4a11a",
+      "members_original": 32344,
+      "members_selected": 32344,
+      "original_tree_sha256": "db85a4915ece1340b87075fa296001ced6ddfccb2a2ca224add8325a17aeb4d0",
+      "selected_tree_sha256": "db85a4915ece1340b87075fa296001ced6ddfccb2a2ca224add8325a17aeb4d0",
+      "different_paths": [],
+      "original_seconds": 16.580932875000144,
+      "selected_seconds": 16.17548804099897,
+      "result": "PASS"
+    },
+    {
+      "selection": "13.0.2/native-text",
+      "original_source_commit": "4b3954a0faf42986459bc1ee68727be16d67bcbb",
+      "engine_source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+      "tag_object_sha": "308a50778fb4916ddde0d2923feea3d11dcc92c8",
+      "resolved_sha256": "8ca9479724b0a4cf0f9572aa2352db751ea7a3252a05cc6d0a08acfe5ae2ecaa",
+      "members_original": 32353,
+      "members_selected": 32353,
+      "original_tree_sha256": "2ea67317ba72efb4be1c243419759e50e551e51b80a43092d5aa7f2943c80dd7",
+      "selected_tree_sha256": "2ea67317ba72efb4be1c243419759e50e551e51b80a43092d5aa7f2943c80dd7",
+      "different_paths": [],
+      "original_seconds": 16.611561916999563,
+      "selected_seconds": 16.152579167001022,
+      "result": "PASS"
+    }
+  ],
+  "disk": {
+    "owned_bytes": 1169022976,
+    "free_bytes": 36912816128,
+    "peak_owned_bytes": 1574703104,
+    "minimum_free_bytes": 36502654976
+  }
+}

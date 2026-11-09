@@ -1,0 +1,25 @@
+{
+  "candidate_source_commit": "cee676e8fcd77ee15db2b31639a1c100758c5b1b",
+  "python": "3.14.10",
+  "pytest": "9.2.0",
+  "command": "PYTHONDONTWRITEBYTECODE=1 python -m pytest -p no:cacheprovider -q tests/test_guest_input_resolver.py tests/test_guest_preparation_context.py tests/test_guest_input.py tests/test_prepared_source_patch.py tests/test_prepared_auth_keys.py tests/test_routine_schema.py",
+  "passed": 70,
+  "subtests_passed": 59,
+  "duration_seconds": 1.28,
+  "source_comparisons": 3,
+  "guest_build": "NOT_RUN",
+  "runtime": "NOT_RUN",
+  "ci": "NOT_SUBMITTED",
+  "initial_comparison_driver_failure": "First invocation stopped before preparation because build/go.mod is tracked. Corrected the driver to preserve that module boundary, then ran all three comparisons successfully. No source checks or input hashes were weakened.",
+  "test_source_note": "Focused tested files are unchanged in the comparison candidate; cee676e8 only fixes the comparison driver relative to 1eafe416.",
+  "public_source_guard": {
+    "passed": true,
+    "files": 6817
+  },
+  "cleanup": {
+    "source_trees": "removed sequentially by comparison driver",
+    "downloads_and_test_environment": "removed after evidence preservation",
+    "logical_bytes_removed": 205632418,
+    "worktree": "remove after commit/push verification"
+  }
+}
