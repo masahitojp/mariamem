@@ -481,6 +481,14 @@ func TestInvalidGeneratedMetadataStopsAdmission(t *testing.T) {
 }
 
 func TestProcessCacheIsLazyAndReused(t *testing.T) {
+	if os.Getenv("STATIC_IMAGE_PROCESS_CHILD") != "1" {
+		cmd := exec.Command(os.Args[0], "-test.run=^TestProcessCacheIsLazyAndReused$")
+		cmd.Env = append(os.Environ(), "STATIC_IMAGE_PROCESS_CHILD=1")
+		if out, err := cmd.CombinedOutput(); err != nil {
+			t.Fatalf("%v: %s", err, out)
+		}
+		return
+	}
 	before := Stats()
 	if before["builds"].(int) != 0 {
 		t.Fatal("process cache initialized before use")

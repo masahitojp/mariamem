@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import tempfile
 
+ROOT = Path(__file__).resolve().parents[1]
 LAYOUT = 'image/layout.json'
 
 
@@ -35,6 +36,9 @@ def generate(runtime, go):
         staged.mkdir(parents=True)
         for name in ('code', 'imagelayout', 'layoutgen'):
             shutil.copytree(runtime/name, staged/name)
+        # Base ownership/types depend on these handwritten host helpers only.
+        for name in ('prepared', 'timing'):
+            shutil.copytree(ROOT/'internal'/name, root/'internal'/name)
         (root/'go.mod').write_text('module github.com/masahitojp/mariamem\n\ngo 1.26.0\n')
         env = dict(os.environ, GOTOOLCHAIN='local', GOENV='off', GOWORK='off', GOFLAGS='', GOEXPERIMENT='', CGO_ENABLED='0')
         subprocess.run([str(go), 'run', '-p', '1', './internal/generatedgo/layoutgen',
