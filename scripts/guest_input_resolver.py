@@ -79,6 +79,28 @@ def _images(images):
             _hash(identity)
 
 
+def native_glue_files(guest):
+    """Validate source additions separately from edits to upstream files."""
+    if 'native_glue' not in guest:
+        return {}
+    files = guest['native_glue']
+    _require('native_overlay' in guest and guest.get('prepared_profile') == 'native-text',
+             'native glue requires native profile')
+    _require(isinstance(files, dict) and files, 'empty native glue')
+    patches = list(guest['patches']) + [guest[k] for k in
+              ('source_overlay', 'observation_overlay', 'native_overlay') if k in guest]
+    edited = {name for patch in patches for name in patch['after_sha256']}
+    for destination, reference in files.items():
+        _path(destination)
+        _require(destination not in edited, 'native glue overlaps patch target')
+        _require(isinstance(reference, dict) and set(reference) == {'file', 'sha256'},
+                 'invalid native glue reference')
+        _require(reference['file'] == 'guest/native/' + destination,
+                 'native glue source/destination mismatch')
+        _hash(reference['sha256'])
+    return files
+
+
 def resolve_inputs(registry_bytes, engine, profile, read_bytes):
     """Return fresh validated input/lock/stage/proof objects for one selection.
 
@@ -182,6 +204,10 @@ def _resolve(registry_bytes, engine, profile, read_bytes):
         _require(members and set(members) == set(patch['before_sha256']) == set(patch['after_sha256']),
                  'patch file inventory mismatch')
     _require(len(set(patch_names)) == len(patch_names), 'duplicate patch')
+    for reference in native_glue_files(guest).values():
+        _require(reference['file'] in verified, 'missing native glue input')
+        _require(_digest(verified[reference['file']]) == reference['sha256'],
+                 'native glue identity mismatch')
     _require('guest/source.patch' in verified, 'missing canonical patch record')
     pin = _json(verified['guest/prepared_source_patch.json'])
     _require(pin['source_commit'] == guest['source_commit'] and

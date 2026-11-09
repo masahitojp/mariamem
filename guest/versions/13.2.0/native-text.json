@@ -126,16 +126,13 @@
     "experiment_contract": "issue134-preview-source-v1",
     "native_overlay": {
       "file": "guest/experimental.patch",
-      "sha256": "33b81d6570ad0ac7dbb41c8e8255dd9124e5b1c142565f1c4dab1c74fc64741a",
+      "sha256": "de7b4fb9e52b2f928ff07c615fb83053cb8380e7ae733022b5234639fe132a82",
       "before_sha256": {
         "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
         "include/violite.h": "2d17a6b5f99b7cebb5c7c7331893212c09a5f1d1f1cd0c527c6bfc6ea6e96485",
         "libmysqld/lib_sql.cc": "fa67583a1229e1f2ea5f0395abc918dfd2490bdbfa51056a1f5039d429b3de65",
-        "libmysqld/mariamem_control_abi.h": null,
-        "libmysqld/mariamem_wire_probe.inc": null,
         "sql-common/client.c": "40d26fe8713eaa276c8b095ec055034eea4f31162c49e2feb9b7254ec0bdf3a6",
         "sql/item.h": "4e5a1a7b6b50381762426ea43f22f4980168dce856ca1157944d73e4649dc37b",
-        "sql/mariamem_wire_policy.h": null,
         "sql/net_serv.cc": "7d7b8b8a8de1834099f350912ed9255a1f376565da407e8dc461f97c72f12c93",
         "sql/protocol.cc": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242",
         "sql/protocol.h": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
@@ -145,19 +142,14 @@
         "sql/sql_parse.cc": "03803a202d3a0aa0f26cd3ec2675c342a2fed66f8fe7a6c5f985814e036212d3",
         "sql/sql_prepare.cc": "36245ac0d8151e62fc95afebf524c44466216c72c05857517d2893cfc6c5c5cb",
         "wasm/CMakeLists.txt": "35404ae73df8957fc1604d0a0e7fb55e4005cb7f2176bf6996a3cf511f2f75c9",
-        "wasm/issue65_control.cc": null,
-        "wasm/issue65_deadline.h": null,
         "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9"
       },
       "after_sha256": {
         "cmake/os/WASIX.cmake": "511f32c28eaf2ceb39a1c1d2a99cb7fa1addf90d4b36929a9f197bee0fd7b766",
         "include/violite.h": "b7259fb16801be6b98e98c75c58130b76a9dc5044171efa5c52f69367e8c3449",
         "libmysqld/lib_sql.cc": "9ea8fcb5bcf5a435032ea003313ddb87e1b24dbde59063f5442f325914fbbb17",
-        "libmysqld/mariamem_control_abi.h": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075",
-        "libmysqld/mariamem_wire_probe.inc": "584949484d8432b0b538876adbd2f6571ff50893882976cc56ea8b9508bcfc78",
         "sql-common/client.c": "92c3aae9f9cdf0abcf51715b0ecaaa7933145b6b2e81204eccc2c476b8ba8db0",
         "sql/item.h": "be3ae531935489cbfadfd364ad583e15a8bf55a928441783158758d749eb48cc",
-        "sql/mariamem_wire_policy.h": "b49dc0565b4ea31d71b2323cdc04ceb3e260cd2b7df80c003a3d2dbb0a7d5580",
         "sql/net_serv.cc": "a7daad10c40681147cba3d0a17e8cf24f9cef89f1b82844bb75195dd386e0452",
         "sql/protocol.cc": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703",
         "sql/protocol.h": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7",
@@ -167,8 +159,6 @@
         "sql/sql_parse.cc": "196f4c6b5c4df5974accbb00edc084b2936b5491d59b3d73264d3109cfdb06ea",
         "sql/sql_prepare.cc": "52157f55ecf298c0a76342664de525bd80aa36f26d77bc61c1872fe21a862296",
         "wasm/CMakeLists.txt": "2020eddc8244dbfe4063270603efd52e4a901f7a3540492006552e93c8b9c81a",
-        "wasm/issue65_control.cc": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f",
-        "wasm/issue65_deadline.h": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
         "wasm/lite4mariadb.c": "b25cb802cdc352f451caead95061a21dd71680c4a805c07377834d9da0a059f9"
       }
     },
@@ -181,6 +171,28 @@
       },
       "after_sha256": {
         "storage/innobase/buf/buf0flu.cc": "c149bbf197f772aad5b2cdf9790f7e51fd3975ea08860a4cd398972331b44fcc"
+      }
+    },
+    "native_glue": {
+      "libmysqld/mariamem_control_abi.h": {
+        "file": "guest/native/libmysqld/mariamem_control_abi.h",
+        "sha256": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075"
+      },
+      "libmysqld/mariamem_wire_probe.inc": {
+        "file": "guest/native/libmysqld/mariamem_wire_probe.inc",
+        "sha256": "584949484d8432b0b538876adbd2f6571ff50893882976cc56ea8b9508bcfc78"
+      },
+      "sql/mariamem_wire_policy.h": {
+        "file": "guest/native/sql/mariamem_wire_policy.h",
+        "sha256": "b49dc0565b4ea31d71b2323cdc04ceb3e260cd2b7df80c003a3d2dbb0a7d5580"
+      },
+      "wasm/issue65_control.cc": {
+        "file": "guest/native/wasm/issue65_control.cc",
+        "sha256": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f"
+      },
+      "wasm/issue65_deadline.h": {
+        "file": "guest/native/wasm/issue65_deadline.h",
+        "sha256": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f"
       }
     }
   },
@@ -207,6 +219,7 @@
     "observation_overlay",
     "prepared-proof",
     "native_overlay",
+    "native-glue",
     "wire-api-and-copied-includes",
     "init-hooks",
     "auth-hooks",
@@ -226,8 +239,8 @@
       "sha256": "e3048124e9a2eab88ac9766ef729c4ca0ef1c2bccbddae3c430368ce91d2f62d"
     },
     "guest/experimental.patch": {
-      "file": "guest/versions/13.0.2/inputs/guest/experimental.patch",
-      "sha256": "33b81d6570ad0ac7dbb41c8e8255dd9124e5b1c142565f1c4dab1c74fc64741a"
+      "file": "guest/native/embedded-wire.patch",
+      "sha256": "de7b4fb9e52b2f928ff07c615fb83053cb8380e7ae733022b5234639fe132a82"
     },
     "guest/source.patch": {
       "file": "guest/versions/13.0.2/inputs/guest/source.patch",
@@ -328,6 +341,26 @@
     "provenance/time-source-13.2.0.json": {
       "file": "guest/versions/13.2.0/proofs/time-source.json",
       "sha256": "01c72f073048ed9713bebe30457ed71682920c92341138e263a572a90379faa0"
+    },
+    "guest/native/libmysqld/mariamem_control_abi.h": {
+      "file": "guest/native/libmysqld/mariamem_control_abi.h",
+      "sha256": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075"
+    },
+    "guest/native/libmysqld/mariamem_wire_probe.inc": {
+      "file": "guest/native/libmysqld/mariamem_wire_probe.inc",
+      "sha256": "584949484d8432b0b538876adbd2f6571ff50893882976cc56ea8b9508bcfc78"
+    },
+    "guest/native/sql/mariamem_wire_policy.h": {
+      "file": "guest/native/sql/mariamem_wire_policy.h",
+      "sha256": "b49dc0565b4ea31d71b2323cdc04ceb3e260cd2b7df80c003a3d2dbb0a7d5580"
+    },
+    "guest/native/wasm/issue65_control.cc": {
+      "file": "guest/native/wasm/issue65_control.cc",
+      "sha256": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f"
+    },
+    "guest/native/wasm/issue65_deadline.h": {
+      "file": "guest/native/wasm/issue65_deadline.h",
+      "sha256": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f"
     }
   },
   "preview_source": {

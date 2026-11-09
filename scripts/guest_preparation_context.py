@@ -34,6 +34,8 @@ def stage_order(guest):
     stages += ['prepared-proof']
     if 'native_overlay' in guest:
         stages += ['native_overlay']
+    if 'native_glue' in guest:
+        stages += ['native-glue']
     return stages + ['wire-api-and-copied-includes', 'init-hooks', 'auth-hooks', 'auth-header',
                      'routine-schema', 'linker-wrappers', 'vendor-dependencies', 'record-preparation']
 

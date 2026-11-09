@@ -87,6 +87,10 @@ def prepare(root, lock, build, fetch_input, *, selected=None):
         raise ValueError("experimental prepared source patch is missing")
     elif (root / "guest/prepared_time_patch.json").exists():
         raise ValueError("experimental TIME patch is missing")
+    if 'native_glue' in guest_input:
+        from guest_native_glue import install
+        install(root, source, guest_input)
+        experimental_files += list(guest_input['native_glue'])
     core = re.sub(r"\bg_mysql\b", "multi_mysql", (root / "guest/wire_core.inc").read_text())
     (source / "wasm/wire_api.inc").write_text(
         "#include <pthread.h>\nstatic _Thread_local MYSQL *multi_mysql;\n" + core + '\n#include "prepared_api.inc"\n#include "resident.inc"\n')
@@ -130,6 +134,8 @@ def prepare(root, lock, build, fetch_input, *, selected=None):
                         uca_prepared=uca_prepared, prepared_profile=canonical_prepared)
     if experimental.exists():
         manifest["experimental_patch"] = {"file": "guest/experimental.patch", "sha256": digest(experimental)}
+    if 'native_glue' in guest_input:
+        manifest['native_glue'] = guest_input['native_glue']
     if time_patch:
         manifest["experimental_time_patch"] = time_patch
     if prepared_patch:

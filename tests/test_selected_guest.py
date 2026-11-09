@@ -4,6 +4,7 @@ Synthetic builds test orchestration only. The selected workflow performs the
 actual independent preparation/build/translation before any binding review.
 """
 import copy
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -32,6 +33,15 @@ def inputs(tmp_path):
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT/ref['file'], target)
     prepared = json.loads((ROOT/'docs/design/issue134-1320/evidence/prepared-source.json').read_text())
+    # Synthetic producer fixture, not a rewrite of the historical receipt.
+    # Real preparation equality is checked separately against its exact producer.
+    prepared['guest_input'] = copy.deepcopy(resolved['guest_input'])
+    prepared['resolved_input_sha256'] = hashlib.sha256(selected.encoded(resolved)).hexdigest()
+    prepared['overlays']['input.json'] = hashlib.sha256(selected.encoded(resolved['guest_input'])).hexdigest()
+    native = resolved['guest_input']['native_overlay']
+    prepared['overlays']['experimental.patch'] = native['sha256']
+    prepared['experimental_patch'] = {'file': native['file'], 'sha256': native['sha256']}
+    prepared['native_glue'] = copy.deepcopy(resolved['guest_input']['native_glue'])
     assert resolve(root, '13.2.0', 'native-text') == resolved
     selected.verify_preparation(resolved, prepared)
     return root, resolved, prepared
@@ -79,7 +89,7 @@ def test_selected_receipt_requires_caller_selection(receipt):
 
 @pytest.mark.parametrize('damage', ['schema', 'legacy-contract', 'resolved', 'origin', 'lock',
     'overlay', 'patch-order', 'native', 'selection', 'prepare-schema', 'eligible',
-    'one-build', 'wrong-build', 'tree', 'allocator', 'wasm', 'linked', 'extra-file', 'flags'])
+    'glue', 'glue-file', 'one-build', 'wrong-build', 'tree', 'allocator', 'wasm', 'linked', 'extra-file', 'flags'])
 def test_selected_receipt_rejects_mixed_or_incomplete_build(receipt, damage):
     root, out, record = receipt
     prepared = record['prepared_source']
@@ -91,6 +101,8 @@ def test_selected_receipt_rejects_mixed_or_incomplete_build(receipt, damage):
     if damage == 'overlay': prepared['overlays']['source.patch'] = 'f'*64
     if damage == 'patch-order': prepared['portability_series'].reverse()
     if damage == 'native': prepared.pop('experimental_patch')
+    if damage == 'glue': prepared.pop('native_glue')
+    if damage == 'glue-file': prepared['modified_files'][next(iter(prepared['native_glue']))] = 'f'*64
     if damage == 'selection': prepared['selection'] = '13.0.2/native-text'
     if damage == 'prepare-schema': prepared['schema'] = 'unknown'
     if damage == 'eligible': prepared['release_eligible'] = True
@@ -129,7 +141,12 @@ def test_selected_producer_routes_each_fresh_source_and_rejects_fallback(inputs,
             (target/'unpack').mkdir()
             (target/'source/new-engine').write_bytes(b'prepared selected source')
             pin = copy.deepcopy(prepared)
-            pin['modified_files'] = {'new-engine': digest(target/'source/new-engine')}
+            from guest_native_glue import install
+            for destination in resolved['guest_input']['native_glue']:
+                (target/'source'/destination).parent.mkdir(parents=True, exist_ok=True)
+            install(root, target/'source', resolved['guest_input'])
+            pin['modified_files'] = {'new-engine': digest(target/'source/new-engine'),
+                **{name: ref['sha256'] for name, ref in resolved['guest_input']['native_glue'].items()}}
             dev.write(target/'prepared-source.json', pin)
         elif phase.startswith('guest:allocator-contract:'):
             assert Path(command[command.index('--source')+1]).name == 'source'

@@ -35,6 +35,7 @@ jobs:
           tests/test_dev_guest_tools.py tests/test_thread_lifetime_binding.py
           tests/test_guest_input_resolver.py tests/test_guest_preparation_context.py
           tests/test_preview_guest_inputs.py tests/test_development_scope.py
+          tests/test_guest_native_glue.py
       - name: Retrieve exact existing producer handoff
         env:
           GH_TOKEN: ${{ github.token }}

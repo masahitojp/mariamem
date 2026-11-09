@@ -58,6 +58,10 @@ def verify_preparation(resolved, prepared):
         if field in guest:
             require(prepared.get(field) == [guest[field]], 'selected overlay mismatch: ' + field)
     require(prepared.get('experimental') == ('native_overlay' in guest), 'selected profile mismatch')
+    require(prepared.get('native_glue') == guest.get('native_glue'), 'selected native glue mismatch')
+    for destination, reference in guest.get('native_glue', {}).items():
+        require(prepared.get('modified_files', {}).get(destination) == reference['sha256'],
+                'selected native glue postimage mismatch')
     if 'native_overlay' in guest:
         require(prepared.get('experimental_patch') == {
             'file': guest['native_overlay']['file'], 'sha256': guest['native_overlay']['sha256']},

@@ -93,6 +93,12 @@ then reduce it to compact evidence and discard recreatable state.
 
 ## Selected binding and public source installation
 
+The current 13.2 descriptor separates [self-owned native glue](../native/README.md)
+from upstream edits. Its selected-input identity differs from the previously
+recorded producer even when prepared source bytes match. The old CI handoff
+still belongs to its exact older input set; the commands below require matching
+producer and installer selections and must not bypass that check.
+
 Registered bindings live under `guest/bindings/`. Each entry pins the actual
 producer, guest, both handoff receipts, the complete raw translation inventory,
 three complete normalized worker bodies, TLS initialization and ABI/no-op facts.

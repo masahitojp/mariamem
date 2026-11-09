@@ -16,6 +16,22 @@ Changing version metadata does not itself publish a release.
 
 ## Issue65 — current work and upgrade-cost decision (2026-11-10)
 
+**Human clarification, 2026-11-10:** reuse MariaDB's existing implementation,
+keep connection/resource/lifecycle policy and ownership in the host, and find
+the smallest justified upstream patch boundary. Moving C++ to Go or completing
+productization is not itself the maintenance goal. Do not move the protocol
+decoder or prepared registry into the host to make guest patches look smaller.
+Engine state and authoritative execution/cleanup facts remain at the native
+boundary. The [patch-boundary review](reviews/issue65-patch-boundary-20261110.md)
+classifies the current upstream edits, self-owned glue and other source rewrites,
+with a concrete native-only TIME repair removal candidate. It recommends keeping
+localized prepared recovery and atomic execution/cleanup hooks, separating glue
+ownership, and avoiding a wholesale controller relocation. These are source-based
+recommendations, not an implemented reduction, adoption or total-cost PASS.
+The existing full public acceptance conditions below remain in force; neither
+their completion nor a full controller move is a prerequisite for discussing
+this boundary and the maintenance tradeoff now.
+
 **Human target update,2026-11-09:** intended next13-series product engine is
 13.3 LTS. Evaluate13.2.0 Preview (or an explicitly identified nearby13.2 source)
 for the formal preparation/generation/binding path. Keep12.3.3 stable and retain
