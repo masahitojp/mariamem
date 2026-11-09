@@ -15,9 +15,13 @@ a fresh/Fork DB. A Fork may itself become a clean Snapshot; generation origin
 must not determine shutdown mode. The candidate uses a private host-controlled
 session after client cleanup, preserving the canonical guest and public API.
 The main-based candidate passes local full check, race, Go integration, Python
-normal/Live and Snapshot checks. Local prepared-consumer profile matching remains
-unverified; both-platform CI and main adoption/release remain separate. See the
-[implementation evidence](reviews/issue145-shutdown.md).
+normal/Live and Snapshot checks. Exact-source macOS CI42670536897 at401def4e
+closes fixed-profile prepared/native matching and reSnapshot/parallel-disposal
+checks. Ubuntu daily/smoke CI42664665273 remains bound to e671f66a with identical
+runtime/test bodies. The latest PR head must satisfy normal protected checks;
+main adoption and release remain separate. See the
+[implementation evidence](reviews/issue145-shutdown.md) and
+[CI follow-up](reviews/issue145-shutdown-ci-followup.md).
 The earlier historical statement that shutdown-mode changes were unapproved is
 superseded only for this bounded implementation. No broad startup tuning is added.
 
