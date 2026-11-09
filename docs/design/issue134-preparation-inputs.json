@@ -1,0 +1,308 @@
+[
+  {
+    "selection": "12.3.3/legacy-full",
+    "historical_source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb",
+    "physical_inputs": {
+      "guest/patches/common-portability.patch": {
+        "file": "guest/patches/common-portability.patch",
+        "sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+      },
+      "guest/patches/12.3.3-redo.patch": {
+        "file": "guest/patches/12.3.3-redo.patch",
+        "sha256": "0ff46f41747fbdbd29406f927f97d4d32809cf5d63a556252f7446f6853d1b22"
+      },
+      "guest/patches/12.3.3-prepared.patch": {
+        "file": "guest/patches/12.3.3-prepared.patch",
+        "sha256": "ffd5e884f20da6ca993d9f515910fab69639a2f200d2f36f58ee9cf91a37dcb4"
+      },
+      "guest/patches/12.3.3-buffer-alignment.patch": {
+        "file": "guest/patches/12.3.3-buffer-alignment.patch",
+        "sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+      },
+      "guest/source.patch": {
+        "file": "guest/source.patch",
+        "sha256": "01210ae4f4c10c896b41283137499ac549f606fb6e0d2fad769cf55f1c2d2d16"
+      },
+      "guest/prepared_source_patch.json": {
+        "file": "guest/prepared_source_patch.json",
+        "sha256": "81ed80aa085cfced8f3446af3fda6a3b7dfe6f02553d3fbbce2146a3467ccb26"
+      },
+      "tests/fixtures/prepared-p2-source-functions.json": {
+        "file": "tests/fixtures/prepared-p2-source-functions.json",
+        "sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb"
+      },
+      "tests/fixtures/prepared-param-order-functions.json": {
+        "file": "tests/fixtures/prepared-param-order-functions.json",
+        "sha256": "f6e60279b9165b9b5e125d58856afcf6f0178f0650015fcca55efe1ed7fbb065"
+      },
+      "guest/routine_schema.json": {
+        "file": "guest/routine_schema.json",
+        "sha256": "3b6de53bc59ad91dc5c606c435b26f408eb26ff9a091b253d799af86e2460dfd"
+      },
+      "guest/wire_core.inc": {
+        "file": "guest/wire_core.inc",
+        "sha256": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a"
+      },
+      "guest/resident.inc": {
+        "file": "guest/resident.inc",
+        "sha256": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c"
+      },
+      "guest/snapshot_fs.inc": {
+        "file": "guest/snapshot_fs.inc",
+        "sha256": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd"
+      },
+      "guest/startup_timing.inc": {
+        "file": "guest/startup_timing.inc",
+        "sha256": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2"
+      },
+      "guest/init_diagnostics.inc": {
+        "file": "guest/init_diagnostics.inc",
+        "sha256": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d"
+      },
+      "guest/prepared_auth_keys.inc": {
+        "file": "guest/prepared_auth_keys.inc",
+        "sha256": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af"
+      },
+      "guest/routine_bootstrap.inc": {
+        "file": "guest/routine_bootstrap.inc",
+        "sha256": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b"
+      },
+      "guest/prepared_api.inc": {
+        "file": "guest/prepared_api.inc",
+        "sha256": "762a0021c0c5ac2385367e389b5be2a0e54bbf5f50b57b56fd66725a4e027334"
+      },
+      "guest/init_diagnostics.h": {
+        "file": "guest/init_diagnostics.h",
+        "sha256": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea"
+      },
+      "guest/test-auth-keypair.json": {
+        "file": "guest/test-auth-keypair.json",
+        "sha256": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be"
+      }
+    }
+  },
+  {
+    "selection": "13.0.2/legacy-full",
+    "historical_source_commit": "32c799031f619164d3730b61a0bc9d7ae48dcd9b",
+    "physical_inputs": {
+      "guest/patches/common-portability.patch": {
+        "file": "guest/patches/common-portability.patch",
+        "sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+      },
+      "guest/patches/13.0.2-redo.patch": {
+        "file": "guest/versions/13.0.2/inputs/guest/patches/13.0.2-redo.patch",
+        "sha256": "8a9cd1b99d0ed37b17874c2e2cac2592ee2552f6f82f39c6bed17b882012e727"
+      },
+      "guest/patches/13.0.2-prepared.patch": {
+        "file": "guest/versions/13.0.2/inputs/guest/patches/13.0.2-prepared.patch",
+        "sha256": "757357d0dc05c557ee1ee871438561277e22d7e445980534b588e979afa15db7"
+      },
+      "guest/patches/13.0.2-buffer-alignment.patch": {
+        "file": "guest/versions/13.0.2/inputs/guest/patches/13.0.2-buffer-alignment.patch",
+        "sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+      },
+      "benchmarks/spikes/issue128-real/inputs/shared-source.patch": {
+        "file": "guest/versions/13.0.2/inputs/benchmarks/spikes/issue128-real/inputs/shared-source.patch",
+        "sha256": "e3048124e9a2eab88ac9766ef729c4ca0ef1c2bccbddae3c430368ce91d2f62d"
+      },
+      "guest/patches/13.0.2-pagecleaner-observe.patch": {
+        "file": "guest/versions/13.0.2/inputs/guest/patches/13.0.2-pagecleaner-observe.patch",
+        "sha256": "593e1048d73542e057937134926260b74c9ca27a80e738d6017977dfc4f9b8e0"
+      },
+      "guest/source.patch": {
+        "file": "guest/versions/13.0.2/inputs/guest/source.patch",
+        "sha256": "430273666a1f2c38ba5e0441ada7e3d1036ad94e5ccfc486f956e2b214b674b7"
+      },
+      "guest/prepared_source_patch.json": {
+        "file": "guest/versions/13.0.2/inputs/guest/prepared_source_patch.json",
+        "sha256": "2211cd7cf68fe64b7954072899b6d7355ae43e6bd2635b453cadbf84ddd31b31"
+      },
+      "tests/fixtures/prepared-p2-source-functions.json": {
+        "file": "tests/fixtures/prepared-p2-source-functions.json",
+        "sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb"
+      },
+      "tests/fixtures/prepared-param-order-functions.json": {
+        "file": "tests/fixtures/prepared-param-order-functions.json",
+        "sha256": "f6e60279b9165b9b5e125d58856afcf6f0178f0650015fcca55efe1ed7fbb065"
+      },
+      "guest/routine_schema.json": {
+        "file": "guest/versions/13.0.2/inputs/guest/routine_schema.json",
+        "sha256": "03d8ace8d06182c08a9bbb041122bb60c662b00ae766d7269ef99cca9d583dbd"
+      },
+      "guest/wire_core.inc": {
+        "file": "guest/wire_core.inc",
+        "sha256": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a"
+      },
+      "guest/resident.inc": {
+        "file": "guest/resident.inc",
+        "sha256": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c"
+      },
+      "guest/snapshot_fs.inc": {
+        "file": "guest/snapshot_fs.inc",
+        "sha256": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd"
+      },
+      "guest/startup_timing.inc": {
+        "file": "guest/startup_timing.inc",
+        "sha256": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2"
+      },
+      "guest/init_diagnostics.inc": {
+        "file": "guest/init_diagnostics.inc",
+        "sha256": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d"
+      },
+      "guest/prepared_auth_keys.inc": {
+        "file": "guest/prepared_auth_keys.inc",
+        "sha256": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af"
+      },
+      "guest/routine_bootstrap.inc": {
+        "file": "guest/routine_bootstrap.inc",
+        "sha256": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b"
+      },
+      "guest/prepared_api.inc": {
+        "file": "guest/prepared_api.inc",
+        "sha256": "762a0021c0c5ac2385367e389b5be2a0e54bbf5f50b57b56fd66725a4e027334"
+      },
+      "guest/init_diagnostics.h": {
+        "file": "guest/init_diagnostics.h",
+        "sha256": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea"
+      },
+      "guest/test-auth-keypair.json": {
+        "file": "guest/test-auth-keypair.json",
+        "sha256": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be"
+      },
+      "benchmarks/ucapreparedinput/input.json": {
+        "file": "guest/versions/13.0.2/inputs/benchmarks/ucapreparedinput/input.json",
+        "sha256": "413db75b71e4d271b5e56b2be25237d9ec4c968d569fae4a30a5fa1d5211b199"
+      },
+      "benchmarks/ucapreparedinput/level0.u16le.json": {
+        "file": "guest/versions/13.0.2/inputs/benchmarks/ucapreparedinput/level0.u16le.json",
+        "sha256": "e41d17a205523e9a33bf8a2a5ee81175ed9ddc1eef1254193eb5499748cf548e"
+      },
+      "benchmarks/ucapreparedinput/level1.u16le.json": {
+        "file": "guest/versions/13.0.2/inputs/benchmarks/ucapreparedinput/level1.u16le.json",
+        "sha256": "9243e3977c9f7b0a5e0f6c075cf7d06079157280d8d95a31fdee724b927b7584"
+      },
+      "benchmarks/ucapreparedinput/level2.u16le.json": {
+        "file": "guest/versions/13.0.2/inputs/benchmarks/ucapreparedinput/level2.u16le.json",
+        "sha256": "e38bc9436e591fa5e4dbc80fdad48ee694b6dac17a529fae64f2ccd929f44ff4"
+      },
+      "benchmarks/spikes/issue137-helper-continuation/time-source-13.0.2.json": {
+        "file": "guest/versions/13.0.2/inputs/benchmarks/spikes/issue137-helper-continuation/time-source-13.0.2.json",
+        "sha256": "b2d89f2b97fa2521efb0c3ea6f47dc350ac296b76cd35c0e972f91954abfafe0"
+      }
+    }
+  },
+  {
+    "selection": "13.0.2/native-text",
+    "historical_source_commit": "4b3954a0faf42986459bc1ee68727be16d67bcbb",
+    "physical_inputs": {
+      "guest/patches/common-portability.patch": {
+        "file": "guest/patches/common-portability.patch",
+        "sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+      },
+      "guest/patches/13.0.2-redo.patch": {
+        "file": "guest/versions/13.0.2/inputs/guest/patches/13.0.2-redo.patch",
+        "sha256": "8a9cd1b99d0ed37b17874c2e2cac2592ee2552f6f82f39c6bed17b882012e727"
+      },
+      "guest/patches/13.0.2-native-prepared.patch": {
+        "file": "guest/versions/13.0.2/inputs/guest/patches/13.0.2-native-prepared.patch",
+        "sha256": "67fbe7a17c7a8c0809878a45ab6e6cc6405a543beaad30d5bab467f7dfb334ca"
+      },
+      "guest/patches/13.0.2-buffer-alignment.patch": {
+        "file": "guest/versions/13.0.2/inputs/guest/patches/13.0.2-buffer-alignment.patch",
+        "sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+      },
+      "benchmarks/spikes/issue128-real/inputs/shared-source.patch": {
+        "file": "guest/versions/13.0.2/inputs/benchmarks/spikes/issue128-real/inputs/shared-source.patch",
+        "sha256": "e3048124e9a2eab88ac9766ef729c4ca0ef1c2bccbddae3c430368ce91d2f62d"
+      },
+      "guest/patches/13.0.2-pagecleaner-observe.patch": {
+        "file": "guest/versions/13.0.2/inputs/guest/patches/13.0.2-pagecleaner-observe.patch",
+        "sha256": "593e1048d73542e057937134926260b74c9ca27a80e738d6017977dfc4f9b8e0"
+      },
+      "guest/experimental.patch": {
+        "file": "guest/versions/13.0.2/inputs/guest/experimental.patch",
+        "sha256": "33b81d6570ad0ac7dbb41c8e8255dd9124e5b1c142565f1c4dab1c74fc64741a"
+      },
+      "guest/source.patch": {
+        "file": "guest/versions/13.0.2/inputs/guest/source.patch",
+        "sha256": "430273666a1f2c38ba5e0441ada7e3d1036ad94e5ccfc486f956e2b214b674b7"
+      },
+      "guest/prepared_source_patch.json": {
+        "file": "guest/versions/13.0.2/native-text/inputs/guest/prepared_source_patch.json",
+        "sha256": "de515c1d6d06e2f652e11cf39e77c5a09c225367b936e9143787e48458aeb7e7"
+      },
+      "tests/fixtures/prepared-p2-source-functions.json": {
+        "file": "tests/fixtures/prepared-p2-source-functions.json",
+        "sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb"
+      },
+      "tests/fixtures/prepared-param-order-functions.json": {
+        "file": "tests/fixtures/prepared-param-order-functions.json",
+        "sha256": "f6e60279b9165b9b5e125d58856afcf6f0178f0650015fcca55efe1ed7fbb065"
+      },
+      "guest/routine_schema.json": {
+        "file": "guest/versions/13.0.2/inputs/guest/routine_schema.json",
+        "sha256": "03d8ace8d06182c08a9bbb041122bb60c662b00ae766d7269ef99cca9d583dbd"
+      },
+      "guest/wire_core.inc": {
+        "file": "guest/wire_core.inc",
+        "sha256": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a"
+      },
+      "guest/resident.inc": {
+        "file": "guest/resident.inc",
+        "sha256": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c"
+      },
+      "guest/snapshot_fs.inc": {
+        "file": "guest/snapshot_fs.inc",
+        "sha256": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd"
+      },
+      "guest/startup_timing.inc": {
+        "file": "guest/startup_timing.inc",
+        "sha256": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2"
+      },
+      "guest/init_diagnostics.inc": {
+        "file": "guest/init_diagnostics.inc",
+        "sha256": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d"
+      },
+      "guest/prepared_auth_keys.inc": {
+        "file": "guest/prepared_auth_keys.inc",
+        "sha256": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af"
+      },
+      "guest/routine_bootstrap.inc": {
+        "file": "guest/routine_bootstrap.inc",
+        "sha256": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b"
+      },
+      "guest/prepared_api.inc": {
+        "file": "guest/prepared_api.inc",
+        "sha256": "762a0021c0c5ac2385367e389b5be2a0e54bbf5f50b57b56fd66725a4e027334"
+      },
+      "guest/init_diagnostics.h": {
+        "file": "guest/init_diagnostics.h",
+        "sha256": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea"
+      },
+      "guest/test-auth-keypair.json": {
+        "file": "guest/test-auth-keypair.json",
+        "sha256": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be"
+      },
+      "benchmarks/ucapreparedinput/input.json": {
+        "file": "guest/versions/13.0.2/inputs/benchmarks/ucapreparedinput/input.json",
+        "sha256": "413db75b71e4d271b5e56b2be25237d9ec4c968d569fae4a30a5fa1d5211b199"
+      },
+      "benchmarks/ucapreparedinput/level0.u16le.json": {
+        "file": "guest/versions/13.0.2/inputs/benchmarks/ucapreparedinput/level0.u16le.json",
+        "sha256": "e41d17a205523e9a33bf8a2a5ee81175ed9ddc1eef1254193eb5499748cf548e"
+      },
+      "benchmarks/ucapreparedinput/level1.u16le.json": {
+        "file": "guest/versions/13.0.2/inputs/benchmarks/ucapreparedinput/level1.u16le.json",
+        "sha256": "9243e3977c9f7b0a5e0f6c075cf7d06079157280d8d95a31fdee724b927b7584"
+      },
+      "benchmarks/ucapreparedinput/level2.u16le.json": {
+        "file": "guest/versions/13.0.2/inputs/benchmarks/ucapreparedinput/level2.u16le.json",
+        "sha256": "e38bc9436e591fa5e4dbc80fdad48ee694b6dac17a529fae64f2ccd929f44ff4"
+      },
+      "benchmarks/spikes/issue137-helper-continuation/time-source-13.0.2.json": {
+        "file": "guest/versions/13.0.2/inputs/benchmarks/spikes/issue137-helper-continuation/time-source-13.0.2.json",
+        "sha256": "b2d89f2b97fa2521efb0c3ea6f47dc350ac296b76cd35c0e972f91954abfafe0"
+      }
+    }
+  }
+]

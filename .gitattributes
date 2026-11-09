@@ -18,3 +18,5 @@ docs/reviews/dbt-revalidation-evidence/**/*.txt whitespace=-blank-at-eol
 
 # Resolver fixtures retain exact reviewed patch/proof bytes, including context spaces.
 tests/fixtures/guest-input-resolver/blobs/*.txt -whitespace
+# Selected version inputs preserve exact historical patch context bytes.
+guest/versions/**/*.patch -whitespace

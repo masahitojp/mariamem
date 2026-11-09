@@ -22,8 +22,8 @@ def key_material(path=FIXTURE):
     return result
 
 
-def write_header(source):
-    keys = key_material()
+def write_header(source, *, fixture=FIXTURE):
+    keys = key_material(fixture)
     destination = source/'wasm/mariamem_test_auth_keypair.h'
     destination.write_text('/* PUBLIC NON-SECRET RSA-2048 test fixture. Never use for production credentials. */\n'+
                            ''.join('static const char mariamem_test_'+name+'_pem[]= '+json.dumps(value)+';\n' for name,value in keys.items()))

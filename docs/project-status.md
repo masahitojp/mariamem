@@ -14,6 +14,50 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
+## Issue65 — current work and upgrade-cost decision (2026-11-09)
+
+[Issue65](https://github.com/masahitojp/mariamem/issues/65) governs all related
+work: reduce MariaDB upgrade edits, investigation, generation and verification
+cost, and follow upstream sooner. Read its goal, selected means and completion
+conditions before starting, resuming or delegating. Each task states its goal
+contribution, deliverable, exit condition and decision informed. New questions
+do not automatically become mandatory work; scope/contract changes and resuming
+Human-stopped work require Human decision.
+
+The first input-resolver slice is complete at
+`9c8ab9cafe9f3ad9bf0c2f19f2ad09e5141f6f76`: three self-contained input/lock vectors
+and17 focused tests pass. It is not yet connected to source preparation.
+
+**Current stage: #134 preparation integration.** The Human approved connecting
+the resolver to the existing preparation path and comparing actual prepared
+source for12.3.3/legacy-full,13.0.2/legacy-full and13.0.2/native-text. Keep the
+12.3.3 product selection stable. Use explicit inputs and separate output areas;
+retain existing patch/proof checks, historical identities and product contracts.
+Fixed SDK paths inside isolated builders can remain. No controller relocation
+or extra branch experiment belongs in this step.
+
+The first #128 maintenance judgment is due immediately after this preparation
+comparison: identify actual recurring edits removed, remaining semantic patch
+and binding work, and added metadata/verification work. Reuse historical build
+cost evidence with its conditions; do not invent person-hours or present fixture
+PASS as net savings. A credible benefit/risk judgment must precede the full
+public campaign. Final net-cost judgment additionally includes the formal
+producer/binding/public-verification procedure and its observed extra work.
+
+Next: preparation comparison and #128 first judgment → fixed producer/public
+candidate and #132 both-OS acceptance with #134 formal generation → #135
+consumer/performance and #128 final cost → #133 final audit/adoption review.
+Issues exchange artifacts, not close-wait dependencies. Keep current status
+here and in the parent body synchronized rather than appending contradictory
+"next" sections. Preserve historical reports under their original identities.
+
+#127/#137 are complete bounded experiments. The supported uncompressed NET
+read-ahead concern was excluded at
+`eda6f8bafc74c2bab00270b19f7b3c35c95c4aa0`; no speculative repair is needed.
+Broader #131 duties remain open. #138 stays stopped/unwaived. Total maintenance
+benefit, real public acceptance, clean generation and main adoption remain
+unproved. Product engine selection and release are separate Human decisions.
+
 ## Issue #53 — finite Fork candidate adopted, main integration pending
 
 ### Current candidate — adopted after fixed-exit technical acceptance

@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "scope": "PREPARED_UCA1400_SOURCE_INPUT_V1",
+  "prototype_source_commit": "e33fc6ce3bae390c6dda0fd92d024d8094df8731",
+  "mariadb_source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+  "source_archive_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+  "pristine_files_sha256": {
+    "strings/ctype-uca.c": "c4f34ead2f9c1e7b2a88175a25550a4efffc35f0f13be8c6584afcc9ff074a2f",
+    "include/m_ctype.h": "628b8e8639dfcac88fe7eeb12418925370650835ae26f6a68bbbde5d0a3f762c"
+  },
+  "unicode_input_sha256": "c38aa26b5afe8564caf683120db2d165f8f67fec231614f3517b02996aa94804",
+  "raw_bytes_per_level": 918016,
+  "header_sha256": "ce55cdcc72e0c0545e4f736d711b420fb3be07c72511e6ff4b142ad767b39274",
+  "tables": [
+    {
+      "level": 0,
+      "file": "level0.u16le.json",
+      "compressed_sha256": "1a52d9783d9f2447c391845347fde4639fbfe0eb5e8c7341074d03a604827567",
+      "raw_sha256": "d967b6249d27ed1e2940c555cb6991366bac042c58e49629aea3b66432b270bb"
+    },
+    {
+      "level": 1,
+      "file": "level1.u16le.json",
+      "compressed_sha256": "0341a37523e66cb4ee82b8e1fb24216b30688676d40c7346c31c87ba168abc01",
+      "raw_sha256": "ff3014b4a179c7123698bcb0d7fa514a82acd0d9518b9adee6bb9f4402ecf2f4"
+    },
+    {
+      "level": 2,
+      "file": "level2.u16le.json",
+      "compressed_sha256": "2e36c3b11ce90c1b8dd69f1099b921506daeea3d6585f33340a1d3571b862bad",
+      "raw_sha256": "038e5eba5d1b03f078d4702f348e0e2d353b374577a3baf869e13f78664e1e1b"
+    }
+  ]
+}
