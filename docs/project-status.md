@@ -64,6 +64,15 @@ still hands off URL/SHA/operation and stops; it is not acceptance completion.
 #135 consumer/performance and #133 final audit remain later adoption conditions.
 #138 remains stopped/unwaived; main adoption and release remain separate decisions.
 
+**First selected CI failure, 2026-11-10:** run42653638495 on190b5c62
+passed boundary tests but stopped at SDK inventory before MariaDB preparation:
+a local artifact-inventory import shadowed the SDK inventory function. Explicit
+aliases fix the producer entrypoint; regression cases reproduce the original
+failure in all three routes and pass after the fix. The
+[failure receipt](design/issue134-ci42653638495.json) preserves the original result.
+Actual independent builds/translation and later binding/public acceptance remain
+unverified; the same CI plan and budgets are resubmitted with this correction.
+
 **Formal producer connection, 2026-11-10:** the experiment now carries registered
 selection through the existing builder and a distinct selected-guest verifier.
 It rejects mixed inputs/old receipts, requires independent source builds and

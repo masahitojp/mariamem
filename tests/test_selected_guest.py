@@ -249,3 +249,83 @@ def test_default_formal_build_retains_canonical_hash_gate(tmp_path, monkeypatch,
         assert len(results)==2 and results[0]==results[1]
         assert prepared=={'canonical':True} and builds==[]
         assert not (out/'linked.wasm').exists()
+
+
+@pytest.mark.parametrize('route', ['canonical', 'development', 'selected'])
+def test_builder_entrypoint_keeps_sdk_and_artifact_inventories_distinct(inputs, tmp_path, monkeypatch, route):
+    """Exercise main through SDK metadata and receipt emission with tiny tool fixtures.
+
+    No network/compiler is used. The real inventory functions and selected
+    receipt verifier run: a late local import must not shadow the SDK function.
+    """
+    import hashlib
+    from types import SimpleNamespace
+    import git_identity
+    from install_guest_toolchain import inventory as sdk_inventory
+    root, resolved, prepared = inputs
+    sdk, work = tmp_path/'sdk', tmp_path/'work'
+    output = tmp_path/'output'
+    commit = 'a'*40
+    identity = {'commit': commit, 'files_sha256': {'fixture': 'b'*64}}
+    monkeypatch.setattr(builder, 'ROOT', root)
+    monkeypatch.setattr(builder, 'PIN', root/'release/generated-go-toolchain.json')
+    monkeypatch.setattr(builder, 'Path', lambda value: {'/work': work, '/root/.wasixcc': sdk}.get(str(value), Path(value)))
+    monkeypatch.setattr(builder.platform, 'system', lambda: 'Linux')
+    monkeypatch.setattr(builder.platform, 'machine', lambda: 'aarch64')
+    monkeypatch.setattr(builder.os, 'geteuid', lambda: 0)
+    monkeypatch.setattr(git_identity, 'inspect_ref', lambda *_: SimpleNamespace(source_commit=commit))
+    monkeypatch.setattr(git_identity, 'require_commit', lambda *_: None)
+    monkeypatch.setattr(dev, 'source_identity', lambda _: copy.deepcopy(identity))
+    def command_output(command, **kwargs):
+        if '--show-current' in command: return 'experiment/test\n'
+        if 'rev-parse' in command: return commit+'\n'
+        return 'fixture tool version\n'
+    monkeypatch.setattr(builder.subprocess, 'check_output', command_output)
+    pins = json.loads(builder.PIN.read_text())
+    for pin in pins['archives'].values():
+        pin['sha256'] = hashlib.sha256(pin['file'].encode()).hexdigest()
+    dev.write(builder.PIN, pins)
+    def download(pin, directory):
+        directory.mkdir(parents=True, exist_ok=True)
+        target = directory/pin['file']; target.write_text(pin['file'])
+        return target
+    monkeypatch.setattr(builder, 'download', download)
+    def extract(archive, target):
+        target.mkdir(parents=True)
+        if target.name.startswith('sysroot-'):
+            variant = target.name.removesuffix('-unpack')
+            libc = target/('wasix-'+variant)/'sysroot/lib/wasm32-wasi/libc.a'
+            libc.parent.mkdir(parents=True); libc.write_bytes(b'fixture libc')
+        elif target.name == 'binaryen-unpack':
+            (target/'binaryen-fixture').mkdir()
+    monkeypatch.setattr(builder, 'extract', extract)
+    def tool_stage(command, **kwargs):
+        if kwargs['phase'] == 'guest:llvm-prepare':
+            (sdk/'llvm/LLVM-fixture').mkdir(parents=True)
+    monkeypatch.setattr(builder, 'observed_run', tool_stage)
+    def build_sources(root, out, work, env, tools, **kwargs):
+        assert tools['sysroot'] == sdk_inventory(sdk/'sysroot')
+        assert tools['sysroot']['entries'] == 2
+        assert kwargs['repetitions'] == (1 if route == 'development' else 2)
+        assert kwargs['selection'] == (resolved if route == 'selected' else None)
+        (out/'mariamem.wasm').write_bytes(b'fixture guest')
+        if route != 'canonical': (out/'linked.wasm').write_bytes(b'fixture linked')
+        trial = {'guest_sha256': digest(out/'mariamem.wasm'),
+                 'linked_sha256': hashlib.sha256(b'fixture linked').hexdigest()}
+        builds = [{'trial': i, 'allocator_contract': 'PASS', 'prepared_source': prepared,
+                   'prepared_tree': {'members': 1, 'sha256': 'c'*64}} for i in range(kwargs['repetitions'])]
+        return [trial.copy() for _ in builds], prepared, builds
+    monkeypatch.setattr(builder, 'build_sources', build_sources)
+    argv = ['build_generated_guest.py']
+    if route != 'canonical': argv += ['--development-output', str(output)]
+    if route == 'selected': argv += ['--engine', '13.2.0', '--profile', 'native-text']
+    monkeypatch.setattr(sys, 'argv', argv)
+    builder.main()
+    if route == 'canonical': output = root/'build/generated-release'
+    record = json.loads((output/'guest.json').read_text())
+    assert record['toolchain']['sysroot'] == sdk_inventory(sdk/'sysroot')
+    if route == 'selected':
+        assert record['artifacts_sha256'] == {name: digest(output/name) for name in ('mariamem.wasm','linked.wasm')}
+        assert verify(root, output) == record
+    else:
+        assert 'artifacts_sha256' not in record

@@ -1,0 +1,50 @@
+{
+  "failed_run": "https://github.com/masahitojp/mariamem/actions/runs/42653638495",
+  "failed_source_commit": "190b5c62599e435dbc6fa0823085b0bb0f54b4f3",
+  "artifact_id": 13690428915,
+  "artifact_files_sha256": {
+    "handoff-sha256.json": "6700023d7b76611dfee8d91d979a07dd521ad133fb85a37c8ed650c2a7449241",
+    "handoff.tar.gz": "df119f5ca94d8c6b94211cb785bbbc76858e28f8682513a114cd61e35a6f2b73",
+    "independent-guest-builds.txt": "f9e05146b39f635e5ad5a77affb08ee788e3347156ac0d883c622801ded8c72c",
+    "phases.jsonl": "ffa0ff81f19578329dd997f3526791328ee04eb2d2e1277173ce66bf03d7099a",
+    "producer.json": "505fa59546e5c02674948148d2d58b771cf2361a92c7994d2885ea70a6156c07"
+  },
+  "failure": "UnboundLocalError: cannot access local variable inventory where it is not associated with a value",
+  "phase": "SDK inventory, before MariaDB source preparation or compilation",
+  "cause": "The later from dev_guest import inventory inside main made inventory local throughout main, shadowing install_guest_toolchain.inventory.",
+  "repair": "Use explicit sysroot_inventory and artifact_inventory aliases; preserve both distinct record formats.",
+  "regression": {
+    "boundary": "Real builder.main SDK metadata and receipt emission, using tiny tool/archive/source-build fixtures; real inventory functions and selected receipt verifier",
+    "unfixed": "All three canonical/development/selected entrypoint cases reproduce UnboundLocalError",
+    "fixed": "173 tests and 65 subtests PASS (3.96 seconds)",
+    "real_compilation": "NOT_RUN locally; resubmit the unchanged selected CI build/translation plan"
+  },
+  "producer_failure_receipt": {
+    "binding": "NOT_REVIEWED",
+    "budget_gib": 24.0,
+    "exception": "RuntimeError",
+    "message": "independent-guest-builds failed; inspect phase log",
+    "min_free_gib": 8.0,
+    "minimum_free_bytes": 109382238208,
+    "peak_owned_bytes": 3884032000,
+    "phases": [
+      {
+        "exit_code": 1,
+        "name": "independent-guest-builds",
+        "wall_seconds": 130.51279998800004
+      }
+    ],
+    "public_acceptance": "NOT_RUN",
+    "resolved_sha256": "6bfe430f7d9eb6e401ec88d2709d523dd921f14faf727086c1ffaa8dbcc8f9fe",
+    "result": "FAILED",
+    "selection": "13.2.0/native-text",
+    "source_commit": "190b5c62599e435dbc6fa0823085b0bb0f54b4f3"
+  },
+  "remaining": [
+    "Actual independent 13.2 guest builds and translation",
+    "Strict binding review and public candidate assembly",
+    "Both product OS acceptance",
+    "Upgrade-cost judgment"
+  ],
+  "scope": "Name-resolution fix and regression coverage only; guest inputs/patches, release guards, build count and CI budgets unchanged"
+}

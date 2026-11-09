@@ -14,7 +14,7 @@ import subprocess
 import sys
 import urllib.request
 from common import ROOT, digest, extract
-from install_guest_toolchain import inventory
+from install_guest_toolchain import inventory as sysroot_inventory
 from build_feedback import run as observed_run
 
 PIN = ROOT / 'release/generated-go-toolchain.json'
@@ -181,7 +181,7 @@ def main():
     env.update(PATH=str(sdk/'bin')+':/usr/bin:/bin', LD_LIBRARY_PATH=str(sdk/'llvm/lib'),
                LC_ALL='C', TZ='UTC', SOURCE_DATE_EPOCH='0')
     toolchain = {'contract': 'generated-go-v1', 'pins_sha256': digest(PIN),
-                 'host': 'linux-arm64', 'versions': {}, 'sysroot': inventory(sdk/'sysroot'),
+                 'host': 'linux-arm64', 'versions': {}, 'sysroot': sysroot_inventory(sdk/'sysroot'),
                  'archives_sha256': {k:digest(v) for k,v in archives.items()}}
     for key,command in [('wasixcc',[driver,'--version']),('llvm',[sdk/'llvm/bin/clang','--version']),
                          ('lld',[sdk/'llvm/bin/wasm-ld','--version']),('binaryen',[sdk/'binaryen/bin/wasm-opt','--version']),
@@ -207,9 +207,9 @@ def main():
                       guest_sha256=results[0]['guest_sha256'])
     if selected:
         from selected_guest import CONTRACT as SELECTED_CONTRACT
-        from dev_guest import inventory
+        from dev_guest import inventory as artifact_inventory
         record.update(contract=SELECTED_CONTRACT, selected_inputs=selection,
-                      source_builds=source_builds, artifacts_sha256=inventory(out))
+                      source_builds=source_builds, artifacts_sha256=artifact_inventory(out))
     (out/'guest.json').write_text(json.dumps(record,indent=2,sort_keys=True)+'\n')
     if selected:
         from dev_guest import verify_guest
