@@ -1,0 +1,8 @@
+{
+  "original_observations_sha256": "eae06af4917e2a0a3582fe7efea889a5e9e4284e3ad2b285f7f6d41bd8e9d4cc",
+  "published_observations_sha256": "b49b86219e904439ae8c9ff686cd5d8028a3319b92fe2e0c0f3a5734a57ac294",
+  "original_bytes": 481113,
+  "published_bytes": 27202,
+  "rule": "Keep all runs/warmups, exact per-child Fork, cleanup, sample and PREPARE durations, resource/settings/cleanup metadata, SQL phase totals and >=50ms operations with case/time identity. Omit routine logs, individual short order/item/update durations and trace span chronology. No tail exclusion. Recompute reported summaries from these compact observations; no scratch dependency.",
+  "source_commit": "1adf07fd5a9f48275c52541af7ffa3031ec3563d"
+}

@@ -165,7 +165,11 @@ The Human next authorized a bounded read1/read4 comparison against this merged
 main, with normal startup concurrency and16MiB fixed. The
 [experiment plan](../benchmarks/read4afterstartup/plan.json) fixes one Mac/Go Pipe/P8,
 cap9, the existing70-case shop fixture, five alternating pairs, caller phase timing,
-CPU/RSS and cleanup checks. No outcome or read4 adoption is claimed before execution.
+CPU/RSS and cleanup checks. The completed [comparison](../benchmarks/read4afterstartup/results/README.md) found
+read4 whole median569.054ms versus read1 538.775ms, with2/5 paired wins;
+all correctness/cleanup checks pass. This misses the predefined benefit screen.
+Keep read1; three long read4 PREPAREs have unknown waiting ownership.
+No read4 adoption or stable tail/resource claim is made.
 #140 remains open for residual waits; #88/8MiB remains a separate decision.
 
 ## Product contract

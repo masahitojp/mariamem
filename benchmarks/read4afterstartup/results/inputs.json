@@ -1,0 +1,70 @@
+{
+  "source": {
+    "object_sha": "1adf07fd5a9f48275c52541af7ffa3031ec3563d",
+    "object_type": "commit",
+    "source_commit": "1adf07fd5a9f48275c52541af7ffa3031ec3563d"
+  },
+  "plan": {
+    "decision": "Does read4 help after normal startup global concurrency was adopted?",
+    "base_commit": "32e3329c8f12ade2062f7acb5c8c8794457b5709",
+    "approved_pr": 141,
+    "host": "local macOS arm64; Ubuntu not claimed",
+    "workload": "existing shop fixture,50 reads sharing one child and20 isolated writes;21 Fork children",
+    "route": "Go Pipe",
+    "parallel": 8,
+    "max_forks": 9,
+    "GOMAXPROCS": 8,
+    "GOGC": 100,
+    "pool_mib": 16,
+    "global_concurrency": "adopted normal default; no intervention",
+    "arms": [
+      1,
+      4
+    ],
+    "warmups_per_arm": 1,
+    "alternating_pairs": 5,
+    "measurements": [
+      "whole wall",
+      "per-Fork p50/p95 and >=100ms count",
+      "sample SQL phase p50/p95 and >=100ms count",
+      "cleanup time",
+      "process CPU",
+      "process peak RSS"
+    ],
+    "exit": "Report all five pairs including tails. A promising read4 candidate requires >=5% lower whole-wall median and wins >=4/5 pairs, with no correctness/cleanup failures. CPU or peak-RSS median increases >10% require explicit tradeoff review. Otherwise report mixed/no improvement; no automatic extra samples or adoption.",
+    "limit": "Descriptive one-host screening, not a confidence interval or product resource bound. Queue wait mechanism is unobserved.",
+    "budget": {
+      "active_minutes": 120,
+      "tooling_minutes": 30,
+      "heavy_ci_submissions": 0,
+      "build_timeout_seconds": 900,
+      "suite_timeout_seconds": 120,
+      "workspace_gib": 6
+    },
+    "observer": "caller timestamps only; no runtime queue/stack sampler",
+    "intervention": "guarded argv overlay; same binary validates all25 argv strings before read digit1->4;read1 executes same scan but leaves argv identical;SHOW verifies selected read value on root/children; no8MiB/read-group-independent global-cap changes"
+  },
+  "host": {
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "go": "go version go1.27.3 darwin/arm64",
+    "cpu": "Apple M1",
+    "memory": "17179869184"
+  },
+  "measurement_environment": {
+    "GOMAXPROCS": "8",
+    "GOGC": "100",
+    "CGO_ENABLED": "0",
+    "GOTOOLCHAIN": "local",
+    "ISSUE88_POOL_MIB": "16",
+    "ISSUE88_SAMPLE_PHASES": "1"
+  },
+  "overlay": {
+    "generated_path": "internal/generatedgo/code/p5/p5_pure.go",
+    "before_sha256": "39b3e13d8b844012a75c7deacfc48c0cc08b0587d46f41eaed18793ec166d9a1",
+    "after_sha256": "a50a2e0dd6634bb0ed9bc1634982b0d92969817b04c7cd7c0fc86cadbfabd5ed",
+    "selector_sha256": "949ed83f9c09374d395145bb690f07ac708c80d8d14fde9ae6bc43aac4e08618"
+  },
+  "binary_sha256": "dd5d08ff3492184b257d209edde927e86ad9c58686b19b2041681240d9535b76",
+  "build_seconds": 113.819521583,
+  "build_info": "<WORKSPACE>/temp/probe: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue88modelcase/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/issue88modelcase\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t../..\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n"
+}
