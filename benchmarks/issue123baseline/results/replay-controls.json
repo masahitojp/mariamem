@@ -1,0 +1,18 @@
+[
+  {
+    "mutation": "oracle",
+    "rejected": true
+  },
+  {
+    "mutation": "mapping",
+    "rejected": true
+  },
+  {
+    "mutation": "missing-process",
+    "rejected": true
+  },
+  {
+    "mutation": "summary",
+    "rejected": true
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "original_observations_sha256": "98a273b1bd079d1e3701faa9fcb31f4dceaeb52c9354c2c78e48d64b16d9b1fe",
+  "compressed_observations_sha256": "df700a379f9f35b88a862234d720b988e296f16b4b2e113c8806d51a7d0f75ba",
+  "encoding": "gzip mtime0; decompression byte-identical; all84 process records and per-child spans retained",
+  "excluded_from_git": "duplicate individual JSON/console streams, build output, process preflight and caches; no unique numeric observations omitted"
+}

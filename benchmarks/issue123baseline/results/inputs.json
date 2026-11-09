@@ -1,0 +1,98 @@
+{
+  "harness_and_candidate_source_commit": "89aad11a7ce5fd4848b464b8dcfa9430ea607bbe",
+  "plan": {
+    "purpose": "Establish v0.6.2 versus current main whole-lifecycle baseline and screen static-page sharing on that same current main",
+    "product_source_commit": "279fa530d03cab1bd025df91bf5130bbf845a721",
+    "baseline": {
+      "release_tag": "v0.6.2",
+      "tag_object_sha": "cebdb4114187171bd418b0a1b419e1c27368808d",
+      "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb"
+    },
+    "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+    "arms": [
+      "baseline",
+      "current",
+      "pages"
+    ],
+    "runtime_ancestor": "a16502e3bf14329c4ca8fb734c5771f6cca8a6fc",
+    "harness_ancestor": "60368c302d772c8b82f4b313ca2112090e4073ac",
+    "generated_source_sha256": "91ce0d2913f5802dcf5a6c65902febf183551bcd224474fb52ef3e96cdb01fd7",
+    "fixed": {
+      "count": 48,
+      "seed_rows": 1000,
+      "modes": [
+        "fresh",
+        "fork"
+      ],
+      "parallel": [
+        1,
+        4
+      ],
+      "route": "Pipe",
+      "go": "go1.27.3",
+      "gomaxprocs": 8,
+      "gogc": 100,
+      "cgo": 0,
+      "pool_mib": 16,
+      "read_threads": 1,
+      "cap": "P for Fork; Fresh roots bounded by workers"
+    },
+    "primary_processes": 60,
+    "rounds": 5,
+    "order": "rotate 4 cells; rotate baseline/current/pages order within each cell by round+cell, adjacent three-arm cohorts",
+    "controls": "2 children positive and1 wrong-seed per arm/mode:12 processes",
+    "warmups": "one48-case process per arm/mode/P:12 processes",
+    "total_processes": 84,
+    "boundary": "first Start through last cleanup and image factory disposal; includes cold image creation once per pages process",
+    "metrics": [
+      "whole wall/CPU",
+      "root preparation and cold image cost",
+      "per-child Start/Fork/SQL/retire/Close p50/p95 and >100ms",
+      "lifetime max RSS only; not held-child RSS"
+    ],
+    "screen": "descriptive fixed comparison; prior fixed-wave PASS not relabeled; new ordinary-lifecycle results including first Start/whole-suite/Fresh costs govern recommendation; no extra repeats to reach a threshold",
+    "limits": "single Mac. No new owner tracing, tail exclusion, guest changes, canonical adoption, Ubuntu qualification or release. Ordinary mixed-lifecycle only; no fixed-wave equivalence claim.",
+    "budget": {
+      "active_minutes": 120,
+      "tooling_minutes": 30,
+      "heavy_ci": 0,
+      "min_free_gib": 10,
+      "owned_gib": 12,
+      "timeout_seconds": 2400,
+      "process_timeout_seconds": 190
+    }
+  },
+  "binaries": {
+    "baseline": {
+      "sha256": "d85872f3e68bc0a6957ad5277a44c8427c313141e3bae875fc2611e030da823b",
+      "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb",
+      "guest_sha256": "96129c76872ab0891329e8e356233d691208195654e878a2853139901712d05f",
+      "build_info": "<WORKSPACE>/temp/bin-baseline: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue123baseline/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/issue123baseline\tv0.0.0-20261109145247-89aad11a7ce5\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/temp/baseline\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=89aad11a7ce5fd4848b464b8dcfa9430ea607bbe\n\tbuild\tvcs.time=2026-11-09T14:52:47Z\n\tbuild\tvcs.modified=false\n",
+      "build_seconds": 123.02894354199998
+    },
+    "current": {
+      "sha256": "4158c6e273e277e4fe3290a90d0ecb82db6fdd77c7180d0ae8aefa6e039ac016",
+      "source_commit": "279fa530d03cab1bd025df91bf5130bbf845a721",
+      "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+      "build_info": "<WORKSPACE>/temp/bin-current: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue123baseline/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/issue123baseline\tv0.0.0-20261109145247-89aad11a7ce5\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/temp/current\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=89aad11a7ce5fd4848b464b8dcfa9430ea607bbe\n\tbuild\tvcs.time=2026-11-09T14:52:47Z\n\tbuild\tvcs.modified=false\n",
+      "build_seconds": 119.13450275000002
+    },
+    "pages": {
+      "sha256": "4816dc416c8fccdfd169e621143bf0635d23d639414c18f7fa4bf9236a220722",
+      "source_commit": "89aad11a7ce5fd4848b464b8dcfa9430ea607bbe",
+      "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+      "build_info": "<WORKSPACE>/temp/bin-pages: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue123baseline/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/issue123baseline\tv0.0.0-20261109145247-89aad11a7ce5\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-tags=issue123image\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=89aad11a7ce5fd4848b464b8dcfa9430ea607bbe\n\tbuild\tvcs.time=2026-11-09T14:52:47Z\n\tbuild\tvcs.modified=false\n",
+      "build_seconds": 114.46894112500007
+    }
+  },
+  "archives": {
+    "baseline": "697641d5b865f6f426ffc8a0c2f4c59687346b11b04a6be4dc98879102250d81",
+    "current": "d9e67baf91931ed027f0f1adb6db74d4106bbddecfb9f05e7bebf39853ca612c"
+  },
+  "runtime_delta_paths": [
+    "internal/generatedgo/static_image_experiment.go",
+    "internal/generatedgo/memory_backing_unix.go",
+    "internal/generatedgo/code/base/static_pages_experiment.go",
+    "internal/generatedgo/code/base/static_pages_experiment_test.go"
+  ]
+}
