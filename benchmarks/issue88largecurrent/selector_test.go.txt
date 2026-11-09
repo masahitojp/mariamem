@@ -1,0 +1,8 @@
+package base
+import("bytes";"encoding/binary";"sync/atomic";"testing")
+func TestPoolSelector(t *testing.T) {
+ original:=poolMiB;defer func(){poolMiB=original}()
+ fixture:=func()*Module {b:=bytes.Repeat([]byte{0xa5},16384);for i,s:=range expectedSettingsArgs {p:=4096+i*256;copy(b[p:],append([]byte(s),0));binary.LittleEndian.PutUint32(b[128+i*4:],uint32(p))};binary.LittleEndian.PutUint32(b[228:],0);m:=&Module{Memory:b,MemSize:&atomic.Uint64{}};m.MemSize.Store(uint64(len(b)));return m}
+ for _,variant:=range []string{"16","8"} {t.Run(variant,func(t *testing.T){poolMiB=variant;m:=fixture();before:=bytes.Clone(m.Memory);if PoolArgv(m,25,128)!=25 {t.Fatal("argc")};want:=bytes.Clone(before);if variant=="8" {for _,i:=range []int{11,12}{p:=4096+i*256;s:=expectedSettingsArgs[i];r:=s[:len(s)-3]+"8M";copy(want[p:],r);clear(want[p+len(r):p+len(s)+1])}};if !bytes.Equal(m.Memory,want){t.Fatal("unexpected memory mutation")}})}
+ for _,bad:=range []string{"variant","argc","first_preimage","last_preimage"}{t.Run(bad,func(t *testing.T){poolMiB="8";m:=fixture();argc:=int32(25);switch bad {case "variant":poolMiB="bad";case "argc":argc=24;case "first_preimage":m.Memory[4096]='X';case "last_preimage":m.Memory[4096+24*256]='X'};before:=bytes.Clone(m.Memory);func(){defer func(){if recover()==nil {t.Fatal("invalid accepted")}}();PoolArgv(m,argc,128)}();if !bytes.Equal(before,m.Memory){t.Fatal("partial mutation on invalid input")}})}
+}

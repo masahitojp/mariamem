@@ -1,0 +1,46 @@
+{
+  "question": "On current adopted startup-global-concurrency main, what SQL/cache tradeoff does 16->8MiB cause on a >16MiB table?",
+  "base_commit": "279fa530d03cab1bd025df91bf5130bbf845a721",
+  "origin_guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "harness_origin": "f781a68419ab2282ac08fdc62e79670da54beadd",
+  "fixture": {
+    "rows": 24576,
+    "payload_bytes": 1024,
+    "allocated_guard": ">16MiB after ANALYZE",
+    "serial_children": 8
+  },
+  "modes": [
+    "serial",
+    "hold"
+  ],
+  "pairs": 5,
+  "processes": 20,
+  "order": "alternate 16/8 then 8/16 each pair; rotate serial/hold each pair",
+  "serial_warmup_children_per_process": 1,
+  "rss": "independent hold process, checkpoints 0/1/4; GC+FreeOSMemory+100ms",
+  "transport": "Pipe",
+  "max_forks": 4,
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "go": "go1.27.3",
+  "read_threads": 1,
+  "delta": "same binary validated two-argv selector, 16M->8M size and size_max only; canonical main runtime unchanged",
+  "metrics": [
+    "Fork wall/process CPU",
+    "first scan including lazy connect",
+    "second full scan",
+    "UPDATE+point oracle",
+    "lifecycle wall",
+    "prepare and whole process wall/CPU including warmup+final pristine",
+    "held RSS"
+  ],
+  "exit": "fixed5 pairs; all outliers retained; report tradeoff; no automatic sample extension, adoption or CI",
+  "budget": {
+    "active_hours": 2,
+    "tooling_minutes": 30,
+    "heavy_ci": 0,
+    "min_free_gib": 8,
+    "owned_gib": 10,
+    "run_timeout_seconds": 1800
+  }
+}
