@@ -83,24 +83,36 @@ def verify_source_origin(root, origin):
         raise ValueError('guest source origin is not available/verifiable') from exc
 
 
-def verify_guest(root, directory):
+def verify_guest(root, directory, *, engine=None, profile=None):
     directory = Path(directory)
     record = json.loads((directory/'guest.json').read_text())
-    require(record['contract'] == CONTRACT and record['result'] == 'UNQUALIFIED', 'not a dev guest contract')
+    from selected_guest import CONTRACT as SELECTED_CONTRACT, verify_record
+    selected = record.get('contract') == SELECTED_CONTRACT
+    require(record.get('contract') in (CONTRACT, SELECTED_CONTRACT) and
+            record.get('result') == 'UNQUALIFIED', 'not a dev guest contract')
+    require(selected or (engine is None and profile is None), 'expected selected guest; legacy fallback rejected')
+    require(selected or not ({'selected_inputs', 'source_builds'} & record.keys()) and
+            'schema' not in record['prepared_source'] and 'selection' not in record['prepared_source'],
+            'selected guest cannot use legacy receipt contract')
     verify_source_origin(root, record['source_identity'])
     pins = json.loads((root/'release/generated-go-toolchain.json').read_text())
     tools = record['toolchain']
     require(tools['pins_sha256'] == digest(root/'release/generated-go-toolchain.json') and
             tools['archives_sha256'] == {k:v['sha256'] for k,v in pins['archives'].items()},
             'dev toolchain identity mismatch')
-    require(record['prepared_source']['inputs_lock_sha256'] == digest(root/'release/inputs.lock.json') and
+    if selected:
+        verify_record(root, directory, record, engine=engine, profile=profile)
+    else:
+        require(record['prepared_source']['inputs_lock_sha256'] == digest(root/'release/inputs.lock.json') and
             record['prepared_source']['overlays'] == {p.name:digest(p) for p in (root/'guest').iterdir() if p.is_file()},
             'dev source/patch identity mismatch')
     require(record['guest_sha256'] == digest(directory/'mariamem.wasm') and
             record['guest_bytes'] == (directory/'mariamem.wasm').stat().st_size,
             'dev Wasm identity mismatch')
-    require(len(record['repetitions']) == 1 and record['repetitions'][0] == {
-        'guest_sha256': record['guest_sha256'], 'linked_sha256': digest(directory/'linked.wasm')},
+    require((len(record['repetitions']) >= 2 if selected else len(record['repetitions']) == 1) and
+            all(trial == {'guest_sha256': record['guest_sha256'],
+                          'linked_sha256': digest(directory/'linked.wasm')}
+                for trial in record['repetitions']),
         'dev linked/build identity mismatch')
     return record
 

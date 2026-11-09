@@ -1,0 +1,79 @@
+{
+  "base_source_commit": "acb9b3dd37f8342dd01d9e8c1381025625837956",
+  "scope": "#134 formal selected producer, receipt and actual translation acquisition; #65 B/C remains open",
+  "selection": "13.2.0/native-text",
+  "verification": {
+    "selection_receipt_resolver_regeneration_workflow_scope": {
+      "passed": 170,
+      "subtests_passed": 65,
+      "wall_seconds": 3.28
+    },
+    "existing_release_provenance_lifetime_guards": {
+      "passed": 87,
+      "wall_seconds": 8.27
+    },
+    "public_source": "PASS (6847 files)",
+    "syntax": "PASS",
+    "diff_check": "PASS",
+    "actual_guest_build": "CI_REQUIRED",
+    "actual_translation": "CI_REQUIRED",
+    "binding_review": "NOT_DONE",
+    "public_both_os_acceptance": "NOT_RUN",
+    "workflow_yaml": "PASS; explicit local parser validation, no new normal-CI dependency"
+  },
+  "changed_files_sha256": {
+    ".github/workflows/selected-guest.yml": "4a7481db991aff391e981b6f9f7e57e24f65faf664fd28b047c0ad98537f8738",
+    "docs/project-status.md": "996940ca9fcc132331ca31c1b62f7e0c639062230508bb067867d0471412e914",
+    "guest/versions/README.md": "a9c1ea8befc8e4c6705e076a18fa19cdc7bf7ce54d9fd7dba0bc07a600ae7a17",
+    "scripts/build_generated_guest.py": "0beed1c7a1405d6a58bd7f31e71b59933d269f346166136872dadfd3894810ca",
+    "scripts/dev_guest.py": "6cb0f6881cbf989dbf9ff3d08a48cb4e48906755d9af83ab7f0d71ded1e32bb7",
+    "scripts/development_scope.py": "36e0e147f68de7d89dfef5829aea6292ce027f0b024fcb91477597d690c002e4",
+    "scripts/guest_preparation_context.py": "d5983124c7eb9277ce8c54008f36b301bb3ec61d4f2c5643fe579892ff9331b8",
+    "scripts/regenerate_release_guest.py": "fe3d23bea7108bb727beb666eb255c0ad1a7f60babef7e365f7f9f58d0de3649",
+    "scripts/selected_guest.py": "bbf8fdd95eac9f2b8942ec9ba909237e5bba58d2e3382d75b7f73513eb415b86",
+    "scripts/selected_guest_ci.py": "059f02d9b3ada359683ac6b60a8308c276da98f81bce1de095e13087126c0a14",
+    "tests/test_guest_preparation_context.py": "f8fb9e074610e4eba4dd3354b1befc5fc598439ced7f5c69f0965126cb62c744",
+    "tests/test_selected_guest.py": "87a1eb5fb98d78153e3fdb7b45ac0c8573006c3fc91be107b7d0c4e7e77d9084"
+  },
+  "upgrade_cost_observation": {
+    "decision": "INCONCLUSIVE",
+    "one_time_common_work": [
+      "Thread registered input through existing producer and verifier without changing stable pins",
+      "Separate selected unqualified receipt from legacy/release receipts; reject missing expected selection",
+      "Compare complete prepared trees and both linked/final WASM across independent builds",
+      "Bind raw translation and retain exact source inventory before binding review",
+      "Set combined CI SDK/build/cache/output budget and phase duration recording"
+    ],
+    "manual_decisions": [
+      "Retain canonical default and legacy development route",
+      "Require two selected source builds rather than importing the one-build legacy development contract",
+      "Keep old binding installer closed; raw translation has BINDING_REVIEW_REQUIRED outcome",
+      "Use command-scoped safe.directory for the root builder reading the runner-owned checkout"
+    ],
+    "recurring_work_remaining": [
+      "New version input and full proof registration",
+      "Whole worker bodies/TLS/ABI review of real generated output",
+      "Public candidate composition and both-OS original oracle acceptance",
+      "Consumer/performance, final cost and cleanup audit"
+    ],
+    "guest_patch_body_edits": 0,
+    "human_hours": "NOT_MEASURED",
+    "machine_wait": "Local checks above; CI producer.json/phases.jsonl will record real generation work",
+    "separate_cost_builds": 0
+  },
+  "ci_plan": {
+    "workflow": ".github/workflows/selected-guest.yml",
+    "operation": "development verification (no publication)",
+    "source_builds": 2,
+    "build_timeout_seconds": 7200,
+    "translation_timeout_seconds": 1800,
+    "owned_disk_budget_gib": 24,
+    "min_free_gib": 8,
+    "binding_and_runtime_success_claim": false
+  },
+  "unchanged_conditions": [
+    "#138 stopped/unwaived",
+    "No main adoption or release approval",
+    "Same #65 completion conditions"
+  ]
+}

@@ -17,7 +17,7 @@ from prepared_source_patch import inputs as proof_inputs
 
 class PreparationContextTests(unittest.TestCase):
     def test_three_profiles_resolve_and_keep_stage_contract(self):
-        for engine, profile in [('12.3.3', 'legacy-full'), ('13.0.2', 'legacy-full'), ('13.0.2', 'native-text')]:
+        for engine, profile in [('12.3.3', 'legacy-full'), ('13.0.2', 'legacy-full'), ('13.0.2', 'native-text'), ('13.2.0', 'native-text')]:
             result = context.resolve(ROOT, engine, profile)
             self.assertEqual(result['stages'], context.stage_order(result['guest_input']))
             self.assertEqual(result['guest_input']['version'], engine)
@@ -63,7 +63,7 @@ class PreparationContextTests(unittest.TestCase):
                 fetch('mariadb', lock=lock, downloads=downloads)
 
     def test_all_corrected_proofs_and_selected_inputs_reach_common_pipeline(self):
-        for engine, profile in [('12.3.3', 'legacy-full'), ('13.0.2', 'legacy-full'), ('13.0.2', 'native-text')]:
+        for engine, profile in [('12.3.3', 'legacy-full'), ('13.0.2', 'legacy-full'), ('13.0.2', 'native-text'), ('13.2.0', 'native-text')]:
             with tempfile.TemporaryDirectory() as directory:
                 target = Path(directory) / 'run'
                 def pipeline(view, lock, work, fetch_input, *, selected):

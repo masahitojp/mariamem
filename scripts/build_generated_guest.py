@@ -38,28 +38,114 @@ def download(pin, directory):
     return path
 
 
+def build_sources(root, out, work, env, toolchain, *, repetitions, development, expected, selection=None):
+    shell = root/'benchmarks/spikes/wasm2go/legacy_eh_toolchain.sh'
+    results, source_builds = [], []
+    for trial in range(repetitions):
+        run = root/'build'/f'selected-source-{trial}' if selection else root/'build'
+        command = [sys.executable, root/'scripts/prepare_guest.py']
+        if selection:
+            engine, profile = selection['selection'].split('/')
+            command += ['--engine', engine, '--profile', profile, '--work-dir', run,
+                        '--archive-cache', root/'build/downloads']
+        preparation_inputs = ([root/'guest/versions/registry.json'] +
+                              [root/ref['file'] for ref in selection['files'].values()] if selection else
+                              [root/'release/inputs.lock.json', root/'guest/source.patch'])
+        observed_run(command, env=env, check=True,
+                     phase=f'guest:prepare:{trial}', inputs=preparation_inputs,
+                     outputs=[run/'prepared-source.json'],
+                     tools=toolchain['versions'])
+        prepared = json.loads((run/'prepared-source.json').read_text())
+        if not development and prepared.get('experimental_patch'):
+            raise ValueError('experimental source patches are forbidden')
+        if selection:
+            from selected_guest import verify_preparation, tree_identity
+            verify_preparation(selection, prepared)
+            for name, expected_hash in prepared['modified_files'].items():
+                if digest(run/'source'/name) != expected_hash:
+                    raise ValueError('prepared source changed before build: ' + name)
+            tree = tree_identity(run/'source')
+            if source_builds and tree != source_builds[0]['prepared_tree']:
+                raise ValueError('independent prepared sources differ')
+        # Exercise the actual prepared C allocator contract before compilation.
+        allocator_check = root/'build'/f'buffer-pool-contract-{trial}.json'
+        observed_run([sys.executable, root/'tests/buffer_pool_alignment_check.py',
+                      '--source', run/'source', '--output', allocator_check],
+                     env=env, check=True, phase=f'guest:allocator-contract:{trial}',
+                     inputs=[run/'inputs/guest/input.json' if selection else root/'guest/input.json',
+                             root/'tests/buffer_pool_alignment_check.py'],
+                     outputs=[allocator_check])
+        if selection:
+            source_builds.append({'trial': trial, 'allocator_contract': 'PASS',
+                                  'prepared_tree': tree, 'prepared_source': prepared})
+        shutil.move(str(run/'source'), work/'source')
+        linked = work/'artifact/mariamem-legacy-eh.wasm'
+        guest = work/'artifact/mariamem-legacy-eh-O2-compatible.wasm'
+        observed_run(['bash', shell, 'build-no-postopt'], env=env, check=True,
+                     phase=f'guest:compile-link:{trial}', inputs=[PIN, shell, run/'prepared-source.json'],
+                     outputs=[linked], tools=toolchain['versions'])
+        observed_run(['bash', shell, 'postopt'], env=env, check=True,
+                     phase=f'guest:wasm-postopt:{trial}', inputs=[linked, shell],
+                     outputs=[guest], tools=toolchain['versions'])
+        result = {'linked_sha256':digest(linked),'guest_sha256':digest(guest)}
+        if not development and result['guest_sha256'] != expected:
+            raise ValueError('canonical WASM differs; never adopt new guest bytes silently: '+str(result))
+        if results and result != results[0]:
+            raise ValueError('independent source rebuild differs')
+        results.append(result)
+        shutil.copy2(guest,out/'mariamem.wasm')
+        if development:
+            shutil.copy2(linked,out/'linked.wasm')
+        for name in ('link.txt','flags.make','CMakeCache.txt'):
+            shutil.copy2(work/'artifact'/name,out/name)
+        shutil.rmtree(work/'source')
+        shutil.rmtree(work/'artifact')
+        shutil.rmtree(run/'unpack')
+        if selection:
+            shutil.rmtree(run)
+    return results, prepared, source_builds
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--repetitions', type=int, default=2)
-    parser.add_argument('--development-output', type=Path, help='explicit external UNQUALIFIED single-build output; never release evidence')
+    parser.add_argument('--development-output', type=Path, help='explicit external UNQUALIFIED output (selected inputs require independent builds); never release evidence')
+    parser.add_argument('--engine', help='registered evaluation engine; requires --profile and --development-output')
+    parser.add_argument('--profile', help='registered preparation profile')
     args = parser.parse_args()
+    selected = args.engine is not None or args.profile is not None
+    if selected and not (args.engine and args.profile and args.development_output):
+        parser.error('--engine/--profile require each other and --development-output')
+    selection = None
+    if selected:
+        from guest_preparation_context import resolve
+        selection = resolve(ROOT, args.engine, args.profile)
+        if 'native_overlay' in selection['guest_input']:
+            branch = subprocess.check_output(['git', '-c', 'safe.directory='+str(ROOT),
+                                              'branch', '--show-current'], cwd=ROOT, text=True).strip()
+            if not branch.startswith('experiment/'):
+                parser.error('selected native producer requires an experiment/ branch')
     if platform.system() != 'Linux' or platform.machine() != 'aarch64' or os.geteuid() != 0:
         parser.error('requires root on a fresh Linux arm64 build runner (not a product platform)')
     development = args.development_output is not None
-    if development and args.repetitions != 2:
+    if development and not selected and args.repetitions != 2:
         parser.error('development route has exactly one build; do not specify --repetitions')
     if args.repetitions < 2:
-        parser.error('release generation requires at least two independent source builds')
+        parser.error('release/selected generation requires at least two independent source builds')
     if development:
         from dev_guest import external_output, source_identity, CONTRACT
         out = external_output(ROOT, args.development_output)
         identity = source_identity(ROOT)
+    from git_identity import inspect_ref, require_commit
+    require_commit(ROOT, inspect_ref(ROOT, 'HEAD').source_commit)
+    count = args.repetitions if selected or not development else 1
     pins = json.loads(PIN.read_text())
     expected = json.loads((ROOT/'release/generated-go-inputs.json').read_text())['guest_sha256']
     work = Path('/work')
     sdk = Path('/root/.wasixcc')
     if ((work.exists() and any(work.iterdir())) or sdk.exists() or
-        any((ROOT/'build'/name).exists() for name in ('source','unpack','generated-release'))):
+        any((ROOT/'build'/name).exists() for name in ('source','unpack','generated-release')) or
+        any((ROOT/'build'/f'selected-source-{i}').exists() for i in range(count))):
         parser.error('refuse existing work/SDK/source/output; use a fresh builder')
     archives = {k: download(v, ROOT/'build/downloads') for k,v in pins['archives'].items()}
     work.mkdir(exist_ok=True)
@@ -103,47 +189,12 @@ def main():
                          ('make',['/usr/bin/make','--version']),('python',[sys.executable,'--version'])]:
         toolchain['versions'][key] = subprocess.check_output(command,env=env,text=True).strip()
     toolchain['environment']={k:env[k] for k in ('PATH','LD_LIBRARY_PATH','LC_ALL','TZ','SOURCE_DATE_EPOCH')}
-    results = []
     if not development:
         out = ROOT/'build/generated-release'
     out.mkdir(parents=True)
-    shell = ROOT/'benchmarks/spikes/wasm2go/legacy_eh_toolchain.sh'
-    for trial in range(1 if development else args.repetitions):
-        observed_run([sys.executable, ROOT/'scripts/prepare_guest.py'], env=env, check=True,
-                     phase=f'guest:prepare:{trial}', inputs=[ROOT/'release/inputs.lock.json',
-                     ROOT/'guest/source.patch'], outputs=[ROOT/'build/prepared-source.json'],
-                     tools=toolchain['versions'])
-        prepared = json.loads((ROOT/'build/prepared-source.json').read_text())
-        if not development and prepared.get('experimental_patch'):
-            raise ValueError('experimental source patches are forbidden')
-        # Exercise the actual prepared C allocator contract before compilation.
-        allocator_check = ROOT/'build'/f'buffer-pool-contract-{trial}.json'
-        observed_run([sys.executable, ROOT/'tests/buffer_pool_alignment_check.py',
-                      '--source', ROOT/'build/source', '--output', allocator_check],
-                     env=env, check=True, phase=f'guest:allocator-contract:{trial}',
-                     inputs=[ROOT/'guest/input.json', ROOT/'tests/buffer_pool_alignment_check.py'],
-                     outputs=[allocator_check])
-        shutil.move(str(ROOT/'build/source'), work/'source')
-        linked = work/'artifact/mariamem-legacy-eh.wasm'
-        guest = work/'artifact/mariamem-legacy-eh-O2-compatible.wasm'
-        observed_run(['bash', shell, 'build-no-postopt'], env=env, check=True,
-                     phase=f'guest:compile-link:{trial}', inputs=[PIN, shell, ROOT/'build/prepared-source.json'],
-                     outputs=[linked], tools=toolchain['versions'])
-        observed_run(['bash', shell, 'postopt'], env=env, check=True,
-                     phase=f'guest:wasm-postopt:{trial}', inputs=[linked, shell],
-                     outputs=[guest], tools=toolchain['versions'])
-        result = {'linked_sha256':digest(linked),'guest_sha256':digest(guest)}
-        if not development and result['guest_sha256'] != expected:
-            raise ValueError('canonical WASM differs; never adopt new guest bytes silently: '+str(result))
-        if results and result != results[0]:
-            raise ValueError('independent source rebuild differs')
-        results.append(result)
-        shutil.copy2(guest,out/'mariamem.wasm')
-        if development:
-            shutil.copy2(linked,out/'linked.wasm')
-        for name in ('link.txt','flags.make','CMakeCache.txt'):
-            shutil.copy2(work/'artifact'/name,out/name)
-        shutil.rmtree(work/'source'); shutil.rmtree(ROOT/'build/unpack')
+    results, prepared, source_builds = build_sources(
+        ROOT, out, work, env, toolchain, repetitions=count, development=development,
+        expected=expected, selection=selection)
     commit = subprocess.check_output(['git','-c','safe.directory='+str(ROOT),'rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     record = {'contract':'generated-go-v1','source_commit':commit,'guest_sha256':expected,
               'guest_bytes':(out/'mariamem.wasm').stat().st_size,'repetitions':results,
@@ -154,7 +205,15 @@ def main():
             raise ValueError('source changed during development build')
         record.update(contract=CONTRACT, result='UNQUALIFIED', source_identity=identity,
                       guest_sha256=results[0]['guest_sha256'])
+    if selected:
+        from selected_guest import CONTRACT as SELECTED_CONTRACT
+        from dev_guest import inventory
+        record.update(contract=SELECTED_CONTRACT, selected_inputs=selection,
+                      source_builds=source_builds, artifacts_sha256=inventory(out))
     (out/'guest.json').write_text(json.dumps(record,indent=2,sort_keys=True)+'\n')
+    if selected:
+        from dev_guest import verify_guest
+        verify_guest(ROOT, out, engine=args.engine, profile=args.profile)
     print(json.dumps(record,indent=2))
 
 if __name__ == '__main__':

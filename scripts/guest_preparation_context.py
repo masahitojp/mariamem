@@ -53,7 +53,7 @@ def prepare_selected(root, engine, profile, work_dir, *, archive_cache=None):
     root = Path(root).resolve(strict=True)
     result = resolve(root, engine, profile)
     if 'native_overlay' in result['guest_input']:
-        branch = subprocess.check_output(['git', 'branch', '--show-current'], cwd=root, text=True).strip()
+        branch = subprocess.check_output(['git', '-c', 'safe.directory=' + str(root), 'branch', '--show-current'], cwd=root, text=True).strip()
         if not branch.startswith('experiment/'):
             raise ValueError('native overlay requires an experiment/ branch')
     # Resolve before creating anything; no canonical data is used as scratch.

@@ -20,7 +20,16 @@ def main():
     p.add_argument('--guest-dir',type=Path,default=ROOT/'build/generated-release')
     p.add_argument('--output',type=Path,default=ROOT/'build/release-regeneration')
     p.add_argument('--development', action='store_true', help='isolated UNQUALIFIED translation/host/SQL route; explicit external --output required')
+    p.add_argument('--engine', help='expected registered evaluation engine')
+    p.add_argument('--profile', help='expected registered evaluation profile')
+    p.add_argument('--translation-only', action='store_true', help='selected guest: obtain new bodies for binding review; does not install or accept them')
     a=p.parse_args(); guest=a.guest_dir.resolve(); out=a.output.resolve()
+    if a.engine or a.profile or a.translation_only:
+        if not (a.engine and a.profile and a.development and a.translation_only):
+            p.error('selected translation requires --development --engine --profile --translation-only')
+        from selected_guest import translate_for_binding
+        translate_for_binding(ROOT, guest, a.output, engine=a.engine, profile=a.profile)
+        return
     if a.development:
         from dev_guest import regenerate_development
         regenerate_development(ROOT, guest, a.output)

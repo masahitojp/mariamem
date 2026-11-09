@@ -14,8 +14,7 @@ second checklist. An accepted-limitation Issue is not automatically release-bloc
 The current published release and later main changes are distinct sources.
 Changing version metadata does not itself publish a release.
 
-## Issue65 — current work and upgrade-cost decision (2026-11-09)
-
+## Issue65 — current work and upgrade-cost decision (2026-11-10)
 
 **Human target update,2026-11-09:** intended next13-series product engine is
 13.3 LTS. Evaluate13.2.0 Preview (or an explicitly identified nearby13.2 source)
@@ -33,6 +32,47 @@ conditions before starting, resuming or delegating. Each task states its goal
 contribution, deliverable, exit condition and decision informed. New questions
 do not automatically become mandatory work; scope/contract changes and resuming
 Human-stopped work require Human decision.
+
+**Human-fixed next completion conditions, 2026-11-10:** accept the verified
+13.2 preparation as input and continue through formal generation, binding,
+public verification and the upgrade-cost judgment below. Preparation PASS,
+planning documents or focused unit PASS alone do not complete this work.
+
+1. #134 carries the selected version/profile through the formal producer and
+   generated-artifact verification. Preserve the stable 12.3.3 default and old
+   vectors. Bind source/input/guest/translation identities and complete worker
+   bodies/TLS/ABI; detect wrong-version/profile receipts, stale guests/bindings
+   and fallback to the old guest. Exercise the actual selected 13.2 route, not
+   only a mocked preparation call, and place the detectors in normal CI.
+2. #134/#132 verify the newly generated 13.2 candidate through the existing
+   public Go/Python, configuration, failure and compatibility oracles on macOS
+   arm64 and Linux x86_64. Retain required independent regeneration in the same
+   planned cohort; "one cohort" does not mean only one source build. Fix the
+   candidate identities, outputs and resource budget before heavy execution.
+3. #128 records actual edited files, manual decisions/review, automated checks
+   and machine wait during that work, with a repeatable next-version registration
+   procedure. Separate one-time setup from recurring work and common from native
+   costs; compare with the existing baseline without inventing missing person-hours.
+   Return improved/worse/inconclusive with evidence and remaining limits. Do not
+   add builds only to measure cost or defer this judgment until release.
+
+These conditions span B/C below; intermediate handoffs do not reset the exit to
+another source-only spike. If blocked, report the failed boundary, missing evidence
+and concrete remaining work/cost; retain the unfinished conditions. Ordinary
+implementation within the approved scope needs no renewed permission. CI submission
+still hands off URL/SHA/operation and stops; it is not acceptance completion.
+#135 consumer/performance and #133 final audit remain later adoption conditions.
+#138 remains stopped/unwaived; main adoption and release remain separate decisions.
+
+**Formal producer connection, 2026-11-10:** the experiment now carries registered
+selection through the existing builder and a distinct selected-guest verifier.
+It rejects mixed inputs/old receipts, requires independent source builds and
+exports exact translation inputs for binding review. Local routing/receipt tests
+are not actual 13.2 compilation. The selected CI acquisition step obtains those
+new bytes; its handoff does not close B/C. Exact binding/public installation,
+both-OS acceptance and the #128 cost judgment remain unfinished. The
+[producer procedure](../guest/versions/README.md#formal-producer-and-binding-handoff)
+records commands, budgets and the recurring registration work.
 
 **13.2.0 follow-through,2026-11-10:** source_commit
 `ad7fbe2572331bc4aa10838fa8b9434d051a4a5f` adds the native-text preview entry.
