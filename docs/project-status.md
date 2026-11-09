@@ -22,8 +22,9 @@ for the formal preparation/generation/binding path. Keep12.3.3 stable and retain
 13.0.2 inputs/results as historical comparison vectors; do not relabel them as
 13.2/13.3 acceptance. Upstream's roadmap also labels13.3 LTS, while13.2.0 is a
 Preview. The13.2 source/archive identity and common source preparation are now
-verified; formal generation and raw translation now pass CI. Binding installation
-and public acceptance remain unexecuted. This direction is not approval to publish a preview
+verified; formal generation and raw translation pass CI. Selected binding
+installation and initial macOS public routes now pass; complete both-OS public
+acceptance remains unfinished. This direction is not approval to publish a preview
 or a13.3 release.
 
 [Issue65](https://github.com/masahitojp/mariamem/issues/65) governs all related
@@ -65,6 +66,32 @@ still hands off URL/SHA/operation and stops; it is not acceptance completion.
 #135 consumer/performance and #133 final audit remain later adoption conditions.
 #138 remains stopped/unwaived; main adoption and release remain separate decisions.
 
+**Selected installation and first public routes, 2026-11-10:** source_commit
+`1e697113a757b0e5056aae098869ef26a2de3069` registers exact13.2 guest/translation/
+worker/TLS/ABI inputs and connects them through the maintained installer. The
+producer is still verified in its exact clean checkout; no source-origin allowlist
+was expanded. Native host/core and glue ownership move out of issue-specific
+spikes, with stable12.3.3 factory/inputs and release ledgers retained.
+
+[Local evidence](design/issue134-binding/installation-local.json) records248
+boundary tests, native-core race and host/control units, actual macOS TCP/Pipe,
+capacity, fatal cause/isolation, default timeout and SQL/compiled-guest identity.
+Python transaction/Snapshot/three independent Fork/close smoke also passes.
+Disabling only the native factory makes both language oracles fail with the
+intended startup cause. The same CI42657118990 guest is reused: no guest rebuild
+or raw retranslation was performed. Initial and final non-test Go/assembly
+inventories match; the added final identity fixture is executed separately.
+
+The both-OS initial route workflow is prepared for this candidate, not yet a
+PASS. It is an intermediate execution gate, not a replacement for the fixed
+#132 exit. Settings precision, real join/fault controls, original22/88/38/G1/G2/P1
+oracle rebinding, installed-wheel acceptance and permanent normal-CI native-route
+placement remain. Common adapter/remaining provenance ownership and#128 total
+cost remain unfinished. [Installation procedure](../guest/versions/README.md#selected-binding-and-public-source-installation)
+and [migration inventory](design/issue134-binding/source-migration.json) separate
+one-time setup from recurring exact-binding registration; no saved person-hours
+are claimed. #138 stays stopped/unwaived.
+
 **Selected generation verified, 2026-11-10:** [CI42657118990](https://github.com/masahitojp/mariamem/actions/runs/42657118990)
 passes on source_commit `ecddf5afb248673eee2055d5b842e617ea799964`.
 Two independent fresh source builds match both linked and final WASM; the new
@@ -80,8 +107,9 @@ changes in the complete free/entry bodies are one67648-byte static relocation.
 TLS initialization size489, no-op table target94/Fn131 and relative constants
 are unchanged. [Exact comparison](design/issue134-binding/comparison.json) and
 [recheck script](design/issue134-binding/verify.py) preserve the finite scope.
-Constant/control-flow mutations are rejected. Binding installation and public
-runtime acceptance remain unexecuted; no old guest's runtime PASS is transferred.
+Constant/control-flow mutations are rejected. The initial comparison itself
+does not establish installation/public acceptance; the later bounded results
+above use the actual13.2 guest, never an old guest's runtime PASS.
 
 The earlier [run42653638495 failure](design/issue134-ci42653638495.json) remains
 recorded: the SDK inventory name collision was fixed before this successful run.
@@ -91,8 +119,9 @@ selection through the existing builder and a distinct selected-guest verifier.
 It rejects mixed inputs/old receipts, requires independent source builds and
 exports exact translation inputs for binding review. Local routing/receipt tests
 are not actual 13.2 compilation. The selected CI acquisition step has obtained those
-new bytes; its handoff does not close B/C. Exact binding/public installation,
-both-OS acceptance and the #128 cost judgment remain unfinished. The
+new bytes; its handoff does not close B/C. The later selected installation
+above connects those bytes; full both-OS acceptance and the#128 cost judgment
+remain unfinished. The
 [producer procedure](../guest/versions/README.md#formal-producer-and-binding-handoff)
 records commands, budgets and the recurring registration work.
 
@@ -119,13 +148,13 @@ binding, registration/proof metadata and public verification remain. Do not use
 patch counts or source equality as saved person-hours. Preserve original build
 cost evidence and distinguish one-time setup from recurring update work.
 
-**Next: bind the verified13.2 artifacts and assemble the public candidate** in#134/#132,
-using the existing composition/fixtures from#129/#130. Before a heavy cohort,
-state the exact producer/binding/receipt migration and remaining manual work;
-use that same required cohort for the#128 cost observation, avoiding duplicate
-builds. A credible benefit/risk judgment precedes adoption; release need not
-finish before evaluating maintenance. Fixed SDK paths inside isolated builders
-can remain. No controller relocation or extra branch experiment is added.
+**Next: submit the same candidate to the initial both-OS public route CI, then
+complete #132's settings, real-fault, original-oracle and installed-wheel rows.**
+Use the existing#129/#130 fixtures and retain the fixed exit; the initial gate
+cannot close#132/#134. Keep exact source/guest/binding/host/fixture identities,
+measure machine phases in CI and record remaining manual decisions for#128.
+No cost-only rebuild, controller relocation or resumed#138 experiment is added.
+A credible total benefit/risk judgment still precedes adoption.
 
 Then#132 both-OS acceptance/#134 clean generation →#135 consumer/performance and
 #128 final cost →#133 final audit/adoption review. Issues exchange artifacts,

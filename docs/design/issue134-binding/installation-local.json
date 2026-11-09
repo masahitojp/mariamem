@@ -1,0 +1,80 @@
+{
+  "schema": "selected-public-local-observation-v1",
+  "platform": "Darwin-arm64",
+  "initial_installer_source_commit": "380eae46e7d048a8f7ca6c92fe689ec0a05cdc9e",
+  "final_installer_source_commit": "1e697113a757b0e5056aae098869ef26a2de3069",
+  "producer_source_commit": "ecddf5afb248673eee2055d5b842e617ea799964",
+  "guest_sha256": "607cab7baa164aad064aad4d4e8622249a58204cf828650fab5bd9c8d436b3b4",
+  "binding_sha256": "01d3baf37f3e0ab7b17ec6df08b9a520215c43e7fb0024b464f05f7b4b317c75",
+  "result": "PASS",
+  "scope": "Initial route gate only; not full #132/public/release acceptance",
+  "python_boundaries": {
+    "passed": 248
+  },
+  "native_core_race": "PASS",
+  "host_control_nativewire_units": "PASS",
+  "public_go": {
+    "functions": [
+      "TestNativePublicGoRoutes",
+      "TestNativePublicSharedCapacity",
+      "TestNativePublicFatalCauseAndIsolation",
+      "TestNativePublicDefaultTimeout",
+      "TestNativePublicSelectedIdentity"
+    ],
+    "result": "PASS",
+    "test_reported_seconds": 12.13
+  },
+  "public_python": {
+    "test": "test_dev_fresh_transactions_snapshot_children_and_close",
+    "result": "PASS",
+    "test_reported_seconds": 1.26
+  },
+  "factory_disabled": {
+    "go": {
+      "exit_code": 1,
+      "expected_refusal": true,
+      "seconds": 99.09409524999865
+    },
+    "build": {
+      "exit_code": 0,
+      "expected_refusal": false,
+      "seconds": 3.3715997910003352
+    },
+    "python": {
+      "exit_code": 1,
+      "expected_refusal": true,
+      "seconds": 1.3212236660001508
+    }
+  },
+  "host_sha256": "653a80b31e3fcf7b7b8f5d9a5d50d08fba4bb618e4806d00745ada02fc4aa50a",
+  "initial_and_final_non_test_go_assembly_equal": true,
+  "source_inventories_unchanged_after_execution": true,
+  "guest_builds_this_step": 0,
+  "raw_translations_this_step": 0,
+  "platform_ci": "NOT_RUN",
+  "remaining": [
+    "Both-platform initial route CI",
+    "Settings precision and real completion/fault fixtures",
+    "Original 22/88/38/G1/G2/P1 public oracle rebinding",
+    "Installed wheel acceptance",
+    "Permanent normal-CI native route detection and remaining formal provenance ownership",
+    "Total upgrade-cost comparison"
+  ],
+  "cost_observation": {
+    "one_time": "Common selected installer/receipt boundary and native host/glue ownership migration",
+    "recurring": "Register exact guest/translation/body/TLS/ABI binding after actual review; reuse common installer",
+    "human_minutes": null,
+    "local_total_machine_wait_seconds": null,
+    "initial_compile_not_timed": true,
+    "comparative_maintenance_verdict": "INCONCLUSIVE"
+  },
+  "evidence_sha256": {
+    "public-go-final.txt": "f547ae3e909f1a150adb2088c41da19d0899c4b8d7a0d36a9c8d89ca3b283eea",
+    "installation-final.txt": "4286e8b7d0d2e7f6438ffef137984f2908c6cdf4f2dd83ed49d5ff196ac4c686",
+    "public-python.txt": "eb9b4f1a944ad55440ef124081b12f44ca37e01cf23ff227ce3b533a939260bc",
+    "nativewire-unit.txt": "63e18e4366a828fbd51b22796f6e38f8a97bcaf120a514a6f58b61c7832c843f",
+    "host-owner-units.txt": "d737ed8d8e5a9f9d9d715746c8b433166e9665670e3ea95b475d7f78cf248eb4",
+    "factory-disable.txt": "416556abe9f6f3056853f939c6217809ccba57b9e968a20cc1c5b5a69c10c8a6",
+    "installer-tests-final.txt": "2c6b9791a617f2f474c61b6c5d598eeae9fbb0391031826dfe1599df9bed559b"
+  }
+}
