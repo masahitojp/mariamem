@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "base_source_commit": "279fa530d03cab1bd025df91bf5130bbf845a721",
+  "core_source_commit": "563f098da19cfa9f6fe48d415bea4167bc4f5bff",
+  "image_contract_source_commit": "16a7460c921773ee9d94a76a7f9868c768435cd0",
+  "host": {
+    "os": "macOS 27.2",
+    "architecture": "arm64",
+    "go": "1.26.10",
+    "unit_python": "3.14.10",
+    "runtime_python": "3.11.18",
+    "runtime_openssl": "3.5.9"
+  },
+  "checks": {
+    "daily_full": "PASS",
+    "python_source_tests": 68,
+    "python_unit_passed": 1891,
+    "python_unit_skipped": 98,
+    "python_unit_subtests_passed": 114,
+    "go_unit_and_vet": "PASS",
+    "canonical_ownership_race_targets": "PASS",
+    "real_go_runtime_and_worker_trap": "PASS",
+    "go_python_live": "PASS",
+    "python_runtime_tests_passed": 54,
+    "snapshot_checks_passed": 33,
+    "generated_layout_check": "PASS",
+    "independent_roots_and_snapshot_image_lifetime": "PASS",
+    "full_local_integration": "FAIL_FIXED_CLIENT_PROFILE",
+    "fixed_client_diagnostic": "AssertionError('native C client profile differs: python_minor')"
+  },
+  "retained_image": {
+    "builds": 1,
+    "acquires": 4,
+    "owned_fds": 1,
+    "active_child_mappings_after_close": 0,
+    "initialized_page_bytes": 8929280,
+    "image_logical_bytes": 2147483648,
+    "image_allocated_bytes": 27000832,
+    "os_page_size": 16384,
+    "cleanup_debt": false,
+    "rss_measured": false
+  },
+  "initial_memory_sha256": "6ba746ac6f107bf8f18d03e20fdaaa543c91aa5ae81f6aa1623b6d61d16bfece",
+  "limitations": [
+    "Single observed Mac; product candidate Ubuntu and macOS15 CI pending.",
+    "No performance measurement or native differential acceptance claimed.",
+    "Fixed prepared C-extension reference requires Python3.14; local runtime uses3.11 because Homebrew3.14 uses OpenSSL4.",
+    "Differences after the core check source through image-contract source are candidate workflow and its test only."
+  ],
+  "local_log_sha256": {
+    "check.log": "f914d08146fe49dd75d618f10dd2e1aedf0d15bc6b8398df7efda39365f818ff",
+    "integration.log": "7c38a572cc7ff2b28ad93caba12ea819137eac030d4514f3a47a2f7f18bf9887",
+    "prepared-diagnosis.log": "6b90147fd3b352ca93178ce799a7e24b648da51bb265770034918fab3d4facd0",
+    "image-contract.log": "6fafec97e242a4490da8ad6e1d006b07139b4ae840d1ad5c2afa139bb584d312"
+  }
+}

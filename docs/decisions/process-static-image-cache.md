@@ -1,13 +1,13 @@
 # Process-local static initialization cache
 
-On2026-11-10 the Human accepted process-lifetime retention to prioritize total
+On 2026-11-10 the Human accepted process-lifetime retention to prioritize total
 execution time for Issue123. This authorizes preparing the minimal product
 candidate; it is not approval to merge, release, or claim new performance.
 
 Create the immutable initial image lazily, once per compiled engine per host
 process. Retain one readonly, unlinked backing file until process termination.
-The measured static-page payload is about8.5MiB on the Mac prototype; the file's
-2GiB logical length is sparse, not2GiB of physical storage or a fixed RSS promise.
+The measured static-page payload is about 8.5 MiB on the Mac prototype; the file's
+2GiB logical length is sparse, not 2 GiB of physical storage or a fixed RSS promise.
 OS page size can change mapped/allocated bytes. DB count does not multiply the
 image. The initial builder mapping is disposed before children are admitted.
 
@@ -38,8 +38,8 @@ whole-memory equality and omission controls remain mandatory. The public API
 is unchanged. Diagnostics distinguish retained image FD/pages from active child
 mapping counters; neither is an RSS measurement.
 
-Evidence keeps original scope: [bounded prototype CI42657516361](https://github.com/masahitojp/mariamem/actions/runs/42657516361)
-passed both OSes at378f8490. The prior single-Mac scan optimization reduced cold
+Evidence keeps original scope: [bounded prototype CI 42657516361](https://github.com/masahitojp/mariamem/actions/runs/42657516361)
+passed both OSes at 378f8490. The prior single-Mac scan optimization reduced cold
 image preparation about37→12ms. That does not establish performance of this
 product candidate, Ubuntu performance, or universal memory/CPU improvement.
 Candidate source/ownership/real-DB checks precede adoption review. Canonical
