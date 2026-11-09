@@ -1,0 +1,19 @@
+{
+  "applied": false,
+  "scope": "Narrow tuple-selection sketch; mandatory freshness and exact binding checks described in main report remain implementation tasks",
+  "files": [
+    {
+      "path": "benchmarks/spikes/issue65-p1-public/assemble.py",
+      "source_commit": "fd7aea9178a0f798de4a742ddb573a877f6c1f28",
+      "sha256": "dc0d802aec741d17365d886e49f5ad1e0c8edd5c623b7ea48f2949d0d13a4f6a",
+      "proposed_sha256": "f7b0921eafe988130b1e725672c74e8b826eb67554ed3c35ad11b30039e11bc4"
+    },
+    {
+      "path": "benchmarks/spikes/issue130-public-lifetime/overlay.py",
+      "source_commit": "fd7aea9178a0f798de4a742ddb573a877f6c1f28",
+      "sha256": "fa1b173301163a0cb3e0d0e342497bc887ad7d7eef033648ddf805d441609b93",
+      "proposed_sha256": "e853e3e600487182397ce5dccad7ce814739cf71183783c65725aa28cb9f642f"
+    }
+  ],
+  "syntax": "both proposed Python postimages ast.parse PASS"
+}

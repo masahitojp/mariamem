@@ -515,17 +515,29 @@ patch/binding repair and build/verification cost. If native wiring increases the
 total burden, reconsider its placement or approach. Runtime PASS and line-count
 reduction alone do not establish this benefit.
 
-The [initial source inventory](design/issue65-native-protocol/upgrade-surface.md)
-pins9f8dad6 and identifies bootstrap's remaining embedded C API use and prepared
-conversion recovery's internal-layout dependence. Neither an irreducible patch
-size nor an alternative build has been proved. This source-only investigation
-preserves the open C3 acceptance and does not approve a replacement architecture.
-The [bootstrap reachability follow-up](design/issue65-native-protocol/bootstrap-reachability.md)
-finds no legacy prepared call on the ordinary native startup path, while old
-resident includes/exports remain. It proposes isolating bootstrap from the old
-entry as a bounded experiment; build/link/runtime elimination is not yet proved.
-Issue65 owns the detailed checklist, including local-dependency removal,
-clean-environment reproduction and experiment cleanup before main adoption.
+The approved evaluation direction is now MariaDB13.0.2/native-text, not product
+version selection or main adoption. #127 and #137 are Closed for their limited
+bootstrap/profile experiments. Exact native producer4b3954a0/guest889f21b7 passed
+its scoped Mac isolated79 cases/601 named observations (88+38+234+241), and
+common paired archive/capture passed; these are historical identities, not public
+C3 or Linux acceptance. The earlier701 count was arithmetic error.
+
+The Human stopped #138 after the finite supplemental case still lacked the
+positive spare_archive marker. That gap remains unresolved and needs separate
+Human disposition before final acceptance; no new stimulus/hook/build is implied.
+Total maintenance benefit remains INCONCLUSIVE: removed metadata-adapter and
+MYSQL_BIND repairs must be weighed against profile/helper/internal-layout,
+binding and verification costs.
+
+The [#132 source composition](design/issue65-native-protocol/public-candidate-composition.md)
+pins the13.0.2 producer, corrected profile/helper and fd7 settings/lifetime
+fixtures as a multi-source manifest, not an integrated candidate SHA. Identical
+core/installer preimages permit a narrow public staging change; missing complete
+artifact bundles require a future fresh producer. #131's parallel NET deadline
+source diagnosis remains separate. #129/#130 real public execution, #132 C3 on
+Go TCP/Pipe and installed Python on both OSes, #134 clean generation/factory/main
+intake and later #135 consumers/performance remain Open work. No heavy execution,
+product adoption or new campaign is authorized by this source composition.
 
 ## Current work tracking
 

@@ -1,0 +1,58 @@
+--- a/benchmarks/spikes/issue65-p1-public/assemble.py
++++ b/benchmarks/spikes/issue65-p1-public/assemble.py
+@@ -18,14 +18,24 @@
+ ROOT = HERE.parents[2]
+ GUEST = "d4f30818c3410db186db5ef1c9abc5f14af0cdc52bb2b76bbca369e02eb1b481"
+ ORIGIN = "be244a0bdb510a22417241c2aa2f76a9093aac1b"
++# Proposed explicit second mode; no caller-supplied source or binding allowlist.
++NATIVE_1302 = ("4b3954a0faf42986459bc1ee68727be16d67bcbb", "889f21b796c4daaf5244486cce84bfe6a82c758437af400e831d0ed10f0a067e",
++    "benchmarks/spikes/issue138-paired-capture/evidence/native/runtime/reviewed-binding/identity.json", "9a8c968896132e055eb554bb7c0ae0894b69d0174f1671bca8e5348d9ef67178")
+ 
+ 
+ def main():
+     parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--candidate", choices=("c2-1233", "native-text-1302"), required=True)
+     parser.add_argument("--workspace", type=Path, required=True)
+     parser.add_argument("--guest-workspace", type=Path, required=True)
+     parser.add_argument("--stage", choices=("translate", "install", "compile"), required=True)
+     args = parser.parse_args()
++    global ORIGIN, GUEST
++    binding = ROOT / "benchmarks/spikes/issue65-p1-timeout/binding/identity.json"
++    if args.candidate == "native-text-1302":
++        ORIGIN, GUEST, binding_name, binding_sha = NATIVE_1302
++        binding = ROOT / binding_name
++        assert hashlib.sha256(binding.read_bytes()).hexdigest() == binding_sha
+     w = args.workspace.resolve()
+     guest_work = args.guest_workspace.resolve()
+     origin = guest_work / "worktree"
+@@ -83,7 +93,7 @@
+         staged_runtime = out / "generatedgo"
+         run([sys.executable, origin / "scripts/generate_runtime.py", "--source-module", module,
+              "--development-input", inputs_path, "--development-thread-binding",
+-             ROOT / "benchmarks/spikes/issue65-p1-timeout/binding/identity.json", "--output", staged_runtime], "public-install")
++             binding, "--output", staged_runtime], "public-install")
+         assert not runtime.exists()
+         shutil.move(staged_runtime, runtime)
+         shutil.copy2(ROOT / "benchmarks/spikes/issue65-p1-timeout/runtime_wire.go.txt", runtime / "runtime_wire.go")
+@@ -121,7 +131,7 @@
+                        guest_origin_source_commit=ORIGIN, runtime_installer_source_commit=ORIGIN,
+                        guest_sha256=GUEST, source_inventory=inventory(product),
+                        installer_inputs_sha256=digest(inputs_path),
+-                       binding_sha256=digest(ROOT / "benchmarks/spikes/issue65-p1-timeout/binding/identity.json"))
++                       binding_sha256=digest(binding))
+         (w / "evidence/public-source.json").write_text(json.dumps(receipt, indent=2) + "\n")
+         assert source_identity(ROOT) == host_origin
+         return
+--- a/benchmarks/spikes/issue130-public-lifetime/overlay.py
++++ b/benchmarks/spikes/issue130-public-lifetime/overlay.py
+@@ -72,7 +72,9 @@
+     if product == ROOT or ROOT.is_relative_to(product) or (product / '.git').exists():
+         p.error('use a separate disposable C2 product copy')
+     source = json.loads(args.source_receipt.read_text())
+-    if source.get('contract') != 'issue65-public-unqualified' or source.get('guest_sha256') != 'd4f30818c3410db186db5ef1c9abc5f14af0cdc52bb2b76bbca369e02eb1b481':
++    if source.get('contract') != 'issue65-public-unqualified' or (source.get('guest_sha256'), source.get('guest_origin_source_commit'), source.get('runtime_installer_source_commit')) not in {
++        ('d4f30818c3410db186db5ef1c9abc5f14af0cdc52bb2b76bbca369e02eb1b481', 'be244a0bdb510a22417241c2aa2f76a9093aac1b', 'be244a0bdb510a22417241c2aa2f76a9093aac1b'),
++        ('889f21b796c4daaf5244486cce84bfe6a82c758437af400e831d0ed10f0a067e', '4b3954a0faf42986459bc1ee68727be16d67bcbb', '4b3954a0faf42986459bc1ee68727be16d67bcbb')}:
+         p.error('expected fixed C2 UNQUALIFIED public-source receipt')
+     if args.output_receipt.exists():
+         p.error('use a new receipt path; preserve the original evidence')

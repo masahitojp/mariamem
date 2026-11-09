@@ -1,0 +1,52 @@
+{
+  "65": {
+    "url": "https://github.com/masahitojp/mariamem/issues/65",
+    "state": "OPEN",
+    "body_sha256": "6f55680817f631e656deaf8f09e00c6133034b59fab8b25515a7b025287f9e06",
+    "comment_count": 22
+  },
+  "129": {
+    "url": "https://github.com/masahitojp/mariamem/issues/129",
+    "state": "OPEN",
+    "body_sha256": "f068fe02864a264e9ee5e721c983dec8f9cffcbdd1748e10458956afe25d6ce4",
+    "comment_count": 0
+  },
+  "130": {
+    "url": "https://github.com/masahitojp/mariamem/issues/130",
+    "state": "OPEN",
+    "body_sha256": "230aeee09c622052f435037ea95d30c958ff12df8df840813b3fbe11a6acc8bc",
+    "comment_count": 1
+  },
+  "132": {
+    "url": "https://github.com/masahitojp/mariamem/issues/132",
+    "state": "OPEN",
+    "body_sha256": "f41b5b4acd1a60628fff7ad96596cf882780174c67d6bef75271998c1930f4bb",
+    "comment_count": 3
+  },
+  "134": {
+    "url": "https://github.com/masahitojp/mariamem/issues/134",
+    "state": "OPEN",
+    "body_sha256": "590923eea969c087aff4a9cf4a10f5a82f7b49bc98eb4459cf1b1768260b2c58",
+    "comment_count": 2
+  },
+  "review": {
+    "url": "https://github.com/masahitojp/mariamem/issues/65#issuecomment-6725010037",
+    "updated_at": "2026-11-08T17:56:46Z",
+    "body_sha256": "da8772013a3b9d52bdaf0494d50d375bdba5a245cbd71fde614d22a117c029c9"
+  },
+  "pins_verified_as_local_commit_objects": {
+    "4b3954a0faf42986459bc1ee68727be16d67bcbb": "commit",
+    "edc703fe727ff18aa2c2cefbcfff960d05c3a290": "commit",
+    "fd7aea9178a0f798de4a742ddb573a877f6c1f28": "commit",
+    "32c799031f619164d3730b61a0bc9d7ae48dcd9b": "commit",
+    "b644e0a4d91afe9b2f6b2b8caffff6097615a119": "commit"
+  },
+  "existing_evidence": {
+    "benchmarks/spikes/issue137-helper-continuation/evidence/engine-identity.json": "ebc10865e103baa7c04e70cc94870a1e234b4ebd9e880f815f4816b910eb14b2",
+    "benchmarks/spikes/issue138-paired-capture/evidence/native/producer-result.json": "5252a604858c71a55c0d04bb20ddd5b01423fde6913ca20bd20b344a25e25e94",
+    "benchmarks/spikes/issue138-paired-capture/evidence/native/native-translation.json": "3af8833bacf51181e069463f4d6fae54a9c5f0110f9eea1c24f18a6e567f45a1",
+    "benchmarks/spikes/issue138-paired-capture/evidence/native/native-host-build.json": "81b8599a1cb6e8cbfa445f666165bde051f8776cebdc71ad625491085fdf7b31",
+    "benchmarks/spikes/issue137-prepared-profile/resume-evidence/target-git-identity.json": "cb5e28dc37832eed2b6bb64686f54c26932bacc468e6ff2f937e243f2ee74965"
+  },
+  "engine_identity_proof": "Existing target-git-identity.json records git_identity.inspect_ref/require_commit official tag fetch; engine-identity.json separately proves unchanged effective inputs; no external engine checkout or new build identity check in this slice"
+}

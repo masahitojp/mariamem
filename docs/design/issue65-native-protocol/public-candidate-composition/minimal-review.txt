@@ -1,0 +1,55 @@
+## 最小候補の構成レビュー（2026-11-09）
+
+**今回の判断：13.0.2/native-textを次の公開受入れ用「実験候補」のsource整理対象として残し、大きなcontroller移設を先行させず、#129/#130/#132の公開backend受入れへ集中することを推奨する。** fresh生成・exact binding・native79ケース/601観測と共通archive/capture/restoreの証拠があり、12.3.3へ未検証のprofile分離を移植して再実験を増やすより現在の成果を利用できる。
+
+最大の反対材料：13.0.2は製品採用未決定で、上流更新とwire置換を同時に含み、#138の正分岐は未確認。したがってこれは候補整理の提案であってmain採用・版変更・受入れ免除ではない。公開評価用tupleと製品採用を区別し、正式候補でengine/観測hookを変更すれば影響する検査を再確認する。Humanが12.3.3継続を選ぶならprofileの移植・fresh生成/binding/影響検証の追加費用が必要で、13.0.2 PASSを移さない。
+
+### 固定したレビュー対象（会話とGitから再構成）
+
+- baseline/source比較：1c5a6d59c70f6b5e39e1e92d0f659cb3f83b59b1。
+- profile+helper候補：edc703fe727ff18aa2c2cefbcfff960d05c3a290。
+- 実native producer：4b3954a0faf42986459bc1ee68727be16d67bcbb、guest889f21b796c4daaf5244486cce84bfe6a82c758437af400e831d0ed10f0a067e。
+- 実legacy producer：32c799031f619164d3730b61a0bc9d7ae48dcd9b、guest d29caafda1ed32851df856dc7fcba3871c3c7ea75df8f2c5d4976b3eb9132c95。
+- 公開fixture統合：fd7aea9178a0f798de4a742ddb573a877f6c1f28。旧12.3.3 guestに結ぶpreflightで、上の13.0.2との実行可能な統合ではない。
+- 最新実行結果：b644e0a4d91afe9b2f6b2b8caffff6097615a119。責務地図ae1a84659d1c52aa41e635c27bf7dcea54610c64。元契約D1–D3と#65/131/132/137の完了条件を照合。
+
+### 残す変更と後続作業
+
+| 境界 | 推奨 | 根拠・検出網と限界 |
+| --- | --- | --- |
+| native NET/Protocol、memory Vio、hostの既存owner/接続枠/Fork/Live | 候補の核として残す | 独自wireの生成/decoder責務を上流へ返す。isolated PASSだけでは公開到達を証明しない。#132のfactory無効化・旧Serve tripwireと公開Go/Pythonで受け入れる |
+| bootstrapと旧resident入口の分離 | 残す | #127と後続fresh nativeに根拠。text bootstrapは必要、embeddedを一括削除しない |
+| #137 native-text profile | 条件付きで候補へ残す | 旧CAPI metadata adapter2定義と旧修正適用を外した。実native patchはTIMEとtext metadata OOM guardを維持。旧adapter EOF修正は不要になったが、libmysql.cの完全before-image/関数guardは依然必要で「そのファイルの更新レビューがゼロ」ではない |
+| prepared変換snapshot/restore、LONG_DATA、guestのSQL/capture最終gate、rollback/stop/join | 維持 | G1/G2の拒否後再利用・型/charset等を維持。hostに第2 decoderを作らない。移設してもItem/THD内部依存は消えない |
+| query admission clock/local timer | 移動を先行させず境界を確認 | ARM_COMMANDはarmedを設定し、readCb→admitがcommand token/deadlineを更新。EXECUTE_STARTでは更新しない。NET先読みの次commandがreadCbを通らない可能性は未解消で、現在のpipeline/partial-header検査では直接検出できない。実害未再現。完全NET/do_command source照合と既存oracleに結ぶ検査設計を先に行う |
+| queue/credit/fairness/watchdogの大規模移設 | 後続の個別判断へ残す | 現位置から移すだけでは上流接点削減にならず、pending所有/通知遅延/制御starvation等の追加検証が必要。#131の範囲を勝手に完了/削除せず、優先順位変更の提案とする |
+| 計測hook・spike組立て・legacy比較profile | 実験・回帰入力として保存、製品必須依存を#134で整理 | 観測hook込みのguestが実行済み。除去後の別guestへ旧PASSを付け替えない。legacyは比較/回帰に必要な範囲と製品経路を区別し、今一括削除しない |
+
+### 未充足条件・重要度
+
+1. **総更新費用改善は未証明。** adapterの修正義務を一部減らした事実と、追加profile/pin/helper修復/binding費用を比較する。今回のhelper互換性エラーは実際に発生し19関連テストまで修復済み。行数・速度差・全PASSだけで維持費改善としない。CIはsource不一致を検出できるが総費用は判断できない。
+2. **NET先読み時のdeadline/tokenは検出網の具体的な穴。** sourceからの懸念で不具合断定ではない。timer移設/公開期限保証の前に絞って確認する。独立watchdog/transport-write-timeoutも実装済みとは扱わず#130/131に残す。
+3. **#138のspare_archive正分岐は停止・未確認。** 共通archive/capture/restoreのPASSと区別。source整理/公開source検査へ進むことは可能だが、最終受入れは現条件の充足、または未確認を受け入れる別のHuman判断が必要。停止を条件免除としない。今回の提案で実験を再開しない。
+4. **公開受入れ未完。** #129/#130はsource fixtures、#132は同一候補両OS、#134は正式生成/clean再現を必要とする。旧canonical greenではnative fallbackを検出できない。新しいtuple別の正確なstaging/receipt/bindingと公開到達negativeが必要。
+
+### 既存証拠から不足ではないと確認したこと
+
+- native準備から旧adapter定義/修正を除き、TIME/text metadata保護とnative変換復元を残している。helperのgeneric互換modeとtarget explicit profileの検査は区別されている。
+- legacy guest/hostは再生成一致。共通archive後のreal drain/capture/restore/子独立は両routeに固定証跡がある。追加分岐の失敗を全体PASSにはしていない。
+- README/go/python/releasing、正式生成ledger/HANDWRITTEN_FILES/基準pinは今回のprofile以降の変更範囲では変更されていない。通常factoryは旧経路なので、未公開native契約へ先に書き換える必要はない。正式化は#134に残る。
+- 実験用とのin-codeコメントやprovenance拒否は現段階と整合。現在地文書の古い「未実装」「701」記述は最小候補整理時に最新結果へ整合させるべきだが、歴史的証跡は保持する。
+
+### 次の具体的な実装単位の提案
+
+まずsourceだけで (a)上記構成の差分一覧/producer・guest・binding・host/observer tuple (b)NET先読みの受付・期限経路と検出条件 (c)13.0.2用の狭いpublic staging/receipt接続案を作る。#129/#130の元fixtureを引き継ぎ、旧12.3.3 allowlistを広げて通さない。ここまでで必要runtime変更と検査の依存を絞り、その後同じ候補の公開Go/Python・設定/停止/永久debt・両OS受入れをまとめる。controller一括移設や別の分岐実験を同時に始めない。
+
+本レビューはsource diff、既存machine evidence/ログ・責務表・Issue条件の照合。fresh build、runtime、CIの新実行は0。shared page-cleaner/NET全実装の今回の再取得や全race保証、将来版一般の更新費用、正式資格/性能は調べていない。上記はCodexの候補範囲と次作業の推奨で、新候補採用・実装・予算・main/release承認ではない。
+
+根拠：
+- [最小native prepared patch](https://github.com/masahitojp/mariamem/blob/edc703fe727ff18aa2c2cefbcfff960d05c3a290/guest/patches/13.0.2-native-prepared.patch)
+- [profile/helper実装](https://github.com/masahitojp/mariamem/blob/edc703fe727ff18aa2c2cefbcfff960d05c3a290/scripts/prepared_source_patch.py)
+- [責務/検出網](https://github.com/masahitojp/mariamem/blob/ae1a84659d1c52aa41e635c27bf7dcea54610c64/docs/design/issue65-native-protocol/issue131-maintenance-map.md)
+- [実guest deadline/admission hooks](https://github.com/masahitojp/mariamem/blob/4b3954a0faf42986459bc1ee68727be16d67bcbb/guest/experimental.patch)
+- [最新実結果と対比較](https://github.com/masahitojp/mariamem/blob/b644e0a4d91afe9b2f6b2b8caffff6097615a119/benchmarks/spikes/issue138-spare-archive-case/README.md)
+- [公開backend統合の不足](https://github.com/masahitojp/mariamem/blob/fd7aea9178a0f798de4a742ddb573a877f6c1f28/benchmarks/spikes/issue130-public-lifetime/rebinding127/README.md)
+

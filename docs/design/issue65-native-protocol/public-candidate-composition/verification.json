@@ -1,0 +1,33 @@
+{
+  "source_only": true,
+  "runtime_build_translation_sql_ci_benchmark_count": 0,
+  "manifest_component_hashes_verified": 222,
+  "three_core_preimages_equal_reviewed_base": true,
+  "installer_runtime_adapter_hashes_equal_across_three_origins": true,
+  "proposed_patch_applied_only_to_owned_text_copies": true,
+  "proposed_python_postimages_ast_parse": "PASS",
+  "local_report_references": "PASS",
+  "touched_public_boundary_patterns": "PASS",
+  "protected_four_files": "UNCHANGED",
+  "initial_status_including_ignored": "clean",
+  "scratch_budget_gib": 0.5,
+  "free_floor_gib": 12,
+  "free_gib": 36.812,
+  "limitations": [
+    "No integrated executable candidate",
+    "No Linux/public C3 runtime evidence",
+    "Complete previous native bundles cleaned; fresh producer required",
+    "Issue138 gap stopped, no waiver",
+    "Parallel131 deadline result not owned by this report"
+  ],
+  "actual_check_public_touched_tree": {
+    "passed": true,
+    "files": 9
+  },
+  "unchanged_source_tests": "Not rerun: docs/manifest/unapplied diff only; no runtime or helper implementation changed",
+  "process_audit": "Read-only escalated ps audit: no guest/Go/compiler/Python producer observed; shared Docker Desktop services protected",
+  "current_workspace_bytes_approx": 440401920,
+  "owned_scratch_peak_bytes_observed": 585728,
+  "remaining_workspace_paths_gt_1gib": [],
+  "initial_user_dirty_state": "none; four protected files unchanged"
+}
