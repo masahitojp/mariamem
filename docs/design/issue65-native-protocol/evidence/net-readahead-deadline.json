@@ -1,0 +1,445 @@
+{
+  "schema": 1,
+  "question": "NET read-ahead bypass of next-command admission/deadline",
+  "conclusion": "Excluded for exact supported uncompressed native memory-Vio target; no production fix justified",
+  "engine": {
+    "version": "13.0.2",
+    "source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+    "tag_object_sha": "308a50778fb4916ddde0d2923feea3d11dcc92c8",
+    "locked_archive_sha256": "f4aee0d043f844d287a9b6b0a1ae9a103d6dda407d807b80358943416da7d37e",
+    "archive_acquired": false,
+    "minimal_official_files_acquired": 5
+  },
+  "producer_source_commit": "4b3954a0faf42986459bc1ee68727be16d67bcbb",
+  "guest_sha256": "889f21b796c4daaf5244486cce84bfe6a82c758437af400e831d0ed10f0a067e",
+  "manifest_path": "benchmarks/spikes/issue137-prepared-profile/resume-evidence/native-prepared-source.json",
+  "manifest_sha256": "a3e02ba47d8ce0d958d41b8ccf5bb83f10ae2ca90c0d46fe6f48b6cbfa2697ff",
+  "actual_patch_path": "guest/experimental.patch",
+  "actual_patch_sha256": "33b81d6570ad0ac7dbb41c8e8255dd9124e5b1c142565f1c4dab1c74fc64741a",
+  "patch_sections": [
+    {
+      "target": "include/violite.h",
+      "patch_line": 1
+    },
+    {
+      "target": "libmysqld/mariamem_control_abi.h",
+      "patch_line": 172
+    },
+    {
+      "target": "libmysqld/mariamem_wire_probe.inc",
+      "patch_line": 192
+    },
+    {
+      "target": "sql/net_serv.cc",
+      "patch_line": 339
+    },
+    {
+      "target": "sql/sql_acl.cc",
+      "patch_line": 599
+    },
+    {
+      "target": "sql/sql_parse.cc",
+      "patch_line": 759
+    },
+    {
+      "target": "wasm/issue65_control.cc",
+      "patch_line": 1512
+    },
+    {
+      "target": "sql/mariamem_wire_policy.h",
+      "patch_line": 1713
+    },
+    {
+      "target": "sql/sql_parse.cc",
+      "patch_line": 1744
+    },
+    {
+      "target": "wasm/issue65_control.cc",
+      "patch_line": 1811
+    },
+    {
+      "target": "wasm/issue65_control.cc",
+      "patch_line": 1850
+    },
+    {
+      "target": "wasm/issue65_deadline.h",
+      "patch_line": 1936
+    },
+    {
+      "target": "wasm/issue65_control.cc",
+      "patch_line": 2032
+    }
+  ],
+  "files": {
+    "sql/net_serv.cc": {
+      "pristine_sha256": "7d7b8b8a8de1834099f350912ed9255a1f376565da407e8dc461f97c72f12c93",
+      "patched_sha256": "a7daad10c40681147cba3d0a17e8cf24f9cef89f1b82844bb75195dd386e0452",
+      "matched_saved_native_overlay": true,
+      "matched_saved_modified_files": true,
+      "coordinates": [
+        {
+          "line": 127,
+          "text": "my_bool my_net_init(NET *net, Vio *vio, void *thd, uint my_flags)"
+        },
+        {
+          "line": 142,
+          "text": "net->compress=0; net->reading_or_writing=0;"
+        },
+        {
+          "line": 143,
+          "text": "net->where_b = net->remain_in_buf=0;"
+        },
+        {
+          "line": 824,
+          "text": "static ulong my_real_read(NET *net, size_t *complen,"
+        },
+        {
+          "line": 834,
+          "text": "uint32 remain= (net->compress ? NET_HEADER_SIZE+COMP_HEADER_SIZE :"
+        },
+        {
+          "line": 857,
+          "text": "length= vio_read(net->vio, pos, remain);"
+        },
+        {
+          "line": 958,
+          "text": "*complen= uint3korr(&(net->buff[net->where_b + NET_HEADER_SIZE]));"
+        },
+        {
+          "line": 962,
+          "text": "len= uint3korr(net->buff + net->where_b);"
+        },
+        {
+          "line": 985,
+          "text": "remain= (uint32) len;"
+        },
+        {
+          "line": 1056,
+          "text": "ulong my_net_read(NET *net)"
+        },
+        {
+          "line": 1086,
+          "text": "length= my_net_read_packet_reallen(net, read_from_server, &reallen);"
+        },
+        {
+          "line": 1092,
+          "text": "my_net_read_packet_reallen(NET *net, my_bool read_from_server, ulong* reallen)"
+        },
+        {
+          "line": 1100,
+          "text": "if (!net->compress)"
+        },
+        {
+          "line": 1139,
+          "text": "if (net->remain_in_buf)"
+        },
+        {
+          "line": 1231,
+          "text": "net->remain_in_buf= (ulong) (buf_length - start_of_packet);"
+        }
+      ]
+    },
+    "sql/sql_parse.cc": {
+      "pristine_sha256": "3510eda6ae7ddd07d16a289b680193d03216d0c66d7f65be0eafa6f80946ce73",
+      "patched_sha256": "0fb551c37b3ad6c8678cfa0fda982a587b668f2cf391bd408ec68c0c557ef18c",
+      "matched_saved_native_overlay": true,
+      "matched_saved_modified_files": true,
+      "coordinates": [
+        {
+          "line": 1181,
+          "text": "static enum enum_server_command fetch_command(THD *thd, char *packet)"
+        },
+        {
+          "line": 1226,
+          "text": "dispatch_command_return do_command(THD *thd, bool blocking)"
+        },
+        {
+          "line": 1243,
+          "text": "if (thd->async_state.m_state == thd_async_state::enum_async_state::RESUMED)"
+        },
+        {
+          "line": 1273,
+          "text": "net_new_transaction(net);"
+        },
+        {
+          "line": 1294,
+          "text": "packet_length= my_net_read_packet(net, 1);"
+        },
+        {
+          "line": 1349,
+          "text": "command= fetch_command(thd, packet);"
+        },
+        {
+          "line": 1437,
+          "text": "resume:"
+        },
+        {
+          "line": 1439,
+          "text": "extern bool mariamem_spike_dispatch_start(THD*, enum enum_server_command);"
+        },
+        {
+          "line": 1440,
+          "text": "if (mariamem_spike_dispatch_start(thd,command)) return DISPATCH_COMMAND_CLOSE_CONNECTION;"
+        },
+        {
+          "line": 1630,
+          "text": "if (thd->async_state.m_state == thd_async_state::enum_async_state::RESUMED)"
+        },
+        {
+          "line": 1871,
+          "text": "case COM_STMT_SEND_LONG_DATA:"
+        },
+        {
+          "line": 1881,
+          "text": "case COM_STMT_CLOSE:"
+        },
+        {
+          "line": 2410,
+          "text": "resume:"
+        }
+      ]
+    },
+    "include/violite.h": {
+      "pristine_sha256": "0be1b5c9a8fb6bed71d9a504c7eef69746fa2b388adcd8b68a3642608757f1d4",
+      "patched_sha256": "e9325ba0c03ee52d6852921cd8fb636d25df49ea1dfaaff00c2d70006a128c0b",
+      "matched_saved_native_overlay": true,
+      "matched_saved_modified_files": true,
+      "coordinates": [
+        {
+          "line": 204,
+          "text": "#define vio_read(vio, buf, size)                ((vio)->read)(vio,buf,size)"
+        },
+        {
+          "line": 251,
+          "text": "char                  *read_buffer;   /* buffer for vio_read_buff */"
+        }
+      ]
+    },
+    "sql/sql_acl.cc": {
+      "pristine_sha256": "db399e9c21cbd86fe0f82d7938eaaa0747055092d8fb031d9785d35717d70efc",
+      "patched_sha256": "9792893c0d6e8375a489387f5836ae51f3e8381df400df144db6b3496e535b6a",
+      "matched_saved_native_overlay": true,
+      "matched_saved_modified_files": true,
+      "coordinates": [
+        {
+          "line": 13901,
+          "text": "thd->client_capabilities= 1ULL|4|8|512|8192|32768|65536|131072|524288|262144;"
+        },
+        {
+          "line": 14482,
+          "text": "thd->client_capabilities&= client_capabilities;"
+        },
+        {
+          "line": 14506,
+          "text": "pkt_len= my_net_read(net);"
+        },
+        {
+          "line": 14710,
+          "text": "has just send. Cache them to return in the next server_mpvio_read_packet()."
+        },
+        {
+          "line": 14799,
+          "text": "static int server_mpvio_read_packet(MYSQL_PLUGIN_VIO *param, uchar **buf)"
+        },
+        {
+          "line": 14844,
+          "text": "pkt_len= my_net_read(&ai->thd->net);"
+        },
+        {
+          "line": 14847,
+          "text": "pkt_len= my_net_read(&ai->thd->net);"
+        }
+      ]
+    },
+    "libmysqld/mariamem_wire_probe.inc": {
+      "pristine_sha256": null,
+      "patched_sha256": "584949484d8432b0b538876adbd2f6571ff50893882976cc56ea8b9508bcfc78",
+      "matched_saved_native_overlay": true,
+      "matched_saved_modified_files": true,
+      "coordinates": [
+        {
+          "line": 19,
+          "text": "static size_t spike_read(Vio *v, uchar *p, size_t n) {"
+        },
+        {
+          "line": 62,
+          "text": "vio->read=spike_read;vio->write=spike_write;vio->vioerrno=spike_errno;"
+        },
+        {
+          "line": 77,
+          "text": "if(my_net_init(&thd->net,vio,thd,MYF(MY_THREAD_SPECIFIC)))result=11;"
+        },
+        {
+          "line": 96,
+          "text": "else if(io->event(io->ctx,AUTH_COMPLETE,thd,thd->server_status))result=17;"
+        },
+        {
+          "line": 100,
+          "text": "if(io->event(io->ctx,ARM_COMMAND,thd,thd->server_status)){result=17;break;}"
+        },
+        {
+          "line": 101,
+          "text": "auto rc=do_command(thd,true);"
+        },
+        {
+          "line": 110,
+          "text": "if(io->event(io->ctx,COMMAND_COMPLETE,thd,thd->server_status)){result=17;break;}"
+        }
+      ]
+    },
+    "wasm/issue65_control.cc": {
+      "pristine_sha256": null,
+      "patched_sha256": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f",
+      "matched_saved_native_overlay": true,
+      "matched_saved_modified_files": true,
+      "coordinates": [
+        {
+          "line": 77,
+          "text": "timer=std::thread([this]{std::unique_lock<std::mutex> l(gate);while(!timerStop){progress.wait_for(l,std::chrono::milliseconds(5));if(controlOverflow.exchange(false))poisonLocked(\"control_queue_overflow\");if(poisoned||closing)continue;auto now=Clock::now();for(auto &s:slots)if(s&&s->deadline.expired(now)){if(s->command==0){s->phase=RETIRING;s->deadline.disarm();s->closeIO(ETIMEDOUT);scheduleKill(s);state(s);}else{poisonLocked(\"deadline\");break;}}}});"
+        },
+        {
+          "line": 81,
+          "text": "bool admit(Session *raw){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(!s||s.get()!=raw||fenced||poisoned||closing){++denied;raw->closeIO(ECANCELED);return false;}need(s->phase==IDLE,\"admit only idle\");s->phase=RECEIVING;s->nativeCommand=0;++s->command;s->deadline.arm(Clock::now());state(s);return true;}"
+        },
+        {
+          "line": 82,
+          "text": "int finish(Session *raw,unsigned status,bool retire){"
+        },
+        {
+          "line": 97,
+          "text": "if(kind==ARM_COMMAND){{std::lock_guard<std::mutex> l(gate);if(fenced||poisoned||closing)return 1;}{std::lock_guard<std::mutex> l(raw->io);raw->armed=true;}return 0;}"
+        },
+        {
+          "line": 98,
+          "text": "if(kind==EXECUTE_START){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(fenced||poisoned||closing)return 1;bool inputEOF;{std::lock_guard<std::mutex> q(raw->io);inputEOF=raw->inputEOF;}raw->nativeCommand=status;if(inputEOF&&status!=COM_QUIT){poisonLocked(\"unexpected_peer_eof\");return 1;}raw->phase=EXECUTING;++raw->executions;state(s);return poisoned||closing;}"
+        },
+        {
+          "line": 102,
+          "text": "static size_t readCb(void *p,unsigned char *to,size_t n){"
+        },
+        {
+          "line": 105,
+          "text": "n=std::min({n,s->input.size(),CHUNK});for(size_t i=0;i<n;++i){to[i]=s->input.front();s->input.pop_front();}s->consumed+=n;s->creditPending=true;l.unlock();s->owner->outReady.notify_all();return n;"
+        },
+        {
+          "line": 136,
+          "text": "void tryCapture(const Frame &f){std::lock_guard<std::mutex> l(gate);"
+        },
+        {
+          "line": 166,
+          "text": "else if(f.kind==EXPIRE){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(s){if(s->command!=f.value||s->phase==IDLE||s->phase==RETIRING){++stale;emit(frame(REJECTED,f.request,s,5,\"stale_timer\"));}else poisonLocked(\"deadline_injected\");}}"
+        }
+      ]
+    },
+    "wasm/issue65_deadline.h": {
+      "pristine_sha256": null,
+      "patched_sha256": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
+      "matched_saved_native_overlay": true,
+      "matched_saved_modified_files": true,
+      "coordinates": [
+        {
+          "line": 13,
+          "text": "constexpr bool valid(uint64_t ns){return ns!=0 && ns<=maximum;}"
+        },
+        {
+          "line": 15,
+          "text": "constexpr bool elapsed(uint64_t now,uint64_t start,uint64_t ns){return now-start>=ns;}"
+        },
+        {
+          "line": 22,
+          "text": "void arm(Clock::time_point now){start=ticks(now);armed=true;}"
+        },
+        {
+          "line": 23,
+          "text": "void disarm(){armed=false;}"
+        }
+      ]
+    },
+    "sql/mariamem_wire_policy.h": {
+      "pristine_sha256": null,
+      "patched_sha256": "b49dc0565b4ea31d71b2323cdc04ceb3e260cd2b7df80c003a3d2dbb0a7d5580",
+      "matched_saved_native_overlay": true,
+      "matched_saved_modified_files": true,
+      "coordinates": [
+        {
+          "line": 7,
+          "text": "static inline bool mariamem_wire_command_allowed(unsigned command)"
+        },
+        {
+          "line": 17,
+          "text": "static inline bool mariamem_wire_handshake_allowed(uint64_t flags)"
+        }
+      ]
+    },
+    "libmysqld/mariamem_control_abi.h": {
+      "pristine_sha256": null,
+      "patched_sha256": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075",
+      "matched_saved_native_overlay": true,
+      "matched_saved_modified_files": true,
+      "coordinates": [
+        {
+          "line": 4,
+          "text": "enum SpikeEvent { REGISTER_THD=1, AUTH_COMPLETE=2, ARM_COMMAND=3,"
+        }
+      ]
+    },
+    "include/mysql_com.h": {
+      "pristine_sha256": "c3b33ee39fa0845cd61f51e3cc576df5c2ab8d256fe0b1309656bec349173219",
+      "patched_sha256": "c3b33ee39fa0845cd61f51e3cc576df5c2ab8d256fe0b1309656bec349173219",
+      "matched_saved_128_tree": true,
+      "unchanged_by_actual_overlay": true,
+      "coordinates": [
+        {
+          "line": 106,
+          "text": "COM_RESERVED_1=254, /* Old COM_MULTI, now removed */"
+        },
+        {
+          "line": 233,
+          "text": "#define CLIENT_COMPRESS\t\t32ULL\t/* Can use compression protocol */"
+        },
+        {
+          "line": 281,
+          "text": "/* Old COM_MULTI experiment (functionality removed).*/"
+        },
+        {
+          "line": 637,
+          "text": "#define net_new_transaction(net) ((net)->pkt_nr=0)"
+        }
+      ]
+    }
+  },
+  "method": "Fetch only listed pristine upstream files from raw.githubusercontent.com/MariaDB/server/<source_commit>/<path>; check their hashes against native_overlay.before_sha256. Split actual producer guest/experimental.patch at each --- header; apply every section targeting listed files in original order with patch --batch --fuzz=0 -p1. New files start absent. Check resulting SHA256 against both native_overlay.after_sha256 and modified_files in saved producer prepared-source manifest. mysql_com.h matches saved128 prepared-tree and is absent from actual modified_files. No compilation or generated-code inference.",
+  "source_checks": {
+    "all_9_postimages_match_manifest": true,
+    "all_4_patched_pristine_files_match_manifest": true,
+    "mysql_header_matches_saved_tree": true,
+    "compressed_only_remain_in_buf": true,
+    "memory_vio_direct_read_callback": true,
+    "uncompressed_header_and_payload_reads_exact": true,
+    "all_sequential_patch_sections_applied": true
+  },
+  "runtime_observations_new": 0,
+  "builds": 0,
+  "translations": 0,
+  "ci_submissions": 0,
+  "production_changes": 0,
+  "cleanup": {
+    "owned_scratch_peak_under_mib": 4,
+    "free_floor_gib": 12,
+    "initial_free_gib_approx": 34,
+    "archives": 0,
+    "debt": 0,
+    "paths_over_1gib": []
+  },
+  "verification": {
+    "changed_publication_boundary": "PASS2 text files using scripts/check_public.check on isolated source copies",
+    "machine_coordinates": "PASS each exact line/text against reconstructed/pristine sources",
+    "relative_report_link": "PASS",
+    "diff_check": "PASS",
+    "protected_four_and_project_status": "unchanged",
+    "starting_tracked_status": "clean",
+    "preexisting_ignored": "32KiB compact earlier issue131-source receipts retained",
+    "runtime": "NOT RUN source-only",
+    "broad_issue131_exit": "not met; remains Open"
+  }
+}
