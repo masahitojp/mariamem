@@ -1,0 +1,62 @@
+{
+  "purpose": "Establish v0.6.2 versus current main whole-lifecycle baseline and screen static-page sharing on that same current main",
+  "product_source_commit": "279fa530d03cab1bd025df91bf5130bbf845a721",
+  "baseline": {
+    "release_tag": "v0.6.2",
+    "tag_object_sha": "cebdb4114187171bd418b0a1b419e1c27368808d",
+    "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb"
+  },
+  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "arms": [
+    "baseline",
+    "current",
+    "pages"
+  ],
+  "runtime_ancestor": "a16502e3bf14329c4ca8fb734c5771f6cca8a6fc",
+  "harness_ancestor": "60368c302d772c8b82f4b313ca2112090e4073ac",
+  "generated_source_sha256": "91ce0d2913f5802dcf5a6c65902febf183551bcd224474fb52ef3e96cdb01fd7",
+  "fixed": {
+    "count": 48,
+    "seed_rows": 1000,
+    "modes": [
+      "fresh",
+      "fork"
+    ],
+    "parallel": [
+      1,
+      4
+    ],
+    "route": "Pipe",
+    "go": "go1.27.3",
+    "gomaxprocs": 8,
+    "gogc": 100,
+    "cgo": 0,
+    "pool_mib": 16,
+    "read_threads": 1,
+    "cap": "P for Fork; Fresh roots bounded by workers"
+  },
+  "primary_processes": 60,
+  "rounds": 5,
+  "order": "rotate 4 cells; rotate baseline/current/pages order within each cell by round+cell, adjacent three-arm cohorts",
+  "controls": "2 children positive and1 wrong-seed per arm/mode:12 processes",
+  "warmups": "one48-case process per arm/mode/P:12 processes",
+  "total_processes": 84,
+  "boundary": "first Start through last cleanup and image factory disposal; includes cold image creation once per pages process",
+  "metrics": [
+    "whole wall/CPU",
+    "root preparation and cold image cost",
+    "per-child Start/Fork/SQL/retire/Close p50/p95 and >100ms",
+    "lifetime max RSS only; not held-child RSS"
+  ],
+  "screen": "descriptive fixed comparison; prior fixed-wave PASS not relabeled; new ordinary-lifecycle results including first Start/whole-suite/Fresh costs govern recommendation; no extra repeats to reach a threshold",
+  "limits": "single Mac. No new owner tracing, tail exclusion, guest changes, canonical adoption, Ubuntu qualification or release. Ordinary mixed-lifecycle only; no fixed-wave equivalence claim.",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci": 0,
+    "min_free_gib": 10,
+    "owned_gib": 12,
+    "timeout_seconds": 2400,
+    "process_timeout_seconds": 190
+  }
+}
