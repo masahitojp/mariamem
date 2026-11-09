@@ -1,0 +1,40 @@
+{
+  "decision": "Does read4 help after normal startup global concurrency was adopted?",
+  "base_commit": "32e3329c8f12ade2062f7acb5c8c8794457b5709",
+  "approved_pr": 141,
+  "host": "local macOS arm64; Ubuntu not claimed",
+  "workload": "existing shop fixture,50 reads sharing one child and20 isolated writes;21 Fork children",
+  "route": "Go Pipe",
+  "parallel": 8,
+  "max_forks": 9,
+  "GOMAXPROCS": 8,
+  "GOGC": 100,
+  "pool_mib": 16,
+  "global_concurrency": "adopted normal default; no intervention",
+  "arms": [
+    1,
+    4
+  ],
+  "warmups_per_arm": 1,
+  "alternating_pairs": 5,
+  "measurements": [
+    "whole wall",
+    "per-Fork p50/p95 and >=100ms count",
+    "sample SQL phase p50/p95 and >=100ms count",
+    "cleanup time",
+    "process CPU",
+    "process peak RSS"
+  ],
+  "exit": "Report all five pairs including tails. A promising read4 candidate requires >=5% lower whole-wall median and wins >=4/5 pairs, with no correctness/cleanup failures. CPU or peak-RSS median increases >10% require explicit tradeoff review. Otherwise report mixed/no improvement; no automatic extra samples or adoption.",
+  "limit": "Descriptive one-host screening, not a confidence interval or product resource bound. Queue wait mechanism is unobserved.",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci_submissions": 0,
+    "build_timeout_seconds": 900,
+    "suite_timeout_seconds": 120,
+    "workspace_gib": 6
+  },
+  "observer": "caller timestamps only; no runtime queue/stack sampler",
+  "intervention": "guarded argv overlay; same binary validates all25 argv strings before read digit1->4;read1 executes same scan but leaves argv identical;SHOW verifies selected read value on root/children; no8MiB/read-group-independent global-cap changes"
+}

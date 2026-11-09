@@ -1,0 +1,17 @@
+package base
+import("encoding/binary";"fmt";"os")
+var readThreads=os.Getenv("ISSUE140_READ_THREADS")
+var poolMiB=os.Getenv("ISSUE88_POOL_MIB")
+var expectedSettingsArgs = []string{"lite4mariadb", "--basedir=/mariadb", "--datadir=/mariadb/data", "--plugin-dir=/mariadb/plugin", "--lc-messages-dir=/mariadb/share", "--character-sets-dir=/mariadb/share/charsets", "--tmpdir=/tmp", "--skip-grant-tables", "--skip-networking", "--skip-log-bin", "--innodb-use-native-aio=0", "--innodb-buffer-pool-size=16M", "--loose-innodb-buffer-pool-size-max=16M", "--innodb-log-buffer-size=2M", "--max-connections=10", "--default-storage-engine=InnoDB", "--loose-innodb-read-io-threads=1", "--loose-innodb-write-io-threads=1", "--loose-innodb-purge-threads=1", "--table-open-cache=32", "--thread-cache-size=0", "--socket=/tmp/mysql.sock", "--caching-sha2-password-private-key-path=/mariamem-auth/private.pem", "--caching-sha2-password-public-key-path=/mariamem-auth/public.pem", "--caching-sha2-password-auto-generate-rsa-keys=OFF"}
+
+func PoolArgv(m *Module,argc,argv int32) int32 {
+ if readThreads!="1" && readThreads!="4" { panic("invalid ISSUE140_READ_THREADS") }; if poolMiB!="16" { panic("invalid ISSUE88_POOL_MIB") };if argc!=25 { panic("unexpected argc") }
+ ptrs:=make([]uint32,argc)
+ for i,want:=range expectedSettingsArgs {
+  ea:=MemoryEA(m,uint64(uint32(argv)),uint64(i*4),4);p:=binary.LittleEndian.Uint32(m.Memory[ea:ea+4]);ptrs[i]=p
+  b:=[]byte{};for j:=uint64(0);j<512;j++ {v:=m.Memory[MemoryEA(m,uint64(p),j,1)];if v==0 {break};b=append(b,v)}
+  if string(b)!=want {panic(fmt.Sprintf("argv[%d] preimage mismatch",i))}
+ }
+ if readThreads=="4" {p:=uint64(ptrs[16]);want:=expectedSettingsArgs[16];m.Memory[MemoryEA(m,p,uint64(len(want)-1),1)]='4'}
+ return argc
+}

@@ -1,0 +1,21 @@
+{
+  "source_commit": "f824a6b262f8aa632ef1afa3d91c88778644588d",
+  "files_sha256": {
+    "benchmarks/issue88modelcase/UPSTREAM-LICENSE": "f841b48a04d578790861f0ca1831f8edd2daba4007f9b09da251cfd4478f3438",
+    "benchmarks/issue88modelcase/go.mod": "f0eff6a625f8bb5083dbe70b1ce11a42dd59134fcd055d95866f2e3fcf310e1f",
+    "benchmarks/issue88modelcase/go.sum": "dce32be0d73495b07bb168901b642b3210f42098612f200fb259a11ea78f4926",
+    "benchmarks/issue88modelcase/internal/trace/trace.go": "0bf99f500b876b3578cb388bc7e0a3754ab12e445cac47834f1e5380a98c805a",
+    "benchmarks/issue88modelcase/maria/store/backend_test.go": "8b641d97164c81289fe9216d2bf4e75ee92be38f85cd16ae5ea772c459288d9e",
+    "benchmarks/issue88modelcase/maria/store/fixture_test.go": "c2c68a9808b93831f25dc03f1207b980aed5e2f434836e39c5df53340d7c3031",
+    "benchmarks/issue88modelcase/maria/store/migrations/001_schema.sql": "a6d4dbb985c6aef1e9e088ad43ca5a4e55b7d64b82d91665847cd8ff4e7c21b0",
+    "benchmarks/issue88modelcase/maria/store/migrations/002_orders.sql": "7f77465e4a3d0d89b45cf72643fa5a215bfbb4c3751f9eec78f10945fe33d0c4",
+    "benchmarks/issue88modelcase/maria/store/migrations/003_totals.sql": "a2a4c51797f6020397951d4ba77e1884a9d49b745c67d396849dd095c8504f9c",
+    "benchmarks/issue88modelcase/maria/store/migrations/004_view.sql": "bfcddf98b5b307fc0099bb0b67e5e5ec9346c65f80feafc4b77c60d9bc1e2af2",
+    "benchmarks/issue88modelcase/maria/store/migrations/005_audit.sql": "cab99228de37a563e0f15de1d1b65080f3ba79249967ddcd36d0d6a21afaa9cd",
+    "benchmarks/issue88modelcase/maria/store/read_test.go": "62568fc98ee139af181f5ea16287343e874493f3d98644f654ce03326b8a23e9",
+    "benchmarks/issue88modelcase/maria/store/sample_observe.go": "137477f0bc0f5e3d20807911d8406201fa6deeeed361a0a9d71ff8c4c55487f9",
+    "benchmarks/issue88modelcase/maria/store/seed.go": "c4ad8c54e4d469e590a05e0d8033efd9e41b998e210b224fd0cc340ca10a4b4b",
+    "benchmarks/issue88modelcase/maria/store/store.go": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+    "benchmarks/issue88modelcase/maria/store/write_test.go": "f69d719ef83b7c964d3d33d854151d21bd4aab7565855ead7cc80b1c53560556"
+  }
+}
