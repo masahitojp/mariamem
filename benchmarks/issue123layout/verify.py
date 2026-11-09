@@ -91,7 +91,8 @@ bind('probe')
 records = []
 for mode, parallel, negative in [('fresh',1,False), ('fork',1,False), ('fresh',4,False), ('fork',4,False), ('fresh',1,True), ('fork',1,True)]:
     name = f'{mode}-p{parallel}' + ('-negative' if negative else '')
-    scratch = t/'scratch'/name; scratch.mkdir()
+    scratch = t/'scratch'/name; scratch.mkdir(exist_ok=True)
+    assert not list(scratch.iterdir()), 'scratch is not empty before admission'
     v = dict(env, TMPDIR=str(scratch), MARIAMEM_STATIC_IMAGE_EXPERIMENT='1', GOGC='100')
     v.pop('GOMEMLIMIT')
     out = e/(name+'.json'); count = 1 if negative else 8
@@ -113,7 +114,8 @@ for mode, parallel, negative in [('fresh',1,False), ('fork',1,False), ('fresh',4
         assert report['success'] and len(report['samples']) == count
         assert {s['index'] for s in report['samples']} == set(range(count))
         assert all(s['oracle'] and s['cleanup'] and not s.get('error') for s in report['samples'])
-        assert all('12.3.3' in s['version'] for s in report['samples'])
+        # The established probe records VERSION() on index0 in each process.
+        assert '12.3.3' in next(s['version'] for s in report['samples'] if s['index'] == 0)
         assert im['acquires'] == count + (mode == 'fork')
     records.append({'case':name, 'expected_failure':negative, 'exit_code':rc, 'result':'PASS'})
 assert not git('status', '--porcelain')
