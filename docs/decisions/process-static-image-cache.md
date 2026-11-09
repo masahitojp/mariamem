@@ -44,3 +44,10 @@ image preparation about37→12ms. That does not establish performance of this
 product candidate, Ubuntu performance, or universal memory/CPU improvement.
 Candidate source/ownership/real-DB checks precede adoption review. Canonical
 regeneration and product packaging must carry the manifest and ownership files.
+
+The historical linked-library attribution keeps its original source and host
+identity. Only `image/layout.json` is added to the generated provenance; the
+license check reconstructs the old provenance byte-for-byte after removing that
+one derived metadata entry. Changes to any old generated source/input identity
+remain failures. This is explicit reuse of unchanged-code attribution, not a new
+symbol audit or release qualification.

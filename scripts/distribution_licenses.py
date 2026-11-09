@@ -76,3 +76,26 @@ def verify_upstream_notices(root, lock, downloads=None):
             if found[relative]!=value['distributed_notices'][name]:
                 raise ValueError('upstream notice bytes differ: '+name)
     return True
+
+
+def verify_generated_attribution(root, evidence):
+    """Keep the original symbol audit when only derived image metadata was added.
+
+    The prior provenance is reconstructed byte-for-byte. This cannot accept a
+    changed guest, input pin, generated function, or another generated file.
+    It does not relabel the historical host binary as tested at the new source.
+    """
+    root = Path(root)
+    path = root/'internal/generatedgo/provenance.json'
+    expected = evidence['generated_provenance_sha256']
+    if digest(path) == expected:
+        return 'exact'
+    record = json.loads(path.read_text())
+    metadata = 'image/layout.json'
+    added = record['files_sha256'].pop(metadata, None)
+    if added is None or digest(root/'internal/generatedgo'/metadata) != added:
+        raise ValueError('generated attribution metadata mismatch')
+    original = (json.dumps(record, indent=2)+'\n').encode()
+    if hashlib.sha256(original).hexdigest() != expected:
+        raise ValueError('generated attribution source changed beyond image metadata')
+    return 'unchanged-generated-code; image-metadata-only'

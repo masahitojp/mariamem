@@ -88,7 +88,7 @@ not expose truncated inherited bytes. File size, seek, truncate, allocate,
 rename/unlink and open-handle semantics remain tested boundaries. Allocate
 extends logical size; it does not promise physical storage reservation.
 
-Each child reconstructs execution, anonymous linear memory, threads, TLS, FD
+Each child reconstructs execution, private linear memory, threads, TLS, FD
 tables, offsets, clocks and sessions. Fork does not clone a running runtime.
 Writes cannot change a parent or sibling. A changed child can become a new
 baseline while its parent remains unchanged.
@@ -142,6 +142,13 @@ retain the original cause, and later commands are refused. Completion and memory
 release still wait for every worker; non-cooperative execution retains ownership
 until it exits. Independent DBs have separate failure state.
 Physical accounting differs from reachable heap or sampled host RSS.
+
+The v0.7.0 static-image candidate overlays only immutable initial-data pages on
+that private reservation, using private file mappings. Other pages and growth
+remain anonymous. A lazy process cache retains one readonly unlinked image FD;
+per-DB Close still disposes the whole child reservation after worker join. This
+is separate from application Snapshot backing. See the
+[accepted candidate direction](decisions/process-static-image-cache.md).
 
 The page-cleaner startup ordering correction is adopted on main and passed
 bounded Fresh comparisons and related regression on both native platforms.
