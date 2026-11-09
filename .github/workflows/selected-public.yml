@@ -1,0 +1,75 @@
+name: Selected public candidate
+on:
+  push:
+    branches: [experiment/issue134-binding]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: selected-public-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  public:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - run: python -m pip install pytest pymysql
+      - name: Selected and stable refusal boundaries
+        run: >-
+          python -m pytest -q tests/test_selected_binding.py tests/test_selected_guest.py
+          tests/test_dev_guest_tools.py tests/test_thread_lifetime_binding.py
+          tests/test_guest_input_resolver.py tests/test_guest_preparation_context.py
+          tests/test_preview_guest_inputs.py tests/test_development_scope.py
+      - name: Retrieve exact existing producer handoff
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 42657118990 --repo masahitojp/mariamem \
+            --name selected-guest-ecddf5afb248673eee2055d5b842e617ea799964 \
+            --dir "$RUNNER_TEMP/selected-artifact"
+          python - <<'PY'
+          import hashlib, json, os, tarfile
+          from pathlib import Path
+          tmp=Path(os.environ['RUNNER_TEMP'])
+          expected=json.loads(Path('docs/design/issue134-binding/ci.json').read_text())
+          archive=tmp/'selected-artifact/handoff.tar.gz'
+          assert hashlib.sha256(archive.read_bytes()).hexdigest()==expected['handoff_sha256']
+          with tarfile.open(archive) as f:
+              assert sum(m.size for m in f.getmembers()) < 2*1024**3
+              f.extractall(tmp/'selected-handoff',filter='data')
+          PY
+          git worktree add --detach "$RUNNER_TEMP/selected-producer" ecddf5afb248673eee2055d5b842e617ea799964
+      - name: Install and execute exact public candidate
+        env:
+          CANDIDATE: ${{ github.sha }}
+        run: |
+          python scripts/selected_public_ci.py --source-commit "$CANDIDATE" \
+            --producer-root "$RUNNER_TEMP/selected-producer" --handoff "$RUNNER_TEMP/selected-handoff" \
+            --output "$RUNNER_TEMP/selected-public" --budget-gib 8 --min-free-gib 8
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: selected-public-${{ matrix.os }}-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/selected-public/*.json
+            ${{ runner.temp }}/selected-public/*.txt
+            ${{ runner.temp }}/selected-public/install/public-source.json
+            ${{ runner.temp }}/selected-public/install/installation-inputs.json
+            ${{ runner.temp }}/selected-public/install/product/internal/generatedgo/provenance.json
+          if-no-files-found: warn
+          retention-days: 14

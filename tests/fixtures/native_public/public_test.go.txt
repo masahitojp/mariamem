@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"strings"
+	"github.com/masahitojp/mariamem/internal/generatedgo"
 	"testing"
 	"time"
 
@@ -141,4 +143,15 @@ func TestNativePublicDefaultTimeout(t *testing.T) {
 	if _, e := pool.Exec("DO SLEEP(10.2)"); e != nil {
 		t.Fatalf("public30s default: %v", e)
 	}
+}
+
+// Installer substitutes the registered tuple, never the runtime's own value.
+func TestNativePublicSelectedIdentity(t *testing.T) {
+ if generatedgo.GuestSHA256 != "EXPECTED_SELECTED_GUEST_SHA256" { t.Fatal("wrong compiled selected guest") }
+ db := publicDB(t, mariamem.Options{})
+ for _, pipe := range []bool{false,true} {
+  var version string
+  if e := publicPool(t,db,pipe).QueryRow("SELECT VERSION()").Scan(&version); e != nil { t.Fatal(e) }
+  if !strings.HasPrefix(version,"EXPECTED_SELECTED_ENGINE-") { t.Fatalf("wrong selected engine: %s",version) }
+ }
 }

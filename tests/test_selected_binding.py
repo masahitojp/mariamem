@@ -116,3 +116,12 @@ def test_canonical_binding_remains_separate():
     record,_=binding.registered(ROOT,'13.2.0/native-text')
     assert canonical.GUEST_SHA256 != record['guest_sha256']
     with pytest.raises(ValueError):canonical.validate_inputs(record['guest_sha256'],{})
+
+
+def test_handoff_rejects_upstream_annotation_drift(monkeypatch, tmp_path):
+    record,_=binding.registered(ROOT,'13.2.0/native-text')
+    monkeypatch.setattr(installer,'registered',lambda *_:(record,'a'*64))
+    monkeypatch.setattr(installer,'resolve',lambda *_:{'selection':record['selection'],
+                        'guest_input':{'source_commit':'f'*40}})
+    with pytest.raises(ValueError,match='upstream source'):
+        installer.verify_handoff(ROOT,tmp_path,tmp_path,engine='13.2.0',profile='native-text')

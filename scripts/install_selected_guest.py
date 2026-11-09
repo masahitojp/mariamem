@@ -23,6 +23,8 @@ from selected_binding import CONTRACT, registered, validate_bodies
 def verify_handoff(root, producer, handoff, *, engine, profile):
     selected = resolve(root, engine, profile)
     binding, binding_sha = registered(root, selected['selection'])
+    require(binding['upstream_source_commit'] == selected['guest_input']['source_commit'],
+            'binding upstream source identity mismatch')
     require_commit(producer, binding['producer_source_commit'])
     producer_identity = source_identity(producer)
     require(producer_identity['commit'] == binding['producer_source_commit'], 'wrong producer checkout')
@@ -91,7 +93,12 @@ def assemble(root, producer, handoff, output, *, engine, profile):
         shutil.copy2(root/name, target)
     shutil.move(out/'generatedgo', product/'internal/generatedgo')
     shutil.copy2(root/'scripts/runtime_native/factory.go.txt', product/'internal/host/factory.go')
-    shutil.copy2(root/'tests/fixtures/native_public/public_test.go.txt', product/'public_native_test.go')
+    fixture=(root/'tests/fixtures/native_public/public_test.go.txt').read_text()
+    for anchor,value in [('EXPECTED_SELECTED_GUEST_SHA256',binding['guest_sha256']),
+                         ('EXPECTED_SELECTED_ENGINE',engine)]:
+        require(fixture.count(anchor)==1,'public identity fixture anchor changed')
+        fixture=fixture.replace(anchor,value)
+    (product/'public_native_test.go').write_text(fixture)
     kind = product/'internal/runtimekind/kind.go'
     canonical = json.loads((root/'release/generated-go-inputs.json').read_text())['guest_sha256']
     text = kind.read_text()

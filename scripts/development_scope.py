@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW_SCOPES = {
     '.github/workflows/check.yml': 'python',
     '.github/workflows/selected-guest.yml': 'python',
+    '.github/workflows/selected-public.yml': 'python',
     '.github/workflows/release-candidate-ready.yml': 'python',
     '.github/workflows/v044-product-validation.yml': 'python',
     '.github/workflows/live-host.yml': 'python',

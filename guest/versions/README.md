@@ -90,3 +90,49 @@ then reduce it to compact evidence and discard recreatable state.
    registration/proof/binding work and common from native-specific costs. Missing
    human-time observations remain unknown. Use the evidence to report improvement,
    regression or an inconclusive comparison before adoption; no cost-only rebuild.
+
+## Selected binding and public source installation
+
+Registered bindings live under `guest/bindings/`. Each entry pins the actual
+producer, guest, both handoff receipts, the complete raw translation inventory,
+three complete normalized worker bodies, TLS initialization and ABI/no-op facts.
+A new version requires an explicit reviewed entry; function shape discovery is
+never an installation oracle. Stable canonical worker binding remains separate.
+
+Recreate the exact producer checkout from the registered `producer_source_commit`
+with Git, download its existing CI artifact, verify the archive SHA, and extract
+it to a fresh disposable directory. Then, from a clean committed installer tree:
+
+```sh
+python3 scripts/install_selected_guest.py --producer-root /absolute/producer \
+  --handoff /absolute/handoff --engine 13.2.0 --profile native-text \
+  --output /absolute/selected-install
+```
+
+Paths above are caller-owned disposable locations, not retained local inputs.
+No historical checkout path or executable under an issue-specific spike is used.
+The common source-adapter pipeline under `generated-go-integration` remains a
+shared producer dependency; its eventual ownership migration is still open.
+Producer validation runs against its exact committed inventory; no host-code
+allowlist expansion permits reuse of changed guest/build inputs. The current
+installer and host source identity are recorded separately. `public-source.json`
+binds their installed source inventory to `installation-inputs.json`, the
+registered binding and the immutable producer. All outputs remain UNQUALIFIED
+and release-ineligible. The stable checkout and release ledgers are untouched.
+
+The native core/owner interface lives in `internal/nativewire` and `internal/host`;
+profile-specific runtime glue/factory templates live in `scripts/runtime_native`.
+`generate_runtime.NATIVE_HANDWRITTEN_FILES` owns those runtime files separately
+from the stable handwritten set. No old generated runtime is copied into
+the selected product. The selected factory has no fallback, and acceptance adds
+a legacy-Serve tripwire. Both Go and Python must fail when the native factory is
+disabled. Ordinary checkout factory selection remains stable12.3.3.
+
+`Selected public candidate` CI installs the same verified13.2 artifact on macOS
+arm64/Linux x86_64. The initial gate runs existing TCP/Pipe, capacity, fatal cause,
+isolation and default-timeout tests, host/owner units, Python transaction and
+Snapshot/Fork smoke, exact runtime identity and factory-disable controls. Limits
+are8GiB owned output/producer/handoff,8GiB free,40minutes per OS. This initial gate
+is not the full #132 acceptance: precision settings, real completion/fault fixtures,
+original22/88/38/G1/G2/P1 oracle rebinding and installed-wheel coverage remain.
+Their completion and the #128 total upgrade-cost judgment retain the fixed exit.
