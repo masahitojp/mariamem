@@ -11,7 +11,9 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"reflect"
+	"runtime"
 	"strings"
 	"sync"
 	"syscall"
@@ -416,4 +418,34 @@ func TestPageOnlyRangeCompleteness(t *testing.T) {
 	}
 	f.ranges = old
 	t.Logf("static-page bytes=%d ranges=%d OS-page=%d init-flag-page=%d", bytes, len(old), page, flag)
+}
+
+func TestPinnedConstructorWriteWindow(t *testing.T) {
+	_, file, _, _ := runtime.Caller(0)
+	root := filepath.Join(filepath.Dir(file), "../..")
+	for path, want := range map[string]string{
+		"internal/generatedgo/code/generated.go":  "91ce0d2913f5802dcf5a6c65902febf183551bcd224474fb52ef3e96cdb01fd7",
+		"internal/generatedgo/code/p7/p7_pure.go": "7f4134e94326019d800b3ec1be6d5429a9fdcebdc7b6656cb6cb2759866d21d0",
+	} {
+		data, err := os.ReadFile(filepath.Join(root, path))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if fmt.Sprintf("%x", sha256.Sum256(data)) != want {
+			t.Fatalf("re-audit constructor memory writes: %s", path)
+		}
+	}
+	full, bounded := ownedFactory(t), ownedFactory(t)
+	full.fullScan, bounded.fullScan = true, false
+	a, b := mustChild(t, full), mustChild(t, bounded)
+	if err := sameInitial(a.m, b.m); err != nil {
+		t.Fatal(err)
+	}
+	if !reflect.DeepEqual(full.ranges, bounded.ranges) {
+		t.Fatal("image ranges differ")
+	}
+	if bounded.scannedBytes >= full.scannedBytes || bounded.scannedBytes < 26996020-8388608 {
+		t.Fatal("scan bounds")
+	}
+	t.Logf("full=%d bounded=%d ranges=%v", full.scannedBytes, bounded.scannedBytes, bounded.ranges)
 }

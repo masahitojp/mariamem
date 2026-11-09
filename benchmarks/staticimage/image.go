@@ -21,6 +21,10 @@ const maximum = 2 << 30
 var errClosed = errors.New("static image factory closed")
 
 type factory struct {
+	fullScan          bool
+	scannedBytes      int
+	constructorMS     float64
+	scanMS            float64
 	ranges            []base.ImageRange
 	pageOnly          bool
 	buildMS           float64
@@ -45,7 +49,7 @@ type factory struct {
 
 func newFactory(dir string) *factory {
 	f := &factory{dir: dir, closeFile: (*os.File).Close, openRead: os.Open,
-		pageOnly: true}
+		pageOnly: true, fullScan: os.Getenv("MARIAMEM_IMAGE_FULL_SCAN") == "1"}
 	if f.pageOnly {
 		f.mapImage = func(fd int, initial, maximum uint64) (*base.MemoryMapping, error) {
 			return base.NewStaticPageMapping(fd, initial, maximum, f.ranges)
@@ -72,7 +76,9 @@ func (f *factory) build() (err error) {
 		}
 	}()
 	// Only generated data initialization. No Start/WasmCallCtors/engine execution.
+	constructorAt := time.Now()
 	m := generated.NewWithMemory(nil, nil, nil, b.Bytes(), generated.InitialMemoryBytes)
+	f.constructorMS = float64(time.Since(constructorAt)) / 1e6
 	f.globals, f.dataEnd = base.SaveGlobals(m), m.DataEnd
 	if len(f.globals) != 2 || f.globals[0] != 8388608 || f.globals[1] != 18012928 || f.dataEnd != 18013433 {
 		return errors.New("pinned guest layout mismatch")
@@ -91,7 +97,16 @@ func (f *factory) build() (err error) {
 	}
 	page := os.Getpagesize()
 	zero := make([]byte, page)
-	for off := 0; off < generated.InitialMemoryBytes; off += page {
+	// Pinned Fn67 is the only linear-memory writer in NewWithMemory.
+	// Include its zero-fill and 4-byte init flag, not just DataEnd.
+	// Source hashes and whole-memory equality are enforced by the experiment.
+	start, end := 8388608/page*page, (26996020+page-1)/page*page
+	if f.fullScan {
+		start, end = 0, generated.InitialMemoryBytes
+	}
+	f.scannedBytes = end - start
+	scanAt := time.Now()
+	for off := start; off < end; off += page {
 		data := m.Memory[off : off+page]
 		if !bytes.Equal(data, zero) {
 			n := len(f.ranges)
@@ -105,6 +120,7 @@ func (f *factory) build() (err error) {
 			}
 		}
 	}
+	f.scanMS = float64(time.Since(scanAt)) / 1e6
 	r, err := f.openRead(f.path)
 	if err != nil {
 		return err
@@ -192,6 +208,10 @@ func (f *factory) Stats() map[string]any {
 	defer f.mu.Unlock()
 	v := map[string]any{"builds": f.builds, "build_ms": f.buildMS, "acquires": f.acquires, "closed": f.closed, "owned_fds": len(f.files)}
 	v["page_only"] = f.pageOnly
+	v["full_scan"] = f.fullScan
+	v["scanned_bytes"] = f.scannedBytes
+	v["constructor_ms"] = f.constructorMS
+	v["scan_ms"] = f.scanMS
 	v["page_size"] = os.Getpagesize()
 	v["image_ranges"] = append([]base.ImageRange(nil), f.ranges...)
 	var mapped uint64
