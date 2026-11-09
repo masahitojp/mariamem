@@ -45,7 +45,7 @@ type Request struct {
 }
 type db struct {
 	gate                     chan struct{}
-	server                   *host.Server
+	server                   host.Service
 	query, startup, shutdown time.Duration
 	id                       string
 	log                      *os.File
@@ -180,7 +180,7 @@ func makeDB(ctx context.Context, r Request, base *baseline, ownedLog bool) (*db,
 	if base != nil {
 		backing = base.owned
 	}
-	s, e := host.StartGenerated(startup, backing, q, f)
+	s, e := host.Start(startup, backing, q, f)
 	if e != nil {
 		return nil, disposal.After(e, cleanupLog)
 	}
@@ -296,6 +296,7 @@ func (m *manager) call(ctx context.Context, r Request) (result map[string]any, e
 		capture, cancel := context.WithTimeout(ctx, timeout)
 		defer cancel()
 		owned, consumed, e := d.server.SnapshotHeap(capture, r.Rollback)
+		d.captureDebt = errors.Join(d.captureDebt, d.server.CaptureDebt())
 		result = map[string]any{"closed": consumed, "logs": d.logs()}
 		if consumed {
 			d.closed = true

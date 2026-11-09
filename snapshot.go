@@ -58,6 +58,9 @@ func (db *Database) Snapshot(ctx context.Context, opts SnapshotOptions) (*Snapsh
 		return nil, err
 	}
 	backing, consumed, e := db.server.SnapshotHeap(ctx, opts.Rollback)
+	if native, ok := db.server.(interface{ CaptureDebt() error }); ok {
+		db.captureDebt = errors.Join(db.captureDebt, native.CaptureDebt())
+	}
 	if consumed {
 		db.closed = true
 		db.closeErr = hostError(db.removeTemporaryAfter(e), "close", true)

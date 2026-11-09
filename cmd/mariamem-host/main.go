@@ -17,6 +17,7 @@ import (
 
 	"github.com/masahitojp/mariamem/internal/control"
 	"github.com/masahitojp/mariamem/internal/diagnostic"
+	"github.com/masahitojp/mariamem/internal/disposal"
 	"github.com/masahitojp/mariamem/internal/generatedgo"
 	"github.com/masahitojp/mariamem/internal/host"
 	"github.com/masahitojp/mariamem/internal/runtimekind"
@@ -84,8 +85,12 @@ func run() error {
 	if err != nil {
 		return err
 	}
-	s, err := host.StartGenerated(ctx, backing, *queryTimeout, os.Stderr)
-	err = errors.Join(err, backing.Close())
+	s, err := host.Start(ctx, backing, *queryTimeout, os.Stderr)
+	if err != nil {
+		err = disposal.After(err, backing.Close)
+	} else {
+		err = backing.Close()
+	}
 	cancel()
 	if err != nil {
 		if s != nil {
@@ -121,7 +126,7 @@ func run() error {
 	if s.SnapshotCapable() {
 		caps = append(caps, "snapshot", "fork")
 	}
-	if err = enc.Encode(map[string]any{"event": "ready", "protocol": 1, "id": hex.EncodeToString(token), "pid": os.Getpid(), "runtime_pid": s.Guest.PID(), "host": "127.0.0.1", "port": s.Port(), "user": "root", "password": "", "database": "test", "capabilities": caps, "max_connections": s.Capacity()}); err != nil {
+	if err = enc.Encode(map[string]any{"event": "ready", "protocol": 1, "id": hex.EncodeToString(token), "pid": os.Getpid(), "runtime_pid": s.RuntimePID(), "host": "127.0.0.1", "port": s.Port(), "user": "root", "password": "", "database": "test", "capabilities": caps, "max_connections": s.Capacity()}); err != nil {
 		return err
 	}
 	messages := make(chan incoming, 1)
@@ -144,7 +149,7 @@ func run() error {
 		select {
 		case <-owner.Done():
 			return shutdown()
-		case <-s.Guest.Done():
+		case <-s.Done():
 			_ = shutdown()
 			return fmt.Errorf("database runtime exited: %w", s.Failure())
 		case msg := <-messages:

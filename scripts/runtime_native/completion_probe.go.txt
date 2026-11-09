@@ -1,0 +1,9 @@
+package base
+
+// Installed before execution,private to the profile2 acceptance fixture.
+func SetNativeCompletionProbe(m *Module, probe func(uint32)) {
+	if m.ThreadLifetime == nil {
+		panic("thread lifetime missing")
+	}
+	m.ThreadLifetime.nativeCompletionProbe = probe
+}

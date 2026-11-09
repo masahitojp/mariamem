@@ -1,0 +1,6 @@
+{
+  "13.2.0/native-text": {
+    "file": "guest/bindings/13.2.0-native-text.json",
+    "sha256": "01d3baf37f3e0ab7b17ec6df08b9a520215c43e7fb0024b464f05f7b4b317c75"
+  }
+}

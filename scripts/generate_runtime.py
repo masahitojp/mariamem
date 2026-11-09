@@ -62,6 +62,14 @@ HANDWRITTEN_FILES = (
 )
 
 
+# Selected native ownership, kept separate from the stable runtime's files.
+NATIVE_HANDWRITTEN_FILES = {
+    'runtime_wire.go': 'runtime_wire.go.txt',
+    'code/base/completion_probe.go': 'completion_probe.go.txt',
+    'code/base/thread_lifetime.go': 'thread_lifetime.go.txt',
+}
+
+
 def handwritten_owner(root, name):
     filename = Path(name).name
     if filename.startswith(('narrow_load_', 'narrow_write_')) or filename in {'fd_allocate_test.go','bulk_bounds_test.go','wait_timeout_test.go','thread_identity_test.go'}:
@@ -114,9 +122,18 @@ def main():
     parser.add_argument('--source-module', type=Path, required=True)
     parser.add_argument('--output', type=Path, default=ROOT/'internal/generatedgo')
     parser.add_argument('--development-input', type=Path, help='explicit verified UNQUALIFIED candidate inventory')
+    parser.add_argument('--selected-input', type=Path, help='registered exact-guest UNQUALIFIED installation')
     args = parser.parse_args()
+    if args.selected_input and args.development_input:
+        parser.error('selected and legacy development inputs are mutually exclusive')
     src = args.source_module.resolve()
-    if args.development_input:
+    binding = None
+    if args.selected_input:
+        from dev_guest import external_output
+        from install_selected_guest import verify_installation
+        external_output(ROOT, args.output)
+        pins, binding = verify_installation(json.loads(args.selected_input.read_text()), src, ROOT)
+    elif args.development_input:
         from dev_guest import external_output, install_inputs
         external_output(ROOT, args.output)
         pins = install_inputs(json.loads(args.development_input.read_text()), src, ROOT)
@@ -127,7 +144,8 @@ def main():
     if files != pins['candidate_files_sha256']:
         parser.error('candidate source inventory differs from the pinned input')
     from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs
-    thread_lifetime_inputs(pins['guest_sha256'], files)
+    if binding is None:
+        thread_lifetime_inputs(pins['guest_sha256'], files)
     data = (src/'generated/data.bin').read_bytes()
     if hashlib.sha256(data).hexdigest() != pins['data_sha256']:
         parser.error('initial guest data identity mismatch')
@@ -160,7 +178,11 @@ def main():
         elif name in ('fs_contract_test.go', 'guest_identity.go'):
             text = text.replace('package main', 'package generatedgo', 1)
         from runtime_thread_lifetime import apply as thread_lifetime
-        text = thread_lifetime(str(target.relative_to(out)), text)
+        if binding is None:
+            text = thread_lifetime(str(target.relative_to(out)), text)
+        else:
+            from selected_binding import apply as selected_thread_lifetime
+            text = selected_thread_lifetime(binding, str(target.relative_to(out)), text)
         from runtime_failure import apply as worker_failure
         text = worker_failure(str(target.relative_to(out)), text)
         from runtime_write import apply as write_errors
@@ -181,12 +203,25 @@ def main():
         provenance.update(contract=pins['contract'], result='UNQUALIFIED',
                           dev_inputs_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest(),
                           input_manifest_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest())
+    if args.selected_input:
+        provenance.update(contract=pins['contract'], result='UNQUALIFIED', release_eligible=False,
+                          selection=pins['selection'], producer_source_commit=pins['producer_source_commit'],
+                          binding_sha256=pins['binding_sha256'],
+                          input_manifest_sha256=hashlib.sha256(args.selected_input.read_bytes()).hexdigest())
     (out/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     # Production ownership glue is ordinary handwritten Go, not transpilation
     # output. Carry it into clean regenerated trees without modifying that output.
     for name in HANDWRITTEN_FILES:
         owner = handwritten_owner(ROOT, name)
         shutil.copy2(owner, out/name)
+    if binding is not None:
+        from selected_binding import wrapper
+        for name, template in NATIVE_HANDWRITTEN_FILES.items():
+            shutil.copy2(ROOT/'scripts/runtime_native'/template, out/name)
+        (out/'runtime_thread_lifetime.go').write_text(wrapper(binding))
+        subprocess.run([str(go_root/'bin/gofmt'), '-w',
+                        *[str(out/n) for n in NATIVE_HANDWRITTEN_FILES],
+                        str(out/'runtime_thread_lifetime.go')], check=True)
     print('Installed checksum-bound generated runtime:',len(inventory),'files')
 
 
