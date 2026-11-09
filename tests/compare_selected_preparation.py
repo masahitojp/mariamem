@@ -80,14 +80,20 @@ def main():
                        stdout=subprocess.DEVNULL)
         # Preserve the original experimental gate's exact-SHA detached CI path.
         env.update(GITHUB_SHA=origin, GITHUB_REF_NAME='experiment/issue134-oracle')
-        (old / 'build').mkdir()
+        (old / 'build').mkdir(exist_ok=True)
         (old / 'build/downloads').symlink_to(cache, target_is_directory=True)
         started = time.monotonic()
         run([sys.executable, str(old / 'scripts/prepare_guest.py')], args.evidence / (label + '-original.txt'))
         original_seconds = time.monotonic() - started
         before, before_hash = inventory(old / 'build/source')
         # Old output need not remain while new is prepared; compact identity is enough.
-        shutil.rmtree(old / 'build')
+        for path in (old / 'build').iterdir():
+            if path.name == 'go.mod':
+                continue  # Published repository tracks this module boundary.
+            if path.is_symlink() or path.is_file():
+                path.unlink()
+            else:
+                shutil.rmtree(path)
         subprocess.run(['git', 'worktree', 'remove', str(old)], cwd=ROOT, check=True)
         started = time.monotonic()
         run([sys.executable, str(ROOT / 'scripts/prepare_guest.py'), '--engine', engine,
