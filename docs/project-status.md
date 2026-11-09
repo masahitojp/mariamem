@@ -6,7 +6,7 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
-## Issue145 — shutdown mode by disposal purpose, implementation approved
+## Issue145 — shutdown mode by disposal purpose, adopted on main
 
 On 2026-11-10 the Human approved proceeding after the bounded macOS experiment
 recorded in [Issue145](https://github.com/masahitojp/mariamem/issues/145#issuecomment-6745782014).
@@ -18,10 +18,21 @@ The main-based candidate passes local full check, race, Go integration, Python
 normal/Live and Snapshot checks. Exact-source macOS CI42670536897 at401def4e
 closes fixed-profile prepared/native matching and reSnapshot/parallel-disposal
 checks. Ubuntu daily/smoke CI42664665273 remains bound to e671f66a with identical
-runtime/test bodies. The latest PR head must satisfy normal protected checks;
-main adoption and release remain separate. See the
+runtime/test bodies. The accepted PR head satisfies normal protected checks. Release remains
+separate. See the
 [implementation evidence](reviews/issue145-shutdown.md) and
 [CI follow-up](reviews/issue145-shutdown-ci-followup.md).
+The Human approved main adoption and a post-merge measurement on2026-11-10.
+[PR146](https://github.com/masahitojp/mariamem/pull/146) squash-merged to source_commit
+`8eded3625ebc22a3a52280bf7647a1056e3183af`; its tree equals the approved head
+`b4e9bc4c6988ae2d1a2ea6ffc6151b395c59553e`. Normal protected checks passed in
+CI42673914153 attempt2 (attempt1 was GitHub Internal server error); macOS receipt
+42670536897 remains bound to401def4e with identical runtime/oracle bodies.
+The [post-merge comparison](reviews/issue145-postmerge-measurement.md) on
+Go1.26.10/macOS confirms1MiB-write Close reductions in all six pairs for fresh
+and Fork. No-write/10MiB Close benefit and uniform complete-lifecycle speedup
+are not established. Main adoption is complete; release remains separate.
+
 The earlier historical statement that shutdown-mode changes were unapproved is
 superseded only for this bounded implementation. No broad startup tuning is added.
 
