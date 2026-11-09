@@ -382,9 +382,6 @@ func TestConcurrentCloseAdmission(t *testing.T) {
 // DataEnd does not cover all initialized state: the init flag is farther out.
 func TestPageOnlyRangeCompleteness(t *testing.T) {
 	f := ownedFactory(t)
-	if !f.pageOnly {
-		t.Skip("page-only arm")
-	}
 	first := mustChild(t, f)
 	if len(f.ranges) == 0 {
 		t.Fatal("no ranges")

@@ -1,6 +1,4 @@
 {
-  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
-  "input_manifest_sha256": "127a77a0aab7f536b44a898728318bdfbe70123c1ff7300a83f5dc39c84bb424",
   "files_sha256": {
     "code/alias.go": "d24c01aaf6e61871d09fdca4571b932ed3c3a6b84476680df15a656de31e4691",
     "code/base/audit.go": "17c3e5d41b4696827e40cbee88777540aad5d54d7f2595ba986f70e8394d2fbe",
@@ -64,6 +62,9 @@
     "entry.go": "3cb7ac918ee9ab4afc82fce5afa47a1e2d0cc78c31652b2118eda804e2a4b95e",
     "fs_contract_test.go": "3576133358a407286ddac38586b879fbd4bcc4947ffc0d9bbd5b14d93eeba7ac",
     "guest_identity.go": "275c5c4df72a147924c979ac6b4621487d3d85547bd55e446df5cb86b6933ccd",
+    "image/layout.json": "f5d186f9ecab8a27f1c21c356fc6dcc728b2bfc00e1b8ff7e042fbdb30f52d77",
     "main.go": "d1e45b78a579a8c0a25e1a138feac23d149dd3a35ac8145297d0ca50b3e670fe"
-  }
+  },
+  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "input_manifest_sha256": "127a77a0aab7f536b44a898728318bdfbe70123c1ff7300a83f5dc39c84bb424"
 }

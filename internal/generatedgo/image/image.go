@@ -33,7 +33,6 @@ type factory struct {
 	constructorMS     float64
 	scanMS            float64
 	ranges            []base.ImageRange
-	pageOnly          bool
 	buildMS           float64
 	acquires          int
 	mu                sync.Mutex
@@ -55,12 +54,9 @@ type factory struct {
 }
 
 func newFactory(dir string) *factory {
-	f := &factory{dir: dir, closeFile: (*os.File).Close, openRead: os.Open,
-		pageOnly: true}
-	if f.pageOnly {
-		f.mapImage = func(fd int, initial, maximum uint64) (*base.MemoryMapping, error) {
-			return base.NewStaticPageMapping(fd, initial, maximum, f.ranges)
-		}
+	f := &factory{dir: dir, closeFile: (*os.File).Close, openRead: os.Open}
+	f.mapImage = func(fd int, initial, maximum uint64) (*base.MemoryMapping, error) {
+		return base.NewStaticPageMapping(fd, initial, maximum, f.ranges)
 	}
 	return f
 }
@@ -239,8 +235,7 @@ func (f *factory) Stats() map[string]any {
 	v := map[string]any{"builds": f.builds, "build_ms": f.buildMS, "acquires": f.acquires, "closed": f.closed, "owned_fds": len(f.files)}
 	v["process_lifetime"] = true
 	v["failed"] = f.buildErr != nil
-	v["cleanup_debt"] = f.debt != nil || f.path != ""
-	v["page_only"] = f.pageOnly
+	v["cleanup_debt"] = f.debt != nil || f.path != "" || (f.buildErr != nil && len(f.files) != 0)
 	v["full_scan"] = f.fullScan
 	v["scanned_bytes"] = f.scannedBytes
 	v["constructor_ms"] = f.constructorMS

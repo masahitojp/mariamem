@@ -1,0 +1,72 @@
+name: Process static image candidate (not Qualification)
+on:
+  workflow_dispatch:
+  push:
+    branches: [experiment/issue123-product]
+    paths:
+      - internal/**
+      - scripts/**
+      - tests/**
+      - go.mod
+      - go.sum
+      - .github/workflows/static-image-candidate.yml
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    env:
+      GOTOOLCHAIN: go1.26.10
+      GOMEMLIMIT: 3GiB
+      GOGC: '50'
+      GOMAXPROCS: '4'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Bind exact clean source and observed host
+        run: |
+          mkdir -p build/static-image-ci
+          python scripts/git_identity.py inspect HEAD > build/static-image-ci/source.json
+          python -c 'import json,os;assert json.load(open("build/static-image-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python -c 'import platform,os,json;expected=("Darwin","arm64") if os.environ["RUNNER_OS"]=="macOS" else ("Linux","x86_64");assert (platform.system(),platform.machine())==expected;print(json.dumps({"os":platform.system(),"arch":platform.machine(),"python":platform.python_version()}))' > build/static-image-ci/host.json
+          go version > build/static-image-ci/go.txt
+          echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
+          go clean -testcache
+          python -m pip install -r tests/routing_acceptance/unit-requirements.txt mysql-connector-python==26.7.0
+      - name: Generated manifest and source ownership
+        run: |
+          python scripts/verify_generated_runtime.py > build/static-image-ci/inventory.txt 2>&1
+          go run -p 1 ./internal/generatedgo/layoutgen -check > build/static-image-ci/layout.txt 2>&1
+          python -m pytest -q tests/test_runtime_static_image.py tests/test_generated_runtime_inventory.py > build/static-image-ci/source-tests.txt 2>&1
+      - name: Complete initial bytes, isolation and failure ownership
+        run: go test -p 1 -count=1 ./internal/generatedgo/image ./internal/generatedgo/imagelayout ./internal/generatedgo/code/base ./internal/generatedgo > build/static-image-ci/units.txt 2>&1
+      - name: Canonical race and real Go/Python runtime integration
+        run: python scripts/verify.py integration > build/static-image-ci/integration.txt 2>&1
+      - name: Bind successful receipt
+        if: success()
+        run: |
+          python -c 'import json,os,pathlib;pathlib.Path("build/static-image-ci/result.json").write_text(json.dumps({"result":"PASS","source_commit":os.environ["GITHUB_SHA"],"run_id":os.environ["GITHUB_RUN_ID"],"job":os.environ["GITHUB_JOB"],"runner":os.environ["RUNNER_OS"],"scope":"process image correctness and canonical integration; not performance or Qualification"},indent=2)+"\n")'
+      - name: Checksum compact logs
+        if: always()
+        run: |
+          python -c 'import hashlib,json,pathlib;d=pathlib.Path("build/static-image-ci");(d/"SHA256SUMS.json").write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(d.iterdir()) if p.is_file() and p.name!="SHA256SUMS.json"},indent=2)+"\n")'
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: static-image-${{ matrix.runner }}-${{ github.sha }}
+          path: build/static-image-ci
+          if-no-files-found: error
+          retention-days: 14

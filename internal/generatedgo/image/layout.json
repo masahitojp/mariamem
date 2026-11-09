@@ -56,7 +56,7 @@
     "internal/generatedgo/code/base/simd_scalar_rest_amd64.go": "e5296648759a4d09a0690c03f7ea5857d2560a68a428adf1e80141cac3a0992a",
     "internal/generatedgo/code/base/simd_scalar_rest_arm64.go": "f8325916ce919c252c4755bd08937edc6c6f43899772ee666b304f8eb59eb8b0",
     "internal/generatedgo/code/base/spike_wait.go": "e946e82fa2a59b4c439342b614cec3c3b6c213dd41214fdf271063b7f8f06862",
-    "internal/generatedgo/code/base/static_pages_experiment.go": "9a398af6a98c9b08e1c933b47d5e41ca563232df06958471eb698e3ad8c9bfc8",
+    "internal/generatedgo/code/base/static_pages.go": "32b6a2c4bdbdf4cdeed6d8b0529319a5a2a42bd593c1b88ffbb4de9a48452f6a",
     "internal/generatedgo/code/base/thread_lifetime.go": "e381f829248d859331ec560de111e3d5edabb1be11a84f57fb4458c3dec7de25",
     "internal/generatedgo/code/generated.go": "91ce0d2913f5802dcf5a6c65902febf183551bcd224474fb52ef3e96cdb01fd7",
     "internal/generatedgo/code/p0/alias.go": "2ac99591505b36ef95213e10a29dea078c201a4eabe2ef6943c76d42bd89ac28",
