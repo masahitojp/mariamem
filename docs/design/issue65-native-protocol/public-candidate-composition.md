@@ -6,7 +6,7 @@ fd7 public fixtures share the exact core and installer preimages; moving the
 controller, queues or timers is unnecessary for this composition. The strongest
 objection is that source compatibility does not establish public acceptance:
 the complete old artifact bundles were cleaned, Linux and installed Python C3
-remain unexecuted, #131 has a separate deadline question, and #138's positive
+remain unexecuted, broader #131 watchdog work remains open, and #138's positive
 branch gap remains stopped, without a waiver.
 
 This is the source answer requested by the Human, not an executable candidate,
@@ -53,7 +53,7 @@ verification. The historical Mac isolated **79 cases / 601 named observations**
 
 There is **no combined candidate SHA**. Manifest `integrated_candidate_source_commit`
 is null deliberately. The #132 implementation owner must compose the selected
-sources, resolve #131's result, commit the real staging/fixture inputs and pin
+sources, retain #131's supported-path source assumptions, commit the real staging/fixture inputs and pin
 that commit before assembly. A separately named producer commit remains4b when
 its runtime inputs are unchanged; tooling HEAD is not its replacement.
 
@@ -72,7 +72,7 @@ The manifest gives exact files and hashes for these groups.
 | TEST / C3 owner | fd7 #129 settings Go/live observers, #130 fault hooks, root/control fixtures, exact overlays and source negatives; `internal/control/native_owner_test.go` | Observe actual guest timeout and real worker/relay lifetimes, retain all old oracles. Fault hooks/ForceIdleState are test-only, never production scheduling policy. Keep hooks until equivalent coverage plus separately bound regenerated guest exist. |
 | TEST / engine regression owner | Existing pagecleaner and native protocol observation hooks, original 79/601 and P1 controls | Retain exact inputs for this composition. Removing a hook changes guest bytes/binding and loses coverage; do not disguise that as cleanup. #138 remains stopped. |
 | DROP, proposal only / integration owner | Standalone spike launchers, old generated stage copies and result parsers from the eventual runtime dependency graph | Historical scripts/evidence stay in Git. Production must not depend on experiment directories after #134 ownership work. Do not delete controller functions required by bootstrap/native lifecycle, or remove hooks prematurely. |
-| HOLD / #131, #132, #134 owners | NET cached-read deadline disposition; installed Python C3 drivers; final factory/provenance/clean generation/latest-main intake; Linux | Not proved by identical source hashes or old Mac execution. Any new engine/header/hook dependency changes the producer tuple and must be reviewed before a build. |
+| HOLD / #131, #132, #134 owners | Broader watchdog/transport responsibilities; installed Python C3 drivers; final factory/provenance/clean generation/latest-main intake; Linux | Not proved by identical source hashes or old Mac execution. Any new engine/header/hook dependency changes the producer tuple and must be reviewed before a build. |
 
 The removed update obligation is the two native metadata-adapter definitions and
 MYSQL_BIND offset repairs. Remaining/added costs include whole libmysql source
@@ -171,11 +171,20 @@ Proposed task sequence, with explicit handoffs:
    wire original oracle adapters to public core without changing expectations.
    Unit/fake tests check detector mechanics; real failures stay a later gate.
    Preserve atomic capture, conversion restore, rollback and stop/join semantics.
-3. Combine parallel #131 findings before locking engine inputs. If it requires a
-   real engine/hook change, pin new full pre/postimages/producer/binding and
-   identify precisely which old native evidence remains applicable. No silent
-   reuse of889f. If unchanged, one native fresh producer suffices; no legacy or
-   second native producer is justified by fixture/helper-only changes.
+3. Carry the [completed #131 source diagnosis](https://github.com/masahitojp/mariamem/blob/eda6f8bafc74c2bab00270b19f7b3c35c95c4aa0/docs/design/issue65-native-protocol/net-readahead-deadline.md):
+   the supported uncompressed NET path requests exactly the current4-byte header
+   and body through direct memory-Vio readCb; the deque pops at most requested.
+   `remain_in_buf` belongs to compression, which native negotiation masks out.
+   Nine reconstructed complete postimages match actual4b preparation. Each new
+   command therefore reaches admit and a new token/clock; no guest repair,
+   optional request hook or extra standalone build is justified by this concern.
+   Keep existing first-byte/stale-token/capture/D1 and #129 nanosecond controls.
+   Optional finite queue/HOLD/ACK/admit_wait witnesses may fold into the planned
+   public fixtures, not a new campaign or mandatory prerequisite. Source exclusion
+   is not new generated/public PASS; broader watchdog/transport work stays open.
+   Revalidate only if profile/Vio/auth/nonblocking-scheduler inputs change.
+   One fresh native producer remains the plan; no legacy or second native
+   producer is justified by this source conclusion or fixture/helper-only edits.
 4. Separately approve one executable cohort after source checks: fresh guest,
    translation/install, B→L→S, public positives and exact negatives on Mac arm64
    and Linux x86_64, isolated installed wheel and standalone host. Run original

@@ -21,3 +21,8 @@ manifest/proposed text/evidence and a current project-status correction.
 Initial status including ignored clean; free~34GiB. Source objects/compact evidence
 preferred; no new checkout. Commit/push compact result, clean only owned scratch,
 verify hashes/references/public boundary/status and no paths>1GiB/cleanup debt.
+
+Follow-up13:20Z, coordinator message msg_32dc7afad74c: incorporate completed131
+source exclusion at eda6f8ba, remove speculative repair prerequisite and retain
+public runtime/broader watchdog limits. Same source-only scope and remaining
+budget; no new experiment, scratch checkout or heavy execution.

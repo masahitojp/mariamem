@@ -3700,7 +3700,7 @@
     "status": "Exact new guest function bodies reviewed; UNQUALIFIED experimental target only"
   },
   "hold": [
-    "Parallel131 NET read-ahead deadline result and any input dependency",
+    "Broader131 watchdog/transport responsibilities, not a supported NET read-ahead repair",
     "Installed Python precision/real-fault drivers and executable 13 public staging",
     "Formal clean generation / latest main intake / two-OS C3",
     "Issue138 stopped positive spare_archive gap: separate Human disposition required"
@@ -3714,5 +3714,27 @@
     "4b3954a0faf42986459bc1ee68727be16d67bcbb": "a3a33c4c56836c584d1ae6768d22798250e0679c",
     "edc703fe727ff18aa2c2cefbcfff960d05c3a290": "948dc53421a386d07a75da2d020bb2c06aa508f3",
     "fd7aea9178a0f798de4a742ddb573a877f6c1f28": "1abced773876a34be39235f57f548f483abc4bde"
+  },
+  "net_readahead_source_disposition": {
+    "source_commit": "eda6f8bafc74c2bab00270b19f7b3c35c95c4aa0",
+    "report_path": "docs/design/issue65-native-protocol/net-readahead-deadline.md",
+    "report_sha256": "976a4999f912ef15b0a8ee52829f01a984ec68ac664ec5e4682327edd95374c3",
+    "evidence_path": "docs/design/issue65-native-protocol/evidence/net-readahead-deadline.json",
+    "evidence_sha256": "22ee8b10befb76d26e1b7461c7cf3ad211ef1fa2e6d74ed0d2db6b50b345edb5",
+    "conclusion": "Excluded for exact supported uncompressed native memory-Vio target; no production fix justified",
+    "matched_9_actual_native_postimages": {
+      "sql/net_serv.cc": "a7daad10c40681147cba3d0a17e8cf24f9cef89f1b82844bb75195dd386e0452",
+      "sql/sql_parse.cc": "0fb551c37b3ad6c8678cfa0fda982a587b668f2cf391bd408ec68c0c557ef18c",
+      "include/violite.h": "e9325ba0c03ee52d6852921cd8fb636d25df49ea1dfaaff00c2d70006a128c0b",
+      "sql/sql_acl.cc": "9792893c0d6e8375a489387f5836ae51f3e8381df400df144db6b3496e535b6a",
+      "libmysqld/mariamem_wire_probe.inc": "584949484d8432b0b538876adbd2f6571ff50893882976cc56ea8b9508bcfc78",
+      "wasm/issue65_control.cc": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f",
+      "wasm/issue65_deadline.h": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
+      "sql/mariamem_wire_policy.h": "b49dc0565b4ea31d71b2323cdc04ceb3e260cd2b7df80c003a3d2dbb0a7d5580",
+      "libmysqld/mariamem_control_abi.h": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075"
+    },
+    "runtime_evidence_new": false,
+    "guest_repair_required": false,
+    "additional_standalone_build_required": false
   }
 }

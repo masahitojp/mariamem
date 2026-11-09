@@ -533,8 +533,10 @@ The [#132 source composition](design/issue65-native-protocol/public-candidate-co
 pins the13.0.2 producer, corrected profile/helper and fd7 settings/lifetime
 fixtures as a multi-source manifest, not an integrated candidate SHA. Identical
 core/installer preimages permit a narrow public staging change; missing complete
-artifact bundles require a future fresh producer. #131's parallel NET deadline
-source diagnosis remains separate. #129/#130 real public execution, #132 C3 on
+artifact bundles require a future fresh producer. The completed #131 source
+[diagnosis](https://github.com/masahitojp/mariamem/blob/eda6f8bafc74c2bab00270b19f7b3c35c95c4aa0/docs/design/issue65-native-protocol/net-readahead-deadline.md) excludes supported uncompressed NET read-ahead bypass:
+no guest repair or extra standalone build is justified. This is source evidence,
+not new public runtime PASS; broader watchdog/transport work remains Open. #129/#130 real public execution, #132 C3 on
 Go TCP/Pipe and installed Python on both OSes, #134 clean generation/factory/main
 intake and later #135 consumers/performance remain Open work. No heavy execution,
 product adoption or new campaign is authorized by this source composition.

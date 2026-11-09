@@ -18,7 +18,7 @@
     "No Linux/public C3 runtime evidence",
     "Complete previous native bundles cleaned; fresh producer required",
     "Issue138 gap stopped, no waiver",
-    "Parallel131 deadline result not owned by this report"
+    "Broader131 watchdog/transport work remains Open; supported NET bypass excluded by pinned source report"
   ],
   "actual_check_public_touched_tree": {
     "passed": true,
@@ -37,5 +37,15 @@
   "tooling_minutes_estimate": 5,
   "cleanup": "Lifecycle helper finalized and removed recreatable text; its 266240-byte automatic compact export duplicated pushed evidence and was removed manually from the exact owned inactive receipt root; six owned temporary issue downloads removed; no other worktree/images/user state touched",
   "managed_scratch_peak_bytes_observed": 884736,
-  "accounting_limit": "Managed source scratch peak observed884736 bytes; temporary issue-response peak sizes were not recorded before removal; no SDK/build/cache/engine download was acquired"
+  "accounting_limit": "Managed source scratch peak observed884736 bytes; temporary issue-response peak sizes were not recorded before removal; no SDK/build/cache/engine download was acquired",
+  "followup_131": {
+    "source_commit": "eda6f8bafc74c2bab00270b19f7b3c35c95c4aa0",
+    "nine_postimages_cross_checked_against_composition": true,
+    "production_change": false,
+    "runtime_execution": false,
+    "optional_witnesses_not_new_prerequisite": true,
+    "touched_public_boundary": "PASS 10 text files",
+    "temporary_copies_removed": true,
+    "free_gib_after_cleanup": 36.814
+  }
 }
