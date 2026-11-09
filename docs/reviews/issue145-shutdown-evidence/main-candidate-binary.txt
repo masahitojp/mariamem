@@ -1,0 +1,18 @@
+../temp/candidate-host: go1.27.3
+	path	github.com/masahitojp/mariamem/cmd/mariamem-host
+	mod	github.com/masahitojp/mariamem	v0.6.3-0.20261109165440-60717a1ea16f	
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	DefaultGODEBUG=tracebacklabels=0,x509sslcertoverrideplatform=0
+	build	CGO_ENABLED=1
+	build	CGO_CFLAGS=
+	build	CGO_CPPFLAGS=
+	build	CGO_CXXFLAGS=
+	build	CGO_LDFLAGS=
+	build	GOARCH=arm64
+	build	GOOS=darwin
+	build	GOARM64=v8.0
+	build	vcs=git
+	build	vcs.revision=60717a1ea16f8b16a8255a6192e85a9465f6226d
+	build	vcs.time=2026-11-09T16:54:40Z
+	build	vcs.modified=false

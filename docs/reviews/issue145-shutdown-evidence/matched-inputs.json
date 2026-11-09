@@ -1,0 +1,10 @@
+{
+  "baseline_runtime_source_commit": "279fa530d03cab1bd025df91bf5130bbf845a721",
+  "candidate_source_commit": "60717a1ea16f8b16a8255a6192e85a9465f6226d",
+  "baseline_method": "Go -overlay replaces exactly the two changed non-test Go runtime files with their baseline-commit contents. Both binaries are stamped with candidate checkout identity; baseline stamp is NOT its runtime source identity. Guest/generated runtime and all other production Go files match baseline.",
+  "overlay_files": {
+    "internal/host/server.go": "5749c751c84c854c429423dad72f02cdfc7c8333213a22937340aa71382185f6",
+    "internal/host/heap_snapshot.go": "07d5ce9173d5aa3b2dd014a5250214bc5a904f6dc0c3115d77ba547d4d220e45"
+  },
+  "go": "go version go1.27.3 darwin/arm64"
+}

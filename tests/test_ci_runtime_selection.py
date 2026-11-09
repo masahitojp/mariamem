@@ -10,12 +10,13 @@ def test_daily_smoke_is_bounded_and_reuses_its_host(monkeypatch):
     calls = []
     monkeypatch.setattr(verify, 'run', lambda argv, **kw: calls.append((argv, kw)))
     verify.smoke()
-    assert len(calls) == 4
+    assert len(calls) == 5
     build = calls[0][0]
     host = build[build.index('-o')+1]
     assert calls[1][0][-3:] == ['tests/live_acceptance/smoke.py', '--host', host]
     assert calls[2][0] == ['go', 'run', './tests/live_acceptance/go_consumer', '-source-smoke']
     assert calls[3][0] == ['go', 'test', '-p', '1', '-vet=off', '-tags', 'integration', './tests/godefault', '-run', '^TestInProcess', '-count=1']
+    assert calls[4][0] == ['go', 'test', '-p', '1', '-vet=off', '-tags', 'integration', './tests/gointegration', '-run', '^TestShutdownModeSnapshotAndResnapshot$', '-count=1']
     assert all(kw['env']['PYTHONPATH'] == str(ROOT/'python') for _, kw in calls)
 
 

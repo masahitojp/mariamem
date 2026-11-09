@@ -32,7 +32,7 @@ func (s *Server) SnapshotHeap(ctx context.Context, rollback bool) (owned *snapsh
 	s.stopAccepting()
 	s.mu.Unlock()
 	defer func() { err = s.disposeAfter(err) }()
-	if e := s.finish(ctx, false); e != nil {
+	if e := s.finish(ctx, shutdownCapture); e != nil {
 		s.Guest.DiscardCapture()
 		return nil, true, e
 	}

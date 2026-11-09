@@ -1,0 +1,26 @@
+[
+  {
+    "origin": "fresh",
+    "write": false,
+    "baseline": 7.56175,
+    "candidate": 7.4612085
+  },
+  {
+    "origin": "fresh",
+    "write": true,
+    "baseline": 7.257333,
+    "candidate": 3.9306460000000003
+  },
+  {
+    "origin": "fork",
+    "write": false,
+    "baseline": 1.9289585,
+    "candidate": 2.004
+  },
+  {
+    "origin": "fork",
+    "write": true,
+    "baseline": 7.581291500000001,
+    "candidate": 2.1652285
+  }
+]

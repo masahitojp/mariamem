@@ -1,10 +1,17 @@
 name: Disconnect notification candidate
 on:
   workflow_dispatch:
+    inputs:
+      shutdown_validation:
+        description: Run only the bounded shutdown and prepared-consumer validation
+        type: boolean
+        required: false
+        default: false
 permissions:
   contents: read
 jobs:
   verify:
+    if: ${{ !inputs.shutdown_validation }}
     strategy:
       fail-fast: false
       matrix:
@@ -109,3 +116,9 @@ jobs:
           path: build/disconnect-evidence
           if-no-files-found: error
           retention-days: 30
+
+  shutdown-validation:
+    if: ${{ inputs.shutdown_validation }}
+    uses: ./.github/workflows/shutdown-candidate.yml
+    with:
+      source_commit: ${{ github.sha }}
