@@ -107,7 +107,7 @@ def integration(host=None):
     # v0.4 keeps handwritten/runtime race coverage. Full generated guest races
     # are a documented shared-memory-model limitation, not a release gate.
     run(["go", "test", "-race", "-p", "1", "./internal/artifacts", "./internal/generatedgo/code/base",
-         "./internal/generatedgo", "./internal/guest", "./internal/host",
+         "./internal/generatedgo", "./internal/generatedgo/image", "./internal/generatedgo/imagelayout", "./internal/guest", "./internal/host",
          "./internal/mysqlwire", "./internal/preparedproto", "./internal/snapshot", "./internal/live", "./internal/control", "./internal/prepared", "./mariamemtest", ".", "-count=1"], env=env)
     command = ["go", "test"]
     run([*command, "-tags=integration", "./tests/gointegration",

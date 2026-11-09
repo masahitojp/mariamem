@@ -5,17 +5,23 @@ package generatedgo
 import (
 	"errors"
 	"fmt"
-	generated "github.com/masahitojp/mariamem/internal/generatedgo/code"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
+	"github.com/masahitojp/mariamem/internal/generatedgo/image"
 )
 
 // Constructor ownership transfers only after all generated initialization succeeds.
 func newMemoryModule(h *host) (m *base.Module, release func() error, err error) {
-	return initializeMemoryModule(func() (*base.MemoryMapping, error) { return base.NewMemoryMapping(generated.InitialMemoryBytes, 2<<30) }, func(b *base.MemoryMapping) *base.Module {
-		m := generated.NewWithMemory(h, nil, h, b.Bytes(), generated.InitialMemoryBytes)
-		installGuestThreadLifetime(m)
-		return m
-	})
+	m, release, err = image.Acquire(h, h)
+	if err != nil {
+		return nil, nil, err
+	}
+	defer func() {
+		if p := recover(); p != nil {
+			panic(errors.Join(fmt.Errorf("generated memory initialization: %v", p), release()))
+		}
+	}()
+	installGuestThreadLifetime(m)
+	return m, release, nil
 }
 func initializeMemoryModule(reserve func() (*base.MemoryMapping, error), initialize func(*base.MemoryMapping) *base.Module) (m *base.Module, release func() error, err error) {
 	b, err := reserve()

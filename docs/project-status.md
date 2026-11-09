@@ -6,6 +6,19 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Issue123 — process-lifetime static cache approved for candidate implementation
+
+On2026-11-10 the Human accepted retaining the immutable initial image for the
+host process lifetime to prioritize total test execution time. Build it lazily
+once; reuse it across DBs/Snapshots in that process. DB Close continues to dispose
+all per-child workers, connections and mappings. Only the bounded immutable
+image remains. Python sharing follows its existing per-lineage Go host boundary.
+The [decision](decisions/process-static-image-cache.md) records retained resources,
+failure ownership, generation checks and limits. Assemble the minimum product
+candidate from main; experimental history is not merge-ready. Both-OS prototype
+CI42657516361 passed at378f8490; product integration/adoption/release and new
+performance claims remain separate gates.
+
 ## Current published release
 
 **v0.6.2 is published**, 2026-11-05, from:

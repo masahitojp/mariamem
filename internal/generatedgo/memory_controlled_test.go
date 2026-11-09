@@ -13,6 +13,7 @@ import (
 )
 
 func TestMappedWorkerFailureNotifiesBeforeRootReturns(t *testing.T) {
+	warmProcessImage(t)
 	before := base.MemoryMappingStats()
 	err := func() (err error) {
 		m, release, err := newMemoryModule(mappedTestHost())
@@ -44,6 +45,7 @@ func TestMappedWorkerFailureNotifiesBeforeRootReturns(t *testing.T) {
 }
 
 func TestMappedControlledTrapsRelease(t *testing.T) {
+	warmProcessImage(t)
 	before := base.MemoryMappingStats()
 	for _, worker := range []bool{false, true} {
 		for _, family := range []string{"scalar", "simd", "atomic", "unaligned", "offset-overflow"} {
@@ -111,6 +113,7 @@ func TestMappedFailureErrorOwnershipPreserved(t *testing.T) {
 }
 
 func TestMappedControlledWorkerTrapWaitsForPeer(t *testing.T) {
+	warmProcessImage(t)
 	before := base.MemoryMappingStats()
 	m, release, err := newMemoryModule(mappedTestHost())
 	if err != nil {

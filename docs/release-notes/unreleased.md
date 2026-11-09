@@ -13,3 +13,8 @@ Published notes: [0.6.2](../../release/NOTES-v0.6.2.md),
 [0.6.1](../../release/NOTES-v0.6.1.md), [0.6.0](../../release/NOTES-v0.6.0.md).
 The superseded drafts remain in Git history; release receipts keep their
 original source identities.
+
+- Candidate: reuse an immutable initial-memory image within each host process.
+  A bounded shared backing file remains until process exit; DB Close still
+  releases all per-instance resources. Generated layout checks protect guest
+  updates. This does not share application data or retain a live engine.
