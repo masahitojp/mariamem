@@ -116,6 +116,15 @@ blocks they still need, so closing a parent does not revoke a live child.
 Go reachability/GC, retained heap and OS RSS have different timing; immediate
 RSS reduction is not the definition of successful Close.
 
+After stopping admission and draining client cleanup, the host opens a private
+session in a freed guest slot to select `innodb_fast_shutdown` for the operation.
+Discarding a fresh or Fork database uses `2`; capturing a root or exporting a
+snapshot uses `1`, including a Snapshot derived from a Fork. The host overrides
+client changes to this global before stopping the engine. Configuration failure
+aborts disposal/capture through the existing guest cleanup path and cannot
+publish a successful snapshot. Session rollback and worker/memory reclamation
+still complete before Close returns.
+
 Ordinary baselines do not retain one backing FD per prepared file. Historical
 137-file/FD-limit results describe the released file-backed implementation,
 not the normal D path. Logs, control directories/sockets and linear-memory mmap

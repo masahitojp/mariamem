@@ -6,6 +6,19 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Issue145 — shutdown mode by disposal purpose, implementation approved
+
+On 2026-11-10 the Human approved proceeding after the bounded macOS experiment
+recorded in [Issue145](https://github.com/masahitojp/mariamem/issues/145#issuecomment-6745782014).
+Select `innodb_fast_shutdown=1` when taking a Snapshot, and `2` when discarding
+a fresh/Fork DB. A Fork may itself become a clean Snapshot; generation origin
+must not determine shutdown mode. The candidate uses a private host-controlled
+session after client cleanup, preserving the canonical guest and public API.
+Implementation verification is in progress; main adoption and release are separate.
+The earlier historical statement that shutdown-mode changes were unapproved is
+superseded only for this bounded implementation. No broad startup tuning is added.
+
+
 ## Current published release
 
 **v0.6.2 is published**, 2026-11-05, from:
