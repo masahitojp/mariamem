@@ -1,0 +1,59 @@
+{
+  "harness_and_candidate_source_commit": "66e382f89bfaf519b51941ef3a198c8aec82bca6",
+  "plan": {
+    "purpose": "Reduce first-image full-memory scan; no adoption decision",
+    "parent_source_commit": "dc654406f2a4ca2a4d58237156a0421060556cf8",
+    "source_hashes": {
+      "internal/generatedgo/code/generated.go": "91ce0d2913f5802dcf5a6c65902febf183551bcd224474fb52ef3e96cdb01fd7",
+      "internal/generatedgo/code/p7/p7_pure.go": "7f4134e94326019d800b3ec1be6d5429a9fdcebdc7b6656cb6cb2759866d21d0"
+    },
+    "arms": [
+      "full",
+      "bounded"
+    ],
+    "cells": [
+      [
+        "fresh",
+        1
+      ],
+      [
+        "fork",
+        1
+      ],
+      [
+        "fresh",
+        4
+      ],
+      [
+        "fork",
+        4
+      ]
+    ],
+    "rounds": 5,
+    "count": 48,
+    "primary_processes": 40,
+    "warmup_processes": 8,
+    "positive_controls": 4,
+    "negative_controls": 4,
+    "limits": "One Mac, same binary/env except scan selector. No extra repetitions/exclusions. Whole-memory and ownership tests before timing. Stop on any correctness/cleanup failure. Build/download excluded; first image and final disposal included. No cross-cohort percentages.",
+    "exit": "Report paired suite wall/CPU, Fork p50/p95, lifetime RSS, build/constructor/scan time. Improvement requires same bytes/ranges and reduced cold build; lifecycle results including regressions retained."
+  },
+  "binaries": {
+    "probe": {
+      "sha256": "df289a34d57a956ec3f7755c001def3be5362c5d57785a29154683330d930874",
+      "source_commit": "66e382f89bfaf519b51941ef3a198c8aec82bca6",
+      "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+      "build_info": "<WORKSPACE>/temp/bin-probe: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue123baseline/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/issue123baseline\tv0.0.0-20261109152607-66e382f89bfa\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-tags=issue123image\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=66e382f89bfaf519b51941ef3a198c8aec82bca6\n\tbuild\tvcs.time=2026-11-09T15:26:07Z\n\tbuild\tvcs.modified=false\n",
+      "build_seconds": 114.043872292
+    }
+  },
+  "archives": {},
+  "runtime_delta_paths": [
+    "benchmarks/issue123scan/build.py",
+    "benchmarks/issue123scan/campaign.py",
+    "benchmarks/issue123scan/plan.json",
+    "benchmarks/issue123scan/run.py",
+    "benchmarks/staticimage/image.go",
+    "benchmarks/staticimage/image_test.go"
+  ]
+}

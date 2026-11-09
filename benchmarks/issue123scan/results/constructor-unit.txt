@@ -1,0 +1,33 @@
+=== RUN   TestFullInitialEqualityAndIsolation
+    image_test.go:108: initial256MiB_sha256=6ba746ac6f107bf8f18d03e20fdaaa543c91aa5ae81f6aa1623b6d61d16bfece globals=[8388608 18012928] DataEnd=18013433 init_flag=2
+--- PASS: TestFullInitialEqualityAndIsolation (0.30s)
+=== RUN   TestWorkerTLSGrowAndRetirement
+--- PASS: TestWorkerTLSGrowAndRetirement (0.04s)
+=== RUN   TestConcurrentFactoryAndFailures
+=== RUN   TestConcurrentFactoryAndFailures/build
+=== RUN   TestConcurrentFactoryAndFailures/read_open
+=== RUN   TestConcurrentFactoryAndFailures/writer_close
+=== RUN   TestConcurrentFactoryAndFailures/mapping
+=== RUN   TestConcurrentFactoryAndFailures/cache_close
+=== RUN   TestConcurrentFactoryAndFailures/metadata
+--- PASS: TestConcurrentFactoryAndFailures (0.09s)
+    --- PASS: TestConcurrentFactoryAndFailures/build (0.00s)
+    --- PASS: TestConcurrentFactoryAndFailures/read_open (0.01s)
+    --- PASS: TestConcurrentFactoryAndFailures/writer_close (0.01s)
+    --- PASS: TestConcurrentFactoryAndFailures/mapping (0.01s)
+    --- PASS: TestConcurrentFactoryAndFailures/cache_close (0.02s)
+    --- PASS: TestConcurrentFactoryAndFailures/metadata (0.02s)
+=== RUN   TestGuardFault
+    image_test.go:340: subprocess rejected write beyond logical memory with OS fault
+--- PASS: TestGuardFault (0.03s)
+=== RUN   TestConcurrentCloseAdmission
+--- PASS: TestConcurrentCloseAdmission (0.02s)
+=== RUN   TestPageOnlyRangeCompleteness
+    image_test.go:420: static-page bytes=8929280 ranges=22 OS-page=16384 init-flag-page=26984448
+--- PASS: TestPageOnlyRangeCompleteness (0.02s)
+=== RUN   TestPinnedConstructorWriteWindow
+    image_test.go:450: full=268435456 bounded=18612224 ranges=[{8388608 2555904} {10993664 49152} {11059200 802816} {11911168 49152} {11976704 802816} {12828672 49152} {12894208 163840} {13107200 32768} {13156352 114688} {13287424 49152} {13402112 65536} {13533184 147456} {13697024 114688} {13828096 65536} {13959168 65536} {14090240 131072} {14237696 114688} {14385152 442368} {14876672 32768} {14925824 114688} {15073280 2949120} {26984448 16384}]
+--- PASS: TestPinnedConstructorWriteWindow (0.14s)
+PASS
+final active mappings=0 reserved=0 rw=0
+ok  	github.com/masahitojp/mariamem/benchmarks/staticimage	1.624s

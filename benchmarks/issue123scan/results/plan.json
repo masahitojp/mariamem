@@ -1,0 +1,38 @@
+{
+  "purpose": "Reduce first-image full-memory scan; no adoption decision",
+  "parent_source_commit": "dc654406f2a4ca2a4d58237156a0421060556cf8",
+  "source_hashes": {
+    "internal/generatedgo/code/generated.go": "91ce0d2913f5802dcf5a6c65902febf183551bcd224474fb52ef3e96cdb01fd7",
+    "internal/generatedgo/code/p7/p7_pure.go": "7f4134e94326019d800b3ec1be6d5429a9fdcebdc7b6656cb6cb2759866d21d0"
+  },
+  "arms": [
+    "full",
+    "bounded"
+  ],
+  "cells": [
+    [
+      "fresh",
+      1
+    ],
+    [
+      "fork",
+      1
+    ],
+    [
+      "fresh",
+      4
+    ],
+    [
+      "fork",
+      4
+    ]
+  ],
+  "rounds": 5,
+  "count": 48,
+  "primary_processes": 40,
+  "warmup_processes": 8,
+  "positive_controls": 4,
+  "negative_controls": 4,
+  "limits": "One Mac, same binary/env except scan selector. No extra repetitions/exclusions. Whole-memory and ownership tests before timing. Stop on any correctness/cleanup failure. Build/download excluded; first image and final disposal included. No cross-cohort percentages.",
+  "exit": "Report paired suite wall/CPU, Fork p50/p95, lifetime RSS, build/constructor/scan time. Improvement requires same bytes/ranges and reduced cold build; lifecycle results including regressions retained."
+}

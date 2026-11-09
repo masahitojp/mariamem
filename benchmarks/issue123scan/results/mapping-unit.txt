@@ -1,0 +1,8 @@
+=== RUN   TestMappingFailureOwnership
+--- PASS: TestMappingFailureOwnership (0.00s)
+=== RUN   TestMappingInitialCleanupFailureRetainsOwner
+--- PASS: TestMappingInitialCleanupFailureRetainsOwner (0.00s)
+=== RUN   TestStaticPagesRangesOwnership
+--- PASS: TestStaticPagesRangesOwnership (0.00s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	0.320s

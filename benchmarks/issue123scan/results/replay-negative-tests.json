@@ -1,0 +1,18 @@
+[
+  {
+    "mutation": "false_oracle",
+    "rejected": true
+  },
+  {
+    "mutation": "retained_mapping",
+    "rejected": true
+  },
+  {
+    "mutation": "missing_process",
+    "rejected": true
+  },
+  {
+    "mutation": "wrong_scan_range",
+    "rejected": true
+  }
+]
