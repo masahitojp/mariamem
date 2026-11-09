@@ -16,6 +16,19 @@ Changing version metadata does not itself publish a release.
 
 ## Issue65 — current work and upgrade-cost decision (2026-11-10)
 
+**Native glue ownership separated, 2026-11-10:** candidate source_commit
+`a6ccc0713d7c8875a70707e525c51a8283981695` moves the five self-owned native
+files into `guest/native/` and binds their installation separately from upstream
+patches. Actual before/after preparation matches all32,835 contents/modes/link
+entries;256 focused tests and65 subtests pass. [Result and reproduction](reviews/issue131-glue-ownership/README.md)
+record the exact scope. Existing upstream patch sections and stable/historical
+inputs are unchanged. This is ownership separation, not reduced engine-internal
+coupling or host-state relocation. No guest build/runtime/CI was performed.
+Selected-input identity changed, so old producer receipts remain rejected for
+the new selection; the next planned producer/public cohort must bind matching
+inputs. Do not relax the installer or relabel the old public CI PASS. The fixed
+acceptance conditions, total-cost judgment and stopped/unwaived#138 remain.
+
 **Human clarification, 2026-11-10:** reuse MariaDB's existing implementation,
 keep connection/resource/lifecycle policy and ownership in the host, and find
 the smallest justified upstream patch boundary. Moving C++ to Go or completing

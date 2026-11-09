@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "result": "PASS",
+  "scope": "complete prepared-source content/mode/link equality; not build or runtime acceptance",
+  "candidate_source_commit": "a6ccc0713d7c8875a70707e525c51a8283981695",
+  "baseline_source_commit": "fee63426c77937306eb8eea887aeb22a792616f5",
+  "upstream_source_commit": "c9f28ba0afec6d29e4688255dce8caaf7e91233d",
+  "selection": "13.2.0/native-text",
+  "original_tree": {
+    "members": 32835,
+    "sha256": "8d5c563674b23573e20297ab9534c227b4c21925f29a33cf26485c7e1b13aa70"
+  },
+  "candidate_tree": {
+    "members": 32835,
+    "sha256": "8d5c563674b23573e20297ab9534c227b4c21925f29a33cf26485c7e1b13aa70"
+  },
+  "different_paths": [],
+  "modified_files_equal": true,
+  "upstream_patch_sections_byte_identical": true,
+  "glue": {
+    "libmysqld/mariamem_control_abi.h": {
+      "file": "guest/native/libmysqld/mariamem_control_abi.h",
+      "sha256": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075"
+    },
+    "libmysqld/mariamem_wire_probe.inc": {
+      "file": "guest/native/libmysqld/mariamem_wire_probe.inc",
+      "sha256": "584949484d8432b0b538876adbd2f6571ff50893882976cc56ea8b9508bcfc78"
+    },
+    "sql/mariamem_wire_policy.h": {
+      "file": "guest/native/sql/mariamem_wire_policy.h",
+      "sha256": "b49dc0565b4ea31d71b2323cdc04ceb3e260cd2b7df80c003a3d2dbb0a7d5580"
+    },
+    "wasm/issue65_control.cc": {
+      "file": "guest/native/wasm/issue65_control.cc",
+      "sha256": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f"
+    },
+    "wasm/issue65_deadline.h": {
+      "file": "guest/native/wasm/issue65_deadline.h",
+      "sha256": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f"
+    }
+  },
+  "candidate_resolved_sha256": "39b89fdfa96eced9d1b1c77b207c3a8543c710cf2a863d95654c074c448a174a",
+  "old_receipt_rejected": "selected preparation input identity mismatch",
+  "checks": {
+    "focused_tests": 256,
+    "subtests": 65,
+    "public_source_files": 6895,
+    "guest_builds": 0,
+    "runtime_runs": 0,
+    "ci_submissions": 0
+  },
+  "storage_budget_gib": 6,
+  "minimum_free_gib": 12
+}
