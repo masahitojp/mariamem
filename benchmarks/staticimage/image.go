@@ -5,8 +5,10 @@ package staticimage
 
 import (
 	"bytes"
+	_ "embed"
 	"errors"
 	"fmt"
+	"github.com/masahitojp/mariamem/benchmarks/staticlayout"
 	"os"
 	"sync"
 	"syscall"
@@ -18,9 +20,14 @@ import (
 
 const maximum = 2 << 30
 
+//go:embed layout.json
+var layoutJSON []byte
+
 var errClosed = errors.New("static image factory closed")
 
 type factory struct {
+	layout            staticlayout.Layout
+	layoutErr         error
 	fullScan          bool
 	scannedBytes      int
 	constructorMS     float64
@@ -50,6 +57,7 @@ type factory struct {
 func newFactory(dir string) *factory {
 	f := &factory{dir: dir, closeFile: (*os.File).Close, openRead: os.Open,
 		pageOnly: true, fullScan: os.Getenv("MARIAMEM_IMAGE_FULL_SCAN") == "1"}
+	f.layout, f.layoutErr = staticlayout.Decode(layoutJSON)
 	if f.pageOnly {
 		f.mapImage = func(fd int, initial, maximum uint64) (*base.MemoryMapping, error) {
 			return base.NewStaticPageMapping(fd, initial, maximum, f.ranges)
@@ -60,6 +68,9 @@ func newFactory(dir string) *factory {
 
 func (f *factory) build() (err error) {
 	f.builds++
+	if f.layoutErr != nil {
+		return f.layoutErr
+	}
 	if f.beforeBuild != nil {
 		if err = f.beforeBuild(); err != nil {
 			return err
@@ -80,12 +91,12 @@ func (f *factory) build() (err error) {
 	m := generated.NewWithMemory(nil, nil, nil, b.Bytes(), generated.InitialMemoryBytes)
 	f.constructorMS = float64(time.Since(constructorAt)) / 1e6
 	f.globals, f.dataEnd = base.SaveGlobals(m), m.DataEnd
-	if len(f.globals) != 2 || f.globals[0] != 8388608 || f.globals[1] != 18012928 || f.dataEnd != 18013433 {
-		return errors.New("pinned guest layout mismatch")
-	}
 	f.dropped = make([]bool, len(m.DataSegs))
 	for i, data := range m.DataSegs {
 		f.dropped[i] = data == nil
+	}
+	if !f.layout.MatchesState(generated.InitialMemoryBytes, f.globals, f.dataEnd, f.dropped) {
+		return errors.New("generated initial-image metadata differs; regenerate and review")
 	}
 	w, err := os.CreateTemp(f.dir, "static-image-")
 	if err != nil {
@@ -97,10 +108,12 @@ func (f *factory) build() (err error) {
 	}
 	page := os.Getpagesize()
 	zero := make([]byte, page)
-	// Pinned Fn67 is the only linear-memory writer in NewWithMemory.
-	// Include its zero-fill and 4-byte init flag, not just DataEnd.
-	// Source hashes and whole-memory equality are enforced by the experiment.
-	start, end := 8388608/page*page, (26996020+page-1)/page*page
+	// Generated from complete constructor bytes, independent of the host page size.
+	begin, finish, err := f.layout.Bounds(uint64(page))
+	if err != nil {
+		return err
+	}
+	start, end := int(begin), int(finish)
 	if f.fullScan {
 		start, end = 0, generated.InitialMemoryBytes
 	}
@@ -158,7 +171,7 @@ func (f *factory) acquire() (*child, error) {
 	if f.buildErr != nil {
 		return nil, f.buildErr
 	} // No fallback or hidden retry.
-	if len(f.globals) != 2 || len(f.dropped) != 3 {
+	if !f.layout.MatchesState(generated.InitialMemoryBytes, f.globals, f.dataEnd, f.dropped) {
 		return nil, errors.New("invalid image metadata")
 	}
 	b, err := f.mapImage(int(f.image.Fd()), generated.InitialMemoryBytes, maximum)

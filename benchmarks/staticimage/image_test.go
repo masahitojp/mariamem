@@ -11,9 +11,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"reflect"
-	"runtime"
 	"strings"
 	"sync"
 	"syscall"
@@ -420,21 +418,7 @@ func TestPageOnlyRangeCompleteness(t *testing.T) {
 	t.Logf("static-page bytes=%d ranges=%d OS-page=%d init-flag-page=%d", bytes, len(old), page, flag)
 }
 
-func TestPinnedConstructorWriteWindow(t *testing.T) {
-	_, file, _, _ := runtime.Caller(0)
-	root := filepath.Join(filepath.Dir(file), "../..")
-	for path, want := range map[string]string{
-		"internal/generatedgo/code/generated.go":  "91ce0d2913f5802dcf5a6c65902febf183551bcd224474fb52ef3e96cdb01fd7",
-		"internal/generatedgo/code/p7/p7_pure.go": "7f4134e94326019d800b3ec1be6d5429a9fdcebdc7b6656cb6cb2759866d21d0",
-	} {
-		data, err := os.ReadFile(filepath.Join(root, path))
-		if err != nil {
-			t.Fatal(err)
-		}
-		if fmt.Sprintf("%x", sha256.Sum256(data)) != want {
-			t.Fatalf("re-audit constructor memory writes: %s", path)
-		}
-	}
+func TestGeneratedEnvelopeEqualsFullImage(t *testing.T) {
 	full, bounded := ownedFactory(t), ownedFactory(t)
 	full.fullScan, bounded.fullScan = true, false
 	a, b := mustChild(t, full), mustChild(t, bounded)
@@ -444,8 +428,49 @@ func TestPinnedConstructorWriteWindow(t *testing.T) {
 	if !reflect.DeepEqual(full.ranges, bounded.ranges) {
 		t.Fatal("image ranges differ")
 	}
-	if bounded.scannedBytes >= full.scannedBytes || bounded.scannedBytes < 26996020-8388608 {
+	if bounded.scannedBytes >= full.scannedBytes || uint64(bounded.scannedBytes) < bounded.layout.End-bounded.layout.Begin {
 		t.Fatal("scan bounds")
 	}
 	t.Logf("full=%d bounded=%d ranges=%v", full.scannedBytes, bounded.scannedBytes, bounded.ranges)
+}
+
+// The image owner and child mappings have separate lifetimes. Closing one owner
+// cannot invalidate an admitted child or make a later explicit owner share state.
+func TestExplicitOwnerEpochs(t *testing.T) {
+	old := ownedFactory(t)
+	a := mustChild(t, old)
+	if err := old.close(); err != nil {
+		t.Fatal(err)
+	}
+	if len(old.files) != 0 {
+		t.Fatal("image FD retained")
+	}
+	if _, err := old.acquire(); !errors.Is(err, errClosed) {
+		t.Fatal(err)
+	}
+	next := ownedFactory(t)
+	b := mustChild(t, next)
+	if err := sameInitial(a.m, b.m); err != nil {
+		t.Fatal(err)
+	}
+	a.m.Memory[8388608] ^= 0xff
+	if a.m.Memory[8388608] == b.m.Memory[8388608] {
+		t.Fatal("epoch data shared mutably")
+	}
+	if old.builds != 1 || next.builds != 1 {
+		t.Fatal("unexpected rebuild")
+	}
+}
+func TestInvalidGeneratedMetadataStopsAdmission(t *testing.T) {
+	f := ownedFactory(t)
+	f.layout.MemoryBytes = 1
+	if _, err := f.acquire(); err == nil {
+		t.Fatal("invalid metadata admitted")
+	}
+	if _, err := f.acquire(); err == nil || f.builds != 1 {
+		t.Fatal("failed owner retried or admitted")
+	}
+	if e := f.close(); e != nil {
+		t.Fatal(e)
+	}
 }
