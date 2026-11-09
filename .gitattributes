@@ -15,3 +15,6 @@ tests/dump_import_acceptance/input/application.sql whitespace=-blank-at-eol
 
 # Preserve checksum-bound dbt CLI receipts; timestamp-only lines have trailing spaces.
 docs/reviews/dbt-revalidation-evidence/**/*.txt whitespace=-blank-at-eol
+
+# Resolver fixtures retain exact reviewed patch/proof bytes, including context spaces.
+tests/fixtures/guest-input-resolver/blobs/*.txt -whitespace

@@ -67,3 +67,9 @@ The old preparation/build/verifier callers still use singleton inputs; see the
 #134 migration map. Next is explicit-context preparation and actual full-source
 comparison, then builder/public integration. Total maintenance benefit and
 parent acceptance remain open. #138 remains stopped/unwaived.
+
+The committed-diff check additionally exposed whitespace in immutable patch
+context stored as text blobs. A narrowly scoped Git attribute preserves those
+checksum-bound bytes, matching the repository's existing upstream-patch policy.
+The final baseline-to-candidate diff check passes with that attribute; source
+bytes were not stripped to satisfy formatting.
