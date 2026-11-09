@@ -16,6 +16,16 @@ Changing version metadata does not itself publish a release.
 
 ## Issue65 — current work and upgrade-cost decision (2026-11-09)
 
+
+**Human target update,2026-11-09:** intended next13-series product engine is
+13.3 LTS. Evaluate13.2.0 Preview (or an explicitly identified nearby13.2 source)
+for the formal preparation/generation/binding path. Keep12.3.3 stable and retain
+13.0.2 inputs/results as historical comparison vectors; do not relabel them as
+13.2/13.3 acceptance. Upstream's roadmap also labels13.3 LTS, while13.2.0 is a
+Preview. Exact13.2 source/archive identity and patch/proof changes must be fixed
+before the heavy producer. This direction is not approval to publish a preview
+or a13.3 release.
+
 [Issue65](https://github.com/masahitojp/mariamem/issues/65) governs all related
 work: reduce MariaDB upgrade edits, investigation, generation and verification
 cost, and follow upstream sooner. Read its goal, selected means and completion

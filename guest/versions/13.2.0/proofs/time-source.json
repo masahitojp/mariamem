@@ -1,0 +1,8 @@
+{
+  "source_commit": "c9f28ba0afec6d29e4688255dce8caaf7e91233d",
+  "file": "sql/sql_prepare.cc",
+  "before_sha256": "1c83c960cac5f4e6be24132045e1d9afd9eed4fd374b464c9245d70a7c670fbd",
+  "after_sha256": "36245ac0d8151e62fc95afebf524c44466216c72c05857517d2893cfc6c5c5cb",
+  "patch_sha256": "ffbdb32b7b816968896da2b1990e470ba856d8e911e3933742513ddf7708e4fc",
+  "purpose": "Exact13.2.0 TIME-only component; historical13.0.2 inputs unchanged"
+}

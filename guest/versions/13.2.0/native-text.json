@@ -1,0 +1,342 @@
+{
+  "schema": 2,
+  "engine": "13.2.0",
+  "profile": "native-text",
+  "origin": "4b3954a0faf42986459bc1ee68727be16d67bcbb",
+  "guest_input": {
+    "schema": 1,
+    "candidate": "MariaDB 13.2.0 Preview",
+    "tag_object_sha": null,
+    "source_commit": "c9f28ba0afec6d29e4688255dce8caaf7e91233d",
+    "recipe_source_commit": "24be9371a2f6c71250a2356631ad6feab2280b02",
+    "portability_source_base": "b2a8c2234dbc276fe3947633c9ffea454badf48f",
+    "recipe_files_sha256": {
+      "wasm/CMakeLists.txt": "f317e2786a12b2cfdd7c0de8d4b3d3c05b6aa9ee4f0a8aad909898b6d218f437",
+      "wasm/COPYING": "240a15a1d0f34d3abca462cdb7e5fb89470967563f16b0e71169e51c1e74cf2b",
+      "wasm/build-wasix.sh": "2d6c9407361e560e1b5623e611d570e233d25333dcf90340068682af8b6bf782",
+      "wasm/lite4mariadb.c": "c0a959b6755d3463de31d9d08d2a43031cc418a332768a0956ebfd5046e15526",
+      "wasm/platforms/Platform/WASIX.cmake": "24d0ba74185453b0624c4a381c9bc2f67f19071e54d3b5e55e553136271419f7",
+      "wasm/wasix-toolchain.cmake": "114c296e33df8bb68bab6797d1b40b11834a2c3cfe1e934ffbe87037816c32ea"
+    },
+    "version": "13.2.0",
+    "source_input": "mariadb",
+    "recipe_input": "lite4mariadb",
+    "patches": [
+      {
+        "file": "guest/patches/common-portability.patch",
+        "sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16",
+        "before_sha256": {
+          "CMakeLists.txt": "af2f0b553a7c4b9b2babea18b7448bef3f5846150f56908db262ec0e3ce935df",
+          "cmake/os/Emscripten.cmake": null,
+          "cmake/os/WASIX.cmake": null,
+          "cmake/pcre.cmake": "f694c627b8f51788495cfa91210405bf762728e3a338e80fc8b3708bf29ce681",
+          "configure.cmake": "cb45e51f7987591b6c5508218a54a0d93fff6dd54bf2fab42fc87aff33abc9f4",
+          "include/my_global.h": "fc4d434c83576a251088ba695ca9b84c3219229e6e3975348e20070bc7a12a13",
+          "include/my_stacktrace.h": "b7179553374c94fe2e6bb70c0e3ed086c664210a41bbcbcc9e30896a5dd96cb7",
+          "libmysqld/libmysql.c": "d8f0a9d4f7c638bd91d11453e1207ccfe6d3cda85f9c3082e51c37a69c9fc60c",
+          "mysys/CMakeLists.txt": "ddc4b71aeaf74ff2fe609425694517094a64a855e52ba0adc94d1843bde9d04d",
+          "mysys/my_largepage.c": "7375cc5e78ddc18d2aa584b8855e84cff9faf4b0b7f32336257795c2a76f39e6",
+          "mysys/my_lock.c": "5f42e8210a6c64d4c0ad9aa64f6386598d955c057705cd747fa17f0b3fa68532",
+          "mysys/my_timezone.cc": "106825479a77729174569afa8c270c018709a422da48d6b41577395614ab4095",
+          "mysys/my_virtual_mem.c": "88f26c781f18ff863eb3b4dda29d852d6ad2a0bacd726257a2038ffb2441183d",
+          "sql/sql_plugin.cc": "67cbe23562a976fdc240851e59a6cf2e495d4114807c9c81b5a6bfa632b20fa0",
+          "storage/innobase/fil/fil0fil.cc": "c7c180898ad82fe4f668b387360ef1dd3e31257274762b082c21abc5b524cb5b",
+          "storage/innobase/os/os0file.cc": "6ad774c7950dfcc5f051abf6901f55f6158c2a0a8fbfb403aa737ad797ebfefd",
+          "storage/maria/ma_loghandler.c": "3084201abe2577ed521cbabaa622677e1c9d1b4a9e77c23c60d39d786bc0657b"
+        },
+        "after_sha256": {
+          "CMakeLists.txt": "e3220fbdc2ddde6346ed4ac12e1e7aa981074ca247ac9e978e1fa27d2ed9bc4d",
+          "cmake/os/Emscripten.cmake": "af8159bccbfa7d33a5860091fb3c3a716b58df5a2daf57892d6970fb5feb3675",
+          "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
+          "cmake/pcre.cmake": "869b4f50cb8345cafd399d139f80640dd3d3ea6e2c08f8b8930741ab524d82e0",
+          "configure.cmake": "8bbb6636d9b0ef5094288dcc3de17a80e51fd2721a5b5003774d2f746daebb41",
+          "include/my_global.h": "60aaa58fee20a00cb09737eb45a09b3882eaaa6564f9d7bfae77662c07434b9b",
+          "include/my_stacktrace.h": "8437a3f83abbb3cc6e29fbf588a8e0c8507820c3a066ba8707198da7f925861f",
+          "libmysqld/libmysql.c": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+          "mysys/CMakeLists.txt": "9cb50fe418b6557872329ee9a4ab30e24b168eabdc0f4b6d04eeb99a7088ef94",
+          "mysys/my_largepage.c": "a70dfe799d6e7091f4d5c8f8221a658171a309658010ef4c46dbf9ca832bbe4b",
+          "mysys/my_lock.c": "7aed29f87e0ad6bc7978ce4794c0f10b1c99a52903c207ee49314632e60ecc46",
+          "mysys/my_timezone.cc": "6777513d495db9a832b52f248455156b79dfa1a778fc86b2aa6e14d90c15ad50",
+          "mysys/my_virtual_mem.c": "ea8d8902f9ac07987defed73e64a3dd974705f94e24bb29728c07797d75855d0",
+          "sql/sql_plugin.cc": "5daa81c60be8278bb81c423b4f63afd034ba67502a7b0d0f4a1c6ff67b6a944f",
+          "storage/innobase/fil/fil0fil.cc": "ec7797b294e86fc0926a5d2dc00be6f1d3f7b6dae7cb0bc0743333a624649d37",
+          "storage/innobase/os/os0file.cc": "4b8515af8e247a22fde4bf8524ab6e68932f436dbc25290e6dcb8d4987ca2c73",
+          "storage/maria/ma_loghandler.c": "515a8afc9aef1cccd7055028441aae249021835c49f5dd1353982d7fc8542281"
+        }
+      },
+      {
+        "file": "guest/patches/13.2.0-redo.patch",
+        "sha256": "8a9cd1b99d0ed37b17874c2e2cac2592ee2552f6f82f39c6bed17b882012e727",
+        "before_sha256": {
+          "storage/innobase/log/log0log.cc": "147fc86b55df22c545cc88e0ff0e3a3259c8f0b0c9263cc98d518616f2e7c796"
+        },
+        "after_sha256": {
+          "storage/innobase/log/log0log.cc": "23d6128e2023571171a37ebe1b7a7ed796b81dc9069150e1e6353e5dc3354b9a"
+        }
+      },
+      {
+        "file": "guest/patches/13.2.0-native-prepared.patch",
+        "sha256": "67fbe7a17c7a8c0809878a45ab6e6cc6405a543beaad30d5bab467f7dfb334ca",
+        "before_sha256": {
+          "sql/sql_prepare.cc": "1c83c960cac5f4e6be24132045e1d9afd9eed4fd374b464c9245d70a7c670fbd",
+          "libmysqld/lib_sql.cc": "ecd40450e5d84c1b509a4afcfdc849b4dcec57b17cd4122eb4c1b32e82cfafee"
+        },
+        "after_sha256": {
+          "sql/sql_prepare.cc": "36245ac0d8151e62fc95afebf524c44466216c72c05857517d2893cfc6c5c5cb",
+          "libmysqld/lib_sql.cc": "fa67583a1229e1f2ea5f0395abc918dfd2490bdbfa51056a1f5039d429b3de65"
+        }
+      },
+      {
+        "file": "guest/patches/13.2.0-buffer-alignment.patch",
+        "sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622",
+        "before_sha256": {
+          "include/my_sys.h": "16c8674ba3adcd0335b4367ca843806db6c0cd30e0be7274afae93dc063c7b8a",
+          "mysys/my_largepage.c": "a70dfe799d6e7091f4d5c8f8221a658171a309658010ef4c46dbf9ca832bbe4b",
+          "storage/innobase/buf/buf0buf.cc": "84a3a53e8e4793ce8eaf8f14b77b37ff6a08ea76478ab8c550ef6b7c290e9d8e"
+        },
+        "after_sha256": {
+          "include/my_sys.h": "3c3d57452d36f7df89dd96df66530578258c66c676335659e8d939e308c7b915",
+          "mysys/my_largepage.c": "c1107852a72152a8a481c86d77f80f360dadaddd7cea73e492d45bacef6706ae",
+          "storage/innobase/buf/buf0buf.cc": "22ebab4b153fb71f0d47141563e092f0dbd75c5d1e12c1341d441aed3d19fc3f"
+        }
+      }
+    ],
+    "source_archive_sha256": "b5e1ad565afbc75d4daf45730179f561546b5cf238ec1084001bf1b2c50d4f37",
+    "recipe_archive_sha256": "dd29d50f26a6bb032d5807ba6fdadb9d0ab52eb81672d1405bfc0a60e7b1f2dd",
+    "source_overlay": {
+      "file": "benchmarks/spikes/issue128-real/inputs/shared-source.patch",
+      "sha256": "e3048124e9a2eab88ac9766ef729c4ca0ef1c2bccbddae3c430368ce91d2f62d",
+      "before_sha256": {
+        "include/m_ctype.h": "942ad6c0cd28ca72d5d0294f951bf0800efe196df5bd5feb4ca96fda20b5eaab",
+        "mysys/my_lib.c": "6138a676de2b16c8dd19ac45dc78c88153d73def490954f3867fba40d247a74e",
+        "storage/innobase/buf/buf0flu.cc": "5e14748459968a82a3dcf2b506cf9728ce0d8f3361c66318e992fe930d1db818",
+        "strings/ctype-uca.c": "c4f34ead2f9c1e7b2a88175a25550a4efffc35f0f13be8c6584afcc9ff074a2f",
+        "wasm/CMakeLists.txt": "f317e2786a12b2cfdd7c0de8d4b3d3c05b6aa9ee4f0a8aad909898b6d218f437",
+        "wasm/lite4mariadb.c": "c0a959b6755d3463de31d9d08d2a43031cc418a332768a0956ebfd5046e15526"
+      },
+      "after_sha256": {
+        "include/m_ctype.h": "1ff836c6b8c3a1e6dece29f76e6062b2e2042fbbfd995b4cad26464548d21ff4",
+        "mysys/my_lib.c": "d00d2647d98e49272c6652e0dc5a88438d86da5856c6007d70f0047a994f0f26",
+        "storage/innobase/buf/buf0flu.cc": "a3dd5252ad5866f8b486209f65b4e772f39c9a2d3d5a961b07cbf136a29ce123",
+        "strings/ctype-uca.c": "93af2c4177e291a5943aac823747a9576c6c1dc2bb25411d61e3cdedfe758f42",
+        "wasm/CMakeLists.txt": "35404ae73df8957fc1604d0a0e7fb55e4005cb7f2176bf6996a3cf511f2f75c9",
+        "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9"
+      }
+    },
+    "experiment_contract": "issue134-preview-source-v1",
+    "native_overlay": {
+      "file": "guest/experimental.patch",
+      "sha256": "33b81d6570ad0ac7dbb41c8e8255dd9124e5b1c142565f1c4dab1c74fc64741a",
+      "before_sha256": {
+        "cmake/os/WASIX.cmake": "b8fe6cff9c61457b97064d3c854e5e8dd1a8088fe4171dd7f8a6a50a668c2826",
+        "include/violite.h": "2d17a6b5f99b7cebb5c7c7331893212c09a5f1d1f1cd0c527c6bfc6ea6e96485",
+        "libmysqld/lib_sql.cc": "fa67583a1229e1f2ea5f0395abc918dfd2490bdbfa51056a1f5039d429b3de65",
+        "libmysqld/mariamem_control_abi.h": null,
+        "libmysqld/mariamem_wire_probe.inc": null,
+        "sql-common/client.c": "40d26fe8713eaa276c8b095ec055034eea4f31162c49e2feb9b7254ec0bdf3a6",
+        "sql/item.h": "4e5a1a7b6b50381762426ea43f22f4980168dce856ca1157944d73e4649dc37b",
+        "sql/mariamem_wire_policy.h": null,
+        "sql/net_serv.cc": "7d7b8b8a8de1834099f350912ed9255a1f376565da407e8dc461f97c72f12c93",
+        "sql/protocol.cc": "84f3e4a71fc6a44caf3af80a8a0d9b155ce43e9466a55daafc5744c422aa5242",
+        "sql/protocol.h": "8640f0b6ee5b9014492c40556dbf324f96f00f43b6fc55ea28baabd5a9705689",
+        "sql/sql_acl.cc": "587b4440d717f8029352035e4422442e504760db32a5a3407ee30ee393d93045",
+        "sql/sql_class.cc": "8111b7b59d7d880c11f47788679b44a741b6dbd768237c847306f42799f0eed8",
+        "sql/sql_class.h": "7238fcdd4fed88f7c958858ee3d025afbb19594eed030838b2fd6eb01e31a00d",
+        "sql/sql_parse.cc": "03803a202d3a0aa0f26cd3ec2675c342a2fed66f8fe7a6c5f985814e036212d3",
+        "sql/sql_prepare.cc": "36245ac0d8151e62fc95afebf524c44466216c72c05857517d2893cfc6c5c5cb",
+        "wasm/CMakeLists.txt": "35404ae73df8957fc1604d0a0e7fb55e4005cb7f2176bf6996a3cf511f2f75c9",
+        "wasm/issue65_control.cc": null,
+        "wasm/issue65_deadline.h": null,
+        "wasm/lite4mariadb.c": "d2b1a3c65b1f6a0b46de37221507b80150626c58eaa61d6033038ace46c40df9"
+      },
+      "after_sha256": {
+        "cmake/os/WASIX.cmake": "511f32c28eaf2ceb39a1c1d2a99cb7fa1addf90d4b36929a9f197bee0fd7b766",
+        "include/violite.h": "b7259fb16801be6b98e98c75c58130b76a9dc5044171efa5c52f69367e8c3449",
+        "libmysqld/lib_sql.cc": "9ea8fcb5bcf5a435032ea003313ddb87e1b24dbde59063f5442f325914fbbb17",
+        "libmysqld/mariamem_control_abi.h": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075",
+        "libmysqld/mariamem_wire_probe.inc": "584949484d8432b0b538876adbd2f6571ff50893882976cc56ea8b9508bcfc78",
+        "sql-common/client.c": "92c3aae9f9cdf0abcf51715b0ecaaa7933145b6b2e81204eccc2c476b8ba8db0",
+        "sql/item.h": "be3ae531935489cbfadfd364ad583e15a8bf55a928441783158758d749eb48cc",
+        "sql/mariamem_wire_policy.h": "b49dc0565b4ea31d71b2323cdc04ceb3e260cd2b7df80c003a3d2dbb0a7d5580",
+        "sql/net_serv.cc": "a7daad10c40681147cba3d0a17e8cf24f9cef89f1b82844bb75195dd386e0452",
+        "sql/protocol.cc": "6a3e3c3ddac56f5bd0130c39715848ff542fa205261c153f3f17791950aff703",
+        "sql/protocol.h": "645dbddad7f501c5b6d2da172af6dc46809b3030f56799ac6995d2972d1470c7",
+        "sql/sql_acl.cc": "10691e30922da0fcdbeeea5ca0eaeabb11d3356af16d1732bbabdd0a58ce5c6f",
+        "sql/sql_class.cc": "6b1ee958e8fe97d06ce5fc1092683a34b293b06ddc57ea34624fc808f66da4b8",
+        "sql/sql_class.h": "3e8f16f307c3fec1b7b77fcbf6c949ce504e8edb2a8b58fa6745e1100d222933",
+        "sql/sql_parse.cc": "196f4c6b5c4df5974accbb00edc084b2936b5491d59b3d73264d3109cfdb06ea",
+        "sql/sql_prepare.cc": "52157f55ecf298c0a76342664de525bd80aa36f26d77bc61c1872fe21a862296",
+        "wasm/CMakeLists.txt": "2020eddc8244dbfe4063270603efd52e4a901f7a3540492006552e93c8b9c81a",
+        "wasm/issue65_control.cc": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f",
+        "wasm/issue65_deadline.h": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
+        "wasm/lite4mariadb.c": "b25cb802cdc352f451caead95061a21dd71680c4a805c07377834d9da0a059f9"
+      }
+    },
+    "prepared_profile": "native-text",
+    "observation_overlay": {
+      "file": "guest/patches/13.2.0-pagecleaner-observe.patch",
+      "sha256": "593e1048d73542e057937134926260b74c9ca27a80e738d6017977dfc4f9b8e0",
+      "before_sha256": {
+        "storage/innobase/buf/buf0flu.cc": "a3dd5252ad5866f8b486209f65b4e772f39c9a2d3d5a961b07cbf136a29ce123"
+      },
+      "after_sha256": {
+        "storage/innobase/buf/buf0flu.cc": "c149bbf197f772aad5b2cdf9790f7e51fd3975ea08860a4cd398972331b44fcc"
+      }
+    }
+  },
+  "shared_lock": {
+    "file": "release/guest-common-inputs.json",
+    "sha256": "a4b518eaa0f0eede17404296f724fe7c565205144ad75e8fd143d55da7cedbe8"
+  },
+  "engine_entry": {
+    "name": "mariadb",
+    "file": "mariadb-13.2.0-c9f28ba.tar.gz",
+    "url": "https://codeload.github.com/MariaDB/server/tar.gz/c9f28ba0afec6d29e4688255dce8caaf7e91233d",
+    "revision": "c9f28ba0afec6d29e4688255dce8caaf7e91233d",
+    "sha256": "b5e1ad565afbc75d4daf45730179f561546b5cf238ec1084001bf1b2c50d4f37",
+    "version": "13.2.0"
+  },
+  "engine_position": 12,
+  "stages": [
+    "extract-and-copy-recipe",
+    "replace-submodule-placeholders",
+    "check-pristine",
+    "prepared-uca",
+    "patches",
+    "source_overlay",
+    "observation_overlay",
+    "prepared-proof",
+    "native_overlay",
+    "wire-api-and-copied-includes",
+    "init-hooks",
+    "auth-hooks",
+    "auth-header",
+    "routine-schema",
+    "linker-wrappers",
+    "vendor-dependencies",
+    "record-preparation"
+  ],
+  "files": {
+    "guest/patches/common-portability.patch": {
+      "file": "guest/patches/common-portability.patch",
+      "sha256": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+    },
+    "benchmarks/spikes/issue128-real/inputs/shared-source.patch": {
+      "file": "guest/versions/13.0.2/inputs/benchmarks/spikes/issue128-real/inputs/shared-source.patch",
+      "sha256": "e3048124e9a2eab88ac9766ef729c4ca0ef1c2bccbddae3c430368ce91d2f62d"
+    },
+    "guest/experimental.patch": {
+      "file": "guest/versions/13.0.2/inputs/guest/experimental.patch",
+      "sha256": "33b81d6570ad0ac7dbb41c8e8255dd9124e5b1c142565f1c4dab1c74fc64741a"
+    },
+    "guest/source.patch": {
+      "file": "guest/versions/13.0.2/inputs/guest/source.patch",
+      "sha256": "430273666a1f2c38ba5e0441ada7e3d1036ad94e5ccfc486f956e2b214b674b7"
+    },
+    "guest/prepared_source_patch.json": {
+      "file": "guest/versions/13.2.0/proofs/prepared-source.json",
+      "sha256": "2238579bd48f6d095aea97dae7f1beef9b59bf1cccdbcb13cfbcfa6695bc82c8"
+    },
+    "tests/fixtures/prepared-p2-source-functions.json": {
+      "file": "tests/fixtures/prepared-p2-source-functions.json",
+      "sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb"
+    },
+    "tests/fixtures/prepared-param-order-functions.json": {
+      "file": "tests/fixtures/prepared-param-order-functions.json",
+      "sha256": "f6e60279b9165b9b5e125d58856afcf6f0178f0650015fcca55efe1ed7fbb065"
+    },
+    "guest/routine_schema.json": {
+      "file": "guest/versions/13.2.0/proofs/routine-schema.json",
+      "sha256": "d683b30c3792ac8141ef9d113a5da9f61ef5772856d7672d7a2a6db493e1a9f3"
+    },
+    "guest/wire_core.inc": {
+      "file": "guest/wire_core.inc",
+      "sha256": "c2d26e0829967fa916498046d9a88f7042677ea6c8ebcb7ab67055612ab38d7a"
+    },
+    "guest/resident.inc": {
+      "file": "guest/resident.inc",
+      "sha256": "9ef6a75f9f4146f4842829fdf1dba7fed0a923e45daf89fbcd2c4d31b1e94a4c"
+    },
+    "guest/snapshot_fs.inc": {
+      "file": "guest/snapshot_fs.inc",
+      "sha256": "017551d0daef7718edf3e58ada1a50686b098e7d3d9be7023398c40a69ec22bd"
+    },
+    "guest/startup_timing.inc": {
+      "file": "guest/startup_timing.inc",
+      "sha256": "03b744cdd3164b821a2852aef06cc1419ec88b82e4fecc191edbe510ec0749f2"
+    },
+    "guest/init_diagnostics.inc": {
+      "file": "guest/init_diagnostics.inc",
+      "sha256": "a5f40a3a6f45cbf9a9138c7e2792f371b786f8dda8a55bc081c8116d26dc8b5d"
+    },
+    "guest/prepared_auth_keys.inc": {
+      "file": "guest/prepared_auth_keys.inc",
+      "sha256": "3a7ffe8899bdc4f45243e35347155221cd1373d6856fa9d6bcdf2be7e26df4af"
+    },
+    "guest/routine_bootstrap.inc": {
+      "file": "guest/routine_bootstrap.inc",
+      "sha256": "faecba66b2bd271b370a373317fc9f33809d539c9818d0a92f69cf434ee0d18b"
+    },
+    "guest/prepared_api.inc": {
+      "file": "guest/prepared_api.inc",
+      "sha256": "762a0021c0c5ac2385367e389b5be2a0e54bbf5f50b57b56fd66725a4e027334"
+    },
+    "guest/init_diagnostics.h": {
+      "file": "guest/init_diagnostics.h",
+      "sha256": "873e0a7be2aeeab948cdfbeba5cf3bc5f4463ead87216663285d67d76c9da5ea"
+    },
+    "guest/test-auth-keypair.json": {
+      "file": "guest/test-auth-keypair.json",
+      "sha256": "5f5d6458175ab6151da27957c67e8304f14e42e680d85abbc49b979d54fa21be"
+    },
+    "benchmarks/ucapreparedinput/input.json": {
+      "file": "guest/versions/13.2.0/proofs/uca-input.json",
+      "sha256": "13237d7a882e4a33d23ec8454888f89766a740a0f0ebcfc92b37c0954a5bb0c5"
+    },
+    "benchmarks/ucapreparedinput/level0.u16le.json": {
+      "file": "guest/versions/13.0.2/inputs/benchmarks/ucapreparedinput/level0.u16le.json",
+      "sha256": "e41d17a205523e9a33bf8a2a5ee81175ed9ddc1eef1254193eb5499748cf548e"
+    },
+    "benchmarks/ucapreparedinput/level1.u16le.json": {
+      "file": "guest/versions/13.0.2/inputs/benchmarks/ucapreparedinput/level1.u16le.json",
+      "sha256": "9243e3977c9f7b0a5e0f6c075cf7d06079157280d8d95a31fdee724b927b7584"
+    },
+    "benchmarks/ucapreparedinput/level2.u16le.json": {
+      "file": "guest/versions/13.0.2/inputs/benchmarks/ucapreparedinput/level2.u16le.json",
+      "sha256": "e38bc9436e591fa5e4dbc80fdad48ee694b6dac17a529fae64f2ccd929f44ff4"
+    },
+    "provenance/published-source-revision.h": {
+      "file": "guest/versions/13.2.0/proofs/published-source-revision.h",
+      "sha256": "877a2b8d134c59d9ff3e7387d992c006b875e27ada75ba563a929e638a90de1a"
+    },
+    "guest/patches/13.2.0-redo.patch": {
+      "file": "guest/versions/13.0.2/inputs/guest/patches/13.0.2-redo.patch",
+      "sha256": "8a9cd1b99d0ed37b17874c2e2cac2592ee2552f6f82f39c6bed17b882012e727"
+    },
+    "guest/patches/13.2.0-native-prepared.patch": {
+      "file": "guest/versions/13.0.2/inputs/guest/patches/13.0.2-native-prepared.patch",
+      "sha256": "67fbe7a17c7a8c0809878a45ab6e6cc6405a543beaad30d5bab467f7dfb334ca"
+    },
+    "guest/patches/13.2.0-buffer-alignment.patch": {
+      "file": "guest/versions/13.0.2/inputs/guest/patches/13.0.2-buffer-alignment.patch",
+      "sha256": "0caa2fb6c52cc14d71e4427d12c676dddfdd64bd0266ca4cd8cdc26b91309622"
+    },
+    "guest/patches/13.2.0-pagecleaner-observe.patch": {
+      "file": "guest/versions/13.0.2/inputs/guest/patches/13.0.2-pagecleaner-observe.patch",
+      "sha256": "593e1048d73542e057937134926260b74c9ca27a80e738d6017977dfc4f9b8e0"
+    },
+    "provenance/time-source-13.2.0.json": {
+      "file": "guest/versions/13.2.0/proofs/time-source.json",
+      "sha256": "01c72f073048ed9713bebe30457ed71682920c92341138e263a572a90379faa0"
+    }
+  },
+  "preview_source": {
+    "kind": "published-preview",
+    "release": "13.2.0",
+    "source_commit": "c9f28ba0afec6d29e4688255dce8caaf7e91233d",
+    "archive_url": "https://archive.mariadb.org/mariadb-13.2.0/source/mariadb-13.2.0.tar.gz",
+    "archive_sha256": "5b6a588e86f1169fef44760846b6e9e96b08d7a7e52fb4b887c5feb06ca39f3a",
+    "revision_file": "provenance/published-source-revision.h",
+    "upstream_ref": "refs/heads/preview-13.2-preview"
+  }
+}

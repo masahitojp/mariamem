@@ -1,0 +1,32 @@
+{
+  "source_commit": "c9f28ba0afec6d29e4688255dce8caaf7e91233d",
+  "patch_sha256": "67fbe7a17c7a8c0809878a45ab6e6cc6405a543beaad30d5bab467f7dfb334ca",
+  "files": [
+    {
+      "file": "sql/sql_prepare.cc",
+      "before_sha256": "1c83c960cac5f4e6be24132045e1d9afd9eed4fd374b464c9245d70a7c670fbd",
+      "after_sha256": "36245ac0d8151e62fc95afebf524c44466216c72c05857517d2893cfc6c5c5cb"
+    },
+    {
+      "file": "libmysqld/libmysql.c",
+      "before_sha256": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865",
+      "after_sha256": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865"
+    },
+    {
+      "file": "libmysqld/lib_sql.cc",
+      "before_sha256": "ecd40450e5d84c1b509a4afcfdc849b4dcec57b17cd4122eb4c1b32e82cfafee",
+      "after_sha256": "fa67583a1229e1f2ea5f0395abc918dfd2490bdbfa51056a1f5039d429b3de65"
+    }
+  ],
+  "purpose": "Trial native TIME and embedded text metadata allocation guard; no legacy MYSQL_BIND or parameter metadata adapter repairs",
+  "component_fixture_sha256": "d557253a483637583f2d1fed6a54116f10e63d447e031a66f45a7d68987077bb",
+  "application_stage": "guest/input.json ordered series, after portability/redo and before recipe source.patch",
+  "parameter_fixture_sha256": "f6e60279b9165b9b5e125d58856afcf6f0178f0650015fcca55efe1ed7fbb065",
+  "time_only_intermediate_sha256": "36245ac0d8151e62fc95afebf524c44466216c72c05857517d2893cfc6c5c5cb",
+  "patch_file": "guest/patches/13.2.0-native-prepared.patch",
+  "profile": "native-text",
+  "unchanged_files": {
+    "libmysqld/libmysql.c": "2030952136e69dc90e5d8b19764e785e6887cb251416bf9ff97029ffe8875865"
+  },
+  "time_source_fixture": "provenance/time-source-13.2.0.json"
+}

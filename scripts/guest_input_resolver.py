@@ -103,7 +103,7 @@ def _resolve(registry_bytes, engine, profile, read_bytes):
     _require(selection in registry['selections'], 'unregistered selection')
     entry = registry['selections'][selection]
     descriptor = _json(_read(entry['descriptor'], read_bytes))
-    _require(type(descriptor['schema']) is int and descriptor['schema'] == 1, 'unknown descriptor schema')
+    _require(type(descriptor['schema']) is int and descriptor['schema'] in (1, 2), 'unknown descriptor schema')
     _require(descriptor['engine'] == engine and descriptor['profile'] == profile, 'selection mismatch')
     _require(_hash(descriptor['origin'], 40) == _hash(entry['origin'], 40), 'origin mismatch')
     guest = descriptor['guest_input']
@@ -112,8 +112,25 @@ def _resolve(registry_bytes, engine, profile, read_bytes):
     _require(profile in ('legacy-full', 'native-text'), 'unknown profile')
     _require(('native_overlay' in guest) == (profile == 'native-text'), 'native route mismatch')
     _hash(guest['source_commit'], 40)
-    _hash(guest['tag_object_sha'], 40)
-    _require(guest['source_commit'] != guest['tag_object_sha'], 'source/tag identity conflation')
+    if descriptor['schema'] == 1:
+        _hash(guest['tag_object_sha'], 40)
+        _require(guest['source_commit'] != guest['tag_object_sha'], 'source/tag identity conflation')
+    else:
+        # Explicit preview source provenance; never fabricate an annotated tag.
+        proof = descriptor.get('preview_source', {})
+        _require(set(proof) == {'kind', 'release', 'source_commit', 'archive_url',
+                                'archive_sha256', 'revision_file', 'upstream_ref'},
+                 'invalid preview schema')
+        _require(proof['kind'] == 'published-preview' and proof['release'] == engine and
+                 proof['source_commit'] == guest['source_commit'] and guest['tag_object_sha'] is None,
+                 'preview source identity mismatch')
+        _require(proof['archive_url'] ==
+                 f'https://archive.mariadb.org/mariadb-{engine}/source/mariadb-{engine}.tar.gz',
+                 'preview archive origin mismatch')
+        _hash(proof['archive_sha256'])
+        _require(isinstance(proof['upstream_ref'], str) and
+                 proof['upstream_ref'].startswith('refs/heads/preview-'), 'invalid preview reference')
+        _path(proof['revision_file'])
     _require(_digest(_encoded(guest)) == _hash(entry['input_sha256']), 'registered input mismatch')
 
     lock = _json(_read(descriptor['shared_lock'], read_bytes))
@@ -147,6 +164,10 @@ def _resolve(registry_bytes, engine, profile, read_bytes):
     for name, reference in files.items():
         _path(name)
         verified[name] = _read(reference, read_bytes)
+    if descriptor['schema'] == 2:
+        revision = verified.get(proof['revision_file'])
+        _require(revision == ('#define SOURCE_REVISION "' + guest['source_commit'] + '"\n').encode(),
+                 'published preview source revision mismatch')
     patch_names = []
     for patch in groups:
         name = _path(patch['file'])
@@ -174,9 +195,14 @@ def _resolve(registry_bytes, engine, profile, read_bytes):
     for path, field in (('tests/fixtures/prepared-p2-source-functions.json', 'component_fixture_sha256'),
                         ('tests/fixtures/prepared-param-order-functions.json', 'parameter_fixture_sha256')):
         _require(_digest(verified[path]) == pin[field], 'prepared function proof mismatch')
-    return {'schema': 1, 'selection': selection, 'origin': descriptor['origin'],
+    result = {'schema': 1, 'selection': selection, 'origin': descriptor['origin'],
             'guest_input': guest, 'effective_lock': lock, 'stages': stages,
             'files': files, 'historical_prepared_pin': pin,
             'descriptor_sha256': entry['descriptor']['sha256'],
             'resolved_sha256': _digest(_encoded({'input': guest, 'lock': lock, 'stages': stages, 'files': files})),
             'scope': 'input identity only; not prepared-source validation or release qualification'}
+
+    if descriptor['schema'] == 2:
+        result['preview_source'] = proof
+        result['prepared_pin'] = result.pop('historical_prepared_pin')
+    return result

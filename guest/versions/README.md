@@ -21,3 +21,12 @@ identity. Selected preparation uses a distinct receipt schema and remains
 release-ineligible, including the stable engine comparison. Experimental native
 classification survives physical relocation of its patch. Formal build/binding
 and public-source acceptance still require later work.
+
+13.2.0/native-text is now an explicit preview evaluation entry. Descriptor schema2
+requires published-preview provenance and the checksum-bound published revision
+file; it uses no invented annotated tag. Schema1 still requires distinct source
+and tag objects. The official distribution was compared with all27,551 tracked
+Git blobs at its embedded source revision. Its extra bundled dependencies are
+not silently imported: preparation uses the exact commit archive and the shared
+reviewed dependency lock. Neither the preview nor13.0.2 is the intended product
+engine; the Human targets13.3 LTS. Existing stable input/lock remains12.3.3.
