@@ -29,7 +29,7 @@ real runtime on Python 3.11.18 / OpenSSL 3.5.9.
 | Full local `verify.py integration` | **FAIL at its final fixed-client comparison**, not full integration PASS |
 | `go run -p 1 ./internal/generatedgo/layoutgen -check` | PASS at `16a7460c`; all 256 MiB initial bytes and 71 source identities match |
 | `go test -p 1 -tags=integration ./tests/godefault -run TestProcessImageSurvivesIndependentRootsAndSnapshots -count=1 -v` | PASS at `16a7460c` |
-| Product candidate macOS15/Ubuntu24.04 CI | Not yet observed; no product matrix PASS claimed |
+| Product candidate macOS15/Ubuntu24.04 CI | PASS at `be08dac36194442d3cbbd95f0add7c002753ffa4`; see source-bound receipt below |
 
 The final local comparison reported exactly `native C client profile differs:
 python_minor`: its historical C-extension oracle requires Python 3.14, while the
@@ -46,6 +46,57 @@ pages: 8,929,280 bytes (8.5 MiB rounded). The file has a sparse logical size of
 2 GiB; this host allocated 27,000,832 bytes (25.75 MiB). These are file/page counts,
 **not RSS**. Neither the sparse-file allocation nor timing from this single test
 is a portable resource/performance promise.
+
+## Both-platform candidate CI and review follow-up
+
+[Run42673922578](https://github.com/masahitojp/mariamem/actions/runs/42673922578)
+passed at source_commit `be08dac36194442d3cbbd95f0add7c002753ffa4`.
+The [compact receipt](process-static-image-candidate/ci-42673922578.json)
+records both job IDs/names, artifact IDs/ZIP digests, original member hashes,
+structured results and retained-resource observations. Original ZIP and member
+checksums were verified before reduction; routine logs are not copied into Git.
+Both hosts ran Go1.26.10 / Python3.14.10: 64 source tests passed and the Python
+runtime suite had 53 PASS / 1 SKIP on each host. The process-image case confirmed
+one build, four acquisitions, one retained FD, zero child mappings and no cleanup
+debt. macOS file allocation was27,000,832 bytes and Ubuntu8,392,704 bytes; neither
+number is RSS. Development run42673923630 also passed at that same source.
+
+The adoption review then found two external-consumer boundary defects that the
+source-tree matrix did not cover: the private module ZIP and its source identity
+omitted embedded `image/layout.json`, and the copied `tests/godefault` suite
+imported private packages forbidden from its external module. The Human approved
+these bounded fixes. Module inventory now includes the layout, with missing and
+changed installed-byte checks and a source-identity mutation test. Public SQL /
+Snapshot isolation stays in `tests/godefault`; internal image/FD/mapping assertions
+move to `tests/generatedmemory`. A source check rejects private imports in the
+copied external suite, and the candidate workflow runs both test boundaries.
+
+The follow-up changes only packaging tooling, tests, candidate workflow and
+records. Production Go/Python, `internal/`, `guest/`, generation inputs and
+`release/` remain byte-identical to `be08dac3`; reuse the earlier both-host runtime
+receipt only for that unchanged boundary. It is not a new exact-head matrix or
+proof of the repaired installed-consumer path. Focused follow-up results are
+recorded below; full final-artifact acceptance remains a Release responsibility.
+
+### Focused follow-up verification
+
+On the local macOS arm64 host, Python3.14.10 and Go1.26.10:
+
+- `pytest tests/test_consumer_acceptance.py tests/test_static_image_workflow.py tests/test_go_fixture_completion.py tests/test_generated_release.py -q`:103 PASS.
+- `pytest tests/test_e2e_installed.py tests/test_usability_examples.py -q`:23 PASS,
+  3 SKIP (opt-in real-host examples),4 subtests PASS.
+- Actual `prepare_proxy` output, loaded from an unrelated
+  `example.com/release-consumer` module with all `tests/godefault/*.go` copied:
+  `go list -mod=mod -tags=integration -e -deps -test -json .` has no package errors;
+  the image package resolves `EmbedFiles: ["layout.json"]`. This checks package
+  loading, not full installed runtime acceptance.
+- `go test -p 1 -tags=integration ./tests/godefault ./tests/generatedmemory -run '^(TestIndependentRootsAndSnapshotsRemainIsolated|TestProcessImageSurvivesIndependentRootsAndSnapshots)$' -count=1 -timeout=3m -v`:both PASS.
+  The first sandbox attempt was blocked at localhost bind; the same command
+  passed with that restriction lifted. SQL/isolation assertions remain intact;
+  internal diagnostics confirm one build, four acquisitions, one FD, zero active
+  child mappings and no cleanup debt. No timing conclusion is drawn.
+- Generated inventory, public-source boundary, local document references,
+  compact-receipt checksums and `git diff --check`:PASS.
 
 ## Evidence and regeneration boundaries
 

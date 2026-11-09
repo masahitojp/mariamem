@@ -1,0 +1,120 @@
+{
+  "source_commit": "be08dac36194442d3cbbd95f0add7c002753ffa4",
+  "run_id": 42673922578,
+  "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42673922578",
+  "scope": "process image and core runtime correctness; not installed-module acceptance, fixed C-extension native comparison, performance or Qualification",
+  "platforms": [
+    {
+      "job_id": 129351313481,
+      "job_name": "native (macos-15)",
+      "job_url": "https://github.com/masahitojp/mariamem/actions/runs/42673922578/job/129351313481",
+      "artifact_id": 13699584745,
+      "artifact_digest": "sha256:07dfb6853f35b9fd3569f9050ed8258d14c9a94dedc8b00ca0229eac5941e950",
+      "result": "PASS",
+      "host": {
+        "os": "Darwin",
+        "arch": "arm64",
+        "python": "3.14.10"
+      },
+      "go_version": "go version go1.26.10 darwin/arm64",
+      "source_tests": {
+        "passed": 64
+      },
+      "python_runtime": {
+        "passed": 53,
+        "skipped": 1
+      },
+      "checks_passed": [
+        "generated manifest equality",
+        "ownership unit and race tests",
+        "actual Go DB/Snapshot/memory/worker tests",
+        "Go/Python Live and Pipe smoke",
+        "Python SQL/routines/Snapshot suite (one skip)"
+      ],
+      "process_image": {
+        "builds": 1,
+        "acquires": 4,
+        "retained_fds": 1,
+        "active_child_mappings": 0,
+        "cleanup_debt": false,
+        "initialized_page_bytes": 8929280,
+        "file_allocated_bytes": 27000832,
+        "rss": "not measured"
+      },
+      "original_files_sha256": {
+        "go-runtime.txt": "956947e9559c5d7d86bede361344b25b1b4ad28ce8cb64e11e466cc0e67553d0",
+        "go.txt": "077dec62e8d33611342a1349cacb348362593f6028f03f3d345b05b156bd9662",
+        "host.json": "6f91d2c76420c93caf68fa27c118eb42981fc7455f18c9567686a7b616bafb24",
+        "image-lifetime.txt": "4ae248cdb9a5ec0614673fa9454a416c6c33acea7c8ef53c50d9995c330a0b6e",
+        "inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+        "layout.txt": "9d8d371477b6b6a58f7338369e28509fe62bb1b629b247e341895c7cdeb79a67",
+        "python-runtime.txt": "62a29afee86cf2723a9ded39d8f85662bc28a9406b286e52deb7b0dda38f3a66",
+        "race.txt": "2fd6d893658059127cd829b7570118698b534d920d8b3aac3d03e69c64f2f67f",
+        "result.json": "135d3a420c54d43e3129066b5735c301b8b07024dac912fc1aab3b4157205e18",
+        "smoke.txt": "49a737db36eb4735ba851016c3497ed50b95c199755375a592556bb6e91834e9",
+        "snapshots.txt": "3221fab14daec0a3b8594aad66cc8028aa7adc0b7e11a8071857506587579eae",
+        "source-tests.txt": "6fe9498c6fef5498d335e00605af2330dc5e80612b7c27cb69a6336d70f5399d",
+        "source.json": "f4ea5f6da1f0de88f86c68e370f0fba0f3d37ba0351d2bd237e1da2dae5f59f8",
+        "units.txt": "db1c7e1813cd08fbbe9d64864f6665fe6bcaf3c671c4bc5aee56df1102d1bef7",
+        "worker.txt": "903abd39b0d305c7032f6edda3409f66894f78e8bec6e1409eea1711a217adfd"
+      },
+      "original_checksums_sha256": "cec097e621443364216ca1a4dcaa564deb7a79db1056f32758f8db14e28bd5d9"
+    },
+    {
+      "job_id": 129351315649,
+      "job_name": "native (ubuntu-24.04)",
+      "job_url": "https://github.com/masahitojp/mariamem/actions/runs/42673922578/job/129351315649",
+      "artifact_id": 13700561181,
+      "artifact_digest": "sha256:9daf8a58e67506ab9ae255003db524b2feb079c2afcad4e348c59c27a4811fa4",
+      "result": "PASS",
+      "host": {
+        "os": "Linux",
+        "arch": "x86_64",
+        "python": "3.14.10"
+      },
+      "go_version": "go version go1.26.10 linux/amd64",
+      "source_tests": {
+        "passed": 64
+      },
+      "python_runtime": {
+        "passed": 53,
+        "skipped": 1
+      },
+      "checks_passed": [
+        "generated manifest equality",
+        "ownership unit and race tests",
+        "actual Go DB/Snapshot/memory/worker tests",
+        "Go/Python Live and Pipe smoke",
+        "Python SQL/routines/Snapshot suite (one skip)"
+      ],
+      "process_image": {
+        "builds": 1,
+        "acquires": 4,
+        "retained_fds": 1,
+        "active_child_mappings": 0,
+        "cleanup_debt": false,
+        "initialized_page_bytes": 8392704,
+        "file_allocated_bytes": 8392704,
+        "rss": "not measured"
+      },
+      "original_files_sha256": {
+        "go-runtime.txt": "7a568a842096b22d84e5badaffd0cc724743bad6a07b8a23c8ba27390fed7d3e",
+        "go.txt": "4e0b213cba780f63b02f3ab9001ee61e4101d254e0af1a8205574c19dad0f93b",
+        "host.json": "ab42cd2a6345b94d7ff6f59277c982c8ee176da8b72aa10c9d832479b00779b8",
+        "image-lifetime.txt": "5cabc1326d3ad4b381cdd1e0baff59e3ca5a73f1ec1020e614c6d22f131b5d78",
+        "inventory.txt": "2916b125935b7bd261fabad3f3a4c4f62e5c0fdfb151a689c8e9390548ef27c9",
+        "layout.txt": "9d8d371477b6b6a58f7338369e28509fe62bb1b629b247e341895c7cdeb79a67",
+        "python-runtime.txt": "c4edea44d2f2e8958c407eaaa65a81b2f4b628bd6ac03d5bebd182d11589a262",
+        "race.txt": "35577b4af22e3ed6a79177ddf7968ce52c451cd8ef11d5c4211feff2034ca0d4",
+        "result.json": "3906a6e8d45b49bed5e6e082b01dc2fba3b971550bddee22e5fcd7a08c463e9d",
+        "smoke.txt": "9f395109a02215883050987c537581f25c337c47f44631cbab7e8d1b5e87c395",
+        "snapshots.txt": "fa15bf36f65d8ab26ce7f841fe128658b95f4c8801462432c4f23b0e431849cd",
+        "source-tests.txt": "4c24e8ab78b85d5cb86ca53c67d518a8a3d9da21ea61242af734e708512c4eb7",
+        "source.json": "f4ea5f6da1f0de88f86c68e370f0fba0f3d37ba0351d2bd237e1da2dae5f59f8",
+        "units.txt": "306c151cf7f5384af51f4c8c2a3947826e0411a3813776d461e0823757082cb0",
+        "worker.txt": "f5b4e7ed947b504cde2121b1cdcb6dc6db3955e0cac91cd11eb4444f5f8dd758"
+      },
+      "original_checksums_sha256": "9f1f33e665b502a18d7978ba1587d1b5f5fab5786e6f7a186cccee33f7c1568b"
+    }
+  ]
+}

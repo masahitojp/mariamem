@@ -87,6 +87,47 @@ def test_fixture_helper_is_in_module_proxy_and_identity(tmp_path):
         verify_module_files(resolved, root)
 
 
+def test_embedded_layout_is_in_proxy_identity_and_installed_byte_checks(tmp_path):
+    from consumer_module import prepare_proxy, source_identity
+    from consumer_acceptance import verify_module_files
+    import shutil
+    import zipfile
+    repository = Path(__file__).resolve().parents[1]
+    root = tmp_path / 'source'
+    asset = 'internal/generatedgo/image/layout.json'
+    for name in ('go.mod', 'go.sum', 'LICENSE', 'release/inputs.lock.json',
+                 'internal/generatedgo/image/image.go', asset):
+        path = root / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(repository / name, path)
+    identity = source_identity(root)
+    proxy = prepare_proxy(root, tmp_path / 'work', TAG)
+    with zipfile.ZipFile(proxy / MODULE / '@v' / (TAG + '.zip')) as archive:
+        assert archive.read(MODULE + '@' + TAG + '/' + asset) == (root / asset).read_bytes()
+    installed = tmp_path / 'installed'
+    shutil.copytree(root, installed)
+    resolved = {**record(), 'Dir': str(installed)}
+    assert asset in verify_module_files(resolved, root)
+    (installed / asset).write_text('{}\n')
+    with pytest.raises(ValueError, match='library files differ'):
+        verify_module_files(resolved, root)
+    (installed / asset).unlink()
+    with pytest.raises(ValueError, match='library files differ'):
+        verify_module_files(resolved, root)
+    (root / asset).write_text('{}\n')
+    assert source_identity(root) != identity
+
+
+def test_copied_external_go_consumer_has_no_private_imports():
+    # generated_release_acceptance copies this complete suite into the unrelated
+    # example.com/release-consumer module. Source-tree CI alone cannot catch it.
+    import re
+    suite = Path(__file__).resolve().parents[1] / 'tests/godefault'
+    for path in suite.glob('*.go'):
+        imports = re.findall(r'"([^"\n]+)"', path.read_text())
+        assert not any(value.startswith(MODULE + '/internal/') for value in imports), path
+
+
 @pytest.mark.parametrize('prefix', ['mariamem/', 'mariamem.data/purelib/mariamem/'])
 def test_installed_package_is_bound_to_actual_wheel_inventory(tmp_path,prefix):
     from consumer_acceptance import verify_installed_files

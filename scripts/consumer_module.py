@@ -12,6 +12,9 @@ def source_files(root):
     paths = sorted(p for base in (root, root / 'internal', root / 'mariamemtest') for p in
                    (base.glob('*.go') if base == root else (p for suffix in ('*.go', '*.s') for p in base.rglob(suffix)))
                    if not p.name.endswith('_test.go'))
+    # go:embed inputs are runtime source too: include them in the proxy,
+    # source identity and installed-module byte comparison.
+    paths += sorted((root / 'internal/generatedgo/image').glob('layout.json'))
     return paths + [root / name for name in ('go.mod', 'go.sum', 'LICENSE', 'release/inputs.lock.json')]
 
 

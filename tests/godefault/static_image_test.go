@@ -6,13 +6,10 @@ import (
 	"testing"
 
 	"github.com/masahitojp/mariamem"
-	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
-	"github.com/masahitojp/mariamem/internal/generatedgo/image"
 )
 
-func TestProcessImageSurvivesIndependentRootsAndSnapshots(t *testing.T) {
+func TestIndependentRootsAndSnapshotsRemainIsolated(t *testing.T) {
 	ctx := t.Context()
-	before := image.Stats()["acquires"].(int)
 	root, e := mariamem.Start(ctx, mariamem.Options{})
 	if e != nil {
 		t.Fatal(e)
@@ -76,12 +73,4 @@ func TestProcessImageSurvivesIndependentRootsAndSnapshots(t *testing.T) {
 	if e = independent.Close(); e != nil {
 		t.Fatal(e)
 	}
-	stats := image.Stats()
-	if stats["builds"].(int) != 1 || stats["acquires"].(int) != before+4 || stats["owned_fds"].(int) != 1 || stats["failed"].(bool) {
-		t.Fatal(stats)
-	}
-	if base.MemoryMappingStats()["active_mappings"] != 0 {
-		t.Fatal("per-DB mapping retained", base.MemoryMappingStats())
-	}
-	t.Logf("retained process image: %v", stats)
 }

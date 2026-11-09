@@ -43,7 +43,7 @@ jobs:
         run: |
           python scripts/verify_generated_runtime.py > build/static-image-ci/inventory.txt 2>&1
           go run -p 1 ./internal/generatedgo/layoutgen -check > build/static-image-ci/layout.txt 2>&1
-          python -m pytest -q tests/test_runtime_static_image.py tests/test_generated_runtime_inventory.py > build/static-image-ci/source-tests.txt 2>&1
+          python -m pytest -q tests/test_runtime_static_image.py tests/test_generated_runtime_inventory.py tests/test_consumer_acceptance.py > build/static-image-ci/source-tests.txt 2>&1
       - name: Complete initial bytes, isolation and failure ownership
         run: go test -p 1 -count=1 ./internal/generatedgo/image ./internal/generatedgo/imagelayout ./internal/generatedgo/code/base ./internal/generatedgo > build/static-image-ci/units.txt 2>&1
       - name: Canonical ownership race targets
@@ -52,7 +52,7 @@ jobs:
         run: |
           go test -p 1 -tags=integration ./tests/gointegration ./tests/godefault ./tests/generatedmemory -count=1 -timeout=3m > build/static-image-ci/go-runtime.txt 2>&1
           go test -p 1 -tags=integration ./internal/generatedgo -run=TestWorkerTrapActualGuest -count=1 -timeout=3m > build/static-image-ci/worker.txt 2>&1
-          go test -p 1 -tags=integration ./tests/godefault -run=TestProcessImageSurvivesIndependentRootsAndSnapshots -count=1 -v > build/static-image-ci/image-lifetime.txt 2>&1
+          go test -p 1 -tags=integration ./tests/generatedmemory -run=TestProcessImageSurvivesIndependentRootsAndSnapshots -count=1 -v > build/static-image-ci/image-lifetime.txt 2>&1
       - name: Source Go/Python Live and Pipe smoke
         run: python scripts/verify.py smoke > build/static-image-ci/smoke.txt 2>&1
       - name: Real Python SQL, routines and Snapshot lifecycle
