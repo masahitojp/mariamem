@@ -1,0 +1,6 @@
+patching file 'wasm/lite4mariadb.c'
+patching file 'wasm/CMakeLists.txt'
+patching file 'mysys/my_lib.c'
+patching file 'storage/innobase/buf/buf0flu.cc'
+patching file 'include/m_ctype.h'
+patching file 'strings/ctype-uca.c'

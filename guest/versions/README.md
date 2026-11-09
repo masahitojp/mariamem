@@ -30,3 +30,7 @@ Git blobs at its embedded source revision. Its extra bundled dependencies are
 not silently imported: preparation uses the exact commit archive and the shared
 reviewed dependency lock. Neither the preview nor13.0.2 is the intended product
 engine; the Human targets13.3 LTS. Existing stable input/lock remains12.3.3.
+
+For a new preview descriptor, `origin` identifies the inherited input/patch
+ancestry. It is not a13.2 producer claim; the actual preparing/building commit
+is recorded separately in evidence and later producer receipts.

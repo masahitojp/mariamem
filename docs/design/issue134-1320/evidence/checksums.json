@@ -1,0 +1,17 @@
+{
+  "distribution-source-comparison.json": "b146e1de009ac656fb6c70e7794290c0d295d33e690ed3b52112fac50b272e5e",
+  "git-archive.json": "0dab8c65e4e49b1afcdd4b543a620a8a5e7ca8cbd1f447e7b92a27df18784eb5",
+  "git-identity.json": "fe7ccda41662ae17943adcebca75975c8f4946cb4dba1f8b1e48bb19d6d0190b",
+  "patch-0.txt": "ad6b120eb1b6118067f15ff7a46a70b7acd297382acdc4b75d0d3c5857ceced9",
+  "patch-1.txt": "4dc6135223a0068b37ec7dc1caa575417b1ba1484223e273aee354f6dfa94fe7",
+  "patch-2.txt": "17ef969e11bfc836301ffc6ccfe4b2be87c96d467c882fa3a75bafd578cb3e71",
+  "patch-3.txt": "a4c6cabf34df1941079261b1a89a23e4ae831d360bde6a9377832c82e9f91b9e",
+  "patch-4.txt": "f63334a87464f8d52d0e2e3a7d1950cd18f7cdca5476e279b68c3a49a1118f3b",
+  "patch-5.txt": "e48bfaa6e6628b6500464f7981d16f2021cc80e9540898042f2b76451b6168c8",
+  "patch-6.txt": "c21114b74d2a54cc27920ab1d58d01d091bdbca9784dc7bc1253586c70217c33",
+  "preparation-final.txt": "5087ba81d55fc9ac745a0d889db56609947ab0dc7b9983dc7d43df5458172a24",
+  "preparation.txt": "082ff2f882b3353732848aa84f1ec27999791f13aa605df3273acd1973fb21a5",
+  "prepared-source.json": "8e1b8baf79cbb2ce3b670b960a1c1605e36b827d3d65a458e2b3512e1ccd6d49",
+  "probe.json": "5dde55be4806ff23bb7a333a4040ff31604e12642e0510e516b22b7ed44c6095",
+  "result.json": "4e5f14cce2efd8a192763f244e4f34313a3c35a73d4e6980599c8327fb4e85fd"
+}

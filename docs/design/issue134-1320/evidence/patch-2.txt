@@ -1,0 +1,2 @@
+patching file 'sql/sql_prepare.cc'
+patching file 'libmysqld/lib_sql.cc'

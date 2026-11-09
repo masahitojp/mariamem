@@ -1,0 +1,11 @@
+{
+  "source_commit": "c9f28ba0afec6d29e4688255dce8caaf7e91233d",
+  "tag_object_sha": null,
+  "published_archive_sha256": "5b6a588e86f1169fef44760846b6e9e96b08d7a7e52fb4b887c5feb06ca39f3a",
+  "source_revision_header": "#define SOURCE_REVISION \"c9f28ba0afec6d29e4688255dce8caaf7e91233d\"\n",
+  "git_tracked_blobs": 27551,
+  "archive_matched_paths": 27551,
+  "different": [],
+  "missing": [],
+  "archive_extra_files": 31280
+}

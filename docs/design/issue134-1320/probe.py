@@ -22,17 +22,61 @@ from guest_preparation_context import resolve, read_input
 SOURCE = 'c9f28ba0afec6d29e4688255dce8caaf7e91233d'
 
 
+def compare_distribution(archive_path, upstream):
+    expected_sha = '5b6a588e86f1169fef44760846b6e9e96b08d7a7e52fb4b887c5feb06ca39f3a'
+    if digest(archive_path) != expected_sha:
+        raise ValueError('published archive checksum mismatch')
+    import tarfile
+    raw = subprocess.check_output(['git', 'ls-tree', '-rz', SOURCE], cwd=upstream)
+    expected = {}
+    for entry in raw.split(b'\0'):
+        if not entry:
+            continue
+        info, name = entry.split(b'\t', 1)
+        mode, kind, blob = info.decode().split()
+        if kind == 'blob':
+            expected[name.decode()] = blob
+    seen, different, extras = set(), [], 0
+    revision = None
+    with tarfile.open(archive_path) as archive:
+        for member in archive:
+            name = member.name.removeprefix('mariadb-13.2.0/')
+            if name == 'include/source_revision.h':
+                revision = archive.extractfile(member).read().decode()
+            if name not in expected:
+                extras += int(member.isfile() or member.issym())
+                continue
+            if not (member.isfile() or member.issym() or member.islnk()):
+                continue
+            data = member.linkname.encode() if member.issym() else archive.extractfile(member).read()
+            blob = hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest()
+            seen.add(name)
+            if blob != expected[name]:
+                different.append(name)
+    missing = sorted(expected.keys() - seen)
+    if revision != '#define SOURCE_REVISION "' + SOURCE + '"\n' or different or missing:
+        raise ValueError('published distribution does not match the pinned Git source')
+    return {'source_commit': SOURCE, 'tag_object_sha': None,
+            'published_archive_sha256': expected_sha, 'source_revision_header': revision,
+            'git_tracked_blobs': len(expected), 'archive_matched_paths': len(seen),
+            'different': different, 'missing': missing, 'archive_extra_files': extras}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--upstream', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--downloads', type=Path, required=True)
     parser.add_argument('--evidence', type=Path, required=True)
+    parser.add_argument('--published-archive', type=Path)
     args = parser.parse_args()
     identity = require_commit(args.upstream, SOURCE)
     source = args.output.resolve()
     source.mkdir(parents=True, exist_ok=False)
     args.evidence.mkdir(parents=True, exist_ok=True)
+    if args.published_archive:
+        result = compare_distribution(args.published_archive, args.upstream)
+        (args.evidence/'distribution-source-comparison.json').write_text(json.dumps(result, indent=2)+'\n')
     resolved = resolve(ROOT, '13.0.2', 'native-text')
     guest = resolved['guest_input']
     groups = [*guest['patches'], guest['source_overlay'], guest['observation_overlay'], guest['native_overlay']]

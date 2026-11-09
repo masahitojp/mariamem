@@ -22,8 +22,8 @@ Changing version metadata does not itself publish a release.
 for the formal preparation/generation/binding path. Keep12.3.3 stable and retain
 13.0.2 inputs/results as historical comparison vectors; do not relabel them as
 13.2/13.3 acceptance. Upstream's roadmap also labels13.3 LTS, while13.2.0 is a
-Preview. Exact13.2 source/archive identity and patch/proof changes must be fixed
-before the heavy producer. This direction is not approval to publish a preview
+Preview. The13.2 source/archive identity and common source preparation are now
+verified; formal generation/binding/public acceptance remain unexecuted. This direction is not approval to publish a preview
 or a13.3 release.
 
 [Issue65](https://github.com/masahitojp/mariamem/issues/65) governs all related
@@ -33,6 +33,15 @@ conditions before starting, resuming or delegating. Each task states its goal
 contribution, deliverable, exit condition and decision informed. New questions
 do not automatically become mandatory work; scope/contract changes and resuming
 Human-stopped work require Human decision.
+
+**13.2.0 follow-through,2026-11-10:** source_commit
+`ad7fbe2572331bc4aa10838fa8b9434d051a4a5f` adds the native-text preview entry.
+The published distribution matches all27,551 tracked blobs of upstream commit
+`c9f28ba0afec6d29e4688255dce8caaf7e91233d`; tag_object_sha is explicitly null.
+All seven existing patch stages apply without body edits; actual shared source
+preparation and32 focused tests pass. Fourteen source contacts changed upstream:
+source preparation does not prove their runtime/binding compatibility. The next
+formal producer/public cohort targets this13.2 input, preserving old vectors.
 
 **Completed bounded step: #134 common source preparation**, verified at
 `cee676e8fcd77ee15db2b31639a1c100758c5b1b`. The resolver and one preparation path
@@ -48,7 +57,7 @@ binding, registration/proof metadata and public verification remain. Do not use
 patch counts or source equality as saved person-hours. Preserve original build
 cost evidence and distinguish one-time setup from recurring update work.
 
-**Next: formal generation/binding and public candidate assembly** in#134/#132,
+**Next: formal generation/binding and public candidate assembly on13.2** in#134/#132,
 using the existing composition/fixtures from#129/#130. Before a heavy cohort,
 state the exact producer/binding/receipt migration and remaining manual work;
 use that same required cohort for the#128 cost observation, avoiding duplicate
