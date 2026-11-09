@@ -9,7 +9,8 @@ for v,i in inputs['binaries'].items():assert sha(t/('bin-'+v))==i['sha256']
 env={k:v for k,v in os.environ.items() if not k.startswith(('GO','MARIAMEM_','MYSQLMEM_','UPDATE_','ISSUE','FORKSTAGES_','LEXER_','PYTEST'))};env.update(GOMAXPROCS='8',GOGC='100')
 (e/'host.json').write_text(json.dumps({'platform':platform.platform(),'cpu':subprocess.check_output(['sysctl','-n','machdep.cpu.brand_string'],text=True).strip(),'memory_bytes':int(subprocess.check_output(['sysctl','-n','hw.memsize'],text=True))},indent=2)+'\n')
 # Record potential competing processes before primary timing; not a performance exclusion rule.
-(e/'process-preflight.txt').write_text(subprocess.check_output(['ps','-axo','pid,etime,%cpu,command'],text=True))
+ps=subprocess.check_output(['ps','-axo','pid,etime,%cpu,command'],text=True)
+(e/'process-preflight.txt').write_text('\n'.join(line.replace(str(w),'<WORKSPACE>') for line in ps.splitlines() if any(x in line for x in ('/compile ', 'go build', 'go test', 'experiment_workspace.py', 'campaign.py', 'build.py', 'run.py')))+'\n')
 records=[]
 def run(variant,mode,p,rep,kind='primary',count=48,negative=False):
  name=f'{variant}-{mode}-p{p}-r{rep}-{kind}';out=e/(name+'.json');assert not out.exists()
