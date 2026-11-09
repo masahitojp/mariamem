@@ -748,7 +748,6 @@ func NewWithWASIReserve(wasi_snapshot_preview1 base.Wasi_snapshot_preview1Import
 	InitElemSeg_6_3(m)
 	InitElemSeg_6_4(m)
 	InitElemSeg_6_5(m)
-	InitElemSeg_6_6(m)
 	InitElemSeg_7_0(m)
 	InitElemSeg_7_1(m)
 	InitElemSeg_7_2(m)
@@ -806,6 +805,7 @@ func NewWithWASIReserve(wasi_snapshot_preview1 base.Wasi_snapshot_preview1Import
 	InitElemSeg_8_41(m)
 	InitElemSeg_8_42(m)
 	InitElemSeg_8_43(m)
+	InitElemSeg_8_44(m)
 	m.DataSegs = [][]byte{wasm2goData_data_bin[0:8981670], wasm2goData_data_bin[8981670:9624290], wasm2goData_data_bin[9624290:9624795]}
 	m.ThreadStart = Fn214
 	Fn67(m)
@@ -1566,7 +1566,6 @@ func NewWithMemory(wasi_snapshot_preview1 base.Wasi_snapshot_preview1Imports, en
 	InitElemSeg_6_3(m)
 	InitElemSeg_6_4(m)
 	InitElemSeg_6_5(m)
-	InitElemSeg_6_6(m)
 	InitElemSeg_7_0(m)
 	InitElemSeg_7_1(m)
 	InitElemSeg_7_2(m)
@@ -1624,6 +1623,7 @@ func NewWithMemory(wasi_snapshot_preview1 base.Wasi_snapshot_preview1Imports, en
 	InitElemSeg_8_41(m)
 	InitElemSeg_8_42(m)
 	InitElemSeg_8_43(m)
+	InitElemSeg_8_44(m)
 	m.DataSegs = [][]byte{wasm2goData_data_bin[0:8981670], wasm2goData_data_bin[8981670:9624290], wasm2goData_data_bin[9624290:9624795]}
 	m.ThreadStart = Fn214
 	Fn67(m)
@@ -2365,7 +2365,6 @@ func NewFromSnapshot(wasi_snapshot_preview1 base.Wasi_snapshot_preview1Imports, 
 	InitElemSeg_6_3(m)
 	InitElemSeg_6_4(m)
 	InitElemSeg_6_5(m)
-	InitElemSeg_6_6(m)
 	InitElemSeg_7_0(m)
 	InitElemSeg_7_1(m)
 	InitElemSeg_7_2(m)
@@ -2423,6 +2422,7 @@ func NewFromSnapshot(wasi_snapshot_preview1 base.Wasi_snapshot_preview1Imports, 
 	InitElemSeg_8_41(m)
 	InitElemSeg_8_42(m)
 	InitElemSeg_8_43(m)
+	InitElemSeg_8_44(m)
 	m.DataSegs = [][]byte{wasm2goData_data_bin[0:8981670], wasm2goData_data_bin[8981670:9624290], wasm2goData_data_bin[9624290:9624795]}
 	m.ThreadStart = Fn214
 	base.RestoreGlobals(m, globals)

@@ -88,6 +88,9 @@ def verify_build(root, commit, directory=None):
     from lexer_prepared import verify_record as verify_lexer_record
     verify_lexer_record(root, prepared.get('lexer_prepared'))
     require(prepared.get('lexer_prepared') == canonical['prepared_source'].get('lexer_prepared'), 'canonical prepared lexer inputs differ')
+    require(prepared.get('startup_concurrency') is not None and
+            prepared['startup_concurrency'] == canonical['prepared_source'].get('startup_concurrency'),
+            'canonical startup concurrency inputs differ')
     require(prepared['overlays']=={p.name:digest(p) for p in (root/'guest').iterdir() if p.is_file()},'source overlays differ')
     require(prepared['inputs_lock_sha256']==digest(root/'release/inputs.lock.json'),'guest input lock differs')
     tool=guest['toolchain']

@@ -1,5 +1,5 @@
 {
-  "guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
   "baseline_source_commit": "de0e08a9c4248969a7522abebfdee8aea6ef9657",
   "baseline_guest_sha256": "7d1330e67b06eb810d0fafd649df0944dbca1b20cd7e49f8e5ecdde7f5ac8c09",
   "result": "UNQUALIFIED fixed layout; actual J1 controls not yet run",
@@ -59,7 +59,7 @@
       "old_function": 82,
       "new_function": 82,
       "function": "Fn82",
-      "file": "p8/p8_pure.go",
+      "file": "p4/p4_pure.go",
       "normalized_sha256": "5d47974851b4306097cde1eeb2b123cb08c4a7a4f525c59ec00787df74985160",
       "integer_changes": [],
       "direct_calls": [
@@ -585,11 +585,22 @@
       "ubuntu24.04-x86_64"
     ]
   },
-  "canonical_source_origin": "fd615a53495b615ca2fec6007006f4a24f98d902",
-  "canonical_acceptance": {
+  "startup_concurrency_binding": {
+    "source_commit": "8d3da071015f4b6a3b0e77197e12648850d3d910",
+    "previous_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
+    "data_and_bound_functions": "EXACTLY_IDENTICAL",
+    "canonical_acceptance": {
+      "status": "PASS",
+      "source_commit": "d3cc48076dc9f74253e7a16ebe09d323d706e72a",
+      "run_id": 42531554501,
+      "receipt": "docs/reviews/startup-cap-ci-42531554501/assessment.json"
+    }
+  },
+  "previous_lexer_canonical_acceptance": {
     "receipt": "docs/reviews/lexer-canonical-ci-42463414255/assessment.json",
     "run_id": 42463414255,
     "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
     "status": "PASS"
-  }
+  },
+  "previous_lexer_canonical_source_origin": "fd615a53495b615ca2fec6007006f4a24f98d902"
 }

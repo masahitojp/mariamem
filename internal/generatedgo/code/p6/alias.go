@@ -35,7 +35,7 @@ func Fn79(m *base.Module, l0 int32, l1 int32, l2 int32, l3 int32) int32
 //go:linkname Fn80 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn80
 func Fn80(m *base.Module, l0 int32, l1 int32) int32
 
-//go:linkname Fn82 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn82
+//go:linkname Fn82 github.com/masahitojp/mariamem/internal/generatedgo/code/p4.Fn82
 func Fn82(m *base.Module, l0 int32)
 
 //go:linkname Fn85 github.com/masahitojp/mariamem/internal/generatedgo/code/p8.Fn85

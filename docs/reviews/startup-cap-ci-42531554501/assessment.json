@@ -1,0 +1,47 @@
+{
+  "development": "FAIL at d3cc4807; trigger fix locally verified, protected PR checks require resubmission",
+  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "hosts": {
+    "macos": {
+      "J1_expected_failures": 2,
+      "J1_protected_successes": 4,
+      "children": 2,
+      "cleanup": {
+        "process_exit": 0,
+        "reaped": true,
+        "refs": 0,
+        "root_exists": false
+      },
+      "evidence_mutations_rejected": 20,
+      "generated_files": 110,
+      "host_sha256": "c2af84c82237d9748d57b52cfa04ceb4007c76ae6295628ecd5c601a5e0cec3f",
+      "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+      "result": "PASS"
+    },
+    "ubuntu": {
+      "J1_expected_failures": 2,
+      "J1_protected_successes": 4,
+      "children": 2,
+      "cleanup": {
+        "process_exit": 0,
+        "reaped": true,
+        "refs": 0,
+        "root_exists": false
+      },
+      "evidence_mutations_rejected": 20,
+      "generated_files": 110,
+      "host_sha256": "4d8c748fe7307008fb3bd894de531816f980f7ffe2d7e8cd8fd053c5d2fd47aa",
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+      "result": "PASS"
+    }
+  },
+  "independent_source_builds": 2,
+  "linked_sha256": "bc18d9e6c28a0393a4d59a6934ce71f59aa16efb113866e7472e12844ec243ee",
+  "main_integration": "NOT_APPROVED",
+  "performance": "NO_NEW_MEASUREMENT; original single-Mac limits retained",
+  "qualification": "NOT_RUN",
+  "release": "NOT_APPROVED",
+  "result": "PASS_BOUNDED_CANONICAL_CORRECTNESS",
+  "run": 42531554501,
+  "source_commit": "d3cc48076dc9f74253e7a16ebe09d323d706e72a"
+}

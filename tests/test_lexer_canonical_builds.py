@@ -66,5 +66,18 @@ class CanonicalBuildTests(unittest.TestCase):
         self.assertNotIn('continue-on-error', text)
         self.assertNotIn('operation: release', text)
 
+        candidate = (ROOT / '.github/workflows/startup-cap-candidate.yml').read_text()
+        for required in ['workflow_dispatch:',
+                         'scripts/build_generated_guest.py --repetitions 2',
+                         'runner: [macos-15, ubuntu-24.04]', 'test_startup_concurrency.py',
+                         'scripts/regenerate_release_guest.py', 'scripts/check_prepared_build_guards.py',
+                         'TestPreparedLexerTablesActualGuest', 'TestWorkerTrapActualGuestNotifiesAndIsolatesPeer',
+                         'tests/routine_thread_fixture.py', 'tests/lexer_prepared_acceptance.py',
+                         'mysql-connector-python==26.7.0', "-run '^TestCRC32C'"]:
+            self.assertIn(required, candidate)
+        self.assertNotIn('  push:', candidate)
+        self.assertNotIn('continue-on-error', candidate)
+        self.assertNotIn('operation: release', candidate)
+
 
 if __name__ == '__main__': unittest.main()

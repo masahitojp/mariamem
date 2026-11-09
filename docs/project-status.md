@@ -127,6 +127,41 @@ measurement, Qualification, version selection or publication is authorized.
 P4 whole-batch/RSS/Ubuntu speedup and actual dynamic XML-loader runtime coverage
 remain outside the accepted claim.
 
+## v0.7.0 — Normal startup concurrency: production candidate authorized
+
+On2026-11-09 the Human chose to advance the #140 startup-concurrency mitigation
+to a production adoption candidate. Keep normal global thread-pool concurrency
+through buffer-pool startup loading and redo application, while retaining read
+group1 and buffer pool16MiB. The [decision and fixed exit](decisions/startup-global-concurrency.md)
+record the two-call canonical patch, original source-bound evidence and limits.
+The8MiB candidate (#88) is separate and is not adopted by this direction.
+
+The generated-Go spike supports this intervention but does not prove stable
+variance reduction or eliminate long PREPARE waits. Its observation-disabled
+CPU median increased1.7%; resource results and residual waits remain explicit.
+[Bootstrap CI42509593737](reviews/startup-cap-ci-42509593737/README.md) passed
+at8d3da071 as one UNQUALIFIED C build. The
+[canonical installation](reviews/startup-cap-installation/README.md) selects guest
+8e3761ea; clean installed source1b446e53 passes bounded local CRC, actual
+UCA/lexer/worker, Snapshot/Fork/Close and attribution checks. Complete static data
+and protected worker/CRC bodies are unchanged.
+[Canonical CI42531554501](reviews/startup-cap-ci-42531554501/README.md) passed on
+source `d3cc48076dc9f74253e7a16ebe09d323d706e72a`: two equal independent C builds,
+110-file regeneration on macOS15 arm64/Ubuntu24.04 x86_64, actual CRC/UCA/lexer/
+worker controls, J1, native SQL, two children and cleanup. These close the
+canonical correctness conditions, not performance or release acceptance.
+Development42531563986 failed the existing automatic-workflow policy: the heavy
+candidate workflow incorrectly had a push trigger. The repair retains manual
+workflow_dispatch and every acceptance step; the policy oracle remains intact.
+120 focused local tests and5 subtests pass. Protected PR checks on the repaired
+head and main-adoption review remain outstanding. Since d3cc4807 only this trigger,
+its contract assertion and evidence/ledger/fixture-binding/status records change;
+guest, generated/runtime code, test bodies for runtime acceptance, and workflow
+execution steps are unchanged. The successful receipt remains pinned to d3cc4807;
+bootstrap42509593737 and earlier lexer receipts retain their original identities.
+#140 remains open for residual waits; #88/8MiB is separate. This is not main
+integration, Qualification, a version choice or publication approval.
+
 ## Product contract
 
 mariamem provides disposable real MariaDB databases for tests. Each test normally

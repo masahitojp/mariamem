@@ -1,0 +1,16 @@
+{
+  "rejected_attribution": {
+    "source_requested": "1b446e53b8a09a95f96233c02d1211518233be2b",
+    "go_stamped_source": "4cf4393d1a9193b5b3a2d074e51f792164ecf7bd",
+    "go_stamped_dirty": true,
+    "result": "REJECTED by license audit",
+    "reason": "nested worktree; explicit GIT_DIR/GIT_WORK_TREE plus buildvcs=true used on retry"
+  },
+  "retry": "local-result.json is a separate successful run; initial result not relabelled",
+  "earlier_setup_stops": [
+    "wrong cwd before translation",
+    "inherited GOPATH refused",
+    "system Python3.9 tarfile filter unsupported; partial output removed"
+  ],
+  "runtime_code_change_for_setup": "none"
+}

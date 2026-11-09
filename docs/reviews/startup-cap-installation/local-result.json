@@ -1,0 +1,44 @@
+{
+  "source_commit": "1b446e53b8a09a95f96233c02d1211518233be2b",
+  "platform": "darwin-arm64",
+  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "steps": [
+    {
+      "name": "host-build",
+      "exit_code": 0,
+      "elapsed_s": 2.769
+    },
+    {
+      "name": "crc",
+      "exit_code": 0,
+      "elapsed_s": 0.995
+    },
+    {
+      "name": "actual-guest",
+      "exit_code": 0,
+      "elapsed_s": 2.197
+    },
+    {
+      "name": "snapshot-smoke",
+      "exit_code": 0,
+      "elapsed_s": 1.561
+    },
+    {
+      "name": "j1-inputs",
+      "exit_code": 0,
+      "elapsed_s": 2.455
+    },
+    {
+      "name": "retained-license",
+      "exit_code": 0,
+      "elapsed_s": 1.896
+    }
+  ],
+  "result": "PASS_BOUNDED_LOCAL; CI acceptance still pending",
+  "host_sha256": "ee076cbe67565f8537104132fc672e4f2c137101d2a49389651752506a6adf72",
+  "observed_host": {
+    "system": "Darwin",
+    "architecture": "arm64",
+    "macos_version": "27.2"
+  }
+}
