@@ -59,6 +59,11 @@ class PreviewInputsTests(unittest.TestCase):
         self.overrides[reference['file']]=raw;reference['sha256']=sha(raw)
         with self.assertRaisesRegex(InputError,'published preview source revision'):self.run_input()
 
+    def test_preview_provenance_is_part_of_resolved_identity(self):
+        first=self.run_input()['resolved_sha256']
+        self.descriptor['preview_source']['archive_sha256']='0'*64
+        self.assertNotEqual(first,self.run_input()['resolved_sha256'])
+
     def test_production_selector_still_uses_tagged_1233(self):
         registry=encode(self.registry)
         value=resolve_inputs(registry,'12.3.3','legacy-full',lambda name:(ROOT/name).read_bytes())

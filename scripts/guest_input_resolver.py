@@ -195,11 +195,14 @@ def _resolve(registry_bytes, engine, profile, read_bytes):
     for path, field in (('tests/fixtures/prepared-p2-source-functions.json', 'component_fixture_sha256'),
                         ('tests/fixtures/prepared-param-order-functions.json', 'parameter_fixture_sha256')):
         _require(_digest(verified[path]) == pin[field], 'prepared function proof mismatch')
+    identity = {'input': guest, 'lock': lock, 'stages': stages, 'files': files}
+    if descriptor['schema'] == 2:
+        identity['preview_source'] = proof
     result = {'schema': 1, 'selection': selection, 'origin': descriptor['origin'],
             'guest_input': guest, 'effective_lock': lock, 'stages': stages,
             'files': files, 'historical_prepared_pin': pin,
             'descriptor_sha256': entry['descriptor']['sha256'],
-            'resolved_sha256': _digest(_encoded({'input': guest, 'lock': lock, 'stages': stages, 'files': files})),
+            'resolved_sha256': _digest(_encoded(identity)),
             'scope': 'input identity only; not prepared-source validation or release qualification'}
 
     if descriptor['schema'] == 2:
