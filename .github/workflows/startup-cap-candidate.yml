@@ -1,23 +1,7 @@
 name: Startup concurrency canonical candidate (not Qualification)
 # Stage1:42509593737 at8d3da071, single UNQUALIFIED input; never relabel.
-# Automatic only while this candidate branch is active; stop after acceptance.
+# Explicit manual dispatch only; Development owns automatic PR checks.
 on:
-  push:
-    branches: [experiment/startup-cap-canonical]
-    paths:
-      - guest/**
-      - internal/generatedgo/**
-      - internal/runtimekind/**
-      - release/generated-go-*.json
-      - scripts/prepare_guest.py
-      - scripts/startup_concurrency.py
-      - scripts/generate_runtime.py
-      - scripts/generated_release.py
-      - scripts/runtime_crc32c.py
-      - scripts/runtime_thread_lifetime.py
-      - scripts/check_prepared_build_guards.py
-      - tests/test_startup_concurrency.py
-      - .github/workflows/startup-cap-candidate.yml
   workflow_dispatch:
 permissions:
   contents: read

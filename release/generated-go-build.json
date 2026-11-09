@@ -359,22 +359,32 @@
       "wasixcc": "wasixcc 0.4.7"
     }
   },
-  "source_commit": "8d3da071015f4b6a3b0e77197e12648850d3d910",
+  "source_commit": "d3cc48076dc9f74253e7a16ebe09d323d706e72a",
   "guest_size": 21177331,
   "linked_guest_sha256": "bc18d9e6c28a0393a4d59a6934ce71f59aa16efb113866e7472e12844ec243ee",
   "repetitions": [
     {
       "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
       "linked_sha256": "bc18d9e6c28a0393a4d59a6934ce71f59aa16efb113866e7472e12844ec243ee"
+    },
+    {
+      "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+      "linked_sha256": "bc18d9e6c28a0393a4d59a6934ce71f59aa16efb113866e7472e12844ec243ee"
     }
   ],
-  "completed": false,
-  "full_guest_regeneration": false,
+  "completed": true,
+  "full_guest_regeneration": true,
   "ci_evidence": {
-    "status": "SINGLE_BOOTSTRAP_PASS; canonical reproduction and both-platform acceptance pending",
-    "source_commit": "8d3da071015f4b6a3b0e77197e12648850d3d910",
-    "run_id": 42509593737,
-    "receipt": "docs/reviews/startup-cap-ci-42509593737/assessment.json"
+    "status": "PASS: bounded canonical correctness; Development repair and main-adoption review remain separate",
+    "source_commit": "d3cc48076dc9f74253e7a16ebe09d323d706e72a",
+    "run_id": 42531554501,
+    "receipt": "docs/reviews/startup-cap-ci-42531554501/assessment.json",
+    "independent_generation_files": 110,
+    "platforms": [
+      "darwin-arm64",
+      "ubuntu24.04-x86_64"
+    ],
+    "run_url": "https://github.com/masahitojp/mariamem/actions/runs/42531554501"
   },
   "previous_canonical_evidence": {
     "source_commit": "b04b49dbc3dee5e2773b8d775d2202ca1eccff92",
@@ -397,6 +407,6 @@
     "source_commit": "8d3da071015f4b6a3b0e77197e12648850d3d910",
     "contract": "development-unqualified-v1",
     "independent_source_builds": 1,
-    "use": "Bootstrap bytes selected for candidate installation only; not accepted runtime evidence."
+    "use": "Historical single-build bootstrap only; separate two-build canonical acceptance is recorded in ci_evidence."
   }
 }

@@ -93,6 +93,11 @@
     "source_commit": "8d3da071015f4b6a3b0e77197e12648850d3d910",
     "previous_guest_sha256": "14b41ceaec2b61d111eb749714cc1d6e40bb1fab503e8edc61abf76f16ab9fb1",
     "data_and_bound_functions": "EXACTLY_IDENTICAL",
-    "canonical_acceptance": "PENDING"
+    "canonical_acceptance": {
+      "status": "PASS",
+      "source_commit": "d3cc48076dc9f74253e7a16ebe09d323d706e72a",
+      "run_id": 42531554501,
+      "receipt": "docs/reviews/startup-cap-ci-42531554501/assessment.json"
+    }
   }
 }
