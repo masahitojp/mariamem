@@ -1,0 +1,27 @@
+{
+  "index_url": "https://archive.mariadb.org/mariadb-12.3.3/repo/ubuntu/dists/noble/main/binary-arm64/Packages.gz",
+  "index_sha256": "234d2950252b633f9781d1827eaa4938f16f84b4e60ddb52750d84960389b838",
+  "packages": [
+    {
+      "Package": "libmariadb-dev",
+      "Version": "1:12.3.3+maria~ubu2404",
+      "Filename": "pool/main/m/mariadb/libmariadb-dev_12.3.3+maria~ubu2404_arm64.deb",
+      "Size": "269500",
+      "SHA256": "d002d8832fee1811028670f8c1c6b9b50b627efa805ffc302b301b9a98a42fb7"
+    },
+    {
+      "Package": "libmariadbd-dev",
+      "Version": "1:12.3.3+maria~ubu2404",
+      "Filename": "pool/main/m/mariadb/libmariadbd-dev_12.3.3+maria~ubu2404_arm64.deb",
+      "Size": "9653106",
+      "SHA256": "1940b4bbb1d334e69e36843c64f3f7fafe38f7a3e345360b8956196437396898"
+    },
+    {
+      "Package": "libmariadbd19",
+      "Version": "1:12.3.3+maria~ubu2404",
+      "Filename": "pool/main/m/mariadb/libmariadbd19_12.3.3+maria~ubu2404_arm64.deb",
+      "Size": "5784186",
+      "SHA256": "7ae9d6f4afbee3fa8e7d628d7264676cf5ef2fd64ff5dba7fe89cf467a6ae667"
+    }
+  ]
+}
