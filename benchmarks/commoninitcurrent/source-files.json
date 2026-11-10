@@ -1,0 +1,120 @@
+{
+  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "product_source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "files": {
+    "libmysqld/lib_sql.cc": {
+      "sha256": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
+      "git_blob_sha": "4f1d98293aaa176c1c1f9f8f73d5ac1d8c1f5ccf",
+      "size": 38452,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/libmysqld/lib_sql.cc"
+    },
+    "sql/mysqld.cc": {
+      "sha256": "b69ed88ee907f86e83f0f4d729b26cd84837f1b94b828d51683b61f81a670bb8",
+      "git_blob_sha": "ae5df9761505b6bf7d1c2057be784219b02bfc75",
+      "size": 378739,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/mysqld.cc"
+    },
+    "mysys/charset.c": {
+      "sha256": "d120e40dea53badcb20c28a70189c88b483df02dd7ce7979fb6a7c234cb506f3",
+      "git_blob_sha": "2bd977bf7349b23c6e34c08398fd35bc2c287c24",
+      "size": 47473,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/charset.c"
+    },
+    "mysys/charset-def.c": {
+      "sha256": "8bc43b3bbe142da2bfa7b182c6e15a23a0681d6029cd75eb4a548cdc8c39be30",
+      "git_blob_sha": "30c661fa87dd50ca5604d1a72bbe969a9e7ff8dd",
+      "size": 24830,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/charset-def.c"
+    },
+    "strings/ctype.c": {
+      "sha256": "38b77d861801cda46cf6312f3c6256191b8f7b1815f2dbc88f52761e4a47881d",
+      "git_blob_sha": "052452c169e6b367a1b59d71ed4fe5a77b493cfc",
+      "size": 42506,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/strings/ctype.c"
+    },
+    "mysys/hash.c": {
+      "sha256": "b22a64c9a59beb47a54385c47127bbc6ffb2e532156324d8ebae842978d68205",
+      "git_blob_sha": "b79580c6b5aba4c45bd971ff8863f0815fdcad7f",
+      "size": 25184,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/hash.c"
+    },
+    "sql/set_var.cc": {
+      "sha256": "cce9905b2d1c1d8de79868b4eae1c26de7da4997d3a8043cc7a53e31110bcd28",
+      "git_blob_sha": "4fe16d54ebf85d1d56194d4c33bab9cf69da0d63",
+      "size": 47143,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/set_var.cc"
+    },
+    "mysys/my_once.c": {
+      "sha256": "481a161d3d3603219ec2072667b5341c086ef0ef8f9ed2fa4a10fe9e536a0b1c",
+      "git_blob_sha": "091210ebd3830bb7d814018bea4eb315c9a35276",
+      "size": 3392,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/my_once.c"
+    },
+    "mysys/my_rdtsc.c": {
+      "sha256": "442aef4799c12fa99dba80659c2af49fe1dcf8ae0949ccf32a55087af8a0cf32",
+      "git_blob_sha": "c0a4e9518d505b58d677dbbe59cbf95b53107d73",
+      "size": 27089,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/mysys/my_rdtsc.c"
+    },
+    "sql/item_create.cc": {
+      "sha256": "ab07533d6ba83c3ca47aecd26293de08d18113acf2ac153b31c8412bffddf357",
+      "git_blob_sha": "68853b3199fcae858f633ef82223bfe38e4e0409",
+      "size": 173163,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/item_create.cc"
+    },
+    "sql/json_schema.cc": {
+      "sha256": "27ae693912741ca101ca6ddfa7468ac2e9066960224b702d0453c74a29ca9d9f",
+      "git_blob_sha": "9aa052ca26185f5527cbc46e5788b24c915b5861",
+      "size": 100547,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/json_schema.cc"
+    },
+    "sql/sql_lex.cc": {
+      "sha256": "23c3e576ba64d95a727026317e96ddde946fac98e385f6119d6d91add725cd93",
+      "git_blob_sha": "e707ea7034fb88831ad1aee76b31d61ed1346e06",
+      "size": 418979,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_lex.cc"
+    },
+    "sql/sql_locale.cc": {
+      "sha256": "069c3c103857e333b67913c85a1d267572d7fd953cd683773b41c8a4e0741a6a",
+      "git_blob_sha": "559a8c73d26b6a1d2555ad5128192ca5e5ce7460",
+      "size": 192040,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_locale.cc"
+    },
+    "sql/sql_show.cc": {
+      "sha256": "46f88e1c1a99e85d0958ae0359b881bdc84b6546deda5b89efe841860500a7b8",
+      "git_blob_sha": "b46515f2b7fd55bd5c1d1af36f60218769976dd0",
+      "size": 392220,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_show.cc"
+    },
+    "sql/sql_type.cc": {
+      "sha256": "b117e0f564d1973bb3882b2eaef7a1dd64dc067037b165a98f5ffd4fa02cfffd",
+      "git_blob_sha": "eb6ff5b423412d5b3b9a9e79482d78fa8543bb36",
+      "size": 316840,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_type.cc"
+    },
+    "include/my_rdtsc.h": {
+      "sha256": "07715a3b32c3e59a1ac22ba7a35a2bd3609ba25166d0da9cff776124b24bc111",
+      "git_blob_sha": "70be851dac0534e0bd85d18290807ff723dad740",
+      "size": 10119,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/include/my_rdtsc.h"
+    },
+    "sql/sql_class.cc": {
+      "sha256": "5f9127318c77887731f265d58d1c8531422cfb68b6fbf637300543d53cfd26c6",
+      "git_blob_sha": "d15a0f2352ad900712e48bc86f6ab07e1e2eb39c",
+      "size": 283705,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_class.cc"
+    },
+    "storage/perfschema/pfs_timer.cc": {
+      "sha256": "249172aab64c27b61d1ebedd92791965efca2c5b89cdaea6493a1045ba8dc36a",
+      "git_blob_sha": "f03c193ddcffa8a567acbea2559ecc101f40110c",
+      "size": 5148,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/storage/perfschema/pfs_timer.cc"
+    },
+    "sql/sql_profile.cc": {
+      "sha256": "8a9522813fedf0e5491fa1f8673502bb5db641204016dbdc4d484ddd914f64eb",
+      "git_blob_sha": "78dfec2b2a36024dcbd21aeef91c550c4b0dc2d5",
+      "size": 22864,
+      "url": "https://github.com/MariaDB/server/blob/83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e/sql/sql_profile.cc"
+    }
+  }
+}

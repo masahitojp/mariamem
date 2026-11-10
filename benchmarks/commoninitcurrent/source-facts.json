@@ -1,0 +1,10 @@
+{
+  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "verified_files": 19,
+  "locale_entries": 138,
+  "locale_typelib_visits_per_init": 690,
+  "locale_visits_include_shared_typelibs": true,
+  "json_schema_keyword_entries": 75,
+  "json_schema_hash_initial_capacity": 1024,
+  "counts_are_source_facts_not_runtime_costs": true
+}
