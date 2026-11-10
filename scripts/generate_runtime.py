@@ -121,6 +121,26 @@ def adapt_driver(text):
     return text
 
 
+
+def select_timer_development_binding(pins):
+    """Exact experimental guest only; preserve every canonical ABI/body guard."""
+    record = json.loads((ROOT/'docs/reviews/wasi-timer-runtime/binding.json').read_text())
+    if pins['guest_sha256'] != record['guest_sha256']:
+        return
+    import runtime_thread_lifetime as threads
+    import runtime_crc32c as crc
+    if (pins['data_sha256'] != record['data_sha256'] or
+            record['baseline_guest_sha256'] != threads.GUEST_SHA256 or
+            record['baseline_guest_sha256'] != crc.GUEST_SHA256 or
+            {name: tuple(value) for name, value in record['functions'].items()} != threads.FUNCTIONS or
+            record['crc'] != dict(path=crc.PATH, function=crc.FUNCTION,
+                                  body_sha256=crc.BODY_SHA256, table_offset=crc.TABLE_OFFSET,
+                                  table_sha256=crc.TABLE_SHA256)):
+        raise ValueError('timer development binding differs from reviewed unchanged bodies/data')
+    threads.GUEST_SHA256 = record['guest_sha256']
+    crc.GUEST_SHA256 = record['guest_sha256']
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-module', type=Path, required=True)
@@ -138,6 +158,8 @@ def main():
              for suffix in ('*.go', '*.s') for p in src.rglob(suffix)}
     if files != pins['candidate_files_sha256']:
         parser.error('candidate source inventory differs from the pinned input')
+    if args.development_input:
+        select_timer_development_binding(pins)
     from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs
     thread_lifetime_inputs(pins['guest_sha256'], files)
     data = (src/'generated/data.bin').read_bytes()
