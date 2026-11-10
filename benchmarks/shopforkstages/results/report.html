@@ -1,0 +1,24 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><title>Current Fork stages</title><style>body{font:16px system-ui;max-width:1050px;margin:32px auto;padding:0 20px;color:#17243b}p{line-height:1.7}.bar{display:flex;height:36px;margin:8px 0 20px}.bar span{min-width:0}table{border-collapse:collapse;width:100%}th,td{padding:10px;border-bottom:1px solid #ddd;text-align:right}th:first-child,td:first-child{text-align:left}</style><h1>現在版のFork内訳・P4/P8</h1><p>同じショップ70ケース、各3組。観測なしのFork中央値はP4 26.4ms／P8 32.1ms。以下は観測ありの内訳です。特にP8は観測の影響が大きく、通常実行の精密な割合とは扱いません。</p><h2>Host側の分割（加算できる平均値）</h2>
+<b>P4: 30.12ms</b><div class="bar">
+<span title="ファイル接続等: 0.186ms" style="background:#94a3b8;width:0.41505%"></span>
+<span title="メモリ・module準備: 0.782ms" style="background:#a78bfa;width:1.74115%"></span>
+<span title="guest実行→ready: 27.324ms" style="background:#10b981;width:60.86673%"></span>
+<span title="ready後・診断読取: 0.379ms" style="background:#f59e0b;width:0.84480%"></span>
+<span title="残りのAPI・観測処理: 1.444ms" style="background:#64748b;width:3.21691%"></span>
+</div>
+<b>P8: 44.89ms</b><div class="bar">
+<span title="ファイル接続等: 0.193ms" style="background:#94a3b8;width:0.43092%"></span>
+<span title="メモリ・module準備: 1.815ms" style="background:#a78bfa;width:4.04410%"></span>
+<span title="guest実行→ready: 39.633ms" style="background:#10b981;width:88.28493%"></span>
+<span title="ready後・診断読取: 0.939ms" style="background:#f59e0b;width:2.09159%"></span>
+<span title="残りのAPI・観測処理: 2.311ms" style="background:#64748b;width:5.14846%"></span>
+</div>
+<p><span style="color:#94a3b8">■</span>ファイル接続等 ／ <span style="color:#a78bfa">■</span>メモリ・module準備 ／ <span style="color:#10b981">■</span>guest実行→ready ／ <span style="color:#f59e0b">■</span>ready後・診断読取 ／ <span style="color:#64748b">■</span>残りのAPI・観測処理</p><h2>guest内部（中央値・入れ子のため合算不可）</h2><table><tr><th>区間</th><th>P4 ms</th><th>P8 ms</th></tr>
+<tr><td>サーバー初期化全体</td><td>23.400</td><td>30.907</td></tr>
+<tr><td>↳ 共通初期化</td><td>7.652</td><td>10.233</td></tr>
+<tr><td>↳ InnoDB</td><td>6.060</td><td>5.965</td></tr>
+<tr><td>　↳ buffer pool作成</td><td>1.535</td><td>1.632</td></tr>
+<tr><td>　↳ 既存ファイル・回復処理</td><td>2.290</td><td>2.329</td></tr>
+<tr><td>↳ Aria</td><td>2.673</td><td>2.943</td></tr>
+<tr><td>↳ MyISAM key cache</td><td>1.431</td><td>1.535</td></tr>
+</table><p>共通初期化が大きな残存区間。CPU・待ち・観測負荷は未分離。全ケースPASS、遅い回も保存。詳細・全実行・source identity・再集計方法は隣のREADME.mdを参照。</p></html>

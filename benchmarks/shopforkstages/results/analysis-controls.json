@@ -1,0 +1,14 @@
+[
+  {
+    "mutation": "missing_process",
+    "result": "REJECTED"
+  },
+  {
+    "mutation": "missing_stage",
+    "result": "REJECTED"
+  },
+  {
+    "mutation": "mapping_leak",
+    "result": "REJECTED"
+  }
+]

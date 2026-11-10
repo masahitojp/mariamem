@@ -1,0 +1,62 @@
+{
+  "overlay_hashes": [
+    {
+      "path": "internal/timing/timing.go",
+      "before_sha256": "9eef3299e19ff03f66c12ac1ad4de392bef005fd51c4ce98829910b3333852e2",
+      "after_sha256": "5c8b5a8b425e6b70aff4b4fc291019f0f67ca844932afec2c5a19c49b701a024"
+    },
+    {
+      "path": "internal/generatedgo/runtime_instance.go",
+      "before_sha256": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+      "after_sha256": "bb863374a4947852e8867e6c05069698952c5e39b77a559d235ead38fcf38c42"
+    },
+    {
+      "path": "internal/guest/linked.go",
+      "before_sha256": "dcbde6db301a183cfa6c495323aed4c6c1319066aea0876a38a7596f2af228cd",
+      "after_sha256": "3440b875567f2f176029ebb5d594a5e503039d5bdabba962a116f3609015d89d"
+    },
+    {
+      "path": "internal/timing/fork_observer_test.go",
+      "before_sha256": null,
+      "after_sha256": "7b9af97adea13708acff99c92f658741ee7d1b61ef0ca3f254e2cbe052bed8b6"
+    }
+  ],
+  "harness_source_commit": "0eb5f3e8d82be3526d78c24a2a919115056c8f2c",
+  "product_source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "go": "go version go1.27.3 darwin/arm64",
+  "binary_sha256": "391f3643da955330c113ba90d82fbabb5c1bb7e162dab172cc833a815784dc69",
+  "build_info": "<WORKSPACE>/temp/bin-current: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0",
+  "module_sha256": "64218a3bb94e4d7998c89c04dcab16d019bcdec3c214b092962580fc12145d4a",
+  "harness_files": {
+    "build.py": "181a1adab5bbcc06fced549b68f92d03b1757d05cccdd7d5b8dc0ac189441ba4",
+    "overlay.py": "29448d4058880c073bc58388f140202322c94fec6a0be87cd9d1584a847fa4c4",
+    "run.py": "b906828c88c509d32b5253653482e16e10e41eaebc4e8755381fd92993cb7031",
+    "go.mod": "2053e4eb9df841fce68e24db8d23977abd4831110eab5fabebe7d3975703497c",
+    "plan.json": "a6a2a1948e4d1b05c319c35c80b2a1c4ba9e439e359fa3b2a9cae5fc5eda5e6a",
+    "decompose.py": "bc2f6bef05fdd2178309ab72c69a47110aed87a3b17ee2720cf54a849d928663",
+    "UPSTREAM-LICENSE": "f841b48a04d578790861f0ca1831f8edd2daba4007f9b09da251cfd4478f3438",
+    "go.sum": "dce32be0d73495b07bb168901b642b3210f42098612f200fb259a11ea78f4926",
+    "observer_unit.go.txt": "7b9af97adea13708acff99c92f658741ee7d1b61ef0ca3f254e2cbe052bed8b6",
+    "upstream-files.json": "a4b734617848266ea95159bd9731de64c97dc26f92e939ffdccdcdea262f6cc5",
+    "internal/trace/trace.go": "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb",
+    "maria/store/write_test.go": "ea913524349cce5e7b8f45f8119903f75d7caf4d9499b593f771b43fa5ca9f72",
+    "maria/store/read_test.go": "a663d7b74d9e5209e2707e94a83be6d9358b0bd57e6c97278a464a861cf06203",
+    "maria/store/store.go": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+    "maria/store/fixture_test.go": "39637b0089f0c16bd4bb8c721022ee77f92999750c64a4230385884fb25eed9b",
+    "maria/store/fork_observer_test.go": "e0d6eef6df1ca565c8e6e74225838f3db05a66d36e234f2c2b474d71f142d57e",
+    "maria/store/backend_test.go": "47fa8b31645ddc83039ff8b7ac4d8984640777d57097cfe0bc57ef5f0b996c03",
+    "maria/store/seed.go": "03a623c557d3b46febf88bb3e79d41d95995339d788a1ef9e434ba2be1586564",
+    "maria/store/migrations/004_view.sql": "bfcddf98b5b307fc0099bb0b67e5e5ec9346c65f80feafc4b77c60d9bc1e2af2",
+    "maria/store/migrations/001_schema.sql": "a6d4dbb985c6aef1e9e088ad43ca5a4e55b7d64b82d91665847cd8ff4e7c21b0",
+    "maria/store/migrations/005_audit.sql": "cab99228de37a563e0f15de1d1b65080f3ba79249967ddcd36d0d6a21afaa9cd",
+    "maria/store/migrations/003_totals.sql": "a2a4c51797f6020397951d4ba77e1884a9d49b745c67d396849dd095c8504f9c",
+    "maria/store/migrations/002_orders.sql": "7f77465e4a3d0d89b45cf72643fa5a215bfbb4c3751f9eec78f10945fe33d0c4"
+  },
+  "product_inputs": {
+    "guest/input.json": "d43f9d4123363b487b0d13ec0699ed769e1fcbeb573d2b52fe0ea8adae7b566f",
+    "release/generated-go-inputs.json": "127a77a0aab7f536b44a898728318bdfbe70123c1ff7300a83f5dc39c84bb424",
+    "internal/generatedgo/provenance.json": "be4574cc3e97b07440617bb27daa9ff8f091a308ef41e6978ca204e1d381b353",
+    "go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+    "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4"
+  }
+}
