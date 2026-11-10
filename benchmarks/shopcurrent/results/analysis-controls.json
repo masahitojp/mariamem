@@ -1,0 +1,14 @@
+[
+  {
+    "mutation": "missing_run",
+    "rejected": true
+  },
+  {
+    "mutation": "wrong_case_census",
+    "rejected": true
+  },
+  {
+    "mutation": "unreaped_mapping",
+    "rejected": true
+  }
+]
