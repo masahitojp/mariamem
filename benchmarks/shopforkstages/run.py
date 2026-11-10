@@ -2,6 +2,7 @@ from pathlib import Path
 import hashlib,json,os,platform,subprocess,sys,time
 sys.dont_write_bytecode=True
 from decompose import decompose,events
+from common import partition
 S=Path(__file__).resolve().parents[2];W=S.parent;T=W/'temp';E=W/'evidence';H=Path(__file__).resolve().parent
 p=json.loads((H/'plan.json').read_text());inputs=json.loads((E/'inputs.json').read_text())
 assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=S,text=True).strip()==inputs['harness_source_commit'];assert not subprocess.check_output(['git','status','--porcelain'],cwd=S)
@@ -29,7 +30,7 @@ try:
   if active:
    assert set(details)==lanes|{'root'}
    for lane,tr in details.items():
-    assert tr['startup']['guest']['version']==1;decompose(tr)
+    assert tr['startup']['guest']['version']==1;decompose(tr);partition(tr)
     for op in (['api_startup','startup'] if lane=='root' else ['fork','api_startup','startup']):events(tr[op]['events'])
     if lane!='root':assert {'memory_begin','memory_ready','filesystem_begin','filesystem_ready','execute_begin','ready_response_observed','diagnostic_read_begin','diagnostic_read_end'}<=set(events(tr['startup']['events']))
   else:assert details is None

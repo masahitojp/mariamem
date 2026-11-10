@@ -2,9 +2,9 @@ package timing
 import("context";"encoding/json";"fmt";"sync";"testing")
 func TestForkStageReaderContextIsolation(t *testing.T){
  t.Setenv("MARIAMEM_TIMING_DIR",t.TempDir());var wg sync.WaitGroup;got:=make(chan Trace,8)
- for i:=0;i<8;i++{wg.Add(1);go func(id int){defer wg.Done();ctx:=WithRecorder(context.Background(),func(tr Trace){got<-tr});ctx,finish:=Begin(ctx,fmt.Sprint("child",id));AttachGuestReader(ctx,func()([]byte,error){return []byte(fmt.Sprintf(`{"id":%d}`,id)),nil});Mark(ctx,"example");finish()}(i)}
+ for i:=0;i<8;i++{wg.Add(1);go func(id int){defer wg.Done();ctx:=WithRecorder(context.Background(),func(tr Trace){got<-tr});ctx,finish:=Begin(ctx,fmt.Sprint("child",id));AttachGuestReader(ctx,func()([]byte,error){return []byte(fmt.Sprintf(`{"id":%d}`,id)),nil});SetCommonTimer(ctx,[]uint64{uint64(id)});Mark(ctx,"example");finish()}(i)}
  wg.Wait();close(got);seen:=map[string]bool{}
- for tr:=range got{var v struct{ID int};if e:=json.Unmarshal(tr.Guest,&v);e!=nil{t.Fatal(e)};if tr.Operation!=fmt.Sprint("child",v.ID)||tr.guestReader!=nil||seen[tr.Operation]{t.Fatal("context mismatch, retained reader or duplicate")};seen[tr.Operation]=true}
+ for tr:=range got{var v struct{ID int};if e:=json.Unmarshal(tr.Guest,&v);e!=nil{t.Fatal(e)};if len(tr.CommonTimer)!=1||tr.CommonTimer[0]!=uint64(v.ID)||tr.Operation!=fmt.Sprint("child",v.ID)||tr.guestReader!=nil||seen[tr.Operation]{t.Fatal("context mismatch, retained reader or duplicate")};seen[tr.Operation]=true}
  if len(seen)!=8{t.Fatal("missing trace")}
 }
 func TestForkStageInvalidReaderRemainsMissing(t *testing.T){
