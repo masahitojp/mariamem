@@ -1,0 +1,70 @@
+{
+  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "symbol_map_sha256": "60e7f420c9140414f5d6879b8004bcc517a06f9dec69d9184cff3c0bfcc57e30",
+  "function": "5573:init_embedded_server",
+  "function_body_sha256": "dd7b12cf38ac63c5d852907a59bc01f766b310af0f111d2009f3589fdd148b24",
+  "original_instruction_bytes_preserved": true,
+  "anchors": [
+    {
+      "event": "begin",
+      "anchor": "\tFn227(m, int32(8563877))",
+      "body_line": 13136
+    },
+    {
+      "event": "timer_begin",
+      "anchor": "L64:\n\t;\n\tv735 = int32(0)",
+      "body_line": 13659
+    },
+    {
+      "event": "timer_end",
+      "anchor": "L1466:\n\t;\n\tm.G0 = v739 + int32(32)",
+      "body_line": 22943
+    },
+    {
+      "event": "locale_begin",
+      "anchor": "\tv9783 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 17844288, 0, 4)))",
+      "body_line": 25892
+    },
+    {
+      "event": "locale_end",
+      "anchor": "L1855:\n\t;\n\tv10632 =",
+      "body_line": 25908
+    },
+    {
+      "event": "lex_begin",
+      "anchor": "L2770:\n\t;\n\tv14809 =",
+      "body_line": 31921
+    },
+    {
+      "event": "lex_end",
+      "anchor": "L2775:\n\t;\n\tv14950 =",
+      "body_line": 31958
+    },
+    {
+      "event": "functions_begin",
+      "anchor": "L2775:\n\t;\n\tv14950 =",
+      "body_line": 31958
+    },
+    {
+      "event": "functions_end",
+      "anchor": "L2828:\n\t;\n\t*(*int32)",
+      "body_line": 32310
+    },
+    {
+      "event": "json_begin",
+      "anchor": "\tv15815 = int32(0)",
+      "body_line": 32333
+    },
+    {
+      "event": "json_end",
+      "anchor": "L2833:\n\t;\n\tv15957 =",
+      "body_line": 32351
+    },
+    {
+      "event": "end",
+      "anchor": "\tFn227(m, int32(8620041))",
+      "body_line": 34367
+    }
+  ],
+  "charset_function": "961:init_available_charsets"
+}

@@ -1,0 +1,9 @@
+{
+  "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+  "linked_sha256": "bc18d9e6c28a0393a4d59a6934ce71f59aa16efb113866e7472e12844ec243ee",
+  "symbol_map_sha256": "60e7f420c9140414f5d6879b8004bcc517a06f9dec69d9184cff3c0bfcc57e30",
+  "artifact_id": 13628982950,
+  "artifact_archive_sha256": "833fc5195625782722a7bad763a418f9bd66897e2253845d387b5040c795048c",
+  "binaryen_archive_sha256": "ad66da82ac13f163e424b1643f16c6dfcccc98b5966296b43e52d3cab04f84a8",
+  "result": "EXACT_GUEST_AND_MAP"
+}

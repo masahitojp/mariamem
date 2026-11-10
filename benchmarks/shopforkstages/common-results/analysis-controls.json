@@ -1,0 +1,6 @@
+{
+  "missing_timer_end": "REJECTED",
+  "duplicate_marker": "REJECTED",
+  "missing_clock_metadata": "REJECTED",
+  "overlapping_charset": "REJECTED"
+}

@@ -1,0 +1,158 @@
+{
+  "function_map_proof": {
+    "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+    "linked_sha256": "bc18d9e6c28a0393a4d59a6934ce71f59aa16efb113866e7472e12844ec243ee",
+    "symbol_map_sha256": "60e7f420c9140414f5d6879b8004bcc517a06f9dec69d9184cff3c0bfcc57e30",
+    "artifact_id": 13628982950,
+    "artifact_archive_sha256": "833fc5195625782722a7bad763a418f9bd66897e2253845d387b5040c795048c",
+    "binaryen_archive_sha256": "ad66da82ac13f163e424b1643f16c6dfcccc98b5966296b43e52d3cab04f84a8",
+    "result": "EXACT_GUEST_AND_MAP"
+  },
+  "bindings": {
+    "guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+    "symbol_map_sha256": "60e7f420c9140414f5d6879b8004bcc517a06f9dec69d9184cff3c0bfcc57e30",
+    "function": "5573:init_embedded_server",
+    "function_body_sha256": "dd7b12cf38ac63c5d852907a59bc01f766b310af0f111d2009f3589fdd148b24",
+    "original_instruction_bytes_preserved": true,
+    "anchors": [
+      {
+        "event": "begin",
+        "anchor": "\tFn227(m, int32(8563877))",
+        "body_line": 13136
+      },
+      {
+        "event": "timer_begin",
+        "anchor": "L64:\n\t;\n\tv735 = int32(0)",
+        "body_line": 13659
+      },
+      {
+        "event": "timer_end",
+        "anchor": "L1466:\n\t;\n\tm.G0 = v739 + int32(32)",
+        "body_line": 22943
+      },
+      {
+        "event": "locale_begin",
+        "anchor": "\tv9783 = *(*int32)(unsafe.Add(mBase, base.MemoryEA(m, 17844288, 0, 4)))",
+        "body_line": 25892
+      },
+      {
+        "event": "locale_end",
+        "anchor": "L1855:\n\t;\n\tv10632 =",
+        "body_line": 25908
+      },
+      {
+        "event": "lex_begin",
+        "anchor": "L2770:\n\t;\n\tv14809 =",
+        "body_line": 31921
+      },
+      {
+        "event": "lex_end",
+        "anchor": "L2775:\n\t;\n\tv14950 =",
+        "body_line": 31958
+      },
+      {
+        "event": "functions_begin",
+        "anchor": "L2775:\n\t;\n\tv14950 =",
+        "body_line": 31958
+      },
+      {
+        "event": "functions_end",
+        "anchor": "L2828:\n\t;\n\t*(*int32)",
+        "body_line": 32310
+      },
+      {
+        "event": "json_begin",
+        "anchor": "\tv15815 = int32(0)",
+        "body_line": 32333
+      },
+      {
+        "event": "json_end",
+        "anchor": "L2833:\n\t;\n\tv15957 =",
+        "body_line": 32351
+      },
+      {
+        "event": "end",
+        "anchor": "\tFn227(m, int32(8620041))",
+        "body_line": 34367
+      }
+    ],
+    "charset_function": "961:init_available_charsets"
+  },
+  "overlay_hashes": [
+    {
+      "path": "internal/timing/timing.go",
+      "before_sha256": "9eef3299e19ff03f66c12ac1ad4de392bef005fd51c4ce98829910b3333852e2",
+      "after_sha256": "2c72b2aa306b38dbe1c9498b41b2480b6f0f5dee5a51dde03747f4a218e5403a"
+    },
+    {
+      "path": "internal/generatedgo/runtime_instance.go",
+      "before_sha256": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+      "after_sha256": "199d85a038177b7fd73d4352dffa83d4b3262901c83af31772726301eabfdb59"
+    },
+    {
+      "path": "internal/guest/linked.go",
+      "before_sha256": "dcbde6db301a183cfa6c495323aed4c6c1319066aea0876a38a7596f2af228cd",
+      "after_sha256": "3440b875567f2f176029ebb5d594a5e503039d5bdabba962a116f3609015d89d"
+    },
+    {
+      "path": "internal/timing/fork_observer_test.go",
+      "before_sha256": null,
+      "after_sha256": "12795a3cceac4fc28f00318ef830c6a08b240c21a5b6639f0f70cb654f794009"
+    },
+    {
+      "path": "internal/generatedgo/code/base/base.go",
+      "before_sha256": "8bc7718ed83dbe04801d95d0d4a27b6eaf6f082e2bea3e2525e7450d0b873a4d",
+      "after_sha256": "02e6f98f5bf4c7813d9a98e2c5d73df77dd4f9d796fce4fdb51e278b71226923"
+    },
+    {
+      "path": "internal/generatedgo/code/p0/p0_pure.go",
+      "before_sha256": "ac1c66e1e02410619b4e402bf7a903a1c4a9acee06cfb879a5f3fcfd32973d3d",
+      "after_sha256": "a8eaa21451764f5a8efd282c97458b66c5512fc4e9b33f60e647b70ad7d445d5"
+    },
+    {
+      "path": "internal/generatedgo/code/p1/p1_pure.go",
+      "before_sha256": "2f4531f9e3cb6a9c89ba79a51ff676b28847a2011e45e1cbc5b204bba8850dea",
+      "after_sha256": "2a2ccdb54c6d4f7cf81cc8c74eeae20159fbe722d975e8f3374a76d1cd786467"
+    }
+  ],
+  "harness_source_commit": "d675bc07f9dacdadd7f82b77e757159670271d2c",
+  "product_source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "go": "go version go1.27.3 darwin/arm64",
+  "binary_sha256": "3364d0d496a6f09e73d171d888eb14d97b901c863e6d97284d8be8f176a766b2",
+  "build_info": "<WORKSPACE>/temp/bin-current: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/shopforkstagerunner\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0",
+  "module_sha256": "905cb1d609e53ba848dc9f327e31468a0f13150a9c5f499c22848a9b429bfcbb",
+  "harness_files": {
+    "build.py": "9e6183a1dcd56793dc17a15d47214b239bf01cf5723172d78376dfa33e6da85e",
+    "overlay.py": "c99ca5bd3e05e43b97b796b394fc18c7524b37692b35adbed2bd7674b95f06ac",
+    "run.py": "aff69760391e91194088d774716843894e78ce5b7fcfc0c0cb175ff837f0a3c0",
+    "go.mod": "2053e4eb9df841fce68e24db8d23977abd4831110eab5fabebe7d3975703497c",
+    "plan.json": "bb54d33ee6be6c6ee3780fda4164cdf9b429b1208d45ce5d08fdafcc561250a9",
+    "decompose.py": "bc2f6bef05fdd2178309ab72c69a47110aed87a3b17ee2720cf54a849d928663",
+    "UPSTREAM-LICENSE": "f841b48a04d578790861f0ca1831f8edd2daba4007f9b09da251cfd4478f3438",
+    "acquire-map.py": "e4a5916e789193be7e2b04823b6c90868a84ba19c1c096d04ec4dd08ae7785db",
+    "go.sum": "dce32be0d73495b07bb168901b642b3210f42098612f200fb259a11ea78f4926",
+    "observer_unit.go.txt": "12795a3cceac4fc28f00318ef830c6a08b240c21a5b6639f0f70cb654f794009",
+    "common.py": "e47aa2088f54961334fc03aafebf452c33cd46257d54c8d1f46fa969299a9c6a",
+    "upstream-files.json": "a4b734617848266ea95159bd9731de64c97dc26f92e939ffdccdcdea262f6cc5",
+    "internal/trace/trace.go": "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb",
+    "maria/store/write_test.go": "ea913524349cce5e7b8f45f8119903f75d7caf4d9499b593f771b43fa5ca9f72",
+    "maria/store/read_test.go": "a663d7b74d9e5209e2707e94a83be6d9358b0bd57e6c97278a464a861cf06203",
+    "maria/store/store.go": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+    "maria/store/fixture_test.go": "39637b0089f0c16bd4bb8c721022ee77f92999750c64a4230385884fb25eed9b",
+    "maria/store/fork_observer_test.go": "e0d6eef6df1ca565c8e6e74225838f3db05a66d36e234f2c2b474d71f142d57e",
+    "maria/store/backend_test.go": "47fa8b31645ddc83039ff8b7ac4d8984640777d57097cfe0bc57ef5f0b996c03",
+    "maria/store/seed.go": "03a623c557d3b46febf88bb3e79d41d95995339d788a1ef9e434ba2be1586564",
+    "maria/store/migrations/004_view.sql": "bfcddf98b5b307fc0099bb0b67e5e5ec9346c65f80feafc4b77c60d9bc1e2af2",
+    "maria/store/migrations/001_schema.sql": "a6d4dbb985c6aef1e9e088ad43ca5a4e55b7d64b82d91665847cd8ff4e7c21b0",
+    "maria/store/migrations/005_audit.sql": "cab99228de37a563e0f15de1d1b65080f3ba79249967ddcd36d0d6a21afaa9cd",
+    "maria/store/migrations/003_totals.sql": "a2a4c51797f6020397951d4ba77e1884a9d49b745c67d396849dd095c8504f9c",
+    "maria/store/migrations/002_orders.sql": "7f77465e4a3d0d89b45cf72643fa5a215bfbb4c3751f9eec78f10945fe33d0c4"
+  },
+  "product_inputs": {
+    "guest/input.json": "d43f9d4123363b487b0d13ec0699ed769e1fcbeb573d2b52fe0ea8adae7b566f",
+    "release/generated-go-inputs.json": "127a77a0aab7f536b44a898728318bdfbe70123c1ff7300a83f5dc39c84bb424",
+    "internal/generatedgo/provenance.json": "be4574cc3e97b07440617bb27daa9ff8f091a308ef41e6978ca204e1d381b353",
+    "go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+    "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4"
+  }
+}

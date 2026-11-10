@@ -1,0 +1,46 @@
+{
+  "question": "Exclusive elapsed of current common initialization: timer calibration, fixed locale/lexer lengths and lookup construction",
+  "source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "harness_ancestor": "c0b696046dca55c648a1268fbd24168b02ec855c",
+  "go": "go1.27.3",
+  "parallel": [
+    4,
+    8
+  ],
+  "max_forks": "parallel+1",
+  "pairs": 3,
+  "warmup_per_cell": 1,
+  "total_processes": 16,
+  "transport": "Go Pipe",
+  "cases": {
+    "read": 50,
+    "write": 20
+  },
+  "observations": "Exact-symbol-bound Go overlay on canonical generated instructions. Same binary observer off/on. No SQL/setting/guest semantic change.",
+  "boundaries": "Outer fork, host phases, guest server_init/common/plugins/InnoDB nested phases. Elapsed not exclusive CPU. Record all per-child distributions, means and >100ms counts.",
+  "stop": "First unexpected failure or fixed16processes; no retries or automatic root-cause expansion",
+  "budget": {
+    "timeout_seconds": 1500,
+    "per_process_seconds": 150,
+    "owned_gib": 8,
+    "min_free_gib": 12
+  },
+  "overlay_preimages": {
+    "internal/generatedgo/runtime_instance.go": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+    "internal/timing/timing.go": "9eef3299e19ff03f66c12ac1ad4de392bef005fd51c4ce98829910b3333852e2",
+    "internal/guest/linked.go": "dcbde6db301a183cfa6c495323aed4c6c1319066aea0876a38a7596f2af228cd",
+    "internal/generatedgo/code/base/base.go": "8bc7718ed83dbe04801d95d0d4a27b6eaf6f082e2bea3e2525e7450d0b873a4d",
+    "internal/generatedgo/code/p0/p0_pure.go": "ac1c66e1e02410619b4e402bf7a903a1c4a9acee06cfb879a5f3fcfd32973d3d"
+  },
+  "scope": "One diagnostic build, 3 off/on pairs each P4/P8 plus warmups. Source b1218737 unchanged. Whole suite and exact common partition; retain tails.",
+  "exit": "Identify material bucket or report measurement ambiguity. No performance treatment/adoption.",
+  "budgets": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci": 0,
+    "maximum_diagnostic_builds": 1,
+    "processes": 16
+  },
+  "symbol_map_sha256": "60e7f420c9140414f5d6879b8004bcc517a06f9dec69d9184cff3c0bfcc57e30",
+  "measurement_boundary": "Compiler-inlined blocks in exact Fn5573, matched by full file/function hashes and unique label+instruction anchors. No C/guest rebuild. Clock and lookup semantics unchanged; generated Go source overlay only."
+}

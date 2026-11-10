@@ -1,0 +1,7 @@
+{
+  "result": "COLLECTED",
+  "harness_source_commit": "d675bc07f9dacdadd7f82b77e757159670271d2c",
+  "processes": 16,
+  "retries": 0,
+  "product_changes": false
+}
