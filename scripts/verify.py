@@ -156,6 +156,12 @@ def smoke():
     run(["go", "test", "-p", "1", "-vet=off", "-tags", "integration",
          "./tests/godefault", "-run", "^TestInProcess", "-count=1"], env=env)
 
+    # Exercise shutdown-purpose selection through the public API in normal CI,
+    # including a Fork child whose client changed the global before reSnapshot.
+    run(["go", "test", "-p", "1", "-vet=off", "-tags", "integration",
+         "./tests/gointegration", "-run", "^TestShutdownModeSnapshotAndResnapshot$",
+         "-count=1"], env=env)
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)

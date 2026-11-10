@@ -1,0 +1,87 @@
++ go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/live ./internal/control ./internal/prepared ./mariamemtest . -count=1
+ok  	github.com/masahitojp/mariamem/internal/artifacts	2.196s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	3.094s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	3.749s
+ok  	github.com/masahitojp/mariamem/internal/guest	2.543s
+ok  	github.com/masahitojp/mariamem/internal/host	1.362s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	1.454s
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	1.405s
+ok  	github.com/masahitojp/mariamem/internal/snapshot	1.560s
+ok  	github.com/masahitojp/mariamem/internal/live	1.342s
+ok  	github.com/masahitojp/mariamem/internal/control	2.578s
+ok  	github.com/masahitojp/mariamem/internal/prepared	1.518s
+ok  	github.com/masahitojp/mariamem/mariamemtest	2.736s
+ok  	github.com/masahitojp/mariamem	2.627s
++ go test -tags=integration ./tests/gointegration -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/gointegration	7.105s
++ go test -tags=integration ./tests/godefault -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/godefault	2.961s
++ go test -p 1 -tags=integration ./tests/generatedmemory -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/tests/generatedmemory	1.049s
++ go test -p 1 -tags=integration ./internal/generatedgo -run=TestWorkerTrapActualGuest -count=1 -timeout=3m
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.881s
++ go build -p 1 -o /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-d4zhqne4/mariamem-host ./cmd/mariamem-host
++ <USER_HOME>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python tests/live_acceptance/smoke.py --host /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-d4zhqne4/mariamem-host
+{"result": "PASS_SOURCE_PYTHON_LIVE", "module": "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/python/mariamem/__init__.py", "source_consumed": true, "host_reaped": true, "directory_removed": true, "max_forks": 2, "capacity_timeout_preserved": true, "live_capacity_busy_preserved": true}
++ go run ./tests/live_acceptance/go_consumer -source-smoke
+{"busy_refused":true,"closed_parent_refused":true,"result":"PASS_SOURCE_GO_LIVE","source_consumed":true,"sum_after_reset":1}
+Forced query-timeout reclamation remains a separate diagnostic; normal Close remains required.
++ <USER_HOME>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py tests/test_routine_runtime.py tests/test_text_multi_runtime.py -q
+..............................................s.......                   [100%]
+53 passed, 1 skipped in 34.32s
++ <USER_HOME>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python tests/snapshots.py
+{"passed": true, "checks": 33, "error": null, "evidence": "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/tests/evidence/snapshots.json"}
++ <USER_HOME>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python scripts/check_prepared_consumers.py --host /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-d4zhqne4/mariamem-host --output /var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-d4zhqne4/prepared-consumers
+Traceback (most recent call last):
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/tests/v06_prepared_connector_environment.py", line 35, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/tests/v06_prepared_connector_environment.py", line 32, in main
+    r=capture();a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(r,indent=2)+'\n')
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/tests/v06_prepared_connector_environment.py", line 14, in capture
+    import mysql.connector as connector
+ModuleNotFoundError: No module named 'mysql'
+Traceback (most recent call last):
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/scripts/check_prepared_consumers.py", line 31, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/scripts/check_prepared_consumers.py", line 19, in main
+    run([sys.executable,'tests/v06_prepared_connector_environment.py','--output',environment])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/scripts/check_prepared_consumers.py", line 15, in run
+    return subprocess.run([str(x) for x in args],cwd=ROOT,check=check,timeout=300)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.10/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<USER_HOME>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python', 'tests/v06_prepared_connector_environment.py', '--output', '/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-d4zhqne4/prepared-consumers/environment.json']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/scripts/verify.py", line 202, in <module>
+    main()
+    ~~~~^^
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/scripts/verify.py", line 183, in main
+    integration(args.host)
+    ~~~~~~~~~~~^^^^^^^^^^^
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/scripts/verify.py", line 140, in integration
+    run([sys.executable, "scripts/check_prepared_consumers.py", "--host", host,
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         "--output", Path(temporary)/"prepared-consumers"], env=env)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/scripts/verify.py", line 34, in run
+    observed_run([str(arg) for arg in argv], cwd=ROOT, env=go_environment(env), check=True,
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 phase='verify:'+str(argv[0])+':'+str(argv[1]), outputs=outputs,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                 inputs=[ROOT/'go.mod', ROOT/'release/generated-go-inputs.json',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         ROOT/'internal/generatedgo/provenance.json'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/scripts/build_feedback.py", line 160, in run
+    return subprocess.run(argv, check=check, input=input, capture_output=capture_output,
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                          timeout=timeout, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.10/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['<USER_HOME>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python', 'scripts/check_prepared_consumers.py', '--host', '/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-d4zhqne4/mariamem-host', '--output', '/var/folders/6n/_02w9bbx7rl1l6txmqxq1tn40000gn/T/mariamem-integration-d4zhqne4/prepared-consumers']' returned non-zero exit status 1.

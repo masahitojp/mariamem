@@ -1,0 +1,127 @@
++ <USER_HOME>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python scripts/check_version.py
+Release version: Python 0.6.2; Git/Go v0.6.2
++ <USER_HOME>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python scripts/verify_generated_runtime.py
+PASS: generated source inventory, pinned inputs and guest identity
++ <USER_HOME>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python -m pytest tests/test_generated_runtime_inventory.py tests/test_distribution_licenses.py tests/test_packaging_license_mirrors.py -q
+...................................................................      [100%]
+67 passed in 1.29s
++ go test -p 1 -vet=off ./...
+ok  	github.com/masahitojp/mariamem	1.162s
+?   	github.com/masahitojp/mariamem/benchmarks/defaultsanity	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/goisolation	0.240s
+?   	github.com/masahitojp/mariamem/benchmarks/memorylifetime	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/ownedprepared	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/platform-cache	[no test files]
+?   	github.com/masahitojp/mariamem/benchmarks/snapshotallocation	[no test files]
+ok  	github.com/masahitojp/mariamem/benchmarks/ubuntu-startup	0.241s
+?   	github.com/masahitojp/mariamem/cmd/mariamem-guest	[no test files]
+?   	github.com/masahitojp/mariamem/cmd/mariamem-host	[no test files]
+ok  	github.com/masahitojp/mariamem/docs/examples/e2e_owned/go	0.857s
+ok  	github.com/masahitojp/mariamem/docs/examples/live/go	0.935s
+ok  	github.com/masahitojp/mariamem/internal/artifacts	(cached)
+ok  	github.com/masahitojp/mariamem/internal/control	0.799s
+ok  	github.com/masahitojp/mariamem/internal/diagnostic	(cached)
+ok  	github.com/masahitojp/mariamem/internal/disposal	0.256s
+ok  	github.com/masahitojp/mariamem/internal/forklimit	0.292s
+ok  	github.com/masahitojp/mariamem/internal/generatedgo	0.887s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/base	1.484s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p0	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p1	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p2	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p3	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/generatedgo/code/p4	0.770s
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p5	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p6	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p7	[no test files]
+?   	github.com/masahitojp/mariamem/internal/generatedgo/code/p8	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/guest	0.770s
+ok  	github.com/masahitojp/mariamem/internal/host	0.410s
+ok  	github.com/masahitojp/mariamem/internal/live	0.308s
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	0.313s
+ok  	github.com/masahitojp/mariamem/internal/prepared	(cached)
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	0.270s
+?   	github.com/masahitojp/mariamem/internal/runtimekind	[no test files]
+ok  	github.com/masahitojp/mariamem/internal/snapshot	(cached)
+ok  	github.com/masahitojp/mariamem/internal/timing	(cached)
+ok  	github.com/masahitojp/mariamem/mariamemtest	0.915s
+?   	github.com/masahitojp/mariamem/scripts/guest_smoke	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/platform_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/scripts/ubuntu_acceptance	[no test files]
+?   	github.com/masahitojp/mariamem/tests/e2e_native_control/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/go_owner	[no test files]
+?   	github.com/masahitojp/mariamem/tests/live_acceptance/goapp	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_active	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_consumer	[no test files]
+?   	github.com/masahitojp/mariamem/tests/prepared_lifetime	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routine_probe	[no test files]
+?   	github.com/masahitojp/mariamem/tests/routing_acceptance	[no test files]
++ go vet -p 1 -vettool=<USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/scripts/vet_generated.py ./...
++ <USER_HOME>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python -m pytest tests --ignore=tests/consumer --ignore=tests/historical --ignore=tests/test_generated_runtime_inventory.py --ignore=tests/test_distribution_licenses.py --ignore=tests/test_packaging_license_mirrors.py -q
+.........................ssss.................. [  2%]
+........................................................................ [  6%]
+................................................s....................... [  9%]
+........................................................................ [ 13%]
+...........................ssssssssssssssssssss......................... [ 16%]
+........................................................................ [ 20%]
+........................................................................ [ 24%]
+........................................................ [ 26%]
+........................................................................ [ 30%]
+........................................................................ [ 34%]
+............................................................ [ 37%]
+........................................................................ [ 40%]
+...................................sss.................................. [ 44%]
+................................................................... [ 47%]
+........................................................................ [ 51%]
+.......................sssssssssssssss.................... [ 54%]
+........................................................................ [ 58%]
+........................................................................ [ 61%]
+...............sssssssss................................................ [ 65%]
+........................................................................ [ 68%]
+........................................................................ [ 72%]
+........................................................................ [ 76%]
+....ssssssssssssssssssssssssss.......................................... [ 79%]
+........................................................................ [ 83%]
+.......................................................sssssss.......... [ 87%]
+................................................................. [ 90%]
+...................................................... [ 93%]
+.......................................................ssssss [ 96%]
+s.......................s............sss.......................... [ 99%]
+.........                                                                [100%]
+=============================== warnings summary ===============================
+tests/routing_acceptance/test_pytest_native.py:7
+  <USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/tests/routing_acceptance/test_pytest_native.py:7: PytestUnknownMarkWarning: Unknown pytest.mark.shadow_maria - is this a typo?  You can register custom marks to avoid this warning - for details, see https://docs.pytest.org/en/stable/how-to/mark.html
+    pytest.mark.shadow_maria]
+
+tests/test_routing.py::test_missing_expired_closed_and_nested_targets
+  <USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/tests/test_routing.py:121: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", b):
+
+tests/test_routing.py::test_missing_expired_closed_and_nested_targets
+  <USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/tests/test_routing.py:119: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", a):
+
+tests/test_routing.py::test_connect_failure_keeps_provenance_and_original_error
+  <USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/tests/test_routing.py:138: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", DB()):
+
+tests/test_routing.py::test_connect_failure_keeps_provenance_and_original_error
+  <USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/tests/test_routing.py:142: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", DB("B")):
+
+tests/test_routing.py::test_slow_connection_is_closed_if_retirement_wins
+  <USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/tests/test_routing.py:159: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", DB()) as lease:
+
+tests/test_routing.py::test_active_scope_prevents_registry_close
+  <USER_HOME>/src/mysqlmem/publish/mariamem/build/experiment-work/issue145-shutdown/worktree/tests/test_routing.py:199: UnusedRoutingWarning: mariamem routed 0 connections in this binding; isolation was not exercised. Check the selected driver/profile or use explicit child settings.
+    with routes.bind("app", DB()):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1887 passed, 98 skipped, 7 warnings, 114 subtests passed in 138.18s (0:02:18)
++ <USER_HOME>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python -m pytest tests/native -q
+........                                                                 [100%]
+8 passed in 14.43s
++ <USER_HOME>/src/mysqlmem/publish/mariamem/build/release-v051-venv/bin/python scripts/check_public.py
+Public source check passed: 6883 files

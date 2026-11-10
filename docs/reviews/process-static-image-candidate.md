@@ -117,3 +117,21 @@ Raw local logs/caches are not repository results. Commands and sources above
 reproduce the checks; GitHub artifacts retain compact CI logs/checksums. The
 bounded candidate matrix uses manual `.github/workflows/issue123-layout.yml`;
 normal PR Development checks retain their existing responsibility.
+
+## Main synchronization after the bounded fixes
+
+Development [CI42723709945](https://github.com/masahitojp/mariamem/actions/runs/42723709945)
+passed `check`, `integration` and `Live required gate` at source_commit
+`845aeedb185e8aa10746e75c67c68709347d6458`. The PR then incorporates main
+`c375edbc1e77bf078f50abc75c9de32ce23a641a`, which already adopted Issue145's
+shutdown mode selection. The only textual conflict was in project status;
+both decisions/evidence sections are retained. Automatic merges preserve both
+workflow classifications, static-image race targets and the new existing
+shutdown/Snapshot/reSnapshot smoke in `scripts/verify.py`.
+
+The earlier statement of unchanged runtime applies to the bounded packaging/test
+follow-up through `845aeedb`, not this main synchronization. The combined host
+runtime includes main's shutdown change; old platform receipts are historical
+component evidence, not an exact-head combined matrix PASS. Normal Development
+CI owns the combined source/smoke checks. No new performance measurement,
+Qualification or release is claimed by this synchronization.

@@ -26,14 +26,26 @@ func snapshotGuest(ctx context.Context, mode, destination string) (*guest.Proces
 	go func() {
 		defer childIn.Close()
 		defer childOut.Close()
+		id := uint32(0)
 		send := func(result map[string]any) {
-			b, _ := json.Marshal(map[string]any{"request_id": 0, "result": result})
+			b, _ := json.Marshal(map[string]any{"request_id": id, "result": result})
 			_ = binary.Write(childOut, binary.LittleEndian, uint32(len(b)))
 			_, _ = childOut.Write(b)
 		}
 		send(map[string]any{"ready": true, "api_version": 2, "max_sessions": 16, "snapshot_version": 1})
 		var op uint32
 		err := binary.Read(childIn, binary.LittleEndian, &op)
+		for err == nil && op != 0 && op != 0xfffffffe {
+			packet := make([]byte, op)
+			_, err = io.ReadFull(childIn, packet)
+			if err != nil {
+				break
+			}
+			id = binary.LittleEndian.Uint32(packet[1:])
+			send(map[string]any{"ok": true})
+			err = binary.Read(childIn, binary.LittleEndian, &op)
+		}
+		id = 0
 		if err == nil && op == 0xfffffffe {
 			if mode == "publish-failure" {
 				err = os.Mkdir(filepath.Join(destination, "manifest.pending"), 0700)

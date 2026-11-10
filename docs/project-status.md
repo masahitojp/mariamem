@@ -28,8 +28,45 @@ keeps exact job/artifact identities. This is core runtime correctness, not the
 fixed-client comparison, installed distribution, performance or Qualification.
 The Human authorized the review's two bounded follow-ups: include embedded layout
 metadata in module fixtures/identity and separate private diagnostics from copied
-external-consumer tests. Runtime bytes are unchanged; old receipts retain their
-original source. Main integration and release remain separate.
+external-consumer tests. That follow-up at `845aeedb` kept runtime bytes unchanged;
+Development [CI42723709945](https://github.com/masahitojp/mariamem/actions/runs/42723709945)
+passed all three checks at that exact source. Old receipts retain their original
+source. The PR subsequently incorporates main `c375edbc`, including the adopted
+Issue145 shutdown behavior below. The combined runtime differs from the earlier
+Issue123-only CI source; its normal Development checks include the existing
+shutdown/Snapshot/reSnapshot smoke. Do not relabel earlier receipts as combined
+head PASS. Main integration and release remain separate.
+
+## Issue145 — shutdown mode by disposal purpose, adopted on main
+
+On 2026-11-10 the Human approved proceeding after the bounded macOS experiment
+recorded in [Issue145](https://github.com/masahitojp/mariamem/issues/145#issuecomment-6745782014).
+Select `innodb_fast_shutdown=1` when taking a Snapshot, and `2` when discarding
+a fresh/Fork DB. A Fork may itself become a clean Snapshot; generation origin
+must not determine shutdown mode. The candidate uses a private host-controlled
+session after client cleanup, preserving the canonical guest and public API.
+The main-based candidate passes local full check, race, Go integration, Python
+normal/Live and Snapshot checks. Exact-source macOS CI42670536897 at401def4e
+closes fixed-profile prepared/native matching and reSnapshot/parallel-disposal
+checks. Ubuntu daily/smoke CI42664665273 remains bound to e671f66a with identical
+runtime/test bodies. The accepted PR head satisfies normal protected checks. Release remains
+separate. See the
+[implementation evidence](reviews/issue145-shutdown.md) and
+[CI follow-up](reviews/issue145-shutdown-ci-followup.md).
+The Human approved main adoption and a post-merge measurement on2026-11-10.
+[PR146](https://github.com/masahitojp/mariamem/pull/146) squash-merged to source_commit
+`8eded3625ebc22a3a52280bf7647a1056e3183af`; its tree equals the approved head
+`b4e9bc4c6988ae2d1a2ea6ffc6151b395c59553e`. Normal protected checks passed in
+CI42673914153 attempt2 (attempt1 was GitHub Internal server error); macOS receipt
+42670536897 remains bound to401def4e with identical runtime/oracle bodies.
+The [post-merge comparison](reviews/issue145-postmerge-measurement.md) on
+Go1.26.10/macOS confirms1MiB-write Close reductions in all six pairs for fresh
+and Fork. No-write/10MiB Close benefit and uniform complete-lifecycle speedup
+are not established. Main adoption is complete; release remains separate.
+
+The earlier historical statement that shutdown-mode changes were unapproved is
+superseded only for this bounded implementation. No broad startup tuning is added.
+
 
 ## Current published release
 

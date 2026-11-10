@@ -251,7 +251,7 @@ func (s *Server) Close(ctx context.Context) (err error) {
 	s.mu.Lock()
 	s.stopAccepting()
 	s.mu.Unlock()
-	return s.finish(ctx, false)
+	return s.finish(ctx, shutdownDiscard)
 }
 
 // stopAccepting requires mu. The same lock gates handshake/query admission.
@@ -302,7 +302,7 @@ func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool
 	s.stopAccepting()
 	s.mu.Unlock()
 	defer func() { err = s.disposeAfter(err) }()
-	if err = s.finish(ctx, true); err != nil {
+	if err = s.finish(ctx, shutdownExport); err != nil {
 		return true, err
 	}
 	timing.Mark(ctx, "guest_stopped")
@@ -310,13 +310,59 @@ func (s *Server) Snapshot(ctx context.Context, destination string, rollback bool
 	timing.Mark(ctx, "snapshot_published")
 	return true, err
 }
-func (s *Server) finish(ctx context.Context, export bool) error {
+
+type shutdownPurpose uint8
+
+const (
+	shutdownDiscard shutdownPurpose = iota
+	shutdownCapture
+	shutdownExport
+)
+
+// setShutdownMode runs only after admission stops and all client cleanup has
+// completed. Slot zero is then free, even when all public slots were occupied.
+// Use a private session so a client's transaction or changed globals cannot
+// determine whether a captured root needs crash recovery.
+func (s *Server) setShutdownMode(ctx context.Context, purpose shutdownPurpose) error {
+	mode := "1"
+	if purpose == shutdownDiscard {
+		mode = "2"
+	}
+	for _, call := range []struct {
+		op  byte
+		sql string
+	}{{1, ""}, {2, "SET GLOBAL innodb_fast_shutdown=" + mode}, {3, ""}} {
+		result, err := s.Guest.Call(ctx, call.op, 0, []byte(call.sql))
+		if err != nil {
+			return fmt.Errorf("configure guest shutdown: %w", err)
+		}
+		if !result.OK || result.Errno != 0 || result.Error != "" {
+			return fmt.Errorf("configure guest shutdown (operation %d, errno %d): %s", call.op, result.Errno, result.Error)
+		}
+	}
+	return nil
+}
+
+func (s *Server) finish(ctx context.Context, purpose shutdownPurpose) error {
 	done := s.joinWorkers()
 	var err error
 	select {
 	case <-done:
-		if export {
+		if purpose == shutdownExport {
 			timing.Mark(ctx, "sessions_drained")
+		}
+		// Preserve the existing failed/already-reaped guest cleanup path.
+		if s.Guest.Err() == nil {
+			select {
+			case <-s.Guest.Done():
+			default:
+				err = s.setShutdownMode(ctx, purpose)
+			}
+		}
+		if err != nil {
+			break
+		}
+		if purpose == shutdownExport {
 			err = s.Guest.Export(ctx)
 			timing.Mark(ctx, "export_acknowledged")
 		} else {
