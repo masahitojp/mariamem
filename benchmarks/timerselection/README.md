@@ -6,6 +6,14 @@ tracker**, not Go's clock shim. On WASI, both `measure()` and
 selection, global cycle-counter availability, timer calibration and InnoDB
 timekeeping remain unchanged. No performance saving is claimed yet.
 
+Local selection unit PASS at `d241066e6ea379fafddff698cd6e5c80b6c23206`:
+six original/changed profiles and two incomplete-change controls. The
+[receipt](local-evidence/selection.json) records the exact methods, patch hashes
+and compiler. A first fixture attempt could not find local C++ standard headers;
+the fixture was made header-independent before the successful run. This was a
+test-environment correction, not a guest fix. Subsequent local additions are this
+record and its receipt; the CI will repeat the unit at its exact submitted head.
+
 The [baseline observation](https://github.com/masahitojp/mariamem/blob/809036801dc8d3f6d4dae543e73eb57bfca42b23/benchmarks/shopforkstages/detail-results/README.md)
 found three delayed ANALYZE queries taking24.7–25.5ms while reporting zero table
 and other execution times. CPU-cycle metadata was zero. The compiler selected
