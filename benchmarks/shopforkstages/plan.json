@@ -1,0 +1,33 @@
+{
+  "question": "Current shop Fork elapsed attribution at P4/P8 after CRC/lexer/static image adoption",
+  "source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "harness_ancestor": "c0b696046dca55c648a1268fbd24168b02ec855c",
+  "go": "go1.27.3",
+  "parallel": [
+    4,
+    8
+  ],
+  "max_forks": "parallel+1",
+  "pairs": 3,
+  "warmup_per_cell": 1,
+  "total_processes": 16,
+  "transport": "Go Pipe",
+  "cases": {
+    "read": 50,
+    "write": 20
+  },
+  "observations": "Same overlay binary on/off. Existing guest startup/init hooks, no engine/generated-body patches. Context-bound host stage/guest records. No new UNDO owner instrumentation.",
+  "boundaries": "Outer fork, host phases, guest server_init/common/plugins/InnoDB nested phases. Elapsed not exclusive CPU. Record all per-child distributions, means and >100ms counts.",
+  "stop": "First unexpected failure or fixed16processes; no retries or automatic root-cause expansion",
+  "budget": {
+    "timeout_seconds": 1500,
+    "per_process_seconds": 150,
+    "owned_gib": 8,
+    "min_free_gib": 12
+  },
+  "overlay_preimages": {
+    "internal/generatedgo/runtime_instance.go": "936428f1588108307addc541965283c3a4e4f8bc73075eee14b18dd66e3ed403",
+    "internal/timing/timing.go": "9eef3299e19ff03f66c12ac1ad4de392bef005fd51c4ce98829910b3333852e2",
+    "internal/guest/linked.go": "dcbde6db301a183cfa6c495323aed4c6c1319066aea0876a38a7596f2af228cd"
+  }
+}

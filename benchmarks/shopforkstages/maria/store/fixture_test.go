@@ -1,0 +1,166 @@
+package store_test
+
+import (
+	"context"
+	"database/sql"
+	"fmt"
+	"github.com/masahitojp/mariamem/benchmarks/shopforkstagerunner/internal/trace"
+	"github.com/masahitojp/mariamem/benchmarks/shopforkstagerunner/maria/store"
+	"os"
+	"strconv"
+	"sync"
+	"sync/atomic"
+	"syscall"
+	"testing"
+	"time"
+)
+
+type database struct {
+	open     func() *sql.DB
+	close    func() error
+	wait     func() error
+	snapshot func() (func(string) (*database, error), func() error, error)
+}
+type fixture struct {
+	rec           *trace.Recorder
+	root          *database
+	fork          func(string) (*database, error)
+	closeSnapshot func() error
+	once          sync.Once
+	sharedDB      *sql.DB
+	sharedOwner   *database
+	sharedErr     error
+	reads, writes atomic.Int32
+}
+
+var fx *fixture
+
+func must(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+func cost() float64 {
+	var r syscall.Rusage
+	must(syscall.Getrusage(syscall.RUSAGE_SELF, &r))
+	return float64(r.Utime.Nano()+r.Stime.Nano()) / 1e6
+}
+func retire(owner *database, p *sql.DB) {
+	if p != nil {
+		must(p.Close())
+	}
+	if owner.wait != nil {
+		must(owner.wait())
+	}
+	must(owner.close())
+}
+func TestMain(m *testing.M) {
+	before := cost()
+	fx = &fixture{rec: trace.New()}
+	ctx := context.Background()
+	done := fx.rec.Start("boot", "boot", "setup")
+	root, e := startBackend(ctx)
+	must(e)
+	fx.root = root
+	done()
+	done = fx.rec.Start("import", "import", "setup")
+	p := root.open()
+	must(store.Migrate(ctx, p))
+	must(store.SeedMaster(ctx, p))
+	checkSettings(p, fx.rec)
+	must(p.Close())
+	if root.wait != nil {
+		must(root.wait())
+	}
+	done()
+	done = fx.rec.Start("snapshot", "snapshot", "setup")
+	fx.fork, fx.closeSnapshot, e = root.snapshot()
+	must(e)
+	must(root.close())
+	done()
+	code := m.Run()
+	done = fx.rec.Start("final_cleanup", "cleanup", "setup")
+	if fx.sharedDB != nil {
+		retire(fx.sharedOwner, fx.sharedDB)
+	}
+	must(fx.closeSnapshot())
+	checkCleanup(fx.rec)
+	done()
+	fx.rec.Set("model", backendName())
+	fx.rec.Set("route", "Pipe")
+	fx.rec.Set("parallel", strconv.Itoa(parallelism()))
+	fx.rec.Set("fork_cap", strconv.Itoa(parallelism()+1))
+	fx.rec.Set("read_cases", strconv.Itoa(int(fx.reads.Load())))
+	fx.rec.Set("write_cases", strconv.Itoa(int(fx.writes.Load())))
+	fx.rec.Set("test_exit", strconv.Itoa(code))
+	fx.rec.Set("cpu_ms", fmt.Sprint(cost()-before))
+	fx.rec.Set("snapshot_source_closed", "true")
+	fx.rec.Set("shared_reader_forks", "1")
+	fx.rec.Set("writer_forks", "20")
+	if code == 0 && (fx.reads.Load() != 50 || fx.writes.Load() != 20) {
+		code = 2
+	}
+	must(fx.rec.Write(os.Getenv("MODELCASE_TRACE")))
+	must(writeForkObservations(os.Getenv("FORK_STAGE_PATH")))
+	os.Exit(code)
+}
+func (f *fixture) Group(t *testing.T, writes bool) { t.Helper(); t.Parallel() }
+func (f *fixture) Read(t *testing.T) *sql.DB {
+	t.Helper()
+	t.Parallel()
+	f.once.Do(func() {
+		done := f.rec.Start("shared_reader_fork", "fork", "shared")
+		f.sharedOwner, f.sharedErr = f.fork("shared")
+		done()
+		if f.sharedErr != nil {
+			return
+		}
+		f.sharedDB = f.sharedOwner.open()
+		f.sharedDB.SetMaxOpenConns(parallelism())
+		done = f.rec.Start("sample", "sample", "shared")
+		f.sharedErr = store.LoadSample(context.Background(), f.sharedDB)
+		done()
+	})
+	if f.sharedErr != nil {
+		t.Fatal(f.sharedErr)
+	}
+	done := f.rec.Start("test", "read", t.Name())
+	t.Cleanup(func() {
+		done()
+		if !t.Failed() {
+			f.reads.Add(1)
+		}
+	})
+	return f.sharedDB
+}
+func (f *fixture) Write(t *testing.T) *sql.DB {
+	t.Helper()
+	t.Parallel()
+	done := f.rec.Start("fork", "fork", t.Name())
+	owner, e := f.fork(t.Name())
+	done()
+	if e != nil {
+		t.Fatal(e)
+	}
+	p := owner.open()
+	p.SetMaxOpenConns(1)
+	t.Cleanup(func() { done := f.rec.Start("close", "cleanup", t.Name()); retire(owner, p); done() })
+	done = f.rec.Start("sample", "sample", t.Name())
+	if e = store.LoadSample(context.Background(), p); e != nil {
+		t.Fatal(e)
+	}
+	done()
+	done = f.rec.Start("test", "write", t.Name())
+	t.Cleanup(func() {
+		done()
+		if !t.Failed() {
+			f.writes.Add(1)
+		}
+	})
+	return p
+}
+
+// Deadline for all backend operations, beyond the per-binary test timeout.
+func timeout() (context.Context, context.CancelFunc) {
+	return context.WithTimeout(context.Background(), 30*time.Second)
+}
