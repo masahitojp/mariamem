@@ -86,5 +86,9 @@ int main(int argc,char **argv){
   run("temporal","SELECT CAST('00:00:00.000001' AS TIME(6)),CAST('24:01:02.000003' AS TIME(6)),CAST('2024-01-01 00:00:00' AS DATETIME),CAST('2024-01-01 00:00:00.000001' AS DATETIME(6))",1,0);
   query("START TRANSACTION");query("INSERT INTO vals(id,a) VALUES(3,42)");run("transaction","SELECT a FROM vals WHERE id=3",1,0);query("ROLLBACK");run("rollback","SELECT a FROM vals WHERE id=3",1,0);
   MYSQL_STMT *bad=mysql_stmt_init(g_mysql);const char *duplicate="INSERT INTO vals(id) VALUES(0)";check(!mysql_stmt_prepare(bad,duplicate,strlen(duplicate)),"error prepare");check(mysql_stmt_execute(bad)!=0 && mysql_stmt_errno(bad)==1062,"expected duplicate error");check(!mysql_stmt_reset(bad),"error reset");check(!mysql_stmt_close(bad),"error close");run("after-error","SELECT id FROM vals ORDER BY id",1,0);
+  query("CREATE PROCEDURE row_chain() BEGIN SELECT 11 AS a; SELECT 22 AS b; END");
+  run("chain","CALL row_chain()",1,0);
+  query("CREATE PROCEDURE row_out(OUT x BIGINT) BEGIN SELECT 33 AS a; SET x=44; END");
+  run("out","CALL row_out(?)",1,1);
   mysql_close(g_mysql);g_mysql=NULL;mysql_server_end();fprintf(stderr,"DONE\n");return 0;
 }
