@@ -1,0 +1,7 @@
+{
+  "contract": "development-unqualified-v1",
+  "exception": "CalledProcessError",
+  "guest_sha256": "0c169331c230469f0d6e04af7cf5129710404913faeb8bce041b00c0e3b8a020",
+  "message": "Command '['/Library/Frameworks/Python.framework/Versions/3.14/bin/python', '/Users/runner/work/mariamem/mariamem/scripts/generate_runtime.py', '--source-module', '/Users/runner/work/_temp/row-host/candidate/module', '--development-input', '/Users/runner/work/_temp/row-host/installation-inputs.json', '--output', '/Users/runner/work/_temp/row-host/generatedgo']' returned non-zero exit status 1.",
+  "result": "FAILED"
+}

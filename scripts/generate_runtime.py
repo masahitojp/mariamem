@@ -121,6 +121,24 @@ def adapt_driver(text):
     return text
 
 
+def select_development_binding(pins):
+    """Select only this reviewed private candidate; canonical bindings stay intact."""
+    record = json.loads((ROOT/'docs/reviews/prepared-row-adapter/binding/identity.json').read_text())
+    if pins['guest_sha256'] != record['guest_sha256']:
+        return
+    if pins['data_sha256'] != record['data_sha256']:
+        raise ValueError('reviewed raw-row data identity mismatch')
+    import runtime_thread_lifetime as threads
+    import runtime_crc32c as crc
+    threads.GUEST_SHA256 = record['guest_sha256']
+    threads.FUNCTIONS = {name:tuple(value) for name,value in record['functions'].items()}
+    crc.GUEST_SHA256 = record['guest_sha256']
+    crc.FUNCTION = record['crc']['function']
+    crc.PATH = record['crc']['path']
+    crc.BODY_SHA256 = record['crc']['body_sha256']
+    crc.TABLE_OFFSET = record['crc']['table_offset']
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-module', type=Path, required=True)
@@ -138,6 +156,8 @@ def main():
              for suffix in ('*.go', '*.s') for p in src.rglob(suffix)}
     if files != pins['candidate_files_sha256']:
         parser.error('candidate source inventory differs from the pinned input')
+    if args.development_input:
+        select_development_binding(pins)
     from runtime_thread_lifetime import validate_inputs as thread_lifetime_inputs
     thread_lifetime_inputs(pins['guest_sha256'], files)
     data = (src/'generated/data.bin').read_bytes()

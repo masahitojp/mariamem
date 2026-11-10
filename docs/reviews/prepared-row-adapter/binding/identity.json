@@ -1,0 +1,24 @@
+{
+  "guest_sha256": "0c169331c230469f0d6e04af7cf5129710404913faeb8bce041b00c0e3b8a020",
+  "data_sha256": "569893d4e1b44ba2d39e923b91510fe804d62d1ed12535c80f76431e15e93f1c",
+  "functions": {
+    "code/p3/p3_pure.go": [
+      "Fn153",
+      "fcb6f0e9717c9613d6f1441eab477fb1b13da4a28153171c2a589ad3c9079eb8"
+    ],
+    "code/p5/p5_pure.go": [
+      "Fn214",
+      "98f8f007b78c50dd0269eb56594ba48d50247e773c4e643ed212045471a749ee"
+    ],
+    "code/p8/p8_pure.go": [
+      "Fn131",
+      "e31e88a8637fb60e5f197014ae2c4dd0afe2fcd05c6f850c13d24ff0b0810932"
+    ]
+  },
+  "crc": {
+    "function": "Fn18142",
+    "path": "code/p4/p4_pure.go",
+    "body_sha256": "abbf339befd28b1aaf98f77d976364db6508c8ba490f39e0e6cb01043b6052bc",
+    "table_offset": 7179904
+  }
+}

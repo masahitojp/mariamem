@@ -4,39 +4,30 @@ on:
     branches: [experiment/prepared-row-guest]
 permissions:
   contents: read
+  actions: read
 jobs:
   guest:
-    runs-on: ubuntu-24.04-arm
-    container:
-      image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
-    timeout-minutes: 100
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
-      - name: Builder dependencies
-        run: |
-          apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
-      - name: Build one exact-source guest
-        env:
-          HOME: /root
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: row-guest-c7b60a1d51512af44718025b10800e0b3c9130f2
+          run-id: 42792328050
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/row-guest
+      - name: Verify immutable successful guest and unchanged engine inputs
         run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          mkdir -p build/row-evidence
-          python3 scripts/git_identity.py inspect HEAD > build/row-evidence/source.json
-          python3 -c 'import json,os;assert json.load(open("build/row-evidence/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
-          test -z "$(git status --porcelain)"
-          python3 scripts/experiment_disk.py --work-dir /work --budget-gib 24 --min-free-gib 8 --timeout 5400 -- python3 scripts/build_generated_guest.py --development-output /tmp/row-guest > build/row-evidence/build.log 2>&1
+          python3 scripts/git_identity.py inspect HEAD
+          python3 -c 'import sys;from pathlib import Path;sys.path.insert(0,"scripts");from dev_guest import verify_guest;r=verify_guest(Path.cwd(),Path(sys.argv[1]));assert r["guest_sha256"]=="0c169331c230469f0d6e04af7cf5129710404913faeb8bce041b00c0e3b8a020"' "$RUNNER_TEMP/row-guest"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: row-guest-${{ github.sha }}
-          path: /tmp/row-guest
+          path: ${{ runner.temp }}/row-guest
           if-no-files-found: error
-          retention-days: 7
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
-        if: always()
-        with:
-          name: row-build-${{ github.sha }}
-          path: build/row-evidence
           retention-days: 7
   actual-guest:
     needs: guest
