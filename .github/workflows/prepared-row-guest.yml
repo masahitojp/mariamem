@@ -1,0 +1,84 @@
+name: Prepared raw-row real guest
+on:
+  push:
+    branches: [experiment/prepared-row-guest]
+permissions:
+  contents: read
+jobs:
+  guest:
+    runs-on: ubuntu-24.04-arm
+    container:
+      image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
+    timeout-minutes: 100
+    steps:
+      - name: Builder dependencies
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Build one exact-source guest
+        env:
+          HOME: /root
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          mkdir -p build/row-evidence
+          python3 scripts/git_identity.py inspect HEAD > build/row-evidence/source.json
+          python3 -c 'import json,os;assert json.load(open("build/row-evidence/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python3 scripts/experiment_disk.py --work-dir /work --budget-gib 24 --min-free-gib 8 --timeout 5400 -- python3 scripts/build_generated_guest.py --development-output /tmp/row-guest > build/row-evidence/build.log 2>&1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: row-guest-${{ github.sha }}
+          path: /tmp/row-guest
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: row-build-${{ github.sha }}
+          path: build/row-evidence
+          retention-days: 7
+  actual-guest:
+    needs: guest
+    runs-on: macos-15
+    timeout-minutes: 70
+    env:
+      PYTHONPATH: python
+      GOTOOLCHAIN: go1.26.10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: row-guest-${{ github.sha }}
+          path: ${{ runner.temp }}/row-guest
+      - name: Fixed test dependencies and required compiler
+        run: |
+          python -m pip install pytest PyMySQL==1.2.3 mysql-connector-python==26.7.0
+          command -v clang
+      - name: Translate, bind, build and exercise actual guest
+        run: |
+          mkdir -p build/row-evidence
+          python scripts/git_identity.py inspect HEAD > build/row-evidence/source.json
+          python scripts/experiment_disk.py --work-dir "$RUNNER_TEMP/row-host" --budget-gib 16 --min-free-gib 8 --timeout 3600 -- python scripts/regenerate_release_guest.py --development --guest-dir "$RUNNER_TEMP/row-guest" --output "$RUNNER_TEMP/row-host" > build/row-evidence/host.log 2>&1
+          cp "$RUNNER_TEMP/row-host/development.json" build/row-evidence/
+          MARIAMEM_TEST_HOST="$RUNNER_TEMP/row-host/mariamem-dev-host" python -m pytest -q tests/test_raw_row_guest.py > build/row-evidence/prepared.log 2>&1
+          python tests/v06_prepared_call_probe.py --host "$RUNNER_TEMP/row-host/mariamem-dev-host" --output build/row-evidence/call.json > build/row-evidence/call.log 2>&1
+      - name: Preserve failure details
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/row-host/failure.json" ]; then cp "$RUNNER_TEMP/row-host/failure.json" build/row-evidence/; fi
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: row-actual-guest-${{ github.sha }}
+          path: build/row-evidence
+          retention-days: 7
