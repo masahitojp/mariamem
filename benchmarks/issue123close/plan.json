@@ -1,0 +1,29 @@
+{
+  "question": "Locate the blocking stage of the observed40s Close, not measure speed or implement a fix",
+  "before": "c375edbc1e77bf078f50abc75c9de32ce23a641a",
+  "after": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "go": "go1.26.10",
+  "harness_ancestor": "f41b970d4bd34483d4072d719fdbc9a00dc6a62d",
+  "mode": "fork",
+  "parallel": 4,
+  "count": 48,
+  "seed_rows": 1000,
+  "route": "Pipe",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "cap": 4,
+  "max_pairs": 10,
+  "controls": "one2-child P1 positive per arm, plus diagnostics-forced control at1ns threshold per arm",
+  "order": "alternate before/after within each pair; stop at first non-control slow Close or failure",
+  "observer": "same external Close wrapper in both arms; no product source changes; capture all Go stacks and DB Logs at2s and10s for first slow DB only;2MiB maximum per stack snapshot",
+  "exit": "stop on first captured slow Close/failure; otherwise INCONCLUSIVE after10 pairs. Attribute to host session/shutdown-command, engine root, worker join or mapping release only when evidence supports it. No extra rounds or automatic product fixes.",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci": 0,
+    "owned_gib": 8,
+    "min_free_gib": 12,
+    "timeout_seconds": 1800,
+    "process_timeout_seconds": 190
+  }
+}
