@@ -26,7 +26,7 @@ func (e *aliasTestEngine) call(b []byte, monitor bool) (guest.Result, error) {
 	if req.Generation != e.generation || monitor != (req.Operation != 24 && req.Operation != 25) {
 		return guest.Result{}, errors.New("wrong generation or command monitoring")
 	}
-	r := guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: e.generation, Status: 2, Affected: "0", InsertID: "0"}
+	r := guest.Result{OK: true, Version: 2, PreparedVersion: 2, SessionGeneration: e.generation, Status: 2, Affected: "0", InsertID: "0"}
 	switch req.Operation {
 	case 22:
 		if e.prepareFailure == "transport" {
@@ -63,7 +63,7 @@ func aliasTestSession(t *testing.T, generation uint32) (*preparedSession, *alias
 	t.Helper()
 	open := preparedOpen(generation)
 	open.PreparedOperations = []byte{22, 23, 24, 25, 26}
-	s, err := newPreparedSession(open, 1, open.PreparedOperations)
+	s, err := newPreparedSession(open, 2, open.PreparedOperations)
 	if err != nil {
 		t.Fatal(err)
 	}

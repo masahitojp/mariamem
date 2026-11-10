@@ -44,13 +44,13 @@ func TestPreparedParameterDescriptorsMatchExpandedNativeControl(t *testing.T) {
 }
 
 func preparedOpen(generation uint32) guest.Result {
-	return guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: generation, Status: 2, PreparedOperations: []byte{22, 25, 26}}
+	return guest.Result{OK: true, Version: 2, PreparedVersion: 2, SessionGeneration: generation, Status: 2, PreparedOperations: []byte{22, 25, 26}}
 }
 func TestPreparedOpenDoesNotSilentlyDowngrade(t *testing.T) {
 	for _, ready := range []struct {
 		version    int
 		operations []uint8
-	}{{0, nil}, {2, []uint8{22, 25, 26}}, {1, []uint8{22, 25}}} {
+	}{{0, nil}, {1, []uint8{22, 25, 26}}, {1, []uint8{22, 25}}} {
 		if _, err := newPreparedSession(preparedOpen(7), ready.version, ready.operations); err == nil {
 			t.Fatal("Ready/open mismatch accepted", ready)
 		}
@@ -58,16 +58,16 @@ func TestPreparedOpenDoesNotSilentlyDowngrade(t *testing.T) {
 	if s, err := newPreparedSession(guest.Result{OK: true, Version: 2}, 0, nil); err != nil || s != nil {
 		t.Fatal(s, err)
 	}
-	for _, change := range []func(*guest.Result){func(r *guest.Result) { r.PreparedVersion = 2 }, func(r *guest.Result) { r.SessionGeneration = 0 }, func(r *guest.Result) { r.PreparedOperations = []byte{22, 25} }, func(r *guest.Result) { r.PreparedOperations = []byte{22, 25, 26, 25} }, func(r *guest.Result) { r.PreparedVersion = 0 }} {
+	for _, change := range []func(*guest.Result){func(r *guest.Result) { r.PreparedVersion = 1 }, func(r *guest.Result) { r.SessionGeneration = 0 }, func(r *guest.Result) { r.PreparedOperations = []byte{22, 25} }, func(r *guest.Result) { r.PreparedOperations = []byte{22, 25, 26, 25} }, func(r *guest.Result) { r.PreparedVersion = 0 }} {
 		r := preparedOpen(7)
 		change(&r)
-		if _, err := newPreparedSession(r, 1, []uint8{22, 25, 26}); err == nil {
+		if _, err := newPreparedSession(r, 2, []uint8{22, 25, 26}); err == nil {
 			t.Fatal("invalid open accepted", r)
 		}
 	}
 }
 func TestPreparedSessionOwnershipNoResponseAndUnwind(t *testing.T) {
-	s, err := newPreparedSession(preparedOpen(7), 1, []uint8{22, 25, 26})
+	s, err := newPreparedSession(preparedOpen(7), 2, []uint8{22, 25, 26})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -84,7 +84,7 @@ func TestPreparedSessionOwnershipNoResponseAndUnwind(t *testing.T) {
 		if transportError {
 			return guest.Result{}, errors.New("injected transport failure")
 		}
-		result := guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, Status: 2}
+		result := guest.Result{OK: true, Version: 2, PreparedVersion: 2, SessionGeneration: 7, Status: 2}
 		if r.Operation == 22 {
 			result.StatementID = uint32(len(calls))
 			result.ParamCount = 1
@@ -142,8 +142,8 @@ func TestPreparedSessionOwnershipNoResponseAndUnwind(t *testing.T) {
 	}
 }
 func TestPreparedSessionIDsBelongToFinalPhysicalGeneration(t *testing.T) {
-	a, _ := newPreparedSession(preparedOpen(1), 1, []uint8{22, 25, 26})
-	b, _ := newPreparedSession(preparedOpen(2), 1, []uint8{22, 25, 26})
+	a, _ := newPreparedSession(preparedOpen(1), 2, []uint8{22, 25, 26})
+	b, _ := newPreparedSession(preparedOpen(2), 2, []uint8{22, 25, 26})
 	aID, _ := a.registry.Add(1, 51, 1)
 	bID, _ := b.registry.Add(2, 71, 1)
 	if aID != bID {
@@ -158,7 +158,7 @@ func TestPreparedSessionIDsBelongToFinalPhysicalGeneration(t *testing.T) {
 			if e != nil || r.Generation != tc.generation || r.Handle != tc.handle || !monitor {
 				t.Fatal(r, e)
 			}
-			return guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: tc.generation, Status: 2}, nil
+			return guest.Result{OK: true, Version: 2, PreparedVersion: 2, SessionGeneration: tc.generation, Status: 2}, nil
 		})
 		if err != nil {
 			t.Fatal(err)

@@ -1,0 +1,3 @@
+ok  	github.com/masahitojp/mariamem/internal/preparedproto	(cached)
+ok  	github.com/masahitojp/mariamem/internal/mysqlwire	0.611s
+ok  	github.com/masahitojp/mariamem/internal/guest	(cached)

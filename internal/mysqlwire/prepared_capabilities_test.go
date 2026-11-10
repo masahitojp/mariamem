@@ -17,7 +17,7 @@ func TestPreparedCapabilitiesFollowValidatedExecutionSupport(t *testing.T) {
 		t.Fatal("prepared guest did not advertise PS results")
 	}
 	open := preparedOpen(7)
-	if _, err := newPreparedSession(open, 2, open.PreparedOperations); err == nil {
+	if _, err := newPreparedSession(open, 1, open.PreparedOperations); err == nil {
 		t.Fatal("mismatched Ready accepted")
 	}
 }
@@ -72,11 +72,7 @@ func nativeCapabilityPair(t *testing.T, name string) (guest.Result, [][]byte) {
 				if len(b) != 2+len(p.Columns)*4 {
 					t.Fatal("fixture numeric width changed")
 				}
-				var cells []*guest.Cell
-				for i := range p.Columns {
-					cells = append(cells, &guest.Cell{Hex: hex.EncodeToString(b[2+i*4 : 6+i*4])})
-				}
-				part.Rows = append(part.Rows, cells)
+				part.RawRows = append(part.RawRows, hex.EncodeToString(b))
 				packets = append(packets, b)
 			}
 			packets = append(packets, decode(p.Terminal))
@@ -114,7 +110,7 @@ func TestPreparedClientOUTNegotiationMatchesNativePairedConnections(t *testing.T
 
 func TestUnexposedOUTStillRequiresFullValidation(t *testing.T) {
 	for name, change := range map[string]func(*guest.Result){
-		"corrupt-row":  func(r *guest.Result) { r.Results[0].Rows[0][0].Hex = "zz" },
+		"corrupt-row":  func(r *guest.Result) { r.Results[0].RawRows[0] = "zz" },
 		"wrong-handle": func(r *guest.Result) { r.Results[0].StatementID++ },
 		"unfinished":   func(r *guest.Result) { r.Results[0].Status &^= 8 },
 		"nested":       func(r *guest.Result) { r.Results[0].Results = []guest.Result{{}} },

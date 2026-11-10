@@ -12,7 +12,7 @@ import (
 func TestPreparedLifecycleNativeShortAndSurplusBodies(t *testing.T) {
 	for _, op := range []byte{preparedproto.Close, preparedproto.Reset} {
 		for size := 0; size <= 8; size++ {
-			s, _ := newPreparedSession(preparedOpen(7), 1, []uint8{22, 25, 26})
+			s, _ := newPreparedSession(preparedOpen(7), 2, []uint8{22, 25, 26})
 			id, _ := s.registry.Add(7, 91, 1)
 			s.types[id] = []preparedproto.ParameterType{{Type: 3}}
 			body := make([]byte, size)
@@ -32,7 +32,7 @@ func TestPreparedLifecycleNativeShortAndSurplusBodies(t *testing.T) {
 					t.Fatal(r, monitor)
 				}
 				calls++
-				return guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, Status: 3}, nil
+				return guest.Result{OK: true, Version: 2, PreparedVersion: 2, SessionGeneration: 7, Status: 3}, nil
 			})
 			if err != nil {
 				t.Fatal(op, size, err)
@@ -74,7 +74,7 @@ func TestPreparedLifecycleNativeShortAndSurplusBodies(t *testing.T) {
 func TestPreparedQuotaAndFailedMetadataUnwindNeverInstallOwner(t *testing.T) {
 	for _, failure := range []string{"quota", "close-transport", "close-sql-error"} {
 		t.Run(failure, func(t *testing.T) {
-			s, _ := newPreparedSession(preparedOpen(7), 1, []uint8{22, 25, 26})
+			s, _ := newPreparedSession(preparedOpen(7), 2, []uint8{22, 25, 26})
 			calls := 0
 			replies, err := s.handle(22, []byte("SELECT ?"), func(data []byte, monitor bool) (guest.Result, error) {
 				req, e := preparedproto.Decode(data)
@@ -82,7 +82,7 @@ func TestPreparedQuotaAndFailedMetadataUnwindNeverInstallOwner(t *testing.T) {
 					t.Fatal(e)
 				}
 				calls++
-				r := guest.Result{OK: true, Version: 2, PreparedVersion: 1, SessionGeneration: 7, Status: 2}
+				r := guest.Result{OK: true, Version: 2, PreparedVersion: 2, SessionGeneration: 7, Status: 2}
 				if req.Operation == 22 {
 					if !monitor {
 						t.Fatal("PREPARE unmonitored")

@@ -72,3 +72,14 @@ func TestValidateBinaryRowRejectsMalformedStructure(t *testing.T) {
 		}
 	}
 }
+
+func TestPreparedV1RequestIsRejected(t *testing.T) {
+	request, err := Encode(Request{Operation: Prepare, Generation: 1, Payload: []byte("SELECT 1")})
+	if err != nil {
+		t.Fatal(err)
+	}
+	request[2] = 1
+	if _, err := Decode(request); err == nil {
+		t.Fatal("accepted old private protocol")
+	}
+}
