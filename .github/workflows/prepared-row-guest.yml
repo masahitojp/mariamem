@@ -45,13 +45,14 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.14'
-      - name: Observe pinned native C-extension and raw-wire metadata change
+      - name: Observe pinned native raw-wire metadata change
         run: |
           python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0
           mkdir -p build/metadata-reference
           python scripts/git_identity.py inspect HEAD > build/metadata-reference/source.json
           docker image inspect mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1 > build/metadata-reference/image.json
-          python tests/raw_metadata_control.py --port 3307 --output build/metadata-reference/native.json
+          python tests/v06_prepared_connector_environment.py --output build/metadata-reference/environment.json
+          python tests/raw_metadata_control.py --wire-only --port 3307 --output build/metadata-reference/native.json
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
@@ -92,6 +93,7 @@ jobs:
       - name: Translate, bind, build and exercise actual guest
         env:
           MARIAMEM_METADATA_REFERENCE: ${{ runner.temp }}/row-metadata-reference/native.json
+          MARIAMEM_METADATA_OBSERVATION: build/row-evidence/metadata-guest.json
         run: |
           mkdir -p build/row-evidence
           python scripts/git_identity.py inspect HEAD > build/row-evidence/source.json

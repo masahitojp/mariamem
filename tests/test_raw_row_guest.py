@@ -46,7 +46,10 @@ def test_metadata_change_matches_native_and_raw_wire():
     reference = json.loads(Path(os.environ['MARIAMEM_METADATA_REFERENCE']).read_text())
     with mariamem.start(host_binary=os.environ['MARIAMEM_TEST_HOST']) as db:
         actual = observe(db.connection_info())
+    Path(os.environ['MARIAMEM_METADATA_OBSERVATION']).write_text(json.dumps(actual, indent=2)+'\n')
     assert actual['connector'] == reference['connector']
-    assert actual['cext'] == reference['cext']
+    cext_reference = json.loads((Path(__file__).resolve().parent.parent / 'docs/reviews/prepared-row-adapter/metadata-control/native-macos-py311.json').read_text())
+    assert actual['connector'] == cext_reference['connector']
+    assert actual['cext'] == cext_reference['cext']
     assert actual['wire_before'] == reference['wire_before']
     assert actual['wire_after'] == reference['wire_after']
