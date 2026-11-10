@@ -6,8 +6,8 @@ repo=$(pwd)
 python3 scripts/git_identity.py inspect HEAD > "$evidence/candidate-identity.json"
 python3 benchmarks/spikes/embedded-raw-rows/acquire.py "$stage" > "$evidence/acquisition.txt"
 python3 benchmarks/spikes/embedded-raw-rows/prepare_baseline.py "$stage/baseline.inc" "$stage/lite4mariadb.c" > "$evidence/baseline-extraction.json"
-runtime=$(sed -n '1s/ .*//p' benchmarks/spikes/embedded-raw-rows/images.txt)
-builder=$(sed -n '2s/ .*//p' benchmarks/spikes/embedded-raw-rows/images.txt)
+runtime=${RAW_ROWS_RUNTIME:-mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1}
+builder=${RAW_ROWS_BUILDER:-$(sed -n '2s/ .*//p' benchmarks/spikes/embedded-raw-rows/images.txt)}
 docker run --rm --network none --mount "type=bind,src=$stage,dst=/trial" --mount "type=bind,src=$repo,dst=/source,readonly" "$builder" sh -c 'mkdir -p /trial/packages; for p in /trial/*.deb; do dpkg-deb -x "$p" /trial/packages; done; gcc --version; gcc -std=c11 -O1 -g -Wall -Wextra -Wno-unused-function -Wno-unused-variable -D_GNU_SOURCE -DEMBEDDED_LIBRARY -I/trial/packages/usr/include/mariadb/server -I/trial /source/benchmarks/spikes/embedded-raw-rows/probe.c -L/trial/packages/usr/lib/aarch64-linux-gnu -Wl,--allow-shlib-undefined -lmariadbd -o /trial/probe' > "$evidence/compile.txt" 2>&1
 # The data directory is fresh and belongs to this experiment only.
 docker run --rm --network none --mount "type=bind,src=$stage,dst=/trial" "$runtime" sh -c 'mariadb-install-db --no-defaults --datadir=/trial/datadir --auth-root-authentication-method=normal --skip-test-db --user=root' > "$evidence/init.txt" 2>&1

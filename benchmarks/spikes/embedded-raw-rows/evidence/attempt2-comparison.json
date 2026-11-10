@@ -1,0 +1,9 @@
+{
+  "failures": [],
+  "mutation_detected": true,
+  "paired_results": 9,
+  "pass": true,
+  "payload_bytes": 132213,
+  "raw_only_results": 9,
+  "rows": 12
+}

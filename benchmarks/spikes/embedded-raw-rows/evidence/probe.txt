@@ -1,0 +1,3 @@
+create_uring failed: falling back to libaio
+SERVER 12.3.3-MariaDB-ubu2404-embedded CLIENT 12.3.3-MariaDB
+DONE

@@ -1,0 +1,12 @@
+{
+  "engine_package_version": "1:12.3.3+maria~ubu2404",
+  "embedded_library_revision_literal": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "runtime": "Linux arm64 in Docker on macOS arm64",
+  "compiler": "gcc 13.3.0 (Ubuntu 13.3.0-6ubuntu2~24.04.1)",
+  "host_go": "go version go1.27.3 darwin/arm64",
+  "upstream_patches_added": 0,
+  "api_function_changes": 0,
+  "canonical_guest_builds": 0,
+  "ci_submissions": 0,
+  "generated_guest_tested": false
+}

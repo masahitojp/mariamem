@@ -1,0 +1,630 @@
+[
+  {
+    "case": "types-0",
+    "part": 0,
+    "raw_only": false,
+    "status": 2,
+    "column_types": [
+      3,
+      1,
+      1,
+      2,
+      2,
+      9,
+      9,
+      3,
+      3,
+      8,
+      8,
+      4,
+      5,
+      246,
+      10,
+      12,
+      7,
+      11,
+      253,
+      253,
+      252,
+      16,
+      13,
+      255
+    ],
+    "row_bytes": [
+      181,
+      9,
+      121
+    ],
+    "row_sha256": [
+      "7054cddd1e4badb89a70b1c67b3b999bc9bedae2c321bcd072ec917e5f549a67",
+      "790eb4675732f0c38be08917b0d2f46681ef1ba641e93d65bb38b03f98e60ff4",
+      "a2babfeb53874b81c00987835def5ccb775875432733af27adee41438bdf3659"
+    ]
+  },
+  {
+    "case": "types-1",
+    "part": 0,
+    "raw_only": false,
+    "status": 2,
+    "column_types": [
+      3,
+      1,
+      1,
+      2,
+      2,
+      9,
+      9,
+      3,
+      3,
+      8,
+      8,
+      4,
+      5,
+      246,
+      10,
+      12,
+      7,
+      11,
+      253,
+      253,
+      252,
+      16,
+      13,
+      255
+    ],
+    "row_bytes": [
+      9,
+      121
+    ],
+    "row_sha256": [
+      "790eb4675732f0c38be08917b0d2f46681ef1ba641e93d65bb38b03f98e60ff4",
+      "a2babfeb53874b81c00987835def5ccb775875432733af27adee41438bdf3659"
+    ]
+  },
+  {
+    "case": "types-2",
+    "part": 0,
+    "raw_only": false,
+    "status": 2,
+    "column_types": [
+      3,
+      1,
+      1,
+      2,
+      2,
+      9,
+      9,
+      3,
+      3,
+      8,
+      8,
+      4,
+      5,
+      246,
+      10,
+      12,
+      7,
+      11,
+      253,
+      253,
+      252,
+      16,
+      13,
+      255
+    ],
+    "row_bytes": [
+      121
+    ],
+    "row_sha256": [
+      "a2babfeb53874b81c00987835def5ccb775875432733af27adee41438bdf3659"
+    ]
+  },
+  {
+    "case": "types-0",
+    "part": 0,
+    "raw_only": true,
+    "status": 2,
+    "column_types": [
+      3,
+      1,
+      1,
+      2,
+      2,
+      9,
+      9,
+      3,
+      3,
+      8,
+      8,
+      4,
+      5,
+      246,
+      10,
+      12,
+      7,
+      11,
+      253,
+      253,
+      252,
+      16,
+      13,
+      255
+    ],
+    "row_bytes": [
+      181,
+      9,
+      121
+    ],
+    "row_sha256": [
+      "7054cddd1e4badb89a70b1c67b3b999bc9bedae2c321bcd072ec917e5f549a67",
+      "790eb4675732f0c38be08917b0d2f46681ef1ba641e93d65bb38b03f98e60ff4",
+      "a2babfeb53874b81c00987835def5ccb775875432733af27adee41438bdf3659"
+    ]
+  },
+  {
+    "case": "types-1",
+    "part": 0,
+    "raw_only": true,
+    "status": 2,
+    "column_types": [
+      3,
+      1,
+      1,
+      2,
+      2,
+      9,
+      9,
+      3,
+      3,
+      8,
+      8,
+      4,
+      5,
+      246,
+      10,
+      12,
+      7,
+      11,
+      253,
+      253,
+      252,
+      16,
+      13,
+      255
+    ],
+    "row_bytes": [
+      9,
+      121
+    ],
+    "row_sha256": [
+      "790eb4675732f0c38be08917b0d2f46681ef1ba641e93d65bb38b03f98e60ff4",
+      "a2babfeb53874b81c00987835def5ccb775875432733af27adee41438bdf3659"
+    ]
+  },
+  {
+    "case": "types-2",
+    "part": 0,
+    "raw_only": true,
+    "status": 2,
+    "column_types": [
+      3,
+      1,
+      1,
+      2,
+      2,
+      9,
+      9,
+      3,
+      3,
+      8,
+      8,
+      4,
+      5,
+      246,
+      10,
+      12,
+      7,
+      11,
+      253,
+      253,
+      252,
+      16,
+      13,
+      255
+    ],
+    "row_bytes": [
+      121
+    ],
+    "row_sha256": [
+      "a2babfeb53874b81c00987835def5ccb775875432733af27adee41438bdf3659"
+    ]
+  },
+  {
+    "case": "empty-0",
+    "part": 0,
+    "raw_only": false,
+    "status": 2,
+    "column_types": [
+      3,
+      1,
+      1,
+      2,
+      2,
+      9,
+      9,
+      3,
+      3,
+      8,
+      8,
+      4,
+      5,
+      246,
+      10,
+      12,
+      7,
+      11,
+      253,
+      253,
+      252,
+      16,
+      13,
+      255
+    ],
+    "row_bytes": [],
+    "row_sha256": []
+  },
+  {
+    "case": "empty-0",
+    "part": 0,
+    "raw_only": true,
+    "status": 2,
+    "column_types": [
+      3,
+      1,
+      1,
+      2,
+      2,
+      9,
+      9,
+      3,
+      3,
+      8,
+      8,
+      4,
+      5,
+      246,
+      10,
+      12,
+      7,
+      11,
+      253,
+      253,
+      252,
+      16,
+      13,
+      255
+    ],
+    "row_bytes": [],
+    "row_sha256": []
+  },
+  {
+    "case": "lengths-0",
+    "part": 0,
+    "raw_only": false,
+    "status": 2,
+    "column_types": [
+      253,
+      253,
+      250,
+      250,
+      253
+    ],
+    "row_bytes": [
+      131585
+    ],
+    "row_sha256": [
+      "71c523a30d92b6d0d4290036fdb889bf1b8d748b172603aee3e789c3db41a957"
+    ]
+  },
+  {
+    "case": "lengths-0",
+    "part": 0,
+    "raw_only": true,
+    "status": 2,
+    "column_types": [
+      253,
+      253,
+      250,
+      250,
+      253
+    ],
+    "row_bytes": [
+      131585
+    ],
+    "row_sha256": [
+      "71c523a30d92b6d0d4290036fdb889bf1b8d748b172603aee3e789c3db41a957"
+    ]
+  },
+  {
+    "case": "temporal-0",
+    "part": 0,
+    "raw_only": false,
+    "status": 2,
+    "column_types": [
+      11,
+      11,
+      12,
+      12
+    ],
+    "row_bytes": [
+      45
+    ],
+    "row_sha256": [
+      "a4325f92d49bc56c54297048729943489adff94c9fb1ff325808a66a70f3d87d"
+    ]
+  },
+  {
+    "case": "temporal-0",
+    "part": 0,
+    "raw_only": true,
+    "status": 2,
+    "column_types": [
+      11,
+      11,
+      12,
+      12
+    ],
+    "row_bytes": [
+      45
+    ],
+    "row_sha256": [
+      "a4325f92d49bc56c54297048729943489adff94c9fb1ff325808a66a70f3d87d"
+    ]
+  },
+  {
+    "case": "transaction-0",
+    "part": 0,
+    "raw_only": false,
+    "status": 3,
+    "column_types": [
+      1
+    ],
+    "row_bytes": [
+      3
+    ],
+    "row_sha256": [
+      "1bfb03b7815b8955956f62e1154141de5acb18df943c53c3f4728a35d17ab092"
+    ]
+  },
+  {
+    "case": "transaction-0",
+    "part": 0,
+    "raw_only": true,
+    "status": 3,
+    "column_types": [
+      1
+    ],
+    "row_bytes": [
+      3
+    ],
+    "row_sha256": [
+      "1bfb03b7815b8955956f62e1154141de5acb18df943c53c3f4728a35d17ab092"
+    ]
+  },
+  {
+    "case": "rollback-0",
+    "part": 0,
+    "raw_only": false,
+    "status": 2,
+    "column_types": [
+      1
+    ],
+    "row_bytes": [],
+    "row_sha256": []
+  },
+  {
+    "case": "rollback-0",
+    "part": 0,
+    "raw_only": true,
+    "status": 2,
+    "column_types": [
+      1
+    ],
+    "row_bytes": [],
+    "row_sha256": []
+  },
+  {
+    "case": "after-error-0",
+    "part": 0,
+    "raw_only": false,
+    "status": 34,
+    "column_types": [
+      3
+    ],
+    "row_bytes": [
+      6,
+      6,
+      6
+    ],
+    "row_sha256": [
+      "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44",
+      "025fc246f13759c192cbbae2a68f2b59b6478f21b31a05d77483a87e417906dd",
+      "ed8c6c4cd690ecb732d108f6541b1cbb2be69f773ef6e71858632a3b5402de21"
+    ]
+  },
+  {
+    "case": "after-error-0",
+    "part": 0,
+    "raw_only": true,
+    "status": 34,
+    "column_types": [
+      3
+    ],
+    "row_bytes": [
+      6,
+      6,
+      6
+    ],
+    "row_sha256": [
+      "b0f66adc83641586656866813fd9dd0b8ebb63796075661ba45d1aa8089e1d44",
+      "025fc246f13759c192cbbae2a68f2b59b6478f21b31a05d77483a87e417906dd",
+      "ed8c6c4cd690ecb732d108f6541b1cbb2be69f773ef6e71858632a3b5402de21"
+    ]
+  },
+  {
+    "case": "chain-0",
+    "part": 0,
+    "raw_only": false,
+    "status": 10,
+    "column_types": [
+      3
+    ],
+    "row_bytes": [
+      6
+    ],
+    "row_sha256": [
+      "35331cf5256d645e3fcf7d7172e5424f771647f318b736dac78ab6518db93979"
+    ]
+  },
+  {
+    "case": "chain-0",
+    "part": 1,
+    "raw_only": false,
+    "status": 10,
+    "column_types": [
+      3
+    ],
+    "row_bytes": [
+      6
+    ],
+    "row_sha256": [
+      "a4cf1ac24a25b2d3068c3700168b8cabcc3fa78ee47a0908e25e8de06dc901c3"
+    ]
+  },
+  {
+    "case": "chain-0",
+    "part": 2,
+    "raw_only": false,
+    "status": 2,
+    "column_types": [],
+    "row_bytes": [],
+    "row_sha256": []
+  },
+  {
+    "case": "chain-0",
+    "part": 0,
+    "raw_only": true,
+    "status": 10,
+    "column_types": [
+      3
+    ],
+    "row_bytes": [
+      6
+    ],
+    "row_sha256": [
+      "35331cf5256d645e3fcf7d7172e5424f771647f318b736dac78ab6518db93979"
+    ]
+  },
+  {
+    "case": "chain-0",
+    "part": 1,
+    "raw_only": true,
+    "status": 10,
+    "column_types": [
+      3
+    ],
+    "row_bytes": [
+      6
+    ],
+    "row_sha256": [
+      "a4cf1ac24a25b2d3068c3700168b8cabcc3fa78ee47a0908e25e8de06dc901c3"
+    ]
+  },
+  {
+    "case": "chain-0",
+    "part": 2,
+    "raw_only": true,
+    "status": 2,
+    "column_types": [],
+    "row_bytes": [],
+    "row_sha256": []
+  },
+  {
+    "case": "out-0",
+    "part": 0,
+    "raw_only": false,
+    "status": 10,
+    "column_types": [
+      3
+    ],
+    "row_bytes": [
+      6
+    ],
+    "row_sha256": [
+      "0511701d3512d0c35a12d5a8319201ed9532c29f36e83b68684824cdc2358ec6"
+    ]
+  },
+  {
+    "case": "out-0",
+    "part": 1,
+    "raw_only": false,
+    "status": 4106,
+    "column_types": [
+      8
+    ],
+    "row_bytes": [
+      10
+    ],
+    "row_sha256": [
+      "9884db54bd1aac4693c6405bdc2ee949b9a808590a4ab1d6067abc498f1ee34d"
+    ]
+  },
+  {
+    "case": "out-0",
+    "part": 2,
+    "raw_only": false,
+    "status": 2,
+    "column_types": [],
+    "row_bytes": [],
+    "row_sha256": []
+  },
+  {
+    "case": "out-0",
+    "part": 0,
+    "raw_only": true,
+    "status": 10,
+    "column_types": [
+      3
+    ],
+    "row_bytes": [
+      6
+    ],
+    "row_sha256": [
+      "0511701d3512d0c35a12d5a8319201ed9532c29f36e83b68684824cdc2358ec6"
+    ]
+  },
+  {
+    "case": "out-0",
+    "part": 1,
+    "raw_only": true,
+    "status": 4106,
+    "column_types": [
+      8
+    ],
+    "row_bytes": [
+      10
+    ],
+    "row_sha256": [
+      "9884db54bd1aac4693c6405bdc2ee949b9a808590a4ab1d6067abc498f1ee34d"
+    ]
+  },
+  {
+    "case": "out-0",
+    "part": 2,
+    "raw_only": true,
+    "status": 2,
+    "column_types": [],
+    "row_bytes": [],
+    "row_sha256": []
+  }
+]

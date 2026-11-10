@@ -1,0 +1,25 @@
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+/usr/bin/ld: /tmp/ccfBqIoS.o: in function `check':
+/source/benchmarks/spikes/embedded-raw-rows/probe.c:11:(.text+0x5ec): undefined reference to `server_mysql_errno'
+/usr/bin/ld: /source/benchmarks/spikes/embedded-raw-rows/probe.c:11:(.text+0x600): undefined reference to `server_mysql_error'
+/usr/bin/ld: /tmp/ccfBqIoS.o: in function `query':
+/source/benchmarks/spikes/embedded-raw-rows/probe.c:13:(.text+0x66c): undefined reference to `server_mysql_real_query'
+/usr/bin/ld: /tmp/ccfBqIoS.o: in function `ps_result_bindings':
+/trial/baseline.inc:390:(.text+0x7e0): undefined reference to `server_mysql_num_fields'
+/usr/bin/ld: /trial/baseline.inc:390:(.text+0x7ec): undefined reference to `server_mysql_fetch_fields'
+/usr/bin/ld: /tmp/ccfBqIoS.o: in function `ps_columns':
+/trial/baseline.inc:254:(.text+0xa30): undefined reference to `server_mysql_num_fields'
+/usr/bin/ld: /trial/baseline.inc:255:(.text+0xa3c): undefined reference to `server_mysql_fetch_fields'
+/usr/bin/ld: /tmp/ccfBqIoS.o: in function `collect':
+/source/benchmarks/spikes/embedded-raw-rows/probe.c:49:(.text+0xd0c): undefined reference to `server_mysql_fetch_fields'
+/usr/bin/ld: /source/benchmarks/spikes/embedded-raw-rows/probe.c:51:(.text+0x1484): undefined reference to `server_mysql_free_result'
+/usr/bin/ld: /tmp/ccfBqIoS.o: in function `main':
+/source/benchmarks/spikes/embedded-raw-rows/probe.c:75:(.text+0x18ec): undefined reference to `server_mysql_init'
+/usr/bin/ld: /source/benchmarks/spikes/embedded-raw-rows/probe.c:75:(.text+0x1918): undefined reference to `server_mysql_options'
+/usr/bin/ld: /source/benchmarks/spikes/embedded-raw-rows/probe.c:76:(.text+0x1944): undefined reference to `server_mysql_real_connect'
+/usr/bin/ld: /source/benchmarks/spikes/embedded-raw-rows/probe.c:89:(.text+0x1b64): undefined reference to `server_mysql_close'
+collect2: error: ld returned 1 exit status

@@ -1,0 +1,43 @@
+WARNING: The host '5eb0ba3aaf47' could not be looked up with /usr/bin/resolveip.
+This probably means that your libc libraries are not 100 % compatible
+with this binary MariaDB version. The MariaDB daemon, mariadbd, should work
+normally with the exception that host name resolving will not work.
+This means that you should use IP addresses instead of hostnames
+when specifying MariaDB privileges !
+Installing MariaDB/MySQL system tables in '/trial/datadir' ...
+2026-11-10  3:57:47 0 [Warning] failed to retrieve the MAC address
+2026-11-10  3:57:47 0 [Warning] WSREP: Failed to guess base node address. Set it explicitly via wsrep_node_address.
+2026-11-10  3:57:47 0 [Warning] WSREP: Failed to guess base node address. Set it explicitly via wsrep_node_address.
+2026-11-10  3:57:47 0 [Warning] WSREP: Guessing address for incoming client connections failed. Try setting wsrep_node_incoming_address explicitly.
+2026-11-10  3:57:47 0 [Warning] mariadbd: io_uring_queue_init() failed with EPERM: sysctl kernel.io_uring_disabled has the value 2, or 1 and the user of the process is not a member of sysctl kernel.io_uring_group. (see man 2 io_uring_setup).
+create_uring failed: falling back to libaio
+OK
+
+To start mariadbd at boot time you have to copy
+support-files/mariadb.service to the right place for your system
+
+
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MariaDB root USER !
+To do so, start the server, then issue the following command:
+
+'/usr/bin/mariadb-secure-installation'
+
+which will also give you the option of removing the test
+databases and anonymous user created by default.  This is
+strongly recommended for production servers.
+
+See the MariaDB Documentation at https://mariadb.com/docs
+
+You can start the MariaDB daemon with:
+cd '/usr' ; /usr/bin/mariadbd-safe --datadir='/trial/datadir'
+
+You can test the MariaDB daemon with mariadb-test-run.pl
+cd '/usr/share/mariadb/mariadb-test' ; perl mariadb-test-run.pl
+
+Please report any problems at https://mariadb.org/jira
+
+The latest information about MariaDB is available at https://mariadb.org/.
+
+Consider joining MariaDB's strong and vibrant community:
+https://mariadb.org/get-involved/
+
