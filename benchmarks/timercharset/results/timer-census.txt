@@ -1,0 +1,36 @@
+Docs/optimizer_costs.txt:1238:1000.0*57492/sys_timer_info.cycles.frequency = 0.0249 ms
+Docs/optimizer_costs.txt:405:1000.0*1890559/sys_timer_info.cycles.frequency/17755 = 3.558138826971332e-05 ms
+include/my_rdtsc.h:285:void my_timer_init(MY_TIMER_INFO *mti);
+include/my_rdtsc.h:57:  @sa my_timer_init().
+libmysqld/lib_sql.cc:589:  my_timer_init(&sys_timer_info);
+mysys/my_rdtsc.c:236:  The my_timer_init() function and its sub-functions
+mysys/my_rdtsc.c:247:  Calculate overhead. Called from my_timer_init().
+mysys/my_rdtsc.c:277:  Calculate Resolution. Called from my_timer_init().
+mysys/my_rdtsc.c:363:void my_timer_init(MY_TIMER_INFO *mti)
+mysys/my_rdtsc.c:47:  my_timer_init()        ... once, at program start
+mysys/my_rdtsc.c:648:   - The overhead that my_timer_init() returns is the minimum.
+mysys/my_rdtsc.c:675:      my_timer_init(). This should only be necessary once,
+mysys/my_rdtsc.c:679:      overhead -- all things that my_timer_init() returns.
+mysys/my_rdtsc.c:696:      that my_timer_init() returns. You'll also need to convert
+sql/mysqld.cc:325:MY_TIMER_INFO sys_timer_info;
+sql/mysqld.cc:6167:  my_timer_init(&sys_timer_info);
+sql/mysqld.h:63:extern MYSQL_PLUGIN_IMPORT MY_TIMER_INFO sys_timer_info;
+sql/sql_analyze_stmt.h:45:  return static_cast<double>(sys_timer_info.cycles.frequency);
+sql/sql_analyze_stmt.h:47:  return static_cast<double>(sys_timer_info.microseconds.frequency);
+storage/perfschema/pfs_timer.cc:67:  if (sys_timer_info.cycles.frequency > 0)
+storage/perfschema/pfs_timer.cc:69:                                  (double)sys_timer_info.cycles.frequency);
+storage/perfschema/pfs_timer.cc:73:  if (sys_timer_info.nanoseconds.frequency > 0)
+storage/perfschema/pfs_timer.cc:75:                                    (double)sys_timer_info.nanoseconds.frequency);
+storage/perfschema/pfs_timer.cc:79:  if (sys_timer_info.microseconds.frequency > 0)
+storage/perfschema/pfs_timer.cc:81:                                     (double)sys_timer_info.microseconds.frequency);
+storage/perfschema/pfs_timer.cc:85:  if (sys_timer_info.milliseconds.frequency > 0)
+storage/perfschema/pfs_timer.cc:87:                                     (double)sys_timer_info.milliseconds.frequency);
+storage/perfschema/pfs_timer.h:158:extern MYSQL_PLUGIN_IMPORT MY_TIMER_INFO sys_timer_info;
+storage/perfschema/table_performance_timers.cc:82:  m_data[index].m_info= sys_timer_info.cycles;
+storage/perfschema/table_performance_timers.cc:86:  m_data[index].m_info= sys_timer_info.nanoseconds;
+storage/perfschema/table_performance_timers.cc:90:  m_data[index].m_info= sys_timer_info.microseconds;
+storage/perfschema/table_performance_timers.cc:94:  m_data[index].m_info= sys_timer_info.milliseconds;
+storage/perfschema/unittest/pfs_server_stubs.cc:63:MY_TIMER_INFO sys_timer_info;
+storage/perfschema/unittest/pfs_timer-t.cc:42:  my_timer_init(&sys_timer_info);
+unittest/mysys/my_rdtsc-t.c:52:  my_timer_init(&myt);
+unittest/mysys/my_rdtsc-t.c:82:  ok(1, "my_timer_init() did not crash");

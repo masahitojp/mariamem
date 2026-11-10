@@ -1,0 +1,9 @@
+{
+  "question": "Can per-Fork timer calibration be avoided, and which charset initialization/re-selection work is safely reducible on the measured product?",
+  "source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "measurement_result_commit": "ad249307c1866d75629d976da181fb4c96b19748",
+  "scope": "Source/read-only analysis, full pinned upstream consumer census and current generated/patch boundaries. No runtime optimization, new measurement, guest build or CI.",
+  "exit": "Timer consumer disposition, charset producer/mutation/consumer map, concrete minimal next experiment and correctness invariants; explicitly name missing exclusive timings or build-profile proof.",
+  "budget": {"active_minutes": 90, "tooling_minutes": 15, "heavy_ci": 0, "runtime_processes": 0, "source_acquisition_seconds": 600, "owned_gib": 4, "min_free_gib": 8}
+}

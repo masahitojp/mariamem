@@ -1,0 +1,126 @@
+{
+  "source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "census_lines": 36,
+  "generated_literal_reference_counts": {
+    "Fn12449": 1,
+    "Fn20021": 1,
+    "Fn20038": 1,
+    "Fn20042": 5,
+    "Fn20046": 1,
+    "Fn20056": 3,
+    "Fn20069": 1,
+    "Fn5573": 269
+  },
+  "generated_non_initializer_references": [
+    {
+      "path": "internal/generatedgo/code/p2/p2_pure.go",
+      "line": 521481,
+      "function": "Fn12449",
+      "text": "v322 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    },
+    {
+      "path": "internal/generatedgo/code/p2/p2_pure.go",
+      "line": 1050508,
+      "function": "Fn20042",
+      "text": "v894 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    },
+    {
+      "path": "internal/generatedgo/code/p2/p2_pure.go",
+      "line": 1050934,
+      "function": "Fn20042",
+      "text": "v1043 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    },
+    {
+      "path": "internal/generatedgo/code/p2/p2_pure.go",
+      "line": 1051001,
+      "function": "Fn20042",
+      "text": "v1068 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    },
+    {
+      "path": "internal/generatedgo/code/p2/p2_pure.go",
+      "line": 1052284,
+      "function": "Fn20042",
+      "text": "v1461 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    },
+    {
+      "path": "internal/generatedgo/code/p2/p2_pure.go",
+      "line": 1052306,
+      "function": "Fn20042",
+      "text": "v1474 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    },
+    {
+      "path": "internal/generatedgo/code/p3/p3_pure.go",
+      "line": 1044908,
+      "function": "Fn20056",
+      "text": "v40 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    },
+    {
+      "path": "internal/generatedgo/code/p3/p3_pure.go",
+      "line": 1046327,
+      "function": "Fn20056",
+      "text": "v565 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    },
+    {
+      "path": "internal/generatedgo/code/p3/p3_pure.go",
+      "line": 1046349,
+      "function": "Fn20056",
+      "text": "v578 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    },
+    {
+      "path": "internal/generatedgo/code/p4/p4_pure.go",
+      "line": 1126934,
+      "function": "Fn20038",
+      "text": "v243 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    },
+    {
+      "path": "internal/generatedgo/code/p5/p5_pure.go",
+      "line": 1107414,
+      "function": "Fn20021",
+      "text": "v71 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    },
+    {
+      "path": "internal/generatedgo/code/p5/p5_pure.go",
+      "line": 1109907,
+      "function": "Fn20069",
+      "text": "v44 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    },
+    {
+      "path": "internal/generatedgo/code/p7/p7_pure.go",
+      "line": 1035336,
+      "function": "Fn20046",
+      "text": "v51 = *(*int64)(unsafe.Add(mBase, base.MemoryEA(m, 26639696, 0, 8)))"
+    }
+  ],
+  "limitation": "Text and literal-address census; not an alias/pointer dataflow proof or SQL runtime test.",
+  "sha256": {
+    "upstream/mysys/my_rdtsc.c": "442aef4799c12fa99dba80659c2af49fe1dcf8ae0949ccf32a55087af8a0cf32",
+    "upstream/include/my_rdtsc.h": "07715a3b32c3e59a1ac22ba7a35a2bd3609ba25166d0da9cff776124b24bc111",
+    "upstream/sql/sql_analyze_stmt.h": "b1448683d58426071ff95a4fe95868eb1d9884de490bf6919e701bfe23cb5748",
+    "upstream/libmysqld/lib_sql.cc": "5de14e2760c775701fe7dff7a9cbf4d47266990081f0abf94e88942a943d377e",
+    "upstream/mysys/charset.c": "d120e40dea53badcb20c28a70189c88b483df02dd7ce7979fb6a7c234cb506f3",
+    "upstream/mysys/charset-def.c": "8bc43b3bbe142da2bfa7b182c6e15a23a0681d6029cd75eb4a548cdc8c39be30",
+    "upstream/mysys/array.c": "f79f8c66c405e01daa1a8bdbb3e92151c7868c46605ceb561a8db4eaa05fdfe1",
+    "upstream/mysys/hash.c": "b22a64c9a59beb47a54385c47127bbc6ffb2e532156324d8ebae842978d68205",
+    "upstream/mysys/my_once.c": "481a161d3d3603219ec2072667b5341c086ef0ef8f9ed2fa4a10fe9e536a0b1c",
+    "upstream/strings/ctype.c": "38b77d861801cda46cf6312f3c6256191b8f7b1815f2dbc88f52761e4a47881d",
+    "upstream/strings/ctype-uca.c": "c4f34ead2f9c1e7b2a88175a25550a4efffc35f0f13be8c6584afcc9ff074a2f",
+    "upstream/strings/ctype-uca1400.c": "f924fa753db27ab87caead5dc51f623ed571cae5074309cdc0d088881ba3ae42",
+    "upstream/strings/ctype-uca1400.h": "6fcb2aee6637f59fc7143a822c4b1e68fceec6b9f8b1d083a08abb72aba49eb9",
+    "upstream/strings/ctype-uca.h": "348281bd7dbb673100ee13ed81fc24f51b3912066ed0fafda8ece1f986d4a6ea",
+    "upstream/strings/ctype-uca0900.c": "3d16c4ae21d8a5b788bb66420ee677551943a7bef963d4c6fd9255de818e692d",
+    "upstream/storage/perfschema/pfs_timer.cc": "249172aab64c27b61d1ebedd92791965efca2c5b89cdaea6493a1045ba8dc36a",
+    "upstream/storage/perfschema/table_performance_timers.cc": "fffe4433e860a62cc015571011b6bae461dac34b6130c854acf93408d1d7aaa3",
+    "product/internal/generatedgo/code/p0/p0_pure.go": "ac1c66e1e02410619b4e402bf7a903a1c4a9acee06cfb879a5f3fcfd32973d3d",
+    "product/internal/generatedgo/code/p1/p1_pure.go": "2f4531f9e3cb6a9c89ba79a51ff676b28847a2011e45e1cbc5b204bba8850dea",
+    "product/internal/generatedgo/code/p2/p2_pure.go": "32790d914243d57b78cdb3b245ea08d5f9d5af51928ccef1c29e818cc2945264",
+    "product/internal/generatedgo/code/p3/p3_pure.go": "de28e439060183d28ae972805d4b10b9bf1b13bcae41aa3d9d5071c0dbc5d4dd",
+    "product/internal/generatedgo/code/p4/p4_pure.go": "4729fec3020c3a83a92b05070377b6576b57a8ed98b8063b49910bd7643d4f5f",
+    "product/internal/generatedgo/code/p5/p5_pure.go": "39b3e13d8b844012a75c7deacfc48c0cc08b0587d46f41eaed18793ec166d9a1",
+    "product/internal/generatedgo/code/p6/p6_pure.go": "90526bd4e32429d16d84b3515eee0b5be22319154fc358b07d29d08f6e0a7178",
+    "product/internal/generatedgo/code/p7/p7_pure.go": "7f4134e94326019d800b3ec1be6d5429a9fdcebdc7b6656cb6cb2759866d21d0",
+    "product/internal/generatedgo/code/p8/p8_pure.go": "73d7c3407f05dfc351cf177398d3ee13e1ae0059b8294d237e7eff25b692a98b",
+    "product/guest/source.patch": "9209fdfdecb09f6aed48061c6c5dadd0e36992f5dc3b30bce29d79e242c870ef",
+    "product/guest/patches/common-portability.patch": "bd63b42437d1f2643bba664cde326abcca17a5c6ce16a82d9d14d17a649f5f16"
+  }
+}

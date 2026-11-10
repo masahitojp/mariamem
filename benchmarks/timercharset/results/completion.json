@@ -1,0 +1,23 @@
+{
+  "result": "SOURCE_AUDIT_COMPLETE",
+  "source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "new_runtime_runs": 0,
+  "new_speedup_claim": false,
+  "product_changes": false,
+  "checks": {
+    "source_census_read_only_replay": "PASS",
+    "generated_and_patch_bytes_match_source": "PASS",
+    "python_syntax": "PASS"
+  },
+  "next": [
+    "baseline ANALYZE finite/plausible timing check",
+    "bounded millisecond resolution-probe prototype",
+    "charset registry counts and deep-init attribution before optimization"
+  ],
+  "limits": [
+    "single Mac prior timings with observer disturbance",
+    "source and literal references are not indirect dataflow proof",
+    "no runtime ANALYZE defect reproduced",
+    "no exclusive charset subcost measured"
+  ]
+}
