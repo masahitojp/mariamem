@@ -1,0 +1,22 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><title>Shop70 / P8 comparison</title><style>body{font:16px system-ui;max-width:1050px;margin:36px auto;padding:0 20px;color:#17243b}p{line-height:1.7}table{border-collapse:collapse;width:100%;margin:24px 0}th,td{padding:9px;border-bottom:1px solid #ddd;text-align:right}th:first-child,td:first-child{text-align:left}.row{display:grid;grid-template-columns:180px 1fr 100px;align-items:center;margin:14px 0;gap:12px}.track{background:#f1f5f9;height:30px}.bar{height:30px}code{background:#f1f5f9}small{color:#475569}</style><h1>ショップ70テスト・並列8</h1><p>同一Mac・Go1.27.3・Pipe。読み取り50件＋独立した更新20件。起動・schema/seed・Snapshot・sample投入から最後のpublic Closeまでを含む。各5回、実行順を交代。コンパイル・ダウンロードは除外。共有reader用にもForkするため両製品21 Fork。公開サイトのM3/P8の204msとは別条件です。</p><h2>全体時間の中央値</h2>
+<div class="row"><b>mariamem 0.6.2</b><div class="track"><div class="bar" style="background:#6b7280;width:52.205869%"></div></div><span>741.5 ms</span></div>
+<div class="row"><b>mariamem current</b><div class="track"><div class="bar" style="background:#059669;width:38.358226%"></div></div><span>544.8 ms</span></div>
+<div class="row"><b>pgmem 1.18.2</b><div class="track"><div class="bar" style="background:#2563eb;width:27.249360%"></div></div><span>387.1 ms</span></div>
+<h2>全5回（除外なし）</h2><table><tr><th>条件</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>CPU中央値</th></tr>
+<tr><td>mariamem 0.6.2</td><td>706.5</td><td>741.5</td><td>1420.4</td><td>1360.1</td><td>702.6</td><td>3911.8</td></tr>
+<tr><td>mariamem current</td><td>527.5</td><td>677.8</td><td>573.0</td><td>537.5</td><td>544.8</td><td>2798.1</td></tr>
+<tr><td>pgmem 1.18.2</td><td>489.2</td><td>367.0</td><td>367.3</td><td>387.1</td><td>398.7</td><td>1384.1</td></tr>
+</table><p>単位ms。CPUはスイート中のプロセス全体のCPU時間。並列に重なるため経過時間とは異なります。</p><h2>工程別の中央値</h2><p>各工程の全観測をまとめた中央値。並列区間が重なるため、足して全体時間にはできません。</p><table><tr><th>工程</th><th>mariamem 0.6.2</th><th>mariamem current</th><th>pgmem 1.18.2</th></tr>
+<tr><td>boot</td><td>47.360</td><td>45.824</td><td>51.185</td></tr>
+<tr><td>import</td><td>46.781</td><td>39.641</td><td>72.554</td></tr>
+<tr><td>snapshot</td><td>4.885</td><td>4.578</td><td>15.730</td></tr>
+<tr><td>fork</td><td>69.529</td><td>34.715</td><td>25.659</td></tr>
+<tr><td>sample</td><td>97.760</td><td>86.462</td><td>40.273</td></tr>
+<tr><td>read</td><td>2.998</td><td>2.886</td><td>0.616</td></tr>
+<tr><td>write</td><td>2.245</td><td>1.980</td><td>1.397</td></tr>
+<tr><td>cleanup</td><td>11.504</td><td>3.812</td><td>0.610</td></tr>
+</table><h2>P4との参考比較</h2><p>P4は前回の別時刻の測定です。同じ製品ソース・SQL・Goですが、並列度だけの因果効果とは断定しません。</p><table><tr><th>条件</th><th>P4 中央値 ms</th><th>P8 中央値 ms</th></tr>
+<tr><td>mariamem 0.6.2</td><td>866.9</td><td>741.5</td></tr>
+<tr><td>mariamem current</td><td>664.3</td><td>544.8</td></tr>
+<tr><td>pgmem 1.18.2</td><td>402.5</td><td>387.1</td></tr>
+</table><p>比較対象は同じアプリのSQL方言移植であり、同じDBエンジンではありません。pgmemはpublic Close成功まで、mariamemはmapping回収も確認します。終了保証は同等ではありません。単一ホストの小標本で、長い待ちも残しています。</p><p>入力SHA・全工程・制限は隣接するREADME.md、inputs.json、observations.jsonを参照してください。</p></html>

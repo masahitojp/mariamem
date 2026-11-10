@@ -1,0 +1,9 @@
+{
+  "website": "https://shibukawa.github.io/pgmem/ja/",
+  "website_reference": "70 cases, 50 shared readers/20 private writers, Apple M3, P8, five runs, 204ms median; not directly compared with this run",
+  "this_run": "Apple M1, P8/cap9, Go1.27.3/Pipe, shared reader fork on both engines, 21 Forks; same pinned shop port as previous comparison",
+  "current_main_verified": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "pgmem_version_policy": "Keep prior reference v1.18.2 fixed; no claim to benchmark latest pgmem",
+  "active_applications": "Shared desktop host; not isolated. No unrelated process was stopped.",
+  "p4_comparison": "Prior cohort at2429cc77; same product sources and Go/SQL, different time. Descriptive P4/P8 medians, not paired parallelism attribution."
+}

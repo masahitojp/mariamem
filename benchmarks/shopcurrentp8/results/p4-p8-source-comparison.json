@@ -1,0 +1,103 @@
+{
+  "result": "PASS",
+  "allowed_changes": [
+    "module import path",
+    "MaxForks5 to9",
+    "shared reader connection pool4 to8",
+    "trace metadata4/5 to8/9"
+  ],
+  "files": {
+    "internal/trace/trace.go": {
+      "p4_sha256": "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb",
+      "p8_sha256": "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb"
+    },
+    "postgres/store/write_test.go": {
+      "p4_sha256": "ff5482bdaf19159aee54c556d81df944117e4915b492f6a0c216416876f9b5da",
+      "p8_sha256": "6acd50d60c6d626d76a93952f84815868063942deab3649900343a6beaf5b0b5"
+    },
+    "postgres/store/read_test.go": {
+      "p4_sha256": "f08680bbd20759348a1cf6228217298d286d893072e87f4acfb54cd55460912b",
+      "p8_sha256": "b2d586fa4dd0c06007c8085097204a62980c42dd09786ebc9596d97b2e829808"
+    },
+    "postgres/store/store.go": {
+      "p4_sha256": "684b749f952456becbdfd60560ba65eb235973c37f593f05b75838eb86e28178",
+      "p8_sha256": "684b749f952456becbdfd60560ba65eb235973c37f593f05b75838eb86e28178"
+    },
+    "postgres/store/fixture_test.go": {
+      "p4_sha256": "8595345e4643407f46d2d4de6272cea7c5e984babb2d865e4ea5fae66b38bec5",
+      "p8_sha256": "4ad7f52e5d5bb2e569d6113578006c1483055fc9b8fe12e4f3c6a6338da875d4"
+    },
+    "postgres/store/backend_test.go": {
+      "p4_sha256": "bfe7c15a881b0765ff8839a86e1bba89501b8ff8499b3ecee71c8a14f9791c05",
+      "p8_sha256": "fd089908d9177d65dfc14e5f7b96a2956a040882ca9d75316063fe011de535b3"
+    },
+    "postgres/store/seed.go": {
+      "p4_sha256": "c491d9410a93017989d00011be6d58228b527e27dd73116e1a682da7da086b6c",
+      "p8_sha256": "c491d9410a93017989d00011be6d58228b527e27dd73116e1a682da7da086b6c"
+    },
+    "postgres/store/migrations/0002_catalog.sql": {
+      "p4_sha256": "d2409eadc9aac413f3a5cd2fef5643dabcbf39ad23827950c69d749185ab8ed6",
+      "p8_sha256": "d2409eadc9aac413f3a5cd2fef5643dabcbf39ad23827950c69d749185ab8ed6"
+    },
+    "postgres/store/migrations/0003_orders.sql": {
+      "p4_sha256": "995edb8856e2724309b29587ba9665691edecd76e0a9f8dd3cf629cf92192637",
+      "p8_sha256": "995edb8856e2724309b29587ba9665691edecd76e0a9f8dd3cf629cf92192637"
+    },
+    "postgres/store/migrations/0001_users.sql": {
+      "p4_sha256": "c2f4df2e743cf9e398ef28c8c710b0a3885b303cdffa3d21a34f895f07785507",
+      "p8_sha256": "c2f4df2e743cf9e398ef28c8c710b0a3885b303cdffa3d21a34f895f07785507"
+    },
+    "postgres/store/migrations/0004_totals.sql": {
+      "p4_sha256": "dfeb710cdf618c3eb6238edb55583c12b099942b1f28f886c5627f3725957af6",
+      "p8_sha256": "dfeb710cdf618c3eb6238edb55583c12b099942b1f28f886c5627f3725957af6"
+    },
+    "postgres/store/migrations/0005_audit.sql": {
+      "p4_sha256": "32d5bea73f7447d8508a409a48e8be0d73d1d0afffd02035325dd3c731faf4d1",
+      "p8_sha256": "32d5bea73f7447d8508a409a48e8be0d73d1d0afffd02035325dd3c731faf4d1"
+    },
+    "maria/store/write_test.go": {
+      "p4_sha256": "a32f353e35e6026b6710dc05690e7525eb6bff296c744ff60cd5256f0d3bc54f",
+      "p8_sha256": "83607db6a8b43cc753caa7e5d7fb9ccddb982ff8352c485b22cfa59912261769"
+    },
+    "maria/store/read_test.go": {
+      "p4_sha256": "987ae8c1fb0cc0848b9a9681091284fde08f834c8679816708dc9a6038348ee4",
+      "p8_sha256": "b76d8011001a289dc459ce93619cc91629a33e93bcace1aae93b595f20e648b5"
+    },
+    "maria/store/store.go": {
+      "p4_sha256": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+      "p8_sha256": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2"
+    },
+    "maria/store/fixture_test.go": {
+      "p4_sha256": "a90b90be36e3dfafb244fb19209db3ec81225b09319dbfa0a3298ed2d6141eea",
+      "p8_sha256": "95b773cddfd982507317a19389b763859db116276e0015621c8396b4ad89f675"
+    },
+    "maria/store/backend_test.go": {
+      "p4_sha256": "44b5b9900c5299ea3ef5425aecf0e877a63428065d1c86675824de582e954d0d",
+      "p8_sha256": "eaec73a48528a01c342d4df3990faaf13ec1d17f47299da2410e1eead5d62ae7"
+    },
+    "maria/store/seed.go": {
+      "p4_sha256": "03a623c557d3b46febf88bb3e79d41d95995339d788a1ef9e434ba2be1586564",
+      "p8_sha256": "03a623c557d3b46febf88bb3e79d41d95995339d788a1ef9e434ba2be1586564"
+    },
+    "maria/store/migrations/004_view.sql": {
+      "p4_sha256": "bfcddf98b5b307fc0099bb0b67e5e5ec9346c65f80feafc4b77c60d9bc1e2af2",
+      "p8_sha256": "bfcddf98b5b307fc0099bb0b67e5e5ec9346c65f80feafc4b77c60d9bc1e2af2"
+    },
+    "maria/store/migrations/001_schema.sql": {
+      "p4_sha256": "a6d4dbb985c6aef1e9e088ad43ca5a4e55b7d64b82d91665847cd8ff4e7c21b0",
+      "p8_sha256": "a6d4dbb985c6aef1e9e088ad43ca5a4e55b7d64b82d91665847cd8ff4e7c21b0"
+    },
+    "maria/store/migrations/005_audit.sql": {
+      "p4_sha256": "cab99228de37a563e0f15de1d1b65080f3ba79249967ddcd36d0d6a21afaa9cd",
+      "p8_sha256": "cab99228de37a563e0f15de1d1b65080f3ba79249967ddcd36d0d6a21afaa9cd"
+    },
+    "maria/store/migrations/003_totals.sql": {
+      "p4_sha256": "a2a4c51797f6020397951d4ba77e1884a9d49b745c67d396849dd095c8504f9c",
+      "p8_sha256": "a2a4c51797f6020397951d4ba77e1884a9d49b745c67d396849dd095c8504f9c"
+    },
+    "maria/store/migrations/002_orders.sql": {
+      "p4_sha256": "7f77465e4a3d0d89b45cf72643fa5a215bfbb4c3751f9eec78f10945fe33d0c4",
+      "p8_sha256": "7f77465e4a3d0d89b45cf72643fa5a215bfbb4c3751f9eec78f10945fe33d0c4"
+    }
+  }
+}

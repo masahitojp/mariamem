@@ -1,0 +1,90 @@
+{
+  "harness_source_commit": "8157db344940fc0870fb984d53d08c3e4ef99ac1",
+  "product_source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "baseline": {
+    "release_tag": "v0.6.2",
+    "tag_object_sha": "cebdb4114187171bd418b0a1b419e1c27368808d",
+    "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb"
+  },
+  "pgmem": {
+    "release_tag": "v1.18.2",
+    "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+    "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4"
+  },
+  "go": "go version go1.27.3 darwin/arm64",
+  "baseline_archive_sha256": "697641d5b865f6f426ffc8a0c2f4c59687346b11b04a6be4dc98879102250d81",
+  "binaries": {
+    "v062": {
+      "sha256": "ce9fd879931ecc600c0c8914e23033faf46c39e7481f2b87ed8369cde3673950",
+      "build_info": "<WORKSPACE>/temp/bin-v062: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/shoprunnerp8/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/shoprunnerp8\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/temp/v062\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0",
+      "module_sha256": "fd151f39ecb9a5edaf7afe33c9fd5eadead5b9df518c8e200ca43ec102c8c59f",
+      "source_commit": "47121e1be0b399ba4e2270ce3e25c411ade0e2eb"
+    },
+    "current": {
+      "sha256": "becff2a96947aa2c632adb37368ebc2f7dac6ec0b236d4052d93e404fcb80370",
+      "build_info": "<WORKSPACE>/temp/bin-current: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/shoprunnerp8/maria/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/shoprunnerp8\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.6.2\n\t=>\t<WORKSPACE>/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0",
+      "module_sha256": "90990a4d7be8c99beb133844cd277247d78107c98d0cb3daa669dd859316143b",
+      "source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50"
+    },
+    "pgmem": {
+      "sha256": "eff48a68f415e97ec2e3407162a628719bd440372a004c129fa0d073e562bb8a",
+      "build_info": "<WORKSPACE>/temp/bin-pgmem: go1.27.3\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/shoprunnerp8/postgres/store.test\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/shoprunnerp8\t(devel)\t\n\tdep\tgithub.com/jackc/pgpassfile\tv1.0.0\th1:/6Hmqy13Ss2zCq62VdNG8tM1wchn8zjSGOBJ6icpsIM=\n\tdep\tgithub.com/jackc/pgservicefile\tv0.0.0-20240606120523-5a60cdf6a761\th1:iCEnooe7UlwOQYpKFhBabPMi4aNAfoODPEFNiAnClxo=\n\tdep\tgithub.com/jackc/pgx/v5\tv5.11.0\th1:IzBBtyK9AHqf98cctWFifYSci2hgQR/cd56wB4p+ogg=\n\tdep\tgithub.com/jackc/puddle/v2\tv2.2.2\th1:PR8nw+E/1w0GLuRFSmiioY6UooMp6KJv0/61nB7icHo=\n\tdep\tgithub.com/klauspost/compress\tv1.20.0\th1:a3C1ke2ohxFymNlb2HWAHjDeKCI90scRskErZkR0ezA=\n\tdep\tgithub.com/shibukawa/pgmem\tv1.18.2\n\t=>\t<WORKSPACE>/temp/pgmem\t(devel)\t\n\t\n\tdep\tgolang.org/x/crypto\tv0.42.0\th1:chiH31gIWm57EkTXpwnqf8qeuMUi0yekh6mT2AvFlqI=\n\tdep\tgolang.org/x/sync\tv0.17.0\th1:l60nONMj9l5drqw6jlhIELNv9I0A4OFgRsG9k2oT9Ug=\n\tdep\tgolang.org/x/sys\tv0.44.0\th1:ildZl3J4uzeKP07r2F++Op7E9B29JRUy+a27EibtBTQ=\n\tdep\tgolang.org/x/text\tv0.29.0\th1:1neNs90w9YzJ9BocxfsQNHKuAT4pkghyXc4nhZ6sJvk=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0",
+      "module_sha256": "90990a4d7be8c99beb133844cd277247d78107c98d0cb3daa669dd859316143b",
+      "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4"
+    }
+  },
+  "harness_files": {
+    "build.py": "9d9ad991960a03a00d347e03331186fee36c8668d98ee3586ed2c79ee39f0900",
+    "run.py": "eaad7d86b12319caae51f6e8f32ed979dd2598ee91841ad5f2fde339e86e36de",
+    "go.mod": "4bf21f69161af0cc14d4127390ef178e11aa6b074e6299a1582f2149876e82ac",
+    "plan.json": "0edfd8ba0e5f1986f27d023443c8151dd4f351e7b9481a2f6a9f5bed7a05920f",
+    "UPSTREAM-LICENSE": "f841b48a04d578790861f0ca1831f8edd2daba4007f9b09da251cfd4478f3438",
+    "go.sum": "dce32be0d73495b07bb168901b642b3210f42098612f200fb259a11ea78f4926",
+    "upstream-files.json": "a4b734617848266ea95159bd9731de64c97dc26f92e939ffdccdcdea262f6cc5",
+    "internal/trace/trace.go": "2ea7f2c93acb82abaa1edd697683ab1fb671f1889b0798f81e7a54cf977ac2bb",
+    "postgres/store/write_test.go": "6acd50d60c6d626d76a93952f84815868063942deab3649900343a6beaf5b0b5",
+    "postgres/store/read_test.go": "b2d586fa4dd0c06007c8085097204a62980c42dd09786ebc9596d97b2e829808",
+    "postgres/store/store.go": "684b749f952456becbdfd60560ba65eb235973c37f593f05b75838eb86e28178",
+    "postgres/store/fixture_test.go": "4ad7f52e5d5bb2e569d6113578006c1483055fc9b8fe12e4f3c6a6338da875d4",
+    "postgres/store/backend_test.go": "fd089908d9177d65dfc14e5f7b96a2956a040882ca9d75316063fe011de535b3",
+    "postgres/store/seed.go": "c491d9410a93017989d00011be6d58228b527e27dd73116e1a682da7da086b6c",
+    "postgres/store/migrations/0002_catalog.sql": "d2409eadc9aac413f3a5cd2fef5643dabcbf39ad23827950c69d749185ab8ed6",
+    "postgres/store/migrations/0003_orders.sql": "995edb8856e2724309b29587ba9665691edecd76e0a9f8dd3cf629cf92192637",
+    "postgres/store/migrations/0001_users.sql": "c2f4df2e743cf9e398ef28c8c710b0a3885b303cdffa3d21a34f895f07785507",
+    "postgres/store/migrations/0004_totals.sql": "dfeb710cdf618c3eb6238edb55583c12b099942b1f28f886c5627f3725957af6",
+    "postgres/store/migrations/0005_audit.sql": "32d5bea73f7447d8508a409a48e8be0d73d1d0afffd02035325dd3c731faf4d1",
+    "maria/store/write_test.go": "83607db6a8b43cc753caa7e5d7fb9ccddb982ff8352c485b22cfa59912261769",
+    "maria/store/read_test.go": "b76d8011001a289dc459ce93619cc91629a33e93bcace1aae93b595f20e648b5",
+    "maria/store/store.go": "b0819dbf3b0f7fd3a48bdebce92afb20bb67f87754303b64b127a2d42992a5b2",
+    "maria/store/fixture_test.go": "95b773cddfd982507317a19389b763859db116276e0015621c8396b4ad89f675",
+    "maria/store/backend_test.go": "eaec73a48528a01c342d4df3990faaf13ec1d17f47299da2410e1eead5d62ae7",
+    "maria/store/seed.go": "03a623c557d3b46febf88bb3e79d41d95995339d788a1ef9e434ba2be1586564",
+    "maria/store/migrations/004_view.sql": "bfcddf98b5b307fc0099bb0b67e5e5ec9346c65f80feafc4b77c60d9bc1e2af2",
+    "maria/store/migrations/001_schema.sql": "a6d4dbb985c6aef1e9e088ad43ca5a4e55b7d64b82d91665847cd8ff4e7c21b0",
+    "maria/store/migrations/005_audit.sql": "cab99228de37a563e0f15de1d1b65080f3ba79249967ddcd36d0d6a21afaa9cd",
+    "maria/store/migrations/003_totals.sql": "a2a4c51797f6020397951d4ba77e1884a9d49b745c67d396849dd095c8504f9c",
+    "maria/store/migrations/002_orders.sql": "7f77465e4a3d0d89b45cf72643fa5a215bfbb4c3751f9eec78f10945fe33d0c4"
+  },
+  "build_flags": [
+    "-trimpath",
+    "-buildvcs=false",
+    "-mod=readonly",
+    "-p1"
+  ],
+  "product_inputs": {
+    "v062": {
+      "guest/input.json": "d43f9d4123363b487b0d13ec0699ed769e1fcbeb573d2b52fe0ea8adae7b566f",
+      "release/generated-go-inputs.json": "a123221238125b4e4bd357ecb47641c7ffcb7c248a0b26148fe88afce1d38c42",
+      "internal/generatedgo/provenance.json": "504afe7cf0de2e07e72b9dea34396ebece507b9112936ff74ce7fc40b86bf0a7",
+      "go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+      "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4"
+    },
+    "current": {
+      "guest/input.json": "d43f9d4123363b487b0d13ec0699ed769e1fcbeb573d2b52fe0ea8adae7b566f",
+      "release/generated-go-inputs.json": "127a77a0aab7f536b44a898728318bdfbe70123c1ff7300a83f5dc39c84bb424",
+      "internal/generatedgo/provenance.json": "be4574cc3e97b07440617bb27daa9ff8f091a308ef41e6978ca204e1d381b353",
+      "go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+      "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "mutation": "missing_run",
+    "result": "REJECTED",
+    "checksum_validation_reached": false
+  },
+  {
+    "mutation": "wrong_case_census",
+    "result": "REJECTED",
+    "checksum_validation_reached": false
+  },
+  {
+    "mutation": "unreaped_mapping",
+    "result": "REJECTED",
+    "checksum_validation_reached": false
+  }
+]
