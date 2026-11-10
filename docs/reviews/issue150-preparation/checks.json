@@ -1,0 +1,30 @@
+{
+  "source_commit": "b53ac77fc1c9e199cb926bf3cf69812392443c00",
+  "python": "3.14",
+  "focused_tests": {
+    "passed": 54,
+    "subtests_passed": 22,
+    "files": [
+      "test_guest_input.py",
+      "test_guest_input_resolver.py",
+      "test_guest_preparation_context.py",
+      "test_prepared_source_patch.py",
+      "test_prepared_auth_keys.py",
+      "test_uca_prepared_input.py",
+      "test_lexer_prepared_input.py",
+      "test_startup_concurrency.py"
+    ]
+  },
+  "existing_source_tests": {
+    "passed": 82,
+    "skipped": 3,
+    "files": [
+      "test_benchmark_inputs.py",
+      "test_generated_runtime_inventory.py",
+      "test_guest_auth_hooks.py",
+      "test_routine_schema.py"
+    ],
+    "skip_scope": "three optional auth-hook source controls require archive in canonical build/downloads; comparison used owned scratch cache"
+  },
+  "public_source_check": "PASS"
+}

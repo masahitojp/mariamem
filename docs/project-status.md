@@ -6,6 +6,19 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Issue150 — versioned legacy preparation candidate (2026-11-10)
+
+The Human authorized independent v0.7.0 preparation tooling for later13.x
+adoption. [Candidate evidence](reviews/issue150-preparation/README.md) records
+current12.3.3 selected/default and historical13.0.2 legacy full-source equality.
+The existing resolver/pipeline is reused, with current UCA/lexer/startup steps
+preserved. Canonical engine/runtime inputs remain unchanged; native wire and
+prepared raw-row candidates are separate. Registration instructions identify
+data-only changes and remaining patch/helper/binding review obligations.
+Implementation and bounded verification are complete; main integration remains
+subject to candidate review, and#150 is not yet complete. No13.x runtime adoption,
+new guest build or release follows from source preparation PASS.
+
 ## Issue123 — process-lifetime static cache approved for candidate implementation
 
 On 2026-11-10 the Human accepted retaining the immutable initial image for the

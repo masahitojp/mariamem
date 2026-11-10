@@ -65,3 +65,6 @@ internal/generatedgo/memory_controlled_test.go linguist-generated=false
 internal/generatedgo/memory_host_test.go linguist-generated=false
 internal/generatedgo/code/base/memory_mapping.go linguist-generated=false
 internal/generatedgo/code/base/memory_mapping_test.go linguist-generated=false
+
+# Frozen historical patch preimages retain checksum-bound context whitespace.
+guest/versions/**/inputs/**/*.patch -whitespace

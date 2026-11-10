@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "candidate_source_commit": "b53ac77fc1c9e199cb926bf3cf69812392443c00",
+  "scope": "prepared source content/mode/link equality; no build/runtime acceptance",
+  "comparisons": [
+    {
+      "selection": "12.3.3/legacy-full",
+      "original_source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+      "engine_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+      "tag_object_sha": "bd852bcd567fedc89ad4521e2f1a64c7a1e0d0f0",
+      "resolved_sha256": "719418d876957d9e53bd952603b0de041556652ff0e07b48f15e4061f420a1ff",
+      "members_original": 32203,
+      "members_selected": 32203,
+      "original_tree_sha256": "3e488ebf7f16f1fd59c950794039e5366227ba7748ef5bf7f7dfac622e984240",
+      "selected_tree_sha256": "3e488ebf7f16f1fd59c950794039e5366227ba7748ef5bf7f7dfac622e984240",
+      "different_paths": [],
+      "original_seconds": 16.382650790998014,
+      "selected_seconds": 16.078273582999827,
+      "result": "PASS",
+      "default_tree_sha256": "3e488ebf7f16f1fd59c950794039e5366227ba7748ef5bf7f7dfac622e984240",
+      "default_result": "PASS"
+    },
+    {
+      "selection": "13.0.2/legacy-full",
+      "original_source_commit": "32c799031f619164d3730b61a0bc9d7ae48dcd9b",
+      "engine_source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+      "tag_object_sha": "308a50778fb4916ddde0d2923feea3d11dcc92c8",
+      "resolved_sha256": "82be90c25ce0d736def85c8dfb8b25b3afdec99dcb389bbee4bb692a938c3a91",
+      "members_original": 32344,
+      "members_selected": 32344,
+      "original_tree_sha256": "db85a4915ece1340b87075fa296001ced6ddfccb2a2ca224add8325a17aeb4d0",
+      "selected_tree_sha256": "db85a4915ece1340b87075fa296001ced6ddfccb2a2ca224add8325a17aeb4d0",
+      "different_paths": [],
+      "original_seconds": 16.49368954199599,
+      "selected_seconds": 16.113079292001203,
+      "result": "PASS"
+    }
+  ],
+  "disk": {
+    "owned_bytes": 1138700288,
+    "free_bytes": 36146794496,
+    "peak_owned_bytes": 1544372224,
+    "minimum_free_bytes": 35727708160
+  }
+}
