@@ -8,6 +8,7 @@ import (
 
 // The envelope is private host/guest control framing, never MySQL framing.
 const (
+	kindOutputGrant    = 14
 	kindOpen           = 1
 	kindData           = 2
 	kindAck            = 3

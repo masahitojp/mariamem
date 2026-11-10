@@ -34,9 +34,9 @@
     "13.2.0/native-text": {
       "descriptor": {
         "file": "guest/versions/13.2.0/native-text.json",
-        "sha256": "0c37b1d615f29bea57e0529b6b0a050f5519901408f643133078a71a3b70a475"
+        "sha256": "95791a0bb2e873a9b5857eb0b8f5ca99fc317d9efd34aa1dec34c02edb37ac42"
       },
-      "input_sha256": "48db8a937f33464a6b188db1ecdc374b50954184988e6c785bcb7c4e96217408",
+      "input_sha256": "45e244b038dbd46e40f1cac071bed8255bd02e673f64e3486974a3590cd56f85",
       "lock_sha256": "8c85b5229c8aaa3206caf45c67abf39a8a10f7e61490fd2ec35d93890a6e664f",
       "stages_sha256": "660c5bb4856bfc4c03244b47e1b71501ec90a7c31af47d30d8e75eba2b660e23",
       "origin": "4b3954a0faf42986459bc1ee68727be16d67bcbb"

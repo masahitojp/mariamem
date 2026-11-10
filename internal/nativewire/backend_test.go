@@ -70,7 +70,7 @@ func (f *fakeRuntime) run(x Execution) <-chan error {
 			failure = e
 		}
 		if !f.noReady {
-			send(frame{kind: kindReady, body: []byte(`{"lifecycle_profile":3}`)})
+			send(frame{kind: kindReady, body: []byte(`{"lifecycle_profile":4}`)})
 		}
 	loop:
 		for {

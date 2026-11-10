@@ -432,7 +432,7 @@ func (r *Backend) receiveFrame(f frame) bool {
 		var profile struct {
 			Lifecycle int `json:"lifecycle_profile"`
 		}
-		if json.Unmarshal(f.body, &profile) != nil || profile.Lifecycle != 3 {
+		if json.Unmarshal(f.body, &profile) != nil || profile.Lifecycle != 4 {
 			r.fail(errors.New("wrong lifecycle profile"))
 			return false
 		}
@@ -451,11 +451,8 @@ func (r *Backend) receiveFrame(f frame) bool {
 			r.fail(errors.New("output without session"))
 			return false
 		}
-		select {
-		case s.output <- f:
-		case <-s.ended:
-		default:
-			r.fail(errors.New("bounded host output queue overflow"))
+		if err := s.output.append(f.value, f.body); err != nil {
+			r.fail(err)
 			return false
 		}
 	case kindCredit:

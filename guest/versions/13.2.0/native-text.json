@@ -188,7 +188,7 @@
       },
       "wasm/issue65_control.cc": {
         "file": "guest/native/wasm/issue65_control.cc",
-        "sha256": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f"
+        "sha256": "46fbc835aac5c96f2b08a2d74511853d001e7e90cd1df332ec02a9f19205ebad"
       },
       "wasm/issue65_deadline.h": {
         "file": "guest/native/wasm/issue65_deadline.h",
@@ -356,7 +356,7 @@
     },
     "guest/native/wasm/issue65_control.cc": {
       "file": "guest/native/wasm/issue65_control.cc",
-      "sha256": "e1f09c0f274af5448e94e6c81514fd7d863a4708ce9d5aba61e53c239802c17f"
+      "sha256": "46fbc835aac5c96f2b08a2d74511853d001e7e90cd1df332ec02a9f19205ebad"
     },
     "guest/native/wasm/issue65_deadline.h": {
       "file": "guest/native/wasm/issue65_deadline.h",

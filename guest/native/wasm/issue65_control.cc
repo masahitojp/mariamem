@@ -22,7 +22,7 @@
 using Clock=std::chrono::steady_clock;
 using Bytes=std::vector<unsigned char>;
 constexpr size_t INPUT_LIMIT=1048581, OUTPUT_LIMIT=65536, CHUNK=4096;
-enum Kind { OPEN=1,DATA=2,ACK=3,PEER_EOF=4,QUIESCE=5,STOP=6,STATS=7,HOLD=8,INSPECT=9,EXPIRE=10,TRY_CAPTURE=11,CAPTURE_STOP=12,INJECT=13,
+enum Kind { OPEN=1,DATA=2,ACK=3,PEER_EOF=4,QUIESCE=5,STOP=6,STATS=7,HOLD=8,INSPECT=9,EXPIRE=10,TRY_CAPTURE=11,CAPTURE_STOP=12,INJECT=13,OUTPUT_GRANT=14,
  READY=100,OPENED=101,REPLY=102,OUTPUT=103,RETIRED=104,POISON=105,CREDIT=106,STATE=107,STATS_REPLY=108,QUIESCED=109,REJECTED=110,DONE=111,CAPTURE_FENCED=112,CAPTURE_STOP_ACCEPTED=113,CAPTURE_STOPPED=114 };
 enum Phase { HANDSHAKE,IDLE,RECEIVING,EXECUTING,FLUSHING,RETIRING,DEAD };
 static const char *phase_name(Phase p){static const char *names[]={"handshake","idle","receiving","executing","flushing","retiring","dead"};return names[p];}
@@ -39,8 +39,8 @@ struct Session {
  Manager *owner;uint32_t slot;uint64_t generation;
  std::mutex io,handle;std::condition_variable changed;
  std::deque<unsigned char> input,output;
- uint64_t received=0,consumed=0,produced=0,sent=0,acked=0;
- size_t inputPeak=0,outputPeak=0;bool inputEOF=false,closed=false,armed=false,hold=false,creditPending=false,opened=false;
+ uint64_t received=0,consumed=0,produced=0,sent=0,acked=0,granted=0;
+ size_t inputPeak=0,outputPeak=0,queuePeak=0;bool inputEOF=false,closed=false,armed=false,hold=false,creditPending=false,opened=false;
  int error=0;void *thd=nullptr;
  Phase phase=HANDSHAKE;unsigned nativeCommand=0,status=2;uint64_t command=0,executions=0;
  issue65_deadline::Budget deadline;
@@ -76,7 +76,7 @@ struct Manager {
   killer=std::thread([this]{need(!mysql_thread_init(),"killer thread init");for(;;){std::shared_ptr<Session>s;{std::unique_lock<std::mutex> l(killMu);killReady.wait(l,[&]{return killerStop||!killQueue.empty();});if(killQueue.empty()&&killerStop)break;s=killQueue.front();killQueue.pop_front();}std::lock_guard<std::mutex> pin(s->handle);if(s->thd)mariamem_spike_kill(s->thd);}mysql_thread_end();});
   timer=std::thread([this]{std::unique_lock<std::mutex> l(gate);while(!timerStop){progress.wait_for(l,std::chrono::milliseconds(5));if(controlOverflow.exchange(false))poisonLocked("control_queue_overflow");if(poisoned||closing)continue;auto now=Clock::now();for(auto &s:slots)if(s&&s->deadline.expired(now)){if(s->command==0){s->phase=RETIRING;s->deadline.disarm();s->closeIO(ETIMEDOUT);scheduleKill(s);state(s);}else{poisonLocked("deadline");break;}}}});
   reaper=std::thread([this]{reapLoop();});
-  emit(frame(READY,0,{},OUTPUT_LIMIT,"{\"lifecycle_profile\":3,\"max_sessions\":16,\"pending_input_limit\":1048581,\"output_limit\":65536}"));
+  emit(frame(READY,0,{},OUTPUT_LIMIT,"{\"lifecycle_profile\":4,\"max_sessions\":16,\"pending_input_limit\":1048581,\"output_limit\":65536}"));
  }
  bool admit(Session *raw){std::lock_guard<std::mutex> l(gate);auto s=slots[raw->slot];if(!s||s.get()!=raw||fenced||poisoned||closing){++denied;raw->closeIO(ECANCELED);return false;}need(s->phase==IDLE,"admit only idle");s->phase=RECEIVING;s->nativeCommand=0;++s->command;s->deadline.arm(Clock::now());state(s);return true;}
  int finish(Session *raw,unsigned status,bool retire){
@@ -104,10 +104,10 @@ struct Manager {
   if(s->armed){s->armed=false;if(s->hold){l.unlock();{std::lock_guard<std::mutex> g(s->owner->gate);s->owner->emit(s->owner->frame(REPLY,0,s->owner->slots[s->slot],s->command,"admit_wait"));}l.lock();s->changed.wait(l,[&]{return s->closed||!s->hold;});if(s->closed)return size_t(-1);}l.unlock();if(!s->owner->admit(s))return size_t(-1);l.lock();if(s->closed)return size_t(-1);}
   n=std::min({n,s->input.size(),CHUNK});for(size_t i=0;i<n;++i){to[i]=s->input.front();s->input.pop_front();}s->consumed+=n;s->creditPending=true;l.unlock();s->owner->outReady.notify_all();return n;
  }
- static size_t writeCb(void *p,const unsigned char *from,size_t n){auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);s->changed.wait(l,[&]{return s->closed||s->produced-s->acked<OUTPUT_LIMIT;});if(s->closed)return size_t(-1);n=std::min({n,size_t(OUTPUT_LIMIT-(s->produced-s->acked)),CHUNK});s->output.insert(s->output.end(),from,from+n);s->produced+=n;s->outputPeak=std::max<size_t>(s->outputPeak,s->produced-s->acked);l.unlock();s->owner->outReady.notify_all();return n;}
+ static size_t writeCb(void *p,const unsigned char *from,size_t n){auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);s->changed.wait(l,[&]{return s->closed||s->produced<s->granted && s->output.size()<CHUNK;});if(s->closed)return size_t(-1);n=std::min({n,size_t(s->granted-s->produced),CHUNK-s->output.size()});s->output.insert(s->output.end(),from,from+n);s->produced+=n;s->queuePeak=std::max(s->queuePeak,s->output.size());s->outputPeak=std::max<size_t>(s->outputPeak,s->produced-s->acked);l.unlock();s->owner->outReady.notify_all();return n;}
  static int errorCb(void *p){auto *s=(Session*)p;std::lock_guard<std::mutex> l(s->io);return s->error?s->error:EIO;}
  static void closeCb(void *p){((Session*)p)->closeIO(ECANCELED);}
- static int waitCb(void *p,int kind,int ms){auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);auto ready=[&]{return s->closed||(kind==0?(s->inputEOF||!s->input.empty()):s->produced-s->acked<OUTPUT_LIMIT);};if(ms<0)s->changed.wait(l,ready);else if(!s->changed.wait_for(l,std::chrono::milliseconds(ms),ready)){s->error=ETIMEDOUT;return 0;}return s->closed?-1:1;}
+ static int waitCb(void *p,int kind,int ms){auto *s=(Session*)p;std::unique_lock<std::mutex> l(s->io);auto ready=[&]{return s->closed||(kind==0?(s->inputEOF||!s->input.empty()):s->produced<s->granted && s->output.size()<CHUNK);};if(ms<0)s->changed.wait(l,ready);else if(!s->changed.wait_for(l,std::chrono::milliseconds(ms),ready)){s->error=ETIMEDOUT;return 0;}return s->closed?-1:1;}
  void open(const Frame &f){
   std::lock_guard<std::mutex> l(gate);
   auto reject=[&](unsigned code,const char *reason){auto reply=frame(REJECTED,f.request,{},code,reason);reply.slot=f.slot;reply.generation=f.generation;emit(reply);};
@@ -128,6 +128,7 @@ struct Manager {
  std::string pendingPoison;
  void poisonLockedAfterIO(const std::shared_ptr<Session>&,const std::lock_guard<std::mutex>&){pendingPoison="input_offset";}
  void acknowledge(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s)return;{std::lock_guard<std::mutex> q(s->io);if(f.value<s->acked||f.value>s->sent){pendingPoison="output_offset";return;}s->acked=f.value;s->changed.notify_all();}outReady.notify_all();}
+ void grantOutput(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s)return;std::lock_guard<std::mutex> q(s->io);if(f.value<s->granted||f.value<s->produced){pendingPoison="output_grant_offset";return;}s->granted=f.value;s->changed.notify_all();}
  void peerEOF(const Frame &f){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(!s||s->phase==RETIRING||(fenced&&captureID))return;
   {std::lock_guard<std::mutex> q(s->io);s->inputEOF=true;s->changed.notify_all();}
   if(f.value){if(s->command&&s->phase!=IDLE){poisonLocked("peer_output_error");return;}s->phase=RETIRING;s->deadline.disarm();s->closeIO(ECANCELED);scheduleKill(s);state(s);return;}
@@ -152,13 +153,14 @@ struct Manager {
  }
  void quiesce(const Frame &f){std::lock_guard<std::mutex> l(gate);if(f.epoch!=epoch){++stale;emit(frame(REJECTED,f.request,{},5,"stale"));return;}if(fenced||poisoned||closing){emit(frame(REJECTED,f.request,{},4,"closing"));return;}for(auto &s:slots)if(s&&s->phase!=IDLE){emit(frame(REJECTED,f.request,{},1,"busy"));return;}if(!f.value)for(auto &s:slots)if(s&&(s->status&1)){emit(frame(REJECTED,f.request,{},2,"transaction_active"));return;}fenced=true;emit(frame(QUIESCED,f.request,{},1,"fenced"));}
  std::string stats(){std::lock_guard<std::mutex> l(gate);return statsUnlocked();}
- std::string statsUnlocked(){std::string s="{\"rollback_reports\":"+std::to_string(rollbackReports)+",\"fenced\":"+std::string(fenced?"true":"false")+",\"poisoned\":"+(poisoned?"true":"false")+",\"cause\":\""+cause+"\",\"started\":"+std::to_string(started)+",\"joined\":"+std::to_string(joined)+",\"stale\":"+std::to_string(stale)+",\"denied\":"+std::to_string(denied)+",\"retired_input_peak\":"+std::to_string(retiredInputPeak)+",\"retired_output_peak\":"+std::to_string(retiredOutputPeak)+",\"sessions\":[";bool comma=false;for(auto &p:slots)if(p){std::lock_guard<std::mutex> q(p->io);if(comma)s+=",";comma=true;s+="{\"slot\":"+std::to_string(p->slot)+",\"generation\":"+std::to_string(p->generation)+",\"phase\":\""+phase_name(p->phase)+"\",\"command\":"+std::to_string(p->command)+",\"status\":"+std::to_string(p->status)+",\"input\":"+std::to_string(p->input.size())+",\"outstanding\":"+std::to_string(p->produced-p->acked)+",\"input_peak\":"+std::to_string(p->inputPeak)+",\"output_peak\":"+std::to_string(p->outputPeak)+"}";}return s+"]}";}
+ std::string statsUnlocked(){std::string s="{\"rollback_reports\":"+std::to_string(rollbackReports)+",\"fenced\":"+std::string(fenced?"true":"false")+",\"poisoned\":"+(poisoned?"true":"false")+",\"cause\":\""+cause+"\",\"started\":"+std::to_string(started)+",\"joined\":"+std::to_string(joined)+",\"stale\":"+std::to_string(stale)+",\"denied\":"+std::to_string(denied)+",\"retired_input_peak\":"+std::to_string(retiredInputPeak)+",\"retired_output_peak\":"+std::to_string(retiredOutputPeak)+",\"sessions\":[";bool comma=false;for(auto &p:slots)if(p){std::lock_guard<std::mutex> q(p->io);if(comma)s+=",";comma=true;s+="{\"slot\":"+std::to_string(p->slot)+",\"generation\":"+std::to_string(p->generation)+",\"phase\":\""+phase_name(p->phase)+"\",\"command\":"+std::to_string(p->command)+",\"status\":"+std::to_string(p->status)+",\"input\":"+std::to_string(p->input.size())+",\"outstanding\":"+std::to_string(p->produced-p->acked)+",\"input_peak\":"+std::to_string(p->inputPeak)+",\"output_peak\":"+std::to_string(p->outputPeak)+",\"queue_peak\":"+std::to_string(p->queuePeak)+"}";}return s+"]}";}
  void dispatch(const Frame &f){
   if(f.kind==TRY_CAPTURE){tryCapture(f);return;}
   if(f.kind==INJECT){std::lock_guard<std::mutex> l(gate);injectFailure=unsigned(f.value);emit(frame(REPLY,f.request,{},f.value,"failure_injection"));return;}
   if(f.kind==INSPECT){std::lock_guard<std::mutex> l(gate);auto s=match(f);if(s){if(s->joining||s->workerDone)emit(frame(REJECTED,f.request,s,8,"worker_retiring"));else emit(frame(REPLY,f.request,s,(uintptr_t)s->worker.native_handle(),"{\"timeout_ns\":\""+std::to_string(s->deadline.limit)+"\"}"));}return;}
   if(f.kind==OPEN){open(f);return;}if(f.kind==DATA){input(f);}
   else if(f.kind==ACK){acknowledge(f);}
+  else if(f.kind==OUTPUT_GRANT){grantOutput(f);}
   else if(f.kind==PEER_EOF){peerEOF(f);}
   else if(f.kind==QUIESCE){quiesce(f);}
   else if(f.kind==STATS){emit(frame(STATS_REPLY,f.request,{},0,stats()));}
@@ -167,7 +169,7 @@ struct Manager {
   {std::lock_guard<std::mutex> l(gate);if(!pendingPoison.empty()){auto why=pendingPoison;pendingPoison.clear();poisonLocked(why);}}
  }
  void reapLoop(){for(;;){std::shared_ptr<Session>s;{std::unique_lock<std::mutex> l(gate);progress.wait_for(l,std::chrono::milliseconds(5),[&]{if(reaperStop)return true;for(auto &p:slots)if(p&&p->workerDone&&!p->joining)return true;return false;});for(auto &p:slots)if(p&&p->workerDone&&!p->joining){s=p;p->joining=true;break;}if(!s&&reaperStop)return;}if(!s)continue;s->worker.join();{std::lock_guard<std::mutex> l(gate);std::lock_guard<std::mutex> q(s->io);retiredInputPeak=std::max(retiredInputPeak,s->inputPeak);retiredOutputPeak=std::max(retiredOutputPeak,s->outputPeak);s->phase=DEAD;slots[s->slot].reset();++joined;emit(frame(RETIRED,0,s,s->result,"{\"net_error\":"+std::to_string(s->netError)+",\"executions\":"+std::to_string(s->executions)+",\"input_peak\":"+std::to_string(s->inputPeak)+",\"output_peak\":"+std::to_string(s->outputPeak)+"}"));progress.notify_all();}}}
- bool pickData(Frame &f,size_t &cursor){std::vector<std::shared_ptr<Session>> v;{std::lock_guard<std::mutex> l(gate);for(auto &s:slots)if(s)v.push_back(s);}for(size_t n=0;n<v.size();++n){auto s=v[(cursor+n)%v.size()];std::lock_guard<std::mutex> q(s->io);if(!s->opened||s->output.empty())continue;size_t k=std::min(CHUNK,s->output.size());f=frame(OUTPUT,0,s,s->sent);for(size_t i=0;i<k;++i){f.data.push_back(s->output.front());s->output.pop_front();}s->sent+=k;cursor=(cursor+n+1)%v.size();return true;}return false;}
+ bool pickData(Frame &f,size_t &cursor){std::vector<std::shared_ptr<Session>> v;{std::lock_guard<std::mutex> l(gate);for(auto &s:slots)if(s)v.push_back(s);}for(size_t n=0;n<v.size();++n){auto s=v[(cursor+n)%v.size()];std::lock_guard<std::mutex> q(s->io);if(!s->opened||s->output.empty())continue;size_t k=std::min(CHUNK,s->output.size());f=frame(OUTPUT,0,s,s->sent);for(size_t i=0;i<k;++i){f.data.push_back(s->output.front());s->output.pop_front();}s->sent+=k;s->changed.notify_all();cursor=(cursor+n+1)%v.size();return true;}return false;}
  bool pickControl(Frame &f){ {std::lock_guard<std::mutex> l(outMu);if(urgent){f=std::move(*urgent);urgent.reset();return true;}if(!controls.empty()){f=std::move(controls.front());controls.pop_front();controlBytes-=33+f.data.size();return true;}}
   std::lock_guard<std::mutex> l(gate);for(auto &s:slots)if(s){if(s->statePending){s->statePending=false;f=frame(STATE,0,s,s->command,phase_name(s->phase));return true;}std::lock_guard<std::mutex> q(s->io);if(s->creditPending){s->creditPending=false;f=frame(CREDIT,0,s,s->consumed);return true;}}return false;
  }

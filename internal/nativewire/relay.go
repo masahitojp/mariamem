@@ -22,7 +22,7 @@ type session struct {
 	cv             *sync.Cond
 	sent, consumed uint64
 	dead           bool
-	output         chan frame
+	output         *outputWindow
 	ended          chan struct{}
 }
 
@@ -32,6 +32,7 @@ func (s *session) close() {
 		s.dead = true
 		close(s.ended)
 		s.conn.Close()
+		s.output.close()
 		s.cv.Broadcast()
 	}
 	s.mu.Unlock()
@@ -43,7 +44,7 @@ func (r *Backend) reserveLocked(c net.Conn) (*session, error) {
 		return nil, e
 	}
 	t := l.Token()
-	s := &session{root: r, lease: l, id: key{t.Slot, t.Generation}, conn: c, output: make(chan frame, 16), ended: make(chan struct{})}
+	s := &session{root: r, lease: l, id: key{t.Slot, t.Generation}, conn: c, output: newOutputWindow(), ended: make(chan struct{})}
 	s.cv = sync.NewCond(&s.mu)
 	r.sessions[s.id] = s
 	return s, nil
@@ -125,29 +126,40 @@ func (r *Backend) attach(s *session) {
 		defer s.relayDone(Writer)
 		defer s.close()
 		for {
-			select {
-			case f := <-s.output:
-				b := f.body
-				for len(b) > 0 {
-					n, e := c.Write(b)
-					if e != nil {
-						r.send(frame{kind: kindPeerEOF, slot: s.id.slot, generation: s.id.generation, value: 1})
-						return
-					}
-					if n <= 0 || n > len(b) {
-						r.fail(io.ErrNoProgress)
-						return
-					}
-					b = b[n:]
-				}
-				if e := r.send(frame{kind: kindAck, slot: s.id.slot, generation: s.id.generation, value: f.value + uint64(len(f.body))}); e != nil {
+			data, ok := s.output.next()
+			if !ok {
+				return
+			}
+			b := data
+			for len(b) > 0 {
+				n, e := c.Write(b)
+				if e != nil {
+					r.send(frame{kind: kindPeerEOF, slot: s.id.slot, generation: s.id.generation, value: 1})
 					return
 				}
-			case <-s.ended:
+				if n <= 0 || n > len(b) {
+					r.fail(io.ErrNoProgress)
+					return
+				}
+				b = b[n:]
+			}
+			ack, grant, err := s.output.complete(len(data))
+			if err != nil {
+				r.fail(err)
+				return
+			}
+			if err = r.send(frame{kind: kindAck, slot: s.id.slot, generation: s.id.generation, value: ack}); err != nil {
+				return
+			}
+			if err = r.send(frame{kind: kindOutputGrant, slot: s.id.slot, generation: s.id.generation, value: grant}); err != nil {
 				return
 			}
 		}
 	}()
+	if err := r.send(frame{kind: kindOutputGrant, slot: s.id.slot, generation: s.id.generation, value: outputLimit}); err != nil {
+		r.fail(err)
+		return
+	}
 	defer func() {
 		r.mu.Lock()
 		stopping := r.stopping
