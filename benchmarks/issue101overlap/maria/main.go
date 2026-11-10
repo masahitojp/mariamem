@@ -7,7 +7,7 @@ import (
 	"fmt"
 	mysql "github.com/go-sql-driver/mysql"
 	"github.com/masahitojp/mariamem"
-	"github.com/masahitojp/mariamem/benchmarks/issue101overlap/probe"
+	"github.com/masahitojp/mariamem/benchmarks/issue101runner/probe"
 	"github.com/masahitojp/mariamem/internal/generatedgo/code/base"
 	"github.com/masahitojp/mariamem/internal/timing"
 	"os"

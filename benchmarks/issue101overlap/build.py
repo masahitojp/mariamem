@@ -44,7 +44,7 @@ assert version.startswith('go version '+plan['go']+' ')
 module = TEMP/'probe'
 module.mkdir()
 for d in ('maria','probe'): shutil.copytree(HARNESS/d,module/d)
-(module/'go.mod').write_text('module github.com/masahitojp/mariamem/benchmarks/issue101overlap\n\ngo 1.26.0\n\nrequire (\n github.com/masahitojp/mariamem v0.0.0\n github.com/go-sql-driver/mysql v1.9.3\n)\n\nreplace github.com/masahitojp/mariamem => '+str(SOURCE)+'\n')
+(module/'go.mod').write_text('module github.com/masahitojp/mariamem/benchmarks/issue101runner\n\ngo 1.26.0\n\nrequire (\n github.com/masahitojp/mariamem v0.0.0\n github.com/go-sql-driver/mysql v1.9.3\n)\n\nreplace github.com/masahitojp/mariamem => '+str(SOURCE)+'\n')
 with (TEMP/'build.txt').open('w') as log:
     for args in ([go,'mod','tidy'],[go,'test','-count=1','./probe'],[go,'test','-race','-count=1','./probe'],[go,'build','-trimpath','-p','1','-buildvcs=false','-o',str(TEMP/'bin'),'./maria']):
         local=dict(env)
