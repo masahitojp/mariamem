@@ -67,8 +67,7 @@ def main():
     signatures = ['static inline double timer_tracker_frequency()', 'ulonglong measure() const']
     extracted = {name: [function(text, sig) for sig in signatures]
                  for name, text in [('before', before), ('after', after)]}
-    fixture = '''#include <cmath>
-#include <cstdio>
+    fixture = '''extern "C" int printf(const char*, ...);
 using ulonglong = unsigned long long;
 struct Unit { double frequency; };
 struct Info { Unit cycles; Unit microseconds; };
@@ -84,8 +83,8 @@ ulonglong my_timer_microseconds(){static ulonglong x=10;return x+=20000;}
 struct Probe { @MEASURE@ };
 int main(){Probe p;auto start=p.measure();auto end=p.measure();
  double frequency=timer_tracker_frequency();double ms=1000.0*(end-start)/frequency;
- bool ok=std::isfinite(ms)&&ms==20.0;
- std::printf("{\\"frequency\\":%.0f,\\"delta\\":%llu,\\"correct_20ms\\":%s}\\n",frequency,end-start,ok?"true":"false");
+ bool ok=__builtin_isfinite(ms)&&ms==20.0;
+ printf("{\\"frequency\\":%.0f,\\"delta\\":%llu,\\"correct_20ms\\":%s}\\n",frequency,end-start,ok?"true":"false");
  return ok?0:3;}
 '''
     cases = []
@@ -102,7 +101,7 @@ int main(){Probe p;auto start=p.measure();auto end=p.measure();
             cpp = stem.with_suffix('.cc')
             cpp.write_text(text)
             subprocess.run([compiler, '-std=c++17', '-O2', '-Wall', '-Wextra', '-Werror', *flags,
-                            str(cpp), '-o', str(stem)], check=True, capture_output=True)
+                            str(cpp), '-o', str(stem)], check=True)
             run = subprocess.run([str(stem)], text=True, capture_output=True)
             expected = 3 if profile == 'wasi' and treatment == 'before' else 0
             assert run.returncode == expected, (profile, treatment, run.stdout, run.stderr)
@@ -118,7 +117,7 @@ int main(){Probe p;auto start=p.measure();auto end=p.measure();
         cpp.write_text(text)
         binary = cpp.with_suffix('')
         subprocess.run([compiler, '-std=c++17', '-O2', *profiles[0][1], str(cpp), '-o', str(binary)],
-                       check=True, capture_output=True)
+                       check=True)
         run = subprocess.run([str(binary)], text=True, capture_output=True)
         assert run.returncode == 3
         controls.append(dict(reverted=signatures[index], rejected=True, observed=json.loads(run.stdout)))
