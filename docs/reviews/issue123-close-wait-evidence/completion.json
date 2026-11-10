@@ -1,0 +1,9 @@
+{
+  "result": "INCONCLUSIVE_NO_REPRODUCTION",
+  "harness_source_commit": "9edc93e59ee53cda4437b579a9e8760d3cae89c3",
+  "processes": 24,
+  "primary_processes": 20,
+  "max_primary_processes": 20,
+  "retries": 0,
+  "product_changes": false
+}

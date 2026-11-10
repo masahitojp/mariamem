@@ -28,6 +28,17 @@ change remain unknown. Recommendation: investigate Close before further speed
 or release claims. No follow-up runtime change, rollback, extra sampling or
 release is authorized by this measurement record.
 
+The Human subsequently authorized a bounded Close diagnosis. The
+[diagnosis](reviews/issue123-close-wait-diagnosis.md) at harness `9edc93e5`
+completed10 alternating pairs on the same Mac:480 children per source, all SQL
+and cleanup checks passed, no Close exceeded2 seconds (max14.976/16.453ms).
+Result: **INCONCLUSIVE_NO_REPRODUCTION**, not a fix or withdrawal of the earlier
+failure. A delayed stack/log observer passed separate forced controls. The
+original error chain narrows the direct timeout to worker drain or subsequent
+guest shutdown, but no slow stack identifies the blocking operation. Stop at the
+fixed budget; retain the observer for the next authorized workload instead of
+adding unbounded repetitions. Product/runtime/API bytes are unchanged.
+
 On 2026-11-10 the Human accepted retaining the immutable initial image for the
 host process lifetime to prioritize total test execution time. Build it lazily
 once; reuse it across DBs/Snapshots in that process. DB Close continues to dispose

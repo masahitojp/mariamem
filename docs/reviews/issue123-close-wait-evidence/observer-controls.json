@@ -1,0 +1,32 @@
+[
+  {
+    "arm": "before",
+    "metadata": {
+      "child_index": 0,
+      "close_id": 2,
+      "control": true,
+      "database_pointer": "0x44527f084000",
+      "elapsed_ms": 0.824292,
+      "guest_logs": "",
+      "stack_bytes": 69500,
+      "stack_truncated": false
+    },
+    "original_stack_sha256": "b9922d878e4ffe4e44b512ff81f56d7abb79f3b13cfd0564f4b11fa111888561",
+    "excerpt_file": "before-forced-control-excerpt.txt"
+  },
+  {
+    "arm": "after",
+    "metadata": {
+      "child_index": 0,
+      "close_id": 2,
+      "control": true,
+      "database_pointer": "0x68d1db30e000",
+      "elapsed_ms": 1.286625,
+      "guest_logs": "",
+      "stack_bytes": 71255,
+      "stack_truncated": false
+    },
+    "original_stack_sha256": "b190fa6502da545767addf81e33fc1f2a3f9c136b53dbfe9e5baba6c987b3842",
+    "excerpt_file": "after-forced-control-excerpt.txt"
+  }
+]
