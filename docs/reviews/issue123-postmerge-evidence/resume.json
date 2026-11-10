@@ -1,0 +1,7 @@
+{
+  "collector_source_commit": "8006803385f66e80f14a21609228209291ed92b6",
+  "binary_build_harness_source_commit": "f41b970d4bd34483d4072d719fdbc9a00dc6a62d",
+  "prior_observations_sha256": "01a686b176705d47cc3b142ef166eee8619ec8ed858c278f2e35a26ccf4a2385",
+  "prior_records": 30,
+  "policy": "continue only the originally planned unexecuted cells; retain all failures; no retry or extra warmup"
+}

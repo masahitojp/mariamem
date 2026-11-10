@@ -6,7 +6,27 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
-## Issue123 — process-lifetime static cache approved for candidate implementation
+## Issue123 — process-lifetime static cache adopted; post-merge Close failure observed
+
+On 2026-11-10 the Human authorized main integration and an immediate speed
+comparison. [PR147](https://github.com/masahitojp/mariamem/pull/147) squash-merged
+to `b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50`, with the same tree as approved
+head `08a2246a50bf5ce63de97ddf2b118b8df09dca1f`; required Development checks
+[42727872452](https://github.com/masahitojp/mariamem/actions/runs/42727872452)
+passed there. This supersedes the integration-pending checkpoint below for this
+bounded implementation, not release approval.
+
+The [post-merge comparison](reviews/issue123-postmerge-measurement.md) against
+immediately preceding main `c375edbc` completed the fixed56 processes on Mac:
+39/40 primary runs succeeded and one after/Fork/P4 run timed out in Close with
+one child mapping uncollected before process exit. All child SQL oracles in that
+failed run passed. No consistent whole-suite speedup was established; serial
+peak RSS decreased in all five pairs for Fresh and Fork. Successful Fork/P4
+speed statistics use four complete pairs, explicitly separate from the failure.
+The failure is not discarded or retried; its cause and relationship to this
+change remain unknown. Recommendation: investigate Close before further speed
+or release claims. No follow-up runtime change, rollback, extra sampling or
+release is authorized by this measurement record.
 
 On 2026-11-10 the Human accepted retaining the immutable initial image for the
 host process lifetime to prioritize total test execution time. Build it lazily
