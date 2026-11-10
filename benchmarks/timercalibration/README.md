@@ -29,6 +29,17 @@ runtime cycle counter is enabled, or the clock route changes, retain upstream
 probing. No Go shim change or global MY_TIMER_ROUTINE_CYCLES change is made.
 There is no environment switch or public API.
 
+## Local source-unit result
+
+Source_commit `51dfa1ab8bc1604acd13d6ded837bfc71d4b99cd` passes all10 initializer
+profiles /4 negative controls and the previous6 SQL selection profiles /2 negative
+controls. The target reduces deterministic millisecond reads1001→21; all other
+profiles match before/after. [Compact receipt](local-evidence/assessment.json)
+and checksummed detailed observations preserve that source. Checkout-identity
+regression and Python syntax checks also pass. These are controlled-clock source
+units, not the new guest's runtime/performance acceptance. CI repeats the units
+at its submitted source before the single guest build.
+
 ## Before a performance claim
 
 1. Compile the **exact pinned initializer and its three helpers** with controlled

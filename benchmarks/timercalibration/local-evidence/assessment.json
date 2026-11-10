@@ -1,0 +1,15 @@
+{
+  "result": "SOURCE_UNIT_PASS",
+  "source_commit": "51dfa1ab8bc1604acd13d6ded837bfc71d4b99cd",
+  "initializer_profiles": 10,
+  "initializer_negative_controls": 4,
+  "sql_selection_profiles": 6,
+  "sql_selection_negative_controls": 2,
+  "target_milliseconds_reads": {
+    "before": 1001,
+    "after": 21
+  },
+  "actual_guest": "NOT_RUN",
+  "startup_or_suite_speedup": "NOT_MEASURED",
+  "qualification": false
+}
