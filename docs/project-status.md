@@ -16,6 +16,22 @@ Changing version metadata does not itself publish a release.
 
 ## Issue65 — current work and upgrade-cost decision (2026-11-10)
 
+**Bounded output-credit trial concluded, 2026-11-10:** candidate source_commit
+`fdc12e2314853d3ab03d0d7e96efef66d4e43b0c` connects the actual native controller
+to a host-owned byte window with synthetic engine callbacks.29 Go race tests
+(including6 controller components) and66 boundary tests/59 subtests pass. This
+is not SQL/WASIX/Linux or public acceptance. The same13.0→13.2 source change
+needs0 patch-body edits on both legacy and native; changed preimage contacts
+are8/14 respectively. Host credit relocation removes no upstream dependency.
+[Review and evidence](reviews/issue131-host-flow/README.md) recommend not adopting
+this relocation for upgrade-cost reduction, retaining upstream reuse and
+separately owned glue. This is a recommendation, not Human adoption/rejection.
+The trial also reproduced a pre-existing local Close/peer-error race and saved
+an independent repair for the existing#130/#132 acceptance work. It is not yet
+verified in a generated public guest. No input/timer/full-controller expansion
+or#138 restart is implied. Existing public acceptance conditions remain; total
+native-vs-legacy upgrade-cost reduction is not established by this trial.
+
 **Native glue ownership separated, 2026-11-10:** candidate source_commit
 `a6ccc0713d7c8875a70707e525c51a8283981695` moves the five self-owned native
 files into `guest/native/` and binds their installation separately from upstream

@@ -1,0 +1,92 @@
+Disk preflight OK: 36.70 GiB free, 0.40 GiB owned
+=== RUN   TestFlowComponentFragmentedWrites
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentFragmentedWrites (0.23s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:154: guest poison: peer_output_error
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- FAIL: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentFragmentedWrites
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentFragmentedWrites (0.03s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:154: guest poison: peer_output_error
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- FAIL: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentFragmentedWrites
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentFragmentedWrites (0.03s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:154: guest poison: peer_output_error
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- FAIL: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentFragmentedWrites
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentFragmentedWrites (0.03s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:154: guest poison: peer_output_error
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- FAIL: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentFragmentedWrites
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentFragmentedWrites (0.03s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentFragmentedWrites
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentFragmentedWrites (0.03s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:154: guest poison: peer_output_error
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- FAIL: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentFragmentedWrites
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentFragmentedWrites (0.03s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:154: guest poison: peer_output_error
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- FAIL: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentFragmentedWrites
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentFragmentedWrites (0.03s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:154: guest poison: peer_output_error
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- FAIL: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentFragmentedWrites
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentFragmentedWrites (0.03s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:154: guest poison: peer_output_error
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- FAIL: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentFragmentedWrites
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentFragmentedWrites (0.03s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:54: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentStopBlockedOutput (0.01s)
+FAIL
+FAIL	github.com/masahitojp/mariamem/internal/nativewire	0.915s
+FAIL

@@ -1,0 +1,60 @@
+{
+  "candidate_source_commit": "fdc12e2314853d3ab03d0d7e96efef66d4e43b0c",
+  "base_source_commit": "54860bfe69c2e7cc0479ac451d8b1905b9edefb8",
+  "runtime_source_commit": "8ef2f667f333a4df6951aa9cb0193840616cb070",
+  "decision_recommendation": "do not adopt output-credit relocation to reduce MariaDB upgrade cost; retain upstream reuse plus separately owned glue",
+  "source_update_comparison": {
+    "from_source_commit": "620a4b5624222048fece7fe1789978ae0675cae2",
+    "to_source_commit": "c9f28ba0afec6d29e4688255dce8caaf7e91233d",
+    "legacy": {
+      "applied_stages": 6,
+      "body_repairs": 0,
+      "changed_preimage_files": 8
+    },
+    "native": {
+      "applied_stages": 7,
+      "body_repairs": 0,
+      "changed_preimage_files": 14
+    },
+    "scope": "patch application only, not legacy13.2 generation/runtime"
+  },
+  "verification": {
+    "nativewire_go_race_tests": 29,
+    "cpp_component_tests_included": 6,
+    "boundary_tests": 66,
+    "boundary_subtests": 59,
+    "baseline_stop_failures_of_10": 8,
+    "baseline_with_independent_fix_passes_of_10": 10,
+    "candidate_stop_passes_of_10": 10,
+    "guest_builds": 0,
+    "new_ci_runs": 0,
+    "cpp_race_detector": false
+  },
+  "environment": {
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "go": "go version go1.27.3 darwin/arm64",
+    "clang": "Apple clang version 21.0.0 (clang-2100.4.1.1)"
+  },
+  "budget": {
+    "owned_gib": 6,
+    "min_free_gib": 12,
+    "guest_builds": 0,
+    "ci": 0,
+    "workspace_created_unix": 1794270085.03398,
+    "collected_unix": 1794271222.4187698,
+    "human_active_duration": "not stopwatch measured; no human-hour savings claimed"
+  },
+  "operational_failures": [
+    "Initial Apple clang invocation could not locate C++ standard headers; explicit installed SDK include fixed it.",
+    "Initial source download in restricted sandbox could not resolve hostname; authorized network retry obtained hash-checked archives.",
+    "Initial synthetic selected receipt retained historical glue postimage and was rejected; fixture now hashes actual staged source.",
+    "First baseline-fixed overlay attempt could not compile newly declared grant test; fixture-only constant was added to baseline frame declarations."
+  ],
+  "limits": [
+    "Synthetic engine callback stimulus, not SQL/THD/rollback acceptance",
+    "macOS arm64 native C++ process, not WASIX/wasm2go or Linux",
+    "No full Snapshot/Fork/Live/installed-wheel/consumer/performance acceptance",
+    "Output only: input, timer relocation, aggregate memory and fairness not established",
+    "13.3 LTS compatibility untested; #138 remains stopped/unwaived"
+  ]
+}

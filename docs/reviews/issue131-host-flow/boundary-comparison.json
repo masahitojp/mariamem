@@ -1,0 +1,32 @@
+[
+  {
+    "file": "guest/native/embedded-wire.patch",
+    "base_sha256": "de7b4fb9e52b2f928ff07c615fb83053cb8380e7ae733022b5234639fe132a82",
+    "candidate_sha256": "de7b4fb9e52b2f928ff07c615fb83053cb8380e7ae733022b5234639fe132a82",
+    "equal": true
+  },
+  {
+    "file": "guest/native/libmysqld/mariamem_control_abi.h",
+    "base_sha256": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075",
+    "candidate_sha256": "38600a282730cbdffbc1ea2b5b4112bf1e83dc1533af389d15da8d152f18e075",
+    "equal": true
+  },
+  {
+    "file": "guest/native/libmysqld/mariamem_wire_probe.inc",
+    "base_sha256": "584949484d8432b0b538876adbd2f6571ff50893882976cc56ea8b9508bcfc78",
+    "candidate_sha256": "584949484d8432b0b538876adbd2f6571ff50893882976cc56ea8b9508bcfc78",
+    "equal": true
+  },
+  {
+    "file": "guest/native/sql/mariamem_wire_policy.h",
+    "base_sha256": "b49dc0565b4ea31d71b2323cdc04ceb3e260cd2b7df80c003a3d2dbb0a7d5580",
+    "candidate_sha256": "b49dc0565b4ea31d71b2323cdc04ceb3e260cd2b7df80c003a3d2dbb0a7d5580",
+    "equal": true
+  },
+  {
+    "file": "guest/native/wasm/issue65_deadline.h",
+    "base_sha256": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
+    "candidate_sha256": "d4066db5e82b0a68f476dfe6a3551aeb59d38816793e1b0860051cb4264e465f",
+    "equal": true
+  }
+]

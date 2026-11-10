@@ -1,0 +1,43 @@
+Disk preflight OK: 36.58 GiB free, 0.51 GiB owned
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:55: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:55: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:55: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:55: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:55: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:55: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:55: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:55: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:55: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentStopBlockedOutput (0.01s)
+=== RUN   TestFlowComponentStopBlockedOutput
+    flow_component_test.go:55: NATIVE_STOP mode=ordinary started=1 joined=1 cleanup_failed=0
+        
+--- PASS: TestFlowComponentStopBlockedOutput (0.01s)
+PASS
+ok  	github.com/masahitojp/mariamem/internal/nativewire	1.220s
