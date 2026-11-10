@@ -134,7 +134,15 @@ func (r *Backend) attach(s *session) {
 			for len(b) > 0 {
 				n, e := c.Write(b)
 				if e != nil {
-					r.send(frame{kind: kindPeerEOF, slot: s.id.slot, generation: s.id.generation, value: 1})
+					// stopIngress closes the peer to unblock this writer before
+					// STOP reaches native. That local cancellation is not a new
+					// peer-output fault; preserve faults observed before stop.
+					r.mu.Lock()
+					stopping := r.stopping
+					r.mu.Unlock()
+					if !stopping {
+						r.send(frame{kind: kindPeerEOF, slot: s.id.slot, generation: s.id.generation, value: 1})
+					}
 					return
 				}
 				if n <= 0 || n > len(b) {
