@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/__w/mariamem/mariamem/benchmarks/timerselection/check.py", line 136, in <module>
+    main()
+  File "/__w/mariamem/mariamem/benchmarks/timerselection/check.py", line 44, in main
+    require_commit(ROOT, plan['source_commit'])
+  File "/__w/mariamem/mariamem/scripts/git_identity.py", line 45, in require_commit
+    identity = inspect_ref(repository, sha)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/__w/mariamem/mariamem/scripts/git_identity.py", line 35, in inspect_ref
+    kind = _git(repository, 'cat-file', '-t', object_sha)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/__w/mariamem/mariamem/scripts/git_identity.py", line 16, in _git
+    raise ValueError('Git identity check failed: ' + result.stderr.strip()[-1000:])
+ValueError: Git identity check failed: fatal: git cat-file: could not get object info

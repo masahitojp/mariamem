@@ -24,6 +24,8 @@ jobs:
           apt-get update
           DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
       - name: Bind exact source and selection controls
         env:
           HOME: /root
@@ -33,6 +35,7 @@ jobs:
           python3 scripts/git_identity.py inspect HEAD > build/timer-ci/source.json
           python3 -c 'import json,os;assert json.load(open("build/timer-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
           test -z "$(git status --porcelain)"
+          python3 benchmarks/timerselection/check_checkout.py > build/timer-ci/checkout-check.json
           python3 benchmarks/timerselection/check.py --work /tmp/timer-selection-unit --output build/timer-ci/selection.json > build/timer-ci/selection.txt 2>&1
       - name: Build one explicitly UNQUALIFIED development guest
         env:

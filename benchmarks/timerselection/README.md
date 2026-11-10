@@ -30,6 +30,21 @@ millisecond discovery/calibration behavior is a separate question.
 
 ## Stages and stopping conditions
 
+CI42907444895 at `ab5ca7a1` stopped before selection units or guest compilation:
+the default shallow checkout omitted pinned baseline commit `b1218737`, so the
+Git identity helper correctly rejected it. This was an experiment-workflow defect,
+separate from the observed product ANALYZE timing defect. The repaired workflow
+fetches complete history and exercises the shallow/full identity boundary with
+`check_checkout.py`; no identity guard or guest patch was weakened. The failed
+[receipt](ci-42907444895/assessment.json) retains the original source and artifact
+digest. A successful new build will still require actual-guest runtime testing.
+
+The product defect observed so far is SQL diagnostic timing: delayed queries
+reported zero times in the tested Go Pipe/product-source cohort. Ordinary query
+results, following SELECT and cleanup passed. We have not established affected
+release-version bounds or absence of every other timing consequence; nor is the
+new patch runtime-accepted yet.
+
 1. Hash-check the two pinned upstream headers. Apply `guest/experimental.patch`
    with fuzz0 and require exactly the two SQL guards to change. Compile the exact
    extracted tracker methods with controlled clocks: original WASI must exhibit

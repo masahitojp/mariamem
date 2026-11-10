@@ -1,0 +1,12 @@
+{
+  "result": "FAILED_BEFORE_GUEST_BUILD",
+  "run_id": 42907444895,
+  "job_id": 130149032755,
+  "source_commit": "ab5ca7a1f4713639047aa154ba41d507d63f35ae",
+  "artifact_id": 13804983152,
+  "artifact_archive_sha256": "761428df4cddddd69f9dfe21b9e6022b92767e8d17996598d007ea424dfb1848",
+  "cause": "Shallow checkout omitted pinned baseline commit; require_commit correctly rejected missing object.",
+  "guest_build": "NOT_RUN",
+  "selection_units": "NOT_RUN",
+  "runtime_analyze": "NOT_RUN"
+}
