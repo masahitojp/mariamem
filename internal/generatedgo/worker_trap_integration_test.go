@@ -97,6 +97,7 @@ func (g *trapGuest) call(op byte, sql string) (map[string]any, error) {
 }
 
 func TestWorkerTrapActualGuestNotifiesAndIsolatesPeer(t *testing.T) {
+	warmProcessImage(t)
 	before := base.MemoryMappingStats()
 	broken, healthy := startTrapGuest(t, true), startTrapGuest(t, false)
 	for _, g := range []*trapGuest{broken, healthy} {

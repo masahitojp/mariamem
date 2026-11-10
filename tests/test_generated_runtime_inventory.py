@@ -30,8 +30,12 @@ def canonical(tmp_path, monkeypatch):
     pins.write_text(json.dumps({'guest_sha256': 'a'*64}))
     generated = source/'entry.go'
     generated.write_text('package generatedgo\n')
+    from runtime_static_image import source_hashes
+    layout = source/'image/layout.json'
+    layout.parent.mkdir()
+    layout.write_text(json.dumps({'source_sha256': source_hashes(source)}))
     record = {'input_manifest_sha256': verifier.digest(pins), 'guest_sha256': 'a'*64,
-              'files_sha256': {'entry.go': verifier.digest(generated)}}
+              'files_sha256': {'entry.go': verifier.digest(generated), 'image/layout.json': verifier.digest(layout)}}
     (source/'provenance.json').write_text(json.dumps(record))
     monkeypatch.setattr(verifier, 'ROOT', tmp_path)
     return tmp_path
@@ -125,7 +129,14 @@ def test_clean_installer_preserves_every_handwritten_file(tmp_path, monkeypatch)
     monkeypatch.setattr(installer.subprocess, 'check_output', lambda *a, **k: str(tmp_path/'go')+'\n')
     commands = []
     monkeypatch.setattr(installer.subprocess, 'run', lambda args, **kwargs: commands.append(args))
+    generated_layouts = []
+    def layout_fixture(runtime, go):
+        from runtime_static_image import source_hashes
+        generated_layouts.append((runtime, go))
+        (runtime/'image/layout.json').write_text(json.dumps({'source_sha256': source_hashes(runtime)}))
+    monkeypatch.setattr(installer, 'generate_static_image', layout_fixture)
     installer.main()
+    assert generated_layouts == [(output, tmp_path/'go/bin/go')]
     assert len(commands) == 1 and commands[0][1] == '-w'  # gofmt only, never a build
     installed = json.loads((output/'provenance.json').read_text())['files_sha256']
     assert not handwritten & set(installed)  # remains handwritten, not translated provenance

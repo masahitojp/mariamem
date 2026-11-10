@@ -404,3 +404,16 @@ it is available since 0.6.0. Existing direct Live APIs remain the mechanism
 underneath the entry. See the [integration receipt](reviews/e2e-integration-ci-41095184074/assessment.json)
 for exact tested source/profiles. Arbitrary unregistered work and non-cooperative
 shutdown remain outside the guarantee; detailed resource characterization is deferred.
+
+### Process-local initialization image (v0.7.0 candidate)
+
+The candidate builds an immutable initialization image on first use and keeps
+one shared backing file until the host process exits. Closing a DB still releases
+its own workers, connections and writable memory. The shared image contains
+engine initialization bytes, not your schema or data. Its size is fixed per
+compiled engine (about 8.5 MiB of static pages in the measured Mac prototype),
+not per DB; this is not a fixed RSS guarantee. Go shares it within the Go process;
+Python shares it within each managed Go host, not across independent starts or
+pytest workers. Initialization failure stops new image admissions for that host;
+restart the host/process after correcting the underlying error. See the
+[ownership decision](decisions/process-static-image-cache.md).

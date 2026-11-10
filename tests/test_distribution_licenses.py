@@ -50,7 +50,8 @@ def test_evidence_bound_to_adopted_guest_and_generated_source():
     build=json.loads((ROOT/'release/generated-go-build.json').read_text())
     assert evidence['guest_sha256']==pins['guest_sha256']==build['guest_sha256']
     assert evidence['linked_sha256']==build['linked_guest_sha256']
-    assert evidence['generated_provenance_sha256']==digest(ROOT/'internal/generatedgo/provenance.json')
+    from distribution_licenses import verify_generated_attribution
+    verify_generated_attribution(ROOT, evidence)
     assert evidence['audit_source_commit']==evidence['host_check']['source_commit']
     assert evidence['symbol_map_entries'] > 0
     assert evidence['historical_evidence']['source_commit']=='e0be06f3a20c72cbb5a9be27971280c80a3ec357'
@@ -84,3 +85,28 @@ def test_upstream_notice_comparison_checks_original_not_just_repository_hash(tmp
     assert verify_upstream_notices(tmp_path,lock)
     text.write_text('modified');value['distributed_notices']['original.txt']=digest(text);record()
     with pytest.raises(ValueError,match='upstream notice bytes differ'):verify_upstream_notices(tmp_path,lock)
+
+
+def test_image_metadata_cannot_hide_generated_attribution_drift(tmp_path):
+    from distribution_licenses import verify_generated_attribution
+    from common import digest
+    import shutil
+    target = tmp_path/'internal/generatedgo'
+    (target/'image').mkdir(parents=True)
+    for name in ('provenance.json', 'image/layout.json'):
+        shutil.copyfile(ROOT/'internal/generatedgo'/name, target/name)
+    evidence = json.loads((ROOT/'release/generated-license-evidence.json').read_text())
+    assert verify_generated_attribution(tmp_path, evidence) == 'unchanged-generated-code; image-metadata-only'
+    original = (target/'provenance.json').read_bytes()
+    for mutation in ('source', 'extra', 'guest'):
+        value = json.loads(original)
+        if mutation == 'source': value['files_sha256']['code/alias.go'] = '0'*64
+        elif mutation == 'extra': value['files_sha256']['extra.json'] = '0'*64
+        else: value['guest_sha256'] = '0'*64
+        (target/'provenance.json').write_text(json.dumps(value, indent=2)+'\n')
+        with pytest.raises(ValueError, match='beyond image metadata'):
+            verify_generated_attribution(tmp_path, evidence)
+    (target/'provenance.json').write_bytes(original)
+    (target/'image/layout.json').write_text('{}')
+    with pytest.raises(ValueError, match='metadata mismatch'):
+        verify_generated_attribution(tmp_path, evidence)

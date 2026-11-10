@@ -6,6 +6,37 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## Issue123 — process-lifetime static cache approved for candidate implementation
+
+On 2026-11-10 the Human accepted retaining the immutable initial image for the
+host process lifetime to prioritize total test execution time. Build it lazily
+once; reuse it across DBs/Snapshots in that process. DB Close continues to dispose
+all per-child workers, connections and mappings. Only the bounded immutable
+image remains. Python sharing follows its existing per-lineage Go host boundary.
+The [decision](decisions/process-static-image-cache.md) records retained resources,
+failure ownership, generation checks and limits. Assemble the minimum product
+candidate from main; experimental history is not merge-ready. Both-OS prototype
+CI 42657516361 passed at 378f8490; product integration/adoption/release and new
+performance claims remain separate gates.
+The [product candidate checkpoint](reviews/process-static-image-candidate.md)
+records local correctness, retained resources and the fixed-client profile gap.
+Product candidate [CI42673922578](https://github.com/masahitojp/mariamem/actions/runs/42673922578)
+passed on macOS15 arm64 / Ubuntu24.04 x86_64 at source_commit
+`be08dac36194442d3cbbd95f0add7c002753ffa4`; its checksum-verified
+[compact receipt](reviews/process-static-image-candidate/ci-42673922578.json)
+keeps exact job/artifact identities. This is core runtime correctness, not the
+fixed-client comparison, installed distribution, performance or Qualification.
+The Human authorized the review's two bounded follow-ups: include embedded layout
+metadata in module fixtures/identity and separate private diagnostics from copied
+external-consumer tests. That follow-up at `845aeedb` kept runtime bytes unchanged;
+Development [CI42723709945](https://github.com/masahitojp/mariamem/actions/runs/42723709945)
+passed all three checks at that exact source. Old receipts retain their original
+source. The PR subsequently incorporates main `c375edbc`, including the adopted
+Issue145 shutdown behavior below. The combined runtime differs from the earlier
+Issue123-only CI source; its normal Development checks include the existing
+shutdown/Snapshot/reSnapshot smoke. Do not relabel earlier receipts as combined
+head PASS. Main integration and release remain separate.
+
 ## Issue145 — shutdown mode by disposal purpose, adopted on main
 
 On 2026-11-10 the Human approved proceeding after the bounded macOS experiment

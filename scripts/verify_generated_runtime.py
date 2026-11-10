@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 from generate_runtime import HANDWRITTEN_FILES, handwritten_owner
+from runtime_static_image import verify_sources
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -39,6 +40,7 @@ def main():
     require(not changed, 'generated source inventory changed: ' + ', '.join(changed) +
             '; edit the canonical generator/adapter, then regenerate; do not refresh provenance to bless an unexplained edit')
     require(record['guest_sha256'] == json.loads(pins.read_text())['guest_sha256'], 'guest identity changed')
+    verify_sources(source)
     print('PASS: generated source inventory, pinned inputs and guest identity')
 
 

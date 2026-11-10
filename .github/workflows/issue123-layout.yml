@@ -1,0 +1,81 @@
+name: Process static image candidate (not Qualification)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    env:
+      GOTOOLCHAIN: go1.26.10
+      GOMEMLIMIT: 3GiB
+      GOGC: '50'
+      GOMAXPROCS: '4'
+      MARIAMEM_TEST_DEFAULT: '1'
+      PYTHONPATH: python
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
+        with:
+          go-version: '1.26.10'
+          cache: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Bind exact clean source and observed host
+        run: |
+          mkdir -p build/static-image-ci
+          python scripts/git_identity.py inspect HEAD > build/static-image-ci/source.json
+          python -c 'import json,os;assert json.load(open("build/static-image-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python -c 'import platform,os,json;expected=("Darwin","arm64") if os.environ["RUNNER_OS"]=="macOS" else ("Linux","x86_64");assert (platform.system(),platform.machine())==expected;print(json.dumps({"os":platform.system(),"arch":platform.machine(),"python":platform.python_version()}))' > build/static-image-ci/host.json
+          go version > build/static-image-ci/go.txt
+          echo "GOCACHE=$(go env GOCACHE)" >> "$GITHUB_ENV"
+          go clean -testcache
+          python -m pip install -r tests/routing_acceptance/unit-requirements.txt
+      - name: Generated manifest and source ownership
+        run: |
+          python scripts/verify_generated_runtime.py > build/static-image-ci/inventory.txt 2>&1
+          go run -p 1 ./internal/generatedgo/layoutgen -check > build/static-image-ci/layout.txt 2>&1
+          python -m pytest -q tests/test_runtime_static_image.py tests/test_generated_runtime_inventory.py tests/test_consumer_acceptance.py > build/static-image-ci/source-tests.txt 2>&1
+      - name: Complete initial bytes, isolation and failure ownership
+        run: go test -p 1 -count=1 ./internal/generatedgo/image ./internal/generatedgo/imagelayout ./internal/generatedgo/code/base ./internal/generatedgo > build/static-image-ci/units.txt 2>&1
+      - name: Canonical ownership race targets
+        run: go test -race -p 1 ./internal/artifacts ./internal/generatedgo/code/base ./internal/generatedgo ./internal/generatedgo/image ./internal/generatedgo/imagelayout ./internal/guest ./internal/host ./internal/mysqlwire ./internal/preparedproto ./internal/snapshot ./internal/live ./internal/control ./internal/prepared ./mariamemtest . -count=1 > build/static-image-ci/race.txt 2>&1
+      - name: Actual Go DBs, Snapshot isolation, traps and process image lifetime
+        run: |
+          go test -p 1 -tags=integration ./tests/gointegration ./tests/godefault ./tests/generatedmemory -count=1 -timeout=3m > build/static-image-ci/go-runtime.txt 2>&1
+          go test -p 1 -tags=integration ./internal/generatedgo -run=TestWorkerTrapActualGuest -count=1 -timeout=3m > build/static-image-ci/worker.txt 2>&1
+          go test -p 1 -tags=integration ./tests/generatedmemory -run=TestProcessImageSurvivesIndependentRootsAndSnapshots -count=1 -v > build/static-image-ci/image-lifetime.txt 2>&1
+      - name: Source Go/Python Live and Pipe smoke
+        run: python scripts/verify.py smoke > build/static-image-ci/smoke.txt 2>&1
+      - name: Real Python SQL, routines and Snapshot lifecycle
+        run: |
+          go build -p 1 -o build/static-image-ci/mariamem-host ./cmd/mariamem-host
+          export MARIAMEM_TEST_HOST="$PWD/build/static-image-ci/mariamem-host"
+          python -m pytest tests/test_python_timeout.py::test_normal_close_is_idempotent tests/test_python_multiclient.py tests/test_python_wire.py tests/test_owned_snapshot.py tests/test_routine_runtime.py tests/test_text_multi_runtime.py -q > build/static-image-ci/python-runtime.txt 2>&1
+          python tests/snapshots.py > build/static-image-ci/snapshots.txt 2>&1
+          rm build/static-image-ci/mariamem-host
+      - name: Bind successful receipt
+        if: success()
+        run: |
+          python -c 'import json,os,pathlib;pathlib.Path("build/static-image-ci/result.json").write_text(json.dumps({"result":"PASS","source_commit":os.environ["GITHUB_SHA"],"run_id":os.environ["GITHUB_RUN_ID"],"job":os.environ["GITHUB_JOB"],"runner":os.environ["RUNNER_OS"],"scope":"process image and core runtime correctness; excludes fixed C-extension native comparison, performance and Qualification"},indent=2)+"\n")'
+      - name: Checksum compact logs
+        if: always()
+        run: |
+          python -c 'import hashlib,json,pathlib;d=pathlib.Path("build/static-image-ci");(d/"SHA256SUMS.json").write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(d.iterdir()) if p.is_file() and p.name!="SHA256SUMS.json"},indent=2)+"\n")'
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: static-image-${{ matrix.runner }}-${{ github.sha }}
+          path: |
+            build/static-image-ci/*.json
+            build/static-image-ci/*.txt
+          if-no-files-found: error
+          retention-days: 14

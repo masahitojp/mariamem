@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # Every maintained workflow has a reviewed classification. New workflow paths
 # remain conservative until assigned here; the inventory test catches omissions.
 WORKFLOW_SCOPES = {
+    '.github/workflows/issue123-layout.yml': 'python',
     '.github/workflows/disconnect-notify.yml': 'python',
     '.github/workflows/shutdown-candidate.yml': 'python',
     '.github/workflows/check.yml': 'python',

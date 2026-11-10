@@ -195,6 +195,7 @@ func TestMappedMemoryInitializationFailure(t *testing.T) {
 }
 
 func TestMappedMemoryFailedExecutionJoinsBeforeRelease(t *testing.T) {
+	warmProcessImage(t)
 	before := base.MemoryMappingStats()
 	m, release, err := newMemoryModule(mappedTestHost())
 	if err != nil {
@@ -232,5 +233,16 @@ func TestMappedMemoryFailedExecutionJoinsBeforeRelease(t *testing.T) {
 	}
 	if base.MemoryMappingStats()["releases"] != after["releases"] {
 		t.Fatal("double release")
+	}
+}
+
+func warmProcessImage(t *testing.T) {
+	t.Helper()
+	_, release, err := newMemoryModule(mappedTestHost())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = release(); err != nil {
+		t.Fatal(err)
 	}
 }

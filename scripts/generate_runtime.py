@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+from runtime_static_image import generate as generate_static_image
 import shutil
 import subprocess
 
@@ -17,6 +18,13 @@ OLD = 'example.com/mariamem-spike/generated'
 NEW = 'github.com/masahitojp/mariamem/internal/generatedgo/code'
 # Canonical installer ownership boundary; the verifier consumes this same list.
 HANDWRITTEN_FILES = (
+    'code/base/static_pages.go',
+    'code/base/static_pages_test.go',
+    'image/image.go',
+    'image/image_test.go',
+    'imagelayout/layout.go',
+    'imagelayout/layout_test.go',
+    'layoutgen/main.go',
     'code/base/crc32c.go',
     'code/p4/crc32c_test.go',
     'code/base/memfs.go',
@@ -192,12 +200,15 @@ def main():
         provenance.update(contract=pins['contract'], result='UNQUALIFIED',
                           dev_inputs_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest(),
                           input_manifest_sha256=hashlib.sha256(args.development_input.read_bytes()).hexdigest())
-    (out/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     # Production ownership glue is ordinary handwritten Go, not transpilation
     # output. Carry it into clean regenerated trees without modifying that output.
     for name in HANDWRITTEN_FILES:
         owner = handwritten_owner(ROOT, name)
+        (out/name).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(owner, out/name)
+    generate_static_image(out, go_root/'bin/go')
+    inventory['image/layout.json'] = hashlib.sha256((out/'image/layout.json').read_bytes()).hexdigest()
+    (out/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
     print('Installed checksum-bound generated runtime:',len(inventory),'files')
 
 
