@@ -1,0 +1,57 @@
+{
+  "question": "Current shop70 P8 whole-suite gap to pinned pgmem, and matched improvement since mariamem0.6.2",
+  "source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "baseline_pin": "release/baselines/v0.6.2.json",
+  "harness_ancestor": "2429cc77a00b944f120c793bd097c219ebad6d48",
+  "pgmem": {
+    "release_tag": "v1.18.2",
+    "tag_object_sha": "145e5d2fc70983b89a4bdd8438e547fcd60244ed",
+    "source_commit": "a61005d37d01e6671f814fe8ca828222e8147df4"
+  },
+  "arms": [
+    "v062",
+    "current",
+    "pgmem"
+  ],
+  "go": "go1.27.3",
+  "parallel": 8,
+  "max_forks": 9,
+  "transport": "Pipe for both drivers",
+  "cases": {
+    "read": 50,
+    "write": 20
+  },
+  "fixture": {
+    "categories": 20,
+    "products": 500,
+    "users": 1000,
+    "sample_orders_per_child": 40
+  },
+  "reader_baseline": "Both engines consume/close source then fork one shared reader plus20 private writers;21 forks, unlike website20.",
+  "settings": "mariamem canonical16MiB/read1; no argv overlay; GOMAXPROCS8/GOGC100/CGO0",
+  "repeats": 5,
+  "warmups": 1,
+  "primary_processes": 15,
+  "total_processes": 18,
+  "order": "rotate3arms each round;oneprocess at a time",
+  "boundary": "TestMain before boot to final public cleanup; excludes compilation/download/package init/process launch. Parent process elapsed also recorded separately.",
+  "metrics": [
+    "whole wall/CPU",
+    "perstage spans",
+    "sample tail counts",
+    "all70case assertions",
+    "mariamem mapping cleanup",
+    "pgmem publicClose only"
+  ],
+  "limits": "SQL dialect port, different engines and cleanup guarantees; oneMac not publishedM3/P8. No tail removal, guestchanges,rootcause expansion,release.",
+  "exit": "15 primary and3warmups or stop first unexpected failure;no retries",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci": 0,
+    "timeout_seconds": 2400,
+    "per_process_seconds": 150,
+    "owned_gib": 12,
+    "min_free_gib": 12
+  }
+}
