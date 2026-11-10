@@ -42,6 +42,10 @@ def inputs(tmp_path):
     prepared['overlays']['experimental.patch'] = native['sha256']
     prepared['experimental_patch'] = {'file': native['file'], 'sha256': native['sha256']}
     prepared['native_glue'] = copy.deepcopy(resolved['guest_input']['native_glue'])
+    # This is a synthetic receipt for the current staged inputs, not the
+    # historical producer. Keep the verifier's actual postimage check intact.
+    for destination, reference in prepared['native_glue'].items():
+        prepared['modified_files'][destination] = digest(root/reference['file'])
     assert resolve(root, '13.2.0', 'native-text') == resolved
     selected.verify_preparation(resolved, prepared)
     return root, resolved, prepared
