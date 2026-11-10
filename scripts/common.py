@@ -17,9 +17,11 @@ def digest(path):
     return value.hexdigest()
 
 
-def fetch(name):
-    entry = next(p for p in LOCK["inputs"] if p["name"] == name)
-    path = ROOT / "build/downloads" / entry["file"]
+def fetch(name, *, lock=None, downloads=None):
+    lock = LOCK if lock is None else lock
+    downloads = ROOT / "build/downloads" if downloads is None else Path(downloads)
+    entry = next(p for p in lock["inputs"] if p["name"] == name)
+    path = downloads / entry["file"]
     path.parent.mkdir(parents=True, exist_ok=True)
     if not path.exists():
         temporary = path.with_suffix(path.suffix + ".partial")
