@@ -1,0 +1,18 @@
+{
+  "question": "Which remaining common-initialization work on b1218737 can plausibly be reduced without changing SQL behavior or cloning live state?",
+  "source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "stage_evidence": "7ebc279e4c8ed2a25dbf7e54f9c93e14238f8b2c",
+  "scope": "Source-only audit of embedded_begin to embedded_options_complete; account for adopted UCA/lexer/static image changes. No new benchmark, prototype, guest regeneration or CI.",
+  "exit": "At most three concrete candidates with producer/consumer/mutation/ownership boundaries, one recommended next action and explicit missing cost evidence. Inconclusive if source cost cannot be isolated; do not claim7-10ms savings.",
+  "budgets": {
+    "active_minutes": 60,
+    "tooling_minutes": 10,
+    "heavy_ci": 0,
+    "new_runtime_processes": 0,
+    "source_acquisition_seconds": 600,
+    "owned_gib": 2,
+    "min_free_gib": 8
+  },
+  "environment": "Pinned shop70 stage evidence: Mac M1,Go1.27.3,Pipe,P4/P8; source read only in this task"
+}
