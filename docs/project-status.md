@@ -6,6 +6,19 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## WASI SQL timer selection — real-guest experiment passed, adoption separate
+
+On2026-11-11 the successful development guest CI42916730601 at9a3e91b7 was
+checksum-verified and bound to an isolated host at7383940e. CRC, thread ownership
+bodies and the initial data image remain identical to the baseline bindings.
+The [bounded runtime check](reviews/wasi-timer-runtime/README.md) on macOS arm64
+restores meaningful ANALYZE timing: delayed queries with24.6–26.7ms client wall
+report24.2–26.1ms, across Fresh and two isolated Forks. Following SELECT and cleanup
+pass. This changes two MariaDB SQL clock-selection guards for WASI; the Go clock
+shim, global clock selection, calibration and InnoDB timing are unchanged.
+The Human authorized investigation, not product adoption. Native SQL comparison,
+Ubuntu runtime, adoption and release remain separate. No startup saving is claimed.
+
 ## Issue123 — process-lifetime static cache approved for candidate implementation
 
 On 2026-11-10 the Human accepted retaining the immutable initial image for the

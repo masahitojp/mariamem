@@ -1,0 +1,48 @@
+{
+  "run": {
+    "id": 42916730601,
+    "head_sha": "9a3e91b708cc765b418b77ddc7278e2151f2cf5c",
+    "event": "push",
+    "status": "completed",
+    "conclusion": "success",
+    "run_attempt": 1,
+    "html_url": "https://github.com/masahitojp/mariamem/actions/runs/42916730601"
+  },
+  "jobs": [
+    {
+      "id": 130180983111,
+      "name": "guest",
+      "conclusion": "success",
+      "html_url": "https://github.com/masahitojp/mariamem/actions/runs/42916730601/job/130180983111"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 13810237295,
+      "name": "timer-development-guest-9a3e91b708cc765b418b77ddc7278e2151f2cf5c",
+      "digest": "sha256:2b4e877949d18deb84e89f19cce46e96724efdc152d7aeef319de1cc87df057e",
+      "size_in_bytes": 11875146,
+      "archive_digest_verified": true
+    },
+    {
+      "id": 13809288566,
+      "name": "timer-development-evidence-9a3e91b708cc765b418b77ddc7278e2151f2cf5c",
+      "digest": "sha256:747b210d2c33f37b87072c541a5d89f738530c3ba6644dd3954c31d39eac8b74",
+      "size_in_bytes": 330292,
+      "archive_digest_verified": true
+    }
+  ],
+  "assessment": {
+    "result": "UNQUALIFIED_GUEST_BUILT",
+    "source_commit": "9a3e91b708cc765b418b77ddc7278e2151f2cf5c",
+    "guest_sha256": "b68fce3a4785f5a9dd858c96572ed0a765ee4352715b416cdf168784054b4fc6",
+    "baseline_guest_sha256": "8e3761eaf65df842191c98cfc4bf493ae08df9374204774f453b9349e21711df",
+    "patch_sha256": "3fb7156de357c25fae0631f5fb24f58573ecc24ca513307959ac09ad43aca8ba",
+    "runtime_analyze": "NOT_RUN",
+    "host_regeneration": "NOT_RUN",
+    "calibration_change": false,
+    "next": "Review exact new guest/CRC bindings before host installation; then rerun baseline ANALYZE oracle."
+  },
+  "assessment_original_sha256": "4445325d9d775b1021ee1db8bf27bccf7be00a580169718e6774c379b568551f",
+  "retention": "Compact receipt only; guest/build logs are reproducible from exact source/tool pins and CI artifact identity."
+}

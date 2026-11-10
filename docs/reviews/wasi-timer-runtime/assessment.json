@@ -1,0 +1,49 @@
+{
+  "result": "PASS",
+  "host_source_commit": "7383940e8bd3fbaf4b0a2ff49d28f669ba92e6b2",
+  "guest_source_commit": "9a3e91b708cc765b418b77ddc7278e2151f2cf5c",
+  "binding_unit_tests": {
+    "passed": 39,
+    "scope": "timer selector + canonical CRC + thread lifetime binding"
+  },
+  "delayed_queries": 9,
+  "ordinary_queries": 9,
+  "subsequent_selects": 18,
+  "isolated_children": 2,
+  "cleanup": "PASS",
+  "adoption": "NOT_REQUESTED",
+  "qualification": "NOT_RUN",
+  "native_sql_comparison": "NOT_RUN",
+  "ubuntu_runtime": "NOT_RUN",
+  "speedup": "NOT_MEASURED",
+  "calibration_change": false,
+  "per_phase": {
+    "fresh": {
+      "n": 3,
+      "wall_ms_min": 24.604,
+      "wall_ms_max": 26.295083,
+      "reported_ms_min": 24.15,
+      "reported_ms_max": 25.733,
+      "wall_ms_p50": 24.947834,
+      "reported_ms_p50": 24.462
+    },
+    "child1": {
+      "n": 3,
+      "wall_ms_min": 25.230917,
+      "wall_ms_max": 26.592292,
+      "reported_ms_min": 24.778,
+      "reported_ms_max": 26.059,
+      "wall_ms_p50": 26.453417,
+      "reported_ms_p50": 26.049
+    },
+    "child2": {
+      "n": 3,
+      "wall_ms_min": 25.219291,
+      "wall_ms_max": 26.661875,
+      "reported_ms_min": 24.773,
+      "reported_ms_max": 26.142,
+      "wall_ms_p50": 26.636541,
+      "reported_ms_p50": 26.122
+    }
+  }
+}

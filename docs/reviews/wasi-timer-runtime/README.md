@@ -12,7 +12,8 @@ No adoption, canonical guest change, calibration omission or release is implied.
 `binding.json` records the new data/guest identities and exact comparison:
 all three ownership/reclaimer functions have unchanged whitespace-normalized
 complete-body hashes; the complete CRC validator is byte-identical, and its
-4096-byte table and offset are identical. No function-number/address relocation
+4096-byte table and offset are identical. The full initial data image also has
+the same SHA256 as the canonical guest data. No function-number/address relocation
 or semantic normalization was necessary. The development-only selector changes
 only the two guest identity constants after checking those unchanged identities.
 The canonical installation route never invokes it. Full inventory, source origin,
@@ -56,5 +57,35 @@ comparison. It is single-Mac evidence. Native SQL comparison and both-platform
 acceptance are separate; global calibration remains unchanged. The fallback is
 upstream gettimeofday, not a new monotonic-clock contract.
 
-Runtime result is pending the bound host execution; do not read the guest build
-or binding comparison as actual ANALYZE PASS.
+## Runtime result
+
+At host source_commit `7383940e8bd3fbaf4b0a2ff49d28f669ba92e6b2`, the bound
+host passed the existing SQL/transaction/three-child smoke and the separate timer
+oracle on macOS27.2 arm64, Go1.26.10, Python3.14.10/PyMySQL1.2.0. The host binary
+SHA256 is `659139e49a6870d4ef919f9a4f66fbaedad8bb115f46bda8a3b81abc7e9ea6a2`.
+All18 subsequent SELECTs passed; the first child's mutation was absent from the
+second. Cleanup confirmed host exit0, closed pipes/reader, zero Session references
+and no Session directory. The focused adapter tests passed39 cases before build.
+
+| Delayed queries (3 per row) | Client wall range | ANALYZE reported range |
+| --- | ---: | ---: |
+| Fresh | 24.604–26.295ms | 24.150–25.733ms |
+| First Fork | 25.231–26.592ms | 24.778–26.059ms |
+| Second Fork | 25.219–26.662ms | 24.773–26.142ms |
+
+**Conclusion:** selecting the existing microsecond clock restores meaningful
+SQL execution timing in this real-guest cohort. The earlier Go Pipe probe's zero
+timings are no longer observed here. This is a reporting-correctness result;
+transport differs and no speedup or release-wide defect-range claim is made.
+Recommendation: retain this two-guard correction as a separate correctness
+candidate. Native SQL comparison and Ubuntu runtime acceptance remain required
+before broader adoption; investigate any semantic discrepancy before proceeding.
+Only after that correctness boundary should calibration omission be compared as
+a separate startup optimization. UCA work remains independent.
+
+[CI receipt](ci-receipt.json), [host identity](host-receipt.json),
+[assessment](assessment.json) and [all18 actual reports](runtime.json) retain the
+source and evidence boundaries. This report and receipts were added after the
+measured host source; they do not relabel the CI or local execution source.
+The earlier failed CI receipt is unchanged. Checksums cover the compact records;
+large Wasm/build trees, logs, binary, venv and caches are disposable.
