@@ -1,0 +1,4994 @@
+[
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 0,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1042
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29506084
+        },
+        {
+          "name": "end",
+          "offset_ns": 29506625
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 1,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 292
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1083
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29843875
+        },
+        {
+          "name": "end",
+          "offset_ns": 29844792
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 10,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3459
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26541542
+        },
+        {
+          "name": "end",
+          "offset_ns": 26542250
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 11,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 500
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3042
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 21935750
+        },
+        {
+          "name": "end",
+          "offset_ns": 21936292
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 12,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 583
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1250
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 24541958
+        },
+        {
+          "name": "end",
+          "offset_ns": 24542417
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 13,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 667
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2125
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 30541250
+        },
+        {
+          "name": "end",
+          "offset_ns": 30541875
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 14,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 500
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1083
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 24453333
+        },
+        {
+          "name": "end",
+          "offset_ns": 24453792
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 15,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1167
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2959
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27548834
+        },
+        {
+          "name": "end",
+          "offset_ns": 27549500
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 16,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 542
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1250
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26786875
+        },
+        {
+          "name": "end",
+          "offset_ns": 26787542
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 17,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 916
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2250
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23675125
+        },
+        {
+          "name": "end",
+          "offset_ns": 23675750
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 18,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 292
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 958
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 22909708
+        },
+        {
+          "name": "end",
+          "offset_ns": 22910125
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 19,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 458
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2292
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 25500208
+        },
+        {
+          "name": "end",
+          "offset_ns": 25500792
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 2,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 2458
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 5333
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 31761125
+        },
+        {
+          "name": "end",
+          "offset_ns": 31761917
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 20,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 542
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 22167
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26978042
+        },
+        {
+          "name": "end",
+          "offset_ns": 26978709
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 21,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 375
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2166
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 25926000
+        },
+        {
+          "name": "end",
+          "offset_ns": 25927125
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 22,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 208
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 708
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26249416
+        },
+        {
+          "name": "end",
+          "offset_ns": 26250083
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 23,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1167
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 6625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27477667
+        },
+        {
+          "name": "end",
+          "offset_ns": 27478250
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 24,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1042
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23849792
+        },
+        {
+          "name": "end",
+          "offset_ns": 23850667
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 25,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1166
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 14208
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 28675958
+        },
+        {
+          "name": "end",
+          "offset_ns": 28676541
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 26,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 291
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1291
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26875166
+        },
+        {
+          "name": "end",
+          "offset_ns": 26876083
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 27,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 750
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2708
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26223083
+        },
+        {
+          "name": "end",
+          "offset_ns": 26224291
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 28,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 375
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1042
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 24872625
+        },
+        {
+          "name": "end",
+          "offset_ns": 24873375
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 29,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 792
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1458
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 22249750
+        },
+        {
+          "name": "end",
+          "offset_ns": 22250167
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 3,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1250
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29137125
+        },
+        {
+          "name": "end",
+          "offset_ns": 29138458
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 30,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 541
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1250
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26414083
+        },
+        {
+          "name": "end",
+          "offset_ns": 26414625
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 31,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 500
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2166
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 22286375
+        },
+        {
+          "name": "end",
+          "offset_ns": 22286750
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 32,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 708
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 21166
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 24218000
+        },
+        {
+          "name": "end",
+          "offset_ns": 24218666
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 33,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 500
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27708208
+        },
+        {
+          "name": "end",
+          "offset_ns": 27709083
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 34,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 83
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 750
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23865666
+        },
+        {
+          "name": "end",
+          "offset_ns": 23866000
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 35,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 917
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2500
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23012084
+        },
+        {
+          "name": "end",
+          "offset_ns": 23012542
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 36,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 459
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2250
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29888917
+        },
+        {
+          "name": "end",
+          "offset_ns": 29889500
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 37,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 333
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1083
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 25065125
+        },
+        {
+          "name": "end",
+          "offset_ns": 25066458
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 38,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29047709
+        },
+        {
+          "name": "end",
+          "offset_ns": 29048375
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 39,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1042
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 20667
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27217125
+        },
+        {
+          "name": "end",
+          "offset_ns": 27219750
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 4,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1792
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 4333
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27691833
+        },
+        {
+          "name": "end",
+          "offset_ns": 27692417
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 40,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 583
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2500
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 28771208
+        },
+        {
+          "name": "end",
+          "offset_ns": 28772458
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 41,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 4875
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 5625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 22815417
+        },
+        {
+          "name": "end",
+          "offset_ns": 22816125
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 42,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 167
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 709
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29626875
+        },
+        {
+          "name": "end",
+          "offset_ns": 29627709
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 43,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 875
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 13875
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29848667
+        },
+        {
+          "name": "end",
+          "offset_ns": 29849500
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 44,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 542
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2500
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27173542
+        },
+        {
+          "name": "end",
+          "offset_ns": 27174208
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 45,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 291
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1041
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27310416
+        },
+        {
+          "name": "end",
+          "offset_ns": 27310916
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 46,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 750
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23035542
+        },
+        {
+          "name": "end",
+          "offset_ns": 23036292
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 47,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1000
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 28042
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23541542
+        },
+        {
+          "name": "end",
+          "offset_ns": 23542125
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 5,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1417
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2833
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 22705583
+        },
+        {
+          "name": "end",
+          "offset_ns": 22706667
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 6,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1416
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2708
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 28962541
+        },
+        {
+          "name": "end",
+          "offset_ns": 28963166
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 7,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3084
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27786375
+        },
+        {
+          "name": "end",
+          "offset_ns": 27786959
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 8,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 542
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3125
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26980334
+        },
+        {
+          "name": "end",
+          "offset_ns": 26980917
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p4-diagnostic-0",
+    "index": 9,
+    "trace": {
+      "operation": "fork",
+      "pid": 88016,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 917
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1542
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 21496542
+        },
+        {
+          "name": "end",
+          "offset_ns": 21497000
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 0,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1500
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 25870750
+        },
+        {
+          "name": "end",
+          "offset_ns": 25948417
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 1,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 292
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1000
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 28944417
+        },
+        {
+          "name": "end",
+          "offset_ns": 28944917
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 10,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1084
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3375
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23057917
+        },
+        {
+          "name": "end",
+          "offset_ns": 23059959
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 11,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 708
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1416
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29875916
+        },
+        {
+          "name": "end",
+          "offset_ns": 29876375
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 12,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1375
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 21530625
+        },
+        {
+          "name": "end",
+          "offset_ns": 21531250
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 13,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1417
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3417
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23746250
+        },
+        {
+          "name": "end",
+          "offset_ns": 23747375
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 14,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 917
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2042
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 31943125
+        },
+        {
+          "name": "end",
+          "offset_ns": 31944042
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 15,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 834
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1584
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 25188000
+        },
+        {
+          "name": "end",
+          "offset_ns": 25189000
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 16,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 458
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1750
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 33220500
+        },
+        {
+          "name": "end",
+          "offset_ns": 33221167
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 17,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 500
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1792
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23291917
+        },
+        {
+          "name": "end",
+          "offset_ns": 23293792
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 18,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1458
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3333
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27787625
+        },
+        {
+          "name": "end",
+          "offset_ns": 27788042
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 19,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1167
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 25855083
+        },
+        {
+          "name": "end",
+          "offset_ns": 25855833
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 2,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 875
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27125583
+        },
+        {
+          "name": "end",
+          "offset_ns": 27126250
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 20,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 334
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1834
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 28202875
+        },
+        {
+          "name": "end",
+          "offset_ns": 28203542
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 21,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 875
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2584
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27190250
+        },
+        {
+          "name": "end",
+          "offset_ns": 27190959
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 22,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1666
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3708
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 28339208
+        },
+        {
+          "name": "end",
+          "offset_ns": 28340250
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 23,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 542
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1292
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 21705792
+        },
+        {
+          "name": "end",
+          "offset_ns": 21756792
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 24,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 333
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1958
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 25284166
+        },
+        {
+          "name": "end",
+          "offset_ns": 25285041
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 25,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 292
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 750
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27668417
+        },
+        {
+          "name": "end",
+          "offset_ns": 27668750
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 26,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 500
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1541
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26088375
+        },
+        {
+          "name": "end",
+          "offset_ns": 26089083
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 27,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 416
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 750
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 22883458
+        },
+        {
+          "name": "end",
+          "offset_ns": 22884083
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 28,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1000
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2458
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 30671458
+        },
+        {
+          "name": "end",
+          "offset_ns": 30672375
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 29,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1084
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1959
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 25410834
+        },
+        {
+          "name": "end",
+          "offset_ns": 25411292
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 3,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 875
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26380459
+        },
+        {
+          "name": "end",
+          "offset_ns": 26381250
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 30,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 750
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 24438709
+        },
+        {
+          "name": "end",
+          "offset_ns": 24439667
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 31,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 458
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 916
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23755333
+        },
+        {
+          "name": "end",
+          "offset_ns": 23756125
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 32,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 416
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1833
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29781250
+        },
+        {
+          "name": "end",
+          "offset_ns": 29782208
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 33,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 708
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1291
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23578250
+        },
+        {
+          "name": "end",
+          "offset_ns": 23578875
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 34,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 584
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1209
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23377125
+        },
+        {
+          "name": "end",
+          "offset_ns": 23377750
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 35,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 292
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 875
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 21965792
+        },
+        {
+          "name": "end",
+          "offset_ns": 21966792
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 36,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 542
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1542
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 28318834
+        },
+        {
+          "name": "end",
+          "offset_ns": 28319792
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 37,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 792
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23519208
+        },
+        {
+          "name": "end",
+          "offset_ns": 23528917
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 38,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 417
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1042
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26767958
+        },
+        {
+          "name": "end",
+          "offset_ns": 26768500
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 39,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 375
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 834
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 20243375
+        },
+        {
+          "name": "end",
+          "offset_ns": 20244000
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 4,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 5250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 6792
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29666000
+        },
+        {
+          "name": "end",
+          "offset_ns": 29666417
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 40,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 500
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1708
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26145500
+        },
+        {
+          "name": "end",
+          "offset_ns": 26146125
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 41,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 791
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 28691041
+        },
+        {
+          "name": "end",
+          "offset_ns": 28692125
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 42,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1166
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 25369750
+        },
+        {
+          "name": "end",
+          "offset_ns": 25370333
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 43,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 209
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 750
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 24977375
+        },
+        {
+          "name": "end",
+          "offset_ns": 24978125
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 44,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1708
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 4916
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26102208
+        },
+        {
+          "name": "end",
+          "offset_ns": 26103291
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 45,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 875
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2041
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 28493416
+        },
+        {
+          "name": "end",
+          "offset_ns": 28493875
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 46,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 375
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 875
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23236417
+        },
+        {
+          "name": "end",
+          "offset_ns": 23237292
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 47,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 583
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1208
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 21279208
+        },
+        {
+          "name": "end",
+          "offset_ns": 21279833
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 5,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1000
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 27855125
+        },
+        {
+          "name": "end",
+          "offset_ns": 27855667
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 6,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 542
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1834
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 33458875
+        },
+        {
+          "name": "end",
+          "offset_ns": 33459375
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 7,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 375
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1417
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 30753000
+        },
+        {
+          "name": "end",
+          "offset_ns": 30753667
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 8,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 291
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 30955833
+        },
+        {
+          "name": "end",
+          "offset_ns": 30956791
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p4-diagnostic-0",
+    "index": 9,
+    "trace": {
+      "operation": "fork",
+      "pid": 88018,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1000
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2083
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 26945125
+        },
+        {
+          "name": "end",
+          "offset_ns": 26946000
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 0,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 30614000
+        },
+        {
+          "name": "end",
+          "offset_ns": 30614583
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 1,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1333
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2833
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 39203375
+        },
+        {
+          "name": "end",
+          "offset_ns": 39204666
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 10,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 875
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2166
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 45160416
+        },
+        {
+          "name": "end",
+          "offset_ns": 45161041
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 11,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1708
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 4083
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 40117458
+        },
+        {
+          "name": "end",
+          "offset_ns": 40122125
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 12,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2125
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 35209416
+        },
+        {
+          "name": "end",
+          "offset_ns": 35211000
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 13,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 5667
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 43544625
+        },
+        {
+          "name": "end",
+          "offset_ns": 43545250
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 14,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1375
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3166
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 32363875
+        },
+        {
+          "name": "end",
+          "offset_ns": 32364833
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 15,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 2292
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 5125
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 39591083
+        },
+        {
+          "name": "end",
+          "offset_ns": 39591917
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 16,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1792
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 5167
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 33336250
+        },
+        {
+          "name": "end",
+          "offset_ns": 33337834
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 17,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 875
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2875
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 44297625
+        },
+        {
+          "name": "end",
+          "offset_ns": 44298125
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 18,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 292
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1125
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 49818375
+        },
+        {
+          "name": "end",
+          "offset_ns": 49819000
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 19,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 459
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1417
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 42066917
+        },
+        {
+          "name": "end",
+          "offset_ns": 42068584
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 2,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 208
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 833
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 30075750
+        },
+        {
+          "name": "end",
+          "offset_ns": 30077041
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 20,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 375
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1209
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 42071959
+        },
+        {
+          "name": "end",
+          "offset_ns": 42073167
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 21,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 2542
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 5292
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 40296500
+        },
+        {
+          "name": "end",
+          "offset_ns": 40297125
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 22,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1292
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 52084125
+        },
+        {
+          "name": "end",
+          "offset_ns": 52084458
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 23,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 584
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 32320792
+        },
+        {
+          "name": "end",
+          "offset_ns": 32321334
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 24,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2917
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 33626458
+        },
+        {
+          "name": "end",
+          "offset_ns": 33627042
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 25,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 666
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1750
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 31487625
+        },
+        {
+          "name": "end",
+          "offset_ns": 31488541
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 26,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 750
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3583
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 52583166
+        },
+        {
+          "name": "end",
+          "offset_ns": 52584166
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 27,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1791
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3208
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 45643916
+        },
+        {
+          "name": "end",
+          "offset_ns": 45646666
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 28,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 750
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2333
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 49174542
+        },
+        {
+          "name": "end",
+          "offset_ns": 49175125
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 29,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 625
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2375
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 43401917
+        },
+        {
+          "name": "end",
+          "offset_ns": 43403125
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 3,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 208
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 958
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 39564208
+        },
+        {
+          "name": "end",
+          "offset_ns": 39564625
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 30,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 375
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1250
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 47711916
+        },
+        {
+          "name": "end",
+          "offset_ns": 47712791
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 31,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 708
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2042
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 33233417
+        },
+        {
+          "name": "end",
+          "offset_ns": 33234458
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 32,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 583
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2375
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 37215083
+        },
+        {
+          "name": "end",
+          "offset_ns": 37216458
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 33,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 416
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1375
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 33207083
+        },
+        {
+          "name": "end",
+          "offset_ns": 33208916
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 34,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 750
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2583
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 63055958
+        },
+        {
+          "name": "end",
+          "offset_ns": 63057625
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 35,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1084
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3084
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 39424834
+        },
+        {
+          "name": "end",
+          "offset_ns": 39425667
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 36,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 625
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1834
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 38427250
+        },
+        {
+          "name": "end",
+          "offset_ns": 38428292
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 37,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1000
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2708
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 39097916
+        },
+        {
+          "name": "end",
+          "offset_ns": 39098916
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 38,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 416
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1416
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 51132833
+        },
+        {
+          "name": "end",
+          "offset_ns": 51133583
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 39,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 584
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1917
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 56724375
+        },
+        {
+          "name": "end",
+          "offset_ns": 56724917
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 4,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 5917
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 8458
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 43659333
+        },
+        {
+          "name": "end",
+          "offset_ns": 43659750
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 40,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 791
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2250
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 42691166
+        },
+        {
+          "name": "end",
+          "offset_ns": 42692041
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 41,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 208
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 666
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 51770625
+        },
+        {
+          "name": "end",
+          "offset_ns": 51771000
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 42,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 333
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1083
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 40642583
+        },
+        {
+          "name": "end",
+          "offset_ns": 40643375
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 43,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 39016042
+        },
+        {
+          "name": "end",
+          "offset_ns": 39018042
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 44,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 459
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1750
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 44033542
+        },
+        {
+          "name": "end",
+          "offset_ns": 44034334
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 45,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1167
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 5500
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 40952334
+        },
+        {
+          "name": "end",
+          "offset_ns": 40953417
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 46,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 542
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2209
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 49787625
+        },
+        {
+          "name": "end",
+          "offset_ns": 49788500
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 47,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 292
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 23005833
+        },
+        {
+          "name": "end",
+          "offset_ns": 23006708
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 5,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1875
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3292
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 42140000
+        },
+        {
+          "name": "end",
+          "offset_ns": 42140583
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 6,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 8000
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 13000
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 43899459
+        },
+        {
+          "name": "end",
+          "offset_ns": 43899959
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 7,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 3584
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 5709
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 47071167
+        },
+        {
+          "name": "end",
+          "offset_ns": 47071834
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 8,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 458
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1583
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 50693375
+        },
+        {
+          "name": "end",
+          "offset_ns": 50695417
+        }
+      ]
+    }
+  },
+  {
+    "run": "mixed-p8-diagnostic-0",
+    "index": 9,
+    "trace": {
+      "operation": "fork",
+      "pid": 88020,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 500
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2250
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 40445459
+        },
+        {
+          "name": "end",
+          "offset_ns": 40446375
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 0,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 11875
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 16167
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 44225000
+        },
+        {
+          "name": "end",
+          "offset_ns": 44225833
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 1,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 458
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2042
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 45433000
+        },
+        {
+          "name": "end",
+          "offset_ns": 45433667
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 10,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 46209
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 47125
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 39141417
+        },
+        {
+          "name": "end",
+          "offset_ns": 39141959
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 11,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 833
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 32580000
+        },
+        {
+          "name": "end",
+          "offset_ns": 32580458
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 12,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 167
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 792
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 38587334
+        },
+        {
+          "name": "end",
+          "offset_ns": 38588792
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 13,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 667
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1584
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 31995209
+        },
+        {
+          "name": "end",
+          "offset_ns": 31995834
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 14,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1584
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3375
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 39426959
+        },
+        {
+          "name": "end",
+          "offset_ns": 39427542
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 15,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 833
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3000
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 40955417
+        },
+        {
+          "name": "end",
+          "offset_ns": 40955917
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 16,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 708
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2500
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 50824458
+        },
+        {
+          "name": "end",
+          "offset_ns": 50825125
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 17,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1750
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 5875
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 50383750
+        },
+        {
+          "name": "end",
+          "offset_ns": 50384584
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 18,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 2250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 4000
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 51190291
+        },
+        {
+          "name": "end",
+          "offset_ns": 51190958
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 19,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2792
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 49547958
+        },
+        {
+          "name": "end",
+          "offset_ns": 49549792
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 2,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1084
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 25587542
+        },
+        {
+          "name": "end",
+          "offset_ns": 25589709
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 20,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2834
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 51959334
+        },
+        {
+          "name": "end",
+          "offset_ns": 51959709
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 21,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1042
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2625
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 51693833
+        },
+        {
+          "name": "end",
+          "offset_ns": 51694417
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 22,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1500
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2834
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 50854042
+        },
+        {
+          "name": "end",
+          "offset_ns": 50854625
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 23,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1000
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 4125
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 51865791
+        },
+        {
+          "name": "end",
+          "offset_ns": 51866250
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 24,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 666
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1333
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 36192541
+        },
+        {
+          "name": "end",
+          "offset_ns": 36193208
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 25,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 4000
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 37619584
+        },
+        {
+          "name": "end",
+          "offset_ns": 37620292
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 26,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 667
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1417
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 38734334
+        },
+        {
+          "name": "end",
+          "offset_ns": 38735042
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 27,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 709
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2167
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29550792
+        },
+        {
+          "name": "end",
+          "offset_ns": 29552667
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 28,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 750
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1375
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 40349083
+        },
+        {
+          "name": "end",
+          "offset_ns": 40349500
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 29,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 708
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 45999750
+        },
+        {
+          "name": "end",
+          "offset_ns": 46000375
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 3,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 2291
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3166
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 45318708
+        },
+        {
+          "name": "end",
+          "offset_ns": 45319333
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 30,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1250
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3000
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29752167
+        },
+        {
+          "name": "end",
+          "offset_ns": 29753542
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 31,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 375
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1834
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 45958417
+        },
+        {
+          "name": "end",
+          "offset_ns": 45959500
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 32,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 833
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2500
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 35365666
+        },
+        {
+          "name": "end",
+          "offset_ns": 35366708
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 33,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 458
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1208
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 43295875
+        },
+        {
+          "name": "end",
+          "offset_ns": 43296458
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 34,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 458
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1166
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 42767833
+        },
+        {
+          "name": "end",
+          "offset_ns": 42768250
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 35,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 3792
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 5458
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 42678417
+        },
+        {
+          "name": "end",
+          "offset_ns": 42679333
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 36,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1334
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 4167
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 45312209
+        },
+        {
+          "name": "end",
+          "offset_ns": 45313417
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 37,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 458
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 958
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 45805750
+        },
+        {
+          "name": "end",
+          "offset_ns": 45806417
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 38,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 708
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2750
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 42504167
+        },
+        {
+          "name": "end",
+          "offset_ns": 42504792
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 39,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 417
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1333
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 39510542
+        },
+        {
+          "name": "end",
+          "offset_ns": 39511708
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 4,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 167
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 917
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 43027334
+        },
+        {
+          "name": "end",
+          "offset_ns": 43027709
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 40,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1334
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3084
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 46811750
+        },
+        {
+          "name": "end",
+          "offset_ns": 46812625
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 41,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 208
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 833
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 41835333
+        },
+        {
+          "name": "end",
+          "offset_ns": 41836208
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 42,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 375
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 1167
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 25867334
+        },
+        {
+          "name": "end",
+          "offset_ns": 25868625
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 43,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 417
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 90334
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 40333167
+        },
+        {
+          "name": "end",
+          "offset_ns": 40333667
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 44,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 875
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2375
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 39938209
+        },
+        {
+          "name": "end",
+          "offset_ns": 39939042
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 45,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1167
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 4167
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 38111583
+        },
+        {
+          "name": "end",
+          "offset_ns": 38112167
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 46,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 833
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 2375
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 49525125
+        },
+        {
+          "name": "end",
+          "offset_ns": 49526041
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 47,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 1209
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 3000
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 39816959
+        },
+        {
+          "name": "end",
+          "offset_ns": 39818625
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 5,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 4959
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 10917
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 42611375
+        },
+        {
+          "name": "end",
+          "offset_ns": 42612584
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 6,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 83
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 416
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 38713375
+        },
+        {
+          "name": "end",
+          "offset_ns": 38714000
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 7,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 125
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 875
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 36906459
+        },
+        {
+          "name": "end",
+          "offset_ns": 36907625
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 8,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 875
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 100083
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 29904250
+        },
+        {
+          "name": "end",
+          "offset_ns": 29905291
+        }
+      ]
+    }
+  },
+  {
+    "run": "wave-p8-diagnostic-0",
+    "index": 9,
+    "trace": {
+      "operation": "fork",
+      "pid": 88022,
+      "events": [
+        {
+          "name": "begin",
+          "offset_ns": 3459
+        },
+        {
+          "name": "snapshot_handle_ready",
+          "offset_ns": 8750
+        },
+        {
+          "name": "startup_returned",
+          "offset_ns": 33076875
+        },
+        {
+          "name": "end",
+          "offset_ns": 33077209
+        }
+      ]
+    }
+  }
+]

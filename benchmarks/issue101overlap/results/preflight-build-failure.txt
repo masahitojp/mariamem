@@ -1,0 +1,6 @@
+go: github.com/masahitojp/mariamem/benchmarks/issue101overlap/maria: ambiguous import: found package github.com/masahitojp/mariamem/benchmarks/issue101overlap/maria in multiple modules:
+	github.com/masahitojp/mariamem v0.0.0 (<WORKSPACE>/worktree/benchmarks/issue101overlap/maria)
+	github.com/masahitojp/mariamem/benchmarks/issue101overlap (<WORKSPACE>/temp/probe/maria)
+go: github.com/masahitojp/mariamem/benchmarks/issue101overlap/probe: ambiguous import: found package github.com/masahitojp/mariamem/benchmarks/issue101overlap/probe in multiple modules:
+	github.com/masahitojp/mariamem v0.0.0 (<WORKSPACE>/worktree/benchmarks/issue101overlap/probe)
+	github.com/masahitojp/mariamem/benchmarks/issue101overlap (<WORKSPACE>/temp/probe/probe)

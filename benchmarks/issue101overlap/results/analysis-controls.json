@@ -1,0 +1,22 @@
+[
+  {
+    "mutation": "wave_overlap",
+    "rejected": true,
+    "checker_exit": 1
+  },
+  {
+    "mutation": "occupied_mapping",
+    "rejected": true,
+    "checker_exit": 1
+  },
+  {
+    "mutation": "child_oracle",
+    "rejected": true,
+    "checker_exit": 1
+  },
+  {
+    "mutation": "missing_trace",
+    "rejected": true,
+    "checker_exit": 1
+  }
+]

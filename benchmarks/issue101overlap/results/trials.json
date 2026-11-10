@@ -1,0 +1,1850 @@
+[
+  {
+    "arm": "mixed",
+    "parallel": 1,
+    "rep": -1,
+    "kind": "positive",
+    "name": "mixed-p1-positive--1",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 1214.564292,
+    "scratch_empty": true,
+    "suite_ms": 154.0535,
+    "batch_ms": 48.43462500000001,
+    "suite_cpu_ms": 193.474,
+    "batch_cpu_ms": 88.594,
+    "lifetime_max_rss_bytes": 127713280,
+    "max_active": 1,
+    "resolved_max_forks": 1,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 4,
+      "grow_calls": 237,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 774963200,
+      "release_failures": 0,
+      "releases": 4
+    },
+    "error": null,
+    "samples": 2,
+    "oracles": 2,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.375375,
+        "end_ms": 93.614459
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 93.614834,
+        "end_ms": 94.247667
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 94.247834,
+        "end_ms": 102.082459
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 102.08275,
+        "end_ms": 102.136625
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 102.136667,
+        "end_ms": 105.601542
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 105.603459,
+        "end_ms": 105.60375
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 154.048917,
+        "end_ms": 154.049
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 154.049042,
+        "end_ms": 154.049959
+      }
+    ]
+  },
+  {
+    "arm": "mixed",
+    "parallel": 4,
+    "rep": -1,
+    "kind": "negative",
+    "name": "mixed-p4-negative--1",
+    "exit_code": 1,
+    "expected_failure": true,
+    "accepted": true,
+    "duration_ms": 142.40425000000002,
+    "scratch_empty": true,
+    "suite_ms": 92.744625,
+    "batch_ms": 34.040583000000005,
+    "suite_cpu_ms": 225.566,
+    "batch_cpu_ms": 160.776,
+    "lifetime_max_rss_bytes": 338837504,
+    "max_active": 4,
+    "resolved_max_forks": 4,
+    "success": false,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 6,
+      "grow_calls": 369,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 2807758848,
+      "release_failures": 0,
+      "releases": 6
+    },
+    "error": "pristine oracle: count=1000 sum=500498\npristine oracle: count=1000 sum=500498\npristine oracle: count=1000 sum=500498\npristine oracle: count=1000 sum=500498",
+    "samples": 4,
+    "oracles": 0,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.033208,
+        "end_ms": 47.693042
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 47.693458,
+        "end_ms": 48.349833
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 48.350042,
+        "end_ms": 55.855375
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 55.855542,
+        "end_ms": 55.918833
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 55.918917,
+        "end_ms": 58.692
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 58.692417,
+        "end_ms": 58.692667
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 92.741208,
+        "end_ms": 92.741458
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 92.7415,
+        "end_ms": 92.742458
+      }
+    ]
+  },
+  {
+    "arm": "wave",
+    "parallel": 1,
+    "rep": -1,
+    "kind": "positive",
+    "name": "wave-p1-positive--1",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 140.28695800000014,
+    "scratch_empty": true,
+    "suite_ms": 102.867459,
+    "batch_ms": 43.889292000000005,
+    "suite_cpu_ms": 137.187,
+    "batch_cpu_ms": 76.572,
+    "lifetime_max_rss_bytes": 127647744,
+    "max_active": 1,
+    "resolved_max_forks": 1,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 4,
+      "grow_calls": 229,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 774897664,
+      "release_failures": 0,
+      "releases": 4
+    },
+    "error": null,
+    "samples": 2,
+    "oracles": 2,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.038917,
+        "end_ms": 48.528584
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 48.529084,
+        "end_ms": 48.8885
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 48.888625,
+        "end_ms": 56.327459
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 56.327625,
+        "end_ms": 56.376209
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 56.376292,
+        "end_ms": 58.966917
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 58.967459,
+        "end_ms": 58.967792
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 102.864292,
+        "end_ms": 102.864459
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 102.864667,
+        "end_ms": 102.865459
+      }
+    ]
+  },
+  {
+    "arm": "wave",
+    "parallel": 4,
+    "rep": -1,
+    "kind": "negative",
+    "name": "wave-p4-negative--1",
+    "exit_code": 1,
+    "expected_failure": true,
+    "accepted": true,
+    "duration_ms": 139.60649999999995,
+    "scratch_empty": true,
+    "suite_ms": 93.734875,
+    "batch_ms": 36.118125000000006,
+    "suite_cpu_ms": 231.918,
+    "batch_cpu_ms": 172.953,
+    "lifetime_max_rss_bytes": 341704704,
+    "max_active": 4,
+    "resolved_max_forks": 4,
+    "success": false,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 6,
+      "grow_calls": 381,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 2965372928,
+      "release_failures": 0,
+      "releases": 6
+    },
+    "error": "pristine oracle: count=1000 sum=500498\npristine oracle: count=1000 sum=500498\npristine oracle: count=1000 sum=500498\npristine oracle: count=1000 sum=500498",
+    "samples": 4,
+    "oracles": 0,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.033542,
+        "end_ms": 46.864959
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 46.865167,
+        "end_ms": 47.548667
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 47.548792,
+        "end_ms": 54.84575
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 54.845917,
+        "end_ms": 54.894667
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 54.89475,
+        "end_ms": 57.603417
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 57.604459,
+        "end_ms": 57.604667
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 93.731459,
+        "end_ms": 93.731917
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 93.731959,
+        "end_ms": 93.732792
+      }
+    ]
+  },
+  {
+    "arm": "mixed",
+    "parallel": 4,
+    "rep": -1,
+    "kind": "warmup",
+    "name": "mixed-p4-warmup--1",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 519.7665000000003,
+    "scratch_empty": true,
+    "suite_ms": 466.5425,
+    "batch_ms": 407.092708,
+    "suite_cpu_ms": 2314.537,
+    "batch_cpu_ms": 2253.488,
+    "lifetime_max_rss_bytes": 373358592,
+    "max_active": 4,
+    "resolved_max_forks": 4,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3781,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 2923364352,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.039208,
+        "end_ms": 48.653167
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 48.653417,
+        "end_ms": 49.041625
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 49.041708,
+        "end_ms": 56.744042
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 56.74425,
+        "end_ms": 56.799292
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 56.799333,
+        "end_ms": 59.430917
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 59.431583,
+        "end_ms": 59.431792
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 466.539042,
+        "end_ms": 466.539292
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 466.539333,
+        "end_ms": 466.540333
+      }
+    ]
+  },
+  {
+    "arm": "wave",
+    "parallel": 4,
+    "rep": -1,
+    "kind": "warmup",
+    "name": "wave-p4-warmup--1",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 534.940625,
+    "scratch_empty": true,
+    "suite_ms": 491.31325,
+    "batch_ms": 436.674083,
+    "suite_cpu_ms": 2140.342,
+    "batch_cpu_ms": 2080.562,
+    "lifetime_max_rss_bytes": 498352128,
+    "max_active": 4,
+    "resolved_max_forks": 4,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3738,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 2935685120,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.038042,
+        "end_ms": 44.064375
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 44.064667,
+        "end_ms": 44.439
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 44.439125,
+        "end_ms": 51.912
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 51.912167,
+        "end_ms": 51.962833
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 51.962917,
+        "end_ms": 54.604833
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 54.605542,
+        "end_ms": 54.60575
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 491.309792,
+        "end_ms": 491.310083
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 491.310208,
+        "end_ms": 491.311
+      }
+    ]
+  },
+  {
+    "arm": "mixed",
+    "parallel": 8,
+    "rep": -1,
+    "kind": "warmup",
+    "name": "mixed-p8-warmup--1",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 763.060667,
+    "scratch_empty": true,
+    "suite_ms": 723.70025,
+    "batch_ms": 667.224917,
+    "suite_cpu_ms": 2280.531,
+    "batch_cpu_ms": 2218.041,
+    "lifetime_max_rss_bytes": 936165376,
+    "max_active": 8,
+    "resolved_max_forks": 8,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3450,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5376442368,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.034208,
+        "end_ms": 45.514208
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 45.514417,
+        "end_ms": 45.89975
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 45.899875,
+        "end_ms": 53.708167
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 53.708375,
+        "end_ms": 53.769042
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 53.769083,
+        "end_ms": 56.4425
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 56.442917,
+        "end_ms": 56.443125
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 723.694,
+        "end_ms": 723.69425
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 723.694333,
+        "end_ms": 723.695625
+      }
+    ]
+  },
+  {
+    "arm": "wave",
+    "parallel": 8,
+    "rep": -1,
+    "kind": "warmup",
+    "name": "wave-p8-warmup--1",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 451.18783299999967,
+    "scratch_empty": true,
+    "suite_ms": 431.6265,
+    "batch_ms": 371.114709,
+    "suite_cpu_ms": 2262.238,
+    "batch_cpu_ms": 2199.845,
+    "lifetime_max_rss_bytes": 646496256,
+    "max_active": 8,
+    "resolved_max_forks": 8,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3516,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5548408832,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.058542,
+        "end_ms": 49.812709
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 49.813084,
+        "end_ms": 50.17525
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 50.175292,
+        "end_ms": 57.705792
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 57.706084,
+        "end_ms": 57.770042
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 57.770125,
+        "end_ms": 60.474459
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 60.476667,
+        "end_ms": 60.477542
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 431.621959,
+        "end_ms": 431.622334
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 431.622375,
+        "end_ms": 431.623542
+      }
+    ]
+  },
+  {
+    "arm": "mixed",
+    "parallel": 4,
+    "rep": 0,
+    "kind": "primary",
+    "name": "mixed-p4-primary-0",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 510.47233400000016,
+    "scratch_empty": true,
+    "suite_ms": 472.856,
+    "batch_ms": 416.44833400000005,
+    "suite_cpu_ms": 2234.248,
+    "batch_cpu_ms": 2170.469,
+    "lifetime_max_rss_bytes": 432750592,
+    "max_active": 4,
+    "resolved_max_forks": 4,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3799,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 3002531840,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.040292,
+        "end_ms": 44.930375
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 44.930625,
+        "end_ms": 45.335958
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 45.336083,
+        "end_ms": 53.419542
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 53.420417,
+        "end_ms": 53.492333
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 53.492375,
+        "end_ms": 56.387083
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 56.387917,
+        "end_ms": 56.388208
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 472.853042,
+        "end_ms": 472.853125
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 472.85325,
+        "end_ms": 472.854083
+      }
+    ]
+  },
+  {
+    "arm": "wave",
+    "parallel": 4,
+    "rep": 0,
+    "kind": "primary",
+    "name": "wave-p4-primary-0",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 515.0664589999998,
+    "scratch_empty": true,
+    "suite_ms": 502.989209,
+    "batch_ms": 445.18475,
+    "suite_cpu_ms": 2140.521,
+    "batch_cpu_ms": 2076.009,
+    "lifetime_max_rss_bytes": 456572928,
+    "max_active": 4,
+    "resolved_max_forks": 4,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3751,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 2946301952,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.036542,
+        "end_ms": 46.968209
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 46.9685,
+        "end_ms": 47.746417
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 47.746542,
+        "end_ms": 54.996709
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 54.996917,
+        "end_ms": 55.045417
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 55.045459,
+        "end_ms": 57.780959
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 57.784084,
+        "end_ms": 57.78425
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 502.985709,
+        "end_ms": 502.985917
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 502.986084,
+        "end_ms": 502.987084
+      }
+    ]
+  },
+  {
+    "arm": "mixed",
+    "parallel": 8,
+    "rep": 0,
+    "kind": "primary",
+    "name": "mixed-p8-primary-0",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 584.98875,
+    "scratch_empty": true,
+    "suite_ms": 553.706875,
+    "batch_ms": 496.94841599999995,
+    "suite_cpu_ms": 2464.64,
+    "batch_cpu_ms": 2403.581,
+    "lifetime_max_rss_bytes": 636534784,
+    "max_active": 8,
+    "resolved_max_forks": 8,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3553,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5280104448,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.031625,
+        "end_ms": 45.956125
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 45.956541,
+        "end_ms": 46.608583
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 46.60875,
+        "end_ms": 54.002291
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 54.002625,
+        "end_ms": 54.049708
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 54.04975,
+        "end_ms": 56.723875
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 56.724208,
+        "end_ms": 56.724416
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 553.702916,
+        "end_ms": 553.70325
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 553.703291,
+        "end_ms": 553.704333
+      }
+    ]
+  },
+  {
+    "arm": "wave",
+    "parallel": 8,
+    "rep": 0,
+    "kind": "primary",
+    "name": "wave-p8-primary-0",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 467.7000830000004,
+    "scratch_empty": true,
+    "suite_ms": 428.31525,
+    "batch_ms": 369.818208,
+    "suite_cpu_ms": 2309.202,
+    "batch_cpu_ms": 2249.047,
+    "lifetime_max_rss_bytes": 964919296,
+    "max_active": 8,
+    "resolved_max_forks": 8,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3516,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5624168448,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.052666,
+        "end_ms": 47.871666
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 47.871916,
+        "end_ms": 48.237375
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 48.237541,
+        "end_ms": 55.805375
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 55.805583,
+        "end_ms": 55.854416
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 55.854458,
+        "end_ms": 58.476541
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 58.477,
+        "end_ms": 58.47725
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 428.311458,
+        "end_ms": 428.311875
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 428.311916,
+        "end_ms": 428.312916
+      }
+    ]
+  },
+  {
+    "arm": "wave",
+    "parallel": 8,
+    "rep": 1,
+    "kind": "primary",
+    "name": "wave-p8-primary-1",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 436.8630419999997,
+    "scratch_empty": true,
+    "suite_ms": 419.638667,
+    "batch_ms": 361.8965,
+    "suite_cpu_ms": 2319.689,
+    "batch_cpu_ms": 2253.339,
+    "lifetime_max_rss_bytes": 647495680,
+    "max_active": 8,
+    "resolved_max_forks": 8,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3549,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5634064384,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.034542,
+        "end_ms": 47.130042
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 47.130208,
+        "end_ms": 47.530583
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 47.530708,
+        "end_ms": 55.050417
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 55.050667,
+        "end_ms": 55.111292
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 55.111375,
+        "end_ms": 57.715583
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 57.715875,
+        "end_ms": 57.716125
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 419.634875,
+        "end_ms": 419.635208
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 419.635208,
+        "end_ms": 419.636167
+      }
+    ]
+  },
+  {
+    "arm": "mixed",
+    "parallel": 8,
+    "rep": 1,
+    "kind": "primary",
+    "name": "mixed-p8-primary-1",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 466.20520799999986,
+    "scratch_empty": true,
+    "suite_ms": 422.053833,
+    "batch_ms": 361.55841699999996,
+    "suite_cpu_ms": 2405.034,
+    "batch_cpu_ms": 2341.121,
+    "lifetime_max_rss_bytes": 737017856,
+    "max_active": 8,
+    "resolved_max_forks": 8,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3481,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5318180864,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.034541,
+        "end_ms": 49.515208
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 49.5155,
+        "end_ms": 50.507666
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 50.507791,
+        "end_ms": 57.753708
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 57.753958,
+        "end_ms": 57.807375
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 57.807416,
+        "end_ms": 60.465833
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 60.468,
+        "end_ms": 60.468166
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 422.0505,
+        "end_ms": 422.050708
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 422.05075,
+        "end_ms": 422.051541
+      }
+    ]
+  },
+  {
+    "arm": "wave",
+    "parallel": 4,
+    "rep": 1,
+    "kind": "primary",
+    "name": "wave-p4-primary-1",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 533.829334,
+    "scratch_empty": true,
+    "suite_ms": 497.430708,
+    "batch_ms": 440.272875,
+    "suite_cpu_ms": 2145.649,
+    "batch_cpu_ms": 2081.934,
+    "lifetime_max_rss_bytes": 358645760,
+    "max_active": 4,
+    "resolved_max_forks": 4,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3787,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 2973499392,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.034667,
+        "end_ms": 45.650458
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 45.650708,
+        "end_ms": 46.048375
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 46.0485,
+        "end_ms": 54.163083
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 54.163417,
+        "end_ms": 54.224667
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 54.224708,
+        "end_ms": 57.11775
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 57.119583,
+        "end_ms": 57.119875
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 497.427,
+        "end_ms": 497.427333
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 497.427458,
+        "end_ms": 497.428417
+      }
+    ]
+  },
+  {
+    "arm": "mixed",
+    "parallel": 4,
+    "rep": 1,
+    "kind": "primary",
+    "name": "mixed-p4-primary-1",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 465.08779200000026,
+    "scratch_empty": true,
+    "suite_ms": 449.247416,
+    "batch_ms": 391.431375,
+    "suite_cpu_ms": 2140.074,
+    "batch_cpu_ms": 2075.522,
+    "lifetime_max_rss_bytes": 441647104,
+    "max_active": 4,
+    "resolved_max_forks": 4,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3725,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 3002597376,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.032,
+        "end_ms": 46.619291
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 46.619875,
+        "end_ms": 47.01225
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 47.012375,
+        "end_ms": 54.752333
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 54.752583,
+        "end_ms": 54.829041
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 54.829125,
+        "end_ms": 57.785625
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 57.786041,
+        "end_ms": 57.786333
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 449.244541,
+        "end_ms": 449.244666
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 449.244708,
+        "end_ms": 449.2455
+      }
+    ]
+  },
+  {
+    "arm": "mixed",
+    "parallel": 4,
+    "rep": 2,
+    "kind": "primary",
+    "name": "mixed-p4-primary-2",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 522.5039579999997,
+    "scratch_empty": true,
+    "suite_ms": 476.643334,
+    "batch_ms": 419.474917,
+    "suite_cpu_ms": 2279.961,
+    "batch_cpu_ms": 2218.15,
+    "lifetime_max_rss_bytes": 446152704,
+    "max_active": 4,
+    "resolved_max_forks": 4,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3788,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 3045195776,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.0385,
+        "end_ms": 46.457167
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 46.457375,
+        "end_ms": 47.107459
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 47.107584,
+        "end_ms": 54.463875
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 54.464084,
+        "end_ms": 54.523959
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 54.524,
+        "end_ms": 57.13725
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 57.137792,
+        "end_ms": 57.138042
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 476.639667,
+        "end_ms": 476.640084
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 476.640125,
+        "end_ms": 476.641
+      }
+    ]
+  },
+  {
+    "arm": "wave",
+    "parallel": 4,
+    "rep": 2,
+    "kind": "primary",
+    "name": "wave-p4-primary-2",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 567.1302499999999,
+    "scratch_empty": true,
+    "suite_ms": 507.855375,
+    "batch_ms": 448.28625,
+    "suite_cpu_ms": 2212.924,
+    "batch_cpu_ms": 2149.402,
+    "lifetime_max_rss_bytes": 458096640,
+    "max_active": 4,
+    "resolved_max_forks": 4,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3776,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 3038904320,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.036709,
+        "end_ms": 46.573834
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 46.574167,
+        "end_ms": 46.957625
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 46.95775,
+        "end_ms": 56.4895
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 56.490459,
+        "end_ms": 56.555625
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 56.555709,
+        "end_ms": 59.5375
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 59.53875,
+        "end_ms": 59.539
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 507.851792,
+        "end_ms": 507.852125
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 507.852167,
+        "end_ms": 507.853167
+      }
+    ]
+  },
+  {
+    "arm": "mixed",
+    "parallel": 8,
+    "rep": 2,
+    "kind": "primary",
+    "name": "mixed-p8-primary-2",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 464.70825000000104,
+    "scratch_empty": true,
+    "suite_ms": 408.999708,
+    "batch_ms": 350.072208,
+    "suite_cpu_ms": 2359.639,
+    "batch_cpu_ms": 2298.102,
+    "lifetime_max_rss_bytes": 661798912,
+    "max_active": 8,
+    "resolved_max_forks": 8,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3454,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5435686912,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.0415,
+        "end_ms": 48.417625
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 48.417916,
+        "end_ms": 48.789916
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 48.790041,
+        "end_ms": 56.133083
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 56.133333,
+        "end_ms": 56.187583
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 56.187625,
+        "end_ms": 58.89375
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 58.894833,
+        "end_ms": 58.895083
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 408.995291,
+        "end_ms": 408.996333
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 408.996541,
+        "end_ms": 408.9975
+      }
+    ]
+  },
+  {
+    "arm": "wave",
+    "parallel": 8,
+    "rep": 2,
+    "kind": "primary",
+    "name": "wave-p8-primary-2",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 1253.6415830000003,
+    "scratch_empty": true,
+    "suite_ms": 1185.956458,
+    "batch_ms": 1128.0359159999998,
+    "suite_cpu_ms": 2334.725,
+    "batch_cpu_ms": 2269.928,
+    "lifetime_max_rss_bytes": 647446528,
+    "max_active": 8,
+    "resolved_max_forks": 8,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3546,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5535105024,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.035083,
+        "end_ms": 46.786291
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 46.786541,
+        "end_ms": 47.162708
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 47.162791,
+        "end_ms": 55.25
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 55.250416,
+        "end_ms": 55.299041
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 55.299125,
+        "end_ms": 57.887041
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 57.887583,
+        "end_ms": 57.887791
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 1185.951375,
+        "end_ms": 1185.951666
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 1185.951875,
+        "end_ms": 1185.952958
+      }
+    ]
+  },
+  {
+    "arm": "wave",
+    "parallel": 4,
+    "rep": 0,
+    "kind": "diagnostic",
+    "name": "wave-p4-diagnostic-0",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 564.2068330000001,
+    "scratch_empty": true,
+    "suite_ms": 498.168709,
+    "batch_ms": 441.477375,
+    "suite_cpu_ms": 2157.468,
+    "batch_cpu_ms": 2093.076,
+    "lifetime_max_rss_bytes": 355270656,
+    "max_active": 4,
+    "resolved_max_forks": 4,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3756,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 3021340672,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.0405,
+        "end_ms": 45.613
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 45.613334,
+        "end_ms": 46.363917
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 46.364042,
+        "end_ms": 53.522667
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 53.523167,
+        "end_ms": 53.574459
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 53.5745,
+        "end_ms": 56.660667
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 56.661834,
+        "end_ms": 56.662042
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 498.164917,
+        "end_ms": 498.165209
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 498.16525,
+        "end_ms": 498.166292
+      }
+    ]
+  },
+  {
+    "arm": "mixed",
+    "parallel": 4,
+    "rep": 0,
+    "kind": "diagnostic",
+    "name": "mixed-p4-diagnostic-0",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 519.483124999999,
+    "scratch_empty": true,
+    "suite_ms": 477.906541,
+    "batch_ms": 418.996,
+    "suite_cpu_ms": 2276.234,
+    "batch_cpu_ms": 2213.84,
+    "lifetime_max_rss_bytes": 351830016,
+    "max_active": 4,
+    "resolved_max_forks": 4,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3726,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 2969042944,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.041958,
+        "end_ms": 47.659333
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 47.659666,
+        "end_ms": 48.259666
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 48.259791,
+        "end_ms": 55.571291
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 55.571625,
+        "end_ms": 55.634958
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 55.635041,
+        "end_ms": 58.879291
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 58.881958,
+        "end_ms": 58.882
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 477.903166,
+        "end_ms": 477.903375
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 477.903416,
+        "end_ms": 477.904291
+      }
+    ]
+  },
+  {
+    "arm": "mixed",
+    "parallel": 8,
+    "rep": 0,
+    "kind": "diagnostic",
+    "name": "mixed-p8-diagnostic-0",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 769.8116250000008,
+    "scratch_empty": true,
+    "suite_ms": 733.942792,
+    "batch_ms": 677.222041,
+    "suite_cpu_ms": 2469.639,
+    "batch_cpu_ms": 2408.258,
+    "lifetime_max_rss_bytes": 634290176,
+    "max_active": 8,
+    "resolved_max_forks": 8,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3502,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5413339136,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.039875,
+        "end_ms": 45.545083
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 45.545292,
+        "end_ms": 46.263833
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 46.263958,
+        "end_ms": 53.419333
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 53.419625,
+        "end_ms": 53.47625
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 53.476333,
+        "end_ms": 56.664208
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 56.665375,
+        "end_ms": 56.665583
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 733.935,
+        "end_ms": 733.935792
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 733.936458,
+        "end_ms": 733.938958
+      }
+    ]
+  },
+  {
+    "arm": "wave",
+    "parallel": 8,
+    "rep": 0,
+    "kind": "diagnostic",
+    "name": "wave-p8-diagnostic-0",
+    "exit_code": 0,
+    "expected_failure": false,
+    "accepted": true,
+    "duration_ms": 898.6181250000005,
+    "scratch_empty": true,
+    "suite_ms": 836.939416,
+    "batch_ms": 773.057209,
+    "suite_cpu_ms": 2380.958,
+    "batch_cpu_ms": 2315.509,
+    "lifetime_max_rss_bytes": 644907008,
+    "max_active": 8,
+    "resolved_max_forks": 8,
+    "success": true,
+    "cleanup": true,
+    "cleanup_stats": {
+      "active_mappings": 0,
+      "active_reserved_bytes": 0,
+      "active_rw_bytes": 0,
+      "creates": 50,
+      "grow_calls": 3506,
+      "grow_failures": 0,
+      "peak_total_rw_bytes": 5505875968,
+      "release_failures": 0,
+      "releases": 50
+    },
+    "error": null,
+    "samples": 48,
+    "oracles": 48,
+    "root_spans": [
+      {
+        "name": "root_start",
+        "begin_ms": 0.079208,
+        "end_ms": 52.846625
+      },
+      {
+        "name": "root_connect",
+        "begin_ms": 52.846916,
+        "end_ms": 53.2325
+      },
+      {
+        "name": "root_seed",
+        "begin_ms": 53.232625,
+        "end_ms": 60.599666
+      },
+      {
+        "name": "root_retire",
+        "begin_ms": 60.599916,
+        "end_ms": 60.653375
+      },
+      {
+        "name": "snapshot",
+        "begin_ms": 60.653458,
+        "end_ms": 63.847541
+      },
+      {
+        "name": "root_close",
+        "begin_ms": 63.848708,
+        "end_ms": 63.848916
+      },
+      {
+        "name": "final_root_retire",
+        "begin_ms": 836.93525,
+        "end_ms": 836.935541
+      },
+      {
+        "name": "snapshot_close",
+        "begin_ms": 836.935708,
+        "end_ms": 836.937
+      }
+    ]
+  }
+]

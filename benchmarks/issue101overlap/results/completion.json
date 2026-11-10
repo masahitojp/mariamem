@@ -1,0 +1,8 @@
+{
+  "result": "COLLECTED",
+  "harness_source_commit": "6c48c1784acbbeac0b7e7dd64f2539ee674e272f",
+  "processes": 24,
+  "primary_processes": 12,
+  "retries": 0,
+  "product_changes": false
+}

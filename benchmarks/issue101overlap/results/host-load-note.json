@@ -1,0 +1,7 @@
+{
+  "scope": "Shared non-isolated Mac; snapshots before/during compilation, not a continuous benchmark load trace",
+  "before_build": {"Orca_renderer_cpu_percent": 70.0, "aned_cpu_percent": 69.0, "Virtualization_cpu_percent": 18.7},
+  "during_build": {"own_Go_compiler_cpu_percent": 396.1, "on_device_inference_cpu_percent": 48.0, "modelcatalogd_cpu_percent": 37.9, "Virtualization_cpu_percent": 19.7},
+  "user_processes_modified": false,
+  "limit": "Three alternating pairs are exploratory; background load and changed scheduling can confound mechanism attribution. No stable performance guarantee."
+}

@@ -1,0 +1,4 @@
+go: downloading github.com/go-sql-driver/mysql v1.9.3
+go: downloading filippo.io/edwards25519 v1.1.0
+ok  	github.com/masahitojp/mariamem/benchmarks/issue101runner/probe	0.370s
+ok  	github.com/masahitojp/mariamem/benchmarks/issue101runner/probe	1.305s

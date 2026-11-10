@@ -1,0 +1,34 @@
+{
+  "harness_source_commit": "6c48c1784acbbeac0b7e7dd64f2539ee674e272f",
+  "product_source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "product_tree": "f130fe9a02779984aa5ffd7bd3d14043c9cda858",
+  "go": "go version go1.26.10 darwin/arm64",
+  "binary_sha256": "b1d6b30f0a04f7bc42c193c00e271691c34e14af2d90dc3592248e53853b64f7",
+  "build_flags": [
+    "-trimpath",
+    "-p",
+    "1",
+    "-buildvcs=false"
+  ],
+  "harness_files": {
+    "build.py": "748ccb80cc470744b09433024e633695d4ad6ab4c92afb7819fe0857b7e8333e",
+    "run.py": "3506b5cec5fda927cbb354ff054b58f382e172c1bc13fa718b1c8db9ddfc3a3f",
+    "plan.json": "28193091da0ee2d60be1de4103a84f107bf51e9a439a09b6a187aca63a38260d",
+    "maria/main.go": "472603f2ea8008f18734847b1bbf1f391a3d025e215eafc674f95a04fd512a6b",
+    "probe/barrier_test.go": "c0637cf47a25035b71468ec1b1771237fa1103c9f8887c2dc10d26d416811a06",
+    "probe/barrier.go": "d51be4fc2500a078d086eddb570f105fcf08b6f5efb22da322d9234fd1836f91",
+    "probe/probe.go": "21b311b771839fd31aaf35f0717b2b446003f48499f10009b28a4d20266a8999"
+  },
+  "product_inputs": {
+    "guest/input.json": "d43f9d4123363b487b0d13ec0699ed769e1fcbeb573d2b52fe0ea8adae7b566f",
+    "release/generated-go-inputs.json": "127a77a0aab7f536b44a898728318bdfbe70123c1ff7300a83f5dc39c84bb424",
+    "internal/generatedgo/provenance.json": "be4574cc3e97b07440617bb27daa9ff8f091a308ef41e6978ca204e1d381b353",
+    "go.mod": "94afa3756ff1e680fe12233d51b7e738df09acb194f36b9b650fd4a682f87975",
+    "go.sum": "e73c7c03e029f212a744e3a55786fbe9cb0419a7c6d040bd8d0117f4afe7f5b4"
+  },
+  "module_files": {
+    "go.mod": "module github.com/masahitojp/mariamem/benchmarks/issue101runner\n\ngo 1.26.0\n\nrequire (\n\tgithub.com/go-sql-driver/mysql v1.9.3\n\tgithub.com/masahitojp/mariamem v0.0.0\n)\n\nrequire filippo.io/edwards25519 v1.1.0 // indirect\n\nreplace github.com/masahitojp/mariamem => <SOURCE>\n",
+    "go.sum": "filippo.io/edwards25519 v1.1.0 h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\nfilippo.io/edwards25519 v1.1.0/go.mod h1:BxyFTGdWcka3PhytdK4V28tE5sGfRvvvRV7EaN4VDT4=\ngithub.com/go-sql-driver/mysql v1.9.3 h1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\ngithub.com/go-sql-driver/mysql v1.9.3/go.mod h1:qn46aNg1333BRMNU69Lq93t8du/dwxI64Gl8i5p1WMU=\n"
+  },
+  "build_info": "<WORKSPACE>/temp/bin: go1.26.10\n\tpath\tgithub.com/masahitojp/mariamem/benchmarks/issue101runner/maria\n\tmod\tgithub.com/masahitojp/mariamem/benchmarks/issue101runner\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.1.0\th1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=\n\tdep\tgithub.com/go-sql-driver/mysql\tv1.9.3\th1:U/N249h2WzJ3Ukj8SowVFjdtZKfu9vlLZxjPXV1aweo=\n\tdep\tgithub.com/masahitojp/mariamem\tv0.0.0\n\t=>\t<WORKSPACE>/worktree\t(devel)\t\n\t\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-trimpath=true\n\tbuild\tCGO_ENABLED=0\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0"
+}
