@@ -1,10 +1,11 @@
-name: WASI SQL timer selection experiment (not Qualification)
+name: WASI timer resolution prototype (not Qualification)
 on:
   push:
-    branches: [experiment/wasi-timer-selection]
+    branches: [experiment/wasi-timer-calibration]
     paths:
       - guest/experimental.patch
       - benchmarks/timerselection/**
+      - benchmarks/timercalibration/**
       - .github/workflows/wasi-timer-selection.yml
   workflow_dispatch:
 permissions:
@@ -37,22 +38,23 @@ jobs:
           test -z "$(git status --porcelain)"
           python3 benchmarks/timerselection/check_checkout.py > build/timer-ci/checkout-check.json
           python3 benchmarks/timerselection/check.py --work /tmp/timer-selection-unit --output build/timer-ci/selection.json > build/timer-ci/selection.txt 2>&1
+          python3 benchmarks/timercalibration/check.py --work /tmp/timer-calibration-unit --output build/timer-ci/calibration.json > build/timer-ci/calibration.txt 2>&1
       - name: Build one explicitly UNQUALIFIED development guest
         env:
           HOME: /root
         run: |
           python3 scripts/build_generated_guest.py --development-output /tmp/timer-development-guest > build/timer-ci/guest-build.txt 2>&1
-          python3 benchmarks/timerselection/receipt.py /tmp/timer-development-guest build/timer-ci
+          python3 benchmarks/timercalibration/receipt.py /tmp/timer-development-guest build/timer-ci
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
-          name: timer-development-guest-${{ github.sha }}
+          name: timer-calibration-guest-${{ github.sha }}
           path: /tmp/timer-development-guest
           if-no-files-found: error
           retention-days: 7
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: timer-development-evidence-${{ github.sha }}
+          name: timer-calibration-evidence-${{ github.sha }}
           path: build/timer-ci
           if-no-files-found: error
           retention-days: 7

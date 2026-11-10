@@ -6,6 +6,18 @@ owns implementation, and [decisions](decisions/snapshot-product-contract.md) own
 continuing constraints. GitHub Issues own actionable checklists and milestones.
 Version themes and candidate adoption do not authorize a release.
 
+## WASI timer startup reduction — bounded prototype authorized
+
+On2026-11-11 the Human asked to proceed with the startup-cost prototype after
+the SQL timing correction. The [resolution-only experiment](../benchmarks/timercalibration/README.md)
+starts from that corrected clock selection. It skips only the busy millisecond
+resolution probe in the WASI/no-PFS/monotonic/no-runtime-cycles profile and records
+nominal1ms metadata. It preserves clock discovery, frequency, real reads and
+native/other-profile behavior. The prior observed roughly1ms is a target region,
+not demonstrated saving. Source units and one UNQUALIFIED guest CI build precede
+strict host binding, actual SQL correctness and matched performance comparison.
+No product adoption, calibration-wide bypass, UCA change or release is authorized.
+
 ## WASI SQL timer selection — real-guest experiment passed, adoption separate
 
 On2026-11-11 the successful development guest CI42916730601 at9a3e91b7 was

@@ -1,0 +1,41 @@
+{
+  "baseline_host_source_commit": "7383940e8bd3fbaf4b0a2ff49d28f669ba92e6b2",
+  "baseline_guest_source_commit": "9a3e91b708cc765b418b77ddc7278e2151f2cf5c",
+  "baseline_guest_sha256": "b68fce3a4785f5a9dd858c96572ed0a765ee4352715b416cdf168784054b4fc6",
+  "baseline_guest_artifact_id": 13810237295,
+  "baseline_guest_archive_sha256": "2b4e877949d18deb84e89f19cce46e96724efdc152d7aeef319de1cc87df057e",
+  "upstream_pins": "../timerselection/plan.json",
+  "change": "Only skip millisecond resolution busy probe for WASI/no-PFS/monotonic/no-runtime-cycles; set nominal resolution1. Keep SQL selection fix, availability and frequencies.",
+  "metadata_policy": "resolution1 is the nominal integer millisecond unit, not a calibrated hardware/scheduler claim. Unavailable clocks retain zero metadata.",
+  "local_budget": {
+    "minutes": 60,
+    "owned_gib": 4,
+    "min_free_gib": 8,
+    "guest_builds": 0
+  },
+  "ci_budget": {
+    "guest_builds": 1,
+    "timeout_minutes": 100
+  },
+  "followup_measurement": {
+    "requires": "successful bound guest build, fresh strict CRC/ownership binding review, actual ANALYZE/SELECT/two-child/cleanup PASS",
+    "arms": [
+      "corrected-clock baseline with original probe",
+      "corrected-clock plus resolution-only treatment"
+    ],
+    "fresh_fork": "same Go version/host; alternating arms; six batches per arm; report wall and CPU p50/p95",
+    "whole_suite": "Go Pipe shop70 at P4 and P8, one warmup plus five alternating pairs each; retain all tails; same SQL/16MiB/read1/admission cap",
+    "baseline": "No comparisons against the old broken-clock guest as if the difference were calibration-only.",
+    "stop": "Correctness failure or no measurable Fork/overall benefit: record evidence, no automatic adoption."
+  },
+  "not_in_scope": [
+    "Go clock shim",
+    "global cycle-counter macro",
+    "my_pseudo_random",
+    "micro/nanosecond resolution probes",
+    "timer availability zero-read policy",
+    "native timer behavior",
+    "UCA",
+    "product adoption or release"
+  ]
+}
