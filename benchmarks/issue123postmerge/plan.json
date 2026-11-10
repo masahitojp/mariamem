@@ -1,0 +1,45 @@
+{
+  "question": "Effect of adopted PR147 on complete Fresh/Fork suites versus immediately preceding main; descriptive, no threshold or new optimization",
+  "before": "c375edbc1e77bf078f50abc75c9de32ce23a641a",
+  "after": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "harness_origin": "dc654406f2a4ca2a4d58237156a0421060556cf8",
+  "harness_origin_path": "benchmarks/issue123baseline",
+  "go": "go1.26.10",
+  "count": 48,
+  "rows": 1000,
+  "modes": [
+    "fresh",
+    "fork"
+  ],
+  "parallel": [
+    1,
+    4
+  ],
+  "rounds": 5,
+  "route": "Pipe",
+  "gomaxprocs": 8,
+  "gogc": 100,
+  "pool_mib": 16,
+  "read_threads": 1,
+  "order": "rotate four cells; alternate before/after order per round+cell",
+  "cap": "P for Fork; Fresh bounded by worker count",
+  "processes": 56,
+  "controls": "two-child positive and one-child corrupt-seed negative per arm/mode (8); one48-child warmup per arm/mode/P (8); five paired rounds (40)",
+  "boundary": "suite: first Start through final child/Snapshot cleanup; cold process image creation included; process spawn/exit also recorded separately",
+  "metrics": [
+    "suite and batch wall/CPU",
+    "per-child Start/Fork/connect/SQL/retire/Close p50/p95 and >100ms counts",
+    "root preparation stages",
+    "process lifetime maxRSS, not held-child RSS"
+  ],
+  "limits": "single local Mac; no pgmem rerun, no Ubuntu performance, no tails excluded, no additional repeats, no profiling or performance gate",
+  "budget": {
+    "active_minutes": 120,
+    "tooling_minutes": 30,
+    "heavy_ci": 0,
+    "workspace_gib": 8,
+    "min_free_gib": 12,
+    "timeout_seconds": 1800,
+    "process_timeout_seconds": 190
+  }
+}
