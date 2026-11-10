@@ -37,12 +37,16 @@ def test_prepared_real_guest_values_reuse_and_sql_error():
             q.execute('SELECT id FROM raw_retry ORDER BY id')
             assert q.fetchall() == [(1,), (2,)]
             q.close()
-            q = c.cursor(prepared=True)
-            query = 'SELECT * FROM raw_retry ORDER BY id'
-            q.execute(query)
-            assert q.fetchall() == [(1,), (2,)]
-            with c.cursor() as ddl:
-                ddl.execute('ALTER TABLE raw_retry ADD COLUMN extra INT DEFAULT 9')
-            q.execute(query)
-            assert q.fetchall() == [(1, 9), (2, 9)]
-            q.close()
+
+
+def test_metadata_change_matches_native_and_raw_wire():
+    import json
+    from pathlib import Path
+    from raw_metadata_control import observe
+    reference = json.loads(Path(os.environ['MARIAMEM_METADATA_REFERENCE']).read_text())
+    with mariamem.start(host_binary=os.environ['MARIAMEM_TEST_HOST']) as db:
+        actual = observe(db.connection_info())
+    assert actual['connector'] == reference['connector']
+    assert actual['cext'] == reference['cext']
+    assert actual['wire_before'] == reference['wire_before']
+    assert actual['wire_after'] == reference['wire_after']

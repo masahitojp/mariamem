@@ -29,12 +29,43 @@ jobs:
           path: ${{ runner.temp }}/row-guest
           if-no-files-found: error
           retention-days: 7
+  metadata-reference:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      mariadb:
+        image: mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1
+        env:
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: '1'
+          MARIADB_DATABASE: test
+        ports: ['3307:3306']
+        options: --health-cmd="mariadb-admin ping -h127.0.0.1 -uroot" --health-interval=5s --health-timeout=3s --health-retries=30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.14'
+      - name: Observe pinned native C-extension and raw-wire metadata change
+        run: |
+          python -m pip install PyMySQL==1.2.3 mysql-connector-python==26.7.0
+          mkdir -p build/metadata-reference
+          python scripts/git_identity.py inspect HEAD > build/metadata-reference/source.json
+          docker image inspect mariadb@sha256:805c8e104bd563d5bfa24fadd3f31cd419ea859cb5277f32b5dbf2db714f9ed1 > build/metadata-reference/image.json
+          python tests/raw_metadata_control.py --port 3307 --output build/metadata-reference/native.json
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: row-metadata-reference-${{ github.sha }}
+          path: build/metadata-reference
+          if-no-files-found: error
+          retention-days: 7
   actual-guest:
-    needs: guest
+    needs: [guest, metadata-reference]
     runs-on: macos-15
     timeout-minutes: 70
     env:
       PYTHONPATH: python
+      MARIAMEM_METADATA_REFERENCE: ${{ runner.temp }}/row-metadata-reference/native.json
       GOTOOLCHAIN: go1.26.10
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
@@ -51,6 +82,10 @@ jobs:
         with:
           name: row-guest-${{ github.sha }}
           path: ${{ runner.temp }}/row-guest
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: row-metadata-reference-${{ github.sha }}
+          path: ${{ runner.temp }}/row-metadata-reference
       - name: Fixed test dependencies and required compiler
         run: |
           python -m pip install pytest PyMySQL==1.2.3 mysql-connector-python==26.7.0
