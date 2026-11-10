@@ -11,7 +11,9 @@ Base: `b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50`.
 Tested implementation: `b53ac77fc1c9e199cb926bf3cf69812392443c00`.
 Extraction source: `cee676e8fcd77ee15db2b31639a1c100758c5b1b`.
 The later evidence/documentation/whitespace-attribute commit changes no pipeline
-or registered input bytes. Original root-worktree user changes were not included.
+or registered input bytes. A subsequent submission-only docstring correction
+clarifies that the existing hash-pinned UCA checker executes from the input view;
+no executable statements changed. Original root-worktree user changes were not included.
 
 ## Evidence
 

@@ -1,7 +1,8 @@
 """Filesystem adapter for registered preparation inputs, with owned run outputs.
 
-A private input view feeds the existing root-aware helpers. It contains data,
-never imported helper code; canonical product files are never rewritten.
+A private input view feeds the maintained root-aware preparation helpers.
+It also preserves the existing hash-pinned UCA checker used by uca_prepared;
+canonical product files are never rewritten.
 """
 import hashlib
 import json
