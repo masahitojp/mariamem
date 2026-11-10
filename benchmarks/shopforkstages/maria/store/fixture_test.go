@@ -55,6 +55,10 @@ func retire(owner *database, p *sql.DB) {
 	must(owner.close())
 }
 func TestMain(m *testing.M) {
+	if os.Getenv("TIMER_ANALYZE_PROBE") == "1" {
+		analyzeProbe()
+		return
+	}
 	before := cost()
 	fx = &fixture{rec: trace.New()}
 	ctx := context.Background()
