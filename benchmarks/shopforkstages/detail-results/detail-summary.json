@@ -1,0 +1,399 @@
+{
+  "result": "OBSERVATION_COMPLETE",
+  "parallel": {
+    "4": {
+      "off": {
+        "suite_ms": {
+          "n": 3,
+          "p50": 558.512,
+          "p95": 580.744,
+          "mean": 556.2506666666667,
+          "maximum": 580.744,
+          "over100ms": 3
+        },
+        "fork_ms": {
+          "n": 63,
+          "p50": 24.417999999999992,
+          "p95": 29.759000000000015,
+          "mean": 24.328365079365078,
+          "maximum": 35.230999999999995,
+          "over100ms": 0
+        }
+      },
+      "on": {
+        "suite_ms": {
+          "n": 3,
+          "p50": 579.075,
+          "p95": 580.867,
+          "mean": 575.575,
+          "maximum": 580.867,
+          "over100ms": 3
+        },
+        "fork_ms": {
+          "n": 63,
+          "p50": 26.63199999999999,
+          "p95": 33.669,
+          "mean": 27.2175873015873,
+          "maximum": 36.10400000000001,
+          "over100ms": 0
+        },
+        "regions_ms": {
+          "timer": {
+            "n": 63,
+            "p50": 0.9764170000000001,
+            "p95": 4.374167,
+            "mean": 1.581880984126984,
+            "maximum": 7.722958,
+            "over100ms": 0
+          },
+          "charset": {
+            "n": 63,
+            "p50": 1.8574580000000003,
+            "p95": 1.9080419999999991,
+            "mean": 2.0029325873015873,
+            "maximum": 6.474041000000001,
+            "over100ms": 0
+          },
+          "timer_ms_executed": {
+            "n": 53,
+            "p50": 1.396833,
+            "p95": 4.8955,
+            "mean": 1.837636075471698,
+            "maximum": 7.685542,
+            "over100ms": 0
+          },
+          "timer_ms": {
+            "n": 63,
+            "p50": 0.9405000000000001,
+            "p95": 4.310209,
+            "mean": 1.5459478095238095,
+            "maximum": 7.685542,
+            "over100ms": 0
+          },
+          "timer_other": {
+            "n": 63,
+            "p50": 0.03329200000000032,
+            "p95": 0.06395799999999952,
+            "mean": 0.03593317460317461,
+            "maximum": 0.06716599999999984,
+            "over100ms": 0
+          },
+          "after_charset": {
+            "n": 63,
+            "p50": 2.2344159999999995,
+            "p95": 2.848458000000001,
+            "mean": 2.363173873015873,
+            "maximum": 6.378,
+            "over100ms": 0
+          },
+          "collation_hash_grow": {
+            "n": 63,
+            "p50": 0.028211,
+            "p95": 0.037085,
+            "mean": 0.033861142857142854,
+            "maximum": 0.299755,
+            "over100ms": 0
+          },
+          "selected_charset": {
+            "n": 63,
+            "p50": 2.17904,
+            "p95": 2.753461,
+            "mean": 2.29911626984127,
+            "maximum": 6.263831,
+            "over100ms": 0
+          },
+          "uca_deep": {
+            "n": 63,
+            "p50": 2.163666,
+            "p95": 2.717084,
+            "mean": 2.2718340317460317,
+            "maximum": 5.562584,
+            "over100ms": 0
+          }
+        },
+        "counts": {
+          "millisecond_probe_skipped": {
+            "n": 63,
+            "minimum": 0,
+            "maximum": 1,
+            "total": 10,
+            "values": [
+              0,
+              1
+            ]
+          },
+          "collation_hash_grow": {
+            "n": 63,
+            "minimum": 77,
+            "maximum": 77,
+            "total": 4851,
+            "values": [
+              77
+            ]
+          },
+          "selected_charset": {
+            "n": 63,
+            "minimum": 19,
+            "maximum": 19,
+            "total": 1197,
+            "values": [
+              19
+            ]
+          },
+          "uca_deep": {
+            "n": 63,
+            "minimum": 5,
+            "maximum": 5,
+            "total": 315,
+            "values": [
+              5
+            ]
+          },
+          "charset_insert_attempts": {
+            "n": 63,
+            "minimum": 1289,
+            "maximum": 1289,
+            "total": 81207,
+            "values": [
+              1289
+            ]
+          },
+          "collation_insert_attempts": {
+            "n": 63,
+            "minimum": 1289,
+            "maximum": 1289,
+            "total": 81207,
+            "values": [
+              1289
+            ]
+          },
+          "charset_growths": {
+            "n": 63,
+            "minimum": 0,
+            "maximum": 0,
+            "total": 0,
+            "values": [
+              0
+            ]
+          },
+          "collation_growths": {
+            "n": 63,
+            "minimum": 77,
+            "maximum": 77,
+            "total": 4851,
+            "values": [
+              77
+            ]
+          },
+          "registered_descriptors": {
+            "n": 63,
+            "minimum": 1289,
+            "maximum": 1289,
+            "total": 81207,
+            "values": [
+              1289
+            ]
+          }
+        }
+      }
+    },
+    "8": {
+      "off": {
+        "suite_ms": {
+          "n": 3,
+          "p50": 490.936,
+          "p95": 491.267,
+          "mean": 482.82599999999996,
+          "maximum": 491.267,
+          "over100ms": 3
+        },
+        "fork_ms": {
+          "n": 63,
+          "p50": 31.102000000000032,
+          "p95": 48.583,
+          "mean": 32.984571428571435,
+          "maximum": 59.303000000000026,
+          "over100ms": 0
+        }
+      },
+      "on": {
+        "suite_ms": {
+          "n": 3,
+          "p50": 753.035,
+          "p95": 814.805,
+          "mean": 746.269,
+          "maximum": 814.805,
+          "over100ms": 3
+        },
+        "fork_ms": {
+          "n": 63,
+          "p50": 34.94800000000001,
+          "p95": 56.363,
+          "mean": 38.18622222222222,
+          "maximum": 70.00200000000001,
+          "over100ms": 0
+        },
+        "regions_ms": {
+          "timer": {
+            "n": 63,
+            "p50": 0.9616250000000002,
+            "p95": 3.127542000000001,
+            "mean": 1.3285569365079366,
+            "maximum": 8.273625,
+            "over100ms": 0
+          },
+          "charset": {
+            "n": 63,
+            "p50": 1.8824999999999998,
+            "p95": 7.363417,
+            "mean": 3.111564095238095,
+            "maximum": 17.6905,
+            "over100ms": 0
+          },
+          "timer_ms_executed": {
+            "n": 58,
+            "p50": 1.1936880000000003,
+            "p95": 3.5068750000000004,
+            "mean": 1.3996558793103449,
+            "maximum": 8.232917,
+            "over100ms": 0
+          },
+          "timer_ms": {
+            "n": 63,
+            "p50": 0.932042,
+            "p95": 3.0968750000000007,
+            "mean": 1.2885720793650794,
+            "maximum": 8.232917,
+            "over100ms": 0
+          },
+          "timer_other": {
+            "n": 63,
+            "p50": 0.03429199999999999,
+            "p95": 0.06695900000000021,
+            "mean": 0.03998485714285716,
+            "maximum": 0.09241600000000094,
+            "over100ms": 0
+          },
+          "after_charset": {
+            "n": 63,
+            "p50": 2.303167,
+            "p95": 9.438250000000002,
+            "mean": 3.4018498095238097,
+            "maximum": 11.3155,
+            "over100ms": 0
+          },
+          "collation_hash_grow": {
+            "n": 63,
+            "p50": 0.030876,
+            "p95": 0.111584,
+            "mean": 0.04697249206349206,
+            "maximum": 0.12942,
+            "over100ms": 0
+          },
+          "selected_charset": {
+            "n": 63,
+            "p50": 2.239705,
+            "p95": 9.138792,
+            "mean": 3.304488888888889,
+            "maximum": 11.190916,
+            "over100ms": 0
+          },
+          "uca_deep": {
+            "n": 63,
+            "p50": 2.223583,
+            "p95": 9.072167,
+            "mean": 3.2802306825396825,
+            "maximum": 11.144916,
+            "over100ms": 0
+          }
+        },
+        "counts": {
+          "millisecond_probe_skipped": {
+            "n": 63,
+            "minimum": 0,
+            "maximum": 1,
+            "total": 5,
+            "values": [
+              0,
+              1
+            ]
+          },
+          "collation_hash_grow": {
+            "n": 63,
+            "minimum": 77,
+            "maximum": 77,
+            "total": 4851,
+            "values": [
+              77
+            ]
+          },
+          "selected_charset": {
+            "n": 63,
+            "minimum": 19,
+            "maximum": 19,
+            "total": 1197,
+            "values": [
+              19
+            ]
+          },
+          "uca_deep": {
+            "n": 63,
+            "minimum": 5,
+            "maximum": 5,
+            "total": 315,
+            "values": [
+              5
+            ]
+          },
+          "charset_insert_attempts": {
+            "n": 63,
+            "minimum": 1289,
+            "maximum": 1289,
+            "total": 81207,
+            "values": [
+              1289
+            ]
+          },
+          "collation_insert_attempts": {
+            "n": 63,
+            "minimum": 1289,
+            "maximum": 1289,
+            "total": 81207,
+            "values": [
+              1289
+            ]
+          },
+          "charset_growths": {
+            "n": 63,
+            "minimum": 0,
+            "maximum": 0,
+            "total": 0,
+            "values": [
+              0
+            ]
+          },
+          "collation_growths": {
+            "n": 63,
+            "minimum": 77,
+            "maximum": 77,
+            "total": 4851,
+            "values": [
+              77
+            ]
+          },
+          "registered_descriptors": {
+            "n": 63,
+            "minimum": 1289,
+            "maximum": 1289,
+            "total": 81207,
+            "values": [
+              1289
+            ]
+          }
+        }
+      }
+    }
+  },
+  "processes": 16,
+  "new_optimization": false
+}

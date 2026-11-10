@@ -1,0 +1,1 @@
+ok  	github.com/masahitojp/mariamem/internal/timing	0.346s

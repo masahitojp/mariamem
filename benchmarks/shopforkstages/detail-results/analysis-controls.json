@@ -1,0 +1,14 @@
+[
+  {
+    "mutation": "missing_ms_begin",
+    "rejected": true
+  },
+  {
+    "mutation": "missing_uca",
+    "rejected": true
+  },
+  {
+    "mutation": "missing_counts",
+    "rejected": true
+  }
+]

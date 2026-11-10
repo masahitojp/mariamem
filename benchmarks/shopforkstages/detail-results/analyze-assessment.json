@@ -1,0 +1,130 @@
+{
+  "result": "BASELINE_TIMING_UNUSABLE",
+  "harness_source_commit": "ff6316626e9594428a36ffba2061e3b6c6edd075",
+  "binary_sha256": "d1dd1bed0afa29ff40537741905b8746b18783809c1d9c2d4d2810436bb7c319",
+  "rows": [
+    {
+      "repeat": 0,
+      "delay": false,
+      "wall_ms": 0.998416,
+      "valid_json": true,
+      "finite_timings": true,
+      "plausible_total": true,
+      "timing_fields": [
+        [
+          "r_table_time_ms",
+          0
+        ],
+        [
+          "r_other_time_ms",
+          0
+        ]
+      ],
+      "total_ms": null,
+      "pass": true
+    },
+    {
+      "repeat": 0,
+      "delay": true,
+      "wall_ms": 24.724125,
+      "valid_json": true,
+      "finite_timings": true,
+      "plausible_total": false,
+      "timing_fields": [
+        [
+          "r_table_time_ms",
+          0
+        ],
+        [
+          "r_other_time_ms",
+          0
+        ]
+      ],
+      "total_ms": null,
+      "pass": false
+    },
+    {
+      "repeat": 1,
+      "delay": false,
+      "wall_ms": 0.221875,
+      "valid_json": true,
+      "finite_timings": true,
+      "plausible_total": true,
+      "timing_fields": [
+        [
+          "r_table_time_ms",
+          0
+        ],
+        [
+          "r_other_time_ms",
+          0
+        ]
+      ],
+      "total_ms": null,
+      "pass": true
+    },
+    {
+      "repeat": 1,
+      "delay": true,
+      "wall_ms": 25.464125,
+      "valid_json": true,
+      "finite_timings": true,
+      "plausible_total": false,
+      "timing_fields": [
+        [
+          "r_table_time_ms",
+          0
+        ],
+        [
+          "r_other_time_ms",
+          0
+        ]
+      ],
+      "total_ms": null,
+      "pass": false
+    },
+    {
+      "repeat": 2,
+      "delay": false,
+      "wall_ms": 0.238834,
+      "valid_json": true,
+      "finite_timings": true,
+      "plausible_total": true,
+      "timing_fields": [
+        [
+          "r_table_time_ms",
+          0
+        ],
+        [
+          "r_other_time_ms",
+          0
+        ]
+      ],
+      "total_ms": null,
+      "pass": true
+    },
+    {
+      "repeat": 2,
+      "delay": true,
+      "wall_ms": 25.23975,
+      "valid_json": true,
+      "finite_timings": true,
+      "plausible_total": false,
+      "timing_fields": [
+        [
+          "r_table_time_ms",
+          0
+        ],
+        [
+          "r_other_time_ms",
+          0
+        ]
+      ],
+      "total_ms": null,
+      "pass": false
+    }
+  ],
+  "subsequent_select": "PASS",
+  "cleanup": "PASS",
+  "timer_treatment_allowed": false
+}

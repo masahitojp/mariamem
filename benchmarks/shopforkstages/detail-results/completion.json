@@ -1,0 +1,22 @@
+{
+  "result": "BOUNDED_OBSERVATION_COMPLETE_TIMER_TREATMENT_STOPPED",
+  "measured_harness_source_commit": "ff6316626e9594428a36ffba2061e3b6c6edd075",
+  "product_source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "diagnostic_builds": 1,
+  "successful_runtime_processes": 17,
+  "pre_start_sandbox_denials": 1,
+  "optimization_prototypes_run": 0,
+  "product_changes": false,
+  "checks": {
+    "shop70_all16_processes": "PASS",
+    "sql_followup_and_cleanup": "PASS",
+    "analysis_replay": "PASS",
+    "analysis_negative_controls": 3,
+    "baseline_analyze_timing": "UNUSABLE: delayed queries report zero times"
+  },
+  "remaining": [
+    "separate bounded ANALYZE clock-selection correction before timer performance treatment",
+    "five UCA calls identified in aggregate; individual IDs/weight/contraction subcosts remain unmeasured",
+    "single Mac diagnostic timing is not optimization/native/both-platform acceptance"
+  ]
+}

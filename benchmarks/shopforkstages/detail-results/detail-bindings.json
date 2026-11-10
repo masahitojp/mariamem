@@ -1,0 +1,67 @@
+[
+  {
+    "path": "internal/generatedgo/code/base/base.go",
+    "input_sha256": "02e6f98f5bf4c7813d9a98e2c5d73df77dd4f9d796fce4fdb51e278b71226923",
+    "output_sha256": "dd50eb979eceeb6be466a50fd59436c3a510f018be2e3629047647d28cf86ce0"
+  },
+  {
+    "path": "internal/timing/timing.go",
+    "input_sha256": "2c72b2aa306b38dbe1c9498b41b2480b6f0f5dee5a51dde03747f4a218e5403a",
+    "output_sha256": "e213d2a78fc9338dd2c4090fbb1a36cae9ed21eb9d224fe45f443aadf708b213"
+  },
+  {
+    "path": "internal/generatedgo/runtime_instance.go",
+    "input_sha256": "199d85a038177b7fd73d4352dffa83d4b3262901c83af31772726301eabfdb59",
+    "output_sha256": "436843e8e341037de07bd4b855df7d85fd7f1e92bfb70a73402bf202e3288770"
+  },
+  {
+    "path": "internal/generatedgo/code/p0/p0_pure.go",
+    "input_sha256": "a8eaa21451764f5a8efd282c97458b66c5512fc4e9b33f60e647b70ad7d445d5",
+    "output_sha256": "14411a89611a93112bb38014f2e41032374db5874d2b9f092e0f26cbe262b5ab"
+  },
+  {
+    "function": 967,
+    "symbol": "get_internal_charset",
+    "body_before_sha256": "a91eb0799aab15ba15263a23c595e0303e9efb66970537bebf8170b5605b7500"
+  },
+  {
+    "function": 814,
+    "symbol": "my_hash_insert",
+    "body_before_sha256": "3c552f5500d06caa3465561979219c945ab63520135a4dd9e2bb7c344e73c022"
+  },
+  {
+    "path": "internal/generatedgo/code/p4/p4_pure.go",
+    "input_sha256": "4729fec3020c3a83a92b05070377b6576b57a8ed98b8063b49910bd7643d4f5f",
+    "output_sha256": "d9aa20926efbe37becadff6da849bfab117b85964396ca725cebb9fe7cd07b58"
+  },
+  {
+    "function": 465,
+    "symbol": "my_coll_init_uca",
+    "body_before_sha256": "89c7cc319228b710e472b8ff47a67a39ac4dfd646a21caaee2f670f373a7fe50"
+  },
+  {
+    "path": "internal/generatedgo/code/p2/p2_pure.go",
+    "input_sha256": "32790d914243d57b78cdb3b245ea08d5f9d5af51928ccef1c29e818cc2945264",
+    "output_sha256": "78a35dedb418390b8c72a6f3a35468734c651daeed5009b059a8ca0c6790e1fb"
+  },
+  {
+    "function": 794,
+    "symbol": "alloc_dynamic",
+    "body_before_sha256": "3d8cf55c2441e9d5fbb5b3cd1ac52ce4f976e9aa9d26d6dad1c9e51f5cdff5fa"
+  },
+  {
+    "path": "internal/generatedgo/code/p7/p7_pure.go",
+    "input_sha256": "7f4134e94326019d800b3ec1be6d5429a9fdcebdc7b6656cb6cb2759866d21d0",
+    "output_sha256": "ab48b0ae7dbbcb92d55bccb3aba319585f0af3779d65b882d91adb8f26819ad6"
+  },
+  {
+    "function": 961,
+    "symbol": "init_available_charsets",
+    "body_before_sha256": "e99935d712d70577fcb190a468edeb37a705fecacc2b22ccaff900e0a2518626"
+  },
+  {
+    "path": "internal/generatedgo/code/p1/p1_pure.go",
+    "input_sha256": "2a2ccdb54c6d4f7cf81cc8c74eeae20159fbe722d975e8f3374a76d1cd786467",
+    "output_sha256": "8b4748254ed2795e05aac1ed0e04cf9c7227999f45986eb804a0a5ff699694de"
+  }
+]
