@@ -65,7 +65,6 @@ jobs:
     timeout-minutes: 70
     env:
       PYTHONPATH: python
-      MARIAMEM_METADATA_REFERENCE: ${{ runner.temp }}/row-metadata-reference/native.json
       GOTOOLCHAIN: go1.26.10
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
@@ -91,6 +90,8 @@ jobs:
           python -m pip install pytest PyMySQL==1.2.3 mysql-connector-python==26.7.0
           command -v clang
       - name: Translate, bind, build and exercise actual guest
+        env:
+          MARIAMEM_METADATA_REFERENCE: ${{ runner.temp }}/row-metadata-reference/native.json
         run: |
           mkdir -p build/row-evidence
           python scripts/git_identity.py inspect HEAD > build/row-evidence/source.json
