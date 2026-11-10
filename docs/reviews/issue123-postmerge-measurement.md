@@ -144,3 +144,10 @@ budget and1,800s timeout. Correctness/cleanup failure stops that original runner
 The observed finite continuation is separately pinned above; it is not a
 general retry policy. Product sources and compiler are fixed in `plan.json`.
 Preserve new results under their own source/host identities.
+
+## Bounded diagnosis follow-up
+
+The later [Close diagnosis](issue123-close-wait-diagnosis.md) used the same two
+product sources with a delayed stack observer. Ten alternating Fork/P4 pairs
+(960 children) did not reproduce the failure. This does not replace the failed
+trial above, establish a fix, or change its COLLECTED_WITH_FAILURES disposition.

@@ -116,3 +116,8 @@ measured commit, not a later documentation commit, to reproduce input identity.
 Temporary product checkouts, binaries and task-local build/module caches are
 recreatable and removed after preservation. Compact records and pushed diagnostic
 source remain; the report PR contains documentation/evidence only.
+
+Cleanup removed the owned scratch and experiment worktree:1,661,988,864 to
+1,368,064 bytes including local exported receipts. The helper reports no path
+over1GiB and no cleanup debt. The two clean product worktrees were removed
+separately first. The active report worktree and unrelated user work are retained.
