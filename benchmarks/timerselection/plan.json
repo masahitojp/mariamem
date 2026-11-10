@@ -1,0 +1,18 @@
+{
+  "source_commit": "b1218737ffa0bc1d08e9b1285b9bcf6ccf8adc50",
+  "mariadb_source_commit": "83e909fc2a0dbc394b4b683fb3fa2d7dcf26cc5e",
+  "upstream_files": {
+    "include/my_rdtsc.h": "07715a3b32c3e59a1ac22ba7a35a2bd3609ba25166d0da9cff776124b24bc111",
+    "sql/sql_analyze_stmt.h": "b1448683d58426071ff95a4fe95868eb1d9884de490bf6919e701bfe23cb5748"
+  },
+  "scope": "WASI-only SQL Exec_time_tracker cycle-counter selection correction. Do not alter global MY_TIMER_ROUTINE_CYCLES or my_pseudo_random. Calibration/shim unchanged. One development guest build; host binding/runtime ANALYZE check follows the artifact. UCA per-ID work remains separate.",
+  "budget": {
+    "local_minutes": 60,
+    "local_builds": 0,
+    "ci_guest_builds": 1,
+    "ci_timeout_minutes": 100,
+    "owned_gib": 4,
+    "min_free_gib": 8
+  },
+  "stop": "Do not bypass guest/generated source identity guards; no timer calibration omission or product integration."
+}

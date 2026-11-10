@@ -1,0 +1,55 @@
+name: WASI SQL timer selection experiment (not Qualification)
+on:
+  push:
+    branches: [experiment/wasi-timer-selection]
+    paths:
+      - guest/experimental.patch
+      - benchmarks/timerselection/**
+      - .github/workflows/wasi-timer-selection.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wasi-timer-selection-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  guest:
+    runs-on: ubuntu-24.04-arm
+    container:
+      image: ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
+    timeout-minutes: 100
+    steps:
+      - name: Builder dependencies
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential cmake ninja-build bison pkg-config curl ca-certificates git libssl-dev zlib1g-dev libpcre2-dev libncurses-dev python3 xz-utils
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - name: Bind exact source and selection controls
+        env:
+          HOME: /root
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          mkdir -p build/timer-ci
+          python3 scripts/git_identity.py inspect HEAD > build/timer-ci/source.json
+          python3 -c 'import json,os;assert json.load(open("build/timer-ci/source.json"))["source_commit"]==os.environ["GITHUB_SHA"]'
+          test -z "$(git status --porcelain)"
+          python3 benchmarks/timerselection/check.py --work /tmp/timer-selection-unit --output build/timer-ci/selection.json > build/timer-ci/selection.txt 2>&1
+      - name: Build one explicitly UNQUALIFIED development guest
+        env:
+          HOME: /root
+        run: |
+          python3 scripts/build_generated_guest.py --development-output /tmp/timer-development-guest > build/timer-ci/guest-build.txt 2>&1
+          python3 benchmarks/timerselection/receipt.py /tmp/timer-development-guest build/timer-ci
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: timer-development-guest-${{ github.sha }}
+          path: /tmp/timer-development-guest
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: timer-development-evidence-${{ github.sha }}
+          path: build/timer-ci
+          if-no-files-found: error
+          retention-days: 7
